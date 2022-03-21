@@ -5,19 +5,43 @@ import { FeatureCollection, Polygon, MultiPolygon, Geometry } from "geojson";
 import RegionsEuregio_AT_07 from "eaws-regions/public/micro-regions/AT-07_micro-regions.geojson.json";
 import RegionsEuregio_IT_32_BZ from "eaws-regions/public/micro-regions/IT-32-BZ_micro-regions.geojson.json";
 import RegionsEuregio_IT_32_TN from "eaws-regions/public/micro-regions/IT-32-TN_micro-regions.geojson.json";
+import RegionsEuregio_IT_21 from "eaws-regions/public/micro-regions/IT-21_micro-regions.geojson.json";
+import RegionsEuregio_IT_23 from "eaws-regions/public/micro-regions/IT-23_micro-regions.geojson.json";
+import RegionsEuregio_IT_25 from "eaws-regions/public/micro-regions/IT-25_micro-regions.geojson.json";
+import RegionsEuregio_IT_34 from "eaws-regions/public/micro-regions/IT-34_micro-regions.geojson.json";
+import RegionsEuregio_IT_36 from "eaws-regions/public/micro-regions/IT-36_micro-regions.geojson.json";
+import RegionsEuregio_IT_57 from "eaws-regions/public/micro-regions/IT-57_micro-regions.geojson.json";
 const RegionsEuregio: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureCollections(
   RegionsEuregio_AT_07 as FeatureCollection<MultiPolygon, RegionProperties>,
   RegionsEuregio_IT_32_BZ as FeatureCollection<MultiPolygon, RegionProperties>,
-  RegionsEuregio_IT_32_TN as FeatureCollection<MultiPolygon, RegionProperties>
+  RegionsEuregio_IT_32_TN as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_21 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_23 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_25 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_34 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_36 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_57 as FeatureCollection<MultiPolygon, RegionProperties>
 );
 
 import RegionsEuregioElevation_AT_07 from "eaws-regions/public/micro-regions_elevation/AT-07_micro-regions_elevation.geojson.json";
 import RegionsEuregioElevation_IT_32_BZ from "eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json";
 import RegionsEuregioElevation_IT_32_TN from "eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_21 from "eaws-regions/public/micro-regions_elevation/IT-21_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_23 from "eaws-regions/public/micro-regions_elevation/IT-23_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_25 from "eaws-regions/public/micro-regions_elevation/IT-25_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_34 from "eaws-regions/public/micro-regions_elevation/IT-34_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_36 from "eaws-regions/public/micro-regions_elevation/IT-36_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_57 from "eaws-regions/public/micro-regions_elevation/IT-57_micro-regions_elevation.geojson.json";
 const RegionsEuregioElevation: FeatureCollection<MultiPolygon, RegionWithElevationProperties> = mergeFeatureCollections(
   RegionsEuregioElevation_AT_07 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
   RegionsEuregioElevation_IT_32_BZ as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
-  RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
+  RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_21 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_23 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_25 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_34 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_36 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_57 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
 );
 
 import RegionsAran_ES_CT_L from "eaws-regions/public/micro-regions/ES-CT-L_micro-regions.geojson.json";

@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
           console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
+          this.ainevaLogin();
         } else {
           console.error("[" + this.username + "] Login failed!");
           this.openErrorModal(this.errorTemplate);
@@ -66,6 +67,23 @@ export class LoginComponent implements OnInit {
       error => {
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
         this.openErrorModal(this.errorTemplate);
+      }
+    );
+  }
+
+  ainevaLogin() {
+    const ainevaUsername = "test@test.com";
+    const ainevaPassword = "password";
+    this.authenticationService.ainevaLogin(ainevaUsername, ainevaPassword).subscribe(
+      data => {
+        if (data === true) {
+          console.debug("[" + ainevaUsername + "] Logged in!");
+        } else {
+          console.error("[" + ainevaUsername + "] Login failed!");
+        }
+      },
+      error => {
+        console.error("[" + ainevaUsername + "] Login failed: " + JSON.stringify(error._body));
       }
     );
   }

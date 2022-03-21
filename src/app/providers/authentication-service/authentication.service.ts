@@ -10,6 +10,7 @@ import { AuthorModel } from "../../models/author.model";
 export class AuthenticationService {
 
   public currentAuthor: AuthorModel;
+  public ainevaAuthor: AuthorModel;
   public jwtHelper: JwtHelperService;
   public activeRegion: string;
 
@@ -22,6 +23,11 @@ export class AuthenticationService {
       this.setCurrentAuthor(JSON.parse(localStorage.getItem("currentAuthor")));
     } catch (e) {
       localStorage.removeItem("currentAuthor");
+    }
+    try {
+      this.setAinevaAuthor(JSON.parse(localStorage.getItem("ainevaAuthor")));
+    } catch (e) {
+      localStorage.removeItem("ainevaAuthor");
     }
     this.jwtHelper = new JwtHelperService();
   }
@@ -39,6 +45,9 @@ export class AuthenticationService {
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
+    localStorage.removeItem("ainevaAuthor");
+    console.debug("[" + this.ainevaAuthor.name + "] Logged out!");
+    this.ainevaAuthor = null;
   }
 
   public getAuthor() {
@@ -57,6 +66,10 @@ export class AuthenticationService {
     return this.currentAuthor?.accessToken;
   }
 
+  public getAinevaAccessToken() {
+    return this.ainevaAuthor?.accessToken;
+  }
+
   public newAuthHeader(mime = "application/json"): HttpHeaders {
     const authHeader = "Bearer " + this.getAccessToken();
     return new HttpHeaders({
@@ -69,6 +82,15 @@ export class AuthenticationService {
   public newFileAuthHeader(mime = "application/json"): HttpHeaders {
     const authHeader = "Bearer " + this.getAccessToken();
     return new HttpHeaders({
+      "Accept": mime,
+      "Authorization": authHeader
+    });
+  }
+
+  public newAinevaAuthHeader(mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + this.getAinevaAccessToken();
+    return new HttpHeaders({
+      "Content-Type": mime,
       "Accept": mime,
       "Authorization": authHeader
     });
@@ -219,6 +241,26 @@ export class AuthenticationService {
       });
   }
 
+  public ainevaLogin(username: string, password: string): Observable<boolean> {
+    const url = this.constantsService.getAinevaUrl() + "authentication";
+    const body = JSON.stringify({username, password});
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    const options = { headers: headers };
+
+    return this.http.post<AuthenticationResponse>(url, body, options)
+      .map(data => {
+        if ((data ).access_token) {
+          this.setAinevaAuthor(data);
+          localStorage.setItem("ainevaAuthor", JSON.stringify(this.ainevaAuthor));
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
+
   private setCurrentAuthor(json: Partial<AuthorModel>) {
     if (!json) {
       return;
@@ -233,6 +275,13 @@ export class AuthenticationService {
     } else {
       return [];
     }
+  }
+
+  private setAinevaAuthor(json: Partial<AuthorModel>) {
+    if (!json) {
+      return;
+    }
+    this.ainevaAuthor = AuthorModel.createFromJson(json);
   }
 }
 

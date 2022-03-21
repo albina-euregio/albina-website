@@ -316,6 +316,19 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
+  loadAinevaBulletins(date: Date, regions: String[]): Observable<Response> {
+    let url = this.constantsService.getAinevaUrl() + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    if (regions) {
+      for (const region of regions) {
+        url += "&regions=" + region;
+      }
+    }
+    const headers = this.authenticationService.newAinevaAuthHeader();
+    const options = { headers: headers };
+
+    return this.http.get<Response>(url, options);
+  }
+
   loadCaamlBulletins(date: Date): Observable<any> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/xml");

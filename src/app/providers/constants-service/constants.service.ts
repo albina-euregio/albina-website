@@ -35,6 +35,13 @@ export class ConstantsService {
   public codeAran: string = "ES-CT-L";
   public codeAndorra: string = "AD";
 
+  public codePiemonte: string = "IT-21";
+  public codeAosta: string = "IT-23";
+  public codeLombardia: string = "IT-25";
+  public codeVeneto: string = "IT-34";
+  public codeFriuliVeneziaGiulia: string = "IT-36";
+  public codeMarche: string = "IT-57";
+
   public roleAdmin: string = "ADMIN";
   public roleForecaster: string = "FORECASTER";
   public roleForeman: string = "FOREMAN";
@@ -242,6 +249,10 @@ export class ConstantsService {
 
   getServerUrl() {
     return environment.apiBaseUrl;
+  }
+
+  getAinevaUrl() {
+    return "https://dolomiti.aineva.it/albina/api/";
   }
 
   getWsRegionUrl() {

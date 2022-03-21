@@ -320,7 +320,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       // setting pm language for iframe
       this.pmUrl = this.getTextcatUrl();
 
-
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
         const regions = new Array<String>();
@@ -366,6 +365,25 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.loadBulletinsFromServer();
         }
       }
+
+      const ainevaRegions = new Array<String>();
+      ainevaRegions.push(this.constantsService.codePiemonte);
+      ainevaRegions.push(this.constantsService.codeAosta);
+      ainevaRegions.push(this.constantsService.codeLombardia);
+      ainevaRegions.push(this.constantsService.codeVeneto);
+      ainevaRegions.push(this.constantsService.codeFriuliVeneziaGiulia);
+      ainevaRegions.push(this.constantsService.codeMarche);
+      this.bulletinsService.loadAinevaBulletins(this.bulletinsService.getActiveDate(), ainevaRegions).subscribe(
+        data2 => {
+          this.addForeignBulletins(data2);
+        },
+        () => {
+          console.error("AINEVA bulletins could not be loaded!");
+          this.loading = false;
+          this.openLoadingErrorModal(this.loadingErrorTemplate);
+        }
+      );
+
     } else {
       this.goBack();
     }
