@@ -1,0 +1,26 @@
+<div class="modal-body">
+	<div class="text-center">
+		<h1>{{ "bulletins.table.mediaFileDialog.headline" | translate }}</h1>
+		<p>
+			{{ date | localizedDate:'fullDate'}}<br>
+		</p>
+	</div>
+	<div *ngFor="let alert of alerts">
+		<alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<textarea id="textarea-input" name="textarea-input" label="textarea-input" rows="10" class="form-control" [(ngModel)]="text"></textarea>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".mp3">
+		</div>
+	</div>
+
+	<div class="text-center">
+		<button type="button" class="btn btn-primary" (click)="mediaFileModalConfirm()">{{ "bulletins.table.mediaFileDialog.accept" | translate }}</button>
+		<button type="button" class="btn btn-default" (click)="mediaFileModalDecline()">{{ "bulletins.table.mediaFileDialog.reject" | translate }}</button>
+	</div>
+</div>

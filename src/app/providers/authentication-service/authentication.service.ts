@@ -66,6 +66,14 @@ export class AuthenticationService {
     });
   }
 
+  public newFileAuthHeader(mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + this.getAccessToken();
+    return new HttpHeaders({
+      "Accept": mime,
+      "Authorization": authHeader
+    });
+  }
+
   public getRefreshToken() {
     return this.currentAuthor?.refreshToken;
   }

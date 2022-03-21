@@ -80,6 +80,8 @@
                   <button *ngIf="showJsonButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showJson($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.json' | translate }}"><i class="fa fa-file-text"></i></button>
                   <!-- info -->
                   <button *ngIf="showInfoButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showPublicationInfo($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.info' | translate }}"><i class="fa fa-info"></i></button>
+                  <!-- media file -->
+                  <button *ngIf="showMediaFileButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="openMediaFileDialog($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.mediaFile' | translate }}"><i class="fa fa-microphone"></i></button>
                   <!-- copy -->
                   <button *ngIf="showCopyButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                   <!-- preview -->

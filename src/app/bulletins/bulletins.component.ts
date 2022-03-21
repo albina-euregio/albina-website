@@ -19,7 +19,9 @@ import { ModalPublishComponent } from "./modal-publish.component";
 import { ModalCheckComponent } from "./modal-check.component";
 import { ModalPublicationStatusComponent } from "./modal-publication-status.component";
 import { ModalPublishAllComponent } from "./modal-publish-all.component";
+import { ModalMediaFileComponent } from "./modal-media-file.component";
 import { saveAs } from "file-saver";
+import { createUrlResolverWithoutPackagePrefix, ForwardRefHandling } from "@angular/compiler";
 
 @Component({
   templateUrl: "bulletins.component.html"
@@ -43,6 +45,9 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
   public publicationStatusModalRef: BsModalRef;
   @ViewChild("publicationStatusTemplate") publicationStatusTemplate: TemplateRef<any>;
+
+  public mediaFileModalRef: BsModalRef;
+  @ViewChild("mediaFileTemplate") mediaFileTemplate: TemplateRef<any>;
 
   public publishBulletinsErrorModalRef: BsModalRef;
   @ViewChild("publishBulletinsErrorTemplate") publishBulletinsErrorTemplate: TemplateRef<any>;
@@ -275,6 +280,30 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     }
   }
 
+  showMediaFileButton(date) {
+    if (this.authenticationService.getActiveRegion() !== undefined &&
+        this.authenticationService.getActiveRegion() === "AT-07" &&
+      (!this.publishing || this.publishing.getTime() !== date.getTime()) &&
+      (
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.draft ||
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.updated ||
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.submitted ||
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.published ||
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.resubmitted ||
+        this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.republished
+      ) &&
+      !this.copying &&
+      (
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin) ||
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster)
+      )
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   showPreviewButton(date) {
     if (this.authenticationService.getActiveRegion() !== undefined &&
       /*!this.isPast(date) && */
@@ -485,6 +514,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         console.error("Publication status could not be loaded!");
       }
     );
+  }
+
+  openMediaFileDialog(event, date: Date) {
+    event.stopPropagation();
+    this.openMediaFileModal(this.mediaFileTemplate, date);
   }
 
   copy(event, date: Date) {
@@ -751,15 +785,27 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     };
     this.publicationStatusModalRef = this.modalService.show(ModalPublicationStatusComponent, { initialState });
   }
+  
+  openMediaFileModal(template: TemplateRef<any>, date: Date) {
+    const initialState = {
+      date: date,
+      component: this
+    };
+    this.mediaFileModalRef = this.modalService.show(ModalMediaFileComponent, { initialState });
+  }
+
+  mediaFileModalConfirm(date: Date): void {
+    this.mediaFileModalRef.hide();
+  }
 
   publicationStatusModalConfirm(date: Date): void {
     this.publicationStatusModalRef.hide();
-  }
-
+  }  
+  
   openPublishBulletinsErrorModal(template: TemplateRef<any>) {
     this.publishBulletinsErrorModalRef = this.modalService.show(template, this.config);
-  }
-
+  }  
+  
   publishBulletinsErrorModalConfirm(): void {
     this.publishBulletinsErrorModalRef.hide();
     this.publishing = undefined;

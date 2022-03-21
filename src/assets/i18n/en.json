@@ -65,7 +65,8 @@
       "preview" : "Preview bulletin (PDF)",
       "check" : "Check bulletin",
       "info" : "Show publication status",
-      "publishAll" : "Publish all regions"
+      "publishAll" : "Publish all regions",
+      "mediaFile" : "Upload media file"
     },
     "create" : {
       "tooltip" : {
@@ -303,6 +304,14 @@
           "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Media File",
+        "missingText" : "Text is missing!",
+        "missingFile" : "No file selected!",
+        "uploadError" : "Upload failed!",
+        "accept" : "Save",
+        "reject" : "Cancel"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "There was an error publishing the bulletins!",
