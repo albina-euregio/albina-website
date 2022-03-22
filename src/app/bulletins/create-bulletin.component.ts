@@ -366,19 +366,19 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         }
       }
 
-      const ainevaRegions = new Array<String>();
-      ainevaRegions.push(this.constantsService.codePiemonte);
-      ainevaRegions.push(this.constantsService.codeAosta);
-      ainevaRegions.push(this.constantsService.codeLombardia);
-      ainevaRegions.push(this.constantsService.codeVeneto);
-      ainevaRegions.push(this.constantsService.codeFriuliVeneziaGiulia);
-      ainevaRegions.push(this.constantsService.codeMarche);
-      this.bulletinsService.loadAinevaBulletins(this.bulletinsService.getActiveDate(), ainevaRegions).subscribe(
+      const externalRegions = new Array<String>();
+      externalRegions.push(this.constantsService.codePiemonte);
+      externalRegions.push(this.constantsService.codeAosta);
+      externalRegions.push(this.constantsService.codeLombardia);
+      externalRegions.push(this.constantsService.codeVeneto);
+      externalRegions.push(this.constantsService.codeFriuliVeneziaGiulia);
+      externalRegions.push(this.constantsService.codeMarche);
+      this.bulletinsService.loadExternalBulletins(this.bulletinsService.getActiveDate(), externalRegions).subscribe(
         data2 => {
           this.addForeignBulletins(data2);
         },
         () => {
-          console.error("AINEVA bulletins could not be loaded!");
+          console.error("External bulletins could not be loaded!");
           this.loading = false;
           this.openLoadingErrorModal(this.loadingErrorTemplate);
         }

@@ -5,12 +5,13 @@ import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
+import { ServerInstanceConfiguration } from "../configuration-service/configuration.service";
 
 @Injectable()
 export class AuthenticationService {
 
   public currentAuthor: AuthorModel;
-  public ainevaAuthor: AuthorModel;
+  public externalAuthors: AuthorModel[];
   public jwtHelper: JwtHelperService;
   public activeRegion: string;
 
@@ -25,9 +26,9 @@ export class AuthenticationService {
       localStorage.removeItem("currentAuthor");
     }
     try {
-      this.setAinevaAuthor(JSON.parse(localStorage.getItem("ainevaAuthor")));
+      this.setExternalAuthors(JSON.parse(localStorage.getItem("externalAuthors")));
     } catch (e) {
-      localStorage.removeItem("ainevaAuthor");
+      localStorage.removeItem("externalAuthors");
     }
     this.jwtHelper = new JwtHelperService();
   }
@@ -45,9 +46,8 @@ export class AuthenticationService {
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
-    localStorage.removeItem("ainevaAuthor");
-    console.debug("[" + this.ainevaAuthor.name + "] Logged out!");
-    this.ainevaAuthor = null;
+    localStorage.removeItem("externalAuthors");
+    this.externalAuthors = null;
   }
 
   public getAuthor() {
@@ -64,10 +64,6 @@ export class AuthenticationService {
 
   public getAccessToken() {
     return this.currentAuthor?.accessToken;
-  }
-
-  public getAinevaAccessToken() {
-    return this.ainevaAuthor?.accessToken;
   }
 
   public newAuthHeader(mime = "application/json"): HttpHeaders {
@@ -87,8 +83,8 @@ export class AuthenticationService {
     });
   }
 
-  public newAinevaAuthHeader(mime = "application/json"): HttpHeaders {
-    const authHeader = "Bearer " + this.getAinevaAccessToken();
+  public newExternalServerAuthHeader(externalAuthor: AuthenticationResponse, mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + externalAuthor.access_token;
     return new HttpHeaders({
       "Content-Type": mime,
       "Accept": mime,
@@ -241,8 +237,46 @@ export class AuthenticationService {
       });
   }
 
-  public ainevaLogin(username: string, password: string): Observable<boolean> {
-    const url = this.constantsService.getAinevaUrl() + "authentication";
+  public externalServerLogins() {
+    this.loadExternalServerInstances().subscribe(
+      data => {
+        debugger
+
+        // get from server instance object
+        const name = "";
+        const apiUrl = "";
+        const username = "test@test.com";
+        const password = "password";
+
+        this.externalServerLogin(apiUrl, username, password).subscribe(
+          data => {
+            if (data === true) {
+              console.debug("[" + name + "] Logged in!");
+            } else {
+              console.error("[" + name + "] Login failed!");
+            }
+          },
+          error => {
+            console.error("[" + name + "] Login failed: " + JSON.stringify(error._body));
+          }
+        );
+
+      },
+      error => {
+        console.error("External server instances could not be loaded: " + JSON.stringify(error._body));
+      }
+    )
+  }
+
+  public loadExternalServerInstances() {
+    const url = this.constantsService.getServerUrl() + "external";
+    const options = { headers: this.newAuthHeader() };
+
+    return this.http.get<Response>(url, options);
+  }
+
+  public externalServerLogin(apiUrl: string, username: string, password: string): Observable<boolean> {
+    const url = apiUrl + "authentication";
     const body = JSON.stringify({username, password});
     const headers = new HttpHeaders({
       "Content-Type": "application/json"
@@ -252,8 +286,8 @@ export class AuthenticationService {
     return this.http.post<AuthenticationResponse>(url, body, options)
       .map(data => {
         if ((data ).access_token) {
-          this.setAinevaAuthor(data);
-          localStorage.setItem("ainevaAuthor", JSON.stringify(this.ainevaAuthor));
+          this.addExternalAuthor(data);
+          localStorage.setItem("externalAuthors", JSON.stringify(this.externalAuthors));
           return true;
         } else {
           return false;
@@ -277,11 +311,18 @@ export class AuthenticationService {
     }
   }
 
-  private setAinevaAuthor(json: Partial<AuthorModel>) {
+  private addExternalAuthor(json: Partial<AuthorModel>) {
     if (!json) {
       return;
     }
-    this.ainevaAuthor = AuthorModel.createFromJson(json);
+    this.externalAuthors.push(AuthorModel.createFromJson(json));
+  }
+
+  private setExternalAuthors(json: Partial<AuthorModel>) {
+    if (!json) {
+      return;
+    }
+    this.externalAuthors.push(AuthorModel.createFromJson(json));
   }
 }
 

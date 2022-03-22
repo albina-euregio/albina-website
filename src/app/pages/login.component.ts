@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
+import { ConfigurationService } from "app/providers/configuration-service/configuration.service";
 
 @Component({
   templateUrl: "login.component.html"
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public constantsService: ConstantsService,
+    public configurationService: ConfigurationService,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer) {
     this.loading = false;
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit {
           console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
-          this.ainevaLogin();
+          this.authenticationService.externalServerLogins();
         } else {
           console.error("[" + this.username + "] Login failed!");
           this.openErrorModal(this.errorTemplate);
@@ -67,23 +69,6 @@ export class LoginComponent implements OnInit {
       error => {
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
         this.openErrorModal(this.errorTemplate);
-      }
-    );
-  }
-
-  ainevaLogin() {
-    const ainevaUsername = "test@test.com";
-    const ainevaPassword = "password";
-    this.authenticationService.ainevaLogin(ainevaUsername, ainevaPassword).subscribe(
-      data => {
-        if (data === true) {
-          console.debug("[" + ainevaUsername + "] Logged in!");
-        } else {
-          console.error("[" + ainevaUsername + "] Login failed!");
-        }
-      },
-      error => {
-        console.error("[" + ainevaUsername + "] Login failed: " + JSON.stringify(error._body));
       }
     );
   }

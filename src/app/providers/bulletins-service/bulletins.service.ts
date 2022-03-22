@@ -316,14 +316,16 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
-  loadAinevaBulletins(date: Date, regions: String[]): Observable<Response> {
+  loadExternalBulletins(date: Date, regions: String[]): Observable<Response> {
     let url = this.constantsService.getAinevaUrl() + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     if (regions) {
       for (const region of regions) {
         url += "&regions=" + region;
       }
     }
-    const headers = this.authenticationService.newAinevaAuthHeader();
+
+    // TODO implement
+    const headers = this.authenticationService.newExternalServerAuthHeader(null);
     const options = { headers: headers };
 
     return this.http.get<Response>(url, options);

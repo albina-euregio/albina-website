@@ -53,7 +53,8 @@ export class ServerConfigurationComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
-      this.configurationService.loadConfigurationProperties().subscribe(
+      // TODO implement
+      this.configurationService.loadRegionConfiguration(this.authenticationService.activeRegion).subscribe(
         data => {
           this.createMaps = (data as any).createMaps;
           this.createPdf = (data as any).createPdf;
@@ -111,7 +112,7 @@ export class ServerConfigurationComponent implements AfterContentInit {
     json["mapProductionUrl"] = this.mapProductionUrl;
     json["scriptsPath"] = this.scriptsPath;
 
-    this.configurationService.saveConfigurationProperties(json).subscribe(
+    this.configurationService.updateRegionConfiguration(json).subscribe(
       data => {
         this.saveConfigurationLoading = false;
         console.debug("Server configuration saved!");
