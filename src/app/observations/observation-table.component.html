@@ -25,7 +25,7 @@
   <tbody>
     <tr *ngFor="let observation of shownObservations" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
       <td [title]="observation.$source">
-        <div [style]="{ color: observation.$markerColor, width: (observation.$markerRadius||10)+'px', height: (observation.$markerRadius||10)+'px' }">
+        <div [ngStyle]="getTableIconStyle(observation)">
           <!-- ObservationTypeIcons -->
           <svg *ngIf="observation.$type === 'Observation'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="currentcolor" fill-rule="evenodd"/></svg>
           <svg *ngIf="observation.$type === 'Incident'" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h0"/></svg>

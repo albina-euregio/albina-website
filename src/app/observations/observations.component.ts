@@ -5,7 +5,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { ObservationsMapService } from "../providers/map-service/observations-map.service";
-import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toGeoJSON, toObservationTable } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toGeoJSON, toMarkerColor, toObservationTable } from "./models/generic-observation.model";
 
 import { saveAs } from "file-saver";
 
@@ -29,6 +29,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public activeSources: Record<ObservationSource, boolean> = {} as any;
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
+  public toMarkerColor = toMarkerColor;
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;

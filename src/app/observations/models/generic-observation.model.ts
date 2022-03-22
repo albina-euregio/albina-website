@@ -36,6 +36,17 @@ export interface GenericObservation<Data = any> {
 
 export type Stability = "good" | "medium" | "weak" | "unknown";
 
+const colors: Record<Stability, string> = {
+  good: "green",
+  medium: "orange",
+  weak: "red",
+  unknown: "gray"
+};
+
+export function toMarkerColor(observation: GenericObservation) {
+  return colors[observation?.stability ?? "unknown"] ?? colors.unknown;
+}
+
 export enum ObservationSource {
   Albina = "Albina",
   AvalancheWarningService = "AvalancheWarningService",
