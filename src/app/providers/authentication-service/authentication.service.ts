@@ -5,13 +5,13 @@ import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
-import { ServerInstanceConfiguration } from "../configuration-service/configuration.service";
+import { ServerModel } from "../../models/server.model";
 
 @Injectable()
 export class AuthenticationService {
 
   public currentAuthor: AuthorModel;
-  public externalAuthors: AuthorModel[];
+  public externalServers: ServerModel[];
   public jwtHelper: JwtHelperService;
   public activeRegion: string;
 
@@ -20,15 +20,16 @@ export class AuthenticationService {
     public constantsService: ConstantsService,
     private sanitizer: DomSanitizer
   ) {
+    this.externalServers = [];
     try {
       this.setCurrentAuthor(JSON.parse(localStorage.getItem("currentAuthor")));
     } catch (e) {
       localStorage.removeItem("currentAuthor");
     }
     try {
-      this.setExternalAuthors(JSON.parse(localStorage.getItem("externalAuthors")));
+      this.setExternalServer(JSON.parse(localStorage.getItem("externalServers")));
     } catch (e) {
-      localStorage.removeItem("externalAuthors");
+      localStorage.removeItem("externalServers");
     }
     this.jwtHelper = new JwtHelperService();
   }
@@ -46,8 +47,8 @@ export class AuthenticationService {
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
-    localStorage.removeItem("externalAuthors");
-    this.externalAuthors = null;
+    localStorage.removeItem("externalServers");
+    this.externalServers = [];
   }
 
   public getAuthor() {
@@ -83,8 +84,8 @@ export class AuthenticationService {
     });
   }
 
-  public newExternalServerAuthHeader(externalAuthor: AuthenticationResponse, mime = "application/json"): HttpHeaders {
-    const authHeader = "Bearer " + externalAuthor.access_token;
+  public newExternalServerAuthHeader(externalAuthor, mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + externalAuthor.accessToken;
     return new HttpHeaders({
       "Content-Type": mime,
       "Accept": mime,
@@ -240,27 +241,20 @@ export class AuthenticationService {
   public externalServerLogins() {
     this.loadExternalServerInstances().subscribe(
       data => {
-        debugger
-
-        // get from server instance object
-        const name = "";
-        const apiUrl = "";
-        const username = "test@test.com";
-        const password = "password";
-
-        this.externalServerLogin(apiUrl, username, password).subscribe(
-          data => {
-            if (data === true) {
-              console.debug("[" + name + "] Logged in!");
-            } else {
-              console.error("[" + name + "] Login failed!");
+        for (const entry of (data as any)) {
+          this.externalServerLogin(entry.apiUrl, entry.userName, entry.password).subscribe(
+            data => {
+              if (data === true) {
+                console.debug("[" + entry.name + "] Logged in!");
+              } else {
+                console.error("[" + entry.name + "] Login failed!");
+              }
+            },
+            error => {
+              console.error("[" + entry.name + "] Login failed: " + JSON.stringify(error._body));
             }
-          },
-          error => {
-            console.error("[" + name + "] Login failed: " + JSON.stringify(error._body));
-          }
-        );
-
+          );
+        }
       },
       error => {
         console.error("External server instances could not be loaded: " + JSON.stringify(error._body));
@@ -268,8 +262,8 @@ export class AuthenticationService {
     )
   }
 
-  public loadExternalServerInstances() {
-    const url = this.constantsService.getServerUrl() + "external";
+  public loadExternalServerInstances(): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "regions/external";
     const options = { headers: this.newAuthHeader() };
 
     return this.http.get<Response>(url, options);
@@ -286,8 +280,8 @@ export class AuthenticationService {
     return this.http.post<AuthenticationResponse>(url, body, options)
       .map(data => {
         if ((data ).access_token) {
-          this.addExternalAuthor(data);
-          localStorage.setItem("externalAuthors", JSON.stringify(this.externalAuthors));
+          this.addExternalServer(data, apiUrl);
+          localStorage.setItem("externalServers", JSON.stringify(this.externalServers));
           return true;
         } else {
           return false;
@@ -311,18 +305,24 @@ export class AuthenticationService {
     }
   }
 
-  private addExternalAuthor(json: Partial<AuthorModel>) {
-    if (!json) {
-      return;
-    }
-    this.externalAuthors.push(AuthorModel.createFromJson(json));
+  public getExternalServers(): ServerModel[] {
+    return this.externalServers;
   }
 
-  private setExternalAuthors(json: Partial<AuthorModel>) {
+  private addExternalServer(json: Partial<AuthenticationResponse>, apiUrl: string) {
     if (!json) {
       return;
     }
-    this.externalAuthors.push(AuthorModel.createFromJson(json));
+    var server = ServerModel.createFromJson(json);
+    server.setApiUrl(apiUrl);
+    this.externalServers.push(server);
+  }
+
+  private setExternalServer(json: Partial<ServerModel>) {
+    if (!json) {
+      return;
+    }
+    this.externalServers.push(ServerModel.createFromJson(json));
   }
 }
 
@@ -333,4 +333,5 @@ export interface AuthenticationResponse {
   regions: string[];
   access_token: string;
   refresh_token: string;
+  api_url: string;
 }

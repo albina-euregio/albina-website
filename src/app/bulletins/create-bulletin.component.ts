@@ -366,22 +366,17 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         }
       }
 
-      const externalRegions = new Array<String>();
-      externalRegions.push(this.constantsService.codePiemonte);
-      externalRegions.push(this.constantsService.codeAosta);
-      externalRegions.push(this.constantsService.codeLombardia);
-      externalRegions.push(this.constantsService.codeVeneto);
-      externalRegions.push(this.constantsService.codeFriuliVeneziaGiulia);
-      externalRegions.push(this.constantsService.codeMarche);
-      this.bulletinsService.loadExternalBulletins(this.bulletinsService.getActiveDate(), externalRegions).subscribe(
-        data2 => {
-          this.addForeignBulletins(data2);
-        },
-        () => {
-          console.error("External bulletins could not be loaded!");
-          this.loading = false;
-          this.openLoadingErrorModal(this.loadingErrorTemplate);
-        }
+      this.authenticationService.getExternalServers().map((server) =>
+        this.bulletinsService.loadExternalBulletins(this.bulletinsService.getActiveDate(), server).subscribe(
+          data2 => {
+            this.addForeignBulletins(data2);
+          },
+          () => {
+            console.error("External bulletins could not be loaded!");
+            this.loading = false;
+            //this.openLoadingErrorModal(this.loadingErrorTemplate);
+          }
+        )
       );
 
     } else {

@@ -251,10 +251,6 @@ export class ConstantsService {
     return environment.apiBaseUrl;
   }
 
-  getAinevaUrl() {
-    return "https://dolomiti.aineva.it/albina/api/";
-  }
-
   getWsRegionUrl() {
     return environment.wsBaseUrl + "region/";
   }

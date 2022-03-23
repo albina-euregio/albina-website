@@ -316,18 +316,16 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
-  loadExternalBulletins(date: Date, regions: String[]): Observable<Response> {
-    let url = this.constantsService.getAinevaUrl() + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    if (regions) {
-      for (const region of regions) {
-        url += "&regions=" + region;
+  loadExternalBulletins(date: Date, server): Observable<Response> {
+    let url = server.apiUrl + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    if (server.regions) {
+      for (const region of server.regions) {
+        if (region !== this.constantsService.codeTyrol && region !== this.constantsService.codeSouthTyrol && region !== this.constantsService.codeTrentino)
+          url += "&regions=" + region;
       }
     }
-
-    // TODO implement
-    const headers = this.authenticationService.newExternalServerAuthHeader(null);
+    const headers = this.authenticationService.newExternalServerAuthHeader(server);
     const options = { headers: headers };
-
     return this.http.get<Response>(url, options);
   }
 
