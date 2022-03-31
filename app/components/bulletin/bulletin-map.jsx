@@ -129,9 +129,9 @@ const BulletinMap = props => {
           data={activeEawsBulletins}
           pane="mapPane"
           style={feature =>
-            this.props.ampm === "am"
+            props.ampm === "am"
               ? feature.properties.amStyle
-              : this.props.ampm === "pm"
+              : props.ampm === "pm"
               ? feature.properties.pmStyle
               : feature.properties.style
           }
