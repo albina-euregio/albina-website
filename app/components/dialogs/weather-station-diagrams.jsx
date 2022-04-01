@@ -305,7 +305,7 @@ class WeatherStationDiagrams extends React.Component {
             <li key={key}>
               <a
                 href="#"
-                onClick={this.handleChangeTimeRange.bind(self, key)}
+                onClick={this.handleChangeTimeRange.bind(this, key)}
                 className={classes.join(" ")}
               >
                 {this.props.intl.formatMessage({
