@@ -207,6 +207,14 @@ const App = () => {
                   </Page>
                 }
               />
+              <Route
+                path="/:segment/:name"
+                element={
+                  <Page>
+                    <RouteStaticPage />
+                  </Page>
+                }
+              />
             </Route>
           </Routes>
         </Suspense>
