@@ -40,20 +40,20 @@ const Bulletin = props => {
 
   useEffect(() => {
     //("Bulletin->useEffect[]");
-    reaction(
-      () => BULLETIN_STORE.settings.status
-      // () => {
-      //   window.setTimeout(tooltip_init, 100);
-      // }
-    );
-    reaction(
-      () => BULLETIN_STORE.settings.region
-      // region => {
-      //   if (region) {
-      //     window.setTimeout(tooltip_init, 100);
-      //   }
-      // }
-    );
+    // reaction(
+    //   () => BULLETIN_STORE.settings.status
+    // () => {
+    //   window.setTimeout(tooltip_init, 100);
+    // }
+    // );
+    // reaction(
+    //   () => BULLETIN_STORE.settings.region
+    // region => {
+    //   if (region) {
+    //     window.setTimeout(tooltip_init, 100);
+    //   }
+    // }
+    // );
     reaction(
       () => BULLETIN_STORE.latest,
       () => didUpdate()
