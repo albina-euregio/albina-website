@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl, FormattedMessage } from "react-intl";
+import { Tooltip } from "../tooltips/tooltip";
 
 class SmShare extends React.Component {
   getShareUrl(type) {
@@ -52,114 +53,132 @@ class SmShare extends React.Component {
         </p>
         <ul className="list-inline sm-buttons">
           <li>
-            <a
-              href={this.getShareUrl("facebook")}
-              className="sm-button icon-sm-facebook tooltip"
-              title={this.props.intl.formatMessage(
+            <Tooltip
+              label={this.props.intl.formatMessage(
                 { id: "main:share-this:hover" },
                 { on: "Facebook" }
               )}
-              aria-label={this.props.intl.formatMessage(
-                { id: "main:share-this:hover" },
-                { on: "Facebook" }
-              )}
-              rel="noopener noreferrer"
-              target="_blank"
             >
-              <span>Facebook</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href={this.getShareUrl("twitter")}
-              className="sm-button icon-sm-twitter tooltip"
-              title={this.props.intl.formatMessage(
-                { id: "main:share-this:hover" },
-                { on: "Twitter" }
-              )}
-              aria-label={this.props.intl.formatMessage(
-                { id: "main:share-this:hover" },
-                { on: "Twitter" }
-              )}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span>Twitter</span>
-            </a>
-          </li>
-          {false && (
-            <li>
               <a
-                className="sm-button icon-sm-instagram tooltip"
-                title={this.props.intl.formatMessage(
-                  { id: "main:share-this:hover" },
-                  { on: "Instagram" }
-                )}
+                href={this.getShareUrl("facebook")}
+                className="sm-button icon-sm-facebook "
                 aria-label={this.props.intl.formatMessage(
                   { id: "main:share-this:hover" },
-                  { on: "Instagram" }
+                  { on: "Facebook" }
                 )}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span>Instagram</span>
+                <span>Facebook</span>
               </a>
-            </li>
-          )}
-          {false && (
-            <li>
+            </Tooltip>
+          </li>
+          <li>
+            <Tooltip
+              label={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "Twitter" }
+              )}
+            >
               <a
-                className="sm-button icon-sm-youtube tooltip"
-                title={this.props.intl.formatMessage(
-                  { id: "main:share-this:hover" },
-                  { on: "YouTube" }
-                )}
+                href={this.getShareUrl("twitter")}
+                className="sm-button icon-sm-twitter"
                 aria-label={this.props.intl.formatMessage(
                   { id: "main:share-this:hover" },
-                  { on: "YouTube" }
+                  { on: "Twitter" }
                 )}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span>YouTube</span>
+                <span>Twitter</span>
               </a>
+            </Tooltip>
+          </li>
+          {false && (
+            <li>
+              <Tooltip
+                label={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "Instagram" }
+                )}
+              >
+                <a
+                  className="sm-button icon-sm-instagram"
+                  aria-label={this.props.intl.formatMessage(
+                    { id: "main:share-this:hover" },
+                    { on: "Instagram" }
+                  )}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span>Instagram</span>
+                </a>
+              </Tooltip>
+            </li>
+          )}
+          {false && (
+            <li>
+              <Tooltip
+                label={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "YouTube" }
+                )}
+              >
+                <a
+                  className="sm-button icon-sm-youtube "
+                  aria-label={this.props.intl.formatMessage(
+                    { id: "main:share-this:hover" },
+                    { on: "YouTube" }
+                  )}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span>YouTube</span>
+                </a>
+              </Tooltip>
             </li>
           )}
           <li>
-            <a
-              href={this.getShareUrl("whatsapp")}
-              className="sm-button icon-sm-whatsapp tooltip"
-              title={this.props.intl.formatMessage(
+            <Tooltip
+              label={this.props.intl.formatMessage(
                 { id: "main:share-this:hover" },
                 { on: "WhatsApp" }
               )}
-              aria-label={this.props.intl.formatMessage(
-                { id: "main:share-this:hover" },
-                { on: "WhatsApp" }
-              )}
-              rel="noopener noreferrer"
-              target="_blank"
             >
-              <span>WhatsApp</span>
-            </a>
+              <a
+                href={this.getShareUrl("whatsapp")}
+                className="sm-button icon-sm-whatsapp "
+                aria-label={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "WhatsApp" }
+                )}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span>WhatsApp</span>
+              </a>
+            </Tooltip>
           </li>
           <li>
-            <a
-              href={this.getShareUrl("telegram")}
-              className="sm-button icon-sm-telegram tooltip"
-              title={this.props.intl.formatMessage(
+            <Tooltip
+              label={this.props.intl.formatMessage(
                 { id: "main:share-this:hover" },
                 { on: "Telegram" }
               )}
-              aria-label={this.props.intl.formatMessage(
-                { id: "main:share-this:hover" },
-                { on: "Telegram" }
-              )}
-              rel="noopener noreferrer"
-              target="_blank"
             >
-              <span>Telegram</span>
-            </a>
+              <a
+                href={this.getShareUrl("telegram")}
+                className="sm-button icon-sm-telegram"
+                aria-label={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "Telegram" }
+                )}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span>Telegram</span>
+              </a>
+            </Tooltip>
           </li>
         </ul>
       </section>

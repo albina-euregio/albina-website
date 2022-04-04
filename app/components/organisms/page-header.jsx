@@ -5,6 +5,7 @@ import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { NAVIGATION_STORE } from "../../stores/navigationStore";
 import { Util } from "leaflet";
+import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
 import { APP_STORE } from "../../appStore";
@@ -50,24 +51,26 @@ class PageHeader extends React.Component {
     return (
       <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
-          <Link
-            aria-label={this.props.intl.formatMessage({
-              id: "header:logo:hover"
-            })}
-            to="/"
-            className="tooltip"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "header:logo:hover"
             })}
           >
-            <span className="mark">
-              <span key={"mark-" + lang} className={"mark-" + lang} />
-              <span key="en" className={"mark-en"} />
-            </span>
-            <span className="url">
-              <span key={"url-" + lang} className={"url-" + lang} />
-            </span>
-          </Link>
+            <Link
+              aria-label={this.props.intl.formatMessage({
+                id: "header:logo:hover"
+              })}
+              to="/"
+            >
+              <span className="mark">
+                <span key={"mark-" + lang} className={"mark-" + lang} />
+                <span key="en" className={"mark-en"} />
+              </span>
+              <span className="url">
+                <span key={"url-" + lang} className={"url-" + lang} />
+              </span>
+            </Link>
+          </Tooltip>
         </div>
         <div id="navigation" className="page-header-navigation">
           <Menu
@@ -182,36 +185,42 @@ class PageHeader extends React.Component {
           </ul>
         </div>
         <div className="page-header-hamburger">
-          <button
-            href="#"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "header:hamburger:hover"
             })}
-            aria-label={this.props.intl.formatMessage({
-              id: "header:hamburger:hover"
-            })}
-            className="pure-button pure-button-icon navigation-trigger tooltip"
           >
-            <span className="icon-hamburger">
-              <span className="icon-close" />
-              &nbsp;
-            </span>
-          </button>
+            <button
+              href="#"
+              aria-label={this.props.intl.formatMessage({
+                id: "header:hamburger:hover"
+              })}
+              className="pure-button pure-button-icon navigation-trigger"
+            >
+              <span className="icon-hamburger">
+                <span className="icon-close" />
+                &nbsp;
+              </span>
+            </button>
+          </Tooltip>
         </div>
         <div className="page-header-logo-secondary">
-          <a
-            href={Util.template(config.links.interreg, {
-              lang: lang
-            })}
-            className="header-footer-logo-secondary tooltip"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "header:interreg:hover"
             })}
-            rel="noopener noreferrer"
-            target="_blank"
           >
-            <span>Interreg</span>
-          </a>
+            <a
+              href={Util.template(config.links.interreg, {
+                lang: lang
+              })}
+              className="header-footer-logo-secondary"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>Interreg</span>
+            </a>
+          </Tooltip>
         </div>
       </div>
     );

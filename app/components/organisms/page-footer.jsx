@@ -7,6 +7,7 @@ import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
 import tilty from "vanilla-tilt";
 
+import { Tooltip } from "../../components/tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 import { APP_STORE } from "../../appStore";
@@ -41,17 +42,23 @@ class PageFooter extends React.Component {
             <div className="grid-item normal-6">
               {!config.subscribe.buttonHidden && (
                 <p className="page-footer-subscribe">
-                  <a
-                    href="#subscribeDialog"
-                    title={this.props.intl.formatMessage({
+                  <Tooltip
+                    label={this.props.intl.formatMessage({
                       id: "footer:subscribe:hover"
                     })}
-                    className="modal-trigger popup-modal pure-button tooltip"
                   >
-                    {this.props.intl.formatMessage({
-                      id: "footer:subscribe"
-                    })}
-                  </a>
+                    <a
+                      href="#subscribeDialog"
+                      title={this.props.intl.formatMessage({
+                        id: "footer:subscribe:hover"
+                      })}
+                      className="modal-trigger popup-modal pure-button"
+                    >
+                      {this.props.intl.formatMessage({
+                        id: "footer:subscribe"
+                      })}
+                    </a>
+                  </Tooltip>
                 </p>
               )}
               <p className="page-footer-text">
@@ -62,50 +69,57 @@ class PageFooter extends React.Component {
               </p>
 
               <p className="page-footer-logo-tertiary">
-                <a
-                  href="https://www.avalanches.org/"
-                  {...window["tiltySettings"]}
-                  className="footer-logo-tertiary tooltip tilt"
-                  title="EAWS"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <span>EAWS</span>
-                </a>
+                <Tooltip label="EAWS">
+                  <a
+                    href="https://www.avalanches.org/"
+                    {...window["tiltySettings"]}
+                    className="footer-logo-tertiary tilt"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>EAWS</span>
+                  </a>
+                </Tooltip>
               </p>
 
               <p className="page-footer-logo-secondary">
-                <a
-                  href={Util.template(config.links.interreg, {
-                    lang: APP_STORE.language
-                  })}
-                  {...window["tiltySettings"]}
-                  className="header-footer-logo-secondary tooltip tilt"
-                  title={this.props.intl.formatMessage({
+                <Tooltip
+                  label={this.props.intl.formatMessage({
                     id: "footer:interreg:hover"
                   })}
-                  rel="noopener noreferrer"
-                  target="_blank"
                 >
-                  <span>Interreg</span>
-                </a>
+                  <a
+                    href={Util.template(config.links.interreg, {
+                      lang: APP_STORE.language
+                    })}
+                    {...window["tiltySettings"]}
+                    className="header-footer-logo-secondary tilt"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>Interreg</span>
+                  </a>
+                </Tooltip>
               </p>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">
-                <a
-                  href="#page-main"
-                  className="icon-arrow-up tooltip"
-                  title={this.props.intl.formatMessage({
+                <Tooltip
+                  label={this.props.intl.formatMessage({
                     id: "footer:top:hover"
                   })}
-                  aria-label={this.props.intl.formatMessage({
-                    id: "footer:top:hover"
-                  })}
-                  data-scroll=""
                 >
-                  <span>Top</span>
-                </a>
+                  <a
+                    href="#page-main"
+                    className="icon-arrow-up"
+                    aria-label={this.props.intl.formatMessage({
+                      id: "footer:top:hover"
+                    })}
+                    data-scroll=""
+                  >
+                    <span>Top</span>
+                  </a>
+                </Tooltip>
               </p>
             </div>
           </div>

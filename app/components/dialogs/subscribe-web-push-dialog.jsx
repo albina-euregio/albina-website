@@ -155,7 +155,12 @@ export default function SubscribeWebPushDialog() {
           }}
         >
           <label htmlFor="province">
-            <FormattedMessage id="dialog:subscribe-telegram:region" />
+            <FormattedMessage
+              id="dialog:subscribe-telegram:region"
+              values={{
+                strong: (...msg) => <strong>{msg}</strong>
+              }}
+            />
           </label>
           <ul className="list-inline list-buttongroup">
             <li>

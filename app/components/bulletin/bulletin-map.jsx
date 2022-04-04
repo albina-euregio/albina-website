@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { GeoJSON } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
+import { Tooltip } from "../tooltips/tooltip";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import { Util } from "leaflet";
@@ -62,15 +63,15 @@ const BulletinMap = props => {
             <FormattedMessage id="bulletin:header:info-no-data" />
           </p>
           <p>
-            <Link
-              to="/blog"
-              title={intl.formatMessage({
+            <Tooltip
+              label={intl.formatMessage({
                 id: "bulletin:map:blog:button:title"
               })}
-              className="secondary pure-button tooltip"
             >
-              {intl.formatMessage({ id: "blog:title" })}
-            </Link>
+              <Link to="/blog" className="secondary pure-button">
+                {intl.formatMessage({ id: "blog:title" })}
+              </Link>
+            </Tooltip>
           </p>
         </>
       ),
@@ -191,23 +192,26 @@ const BulletinMap = props => {
       );
       res.push(
         activeBulletin?.id && (
-          <a
-            tabIndex="-1"
-            key="link"
-            href={"#" + activeBulletin?.id}
-            className="pure-button tooltip"
-            title={intl.formatMessage({
+          <Tooltip
+            label={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
-            data-scroll=""
           >
-            {preprocessContent(
-              intl.formatMessage({
-                id: "bulletin:map:info:details"
-              })
-            )}
-            <span className="icon-arrow-down" />
-          </a>
+            <a
+              tabIndex="-1"
+              key="link"
+              href={"#" + activeBulletin?.id}
+              className="pure-button"
+              data-scroll=""
+            >
+              {preprocessContent(
+                intl.formatMessage({
+                  id: "bulletin:map:info:details"
+                })
+              )}
+              <span className="icon-arrow-down" />
+            </a>
+          </Tooltip>
         )
       );
     } else if (activeEaws) {
@@ -237,19 +241,22 @@ const BulletinMap = props => {
           aws.url.find(url => url[language])?.[language] ||
           Object.values(aws.url[0])[0];
         res.push(
-          <a
-            tabIndex="-1"
-            key={`eaws-link-${index}`}
-            href={href}
-            rel="noopener noreferrer"
-            target="_blank"
-            className="pure-button tooltip"
-            title={intl.formatMessage({
+          <Tooltip
+            label={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
           >
-            {aws.name} <span className="icon-arrow-right" />
-          </a>
+            <a
+              tabIndex="-1"
+              key={`eaws-link-${index}`}
+              href={href}
+              rel="noopener noreferrer"
+              target="_blank"
+              className="pure-button"
+            >
+              {aws.name} <span className="icon-arrow-right" />
+            </a>
+          </Tooltip>
         );
       });
     }
@@ -298,18 +305,20 @@ const BulletinMap = props => {
         {false /* hide map search */ && (
           <div style={styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">
-              <input
-                tabIndex="-1"
-                type="text"
-                id="input"
-                className="tooltip"
-                placeholder={intl.formatMessage({
-                  id: "bulletin:map:search"
-                })}
-                title={intl.formatMessage({
+              <Tooltip
+                label={intl.formatMessage({
                   id: "bulletin:map:search:hover"
                 })}
-              />
+              >
+                <input
+                  tabIndex="-1"
+                  type="text"
+                  id="input"
+                  placeholder={intl.formatMessage({
+                    id: "bulletin:map:search"
+                  })}
+                />
+              </Tooltip>
               <button
                 tabIndex="-1"
                 href="#"

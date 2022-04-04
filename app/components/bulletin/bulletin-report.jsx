@@ -7,6 +7,7 @@ import { dateToLongDateString, parseDate } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { findGlossaryStrings } from "./bulletin-glossary";
+import { Tooltip } from "../tooltips/tooltip";
 
 /**
  * This component shows the detailed bulletin report including all icons and
@@ -195,16 +196,19 @@ class BulletinReport extends React.Component {
           className="section-centered section-bulletin section-bulletin-additional"
         >
           <div className="panel brand">
-            <a
-              href="#page-main"
-              title={this.props.intl.formatMessage({
+            <Tooltip
+              label={this.props.intl.formatMessage({
                 id: "bulletin:linkbar:back-to-map:hover"
               })}
-              className="icon-link icon-arrow-up tooltip"
-              data-scroll=""
             >
-              <FormattedMessage id="bulletin:linkbar:back-to-map" />
-            </a>
+              <a
+                href="#page-main"
+                className="icon-link icon-arrow-up"
+                data-scroll=""
+              >
+                <FormattedMessage id="bulletin:linkbar:back-to-map" />
+              </a>
+            </Tooltip>
           </div>
         </section>
       </div>

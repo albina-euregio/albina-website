@@ -32,7 +32,7 @@ class FeatureInfo extends React.Component {
               role="button"
               tabIndex="0"
               onClick={this.triggerStationDiagrams}
-              className="pure-button tooltip weather-map-details-button"
+              className="pure-button weather-map-details-button"
             >
               {this.props.intl.formatMessage({
                 id: "weathermap:map:feature-info:more"

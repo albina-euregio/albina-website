@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl, FormattedMessage } from "react-intl";
+import { Tooltip } from "../tooltips/tooltip";
 
 class SubscribeAppDialog extends React.Component {
   constructor(props) {
@@ -15,19 +16,22 @@ class SubscribeAppDialog extends React.Component {
     apps.forEach(a => {
       downloads[a.id] = Object.keys(a.url).map(t => (
         <li key={t}>
-          <a
-            className="pure-button tooltip"
-            href={a.url[t]}
-            rel="noopener noreferrer"
-            target="_blank"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "dialog:subscribe-app:" + t + ":hover"
             })}
           >
-            {this.props.intl.formatMessage({
-              id: "dialog:subscribe-app:" + t + ":button"
-            })}
-          </a>
+            <a
+              className="pure-button"
+              href={a.url[t]}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {this.props.intl.formatMessage({
+                id: "dialog:subscribe-app:" + t + ":button"
+              })}
+            </a>
+          </Tooltip>
         </li>
       ));
     });

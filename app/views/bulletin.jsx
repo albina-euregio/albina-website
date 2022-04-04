@@ -16,7 +16,7 @@ import ControlBar from "../components/organisms/control-bar.jsx";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
-import { tooltip_init } from "../js/tooltip";
+//import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { parseSearchParams } from "../util/searchParams";
 import { Suspense } from "react";
@@ -41,18 +41,18 @@ const Bulletin = props => {
   useEffect(() => {
     //("Bulletin->useEffect[]");
     reaction(
-      () => BULLETIN_STORE.settings.status,
-      () => {
-        window.setTimeout(tooltip_init, 100);
-      }
+      () => BULLETIN_STORE.settings.status
+      // () => {
+      //   window.setTimeout(tooltip_init, 100);
+      // }
     );
     reaction(
-      () => BULLETIN_STORE.settings.region,
-      region => {
-        if (region) {
-          window.setTimeout(tooltip_init, 100);
-        }
-      }
+      () => BULLETIN_STORE.settings.region
+      // region => {
+      //   if (region) {
+      //     window.setTimeout(tooltip_init, 100);
+      //   }
+      // }
     );
     reaction(
       () => BULLETIN_STORE.latest,

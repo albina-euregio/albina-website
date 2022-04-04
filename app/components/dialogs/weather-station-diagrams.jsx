@@ -5,6 +5,7 @@ import { Util } from "leaflet";
 import { dateToDateTimeString } from "../../util/date";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
+import { Tooltip } from "../tooltips/tooltip";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -120,55 +121,55 @@ class WeatherStationDiagrams extends React.Component {
       <>
         {lastYear && (
           <li className="weatherstation-flipper-back">
-            <a
-              href="#"
-              onClick={() => {
-                this.setState({ selectedYear: lastYear });
-              }}
-              title="Back"
-              className="tooltip"
-            >
-              <span className="icon-arrow-left"></span>
-              {lastYear}
-            </a>
+            <Tooltip label="Back">
+              <a
+                href="#"
+                onClick={() => {
+                  this.setState({ selectedYear: lastYear });
+                }}
+              >
+                <span className="icon-arrow-left"></span>
+                {lastYear}
+              </a>
+            </Tooltip>
           </li>
         )}
         <li className="weatherstation-flipper-current">{selectedYear}</li>
         {nextYear && (
           <li className="weatherstation-flipper-forward">
-            <a
-              href="#"
-              onClick={() => {
-                this.setState({
-                  selectedYear: curYear === nextYear ? null : nextYear
-                });
-              }}
-              title="Forward"
-              className="tooltip"
-            >
-              {nextYear}&nbsp;
-              <span className="icon-arrow-right"></span>
-            </a>
+            <Tooltip label="Forward">
+              <a
+                href="#"
+                onClick={() => {
+                  this.setState({
+                    selectedYear: curYear === nextYear ? null : nextYear
+                  });
+                }}
+              >
+                {nextYear}&nbsp;
+                <span className="icon-arrow-right"></span>
+              </a>
+            </Tooltip>
           </li>
         )}
         {this.state.selectedYear && (
           <li className="weatherstation-flipper-forward">
-            <a
-              href="#"
-              onClick={() => {
-                this.setState({
-                  selectedYear: null
-                });
-              }}
-              title="Latest"
-              className="tooltip"
-            >
-              <span>
-                {this.props.intl.formatMessage({
-                  id: "dialog:weather-station-diagram:yearFlipper:latest"
-                })}
-              </span>
-            </a>
+            <Tooltip label="Latest">
+              <a
+                href="#"
+                onClick={() => {
+                  this.setState({
+                    selectedYear: null
+                  });
+                }}
+              >
+                <span>
+                  {this.props.intl.formatMessage({
+                    id: "dialog:weather-station-diagram:yearFlipper:latest"
+                  })}
+                </span>
+              </a>
+            </Tooltip>
           </li>
         )}
       </>
@@ -193,26 +194,20 @@ class WeatherStationDiagrams extends React.Component {
         <li className="weatherstation-flipper-station">
           <ul className="list-inline weatherstation-flipper">
             <li className="weatherstation-flipper-back">
-              <a
-                href="#"
-                onClick={this.previous}
-                title="Prior Station"
-                className="tooltip"
-              >
-                <span className="icon-arrow-left"></span>
-                {previousStationData.name}
-              </a>
+              <Tooltip label="Prior Station">
+                <a href="#" onClick={this.previous}>
+                  <span className="icon-arrow-left"></span>
+                  {previousStationData.name}
+                </a>
+              </Tooltip>
             </li>
             <li className="weatherstation-flipper-forward">
-              <a
-                href="#"
-                onClick={this.next}
-                title="Next Station"
-                className="tooltip"
-              >
-                {nextStationData.name}&nbsp;
-                <span className="icon-arrow-right"></span>
-              </a>
+              <Tooltip label="Next Station">
+                <a href="#" onClick={this.next}>
+                  {nextStationData.name}&nbsp;
+                  <span className="icon-arrow-right"></span>
+                </a>
+              </Tooltip>
             </li>
           </ul>
         </li>

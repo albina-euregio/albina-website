@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-
+import { Tooltip } from "../tooltips/tooltip";
 const BlogPageFlipper = props => {
   const intl = useIntl();
   let { curPage, maxPages } = props;
@@ -13,18 +13,16 @@ const BlogPageFlipper = props => {
     <ul className="list-inline bulletin-flipper">
       {curPage != 1 && (
         <li className="bulletin-flipper-back">
-          <a
-            role="button"
-            tabIndex="0"
-            onClick={props.handlePreviousPage}
-            title={intl.formatMessage({
+          <Tooltip
+            label={intl.formatMessage({
               id: "bulletin:header:dateflipper:back"
             })}
-            className="tooltip"
           >
-            <span className="icon-arrow-left"></span>
-            {pageTranslation} {curPage}
-          </a>
+            <a role="button" tabIndex="0" onClick={props.handlePreviousPage}>
+              <span className="icon-arrow-left"></span>
+              {pageTranslation} {curPage}
+            </a>
+          </Tooltip>
         </li>
       )}
 
@@ -33,18 +31,16 @@ const BlogPageFlipper = props => {
       </li>
       {curPage < maxPages && (
         <li className="bulletin-flipper-forward">
-          <a
-            role="button"
-            tabIndex="0"
-            onClick={props.handleNextPage}
-            title={intl.formatMessage({
+          <Tooltip
+            label={intl.formatMessage({
               id: "bulletin:header:dateflipper:forward"
             })}
-            className="tooltip"
           >
-            {pageTranslation} {curPage + 1}{" "}
-            <span className="icon-arrow-right" />
-          </a>
+            <a role="button" tabIndex="0" onClick={props.handleNextPage}>
+              {pageTranslation} {curPage + 1}{" "}
+              <span className="icon-arrow-right" />
+            </a>
+          </Tooltip>
         </li>
       )}
     </ul>

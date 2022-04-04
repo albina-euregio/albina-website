@@ -58,7 +58,7 @@ const LeafletMap = props => {
     const newZoom = Math.round(map.getZoom());
     //console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
-    _init_tooltip();
+    //_init_tooltip();
   };
 
   const tileLayers = () => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Tooltip } from "../tooltips/tooltip";
 
 export default class ExpositionIcon extends React.Component {
   imgRoot;
@@ -36,15 +37,17 @@ export default class ExpositionIcon extends React.Component {
       />
     ));
     return (
-      <div className={classes.join(" ")} title={this.props.title}>
-        <img
-          className="bulletin-report-exposition-rose"
-          src={this.imgRoot + "exposition_bg.png"}
-          alt={this.props.title}
-          title={this.props.title}
-        />
-        {backgroundEntries}
-      </div>
+      <Tooltip label={this.props.title}>
+        <div className={classes.join(" ")}>
+          <img
+            className="bulletin-report-exposition-rose"
+            src={this.imgRoot + "exposition_bg.png"}
+            alt={this.props.title}
+            title={this.props.title}
+          />
+          {backgroundEntries}
+        </div>
+      </Tooltip>
     );
   }
 }

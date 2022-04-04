@@ -17,12 +17,14 @@
     "build-dev": "vite build --base=/dev/"
   },
   "dependencies": {
+    "@floating-ui/react-dom-interactions": "^0.0.15",
     "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^6.15.0",
     "@tippyjs/react": "^4.2.6",
     "animejs": "^2.2.0",
     "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/276d9cd37d38fb652ed514de6b08a2664458bcc8/eaws-regions-276d9cd37d38fb652ed514de6b08a2664458bcc8.tar.gz",
     "fluidvids.js": "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz",
+    "framer-motion": "^6.2.8",
     "htmr": "^1.0.1",
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",

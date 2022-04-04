@@ -3,6 +3,7 @@ import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import { APP_STORE } from "../../appStore";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import { Tooltip } from "../../components/tooltips/tooltip";
 
 class WarnLevelIcon extends React.Component {
   imgRoot;
@@ -59,7 +60,7 @@ class WarnLevelIcon extends React.Component {
           { id: "bulletin:report:dangerlevel-treeline-below" },
           { level: getWarnlevelText(this.props.below) }
         )
-      ].join("<br />");
+      ].join("\n");
       elevationText = this.props.intl.formatMessage({
         id: "bulletin:treeline"
       });
@@ -79,15 +80,17 @@ class WarnLevelIcon extends React.Component {
             level: getWarnlevelText(this.props.below)
           }
         )
-      ].join("<br />");
+      ].join("\n");
       elevationText = this.props.elevation + "m";
     }
 
     return (
-      <Link to={link} title={title} className="tooltip" tabIndex="-1">
-        <img src={img} alt={title} title={title} />
-        {this.props.above != this.props.below && <span>{elevationText}</span>}
-      </Link>
+      <Tooltip label={title}>
+        <Link to={link} tabIndex="-1">
+          <img src={img} alt={title} title={title} />
+          {this.props.above != this.props.below && <span>{elevationText}</span>}
+        </Link>
+      </Tooltip>
     );
   }
 }
