@@ -7,7 +7,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const precision = 3;
 const today = "2021-10-01";
-const excludeAws = ["AEMET", "ALPSOLUT", "ICGC", "METEOMONT Carabinieri"];
+const excludeAws = ["ALPSOLUT", "METEOMONT Carabinieri"];
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
@@ -119,6 +119,7 @@ const eawsRegions = [
   "CH",
   "CZ",
   "DE-BY",
+  "ES",
   "ES-CT",
   "ES-CT-L",
   "FR",
@@ -134,6 +135,19 @@ const eawsRegions = [
   "SI"
 ];
 
+const eawsRegionsWithoutElevation = [
+  "CH",
+  "CZ",
+  "ES",
+  "ES-CT",
+  "FI",
+  "FR",
+  "GB",
+  "IS",
+  "NO",
+  "PL"
+];
+
 encodeFiles(
   [...eawsRegions, "LI", "IT-25-SO-LI"]
     .sort()
@@ -146,7 +160,7 @@ encodeFiles(
 eawsRegions.forEach(region =>
   encodeFiles(
     [
-      ["CH", "CZ", "ES-CT", "FI", "FR", "GB", "IS", "NO", "PL"].includes(region)
+      eawsRegionsWithoutElevation.includes(region)
         ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
         : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
     ],

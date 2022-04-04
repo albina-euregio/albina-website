@@ -54,6 +54,7 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "CH",
     "CZ",
     "DE-BY",
+    "ES",
     "ES-CT",
     "ES-CT-L",
     "FR",
