@@ -95,7 +95,7 @@
   "bulletin:map:zoom-out:hover": "Zoom -",
   "bulletin:map:info:details": "<span>clicca per</span> maggiori dettagli",
   "bulletin:map:info:details:hover": "Leggi tutto il bollettino valanghe",
-  "bulletin:map:blog:button:title": "See all blog entries",
+  "bulletin:map:blog:button:title": "Vedi tutti i contributi del blog",
   "bulletin:legend:highlight-regions": "<strong>Evidenzia regioni</strong> con uno specifico <a>problema valanghivo</a>",
   "bulletin:legend:highlight-regions:hover": "Scopri di più",
   "bulletin:legend:highlight:hover": "Evidenzia regioni con {problem}",
