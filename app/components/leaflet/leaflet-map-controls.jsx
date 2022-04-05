@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
@@ -18,7 +18,7 @@ const LeafletMapControls = props => {
   const intl = useIntl();
   const parentMap = useMap();
 
-  const didMountRef = useRef(false);
+  //const didMountRef = useRef(false);
   useEffect(() => {
     updateControls();
   }, []);

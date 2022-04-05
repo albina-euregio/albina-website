@@ -16,7 +16,7 @@ import MonthFilter from "../components/filters/month-filter";
 import InfoBar from "../components/organisms/info-bar";
 import { useIntl } from "react-intl";
 
-const BlogOverview = props => {
+const BlogOverview = () => {
   //console.log("BlogOverview const", BLOG_STORE);
   const [store] = useState(BLOG_STORE);
   const intl = useIntl();
@@ -27,7 +27,7 @@ const BlogOverview = props => {
 
   //const [title, setTitle] = useState("");
   //const [header, setHeader] = useState("");
-  const [headerText, setHeaderText] = useState("");
+  const [headerText] = useState("");
   //const [content, setContent] = useState("");
   //const [currentContentInfoMessage, setCurrentContentInfoMessage] = useState("");
   //const [isShareable, setIsShareable] = useState(false);
@@ -66,7 +66,7 @@ const BlogOverview = props => {
 
   useEffect(() => {
     if (!didMountRef.current) {
-      console.log("blogOverview useEffect didMount", store);
+      //console.log("blogOverview useEffect didMount", store);
       didMountRef.current = true;
     }
   });
@@ -78,7 +78,7 @@ const BlogOverview = props => {
   }, [location]);
 
   const doStoreUpdate = () => {
-    console.log("blogOverview doStoreUpdate", store.searchParams);
+    //console.log("blogOverview doStoreUpdate", store.searchParams);
     navigate({
       pathname: location.pathname,
       search: `?${createSearchParams(store.searchParams)}`
@@ -88,7 +88,7 @@ const BlogOverview = props => {
   };
 
   const handleChangeRegion = val => {
-    console.log("blogOverview->handleChangeRegion", val);
+    //console.log("blogOverview->handleChangeRegion", val);
     _settingFilters = true;
     store.setRegions(val);
     doStoreUpdate();
@@ -153,7 +153,7 @@ const BlogOverview = props => {
     if (newLevel === "ok" && store.postsList.length == 0) newLevel = "noData";
   }
 
-  console.log("render", store, newLevel);
+  //console.log("render", store, newLevel);
 
   return (
     <>

@@ -7,11 +7,11 @@ import { preprocessContent } from "../util/htmlParser";
 import { video_init } from "../js/video";
 import { useIntl } from "react-intl";
 
-import { scroll } from "../js/scroll";
+//import { scroll } from "../js/scroll";
 /*
  * Component to be used for pages with content delivered by CMS API.
  */
-const StaticPage = props => {
+const StaticPage = () => {
   const intl = useIntl();
   const location = useLocation();
 
@@ -21,10 +21,10 @@ const StaticPage = props => {
   const [content, setContent] = useState("");
   const [isShareable, setIsShareable] = useState(false);
 
-  useEffect(() => {
-    //console.log("StaticPage->useEffect", location.hash);
-    //if(location.hash) scroll(location.hash, 2000);
-  }, [location.hash]);
+  // useEffect(() => {
+  //   //console.log("StaticPage->useEffect", location.hash);
+  //   //if(location.hash) scroll(location.hash, 2000);
+  // }, [location.hash]);
 
   useEffect(() => {
     //console.log("StaticPage->useEffect", location.pathname);

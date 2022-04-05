@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import { observer } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
@@ -17,11 +17,11 @@ import { useParams } from "react-router-dom";
 
 import Player from "../js/player";
 
-const Weather = props => {
+const Weather = () => {
   const intl = useIntl();
   const params = useParams();
 
-  const [headerText, setHeaderText] = useState("");
+  const [headerText] = useState("");
 
   const [store] = useState(() => new WeatherMapStore(params.domain));
 
@@ -45,7 +45,7 @@ const Weather = props => {
   }, []);
 
   useEffect(() => {
-    console.log("weather->useeffect[params.domain]");
+    //console.log("weather->useeffect[params.domain]");
     store.changeDomain(params.domain);
   }, [params.domain]);
 
@@ -110,7 +110,7 @@ const Weather = props => {
     }
   };
 
-  console.log("weather->render", store.domainId, store.agl, player);
+  //console.log("weather->render", store.domainId, store.agl, player);
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "weathermap:title" })} />

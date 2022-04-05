@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import L from "leaflet";
+//import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
   MapContainer,
-  MapConsumer,
+  //MapConsumer,
   TileLayer,
   LayersControl,
   AttributionControl,

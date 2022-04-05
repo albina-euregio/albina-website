@@ -13,7 +13,7 @@ import { video_init } from "../js/video";
 import { fetchJSON } from "../util/fetch";
 import { preprocessContent } from "../util/htmlParser";
 
-const BlogPost = props => {
+const BlogPost = () => {
   const didMountRef = useRef(false);
   const location = useLocation();
   const params = useParams();

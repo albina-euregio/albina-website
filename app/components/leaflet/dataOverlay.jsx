@@ -118,7 +118,7 @@ const DataOverlay = props => {
   };
 
   const allCanvasesLoaded = () => {
-    console.log("dataOverlay->allCanvasesLoaded xxx2", oCanvases);
+    //console.log("dataOverlay->allCanvasesLoaded xxx2", oCanvases);
 
     return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
   };
@@ -155,13 +155,13 @@ const DataOverlay = props => {
   };
 
   const setupDataLayer = e => {
-    console.log("dataOverlay->setupDataLayer#1 yyy2");
+    //console.log("dataOverlay->setupDataLayer#1 yyy2");
 
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
     if (props.dataOverlaysEnabled) {
       props.dataOverlays.forEach(anOverlay => {
-        console.log("setupDataLayer#2 yyy2", anOverlay.type, overlayCanvases);
+        //console.log("setupDataLayer#2 yyy2", anOverlay.type, overlayCanvases);
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
@@ -190,10 +190,10 @@ const DataOverlay = props => {
             );
             overlayCanvases[anOverlay.type]["loaded"] = true;
             //console.log("setupDataLayer#3-1 jjj1 direction loaded", anOverlay.type, overlayCanvases, overlayCanvases.filter(canvas => !canvas.loaded));
-            console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
+            //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              console.log("setupDataLayer #4 ALL LOADED xxx2", props.playerCB);
+              //console.log("setupDataLayer #4 ALL LOADED xxx2", props.playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
                 addDirectionIndicators();
@@ -333,7 +333,7 @@ const DataOverlay = props => {
               //console.log("background jjj", "load", e.target._map);
               setDataMarker(null);
               setDirectionMarkers(null);
-              console.log("background yyy2", "load");
+              //console.log("background yyy2", "load");
               setupDataLayer(e);
               e.target._map.on("zoomend", e => {
                 //console.log("onZoomed eee", e);
@@ -350,7 +350,7 @@ const DataOverlay = props => {
           bindPopup
         />
       );
-      console.log("background yyy2", "loading");
+      //console.log("background yyy2", "loading");
       props.playerCB("background", "loading");
     }
   }

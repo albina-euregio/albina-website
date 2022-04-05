@@ -5,7 +5,8 @@ import { useIntl } from "react-intl";
 
 const BulletinVectorLayer = props => {
   const intl = useIntl();
-  const [over, setOver] = useState(false);
+
+  const [over] = useState(false);
 
   const handleClickRegion = (bid, state, e) => {
     //console.log("BulletinVectorLayer->handleClickRegion", bid, state, e);
@@ -21,14 +22,14 @@ const BulletinVectorLayer = props => {
   };
 
   const handleMouseOut = e => {
-    const bid = e.target.options.bid;
+    //const bid = e.target.options.bid;
     //console.log("bulletin-vector-layer->handleMouseOut", bid);
     if (!L.Browser.mobile) {
       e.target.setStyle(config.map.regionStyling.all);
     }
   };
   const handleMouseOver = e => {
-    const bid = e.target.options.bid;
+    //const bid = e.target.options.bid;
     //console.log("bulletin-vector-layer->handleMouseOver", bid);
     if (
       //e.target._containsPoint(e.containerPoint) &&

@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 export default class NavigationStore {
   constructor() {
-    console.log("NavigationStore");
+    //console.log("NavigationStore");
     this.activeElement = {};
     this.activeTopLevelElement = {};
     makeAutoObservable(this);

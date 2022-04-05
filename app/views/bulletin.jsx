@@ -24,7 +24,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import "leaflet.sync";
 import { Util } from "leaflet";
-import { scroll_init } from "../js/scroll";
+//import { scroll_init } from "../js/scroll";
 
 const Bulletin = props => {
   let lastLocationRef = useRef(null);
@@ -33,9 +33,9 @@ const Bulletin = props => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
-  const [title, setTitle] = useState("");
+  const [title] = useState("");
   // const [sharable, setSharable] = useState(false);
-  const [highlightedRegion, setHighlightedRegion] = useState(null);
+  const [highlightedRegion] = useState(null);
   BULLETIN_STORE.init();
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const Bulletin = props => {
     lastLocationRef.current = location;
   };
 
-  const _fetchData = async props => {
+  const _fetchData = async () => {
     let startDate =
       params.date && parseDate(params.date)
         ? params.date
@@ -142,7 +142,7 @@ const Bulletin = props => {
         }
       }
     } else if (BULLETIN_STORE.settings.region) {
-      console.log("bulletin navigate #4", BULLETIN_STORE.settings.region);
+      //console.log("bulletin navigate #4", BULLETIN_STORE.settings.region);
       //todo: trans
       navigate({ pathname: location.pathname, search: "" });
     }
@@ -214,6 +214,7 @@ const Bulletin = props => {
                   <a
                     href="https://en.euregio.avalancheresearch.ca"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <strong>{msg}</strong>
                   </a>

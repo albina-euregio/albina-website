@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { reaction } from "mobx";
+//import { reaction } from "mobx";
 import { injectIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
@@ -40,11 +40,10 @@ class Archive extends React.Component {
     // const up = () => {
     //   window.setTimeout(tooltip_init, 1000);
     // };
-
-    reaction(() => this.store.loading, up);
-    reaction(() => this.store.month, up);
-    reaction(() => this.store.year, up);
-    reaction(() => this.store.day, up);
+    // reaction(() => this.store.loading, up);
+    // reaction(() => this.store.month, up);
+    // reaction(() => this.store.year, up);
+    // reaction(() => this.store.day, up);
     //up();
   }
 
