@@ -1,5 +1,5 @@
 import "magnific-popup";
-import { tooltip_init } from "./tooltip";
+//import { tooltip_init } from "../components/tooltips/tooltip";
 
 function modal_init() {
   //to be initialised repeatedly if modals are added on the fly
@@ -87,9 +87,9 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
       open: function () {
         //lastPopUpElement = this;
       },
-      ajaxContentAdded: function () {
-        tooltip_init();
-      },
+      // ajaxContentAdded: function () {
+      //   tooltip_init();
+      // },
       afterClose: function () {
         window["modalStateStore"].close();
       }

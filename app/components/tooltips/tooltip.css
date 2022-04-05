@@ -1,0 +1,21 @@
+.tooltip-container {
+  position: absolute;
+  overflow: visible;
+  z-index: 10000;
+}
+
+.tooltip-container .tooltip-inner {
+  position: relative;
+  margin: 0 0.625rem 0 0;
+  padding: 0.25em 0.66667em;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: #565f61;
+  background: #fff;
+  border: 1px solid #839194;
+  border-radius: 1000px;
+}
+
+.tooltip-container .tooltip-content {
+  text-align: center;
+}

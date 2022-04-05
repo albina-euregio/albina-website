@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
-import { Tooltip } from "../tooltips/tooltip";
+//import { Tooltip } from "../tooltips/tooltip";
 
 import {
   dateToShortDateTimeString,
   dateToTimeString
 } from "../../util/date.js";
-import { tooltip_init } from "../../js/tooltip";
+//import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
   temp: "icon-temperature",
@@ -77,7 +77,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   componentDidUpdate() {
-    window.setTimeout(tooltip_init, 200);
+    //window.setTimeout(tooltip_init, 200);
     $("body").removeClass("layer-selector-open");
   }
 

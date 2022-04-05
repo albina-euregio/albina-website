@@ -5,7 +5,7 @@ import "./leaflet-player.css";
 
 import { useMap } from "react-leaflet";
 import { useIntl } from "react-intl";
-import { tooltip_init } from "../../js/tooltip";
+import { tooltip_init } from "../tooltips/tooltip-dom";
 
 import "leaflet-geonames";
 import "leaflet.locatecontrol";

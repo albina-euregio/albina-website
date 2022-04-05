@@ -28,12 +28,12 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
       placement,
       open,
       onOpenChange: setOpen,
-      middleware: [offset(5), flip(), shift({ padding: 8 })]
+      middleware: [offset(10), flip(), shift({ padding: 5 })]
     });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
-      delay: { open: 1000 },
+      delay: { open: 200 },
       restMs: 40
     }),
     useFocus(context),
@@ -54,13 +54,13 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.85, zIndex: 100000 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: -10, zIndex: 100000 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ type: "just", damping: 20, stiffness: 300 }}
             {...getFloatingProps({
               ref: floating,
-              className: "tooltip",
+              className: "tooltip-container",
               style: {
                 position: strategy,
                 top: y ?? "",
@@ -68,7 +68,9 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
               }
             })}
           >
-            {label}
+            <div className="tooltip-inner">
+              <div className="tooltip-content">{label}</div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

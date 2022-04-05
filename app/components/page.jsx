@@ -16,9 +16,8 @@ import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 // import CookieConsent from "./dialogs/cookie-consent";
 // import FeedbackDialog from "./dialogs/feedback-dialog";
 import ControlBar from "../components/organisms/control-bar.jsx";
-
 import { modal_init } from "../js/modal";
-import { tooltip_init } from "../js/tooltip";
+//import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 
 import { scroll_init, scroll } from "../js/scroll";
@@ -50,7 +49,7 @@ const Page = props => {
       //console.log("Page->useEffect[location.pathname]", location.path);
       scroll_init();
       modal_init();
-      tooltip_init();
+      //tooltip_init();
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
@@ -90,6 +89,15 @@ const Page = props => {
         {props.children}
       </main>
       <PageFooter />
+      <div
+        id="tooltip-container"
+        className="tooltip-container"
+        style={{ display: "none" }}
+      >
+        <div className="tooltip-inner">
+          <div className="tooltip-content"></div>
+        </div>
+      </div>
       <ModalDialog id="weatherStationDiagrams">
         <WeatherStationDiagrams />
       </ModalDialog>

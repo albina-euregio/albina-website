@@ -193,6 +193,7 @@ const BulletinMap = props => {
       res.push(
         activeBulletin?.id && (
           <Tooltip
+            key="tp-link"
             label={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
@@ -242,6 +243,7 @@ const BulletinMap = props => {
           Object.values(aws.url[0])[0];
         res.push(
           <Tooltip
+            key={`tp-eaws-link-${index}`}
             label={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
