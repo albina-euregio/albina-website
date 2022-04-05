@@ -54,7 +54,7 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10, zIndex: 100000 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ type: "just", damping: 20, stiffness: 300 }}
@@ -68,8 +68,10 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
               }
             })}
           >
-            <div className="tooltip-inner">
-              <div className="tooltip-content">{label}</div>
+            <div className="tooltip-wrapper">
+              <div className="tooltip-inner">
+                <div className="tooltip-content">{label}</div>
+              </div>
             </div>
           </motion.div>
         )}

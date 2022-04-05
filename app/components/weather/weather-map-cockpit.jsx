@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
-//import { Tooltip } from "../tooltips/tooltip";
+import { Tooltip } from "../tooltips/tooltip";
 
 import {
   dateToShortDateTimeString,

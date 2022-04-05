@@ -15,7 +15,7 @@ const tooltip_init = () => {
   const update = async el => {
     await computePosition(el, tp, {
       placement: "top",
-      middleware: [offset(6), flip(), shift({ padding: 5 })]
+      middleware: [offset(5), flip(), shift({ padding: 10 })]
     }).then(({ x, y }) => {
       Object.assign(tp.style, {
         left: `${x}px`,

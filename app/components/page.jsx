@@ -94,8 +94,10 @@ const Page = props => {
         className="tooltip-container"
         style={{ display: "none" }}
       >
-        <div className="tooltip-inner">
-          <div className="tooltip-content"></div>
+        <div className="tooltip-wrapper">
+          <div className="tooltip-inner">
+            <div className="tooltip-content"></div>
+          </div>
         </div>
       </div>
       <ModalDialog id="weatherStationDiagrams">
