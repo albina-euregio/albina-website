@@ -110,6 +110,7 @@ encodeFiles(
 );
 
 const eawsRegions = [
+  "AD",
   "AT-02",
   "AT-03",
   "AT-04",
@@ -136,6 +137,7 @@ const eawsRegions = [
 ];
 
 const eawsRegionsWithoutElevation = [
+  "AD",
   "CH",
   "CZ",
   "ES",

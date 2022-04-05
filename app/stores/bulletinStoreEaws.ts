@@ -45,6 +45,7 @@ async function loadBulletin(
 
 async function loadBulletins(date: string): Promise<Feature[]> {
   const regions = [
+    "AD",
     "AT-02",
     "AT-03",
     "AT-04",
