@@ -34,21 +34,23 @@ const tooltip_init = () => {
   };
 
   const hideTooltip = el => {
-    //console.log("hideTooltip");
+    //console.log("hideTooltip", el);
     tp.style.display = "none";
 
     el.title = el.getAttribute("data-title");
     el.setAttribute("data-title", "");
   };
 
-  const tooltips = document.querySelectorAll(".tooltip:not([data-tippy])");
+  const tooltips = document.querySelectorAll(
+    ".tooltip:not([data-toolip-init])"
+  );
 
   if (tooltips.length) {
     tooltips.forEach(el => {
-      if (el.hasAttribute("toolip-init")) return;
+      if (el.hasAttribute("data-toolip-init")) return;
       //console.log("addTootip for", el);
 
-      el.setAttribute("toolip-init", "true");
+      el.setAttribute("data-toolip-init", "true");
       [
         ["mouseenter", showTooltip.bind(null, el)],
         ["mouseleave", hideTooltip.bind(null, el)],

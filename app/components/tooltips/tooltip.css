@@ -3,12 +3,8 @@
   z-index: 1000000;
 }
 
-.tooltip-wrapper {
-  position: relative;
-}
-
 .tooltip-inner {
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 0px;
   margin: 0 0.625rem 0 0;
@@ -22,7 +18,10 @@
 }
 
 .tooltip-content {
+  padding: 0.25em 0.66667em;
+  display: block;
   top: 0px;
   left: 0px;
   text-align: center;
+  -webkit-font-smoothing: antialiased;
 }

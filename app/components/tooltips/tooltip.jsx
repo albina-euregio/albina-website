@@ -68,10 +68,8 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
               }
             })}
           >
-            <div className="tooltip-wrapper">
-              <div className="tooltip-inner">
-                <div className="tooltip-content">{label}</div>
-              </div>
+            <div className="tooltip-inner">
+              <div className="tooltip-content">{label}</div>
             </div>
           </motion.div>
         )}
