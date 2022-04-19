@@ -5,7 +5,16 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { ObservationsMapService } from "../providers/map-service/observations-map.service";
-import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toGeoJSON, toMarkerColor, toObservationTable } from "./models/generic-observation.model";
+import {
+  GenericObservation,
+  ObservationFilterType,
+  ObservationSource,
+  ObservationSourceColors,
+  ObservationTableRow,
+  toGeoJSON,
+  toMarkerColor,
+  toObservationTable
+} from "./models/generic-observation.model";
 
 import { saveAs } from "file-saver";
 
@@ -86,7 +95,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
-      .forEach((observation) => this.addObservation(observation))
+      .forEach((observation) => {
+
+        if (!this.activeSources[observation.$source] ||
+          !this.filter.inDateRange(observation)) {
+          return;
+        }
+        this.addObservation(observation)
+      })
       .catch((e) => console.error(e))
       .finally(() => (this.loading = false));
   }
@@ -109,8 +125,45 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationPopup = undefined;
   }
 
+  applyLocalFilter() {
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
+    this.observations = this.observations.map(observation => {
+      observation.filterType = ObservationFilterType.Global;
+      if (this.filter.test(observation)) {
+        observation.filterType = ObservationFilterType.Local;
+      }
+
+      return observation;
+    });
+
+    this.observations.forEach(observation => {
+      const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
+
+      if(!ll) {
+        return;
+      }
+
+      this.drawMarker(observation, ll);
+    });
+  }
+
+  private drawMarker(observation, ll) {
+    const marker = new Marker(ll, this.mapService.style(observation));
+    if (this.mapService.USE_CANVAS_LAYER) {
+      // @ts-ignore
+      marker.observation = observation;
+    } else {
+      marker.on("click", () => this.onObservationClick(observation));
+    }
+    marker.bindTooltip(observation.locationName + " " + observation.filterType);
+    // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
+    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
+  }
+
   private addObservation(observation: GenericObservation): void {
     const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
+    observation.filterType = ObservationFilterType.Local;
+
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
@@ -118,7 +171,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       !this.activeSources[observation.$source] ||
       !this.filter.test(observation)
     ) {
-      return;
+      observation.filterType = ObservationFilterType.Global;
     }
     this.observations.push(observation);
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
@@ -128,16 +181,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       return;
     }
 
-    const marker = new Marker(ll, this.mapService.style(observation));
-    if (this.mapService.USE_CANVAS_LAYER) {
-      // @ts-ignore
-      marker.observation = observation;
-    } else {
-      marker.on("click", () => this.onObservationClick(observation));
-    }
-    marker.bindTooltip(observation.locationName);
-    // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
-    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
+    this.drawMarker(observation, ll);
   }
 
   onObservationClick(observation: GenericObservation): void {

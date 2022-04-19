@@ -32,6 +32,12 @@ export interface GenericObservation<Data = any> {
   reportDate?: Date;
   avalancheProblem?: Enums.AvalancheProblem;
   dangerPattern?: Enums.DangerPattern;
+  filterType?: ObservationFilterType;
+}
+
+export enum ObservationFilterType {
+  Global = "Global",
+  Local = "Local"
 }
 
 export type Stability = "good" | "medium" | "weak" | "unknown";
