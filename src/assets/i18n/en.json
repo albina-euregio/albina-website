@@ -33,7 +33,8 @@
     "fullscreen" : "Fullscreen",
     "settings" : "Settings",
     "admin" : "Admin",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Education"
   },
   "chat" : {
     "placeholder" : "Write here ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Education"
   },
   "bulletins" : {
     "title" : "Avalanche.report",
@@ -234,42 +238,69 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Published by: ",
         "publishedAt" : "Published at: ",
         "validFor" : "Valid for: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "CAAML file created",
-            "failed" : "CAAML file could not be created"
-          },
-          "map" : {
-            "success" : "Maps created",
-            "failed" : "Maps could not be created"
-          },
-          "pdf" : {
-            "success" : "PDF created",
-            "failed" : "PDF could not be created"
-          },
-          "staticWidget" : {
-            "success" : "Static widget created",
-            "failed" : "Static widget could not be created"
-          },
-          "html" : {
-            "success" : "HTML created",
-            "failed" : "HTML could not be created"
-          },
-          "email" : {
-            "success" : "Emails sent",
-            "failed" : "Emails could not be sent"
-          },
-          "telegramChannel" : {
-            "success" : "Avalanche forecast sent via Telegram channel",
-            "failed" : "Avalanche forecast could not be sent via Telegram channel"
-          },
-          "pushNotifications" : {
-            "success" : "Avalanche forecast sent via push notifications",
-            "failed" : "Avalanche forecast could not be sent via push notifications"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Create CAAML Files",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
+        },
+        "map" : {
+          "label" : "Maps",
+          "tooltip" : "Create Maps",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Static Widgets",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Send Emails",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram Messages",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
       },
@@ -467,6 +498,35 @@
       "label" : {
         "dateRange" : "Period",
         "observer" : "Observer"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Language",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Send Emails",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Send via Telegram Channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
       }
     }
   },
@@ -693,6 +753,7 @@
     "avalancheSize": "Avalanche size",
     "avalancheType": "Avalanche type",
     "avalancheWidth": "Avalanche width",
+    "count": "# observations:",
     "button": {
       "add": "Add observation",
       "save": "Save observation",
@@ -708,11 +769,14 @@
     "eventType": "Event type",
     "eventTypes": {
       "IMPORTANT": "Important event",
+      "NEIGHBOR_REGION": "Neighbour region",
       "NORMAL": "Normal event",
       "PERSON_DEAD": "Event involving persons (dead)",
       "PERSON_INJURED": "Event involving persons (injured)",
       "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "PERSON_UNINJURED": "Event involving persons (uninjured)",
+      "PERSON_UNKNOWN": "Event (unknown)",
+      "TRAFFIC": "Traffic"
     },
     "fractureDepth": "Fracture depth",
     "hasCoordinates": "Has coordinates",
@@ -722,7 +786,25 @@
     "longitude": "Longitude",
     "reportDate": "Report date",
     "showMap": "Map",
-    "showTable": "Table"
+    "showTable": "Table",
+    "withoutCoordinates": "Observations without coordinates:",
+    "sidebar": {
+      "filter": {
+        "title": "Filter"
+      },
+      "legend": {
+        "title": "Legend"
+      },
+      "sources": {
+        "title": "Data Sources"
+      },
+      "views": {
+        "title": "Views"
+      },
+      "settings": {
+        "title": "Settings"
+      }
+    }
   },
   "units" : {
     "cm" : "cm",

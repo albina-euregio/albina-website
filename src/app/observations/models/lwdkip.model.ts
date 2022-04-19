@@ -1,4 +1,4 @@
-import { GenericObservation, ObservationSource, toAspect } from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, Stability, toAspect } from "./generic-observation.model";
 
 export type ArcGisApi =
   | { layers: ArcGisLayer[] }
@@ -131,6 +131,9 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
         .map((label) => (typeof feature.properties[label] === "string" ? { label, value: feature.properties[label] } : undefined))
         .filter((row) => row !== undefined),
     $source: ObservationSource.LwdKipBeobachtung,
+    $type: ObservationType.Observation,
+    stability: getLwdKipBeobachtungStability(feature),
+    $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
     aspect: undefined,
     authorName: feature.properties.BEZEICHNUNG,
     content: [feature.properties.BESCHREIBUNG, feature.properties.NOTIZEN].filter((s) => !!s).join(" – "),
@@ -173,6 +176,9 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
     $source: ObservationSource.LwdKipSprengerfolg,
+    $type: ObservationType.Blasting,
+    stability: getLwdKipSprengerfolgStability(feature),
+    $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -221,6 +227,9 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
     $source: ObservationSource.LwdKipLawinenabgang,
+    $type: ObservationType.Avalanche,
+    stability: getLwdKipLawinenabgangStability(feature),
+    $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -260,6 +269,9 @@ export function convertLwdKipSperren(
   return {
     $data: feature.properties,
     $source: ObservationSource.LwdKipSperre,
+    $type: ObservationType.Observation,
+    stability: getLwdKipSperreStability(feature),
+    $markerRadius: getLwdKipSperreMarkerRadius(feature),
     aspect: undefined,
     authorName: undefined,
     content: [feature.properties.SPERRETYP, feature.properties.SPERREBEREICH]
@@ -272,4 +284,53 @@ export function convertLwdKipSperren(
     longitude: feature.geometry?.coordinates?.[0]?.[0],
     region: undefined,
   };
+}
+
+function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): Stability {
+  return "unknown";
+}
+
+function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
+  return 15;
+}
+
+function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
+  switch (feature.properties.SPRENGERFOLG || "") {
+    case "kein Erfolg":
+      return "good";
+    case "mäßiger Erfolg":
+      return "medium";
+    case "guter Erfolg":
+      return "weak";
+    case "sehr guter Erfolg":
+      return "weak";
+    default:
+      return "unknown";
+  }
+}
+
+function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): number {
+  switch (feature.properties.SPRENGERFOLG || "") {
+    case 'kein Erfolg': return 5;
+    case 'mäßiger Erfolg': return 10;
+    case 'guter Erfolg': return 15;
+    case 'sehr guter Erfolg': return 15;
+    default: return 5;
+  }
+}
+
+function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): Stability {
+  return "weak";
+}
+
+function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
+  return 15;
+}
+
+function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
+  return "medium";
+}
+
+function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
+  return 10;
 }

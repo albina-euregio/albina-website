@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
+import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -9,7 +9,7 @@ export interface Lawis {
   incidents: GenericObservation<Incident>[];
 }
 
-// https://lawis.at/lawis_api/normalizer/profile/
+// https://lawis.at/lawis_api/public/profile/
 export interface Profile {
   id: number;
   href: string;
@@ -21,49 +21,60 @@ export interface Profile {
   location: Location;
 }
 
-// https://lawis.at/lawis_api/normalizer/profile/13794?lang=de
+// https://lawis.at/lawis_api/public/profile/13794?lang=de&format=json
 export interface ProfileDetails {
   id: number;
-  name: string;
-  profildatum: string;
-  loggedon: string;
-  country_id: string;
-  region_id: string;
-  subregion_id: string;
-  ort: string;
-  seehoehe: number;
-  latitude: number;
-  longitude: number;
-  hangneigung: number;
-  exposition_id: string;
-  windgeschwindigkeit_id: string;
-  windrichtung_id: null;
-  lufttemperatur: number;
-  niederschlag_id: string;
-  intensity_id: null;
-  bewoelkung_id: string;
-  bemerkungen: string;
-  active: number;
-  email: string;
-  obfuscate_email: boolean;
-  revision: number;
   files: Files;
+  date: Date;
+  reported: {
+    date: string;
+    name: string;
+    email: string;
+  };
+  comments: string;
+  location: Location;
+  weather: any;
+  profile: ProfilePart[];
+  temperatures: Temperature[];
+  stability_tests: StabilityTest[];
+}
+
+export interface ProfilePart {
+  id: number;
+  height: {
+    min: number;
+    max: number;
+  };
+  water_content: Aspect;
+  grain: {
+    size: {
+      min: number;
+      max: number;
+    };
+    shape1: Aspect;
+    shape2: Aspect;
+  };
+  hardness: Aspect;
+}
+
+export interface Temperature {
+  id: number;
+  height: number;
+  temperature: number;
+}
+
+export interface StabilityTest {
+  id: number;
+  type: IdText;
+  height: number;
+  step: number;
+  result: Aspect;
 }
 
 export interface Files {
   pdf: string;
   png: string;
   thumbnail: string;
-}
-
-// https://www.lawis.at/lawis_api/normalizer/profile/13794/tests?lang=de
-export interface ProfileTest {
-  id: number;
-  height: string;
-  belastungsst: number;
-  testprocedureend: string;
-  test_id: string;
-  profil_id: number;
 }
 
 // https://lawis.at/lawis_api/public/incident
@@ -78,11 +89,8 @@ export interface Incident {
 }
 
 export interface Danger {
-  rating: Rating;
-}
-
-export interface Rating {
-  level: number | null;
+  rating: IdText;
+  problem: IdText;
 }
 
 export interface Location {
@@ -108,67 +116,46 @@ export interface Country {
   text: string;
 }
 
-export enum Involved {
-  None = "none",
-  Unknown = "unknown",
-  Yes = "yes"
-}
-
+// https://lawis.at/lawis_api/public/incident/10333?lang=de&format=json
 export interface IncidentDetails {
-  incident_id: number;
-  datum: string;
-  country_id: number;
-  region_id: number;
-  subregion_id: number;
-  ort: string;
-  elevation: number;
-  latitude: number;
-  longitude: number;
-  incline: number;
-  aspect_id: Enums.Aspect;
-  comments: string;
-  extent_x: number;
-  extent_y: number;
-  breakheight: number;
-  involved_id: number;
-  dead: number;
-  injured: number;
-  uninjured: number;
-  sweeped: number;
-  buried_total: number;
-  buried_partial: number;
-  type_id: AvalancheType;
-  size_id: AvalancheSize;
-  danger_id: Enums.DangerRating;
-  reporting_date: string;
-  name: string;
-  active: number;
-  email: string;
-  obfuscate_email: boolean;
+  id: number;
+  not_buried: number;
   valid_time: boolean;
-  av_humidity: string;
-  av_humidity_extra: number;
-  asc_desc: string;
-  asc_desc_extra: number;
-  equipment: string;
-  equipment_extra: number;
-  lvs: string;
-  lvs_extra: number;
-  airbag: string;
-  airbag_extra: number;
-  av_problem: string;
-  av_problem_extra: number;
-  av_release: string;
-  av_release_extra: number;
-  revision: number;
-  images: Image[];
+  images: string[];
+  date: string;
+  reported: {
+    date: string;
+    name: string;
+    email: string;
+  };
+  involved: Involved;
+  danger: Danger;
+  avalanche: Avalanche;
+  comments: string;
+  location: Location;
 }
 
-export interface Image {
-  url: string;
-  size: number;
-  caption: null;
-  comment: string;
+export interface Involved {
+  dead: any;
+  injured: any;
+  uninjured: any;
+  sweeped: any;
+  buried_partial: any;
+  buried_total: any;
+  equipment: any;
+  ascent_descent: any;
+}
+
+export interface Avalanche {
+  extent: {
+    length: number;
+    width: number;
+  };
+  breakheight: number;
+  type: IdText;
+  size: IdText;
+  release: IdText;
+  humidity: IdText;
 }
 
 export enum AvalancheType {
@@ -187,23 +174,141 @@ export enum AvalancheSize {
   extreme = 5
 }
 
+export interface IdText {
+  id: number;
+  text: string;
+}
+
+export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObservation<Profile> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisSnowProfiles,
+    $type: ObservationType.Profile,
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS snow profile)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
+  return {
+    ...profile,
+    stability: getLawisProfileStability(lawisDetails),
+    $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
+    authorName: lawisDetails.reported?.name,
+    content: lawisDetails.comments
+  };
+}
+
+export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObservation<Incident> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisIncidents,
+    $type: ObservationType.Incident,
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS incident)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisIncidentDetails(
+  incident: GenericObservation<Incident>,
+  lawisDetails: IncidentDetails
+): GenericObservation<Incident> {
+  return {
+    ...incident,
+    $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
+    stability: getLawisIncidentStability(lawisDetails),
+    $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
+    authorName: lawisDetails.reported?.name,
+    content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
+    reportDate: parseLawisDate(lawisDetails.reported?.date)
+  };
+}
+
 export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
-  const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger_id]];
-  const avalancheType = AvalancheType[AvalancheType[incident.type_id]];
-  const avalancheSize = AvalancheSize[AvalancheSize[incident.size_id]];
+  const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
+  const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
+  const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];
   return [
     { label: t("observations.dangerRating"), value: t("dangerRating." + dangerRating) },
-    { label: t("observations.avalancheProblem"), value: incident.av_problem },
-    { label: t("observations.incline"), number: incident.incline },
+    { label: t("observations.avalancheProblem"), value: incident.danger?.problem?.id },
+    { label: t("observations.incline"), number: incident.location?.slope_angle },
     { label: t("observations.avalancheType"), value: avalancheType },
     { label: t("observations.avalancheSize"), value: avalancheSize },
-    { label: t("observations.avalancheLength"), number: incident.extent_x },
-    { label: t("observations.avalancheWidth"), number: incident.extent_y },
-    { label: t("observations.fractureDepth"), number: incident.breakheight },
-    { label: "URL", value: "https://lawis.at/incident/#" + incident.incident_id }
+    { label: t("observations.avalancheLength"), number: incident.avalanche?.extent?.length },
+    { label: t("observations.avalancheWidth"), number: incident.avalanche?.extent?.width },
+    { label: t("observations.fractureDepth"), number: incident.avalanche?.breakheight }
   ];
 }
 
 export function parseLawisDate(datum: string): Date {
   return new Date(datum.replace(/ /, "T"));
+}
+
+function getLawisProfileStability(profile: ProfileDetails): Stability {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
+  const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
+  if (colors.includes("weak")) {
+    return "weak";
+  } else if (colors.includes("medium")) {
+    return "medium";
+  } else if (colors.includes("good")) {
+    return "good";
+  }
+  return "unknown";
+}
+
+export function getECTestStability(step: number, propagation: string): Stability {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const propagation1 = /\bP\b/.test(propagation);
+  const propagation0 = /\bN\b/.test(propagation);
+  if (step <= 13 && propagation1) {
+    // sehr schwach
+    return "weak";
+  } else if (step <= 22 && propagation1) {
+    // schwach
+    return "weak";
+  } else if (step <= 30 && propagation1) {
+    // mittel
+    return "medium";
+  } else if (step <= 10 && propagation0) {
+    // mittel
+    return "medium";
+  } else if (step <= 30 && propagation0) {
+    return "good";
+  } else if (step === 31) {
+    return "good";
+  }
+  return "unknown";
+}
+
+function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
+  return 15;
+}
+
+function getLawisIncidentStability(incident: IncidentDetails): Stability {
+  return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
+    ? "weak"
+    : "medium";
+}
+
+function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
+  const size_id = incident.avalanche?.size?.id;
+  return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
 }

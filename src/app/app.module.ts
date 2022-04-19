@@ -14,6 +14,7 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from "./shared/sidebar.directive";
 import { AsideToggleDirective } from "./shared/aside.directive";
 import { PasswordMismatchValidatorDirective } from "./shared/password-mismatch.directive";
 import { BreadcrumbsComponent } from "./shared/breadcrumb.component";
+import { LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 import { CatalogOfPhrasesComponent } from "./catalog-of-phrases/catalog-of-phrases.component";
 
@@ -33,15 +34,17 @@ import { RegionsService } from "./providers/regions-service/regions.service";
 import { ConstantsService } from "./providers/constants-service/constants.service";
 import { SettingsService } from "./providers/settings-service/settings.service";
 import { MapService } from "./providers/map-service/map.service";
+import { ObservationsMapService } from "./providers/map-service/observations-map.service";
+import { ZamgModelsMapService } from "./providers/map-service/zamg-models-map.service";
 import { WsBulletinService } from "./providers/ws-bulletin-service/ws-bulletin.service";
 import { WsUpdateService } from "./providers/ws-update-service/ws-update.service";
 import { WsRegionService } from "./providers/ws-region-service/ws-region.service";
-import { WsChatService } from "./providers/ws-chat-service/ws-chat.service";
 import { ChatService } from "./providers/chat-service/chat.service";
 import { LocalStorageService } from "./providers/local-storage-service/local-storage.service";
 import { ConfigurationService } from "./providers/configuration-service/configuration.service";
 import { SocialmediaService } from "./providers/socialmedia-service/socialmedia.service";
 import { CopyService } from "./providers/copy-service/copy.service";
+import { BlogService } from "./providers/blog-service/blog.service";
 import { ConfirmationService } from "primeng/api";
 
 // Pipes
@@ -135,6 +138,7 @@ registerLocaleData(localeOc, "oc");
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    LeafletModule,
     PipeModule.forRoot(),
     ModalModule.forRoot(),
     TranslateModule.forRoot({
@@ -181,7 +185,8 @@ registerLocaleData(localeOc, "oc");
     StatisticsService,
     RegionsService,
     MapService,
-    WsChatService,
+    ObservationsMapService,
+    ZamgModelsMapService,
     WsRegionService,
     WsUpdateService,
     WsBulletinService,
@@ -190,7 +195,8 @@ registerLocaleData(localeOc, "oc");
     ConfigurationService,
     ConfirmationService,
     SocialmediaService,
-    CopyService
+    CopyService,
+    BlogService
   ],
   bootstrap: [AppComponent],
   exports: [

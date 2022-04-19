@@ -319,7 +319,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       ) &&
       !this.copying &&
       (
-        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) ||
         this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)
       )
     ) {

@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAlbinaObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
@@ -16,13 +16,26 @@ export class ObservationTableComponent {
   observation: Observation;
   saving = false;
   messages: Message[] = [];
+  showObservationsWithoutCoordinates: boolean = false;
+  ObservationTypeIcons = ObservationTypeIcons;
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
+
+  get shownObservations(): GenericObservation[] {
+    const observations = (this.observations || []).filter(
+      (o) => o.$source !== ObservationSource.AvalancheWarningService
+    );
+    return this.showObservationsWithoutCoordinates ? observations.filter(this.hasNoCoordinates) : observations;
+  }
 
   newObservation() {
     this.observation = {
       eventType: EventType.Normal
     } as Observation;
+  }
+
+  hasNoCoordinates(element, index, array) {
+    return (!element.latitude || !element.longitude);
   }
 
   onClick(observation: GenericObservation) {
@@ -35,11 +48,17 @@ export class ObservationTableComponent {
 
   async editObservation(observation: Observation) {
     this.observation = (await this.observationsService.getObservation(observation.id).toPromise()).$data;
+    if (typeof this.observation?.eventDate === "object") {
+      this.observation.eventDate = this.observation.eventDate.toISOString();
+    }
     if (typeof this.observation?.eventDate === "string") {
-      this.observation.eventDate = new Date(this.observation.eventDate);
+      this.observation.eventDate = this.observation.eventDate.slice(0, "2006-01-02T15:04".length);
+    }
+    if (typeof this.observation?.reportDate === "object") {
+      this.observation.reportDate = this.observation.reportDate.toISOString();
     }
     if (typeof this.observation?.reportDate === "string") {
-      this.observation.reportDate = new Date(this.observation.reportDate);
+      this.observation.reportDate = this.observation.reportDate.slice(0, "2006-01-02T15:04".length);
     }
   }
 
@@ -127,5 +146,13 @@ export class ObservationTableComponent {
       case EventType.NeighborRegion:
         return { background: "linear-gradient(90deg, darkviolet 0%, white 50%)" };
     }
+  }
+
+  getTableIconStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
+    return {
+      color: toMarkerColor(observation),
+      width: `${observation.$markerRadius || 10}px`,
+      height: `${observation.$markerRadius || 10}px`
+    };
   }
 }

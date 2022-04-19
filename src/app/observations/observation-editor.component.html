@@ -12,7 +12,7 @@
   </div>
   <div class="p-field p-col-12 p-md-6">
     <label for="eventDate"><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</label>
-    <p-calendar inputId="eventDate" required [(ngModel)]="observation.eventDate" [showTime]="true" dateFormat="dd.mm.yy"></p-calendar>
+    <input id="eventDate" [(ngModel)]="observation.eventDate" type="datetime-local" pInputText />
   </div>
   <div class="p-field p-col-12">
     <label for="locationName"><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</label>
@@ -45,10 +45,10 @@
   </div>
   <div class="p-field p-col-12 p-md-6">
     <label for="reportDate"><i class="fa fa-pencil"></i> {{ "observations.reportDate" | translate }}</label>
-    <p-calendar inputId="eventDate" [(ngModel)]="observation.reportDate" [showTime]="true" dateFormat="dd.mm.yy"></p-calendar>
+    <input id="reportDate" [(ngModel)]="observation.reportDate" type="datetime-local" pInputText />
   </div>
   <div class="p-field p-col-12">
     <label for="content"><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</label>
-    <textarea id="content" required [(ngModel)]="observation.content" type="text" rows="8" pInputTextarea></textarea>
+    <textarea id="content" required [(ngModel)]="observation.content" (paste)="parseContent($event)" type="text" rows="8" pInputTextarea></textarea>
   </div>
 </div>

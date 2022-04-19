@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Map } from "leaflet";
+import { Map, TileLayer, GeoJSON, Browser } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
 import { RegionsService, RegionWithElevationProperties } from "../regions-service/regions.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
-import { ObservationSource, ObservationSourceColors } from "app/observations/models/generic-observation.model";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";
@@ -25,72 +24,39 @@ interface SelectableRegionProperties extends RegionWithElevationProperties {
 export class MapService {
   public map: Map;
   public afternoonMap: Map;
-  public observationsMap: Map;
-  public zamgModelsMap: Map;
-  public baseMaps: Record<string, L.TileLayer>;
-  public afternoonBaseMaps: Record<string, L.TileLayer>;
-  public observationsMaps: Record<string, L.TileLayer>;
-  public zamgModelsMaps: Record<string, L.TileLayer>;
+  public baseMaps: Record<string, TileLayer>;
+  public afternoonBaseMaps: Record<string, TileLayer>;
   public overlayMaps: {
-    regions: L.GeoJSON<SelectableRegionProperties>;
-    activeSelection: L.GeoJSON<SelectableRegionProperties>;
-    editSelection: L.GeoJSON<SelectableRegionProperties>;
-    aggregatedRegions: L.GeoJSON<SelectableRegionProperties>;
+    regions: GeoJSON<SelectableRegionProperties>;
+    activeSelection: GeoJSON<SelectableRegionProperties>;
+    editSelection: GeoJSON<SelectableRegionProperties>;
+    aggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
   public afternoonOverlayMaps: {
-    regions: L.GeoJSON<SelectableRegionProperties>;
-    activeSelection: L.GeoJSON<SelectableRegionProperties>;
-    editSelection: L.GeoJSON<SelectableRegionProperties>;
-    aggregatedRegions: L.GeoJSON<SelectableRegionProperties>;
+    regions: GeoJSON<SelectableRegionProperties>;
+    activeSelection: GeoJSON<SelectableRegionProperties>;
+    editSelection: GeoJSON<SelectableRegionProperties>;
+    aggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
-  public layers = {
-    zamgModelPoints: L.layerGroup()
-  };
-  public observationLayers: Record<ObservationSource, L.LayerGroup>;
 
   constructor(
     private regionsService: RegionsService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {
     this.initMaps();
-    this.observationLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = L.layerGroup([], {
-      attribution: `<span style="color: ${ObservationSourceColors[source]}">⬤</span> ${source}`
-    }))
   }
 
   initMaps() {
     if (this.authenticationService.isEuregio()) {
       this.baseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
-          tms: false,
-          attribution: ""
-        })
-      };
-
-      this.observationsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          className: "leaflet-layer-grayscale",
-          minZoom: 12.5,
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-        }),
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
-          maxZoom: 12,
-          tms: false,
-          attribution: ""
-        })
-      };
-
-      this.zamgModelsMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
@@ -98,102 +64,88 @@ export class MapService {
 
       this.overlayMaps = {
         // overlay to show regions
-        regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
         }),
 
         // overlay to show selected regions
-        activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
       };
 
       this.afternoonOverlayMaps = {
         // overlay to show regions
-        regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachAggregatedRegionsFeaturePM
         }),
 
         // overlay to show selected regions
-        activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
       };
     } else if (this.authenticationService.getActiveRegion() === this.constantsService.codeAran) {
       this.baseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
+        AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
           tms: false,
           attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
         })
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
+        AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
           tms: false,
           attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
         })
       };
 
-      this.observationsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-        })
-      };
-
-      this.zamgModelsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-        })
-      };
-
      this.overlayMaps = {
         // overlay to show regions
-        regions: L.geoJSON(this.regionsService.getRegionsAran(), {
+        regions: new GeoJSON(this.regionsService.getRegionsAran(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
         }),
 
         // overlay to show selected regions
-        activeSelection: L.geoJSON(this.regionsService.getRegionsAranWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsAranWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
       };
 
       this.afternoonOverlayMaps = {
         // overlay to show regions
-        regions: L.geoJSON(this.regionsService.getRegionsAran(), {
+        regions: new GeoJSON(this.regionsService.getRegionsAran(), {
           onEachFeature: this.onEachAggregatedRegionsFeaturePM
         }),
 
         // overlay to show selected regions
-        activeSelection: L.geoJSON(this.regionsService.getRegionsAranWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsAranWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
       };
     }
     this.resetAll();
@@ -207,28 +159,6 @@ export class MapService {
       }
     }
     return null;
-  }
-
-  createZamgModelPointOptions(): L.CircleMarkerOptions {
-    return {
-      radius: 8,
-      fillColor: "#19abff",
-      color: "black",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
-  }
-
-  createObservationMarkerOptions(color: string): L.CircleMarkerOptions {
-    return {
-      radius: 6,
-      fillColor: color,
-      color,
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.6
-    };
   }
 
   resetAggregatedRegions() {
@@ -662,13 +592,12 @@ export class MapService {
         feature.properties.selected = true;
       },
       mouseover: function(e) {
-        // TODO get current language
         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
           weight: 3
         });
-        if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+        if (!Browser.ie && !Browser.opera12 && !Browser.edge) {
           l.bringToFront();
         }
       },
@@ -678,7 +607,7 @@ export class MapService {
         l.setStyle({
           weight: 1
         });
-        if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+        if (!Browser.ie && Browser.opera12 && !Browser.edge) {
           l.bringToFront();
         }
       }

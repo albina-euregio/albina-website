@@ -33,7 +33,8 @@
     "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
     "admin" : "Admin",
-    "region" : "Regione"
+    "region" : "Regione",
+    "education" : "Educazione"
   },
   "chat" : {
     "placeholder" : "Scrivi ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirolo ",
     "IT-32-BZ" : "Alto Adige ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Educazione"
   },
   "bulletins" : {
     "title" : "Valanghe.report",
@@ -61,7 +65,8 @@
       "preview" : "Anteprima del bollettino (PDF)",
       "check" : "Controllare bollettino valanghe",
       "info" : "Mostra lo stato della pubblicazione",
-      "publishAll" : "Pubblicare tutte le regioni"
+      "publishAll" : "Pubblicare tutte le regioni",
+      "mediaFile" : "Upload media file"
     },
     "create" : {
       "tooltip" : {
@@ -234,40 +239,79 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Lo stato della pubblicazione",
         "publishedBy" : "Pubblicato da: ",
         "publishedAt" : "Pubblicato su: ",
         "validFor" : "Valido per: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "È stato creato il file CAAML",
-            "failed" : "Non è stato possibile creare il file CAAML"
-          },
-          "map" : {
-            "success" : "Mappa è stata creata",
-            "failed" : "Non è stato possible creare la mappa"
-          },
-          "pdf" : {
-            "success" : "È stato creato il file PDF",
-            "failed" : "Non è stato possibile creare il file PDF"
-          },
-          "staticWidget" : {
-            "success" : "È stato creato il widget statico",
-            "failed" : "Non è stato possibile creare il widget statico"
-          },
-          "html" : {
-            "success" : "È stato creato il file HTML",
-            "failed" : "Non è stato possibile creare il file HTML"
-          },
-          "email" : {
-            "success" : "Emails inviate",
-            "failed" : "Non è stato possibile inviare e-mail"
-          },
-          "telegramChannel" : {
-            "success" : "Previsione valanghe inviata via calane Telegram",
-            "failed" : "Non è stato possibile inviare la previsione delle valanghe via canale Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
         },
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Creare CAAML",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
+        },
+        "map" : {
+          "label" : "Mappe",
+          "tooltip" : "Creare mappe",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Widget statici",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Inviare e-mail",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram channel",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
+        },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Media File",
+        "missingText" : "Text is missing!",
+        "missingFile" : "No file selected!",
+        "uploadError" : "Upload failed!",
+        "accept" : "Salva",
+        "reject" : "Stornare"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Errore pubblicando il bollettino valanghe!",
@@ -463,6 +507,35 @@
       "label" : {
         "dateRange" : "Periodo",
         "observer" : "Osservatore"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Lingua",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Inviare e-mail",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Pubblicazione via Telegram channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
       }
     }
   },
@@ -719,41 +792,6 @@
     "reportDate": "Report date",
     "showMap": "Mappa",
     "showTable": "Table"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
-    "newSnow": "Neve fresca",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
-    "windDirection": "Vento Direzione",
-    "windSpeed": "Vento",
-    "visibilityConditions": "Visibility Conditions"
   },
   "units" : {
     "cm" : "cm",

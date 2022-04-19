@@ -80,7 +80,7 @@
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-secondary" (click)="editBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                             </td>
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && !copyService.isCopyBulletin()">
+                            <td *ngIf="!editRegions && !hasSuggestions(bulletin) && !copyService.isCopyBulletin()">
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-secondary" (click)="copyBulletin()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                             </td>
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && isCreator(bulletin)">
@@ -261,10 +261,6 @@
                       <div style="text-align: right; float: left; margin-right: 10px;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
-                      <div style="text-align: left; float: left;">
-                        <button *ngIf="activeBulletin.forenoon.complexity === 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(false, '')" class="btn btn-sm btn-danger" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
-                        <button *ngIf="activeBulletin.forenoon.complexity !== 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(false, 'complex')" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
-                      </div>
                     </div>
                     <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
@@ -275,10 +271,6 @@
                     <div style="height: 40px;">
                       <div style="text-align: right;; float: left; margin-right: 10px;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
-                      </div>
-                      <div style="text-align: left; float: left;">
-                        <button *ngIf="activeBulletin.forenoon.complexity === 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(false, '')" class="btn btn-sm btn-danger" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
-                        <button *ngIf="activeBulletin.forenoon.complexity !== 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(false, 'complex')" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
                       </div>
                     </div>
                     <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>

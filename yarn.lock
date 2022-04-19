@@ -304,12 +304,19 @@
   resolved "https://registry.yarnpkg.com/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@auth0/angular-jwt@^4.0.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@auth0/angular-jwt/-/angular-jwt-4.2.0.tgz#60f74552fbdd9404aeb55e41fa4d3d514f8465d6"
-  integrity sha512-kxHMztP0scAaKSfWRQ4y3ba5ggcGh2YVapC1UnimyE1I1Vs68gdSlV00bnpAK4aCaNut9IqtdGurgbljHt24Lw==
+"@asymmetrik/ngx-leaflet@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@asymmetrik/ngx-leaflet/-/ngx-leaflet-13.0.2.tgz#30ce965d296cf84984868daf4d24f6ebceebd455"
+  integrity sha512-7JUucZeODTpCrKh1OdhJpzFl6vnawpmramX+ow47AG2R73p5ZNxymTjD6fmevJLL9H6w2PeD2i4Vt6s4V018Kg==
   dependencies:
-    url "^0.11.0"
+    tslib "^2.3.0"
+
+"@auth0/angular-jwt@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@auth0/angular-jwt/-/angular-jwt-5.0.2.tgz#0a23f240e8c6ed37c5c7a354ad79a755a217936e"
+  integrity sha512-rSamC9mu+gUxoR86AXcIo+KD7xRIro+/iu1F2Ld85YAZEVKlpB5vYG+g0yGaEOqjtQWP/i0H6fi6XMGPVHSYYQ==
+  dependencies:
+    tslib "^2.0.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.14.5", "@babel/code-frame@^7.15.8", "@babel/code-frame@^7.16.0":
   version "7.16.0"
@@ -1689,10 +1696,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
   integrity sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==
 
-"@types/leaflet@^1.5.11":
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.5.tgz#7b2bcf1271fb7b8c305e3c468eaad65b6dbac472"
-  integrity sha512-+Myo00Yb5OuvUyrH+vUwn9DRgOaBJsF/etIMdMcNhWGBMo58Mo1cxLInvCd0ZpvItju/AeDYFB/Od2pLiHB3VA==
+"@types/leaflet@^1.7.0":
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.9.tgz#7993d34f14cfa88c45b3d490daba39a3a1be9a2b"
+  integrity sha512-H8vPgD49HKzqM41ArHGZM70g/tfhp8W+JcPxfnF+5H/Xvp+xiP+KQOUNWU8U89fqS1Jj3cpRY/+nbnaHFzwnFA==
   dependencies:
     "@types/geojson" "*"
 
@@ -3009,6 +3016,10 @@ domutils@^2.6.0:
     dom-serializer "^1.0.1"
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
+
+"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz":
+  version "0.0.0"
+  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz#d72c62c09941d6759477429dfb338bcdcaadcbfa"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -4354,12 +4365,24 @@ klona@^2.0.4:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
+leaflet-control-geocoder@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-2.4.0.tgz#f6c00ae00b53d2ac5908e874a9aefd414f615f22"
+  integrity sha512-b2QlxuFd40uIDbnoUI3U9fzfnB4yKUYlmsXjquJ2d2YjoJqnyVYcIJeErAVv3kPvX3nI0gzvBq1XHMgSVFrGkQ==
+  optionalDependencies:
+    open-location-code "^1.0.0"
+
+leaflet-sidebar-v2@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/leaflet-sidebar-v2/-/leaflet-sidebar-v2-3.2.3.tgz#73bb949d7d4f51f22cbda875806b9aa804d31717"
+  integrity sha512-narzdn81Y/8YpgHR3jhs93LhrLq0AGSRo7CXHEICHfMeK6IHSbtFOF9CTSfueaumRK0TgvHkiiYJb9dTKta6ZQ==
+
 leaflet.sync@0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/leaflet.sync/-/leaflet.sync-0.2.4.tgz#76d4095a61470882d72e092190090d0a1fa55ca2"
   integrity sha1-dtQJWmFHCILXLgkhkAkNCh+lXKI=
 
-leaflet@^1.6.0:
+leaflet@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
@@ -4970,6 +4993,11 @@ onetime@^5.1.0, onetime@^5.1.2:
   integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   dependencies:
     mimic-fn "^2.1.0"
+
+open-location-code@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/open-location-code/-/open-location-code-1.0.3.tgz#5ea1a34ee5221c6cafa04392e1bd906fd7488f7e"
+  integrity sha1-XqGjTuUiHGyvoEOS4b2Qb9dIj34=
 
 open@8.4.0, open@^8.0.9:
   version "8.4.0"
@@ -5696,6 +5724,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+quickselect@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/quickselect/-/quickselect-2.0.0.tgz#f19680a486a5eefb581303e023e98faaf25dd018"
+  integrity sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw==
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -5717,6 +5750,13 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+rbush@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rbush/-/rbush-3.0.1.tgz#5fafa8a79b3b9afdfe5008403a720cc1de882ecf"
+  integrity sha512-XRaVO0YecOpEuIvbhbpTrZgoiI6xBlz6hnlr6EHhd+0x9ase6EmeN+hdwwUaJvLcsFFQ8iWVF1GAK1yB0BWi0w==
+  dependencies:
+    quickselect "^2.0.0"
 
 read-cache@^1.0.0:
   version "1.0.0"

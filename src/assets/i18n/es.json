@@ -33,7 +33,8 @@
     "fullscreen" : "Pantalla completa",
     "settings" : "Ajustes",
     "admin" : "Admin",
-    "region" : "Región"
+    "region" : "Región",
+    "education" : "Educación"
   },
   "chat" : {
     "placeholder" : "Escribir aquí...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tyrol ",
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Educación"
   },
   "bulletins" : {
     "title" : "Avalanche.report",
@@ -61,7 +65,8 @@
       "preview" : "Vista previa del boletín (PDF)",
       "check" : "Comprobar boletín",
       "info" : "Muestra estado de la publicación",
-      "publishAll" : "Publicar todas las regiones"
+      "publishAll" : "Publicar todas las regiones",
+      "mediaFile" : "Subir archivo multimedia"
     },
     "create" : {
       "tooltip" : {
@@ -234,40 +239,79 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Estado de publicación",
         "publishedBy" : "Publicado por:",
         "publishedAt" : "Publicado a las:",
         "validFor" : "Válido para:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "Fichero CAAML creado",
-            "failed" : "No se pudo crear el fichero CAAML"
-          },
-          "map" : {
-            "success" : "Mapas creados",
-            "failed" : "No se han podido crear los mapas"
-          },
-          "pdf" : {
-            "success" : "PDF creado",
-            "failed" : "No se pudo crear el PDF"
-          },
-          "staticWidget" : {
-            "success" : "Widget estático creado",
-            "failed" : "No se pudo crear el witget estático"
-          },
-          "html" : {
-            "success" : "HTML creado",
-            "failed" : "No se pudo drear el HTML"
-          },
-          "email" : {
-            "success" : "Correos enviados",
-            "failed" : "No se han podido enviar los correos"
-          },
-          "telegramChannel" : {
-            "success" : "Predicción de aludes enviada a través de canal de Telegram",
-            "failed" : "No se ha podido enviar la predicción de aludes a través de canal de Telegram"
+        "title" : {
+          "prod" : "Cosas serias",
+          "test" : "Solo probando",
+          "task" : "Tarea",
+          "language" : {
+            "all" : "TODOS",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
         },
+
+        "caaml" : {
+          "label" : "Ficheros CAAML",
+          "tooltip" : "Crear ficheros CAAML",
+          "success" : "{{prefix}}¡Archivos CAAML creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear los archivos CAAML!"
+        },
+        "map" : {
+          "label" : "Mapas",
+          "tooltip" : "Crear mapas",
+          "success" : "{{prefix}}¡Mapas creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear los mapas!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Crear PDFs",
+          "success" : "{{prefix}}¡PDFs creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear archivos PDF!"
+        },
+        "staticWidget" : {
+          "label" : "Widgets estáticos",
+          "tooltip" : "Crear widgets estáticos",
+          "success" : "{{prefix}}¡Widgets estáticos creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear widgets estáticos!"
+        },
+        "html" : {
+          "label" : "HTMLs simples",
+          "tooltip" : "Crear archivos HTML simples",
+          "success" : "{{prefix}}¡Archivos HTML simples creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear archivos HTML simples!"
+        },
+        "email" : {
+          "label" : "Correos electrónicos",
+          "tooltip" : "Enviar correos electrónicos",
+          "success" : "{{prefix}}¡Correos electrónicos enviados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar los correos electrónicos!"
+        },
+        "telegram" : {
+          "label" : "Mensajes de Telegram",
+          "tooltip" : "Enviar mensajes de Telegram",
+          "success" : "{{prefix}}¡Mensajes de Telegram enviados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar los mensajes de Telegram!"
+        },
+        "push" : {
+          "label" : "Notificaciones push",
+          "tooltip" : "Enviar notificaciones push",
+          "success" : "{{prefix}}¡Notificaciones push enviadas con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar notificaciones push!"
+        },
         "accept" : "De acuerdo"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Archivo multimedia",
+        "missingText" : "¡Falta el texto!",
+        "missingFile" : "¡Ningún archivo seleccionado!",
+        "uploadError" : "¡Subida fallida!",
+        "accept" : "Guardar",
+        "reject" : "Cancelar"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "¡Se ha producido un error publicando los boletines!",
@@ -463,6 +507,35 @@
       "label" : {
         "dateRange" : "Periodo",
         "observer" : "Observador"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Idioma",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Enviar correos electrónicos, Telegram y Push",
+        "success" : "{{prefix}}¡Correos electrónicos, Telegram y Push enviados con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el correo electrónico, Telegram y Push!"
+      },
+      "email" : {
+        "tooltip" : "Enviar correos electrónicos",
+        "success" : "{{prefix}}Correo electrónico enviado con éxito!",
+        "error" : "{{prefix}}¡El correo electrónico no pudo ser enviado!"
+      },
+      "telegram" : {
+        "tooltip" : "Enviar a través del canal de Telegram",
+        "success" : "{{prefix}}¡Telegram enviado con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el Telegram!"
+      },
+      "push" : {
+        "tooltip" : "Enviar a través de notificaciones push",
+        "success" : "{{prefix}}¡Push enviado con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el push!"
       }
     }
   },
@@ -719,41 +792,6 @@
     "reportDate": "Fecha del informe",
     "showMap": "Mapa",
     "showTable": "Tabla"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Evaluación del riesgo",
-    "snowpackStructure": "Estructura del manto de nieve",
-    "avalanchePotentialValue": "Valor potencial del alud",
-    "avalancheCharacteristicString": "Características del alud",
-    "windDriftedSnow": "Nieve venteada",
-    "persistentWeakLayer": "Capa débil persistente",
-    "wetSnow": "Nieve húmeda",
-    "glidingSnow": "Deslizamiento basal",
-    "newSnow": "Nieve reciente",
-    "snowpackStructureActive": "Estructura de manto de nieve activa",
-    "triggeringProbability": "Probabilidad de desencadenamiento",
-    "avalancheRiskTendency24h": "Tendencia riesgo de alud 24h",
-    "avalancheRiskTendency48h": "Tendencia riesgo de alud 48h",
-    "oldSnowFloatingSnow": "Nieve vieja",
-    "oldSnowSleet": "Nieve vieja",
-    "oldSnowWeakLayers": "Capas débiles de nieve vieja",
-    "wetSnowRain": "Agua-nieve húmeda",
-    "wetSnowTemperatureIncrease": "Incremento de temperatura de la nieve húmeda",
-    "wetSnowHighRadiation": "Radiación alta de la nieve húmeda"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nubolosidad",
-    "freshSnowAmount": "Cantidad nieve reciente",
-    "officialAvalancheReport": "Boletín de aludes oficial",
-    "precipitationIntensity": "Intensidad de precipitación",
-    "precipitationType": "Tipo de precipitación",
-    "temperaturePeak": "Pico de temperatura",
-    "temperatureTreeline": "Temperatura en el límite del bosque",
-    "temperatureValley": "Temperatura en el valle",
-    "weatherTendency": "Tendencia del tiempo",
-    "windDirection": "Dirección del viento",
-    "windSpeed": "Velocidad del viento",
-    "visibilityConditions": "Condiciones de visibilidad"
   },
   "units" : {
     "cm" : "cm",

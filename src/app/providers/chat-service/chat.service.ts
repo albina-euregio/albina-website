@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs/Rx";
+import { Observable } from "rxjs/Rx";
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { HttpClient } from "@angular/common/http";
-import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 
 @Injectable()
 export class ChatService {
-  public messages: Subject<ChatMessageModel>;
+  public messages: WebSocketSubject<object>;
 
   public activeUsers: string[];
   public chatMessages0: ChatMessageModel[];
@@ -24,7 +24,7 @@ export class ChatService {
     public http: HttpClient,
     public constantsService: ConstantsService,
     public authenticationService: AuthenticationService,
-    public wsChatService: WsChatService) {
+    ) {
     this.chatMessages0 = new Array<ChatMessageModel>();
     this.chatMessages1 = new Array<ChatMessageModel>();
     this.chatMessages2 = new Array<ChatMessageModel>();
@@ -37,26 +37,21 @@ export class ChatService {
   }
 
 
-  public connect() {
-    this.messages = <Subject<ChatMessageModel>>this.wsChatService
-      .connect(this.constantsService.getWsChatUrl() + this.authenticationService.getUsername())
-      .map((response: any): ChatMessageModel => {
-        const data = JSON.parse(response.data);
-        const message = ChatMessageModel.createFromJson(data);
-        this.addChatMessage(message, true);
-        console.log("Chat message received: " + message.getText());
-        return message;
-      });
-
+  public connect(): void {
+    const url = this.constantsService.getWsChatUrl() + this.authenticationService.getUsername();
+    this.messages = webSocket(url);
     this.messages.subscribe(
-      () => {
-        console.log("Message sent!");
+      (data) => {
+        const message = ChatMessageModel.createFromJson(data);
+        console.log("Chat message received: " + message.getText());
+        this.addChatMessage(message, true);
       },
-      error => {
-        console.error("Message could not be sent!");
-        console.error(error);
+      (error) => {
+        console.error("Message could not be sent!", error);
       }
     );
+
+    console.debug("Successfully connected: " + url);
 
     if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() !== undefined) {
       this.getMessages().subscribe(
@@ -94,11 +89,11 @@ export class ChatService {
     }
   }
 
-  public disconnect() {
-    // TODO implement
+  public disconnect(): void {
+    this.messages.unsubscribe();
   }
 
-  sendMessage(text: string, region?: string) {
+  sendMessage(text: string, region?: string): void {
     const message = new ChatMessageModel();
     message.setUsername(this.authenticationService.getUsername());
     message.setTime(new Date());
@@ -110,7 +105,7 @@ export class ChatService {
     console.log("Chat message sent: " + message.getText());
   }
 
-  private addChatMessage(message, update) {
+  private addChatMessage(message: ChatMessageModel, update: boolean): void {
     switch (message.chatId) {
       case 0:
         this.chatMessages0.push(message);
@@ -200,16 +195,16 @@ export class ChatService {
     }
   */
 
-  getNumberOfActiveUsers() {
+  getNumberOfActiveUsers(): number {
     return this.activeUsers.length;
   }
 
-  getActiveUsers() {
+  getActiveUsers(): string[] {
     return this.activeUsers;
   }
 
   // region
-  getNewMessageCountSum(region: string) {
+  getNewMessageCountSum(region: string): number {
     switch (region) {
       case this.constantsService.codeTyrol:
         return this.newMessageCount0 + this.newMessageCount1 + this.newMessageCount2;
@@ -223,7 +218,7 @@ export class ChatService {
     }
   }
 
-  getNewMessageCount(region?: string) {
+  getNewMessageCount(region?: string): number {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         return this.newMessageCount0;
@@ -239,7 +234,7 @@ export class ChatService {
     }
   }
 
-  resetNewMessageCount(region?: string) {
+  resetNewMessageCount(region?: string): void {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         this.newMessageCount0 = 0;
@@ -259,7 +254,7 @@ export class ChatService {
     }
   }
 
-  getChatMessages(region?: string) {
+  getChatMessages(region?: string): ChatMessageModel[] {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         return this.chatMessages0;

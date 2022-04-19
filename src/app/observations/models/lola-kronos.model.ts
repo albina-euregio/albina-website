@@ -1,7 +1,9 @@
 import {
   Aspect,
   GenericObservation,
+  imageCountString,
   ObservationSource,
+  ObservationType,
 } from "./generic-observation.model";
 
 export interface LolaKronosApi {
@@ -305,7 +307,8 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsAvalancheEvent
           : undefined,
-        "https://www.lola-kronos.info/avalancheEvent/"
+          ObservationType.Avalanche,
+          "https://www.lola-kronos.info/avalancheEvent/"
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
@@ -318,13 +321,15 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsEvaluation
           : undefined,
-        "https://www.lola-kronos.info/evaluation/"
+          ObservationType.Observation,
+          "https://www.lola-kronos.info/evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
         ObservationSource.AvaObsSimpleObservation, // FIXME
+        ObservationType.Observation,
         "https://www.lola-kronos.info/simpleObservation/"
       )
     ),
@@ -338,6 +343,7 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsSnowProfile
           : undefined,
+        ObservationType.Profile,
         "https://www.lola-kronos.info/snowProfile/"
       )
     ),
@@ -351,28 +357,33 @@ export function convertLoLaToGeneric(
     | LolaSnowProfile
     | LolaEvaluation,
   $source: ObservationSource,
+  $type: ObservationType,
   urlPrefix: string
 ): GenericObservation {
   return {
     $data: obs,
     $externalURL: urlPrefix + obs.uuId,
     $source,
+    $type,
+    // TODO implement,
+    stability: undefined,
+    $markerRadius: undefined,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,
-    content: obs.comment + (obs?.images?.length ? ` 📷 ${obs.images.length}` : ""),
+    content: obs.comment + imageCountString(obs.images),
     elevation: (obs as LolaSnowProfile).altitude,
     eventDate: new Date(obs.time),
     latitude: (
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
-    ).lat,
+    )?.lat,
     locationName:
       (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ??
       (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
     longitude: (
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
-    ).lng,
+    )?.lng,
     region: obs.regionName,
   };
 }

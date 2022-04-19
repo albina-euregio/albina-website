@@ -33,7 +33,8 @@
     "fullscreen" : "Pantalha complèta",
     "settings" : "Configuracion",
     "admin" : "Administrador",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Educacion"
   },
   "chat" : {
     "placeholder" : "Escriu ací ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tiròl",
     "IT-32-BZ" : "Sud-Tiròl",
     "IT-32-TN" : "Trentin"
+  },
+  "education" : {
+    "title" : "Educacion"
   },
   "bulletins" : {
     "title" : "Avalanche.report",
@@ -61,7 +65,8 @@
       "preview" : "Vista previa deth bulletin (PDF)",
       "check" : "Verificar bulletin",
       "info" : "Mostrar er estat de publicacion",
-      "publishAll" : "Publicar totes es regions"
+      "publishAll" : "Publicar totes es regions",
+      "mediaFile" : "Cargar un fichèr multimèdia"
     },
     "create" : {
       "tooltip" : {
@@ -234,40 +239,79 @@
         "reject" : "Non"
       },
       "publicationStatusDialog" : {
+        "headline" : "Estat dera publicacion",
         "publishedBy" : "Publicat per:",
         "publishedAt" : "Publicat a les:",
         "validFor" : "Valid per:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "S'a creat eth fichèr CAAML",
-            "failed" : "Eth fichèr CAAML non s'a pogut crear"
-          },
-          "map" : {
-            "success" : "Mapes creadi",
-            "failed" : "Non s'an pogut crear es mapes"
-          },
-          "pdf" : {
-            "success" : "PDF creat",
-            "failed" : "Non s'a pogut crear eth PDF"
-          },
-          "staticWidget" : {
-            "success" : "S'a creat un widget estàtic",
-            "failed" : "Non s'a pogut crear un widget estàtic"
-          },
-          "html" : {
-            "success" : "HTML creat",
-            "failed" : "Non s'a pogut crear eth HTML"
-          },
-          "email" : {
-            "success" : "Corrèus electronics enviadi",
-            "failed" : "Non s'an pogut enviar es corrèus electronics"
-          },
-          "telegramChannel" : {
-            "success" : "Prediccion de lauegi enviada a traués deth canau de Telegram",
-            "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués deth canau de Telegram"
+        "title" : {
+          "prod" : "Causes serioses",
+          "test" : "Solament en tot provar",
+          "task" : "Prètzhèt",
+          "language" : {
+            "all" : "TOTI",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
         },
+
+        "caaml" : {
+          "label" : "Fichèrs CAAML",
+          "tooltip" : "Crear fichèrs CAAML",
+          "success" : "{{prefix}}Es fichèrs CAAML s'an creat corrèctaments!",
+          "error" : "{{prefix}}Es fichèrs CAAML non s'an pogut crear!"
+        },
+        "map" : {
+          "label" : "Mapes",
+          "tooltip" : "Crear Mapes",
+          "success" : "{{prefix}}Mapes creadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut crear es mapes!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Crear PDFs",
+          "success" : "{{prefix}}Els PDF s'han creat correctament!",
+          "error" : "{{prefix}}No s'han pogut crear els PDF!"
+        },
+        "staticWidget" : {
+          "label" : "Widgets estàtics",
+          "tooltip" : "Crear widgets estàtics",
+          "success" : "{{prefix}}Es widgets estàtics s'an creat corrèctaments!",
+          "error" : "{{prefix}}Es widgets estàtics non s'an pogut crear!"
+        },
+        "html" : {
+          "label" : "HTMLs simples",
+          "tooltip" : "Creatz fichèrs HTML simples",
+          "success" : "{{prefix}}S'an creat fichèrs HTML simples corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut crear fichèrs HTML simples!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Enviar Emails",
+          "success" : "{{prefix}}Corrèus electronics enviadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics!"
+        },
+        "telegram" : {
+          "label" : "Messatges de Telegram",
+          "tooltip" : "Enviar messatges de Telegram",
+          "success" : "{{prefix}}Messatges de Telegram enviadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut enviar es messatges de Telegram!"
+        },
+        "push" : {
+          "label" : "Notificacions Push",
+          "tooltip" : "Enviar notificacions Push",
+          "success" : "{{prefix}}Notificacions push enviades correctament!",
+          "error" : "{{prefix}}Non s'an pogut enviar es notificacions push!"
+        },
         "accept" : "d'acòrd"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Fichèr multimèdia",
+        "missingText" : "Manque eth tèxte!",
+        "missingFile" : "Non s'a pas seleccionat cap fichèr!",
+        "uploadError" : "Era carga a mancat!",
+        "accept" : "Sauvar",
+        "reject" : "Anullar"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "S'a produsit un error en publicar bulletins!",
@@ -383,7 +427,7 @@
     "users" : {
       "title" : "Usuaris",
       "button" : {
-        "create" : "Crear usuari"
+        "create" : " Crear usatgèr"
       },
       "tooltip" : {
         "edit" : "Editar usuari",
@@ -463,6 +507,35 @@
       "label" : {
         "dateRange" : "Periòde",
         "observer" : "Observador"
+      }
+    },
+    "blog" : {
+      "title" : "Blòg",
+      "language" : {
+        "title" : "Lengua",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Enviar corrèus electronics, Telegram e Push",
+        "success" : "{{prefix}}Corrèus electronics, Telegram e Push enviadi corrèctaments!",
+        "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics, Telegram e Push!"
+      },
+      "email" : {
+        "tooltip" : "Enviar corrèus electronics",
+        "success" : "{{prefix}}Corrèus electronics enviadi corrèctaments!",
+        "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics!"
+      },
+      "telegram" : {
+        "tooltip" : "Enviat per canau de Telegram",
+        "success" : "{{prefix}}Telegram enviat corrèctaments!",
+        "error" : "{{prefix}}Non s'a pogut enviar eth Telegram!"
+      },
+      "push" : {
+        "tooltip" : "Enviar per Notificacions Push",
+        "success" : "{{prefix}}Push enviat corrèctaments!",
+        "error" : "{{prefix}}Non s'a pogut enviar eth Push!"
       }
     }
   },
@@ -719,41 +792,6 @@
     "reportDate": "Data der infòrme",
     "showMap": "Mapa",
     "showTable": "Taula"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Avaloracion deth risc",
-    "snowpackStructure": "Estructura deth celh de nhèu",
-    "avalanchePotentialValue": "Valor potenciau de lauet",
-    "avalancheCharacteristicString": "Característiques des lauegi",
-    "windDriftedSnow": "Nhèu ventada",
-    "persistentWeakLayer": "Coches fèbles persistentes",
-    "wetSnow": "Nhèu umida",
-    "glidingSnow": "Esguitlament basau",
-    "newSnow": "Nhèu recenta",
-    "snowpackStructureActive": "Estructura de celh de nhèu actiua",
-    "triggeringProbability": "Probabilitat de desencadenament",
-    "avalancheRiskTendency24h": "Tendéncia risc de lauegi 24h",
-    "avalancheRiskTendency48h": "Tendéncia risc de lauegi 48h",
-    "oldSnowFloatingSnow": "Nhèu vielha",
-    "oldSnowSleet": "Nhèu vielha",
-    "oldSnowWeakLayers": "Coches fèbles de nhèu vielha",
-    "wetSnowRain": "Aiguanhèu umida",
-    "wetSnowTemperatureIncrease": "Aument de temperatura de nhèu umida",
-    "wetSnowHighRadiation": "Radiacion elevada de nhèu umida"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nivolositat",
-    "freshSnowAmount": "Quantitat nhèu recenta",
-    "officialAvalancheReport": "Bulletin de lauegi oficiau",
-    "precipitationIntensity": "Intensitat de precipitacion ",
-    "precipitationType": "Tipe precipitacion",
-    "temperaturePeak": "Pic de temperatura",
-    "temperatureTreeline": "Temperatura en límit deth bòsc",
-    "temperatureValley": "Temperatura dera val",
-    "weatherTendency": "Tendéncia deth temps",
-    "windDirection": "Direccion vent",
-    "windSpeed": "Velocitat vent",
-    "visibilityConditions": "Condicions de visibilitat"
   },
   "units" : {
     "cm" : "cm",

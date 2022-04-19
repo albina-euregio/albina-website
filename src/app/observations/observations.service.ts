@@ -9,12 +9,14 @@ import {
   Profile,
   Incident,
   IncidentDetails,
-  parseLawisDate,
-  toLawisIncidentTable,
   ProfileDetails,
-  LAWIS_FETCH_DETAILS
+  LAWIS_FETCH_DETAILS,
+  toLawisIncident,
+  toLawisIncidentDetails,
+  toLawisProfileDetails,
+  toLawisProfile
 } from "./models/lawis.model";
-import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./models/generic-observation.model";
 import {
   ArcGisApi,
   ArcGisLayer,
@@ -27,25 +29,42 @@ import {
   LwdKipSperren,
   LwdKipSprengerfolg
 } from "./models/lwdkip.model";
-import { ApiWikisnowECT, WikisnowECT } from "./models/wikisnow.model";
+import { ApiWikisnowECT, convertWikisnow, WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
-import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
+import { ObservationFilterService } from "./observation-filter.service";
 
 @Injectable()
 export class ObservationsService {
-  public startDate = new Date();
-  public endDate = new Date();
   private lwdKipLayers: Observable<ArcGisLayer[]>;
 
   constructor(
     public http: HttpClient,
+    public filter: ObservationFilterService,
     public authenticationService: AuthenticationService,
     public translateService: TranslateService,
     public constantsService: ConstantsService
   ) {}
+
+  loadAll(): Observable<GenericObservation<any>> {
+    return Observable.merge<GenericObservation>(
+      this.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
+      this.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
+      this.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
+      this.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
+      this.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
+      this.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
+      this.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
+      this.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
+    )
+  }
+
+  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
+    console.error(message, err);
+    return Observable.of();
+  }
 
   getObservation(id: number): Observable<GenericObservation<Observation>> {
     const url = this.constantsService.getServerUrl() + "observations/" + id;
@@ -77,12 +96,23 @@ export class ObservationsService {
       }
       const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
       const headers = this.authenticationService.newAuthHeader();
-      return this.http.get<T>(url, { headers, params });
+      return this.http
+        .get<T | { error: { message: string } }>(url, { headers, params })
+        .map((data) => {
+          if ("error" in data) {
+            console.error(
+              "Failed fetching LWDKIP " + name,
+              new Error(data.error?.message)
+            );
+            return { features: [] };
+          }
+          return data;
+        });
     });
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
-    const days = Math.ceil((Date.now() - this.startDate.getTime()) / 24 / 60 / 60 / 1000);
+    const days = Math.ceil((Date.now() - this.filter.startDate.getTime()) / 24 / 60 / 60 / 1000);
     const params: Record<string, string> = {
       where: "BEOBDATUM > (SYSDATE - " + days + ")",
       outFields: "*",
@@ -157,6 +187,7 @@ export class ObservationsService {
           $data: observer,
           $externalURL: `https://wiski.tirol.gv.at/lawine/grafiken/800/beobachter/${observer["plot.id"]}.png`,
           $source: ObservationSource.AvalancheWarningService,
+          $type: ObservationType.Observation,
           aspect: undefined,
           authorName: observer.name,
           content: "",
@@ -191,20 +222,8 @@ export class ObservationsService {
     return this.http
       .get<ApiWikisnowECT>(api.WikisnowECT)
       .flatMap(api => api.data)
-      .map<WikisnowECT, GenericObservation>((wikisnow) => ({
-        $data: wikisnow,
-        $source: ObservationSource.WikisnowECT,
-        aspect: toAspect(+wikisnow.exposition / 45),
-        authorName: wikisnow.UserName,
-        content: [wikisnow.ECT_result, wikisnow.propagation, wikisnow.surface, wikisnow.weak_layer, wikisnow.description].join(" // "),
-        elevation: +wikisnow.Sealevel,
-        eventDate: new Date(wikisnow.createDate),
-        latitude: +wikisnow?.latlong?.split(/,\s*/)?.[0],
-        locationName: wikisnow.location,
-        longitude: +wikisnow?.latlong?.split(/,\s*/)?.[1],
-        region: ""
-      }))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
+      .map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow))
+      .filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation));
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
@@ -220,37 +239,20 @@ export class ObservationsService {
           nowWithHourPrecision()
       )
       .mergeAll()
-      .map<Profile, GenericObservation<Profile>>((lawis) => ({
-        $data: lawis,
-        $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.id)),
-        $source: ObservationSource.LawisSnowProfiles,
-        aspect: toAspect(lawis.location.aspect.text),
-        authorName: "",
-        content: "(LAWIS snow profile)",
-        elevation: lawis.location.elevation,
-        eventDate: parseLawisDate(lawis.date),
-        latitude: lawis.location.latitude,
-        locationName: lawis.location.name,
-        longitude: lawis.location.longitude,
-        region: lawis.location.region.text
-      }))
-      .filter((observation) => this.inMapBounds(observation))
+      .map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles))
+      .filter((observation) => this.filter.inMapBounds(observation))
       .flatMap((profile) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(profile);
         }
         return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
-          .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
-            ...profile,
-            authorName: lawisDetails.name,
-            content: lawisDetails.bemerkungen
-          }))
+          .map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails))
           .catch(() => Observable.of(profile));
       });
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
-    const { observationApi: api } = this.constantsService;
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
       .get<Incident[]>(
         api.LawisIncidents +
@@ -262,32 +264,14 @@ export class ObservationsService {
           nowWithHourPrecision()
       )
       .mergeAll()
-      .map<Incident, GenericObservation<Incident>>((lawis) => ({
-        $data: lawis,
-        $source: ObservationSource.LawisIncidents,
-        aspect: toAspect(lawis.location.aspect.text),
-        authorName: "",
-        content: "(LAWIS incident)",
-        elevation: lawis.location.elevation,
-        eventDate: parseLawisDate(lawis.date),
-        latitude: lawis.location.latitude,
-        locationName: lawis.location.name,
-        longitude: lawis.location.longitude,
-        region: lawis.location.region.text
-      }))
-      .filter((observation) => this.inMapBounds(observation))
+      .map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents))
+      .filter((observation) => this.filter.inMapBounds(observation))
       .flatMap((incident) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(incident);
         }
         return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id))
-          .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
-            ...incident,
-            $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
-            authorName: lawisDetails.name,
-            content: lawisDetails.comments,
-            reportDate: parseLawisDate(lawisDetails.reporting_date)
-          }))
+          .map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails))
           .catch(() => Observable.of(incident));
       });
   }
@@ -312,37 +296,11 @@ export class ObservationsService {
   }
 
   private get startDateString(): string {
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.startDate);
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.filter.startDate);
   }
 
   private get endDateString(): string {
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
-  }
-
-  inDateRange({ $source, eventDate }: GenericObservation): boolean {
-    if ($source === ObservationSource.LwdKipSperre) return true;
-    return this.startDate <= eventDate && eventDate <= this.endDate;
-  }
-
-  inMapBounds({ latitude, longitude }: GenericObservation): boolean {
-    if (!latitude || !longitude) {
-      return true;
-    }
-    const { mapBoundaryS, mapBoundaryN, mapBoundaryW, mapBoundaryE } = this.constantsService;
-    return mapBoundaryS < latitude && latitude < mapBoundaryN && mapBoundaryW < longitude && longitude < mapBoundaryE;
-  }
-
-  searchLocation(query: string, limit = 8): Observable<FeatureCollection<Point, GeocodingProperties>> {
-    // https://nominatim.org/release-docs/develop/api/Search/
-    const { osmNominatimApi, osmNominatimCountries } = this.constantsService;
-    const params: Record<string, string> = {
-      "accept-language": this.translateService.currentLang,
-      countrycodes: osmNominatimCountries,
-      format: "geojson",
-      limit: String(limit),
-      q: query
-    };
-    return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.filter.endDate);
   }
 
   getCsv(startDate: Date, endDate: Date): Observable<Blob> {
@@ -377,15 +335,4 @@ function nowWithHourPrecision(): number {
   const now = new Date();
   now.setHours(now.getHours(), 0, 0, 0);
   return +now;
-}
-
-export interface GeocodingProperties {
-  place_id: number;
-  osm_type: string;
-  osm_id: number;
-  display_name: string;
-  place_rank: number;
-  category: string;
-  type: string;
-  importance: number;
 }

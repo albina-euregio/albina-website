@@ -3,7 +3,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { WsChatService } from "../providers/ws-chat-service/ws-chat.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ChatService } from "../providers/chat-service/chat.service";
 import { Router } from "@angular/router";
@@ -38,7 +37,6 @@ export class FullLayoutComponent {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public bulletinsService: BulletinsService,
-    public wsChatService: WsChatService,
     public chatService: ChatService,
     public settingsService: SettingsService,
     public constantsService: ConstantsService,
@@ -48,6 +46,9 @@ export class FullLayoutComponent {
     this.message = "";
     this.tmpRegion = undefined;
     this.showChat = environment.showChat;
+    if (this.showChat && this.authenticationService.isUserLoggedIn()) {
+      this.chatService.connect();
+    }
   }
 
   getStyle() {

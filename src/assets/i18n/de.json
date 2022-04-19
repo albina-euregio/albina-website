@@ -14,16 +14,16 @@
   },
   "sidebar" : {
     "bulletins" : "Lawinen.report",
-    "observations" : "Rückmeldungen",
+    "observations" : "Beobachtungen",
     "modellingZamg": "ZAMG Multimodel",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
-    "modellingSnowpack": "SNOWPACK Model",
+    "modellingSnowpack": "SNOWPACK Modell",
     "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK"
   },
   "menu" : {
     "logout" : "Logout",
     "language" : "Sprache",
-    "en" : "English",
+    "en" : "Englisch",
     "de" : "Deutsch",
     "fr" : "Französisch",
     "it" : "Italienisch",
@@ -33,7 +33,8 @@
     "fullscreen" : "Vollbildschirm",
     "settings" : "Einstellungen",
     "admin" : "Admin",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Ausbildung"
   },
   "chat" : {
     "placeholder" : "Schreib hier ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "Südtirol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Ausbildung"
   },
   "bulletins" : {
     "title" : "Lawinen.report",
@@ -61,7 +65,8 @@
       "preview" : "Vorschau anzeigen (PDF)",
       "check" : "Lawinenvorhersage prüfen",
       "info" : "Publikationsstatus anzeigen",
-      "publishAll" : "Alle Regionen publizieren"
+      "publishAll" : "Alle Regionen publizieren",
+      "mediaFile" : "Mediendatei hochladen"
     },
     "create" : {
       "tooltip" : {
@@ -107,9 +112,9 @@
       "discard" : " Verwerfen",
       "back" : " Zurück",
       "createAggregatedRegion" : " Neue Region",
-      "pasteAggregatedRegion" : "Region einfügen",
-      "cancelCopyBulletin" : "Abbrechen",
-      "createAvalancheSituation" : "Neues Lawinenproblem",
+      "pasteAggregatedRegion" : " Region einfügen",
+      "cancelCopyBulletin" : " Abbrechen",
+      "createAvalancheSituation" : " Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
@@ -234,40 +239,79 @@
         "reject" : "Nein"
       },
       "publicationStatusDialog" : {
+        "headline" : "Status der Publikation",
         "publishedBy" : "Publiziert von: ",
         "publishedAt" : "Publiziert um: ",
         "validFor" : "Gültig für: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "CAAML Datei wurde erstellt",
-            "failed" : "CAAML Datei konnte nicht erstellt werden"
-          },
-          "map" : {
-            "success" : "Karten wurden erstellt",
-            "failed" : "Karten konnten nicht erstellt werden"
-          },
-          "pdf" : {
-            "success" : "PDF wurde erstellt",
-            "failed" : "PDF konnte nicht erstellt werden"
-          },
-          "staticWidget" : {
-            "success" : "Statisches Widget wurde erstellt",
-            "failed" : "Statisches Widget konnte nicht erstellt werden"
-          },
-          "html" : {
-            "success" : "HTML wurde erstellt",
-            "failed" : "HTML konnte nicht erstellt werden"
-          },
-          "email" : {
-            "success" : "Emails wurden versandt",
-            "failed" : "Emails konnten nicht versandt werden"
-          },
-          "telegramChannel" : {
-            "success" : "Lawinenvorhersage wurde via Telegram Kanal versandt",
-            "failed" : "Lawinenvorhersage konnte nicht via Telegram Kanal versandt werden"
+        "title" : {
+          "prod" : "Produktives System",
+          "test" : "Test System",
+          "task" : "Vorgang",
+          "language" : {
+            "all" : "ALLE",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
         },
+
+        "caaml" : {
+          "label" : "CAAML Dateien",
+          "tooltip" : "CAAML Dateien erzeugen",
+          "success" : "{{prefix}}CAAML Dateien erfolgreich erstellt!",
+          "error" : "{{prefix}}CAAML Dateien konnten nicht erstellt werden!"
+        },
+        "map" : {
+          "label" : "Karten",
+          "tooltip" : "Karten erzeugen",
+          "success" : "{{prefix}}Karten erfolgreich erstellt!",
+          "error" : "{{prefix}}Karten konnten nicht erstellt werden!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "PDFs erstellen",
+          "success" : "{{prefix}}PDFs erfolgreich erstellt!",
+          "error" : "{{prefix}}PDFs konnten nicht erstellt werden!"
+        },
+        "staticWidget" : {
+          "label" : "Statische Widgets",
+          "tooltip" : "Statische Widgets erzeugen",
+          "success" : "{{prefix}}Statische Widgets erfolgreich erstellt!",
+          "error" : "{{prefix}}Statische Widgets konnten nicht erstellt werden!"
+        },
+        "html" : {
+          "label" : "Einfache HTML Dateien",
+          "tooltip" : "Einfache HTML Dateien erstellen",
+          "success" : "{{prefix}}Einfache HTML Dateien erfolgreich erstellt!",
+          "error" : "{{prefix}}Einfache HTML Dateien konnte nicht erstellt werden!"
+        },
+        "email" : {
+          "label" : "E-Mails",
+          "tooltip" : "E-Mails versenden",
+          "success" : "{{prefix}}Emails erfolgreich verschickt!",
+          "error" : "{{prefix}}Emails konnten nicht verschickt werden!"
+        },
+        "telegram" : {
+          "label" : "Telegram Nachrichten",
+          "tooltip" : "Telegram Nachrichten verschicken",
+          "success" : "{{prefix}}Telegram Nachrichten erfolgreich verschickt!",
+          "error" : "{{prefix}}Telegram Nachrichten konnten nicht verschickt werden!"
+        },
+        "push" : {
+          "label" : "Push Nachrichten",
+          "tooltip" : "Push Nachrichten verschicken",
+          "success" : "{{prefix}}Push Nachrichten erfolgreich verschickt!",
+          "error" : "{{prefix}}Push Nachrichten konnten nicht verschickt werden!"
+        },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Mediendatei",
+        "missingText" : "Text fehlt!",
+        "missingFile" : "Keine Datei ausgewählt!",
+        "uploadError" : "Upload fehlgeschlagen!",
+        "accept" : "Speichern",
+        "reject" : "Abbrechen"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
@@ -463,6 +507,35 @@
       "label" : {
         "dateRange" : "Zeitspanne",
         "observer" : "Beobachter"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Sprache",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Emails, Telegram Nachrichten und Push Nachrichten verschicken",
+        "success" : "{{prefix}}Email, Telegram Nachrichten und Push Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Email, Telegram Nachrichten und Push Nachrichten konnten nicht verschickt werden!"
+      },
+      "email" : {
+        "tooltip" : "E-Mails versenden",
+        "success" : "{{prefix}}Emails erfolgreich verschickt!",
+        "error" : "{{prefix}}Emails konnten nicht verschickt werden!"
+      },
+      "telegram" : {
+        "tooltip" : "Publizieren via Telegram Kanal",
+        "success" : "{{prefix}}Telegram Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Telegram Nachrichten konnten nicht verschickt werden!"
+      },
+      "push" : {
+        "tooltip" : "Push Nachrichten verschicken",
+        "success" : "{{prefix}}Push Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Push Nachrichten konnten nicht verschickt werden!"
       }
     }
   },
@@ -719,41 +792,6 @@
     "reportDate": "Meldedatum",
     "showMap": "Karte",
     "showTable": "Tabelle"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Risikoeinschätzung",
-    "snowpackStructure": "Schneedeckenaufbau",
-    "avalanchePotentialValue": "Lawinenpotenzial",
-    "avalancheCharacteristicString": "Lawinencharakteristik",
-    "windDriftedSnow": "Triebschnee",
-    "persistentWeakLayer": "Altschnee",
-    "wetSnow": "Nassschnee",
-    "glidingSnow": "Gleitschnee",
-    "newSnow": "Neuschnee",
-    "snowpackStructureActive": "Schneedeckenaufbau",
-    "triggeringProbability": "Auslösewahrscheinlichkeit",
-    "avalancheRiskTendency24h": "Tendenz des Lawinenrisikos 24h",
-    "avalancheRiskTendency48h": "Tendenz des Lawinenrisikos 48h",
-    "oldSnowFloatingSnow": "Schwimmschnee / Tiefenreif",
-    "oldSnowSleet": "Graupel",
-    "oldSnowWeakLayers": "schwache Zwischenschichten",
-    "wetSnowRain": "Regen",
-    "wetSnowTemperatureIncrease": "Erwärmung",
-    "wetSnowHighRadiation": "Strahlung"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Bewölkung",
-    "freshSnowAmount": "Neuschneesumme",
-    "officialAvalancheReport": "Offizieller Lawinen Report",
-    "precipitationIntensity": "Niederschlagsintensität",
-    "precipitationType": "Niederschlagsart",
-    "temperaturePeak": "Temperatur Gipfel",
-    "temperatureTreeline": "Temperatur Waldgrenze",
-    "temperatureValley": "Temperatur Tal",
-    "weatherTendency": "Tendenz Wetter",
-    "windDirection": "Wind Richtung",
-    "windSpeed": "Wind Geschw.",
-    "visibilityConditions": "Sicht"
   },
   "units" : {
     "cm" : "cm",
