@@ -85,9 +85,9 @@
       <div style="margin: 10px 0">
         <div class="ui-inputgroup">
           <span class="ui-inputgroup-addon"><i class="fa fa-arrows-v"></i></span>
-          <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="filter.elevationRange[0]" />
+          <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="filter.elevationRange[0]" (change)="applyLocalFilter()"/>
           <span class="ui-inputgroup-addon">&mdash;</span>
-          <input style="width: 50px" type="text" pInputText [(ngModel)]="filter.elevationRange[1]" />
+          <input style="width: 50px" type="text" pInputText [(ngModel)]="filter.elevationRange[1]" (change)="applyLocalFilter()"/>
           <span class="ui-inputgroup-addon">m</span>
         </div>
       </div>
