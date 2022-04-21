@@ -6,7 +6,7 @@ import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 const precision = 3;
-const today = "2021-10-01";
+const today = "2022-03-04";
 const excludeAws = ["ALPSOLUT", "METEOMONT Carabinieri"];
 
 /**
@@ -133,7 +133,8 @@ const eawsRegions = [
   "IT-36",
   "IT-57",
   "NO",
-  "SI"
+  "SI",
+  "SK"
 ];
 
 const eawsRegionsWithoutElevation = [
@@ -147,7 +148,8 @@ const eawsRegionsWithoutElevation = [
   "GB",
   "IS",
   "NO",
-  "PL"
+  "PL",
+  "SK"
 ];
 
 encodeFiles(
