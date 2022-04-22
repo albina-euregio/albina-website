@@ -30,7 +30,8 @@ import { PipeModule } from "../pipes/pipes.module";
 import { GeocodingService } from "./geocoding.service";
 import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 
 @NgModule({
   imports: [
@@ -50,13 +51,17 @@ import { ObservationsService } from "./observations.service";
     MessagesModule,
     MessageModule,
     AutoCompleteModule,
-    PipeModule.forRoot()
+    PipeModule.forRoot(),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    })
   ],
   declarations: [
     NgxSidebarControlComponent,
     ObservationsComponent,
     ObservationEditorComponent,
-    ObservationTableComponent
+    ObservationTableComponent,
+    BarChartComponent
   ],
   providers: [
     GeocodingService,
