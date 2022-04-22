@@ -32,6 +32,7 @@ import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
     ObservationsComponent,
     ObservationEditorComponent,
     ObservationTableComponent,
-    BarChartComponent
+    BarChartComponent,
+    RoseChartComponent
   ],
   providers: [
     GeocodingService,

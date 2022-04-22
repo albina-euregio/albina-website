@@ -22,6 +22,7 @@ import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
+//import { BarChart } from "./charts/bar-chart/bar-chart.component";
 @Component({
   templateUrl: "observations.component.html"
 })
