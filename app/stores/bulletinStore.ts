@@ -431,11 +431,6 @@ class BulletinStore {
   ): PathOptions {
     let id = String(feature.id);
     let warnlevel = this.getWarnlevel(ampm, id, feature.properties.elevation);
-    if (warnlevel === undefined) {
-      // AT-07-14-01 → AT-07-14
-      id = id.slice(0, id.lastIndexOf("-"));
-      warnlevel = this.getWarnlevel(ampm, id, feature.properties.elevation);
-    }
     return {
       stroke: false,
       fillColor: WARNLEVEL_COLORS[warnlevel],

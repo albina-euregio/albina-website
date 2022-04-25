@@ -6,7 +6,7 @@ import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 const precision = 3;
-const today = "2022-12-21";
+const today = "2022-03-04";
 const excludeAws = ["ALPSOLUT", "METEOMONT Carabinieri"];
 
 /**
