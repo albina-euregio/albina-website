@@ -8,7 +8,9 @@ import {
 @Injectable()
 export class ObservationFilterService {
   public dateRange: Date[] = [];
-  public elevationRange = [200, 4000];
+  public readonly elevationRange = [0, 4000];
+  public readonly elevationSectionSize = 500;
+  public selectedElevations: number[] = [];
   public regions: string[] = [];
   public aspects: string[] = [];
 

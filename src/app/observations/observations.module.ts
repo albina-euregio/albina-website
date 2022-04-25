@@ -33,6 +33,8 @@ import { ObservationsService } from "./observations.service";
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ObservationsLokalFilterComponent } from './observations-lokal-filter/observations-lokal-filter.component';
 
 @NgModule({
   imports: [
@@ -55,7 +57,8 @@ import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
-    })
+    }),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   declarations: [
     NgxSidebarControlComponent,
@@ -63,7 +66,8 @@ import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
     ObservationEditorComponent,
     ObservationTableComponent,
     BarChartComponent,
-    RoseChartComponent
+    RoseChartComponent,
+    ObservationsLokalFilterComponent
   ],
   providers: [
     GeocodingService,

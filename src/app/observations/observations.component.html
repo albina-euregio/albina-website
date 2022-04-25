@@ -5,8 +5,6 @@
 
     <div class="layout-left">
       <div class="layout-global">
-        Global Filter
-        <input type="checkbox" id="global_open" />
         <div>
           <p-toggleButton onLabel="{{ 'observations.showTable' | translate }}"
             offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
@@ -36,7 +34,7 @@
           <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 7})"
             label="7d"></button>
         </div>
-        <!-- <div>
+        <div>
           <div class="ui-inputgroup">
             <span class="ui-inputgroup-addon"><i class="fa fa-arrows-v"></i></span>
             <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText
@@ -49,11 +47,17 @@
         </div>
         <div>
           <app-aspects [(aspects)]="filter.aspects" [size]="100"></app-aspects>
-        </div> -->
+        </div>
         <div>
-          <select [(ngModel)]="filter.regions" [multiple]="true" [size]="5" style="max-width: 100%;">
-            <option *ngFor="let region of allRegions" [value]="region.id">{{region.id}} {{region.name}}</option>
-          </select>
+          <ng-multiselect-dropdown
+            placeholder="{{ 'observations.selectRegion.placeholder' | translate }}"
+            [settings]="dropdownSettings"
+            [data]="allRegions"
+            [(ngModel)]="selectedItems"
+            (onSelect)="onRegionSelect($event)"
+            (onDeSelect)="onRegionDeSelect($event)"
+          >
+          </ng-multiselect-dropdown>
         </div>
         <div>
           <button type="button" pButton class="ui-button-success" (click)="loadObservations()"
@@ -78,11 +82,9 @@
           </h1>
           <p>Lorem ipsum ...</p>
         </div>
-
+        <input type="checkbox" id="global_open" />
       </div>
       <div class="layout-map">
-        Map / Observation
-
         <div class="" style="top:0px; width:100%; height: calc(100vh - 120px);">
           <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
         </div>
@@ -93,9 +95,7 @@
 
     <div class="layout-right">
       <div class="layout-charts">
-        <app-bar-chart></app-bar-chart>
-        <app-rose-chart></app-rose-chart>
-        
+        <app-observations-lokal-filter filter="{{filter}}"></app-observations-lokal-filter>
       </div>
     </div>
 
