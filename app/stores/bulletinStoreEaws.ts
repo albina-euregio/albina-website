@@ -68,7 +68,8 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "IT-57",
     "IS",
     "NO",
-    "SI"
+    "SI",
+    "SK"
   ];
   const allBulletins = await Promise.all(
     regions.map(async region => {
