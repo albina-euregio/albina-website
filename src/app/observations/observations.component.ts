@@ -15,6 +15,7 @@ import {
   toMarkerColor,
   toObservationTable
 } from "./models/generic-observation.model";
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import { saveAs } from "file-saver";
 
@@ -39,6 +40,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public activeSources: Record<ObservationSource, boolean> = {} as any;
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
+  public readonly dropdownSettings: IDropdownSettings;
+  public selectedItems: [];
   public toMarkerColor = toMarkerColor;
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
@@ -57,6 +60,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .getRegionsEuregio()
       .features.map((f) => f.properties)
       .sort((r1, r2) => r1.id.localeCompare(r2.id));
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      //itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
   ngAfterContentInit() {
@@ -73,6 +86,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.mapService.observationsMap.remove();
       this.mapService.observationsMap = undefined;
     }
+  }
+
+  onRegionSelect(item: any) {
+    this.filter.regions.push(item.id);
+  }
+  onRegionDeSelect(item: any) {
+    this.filter.regions = this.filter.regions.filter(e => e !== item.id);
+    console.log("onRegionDeSelect", this.filter.regions);
   }
 
   onSidebarChange(e: Event) {
