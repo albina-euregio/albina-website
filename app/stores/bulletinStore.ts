@@ -25,6 +25,7 @@ import {
   warnlevelNumbers,
   WARNLEVEL_COLORS
 } from "../util/warn-levels";
+import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
 const enableEawsRegions = true;
 
@@ -138,7 +139,7 @@ class BulletinStore {
     features: []
   };
   bulletins: Record<string, BulletinCollection> = {};
-  latest = null;
+  latest: string | null = null;
   settings = {
     status: "",
     eawsCount: 0,
@@ -337,9 +338,7 @@ class BulletinStore {
     if (!this.settings?.region?.match(config.regionsRegex)) {
       return "";
     }
-    const feature = this._microRegions.features.find(
-      f => f.id === this.settings.region
-    );
+    const feature = this.microRegions.find(f => f.id === this.settings.region);
     return (feature?.id as string) ?? "";
   }
 
@@ -438,14 +437,22 @@ class BulletinStore {
     };
   }
 
-  get microRegionsElevation(): GeoJSON.Feature[] {
-    return this._microRegionsElevation.features.map(f =>
-      this._augmentFeature(f)
+  get microRegions(): GeoJSON.Feature[] {
+    return this._microRegions.features.filter(f =>
+      filterFeature(f, this.latest)
     );
   }
 
+  get microRegionsElevation(): GeoJSON.Feature[] {
+    return this._microRegionsElevation.features
+      .filter(f => filterFeature(f, this.latest))
+      .map(f => this._augmentFeature(f));
+  }
+
   get eawsRegions(): GeoJSON.Feature[] {
-    return this._eawsRegions.features.map(f => this._augmentFeature(f));
+    return this._eawsRegions.features
+      .filter(f => filterFeature(f, this.latest))
+      .map(f => this._augmentFeature(f));
   }
 
   _augmentFeature(f: GeoJSON.Feature, ampm = null): GeoJSON.Feature {
@@ -465,7 +472,7 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions: GeoJSON.Feature[] = this._microRegions.features.map(f =>
+      const regions: GeoJSON.Feature[] = this.microRegions.map(f =>
         this._augmentFeature(f, ampm)
       );
 
