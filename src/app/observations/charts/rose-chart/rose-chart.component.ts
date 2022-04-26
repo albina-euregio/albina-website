@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 const barDefaults = {
   type: 'bar',
@@ -17,7 +17,8 @@ const barDefaults = {
 })
 export class RoseChartComponent implements OnInit {
 
-  options = {
+    @Input() dataset: Object
+    public readonly defaultOptions = {
     title: {
         text: 'points of the compass chart'
     },
@@ -27,20 +28,20 @@ export class RoseChartComponent implements OnInit {
             color: '#000'
         }
     },
-    dataset: {
-        // Provide a set of data.
-        source: [
-            ['category', 'all','selected', 'highlighted'],
-            ['N', 100, 20, 0],
-            ['NE', 70, 0, 60],
-            ['E', 30, 0, 20],
-            ['SE', 80, 80, 0],
-            ['S', 90, 80, 0],
-            ['SW', 100, 0, 30],
-            ['W', 80, 80, 0],
-            ['NW', 90, 80, 0],
-        ]
-    },
+    // dataset: {
+    //     // Provide a set of data.
+    //     source: [
+    //         ['category', 'all','selected', 'highlighted'],
+    //         ['N', 100, 20, 0],
+    //         ['NE', 70, 0, 60],
+    //         ['E', 30, 0, 20],
+    //         ['SE', 80, 80, 0],
+    //         ['S', 90, 80, 0],
+    //         ['SW', 100, 0, 30],
+    //         ['W', 80, 80, 0],
+    //         ['NW', 90, 80, 0],
+    //     ]
+    // },
     color: ["#bbb", "#333", "#3daee9"],
     angleAxis: {
         type: 'category',
