@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: true, // angular production build
+  production: false, // angular production build
   apiBaseUrl: "https://admin.avalanche.report/albina_dev/api/",
   wsBaseUrl: "wss://socket.avalanche.report/albina_dev/",
   textcatUrl: "https://admin.avalanche.report/textcat-ng-dev/",

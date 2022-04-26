@@ -34,7 +34,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { ObservationsLokalFilterComponent } from './observations-lokal-filter/observations-lokal-filter.component';
+import { ObservationsLocalFilterComponent } from './observations-local-filter/observations-local-filter.component';
 
 @NgModule({
   imports: [
@@ -67,7 +67,7 @@ import { ObservationsLokalFilterComponent } from './observations-lokal-filter/ob
     ObservationTableComponent,
     BarChartComponent,
     RoseChartComponent,
-    ObservationsLokalFilterComponent
+    ObservationsLocalFilterComponent
   ],
   providers: [
     GeocodingService,

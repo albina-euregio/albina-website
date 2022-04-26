@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 
 const barWidth = 5;
 const defaultDataBarOptions = {
@@ -21,28 +21,13 @@ const defaultDataBarOptions = {
 })
 export class BarChartComponent implements OnInit {
 
-    @Input() options: Object;
-    @Input() dataset: Object;
-    chartOptions = {
+    @Input() dataset: Object
+
+    public readonly defaultOptions = {
         title: {
             text: 'bar chart'
         },
         tooltip: {},
-        legend: {
-            data: ['sales']
-        },
-        //dataset: {
-            // // Provide a set of data.
-            // source: [
-            //     ['category', 'max', 'all', 'selected', 'highlighted'],
-            //     ['1000', 100, 90, 20, 0],
-            //     ['1500', 100, 90, 20, 0],
-            //     ['2000', 100, 90, 20, 0],
-            //     ['2500', 100, 80, 0, 60],
-            //     ['3000', 100, 80, 0, 70],
-            //     ['3500', 100, 50, 30, 0],
-            // ]
-        //},
         yAxis: {
             type: 'category',
             axisLabel: {
@@ -120,12 +105,16 @@ export class BarChartComponent implements OnInit {
     };
 
 
-    constructor() {}
+    constructor() {
+    }
 
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("changes", changes);
+  }
 
 
 
