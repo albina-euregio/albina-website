@@ -33,6 +33,8 @@ import { StatisticsService } from "./providers/statistics-service/statistics.ser
 import { RegionsService } from "./providers/regions-service/regions.service";
 import { ConstantsService } from "./providers/constants-service/constants.service";
 import { SettingsService } from "./providers/settings-service/settings.service";
+import { ObservationsService } from "./observations/observations.service";
+import { ObservationFilterService } from "./observations/observation-filter.service";
 import { MapService } from "./providers/map-service/map.service";
 import { ObservationsMapService } from "./providers/map-service/observations-map.service";
 import { ZamgModelsMapService } from "./providers/map-service/zamg-models-map.service";
@@ -184,6 +186,8 @@ registerLocaleData(localeOc, "oc");
     AuthGuard,
     ConstantsService,
     SettingsService,
+    ObservationsService,
+    ObservationFilterService,
     BulletinsService,
     StatisticsService,
     RegionsService,

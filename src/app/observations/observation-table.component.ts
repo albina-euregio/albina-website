@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAlbinaObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation, ObservationSource, ObservationTypeIcons } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
@@ -146,5 +146,13 @@ export class ObservationTableComponent {
       case EventType.NeighborRegion:
         return { background: "linear-gradient(90deg, darkviolet 0%, white 50%)" };
     }
+  }
+
+  getTableIconStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
+    return {
+      color: toMarkerColor(observation),
+      width: `${observation.$markerRadius || 10}px`,
+      height: `${observation.$markerRadius || 10}px`
+    };
   }
 }
