@@ -3024,9 +3024,9 @@ domutils@^2.6.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
-"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz":
-  version "0.0.0"
-  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz#d72c62c09941d6759477429dfb338bcdcaadcbfa"
+"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/7647e70230079bd3a01112ed0557c5c1d9c8018c/eaws-regions-7647e70230079bd3a01112ed0557c5c1d9c8018c.tar.gz":
+  version "1.0.0"
+  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/7647e70230079bd3a01112ed0557c5c1d9c8018c/eaws-regions-7647e70230079bd3a01112ed0557c5c1d9c8018c.tar.gz#9c1cefbb73b1cd3e2a3f7e628710c54819f7df48"
 
 ee-first@1.1.1:
   version "1.1.1"

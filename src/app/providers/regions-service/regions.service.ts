@@ -53,8 +53,8 @@ const RegionsAinevaElevation: FeatureCollection<MultiPolygon, RegionWithElevatio
 );
 
 import RegionsAran_ES_CT_L from "eaws-regions/public/micro-regions/ES-CT-L_micro-regions.geojson.json";
-const RegionsAran: FeatureCollection<Polygon, RegionProperties> = mergeFeatureCollections(
-  RegionsAran_ES_CT_L as FeatureCollection<Polygon, RegionProperties>
+const RegionsAran: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureCollections(
+  RegionsAran_ES_CT_L as FeatureCollection<MultiPolygon, RegionProperties>
 );
 
 import RegionsAranElevation_ES_CT_L from "eaws-regions/public/micro-regions_elevation/ES-CT-L_micro-regions_elevation.geojson.json";
@@ -123,7 +123,7 @@ export class RegionsService {
     return RegionsEuregioElevation;
   }
 
-  getRegionsAran(): FeatureCollection<Polygon, RegionProperties> {
+  getRegionsAran(): FeatureCollection<MultiPolygon, RegionProperties> {
     return RegionsAran;
   }
 
