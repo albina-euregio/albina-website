@@ -582,7 +582,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       minZoom: minZoom,
       maxZoom: maxZoom,
       // maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
-      layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
+      layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions, this.mapService.overlayMaps.neighborAggregatedRegions, this.mapService.overlayMaps.neighborRegions]
     });
 
     map.on("click", () => { this.onMapClick(); });
@@ -640,7 +640,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       minZoom: minZoom,
       maxZoom: maxZoom,
       // maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
-      layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
+      layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions, this.mapService.afternoonOverlayMaps.neighborAggregatedRegions, this.mapService.afternoonOverlayMaps.neighborRegions]
     });
 
     // L.control.zoom({ position: "topleft" }).addTo(afternoonMap);
