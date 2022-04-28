@@ -318,11 +318,13 @@ export class AuthenticationService {
     this.externalServers.push(server);
   }
 
-  private setExternalServer(json: Partial<ServerModel>) {
+  private setExternalServer(json: Partial<ServerModel>[]) {
     if (!json) {
       return;
     }
-    this.externalServers.push(ServerModel.createFromJson(json));
+    debugger
+    for (const server of json)
+      this.externalServers.push(ServerModel.createFromJson(server));
   }
 
   public isExternalRegion(region: string) {
