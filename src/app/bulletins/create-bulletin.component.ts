@@ -51,6 +51,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public editRegions: boolean;
   public loading: boolean;
   public showAfternoonMap: boolean;
+  public showExternalRegions: boolean;
 
   public activeBulletin: BulletinModel;
   public internBulletinsList: BulletinModel[];
@@ -196,6 +197,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   ) {
     this.loading = true;
     this.showAfternoonMap = false;
+    this.showExternalRegions = false;
     this.stopListening = renderer.listen("window", "message", this.getText.bind(this));
     this.mapService.resetAll();
     this.internBulletinsList = new Array<BulletinModel>();
@@ -301,6 +303,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showTranslationsAvActivityComment = false;
     this.showTranslationsSnowpackStructureComment = false;
     this.showTranslationsTendencyComment = false;
+  }
+
+  toggleShowExternalRegions() {
+    if (this.showExternalRegions)
+      this.showExternalRegions = false;
+    else
+      this.showExternalRegions = true;
   }
 
   private getTextcatUrl(): SafeUrl {
