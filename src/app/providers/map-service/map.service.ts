@@ -72,7 +72,7 @@ export class MapService {
         activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegions(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
@@ -90,7 +90,7 @@ export class MapService {
         activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegions(), {
+        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
