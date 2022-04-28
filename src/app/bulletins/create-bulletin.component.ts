@@ -911,11 +911,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       if (a.getOwnerRegion() > b.getOwnerRegion()) { return -1; }
       return 0;
     });
-
-    if (bulletin.hasDaytimeDependency && this.showAfternoonMap === false) {
-      this.showAfternoonMap = true;
-      this.onShowAfternoonMapChange(true);
-    }
   }
 
   acceptSuggestions(event, bulletin: BulletinModel) {
