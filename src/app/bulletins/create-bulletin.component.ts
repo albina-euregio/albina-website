@@ -198,6 +198,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showAfternoonMap = false;
     this.stopListening = renderer.listen("window", "message", this.getText.bind(this));
     this.mapService.resetAll();
+    this.internBulletinsList = new Array<BulletinModel>();
+    this.externBulletinsList = new Array<BulletinModel>();
     // this.preventClick = false;
     // this.timer = 0;
   }
