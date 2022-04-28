@@ -320,6 +320,8 @@ export class BulletinsService {
     let url = server.apiUrl + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     if (server.regions) {
       for (const region of server.regions) {
+        // region
+        // load all regions except regions handled by local server instance
         if (region !== this.constantsService.codeTyrol && region !== this.constantsService.codeSouthTyrol && region !== this.constantsService.codeTrentino)
           url += "&regions=" + region;
       }

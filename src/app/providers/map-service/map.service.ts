@@ -31,20 +31,12 @@ export class MapService {
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
     aggregatedRegions: GeoJSON<SelectableRegionProperties>;
-    neighborRegions: GeoJSON<SelectableRegionProperties>;
-    neighborActiveSelection: GeoJSON<SelectableRegionProperties>;
-    neighborEditSelection: GeoJSON<SelectableRegionProperties>;
-    neighborAggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
   public afternoonOverlayMaps: {
     regions: GeoJSON<SelectableRegionProperties>;
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
     aggregatedRegions: GeoJSON<SelectableRegionProperties>;
-    neighborRegions: GeoJSON<SelectableRegionProperties>;
-    neighborActiveSelection: GeoJSON<SelectableRegionProperties>;
-    neighborEditSelection: GeoJSON<SelectableRegionProperties>;
-    neighborAggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
 
   constructor(
@@ -72,58 +64,38 @@ export class MapService {
 
       this.overlayMaps = {
         // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
         }),
 
         // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
-
-        // AINEVA
-        neighborRegions: new GeoJSON(this.regionsService.getRegionsAineva(), {
-          onEachFeature: this.onEachAggregatedRegionsFeatureAM
-        }),
-        neighborActiveSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
-        neighborEditSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
-        }),
-        neighborAggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
       };
 
       this.afternoonOverlayMaps = {
         // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeaturePM
         }),
 
         // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
-
-        // AINEVA
-        neighborRegions: new GeoJSON(this.regionsService.getRegionsAinevaWithElevation(), {
-          onEachFeature: this.onEachAggregatedRegionsFeaturePM
-        }),
-        neighborActiveSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
-        neighborEditSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
-        }),
-        neighborAggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
       };
     } else if (this.authenticationService.getActiveRegion() === this.constantsService.codeAran) {
       this.baseMaps = {
@@ -155,13 +127,7 @@ export class MapService {
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
-
-        // AINEVA
-        neighborRegions: new GeoJSON(),
-        neighborActiveSelection: new GeoJSON(),
-        neighborEditSelection: new GeoJSON(),
-        neighborAggregatedRegions: new GeoJSON()
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
       };
 
       this.afternoonOverlayMaps = {
@@ -179,13 +145,7 @@ export class MapService {
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
-
-        // AINEVA
-        neighborRegions: new GeoJSON(this.regionsService.getRegionsAinevaWithElevation()),
-        neighborActiveSelection: new GeoJSON(),
-        neighborEditSelection: new GeoJSON(),
-        neighborAggregatedRegions: new GeoJSON()
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
       };
     }
     this.resetAll();
@@ -237,51 +197,11 @@ export class MapService {
     }
   }
 
-  resetNeighborAggregatedRegions() {
-    for (const entry of this.overlayMaps.neighborAggregatedRegions.getLayers()) {
-      entry.setStyle(this.getUserDependentBaseStyle(entry.feature.properties.id));
-    }
-    for (const entry of this.afternoonOverlayMaps.neighborAggregatedRegions.getLayers()) {
-      entry.setStyle(this.getUserDependentBaseStyle(entry.feature.properties.id));
-    }
-  }
-
-  resetNeighborRegions() {
-    for (const entry of this.overlayMaps.neighborRegions.getLayers()) {
-      entry.setStyle(this.getUserDependentRegionStyle(entry.feature.properties.id));
-    }
-    for (const entry of this.afternoonOverlayMaps.neighborRegions.getLayers()) {
-      entry.setStyle(this.getUserDependentRegionStyle(entry.feature.properties.id));
-    }
-  }
-
-  resetNeighborActiveSelection() {
-    for (const entry of this.overlayMaps.neighborActiveSelection.getLayers()) {
-      entry.setStyle(this.getActiveSelectionBaseStyle());
-    }
-    for (const entry of this.afternoonOverlayMaps.neighborActiveSelection.getLayers()) {
-      entry.setStyle(this.getActiveSelectionBaseStyle());
-    }
-  }
-
-  resetNeighborEditSelection() {
-    for (const entry of this.overlayMaps.neighborEditSelection.getLayers()) {
-      entry.setStyle(this.getEditSelectionBaseStyle());
-    }
-    for (const entry of this.afternoonOverlayMaps.neighborEditSelection.getLayers()) {
-      entry.setStyle(this.getEditSelectionBaseStyle());
-    }
-  }
-
   resetAll() {
     this.resetRegions();
     this.resetActiveSelection();
     this.resetAggregatedRegions();
     this.resetEditSelection();
-    this.resetNeighborRegions();
-    this.resetNeighborActiveSelection();
-    this.resetNeighborAggregatedRegions();
-    this.resetNeighborEditSelection();
   }
 
   addAggregatedRegion(bulletin: BulletinModel) {

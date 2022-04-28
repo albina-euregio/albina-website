@@ -60,6 +60,32 @@ const RegionsAranElevation: FeatureCollection<MultiPolygon, RegionWithElevationP
   RegionsAranElevation_ES_CT_L as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
 );
 
+const Regions: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureCollections(
+  RegionsEuregio_AT_07 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_32_BZ as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_32_TN as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_21 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_23 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_25 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_34 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_36 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAineva_IT_57 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsAran_ES_CT_L as FeatureCollection<MultiPolygon, RegionProperties>
+);  
+
+const RegionsElevation: FeatureCollection<MultiPolygon, RegionWithElevationProperties> = mergeFeatureCollections(
+  RegionsEuregioElevation_AT_07 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_32_BZ as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_21 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_23 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_25 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_34 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_36 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAinevaElevation_IT_57 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
+  RegionsAranElevation_ES_CT_L as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
+);  
+
 import * as L from "leaflet";
 import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 
@@ -111,6 +137,14 @@ export class RegionsService {
       }
     }
     return [];
+  }
+
+  getRegions(): FeatureCollection<MultiPolygon, RegionProperties> {
+    return Regions;
+  }
+
+  getRegionsWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
+    return RegionsElevation;
   }
 
   getRegionsEuregio(): FeatureCollection<MultiPolygon, RegionProperties> {

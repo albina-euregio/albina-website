@@ -324,6 +324,16 @@ export class AuthenticationService {
     }
     this.externalServers.push(ServerModel.createFromJson(json));
   }
+
+  public isExternalRegion(region: string) {
+    if (this.constantsService.codeTyrol === region || this.constantsService.codeSouthTyrol === region || this.constantsService.codeTrentino === region)
+      return false;
+    for (const externalServer of this.externalServers) {
+      if (externalServer.getRegions().indexOf(region) > -1)
+        return true;
+    }
+    return false;
+  }
 }
 
 export interface AuthenticationResponse {

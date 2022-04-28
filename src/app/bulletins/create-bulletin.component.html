@@ -244,6 +244,74 @@
                   </div>
                 </tbody>
               </table>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <strong>{{ "bulletins.create.externalRegions" | translate }}</strong>
+                  </tr>
+                  <div *ngFor="let bulletin of getExternalBulletins()">
+                    <tr *ngIf="activeBulletin && bulletin === activeBulletin" class="table-info" (click)="deselectBulletin()" style="height: 52px">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
+                            </td>
+                            <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                            <td>
+                              <div>
+                                <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
+                              </div>
+                              <div *ngFor="let additionalAuthor of bulletin.getAdditionalAuthors()">
+                                <small class="text-muted">{{ additionalAuthor }}</small>
+                              </div>
+                            </td>
+                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="copyBulletin()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table>
+                        <tbody>
+                          <tr style="height: 60px">
+                            <td *ngIf="bulletin.hasDaytimeDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            </td>
+                            <td *ngIf="!bulletin.hasDaytimeDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && !bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.forenoon.elevation}} m</b></div>
+                            </td>
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && !bulletin.afternoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.afternoon.elevation}} m</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && bulletin.afternoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </tr>
+
+                    <tr *ngIf="!activeBulletin || bulletin !== activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
+                      <td>
+                        <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
+                      </td>
+                      <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </tbody>
+              </table>
             </div>
           </div>
           <div *ngIf="activeBulletin">
