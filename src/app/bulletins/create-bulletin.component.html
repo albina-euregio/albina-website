@@ -242,7 +242,7 @@
                     </tr>
 
                   </div>
-                  <tr (click)="toggleShowExternalRegions()" style="height: 52px">
+                  <tr *ngIf="hasExternalRegions()" (click)="toggleShowExternalRegions()" style="height: 52px">
                     <td>
                       <div>
                         <i *ngIf="!showExternalRegions" class="fa fa-angle-down"></i>

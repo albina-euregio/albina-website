@@ -312,6 +312,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.showExternalRegions = true;
   }
 
+  hasExternalRegions() {
+    if (this.externBulletinsList.length > 0)
+      return true;
+    else
+      return false;
+  }
+
   private getTextcatUrl(): SafeUrl {
     // lang
     const l = this.settingsService.getLangString() === "it" ? "it" : "de"; // only de+it are supported
@@ -1468,6 +1475,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private updateAggregatedRegions() {
+    debugger
     this.mapService.resetAggregatedRegions();
 
     for (const bulletin of this.internBulletinsList) {
@@ -1502,10 +1510,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
       }
-
       this.mapService.addAggregatedRegion(bulletin);
-
     }
+
+    for (const bulletin of this.externBulletinsList) {
+      this.mapService.addAggregatedRegion(bulletin);
+    }
+
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
@@ -2183,11 +2194,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
 
+        this.updateInternBulletins();
+
         if (!hit && this.getOwnBulletins().length === 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange()) {
           this.createInitialAggregatedRegion();
         }
-
-        this.updateInternBulletins();
 
         this.mapService.deselectAggregatedRegion();
         this.loading = false;
