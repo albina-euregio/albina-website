@@ -1476,7 +1476,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private updateAggregatedRegions() {
-    debugger
+    
     this.mapService.resetAggregatedRegions();
 
     for (const bulletin of this.internBulletinsList) {
