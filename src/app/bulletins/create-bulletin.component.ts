@@ -766,7 +766,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       afternoonMap.style.border = "";
     }
     this.initMaps();
-    this.updateInternBulletins();
+    this.updateInternalBulletins();
 
     if (bulletin) {
       this.selectBulletin(bulletin);
@@ -842,7 +842,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       }
     }
 
-    this.updateInternBulletins();
+    this.updateInternalBulletins();
 
     this.mapService.deselectAggregatedRegion();
   }
@@ -858,7 +858,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       }
     }
 
-    this.updateInternBulletins();
+    this.updateInternalBulletins();
 
     this.loading = false;
     this.mapService.deselectAggregatedRegion();
@@ -878,15 +878,15 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.mapService.deselectAggregatedRegion();
   }
 
-  private updateInternBulletins() {
+  private updateInternalBulletins() {
     for (const bulletin of this.internBulletinsList) {
-      this.mapService.addAggregatedRegion(bulletin);
+      this.mapService.updateAggregatedRegion(bulletin);
     }
   }
 
   private updateExternalBulletins() {
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.addAggregatedRegion(bulletin);
+      this.mapService.updateAggregatedRegion(bulletin);
     }
   }
 
@@ -1377,7 +1377,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     this.mapService.resetAggregatedRegions();
-    this.updateInternBulletins();
+    this.updateInternalBulletins();
+    this.updateExternalBulletins();
     this.deselectBulletin(true);
   }
 
@@ -1510,11 +1511,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
       }
-      this.mapService.addAggregatedRegion(bulletin);
+      this.mapService.updateAggregatedRegion(bulletin);
     }
 
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.addAggregatedRegion(bulletin);
+      this.mapService.updateAggregatedRegion(bulletin);
     }
 
     this.mapService.discardAggregatedRegion();
@@ -2127,7 +2128,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     for (const bulletin of this.localStorageService.getBulletins()) {
       this.addInternalBulletin(bulletin);
     }
-    this.updateInternBulletins();
+    this.updateInternalBulletins();
     this.mapService.deselectAggregatedRegion();
     this.loading = false;
     this.startAutoSave();
@@ -2194,7 +2195,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
 
-        this.updateInternBulletins();
+        this.updateInternalBulletins();
 
         if (!hit && this.getOwnBulletins().length === 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange()) {
           this.createInitialAggregatedRegion();

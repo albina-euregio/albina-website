@@ -204,34 +204,6 @@ export class MapService {
     this.resetEditSelection();
   }
 
-  addAggregatedRegion(bulletin: BulletinModel) {
-    bulletin.forenoon.dangerRatingBelow.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.forenoon.dangerRatingAbove.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.afternoon.dangerRatingBelow.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.afternoon.dangerRatingAbove.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    this.updateAggregatedRegion(bulletin);
-  }
-
   updateAggregatedRegion(bulletin: BulletinModel) {
     const dangerRatingAbove = bulletin.getForenoonDangerRatingAbove();
     const dangerRatingBelow = bulletin.getForenoonDangerRatingBelow();
