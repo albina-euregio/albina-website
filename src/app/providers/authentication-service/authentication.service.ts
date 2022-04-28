@@ -27,7 +27,7 @@ export class AuthenticationService {
       localStorage.removeItem("currentAuthor");
     }
     try {
-      this.setExternalServer(JSON.parse(localStorage.getItem("externalServers")));
+      this.setExternalServers(JSON.parse(localStorage.getItem("externalServers")));
     } catch (e) {
       localStorage.removeItem("externalServers");
     }
@@ -318,11 +318,10 @@ export class AuthenticationService {
     this.externalServers.push(server);
   }
 
-  private setExternalServer(json: Partial<ServerModel>[]) {
+  private setExternalServers(json: Partial<ServerModel>[]) {
     if (!json) {
       return;
     }
-    debugger
     for (const server of json)
       this.externalServers.push(ServerModel.createFromJson(server));
   }
