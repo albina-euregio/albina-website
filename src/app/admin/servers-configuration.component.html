@@ -1,0 +1,37 @@
+<div class="card">
+  <!-- <div class="card-header">
+            <i class="fa fa-user-secret"></i>{{ "admin.server-configuration.title" | translate }}
+          </div> -->
+  <div class="card-block">
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+    </div>
+    <div type="button" class="form-group row" style="padding-left: 1.25rem; padding-right: 1.25rem">
+      <div class="col-md-6">
+        <button (click)="createServer($event)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "admin.server-configuration.button.create" | translate }}</button>
+      </div>
+    </div>
+    <accordion *ngIf="configurationPropertiesLoaded">
+      <!-- Local server -->
+      <accordion-group  *ngIf="localServerConfiguration" [isOpen]="isAccordionLocalOpen" (isOpenChange)="accordionChanged($event, 'local')">
+        <div accordion-heading class="clearfix">
+          <i *ngIf="!isAccordionLocalOpen" class="fa fa-angle-down"></i>
+          <i *ngIf="isAccordionLocalOpen" class="fa fa-angle-up"></i>
+          <strong> TEST - {{localServerConfiguration.name}}</strong>
+        </div>
+        <app-server-configuration [config]="localServerConfiguration" [externalServer]="false" [isAccordionOpen]="isAccordionLocalOpen"></app-server-configuration>
+      </accordion-group>
+      <!-- External servers -->
+      <!--
+      <accordion-group *ngFor="let config of externalServers">
+        <div accordion-heading class="clearfix">
+          <i *ngIf="!isAccordionLocalOpen" class="fa fa-angle-down"></i>
+          <i *ngIf="isAccordionLocalOpen" class="fa fa-angle-up"></i>
+          <strong> {{config.name}}</strong>
+        </div>
+        <app-server-configuration [config]="config" [externalServer]="true"></app-server-configuration>
+      </accordion-group>
+      -->
+    </accordion>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<table class="table table-hover table-condensed" style="margin-bottom: 0">
+  <tbody>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createMaps" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createPdf" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createSimpleHtml" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="createSimpleHtml">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.sendEmails" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.publishToTelegramChannel" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="publishToTelegramChannel">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.publishBulletins" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletins">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.publishBlogs" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="publishBlogs">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i> {{
+  "admin.server-configuration.button.save" | translate }}</button>
+<button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>

@@ -16,13 +16,14 @@ export interface RegionConfiguration {
   sendEmails: boolean;
   sendTelegramMessages: boolean;
   sendPushNotifications: boolean;
-  serverInstance: ServerInstanceConfiguration;
+  serverInstance: ServerConfiguration;
 }
 
-export interface ServerInstanceConfiguration {
+export interface ServerConfiguration {
+  id: string;
   name: string;
   apiUrl: string;
-  username: string;
+  userName: string;
   password: string;
   externalServer: boolean;
   publishAt5PM: boolean;
@@ -45,8 +46,30 @@ export class ConfigurationService {
     private authenticationService: AuthenticationService) {
   }
 
+  public loadLocalServerConfiguration(): Observable<ServerConfiguration> {
+    const url = this.constantsService.getServerUrl() + "server";
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<ServerConfiguration>(url, options);
+  }
+
+  public loadExternalServerConfigurations(): Observable<ServerConfiguration[]> {
+    const url = this.constantsService.getServerUrl() + "server/external";
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<ServerConfiguration[]>(url, options);
+  }
+
+  public updateServerConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "server";
+    const body = JSON.stringify(json);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.put(url, body, options);
+  }
+
   public loadRegionConfiguration(region): Observable<RegionConfiguration> {
-    const url = this.constantsService.getServerUrl() + "regions/configuration?region=" + region;
+    const url = this.constantsService.getServerUrl() + "regions?region=" + region;
     const options = { headers: this.authenticationService.newAuthHeader() };
 
     return this.http.get<RegionConfiguration>(url, options);

@@ -1,7 +1,5 @@
-import { Component, AfterContentInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
 import * as Enums from "../enums/enums";
@@ -11,106 +9,40 @@ import { AlertComponent } from "ngx-bootstrap/alert";
   templateUrl: "server-configuration.component.html",
   selector: "app-server-configuration"
 })
-export class ServerConfigurationComponent implements AfterContentInit {
+export class ServerConfigurationComponent {
+
+  @Input() config: any;
+  @Input() externalServer: boolean;
+  @Input() isAccordionOpen: boolean;
 
   public statusMap: Map<number, Enums.BulletinStatus>;
-  public configurationPropertiesLoaded: boolean = false;
   public saveConfigurationLoading: boolean;
 
   public alerts: any[] = [];
 
-  public createMaps: boolean;
-  public createPdf: boolean;
-  public createStaticWidget: boolean;
-  public createSimpleHtml: boolean;
-  public sendEmails: boolean;
-  public publishToTelegramChannel: boolean;
-  public publishAt5PM: boolean;
-  public publishAt8AM: boolean;
-  public publishBulletinsTyrol: boolean;
-  public publishBulletinsSouthTyrol: boolean;
-  public publishBulletinsTrentino: boolean;
-  public publishBulletinsAran: boolean;
-  public publishBlogsTyrol: boolean;
-  public publishBlogsSouthTyrol: boolean;
-  public publishBlogsTrentino: boolean;
-  public pdfDirectory: string;
-  public htmlDirectory: string;
-  public serverImagesUrl: string;
-  public mapsPath: string;
-  public mapProductionUrl: string;
-  public scriptsPath: string;
-
   constructor(
     private translateService: TranslateService,
-    private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService,
     public configurationService: ConfigurationService,
     public socialmediaService: SocialmediaService) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
     this.saveConfigurationLoading = false;
   }
 
-  ngAfterContentInit() {
-    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
-      // TODO implement
-      this.configurationService.loadRegionConfiguration(this.authenticationService.activeRegion).subscribe(
-        data => {
-          this.createMaps = (data as any).createMaps;
-          this.createPdf = (data as any).createPdf;
-          this.createStaticWidget = (data as any).createStaticWidget;
-          this.createSimpleHtml = (data as any).createSimpleHtml;
-          this.sendEmails = (data as any).sendEmails;
-          this.publishToTelegramChannel = (data as any).publishToTelegramChannel;
-          this.publishAt5PM = (data as any).publishAt5PM;
-          this.publishAt8AM = (data as any).publishAt8AM;
-          this.publishBulletinsTyrol = (data as any).publishBulletinsTyrol;
-          this.publishBulletinsSouthTyrol = (data as any).publishBulletinsSouthTyrol;
-          this.publishBulletinsTrentino = (data as any).publishBulletinsTrentino;
-          this.publishBulletinsAran = (data as any).publishBulletinsAran;
-          this.publishBlogsTyrol = (data as any).publishBlogsTyrol;
-          this.publishBlogsSouthTyrol = (data as any).publishBlogsSouthTyrol;
-          this.publishBlogsTrentino = (data as any).publishBlogsTrentino;
-          this.pdfDirectory = (data as any).pdfDirectory;
-          this.htmlDirectory = (data as any).htmlDirectory;
-          this.serverImagesUrl = (data as any).serverImagesUrl;
-          this.mapsPath = (data as any).mapsPath;
-          this.mapProductionUrl = (data as any).mapProductionUrl;
-          this.scriptsPath = (data as any).scriptsPath;
-          this.configurationPropertiesLoaded = true;
-
-        },
-        error => {
-          console.error("Configuration properties could not be loaded!");
-        }
-      );
-    }
-  }
-
   public save() {
     this.saveConfigurationLoading = true;
     const json = Object();
-    json["createMaps"] = this.createMaps;
-    json["createPdf"] = this.createPdf;
-    json["createStaticWidget"] = this.createStaticWidget;
-    json["createSimpleHtml"] = this.createSimpleHtml;
-    json["sendEmails"] = this.sendEmails;
-    json["publishToTelegramChannel"] = this.publishToTelegramChannel;
-    json["publishAt5PM"] = this.publishAt5PM;
-    json["publishAt8AM"] = this.publishAt8AM;
-    json["publishBulletinsTyrol"] = this.publishBulletinsTyrol;
-    json["publishBulletinsSouthTyrol"] = this.publishBulletinsSouthTyrol;
-    json["publishBulletinsTrentino"] = this.publishBulletinsTrentino;
-    json["publishBulletinsAran"] = this.publishBulletinsAran;
-    json["publishBlogsTyrol"] = this.publishBlogsTyrol;
-    json["publishBlogsSouthTyrol"] = this.publishBlogsSouthTyrol;
-    json["publishBlogsTrentino"] = this.publishBlogsTrentino;
-    json["pdfDirectory"] = this.pdfDirectory;
-    json["htmlDirectory"] = this.htmlDirectory;
-    json["serverImagesUrl"] = this.serverImagesUrl;
-    json["mapsPath"] = this.mapsPath;
-    json["mapProductionUrl"] = this.mapProductionUrl;
-    json["scriptsPath"] = this.scriptsPath;
+    json["name"] = this.config.name;
+    json["username"] = this.config.username;
+    json["password"] = this.config.password;
+    json["apiUrl"] = this.config.apiUrl;
+    json["externalServer"] = this.config.externalServer;
+    json["publishAt5PM"] = this.config.publishAt5PM;
+    json["publishAt8AM"] = this.config.publishAt8AM;
+    json["pdfDirectory"] = this.config.pdfDirectory;
+    json["htmlDirectory"] = this.config.htmlDirectory;
+    json["serverImagesUrl"] = this.config.serverImagesUrl;
+    json["mapsPath"] = this.config.mapsPath;
+    json["mapProductionUrl"] = this.config.mapProductionUrl;
 
     this.configurationService.updateRegionConfiguration(json).subscribe(
       data => {

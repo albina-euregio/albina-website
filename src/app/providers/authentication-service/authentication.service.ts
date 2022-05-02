@@ -263,7 +263,7 @@ export class AuthenticationService {
   }
 
   public loadExternalServerInstances(): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "regions/external";
+    const url = this.constantsService.getServerUrl() + "server/external";
     const options = { headers: this.newAuthHeader() };
 
     return this.http.get<Response>(url, options);

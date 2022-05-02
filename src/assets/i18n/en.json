@@ -391,7 +391,39 @@
   "admin" : {
     "loadingStatistics" : "Creating CSV ...",
     "server-configuration" : {
-      "title" : "Server Configuration",
+      "title" : "Server",
+      "button" : {
+        "create" : " Create server",
+        "save" : "Save"
+      },
+      "table" : {
+        "title" : {
+          "key" : "Parameter",
+          "value" : "Value"
+        },
+        "name" : "Name",
+        "username" : "Username",
+        "password" : "Password",
+        "externalServer" : "External",
+        "publishAt5PM" : "Publish at 5PM",
+        "publishAt8AM" : "Publish at 8AM",
+        "pdfDirectory" : "Directory for PDF",
+        "htmlDirectory" : "Directory for HTML",
+        "serverImagesUrl" : "Path to server images",
+        "mapsPath" : "Path to maps",
+        "mediaPath" : "Path to media files",
+        "mapProductionUrl" : "URL for map production",
+        "apiUrl" : "API URL"
+      },
+      "success" : "Configuration successfully saved",
+      "error" : "Configuration could not be saved"
+    },
+    "region-configuration" : {
+      "title" : "Region",
+      "button" : {
+        "create" : " Create region",
+        "save" : "Save"
+      },
       "table" : {
         "title" : {
           "key" : "Parameter",
@@ -399,28 +431,11 @@
         },
         "createMaps" : "Create maps",
         "createPdf" : "Create PDF",
-        "createStaticWidget" : "Create static widgets",
         "createSimpleHtml" : "Create simple HTML",
         "sendEmails" : "Send emails",
         "publishToTelegramChannel" : "Publish via Telegram channel",
-        "publishAt5PM" : "Publish at 5PM",
-        "publishAt8AM" : "Publish at 8AM",
-        "publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
-        "publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
-        "publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
-        "publishBlogsTyrol" : "Publish blog posts for Tirol",
-        "publishBlogsSouthTyrol" : "Publish blog posts for South Tyrol",
-        "publishBlogsTrentino" : "Publish blog posts for Trentino",
-        "pdfDirectory" : "Directory for PDF",
-        "htmlDirectory" : "Directory for HTML",
-        "serverImagesUrl" : "Path to server images",
-        "mapsPath" : "Path to maps",
-        "mapProductionUrl" : "URL for map production",
-        "scriptsPath" : "Path to scripts"
-      },
-      "button" : {
-        "save" : "Save"
+        "publishBulletins" : "Publish avalanche forecast",
+        "publishBlogs" : "Publish blog posts"
       },
       "success" : "Configuration successfully saved",
       "error" : "Configuration could not be saved"

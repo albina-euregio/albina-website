@@ -3,23 +3,26 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <p-tabView>
-          <p-tabPanel header="{{'admin.server-configuration.title' | translate}}">
-            <app-server-configuration></app-server-configuration>
-          </p-tabPanel>
-          <p-tabPanel header="{{'admin.users.title' | translate}}">
+        <tabset>
+          <tab heading="{{'admin.server-configuration.title' | translate}}">
+            <app-servers-configuration></app-servers-configuration>
+          </tab>
+          <tab heading="{{'admin.region-configuration.title' | translate}}">
+            <app-regions-configuration></app-regions-configuration>
+          </tab>
+          <tab heading="{{'admin.users.title' | translate}}">
             <app-users></app-users>
-          </p-tabPanel>
-          <p-tabPanel header="{{'admin.statistics.title' | translate}}">
+          </tab>
+          <tab heading="{{'admin.statistics.title' | translate}}">
             <app-statistics></app-statistics>
-          </p-tabPanel>
-          <p-tabPanel header="{{'admin.observations.title' | translate}}">
+          </tab>
+          <tab heading="{{'admin.observations.title' | translate}}">
             <app-observations></app-observations>
-          </p-tabPanel>
-          <p-tabPanel header="{{'admin.blog.title' | translate}}">
+          </tab>
+          <tab heading="{{'admin.blog.title' | translate}}">
             <app-blog></app-blog>
-          </p-tabPanel>
-        </p-tabView>
+          </tab>
+        </tabset>
       </div>
     </div>
   </div>
