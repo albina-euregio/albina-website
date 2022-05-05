@@ -66,7 +66,6 @@ export class RegionConfigurationComponent {
     json["imageColorbarBwPath"] = this.config.imageColorbarBwPath;
 
     if (!this.config.isNew) {
-      debugger
       this.configurationService.updateRegionConfiguration(json).subscribe(
         data => {
           this.saveConfigurationLoading = false;
@@ -90,7 +89,6 @@ export class RegionConfigurationComponent {
         }
       );
     } else {
-      debugger
       this.configurationService.createRegionConfiguration(json).subscribe(
         data => {
           this.saveConfigurationLoading = false;
