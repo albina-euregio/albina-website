@@ -393,8 +393,9 @@
     "server-configuration" : {
       "title" : "Server",
       "button" : {
-        "create" : " Create server",
-        "save" : "Save"
+        "create" : "Create server",
+        "save" : "Save",
+        "delete" : "Delete"
       },
       "table" : {
         "title" : {
@@ -421,21 +422,52 @@
     "region-configuration" : {
       "title" : "Region",
       "button" : {
-        "create" : " Create region",
-        "save" : "Save"
+        "create" : "Create region",
+        "save" : "Save",
+        "delete" : "Delete"
       },
       "table" : {
         "title" : {
           "key" : "Parameter",
           "value" : "Value"
         },
+        "id" : "ID",
+        "microRegions" : "Number of micro regions",
+        "subRegions" : "Sub regions",
+        "superRegions" : "Super regions",
+        "publishBulletins" : "Publish avalanche forecast",
+        "publishBlogs" : "Publish blog posts",
+        "createCaamlV5" : "Create CAAML v5",
+        "createCaamlV6" : "Create CAAML v6",
+        "createJson" : "Create JSON",
         "createMaps" : "Create maps",
         "createPdf" : "Create PDF",
-        "createSimpleHtml" : "Create simple HTML",
         "sendEmails" : "Send emails",
-        "publishToTelegramChannel" : "Publish via Telegram channel",
-        "publishBulletins" : "Publish avalanche forecast",
-        "publishBlogs" : "Publish blog posts"
+        "createSimpleHtml" : "Create simple HTML",
+        "sendTelegramMessages" : "Send telegram messages",
+        "sendPushNotifications" : "Send push notifications",
+        "serverInstance" : "Server instance",
+        "pdfColor" : "PDF color",
+        "emailColor" : "Email color",
+        "pdfMapYAmPm" : "Y for PDF map (am/pm)",
+        "pdfMapYFd" : "Y for PDF map (fd)",
+        "pdfMapWidthAmPm" : "Map width for PDF (am/pm)",
+        "pdfMapWidthFd" : "Map width for PDF (fd)",
+        "pdfMapHeight" : "Map height for PDF",
+        "pdfFooterLogo" : "Logo for PDF footer",
+        "pdfFooterLogoColorPath" : "Logo for PDF footer (color)",
+        "pdfFooterLogoBwPath" : "Logo for PDF footer (bw)",
+        "mapXmax" : "Map X max",
+        "mapXmin" : "Map X min",
+        "mapYmax" : "Map Y max",
+        "mapYmin" : "Map Y min",
+        "simpleHtmlTemplateName" : "Simple HTML template",
+        "geoDataDirectory" : "Geodata directory",
+        "mapLogoColorPath" : "Logo for map (color)",
+        "mapLogoBwPath" : "Logo for map (bw)",
+        "mapLogoPosition" : "Logo position for map",
+        "imageColorbarColorPath" : "Colorbar (color)",
+        "imageColorbarBwPath" : "Colorbar (b/w)"
       },
       "success" : "Configuration successfully saved",
       "error" : "Configuration could not be saved"
@@ -669,6 +701,7 @@
     "AT-07-27" : "Eastern Deferegger Alps",
     "AT-07-28" : "Schober Mountains",
     "AT-07-29" : "Lienzer Dolomites",
+    "EUREGIO" : "EUREGIO",
     "IT-21" : "Piemonte",
     "IT-21-CN-01" : "Alpi Cozie Sud di confine",
     "IT-21-CN-02" : "Alpi Marittime Occidentali",

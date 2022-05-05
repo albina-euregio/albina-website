@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
-import { ConfigurationService } from "../providers/configuration-service/configuration.service";
+import { ConfigurationService, ServerConfiguration } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
-import { AlertComponent } from "ngx-bootstrap/alert";
 
 @Component({
   templateUrl: "servers-configuration.component.html",
@@ -11,13 +10,9 @@ import { AlertComponent } from "ngx-bootstrap/alert";
 })
 export class ServersConfigurationComponent implements OnInit {
 
-  public configurationPropertiesLoaded: boolean = false;
   public saveConfigurationLoading: boolean;
-  public localServerConfiguration: any;
-
-  public isAccordionLocalOpen: boolean;
-
-  public alerts: any[] = [];
+  public localServerConfiguration: ServerConfiguration;
+  public externalServerConfigurations: ServerConfiguration[];
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -25,7 +20,6 @@ export class ServersConfigurationComponent implements OnInit {
     public configurationService: ConfigurationService,
     public socialmediaService: SocialmediaService) {
     this.saveConfigurationLoading = false;
-    this.isAccordionLocalOpen = false;
   }
   
   ngOnInit() {
@@ -36,27 +30,25 @@ export class ServersConfigurationComponent implements OnInit {
           this.localServerConfiguration = data;
         },
         error => {
-          console.error("Configuration properties could not be loaded!");
+          console.error("Local server configuration could not be loaded!");
+        }
+      );
+      this.configurationService.loadExternalServerConfigurations().subscribe(
+        data => {
+          // TODO implement
+          this.externalServerConfigurations = data;
+        },
+        error => {
+          console.error("External server configurations could not be loaded!");
         }
       );
     }
   }
 
-  accordionChanged(event: boolean, groupName: string) {
-    switch (groupName) {
-      case "local":
-        this.isAccordionLocalOpen = event;
-        break;
-      default:
-        break;
-    }
-  }
-
   public createServer(event) {
-    // TODO implement
-  }
-
-  onClosed(dismissedAlert: AlertComponent): void {
-    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+    let newServer = {} as ServerConfiguration;
+    newServer.isNew = true;
+    newServer.externalServer = true;
+    this.externalServerConfigurations.push(newServer);
   }
 }

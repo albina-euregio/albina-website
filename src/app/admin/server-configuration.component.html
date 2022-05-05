@@ -1,3 +1,6 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+</div>
 <table class="table table-hover table-condensed" style="margin-bottom: 0">
   <tbody>
     <tr>
@@ -13,7 +16,7 @@
         <label class="col-form-label">{{ "admin.server-configuration.table.username" | translate }}</label>
       </td>
       <td>
-        <input type="text" class="form-control" id="input-username" placeholder="" [(ngModel)]="config.username">
+        <input type="text" class="form-control" id="input-username" placeholder="" [(ngModel)]="config.userName">
       </td>
     </tr>
     <tr *ngIf="externalServer">
@@ -24,7 +27,7 @@
         <input type="text" class="form-control" id="input-password" placeholder="" [(ngModel)]="config.password">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.publishAt5PM" | translate }}</label>
       </td>
@@ -35,7 +38,7 @@
         </label>
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.publishAt8AM" | translate }}</label>
       </td>
@@ -46,7 +49,7 @@
         </label>
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.pdfDirectory" | translate }}</label>
       </td>
@@ -54,7 +57,7 @@
         <input type="text" class="form-control" id="input-pdf-directory" placeholder="" [(ngModel)]="config.pdfDirectory">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.htmlDirectory" | translate }}</label>
       </td>
@@ -62,7 +65,7 @@
         <input type="text" class="form-control" id="input-html-directory" placeholder="" [(ngModel)]="config.htmlDirectory">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.serverImagesUrl" | translate }}</label>
       </td>
@@ -70,7 +73,7 @@
         <input type="text" class="form-control" id="input-server-images-url" placeholder="" [(ngModel)]="config.serverImagesUrl">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.mapsPath" | translate }}</label>
       </td>
@@ -78,7 +81,7 @@
         <input type="text" class="form-control" id="input-maps-path" placeholder="" [(ngModel)]="config.mapsPath">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.mediaPath" | translate }}</label>
       </td>
@@ -86,7 +89,7 @@
         <input type="text" class="form-control" id="input-media-path" placeholder="" [(ngModel)]="config.mediaPath">
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="!externalServer">
       <td>
         <label class="col-form-label">{{ "admin.server-configuration.table.mapProductionUrl" | translate }}</label>
       </td>
@@ -104,6 +107,7 @@
     </tr>
   </tbody>
 </table>
-<button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{
+<button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i> {{
   "admin.server-configuration.button.save" | translate }}</button>
-<button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
+<button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{
+  "admin.server-configuration.button.save" | translate }}</button>

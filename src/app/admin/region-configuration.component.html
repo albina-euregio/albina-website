@@ -1,58 +1,22 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+</div>
 <table class="table table-hover table-condensed" style="margin-bottom: 0">
   <tbody>
     <tr>
       <td>
-        <label class="col-form-label">{{ "admin.region-configuration.table.createMaps" | translate }}</label>
+        <label class="col-form-label">{{ "admin.region-configuration.table.id" | translate }}</label>
       </td>
       <td>
-        <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
-          <span class="switch-slider"></span>
-        </label>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.id">
       </td>
     </tr>
     <tr>
       <td>
-        <label class="col-form-label">{{ "admin.region-configuration.table.createPdf" | translate }}</label>
+        <label class="col-form-label">{{ "admin.region-configuration.table.microRegions" | translate }}</label>
       </td>
       <td>
-        <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
-          <span class="switch-slider"></span>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="col-form-label">{{ "admin.region-configuration.table.createSimpleHtml" | translate }}</label>
-      </td>
-      <td>
-        <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="createSimpleHtml">
-          <span class="switch-slider"></span>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="col-form-label">{{ "admin.region-configuration.table.sendEmails" | translate }}</label>
-      </td>
-      <td>
-        <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
-          <span class="switch-slider"></span>
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label class="col-form-label">{{ "admin.region-configuration.table.publishToTelegramChannel" | translate }}</label>
-      </td>
-      <td>
-        <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="publishToTelegramChannel">
-          <span class="switch-slider"></span>
-        </label>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.microRegions">
       </td>
     </tr>
     <tr>
@@ -61,7 +25,7 @@
       </td>
       <td>
         <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletins">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.publishBulletins">
           <span class="switch-slider"></span>
         </label>
       </td>
@@ -72,13 +36,284 @@
       </td>
       <td>
         <label class="switch switch-primary">
-          <input type="checkbox" class="switch-input" [(ngModel)]="publishBlogs">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.publishBlogs">
           <span class="switch-slider"></span>
         </label>
       </td>
     </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createCaamlV5" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createCaamlV5">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createCaamlV6" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createCaamlV6">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createJson" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createJson">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createMaps" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createMaps">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createPdf" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createPdf">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.createSimpleHtml" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.createSimpleHtml">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.sendEmails" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.sendEmails">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.sendTelegramMessages" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.sendTelegramMessages">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.sendPushNotifications" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.sendPushNotifications">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfColor" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfColor">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.emailColor" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.emailColor">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfMapYAmPm" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfMapYAmPm">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfMapYFd" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfMapYFd">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfMapWidthAmPm" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfMapWidthAmPm">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfMapWidthFd" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfMapWidthFd">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfMapHeight" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfMapHeight">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfFooterLogo" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.pdfFooterLogo">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfFooterLogoColorPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfFooterLogoColorPath">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.pdfFooterLogoBwPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.pdfFooterLogoBwPath">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapXmax" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapXmax">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapXmin" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapXmin">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapYmax" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapYmax">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapYmin" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapYmin">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.simpleHtmlTemplateName" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.simpleHtmlTemplateName">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.geoDataDirectory" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.geoDataDirectory">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapLogoColorPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapLogoColorPath">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapLogoBwPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapLogoBwPath">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.mapLogoPosition" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.mapLogoPosition">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.imageColorbarColorPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.imageColorbarColorPath">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.imageColorbarBwPath" | translate }}</label>
+      </td>
+      <td>
+        <input type="text" class="form-control" id="input-name" placeholder="" [(ngModel)]="config.imageColorbarBwPath">
+      </td>
+    </tr>
   </tbody>
 </table>
-<button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i> {{
+<button *ngIf="!saveConfigurationLoading" type="submit" [disabled]="!config.id" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i> {{
   "admin.server-configuration.button.save" | translate }}</button>
-<button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
+<button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{
+  "admin.server-configuration.button.save" | translate }}</button>

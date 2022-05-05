@@ -1,103 +1,119 @@
-import { Component, AfterContentInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ConstantsService } from "../providers/constants-service/constants.service";
-import { ConfigurationService } from "../providers/configuration-service/configuration.service";
+import { ConfigurationService, RegionConfiguration } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
-import * as Enums from "../enums/enums";
 import { AlertComponent } from "ngx-bootstrap/alert";
 
 @Component({
   templateUrl: "region-configuration.component.html",
   selector: "app-region-configuration"
 })
-export class RegionConfigurationComponent implements AfterContentInit {
+export class RegionConfigurationComponent {
 
-  public statusMap: Map<number, Enums.BulletinStatus>;
+  @Input() config: RegionConfiguration;
+
   public configurationPropertiesLoaded: boolean = false;
   public saveConfigurationLoading: boolean;
 
   public alerts: any[] = [];
 
-  public createMaps: boolean;
-  public createPdf: boolean;
-  public createSimpleHtml: boolean;
-  public sendEmails: boolean;
-  public publishToTelegramChannel: boolean;
-  public publishBulletins: boolean;
-  public publishBlogs: boolean;
-
-  public isAccordionOpen: boolean;
-
   constructor(
     private translateService: TranslateService,
-    private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService,
     public configurationService: ConfigurationService,
     public socialmediaService: SocialmediaService) {
-    this.statusMap = new Map<number, Enums.BulletinStatus>();
     this.saveConfigurationLoading = false;
-    this.isAccordionOpen = false;
-  }
-
-  ngAfterContentInit() {
-    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
-      this.configurationService.loadRegionConfiguration(this.authenticationService.activeRegion).subscribe(
-        data => {
-          // TODO fix
-          this.createMaps = (data as any).createMaps;
-          this.createPdf = (data as any).createPdf;
-          this.createSimpleHtml = (data as any).createSimpleHtml;
-          this.sendEmails = (data as any).sendEmails;
-          this.publishToTelegramChannel = (data as any).publishToTelegramChannel;
-          this.publishBulletins = (data as any).publishBulletins;
-          this.publishBlogs = (data as any).publishBlogs;
-          this.configurationPropertiesLoaded = true;
-        },
-        error => {
-          console.error("Region configuration properties could not be loaded!");
-        }
-      );
-    }
-  }
-
-  accordionChanged(event: boolean) {
-    this.isAccordionOpen = event;
   }
 
   public save() {
     this.saveConfigurationLoading = true;
     const json = Object();
-    json["createMaps"] = this.createMaps;
-    json["createPdf"] = this.createPdf;
-    json["createSimpleHtml"] = this.createSimpleHtml;
-    json["sendEmails"] = this.sendEmails;
-    json["publishToTelegramChannel"] = this.publishToTelegramChannel;
-    json["publishBulletins"] = this.publishBulletins;
-    json["publishBlogs"] = this.publishBlogs;
+    json["id"] = this.config.id;
+    json["microRegions"] = this.config.microRegions;
+    json["subRegions"] = this.config.subRegions;
+    json["superRegions"] = this.config.superRegions;
+    json["publishBulletins"] = this.config.publishBulletins;
+    json["publishBlogs"] = this.config.publishBlogs;
+    json["createCaamlV5"] = this.config.createCaamlV5;
+    json["createCaamlV6"] = this.config.createCaamlV6;
+    json["createJson"] = this.config.createJson;
+    json["createMaps"] = this.config.createMaps;
+    json["createPdf"] = this.config.createPdf;
+    json["createSimpleHtml"] = this.config.createSimpleHtml;
+    json["sendEmails"] = this.config.sendEmails;
+    json["sendTelegramMessages"] = this.config.sendTelegramMessages;
+    json["sendPushNotifications"] = this.config.sendPushNotifications;
+    json["serverInstance"] = this.config.serverInstance;
+    json["pdfColor"] = this.config.pdfColor;
+    json["emailColor"] = this.config.emailColor;
+    json["pdfMapYAmPm"] = this.config.pdfMapYAmPm;
+    json["pdfMapYFd"] = this.config.pdfMapYFd;
+    json["pdfMapWidthAmPm"] = this.config.pdfMapWidthAmPm;
+    json["pdfMapWidthFd"] = this.config.pdfMapWidthFd;
+    json["pdfMapHeight"] = this.config.pdfMapHeight;
+    json["pdfFooterLogo"] = this.config.pdfFooterLogo;
+    json["pdfFooterLogoColorPath"] = this.config.pdfFooterLogoColorPath;
+    json["pdfFooterLogoBwPath"] = this.config.pdfFooterLogoBwPath;
+    json["mapXmax"] = this.config.mapXmax;
+    json["mapXmin"] = this.config.mapXmin;
+    json["mapYmax"] = this.config.mapYmax;
+    json["mapYmin"] = this.config.mapYmin;
+    json["simpleHtmlTemplateName"] = this.config.simpleHtmlTemplateName;
+    json["geoDataDirectory"] = this.config.geoDataDirectory;
+    json["mapLogoColorPath"] = this.config.mapLogoColorPath;
+    json["mapLogoBwPath"] = this.config.mapLogoBwPath;
+    json["mapLogoPosition"] = this.config.mapLogoPosition;
+    json["imageColorbarColorPath"] = this.config.imageColorbarColorPath;
+    json["imageColorbarBwPath"] = this.config.imageColorbarBwPath;
 
-    this.configurationService.updateRegionConfiguration(json).subscribe(
-      data => {
-        this.saveConfigurationLoading = false;
-        console.debug("Region configuration saved!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
-          type: "success",
-          msg: this.translateService.instant("admin.region-configuration.success"),
-          timeout: 5000
-        });
-      },
-      error => {
-        this.saveConfigurationLoading = false;
-        console.error("Region configuration could not be saved!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
-          type: "danger",
-          msg: this.translateService.instant("admin.region-configuration.error"),
-          timeout: 5000
-        });
-      }
-    );
+    if (!this.config.isNew) {
+      debugger
+      this.configurationService.updateRegionConfiguration(json).subscribe(
+        data => {
+          this.saveConfigurationLoading = false;
+          console.debug("Region configuration saved!");
+          window.scrollTo(0, 0);
+          this.alerts.push({
+            type: "success",
+            msg: this.translateService.instant("admin.region-configuration.success"),
+            timeout: 5000
+          });
+        },
+        error => {
+          this.saveConfigurationLoading = false;
+          console.error("Region configuration could not be saved!");
+          window.scrollTo(0, 0);
+          this.alerts.push({
+            type: "danger",
+            msg: this.translateService.instant("admin.region-configuration.error"),
+            timeout: 5000
+          });
+        }
+      );
+    } else {
+      debugger
+      this.configurationService.createRegionConfiguration(json).subscribe(
+        data => {
+          this.saveConfigurationLoading = false;
+          console.debug("Region configuration saved!");
+          window.scrollTo(0, 0);
+          this.alerts.push({
+            type: "success",
+            msg: this.translateService.instant("admin.region-configuration.success"),
+            timeout: 5000
+          });
+        },
+        error => {
+          this.saveConfigurationLoading = false;
+          console.error("Region configuration could not be saved!");
+          window.scrollTo(0, 0);
+          this.alerts.push({
+            type: "danger",
+            msg: this.translateService.instant("admin.region-configuration.error"),
+            timeout: 5000
+          });
+        }
+      );
+    }
   }
 
   onClosed(dismissedAlert: AlertComponent): void {

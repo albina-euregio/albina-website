@@ -6,17 +6,43 @@ import { Observable } from "rxjs/Observable";
 
 export interface RegionConfiguration {
   id: string;
+  microRegions: number;
+  subRegions: string[];
+  superRegions: string[];
   publishBulletins: boolean;
   publishBlogs: boolean;
   createCaamlV5: boolean;
   createCaamlV6: boolean;
+  createJson: boolean;
   createMaps: boolean;
   createPdf: boolean;
-  createSimpleHtml: boolean;
   sendEmails: boolean;
+  createSimpleHtml: boolean;
   sendTelegramMessages: boolean;
   sendPushNotifications: boolean;
   serverInstance: ServerConfiguration;
+  pdfColor: string;
+  emailColor: string;
+  pdfMapYAmPm: number;
+  pdfMapYFd: number;
+  pdfMapWidthAmPm: number;
+  pdfMapWidthFd: number;
+  pdfMapHeight: number;
+  pdfFooterLogo: boolean;
+  pdfFooterLogoColorPath: string;
+  pdfFooterLogoBwPath: string;
+  mapXmax: number;
+  mapXmin: number;
+  mapYmax: number;
+  mapYmin: number;
+  simpleHtmlTemplateName: string;
+  geoDataDirectory: string;
+  mapLogoColorPath: string;
+  mapLogoBwPath: string;
+  mapLogoPosition: string;
+  imageColorbarColorPath: string;
+  imageColorbarBwPath: string;
+  isNew: boolean;
 }
 
 export interface ServerConfiguration {
@@ -34,6 +60,7 @@ export interface ServerConfiguration {
   mediaPath: string;
   mapProductionUrl: string;
   serverImagesUrl: string;
+  isNew: boolean;
 }
 
 
@@ -68,11 +95,26 @@ export class ConfigurationService {
     return this.http.put(url, body, options);
   }
 
+  public createServerConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "server";
+    const body = JSON.stringify(json);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.post(url, body, options);
+  }
+
   public loadRegionConfiguration(region): Observable<RegionConfiguration> {
-    const url = this.constantsService.getServerUrl() + "regions?region=" + region;
+    const url = this.constantsService.getServerUrl() + "regions/region?region=" + region;
     const options = { headers: this.authenticationService.newAuthHeader() };
 
     return this.http.get<RegionConfiguration>(url, options);
+  }
+
+  public loadRegionConfigurations(): Observable<RegionConfiguration[]> {
+    const url = this.constantsService.getServerUrl() + "regions";
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<RegionConfiguration[]>(url, options);
   }
 
   public updateRegionConfiguration(json) {

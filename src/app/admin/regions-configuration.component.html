@@ -3,17 +3,17 @@
             <i class="fa fa-user-secret"></i>{{ "admin.region-configuration.title" | translate }}
           </div> -->
   <div class="card-block">
-    <div *ngFor="let alert of alerts">
-      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
-    </div>
     <div type="button" class="form-group row" style="padding-left: 1.25rem; padding-right: 1.25rem">
       <div class="col-md-6">
-        <button (click)="createRegion($event)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "admin.region-configuration.button.create" | translate }}</button>
+        <button (click)="createRegion($event)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i> {{ "admin.region-configuration.button.create" | translate }}</button>
       </div>
     </div>
     <accordion *ngIf="configurationPropertiesLoaded">
-      <accordion-group [isOpen]="isAccordionOpen" (isOpenChange)="accordionChanged($event)">
-        <app-region-configuration [config]="config" [isAccordionOpen]="isAccordionOpen"></app-region-configuration>
+      <accordion-group *ngFor="let config of regionConfigurations">
+        <div accordion-heading class="clearfix">
+          <strong>{{ 'region.' + config.id | translate }}</strong>
+        </div>
+        <app-region-configuration [config]="config"></app-region-configuration>
       </accordion-group>
     </accordion>
   </div>
