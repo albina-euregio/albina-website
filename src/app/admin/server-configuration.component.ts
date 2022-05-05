@@ -42,6 +42,7 @@ export class ServerConfigurationComponent {
     json["htmlDirectory"] = this.config.htmlDirectory;
     json["serverImagesUrl"] = this.config.serverImagesUrl;
     json["mapsPath"] = this.config.mapsPath;
+    json["mediaPath"] = this.config.mediaPath;
     json["mapProductionUrl"] = this.config.mapProductionUrl;
 
     if (!this.config.isNew) {
