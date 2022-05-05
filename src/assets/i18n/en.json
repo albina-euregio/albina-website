@@ -398,10 +398,6 @@
         "delete" : "Delete"
       },
       "table" : {
-        "title" : {
-          "key" : "Parameter",
-          "value" : "Value"
-        },
         "name" : "Name",
         "username" : "Username",
         "password" : "Password",
@@ -423,14 +419,9 @@
       "title" : "Region",
       "button" : {
         "create" : "Create region",
-        "save" : "Save",
-        "delete" : "Delete"
+        "save" : "Save"
       },
       "table" : {
-        "title" : {
-          "key" : "Parameter",
-          "value" : "Value"
-        },
         "id" : "ID",
         "microRegions" : "Number of micro regions",
         "subRegions" : "Sub regions",
