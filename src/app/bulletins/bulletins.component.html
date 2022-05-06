@@ -10,64 +10,34 @@
         <div class="card-block">
           <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
             <thead>
-              <tr *ngIf="authenticationService.isEuregio()">
+              <tr>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
-                <th>{{ "bulletins.table.title.status.IT-32-TN" | translate }}</th>
-                <th>{{ "bulletins.table.title.status.IT-32-BZ" | translate }}</th>
-                <th>{{ "bulletins.table.title.status.AT-07" | translate }}</th>
-              </tr>
-              <tr *ngIf='authenticationService.getActiveRegionId() === "ES-CT-L"'>
-                <th>{{ "bulletins.table.title.date" | translate }}</th>
-                <th>{{ "bulletins.table.title.status.ES-CT-L" | translate }}</th>
+                <th>{{ "bulletins.table.title.status." + authenticationService.getActiveRegion().id | translate }}</th>
+                <th *ngFor="let region of authenticationService.getActiveRegion().neighborRegions">{{ "bulletins.table.title.status." + region | translate }}</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let date of bulletinsService.dates" style="height: 52px" (click)="editBulletin(date, false)" [style.color]="isPast(date) && !isToday(date) ? 'rgba(0,0,0,0.5)' : ''">
                 <td>{{ date | localizedDate:'fullDate' }}</td>
-
-                <td *ngIf="authenticationService.isEuregio()" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-TN') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-TN') ? 'rgba(0,0,0,0.05)' : ''">
-                  <i *ngIf="loadingTrentino" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.missing || this.bulletinsService.statusMapTrentino.get(date.getTime()) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
-                  <i *ngIf="bulletinsService.isLocked(date, 'IT-32-TN')" class="fa fa-lock float-right"></i>
+                <td [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegionId()) ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="'rgba(0,0,0,0.05)'">
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.missing || getActiveRegionStatus(date) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
+                  <span *ngIf="getActiveRegionStatus(date) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
+                  <i *ngIf="bulletinsService.isLocked(date, authenticationService.getActiveRegionId())" class="fa fa-lock float-right"></i>
                 </td>
-                <td *ngIf="authenticationService.isEuregio()" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-BZ') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-BZ') ? 'rgba(0,0,0,0.05)' : ''">
-                  <i *ngIf="loadingSouthTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.missing || this.bulletinsService.statusMapSouthTyrol.get(date.getTime()) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
-                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
-                  <i *ngIf="bulletinsService.isLocked(date, 'IT-32-BZ')" class="fa fa-lock float-right"></i>
-                </td>
-                <td *ngIf="authenticationService.isEuregio()" [style.background-color]="bulletinsService.isLocked(date, 'AT-07') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('AT-07') ? 'rgba(0,0,0,0.05)' : ''">
-                  <i *ngIf="loadingTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.missing || this.bulletinsService.statusMapTyrol.get(date.getTime()) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
-                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
-                  <i *ngIf="bulletinsService.isLocked(date, 'AT-07')" class="fa fa-lock float-right"></i>
-                </td>
-                <td *ngIf='authenticationService.getActiveRegionId() === "ES-CT-L"' [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegionId()) ? 'rgba(255,0,0,0.2)' : ''">
-                  <i *ngIf="loadingAran" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.missing || this.bulletinsService.statusMapAran.get(date.getTime()) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
-                  <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
-                  <i *ngIf="bulletinsService.isLocked(date, 'AT-07')" class="fa fa-lock float-right"></i>
+                <td *ngFor="let region of authenticationService.getActiveRegion().neighborRegions" [style.background-color]="bulletinsService.isLocked(date, region) ? 'rgba(255,0,0,0.2)' : ''">
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.missing || getRegionStatus(region, date) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
+                  <span *ngIf="getRegionStatus(region, date) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
+                  <i *ngIf="bulletinsService.isLocked(date, region)" class="fa fa-lock float-right"></i>
                 </td>
                 <td style="width: 200px">
                   <!-- create -->

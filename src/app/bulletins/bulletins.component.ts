@@ -119,7 +119,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     this.wsUpdateDisconnect();
   }
 
-  // region
   private wsUpdateConnect() {
     this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
       .connect(this.constantsService.getWsUpdateUrl() + this.authenticationService.getUsername())
@@ -127,15 +126,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         const data = JSON.parse(response.data);
         const bulletinUpdate = BulletinUpdateModel.createFromJson(data);
         console.debug("Bulletin update received: " + bulletinUpdate.getDate().toLocaleDateString() + " - " + bulletinUpdate.getRegion() + " [" + bulletinUpdate.getStatus() + "]");
-        if (bulletinUpdate.region === this.constantsService.codeTyrol) {
-          this.bulletinsService.statusMapTyrol.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
-        }
-        if (bulletinUpdate.region === this.constantsService.codeSouthTyrol) {
-          this.bulletinsService.statusMapSouthTyrol.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
-        }
-        if (bulletinUpdate.region === this.constantsService.codeTrentino) {
-          this.bulletinsService.statusMapTrentino.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
-        }
+        this.bulletinsService.statusMap.get(bulletinUpdate.region).set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
         return bulletinUpdate;
       });
 
@@ -173,6 +164,22 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  getActiveRegionStatus(date) {
+    const regionStatusMap = this.bulletinsService.statusMap.get(this.authenticationService.getActiveRegionId());
+    if (regionStatusMap)
+      return regionStatusMap.get(date.getTime());
+    else
+      return Enums.BulletinStatus.missing;
+  }
+
+  getRegionStatus(region, date) {
+    const regionStatusMap = this.bulletinsService.statusMap.get(region);
+    if (regionStatusMap)
+      return regionStatusMap.get(date.getTime());
+    else
+      return Enums.BulletinStatus.missing;
   }
 
   showCreateButton(date) {
