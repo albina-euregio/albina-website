@@ -48,11 +48,6 @@ export class ConstantsService {
   public roleObserver: string = "OBSERVER";
 
   // region
-  // TODO move to region configuration
-  public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05], [this.codeAran, 42.73]]);
-  public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07], [this.codeAran, 0.82]]);
-
-  // region
   public mapBoundaryN: number = 48.0;
   public mapBoundaryE: number = 13.5;
   public mapBoundaryS: number = 45.0;

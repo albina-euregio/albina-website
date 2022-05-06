@@ -180,11 +180,11 @@ export class AuthenticationService {
   }
 
   public getUserLat() {
-    return this.constantsService.lat.get(this.getActiveRegionId() ?? "");
+    return this.activeRegion.mapCenterLat ?? 47.1;
   }
-
+  
   public getUserLng() {
-    return this.constantsService.lng.get(this.getActiveRegionId() ?? "");
+    return this.activeRegion.mapCenterLng ?? 11.44;
   }
 
   public isCurrentUserInRole(role: string): boolean {

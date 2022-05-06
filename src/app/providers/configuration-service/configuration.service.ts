@@ -41,6 +41,8 @@ export interface RegionConfiguration {
   mapLogoColorPath: string;
   mapLogoBwPath: string;
   mapLogoPosition: string;
+  mapCenterLat: number;
+  mapCenterLng: number;
   imageColorbarColorPath: string;
   imageColorbarBwPath: string;
   isNew: boolean;

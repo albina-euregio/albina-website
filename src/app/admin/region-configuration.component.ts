@@ -67,6 +67,8 @@ export class RegionConfigurationComponent {
     json["mapLogoColorPath"] = this.config.mapLogoColorPath;
     json["mapLogoBwPath"] = this.config.mapLogoBwPath;
     json["mapLogoPosition"] = this.config.mapLogoPosition;
+    json["mapCenterLat"] = this.config.mapCenterLat;
+    json["mapCenterLng"] = this.config.mapCenterLng;
     json["imageColorbarColorPath"] = this.config.imageColorbarColorPath;
     json["imageColorbarBwPath"] = this.config.imageColorbarBwPath;
 
