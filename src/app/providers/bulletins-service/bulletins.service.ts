@@ -67,7 +67,7 @@ export class BulletinsService {
       data => {
         for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeTyrol, date);
+          this.addLockedRegion(this.authenticationService.getActiveRegionId(), date);
         }
       },
       () => {
