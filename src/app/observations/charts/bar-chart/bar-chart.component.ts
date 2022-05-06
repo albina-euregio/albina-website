@@ -1,4 +1,5 @@
-import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit, EventEmitter, Output  } from '@angular/core';
+import { BaseComponent } from '../base/base-chart.component';
 
 const barWidth = 5;
 const defaultDataBarOptions = {
@@ -19,9 +20,8 @@ const defaultDataBarOptions = {
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent extends BaseComponent implements OnInit {
 
-    @Input() dataset: Object
 
     public readonly defaultOptions = {
         title: {
@@ -106,16 +106,19 @@ export class BarChartComponent implements OnInit {
 
 
     constructor() {
+        super();
         console.log("BarChartComponent->constructor", this.dataset);
+    }
+
+    onClick(event: any) {
+        console.log("BarChartComponent->onclick", event);
+        this.submitChange([this.type, {}])
     }
 
 
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log("BarChartComponent->ngOnChanges", changes,  this.dataset);
-  }
 
 
 

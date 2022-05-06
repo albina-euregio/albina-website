@@ -34,6 +34,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { BaseComponent } from './charts/base/base-chart.component';
 
 @NgModule({
   imports: [

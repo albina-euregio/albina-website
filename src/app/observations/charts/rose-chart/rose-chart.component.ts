@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BaseComponent } from '../base/base-chart.component';
 
 const barDefaults = {
   type: 'bar',
@@ -15,9 +16,9 @@ const barDefaults = {
   templateUrl: './rose-chart.component.html',
   styleUrls: ['./rose-chart.component.scss']
 })
-export class RoseChartComponent implements OnInit {
+export class RoseChartComponent extends BaseComponent implements OnInit {
 
-    @Input() dataset: Object
+
     public readonly defaultOptions = {
     title: {
         text: 'points of the compass chart'
@@ -104,7 +105,14 @@ export class RoseChartComponent implements OnInit {
 ]
 };
 
-  constructor() { }
+  constructor() {
+      super();
+   }
+
+   onClick(event: any) {
+    console.log("RosehartComponent->onclick", event);
+    this.submitChange([this.type, {}])
+}
 
   ngOnInit(): void {
   }

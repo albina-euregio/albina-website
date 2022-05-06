@@ -1,3 +1,7 @@
 <div class="layout-chart">
-    <div echarts [options]="defaultOptions" [merge]="dataset" class="chart"></div>
+    <div echarts 
+        [options]="defaultOptions" 
+        [merge]="dataset" 
+        (chartClick)="onClick($event)" 
+        class="chart"></div>
 </div>
