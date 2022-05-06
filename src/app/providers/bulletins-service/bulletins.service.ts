@@ -63,7 +63,7 @@ export class BulletinsService {
     this.wsBulletinConnect();
 
     // region
-    this.getLockedRegions(this.authenticationService.getActiveRegion()).subscribe(
+    this.getLockedRegions(this.authenticationService.getActiveRegionId()).subscribe(
       data => {
         for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
@@ -233,7 +233,7 @@ export class BulletinsService {
 
   // region
   getUserRegionStatus(date: Date): Enums.BulletinStatus {
-    const region = this.authenticationService.getActiveRegion();
+    const region = this.authenticationService.getActiveRegionId();
     switch (region) {
       case this.constantsService.codeAran:
         return this.statusMapAran.get(date.getTime());
@@ -251,7 +251,7 @@ export class BulletinsService {
 
   // region
   setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
-    const region = this.authenticationService.getActiveRegion();
+    const region = this.authenticationService.getActiveRegionId();
     switch (region) {
       case this.constantsService.codeAran:
         this.statusMapAran.set(date.getTime(), status);
@@ -272,7 +272,7 @@ export class BulletinsService {
   }
 
   getPreviewPdf(date: Date): Observable<Blob> {
-    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion() + "&lang=" + this.settingsService.getLangString();
+    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId() + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/pdf");
     const options = { headers: headers };
 
@@ -348,7 +348,7 @@ export class BulletinsService {
   }
 
   saveBulletins(bulletins, date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
+    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId();
     const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {
@@ -361,7 +361,7 @@ export class BulletinsService {
   }
 
   changeBulletins(bulletins, date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins/change?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
+    const url = this.constantsService.getServerUrl() + "bulletins/change?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId();
     const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {

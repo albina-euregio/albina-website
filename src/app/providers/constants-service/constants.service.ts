@@ -48,6 +48,7 @@ export class ConstantsService {
   public roleObserver: string = "OBSERVER";
 
   // region
+  // TODO move to region configuration
   public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05], [this.codeAran, 42.73]]);
   public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07], [this.codeAran, 0.82]]);
 
@@ -80,6 +81,7 @@ export class ConstantsService {
   public colorDangerRatingModerateBw = "#D8D8D8";
   public colorDangerRatingConsiderableBw = "#B0B0B0";
   public colorDangerRatingHighBw = "#888888";
+  // TODO use EAWS color (most probably black)
   public colorDangerRatingVeryHighBw = "#666666";
 
   public colorDangerRatingMissing = "#969696";

@@ -16,7 +16,7 @@
                 <th>{{ "bulletins.table.title.status.IT-32-BZ" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.AT-07" | translate }}</th>
               </tr>
-              <tr *ngIf='authenticationService.getActiveRegion() === "ES-CT-L"'>
+              <tr *ngIf='authenticationService.getActiveRegionId() === "ES-CT-L"'>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.ES-CT-L" | translate }}</th>
               </tr>
@@ -58,7 +58,7 @@
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) === bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'AT-07')" class="fa fa-lock float-right"></i>
                 </td>
-                <td *ngIf='authenticationService.getActiveRegion() === "ES-CT-L"' [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegion()) ? 'rgba(255,0,0,0.2)' : ''">
+                <td *ngIf='authenticationService.getActiveRegionId() === "ES-CT-L"' [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegionId()) ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loadingAran" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.missing || this.bulletinsService.statusMapAran.get(date.getTime()) === undefined" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingAran && bulletinsService.statusMapAran.get(date.getTime()) === bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>

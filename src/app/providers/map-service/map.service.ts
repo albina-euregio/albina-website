@@ -97,7 +97,7 @@ export class MapService {
         // overlay to show aggregated regions
         aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
       };
-    } else if (this.authenticationService.getActiveRegion() === this.constantsService.codeAran) {
+    } else if (this.authenticationService.getActiveRegionId() === this.constantsService.codeAran) {
       this.baseMaps = {
         AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
           tms: false,
@@ -606,7 +606,7 @@ export class MapService {
 
   private getUserDependentRegionStyle(region) {
     let opacity = this.constantsService.lineOpacityForeignRegion;
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
 
@@ -662,7 +662,7 @@ export class MapService {
     const fillColor = this.constantsService.getDangerRatingColor(dangerRating);
 
     // own area
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       if (status === Enums.RegionStatus.published) {
         fillOpacity = this.constantsService.fillOpacityOwnSelected;
       } else if (status === Enums.RegionStatus.suggested) {
@@ -695,7 +695,7 @@ export class MapService {
     const opacity = 0.0;
 
     // own area
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       if (status === Enums.RegionStatus.published) {
         fillOpacity = this.constantsService.fillOpacityOwnDeselected;
       } else if (status === Enums.RegionStatus.suggested) {

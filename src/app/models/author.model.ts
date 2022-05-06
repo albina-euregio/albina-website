@@ -1,3 +1,5 @@
+import { RegionConfiguration } from "app/providers/configuration-service/configuration.service";
+
 export class AuthorModel {
   public accessToken: string;
   public refreshToken: string;
@@ -7,7 +9,7 @@ export class AuthorModel {
   public organization: string;
   public roles: string[];
   public image: string;
-  public regions: string[];
+  public regions: RegionConfiguration[];
   public apiUrl: string;
 
   static createFromJson(json: Partial<AuthorModel> & {access_token?: string; refresh_token?: string; api_url?: string}) {
@@ -27,7 +29,7 @@ export class AuthorModel {
     author.setRoles(roles);
     author.setImage(json.image);
     const jsonRegions = json.regions;
-    const regions = new Array<string>();
+    const regions = new Array<RegionConfiguration>();
     for (const i in jsonRegions) {
       if (jsonRegions[i] !== null) {
         regions.push(jsonRegions[i]);
@@ -127,11 +129,11 @@ export class AuthorModel {
     this.image = image;
   }
 
-  getRegions(): string[] {
+  getRegions(): RegionConfiguration[] {
     return this.regions;
   }
 
-  setRegions(regions: string[]) {
+  setRegions(regions: RegionConfiguration[]) {
     this.regions = regions;
   }
 

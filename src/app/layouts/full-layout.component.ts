@@ -75,7 +75,7 @@ export class FullLayoutComponent {
 
   public logout() {
     if (this.bulletinsService.getActiveDate()) {
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegionId());
     }
     this.authenticationService.logout();
     this.chatService.disconnect();
@@ -90,17 +90,12 @@ export class FullLayoutComponent {
   }
 
   changeRegion(region) {
-    if (!this.authenticationService.getActiveRegion().startsWith(region)) {
+    if (!this.authenticationService.getActiveRegionId().startsWith(region)) {
       if (this.router.url === "/bulletins/new" && this.bulletinsService.getIsEditable()) {
         this.tmpRegion = region;
         this.openChangeRegionModal(this.changeRegionTemplate);
       } else {
-        if (this.bulletinsService.getActiveDate()) {
-          this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
-        }
-        this.authenticationService.setActiveRegion(region);
-        this.bulletinsService.init();
-        this.router.navigate(["/bulletins"]);
+        this.change(region);
       }
     }
   }
@@ -111,16 +106,20 @@ export class FullLayoutComponent {
 
   changeRegionModalConfirm(): void {
     this.changeRegionModalRef.hide();
-    if (this.bulletinsService.getActiveDate()) {
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
-    }
-    this.authenticationService.setActiveRegion(this.tmpRegion);
+    this.change(this.tmpRegion);
     this.tmpRegion = undefined;
-    this.bulletinsService.init();
-    this.router.navigate(["/bulletins"]);
   }
 
   changeRegionModalDecline(): void {
     this.changeRegionModalRef.hide();
+  }
+
+  private change(region) {
+    if (this.bulletinsService.getActiveDate()) {
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegionId());
+    }
+    this.authenticationService.setActiveRegion(region);
+    this.bulletinsService.init();
+    this.router.navigate(["/bulletins"]);
   }
 }

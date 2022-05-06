@@ -6,14 +6,15 @@ import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
 import { ServerModel } from "../../models/server.model";
+import { RegionConfiguration } from "../configuration-service/configuration.service";
 
 @Injectable()
 export class AuthenticationService {
 
-  public currentAuthor: AuthorModel;
-  public externalServers: ServerModel[];
-  public jwtHelper: JwtHelperService;
-  public activeRegion: string;
+  private currentAuthor: AuthorModel;
+  private externalServers: ServerModel[];
+  private jwtHelper: JwtHelperService;
+  private activeRegion: RegionConfiguration;
 
   constructor(
     public http: HttpClient,
@@ -25,6 +26,11 @@ export class AuthenticationService {
       this.setCurrentAuthor(JSON.parse(localStorage.getItem("currentAuthor")));
     } catch (e) {
       localStorage.removeItem("currentAuthor");
+    }
+    try {
+      this.setActiveRegion(JSON.parse(localStorage.getItem("activeRegion")));
+    } catch (e) {
+      localStorage.removeItem("activeRegion");
     }
     try {
       this.setExternalServers(JSON.parse(localStorage.getItem("externalServers")));
@@ -47,6 +53,7 @@ export class AuthenticationService {
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
+    localStorage.removeItem("activeRegion");
     localStorage.removeItem("externalServers");
     this.externalServers = [];
   }
@@ -109,20 +116,23 @@ export class AuthenticationService {
     }
   }
 
-  public getActiveRegion(): string {
-    return this.activeRegion;
+  public getActiveRegionId(): string {
+    return this.activeRegion.id;
   }
 
-  public setActiveRegion(region: string) {
-    if (this.currentAuthor.getRegions().includes(region)) {
+  public setActiveRegion(region: RegionConfiguration) {
+    if (this.currentAuthor.getRegions().map(region => region.id).includes(region.id)) {
       this.activeRegion = region;
+      localStorage.setItem("activeRegion", JSON.stringify(this.activeRegion));
+    } else {
+      this.logout();
     }
   }
 
   // region
   // lang (code used for textcat)
   public getActiveRegionCode(): number {
-    switch (this.activeRegion) {
+    switch (this.activeRegion.id) {
       case this.constantsService.codeTyrol:
         return 2;
       case this.constantsService.codeSouthTyrol:
@@ -138,7 +148,7 @@ export class AuthenticationService {
   // region
   // lang (code used for textcat-ng)
   public getTextcatRegionCode(): string {
-    switch (this.activeRegion) {
+    switch (this.activeRegion.id) {
       case this.constantsService.codeSwitzerland:
         return "Switzerland";
       case this.constantsService.codeTyrol:
@@ -159,18 +169,18 @@ export class AuthenticationService {
 
   public isEuregio(): boolean {
     return (
-      this.getActiveRegion() === this.constantsService.codeTyrol ||
-      this.getActiveRegion() === this.constantsService.codeSouthTyrol ||
-      this.getActiveRegion() === this.constantsService.codeTrentino
+      this.getActiveRegionId() === this.constantsService.codeTyrol ||
+      this.getActiveRegionId() === this.constantsService.codeSouthTyrol ||
+      this.getActiveRegionId() === this.constantsService.codeTrentino
     );
   }
 
   public getUserLat() {
-    return this.constantsService.lat.get(this.getActiveRegion() ?? "");
+    return this.constantsService.lat.get(this.getActiveRegionId() ?? "");
   }
 
   public getUserLng() {
-    return this.constantsService.lng.get(this.getActiveRegion() ?? "");
+    return this.constantsService.lng.get(this.getActiveRegionId() ?? "");
   }
 
   public isCurrentUserInRole(role: string): boolean {
@@ -181,7 +191,7 @@ export class AuthenticationService {
   public getChatId(region: string) {
     switch (region) {
       case this.constantsService.codeTyrol:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 0;
           case this.constantsService.codeSouthTyrol:
@@ -192,7 +202,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeSouthTyrol:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 1;
           case this.constantsService.codeSouthTyrol:
@@ -203,7 +213,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeTrentino:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 2;
           case this.constantsService.codeSouthTyrol:
@@ -230,7 +240,9 @@ export class AuthenticationService {
       .map(data => {
         if ((data ).access_token) {
           this.setCurrentAuthor(data);
-          localStorage.setItem("currentAuthor", JSON.stringify(this.currentAuthor));
+          if (this.getCurrentAuthorRegions().length > 0) {
+            this.setActiveRegion(this.getCurrentAuthorRegions()[0]);
+          }
           return true;
         } else {
           return false;
@@ -289,12 +301,16 @@ export class AuthenticationService {
       });
   }
 
+  public getCurrentAuthor() {
+    return this.currentAuthor;
+  }
+
   private setCurrentAuthor(json: Partial<AuthorModel>) {
     if (!json) {
       return;
     }
     this.currentAuthor = AuthorModel.createFromJson(json);
-    this.activeRegion = this.currentAuthor.getRegions()[0];
+    localStorage.setItem("currentAuthor", JSON.stringify(this.currentAuthor));
   }
 
   public getCurrentAuthorRegions() {
@@ -341,7 +357,7 @@ export interface AuthenticationResponse {
   email: string;
   name: string;
   roles: string[];
-  regions: string[];
+  regions: any[];
   access_token: string;
   refresh_token: string;
   api_url: string;
