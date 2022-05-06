@@ -865,8 +865,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private addExternalBulletins(response) {
-    this.mapService.resetAggregatedRegions();
-
     for (const jsonBulletin of response) {
       const bulletin = BulletinModel.createFromJson(jsonBulletin);
       this.addExternalBulletin(bulletin);
@@ -2190,12 +2188,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
 
-        this.updateInternalBulletins();
-
         if (!hit && this.getOwnBulletins().length === 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange()) {
           this.createInitialAggregatedRegion();
         }
 
+        this.updateInternalBulletins();
+        
         this.mapService.deselectAggregatedRegion();
         this.loading = false;
         this.startAutoSave();
