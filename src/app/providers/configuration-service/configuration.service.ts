@@ -9,6 +9,7 @@ export interface RegionConfiguration {
   microRegions: number;
   subRegions: string[];
   superRegions: string[];
+  neighborRegions: string[];
   publishBulletins: boolean;
   publishBlogs: boolean;
   createCaamlV5: boolean;

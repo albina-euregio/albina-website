@@ -426,6 +426,7 @@
         "microRegions" : "Number of micro regions",
         "subRegions" : "Sub regions",
         "superRegions" : "Super regions",
+        "neighborRegions" : "Neighbor regions",
         "publishBulletins" : "Publish avalanche forecast",
         "publishBlogs" : "Publish blog posts",
         "createCaamlV5" : "Create CAAML v5",

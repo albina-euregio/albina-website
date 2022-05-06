@@ -35,6 +35,7 @@ export class RegionConfigurationComponent {
     json["microRegions"] = this.config.microRegions;
     json["subRegions"] = this.config.subRegions;
     json["superRegions"] = this.config.superRegions;
+    json["neighborRegions"] = this.config.neighborRegions;
     json["publishBulletins"] = this.config.publishBulletins;
     json["publishBlogs"] = this.config.publishBlogs;
     json["createCaamlV5"] = this.config.createCaamlV5;
