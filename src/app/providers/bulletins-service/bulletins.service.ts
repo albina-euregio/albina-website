@@ -62,7 +62,6 @@ export class BulletinsService {
     this.wsRegionConnect();
     this.wsBulletinConnect();
 
-    // region
     this.getLockedRegions(this.authenticationService.getActiveRegionId()).subscribe(
       data => {
         for (const lockedDate of (data as any)) {
