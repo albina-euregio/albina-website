@@ -132,6 +132,18 @@ export enum Aspect {
   NW = "NW"
 }
 
+
+export enum LocalFilterTypes {
+  Elevation = "Elevation",
+  Aspects = "Aspects",
+}
+
+export interface chartsData {
+  Elevation: Object;
+  Aspects: Object;
+}
+
+
 export interface ObservationTableRow {
   label: string;
   date?: Date;

@@ -13,13 +13,11 @@ import {
   ObservationTableRow,
   toGeoJSON,
   toMarkerColor,
-  toObservationTable
+  toObservationTable,
+  LocalFilterTypes,
+  chartsData
 } from "./models/generic-observation.model";
 
-export interface chartsData {
-  elevation: Object;
-  aspects: Object;
-}
 
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
@@ -47,9 +45,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
   public readonly dropdownSettings: IDropdownSettings;
+  public readonly LFilterTypes = LocalFilterTypes;
   public selectedItems: [];
   public toMarkerColor = toMarkerColor;
-  public chartsData: chartsData = {elevation: {}, aspects: {}};
+  public chartsData: chartsData = {Elevation: {}, Aspects: {}};
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
@@ -157,8 +156,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationPopup = undefined;
   }
 
-  applyLocalFilter() {
-    console.log("applyLocalFilter");
+  applyLocalFilter(data = {}) {
+    console.log("applyLocalFilter", data);
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
@@ -182,7 +181,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   buildChartsData() {
 
-    this.chartsData.elevation = {'dataset': 
+    this.chartsData.Elevation = {'dataset': 
       {'source': [
         ['category', 'max', 'all', 'selected', 'highlighted'],
         ['1000', 100, 90, 20, 0],
@@ -194,7 +193,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         ]
       }
     };
-    this.chartsData.aspects = {dataset: {
+    this.chartsData.Aspects = {dataset: {
       // Provide a set of data.
       source: [
             ['category', 'all','selected', 'highlighted'],

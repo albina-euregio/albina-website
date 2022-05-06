@@ -46,7 +46,7 @@
           </div>
         </div>
         <div>
-          <app-aspects [(aspects)]="filter.aspects" [size]="100"></app-aspects>
+          <app-aspects [(aspects)]="filter.aspects" (aspectsChange)="applyLocalFilter({type: $event[0], data:  $event[1]})" [size]="100"></app-aspects>
         </div>
         <div>
           <ng-multiselect-dropdown
@@ -95,8 +95,16 @@
 
     <div class="layout-right">
       <div class="layout-charts">
-        <app-bar-chart [dataset]="chartsData.elevation"></app-bar-chart>
-        <app-rose-chart [dataset]="chartsData.aspects"></app-rose-chart>
+        <app-bar-chart 
+          [type]="LFilterTypes.Elevation"
+          [dataset]="chartsData.Elevation"  
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-rose-chart 
+          [type]="LFilterTypes.Aspects"
+          [dataset]="chartsData.Aspects" 
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-rose-chart>
       </div>
     </div>
 
