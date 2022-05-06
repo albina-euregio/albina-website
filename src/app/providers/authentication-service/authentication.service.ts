@@ -116,6 +116,10 @@ export class AuthenticationService {
     }
   }
 
+  public getActiveRegion(): RegionConfiguration {
+    return this.activeRegion;
+  }
+
   public getActiveRegionId(): string {
     return this.activeRegion.id;
   }

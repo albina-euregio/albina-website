@@ -437,6 +437,7 @@
         "createSimpleHtml" : "Create simple HTML",
         "sendTelegramMessages" : "Send telegram messages",
         "sendPushNotifications" : "Send push notifications",
+        "enableMediaFile" : "Enable media file",
         "serverInstance" : "Server instance",
         "pdfColor" : "PDF color",
         "emailColor" : "Email color",

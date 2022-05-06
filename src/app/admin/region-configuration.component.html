@@ -142,6 +142,17 @@
     </tr>
     <tr>
       <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.enableMediaFile" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.enableMediaFile">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <label class="col-form-label">{{ "admin.region-configuration.table.pdfColor" | translate }}</label>
       </td>
       <td>

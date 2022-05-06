@@ -282,7 +282,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
   showMediaFileButton(date) {
     if (this.authenticationService.getActiveRegionId() !== undefined &&
-        this.authenticationService.getActiveRegionId() === "AT-07" &&
+        this.authenticationService.getActiveRegion().enableMediaFile &&
       (!this.publishing || this.publishing.getTime() !== date.getTime()) &&
       (
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.draft ||

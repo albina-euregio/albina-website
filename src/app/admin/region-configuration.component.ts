@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfigurationService, RegionConfiguration } from "../providers/configuration-service/configuration.service";
+import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
 import { AlertComponent } from "ngx-bootstrap/alert";
 
@@ -20,12 +21,15 @@ export class RegionConfigurationComponent {
   constructor(
     private translateService: TranslateService,
     public configurationService: ConfigurationService,
+    public authenticationService: AuthenticationService,
     public socialmediaService: SocialmediaService) {
     this.saveConfigurationLoading = false;
   }
 
   public save() {
     this.saveConfigurationLoading = true;
+    if (this.authenticationService.getActiveRegionId() == this.config.id)
+      this.authenticationService.setActiveRegion(this.config);
     const json = Object();
     json["id"] = this.config.id;
     json["microRegions"] = this.config.microRegions;
@@ -42,6 +46,7 @@ export class RegionConfigurationComponent {
     json["sendEmails"] = this.config.sendEmails;
     json["sendTelegramMessages"] = this.config.sendTelegramMessages;
     json["sendPushNotifications"] = this.config.sendPushNotifications;
+    json["enableMediaFile"] = this.config.enableMediaFile;
     json["serverInstance"] = this.config.serverInstance;
     json["pdfColor"] = this.config.pdfColor;
     json["emailColor"] = this.config.emailColor;
