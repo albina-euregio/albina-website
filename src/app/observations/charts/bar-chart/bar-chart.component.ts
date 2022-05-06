@@ -106,6 +106,7 @@ export class BarChartComponent implements OnInit {
 
 
     constructor() {
+        console.log("BarChartComponent->constructor", this.dataset);
     }
 
 
@@ -113,7 +114,7 @@ export class BarChartComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("changes", changes);
+    console.log("BarChartComponent->ngOnChanges", changes,  this.dataset);
   }
 
 

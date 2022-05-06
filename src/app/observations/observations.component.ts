@@ -15,6 +15,12 @@ import {
   toMarkerColor,
   toObservationTable
 } from "./models/generic-observation.model";
+
+export interface chartsData {
+  elevation: Object;
+  aspects: Object;
+}
+
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import { saveAs } from "file-saver";
@@ -43,6 +49,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly dropdownSettings: IDropdownSettings;
   public selectedItems: [];
   public toMarkerColor = toMarkerColor;
+  public chartsData: chartsData = {elevation: {}, aspects: {}};
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
@@ -126,7 +133,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         this.addObservation(observation)
       })
       .catch((e) => console.error(e))
-      .finally(() => (this.loading = false));
+      .finally(() => {
+        this.loading = false;
+        this.buildChartsData();
+      });
   }
 
   exportObservations() {
@@ -148,6 +158,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   applyLocalFilter() {
+    console.log("applyLocalFilter");
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
@@ -164,9 +175,44 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       if(!ll) {
         return;
       }
-
       this.drawMarker(observation, ll);
     });
+    this.buildChartsData();
+  }
+
+  buildChartsData() {
+
+    this.chartsData.elevation = {'dataset': 
+      {'source': [
+        ['category', 'max', 'all', 'selected', 'highlighted'],
+        ['1000', 100, 90, 20, 0],
+        ['1500', 100, 90, (Math.random() * (90 - 10) + 10), 0],
+        ['2000', 100, 90, (Math.random() * (90 - 10) + 10), 0],
+        ['2500', 100, 80, 0, 60],
+        ['3000', 100, 80, 0, 70],
+        ['3500', 100, 50, (Math.random() * (90 - 10) + 10), 0],
+        ]
+      }
+    };
+    this.chartsData.aspects = {dataset: {
+      // Provide a set of data.
+      source: [
+            ['category', 'all','selected', 'highlighted'],
+            ['N', 100, (Math.random() * (90 - 10) + 10), 0],
+            ['NE', 70, 0, 60],
+            ['E', 30, 0, 20],
+            ['SE', 80, 80, 0],
+            ['S', 90, (Math.random() * (90 - 10) + 10), 0],
+            ['SW', 100, 0, 30],
+            ['W', 80, 80, 0],
+            ['NW', 90, 80, 0],
+        ]
+      }
+    }
+    //console.log("buildChartsData", this.chartsData);
+
+
+
   }
 
   private drawMarker(observation, ll) {

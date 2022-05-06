@@ -95,7 +95,8 @@
 
     <div class="layout-right">
       <div class="layout-charts">
-        <app-observations-local-filter [filter]="filter" [observations]="observations"></app-observations-local-filter>
+        <app-bar-chart [dataset]="chartsData.elevation"></app-bar-chart>
+        <app-rose-chart [dataset]="chartsData.aspects"></app-rose-chart>
       </div>
     </div>
 
