@@ -4,6 +4,11 @@ import {
   GenericObservation,
   ObservationSource,
 } from "./models/generic-observation.model";
+import * as Enums from "../enums/enums";
+import {
+  ObservationFilterType
+} from "./models/generic-observation.model";
+
 
 @Injectable()
 export class ObservationFilterService {
@@ -41,6 +46,50 @@ export class ObservationFilterService {
       this.inElevationRange(observation) &&
       this.inAspects(observation)
     );
+  }
+
+  public getAspectDataset(observations: GenericObservation[]) {
+
+    const dataRaw = {};
+
+    for (const [key, value] of Object.entries(Enums.Aspect)) {
+      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": 0};
+    }
+
+    observations.forEach(observation => {
+      if(observation.aspect) {
+        dataRaw[observation.aspect].all++;
+        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+      }
+    });
+
+    const dataset = [['category', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
+
+    return {dataset: {source: dataset}}
+  }
+
+  public getElevationDataset(observations: GenericObservation[]) {
+
+    const dataRaw = {};
+
+    for (const [key, value] of Object.entries(Enums.Aspect)) {
+      if (isNaN(Number(key))) dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": 0};
+    }
+
+    observations.forEach(observation => {
+      if(observation.elevation) {
+        dataRaw[observation.aspect].all++;
+        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+      }
+    });
+
+    const dataset = [['category', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
+
+    return {dataset: {source: dataset}}
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
