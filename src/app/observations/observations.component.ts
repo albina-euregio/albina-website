@@ -193,21 +193,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         ]
       }
     };
-    this.chartsData.Aspects = {dataset: {
-      // Provide a set of data.
-      source: [
-            ['category', 'all','selected', 'highlighted'],
-            ['N', 100, (Math.random() * (90 - 10) + 10), 0],
-            ['NE', 70, 0, 60],
-            ['E', 30, 0, 20],
-            ['SE', 80, 80, 0],
-            ['S', 90, (Math.random() * (90 - 10) + 10), 0],
-            ['SW', 100, 0, 30],
-            ['W', 80, 80, 0],
-            ['NW', 90, 80, 0],
-        ]
-      }
-    }
+    this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
     //console.log("buildChartsData", this.chartsData);
 
 
