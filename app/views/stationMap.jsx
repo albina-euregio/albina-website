@@ -10,9 +10,14 @@ import StationDataStore from "../stores/stationDataStore";
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
 
+const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
+
 const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
   geometry: {
-    coordinates: [+observer.longitude, +observer.latitude]
+    coordinates: [
+      +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
+      +observer.latitude
+    ]
   },
   name: observer.name,
   id: "observer-" + observer["plot.id"],
