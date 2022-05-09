@@ -20,7 +20,12 @@ import {
 } from "@floating-ui/react-dom-interactions";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const Tooltip = ({ children, label, placement = "bottom" }) => {
+export const Tooltip = ({
+  children,
+  label,
+  placement = "bottom",
+  html = false
+}) => {
   const [open, setOpen] = useState(false);
 
   const { x, y, reference, floating, strategy, context, refs, update } =
@@ -47,6 +52,7 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
     }
   }, [refs.reference, refs.floating, update, open]);
 
+  let customInnerClass = html ? "tooltip-inner-html" : "tooltip-inner";
   return (
     <>
       {isValidElement(children) &&
@@ -68,7 +74,7 @@ export const Tooltip = ({ children, label, placement = "bottom" }) => {
               }
             })}
           >
-            <div className="tooltip-inner">
+            <div className={customInnerClass}>
               <div className="tooltip-content">{label}</div>
             </div>
           </motion.div>

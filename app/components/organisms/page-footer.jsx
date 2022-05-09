@@ -46,6 +46,7 @@ class PageFooter extends React.Component {
                     label={this.props.intl.formatMessage({
                       id: "footer:subscribe:hover"
                     })}
+                    html={true}
                   >
                     <a
                       href="#subscribeDialog"
