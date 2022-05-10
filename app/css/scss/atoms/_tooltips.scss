@@ -7,48 +7,81 @@
     #TOOLTIPS
 \*------------------------------------*/
 
-//until 202112
-//https://atomiks.github.io/tippyjs/
+// until 202112
+// https://atomiks.github.io/tippyjs/
 
-.tippy-tooltip.custom-theme {
+// .tippy-tooltip.custom-theme {
+//   @extend .label;
+//   margin: 0;
+//   background: rgba($white, 0.9);
+//   //@include box-shadow;
+// }
+
+// .tippy-tooltip.custom-html-theme {
+//   padding: $padding;
+//   color: $text-color;
+//   background: rgba($white, 0.9);
+//   @include box-border;
+//   border-radius: 0;
+//   // @include box-shadow;
+//   .tippy-content {
+//     @include last-child;
+//   }
+// }
+
+// from 202112
+// https://atomiks.github.io/tippyjs/v6/themes/
+
+// .tippy-box[data-theme~='albina'] {
+//   @extend .label;
+//   margin: 0;
+//   background: $white;//rgba($white, 0.9);
+//   .tippy-content {
+//     line-height: 1.2;
+//     @include last-child;
+//   }
+// }
+
+// .tippy-box[data-theme~='albina-html'] {
+//   padding: $padding * 2;
+//   color: $text-color;
+//   background: $white;//rgba($white, 0.9);
+//   @include box-border;
+//   border-radius: 0;
+//   .tippy-content {
+//     @include last-child;
+//   }
+// }
+
+// from 202205
+.tooltip-container {
+  position: absolute;
+  z-index: 1000000;
+}
+.tooltip-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+
   @extend .label;
   margin: 0;
-  background: rgba($white, 0.9);
-  //@include box-shadow;
-}
 
-.tippy-tooltip.custom-html-theme {
+  font-weight: $body-font-weight;
+  font-style: $body-font-style;
+  white-space: nowrap;
+
+  color: $text-color;
+  background: $white;
+  @include box-border;
+}
+.tooltip-inner-html {
+  @extend .tooltip-inner;
   padding: $padding;
-  color: $text-color;
-  background: rgba($white, 0.9);
-  @include box-border;
-  border-radius: 0;
-  //@include box-shadow;
-  .tippy-content {
-    @include last-child;
-  }
 }
-
-//from 202112
-//https://atomiks.github.io/tippyjs/v6/themes/
-
-.tippy-box[data-theme~="albina"] {
-  @extend .label;
-  margin: 0;
-  background: $white; //rgba($white, 0.9);
-  .tippy-content {
-    line-height: 1.2;
-    @include last-child;
-  }
-}
-
-.tippy-box[data-theme~="albina-html"] {
-  padding: $padding * 2;
-  color: $text-color;
-  background: $white; //rgba($white, 0.9);
-  @include box-border;
-  border-radius: 0;
-  .tippy-content {
-    @include last-child;
-  }
+.tooltip-content {
+  display: block;
+  top: 0;
+  left: 0;
+  line-height: 1.2;
+  @include last-child;
 }
