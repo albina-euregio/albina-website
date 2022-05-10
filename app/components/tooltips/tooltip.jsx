@@ -52,6 +52,7 @@ export const Tooltip = ({
     }
   }, [refs.reference, refs.floating, update, open]);
 
+  let content = label.replace("\n", "<br>");
   let customInnerClass = html ? "tooltip-inner-html" : "tooltip-inner";
   return (
     <>
@@ -75,7 +76,10 @@ export const Tooltip = ({
             })}
           >
             <div className={customInnerClass}>
-              <div className="tooltip-content">{label}</div>
+              <div
+                className="tooltip-content"
+                dangerouslySetInnerHTML={{ __html: content }}
+              ></div>
             </div>
           </motion.div>
         )}
