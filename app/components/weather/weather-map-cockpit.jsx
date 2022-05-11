@@ -231,6 +231,7 @@ class WeatherMapCockpit extends React.Component {
 
         buttons.push(
           <Tooltip
+            key={"domain-timespan-desc-" + nrOnlyTimespan}
             label={this.props.intl.formatMessage(
               { id: "weathermap:domain:timespan:description" },
               { range: nrOnlyTimespan }
@@ -269,6 +270,7 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
           <Tooltip
+            key="cp-select-parameter"
             label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:select-parameter"
             })}
@@ -414,6 +416,7 @@ class WeatherMapCockpit extends React.Component {
         {parts}
         <div key="flipper" className="cp-scale-flipper">
           <Tooltip
+            key="cockpit-flipper-prev"
             label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:previous"
             })}
@@ -434,6 +437,7 @@ class WeatherMapCockpit extends React.Component {
             </a>
           </Tooltip>
           <Tooltip
+            key="cockpit-flipper-next"
             label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:next"
             })}
@@ -489,6 +493,7 @@ class WeatherMapCockpit extends React.Component {
     return (
       <div key="cp-movie" className={divClasses.join(" ")}>
         <Tooltip
+          key="cp-movie-play"
           label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:play"
           })}
@@ -509,6 +514,7 @@ class WeatherMapCockpit extends React.Component {
           </a>
         </Tooltip>
         <Tooltip
+          key="cp-movie-stop"
           label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:stop"
           })}
@@ -578,6 +584,7 @@ class WeatherMapCockpit extends React.Component {
           </span>
         </Tooltip>
         <Tooltip
+          key="cp-realse-date"
           label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-update-date:title"
           })}
@@ -592,6 +599,7 @@ class WeatherMapCockpit extends React.Component {
           </span>
         </Tooltip>
         <Tooltip
+          key="cockpit-title-tp"
           label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:unit:title"
           })}
@@ -678,7 +686,7 @@ class WeatherMapCockpit extends React.Component {
             {this.getReleaseInfo()}
           </div>
           <div key="cp-copyright" className="cp-copyright">
-            <Tooltip label="ZAMG">
+            <Tooltip key="cp-copyright-tp" label="ZAMG">
               <a href="https://www.zamg.ac.at">
                 <span className="is-visually-hidden">ZAMG</span>
               </a>
