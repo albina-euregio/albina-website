@@ -62,7 +62,7 @@ const Page = props => {
         window.scrollTo(0, 0);
       } else {
         //console.log("Page->useEffect hash #3", location.hash);
-        scroll(location.hash, 2000);
+        setTimeout(() => scroll(location.hash, 2000), 1000);
       }
     }
   }, [location.hash]);
