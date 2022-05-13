@@ -52,8 +52,6 @@ export const Tooltip = ({
     }
   }, [refs.reference, refs.floating, update, open]);
 
-  let content = label.replace("\n", "<br>");
-  let customInnerClass = html ? "tooltip-inner-html" : "tooltip-inner";
   return (
     <>
       {isValidElement(children) &&
@@ -75,11 +73,17 @@ export const Tooltip = ({
               }
             })}
           >
-            <div className={customInnerClass}>
-              <div
-                className="tooltip-content"
-                dangerouslySetInnerHTML={{ __html: content }}
-              ></div>
+            <div className={html ? "tooltip-inner-html" : "tooltip-inner"}>
+              {typeof label === "string" ? (
+                <div
+                  className="tooltip-content"
+                  dangerouslySetInnerHTML={{
+                    __html: label.replace("\n", "<br>")
+                  }}
+                ></div>
+              ) : (
+                <div className="tooltip-content">{label}</div>
+              )}
             </div>
           </motion.div>
         )}
