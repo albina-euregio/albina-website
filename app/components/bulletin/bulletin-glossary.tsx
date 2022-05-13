@@ -1,5 +1,5 @@
-import Tippy from "@tippyjs/react";
 import React from "react";
+import { Tooltip } from "../tooltips/tooltip";
 
 import { preprocessContent } from "../../util/htmlParser";
 import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
@@ -36,18 +36,14 @@ export default class BulletinGlossary extends React.Component<Props> {
     const { text, img } = GLOSSARY_CONTENT[glossary];
     const content = preprocessContent(text + (img ?? ""));
     return (
-      <Tippy
-        content={content}
-        delay={700}
-        className="tippy-tooltip custom-html-theme"
-      >
+      <Tooltip label={content} html={true}>
         <a
           className="glossary"
           href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
         >
           {this.props.children}
         </a>
-      </Tippy>
+      </Tooltip>
     );
   }
 }
