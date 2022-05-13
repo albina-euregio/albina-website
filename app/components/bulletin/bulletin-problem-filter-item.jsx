@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import ProblemIcon from "../icons/problem-icon.jsx";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { Tooltip } from "../tooltips/tooltip";
 
 class BulletinProblemFilterItem extends React.Component {
   constructor(props) {
@@ -41,28 +42,24 @@ class BulletinProblemFilterItem extends React.Component {
       },
       { problem: problemText }
     );
-    const classes =
-      "img tooltip" + (this.props.active ? "" : " js-deactivated");
+    const classes = "img " + (this.props.active ? "" : " js-deactivated");
 
     return (
       <li>
-        <a
-          href="#"
-          title={title}
-          className={classes}
-          onClick={e => this.toggle(e)}
-        >
-          <ProblemIcon
-            problem={this.props.problemId}
-            active
-            alt={problemText}
-          />
-          {/* <ProblemIcon
-            problem={this.props.problemId}
-            active={false}
-            alt={problemText}
-          /> */}
-        </a>
+        <Tooltip label={title}>
+          <a href="#" className={classes} onClick={e => this.toggle(e)}>
+            <ProblemIcon
+              problem={this.props.problemId}
+              active
+              alt={problemText}
+            />
+            {/* <ProblemIcon
+              problem={this.props.problemId}
+              active={false}
+              alt={problemText}
+            /> */}
+          </a>
+        </Tooltip>
       </li>
     );
   }

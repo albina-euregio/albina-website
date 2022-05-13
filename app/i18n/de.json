@@ -149,7 +149,7 @@
   "bulletin:feedback": "Umfrage",
   "bulletin:feedback:hover": "ONLINE UMFRAGE zum neuen Euregio Lawinen.report",
   "bulletin:control-bar:community:text": "<a href=\"https://euregio.avalancheresearch.ca/\" target=\"_blank\"><strong>ONLINE UMFRAGE</strong></a> zum Euregio Lawinen.report",
-  "bulletin:control-bar:community:link": " (<a href=\"/education/community\">mehr dazu</a>)",
+  "bulletin:control-bar:community:link": " (<a>mehr dazu</a>)",
   "archive:filter:year": "Jahr",
   "archive:filter:month": "Monat",
   "archive:filter:day": "Tag",

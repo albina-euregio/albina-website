@@ -36,7 +36,7 @@ class BulletinMapDetails extends React.Component {
           </span>
         </p>
         <ul className="list-plain">
-          <li className="bulletin-report-picto tooltip">
+          <li className="bulletin-report-picto">
             <BulletinDangerRating bulletin={bulletin} />
           </li>{" "}
           {problems.map(problem => {

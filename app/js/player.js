@@ -1,4 +1,4 @@
-import { computed, observable, makeObservable } from "mobx";
+import { computed, observable, runInAction, makeObservable } from "mobx";
 
 export default class Player {
   constructor(options) {
@@ -21,13 +21,20 @@ export default class Player {
     this._tickOverdue = false;
     //console.log("PlayerStore->start: eee setInterval", this);
     if (this._onTick) this._onTick.call(this._owner);
-    this._intervalID = setInterval(this._tick.bind(this), this._transitionTime);
+    runInAction(() => {
+      this._intervalID = setInterval(
+        this._tick.bind(this),
+        this._transitionTime
+      );
+    });
   }
 
   stop() {
     if (!this._intervalID) return;
     clearInterval(this._intervalID);
-    this._intervalID = null;
+    runInAction(() => {
+      this._intervalID = null;
+    });
   }
 
   toggle() {
@@ -37,14 +44,14 @@ export default class Player {
   }
 
   _tick() {
-    //to be implemented
-    //console.log("PlayerStore->tick: yyyy1", this);
+    //console.log("PlayerStore->tick: #1", this._itemsToLoad, this._onTick);
     if (this._itemsToLoad.length > 0) {
       //console.log("PlayerStore->tick: Waiting for eee", this._itemsToLoad);
       this._tickOverdue = true;
       return;
     }
-    if (this._onTick) this._onTick.call(this._owner);
+    //console.log("PlayerStore->tick: #2", this._itemsToLoad, typeof this._onTick);
+    if (typeof this._onTick === "function") this._onTick.call(this._owner);
   }
 
   reset() {
@@ -70,6 +77,8 @@ export default class Player {
   }
 
   _removeItemToLoad(layerId) {
+    //console.log("PlayerStore->onE_removeItemToLoadvent: eee", layerId);
+
     this._itemsToLoad = this._itemsToLoad.filter(item => item !== layerId);
     if (this._intervalID && this._tickOverdue) this._tick();
   }

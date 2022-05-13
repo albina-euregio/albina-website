@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToLongDateString } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
+import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
 
 class ArchiveItem extends React.Component {
@@ -58,56 +59,67 @@ class ArchiveItem extends React.Component {
         <td>
           <ul className="list-inline list-download">
             <li>
-              <a
-                href={Util.template(config.apis.bulletin.pdf, {
-                  date: dateString,
-                  file: lang
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-                title={this.props.intl.formatMessage({
+              <Tooltip
+                label={this.props.intl.formatMessage({
                   id: "archive:download-pdf:hover"
                 })}
-                className="small secondary pure-button tooltip"
               >
-                <FormattedHTMLMessage id="archive:download-pdf" />
-              </a>
+                <a
+                  href={Util.template(config.apis.bulletin.pdf, {
+                    date: dateString,
+                    file: lang
+                  })}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="small secondary pure-button tooltip"
+                >
+                  <FormattedMessage id="archive:download-pdf" />
+                </a>
+              </Tooltip>
             </li>
             <li>
-              <a
-                href={Util.template(config.apis.bulletin.xml, {
-                  date: dateString,
-                  lang
-                })}
-                title={this.props.intl.formatMessage({
+              <Tooltip
+                label={this.props.intl.formatMessage({
                   id: "archive:download-xml:hover"
                 })}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="small secondary pure-button tooltip"
               >
-                <FormattedHTMLMessage id="archive:download-xml" />
-              </a>
+                <a
+                  href={Util.template(config.apis.bulletin.xml, {
+                    date: dateString,
+                    lang
+                  })}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="small secondary pure-button tooltip"
+                >
+                  <FormattedMessage id="archive:download-xml" />
+                </a>
+              </Tooltip>
             </li>
           </ul>
         </td>
         <td>
           {this.showMap(dateString) && (
-            <Link
-              to={"/bulletin/" + dateString}
-              className="map-preview img tooltip"
-              title={this.props.intl.formatMessage({
+            <Tooltip
+              label={this.props.intl.formatMessage({
                 id: "archive:show-forecast:hover"
               })}
             >
-              <ArchiveAwmapStatic
-                date={dateString}
-                region={
-                  this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail"
-                }
-                onError={() => this.setState({ fd: true })}
-              />
-            </Link>
+              <Link
+                to={"/bulletin/" + dateString}
+                className="map-preview img tooltip"
+              >
+                <ArchiveAwmapStatic
+                  date={dateString}
+                  region={
+                    this.state.fd
+                      ? "fd_albina_thumbnail"
+                      : "am_albina_thumbnail"
+                  }
+                  onError={() => this.setState({ fd: true })}
+                />
+              </Link>
+            </Tooltip>
           )}
         </td>
       </tr>

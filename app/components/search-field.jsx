@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { Tooltip } from "./tooltips/tooltip";
 
 class SearchField extends React.Component {
   constructor(props) {
@@ -50,17 +51,18 @@ class SearchField extends React.Component {
             }}
             value={this.state.text}
           />
-          <button
-            href="#"
-            title={placeholder}
-            aria-label={placeholder}
-            className="pure-button pure-button-icon icon-search tooltip"
-            onClick={() => {
-              this.props.handleSearch(this.state.text);
-            }}
-          >
-            <span>&nbsp;</span>
-          </button>
+          <Tooltip label={placeholder}>
+            <button
+              href="#"
+              aria-label={placeholder}
+              className="pure-button pure-button-icon icon-search"
+              onClick={() => {
+                this.props.handleSearch(this.state.text);
+              }}
+            >
+              <span>&nbsp;</span>
+            </button>
+          </Tooltip>
         </div>
       </div>
     );

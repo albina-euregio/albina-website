@@ -1,26 +1,35 @@
-import React from "react";
-import { observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import ReactDOM from "react-dom";
 
-class ModalDialog extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const modalRoot = document.body;
 
-  // closeDialog on locaionChange
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      $(".mfp-close").trigger("click");
+const ModalDialog = ({ children, id }) => {
+  const modalElementRef = useRef(null);
+  const location = useLocation();
+
+  const getModalElement = id => {
+    if (!modalElementRef.current) {
+      modalElementRef.current = document.createElement("div");
+      modalElementRef.current.id = id;
+      modalElementRef.current.className = "mfp-hide";
     }
-  }
+    return modalElementRef.current;
+  };
 
-  render() {
-    return (
-      <div id={this.props.id} className={"mfp-hide"}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    modalRoot.appendChild(modalElementRef.current);
+    return () => {
+      modalElementRef.current.remove();
+    };
+  }, []);
 
-export default withRouter(observer(ModalDialog));
+  useEffect(() => {
+    $(".mfp-close").trigger("click");
+  }, [location.pathname]);
+
+  //console.log("ModalDialog->render", id, getModalElement(id), children);
+  return ReactDOM.createPortal(children, getModalElement(id));
+};
+
+export default ModalDialog;

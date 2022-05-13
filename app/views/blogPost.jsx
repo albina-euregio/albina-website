@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { injectIntl } from "react-intl";
-import { withRouter } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useIntl } from "react-intl";
 import { observer } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -14,33 +13,34 @@ import { video_init } from "../js/video";
 import { fetchJSON } from "../util/fetch";
 import { preprocessContent } from "../util/htmlParser";
 
-class BlogPost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      autor: "",
-      date: "",
-      tags: [],
-      regions: [],
-      language: "",
-      content: ""
-    };
-  }
+const BlogPost = () => {
+  const didMountRef = useRef(false);
+  const location = useLocation();
+  const params = useParams();
+  const intl = useIntl();
 
-  componentDidMount() {
-    this._fetchData(this.props);
-  }
+  const [title, setTitle] = useState("");
+  //const [author, setauthor] = useState("");
+  const [date, setDate] = useState("");
+  const [tags, setTags] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [language, setLanguage] = useState("");
+  const [content, setContent] = useState("");
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      this._fetchData(this.props);
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      _fetchData();
     }
-  }
+  });
 
-  _fetchData(props) {
-    const blogName = props.match.params.blogName;
-    const postId = props.match.params.postId;
+  useEffect(() => {
+    _fetchData();
+  }, [location.pathname]);
+
+  const _fetchData = () => {
+    const blogName = params.blogName;
+    const postId = params.postId;
 
     const blogConfig = window.config.blogs.find(e => {
       return e.name === blogName;
@@ -55,15 +55,12 @@ class BlogPost extends React.Component {
         encodeURIComponent(window.config.apiKeys.google);
       fetchJSON(url)
         .then(b => {
-          this.setState({
-            title: b.title,
-            //author: b.author.displayName,
-            date: parseDate(b.published),
-            tags: parseTags(b.labels),
-            regions: blogConfig.regions,
-            language: blogConfig.lang,
-            content: preprocessContent(b.content, true)
-          });
+          setTitle(b.title);
+          setDate(parseDate(b.published));
+          setTags(parseTags(b.labels));
+          setRegions(blogConfig.regions);
+          setLanguage(blogConfig.lang);
+          setContent(preprocessContent(b.content, true));
         })
         .then(() => {
           window.setTimeout(() => {
@@ -72,9 +69,9 @@ class BlogPost extends React.Component {
           }, 1000);
         });
     }
-  }
+  };
 
-  renderLinkToBlogOverview() {
+  const renderLinkToBlogOverview = () => {
     return (
       <section className="section-padding section-linkbar">
         <div className="section-centered">
@@ -85,51 +82,46 @@ class BlogPost extends React.Component {
                 to={"/blog"}
                 className="icon-link icon-arrow-left"
               >
-                {this.props.intl.formatMessage({ id: "blog:all-blog-posts" })}
+                {intl.formatMessage({ id: "blog:all-blog-posts" })}
               </Link>
             </div>
           </div>
         </div>
       </section>
     );
-  }
+  };
 
-  /*<li className="blog-author">{this.state.author}</li> */
-  render() {
-    return (
-      <>
-        <HTMLHeader title={this.state.title} />
-        {this.renderLinkToBlogOverview()}
-        <PageHeadline
-          title={this.state.title}
-          subtitle={this.props.intl.formatMessage({ id: "blog:subtitle" })}
-        >
-          <ul className="list-inline blog-feature-meta">
-            <li className="blog-date">
-              {dateToDateTimeString(this.state.date)}
-            </li>
-            <li className="blog-province">
-              {this.state.regions.map(region => (
-                <Link key={region} to={"/blog?searchLang=all&region=" + region}>
-                  {this.props.intl.formatMessage({ id: `region:${region}` })}
-                </Link>
-              ))}
-            </li>
-            <li className="blog-language">
-              <Link to={"/blog?region=&searchLang=" + this.state.language}>
-                {this.state.language.toUpperCase()}
+  return (
+    <>
+      <HTMLHeader title={title} />
+      {renderLinkToBlogOverview()}
+      <PageHeadline
+        title={title}
+        subtitle={intl.formatMessage({ id: "blog:subtitle" })}
+      >
+        <ul className="list-inline blog-feature-meta">
+          <li className="blog-date">{dateToDateTimeString(date)}</li>
+          <li className="blog-province">
+            {regions.map(region => (
+              <Link key={region} to={"/blog?searchLang=all&region=" + region}>
+                {intl.formatMessage({ id: `region:${region}` })}
               </Link>
-            </li>
-          </ul>
-          <TagList tags={this.state.tags} />
-        </PageHeadline>
-        <section className="section-centered ">
-          <section className="panel blog-post">{this.state.content}</section>
-        </section>
-        {this.renderLinkToBlogOverview()}
-        <SmShare />
-      </>
-    );
-  }
-}
-export default injectIntl(withRouter(observer(BlogPost)));
+            ))}
+          </li>
+          <li className="blog-language">
+            <Link to={"/blog?region=&searchLang=" + language}>
+              {language.toUpperCase()}
+            </Link>
+          </li>
+        </ul>
+        <TagList tags={tags} />
+      </PageHeadline>
+      <section className="section-centered ">
+        <section className="panel blog-post">{content}</section>
+      </section>
+      {renderLinkToBlogOverview()}
+      <SmShare />
+    </>
+  );
+};
+export default observer(BlogPost);

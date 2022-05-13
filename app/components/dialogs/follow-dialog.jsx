@@ -1,6 +1,7 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { regionCodes } from "../../util/regions";
+import { Tooltip } from "../tooltips/tooltip";
 
 class FollowDialog extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class FollowDialog extends React.Component {
         <div className="modal-follow">
           <div className="modal-header">
             <h2 className="subheader">
-              <FormattedHTMLMessage id="dialog:follow:header" />
+              <FormattedMessage id="dialog:follow:header" />
             </h2>
           </div>
 
@@ -42,18 +43,21 @@ class FollowDialog extends React.Component {
                   .filter(e => e.url && e.url !== "#")
                   .map(e => (
                     <li key={e.id}>
-                      <a
-                        className={"sm-button icon-sm-" + e.id + " tooltip"}
-                        href={e.url}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title={this.props.intl.formatMessage(
+                      <Tooltip
+                        label={this.props.intl.formatMessage(
                           { id: "footer:follow-us:hover" },
                           { on: socialMediaNames[e.id] }
                         )}
                       >
-                        <span>{socialMediaNames[e.id]}</span>
-                      </a>
+                        <a
+                          className={"sm-button icon-sm-" + e.id + " "}
+                          href={e.url}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          <span>{socialMediaNames[e.id]}</span>
+                        </a>
+                      </Tooltip>
                     </li>
                   ))}
               </ul>

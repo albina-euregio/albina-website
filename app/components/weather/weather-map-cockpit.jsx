@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
+import { Tooltip } from "../tooltips/tooltip";
 
 import {
   dateToShortDateTimeString,
   dateToTimeString
 } from "../../util/date.js";
-import { tooltip_init } from "../../js/tooltip";
+//import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
   temp: "icon-temperature",
@@ -76,7 +77,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   componentDidUpdate() {
-    window.setTimeout(tooltip_init, 200);
+    //window.setTimeout(tooltip_init, 200);
     $("body").removeClass("layer-selector-open");
   }
 
@@ -225,23 +226,27 @@ class WeatherMapCockpit extends React.Component {
 
       domainConfig.timeSpans.forEach(aItem => {
         let nrOnlyTimespan = aItem.replace(/\D/g, "");
-        let linkClasses = ["tooltip", "cp-range-" + nrOnlyTimespan];
+        let linkClasses = ["cp-range-" + nrOnlyTimespan];
         if (self.props.timeSpan === aItem) linkClasses.push("js-active");
 
         buttons.push(
-          <a
-            role="button"
-            tabIndex="0"
-            key={aItem}
-            onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
-            className={linkClasses.join(" ")}
-            title={this.props.intl.formatMessage(
+          <Tooltip
+            key={"domain-timespan-desc-" + nrOnlyTimespan}
+            label={this.props.intl.formatMessage(
               { id: "weathermap:domain:timespan:description" },
               { range: nrOnlyTimespan }
             )}
           >
-            {nrOnlyTimespan}h
-          </a>
+            <a
+              role="button"
+              tabIndex="0"
+              key={aItem}
+              onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
+              className={linkClasses.join(" ")}
+            >
+              {nrOnlyTimespan}h
+            </a>
+          </Tooltip>
         );
       });
 
@@ -264,24 +269,28 @@ class WeatherMapCockpit extends React.Component {
     return (
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
-          <a
-            role="button"
-            tabIndex="0"
-            className="cp-layer-selector-item cp-layer-trigger tooltip"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            key="cp-select-parameter"
+            label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:select-parameter"
             })}
-            onClick={() => {
-              $("body").toggleClass("layer-selector-open");
-            }}
           >
-            <span className="layer-select icon-snow">
-              {this.props.intl.formatMessage({
-                id: "weathermap:domain:title:" + this.props.domainId
-              })}
-            </span>
-            <span className="layer-trigger"></span>
-          </a>
+            <a
+              role="button"
+              tabIndex="0"
+              className="cp-layer-selector-item cp-layer-trigger "
+              onClick={() => {
+                $("body").toggleClass("layer-selector-open");
+              }}
+            >
+              <span className="layer-select icon-snow">
+                {this.props.intl.formatMessage({
+                  id: "weathermap:domain:title:" + this.props.domainId
+                })}
+              </span>
+              <span className="layer-trigger"></span>
+            </a>
+          </Tooltip>
         </div>
 
         <div key="cp-range" className="cp-range">
@@ -406,40 +415,48 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-scale" className="cp-scale">
         {parts}
         <div key="flipper" className="cp-scale-flipper">
-          <a
-            role="button"
-            tabIndex="0"
-            href="#"
-            onClick={self.setPreviousTime.bind(self)}
-            key="arrow-left"
-            className="cp-scale-flipper-left icon-arrow-left tooltip"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            key="cockpit-flipper-prev"
+            label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:previous"
             })}
           >
-            <span className="is-visually-hidden">
-              {this.props.intl.formatMessage({
-                id: "weathermap:cockpit:flipper:previous"
-              })}
-            </span>
-          </a>
-          <a
-            role="button"
-            tabIndex="0"
-            href="#"
-            onClick={self.setNextTime.bind(self)}
-            key="arrow-right"
-            className="cp-scale-flipper-right icon-arrow-right tooltip"
-            title={this.props.intl.formatMessage({
+            <a
+              role="button"
+              tabIndex="0"
+              href="#"
+              onClick={self.setPreviousTime.bind(self)}
+              key="arrow-left"
+              className="cp-scale-flipper-left icon-arrow-left "
+            >
+              <span className="is-visually-hidden">
+                {this.props.intl.formatMessage({
+                  id: "weathermap:cockpit:flipper:previous"
+                })}
+              </span>
+            </a>
+          </Tooltip>
+          <Tooltip
+            key="cockpit-flipper-next"
+            label={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:next"
             })}
           >
-            <span className="is-visually-hidden">
-              {this.props.intl.formatMessage({
-                id: "weathermap:cockpit:flipper:next"
-              })}
-            </span>
-          </a>
+            <a
+              role="button"
+              tabIndex="0"
+              href="#"
+              onClick={self.setNextTime.bind(self)}
+              key="arrow-right"
+              className="cp-scale-flipper-right icon-arrow-right "
+            >
+              <span className="is-visually-hidden">
+                {this.props.intl.formatMessage({
+                  id: "weathermap:cockpit:flipper:next"
+                })}
+              </span>
+            </a>
+          </Tooltip>
         </div>
 
         <Timeline
@@ -469,46 +486,54 @@ class WeatherMapCockpit extends React.Component {
     // const label =
     //   "weathermap:player:" + (this.props.player.playing ? "stop" : "play");
 
-    let linkClassesPlay = ["cp-movie-play", "icon-play", "tooltip"];
-    let linkClassesStop = ["cp-movie-stop", "icon-pause", "tooltip"];
+    let linkClassesPlay = ["cp-movie-play", "icon-play"];
+    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
     let divClasses = ["cp-movie"];
     if (this.props.player.playing) divClasses.push("js-playing");
     return (
       <div key="cp-movie" className={divClasses.join(" ")}>
-        <a
-          key="playerButton"
-          className={linkClassesPlay.join(" ")}
-          href="#"
-          title={this.props.intl.formatMessage({
+        <Tooltip
+          key="cp-movie-play"
+          label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:play"
           })}
-          onClick={() => {
-            this.props.player.toggle();
-          }}
         >
-          <span className="is-visually-hidden">
-            {this.props.intl.formatMessage({
-              id: "weathermap:cockpit:play"
-            })}
-          </span>
-        </a>
-        <a
-          key="stopButton"
-          className={linkClassesStop.join(" ")}
-          href="#"
-          title={this.props.intl.formatMessage({
+          <a
+            key="playerButton"
+            className={linkClassesPlay.join(" ")}
+            href="#"
+            onClick={() => {
+              this.props.player.toggle();
+            }}
+          >
+            <span className="is-visually-hidden">
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:play"
+              })}
+            </span>
+          </a>
+        </Tooltip>
+        <Tooltip
+          key="cp-movie-stop"
+          label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:stop"
           })}
-          onClick={() => {
-            this.props.player.toggle();
-          }}
         >
-          <span className="is-visually-hidden">
-            {this.props.intl.formatMessage({
-              id: "weathermap:cockpit:stop"
-            })}
-          </span>
-        </a>
+          <a
+            key="stopButton"
+            className={linkClassesStop.join(" ")}
+            href="#"
+            onClick={() => {
+              this.props.player.toggle();
+            }}
+          >
+            <span className="is-visually-hidden">
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:stop"
+              })}
+            </span>
+          </a>
+        </Tooltip>
       </div>
     );
   }
@@ -543,46 +568,50 @@ class WeatherMapCockpit extends React.Component {
 
     return (
       <div key="cp-release" className="cp-release">
-        <span
+        <Tooltip
           key="cp-release-released"
-          className="cp-release-released tooltip"
-          title={this.props.intl.formatMessage({
+          label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-creation-date:title"
           })}
         >
-          <span>
-            {this.props.intl.formatMessage({
-              id: "weathermap:cockpit:maps-creation-date:prefix"
-            })}{" "}
+          <span className="cp-release-released">
+            <span>
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:maps-creation-date:prefix"
+              })}{" "}
+            </span>
+            {dateToShortDateTimeString(this.props.lastUpdateTime)}
           </span>
-          {dateToShortDateTimeString(this.props.lastUpdateTime)}
-        </span>
-        <span
-          key="cp-release-update"
-          className="cp-release-update tooltip"
-          title={this.props.intl.formatMessage({
+        </Tooltip>
+        <Tooltip
+          key="cp-realse-date"
+          label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-update-date:title"
           })}
         >
-          <span>
-            {this.props.intl.formatMessage({
-              id: "weathermap:cockpit:maps-update-date:prefix"
-            })}{" "}
-          </span>{" "}
-          {dateToShortDateTimeString(this.props.nextUpdateTime)}
-        </span>
-        <span
-          className="cp-legend-unit tooltip"
-          title={this.props.intl.formatMessage({
+          <span key="cp-release-update" className="cp-release-update">
+            <span>
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:maps-update-date:prefix"
+              })}{" "}
+            </span>{" "}
+            {dateToShortDateTimeString(this.props.nextUpdateTime)}
+          </span>
+        </Tooltip>
+        <Tooltip
+          key="cockpit-title-tp"
+          label={this.props.intl.formatMessage({
             id: "weathermap:cockpit:unit:title"
           })}
         >
-          {DOMAIN_UNITS[this.props.domainId]}
-        </span>
+          <span className="cp-legend-unit">
+            {DOMAIN_UNITS[this.props.domainId]}
+          </span>
+        </Tooltip>
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
-            className="icon-copyright icon-margin-no tooltip"
+            className="icon-copyright icon-margin-no"
             title="Copyright"
           ></a>
         </span> */}
@@ -657,9 +686,11 @@ class WeatherMapCockpit extends React.Component {
             {this.getReleaseInfo()}
           </div>
           <div key="cp-copyright" className="cp-copyright">
-            <a href="https://www.zamg.ac.at" className="tooltip" title="ZAMG">
-              <span className="is-visually-hidden">ZAMG</span>
-            </a>
+            <Tooltip key="cp-copyright-tp" label="ZAMG">
+              <a href="https://www.zamg.ac.at">
+                <span className="is-visually-hidden">ZAMG</span>
+              </a>
+            </Tooltip>
           </div>
         </div>
       </div>

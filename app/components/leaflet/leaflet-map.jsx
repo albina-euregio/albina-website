@@ -1,175 +1,67 @@
-import React from "react";
-import L from "leaflet";
+import React, { useMemo } from "react";
+//import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
+import LeafletMapControls from "./leaflet-map-controls";
 
 import {
-  Map,
+  MapContainer,
+  //MapConsumer,
   TileLayer,
   LayersControl,
   AttributionControl,
   ScaleControl
 } from "react-leaflet";
-import { injectIntl } from "react-intl";
-import { tooltip_init } from "../../js/tooltip";
+
 import { MAP_STORE } from "../../stores/mapStore";
 
-import "leaflet-geonames";
-import "leaflet.locatecontrol";
-import "leaflet-gesture-handling";
-import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
-import "../../css/geonames.css";
-import { APP_STORE } from "../../appStore";
-import { parseSearchParams } from "../../util/searchParams";
+const LeafletMap = props => {
+  //const intl = useIntl();
 
-class LeafletMap extends React.Component {
-  constructor(props) {
-    super(props);
-    /**
-     * @type L.Map
-     */
-    this.map = undefined;
-    this.mapRef;
-    this.mapDisabledRef;
-    this._layers = [];
-  }
+  //let _layers = [];
 
-  // onTick(){
-  //   console.log("onTick xxx", this.playerStore.currentTime.get());
-  //   this.test = this.props.currentTime.get();
-  // }
+  const mapStyle = {
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+    opacity: 1
+  };
 
-  mapStyle() {
-    return {
-      width: "100%",
-      height: "100%",
-      zIndex: 1,
-      opacity: 1
-    };
-  }
+  const _disabledMapProps = {
+    dragging: false,
+    touchZoom: false,
+    doubleClickZoom: false,
+    scrollWheelZoom: false,
+    boxZoom: false,
+    keyboard: false
+  };
 
-  componentDidMount() {
-    this.updateMaps();
-  }
+  const _enabledMapProps = {
+    dragging: true,
+    touchZoom: true,
+    doubleClickZoom: true,
+    scrollWheelZoom: true,
+    boxZoom: true,
+    keyboard: true
+  };
 
-  componentDidUpdate() {
-    this.updateMaps();
-  }
+  const mapProps = config.map.initOptions;
+  const mapOptions = Object.assign(
+    {},
+    props.loaded ? _enabledMapProps : _disabledMapProps,
+    mapProps,
+    props.mapConfigOverride
+  );
 
-  updateMaps() {
-    //console.log("updateMaps xyy");
-    if (this.mapDisabledRef && !this.mapDisabled) {
-      this.mapDisabled = this.mapDisabledRef.leafletElement;
-      L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
-    }
-
-    if (this.mapRef && !this.map) {
-      this.map = this.mapRef.leafletElement;
-      //window.currMap = this.map;
-      //console.log("updateMaps xyz", L);
-      if (this.props.onInit) {
-        this.props.onInit(this.map);
-      }
-
-      if (this.props.gestureHandling)
-        L.Util.setOptions(this.map, { gestureHandling: true });
-
-      const province = parseSearchParams().get("province");
-      this.map.fitBounds(
-        config.map[`${province}.bounds`] ?? config.map.euregioBounds
-      );
-
-      const map = this.map;
-      //console.log("this.map", this.map);
-      window.setTimeout(() => {
-        L.control
-          .zoom({
-            position: "topleft",
-            zoomInTitle: this.props.intl.formatMessage({
-              id: "bulletin:map:zoom-in:hover"
-            }),
-            zoomOutTitle: this.props.intl.formatMessage({
-              id: "bulletin:map:zoom-out:hover"
-            })
-          })
-          .addTo(map);
-
-        L.control
-          .geonames({
-            lang: APP_STORE.language,
-            title: this.props.intl.formatMessage({
-              id: "bulletin:map:search"
-            }),
-            placeholder: this.props.intl.formatMessage({
-              id: "bulletin:map:search:hover"
-            }),
-            ...config.map.geonames
-          })
-          .addTo(map);
-        L.control
-          .locate({
-            ...config.map.locateOptions,
-            icon: "icon-geolocate",
-            iconLoading: "icon-geolocate",
-            strings: {
-              title: this.props.intl.formatMessage({
-                id: "bulletin:map:locate:title"
-              }),
-              metersUnit: this.props.intl.formatMessage({
-                id: "bulletin:map:locate:metersUnit"
-              }),
-              popup: this.props.intl.formatMessage(
-                {
-                  id: "bulletin:map:locate:popup"
-                },
-                {
-                  // keep placeholders for L.control.locate
-                  distance: "{distance}",
-                  unit: "{unit}"
-                }
-              ),
-              outsideMapBoundsMsg: this.props.intl.formatMessage({
-                id: "bulletin:map:locate:outside"
-              })
-            }
-          })
-          .addTo(map);
-      }, 50);
-
-      this._init_tooltip();
-      this._init_aria();
-    }
-  }
-
-  _init_tooltip() {
-    window.setTimeout(() => {
-      // console.log("leaflet-map ggg1 update tooltip");
-      $(".leaflet-control-zoom a").addClass("tooltip");
-      $(".leaflet-control-zoom a").addClass("tooltip");
-      $(".leaflet-control-locate a").addClass("tooltip");
-      tooltip_init();
-    }, 100);
-  }
-
-  _init_aria() {
-    window.setTimeout(() => {
-      $(".leaflet-control-zoom a").attr("tabIndex", "-1");
-      $(".leaflet-control-zoom a").attr("tabIndex", "-1");
-      $(".leaflet-control-locate a").attr("tabIndex", "-1");
-      $(".leaflet-geonames-search a").attr("tabIndex", "-1");
-      $(".leaflet-touch-zoom").attr("tabIndex", "-1");
-    }, 100);
-  }
-
-  _zoomend() {
-    const map = this.map;
+  const _zoomend = () => {
+    const map = map;
     const newZoom = Math.round(map.getZoom());
     //console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
-    this._init_tooltip();
-  }
+    //_init_tooltip();
+  };
 
-  get tileLayers() {
+  const tileLayers = () => {
     const tileLayerConfig = config.map.tileLayers;
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
@@ -179,7 +71,7 @@ class LeafletMap extends React.Component {
           {...Object.assign(
             {},
             tileLayerConfig[0],
-            this.props.tileLayerConfigOverride
+            props.tileLayerConfigOverride
           )}
         />
       );
@@ -198,7 +90,7 @@ class LeafletMap extends React.Component {
                 {...Object.assign(
                   {},
                   layerProps,
-                  this.props.tileLayerConfigOverride
+                  props.tileLayerConfigOverride
                 )}
               />
             </LayersControl.BaseLayer>
@@ -207,58 +99,16 @@ class LeafletMap extends React.Component {
       );
     }
     return tileLayers;
-  }
+  };
 
-  _disabledMapProps() {
-    return {
-      dragging: false,
-      touchZoom: false,
-      doubleClickZoom: false,
-      scrollWheelZoom: false,
-      boxZoom: false,
-      keyboard: false
-    };
-  }
-  _enabledMapProps() {
-    return {
-      dragging: true,
-      touchZoom: true,
-      doubleClickZoom: true,
-      scrollWheelZoom: true,
-      boxZoom: true,
-      keyboard: true
-    };
-  }
-
-  connectLayers(map) {
-    //console.log("connectLayers", map);
-    if (map) {
-      this.mapRef = map;
-    }
-  }
-
-  render() {
-    const mapProps = config.map.initOptions;
-    const mapOptions = Object.assign(
-      {},
-      this.props.loaded ? this._enabledMapProps() : this._disabledMapProps(),
-      mapProps,
-      this.props.mapConfigOverride
-    );
-
-    return this.props.loaded
-      ? this.renderLoadedMap(mapOptions)
-      : this.renderDisabledMap(mapOptions);
-  }
-
-  renderDisabledMap(mapOptions) {
-    return (
-      <Map
-        onZoomEnd={this._zoomend.bind(this)}
-        className="map-disabled"
-        ref={map => (this.mapDisabledRef = map)}
-        gestureHandling={this.props.gestureHandling}
-        style={this.mapStyle()}
+  //console.log("leaflet-map->render xx02", props);
+  const displayMap = useMemo(
+    () => (
+      <MapContainer
+        onZoomEnd={_zoomend.bind(this)}
+        className={props.loaded ? "" : "map-disabled"}
+        gestureHandling={props.gestureHandling}
+        style={mapStyle}
         zoomControl={false}
         zoom={MAP_STORE.mapZoom}
         center={MAP_STORE.mapCenter}
@@ -266,34 +116,111 @@ class LeafletMap extends React.Component {
         attributionControl={false}
       >
         <AttributionControl prefix={config.map.attribution} />
-        {this.tileLayers}
-      </Map>
-    );
-  }
+        {props.loaded && (
+          <ScaleControl imperial={false} position="bottomleft" />
+        )}
+        {props.loaded && props.controls}
+        {tileLayers()}
 
-  renderLoadedMap(mapOptions) {
-    return (
-      <Map
-        onZoomEnd={this._zoomend.bind(this)}
-        onViewportChanged={this.props.onViewportChanged.bind(this.map)}
-        useFlyTo
-        ref={map => (this.mapRef = map)}
-        gestureHandling={this.props.gestureHandling}
-        dragging={L.Browser.mobile}
-        style={this.mapStyle()}
-        zoomControl={false}
-        zoom={MAP_STORE.mapZoom}
-        center={MAP_STORE.mapCenter}
-        {...mapOptions}
-        attributionControl={false}
-      >
-        <AttributionControl prefix={config.map.attribution} />
-        <ScaleControl imperial={false} position="bottomleft" />
-        {this.props.controls}
-        {this.tileLayers}
-        {this.props.overlays}
-      </Map>
-    );
-  }
-}
-export default injectIntl(LeafletMap);
+        {props.overlays}
+        <LeafletMapControls {...props} />
+      </MapContainer>
+    ),
+    [props.loaded, props.overlays]
+  );
+
+  // const displayActiveMap = useMemo(
+  //   () => (
+  //     <MapContainer
+  //       onZoomEnd={_zoomend.bind(this)}
+  //       onViewportChanged={props.onViewportChanged}
+  //       useFlyTo
+  //       gestureHandling={props.gestureHandling}
+  //       dragging={L.Browser.mobile}
+  //       style={mapStyle}
+  //       zoomControl={false}
+  //       zoom={MAP_STORE.mapZoom}
+  //       center={MAP_STORE.mapCenter}
+  //       {...mapOptions}
+  //       attributionControl={false}
+  //       whenCreated={map => {
+  //         updateMaps(map, false);
+  //       }}
+  //     >
+  //       <AttributionControl prefix={config.map.attribution} />
+  //       <ScaleControl imperial={false} position="bottomleft" />
+
+  //       {props.controls}
+  //       {tileLayers()}
+  //       {props.overlays}
+
+  //     </MapContainer>
+  //   ),
+  //   [],
+  // )
+
+  // const renderDisabledMap = mapOptions => {
+  //   return (
+  //     <MapContainer
+  //       onZoomEnd={_zoomend.bind(this)}
+  //       className="map-disabled"
+  //       gestureHandling={props.gestureHandling}
+  //       style={mapStyle}
+  //       zoomControl={false}
+  //       zoom={MAP_STORE.mapZoom}
+  //       center={MAP_STORE.mapCenter}
+  //       {...mapOptions}
+  //       attributionControl={false}
+  //     >
+  //       <Pane name="tooltips" />
+  //       <AttributionControl prefix={config.map.attribution} />
+  //       <MapConsumer>
+  //         {map => {
+  //           updateMaps(map, true);
+  //         }}
+  //       </MapConsumer>
+  //       {tileLayers()}
+  //     </MapContainer>
+  //   );
+  // };
+
+  // const renderLoadedMap = mapOptions => {
+  //   return (
+  //     <MapContainer
+  //       onZoomEnd={_zoomend.bind(this)}
+  //       onViewportChanged={props.onViewportChanged}
+  //       useFlyTo
+  //       gestureHandling={props.gestureHandling}
+  //       dragging={L.Browser.mobile}
+  //       style={mapStyle}
+  //       zoomControl={false}
+  //       zoom={MAP_STORE.mapZoom}
+  //       center={MAP_STORE.mapCenter}
+  //       {...mapOptions}
+  //       attributionControl={false}
+  //       whenCreated={map => {
+  //         updateMaps(map, false);
+  //       }}
+  //     >
+  //       <AttributionControl prefix={config.map.attribution} />
+  //       <ScaleControl imperial={false} position="bottomleft" />
+
+  //       {props.controls}
+  //       {tileLayers()}
+  //       {props.overlays}
+  //     </MapContainer>
+  //   );
+  // };
+
+  // connectLayers(map) {
+  //   //console.log("connectLayers", map);
+  //   if (map) {
+  //     mapRef = map;
+  //   }
+  // }
+
+  //console.log("leaflet-map->render", props.overlays);
+
+  return displayMap;
+};
+export default LeafletMap;

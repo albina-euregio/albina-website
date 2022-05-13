@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { Tooltip } from "../tooltips/tooltip";
 
 class FooterLogos extends React.Component {
   render() {
@@ -12,19 +13,16 @@ class FooterLogos extends React.Component {
         <ul className="list-inline">
           {icons.map((icon, i) => (
             <li key={i}>
-              <a
-                href={icon.url}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="avoid-external-icon tooltip"
-              >
-                <img
-                  alt={icon.title}
-                  title={icon.title}
-                  className="tooltip"
-                  src={imgRoot + icon.img + imgFormat}
-                />
-              </a>
+              <Tooltip label={icon.title}>
+                <a
+                  href={icon.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="avoid-external-icon"
+                >
+                  <img alt={icon.title} src={imgRoot + icon.img + imgFormat} />
+                </a>
+              </Tooltip>
             </li>
           ))}
         </ul>

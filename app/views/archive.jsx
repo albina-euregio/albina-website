@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { reaction } from "mobx";
+//import { reaction } from "mobx";
 import { injectIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
@@ -13,7 +13,7 @@ import LanguageFilter from "../components/filters/language-filter.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import DayFilter from "../components/filters/day-filter.jsx";
-import { tooltip_init } from "../js/tooltip";
+//import { tooltip_init } from "../js/tooltip";
 
 class Archive extends React.Component {
   constructor(props) {
@@ -37,15 +37,14 @@ class Archive extends React.Component {
   }
 
   componentDidMount() {
-    const up = () => {
-      window.setTimeout(tooltip_init, 1000);
-    };
-
-    reaction(() => this.store.loading, up);
-    reaction(() => this.store.month, up);
-    reaction(() => this.store.year, up);
-    reaction(() => this.store.day, up);
-    up();
+    // const up = () => {
+    //   window.setTimeout(tooltip_init, 1000);
+    // };
+    // reaction(() => this.store.loading, up);
+    // reaction(() => this.store.month, up);
+    // reaction(() => this.store.year, up);
+    // reaction(() => this.store.day, up);
+    //up();
   }
 
   get dates() {

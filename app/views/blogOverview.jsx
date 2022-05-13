@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation, createSearchParams } from "react-router-dom";
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
 import { BLOG_STORE } from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -14,262 +14,262 @@ import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
+import { useIntl } from "react-intl";
 
-class BlogOverview extends React.Component {
-  _settingFilters;
-  constructor(props) {
-    super(props);
-    this.settingFilters = false;
+const BlogOverview = () => {
+  //console.log("BlogOverview const", BLOG_STORE);
+  const [store] = useState(BLOG_STORE);
+  const intl = useIntl();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const didMountRef = useRef(false);
+  let _settingFilters = false;
 
-    const standaloneLinks = window.config.blogs.map((blog, index) => [
-      index > 0 ? ", " : undefined,
-      <a key={blog.name} href={"https://" + blog.name}>
-        {blog.regions.map(region =>
-          this.props.intl.formatMessage({ id: "region:" + region })
-        )}{" "}
-        ({blog.lang})
-      </a>
-    ]);
+  //const [title, setTitle] = useState("");
+  //const [header, setHeader] = useState("");
+  const [headerText] = useState("");
+  //const [content, setContent] = useState("");
+  //const [currentContentInfoMessage, setCurrentContentInfoMessage] = useState("");
+  //const [isShareable, setIsShareable] = useState(false);
 
-    this.infoMessageLevels = {
-      init: {
-        message: "",
-        iconOn: true
-      },
-      loading: {
-        message: this.props.intl.formatMessage(
-          { id: "blog:overview:info-loading-data-slow" },
-          { a: () => standaloneLinks }
-        ),
-        iconOn: true,
-        delay: 0
-      },
-      noData: {
-        message: this.props.intl.formatMessage(
-          { id: "blog:overview:info-no-data" },
-          { a: () => standaloneLinks }
-        )
-      },
-      ok: { message: "", keep: false }
-    };
+  const standaloneLinks = window.config.blogs.map((blog, index) => [
+    index > 0 ? ", " : undefined,
+    <a key={blog.name} href={"https://" + blog.name}>
+      {blog.regions.map(region =>
+        intl.formatMessage({ id: "region:" + region })
+      )}{" "}
+      ({blog.lang})
+    </a>
+  ]);
 
-    this.store = BLOG_STORE;
-    this.state = {
-      title: "",
-      headerText: "",
-      content: "",
-      sharable: false,
-      currentInfoMessage: ""
-    };
-  }
+  const infoMessageLevels = {
+    init: {
+      message: "",
+      iconOn: true
+    },
+    loading: {
+      message: intl.formatMessage(
+        { id: "blog:overview:info-loading-data-slow" },
+        { a: () => standaloneLinks }
+      ),
+      iconOn: true,
+      delay: 0
+    },
+    noData: {
+      message: intl.formatMessage(
+        { id: "blog:overview:info-no-data" },
+        { a: () => standaloneLinks }
+      )
+    },
+    ok: { message: "", keep: false }
+  };
 
-  componentDidMount() {
-    this.store.checkUrl();
-  }
-
-  componentDidUpdate() {
-    if (!this.settingFilters) {
-      this.store.checkUrl();
+  useEffect(() => {
+    if (!didMountRef.current) {
+      //console.log("blogOverview useEffect didMount", store);
+      didMountRef.current = true;
     }
-  }
+  });
 
-  doStoreUpdate() {
-    this.props.history.push({ search: this.store.searchParams.toString() });
-    this.store.update();
-    this.settingFilters = false;
-  }
+  useEffect(() => {
+    if (!_settingFilters) {
+      store.checkUrl();
+    }
+  }, [location]);
 
-  handleChangeRegion = val => {
-    this.settingFilters = true;
-    this.store.setRegions(val);
-    this.doStoreUpdate();
+  const doStoreUpdate = () => {
+    //console.log("blogOverview doStoreUpdate", store.searchParams);
+    navigate({
+      pathname: location.pathname,
+      search: `?${createSearchParams(store.searchParams)}`
+    });
+    store.update();
+    _settingFilters = false;
   };
 
-  handleChangeLanguage = val => {
+  const handleChangeRegion = val => {
+    //console.log("blogOverview->handleChangeRegion", val);
+    _settingFilters = true;
+    store.setRegions(val);
+    doStoreUpdate();
+  };
+
+  const handleChangeLanguage = val => {
     // console.log("new lang", val);
-    this.settingFilters = true;
-    this.store.setLanguages(val);
-    this.doStoreUpdate();
+    _settingFilters = true;
+    store.setLanguages(val);
+    doStoreUpdate();
   };
 
-  handleChangeYear = val => {
-    this.settingFilters = true;
-    this.store.searchText = "";
-    this.store.year = val;
+  const handleChangeYear = val => {
+    _settingFilters = true;
+    store.searchText = "";
+    store.year = val;
 
-    this.doStoreUpdate();
+    doStoreUpdate();
   };
 
-  handleChangeMonth = val => {
-    this.settingFilters = true;
-    this.store.searchText = "";
-    this.store.month = val;
+  const handleChangeMonth = val => {
+    _settingFilters = true;
+    store.searchText = "";
+    store.month = val;
 
-    this.doStoreUpdate();
+    doStoreUpdate();
   };
 
-  handleChangeAvalancheProblem = val => {
-    this.settingFilters = true;
-    this.store.searchText = "";
-    this.store.problem = val;
+  // const handleChangeAvalancheProblem = val => {
+  //   _settingFilters = true;
+  //   store.searchText = "";
+  //   store.problem = val;
 
-    this.doStoreUpdate();
+  //   doStoreUpdate();
+  // };
+
+  const handleChangeSearch = val => {
+    _settingFilters = true;
+    store.searchText = val;
+    store.problem = "";
+    store.year = "";
+
+    doStoreUpdate();
   };
 
-  handleChangeSearch = val => {
-    this.settingFilters = true;
-    this.store.searchText = val;
-    this.store.problem = "";
-    this.store.year = "";
-
-    this.doStoreUpdate();
+  const handlePreviousPage = () => {
+    _settingFilters = true;
+    store.previousPage();
+    doStoreUpdate();
   };
 
-  handlePreviousPage() {
-    this.settingFilters = true;
-    this.store.previousPage();
-    this.doStoreUpdate();
+  const handleNextPage = () => {
+    _settingFilters = true;
+    store.nextPage();
+    doStoreUpdate();
+  };
+
+  const classChanged = "selectric-changed";
+  let newLevel = "";
+  if (store) {
+    let newLevel = store.loading ? "loading" : "ok";
+    if (newLevel === "ok" && store.postsList.length == 0) newLevel = "noData";
   }
 
-  handleNextPage() {
-    this.settingFilters = true;
-    this.store.nextPage();
-    this.doStoreUpdate();
-  }
+  //console.log("render", store, newLevel);
 
-  render() {
-    const classChanged = "selectric-changed";
-
-    let newLevel = this.store.loading ? "loading" : "ok";
-    if (newLevel === "ok" && this.store.postsList.length == 0)
-      newLevel = "noData";
-
-    // console.log(
-    //   "render v2",
-    //   this.store.loading,
-    //   this.store.postsList && this.store.postsList.length,
-    //   newLevel
-    // );
-
-    return (
-      <>
-        <HTMLHeader
-          title={this.props.intl.formatMessage({ id: "blog:title" })}
-        />
-        <PageHeadline
-          title={this.props.intl.formatMessage({ id: "blog:headline" })}
-          marginal={this.state.headerText}
-        />
-        <FilterBar
-          search
-          searchTitle={this.props.intl.formatMessage({
-            id: "blog:search"
+  return (
+    <>
+      <HTMLHeader title={intl.formatMessage({ id: "blog:title" })} />
+      <PageHeadline
+        title={intl.formatMessage({ id: "blog:headline" })}
+        marginal={headerText}
+      />
+      <FilterBar
+        search
+        searchTitle={intl.formatMessage({
+          id: "blog:search"
+        })}
+        searchOnChange={handleChangeSearch}
+        searchValue={store.searchText}
+      >
+        <LanguageFilter
+          title={intl.formatMessage({
+            id: "blog:filter:language"
           })}
-          searchOnChange={this.handleChangeSearch}
-          searchValue={this.store.searchText}
-        >
-          <LanguageFilter
-            title={this.props.intl.formatMessage({
-              id: "blog:filter:language"
+          all={intl.formatMessage({
+            id: "filter:all"
+          })}
+          handleChange={handleChangeLanguage}
+          value={store.languageActive}
+          className={store.languageActive !== "all" ? classChanged : ""}
+        />
+        <ProvinceFilter
+          title={intl.formatMessage({
+            id: "measurements:filter:province"
+          })}
+          all={intl.formatMessage({ id: "filter:all" })}
+          handleChange={handleChangeRegion}
+          value={store.regionActive}
+          className={store.regionActive !== "all" ? classChanged : ""}
+        />
+        {/* <TagFilter
+          title={intl.formatMessage({
+            id: "blog:filter:avalanche-problem"
+          })}
+          all={intl.formatMessage({ id: "filter:all" })}
+          handleChange={handleChangeAvalancheProblem}
+          value={store.problem}
+          className={
+            store.problem !== "all"
+              ? classChanged
+              : "" + store.searchText
+              ? "disabled"
+              : ""
+          }
+        /> */}
+        <YearFilter
+          title={intl.formatMessage({
+            id: "blog:filter:year"
+          })}
+          all={intl.formatMessage({ id: "filter:all" })}
+          minYear={window.config.archive.minYear}
+          handleChange={handleChangeYear}
+          value={store.year}
+          className={store.year !== "" ? classChanged : ""}
+        />
+
+        {store.year && (
+          <MonthFilter
+            title={intl.formatMessage({
+              id: "blog:filter:month"
             })}
-            all={this.props.intl.formatMessage({
+            all={intl.formatMessage({
               id: "filter:all"
             })}
-            handleChange={this.handleChangeLanguage}
-            value={this.store.languageActive}
-            className={this.store.languageActive !== "all" ? classChanged : ""}
+            handleChange={handleChangeMonth}
+            value={store.month}
+            className={store.month !== "" ? classChanged : ""}
           />
-          <ProvinceFilter
-            title={this.props.intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            all={this.props.intl.formatMessage({ id: "filter:all" })}
-            handleChange={this.handleChangeRegion}
-            value={this.store.regionActive}
-            className={this.store.regionActive !== "all" ? classChanged : ""}
-          />
-          {/* <TagFilter
-            title={this.props.intl.formatMessage({
-              id: "blog:filter:avalanche-problem"
-            })}
-            all={this.props.intl.formatMessage({ id: "filter:all" })}
-            handleChange={this.handleChangeAvalancheProblem}
-            value={this.store.problem}
-            className={
-              this.store.problem !== "all"
-                ? classChanged
-                : "" + this.store.searchText
-                ? "disabled"
-                : ""
-            }
-          /> */}
-          <YearFilter
-            title={this.props.intl.formatMessage({
-              id: "blog:filter:year"
-            })}
-            all={this.props.intl.formatMessage({ id: "filter:all" })}
-            minYear={window.config.archive.minYear}
-            handleChange={this.handleChangeYear}
-            value={this.store.year}
-            className={this.store.year !== "" ? classChanged : ""}
-          />
-
-          {this.store.year && (
-            <MonthFilter
-              title={this.props.intl.formatMessage({
-                id: "blog:filter:month"
-              })}
-              all={this.props.intl.formatMessage({
-                id: "filter:all"
-              })}
-              handleChange={this.handleChangeMonth}
-              value={this.store.month}
-              className={this.store.month !== "" ? classChanged : ""}
-            />
-          )}
-        </FilterBar>
-        <section className="section section-padding-height section blog-page-flipper">
-          {!this.store.loading && this.store.maxPages === 0 && (
-            <div className="section-centered">
-              {this.props.intl.formatMessage({
-                id: "blog:page-flipper:no-posts"
-              })}
-            </div>
-          )}
-          {this.store.maxPages > 0 && (
-            <div className="section-centered">
-              <PageFlipper
-                handlePreviousPage={this.handlePreviousPage.bind(this)}
-                handleNextPage={this.handleNextPage.bind(this)}
-                store={this.store}
-              />
-            </div>
-          )}
-        </section>
-        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
-        <section className="section-padding-height section-blog-posts">
+        )}
+      </FilterBar>
+      <section className="section section-padding-height section blog-page-flipper">
+        {!store.loading && store.maxPages === 0 && (
           <div className="section-centered">
-            <BlogPostsList
-              posts={this.store.postsList}
-              loading={this.store.loading}
+            {intl.formatMessage({
+              id: "blog:page-flipper:no-posts"
+            })}
+          </div>
+        )}
+        {store.maxPages > 0 && (
+          <div className="section-centered">
+            <PageFlipper
+              handlePreviousPage={handlePreviousPage}
+              handleNextPage={handleNextPage}
+              curPage={store.page}
+              maxPages={store.maxPages}
             />
           </div>
-        </section>
-        <section className="section section-padding-height section blog-page-flipper">
-          {this.store.maxPages > 0 && (
-            <div className="section-centered">
-              <PageFlipper
-                handlePreviousPage={this.handlePreviousPage.bind(this)}
-                handleNextPage={this.handleNextPage.bind(this)}
-                store={this.store}
-              />
-            </div>
-          )}
-        </section>
-        <SmShare />
-      </>
-    );
-  }
-}
+        )}
+      </section>
+      <InfoBar level={newLevel} levels={infoMessageLevels} />
+      <section className="section-padding-height section-blog-posts">
+        <div className="section-centered">
+          <BlogPostsList posts={store.postsList} loading={store.loading} />
+        </div>
+      </section>
+      <section className="section section-padding-height section blog-page-flipper">
+        {store.maxPages > 0 && (
+          <div className="section-centered">
+            <PageFlipper
+              handlePreviousPage={handlePreviousPage}
+              handleNextPage={handleNextPage}
+              curPage={store.page}
+              maxPages={store.maxPages}
+            />
+          </div>
+        )}
+      </section>
+      <SmShare />
+    </>
+  );
+};
 
-export default injectIntl(observer(BlogOverview));
+export default observer(BlogOverview);

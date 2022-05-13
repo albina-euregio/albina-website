@@ -1,10 +1,11 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter } from "react-router-dom";
+
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
+import { Link } from "react-router-dom";
 
 class Education extends React.Component {
   constructor(props) {
@@ -27,8 +28,8 @@ class Education extends React.Component {
         <section className="section section-features">
           <ul className="list-plain features">
             <li className="feature-item">
-              <a
-                href="/education/danger-scale"
+              <Link
+                to="/education/danger-scale"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -55,12 +56,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href="/education/avalanche-problems"
+              <Link
+                to="/education/avalanche-problems"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -87,11 +88,11 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a href="/education/matrix" className="linkbox linkbox-feature">
+              <Link to="/education/matrix" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_matrix.jpg"
@@ -116,12 +117,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href="/education/avalanche-sizes"
+              <Link
+                to="/education/avalanche-sizes"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -148,12 +149,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href="/education/danger-patterns"
+              <Link
+                to="/education/danger-patterns"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -180,12 +181,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href="/education/community"
+              <Link
+                to="/education/community"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -212,12 +213,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href={this.props.intl.formatMessage({
+              <Link
+                to={this.props.intl.formatMessage({
                   id: "education:overview:glossary:link"
                 })}
                 rel="noopener noreferrer"
@@ -248,12 +249,12 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="feature-item">
-              <a
-                href="/education/handbook"
+              <Link
+                to="/education/handbook"
                 title="Handbook"
                 className="linkbox linkbox-feature"
               >
@@ -281,7 +282,7 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
           </ul>
         </section>
@@ -290,4 +291,4 @@ class Education extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(Education)));
+export default injectIntl(observer(Education));

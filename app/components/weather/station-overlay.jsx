@@ -1,73 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
 import Cluster from "../leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
 import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
 
-class StationOverlay extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      spiderfiedMarkers: null, // id's of spiderfied markers
-      activeMarkerPos: null // position of highlighted marker within a cluster
-    };
-    if (props.onLoading) props.onLoading();
-  }
+const StationOverlay = props => {
+  const [activeMarkerPos, setActiveMarkerPos] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [spiderfiedMarkers, setSpiderfiedMarkers] = useState(null);
 
-  getColor(value) {
+  useEffect(() => {
+    if (props.onLoad) props.onLoad();
+    else if (props.onLoading) props.onLoading();
+
+    return () => {};
+  });
+
+  const getColor = value => {
     const v = parseFloat(value);
-    const colors = Object.values(this.props.item.colors);
-    //console.log("StationOverlay->getColor#1", value, this.props.item.colors);
+    const colors = Object.values(props.item.colors);
+    //console.log("StationOverlay->getColor#1", value, props.item.colors);
     let color = colors[0];
-    this.props.item.thresholds.forEach((tr, i) => {
+    props.item.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
     });
     return color;
-  }
-
-  handleActiveMarkerPositionUpdate = pos => {
-    //console.log("handleActiveMarkerPositionUpdate qqq3", pos);
-    this.setState({ activeMarkerPos: pos });
   };
 
-  handleSpiderfiedMarkers = list => {
+  const handleActiveMarkerPositionUpdate = pos => {
+    //console.log("handleActiveMarkerPositionUpdate qqq3", pos);
+    setActiveMarkerPos(pos);
+  };
+
+  const handleSpiderfiedMarkers = list => {
     //console.log("handleSpiderfiedMarkers ggg3", list);
     if (Array.isArray(list) && list.length > 0) {
-      this.setState({ spiderfiedMarkers: list });
+      setSpiderfiedMarkers(list);
     } else {
-      this.setState({
-        spiderfiedMarkers: null,
-        activeMarkerPos: null
-      });
+      setSpiderfiedMarkers(null);
+      activeMarkerPos(null);
     }
   };
 
-  renderPositionMarker(data) {
+  // eslint-disable-next-line no-unused-vars
+  const renderPositionMarker = data => {
     const coordinates = [
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
     ];
     return <ClusterSelectedMarker coordinates={coordinates} />;
-  }
+  };
 
-  renderMarker(data, features, pos = null) {
+  const renderMarker = (data, features, pos = null) => {
     if (
-      (data.date === undefined || data[this.props.itemId] === undefined) &&
-      this.props.itemId !== "any"
+      (data.date === undefined || data[props.itemId] === undefined) &&
+      props.itemId !== "any"
     )
       return;
 
     // console.log(
     //   "station-overlay->renderMarker aaa",
-    //   this.props.itemId
-    //   this.props.item.colors ||
-    //     this.getColor(Math.round(data[this.props.itemId])),
+    //   props.itemId
+    //   props.item.colors ||
+    //     getColor(Math.round(data[props.itemId])),
     //   data,
-    //   data[this.props.itemId]
+    //   data[props.itemId]
     // );
 
-    const value = Math.round(data[this.props.itemId]);
+    const value = Math.round(data[props.itemId]);
     const coordinates = pos
       ? [pos.lat, pos.lng]
       : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
@@ -79,7 +80,7 @@ class StationOverlay extends React.Component {
         (data.region ? `(${data.region}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
-      detail: value + " " + this.props.item.units,
+      detail: value + " " + props.item.units,
       operator: data.operator,
       plainName: data.name,
       value: value,
@@ -87,91 +88,77 @@ class StationOverlay extends React.Component {
     };
     // console.log(
     //   "station-overlay->renderMarker qqq",
-    //   this.props.itemId + "-" + data.id
+    //   props.itemId + "-" + data.id
     // );
     return (
       <StationMarker
         type="station"
-        key={this.props.itemId + "-" + data.id}
-        itemId={this.props.itemId}
+        key={props.itemId + "-" + data.id}
+        itemId={props.itemId}
         data={markerData}
         stationId={data.id}
         tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={value}
-        selected={
-          this.props.selectedFeature && data.id == this.props.selectedFeature.id
-        }
-        color={this.getColor(value)}
+        selected={props.selectedFeature && data.id == props.selectedFeature.id}
+        color={getColor(value)}
         direction={
-          this.props.item.direction && value >= 3.5
-            ? data[this.props.item.direction]
+          props.item.direction && value >= 3.5
+            ? data[props.item.direction]
             : false
         }
         onClick={data => {
-          //console.log("onClick ggg2 #1", data.id, this.state.spiderfiedMarkers);
-          if (data && data.id) {
-            if (
-              !this.state.spiderfiedMarkers ||
-              this.state.spiderfiedMarkers.indexOf(data.id) < 0
-            ) {
-              // only handle click events for markers outside of cluster -
-              // other markers will be handled by cluster's click-event-handler
-              //console.log("onClick ggg2 #2", this.state.spiderfiedMarkers);
-              this.handleSpiderfiedMarkers(null);
-              //this.props.onMarkerSelected(data);
-            }
-          }
-          if (data.id) this.props.onMarkerSelected(data);
+          //console.log("onClick ggg2 #1", data.id, state.spiderfiedMarkers);
+          // if (data && data.id) {
+          //   if (
+          //     !state.spiderfiedMarkers ||
+          //     state.spiderfiedMarkers.indexOf(data.id) < 0
+          //   ) {
+          //     // only handle click events for markers outside of cluster -
+          //     // other markers will be handled by cluster's click-event-handler
+          //     //console.log("onClick ggg2 #2", state.spiderfiedMarkers);
+          //     //handleSpiderfiedMarkers(null);
+          //     //props.onMarkerSelected(data);
+          //   }
+          // }
+          if (data.id) props.onMarkerSelected(data);
         }}
       />
     );
-  }
+  };
 
-  componentDidMount() {
-    //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
-    if (this.props.onLoad) this.props.onLoad();
-  }
+  //let sPl = props.features ? props.features.find(feature => feature?.name == "Tannheim") : null;
+  //console.log("station-overlay->render qq", props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
+  //console.log("station-overlay->render aaa", props.selectedFeature, props.features);
+  const points = props.features.filter(
+    point => props.itemId === "any" || point[props.itemId] !== false
+  );
 
-  componentDidUpdate() {
-    //console.log("StationOverlay->componentDidUpdate ggg", this.props.onLoad);
-    if (this.props.onLoad) this.props.onLoad();
-  }
+  // const selectedFeature = props.selectedFeature
+  //   ? points.find(point => point.id == props.selectedFeature.id)
+  //   : null;
 
-  render() {
-    //let sPl = this.props.features ? this.props.features.find(feature => feature?.name == "Tannheim") : null;
-    //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
-    //console.log("station-overlay->render aaa", this.props.selectedFeature, this.props.features);
-    const points = this.props.features.filter(
-      point => this.props.itemId === "any" || point[this.props.itemId] !== false
-    );
+  //console.log("render qqq3", props, points);
 
-    // const selectedFeature = this.props.selectedFeature
-    //   ? points.find(point => point.id == this.props.selectedFeature.id)
-    //   : null;
-
-    //console.log("render qqq3", this.props, points);
-
-    return (
-      <div>
-        <Cluster
-          item={this.props.item}
-          tooltip={true}
-          spiderfiedMarkers={this.handleSpiderfiedMarkers}
-          onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
-          // onMarkerSelected={this.props.onMarkerSelected}
-        >
-          {points.map(point => this.renderMarker(point, this.props.features))}
-        </Cluster>
-        {/* {selectedFeature &&
-          this.renderMarker(selectedFeature, this.state.activeMarkerPos)} */}
-        {/* {selectedFeature &&
-          this.state.spiderfiedMarkers &&
-          this.renderPositionMarker(selectedFeature)} */}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Cluster
+        item={props.item}
+        tooltip={true}
+        spiderfiedMarkers={handleSpiderfiedMarkers}
+        onActiveMarkerPositionUpdate={handleActiveMarkerPositionUpdate}
+        // onMarkerSelected={props.onMarkerSelected}
+      >
+        {points.map(point => renderMarker(point, props.features))}
+      </Cluster>
+      {/* {selectedFeature &&
+        renderMarker(selectedFeature, state.activeMarkerPos)} */}
+      {/* {selectedFeature &&
+        state.spiderfiedMarkers &&
+        renderPositionMarker(selectedFeature)} */}
+    </div>
+  );
+};
 
 export default StationOverlay;

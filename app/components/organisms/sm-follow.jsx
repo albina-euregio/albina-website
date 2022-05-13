@@ -1,5 +1,6 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
+import { Tooltip } from "../tooltips/tooltip";
 
 class SmFollow extends React.Component {
   render() {
@@ -11,27 +12,33 @@ class SmFollow extends React.Component {
     return (
       <section className="section section-padding sm-share-follow">
         <p>
-          <FormattedHTMLMessage id="footer:follow-us" />
+          <FormattedMessage
+            id="footer:follow-us"
+            values={{
+              strong: (...msg) => <strong>{msg}</strong>
+            }}
+          />
         </p>
         <ul className="list-inline sm-buttons">
           {accounts.map((a, i) => (
             <li key={a.id + i}>
-              <a
-                href="#followDialog"
-                className={
-                  "sm-button icon-sm-" + a.id + " tooltip modal-trigger"
-                }
-                title={this.props.intl.formatMessage(
-                  { id: "footer:follow-us:hover" },
-                  { on: a.name }
-                )}
-                aria-label={this.props.intl.formatMessage(
+              <Tooltip
+                label={this.props.intl.formatMessage(
                   { id: "footer:follow-us:hover" },
                   { on: a.name }
                 )}
               >
-                <span>{a.name}</span>
-              </a>
+                <a
+                  href="#followDialog"
+                  className={"sm-button icon-sm-" + a.id + " modal-trigger"}
+                  aria-label={this.props.intl.formatMessage(
+                    { id: "footer:follow-us:hover" },
+                    { on: a.name }
+                  )}
+                >
+                  <span>{a.name}</span>
+                </a>
+              </Tooltip>
             </li>
           ))}
         </ul>

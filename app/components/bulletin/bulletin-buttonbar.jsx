@@ -1,8 +1,9 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { APP_STORE } from "../../appStore";
 import { modal_init } from "../../js/modal";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { Tooltip } from "../tooltips/tooltip";
 
 class BulletinButtonbar extends React.Component {
   constructor(props) {
@@ -22,64 +23,76 @@ class BulletinButtonbar extends React.Component {
         <div className="section-centered">
           <div className="grid linkbar">
             <div className="normal-4 grid-item">
-              <a
-                href="#page-main"
-                title={this.props.intl.formatMessage({
+              <Tooltip
+                label={this.props.intl.formatMessage({
                   id: "bulletin:linkbar:back-to-map:hover"
                 })}
-                className="icon-link icon-arrow-up tooltip"
-                data-scroll=""
               >
-                <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
-              </a>
+                <a
+                  href="#page-main"
+                  className="icon-link icon-arrow-up"
+                  data-scroll=""
+                >
+                  <FormattedMessage id="bulletin:linkbar:back-to-map" />
+                </a>
+              </Tooltip>
             </div>
             <div className="normal-8 grid-item">
               <ul className="list-inline bulletin-buttonbar">
                 {BULLETIN_STORE.activeBulletinCollection && (
                   <li>
-                    <a
-                      href="#downloadPdfDialog"
-                      title={this.props.intl.formatMessage({
+                    <Tooltip
+                      label={this.props.intl.formatMessage({
                         id: "bulletin:linkbar:pdf:hover"
                       })}
-                      className="modal-trigger popup-modal pure-button tooltip"
                     >
-                      {this.props.intl.formatMessage({
-                        id: "bulletin:linkbar:pdf"
-                      })}
-                    </a>
+                      <a
+                        href="#downloadPdfDialog"
+                        className="modal-trigger popup-modal pure-button"
+                      >
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:linkbar:pdf"
+                        })}
+                      </a>
+                    </Tooltip>
                   </li>
                 )}
                 {!config.subscribe.buttonHidden && (
                   <li>
-                    <a
-                      href="#subscribeDialog"
-                      title={this.props.intl.formatMessage({
+                    <Tooltip
+                      label={this.props.intl.formatMessage({
                         id: "bulletin:linkbar:subscribe:hover"
                       })}
-                      className="modal-trigger popup-modal pure-button tooltip"
                     >
-                      {this.props.intl.formatMessage({
-                        id: "bulletin:linkbar:subscribe"
-                      })}
-                    </a>
+                      <a
+                        href="#subscribeDialog"
+                        className="modal-trigger popup-modal pure-button"
+                      >
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:linkbar:subscribe"
+                        })}
+                      </a>
+                    </Tooltip>
                   </li>
                 )}
                 {config.dialogs.feedback && (
                   <li>
-                    <a
-                      href={config.links.feedback[APP_STORE.language]}
-                      title={this.props.intl.formatMessage({
+                    <Tooltip
+                      label={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="success pure-button tooltip"
                     >
-                      {this.props.intl.formatMessage({
-                        id: "bulletin:feedback"
-                      })}
-                    </a>
+                      <a
+                        href={config.links.feedback[APP_STORE.language]}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="success pure-button"
+                      >
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:feedback"
+                        })}
+                      </a>
+                    </Tooltip>
                   </li>
                 )}
               </ul>

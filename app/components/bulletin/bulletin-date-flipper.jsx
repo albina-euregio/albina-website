@@ -10,6 +10,7 @@ import {
   isSameDay,
   isAfter
 } from "../../util/date.js";
+import { Tooltip } from "../tooltips/tooltip";
 
 class BulletinDateFlipper extends React.Component {
   constructor(props) {
@@ -54,59 +55,59 @@ class BulletinDateFlipper extends React.Component {
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
-          <Link
-            to={"/bulletin/" + prevLink}
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "bulletin:header:dateflipper:back"
             })}
-            className="tooltip"
           >
-            <span className="icon-arrow-left" />
-            {prevDate}
-          </Link>
+            <Link to={"/bulletin/" + prevLink}>
+              <span className="icon-arrow-left" />
+              {prevDate}
+            </Link>
+          </Tooltip>
         </li>
         {/* {nextLink && <li className="bulletin-flipper-separator">&nbsp;</li>} */}
         {nextLink && (
           <li className="bulletin-flipper-forward">
-            <Link
-              to={"/bulletin/" + nextLink}
-              title={this.props.intl.formatMessage({
+            <Tooltip
+              label={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:forward"
               })}
-              className="tooltip"
             >
-              {nextDate + " "}
-              <span className="icon-arrow-right" />
-            </Link>
+              <Link to={"/bulletin/" + nextLink}>
+                {nextDate + " "}
+                <span className="icon-arrow-right" />
+              </Link>
+            </Tooltip>
           </li>
         )}
         {this.nextDate && (
           <li className="bulletin-flipper-latest">
-            <Link
-              to={"/bulletin/" + latestLink}
-              title={this.props.intl.formatMessage({
+            <Tooltip
+              label={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
-              className="tooltip"
             >
-              {this.props.intl.formatMessage({
-                id: "bulletin:header:dateflipper:latest"
-              })}
-            </Link>
+              <Link to={"/bulletin/" + latestLink}>
+                {this.props.intl.formatMessage({
+                  id: "bulletin:header:dateflipper:latest"
+                })}
+              </Link>
+            </Tooltip>
           </li>
         )}
         <li className="bulletin-flipper-archive">
-          <Link
-            to="/more/archive"
-            title={this.props.intl.formatMessage({
+          <Tooltip
+            label={this.props.intl.formatMessage({
               id: "bulletin:header:archive:hover"
             })}
-            className="tooltip"
           >
-            {this.props.intl.formatMessage({
-              id: "bulletin:header:archive"
-            })}
-          </Link>
+            <Link to="/more/archive">
+              {this.props.intl.formatMessage({
+                id: "bulletin:header:archive"
+              })}
+            </Link>
+          </Tooltip>
         </li>
       </ul>
     );

@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { Tooltip } from "../tooltips/tooltip";
 
 class StationTableHeader extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class StationTableHeader extends React.Component {
 
   render() {
     const sortClasses = (id, dir) => {
-      const cls = ["tooltip"];
+      const cls = [];
       if (dir == "asc") {
         cls.push("sort-ascending");
         cls.push("icon-up-open");
@@ -48,26 +49,26 @@ class StationTableHeader extends React.Component {
                   {el.sortable !== false && (
                     <span className="sort-buttons">
                       {["asc", "desc"].map(dir => (
-                        <a
-                          key={dir}
-                          href="#"
-                          className={sortClasses(el.data, dir)}
-                          title={sortTitle(el.data, dir)}
-                          onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            this.props.handleSort(
-                              el.data,
-                              this.props.sortValue == el.data
-                                ? toggleSortDir(dir)
-                                : dir
-                            );
-                          }}
-                        >
-                          <span className="is-visually-hidden">
-                            {title(el.data)}: {sortTitle(el.data, dir)}
-                          </span>
-                        </a>
+                        <Tooltip key={dir} label={sortTitle(el.data, dir)}>
+                          <a
+                            href="#"
+                            className={sortClasses(el.data, dir)}
+                            onClick={e => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              this.props.handleSort(
+                                el.data,
+                                this.props.sortValue == el.data
+                                  ? toggleSortDir(dir)
+                                  : dir
+                              );
+                            }}
+                          >
+                            <span className="is-visually-hidden">
+                              {title(el.data)}: {sortTitle(el.data, dir)}
+                            </span>
+                          </a>
+                        </Tooltip>
                       ))}
                     </span>
                   )}

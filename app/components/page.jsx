@@ -1,9 +1,8 @@
-import React from "react";
-import { withRouter } from "react-router";
+import React, { useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
-import { injectIntl } from "react-intl";
 
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
@@ -17,118 +16,116 @@ import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 // import CookieConsent from "./dialogs/cookie-consent";
 // import FeedbackDialog from "./dialogs/feedback-dialog";
 import ControlBar from "../components/organisms/control-bar.jsx";
-
-import { renderRoutes } from "react-router-config";
 import { modal_init } from "../js/modal";
-import { tooltip_init } from "../js/tooltip";
+//import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 
-import { scroll_init } from "../js/scroll";
+import { scroll_init, scroll } from "../js/scroll";
 
-class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.hash = false;
-  }
+const Page = props => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const didMountRef = useRef(false);
 
-  componentDidMount() {
-    this._didUpdate();
-  }
-
-  componentDidUpdate() {
-    if (this.props && this.props.location && this.props.location.hash) {
-      if (this.hash !== this.props.location.hash) {
-        this.hash = this.props.location.hash;
-      }
-    } else {
-      this.hash = false;
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      navigation_init();
     }
+  });
 
+  useEffect(() => {
     if (
-      this.props.location !== this.props.location &&
-      this.props.history.action === "PUSH" &&
-      !this.props.location.hash
+      location.pathname === "" ||
+      location.pathname === "/" ||
+      location.pathname === "/bulletin"
     ) {
-      // do not scroll if bulletin region was clicked
-      if (!this.props.location.pathname.split("/").includes("bulletin")) {
-        window.scrollTo(0, 0);
-      }
-      // scroll to top on forward page change (if no hash is set)
-      // see https://github.com/ReactTraining/react-router/issues/2019
-    }
-    this._didUpdate();
-  }
-
-  _didUpdate() {
-    // if the actual bulletin is active, change path to /latest
-    if (
-      this.props.location.pathname === "" ||
-      this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin"
-    ) {
-      this.props.history.replace({
+      //console.log("Page->useEffect[location.pathname]", location.path);
+      navigate({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
+    } else {
+      //console.log("Page->useEffect[location.pathname]", location.path);
+      scroll_init();
+      modal_init();
+      //tooltip_init();
+      window.scrollTo(0, 0);
     }
+  }, [location.pathname]);
 
-    modal_init();
-    tooltip_init();
-    navigation_init();
-    scroll_init();
-  }
+  useEffect(() => {
+    //console.log("Page->useEffect hash #1", location.hash, location.pathname);
+    if (!location.pathname.split("/").includes("bulletin")) {
+      if (!location.hash) {
+        //console.log("Page->useEffect hash #2", location.hash);
+        window.scrollTo(0, 0);
+      } else {
+        //console.log("Page->useEffect hash #3", location.hash);
+        setTimeout(() => scroll(location.hash, 2000), 1000);
+      }
+    }
+  }, [location.hash]);
 
-  render() {
-    return (
-      <>
-        <div className="page-loading-screen" />
-        <Jumpnav />
+  //console.log("page->render", props.children);
+  return (
+    <>
+      <div className="page-loading-screen" />
+      <Jumpnav />
 
-        <PageHeader />
-        <main id="page-main" className="page-main">
-          {import.meta.env.BASE_URL === "/dev/" && (
-            <ControlBar
-              style="yellow"
-              message={
-                <>
-                  This is a development version –{" "}
-                  <strong>no real data is shown!</strong>
-                </>
-              }
-            />
-          )}
-          {renderRoutes(this.props.route.routes)}
-        </main>
-        <PageFooter />
-        <ModalDialog id="weatherStationDiagrams">
-          <WeatherStationDiagrams />
-        </ModalDialog>
-        <ModalDialog id="subscribeDialog">
-          <SubscribeDialog />
-        </ModalDialog>
-        <ModalDialog id="downloadPdfDialog">
-          <DownloadPdfDialog />
-        </ModalDialog>
-        <ModalDialog id="followDialog">
-          <FollowDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeEmailDialog">
-          <SubscribeEmailDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeBlogDialog">
-          <SubscribeBlogDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeTelegramDialog">
-          <SubscribeTelegramDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeAppDialog">
-          <SubscribeAppDialog />
-        </ModalDialog>
-        {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
-        {/* {config.dialogs.feedback && <FeedbackDialog />} */}
-      </>
-    );
-  }
-}
+      <PageHeader />
+      <main id="page-main" className="page-main">
+        {import.meta.env.BASE_URL === "/dev/" && (
+          <ControlBar
+            style="yellow"
+            message={
+              <>
+                This is a development version –{" "}
+                <strong>no real data is shown!</strong>
+              </>
+            }
+          />
+        )}
+        {props.children}
+      </main>
+      <PageFooter />
+      <div
+        id="tooltip-container"
+        className="tooltip-container"
+        style={{ display: "none" }}
+      >
+        <div className="tooltip-inner">
+          <div className="tooltip-content"></div>
+        </div>
+      </div>
+      <ModalDialog id="weatherStationDiagrams">
+        <WeatherStationDiagrams />
+      </ModalDialog>
+      <ModalDialog id="subscribeDialog">
+        <SubscribeDialog />
+      </ModalDialog>
+      <ModalDialog id="downloadPdfDialog">
+        <DownloadPdfDialog />
+      </ModalDialog>
+      <ModalDialog id="followDialog">
+        <FollowDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeEmailDialog">
+        <SubscribeEmailDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeBlogDialog">
+        <SubscribeBlogDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeTelegramDialog">
+        <SubscribeTelegramDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeAppDialog">
+        <SubscribeAppDialog />
+      </ModalDialog>
+      {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
+      {/* {config.dialogs.feedback && <FeedbackDialog />} */}
+    </>
+  );
+};
 
-export default injectIntl(withRouter(Page));
+export default Page;

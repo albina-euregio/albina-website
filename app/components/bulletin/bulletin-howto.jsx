@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 class BulletinHowTo extends React.Component {
   constructor(props) {
@@ -10,7 +10,12 @@ class BulletinHowTo extends React.Component {
     return (
       <section className="section-centered">
         <div className="panel field">
-          <FormattedHTMLMessage id="bulletin:howto" />
+          <span>
+            <FormattedMessage
+              id="bulletin:howto"
+              values={{ strong: (...msg) => <strong>{msg}</strong> }}
+            />
+          </span>
         </div>
       </section>
     );

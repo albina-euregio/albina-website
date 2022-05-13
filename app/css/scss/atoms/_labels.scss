@@ -18,7 +18,7 @@
   color: $text-color;
   background: $white;
   @include box-border($grey);
-  border-radius: $global-rounded;
+  border-radius: 1em;
 
   &.primary {
     color: $white;

@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import { Tooltip } from "../tooltips/tooltip";
 
 class BulletinLegend extends React.Component {
   constructor(props) {
@@ -35,15 +36,15 @@ class BulletinLegend extends React.Component {
                   {
                     strong: msg => <strong>{msg}</strong>,
                     a: msg => (
-                      <Link
-                        to="/education/avalanche-problems"
-                        className="tooltip"
-                        title={this.props.intl.formatMessage({
+                      <Tooltip
+                        label={this.props.intl.formatMessage({
                           id: "bulletin:legend:highlight-regions:hover"
                         })}
                       >
-                        <strong>{msg}</strong>
-                      </Link>
+                        <Link to="/education/avalanche-problems">
+                          <strong>{msg}</strong>
+                        </Link>
+                      </Tooltip>
                     )
                   }
                 )}
@@ -55,15 +56,20 @@ class BulletinLegend extends React.Component {
             </div>
             <div className="normal-6 grid-item">
               <p>
-                <Link
-                  to="/education/danger-scale"
-                  className="tooltip"
-                  title={this.props.intl.formatMessage({
+                <Tooltip
+                  label={this.props.intl.formatMessage({
                     id: "bulletin:legend:danger-levels:hover"
                   })}
                 >
-                  <FormattedHTMLMessage id="bulletin:legend:danger-levels" />
-                </Link>
+                  <Link to="/education/danger-scale">
+                    <FormattedMessage
+                      id="bulletin:legend:danger-levels"
+                      values={{
+                        strong: (...msg) => <strong>{msg}</strong>
+                      }}
+                    />
+                  </Link>
+                </Tooltip>
               </p>
               <ul className="list-inline list-legend">
                 {warnlevels.map(l => (

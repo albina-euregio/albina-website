@@ -1,4 +1,5 @@
 import React from "react";
+import { Tooltip } from "../tooltips/tooltip";
 
 export default class ElevationIcon extends React.Component {
   imgRoot;
@@ -21,21 +22,22 @@ export default class ElevationIcon extends React.Component {
     const classes = [
       "bulletin-report-picto",
       "problem-altitude",
-      "tooltip",
       "problem-" + this.props.where
     ];
     const src = this.imgRoot + this.icons[this.props.where];
 
     return (
-      <div className={classes.join(" ")} title={this.props.title}>
-        <img src={src} alt={this.props.title} title={this.props.title} />
-        {this.props.where != "all" && (
-          <span>
-            {this.props.text}
-            <i className="icon" />
-          </span>
-        )}
-      </div>
+      <Tooltip label={this.props.title}>
+        <div className={classes.join(" ")}>
+          <img src={src} alt={this.props.title} title={this.props.title} />
+          {this.props.where != "all" && (
+            <span>
+              {this.props.text}
+              <i className="icon" />
+            </span>
+          )}
+        </div>
+      </Tooltip>
     );
   }
 }
