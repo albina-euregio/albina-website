@@ -12,11 +12,11 @@
 
 Use `npm install` to download necessary packages.
 
-Use `npm start` and browse to http://localhost:8080/ to use dev server.
+Use `npm start` and browse to http://localhost:3000/ to use dev server.
 
 ### Run with sample data
 
-Use `npm run start-dev` and browse to http://localhost:8080/ to use dev server.
+Use `npm run start-dev` and browse to http://localhost:3000/ to use dev server.
 
 Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
 

@@ -59,7 +59,7 @@ function encodeGeometry(geometry) {
  * @param {string[]} files
  * @param {string} output
  */
-function encodeFiles(files, output) {
+function encodeFiles(files, output, { doFilter } = { doFilter: true }) {
   /**
    * @type {[GeoJSON.FeatureCollection]}
    */
@@ -74,7 +74,7 @@ function encodeFiles(files, output) {
   geojson.features = geojson.features
     .concat(...geojsons.map(g => g.features))
     .map(f => ({ id: f.properties?.id, ...f }))
-    .filter(feature => filterFeature(feature, today))
+    .filter(feature => !doFilter || filterFeature(feature, today))
     .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id));
   geojson.features.forEach(({ properties }) => {
     if (properties.aws) {
@@ -97,7 +97,8 @@ encodeFiles(
     "eaws-regions/public/micro-regions/IT-32-BZ_micro-regions.geojson.json",
     "eaws-regions/public/micro-regions/IT-32-TN_micro-regions.geojson.json"
   ],
-  "app/stores/micro_regions.polyline.json"
+  "app/stores/micro_regions.polyline.json",
+  { doFilter: false }
 );
 
 encodeFiles(
@@ -106,7 +107,8 @@ encodeFiles(
     "eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json",
     "eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json"
   ],
-  "app/stores/micro-regions_elevation.polyline.json"
+  "app/stores/micro-regions_elevation.polyline.json",
+  { doFilter: false }
 );
 
 const eawsRegions = [

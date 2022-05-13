@@ -29,6 +29,34 @@
       }
     },
     {
+      "id": "AT-07-02-01",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-02-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "agT{o{A?K@GBKFIFGHIJIZMNCPAD@J?T?L?PCPEFEJKFCNENCZMNINKFGAGIGIGGGFCDABCBCBABCBCB?D?D?A??G??AG?A?I??AG?C?I?E?A?A?C?A@?BC??BANCJC@?FABAHCFEFEHEDCBC@A?A@CAC?ACAA?AACAC?E?C?C?A@CAA?EACAC?EAG\\Y?UJi@?e@DKR@HYJc@Mc@@?Mc@COD]OgAG[f@WACJnAPLL?\\[Ds@Mo@DEFRLGD??B@BBBB@@B@?@?DAB@B?@@@@@@@@@?B@@A@?BA@AB?B?@@B@@@@?B?BAD?B??@B@B@B??@D@??B@B?@@B??@@BBBB@@@@@@???@?@?BA@?@AB?D?D@B@@@@@?@@@?D?@?@@@@@B??@@DBB?B?F?"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-02-02",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-02-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "i|Saw{AE?E?C?CBCBC@CBCBE@GBFFHFHF@FGFOJOH[LOBODGBKJGDQDQBM?U?K?EAQ@OB[LKHIHGFGHCJAF?JB?B???B@D@RLNHH@RGP@DDENTLBPAJONSPIPDLh@Xz@ZVPb@ZNf@EP@???B?@?@@F?F?F?@?H?J?@?D?B?F?D@??D???@@B@B@DB??D@B@@?B@@@B@??B@@@B???B?@?B?D???BA???EHMDM@INIVC@SDGPGDM?SNUJCVE@ULMPCt@Uj@O@?DCFMCACACAACACAAAEEIAACCAAACAA?CACACAEAEAC???C??@A?E@CAA?AAAACECGGECAACC??EGCEAAEG??CEACAA?C?E?C?C?CAACCAACACCGA??GAGAM???O?IAI?EAC?CAICKCAAC?GAICEAA?CACAACCCCAEGECGECCSKECKIGE??EC?ACC?CAAAE"
+        ]
+      }
+    },
+    {
       "id": "AT-07-03",
       "type": "Feature",
       "properties": {
@@ -52,6 +80,34 @@
         "type": "MultiPolygon",
         "coordinates": [
           "klUix{AE?q@FYK[BoAK]S?_@?[YYK[E@A?E?C?A?EAA?C?C?C?C@C@C?C@E@EBI@I@GBI@G@C?C?A@A??@ABA@A@C@C@ABA@EDEBEBE@C@C@CBA??@A?A?A?A@?@A@?@???@?@?@A@?@?@A@?@?@?@???@?@?@???@?@?@A@A@A@??AB?@A@?@?@?@??@??@@??@@?@@?@@????@?@???@?@????A@A@?@?@???@?@?@?@A@?L@RCX@h@ELAB]Pa@JIJCJc@VEJBP???AF@B?@@B?DB@@HDBBHDJF@?DBD@HBJBJDFBDB@@@@?B?@?@?DAB@B@BBBBB@@??BD@@@@B@@@B@D?B?B@B@JBB@@?F?B@@?H?F@H@JBF@FBD@DB??B@D?F@B?F@B@D@BBB@B@B@D?B@@?D?DAB?H?B?D?@?D?F@@@@?B@DDFDFFDBB@DBD?B@@?D@F@H@B@B?F?D?D?B@D?@?B?B@D@B@@?B?B@D?B?D?D?B?B?@?F@H@H@D@B?F@@?B?D@BA@?D?BAHCHCNEDABAD??AD?BAB?B?@AB?B@B@B@@@BBFF@BB@?@FBFFFD?@@?@@B@@@B?D@BAD?BA??B?D?B?@?@?B@D?B@B?B?@AFADADCDEBA?ABC@?B?@AF?F@??D?@?B?F@B?B?B?D?@?B??AD?BAD?D?B?@?D?@?B?@?BA@?@?B?B?B@B@@?FBD?D?D?BA@?@A@CBCBCBCFABA@?FAFAFABAB?@AD?FAF?D?@?DABAIKMCEEJOGQDQNK@MIKGIa@MSOS[MUIEc@E?CAAAC?A?A?AI?SEQMCg@QES@UOO?COKGe@@OF_@GYDOEe@FPSDW\\@TKMSa@QEGEGo@a@ICABABCBABCB?@??y@C"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-04-01",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-04-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "qjUex{AGFCBCBEHCHAF?DAB?BABEFGBMBI@OBMBSBS@MBG@E@EBCBIBKBM@I@G@KBC@C@?@E@C?C?E?E?C@E@E@C@E@E@EBGBC@C@@B?FCDIBI@C@M@MHGLWESF_@BW?UAYDYCW@SA]X?AF@B?@@B?DB@@HDBBHDJF@?DBD@HBJBJDFBDB@@@@?B?@?@?DAB@B@BBBBB@@??BD@@@@B@@@B@D?B?B@B@JBB@@?F?B@@?H?F@H@JBF@FBD@DB??B@D?F@B?F@B@D@BBB@B@B@D?B@@?D?DAB?H?B?D?@?D?F@@@@?B@DDFDFFDBB@DBD?B@@?D@F@H@B@B?F?D?D?B@D?@?B?B@D@B@@?B?B@D?B?D?D?B?B?@?F@H@H@D@B?F@@?B?D@BA@?D?BAHCHCNEDABAD??AD?BAB?B?@AB?B@B@B@@@BBFF@BB@?@FBFFFD?@@?@@B@@@B?D@BAD?BA??B?D?B?@?@?B@D?B@B?B?@AFADADCDEBA?ABC@?B?@AF?F@??D?@?B?F@B?B?B?D?@?B??AD?BAD?D?B?@?D?@?B?@?BA@?@?B?B?B@B@@?FBD?D?D?BA@?@A@CBCBCBCFABA@?FAFAFABAB?@AD?FAF?D?@?DABAIKMCEEJOGQDQNK@MIKGIa@MSOS[MUIEc@E?CAAAC?A?A?AI?SEQMCg@QES@UOO?COKGe@@OF_@GYDOEe@FPSDW\\@TKMSa@QEGEGo@a@ICABABCBABCB?@??"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-04-02",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-04-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "s~Uqp{A\\YR@VAXBXET@V?^CRGVDFMLILABAHAHCBE?GACBABAFCDCDADABADADABAD?D?B?B?DA?ABABAJCFAHALAJCHCBCDCDAFALCRARCLCNCHALCFCDG@C?C@C?E@GBIDIBCBCFGy@CE?q@FYK[BoAK]S?_@?[YYK[E@A?E?C?A?EAA?C?C?C?C@C@C?C@E@EBI@I@GBI@G@C?C?A@A??@ABA@A@C@C@ABA@EDEBEBE@C@C@CBA??@A?A?A?A@?@A@?@???@?@?@A@?@?@A@?@?@?@???@?@?@???@?@?@A@A@A@??AB?@A@?@?@?@??@??@@??@@?@@?@@????@?@???@?@????A@A@?@?@???@?@?@?@A@?L@RCX@h@ELAB]Pa@JIJCJc@VEJBP??"
         ]
       }
     },
@@ -187,6 +243,76 @@
       }
     },
     {
+      "id": "AT-07-14-01",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-14-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "q`T}e{AKBF@F@D@@@@@?@@@@@DD@BDHHJBDFFHFBB@@?B@BBL@B?D?@CFAH?BIFCFC@EBEBEBQBOHIDC@C@E@C@EBGBYF]`@U\\MLU\\MRIR@j@CXAT?@@??@?BABAB?B@DAD?D@?X@LD@?Z@JLZP?BDB`@Dr@V`@APA?B@@?@?@??p@@TFZKf@ALGV@JER?VGP?b@FXC@?FGT[h@QFMEAGAGCEACACAACACCAE?CACCCAACCACEEAECA?GCECECCCCC?CA??C?CA?ACAACCCACCGAA?CACACAAA?CACCACCAA?A?AAAACCAAA??GCCCCCAACEAACCECECCAA???CA?AACACCCAC?A?C?A?A@G?AAEACACAE?CAC?A@C@E@C@E@C@A@A@A@CBABAD?H?JAF?J?B?@?D???FAFAFAB?@?BA@?BA@ABADADAFAD?D?BABA??BAFCBABCBC@A@E@C?E?AA??AGAECA?EAAAAA?A@ABA@?@A?A?????AAAEAAAC?GCEACACAACAA??CAA???GACAEACAAAIEEEEAAAGAIAKAEACACACA?AAAAAAC??ACAAA?AAEAC?GCEAEAC?AAE?????C@??E?C?A?C???C?AACA??CAAACAA?CAEA??ECCACAAA??E???EAG?C?E?A?K?I?A?G?G?G?AAA?C???A?CAC???CAC?AAA???C?A@C?E@C@A?GB"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-14-02",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-14-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "gfT{wzA@UBYAk@HSLST]LMT]\\a@XGFCDCBADABABAHENIPCDCDCDCBABGHG?C@IBG?A?EACCMAC?CAACCIGGGCEIKEIACEEAAAA?AAAAAEAGAGAA?E@C@C?A?C?E?C?EAA?E?C?AAC?CACCAA??AAACCC?CAC??AA??A?A?A@A?A???CAC?EAAAAAAAA??A????C@A@A?E@A?A@A@A@A?A?CAA?A?C@A?C@???@???@@??@@@?@?BC@CBA@A?E@WIM?WGYAY?[Ii@Ae@F]PSFa@Ak@M[Cc@DGFDBD@FBNJF?D?DFBBB@DADB@BABCB?FCB@FC@?BA@?B@B@B?DA@A?CB?B?BADCFEDEBE@EDCBFD@@@@@BEHA@@B?F?DCBAFBB?BBBD@F?D@D@PCFA@?FBD?BDBBGBEFE@GD@@@@@H?LDHBDHAB?DAD?BAH?BAFAJ@DAH?D@B?BBD?BCJ?HDA@?B@BDH?B@DADCDCDGDE@M@EBGDEDCFCHADEFEDGHGDADAB???@ADL?RA`@Fj@EX`@p@O^?XETCRD"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-14-03",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-14-03",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "eoTqxzA@C@EFEFIDEDG@EBIBGDEFEDCLADAFEBEBE@EAE?CEIAC?C@AIEK?CBE?CCC?EAI?E@KAG@C@I?C@E?E@C?I@CEEI?MAIAAAAFEDADGFCCCCEE?GCA?G@QBEAEAG?EACC?CCC@GBC?E?GAC@ADIACAAAAGEBCDEDADCDEBG@E?C?CBC@?@A?EACAC?C@A?CBAAGBC?GBC@CACECE@CACCEGE?G?OKGCEAECMLO@YHi@?c@FMDABC@EBCDABG@GBGBGBIB@@@DBB?@?B@@@BBBAB@B?B@@@@@@?@@B@@AB?@@D?@?B?@?B?@@B?DCDA@?B@@B@?B?B@@D@D?@B@B?@A@A@A@?@A@A?A?C?E?A?CAE?C?AAC?EAE?A?A?AACAACAAEACAC?AAAACACCAACAEAAC?AAAA?A?AAA?CA??AAAAAAA?AA??AAC?C?E?EAA?A?A@C?C@C?EAAAC?CAE?C??C?AACC?CAGAA@A@C@C@A?CB?@AB?B?@AB?BAB?BADCBAB?F?D?B?F?BE?C?C?A??BPJFHDF????@@@@B@??FBDBDBDDDD@BBBBBDBBBDB@D@@?@@@@@@@B@??B@DB?@LADG?CLGR?^JNDN@PDRABG^DNCPBBN@@l@NP?LZBDVHd@AVBVBND"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-14-04",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-14-04",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "w`Uy~zA?C@?B?B?D??C?G?C?E?G@CBC@E?C@C?C@C?A?C@C?ABC@?BABA@A@AF@B@B?@B?@?BB?D?B@B?@@D@B?BAB?@A@?@?D@D?B?B?@@??@@@?@@@@@@??B@@?@@@?@?@@?@@BD@B@@@BBB@@@@@B?B@D@@@@BB@@@@?@?D?D@B?@@B?D?B@@?D?B?@?@?@A?A@A@A@A?AACACE?EAAA?C?CCAAA?C@ABE?EAC?A?C?A?C?AAE?A@CAAAC?AAAAAAA?CAC@CCCACAA?C?ACCAEAAHCFCFCFCFA@CBEDCBA@CM@ICOEICGCCAC?C?E?EAEAECEACACCEAA?EACAGAGCCACCCCEAECC?CAAAACCCCAEAGEGEECCCCEACAEAE?G?E@E@CA?A?C@A?C?A?E?A?C?E?E?C@E??@C?A?E?C?C?C?GAC?A?E???GAG?A@C?A?CB?@C@EDEBE@G@A@C?C?CAE?CAA?A?C?E?C???C@E?C@EAC?AACAAAA??AGEGGGC?ACAACGGCCAACACACAC?A@C?C?C@E?DB@@BBD@@@?@@@?@@B?F@J@D@B?@?@A??@A??@@??@@@@?@@@?@?@?@?@??@B@@??@???@???@???@??@?@?@@@????@?@?D?D?@?@?@?B?B??AB?@???@@B?BA??@A??@C?A@C?A@CB?@AB?@???@A@A@A@AB?@???@??A@C@EBC?DFFBFD^HHDHFJJLJ@@LNVPDBDNBD@@FHVNVLXL"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-14-05",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-14-05",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "w_U{}zA??EGGIQKYMWMWOGIAACEEOECWQMOAAMKKKIGIE_@IGEGCEGC@C?A?C@?@???@???@B@?@@@???@A@A@A?A@A@A@A@A@A?E@E?A@A@A@A@ADC@EDCDA@ABA@A@A@?BA@A@AB???@@??@@@?@A@??C@?@A@??A?A@A??@A@@??@B@???@?@?@?BAB?B?B@@?B?B?BAB???@?@@@?@???@A@??CB??EBCB??CBCFCD?DA@H?DHb@@N@XF@?`@BFCLET?RLT@JEHDHEVCBJFBPCZAJBLAPOJE"
+        ]
+      }
+    },
+    {
       "id": "AT-07-15",
       "type": "Feature",
       "properties": {
@@ -223,6 +349,34 @@
         "type": "MultiPolygon",
         "coordinates": [
           "qvVo|{AKTHDDF_@LILKBERA@YTUDEA]A[EOBUCs@?YJq@Bg@?}@Kk@Ca@HB@FBHFB@@BDDDHFFBD@D@DAD?D?DAF?F?DABCFAHEFEFCDCDABA@EDEFEDEDGBEBCDCBA@AB?D?@@B?@BD?B@BABABAB?B?B@D@@@D?D?B?@@F@D@D@F@H@H@BBHHNBFBBEN?P^A^F`AULKd@DBIb@EFTv@f@VKFHRBNUT@d@VdAC?Bh@Tz@c@dA|@BL]NSBO`@LHFAF?F?J@HAJ?J?H?F@FBB@DBBDF@DBF@D@LDNDJDH@F@L@H@NBF@FAD?FAFAHAHAFABAD?JAL?NCPAPCPEFCBA?A?ACGCEAC?C?EA?AA??AA?AAA?CAK?E?G@G@EBCBEBA@AHCDC@??ADCBIBI???G?C@E?GBK?A@GBK@CBCBE@G?E@A@G?GAEAGACAC?C@A@CFGBE@C@A?E@E@CBEFGHGDCBC?C???AAA@A@GBGGACAIGIEIKCCCAAAEAGAAAA?ACAAAC??AACAECA???CAE?C?A???AAA??ACAAAAECCA?AAGCA?EAGEEC??CACAA?A?AAG?AAIAG???EACAC?ECC?GCIEICOCQEKAGAQCYCQAMAK?E?EAE?GAECICAACAACACAA??AA?CAACACAGCGCCACAAC?A@ABA@ABC??@A?A?A?A????C?AACAA?C?A?C@CBCBA?A@A?A?AAAAACAE?EAAGCIEICEACA?AECAA??AAAAEIEEAAGEIGA?GGCCCC?A??GEECAA"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-17-01",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-17-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "glVov{AQCYCQAMAK?E?EAE?GAECICAACAACACAA??GBE@G@G@G?I?M?K@a@LWFG@E@EBA@?B?@?@@B@@?@A@A@A@A?ABCBC@MJCBEDGLCB?@??@@@@DDHDBBBBBBDDHHBDAD?DAD?D?BBD?DADAB?B?BBB@D@BBF@F@BADE@ABC@C?CBA?C@CBCDA@?@?@AB?@C@??@B?@A@?@A@A@AB?@A@A@A@C@?@A?G?E@CAG?I@EBC@E@C@C@C?C@G?AAC?G?G@G?@@@B@@?B@B?@??A@C@EAC?C@?Bd@VdAC?Bh@TNIj@YdA|@BL]NSBO`@LHFAF?F?J@HAJ?J?H?F@FBB@DBBDF@DBF@D@LDNDJDH@F@L@H@NBF@FAD?FAFAHAHAFABAD?JAL?NCPAPCPEFCBA?A?ACGCEAC?C?EA?AA??AA?AAA?CAK?E?G@G@EBCBEBA@AHCDC@??ADCBIBI???G?C@E?GBK?A@GBK@CBCBE@G?E@A@G?GAEAGACAC?C@A@CFGBE@C@A?E@E@CBEFGHGDCBC?C???AAA@A@GBGGACAIGIEIKCCCAAAEAGAAAA?ACAAAC??AACAECA???CAE?C?A???AAA??ACAAAAECCA?AAGCA?EAGEEC??CACAA?A?AAG?AAIAG???EACAC?ECC?GCIEICOCQEKAGA"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-17-02",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-17-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "k{V_l{AT@?CBAB?D@BA@A???AAC?CAAACAAF?FAF?B?@@F?BAB?BABADABADCHAF?B@DAF?@??ABA@A@A@A?A@C@A@A?A@A?AAC??BA?A@C?A?A@ABEBCBA@?BCB?BA@CDA@EACAGCGACAECC?C?C@C@E?ECE?C?E@E?E@ECEIIEECCCCCCIEEEAAAA???ABCFMDEBCLKBABC@C@?@A@A@A?AAAAC?A?A?C@ADCDAFAVG`@MJAL?H?F?FAFADAFCAA?CAACACAGCGCCACAAC?A@ABA@ABC??@A?A?A?A????C?AACAA?C?A?C@CBCBA?A@A?A?AAAAACAE?EAAGCIEICEACA?AECAA??AAAAEIEEAAGEIGA?GGCCCC?A??GEECAAKTHDDF_@LILKBERA@YTUDEA]A[EOBUCs@?YJq@Bg@?}@Kk@Ca@HB@FBHFB@@BDDDHFFBD@D@DAD?D?DAF?F?DABCFAHEFEFCDCDABA@EDEFEDEDGBEBCDCBA@AB?D?@@B?@BD?B@BABABAB?B?B@D@@@D?D?B?@@F@D@D@F@H@H@BBHHNBFBBEN?P^A^F`AULKd@DBIb@EFTv@f@VKFHRBNU"
         ]
       }
     },
@@ -309,12 +463,40 @@
       "type": "Feature",
       "properties": {
         "id": "AT-07-24",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "_gWeyzA?A@?B?FAD@DALAJAV?P?L?NANAD?B@?B?B?@?BEBADC@E@A@A@A@?B?D?B@@@@?@?BA@A@ABA@?@?B?B?@@@RJLB^ORDNCRGPHf@GFMFGH@J`@J?\\MRAZINDP?RFB?HCLALCFAR?LCDCEMR[IKi@Wa@LQI_AGUc@A[o@Sg@Gm@e@q@AGQYIg@CYOIo@gAWa@Tc@O]J]?a@MAM]@m@LMVa@POBYOi@DEDHBZJRp@VLZ?LF?^BRVZCTCLMHM@FXGZDAB?B?DA@AB?@?@?B@@@??@@B?B?DANAP@D?P?L?NAJABAH@D?F?B?F?BAJCLA@ABA?C@CAC@C@?"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-24",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-24",
         "end_date": "2022-10-01"
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           "a|Vy|zAg@Gm@e@q@AGQYIg@CYOIo@gAWa@Tc@O]J]?a@MAM]@m@LMVa@POBYOi@DEDHBZJRp@VLZ?LF`@DNEXFb@CDJAHCRD^JFVBDP\\b@P?NBb@L^J@FBLTVNBJCRJLB^ORDNCRGPHf@GFMFGH@J`@J?\\MRAZINDP?RFB?HCLALCFAR?LCDCEMR[IKi@Wa@LQI_AGUc@A[o@S"
+        ]
+      }
+    },
+    {
+      "id": "AT-07-25",
+      "type": "Feature",
+      "properties": {
+        "id": "AT-07-25",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "ccW}vzAAA?A?C?C?A@A@C@A@A?C?AAAAA?C?E?C@A@A@ADABA@EDC?C?A?C?CCAE?O@O@M?Q?W?K@M@E@EAG@C?A??@A?AB@BAB?BEBM@KBC@G?C?G?E?IAC@K@O@M?Q?E?QAO@E@C?C?AA??AACAA?A?C?A@E@C?C?E@??C?C@CBEDEDCB?@?@?B?@A?CBC@AB?@@@?BAB?BABABA@CBC@GDCBCBABADADA@ABC@ABA@ABABA@A?BB@@B@D@B@B?D@FAFAB?D@F?F@F?@?H?F?B@D?DBD@D?H@H?L?H?B?B?DAJCLCDADADAD?F?F?F?F@D@FBD@F@D?D?D?F?H@FBF?D?F@F?F?F@D?H@DAB?F?DA@?F?F?B?D@F?B@B?F?H?N?L?J@H?B@F@B?F?HAH?DAFCB?B?DAH@H?DAFAF?BA@?@?@@FFJFHDHFNFNFTFDECEHOn@KNDb@OOA_@i@TYf@MJKIGA]S?G@MBM@IBC?SGQ?OE[HS@]LK?Ka@IAGFGLg@FQISFOBSE_@NMCSK"
         ]
       }
     },
@@ -399,6 +581,34 @@
       }
     },
     {
+      "id": "IT-32-BZ-01-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-01-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "eqS}hzA????FAF@JBB@B@HBF@LBD?F?FCDAFAF?D?F@D@FFREBCBELI@ACC?[FIZYIQe@KWe@@IMO@GMS@I?AUGc@VK?@PMJCJ[\\KZ?BAB?F?D@F@D@B?D?@?D?BAL?D?D@F??"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-01-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-01-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "mkScizAA@MHCDCBSDGGEAGAE?G?G@E@GBG?E?MCGAICCACAKCGAG@?D?D?BABAD?D@D?@@F@D?F?F???@?B?@BB@B@D@F@B@D@B?BA@ABEDCDEDEDGBGFC?PB^E\\HTTXHHJXNBF`@OpAJVk@Bc@FSIGYa@UEEMBIZYgAc@CC"
+        ]
+      }
+    },
+    {
       "id": "IT-32-BZ-02",
       "type": "Feature",
       "properties": {
@@ -409,6 +619,34 @@
         "type": "MultiPolygon",
         "coordinates": [
           "}{SuizA?P@R??RLJLNL^FVFFFd@VTZJ?DFCHTF@@TJZVFKHIJGBABAB?D?B?@AB?FGFCDEDEBEDE@C@A?CACAEACAGAEACCC?A?C?A???G?GAEAG?AAE?E@E@C?C?E?E??AG?E?E@M?C?E?A?EACAEAG?E?G@C?CJ[Z]BKLKAQ_@B}@IIDHJW?s@QKOW?a@Ms@A_@SIHe@DKHFTUHW?A?KPaAHORZRFNf@L??GPAVVRJ?RF??"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-02-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-02-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "k}S{kzA??GPAVVRJ?RFBC?CDG@IAEBEHGFGCENEDCNGPEHD??BB@@DH?FDDH??@FDFDFDF@DBBB?BBFB@F@D@D?H@FC@A??B?J?@?FBLAB@FHd@Jh@@??AG?E?E@M?C?E?A?EACAEAG?E?G@C?CJ[Z]BKLKAQ_@B}@IIDHJW?s@QKOW?a@Ms@A_@SIHe@DKHFTUHW?A?KPaAHORZRFNf@L??"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-02-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-02-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "}zSkkzAGFIFCD@DAHEF?BCB?P@R????RLJLNL^FVFFFd@VTZJ?DFCHVHTJZVFKHIJGBABAB?D?B?@AB?FGFCDEDEBEDE@C@A?CACAEACAGAEACCC?A?C?A???G?GAEAG?AAE?E@E@C?C?E?Ei@Ae@KGICAM@GCA?K?C???A@GBIAE?EAGACACG?CCCECGAGEGEGE?AI?EE?GEIAACC??IEQDOFEBODBD"
         ]
       }
     },
@@ -427,6 +665,20 @@
       }
     },
     {
+      "id": "IT-32-BZ-03",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-03",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "}{ScizA?QSGK?WS@Ww@Fi@KMIw@h@W@MMMAYN]BAJ]DKAIKWBUM_A??HHDDPHFIDBD@?@@@@?@@B@@@@@@@@?@B@@@?@?@@@ABA@A@@@?BABBB@BA@AB@@?@?BBBBDB@@BH@LEr@ON?TG\\WRGX?VFLCXKFBLHN@^BF@J?VGP@LEHGNCDCFC????AS"
+        ]
+      }
+    },
+    {
       "id": "IT-32-BZ-04",
       "type": "Feature",
       "properties": {
@@ -441,6 +693,34 @@
       }
     },
     {
+      "id": "IT-32-BZ-04-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-04-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "_iUgqzANANAPBZ?XC\\GPI\\IJKPIZCJGLCJADEFCDAF?JFLJHHBFHD?BHFDF@HRBHFVH?@?@A@@??B@B@@A@AB@@@@???@?@?@?@A??@??@BABA@F?H@D?BB@DB@DDF@PJJFBFB@BC@C?I@E@GBEDG@A@CBE@C?G?G?E?GBCBCDCFADAFCBC@C@A?C@GAATERITE?KUCASIIm@Dy@[AEJIC_@UDWMOAODGH[Kg@AOGO?KMO@e@Kc@BYQ_@NQKW?c@TKRe@Ho@ISGOES_@_@CCOOOy@H??LPBD@B@DBB@BDBBBDBHBHFHFHFBDHFDH@?BDBFBD@B@B@?@@@B?@A@A@CB???@???@?B@H?????@@BBBBBBBHD@@@@@@@BAB?BABC@EBA@C@CBCBCDCDABC@F?LCZAD?"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-04-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-04-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "}xTymzACACGKGQKGAEECAAECCE?IAG?@A@CAC???A@??A?A?A?A??AAAA@C@AAAAC?CA?@A?A?AWIIGSCAIEGIG?CIECGIIMKKGG?E@GBEDK@MBKF[BQHKJ]HQH]FYB[?QCO@O@H?XF@RHLRJVH\\@^HTBHHEHPJNJJA\\CJ@`@@PBDDLDDDN@?C@ABABABAD?D?F?FCHAFAF?H@D?DABADADAFAH?H?FADABA?A"
+        ]
+      }
+    },
+    {
       "id": "IT-32-BZ-05",
       "type": "Feature",
       "properties": {
@@ -451,6 +731,48 @@
         "type": "MultiPolygon",
         "coordinates": [
           "yyVezzA~@FPH`@MBGLILCRQH?@@JD@@HB??@@F@HDD@BBBB??DB@?BBBBB@F?H?H?HAH@H?D@H@FBHBJDNDJBJDJBTFLBLBLBFBLDJBHDFDDDDDDBDB?@DBBBBB@@?D?DA@\\CBBh@HJAd@FNJP?n@HDD@DLJ??DDD@FAZ?XFH?RABCTC@EBARDD?TFXBVCB@?DVATGHK@EVCFI?EDCF@\\Pf@BXEJCHAd@MNIF?HEDBLVHB?NPNDF^JHFNB`@@PDLJ?DBFBEBEBCBCBA@ADCBA@C?C@CACAAAAAAIECCCCCCAC?A????AI?C?A???A??BC@A@A?AACAAA?ACACCECGCEA?EIIGCEIGIGIGICECCCECACCCAEACCEMQI@EHa@PILoAWEKQEWAYMW?ORy@To@Gm@DYVENg@Fc@GISWQMBo@?m@EQQMB]UM@KKY?CIe@OCGa@GYFSSYDSQMDWEm@DQEKOMEcABIU_@Qi@H]GCG]BeAYsARYXn@R@ZTb@"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-05-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-05-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "e}UqvzAHJD@BD@@LFND@?J@BD@DBDL?FBCLAHDJNB@@??B@?DVATGHK@EVCFI?EDCF@\\Pf@BXEJCHAd@MNIF?HEDBLVHB?NPNDF^JHFNB`@@PDLJ?DBFBEBEBCBCBA@ADCBA@C?C@CACAAAAAAIECCCCCCAC?A????AI?C?A???A??BC@A@A?AACAAA?ACACCECGCEA?EIIGCEIGIGIGICECCCECACCCAEACCEMQI@EHa@PILoAWEKQEWAYMW?ORy@To@Gm@DYVENg@F"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-05-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-05-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "upVe|zAA?@FAD?BEJEJ?@A@@@A@?BAD?BAB?B???B??B?H?HAH@H?D@H@FBHBJDNDJBJDJBTFLBLBLBFBLDJBHDFDDDDDDBDB?@DBBBBB@@?D?DA@\\CBBh@HJAd@FNJP?n@HDD@DLJ??DDD@FAZ?XFH?RABCTC@EBARDD?TFXBVC????AAOCEK@IBMGCM?CEAECEKAA?OEMGAACEEAIK??c@GISWQMBo@?m@EQQMB]UM@KKY?CIe@OCGa@GYFSSYDSQMDWEm@DQEKOME_@@"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-05-03",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-05-03",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "iqVyyzA???C???C@C?C@E?C@AAA@A?ADKDK?C@EAG@?c@@IU_@Qi@H]GCG]BeAYsARYXn@R@ZTb@~@FPH`@MBGLILCRQH?@@JD@@HB??@@F@HDD@BBBB??DB@?BBBBB@F?D?"
         ]
       }
     },
@@ -482,6 +804,58 @@
       }
     },
     {
+      "id": "IT-32-BZ-07-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-07-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "iiT_fzAIAACCACECC?C?AAA@C@AACAAAA@C?CAA@A@A@CAA?A?AAACA?AAAAAAAAAAC?AAAAAA?CEHEIGEQIE?I{ANc@IOL[w@OOHGe@Iq@YJWLEIKDYKCUg@YUHAAa@UDSHUD@@AF?BA@ABCBGBE@G@EBCBCB?F?D?F?FABCDABA@EFCDAFAD?HABCB@?BDB@F@FDCRDL?B@F@DDF@B@F?BCBCBGDLDB@DA@@PJRLF@NFJB@BDBBB?@@?@?B?BB@@FB@?LLFBB@DDFDJHHCB?DE\\?N@JCz@BHAB?VFDHD@D@L?H@HBLFTDL?FA"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-07-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-07-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
+      "id": "IT-32-BZ-07-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-07-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "yiTqezANMG@M?UEMGICIAM?EAEAEIWGC?I@{@CKBOA]?EDC?IBKIGEEECAGCMMA?GCAACCC?A?A??ACCECACKCOGGASMQKAAE@CAMEFEBCBC?CAGACEGAEAG?CEMBSGEGACACEA??@C@E@G@I?I?G@E@E@C@E@E?IAG?G@I@GBG?E?E?C@C@C@A@?B?@BBBDBDBFBF@F@D??@DBDDDD@BB@B@D@BBDBDBD@@@B?B?B?B?B?@@B??@BDDBB@B?BABAB?@???@?@B@B?@@B@BB?@@BA@?B?@?@?@?@@@@@@BBBBD@B@BBBBDBD@B?B@B?B@@@B?@@D@B@@B@@@@@@?B?B?B?D?B???D@F@BBB@@BBABCBEDCDCDCDCDADAHABAB?D@B?BAB?B?B?B?D?B@D@B@BBDDB@BBD@FBHBB@@?B@F@D@B?D?B@HBPDNFB@FBB@B?B@D?D?D?FAB?DAD?D?F?F@B?@??GBABCNCLADCHQNIFKRWDK"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-07-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-07-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
       "id": "IT-32-BZ-08",
       "type": "Feature",
       "properties": {
@@ -492,6 +866,48 @@
         "type": "MultiPolygon",
         "coordinates": [
           "u}TslzA?AOAEEMEEEQCa@AKA]BK@OKQKDIIIUC_@I]AWISKIMASYGO?[@MBG?CBIBKBMBMBI@C@A@A@?@A@A@C@E?E?G?C@C?A@C@?@EBCDABCB?@A@C?C@A@A@EBADCDEFCDADAB?BADABA@AB??C@A?C?A?C?C@G@KBC?K@GBK@KBIBIBKDC@GBEDCBEBCDC@GBIBEBG@EBEBCBA@EBA@A?A@A@?B???@@@B@DBBB@B?B?BA@ADCBCFABABC@ABABADAB?BADADAD?@?@?@?@@B??BBBDFDBDBBBDBDBDD@B@D@B?D?B@BB@@@B@FBDDD@BDBB@@BBBB?@@@?H@D@B@FDB@BDB@B@B?B@B?B?@@@@B@BB@@??@@B?F@DBB@@BBBDDDDDDBDBD@B@@@DBH@D@B?@?BBD@BBB@D@B?B?L@B@D@@@BDB@@BB?B?D?B?B?@?@@@FFJHDDFBDBB@@@?B@B?@?@@@@@BBBBB@@B@B?@B@B?B@B?BBHBDDB@@@@@B?B@@@DBD@D@B@@@@?B?@?B?@?B@B@D@B?B?B?BABADAB?BAB?D@D?B?BA@?BA@?B?@?B???H@@?J?F@H@DAH???DAD?B?B@??BBB@B@H@J@DBHDHDHFDB@A???A@E@C@ABADCJCFADCBCDCDCDCFCDCBCBCFGDEBAFEBADEDGDGHMBEDEBABABCBCBEBE@C?A@C?C@C@CBCBADCJGFCDC??FGBC@E@G@G?E@E?A@EBE@E@AACAAAE?A?EBEBG@A@CBCBCDEDEHGJGJGFIBC@C?AACCACCGAEA??C?E?C?C?C?A?AAAACAAAACAE?AACAA?CAC?CACCECECCACACCECCACAAAA?A?A?A?A?C@AAC?ACCCAAAC?CA?A?A???A@C@C?CACCCEEAC??AC?A?C?C?C?CACAACECECEACAEACCCEAEECEAE??AEAGCGCGCECECC"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-08-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-08-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "sdUqdzAD?D?D?B?DABAB?B?D?b@@DCLAD@HAFDPFHCH?BBF@DBBBHFLDN?JI@ED@D@BAD?H@@@B?FAB@B?F?B?D?B@D?B?B?D@\\C@A??CAAAACAE?AACAA?CAC?CACCECECCACACCECCACAAAA?A?A?A?A?C@AAC?ACCCAAAC?CA?A?A???A@C@C?CACCCEEAC??AC?A?C?C?C?CACAACECECEACAEACCCEAEECEAE??AEAGCGCGCECECC?AOAEEMEEEQCa@AKA]BK@OKQKDIIIUC_@I]AWISKIMASYGI?A?@@@BC??B??@@??A@@@?@?@?@?@@@@???@??@?@C????@A@A??@ABA@ABABCBABCB?DABGDCDC@?@@@B@DFB??B@@?@?@A@AB?@@B?BA@A@A@IDHDHB@@?B?BC@EBA?CB?@A@A@?B@@@B@@BDB@BBB?LBHBD@D@D@J@HBb@FJ@B@@@@BBDBDBFBDHJHLDDJJBDDDBD@D?FADEFGNEDEJCFADCD@?"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-08-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-08-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "wqU{azA?C@EAAACC??ABA?A@CDA@ABABABAJCF@@AB?DADABA@@D@B@@?@@F?@?B?B?BAB?B?B@D?B@D?H@J@JBVLTPL?JBFDRJF@?@@@@?B@B?@@B?@@@@D@@?D@D?@@@?@?B@BB@@B@B@@A@@@@B@@?@@@BDDB?DB@@?A?A?C@C@C@C@C@G@E@C@AHGFCBABC@E@C@C?AAEEGAGAC?E?E?AAECGAG?A@A@CBCBABEBEBE@EBGDKDEFODG@E?GAECEEECEKKEEIMIKCECGCECEACAACAKAc@GICKAEAEAEAICMCC?CCCACEAAACAA?C@A@A?ABC@?DCBA?C?CAAICIEHE@A@A@A?CAC?A@C@A?A?AAA?CC?EGCAAA?ABABEFE@C?EBC@CBC@C@C@A@C?A@?@A?A??B??A?AA???A?AA?A?A?A?AAA@A??AA???CB?ACAA@?E?[@MBG?CBIBKBMBMBI@C@A@A@?@A@A@C@E?E?G?C@C?A@C@?@EBCDABCB?@A@C?C@A@A@EBADCDEFCDADAB?BADABA@AB??C@A?C?A?C?C@G@KBC?K@GBK@KBIBIBKDC@GBEDCBEBCDC@GBIBEBG@EBEBCBA@EBA@A?A@A@?B???@@@B@DBBB@B?B?BA@ADCBCFABABC@ABABADAB?BADADAD?@?@?@?@@B??BBBDFDBDBBBDBDBDD@B@D@B?D?B@BB@@@B@FBDDD@BDBB@@BBBB?@@@?H@D@B@FDB@BDB@B@B?B@B?B?@@@@B@BB@@??@?"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-08-03",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-08-03",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "cyT_dzAA@]BEAC?C?E?CAE?C?G?C?CAG@C?AAIAE?C@EAEAADKHO?MEIGCCECGACCI?IBQGGEI@EAM@EBc@AE?C?C?C@E@C?E?E?E?A?CDCDC@CBABA@?@@FBF@D?@?D?D@B@FDF@D?@ABABADCBC@GBIFA@ABADAFABABABAB?B?@?@AAECC?EEACAAA?CAAAAAA@CACAAACCCAA?A?AAE?EAA?EAAAAAC?AAC?CAA?AA?AGASKGEKCM?UQWMKCKAIAE?CAE?CAC?C?C@C?C?A?G?AAA?CAEAAAC@E@E@C?A@GAKBC@C@C@A@E@AB?@C@?@B?@B@@AD?B?@B?F@DBB@@BBBDDDDDDBDBD@B@@@DBH@D@B?@?BBD@BBB@D@B?B?L@B@D@@@BDB@@BB?B?D?B?B?@?@@@FFJHDDFBDBB@@@?B@B?@?@@@@@BBBBB@@B@B?@B@B?B@B?BBHBDDB@@@@@B?B@@@DBD@D@B@@@@?B?@?B?@?B@B@D@B?B?B?BABADAB?BAB?D@D?B?BA@?BA@?B?@?B???H@@?J?F@H@DAH???DAD?B?B@??BBB@B@H@J@DBHDHDHFDB@A???A@E@C@ABADCJCFADCBCDCDCDCFCDCBCBCFGDEBAFEBADEDGDGHMBEDEBABABCBCBEBE@C?A@C?C@C@CBCBADCJGFCDC??FGBC@E@G@G?E@E?A@EBE@E@AACAAAE?A?EBEBG@A@CBCBCDEDEHGJGJGFIBC@C?AACCACCGAEA??C?E?C?C?C?A?AAAA"
         ]
       }
     },
@@ -614,6 +1030,20 @@
       }
     },
     {
+      "id": "IT-32-BZ-17",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-17",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "amUatyAJPFB@D@HCJE@BDEFADC@BD?BDFFLAN\\JP\\bBRNZPNv@DAHk@BWd@GPD@D@D@D?B???@?LAH?DAD?B?FA@?DUZIF]r@VKT\\X`@CnA|@jAVn@QJKEAOEICOEMEIEIGIGAACCEGACCGEOCIAGCGEEEGEEIKMKKKKKGGCCACAE?C?GACAEEGACCEAEAMAMACAKCMAE?ECE??EGEEIGAAAAAAACAC?EBG@G?C?CCEAE?C?EBEFIFG@G@CAEAGCECCACECIGIEIEECKAIACACACC??CAC?E?E@??I?E@IAGAK?A?IA??C?A?C?A?C@A?C@C?E?EAC?C@C?E@C@C@C?C?C?EACACAA?C?A?C?A?AACAEACAA??@C@G@C@I@AAE@E@C?C?C@C@C@A@C@A@C?ABCBC@CBAB?@?@J?RFBHEHMLEDBHFF@DEFH@@@??EHGFIJ"
+        ]
+      }
+    },
+    {
       "id": "IT-32-BZ-18",
       "type": "Feature",
       "properties": {
@@ -624,6 +1054,34 @@
         "type": "MultiPolygon",
         "coordinates": [
           "}aVuzyANONA\\V?Jb@Hz@Ft@O`@R`AHd@@RIFD?Ha@XDLL?\\HERNDHh@ETLRJPLCVADARIFCDARCNITEnB@d@_@b@Qv@QPMDYLIPSA?C?A?C@A?C@C?E?EAC?C@C?E@C@C@C?C?C?EACACAA?C?A?C?A?AACAEAEAECAACAC?AAAACAEEICCCC?CAC?CA?AACACCACCCCAAAA?A?AAC?CAACAECGCEEKIGGAA?A?A?C?C?E?CCCAAECACAAAEAC?M?CACAECCACCE?C?AACAECIAEAAACCECEEEEEEECCACCAECGAC?AA??AACCCAAAAAC?C?CAC?CACACECAGECAEAIAA?AAC?CCACCAECACEECEAGACAACCCAE?C?EACAEACECECECCCEGECECC??AC?A?A?A?A@E@E@E?C@C@E@C@CBA@C@CBGBC@E@A?C?CACCCECCAAA?A???C@A@A@?II[IGG@K?C@EAGEEGEEGEGIGICI?I?K@I@??E@G?EAEAE?E?E?E@I@IBO?Q@OAQ?O?I?G@E@E@G@G?KAG?K?G@E@IDIDGBGBEDEDGBC@C?CACACAA?CAG@E@A@C@A@C@?@?@@@@@B@B@B@D@B?B?B@BBD@DBBB@B?@?@A@EBCDCBA@?B?@?B@B?@A@?@?@?@@@?@?@A@A?C@A@ABCBCBEBEDCB?@???@???@?@?@?@AB?@@@?@@??@B@@@@@?B?@?B??AB?@ABABABADCBA@EBA@EBA@A@?@???B?@?B?BA@A@CBC@ABA@?F?D?B?@?@@B@@@@?@BB@DBD@@?@?B?@@B@@BB@BB@@B@B?@?@A?A@ABA@A@??@B?B?B?B?@ABABA@?@AB??CBABADA@?@?@A?A@A@A@?@?@?B?@I@??]RSFKHK@UHCF?FCH^JHNRBj@Il@RfAJp@NH["
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-18-01",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-18-01",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "weV_fzA@@D@P@BBD@B@@@D?@@B@@B?HJ?F@@BLDJ@JFBDD@F?D@BBB?F@N@JAF?D?D?F?F@J@RBTFRFL@JDNHDDD@DAR?XDD@H@FBB?FBF?FAVALCHA@EF?HADADCD@FEDAF?BCJC?CD@A?EAIAA?AAC?CCACCAECACEECEAGACAACCCAE?C?EACAEACECECECCCEGECECC??AC?A?A?A?A@E@E@E?C@C@E@C@CBA@C@CBGBC@E@A?C?CACCCECCAAA?A???C@A@A@?II[IGG@K?C@EAGEEGEEGEGIGICI?I?K@I@??E@G?EAEAE?E?E?E@I@IBO?Q@OAQ?O?I?G@E@E@G@G?KAG?K?G@E@IDIDGBGBEDEDGBC@C?CACACAA?CAG@E@A@C@A@C@?@?@@@@@B@B@B@D@B?B?B@BBD@DBBB@B?@?@A@EBCDCBA@?B?@?B@B?@A@?@?@?@@@?@?@A@A?C@A@ABCBCBEBEDCB?@???@???@?@?@?@AB?@@@?@@??@B@@@@@?B?@?B????"
+        ]
+      }
+    },
+    {
+      "id": "IT-32-BZ-18-02",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-32-BZ-18-02",
+        "start_date": "2022-10-01"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "wlUmqyA?CCEBA@EDGCEDABKAIAEGCKQHKFGDI??AAIADGAEGGCIDELMDICISGK??A?A@CBCBABC@CB?@ABA@ABABABAB?B?DADA@@D?BABAFABA?A@?A?ECAACAC?AAAACAEEICCCC?CAC?CA?AACACCACCCCAAAA?A?AAC?CAACAECGCEEKIGGAA?A?A?C?C?E?CCCAAECACAAAEAC?M?CACAECCACCE?C?AACAECIAEAAACCECEEEEEEECCACCAECGAC?AA??AACCCAAAAAC?C?CAC?CACACECAGEAAEA?BKBCBG?E@GDEAEBE@I@G?ADI@MBW@G@G?GCC?GCIAEAYES?E@EAEEOIKEMASGUGSCKAGAG?E?E?G?K@OAGAC?CCEAG?EACEKGKAMEACGAK??IACCAAAE?AACAEACCQAEAAAAB?@ABABABADCBA@EBA@EBA@A@?@???B?@?B?BA@A@CBC@ABA@?F?D?B?@?@@B@@@@?@BB@DBD@@?@?B?@@B@@BB@BB@@B@B?@?@A?A@ABA@A@??@B?B?B?B?@ABABA@?@AB??CBABADA@?@?@A?A@A@A@?@?@?B?@I@??]RSFKHK@UHCF?FCH^JHNRBj@Il@RfAJp@NH[NONA\\V?Jb@Hz@Ft@O`@R`AHd@@RIFD?Ha@XDLL?\\HERNDHh@ETLRJPFNBLHJx@DNb@BXHHf@WjBMGMEG"
         ]
       }
     },
