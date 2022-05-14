@@ -1,22 +1,23 @@
 image: node:14
 
-cache:
-  key:
-    files:
-      - package.json
-      - package-lock.json
-  paths:
-    - .npm/
-
 .build:
   stage: build
   variables:
     COMPRESS_BROTLI: 1
     COMPRESS_GZIP: 1
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - .yarn-cache/
+  before_script:
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
   script:
-    - npm ci --cache .npm --prefer-offline
-    - npm run test
-    - npm run build-$CI_ENVIRONMENT_NAME
+    - yarn test
+    - yarn build-$CI_ENVIRONMENT_NAME
   artifacts:
     paths:
       - dist/
