@@ -32,10 +32,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
   public updates: Subject<BulletinUpdateModel>;
 
-  public loadingTrentino: boolean;
-  public loadingSouthTyrol: boolean;
-  public loadingTyrol: boolean;
-  public loadingAran: boolean;
   public loadingPreview: boolean;
   public publishing: Date;
   public copying: boolean;
@@ -90,10 +86,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     public confirmationService: ConfirmationService,
     public modalService: BsModalService,
     public wsUpdateService: WsUpdateService) {
-    this.loadingTrentino = false;
-    this.loadingSouthTyrol = false;
-    this.loadingTyrol = false;
-    this.loadingAran = false;
     this.loadingPreview = false;
     this.copying = false;
     this.publishing = undefined;
@@ -102,19 +94,10 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadingTrentino = false;
-    this.loadingSouthTyrol = false;
-    this.loadingTyrol = false;
-    this.loadingAran = false;
-
     this.wsUpdateConnect();
   }
 
   ngOnDestroy() {
-    this.loadingTrentino = false;
-    this.loadingSouthTyrol = false;
-    this.loadingTyrol = false;
-    this.loadingAran = false;
     this.copying = false;
     this.wsUpdateDisconnect();
   }
