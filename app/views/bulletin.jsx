@@ -157,6 +157,12 @@ const Bulletin = props => {
 
   const handleMapInit = map => {
     if (mapRefs.length > 0) {
+      [map, ...mapRefs].forEach(otherMap => {
+        // patch out the slow parts of L.Map.Sync
+        otherMap._selfSetView = () => {};
+        otherMap._syncOnMoveend = () => {};
+        otherMap._syncOnDragend = () => {};
+      });
       mapRefs.forEach(otherMap => {
         map.sync(otherMap);
         otherMap.sync(map);
