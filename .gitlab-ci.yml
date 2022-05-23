@@ -16,6 +16,8 @@ variables:
         - yarn.lock
     paths:
       - .yarn-cache/
+  variables:
+    NODE_OPTIONS: "--max-old-space-size=4096"
   before_script:
     - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
     - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
