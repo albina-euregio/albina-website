@@ -86,8 +86,8 @@ export class BulletinsService {
     endDate.setHours(0, 0, 0, 0);
 
     for (let i = 0; i <= 10; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() + 3 - i);
+      const date = new Date(endDate.valueOf());
+      date.setDate(endDate.getDate() - i);
       date.setHours(0, 0, 0, 0);
       this.dates.push(date);
     }
