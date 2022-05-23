@@ -64,12 +64,12 @@ export class MapService {
 
       this.overlayMaps = {
         // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
         }),
 
         // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
@@ -77,17 +77,17 @@ export class MapService {
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
       };
 
       this.afternoonOverlayMaps = {
         // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeaturePM
         }),
 
         // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
@@ -95,9 +95,9 @@ export class MapService {
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsEuregioWithElevation())
+        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
       };
-    } else if (this.authenticationService.getActiveRegion() === this.constantsService.codeAran) {
+    } else if (this.authenticationService.getActiveRegionId() === this.constantsService.codeAran) {
       this.baseMaps = {
         AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
           tms: false,
@@ -202,34 +202,6 @@ export class MapService {
     this.resetActiveSelection();
     this.resetAggregatedRegions();
     this.resetEditSelection();
-  }
-
-  addAggregatedRegion(bulletin: BulletinModel) {
-    bulletin.forenoon.dangerRatingBelow.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.forenoon.dangerRatingAbove.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.afternoon.dangerRatingBelow.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    bulletin.afternoon.dangerRatingAbove.subscribe(dangerRating => {
-      this.updateAggregatedRegion(bulletin);
-      if (this.map) {
-        this.selectAggregatedRegion(bulletin);
-      }
-    });
-    this.updateAggregatedRegion(bulletin);
   }
 
   updateAggregatedRegion(bulletin: BulletinModel) {
@@ -634,7 +606,7 @@ export class MapService {
 
   private getUserDependentRegionStyle(region) {
     let opacity = this.constantsService.lineOpacityForeignRegion;
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
 
@@ -690,7 +662,7 @@ export class MapService {
     const fillColor = this.constantsService.getDangerRatingColor(dangerRating);
 
     // own area
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       if (status === Enums.RegionStatus.published) {
         fillOpacity = this.constantsService.fillOpacityOwnSelected;
       } else if (status === Enums.RegionStatus.suggested) {
@@ -723,7 +695,7 @@ export class MapService {
     const opacity = 0.0;
 
     // own area
-    if (region.startsWith(this.authenticationService.getActiveRegion())) {
+    if (region.startsWith(this.authenticationService.getActiveRegionId())) {
       if (status === Enums.RegionStatus.published) {
         fillOpacity = this.constantsService.fillOpacityOwnDeselected;
       } else if (status === Enums.RegionStatus.suggested) {

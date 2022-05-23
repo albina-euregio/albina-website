@@ -1,0 +1,28 @@
+<div class="card">
+  <!-- <div class="card-header">
+            <i class="fa fa-user-secret"></i>{{ "admin.server-configuration.title" | translate }}
+          </div> -->
+  <div class="card-block">
+    <div type="button" class="form-group row" style="padding-left: 1.25rem; padding-right: 1.25rem">
+      <div class="col-md-6">
+        <button (click)="createServer($event)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i> {{ "admin.server-configuration.button.create" | translate }}</button>
+      </div>
+    </div>
+    <accordion>
+      <!-- Local server -->
+      <accordion-group *ngIf="localServerConfiguration">
+        <div accordion-heading class="clearfix">
+          <strong>{{localServerConfiguration.name}}</strong>
+        </div>
+        <app-server-configuration [config]="localServerConfiguration" [externalServer]="false"></app-server-configuration>
+      </accordion-group>
+      <!-- External servers -->
+      <accordion-group *ngFor="let config of externalServerConfigurations">
+        <div accordion-heading class="clearfix">
+          <strong>{{config.name}}</strong>
+        </div>
+        <app-server-configuration [config]="config" [externalServer]="true"></app-server-configuration>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>

@@ -1,24 +1,17 @@
-import { RegionConfiguration } from "app/providers/configuration-service/configuration.service";
-
-export class AuthorModel {
+export class ServerModel {
   public accessToken: string;
   public refreshToken: string;
   public name: string;
   public email: string;
-  public phone: string;
-  public organization: string;
   public roles: string[];
-  public image: string;
-  public regions: RegionConfiguration[];
+  public regions: string[];
   public apiUrl: string;
 
-  static createFromJson(json: Partial<AuthorModel> & {access_token?: string; refresh_token?: string; api_url?: string}) {
-    const author = new AuthorModel();
+  static createFromJson(json: Partial<ServerModel> & {access_token?: string; refresh_token?: string; api_url?: string}) {
+    const author = new ServerModel();
 
     author.setName(json.name);
     author.setEmail(json.email);
-    author.setPhone(json.phone);
-    author.setOrganization(json.organization);
     const jsonRoles = json.roles;
     const roles = new Array<string>();
     for (const i in jsonRoles) {
@@ -27,9 +20,8 @@ export class AuthorModel {
      }
     }
     author.setRoles(roles);
-    author.setImage(json.image);
     const jsonRegions = json.regions;
-    const regions = new Array<RegionConfiguration>();
+    const regions = new Array<string>();
     for (const i in jsonRegions) {
       if (jsonRegions[i] !== null) {
         regions.push(jsonRegions[i]);
@@ -49,10 +41,7 @@ export class AuthorModel {
     this.refreshToken = undefined;
     this.name = undefined;
     this.email = undefined;
-    this.phone = undefined;
-    this.organization = undefined;
     this.roles = undefined;
-    this.image = undefined;
     this.regions = undefined;
     this.apiUrl = undefined;
   }
@@ -89,22 +78,6 @@ export class AuthorModel {
     this.email = email;
   }
 
-  getPhone() {
-    return this.phone;
-  }
-
-  setPhone(phone) {
-    this.phone = phone;
-  }
-
-  getOrganization() {
-    return this.organization;
-  }
-
-  setOrganization(organization) {
-    this.organization = organization;
-  }
-
   getRoles(): string[] {
     return this.roles;
   }
@@ -121,19 +94,11 @@ export class AuthorModel {
     }
   }
 
-  getImage() {
-    return this.image;
-  }
-
-  setImage(image) {
-    this.image = image;
-  }
-
-  getRegions(): RegionConfiguration[] {
+  getRegions(): string[] {
     return this.regions;
   }
 
-  setRegions(regions: RegionConfiguration[]) {
+  setRegions(regions: string[]) {
     this.regions = regions;
   }
 
@@ -153,12 +118,6 @@ export class AuthorModel {
     }
     if (this.email && this.email !== undefined && this.email !== "") {
       json["email"] = this.email;
-    }
-    if (this.phone && this.phone !== undefined && this.phone !== "") {
-      json["phone"] = this.phone;
-    }
-    if (this.organization && this.organization !== undefined && this.organization !== "") {
-      json["organization"] = this.organization;
     }
 
     return json;

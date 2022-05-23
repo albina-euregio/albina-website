@@ -5,23 +5,37 @@ import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
+import { ServerModel } from "../../models/server.model";
+import { RegionConfiguration } from "../configuration-service/configuration.service";
 
 @Injectable()
 export class AuthenticationService {
 
-  public currentAuthor: AuthorModel;
-  public jwtHelper: JwtHelperService;
-  public activeRegion: string;
+  private currentAuthor: AuthorModel;
+  private externalServers: ServerModel[];
+  private jwtHelper: JwtHelperService;
+  private activeRegion: RegionConfiguration;
 
   constructor(
     public http: HttpClient,
     public constantsService: ConstantsService,
     private sanitizer: DomSanitizer
   ) {
+    this.externalServers = [];
     try {
       this.setCurrentAuthor(JSON.parse(localStorage.getItem("currentAuthor")));
     } catch (e) {
       localStorage.removeItem("currentAuthor");
+    }
+    try {
+      this.setActiveRegion(JSON.parse(localStorage.getItem("activeRegion")));
+    } catch (e) {
+      localStorage.removeItem("activeRegion");
+    }
+    try {
+      this.setExternalServers(JSON.parse(localStorage.getItem("externalServers")));
+    } catch (e) {
+      localStorage.removeItem("externalServers");
     }
     this.jwtHelper = new JwtHelperService();
   }
@@ -39,6 +53,9 @@ export class AuthenticationService {
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
+    localStorage.removeItem("activeRegion");
+    localStorage.removeItem("externalServers");
+    this.externalServers = [];
   }
 
   public getAuthor() {
@@ -66,6 +83,23 @@ export class AuthenticationService {
     });
   }
 
+  public newFileAuthHeader(mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + this.getAccessToken();
+    return new HttpHeaders({
+      "Accept": mime,
+      "Authorization": authHeader
+    });
+  }
+
+  public newExternalServerAuthHeader(externalAuthor, mime = "application/json"): HttpHeaders {
+    const authHeader = "Bearer " + externalAuthor.accessToken;
+    return new HttpHeaders({
+      "Content-Type": mime,
+      "Accept": mime,
+      "Authorization": authHeader
+    });
+  }
+
   public getRefreshToken() {
     return this.currentAuthor?.refreshToken;
   }
@@ -82,20 +116,27 @@ export class AuthenticationService {
     }
   }
 
-  public getActiveRegion(): string {
+  public getActiveRegion(): RegionConfiguration {
     return this.activeRegion;
   }
 
-  public setActiveRegion(region: string) {
-    if (this.currentAuthor.getRegions().includes(region)) {
+  public getActiveRegionId(): string {
+    return this.activeRegion.id;
+  }
+
+  public setActiveRegion(region: RegionConfiguration) {
+    if (this.currentAuthor.getRegions().map(region => region.id).includes(region.id)) {
       this.activeRegion = region;
+      localStorage.setItem("activeRegion", JSON.stringify(this.activeRegion));
+    } else {
+      this.logout();
     }
   }
 
   // region
   // lang (code used for textcat)
   public getActiveRegionCode(): number {
-    switch (this.activeRegion) {
+    switch (this.activeRegion.id) {
       case this.constantsService.codeTyrol:
         return 2;
       case this.constantsService.codeSouthTyrol:
@@ -111,7 +152,7 @@ export class AuthenticationService {
   // region
   // lang (code used for textcat-ng)
   public getTextcatRegionCode(): string {
-    switch (this.activeRegion) {
+    switch (this.activeRegion.id) {
       case this.constantsService.codeSwitzerland:
         return "Switzerland";
       case this.constantsService.codeTyrol:
@@ -132,18 +173,18 @@ export class AuthenticationService {
 
   public isEuregio(): boolean {
     return (
-      this.getActiveRegion() === this.constantsService.codeTyrol ||
-      this.getActiveRegion() === this.constantsService.codeSouthTyrol ||
-      this.getActiveRegion() === this.constantsService.codeTrentino
+      this.getActiveRegionId() === this.constantsService.codeTyrol ||
+      this.getActiveRegionId() === this.constantsService.codeSouthTyrol ||
+      this.getActiveRegionId() === this.constantsService.codeTrentino
     );
   }
 
   public getUserLat() {
-    return this.constantsService.lat.get(this.getActiveRegion() ?? "");
+    return this.activeRegion.mapCenterLat ?? 47.1;
   }
-
+  
   public getUserLng() {
-    return this.constantsService.lng.get(this.getActiveRegion() ?? "");
+    return this.activeRegion.mapCenterLng ?? 11.44;
   }
 
   public isCurrentUserInRole(role: string): boolean {
@@ -154,7 +195,7 @@ export class AuthenticationService {
   public getChatId(region: string) {
     switch (region) {
       case this.constantsService.codeTyrol:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 0;
           case this.constantsService.codeSouthTyrol:
@@ -165,7 +206,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeSouthTyrol:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 1;
           case this.constantsService.codeSouthTyrol:
@@ -176,7 +217,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeTrentino:
-        switch (this.getActiveRegion()) {
+        switch (this.getActiveRegionId()) {
           case this.constantsService.codeTyrol:
             return 2;
           case this.constantsService.codeSouthTyrol:
@@ -203,7 +244,9 @@ export class AuthenticationService {
       .map(data => {
         if ((data ).access_token) {
           this.setCurrentAuthor(data);
-          localStorage.setItem("currentAuthor", JSON.stringify(this.currentAuthor));
+          if (this.getCurrentAuthorRegions().length > 0) {
+            this.setActiveRegion(this.getCurrentAuthorRegions()[0]);
+          }
           return true;
         } else {
           return false;
@@ -211,12 +254,67 @@ export class AuthenticationService {
       });
   }
 
+  public externalServerLogins() {
+    this.loadExternalServerInstances().subscribe(
+      data => {
+        for (const entry of (data as any)) {
+          this.externalServerLogin(entry.apiUrl, entry.userName, entry.password).subscribe(
+            data => {
+              if (data === true) {
+                console.debug("[" + entry.name + "] Logged in!");
+              } else {
+                console.error("[" + entry.name + "] Login failed!");
+              }
+            },
+            error => {
+              console.error("[" + entry.name + "] Login failed: " + JSON.stringify(error._body));
+            }
+          );
+        }
+      },
+      error => {
+        console.error("External server instances could not be loaded: " + JSON.stringify(error._body));
+      }
+    )
+  }
+
+  public loadExternalServerInstances(): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "server/external";
+    const options = { headers: this.newAuthHeader() };
+
+    return this.http.get<Response>(url, options);
+  }
+
+  public externalServerLogin(apiUrl: string, username: string, password: string): Observable<boolean> {
+    const url = apiUrl + "authentication";
+    const body = JSON.stringify({username, password});
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    const options = { headers: headers };
+
+    return this.http.post<AuthenticationResponse>(url, body, options)
+      .map(data => {
+        if ((data ).access_token) {
+          this.addExternalServer(data, apiUrl);
+          localStorage.setItem("externalServers", JSON.stringify(this.externalServers));
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
+
+  public getCurrentAuthor() {
+    return this.currentAuthor;
+  }
+
   private setCurrentAuthor(json: Partial<AuthorModel>) {
     if (!json) {
       return;
     }
     this.currentAuthor = AuthorModel.createFromJson(json);
-    this.activeRegion = this.currentAuthor.getRegions()[0];
+    localStorage.setItem("currentAuthor", JSON.stringify(this.currentAuthor));
   }
 
   public getCurrentAuthorRegions() {
@@ -226,13 +324,45 @@ export class AuthenticationService {
       return [];
     }
   }
+
+  public getExternalServers(): ServerModel[] {
+    return this.externalServers;
+  }
+
+  private addExternalServer(json: Partial<AuthenticationResponse>, apiUrl: string) {
+    if (!json) {
+      return;
+    }
+    var server = ServerModel.createFromJson(json);
+    server.setApiUrl(apiUrl);
+    this.externalServers.push(server);
+  }
+
+  private setExternalServers(json: Partial<ServerModel>[]) {
+    if (!json) {
+      return;
+    }
+    for (const server of json)
+      this.externalServers.push(ServerModel.createFromJson(server));
+  }
+
+  public isExternalRegion(region: string) {
+    if (this.constantsService.codeTyrol === region || this.constantsService.codeSouthTyrol === region || this.constantsService.codeTrentino === region)
+      return false;
+    for (const externalServer of this.externalServers) {
+      if (externalServer.getRegions().indexOf(region) > -1)
+        return true;
+    }
+    return false;
+  }
 }
 
 export interface AuthenticationResponse {
   email: string;
   name: string;
   roles: string[];
-  regions: string[];
+  regions: any[];
   access_token: string;
   refresh_token: string;
+  api_url: string;
 }

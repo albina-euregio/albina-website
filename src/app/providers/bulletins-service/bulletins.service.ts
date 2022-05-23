@@ -24,10 +24,7 @@ export class BulletinsService {
   public lockedBulletins: Map<string, string>;
   public bulletinLocks: Subject<BulletinLockModel>;
 
-  public statusMapTyrol: Map<number, Enums.BulletinStatus>;
-  public statusMapSouthTyrol: Map<number, Enums.BulletinStatus>;
-  public statusMapTrentino: Map<number, Enums.BulletinStatus>;
-  public statusMapAran: Map<number, Enums.BulletinStatus>;
+  public statusMap: Map<string, Map<number, Enums.BulletinStatus>>;
 
   public dates: Date[];
 
@@ -41,7 +38,6 @@ export class BulletinsService {
     this.init();
   }
 
-  // region
   init() {
     this.dates = new Array<Date>();
     this.activeDate = undefined;
@@ -50,10 +46,7 @@ export class BulletinsService {
     this.isUpdate = false;
     this.isSmallChange = false;
 
-    this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
-    this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
-    this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
-    this.statusMapAran = new Map<number, Enums.BulletinStatus>();
+    this.statusMap = new Map<string, Map<number, Enums.BulletinStatus>>();
 
     this.lockedRegions = new Map<string, Date[]>();
     this.lockedBulletins = new Map<string, string>();
@@ -62,12 +55,11 @@ export class BulletinsService {
     this.wsRegionConnect();
     this.wsBulletinConnect();
 
-    // region
-    this.getLockedRegions(this.authenticationService.getActiveRegion()).subscribe(
+    this.getLockedRegions(this.authenticationService.getActiveRegionId()).subscribe(
       data => {
         for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeTyrol, date);
+          this.addLockedRegion(this.authenticationService.getActiveRegionId(), date);
         }
       },
       () => {
@@ -94,53 +86,38 @@ export class BulletinsService {
     endDate.setHours(0, 0, 0, 0);
 
     for (let i = 0; i <= 10; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() + 3 - i);
+      const date = new Date(endDate.valueOf());
+      date.setDate(endDate.getDate() - i);
       date.setHours(0, 0, 0, 0);
       this.dates.push(date);
     }
 
-    // region
-    this.getStatus(this.constantsService.codeTyrol, startDate, endDate).subscribe(
+    this.getStatus(this.authenticationService.getActiveRegionId(), startDate, endDate).subscribe(
       data => {
         for (let i = (data as any).length - 1; i >= 0; i--) {
-          this.statusMapTyrol.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
+          let map = new Map<number, Enums.BulletinStatus>();
+          map.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
+          this.statusMap.set(this.authenticationService.getActiveRegionId(), map);
         }
       },
       () => {
-        console.error("Status Tyrol could not be loaded!");
+        console.error("Status {} could not be loaded!", this.authenticationService.getActiveRegionId());
       }
     );
-    this.getStatus(this.constantsService.codeSouthTyrol, startDate, endDate).subscribe(
-      data => {
-        for (let i = (data as any).length - 1; i >= 0; i--) {
-          this.statusMapSouthTyrol.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
+    this.authenticationService.getActiveRegion().neighborRegions.forEach(neighborRegion => {
+      this.getStatus(neighborRegion, startDate, endDate).subscribe(
+        data => {
+          for (let i = (data as any).length - 1; i >= 0; i--) {
+            let map = new Map<number, Enums.BulletinStatus>();
+            map.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
+            this.statusMap.set(neighborRegion, map);
+          }
+        },
+        () => {
+          console.error("Status {} could not be loaded!", neighborRegion);
         }
-      },
-      () => {
-        console.error("Status South Tyrol could not be loaded!");
-      }
-    );
-    this.getStatus(this.constantsService.codeTrentino, startDate, endDate).subscribe(
-      data => {
-        for (let i = (data as any).length - 1; i >= 0; i--) {
-          this.statusMapTrentino.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
-        }
-      },
-      () => {
-        console.error("Status Trentino could not be loaded!");
-      }
-    );
-    this.getStatus(this.constantsService.codeAran, startDate, endDate).subscribe(
-      data => {
-        for (let i = (data as any).length - 1; i >= 0; i--) {
-          this.statusMapAran.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
-        }
-      },
-      () => {
-        console.error("Status Aran could not be loaded!");
-      }
-    );
+      );
+    });
   }
 
   public wsRegionConnect() {
@@ -231,48 +208,22 @@ export class BulletinsService {
     this.isSmallChange = isSmallChange;
   }
 
-  // region
   getUserRegionStatus(date: Date): Enums.BulletinStatus {
-    const region = this.authenticationService.getActiveRegion();
-    switch (region) {
-      case this.constantsService.codeAran:
-        return this.statusMapAran.get(date.getTime());
-      case this.constantsService.codeTrentino:
-        return this.statusMapTrentino.get(date.getTime());
-      case this.constantsService.codeSouthTyrol:
-        return this.statusMapSouthTyrol.get(date.getTime());
-      case this.constantsService.codeTyrol:
-        return this.statusMapTyrol.get(date.getTime());
-
-      default:
-        return undefined;
-    }
+    const region = this.authenticationService.getActiveRegionId();
+    const regionStatusMap = this.statusMap.get(region);
+    if (regionStatusMap)
+      return regionStatusMap.get(date.getTime());
+    else
+      return Enums.BulletinStatus.missing;
   }
 
-  // region
   setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
-    const region = this.authenticationService.getActiveRegion();
-    switch (region) {
-      case this.constantsService.codeAran:
-        this.statusMapAran.set(date.getTime(), status);
-        break;
-      case this.constantsService.codeTrentino:
-        this.statusMapTrentino.set(date.getTime(), status);
-        break;
-      case this.constantsService.codeSouthTyrol:
-        this.statusMapSouthTyrol.set(date.getTime(), status);
-        break;
-      case this.constantsService.codeTyrol:
-        this.statusMapTyrol.set(date.getTime(), status);
-        break;
-
-      default:
-        return undefined;
-    }
+    const region = this.authenticationService.getActiveRegionId();
+    this.statusMap.get(region).set(date.getTime(), status);
   }
 
   getPreviewPdf(date: Date): Observable<Blob> {
-    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion() + "&lang=" + this.settingsService.getLangString();
+    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId() + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/pdf");
     const options = { headers: headers };
 
@@ -316,6 +267,21 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
+  loadExternalBulletins(date: Date, server): Observable<Response> {
+    let url = server.apiUrl + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    if (server.regions) {
+      for (const region of server.regions) {
+        // region
+        // load all regions except regions handled by local server instance
+        if (region !== this.constantsService.codeTyrol && region !== this.constantsService.codeSouthTyrol && region !== this.constantsService.codeTrentino)
+          url += "&regions=" + region;
+      }
+    }
+    const headers = this.authenticationService.newExternalServerAuthHeader(server);
+    const options = { headers: headers };
+    return this.http.get<Response>(url, options);
+  }
+
   loadCaamlBulletins(date: Date): Observable<any> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/xml");
@@ -333,7 +299,7 @@ export class BulletinsService {
   }
 
   saveBulletins(bulletins, date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
+    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId();
     const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {
@@ -346,7 +312,7 @@ export class BulletinsService {
   }
 
   changeBulletins(bulletins, date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins/change?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
+    const url = this.constantsService.getServerUrl() + "bulletins/change?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegionId();
     const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {

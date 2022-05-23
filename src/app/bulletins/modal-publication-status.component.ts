@@ -153,9 +153,9 @@ export class ModalPublicationStatusComponent {
 
   sendEmail(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.sendEmail(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.sendEmail(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Emails sent for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Emails sent for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "success",
@@ -164,7 +164,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Emails could not be sent for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Emails could not be sent for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "danger",
@@ -177,9 +177,9 @@ export class ModalPublicationStatusComponent {
 
   sendTestEmail(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Test emails sent for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Test emails sent for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "success",
@@ -188,7 +188,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Test emails could not be sent for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Test emails could not be sent for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "danger",
@@ -201,9 +201,9 @@ export class ModalPublicationStatusComponent {
 
   triggerTelegramChannel(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Telegram channel triggered for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Telegram channel triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "success",
@@ -212,7 +212,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Telegram channel could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Telegram channel could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "danger",
@@ -225,9 +225,9 @@ export class ModalPublicationStatusComponent {
 
   triggerTestTelegramChannel(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.triggerTestTelegramChannel(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.triggerTestTelegramChannel(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Test telegram channel triggered for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Test telegram channel triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "success",
@@ -236,7 +236,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Test telegram channel could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Test telegram channel could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "danger",
@@ -250,9 +250,9 @@ export class ModalPublicationStatusComponent {
   triggerPushNotifications(event, language: string = "") {
     event.stopPropagation();
 
-    this.bulletinsService.triggerPushNotifications(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.triggerPushNotifications(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Push notifications triggered for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Push notifications triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "success",
@@ -261,7 +261,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Push notifications could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Push notifications could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "danger",
@@ -275,9 +275,9 @@ export class ModalPublicationStatusComponent {
   triggerTestPushNotifications(event, language: string = "") {
     event.stopPropagation();
 
-    this.bulletinsService.triggerTestPushNotifications(this.date, this.authenticationService.activeRegion, language).subscribe(
+    this.bulletinsService.triggerTestPushNotifications(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
       data => {
-        console.info("Test push notifications triggered for %s in %s", this.authenticationService.activeRegion, language);
+        console.info("Test push notifications triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "success",
@@ -286,7 +286,7 @@ export class ModalPublicationStatusComponent {
         });
       },
       error => {
-        console.error("Test push notifications could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+        console.error("Test push notifications could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
         window.scrollTo(0, 0);
         this.testAlerts.push({
           type: "danger",

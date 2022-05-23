@@ -50,7 +50,7 @@
     "@types/papaparse": "^5.0.3",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
-    "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz",
+    "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/a29b163e8f612efb26d4f27a99bbe0cf148d4ef6/eaws-regions-a29b163e8f612efb26d4f27a99bbe0cf148d4ef6.tar.gz",
     "file-saver": "^2.0.5",
     "leaflet": "^1.7.1",
     "leaflet-control-geocoder": "^2.4.0",

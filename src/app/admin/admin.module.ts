@@ -3,7 +3,10 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
 import { AdminComponent } from "./admin.component";
+import { ServersConfigurationComponent } from "./servers-configuration.component";
 import { ServerConfigurationComponent } from "./server-configuration.component";
+import { RegionsConfigurationComponent } from "./regions-configuration.component";
+import { RegionConfigurationComponent } from "./region-configuration.component";
 import { UsersComponent } from "./users.component";
 import { StatisticsComponent } from "./statistics.component";
 import { ObservationsComponent } from "./observations.component";
@@ -15,11 +18,12 @@ import { TranslateModule } from "@ngx-translate/core";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
-import { TabViewModule } from "primeng/tabview";
 import { DropdownModule } from "primeng/dropdown";
 import { TableModule } from "primeng/table";
 
 import { AlertModule } from "ngx-bootstrap/alert";
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AccordionModule } from "ngx-bootstrap/accordion";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 @NgModule({
@@ -29,15 +33,19 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     CommonModule,
     TranslateModule,
     PipeModule.forRoot(),
-    TabViewModule,
     DropdownModule,
     TableModule,
+    AccordionModule,
     AlertModule.forRoot(),
+    TabsModule,
     BsDatepickerModule.forRoot()
   ],
   declarations: [
     AdminComponent,
+    ServersConfigurationComponent,
     ServerConfigurationComponent,
+    RegionsConfigurationComponent,
+    RegionConfigurationComponent,
     UsersComponent,
     StatisticsComponent,
     ObservationsComponent,

@@ -34,7 +34,22 @@
       <a class="nav-link" href="#"><i class="fa fa-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
     </li>
 -->
-    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
+<li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+    <i class="fa fa-language"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+    <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
+    <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()==='it'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()==='de'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("en")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.en" | translate }}<i *ngIf="settingsService.getLangString()==='en'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()==='fr'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()==='es'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()==='ca'" class="fa fa-check float-right"></i></a>
+    <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()==='oc'" class="fa fa-check float-right"></i></a>
+  </div>
+</li>
+<li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
         <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
@@ -43,7 +58,7 @@
         <div class="dropdown-header text-center"><strong>{{ "menu.region" | translate }}</strong></div>
 
         <div *ngFor="let region of authenticationService.getCurrentAuthorRegions()">
-          <a class="dropdown-item" (click)='changeRegion(region)'><i class="fa fa-globe"></i>&nbsp;{{ "region." + region | translate }}<i *ngIf="authenticationService.getActiveRegion()===region" class="fa fa-check float-right"></i></a>
+          <a class="dropdown-item" (click)='changeRegion(region)'><i class="fa fa-globe"></i>&nbsp;{{ "region." + region.id | translate }}<i *ngIf="authenticationService.getActiveRegionId()===region.id" class="fa fa-check float-right"></i></a>
         </div>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.education" | translate }}</strong></div>
@@ -57,23 +72,8 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-        <i class="fa fa-language"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
-        <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()==='it'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()==='de'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("en")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.en" | translate }}<i *ngIf="settingsService.getLangString()==='en'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()==='fr'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()==='es'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()==='ca'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()==='oc'" class="fa fa-check float-right"></i></a>
-      </div>
-    </li>
     <li *ngIf="showChat && authenticationService.isEuregio()" class="nav-item">
-      <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() !== undefined" class="nav-link"><i class="fa fa-comments aside-menu-toggler"></i><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+      <a *ngIf="authenticationService.getActiveRegionId() && authenticationService.getActiveRegionId() !== undefined" class="nav-link"><i class="fa fa-comments aside-menu-toggler"></i><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegionId()) }}</span></a>
     </li>
   </ul>
   
@@ -121,7 +121,7 @@
   </main>
 
   <!-- Sidebar right -->
-  <aside class="aside-menu" style="overflow: auto" *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() !== undefined && authenticationService.getActiveRegion() !== constantsService.codeAran" >
+  <aside class="aside-menu" style="overflow: auto" *ngIf="authenticationService.getActiveRegionId() && authenticationService.getActiveRegionId() !== undefined && authenticationService.getActiveRegionId() !== constantsService.codeAran" >
 <!--
     <div *ngIf="chatService.getNumberOfActiveUsers() > 0" class="p-1">
       <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
@@ -147,7 +147,7 @@
 -->
     <tabset>
       <!-- ALL -->
-      <tab *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() !== undefined">
+      <tab *ngIf="authenticationService.getActiveRegionId() && authenticationService.getActiveRegionId() !== undefined">
         <ng-template tabHeading>{{ "chat.all" | translate }}<span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></ng-template>
         <div class="p-1">
           <div class="message">
@@ -168,7 +168,7 @@
         </div>
       </tab>
       <!-- TIROL -->
-      <tab *ngIf="authenticationService.getActiveRegion() === constantsService.codeSouthTyrol || authenticationService.getActiveRegion() === constantsService.codeTrentino">
+      <tab *ngIf="authenticationService.getActiveRegionId() === constantsService.codeSouthTyrol || authenticationService.getActiveRegionId() === constantsService.codeTrentino">
         <ng-template tabHeading>{{ "chat.AT-07" | translate }}<span *ngIf="showBadge(constantsService.codeTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTyrol) }}</span></ng-template>
 <!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
@@ -210,7 +210,7 @@
         </div>
       </tab>
       <!-- SOUTH TYROL -->
-      <tab *ngIf="authenticationService.getActiveRegion() === constantsService.codeTyrol || authenticationService.getActiveRegion() === constantsService.codeTrentino">
+      <tab *ngIf="authenticationService.getActiveRegionId() === constantsService.codeTyrol || authenticationService.getActiveRegionId() === constantsService.codeTrentino">
         <ng-template tabHeading>{{ "chat.IT-32-BZ" | translate }}<span *ngIf="showBadge(constantsService.codeSouthTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeSouthTyrol) }}</span></ng-template>
 <!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
@@ -252,7 +252,7 @@
         </div>
       </tab>
       <!-- TRENTINO -->
-      <tab *ngIf="authenticationService.getActiveRegion() === constantsService.codeTyrol || authenticationService.getActiveRegion() === constantsService.codeSouthTyrol">
+      <tab *ngIf="authenticationService.getActiveRegionId() === constantsService.codeTyrol || authenticationService.getActiveRegionId() === constantsService.codeSouthTyrol">
         <ng-template tabHeading>{{ "chat.IT-32-TN" | translate }}<span *ngIf="showBadge(constantsService.codeTrentino)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTrentino) }}</span></ng-template>
 <!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>

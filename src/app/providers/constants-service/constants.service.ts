@@ -35,16 +35,18 @@ export class ConstantsService {
   public codeAran: string = "ES-CT-L";
   public codeAndorra: string = "AD";
 
+  public codePiemonte: string = "IT-21";
+  public codeAosta: string = "IT-23";
+  public codeLombardia: string = "IT-25";
+  public codeVeneto: string = "IT-34";
+  public codeFriuliVeneziaGiulia: string = "IT-36";
+  public codeMarche: string = "IT-57";
+
   public roleAdmin: string = "ADMIN";
   public roleForecaster: string = "FORECASTER";
   public roleForeman: string = "FOREMAN";
   public roleObserver: string = "OBSERVER";
 
-  // region
-  public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05], [this.codeAran, 42.73]]);
-  public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07], [this.codeAran, 0.82]]);
-
-  // region
   public mapBoundaryN: number = 48.0;
   public mapBoundaryE: number = 13.5;
   public mapBoundaryS: number = 45.0;
@@ -73,6 +75,7 @@ export class ConstantsService {
   public colorDangerRatingModerateBw = "#D8D8D8";
   public colorDangerRatingConsiderableBw = "#B0B0B0";
   public colorDangerRatingHighBw = "#888888";
+  // TODO use EAWS color (most probably black)
   public colorDangerRatingVeryHighBw = "#666666";
 
   public colorDangerRatingMissing = "#969696";

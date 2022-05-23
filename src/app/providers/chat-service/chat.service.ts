@@ -53,7 +53,7 @@ export class ChatService {
 
     console.debug("Successfully connected: " + url);
 
-    if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() !== undefined) {
+    if (this.authenticationService.getActiveRegionId() && this.authenticationService.getActiveRegionId() !== undefined) {
       this.getMessages().subscribe(
         data => {
           for (const jsonChatMessage of (data as any)) {
@@ -177,7 +177,7 @@ export class ChatService {
     if (region) {
     let count = 0;
     for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-    if (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegion()))
+    if (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegionId()))
       count = count + 1;
     }
     return count;
@@ -188,7 +188,7 @@ export class ChatService {
     getActiveUsersForRegion(region?: string) {
     let users = new Array<string>();
     for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-    if ((region && (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegion()))) || !region)
+    if ((region && (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegionId()))) || !region)
     users.push(this.activeUsers[i].getName());
     }
     return users;

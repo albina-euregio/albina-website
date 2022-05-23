@@ -4,28 +4,67 @@ import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { Observable } from "rxjs/Observable";
 
-export interface Configuration {
-  pdfDirectory: string;
-  htmlDirectory: string;
-  serverImagesUrl: string;
-  mapsPath: string;
-  mapProductionUrl: string;
-  scriptsPath: string;
+export interface RegionConfiguration {
+  id: string;
+  microRegions: number;
+  subRegions: string[];
+  superRegions: string[];
+  neighborRegions: string[];
+  publishBulletins: boolean;
+  publishBlogs: boolean;
+  createCaamlV5: boolean;
+  createCaamlV6: boolean;
+  createJson: boolean;
   createMaps: boolean;
   createPdf: boolean;
-  createSimpleHtml: boolean;
-  createStaticWidget: boolean;
   sendEmails: boolean;
-  publishToTelegramChannel: boolean;
+  createSimpleHtml: boolean;
+  sendTelegramMessages: boolean;
+  sendPushNotifications: boolean;
+  enableMediaFile: boolean;
+  serverInstance: ServerConfiguration;
+  pdfColor: string;
+  emailColor: string;
+  pdfMapYAmPm: number;
+  pdfMapYFd: number;
+  pdfMapWidthAmPm: number;
+  pdfMapWidthFd: number;
+  pdfMapHeight: number;
+  pdfFooterLogo: boolean;
+  pdfFooterLogoColorPath: string;
+  pdfFooterLogoBwPath: string;
+  mapXmax: number;
+  mapXmin: number;
+  mapYmax: number;
+  mapYmin: number;
+  simpleHtmlTemplateName: string;
+  geoDataDirectory: string;
+  mapLogoColorPath: string;
+  mapLogoBwPath: string;
+  mapLogoPosition: string;
+  mapCenterLat: number;
+  mapCenterLng: number;
+  imageColorbarColorPath: string;
+  imageColorbarBwPath: string;
+  isNew: boolean;
+}
+
+export interface ServerConfiguration {
+  id: string;
+  name: string;
+  apiUrl: string;
+  userName: string;
+  password: string;
+  externalServer: boolean;
   publishAt5PM: boolean;
   publishAt8AM: boolean;
-  publishBulletinsTyrol: boolean;
-  publishBulletinsSouthTyrol: boolean;
-  publishBulletinsTrentino: boolean;
-  publishBulletinsAran: boolean;
-  publishBlogsTyrol: boolean;
-  publishBlogsSouthTyrol: boolean;
-  publishBlogsTrentino: boolean;
+  pdfDirectory: string;
+  htmlDirectory: string;
+  mapsPath: string;
+  mediaPath: string;
+  mapProductionUrl: string;
+  serverImagesUrl: string;
+  isNew: boolean;
 }
 
 
@@ -38,15 +77,60 @@ export class ConfigurationService {
     private authenticationService: AuthenticationService) {
   }
 
-  public loadConfigurationProperties(): Observable<Configuration> {
-    const url = this.constantsService.getServerUrl() + "configuration";
+  public loadLocalServerConfiguration(): Observable<ServerConfiguration> {
+    const url = this.constantsService.getServerUrl() + "server";
     const options = { headers: this.authenticationService.newAuthHeader() };
 
-    return this.http.get<Configuration>(url, options);
+    return this.http.get<ServerConfiguration>(url, options);
   }
 
-  public saveConfigurationProperties(json) {
-    const url = this.constantsService.getServerUrl() + "configuration";
+  public loadExternalServerConfigurations(): Observable<ServerConfiguration[]> {
+    const url = this.constantsService.getServerUrl() + "server/external";
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<ServerConfiguration[]>(url, options);
+  }
+
+  public updateServerConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "server";
+    const body = JSON.stringify(json);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.put(url, body, options);
+  }
+
+  public createServerConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "server";
+    const body = JSON.stringify(json);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.post(url, body, options);
+  }
+
+  public loadRegionConfiguration(region): Observable<RegionConfiguration> {
+    const url = this.constantsService.getServerUrl() + "regions/region?region=" + region;
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<RegionConfiguration>(url, options);
+  }
+
+  public loadRegionConfigurations(): Observable<RegionConfiguration[]> {
+    const url = this.constantsService.getServerUrl() + "regions";
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.get<RegionConfiguration[]>(url, options);
+  }
+
+  public updateRegionConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "regions";
+    const body = JSON.stringify(json);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+
+    return this.http.put(url, body, options);
+  }
+
+  public createRegionConfiguration(json) {
+    const url = this.constantsService.getServerUrl() + "regions";
     const body = JSON.stringify(json);
     const options = { headers: this.authenticationService.newAuthHeader() };
 
