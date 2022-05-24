@@ -70,7 +70,11 @@ class PageFooter extends React.Component {
               </p>
 
               <p className="page-footer-logo-tertiary">
-                <Tooltip label="EAWS">
+                <Tooltip
+                  label={this.props.intl.formatMessage({
+                    id: "footer:eaws:hover"
+                  })}
+                >
                   <a
                     href="https://www.avalanches.org/"
                     {...window["tiltySettings"]}
@@ -86,11 +90,11 @@ class PageFooter extends React.Component {
               <p className="page-footer-logo-secondary">
                 <Tooltip
                   label={this.props.intl.formatMessage({
-                    id: "footer:interreg:hover"
+                    id: "footer:euregio:hover"
                   })}
                 >
                   <a
-                    href={Util.template(config.links.interreg, {
+                    href={Util.template(config.links.euregio, {
                       lang: APP_STORE.language
                     })}
                     {...window["tiltySettings"]}
@@ -98,7 +102,7 @@ class PageFooter extends React.Component {
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <span>Interreg</span>
+                    <span>Euregio</span>
                   </a>
                 </Tooltip>
               </p>

@@ -23,19 +23,13 @@ class BulletinButtonbar extends React.Component {
         <div className="section-centered">
           <div className="grid linkbar">
             <div className="normal-4 grid-item">
-              <Tooltip
-                label={this.props.intl.formatMessage({
-                  id: "bulletin:linkbar:back-to-map:hover"
-                })}
+              <a
+                href="#page-main"
+                className="icon-link icon-arrow-up"
+                data-scroll=""
               >
-                <a
-                  href="#page-main"
-                  className="icon-link icon-arrow-up"
-                  data-scroll=""
-                >
-                  <FormattedMessage id="bulletin:linkbar:back-to-map" />
-                </a>
-              </Tooltip>
+                <FormattedMessage id="bulletin:linkbar:back-to-map" />
+              </a>
             </div>
             <div className="normal-8 grid-item">
               <ul className="list-inline bulletin-buttonbar">

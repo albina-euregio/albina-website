@@ -207,18 +207,18 @@ class PageHeader extends React.Component {
         <div className="page-header-logo-secondary">
           <Tooltip
             label={this.props.intl.formatMessage({
-              id: "header:interreg:hover"
+              id: "header:euregio:hover"
             })}
           >
             <a
-              href={Util.template(config.links.interreg, {
+              href={Util.template(config.links.euregio, {
                 lang: lang
               })}
               className="header-footer-logo-secondary"
               rel="noopener noreferrer"
               target="_blank"
             >
-              <span>Interreg</span>
+              <span>Euregio</span>
             </a>
           </Tooltip>
         </div>

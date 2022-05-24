@@ -686,8 +686,17 @@ class WeatherMapCockpit extends React.Component {
             {this.getReleaseInfo()}
           </div>
           <div key="cp-copyright" className="cp-copyright">
-            <Tooltip key="cp-copyright-tp" label="ZAMG">
-              <a href="https://www.zamg.ac.at">
+            <Tooltip
+              key="cp-copyright-tp"
+              label={this.props.intl.formatMessage({
+                id: "weathermap:cockpit:zamg:hover"
+              })}
+            >
+              <a
+                href="https://www.zamg.ac.at"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <span className="is-visually-hidden">ZAMG</span>
               </a>
             </Tooltip>
