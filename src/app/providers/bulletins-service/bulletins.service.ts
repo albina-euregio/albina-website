@@ -94,11 +94,11 @@ export class BulletinsService {
 
     this.getStatus(this.authenticationService.getActiveRegionId(), startDate, endDate).subscribe(
       data => {
+        let map = new Map<number, Enums.BulletinStatus>();
         for (let i = (data as any).length - 1; i >= 0; i--) {
-          let map = new Map<number, Enums.BulletinStatus>();
           map.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
-          this.statusMap.set(this.authenticationService.getActiveRegionId(), map);
         }
+        this.statusMap.set(this.authenticationService.getActiveRegionId(), map);
       },
       () => {
         console.error("Status {} could not be loaded!", this.authenticationService.getActiveRegionId());
@@ -107,11 +107,11 @@ export class BulletinsService {
     this.authenticationService.getActiveRegion().neighborRegions.forEach(neighborRegion => {
       this.getStatus(neighborRegion, startDate, endDate).subscribe(
         data => {
+          let map = new Map<number, Enums.BulletinStatus>();
           for (let i = (data as any).length - 1; i >= 0; i--) {
-            let map = new Map<number, Enums.BulletinStatus>();
             map.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
-            this.statusMap.set(neighborRegion, map);
           }
+          this.statusMap.set(neighborRegion, map);
         },
         () => {
           console.error("Status {} could not be loaded!", neighborRegion);
