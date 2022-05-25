@@ -308,10 +308,11 @@
       },
       "mediaFileDialog" : {
         "headline" : "Media File",
+        "important" : "IMPORTANT",
         "missingText" : "Text is missing!",
         "missingFile" : "No file selected!",
         "uploadError" : "Upload failed!",
-        "accept" : "Save",
+        "accept" : "Send",
         "reject" : "Cancel"
       },
       "publishBulletinsErrorDialog" : {

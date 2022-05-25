@@ -17,7 +17,7 @@ export class ModalMediaFileComponent {
   component;
   file;
   text;
-
+  important;
   
   public alerts: any[] = [];
 
@@ -42,6 +42,10 @@ export class ModalMediaFileComponent {
     this.file = event.target.files[0];
   }
 
+  toggleImportant() {
+    this.important ? this.important = false : this.important = true;
+  }
+
   uploadFile() {
     if (this.text == null || this.text == "") {
       console.log("No text entered!");
@@ -64,7 +68,7 @@ export class ModalMediaFileComponent {
       return;
     }
 
-    this.mediaFileService.uploadFile(this.date, this.file, this.text)
+    this.mediaFileService.uploadFile(this.date, this.file, this.text, this.important)
       .subscribe(
         data => {
           console.log("Upload complete!");
