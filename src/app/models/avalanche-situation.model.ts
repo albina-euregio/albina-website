@@ -191,11 +191,7 @@ export class AvalancheSituationModel {
   }
 
   getDangerRating() {
-    if (this.matrixInformation.getNaturalDangerRating() === undefined || Enums.DangerRating[this.matrixInformation.getNaturalDangerRating()] < Enums.DangerRating[this.matrixInformation.getArtificialDangerRating()]) {
-      return this.matrixInformation.getArtificialDangerRating()
-    } else {
-      return this.matrixInformation.getNaturalDangerRating();
-    }
+    return this.matrixInformation.getDangerRating();
   }
 
   hasElevationHigh() {
@@ -222,38 +218,8 @@ export class AvalancheSituationModel {
     }
   }
 
-  getHigherDangerRating() {
-    if (this.matrixInformation) {
-      const artificialDangerRating = Enums.DangerRating[this.matrixInformation.artificialDangerRating];
-      const naturalDangerRating = Enums.DangerRating[this.matrixInformation.naturalDangerRating];
-      if (artificialDangerRating !== undefined) {
-        if (naturalDangerRating !== undefined) {
-          if (Enums.DangerRating[this.matrixInformation.artificialDangerRating] < Enums.DangerRating[this.matrixInformation.naturalDangerRating]) {
-            return this.matrixInformation.naturalDangerRating;
-          } else {
-            return this.matrixInformation.artificialDangerRating;
-          }
-        } else {
-          return this.matrixInformation.artificialDangerRating;
-        }
-      } else {
-        if (naturalDangerRating !== undefined) {
-          return this.matrixInformation.naturalDangerRating
-        } else {
-          return "missing";
-        }
-      }
-    } else {
-      return "missing";
-    }
-  }
-
   isDangerRating(dangerRating) {
-    if (this.getHigherDangerRating() === dangerRating) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.getDangerRating() === dangerRating ? true : false;
   }
 
   toJson() {

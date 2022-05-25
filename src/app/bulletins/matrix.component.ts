@@ -6,10 +6,10 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import * as Enums from "../enums/enums";
 
 @Component({
-  selector: "app-avalanche-situation-matrix",
-  templateUrl: "avalanche-situation-matrix.component.html"
+  selector: "app-matrix",
+  templateUrl: "matrix.component.html"
 })
-export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChanges {
+export class MatrixComponent implements AfterViewInit, OnChanges {
 
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() matrixInformation: MatrixInformationModel;
@@ -113,37 +113,22 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
   }
 
   initMatrix() {
-    this.selectArtificialCell(this.getArtificialCell(this.matrixInformation));
-    this.selectNaturalCell(this.getNaturalCell(this.matrixInformation));
+    this.selectCell(this.getCell(this.matrixInformation));
   }
 
-  private selectArtificialCell(cell) {
-    this.matrixInformation.setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
-    this.matrixInformation.setArtificialAvalancheReleaseProbability(Enums.ArtificialAvalancheReleaseProbability[this.getArtificialAvalancheReleaseProbability(cell)]);
-    this.matrixInformation.setArtificialHazardSiteDistribution(Enums.HazardSiteDistribution[this.getArtificialHazardSiteDistribution(cell)]);
-    this.matrixInformation.setArtificialAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
+  private selectCell(cell) {
+    this.matrixInformation.setDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
+    this.matrixInformation.setAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
+    this.matrixInformation.setSnowpackStability(Enums.SnowpackStability[this.getSnowpackStability(cell)]);
+    this.matrixInformation.setFrequency(Enums.Frequency[this.getFrequency(cell)]);
     this.setCellStyleActive(cell);
   }
 
-  private deselectArtificialCell(cell) {
-    this.matrixInformation.setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
-    this.matrixInformation.setArtificialAvalancheReleaseProbability(undefined);
-    this.matrixInformation.setArtificialHazardSiteDistribution(undefined);
-    this.matrixInformation.setArtificialAvalancheSize(undefined);
-    this.setCellStyleInactive(cell);
-  }
-
-  private selectNaturalCell(cell) {
-    this.matrixInformation.setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
-    this.matrixInformation.setNaturalAvalancheReleaseProbability(Enums.NaturalAvalancheReleaseProbability[this.getNaturalAvalancheReleaseProbability(cell)]);
-    this.matrixInformation.setNaturalHazardSiteDistribution(Enums.HazardSiteDistribution[this.getNaturalHazardSiteDistribution(cell)]);
-    this.setCellStyleActive(cell);
-  }
-
-  private deselectNaturalCell(cell) {
-    this.matrixInformation.setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
-    this.matrixInformation.setNaturalAvalancheReleaseProbability(undefined);
-    this.matrixInformation.setNaturalHazardSiteDistribution(undefined);
+  private deselectCell(cell) {
+    this.matrixInformation.setDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
+    this.matrixInformation.setAvalancheSize(undefined);
+    this.matrixInformation.setSnowpackStability(undefined);
+    this.matrixInformation.setFrequency(undefined);
     this.setCellStyleInactive(cell);
   }
 
@@ -165,46 +150,20 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  public selectArtificialDangerRating(event) {
-    this.selectArtificialDangerRatingById(event.currentTarget.id);
+  public selectDangerRating(event) {
+    this.selectDangerRatingById(event.currentTarget.id);
   }
 
-  public selectArtificialDangerRatingById(id) {
+  public selectDangerRatingById(id) {
     if (!this.disabled) {
-      const oldCell = this.getArtificialCell(this.matrixInformation);
+      const oldCell = this.getCell(this.matrixInformation);
       this.setCellStyleInactive(oldCell);
 
       if (oldCell !== id) {
-        this.selectArtificialCell(id);
+        this.selectCell(id);
       } else {
-        this.deselectArtificialCell(id);
+        this.deselectCell(id);
       }
-
-      const naturalCell = this.getNaturalCell(this.matrixInformation);
-      this.deselectNaturalCell(naturalCell);
-
-      this.bulletinDaytimeDescription.updateDangerRating();
-    }
-  }
-
-  public selectNaturalDangerRating(event) {
-    this.selectNaturalDangerRatingById(event.currentTarget.id);
-  }
-
-  public selectNaturalDangerRatingById(id) {
-    if (!this.disabled) {
-      const oldCell = this.getNaturalCell(this.matrixInformation);
-
-      this.setCellStyleInactive(oldCell);
-
-      if (oldCell !== id) {
-        this.selectNaturalCell(id);
-      } else {
-        this.deselectNaturalCell(id);
-      }
-
-      const artificialCell = this.getArtificialCell(this.matrixInformation);
-      this.deselectArtificialCell(artificialCell);
 
       this.bulletinDaytimeDescription.updateDangerRating();
     }
@@ -524,62 +483,29 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  private getArtificialAvalancheReleaseProbability(id) {
+  private getSnowpackStability(id) {
     if ((id > 0 && id <= 4) || (id > 12 && id <= 16) || (id > 28 && id <= 32)) {
-      return Enums.ArtificialAvalancheReleaseProbability.one;
+      return Enums.SnowpackStability.good;
     } else if ((id > 4 && id <= 8) || (id > 16 && id <= 20) || (id > 32 && id <= 36)) {
-      return Enums.ArtificialAvalancheReleaseProbability.two;
+      return Enums.SnowpackStability.fair;
     } else if ((id > 8 && id <= 12) || (id > 20 && id <= 24) || (id > 36 && id <= 40) || (id > 44 && id <= 48)) {
-      return Enums.ArtificialAvalancheReleaseProbability.three;
+      return Enums.SnowpackStability.poor;
     } else if ((id > 24 && id <= 28) || (id > 40 && id <= 44) || (id > 48 && id <= 56)) {
-      return Enums.ArtificialAvalancheReleaseProbability.four;
+      return Enums.SnowpackStability.very_poor;
     } else {
       return undefined;
     }
   }
 
-  private getArtificialHazardSiteDistribution(id) {
+  private getFrequency(id) {
     if (id > 0 && id <= 12) {
-      return Enums.HazardSiteDistribution.single;
+      return Enums.Frequency.none;
     } else if (id > 12 && id <= 28) {
-      return Enums.HazardSiteDistribution.some;
+      return Enums.Frequency.few;
     } else if (id > 28 && id <= 44) {
-      return Enums.HazardSiteDistribution.many;
+      return Enums.Frequency.some;
     } else if (id > 44 && id <= 52) {
-      return Enums.HazardSiteDistribution.many_most;
-    } else if (id > 52 && id <= 56) {
-      return Enums.HazardSiteDistribution.moderately_steep;
-    } else {
-      return undefined;
-    }
-  }
-
-  private getNaturalAvalancheReleaseProbability(id) {
-    id = +id;
-    if (id === 57 || id === 59 || id === 62 || id === 66) {
-      return Enums.NaturalAvalancheReleaseProbability.one;
-    } else if (id === 58 || id === 60 || id === 63 || id === 67 || id === 70) {
-      return Enums.NaturalAvalancheReleaseProbability.two;
-    } else if (id === 61 || id === 64 || id === 68 || id === 71) {
-      return Enums.NaturalAvalancheReleaseProbability.three;
-    } else if (id === 65 || id === 69 || id === 72) {
-      return Enums.NaturalAvalancheReleaseProbability.four;
-    } else {
-      return undefined;
-    }
-  }
-
-  private getNaturalHazardSiteDistribution(id) {
-    if (id > 56 && id <= 58) {
-      return Enums.HazardSiteDistribution.single;
-    } else if (id > 58 && id <= 61) {
-      return Enums.HazardSiteDistribution.some;
-    } else if (id > 61 && id <= 65) {
-      return Enums.HazardSiteDistribution.many;
-    } else if (id > 65 && id <= 69) {
-      return Enums.HazardSiteDistribution.many_most;
-    } else if (id > 69 && id <= 72) {
-      return Enums.HazardSiteDistribution.moderately_steep;
+      return Enums.Frequency.many;
     } else {
       return undefined;
     }
@@ -784,13 +710,13 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  private getArtificialCell(matrixInformation: MatrixInformationModel) {
-    switch (+Enums.HazardSiteDistribution[matrixInformation.getArtificialHazardSiteDistribution()]) {
+  private getCell(eawsMatrixInformation: MatrixInformationModel) {
+    switch (+Enums.Frequency[eawsMatrixInformation.getFrequency()]) {
 
-      case Enums.HazardSiteDistribution.single:
-        switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
-          case Enums.ArtificialAvalancheReleaseProbability.one:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+      case Enums.Frequency.none:
+        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
+          case Enums.SnowpackStability.good:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "1";
               case Enums.AvalancheSize.medium:
@@ -802,8 +728,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.two:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.fair:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "5";
               case Enums.AvalancheSize.medium:
@@ -815,8 +741,21 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.three:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
+              case Enums.AvalancheSize.small:
+                return "9";
+              case Enums.AvalancheSize.medium:
+                return "10";
+              case Enums.AvalancheSize.large:
+                return "11";
+              case Enums.AvalancheSize.very_large:
+                return "12";
+              default:
+                return undefined;
+            }
+          case Enums.SnowpackStability.very_poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "9";
               case Enums.AvalancheSize.medium:
@@ -832,10 +771,10 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
             return undefined;
         }
 
-      case Enums.HazardSiteDistribution.some:
-        switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
-          case Enums.ArtificialAvalancheReleaseProbability.one:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+      case Enums.Frequency.some:
+        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
+          case Enums.SnowpackStability.good:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "13";
               case Enums.AvalancheSize.medium:
@@ -847,8 +786,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.two:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.fair:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "17";
               case Enums.AvalancheSize.medium:
@@ -860,8 +799,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.three:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "21";
               case Enums.AvalancheSize.medium:
@@ -873,8 +812,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.four:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.very_poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "25";
               case Enums.AvalancheSize.medium:
@@ -890,10 +829,10 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
             return undefined;
         }
 
-      case Enums.HazardSiteDistribution.many:
-        switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
-          case Enums.ArtificialAvalancheReleaseProbability.one:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+      case Enums.Frequency.many:
+        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
+          case Enums.SnowpackStability.good:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "29";
               case Enums.AvalancheSize.medium:
@@ -905,8 +844,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.two:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.fair:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "33";
               case Enums.AvalancheSize.medium:
@@ -918,8 +857,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.three:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "37";
               case Enums.AvalancheSize.medium:
@@ -931,8 +870,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          case Enums.ArtificialAvalancheReleaseProbability.four:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
+          case Enums.SnowpackStability.very_poor:
+            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
               case Enums.AvalancheSize.small:
                 return "41";
               case Enums.AvalancheSize.medium:
@@ -944,127 +883,6 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
               default:
                 return undefined;
             }
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.many_most:
-        switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
-          case Enums.ArtificialAvalancheReleaseProbability.three:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "45";
-              case Enums.AvalancheSize.medium:
-                return "46";
-              case Enums.AvalancheSize.large:
-                return "47";
-              case Enums.AvalancheSize.very_large:
-                return "48";
-              default:
-                return undefined;
-            }
-          case Enums.ArtificialAvalancheReleaseProbability.four:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "49";
-              case Enums.AvalancheSize.medium:
-                return "50";
-              case Enums.AvalancheSize.large:
-                return "51";
-              case Enums.AvalancheSize.very_large:
-                return "52";
-              default:
-                return undefined;
-            }
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.moderately_steep:
-        switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
-          case Enums.ArtificialAvalancheReleaseProbability.four:
-            switch (+Enums.AvalancheSize[matrixInformation.getArtificialAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "53";
-              case Enums.AvalancheSize.medium:
-                return "54";
-              case Enums.AvalancheSize.large:
-                return "55";
-              case Enums.AvalancheSize.very_large:
-                return "56";
-              default:
-                return undefined;
-            }
-          default:
-            return undefined;
-        }
-
-      default:
-        return undefined;
-    }
-  }
-
-  private getNaturalCell(matrixInformation: MatrixInformationModel) {
-    switch (+Enums.HazardSiteDistribution[matrixInformation.getNaturalHazardSiteDistribution()]) {
-
-      case Enums.HazardSiteDistribution.single:
-        switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
-          case Enums.NaturalAvalancheReleaseProbability.one:
-            return "57";
-          case Enums.NaturalAvalancheReleaseProbability.two:
-            return "58";
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.some:
-        switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
-          case Enums.NaturalAvalancheReleaseProbability.one:
-            return "59";
-          case Enums.NaturalAvalancheReleaseProbability.two:
-            return "60";
-          case Enums.NaturalAvalancheReleaseProbability.three:
-            return "61";
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.many:
-        switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
-          case Enums.NaturalAvalancheReleaseProbability.one:
-            return "62";
-          case Enums.NaturalAvalancheReleaseProbability.two:
-            return "63";
-          case Enums.NaturalAvalancheReleaseProbability.three:
-            return "64";
-          case Enums.NaturalAvalancheReleaseProbability.four:
-            return "65";
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.many_most:
-        switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
-          case Enums.NaturalAvalancheReleaseProbability.one:
-            return "66";
-          case Enums.NaturalAvalancheReleaseProbability.two:
-            return "67";
-          case Enums.NaturalAvalancheReleaseProbability.three:
-            return "68";
-          case Enums.NaturalAvalancheReleaseProbability.four:
-            return "69";
-          default:
-            return undefined;
-        }
-
-      case Enums.HazardSiteDistribution.moderately_steep:
-        switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
-          case Enums.NaturalAvalancheReleaseProbability.two:
-            return "70";
-          case Enums.NaturalAvalancheReleaseProbability.three:
-            return "71";
-          case Enums.NaturalAvalancheReleaseProbability.four:
-            return "72";
           default:
             return undefined;
         }

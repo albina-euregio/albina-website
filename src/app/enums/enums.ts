@@ -1149,13 +1149,55 @@ export class AvalancheSizeUtil {
       case AvalancheSize.small:
         return "avalancheSize.small";
       case AvalancheSize.medium:
-        return "AvalancheSize.medium";
+        return "avalancheSize.medium";
       case AvalancheSize.large:
         return "avalancheSize.large";
       case AvalancheSize.very_large:
         return "avalancheSize.very_large";
       case AvalancheSize.extreme:
         return "avalancheSize.extreme";
+
+      default:
+        return "undefined";
+    }
+  }
+}
+
+export enum SnowpackStability {
+  good, fair, poor, very_poor
+}
+export class SnowpackStabilityUtil {
+  public static getString(snowpackStability: SnowpackStability) {
+    switch (snowpackStability) {
+      case SnowpackStability.good:
+        return "snowpackStability.good";
+      case SnowpackStability.fair:
+        return "snowpackStability.medium";
+      case SnowpackStability.poor:
+        return "snowpackStability.large";
+      case SnowpackStability.very_poor:
+        return "snowpackStability.very_large";
+
+      default:
+        return "undefined";
+    }
+  }
+}
+
+export enum Frequency {
+  none, few, some, many
+}
+export class FrequencyUtil {
+  public static getString(frequency: Frequency) {
+    switch (frequency) {
+      case Frequency.none:
+        return "frequency.none";
+      case Frequency.few:
+        return "frequency.few";
+      case Frequency.some:
+        return "frequency.some";
+      case Frequency.many:
+        return "frequency.many";
 
       default:
         return "undefined";

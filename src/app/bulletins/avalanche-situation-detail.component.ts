@@ -16,6 +16,9 @@ export class AvalancheSituationDetailComponent implements OnChanges {
   @Input() disabled: boolean;
 
   avalancheSituationEnum = Enums.AvalancheSituation;
+  snowpackStability = Enums.SnowpackStability;
+  frequency = Enums.Frequency;
+  avalancheSize = Enums.AvalancheSize;
   useElevationHigh = false;
   useElevationLow = false;
 
@@ -47,6 +50,42 @@ export class AvalancheSituationDetailComponent implements OnChanges {
       return true;
     }
     return false;
+  }
+
+  isSnowpackStability(snowpackStability) {
+    if (this.avalancheSituationModel && this.avalancheSituationModel.matrixInformation && this.avalancheSituationModel.matrixInformation.snowpackStability === snowpackStability) {
+      return true;
+    }
+    return false;
+  }
+
+  setSnowpackStability(event, snowpackStability) {
+    event.stopPropagation();
+    this.avalancheSituationModel.matrixInformation.snowpackStability = snowpackStability;
+  }
+
+  isFrequency(frequency) {
+    if (this.avalancheSituationModel && this.avalancheSituationModel.matrixInformation && this.avalancheSituationModel.matrixInformation.frequency === frequency) {
+      return true;
+    }
+    return false;
+  }
+
+  setFrequency(event, frequency) {
+    event.stopPropagation();
+    this.avalancheSituationModel.matrixInformation.frequency = frequency;
+  }
+
+  isAvalancheSize(avalancheSize) {
+    if (this.avalancheSituationModel && this.avalancheSituationModel.matrixInformation && this.avalancheSituationModel.matrixInformation.avalancheSize === avalancheSize) {
+      return true;
+    }
+    return false;
+  }
+
+  setAvalancheSize(event, avalancheSize) {
+    event.stopPropagation();
+    this.avalancheSituationModel.matrixInformation.avalancheSize = avalancheSize;
   }
 
   selectAvalancheSituation(situation) {

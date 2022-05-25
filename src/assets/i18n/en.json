@@ -831,6 +831,25 @@
     "steady" : " Avalanche danger stays the same",
     "increasing" : " Avalanche danger increases"
   },
+  "snowpackStability" : {
+    "good" : "good",
+    "fair" : "fair",
+    "poor" : "poor",
+    "very_poor" : "very poor"
+  },
+  "frequency" : {
+    "none" : "(nearly) none",
+    "few" : "a few",
+    "some" : "some",
+    "many" : "many"
+  },
+  "avalancheSize" : {
+    "small" : "small",
+    "medium" : "medium",
+    "large" : "large",
+    "very_large" : "very large",
+    "extreme" : "extreme"
+  },
   "complexity": {
     "easy": " Easy",
     "challenging": " Challenging",

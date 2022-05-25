@@ -12,7 +12,7 @@ import { DangerRatingIconComponent } from "./danger-rating-icon.component";
 import { AvalancheSituationComponent } from "./avalanche-situation.component";
 import { AvalancheSituationDetailComponent } from "./avalanche-situation-detail.component";
 import { AvalancheSituationPreviewComponent } from "./avalanche-situation-preview.component";
-import { AvalancheSituationMatrixComponent } from "./avalanche-situation-matrix.component";
+import { MatrixComponent } from "./matrix.component";
 import { CaamlComponent } from "./caaml.component";
 import { JsonComponent } from "./json.component";
 import { TabsComponent } from "./tabs.component";
@@ -54,7 +54,8 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         AvalancheSituationComponent,
         AvalancheSituationDetailComponent,
         AvalancheSituationPreviewComponent,
-        AvalancheSituationMatrixComponent,
+        MatrixComponent,
+        MatrixComponent,
         CaamlComponent,
         JsonComponent,
         TabsComponent,
