@@ -9,9 +9,9 @@ import { AspectsComponent } from "./aspects.component";
 import { ComplexityComponent } from "./complexity.component";
 import { DangerRatingComponent } from "./danger-rating.component";
 import { DangerRatingIconComponent } from "./danger-rating-icon.component";
-import { AvalancheSituationComponent } from "./avalanche-situation.component";
-import { AvalancheSituationDetailComponent } from "./avalanche-situation-detail.component";
-import { AvalancheSituationPreviewComponent } from "./avalanche-situation-preview.component";
+import { AvalancheProblemComponent } from "./avalanche-problem.component";
+import { AvalancheProblemDetailComponent } from "./avalanche-problem-detail.component";
+import { AvalancheProblemPreviewComponent } from "./avalanche-problem-preview.component";
 import { MatrixComponent } from "./matrix.component";
 import { CaamlComponent } from "./caaml.component";
 import { JsonComponent } from "./json.component";
@@ -51,9 +51,9 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         ComplexityComponent,
         DangerRatingComponent,
         DangerRatingIconComponent,
-        AvalancheSituationComponent,
-        AvalancheSituationDetailComponent,
-        AvalancheSituationPreviewComponent,
+        AvalancheProblemComponent,
+        AvalancheProblemDetailComponent,
+        AvalancheProblemPreviewComponent,
         MatrixComponent,
         MatrixComponent,
         CaamlComponent,

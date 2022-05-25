@@ -53,11 +53,11 @@ export interface AvalanchePotential {
   snowpackStructure: number;
   avalanchePotentialValue: number;
   avalancheCharacteristicString: string;
-  windDriftedSnow: AvalancheSituation;
-  persistentWeakLayer: AvalancheSituation;
-  wetSnow: AvalancheSituation;
-  glidingSnow: AvalancheSituation;
-  newSnow: AvalancheSituation;
+  windDriftedSnow: AvalancheProblem;
+  persistentWeakLayer: AvalancheProblem;
+  wetSnow: AvalancheProblem;
+  glidingSnow: AvalancheProblem;
+  newSnow: AvalancheProblem;
   snowpackStructureActive: boolean;
   triggeringProbability: string;
   avalancheSize: string;
@@ -73,7 +73,7 @@ export interface AvalanchePotential {
   wetSnowHighRadiation: boolean;
 }
 
-export interface AvalancheSituation {
+export interface AvalancheProblem {
   riskAssessment: number;
   aspects: Aspect[];
   elevation?: number;

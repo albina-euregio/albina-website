@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "El problema de aludes se mostrará en el boletin",
         "dontShowInBulletin" : "El problema de aludes NO se mostrará en el boletin",
-        "moveUpAvalancheSituation" : "Mover el problema de aludes hacia arriba",
-        "moveDownAvalancheSituation" : "Mover el problema de aludes hacia abajo",
+        "moveUpAvalancheProblem" : "Mover el problema de aludes hacia arriba",
+        "moveDownAvalancheProblem" : "Mover el problema de aludes hacia abajo",
         "dangerRatingDirectionUp" : "Extender el grado de peligro hacia arriba",
         "dangerRatingDirectionDown" : "Extender el grado de peligro hacia abajo"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : "Nueva región",
       "pasteAggregatedRegion" : "Pegar región",
       "cancelCopyBulletin" : " Cancelar",
-      "createAvalancheSituation" : "Nuevo problema",
+      "createAvalancheProblem" : "Nuevo problema",
       "ownRegions" : "Regiones propias",
       "foreignRegions": "Regiones extranjeras",
       "externalRegions": "External regions",
@@ -130,7 +130,7 @@
         "notes" : "Notas"
       },
       "title" : {
-        "avalancheSituation" : "Situación de aludes",
+        "avalancheProblem" : "Situación de aludes",
         "dangerDescription" : "Descripción del peligro de aludes",
         "above" : "Encima",
         "below" : "Debajo",
@@ -191,7 +191,7 @@
         "message" : "¡Hubo un error al cargar los boletines desde el archivo JSON!",
         "accept" : "De acuerdo"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Falta el tipo de problema de aludes, orientaciones y/o valoración del peligro para al menos un problema de aludes",
         "accept" : "De acuerdo"
       },

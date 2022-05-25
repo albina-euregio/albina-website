@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "Lawinenproblem wird im Report angezeigt",
         "dontShowInBulletin" : "Lawinenproblem wird im Report NICHT angezeigt",
-        "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
-        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
+        "moveUpAvalancheProblem" : "Lawinenproblem nach oben schieben",
+        "moveDownAvalancheProblem" : "Lawinenproblem nach unten schieben",
         "dangerRatingDirectionUp" : "Erweitere die Gefahrenstufe nach oben",
         "dangerRatingDirectionDown" : "Erweitere die Gefahrenstufe nach unten"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : " Neue Region",
       "pasteAggregatedRegion" : " Region einfügen",
       "cancelCopyBulletin" : " Abbrechen",
-      "createAvalancheSituation" : " Neues Lawinenproblem",
+      "createAvalancheProblem" : " Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "externalRegions": "Externe Regionen",
@@ -130,7 +130,7 @@
         "notes" : "Notizen"
       },
       "title" : {
-        "avalancheSituation" : "Lawinenprobleme",
+        "avalancheProblem" : "Lawinenprobleme",
         "dangerDescription" : "Gefahrenbeurteilung",
         "above" : "Oben",
         "below" : "Unten",
@@ -191,7 +191,7 @@
         "message" : "Beim Laden des Bulletins aus der JSON Datei ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },

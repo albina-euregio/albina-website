@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "Situation avalancheuse typique sera présenté dans le bulletin",
         "dontShowInBulletin" : "Situation avalancheuse typique ne sera pas présenté dans le bulletin",
-        "moveUpAvalancheSituation" : "Déplacer situation avalancheuse typique en haut",
-        "moveDownAvalancheSituation" : "Déplacer situation avalancheuse typique en bas",
+        "moveUpAvalancheProblem" : "Déplacer situation avalancheuse typique en haut",
+        "moveDownAvalancheProblem" : "Déplacer situation avalancheuse typique en bas",
         "dangerRatingDirectionUp" : "Élargir le degré de danger vers le haut",
         "dangerRatingDirectionDown" : "Élargir le degré de danger vers le bas"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : "Nouvelle région",
       "pasteAggregatedRegion" : "Coller région",
       "cancelCopyBulletin" : "Annuler",
-      "createAvalancheSituation" : "Situation avalancheuse typique nouvelle",
+      "createAvalancheProblem" : "Situation avalancheuse typique nouvelle",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "externalRegions": "External regions",
@@ -130,7 +130,7 @@
         "notes" : "Notes"
       },
       "title" : {
-        "avalancheSituation" : "Situations d'avalanches",
+        "avalancheProblem" : "Situations d'avalanches",
         "dangerDescription" : "Déscription du danger d'avalanche",
         "above" : "Au-dessus",
         "below" : "Au-dessous",
@@ -191,7 +191,7 @@
         "message" : "Erreur de chargement des bulletins du fichier JSON",
         "accept" : "Ok"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "La situation avalancheuse typique, exposition et/ou le degré de danger manquent pour au moins une situation avalancheuse typique",
         "accept" : "Ok"
       },

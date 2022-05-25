@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "Problema valanghivo verra mostrato nel bollettino",
         "dontShowInBulletin" : "Problema valanghivo NON verra mostrato nel bollettino",
-        "moveUpAvalancheSituation" : "Spostare problema valanghivo verso l'alto",
-        "moveDownAvalancheSituation" : "Spostare problema valanghivo verso il basso",
+        "moveUpAvalancheProblem" : "Spostare problema valanghivo verso l'alto",
+        "moveDownAvalancheProblem" : "Spostare problema valanghivo verso il basso",
         "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
         "dangerRatingDirectionDown" : "Estendere la valutazione del grado del pericolo verso il basso"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : " Nuova regione",
       "pasteAggregatedRegion" : "Incollare la regione",
       "cancelCopyBulletin" : "Stornare",
-      "createAvalancheSituation" : "Nuovo problema valanghivo",
+      "createAvalancheProblem" : "Nuovo problema valanghivo",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "externalRegions": "External regions",
@@ -130,7 +130,7 @@
         "notes" : "Commenti"
       },
       "title" : {
-        "avalancheSituation" : "Problema tipico valanghivo",
+        "avalancheProblem" : "Problema tipico valanghivo",
         "dangerDescription" : "Descrizione pericolo",
         "above" : "Al disopra",
         "below" : "Al disotto",
@@ -191,7 +191,7 @@
         "message" : "C'è stato un errore nel caricamento dei bollettini dal file JSON!",
         "accept" : "Ok"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Problema valanhgivo tipico, esposizione e/o valutazione del grado del pericolo mancano almeno in un dei problemi valanghivi",
         "accept" : "Ok"
       },
