@@ -6,12 +6,12 @@ import { TextModel } from "./text.model";
 
 
 export class BulletinDaytimeDescriptionModel {
-  public dangerRatingAbove: BehaviorSubject<Enums.DangerRating>;
+  public dangerRatingAbove: Enums.DangerRating;
   public matrixInformationAbove: MatrixInformationModel;
   public terrainFeatureAboveTextcat: string;
   public terrainFeatureAbove: TextModel[];
 
-  public dangerRatingBelow: BehaviorSubject<Enums.DangerRating>;
+  public dangerRatingBelow: Enums.DangerRating;
   public matrixInformationBelow: MatrixInformationModel;
   public terrainFeatureBelowTextcat: string;
   public terrainFeatureBelow: TextModel[];
@@ -31,7 +31,7 @@ export class BulletinDaytimeDescriptionModel {
   static createFromJson(json) {
     const bulletinDaytimeDescription = new BulletinDaytimeDescriptionModel();
 
-    bulletinDaytimeDescription.dangerRatingAbove.next(json.dangerRatingAbove);
+    bulletinDaytimeDescription.setDangerRatingAbove(json.dangerRatingAbove);
     if (json.matrixInformationAbove) {
       bulletinDaytimeDescription.matrixInformationAbove = MatrixInformationModel.createFromJson(json.matrixInformationAbove);
     }
@@ -48,7 +48,7 @@ export class BulletinDaytimeDescriptionModel {
     }
     bulletinDaytimeDescription.setTerrainFeatureAbove(terrainFeatureAbove);
 
-    bulletinDaytimeDescription.dangerRatingBelow.next(json.dangerRatingBelow);
+    bulletinDaytimeDescription.setDangerRatingBelow(json.dangerRatingBelow);
     if (json.matrixInformationBelow) {
       bulletinDaytimeDescription.matrixInformationBelow = MatrixInformationModel.createFromJson(json.matrixInformationBelow);
     }
@@ -93,8 +93,8 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   constructor(bulletinDaytimeDescription?: BulletinDaytimeDescriptionModel) {
-    this.dangerRatingAbove = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.low);
-    this.dangerRatingBelow = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.low);
+    this.dangerRatingAbove = Enums.DangerRating.low;
+    this.dangerRatingBelow = Enums.DangerRating.low;
 
     if (!bulletinDaytimeDescription) {
       this.setDangerRatingAbove("low");
@@ -149,11 +149,11 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   getDangerRatingAbove() {
-    return this.dangerRatingAbove.getValue();
+    return this.dangerRatingAbove;
   }
 
   setDangerRatingAbove(dangerRatingAbove) {
-    this.dangerRatingAbove.next(dangerRatingAbove);
+    this.dangerRatingAbove = dangerRatingAbove;
   }
 
   getMatrixInformationAbove() {
@@ -206,11 +206,11 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   getDangerRatingBelow() {
-    return this.dangerRatingBelow.getValue();
+    return this.dangerRatingBelow;
   }
 
   setDangerRatingBelow(dangerRatingBelow) {
-    this.dangerRatingBelow.next(dangerRatingBelow);
+    this.dangerRatingBelow = dangerRatingBelow;
   }
 
   getMatrixInformationBelow() {
@@ -479,7 +479,7 @@ export class BulletinDaytimeDescriptionModel {
     const json = Object();
 
     if (this.dangerRatingAbove && this.dangerRatingAbove !== undefined) {
-      json["dangerRatingAbove"] = this.dangerRatingAbove.getValue();
+      json["dangerRatingAbove"] = this.dangerRatingAbove;
     }
     if (this.matrixInformationAbove && this.matrixInformationAbove !== undefined) {
       json["matrixInformationAbove"] = this.matrixInformationAbove.toJson();
@@ -495,7 +495,7 @@ export class BulletinDaytimeDescriptionModel {
       json["terrainFeatureAbove"] = terrainFeature;
     }
     if (this.hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow !== undefined) {
-      json["dangerRatingBelow"] = this.dangerRatingBelow.getValue();
+      json["dangerRatingBelow"] = this.dangerRatingBelow;
     }
     if (this.hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow !== undefined) {
       json["matrixInformationBelow"] = this.matrixInformationBelow.toJson();

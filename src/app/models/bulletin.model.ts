@@ -715,21 +715,21 @@ export class BulletinModel {
   }
 
   getForenoonDangerRatingAbove(): Enums.DangerRating {
-    return this.forenoon.dangerRatingAbove.getValue();
+    return this.forenoon.dangerRatingAbove;
   }
 
   getAfternoonDangerRatingAbove(): Enums.DangerRating {
-    const test: any = this.afternoon.dangerRatingAbove.getValue();
+    const test: any = this.afternoon.dangerRatingAbove;
     if (this.hasDaytimeDependency && this.afternoon && this.afternoon.dangerRatingAbove && test !== "missing") {
-      return this.afternoon.dangerRatingAbove.getValue();
+      return this.afternoon.dangerRatingAbove;
     } else {
-      return this.forenoon.dangerRatingAbove.getValue();
+      return this.forenoon.dangerRatingAbove;
     }
   }
 
   getForenoonDangerRatingBelow(): Enums.DangerRating {
     if (this.forenoon.hasElevationDependency) {
-      return this.forenoon.dangerRatingBelow.getValue();
+      return this.forenoon.dangerRatingBelow;
     } else {
       return this.getForenoonDangerRatingAbove();
     }
@@ -738,11 +738,11 @@ export class BulletinModel {
   getAfternoonDangerRatingBelow(): Enums.DangerRating {
     if (this.hasDaytimeDependency) {
       if (this.afternoon.hasElevationDependency) {
-        const test: any = this.afternoon.dangerRatingBelow.getValue();
+        const test: any = this.afternoon.dangerRatingBelow;
         if (this.afternoon && this.afternoon.dangerRatingBelow && test !== "missing") {
-          return this.afternoon.dangerRatingBelow.getValue();
+          return this.afternoon.dangerRatingBelow;
         } else {
-          return this.forenoon.dangerRatingBelow.getValue();
+          return this.forenoon.dangerRatingBelow;
         }
       } else {
         return this.getAfternoonDangerRatingAbove();

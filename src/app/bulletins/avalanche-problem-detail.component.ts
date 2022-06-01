@@ -3,6 +3,7 @@ import { SettingsService } from "../providers/settings-service/settings.service"
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import * as Enums from "../enums/enums";
+import { BulletinModel } from "app/models/bulletin.model";
 
 @Component({
   selector: "app-avalanche-problem-detail",
@@ -10,6 +11,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheProblemDetailComponent implements OnChanges {
 
+  @Input() bulletin: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() avalancheProblemModel: AvalancheProblemModel;
   @Input() disabled: boolean;
@@ -49,42 +51,6 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       return true;
     }
     return false;
-  }
-
-  isSnowpackStability(snowpackStability) {
-    if (this.avalancheProblemModel && this.avalancheProblemModel.matrixInformation && this.avalancheProblemModel.matrixInformation.snowpackStability === snowpackStability) {
-      return true;
-    }
-    return false;
-  }
-
-  setSnowpackStability(event, snowpackStability) {
-    event.stopPropagation();
-    this.avalancheProblemModel.matrixInformation.snowpackStability = snowpackStability;
-  }
-
-  isFrequency(frequency) {
-    if (this.avalancheProblemModel && this.avalancheProblemModel.matrixInformation && this.avalancheProblemModel.matrixInformation.frequency === frequency) {
-      return true;
-    }
-    return false;
-  }
-
-  setFrequency(event, frequency) {
-    event.stopPropagation();
-    this.avalancheProblemModel.matrixInformation.frequency = frequency;
-  }
-
-  isAvalancheSize(avalancheSize) {
-    if (this.avalancheProblemModel && this.avalancheProblemModel.matrixInformation && this.avalancheProblemModel.matrixInformation.avalancheSize === avalancheSize) {
-      return true;
-    }
-    return false;
-  }
-
-  setAvalancheSize(event, avalancheSize) {
-    event.stopPropagation();
-    this.avalancheProblemModel.matrixInformation.avalancheSize = avalancheSize;
   }
 
   selectAvalancheProblem(avalancheProblem) {

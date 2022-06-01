@@ -1,9 +1,11 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { MapService } from "../providers/map-service/map.service";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import * as Enums from "../enums/enums";
+import { BulletinModel } from "app/models/bulletin.model";
 
 @Component({
   selector: "app-avalanche-problem-preview",
@@ -11,6 +13,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheProblemPreviewComponent {
 
+  @Input() bulletin: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() avalancheProblem: AvalancheProblemModel;
   @Input() count: number;
@@ -22,6 +25,7 @@ export class AvalancheProblemPreviewComponent {
 
   constructor(
     public translateService: TranslateService,
+    public mapService: MapService,
     public settingsService: SettingsService) {
   }
 
@@ -155,6 +159,8 @@ export class AvalancheProblemPreviewComponent {
       }
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   moveUpAvalancheProblem(event) {
@@ -190,6 +196,8 @@ export class AvalancheProblemPreviewComponent {
         break;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   moveDownAvalancheProblem(event) {
@@ -225,6 +233,8 @@ export class AvalancheProblemPreviewComponent {
         break;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   isDangerRatingDirection(dir) {
@@ -238,5 +248,7 @@ export class AvalancheProblemPreviewComponent {
     event.stopPropagation();
     this.avalancheProblem.setDangerRatingDirection(Enums.Direction[dir]);
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 }

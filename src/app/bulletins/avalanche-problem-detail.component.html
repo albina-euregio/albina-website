@@ -1,45 +1,43 @@
 <div>
   <div class="form-group row">
     <div *ngIf="!disabled" class="col-md-12">
-      <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wind_drifted_snow)" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wind_drifted_snow)" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wind_drifted_snow)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wind_drifted_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.persistent_weak_layers)" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.persistent_weak_layers)" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.persistent_weak_layers)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.persistent_weak_layers)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wet_snow)" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wet_snow)" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wet_snow)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.wet_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
     </div>
     <div *ngIf="disabled" class="col-md-12">
-      <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_bw.svg" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="60"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" width="60" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="90"style="padding-right: 15px;" >
+      <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-md-12">
+    <div class="col-md-6" style="align-self: center">
       <app-aspects [(aspects)]="avalancheProblemModel.aspects" [disabled]="disabled" [size]="150"></app-aspects>
     </div>
-  </div>
-  <div class="form-group row" style="margin-bottom: 0">
-    <div class="col-md-12">
+    <div class="col-md-6" style="align-self: center">
       <table>
         <tbody>
           <tr style="height: 60px">
@@ -87,103 +85,11 @@
     </div>
   </div>
   <div class="form-group row" style="margin-bottom: 0">
-    <div class="col-md-12">
-      <table>
-        <tbody>
-          <tr style="height: 60px">
-            <td *ngIf="isSnowpackStability('very_poor')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.very_poor" | translate }}</button>
-            </td>
-            <td *ngIf="!isSnowpackStability('very_poor')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'very_poor')">{{ "snowpackStability.very_poor" | translate }}</button>
-            </td>
-            <td *ngIf="isSnowpackStability('poor')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.poor" | translate }}</button>
-            </td>
-            <td *ngIf="!isSnowpackStability('poor')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'poor')">{{ "snowpackStability.poor" | translate }}</button>
-            </td>
-            <td *ngIf="isSnowpackStability('fair')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.fair" | translate }}</button>
-            </td>
-            <td *ngIf="!isSnowpackStability('fair')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'fair')">{{ "snowpackStability.fair" | translate }}</button>
-            </td>
-            <td *ngIf="isSnowpackStability('good')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.good" | translate }}</button>
-            </td>
-            <td *ngIf="!isSnowpackStability('good')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'good')">{{ "snowpackStability.good" | translate }}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <tbody>
-          <tr style="height: 60px">
-            <td *ngIf="isFrequency('many')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.many" | translate }}</button>
-            </td>
-            <td *ngIf="!isFrequency('many')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'many')">{{ "frequency.many" | translate }}</button>
-            </td>
-            <td *ngIf="isFrequency('some')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.some" | translate }}</button>
-            </td>
-            <td *ngIf="!isFrequency('some')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'some')">{{ "frequency.some" | translate }}</button>
-            </td>
-            <td *ngIf="isFrequency('few')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.few" | translate }}</button>
-            </td>
-            <td *ngIf="!isFrequency('few')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'few')">{{ "frequency.few" | translate }}</button>
-            </td>
-            <td *ngIf="isFrequency('none')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.none" | translate }}</button>
-            </td>
-            <td *ngIf="!isFrequency('none')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'none')">{{ "frequency.none" | translate }}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <tbody>
-          <tr style="height: 60px">
-            <td *ngIf="isAvalancheSize('extreme')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.extreme" | translate }}</button>
-            </td>
-            <td *ngIf="!isAvalancheSize('extreme')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'extreme')">{{ "avalancheSize.extreme" | translate }}</button>
-            </td>
-            <td *ngIf="isAvalancheSize('very_large')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.very_large" | translate }}</button>
-            </td>
-            <td *ngIf="!isAvalancheSize('very_large')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'very_large')">{{ "avalancheSize.very_large" | translate }}</button>
-            </td>
-            <td *ngIf="isAvalancheSize('large')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.large" | translate }}</button>
-            </td>
-            <td *ngIf="!isAvalancheSize('large')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'large')">{{ "avalancheSize.large" | translate }}</button>
-            </td>
-            <td *ngIf="isAvalancheSize('medium')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.medium" | translate }}</button>
-            </td>
-            <td *ngIf="!isAvalancheSize('medium')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'medium')">{{ "avalancheSize.medium" | translate }}</button>
-            </td>
-            <td *ngIf="isAvalancheSize('small')">
-              <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.small" | translate }}</button>
-            </td>
-            <td *ngIf="!isAvalancheSize('small')">
-              <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'small')">{{ "avalancheSize.small" | translate }}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-md-6">
+      <app-matrix-parameter [(bulletin)]="bulletin" [(bulletinDaytimeDescription)]="bulletinDaytimeDescription" [(matrixInformation)]="avalancheProblemModel.matrixInformation" [disabled]="disabled"></app-matrix-parameter>
+    </div>
+    <div class="col-md-6">
+      <app-matrix [(bulletin)]="bulletin" [(bulletinDaytimeDescription)]="bulletinDaytimeDescription" [(matrixInformation)]="avalancheProblemModel.matrixInformation" [snowpackStability]="avalancheProblemModel.matrixInformation.snowpackStability" [frequency]="avalancheProblemModel.matrixInformation.frequency" [avalancheSize]="avalancheProblemModel.matrixInformation.avalancheSize" [disabled]="true"></app-matrix>
     </div>
   </div>
 </div>

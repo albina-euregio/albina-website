@@ -35,8 +35,8 @@ export class AvalancheProblemModel {
       avalancheProblem.setDangerRatingDirection(json.dangerRatingDirection);
     }
 
-    if (json.matrixInformation) {
-      avalancheProblem.matrixInformation = MatrixInformationModel.createFromJson(json.matrixInformation);
+    if (json.eawsMatrixInformation) {
+      avalancheProblem.matrixInformation = MatrixInformationModel.createFromJson(json.eawsMatrixInformation);
     }
 
     if (json.terrainFeatureTextcat) {
@@ -253,7 +253,7 @@ export class AvalancheProblemModel {
       json["dangerRatingDirection"] = this.dangerRatingDirection;
     }
     if (this.matrixInformation && this.matrixInformation !== undefined) {
-      json["matrixInformation"] = this.matrixInformation.toJson();
+      json["eawsMatrixInformation"] = this.matrixInformation.toJson();
     }
     if (this.terrainFeatureTextcat && this.terrainFeatureTextcat !== undefined) {
       json["terrainFeatureTextcat"] = this.terrainFeatureTextcat;

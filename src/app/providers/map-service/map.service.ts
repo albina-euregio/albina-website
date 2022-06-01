@@ -27,12 +27,14 @@ export class MapService {
   public baseMaps: Record<string, TileLayer>;
   public afternoonBaseMaps: Record<string, TileLayer>;
   public overlayMaps: {
+    // Micro  regions without elevation
     regions: GeoJSON<SelectableRegionProperties>;
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
     aggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
   public afternoonOverlayMaps: {
+    // Micro  regions without elevation
     regions: GeoJSON<SelectableRegionProperties>;
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
@@ -63,7 +65,7 @@ export class MapService {
       };
 
       this.overlayMaps = {
-        // overlay to show regions
+        // overlay to show micro regions without elevation (only outlines)
         regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
         }),
@@ -81,7 +83,7 @@ export class MapService {
       };
 
       this.afternoonOverlayMaps = {
-        // overlay to show regions
+        // overlay to show micro regions without elevation (only outlines)
         regions: new GeoJSON(this.regionsService.getRegions(), {
           onEachFeature: this.onEachAggregatedRegionsFeaturePM
         }),
@@ -268,6 +270,14 @@ export class MapService {
         }
       }
     }
+  }
+
+  addAggregatedRegion(bulletin: BulletinModel) {
+    this.updateAggregatedRegion(bulletin);
+    if (this.map) {
+      this.selectAggregatedRegion(bulletin);
+    }
+    this.updateAggregatedRegion(bulletin);
   }
 
   selectAggregatedRegion(bulletin: BulletinModel) {

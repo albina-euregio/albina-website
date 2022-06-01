@@ -48,6 +48,17 @@
   "education" : {
     "title" : "Education"
   },
+  "matrix" : {
+    "label" : {
+      "snowpackStability" : "Snowpack Stability",
+      "frequency" : "Frequency",
+      "avalancheSize" : "Avalanche Size",
+      "matrix" : "Matrix",
+      "referToFairStability" : "Refer to fair stability",
+      "referToPoorStability" : "Refer to poor stability",
+      "dangerLevel1" : "Danger level 1 (Low)"
+    }
+  },
   "bulletins" : {
     "title" : "Avalanche.report",
     "loadingPreview" : "Creating PDF preview ...",

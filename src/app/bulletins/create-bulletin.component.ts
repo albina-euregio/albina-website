@@ -884,7 +884,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   private updateExternalBulletins() {
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
   }
 
@@ -1162,6 +1162,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
     this.activeBulletin.getForenoon().updateDangerRating();
     this.activeBulletin.getAfternoon().updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.activeBulletin);
+    this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
 
   private checkAvalancheProblems(): boolean {
@@ -1504,11 +1506,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
       }
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
 
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
 
     this.mapService.discardAggregatedRegion();

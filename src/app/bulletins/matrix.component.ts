@@ -2,8 +2,10 @@ import { Component, Input, ViewChild, ElementRef, SimpleChange, AfterViewInit, O
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { MapService } from "../providers/map-service/map.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import * as Enums from "../enums/enums";
+import { BulletinModel } from "app/models/bulletin.model";
 
 @Component({
   selector: "app-matrix",
@@ -11,8 +13,12 @@ import * as Enums from "../enums/enums";
 })
 export class MatrixComponent implements AfterViewInit, OnChanges {
 
+  @Input() bulletin: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() matrixInformation: MatrixInformationModel;
+  @Input() snowpackStability: Enums.SnowpackStability;
+  @Input() frequency: Enums.Frequency;
+  @Input() avalancheSize: Enums.AvalancheSize;
   @Input() disabled: boolean;
 
   @ViewChild("0") cell0: ElementRef;
@@ -62,37 +68,12 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   @ViewChild("44") cell44: ElementRef;
   @ViewChild("45") cell45: ElementRef;
   @ViewChild("46") cell46: ElementRef;
-  @ViewChild("47") cell47: ElementRef;
-  @ViewChild("48") cell48: ElementRef;
-  @ViewChild("49") cell49: ElementRef;
-  @ViewChild("50") cell50: ElementRef;
-  @ViewChild("51") cell51: ElementRef;
-  @ViewChild("52") cell52: ElementRef;
-  @ViewChild("53") cell53: ElementRef;
-  @ViewChild("54") cell54: ElementRef;
-  @ViewChild("55") cell55: ElementRef;
-  @ViewChild("56") cell56: ElementRef;
-  @ViewChild("57") cell57: ElementRef;
-  @ViewChild("58") cell58: ElementRef;
-  @ViewChild("59") cell59: ElementRef;
-  @ViewChild("60") cell60: ElementRef;
-  @ViewChild("61") cell61: ElementRef;
-  @ViewChild("62") cell62: ElementRef;
-  @ViewChild("63") cell63: ElementRef;
-  @ViewChild("64") cell64: ElementRef;
-  @ViewChild("65") cell65: ElementRef;
-  @ViewChild("66") cell66: ElementRef;
-  @ViewChild("67") cell67: ElementRef;
-  @ViewChild("68") cell68: ElementRef;
-  @ViewChild("69") cell69: ElementRef;
-  @ViewChild("70") cell70: ElementRef;
-  @ViewChild("71") cell71: ElementRef;
-  @ViewChild("72") cell72: ElementRef;
 
   languageCode = Enums.LanguageCode;
 
   constructor(
     public settingsService: SettingsService,
+    public mapService: MapService,
     public constantsService: ConstantsService) {
   }
 
@@ -107,7 +88,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   }
 
   resetMatrix() {
-    for (let i = 0; i <= 72; i++) {
+    for (let i = 0; i <= 46; i++) {
       this.setCellStyleInactive("" + i);
     }
   }
@@ -166,6 +147,8 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
       }
 
       this.bulletinDaytimeDescription.updateDangerRating();
+      this.mapService.updateAggregatedRegion(this.bulletin);
+      this.mapService.selectAggregatedRegion(this.bulletin);
     }
   }
 
@@ -265,58 +248,6 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
         return this.cell45;
       case "46":
         return this.cell46;
-      case "47":
-        return this.cell47;
-      case "48":
-        return this.cell48;
-      case "49":
-        return this.cell49;
-      case "50":
-        return this.cell50;
-      case "51":
-        return this.cell51;
-      case "52":
-        return this.cell52;
-      case "53":
-        return this.cell53;
-      case "54":
-        return this.cell54;
-      case "55":
-        return this.cell55;
-      case "56":
-        return this.cell56;
-      case "57":
-        return this.cell57;
-      case "58":
-        return this.cell58;
-      case "59":
-        return this.cell59;
-      case "60":
-        return this.cell60;
-      case "61":
-        return this.cell61;
-      case "62":
-        return this.cell62;
-      case "63":
-        return this.cell63;
-      case "64":
-        return this.cell64;
-      case "65":
-        return this.cell65;
-      case "66":
-        return this.cell66;
-      case "67":
-        return this.cell67;
-      case "68":
-        return this.cell68;
-      case "69":
-        return this.cell69;
-      case "70":
-        return this.cell70;
-      case "71":
-        return this.cell71;
-      case "72":
-        return this.cell72;
 
       default:
         return undefined;
@@ -325,570 +256,209 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
 
   private getDangerRating(id) {
     switch (id) {
-      case "1":
-      case "2":
-      case "3":
-      case "4":
-      case "5":
-      case "6":
-      case "9":
-      case "10":
-      case "13":
-      case "17":
-      case "21":
-      case "29":
-      case "57":
+      case "15":
+      case "30":
+      case "35":
+      case "40":
+      case "44":
+      case "45":
+      case "46":
         return Enums.DangerRating.low;
 
-      case "7":
-      case "11":
+      case "5":
+      case "10":
       case "14":
-      case "15":
-      case "18":
-      case "19":
-      case "22":
+      case "20":
+      case "24":
       case "25":
-      case "30":
-      case "31":
-      case "33":
+      case "28":
+      case "29":
       case "34":
-      case "37":
-      case "58":
-      case "59":
-      case "62":
+      case "38":
+      case "39":
+      case "42":
+      case "43":
         return Enums.DangerRating.moderate;
 
+      case "4":
       case "8":
+      case "9":
       case "12":
-      case "16":
-      case "20":
+      case "13":
+      case "19":
       case "23":
       case "26":
       case "27":
       case "32":
-      case "35":
-      case "38":
-      case "39":
-      case "41":
-      case "45":
-      case "49":
-      case "60":
-      case "61":
-      case "63":
-      case "66":
-        return Enums.DangerRating.considerable;
-
-      case "24":
-      case "28":
-      case "36":
-      case "40":
-      case "42":
-      case "43":
-      case "44":
-      case "46":
-      case "47":
-      case "48":
-      case "50":
-      case "51":
-      case "52":
-      case "53":
-      case "54":
-      case "64":
-      case "65":
-      case "67":
-      case "68":
-      case "70":
-        return Enums.DangerRating.high;
-
-      case "55":
-      case "56":
-      case "69":
-      case "71":
-      case "72":
-        return Enums.DangerRating.very_high;
-
-      default:
-        return "#FFFFFF";
-    }
-  }
-
-  private getAvalancheSize(id) {
-    switch (id) {
-      case "1":
-      case "5":
-      case "9":
-      case "13":
-      case "17":
-      case "21":
-      case "25":
-      case "29":
       case "33":
+      case "36":
       case "37":
       case "41":
-      case "45":
-      case "49":
-      case "53":
-        return Enums.AvalancheSize.small;
-
-      case "2":
-      case "6":
-      case "10":
-      case "14":
-      case "18":
-      case "22":
-      case "26":
-      case "30":
-      case "34":
-      case "38":
-      case "42":
-      case "46":
-      case "50":
-      case "54":
-        return Enums.AvalancheSize.medium;
+        return Enums.DangerRating.considerable;
 
       case "3":
       case "7":
       case "11":
-      case "15":
-      case "19":
-      case "23":
-      case "27":
+      case "17":
+      case "18":
+      case "21":
+      case "22":
       case "31":
-      case "35":
-      case "39":
-      case "43":
-      case "47":
-      case "51":
-      case "55":
-        return Enums.AvalancheSize.large;
+        return Enums.DangerRating.high;
 
-      case "4":
-      case "8":
-      case "12":
+      case "1":
+      case "2":
+      case "6":
       case "16":
-      case "20":
-      case "24":
-      case "28":
-      case "32":
-      case "36":
-      case "40":
-      case "44":
-      case "48":
-      case "52":
-      case "56":
-        return Enums.AvalancheSize.very_large;
+        return Enums.DangerRating.very_high;
 
       default:
         return undefined;
     }
   }
 
+  private getAvalancheSize(id) {
+    if (id == 46) {
+      return Enums.AvalancheSize.small;
+    } else if (id % 5 == 1) {
+      return Enums.AvalancheSize.extreme;
+    } else if (id % 5 == 2) {
+      return Enums.AvalancheSize.very_large;
+    } else if (id % 5 == 3) {
+      return Enums.AvalancheSize.large;
+    } else if (id % 5 == 4) {
+      return Enums.AvalancheSize.medium;
+    } else if (id % 5 == 0) {
+      return Enums.AvalancheSize.small;
+    } else {
+      return undefined;
+    }
+  }
+
   private getSnowpackStability(id) {
-    if ((id > 0 && id <= 4) || (id > 12 && id <= 16) || (id > 28 && id <= 32)) {
-      return Enums.SnowpackStability.good;
-    } else if ((id > 4 && id <= 8) || (id > 16 && id <= 20) || (id > 32 && id <= 36)) {
-      return Enums.SnowpackStability.fair;
-    } else if ((id > 8 && id <= 12) || (id > 20 && id <= 24) || (id > 36 && id <= 40) || (id > 44 && id <= 48)) {
-      return Enums.SnowpackStability.poor;
-    } else if ((id > 24 && id <= 28) || (id > 40 && id <= 44) || (id > 48 && id <= 56)) {
+    if (id > 0 && id <= 15) {
       return Enums.SnowpackStability.very_poor;
+    } else if (id > 15 && id <= 30) {
+      return Enums.SnowpackStability.poor;
+    } else if (id > 30 && id <= 45) {
+      return Enums.SnowpackStability.fair;
+    } else if (id == 46) {
+      return Enums.SnowpackStability.good;
     } else {
       return undefined;
     }
   }
 
   private getFrequency(id) {
-    if (id > 0 && id <= 12) {
+    if (id == 46) {
       return Enums.Frequency.none;
-    } else if (id > 12 && id <= 28) {
-      return Enums.Frequency.few;
-    } else if (id > 28 && id <= 44) {
-      return Enums.Frequency.some;
-    } else if (id > 44 && id <= 52) {
+    } else if (id % 15 > 0 && id % 15 <= 5) {
       return Enums.Frequency.many;
+    } else if (id % 15 > 5 && id % 15 <= 10) {
+      return Enums.Frequency.some;
+    } else if (id % 15 == 0 || (id % 15 > 10 && id % 15 <= 15)) {
+      return Enums.Frequency.few;
     } else {
       return undefined;
     }
   }
 
   private getColor(id) {
-    switch (id) {
-      // no snow
-      case "0":
-        return this.constantsService.colorDangerRatingNoSnow;
-
-      // low
-      case "1":
-      case "2":
-      case "3":
-      case "4":
-      case "5":
-      case "6":
-      case "9":
-      case "10":
-      case "13":
-      case "17":
-      case "21":
-      case "29":
-      case "57":
+    switch (this.getDangerRating(id)) {
+      case Enums.DangerRating.low:
         return this.constantsService.colorDangerRatingLow;
-
-      // moderate
-      case "7":
-      case "11":
-      case "14":
-      case "15":
-      case "18":
-      case "19":
-      case "22":
-      case "25":
-      case "30":
-      case "31":
-      case "33":
-      case "34":
-      case "37":
-      case "58":
-      case "59":
-      case "62":
+      case Enums.DangerRating.moderate:
         return this.constantsService.colorDangerRatingModerate;
-
-      // considerable
-      case "8":
-      case "12":
-      case "16":
-      case "20":
-      case "23":
-      case "26":
-      case "27":
-      case "32":
-      case "35":
-      case "38":
-      case "39":
-      case "41":
-      case "45":
-      case "49":
-      case "60":
-      case "61":
-      case "63":
-      case "66":
+      case Enums.DangerRating.considerable:
         return this.constantsService.colorDangerRatingConsiderable;
-
-      // high
-      case "24":
-      case "28":
-      case "36":
-      case "40":
-      case "42":
-      case "43":
-      case "44":
-      case "46":
-      case "47":
-      case "48":
-      case "50":
-      case "51":
-      case "52":
-      case "53":
-      case "54":
-      case "64":
-      case "65":
-      case "67":
-      case "68":
-      case "70":
+      case Enums.DangerRating.high:
         return this.constantsService.colorDangerRatingHigh;
-
-      // very_high
-      case "55":
-      case "56":
-      case "69":
-      case "71":
-      case "72":
+      case Enums.DangerRating.very_high:
         return this.constantsService.colorDangerRatingVeryHigh;
-
       default:
-        return "#000000";
+        return "#FFFFFF";
     }
   }
 
   private getGrayscaleColor(id) {
-    switch (id) {
-      // no snow
-      case "0":
-        return "#FFFFFF";
-
-      // low
-      case "1":
-      case "2":
-      case "3":
-      case "5":
-      case "6":
-      case "13":
-      case "17":
-      case "21":
-      case "57":
-        return "#EFEFEF";
-
-      // moderate
-      case "7":
-      case "14":
-      case "15":
-      case "18":
-      case "19":
-      case "22":
-      case "25":
-      case "30":
-      case "31":
-      case "33":
-      case "34":
-      case "37":
-      case "58":
-      case "59":
-      case "62":
-        return "#D4D4D4";
-
-      // considerable
-      case "16":
-      case "23":
-      case "26":
-      case "27":
-      case "35":
-      case "38":
-      case "39":
-      case "60":
-      case "63":
-        return "#A5A5A5";
-
-      // high
-      case "24":
-      case "28":
-      case "36":
-      case "40":
-      case "42":
-      case "43":
-      case "44":
-      case "46":
-      case "47":
-      case "48":
-      case "50":
-      case "51":
-      case "52":
-      case "54":
-      case "64":
-      case "67":
-      case "68":
-        return "#4C4C4C";
-
-      // very_high
-      case "55":
-      case "56":
-      case "69":
-      case "71":
-      case "72":
-        return "#262626";
-
-      // white
-      case "4":
-      case "8":
-      case "9":
-      case "10":
-      case "11":
-      case "12":
-      case "20":
-      case "29":
-      case "32":
-      case "41":
-      case "45":
-      case "49":
-      case "53":
-      case "61":
-      case "65":
-      case "66":
-      case "70":
-        return "#FFFFFF";
-
+    // white fields in the matrix
+    if (id == 26 || id == 31 || id == 32 || id == 36 || id == 37 || id == 41 || id == 42) {
+      return "#FFFFFF";
+    }
+    switch (this.getDangerRating(id)) {
+      case Enums.DangerRating.low:
+        return this.constantsService.colorDangerRatingLowBw;
+      case Enums.DangerRating.moderate:
+        return this.constantsService.colorDangerRatingModerateBw;
+      case Enums.DangerRating.considerable:
+        return this.constantsService.colorDangerRatingConsiderableBw;
+      case Enums.DangerRating.high:
+        return this.constantsService.colorDangerRatingHighBw;
+      case Enums.DangerRating.very_high:
+        return this.constantsService.colorDangerRatingVeryHighBw;
       default:
         return "#FFFFFF";
     }
   }
 
-  private getCell(eawsMatrixInformation: MatrixInformationModel) {
-    switch (+Enums.Frequency[eawsMatrixInformation.getFrequency()]) {
+  private getCell(matrixInformation: MatrixInformationModel) {
+    var snowpackStabilityFactor = 0;
+    var frequencyFactor = 0;
+    var avalancheSizeFactor = 0;
 
-      case Enums.Frequency.none:
-        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
-          case Enums.SnowpackStability.good:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "1";
-              case Enums.AvalancheSize.medium:
-                return "2";
-              case Enums.AvalancheSize.large:
-                return "3";
-              case Enums.AvalancheSize.very_large:
-                return "4";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.fair:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "5";
-              case Enums.AvalancheSize.medium:
-                return "6";
-              case Enums.AvalancheSize.large:
-                return "7";
-              case Enums.AvalancheSize.very_large:
-                return "8";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "9";
-              case Enums.AvalancheSize.medium:
-                return "10";
-              case Enums.AvalancheSize.large:
-                return "11";
-              case Enums.AvalancheSize.very_large:
-                return "12";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.very_poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "9";
-              case Enums.AvalancheSize.medium:
-                return "10";
-              case Enums.AvalancheSize.large:
-                return "11";
-              case Enums.AvalancheSize.very_large:
-                return "12";
-              default:
-                return undefined;
-            }
-          default:
-            return undefined;
-        }
-
-      case Enums.Frequency.some:
-        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
-          case Enums.SnowpackStability.good:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "13";
-              case Enums.AvalancheSize.medium:
-                return "14";
-              case Enums.AvalancheSize.large:
-                return "15";
-              case Enums.AvalancheSize.very_large:
-                return "16";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.fair:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "17";
-              case Enums.AvalancheSize.medium:
-                return "18";
-              case Enums.AvalancheSize.large:
-                return "19";
-              case Enums.AvalancheSize.very_large:
-                return "20";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "21";
-              case Enums.AvalancheSize.medium:
-                return "22";
-              case Enums.AvalancheSize.large:
-                return "23";
-              case Enums.AvalancheSize.very_large:
-                return "24";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.very_poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "25";
-              case Enums.AvalancheSize.medium:
-                return "26";
-              case Enums.AvalancheSize.large:
-                return "27";
-              case Enums.AvalancheSize.very_large:
-                return "28";
-              default:
-                return undefined;
-            }
-          default:
-            return undefined;
-        }
-
-      case Enums.Frequency.many:
-        switch (+Enums.SnowpackStability[eawsMatrixInformation.getSnowpackStability()]) {
-          case Enums.SnowpackStability.good:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "29";
-              case Enums.AvalancheSize.medium:
-                return "30";
-              case Enums.AvalancheSize.large:
-                return "31";
-              case Enums.AvalancheSize.very_large:
-                return "32";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.fair:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "33";
-              case Enums.AvalancheSize.medium:
-                return "34";
-              case Enums.AvalancheSize.large:
-                return "35";
-              case Enums.AvalancheSize.very_large:
-                return "36";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "37";
-              case Enums.AvalancheSize.medium:
-                return "38";
-              case Enums.AvalancheSize.large:
-                return "39";
-              case Enums.AvalancheSize.very_large:
-                return "40";
-              default:
-                return undefined;
-            }
-          case Enums.SnowpackStability.very_poor:
-            switch (+Enums.AvalancheSize[eawsMatrixInformation.getAvalancheSize()]) {
-              case Enums.AvalancheSize.small:
-                return "41";
-              case Enums.AvalancheSize.medium:
-                return "42";
-              case Enums.AvalancheSize.large:
-                return "43";
-              case Enums.AvalancheSize.very_large:
-                return "44";
-              default:
-                return undefined;
-            }
-          default:
-            return undefined;
-        }
-
+    switch (+Enums.SnowpackStability[matrixInformation.getSnowpackStability()]) {
+      case Enums.SnowpackStability.very_poor:
+        snowpackStabilityFactor = 0;
+        break;
+      case Enums.SnowpackStability.poor:
+        snowpackStabilityFactor = 1;
+        break;
+      case Enums.SnowpackStability.fair:
+        snowpackStabilityFactor = 2;
+        break;
+      case Enums.SnowpackStability.good:
+        return "46";
       default:
-        return undefined;
+        break;
     }
+
+    switch (+Enums.Frequency[matrixInformation.getFrequency()]) {
+      case Enums.Frequency.many:
+        frequencyFactor = 0;
+        break;
+      case Enums.Frequency.some:
+        frequencyFactor = 1;
+        break;
+      case Enums.Frequency.few:
+        frequencyFactor = 2
+        break;
+      case Enums.Frequency.none:
+        return "46";
+      default:
+        break;
+    }
+
+    switch (+Enums.AvalancheSize[matrixInformation.getAvalancheSize()]) {
+      case Enums.AvalancheSize.extreme:
+        avalancheSizeFactor = 1;
+        break;
+      case Enums.AvalancheSize.very_large:
+        avalancheSizeFactor = 2;
+        break;
+      case Enums.AvalancheSize.large:
+        avalancheSizeFactor = 3;
+        break;
+      case Enums.AvalancheSize.medium:
+        avalancheSizeFactor = 4;
+        break;
+      case Enums.AvalancheSize.small:
+        avalancheSizeFactor = 5;
+        break;
+      default:
+        break;
+    }
+    
+    var result = snowpackStabilityFactor * 15 + frequencyFactor * 5 + avalancheSizeFactor;
+    return "" + result;
   }
 }
