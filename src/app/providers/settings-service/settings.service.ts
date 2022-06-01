@@ -9,7 +9,6 @@ export class SettingsService {
 
   public translateService: TranslateService;
   public lang: Enums.LanguageCode;
-  public useMatrix: boolean;
   public showObservations: boolean;
   public showCaaml: boolean;
   public showJson: boolean;
@@ -28,7 +27,6 @@ export class SettingsService {
     const lang = navigator.language.split("-")[0] as any as Enums.LanguageCode;
     this.setLang(lang);
 
-    this.useMatrix = true;
     this.showObservations = true;
     this.showCaaml = false;
     this.showJson = false;
@@ -69,14 +67,6 @@ export class SettingsService {
     const language = Enums.LanguageCode[lang];
     this.setLang(language);
 
-  }
-
-  getUseMatrix(): boolean {
-    return this.useMatrix;
-  }
-
-  setUseMatrix(useMatrix: boolean) {
-    this.useMatrix = useMatrix;
   }
 
   getShowObservations(): boolean {
