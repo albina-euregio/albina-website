@@ -78,11 +78,11 @@ export class BulletinsService {
     */
 
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 7);
+    startDate.setDate(startDate.getDate() - 7 - 60);
     startDate.setHours(0, 0, 0, 0);
 
     const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 3);
+    endDate.setDate(endDate.getDate() + 3 - 60);
     endDate.setHours(0, 0, 0, 0);
 
     for (let i = 0; i <= 10; i++) {
