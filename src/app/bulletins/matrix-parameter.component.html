@@ -3,12 +3,6 @@
   <table>
 	<tbody>
 	  <tr style="height: 60px">
-		<td *ngIf="isSnowpackStability('good')">
-		  <button [disabled]="disabled" type="reset" class="btn btn-primary">{{ "snowpackStability.good" | translate }}</button>
-		</td>
-		<td *ngIf="!isSnowpackStability('good')">
-		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'good')">{{ "snowpackStability.good" | translate }}</button>
-		</td>
 		<td *ngIf="isSnowpackStability('fair')">
 		  <button [disabled]="disabled" type="reset" class="btn btn-primary">{{ "snowpackStability.fair" | translate }}</button>
 		</td>
@@ -36,12 +30,6 @@
   <table>
 	<tbody>
 	  <tr style="height: 60px">
-		<td *ngIf="isFrequency('none')">
-		  <button [disabled]="disabled" type="reset" class="btn btn-primary">{{ "frequency.none" | translate }}</button>
-		</td>
-		<td *ngIf="!isFrequency('none')">
-		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'none')">{{ "frequency.none" | translate }}</button>
-		</td>
 		<td *ngIf="isFrequency('few')">
 		  <button [disabled]="disabled" type="reset" class="btn btn-primary">{{ "frequency.few" | translate }}</button>
 		</td>
