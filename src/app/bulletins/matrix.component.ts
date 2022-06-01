@@ -94,7 +94,9 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   }
 
   initMatrix() {
-    this.selectCell(this.getCell(this.matrixInformation));
+    const index = this.getCell(this.matrixInformation);
+    if (index != "0")
+      this.selectCell(index);
   }
 
   private selectCell(cell) {
@@ -417,9 +419,9 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
         snowpackStabilityFactor = 2;
         break;
       case Enums.SnowpackStability.good:
-        return "46";
+        return "0";
       default:
-        break;
+        return "0";
     }
 
     switch (+Enums.Frequency[matrixInformation.getFrequency()]) {
@@ -433,9 +435,9 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
         frequencyFactor = 2
         break;
       case Enums.Frequency.none:
-        return "46";
+        return "0";
       default:
-        break;
+        return "0";
     }
 
     switch (+Enums.AvalancheSize[matrixInformation.getAvalancheSize()]) {
@@ -455,7 +457,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
         avalancheSizeFactor = 5;
         break;
       default:
-        break;
+        return "0";
     }
     
     var result = snowpackStabilityFactor * 15 + frequencyFactor * 5 + avalancheSizeFactor;
