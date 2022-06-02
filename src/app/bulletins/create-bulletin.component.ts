@@ -710,32 +710,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  /*
-    private onMapClick(e) {
-      var parent = this;
-      this.timer = setTimeout(function () {
-        if (!parent.preventClick) {
-          if (!parent.editRegions) {
-            let test = parent.mapService.getClickedRegion();
-            for (let bulletin of parent.bulletinsList) {
-              if (bulletin.getSavedRegions().indexOf(test) > -1)
-                if (parent.activeBulletin === bulletin)
-                  parent.deselectBulletin();
-                else
-                  parent.selectBulletin(bulletin);
-            }
-          }
-        }
-        parent.preventClick = false;
-      }, 150);
-    }
-
-    private onMapDoubleClick(e) {
-      clearTimeout(this.timer);
-      this.preventClick = true;
-    }
-  */
-
   setTendency(event, tendency) {
     event.stopPropagation();
     this.activeBulletin.tendency = tendency;
