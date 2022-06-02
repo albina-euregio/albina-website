@@ -208,38 +208,6 @@ const Bulletin = props => {
           "og:image:height": 1890
         }}
       />
-      <ControlBar
-        style="light"
-        backgroundImage="/content_files/ava_size5-2560.jpg"
-        message={
-          <>
-            <FormattedMessage
-              id="bulletin:control-bar:community:text"
-              values={{
-                a: (...msg) => (
-                  <a
-                    href="https://en.euregio.avalancheresearch.ca"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <strong>{msg}</strong>
-                  </a>
-                )
-              }}
-            />
-            <FormattedMessage
-              id="bulletin:control-bar:community:link"
-              values={{
-                a: (...msg) => (
-                  <a href="education/community" target="_blank">
-                    {msg}
-                  </a>
-                )
-              }}
-            />
-          </>
-        }
-      />
       <BulletinHeader title={title} />
 
       <Suspense fallback={<div>...</div>}>
