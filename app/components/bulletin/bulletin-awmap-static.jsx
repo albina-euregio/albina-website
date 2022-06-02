@@ -27,7 +27,7 @@ class BulletinAWMapStatic extends React.Component {
     const url = Util.template(config.apis.bulletin.map, {
       date: this.props.date,
       publication: publicationDirectory,
-      file: this.props.region, // possibly contains _PM
+      file: "EUREGIO" + this.props.region, // possibly contains _PM
       format: imgFormat
     });
     const regions = BULLETIN_STORE.bulletins[this.props.date]?.daytimeBulletins
