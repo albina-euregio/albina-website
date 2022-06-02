@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
 import { MAP_STORE } from "../stores/mapStore";
 
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
@@ -12,7 +12,6 @@ const BulletinMap = React.lazy(() =>
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
-import ControlBar from "../components/organisms/control-bar.jsx";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
