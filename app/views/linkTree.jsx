@@ -89,7 +89,7 @@ class LinkTree extends React.Component {
       bulletinImageUrl = Util.template(config.apis.bulletin.map, {
         date: dateString,
         publication: ".",
-        file: this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail",
+        file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail",
         format: imgFormat
       });
     }

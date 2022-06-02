@@ -59,11 +59,11 @@
   "apis": {
     "bulletin": {
       "status": "https://api.avalanche.report/albina_dev/api/bulletins/status",
-      "simple": "https://static.avalanche.report/simple_dev/{date}/{lang}.html",
+      "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}{format}",
       "pdf": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{file}.pdf",
-      "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{lang}_CAAMLv6.xml",
+      "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_EUREGIO_{lang}_CAAMLv6.xml",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
     "push": "https://api.avalanche.report/albina_dev/api/push",

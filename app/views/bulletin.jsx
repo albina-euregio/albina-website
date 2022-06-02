@@ -192,7 +192,7 @@ const Bulletin = props => {
           date: BULLETIN_STORE.settings.date,
           publication: ".",
           file:
-            (collection.hasDaytimeDependency() ? "am" : "fd") + "_albina_map",
+            (collection.hasDaytimeDependency() ? "am" : "fd") + "_EUREGIO_map",
           format: ".jpg"
         })
       : "";
