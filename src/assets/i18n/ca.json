@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "El problema d'allaus es mostrarà al butlletí",
         "dontShowInBulletin" : "El problema d'allaus NO es mostrarà al butlletí",
-        "moveUpAvalancheSituation" : "Mou el problema de les allaus cap amunt",
-        "moveDownAvalancheSituation" : "Mou el problema de les allaus cap avall",
+        "moveUpAvalancheProblem" : "Mou el problema de les allaus cap amunt",
+        "moveDownAvalancheProblem" : "Mou el problema de les allaus cap avall",
         "dangerRatingDirectionUp" : "Estendre el grau de perill d'allaus amunt",
         "dangerRatingDirectionDown" : "Estendre el grau de perill d'allaus avall"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : "Nova regió",
       "pasteAggregatedRegion" : "Enganxa la regió",
       "cancelCopyBulletin" : "Cancel·lar",
-      "createAvalancheSituation" : "Nou problema",
+      "createAvalancheProblem" : "Nou problema",
       "ownRegions" : "Regions pròpies",
       "foreignRegions": "Regions alienes",
       "externalRegions": "External regions",
@@ -130,7 +130,7 @@
         "notes" : "Notes"
       },
       "title" : {
-        "avalancheSituation" : "Situacions d'allaus",
+        "avalancheProblem" : "Situacions d'allaus",
         "dangerDescription" : "Descripció del perill d'allaus",
         "above" : "Per sobre",
         "below" : "Per sota",
@@ -191,7 +191,7 @@
         "message" : "S'ha produït un error en carregar els butlletins des del fitxer JSON!",
         "accept" : "D'acord"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Falta un tipus de problema d’allaus, orientacions i/o valoració del perill per almenys un problema d’allau",
         "accept" : "D'acord"
       },

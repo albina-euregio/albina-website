@@ -48,6 +48,17 @@
   "education" : {
     "title" : "Education"
   },
+  "matrix" : {
+    "label" : {
+      "snowpackStability" : "Snowpack Stability",
+      "frequency" : "Frequency",
+      "avalancheSize" : "Avalanche Size",
+      "matrix" : "Matrix",
+      "referToFairStability" : "Refer to fair stability",
+      "referToPoorStability" : "Refer to poor stability",
+      "dangerLevel1" : "Danger level 1 (Low)"
+    }
+  },
   "bulletins" : {
     "title" : "Avalanche.report",
     "loadingPreview" : "Creating PDF preview ...",
@@ -103,8 +114,8 @@
         },
         "showInBulletin" : "Avalanche problem will be shown in bulletin",
         "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
-        "moveUpAvalancheSituation" : "Move avalanche problem up",
-        "moveDownAvalancheSituation" : "Move avalanche problem down",
+        "moveUpAvalancheProblem" : "Move avalanche problem up",
+        "moveDownAvalancheProblem" : "Move avalanche problem down",
         "dangerRatingDirectionUp" : "Extend the danger rating upwards",
         "dangerRatingDirectionDown" : "Extend the danger rating downwards"
       },
@@ -114,7 +125,7 @@
       "createAggregatedRegion" : " New region",
       "pasteAggregatedRegion" : " Paste region",
       "cancelCopyBulletin" : " Cancel",
-      "createAvalancheSituation" : " New problem",
+      "createAvalancheProblem" : " New problem",
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
       "externalRegions": "External regions",
@@ -130,7 +141,7 @@
         "notes" : "Notes"
       },
       "title" : {
-        "avalancheSituation" : "Avalanche situations",
+        "avalancheProblem" : "Avalanche problems",
         "dangerDescription" : "Description of avalanche danger",
         "above" : "Above",
         "below" : "Below",
@@ -191,7 +202,7 @@
         "message" : "There was an error loading the bulletins from the JSON file!",
         "accept" : "Ok"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "Ok"
       },
@@ -617,7 +628,6 @@
       "table" : {
         "showCaaml" : "Show CAAML",
         "showJson" : "Show JSON",
-        "useMatrix" : "Use matrix",
         "showObservations" : "Show observations"
       }
     }
@@ -830,6 +840,25 @@
     "decreasing" : " Avalanche danger decreases",
     "steady" : " Avalanche danger stays the same",
     "increasing" : " Avalanche danger increases"
+  },
+  "snowpackStability" : {
+    "good" : "good",
+    "fair" : "fair",
+    "poor" : "poor",
+    "very_poor" : "very poor"
+  },
+  "frequency" : {
+    "none" : "(nearly) none",
+    "few" : "a few",
+    "some" : "some",
+    "many" : "many"
+  },
+  "avalancheSize" : {
+    "small" : "small",
+    "medium" : "medium",
+    "large" : "large",
+    "very_large" : "very large",
+    "extreme" : "extreme"
   },
   "complexity": {
     "easy": " Easy",

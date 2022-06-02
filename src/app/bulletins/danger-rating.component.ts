@@ -21,12 +21,12 @@ export class DangerRatingComponent {
 
   isDangerRating(dangerRating) {
     if (this.below) {
-      if (this.bulletinDaytimeDescription.dangerRatingBelow && this.bulletinDaytimeDescription.dangerRatingBelow.getValue() === dangerRating) {
+      if (this.bulletinDaytimeDescription.dangerRatingBelow && this.bulletinDaytimeDescription.dangerRatingBelow === dangerRating) {
         return true;
       }
       return false;
     } else {
-      if (this.bulletinDaytimeDescription.dangerRatingAbove && this.bulletinDaytimeDescription.dangerRatingAbove.getValue() === dangerRating) {
+      if (this.bulletinDaytimeDescription.dangerRatingAbove && this.bulletinDaytimeDescription.dangerRatingAbove === dangerRating) {
         return true;
       }
       return false;

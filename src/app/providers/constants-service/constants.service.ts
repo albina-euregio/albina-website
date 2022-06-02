@@ -69,7 +69,7 @@ export class ConstantsService {
   public colorDangerRatingModerate = "#FFFF00";
   public colorDangerRatingConsiderable = "#FF9900";
   public colorDangerRatingHigh = "#FF0000";
-  public colorDangerRatingVeryHigh = "#800000";
+  public colorDangerRatingVeryHigh = "#000000";
   // danger rating (bw)
   public colorDangerRatingLowBw = "#EFEFEF";
   public colorDangerRatingModerateBw = "#D8D8D8";

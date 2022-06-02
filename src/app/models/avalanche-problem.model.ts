@@ -2,8 +2,8 @@ import * as Enums from "../enums/enums";
 import { MatrixInformationModel } from "./matrix-information.model";
 import { TextModel } from "./text.model";
 
-export class AvalancheSituationModel {
-  public avalancheSituation: Enums.AvalancheSituation;
+export class AvalancheProblemModel {
+  public avalancheProblem: Enums.AvalancheProblem;
   public aspects: Enums.Aspect[];
   public elevationHigh: number;
   public treelineHigh: boolean;
@@ -15,9 +15,9 @@ export class AvalancheSituationModel {
   public terrainFeature: TextModel[];
 
   static createFromJson(json) {
-    const avalancheSituation = new AvalancheSituationModel();
+    const avalancheProblem = new AvalancheProblemModel();
 
-    avalancheSituation.avalancheSituation = json.avalancheSituation;
+    avalancheProblem.avalancheProblem = json.avalancheProblem;
     const jsonAspects = json.aspects;
     const aspects = new Array<Enums.Aspect>();
     for (const i in jsonAspects) {
@@ -25,22 +25,22 @@ export class AvalancheSituationModel {
         aspects.push(jsonAspects[i].toUpperCase());
       }
     }
-    avalancheSituation.setAspects(aspects);
-    avalancheSituation.elevationHigh = json.elevationHigh;
-    avalancheSituation.treelineHigh = json.treelineHigh;
-    avalancheSituation.elevationLow = json.elevationLow;
-    avalancheSituation.treelineLow = json.treelineLow;
+    avalancheProblem.setAspects(aspects);
+    avalancheProblem.elevationHigh = json.elevationHigh;
+    avalancheProblem.treelineHigh = json.treelineHigh;
+    avalancheProblem.elevationLow = json.elevationLow;
+    avalancheProblem.treelineLow = json.treelineLow;
 
     if (json.dangerRatingDirection) {
-      avalancheSituation.setDangerRatingDirection(json.dangerRatingDirection);
+      avalancheProblem.setDangerRatingDirection(json.dangerRatingDirection);
     }
 
-    if (json.matrixInformation) {
-      avalancheSituation.matrixInformation = MatrixInformationModel.createFromJson(json.matrixInformation);
+    if (json.eawsMatrixInformation) {
+      avalancheProblem.matrixInformation = MatrixInformationModel.createFromJson(json.eawsMatrixInformation);
     }
 
     if (json.terrainFeatureTextcat) {
-      avalancheSituation.setTerrainFeatureTextcat(json.terrainFeatureTextcat);
+      avalancheProblem.setTerrainFeatureTextcat(json.terrainFeatureTextcat);
     }
     const jsonTerrainFeature = json.terrainFeature;
     const terrainFeature = new Array<TextModel>();
@@ -49,16 +49,16 @@ export class AvalancheSituationModel {
         terrainFeature.push(TextModel.createFromJson(jsonTerrainFeature[i]));
       }
     }
-    avalancheSituation.setTerrainFeature(terrainFeature);
+    avalancheProblem.setTerrainFeature(terrainFeature);
 
-    return avalancheSituation;
+    return avalancheProblem;
   }
 
-  constructor(avalancheSituation?: AvalancheSituationModel) {
+  constructor(avalancheProblem?: AvalancheProblemModel) {
     this.aspects = new Array<Enums.Aspect>();
 
-    if (!avalancheSituation) {
-      this.avalancheSituation = undefined;
+    if (!avalancheProblem) {
+      this.avalancheProblem = undefined;
       this.treelineHigh = false;
       this.treelineLow = false;
       this.dangerRatingDirection = undefined;
@@ -66,31 +66,31 @@ export class AvalancheSituationModel {
       this.terrainFeatureTextcat = undefined;
       this.terrainFeature = new Array<TextModel>();
     } else {
-      this.setAvalancheSituation(avalancheSituation.getAvalancheSituation());
-      for (const aspect of avalancheSituation.aspects) {
+      this.setAvalancheProblem(avalancheProblem.getAvalancheProblem());
+      for (const aspect of avalancheProblem.aspects) {
         this.aspects.push(aspect);
       }
-      this.elevationHigh = avalancheSituation.getElevationHigh();
-      this.treelineHigh = avalancheSituation.getTreelineHigh();
-      this.elevationLow = avalancheSituation.getElevationLow();
-      this.treelineLow = avalancheSituation.getTreelineLow();
-      this.dangerRatingDirection = avalancheSituation.getDangerRatingDirection();
-      this.matrixInformation = new MatrixInformationModel(avalancheSituation.getMatrixInformation());
-      this.terrainFeatureTextcat = avalancheSituation.terrainFeatureTextcat;
+      this.elevationHigh = avalancheProblem.getElevationHigh();
+      this.treelineHigh = avalancheProblem.getTreelineHigh();
+      this.elevationLow = avalancheProblem.getElevationLow();
+      this.treelineLow = avalancheProblem.getTreelineLow();
+      this.dangerRatingDirection = avalancheProblem.getDangerRatingDirection();
+      this.matrixInformation = new MatrixInformationModel(avalancheProblem.getMatrixInformation());
+      this.terrainFeatureTextcat = avalancheProblem.terrainFeatureTextcat;
       const array = new Array<TextModel>();
-      for (const entry of avalancheSituation.terrainFeature) {
+      for (const entry of avalancheProblem.terrainFeature) {
         array.push(TextModel.createFromJson(entry.toJson()));
       }
       this.terrainFeature = array;
     }
   }
 
-  getAvalancheSituation() {
-    return this.avalancheSituation;
+  getAvalancheProblem() {
+    return this.avalancheProblem;
   }
 
-  setAvalancheSituation(avalancheSituation) {
-    this.avalancheSituation = avalancheSituation;
+  setAvalancheProblem(avalancheProblem) {
+    this.avalancheProblem = avalancheProblem;
   }
 
   getAspects() {
@@ -191,11 +191,7 @@ export class AvalancheSituationModel {
   }
 
   getDangerRating() {
-    if (this.matrixInformation.getNaturalDangerRating() === undefined || Enums.DangerRating[this.matrixInformation.getNaturalDangerRating()] < Enums.DangerRating[this.matrixInformation.getArtificialDangerRating()]) {
-      return this.matrixInformation.getArtificialDangerRating()
-    } else {
-      return this.matrixInformation.getNaturalDangerRating();
-    }
+    return this.matrixInformation.getDangerRating();
   }
 
   hasElevationHigh() {
@@ -222,45 +218,15 @@ export class AvalancheSituationModel {
     }
   }
 
-  getHigherDangerRating() {
-    if (this.matrixInformation) {
-      const artificialDangerRating = Enums.DangerRating[this.matrixInformation.artificialDangerRating];
-      const naturalDangerRating = Enums.DangerRating[this.matrixInformation.naturalDangerRating];
-      if (artificialDangerRating !== undefined) {
-        if (naturalDangerRating !== undefined) {
-          if (Enums.DangerRating[this.matrixInformation.artificialDangerRating] < Enums.DangerRating[this.matrixInformation.naturalDangerRating]) {
-            return this.matrixInformation.naturalDangerRating;
-          } else {
-            return this.matrixInformation.artificialDangerRating;
-          }
-        } else {
-          return this.matrixInformation.artificialDangerRating;
-        }
-      } else {
-        if (naturalDangerRating !== undefined) {
-          return this.matrixInformation.naturalDangerRating
-        } else {
-          return "missing";
-        }
-      }
-    } else {
-      return "missing";
-    }
-  }
-
   isDangerRating(dangerRating) {
-    if (this.getHigherDangerRating() === dangerRating) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.getDangerRating() === dangerRating ? true : false;
   }
 
   toJson() {
     const json = Object();
 
-    if (this.avalancheSituation && this.avalancheSituation !== undefined) {
-      json["avalancheSituation"] = this.avalancheSituation;
+    if (this.avalancheProblem && this.avalancheProblem !== undefined) {
+      json["avalancheProblem"] = this.avalancheProblem;
     }
     if (this.aspects && this.aspects.length > 0) {
       const aspects = [];
@@ -287,7 +253,7 @@ export class AvalancheSituationModel {
       json["dangerRatingDirection"] = this.dangerRatingDirection;
     }
     if (this.matrixInformation && this.matrixInformation !== undefined) {
-      json["matrixInformation"] = this.matrixInformation.toJson();
+      json["eawsMatrixInformation"] = this.matrixInformation.toJson();
     }
     if (this.terrainFeatureTextcat && this.terrainFeatureTextcat !== undefined) {
       json["terrainFeatureTextcat"] = this.terrainFeatureTextcat;

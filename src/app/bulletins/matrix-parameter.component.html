@@ -1,0 +1,93 @@
+<label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "matrix.label.snowpackStability" | translate }}</strong></label>
+<div class="col-md-12">
+  <table>
+	<tbody>
+	  <tr style="height: 60px">
+		<td *ngIf="isSnowpackStability('fair')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.fair" | translate }}</button>
+		</td>
+		<td *ngIf="!isSnowpackStability('fair')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'fair')">{{ "snowpackStability.fair" | translate }}</button>
+		</td>
+		<td *ngIf="isSnowpackStability('poor')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.poor" | translate }}</button>
+		</td>
+		<td *ngIf="!isSnowpackStability('poor')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'poor')">{{ "snowpackStability.poor" | translate }}</button>
+		</td>
+		<td *ngIf="isSnowpackStability('very_poor')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setSnowpackStability($event, undefined)">{{ "snowpackStability.very_poor" | translate }}</button>
+		</td>
+		<td *ngIf="!isSnowpackStability('very_poor')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setSnowpackStability($event, 'very_poor')">{{ "snowpackStability.very_poor" | translate }}</button>
+		</td>
+	  </tr>
+	</tbody>
+  </table>
+</div>
+<label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "matrix.label.frequency" | translate }}</strong></label>
+<div class="col-md-12">
+  <table>
+	<tbody>
+	  <tr style="height: 60px">
+		<td *ngIf="isFrequency('few')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.few" | translate }}</button>
+		</td>
+		<td *ngIf="!isFrequency('few')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'few')">{{ "frequency.few" | translate }}</button>
+		</td>
+		<td *ngIf="isFrequency('some')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.some" | translate }}</button>
+		</td>
+		<td *ngIf="!isFrequency('some')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'some')">{{ "frequency.some" | translate }}</button>
+		</td>
+		<td *ngIf="isFrequency('many')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setFrequency($event, undefined)">{{ "frequency.many" | translate }}</button>
+		</td>
+		<td *ngIf="!isFrequency('many')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setFrequency($event, 'many')">{{ "frequency.many" | translate }}</button>
+		</td>
+	  </tr>
+	</tbody>
+  </table>
+</div>
+<label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "matrix.label.avalancheSize" | translate }}</strong></label>
+<div class="col-md-12">
+  <table>
+	<tbody>
+	  <tr style="height: 60px">
+		<td *ngIf="isAvalancheSize('small')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.small" | translate }}</button>
+		</td>
+		<td *ngIf="!isAvalancheSize('small')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'small')">{{ "avalancheSize.small" | translate }}</button>
+		</td>
+		<td *ngIf="isAvalancheSize('medium')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.medium" | translate }}</button>
+		</td>
+		<td *ngIf="!isAvalancheSize('medium')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'medium')">{{ "avalancheSize.medium" | translate }}</button>
+		</td>
+		<td *ngIf="isAvalancheSize('large')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.large" | translate }}</button>
+		</td>
+		<td *ngIf="!isAvalancheSize('large')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'large')">{{ "avalancheSize.large" | translate }}</button>
+		</td>
+		<td *ngIf="isAvalancheSize('very_large')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.very_large" | translate }}</button>
+		</td>
+		<td *ngIf="!isAvalancheSize('very_large')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'very_large')">{{ "avalancheSize.very_large" | translate }}</button>
+		</td>
+		<td *ngIf="isAvalancheSize('extreme')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-primary" (click)="setAvalancheSize($event, undefined)">{{ "avalancheSize.extreme" | translate }}</button>
+		</td>
+		<td *ngIf="!isAvalancheSize('extreme')">
+		  <button [disabled]="disabled" type="reset" class="btn btn-secondary" (click)="setAvalancheSize($event, 'extreme')">{{ "avalancheSize.extreme" | translate }}</button>
+		</td>
+	  </tr>
+	</tbody>
+  </table>
+</div>

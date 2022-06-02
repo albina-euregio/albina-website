@@ -4,15 +4,16 @@ import { CommonModule } from "@angular/common";
 
 import { BulletinsComponent } from "./bulletins.component";
 import { CreateBulletinComponent } from "./create-bulletin.component";
-import { BulletinDetailComponent } from "./bulletin-detail.component";
 import { AspectsComponent } from "./aspects.component";
 import { ComplexityComponent } from "./complexity.component";
 import { DangerRatingComponent } from "./danger-rating.component";
 import { DangerRatingIconComponent } from "./danger-rating-icon.component";
-import { AvalancheSituationComponent } from "./avalanche-situation.component";
-import { AvalancheSituationDetailComponent } from "./avalanche-situation-detail.component";
-import { AvalancheSituationPreviewComponent } from "./avalanche-situation-preview.component";
-import { AvalancheSituationMatrixComponent } from "./avalanche-situation-matrix.component";
+import { AvalancheProblemComponent } from "./avalanche-problem.component";
+import { AvalancheProblemDetailComponent } from "./avalanche-problem-detail.component";
+import { AvalancheProblemPreviewComponent } from "./avalanche-problem-preview.component";
+import { MatrixObsoleteComponent } from "./matrix-obsolete.component";
+import { MatrixComponent } from "./matrix.component";
+import { MatrixParameterComponent } from "./matrix-parameter.component";
 import { CaamlComponent } from "./caaml.component";
 import { JsonComponent } from "./json.component";
 import { TabsComponent } from "./tabs.component";
@@ -46,15 +47,16 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
     declarations: [
         BulletinsComponent,
         CreateBulletinComponent,
-        BulletinDetailComponent,
         AspectsComponent,
         ComplexityComponent,
         DangerRatingComponent,
         DangerRatingIconComponent,
-        AvalancheSituationComponent,
-        AvalancheSituationDetailComponent,
-        AvalancheSituationPreviewComponent,
-        AvalancheSituationMatrixComponent,
+        AvalancheProblemComponent,
+        AvalancheProblemDetailComponent,
+        AvalancheProblemPreviewComponent,
+        MatrixObsoleteComponent,
+        MatrixComponent,
+        MatrixParameterComponent,
         CaamlComponent,
         JsonComponent,
         TabsComponent,

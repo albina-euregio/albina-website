@@ -103,8 +103,8 @@
         },
         "showInBulletin" : "Eth problèma de lauegi se mostrarà ath bulletin",
         "dontShowInBulletin" : "Eth problèma de lauegi NON se mostrarà ath bulletin",
-        "moveUpAvalancheSituation" : "Eth problèma de lauegi se mostrarà ath bulletin",
-        "moveDownAvalancheSituation" : "Botjar eth problèma de lauegi cap enjós",
+        "moveUpAvalancheProblem" : "Eth problèma de lauegi se mostrarà ath bulletin",
+        "moveDownAvalancheProblem" : "Botjar eth problèma de lauegi cap enjós",
         "dangerRatingDirectionUp" : "Esténer eth grad de perilh cap ensús",
         "dangerRatingDirectionDown" : "Esténer eth grad de perilh cap enjós"
       },
@@ -114,7 +114,7 @@
       "createAggregatedRegion" : "Naua region",
       "pasteAggregatedRegion" : "Enganchar era region",
       "cancelCopyBulletin" : " Cancelar",
-      "createAvalancheSituation" : "Nau problèma",
+      "createAvalancheProblem" : "Nau problèma",
       "ownRegions" : "Regions pròprias",
       "foreignRegions": "Regions estrangères",
       "externalRegions": "External regions",
@@ -130,7 +130,7 @@
         "notes" : "Nòtes"
       },
       "title" : {
-        "avalancheSituation" : "Situacions de lauegi",
+        "avalancheProblem" : "Situacions de lauegi",
         "dangerDescription" : "Descripcion deth perilh de lauegi",
         "above" : "Dessús",
         "below" : "Enjós",
@@ -191,7 +191,7 @@
         "message" : "S'a produsit un error en cargar es bulletins dempús deth fichèr JSON!",
         "accept" : "D'acòrd"
       },
-      "avalancheSituationErrorDialog" : {
+      "avalancheProblemErrorDialog" : {
         "message" : "Manque un tipe de problèma de lauegi, orientacions e/o avaloracion deth perilh per aumens un problèma de lauegi",
         "accept" : "D'acòrd"
       },

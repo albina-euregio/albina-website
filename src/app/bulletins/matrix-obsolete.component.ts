@@ -1,18 +1,18 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange, AfterViewInit, OnChanges } from "@angular/core";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
-import { MatrixInformationModel } from "../models/matrix-information.model";
+import { MatrixInformationObsoleteModel } from "../models/matrix-information-obsolete.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import * as Enums from "../enums/enums";
 
 @Component({
-  selector: "app-avalanche-situation-matrix",
-  templateUrl: "avalanche-situation-matrix.component.html"
+  selector: "app-matrix-obsolete",
+  templateUrl: "matrix-obsolete.component.html"
 })
-export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChanges {
+export class MatrixObsoleteComponent implements AfterViewInit, OnChanges {
 
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
-  @Input() matrixInformation: MatrixInformationModel;
+  @Input() matrixInformation: MatrixInformationObsoleteModel;
   @Input() disabled: boolean;
 
   @ViewChild("0") cell0: ElementRef;
@@ -784,7 +784,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  private getArtificialCell(matrixInformation: MatrixInformationModel) {
+  private getArtificialCell(matrixInformation: MatrixInformationObsoleteModel) {
     switch (+Enums.HazardSiteDistribution[matrixInformation.getArtificialHazardSiteDistribution()]) {
 
       case Enums.HazardSiteDistribution.single:
@@ -1004,7 +1004,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  private getNaturalCell(matrixInformation: MatrixInformationModel) {
+  private getNaturalCell(matrixInformation: MatrixInformationObsoleteModel) {
     switch (+Enums.HazardSiteDistribution[matrixInformation.getNaturalHazardSiteDistribution()]) {
 
       case Enums.HazardSiteDistribution.single:

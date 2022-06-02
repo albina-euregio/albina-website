@@ -30,7 +30,7 @@ export interface GenericObservation<Data = any> {
   longitude: number;
   region: string;
   reportDate?: Date;
-  avalancheSituation?: Enums.AvalancheSituation;
+  avalancheProblem?: Enums.AvalancheProblem;
   dangerPattern?: Enums.DangerPattern;
 }
 

@@ -321,21 +321,21 @@
           </div>
           <div *ngIf="activeBulletin">
             <accordion>
-              <!-- Avalanche situation -->
-              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0;">
+              <!-- Avalanche problem -->
+              <accordion-group [isOpen]="isAccordionAvalancheProblemOpen" (isOpenChange)="accordionChanged($event, 'avalancheProblem')" style="padding-bottom: 0;">
                 <div accordion-heading class="clearfix">
-                  <i *ngIf="!isAccordionAvalancheSituationOpen" class="fa fa-angle-down"></i>
-                  <i *ngIf="isAccordionAvalancheSituationOpen" class="fa fa-angle-up"></i>
-                  <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
+                  <i *ngIf="!isAccordionAvalancheProblemOpen" class="fa fa-angle-down"></i>
+                  <i *ngIf="isAccordionAvalancheProblemOpen" class="fa fa-angle-up"></i>
+                  <strong>{{ "bulletins.create.title.avalancheProblem" | translate }}</strong>
                 </div>
                 <div class="form-group row">
                   <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
                     <div style="height: 40px;">
                       <div style="text-align: right; float: left; margin-right: 10px;">
-                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheProblems(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheProblem(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheProblem" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-problem [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-problem>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left;">
                     <div style="font-size: 16px;">
@@ -343,10 +343,10 @@
                     </div>
                     <div style="height: 40px;">
                       <div style="text-align: right;; float: left; margin-right: 10px;">
-                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheProblems(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheProblem(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheProblem" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-problem [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-problem>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right;">
                     <div style="font-size: 16px;">
@@ -354,14 +354,14 @@
                     </div>
                     <div style="height: 40px;">
                       <div style="text-align: right;; float: left; margin-right: 10px;">
-                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheProblems(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheProblem(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheProblem" | translate }}</button>
                       </div>
                       <div style="text-align: left; float: left;">
                         <button *ngIf="activeBulletin.afternoon.complexity === 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(true, '')" class="btn btn-sm btn-danger" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
                         <button *ngIf="activeBulletin.afternoon.complexity !== 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(true, 'complex')" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [afternoon]="true" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-problem [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [afternoon]="true" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-problem>
                   </div>
                 </div>
               </accordion-group>
@@ -984,10 +984,10 @@
   </div>
 </ng-template>
 
-<ng-template #avalancheSituationErrorTemplate>
+<ng-template #avalancheProblemErrorTemplate>
   <div class="modal-body text-center">
-    <p>{{ "bulletins.create.avalancheSituationErrorDialog.message" | translate }}</p>
-    <button type="button" class="btn btn-primary" (click)="avalancheSituationErrorModalConfirm()">{{ "bulletins.create.avalancheSituationErrorDialog.accept" | translate }}</button>
+    <p>{{ "bulletins.create.avalancheProblemErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="avalancheProblemErrorModalConfirm()">{{ "bulletins.create.avalancheProblemErrorDialog.accept" | translate }}</button>
   </div>
 </ng-template>
 

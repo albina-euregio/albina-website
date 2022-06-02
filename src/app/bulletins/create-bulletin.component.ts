@@ -2,7 +2,7 @@ import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, Templat
 import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
-import { AvalancheSituationModel } from "../models/avalanche-situation.model";
+import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
@@ -117,7 +117,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeTendencyCommentNotes: string;
 
   public isAccordionDangerRatingOpen: boolean;
-  public isAccordionAvalancheSituationOpen: boolean;
+  public isAccordionAvalancheProblemOpen: boolean;
   public isAccordionDangerDescriptionOpen: boolean;
   public isAccordionSnowpackStructureOpen: boolean;
   public isAccordionTendencyOpen: boolean;
@@ -152,8 +152,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public changeErrorModalRef: BsModalRef;
   @ViewChild("changeErrorTemplate") changeErrorTemplate: TemplateRef<any>;
 
-  public avalancheSituationErrorModalRef: BsModalRef;
-  @ViewChild("avalancheSituationErrorTemplate") avalancheSituationErrorTemplate: TemplateRef<any>;
+  public avalancheProblemErrorModalRef: BsModalRef;
+  @ViewChild("avalancheProblemErrorTemplate") avalancheProblemErrorTemplate: TemplateRef<any>;
 
   public loadAutoSaveModalRef: BsModalRef;
   @ViewChild("loadAutoSaveTemplate") loadAutoSaveTemplate: TemplateRef<any>;
@@ -293,7 +293,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showAfternoonMap = false;
 
     this.isAccordionDangerRatingOpen = false;
-    this.isAccordionAvalancheSituationOpen = false;
+    this.isAccordionAvalancheProblemOpen = false;
     this.isAccordionDangerDescriptionOpen = false;
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
@@ -431,7 +431,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   downloadJsonBulletin() {
-    if (this.checkAvalancheSituations()) {
+    if (this.checkAvalancheProblems()) {
       this.loading = true;
 
       this.setTexts();
@@ -553,8 +553,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       case "dangerRating":
         this.isAccordionDangerRatingOpen = event;
         break;
-      case "avalancheSituation":
-        this.isAccordionAvalancheSituationOpen = event;
+      case "avalancheProblem":
+        this.isAccordionAvalancheProblemOpen = event;
         break;
       case "dangerDescription":
         this.isAccordionDangerDescriptionOpen = event;
@@ -710,32 +710,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  /*
-    private onMapClick(e) {
-      var parent = this;
-      this.timer = setTimeout(function () {
-        if (!parent.preventClick) {
-          if (!parent.editRegions) {
-            let test = parent.mapService.getClickedRegion();
-            for (let bulletin of parent.bulletinsList) {
-              if (bulletin.getSavedRegions().indexOf(test) > -1)
-                if (parent.activeBulletin === bulletin)
-                  parent.deselectBulletin();
-                else
-                  parent.selectBulletin(bulletin);
-            }
-          }
-        }
-        parent.preventClick = false;
-      }, 150);
-    }
-
-    private onMapDoubleClick(e) {
-      clearTimeout(this.timer);
-      this.preventClick = true;
-    }
-  */
-
   setTendency(event, tendency) {
     event.stopPropagation();
     this.activeBulletin.tendency = tendency;
@@ -884,7 +858,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   private updateExternalBulletins() {
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
   }
 
@@ -988,7 +962,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   copyBulletin() {
     this.setTexts();
-    if (this.checkAvalancheSituations()) {
+    if (this.checkAvalancheProblems()) {
       if (this.activeBulletin) {
         const bulletin = new BulletinModel(this.activeBulletin);
         bulletin.setAdditionalAuthors(new Array<String>());
@@ -1007,7 +981,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      if (this.checkAvalancheSituations()) {
+      if (this.checkAvalancheProblems()) {
         this.deselectBulletin();
 
         this.activeBulletin = bulletin;
@@ -1077,7 +1051,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   deselectBulletin(del?: boolean) {
-    if (del || this.checkAvalancheSituations()) {
+    if (del || this.checkAvalancheProblems()) {
       if (!this.editRegions && this.activeBulletin !== null && this.activeBulletin !== undefined) {
 
         this.setTexts();
@@ -1117,20 +1091,20 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       }
       this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.forenoon.getDangerRatingAbove());
       this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
-      if (this.activeBulletin.forenoon.getAvalancheSituation1() && this.activeBulletin.forenoon.getAvalancheSituation1() !== undefined) {
-        this.activeBulletin.afternoon.setAvalancheSituation1(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation1()));
+      if (this.activeBulletin.forenoon.getAvalancheProblem1() && this.activeBulletin.forenoon.getAvalancheProblem1() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheProblem1(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem1()));
       }
-      if (this.activeBulletin.forenoon.getAvalancheSituation2() && this.activeBulletin.forenoon.getAvalancheSituation2() !== undefined) {
-        this.activeBulletin.afternoon.setAvalancheSituation2(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation2()));
+      if (this.activeBulletin.forenoon.getAvalancheProblem2() && this.activeBulletin.forenoon.getAvalancheProblem2() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheProblem2(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem2()));
       }
-      if (this.activeBulletin.forenoon.getAvalancheSituation3() && this.activeBulletin.forenoon.getAvalancheSituation3() !== undefined) {
-        this.activeBulletin.afternoon.setAvalancheSituation3(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation3()));
+      if (this.activeBulletin.forenoon.getAvalancheProblem3() && this.activeBulletin.forenoon.getAvalancheProblem3() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheProblem3(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem3()));
       }
-      if (this.activeBulletin.forenoon.getAvalancheSituation4() && this.activeBulletin.forenoon.getAvalancheSituation4() !== undefined) {
-        this.activeBulletin.afternoon.setAvalancheSituation4(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation4()));
+      if (this.activeBulletin.forenoon.getAvalancheProblem4() && this.activeBulletin.forenoon.getAvalancheProblem4() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheProblem4(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem4()));
       }
-      if (this.activeBulletin.forenoon.getAvalancheSituation5() && this.activeBulletin.forenoon.getAvalancheSituation5() !== undefined) {
-        this.activeBulletin.afternoon.setAvalancheSituation5(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation5()));
+      if (this.activeBulletin.forenoon.getAvalancheProblem5() && this.activeBulletin.forenoon.getAvalancheProblem5() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheProblem5(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem5()));
       }
       if (this.activeBulletin.forenoon.hasElevationDependency) {
         this.activeBulletin.afternoon.setHasElevationDependency(true);
@@ -1140,11 +1114,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     } else {
       this.activeBulletin.afternoon.setDangerRatingAbove(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
       this.activeBulletin.afternoon.setMatrixInformationAbove(undefined);
-      this.activeBulletin.afternoon.setAvalancheSituation1(undefined);
-      this.activeBulletin.afternoon.setAvalancheSituation2(undefined);
-      this.activeBulletin.afternoon.setAvalancheSituation3(undefined);
-      this.activeBulletin.afternoon.setAvalancheSituation4(undefined);
-      this.activeBulletin.afternoon.setAvalancheSituation5(undefined);
+      this.activeBulletin.afternoon.setAvalancheProblem1(undefined);
+      this.activeBulletin.afternoon.setAvalancheProblem2(undefined);
+      this.activeBulletin.afternoon.setAvalancheProblem3(undefined);
+      this.activeBulletin.afternoon.setAvalancheProblem4(undefined);
+      this.activeBulletin.afternoon.setAvalancheProblem5(undefined);
       this.activeBulletin.afternoon.setHasElevationDependency(false);
       this.activeBulletin.afternoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
       this.activeBulletin.afternoon.setMatrixInformationBelow(undefined);
@@ -1162,62 +1136,64 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
     this.activeBulletin.getForenoon().updateDangerRating();
     this.activeBulletin.getAfternoon().updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.activeBulletin);
+    this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
 
-  private checkAvalancheSituations(): boolean {
+  private checkAvalancheProblems(): boolean {
     let error = false;
 
     if (this.activeBulletin) {
       if (this.activeBulletin.forenoon) {
-        if (this.activeBulletin.forenoon.avalancheSituation1) {
-          if (this.activeBulletin.forenoon.avalancheSituation1.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation1.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation1.getDangerRating()) {
+        if (this.activeBulletin.forenoon.avalancheProblem1) {
+          if (this.activeBulletin.forenoon.avalancheProblem1.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheProblem1.getAvalancheProblem() || !this.activeBulletin.forenoon.avalancheProblem1.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.forenoon.avalancheSituation2) {
-          if (this.activeBulletin.forenoon.avalancheSituation2.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation2.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation2.getDangerRating()) {
+        if (this.activeBulletin.forenoon.avalancheProblem2) {
+          if (this.activeBulletin.forenoon.avalancheProblem2.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheProblem2.getAvalancheProblem() || !this.activeBulletin.forenoon.avalancheProblem2.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.forenoon.avalancheSituation3) {
-          if (this.activeBulletin.forenoon.avalancheSituation3.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation3.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation3.getDangerRating()) {
+        if (this.activeBulletin.forenoon.avalancheProblem3) {
+          if (this.activeBulletin.forenoon.avalancheProblem3.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheProblem3.getAvalancheProblem() || !this.activeBulletin.forenoon.avalancheProblem3.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.forenoon.avalancheSituation4) {
-          if (this.activeBulletin.forenoon.avalancheSituation4.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation4.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation4.getDangerRating()) {
+        if (this.activeBulletin.forenoon.avalancheProblem4) {
+          if (this.activeBulletin.forenoon.avalancheProblem4.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheProblem4.getAvalancheProblem() || !this.activeBulletin.forenoon.avalancheProblem4.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.forenoon.avalancheSituation5) {
-          if (this.activeBulletin.forenoon.avalancheSituation5.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation5.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation5.getDangerRating()) {
+        if (this.activeBulletin.forenoon.avalancheProblem5) {
+          if (this.activeBulletin.forenoon.avalancheProblem5.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheProblem5.getAvalancheProblem() || !this.activeBulletin.forenoon.avalancheProblem5.getDangerRating()) {
             error = true;
           }
         }
       }
       if (this.activeBulletin.afternoon) {
-        if (this.activeBulletin.afternoon.avalancheSituation1) {
-          if (this.activeBulletin.afternoon.avalancheSituation1.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation1.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation1.getDangerRating()) {
+        if (this.activeBulletin.afternoon.avalancheProblem1) {
+          if (this.activeBulletin.afternoon.avalancheProblem1.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheProblem1.getAvalancheProblem() || !this.activeBulletin.afternoon.avalancheProblem1.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.afternoon.avalancheSituation2) {
-          if (this.activeBulletin.afternoon.avalancheSituation2.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation2.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation2.getDangerRating()) {
+        if (this.activeBulletin.afternoon.avalancheProblem2) {
+          if (this.activeBulletin.afternoon.avalancheProblem2.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheProblem2.getAvalancheProblem() || !this.activeBulletin.afternoon.avalancheProblem2.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.afternoon.avalancheSituation3) {
-          if (this.activeBulletin.afternoon.avalancheSituation3.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation3.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation3.getDangerRating()) {
+        if (this.activeBulletin.afternoon.avalancheProblem3) {
+          if (this.activeBulletin.afternoon.avalancheProblem3.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheProblem3.getAvalancheProblem() || !this.activeBulletin.afternoon.avalancheProblem3.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.afternoon.avalancheSituation4) {
-          if (this.activeBulletin.afternoon.avalancheSituation4.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation4.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation4.getDangerRating()) {
+        if (this.activeBulletin.afternoon.avalancheProblem4) {
+          if (this.activeBulletin.afternoon.avalancheProblem4.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheProblem4.getAvalancheProblem() || !this.activeBulletin.afternoon.avalancheProblem4.getDangerRating()) {
             error = true;
           }
         }
-        if (this.activeBulletin.afternoon.avalancheSituation5) {
-          if (this.activeBulletin.afternoon.avalancheSituation5.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation5.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation5.getDangerRating()) {
+        if (this.activeBulletin.afternoon.avalancheProblem5) {
+          if (this.activeBulletin.afternoon.avalancheProblem5.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheProblem5.getAvalancheProblem() || !this.activeBulletin.afternoon.avalancheProblem5.getDangerRating()) {
             error = true;
           }
         }
@@ -1225,7 +1201,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     if (error) {
-      this.openAvalancheSituationErrorModal(this.avalancheSituationErrorTemplate);
+      this.openAvalancheProblemErrorModal(this.avalancheProblemErrorTemplate);
     } else {
       return true;
     }
@@ -1504,11 +1480,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           }
         }
       }
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
 
     for (const bulletin of this.externBulletinsList) {
-      this.mapService.updateAggregatedRegion(bulletin);
+      this.mapService.addAggregatedRegion(bulletin);
     }
 
     this.mapService.discardAggregatedRegion();
@@ -1549,7 +1525,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   save() {
-    if (this.checkAvalancheSituations()) {
+    if (this.checkAvalancheProblems()) {
       this.loading = true;
 
       this.setTexts();
@@ -2261,12 +2237,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.changeErrorModalRef.hide();
   }
 
-  openAvalancheSituationErrorModal(template: TemplateRef<any>) {
-    this.avalancheSituationErrorModalRef = this.modalService.show(template, this.config);
+  openAvalancheProblemErrorModal(template: TemplateRef<any>) {
+    this.avalancheProblemErrorModalRef = this.modalService.show(template, this.config);
   }
 
-  avalancheSituationErrorModalConfirm(): void {
-    this.avalancheSituationErrorModalRef.hide();
+  avalancheProblemErrorModalConfirm(): void {
+    this.avalancheProblemErrorModalRef.hide();
   }
 
   openLoadAvActivityCommentExampleTextModal(template: TemplateRef<any>) {
@@ -2812,29 +2788,29 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
 
 
-  createAvalancheSituation(isAfternoon: boolean) {
+  createAvalancheProblem(isAfternoon: boolean) {
     let daytime;
     if (isAfternoon) {
       daytime = this.activeBulletin.afternoon;
     } else {
       daytime = this.activeBulletin.forenoon;
     }
-    let lastAvalancheSituation = daytime.avalancheSituation1;
+    let lastAvalancheProblem = daytime.avalancheProblem1;
     let count = 1;
-    while (lastAvalancheSituation !== undefined) {
+    while (lastAvalancheProblem !== undefined) {
       count += 1;
       switch (count) {
         case 2:
-          lastAvalancheSituation = daytime.avalancheSituation2;
+          lastAvalancheProblem = daytime.avalancheProblem2;
           break;
         case 3:
-          lastAvalancheSituation = daytime.avalancheSituation3;
+          lastAvalancheProblem = daytime.avalancheProblem3;
           break;
         case 4:
-          lastAvalancheSituation = daytime.avalancheSituation4;
+          lastAvalancheProblem = daytime.avalancheProblem4;
           break;
         case 5:
-          lastAvalancheSituation = daytime.avalancheSituation5;
+          lastAvalancheProblem = daytime.avalancheProblem5;
           break;
         default:
           break;
@@ -2845,33 +2821,33 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
     switch (count) {
       case 1:
-        daytime.avalancheSituation1 = new AvalancheSituationModel();
+        daytime.avalancheProblem1 = new AvalancheProblemModel();
         break;
       case 2:
-        daytime.avalancheSituation2 = new AvalancheSituationModel();
+        daytime.avalancheProblem2 = new AvalancheProblemModel();
         break;
       case 3:
-        daytime.avalancheSituation3 = new AvalancheSituationModel();
+        daytime.avalancheProblem3 = new AvalancheProblemModel();
         break;
       case 4:
-        daytime.avalancheSituation4 = new AvalancheSituationModel();
+        daytime.avalancheProblem4 = new AvalancheProblemModel();
         break;
       case 5:
-        daytime.avalancheSituation5 = new AvalancheSituationModel();
+        daytime.avalancheProblem5 = new AvalancheProblemModel();
         break;
       default:
         break;
     }
   }
 
-  hasFiveAvalancheSituations(isAfternoon: boolean) {
+  hasFiveAvalancheProblems(isAfternoon: boolean) {
     let daytime;
     if (isAfternoon) {
       daytime = this.activeBulletin.afternoon;
     } else {
       daytime = this.activeBulletin.forenoon;
     }
-    if (daytime.avalancheSituation5 === undefined) {
+    if (daytime.avalancheProblem5 === undefined) {
       return false;
     } else {
       return true;

@@ -5,10 +5,10 @@ import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-desc
 import * as Enums from "../enums/enums";
 
 @Component({
-  selector: "app-avalanche-situation",
-  templateUrl: "avalanche-situation.component.html"
+  selector: "app-avalanche-problem",
+  templateUrl: "avalanche-problem.component.html"
 })
-export class AvalancheSituationComponent {
+export class AvalancheProblemComponent {
 
   @Input() bulletinModel: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
@@ -16,36 +16,36 @@ export class AvalancheSituationComponent {
   @Input() disabled: boolean;
 
   showAspects: boolean;
-  avalancheSituationEnum = Enums.AvalancheSituation;
+  avalancheProblemEnum = Enums.AvalancheProblem;
 
   constructor(
     public settingsService: SettingsService) {
   }
 
-  hasAvalancheSituation(count: number) {
-    let avalancheSituation;
+  hasAvalancheProblem(count: number) {
+    let avalancheProblem;
     switch (count) {
       case 1:
-        avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation1;
+        avalancheProblem = this.bulletinDaytimeDescription.avalancheProblem1;
         break;
       case 2:
-        avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation2;
+        avalancheProblem = this.bulletinDaytimeDescription.avalancheProblem2;
         break;
       case 3:
-        avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation3;
+        avalancheProblem = this.bulletinDaytimeDescription.avalancheProblem3;
         break;
       case 4:
-        avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation4;
+        avalancheProblem = this.bulletinDaytimeDescription.avalancheProblem4;
         break;
       case 5:
-        avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation5;
+        avalancheProblem = this.bulletinDaytimeDescription.avalancheProblem5;
         break;
 
       default:
         break;
     }
 
-    if (avalancheSituation !== undefined) {
+    if (avalancheProblem !== undefined) {
       return true;
     } else {
       return false;
