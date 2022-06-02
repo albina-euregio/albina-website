@@ -7,12 +7,10 @@ import { TextModel } from "./text.model";
 
 export class BulletinDaytimeDescriptionModel {
   public dangerRatingAbove: Enums.DangerRating;
-  public matrixInformationAbove: MatrixInformationModel;
   public terrainFeatureAboveTextcat: string;
   public terrainFeatureAbove: TextModel[];
 
   public dangerRatingBelow: Enums.DangerRating;
-  public matrixInformationBelow: MatrixInformationModel;
   public terrainFeatureBelowTextcat: string;
   public terrainFeatureBelow: TextModel[];
 
@@ -32,9 +30,6 @@ export class BulletinDaytimeDescriptionModel {
     const bulletinDaytimeDescription = new BulletinDaytimeDescriptionModel();
 
     bulletinDaytimeDescription.setDangerRatingAbove(json.dangerRatingAbove);
-    if (json.matrixInformationAbove) {
-      bulletinDaytimeDescription.matrixInformationAbove = MatrixInformationModel.createFromJson(json.matrixInformationAbove);
-    }
 
     if (json.terrainFeatureAboveTextcat) {
       bulletinDaytimeDescription.setTerrainFeatureAboveTextcat(json.terrainFeatureAboveTextcat);
@@ -49,9 +44,6 @@ export class BulletinDaytimeDescriptionModel {
     bulletinDaytimeDescription.setTerrainFeatureAbove(terrainFeatureAbove);
 
     bulletinDaytimeDescription.setDangerRatingBelow(json.dangerRatingBelow);
-    if (json.matrixInformationBelow) {
-      bulletinDaytimeDescription.matrixInformationBelow = MatrixInformationModel.createFromJson(json.matrixInformationBelow);
-    }
 
     if (json.terrainFeatureBelowTextcat) {
       bulletinDaytimeDescription.setTerrainFeatureBelowTextcat(json.terrainFeatureBelowTextcat);
@@ -98,11 +90,9 @@ export class BulletinDaytimeDescriptionModel {
 
     if (!bulletinDaytimeDescription) {
       this.setDangerRatingAbove("low");
-      this.matrixInformationAbove = new MatrixInformationModel();
       this.terrainFeatureAboveTextcat = undefined;
       this.terrainFeatureAbove = new Array<TextModel>();
       this.setDangerRatingBelow("low");
-      this.matrixInformationBelow = new MatrixInformationModel();
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
       this.complexity = undefined;
@@ -111,7 +101,6 @@ export class BulletinDaytimeDescriptionModel {
       this.hasElevationDependency = false;
     } else {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
-      this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
       this.terrainFeatureAboveTextcat = bulletinDaytimeDescription.terrainFeatureAboveTextcat;
       const arrayAbove = new Array<TextModel>();
       for (const entry of bulletinDaytimeDescription.terrainFeatureAbove) {
@@ -119,7 +108,6 @@ export class BulletinDaytimeDescriptionModel {
       }
       this.terrainFeatureAbove = arrayAbove;
       this.setDangerRatingBelow(bulletinDaytimeDescription.getDangerRatingBelow());
-      this.matrixInformationBelow = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationBelow());
       this.terrainFeatureBelowTextcat = bulletinDaytimeDescription.terrainFeatureBelowTextcat;
       const arrayBelow = new Array<TextModel>();
       for (const entry of bulletinDaytimeDescription.terrainFeatureBelow) {
@@ -154,14 +142,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setDangerRatingAbove(dangerRatingAbove) {
     this.dangerRatingAbove = dangerRatingAbove;
-  }
-
-  getMatrixInformationAbove() {
-    return this.matrixInformationAbove;
-  }
-
-  setMatrixInformationAbove(matrixInformationAbove) {
-    this.matrixInformationAbove = matrixInformationAbove;
   }
 
   getTerrainFeatureAboveTextcat(): string {
@@ -211,14 +191,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setDangerRatingBelow(dangerRatingBelow) {
     this.dangerRatingBelow = dangerRatingBelow;
-  }
-
-  getMatrixInformationBelow() {
-    return this.matrixInformationBelow;
-  }
-
-  setMatrixInformationBelow(matrixInformationBelow) {
-    this.matrixInformationBelow = matrixInformationBelow;
   }
 
   getTerrainFeatureBelowTextcat(): string {
@@ -481,9 +453,6 @@ export class BulletinDaytimeDescriptionModel {
     if (this.dangerRatingAbove && this.dangerRatingAbove !== undefined) {
       json["dangerRatingAbove"] = this.dangerRatingAbove;
     }
-    if (this.matrixInformationAbove && this.matrixInformationAbove !== undefined) {
-      json["matrixInformationAbove"] = this.matrixInformationAbove.toJson();
-    }
     if (this.terrainFeatureAboveTextcat && this.terrainFeatureAboveTextcat !== undefined) {
       json["terrainFeatureAboveTextcat"] = this.terrainFeatureAboveTextcat;
     }
@@ -496,9 +465,6 @@ export class BulletinDaytimeDescriptionModel {
     }
     if (this.hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow !== undefined) {
       json["dangerRatingBelow"] = this.dangerRatingBelow;
-    }
-    if (this.hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow !== undefined) {
-      json["matrixInformationBelow"] = this.matrixInformationBelow.toJson();
     }
     if (this.hasElevationDependency && this.terrainFeatureBelowTextcat && this.terrainFeatureBelowTextcat !== undefined) {
       json["terrainFeatureBelowTextcat"] = this.terrainFeatureBelowTextcat;

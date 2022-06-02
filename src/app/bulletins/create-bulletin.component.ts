@@ -1090,7 +1090,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.onShowAfternoonMapChange(true);
       }
       this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.forenoon.getDangerRatingAbove());
-      this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
       if (this.activeBulletin.forenoon.getAvalancheProblem1() && this.activeBulletin.forenoon.getAvalancheProblem1() !== undefined) {
         this.activeBulletin.afternoon.setAvalancheProblem1(new AvalancheProblemModel(this.activeBulletin.forenoon.getAvalancheProblem1()));
       }
@@ -1109,11 +1108,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       if (this.activeBulletin.forenoon.hasElevationDependency) {
         this.activeBulletin.afternoon.setHasElevationDependency(true);
         this.activeBulletin.afternoon.setDangerRatingBelow(this.activeBulletin.forenoon.getDangerRatingBelow());
-        this.activeBulletin.afternoon.setMatrixInformationBelow(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationBelow()));
       }
     } else {
       this.activeBulletin.afternoon.setDangerRatingAbove(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletin.afternoon.setMatrixInformationAbove(undefined);
       this.activeBulletin.afternoon.setAvalancheProblem1(undefined);
       this.activeBulletin.afternoon.setAvalancheProblem2(undefined);
       this.activeBulletin.afternoon.setAvalancheProblem3(undefined);
@@ -1121,7 +1118,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.afternoon.setAvalancheProblem5(undefined);
       this.activeBulletin.afternoon.setHasElevationDependency(false);
       this.activeBulletin.afternoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletin.afternoon.setMatrixInformationBelow(undefined);
       let daytimeDependency = false;
       for (const bulletin of this.internBulletinsList.concat(this.externBulletinsList)) {
         if (bulletin.hasDaytimeDependency) {
