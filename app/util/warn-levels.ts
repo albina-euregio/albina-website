@@ -23,5 +23,5 @@ export const WARNLEVEL_COLORS = Object.freeze([
   "#ffff00",
   "#ff9900",
   "#ff0000",
-  "#600000" // FIXME color for very_high
+  "#000000"
 ]);
