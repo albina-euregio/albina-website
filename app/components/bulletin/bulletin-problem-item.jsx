@@ -194,29 +194,35 @@ class BulletinProblemItem extends React.Component {
         <ul>
           <li>
             {snowpackStabilityText}:&nbsp;
-            <b>
-              {this.props.intl.formatMessage({
-                id:
-                  "bulletin:report:problem:snowpack-stability:" +
-                  snowpackStability
-              })}
-            </b>
+            <a href={"/education/snowpack-stabilities#" + snowpackStability}>
+              <b>
+                {this.props.intl.formatMessage({
+                  id:
+                    "bulletin:report:problem:snowpack-stability:" +
+                    snowpackStability
+                })}
+              </b>
+            </a>
           </li>
           <li>
             {frequencyText}:&nbsp;
-            <b>
-              {this.props.intl.formatMessage({
-                id: "bulletin:report:problem:frequency:" + frequency
-              })}
-            </b>
+            <a href={"/education/frequencies#" + frequency}>
+              <b>
+                {this.props.intl.formatMessage({
+                  id: "bulletin:report:problem:frequency:" + frequency
+                })}
+              </b>
+            </a>
           </li>
           <li>
             {avalancheSizeText}:&nbsp;
-            <b>
-              {this.props.intl.formatMessage({
-                id: "bulletin:report:problem:avalanche-size:" + avalancheSize
-              })}
-            </b>
+            <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>
+              <b>
+                {this.props.intl.formatMessage({
+                  id: "bulletin:report:problem:avalanche-size:" + avalancheSize
+                })}
+              </b>
+            </a>
           </li>
         </ul>
       </li>
