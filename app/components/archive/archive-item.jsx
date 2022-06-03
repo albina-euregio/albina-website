@@ -86,6 +86,7 @@ class ArchiveItem extends React.Component {
                 <a
                   href={Util.template(config.apis.bulletin.xml, {
                     date: dateString,
+                    region: this.props.date > "2022-05-06" ? "EUREGIO_" : "",
                     lang
                   })}
                   rel="noopener noreferrer"
@@ -113,8 +114,12 @@ class ArchiveItem extends React.Component {
                   date={dateString}
                   region={
                     this.state.fd
-                      ? "fd_albina_thumbnail"
-                      : "am_albina_thumbnail"
+                      ? dateString < "2022-05-06"
+                        ? "fd_albina_thumbnail"
+                        : "fd_EUREGIO_thumbnail"
+                      : dateString < "2022-05-06"
+                      ? "am_albina_thumbnail"
+                      : "am_EUREGIO_thumbnail"
                   }
                   onError={() => this.setState({ fd: true })}
                 />

@@ -63,7 +63,7 @@
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}{format}",
       "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{file}.pdf",
-      "xml": "https://static.avalanche.report/bulletins/{date}/{date}_EUREGIO_{lang}_CAAMLv6.xml",
+      "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
     "push": "https://api.avalanche.report/albina/api/push",

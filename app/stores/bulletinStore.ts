@@ -496,8 +496,10 @@ class BulletinStore {
   }
 
   _getBulletinUrl(date: string): string {
+    const region = date > "2022-05-06" ? "EUREGIO_" : "";
     return Util.template(config.apis.bulletin.xml, {
       date,
+      region,
       lang: APP_STORE.language
     });
   }

@@ -24,10 +24,14 @@ class BulletinAWMapStatic extends React.Component {
         : "";
     const imgFormat =
       window.config.webp && this.props.date > "2020-12-01" ? ".webp" : ".jpg";
+    const file =
+      publicationTime && this.props.date > "2022-05-06"
+        ? "EUREGIO_" + this.props.region
+        : this.props.region;
     const url = Util.template(config.apis.bulletin.map, {
       date: this.props.date,
       publication: publicationDirectory,
-      file: "EUREGIO_" + this.props.region, // possibly contains _PM
+      file: file, // possibly contains _PM
       format: imgFormat
     });
     const regions = BULLETIN_STORE.bulletins[this.props.date]?.daytimeBulletins
