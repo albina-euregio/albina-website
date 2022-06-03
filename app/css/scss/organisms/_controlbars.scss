@@ -18,12 +18,19 @@
   @include text-color($white);
   @include link-color($black, $white);
 
+  .grid {
+    grid-gap: $padding;
+  }
+
   .grid-item:last-child {
     //.info {display: none;}
     @media #{$normal-up} {
       //.info { display: block; }
       float: right;
       text-align: right;
+      .pure-form-search {
+        justify-content: flex-end;
+      }
     }
   }
 
@@ -33,7 +40,7 @@
     > li {
       position: relative;
       vertical-align: top;
-      padding-right: $padding * 2;
+      padding-right: $padding;
     }
   }
 
@@ -59,6 +66,9 @@
         border-color: $white;
       }
     }
+  }
+  + .blog-page-flipper {
+    padding: 1em;
   }
 }
 

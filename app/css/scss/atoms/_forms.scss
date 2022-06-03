@@ -94,7 +94,8 @@ form {
 }
 
 .pure-form-search {
-  display: inline-block;
+  display: flex;
+  flex-wrap: nowrap;
   input {
     width: 5em;
     //border: $white !important;
@@ -352,7 +353,7 @@ input[type="range"] {
   }
 }
 
-$selectric-min-width: 10em;
+$selectric-min-width: 8em;
 $selectric-max-width: 20em;
 
 //dropdowns
