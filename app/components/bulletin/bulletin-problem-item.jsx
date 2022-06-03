@@ -4,7 +4,9 @@ import { injectIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import ExpositionIcon from "../icons/exposition-icon.jsx";
 import ElevationIcon from "../icons/elevation-icon.jsx";
-//import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
+import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link.jsx";
+import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
+import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link.jsx";
 
 /**
  * @typedef {object} Props
@@ -166,19 +168,57 @@ class BulletinProblemItem extends React.Component {
   render() {
     const expositions = this.props.problem?.dangerRating?.aspects;
     if (!expositions) return <li></li>;
-    //const frequency = this.props.problem.dangerRating.frequency;
+    const snowpackStability = this.props.problem.dangerRating.snowpackStability;
+    const frequency = this.props.problem.dangerRating.frequency;
+    const avalancheSize = this.props.problem.dangerRating.avalancheSize;
     const expositionText = this.props.intl.formatMessage({
       id: "bulletin:report:exposition"
     });
-    // const frequencyText = this.props.intl.formatMessage({
-    //   id: "bulletin:report:frequency"
-    // });
+    const snowpackStabilityText = this.props.intl.formatMessage({
+      id: "bulletin:report:problem:snowpack-stability"
+    });
+    const frequencyText = this.props.intl.formatMessage({
+      id: "bulletin:report:problem:frequency"
+    });
+    const avalancheSizeText = this.props.intl.formatMessage({
+      id: "bulletin:report:problem:avalanche-size"
+    });
     return (
       <li>
         {this.props.problem && <ProblemIconLink problem={this.props.problem} />}
         <ExpositionIcon expositions={expositions} title={expositionText} />
         {this.getElevationIcon()}
-        {/* <FrequencyIconLink frequency={frequency || 3} title={frequencyText} /> */}
+        {/* (snowpackStability !== undefined ? <SnowpackStabilityIconLink snowpackStability={snowpackStability} title={snowpackStabilityText} /> : "") */}
+        {/* (frequency !== undefined ? <FrequencyIconLink frequency={frequency} title={frequencyText} /> : "") */}
+        {/* (avalancheSize !== undefined ? <AvalancheSizeIconLink avalancheSize={avalancheSize} title={avalancheSizeText} /> : "") */}
+        <ul>
+          <li>
+            {snowpackStabilityText}:&nbsp;
+            <b>
+              {this.props.intl.formatMessage({
+                id:
+                  "bulletin:report:problem:snowpack-stability:" +
+                  snowpackStability
+              })}
+            </b>
+          </li>
+          <li>
+            {frequencyText}:&nbsp;
+            <b>
+              {this.props.intl.formatMessage({
+                id: "bulletin:report:problem:frequency:" + frequency
+              })}
+            </b>
+          </li>
+          <li>
+            {avalancheSizeText}:&nbsp;
+            <b>
+              {this.props.intl.formatMessage({
+                id: "bulletin:report:problem:avalanche-size:" + avalancheSize
+              })}
+            </b>
+          </li>
+        </ul>
       </li>
     );
   }

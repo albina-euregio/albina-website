@@ -65,6 +65,27 @@ export enum Aspect {
   "W"
 }
 
+export enum SnowpackStability {
+  "good",
+  "fair",
+  "poor",
+  "very_poor"
+}
+
+export enum Frequency {
+  "none",
+  "few",
+  "some",
+  "many"
+}
+export enum AvalancheSize {
+  "small",
+  "medium",
+  "large",
+  "very_large",
+  "extreme"
+}
+
 export interface Elevation {
   uom: "m";
   lowerBound?: string; // pattern: treeline|0|[1-9][0-9]*[0][0]+
@@ -101,6 +122,10 @@ export interface DangerRating {
   naturalDangerRating?: DangerRatingValue;
   naturalAvalancheReleaseProbability?: string;
   naturalHazardSiteDistribution?: string;
+  // TODO move new matrix infos to CaamlBulletin2022.ts
+  snowpackStability?: SnowpackStability;
+  frequency?: Frequency;
+  avalancheSize?: AvalancheSize;
   comment?: string;
   customData?: any;
 }

@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Tooltip } from "../tooltips/tooltip";
 
-export default class FrequencyIcon extends React.Component {
+export default class SnowpackStabilityIcon extends React.Component {
   imgRoot;
 
   constructor(props) {
     super(props);
-    this.imgRoot = window.config.projectRoot + "images/pro//frequencies/";
+    this.imgRoot =
+      window.config.projectRoot + "images/pro//snowpack-stabilities/";
   }
 
   render() {
@@ -17,12 +18,17 @@ export default class FrequencyIcon extends React.Component {
       <div className={classes.join(" ")} title={this.props.title}>
         <Tooltip label={this.props.title}>
           <Link
-            to={"/education/avalanche-problems#frequency"}
+            to={"/education/avalanche-problems#snowpackStability"}
             className="img"
             href="#"
           >
             <img
-              src={this.imgRoot + "frequency_" + this.props.frequency + ".png"}
+              src={
+                this.imgRoot +
+                "snowpack-stability_" +
+                this.props.snowpackStability +
+                ".png"
+              }
               alt={this.props.title}
               title={this.props.title}
             />
