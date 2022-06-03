@@ -4,9 +4,9 @@ import { injectIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import ExpositionIcon from "../icons/exposition-icon.jsx";
 import ElevationIcon from "../icons/elevation-icon.jsx";
-import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link.jsx";
-import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
-import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link.jsx";
+// import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link.jsx";
+// import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
+// import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link.jsx";
 
 /**
  * @typedef {object} Props
