@@ -25,3 +25,5 @@ export const WARNLEVEL_COLORS = Object.freeze([
   "#ff0000",
   "#000000"
 ]);
+
+export const WARNLEVEL_OPACITY = Object.freeze([0.0, 1.0, 1.0, 1.0, 1.0, 0.8]);

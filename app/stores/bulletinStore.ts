@@ -23,7 +23,8 @@ import { APP_STORE } from "../appStore";
 import {
   WarnLevelNumber,
   warnlevelNumbers,
-  WARNLEVEL_COLORS
+  WARNLEVEL_COLORS,
+  WARNLEVEL_OPACITY
 } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
@@ -430,10 +431,11 @@ class BulletinStore {
   ): PathOptions {
     let id = String(feature.id);
     let warnlevel = this.getWarnlevel(ampm, id, feature.properties.elevation);
+    if (warnlevel == undefined) warnlevel = 0;
     return {
       stroke: false,
       fillColor: WARNLEVEL_COLORS[warnlevel],
-      fillOpacity: 1.0
+      fillOpacity: WARNLEVEL_OPACITY[warnlevel]
     };
   }
 
