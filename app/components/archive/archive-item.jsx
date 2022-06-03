@@ -49,7 +49,10 @@ class ArchiveItem extends React.Component {
 
   render() {
     const dateString = dateToISODateString(this.props.date);
-    const lang = this.getLanguage(dateString);
+    const lang =
+      dateString > "2022-05-06"
+        ? this.getLanguage(dateString)
+        : "EUREGIO_" + this.getLanguage(dateString);
 
     return (
       <tr>

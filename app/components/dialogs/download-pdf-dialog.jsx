@@ -26,7 +26,11 @@ class DownloadPdfDialog extends React.Component {
     return Util.template(config.apis.bulletin.pdf, {
       date: BULLETIN_STORE.settings.date,
       file:
-        (region ? `${region}_` : "EUREGIO_") +
+        (region
+          ? `${region}_`
+          : BULLETIN_STORE.settings.date > "2022-05-06"
+          ? "EUREGIO_"
+          : "") +
         APP_STORE.language +
         (isBw ? "_bw" : "")
     });
