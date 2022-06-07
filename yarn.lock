@@ -2459,10 +2459,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-purecss-sass@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/purecss-sass/-/purecss-sass-1.0.0.tgz#63fa00d544311318a762bc58d328d70509b6398f"
-  integrity sha1-Y/oA1UQxExinYrxY0yjXBQm2OY8=
+purecss-sass@2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/purecss-sass/-/purecss-sass-2.0.6.tgz#82c386d40521dc86e0c10ed0376c4514896bd4b7"
+  integrity sha512-dPwU+nzpk2zTf05+YxCtrQ//VBDMs/M+DkSrvIY702nLx+LNQyP6klraaiBlRDOF4p3FElBW78YdfRapmOLE7A==
 
 quick-lru@^4.0.1:
   version "4.0.1"
