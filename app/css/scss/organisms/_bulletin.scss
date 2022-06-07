@@ -425,6 +425,25 @@
       //border: $border-width $border-style $border-color;
     }
   }
+  &.matrix-information {
+    flex-direction: column;
+    gap: ($padding * 0.5) 0;
+  }
+  .matrix-info {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 0 ($padding * 0.5);
+    span {
+      margin: 0;
+    }
+    .matrix-info-name {
+      @include font-normal;
+    }
+    .matrix-info-value {
+      min-width: 3.5em;
+    }
+  }
 }
 
 .bulletin-report-tendency {

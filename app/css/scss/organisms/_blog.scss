@@ -52,6 +52,10 @@
   a {
     color: $brand;
   }
+
+  + .section-blog-posts {
+    padding-top: 0;
+  }
 }
 
 img {
