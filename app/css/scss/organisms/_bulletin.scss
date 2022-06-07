@@ -295,18 +295,12 @@
 
     &.list-bulletin-report-pictos-trigger {
       @include font-bold;
+      @include letter-spacing;
       a {
         display: flex;
         justify-content: flex-start;
         padding: 0.5em 0 0 0;
       }
-
-      // ~ li { display: none; }
-
-      // .js-show-all-bulletin-report-pictos & {
-      //   display: none;
-      //   ~ li { display: flex; }
-      // }
     }
   }
 }
@@ -315,6 +309,7 @@
   display: flex;
   @include font-heavy;
   @include letter-spacing;
+
   > a {
     &:link,
     &:visited {
@@ -337,12 +332,14 @@
     line-height: 1;
     white-space: nowrap;
   }
+
   &.avalanche-situation {
     img {
       height: $picto-height-plus;
       border: $border-width $border-style $border-color;
     }
   }
+
   &.problem-altitude {
     img {
       height: $picto-height-minus;
@@ -371,6 +368,7 @@
         }
       }
     }
+
     &.problem-above {
       span {
         margin-top: 1em;
@@ -379,6 +377,7 @@
         }
       }
     }
+
     &.problem-below {
       span {
         margin-top: -1em;
@@ -387,6 +386,7 @@
         }
       }
     }
+
     &.problem-middle {
       span {
         margin-top: 0.1em;
@@ -404,6 +404,7 @@
         }
       }
     }
+
     &.problem-all {
       span {
         margin-top: 0.1em;
@@ -418,16 +419,21 @@
       }
     }
   }
+
   &.situation-frequency {
+    display: none;
     img {
       width: $picto-height-plus;
       height: 100%;
       //border: $border-width $border-style $border-color;
     }
   }
+
   &.matrix-information {
+    // margin-left: auto;
+    flex-grow: 3;
     flex-direction: column;
-    gap: ($padding * 0.5) 0;
+    gap: ($padding * 0.25) 0;
   }
   .matrix-info {
     display: flex;
@@ -439,32 +445,12 @@
     }
     .matrix-info-name {
       @include font-normal;
+      letter-spacing: 0;
     }
     .matrix-info-value {
       min-width: 3.5em;
+      @include font-bold;
     }
-  }
-}
-
-.bulletin-report-tendency {
-  display: flex;
-  align-items: center;
-  line-height: $header-line-height;
-  span {
-    display: inline-block;
-    &:first-child {
-      padding-right: $grid-gutter * 0.25;
-    }
-    &:last-child {
-      font-size: $large-font-size;
-      &:before {
-        color: $brand;
-      }
-    }
-  }
-  strong {
-    @include font-heavy;
-    @include letter-spacing;
   }
 }
 
@@ -506,6 +492,28 @@
   }
   &.expo_nw .expo_nw {
     display: block;
+  }
+}
+
+.bulletin-report-tendency {
+  display: flex;
+  align-items: center;
+  line-height: $header-line-height;
+  span {
+    display: inline-block;
+    &:first-child {
+      padding-right: $grid-gutter * 0.25;
+    }
+    &:last-child {
+      font-size: $large-font-size;
+      &:before {
+        color: $brand;
+      }
+    }
+  }
+  strong {
+    @include font-heavy;
+    @include letter-spacing;
   }
 }
 

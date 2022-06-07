@@ -191,40 +191,41 @@ class BulletinProblemItem extends React.Component {
         {/* (snowpackStability !== undefined ? <SnowpackStabilityIconLink snowpackStability={snowpackStability} title={snowpackStabilityText} /> : "") */}
         {/* (frequency !== undefined ? <FrequencyIconLink frequency={frequency} title={frequencyText} /> : "") */}
         {/* (avalancheSize !== undefined ? <AvalancheSizeIconLink avalancheSize={avalancheSize} title={avalancheSizeText} /> : "") */}
-        <ul>
-          <li>
-            {snowpackStabilityText}:&nbsp;
-            <a href={"/education/snowpack-stabilities#" + snowpackStability}>
-              <b>
+
+        <div className="bulletin-report-picto matrix-information">
+          <div className="matrix-info">
+            <span className="matrix-info-name">{snowpackStabilityText}:</span>
+            <span className="matrix-info-value">
+              <a href={"/education/snowpack-stabilities#" + snowpackStability}>
                 {this.props.intl.formatMessage({
                   id:
                     "bulletin:report:problem:snowpack-stability:" +
                     snowpackStability
                 })}
-              </b>
-            </a>
-          </li>
-          <li>
-            {frequencyText}:&nbsp;
-            <a href={"/education/frequencies#" + frequency}>
-              <b>
+              </a>
+            </span>
+          </div>
+          <div className="matrix-info">
+            <span className="matrix-info-name">{frequencyText}:</span>
+            <span className="matrix-info-value">
+              <a href={"/education/frequencies#" + frequency}>
                 {this.props.intl.formatMessage({
                   id: "bulletin:report:problem:frequency:" + frequency
                 })}
-              </b>
-            </a>
-          </li>
-          <li>
-            {avalancheSizeText}:&nbsp;
-            <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>
-              <b>
+              </a>
+            </span>
+          </div>
+          <div className="matrix-info">
+            <span className="matrix-info-name">{avalancheSizeText}:</span>
+            <span className="matrix-info-value">
+              <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>
                 {this.props.intl.formatMessage({
                   id: "bulletin:report:problem:avalanche-size:" + avalancheSize
                 })}
-              </b>
-            </a>
-          </li>
-        </ul>
+              </a>
+            </span>
+          </div>
+        </div>
       </li>
     );
   }
