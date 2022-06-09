@@ -168,9 +168,10 @@ class BulletinProblemItem extends React.Component {
   render() {
     const expositions = this.props.problem?.dangerRating?.aspects;
     if (!expositions) return <li></li>;
-    const snowpackStability = this.props.problem.dangerRating.snowpackStability;
-    const frequency = this.props.problem.dangerRating.frequency;
-    const avalancheSize = this.props.problem.dangerRating.avalancheSize;
+    const snowpackStability =
+      this.props.problem?.dangerRating?.snowpackStability;
+    const frequency = this.props.problem?.dangerRating?.frequency;
+    const avalancheSize = this.props.problem?.dangerRating?.avalancheSize;
     const expositionText = this.props.intl.formatMessage({
       id: "bulletin:report:exposition"
     });
@@ -186,46 +187,63 @@ class BulletinProblemItem extends React.Component {
     return (
       <li>
         {this.props.problem && <ProblemIconLink problem={this.props.problem} />}
-        <ExpositionIcon expositions={expositions} title={expositionText} />
+        {expositions && (
+          <ExpositionIcon expositions={expositions} title={expositionText} />
+        )}
         {this.getElevationIcon()}
-        {/* (snowpackStability !== undefined ? <SnowpackStabilityIconLink snowpackStability={snowpackStability} title={snowpackStabilityText} /> : "") */}
-        {/* (frequency !== undefined ? <FrequencyIconLink frequency={frequency} title={frequencyText} /> : "") */}
-        {/* (avalancheSize !== undefined ? <AvalancheSizeIconLink avalancheSize={avalancheSize} title={avalancheSizeText} /> : "") */}
 
-        <div className="bulletin-report-picto matrix-information">
-          <div className="matrix-info">
-            <span className="matrix-info-name">{snowpackStabilityText}:</span>
-            <span className="matrix-info-value">
-              <a href={"/education/snowpack-stabilities#" + snowpackStability}>
-                {this.props.intl.formatMessage({
-                  id:
-                    "bulletin:report:problem:snowpack-stability:" +
-                    snowpackStability
-                })}
-              </a>
-            </span>
+        {(snowpackStability || frequency || avalancheSize) && (
+          <div className="bulletin-report-picto matrix-information">
+            {snowpackStability && (
+              <div className="matrix-info">
+                <span className="matrix-info-name">
+                  {snowpackStabilityText}:
+                </span>
+                <span className="matrix-info-value">
+                  <a
+                    href={
+                      "/education/snowpack-stabilities#" + snowpackStability
+                    }
+                  >
+                    {this.props.intl.formatMessage({
+                      id:
+                        "bulletin:report:problem:snowpack-stability:" +
+                        snowpackStability
+                    })}
+                  </a>
+                </span>
+              </div>
+            )}
+            {frequency && (
+              <div className="matrix-info">
+                <span className="matrix-info-name">{frequencyText}:</span>
+                <span className="matrix-info-value">
+                  <a href={"/education/frequencies#" + frequency}>
+                    {this.props.intl.formatMessage({
+                      id: "bulletin:report:problem:frequency:" + frequency
+                    })}
+                  </a>
+                </span>
+              </div>
+            )}
+            {avalancheSize && (
+              <div className="matrix-info">
+                <span className="matrix-info-name">{avalancheSizeText}:</span>
+                <span className="matrix-info-value">
+                  <a
+                    href={"/education/avalanche-sizes#anchor-" + avalancheSize}
+                  >
+                    {this.props.intl.formatMessage({
+                      id:
+                        "bulletin:report:problem:avalanche-size:" +
+                        avalancheSize
+                    })}
+                  </a>
+                </span>
+              </div>
+            )}
           </div>
-          <div className="matrix-info">
-            <span className="matrix-info-name">{frequencyText}:</span>
-            <span className="matrix-info-value">
-              <a href={"/education/frequencies#" + frequency}>
-                {this.props.intl.formatMessage({
-                  id: "bulletin:report:problem:frequency:" + frequency
-                })}
-              </a>
-            </span>
-          </div>
-          <div className="matrix-info">
-            <span className="matrix-info-name">{avalancheSizeText}:</span>
-            <span className="matrix-info-value">
-              <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>
-                {this.props.intl.formatMessage({
-                  id: "bulletin:report:problem:avalanche-size:" + avalancheSize
-                })}
-              </a>
-            </span>
-          </div>
-        </div>
+        )}
       </li>
     );
   }
