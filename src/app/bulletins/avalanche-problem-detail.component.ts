@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { MapService } from "../providers/map-service/map.service";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import * as Enums from "../enums/enums";
@@ -30,7 +31,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
   public terrainFeatureFr: string;
 
   constructor(
-    public settingsService: SettingsService) {
+    public settingsService: SettingsService,
+    public mapService: MapService) {
   }
 
   ngOnChanges() {
@@ -71,6 +73,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       }
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   updateElevationLow() {
@@ -83,6 +87,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       }
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   treelineHighClicked(event) {
@@ -93,6 +99,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       this.avalancheProblemModel.treelineHigh = true;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   treelineLowClicked(event) {
@@ -103,6 +111,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       this.avalancheProblemModel.treelineLow = true;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   setUseElevationHigh(event) {
@@ -111,6 +121,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       this.avalancheProblemModel.elevationHigh = undefined;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   setUseElevationLow(event) {
@@ -119,6 +131,8 @@ export class AvalancheProblemDetailComponent implements OnChanges {
       this.avalancheProblemModel.elevationLow = undefined;
     }
     this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
   }
 
   deleteTextcat(event) {
