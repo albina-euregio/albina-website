@@ -45,6 +45,17 @@
     </tr>
     <tr>
       <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.showMatrix" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.showMatrix">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <label class="col-form-label">{{ "admin.region-configuration.table.publishBulletins" | translate }}</label>
       </td>
       <td>

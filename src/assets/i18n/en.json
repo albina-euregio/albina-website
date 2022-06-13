@@ -439,6 +439,7 @@
         "subRegions" : "Sub regions",
         "superRegions" : "Super regions",
         "neighborRegions" : "Neighbor regions",
+        "showMatrix" : "Show matrix",
         "publishBulletins" : "Publish avalanche forecast",
         "publishBlogs" : "Publish blog posts",
         "createCaamlV5" : "Create CAAML v5",

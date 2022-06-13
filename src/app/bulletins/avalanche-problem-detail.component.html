@@ -84,12 +84,17 @@
       </table>
     </div>
   </div>
-  <div class="form-group row" style="margin-bottom: 0">
+  <div *ngIf="authenticationService.getActiveRegion().showMatrix" class="form-group row" style="margin-bottom: 0">
     <div class="col-md-6">
       <app-matrix-parameter [(bulletin)]="bulletin" [(bulletinDaytimeDescription)]="bulletinDaytimeDescription" [(matrixInformation)]="avalancheProblemModel.matrixInformation" [disabled]="disabled"></app-matrix-parameter>
     </div>
     <div class="col-md-6">
       <app-matrix [(bulletin)]="bulletin" [(bulletinDaytimeDescription)]="bulletinDaytimeDescription" [(matrixInformation)]="avalancheProblemModel.matrixInformation" [snowpackStability]="avalancheProblemModel.matrixInformation.snowpackStability" [frequency]="avalancheProblemModel.matrixInformation.frequency" [avalancheSize]="avalancheProblemModel.matrixInformation.avalancheSize" [disabled]="true"></app-matrix>
+    </div>
+  </div>
+  <div *ngIf="!authenticationService.getActiveRegion().showMatrix" class="form-group row" style="margin-bottom: 0">
+    <div class="col-md-12">
+      <app-matrix-parameter [(bulletin)]="bulletin" [(bulletinDaytimeDescription)]="bulletinDaytimeDescription" [(matrixInformation)]="avalancheProblemModel.matrixInformation" [disabled]="disabled"></app-matrix-parameter>
     </div>
   </div>
 </div>

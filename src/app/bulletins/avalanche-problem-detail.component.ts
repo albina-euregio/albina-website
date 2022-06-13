@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { MapService } from "../providers/map-service/map.service";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
@@ -32,6 +33,7 @@ export class AvalancheProblemDetailComponent implements OnChanges {
 
   constructor(
     public settingsService: SettingsService,
+    public authenticationService: AuthenticationService,
     public mapService: MapService) {
   }
 

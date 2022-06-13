@@ -22,6 +22,7 @@ export interface RegionConfiguration {
   sendTelegramMessages: boolean;
   sendPushNotifications: boolean;
   enableMediaFile: boolean;
+  showMatrix: boolean;
   serverInstance: ServerConfiguration;
   pdfColor: string;
   emailColor: string;
