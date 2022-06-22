@@ -7,8 +7,7 @@ export default class ProblemIcon extends React.Component {
   constructor(props) {
     super(props);
 
-    this.imgRoot =
-      window.config.projectRoot + "images/pro/avalanche-situations/";
+    this.imgRoot = window.config.projectRoot + "images/pro/avalanche-problems/";
     this.imgFormat = window.config.webp ? ".webp" : ".png";
   }
 
