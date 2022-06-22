@@ -45,7 +45,7 @@
   "danger-patterns:dp9": "dp.9: graupel blanketed with snow",
   "danger-patterns:dp10": "dp.10: springtime scenario",
   "problem:new_snow": "New snow problem",
-  "problem:wind_drifted_snow": "Wind-drifted snow problem",
+  "problem:wind_slab": "Wind slab problem",
   "problem:persistent_weak_layers": "Persistent weak layer problem",
   "problem:wet_snow": "Wet snow problem",
   "problem:gliding_snow": "Gliding snow problem",

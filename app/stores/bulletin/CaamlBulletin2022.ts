@@ -90,7 +90,7 @@ export enum AvalancheProblemType {
   NewSnow = "new_snow",
   PersistentWeakLayers = "persistent_weak_layers",
   WetSnow = "wet_snow",
-  WindDriftedSnow = "wind_drifted_snow"
+  WindSlab = "wind_slab"
 }
 
 export interface MetaData {

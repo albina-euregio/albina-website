@@ -45,7 +45,7 @@
   "danger-patterns:dp9": "pp.9: nieve redonda  enterrada",
   "danger-patterns:dp10": "pp.10: escenario de primavera",
   "problem:new_snow": "Problema de nieve reciente",
-  "problem:wind_drifted_snow": "Problema de nieve venteada",
+  "problem:wind_slab": "Problema de nieve venteada",
   "problem:persistent_weak_layers": "Problema de capas débiles persistentes",
   "problem:wet_snow": "Problema de nieve húmeda",
   "problem:gliding_snow": "Problema de deslizamientos basales",

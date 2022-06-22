@@ -45,7 +45,7 @@
   "danger-patterns:dp9": "md.9: neige roulée enneigé",
   "danger-patterns:dp10": "md.10: situation de printemps",
   "problem:new_snow": "Situation de la neige fraîche",
-  "problem:wind_drifted_snow": "Situation de la neige soufflée (neige ventée)",
+  "problem:wind_slab": "Situation de la neige soufflée (neige ventée)",
   "problem:persistent_weak_layers": "Situation de la neige ancienne (sous-couche fragile persistante)",
   "problem:wet_snow": "Situation des avalanches mouillées (neige humide)",
   "problem:gliding_snow": "Situation des avalanches de glissement (avalanches de fond)",

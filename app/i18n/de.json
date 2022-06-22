@@ -45,7 +45,7 @@
   "danger-patterns:dp9": "gm.9: eingeschneiter graupel",
   "danger-patterns:dp10": "gm.10: frühjahrssituation",
   "problem:new_snow": "Neuschneeproblem",
-  "problem:wind_drifted_snow": "Triebschneeproblem",
+  "problem:wind_slab": "Triebschneeproblem",
   "problem:persistent_weak_layers": "Altschneeproblem",
   "problem:wet_snow": "Nassschneeproblem",
   "problem:gliding_snow": "Gleitschneeproblem",

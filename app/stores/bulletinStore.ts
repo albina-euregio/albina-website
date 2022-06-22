@@ -149,7 +149,7 @@ class BulletinStore {
   };
   problems: Record<AvalancheProblemType, { highlighted: boolean }> = {
     new_snow: { highlighted: false },
-    wind_drifted_snow: { highlighted: false },
+    wind_slab: { highlighted: false },
     persistent_weak_layers: { highlighted: false },
     wet_snow: { highlighted: false },
     gliding_snow: { highlighted: false }

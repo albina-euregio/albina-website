@@ -45,7 +45,7 @@
   "danger-patterns:dp9": "pp.9: neu granulada enterrada",
   "danger-patterns:dp10": "pp.10: escenari de primavera",
   "problem:new_snow": "Problema de neu recent",
-  "problem:wind_drifted_snow": "Problema de neu ventada",
+  "problem:wind_slab": "Problema de neu ventada",
   "problem:persistent_weak_layers": "Problema de capes febles persistents",
   "problem:wet_snow": "Problema de neu humida",
   "problem:gliding_snow": "Problema de lliscaments",
