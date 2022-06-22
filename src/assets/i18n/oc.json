@@ -198,7 +198,7 @@
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Entà quina situacion vòs cargar un tèxte d'exemple?",
         "newSnow" : "Nhèu recenta",
-        "windDriftedSnow" : "Nhèu ventada",
+        "windSlab" : "Nhèu ventada",
         "persistentWeakLayers" : "Coches fèbles persistentes",
         "wetSnow" : "Nhèu umida",
         "glidingSnow" : "Esguitlaments basaus",
@@ -633,7 +633,7 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nhèu recenta",
-    "windDriftedSnow" : "Nhèu ventada",
+    "windSlab" : "Nhèu ventada",
     "persistentWeakLayers" : "Coches fèbles persistentes",
     "wetSnow" : "Nhèu umida",
     "glidingSnow" : "Litsades basaus"

@@ -2289,46 +2289,46 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityCommentOc = this.constantsService.avActivityCommentNewSnowOc;
         }
         break;
-      case "windDriftedSnow":
+      case "windSlab":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentWindDriftedSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentWindSlabTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentWindDriftedSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentWindSlabTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentWindDriftedSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentWindSlabDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentWindDriftedSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentWindSlabDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentWindDriftedSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentWindSlabIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentWindDriftedSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentWindSlabIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentWindDriftedSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentWindSlabEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentWindDriftedSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentWindSlabEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentWindDriftedSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentWindSlabFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentWindDriftedSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentWindSlabFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentWindDriftedSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentWindSlabEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentWindDriftedSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentWindSlabEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentWindDriftedSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentWindSlabCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentWindDriftedSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentWindSlabCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentWindDriftedSnowOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentWindSlabOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentWindDriftedSnowOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentWindSlabOc;
         }
         break;
       case "persistentWeakLayers":
@@ -2558,46 +2558,46 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentNewSnowOc;
         }
         break;
-      case "windDriftedSnow":
+      case "windSlab":
         if (this.activeSnowpackStructureCommentTextcat !== undefined) {
-          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentWindDriftedSnowTextcat;
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentWindSlabTextcat;
         } else {
-          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentWindDriftedSnowTextcat;
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentWindSlabTextcat;
         }
         if (this.activeSnowpackStructureCommentDe !== undefined) {
-          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowDe;
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentWindSlabDe;
         } else {
-          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentWindDriftedSnowDe;
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentWindSlabDe;
         }
         if (this.activeSnowpackStructureCommentIt !== undefined) {
-          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowIt;
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentWindSlabIt;
         } else {
-          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentWindDriftedSnowIt;
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentWindSlabIt;
         }
         if (this.activeSnowpackStructureCommentEn !== undefined) {
-          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowEn;
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentWindSlabEn;
         } else {
-          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentWindDriftedSnowEn;
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentWindSlabEn;
         }
         if (this.activeSnowpackStructureCommentFr !== undefined) {
-          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowFr;
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentWindSlabFr;
         } else {
-          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentWindDriftedSnowFr;
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentWindSlabFr;
         }
         if (this.activeSnowpackStructureCommentEs !== undefined) {
-          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowEs;
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentWindSlabEs;
         } else {
-          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentWindDriftedSnowEs;
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentWindSlabEs;
         }
         if (this.activeSnowpackStructureCommentCa !== undefined) {
-          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowCa;
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentWindSlabCa;
         } else {
-          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentWindDriftedSnowCa;
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentWindSlabCa;
         }
         if (this.activeSnowpackStructureCommentOc !== undefined) {
-          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowOc;
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentWindSlabOc;
         } else {
-          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentWindDriftedSnowOc;
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentWindSlabOc;
         }
         break;
       case "persistentWeakLayers":

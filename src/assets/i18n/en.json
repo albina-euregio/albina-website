@@ -209,7 +209,7 @@
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "For which situation do you want to load an example text?",
         "newSnow" : "New snow",
-        "windDriftedSnow" : "Wind-drifted snow",
+        "windSlab" : "Wind slab",
         "persistentWeakLayers" : "Persistent weak layers",
         "wetSnow" : "Wet snow",
         "glidingSnow" : "Gliding snow",
@@ -644,7 +644,7 @@
   },
   "avalancheProblem" : {
     "newSnow" : "New snow",
-    "windDriftedSnow" : "Wind-drifted snow",
+    "windSlab" : "Wind slab",
     "persistentWeakLayers" : "Persistent weak layers",
     "wetSnow" : "Wet snow",
     "glidingSnow" : "Gliding snow"

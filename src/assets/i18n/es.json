@@ -198,7 +198,7 @@
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Para que situación quieres cargar un texto de ejemplo",
         "newSnow" : "Nieve reciente",
-        "windDriftedSnow" : "Nieve venteada",
+        "windSlab" : "Nieve venteada",
         "persistentWeakLayers" : "Capas débiles persistentes",
         "wetSnow" : "Nieve húmeda",
         "glidingSnow" : "Deslizamientos basales",
@@ -633,7 +633,7 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nieve reciente",
-    "windDriftedSnow" : "Nieve venteada",
+    "windSlab" : "Nieve venteada",
     "persistentWeakLayers" : "Capas débiles persistentes",
     "wetSnow" : "Nieve húmeda",
     "glidingSnow" : "Deslizamientos basales"

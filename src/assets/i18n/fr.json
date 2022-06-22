@@ -198,7 +198,7 @@
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Pour quelle situation souhaitez-vous charger un exemple de texte",
         "newSnow" : "Neige fraîche",
-        "windDriftedSnow" : "Neige soufflée (Neige ventée)",
+        "windSlab" : "Neige soufflée (Neige ventée)",
         "persistentWeakLayers" : "Neige ancienne (Sous-couche fragile persistante)",
         "wetSnow" : "Avalanches mouillées (Neige humide)",
         "glidingSnow" : "Avalanches de glissement (Avalanches de fond)",
@@ -633,7 +633,7 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Neige fraîche",
-    "windDriftedSnow" : "Neige soufflée (Neige ventée)",
+    "windSlab" : "Neige soufflée (Neige ventée)",
     "persistentWeakLayers" : "Neige ancienne (Sous-couche fragile persistante)",
     "wetSnow" : "Avalanches mouillées (Neige humide)",
     "glidingSnow" : "Avalanches de glissement (Avalanches de fond)"
