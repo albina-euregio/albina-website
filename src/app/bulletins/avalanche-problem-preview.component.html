@@ -22,6 +22,8 @@
         <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="40">
         <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="40">
         <img *ngIf="isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="40">
+        <img *ngIf="isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" width="40">
+        <img *ngIf="isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" width="40">
       </td>
       <td style="padding-right: 10px;">
         <app-aspects [(aspects)]="avalancheProblem.aspects" [disabled]="true" [size]="40"></app-aspects>

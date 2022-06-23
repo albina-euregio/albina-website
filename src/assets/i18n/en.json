@@ -649,7 +649,9 @@
     "windSlab" : "Wind slab",
     "persistentWeakLayers" : "Persistent weak layers",
     "wetSnow" : "Wet snow",
-    "glidingSnow" : "Gliding snow"
+    "glidingSnow" : "Gliding snow",
+    "cornices" : "Cornices",
+    "noDistinctAvalancheProblem" : "No distict avalanche problem"
   },
   "dangerPattern" : {
     "dp1" : "dp.1: deep persistent weak layer",
