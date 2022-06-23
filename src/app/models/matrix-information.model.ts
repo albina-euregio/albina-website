@@ -9,7 +9,6 @@ export class MatrixInformationModel {
 
   static createFromJson(json) {
     const matrixInformation = new MatrixInformationModel();
-
     matrixInformation.dangerRating = json.dangerRating;
     matrixInformation.avalancheSize = json.avalancheSize;
     matrixInformation.snowpackStability = json.snowpackStability;

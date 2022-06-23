@@ -96,7 +96,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   initMatrix() {
     const index = this.getCell(this.matrixInformation);
     if (index != "0")
-      this.selectCell(index);
+    this.setCellStyleActive(index);
   }
 
   private selectCell(cell) {

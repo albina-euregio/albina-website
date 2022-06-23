@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { AfterViewInit, Component, Input } from "@angular/core";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { BulletinDaytimeDescriptionModel } from "app/models/bulletin-daytime-description.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
@@ -18,12 +18,15 @@ export class MatrixParameterComponent {
   @Input() matrixInformation: MatrixInformationModel;
   @Input() disabled: boolean;
 
+  dangerRatingEnabled: boolean;
+
   languageCode = Enums.LanguageCode;
 
   constructor(
     public settingsService: SettingsService,
     public mapService: MapService,
     public constantsService: ConstantsService) {
+      this.dangerRatingEnabled = false;
   }
 
   isSnowpackStability(snowpackStability) {
@@ -35,6 +38,7 @@ export class MatrixParameterComponent {
 
   setSnowpackStability(event, snowpackStability) {
     event.stopPropagation();
+    this.dangerRatingEnabled = false;
     this.matrixInformation.setSnowpackStability(snowpackStability);
     this.updateDangerRating();
   }
@@ -48,6 +52,7 @@ export class MatrixParameterComponent {
 
   setFrequency(event, frequency) {
     event.stopPropagation();
+    this.dangerRatingEnabled = false;
     this.matrixInformation.setFrequency(frequency);
     this.updateDangerRating();
   }
@@ -61,8 +66,40 @@ export class MatrixParameterComponent {
 
   setAvalancheSize(event, avalancheSize) {
     event.stopPropagation();
+    this.dangerRatingEnabled = false;
     this.matrixInformation.setAvalancheSize(avalancheSize);
     this.updateDangerRating();
+  }
+
+  isDangerRating(dangerRating) {
+    if (this.matrixInformation && this.matrixInformation.dangerRating === dangerRating) {
+      return true;
+    }
+    return false;
+  }
+
+  setDangerRating(event, dangerRating) {
+    event.stopPropagation();
+    this.matrixInformation.setDangerRating(dangerRating);
+    this.bulletinDaytimeDescription.updateDangerRating();
+    this.mapService.updateAggregatedRegion(this.bulletin);
+    this.mapService.selectAggregatedRegion(this.bulletin);
+  }
+
+  overrideDangerRating(event, dangerRating) {
+    event.stopPropagation();
+    if (!this.disabled && this.dangerRatingEnabled) {
+      this.setDangerRating(event, dangerRating);
+    }
+  }
+
+  setDangerRatingEnabled(event) {
+    if (!this.dangerRatingEnabled) {
+      this.dangerRatingEnabled = true;
+    } else {
+      this.dangerRatingEnabled = false;
+      this.updateDangerRating();
+    }
   }
 
   private updateDangerRating() {

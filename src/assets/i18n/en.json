@@ -53,6 +53,8 @@
       "snowpackStability" : "Snowpack Stability",
       "frequency" : "Frequency",
       "avalancheSize" : "Avalanche Size",
+      "dangerRating" : "Danger Rating",
+      "override" : "(override danger rating)",
       "matrix" : "Matrix",
       "referToFairStability" : "Refer to fair stability",
       "referToPoorStability" : "Refer to poor stability",

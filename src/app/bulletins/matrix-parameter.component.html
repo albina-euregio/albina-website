@@ -91,3 +91,33 @@
 	</tbody>
   </table>
 </div>
+<div class="col-md-12" style="margin-top: 10px">
+	<label class="form-control-label" for="textarea-input"><strong>{{ "matrix.label.dangerRating" | translate }}</strong></label>
+	<label *ngIf="!disabled" class="switch switch-default switch-pill switch-primary" style="margin-left: 10px; margin-right: 5px">
+		<input type="checkbox" class="switch-input" [disabled]="disabled" [ngModel]="dangerRatingEnabled" (click)="setDangerRatingEnabled(event)">
+		<span class="switch-label"></span>
+		<span class="switch-handle"></span>
+	</label>
+	<label class="form-control-label" for="textarea-input">{{ "matrix.label.override" | translate }}</label>
+</div>
+<div class="col-md-12">
+	<table>
+	  <tbody>
+		<tr style="height: 60px">
+			<td style="padding-right: 10px; width: 100%;">
+				<!-- danger rating -->
+				<img *ngIf="dangerRatingEnabled && !isDangerRating('low')" src="./assets/img/danger_rating_low_bw.svg" height="40" (click)="overrideDangerRating($event, 'low')">
+				<img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" height="40" (click)="overrideDangerRating($event, 'low')">
+				<img *ngIf="dangerRatingEnabled && !isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_bw.svg" height="40" (click)="overrideDangerRating($event, 'moderate')">
+				<img *ngIf="isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" height="40" (click)="overrideDangerRating($event, 'moderate')">
+				<img *ngIf="dangerRatingEnabled && !isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_bw.svg" height="40" (click)="overrideDangerRating($event, 'considerable')">
+				<img *ngIf="isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" height="40" (click)="overrideDangerRating($event, 'considerable')">
+				<img *ngIf="dangerRatingEnabled && !isDangerRating('high')" src="./assets/img/danger_rating_high_bw.svg" height="40" (click)="overrideDangerRating($event, 'high')">
+				<img *ngIf="isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" height="40" (click)="overrideDangerRating($event, 'high')">
+				<img *ngIf="dangerRatingEnabled && !isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_bw.svg" height="40" (click)="overrideDangerRating($event, 'very_high')">
+				<img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" height="40" (click)="overrideDangerRating($event, 'very_high')">
+			</td>
+		</tr>
+	  </tbody>
+	</table>
+</div>
