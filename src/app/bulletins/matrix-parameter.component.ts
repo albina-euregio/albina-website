@@ -39,6 +39,7 @@ export class MatrixParameterComponent {
   setSnowpackStability(event, snowpackStability) {
     event.stopPropagation();
     this.dangerRatingEnabled = false;
+    this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setSnowpackStability(snowpackStability);
     this.updateDangerRating();
   }
@@ -53,6 +54,7 @@ export class MatrixParameterComponent {
   setFrequency(event, frequency) {
     event.stopPropagation();
     this.dangerRatingEnabled = false;
+    this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setFrequency(frequency);
     this.updateDangerRating();
   }
@@ -67,6 +69,7 @@ export class MatrixParameterComponent {
   setAvalancheSize(event, avalancheSize) {
     event.stopPropagation();
     this.dangerRatingEnabled = false;
+    this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setAvalancheSize(avalancheSize);
     this.updateDangerRating();
   }
@@ -96,9 +99,11 @@ export class MatrixParameterComponent {
   setDangerRatingEnabled(event) {
     if (!this.dangerRatingEnabled) {
       this.dangerRatingEnabled = true;
+      this.matrixInformation.dangerRatingModificator = undefined;
     } else {
       this.dangerRatingEnabled = false;
       this.updateDangerRating();
+      this.matrixInformation.dangerRatingModificator = undefined;
     }
   }
 
@@ -355,5 +360,17 @@ export class MatrixParameterComponent {
     this.bulletinDaytimeDescription.updateDangerRating();
     this.mapService.updateAggregatedRegion(this.bulletin);
     this.mapService.selectAggregatedRegion(this.bulletin);
+  }
+
+  isDangerRatingModificator(modificator) {
+    if (this.matrixInformation && this.matrixInformation.dangerRatingModificator === modificator) {
+      return true;
+    }
+    return false;
+  }
+
+  setDangerRatingModificator(event, modificator) {
+    event.stopPropagation();
+    this.matrixInformation.setDangerRatingModificator(modificator);
   }
 }

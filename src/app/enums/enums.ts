@@ -11,6 +11,10 @@ export class DangerRatingUtil {
   }
 }
 
+export enum DangerRatingModificator {
+  minus, equal, plus
+}
+
 export enum BulletinStatus {
   missing, draft, submitted, published, updated, resubmitted, republished
 }

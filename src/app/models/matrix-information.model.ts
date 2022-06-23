@@ -3,6 +3,7 @@ import * as Enums from "../enums/enums";
 export class MatrixInformationModel {
 
   public dangerRating: Enums.DangerRating;
+  public dangerRatingModificator: Enums.DangerRatingModificator;
   public avalancheSize: Enums.AvalancheSize;
   public snowpackStability: Enums.SnowpackStability;
   public frequency: Enums.Frequency;
@@ -10,6 +11,7 @@ export class MatrixInformationModel {
   static createFromJson(json) {
     const matrixInformation = new MatrixInformationModel();
     matrixInformation.dangerRating = json.dangerRating;
+    matrixInformation.dangerRatingModificator = json.dangerRatingModificator;
     matrixInformation.avalancheSize = json.avalancheSize;
     matrixInformation.snowpackStability = json.snowpackStability;
     matrixInformation.frequency = json.frequency;
@@ -20,11 +22,13 @@ export class MatrixInformationModel {
   constructor(matrixInformation?: MatrixInformationModel) {
     if (!matrixInformation) {
       this.setDangerRating("missing");
+      this.dangerRatingModificator = undefined;
       this.avalancheSize = undefined;
       this.snowpackStability = undefined;
       this.frequency = undefined;
     } else {
       this.setDangerRating(matrixInformation.getDangerRating());
+      this.dangerRatingModificator = matrixInformation.getDangerRatingModificator();
       this.avalancheSize = matrixInformation.getAvalancheSize();
       this.snowpackStability = matrixInformation.getSnowpackStability();
       this.frequency = matrixInformation.getFrequency();
@@ -37,6 +41,14 @@ export class MatrixInformationModel {
 
   setDangerRating(dangerRating) {
     this.dangerRating = dangerRating;
+  }
+
+  getDangerRatingModificator(): Enums.DangerRatingModificator {
+    return this.dangerRatingModificator;
+  }
+
+  setDangerRatingModificator(dangerRatingModificator) {
+    this.dangerRatingModificator = dangerRatingModificator;
   }
 
   getAvalancheSize(): Enums.AvalancheSize {
@@ -68,6 +80,9 @@ export class MatrixInformationModel {
 
     if (this.dangerRating && this.dangerRating !== undefined && this.dangerRating !== Enums.DangerRating.missing) {
       json["dangerRating"] = this.dangerRating;
+    }
+    if (this.dangerRatingModificator && this.dangerRatingModificator !== undefined) {
+      json["dangerRatingModificator"] = this.dangerRatingModificator;
     }
     if (this.avalancheSize && this.avalancheSize !== undefined) {
       json["avalancheSize"] = this.avalancheSize;
