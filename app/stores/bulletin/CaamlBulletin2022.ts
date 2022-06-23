@@ -62,35 +62,36 @@ export interface Elevation {
 
 export enum FrequencyType {
   Few = "few",
-  Many = "many",
-  Some = "some"
+  Some = "some",
+  Many = "many"
 }
 
 export enum DangerRatingValue {
-  Considerable = "considerable",
-  High = "high",
   Low = "low",
   Moderate = "moderate",
+  Considerable = "considerable",
+  High = "high",
+  VeryHigh = "very_high",
   NoRating = "no_rating",
-  NoSnow = "no_snow",
-  VeryHigh = "very_high"
+  NoSnow = "no_snow"
 }
 
 export enum SnowpackStabilityType {
-  Fair = "fair",
   Good = "good",
+  Fair = "fair",
   Poor = "poor",
   VeryPoor = "very_poor"
 }
 
 export enum AvalancheProblemType {
-  CorniceFailure = "cornice_failure",
-  FavourableSituation = "favourable_situation",
-  GlidingSnow = "gliding_snow",
   NewSnow = "new_snow",
+  WindSlab = "wind_slab",
   PersistentWeakLayers = "persistent_weak_layers",
   WetSnow = "wet_snow",
-  WindSlab = "wind_slab"
+  GlidingSnow = "gliding_snow",
+  FavourableSituation = "favourable_situation",
+  CorniceFailure = "cornices",
+  NoDistinctProblem = "no_distinct_problem"
 }
 
 export interface MetaData {

@@ -40,8 +40,9 @@ export enum AvalancheProblemType {
   "persistent_weak_layers",
   "wet_snow",
   "gliding_snow",
-  "cornice_failure",
-  "favourable_situation"
+  "favourable_situation",
+  "cornices",
+  "no_distinct_problem"
 }
 
 export enum DangerRatingValue {

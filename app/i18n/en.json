@@ -50,6 +50,8 @@
   "problem:wet_snow": "Wet snow problem",
   "problem:gliding_snow": "Gliding snow problem",
   "problem:favourable_situation": "Favourable situation",
+  "problem:cornices": "Cornices",
+  "problem:no_distinct_problem": "No distinct problem",
   "filter:all": "All",
   "filter:search": "Search",
   "jumpnav:content": "Go to Content",
