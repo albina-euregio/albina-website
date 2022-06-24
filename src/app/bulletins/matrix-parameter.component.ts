@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { BulletinDaytimeDescriptionModel } from "app/models/bulletin-daytime-description.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
@@ -6,6 +6,8 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { MapService } from "../providers/map-service/map.service";
 import * as Enums from "../enums/enums";
 import { BulletinModel } from "app/models/bulletin.model";
+import { Options, ChangeContext, PointerType } from '@angular-slider/ngx-slider';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-matrix-parameter",
@@ -19,14 +21,200 @@ export class MatrixParameterComponent {
   @Input() disabled: boolean;
 
   dangerRatingEnabled: boolean;
-
   languageCode = Enums.LanguageCode;
+
+  snowpackStabilityOptions: Options = {
+    floor: 0,
+    ceil: 80,
+    minLimit: 20,
+    showTicksValues: false,
+    showTicks: true,
+    showSelectionBar: true,
+    getLegend: (value: number): string => {
+      switch (value) {
+        case 10: return this.translateService.instant("snowpackStability.good");
+        case 30: return this.translateService.instant("snowpackStability.fair");
+        case 50: return this.translateService.instant("snowpackStability.poor");
+        case 70: return this.translateService.instant("snowpackStability.very_poor");
+        default: return '';
+      }
+    },
+    getSelectionBarColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      return 'red';
+    },
+    getPointerColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      return 'red';
+    }
+  };
+
+  frequencyOptions: Options = {
+    floor: 0,
+    ceil: 80,
+    minLimit: 20,
+    showTicksValues: false,
+    showTicks: true,
+    showSelectionBar: true,
+    getLegend: (value: number): string => {
+      switch (value) {
+        case 10: return this.translateService.instant("frequency.none");
+        case 30: return this.translateService.instant("frequency.few");
+        case 50: return this.translateService.instant("frequency.some");
+        case 70: return this.translateService.instant("frequency.many");
+        default: return '';
+      }
+    },
+    getSelectionBarColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      return 'red';
+    },
+    getPointerColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      return 'red';
+    }
+  };
+
+  avalancheSizeOptions: Options = {
+    floor: 0,
+    ceil: 100,
+    showTicksValues: false,
+    showTicks: true,
+    showSelectionBar: true,
+    getLegend: (value: number): string => {
+      switch (value) {
+        case 10: return this.translateService.instant("avalancheSize.small");
+        case 30: return this.translateService.instant("avalancheSize.medium");
+        case 50: return this.translateService.instant("avalancheSize.large");
+        case 70: return this.translateService.instant("avalancheSize.very_large");
+        case 90: return this.translateService.instant("avalancheSize.extreme");
+        default: return '';
+      }
+    },
+    getSelectionBarColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      if (value < 80) {
+          return 'red';
+      }
+      return 'black';
+    },
+    getPointerColor: (value: number): string => {
+      if (value < 20) {
+          return 'green';
+      }
+      if (value < 40) {
+          return 'yellow';
+      }
+      if (value < 60) {
+          return 'orange';
+      }
+      if (value < 80) {
+          return 'red';
+      }
+      return 'black';
+    }
+  };
 
   constructor(
     public settingsService: SettingsService,
     public mapService: MapService,
-    public constantsService: ConstantsService) {
+    public constantsService: ConstantsService,
+    public translateService: TranslateService) {
       this.dangerRatingEnabled = false;
+  }
+
+  onSnowpackStabilityValueChange(changeContext: ChangeContext): void {
+    switch (true) {
+      case (changeContext.value < 20):
+        this.setSnowpackStability('good');
+        break;
+      case (changeContext.value < 40):
+        this.setSnowpackStability('fair');
+        break;
+      case (changeContext.value < 60):
+        this.setSnowpackStability('poor');
+        break;
+      default:
+        this.setSnowpackStability('very_poor');
+        break;
+    }
+  }
+
+  onFrequencyValueChange(changeContext: ChangeContext): void {
+    switch (true) {
+      case (changeContext.value < 20):
+        this.setFrequency('none');
+        break;
+      case (changeContext.value < 40):
+        this.setFrequency('few');
+        break;
+      case (changeContext.value < 60):
+        this.setFrequency('some');
+        break;
+      default:
+        this.setFrequency('many');
+        break;
+    }
+  }
+
+  onAvalancheSizeValueChange(changeContext: ChangeContext): void {
+    switch (true) {
+      case (changeContext.value < 20):
+        this.setAvalancheSize('small');
+        break;
+      case (changeContext.value < 40):
+        this.setAvalancheSize('medium');
+        break;
+      case (changeContext.value < 60):
+        this.setAvalancheSize('large');
+        break;
+      case (changeContext.value < 80):
+        this.setAvalancheSize('very_large');
+        break;
+      default:
+        this.setAvalancheSize('extreme');
+        break;
+    }
   }
 
   isSnowpackStability(snowpackStability) {
@@ -36,8 +224,12 @@ export class MatrixParameterComponent {
     return false;
   }
 
-  setSnowpackStability(event, snowpackStability) {
+  setSnowpackStabilityEvent(event, snowpackStability) {
     event.stopPropagation();
+    this.setSnowpackStability(snowpackStability);
+  }
+
+  setSnowpackStability(snowpackStability) {
     this.dangerRatingEnabled = false;
     this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setSnowpackStability(snowpackStability);
@@ -51,8 +243,12 @@ export class MatrixParameterComponent {
     return false;
   }
 
-  setFrequency(event, frequency) {
+  setFrequencyEvent(event, frequency) {
     event.stopPropagation();
+    this.setFrequency(frequency);
+  }
+
+  setFrequency(frequency) {
     this.dangerRatingEnabled = false;
     this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setFrequency(frequency);
@@ -66,8 +262,12 @@ export class MatrixParameterComponent {
     return false;
   }
 
-  setAvalancheSize(event, avalancheSize) {
+  setAvalancheSizeEvent(event, avalancheSize) {
     event.stopPropagation();
+    this.setAvalancheSize(avalancheSize);
+  }
+
+  setAvalancheSize(avalancheSize) {
     this.dangerRatingEnabled = false;
     this.matrixInformation.dangerRatingModificator = undefined;
     this.matrixInformation.setAvalancheSize(avalancheSize);

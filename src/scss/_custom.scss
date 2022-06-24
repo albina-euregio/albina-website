@@ -109,3 +109,29 @@ button.close {
   background-color: rgba(0,0,0,0.5);
   z-index: 2000;
 }
+
+.ngx-slider-limit {
+  visibility: hidden !important;
+}
+
+.ngx-slider-bar {
+  left: 4px;
+  right: 4px;
+  width: auto;
+}
+
+.ngx-slider-model-value {
+  visibility: hidden !important;
+}
+
+.ngx-slider-tick {
+  background: none !important;
+}
+
+.ngx-slider-tick-legend {
+  font-size: smaller;
+}
+
+.ngx-slider.with-legend {
+  margin-bottom: 65px !important;
+}

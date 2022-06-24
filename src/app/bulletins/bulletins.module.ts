@@ -23,6 +23,7 @@ import { TabComponent } from "./tab.component";
 import { BulletinsRoutingModule } from "./bulletins-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
@@ -39,7 +40,8 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         TranslateModule,
         ConfirmDialogModule,
         PipeModule.forRoot(),
-        AccordionModule.forRoot()
+        AccordionModule.forRoot(),
+        NgxSliderModule
     ],
     exports: [
         AspectsComponent
