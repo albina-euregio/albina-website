@@ -1,77 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ControlBar from "./control-bar.jsx";
 
-export default class InfoBar extends React.Component {
-  constructor(props) {
-    super(props);
+const InfoBar = props => {
+  const [currentLevel, setCurrentLevel] = useState("");
+  let delayedLevel = "";
+  let messageInterval;
 
-    this.state = { currentLevel: "" };
-    this.delayedLevel = "";
-    this.levels = props.levels || {
-      "": { message: "Loading", iconOn: true },
-      loading: { message: "Loading", delay: 1000, iconOn: true },
-      error: { message: "Error" },
-      "ok:": { message: "finished", keep: true }
-    };
-  }
+  const levels = props.levels || {
+    "": { message: "Loading", iconOn: true },
+    loading: { message: "Loading", delay: 1000, iconOn: true },
+    error: { message: "Error" },
+    "ok:": { message: "finished", keep: true }
+  };
 
-  componentWillUnmount() {
-    this.resetInterval();
-  }
+  useEffect(() => {
+    //console.log("BulletinMap->useEffect[props.regions] xx03");
+    setInfoMessage();
+    return resetInterval();
+  }, []);
 
-  getI(def, para) {
+  useEffect(() => {
+    //console.log("BulletinMap->useEffect[props.regions] xx03");
+    setInfoMessage();
+  });
+
+  const getI = (def, para) => {
     // console.log("InfoBar->getI", typeof def, def, para);
     if (typeof def === "string") return def;
     if (typeof def === "object") return def[para];
     return undefined;
-  }
+  };
 
-  resetInterval() {
-    // console.log("InfoBar->resetInterval", this.messageInterval);
-    if (this.messageInterval) {
-      clearTimeout(this.messageInterval);
-      this.messageInterval = undefined;
+  const resetInterval = () => {
+    // console.log("InfoBar->resetInterval", messageInterval);
+    if (messageInterval) {
+      clearTimeout(messageInterval);
+      messageInterval = undefined;
     }
-  }
+  };
 
-  setInfoMessage() {
-    //console.log("InfoBar->setInfoMessage", "state: " + this.state.currentLevel, "props: " + this.props.level, this.levels);//, this.getI(this.levels[this.props.level], "iconOn"))
-    const self = this;
-    const newLevel = this.props.level;
-    const newLevelData = this.levels[newLevel];
+  const setInfoMessage = () => {
+    //console.log("InfoBar->setInfoMessage", "state: " + currentLevel, "props: " + props.level, levels);//, getI(levels[props.level], "iconOn"))
+    const newLevel = props.level;
+    const newLevelData = levels[newLevel];
     let nDelay;
     if (!newLevelData) return;
 
-    if (newLevel != this.state.currentLevel) {
-      if ((nDelay = this.getI(newLevelData, "delay"))) {
-        // console.log("InfoBar->setInfoMessage #1" , newLevel, this.delayedLevel);
-        if (newLevel != this.delayedLevel) {
-          //console.log("InfoBar->setInfoMessage #2" , this.state.currentLevel, newLevel, nDelay);
-          this.resetInterval();
-          this.messageInterval = setTimeout(() => {
-            self.messageInterval = undefined;
-            // console.log("InfoBar->TIMEOUT", newLevel,  self.state.currentLevel);
-            if (newLevel != self.state.currentLevel) {
-              self.setState({ currentLevel: newLevel });
-              self.delayedLevel = "";
+    if (newLevel != currentLevel) {
+      if ((nDelay = getI(newLevelData, "delay"))) {
+        // console.log("InfoBar->setInfoMessage #1" , newLevel, delayedLevel);
+        if (newLevel != delayedLevel) {
+          //console.log("InfoBar->setInfoMessage #2" , currentLevel, newLevel, nDelay);
+          resetInterval();
+          messageInterval = setTimeout(() => {
+            messageInterval = undefined;
+            // console.log("InfoBar->TIMEOUT", newLevel,  currentLevel);
+            if (newLevel != currentLevel) {
+              setCurrentLevel(newLevel);
+              delayedLevel = "";
             }
           }, nDelay);
-          this.setLoadingIndicator(this.getI(newLevelData, "iconOn") || false);
-          this.delayedLevel = newLevel;
+          setLoadingIndicator(getI(newLevelData, "iconOn") || false);
+          delayedLevel = newLevel;
         }
       } else {
-        if (newLevel != this.state.currentLevel) {
-          this.resetInterval();
-          this.delayedLevel = "";
-          if (!this.getI(newLevelData, "keep"))
-            self.setState({ currentLevel: newLevel });
-          self.setLoadingIndicator(this.getI(newLevelData, "iconOn") || false);
+        if (newLevel != currentLevel) {
+          resetInterval();
+          delayedLevel = "";
+          if (!getI(newLevelData, "keep")) setCurrentLevel(newLevel);
+          setLoadingIndicator(getI(newLevelData, "iconOn") || false);
         }
       }
     }
-  }
+  };
 
-  setLoadingIndicator(on) {
+  const setLoadingIndicator = on => {
     //show hide loading image
     //console.log("InfoBar->setLoadingIndicator", on)
     if (on) {
@@ -83,27 +86,15 @@ export default class InfoBar extends React.Component {
         $("html").addClass("page-loaded");
       }, 1000);
     }
-  }
+  };
 
-  componentDidUpdate() {
-    this.setInfoMessage();
+  let infoMessage = getI(levels[currentLevel], "message");
+  if (Array.isArray(infoMessage) && infoMessage.length) {
+    infoMessage = infoMessage[0];
   }
+  if (infoMessage)
+    return <ControlBar addClass="fade-in" l message={infoMessage} />;
+  return [];
+};
 
-  componentDidMount() {
-    this.setInfoMessage();
-  }
-
-  render() {
-    // console.log("InfoBar->render", this.getI(this.levels[this.state.currentLevel], "message"));
-    let infoMessage = this.getI(
-      this.levels[this.state.currentLevel],
-      "message"
-    );
-    if (Array.isArray(infoMessage) && infoMessage.length) {
-      infoMessage = infoMessage[0];
-    }
-    if (infoMessage)
-      return <ControlBar addClass="fade-in" l message={infoMessage} />;
-    return [];
-  }
-}
+export default InfoBar;
