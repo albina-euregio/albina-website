@@ -48,6 +48,19 @@
   "education" : {
     "title" : "Ausbildung"
   },
+  "matrix" : {
+    "label" : {
+      "snowpackStability" : "Schneedeckenstabilität",
+      "frequency" : "Häufigkeit",
+      "avalancheSize" : "Lawinengröße",
+      "dangerRating" : "Gefahrenstufe",
+      "override" : "(Gefahrenstufe überschreiben)",
+      "matrix" : "Matrix",
+      "referToFairStability" : "Siehe mittlere Stabilität",
+      "referToPoorStability" : "Siehe schlechte Stabilität",
+      "dangerLevel1" : "Gefahrenstufe 1 (Gering)"
+    }
+  },
   "bulletins" : {
     "title" : "Lawinen.report",
     "loadingPreview" : "Erzeuge PDF Vorschau ...",
@@ -192,7 +205,7 @@
         "accept" : "Ok"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
+        "message" : "Art des Lawinenproblems, Exposition, Schneedeckenstabilität, Häufigkeit und/oder Lawinengröße fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },
       "loadAvActivityCommentExampleTextDialog" : {
@@ -428,6 +441,7 @@
         "subRegions" : "Subregionen",
         "superRegions" : "Superregionen",
         "neighborRegions" : "Nachbarregionen",
+        "showMatrix" : "Matrix anzeigen",
         "publishBulletins" : "Lawinenvorhersage veröffentlichen",
         "publishBlogs" : "Blogs veröffentlichen",
         "createCaamlV5" : "CAAML v5 erzeugen",
@@ -617,7 +631,6 @@
       "table" : {
         "showCaaml" : "CAAML anzeigen",
         "showJson" : "JSON anzeigen",
-        "useMatrix" : "Matrix verwenden",
         "showObservations" : "Beobachtungen anzeigen"
       }
     }
@@ -636,7 +649,9 @@
     "windSlab" : "Triebschnee",
     "persistentWeakLayers" : "Altschneeproblem",
     "wetSnow" : "Nassschnee",
-    "glidingSnow" : "Gleitschnee"
+    "glidingSnow" : "Gleitschnee",
+    "cornices" : "Wechten",
+    "noDistinctAvalancheProblem" : "Kein ausgeprägtes Lawinenproblem"
   },
   "dangerPattern" : {
     "dp1" : "gm.1: bodennahe schwachschicht",
@@ -793,7 +808,7 @@
     "IT-32-TN-19" : "Sole, Pejo und Rabbi",
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Pine' - Fersental",
-    "IT-34" : "Veneto",
+    "IT-34" : "Venezien",
     "IT-34-BL-01" : "Agordino, Zoldano",
     "IT-34-BL-02" : "Ampezzo - Cadore",
     "IT-34-BL-03" : "Ansiei - Comelico",
@@ -802,7 +817,7 @@
     "IT-34-BL-06" : "Vette Feltrine, Visentin, Grappa",
     "IT-34-VI-01" : "Altopiano, Pasubio, Carega",
     "IT-34-VR-01" : "Baldo, Lessini",
-    "IT-36" : "Friuli Venezia Giulia",
+    "IT-36" : "Friaul-Julisch Venetien",
     "IT-36-UD-01" : "ALPI CARNICHE OCCIDENTALI",
     "IT-36-UD-02" : "ALPI CARNICHE ORIENTALI",
     "IT-36-UD-03" : "ALPI GIULIE SENZA CANIN",
@@ -813,7 +828,7 @@
     "IT-42" : "Liguria",
     "IT-45" : "Emilia-Romagna",
     "IT-52" : "Toscana",
-    "IT-57" : "Marche",
+    "IT-57" : "Marken",
     "IT-57-AP-01"  : "Monti Sibillini Ovest",
     "IT-57-AP-02"  : "Monti Sibillini Est e Laga Marchigiana",
     "IT-57-MC-01"  : "Appennino Fabrianese",
@@ -830,6 +845,25 @@
     "decreasing" : " Lawinengefahr sinkt",
     "steady" : " Lawinengefahr bleibt gleich",
     "increasing" : " Lawinengefahr steigt"
+  },
+  "snowpackStability" : {
+    "good" : "gut",
+    "fair" : "mittel",
+    "poor" : "schlecht",
+    "very_poor" : "sehr schlecht"
+  },
+  "frequency" : {
+    "none" : "(fast) keine",
+    "few" : "wenige",
+    "some" : "einige",
+    "many" : "viele"
+  },
+  "avalancheSize" : {
+    "small" : "klein",
+    "medium" : "mittel",
+    "large" : "groß",
+    "very_large" : "sehr groß",
+    "extreme" : "extrem"
   },
   "complexity": {
     "easy": "Einfach",

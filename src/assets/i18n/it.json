@@ -48,6 +48,19 @@
   "education" : {
     "title" : "Educazione"
   },
+  "matrix" : {
+    "label" : {
+      "snowpackStability" : "Snowpack Stability",
+      "frequency" : "Frequency",
+      "avalancheSize" : "Avalanche Size",
+      "dangerRating" : "Grado del pericolo valanghe",
+      "override" : "(override danger rating)",
+      "matrix" : "Matrix",
+      "referToFairStability" : "Refer to fair stability",
+      "referToPoorStability" : "Refer to poor stability",
+      "dangerLevel1" : "Danger level 1 (Low)"
+    }
+  },
   "bulletins" : {
     "title" : "Valanghe.report",
     "loadingPreview" : "Creare un'anteprima in PDF ...",
@@ -130,7 +143,7 @@
         "notes" : "Commenti"
       },
       "title" : {
-        "avalancheProblem" : "Problema tipico valanghivo",
+        "avalancheProblem" : "Problema valanghivo",
         "dangerDescription" : "Descrizione pericolo",
         "above" : "Al disopra",
         "below" : "Al disotto",
@@ -192,13 +205,13 @@
         "accept" : "Ok"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Problema valanhgivo tipico, esposizione e/o valutazione del grado del pericolo mancano almeno in un dei problemi valanghivi",
+        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
         "accept" : "Ok"
       },
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Per quale situazione si desidera caricare il testo",
         "newSnow" : "Neve fresca",
-        "windSlab" : "Neve ventata",
+        "windSlab" : "Wind slab",
         "persistentWeakLayers" : "Strati deboli persistenti",
         "wetSnow" : "Neve bagnata",
         "glidingSnow" : "Valanghe di slittamento",
@@ -312,7 +325,7 @@
         "missingText" : "Text is missing!",
         "missingFile" : "No file selected!",
         "uploadError" : "Upload failed!",
-        "accept" : "Send",
+        "accept" : "Inviare",
         "reject" : "Stornare"
       },
       "publishBulletinsErrorDialog" : {
@@ -396,10 +409,10 @@
       "button" : {
         "create" : "Create server",
         "save" : "Salva",
-        "delete" : "Delete"
+        "delete" : "Cancella"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nome",
         "username" : "Username",
         "password" : "Password",
         "externalServer" : "External",
@@ -417,10 +430,10 @@
       "error" : "Configurazione non salvata"
     },
     "region-configuration" : {
-      "title" : "Region",
+      "title" : "Regione",
       "button" : {
         "create" : "Create region",
-        "save" : "Save"
+        "save" : "Salva"
       },
       "table" : {
         "id" : "ID",
@@ -428,15 +441,16 @@
         "subRegions" : "Sub regions",
         "superRegions" : "Super regions",
         "neighborRegions" : "Neighbor regions",
+        "showMatrix" : "Show matrix",
         "publishBulletins" : "Publish avalanche forecast",
         "publishBlogs" : "Publish blog posts",
         "createCaamlV5" : "Create CAAML v5",
         "createCaamlV6" : "Create CAAML v6",
         "createJson" : "Create JSON",
-        "createMaps" : "Create maps",
-        "createPdf" : "Create PDF",
-        "sendEmails" : "Send emails",
-        "createSimpleHtml" : "Create simple HTML",
+        "createMaps" : "Creare mappe",
+        "createPdf" : "Creare pdf",
+        "sendEmails" : "Inviare e-mail",
+        "createSimpleHtml" : "Creare simplice HTML",
         "sendTelegramMessages" : "Send telegram messages",
         "sendPushNotifications" : "Send push notifications",
         "enableMediaFile" : "Enable media file",
@@ -465,8 +479,8 @@
         "imageColorbarColorPath" : "Colorbar (color)",
         "imageColorbarBwPath" : "Colorbar (b/w)"
       },
-      "success" : "Configuration successfully saved",
-      "error" : "Configuration could not be saved"
+      "success" : "Configurazione salvata",
+      "error" : "Configurazione non salvata"
     },
     "users" : {
       "title" : "Utenti",
@@ -617,7 +631,6 @@
       "table" : {
         "showCaaml" : "Indicare CAAML",
         "showJson" : "Indicare JSON",
-        "useMatrix" : "Adoperare matrice",
         "showObservations" : "Mostra osservazioni"
       }
     }
@@ -633,10 +646,12 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Neve fresca",
-    "windSlab" : "Neve ventata",
+    "windSlab" : "Wind slab",
     "persistentWeakLayers" : "Strati deboli persistenti",
     "wetSnow" : "Neve bagnata",
-    "glidingSnow" : "Valanghe di slittamento"
+    "glidingSnow" : "Valanghe di slittamento",
+    "cornices" : "Cornices",
+    "noDistinctAvalancheProblem" : "No distict avalanche problem"
   },
   "dangerPattern" : {
     "dp1" : "st.1: strato debole persistente basale",
@@ -831,6 +846,25 @@
     "steady" : " Pericolo valanghe stabile",
     "increasing" : " Pericolo valanghe in aumento"
   },
+  "snowpackStability" : {
+    "good" : "good",
+    "fair" : "fair",
+    "poor" : "poor",
+    "very_poor" : "very poor"
+  },
+  "frequency" : {
+    "none" : "(nearly) none",
+    "few" : "a few",
+    "some" : "some",
+    "many" : "many"
+  },
+  "avalancheSize" : {
+    "small" : "small",
+    "medium" : "medium",
+    "large" : "large",
+    "very_large" : "very large",
+    "extreme" : "extreme"
+  },
   "complexity": {
     "easy": "Facile",
     "challenging": "Impegnativo",
@@ -936,7 +970,7 @@
         "title": "Views"
       },
       "settings": {
-        "title": "Settings"
+        "title": "Impostazioni"
       }
     }
   },
