@@ -78,7 +78,7 @@ const BulletinMap = props => {
       keep: false
     };
     return levels;
-  }, [props.date]);
+  }, [props.date, intl]);
 
   const handleMapInit = map => {
     setMap(map);
