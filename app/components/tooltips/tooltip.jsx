@@ -14,9 +14,11 @@ import {
   useFloating,
   useInteractions,
   useHover,
+  useClick,
   useFocus,
   useRole,
-  useDismiss
+  useDismiss,
+  safePolygon
 } from "@floating-ui/react-dom-interactions";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,7 +41,12 @@ export const Tooltip = ({
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       delay: { open: 200 },
-      restMs: 40
+      restMs: 40,
+      mouseOnly: true,
+      handleClose: safePolygon()
+    }),
+    useClick(context, {
+      ignoreMouse: true
     }),
     useFocus(context),
     useRole(context, { role: "tooltip" }),
