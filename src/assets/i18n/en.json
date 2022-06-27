@@ -205,7 +205,7 @@
         "accept" : "Ok"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
+        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
         "accept" : "Ok"
       },
       "loadAvActivityCommentExampleTextDialog" : {

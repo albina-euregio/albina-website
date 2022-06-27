@@ -24,15 +24,13 @@ export class MatrixParameterComponent {
   languageCode = Enums.LanguageCode;
 
   snowpackStabilityOptions: Options = {
-    floor: 0,
+    floor: 20,
     ceil: 80,
-    minLimit: 20,
     showTicksValues: false,
     showTicks: true,
     showSelectionBar: true,
     getLegend: (value: number): string => {
       switch (value) {
-        case 10: return this.translateService.instant("snowpackStability.good");
         case 30: return this.translateService.instant("snowpackStability.fair");
         case 50: return this.translateService.instant("snowpackStability.poor");
         case 70: return this.translateService.instant("snowpackStability.very_poor");
@@ -40,6 +38,9 @@ export class MatrixParameterComponent {
       }
     },
     getSelectionBarColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -49,9 +50,14 @@ export class MatrixParameterComponent {
       if (value < 60) {
           return 'orange';
       }
-      return 'red';
+      if (value >= 60) {
+          return 'red';
+      }
     },
     getPointerColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -61,20 +67,20 @@ export class MatrixParameterComponent {
       if (value < 60) {
           return 'orange';
       }
-      return 'red';
+      if (value >= 60) {
+          return 'red';
+      }
     }
   };
 
   frequencyOptions: Options = {
-    floor: 0,
+    floor: 20,
     ceil: 80,
-    minLimit: 20,
     showTicksValues: false,
     showTicks: true,
     showSelectionBar: true,
     getLegend: (value: number): string => {
       switch (value) {
-        case 10: return this.translateService.instant("frequency.none");
         case 30: return this.translateService.instant("frequency.few");
         case 50: return this.translateService.instant("frequency.some");
         case 70: return this.translateService.instant("frequency.many");
@@ -82,6 +88,9 @@ export class MatrixParameterComponent {
       }
     },
     getSelectionBarColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -91,9 +100,14 @@ export class MatrixParameterComponent {
       if (value < 60) {
           return 'orange';
       }
-      return 'red';
+      if (value >= 60) {
+          return 'red';
+      }
     },
     getPointerColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -103,7 +117,9 @@ export class MatrixParameterComponent {
       if (value < 60) {
           return 'orange';
       }
-      return 'red';
+      if (value >= 60) {
+          return 'red';
+      }
     }
   };
 
@@ -124,6 +140,9 @@ export class MatrixParameterComponent {
       }
     },
     getSelectionBarColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -136,9 +155,14 @@ export class MatrixParameterComponent {
       if (value < 80) {
           return 'red';
       }
-      return 'black';
+      if (value >= 80) {
+        return 'black';
+      }
     },
     getPointerColor: (value: number): string => {
+      if (value < 0) {
+          return 'grey';
+      }
       if (value < 20) {
           return 'green';
       }
@@ -151,7 +175,9 @@ export class MatrixParameterComponent {
       if (value < 80) {
           return 'red';
       }
-      return 'black';
+      if (value >= 80) {
+          return 'black';
+      }
     }
   };
 

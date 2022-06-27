@@ -103,7 +103,7 @@
 <div class="col-md-12" style="margin-top: 10px">
 	<label class="form-control-label" for="textarea-input"><strong>{{ "matrix.label.dangerRating" | translate }}</strong></label>
 	<label *ngIf="!disabled" class="switch switch-default switch-pill switch-primary" style="margin-left: 10px; margin-right: 5px">
-		<input type="checkbox" class="switch-input" [disabled]="disabled" [ngModel]="dangerRatingEnabled" (click)="setDangerRatingEnabled(event)">
+		<input type="checkbox" class="switch-input" [disabled]="disabled || !matrixInformation || !matrixInformation.snowpackStability || !matrixInformation.frequency || !matrixInformation.avalancheSize" [ngModel]="dangerRatingEnabled" (click)="setDangerRatingEnabled(event)">
 		<span class="switch-label"></span>
 		<span class="switch-handle"></span>
 	</label>
@@ -114,11 +114,12 @@
 	  <tbody>
 		<tr style="height: 70px">
 			<td>
-				<button *ngIf="isDangerRatingModificator('minus')" [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingModificator($event, undefined)">-</button>
-				<button *ngIf="!isDangerRatingModificator('minus')" [disabled]="disabled" type="reset" class="btn btn-sm btn-secondary" (click)="setDangerRatingModificator($event, 'minus')">-</button>
+				<button *ngIf="isDangerRatingModificator('minus')" [disabled]="disabled || !matrixInformation || !matrixInformation.snowpackStability || !matrixInformation.frequency || !matrixInformation.avalancheSize" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingModificator($event, undefined)">-</button>
+				<button *ngIf="!isDangerRatingModificator('minus')" [disabled]="disabled || !matrixInformation || !matrixInformation.snowpackStability || !matrixInformation.frequency || !matrixInformation.avalancheSize" type="reset" class="btn btn-sm btn-secondary" (click)="setDangerRatingModificator($event, 'minus')">-</button>
 			</td>
 			<td>
 				<!-- danger rating -->
+				<img *ngIf="!dangerRatingEnabled && isDangerRating('missing')" src="./assets/img/danger_rating_missing.svg" height="60">
 				<img *ngIf="dangerRatingEnabled && !isDangerRating('low')" src="./assets/img/danger_rating_low_bw.svg" height="60" (click)="overrideDangerRating($event, 'low')">
 				<img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" height="60" (click)="overrideDangerRating($event, 'low')">
 				<img *ngIf="dangerRatingEnabled && !isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_bw.svg" height="60" (click)="overrideDangerRating($event, 'moderate')">
@@ -131,8 +132,8 @@
 				<img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" height="60" (click)="overrideDangerRating($event, 'very_high')">
 			</td>
 			<td>
-				<button *ngIf="isDangerRatingModificator('plus')" [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingModificator($event, undefined)">+</button>
-				<button *ngIf="!isDangerRatingModificator('plus')" [disabled]="disabled" type="reset" class="btn btn-sm btn-secondary" (click)="setDangerRatingModificator($event, 'plus')">+</button>
+				<button *ngIf="isDangerRatingModificator('plus')" [disabled]="disabled || !matrixInformation || !matrixInformation.snowpackStability || !matrixInformation.frequency || !matrixInformation.avalancheSize" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingModificator($event, undefined)">+</button>
+				<button *ngIf="!isDangerRatingModificator('plus')" [disabled]="disabled || !matrixInformation || !matrixInformation.snowpackStability || !matrixInformation.frequency || !matrixInformation.avalancheSize" type="reset" class="btn btn-sm btn-secondary" (click)="setDangerRatingModificator($event, 'plus')">+</button>
 			</td>
 		</tr>
 	  </tbody>
