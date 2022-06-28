@@ -58,7 +58,7 @@
         <div class="dropdown-header text-center"><strong>{{ "menu.region" | translate }}</strong></div>
 
         <div *ngFor="let region of authenticationService.getCurrentAuthorRegions()">
-          <a class="dropdown-item" (click)='changeRegion(region)'><i class="fa fa-globe"></i>&nbsp;{{ "region." + region.id | translate }}<i *ngIf="authenticationService.getActiveRegionId()===region.id" class="fa fa-check float-right"></i></a>
+          <a class="dropdown-item" (click)='changeRegion(region)'><i class="fa fa-globe"></i>&nbsp;{{ regionsService.getRegionName(region.id) }}<i *ngIf="authenticationService.getActiveRegionId()===region.id" class="fa fa-check float-right"></i></a>
         </div>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.education" | translate }}</strong></div>

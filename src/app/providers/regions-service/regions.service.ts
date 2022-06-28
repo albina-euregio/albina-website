@@ -60,6 +60,14 @@ const RegionsAranElevation: FeatureCollection<MultiPolygon, RegionWithElevationP
   RegionsAranElevation_ES_CT_L as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
 );
 
+import {default as regionsNamesDe} from "eaws-regions/public/micro-regions_names/de.json";
+import {default as regionsNamesIt} from "eaws-regions/public/micro-regions_names/it.json";
+import {default as regionsNamesEn} from "eaws-regions/public/micro-regions_names/en.json";
+import {default as regionsNamesFr} from "eaws-regions/public/micro-regions_names/fr.json";
+import {default as regionsNamesEs} from "eaws-regions/public/micro-regions_names/es.json";
+import {default as regionsNamesCa} from "eaws-regions/public/micro-regions_names/ca.json";
+import {default as regionsNamesOc} from "eaws-regions/public/micro-regions_names/oc.json";
+
 const Regions: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureCollections(
   RegionsEuregio_AT_07 as FeatureCollection<MultiPolygon, RegionProperties>,
   RegionsEuregio_IT_32_BZ as FeatureCollection<MultiPolygon, RegionProperties>,
@@ -171,6 +179,27 @@ export class RegionsService {
     return RegionsAinevaElevation;
   }
 
+  getRegionNames(): any {
+    switch (this.translateService.currentLang) {
+      case 'de':
+        return regionsNamesDe;
+      case 'it':
+        return regionsNamesIt;
+      case 'en':
+        return regionsNamesEn;
+      case 'fr':
+        return regionsNamesFr;
+      case 'es':
+        return regionsNamesEs;
+      case 'ca':
+        return regionsNamesCa;
+      case 'oc':
+        return regionsNamesOc;
+      default:
+        return regionsNamesEn;
+    }
+  }
+
   private translateAllNames() {
     this.translateNames(this.getRegionsEuregio());
     this.translateNames(this.getRegionsEuregioWithElevation());
@@ -181,7 +210,11 @@ export class RegionsService {
   }
 
   private translateNames(data: FeatureCollection<any, RegionProperties>) {
-    data.features.forEach((feature) => (feature.properties.name = this.translateService.instant("region." + feature.properties.id)));
+    data.features.forEach((feature) => feature.properties.name = this.getRegionNames()[feature.properties.id]);
+  }
+
+  getRegionName(id) {
+    return this.getRegionNames()[id];
   }
 
   getRegionForId(id: string): RegionProperties {

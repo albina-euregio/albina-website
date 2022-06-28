@@ -1,7 +1,6 @@
 import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, TemplateRef, OnDestroy, AfterViewInit, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
-import { MatrixInformationModel } from "../models/matrix-information.model";
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
@@ -10,6 +9,7 @@ import { MapService } from "../providers/map-service/map.service";
 import { LocalStorageService } from "../providers/local-storage-service/local-storage.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
+import { RegionsService } from "../providers/regions-service/regions.service";
 import { CopyService } from "../providers/copy-service/copy.service";
 import { CatalogOfPhrasesComponent } from "../catalog-of-phrases/catalog-of-phrases.component";
 import { Observable } from "rxjs/Observable";
@@ -187,6 +187,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private constantsService: ConstantsService,
+    private regionsService: RegionsService,
     public copyService: CopyService,
     private mapService: MapService,
     private applicationRef: ApplicationRef,

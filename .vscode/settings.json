@@ -8,7 +8,6 @@
     "avalancheProblem.*",
     "dangerRating.*",
     "aspect.*",
-    "region.*",
     "units.*",
     "LoLaAvalanchePotential.*",
     "observations.eventTypes.*",

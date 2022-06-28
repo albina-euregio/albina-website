@@ -61,7 +61,7 @@
                             <td>
                               <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                             </td>
-                            <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                            <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                             <td>
                               <div>
                                 <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -126,7 +126,7 @@
                       <td>
                         <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
-                      <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                      <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                       <td>
                         <div>
                           <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -152,7 +152,7 @@
                             <td>
                               <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                             </td>
-                            <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                            <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                             <td>
                               <div>
                                 <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -220,7 +220,7 @@
                       <td>
                         <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
-                      <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                      <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                       <td>
                         <div>
                           <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -232,7 +232,7 @@
                       <td>
                         <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
-                      <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                      <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                       <td>
                         <div>
                           <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -260,7 +260,7 @@
                               <td>
                                 <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                               </td>
-                              <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                              <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                               <td>
                                 <div>
                                   <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
@@ -305,7 +305,7 @@
                         <td>
                           <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                         </td>
-                        <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
+                        <td>{{ regionsService.getRegionName(bulletin.getOwnerRegion()) }}</td>
                         <td>
                           <div>
                             <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>

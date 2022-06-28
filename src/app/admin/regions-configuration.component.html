@@ -11,7 +11,7 @@
     <accordion *ngIf="configurationPropertiesLoaded">
       <accordion-group *ngFor="let config of regionConfigurations">
         <div accordion-heading class="clearfix">
-          <strong>{{ 'region.' + config.id | translate }}</strong>
+          <strong>{{ regionsService.getRegionName(config.id) }}</strong>
         </div>
         <app-region-configuration [config]="config"></app-region-configuration>
       </accordion-group>

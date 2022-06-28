@@ -73,7 +73,7 @@
             <div *ngFor="let region of regions" class="form-check">
               <input class="form-check-input" type="checkbox" id="{{ 'region' + region }}" [checked]="activeRegions.indexOf(region) > -1" (change)="onRegionSelectionChange(region)">
               <label class="form-check-label" for="{{ 'region' + region }}">
-                {{"region." + region | translate}}
+                {{ regionsService.getRegionName(region) }}
               </label>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { RegionsService } from "../providers/regions-service/regions.service";
 import { BlogService } from "../providers/blog-service/blog.service";
 import { AlertComponent } from "ngx-bootstrap/alert";
 
@@ -13,6 +14,7 @@ export class BlogComponent {
 
   constructor(
     public blogService: BlogService,
+    public regionsService: RegionsService,
     public translateService: TranslateService) {
   }
 
