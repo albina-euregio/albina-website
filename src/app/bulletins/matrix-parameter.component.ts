@@ -39,7 +39,7 @@ export class MatrixParameterComponent {
     },
     getSelectionBarColor: (value: number): string => {
       if (value < 0) {
-          return 'grey';
+          return 'lightgrey';
       }
       if (value < 20) {
           return 'green';
@@ -53,6 +53,7 @@ export class MatrixParameterComponent {
       if (value >= 60) {
           return 'red';
       }
+      return 'lightgrey';
     },
     getPointerColor: (value: number): string => {
       if (value < 0) {
@@ -70,6 +71,7 @@ export class MatrixParameterComponent {
       if (value >= 60) {
           return 'red';
       }
+      return 'grey';
     }
   };
 
@@ -89,7 +91,7 @@ export class MatrixParameterComponent {
     },
     getSelectionBarColor: (value: number): string => {
       if (value < 0) {
-          return 'grey';
+          return 'lightgrey';
       }
       if (value < 20) {
           return 'green';
@@ -103,6 +105,7 @@ export class MatrixParameterComponent {
       if (value >= 60) {
           return 'red';
       }
+      return 'lightgrey';
     },
     getPointerColor: (value: number): string => {
       if (value < 0) {
@@ -120,6 +123,7 @@ export class MatrixParameterComponent {
       if (value >= 60) {
           return 'red';
       }
+      return 'grey';
     }
   };
 
@@ -141,7 +145,7 @@ export class MatrixParameterComponent {
     },
     getSelectionBarColor: (value: number): string => {
       if (value < 0) {
-          return 'grey';
+          return 'lightgrey';
       }
       if (value < 20) {
           return 'green';
@@ -158,6 +162,7 @@ export class MatrixParameterComponent {
       if (value >= 80) {
         return 'black';
       }
+      return 'lightgrey';
     },
     getPointerColor: (value: number): string => {
       if (value < 0) {
@@ -178,7 +183,7 @@ export class MatrixParameterComponent {
       if (value >= 80) {
           return 'black';
       }
-      return 'black';
+      return 'grey';
     }
   };
 
