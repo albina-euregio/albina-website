@@ -178,6 +178,7 @@ export class MatrixParameterComponent {
       if (value >= 80) {
           return 'black';
       }
+      return 'black';
     }
   };
 

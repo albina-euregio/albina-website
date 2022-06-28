@@ -124,8 +124,21 @@ button.close {
   visibility: hidden !important;
 }
 
-.ngx-slider-tick {
-  background: none !important;
+.ngx-slider-ticks {
+  visibility: hidden !important;
+}
+
+span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(10n+1) {
+  visibility: visible !important;
+  height: 0;
+}
+
+span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(20n+1) {
+  visibility: visible !important;
+  width: 2px !important;
+  height: 15px !important;
+  top: -3px !important;
+  border-radius: 0 !important;
 }
 
 .ngx-slider-tick-legend {
