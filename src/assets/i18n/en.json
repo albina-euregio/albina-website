@@ -45,9 +45,6 @@
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
   },
-  "education" : {
-    "title" : "Education"
-  },
   "matrix" : {
     "label" : {
       "snowpackStability" : "Snowpack Stability",
@@ -146,14 +143,8 @@
       "title" : {
         "avalancheProblem" : "Avalanche problems",
         "dangerDescription" : "Description of avalanche danger",
-        "above" : "Above",
-        "below" : "Below",
         "forenoon" : "Forenoon",
         "afternoon" : "Afternoon",
-        "forenoonAbove" : "Forenoon, above",
-        "afternoonAbove" : "Afternoon, above",
-        "forenoonBelow" : "Forenoon, below",
-        "afternoonBelow" : "Afternoon, below",
         "snowpackStructure" : "Snowpack structure",
         "tendency" : "Tendency",
         "showTranslations" : " Show translations",
@@ -409,14 +400,12 @@
       "title" : "Server",
       "button" : {
         "create" : "Create server",
-        "save" : "Save",
-        "delete" : "Delete"
+        "save" : "Save"
       },
       "table" : {
         "name" : "Name",
         "username" : "Username",
         "password" : "Password",
-        "externalServer" : "External",
         "publishAt5PM" : "Publish at 5PM",
         "publishAt8AM" : "Publish at 8AM",
         "pdfDirectory" : "Directory for PDF",
@@ -455,7 +444,6 @@
         "sendTelegramMessages" : "Send telegram messages",
         "sendPushNotifications" : "Send push notifications",
         "enableMediaFile" : "Enable media file",
-        "serverInstance" : "Server instance",
         "pdfColor" : "PDF color",
         "emailColor" : "Email color",
         "pdfMapYAmPm" : "Y for PDF map (am/pm)",
@@ -794,7 +782,6 @@
     "locationName": "Location",
     "longitude": "Longitude",
     "reportDate": "Report date",
-    "showMap": "Map",
     "showTable": "Table",
     "withoutCoordinates": "Observations without coordinates:",
     "sidebar": {
@@ -809,9 +796,6 @@
       },
       "views": {
         "title": "Views"
-      },
-      "settings": {
-        "title": "Settings"
       }
     }
   },

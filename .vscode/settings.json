@@ -14,6 +14,8 @@
     "LoLaWeather.*",
     "snowpack.plotType.*",
     "snowpack.aspect.*",
-    "snowpack.meteo.*"
+    "snowpack.meteo.*",
+    "bulletins.table.title.status.*",
+    "role.*"
   ]
 }
