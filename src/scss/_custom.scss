@@ -148,3 +148,20 @@ span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(20n+1) {
 .ngx-slider.with-legend {
   margin-bottom: 65px !important;
 }
+
+.ngx-slider-pointer {
+  top: -10px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.ngx-slider-pointer:after {
+  top: 8px !important;
+  left: 8px !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.ngx-slider-pointer.ngx-slider-active:after {
+  background-color: $brand-primary !important;
+}

@@ -132,6 +132,9 @@
       "foreignRegions": "Foreign regions",
       "externalRegions": "External regions",
       "label" : {
+        "avalancheProblems" : "Avalanche problem",
+        "aspects" : "Aspects",
+        "elevation" : "Elevation",
         "highlights" : "Special alert",
         "avActivityHighlights" : "Headline avalanche situation",
         "avActivityComment" : "Description of avalanche danger",

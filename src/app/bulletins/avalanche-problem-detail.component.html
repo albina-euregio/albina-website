@@ -1,5 +1,6 @@
 <div>
   <div class="form-group row">
+    <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheProblems" | translate }}</strong></label>
     <div *ngIf="!disabled" class="col-md-12">
       <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90"style="padding-right: 15px;" >
       <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
@@ -46,54 +47,60 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-md-6" style="align-self: center">
-      <app-aspects [(aspects)]="avalancheProblemModel.aspects" [disabled]="disabled" [size]="150"></app-aspects>
+    <div class="col-md-6">
+      <label class="form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
+      <div>
+        <app-aspects [(aspects)]="avalancheProblemModel.aspects" [disabled]="disabled" [size]="150"></app-aspects>
+      </div>
     </div>
-    <div class="col-md-6" style="align-self: center">
-      <table>
-        <tbody>
-          <tr style="height: 60px">
-            <td style="padding-right: 10px; vertical-align: baseline">
-              <label class="switch switch-default switch-pill switch-primary">
-                <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationHigh($event)" [(ngModel)]="useElevationHigh">
-                <span class="switch-label"></span>
-                <span class="switch-handle"></span>
-              </label>
-            </td>
-            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationHigh" | translate }}</td>
-            <td class="input-prepend input-group">
-              <input step="100" min="0" max="9000" id="inputElevationHigh" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheProblemModel.treelineHigh || !useElevationHigh" [(ngModel)]="avalancheProblemModel.elevationHigh" (change)="updateElevationHigh()">
-              <span class="input-group-addon">m</span>
-            </td>
-            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheProblemModel.treelineHigh">
-              <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-secondary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
-            </td>
-            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheProblemModel.treelineHigh">
-              <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-primary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
-            </td>
-          </tr>
-          <tr style="height: 60px">
-            <td style="padding-right: 10px; vertical-align: baseline">
-              <label class="switch switch-default switch-pill switch-primary">
-                <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationLow($event)" [(ngModel)]="useElevationLow">
-                <span class="switch-label"></span>
-                <span class="switch-handle"></span>
-              </label>
-            </td>
-            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationLow" | translate }}</td>
-            <td class="input-prepend input-group">
-              <input step="100" min="0" max="9000" id="inputElevationLow" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheProblemModel.treelineLow || !useElevationLow" [(ngModel)]="avalancheProblemModel.elevationLow" (change)="updateElevationLow()">
-              <span class="input-group-addon">m</span>
-            </td>
-            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheProblemModel.treelineLow">
-              <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-secondary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
-            </td>
-            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheProblemModel.treelineLow">
-              <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-primary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-md-6">
+      <label class="form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
+      <div>
+        <table>
+          <tbody>
+            <tr style="height: 60px">
+              <td style="padding-right: 10px; vertical-align: baseline">
+                <label class="switch switch-default switch-pill switch-primary">
+                  <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationHigh($event)" [(ngModel)]="useElevationHigh">
+                  <span class="switch-label"></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </td>
+              <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationHigh" | translate }}</td>
+              <td class="input-prepend input-group">
+                <input step="100" min="0" max="9000" id="inputElevationHigh" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheProblemModel.treelineHigh || !useElevationHigh" [(ngModel)]="avalancheProblemModel.elevationHigh" (change)="updateElevationHigh()">
+                <span class="input-group-addon">m</span>
+              </td>
+              <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheProblemModel.treelineHigh">
+                <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-secondary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+              </td>
+              <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheProblemModel.treelineHigh">
+                <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-primary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+              </td>
+            </tr>
+            <tr style="height: 60px">
+              <td style="padding-right: 10px; vertical-align: baseline">
+                <label class="switch switch-default switch-pill switch-primary">
+                  <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationLow($event)" [(ngModel)]="useElevationLow">
+                  <span class="switch-label"></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </td>
+              <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationLow" | translate }}</td>
+              <td class="input-prepend input-group">
+                <input step="100" min="0" max="9000" id="inputElevationLow" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheProblemModel.treelineLow || !useElevationLow" [(ngModel)]="avalancheProblemModel.elevationLow" (change)="updateElevationLow()">
+                <span class="input-group-addon">m</span>
+              </td>
+              <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheProblemModel.treelineLow">
+                <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-secondary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+              </td>
+              <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheProblemModel.treelineLow">
+                <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-primary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div *ngIf="authenticationService.getActiveRegion().showMatrix" class="form-group row" style="margin-bottom: 0">
