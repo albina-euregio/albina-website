@@ -114,8 +114,6 @@
           "example" : "Load example text",
           "delete" : "Delete"
         },
-        "showInBulletin" : "Avalanche problem will be shown in bulletin",
-        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
         "moveUpAvalancheProblem" : "Move avalanche problem up",
         "moveDownAvalancheProblem" : "Move avalanche problem down",
         "dangerRatingDirectionUp" : "Extend the danger rating upwards",
