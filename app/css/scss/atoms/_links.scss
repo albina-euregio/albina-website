@@ -42,6 +42,27 @@ a.textlink {
   }
 }
 
+//glossary
+a.glossary {
+  color: inherit;
+  //Safari wants it like that
+  text-decoration-color: $brand;
+  text-decoration-style: dotted;
+  text-decoration-line: underline;
+  &:link,
+  &:visited {
+    color: inherit;
+    text-decoration-color: $brand;
+    text-decoration-style: dotted;
+    text-decoration-line: underline;
+  }
+  &:hover {
+    text-decoration-color: $brand;
+    text-decoration-style: solid;
+    text-decoration-line: underline;
+  }
+}
+
 //translink
 a.translink {
   @extend .textlink;
