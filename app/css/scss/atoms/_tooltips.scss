@@ -53,10 +53,18 @@
 //   }
 // }
 
+$tooltip-width: 80vw;
+$tooltip-width-large: $line-length - 10em;
+
 // from 202205
 .tooltip-container {
   position: absolute;
   z-index: 1000000;
+
+  max-width: $tooltip-width;
+  @media #{$large-up} {
+    max-width: $tooltip-width-large;
+  }
 }
 .tooltip-inner {
   position: relative;
@@ -73,10 +81,22 @@
   color: $text-color;
   background: $white;
   @include box-border;
+  @include box-shadow;
 }
 .tooltip-inner-html {
   @extend .tooltip-inner;
-  padding: $padding;
+
+  width: $tooltip-width;
+  @media #{$large-up} {
+    width: $tooltip-width-large;
+  }
+
+  max-height: 80vh;
+  overflow: auto;
+
+  padding: $padding * 2;
+
+  white-space: normal;
 }
 .tooltip-content {
   display: block;

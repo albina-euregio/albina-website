@@ -39,7 +39,7 @@ export default class BulletinGlossary extends React.Component<Props> {
       <Tooltip label={content} html={true}>
         <a
           className="glossary"
-          href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
+          // href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
         >
           {this.props.children}
         </a>
