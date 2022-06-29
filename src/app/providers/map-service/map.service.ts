@@ -283,8 +283,6 @@ export class MapService {
   selectAggregatedRegion(bulletin: BulletinModel) {
     this.map.removeLayer(this.overlayMaps.regions);
     this.afternoonMap.removeLayer(this.afternoonOverlayMaps.regions);
-    // this.map.removeLayer(this.overlayMaps.aggregatedRegions);
-    // this.afternoonMap.removeLayer(this.afternoonOverlayMaps.aggregatedRegions);
     this.map.addLayer(this.overlayMaps.activeSelection);
     this.afternoonMap.addLayer(this.afternoonOverlayMaps.activeSelection);
 
@@ -370,10 +368,7 @@ export class MapService {
 
   editAggregatedRegion(bulletin: BulletinModel) {
     this.map.removeLayer(this.overlayMaps.activeSelection);
-
     this.map.addLayer(this.overlayMaps.editSelection);
-
-    // TODO: add buttons for Level 1 and Level 2
 
     for (const entry of this.overlayMaps.editSelection.getLayers()) {
       for (const region of bulletin.savedRegions) {
@@ -681,7 +676,7 @@ export class MapService {
         fillOpacity = this.constantsService.fillOpacityOwnSelected;
       }
 
-      // foreign area
+    // foreign area
     } else {
       if (status === Enums.RegionStatus.published) {
         fillOpacity = this.constantsService.fillOpacityForeignSelected;

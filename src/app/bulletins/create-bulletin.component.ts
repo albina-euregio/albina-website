@@ -2870,11 +2870,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.loadSnowpackStructureCommentExampleTextModalRef.hide();
   }
 
-
-
-
-
-
   createAvalancheProblem(isAfternoon: boolean) {
     let daytime;
     if (isAfternoon) {
