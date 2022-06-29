@@ -97,6 +97,8 @@ $tooltip-width-large: $line-length - 10em;
   padding: $padding * 2;
 
   white-space: normal;
+
+  @include box-shadow(0.2);
 }
 .tooltip-content {
   display: block;
