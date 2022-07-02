@@ -430,7 +430,7 @@
         "microRegions" : "Number of micro regions",
         "subRegions" : "Sub regions",
         "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbor regions",
+        "neighborRegions" : "Neighbouring regions",
         "showMatrix" : "Show matrix",
         "publishBulletins" : "Publish avalanche forecast",
         "publishBlogs" : "Publish blog posts",
@@ -464,7 +464,7 @@
         "mapLogoBwPath" : "Logo for map (bw)",
         "mapLogoPosition" : "Logo position for map",
         "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (lng)",
+        "mapCenterLng" : "Center position of map (long)",
         "imageColorbarColorPath" : "Colorbar (color)",
         "imageColorbarBwPath" : "Colorbar (b/w)"
       },
@@ -733,13 +733,13 @@
       "wet_snow_plot_1month" : "nieve húmeda (31d)",
       "wet_snow_plot_season" : "nieve húmeda (temporada)",
       "wet_snow_plot_forecast" : "nieve húmeda (predicción)",
-      "HS_table_24h" : "nieve reciente (1d)",
-      "HS_table_72h" : "tabla nieve reciente (3d)",
-      "HS_table_season" : "tabla nieve reciente (temporada)",
-      "HS_table_forecast" : "tabla nieve reciente (predicción)",
-      "TA_table_24h" : "tabla nieve húmeda (1d)",
-      "TA_table_72h" : "tabla nieve húmeda (3h)",
-      "TA_table_season" : "tabla nieve húmeda (temporada)"
+      "HS_table_24h" : "snow height table (1d)",
+      "HS_table_72h" : "snow height table (3d)",
+      "HS_table_season" : "snow height table (season)",
+      "HS_table_forecast" : "snow height table (forecast)",
+      "TA_table_24h" : "temperature table (1d)",
+      "TA_table_72h" : "temperature table (3h)",
+      "TA_table_season" : "temperature table (season)"
     }
   },
   "observations": {
@@ -766,7 +766,7 @@
     "eventType": "Tipo de evento",
     "eventTypes": {
       "IMPORTANT": "Evento importante",
-      "NEIGHBOR_REGION": "Neighbour region",
+      "NEIGHBOR_REGION": "Neighbouring region",
       "NORMAL": "Evento normal",
       "PERSON_DEAD": "Evento con personas implicadas (muertos)",
       "PERSON_INJURED": "Evento con personas implicadas (heridos)",

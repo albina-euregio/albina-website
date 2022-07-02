@@ -430,7 +430,7 @@
         "microRegions" : "Number of micro regions",
         "subRegions" : "Sub regions",
         "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbor regions",
+        "neighborRegions" : "Neighbouring regions",
         "showMatrix" : "Show matrix",
         "publishBulletins" : "Publish avalanche forecast",
         "publishBlogs" : "Publish blog posts",
@@ -464,7 +464,7 @@
         "mapLogoBwPath" : "Logo for map (bw)",
         "mapLogoPosition" : "Logo position for map",
         "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (lng)",
+        "mapCenterLng" : "Center position of map (long)",
         "imageColorbarColorPath" : "Colorbar (color)",
         "imageColorbarBwPath" : "Colorbar (b/w)"
       },
@@ -733,13 +733,13 @@
       "wet_snow_plot_1month" : "neige humide (31j)",
       "wet_snow_plot_season" : "neige humide (toute la saison)",
       "wet_snow_plot_forecast" : "neige humide (prévisions)",
-      "HS_table_24h" : "Neige fraîche tableau (1j)",
-      "HS_table_72h" : "Neige fraîche tableau (3j)",
-      "HS_table_season" : "Neige fraîche tableau (toute la saison)",
-      "HS_table_forecast" : "Neige fraîche tableau (prévisions)",
-      "TA_table_24h" : "neige humide tableau (1j)",
-      "TA_table_72h" : "neige humide tableau (3h)",
-      "TA_table_season" : "neige humide tableau (season)"
+      "HS_table_24h" : "snow height table (1d)",
+      "HS_table_72h" : "snow height table (3d)",
+      "HS_table_season" : "snow height table (season)",
+      "HS_table_forecast" : "snow height table (forecast)",
+      "TA_table_24h" : "temperature table (1d)",
+      "TA_table_72h" : "temperature table (3h)",
+      "TA_table_season" : "temperature table (season)"
     }
   },
   "observations": {
@@ -766,7 +766,7 @@
     "eventType": "Type d'événement",
     "eventTypes": {
       "IMPORTANT": "Événement important",
-      "NEIGHBOR_REGION": "Neighbour region",
+      "NEIGHBOR_REGION": "Neighbouring region",
       "NORMAL": "Événement normal",
       "PERSON_DEAD": "Personnes emportées (décès)",
       "PERSON_INJURED": "Personnes emportées (blessures)",

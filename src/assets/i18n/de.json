@@ -204,7 +204,7 @@
         "message" : "Für welche Situation möchtest du einen Beispieltext laden?",
         "newSnow" : "Neuschnee",
         "windSlab" : "Triebschnee",
-        "persistentWeakLayers" : "Altschneeproblem",
+        "persistentWeakLayers" : "Altschnee",
         "wetSnow" : "Nassschnee",
         "glidingSnow" : "Gleitschnee",
         "favourableSituation" : "Günstige Situation",
@@ -464,7 +464,7 @@
         "mapLogoBwPath" : "Logo für Karte (schwarz-weiß)",
         "mapLogoPosition" : "Logoposition für Karte",
         "mapCenterLat" : "Mittelpunkt der Karte (lat)",
-        "mapCenterLng" : "Mittelpunkt der Karte (lng)",
+        "mapCenterLng" : "Mittelpunkt der Karte (long)",
         "imageColorbarColorPath" : "Farbleiste (farbe)",
         "imageColorbarBwPath" : "Farbleiste (schwarz-weiß)"
       },
@@ -482,7 +482,7 @@
       },
       "table" : {
         "name" : "Name",
-        "email" : "Email",
+        "email" : "E-Mail",
         "organization" : "Organisation",
         "regions" : "Regionen",
         "roles" : "Rollen"
@@ -508,7 +508,7 @@
     "createUser" : {
       "table" : {
         "name" : "Name",
-        "email" : "Email",
+        "email" : "E-Mail",
         "organization" : "Organisation",
         "password" : "Passwort",
         "password2" : "Passwort wiederholen",
@@ -636,7 +636,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neuschnee",
     "windSlab" : "Triebschnee",
-    "persistentWeakLayers" : "Altschneeproblem",
+    "persistentWeakLayers" : "Altschnee",
     "wetSnow" : "Nassschnee",
     "glidingSnow" : "Gleitschnee",
     "cornices" : "Wechten",
@@ -712,10 +712,10 @@
   },
   "snowpack" : {
     "plotType" : {
-      "LWC_stratigraphy" : "wet snow: liquid water content",
-      "wet_snow_instability" : "wet snow: wet snow instability",
-      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
-      "stratigraphy" : "persistent weak layers: snow stratigraphy"
+      "LWC_stratigraphy" : "Nassschnee: Wassergehalt",
+      "wet_snow_instability" : "Nassschnee: Stabilität nasse Schneedecke",
+      "Sk38_stratigraphy" : "Altschnee: SK38 Stabilitätsindex",
+      "stratigraphy" : "Altschnee: Schneeckenaufbau"
     },
     "aspect" : {
       "flat" : "Flachfeld",
@@ -726,20 +726,20 @@
       "new_snow_plot_3day" : "Neuschnee (3T)",
       "new_snow_plot_7day" : "Neuschnee (7T)",
       "new_snow_plot_1month" : "Neuschnee (31T)",
-      "new_snow_plot_season" : "new snow (season)",
+      "new_snow_plot_season" : "Neuschnee (Saison)",
       "new_snow_plot_forecast" : "Neuschnee (Prognose)",
       "wet_snow_plot_3day" : "Nassschnee (3T)",
       "wet_snow_plot_7day" : "Nassschnee (7T)",
       "wet_snow_plot_1month" : "Nassschnee (31T)",
       "wet_snow_plot_season" : "Nassschnee (Saison)",
       "wet_snow_plot_forecast" : "Nassschnee (Prognose)",
-      "HS_table_24h" : "new snow table (1d)",
-      "HS_table_72h" : "new snow table (3d)",
-      "HS_table_season" : "new snow table (season)",
-      "HS_table_forecast" : "new snow table (forecast)",
-      "TA_table_24h" : "wet snow table (1d)",
-      "TA_table_72h" : "wet snow table (3h)",
-      "TA_table_season" : "wet snow table (season)"
+      "HS_table_24h" : "Tabelle Schneehöhe (1T)",
+      "HS_table_72h" : "Tabelle Schneehöhe (3T)",
+      "HS_table_season" : "Tabelle Schneehöhe (Saison)",
+      "HS_table_forecast" : "Tabelle Schneehöhe (Prognose)",
+      "TA_table_24h" : "Tabelle Temperatur (1T)",
+      "TA_table_72h" : "Tabelle Temperatur (3T)",
+      "TA_table_season" : "Tabelle Temperatur (Saison)"
     }
   },
   "observations": {
