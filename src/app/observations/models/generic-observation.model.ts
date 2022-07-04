@@ -132,15 +132,19 @@ export enum Aspect {
   NW = "NW"
 }
 
-
 export enum LocalFilterTypes {
   Elevation = "Elevation",
   Aspects = "Aspects",
 }
 
-export interface chartsData {
+export interface ChartsData {
   Elevation: Object;
   Aspects: Object;
+}
+
+export interface FilterSelectionData {
+  selected: string[];
+  highlighted: string[];
 }
 
 
