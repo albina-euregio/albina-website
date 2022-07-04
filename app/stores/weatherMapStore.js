@@ -113,21 +113,19 @@ export default class WeatherMapStore_new {
     this._loading.set(true);
 
     let cTI = new Date(this.currentTime);
-    cTI.setHours(cTI.getHours() - 4);
+    //cTI.setHours(cTI.getHours() - 1);
+    this.stations = {};
+    this.grid = {};
+    let prefix = this.currentTime
+      ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
+      : "";
+    let loads = [];
 
     // console.log(
     //   "_loadData this.currentTime bbb",
     //   new Date(this.currentTime),
-    //   cTI
+    //   prefix
     // );
-
-    this.stations = {};
-    this.grid = {};
-    let prefix =
-      this.currentTime && this.currentTime
-        ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
-        : "";
-    let loads = [];
     if (
       this.domainConfig &&
       this.domainConfig.layer.stations &&
