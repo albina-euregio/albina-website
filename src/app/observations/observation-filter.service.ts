@@ -3,6 +3,8 @@ import { ConstantsService } from "app/providers/constants-service/constants.serv
 import {
   GenericObservation,
   ObservationSource,
+  LocalFilterTypes,
+  FilterSelectionData
 } from "./models/generic-observation.model";
 import * as Enums from "../enums/enums";
 import {
@@ -17,7 +19,16 @@ export class ObservationFilterService {
   public readonly elevationSectionSize = 500;
   public selectedElevations: number[] = [];
   public regions: string[] = [];
-  public aspects: string[] = [];
+
+  public elevationSelection: FilterSelectionData = {selected: [], highlighted: []};
+  public aspectSelection: FilterSelectionData = {selected: [], highlighted: []};
+
+  public filterSelection:  Record<LocalFilterTypes, FilterSelectionData> = {
+    Elevation: {selected: [], highlighted: []},
+    Aspects: {selected: [], highlighted: []},
+
+  }
+
 
   constructor(private constantsService: ConstantsService) {}
 
@@ -49,17 +60,17 @@ export class ObservationFilterService {
   }
 
   public getAspectDataset(observations: GenericObservation[]) {
-
     const dataRaw = {};
 
     for (const [key, value] of Object.entries(Enums.Aspect)) {
-      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": 0};
+      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.aspectSelection.highlighted.includes(key) ? 1 : 0};
     }
 
     observations.forEach(observation => {
       if(observation.aspect) {
         dataRaw[observation.aspect].all++;
         if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+        
       }
     });
 
@@ -128,9 +139,9 @@ export class ObservationFilterService {
 
   private inAspects({ aspect }: GenericObservation) {
     return (
-      !this.aspects.length ||
+      !this.filterSelection[LocalFilterTypes.Aspects].selected.length ||
       (typeof aspect === "string" &&
-        this.aspects.includes(aspect.toUpperCase()))
+        this.filterSelection[LocalFilterTypes.Aspects].selected.includes(aspect.toUpperCase()))
     );
   }
 }

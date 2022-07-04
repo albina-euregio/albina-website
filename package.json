@@ -52,6 +52,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
     "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/a29b163e8f612efb26d4f27a99bbe0cf148d4ef6/eaws-regions-a29b163e8f612efb26d4f27a99bbe0cf148d4ef6.tar.gz",
+    "echarts": "^5.3.3",
     "file-saver": "^2.0.5",
     "leaflet": "^1.7.1",
     "leaflet-control-geocoder": "^2.4.0",

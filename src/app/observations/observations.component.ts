@@ -15,7 +15,7 @@ import {
   toMarkerColor,
   toObservationTable,
   LocalFilterTypes,
-  chartsData
+  ChartsData
 } from "./models/generic-observation.model";
 
 
@@ -45,13 +45,17 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
   public readonly dropdownSettings: IDropdownSettings;
-  public readonly LFilterTypes = LocalFilterTypes;
   public selectedItems: [];
   public toMarkerColor = toMarkerColor;
-  public chartsData: chartsData = {Elevation: {}, Aspects: {}};
+  public chartsData: ChartsData = {Elevation: {}, Aspects: {}};
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
+
+
+  public get LocalFilterTypes(): typeof LocalFilterTypes {
+    return LocalFilterTypes; 
+  }
 
   constructor(
     public filter: ObservationFilterService,
@@ -158,6 +162,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   applyLocalFilter(data = {}) {
     console.log("applyLocalFilter", data);
+
+    
+
+
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
