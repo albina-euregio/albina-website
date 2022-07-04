@@ -20,7 +20,7 @@
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^6.19.7",
-    "animejs": "^2.2.0",
+    "animejs": "3.2.1",
     "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/a29b163e8f612efb26d4f27a99bbe0cf148d4ef6/eaws-regions-a29b163e8f612efb26d4f27a99bbe0cf148d4ef6.tar.gz",
     "fluidvids.js": "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz",
     "framer-motion": "^6.3.3",
