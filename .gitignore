@@ -64,3 +64,5 @@ lib
 size-plugin.json
 
 eaws-regions
+
+package-lock.json
