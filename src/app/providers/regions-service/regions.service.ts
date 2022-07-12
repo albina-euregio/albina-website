@@ -101,6 +101,13 @@ import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 export class RegionsService {
   euregioGeoJSON: L.GeoJSON;
 
+  initialAggregatedRegion: Record<string, string[]> = {
+    "AT-07": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("AT-07")),
+    "IT-32-BZ": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("IT-32-BZ")),
+    "IT-32-TN": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("IT-32-TN")),
+    "ES-CT-L": RegionsAran.features.map(f => f.properties.id).filter(id => id.startsWith("ES-CT-L"))
+  };
+
   // Level 1 regions: parts of provinces
   level1: string[][] = [
     ["AT-07-01", "AT-07-02", "AT-07-07", "AT-07-08", "AT-07-10", "AT-07-11", "AT-07-12"], // west
