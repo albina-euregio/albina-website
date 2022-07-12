@@ -64,7 +64,7 @@ export class StationData {
     return this.state;
   }
   get microRegion() {
-    return this.properties["LWD-Region"];
+    return this.properties["LWD-Region"].split(/ /)?.[0];
   }
   get date() {
     return new Date(this.properties.date);
