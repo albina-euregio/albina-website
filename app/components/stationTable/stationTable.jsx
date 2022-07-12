@@ -39,7 +39,10 @@ class StationTable extends React.Component {
       {
         data: "microRegion",
         render: (_value, row) => (
-          <span className="region">{row.microRegion}</span>
+          <span className="region">
+            {this.props.intl.formatMessage({ id: `region:${row.microRegion}` })}{" "}
+            ({row.microRegion})
+          </span>
         ),
         unit: " ",
         width: "10px",
