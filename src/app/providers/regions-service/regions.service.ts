@@ -253,11 +253,12 @@ export interface RegionWithElevationProperties extends RegionProperties {
 function mergeFeatureCollections<G extends Geometry, P>(
   ...collections: FeatureCollection<G, P>[]
 ): FeatureCollection<G, P> {
+  const today = "2022-12-01";
   return {
     type: "FeatureCollection",
     features: []
       .concat(...collections.map((collection) => collection.features))
-      .filter((feature) => filterFeature(feature, "2021-10-01")),
+      .filter((feature) => filterFeature(feature, today)),
   };
 }
 
