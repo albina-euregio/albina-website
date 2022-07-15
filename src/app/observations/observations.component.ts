@@ -118,6 +118,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
+    console.log("loadObservations ##1", this.activeSources);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -131,8 +132,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
         if (!this.activeSources[observation.$source] ||
           !this.filter.inDateRange(observation)) {
+          console.log("loadObservations ##4", observation); 
           return;
         }
+        console.log("loadObservations ADDDD ##4", observation); 
         this.addObservation(observation)
       })
       .catch((e) => console.error(e))
@@ -161,7 +164,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   applyLocalFilter(data = {}) {
-    console.log("applyLocalFilter", data);
+    console.log("applyLocalFilter ##1", this.filter.dateRange);
 
     
 
@@ -182,6 +185,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       if(!ll) {
         return;
       }
+      if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
       this.drawMarker(observation, ll);
     });
     this.buildChartsData();
@@ -202,7 +206,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       }
     };
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
-    //console.log("buildChartsData", this.chartsData);
+      console.log("buildChartsData", this.chartsData);
 
 
 

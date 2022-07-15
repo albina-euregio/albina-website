@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Input } from "@angular/core";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import {
   GenericObservation,
@@ -33,21 +33,38 @@ export class ObservationFilterService {
   constructor(private constantsService: ConstantsService) {}
 
   set days(days: number) {
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - (days - 1));
-    startDate.setHours(0, 0, 0, 0);
-    const endDate = new Date();
-    endDate.setHours(23, 59, 0, 0);
-    this.dateRange = [startDate, endDate];
+
+    if(!this.endDate) {
+      const newEndDate = new Date();
+      newEndDate.setHours(23, 59, 0, 0)
+      this.endDate = newEndDate;
+    }
+    const newStartDate = new Date(this.endDate);
+    newStartDate.setDate(newStartDate.getDate() - days);
+    newStartDate.setHours(0, 0, 0, 0);
+  
+    this.startDate = newStartDate;
+
+    this.dateRange = [this.startDate, this.endDate];
+    //console.log("days ##1.2", days, this.dateRange);
   }
 
   get startDate(): Date {
     return this.dateRange[0];
   }
 
+  set startDate(date: Date) {
+    this.dateRange[0] = date;
+  }
+
   get endDate(): Date {
     return this.dateRange[1];
   }
+
+  set endDate(date: Date) {
+    this.dateRange[1] = date;
+  }
+
 
   public test(observation: GenericObservation) {
     return (
@@ -61,19 +78,21 @@ export class ObservationFilterService {
 
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-
+    console.log("getAspectDataset ##1", this);
     for (const [key, value] of Object.entries(Enums.Aspect)) {
       if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.aspectSelection.highlighted.includes(key) ? 1 : 0};
     }
 
     observations.forEach(observation => {
+      console.log("getAspectDataset ##2", observation);
       if(observation.aspect) {
+        console.log("getAspectDataset ##3", observation);
         dataRaw[observation.aspect].all++;
-        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
         
+        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
       }
     });
-
+    //console.log("getAspectDataset", dataRaw);
     const dataset = [['category', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
@@ -105,7 +124,8 @@ export class ObservationFilterService {
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
     if ($source === ObservationSource.LwdKipSperre) return true;
-    return this.startDate <= eventDate && eventDate <= this.endDate;
+    console.log("inDateRange ##4", (this.startDate <= eventDate && eventDate <= this.endDate), this.startDate, eventDate, this.endDate);
+    return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
 
   inMapBounds({ latitude, longitude }: GenericObservation): boolean {
