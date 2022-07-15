@@ -163,11 +163,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationPopup = undefined;
   }
 
-  applyLocalFilter(data = {}) {
-    console.log("applyLocalFilter ##1", this.filter.dateRange);
 
-    
 
+  applyLocalFilter(data: any = {}) {
+    console.log("applyLocalFilter ##1", data);
+
+    if(data?.type) this.filter.toggleFilter(data);
+    console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
@@ -185,7 +187,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       if(!ll) {
         return;
       }
-      if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
+      //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
       this.drawMarker(observation, ll);
     });
     this.buildChartsData();

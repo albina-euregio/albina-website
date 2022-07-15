@@ -12,6 +12,14 @@ import {
 } from "./models/generic-observation.model";
 
 
+interface GenericFilterToggleData {
+  type: LocalFilterTypes;
+  data: {
+    value: string;
+    altKey: boolean;
+  }
+}
+
 @Injectable()
 export class ObservationFilterService {
   public dateRange: Date[] = [];
@@ -31,6 +39,18 @@ export class ObservationFilterService {
 
 
   constructor(private constantsService: ConstantsService) {}
+
+  toggleFilter(filterData: GenericFilterToggleData){
+    console.log("toggleFilter ##1", filterData);
+    let curFilterType = this.filterSelection[filterData["type"]];
+    let curFilterTypeSubset = "selected";
+    if(filterData.data.altKey) curFilterTypeSubset = "highlighted";
+    var index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
+    if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
+    else curFilterType[curFilterTypeSubset].push(filterData.data.value);
+    console.log("toggleFilter ##2", curFilterType, index);
+    this.filterSelection[filterData["type"]] = curFilterType;
+  }
 
   set days(days: number) {
 
@@ -78,15 +98,15 @@ export class ObservationFilterService {
 
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getAspectDataset ##1", this);
+    //console.log("getAspectDataset ##1", this);
     for (const [key, value] of Object.entries(Enums.Aspect)) {
       if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.aspectSelection.highlighted.includes(key) ? 1 : 0};
     }
 
     observations.forEach(observation => {
-      console.log("getAspectDataset ##2", observation);
+      //console.log("getAspectDataset ##2", observation);
       if(observation.aspect) {
-        console.log("getAspectDataset ##3", observation);
+        //console.log("getAspectDataset ##3", observation);
         dataRaw[observation.aspect].all++;
         
         if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
@@ -96,7 +116,7 @@ export class ObservationFilterService {
     const dataset = [['category', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
-
+    console.log("getAspectDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -124,7 +144,6 @@ export class ObservationFilterService {
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
     if ($source === ObservationSource.LwdKipSperre) return true;
-    console.log("inDateRange ##4", (this.startDate <= eventDate && eventDate <= this.endDate), this.startDate, eventDate, this.endDate);
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
 
