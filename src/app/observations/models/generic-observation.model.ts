@@ -134,7 +134,7 @@ export enum Aspect {
 
 export enum LocalFilterTypes {
   Elevation = "Elevation",
-  Aspects = "Aspects",
+  Aspect = "Aspect",
 }
 
 export interface ChartsData {

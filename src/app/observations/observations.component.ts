@@ -83,7 +83,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.filter.days = 7;
+    this.filter.days = 3;
   }
 
   ngAfterViewInit() {
@@ -132,10 +132,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
         if (!this.activeSources[observation.$source] ||
           !this.filter.inDateRange(observation)) {
-          console.log("loadObservations ##4", observation); 
+          //console.log("loadObservations ##4", observation); 
           return;
         }
-        console.log("loadObservations ADDDD ##4", observation); 
+        //console.log("loadObservations ADDDD ##4", observation); 
         this.addObservation(observation)
       })
       .catch((e) => console.error(e))
@@ -169,18 +169,21 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     console.log("applyLocalFilter ##1", data);
 
     if(data?.type) this.filter.toggleFilter(data);
-    console.log("applyLocalFilter ##2", this.filter.filterSelection);
+    //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
-      if (this.filter.test(observation)) {
+      //console.log("applyLocalFilter ##3.0", observation.filterType);
+      if (this.filter.isSelected(observation)) {
+        console.log("applyLocalFilter ##3.1", observation);
         observation.filterType = ObservationFilterType.Local;
-      }
+      } 
 
       return observation;
     });
 
+    console.log("applyLocalFilter ##3.99", this.observations);
     this.observations.forEach(observation => {
       const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
@@ -195,18 +198,20 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   buildChartsData() {
 
-    this.chartsData.Elevation = {'dataset': 
-      {'source': [
-        ['category', 'max', 'all', 'selected', 'highlighted'],
-        ['1000', 100, 90, 20, 0],
-        ['1500', 100, 90, (Math.random() * (90 - 10) + 10), 0],
-        ['2000', 100, 90, (Math.random() * (90 - 10) + 10), 0],
-        ['2500', 100, 80, 0, 60],
-        ['3000', 100, 80, 0, 70],
-        ['3500', 100, 50, (Math.random() * (90 - 10) + 10), 0],
-        ]
-      }
-    };
+    this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
+    
+    // {'dataset': 
+    //   {'source': [
+    //     ['category', 'max', 'all', 'selected', 'highlighted'],
+    //     ['1000', 100, 90, 20, 0],
+    //     ['1500', 100, 90, (Math.random() * (90 - 10) + 10), 0],
+    //     ['2000', 100, 90, (Math.random() * (90 - 10) + 10), 0],
+    //     ['2500', 100, 80, 0, 60],
+    //     ['3000', 100, 80, 0, 70],
+    //     ['3500', 100, 50, (Math.random() * (90 - 10) + 10), 0],
+    //     ]
+    //   }
+    // };
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
       console.log("buildChartsData", this.chartsData);
 
@@ -236,7 +241,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     if (
       !this.activeSources[observation.$source] ||
-      !this.filter.test(observation)
+      !this.filter.isSelected(observation)
     ) {
       observation.filterType = ObservationFilterType.Global;
     }
