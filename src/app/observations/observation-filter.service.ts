@@ -33,7 +33,7 @@ export class ObservationFilterService {
 
   public filterSelection:  Record<LocalFilterTypes, FilterSelectionData> = {
     Elevation: {selected: [], highlighted: []},
-    Aspects: {selected: [], highlighted: []},
+    Aspect: {selected: [], highlighted: []},
 
   }
 
@@ -56,6 +56,7 @@ export class ObservationFilterService {
 
     if(!this.endDate) {
       const newEndDate = new Date();
+      newEndDate.setDate(newEndDate.getDate() - 150); // set for debugging
       newEndDate.setHours(23, 59, 0, 0)
       this.endDate = newEndDate;
     }
@@ -86,7 +87,17 @@ export class ObservationFilterService {
   }
 
 
-  public test(observation: GenericObservation) {
+  public isSelected(observation: GenericObservation) {
+    return (
+      this.inDateRange(observation) &&
+      this.inMapBounds(observation) &&
+      this.inRegions(observation) &&
+      this.inElevationRange(observation) &&
+      this.inAspects(observation)
+    );
+  }
+
+  public isHighlighted(observation: GenericObservation) {
     return (
       this.inDateRange(observation) &&
       this.inMapBounds(observation) &&
@@ -98,9 +109,9 @@ export class ObservationFilterService {
 
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    //console.log("getAspectDataset ##1", this);
+    console.log("getAspectDataset ##1");
     for (const [key, value] of Object.entries(Enums.Aspect)) {
-      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.aspectSelection.highlighted.includes(key) ? 1 : 0};
+      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0};
     }
 
     observations.forEach(observation => {
@@ -109,36 +120,40 @@ export class ObservationFilterService {
         //console.log("getAspectDataset ##3", observation);
         dataRaw[observation.aspect].all++;
         
-        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
       }
     });
     //console.log("getAspectDataset", dataRaw);
     const dataset = [['category', 'all','selected', 'highlighted']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
-    console.log("getAspectDataset ##4 dataset", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    //console.log("getAspectDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   public getElevationDataset(observations: GenericObservation[]) {
-
+    console.log("getElevationDataset ##1", observations);
     const dataRaw = {};
 
-    for (const [key, value] of Object.entries(Enums.Aspect)) {
-      if (isNaN(Number(key))) dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": 0};
+    let curElevation = this.elevationRange[0];
+    while(curElevation <= this.elevationRange[1]) {
+      dataRaw[curElevation] = {"max": 0, "all": 0, "selected": 0, "highlighted": 0};
+      curElevation += this.elevationSectionSize;
     }
-
+    console.log("getElevationDataset ##2", dataRaw);
     observations.forEach(observation => {
       if(observation.elevation) {
-        dataRaw[observation.aspect].all++;
-        if(observation.filterType = ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+        const elevationIndex = this.getElevationIndex(observation.elevation);
+        console.log("getElevationDataset ##3", dataRaw, elevationIndex, observation.elevation);
+        dataRaw[elevationIndex].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[elevationIndex].selected++;
       }
     });
 
     const dataset = [['category', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
-
+    console.log("getElevationDataset ##4", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -168,19 +183,46 @@ export class ObservationFilterService {
     );
   }
 
-  private inElevationRange({ elevation }: GenericObservation) {
-    return (
-      elevation === undefined ||
-      (this.elevationRange[0] <= elevation &&
-        elevation <= this.elevationRange[1])
-    );
+  private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false) {
+
+    const elevationIndex = this.getElevationIndex(elevation);
+    let testField = "selected";
+    if(!testHighlighted) {
+      return (!this.filterSelection[LocalFilterTypes.Aspect][testField].length ||
+      this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex))
+    } else {
+      testField = "highlighted";
+      return this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex)
+    }
+
+  }
+  
+  private getElevationIndex(elevation: number) {
+    if(!elevation) return -1;
+    const range =  this.elevationRange[1] - this.elevationRange[0];
+    return Math.floor((elevation - this.elevationRange[0]) / this.elevationSectionSize) * this.elevationSectionSize + this.elevationRange[0];
+
   }
 
-  private inAspects({ aspect }: GenericObservation) {
-    return (
-      !this.filterSelection[LocalFilterTypes.Aspects].selected.length ||
-      (typeof aspect === "string" &&
-        this.filterSelection[LocalFilterTypes.Aspects].selected.includes(aspect.toUpperCase()))
-    );
+  private inAspects({ aspect }: GenericObservation, testHighlighted: boolean = false) {
+    //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+    let testField = "selected";
+    if(!testHighlighted) {
+      return (
+        !this.filterSelection[LocalFilterTypes.Aspect][testField].length ||
+        (typeof aspect === "string" &&
+          this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
+      );
+
+    } else {
+      testField = "highlighted";
+      return (
+        (typeof aspect === "string" &&
+          this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
+      );
+
+    }
+
+    
   }
 }
