@@ -127,7 +127,7 @@ export class ObservationFilterService {
     const dataset = [['category', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    //console.log("getAspectDataset ##4 dataset", dataset);
+    console.log("getAspectDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -137,7 +137,7 @@ export class ObservationFilterService {
 
     let curElevation = this.elevationRange[0];
     while(curElevation <= this.elevationRange[1]) {
-      dataRaw[curElevation] = {"max": 0, "all": 0, "selected": 0, "highlighted": 0};
+      dataRaw[curElevation] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(curElevation + "") ? 1 : 0};
       curElevation += this.elevationSectionSize;
     }
     console.log("getElevationDataset ##2", dataRaw);
@@ -150,10 +150,10 @@ export class ObservationFilterService {
       }
     });
 
-    const dataset = [['category', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"]]);
-    console.log("getElevationDataset ##4", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] + values["all"] / 10, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
+    console.log("getElevationDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -186,9 +186,10 @@ export class ObservationFilterService {
   private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false) {
 
     const elevationIndex = this.getElevationIndex(elevation);
+    console.log("inElevationRange ##4 dataset", elevationIndex, this.filterSelection[LocalFilterTypes.Elevation]["selected"].includes(elevationIndex));
     let testField = "selected";
     if(!testHighlighted) {
-      return (!this.filterSelection[LocalFilterTypes.Aspect][testField].length ||
+      return (!this.filterSelection[LocalFilterTypes.Elevation][testField].length ||
       this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex))
     } else {
       testField = "highlighted";
@@ -197,10 +198,10 @@ export class ObservationFilterService {
 
   }
   
-  private getElevationIndex(elevation: number) {
-    if(!elevation) return -1;
+  private getElevationIndex(elevation: number): string {
+    if(!elevation) return "";
     const range =  this.elevationRange[1] - this.elevationRange[0];
-    return Math.floor((elevation - this.elevationRange[0]) / this.elevationSectionSize) * this.elevationSectionSize + this.elevationRange[0];
+    return (Math.floor((elevation - this.elevationRange[0]) / this.elevationSectionSize) * this.elevationSectionSize + this.elevationRange[0]) + "";
 
   }
 
