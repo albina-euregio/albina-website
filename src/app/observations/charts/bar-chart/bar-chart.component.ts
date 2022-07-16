@@ -112,7 +112,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
 
     onClick(event: any) {
         console.log("BarChartComponent->onclick", event);
-        this.submitChange([this.type, {}])
+        this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
 
