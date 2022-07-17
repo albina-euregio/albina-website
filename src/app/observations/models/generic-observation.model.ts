@@ -33,6 +33,7 @@ export interface GenericObservation<Data = any> {
   avalancheProblem?: Enums.AvalancheProblem;
   dangerPattern?: Enums.DangerPattern;
   filterType?: ObservationFilterType;
+  isHighlighted?: boolean;
 }
 
 export enum ObservationFilterType {

@@ -179,6 +179,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         console.log("applyLocalFilter ##3.1", observation);
         observation.filterType = ObservationFilterType.Local;
       } 
+      observation.isHighlighted = this.filter.isHighlighted(observation);
 
       return observation;
     });
@@ -191,7 +192,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         return;
       }
       //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
-      this.drawMarker(observation, ll);
+      if(observation.filterType === ObservationFilterType.Local || observation.isHighlighted) this.drawMarker(observation, ll);
     });
     this.buildChartsData();
   }
@@ -220,7 +221,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private drawMarker(observation, ll) {
-    const marker = new Marker(ll, this.mapService.style(observation));
+    const styledObservation = observation.isHighlighted ? this.mapService.highlightStyle(observation) : this.mapService.style(observation);
+    const marker = new Marker(ll, styledObservation);
     if (this.mapService.USE_CANVAS_LAYER) {
       // @ts-ignore
       marker.observation = observation;
