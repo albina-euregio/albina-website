@@ -95,16 +95,22 @@
 
     <div class="layout-right">
       <div class="layout-charts">
-        <app-bar-chart 
-          [type]="LocalFilterTypes.Elevation"
-          [dataset]="chartsData.Elevation"  
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
-        </app-bar-chart>
+        
         <app-rose-chart 
           [type]="LocalFilterTypes.Aspect"
           [dataset]="chartsData.Aspects" 
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
+        <app-bar-chart 
+          [type]="LocalFilterTypes.Elevation"
+          [dataset]="chartsData.Elevation"  
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          [type]="LocalFilterTypes.Stability"
+          [dataset]="chartsData.Stability"  
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
       </div>
     </div>
 

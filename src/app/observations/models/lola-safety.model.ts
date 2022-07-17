@@ -5,6 +5,7 @@ import {
   ObservationType,
   Stability,
 } from "./generic-observation.model";
+import * as Enums from "app/enums/enums";
 
 export interface LoLaSafetyApi {
   snowProfiles: SnowProfile[];
@@ -134,11 +135,11 @@ function convertAvalancheReport(
 
 function getAvalancheReportStability(report: AvalancheReport): Stability {
   if (report.avalanchePotential.riskAssessment < 30) {
-    return "good";
+    return Enums.Stability.good;
   } else if (report.avalanchePotential.riskAssessment < 60) {
-    return "medium";
+    return Enums.Stability.medium;
   } else {
-    return "weak";
+    return Enums.Stability.weak;
   }
 }
 

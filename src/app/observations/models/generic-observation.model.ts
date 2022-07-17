@@ -41,13 +41,13 @@ export enum ObservationFilterType {
   Local = "Local"
 }
 
-export type Stability = "good" | "medium" | "weak" | "unknown";
+export type Stability = Enums.Stability.good | Enums.Stability.medium | Enums.Stability.weak | Enums.Stability.unknown;
 
 const colors: Record<Stability, string> = {
-  good: "green",
-  medium: "orange",
-  weak: "red",
-  unknown: "gray"
+  "good": "green",
+  "medium": "orange",
+  "weak": "red",
+  "unknown": "gray"
 };
 
 export function toMarkerColor(observation: GenericObservation) {
@@ -136,11 +136,17 @@ export enum Aspect {
 export enum LocalFilterTypes {
   Elevation = "Elevation",
   Aspect = "Aspect",
+  AvalancheProblem = "AvalancheProblem",
+  Stability = "Stability",
+  DangerPattern = "DangerPattern",
 }
 
 export interface ChartsData {
   Elevation: Object;
   Aspects: Object;
+  AvalangeProblem: Object;
+  Stability: Object;
+  DangerPattern: Object;
 }
 
 export interface FilterSelectionData {
