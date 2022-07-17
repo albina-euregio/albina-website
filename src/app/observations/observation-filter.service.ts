@@ -11,6 +11,7 @@ import {
   ObservationFilterType
 } from "./models/generic-observation.model";
 
+const DATASET_MAX_FACTOR = 1.1
 
 interface GenericFilterToggleData {
   type: LocalFilterTypes;
@@ -94,8 +95,11 @@ export class ObservationFilterService {
       this.inDateRange(observation) &&
       this.inMapBounds(observation) &&
       this.inRegions(observation) &&
-      this.inElevationRange(observation) &&
-      this.inAspects(observation)
+      (
+        this.inElevationRange(observation) &&
+        this.inAspects(observation) &&
+        this.inStability(observation)
+      )
     );
   }
 
@@ -106,7 +110,8 @@ export class ObservationFilterService {
       this.inRegions(observation) &&
       (
         this.inElevationRange(observation, true) ||
-        this.inAspects(observation, true)
+        this.inAspects(observation, true) ||
+        this.inStability(observation, true)
       )
     );
   }
@@ -135,6 +140,30 @@ export class ObservationFilterService {
     return {dataset: {source: dataset}}
   }
 
+  public getStabilityDataset(observations: GenericObservation[]) {
+    const dataRaw = {};
+    console.log("getstabilityDataset ##1");
+    for (const [key, value] of Object.entries(Enums.Stability)) {
+      if (isNaN(Number(key))) dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0};
+    }
+
+    observations.forEach(observation => {
+      //console.log("getstabilityDataset ##2", observation);
+      if(observation.stability) {
+        //console.log("getstabilityDataset ##3", observation);
+        dataRaw[observation.stability].all++;
+        
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.stability].selected++;
+      }
+    });
+    //console.log("getstabilityDataset", dataRaw);
+    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    console.log("getstabilityDataset ##4 dataset", dataset);
+    return {dataset: {source: dataset}}
+  }
+
   public getElevationDataset(observations: GenericObservation[]) {
     console.log("getElevationDataset ##1", observations);
     const dataRaw = {};
@@ -156,7 +185,7 @@ export class ObservationFilterService {
 
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] + values["all"] / 10, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
     console.log("getElevationDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
@@ -187,7 +216,30 @@ export class ObservationFilterService {
     );
   }
 
-  private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false) {
+
+  inStability({ stability }: GenericObservation, testHighlighted: boolean = false): boolean {
+
+    //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+    let testField = "selected";
+    if(!testHighlighted) {
+      return (
+        !this.filterSelection[LocalFilterTypes.Stability][testField].length ||
+        (typeof stability === "string" &&
+          this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+      );
+
+    } else {
+      testField = "highlighted";
+      return (
+        (typeof stability === "string" &&
+          this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+      );
+
+    }
+  }
+
+
+  private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false): boolean {
 
     const elevationIndex = this.getElevationIndex(elevation);
     console.log("inElevationRange ##4 dataset", elevationIndex, this.filterSelection[LocalFilterTypes.Elevation]["selected"].includes(elevationIndex));
@@ -209,7 +261,7 @@ export class ObservationFilterService {
 
   }
 
-  private inAspects({ aspect }: GenericObservation, testHighlighted: boolean = false) {
+  private inAspects({ aspect }: GenericObservation, testHighlighted: boolean = false): boolean {
     //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
     let testField = "selected";
     if(!testHighlighted) {
