@@ -116,6 +116,17 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
+
+    onInvert() {
+        console.log("BarChartComponent->onInvert", this);
+        this.submitChange([this.type, {invert: true}])
+    }
+
+    onReset() {
+        console.log("BarChartComponent->onReset",  this);
+        this.submitChange([this.type, {reset: true}])
+    }
+
     ngOnInit(): void {
         // this.options.title.text = this.caption || 'Rrose chart';
     }
