@@ -200,21 +200,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   buildChartsData() {
 
     this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
-    
-    // {'dataset': 
-    //   {'source': [
-    //     ['category', 'max', 'all', 'selected', 'highlighted'],
-    //     ['1000', 100, 90, 20, 0],
-    //     ['1500', 100, 90, (Math.random() * (90 - 10) + 10), 0],
-    //     ['2000', 100, 90, (Math.random() * (90 - 10) + 10), 0],
-    //     ['2500', 100, 80, 0, 60],
-    //     ['3000', 100, 80, 0, 70],
-    //     ['3500', 100, 50, (Math.random() * (90 - 10) + 10), 0],
-    //     ]
-    //   }
-    // };
+
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
-      console.log("buildChartsData", this.chartsData);
+
+    this.chartsData.Stability = this.filter.getStabilityDataset(this.observations)
+      
+    console.log("buildChartsData", this.chartsData);
+
 
 
 
