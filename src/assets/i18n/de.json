@@ -554,6 +554,11 @@
       "label" : {
         "dateRange" : "Zeitspanne",
         "observer" : "Beobachter"
+      },
+      "charts": {
+        "aspect": {
+          "caption": "Aspekt"
+        }
       }
     },
     "blog" : {

@@ -18,6 +18,8 @@ interface GenericFilterToggleData {
   data: {
     value: string;
     altKey: boolean;
+    invert: boolean,
+    reset: boolean
   }
 }
 
@@ -48,11 +50,21 @@ export class ObservationFilterService {
     let curFilterType = this.filterSelection[filterData["type"]];
     let curFilterTypeSubset = "selected";
     if(filterData.data.altKey) curFilterTypeSubset = "highlighted";
-    var index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
-    if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
-    else curFilterType[curFilterTypeSubset].push(filterData.data.value);
-    console.log("toggleFilter ##2", curFilterType, index);
+
+    if(filterData.data.reset) {
+      curFilterType[curFilterTypeSubset] = [];
+    } else if(filterData.data.invert) {
+      curFilterType[curFilterTypeSubset] = curFilterType[curFilterTypeSubset].filter(value => value !== filterData.data.value);
+    } else {
+      let index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
+      if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
+      else curFilterType[curFilterTypeSubset].push(filterData.data.value);
+      
+    }
+
+    console.log("toggleFilter ##2", curFilterType);
     this.filterSelection[filterData["type"]] = curFilterType;
+    console.log("toggleFilter ##3", this.filterSelection);
   }
 
   set days(days: number) {
