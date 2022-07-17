@@ -150,6 +150,7 @@ export interface ChartsData {
 }
 
 export interface FilterSelectionData {
+  all: string[];
   selected: string[];
   highlighted: string[];
 }
