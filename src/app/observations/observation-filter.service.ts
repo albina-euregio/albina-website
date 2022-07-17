@@ -31,19 +31,21 @@ export class ObservationFilterService {
   public selectedElevations: number[] = [];
   public regions: string[] = [];
 
-  public elevationSelection: FilterSelectionData = {selected: [], highlighted: []};
-  public aspectSelection: FilterSelectionData = {selected: [], highlighted: []};
+  public elevationSelection: FilterSelectionData = {all: [], selected: [], highlighted: []};
+  public aspectSelection: FilterSelectionData = {all: [], selected: [], highlighted: []};
 
   public filterSelection:  Record<LocalFilterTypes, FilterSelectionData> = {
-    Elevation: {selected: [], highlighted: []},
-    Aspect: {selected: [], highlighted: []},
-    AvalancheProblem: {selected: [], highlighted: []},
-    Stability: {selected: [], highlighted: []},
-    DangerPattern: {selected: [], highlighted: []},
+    Elevation: {all: [], selected: [], highlighted: []},
+    Aspect: {all: [], selected: [], highlighted: []},
+    AvalancheProblem: {all: [], selected: [], highlighted: []},
+    Stability: {all: [], selected: [], highlighted: []},
+    DangerPattern: {all: [], selected: [], highlighted: []},
   }
 
 
-  constructor(private constantsService: ConstantsService) {}
+  constructor(private constantsService: ConstantsService) {
+    this.seedFilterSelectionsAll();
+  }
 
   toggleFilter(filterData: GenericFilterToggleData){
     console.log("toggleFilter ##1", filterData);
@@ -54,7 +56,14 @@ export class ObservationFilterService {
     if(filterData.data.reset) {
       curFilterType[curFilterTypeSubset] = [];
     } else if(filterData.data.invert) {
-      curFilterType[curFilterTypeSubset] = curFilterType[curFilterTypeSubset].filter(value => value !== filterData.data.value);
+      console.log("toggleFilter ##2.0", curFilterType[curFilterTypeSubset] )
+      curFilterType[curFilterTypeSubset] = curFilterType.all.filter(value => {
+        console.log("toggleFilter ##2.001", value, curFilterType[curFilterTypeSubset].indexOf(value))
+        return curFilterType[curFilterTypeSubset].indexOf(value) === -1 ? true : false;
+      
+      });
+
+      console.log("toggleFilter ##2.01", curFilterType[curFilterTypeSubset] );
     } else {
       let index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
       if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
@@ -65,6 +74,28 @@ export class ObservationFilterService {
     console.log("toggleFilter ##2", curFilterType);
     this.filterSelection[filterData["type"]] = curFilterType;
     console.log("toggleFilter ##3", this.filterSelection);
+  }
+
+  private seedFilterSelectionsAll() {
+
+    for (const [key] of Object.entries(Enums.Aspect)) {
+      if(isNaN(Number(key))) {
+        this.filterSelection.Aspect.all.push(key);
+      }
+    }
+
+    for (const [key, value] of Object.entries(Enums.Stability)) {
+      this.filterSelection.Stability.all.push(key);
+    }
+
+    let curElevation = this.elevationRange[0];
+    while(curElevation <= this.elevationRange[1]) {
+      this.filterSelection.Elevation.all.push(curElevation + "");
+      curElevation += this.elevationSectionSize;
+    }
+
+    console.log("seedFilterSelections", this.filterSelection);
+
   }
 
   set days(days: number) {
