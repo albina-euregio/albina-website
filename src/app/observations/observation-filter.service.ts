@@ -34,7 +34,9 @@ export class ObservationFilterService {
   public filterSelection:  Record<LocalFilterTypes, FilterSelectionData> = {
     Elevation: {selected: [], highlighted: []},
     Aspect: {selected: [], highlighted: []},
-
+    AvalancheProblem: {selected: [], highlighted: []},
+    Stability: {selected: [], highlighted: []},
+    DangerPattern: {selected: [], highlighted: []},
   }
 
 

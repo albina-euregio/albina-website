@@ -47,7 +47,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly dropdownSettings: IDropdownSettings;
   public selectedItems: [];
   public toMarkerColor = toMarkerColor;
-  public chartsData: ChartsData = {Elevation: {}, Aspects: {}};
+  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalangeProblem: {}, Stability: {}, DangerPattern: {}};
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;

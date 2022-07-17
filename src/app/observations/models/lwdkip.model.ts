@@ -1,4 +1,5 @@
 import { GenericObservation, ObservationSource, ObservationType, Stability, toAspect } from "./generic-observation.model";
+import * as Enums from "app/enums/enums";
 
 export type ArcGisApi =
   | { layers: ArcGisLayer[] }
@@ -287,7 +288,7 @@ export function convertLwdKipSperren(
 }
 
 function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): Stability {
-  return "unknown";
+  return Enums.Stability.unknown;
 }
 
 function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
@@ -297,15 +298,15 @@ function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point
 function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
   switch (feature.properties.SPRENGERFOLG || "") {
     case "kein Erfolg":
-      return "good";
+      return Enums.Stability.good;
     case "mäßiger Erfolg":
-      return "medium";
+      return Enums.Stability.medium;
     case "guter Erfolg":
-      return "weak";
+      return Enums.Stability.weak;
     case "sehr guter Erfolg":
-      return "weak";
+      return Enums.Stability.weak;
     default:
-      return "unknown";
+      return Enums.Stability.unknown;
   }
 }
 
@@ -320,7 +321,7 @@ function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Poin
 }
 
 function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): Stability {
-  return "weak";
+  return Enums.Stability.weak;
 }
 
 function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
@@ -328,7 +329,7 @@ function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Lin
 }
 
 function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
-  return "medium";
+  return Enums.Stability.medium;
 }
 
 function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
