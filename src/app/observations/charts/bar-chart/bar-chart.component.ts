@@ -22,11 +22,11 @@ const defaultDataBarOptions = {
 })
 export class BarChartComponent extends BaseComponent implements OnInit {
 
-
+    
     public readonly defaultOptions = {
-        title: {
-            text: 'bar chart'
-        },
+        // title: {
+        //     text: 'bar chart'
+        // },
         tooltip: {},
         yAxis: {
             type: 'category',
@@ -103,21 +103,32 @@ export class BarChartComponent extends BaseComponent implements OnInit {
     
         ]
     };
-
+    public options = Object.assign(this.defaultOptions);
 
     constructor() {
         super();
-        console.log("BarChartComponent->constructor", this.dataset);
     }
 
     onClick(event: any) {
-        console.log("BarChartComponent->onclick", event);
+        console.log("BarChartComponent->onclick", event, this);
         this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
+    onInvert() {
+        console.log("BarChartComponent->onInvert", this);
+        this.submitChange([this.type, {invert: true}])
+    }
 
-  ngOnInit(): void {
-  }
+    onReset() {
+        console.log("BarChartComponent->onReset",  this);
+        this.submitChange([this.type, {reset: true}])
+    }
+
+
+
+    ngOnInit(): void {
+        // this.options.title.text = this.caption || 'bar chart';
+    }
 
 
 

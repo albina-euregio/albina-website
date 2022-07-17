@@ -1,6 +1,7 @@
 <div class="layout-chart">
+    <p class="chart-header">{{caption}} <span (click)="onInvert()">Invert</span> <span (click)="onReset()">Reset</span></p>
     <div echarts 
-        [options]="defaultOptions" 
+        [options]="options" 
         [merge]="dataset" 
         (chartClick)="onClick($event)" 
         class="chart"></div>

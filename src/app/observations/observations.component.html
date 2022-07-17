@@ -97,16 +97,19 @@
       <div class="layout-charts">
         
         <app-rose-chart 
+          [caption] = "'observations.charts.aspect.caption' | translate"
           [type]="LocalFilterTypes.Aspect"
           [dataset]="chartsData.Aspects" 
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
+          [caption] = "'observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [dataset]="chartsData.Elevation"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
+          [caption] = "'observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
           [dataset]="chartsData.Stability"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
