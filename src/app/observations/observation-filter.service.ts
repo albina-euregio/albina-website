@@ -102,8 +102,10 @@ export class ObservationFilterService {
       this.inDateRange(observation) &&
       this.inMapBounds(observation) &&
       this.inRegions(observation) &&
-      this.inElevationRange(observation) &&
-      this.inAspects(observation)
+      (
+        this.inElevationRange(observation, true) ||
+        this.inAspects(observation, true)
+      )
     );
   }
 
