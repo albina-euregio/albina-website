@@ -1,5 +1,5 @@
 <div class="layout-chart">
-    <p class="chart-header">{{caption}} <span>Invert</span> <span>Reset</span></p>
+    <p class="chart-header">{{caption}} <span (click)="onInvert()">Invert</span> <span (click)="onReset()">Reset</span></p>
     <div echarts 
         [options]="defaultOptions" 
         [merge]="dataset" 
