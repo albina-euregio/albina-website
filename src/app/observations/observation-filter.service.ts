@@ -119,9 +119,10 @@ export class ObservationFilterService {
       this.inMapBounds(observation) &&
       this.inRegions(observation) &&
       (
-        this.inElevationRange(observation) &&
-        this.inAspects(observation) &&
-        this.inStability(observation)
+        this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
+        this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
+        this.isIncluded(LocalFilterTypes.Stability, observation.stability)
+ 
       )
     );
   }
@@ -132,9 +133,9 @@ export class ObservationFilterService {
       this.inMapBounds(observation) &&
       this.inRegions(observation) &&
       (
-        this.inElevationRange(observation, true) ||
-        this.inAspects(observation, true) ||
-        this.inStability(observation, true)
+        this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
+        this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
+        this.isIncluded(LocalFilterTypes.Stability, observation.stability, true)
       )
     );
   }
@@ -158,6 +159,18 @@ export class ObservationFilterService {
       curElevation += this.elevationSectionSize;
     }
 
+    for (const [key] of Object.entries(Enums.DangerPattern)) {
+      if(isNaN(Number(key))) {
+        this.filterSelection.DangerPattern.all.push(key);
+      }
+    }
+
+    for (const [key] of Object.entries(Enums.AvalancheProblem)) {
+      if(isNaN(Number(key))) {
+        this.filterSelection.AvalancheProblem.all.push(key);
+      }
+    }
+
     console.log("seedFilterSelections ##99", this.filterSelection);
 
   }
@@ -166,9 +179,6 @@ export class ObservationFilterService {
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     console.log("getAspectDataset ##1");
-    // for (const [key, value] of Object.entries(Enums.Aspect)) {
-    //   if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0};
-    // }
 
     this.filterSelection[LocalFilterTypes.Aspect]["all"].forEach(key => dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0})
 
@@ -235,6 +245,52 @@ export class ObservationFilterService {
     return {dataset: {source: dataset}}
   }
 
+  public getAvalangeProblemDataset(observations: GenericObservation[]) {
+    const dataRaw = {};
+    console.log("getAvalangeProblemDataset ##1");
+
+    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
+    
+    observations.forEach(observation => {
+      //console.log("getAvalangeProblemDataset ##2", observation);
+      if(observation.avalancheProblem) {
+        //console.log("getAvalangeProblemDataset ##3", observation);
+        dataRaw[observation.avalancheProblem].all++;
+        
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].selected++;
+      }
+    });
+    //console.log("getAvalangeProblemDataset", dataRaw);
+    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    console.log("getAvalangeProblemDataset ##4 dataset", dataset);
+    return {dataset: {source: dataset}}
+  }
+
+  public getDangerPatternDataset(observations: GenericObservation[]) {
+    const dataRaw = {};
+    console.log("getDangerPatternDataset ##1");
+
+    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
+    
+    observations.forEach(observation => {
+      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
+      if(observation.dangerPattern) {
+        console.log("getDangerPatternDataset ##3", observation);
+        dataRaw[observation.dangerPattern].all++;
+        
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].selected++;
+      }
+    });
+    //console.log("getDangerPatternDataset", dataRaw);
+    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    console.log("getDangerPatternDataset ##4 dataset", dataset);
+    return {dataset: {source: dataset}}
+  }
+
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
     if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
@@ -261,42 +317,25 @@ export class ObservationFilterService {
     );
   }
 
+  isIncluded(filter: LocalFilterTypes, testData: any, testHighlighted: boolean = false): boolean {
 
-  inStability({ stability }: GenericObservation, testHighlighted: boolean = false): boolean {
-
-    //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+    //console.log("isIncluded ##1", filter, testData, testHighlighted);
     let testField = "selected";
     if(!testHighlighted) {
       return (
-        !this.filterSelection[LocalFilterTypes.Stability][testField].length ||
-        (typeof stability === "string" &&
-          this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+        !this.filterSelection[filter][testField].length ||
+        (typeof testData === "string" &&
+          this.filterSelection[filter][testField].includes(testData))
       );
 
     } else {
       testField = "highlighted";
       return (
-        (typeof stability === "string" &&
-          this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+        (typeof testData === "string" &&
+          this.filterSelection[filter][testField].includes(testData))
       );
 
     }
-  }
-
-
-  private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false): boolean {
-
-    const elevationIndex = this.getElevationIndex(elevation);
-    console.log("inElevationRange ##4 dataset", elevationIndex, this.filterSelection[LocalFilterTypes.Elevation]["selected"].includes(elevationIndex));
-    let testField = "selected";
-    if(!testHighlighted) {
-      return (!this.filterSelection[LocalFilterTypes.Elevation][testField].length ||
-      this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex))
-    } else {
-      testField = "highlighted";
-      return this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex)
-    }
-
   }
   
   private getElevationIndex(elevation: number): string {
@@ -306,25 +345,106 @@ export class ObservationFilterService {
 
   }
 
-  private inAspects({ aspect }: GenericObservation, testHighlighted: boolean = false): boolean {
-    //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
-    let testField = "selected";
-    if(!testHighlighted) {
-      return (
-        !this.filterSelection[LocalFilterTypes.Aspect][testField].length ||
-        (typeof aspect === "string" &&
-          this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
-      );
 
-    } else {
-      testField = "highlighted";
-      return (
-        (typeof aspect === "string" &&
-          this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
-      );
+  // inStability({ stability }: GenericObservation, testHighlighted: boolean = false): boolean {
 
-    }
+  //   //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+  //   let testField = "selected";
+  //   if(!testHighlighted) {
+  //     return (
+  //       !this.filterSelection[LocalFilterTypes.Stability][testField].length ||
+  //       (typeof stability === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+  //     );
 
-    
-  }
+  //   } else {
+  //     testField = "highlighted";
+  //     return (
+  //       (typeof stability === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Stability][testField].includes(stability))
+  //     );
+
+  //   }
+  // }
+
+
+  // private inElevationRange({ elevation }: GenericObservation, testHighlighted: boolean = false): boolean {
+
+  //   const elevationIndex = this.getElevationIndex(elevation);
+  //   console.log("inElevationRange ##4 dataset", elevationIndex, this.filterSelection[LocalFilterTypes.Elevation]["selected"].includes(elevationIndex));
+  //   let testField = "selected";
+  //   if(!testHighlighted) {
+  //     return (!this.filterSelection[LocalFilterTypes.Elevation][testField].length ||
+  //     this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex))
+  //   } else {
+  //     testField = "highlighted";
+  //     return this.filterSelection[LocalFilterTypes.Elevation][testField].includes(elevationIndex)
+  //   }
+
+  // }
+
+
+
+  // private inAspects({ aspect }: GenericObservation, testHighlighted: boolean = false): boolean {
+  //   //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+  //   let testField = "selected";
+  //   if(!testHighlighted) {
+  //     return (
+  //       !this.filterSelection[LocalFilterTypes.Aspect][testField].length ||
+  //       (typeof aspect === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
+  //     );
+
+  //   } else {
+  //     testField = "highlighted";
+  //     return (
+  //       (typeof aspect === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Aspect][testField].includes(aspect.toUpperCase()))
+  //     );
+
+  //   }
+  // }
+
+  // inAvalancheProblem({ avalancheProblem }: GenericObservation, testHighlighted: boolean = false): boolean {
+
+  //   //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+  //   let testField = "selected";
+  //   if(!testHighlighted) {
+  //     return (
+  //       !this.filterSelection[LocalFilterTypes.Stability][testField].length ||
+  //       (typeof avalancheProblem === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Stability][testField].includes(avalancheProblem))
+  //     );
+
+  //   } else {
+  //     testField = "highlighted";
+  //     return (
+  //       (typeof avalancheProblem === "string" &&
+  //         this.filterSelection[LocalFilterTypes.Stability][testField].includes(avalancheProblem))
+  //     );
+
+  //   }
+  // }
+
+  // inDangerPattern({ dangerPattern }: GenericObservation, testHighlighted: boolean = false): boolean {
+
+  //   //console.log("inAspects ##4", this.filterSelection[LocalFilterTypes.Aspect]);
+  //   const testData = dangerPattern;
+  //   const filter = LocalFilterTypes.Stability
+  //   let testField = "selected";
+  //   if(!testHighlighted) {
+  //     return typeof testData === "string" &&
+  //         this.filterSelection[filter][testField].includes(testData);
+
+  //   } else {
+  //     testField = "highlighted";
+  //     return (
+  //       (typeof testData === "string" &&
+  //         this.filterSelection[filter][testField].includes(testData))
+  //     );
+
+  //   }
+  // }
+
+
 }

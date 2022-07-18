@@ -204,6 +204,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
 
     this.chartsData.Stability = this.filter.getStabilityDataset(this.observations)
+
+    this.chartsData.AvalangeProblem = this.filter.getAvalangeProblemDataset(this.observations)
+
+    this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations)
       
     console.log("buildChartsData", this.chartsData);
 

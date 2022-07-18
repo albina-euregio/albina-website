@@ -114,6 +114,18 @@
           [dataset]="chartsData.Stability"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
+        <app-bar-chart 
+          [caption] = "'observations.charts.avalangProblem.caption' | translate"
+          [type]="LocalFilterTypes.AvalancheProblem"
+          [dataset]="chartsData.AvalangeProblem"  
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          [caption] = "'observations.charts.dangerPattern.caption' | translate"
+          [type]="LocalFilterTypes.DangerPattern"
+          [dataset]="chartsData.DangerPattern"  
+          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
       </div>
     </div>
 
