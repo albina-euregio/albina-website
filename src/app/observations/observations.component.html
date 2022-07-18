@@ -97,33 +97,33 @@
       <div class="layout-charts">
         
         <app-rose-chart 
-          [caption] = "'observations.charts.aspect.caption' | translate"
+          [caption] = "'admin.observations.charts.aspect.caption' | translate"
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
           [dataset]="chartsData.Aspects" 
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
-          [caption] = "'observations.charts.elevation.caption' | translate"
+          [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [dataset]="chartsData.Elevation"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
-          [caption] = "'observations.charts.stability.caption' | translate"
+          [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
           [dataset]="chartsData.Stability"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
-          [caption] = "'observations.charts.avalangProblem.caption' | translate"
+          [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
-          [dataset]="chartsData.AvalangeProblem"  
+          [dataset]="chartsData.AvalancheProblem"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
-          [caption] = "'observations.charts.dangerPattern.caption' | translate"
+          [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
           [dataset]="chartsData.DangerPattern"  

@@ -558,6 +558,18 @@
       "charts": {
         "aspect": {
           "caption": "Aspekt"
+        },
+        "elevation": {
+          "caption": "Seehöhe"
+        },
+        "stability": {
+          "caption": "Stabilität"
+        },
+        "avalancheProblem": {
+          "caption": "Lawinenproblem"
+        },
+        "dangerPattern": {
+          "caption": "Gefahrenmuster"
         }
       }
     },

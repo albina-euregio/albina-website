@@ -245,26 +245,26 @@ export class ObservationFilterService {
     return {dataset: {source: dataset}}
   }
 
-  public getAvalangeProblemDataset(observations: GenericObservation[]) {
+  public getAvalancheProblemDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getAvalangeProblemDataset ##1");
+    console.log("getAvalancheProblemDataset ##1");
 
     this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
     
     observations.forEach(observation => {
-      //console.log("getAvalangeProblemDataset ##2", observation);
+      //console.log("getAvalancheProblemDataset ##2", observation);
       if(observation.avalancheProblem) {
-        //console.log("getAvalangeProblemDataset ##3", observation);
+        //console.log("getAvalancheProblemDataset ##3", observation);
         dataRaw[observation.avalancheProblem].all++;
         
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].selected++;
       }
     });
-    //console.log("getAvalangeProblemDataset", dataRaw);
+    //console.log("getAvalancheProblemDataset", dataRaw);
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getAvalangeProblemDataset ##4 dataset", dataset);
+    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
