@@ -10,6 +10,7 @@ import { dataTool } from 'echarts';
 export class BaseComponent implements OnInit {
 
   @Input() caption: String
+  @Input() translationBase: String
   @Input() type: String
   @Input() dataset: Object
   @Output() onChange: EventEmitter<any> = new EventEmitter();

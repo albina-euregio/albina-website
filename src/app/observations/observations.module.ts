@@ -58,7 +58,7 @@ import { BaseComponent } from './charts/base/base-chart.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   declarations: [
     NgxSidebarControlComponent,

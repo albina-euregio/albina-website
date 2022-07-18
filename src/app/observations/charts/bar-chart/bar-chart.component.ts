@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges, OnInit, EventEmitter, Output  } from '@angular/core';
 import { BaseComponent } from '../base/base-chart.component';
+import { TranslateService } from "@ngx-translate/core";
 
 const barWidth = 5;
 const defaultDataBarOptions = {
@@ -80,7 +81,10 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                     fontSize: 14,
                     color: "#999",
                     position: [0, -14],
-                    formatter: '{b}',
+                    formatter: (params) => {
+                        //console.log("formatter", params.value[0], this.translateService.instant(this.translationBase + params.value[0])); 
+                        return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]): params.value[0];
+                    },
                     show: true
                 },
     
@@ -105,7 +109,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
     };
     public options = Object.assign(this.defaultOptions);
 
-    constructor() {
+    constructor(private translateService: TranslateService) {
         super();
     }
 
