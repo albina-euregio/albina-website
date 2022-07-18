@@ -47,7 +47,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly dropdownSettings: IDropdownSettings;
   public selectedItems: [];
   public toMarkerColor = toMarkerColor;
-  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalangeProblem: {}, Stability: {}, DangerPattern: {}};
+  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, DangerPattern: {}};
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
@@ -205,7 +205,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.chartsData.Stability = this.filter.getStabilityDataset(this.observations)
 
-    this.chartsData.AvalangeProblem = this.filter.getAvalangeProblemDataset(this.observations)
+    this.chartsData.AvalancheProblem = this.filter.getAvalancheProblemDataset(this.observations)
 
     this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations)
       

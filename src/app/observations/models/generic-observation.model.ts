@@ -144,7 +144,7 @@ export enum LocalFilterTypes {
 export interface ChartsData {
   Elevation: Object;
   Aspects: Object;
-  AvalangeProblem: Object;
+  AvalancheProblem: Object;
   Stability: Object;
   DangerPattern: Object;
 }
