@@ -78,28 +78,6 @@ export class ObservationFilterService {
     console.log("toggleFilter ##3", this.filterSelection);
   }
 
-  private seedFilterSelectionsAll() {
-
-    for (const [key] of Object.entries(Enums.Aspect)) {
-      if(isNaN(Number(key))) {
-        this.filterSelection.Aspect.all.push(key);
-      }
-    }
-
-    for (const [key, value] of Object.entries(Enums.Stability)) {
-      this.filterSelection.Stability.all.push(key);
-    }
-
-    let curElevation = this.elevationRange[0];
-    while(curElevation <= this.elevationRange[1]) {
-      this.filterSelection.Elevation.all.push(curElevation + "");
-      curElevation += this.elevationSectionSize;
-    }
-
-    console.log("seedFilterSelections", this.filterSelection);
-
-  }
-
   set days(days: number) {
 
     if(!this.endDate) {
@@ -161,12 +139,38 @@ export class ObservationFilterService {
     );
   }
 
+  private seedFilterSelectionsAll() {
+
+    for (const [key] of Object.entries(Enums.Aspect)) {
+      if(isNaN(Number(key))) {
+        this.filterSelection.Aspect.all.push(key);
+      }
+    }
+
+    for (const [key, value] of Object.entries(Enums.Stability)) {
+      console.log("seedFilterSelections ##1", key);
+      this.filterSelection.Stability.all.unshift(key);
+    }
+
+    let curElevation = this.elevationRange[0];
+    while(curElevation <= this.elevationRange[1]) {
+      this.filterSelection.Elevation.all.push(curElevation + "");
+      curElevation += this.elevationSectionSize;
+    }
+
+    console.log("seedFilterSelections ##99", this.filterSelection);
+
+  }
+
+
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     console.log("getAspectDataset ##1");
-    for (const [key, value] of Object.entries(Enums.Aspect)) {
-      if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0};
-    }
+    // for (const [key, value] of Object.entries(Enums.Aspect)) {
+    //   if (isNaN(Number(key))) dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0};
+    // }
+
+    this.filterSelection[LocalFilterTypes.Aspect]["all"].forEach(key => dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0})
 
     observations.forEach(observation => {
       //console.log("getAspectDataset ##2", observation);
@@ -188,10 +192,9 @@ export class ObservationFilterService {
   public getStabilityDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     console.log("getstabilityDataset ##1");
-    for (const [key, value] of Object.entries(Enums.Stability)) {
-      if (isNaN(Number(key))) dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0};
-    }
 
+    this.filterSelection[LocalFilterTypes.Stability]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0})
+    
     observations.forEach(observation => {
       //console.log("getstabilityDataset ##2", observation);
       if(observation.stability) {
@@ -213,11 +216,8 @@ export class ObservationFilterService {
     console.log("getElevationDataset ##1", observations);
     const dataRaw = {};
 
-    let curElevation = this.elevationRange[0];
-    while(curElevation <= this.elevationRange[1]) {
-      dataRaw[curElevation] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(curElevation + "") ? 1 : 0};
-      curElevation += this.elevationSectionSize;
-    }
+    this.filterSelection[LocalFilterTypes.Elevation]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(key) ? 1 : 0})
+
     console.log("getElevationDataset ##2", dataRaw);
     observations.forEach(observation => {
       if(observation.elevation) {
