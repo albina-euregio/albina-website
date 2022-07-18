@@ -57,11 +57,13 @@ export class ObservationFilterService {
       curFilterType[curFilterTypeSubset] = [];
     } else if(filterData.data.invert) {
       console.log("toggleFilter ##2.0", curFilterType[curFilterTypeSubset] )
-      curFilterType[curFilterTypeSubset] = curFilterType.all.filter(value => {
-        console.log("toggleFilter ##2.001", value, curFilterType[curFilterTypeSubset].indexOf(value))
-        return curFilterType[curFilterTypeSubset].indexOf(value) === -1 ? true : false;
+      if(curFilterType[curFilterTypeSubset].length > 0) {
+        curFilterType[curFilterTypeSubset] = curFilterType.all.filter(value => {
+          console.log("toggleFilter ##2.001", value, curFilterType[curFilterTypeSubset].indexOf(value))
+          return curFilterType[curFilterTypeSubset].indexOf(value) === -1 ? true : false;
+        });
+      }
       
-      });
 
       console.log("toggleFilter ##2.01", curFilterType[curFilterTypeSubset] );
     } else {
