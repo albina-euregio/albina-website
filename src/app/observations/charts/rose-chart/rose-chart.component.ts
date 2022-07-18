@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '../base/base-chart.component';
+import { TranslateService } from "@ngx-translate/core";
 
 const barDefaults = {
   type: 'bar',
@@ -56,6 +57,10 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             },
             axisLabel: {
                 show: true,
+                formatter: (params) => {
+                    //console.log("formatter", params); 
+                    return this.translationBase ? this.translateService.instant(this.translationBase + params): params;
+                },
                 //interval: 1, 
             },
             splitLine: {
@@ -107,7 +112,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
 
     public options = Object.assign(this.defaultOptions);
     
-    constructor() {
+    constructor(private translateService: TranslateService) {
         super();
     }
 

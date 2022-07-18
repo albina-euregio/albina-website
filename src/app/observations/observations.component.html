@@ -98,6 +98,7 @@
         
         <app-rose-chart 
           [caption] = "'observations.charts.aspect.caption' | translate"
+          [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
           [dataset]="chartsData.Aspects" 
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
@@ -116,12 +117,14 @@
         </app-bar-chart>
         <app-bar-chart 
           [caption] = "'observations.charts.avalangProblem.caption' | translate"
+          [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
           [dataset]="chartsData.AvalangeProblem"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           [caption] = "'observations.charts.dangerPattern.caption' | translate"
+          [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
           [dataset]="chartsData.DangerPattern"  
           (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
