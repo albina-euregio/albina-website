@@ -28,6 +28,12 @@ import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
+
+export interface MultiselectDropdownData {
+  id: string;
+  name: string;
+}
+
 @Component({
   templateUrl: "observations.component.html"
 })
@@ -41,11 +47,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     table: ObservationTableRow[];
     iframe: SafeResourceUrl;
   };
-  public activeSources: Record<ObservationSource, boolean> = {} as any;
+
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
+  public readonly allSources: MultiselectDropdownData[];
   public readonly dropdownSettings: IDropdownSettings;
-  public selectedItems: [];
+  public selectedRegionItems: string[];
+  public selectedSourceItems: ObservationSource[];
   public toMarkerColor = toMarkerColor;
   public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, DangerPattern: {}};
 
@@ -65,11 +73,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private regionsService: RegionsService,
     public mapService: ObservationsMapService
   ) {
-    Object.keys(ObservationSource).forEach(source => this.activeSources[source] = true);
+
     this.allRegions = this.regionsService
       .getRegionsEuregio()
       .features.map((f) => f.properties)
       .sort((r1, r2) => r1.id.localeCompare(r2.id));
+
+    console.log("constructor", this.allRegions, this.regionsService.getRegionsEuregio(), Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} }));
+
+    this.allSources = Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} });
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -98,12 +110,30 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  onRegionSelect(item: any) {
-    this.filter.regions.push(item.id);
+  onDropdownSelect(target: string, item: any) {
+    switch(target){
+      case "regions":
+        this.filter.regions.push(item.id);
+        break;
+      case "sources":
+        this.filter.observationSources.push(item.id);
+        break;
+      default:
+    }
+    this.loadObservations();
+
   }
-  onRegionDeSelect(item: any) {
-    this.filter.regions = this.filter.regions.filter(e => e !== item.id);
-    console.log("onRegionDeSelect", this.filter.regions);
+  onDropdownDeSelect(target: string, item: any) {
+    switch(target){
+      case "regions":
+        this.filter.regions = this.filter.regions.filter(e => e !== item.id);
+        break;
+      case "sources":
+        this.filter.observationSources = this.filter.observationSources.filter(e => e !== item.id);
+        break;
+      default:
+    }
+    this.loadObservations();
   }
 
   onSidebarChange(e: Event) {
@@ -118,7 +148,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-    console.log("loadObservations ##1", this.activeSources);
+    console.log("loadObservations ##1", this.selectedSourceItems);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -129,9 +159,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-
-        if (!this.activeSources[observation.$source] ||
-          !this.filter.inDateRange(observation)) {
+        console.log("loadObservations ##2", observation);
+        if (!this.filter.inObservationSources(observation) ||
+          !this.filter.inDateRange(observation) || !this.filter.inRegions(observation)) {
           //console.log("loadObservations ##4", observation); 
           return;
         }
@@ -141,7 +171,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .catch((e) => console.error(e))
       .finally(() => {
         this.loading = false;
-        this.buildChartsData();
+        this.applyLocalFilter();
       });
   }
 
@@ -163,12 +193,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationPopup = undefined;
   }
 
-
-
-  applyLocalFilter(data: any = {}) {
-    console.log("applyLocalFilter ##1", data);
-
+  toggleFilter(data: any = {}) {
     if(data?.type) this.filter.toggleFilter(data);
+    this.applyLocalFilter();
+  }
+
+
+  applyLocalFilter() {
+    console.log("applyLocalFilter ##1");
+
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
@@ -237,12 +270,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
-    if (
-      !this.activeSources[observation.$source] ||
-      !this.filter.isSelected(observation)
-    ) {
-      observation.filterType = ObservationFilterType.Global;
-    }
+    // if (
+    //   !this.selectedSourceItems.length || !this.selectedSourceItems.includes(observation.$source) ||
+    //   !this.filter.isSelected(observation)
+    // ) {
+    //   observation.filterType = ObservationFilterType.Global;
+    // }
     this.observations.push(observation);
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 

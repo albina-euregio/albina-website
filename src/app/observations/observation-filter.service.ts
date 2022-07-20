@@ -30,9 +30,7 @@ export class ObservationFilterService {
   public readonly elevationSectionSize = 500;
   public selectedElevations: number[] = [];
   public regions: string[] = [];
-
-  public elevationSelection: FilterSelectionData = {all: [], selected: [], highlighted: []};
-  public aspectSelection: FilterSelectionData = {all: [], selected: [], highlighted: []};
+  public observationSources: string[] = [];
 
   public filterSelection:  Record<LocalFilterTypes, FilterSelectionData> = {
     Elevation: {all: [], selected: [], highlighted: []},
@@ -115,9 +113,7 @@ export class ObservationFilterService {
 
   public isSelected(observation: GenericObservation) {
     return (
-      this.inDateRange(observation) &&
       this.inMapBounds(observation) &&
-      this.inRegions(observation) &&
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
@@ -129,9 +125,7 @@ export class ObservationFilterService {
 
   public isHighlighted(observation: GenericObservation) {
     return (
-      this.inDateRange(observation) &&
       this.inMapBounds(observation) &&
-      this.inRegions(observation) &&
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
@@ -292,6 +286,7 @@ export class ObservationFilterService {
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
+    console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
     if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
@@ -310,10 +305,24 @@ export class ObservationFilterService {
     );
   }
 
-  private inRegions({ region }: GenericObservation) {
+  inRegions({ region }: GenericObservation) {
+    console.log("inRegions ##8", region, (
+      !this.regions.length ||
+      (typeof region === "string" && this.regions.includes(region))));
     return (
       !this.regions.length ||
       (typeof region === "string" && this.regions.includes(region))
+    );
+  }
+
+  inObservationSources({ $source }: GenericObservation) {
+    console.log("inObservationSources ##8", $source, this.observationSources, (
+      !this.observationSources.length ||
+      (typeof $source === "string" && this.observationSources.includes($source))
+    ));
+    return (
+      !this.observationSources.length ||
+      (typeof $source === "string" && this.observationSources.includes($source))
     );
   }
 
