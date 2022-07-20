@@ -18,7 +18,7 @@ export class BaseComponent implements OnInit {
   constructor() { }
 
   submitChange(data) {
-    console.log("BaseComponent->submitChange", data);
+//    console.log("BaseComponent->submitChange", data);
     this.onChange.emit(data);
   }
 

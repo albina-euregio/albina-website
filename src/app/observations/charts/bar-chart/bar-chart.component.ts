@@ -114,17 +114,17 @@ export class BarChartComponent extends BaseComponent implements OnInit {
     }
 
     onClick(event: any) {
-        console.log("BarChartComponent->onclick", event, this);
+//        console.log("BarChartComponent->onclick", event, this);
         this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
     onInvert() {
-        console.log("BarChartComponent->onInvert", this);
+//        console.log("BarChartComponent->onInvert", this);
         this.submitChange([this.type, {invert: true}])
     }
 
     onReset() {
-        console.log("BarChartComponent->onReset",  this);
+//        console.log("BarChartComponent->onReset",  this);
         this.submitChange([this.type, {reset: true}])
     }
 
