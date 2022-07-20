@@ -79,7 +79,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .features.map((f) => f.properties)
       .sort((r1, r2) => r1.id.localeCompare(r2.id));
 
-    console.log("constructor", this.allRegions, this.regionsService.getRegionsEuregio(), Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} }));
+//    console.log("constructor", this.allRegions, this.regionsService.getRegionsEuregio(), Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} }));
 
     this.allSources = Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} });
 
@@ -148,7 +148,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-    console.log("loadObservations ##1", this.selectedSourceItems);
+//    console.log("loadObservations ##1", this.selectedSourceItems);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -159,7 +159,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-        console.log("loadObservations ##2", observation);
+//        console.log("loadObservations ##2", observation);
         if (!this.filter.inObservationSources(observation) ||
           !this.filter.inDateRange(observation) || !this.filter.inRegions(observation)) {
           //console.log("loadObservations ##4", observation); 
@@ -200,7 +200,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
 
   applyLocalFilter() {
-    console.log("applyLocalFilter ##1");
+//    console.log("applyLocalFilter ##1");
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
@@ -209,7 +209,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       observation.filterType = ObservationFilterType.Global;
       //console.log("applyLocalFilter ##3.0", observation.filterType);
       if (this.filter.isSelected(observation)) {
-        console.log("applyLocalFilter ##3.1", observation);
+//        console.log("applyLocalFilter ##3.1", observation);
         observation.filterType = ObservationFilterType.Local;
       } 
       observation.isHighlighted = this.filter.isHighlighted(observation);
@@ -217,7 +217,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       return observation;
     });
 
-    console.log("applyLocalFilter ##3.99", this.observations);
+//    console.log("applyLocalFilter ##3.99", this.observations);
     this.observations.forEach(observation => {
       const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
@@ -242,7 +242,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations)
       
-    console.log("buildChartsData", this.chartsData);
+//    console.log("buildChartsData", this.chartsData);
 
 
 

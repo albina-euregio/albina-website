@@ -138,7 +138,7 @@ export class ObservationsService {
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
-    console.log("getObservations ##1", this.startDateString, this.endDateString);
+//    console.log("getObservations ##1", this.startDateString, this.endDateString);
     const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
     const headers = this.authenticationService.newAuthHeader();
     return this.http

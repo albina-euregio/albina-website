@@ -46,7 +46,7 @@ export class ObservationFilterService {
   }
 
   toggleFilter(filterData: GenericFilterToggleData){
-    console.log("toggleFilter ##1", filterData);
+    //console.log("toggleFilter ##1", filterData);
     let curFilterType = this.filterSelection[filterData["type"]];
     let curFilterTypeSubset = "selected";
     if(filterData.data.altKey) curFilterTypeSubset = "highlighted";
@@ -54,16 +54,16 @@ export class ObservationFilterService {
     if(filterData.data.reset) {
       curFilterType[curFilterTypeSubset] = [];
     } else if(filterData.data.invert) {
-      console.log("toggleFilter ##2.0", curFilterType[curFilterTypeSubset] )
+      //console.log("toggleFilter ##2.0", curFilterType[curFilterTypeSubset] )
       if(curFilterType[curFilterTypeSubset].length > 0) {
         curFilterType[curFilterTypeSubset] = curFilterType.all.filter(value => {
-          console.log("toggleFilter ##2.001", value, curFilterType[curFilterTypeSubset].indexOf(value))
+          //console.log("toggleFilter ##2.001", value, curFilterType[curFilterTypeSubset].indexOf(value))
           return curFilterType[curFilterTypeSubset].indexOf(value) === -1 ? true : false;
         });
       }
       
 
-      console.log("toggleFilter ##2.01", curFilterType[curFilterTypeSubset] );
+      //console.log("toggleFilter ##2.01", curFilterType[curFilterTypeSubset] );
     } else {
       let index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
       if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
@@ -71,9 +71,9 @@ export class ObservationFilterService {
       
     }
 
-    console.log("toggleFilter ##2", curFilterType);
+    //console.log("toggleFilter ##2", curFilterType);
     this.filterSelection[filterData["type"]] = curFilterType;
-    console.log("toggleFilter ##3", this.filterSelection);
+    //console.log("toggleFilter ##3", this.filterSelection);
   }
 
   set days(days: number) {
@@ -143,7 +143,7 @@ export class ObservationFilterService {
     }
 
     for (const [key, value] of Object.entries(Enums.Stability)) {
-      console.log("seedFilterSelections ##1", key);
+      //console.log("seedFilterSelections ##1", key);
       this.filterSelection.Stability.all.unshift(key);
     }
 
@@ -165,14 +165,14 @@ export class ObservationFilterService {
       }
     }
 
-    console.log("seedFilterSelections ##99", this.filterSelection);
+    //console.log("seedFilterSelections ##99", this.filterSelection);
 
   }
 
 
   public getAspectDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getAspectDataset ##1");
+    //console.log("getAspectDataset ##1");
 
     this.filterSelection[LocalFilterTypes.Aspect]["all"].forEach(key => dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0})
 
@@ -189,13 +189,13 @@ export class ObservationFilterService {
     const dataset = [['category', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getAspectDataset ##4 dataset", dataset);
+    //console.log("getAspectDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   public getStabilityDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getstabilityDataset ##1");
+    //console.log("getstabilityDataset ##1");
 
     this.filterSelection[LocalFilterTypes.Stability]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0})
     
@@ -212,21 +212,21 @@ export class ObservationFilterService {
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getstabilityDataset ##4 dataset", dataset);
+//    console.log("getstabilityDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   public getElevationDataset(observations: GenericObservation[]) {
-    console.log("getElevationDataset ##1", observations);
+//    console.log("getElevationDataset ##1", observations);
     const dataRaw = {};
 
     this.filterSelection[LocalFilterTypes.Elevation]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(key) ? 1 : 0})
 
-    console.log("getElevationDataset ##2", dataRaw);
+//    console.log("getElevationDataset ##2", dataRaw);
     observations.forEach(observation => {
       if(observation.elevation) {
         const elevationIndex = this.getElevationIndex(observation.elevation);
-        console.log("getElevationDataset ##3", dataRaw, elevationIndex, observation.elevation);
+//        console.log("getElevationDataset ##3", dataRaw, elevationIndex, observation.elevation);
         dataRaw[elevationIndex].all++;
         if(observation.filterType === ObservationFilterType.Local) dataRaw[elevationIndex].selected++;
       }
@@ -235,13 +235,13 @@ export class ObservationFilterService {
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
-    console.log("getElevationDataset ##4 dataset", dataset);
+//    console.log("getElevationDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   public getAvalancheProblemDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getAvalancheProblemDataset ##1");
+//    console.log("getAvalancheProblemDataset ##1");
 
     this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
     
@@ -258,20 +258,20 @@ export class ObservationFilterService {
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
+//    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   public getDangerPatternDataset(observations: GenericObservation[]) {
     const dataRaw = {};
-    console.log("getDangerPatternDataset ##1");
+//    console.log("getDangerPatternDataset ##1");
 
     this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
     
     observations.forEach(observation => {
-      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
+//      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
       if(observation.dangerPattern) {
-        console.log("getDangerPatternDataset ##3", observation);
+//        console.log("getDangerPatternDataset ##3", observation);
         dataRaw[observation.dangerPattern].all++;
         
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].selected++;
@@ -281,12 +281,12 @@ export class ObservationFilterService {
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getDangerPatternDataset ##4 dataset", dataset);
+//    console.log("getDangerPatternDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
-    console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
+//    console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
     if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
@@ -306,7 +306,7 @@ export class ObservationFilterService {
   }
 
   inRegions({ region }: GenericObservation) {
-    console.log("inRegions ##8", region, (
+//    console.log("inRegions ##8", region, (
       !this.regions.length ||
       (typeof region === "string" && this.regions.includes(region))));
     return (
@@ -316,7 +316,7 @@ export class ObservationFilterService {
   }
 
   inObservationSources({ $source }: GenericObservation) {
-    console.log("inObservationSources ##8", $source, this.observationSources, (
+//    console.log("inObservationSources ##8", $source, this.observationSources, (
       !this.observationSources.length ||
       (typeof $source === "string" && this.observationSources.includes($source))
     ));
