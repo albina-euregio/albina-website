@@ -34,28 +34,25 @@
           <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 7})"
             label="7d"></button>
         </div>
-        <div>
-          <div class="ui-inputgroup">
-            <span class="ui-inputgroup-addon"><i class="fa fa-arrows-v"></i></span>
-            <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText
-              [(ngModel)]="filter.elevationRange[0]" (change)="applyLocalFilter()" />
-            <span class="ui-inputgroup-addon">&mdash;</span>
-            <input style="width: 50px" type="text" pInputText [(ngModel)]="filter.elevationRange[1]"
-              (change)="applyLocalFilter()" />
-            <span class="ui-inputgroup-addon">m</span>
-          </div>
-        </div>
-        <div>
-          <app-aspects [(aspects)]="filter.filterSelection[LocalFilterTypes.Aspect].selected" (aspectsChange)="applyLocalFilter({type: $event[0], data:  $event[1]})" [size]="100"></app-aspects>
-        </div>
+      
         <div>
           <ng-multiselect-dropdown
             placeholder="{{ 'observations.selectRegion.placeholder' | translate }}"
             [settings]="dropdownSettings"
             [data]="allRegions"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onRegionSelect($event)"
-            (onDeSelect)="onRegionDeSelect($event)"
+            [(ngModel)]="selectedRegionItems"
+            (onSelect)="onDropdownSelect('regions', $event)"
+            (onDeSelect)="onDropdownDeSelect('regions', $event)"
+          >
+          </ng-multiselect-dropdown>
+
+          <ng-multiselect-dropdown
+            placeholder="{{ 'observations.selectSources.placeholder' | translate }}"
+            [settings]="dropdownSettings"
+            [data]="allSources"
+            [(ngModel)]="selectedSourceItems"
+            (onSelect)="onDropdownSelect('sources', $event)"
+            (onDeSelect)="onDropdownDeSelect('sources', $event)"
           >
           </ng-multiselect-dropdown>
         </div>
@@ -101,33 +98,33 @@
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
           [dataset]="chartsData.Aspects" 
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [dataset]="chartsData.Elevation"  
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
           [dataset]="chartsData.Stability"  
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
           [dataset]="chartsData.AvalancheProblem"  
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
           [dataset]="chartsData.DangerPattern"  
-          (onChange)="applyLocalFilter({type: $event[0], data:  $event[1]})">
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
       </div>
     </div>
