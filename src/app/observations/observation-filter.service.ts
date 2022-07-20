@@ -307,8 +307,8 @@ export class ObservationFilterService {
 
   inRegions({ region }: GenericObservation) {
 //    console.log("inRegions ##8", region, (
-      !this.regions.length ||
-      (typeof region === "string" && this.regions.includes(region))));
+      // !this.regions.length ||
+      // (typeof region === "string" && this.regions.includes(region))));
     return (
       !this.regions.length ||
       (typeof region === "string" && this.regions.includes(region))
@@ -317,9 +317,9 @@ export class ObservationFilterService {
 
   inObservationSources({ $source }: GenericObservation) {
 //    console.log("inObservationSources ##8", $source, this.observationSources, (
-      !this.observationSources.length ||
-      (typeof $source === "string" && this.observationSources.includes($source))
-    ));
+    //   !this.observationSources.length ||
+    //   (typeof $source === "string" && this.observationSources.includes($source))
+    // ));
     return (
       !this.observationSources.length ||
       (typeof $source === "string" && this.observationSources.includes($source))
