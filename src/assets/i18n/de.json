@@ -555,6 +555,12 @@
         "dateRange" : "Zeitspanne",
         "observer" : "Beobachter"
       },
+      "selectRegion": {
+        "placeholder": "Region auswählen"
+      },
+      "selectSources": {
+        "placeholder": "Datenquelle auswählen"
+      },
       "charts": {
         "aspect": {
           "caption": "Aspekt"
