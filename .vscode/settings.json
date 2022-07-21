@@ -8,13 +8,14 @@
     "avalancheProblem.*",
     "dangerRating.*",
     "aspect.*",
-    "region.*",
     "units.*",
     "LoLaAvalanchePotential.*",
     "observations.eventTypes.*",
     "LoLaWeather.*",
     "snowpack.plotType.*",
     "snowpack.aspect.*",
-    "snowpack.meteo.*"
+    "snowpack.meteo.*",
+    "bulletins.table.title.status.*",
+    "role.*"
   ]
 }

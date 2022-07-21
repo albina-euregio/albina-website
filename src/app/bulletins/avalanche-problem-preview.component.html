@@ -11,11 +11,6 @@
         </tr>
       </td>
       <td style="padding-right: 10px;">
-        <div *ngIf="check && isFirst()" style="background-color: #20A8D8; border-radius: 10px; text-align: center; width: 20px; height: 20px; line-height: normal; font-size: normal; color: white;" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.showInBulletin' | translate }}"><b>1</b></div>
-        <div *ngIf="check && !isFirst()" style="background-color: #20A8D8; border-radius: 10px; text-align: center; width: 20px; height: 20px; line-height: normal; font-size: normal; color: white;" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.showInBulletin' | translate }}"><b>2</b></div>
-        <div *ngIf="!check" style="background-color: #ECEFF1; border-radius: 10px; text-align: center; width: 20px; height: 20px; line-height: normal; font-size: normal;" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.dontShowInBulletin' | translate }}"></div>
-      </td>
-      <td style="padding-right: 10px;">
         <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="40">
         <img *ngIf="isAvalancheProblem('wind_slab')" src="./assets/img/Drifting_snow_c.svg" width="40">
         <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg"  width="40">

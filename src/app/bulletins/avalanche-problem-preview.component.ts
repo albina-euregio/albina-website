@@ -17,7 +17,6 @@ export class AvalancheProblemPreviewComponent {
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() avalancheProblem: AvalancheProblemModel;
   @Input() count: number;
-  @Input() check: boolean;
   @Input() disabled: boolean;
 
   avalancheProblemEnum = Enums.AvalancheProblem;

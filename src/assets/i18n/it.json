@@ -15,86 +15,83 @@
   "sidebar" : {
     "bulletins" : "Valanghe.report",
     "observations" : "Osservazioni",
-    "modellingZamg": "Multi modelli ZAMG ",
+    "modellingZamg": "Multi modelli dello ZAMG ",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "Modello SNOWPACK",
     "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK"
   },
   "menu" : {
     "logout" : "Logout",
-    "language" : "Lingua",
-    "en" : "English",
+    "language" : "Lingue",
+    "en" : "Inglese",
     "de" : "Tedesco",
     "fr" : "Francese",
     "it" : "Italiano",
     "es" : "Spagnolo",
     "ca" : "Catalano",
     "oc" : "Aranese",
-    "fullscreen" : "A schermo pieno ",
+    "fullscreen" : "A schermo pieno",
     "settings" : "Impostazioni",
     "admin" : "Admin",
     "region" : "Regione",
-    "education" : "Educazione"
+    "education" : "Formazione"
   },
   "chat" : {
-    "placeholder" : "Scrivi ...",
-    "send" : "Inviare",
-    "activeUsers" : "Che è online?",
+    "placeholder" : "Scrivi qui ...",
+    "send" : "Invia",
+    "activeUsers" : "Chi è online?",
     "all" : "Tutti ",
     "AT-07" : "Tirolo ",
     "IT-32-BZ" : "Alto Adige ",
     "IT-32-TN" : "Trentino "
   },
-  "education" : {
-    "title" : "Educazione"
-  },
   "matrix" : {
     "label" : {
-      "snowpackStability" : "Snowpack Stability",
-      "frequency" : "Frequency",
-      "avalancheSize" : "Avalanche Size",
-      "dangerRating" : "Grado del pericolo valanghe",
-      "override" : "(override danger rating)",
-      "matrix" : "Matrix",
-      "referToFairStability" : "Refer to fair stability",
-      "referToPoorStability" : "Refer to poor stability",
-      "dangerLevel1" : "Danger level 1 (Low)"
+      "snowpackStability" : "Stabilità del manto nevoso",
+      "frequency" : "Frequenza",
+      "avalancheSize" : "Dimensione valanga",
+      "dangerRating" : "Grado del pericolo",
+      "override" : "(modifica valutazione grado del pericolo)",
+      "matrix" : "Matrice",
+      "referToFairStability" : "Fare riferimento alla classe \"Discreta\"",
+      "referToPoorStability" : "Fare riferimento alla classe \"Scarsa\"",
+      "dangerLevel1" : "Grado di pericolo 1 (debole)"
     }
   },
   "bulletins" : {
     "title" : "Valanghe.report",
     "loadingPreview" : "Creare un'anteprima in PDF ...",
     "tooltip" : {
-      "publish" : "Pubblicare bollettino valanghe",
-      "submit" : "Inviare bollettino valanghe",
-      "copy" : "Copiare bollettino valanghe",
-      "cancel" : "Annullare la copia",
+      "publish" : "Pubblica immediatamente il bollettino valanghe aggiornato",
+      "submit" : "Invia bollettino valanghe",
+      "copy" : "Copia bollettino valanghe",
+      "cancel" : "Annulla la copia",
       "paste" : "Incollare bollettino valanghe",
-      "update" : "Update bollettino valanghe",
-      "caaml" : "Mostrare CAAML",
-      "json" : "Mostrare JSON",
-      "edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
-      "create" : "Creare bollettino valanghe",
-      "preview" : "Anteprima del bollettino (PDF)",
-      "check" : "Controllare bollettino valanghe",
-      "info" : "Mostra lo stato della pubblicazione",
-      "publishAll" : "Pubblicare tutte le regioni",
-      "mediaFile" : "Upload media file"
+      "update" : "Crea aggiornamento del bollettino valanghe",
+      "caaml" : "Mostra CAAML",
+      "json" : "Mostra JSON",
+      "edit" : "Modifica bollettino valanghe (senza pubblicare nuovamente)",
+      "create" : "Crea bollettino valanghe",
+      "preview" : "Anteprima del bollettino valanghe (PDF)",
+      "check" : "Controlla bollettino valanghe",
+      "info" : "Mostra lo stato pubblicazione",
+      "publishAll" : "Pubblica tutte le regioni",
+      "mediaFile" : "Carica file media"
     },
     "create" : {
       "tooltip" : {
-        "edit" : "Modifica",
-        "copy" : "Copia",
-        "delete" : "Elimina",
-        "acceptSuggestion" : "Acceta micro-aree suggerite",
-        "rejectSuggestion" : "Scarta micro-aree suggerite",
+        "edit" : "Modifica regione",
+        "copy" : "Copia regione",
+        "delete" : "Elimina regione",
+        "acceptSuggestion" : "Acceta regioni suggerite",
+        "rejectSuggestion" : "Scarta regioni suggerite",
         "saveChanges" : "Salva modifiche",
         "discardChanges" : "Scarta modifiche",
         "saveBulletin" : "Salva bollettino valanghe",
         "discardBulletin" : "Scarta modifiche del bollettino valanghe",
-        "loadBulletin" : "Copia da giorno precedente",
-        "uploadJsonBulletin" : "Carica il bollettino in formato JSON",
-        "downloadJsonBulletin" : "Scarica il bollettino in formato JSON",
+        "loadBulletin" : "Copia il bollettino valanghe del giorno precedente",
+        "uploadJsonBulletin" : "Carica il bollettino valanghe in formato JSON",
+        "downloadJsonBulletin" : "Scarica il bollettino valanghe in formato JSON",
         "daytimeDependency" : "Dipendenzza diurna",
         "treeline" : "Limite del bosco",
         "tendency" : {
@@ -109,13 +106,11 @@
         },
         "textcat" : {
           "edit" : "Modifica",
-          "copy" : "Copiare",
-          "paste" : "Incollare",
-          "example" : "Carica esempio testo",
+          "copy" : "Copia",
+          "paste" : "Incolla",
+          "example" : "Carica testo di esempio",
           "delete" : "Elimina"
         },
-        "showInBulletin" : "Problema valanghivo verra mostrato nel bollettino",
-        "dontShowInBulletin" : "Problema valanghivo NON verra mostrato nel bollettino",
         "moveUpAvalancheProblem" : "Spostare problema valanghivo verso l'alto",
         "moveDownAvalancheProblem" : "Spostare problema valanghivo verso il basso",
         "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
@@ -125,41 +120,38 @@
       "discard" : " Scarta",
       "back" : " Indietro",
       "createAggregatedRegion" : " Nuova regione",
-      "pasteAggregatedRegion" : "Incollare la regione",
-      "cancelCopyBulletin" : "Stornare",
+      "pasteAggregatedRegion" : "Incolla la regione",
+      "cancelCopyBulletin" : "Cancella",
       "createAvalancheProblem" : "Nuovo problema valanghivo",
-      "ownRegions" : "Propria provincia",
-      "foreignRegions": "Altra provincia",
-      "externalRegions": "External regions",
+      "ownRegions" : "Proprie regioni",
+      "foreignRegions": "Altre regioni",
+      "externalRegions": "Regioni esterne",
       "label" : {
+        "avalancheProblems" : "Problema valanghivo",
+        "aspects" : "Esposizione",
+        "elevation" : "Quota",
         "highlights" : "Alerta speciale",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
-        "avActivityComment" : "Testo di descrizione pericolo valanghe",
+        "avActivityComment" : "Descrizione pericolo valanghe",
         "snowpackStructureComment" : "Descrizione struttura manto nevoso",
         "dangerPatterns" : "Situazioni tipo",
         "elevationHigh" : "Sotto",
         "elevationLow" : "Sopra",
-        "tendencyComment" : "Tendenza",
+        "tendencyComment" : "Descrizione della tendenza",
         "notes" : "Commenti"
       },
       "title" : {
-        "avalancheProblem" : "Problema valanghivo",
-        "dangerDescription" : "Descrizione pericolo",
-        "above" : "Al disopra",
-        "below" : "Al disotto",
+        "avalancheProblem" : "Problemi valanghivi",
+        "dangerDescription" : "Descrizione pericolo valanghe",
         "forenoon" : "Mattina",
         "afternoon" : "Pomeriggio",
-        "forenoonAbove" : "Mattina, al disopra",
-        "afternoonAbove" : "Pomeriggio, al disopra",
-        "forenoonBelow" : "Mattina, al disotto",
-        "afternoonBelow" : "Pomeriggio, al disotto",
         "snowpackStructure" : "Struttura manto nevoso",
         "tendency" : "Tendenza",
         "showTranslations" : " Mostra traduzione",
         "hideTranslations" : " Nascondi traduzione"
       },
       "placeholder" : {
-        "notes" : "Scrivi ..."
+        "notes" : "Scrivi tuo commenti qui..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "Il tuo browser non supporta IFrames!"
@@ -170,21 +162,21 @@
         "reject" : "No"
       },
       "deleteAggregatedRegionDialog" : {
-        "message" : "Vuoi scartare la micro-area?",
+        "message" : "Vuoi scartare la regione?",
         "accept" : "Sí",
         "reject" : "No"
       },
       "noRegionDialog" : {
-        "message" : "Almeno una micro-area é neccesaria.",
+        "message" : "Almeno una micro-zone deve appartenere la tua Provincia.",
         "accept" : "Ok"
       },
       "loadDialog" : {
-        "message" : "Vuoi caricare il bollettino valanghe di ieri?",
+        "message" : "Vuoi caricare il bollettino valanghe del giorno precedente?",
         "accept" : "Sí",
         "reject" : "No"
       },
       "loadAutoSaveDialog" : {
-        "message" : "Si desidera caricare il report di stato salvato automaticamente?",
+        "message" : "Vuoi caricare il bollettino valanghe salvato automaticamente?",
         "accept" : "Sí",
         "reject" : "No"
       },
@@ -205,18 +197,18 @@
         "accept" : "Ok"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
+        "message" : "Manca il problema tipico valanghivo, l'esposizione, la stabilità del manto nevoso, la frequenza e/o la dimensione valanghe per almeno un problema valanghivo",
         "accept" : "Ok"
       },
       "loadAvActivityCommentExampleTextDialog" : {
-        "message" : "Per quale situazione si desidera caricare il testo",
+        "message" : "Per quale situazione voi caricare il testo?",
         "newSnow" : "Neve fresca",
-        "windSlab" : "Wind slab",
+        "windSlab" : "Neve ventata",
         "persistentWeakLayers" : "Strati deboli persistenti",
         "wetSnow" : "Neve bagnata",
         "glidingSnow" : "Valanghe di slittamento",
         "favourableSituation" : "Situazione favorevole",
-        "cancel" : "Stornare"
+        "cancel" : "Cancella"
       }
     },
     "table" : {
@@ -231,17 +223,17 @@
       },
       "status" : {
         "missing" : "manca",
-        "draft" : "abbozzo",
+        "draft" : "bozza",
         "submitted" : "inviato",
         "published" : "pubblicato",
         "updated" : "aggiornato",
-        "resubmitted" : "versione aggiornata inviato",
-        "republished" : "versione aggiornata pubblicato"
+        "resubmitted" : "versione aggiornata inviata",
+        "republished" : "versione aggiornata pubblicata"
       },
       "publishBulletinsDialog" : {
-        "message" : "Vuoi pubblicare il bollettino?",
-        "missingDangerRating" : "Grado di pericolo non definato",
-        "missingRegion" : "Micro-aree non valutate",
+        "message" : "Vuoi pubblicare il bollettino valanghe?",
+        "missingDangerRating" : "Grado di pericolo non definito",
+        "missingRegion" : "Regioni non valutate",
         "duplicateRegion" : "Micro-aree valutate più volte",
         "missingAvActivityHighlights" : "Manca il titolo situazione di pericolo",
         "missingAvActivityComment" : "Manca la valutazione pericolo valanghe",
@@ -253,16 +245,16 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
-        "headline" : "Lo stato della pubblicazione",
+        "headline" : "Stato della pubblicazione",
         "publishedBy" : "Pubblicato da: ",
-        "publishedAt" : "Pubblicato su: ",
+        "publishedAt" : "Pubblicato alle: ",
         "validFor" : "Valido per: ",
         "title" : {
-          "prod" : "Serious stuff",
-          "test" : "Just testing",
-          "task" : "Task",
+          "prod" : "Cose serie",
+          "test" : "Solo per testare",
+          "task" : "Attività",
           "language" : {
-            "all" : "ALL",
+            "all" : "TUTTO",
             "de" : "DE",
             "it" : "IT",
             "en" : "EN"
@@ -270,63 +262,63 @@
         },
 
         "caaml" : {
-          "label" : "CAAML Files",
-          "tooltip" : "Creare CAAML",
-          "success" : "{{prefix}}CAAML Files successfully created!",
-          "error" : "{{prefix}}CAAML Files could not be created!"
+          "label" : "Files CAAML",
+          "tooltip" : "Crea CAAML",
+          "success" : "{{prefix}}Files CAAML creati con successo!",
+          "error" : "{{prefix}}Non è stato possibile creare i file CAAML!"
         },
         "map" : {
           "label" : "Mappe",
-          "tooltip" : "Creare mappe",
-          "success" : "{{prefix}}Maps successfully created!",
-          "error" : "{{prefix}}Maps could not be created!"
+          "tooltip" : "Crea mappe",
+          "success" : "{{prefix}}Mappe creati con successo!",
+          "error" : "{{prefix}}Non è stato possibile creare le mappe!"
         },
         "pdf" : {
-          "label" : "PDFs",
-          "tooltip" : "Create PDFs",
-          "success" : "{{prefix}}PDFs successfully created!",
-          "error" : "{{prefix}}PDFs could not be created!"
+          "label" : "PDF",
+          "tooltip" : "Crea PDF",
+          "success" : "{{prefix}}PDF creati con successo!",
+          "error" : "{{prefix}}Non è stato possibile creare i PDF!"
         },
         "staticWidget" : {
           "label" : "Widget statici",
-          "tooltip" : "Create Static Widgets",
-          "success" : "{{prefix}}Static Widgets successfully created!",
-          "error" : "{{prefix}}Static Widgets could not be created!"
+          "tooltip" : "Crea widget statici",
+          "success" : "{{prefix}}Widget statici creati con successo ",
+          "error" : "{{prefix}}Non è stato possibile creare i widget statici!"
         },
         "html" : {
-          "label" : "Simple HTMLs",
-          "tooltip" : "Create Simple HTML Files",
-          "success" : "{{prefix}}Simple HTML Files successfully created!",
-          "error" : "{{prefix}}Simple HTML Files could not be created!"
+          "label" : "HTML semplici",
+          "tooltip" : "Crea files HTML semplici",
+          "success" : "{{prefix}}files HTML simplicity creati con successo!",
+          "error" : "{{prefix}}Non è stato possibile creare i file HTML semplici!"
         },
         "email" : {
           "label" : "Emails",
-          "tooltip" : "Inviare e-mail",
-          "success" : "{{prefix}}Emails successfully sent!",
-          "error" : "{{prefix}}Emails could not be sent!"
+          "tooltip" : "Inviare Email",
+          "success" : "{{prefix}}Email inviati con successo!",
+          "error" : "{{prefix}}Non è stato possibile inviare le Email!"
         },
         "telegram" : {
-          "label" : "Telegram channel",
-          "tooltip" : "Send Telegram Messages",
-          "success" : "{{prefix}}Telegram Messages successfully sent!",
-          "error" : "{{prefix}}Telegram Messages could not be sent!"
+          "label" : "Messagio Telegram",
+          "tooltip" : "Invia messaggio via Telegram",
+          "success" : "{{prefix}}Messaggi via Telegram inviati con successo!",
+          "error" : "{{prefix}}Messaggi di Telegram non possono essere inviati!"
         },
         "push" : {
-          "label" : "Push Notifications",
-          "tooltip" : "Send Push Notifications",
-          "success" : "{{prefix}}Push Notifications successfully sent!",
-          "error" : "{{prefix}}Push Notifications could not be sent!"
+          "label" : "Notifica push",
+          "tooltip" : "Invia notifica push",
+          "success" : "{{prefix}}Notifiche push inviate con successo!",
+          "error" : "{{prefix}}Non è stato possibile inviare le notifiche push!"
         },
         "accept" : "Ok"
       },
       "mediaFileDialog" : {
-        "headline" : "Media File",
-        "important" : "IMPORTANT",
-        "missingText" : "Text is missing!",
-        "missingFile" : "No file selected!",
-        "uploadError" : "Upload failed!",
+        "headline" : "File media",
+        "important" : "IMPORTANTE",
+        "missingText" : "Manca il testo!",
+        "missingFile" : "Nessun file selezionato!",
+        "uploadError" : "Upload fallito!",
         "accept" : "Inviare",
-        "reject" : "Stornare"
+        "reject" : "Cancellare"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Errore pubblicando il bollettino valanghe!",
@@ -334,7 +326,7 @@
       },
       "submitBulletinsDialog" : {
         "message" : "Vuoi inviare il bollettino valanghe?",
-        "missingDangerRating" : "Grado di pericolo non definato",
+        "missingDangerRating" : "Grado di pericolo non definito",
         "missingRegion" : "Micro-aree non valutate",
         "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
         "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
@@ -349,7 +341,7 @@
         "accept" : "Ok"
       },
       "submitBulletinsDuplicateRegionDialog" : {
-        "message" : "Micro-aree valutate più volte! Non è possibile inviare previsioni sulle valanghe.",
+        "message" : "Micro-aree valutate più volte! Non è possibile inviare il bollettino valanghe.",
         "accept" : "Ok"
       },
       "checkBulletinsErrorDialog" : {
@@ -362,7 +354,7 @@
       },
       "checkBulletinsDialog" : {
         "message" : "Controllare bollettino valanghe",
-        "missingDangerRating" : "Grado di pericolo non definato",
+        "missingDangerRating" : "Grado di pericolo non definito",
         "missingRegion" : "Micro-aree non valutate",
         "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
         "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
@@ -386,7 +378,7 @@
         "accept" : "Ok"
       },
       "noCaamlDialog" : {
-        "message" : "Mancha il bolletino valanghe pubblicato!",
+        "message" : "Manca il bolletino valanghe pubblicato!",
         "accept" : "Ok"
       }
     },
@@ -397,103 +389,100 @@
         "accept" : "Ok"
       },
       "noJsonDialog" : {
-        "message" : "Mancha il bolletino valanghe pubblicato!",
+        "message" : "Bolletino valanghe pubblicato non esiste!",
         "accept" : "Ok"
       }
     }
   },
   "admin" : {
-    "loadingStatistics" : "Creare CSV ...",
+    "loadingStatistics" : "Creando CSV ...",
     "server-configuration" : {
-      "title" : "Server",
+      "title" : "dServer",
       "button" : {
-        "create" : "Create server",
-        "save" : "Salva",
-        "delete" : "Cancella"
+        "create" : "Crea server",
+        "save" : "Salva"
       },
       "table" : {
         "name" : "Nome",
-        "username" : "Username",
+        "username" : "Nome utente",
         "password" : "Password",
-        "externalServer" : "External",
-        "publishAt5PM" : "Publicare alle 17:00",
-        "publishAt8AM" : "Publicare alle 08:00",
+        "publishAt5PM" : "Publica alle 17:00",
+        "publishAt8AM" : "Publica alle 08:00",
         "pdfDirectory" : "Cartella per PDF",
         "htmlDirectory" : "Cartella per HTML",
-        "serverImagesUrl" : "Percorso alle immagini sul server",
-        "mapsPath" : "Percorso verso le mappe",
-        "mediaPath" : "Path to media files",
+        "serverImagesUrl" : "Path alle immagini sul server",
+        "mapsPath" : "Path alle mappe",
+        "mediaPath" : "Path ai file media",
         "mapProductionUrl" : "URL per la produzione di mappe",
         "apiUrl" : "API URL"
       },
-      "success" : "Configurazione salvata",
-      "error" : "Configurazione non salvata"
+      "success" : "Configurazione salvata con successo",
+      "error" : "Non é stato possibile salvare le configurazione"
     },
     "region-configuration" : {
       "title" : "Regione",
       "button" : {
-        "create" : "Create region",
+        "create" : "Crea regione",
         "save" : "Salva"
       },
       "table" : {
         "id" : "ID",
-        "microRegions" : "Number of micro regions",
-        "subRegions" : "Sub regions",
-        "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbor regions",
-        "showMatrix" : "Show matrix",
-        "publishBulletins" : "Publish avalanche forecast",
-        "publishBlogs" : "Publish blog posts",
-        "createCaamlV5" : "Create CAAML v5",
-        "createCaamlV6" : "Create CAAML v6",
-        "createJson" : "Create JSON",
-        "createMaps" : "Creare mappe",
-        "createPdf" : "Creare pdf",
-        "sendEmails" : "Inviare e-mail",
-        "createSimpleHtml" : "Creare simplice HTML",
-        "sendTelegramMessages" : "Send telegram messages",
-        "sendPushNotifications" : "Send push notifications",
-        "enableMediaFile" : "Enable media file",
-        "serverInstance" : "Server instance",
-        "pdfColor" : "PDF color",
-        "emailColor" : "Email color",
-        "pdfMapYAmPm" : "Y for PDF map (am/pm)",
-        "pdfMapYFd" : "Y for PDF map (fd)",
-        "pdfMapWidthAmPm" : "Map width for PDF (am/pm)",
-        "pdfMapWidthFd" : "Map width for PDF (fd)",
-        "pdfMapHeight" : "Map height for PDF",
-        "pdfFooterLogo" : "Logo for PDF footer",
-        "pdfFooterLogoColorPath" : "Logo for PDF footer (color)",
-        "pdfFooterLogoBwPath" : "Logo for PDF footer (bw)",
-        "mapXmax" : "Map X max",
-        "mapXmin" : "Map X min",
-        "mapYmax" : "Map Y max",
-        "mapYmin" : "Map Y min",
-        "simpleHtmlTemplateName" : "Simple HTML template",
-        "geoDataDirectory" : "Geodata directory",
-        "mapLogoColorPath" : "Logo for map (color)",
-        "mapLogoBwPath" : "Logo for map (bw)",
-        "mapLogoPosition" : "Logo position for map",
-        "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (lng)",
-        "imageColorbarColorPath" : "Colorbar (color)",
-        "imageColorbarBwPath" : "Colorbar (b/w)"
+        "microRegions" : "Numero micro-zone",
+        "subRegions" : "Sottoregioni",
+        "superRegions" : "Sovraregioni",
+        "neighborRegions" : "Regioni confinanti",
+        "showMatrix" : "Mostra matrice",
+        "publishBulletins" : "Publica bollettino valanghe",
+        "publishBlogs" : "Publica i post blog",
+        "createCaamlV5" : "Crea CAAML v5",
+        "createCaamlV6" : "Crea CAAML v6",
+        "createJson" : "Crea JSON",
+        "createMaps" : "Crea mappe",
+        "createPdf" : "Crea PDF",
+        "sendEmails" : "Invia Email",
+        "createSimpleHtml" : "Crea HTML semplici",
+        "sendTelegramMessages" : "Invia messaggi via Telegram",
+        "sendPushNotifications" : "Invia notifiche push",
+        "enableMediaFile" : "Attiva file media",
+        "pdfColor" : "PDF in colore",
+        "emailColor" : "Email in colore",
+        "pdfMapYAmPm" : "Y per mappa PDF (am/pm)",
+        "pdfMapYFd" : "Y per mappa PDF (fd)",
+        "pdfMapWidthAmPm" : "Larghezza della mappa per PDF (am/pm)",
+        "pdfMapWidthFd" : "Larghezza della mappa per PDF (fd)",
+        "pdfMapHeight" : "Altezza mappa per PDF",
+        "pdfFooterLogo" : "Logo per piè di pagina PDF",
+        "pdfFooterLogoColorPath" : "Logo per piè di pagina PDF (colore)",
+        "pdfFooterLogoBwPath" : "Logo per piè di pagina PDF (bianco/nero)",
+        "mapXmax" : "Mappa X massimo",
+        "mapXmin" : "Mappa X minimo",
+        "mapYmax" : "Mappa Y massimo",
+        "mapYmin" : "Mappa Y minimo",
+        "simpleHtmlTemplateName" : "Template HTML semplice",
+        "geoDataDirectory" : "Cartella geodati",
+        "mapLogoColorPath" : "Logo per mappa (colore)",
+        "mapLogoBwPath" : "Logo per mappa (bianco/nero)",
+        "mapLogoPosition" : "Posizione del logo nella mappa",
+        "mapCenterLat" : "Posizione centrale della mappa (lat)",
+        "mapCenterLng" : "Posizione centrale della mappa (long)",
+        "imageColorbarColorPath" : "Barra colori (colore)",
+        "imageColorbarBwPath" : "Barra colori (bianco/nero)"
       },
-      "success" : "Configurazione salvata",
-      "error" : "Configurazione non salvata"
+      "success" : "Configurazione salvata con successo",
+      "error" : "Non é stato possibile salvare la configurazione"
     },
     "users" : {
       "title" : "Utenti",
       "button" : {
-        "create" : "Creare utente"
+        "create" : "Crea utente"
       },
       "tooltip" : {
-        "edit" : "Modificare utente",
-        "delete" : "Cancellare utente"
+        "edit" : "Modifica utente",
+        "delete" : "Cancella utente"
       },
       "table" : {
         "name" : "Nome",
-        "email" : "E-mail",
+        "email" : "Email",
         "organization" : "Organizzazione",
         "regions" : "Regioni",
         "roles" : "Ruoli"
@@ -519,7 +508,7 @@
     "createUser" : {
       "table" : {
         "name" : "Nome",
-        "email" : "E-mail",
+        "email" : "Email",
         "organization" : "Organizazzione",
         "password" : "Password",
         "password2" : "Ripeti la password",
@@ -531,8 +520,8 @@
           "required" : "Inserire un nome"
         },
         "email" : {
-          "required" : "Inserire un indirizzo E-mail",
-          "invalid" : "L'indirizzo e-mail non è valido"
+          "required" : "Inserire un indirizzo Email",
+          "invalid" : "L'indirizzo Email non è valido"
         },
         "password" : {
           "required" : "Inserisci una password",
@@ -541,9 +530,9 @@
         }
       },
       "button" : {
-        "create" : "Creare utente",
+        "create" : "Crea utente",
         "update" : "Aggiornare utente",
-        "cancel" : "Stornare"
+        "cancel" : "Cancellare"
       }  
     },
     "statistics" : {
@@ -558,7 +547,7 @@
       }
     },
     "observations" : {
-      "title" : "Osservazzioni",
+      "title" : "Osservazioni",
       "button" : {
         "submit" : "Scarica"
       },
@@ -576,61 +565,61 @@
         "en" : "EN"
       },
       "all" : {
-        "tooltip" : "Send Emails, Telegram and Push",
-        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
-        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+        "tooltip" : "Invia Email, Telegram e Push",
+        "success" : "{{prefix}}Email, Telegram e Push inviati con successo!",
+        "error" : "{{prefix}}Non è stato possibile inviare Email, Telegram e Push!"
       },
       "email" : {
-        "tooltip" : "Inviare e-mail",
-        "success" : "{{prefix}}Email successfully sent!",
-        "error" : "{{prefix}}Email could not be sent!"
+        "tooltip" : "Inviare Email",
+        "success" : "{{prefix}}Email inviato con successo!",
+        "error" : "{{prefix}}Non è stato possibile inviare Email!"
       },
       "telegram" : {
         "tooltip" : "Pubblicazione via Telegram channel",
-        "success" : "{{prefix}}Telegram successfully sent!",
-        "error" : "{{prefix}}Telegram could not be sent!"
+        "success" : "{{prefix}}Telegram inviato con successo",
+        "error" : "{{prefix}}Non è stato possibile inviare i messaggi Telegram!"
       },
       "push" : {
-        "tooltip" : "Send via Push Notifications",
-        "success" : "{{prefix}}Push successfully sent!",
-        "error" : "{{prefix}}Push could not be sent!"
+        "tooltip" : "Invia tramite notifiche push",
+        "success" : "{{prefix}}Push inviato con successo",
+        "error" : "{{prefix}}Non è stato possibile inviare notifiche Push"
       }
     }
   },
   "settings" : {
     "changePassword" : {
-      "title" : "Cambiare password",
+      "title" : "Cambia password",
       "oldPassword" : {
         "label" : "Password attuale",
         "placeholder" : "Password attuale"
       },
       "newPassword1" : {
-        "label" : "Password nuovo",
-        "placeholder" : "Password nuovo"
+        "label" : "Nuova password",
+        "placeholder" : "Nuova password"
       },
       "newPassword2" : {
         "label" : "Nuova password (ripetere)",
-        "placeholder" : "Password nuovo"
+        "placeholder" : "Nuova password"
       },
       "submit" : "Cambia password",
       "passwordChanged" : "Password modificata con sucesso",
-      "passwordChangeError" : "Password non modificabile",
+      "passwordChangeError" : "Non é stato possibile cambiare la password",
       "passwordIncorrect" : "Password attuale non corretta",
       "error" : {
         "oldPassword" : {
           "required" : "Inserire password attuale"
         },
         "newPassword" : {
-          "required" : "Inserire password nuovo",
+          "required" : "Inserire nuova password",
           "mismatch" : "Le password non corrispondono"
         }
       }
     },
     "display" : {
-      "title" : "Display",
+      "title" : "Mostra",
       "table" : {
-        "showCaaml" : "Indicare CAAML",
-        "showJson" : "Indicare JSON",
+        "showCaaml" : "Mostra CAAML",
+        "showJson" : "Mostra JSON",
         "showObservations" : "Mostra osservazioni"
       }
     }
@@ -646,16 +635,16 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Neve fresca",
-    "windSlab" : "Wind slab",
+    "windSlab" : "Neve ventata",
     "persistentWeakLayers" : "Strati deboli persistenti",
     "wetSnow" : "Neve bagnata",
     "glidingSnow" : "Valanghe di slittamento",
-    "cornices" : "Cornices",
-    "noDistinctAvalancheProblem" : "No distict avalanche problem"
+    "cornices" : "Cornice",
+    "noDistinctAvalancheProblem" : "Nessun problema valanghivo evidente"
   },
   "dangerPattern" : {
     "dp1" : "st.1: strato debole persistente basale",
-    "dp2" : "st.2: valanga per scivolamento di neve",
+    "dp2" : "st.2: valanga di slittamento",
     "dp3" : "st.3: pioggia",
     "dp4" : "st.4: freddo su caldo / caldo su freddo",
     "dp5" : "st.5: neve dopo un lungo periodo di freddo",
@@ -678,168 +667,8 @@
   "role" : {
     "ADMIN" : "Amministratore",
     "FORECASTER" : "Previsore",
-    "FOREMAN" : "Foreman",
+    "FOREMAN" : "Caposquadra",
     "OBSERVER" : "Osservatore"
-  },
-  "region" : {
-    "AT-07" : "Tirolo",
-    "AT-07-01" : "Alpi dell'Allgäu",
-    "AT-07-02" : "Alpi della Lechtal orientali - Alpi dell'Ammergau",
-    "AT-07-03" : "Monti di Mieming",
-    "AT-07-04" : "Monti del Karwendel",
-    "AT-07-05" : "Alpi di Brandenberg",
-    "AT-07-06" : "Monti del Kaiser - Alpi di Waidring",
-    "AT-07-07" : "Alpi della Lechtal occidentali",
-    "AT-07-08" : "Alpi della Lechtal centrali",
-    "AT-07-09" : "Gruppo del Grieskogel",
-    "AT-07-10" : "Gruppo Verwall occidentali",
-    "AT-07-11" : "Gruppo Verwall orientali",
-    "AT-07-12" : "Silvretta",
-    "AT-07-13" : "Gruppo Samnaun",
-    "AT-07-14" : "Alpi della Valle Oetz e dello Stubai settentrionali",
-    "AT-07-15" : "Alpi del Tux occidentali",
-    "AT-07-16" : "Alpi del Tux orientali",
-    "AT-07-17" : "Alpi di Kitzbühel occidentali",
-    "AT-07-18" : "Alpi di Kitzbühel orientali",
-    "AT-07-19" : "Gruppo della Punta della Gallina",
-    "AT-07-20" : "Gruppo della Palla Bianca",
-    "AT-07-21" : "Alpi Passirie",
-    "AT-07-22" : "Alpi dello Stubai centrali",
-    "AT-07-23" : "Alpi della Zillertal settentrionali",
-    "AT-07-24" : "Gruppo del Venediger",
-    "AT-07-25" : "Catena delle Vedrette di Ries orientali",
-    "AT-07-26" : "Gruppo del Glockner",
-    "AT-07-27" : "Alpi del Defereggen orientali",
-    "AT-07-28" : "Gruppo dello Schober",
-    "AT-07-29" : "Dolomiti di Lienz",
-    "EUREGIO" : "EUREGIO",
-    "IT-21" : "Piemonte",
-    "IT-21-CN-01" : "Alpi Cozie Sud di confine",
-    "IT-21-CN-02" : "Alpi Marittime Occidentali",
-    "IT-21-CN-03" : "Alpi Cozie Sud",
-    "IT-21-CN-04" : "Alpi Marittime Orientali",
-    "IT-21-CN-05" : "Alpi Liguri",
-    "IT-21-TO-01" : "Alpi Graie di confine",
-    "IT-21-TO-02" : "Alpi Cozie Nord di confine",
-    "IT-21-TO-03" : "Alpi Graie",
-    "IT-21-TO-04" : "Alpi Cozie",
-    "IT-21-VB-01" : "Alpi Pennine di confine",
-    "IT-21-VB-02" : "Alpi Lepontine Nord",
-    "IT-21-VB-03" : "Alpi Lepontine Sud",
-    "IT-21-VC-01" : "Alpi Pennine",
-    "IT-23" : "Aosta",
-    "IT-23-AO-01" : "A - SAINT-PIERRE SAINT-NICHOLAS",
-    "IT-23-AO-02" : "A - INTROD ARVIER",
-    "IT-23-AO-03" : "A - QUART NUS",
-    "IT-23-AO-04" : "A - POLLEIN SAINT MARCEL",
-    "IT-23-AO-05" : "A - BASSA VALTOURNENCHE CHATILLON",
-    "IT-23-AO-23" : "A - TESTATA SAINT-BARTHELEMY",
-    "IT-23-AO-24" : "A - VALTOURNENCHE",
-    "IT-23-AO-26" : "A - PONTEY",
-    "IT-23-AO-06" : "B - ALTA VALLE DI GRESSONEY",
-    "IT-23-AO-07" : "B - MEDIA VAL D'AYAS BRUSSON",
-    "IT-23-AO-08" : "B - MEDIA VALLE DEL LYS",
-    "IT-23-AO-09" : "B - VALLI DI GRESSONEY, AYAS, CHAMPORCHER",
-    "IT-23-AO-10" : "B - CHAMPDEPRAZ MONTE AVIC",
-    "IT-23-AO-11" : "B - VALLE DI CHAMPORCHER",
-    "IT-23-AO-25" : "B - TESTATA VAL D'AYAS SAINT-JACQUES",
-    "IT-23-AO-12" : "C - VAL DI COGNE AYMAVILLES",
-    "IT-23-AO-13" : "C - VALSAVARENCHE",
-    "IT-23-AO-21" : "C - VAL DI RHEMES",
-    "IT-23-AO-14" : "D - VAL FERRET",
-    "IT-23-AO-15" : "D - VALLE DI LA THUILE",
-    "IT-23-AO-16" : "D - VALGRISENCHE",
-    "IT-23-AO-17" : "D - LA SALLE MORGEX",
-    "IT-23-AO-18" : "D - GRAN SAN BERNARDO OLLOMONT",
-    "IT-23-AO-19" : "D - BASSA E MEDIA VALPELLINE",
-    "IT-23-AO-20" : "D - CERVINIA E ALTA VALPELLINE",
-    "IT-23-AO-22" : "D - VAL VENY",
-    "IT-25" : "Lombardia",
-    "IT-25-BG-01" : "OROBIE CENTRALI",
-    "IT-25-BG-02" : "PREALPI BERGAMASCHE",
-    "IT-25-BS-01" : "ADAMELLO",
-    "IT-25-BS-02" : "PREALPI BRESCIANE",
-    "IT-25-LC-01" : "OROBIE OCCIDENTALI",
-    "IT-25-SO-01" : "RETICHE OCCIDENTALI",
-    "IT-25-SO-02" : "RETICHE CENTRALI",
-    "IT-25-SO-03" : "RETICHE ORIENTALI",
-    "IT-25-VA-01" : "PREALPI OCCIDENTALI",
-    "IT-25-SO-LI" : "Livigno",
-    "IT-32-BZ" : "Alto Adige",
-    "IT-32-BZ-01" : "Alpi della Val Muestair ",
-    "IT-32-BZ-02" : "Vallelunga ",
-    "IT-32-BZ-03" : "Cresta di Senales ",
-    "IT-32-BZ-04" : "Alpi dello Stubai meridionali ",
-    "IT-32-BZ-05" : "Alpi della Zillertal meridionali e Alti Tauri",
-    "IT-32-BZ-06" : "Gruppo Saldura-Mastaun",
-    "IT-32-BZ-07" : "Gruppo Tessa",
-    "IT-32-BZ-08" : "Alpi Sarentine ",
-    "IT-32-BZ-09" : "Monti di Fundres occidentali ",
-    "IT-32-BZ-10" : "Monti di Fundres orientali ",
-    "IT-32-BZ-11" : "Gruppo della Cima Dura ",
-    "IT-32-BZ-12" : "Catena delle Vedrette di Ries occidentali ",
-    "IT-32-BZ-13" : "Alpi del Defereggen occidentali ",
-    "IT-32-BZ-14" : "Gruppo dell'Ortles",
-    "IT-32-BZ-15" : "Val d'Ultimo ",
-    "IT-32-BZ-16" : "Alpi della Val di Non orientali",
-    "IT-32-BZ-17" : "Dolomiti di Fiemme settentrionali ",
-    "IT-32-BZ-18" : "Dolomiti di Gardena ",
-    "IT-32-BZ-19" : "Dolomiti di Braies ",
-    "IT-32-BZ-20" : "Dolomiti di Sesto ",
-    "IT-32-TN" : "Trentino",
-    "IT-32-TN-01" : "Adamello - Presanella",
-    "IT-32-TN-02" : "Adamello meridionale",
-    "IT-32-TN-03" : "Bondone e Stivo",
-    "IT-32-TN-04" : "Brenta Nord - Peller",
-    "IT-32-TN-05" : "Brenta meridionale",
-    "IT-32-TN-06" : "Folgaria - Lavarone",
-    "IT-32-TN-07" : "Lagorai settentrionale",
-    "IT-32-TN-08" : "Lagorai meridionale",
-    "IT-32-TN-09" : "Latemar",
-    "IT-32-TN-10" : "Marzola - Valsugana",
-    "IT-32-TN-11" : "Paganella",
-    "IT-32-TN-12" : "Prealpi",
-    "IT-32-TN-13" : "Primiero - Pale di S. Martino",
-    "IT-32-TN-14" : "Vallarsa",
-    "IT-32-TN-15" : "Valle di Cembra",
-    "IT-32-TN-16" : "Valle di Fassa",
-    "IT-32-TN-17" : "Valle di Non",
-    "IT-32-TN-18" : "Valle di Ledro",
-    "IT-32-TN-19" : "Sole, Pejo e Rabbi",
-    "IT-32-TN-20" : "Maddalene",
-    "IT-32-TN-21" : "Pine' - Valle dei Mocheni",
-    "IT-34" : "Veneto",
-    "IT-34-BL-01" : "Agordino, Zoldano",
-    "IT-34-BL-02" : "Ampezzo - Cadore",
-    "IT-34-BL-03" : "Ansiei - Comelico",
-    "IT-34-BL-04" : "Cadore",
-    "IT-34-BL-05" : "Alpago - Cansiglio",
-    "IT-34-BL-06" : "Vette Feltrine, Visentin, Grappa",
-    "IT-34-VI-01" : "Altopiano, Pasubio, Carega",
-    "IT-34-VR-01" : "Baldo, Lessini",
-    "IT-36" : "Friuli Venezia Giulia",
-    "IT-36-UD-01" : "ALPI CARNICHE OCCIDENTALI",
-    "IT-36-UD-02" : "ALPI CARNICHE ORIENTALI",
-    "IT-36-UD-03" : "ALPI GIULIE SENZA CANIN",
-    "IT-36-UD-04" : "CANIN",
-    "IT-36-UD-05" : "PREALPI GIULIE",
-    "IT-36-PN-01" : "PREALPI CARNICHE OCCIDENTALI",
-    "IT-36-PN-02" : "PRALPI CARNICHE ORIENTALI",
-    "IT-42" : "Liguria",
-    "IT-45" : "Emilia-Romagna",
-    "IT-52" : "Toscana",
-    "IT-57" : "Marche",
-    "IT-57-AP-01"  : "Monti Sibillini Ovest",
-    "IT-57-AP-02"  : "Monti Sibillini Est e Laga Marchigiana",
-    "IT-57-MC-01"  : "Appennino Fabrianese",
-    "IT-57-PU-01" : "Appennino Pesarese",
-    "IT-65" : "Abruzzo",
-    "IT-77" : "Basilicata",
-    "IT-82" : "Sicily",
-    "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "Zona settentrionale e centro di Aran",
-    "ES-CT-L-02" : "Confine meridionale di Aran",
-    "ES-CT-L-03" : "Versanti meridionale di Aran"
   },
   "tendency" : {
     "decreasing" : " Pericolo valanghe in diminuazione",
@@ -847,23 +676,23 @@
     "increasing" : " Pericolo valanghe in aumento"
   },
   "snowpackStability" : {
-    "good" : "good",
-    "fair" : "fair",
-    "poor" : "poor",
-    "very_poor" : "very poor"
+    "good" : "buona",
+    "fair" : "discreta",
+    "poor" : "scarsa",
+    "very_poor" : "molto scarsa"
   },
   "frequency" : {
-    "none" : "(nearly) none",
-    "few" : "a few",
-    "some" : "some",
-    "many" : "many"
+    "none" : "pochissimi",
+    "few" : "pochi",
+    "some" : "alcuni",
+    "many" : "molti"
   },
   "avalancheSize" : {
-    "small" : "small",
-    "medium" : "medium",
-    "large" : "large",
-    "very_large" : "very large",
-    "extreme" : "extreme"
+    "small" : "piccola",
+    "medium" : "media",
+    "large" : "grande",
+    "very_large" : "molto grande",
+    "extreme" : "estremamente grande"
   },
   "complexity": {
     "easy": "Facile",
@@ -876,17 +705,17 @@
     "reject" : "No"
   },
   "zamg": {
-    "table" : "Table",
+    "table" : "Tabella",
     "map" : "Mappa",
-    "region" : "Region",
-    "newSnow" : "New snow"
+    "region" : "Regione",
+    "newSnow" : "Neve fresca"
   },
   "snowpack" : {
     "plotType" : {
-      "LWC_stratigraphy" : "wet snow: liquid water content",
-      "wet_snow_instability" : "wet snow: wet snow instability",
-      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
-      "stratigraphy" : "persistent weak layers: snow stratigraphy"
+      "LWC_stratigraphy" : "Neve bagnata: contenuto in acqua liquido",
+      "wet_snow_instability" : "Neve bagnata: Instabilità neve bagnata",
+      "Sk38_stratigraphy" : "strati deboli persistenti: Indice stabilità SK38",
+      "stratigraphy" : "strati deboli persistenti: stratigrafia"
     },
     "aspect" : {
       "flat" : "piano",
@@ -894,34 +723,34 @@
       "south" : "Versante sud"
     },
     "meteo" : {
-      "new_snow_plot_3day" : "new snow (3d)",
+      "new_snow_plot_3day" : "Neve fresca (3g)",
       "new_snow_plot_7day" : "Neve fresca (7g)",
       "new_snow_plot_1month" : "Neve fresca (31g)",
-      "new_snow_plot_season" : "new snow (season)",
+      "new_snow_plot_season" : "Neve fresca (stagione)",
       "new_snow_plot_forecast" : "Neve fresca (previsione)",
       "wet_snow_plot_3day" : "Neve bagnata (3g)",
       "wet_snow_plot_7day" : "Neve bagnata (7g)",
       "wet_snow_plot_1month" : "Neve bagnata (31g)",
       "wet_snow_plot_season" : "Neve bagnata (stagione)",
       "wet_snow_plot_forecast" : "Neve bagnata (previsione)",
-      "HS_table_24h" : "new snow table (1d)",
-      "HS_table_72h" : "new snow table (3d)",
-      "HS_table_season" : "new snow table (season)",
-      "HS_table_forecast" : "new snow table (forecast)",
-      "TA_table_24h" : "wet snow table (1d)",
-      "TA_table_72h" : "wet snow table (3h)",
-      "TA_table_season" : "wet snow table (season)"
+      "HS_table_24h" : "Tabella altezza neve (1g)",
+      "HS_table_72h" : "Tabella altezza neve (3g)",
+      "HS_table_season" : "Tabella altezza neve (stagione)",
+      "HS_table_forecast" : "Tabella altezza neve (previsione)",
+      "TA_table_24h" : "Tabella temperatura (1g)",
+      "TA_table_72h" : "Tabella temperatura (3ore)",
+      "TA_table_season" : "Tabella temperatura (stagione)"
     }
   },
   "observations": {
     "aspect": "Esposizione",
     "authorName": "Nome dell'autore",
     "avalancheLength": "Lunghezza della valanga",
-    "avalancheProblem": "Problemi valanghivi",
+    "avalancheProblem": "Problema tipico valanghivo",
     "avalancheSize": "Dimension della valanga",
     "avalancheType": "Tipologia della valanga",
     "avalancheWidth": "Larghezza della valanga",
-    "count": "# observations:",
+    "count": "# osservazioni",
     "button": {
       "add": "Aggiungere osservazione",
       "save": "Salvare l'osservazione",
@@ -932,45 +761,41 @@
     "comment": "Commento",
     "content": "Contenuto",
     "dangerRating": "Grado pericolo valanghe",
-    "elevation": "Elevazione",
+    "elevation": "Quota",
     "eventDate": "Data dell'evento",
     "eventType": "Tipologia dell'evento",
     "eventTypes": {
       "IMPORTANT": "Evento importante",
-      "NEIGHBOR_REGION": "Neighbour region",
+      "NEIGHBOR_REGION": "Regione confinante",
       "NORMAL": "Evento normale",
       "PERSON_DEAD": "Evento con persone coinvolte (vittime)",
       "PERSON_INJURED": "Evento con persone coinvolte (feriti)",
       "PERSON_NO": "Evento senza coinvolgimento persone",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)",
-      "PERSON_UNKNOWN": "Event (unknown)",
-      "TRAFFIC": "Traffic"
+      "PERSON_UNINJURED": "Evento che coinvolge persone (non ferite)",
+      "PERSON_UNKNOWN": "Evento (sconosciuto)",
+      "TRAFFIC": "Traffico"
     },
-    "fractureDepth": "Fracture depth",
-    "hasCoordinates": "Has coordinates",
-    "incline": "Incline",
-    "latitude": "Latitude",
-    "locationName": "Location",
-    "longitude": "Longitude",
-    "reportDate": "Report date",
-    "showMap": "Mappa",
+    "fractureDepth": "Spessore del lastrone",
+    "hasCoordinates": "Contiene coordinate",
+    "incline": "Pendenza",
+    "latitude": "Latitudine",
+    "locationName": "Località",
+    "longitude": "Longitudine",
+    "reportDate": "Data del report",
     "showTable": "Table",
-    "withoutCoordinates": "Observations without coordinates:",
+    "withoutCoordinates": "Osservazioni senza coordinate:",
     "sidebar": {
       "filter": {
-        "title": "Filter"
+        "title": "Filtro"
       },
       "legend": {
-        "title": "Legend"
+        "title": "Leggenda"
       },
       "sources": {
-        "title": "Data Sources"
+        "title": "Fonti dei dati"
       },
       "views": {
         "title": "Views"
-      },
-      "settings": {
-        "title": "Impostazioni"
       }
     }
   },

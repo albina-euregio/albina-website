@@ -3,6 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { RegionsService } from "../providers/regions-service/regions.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ChatService } from "../providers/chat-service/chat.service";
 import { Router } from "@angular/router";
@@ -39,6 +40,7 @@ export class FullLayoutComponent {
     public bulletinsService: BulletinsService,
     public chatService: ChatService,
     public settingsService: SettingsService,
+    public regionsService: RegionsService,
     public constantsService: ConstantsService,
     public router: Router,
     private modalService: BsModalService,

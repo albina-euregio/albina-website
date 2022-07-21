@@ -1,6 +1,7 @@
 import { Component, AfterContentInit, Inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
+import { RegionsService } from "../providers/regions-service/regions.service";
 import { UserService } from "../providers/user-service/user.service";
 import { UserModel } from "../models/user.model";
 
@@ -33,6 +34,7 @@ export class UpdateUserComponent implements AfterContentInit {
     private translateService: TranslateService,
     private userService: UserService,
     public configurationService: ConfigurationService,
+    public regionsService: RegionsService,
     private dialogRef: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.update = data.update;
