@@ -101,25 +101,32 @@ import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 export class RegionsService {
   euregioGeoJSON: L.GeoJSON;
 
+  initialAggregatedRegion: Record<string, string[]> = {
+    "AT-07": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("AT-07")),
+    "IT-32-BZ": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("IT-32-BZ")),
+    "IT-32-TN": RegionsEuregio.features.map(f => f.properties.id).filter(id => id.startsWith("IT-32-TN")),
+    "ES-CT-L": RegionsAran.features.map(f => f.properties.id).filter(id => id.startsWith("ES-CT-L"))
+  };
+
   // Level 1 regions: parts of provinces
   level1: string[][] = [
-    ["AT-07-01", "AT-07-02", "AT-07-07", "AT-07-08", "AT-07-10", "AT-07-11", "AT-07-12"], // west
-    ["AT-07-03", "AT-07-04", "AT-07-05"], // north
-    ["AT-07-06", "AT-07-17", "AT-07-18"], // east
-    ["AT-07-09", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16"], // center
+    ["AT-07-01", "AT-07-02-01", "AT-07-02-02", "AT-07-07", "AT-07-08", "AT-07-10", "AT-07-11", "AT-07-12"], // west
+    ["AT-07-03", "AT-07-04-01", "AT-07-04-02", "AT-07-05"], // north
+    ["AT-07-06", "AT-07-17-01", "AT-07-17-02", "AT-07-18"], // east
+    ["AT-07-09", "AT-07-13", "AT-07-14-01", "AT-07-14-02", "AT-07-14-03", "AT-07-14-04", "AT-07-14-05", "AT-07-15", "AT-07-16"], // center
     ["AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24"], // AHK
     ["AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"], // east tyrol
-    ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-11"], // AHK
+    ["IT-32-BZ-01-01", "IT-32-BZ-01-02", "IT-32-BZ-02-01", "IT-32-BZ-02-02", "IT-32-BZ-03", "IT-32-BZ-04-01", "IT-32-BZ-04-02", "IT-32-BZ-05-01", "IT-32-BZ-05-02", "IT-32-BZ-05-03", "IT-32-BZ-06", "IT-32-BZ-07-01", "IT-32-BZ-07-02", "IT-32-BZ-11"], // AHK
     ["IT-32-BZ-14", "IT-32-BZ-15"], // west
-    ["IT-32-BZ-08", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"], // east
+    ["IT-32-BZ-08-01", "IT-32-BZ-08-02", "IT-32-BZ-08-03", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18-01", "IT-32-BZ-18-02", "IT-32-BZ-19", "IT-32-BZ-20"], // east
     ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-04", "IT-32-TN-05"], // west
     ["IT-32-TN-18", "IT-32-TN-12", "IT-32-TN-03", "IT-32-TN-11", "IT-32-TN-17", "IT-32-TN-15"], // center
     ["IT-32-TN-14", "IT-32-TN-06", "IT-32-TN-10", "IT-32-TN-21", "IT-32-TN-08", "IT-32-TN-07", "IT-32-TN-09", "IT-32-TN-16", "IT-32-TN-13"] // east
   ]; 
   // Level 2 regions: provinces
   level2: string[][] = [
-    ["AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16", "AT-07-17", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"],
-    ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"],
+    ["AT-07-01", "AT-07-02-01", "AT-07-02-02", "AT-07-03", "AT-07-04-01", "AT-07-04-02", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14-01", "AT-07-14-02", "AT-07-14-03", "AT-07-14-04", "AT-07-14-05", "AT-07-15", "AT-07-16", "AT-07-17-01", "AT-07-17-02", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"],
+    ["IT-32-BZ-01-01", "IT-32-BZ-01-02", "IT-32-BZ-02-01", "IT-32-BZ-02-02", "IT-32-BZ-03", "IT-32-BZ-04-01", "IT-32-BZ-04-02", "IT-32-BZ-05-01", "IT-32-BZ-05-02", "IT-32-BZ-05-03", "IT-32-BZ-06", "IT-32-BZ-07-01", "IT-32-BZ-07-02", "IT-32-BZ-08-01", "IT-32-BZ-08-02", "IT-32-BZ-08-03", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18-01", "IT-32-BZ-18-02", "IT-32-BZ-19", "IT-32-BZ-20"],
     ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-06", "IT-32-TN-07", "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13", "IT-32-TN-14", "IT-32-TN-15", "IT-32-TN-16", "IT-32-TN-17", "IT-32-TN-18", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-21"]
   ]; 
 
@@ -246,11 +253,12 @@ export interface RegionWithElevationProperties extends RegionProperties {
 function mergeFeatureCollections<G extends Geometry, P>(
   ...collections: FeatureCollection<G, P>[]
 ): FeatureCollection<G, P> {
+  const today = "2022-12-01";
   return {
     type: "FeatureCollection",
     features: []
       .concat(...collections.map((collection) => collection.features))
-      .filter((feature) => filterFeature(feature, "2021-10-01")),
+      .filter((feature) => filterFeature(feature, today)),
   };
 }
 

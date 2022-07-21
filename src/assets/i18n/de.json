@@ -197,7 +197,7 @@
         "accept" : "Ok"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Art des Lawinenproblems, Exposition, Schneedeckenstabilität, Häufigkeit und/oder Lawinengröße fehlen bei mindestens einem Lawinenproblem",
+        "message" : "Lawinenproblem, Exposition, Schneedeckenstabilität, Häufigkeit und/oder Lawinengröße fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },
       "loadAvActivityCommentExampleTextDialog" : {

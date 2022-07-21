@@ -3038,9 +3038,9 @@ domutils@^2.6.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
-"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/a29b163e8f612efb26d4f27a99bbe0cf148d4ef6/eaws-regions-a29b163e8f612efb26d4f27a99bbe0cf148d4ef6.tar.gz":
+"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/a1ebf8c484ec68bdf333c4e5f68c52588248f73c/eaws-regions-a1ebf8c484ec68bdf333c4e5f68c52588248f73c.tar.gz":
   version "1.0.0"
-  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/a29b163e8f612efb26d4f27a99bbe0cf148d4ef6/eaws-regions-a29b163e8f612efb26d4f27a99bbe0cf148d4ef6.tar.gz#8fb067ed77fa5b5d03d409eb75a18a4556cef91d"
+  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/a1ebf8c484ec68bdf333c4e5f68c52588248f73c/eaws-regions-a1ebf8c484ec68bdf333c4e5f68c52588248f73c.tar.gz#a7e356a0e028b6a1be86374e80ac0761f3ef9e0d"
 
 echarts@^5.3.3:
   version "5.3.3"

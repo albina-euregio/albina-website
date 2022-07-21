@@ -24,16 +24,16 @@ export class MatrixParameterComponent {
   languageCode = Enums.LanguageCode;
 
   snowpackStabilityOptions: Options = {
-    floor: 20,
-    ceil: 80,
+    floor: 25,
+    ceil: 100,
     showTicksValues: false,
     showTicks: true,
     showSelectionBar: true,
     getLegend: (value: number): string => {
       switch (value) {
-        case 30: return this.translateService.instant("snowpackStability.fair");
-        case 50: return this.translateService.instant("snowpackStability.poor");
-        case 70: return this.translateService.instant("snowpackStability.very_poor");
+        case 37: return this.translateService.instant("snowpackStability.fair");
+        case 62: return this.translateService.instant("snowpackStability.poor");
+        case 87: return this.translateService.instant("snowpackStability.very_poor");
         default: return '';
       }
     },
@@ -41,16 +41,16 @@ export class MatrixParameterComponent {
       if (value < 0) {
           return 'lightgrey';
       }
-      if (value < 20) {
+      if (value < 25) {
           return 'green';
       }
-      if (value < 40) {
+      if (value < 50) {
           return 'yellow';
       }
-      if (value < 60) {
+      if (value < 75) {
           return 'orange';
       }
-      if (value >= 60) {
+      if (value >= 75) {
           return 'red';
       }
       return 'lightgrey';
@@ -59,16 +59,16 @@ export class MatrixParameterComponent {
       if (value < 0) {
           return 'grey';
       }
-      if (value < 20) {
+      if (value < 25) {
           return 'green';
       }
-      if (value < 40) {
+      if (value < 50) {
           return 'yellow';
       }
-      if (value < 60) {
+      if (value < 75) {
           return 'orange';
       }
-      if (value >= 60) {
+      if (value >= 75) {
           return 'red';
       }
       return 'grey';
@@ -76,16 +76,16 @@ export class MatrixParameterComponent {
   };
 
   frequencyOptions: Options = {
-    floor: 20,
-    ceil: 80,
+    floor: 25,
+    ceil: 100,
     showTicksValues: false,
     showTicks: true,
     showSelectionBar: true,
     getLegend: (value: number): string => {
       switch (value) {
-        case 30: return this.translateService.instant("frequency.few");
-        case 50: return this.translateService.instant("frequency.some");
-        case 70: return this.translateService.instant("frequency.many");
+        case 37: return this.translateService.instant("frequency.few");
+        case 62: return this.translateService.instant("frequency.some");
+        case 87: return this.translateService.instant("frequency.many");
         default: return '';
       }
     },
@@ -93,16 +93,16 @@ export class MatrixParameterComponent {
       if (value < 0) {
           return 'lightgrey';
       }
-      if (value < 20) {
+      if (value < 25) {
           return 'green';
       }
-      if (value < 40) {
+      if (value < 50) {
           return 'yellow';
       }
-      if (value < 60) {
+      if (value < 75) {
           return 'orange';
       }
-      if (value >= 60) {
+      if (value >= 75) {
           return 'red';
       }
       return 'lightgrey';
@@ -111,16 +111,16 @@ export class MatrixParameterComponent {
       if (value < 0) {
           return 'grey';
       }
-      if (value < 20) {
+      if (value < 25) {
           return 'green';
       }
-      if (value < 40) {
+      if (value < 50) {
           return 'yellow';
       }
-      if (value < 60) {
+      if (value < 75) {
           return 'orange';
       }
-      if (value >= 60) {
+      if (value >= 75) {
           return 'red';
       }
       return 'grey';
@@ -197,13 +197,13 @@ export class MatrixParameterComponent {
 
   onSnowpackStabilityValueChange(changeContext: ChangeContext): void {
     switch (true) {
-      case (changeContext.value < 20):
+      case (changeContext.value < 25):
         this.setSnowpackStability('good');
         break;
-      case (changeContext.value < 40):
+      case (changeContext.value < 50):
         this.setSnowpackStability('fair');
         break;
-      case (changeContext.value < 60):
+      case (changeContext.value < 75):
         this.setSnowpackStability('poor');
         break;
       default:
@@ -214,13 +214,13 @@ export class MatrixParameterComponent {
 
   onFrequencyValueChange(changeContext: ChangeContext): void {
     switch (true) {
-      case (changeContext.value < 20):
+      case (changeContext.value < 25):
         this.setFrequency('none');
         break;
-      case (changeContext.value < 40):
+      case (changeContext.value < 50):
         this.setFrequency('few');
         break;
-      case (changeContext.value < 60):
+      case (changeContext.value < 75):
         this.setFrequency('some');
         break;
       default:

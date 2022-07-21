@@ -122,12 +122,38 @@ button.close {
   visibility: hidden !important;
 }
 
-span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(10n+1) {
+.snowpack-stability-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(25n+13) {
   visibility: visible !important;
   height: 0;
 }
 
-span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(20n+1) {
+.snowpack-stability-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(25n+1) {
+  visibility: visible !important;
+  width: 2px !important;
+  height: 15px !important;
+  top: -3px !important;
+  border-radius: 0 !important;
+}
+
+.frequency-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(25n+13) {
+  visibility: visible !important;
+  height: 0;
+}
+
+.frequency-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(25n+1) {
+  visibility: visible !important;
+  width: 2px !important;
+  height: 15px !important;
+  top: -3px !important;
+  border-radius: 0 !important;
+}
+
+.avalanche-size-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(10n+1) {
+  visibility: visible !important;
+  height: 0;
+}
+
+.avalanche-size-slider span.ngx-slider-ticks span.ngx-slider-tick:nth-of-type(20n+1) {
   visibility: visible !important;
   width: 2px !important;
   height: 15px !important;

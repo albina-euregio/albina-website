@@ -933,7 +933,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     bulletin.setAuthor(this.authenticationService.getAuthor());
     bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
     bulletin.setOwnerRegion(this.authenticationService.getActiveRegionId());
-    const regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getActiveRegionId()));
+    const regions = Object.assign([], this.regionsService.initialAggregatedRegion[this.authenticationService.getActiveRegionId()]);
     bulletin.setSavedRegions(regions);
 
     this.addInternalBulletin(bulletin);
