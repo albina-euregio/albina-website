@@ -1,13 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import {
   parseDate,
-  getPredDate,
   getSuccDate,
   dateToISODateString,
-  getDaysOfMonth,
-  isSummerTime
+  getDaysOfMonth
 } from "../util/date.js";
-import { fetchJSON } from "../util/fetch.js";
+import { BulletinStore } from "./bulletinStore";
 
 export default class ArchiveStore {
   constructor() {
@@ -155,69 +153,40 @@ export default class ArchiveStore {
     return this.archive[date] ? this.archive[date].message : "";
   }
 
+  /**
+   * @param {string} startDate
+   * @param {string} endDate
+   */
   _loadBulletinStatus(startDate, endDate = "") {
     // const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
     // startDate = startDate.substr(0, startDate.length-2) + startDateDay
     if (!endDate) endDate = startDate;
+
+    const dates = [];
+    for (
+      let date = new Date(startDate);
+      date <= new Date(endDate);
+      date = getSuccDate(date)
+    ) {
+      dates.push(date.toISOString().slice(0, 10));
+    }
+
     this.loading = true;
+    return Promise.all(
+      dates.map(async date => await this._loadBulletinStatusForDate(date))
+    ).finally(() => (this.loading = false));
+  }
 
-    const timeFormatStart = isSummerTime(new Date(startDate))
-      ? "T22:00:00Z"
-      : "T23:00:00Z";
-    const timeFormatEnd = isSummerTime(new Date(endDate))
-      ? "T22:00:00Z"
-      : "T23:00:00Z";
-
-    const prevDay = date => dateToISODateString(getPredDate(parseDate(date)));
-
-    const params = new URLSearchParams();
-    params.set("startDate", prevDay(startDate) + timeFormatStart);
-    params.set("endDate", prevDay(endDate) + timeFormatEnd);
-
-    return fetchJSON(config.apis.bulletin.status + "?" + params)
-      .then(
-        // query status data
-        values => {
-          if (typeof values === "object") {
-            let v;
-            for (v of values) {
-              // only use date part (without time) and add 1 day to get the
-              // correct day - otherwise it might depend on the browser and
-              // OS settings how ISO dates are converted to local time
-              const d = parseDate(v.date.substr(0, 10));
-              if (d) {
-                // const d2 = getSuccDate(d);
-                const status =
-                  v.status == "published" ||
-                  v.status == "republished" ||
-                  v.status == "resubmitted"
-                    ? "ok"
-                    : "n/a";
-
-                // summertime change
-                // const nextDay = dateToISODateString(getSuccDate(d))
-                const nextDay = dateToISODateString(d);
-                this.archive[nextDay] = {
-                  status: status,
-                  message: v.status
-                };
-              } else {
-                console.warn("Cannot parse bulletin status for date: " + d);
-              }
-            }
-          }
-        },
-        error => {
-          console.error(
-            "Cannot load bulletin status for date ",
-            { startDate, endDate },
-            error
-          );
-        }
-      )
-      .then(() => {
-        this.loading = false;
-      });
+  async _loadBulletinStatusForDate(date) {
+    try {
+      const status = await BulletinStore.getBulletinStatus(date);
+      this.archive[date] = {
+        status: status,
+        message: status
+      };
+    } catch (e) {
+      console.warn("Cannot parse bulletin status for date: " + date, e);
+    }
   }
 }
 
