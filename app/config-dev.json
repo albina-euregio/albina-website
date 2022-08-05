@@ -58,7 +58,6 @@
   ],
   "apis": {
     "bulletin": {
-      "status": "https://api.avalanche.report/albina_dev/api/bulletins/status",
       "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}{format}",

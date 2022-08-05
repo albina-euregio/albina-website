@@ -189,15 +189,12 @@ class BulletinStore {
     };
   }
 
-  _latestBulletinChecker() {
+  async _latestBulletinChecker() {
     const now = new Date();
     const today = dateToISODateString(now);
     const tomorrow = dateToISODateString(getSuccDate(now));
-    const url = this._getBulletinUrl(tomorrow);
-    fetchText(url, { method: "head" }).then(
-      () => this._setLatest(tomorrow),
-      () => this._setLatest(today)
-    );
+    const status = await BulletinStore.getBulletinStatus(tomorrow);
+    this._setLatest(status === "ok" ? tomorrow : today);
     window.setTimeout(
       () => this._latestBulletinChecker(),
       config.bulletin.checkForLatestInterval * 60000
@@ -251,7 +248,7 @@ class BulletinStore {
       this.activate(date);
     }
 
-    const url = this._getBulletinUrl(date);
+    const url = BulletinStore._getBulletinUrl(date);
     try {
       const response = await fetchText(url, {});
       this.bulletins[date].setData(response);
@@ -497,13 +494,21 @@ class BulletinStore {
     }
   }
 
-  _getBulletinUrl(date: string): string {
+  static _getBulletinUrl(date: string): string {
     const region = date > "2022-05-06" ? "EUREGIO_" : "";
     return Util.template(config.apis.bulletin.xml, {
       date,
       region,
       lang: APP_STORE.language
     });
+  }
+
+  static getBulletinStatus(date: string): Promise<string> {
+    const url = BulletinStore._getBulletinUrl(date);
+    return fetchText(url, { method: "head" }).then(
+      () => "ok",
+      () => "n/a"
+    );
   }
 }
 
