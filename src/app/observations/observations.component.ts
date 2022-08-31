@@ -27,6 +27,8 @@ import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
+import { MapService } from "../providers/map-service/map.service";
+
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 
 export interface MultiselectDropdownData {
@@ -55,14 +57,20 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public selectedRegionItems: string[];
   public selectedSourceItems: ObservationSource[];
   public toMarkerColor = toMarkerColor;
-  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, DangerPattern: {}};
+  public chartsData: ChartsData = {
+    Elevation: {},
+    Aspects: {},
+    AvalancheProblem: {},
+    Stability: {},
+    DangerPattern: {}
+  };
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
 
   public get LocalFilterTypes(): typeof LocalFilterTypes {
-    return LocalFilterTypes; 
+    return LocalFilterTypes;
   }
 
   constructor(
@@ -71,7 +79,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    public mapService: ObservationsMapService
+    public mapService: ObservationsMapService,
+    public mapService2: MapService
   ) {
 
     this.allRegions = this.regionsService
@@ -81,7 +90,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
 //    console.log("constructor", this.allRegions, this.regionsService.getRegionsEuregio(), Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} }));
 
-    this.allSources = Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} });
+    this.allSources = Object.keys(ObservationSource).map((key) => {
+      return { "id": key, "name": key }
+    });
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -101,6 +112,21 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   ngAfterViewInit() {
     this.mapService.initMaps(this.mapDiv.nativeElement, o => this.onObservationClick(o));
     this.loadObservations();
+    this.mapService.observationsMap.addLayer(this.mapService2.baseMaps.AlbinaBaseMap)
+    this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.regions)
+    this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.editSelection)
+
+    this.mapService.observationsMap.on("click", () => {
+      const region = this.mapService2.getClickedRegion().toString()
+
+      if (this.filter.regions.includes(region)) {
+        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+      } else {
+        this.filter.regions.push(region);
+      }
+      console.log(this.filter.regions)
+      this.loadObservations()
+    })
   }
 
   ngOnDestroy() {
@@ -111,9 +137,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onDropdownSelect(target: string, item: any) {
-    switch(target){
+    switch (target) {
       case "regions":
         this.filter.regions.push(item.id);
+        console.log(item.id)
         break;
       case "sources":
         this.filter.observationSources.push(item.id);
@@ -123,8 +150,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.loadObservations();
 
   }
+
   onDropdownDeSelect(target: string, item: any) {
-    switch(target){
+    switch (target) {
       case "regions":
         this.filter.regions = this.filter.regions.filter(e => e !== item.id);
         break;
@@ -148,7 +176,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-//    console.log("loadObservations ##1", this.selectedSourceItems);
+   // console.log("loadObservations ##1", this.selectedSourceItems);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -159,14 +187,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-//        console.log("loadObservations ##2", observation);
-        if (!this.filter.inObservationSources(observation) ||
-          !this.filter.inDateRange(observation) || !this.filter.inRegions(observation)) {
-          //console.log("loadObservations ##4", observation); 
-          return;
+        const ll = new LatLng(observation.latitude, observation.longitude);
+        const region = this.regionsService.getRegionForLatLng(ll).id;
+        console.log("loadObservations ##2", region);
+        if (this.filter.inRegions(region) && this.filter.inObservationSources(observation) &&
+          this.filter.inDateRange(observation)) {
+
+          // console.log("loadObservations ADDDD ##4", region);
+          this.addObservation(observation)
         }
-        //console.log("loadObservations ADDDD ##4", observation); 
-        this.addObservation(observation)
       })
       .catch((e) => console.error(e))
       .finally(() => {
@@ -178,7 +207,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   exportObservations() {
     const collection: GeoJSON.FeatureCollection = toGeoJSON(this.observations);
     const json = JSON.stringify(collection, undefined, 2);
-    const blob = new Blob([json], {type: 'application/geo+json'});
+    const blob = new Blob([json], { type: 'application/geo+json' });
     saveAs(blob, "observations.geojson");
   }
 
@@ -194,7 +223,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   toggleFilter(data: any = {}) {
-    if(data?.type) this.filter.toggleFilter(data);
+    if (data?.type) this.filter.toggleFilter(data);
     this.applyLocalFilter();
   }
 
@@ -211,7 +240,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       if (this.filter.isSelected(observation)) {
 //        console.log("applyLocalFilter ##3.1", observation);
         observation.filterType = ObservationFilterType.Local;
-      } 
+      }
       observation.isHighlighted = this.filter.isHighlighted(observation);
 
       return observation;
@@ -221,11 +250,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.forEach(observation => {
       const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
-      if(!ll) {
+      if (!ll) {
         return;
       }
       //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
-      if(observation.filterType === ObservationFilterType.Local || observation.isHighlighted) this.drawMarker(observation, ll);
+      if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) this.drawMarker(observation, ll);
     });
     this.buildChartsData();
   }
@@ -241,10 +270,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.chartsData.AvalancheProblem = this.filter.getAvalancheProblemDataset(this.observations)
 
     this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations)
-      
+
 //    console.log("buildChartsData", this.chartsData);
-
-
 
 
   }

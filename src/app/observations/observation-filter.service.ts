@@ -10,6 +10,8 @@ import * as Enums from "../enums/enums";
 import {
   ObservationFilterType
 } from "./models/generic-observation.model";
+import { LatLng } from "leaflet";
+import { RegionsService } from "../providers/regions-service/regions.service";
 
 const DATASET_MAX_FACTOR = 1.1
 
@@ -61,14 +63,14 @@ export class ObservationFilterService {
           return curFilterType[curFilterTypeSubset].indexOf(value) === -1 ? true : false;
         });
       }
-      
+
 
       //console.log("toggleFilter ##2.01", curFilterType[curFilterTypeSubset] );
     } else {
       let index = curFilterType[curFilterTypeSubset].indexOf(filterData.data.value);
       if (index !== -1) curFilterType[curFilterTypeSubset].splice(index, 1);
       else curFilterType[curFilterTypeSubset].push(filterData.data.value);
-      
+
     }
 
     //console.log("toggleFilter ##2", curFilterType);
@@ -87,7 +89,7 @@ export class ObservationFilterService {
     const newStartDate = new Date(this.endDate);
     newStartDate.setDate(newStartDate.getDate() - days);
     newStartDate.setHours(0, 0, 0, 0);
-  
+
     this.startDate = newStartDate;
 
     this.dateRange = [this.startDate, this.endDate];
@@ -118,7 +120,7 @@ export class ObservationFilterService {
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
         this.isIncluded(LocalFilterTypes.Stability, observation.stability)
- 
+
       )
     );
   }
@@ -181,7 +183,7 @@ export class ObservationFilterService {
       if(observation.aspect) {
         //console.log("getAspectDataset ##3", observation);
         dataRaw[observation.aspect].all++;
-        
+
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
       }
     });
@@ -198,13 +200,13 @@ export class ObservationFilterService {
     //console.log("getstabilityDataset ##1");
 
     this.filterSelection[LocalFilterTypes.Stability]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0})
-    
+
     observations.forEach(observation => {
       //console.log("getstabilityDataset ##2", observation);
       if(observation.stability) {
         //console.log("getstabilityDataset ##3", observation);
         dataRaw[observation.stability].all++;
-        
+
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.stability].selected++;
       }
     });
@@ -244,13 +246,13 @@ export class ObservationFilterService {
 //    console.log("getAvalancheProblemDataset ##1");
 
     this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
-    
+
     observations.forEach(observation => {
       //console.log("getAvalancheProblemDataset ##2", observation);
       if(observation.avalancheProblem) {
         //console.log("getAvalancheProblemDataset ##3", observation);
         dataRaw[observation.avalancheProblem].all++;
-        
+
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].selected++;
       }
     });
@@ -267,13 +269,13 @@ export class ObservationFilterService {
 //    console.log("getDangerPatternDataset ##1");
 
     this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
-    
+
     observations.forEach(observation => {
 //      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
       if(observation.dangerPattern) {
 //        console.log("getDangerPatternDataset ##3", observation);
         dataRaw[observation.dangerPattern].all++;
-        
+
         if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].selected++;
       }
     });
@@ -286,7 +288,7 @@ export class ObservationFilterService {
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
-//    console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
+   console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
     if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
@@ -305,10 +307,11 @@ export class ObservationFilterService {
     );
   }
 
-  inRegions({ region }: GenericObservation) {
-//    console.log("inRegions ##8", region, (
-      // !this.regions.length ||
-      // (typeof region === "string" && this.regions.includes(region))));
+  inRegions(region: string) {
+   console.log("inRegions ##8", region, (
+      !this.regions.length ||
+      (typeof region === "string" && this.regions.includes(region))));
+
     return (
       !this.regions.length ||
       (typeof region === "string" && this.regions.includes(region))
@@ -316,10 +319,10 @@ export class ObservationFilterService {
   }
 
   inObservationSources({ $source }: GenericObservation) {
-//    console.log("inObservationSources ##8", $source, this.observationSources, (
-    //   !this.observationSources.length ||
-    //   (typeof $source === "string" && this.observationSources.includes($source))
-    // ));
+   console.log("inObservationSources ##8", $source, this.observationSources, (
+      !this.observationSources.length ||
+      (typeof $source === "string" && this.observationSources.includes($source))
+    ));
     return (
       !this.observationSources.length ||
       (typeof $source === "string" && this.observationSources.includes($source))
@@ -346,7 +349,7 @@ export class ObservationFilterService {
 
     }
   }
-  
+
   private getElevationIndex(elevation: number): string {
     if(!elevation) return "";
     const range =  this.elevationRange[1] - this.elevationRange[0];
