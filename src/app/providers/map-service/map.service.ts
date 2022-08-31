@@ -518,6 +518,7 @@ export class MapService {
               feature.properties.selected = false;
             }
           } else {
+            console.log("asdf")
             if (e.originalEvent.ctrlKey) {
               const regions = regionsService.getLevel1Regions(feature.properties.id);
               for (const entry of overlayMaps.editSelection.getLayers()) {

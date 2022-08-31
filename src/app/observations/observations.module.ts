@@ -35,6 +35,7 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BaseComponent } from './charts/base/base-chart.component';
+import { MapService } from "../providers/map-service/map.service";
 
 @NgModule({
   imports: [
@@ -71,7 +72,8 @@ import { BaseComponent } from './charts/base/base-chart.component';
   providers: [
     GeocodingService,
     ObservationFilterService,
-    ObservationsService
+    ObservationsService,
+    MapService
   ]
 })
 export class ObservationsModule { }

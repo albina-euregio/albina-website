@@ -84,6 +84,7 @@ export class ObservationsMapService {
       layers: [
         ...Object.values(this.observationsMaps),
         ...Object.values(this.observationTypeLayers)
+
       ]
     });
 
