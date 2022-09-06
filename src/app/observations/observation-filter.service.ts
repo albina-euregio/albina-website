@@ -40,6 +40,7 @@ export class ObservationFilterService {
     AvalancheProblem: {all: [], selected: [], highlighted: []},
     Stability: {all: [], selected: [], highlighted: []},
     DangerPattern: {all: [], selected: [], highlighted: []},
+    Days: {all: [], selected: [], highlighted: []}
   }
 
 
@@ -92,6 +93,11 @@ export class ObservationFilterService {
 
     this.startDate = newStartDate;
 
+    let newDates = [];
+    for(var i = new Date(this.startDate); i<= this.endDate; i.setDate(i.getDate()+1)){
+      newDates.push(i.toISOString());
+  }
+    this.filterSelection.Days.all = newDates;
     this.dateRange = [this.startDate, this.endDate];
     //console.log("days ##1.2", days, this.dateRange);
   }
@@ -119,8 +125,9 @@ export class ObservationFilterService {
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
-        this.isIncluded(LocalFilterTypes.Stability, observation.stability)
-
+        this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
+        this.isIncluded(LocalFilterTypes.Days, observation.eventDate) 
+ 
       )
     );
   }
@@ -131,7 +138,8 @@ export class ObservationFilterService {
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
-        this.isIncluded(LocalFilterTypes.Stability, observation.stability, true)
+        this.isIncluded(LocalFilterTypes.Stability, observation.stability, true) ||
+        this.isIncluded(LocalFilterTypes.Days, observation.eventDate) 
       )
     );
   }
@@ -285,6 +293,33 @@ export class ObservationFilterService {
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
 //    console.log("getDangerPatternDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
+  }
+
+  getDaysDataset(observations: GenericObservation[]) {
+    const dataRaw = {};
+//    console.log("getDangerPatternDataset ##1");
+
+    this.filterSelection[LocalFilterTypes.Days]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Days].highlighted.includes(key) ? 1 : 0})
+    console.log("getDangerPatternDataset ##1", this.filterSelection[LocalFilterTypes.Days]);
+    observations.forEach(observation => {
+//      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
+      if(observation.eventDate) {
+        const newStartDate = new Date(observation.eventDate);
+        newStartDate.setHours(0, 0, 0, 0);
+        const dateId = newStartDate.toISOString();
+        console.log("getDangerPatternDataset ##2", dateId);
+        dataRaw[dateId].all++;
+        
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].selected++;
+      }
+    });
+    //console.log("getDangerPatternDataset", dataRaw);
+    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    console.log("getDaysDataset ##4 dataset", dataset);
+    return {dataset: {source: dataset}}
+
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {

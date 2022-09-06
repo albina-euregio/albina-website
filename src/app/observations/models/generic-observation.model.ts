@@ -139,6 +139,7 @@ export enum LocalFilterTypes {
   AvalancheProblem = "AvalancheProblem",
   Stability = "Stability",
   DangerPattern = "DangerPattern",
+  Days = "Days",
 }
 
 export interface ChartsData {
@@ -147,6 +148,7 @@ export interface ChartsData {
   AvalancheProblem: Object;
   Stability: Object;
   DangerPattern: Object;
+  Days: Object;
 }
 
 export interface FilterSelectionData {
