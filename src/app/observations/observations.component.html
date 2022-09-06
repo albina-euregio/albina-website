@@ -101,6 +101,12 @@
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
+          [caption] = "'admin.observations.charts.days.caption' | translate"
+          [type]="LocalFilterTypes.Days"
+          [dataset]="chartsData.Days"  
+          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [dataset]="chartsData.Elevation"  
