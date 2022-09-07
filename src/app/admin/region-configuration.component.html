@@ -413,6 +413,28 @@
         </label>
       </td>
     </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.enableAvalancheProblemCornices" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.enableAvalancheProblemCornices">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class="col-form-label">{{ "admin.region-configuration.table.enableAvalancheProblemNoDistinctAvalancheProblem" | translate }}</label>
+      </td>
+      <td>
+        <label class="switch switch-primary">
+          <input type="checkbox" class="switch-input" [(ngModel)]="config.enableAvalancheProblemNoDistinctAvalancheProblem">
+          <span class="switch-slider"></span>
+        </label>
+      </td>
+    </tr>
   </tbody>
 </table>
 <button *ngIf="!saveConfigurationLoading" type="submit" [disabled]="!config.id" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i> {{

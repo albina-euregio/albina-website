@@ -22,6 +22,8 @@ export interface RegionConfiguration {
   sendTelegramMessages: boolean;
   sendPushNotifications: boolean;
   enableMediaFile: boolean;
+  enableAvalancheProblemCornices: boolean;
+  enableAvalancheProblemNoDistinctAvalancheProblem: boolean;
   showMatrix: boolean;
   serverInstance: ServerConfiguration;
   pdfColor: string;
