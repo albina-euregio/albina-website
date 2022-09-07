@@ -554,9 +554,6 @@
       "label": {
         "dateRange": "Zeitspanne",
         "observer": "Beobachter"
-      "label" : {
-        "dateRange" : "Zeitspanne",
-        "observer" : "Beobachter"
       },
       "selectRegion": {
         "placeholder": "Region auswählen"
