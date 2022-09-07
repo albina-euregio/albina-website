@@ -17,11 +17,11 @@
       <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="90"style="padding-right: 15px;" >
       <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.gliding_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.cornices)" width="90"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('cornices')" src="./assets/img/Cornices_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.cornices)" width="90" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemCornices && isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.cornices)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemCornices && !isAvalancheProblem('cornices')" src="./assets/img/Cornices_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.cornices)" width="90" style="opacity: 0.3; padding-right: 15px;">
 
-      <img *ngIf="isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.no_distinct_problem)" width="90"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.no_distinct_problem)" width="90" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemNoDistinctAvalancheProblem && isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.no_distinct_problem)" width="90"style="padding-right: 15px;" >
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemNoDistinctAvalancheProblem && !isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.no_distinct_problem)" width="90" style="opacity: 0.3; padding-right: 15px;">
     </div>
     <div *ngIf="disabled" class="col-md-12">
       <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="90"style="padding-right: 15px;" >
@@ -40,10 +40,10 @@
       <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
       <img *ngIf="isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" width="90"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('cornices')" src="./assets/img/Cornices_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemCornices && !isAvalancheProblem('cornices')" src="./assets/img/Cornices_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
 
       <img *ngIf="isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" width="90"style="padding-right: 15px;" >
-      <img *ngIf="!isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
+      <img *ngIf="authenticationService.getActiveRegion().enableAvalancheProblemNoDistinctAvalancheProblem && !isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_bw.svg" width="90" style="opacity: 0.3; padding-right: 15px;">
     </div>
   </div>
   <div class="form-group row">

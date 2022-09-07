@@ -444,6 +444,8 @@
         "sendTelegramMessages" : "Send telegram messages",
         "sendPushNotifications" : "Send push notifications",
         "enableMediaFile" : "Enable media file",
+        "enableAvalancheProblemCornices" : "Enable avalanche problem CORNICES",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Enable avalanche problem NO DISTINCT AVALANCHE PROBLEM",
         "pdfColor" : "PDF color",
         "emailColor" : "Email color",
         "pdfMapYAmPm" : "Y for PDF map (am/pm)",
