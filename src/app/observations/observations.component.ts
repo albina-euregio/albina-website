@@ -30,6 +30,8 @@ import { ObservationFilterService } from "./observation-filter.service";
 import { MapService } from "../providers/map-service/map.service";
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
+declare var L: any;
+
 
 export interface MultiselectDropdownData {
   id: string;
@@ -105,22 +107,36 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   ngAfterViewInit() {
     this.mapService.initMaps(this.mapDiv.nativeElement, o => this.onObservationClick(o));
+
+    const info = L.control();
+    info.onAdd = function() {
+      this._div = L.DomUtil.create("div", "info"); // create a div with a class "info"
+      this.update();
+      return this._div;
+    };
+    // method that we will use to update the control based on feature properties passed
+    info.update = function(props) {
+      this._div.innerHTML = (props ?
+        "<b>" + props.name_de + "</b>" : " ");
+    };
+    info.addTo(this.mapService.observationsMap);
+
     this.loadObservations();
     this.mapService.observationsMap.addLayer(this.mapService2.baseMaps.AlbinaBaseMap)
     this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.regions)
     this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.editSelection)
 
-    this.mapService.observationsMap.on("click", () => {
-      const region = this.mapService2.getClickedRegion().toString()
+    // this.mapService.observationsMap.on("click", () => {
+    //   const region = this.mapService2.getClickedRegion().toString()
 
-      if (this.filter.regions.includes(region)) {
-        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
-      } else {
-        this.filter.regions.push(region);
-      }
-      console.log(this.filter.regions)
-      this.loadObservations()
-    })
+    //   if (this.filter.regions.includes(region)) {
+    //     this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+    //   } else {
+    //     this.filter.regions.push(region);
+    //   }
+    //   console.log(this.filter.regions)
+    //   this.loadObservations()
+    // })
   }
 
   ngOnDestroy() {
