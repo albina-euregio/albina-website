@@ -39,8 +39,10 @@ export interface MultiselectDropdownData {
 }
 
 @Component({
-  templateUrl: "observations.component.html"
+  templateUrl: "observations.component.html",
+  styleUrls: ['./observations.component.scss']
 })
+
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
@@ -126,17 +128,17 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.regions)
     this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.editSelection)
 
-    // this.mapService.observationsMap.on("click", () => {
-    //   const region = this.mapService2.getClickedRegion().toString()
-
-    //   if (this.filter.regions.includes(region)) {
-    //     this.filter.regions = this.filter.regions.filter(entry => entry !== region);
-    //   } else {
-    //     this.filter.regions.push(region);
-    //   }
-    //   console.log(this.filter.regions)
-    //   this.loadObservations()
-    // })
+    this.mapService.observationsMap.on("click", () => {
+      const region = this.mapService2.getClickedRegion().toString()
+      
+      if (this.filter.regions.includes(region)) {
+        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+      } else {
+        this.filter.regions.push(region);
+      }
+      console.log("this.mapService.observationsMap.on ##9", region, this.filter.regions);
+      this.loadObservations()
+    })
   }
 
   ngOnDestroy() {
@@ -199,7 +201,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .forEach((observation) => {
         const ll = new LatLng(observation.latitude, observation.longitude);
         const region = this.regionsService.getRegionForLatLng(ll).id;
-        console.log("loadObservations ##2", region);
+        console.log("loadObservations ##2", region, observation.eventDate, observation.$source);
         if (this.filter.inRegions(region) && this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
