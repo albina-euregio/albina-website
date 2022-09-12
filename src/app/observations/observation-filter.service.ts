@@ -126,7 +126,7 @@ export class ObservationFilterService {
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
         this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
-        this.isIncluded(LocalFilterTypes.Days, observation.eventDate) 
+        this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate)) 
  
       )
     );
@@ -139,7 +139,7 @@ export class ObservationFilterService {
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
         this.isIncluded(LocalFilterTypes.Stability, observation.stability, true) ||
-        this.isIncluded(LocalFilterTypes.Days, observation.eventDate) 
+        this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate), true) 
       )
     );
   }
@@ -295,6 +295,11 @@ export class ObservationFilterService {
     return {dataset: {source: dataset}}
   }
 
+  _normedDateString(date: Date):string {
+    date.setHours(0, 0, 0, 0);
+    return date.toISOString();
+  }
+
   getDaysDataset(observations: GenericObservation[]) {
     const dataRaw = {};
 //    console.log("getDangerPatternDataset ##1");
@@ -304,9 +309,7 @@ export class ObservationFilterService {
     observations.forEach(observation => {
 //      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
       if(observation.eventDate) {
-        const newStartDate = new Date(observation.eventDate);
-        newStartDate.setHours(0, 0, 0, 0);
-        const dateId = newStartDate.toISOString();
+        const dateId = this._normedDateString(observation.eventDate);
         console.log("getDangerPatternDataset ##2", dateId);
         dataRaw[dateId].all++;
         
@@ -366,8 +369,9 @@ export class ObservationFilterService {
 
   isIncluded(filter: LocalFilterTypes, testData: any, testHighlighted: boolean = false): boolean {
 
-    //console.log("isIncluded ##1", filter, testData, testHighlighted);
     let testField = "selected";
+    console.log("isIncluded ##1", filter, testData, this.filterSelection[filter][testField], testHighlighted);
+    
     if(!testHighlighted) {
       return (
         !this.filterSelection[filter][testField].length ||
