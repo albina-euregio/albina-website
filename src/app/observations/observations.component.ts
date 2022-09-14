@@ -104,7 +104,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.filter.days = 3;
+    this.filter.days = 7;
   }
 
   ngAfterViewInit() {
@@ -124,20 +124,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     info.addTo(this.mapService.observationsMap);
 
     this.loadObservations();
-    this.mapService.observationsMap.addLayer(this.mapService2.baseMaps.AlbinaBaseMap)
-    this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.regions)
-    this.mapService.observationsMap.addLayer(this.mapService2.overlayMaps.editSelection)
-
     this.mapService.observationsMap.on("click", () => {
       const region = this.mapService2.getClickedRegion().toString()
       
       if (this.filter.regions.includes(region)) {
-        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+        //this.filter.regions = this.filter.regions.filter(entry => entry !== region);
       } else {
-        this.filter.regions.push(region);
+        //this.filter.regions.push(region);
       }
-      console.log("this.mapService.observationsMap.on ##9", region, this.filter.regions);
-      this.loadObservations()
+      console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
+      //this.loadObservations()
     })
   }
 
@@ -292,6 +288,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   private drawMarker(observation, ll) {
     const styledObservation = observation.isHighlighted ? this.mapService.highlightStyle(observation) : this.mapService.style(observation);
+    styledObservation.bubblingMouseEvents = false;
+    //styledObservation.riseOnHover = true;
     const marker = new Marker(ll, styledObservation);
     if (this.mapService.USE_CANVAS_LAYER) {
       // @ts-ignore
@@ -301,6 +299,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     marker.bindTooltip(observation.locationName + " " + observation.filterType);
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
+    console.log("drawMarker xx05", this.mapService.USE_CANVAS_LAYER, observation.$source, observation.$type);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
@@ -329,6 +328,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
+    console.log("onObservationClick ##002", observation.$data);
     if (observation.$externalURL) {
       const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };

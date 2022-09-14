@@ -82,8 +82,8 @@ export class ObservationFilterService {
   set days(days: number) {
 
     if(!this.endDate) {
-      const newEndDate = new Date();
-      newEndDate.setDate(newEndDate.getDate() - 150); // set for debugging
+      const newEndDate = new Date('2022-02-07T23:59:01Z');
+      //newEndDate.setDate(newEndDate.getDate() - 210); // set for debugging
       newEndDate.setHours(23, 59, 0, 0)
       this.endDate = newEndDate;
     }
