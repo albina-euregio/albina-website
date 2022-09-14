@@ -318,22 +318,22 @@ export class ObservationFilterService {
 //    console.log("getDangerPatternDataset ##1");
 
     this.filterSelection[LocalFilterTypes.Days]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Days].highlighted.includes(key) ? 1 : 0})
-    console.log("getDangerPatternDataset ##1", this.filterSelection[LocalFilterTypes.Days]);
+    console.log("getDaysDataset ##4", this.filterSelection[LocalFilterTypes.Days], observations);
     observations.forEach(observation => {
-//      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
+//      console.log("getDaysDataset ##2", observation.dangerPattern);
       if(observation.eventDate) {
         const dateId = this._normedDateString(observation.eventDate);
-        console.log("getDangerPatternDataset ##2", dateId);
+        console.log("getDaysDataset ##2", dateId);
         if(dataRaw[dateId]) {
           dataRaw[dateId].all++;
           if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].selected++;
-        } else console.error("observations-filter.service->getDayDataset Date not found", dateId, observation)
+        } else console.error("observations-filter.service->getDayDataset Date not found ##4", dateId, observation)
         
         
         
       }
     });
-    //console.log("getDangerPatternDataset", dataRaw);
+    //console.log("getDaysDataset", dataRaw);
     const dataset = [['category', 'max', 'all','selected', 'highlighted']];
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
@@ -343,8 +343,8 @@ export class ObservationFilterService {
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
-   console.log("inDateRange ##8", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
-    if ($source === ObservationSource.LwdKipSperre) return true;
+   console.log("inDateRange ##4", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
+    //if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
 

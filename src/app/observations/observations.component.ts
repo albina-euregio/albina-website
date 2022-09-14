@@ -203,12 +203,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         }
         
         console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
+        
         if (this.filter.inRegions(regionId) && this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
-          // console.log("loadObservations ADDDD ##4", regionId);
+          console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);
           this.addObservation(observation)
         }
+
       })
       .catch((e) => console.error(e))
       .finally(() => {
