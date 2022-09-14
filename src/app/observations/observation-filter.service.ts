@@ -80,26 +80,36 @@ export class ObservationFilterService {
   }
 
   set days(days: number) {
-
+    console.log("days ##x1", days, this.dateRange);
     if(!this.endDate) {
-      const newEndDate = new Date('2022-02-07T23:59:01Z');
-      //newEndDate.setDate(newEndDate.getDate() - 210); // set for debugging
-      newEndDate.setHours(23, 59, 0, 0)
+      const newEndDate = new Date('2022-02-07T22:59:59Z');
       this.endDate = newEndDate;
     }
     const newStartDate = new Date(this.endDate);
-    newStartDate.setDate(newStartDate.getDate() - days);
+    newStartDate.setDate(newStartDate.getDate() - (days - 1));
     newStartDate.setHours(0, 0, 0, 0);
 
     this.startDate = newStartDate;
-
-    let newDates = [];
-    for(var i = new Date(this.startDate); i<= this.endDate; i.setDate(i.getDate()+1)){
-      newDates.push(i.toISOString());
+    console.log("days #2 ##x1", days, this.startDate, this.dateRange);
+    this.setDateRange();
+    
   }
-    this.filterSelection.Days.all = newDates;
+
+  setDateRange() {
+
+    console.log("setDateRange #1 ##x1", this.dateRange);
+    if(this.startDate) this.startDate.setHours(0, 0, 0, 0);
+    if(this.endDate) this.endDate.setHours(23, 59, 59, 999);
+
+    if(this.startDate && this.endDate) {
+      let newDates = [];
+      for(var i = new Date(this.startDate); i<= this.endDate; i.setDate(i.getDate()+1)){
+        newDates.push(i.toISOString());
+      }
+      this.filterSelection.Days.all = newDates;
+    }
     this.dateRange = [this.startDate, this.endDate];
-    //console.log("days ##1.2", days, this.dateRange);
+    console.log("setDateRange #2 ##x1", this.dateRange);
   }
 
   get startDate(): Date {
@@ -108,6 +118,8 @@ export class ObservationFilterService {
 
   set startDate(date: Date) {
     this.dateRange[0] = date;
+    this.setDateRange();
+    
   }
 
   get endDate(): Date {
@@ -116,6 +128,7 @@ export class ObservationFilterService {
 
   set endDate(date: Date) {
     this.dateRange[1] = date;
+    this.setDateRange();
   }
 
 

@@ -104,7 +104,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.filter.days = 7;
+    this.filter.days = 1;
   }
 
   ngAfterViewInit() {
@@ -184,7 +184,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-   // console.log("loadObservations ##1", this.selectedSourceItems);
+   console.log("loadObservations ##x1", this.selectedSourceItems, this.filter.dateRange);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -238,6 +238,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   toggleFilter(data: any = {}) {
     if (data?.type) this.filter.toggleFilter(data);
     this.applyLocalFilter();
+  }
+
+  setDate() {
+    this.filter.setDateRange();
+    this.loadObservations({}); 
   }
 
 

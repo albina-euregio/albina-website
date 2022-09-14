@@ -23,7 +23,7 @@
             label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
         </div>
         <div>
-          <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="loadObservations({})" (onSelect)="loadObservations({})" [showIcon]="true" dateFormat="dd.mm.yy">
+          <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="true" dateFormat="dd.mm.yy">
           </p-calendar>
           <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 1})"
             label="1d"></button>
