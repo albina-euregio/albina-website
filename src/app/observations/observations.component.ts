@@ -195,13 +195,18 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-        const ll = new LatLng(observation.latitude, observation.longitude);
-        const region = this.regionsService.getRegionForLatLng(ll).id;
-        console.log("loadObservations ##2", region, observation.eventDate, observation.$source);
-        if (this.filter.inRegions(region) && this.filter.inObservationSources(observation) &&
+        let regionId;
+        if (observation.latitude && observation.longitude) {
+          const ll = new LatLng(observation.latitude, observation.longitude);
+          const region = this.regionsService.getRegionForLatLng(ll);
+          regionId = region ? region.id : null;
+        }
+        
+        console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
+        if (this.filter.inRegions(regionId) && this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
-          // console.log("loadObservations ADDDD ##4", region);
+          // console.log("loadObservations ADDDD ##4", regionId);
           this.addObservation(observation)
         }
       })
@@ -237,7 +242,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
 
   applyLocalFilter() {
-//    console.log("applyLocalFilter ##1");
+    console.log("applyLocalFilter ##1");
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 

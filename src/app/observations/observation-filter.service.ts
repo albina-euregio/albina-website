@@ -311,9 +311,13 @@ export class ObservationFilterService {
       if(observation.eventDate) {
         const dateId = this._normedDateString(observation.eventDate);
         console.log("getDangerPatternDataset ##2", dateId);
-        dataRaw[dateId].all++;
+        if(dataRaw[dateId]) {
+          dataRaw[dateId].all++;
+          if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].selected++;
+        } else console.error("observations-filter.service->getDayDataset Date not found", dateId, observation)
         
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].selected++;
+        
+        
       }
     });
     //console.log("getDangerPatternDataset", dataRaw);
