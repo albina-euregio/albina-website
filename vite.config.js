@@ -33,6 +33,7 @@ export default defineConfig({
       })
   ],
   server: {
+    port: 3000,
     proxy: {
       "/content_files": {
         target: "https://avalanche.report/",
