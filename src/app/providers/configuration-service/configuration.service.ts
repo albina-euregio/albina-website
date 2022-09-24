@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 export interface RegionConfiguration {
   id: string;
