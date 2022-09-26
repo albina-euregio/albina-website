@@ -1,8 +1,41 @@
 <div class="layout-chart">
-    <p class="chart-header">{{caption}} <span (click)="onInvert()">Invert</span> <span (click)="onReset()">Reset</span></p>
-    <div echarts 
-        [options]="options" 
-        [merge]="dataset" 
-        (chartClick)="onClick($event)" 
-        class="chart"></div>
+
+
+
+    <!-- !chart-header -->
+    <div class="chart-header">
+
+        <div class="chart-name">
+			{{caption}}
+		</div>
+
+        <div class="chart-controls">
+			<div class="obs-switch">
+				<div class="obs-switch-item 0is-active" (click)="onInvert()">
+					<span class="switch-text">Invert</span>
+				</div>
+				<div class="obs-switch-item 0is-active" (click)="onReset()">
+					<span class="switch-text">Reset</span>
+				</div>
+			</div>
+		</div>
+        
+    </div>
+	<!-- !chart-header -->
+
+    
+    
+    <!-- !chart-content -->
+	<div class="chart-content">
+		<div echarts 
+            [options]="options" 
+            [merge]="dataset" 
+            (chartClick)="onClick($event)" 
+            class="chart">
+        </div>
+	</div>
+	<!-- /chart-content -->
+    
+
+
 </div>
