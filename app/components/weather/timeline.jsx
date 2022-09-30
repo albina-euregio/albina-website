@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 import { injectIntl } from "react-intl";
 
 import { DATE_TIME_FORMAT, isSameDay } from "../../util/date.js";

@@ -1,3 +1,4 @@
+import $ from "jquery";
 import "magnific-popup";
 //import { tooltip_init } from "../components/tooltips/tooltip";
 

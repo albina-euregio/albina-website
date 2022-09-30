@@ -1,3 +1,4 @@
+import $ from "jquery";
 import anime from "animejs";
 
 function navigation_init() {

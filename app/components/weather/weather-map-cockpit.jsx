@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
