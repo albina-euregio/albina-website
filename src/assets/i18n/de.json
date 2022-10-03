@@ -556,10 +556,10 @@
         "observer": "Beobachter"
       },
       "selectRegion": {
-        "placeholder": "Region auswählen"
+        "placeholder": "Region"
       },
       "selectSources": {
-        "placeholder": "Datenquelle auswählen"
+        "placeholder": "Daten"
       },
       "charts": {
         "aspect": {
@@ -775,7 +775,7 @@
     "avalancheWidth": "Lawinenbreite",
     "count": "# Beobachtungen:",
     "button": {
-      "add": "Beobachtung erstellen",
+      "add": "Beobachtung",
       "save": "Beobachtung speichern",
       "delete": "Beobachtung löschen",
       "deleteConfirm": "Beobachtung wirklich löschen?",

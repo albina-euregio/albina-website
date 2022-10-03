@@ -26,25 +26,36 @@
 					<!-- !global-bar-left -->
 					<div class="global-bar global-bar-left">
 
-            <div>
-              <p-toggleButton onLabel="{{ 'observations.showTable' | translate }}"
-                offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
-                [(ngModel)]="showTable"></p-toggleButton>
-
-
-              <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
-                <b>{{ observationsWithoutCoordinates }}</b></p>
-
-
-              <button type="button" pButton class="ui-button-success" (click)="exportObservations()"
-                style="margin-right: 10px">
-                Export ({{observations.length}})
-              </button>
-              <button type="button" pButton icon="pi pi-plus" (click)="newObservation()"
-                label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
+            <div class="global-bar-item">
+              <button type="button" pButton class="ui-button-success" (click)="loadObservations()"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
             </div>
-
-            <div>
+          
+            <div class="global-bar-item">
+              <ng-multiselect-dropdown
+                placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
+                [settings]="dropdownSettings"
+                [data]="allSources"
+                [(ngModel)]="selectedSourceItems"
+                (onSelect)="onDropdownSelect('sources', $event)"
+                (onDeSelect)="onDropdownDeSelect('sources', $event)"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+          
+            <div class="global-bar-item">
+              <ng-multiselect-dropdown
+                placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
+                [settings]="dropdownSettings"
+                [data]="allRegions"
+                [(ngModel)]="selectedRegionItems"
+                (onSelect)="onDropdownSelect('regions', $event)"
+                (onDeSelect)="onDropdownDeSelect('regions', $event)"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+            
+            <div class="global-bar-item">
               <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="true" dateFormat="dd.mm.yy">
               </p-calendar>
               <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 1})"
@@ -57,33 +68,6 @@
                 label="7d"></button>
             </div>
           
-            <div>
-              <ng-multiselect-dropdown
-                placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
-                [settings]="dropdownSettings"
-                [data]="allRegions"
-                [(ngModel)]="selectedRegionItems"
-                (onSelect)="onDropdownSelect('regions', $event)"
-                (onDeSelect)="onDropdownDeSelect('regions', $event)"
-              >
-              </ng-multiselect-dropdown>
-
-              <ng-multiselect-dropdown
-                placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
-                [settings]="dropdownSettings"
-                [data]="allSources"
-                [(ngModel)]="selectedSourceItems"
-                (onSelect)="onDropdownSelect('sources', $event)"
-                (onDeSelect)="onDropdownDeSelect('sources', $event)"
-              >
-              </ng-multiselect-dropdown>
-            </div>
-
-            <div>
-              <button type="button" pButton class="ui-button-success" (click)="loadObservations()"
-                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
-            </div>
-          
           </div>
           <!-- /global-bar-left -->
           
@@ -92,7 +76,28 @@
           <!-- !global-bar-right -->
           <div class="global-bar global-bar-right">
 
-            <div class="leaflet-sidebar-pane" id="layers">
+            <div class="global-bar-item">
+              <button type="button" pButton icon="pi pi-plus" (click)="newObservation()"
+                label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
+            </div>
+
+            <div class="global-bar-item">
+              Mehr (Dropdown)
+              <p-toggleButton onLabel="{{ 'observations.showTable' | translate }}"
+                offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
+                [(ngModel)]="showTable"></p-toggleButton>
+
+
+              <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
+                <b>{{ observationsWithoutCoordinates }}</b></p>
+
+              <button type="button" pButton class="ui-button-success" (click)="exportObservations()"
+                style="margin-right: 10px">
+                Export ({{observations.length}})
+              </button>
+            </div>
+
+            <!-- <div class="leaflet-sidebar-pane" id="layers">
               <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
                 {{ "observations.sidebar.views.title" | translate }}
               </h1>
@@ -112,7 +117,8 @@
               </h1>
               <p>Lorem ipsum ...</p>
             </div>
-            <input type="checkbox" id="global_open" />
+
+            <input type="checkbox" id="global_open" /> -->
 
           </div>
           <!-- /global-bar-right -->
@@ -131,9 +137,7 @@
 
       <!-- !layout-map -->
       <div class="layout-map">
-        <div class="" style="top:0px; width:100%; ">
-          <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
-        </div>
+        <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
       </div>
 			<!-- /layout-map -->
 
