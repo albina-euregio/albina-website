@@ -101,6 +101,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       //itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
   }
 
   ngAfterContentInit() {
@@ -128,9 +129,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const region = this.mapService2.getClickedRegion().toString()
       
       if (this.filter.regions.includes(region)) {
-        //this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
       } else {
-        //this.filter.regions.push(region);
+        this.filter.regions.push(region);
       }
       console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
       //this.loadObservations()
@@ -144,14 +145,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  onDropdownSelect(target: string, item: any) {
+  onDropdownSelect(target: string, event: any) {
+    console.log("onDropdownSelect", event);
     switch (target) {
       case "regions":
-        this.filter.regions.push(item.id);
-        console.log(item.id)
+        this.filter.regions = event.value;
         break;
       case "sources":
-        this.filter.observationSources.push(item.id);
+        this.filter.observationSources = event.value;
         break;
       default:
     }

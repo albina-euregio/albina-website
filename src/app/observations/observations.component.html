@@ -32,27 +32,26 @@
             </div>
           
             <div class="global-bar-item">
-              <ng-multiselect-dropdown
-                placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
-                [settings]="dropdownSettings"
-                [data]="allSources"
-                [(ngModel)]="selectedSourceItems"
-                (onSelect)="onDropdownSelect('sources', $event)"
-                (onDeSelect)="onDropdownDeSelect('sources', $event)"
-              >
-              </ng-multiselect-dropdown>
+              <p-multiSelect 
+              [options]="allSources" 
+              [(ngModel)]="selectedSourceItems" 
+              optionLabel="name" 
+              optionValue="id"
+              (onChange)="onDropdownSelect('sources', $event)"
+              ></p-multiSelect>
+              
             </div>
           
             <div class="global-bar-item">
-              <ng-multiselect-dropdown
-                placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
-                [settings]="dropdownSettings"
-                [data]="allRegions"
-                [(ngModel)]="selectedRegionItems"
-                (onSelect)="onDropdownSelect('regions', $event)"
-                (onDeSelect)="onDropdownDeSelect('regions', $event)"
-              >
-              </ng-multiselect-dropdown>
+
+              <p-multiSelect 
+              [options]="allRegions" 
+              [(ngModel)]="selectedRegionItems" 
+              optionLabel="name" 
+              optionValue="id"
+              (onChange)="onDropdownSelect('regions', $event)"
+
+              ></p-multiSelect>
             </div>
             
             <div class="global-bar-item">
@@ -81,7 +80,7 @@
                 label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
             </div>
 
-            <div class="global-bar-item">
+            <!-- <div class="global-bar-item">
               Mehr (Dropdown)
               <p-toggleButton onLabel="{{ 'observations.showTable' | translate }}"
                 offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
@@ -95,9 +94,9 @@
                 style="margin-right: 10px">
                 Export ({{observations.length}})
               </button>
-            </div>
+            </div>  
 
-            <!-- <div class="leaflet-sidebar-pane" id="layers">
+            <div class="leaflet-sidebar-pane" id="layers">
               <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
                 {{ "observations.sidebar.views.title" | translate }}
               </h1>

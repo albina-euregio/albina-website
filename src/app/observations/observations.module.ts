@@ -14,6 +14,7 @@ import { ObservationsRoutingModule } from "./observations-routing.module";
 
 import { TranslateModule } from "@ngx-translate/core";
 import { CalendarModule } from "primeng/calendar";
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import { ToggleButtonModule } from "primeng/togglebutton";
@@ -33,7 +34,6 @@ import { ObservationsService } from "./observations.service";
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BaseComponent } from './charts/base/base-chart.component';
 import { MapService } from "../providers/map-service/map.service";
 
@@ -45,6 +45,7 @@ import { MapService } from "../providers/map-service/map.service";
     CommonModule,
     TranslateModule,
     CalendarModule,
+    MultiSelectModule,
     ConfirmDialogModule,
     DialogModule,
     ToggleButtonModule,
@@ -58,8 +59,7 @@ import { MapService } from "../providers/map-service/map.service";
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
-    }),
-    NgMultiSelectDropDownModule.forRoot(),
+    })
   ],
   declarations: [
     NgxSidebarControlComponent,
