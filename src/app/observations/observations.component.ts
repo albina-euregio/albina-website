@@ -19,7 +19,7 @@ import {
 } from "./models/generic-observation.model";
 
 
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { MenuItem } from 'primeng/api';
 
 import { saveAs } from "file-saver";
 
@@ -57,12 +57,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
   public readonly allSources: MultiselectDropdownData[];
-  public readonly dropdownSettings: IDropdownSettings;
   public selectedRegionItems: string[];
   public selectedSourceItems: ObservationSource[];
   public toMarkerColor = toMarkerColor;
   public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, DangerPattern: {}, Days: {}};
-
+  public moreItems: MenuItem[];
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
@@ -92,15 +91,25 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       return { "id": key, "name": key }
     });
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      //itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+    this.moreItems = [
+      {
+          label: 'More',
+          items: [{
+                label: this.translateService.instant("observations.showTable"), 
+                icon: '',
+                command: (event) => {
+                  this.showTable != this.showTable
+                }
+              },
+              {
+                label: "Export",
+                icon: '',
+                command: (event) => {
+                  this.exportObservations();
+                } 
+              }
+          ]
+      }];
 
   }
 

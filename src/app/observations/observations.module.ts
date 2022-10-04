@@ -25,6 +25,7 @@ import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { AutoCompleteModule } from "primeng/autocomplete";
 
+import {MenubarModule} from 'primeng/menubar';
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
 
@@ -46,6 +47,7 @@ import { MapService } from "../providers/map-service/map.service";
     TranslateModule,
     CalendarModule,
     MultiSelectModule,
+    MenubarModule,
     ConfirmDialogModule,
     DialogModule,
     ToggleButtonModule,

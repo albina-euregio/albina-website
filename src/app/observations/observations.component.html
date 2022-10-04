@@ -33,6 +33,7 @@
           
             <div class="global-bar-item">
               <p-multiSelect 
+              placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
               [options]="allSources" 
               [(ngModel)]="selectedSourceItems" 
               optionLabel="name" 
@@ -45,6 +46,7 @@
             <div class="global-bar-item">
 
               <p-multiSelect 
+              placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
               [options]="allRegions" 
               [(ngModel)]="selectedRegionItems" 
               optionLabel="name" 
@@ -79,6 +81,11 @@
               <button type="button" pButton icon="pi pi-plus" (click)="newObservation()"
                 label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
             </div>
+            
+            <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
+              <b>{{ observationsWithoutCoordinates }}</b></p>
+
+            <p-menubar [model]="moreItems"></p-menubar>
 
             <!-- <div class="global-bar-item">
               Mehr (Dropdown)
@@ -86,9 +93,6 @@
                 offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
                 [(ngModel)]="showTable"></p-toggleButton>
 
-
-              <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
-                <b>{{ observationsWithoutCoordinates }}</b></p>
 
               <button type="button" pButton class="ui-button-success" (click)="exportObservations()"
                 style="margin-right: 10px">
