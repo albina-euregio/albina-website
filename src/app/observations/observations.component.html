@@ -27,7 +27,7 @@
 					<div class="global-bar global-bar-left">
 
             <div class="global-bar-item">
-              <button type="button" pButton class="ui-button-success" (click)="loadObservations()"
+              <button type="button" pButton class="p-button-text" (click)="loadObservations()"
                 [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
             </div>
           
@@ -40,11 +40,9 @@
               optionValue="id"
               (onChange)="onDropdownSelect('sources', $event)"
               ></p-multiSelect>
-              
             </div>
           
             <div class="global-bar-item">
-
               <p-multiSelect 
               placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
               [options]="allRegions" 
@@ -52,21 +50,22 @@
               optionLabel="name" 
               optionValue="id"
               (onChange)="onDropdownSelect('regions', $event)"
-
               ></p-multiSelect>
             </div>
             
             <div class="global-bar-item">
-              <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="true" dateFormat="dd.mm.yy">
+              <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="false" dateFormat="dd.mm.yy">
               </p-calendar>
-              <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 1})"
-                label="1d"></button>
-              <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 2})"
-                label="2d"></button>
-              <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 3})"
-                label="3d"></button>
-              <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 7})"
-                label="7d"></button>
+              <div class="obs-switch">
+                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 1})"
+                  label="1d"></button>
+                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 2})"
+                  label="2d"></button>
+                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 3})"
+                  label="3d"></button>
+                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 7})"
+                  label="7d"></button>
+              </div>
             </div>
           
           </div>
@@ -78,14 +77,18 @@
           <div class="global-bar global-bar-right">
 
             <div class="global-bar-item">
-              <button type="button" pButton icon="pi pi-plus" (click)="newObservation()"
-                label="{{ 'observations.button.add' | translate }}" class="ui-button-primary"></button>
+              <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
+                label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
             </div>
-            
-            <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
-              <b>{{ observationsWithoutCoordinates }}</b></p>
 
-            <p-menubar [model]="moreItems"></p-menubar>
+            <div class="global-bar-item">
+                <p-menubar [model]="moreItems"></p-menubar>
+            </div>
+
+            <!-- <div class="global-bar-item">
+              <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
+                <b>{{ observationsWithoutCoordinates }}</b></p>
+            </div> -->
 
             <!-- <div class="global-bar-item">
               Mehr (Dropdown)

@@ -93,7 +93,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.moreItems = [
       {
-          label: 'More',
+          label: 'Mehr',
           items: [{
                 label: this.translateService.instant("observations.showTable"), 
                 icon: '',
