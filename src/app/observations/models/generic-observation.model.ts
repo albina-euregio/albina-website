@@ -12,10 +12,12 @@ import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
 import { appCirclePlayIcon } from "../../svg/circle_play";
 import { appCircleStopIcon } from "../../svg/circle_stop";
 
+export type TranslationFunction = (key: string) => string;
+
 export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
-  $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
+  $extraDialogRows?: (t: TranslationFunction) => ObservationTableRow[];
   stability?: Stability;
   $markerRadius?: number;
   $source: ObservationSource;
@@ -135,7 +137,7 @@ export interface ObservationTableRow {
   value?: string;
 }
 
-export function toObservationTable(observation: GenericObservation, t: (key: string) => string): ObservationTableRow[] {
+export function toObservationTable(observation: GenericObservation, t: TranslationFunction): ObservationTableRow[] {
   return [
     { label: t("observations.eventDate"), date: observation.eventDate },
     { label: t("observations.reportDate"), date: observation.reportDate },
