@@ -19,7 +19,7 @@ import {
 } from "./models/generic-observation.model";
 
 
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { MenuItem } from 'primeng/api';
 
 import { saveAs } from "file-saver";
 
@@ -57,12 +57,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
   public readonly allSources: MultiselectDropdownData[];
-  public readonly dropdownSettings: IDropdownSettings;
   public selectedRegionItems: string[];
   public selectedSourceItems: ObservationSource[];
   public toMarkerColor = toMarkerColor;
   public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, DangerPattern: {}, Days: {}};
-
+  public moreItems: MenuItem[];
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
@@ -92,15 +91,26 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       return { "id": key, "name": key }
     });
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      //itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+    this.moreItems = [
+      {
+          label: 'Mehr',
+          items: [{
+                label: this.translateService.instant("observations.showTable"), 
+                icon: '',
+                command: (event) => {
+                  this.showTable != this.showTable
+                }
+              },
+              {
+                label: "Export",
+                icon: '',
+                command: (event) => {
+                  this.exportObservations();
+                } 
+              }
+          ]
+      }];
+
   }
 
   ngAfterContentInit() {
@@ -128,9 +138,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const region = this.mapService2.getClickedRegion().toString()
       
       if (this.filter.regions.includes(region)) {
-        //this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
       } else {
-        //this.filter.regions.push(region);
+        this.filter.regions.push(region);
       }
       console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
       //this.loadObservations()
@@ -144,14 +154,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  onDropdownSelect(target: string, item: any) {
+  onDropdownSelect(target: string, event: any) {
+    console.log("onDropdownSelect", event);
     switch (target) {
       case "regions":
-        this.filter.regions.push(item.id);
-        console.log(item.id)
+        this.filter.regions = event.value;
         break;
       case "sources":
-        this.filter.observationSources.push(item.id);
+        this.filter.observationSources = event.value;
         break;
       default:
     }

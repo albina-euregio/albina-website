@@ -88,8 +88,8 @@ export class ObservationsMapService {
       ]
     });
 
-    this.initLayer(map, this.observationSourceLayers, document.getElementById("sourcesDiv"), onObservationClick);
-    this.initLayer(map, this.observationTypeLayers, document.getElementById("typesDiv"), onObservationClick);
+    //this.initLayer(map, this.observationSourceLayers, document.getElementById("sourcesDiv"), onObservationClick);
+    //this.initLayer(map, this.observationTypeLayers, document.getElementById("typesDiv"), onObservationClick);
     this.observationsMap = map;
   }
 
