@@ -98,7 +98,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
                 label: this.translateService.instant("observations.showTable"), 
                 icon: '',
                 command: (event) => {
-                  this.showTable != this.showTable
+                  console.log("showTable", this.showTable);
+                  this.showTable = !this.showTable
                 }
               },
               {
@@ -188,8 +189,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
+  closeTable(){
+    this.showTable = false;
+  } 
+
   newObservation() {
-    this.showTable = true;
     this.observationTableComponent.newObservation();
   }
 
