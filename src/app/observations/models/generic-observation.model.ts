@@ -17,7 +17,9 @@ export type TranslationFunction = (key: string) => string;
 export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
-  $extraDialogRows?: (t: TranslationFunction) => ObservationTableRow[];
+  $extraDialogRows?:
+    | ObservationTableRow[]
+    | ((t: TranslationFunction) => ObservationTableRow[]);
   stability?: Stability;
   $markerRadius?: number;
   $source: ObservationSource;
@@ -42,7 +44,7 @@ const colors: Record<Stability, string> = {
   good: "green",
   medium: "orange",
   weak: "red",
-  unknown: "gray"
+  unknown: "gray",
 };
 
 export function toMarkerColor(observation: GenericObservation) {
@@ -80,42 +82,44 @@ export enum ObservationType {
   Avalanche = "Avalanche",
   Blasting = "Blasting",
   Profile = "Profile",
-  Incident = "Incident"
+  Incident = "Incident",
 }
 
-export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
-  [ObservationSource.Albina]: "#ca0020",
-  [ObservationSource.AvalancheWarningService]: "#83e4f0",
-  [ObservationSource.LwdKipBeobachtung]: "#f781bf",
-  [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
-  [ObservationSource.LwdKipSperre]: "#455132",
-  [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
-  [ObservationSource.LawisSnowProfiles]: "#44a9db",
-  [ObservationSource.LawisIncidents]: "#b76bd9",
-  [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
-  [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
-  [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
-  [ObservationSource.AvaObsEvaluation]: "#018571",
-  [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
-  [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
-  [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
-  [ObservationSource.KipLiveEvaluation]: "#018571",
-  [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
-  [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
-  [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
-  [ObservationSource.NatlefsEvaluation]: "#018571",
-  [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
-  [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
-  [ObservationSource.WikisnowECT]: "#c6e667",
-});
+export const ObservationSourceColors: Record<ObservationSource, string> =
+  Object.freeze({
+    [ObservationSource.Albina]: "#ca0020",
+    [ObservationSource.AvalancheWarningService]: "#83e4f0",
+    [ObservationSource.LwdKipBeobachtung]: "#f781bf",
+    [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
+    [ObservationSource.LwdKipSperre]: "#455132",
+    [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
+    [ObservationSource.LawisSnowProfiles]: "#44a9db",
+    [ObservationSource.LawisIncidents]: "#b76bd9",
+    [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
+    [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
+    [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
+    [ObservationSource.AvaObsEvaluation]: "#018571",
+    [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
+    [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
+    [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
+    [ObservationSource.KipLiveEvaluation]: "#018571",
+    [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
+    [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
+    [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
+    [ObservationSource.NatlefsEvaluation]: "#018571",
+    [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
+    [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
+    [ObservationSource.WikisnowECT]: "#c6e667",
+  });
 
-export const ObservationTypeIcons: Record<ObservationType, string> = Object.freeze({
-   [ObservationType.Observation]: appCircleAddIcon.data,
-   [ObservationType.Incident]: appCircleAlertIcon.data,
-   [ObservationType.Profile]: appCircleCheckIcon.data,
-   [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
-   [ObservationType.Blasting]: appCircleFullIcon.data,
-});
+export const ObservationTypeIcons: Record<ObservationType, string> =
+  Object.freeze({
+    [ObservationType.Observation]: appCircleAddIcon.data,
+    [ObservationType.Incident]: appCircleAlertIcon.data,
+    [ObservationType.Profile]: appCircleCheckIcon.data,
+    [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
+    [ObservationType.Blasting]: appCircleFullIcon.data,
+  });
 
 export enum Aspect {
   N = "N",
@@ -125,7 +129,7 @@ export enum Aspect {
   S = "S",
   SW = "SW",
   W = "W",
-  NW = "NW"
+  NW = "NW",
 }
 
 export interface ObservationTableRow {
@@ -137,19 +141,30 @@ export interface ObservationTableRow {
   value?: string;
 }
 
-export function toObservationTable(observation: GenericObservation, t: TranslationFunction): ObservationTableRow[] {
+export function toObservationTable(
+  observation: GenericObservation,
+  t: (key: string) => string
+): ObservationTableRow[] {
   return [
     { label: t("observations.eventDate"), date: observation.eventDate },
     { label: t("observations.reportDate"), date: observation.reportDate },
     { label: t("observations.authorName"), value: observation.authorName },
     { label: t("observations.locationName"), value: observation.locationName },
     { label: t("observations.elevation"), number: observation.elevation },
-    { label: t("observations.aspect"), value: observation.aspect !== undefined ? t("aspect." + observation.aspect) : undefined },
-    { label: t("observations.comment"), value: observation.content }
+    {
+      label: t("observations.aspect"),
+      value:
+        observation.aspect !== undefined
+          ? t("aspect." + observation.aspect)
+          : undefined,
+    },
+    { label: t("observations.comment"), value: observation.content },
   ];
 }
 
-export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
+export function toAspect(
+  aspect: Enums.Aspect | string | undefined
+): Aspect | undefined {
   if (typeof aspect === "number") {
     const string = Enums.Aspect[aspect];
     return Aspect[string];
