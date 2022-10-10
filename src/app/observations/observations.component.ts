@@ -145,7 +145,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };
     } else {
-      const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
+      const extraRows = Array.isArray(observation.$extraDialogRows)
+        ? observation.$extraDialogRows
+        : typeof observation.$extraDialogRows === "function"
+        ? observation.$extraDialogRows((key) => this.translateService.instant(key))
+        : [];
       const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };

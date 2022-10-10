@@ -10,7 +10,12 @@ import { Integrations } from "@sentry/tracing";
 
 if (environment.production) {
   enableProdMode();
+  enableSentry();
+}
 
+platformBrowserDynamic().bootstrapModule(AppModule);
+
+function enableSentry() {
   Sentry.init({
     release: [pkg.name, pkg.version].join("@"),
     dsn: "https://glet_31733ac62aeee70b77494f532cb4f898@gitlab.com/api/v4/error_tracking/collector/2700759",
@@ -22,5 +27,3 @@ if (environment.production) {
     tracesSampleRate: 1.0,
   });
 }
-
-platformBrowserDynamic().bootstrapModule(AppModule);
