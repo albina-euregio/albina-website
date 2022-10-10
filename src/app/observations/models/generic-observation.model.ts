@@ -15,26 +15,77 @@ import { appCircleStopIcon } from "../../svg/circle_stop";
 export type TranslationFunction = (key: string) => string;
 
 export interface GenericObservation<Data = any> {
+  /**
+   * Additional data (e.g. original data stored when fetching from external API)
+   */
   $data: Data;
+  /**
+   * External URL/image to display as iframe
+   */
   $externalURL?: string;
+  /**
+   * Additional information to display as table rows in the observation dialog
+   */
   $extraDialogRows?:
     | ObservationTableRow[]
     | ((t: TranslationFunction) => ObservationTableRow[]);
+  /**
+   * Snowpack stability that can be inferred from this observation
+   */
   stability?: Stability;
+  /**
+   * Radius of the map marker
+   */
   $markerRadius?: number;
   $source: ObservationSource;
   $type: ObservationType;
+  /**
+   * Aspect corresponding with this observation
+   */
   aspect?: Aspect;
+  /**
+   * Name of the author
+   */
   authorName: string;
+  /**
+   * Free-text content
+   */
   content: string;
+  /**
+   * Elevation in meters
+   */
   elevation: number;
+  /**
+   * Date when the event occurred
+   */
   eventDate: Date;
+  /**
+   * Location latitude (WGS 84)
+   */
   latitude: number;
+  /**
+   * Location name
+   */
   locationName: string;
+  /**
+   * Location longitude (WGS 84)
+   */
   longitude: number;
+  /**
+   * Micro-region code (computed from latitude/longitude)
+   */
   region: string;
+  /**
+   * Date when the observation has been reported
+   */
   reportDate?: Date;
+  /**
+   * Avalanche problem corresponding with this observation
+   */
   avalancheProblem?: Enums.AvalancheProblem;
+  /**
+   * Danger pattern corresponding with this observation
+   */
   dangerPattern?: Enums.DangerPattern;
 }
 
