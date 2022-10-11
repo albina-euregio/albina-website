@@ -11,6 +11,7 @@ export class BaseComponent implements OnInit {
 
   @Input() caption: String
   @Input() translationBase: String
+  @Input() formatter: String
   @Input() type: String
   @Input() dataset: Object
   @Output() onChange: EventEmitter<any> = new EventEmitter();
