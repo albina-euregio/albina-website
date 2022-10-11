@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges, OnChanges, OnInit, EventEmitter, Outpu
 import { BaseComponent } from '../base/base-chart.component';
 import { TranslateService } from "@ngx-translate/core";
 
-const barWidth = 5;
+const barWidth = 3;
 const defaultDataBarOptions = {
     type: 'bar',
     barWidth: barWidth,
@@ -28,8 +28,23 @@ export class BarChartComponent extends BaseComponent implements OnInit {
         // title: {
         //     text: 'bar chart'
         // },
-        tooltip: {},
+        grid: [
+            {
+              top: '5px',
+              left: 0,
+              right: 0,
+              bottom: 0
+            }
+        ],
+        tooltip: {
+            position: ['50%', '5']
+        },
         yAxis: {
+            inverse: true,
+            min: 0,
+            max: 10,
+            boundaryGap: true,
+            scale: true,
             type: 'category',
             axisLabel: {
                 show: false,
@@ -45,6 +60,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             }
         },
         xAxis: {
+
             axisLabel: {
                 show: false,
             },
@@ -78,7 +94,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 ...defaultDataBarOptions,
                 label: {
                     fontWeight: "bold",
-                    fontSize: 14,
+                    fontSize: 12,
                     color: "#999",
                     position: [0, -14],
                     formatter: (params) => {

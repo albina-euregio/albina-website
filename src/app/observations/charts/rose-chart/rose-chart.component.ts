@@ -24,7 +24,15 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         // title: {
         //     text: this.caption || 'points of the compass chart'
         // },
+        grid: [
+            {
+              top: '5px',
+              left: 0,
+              right: 0
+            }
+        ],
         tooltip: {
+            position: ['50%', '50%'],
             trigger: 'item',
             textStyle: {
                 color: '#000'
@@ -82,7 +90,9 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
                 show: false 
             },
         },
-        polar: {},
+        polar: {
+            center: ['50%', '115px']
+        },
         series: [{
             ...barDefaults
         }, 
