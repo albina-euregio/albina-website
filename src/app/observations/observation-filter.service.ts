@@ -255,12 +255,14 @@ export class ObservationFilterService {
       }
     });
 
-    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+    const dataset = [];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
-//    console.log("getElevationDataset ##4 dataset", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.unshift([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
+    dataset.unshift(['category', 'max', 'all','selected', 'highlighted']);    
+
     return {dataset: {source: dataset}}
   }
+  
 
   public getAvalancheProblemDataset(observations: GenericObservation[]) {
     const dataRaw = {};
