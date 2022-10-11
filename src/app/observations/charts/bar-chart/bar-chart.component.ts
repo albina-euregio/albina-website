@@ -37,7 +37,8 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             }
         ],
         tooltip: {
-            position: ['50%', '5']
+            //position: ['50%', '5'],
+            confine: true
         },
         yAxis: {
             inverse: true,

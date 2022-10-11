@@ -32,7 +32,8 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             }
         ],
         tooltip: {
-            position: ['50%', '50%'],
+            //position: ['50%', '5'],
+            confine: true,
             trigger: 'item',
             textStyle: {
                 color: '#000'
