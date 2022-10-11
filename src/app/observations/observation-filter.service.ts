@@ -387,7 +387,7 @@ export class ObservationFilterService {
   isIncluded(filter: LocalFilterTypes, testData: any, testHighlighted: boolean = false): boolean {
 
     let testField = "selected";
-    console.log("isIncluded ##1", filter, testData, this.filterSelection[filter][testField], testHighlighted);
+    // console.log("isIncluded ##1", filter, testData, this.filterSelection[filter][testField], testHighlighted);
     
     if(!testHighlighted) {
       return (
