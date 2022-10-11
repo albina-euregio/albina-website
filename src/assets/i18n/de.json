@@ -118,6 +118,7 @@
       },
       "save": " Speichern",
       "discard": " Verwerfen",
+      "close" : " Schließen",
       "back": " Zurück",
       "createAggregatedRegion": " Neue Region",
       "pasteAggregatedRegion": " Region einfügen",
@@ -577,6 +578,10 @@
         "dangerPattern": {
           "caption": "Gefahrenmuster"
         }
+        ,
+        "days": {
+          "caption": "Tag"
+        }
       }
     },
     "blog": {
@@ -779,7 +784,8 @@
       "save": "Beobachtung speichern",
       "delete": "Beobachtung löschen",
       "deleteConfirm": "Beobachtung wirklich löschen?",
-      "discard": "Verwerfen"
+      "discard": "Verwerfen",
+      "close" : " Schließen"
     },
     "comment": "Kommentar",
     "content": "Inhalt",

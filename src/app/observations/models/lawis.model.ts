@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect } from "./generic-observation.model";
+import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -240,7 +240,7 @@ export function toLawisIncidentDetails(
   };
 }
 
-export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
+export function toLawisIncidentTable(incident: IncidentDetails, t: TranslationFunction): ObservationTableRow[] {
   const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
   const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];

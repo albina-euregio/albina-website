@@ -98,7 +98,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
                 label: this.translateService.instant("observations.showTable"), 
                 icon: '',
                 command: (event) => {
-                  this.showTable != this.showTable
+                  console.log("showTable", this.showTable);
+                  this.showTable = !this.showTable
                 }
               },
               {
@@ -135,14 +136,17 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.loadObservations();
     this.mapService.observationsMap.on("click", () => {
-      const region = this.mapService2.getClickedRegion().toString()
+
+      console.log("this.mapService.observationsMap click", this.mapService.overlayMaps.editSelection);
+      //return;
+      // const region = this.mapService.getClickedRegion().toString()
       
-      if (this.filter.regions.includes(region)) {
-        this.filter.regions = this.filter.regions.filter(entry => entry !== region);
-      } else {
-        this.filter.regions.push(region);
-      }
-      console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
+      // if (this.filter.regions.includes(region)) {
+      //   this.filter.regions = this.filter.regions.filter(entry => entry !== region);
+      // } else {
+      //   this.filter.regions.push(region);
+      // }
+      // console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
       //this.loadObservations()
     })
   }
@@ -188,8 +192,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
+  closeTable(){
+    this.showTable = false;
+  } 
+
   newObservation() {
-    this.showTable = true;
     this.observationTableComponent.newObservation();
   }
 
@@ -313,15 +320,17 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     styledObservation.bubblingMouseEvents = false;
     //styledObservation.riseOnHover = true;
     const marker = new Marker(ll, styledObservation);
-    if (this.mapService.USE_CANVAS_LAYER) {
-      // @ts-ignore
-      marker.observation = observation;
-    } else {
-      marker.on("click", () => this.onObservationClick(observation));
-    }
+    // if (this.mapService.USE_CANVAS_LAYER) {
+    //   // @ts-ignore
+    //   marker.observation = observation;
+    // } else {
+      
+    // }
+    marker.on("click", () => this.onObservationClick(observation));
     marker.bindTooltip(observation.locationName + " " + observation.filterType);
+    marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
-    console.log("drawMarker xx05", this.mapService.USE_CANVAS_LAYER, observation.$source, observation.$type);
+    console.log("drawMarker xx05", marker);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
@@ -355,7 +364,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };
     } else {
-      const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
+      const extraRows = Array.isArray(observation.$extraDialogRows)
+        ? observation.$extraDialogRows
+        : typeof observation.$extraDialogRows === "function"
+        ? observation.$extraDialogRows((key) => this.translateService.instant(key))
+        : [];
       const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };

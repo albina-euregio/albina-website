@@ -346,6 +346,12 @@ export class AuthenticationService {
       this.externalServers.push(ServerModel.createFromJson(server));
   }
 
+  public isInSuperRegion(region: string) {
+    if(region.startsWith(this.getActiveRegionId())) return true;
+    if(this.activeRegion.neighborRegions.some(aNeighbor => region.startsWith(aNeighbor))) return true;
+    return false;
+  }
+
   public isExternalRegion(region: string) {
     if (this.constantsService.codeTyrol === region || this.constantsService.codeSouthTyrol === region || this.constantsService.codeTrentino === region)
       return false;
