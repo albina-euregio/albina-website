@@ -1,7 +1,7 @@
 import { Component, Input, SimpleChanges, OnChanges, OnInit, EventEmitter, Output  } from '@angular/core';
 import { BaseComponent } from '../base/base-chart.component';
 import { TranslateService } from "@ngx-translate/core";
-
+import { formatDate } from "@angular/common";
 const barWidth = 3;
 const defaultDataBarOptions = {
     type: 'bar',
@@ -23,7 +23,17 @@ const defaultDataBarOptions = {
 })
 export class BarChartComponent extends BaseComponent implements OnInit {
 
-    
+
+    public formatLabel = (params) => {
+        //console.log("formatter", this.formatter, params.value[0], this.translateService.instant(this.translationBase + params.value[0])); 
+        if(this.formatter === 'date') {
+            const format = "yyyy-MM-dd";
+            const locale = "en-US";
+            return formatDate(params.value[0], format, locale);   
+        }
+        return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]): params.value[0];
+    }
+
     public readonly defaultOptions = {
         // title: {
         //     text: 'bar chart'
@@ -37,7 +47,8 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             }
         ],
         tooltip: {
-            position: ['50%', '5']
+            //position: ['50%', '5'],
+            confine: true
         },
         yAxis: {
             inverse: true,
@@ -97,15 +108,19 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                     fontSize: 12,
                     color: "#999",
                     position: [0, -14],
-                    formatter: (params) => {
-                        //console.log("formatter", params.value[0], this.translateService.instant(this.translationBase + params.value[0])); 
-                        return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]): params.value[0];
-                    },
+                    formatter: this.formatLabel,
                     show: true
                 },
     
                 itemStyle: {
                     color: '#bbb'
+                }
+            },
+            {
+                ...defaultDataBarOptions,
+                barWidth: 3 * barWidth,
+                itemStyle: {
+                    color: '#ffff00'
                 }
             },
             {
@@ -119,7 +134,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 itemStyle: {
                     color: '#3daee9'
                 }
-            },
+            }
     
         ]
     };
