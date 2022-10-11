@@ -118,6 +118,13 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             },
             {
                 ...defaultDataBarOptions,
+                barWidth: 3 * barWidth,
+                itemStyle: {
+                    color: '#ffff00'
+                }
+            },
+            {
+                ...defaultDataBarOptions,
                 itemStyle: {
                     color: '#333'
                 }
@@ -127,7 +134,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 itemStyle: {
                     color: '#3daee9'
                 }
-            },
+            }
     
         ]
     };

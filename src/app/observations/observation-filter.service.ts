@@ -197,7 +197,7 @@ export class ObservationFilterService {
     const dataRaw = {};
     //console.log("getAspectDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.Aspect]["all"].forEach(key => dataRaw[key] = {"all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.Aspect]["all"].forEach(key => dataRaw[key] = {"all": 0, "available": 0, "selected": this.filterSelection[LocalFilterTypes.Aspect].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.Aspect].highlighted.includes(key) ? 1 : 0})
 
     observations.forEach(observation => {
       //console.log("getAspectDataset ##2", observation);
@@ -205,13 +205,13 @@ export class ObservationFilterService {
         //console.log("getAspectDataset ##3", observation);
         dataRaw[observation.aspect].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.aspect].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.aspect].available++;
       }
     });
     //console.log("getAspectDataset", dataRaw);
-    const dataset = [['category', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'all', 'highlighted','available', 'selected']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"], values["highlighted"] === 1 ? values["all"] * DATASET_MAX_FACTOR * DATASET_MAX_FACTOR : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
     //console.log("getAspectDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
@@ -220,7 +220,7 @@ export class ObservationFilterService {
     const dataRaw = {};
     //console.log("getstabilityDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.Stability]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.Stability]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "available": 0, "selected": this.filterSelection[LocalFilterTypes.Stability].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.Stability].highlighted.includes(key) ? 1 : 0})
 
     observations.forEach(observation => {
       //console.log("getstabilityDataset ##2", observation);
@@ -228,14 +228,14 @@ export class ObservationFilterService {
         //console.log("getstabilityDataset ##3", observation);
         dataRaw[observation.stability].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.stability].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.stability].available++;
       }
     });
     //console.log("getstabilityDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-//    console.log("getstabilityDataset ##4 dataset", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
+    //    console.log("getstabilityDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -243,7 +243,7 @@ export class ObservationFilterService {
 //    console.log("getElevationDataset ##1", observations);
     const dataRaw = {};
 
-    this.filterSelection[LocalFilterTypes.Elevation]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.Elevation]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "available": 0, "selected": this.filterSelection[LocalFilterTypes.Elevation].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.Elevation].highlighted.includes(key) ? 1 : 0})
 
 //    console.log("getElevationDataset ##2", dataRaw);
     observations.forEach(observation => {
@@ -251,14 +251,14 @@ export class ObservationFilterService {
         const elevationIndex = this.getElevationIndex(observation.elevation);
 //        console.log("getElevationDataset ##3", dataRaw, elevationIndex, observation.elevation);
         dataRaw[elevationIndex].all++;
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[elevationIndex].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[elevationIndex].available++;
       }
     });
 
     const dataset = [];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.unshift([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0] );
-    dataset.unshift(['category', 'max', 'all','selected', 'highlighted']);    
+    for (const [key, values] of Object.entries(dataRaw)) dataset.unshift([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
+    dataset.unshift(['category', 'max', 'all', 'highlighted', 'available', 'selected']);    
 
     return {dataset: {source: dataset}}
   }
@@ -268,7 +268,7 @@ export class ObservationFilterService {
     const dataRaw = {};
 //    console.log("getAvalancheProblemDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.AvalancheProblem].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
 
     observations.forEach(observation => {
       //console.log("getAvalancheProblemDataset ##2", observation);
@@ -276,14 +276,14 @@ export class ObservationFilterService {
         //console.log("getAvalancheProblemDataset ##3", observation);
         dataRaw[observation.avalancheProblem].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].available++;
       }
     });
     //console.log("getAvalancheProblemDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-//    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
+    //    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
 
@@ -291,7 +291,7 @@ export class ObservationFilterService {
     const dataRaw = {};
 //    console.log("getDangerPatternDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.DangerPattern].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
 
     observations.forEach(observation => {
 //      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
@@ -299,13 +299,13 @@ export class ObservationFilterService {
 //        console.log("getDangerPatternDataset ##3", observation);
         dataRaw[observation.dangerPattern].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].selected++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].available++;
       }
     });
     //console.log("getDangerPatternDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'max', 'all','available','selected', 'highlighted']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
 //    console.log("getDangerPatternDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
   }
@@ -319,7 +319,7 @@ export class ObservationFilterService {
     const dataRaw = {};
 //    console.log("getDangerPatternDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.Days]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "selected": 0, "highlighted": this.filterSelection[LocalFilterTypes.Days].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.Days]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, 'available': 0, "selected": this.filterSelection[LocalFilterTypes.Days].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.Days].highlighted.includes(key) ? 1 : 0})
     console.log("getDaysDataset ##4", this.filterSelection[LocalFilterTypes.Days], observations);
     observations.forEach(observation => {
 //      console.log("getDaysDataset ##2", observation.dangerPattern);
@@ -328,7 +328,7 @@ export class ObservationFilterService {
         console.log("getDaysDataset ##2", dateId);
         if(dataRaw[dateId]) {
           dataRaw[dateId].all++;
-          if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].selected++;
+          if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].available++;
         } else console.error("observations-filter.service->getDayDataset Date not found ##4", dateId, observation)
         
         
@@ -336,10 +336,10 @@ export class ObservationFilterService {
       }
     });
     //console.log("getDaysDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','selected', 'highlighted']];
+    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["selected"], values["highlighted"] === 1 ? values["all"] : 0]);
-    console.log("getDaysDataset ##4 dataset", dataset);
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
+    //console.log("getDaysDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}}
 
   }

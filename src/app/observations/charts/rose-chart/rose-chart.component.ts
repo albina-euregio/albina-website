@@ -53,7 +53,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         //         ['NW', 90, 80, 0],
         //     ]
         // },
-        color: ["#bbb", "#333", "#3daee9"],
+        color: ["#bbb", "#ffff00", "#333", "#3daee9"],
         angleAxis: {
             type: 'category',
             
@@ -89,7 +89,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             },
             axisLine: {
                 show: false 
-            },
+            }
         },
         polar: {
             center: ['50%', '115px']
@@ -103,9 +103,9 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         {
             ...barDefaults
         }, 
-        // {
-        //     ...barDefaults
-        // }, 
+        {
+            ...barDefaults
+        }, 
         // {
         //     ...barDefaults
         // }, 
