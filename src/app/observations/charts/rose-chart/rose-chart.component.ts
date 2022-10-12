@@ -59,7 +59,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         color: ["#B1C1C7", "#FFFFCC", "#000", "#19ABFF"],
         angleAxis: {
             type: 'category',
-            
+            z: 10,
             startAngle: 110,
             axisTick: {
                 show: false 
