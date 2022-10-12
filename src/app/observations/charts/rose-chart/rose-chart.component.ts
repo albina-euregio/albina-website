@@ -28,7 +28,8 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             {
               top: '10px',
               left: 0,
-              right: 0
+              right: 0,
+              bottom: 0
             }
         ],
         tooltip: {
@@ -94,19 +95,34 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             }
         },
         polar: {
-            center: ['50%', '115px']
+            center: ['50%', '115px'],
+            emphasis: {
+                disabled: true
+            }
         },
         series: [{
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         // {
         //     ...barDefaults

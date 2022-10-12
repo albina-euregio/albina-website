@@ -93,6 +93,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 type: 'bar',
                 barWidth: barWidth,
                 animation: false,
+                barGap: "-100%",
                 tooltip: {
                     show: false
                 },
@@ -100,12 +101,13 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 backgroundStyle: {
                     color: '#F6F6F6'
                 },
-                barGap: "-100%",
                 itemStyle: {
                     color: '#FAC',
                     borderWidth: 0
                 },
-    
+                emphasis: {
+                    disabled: true
+                }
             },
             {
                 ...defaultDataBarOptions,
@@ -128,16 +130,27 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             },
             {
                 ...defaultDataBarOptions,
-                barWidth: 6 * barWidth,
+                z: '-2',
+                barWidth: barWidth,
+                // barMinHeight: 6,
                 itemStyle: {
+                    color: '#FFFF4D',
                     //yellow
-                    color: '#FFFFCC'
+                    shadowColor: '#FFFF4D',
+                    shadowBlur: 0,
+                    shadowOffsetY: barWidth
+                },
+                emphasis: {
+                    disabled: true
                 }
             },
             {
                 ...defaultDataBarOptions,
                 itemStyle: {
                     color: '#000000'
+                },
+                emphasis: {
+                    disabled: true
                 }
             },
             {
@@ -145,6 +158,9 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 itemStyle: {
                     //blue
                     color: '#19ABFF'
+                },
+                emphasis: {
+                    disabled: true
                 }
             }
     
