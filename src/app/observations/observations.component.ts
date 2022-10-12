@@ -197,6 +197,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   } 
 
   newObservation() {
+    this.showTable = true;
     this.observationTableComponent.newObservation();
   }
 
