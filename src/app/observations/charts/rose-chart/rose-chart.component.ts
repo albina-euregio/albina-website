@@ -26,17 +26,20 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         // },
         grid: [
             {
-              top: '5px',
+              top: '10px',
               left: 0,
-              right: 0
+              right: 0,
+              bottom: 0
             }
         ],
         tooltip: {
             //position: ['50%', '5'],
             confine: true,
             trigger: 'item',
+            borderWidth: '0',
             textStyle: {
-                color: '#000'
+                color: '#839194',
+                fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }
         },
         // dataset: {
@@ -53,10 +56,10 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         //         ['NW', 90, 80, 0],
         //     ]
         // },
-        color: ["#bbb", "#ffff00", "#333", "#3daee9"],
+        color: ["#B1C1C7", "#FFFFCC", "#000", "#19ABFF"],
         angleAxis: {
             type: 'category',
-            
+            z: 10,
             startAngle: 110,
             axisTick: {
                 show: false 
@@ -92,19 +95,34 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             }
         },
         polar: {
-            center: ['50%', '115px']
+            center: ['50%', '115px'],
+            emphasis: {
+                disabled: true
+            }
         },
         series: [{
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         {
-            ...barDefaults
+            ...barDefaults,
+            emphasis: {
+                disabled: true
+            }
         }, 
         // {
         //     ...barDefaults

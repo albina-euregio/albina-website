@@ -26,12 +26,12 @@
 					<!-- !global-bar-left -->
 					<div class="global-bar global-bar-left">
 
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-load">
               <button type="button" pButton class="p-button-text" (click)="loadObservations()"
                 [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
             </div>
           
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-source">
               <p-multiSelect 
               placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
               [options]="allSources" 
@@ -42,7 +42,7 @@
               ></p-multiSelect>
             </div>
           
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-region">
               <p-multiSelect 
               placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
               [options]="allRegions" 
@@ -53,18 +53,22 @@
               ></p-multiSelect>
             </div>
             
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-calendar">
               <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="false" dateFormat="dd.mm.yy">
               </p-calendar>
               <div class="obs-switch">
-                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 1})"
-                  label="1d"></button>
-                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 2})"
-                  label="2d"></button>
-                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 3})"
-                  label="3d"></button>
-                <button type="button" pButton class="p-button-text" (click)="loadObservations({days: 7})"
-                  label="7d"></button>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 1})">
+                  <span class="switch-text">1d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 2})">
+                  <span class="switch-text">2d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 3})">
+                  <span class="switch-text">3d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 7})">
+                  <span class="switch-text">7d</span>
+                </div>
               </div>
             </div>
           
@@ -76,12 +80,12 @@
           <!-- !global-bar-right -->
           <div class="global-bar global-bar-right">
 
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-add">
               <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
                 label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
             </div>
 
-            <div class="global-bar-item">
+            <div class="global-bar-item global-bar-item-more">
                 <p-menubar [model]="moreItems"></p-menubar>
             </div>
 
@@ -162,7 +166,8 @@
       <!-- !layout-charts -->
       <div class="layout-charts">
         
-        <app-rose-chart 
+        <app-rose-chart
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.aspect.caption' | translate"
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
@@ -170,6 +175,7 @@
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.days.caption' | translate"
           [type]="LocalFilterTypes.Days"
           [dataset]="chartsData.Days"  
@@ -177,6 +183,7 @@
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [dataset]="chartsData.Elevation"  
@@ -184,12 +191,14 @@
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
           [dataset]="chartsData.Stability"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
@@ -197,6 +206,7 @@
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
+          class="layout-chart-container"
           [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
@@ -214,14 +224,33 @@
 
 
 
+    <!-- !layout-switch -->
+    <div class="layout-switch">
+			<div class="layout-switch-map obs-button">
+				<span class="button-icon pi pi-map"></span>
+				<span class="button-text">Map</span>
+			</div>
+			<div class="layout-switch-table obs-button">
+				<span class="button-icon pi pi-list"></span>
+				<span class="button-text">Table</span>
+			</div>
+			<div class="layout-switch-charts obs-button">
+				<span class="button-icon pi pi-chart-bar"></span>
+				<span class="button-text">Charts</span>
+			</div>
+		</div>
+    <!-- /layout-switch -->
+
+
+
   </div>
   <!-- /layout-observations-inner -->
 
 
 
-  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="col-md-12 section-observations-table">
+  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="layout-table">
     <div class="card" style="height: 100%;">
-      <div class="card-header">
+      <!-- <div class="card-header">
         {{ "sidebar.observations" | translate }}
         <button
         type="button"
@@ -229,9 +258,9 @@
         icon="pi pi-times"
         (click)="closeTable()"
         label="{{ 'observations.button.close' | translate }}"
-        class="ui-button-secondary"
+        class="p-button-text"
       ></button>  
-      </div>
+      </div> -->
       <div class="card-block" style="overflow-y: auto;">
         <div>
           <app-observation-table #observationTable [observations]="observations"
