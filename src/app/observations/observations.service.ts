@@ -62,7 +62,7 @@ export class ObservationsService {
   }
 
   private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
-    console.error(message, err);
+    //console.error(message, err);
     return Observable.of();
   }
 

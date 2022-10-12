@@ -155,6 +155,13 @@ export class ObservationsMapService {
     return null;
   }
 
+  getSelectedRegions() {
+    let selected = [];
+    for (const entry of this.overlayMaps.editSelection.getLayers()) {
+      if (entry.feature.properties.selected) selected.push(entry.feature.properties);
+    }
+    return selected;
+  }
 
 
   updateEditSelection() {
@@ -170,7 +177,7 @@ export class ObservationsMapService {
 
   private getUserDependentRegionStyle(region) {
     let opacity = this.constantsService.lineOpacityForeignRegion;
-    console.log("getUserDependentRegionStyle ##09", region);
+    //console.log("getUserDependentRegionStyle ##09", region);
     if (this.authenticationService.isInSuperRegion(region)) {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
