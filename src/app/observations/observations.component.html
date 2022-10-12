@@ -214,22 +214,41 @@
 
 
 
+    <!-- !layout-switch -->
+    <div class="layout-switch">
+			<div class="layout-switch-map obs-button">
+				<span class="button-icon pi pi-map"></span>
+				<span class="button-text">Map</span>
+			</div>
+			<div class="layout-switch-table obs-button">
+				<span class="button-icon pi pi-list"></span>
+				<span class="button-text">Table</span>
+			</div>
+			<div class="layout-switch-charts obs-button">
+				<span class="button-icon pi pi-chart-bar"></span>
+				<span class="button-text">Charts</span>
+			</div>
+		</div>
+    <!-- /layout-switch -->
+
+
+
   </div>
   <!-- /layout-observations-inner -->
 
 
 
-  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="col-md-12 section-observations-table">
+  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="obs-table">
     <div class="card" style="height: 100%;">
       <div class="card-header">
-        {{ "sidebar.observations" | translate }}
+        <!-- {{ "sidebar.observations" | translate }} -->
         <button
         type="button"
         pButton
         icon="pi pi-times"
         (click)="closeTable()"
         label="{{ 'observations.button.close' | translate }}"
-        class="ui-button-secondary"
+        class="p-button-text"
       ></button>  
       </div>
       <div class="card-block" style="overflow-y: auto;">

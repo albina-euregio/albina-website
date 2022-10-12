@@ -40,15 +40,22 @@ export class BarChartComponent extends BaseComponent implements OnInit {
         // },
         grid: [
             {
-              top: '5px',
+              top: '10px',
               left: 0,
               right: 0,
               bottom: 0
             }
         ],
         tooltip: {
-            //position: ['50%', '5'],
-            confine: true
+            // position: ['50%', '5'],
+            // trigger: 'axis',
+            confine: true,
+            // position: 'right',
+            borderWidth: '0',
+            textStyle: {
+                color: '#839194',
+                fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+            }
         },
         yAxis: {
             inverse: true,
@@ -71,7 +78,6 @@ export class BarChartComponent extends BaseComponent implements OnInit {
             }
         },
         xAxis: {
-
             axisLabel: {
                 show: false,
             },
@@ -82,7 +88,8 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                 show: false
             },
         },
-        series: [{
+        series: [
+            {
                 type: 'bar',
                 barWidth: barWidth,
                 animation: false,
@@ -90,49 +97,54 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                     show: false
                 },
                 showBackground: true,
-                emphasis: {
-                    disabled: true
+                backgroundStyle: {
+                    color: '#F6F6F6'
                 },
                 barGap: "-100%",
                 itemStyle: {
-                    color: 'white',
-                    borderColor: "#eee",
-                    borderWidth: 1
+                    color: '#FAC',
+                    borderWidth: 0
                 },
     
             },
             {
                 ...defaultDataBarOptions,
                 label: {
-                    fontWeight: "bold",
+                    fontWeight: "normal",
                     fontSize: 12,
-                    color: "#999",
+                    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+                    //grey
+                    color: "#839194",
                     position: [0, -14],
                     formatter: this.formatLabel,
                     show: true
                 },
-    
                 itemStyle: {
-                    color: '#bbb'
+                    color: '#B1C1C7'
+                },
+                emphasis: {
+                    disabled: true
                 }
             },
             {
                 ...defaultDataBarOptions,
-                barWidth: 3 * barWidth,
+                barWidth: 6 * barWidth,
                 itemStyle: {
-                    color: '#ffff00'
+                    //yellow
+                    color: '#FFFFCC'
                 }
             },
             {
                 ...defaultDataBarOptions,
                 itemStyle: {
-                    color: '#333'
+                    color: '#000000'
                 }
             },
             {
                 ...defaultDataBarOptions,
                 itemStyle: {
-                    color: '#3daee9'
+                    //blue
+                    color: '#19ABFF'
                 }
             }
     

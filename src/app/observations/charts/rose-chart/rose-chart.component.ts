@@ -26,7 +26,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         // },
         grid: [
             {
-              top: '5px',
+              top: '10px',
               left: 0,
               right: 0
             }
@@ -35,8 +35,10 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
             //position: ['50%', '5'],
             confine: true,
             trigger: 'item',
+            borderWidth: '0',
             textStyle: {
-                color: '#000'
+                color: '#839194',
+                fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
             }
         },
         // dataset: {
@@ -53,7 +55,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         //         ['NW', 90, 80, 0],
         //     ]
         // },
-        color: ["#bbb", "#ffff00", "#333", "#3daee9"],
+        color: ["#B1C1C7", "#FFFFCC", "#000", "#19ABFF"],
         angleAxis: {
             type: 'category',
             
