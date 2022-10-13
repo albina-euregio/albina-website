@@ -27,7 +27,7 @@ import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
-import { MapService } from "../providers/map-service/map.service";
+
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 declare var L: any;
@@ -78,7 +78,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
     public mapService: ObservationsMapService,
-    public mapService2: MapService
   ) {
 
     this.allRegions = this.regionsService
@@ -143,19 +142,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
       this.filter.regions = this.mapService.getSelectedRegions().map(aRegion => aRegion.id)
 
-      console.log("this.mapService.observationsMap click #2", this.filter.regions);
+      //console.log("this.mapService.observationsMap click #2", this.filter.regions);
 
-      //this.loadObservations();
-      //return;
-      // const region = this.mapService.getClickedRegion().toString()
-      
-      // if (this.filter.regions.includes(region)) {
-      //   this.filter.regions = this.filter.regions.filter(entry => entry !== region);
-      // } else {
-      //   this.filter.regions.push(region);
-      // }
-      // console.log("this.mapService.observationsMap.on ##002", region, this.filter.regions);
-      //this.loadObservations()
+      this.loadObservations();
+
     })
   }
 

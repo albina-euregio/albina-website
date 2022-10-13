@@ -55,7 +55,7 @@ export class ObservationsMapService {
     regions: GeoJSON<SelectableRegionProperties>;
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
-    //aggregatedRegions: GeoJSON<SelectableRegionProperties>;
+    aggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
 
   public sidebarOptions: SidebarOptions = {
@@ -79,6 +79,47 @@ export class ObservationsMapService {
     this.observationTypeLayers = {} as any;
     Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = new LayerGroup());
     Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new LayerGroup());
+    this.prepear();
+  }
+
+
+  prepear() {
+    this.observationsMaps = {
+      OpenTopoMap: new TileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        className: "leaflet-layer-grayscale",
+        minZoom: 12.5,
+        maxZoom: 17,
+        attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+      }),
+      AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
+        minZoom: 5,
+        maxZoom: 12,
+        tms: false,
+        attribution: ""
+      })
+    };
+
+    console.log("initMaps", this.overlayMaps);
+    this.overlayMaps = {
+      // overlay to show micro regions without elevation (only outlines)
+      regions: new GeoJSON(this.regionsService.getRegions(), {
+        onEachFeature: this.onEachAggregatedRegionsFeature
+      }),
+
+      // overlay to show selected regions
+      activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
+
+      // overlay to select regions (when editing an aggregated region)
+      
+      editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
+      }),
+
+      // // overlay to show aggregated regions
+      aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
+    };
+
+
   }
 
   initMaps(el: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
@@ -97,6 +138,7 @@ export class ObservationsMapService {
       })
     };
 
+    console.log("initMaps", this.overlayMaps);
     this.overlayMaps = {
       // overlay to show micro regions without elevation (only outlines)
       regions: new GeoJSON(this.regionsService.getRegions(), {
@@ -107,12 +149,13 @@ export class ObservationsMapService {
       activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
       // overlay to select regions (when editing an aggregated region)
+      
       editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
         onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
       }),
 
       // // overlay to show aggregated regions
-      //aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
+      aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
     };
 
     const map = new Map(el, {
@@ -344,6 +387,7 @@ export class ObservationsMapService {
               }
             } else if (e.originalEvent.altKey) {
               const regions = regionsService.getLevel2Regions(feature.properties.id);
+              console.log("onEachFeature->click #4", overlayMaps);
               for (const entry of overlayMaps.editSelection.getLayers()) {
                 if (regions.includes(entry.feature.properties.id)) {
                   entry.feature.properties.selected = true;
