@@ -46,6 +46,7 @@ export interface MultiselectDropdownData {
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
+  public showCharts = false;
   public observations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
