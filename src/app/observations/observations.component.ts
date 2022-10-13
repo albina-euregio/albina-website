@@ -45,8 +45,7 @@ export interface MultiselectDropdownData {
 
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
-  public showTable = false;
-  public showCharts = false;
+  public layout = 'map'; // map,table,chart
   public observations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
@@ -186,16 +185,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   onSidebarChange(e: Event) {
     if (e.type === "opening") {
-      this.showTable = false;
+      this.layout = 'map';
     }
   }
 
   closeTable(){
-    this.showTable = false;
+    this.layout = 'map';
   } 
 
   newObservation() {
-    this.showTable = true;
+    this.layout = 'map';
     this.observationTableComponent.newObservation();
   }
 
@@ -297,6 +296,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   buildChartsData() {
 
+    
     this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
 
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)

@@ -1,5 +1,5 @@
 <!-- !layout-observations-outer -->
-<div class="layout-observations-outer" [ngClass]="{'layout--is-table': showTable, 'layout--is-map': !showTable, 'layout--is-charts': showCharts }">
+<div class="layout-observations-outer" [ngClass]="'layout--is-' + layout">
 
 
 	
@@ -175,14 +175,14 @@
           [caption] = "'admin.observations.charts.aspect.caption' | translate"
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
-          [dataset]="chartsData.Aspects" 
+          [data]="chartsData.Aspects" 
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.days.caption' | translate"
           [type]="LocalFilterTypes.Days"
-          [dataset]="chartsData.Days"  
+          [data]="chartsData.Days"  
           [formatter]="'date'"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -190,7 +190,7 @@
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
-          [dataset]="chartsData.Elevation"  
+          [data]="chartsData.Elevation"  
           
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -198,7 +198,7 @@
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
-          [dataset]="chartsData.Stability"  
+          [data]="chartsData.Stability"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
@@ -206,7 +206,7 @@
           [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
-          [dataset]="chartsData.AvalancheProblem"  
+          [data]="chartsData.AvalancheProblem"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
@@ -214,7 +214,7 @@
           [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
-          [dataset]="chartsData.DangerPattern"  
+          [data]="chartsData.DangerPattern"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
 
@@ -230,15 +230,15 @@
 
     <!-- !layout-switch -->
     <div class="layout-switch">
-			<div *ngIf="this.showTable" (click)="this.showTable=!this.showTable" class="layout-switch-map obs-button">
+			<div *ngIf="layout!=='map'" (click)="layout='map'" class="layout-switch-map obs-button">
 				<span class="button-icon pi pi-map"></span>
 				<span class="button-text">Map</span>
 			</div>
-			<div *ngIf="!this.showTable" (click)="this.showTable=!this.showTable" class="layout-switch-table obs-button">
+			<div *ngIf="layout!=='table'" (click)="layout='table'" class="layout-switch-table obs-button">
 				<span class="button-icon pi pi-list"></span>
 				<span class="button-text">Table</span>
 			</div>
-			<div (click)="this.showCharts=!this.showCharts" class="layout-switch-charts obs-button">
+			<div *ngIf="layout!=='chart'" (click)="layout='chart'" class="layout-switch-charts obs-button">
 				<span class="button-icon pi pi-chart-bar"></span>
 				<span class="button-text">Charts</span>
 			</div>
@@ -252,7 +252,7 @@
 
 
 
-  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="layout-table">
+  <div [ngStyle]="{ display: layout==='table' ? '' : 'none' }" class="layout-table">
     <div class="card" style="height: 100%;">
       <!-- <div class="card-header">
         {{ "sidebar.observations" | translate }}

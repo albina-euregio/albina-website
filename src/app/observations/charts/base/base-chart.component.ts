@@ -13,7 +13,7 @@ export class BaseComponent implements OnInit {
   @Input() translationBase: String
   @Input() formatter: String
   @Input() type: String
-  @Input() dataset: Object
+  @Input() data: {dataset: Object, nan: Number}
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
