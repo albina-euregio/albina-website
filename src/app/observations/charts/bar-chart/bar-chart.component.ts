@@ -98,11 +98,8 @@ export class BarChartComponent extends BaseComponent implements OnInit {
                     show: false
                 },
                 showBackground: true,
-                backgroundStyle: {
-                    color: '#F6F6F6'
-                },
                 itemStyle: {
-                    color: '#FAC',
+                    color: '#F6F6F6',
                     borderWidth: 0
                 },
                 emphasis: {
