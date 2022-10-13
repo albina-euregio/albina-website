@@ -49,13 +49,14 @@ export class ObservationFilterService {
   }
 
   toggleFilter(filterData: GenericFilterToggleData){
-    //console.log("toggleFilter ##1", filterData);
+    console.log("toggleFilter ##1", filterData);
     let curFilterType = this.filterSelection[filterData["type"]];
     let curFilterTypeSubset = "selected";
     if(filterData.data.altKey) curFilterTypeSubset = "highlighted";
 
     if(filterData.data.reset) {
-      curFilterType[curFilterTypeSubset] = [];
+      curFilterType["selected"] = [];
+      curFilterType["highlighted"] = [];
     } else if(filterData.data.invert) {
       //console.log("toggleFilter ##2.0", curFilterType[curFilterTypeSubset] )
       if(curFilterType[curFilterTypeSubset].length > 0) {
