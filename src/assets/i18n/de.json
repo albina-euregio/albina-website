@@ -557,10 +557,12 @@
         "observer": "Beobachter"
       },
       "selectRegion": {
-        "placeholder": "Region"
+        "placeholder": "Region",
+        "selectionLabel": "{0} Regionen"
       },
       "selectSources": {
-        "placeholder": "Daten"
+        "placeholder": "Daten",
+        "selectionLabel": "{0} Daten"
       },
       "charts": {
         "aspect": {
