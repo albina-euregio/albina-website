@@ -226,11 +226,11 @@
 
     <!-- !layout-switch -->
     <div class="layout-switch">
-			<div class="layout-switch-map obs-button">
+			<div *ngIf="this.showTable" (click)="this.showTable=!this.showTable" class="layout-switch-map obs-button">
 				<span class="button-icon pi pi-map"></span>
 				<span class="button-text">Map</span>
 			</div>
-			<div class="layout-switch-table obs-button">
+			<div *ngIf="!this.showTable"  (click)="this.showTable=!this.showTable" class="layout-switch-table obs-button">
 				<span class="button-icon pi pi-list"></span>
 				<span class="button-text">Table</span>
 			</div>

@@ -94,14 +94,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.moreItems = [
       {
           label: 'Mehr',
-          items: [{
-                label: this.translateService.instant("observations.showTable"), 
-                icon: '',
-                command: (event) => {
-                  //console.log("showTable", this.showTable);
-                  this.showTable = !this.showTable
-                }
-              },
+          items: [
+              // {
+              //   label: this.translateService.instant("observations.showTable"), 
+              //   icon: '',
+              //   command: (event) => {
+              //     //console.log("showTable", this.showTable);
+              //     this.showTable = !this.showTable
+              //   }
+              // },
               {
                 label: "Export",
                 icon: '',
@@ -141,9 +142,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
       this.filter.regions = this.mapService.getSelectedRegions().map(aRegion => aRegion.id)
 
-      //console.log("this.mapService.observationsMap click #2", this.filter.regions);
+      console.log("this.mapService.observationsMap click #2", this.filter.regions);
 
-      this.loadObservations();
+      //this.loadObservations();
       //return;
       // const region = this.mapService.getClickedRegion().toString()
       

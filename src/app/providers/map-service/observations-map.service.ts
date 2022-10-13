@@ -112,7 +112,7 @@ export class ObservationsMapService {
       }),
 
       // // overlay to show aggregated regions
-      // aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
+      //aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
     };
 
     const map = new Map(el, {
@@ -136,6 +136,7 @@ export class ObservationsMapService {
     map.addLayer(this.overlayMaps.regions);
     map.addLayer(this.overlayMaps.activeSelection);
     map.addLayer(this.overlayMaps.editSelection);
+    //map.addLayer(this.overlayMaps.aggregatedRegions);
     Object.values(this.observationTypeLayers).forEach(aLayer => {
       //aLayer.pane = "markerPane";
       aLayer.addTo(map)
@@ -282,6 +283,7 @@ export class ObservationsMapService {
   private onEachAggregatedRegionsFeature(feature, layer) {
     layer.on({
       click: function(e) {
+        console.log("onEachAggregatedRegionsFeature", feature.properties.id);
         feature.properties.selected = true;
       },
       mouseover: function(e) {
@@ -309,8 +311,9 @@ export class ObservationsMapService {
 
 
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
-    console.log("onEachFeatureClosure op map");
+    
     return function onEachFeature(feature, layer) {
+      console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
         click: function(e) {
           if (feature.properties.selected && feature.properties.selected === true) {
