@@ -46,6 +46,7 @@ export interface MultiselectDropdownData {
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
+  public showCharts = false;
   public observations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
@@ -94,14 +95,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.moreItems = [
       {
           label: 'Mehr',
-          items: [{
-                label: this.translateService.instant("observations.showTable"), 
-                icon: '',
-                command: (event) => {
-                  console.log("showTable", this.showTable);
-                  this.showTable = !this.showTable
-                }
-              },
+          items: [
+              // {
+              //   label: this.translateService.instant("observations.showTable"), 
+              //   icon: '',
+              //   command: (event) => {
+              //     //console.log("showTable", this.showTable);
+              //     this.showTable = !this.showTable
+              //   }
+              // },
               {
                 label: "Export",
                 icon: '',
@@ -137,7 +139,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.loadObservations();
     this.mapService.observationsMap.on("click", () => {
 
-      console.log("this.mapService.observationsMap click", this.mapService.overlayMaps.editSelection);
+      //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
+
+      this.filter.regions = this.mapService.getSelectedRegions().map(aRegion => aRegion.id)
+
+      console.log("this.mapService.observationsMap click #2", this.filter.regions);
+
+      //this.loadObservations();
       //return;
       // const region = this.mapService.getClickedRegion().toString()
       
@@ -159,7 +167,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onDropdownSelect(target: string, event: any) {
-    console.log("onDropdownSelect", event);
+    //console.log("onDropdownSelect", event);
     switch (target) {
       case "regions":
         this.filter.regions = event.value;
@@ -197,11 +205,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   } 
 
   newObservation() {
+    this.showTable = true;
     this.observationTableComponent.newObservation();
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-   console.log("loadObservations ##x1", this.selectedSourceItems, this.filter.dateRange);
+   //console.log("loadObservations ##x1", this.selectedSourceItems, this.filter.dateRange);
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
@@ -219,12 +228,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
           regionId = region ? region.id : null;
         }
         
-        console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
+        //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
         
         if (this.filter.inRegions(regionId) && this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
-          console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);
+          //console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);
           this.addObservation(observation)
         }
 
@@ -266,7 +275,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
 
   applyLocalFilter() {
-    console.log("applyLocalFilter ##1");
+    //console.log("applyLocalFilter ##1");
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
@@ -310,8 +319,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.chartsData.Days = this.filter.getDaysDataset(this.observations)
       
- console.log("buildChartsData", this.chartsData);
-
+    //console.log("buildChartsData", this.chartsData);
 
   }
 
@@ -330,7 +338,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     marker.bindTooltip(observation.locationName + " " + observation.filterType);
     marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
-    console.log("drawMarker xx05", marker);
+    //console.log("drawMarker xx05", marker);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
@@ -359,7 +367,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
-    console.log("onObservationClick ##002", observation.$data);
+    //console.log("onObservationClick ##002", observation.$data);
     if (observation.$externalURL) {
       const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };

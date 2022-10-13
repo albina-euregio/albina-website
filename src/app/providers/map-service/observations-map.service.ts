@@ -112,7 +112,7 @@ export class ObservationsMapService {
       }),
 
       // // overlay to show aggregated regions
-      // aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
+      //aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
     };
 
     const map = new Map(el, {
@@ -136,6 +136,7 @@ export class ObservationsMapService {
     map.addLayer(this.overlayMaps.regions);
     map.addLayer(this.overlayMaps.activeSelection);
     map.addLayer(this.overlayMaps.editSelection);
+    //map.addLayer(this.overlayMaps.aggregatedRegions);
     Object.values(this.observationTypeLayers).forEach(aLayer => {
       //aLayer.pane = "markerPane";
       aLayer.addTo(map)
@@ -155,6 +156,13 @@ export class ObservationsMapService {
     return null;
   }
 
+  getSelectedRegions() {
+    let selected = [];
+    for (const entry of this.overlayMaps.editSelection.getLayers()) {
+      if (entry.feature.properties.selected) selected.push(entry.feature.properties);
+    }
+    return selected;
+  }
 
 
   updateEditSelection() {
@@ -170,7 +178,7 @@ export class ObservationsMapService {
 
   private getUserDependentRegionStyle(region) {
     let opacity = this.constantsService.lineOpacityForeignRegion;
-    console.log("getUserDependentRegionStyle ##09", region);
+    //console.log("getUserDependentRegionStyle ##09", region);
     if (this.authenticationService.isInSuperRegion(region)) {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
@@ -275,6 +283,7 @@ export class ObservationsMapService {
   private onEachAggregatedRegionsFeature(feature, layer) {
     layer.on({
       click: function(e) {
+        console.log("onEachAggregatedRegionsFeature", feature.properties.id);
         feature.properties.selected = true;
       },
       mouseover: function(e) {
@@ -302,8 +311,9 @@ export class ObservationsMapService {
 
 
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
-    console.log("onEachFeatureClosure op map");
+    
     return function onEachFeature(feature, layer) {
+      console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
         click: function(e) {
           if (feature.properties.selected && feature.properties.selected === true) {

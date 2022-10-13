@@ -45,7 +45,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         // dataset: {
         //     // Provide a set of data.
         //     source: [
-        //         ['category', 'all','selected', 'highlighted'],
+        //         ['category', 'all', 'highlighted' ,'available', 'selected'],
         //         ['N', 100, 20, 0],
         //         ['NE', 70, 0, 60],
         //         ['E', 30, 0, 20],

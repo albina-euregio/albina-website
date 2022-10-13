@@ -1,5 +1,5 @@
 <!-- !layout-observations-outer -->
-<div class="layout-observations-outer">
+<div class="layout-observations-outer" [ngClass]="{'layout--is-table': showTable, 'layout--is-map': !showTable, 'layout--is-charts': showCharts }">
 
 
 	
@@ -226,15 +226,15 @@
 
     <!-- !layout-switch -->
     <div class="layout-switch">
-			<div class="layout-switch-map obs-button">
+			<div *ngIf="this.showTable" (click)="this.showTable=!this.showTable" class="layout-switch-map obs-button">
 				<span class="button-icon pi pi-map"></span>
 				<span class="button-text">Map</span>
 			</div>
-			<div class="layout-switch-table obs-button">
+			<div *ngIf="!this.showTable" (click)="this.showTable=!this.showTable" class="layout-switch-table obs-button">
 				<span class="button-icon pi pi-list"></span>
 				<span class="button-text">Table</span>
 			</div>
-			<div class="layout-switch-charts obs-button">
+			<div (click)="this.showCharts=!this.showCharts" class="layout-switch-charts obs-button">
 				<span class="button-icon pi pi-chart-bar"></span>
 				<span class="button-text">Charts</span>
 			</div>

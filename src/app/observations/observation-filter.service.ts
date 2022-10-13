@@ -80,7 +80,7 @@ export class ObservationFilterService {
   }
 
   set days(days: number) {
-    console.log("days ##x1", days, this.dateRange);
+    //console.log("days ##x1", days, this.dateRange);
     if(!this.endDate) {
       const newEndDate = new Date('2022-02-07T22:59:59Z');
       this.endDate = newEndDate;
@@ -90,14 +90,14 @@ export class ObservationFilterService {
     newStartDate.setHours(0, 0, 0, 0);
 
     this.startDate = newStartDate;
-    console.log("days #2 ##x1", days, this.startDate, this.dateRange);
+    //console.log("days #2 ##x1", days, this.startDate, this.dateRange);
     this.setDateRange();
     
   }
 
   setDateRange() {
 
-    console.log("setDateRange #1 ##x1", this.dateRange);
+    //console.log("setDateRange #1 ##x1", this.dateRange);
     if(this.startDate) this.startDate.setHours(0, 0, 0, 0);
     if(this.endDate) this.endDate.setHours(23, 59, 59, 999);
 
@@ -109,7 +109,7 @@ export class ObservationFilterService {
       this.filterSelection.Days.all = newDates;
     }
     this.dateRange = [this.startDate, this.endDate];
-    console.log("setDateRange #2 ##x1", this.dateRange);
+    //console.log("setDateRange #2 ##x1", this.dateRange);
   }
 
   get startDate(): Date {
@@ -320,12 +320,12 @@ export class ObservationFilterService {
 //    console.log("getDangerPatternDataset ##1");
 
     this.filterSelection[LocalFilterTypes.Days]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, 'available': 0, "selected": this.filterSelection[LocalFilterTypes.Days].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.Days].highlighted.includes(key) ? 1 : 0})
-    console.log("getDaysDataset ##4", this.filterSelection[LocalFilterTypes.Days], observations);
+    //console.log("getDaysDataset ##4", this.filterSelection[LocalFilterTypes.Days], observations);
     observations.forEach(observation => {
 //      console.log("getDaysDataset ##2", observation.dangerPattern);
       if(observation.eventDate) {
         const dateId = this._normedDateString(observation.eventDate);
-        console.log("getDaysDataset ##2", dateId);
+        //console.log("getDaysDataset ##2", dateId);
         if(dataRaw[dateId]) {
           dataRaw[dateId].all++;
           if(observation.filterType === ObservationFilterType.Local) dataRaw[dateId].available++;
@@ -345,7 +345,7 @@ export class ObservationFilterService {
   }
 
   inDateRange({ $source, eventDate }: GenericObservation): boolean {
-   console.log("inDateRange ##4", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
+   //console.log("inDateRange ##4", eventDate, (this.startDate <= eventDate && eventDate <= this.endDate));
     //if ($source === ObservationSource.LwdKipSperre) return true;
     return (this.startDate <= eventDate && eventDate <= this.endDate);
   }
@@ -365,9 +365,9 @@ export class ObservationFilterService {
   }
 
   inRegions(region: string) {
-   console.log("inRegions ##8", region, (
-      !this.regions.length ||
-      (typeof region === "string" && this.regions.includes(region))));
+   //console.log("inRegions ##8", region, (
+      // !this.regions.length ||
+      // (typeof region === "string" && this.regions.includes(region))));
 
     return (
       !this.regions.length ||
@@ -376,10 +376,10 @@ export class ObservationFilterService {
   }
 
   inObservationSources({ $source }: GenericObservation) {
-   console.log("inObservationSources ##8", $source, this.observationSources, (
-      !this.observationSources.length ||
-      (typeof $source === "string" && this.observationSources.includes($source))
-    ));
+   //console.log("inObservationSources ##8", $source, this.observationSources, (
+    //   !this.observationSources.length ||
+    //   (typeof $source === "string" && this.observationSources.includes($source))
+    // ));
     return (
       !this.observationSources.length ||
       (typeof $source === "string" && this.observationSources.includes($source))
