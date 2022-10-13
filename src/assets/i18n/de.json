@@ -565,6 +565,7 @@
         "selectionLabel": "{0} Daten"
       },
       "charts": {
+        "nan": "Ohne Angabe",
         "aspect": {
           "caption": "Aspekt"
         },

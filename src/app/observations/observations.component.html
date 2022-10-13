@@ -175,14 +175,14 @@
           [caption] = "'admin.observations.charts.aspect.caption' | translate"
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
-          [dataset]="chartsData.Aspects" 
+          [data]="chartsData.Aspects" 
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.days.caption' | translate"
           [type]="LocalFilterTypes.Days"
-          [dataset]="chartsData.Days"  
+          [data]="chartsData.Days"  
           [formatter]="'date'"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -190,7 +190,7 @@
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
-          [dataset]="chartsData.Elevation"  
+          [data]="chartsData.Elevation"  
           
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -198,7 +198,7 @@
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
-          [dataset]="chartsData.Stability"  
+          [data]="chartsData.Stability"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
@@ -206,7 +206,7 @@
           [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
-          [dataset]="chartsData.AvalancheProblem"  
+          [data]="chartsData.AvalancheProblem"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
@@ -214,7 +214,7 @@
           [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
-          [dataset]="chartsData.DangerPattern"  
+          [data]="chartsData.DangerPattern"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
 

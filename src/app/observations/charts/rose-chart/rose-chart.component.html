@@ -29,10 +29,11 @@
 	<div class="chart-content">
 		<div echarts 
 			[options]="defaultOptions" 
-			[merge]="dataset" 
+			[merge]="{dataset: data.dataset}" 
 			(chartClick)="onClick($event)" 
 			class="chart">
 		</div>
+		<span class="chat-nan" *ngIf="data.nan > 0"> {{ 'admin.observations.charts.nan' | translate }} ({{ data.nan }})</span>
 	</div>
 	<!-- /chart-content -->
     

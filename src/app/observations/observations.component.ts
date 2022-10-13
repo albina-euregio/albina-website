@@ -296,6 +296,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   buildChartsData() {
 
+    
     this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
 
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
