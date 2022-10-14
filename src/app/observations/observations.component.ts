@@ -194,7 +194,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   } 
 
   newObservation() {
-    this.layout = 'map';
+    this.layout = 'table';
     this.observationTableComponent.newObservation();
   }
 
