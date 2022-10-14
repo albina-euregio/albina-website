@@ -11,10 +11,10 @@
 
 		<div class="chart-controls">
 			<div class="obs-switch">
-				<div class="obs-switch-item 0is-active" (click)="onInvert()">
+				<div class="obs-switch-item"  [ngClass]="{'is-active': isActive}"  (click)="onInvert()">
 					<span class="switch-text">{{ 'admin.observations.charts.invert' | translate }}</span>
 				</div>
-				<div class="obs-switch-item 0is-active" (click)="onReset()">
+				<div class="obs-switch-item"  [ngClass]="{'is-active': isActive}"  (click)="onReset()">
 					<span class="switch-text">{{ 'admin.observations.charts.reset' | translate }}</span>
 				</div>
 			</div>
