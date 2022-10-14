@@ -49,7 +49,7 @@ export class ObservationFilterService {
   }
 
   toggleFilter(filterData: GenericFilterToggleData){
-    console.log("toggleFilter ##1", filterData);
+    //console.log("toggleFilter ##1", filterData);
     let curFilterType = this.filterSelection[filterData["type"]];
     let curFilterTypeSubset = "selected";
     if(filterData.data.altKey) curFilterTypeSubset = "highlighted";
