@@ -150,6 +150,13 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
+    onClickNan(event: any) {
+
+        //if(event.altKey) this.nanStatus.highlighted = !this.nanStatus.highlighted;
+        //else this.nanStatus.selected = !this.nanStatus.selected;
+        this.submitChange([this.type, {value: 'nan', altKey: event.altKey}])
+        //console.log("RosehartComponent->onClickNan", event, this);
+    }
 
     onInvert() {
 //        console.log("BarChartComponent->onInvert", this);

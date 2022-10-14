@@ -176,6 +176,7 @@
           [translationBase] = "'aspect.'"
           [type]="LocalFilterTypes.Aspect"
           [data]="chartsData.Aspects" 
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Aspect]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].includes('nan')}"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
@@ -183,6 +184,7 @@
           [caption] = "'admin.observations.charts.days.caption' | translate"
           [type]="LocalFilterTypes.Days"
           [data]="chartsData.Days"  
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Days]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Days]['highlighted'].includes('nan')}"
           [formatter]="'date'"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -191,13 +193,14 @@
           [caption] = "'admin.observations.charts.elevation.caption' | translate"
           [type]="LocalFilterTypes.Elevation"
           [data]="chartsData.Elevation"  
-          
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Elevation]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].includes('nan')}"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           class="layout-chart-container"
           [caption] = "'admin.observations.charts.stability.caption' | translate"
           [type]="LocalFilterTypes.Stability"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')}"
           [data]="chartsData.Stability"  
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
@@ -207,6 +210,7 @@
           [translationBase] = "'avalancheProblem.'"
           [type]="LocalFilterTypes.AvalancheProblem"
           [data]="chartsData.AvalancheProblem"  
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].includes('nan')}"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
@@ -215,6 +219,7 @@
           [translationBase] = "'dangerPattern.'"
           [type]="LocalFilterTypes.DangerPattern"
           [data]="chartsData.DangerPattern"  
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].includes('nan')}"
           (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
 

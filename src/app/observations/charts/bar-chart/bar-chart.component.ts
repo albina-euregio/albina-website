@@ -174,6 +174,14 @@ export class BarChartComponent extends BaseComponent implements OnInit {
         this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
     }
 
+    onClickNan(event: any) {
+        //console.log("BarChartComponent->onClickNan", event);
+        //if(event.altKey) this.nanStatus.highlighted = !this.nanStatus.highlighted;
+        //else this.nanStatus.selected = !this.nanStatus.selected;
+        this.submitChange([this.type, {value: 'nan', altKey: event.altKey}])
+        //console.log("BarChartComponent->onClickNan", event, this);
+    }
+
     onInvert() {
 //        console.log("BarChartComponent->onInvert", this);
         this.submitChange([this.type, {invert: true}])

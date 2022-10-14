@@ -26,7 +26,7 @@
 
 
 	<!-- !chart-nan -->
-	<div class="chart-nan" *ngIf="data.nan > 0">
+	<div class="chart-nan" [ngClass]="{'highlighted': nanStatus.highlighted, 'selected': nanStatus.selected}" (click)="onClickNan($event)" *ngIf="data.nan > 0">
 		{{ 'admin.observations.charts.nan' | translate }}: {{ data.nan }}
 	</div>
 	<!-- /chart-nan -->
