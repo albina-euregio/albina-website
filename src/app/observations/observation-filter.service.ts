@@ -401,6 +401,7 @@ export class ObservationFilterService {
     
     if(!testHighlighted) {
       return (
+        (this.filterSelection[filter][testField].includes('nan') && !testData) ||
         !this.filterSelection[filter][testField].length ||
         (typeof testData === "string" &&
           this.filterSelection[filter][testField].includes(testData))
@@ -409,6 +410,7 @@ export class ObservationFilterService {
     } else {
       testField = "highlighted";
       return (
+        (this.filterSelection[filter][testField].includes('nan') && !testData) ||
         (typeof testData === "string" &&
           this.filterSelection[filter][testField].includes(testData))
       );

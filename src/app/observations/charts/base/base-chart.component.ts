@@ -15,6 +15,7 @@ export class BaseComponent implements OnInit {
   @Input() type: String
   @Input() data: {dataset: Object, nan: Number}
   @Output() onChange: EventEmitter<any> = new EventEmitter();
+  @Input() nanStatus: {selected: Boolean, highlighted: Boolean};
 
   constructor() { }
 
