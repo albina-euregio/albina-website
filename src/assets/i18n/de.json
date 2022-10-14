@@ -566,8 +566,8 @@
       },
       "charts": {
         "nan": "Ohne Angabe",
-        "invert": "Invertieren",
-        "reset": "Zurücksetzen",
+        "invert": "Invert",
+        "reset": "Reset",
         "aspect": {
           "caption": "Aspekt"
         },
