@@ -23,7 +23,15 @@
 	</div>
 	<!-- /chart-header -->
 
+
+
+	<!-- !chart-nan -->
+	<div class="chart-nan" *ngIf="data.nan > 0">
+		{{ 'admin.observations.charts.nan' | translate }}: {{ data.nan }}
+	</div>
+	<!-- /chart-nan -->
     
+
     
   <!-- !chart-content -->
 	<div class="chart-content">
@@ -33,7 +41,6 @@
 			(chartClick)="onClick($event)" 
 			class="chart">
 		</div>
-		<span class="chat-nan" *ngIf="data.nan > 0"> {{ 'admin.observations.charts.nan' | translate }} ({{ data.nan }})</span>
 	</div>
 	<!-- /chart-content -->
     
