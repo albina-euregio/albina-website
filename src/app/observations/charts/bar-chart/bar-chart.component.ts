@@ -40,7 +40,7 @@ export class BarChartComponent extends BaseComponent implements OnInit {
         // },
         grid: [
             {
-              top: '10px',
+              top: '5px',
               left: 0,
               right: 0,
               bottom: 0
