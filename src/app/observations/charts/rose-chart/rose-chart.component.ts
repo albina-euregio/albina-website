@@ -17,7 +17,7 @@ const barDefaults = {
   templateUrl: './rose-chart.component.html',
   styleUrls: ['./rose-chart.component.scss']
 })
-export class RoseChartComponent extends BaseComponent implements OnInit {
+export class RoseChartComponent extends BaseComponent {
 
 
     public readonly defaultOptions = {

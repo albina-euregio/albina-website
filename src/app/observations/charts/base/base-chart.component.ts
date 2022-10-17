@@ -7,7 +7,7 @@ import { dataTool } from 'echarts';
   template: `<div class="zippy">Base Chart Template</div>`
 })
 
-export class BaseComponent implements OnInit {
+export class BaseComponent {
 
   @Input() caption: String
   @Input() translationBase: String

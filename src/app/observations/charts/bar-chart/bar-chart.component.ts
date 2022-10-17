@@ -21,7 +21,7 @@ const defaultDataBarOptions = {
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent extends BaseComponent implements OnInit {
+export class BarChartComponent extends BaseComponent {
 
 
     public formatLabel = (params) => {
