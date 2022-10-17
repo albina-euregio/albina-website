@@ -14,7 +14,7 @@ export class BaseComponent implements OnInit {
   @Input() formatter: String
   @Input() type: String
   @Input() data: {dataset: Object, nan: Number}
-  @Output() onChange: EventEmitter<any> = new EventEmitter();
+  @Output() handleChange: EventEmitter<any> = new EventEmitter();
   @Input() nanStatus: {selected: Boolean, highlighted: Boolean};
   @Input() isActive: Boolean;
 
@@ -22,12 +22,12 @@ export class BaseComponent implements OnInit {
 
   submitChange(data) {
 //    console.log("BaseComponent->submitChange", data);
-    this.onChange.emit(data);
+    this.handleChange.emit(data);
   }
 
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 
 
 }

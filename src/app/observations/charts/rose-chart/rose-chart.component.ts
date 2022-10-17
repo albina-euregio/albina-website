@@ -168,7 +168,7 @@ export class RoseChartComponent extends BaseComponent implements OnInit {
         this.submitChange([this.type, {reset: true}])
     }
 
-    ngOnInit(): void {
-        // this.options.title.text = this.caption || 'Rrose chart';
-    }
+    // ngOnInit(): void {
+    //     // this.options.title.text = this.caption || 'Rrose chart';
+    // }
 }

@@ -194,9 +194,9 @@ export class BarChartComponent extends BaseComponent implements OnInit {
 
 
 
-    ngOnInit(): void {
-        // this.options.title.text = this.caption || 'bar chart';
-    }
+    // ngOnInit(): void {
+    //     // this.options.title.text = this.caption || 'bar chart';
+    // }
 
 
 
