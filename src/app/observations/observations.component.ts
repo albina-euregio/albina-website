@@ -47,6 +47,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public loading = false;
   public layout = 'map'; // map,table,chart
   public observations: GenericObservation[] = [];
+  public localObservations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
     observation: GenericObservation;
@@ -282,14 +283,20 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     });
 
 //    console.log("applyLocalFilter ##3.99", this.observations);
+    this.localObservations = [];
     this.observations.forEach(observation => {
       const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
-      if (!ll) {
-        return;
-      }
+      
       //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
-      if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) this.drawMarker(observation, ll);
+      if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) {
+        
+        this.localObservations.push(observation);
+        if (!ll) {
+          return;
+        }
+        this.drawMarker(observation, ll);
+      }
     });
     this.buildChartsData();
   }
@@ -346,6 +353,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     // ) {
     //   observation.filterType = ObservationFilterType.Global;
     // }
+
     this.observations.push(observation);
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
@@ -353,7 +361,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.observationsWithoutCoordinates++;
       return;
     }
-
+    
     this.drawMarker(observation, ll);
   }
 
