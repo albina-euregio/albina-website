@@ -332,7 +332,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       
     // }
     marker.on("click", () => this.onObservationClick(observation));
-    marker.bindTooltip(observation.locationName + " " + observation.filterType, {opacity: 1});
+    marker.bindTooltip(observation.locationName + " " + observation.filterType, {opacity: 1, className: "obs-tooltip"});
 
     marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
