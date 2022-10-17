@@ -40,7 +40,7 @@
               optionValue="id"
               [maxSelectedLabels]="0"
               selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
-              (onChange)="onDropdownSelect('sources', $event)"
+              (handleChange)="onDropdownSelect('sources', $event)"
               ></p-multiSelect>
             </div>
           
@@ -53,7 +53,7 @@
               optionValue="id"
               [maxSelectedLabels]="0"
               selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
-              (onChange)="onDropdownSelect('regions', $event)"
+              (handleChange)="onDropdownSelect('regions', $event)"
               ></p-multiSelect>
             </div>
             
@@ -178,7 +178,7 @@
           [data]="chartsData.Aspects" 
           [isActive]="filter.filterSelection[LocalFilterTypes.Aspect]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].length > 0"
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Aspect]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].includes('nan')}"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-rose-chart>
         <app-bar-chart 
           class="layout-chart-container"
@@ -188,7 +188,7 @@
           [isActive]="filter.filterSelection[LocalFilterTypes.Days]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Days]['highlighted'].length > 0"
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Days]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Days]['highlighted'].includes('nan')}"
           [formatter]="'date'"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           class="layout-chart-container"
@@ -197,7 +197,7 @@
           [data]="chartsData.Elevation" 
           [isActive]="filter.filterSelection[LocalFilterTypes.Elevation]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].length > 0"
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Elevation]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].includes('nan')}"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           class="layout-chart-container"
@@ -206,7 +206,7 @@
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')}"
           [data]="chartsData.Stability"  
           [isActive]="filter.filterSelection[LocalFilterTypes.Stability]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].length > 0"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           class="layout-chart-container"
@@ -216,7 +216,7 @@
           [data]="chartsData.AvalancheProblem"  
           [isActive]="filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].length > 0"
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].includes('nan')}"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
         <app-bar-chart 
           class="layout-chart-container"
@@ -226,7 +226,7 @@
           [data]="chartsData.DangerPattern"  
           [isActive]="filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].length > 0"
           [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].includes('nan')}"
-          (onChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
         </app-bar-chart>
 
       </div>
