@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "./models/observation.model";
@@ -31,7 +31,8 @@ import {
 } from "./models/lwdkip.model";
 import { ApiWikisnowECT, convertWikisnow, WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
-import { Observable } from "rxjs";
+import { from, merge, Observable, of, onErrorResumeNext } from "rxjs";
+import { catchError, filter, last, map, mergeAll, mergeMap } from "rxjs/operators";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
 import { ObservationFilterService } from "./observation-filter.service";
@@ -49,16 +50,16 @@ export class ObservationsService {
   ) {}
 
   loadAll(): Observable<GenericObservation<any>> {
-    return Observable.merge<GenericObservation>(
-      this.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
-      this.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
-      this.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
-      this.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
-      this.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
-      this.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
-      this.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
-      this.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
-    )
+    return onErrorResumeNext(
+      this.getAvalancheWarningService(),
+      this.getLawisIncidents(),
+      this.getLawisProfiles(),
+      this.getLoLaKronos(),
+      this.getLoLaSafety(),
+      this.getLwdKipObservations(),
+      this.getWikisnowECT(),
+      this.getObservations()
+    );
   }
 
   private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
@@ -70,7 +71,7 @@ export class ObservationsService {
     const url = this.constantsService.getServerUrl() + "observations/" + id;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return this.http.get<Observation>(url, options).map((o) => convertObservationToGeneric(o));
+    return this.http.get<Observation>(url, options).pipe(map((o) => convertObservationToGeneric(o)));
   }
 
   private getLwdKipLayer<T>(name: string, params: Record<string, string>) {
@@ -79,17 +80,17 @@ export class ObservationsService {
       const headers = this.authenticationService.newAuthHeader();
       this.lwdKipLayers = this.http
         .get<ArcGisApi>(url, { headers })
-        .map((data) => {
+        .pipe(map((data) => {
           if ('error' in data) {
             throw new Error(data.error?.message);
           } else if (!data.layers?.length) {
             throw new Error("No LWDKIP layers found!");
           }
           return data.layers;
-        });
+        }));
     }
-    const lwdKipLayers = this.lwdKipLayers.last();
-    return lwdKipLayers.flatMap((layers) => {
+    const lwdKipLayers = this.lwdKipLayers.pipe(last());
+    return lwdKipLayers.pipe(mergeMap((layers) => {
       const layer = layers.find((l) => l.name.trim() === name && l.type === "Feature Layer");
       if (!layer) {
         throw new Error("No LWDKIP layer for " + name);
@@ -98,7 +99,7 @@ export class ObservationsService {
       const headers = this.authenticationService.newAuthHeader();
       return this.http
         .get<T | { error: { message: string } }>(url, { headers, params })
-        .map((data) => {
+        .pipe(map((data) => {
           if ("error" in data) {
             console.error(
               "Failed fetching LWDKIP " + name,
@@ -107,8 +108,8 @@ export class ObservationsService {
             return { features: [] };
           }
           return data;
-        });
-    });
+        }));
+    }));
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
@@ -119,22 +120,26 @@ export class ObservationsService {
       datumTransformation: "5891",
       f: "geojson"
     };
-    const o0 = this.getLwdKipLayer<LwdKipBeobachtung>("Beobachtungen", params)
-      .flatMap((featureCollection) => featureCollection.features)
-      .map((feature) => convertLwdKipBeobachtung(feature));
-    const o1 = this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
-      .flatMap((featureCollection) => featureCollection.features)
-      .map((feature) => convertLwdKipSprengerfolg(feature));
-      const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params)
-      .flatMap((featureCollection) => featureCollection.features)
-      .map((feature) => convertLwdKipLawinenabgang(feature));
-      const o3 = this.getLwdKipLayer<LwdKipSperren>("aktive_Sperren", {
-        ...params,
-        where: "1=1",
-      })
-        .flatMap((featureCollection) => featureCollection.features)
-        .map((feature) => convertLwdKipSperren(feature));
-    return Observable.merge(o0, o1, o2, o3);
+    const o0 = this.getLwdKipLayer<LwdKipBeobachtung>("Beobachtungen", params).pipe(
+      mergeMap((featureCollection) => featureCollection.features),
+      map((feature) => convertLwdKipBeobachtung(feature))
+    );
+    const o1 = this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params).pipe(
+      mergeMap((featureCollection) => featureCollection.features),
+      map((feature) => convertLwdKipSprengerfolg(feature))
+    );
+    const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params).pipe(
+      mergeMap((featureCollection) => featureCollection.features),
+      map((feature) => convertLwdKipLawinenabgang(feature))
+    );
+    const o3 = this.getLwdKipLayer<LwdKipSperren>("aktive_Sperren", {
+      ...params,
+      where: "1=1",
+    }).pipe(
+      mergeMap((featureCollection) => featureCollection.features),
+      map((feature) => convertLwdKipSperren(feature))
+    );
+    return merge(o0, o1, o2, o3);
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
@@ -143,8 +148,10 @@ export class ObservationsService {
     const headers = this.authenticationService.newAuthHeader();
     return this.http
       .get<Observation[]>(url, { headers })
-      .mergeAll()
-      .map((o) => convertObservationToGeneric(o));
+      .pipe(
+        mergeAll(),
+        map((o) => convertObservationToGeneric(o))
+      );
   }
 
   postObservation(observation: Observation): Observable<GenericObservation<Observation>> {
@@ -152,7 +159,7 @@ export class ObservationsService {
     const url = this.constantsService.getServerUrl() + "observations";
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return this.http.post<Observation>(url, observation, options).map((o) => convertObservationToGeneric(o));
+    return this.http.post<Observation>(url, observation, options).pipe(map((o) => convertObservationToGeneric(o)));
   }
 
   putObservation(observation: Observation): Observable<GenericObservation<Observation>> {
@@ -160,7 +167,7 @@ export class ObservationsService {
     const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return this.http.put<Observation>(url, observation, options).map((o) => convertObservationToGeneric(o));
+    return this.http.put<Observation>(url, observation, options).pipe(map((o) => convertObservationToGeneric(o)));
   }
 
   private serializeObservation(observation: Observation): Observation {
@@ -181,9 +188,9 @@ export class ObservationsService {
   getAvalancheWarningService(): Observable<GenericObservation> {
     const eventDate = new Date();
     eventDate.setHours(0, 0, 0, 0);
-    return Observable.of(BeobachterAT, BeobachterIT)
-      .mergeAll()
-      .map(
+    return of(BeobachterAT, BeobachterIT).pipe(
+      mergeAll(),
+      map(
         (observer): GenericObservation => ({
           $data: observer,
           $externalURL: `https://wiski.tirol.gv.at/lawine/grafiken/800/beobachter/${observer["plot.id"]}.png`,
@@ -199,7 +206,8 @@ export class ObservationsService {
           longitude: +observer.longitude,
           region: ""
         })
-      );
+      )
+    );
   }
 
   getLoLaKronos(): Observable<GenericObservation> {
@@ -207,7 +215,7 @@ export class ObservationsService {
     const timeframe = this.startDateString + "/" + this.endDateString;
     return this.http
       .get<LolaKronosApi>(lolaKronosApi + timeframe)
-      .flatMap((kronos) => convertLoLaKronos(kronos));
+      .pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
   }
 
   getLoLaSafety(): Observable<GenericObservation> {
@@ -215,16 +223,18 @@ export class ObservationsService {
     const timeframe = this.startDateString + "/" + this.endDateString;
     return this.http
       .get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe)
-      .flatMap(lola => convertLoLaSafety(lola));
+      .pipe(mergeMap(lola => convertLoLaSafety(lola)));
   }
 
   getWikisnowECT(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     return this.http
       .get<ApiWikisnowECT>(api.WikisnowECT)
-      .flatMap(api => api.data)
-      .map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow))
-      .filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation));
+      .pipe(
+        mergeMap(api => api.data),
+        map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow)),
+        filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation))
+      );
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
@@ -238,18 +248,21 @@ export class ObservationsService {
           this.endDateString +
           "&_=" +
           nowWithHourPrecision()
-      )
-      .mergeAll()
-      .map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles))
-      .filter((observation) => this.filter.inMapBounds(observation))
-      .flatMap((profile) => {
-        if (!LAWIS_FETCH_DETAILS) {
-          return Observable.of(profile);
-        }
-        return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
-          .map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails))
-          .catch(() => Observable.of(profile));
-      });
+      ).pipe(
+        mergeAll(),
+        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles)),
+        filter((observation) => this.filter.inMapBounds(observation)),
+        mergeMap((profile) => {
+          if (!LAWIS_FETCH_DETAILS) {
+            return of(profile);
+          }
+          return from(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
+            .pipe(
+              map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails)),
+              catchError(() => of(profile))
+            );
+        })
+      );
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
@@ -263,18 +276,20 @@ export class ObservationsService {
           this.endDateString +
           "&_=" +
           nowWithHourPrecision()
-      )
-      .mergeAll()
-      .map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents))
-      .filter((observation) => this.filter.inMapBounds(observation))
-      .flatMap((incident) => {
-        if (!LAWIS_FETCH_DETAILS) {
-          return Observable.of(incident);
-        }
-        return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id))
-          .map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails))
-          .catch(() => Observable.of(incident));
-      });
+      ).pipe(
+        mergeAll(),
+        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents)),
+        filter((observation) => this.filter.inMapBounds(observation)),
+        mergeMap((incident) => {
+          if (!LAWIS_FETCH_DETAILS) {
+            return of(incident);
+          }
+          return from(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id)).pipe(
+            map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails)),
+            catchError(() => of(incident))
+          );
+        })
+      );
   }
 
   async getCachedOrFetch<T>(url: string): Promise<T> {

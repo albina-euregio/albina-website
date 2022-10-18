@@ -1,7 +1,8 @@
 import { Injectable, SecurityContext } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
@@ -241,8 +242,8 @@ export class AuthenticationService {
     const options = { headers: headers };
 
     return this.http.post<AuthenticationResponse>(url, body, options)
-      .map(data => {
-        if ((data ).access_token) {
+    .pipe(map(data => {
+      if ((data ).access_token) {
           this.setCurrentAuthor(data);
           if (this.getCurrentAuthorRegions().length > 0) {
             this.setActiveRegion(this.getCurrentAuthorRegions()[0]);
@@ -251,7 +252,7 @@ export class AuthenticationService {
         } else {
           return false;
         }
-      });
+      }));
   }
 
   public externalServerLogins() {
@@ -294,7 +295,7 @@ export class AuthenticationService {
     const options = { headers: headers };
 
     return this.http.post<AuthenticationResponse>(url, body, options)
-      .map(data => {
+      .pipe(map(data => {
         if ((data ).access_token) {
           this.addExternalServer(data, apiUrl);
           localStorage.setItem("externalServers", JSON.stringify(this.externalServers));
@@ -302,7 +303,7 @@ export class AuthenticationService {
         } else {
           return false;
         }
-      });
+      }));
   }
 
   public getCurrentAuthor() {

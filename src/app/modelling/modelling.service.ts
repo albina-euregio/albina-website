@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
-import { Observable } from "rxjs";
+import { forkJoin, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
@@ -87,9 +87,9 @@ export class ModellingService {
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);
-    return Observable.forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
-      .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
+    return forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
       .pipe(
+        map(responses => responses.map(r => this.parseCSV(r.toString()))),
         map(([points, hs1400, hn910, hn990]) =>
           points.data.map((row: MultimodelPointCsv) => {
             const id = row.UID;
@@ -146,9 +146,7 @@ export class ModellingService {
     return this.http
       .get(url, { responseType: "text" })
       .pipe(
-        map(response => this.parseCSV(response.toString().replace(/^#\s*/, "")))
-      )
-      .pipe(
+        map(response => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
         map(parseResult =>
           this.getZamgEcmwfTypes()
             .map(type =>
