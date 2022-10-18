@@ -62,11 +62,6 @@ export class ObservationsService {
     );
   }
 
-  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
-    //console.error(message, err);
-    return Observable.of();
-  }
-
   getObservation(id: number): Observable<GenericObservation<Observation>> {
     const url = this.constantsService.getServerUrl() + "observations/" + id;
     const headers = this.authenticationService.newAuthHeader();
