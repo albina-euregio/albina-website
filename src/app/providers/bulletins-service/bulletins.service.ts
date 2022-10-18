@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, Subject } from "rxjs/Rx";
+import { Observable, Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import { ConstantsService } from "../constants-service/constants.service";
 import { SettingsService } from "../settings-service/settings.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -123,7 +124,7 @@ export class BulletinsService {
   public wsRegionConnect() {
     this.regionLocks = <Subject<RegionLockModel>>this.wsRegionService
       .connect(this.constantsService.getWsRegionUrl() + this.authenticationService.getUsername())
-      .map((response: any): RegionLockModel => {
+      .pipe(map((response: any): RegionLockModel => {
         const data = JSON.parse(response.data);
         const regionLock = RegionLockModel.createFromJson(data);
         if (regionLock.getLock()) {
@@ -134,7 +135,7 @@ export class BulletinsService {
           this.removeLockedRegion(regionLock.getRegion(), regionLock.getDate());
         }
         return regionLock;
-      });
+      }));
 
     this.regionLocks.subscribe(() => {
     });
@@ -147,7 +148,7 @@ export class BulletinsService {
   public wsBulletinConnect() {
     this.bulletinLocks = <Subject<BulletinLockModel>>this.wsBulletinService
       .connect(this.constantsService.getWsBulletinUrl() + this.authenticationService.getUsername())
-      .map((response: any): BulletinLockModel => {
+      .pipe(map((response: any): BulletinLockModel => {
         const data = JSON.parse(response.data);
         const bulletinLock = BulletinLockModel.createFromJson(data);
         if (bulletinLock.getLock()) {
@@ -158,7 +159,7 @@ export class BulletinsService {
           this.removeLockedBulletin(bulletinLock.getBulletin());
         }
         return bulletinLock;
-      });
+      }));
 
     this.bulletinLocks.subscribe(() => {
     });

@@ -3,7 +3,7 @@ import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 
 import { AppComponent } from "./app.component";
 
@@ -101,19 +101,19 @@ export class DirectTranslateLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<Object> {
     switch (lang) {
       case "de":
-        return Observable.of(i18nDe);
+        return of(i18nDe);
       case "it":
-        return Observable.of(i18nIt);
+        return of(i18nIt);
       case "en":
-        return Observable.of(i18nEn);
+        return of(i18nEn);
       case "fr":
-        return Observable.of(i18nFr);
+        return of(i18nFr);
       case "es":
-        return Observable.of(i18nEs);
+        return of(i18nEs);
       case "ca":
-        return Observable.of(i18nCa);
+        return of(i18nCa);
       case "oc":
-        return Observable.of(i18nOc);
+        return of(i18nOc);
     }
   }
 }

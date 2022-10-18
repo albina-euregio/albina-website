@@ -1,5 +1,4 @@
 import * as Enums from "../enums/enums";
-import { BehaviorSubject } from "rxjs/Rx";
 import { MatrixInformationModel } from "./matrix-information.model";
 import { AvalancheProblemModel } from "./avalanche-problem.model";
 import { TextModel } from "./text.model";

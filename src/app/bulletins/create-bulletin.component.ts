@@ -12,11 +12,9 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { RegionsService } from "../providers/regions-service/regions.service";
 import { CopyService } from "../providers/copy-service/copy.service";
 import { CatalogOfPhrasesComponent } from "../catalog-of-phrases/catalog-of-phrases.component";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs";
 import * as Enums from "../enums/enums";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/observable/forkJoin";
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
@@ -32,7 +30,7 @@ import "leaflet.sync";
 // For iframe
 import { Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { Subscription } from "rxjs/Rx";
+import { Subscription } from "rxjs";
 
 declare var L: any;
 
@@ -2177,7 +2175,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private startAutoSave() {
-    this.autoSave = Observable.interval(this.constantsService.autoSaveIntervall).takeWhile(() => true).subscribe(() => this.localStorageService.save(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegionId(), this.authenticationService.getCurrentAuthor().getEmail(), this.internBulletinsList));
+    this.autoSave = interval(this.constantsService.autoSaveIntervall).subscribe(() => this.localStorageService.save(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegionId(), this.authenticationService.getCurrentAuthor().getEmail(), this.internBulletinsList));
   }
 
   private loadBulletinsFromLocalStorage() {
