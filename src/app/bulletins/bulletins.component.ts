@@ -7,11 +7,11 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { WsUpdateService } from "../providers/ws-update-service/ws-update.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { Subject } from "rxjs/Rx";
+import { Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
 import { ConfirmationService } from "primeng/api";
-import "rxjs/add/observable/forkJoin";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { ModalSubmitComponent } from "./modal-submit.component";
@@ -21,7 +21,6 @@ import { ModalPublicationStatusComponent } from "./modal-publication-status.comp
 import { ModalPublishAllComponent } from "./modal-publish-all.component";
 import { ModalMediaFileComponent } from "./modal-media-file.component";
 import { saveAs } from "file-saver";
-import { createUrlResolverWithoutPackagePrefix, ForwardRefHandling } from "@angular/compiler";
 
 @Component({
   templateUrl: "bulletins.component.html"
@@ -105,13 +104,13 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   private wsUpdateConnect() {
     this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
       .connect(this.constantsService.getWsUpdateUrl() + this.authenticationService.getUsername())
-      .map((response: any): BulletinUpdateModel => {
+      .pipe(map((response: any): BulletinUpdateModel => {
         const data = JSON.parse(response.data);
         const bulletinUpdate = BulletinUpdateModel.createFromJson(data);
         console.debug("Bulletin update received: " + bulletinUpdate.getDate().toLocaleDateString() + " - " + bulletinUpdate.getRegion() + " [" + bulletinUpdate.getStatus() + "]");
         this.bulletinsService.statusMap.get(bulletinUpdate.region).set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
         return bulletinUpdate;
-      });
+      }));
 
     this.updates.subscribe(msg => {
     });

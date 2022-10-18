@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpRequest, HttpEvent, HttpHeaders } from "@an
 import { ConstantsService } from "../constants-service/constants.service";
 import { SettingsService } from "../settings-service/settings.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class MediaFileService {
