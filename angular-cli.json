@@ -20,8 +20,9 @@
         "../node_modules/primeng/resources/themes/nova/theme.css",
         "../node_modules/primeicons/primeicons.css",
         "scss/style.scss",
-        "assets/css/font-awesome.min.css"
-      ],
+        "assets/css/font-awesome.min.css",
+        "assets/css/observations.min.css"
+     ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "aran": "environments/environment.aran.ts",

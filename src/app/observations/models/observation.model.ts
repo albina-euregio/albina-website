@@ -1,4 +1,5 @@
 import { GenericObservation, Aspect, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
+import * as Enums from "app/enums/enums";
 
 export interface Observation {
   aspect: Aspect;
@@ -48,17 +49,17 @@ export function isAlbinaObservation(observation: GenericObservation): observatio
 function getObservationStability(observation: Observation): Stability {
   switch (observation.eventType ?? EventType.Normal) {
     case EventType.PersonDead:
-      return "weak";
+      return Enums.Stability.weak;
     case EventType.PersonInjured:
-      return "weak";
+      return Enums.Stability.weak;
     case EventType.PersonUninjured:
-      return "weak";
+      return Enums.Stability.weak;
     case EventType.PersonNo:
-      return "weak";
+      return Enums.Stability.weak;
     case EventType.Important:
-      return "medium";
+      return Enums.Stability.medium;
     default:
-      return "unknown";
+      return Enums.Stability.unknown;
   }
 }
 

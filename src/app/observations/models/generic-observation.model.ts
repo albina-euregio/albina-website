@@ -87,9 +87,16 @@ export interface GenericObservation<Data = any> {
    * Danger pattern corresponding with this observation
    */
   dangerPattern?: Enums.DangerPattern;
+  filterType?: ObservationFilterType;
+  isHighlighted?: boolean;
 }
 
-export type Stability = "good" | "medium" | "weak" | "unknown";
+export enum ObservationFilterType {
+  Global = "Global",
+  Local = "Local"
+}
+
+export type Stability = Enums.Stability.good | Enums.Stability.medium | Enums.Stability.weak | Enums.Stability.unknown;
 
 const colors: Record<Stability, string> = {
   good: "green",
@@ -182,6 +189,31 @@ export enum Aspect {
   W = "W",
   NW = "NW",
 }
+
+export enum LocalFilterTypes {
+  Elevation = "Elevation",
+  Aspect = "Aspect",
+  AvalancheProblem = "AvalancheProblem",
+  Stability = "Stability",
+  DangerPattern = "DangerPattern",
+  Days = "Days",
+}
+
+export interface ChartsData {
+  Elevation: Object;
+  Aspects: Object;
+  AvalancheProblem: Object;
+  Stability: Object;
+  DangerPattern: Object;
+  Days: Object;
+}
+
+export interface FilterSelectionData {
+  all: string[];
+  selected: string[];
+  highlighted: string[];
+}
+
 
 export interface ObservationTableRow {
   label: string;
