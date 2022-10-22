@@ -51,14 +51,14 @@ export class MapService {
   initMaps() {
     if (this.authenticationService.isEuregio()) {
       this.baseMaps = {
-        AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
