@@ -7,7 +7,7 @@ workflow:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-build:
+.build:
   stage: build
   image: node:lts
   cache:
@@ -23,8 +23,15 @@ build:
     - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
     - yarn install --frozen-lockfile --no-progress
     - npm --no-git-tag-version version $(git describe)
+
+lint:
+  extends: .build
   script:
     - yarn lint
+
+build:
+  extends: .build
+  script:
     - yarn build
   artifacts:
     paths:
