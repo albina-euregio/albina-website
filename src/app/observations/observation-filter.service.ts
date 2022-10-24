@@ -134,12 +134,14 @@ export class ObservationFilterService {
 
 
   public isSelected(observation: GenericObservation) {
+
     return (
       this.inMapBounds(observation) &&
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
         this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
+        this.inRegions(observation.region) &&
         this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate)) 
  
       )
