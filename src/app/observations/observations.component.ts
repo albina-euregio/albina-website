@@ -135,7 +135,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     };
     info.addTo(this.mapService.observationsMap);
 
-    this.loadObservations();
+    this.loadObservations({days: 7});
     this.mapService.observationsMap.on("click", () => {
 
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
