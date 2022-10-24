@@ -4,9 +4,15 @@
   "newProjectRoot": "projects",
   "projects": {
     "albina-admin-gui": {
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -37,8 +43,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -106,26 +112,19 @@
             "assets": ["src/assets"]
           }
         },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "albina-admin-gui:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "albina-admin-gui:serve:production"
+            }
           }
         }
       }
     }
-  },
-  "defaultProject": "albina-admin-gui",
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "app",
-      "style": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "app"
-    }
-  },
-  "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
   }
 }
