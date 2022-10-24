@@ -494,7 +494,7 @@ export class ObservationsMapService {
     //const iconColor = toMarkerColor(observation);
     let iconColor = "#000";
 
-    if (observation.filterType === ObservationFilterType.Global) {
+    if (observation.isHighlighted) {
       iconColor = "#ff0000"
     }
 
