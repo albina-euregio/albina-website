@@ -23,7 +23,6 @@ variables:
     - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
     - yarn install --frozen-lockfile --no-progress
     - npm --no-git-tag-version version $(git describe)
-    - npm rebuild node-sass
   script:
     - yarn lint
     - yarn build-$CI_ENVIRONMENT_NAME
