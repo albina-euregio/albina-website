@@ -19,6 +19,7 @@ const barDefaults = {
 })
 export class RoseChartComponent extends BaseComponent {
 
+    private pressTimer;
 
     public readonly defaultOptions = {
         // title: {
@@ -157,9 +158,34 @@ export class RoseChartComponent extends BaseComponent {
         super();
     }
 
-    onClick(event: any) {
-//        console.log("RosehartComponent->onclick", event, this);
-        this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+    private resetTimeout() {
+        clearTimeout(this.pressTimer);
+        this.pressTimer = null;
+    }
+
+    // onClick(event: any) {
+    //     console.log("RosehartComponent->onclick", event, this);
+        
+    // }
+
+    onMouseDown(event: any) {
+        console.log("RosehartComponent->onMouseDown", event, this);
+        const self = this;
+        this.pressTimer = window.setTimeout(function() {
+            self.resetTimeout();
+            self.submitChange([self.type, {value: event.data[0], altKey: true}]);
+        },this.longClickDur);
+        return false; 
+
+    }
+
+    onMouseUp(event: any) {
+        console.log("RosehartComponent->onMouseUp", event, this);
+        if(this.pressTimer) {
+            this.resetTimeout();
+            this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+        }
+        return false;
     }
 
     onClickNan(event: any) {

@@ -9,6 +9,8 @@ import { dataTool } from 'echarts';
 
 export class BaseComponent {
 
+  longClickDur = 200;
+
   @Input() caption: String
   @Input() translationBase: String
   @Input() formatter: String

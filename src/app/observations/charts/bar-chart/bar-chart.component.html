@@ -38,7 +38,8 @@
 		<div echarts 
 			[options]="options" 
 			[merge]="{dataset: data.dataset}" 
-			(chartClick)="onClick($event)" 
+			(chartMouseDown)="onMouseDown($event)" 
+			(chartMouseUp)="onMouseUp($event)" 
 			class="chart">
 		</div>
 	</div>

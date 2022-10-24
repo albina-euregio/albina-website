@@ -356,7 +356,7 @@ export class ObservationsMapService {
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
     
     return function onEachFeature(feature, layer) {
-      console.log("onEachFeatureClosure op map", overlayMaps);
+      //console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
         click: function(e) {
           if (feature.properties.selected && feature.properties.selected === true) {
