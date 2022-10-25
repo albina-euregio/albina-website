@@ -40,7 +40,7 @@
               optionValue="id"
               [maxSelectedLabels]="0"
               selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
-              (handleChange)="onDropdownSelect('sources', $event)"
+              (onChange)="onDropdownSelect('sources', $event)"
               ></p-multiSelect>
             </div>
           
@@ -48,12 +48,12 @@
               <p-multiSelect 
               placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
               [options]="allRegions" 
-              [(ngModel)]="selectedRegionItems" 
+              [(ngModel)]="filter.regions" 
               optionLabel="name" 
               optionValue="id"
               [maxSelectedLabels]="0"
               selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
-              (handleChange)="onDropdownSelect('regions', $event)"
+              (onChange)="onDropdownSelect('regions', $event)"
               ></p-multiSelect>
             </div>
             

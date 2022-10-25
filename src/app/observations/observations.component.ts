@@ -161,13 +161,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     switch (target) {
       case "regions":
         this.filter.regions = event.value;
+        this.mapService.clickRegion(event.value);
+        this.applyLocalFilter();
         break;
       case "sources":
         this.filter.observationSources = event.value;
+        this.loadObservations();
         break;
       default:
     }
-    this.loadObservations();
+    
 
   }
 
