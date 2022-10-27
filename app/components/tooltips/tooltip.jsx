@@ -14,7 +14,6 @@ import {
   useFloating,
   useInteractions,
   useHover,
-  useClick,
   useFocus,
   useRole,
   useDismiss,
@@ -44,9 +43,6 @@ export const Tooltip = ({
       restMs: 40,
       mouseOnly: true,
       handleClose: safePolygon()
-    }),
-    useClick(context, {
-      ignoreMouse: true
     }),
     useFocus(context),
     useRole(context, { role: "tooltip" }),
