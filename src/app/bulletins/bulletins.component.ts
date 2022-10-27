@@ -414,7 +414,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   }
 
   editBulletin(date: Date, isUpdate: boolean) {
-    if (this.authenticationService.getActiveRegionId() && this.authenticationService.getActiveRegionId() !== undefined) {
+    if (this.authenticationService.getActiveRegionId() && this.authenticationService.getActiveRegionId() !== undefined && (this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) || this.authenticationService.isCurrentUserInRole(this.constantsService.roleForeman))) {
       if (!this.copying) {
         if (isUpdate) {
           this.bulletinsService.setIsUpdate(true);
