@@ -101,7 +101,7 @@
 		<span class="switch-label"></span>
 		<span class="switch-handle"></span>
 	</label>
-	<label class="form-control-label" for="textarea-input">{{ "matrix.label.override" | translate }}</label>
+	<label *ngIf="!disabled" class="form-control-label" for="textarea-input">{{ "matrix.label.override" | translate }}</label>
 </div>
 <table>
 	<tbody>

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { AfterViewInit, Component, Input } from "@angular/core";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { BulletinDaytimeDescriptionModel } from "app/models/bulletin-daytime-description.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
@@ -13,7 +13,7 @@ import { TranslateService } from "@ngx-translate/core";
   selector: "app-matrix-parameter",
   templateUrl: "matrix-parameter.component.html"
 })
-export class MatrixParameterComponent {
+export class MatrixParameterComponent implements AfterViewInit {
 
   @Input() bulletin: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
@@ -193,6 +193,12 @@ export class MatrixParameterComponent {
     public constantsService: ConstantsService,
     public translateService: TranslateService) {
       this.dangerRatingEnabled = false;
+  }
+
+  ngAfterViewInit(): void {
+    this.snowpackStabilityOptions = Object.assign({}, this.snowpackStabilityOptions, {disabled: this.disabled});
+    this.frequencyOptions = Object.assign({}, this.frequencyOptions, {disabled: this.disabled});
+    this.avalancheSizeOptions = Object.assign({}, this.avalancheSizeOptions, {disabled: this.disabled});
   }
 
   onSnowpackStabilityValueChange(changeContext: ChangeContext): void {
