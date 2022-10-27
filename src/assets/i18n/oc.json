@@ -556,6 +556,14 @@
       "label" : {
         "dateRange" : "Periòde",
         "observer" : "Observador"
+      },
+      "selectRegion": {
+        "placeholder": "Region",
+        "selectionLabel": "{0} regions selected"
+      },
+      "selectSources": {
+        "placeholder": "Sources",
+        "selectionLabel": "{0} sources selected"
       }
     },
     "blog" : {

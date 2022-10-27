@@ -444,6 +444,8 @@
         "sendTelegramMessages" : "Invia messaggi via Telegram",
         "sendPushNotifications" : "Invia notifiche push",
         "enableMediaFile" : "Attiva file media",
+        "enableAvalancheProblemCornices" : "Enable avalanche problem CORNICES",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Enable avalanche problem NO DISTINCT AVALANCHE PROBLEM",
         "pdfColor" : "PDF in colore",
         "emailColor" : "Email in colore",
         "pdfMapYAmPm" : "Y per mappa PDF (am/pm)",
@@ -554,6 +556,14 @@
       "label" : {
         "dateRange" : "Periodo",
         "observer" : "Osservatore"
+      },
+      "selectRegion": {
+        "placeholder": "Regione",
+        "selectionLabel": "{0} regions selected"
+      },
+      "selectSources": {
+        "placeholder": "Sources",
+        "selectionLabel": "{0} sources selected"
       }
     },
     "blog" : {

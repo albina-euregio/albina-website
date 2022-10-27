@@ -562,7 +562,7 @@
         "selectionLabel": "{0} regions selected"
       },
       "selectSources": {
-        "placeholder": "Daten",
+        "placeholder": "Sources",
         "selectionLabel": "{0} sources selected"
       }
     },
