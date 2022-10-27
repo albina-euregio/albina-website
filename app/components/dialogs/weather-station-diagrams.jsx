@@ -121,7 +121,11 @@ class WeatherStationDiagrams extends React.Component {
       <>
         {lastYear && (
           <li className="weatherstation-flipper-back">
-            <Tooltip label="Back">
+            <Tooltip
+              label={this.props.intl.formatMessage({
+                id: "weatherstation-diagrams:back"
+              })}
+            >
               <a
                 href="#"
                 onClick={() => {
@@ -137,7 +141,11 @@ class WeatherStationDiagrams extends React.Component {
         <li className="weatherstation-flipper-current">{selectedYear}</li>
         {nextYear && (
           <li className="weatherstation-flipper-forward">
-            <Tooltip label="Forward">
+            <Tooltip
+              label={this.props.intl.formatMessage({
+                id: "weatherstation-diagrams:forward"
+              })}
+            >
               <a
                 href="#"
                 onClick={() => {
@@ -154,7 +162,11 @@ class WeatherStationDiagrams extends React.Component {
         )}
         {this.state.selectedYear && (
           <li className="weatherstation-flipper-forward">
-            <Tooltip label="Latest">
+            <Tooltip
+              label={this.props.intl.formatMessage({
+                id: "weatherstation-diagrams:latest"
+              })}
+            >
               <a
                 href="#"
                 onClick={() => {
@@ -194,7 +206,11 @@ class WeatherStationDiagrams extends React.Component {
         <li className="weatherstation-flipper-station">
           <ul className="list-inline weatherstation-flipper">
             <li className="weatherstation-flipper-back">
-              <Tooltip label="Prior Station">
+              <Tooltip
+                label={this.props.intl.formatMessage({
+                  id: "weatherstation-diagrams:priorstation"
+                })}
+              >
                 <a href="#" onClick={this.previous}>
                   <span className="icon-arrow-left"></span>
                   {previousStationData.name}
@@ -202,7 +218,11 @@ class WeatherStationDiagrams extends React.Component {
               </Tooltip>
             </li>
             <li className="weatherstation-flipper-forward">
-              <Tooltip label="Next Station">
+              <Tooltip
+                label={this.props.intl.formatMessage({
+                  id: "weatherstation-diagrams:nextstation"
+                })}
+              >
                 <a href="#" onClick={this.next}>
                   {nextStationData.name}&nbsp;
                   <span className="icon-arrow-right"></span>
