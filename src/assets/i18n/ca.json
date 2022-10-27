@@ -1,7 +1,7 @@
 {
   "login" : {
     "title" : " Iniciar Sessió",
-    "text" : "Inicia sessió al teu compte",
+    "text" : "Iniciar sessió al teu compte",
     "button" : "Iniciar Sessió",
     "errorDialog" : {
       "message" : "Usuari o contrasenya incorrectes",
@@ -37,59 +37,59 @@
     "education" : "Educació"
   },
   "chat" : {
-    "placeholder" : "Escriu aquí...",
-    "send" : "Envia",
+    "placeholder" : "Escriure aquí...",
+    "send" : "Enviar",
     "activeUsers" : "Qui està connectat?",
     "all" : "Tots",
     "AT-07" : "Tirol ",
-    "IT-32-BZ" : "South Tyrol ",
+    "IT-32-BZ" : "Tirol del Sud ",
     "IT-32-TN" : "Trentino "
   },
   "matrix" : {
     "label" : {
-      "snowpackStability" : "Snowpack Stability",
-      "frequency" : "Frequency",
-      "avalancheSize" : "Avalanche Size",
+      "snowpackStability" : "Avaluació de l'estabilitat",
+      "frequency" : "Freqüència",
+      "avalancheSize" : "Mida d'allaus",
       "dangerRating" : "Grau de perill",
-      "override" : "(override danger rating)",
-      "matrix" : "Matrix",
-      "referToFairStability" : "Refer to fair stability",
-      "referToPoorStability" : "Refer to poor stability",
-      "dangerLevel1" : "Danger level 1 (Low)"
+      "override" : "(modifica el grau de perill)",
+      "matrix" : "Matriu",
+      "referToFairStability" : "Referir-se a una estabilitat regular",
+      "referToPoorStability" : "Referir-se a una estabilitat pobre",
+      "dangerLevel1" : "Grau de perill 1 (Feble)"
     }
   },
   "bulletins" : {
     "title" : "Avalanche.report",
     "loadingPreview" : "S'està creant la previsualització de PDF ...",
     "tooltip" : {
-      "publish" : "Publica el butlletí actualitzat immediatament",
-      "submit" : "Puja el butlletí",
-      "copy" : "Copia el butlletí",
-      "cancel" : "Cancel·la la còpia",
-      "paste" : "Enganxa el butlletí",
-      "update" : "Crea actualització del butlletí",
-      "caaml" : "Mostra CAAML",
-      "json" : "Mostra JSON",
-      "edit" : "Edita el butlletí (no serà publicat de nou)",
-      "create" : "Crea butlletí",
-      "preview" : "Previsualitza el butlletí (PDF)",
-      "check" : "Comprova el butlletí",
-      "info" : "Mostra l'estat de publicació",
-      "publishAll" : "Publica totes les regions",
+      "publish" : "Publicar el butlletí actualitzat immediatament",
+      "submit" : "Pujar el butlletí",
+      "copy" : "Copiar el butlletí",
+      "cancel" : "Cancel·lar la còpia",
+      "paste" : "Enganxar el butlletí",
+      "update" : "Crear actualització del butlletí",
+      "caaml" : "Mostrar CAAML",
+      "json" : "Mostrar JSON",
+      "edit" : "Editar el butlletí (no serà publicat de nou)",
+      "create" : "Crear butlletí",
+      "preview" : "Previsualitzar el butlletí (PDF)",
+      "check" : "Comprovar el butlletí",
+      "info" : "Mostrar l'estat de publicació",
+      "publishAll" : "Publicar totes les regions",
       "mediaFile" : "Carregar un fitxer multimèdia"
     },
     "create" : {
       "tooltip" : {
-        "edit" : "Edita regió",
-        "copy" : "Copia regió",
-        "delete" : "Esborra regió",
-        "acceptSuggestion" : "Accepta les regions proposades",
-        "rejectSuggestion" : "No acceptis les regions proposades",
-        "saveChanges" : "Guarda els canvis",
-        "discardChanges" : "Descarta els canvis",
-        "saveBulletin" : "Guarda el butlletí",
-        "discardBulletin" : "Descarta els canvis al butlletí",
-        "loadBulletin" : "Carrega el butlletí d'ahir",
+        "edit" : "Editar regió",
+        "copy" : "Copiar regió",
+        "delete" : "Esborrar regió",
+        "acceptSuggestion" : "Acceptar les regions proposades",
+        "rejectSuggestion" : "No acceptar les regions proposades",
+        "saveChanges" : "Guardar els canvis",
+        "discardChanges" : "Descartar els canvis",
+        "saveBulletin" : "Guardar el butlletí",
+        "discardBulletin" : "Descartar els canvis al butlletí",
+        "loadBulletin" : "Carregar el butlletí d'ahir",
         "uploadJsonBulletin" : "Carregar el butlletí en format JSON",
         "downloadJsonBulletin" : "Descarregar el butlletí en format JSON",
         "daytimeDependency" : "Dependència de l'hora",
@@ -105,27 +105,27 @@
           "complex" : "L’avaluació al camp és complexa"
         },
         "textcat" : {
-          "edit" : "Edita",
-          "copy" : "Copia",
-          "paste" : "Enganxa",
-          "example" : "Carrega text d'exemple",
-          "delete" : "Esborra"
+          "edit" : "Editar",
+          "copy" : "Copiar",
+          "paste" : "Enganxar",
+          "example" : "Carregar text d'exemple",
+          "delete" : "Esborrar"
         },
-        "moveUpAvalancheProblem" : "Mou el problema de les allaus cap amunt",
-        "moveDownAvalancheProblem" : "Mou el problema de les allaus cap avall",
+        "moveUpAvalancheProblem" : "Moure el problema d'allaus cap amunt",
+        "moveDownAvalancheProblem" : "Moure el problema d'allaus cap avall",
         "dangerRatingDirectionUp" : "Estendre el grau de perill d'allaus amunt",
         "dangerRatingDirectionDown" : "Estendre el grau de perill d'allaus avall"
       },
-      "save" : "Desa",
-      "discard" : "Descarta",
+      "save" : "Desar",
+      "discard" : "Descartar",
       "back" : "Enrera",
       "createAggregatedRegion" : "Nova regió",
-      "pasteAggregatedRegion" : "Enganxa la regió",
+      "pasteAggregatedRegion" : "Enganxar la regió",
       "cancelCopyBulletin" : "Cancel·lar",
       "createAvalancheProblem" : "Nou problema",
       "ownRegions" : "Regions pròpies",
       "foreignRegions": "Regions alienes",
-      "externalRegions": "External regions",
+      "externalRegions": "Regions externes",
       "label" : {
         "avalancheProblems" : "Problema d'allaus",
         "aspects" : "Orientacions",
@@ -197,18 +197,18 @@
         "accept" : "D'acord"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
+        "message" : "Falta el problema d'allaus, orientacions, estabilitat del mantell de neu, freqüència i/o la mida d'allaus per almenys un problema d'allaus",
         "accept" : "D'acord"
       },
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Per quina situació vols carregar un text d'exemple?",
         "newSnow" : "Neu recent",
-        "windSlab" : "Wind slab",
+        "windSlab" : "Plaques de vent",
         "persistentWeakLayers" : "Capes febles persistents",
         "wetSnow" : "Neu humida",
         "glidingSnow" : "Lliscaments",
         "favourableSituation" : "Situació favorable",
-        "cancel" : "Cancel·la"
+        "cancel" : "Cancel·lar"
       }
     },
     "table" : {
@@ -216,8 +216,8 @@
         "date" : "Data",
         "status" : {
           "IT-32-TN" : "Trentino",
-          "IT-32-BZ" : "South Tyrol",
-          "AT-07" : "Tyrol",
+          "IT-32-BZ" : "Tirol del Sud",
+          "AT-07" : "Tirol",
           "ES-CT-L" : "Aran"
         }
       },
@@ -299,7 +299,7 @@
         },
         "telegram" : {
           "label" : "Missatges Telegram",
-          "tooltip" : "Envia missatges de Telegram",
+          "tooltip" : "Enviar missatges de Telegram",
           "success" : "{{prefix}}Missatges de Telegram enviats correctament!",
           "error" : "{{prefix}}No s'han pogut enviar els missatges de Telegram!"
         },
@@ -317,7 +317,7 @@
         "missingText" : "Falta el text!",
         "missingFile" : "No s'ha seleccionat cap fitxer!",
         "uploadError" : "La càrrega ha fallat!",
-        "accept" : "Envia",
+        "accept" : "Enviar",
         "reject" : "Cancel·la"
       },
       "publishBulletinsErrorDialog" : {
@@ -353,7 +353,7 @@
         "accept" : "D'acord"
       },
       "checkBulletinsDialog" : {
-        "message" : "Comprova el butlletí",
+        "message" : "Comprovar el butlletí",
         "missingDangerRating" : "Grau de perill no especificat ",
         "missingRegion" : "Regions sense graduar",
         "missingAvActivityHighlights" : "Falta el titular de la situació d'allaus",
@@ -397,14 +397,14 @@
   "admin" : {
     "loadingStatistics" : "Creant el CSV ...",
     "server-configuration" : {
-      "title" : "Server",
+      "title" : "Servidor",
       "button" : {
-        "create" : "Create server",
-        "save" : "Desa"
+        "create" : "Crear servidor",
+        "save" : "Desar"
       },
       "table" : {
         "name" : "Nom",
-        "username" : "Username",
+        "username" : "Nom d'usuari",
         "password" : "Contrasenya",
         "publishAt5PM" : "Publica a les 5 PM",
         "publishAt8AM" : "Publica a les 8 AM",
@@ -412,7 +412,7 @@
         "htmlDirectory" : "Directori per HTML",
         "serverImagesUrl" : "Adreça de les imatges del servidor",
         "mapsPath" : "Adreça dels mapes",
-        "mediaPath" : "Path to media files",
+        "mediaPath" : "Ruta dels fitxers multimèdia",
         "mapProductionUrl" : "URL per la producció dels mapes",
         "apiUrl" : "API URL"
       },
@@ -422,51 +422,53 @@
     "region-configuration" : {
       "title" : "Regió",
       "button" : {
-        "create" : "Create region",
-        "save" : "Desa"
+        "create" : "Crear regió",
+        "save" : "Desar"
       },
       "table" : {
         "id" : "ID",
-        "microRegions" : "Number of micro regions",
-        "subRegions" : "Sub regions",
-        "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbouring regions",
-        "showMatrix" : "Show matrix",
-        "publishBulletins" : "Publish avalanche forecast",
-        "publishBlogs" : "Publish blog posts",
-        "createCaamlV5" : "Create CAAML v5",
-        "createCaamlV6" : "Create CAAML v6",
-        "createJson" : "Create JSON",
-        "createMaps" : "Crea mapes",
-        "createPdf" : "Crea PDF",
-        "sendEmails" : "Envia correus",
-        "createSimpleHtml" : "Crea HTML simple",
-        "sendTelegramMessages" : "Send telegram messages",
-        "sendPushNotifications" : "Send push notifications",
-        "enableMediaFile" : "Enable media file",
+        "microRegions" : "Nombre de micro-regions",
+        "subRegions" : "Sub-regions",
+        "superRegions" : "Super-regions",
+        "neighborRegions" : "Regions veïnes",
+        "showMatrix" : "Mostrar la matriu",
+        "publishBulletins" : "Publicar la predicció d'allaus",
+        "publishBlogs" : "Publicar entrades al blog",
+        "createCaamlV5" : "Crear CAAML v5",
+        "createCaamlV6" : "Crear CAAML v6",
+        "createJson" : "Crear JSON",
+        "createMaps" : "Crear mapes",
+        "createPdf" : "Crear PDF",
+        "sendEmails" : "Enviar correus",
+        "createSimpleHtml" : "Crear HTML simple",
+        "sendTelegramMessages" : "Enviar missatges de Telegram",
+        "sendPushNotifications" : "Enviar notificacions push",
+        "enableMediaFile" : "Activar el fitxer multimèdia",
+        "enableAvalancheProblemCornices" : "Habilitar el problema d'allaus CORNISES",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Habilitar el problema d'allaus CAP PROBLEMA D'ALLAUS EVIDENT",
         "pdfColor" : "PDF color",
         "emailColor" : "Email color",
-        "pdfMapYAmPm" : "Y for PDF map (am/pm)",
-        "pdfMapYFd" : "Y for PDF map (fd)",
-        "pdfMapWidthAmPm" : "Map width for PDF (am/pm)",
-        "pdfMapWidthFd" : "Map width for PDF (fd)",
-        "pdfMapHeight" : "Map height for PDF",
-        "pdfFooterLogo" : "Logo for PDF footer",
-        "pdfFooterLogoColorPath" : "Logo for PDF footer (color)",
-        "pdfFooterLogoBwPath" : "Logo for PDF footer (bw)",
-        "mapXmax" : "Map X max",
-        "mapXmin" : "Map X min",
-        "mapYmax" : "Map Y max",
-        "mapYmin" : "Map Y min",
-        "simpleHtmlTemplateName" : "Simple HTML template",
-        "geoDataDirectory" : "Geodata directory",
-        "mapLogoColorPath" : "Logo for map (color)",
-        "mapLogoBwPath" : "Logo for map (bw)",
-        "mapLogoPosition" : "Logo position for map",
-        "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (long)",
-        "imageColorbarColorPath" : "Colorbar (color)",
-        "imageColorbarBwPath" : "Colorbar (b/w)"
+        "pdfMapYAmPm" : "Y per al mapa PDF (am/pm)",
+        "pdfMapYFd" : "Y per al mapa PDF (fd)",
+        "pdfMapWidthAmPm" : "Amplada del mapa per a PDF (am/pm)",
+        "pdfMapWidthFd" : "Amplada del mapa per a PDF (fd)",
+        "pdfMapHeight" : "Alçada del mapa per a PDF",
+        "pdfFooterLogo" : "Logotip per al peu de pàgina de PDF",
+        "pdfFooterLogoColorPath" : "Logotip per al peu de pàgina de PDF (color)",
+        "pdfFooterLogoBwPath" : "Logotip per al peu de pàgina de PDF (bw)",
+        "mapXmax" : "X del mapa màxim",
+        "mapXmin" : "X del mapa mínim",
+        "mapYmax" : "Y del mapa màxim",
+        "mapYmin" : "Y del mapa mínim",
+        "simpleHtmlTemplateName" : "Plantilla HTML senzilla",
+        "geoDataDirectory" : "Directori de geodades",
+        "mapLogoColorPath" : "Logotip per al mapa (color)",
+        "mapLogoBwPath" : "Logotip per al mapa (bw)",
+        "mapLogoPosition" : "Posició del logotip per al mapa",
+        "mapCenterLat" : "Centrar posició del mapa (latitud)",
+        "mapCenterLng" : "Posició del logotip per al mapa (longitud)",
+        "imageColorbarColorPath" : "Barra de colors (color)",
+        "imageColorbarBwPath" : "Barra de colors (b/w)"
       },
       "success" : "Configuració guardada satisfactòriament",
       "error" : "No es pot guardar la contrasenya"
@@ -517,14 +519,14 @@
       },
       "error" : {
         "name" : {
-          "required" : "Introduïu un nom"
+          "required" : "Introduir un nom"
         },
         "email" : {
-          "required" : "Introduïu una adreça de correu electrònic",
+          "required" : "Introduir una adreça de correu electrònic",
           "invalid" : "L'adreça de correu electrònic no és vàlida"
         },
         "password" : {
-          "required" : "Introduïu una contrasenya",
+          "required" : "Introduir una contrasenya",
           "length" : "La contrasenya ha de tenir com a mínim 8 caràcters",
           "mismatch" : "Les contrasenyes no coincideixen"
         }
@@ -532,13 +534,13 @@
       "button" : {
         "create" : "Crear usuari",
         "update" : "Actualitzar l'usuari",
-        "cancel" : "Cancel·la"
+        "cancel" : "Cancel·lar"
       }  
     },
     "statistics" : {
       "title" : "Estadístiques",
       "button" : {
-        "submit" : "Descarrega"
+        "submit" : "Descarregar"
       },
       "label" : {
         "dateRange" : "Període",
@@ -549,7 +551,7 @@
     "observations" : {
       "title" : "Observacions",
       "button" : {
-        "submit" : "Descarrega"
+        "submit" : "Descarregar"
       },
       "label" : {
         "dateRange" : "Període",
@@ -588,7 +590,7 @@
   },
   "settings" : {
     "changePassword" : {
-      "title" : "Canvia la contrasenya",
+      "title" : "Canviar la contrasenya",
       "oldPassword" : {
         "label" : "Contrasenya actual",
         "placeholder" : "Contrasenya actual"
@@ -601,7 +603,7 @@
         "label" : "Contrasenya nova (repetir)",
         "placeholder" : "Nova contrasenya"
       },
-      "submit" : "Canvia la contrasenya",
+      "submit" : "Canviar la contrasenya",
       "passwordChanged" : "Contrasenya canviada",
       "passwordChangeError" : "No es pot canviar la contraenya",
       "passwordIncorrect" : "La contrasenya actual és incorrecta",
@@ -616,18 +618,18 @@
       }
     },
     "display" : {
-      "title" : "Visualització",
+      "title" : "Visualitzar",
       "table" : {
-        "showCaaml" : "Mostra CAAML",
-        "showJson" : "Mostra JSON",
-        "showObservations" : "Mostra observacions"
+        "showCaaml" : "Mostrar CAAML",
+        "showJson" : "Mostrar JSON",
+        "showObservations" : "Mostrar observacions"
       }
     }
   },
 
   "dangerRating" : {
     "noRating" : "Sense grau de perill",
-    "low" : "feble",
+    "low" : "Feble",
     "moderate" : "Moderat",
     "considerable" : "Marcat",
     "high" : "Fort",
@@ -635,12 +637,12 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Neu recent",
-    "windSlab" : "Wind slab",
+    "windSlab" : "Plaques de vent",
     "persistentWeakLayers" : "Capes febles persistents",
     "wetSnow" : "Neu humida",
     "glidingSnow" : "Lliscaments",
-    "cornices" : "Cornices",
-    "noDistinctAvalancheProblem" : "No distict avalanche problem"
+    "cornices" : "Cornises",
+    "noDistinctAvalancheProblem" : "Cap problema d'allaus diferenciat"
   },
   "dangerPattern" : {
     "dp1" : "pp.1: capa feble persistent profunda",
@@ -676,23 +678,23 @@
     "increasing" : "El perill d'allaus augmenta"
   },
   "snowpackStability" : {
-    "good" : "good",
-    "fair" : "fair",
-    "poor" : "poor",
-    "very_poor" : "very poor"
+    "good" : "bona",
+    "fair" : "regular",
+    "poor" : "pobre",
+    "very_poor" : "molt pobre"
   },
   "frequency" : {
-    "none" : "(nearly) none",
-    "few" : "a few",
-    "some" : "some",
-    "many" : "many"
+    "none" : "(gairebé) cap",
+    "few" : "unes poques",
+    "some" : "algunes",
+    "many" : "moltes"
   },
   "avalancheSize" : {
-    "small" : "small",
-    "medium" : "medium",
-    "large" : "large",
-    "very_large" : "very large",
-    "extreme" : "extreme"
+    "small" : "petita",
+    "medium" : "mitjana",
+    "large" : "gran",
+    "very_large" : "molt gran",
+    "extreme" : "extremadament gran"
   },
   "complexity": {
     "easy": "Fàcil",
@@ -733,13 +735,13 @@
       "wet_snow_plot_1month" : "neu humida (31d)",
       "wet_snow_plot_season" : "Neu humida (temporada)",
       "wet_snow_plot_forecast" : "Neu humida (previsió)",
-      "HS_table_24h" : "snow height table (1d)",
-      "HS_table_72h" : "snow height table (3d)",
-      "HS_table_season" : "snow height table (season)",
-      "HS_table_forecast" : "snow height table (forecast)",
-      "TA_table_24h" : "temperature table (1d)",
-      "TA_table_72h" : "temperature table (3h)",
-      "TA_table_season" : "temperature table (season)"
+      "HS_table_24h" : "taula d'alçada de la neu (1d)",
+      "HS_table_72h" : "taula d'alçada de la neu (3d)",
+      "HS_table_season" : "taula d'alçada de la neu (temporada)",
+      "HS_table_forecast" : "taula d'alçada de la neu (previsió)",
+      "TA_table_24h" : "taula de temperatures (1d)",
+      "TA_table_72h" : "taula de temperatures (3h)",
+      "TA_table_season" : "taula de temperatures (temporada)"
     }
   },
   "observations": {
@@ -750,7 +752,7 @@
     "avalancheSize": "Mida d'allau",
     "avalancheType": "Tipus d'allau",
     "avalancheWidth": "Amplada d'allau",
-    "count": "# observations:",
+    "count": "# observacions:",
     "button": {
       "add": "Afegir observació",
       "save": "Guardar observació",
@@ -766,14 +768,14 @@
     "eventType": "Tipus d'esdeveniment",
     "eventTypes": {
       "IMPORTANT": "Esdeveniment important",
-      "NEIGHBOR_REGION": "Neighbouring region",
+      "NEIGHBOR_REGION": "Regió veïna",
       "NORMAL": "Esdeveniment normal",
       "PERSON_DEAD": "Esdeveniment amb persones implicades (mortes)",
       "PERSON_INJURED": "Esdeveniment amb persones implicades (ferides)",
       "PERSON_NO": "Esdeveniment sense persones implicades",
       "PERSON_UNINJURED": "Esdeveniment amb persones implicades (il·leses)",
-      "PERSON_UNKNOWN": "Event (unknown)",
-      "TRAFFIC": "Traffic"
+      "PERSON_UNKNOWN": "Esdeveniment (desconegut)",
+      "TRAFFIC": "Trànsit"
     },
     "fractureDepth": "Profunditat cicatriu",
     "hasCoordinates": "Té coordenades",
@@ -783,19 +785,19 @@
     "longitude": "Longitud",
     "reportDate": "Data de l'informe",
     "showTable": "Taula",
-    "withoutCoordinates": "Observations without coordinates:",
+    "withoutCoordinates": "Observacions sense coordenades:",
     "sidebar": {
       "filter": {
-        "title": "Filter"
+        "title": "Filtre"
       },
       "legend": {
-        "title": "Legend"
+        "title": "Llegenda"
       },
       "sources": {
-        "title": "Data Sources"
+        "title": "Fonts de dades"
       },
       "views": {
-        "title": "Views"
+        "title": "Vistes"
       }
     }
   },

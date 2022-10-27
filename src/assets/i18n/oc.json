@@ -47,15 +47,15 @@
   },
   "matrix" : {
     "label" : {
-      "snowpackStability" : "Snowpack Stability",
-      "frequency" : "Frequency",
-      "avalancheSize" : "Avalanche Size",
+      "snowpackStability" : "Estabilitat deth celh de nhèu",
+      "frequency" : "Frecuéncia",
+      "avalancheSize" : "Mida de lauet",
       "dangerRating" : "Grad de perilh",
-      "override" : "(override danger rating)",
-      "matrix" : "Matrix",
-      "referToFairStability" : "Refer to fair stability",
-      "referToPoorStability" : "Refer to poor stability",
-      "dangerLevel1" : "Danger level 1 (Low)"
+      "override" : "(modifique eth grad de perilh)",
+      "matrix" : "Mairitz",
+      "referToFairStability" : "Referir-se a una estabilitat regular",
+      "referToPoorStability" : "Referir-se a una pobre estabilitat",
+      "dangerLevel1" : "Grad de perilh 1 (Fèble)"
     }
   },
   "bulletins" : {
@@ -125,7 +125,7 @@
       "createAvalancheProblem" : "Nau problèma",
       "ownRegions" : "Regions pròprias",
       "foreignRegions": "Regions estrangères",
-      "externalRegions": "External regions",
+      "externalRegions": "Regions extèrnes",
       "label" : {
         "avalancheProblems" : "Problèma de lauegi",
         "aspects" : "Orientacions",
@@ -197,13 +197,13 @@
         "accept" : "D'acòrd"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
+        "message" : "Manque eth problèma de lauegi, orientacions, estabilitat deth celh de nhèu, frequéncia e/o era mesura de lauet per aumens un problèma de lauegi",
         "accept" : "D'acòrd"
       },
       "loadAvActivityCommentExampleTextDialog" : {
         "message" : "Entà quina situacion vòs cargar un tèxte d'exemple?",
         "newSnow" : "Nhèu recenta",
-        "windSlab" : "Wind slab",
+        "windSlab" : "Plaques de vent",
         "persistentWeakLayers" : "Coches fèbles persistentes",
         "wetSnow" : "Nhèu umida",
         "glidingSnow" : "Esguitlaments basaus",
@@ -397,14 +397,14 @@
   "admin" : {
     "loadingStatistics" : "Creant eth CSV ...",
     "server-configuration" : {
-      "title" : "Server",
+      "title" : "Servidor",
       "button" : {
-        "create" : "Create server",
+        "create" : "Crear servidor",
         "save" : "Sauvar"
       },
       "table" : {
         "name" : "Nòm",
-        "username" : "Username",
+        "username" : "Nòm d'usatgèr",
         "password" : "Password",
         "publishAt5PM" : "Publicar as 5 PM",
         "publishAt8AM" : "Publicar as 8 AM",
@@ -412,7 +412,7 @@
         "htmlDirectory" : "Directòri entà HTML",
         "serverImagesUrl" : "Rota as imatges deth servidor",
         "mapsPath" : "Rota as mapes",
-        "mediaPath" : "Path to media files",
+        "mediaPath" : "Rota des fichèrs multimèdia",
         "mapProductionUrl" : "URL entara produccion de mapes",
         "apiUrl" : "API URL"
       },
@@ -422,51 +422,53 @@
     "region-configuration" : {
       "title" : "Region",
       "button" : {
-        "create" : "Create region",
+        "create" : "Crear region",
         "save" : "Sauvar"
       },
       "table" : {
         "id" : "ID",
-        "microRegions" : "Number of micro regions",
-        "subRegions" : "Sub regions",
-        "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbouring regions",
-        "showMatrix" : "Show matrix",
-        "publishBulletins" : "Publish avalanche forecast",
-        "publishBlogs" : "Publish blog posts",
-        "createCaamlV5" : "Create CAAML v5",
-        "createCaamlV6" : "Create CAAML v6",
-        "createJson" : "Create JSON",
+        "microRegions" : "Nombre de micro-regions",
+        "subRegions" : "Sub-regions",
+        "superRegions" : "Super-regions",
+        "neighborRegions" : "Regions vesines",
+        "showMatrix" : "Mostrar era mairitz",
+        "publishBulletins" : "Publicar era prediccion de lauegi",
+        "publishBlogs" : "Publicar entrades de blòg",
+        "createCaamlV5" : "Crear CAAML v5",
+        "createCaamlV6" : "Crear CAAML v6",
+        "createJson" : "Crear JSON",
         "createMaps" : "Crear mapes",
         "createPdf" : "Crear PDF",
         "sendEmails" : "Corrèus electronics enviadi",
         "createSimpleHtml" : "Crear HTML simple",
-        "sendTelegramMessages" : "Send telegram messages",
-        "sendPushNotifications" : "Send push notifications",
-        "enableMediaFile" : "Enable media file",
+        "sendTelegramMessages" : "Enviar messatges de Telegram",
+        "sendPushNotifications" : "Enviar notificacions push",
+        "enableMediaFile" : "Activar eth fichèr multimèdia",
+        "enableAvalancheProblemCornices" : "Abilitar eth problèma de lauegi CORNISES",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Abilitar eth problèma de lauegi CAP PROBLÈMA DE LAUEGI EVIDENT",
         "pdfColor" : "PDF color",
         "emailColor" : "Email color",
-        "pdfMapYAmPm" : "Y for PDF map (am/pm)",
-        "pdfMapYFd" : "Y for PDF map (fd)",
-        "pdfMapWidthAmPm" : "Map width for PDF (am/pm)",
-        "pdfMapWidthFd" : "Map width for PDF (fd)",
-        "pdfMapHeight" : "Map height for PDF",
-        "pdfFooterLogo" : "Logo for PDF footer",
-        "pdfFooterLogoColorPath" : "Logo for PDF footer (color)",
-        "pdfFooterLogoBwPath" : "Logo for PDF footer (bw)",
-        "mapXmax" : "Map X max",
-        "mapXmin" : "Map X min",
-        "mapYmax" : "Map Y max",
-        "mapYmin" : "Map Y min",
-        "simpleHtmlTemplateName" : "Simple HTML template",
-        "geoDataDirectory" : "Geodata directory",
-        "mapLogoColorPath" : "Logo for map (color)",
-        "mapLogoBwPath" : "Logo for map (bw)",
-        "mapLogoPosition" : "Logo position for map",
-        "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (long)",
-        "imageColorbarColorPath" : "Colorbar (color)",
-        "imageColorbarBwPath" : "Colorbar (b/w)"
+        "pdfMapYAmPm" : "Y entà mapa PDF (am/pm)",
+        "pdfMapYFd" : "Y entà mapa PDF (fd)",
+        "pdfMapWidthAmPm" : "Amplada de mapa entà PDF (am/pm)",
+        "pdfMapWidthFd" : "Amplada de map entà PDF (fd)",
+        "pdfMapHeight" : "Nautada de mapa entà PDF",
+        "pdfFooterLogo" : "Logotip entath pè de pagina de PDF",
+        "pdfFooterLogoColorPath" : "Logotip entath pè de pagina de PDF (color)",
+        "pdfFooterLogoBwPath" : "Logotip entath pè de pagina de PDF (bw)",
+        "mapXmax" : "X deth mapa màxim",
+        "mapXmin" : "X deth mapa minim",
+        "mapYmax" : "Y deth mapa màxim",
+        "mapYmin" : "Y deth mapa mínim",
+        "simpleHtmlTemplateName" : "Plantilha HTML simpla",
+        "geoDataDirectory" : "Directòri de geodonades",
+        "mapLogoColorPath" : "Logotip entath mapa (color)",
+        "mapLogoBwPath" : "Logotip entath mapa (bw)",
+        "mapLogoPosition" : "Posicion deth logotip entath mapa",
+        "mapCenterLat" : "Centrar posicion deth mapa (latitud)",
+        "mapCenterLng" : "Centrar posicion deth mapa (longitud)",
+        "imageColorbarColorPath" : "Barra de colors (color)",
+        "imageColorbarBwPath" : "Barra de colors (bw)"
       },
       "success" : "Configuracion sauvada corrèctaments",
       "error" : "Non s'a pogut sauvar era configuracion"
@@ -635,12 +637,12 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nhèu recenta",
-    "windSlab" : "Wind slab",
+    "windSlab" : "Plaques de vent",
     "persistentWeakLayers" : "Coches fèbles persistentes",
     "wetSnow" : "Nhèu umida",
     "glidingSnow" : "Litsades basaus",
-    "cornices" : "Cornices",
-    "noDistinctAvalancheProblem" : "No distict avalanche problem"
+    "cornices" : "Cornises",
+    "noDistinctAvalancheProblem" : "Cap problèma de lauegi diferenciat"
   },
   "dangerPattern" : {
     "dp1" : "pp.1:  capa fèbla persistenta e prigonda",
@@ -676,23 +678,23 @@
     "increasing" : "El perill d’allaus aumente"
   },
   "snowpackStability" : {
-    "good" : "good",
-    "fair" : "fair",
-    "poor" : "poor",
-    "very_poor" : "very poor"
+    "good" : "Bona",
+    "fair" : "Regular",
+    "poor" : "Praube",
+    "very_poor" : "Molt praube"
   },
   "frequency" : {
-    "none" : "(nearly) none",
-    "few" : "a few",
-    "some" : "some",
-    "many" : "many"
+    "none" : "(quasi) cap",
+    "few" : "ues pòques",
+    "some" : "beres ues",
+    "many" : "moltes"
   },
   "avalancheSize" : {
-    "small" : "small",
-    "medium" : "medium",
-    "large" : "large",
-    "very_large" : "very large",
-    "extreme" : "extreme"
+    "small" : "petit",
+    "medium" : "mejan",
+    "large" : "gran",
+    "very_large" : "molt gran",
+    "extreme" : "extremadament gran"
   },
   "complexity": {
     "easy": "Facil",
@@ -733,13 +735,13 @@
       "wet_snow_plot_1month" : "nhèu umida (31d)",
       "wet_snow_plot_season" : "nhèu umida (sason)",
       "wet_snow_plot_forecast" : "nhèu umida (prediccion)",
-      "HS_table_24h" : "snow height table (1d)",
-      "HS_table_72h" : "snow height table (3d)",
-      "HS_table_season" : "snow height table (season)",
-      "HS_table_forecast" : "snow height table (forecast)",
-      "TA_table_24h" : "temperature table (1d)",
-      "TA_table_72h" : "temperature table (3h)",
-      "TA_table_season" : "temperature table (season)"
+      "HS_table_24h" : "taula nautada de nhèu (1d)",
+      "HS_table_72h" : "taula nautada de nhèu (3d)",
+      "HS_table_season" : "taula nautada de nhèu (sason)",
+      "HS_table_forecast" : "taula nautada de nhèu (prevision)",
+      "TA_table_24h" : "taula temperatura (1d)",
+      "TA_table_72h" : "taula temperatura (3d)",
+      "TA_table_season" : "taula temperatura (sason)"
     }
   },
   "observations": {
@@ -750,7 +752,7 @@
     "avalancheSize": "Mida de lauet",
     "avalancheType": "Tipe de lauet",
     "avalancheWidth": "Amplada de lauet",
-    "count": "# observations:",
+    "count": "# observacions:",
     "button": {
       "add": "íger observacion",
       "save": "Sauvar observacion",
@@ -766,14 +768,14 @@
     "eventType": "Tipe d'eveniment",
     "eventTypes": {
       "IMPORTANT": "Eveniment important",
-      "NEIGHBOR_REGION": "Neighbouring region",
+      "NEIGHBOR_REGION": "Region vesia",
       "NORMAL": "Eveniment normau",
       "PERSON_DEAD": "Eveniment damb persones implicades (mòrtes)",
       "PERSON_INJURED": "Eveniment damb persones implicades (herides)",
       "PERSON_NO": "Eveniment sense persones implicades",
       "PERSON_UNINJURED": "Eveniment damb persones implicades (il·leses)",
-      "PERSON_UNKNOWN": "Event (unknown)",
-      "TRAFFIC": "Traffic"
+      "PERSON_UNKNOWN": "Eveniment (desconeishut)",
+      "TRAFFIC": "Transit"
     },
     "fractureDepth": "Prigondor de cicatritz",
     "hasCoordinates": "A coordenades",
@@ -783,19 +785,19 @@
     "longitude": "Longitud",
     "reportDate": "Data der infòrme",
     "showTable": "Taula",
-    "withoutCoordinates": "Observations without coordinates:",
+    "withoutCoordinates": "Observacions sense coordenades:",
     "sidebar": {
       "filter": {
-        "title": "Filter"
+        "title": "Filtrar"
       },
       "legend": {
-        "title": "Legend"
+        "title": "Legenda"
       },
       "sources": {
-        "title": "Data Sources"
+        "title": "Hònts de donades"
       },
       "views": {
-        "title": "Views"
+        "title": "Vistes"
       }
     }
   },

@@ -41,21 +41,21 @@
     "send" : "Enviar",
     "activeUsers" : "¿Quién está conectado?",
     "all" : "Todos",
-    "AT-07" : "Tyrol ",
-    "IT-32-BZ" : "South Tyrol ",
+    "AT-07" : "Tirol ",
+    "IT-32-BZ" : "Sud Tirol ",
     "IT-32-TN" : "Trentino "
   },
   "matrix" : {
     "label" : {
-      "snowpackStability" : "Snowpack Stability",
-      "frequency" : "Frequency",
-      "avalancheSize" : "Avalanche Size",
+      "snowpackStability" : "Estabilidad del manto nivoso",
+      "frequency" : "Frecuencia",
+      "avalancheSize" : "Tamaño de alud",
       "dangerRating" : "Clasificación del peligro",
-      "override" : "(override danger rating)",
-      "matrix" : "Matrix",
-      "referToFairStability" : "Refer to fair stability",
-      "referToPoorStability" : "Refer to poor stability",
-      "dangerLevel1" : "Danger level 1 (Low)"
+      "override" : "(modificar grado de peligro)",
+      "matrix" : "Matriz",
+      "referToFairStability" : "Referirse a estabilidad regular",
+      "referToPoorStability" : "Referirse a estabilidad pobre",
+      "dangerLevel1" : "Grado de peligro 1 (Débil)"
     }
   },
   "bulletins" : {
@@ -71,7 +71,7 @@
       "caaml" : "Muestra CAAML",
       "json" : "Muestra JSON",
       "edit" : "Edita boletín (no se publicará de nuevo)",
-      "create" : "Crea boletín",
+      "create" : "Crear boletín",
       "preview" : "Vista previa del boletín (PDF)",
       "check" : "Comprobar boletín",
       "info" : "Muestra estado de la publicación",
@@ -80,16 +80,16 @@
     },
     "create" : {
       "tooltip" : {
-        "edit" : "Edita región",
-        "copy" : "Copia región",
-        "delete" : "Borra región",
-        "acceptSuggestion" : "Acepta la región sugerida",
-        "rejectSuggestion" : "Rechaza la región sugerida",
-        "saveChanges" : "Guarda los cambios",
-        "discardChanges" : "Descarta los cambios",
-        "saveBulletin" : "Guarda el boletín",
-        "discardBulletin" : "Descarta los cambios del boletín",
-        "loadBulletin" : "Carga el boletín del día anterior",
+        "edit" : "Editar región",
+        "copy" : "Copiar región",
+        "delete" : "Borrar región",
+        "acceptSuggestion" : "Aceptar la región sugerida",
+        "rejectSuggestion" : "Rechazar la región sugerida",
+        "saveChanges" : "Guardar los cambios",
+        "discardChanges" : "Descartar los cambios",
+        "saveBulletin" : "Guardar el boletín",
+        "discardBulletin" : "Descartar los cambios del boletín",
+        "loadBulletin" : "Cargar el boletín del día anterior",
         "uploadJsonBulletin" : "Subir el boletín en formato JSON",
         "downloadJsonBulletin" : "Descargar el boletín en formato JSON",
         "daytimeDependency" : "Dependencia diurna",
@@ -125,7 +125,7 @@
       "createAvalancheProblem" : "Nuevo problema",
       "ownRegions" : "Regiones propias",
       "foreignRegions": "Regiones extranjeras",
-      "externalRegions": "External regions",
+      "externalRegions": "Regiones externas",
       "label" : {
         "avalancheProblems" : "Problema de aludes",
         "aspects" : "Orientaciones",
@@ -197,13 +197,13 @@
         "accept" : "De acuerdo"
       },
       "avalancheProblemErrorDialog" : {
-        "message" : "Avalanche problem type, aspects, snowpack stability, frequency and/or avalanche size is missing for at least one avalanche problem",
+        "message" : "Falta el problema de alud, las orientaciones, la estabilidad del manto nivoso, la frecuencia y/o el tamaño de alud para al menos un problema de alud",
         "accept" : "De acuerdo"
       },
       "loadAvActivityCommentExampleTextDialog" : {
-        "message" : "Para que situación quieres cargar un texto de ejemplo",
+        "message" : "¿Para que situación quieres cargar un texto de ejemplo?",
         "newSnow" : "Nieve reciente",
-        "windSlab" : "Wind slab",
+        "windSlab" : "Placas de viento",
         "persistentWeakLayers" : "Capas débiles persistentes",
         "wetSnow" : "Nieve húmeda",
         "glidingSnow" : "Deslizamientos basales",
@@ -216,8 +216,8 @@
         "date" : "Fecha",
         "status" : {
           "IT-32-TN" : "Trentino",
-          "IT-32-BZ" : "South Tyrol",
-          "AT-07" : "Tyrol",
+          "IT-32-BZ" : "Sud Tirol",
+          "AT-07" : "Tirol",
           "ES-CT-L" : "Aran"
         }
       },
@@ -313,7 +313,7 @@
       },
       "mediaFileDialog" : {
         "headline" : "Archivo multimedia",
-        "important" : "IMPORTANT",
+        "important" : "IMPORTANTE",
         "missingText" : "¡Falta el texto!",
         "missingFile" : "¡Ningún archivo seleccionado!",
         "uploadError" : "¡Subida fallida!",
@@ -397,14 +397,14 @@
   "admin" : {
     "loadingStatistics" : "Creando CSV ...",
     "server-configuration" : {
-      "title" : "Server",
+      "title" : "Servidor",
       "button" : {
-        "create" : "Create server",
+        "create" : "Crear servidor",
         "save" : "Guardar"
       },
       "table" : {
         "name" : "Nombre",
-        "username" : "Username",
+        "username" : "Nombre de usuario",
         "password" : "Password",
         "publishAt5PM" : "Publicar a las 5PM",
         "publishAt8AM" : "Publicar a las 8PM",
@@ -412,7 +412,7 @@
         "htmlDirectory" : "Directorio para HTML",
         "serverImagesUrl" : "Ruta de acceso al servidor de imágenes",
         "mapsPath" : "Ruta de acceso a mapas",
-        "mediaPath" : "Path to media files",
+        "mediaPath" : "Ruta a los ficheros multimedia",
         "mapProductionUrl" : "URL para producción de mapas",
         "apiUrl" : "API URL"
       },
@@ -422,51 +422,53 @@
     "region-configuration" : {
       "title" : "Región",
       "button" : {
-        "create" : "Create region",
+        "create" : "Crear región",
         "save" : "Guardar"
       },
       "table" : {
         "id" : "ID",
-        "microRegions" : "Number of micro regions",
-        "subRegions" : "Sub regions",
-        "superRegions" : "Super regions",
-        "neighborRegions" : "Neighbouring regions",
-        "showMatrix" : "Show matrix",
-        "publishBulletins" : "Publish avalanche forecast",
-        "publishBlogs" : "Publish blog posts",
-        "createCaamlV5" : "Create CAAML v5",
-        "createCaamlV6" : "Create CAAML v6",
-        "createJson" : "Create JSON",
+        "microRegions" : "Nombre de micro-regiones",
+        "subRegions" : "Sub-regiones",
+        "superRegions" : "Super-regiones",
+        "neighborRegions" : "Regiones vecinas",
+        "showMatrix" : "Mostrar matriz",
+        "publishBulletins" : "Publicar la predicción de aludes",
+        "publishBlogs" : "Publicar las entradas de blog",
+        "createCaamlV5" : "Crear CAAML v5",
+        "createCaamlV6" : "Crear CAAML v6",
+        "createJson" : "Crear JSON",
         "createMaps" : "Crear mapas",
         "createPdf" : "Crear PDF",
         "sendEmails" : "Enviar correos",
         "createSimpleHtml" : "Crear HTML simple",
-        "sendTelegramMessages" : "Send telegram messages",
-        "sendPushNotifications" : "Send push notifications",
-        "enableMediaFile" : "Enable media file",
+        "sendTelegramMessages" : "Enviar mensajes de telegram",
+        "sendPushNotifications" : "Enviar notificaciones push",
+        "enableMediaFile" : "Habilitar ficheros multimedia",
+        "enableAvalancheProblemCornices" : "Habilitar problema de alud CORNISAS",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Habilitar problema de alud NINGÚN PROBLEMA DE ALUDES EVIDENTE",
         "pdfColor" : "PDF color",
-        "emailColor" : "Email color",
-        "pdfMapYAmPm" : "Y for PDF map (am/pm)",
-        "pdfMapYFd" : "Y for PDF map (fd)",
-        "pdfMapWidthAmPm" : "Map width for PDF (am/pm)",
-        "pdfMapWidthFd" : "Map width for PDF (fd)",
-        "pdfMapHeight" : "Map height for PDF",
-        "pdfFooterLogo" : "Logo for PDF footer",
-        "pdfFooterLogoColorPath" : "Logo for PDF footer (color)",
-        "pdfFooterLogoBwPath" : "Logo for PDF footer (bw)",
-        "mapXmax" : "Map X max",
-        "mapXmin" : "Map X min",
-        "mapYmax" : "Map Y max",
-        "mapYmin" : "Map Y min",
-        "simpleHtmlTemplateName" : "Simple HTML template",
-        "geoDataDirectory" : "Geodata directory",
-        "mapLogoColorPath" : "Logo for map (color)",
-        "mapLogoBwPath" : "Logo for map (bw)",
-        "mapLogoPosition" : "Logo position for map",
-        "mapCenterLat" : "Center position of map (lat)",
-        "mapCenterLng" : "Center position of map (long)",
-        "imageColorbarColorPath" : "Colorbar (color)",
-        "imageColorbarBwPath" : "Colorbar (b/w)"
+        "emailColor" : "E-mail color",
+        "pdfMapYAmPm" : "Y para el mapa PDF (am/pm)",
+        "pdfMapYFd" : "Y para el mapa PDF (fd)",
+        "pdfMapWidthAmPm" : "Anchura del mapa para PDF (am/pm)",
+        "pdfMapWidthFd" : "Anchura del mapa para PDF (fd)",
+        "pdfMapHeight" : "Altura del mapa para PDF",
+        "pdfFooterLogo" : "Logotipo para el pie de página del PDF",
+        "pdfFooterLogoColorPath" : "Logotipo para el pie de página del PDF (color)",
+        "pdfFooterLogoBwPath" : "Logotipo para el pie de página del PDF (bw)",
+        "mapXmax" : "X del mapa máximo",
+        "mapXmin" : "X del mapa mínimo",
+        "mapYmax" : "Y del mapa máximo",
+        "mapYmin" : "Y del mapa mínimo",
+        "simpleHtmlTemplateName" : "Plantilla HTML simple",
+        "geoDataDirectory" : "Directorio de geodatos",
+        "mapLogoColorPath" : "Logotipo para el mapa (color)",
+        "mapLogoBwPath" : "Logotipo para el mapa (bw)",
+        "mapLogoPosition" : "Posición del logotipo para el mapa",
+        "mapCenterLat" : "Centrar posición del mapa (latitud)",
+        "mapCenterLng" : "Centrar posición del mapa (longitud)",
+        "imageColorbarColorPath" : "Barra de colores (color)",
+        "imageColorbarBwPath" : "Barra de colores (b/w)"
       },
       "success" : "Configuración guardada con éxito",
       "error" : "No se puede guardar la configuración"
@@ -635,12 +637,12 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nieve reciente",
-    "windSlab" : "Wind slab",
+    "windSlab" : "Placas de viento",
     "persistentWeakLayers" : "Capas débiles persistentes",
     "wetSnow" : "Nieve húmeda",
     "glidingSnow" : "Deslizamientos basales",
-    "cornices" : "Cornices",
-    "noDistinctAvalancheProblem" : "No distict avalanche problem"
+    "cornices" : "Cornisas",
+    "noDistinctAvalancheProblem" : "Problema de aludes no diferenciado"
   },
   "dangerPattern" : {
     "dp1" : "pp.1: capas débiles persistentes",
@@ -676,23 +678,23 @@
     "increasing" : "El peligro de aludes aumenta"
   },
   "snowpackStability" : {
-    "good" : "good",
-    "fair" : "fair",
-    "poor" : "poor",
-    "very_poor" : "very poor"
+    "good" : "buena",
+    "fair" : "regular",
+    "poor" : "pobre",
+    "very_poor" : "muy pobre"
   },
   "frequency" : {
-    "none" : "(nearly) none",
-    "few" : "a few",
-    "some" : "some",
-    "many" : "many"
+    "none" : "(casi) ninguno",
+    "few" : "unos pocos",
+    "some" : "algunos",
+    "many" : "muchos"
   },
   "avalancheSize" : {
-    "small" : "small",
-    "medium" : "medium",
-    "large" : "large",
-    "very_large" : "very large",
-    "extreme" : "extreme"
+    "small" : "pequeña",
+    "medium" : "mediana",
+    "large" : "grande",
+    "very_large" : "muy grande",
+    "extreme" : "extremadamente grande"
   },
   "complexity": {
     "easy": "Fácil",
@@ -733,13 +735,13 @@
       "wet_snow_plot_1month" : "nieve húmeda (31d)",
       "wet_snow_plot_season" : "nieve húmeda (temporada)",
       "wet_snow_plot_forecast" : "nieve húmeda (predicción)",
-      "HS_table_24h" : "snow height table (1d)",
-      "HS_table_72h" : "snow height table (3d)",
-      "HS_table_season" : "snow height table (season)",
-      "HS_table_forecast" : "snow height table (forecast)",
-      "TA_table_24h" : "temperature table (1d)",
-      "TA_table_72h" : "temperature table (3h)",
-      "TA_table_season" : "temperature table (season)"
+      "HS_table_24h" : "tabla altura de nieve (1d)",
+      "HS_table_72h" : "tabla altura de nieve (3d)",
+      "HS_table_season" : "tabla altura de nieve (temporada)",
+      "HS_table_forecast" : "tabla altura de nieve (predicción)",
+      "TA_table_24h" : "tabla temperatura (1d)",
+      "TA_table_72h" : "tabla temperatura (3d)",
+      "TA_table_season" : "tabla temperatura (temporada)"
     }
   },
   "observations": {
@@ -750,7 +752,7 @@
     "avalancheSize": "Tamaño de alud",
     "avalancheType": "Tipo de alud",
     "avalancheWidth": "Ancho de alud",
-    "count": "# observations:",
+    "count": "# observaciones:",
     "button": {
       "add": "Añadir observación",
       "save": "Guardar observación",
@@ -766,14 +768,14 @@
     "eventType": "Tipo de evento",
     "eventTypes": {
       "IMPORTANT": "Evento importante",
-      "NEIGHBOR_REGION": "Neighbouring region",
+      "NEIGHBOR_REGION": "Región vecina",
       "NORMAL": "Evento normal",
       "PERSON_DEAD": "Evento con personas implicadas (muertos)",
       "PERSON_INJURED": "Evento con personas implicadas (heridos)",
       "PERSON_NO": "Evento sin personas implicadas",
       "PERSON_UNINJURED": "Evento con personas implicadas (ilesos)",
-      "PERSON_UNKNOWN": "Event (unknown)",
-      "TRAFFIC": "Traffic"
+      "PERSON_UNKNOWN": "Evento (desconocido)",
+      "TRAFFIC": "Tránsito"
     },
     "fractureDepth": "Profundiad de cicatriz",
     "hasCoordinates": "Tiene coordenadas",
@@ -783,19 +785,19 @@
     "longitude": "Longitud",
     "reportDate": "Fecha del informe",
     "showTable": "Tabla",
-    "withoutCoordinates": "Observations without coordinates:",
+    "withoutCoordinates": "Observaciones sin coordenadas:",
     "sidebar": {
       "filter": {
-        "title": "Filter"
+        "title": "Filtrar"
       },
       "legend": {
-        "title": "Legend"
+        "title": "Leyenda"
       },
       "sources": {
-        "title": "Data Sources"
+        "title": "Fuentes de datos"
       },
       "views": {
-        "title": "Views"
+        "title": "Vistas"
       }
     }
   },
