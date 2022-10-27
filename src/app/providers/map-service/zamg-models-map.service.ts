@@ -26,7 +26,7 @@ export class ZamgModelsMapService {
 
   initMaps() {
     this.zamgModelsMaps = {
-      AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+      AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
         tms: false,
         attribution: ""
       })

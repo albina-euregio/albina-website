@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect } from "./generic-observation.model";
+import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -240,7 +240,7 @@ export function toLawisIncidentDetails(
   };
 }
 
-export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
+export function toLawisIncidentTable(incident: IncidentDetails, t: TranslationFunction): ObservationTableRow[] {
   const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
   const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];
@@ -264,14 +264,14 @@ function getLawisProfileStability(profile: ProfileDetails): Stability {
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
   const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
-  if (colors.includes("weak")) {
-    return "weak";
-  } else if (colors.includes("medium")) {
-    return "medium";
-  } else if (colors.includes("good")) {
-    return "good";
+  if (colors.includes(Enums.Stability.weak)) {
+    return Enums.Stability.weak;
+  } else if (colors.includes(Enums.Stability.medium)) {
+    return Enums.Stability.medium;
+  } else if (colors.includes(Enums.Stability.good)) {
+    return Enums.Stability.good;
   }
-  return "unknown";
+  return Enums.Stability.unknown;
 }
 
 export function getECTestStability(step: number, propagation: string): Stability {
@@ -280,22 +280,22 @@ export function getECTestStability(step: number, propagation: string): Stability
   const propagation0 = /\bN\b/.test(propagation);
   if (step <= 13 && propagation1) {
     // sehr schwach
-    return "weak";
+    return Enums.Stability.weak;
   } else if (step <= 22 && propagation1) {
     // schwach
-    return "weak";
+    return Enums.Stability.weak;
   } else if (step <= 30 && propagation1) {
     // mittel
-    return "medium";
+    return Enums.Stability.medium;
   } else if (step <= 10 && propagation0) {
     // mittel
-    return "medium";
+    return Enums.Stability.medium;
   } else if (step <= 30 && propagation0) {
-    return "good";
+    return Enums.Stability.good;
   } else if (step === 31) {
-    return "good";
+    return Enums.Stability.good;
   }
-  return "unknown";
+  return Enums.Stability.unknown;
 }
 
 function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
@@ -304,8 +304,8 @@ function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
 
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
-    ? "weak"
-    : "medium";
+    ? Enums.Stability.weak
+    : Enums.Stability.medium;
 }
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {

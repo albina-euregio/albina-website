@@ -14,6 +14,7 @@ import { ObservationsRoutingModule } from "./observations-routing.module";
 
 import { TranslateModule } from "@ngx-translate/core";
 import { CalendarModule } from "primeng/calendar";
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import { ToggleButtonModule } from "primeng/togglebutton";
@@ -24,13 +25,18 @@ import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { AutoCompleteModule } from "primeng/autocomplete";
 
+import {MenubarModule} from 'primeng/menubar';
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
 
 import { GeocodingService } from "./geocoding.service";
 import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
+import { BaseComponent } from './charts/base/base-chart.component';
+import { MapService } from "../providers/map-service/map.service";
 
 @NgModule({
   imports: [
@@ -40,6 +46,8 @@ import { ObservationsService } from "./observations.service";
     CommonModule,
     TranslateModule,
     CalendarModule,
+    MultiSelectModule,
+    MenubarModule,
     ConfirmDialogModule,
     DialogModule,
     ToggleButtonModule,
@@ -50,18 +58,24 @@ import { ObservationsService } from "./observations.service";
     MessagesModule,
     MessageModule,
     AutoCompleteModule,
-    PipeModule.forRoot()
+    PipeModule.forRoot(),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    })
   ],
   declarations: [
     NgxSidebarControlComponent,
     ObservationsComponent,
     ObservationEditorComponent,
-    ObservationTableComponent
+    ObservationTableComponent,
+    BarChartComponent,
+    RoseChartComponent
   ],
   providers: [
     GeocodingService,
     ObservationFilterService,
-    ObservationsService
+    ObservationsService,
+    MapService
   ]
 })
 export class ObservationsModule { }

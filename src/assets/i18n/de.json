@@ -118,6 +118,7 @@
       },
       "save": " Speichern",
       "discard": " Verwerfen",
+      "close" : " Schließen",
       "back": " Zurück",
       "createAggregatedRegion": " Neue Region",
       "pasteAggregatedRegion": " Region einfügen",
@@ -554,6 +555,38 @@
       "label": {
         "dateRange": "Zeitspanne",
         "observer": "Beobachter"
+      },
+      "selectRegion": {
+        "placeholder": "Region",
+        "selectionLabel": "{0} Regionen"
+      },
+      "selectSources": {
+        "placeholder": "Daten",
+        "selectionLabel": "{0} Daten"
+      },
+      "charts": {
+        "nan": "Ohne Angabe",
+        "invert": "Invert",
+        "reset": "Reset",
+        "aspect": {
+          "caption": "Aspekt"
+        },
+        "elevation": {
+          "caption": "Seehöhe"
+        },
+        "stability": {
+          "caption": "Stabilität"
+        },
+        "avalancheProblem": {
+          "caption": "Lawinenproblem"
+        },
+        "dangerPattern": {
+          "caption": "Gefahrenmuster"
+        }
+        ,
+        "days": {
+          "caption": "Tag"
+        }
       }
     },
     "blog": {
@@ -752,11 +785,12 @@
     "avalancheWidth": "Lawinenbreite",
     "count": "# Beobachtungen:",
     "button": {
-      "add": "Beobachtung erstellen",
+      "add": "Beobachtung",
       "save": "Beobachtung speichern",
       "delete": "Beobachtung löschen",
       "deleteConfirm": "Beobachtung wirklich löschen?",
-      "discard": "Verwerfen"
+      "discard": "Verwerfen",
+      "close" : " Schließen"
     },
     "comment": "Kommentar",
     "content": "Inhalt",

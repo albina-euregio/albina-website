@@ -6,3 +6,5 @@ export const environment = {
   headerBgColor: "#ffffff",
   showChat: true
 };
+
+Object.assign(environment, (window as any).ENV);

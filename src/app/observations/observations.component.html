@@ -1,138 +1,302 @@
-<div class="section-observations-filter">
-  <div class="col-md-12">
-    <div style="float: left; margin-right: 10px">
-      <p-toggleButton
-        onLabel="{{ 'observations.showTable' | translate }}"
-        offLabel="{{ 'observations.showTable' | translate }}"
-        onIcon="fa fa-table"
-        offIcon="fa fa-table"
-        [(ngModel)]="showTable"
-      ></p-toggleButton>
+<!-- !layout-observations-outer -->
+<div class="layout-observations-outer" [ngClass]="'layout--is-' + layout">
+
+
+	
+	<!-- !layout-observations-inner -->
+	<div class="layout-observations-inner">
+
+
+
+    <!-- !layout-left -->
+    <div class="layout-left">
+
+
+
+      <!-- !layout-global -->
+      <div class="layout-global">
+
+
+
+				<!-- !global-bar -->
+				<div class="global-bar-scroll">
+
+
+
+					<!-- !global-bar-left -->
+					<div class="global-bar global-bar-left">
+
+            <div class="global-bar-item global-bar-item-load">
+              <button type="button" pButton class="p-button-text" (click)="loadObservations()"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
+            </div>
+          
+            <div class="global-bar-item global-bar-item-source">
+              <p-multiSelect 
+              placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
+              [options]="allSources" 
+              [(ngModel)]="selectedSourceItems" 
+              optionLabel="name" 
+              optionValue="id"
+              [maxSelectedLabels]="0"
+              selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
+              (handleChange)="onDropdownSelect('sources', $event)"
+              ></p-multiSelect>
+            </div>
+          
+            <div class="global-bar-item global-bar-item-region">
+              <p-multiSelect 
+              placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
+              [options]="allRegions" 
+              [(ngModel)]="selectedRegionItems" 
+              optionLabel="name" 
+              optionValue="id"
+              [maxSelectedLabels]="0"
+              selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
+              (handleChange)="onDropdownSelect('regions', $event)"
+              ></p-multiSelect>
+            </div>
+            
+            <div class="global-bar-item global-bar-item-calendar">
+              <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="false" dateFormat="dd.mm.yy">
+              </p-calendar>
+              <div class="obs-switch">
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 1})">
+                  <span class="switch-text">1d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 2})">
+                  <span class="switch-text">2d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 3})">
+                  <span class="switch-text">3d</span>
+                </div>
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 7})">
+                  <span class="switch-text">7d</span>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+          <!-- /global-bar-left -->
+          
+
+
+          <!-- !global-bar-right -->
+          <div class="global-bar global-bar-right">
+
+            <div class="global-bar-item global-bar-item-add">
+              <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
+                label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
+            </div>
+
+            <div class="global-bar-item global-bar-item-more">
+                <p-menubar [model]="moreItems"></p-menubar>
+            </div>
+
+            <!-- <div class="global-bar-item">
+              <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
+                <b>{{ observationsWithoutCoordinates }}</b></p>
+            </div> -->
+
+            <!-- <div class="global-bar-item">
+              Mehr (Dropdown)
+              <p-toggleButton onLabel="{{ 'observations.showTable' | translate }}"
+                offLabel="{{ 'observations.showTable' | translate }}" onIcon="fa fa-table" offIcon="fa fa-table"
+                [(ngModel)]="showTable"></p-toggleButton>
+
+
+              <button type="button" pButton class="ui-button-success" (click)="exportObservations()"
+                style="margin-right: 10px">
+                Export ({{observations.length}})
+              </button>
+            </div>  
+
+            <div class="leaflet-sidebar-pane" id="layers">
+              <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
+                {{ "observations.sidebar.views.title" | translate }}
+              </h1>
+              <div id="typesDiv"></div>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="sources">
+              <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
+                {{ "observations.sidebar.sources.title" | translate }}
+              </h1>
+              <div id="sourcesDiv"></div>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="legend">
+              <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
+                {{ "observations.sidebar.legend.title" | translate }}
+              </h1>
+              <p>Lorem ipsum ...</p>
+            </div>
+
+            <input type="checkbox" id="global_open" /> -->
+
+          </div>
+          <!-- /global-bar-right -->
+
+
+            
+        </div>
+        <!-- /global-bar -->
+
+
+
+      </div>
+			<!-- /layout-global -->
+
+
+
+      <!-- !layout-map -->
+      <div class="layout-map">
+        <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
+      </div>
+			<!-- /layout-map -->
+
+
+
     </div>
-    <div style="float: left; background-color: rgba(256,256,256,.6); padding: 5px; border-radius: 5px; margin-top: 1px;">
-      <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }} <b>{{ observationsWithoutCoordinates }}</b></p>
+		<!-- /layout-left -->
+
+
+
+    <!-- !layout-right -->
+    <div class="layout-right">
+
+
+
+      <!-- !layout-charts -->
+      <div class="layout-charts">
+        
+        <app-rose-chart
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.aspect.caption' | translate"
+          [translationBase] = "'aspect.'"
+          [type]="LocalFilterTypes.Aspect"
+          [data]="chartsData.Aspects" 
+          [isActive]="filter.filterSelection[LocalFilterTypes.Aspect]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].length > 0"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Aspect]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].includes('nan')}"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-rose-chart>
+        <app-bar-chart 
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.days.caption' | translate"
+          [type]="LocalFilterTypes.Days"
+          [data]="chartsData.Days"  
+          [isActive]="filter.filterSelection[LocalFilterTypes.Days]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Days]['highlighted'].length > 0"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Days]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Days]['highlighted'].includes('nan')}"
+          [formatter]="'date'"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.elevation.caption' | translate"
+          [type]="LocalFilterTypes.Elevation"
+          [data]="chartsData.Elevation" 
+          [isActive]="filter.filterSelection[LocalFilterTypes.Elevation]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].length > 0"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Elevation]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].includes('nan')}"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.stability.caption' | translate"
+          [type]="LocalFilterTypes.Stability"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')}"
+          [data]="chartsData.Stability"  
+          [isActive]="filter.filterSelection[LocalFilterTypes.Stability]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].length > 0"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
+          [translationBase] = "'avalancheProblem.'"
+          [type]="LocalFilterTypes.AvalancheProblem"
+          [data]="chartsData.AvalancheProblem"  
+          [isActive]="filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].length > 0"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].includes('nan')}"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+        <app-bar-chart 
+          class="layout-chart-container"
+          [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
+          [translationBase] = "'dangerPattern.'"
+          [type]="LocalFilterTypes.DangerPattern"
+          [data]="chartsData.DangerPattern"  
+          [isActive]="filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].length > 0"
+          [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].includes('nan')}"
+          (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+        </app-bar-chart>
+
+      </div>
+			<!-- /layout-charts -->
+
+
+
     </div>
-    <div style="float: right;">
-      <button
-      type="button"
-      pButton
-      class="ui-button-success"
-      (click)="exportObservations()"
-      style="margin-right: 10px"
->
-        Export ({{observations.length}})
-      </button>
-      <button
+		<!-- /layout-right -->
+
+
+
+    <!-- !layout-switch -->
+    <div class="layout-switch">
+			<div *ngIf="layout!=='map'" (click)="layout='map'" class="layout-switch-map obs-button">
+				<span class="button-icon pi pi-map"></span>
+				<span class="button-text">Map</span>
+			</div>
+			<div *ngIf="layout!=='table'" (click)="layout='table'" class="layout-switch-table obs-button">
+				<span class="button-icon pi pi-list"></span>
+				<span class="button-text">Table</span>
+			</div>
+			<div *ngIf="layout!=='chart'" (click)="layout='chart'" class="layout-switch-charts obs-button">
+				<span class="button-icon pi pi-chart-bar"></span>
+				<span class="button-text">Charts</span>
+			</div>
+		</div>
+    <!-- /layout-switch -->
+
+
+
+  </div>
+  <!-- /layout-observations-inner -->
+
+
+
+  <div [ngStyle]="{ display: layout==='table' ? '' : 'none' }" class="layout-table">
+    <div class="card" style="height: 100%;">
+      <!-- <div class="card-header">
+        {{ "sidebar.observations" | translate }}
+        <button
         type="button"
         pButton
-        icon="pi pi-plus"
-        (click)="newObservation()"
-        label="{{ 'observations.button.add' | translate }}"
-        class="ui-button-primary"
-      ></button>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="section-observations-map col-md-12">
-    <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
-  </div>
-  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="col-md-12 section-observations-table">
-    <div class="card" style="height: 100%;">
-      <div class="card-header">{{ "sidebar.observations" | translate }}</div>
+        icon="pi pi-times"
+        (click)="closeTable()"
+        label="{{ 'observations.button.close' | translate }}"
+        class="p-button-text"
+      ></button>  
+      </div> -->
       <div class="card-block" style="overflow-y: auto;">
         <div>
-          <app-observation-table #observationTable [observations]="observations" (observationClick)="onObservationClick($event)"></app-observation-table>
+          <app-observation-table #observationTable [observations]="localObservations"
+            (observationClick)="onObservationClick($event)"></app-observation-table>
         </div>
       </div>
     </div>
   </div>
+
+
+
 </div>
+<!-- /layout-observations-outer -->
 
-<leaflet-sidebar-control
-    [map]="mapService.observationsMap"
-    [options]="mapService.sidebarOptions"
-    (change$)="onSidebarChange($event)"
-></leaflet-sidebar-control>
 
-<div id="sidebar" #sidebar class="leaflet-sidebar collapsed observations-sidebar">
-  <!-- Nav tabs -->
-  <div class="leaflet-sidebar-tabs">
-      <ul role="tablist"> <!-- top aligned tabs -->
-        <li><a href="#filter" role="tab"><i class="fa fa-filter"></i></a></li>
-        <li><a href="#layers" role="tab"><i class="fa fa-navicon"></i></a></li>
-        <li><a href="#sources" role="tab"><i class="fa fa-database"></i></a></li>
-      </ul>
 
-      <ul role="tablist"> <!-- bottom aligned tabs -->
-        <li><a href="#legend" role="tab"><i class="fa fa-question-circle-o"></i></a></li>
-      </ul>
-  </div>
-  <!-- Tab panes -->
-  <div class="leaflet-sidebar-content">
-    <div class="leaflet-sidebar-pane" id="filter">
-      <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
-        {{ "observations.sidebar.filter.title" | translate }}
-      </h1>
-      <div style="margin: 10px 0">
-        <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
-        <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 1})" label="1d"></button>
-        <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 2})" label="2d"></button>
-        <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 3})" label="3d"></button>
-        <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 7})" label="7d"></button>
-      </div>
-      <div style="margin: 10px 0">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon"><i class="fa fa-arrows-v"></i></span>
-          <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="filter.elevationRange[0]" />
-          <span class="ui-inputgroup-addon">&mdash;</span>
-          <input style="width: 50px" type="text" pInputText [(ngModel)]="filter.elevationRange[1]" />
-          <span class="ui-inputgroup-addon">m</span>
-        </div>
-      </div>
-      <div style="margin: 10px 0">
-        <app-aspects [(aspects)]="filter.aspects" [size]="100"></app-aspects>
-      </div>
-      <div style="margin: 10px 0">
-        <select [(ngModel)]="filter.regions" [multiple]="true" [size]="5" style="max-width: 100%;">
-          <option *ngFor="let region of allRegions" [value]="region.id">{{region.id}} {{region.name}}</option>
-      </select>
-      </div>
-      <div style="margin: 10px 0">
-        <button
-          type="button"
-          pButton
-          class="ui-button-success"
-          (click)="loadObservations()"
-          [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
-        ></button>
-      </div>
-    </div>
-    <div class="leaflet-sidebar-pane" id="layers">
-      <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
-        {{ "observations.sidebar.views.title" | translate }}
-      </h1>
-      <div id="typesDiv" style="margin: 10px 0"></div>
-    </div>
-    <div class="leaflet-sidebar-pane" id="sources">
-      <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
-        {{ "observations.sidebar.sources.title" | translate }}
-      </h1>
-      <div id="sourcesDiv" style="margin: 10px 0"></div>
-    </div>
-    <div class="leaflet-sidebar-pane" id="legend">
-      <h1 class="leaflet-sidebar-header" style="padding-left: 20px">
-        {{ "observations.sidebar.legend.title" | translate }}
-      </h1>
-      <p>Lorem ipsum ...</p>
-    </div>
-  </div>
-</div>
-
-<p-dialog #observationDialog (onShow)="observationDialog.maximize()" [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
+<p-dialog #observationDialog (onShow)="observationDialog.maximize()" [(visible)]="observationPopupVisible"
+  [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
   <p-header>
-    <span [style]="{ color: toMarkerColor(observationPopup?.observation) }" [title]="observationPopup?.observation?.$source">█</span>
+    <span [style]="{ color: toMarkerColor(observationPopup?.observation) }"
+      [title]="observationPopup?.observation?.$source">█</span>
     {{ observationPopup?.observation?.locationName }}
   </p-header>
   <table *ngIf="observationPopup" class="table table-sm">
@@ -142,11 +306,11 @@
         <span *ngIf="row.date !== undefined">{{ row.date | localizedDate: "full" }}</span>
         <span *ngIf="row.number !== undefined">{{ row.number | number }}</span>
         <span *ngIf="row.boolean !== undefined"><i [class]="row.boolean ? 'pi pi-check' : 'pi pi-times'"></i></span>
-        <span *ngIf="row.url !== undefined"><a href="{{ row.url }}" rel="noopener" target="_blank">{{ row.url }}</a></span>
+        <span *ngIf="row.url !== undefined"><a href="{{ row.url }}" rel="noopener"
+            target="_blank">{{ row.url }}</a></span>
         <span *ngIf="row.value !== undefined">{{ row.value }}</span>
-        <span *ngIf="row.date === undefined && row.number === undefined && row.boolean === undefined && row.url === undefined && row.value === undefined"
-          >&mdash;</span
-        >
+        <span
+          *ngIf="row.date === undefined && row.number === undefined && row.boolean === undefined && row.url === undefined && row.value === undefined">&mdash;</span>
       </td>
     </tr>
   </table>

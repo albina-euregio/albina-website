@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dial
 
 import { Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeUrl, SafeResourceUrl } from "@angular/platform-browser";
-import { Subscription } from "rxjs/Rx";
 
 @Component({
   templateUrl: "catalog-of-phrases.component.html",
