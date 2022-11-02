@@ -1,7 +1,7 @@
 <table style="width: 100%;">
   <tbody>
     <tr>
-      <td *ngIf="!disabled" style="padding-right: 10px;">
+      <td *ngIf="!disabled" style="padding-right: 10px; vertical-align: middle;">
         <!-- reorder -->
         <tr style="height: 20px;" (click)="moveUpAvalancheProblem($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.moveUpAvalancheProblem' | translate }}">
           <i *ngIf="!isFirst()" class="fa fa-chevron-up"></i>
@@ -10,20 +10,20 @@
           <i *ngIf="!isLast()" class="fa fa-chevron-down"></i>
         </tr>
       </td>
-      <td style="padding-right: 10px;">
-        <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('wind_slab')" src="./assets/img/Drifting_snow_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg"  width="40">
-        <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" width="40">
-        <img *ngIf="isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" width="40">
+      <td style="padding-right: 10px; vertical-align: middle;">
+        <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('wind_slab')" src="./assets/img/Drifting_snow_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('persistent_weak_layers')" src="./assets/img/Persistent_weak_layers_c.svg"  style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('cornices')" src="./assets/img/Cornices_c.svg" style="min-width: 40px;">
+        <img *ngIf="isAvalancheProblem('no_distinct_problem')" src="./assets/img/No_distinct_problem_c.svg" style="min-width: 40px;">
       </td>
-      <td style="padding-right: 10px;">
+      <td style="padding-right: 10px; vertical-align: middle;">
         <app-aspects [(aspects)]="avalancheProblem.aspects" [disabled]="true" [size]="40"></app-aspects>
       </td>
-      <td style="padding-right: 10px; min-width: 135px;">
+      <td style="padding-right: 10px; min-width: 135px; vertical-align: middle;">
         <!-- elevation -->
         <tr *ngIf="avalancheProblem.hasElevationHigh()">
           <div style="width: max-content;"><i class="fa fa-arrow-down"></i> {{getElevationHighString()}}</div>
@@ -32,7 +32,7 @@
           <div style="width: max-content;"><i class="fa fa-arrow-up"></i> {{getElevationLowString()}}</div>
         </tr>
       </td>
-      <td style="padding-right: 10px; width: 100%;">
+      <td style="padding-right: 10px; width: 100%; vertical-align: middle;">
         <!-- danger rating -->
         <img *ngIf="avalancheProblem.isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" style="height: 40px !important">
         <img *ngIf="avalancheProblem.isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" style="height: 40px !important">
@@ -40,7 +40,7 @@
         <img *ngIf="avalancheProblem.isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" style="height: 40px !important">
         <img *ngIf="avalancheProblem.isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" style="height: 40px !important">
       </td>
-      <td *ngIf="avalancheProblem.hasElevationHigh() && avalancheProblem.hasElevationLow()" style="padding-right: 10px;">
+      <td *ngIf="avalancheProblem.hasElevationHigh() && avalancheProblem.hasElevationLow()" style="padding-right: 10px; vertical-align: middle;">
         <tr *ngIf="isDangerRatingDirection('up')" style="height: 20px;">
           <button [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingDirection($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.dangerRatingDirectionUp' | translate }}"><i class="fa fa-chevron-up"></i></button>
         </tr>
@@ -54,7 +54,7 @@
           <button [disabled]="disabled" type="reset" class="btn btn-sm btn-secondary" (click)="setDangerRatingDirection($event, directionEnum.down)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.dangerRatingDirectionDown' | translate }}"><i class="fa fa-chevron-down"></i></button>
         </tr>
       </td>
-      <td>
+      <td style="vertical-align: middle">
         <!-- delete -->
         <button [disabled]="disabled" type="reset" class="btn btn-sm btn-danger" (click)="deleteAvalancheProblem($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
       </td>
