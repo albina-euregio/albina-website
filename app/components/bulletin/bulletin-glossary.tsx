@@ -38,7 +38,7 @@ export default class BulletinGlossary extends React.Component<Props> {
       '<p className="tooltip-source">' +
       (ref != null
         ? ref
-        : '<a href="https://www.avalanches.org/glossary" target="_blank">EAWS</a>') +
+        : '(Source: <a href="https://www.avalanches.org/glossary" target="_blank">EAWS</a>)') +
       "</p>";
     const content = preprocessContent(text + (img ?? "") + referenceLink);
     return (
