@@ -559,11 +559,11 @@
       },
       "selectRegion": {
         "placeholder": "Regió",
-        "selectionLabel": "{0} regions selected"
+        "selectionLabel": "{0} regions seleccionades"
       },
       "selectSources": {
-        "placeholder": "Sources",
-        "selectionLabel": "{0} sources selected"
+        "placeholder": "Fonts",
+        "selectionLabel": "{0} fonts seleccionades"
       }
     },
     "blog" : {
