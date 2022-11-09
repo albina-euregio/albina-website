@@ -131,7 +131,7 @@ export class BarChartComponent extends BaseComponent {
                 barWidth: barWidth,
                 // barMinHeight: 6,
                 itemStyle: {
-                    color: '#FF0000',
+                    color: 'rgba(255, 0, 0, 0.5)',
                     //yellow
                     shadowColor: '#FF0000',
                     shadowBlur: 0,

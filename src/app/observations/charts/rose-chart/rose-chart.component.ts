@@ -68,7 +68,7 @@ export class RoseChartComponent extends BaseComponent {
         //         ['NW', 90, 80, 0],
         //     ]
         // },
-        color: ["#B1C1C7", "#FF0000", "#000", "#19ABFF"],
+        color: ["#B1C1C7", "rgba(255, 0, 0, 0.5)", "#000", "#19ABFF"],
         angleAxis: {
             type: 'category',
             z: 10,
@@ -113,42 +113,44 @@ export class RoseChartComponent extends BaseComponent {
                 disabled: true
             }
         },
-        series: [{
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }
+        series: [
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                },
+                z: 5
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }
         ]
     };
 

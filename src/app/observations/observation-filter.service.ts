@@ -13,7 +13,7 @@ import {
 import { LatLng } from "leaflet";
 import { RegionsService } from "../providers/regions-service/regions.service";
 
-const DATASET_MAX_FACTOR = 1.1
+const DATASET_MAX_FACTOR = 1
 
 interface GenericFilterToggleData {
   type: LocalFilterTypes;
