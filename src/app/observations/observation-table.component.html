@@ -51,7 +51,7 @@
         type="button"
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="saving"
+        [disabled]="saving || observation?.reportDate === undefined || observation?.eventDate === undefined || observation?.reportDate === '' || observation?.eventDate === ''"
         (click)="saveObservation()"
         label="{{ 'observations.button.save' | translate }}"
       ></button>
