@@ -63,6 +63,7 @@ lib
 .favorites.json
 size-plugin.json
 
+# use eaws-regions as node module
 eaws-regions
 
 package-lock.json
