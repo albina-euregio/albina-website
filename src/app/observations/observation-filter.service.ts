@@ -83,8 +83,7 @@ export class ObservationFilterService {
   set days(days: number) {
     //console.log("days ##x1", days, this.dateRange);
     if(!this.endDate) {
-      const newEndDate = new Date('2022-02-07T22:59:59Z');
-      //const newEndDate = new Date();
+      const newEndDate = new Date();
       this.endDate = newEndDate;
     }
     const newStartDate = new Date(this.endDate);

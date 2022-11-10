@@ -9,9 +9,16 @@
           offIcon="fa fa-map-marker"
           [(ngModel)]="showObservationsWithoutCoordinates"
         ></p-toggleButton>
-        <p style="float: right;">
-          {{ 'observations.count' | translate }} {{ shownObservations.length }}
-        </p>
+        
+        <div class="global-bar-item global-bar-item-add" style="float: right; padding-left: 10px;">
+          <p>
+            {{ 'observations.count' | translate }} {{ shownObservations.length }}
+          </p>
+        </div>
+        <div class="global-bar-item global-bar-item-add" style="float: right">
+          <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
+          label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
+        </div>
       </td>
     </tr>
     <tr>
@@ -51,7 +58,7 @@
         type="button"
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="saving"
+        [disabled]="saving || observation?.reportDate === undefined || observation?.eventDate === undefined || observation?.reportDate === '' || observation?.eventDate === ''"
         (click)="saveObservation()"
         label="{{ 'observations.button.save' | translate }}"
       ></button>

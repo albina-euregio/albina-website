@@ -23,10 +23,30 @@ variables:
     - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
     - yarn install --frozen-lockfile --no-progress
     - npm --no-git-tag-version version $(git describe)
-    - npm rebuild node-sass
+
+lint:
+  extends: .build
   script:
     - yarn lint
-    - yarn build-$CI_ENVIRONMENT_NAME
+
+build:
+  extends: .build
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - dist/
+
+.envsubst:
+  stage: build
+  image: alpine:latest
+  needs:
+    - build
+  before_script:
+    - apk add gettext
+  script:
+    - envsubst < dist/assets/env.template.js > dist/assets/env.js
+    - cat dist/assets/env.js
   artifacts:
     paths:
       - dist/
@@ -43,7 +63,12 @@ variables:
     - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
 
 build:development:
-  extends: .build
+  extends: .envsubst
+  variables:
+    API_BASE_URL: "https://admin.avalanche.report/albina_dev/api/"
+    WS_BASE_URL: "wss://socket.avalanche.report/albina_dev/"
+    TEXTCAT_URL: "https://admin.avalanche.report/textcat-ng-dev/"
+    HEADER_BG_COLOR: "#f95bdc"
   environment:
     name: dev
 
@@ -58,13 +83,14 @@ deploy:development:
     - when: manual
 
 build:production:
-  extends: .build
+  extends: .envsubst
+  variables:
+    API_BASE_URL: "https://admin.avalanche.report/albina/api/"
+    WS_BASE_URL: "wss://socket.avalanche.report/albina/"
+    TEXTCAT_URL: "https://admin.avalanche.report/textcat-ng/"
+    HEADER_BG_COLOR: "#ffffff"
   environment:
     name: production
-  rules:
-    - if: "$CI_COMMIT_TAG"
-    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
-    - when: manual
 
 deploy:beta:
   extends: .deploy
@@ -87,7 +113,11 @@ deploy:production:
       when: manual
 
 build:aran:
-  extends: .build
+  extends: .envsubst
   environment:
     name: aran
-  when: manual
+  variables:
+    API_BASE_URL: "https://api.lauegi.report/api/"
+    WS_BASE_URL: "wss://socket.avalanche.report/albina/"
+    TEXTCAT_URL: "https://admin.lauegi.report/textcat-ng/"
+    HEADER_BG_COLOR: "#ffffff"

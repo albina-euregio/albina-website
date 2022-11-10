@@ -20,9 +20,7 @@
     "start-dev": "ng serve --configuration=dev",
     "start-aran": "ng serve --configuration=aran",
     "build": "ng build",
-    "build-production": "ng build --configuration production --configuration=production",
-    "build-dev": "ng build --configuration production --configuration=dev",
-    "build-aran": "ng build --configuration production --configuration=aran",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
