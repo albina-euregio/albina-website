@@ -135,7 +135,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     };
     info.addTo(this.mapService.observationsMap);
 
-    this.loadObservations();
+    this.loadObservations({days: 7});
     this.mapService.observationsMap.on("click", () => {
 
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
@@ -144,7 +144,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
       //console.log("this.mapService.observationsMap click #2", this.filter.regions);
 
-      this.loadObservations();
+      this.applyLocalFilter();
 
     })
   }
@@ -161,13 +161,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     switch (target) {
       case "regions":
         this.filter.regions = event.value;
+        this.mapService.clickRegion(event.value);
+        this.applyLocalFilter();
         break;
       case "sources":
         this.filter.observationSources = event.value;
+        this.loadObservations();
         break;
       default:
     }
-    this.loadObservations();
+    
 
   }
 
@@ -211,16 +214,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-        let regionId;
-        if (observation.latitude && observation.longitude) {
-          const ll = new LatLng(observation.latitude, observation.longitude);
-          const region = this.regionsService.getRegionForLatLng(ll);
-          regionId = region ? region.id : null;
-        }
         
         //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
         
-        if (this.filter.inRegions(regionId) && this.filter.inObservationSources(observation) &&
+        if (this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
           //console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);

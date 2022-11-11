@@ -19,6 +19,7 @@ const barDefaults = {
 })
 export class RoseChartComponent extends BaseComponent {
 
+    private pressTimer;
 
     public readonly defaultOptions = {
         // title: {
@@ -40,6 +41,17 @@ export class RoseChartComponent extends BaseComponent {
             textStyle: {
                 color: '#839194',
                 fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+            },
+            formatter: (params) => {
+                //console.log("formatter tooltip", params); 
+                
+                const valKey = params.dimensionNames.indexOf(params.seriesName);
+                let val = params.value[valKey];
+                if(params.seriesName ==="highlighted") {
+                    val = params.value[1];
+                }
+                return '<span style=\"display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:' + params.color + ';\"></span><span style=\"font-size:14px;color:#839194;font-weight:400;margin-left:2px\">' + params. name + '</span><span style=\"float:right;margin-left:20px;font-size:14px;color:#839194;font-weight:900\">' + val + '</span>';
+                
             }
         },
         // dataset: {
@@ -56,10 +68,11 @@ export class RoseChartComponent extends BaseComponent {
         //         ['NW', 90, 80, 0],
         //     ]
         // },
-        color: ["#B1C1C7", "#FFFFCC", "#000", "#19ABFF"],
+        color: ["#B1C1C7", "rgba(255, 0, 0, 0.5)", "#000", "#19ABFF"],
         angleAxis: {
             type: 'category',
             z: 10,
+            scale: true,
             startAngle: 110,
             axisTick: {
                 show: false 
@@ -100,42 +113,44 @@ export class RoseChartComponent extends BaseComponent {
                 disabled: true
             }
         },
-        series: [{
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        {
-            ...barDefaults,
-            emphasis: {
-                disabled: true
-            }
-        }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }, 
-        // {
-        //     ...barDefaults
-        // }
+        series: [
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                },
+                z: 5
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            {
+                ...barDefaults,
+                emphasis: {
+                    disabled: true
+                }
+            }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }, 
+            // {
+            //     ...barDefaults
+            // }
         ]
     };
 
@@ -145,9 +160,34 @@ export class RoseChartComponent extends BaseComponent {
         super();
     }
 
-    onClick(event: any) {
-//        console.log("RosehartComponent->onclick", event, this);
-        this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+    private resetTimeout() {
+        clearTimeout(this.pressTimer);
+        this.pressTimer = null;
+    }
+
+    // onClick(event: any) {
+    //     console.log("RosehartComponent->onclick", event, this);
+        
+    // }
+
+    onMouseDown(event: any) {
+        console.log("RosehartComponent->onMouseDown", event, this);
+        const self = this;
+        this.pressTimer = window.setTimeout(function() {
+            self.resetTimeout();
+            self.submitChange([self.type, {value: event.data[0], altKey: true}]);
+        },this.longClickDur);
+        return false; 
+
+    }
+
+    onMouseUp(event: any) {
+        console.log("RosehartComponent->onMouseUp", event, this);
+        if(this.pressTimer) {
+            this.resetTimeout();
+            this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+        }
+        return false;
     }
 
     onClickNan(event: any) {

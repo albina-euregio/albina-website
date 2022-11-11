@@ -1,4 +1,4 @@
-<div class="layout-chart">
+<div class="chart">
 
 
 
@@ -25,11 +25,11 @@
 
 
 
-	<!-- !chart-nan -->
-	<div class="chart-nan">
+	<!-- !chart-unspecified -->
+	<div class="chart-unspecified">
 		<span [ngClass]="{'highlighted': nanStatus.highlighted, 'selected': nanStatus.selected}" (click)="onClickNan($event)" *ngIf="data.nan > 0">{{ 'admin.observations.charts.nan' | translate }}: {{ data.nan }}</span>
 	</div>
-	<!-- /chart-nan -->
+	<!-- /chart-unspecified -->
 
 
 
@@ -38,7 +38,8 @@
 		<div echarts 
 			[options]="defaultOptions" 
 			[merge]="{dataset: data.dataset}" 
-			(chartClick)="onClick($event)" 
+			(chartMouseDown)="onMouseDown($event)" 
+			(chartMouseUp)="onMouseUp($event)" 
 			class="chart">
 		</div>
 	</div>

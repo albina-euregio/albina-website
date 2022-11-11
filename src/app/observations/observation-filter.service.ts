@@ -13,7 +13,7 @@ import {
 import { LatLng } from "leaflet";
 import { RegionsService } from "../providers/regions-service/regions.service";
 
-const DATASET_MAX_FACTOR = 1.1
+const DATASET_MAX_FACTOR = 1
 
 interface GenericFilterToggleData {
   type: LocalFilterTypes;
@@ -134,12 +134,14 @@ export class ObservationFilterService {
 
 
   public isSelected(observation: GenericObservation) {
+
     return (
       this.inMapBounds(observation) &&
       (
         this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
         this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
         this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
+        this.inRegions(observation.region) &&
         this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate)) 
  
       )

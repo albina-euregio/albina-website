@@ -188,8 +188,16 @@ export class ObservationsMapService {
     this.observationsMap = map;
   }
 
+  clickRegion(regionIds: Array<String>) {
+    //console.log("clickRegion", this.overlayMaps.regions);
+    for (const entry of this.overlayMaps.regions.getLayers()) {
+        entry.feature.properties.selected = regionIds.includes(entry.feature.properties.id);
+    }
+    this.updateEditSelection();
+  }
+
   getClickedRegion(): String {
-    console.log("getClickedRegion", this.overlayMaps.regions);
+    //console.log("getClickedRegion", this.overlayMaps.regions);
     for (const entry of this.overlayMaps.regions.getLayers()) {
       if (entry.feature.properties.selected) {
         entry.feature.properties.selected = false;
@@ -247,15 +255,15 @@ export class ObservationsMapService {
     };
   }
 
-  private getUserDependentBaseStyle(region) {
-    return {
-      fillColor: this.constantsService.getDangerRatingColor("missing"),
-      weight: this.constantsService.lineWeight,
-      opacity: 0.0,
-      color: this.constantsService.lineColor,
-      fillOpacity: 0.0
-    };
-  }
+  // private getUserDependentBaseStyle(region) {
+  //   return {
+  //     fillColor: this.constantsService.getDangerRatingColor("missing"),
+  //     weight: this.constantsService.lineWeight,
+  //     opacity: 0.0,
+  //     color: this.constantsService.lineColor,
+  //     fillOpacity: 0.0
+  //   };
+  // }
 
   private getEditSelectionBaseStyle() {
     return {
@@ -267,22 +275,22 @@ export class ObservationsMapService {
     };
   }
 
-  private getEditSelectionStyle(status) {
-    let fillOpacity = this.constantsService.fillOpacityEditSuggested;
-    if (status === Enums.RegionStatus.saved) {
-      fillOpacity = this.constantsService.fillOpacityEditSelected;
-    } else if (status === Enums.RegionStatus.suggested) {
-      fillOpacity = this.constantsService.fillOpacityEditSuggested;
-    }
+  // private getEditSelectionStyle(status) {
+  //   let fillOpacity = this.constantsService.fillOpacityEditSuggested;
+  //   if (status === Enums.RegionStatus.saved) {
+  //     fillOpacity = this.constantsService.fillOpacityEditSelected;
+  //   } else if (status === Enums.RegionStatus.suggested) {
+  //     fillOpacity = this.constantsService.fillOpacityEditSuggested;
+  //   }
 
-    return {
-      fillColor: this.constantsService.lineColor,
-      weight: this.constantsService.lineWeight,
-      opacity: 1,
-      color: this.constantsService.lineColor,
-      fillOpacity: fillOpacity
-    };
-  }
+  //   return {
+  //     fillColor: this.constantsService.lineColor,
+  //     weight: this.constantsService.lineWeight,
+  //     opacity: 1,
+  //     color: this.constantsService.lineColor,
+  //     fillOpacity: fillOpacity
+  //   };
+  // }
 
   // resetAggregatedRegions() {
   //   for (const entry of this.overlayMaps.aggregatedRegions.getLayers()) {
@@ -356,7 +364,7 @@ export class ObservationsMapService {
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
     
     return function onEachFeature(feature, layer) {
-      console.log("onEachFeatureClosure op map", overlayMaps);
+      //console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
         click: function(e) {
           if (feature.properties.selected && feature.properties.selected === true) {
@@ -494,7 +502,7 @@ export class ObservationsMapService {
     //const iconColor = toMarkerColor(observation);
     let iconColor = "#000";
 
-    if (observation.filterType === ObservationFilterType.Global) {
+    if (observation.isHighlighted) {
       iconColor = "#ff0000"
     }
 

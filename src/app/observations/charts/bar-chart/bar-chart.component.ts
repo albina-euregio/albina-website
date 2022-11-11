@@ -22,7 +22,7 @@ const defaultDataBarOptions = {
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent extends BaseComponent {
-
+    private pressTimer;
 
     public formatLabel = (params) => {
         //console.log("formatter", this.formatter, params.value[0], this.translateService.instant(this.translationBase + params.value[0])); 
@@ -131,9 +131,9 @@ export class BarChartComponent extends BaseComponent {
                 barWidth: barWidth,
                 // barMinHeight: 6,
                 itemStyle: {
-                    color: '#FFFF4D',
+                    color: 'rgba(255, 0, 0, 0.5)',
                     //yellow
-                    shadowColor: '#FFFF4D',
+                    shadowColor: '#FF0000',
                     shadowBlur: 0,
                     shadowOffsetY: barWidth
                 },
@@ -169,9 +169,34 @@ export class BarChartComponent extends BaseComponent {
         super();
     }
 
-    onClick(event: any) {
-//        console.log("BarChartComponent->onclick", event, this);
-        this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+    private resetTimeout() {
+        clearTimeout(this.pressTimer);
+        this.pressTimer = null;
+    }
+
+    // onClick(event: any) {
+    //     console.log("RosehartComponent->onclick", event, this);
+        
+    // }
+
+    onMouseDown(event: any) {
+        console.log("RosehartComponent->onMouseDown", event, this);
+        const self = this;
+        this.pressTimer = window.setTimeout(function() {
+            self.resetTimeout();
+            self.submitChange([self.type, {value: event.data[0], altKey: true}]);       
+        },this.longClickDur);
+        return false; 
+
+    }
+
+    onMouseUp(event: any) {
+        console.log("RosehartComponent->onMouseUp", event, this);
+        if(this.pressTimer) {
+            this.resetTimeout();
+            this.submitChange([this.type, {value: event.data[0], altKey: event.event.event.altKey}])
+        }
+        return false;
     }
 
     onClickNan(event: any) {
