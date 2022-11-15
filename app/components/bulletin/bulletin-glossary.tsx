@@ -2,8 +2,8 @@ import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 
 import { preprocessContent } from "../../util/htmlParser";
-import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
-import GLOSSARY_CONTENT from "./bulletin-glossary-content.json";
+import GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
+import GLOSSARY_CONTENT from "./bulletin-glossary-de-content.json";
 const GLOSSARY_REGEX = new RegExp(
   "\\b(" + Object.keys(GLOSSARY_LINKS).join("|") + ")\\b",
   "g"
