@@ -33,16 +33,14 @@ export default class BulletinGlossary extends React.Component<Props> {
     if (!GLOSSARY_CONTENT[glossary]) {
       return <span>{this.props.children}</span>;
     }
-    const { text, img } = GLOSSARY_CONTENT[glossary];
-    const content = preprocessContent(text + (img ?? ""));
+    const { heading, text, img } = GLOSSARY_CONTENT[glossary];
+    const href = `https://www.avalanches.org/glossary/?lang=de#${glossary}`;
+    const attribution = `<p class="source">Quelle: <a href="${href}">avalanches.org/glossary</a></p>`;
+    const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
+    const content = preprocessContent(html);
     return (
       <Tooltip label={content} html={true}>
-        <a
-          className="glossary"
-          // href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
-        >
-          {this.props.children}
-        </a>
+        <a className="glossary">{this.props.children}</a>
       </Tooltip>
     );
   }
