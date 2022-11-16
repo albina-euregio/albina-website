@@ -23,7 +23,6 @@ export default class FrequencyIcon extends React.Component {
           >
             <img
               src={this.imgRoot + "frequency_" + this.props.frequency + ".png"}
-              alt={this.props.title}
               title={this.props.title}
             />
           </Link>
