@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
-
+import { injectIntl } from "react-intl";
 import { preprocessContent } from "../../util/htmlParser";
 import GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
 import GLOSSARY_CONTENT from "./bulletin-glossary-de-content.json";
@@ -27,7 +27,7 @@ type Props = {
   glossary: string;
 };
 
-export default class BulletinGlossary extends React.Component<Props> {
+class BulletinGlossary extends React.Component<Props> {
   render() {
     const glossary = this.props.glossary;
     if (!GLOSSARY_CONTENT[glossary]) {
@@ -36,9 +36,13 @@ export default class BulletinGlossary extends React.Component<Props> {
     const { heading, text, img, href, hrefCaption } =
       GLOSSARY_CONTENT[glossary];
     const defHref = `https://www.avalanches.org/glossary/?lang=de#${glossary}`;
-    const attribution = `<p className="tooltip-source">(Source: <a href="${
-      href || defHref
-    }" target="_blank">${hrefCaption || "EAWS"}</a>)</p>`;
+    const attribution = `<p className="tooltip-source">(${this.props.intl.formatMessage(
+      {
+        id: "glossary:source"
+      }
+    )}: <a href="${href || defHref}" target="_blank">${
+      hrefCaption || "EAWS"
+    }</a>)</p>`;
     const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
 
     const content = preprocessContent(html);
@@ -49,3 +53,5 @@ export default class BulletinGlossary extends React.Component<Props> {
     );
   }
 }
+
+export default injectIntl(BulletinGlossary);
