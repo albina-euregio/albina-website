@@ -2,8 +2,8 @@ import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 
 import { preprocessContent } from "../../util/htmlParser";
-import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
-import GLOSSARY_CONTENT from "./bulletin-glossary-content.json";
+import GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
+import GLOSSARY_CONTENT from "./bulletin-glossary-de-content.json";
 const GLOSSARY_REGEX = new RegExp(
   "\\b(" + Object.keys(GLOSSARY_LINKS).join("|") + ")\\b",
   "g"
@@ -33,22 +33,18 @@ export default class BulletinGlossary extends React.Component<Props> {
     if (!GLOSSARY_CONTENT[glossary]) {
       return <span>{this.props.children}</span>;
     }
-    const { text, img, ref } = GLOSSARY_CONTENT[glossary];
-    const referenceLink =
-      '<p className="tooltip-source">' +
-      (ref != null
-        ? ref
-        : '(Source: <a href="https://www.avalanches.org/glossary" target="_blank">EAWS</a>)') +
-      "</p>";
-    const content = preprocessContent(text + (img ?? "") + referenceLink);
+    const { heading, text, img, href, hrefCaption } =
+      GLOSSARY_CONTENT[glossary];
+    const defHref = `https://www.avalanches.org/glossary/?lang=de#${glossary}`;
+    const attribution = `<p className="tooltip-source">(Source: <a href="${
+      href || defHref
+    }" target="_blank">${hrefCaption || "EAWS"}</a>)</p>`;
+    const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
+
+    const content = preprocessContent(html);
     return (
       <Tooltip label={content} html={true}>
-        <a
-          className="glossary"
-          // href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
-        >
-          {this.props.children}
-        </a>
+        <a className="glossary">{this.props.children}</a>
       </Tooltip>
     );
   }

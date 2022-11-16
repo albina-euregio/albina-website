@@ -438,19 +438,19 @@ class BulletinStore {
 
   get microRegions(): GeoJSON.Feature[] {
     return this._microRegions.features.filter(f =>
-      filterFeature(f, this.latest)
+      filterFeature(f, this.settings.date)
     );
   }
 
   get microRegionsElevation(): GeoJSON.Feature[] {
     return this._microRegionsElevation.features
-      .filter(f => filterFeature(f, this.latest))
+      .filter(f => filterFeature(f, this.settings.date))
       .map(f => this._augmentFeature(f));
   }
 
   get eawsRegions(): GeoJSON.Feature[] {
     return this._eawsRegions.features
-      .filter(f => filterFeature(f, this.latest))
+      .filter(f => filterFeature(f, this.settings.date))
       .map(f => this._augmentFeature(f));
   }
 
