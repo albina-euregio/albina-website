@@ -281,33 +281,3 @@ export const getFilenames = async(baseurl: string): Promise<string[]> =>   {
     const urls = result.map(filename => `${baseurl}/${filename}`);
     return urls;
 }
-
-
-//main
-(async () => {
-    const urls = await getFilenames("https://static.avalanche.report/zamg_qfa");
-    
-    const markerData = new MarkerData();
-    
-    console.log("fetching data...");
-
-    for(const [i, url]  of Object.entries(urls)) {
-        const tempQFA = new QFA();
-        await tempQFA.loadFromURL(url);
-        tempQFA.dump();
-        markerData.add({
-            filename: tempQFA.filename,
-            coordinates: tempQFA.coordinates
-        });
-        
-        process.stdout.write(`\rFetched ${parseInt(i)+1}/${urls.length} files (${Math.round(((parseInt(i) + 1) / urls.length)*100)}%)`);
-    }
-
-    markerData.save();
-
-    console.log("\ndone");
-    const filenames = markerData.getFilenames(markerData.coordinates[0]);
-    const qfa = new QFA();
-    qfa.loadFromJSON(filenames[0]);
-    console.log(qfa.listParameters());
-})();
