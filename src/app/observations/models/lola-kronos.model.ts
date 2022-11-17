@@ -386,7 +386,18 @@ export function convertLoLaToGeneric(
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
     )?.lng,
+    avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
     dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
     region: obs.regionName,
   };
+}
+
+function getAvalancheProblems(data: LolaEvaluation): Enums.AvalancheProblem[] {
+  const problems: Enums.AvalancheProblem[] = [];
+  if (data.freshSnowProblem) problems.push(Enums.AvalancheProblem.new_snow);
+  if (data.glidingSnowProblem) problems.push(Enums.AvalancheProblem.gliding_snow);
+  if (data.persistentWeakLayersProblem) problems.push(Enums.AvalancheProblem.persistent_weak_layers);
+  if (data.wetSnowProblem) problems.push(Enums.AvalancheProblem.wet_snow);
+  if (data.windDriftetSnowProblem) problems.push(Enums.AvalancheProblem.wind_slab);
+  return problems;
 }
