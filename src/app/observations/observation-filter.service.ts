@@ -298,25 +298,39 @@ export class ObservationFilterService {
   public getDangerPatternDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     let nan = 0;
-//    console.log("getDangerPatternDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.DangerPattern].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(
+      (key) =>
+        (dataRaw[key] = {
+          max: 0,
+          available: 0,
+          all: 0,
+          selected: this.filterSelection[LocalFilterTypes.DangerPattern].selected.includes(key) ? 1 : 0,
+          highlighted: this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0
+        })
+    );
 
-    observations.forEach(observation => {
-//      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
-      if(observation.dangerPattern) {
-//        console.log("getDangerPatternDataset ##3", observation);
-        dataRaw[observation.dangerPattern].all++;
+    observations.forEach((observation) => {
+      if (Array.isArray(observation.dangerPatterns)) {
+        observation.dangerPatterns.forEach(dangerPattern => {
+        dataRaw[dangerPattern].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].available++;
+        if (observation.filterType === ObservationFilterType.Local) dataRaw[dangerPattern].available++;
+        });
       } else nan++;
     });
-    //console.log("getDangerPatternDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','available','selected', 'highlighted']];
+    const dataset = [["category", "max", "all", "available", "selected", "highlighted"]];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
-//    console.log("getDangerPatternDataset ##4 dataset", dataset);
-    return {dataset: {source: dataset}, nan}
+    for (const [key, values] of Object.entries(dataRaw))
+      dataset.push([
+        key,
+        values["all"] * DATASET_MAX_FACTOR,
+        values["all"],
+        values["highlighted"] === 1 ? values["all"] : 0,
+        values["selected"] === 0 ? values["available"] : 0,
+        values["selected"] === 1 ? values["available"] : 0
+      ]);
+    return { dataset: { source: dataset }, nan };
   }
 
   _normedDateString(date: Date):string {

@@ -1,3 +1,5 @@
+import * as Enums from "app/enums/enums";
+
 import {
   Aspect,
   GenericObservation,
@@ -384,6 +386,7 @@ export function convertLoLaToGeneric(
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
     )?.lng,
+    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
     region: obs.regionName,
   };
 }

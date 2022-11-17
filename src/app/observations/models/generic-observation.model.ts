@@ -86,7 +86,7 @@ export interface GenericObservation<Data = any> {
   /**
    * Danger pattern corresponding with this observation
    */
-  dangerPattern?: Enums.DangerPattern;
+  dangerPatterns?: Enums.DangerPattern[];
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;
 }
