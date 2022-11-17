@@ -77,8 +77,8 @@
             "browserTarget": "albina-admin-gui:build"
           },
           "configurations": {
-            "dev": {
-              "browserTarget": "albina-admin-gui:build:dev"
+            "development": {
+              "browserTarget": "albina-admin-gui:build:development"
             },
             "production": {
               "browserTarget": "albina-admin-gui:build:production"
