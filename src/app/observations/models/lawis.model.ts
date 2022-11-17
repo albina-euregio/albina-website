@@ -90,7 +90,16 @@ export interface Incident {
 
 export interface Danger {
   rating: IdText;
-  problem: IdText;
+  problem: IdText<ProblemText>;
+}
+
+export enum ProblemText {
+  FreshSnow = "fresh snow",
+  GlidingSnow = "gliding snow",
+  OldSnow = "old snow",
+  Unknown="unknown", 
+  WetSnow="wet snow", 
+  WindDriftedSnow = "wind-drifted snow",
 }
 
 export interface Location {
@@ -174,9 +183,9 @@ export enum AvalancheSize {
   extreme = 5
 }
 
-export interface IdText {
+export interface IdText<T=string> {
   id: number;
-  text: string;
+  text: T;
 }
 
 export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObservation<Profile> {
@@ -235,6 +244,7 @@ export function toLawisIncidentDetails(
     $data: lawisDetails,
     $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
     stability: getLawisIncidentStability(lawisDetails),
+    avalancheProblems: getLawisIncidentAvalancheProblems(lawisDetails),
     $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
@@ -308,6 +318,24 @@ function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
     ? Enums.Stability.weak
     : Enums.Stability.medium;
+}
+
+function getLawisIncidentAvalancheProblems(incident: IncidentDetails): Enums.AvalancheProblem[] {
+  const problem = incident?.danger?.problem?.text;
+  switch (problem || "") {
+    case ProblemText.FreshSnow:
+      return [Enums.AvalancheProblem.new_snow];
+    case ProblemText.GlidingSnow:
+      return [Enums.AvalancheProblem.gliding_snow];
+    case ProblemText.OldSnow:
+      return [Enums.AvalancheProblem.persistent_weak_layers];
+    case ProblemText.WetSnow:
+      return [Enums.AvalancheProblem.wet_snow];
+    case ProblemText.WindDriftedSnow:
+      return [Enums.AvalancheProblem.wind_slab];
+    default:
+      return [];
+  }
 }
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
