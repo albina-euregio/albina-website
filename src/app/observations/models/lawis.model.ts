@@ -228,9 +228,10 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
 export function toLawisIncidentDetails(
   incident: GenericObservation<Incident>,
   lawisDetails: IncidentDetails
-): GenericObservation<Incident> {
+): GenericObservation<IncidentDetails> {
   return {
     ...incident,
+    $data: lawisDetails,
     $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
     stability: getLawisIncidentStability(lawisDetails),
     $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
