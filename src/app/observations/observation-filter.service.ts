@@ -274,25 +274,39 @@ export class ObservationFilterService {
   public getAvalancheProblemDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     let nan = 0;
-//    console.log("getAvalancheProblemDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.AvalancheProblem].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(
+      (key) =>
+        (dataRaw[key] = {
+          max: 0,
+          available: 0,
+          all: 0,
+          selected: this.filterSelection[LocalFilterTypes.AvalancheProblem].selected.includes(key) ? 1 : 0,
+          highlighted: this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0
+        })
+    );
 
-    observations.forEach(observation => {
-      //console.log("getAvalancheProblemDataset ##2", observation);
-      if(observation.avalancheProblem) {
-        //console.log("getAvalancheProblemDataset ##3", observation);
-        dataRaw[observation.avalancheProblem].all++;
+    observations.forEach((observation) => {
+      if (Array.isArray(observation.avalancheProblems)) {
+        observation.avalancheProblems.forEach(avalancheProblem => {
+        dataRaw[avalancheProblem].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].available++;
+        if (observation.filterType === ObservationFilterType.Local) dataRaw[avalancheProblem].available++;
+        });
       } else nan++;
     });
-    //console.log("getAvalancheProblemDataset", dataRaw);
-    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
+    const dataset = [["category", "max", "all", "highlighted", "available", "selected"]];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
-    //    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
-    return {dataset: {source: dataset}, nan}
+    for (const [key, values] of Object.entries(dataRaw))
+      dataset.push([
+        key,
+        values["all"] * DATASET_MAX_FACTOR,
+        values["all"],
+        values["highlighted"] === 1 ? values["all"] : 0,
+        values["selected"] === 0 ? values["available"] : 0,
+        values["selected"] === 1 ? values["available"] : 0
+      ]);
+    return { dataset: { source: dataset }, nan };
   }
 
   public getDangerPatternDataset(observations: GenericObservation[]) {

@@ -82,7 +82,7 @@ export interface GenericObservation<Data = any> {
   /**
    * Avalanche problem corresponding with this observation
    */
-  avalancheProblem?: Enums.AvalancheProblem;
+  avalancheProblems?: Enums.AvalancheProblem[];
   /**
    * Danger pattern corresponding with this observation
    */
