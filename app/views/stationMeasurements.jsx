@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import StationDataStore from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
 import FilterBar from "../components/organisms/filter-bar";
@@ -11,188 +12,169 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
-import { parseSearchParams } from "../util/searchParams";
 
-/**
- * @typedef {object} Props
- * @prop {import("history").History} history
- * @prop {*} intl
- * ... props
- *
- * @extends {React.Component<Props>}
- */
-class StationMeasurements extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      headerText: "",
-      content: "",
-      sharable: false
-    };
+const StationMeasurements = () => {
+  const intl = useIntl();
+  const [state] = useState({
+    title: "",
+    headerText: "",
+    content: "",
+    sharable: false
+  });
+  const [store] = useState(() => new StationDataStore());
+  const [searchParams, setSearchParams] = useSearchParams();
 
-    this.store = new StationDataStore();
-  }
+  useEffect(() => {
+    store.load("");
+    store.fromURLSearchParams(searchParams);
+  }, [searchParams, store]);
 
-  componentDidMount() {
-    this.store.load("");
-    this.store.fromURLSearchParams(parseSearchParams());
-  }
-
-  updateURL() {
-    const search = this.store.toURLSearchParams().toString();
-    // console.log(
-    //   "stationMeasurements navigate #1",
-    //   this.store.toURLSearchParams().toString()
-    // );
-    this.props.history.replace({ search });
-  }
-
-  handleChangeSearch = val => {
-    this.store.setSearchText(val);
-    this.updateURL();
+  const updateURL = () => {
+    const search = store.toURLSearchParams();
+    setSearchParams(search);
   };
 
-  handleToggleActive = val => {
-    this.store.toggleActiveData(val);
-    this.updateURL();
+  const handleChangeSearch = val => {
+    store.setSearchText(val);
+    updateURL();
   };
 
-  handleChangeRegion = val => {
-    this.store.activeRegion = val;
-    this.updateURL();
+  const handleToggleActive = val => {
+    store.toggleActiveData(val);
+    updateURL();
   };
 
-  handleSort = (id, dir) => {
-    this.store.sortBy(id, dir);
-    this.updateURL();
+  const handleChangeRegion = val => {
+    store.activeRegion = val;
+    updateURL();
   };
 
-  render() {
-    const classChanged = "selectric-changed";
-    const hideFilters = ["snow", "temp", "wind"];
-    return (
-      <>
-        <HTMLHeader
-          title={this.props.intl.formatMessage({ id: "measurements:title" })}
-        />
-        <PageHeadline
-          title={this.props.intl.formatMessage({ id: "measurements:headline" })}
-          marginal={this.state.headerText}
-          subtitle={this.props.intl.formatMessage({
-            id: "weather:subpages:subtitle"
+  const handleSort = (id, dir) => {
+    store.sortBy(id, dir);
+    updateURL();
+  };
+
+  const classChanged = "selectric-changed";
+  const hideFilters = ["snow", "temp", "wind"];
+  return (
+    <>
+      <HTMLHeader title={intl.formatMessage({ id: "measurements:title" })} />
+      <PageHeadline
+        title={intl.formatMessage({ id: "measurements:headline" })}
+        marginal={state.headerText}
+        subtitle={intl.formatMessage({
+          id: "weather:subpages:subtitle"
+        })}
+      />
+      <FilterBar
+        search={true}
+        searchTitle={intl.formatMessage({
+          id: "measurements:search"
+        })}
+        searchOnChange={handleChangeSearch}
+        searchValue={store.searchText}
+      >
+        <ProvinceFilter
+          title={intl.formatMessage({
+            id: "measurements:filter:province"
           })}
+          all={intl.formatMessage({ id: "filter:all" })}
+          handleChange={handleChangeRegion}
+          value={store.activeRegion}
+          className={store.activeRegion !== "all" ? classChanged : ""}
         />
-        <FilterBar
-          search={true}
-          searchTitle={this.props.intl.formatMessage({
-            id: "measurements:search"
+
+        <HideGroupFilter
+          title={intl.formatMessage({
+            id: "measurements:filter:hide"
           })}
-          searchOnChange={this.handleChangeSearch}
-          searchValue={this.store.searchText}
         >
-          <ProvinceFilter
-            title={this.props.intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            all={this.props.intl.formatMessage({ id: "filter:all" })}
-            handleChange={this.handleChangeRegion}
-            value={this.store.activeRegion}
-            className={this.store.activeRegion !== "all" ? classChanged : ""}
-          />
-
-          <HideGroupFilter
-            title={this.props.intl.formatMessage({
-              id: "measurements:filter:hide"
-            })}
-          >
-            {hideFilters.map(e => (
-              <HideFilter
-                key={e}
-                id={e}
-                title={this.props.intl.formatMessage({
-                  id: "measurements:filter:hide:" + e
-                })}
-                tooltip={this.props.intl.formatMessage({
-                  id:
-                    "measurements:filter:hide:" +
-                    (this.store.activeData[e] ? "active" : "inactive") +
-                    ":hover"
-                })}
-                active={this.store.activeData[e]}
-                onToggle={this.handleToggleActive}
-              />
-            ))}
-          </HideGroupFilter>
-        </FilterBar>
-        <section className="section">
-          <div className="table-container">
-            <StationTable
-              data={this.store.data}
-              activeData={this.store.activeData}
-              activeRegion={this.store.activeRegion}
-              sortValue={this.store.sortValue}
-              sortDir={this.store.sortDir}
-              searchText={this.store.searchText}
-              handleSort={this.handleSort}
+          {hideFilters.map(e => (
+            <HideFilter
+              key={e}
+              id={e}
+              title={intl.formatMessage({
+                id: "measurements:filter:hide:" + e
+              })}
+              tooltip={intl.formatMessage({
+                id:
+                  "measurements:filter:hide:" +
+                  (store.activeData[e] ? "active" : "inactive") +
+                  ":hover"
+              })}
+              active={store.activeData[e]}
+              onToggle={handleToggleActive}
             />
-          </div>
-        </section>
-        <section className="section-centered section-context">
-          <div className="panel">
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({ id: "button:snow:headline" })}
-            </h2>
+          ))}
+        </HideGroupFilter>
+      </FilterBar>
+      <section className="section">
+        <div className="table-container">
+          <StationTable
+            data={store.data}
+            activeData={store.activeData}
+            activeRegion={store.activeRegion}
+            sortValue={store.sortValue}
+            sortDir={store.sortDir}
+            searchText={store.searchText}
+            handleSort={handleSort}
+          />
+        </div>
+      </section>
+      <section className="section-centered section-context">
+        <div className="panel">
+          <h2 className="subheader">
+            {intl.formatMessage({ id: "button:snow:headline" })}
+          </h2>
 
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/map/new-snow"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/map/snow-height"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/map/wind"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/stations"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "button:snow:stations:text"
-                  })}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <SmShare />
-      </>
-    );
-  }
-}
-export default injectIntl(observer(StationMeasurements));
+          <ul className="list-inline list-buttongroup-dense">
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/weather/map/new-snow"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({ id: "button:snow:hn:text" })}
+              </a>
+            </li>
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/weather/map/snow-height"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({ id: "button:snow:hs:text" })}
+              </a>
+            </li>
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/weather/map/wind"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({ id: "button:snow:ff:text" })}
+              </a>
+            </li>
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/weather/stations"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({
+                  id: "button:snow:stations:text"
+                })}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <SmShare />
+    </>
+  );
+};
+export default observer(StationMeasurements);
