@@ -54,6 +54,7 @@ export interface markers {
 export interface MarkerData {
     data: markers;
     coordinates: coordinates[];
+    setFilename: (filename?: string) => void;
     add: (marker: marker) => void;
     getFilenames: (coordinates: coordinates) => string[];
     save: () => void;
