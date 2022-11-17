@@ -108,9 +108,10 @@ export class ObservationsService {
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
-    const days = Math.ceil((Date.now() - this.filter.startDate.getTime()) / 24 / 60 / 60 / 1000);
+    const startDate = this.filter.startDate.toISOString().slice(0, "2006-01-02T15:04:05".length).replace("T", " ");
+    const endDate = this.filter.endDate.toISOString().slice(0, "2006-01-02T15:04:05".length).replace("T", " ");
     const params: Record<string, string> = {
-      where: "BEOBDATUM > (SYSDATE - " + days + ")",
+      where: `BEOBDATUM > TIMESTAMP '${startDate}' AND BEOBDATUM < TIMESTAMP '${endDate}'`,
       outFields: "*",
       datumTransformation: "5891",
       f: "geojson"
