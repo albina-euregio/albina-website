@@ -104,6 +104,13 @@ class BulletinCollection {
     const parser = new DOMParser();
     const document = parser.parseFromString(xmlString, "application/xml");
     this.dataRaw = convertCaamlToJson(document.documentElement);
+    this.dataRaw?.bulletins.forEach(b => {
+      b.avalancheProblems?.forEach(p => {
+        if (p.type === "wind_drifted_snow") {
+          p.type = "wind_slab";
+        }
+      });
+    });
     this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
     // console.log(this.dataRaw);
     this.status =
