@@ -197,9 +197,10 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
   };
 }
 
-export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
+export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<ProfileDetails> {
   return {
     ...profile,
+    $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
     $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
