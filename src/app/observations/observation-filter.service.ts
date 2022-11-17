@@ -4,7 +4,8 @@ import {
   GenericObservation,
   ObservationSource,
   LocalFilterTypes,
-  FilterSelectionData
+  FilterSelectionData,
+  AvalancheProblem
 } from "./models/generic-observation.model";
 import * as Enums from "../enums/enums";
 import {
@@ -185,7 +186,7 @@ export class ObservationFilterService {
       }
     }
 
-    for (const [key] of Object.entries(Enums.AvalancheProblem)) {
+    for (const [key] of Object.entries(AvalancheProblem)) {
       if(isNaN(Number(key))) {
         this.filterSelection.AvalancheProblem.all.push(key);
       }
@@ -289,6 +290,10 @@ export class ObservationFilterService {
     observations.forEach((observation) => {
       if (Array.isArray(observation.avalancheProblems)) {
         observation.avalancheProblems.forEach(avalancheProblem => {
+        if (!dataRaw[avalancheProblem]) {
+          console.warn("Unsupported avalanche problem:", avalancheProblem);
+          return;
+        }
         dataRaw[avalancheProblem].all++;
 
         if (observation.filterType === ObservationFilterType.Local) dataRaw[avalancheProblem].available++;

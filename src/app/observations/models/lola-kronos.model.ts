@@ -2,6 +2,7 @@ import * as Enums from "app/enums/enums";
 
 import {
   Aspect,
+  AvalancheProblem,
   GenericObservation,
   imageCountString,
   ObservationSource,
@@ -392,12 +393,12 @@ export function convertLoLaToGeneric(
   };
 }
 
-function getAvalancheProblems(data: LolaEvaluation): Enums.AvalancheProblem[] {
-  const problems: Enums.AvalancheProblem[] = [];
-  if (data.freshSnowProblem) problems.push(Enums.AvalancheProblem.new_snow);
-  if (data.glidingSnowProblem) problems.push(Enums.AvalancheProblem.gliding_snow);
-  if (data.persistentWeakLayersProblem) problems.push(Enums.AvalancheProblem.persistent_weak_layers);
-  if (data.wetSnowProblem) problems.push(Enums.AvalancheProblem.wet_snow);
-  if (data.windDriftetSnowProblem) problems.push(Enums.AvalancheProblem.wind_slab);
+function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
+  const problems: AvalancheProblem[] = [];
+  if (data.freshSnowProblem?.result > 0) problems.push(AvalancheProblem.new_snow);
+  if (data.glidingSnowProblem?.result > 0) problems.push(AvalancheProblem.gliding_snow);
+  if (data.persistentWeakLayersProblem?.result > 0) problems.push(AvalancheProblem.persistent_weak_layers);
+  if (data.wetSnowProblem?.result > 0) problems.push(AvalancheProblem.wet_snow);
+  if (data.windDriftetSnowProblem?.result > 0) problems.push(AvalancheProblem.wind_slab);
   return problems;
 }

@@ -82,13 +82,25 @@ export interface GenericObservation<Data = any> {
   /**
    * Avalanche problem corresponding with this observation
    */
-  avalancheProblems?: Enums.AvalancheProblem[];
+  avalancheProblems?: AvalancheProblem[];
   /**
    * Danger pattern corresponding with this observation
    */
   dangerPatterns?: Enums.DangerPattern[];
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;
+}
+
+// similar to Enum.AvalancheProblem as string enum
+export enum AvalancheProblem {
+  new_snow = "new_snow",
+  wind_slab = "wind_slab",
+  persistent_weak_layers = "persistent_weak_layers",
+  wet_snow = "wet_snow",
+  gliding_snow = "gliding_snow",
+  favourable_situation = "favourable_situation",
+  cornices = "cornices",
+  no_distinct_problem = "no_distinct_problem"
 }
 
 export enum ObservationFilterType {

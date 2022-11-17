@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
+import { AvalancheProblem, GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -320,19 +320,19 @@ function getLawisIncidentStability(incident: IncidentDetails): Stability {
     : Enums.Stability.medium;
 }
 
-function getLawisIncidentAvalancheProblems(incident: IncidentDetails): Enums.AvalancheProblem[] {
+function getLawisIncidentAvalancheProblems(incident: IncidentDetails): AvalancheProblem[] {
   const problem = incident?.danger?.problem?.text;
   switch (problem || "") {
     case ProblemText.FreshSnow:
-      return [Enums.AvalancheProblem.new_snow];
+      return [AvalancheProblem.new_snow];
     case ProblemText.GlidingSnow:
-      return [Enums.AvalancheProblem.gliding_snow];
+      return [AvalancheProblem.gliding_snow];
     case ProblemText.OldSnow:
-      return [Enums.AvalancheProblem.persistent_weak_layers];
+      return [AvalancheProblem.persistent_weak_layers];
     case ProblemText.WetSnow:
-      return [Enums.AvalancheProblem.wet_snow];
+      return [AvalancheProblem.wet_snow];
     case ProblemText.WindDriftedSnow:
-      return [Enums.AvalancheProblem.wind_slab];
+      return [AvalancheProblem.wind_slab];
     default:
       return [];
   }
