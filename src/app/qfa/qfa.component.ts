@@ -19,9 +19,19 @@ export class QfaComponent implements OnInit {
 
   async ngOnInit() {
     const filenames = await this.getQfaFilesService.getFilenames("https://static.avalanche.report/zamg_qfa");
-    console.log(filenames);
-    const qfa = new QfaService(this.http);
-    await qfa.loadFromURL(filenames[0]);
-    console.log(qfa.data);
+    const markerData = new QfaMarkerService();
+    console.log("loading...");
+    markerData.load();
+    for(const filename of filenames) {
+      const qfa = new QfaService(this.http);
+      await qfa.loadFromURL(filename);
+      markerData.add({
+        name: filename,
+        coordinates: qfa.coordinates
+      });
+    }
+    markerData.save();
+    console.log("done!");
+    console.log(markerData.data);
   }
 }

@@ -1,3 +1,5 @@
+import { TypeVisitor } from "@angular/compiler";
+
 export interface coordinates {
     lat: number;
     lon: number;
@@ -37,19 +39,20 @@ export interface QFA {
 
 export interface marker {
     coordinates: coordinates;
-    filename: string;
+    name: string;
 }
 
 export interface markers {
     [key: string]: {
         coordinates: coordinates;
-        filenames: string[];
+        names: string[];
     }
 }
 
 export interface MarkerData {
     data: markers;
     coordinates: coordinates[];
+    load: (marker: marker) => void;
     add: (marker: marker) => void;
     getFilenames: (coordinates: coordinates) => string[];
     save: () => void;
