@@ -7,7 +7,8 @@ import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
 @Component({
-  templateUrl: "qfa.component.html"
+  templateUrl: "qfa.component.html",
+  styleUrls: ["qfa.component.scss"]
 })
 export class QfaComponent implements OnInit {
   qfaPopupVisible = true;
