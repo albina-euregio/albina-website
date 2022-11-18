@@ -1,1 +1,11 @@
-<p>Test</p>
+<button (click)="qfaPopupVisible = !qfaPopupVisible" value="Toggle Qfa"></button>
+
+<p-dialog #qfaDialog (onShow)="qfaDialog.maximize()" [(visible)]="qfaPopupVisible"
+  [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
+  <p-header>
+    <span>{{selectedQfa.metadata?.location}}</span>
+  </p-header>
+  <p>This is a super popup :)</p>
+  <table *ngIf="true" class="table table-sm">
+  </table>
+</p-dialog>
