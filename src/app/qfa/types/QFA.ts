@@ -33,7 +33,7 @@ export interface QFA {
     height: number;
     metadata: metadata;
     parameters: parameters;
-    loadFromURL: (url: string) => Promise<data>;
+    loadFromURL: (url: string) => Promise<void>;
     listParameters(): string[];
 }
 
