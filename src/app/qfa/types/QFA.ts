@@ -31,12 +31,8 @@ export interface QFA {
     height: number;
     metadata: metadata;
     parameters: parameters;
-    filename: string;
-    loadFromJSON: (filename: string) => boolean;
-    loadFromFile: (filename: string) => void;
     loadFromURL: (url: string) => Promise<void>;
     listParameters(): string[];
-    dump(filename?: string): void;
 }
 
 export interface marker {
@@ -54,7 +50,6 @@ export interface markers {
 export interface MarkerData {
     data: markers;
     coordinates: coordinates[];
-    setFilename: (filename?: string) => void;
     add: (marker: marker) => void;
     getFilenames: (coordinates: coordinates) => string[];
     save: () => void;

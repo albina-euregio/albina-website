@@ -7,6 +7,9 @@ import { QfaComponent } from "./qfa.component";
 import { QfaRoutingModule } from "./qfa-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
 
+import { QfaService } from "../providers/qfa-service/qfa.service";
+import { QfaMarkerService } from "../providers/qfa-service/markers.service";
+import { GetQfaFilesService } from "../providers/qfa-service/getQfaFiles.service";
 
 @NgModule({
   imports: [
@@ -17,6 +20,11 @@ import { TranslateModule } from "@ngx-translate/core";
   ],
   declarations: [
     QfaComponent
+  ],
+  providers: [
+    QfaService,
+    QfaMarkerService,
+    GetQfaFilesService
   ]
 })
 export class QfaModule { }

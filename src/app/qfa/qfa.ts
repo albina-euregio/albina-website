@@ -3,42 +3,6 @@ import { join } from "path";
 import * as types from  "./types/QFA";
 import fetch from "node-fetch";
 
-/**
- * @class QFA
- * @classdesc Class for converting QFA files to JSON
- * @param filename - The path to the source txt weather file
- * @param url - The URL to the source txt weather file
- * @param data - The data extracted from the source txt weather file
- * @param coordinates - The coordinates of the grid point
- * @param height - The height of the grid point above sea level
- * @param metadata - The metadata of a file
- * @param parameters - The weather parameters
- * @param loadFromJSON - Loads data from a parsed JSON file
- * @param loadFromFile - Loads a txt weather file from the filesystem
- * @param loadFromURL - Loads a txt weather file from a URL
- * @param listParameters - Lists the parameters in the weather file
- * @param dump - Dumps the file to the filesystem
- * @returns {QFA}
- * @example
- * import { QFA } from "qfa";
- * const qfa = new QFA();
- * qfa.loadFromFile("path/to/file.txt");
- * console.log(qfa.listParameters());
- * qfa.dump("path/to/file.json");
- * @example
- * import { QFA } from "qfa";
- * (async () => {
- *    const qfa = new QFA();
- *    await qfa.loadFromURL("https://example.com/file.txt");
- *    console.log(qfa.listParameters());
- *    qfa.dump("path/to/file.json");
- * })();
- * @example
- * import { QFA } from "qfa";
- * const qfa = new QFA();
- * qfa.loadFromJSON("path/to/file.json");
- * console.log(qfa.listParameters());
- */
 export class QFA implements types.QFA {
     private qfaDir = "./files";
     private logDir = "./logs";
@@ -186,7 +150,7 @@ export class QFA implements types.QFA {
     private parseText = (plainText: string) =>  {
         const metadata = this.parseMetaData(plainText);
         const parameters = this.parseParameters(plainText);
-        
+
         const result = {
             metadata,
             parameters,
@@ -249,7 +213,7 @@ export class MarkerData implements types.MarkerData {
 }
 
 export const getFilenames = async(baseurl: string): Promise<string[]> =>   {
-    const logFile = join(__dirname, "./lastFilename.log")
+    // const logFile = join(__dirname, "./lastFilename.log")
 
     const response = await fetch(baseurl, {
         method: "GET",
@@ -261,9 +225,9 @@ export const getFilenames = async(baseurl: string): Promise<string[]> =>   {
     const html = await response.text();
 
     let lastFilename = undefined as unknown;
-    if(existsSync(logFile)) {
-        lastFilename = readFileSync(logFile, "ascii");
-    }
+    // if(existsSync(logFile)) {
+    //     lastFilename = readFileSync(logFile, "ascii");
+    // }
 
     const regex = /<td>\n\t{7}<a href="(.*)">/g;
     const filenames = [] as string[];
@@ -275,7 +239,7 @@ export const getFilenames = async(baseurl: string): Promise<string[]> =>   {
     }
     filenames.shift();
     lastFilename = filenames[0] || lastFilename;
-    writeFileSync(logFile, lastFilename);
+    // writeFileSync(logFile, "test");
     //remove first two chars from each filename
     const result = filenames.map(el => el.substring(2));
     const urls = result.map(filename => `${baseurl}/${filename}`);
