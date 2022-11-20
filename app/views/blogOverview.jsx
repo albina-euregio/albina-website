@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useLocation, createSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -20,8 +20,8 @@ const BlogOverview = () => {
   //console.log("BlogOverview const", BLOG_STORE);
   const [store] = useState(BLOG_STORE);
   const intl = useIntl();
-  const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
   let _settingFilters = false;
 
@@ -73,16 +73,13 @@ const BlogOverview = () => {
 
   useEffect(() => {
     if (!_settingFilters) {
-      store.checkUrl();
+      store.checkUrl(searchParams);
     }
   }, [location]);
 
   const doStoreUpdate = () => {
     //console.log("blogOverview doStoreUpdate", store.searchParams);
-    navigate({
-      pathname: location.pathname,
-      search: `?${createSearchParams(store.searchParams)}`
-    });
+    setSearchParams(store.searchParams);
     store.update();
     _settingFilters = false;
   };
