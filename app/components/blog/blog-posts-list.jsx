@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import TagList from "./tag-list";
-import { dateToDateTimeString } from "../../util/date.js";
+import { DATE_TIME_FORMAT } from "../../util/date";
 
 class BlogPostsList extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class BlogPostsList extends React.Component {
                   {/*<li className="blog-author">{item.author}</li>
                    */}
                   <li className="blog-date">
-                    {dateToDateTimeString(item.date)}
+                    {this.props.intl.formatDate(item.date, DATE_TIME_FORMAT)}
                   </li>
                   <li className="blog-province">
                     {item.regions

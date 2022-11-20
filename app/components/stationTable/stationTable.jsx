@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
 import { useState } from "react";
 import { useEffect } from "react";
+import { DATE_TIME_FORMAT } from "../../util/date";
 
 const StationTable = props => {
   const intl = useIntl();
@@ -31,7 +32,7 @@ const StationTable = props => {
               intl.formatMessage({ id: `region:${row.region}` })}
           </span>{" "}
           <span className="datetime">
-            {intl.formatDate(row.date)} {intl.formatTime(row.date)}
+            {intl.formatDate(row.date, DATE_TIME_FORMAT)}
           </span>
         </span>
       ),

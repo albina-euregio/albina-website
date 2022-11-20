@@ -14,7 +14,7 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, dateToLongDateString } from "../util/date.js";
+import { parseDate, LONG_DATE_FORMAT } from "../util/date.js";
 //import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { parseSearchParams } from "../util/searchParams";
@@ -179,7 +179,10 @@ const Bulletin = props => {
       ? collection
         ? title +
           " | " +
-          dateToLongDateString(parseDate(BULLETIN_STORE.settings.date))
+          this.props.intl.formatDate(
+            parseDate(BULLETIN_STORE.settings.date),
+            LONG_DATE_FORMAT
+          )
         : intl.formatMessage({
             id: "bulletin:header:info-no-data"
           })
