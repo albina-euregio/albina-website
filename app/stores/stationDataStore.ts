@@ -151,7 +151,7 @@ export default class StationDataStore {
     temp: true,
     wind: true
   };
-  sortValue = "name";
+  sortValue: keyof StationData = "name";
   sortDir: "asc" | "desc" = "asc";
   collator = new Intl.Collator("de");
 
@@ -228,7 +228,7 @@ export default class StationDataStore {
     this.activeData[key] = !this.activeData[key];
   }
 
-  sortBy(sortValue: string, sortDir: "asc" | "desc") {
+  sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     this.sortValue = sortValue;
     this.sortDir = sortDir;
   }

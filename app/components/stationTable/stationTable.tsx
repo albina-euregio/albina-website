@@ -6,11 +6,12 @@ import { regionCodes } from "../../util/regions";
 import { useState } from "react";
 import { useEffect } from "react";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import { type StationData } from "../../stores/stationDataStore";
 
 const StationTable = props => {
   const intl = useIntl();
 
-  const defaultRender = (value, _row, digits = 0) =>
+  const defaultRender = (value: number, _row: StationData, digits = 0) =>
     typeof value === "number"
       ? intl.formatNumber(value, {
           minimumFractionDigits: digits,
@@ -18,7 +19,20 @@ const StationTable = props => {
         })
       : "–";
 
-  const columns = [
+  const columns: {
+    data: keyof StationData;
+    width?: string;
+    render: (
+      _value: number,
+      row: StationData,
+      digits?: number
+    ) => string | JSX.Element;
+    sortable?: boolean;
+    className: string;
+    unit?: string;
+    group?: string;
+    digits?: number;
+  }[] = [
     {
       data: "name",
       width: "150px",
@@ -171,8 +185,7 @@ const StationTable = props => {
       null,
       "inline",
       "#weatherStationDiagrams",
-      "weatherStationDiagrams",
-      true
+      "weatherStationDiagrams"
     );
   }
 

@@ -6,7 +6,7 @@ const StationTableHeader = props => {
   const intl = useIntl();
 
   const sortClasses = (id, dir) => {
-    const cls = [];
+    const cls: string[] = [];
     if (dir == "asc") {
       cls.push("sort-ascending");
       cls.push("icon-up-open");
