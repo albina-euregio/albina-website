@@ -9,14 +9,19 @@ import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
 import { APP_STORE } from "../../appStore";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 class PageHeader extends React.Component {
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
+      const date = BULLETIN_STORE.settings.date;
       // since website is served from localhost, just change language in appStore
       APP_STORE.setLanguage(newLanguage);
+      if (date) {
+        BULLETIN_STORE.load(date, true);
+      }
       return;
     }
 
