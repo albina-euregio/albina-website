@@ -306,7 +306,7 @@
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
       "baseQuery": "isNameRequired=true",
       "position": "topleft",
-      "showMarker": true,
+      "showMarker": false,
       "showPopup": true,
       "alwaysOpen": false,
       "clearOnPopupClose": true,
