@@ -111,7 +111,7 @@ const StationMeasurements = () => {
       <section className="section">
         <div className="table-container">
           <StationTable
-            data={store.data}
+            sortedFilteredData={store.sortedFilteredData}
             activeData={store.activeData}
             activeRegion={store.activeRegion}
             sortValue={store.sortValue}

@@ -232,6 +232,40 @@ export default class StationDataStore {
     this.sortDir = sortDir;
   }
 
+  get sortedFilteredData(): StationData[] {
+    const pattern = this.searchText
+      ? new RegExp(this.searchText, "i")
+      : undefined;
+    const activeRegion = regionCodes.includes(this.activeRegion)
+      ? this.activeRegion
+      : undefined;
+    return this.data
+      .filter(
+        row =>
+          !pattern ||
+          row.name.match(pattern) ||
+          row.microRegion.match(pattern) ||
+          row.operator.match(pattern)
+      )
+      .filter(row => !activeRegion || row.region == activeRegion)
+      .sort((val1, val2) => {
+        const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
+        const a = val1[this.sortValue];
+        const b = val2[this.sortValue];
+
+        if (a === b) {
+          return 0;
+        }
+        if (typeof b === "undefined" || b === false || b === null) {
+          return order[1];
+        }
+        if (typeof a === "undefined" || a === false || a === null) {
+          return order[0];
+        }
+        return a < b ? order[0] : order[1];
+      });
+  }
+
   load(timePrefix: any) {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix

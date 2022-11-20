@@ -162,58 +162,6 @@ const StationTable = props => {
     return !column.group || columnGroups[column.group].active;
   }
 
-  function _applyFiltersAndSorting(originalData) {
-    const filters = [];
-
-    // sorting
-    if (props.sortValue) {
-      filters.push(data =>
-        data.sort((val1, val2) => {
-          const order = props.sortDir == "asc" ? [-1, 1] : [1, -1];
-          const a = val1[props.sortValue];
-          const b = val2[props.sortValue];
-
-          if (a === b) {
-            return 0;
-          }
-          if (typeof b === "undefined" || b === false || b === null) {
-            return order[1];
-          }
-          if (typeof a === "undefined" || a === false || a === null) {
-            return order[0];
-          }
-          return a < b ? order[0] : order[1];
-        })
-      );
-    }
-
-    // region filter
-    if (regionCodes.includes(props.activeRegion)) {
-      filters.push(data =>
-        data.filter(row => row.region == props.activeRegion)
-      );
-    }
-
-    // searchText
-    if (props.searchText) {
-      filters.push(data =>
-        data.filter(
-          row =>
-            row.name.match(new RegExp(props.searchText, "i")) ||
-            row.microRegion.match(new RegExp(props.searchText, "i")) ||
-            row.operator.match(new RegExp(props.searchText, "i"))
-        )
-      );
-    }
-
-    if (filters.length > 0) {
-      // compose filters into a single function [f(x), g(x)] => f(g(x))
-      const composedFilter = filters.reduce((f, g) => data => f(g(data)));
-      return composedFilter(originalData);
-    }
-    return originalData;
-  }
-
   function _rowClicked(stationData, rowId) {
     window["modalStateStore"].setData({
       stationData: stationData,
@@ -238,12 +186,10 @@ const StationTable = props => {
         sortDir={props.sortDir}
       />
       <tbody>
-        {_applyFiltersAndSorting(props.data).map(row => (
+        {props.sortedFilteredData.map(row => (
           <tr
             key={row.id}
-            onClick={() =>
-              _rowClicked(_applyFiltersAndSorting(props.data), row.id)
-            }
+            onClick={() => _rowClicked(props.sortedFilteredData, row.id)}
           >
             {columns.map(
               (col, i) =>
