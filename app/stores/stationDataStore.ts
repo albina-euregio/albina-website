@@ -151,8 +151,9 @@ export default class StationDataStore {
     temp: true,
     wind: true
   };
-  sortValue = "";
+  sortValue = "name";
   sortDir: "asc" | "desc" = "asc";
+  collator = new Intl.Collator("de");
 
   constructor() {
     regionCodes.forEach(r => (this._activeRegions[r] = true));
@@ -256,6 +257,9 @@ export default class StationDataStore {
         if (a === b) {
           return 0;
         }
+        if (typeof a === "string" && typeof b === "string") {
+          return (this.sortDir == "asc" ? 1 : -1) * this.collator.compare(a, b);
+        }
         if (typeof b === "undefined" || b === false || b === null) {
           return order[1];
         }
@@ -287,10 +291,7 @@ export default class StationDataStore {
   ) {
     this.data = data.features
       .filter(el => el.properties.date)
-      .map(feature => new StationData(feature))
-      .sort((f1, f2) =>
-        f1.properties.name.localeCompare(f2.properties.name, "de")
-      );
+      .map(feature => new StationData(feature));
     return this.data;
   }
 }
