@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { injectIntl, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { observer } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -101,7 +101,7 @@ const BlogPost = () => {
       >
         <ul className="list-inline blog-feature-meta">
           <li className="blog-date">
-            {this.props.intl.formatDate(date, DATE_TIME_FORMAT)}
+            {intl.formatDate(date, DATE_TIME_FORMAT)}
           </li>
           <li className="blog-province">
             {regions.map(region => (
@@ -126,4 +126,4 @@ const BlogPost = () => {
     </>
   );
 };
-export default injectIntl(observer(BlogPost));
+export default observer(BlogPost);
