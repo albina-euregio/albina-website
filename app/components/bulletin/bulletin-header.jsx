@@ -4,7 +4,7 @@ import { injectIntl } from "react-intl";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
-import { parseDate, dateToLongDateString } from "../../util/date.js";
+import { parseDate, LONG_DATE_FORMAT } from "../../util/date.js";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 class BulletinHeader extends React.Component {
@@ -13,7 +13,10 @@ class BulletinHeader extends React.Component {
   }
 
   get date() {
-    return dateToLongDateString(parseDate(BULLETIN_STORE.settings.date));
+    return this.props.intl.formatDate(
+      parseDate(BULLETIN_STORE.settings.date),
+      LONG_DATE_FORMAT
+    );
   }
 
   get statusClass() {

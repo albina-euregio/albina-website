@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { injectIntl, FormattedMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
-import { dateToLongDateString, parseDate } from "../../util/date";
+import { LONG_DATE_FORMAT, parseDate } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { findGlossaryStrings } from "./bulletin-glossary";
@@ -78,7 +78,10 @@ class BulletinReport extends React.Component {
                     id="bulletin:report:headline"
                     values={{
                       strong: (...msg) => <strong>{msg}</strong>,
-                      date: dateToLongDateString(parseDate(this.props.date)),
+                      date: this.props.intl.formatDate(
+                        parseDate(this.props.date),
+                        LONG_DATE_FORMAT
+                      ),
                       daytime: ""
                     }}
                   />

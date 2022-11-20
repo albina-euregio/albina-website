@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { Util } from "leaflet";
-import { dateToISODateString, dateToLongDateString } from "../../util/date.js";
+import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
@@ -57,7 +57,9 @@ class ArchiveItem extends React.Component {
     return (
       <tr>
         <td>
-          <strong>{dateToLongDateString(this.props.date)}</strong>
+          <strong>
+            {this.props.intl.formatDate(this.props.date, LONG_DATE_FORMAT)}
+          </strong>
         </td>
         <td>
           <ul className="list-inline list-download">

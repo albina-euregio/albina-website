@@ -1,11 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import {
-  dateToDateString,
-  dateToTimeString,
-  getLocalDate
-} from "../../util/date.js";
+import { getLocalDate } from "../../util/date.js";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 class BulletinStatusLine extends React.Component {
@@ -31,8 +27,8 @@ class BulletinStatusLine extends React.Component {
       // There must be a status entry for each downloaded bulletin. Query its
       // original status message.
       const params = {
-        date: dateToDateString(pubDate),
-        time: dateToTimeString(pubDate)
+        date: this.props.intl.formatDate(pubDate),
+        time: this.props.intl.formatTime(pubDate)
       };
 
       if (isRepublished) {

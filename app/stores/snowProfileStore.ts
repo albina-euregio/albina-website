@@ -1,6 +1,6 @@
 import { LatLngExpression } from "leaflet";
 import { makeAutoObservable } from "mobx";
-import { dateToDateString } from "../util/date";
+import { dateToISODateString } from "../util/date";
 import { fetchJSON } from "../util/fetch";
 
 export interface SnowProfile {
@@ -53,9 +53,7 @@ export default class SnowProfileStore {
   async load() {
     const url =
       "https://admin.avalanche.report/lawis/public/profile?startDate=" +
-      new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .slice(0, "2006-01-02".length);
+      dateToISODateString(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
     const profiles: SnowProfile[] = await fetchJSON(url, {});
     profiles.forEach(profile => {
       const $date = new Date(profile.date);
@@ -68,7 +66,7 @@ export default class SnowProfileStore {
         $color,
         $img: `https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_${profile.id}.png`,
         $latlng: [profile.location.latitude, profile.location.longitude],
-        $tooltip: `${dateToDateString($date)}: ${profile.location.name}`
+        $tooltip: `${dateToISODateString($date)}: ${profile.location.name}`
       });
     });
   }

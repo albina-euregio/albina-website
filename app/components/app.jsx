@@ -73,7 +73,7 @@ const App = () => {
   });
 
   return (
-    <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
+    <IntlProvider locale={APP_STORE.locale} messages={APP_STORE.messages}>
       <BrowserRouter basename={config.projectRoot}>
         <Suspense fallback={"..."}>
           <Routes>

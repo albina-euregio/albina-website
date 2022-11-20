@@ -4,11 +4,7 @@ import TendencyIcon from "../icons/tendency-icon.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
 import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
-import {
-  dateToLongDateString,
-  parseDate,
-  getSuccDate
-} from "../../util/date.js";
+import { parseDate, getSuccDate, LONG_DATE_FORMAT } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
 
 /**
@@ -45,8 +41,9 @@ class BulletinDaytimeReport extends React.Component {
     const tendencyTitle = this.props.intl.formatMessage({
       id: "bulletin:report:tendency:" + tendency
     });
-    const tendencyDate = dateToLongDateString(
-      getSuccDate(parseDate(this.props.date))
+    const tendencyDate = this.props.intl.formatDate(
+      getSuccDate(parseDate(this.props.date)),
+      LONG_DATE_FORMAT
     );
 
     const splitupProblems = this.splitProblems();

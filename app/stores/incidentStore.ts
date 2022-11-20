@@ -1,6 +1,6 @@
 import { LatLngExpression } from "leaflet";
 import { makeAutoObservable } from "mobx";
-import { dateToDateString } from "../util/date";
+import { dateToISODateString } from "../util/date";
 import { fetchJSON } from "../util/fetch";
 
 export interface Incident {
@@ -57,13 +57,13 @@ export default class IncidentStore {
 
   async load() {
     const now = new Date();
-    const startDate = new Date(
-      now.getMonth() < 9 ? now.getFullYear() - 1 : now.getFullYear(),
-      9,
-      1
-    )
-      .toISOString()
-      .slice(0, "2006-01-02".length);
+    const startDate = dateToISODateString(
+      new Date(
+        now.getMonth() < 9 ? now.getFullYear() - 1 : now.getFullYear(),
+        9,
+        1
+      )
+    );
     const url =
       "https://admin.avalanche.report/lawis/public/incident?startDate=" +
       startDate;
@@ -79,7 +79,7 @@ export default class IncidentStore {
         $color,
         $url: `https://lawis.at/incident/#${incident.id}`,
         $latlng: [incident.location.latitude, incident.location.longitude],
-        $tooltip: `${dateToDateString($date)}: ${incident.location.name}`
+        $tooltip: `${dateToISODateString($date)}: ${incident.location.name}`
       });
     });
   }

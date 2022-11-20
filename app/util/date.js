@@ -1,5 +1,3 @@
-import { APP_STORE } from "../appStore";
-
 function parseDate(dateString) {
   const dateMatch = dateString.match(/^(\d{4}-\d{2}-\d{2})([T ].*)?$/);
   if (dateMatch) {
@@ -122,78 +120,22 @@ function getLocalDate(date) {
   return new Date(date.valueOf() + offsetH * 60 * 60 * 1000);
 }
 
-function dateToMonthString(date) {
-  return _formatDate(date, {
-    month: "long"
-  });
-}
+export const LONG_DATE_FORMAT = Object.freeze({
+  weekday: "long",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric"
+});
 
-function dateToWeekdayString(date) {
-  return _formatDate(date, {
-    weekday: "long"
-  });
-}
-
-function dateToShortDayString(date) {
-  return _formatDate(date, {
-    day: "numeric"
-  });
-}
-
-function dateToDateString(date) {
-  return _formatDate(date, {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric"
-  });
-}
-
-function dateToShortDateString(date) {
-  return _formatDate(date, {
-    month: "numeric",
-    day: "numeric"
-  });
-}
-
-function dateToTimeString(date) {
-  return _formatDate(date, {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false
-  });
-}
-
-function dateToLongDateString(date) {
-  return _formatDate(date, {
-    weekday: "long",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric"
-  });
-}
-
-function dateToDateTimeString(date) {
-  return _formatDate(date, {
-    weekday: "long",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false
-  });
-}
-
-function dateToShortDateTimeString(date) {
-  return _formatDate(date, {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false
-  });
-}
+export const DATE_TIME_FORMAT = Object.freeze({
+  weekday: "long",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  hour12: false
+});
 
 function dateToISODateString(date) {
   let pad = function (d) {
@@ -280,22 +222,6 @@ function getDaysOfMonth(year, month) {
   return d.getDate();
 }
 
-function _formatDate(date, options = {}) {
-  if (date) {
-    let language = APP_STORE.language;
-    if (!language) {
-      language = "en-GB";
-    } else if (language === "en") {
-      language = "en-GB";
-    } else if (language === "de") {
-      // Jänner :-)
-      language = "de-AT";
-    }
-    return Intl.DateTimeFormat(language, options).format(date);
-  }
-  return "";
-}
-
 export {
   parseDate,
   getPredDate,
@@ -304,15 +230,6 @@ export {
   isAfter,
   isSummerTime,
   getLocalDate,
-  dateToMonthString,
-  dateToDateString,
-  dateToShortDateString,
-  dateToWeekdayString,
-  dateToShortDayString,
-  dateToTimeString,
-  dateToDateTimeString,
-  dateToLongDateString,
-  dateToShortDateTimeString,
   dateToISODateString,
   getDaysOfMonth,
   todayIsTomorrow,

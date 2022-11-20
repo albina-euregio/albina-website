@@ -73,6 +73,19 @@ class AppStore {
     });
   }
 
+  get locale() {
+    if (!this.language) {
+      return "en-GB";
+    } else if (this.language === "en") {
+      return "en-GB";
+    } else if (this.language === "de") {
+      // Jänner :-)
+      return "de-AT";
+    } else {
+      return this.language;
+    }
+  }
+
   setMessages(messages, regions) {
     this.messages = Object.freeze(
       Object.assign(
