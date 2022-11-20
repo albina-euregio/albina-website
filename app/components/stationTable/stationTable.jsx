@@ -2,7 +2,6 @@ import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
 import { useIntl } from "react-intl";
-import { dateToDateTimeString } from "../../util/date.js";
 import { regionCodes } from "../../util/regions";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -31,7 +30,9 @@ const StationTable = props => {
               regionCodes.includes(row.region) &&
               intl.formatMessage({ id: `region:${row.region}` })}
           </span>{" "}
-          <span className="datetime">{dateToDateTimeString(row.date)}</span>
+          <span className="datetime">
+            {intl.formatDate(row.date)} {intl.formatTime(row.date)}
+          </span>
         </span>
       ),
       sortable: true,
