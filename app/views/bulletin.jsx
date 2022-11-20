@@ -201,15 +201,7 @@ const Bulletin = props => {
 
   return (
     <>
-      <HTMLHeader
-        title={intl.formatMessage({ id: "bulletin:title" })}
-        description={shareDescription}
-        meta={{
-          "og:image": shareImage,
-          "og:image:width": 1890,
-          "og:image:height": 1890
-        }}
-      />
+      <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
       <BulletinHeader title={title} />
 
       <Suspense fallback={<div>...</div>}>
