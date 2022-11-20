@@ -89,6 +89,9 @@ browser_performance:
     - deploy:beta
   variables:
     URL: https://avalanche.report/beta/
+  only:
+    - master
+    - ci
 
 build:prod:
   extends: .build
