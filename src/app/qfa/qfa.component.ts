@@ -8,7 +8,7 @@ import * as types from "./types/QFA";
 
 @Component({
   templateUrl: "qfa.component.html",
-  styleUrls: ["qfa.component.scss"]
+  styleUrls: ["qfa.component.scss", "table.scss"]
 })
 export class QfaComponent implements OnInit {
   qfaPopupVisible = true;
@@ -16,6 +16,7 @@ export class QfaComponent implements OnInit {
   date = "";
   dates = [];
   parameters = [] as string[];
+  parameterClasses = {};
 
   constructor(
     public getQfaFilesService: GetQfaFilesService,
@@ -46,7 +47,19 @@ export class QfaComponent implements OnInit {
     await tempQfa.loadFromURL(files[0]);
     this.selectedQfa = tempQfa.data;
     //prevent alphabetical sorting
-    this.parameters = Object.keys(this.selectedQfa.parameters)
+    this.parameters = Object.keys(this.selectedQfa.parameters);
+
+    for(const param of this.parameters) {
+      this.parameterClasses[param] = param
+        .replace("--", "_")
+        .replace(" cm", "")
+        .replace(" --", "")
+        .replace(" s", "")
+        .replace("-", "_")
+        .replace(".", "_")
+        .replace(" ", "_")
+    }
+
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
   }

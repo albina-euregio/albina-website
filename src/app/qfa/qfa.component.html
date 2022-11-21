@@ -8,38 +8,40 @@
       {{date}}
     </span>
   </p-header>
-  <table *ngIf="selectedQfa.parameters" class="table table-sm">
-    <tr>
-      <td>
-        Tag
-      </td>
-      <td *ngFor="let date of dates">
-        <span>
-          {{date}}
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td>Zeit</td>
-      <td *ngFor="let _ of dates" class="table-entry">
-        <div>
-          <span>00</span>
-          <span>06</span>
-          <span>12</span>
-          <span>18</span>
-        </div>
-      </td>
-    </tr>
-    <tr *ngFor="let param of parameters">
-      <td>{{param}}</td>
-      <td *ngFor="let item of selectedQfa.parameters[param] | keyvalue" class="table-entry">
-        <div>
-          <span>{{item.value["00"]}}</span>
-          <span>{{item.value["06"]}}</span>
-          <span>{{item.value["12"]}}</span>
-          <span>{{item.value["18"]}}</span>
-        </div>
-      </td>
-    </tr>
-  </table>
+  <div id="qfa_div">
+    <table *ngIf="selectedQfa.parameters" class="table table-sm qfatable">
+      <tr>
+        <td>
+          Tag
+        </td>
+        <td *ngFor="let date of dates">
+          <span>
+            {{date}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Zeit</td>
+        <td *ngFor="let _ of dates" class="table-entry">
+          <div>
+            <span>00</span>
+            <span>06</span>
+            <span>12</span>
+            <span>18</span>
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let param of parameters" [ngClass]="[parameterClasses[param]]">
+        <td class="header">{{param}}</td>
+        <td *ngFor="let item of selectedQfa.parameters[param] | keyvalue" class="table-entry" [ngClass]="[parameterClasses[param]]">
+          <div>
+            <span>{{item.value["00"]}}</span>
+            <span>{{item.value["06"]}}</span>
+            <span>{{item.value["12"]}}</span>
+            <span>{{item.value["18"]}}</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </p-dialog>
