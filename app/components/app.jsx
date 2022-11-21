@@ -1,4 +1,5 @@
 import React, { Suspense, useEffect } from "react";
+import $ from "jquery";
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 

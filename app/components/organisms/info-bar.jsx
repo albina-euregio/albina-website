@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import $ from "jquery";
 import ControlBar from "./control-bar.jsx";
 
 const InfoBar = props => {

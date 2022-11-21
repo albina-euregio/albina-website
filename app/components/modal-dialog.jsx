@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import ReactDOM from "react-dom";
+import $ from "jquery";
 
 const modalRoot = document.body;
 

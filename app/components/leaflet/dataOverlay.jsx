@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import $ from "jquery";
 import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
 import { isBlendingSupported } from "../../util/blendMode";

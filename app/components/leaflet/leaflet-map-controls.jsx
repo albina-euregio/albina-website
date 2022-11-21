@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import $ from "jquery";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";

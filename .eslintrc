@@ -22,10 +22,7 @@
   },
   "plugins": ["prettier", "react", "jsx-a11y"],
   "globals": {
-    "appStore": true,
-    "mapStore": true,
-    "config": true,
-    "$": true
+    "config": true
   },
   "rules": {
     "no-console": ["error", { "allow": ["info", "warn", "error", "assert"] }],
