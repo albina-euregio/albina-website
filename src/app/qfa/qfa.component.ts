@@ -7,14 +7,14 @@ import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angula
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
-import { Marker } from "leaflet";
+import { Marker, Icon } from "leaflet";
 
 declare var L: any;
 @Component({
   templateUrl: "qfa.component.html",
   styleUrls: ["qfa.component.scss", "table.scss"]
 })
-export class QfaComponent implements OnInit, AfterViewInit, OnDestroy {
+export class QfaComponent implements OnInit, OnDestroy {
   qfaPopupVisible = true;
   selectedQfa = {} as types.data;
   date = "";
@@ -47,13 +47,11 @@ export class QfaComponent implements OnInit, AfterViewInit, OnDestroy {
     markers.save();
     this.coordinates = markers.coordinates;
     const files = markers.getFilenames({
-      lat: 11.33,
-      lon: 46.47
+      lng: 11.33,
+      lat: 46.47
     })
     const tempQfa = new QfaFile(this.http);
-    console.log(files);
     await tempQfa.loadFromURL(files[0]);
-    console.log(files[0]);
     this.selectedQfa = tempQfa.data;
     //prevent alphabetical sorting
     this.parameters = Object.keys(this.selectedQfa.parameters);
@@ -72,18 +70,22 @@ export class QfaComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
-  }
 
-  ngAfterViewInit() {
     this.mapService.initMaps(this.mapDiv.nativeElement);
-    console.log(this.coordinates);
+
     for(const coord of this.coordinates) {
-      this.drawMarker([coord.lon, coord.lat]);
+      this.drawMarker(coord);
     }
   }
 
   private drawMarker(ll) {
-    const marker = new Marker(ll);
+    const icon = new Icon({
+      iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
+      iconSize: [25, 41],
+    });
+    const marker = new Marker(ll, {
+      icon: icon
+    });
 
     marker.options.pane = "markerPane";
     marker.addTo(this.mapService.qfaMap);

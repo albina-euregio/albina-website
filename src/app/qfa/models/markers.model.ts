@@ -12,7 +12,7 @@ export class Markers {
   }
 
   public add(marker: types.marker) {
-      const key = `${marker.coordinates.lon}:${marker.coordinates.lat}`;
+      const key = `${marker.coordinates.lng}:${marker.coordinates.lat}`;
       if(key in this.data) {
           if(!(marker.name in this.data[key].names)) {
               this.data[key].names.push(marker.name);
@@ -33,7 +33,7 @@ export class Markers {
   }
 
   public getFilenames(coordinates: types.coordinates): string[] {
-      const key = `${coordinates.lon}:${coordinates.lat}`;
+      const key = `${coordinates.lng}:${coordinates.lat}`;
       return this.data[key].names;
   }
 

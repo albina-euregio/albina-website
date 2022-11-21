@@ -2,7 +2,7 @@ import { TypeVisitor } from "@angular/compiler";
 
 export interface coordinates {
     lat: number;
-    lon: number;
+    lng: number;
 }
 
 export interface metadata {

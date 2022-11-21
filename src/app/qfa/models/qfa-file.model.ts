@@ -24,7 +24,6 @@ export class QfaFile implements types.QFA {
   }
 
   get date() {
-    console.log(this.metadata.date.toUTCString());
     const date = new Intl.DateTimeFormat("de", {
       weekday: "short",
       day: "2-digit",
@@ -43,7 +42,6 @@ export class QfaFile implements types.QFA {
     const dates = Object.keys(Object.values(this.data.parameters)[0])
       .map(date => date.split("-"))
       .map(date => {
-        console.log("date", date);
         return new Date(Date.UTC(
           Number(date[0]),
           Number(date[1]) - 1,
@@ -96,8 +94,8 @@ export class QfaFile implements types.QFA {
       const parameters: types.metadata = {
           location: data[1],
           coords: {
-              lat: Number(data[2]),
-              lon: Number(data[3]),
+              lng: Number(data[2]),
+              lat: Number(data[3]),
           },
           height: Number(data[4]),
           orog: Number(data[5].match(/[\d]+/g)),
