@@ -15,6 +15,7 @@ export class QfaComponent implements OnInit {
   selectedQfa = {} as types.data;
   date = "";
   dates = [];
+  parameters = [] as string[];
 
   constructor(
     public getQfaFilesService: GetQfaFilesService,
@@ -44,6 +45,8 @@ export class QfaComponent implements OnInit {
     console.log(files);
     await tempQfa.loadFromURL(files[0]);
     this.selectedQfa = tempQfa.data;
+    //prevent alphabetical sorting
+    this.parameters = Object.keys(this.selectedQfa.parameters)
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
   }

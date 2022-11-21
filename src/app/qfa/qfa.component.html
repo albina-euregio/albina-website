@@ -30,9 +30,9 @@
         </div>
       </td>
     </tr>
-    <tr *ngFor="let param of selectedQfa.parameters | keyvalue">
-      <td>{{param.key}}</td>
-      <td *ngFor="let item of param.value | keyvalue" class="table-entry">
+    <tr *ngFor="let param of parameters">
+      <td>{{param}}</td>
+      <td *ngFor="let item of selectedQfa.parameters[param] | keyvalue" class="table-entry">
         <div>
           <span>{{item.value["00"]}}</span>
           <span>{{item.value["06"]}}</span>
