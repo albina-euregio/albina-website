@@ -14,6 +14,7 @@ export class QfaComponent implements OnInit {
   qfaPopupVisible = true;
   selectedQfa = {} as types.data;
   date = "";
+  dates = [];
 
   constructor(
     public getQfaFilesService: GetQfaFilesService,
@@ -44,5 +45,6 @@ export class QfaComponent implements OnInit {
     await tempQfa.loadFromURL(files[0]);
     this.selectedQfa = tempQfa.data;
     this.date = tempQfa.date;
+    this.dates = tempQfa.paramDates;
   }
 }

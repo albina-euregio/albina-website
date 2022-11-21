@@ -9,6 +9,27 @@
     </span>
   </p-header>
   <table *ngIf="selectedQfa.parameters" class="table table-sm">
+    <tr>
+      <td>
+        Tag
+      </td>
+      <td *ngFor="let date of dates">
+        <span>
+          {{date}}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>Zeit</td>
+      <td *ngFor="let _ of dates" class="table-entry">
+        <div>
+          <span>00</span>
+          <span>06</span>
+          <span>12</span>
+          <span>18</span>
+        </div>
+      </td>
+    </tr>
     <tr *ngFor="let param of selectedQfa.parameters | keyvalue">
       <td>{{param.key}}</td>
       <td *ngFor="let item of param.value | keyvalue" class="table-entry">

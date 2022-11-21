@@ -38,6 +38,29 @@ export class QfaFile implements types.QFA {
     return stringDate;
   }
 
+  get paramDates() {
+    const dates = Object.keys(Object.values(this.data.parameters)[0])
+      .map(date => date.split("-"))
+      .map(date => {
+        return new Date(Date.UTC(
+          Number(date[0]),
+          Number(date[1]),
+          Number(date[2])))
+      });
+
+    const intlDates = dates.map(date => new Intl.DateTimeFormat("de", {
+      weekday: "short",
+      day: "2-digit",
+      month: "long"
+    }).format(date));
+
+    const prettyDates = intlDates.map(date =>
+      date.replace(/\./, "")
+    );
+
+    return prettyDates;
+  }
+
   public listParameters() {
       return Object.keys(this.data.parameters);
   }
