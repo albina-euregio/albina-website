@@ -4,8 +4,8 @@
   [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
   <p-header>
     <span>
-      {{selectedQfa.metadata?.location?.split(" ").pop()}},
-      {{selectedQfa.metadata?.date}}
+      {{selectedQfa.metadata?.location?.split(" ").pop().toUpperCase()}}
+      {{date}}
     </span>
   </p-header>
   <table *ngIf="selectedQfa.parameters" class="table table-sm">

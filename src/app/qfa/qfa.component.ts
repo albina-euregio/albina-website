@@ -13,6 +13,7 @@ import * as types from "./types/QFA";
 export class QfaComponent implements OnInit {
   qfaPopupVisible = true;
   selectedQfa = {} as types.data;
+  date = "";
 
   constructor(
     public getQfaFilesService: GetQfaFilesService,
@@ -42,5 +43,6 @@ export class QfaComponent implements OnInit {
     console.log(files);
     await tempQfa.loadFromURL(files[0]);
     this.selectedQfa = tempQfa.data;
+    this.date = tempQfa.date;
   }
 }

@@ -32,6 +32,7 @@ export interface QFA {
     coordinates: coordinates;
     height: number;
     metadata: metadata;
+    date: string;
     parameters: parameters;
     loadFromURL: (url: string) => Promise<void>;
     listParameters(): string[];

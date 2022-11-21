@@ -23,6 +23,21 @@ export class QfaFile implements types.QFA {
       return this.data.parameters;
   }
 
+  get date() {
+    const date = new Intl.DateTimeFormat("de", {
+      weekday: "short",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+      timeZoneName: "short"
+    })
+    const stringDate = date.format(this.metadata.date)
+      .replace(/\./, "")
+      .replace(" um", ",");
+    return stringDate;
+  }
+
   public listParameters() {
       return Object.keys(this.data.parameters);
   }
