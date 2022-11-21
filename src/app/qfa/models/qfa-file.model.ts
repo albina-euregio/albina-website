@@ -24,6 +24,7 @@ export class QfaFile implements types.QFA {
   }
 
   get date() {
+    console.log(this.metadata.date.toUTCString());
     const date = new Intl.DateTimeFormat("de", {
       weekday: "short",
       day: "2-digit",
@@ -42,16 +43,18 @@ export class QfaFile implements types.QFA {
     const dates = Object.keys(Object.values(this.data.parameters)[0])
       .map(date => date.split("-"))
       .map(date => {
+        console.log("date", date);
         return new Date(Date.UTC(
           Number(date[0]),
-          Number(date[1]),
+          Number(date[1]) - 1,
           Number(date[2])))
       });
 
     const intlDates = dates.map(date => new Intl.DateTimeFormat("de", {
       weekday: "short",
       day: "2-digit",
-      month: "long"
+      month: "long",
+      timeZone: "UTC"
     }).format(date));
 
     const prettyDates = intlDates.map(date =>
@@ -107,11 +110,11 @@ export class QfaFile implements types.QFA {
   }
 
   private parseDate = (date: string): Date => {
-      const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+      const months = ["Jan", "Feb", "Mrz", "Apr", "Mai", "Juni", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
       const day = Number(date.match(/[\d]+/));
       const month = months.filter(month => date.includes(month))[0];
       const year = Number(date.match(/[\d]{4}/));
-      const parameters = new Date(year, months.indexOf(month), day);
+      const parameters = new Date(Date.UTC(year, months.indexOf(month), day));
       return parameters;
   }
 
@@ -122,12 +125,15 @@ export class QfaFile implements types.QFA {
       data = data.replace(/[-]{5,}\|/g, "");
       const allLines = data.split("\n");
       const plainDates = allLines[1].split(" |");
+      console.log(plainDates);
       const dates = [
           this.parseDate(plainDates[1]),
           this.parseDate(plainDates[2]),
           this.parseDate(plainDates[3]),
       ]
+      console.log("dates: ", dates);
       const dateStrings = dates.map(el => el.toISOString().split('T')[0]);
+      console.log(dateStrings);
       const lines = allLines.filter((el, i) => el !== '' && i > 3);
 
       const parameters = {} as types.parameters;

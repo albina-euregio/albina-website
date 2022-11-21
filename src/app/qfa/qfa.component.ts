@@ -45,6 +45,7 @@ export class QfaComponent implements OnInit {
     const tempQfa = new QfaFile(this.http);
     console.log(files);
     await tempQfa.loadFromURL(files[0]);
+    console.log(files[0]);
     this.selectedQfa = tempQfa.data;
     //prevent alphabetical sorting
     this.parameters = Object.keys(this.selectedQfa.parameters);
@@ -52,6 +53,7 @@ export class QfaComponent implements OnInit {
     for(const param of this.parameters) {
       this.parameterClasses[param] = param
         .replace("--", "_")
+        .replace(" -", "_")
         .replace(" cm", "")
         .replace(" --", "")
         .replace(" s", "")
