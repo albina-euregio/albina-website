@@ -7,18 +7,21 @@ import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angula
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
+import { Marker } from "leaflet";
+
 declare var L: any;
 @Component({
   templateUrl: "qfa.component.html",
   styleUrls: ["qfa.component.scss", "table.scss"]
 })
-export class QfaComponent implements OnInit {
+export class QfaComponent implements OnInit, AfterViewInit, OnDestroy {
   qfaPopupVisible = true;
   selectedQfa = {} as types.data;
   date = "";
   dates = [];
   parameters = [] as string[];
   parameterClasses = {};
+  coordinates =  [] as types.coordinates[];
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
@@ -42,6 +45,7 @@ export class QfaComponent implements OnInit {
     }
     console.log("done");
     markers.save();
+    this.coordinates = markers.coordinates;
     const files = markers.getFilenames({
       lat: 11.33,
       lon: 46.47
@@ -72,19 +76,17 @@ export class QfaComponent implements OnInit {
 
   ngAfterViewInit() {
     this.mapService.initMaps(this.mapDiv.nativeElement);
+    console.log(this.coordinates);
+    for(const coord of this.coordinates) {
+      this.drawMarker([coord.lon, coord.lat]);
+    }
+  }
 
-    const info = L.control();
-    info.onAdd = function() {
-      this._div = L.DomUtil.create("div", "info"); // create a div with a class "info"
-      this.update();
-      return this._div;
-    };
-    // method that we will use to update the control based on feature properties passed
-    info.update = function(props) {
-      this._div.innerHTML = (props ?
-        "<b>" + props.name_de + "</b>" : " ");
-    };
-    info.addTo(this.mapService.qfaMap);
+  private drawMarker(ll) {
+    const marker = new Marker(ll);
+
+    marker.options.pane = "markerPane";
+    marker.addTo(this.mapService.qfaMap);
   }
 
   ngOnDestroy() {
