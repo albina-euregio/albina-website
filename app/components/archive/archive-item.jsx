@@ -49,10 +49,7 @@ class ArchiveItem extends React.Component {
 
   render() {
     const dateString = dateToISODateString(this.props.date);
-    const lang =
-      dateString > "2022-05-06"
-        ? this.getLanguage(dateString)
-        : "EUREGIO_" + this.getLanguage(dateString);
+    const lang = this.getLanguage(dateString);
 
     return (
       <tr>
@@ -72,7 +69,9 @@ class ArchiveItem extends React.Component {
                 <a
                   href={Util.template(config.apis.bulletin.pdf, {
                     date: dateString,
-                    file: lang
+                    region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+                    lang,
+                    bw: ""
                   })}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -91,7 +90,7 @@ class ArchiveItem extends React.Component {
                 <a
                   href={Util.template(config.apis.bulletin.xml, {
                     date: dateString,
-                    region: this.props.date > "2022-05-06" ? "EUREGIO_" : "",
+                    region: dateString > "2022-05-06" ? "EUREGIO_" : "",
                     lang
                   })}
                   rel="noopener noreferrer"
