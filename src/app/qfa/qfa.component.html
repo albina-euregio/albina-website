@@ -12,10 +12,12 @@
     <tr *ngFor="let param of selectedQfa.parameters | keyvalue">
       <td>{{param.key}}</td>
       <td *ngFor="let item of param.value | keyvalue" class="table-entry">
-        <span>{{item.value["00"]}}</span>
-        <span>{{item.value["06"]}}</span>
-        <span>{{item.value["12"]}}</span>
-        <span>{{item.value["18"]}}</span>
+        <div>
+          <span>{{item.value["00"]}}</span>
+          <span>{{item.value["06"]}}</span>
+          <span>{{item.value["12"]}}</span>
+          <span>{{item.value["18"]}}</span>
+        </div>
       </td>
     </tr>
   </table>

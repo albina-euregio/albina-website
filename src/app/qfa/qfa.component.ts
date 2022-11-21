@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { QfaService } from "../providers/qfa-service/qfa.service";
-import { QfaMarkerService } from "../providers/qfa-service/markers.service";
+import { QfaFile } from "./models/qfa-file.model";
+import { Markers } from "./models/markers.model";
 import { GetQfaFilesService } from "../providers/qfa-service/getQfaFiles.service";
 import { OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -21,22 +21,22 @@ export class QfaComponent implements OnInit {
 
   async ngOnInit() {
     const filenames = await this.getQfaFilesService.getFilenames("https://static.avalanche.report/zamg_qfa");
-    const markerData = new QfaMarkerService();
-    markerData.load();
+    const markers = new Markers();
+    markers.load();
     for(const filename of filenames) {
-      const qfa = new QfaService(this.http);
+      const qfa = new QfaFile(this.http);
       await qfa.loadFromURL(filename);
-      markerData.add({
+      markers.add({
         name: filename,
         coordinates: qfa.coordinates
       });
     }
-    markerData.save();
-    const files = markerData.getFilenames({
+    markers.save();
+    const files = markers.getFilenames({
       lat: 11.33,
       lon: 46.47
     })
-    const tempQfa = new QfaService(this.http);
+    const tempQfa = new QfaFile(this.http);
     console.log(files);
     await tempQfa.loadFromURL(files[0]);
     this.selectedQfa = tempQfa.data;
