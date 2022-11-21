@@ -20,9 +20,10 @@ export class GetQfaFilesService {
   public getFilenames = async (baseUrl: string) => {
     this.baseUrl = baseUrl;
     const response = await this.getHTMLResponse().toPromise() as any[];
+    const fileObjects = response.reverse();
     const lastFilename = localStorage.getItem("lastFilename") || "";
     const filenames = [] as string[];
-    for(const fileObject of response) {
+    for(const fileObject of fileObjects) {
       if(fileObject.name === lastFilename) break;
       filenames.push(fileObject.name);
     }

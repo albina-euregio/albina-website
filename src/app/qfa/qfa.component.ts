@@ -23,6 +23,7 @@ export class QfaComponent implements OnInit {
     const filenames = await this.getQfaFilesService.getFilenames("https://static.avalanche.report/zamg_qfa");
     const markers = new Markers();
     markers.load();
+    console.log("loading...");
     for(const filename of filenames) {
       const qfa = new QfaFile(this.http);
       await qfa.loadFromURL(filename);
@@ -31,6 +32,7 @@ export class QfaComponent implements OnInit {
         coordinates: qfa.coordinates
       });
     }
+    console.log("done");
     markers.save();
     const files = markers.getFilenames({
       lat: 11.33,

@@ -7,7 +7,7 @@ export class Markers {
 
   public load() {
       if(localStorage.getItem("markers") !== null) {
-        this.data = JSON.parse(localStorage.getItem("markers") || "");
+        this.data = JSON.parse(localStorage.getItem("markers") || "{}");
       }
   }
 
