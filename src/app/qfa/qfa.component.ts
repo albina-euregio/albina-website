@@ -15,13 +15,16 @@ declare var L: any;
   styleUrls: ["qfa.component.scss", "table.scss"]
 })
 export class QfaComponent implements OnInit, OnDestroy {
-  qfaPopupVisible = true;
+  qfaPopupVisible = false;
   selectedQfa = {} as types.data;
+  displaySelectedQfa = false;
   date = "";
   dates = [];
   parameters = [] as string[];
   parameterClasses = {};
   coordinates =  [] as types.coordinates[];
+  markers = {} as types.MarkerData;
+  selectedFiles = [] as string[];
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
@@ -46,6 +49,7 @@ export class QfaComponent implements OnInit, OnDestroy {
     console.log("done");
     markers.save();
     this.coordinates = markers.coordinates;
+    this.markers = markers;
     const files = markers.getFilenames({
       lng: 11.33,
       lat: 46.47
@@ -84,11 +88,25 @@ export class QfaComponent implements OnInit, OnDestroy {
       iconSize: [25, 41],
     });
     const marker = new Marker(ll, {
-      icon: icon
+      icon: icon,
     });
+
+    marker.on("click", () => this.displayRuns(ll));
 
     marker.options.pane = "markerPane";
     marker.addTo(this.mapService.qfaMap);
+  }
+
+  private displayRuns(ll) {
+    this.qfaPopupVisible = true;
+    this.selectedFiles = this.markers.getFilenames(ll);
+  }
+
+  private async showRun(run) {
+    const tempQfa = new QfaFile(this.http);
+    await tempQfa.loadFromURL(run);
+    this.selectedQfa = tempQfa.data;
+    this.displaySelectedQfa = true;
   }
 
   ngOnDestroy() {
