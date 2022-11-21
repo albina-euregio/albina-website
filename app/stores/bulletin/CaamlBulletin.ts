@@ -34,58 +34,37 @@ export interface AvalancheProblem {
   customData?: any;
 }
 
-export enum AvalancheProblemType {
-  "new_snow",
-  "wind_slab",
-  "persistent_weak_layers",
-  "wet_snow",
-  "gliding_snow",
-  "favourable_situation",
-  "cornices",
-  "no_distinct_problem"
-}
+export type AvalancheProblemType =
+  | "new_snow"
+  | "wind_slab"
+  | "persistent_weak_layers"
+  | "wet_snow"
+  | "gliding_snow"
+  | "favourable_situation"
+  | "cornices"
+  | "no_distinct_problem";
 
-export enum DangerRatingValue {
-  "low",
-  "moderate",
-  "considerable",
-  "high",
-  "very_high",
-  "no_snow",
-  "no_rating"
-}
+export type DangerRatingValue =
+  | "low"
+  | "moderate"
+  | "considerable"
+  | "high"
+  | "very_high"
+  | "no_snow"
+  | "no_rating";
 
-export enum Aspect {
-  "E",
-  "N",
-  "NE",
-  "NW",
-  "S",
-  "SE",
-  "SW",
-  "W"
-}
+export type Aspect = "E" | "N" | "NE" | "NW" | "S" | "SE" | "SW" | "W";
 
-export enum SnowpackStability {
-  "good",
-  "fair",
-  "poor",
-  "very_poor"
-}
+export type SnowpackStability = "good" | "fair" | "poor" | "very_poor";
 
-export enum Frequency {
-  "none",
-  "few",
-  "some",
-  "many"
-}
-export enum AvalancheSize {
-  "small",
-  "medium",
-  "large",
-  "very_large",
-  "extreme"
-}
+export type Frequency = "none" | "few" | "some" | "many";
+
+export type AvalancheSize =
+  | "small"
+  | "medium"
+  | "large"
+  | "very_large"
+  | "extreme";
 
 export interface Elevation {
   uom: "m";
