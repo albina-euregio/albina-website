@@ -1,0 +1,93 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { FormattedMessage, useIntl } from "react-intl";
+import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
+import { getWarnlevelNumber } from "../../util/warn-levels";
+import { Tooltip } from "../tooltips/tooltip";
+import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+
+type Props = {
+  handleSelectRegion: any;
+  problems: Record<Caaml.AvalancheProblemType, { highlighted: boolean }>;
+};
+function BulletinLegend({ handleSelectRegion, problems }: Props) {
+  const intl = useIntl();
+  const warnlevelKeys = [
+    "low",
+    "moderate",
+    "considerable",
+    "high",
+    "very_high"
+  ];
+  const warnlevels = warnlevelKeys.map(k => {
+    return { id: k, num: getWarnlevelNumber(k) };
+  });
+
+  return (
+    <section
+      id="section-bulletin-legend"
+      className="section-padding section-bulletin-legend"
+    >
+      <div className="section-centered">
+        <div className="grid">
+          <div className="normal-6 grid-item">
+            <p>
+              {intl.formatMessage(
+                { id: "bulletin:legend:highlight-regions" },
+                {
+                  strong: msg => <strong>{msg}</strong>,
+                  a: msg => (
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:legend:highlight-regions:hover"
+                      })}
+                    >
+                      <Link to="/education/avalanche-problems">
+                        <strong>{msg}</strong>
+                      </Link>
+                    </Tooltip>
+                  )
+                }
+              )}
+            </p>
+            <BulletinProblemFilter
+              handleSelectRegion={handleSelectRegion}
+              problems={problems}
+            />
+          </div>
+          <div className="normal-6 grid-item">
+            <p>
+              <Tooltip
+                label={intl.formatMessage({
+                  id: "bulletin:legend:danger-levels:hover"
+                })}
+              >
+                <Link to="/education/danger-scale">
+                  <FormattedMessage
+                    id="bulletin:legend:danger-levels"
+                    values={{
+                      strong: (...msg) => <strong>{msg}</strong>
+                    }}
+                  />
+                </Link>
+              </Tooltip>
+            </p>
+            <ul className="list-inline list-legend">
+              {warnlevels.map(l => (
+                <li key={l.id} className={"warning-level-" + l.num}>
+                  <span>
+                    <strong>{l.num}</strong>{" "}
+                    {intl.formatMessage({
+                      id: "danger-level:" + l.id
+                    })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+export default BulletinLegend;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
-import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
+import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
 
