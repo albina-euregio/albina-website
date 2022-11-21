@@ -1,35 +1,26 @@
 import React from "react";
 import { observer } from "mobx-react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
+import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
-class BulletinProblemFilter extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+type Props = {
+  handleSelectRegion: any;
+  problems: Record<Caaml.AvalancheProblemType, { highlighted: boolean }>;
+};
 
-  isComponentActive(problemId) {
-    return (
-      this.props.problems[problemId] &&
-      this.props.problems[problemId].highlighted
-    );
-  }
+function BulletinProblemFilter({ handleSelectRegion, problems }: Props) {
+  const listItems = Object.entries(problems).map(([p, { highlighted }]) => (
+    <BulletinProblemFilterItem
+      handleSelectRegion={handleSelectRegion}
+      key={p}
+      problemId={p}
+      active={highlighted}
+    />
+  ));
 
-  render() {
-    const listItems = Object.entries(this.props.problems).map(e => (
-      <BulletinProblemFilterItem
-        handleSelectRegion={this.props.handleSelectRegion}
-        key={e[0]}
-        problemId={e[0]}
-        active={this.isComponentActive(e[0])}
-      />
-    ));
-
-    return (
-      <ul className="list-inline list-avalanche-problems-filter">
-        {listItems}
-      </ul>
-    );
-  }
+  return (
+    <ul className="list-inline list-avalanche-problems-filter">{listItems}</ul>
+  );
 }
 
 export default observer(BulletinProblemFilter);

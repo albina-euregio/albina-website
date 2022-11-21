@@ -1,68 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import ProblemIcon from "../icons/problem-icon.jsx";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
+import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
-class BulletinProblemFilterItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: this.props.active,
-      id: this.props.problemId
-    };
-  }
+type Props = {
+  active: boolean;
+  handleSelectRegion: any;
+  problemId: Caaml.AvalancheProblemType;
+};
 
-  toggle(e) {
+function BulletinProblemFilterItem({
+  active,
+  handleSelectRegion,
+  problemId
+}: Props) {
+  const intl = useIntl();
+  function toggle(e: React.MouseEvent) {
     e.preventDefault();
-
-    this.props.handleSelectRegion();
-
-    if (this.state.active) {
-      BULLETIN_STORE.dimProblem(this.state.id);
-    } else {
-      BULLETIN_STORE.highlightProblem(this.state.id);
-    }
-    this.setState({
-      active: !this.state.active
+    handleSelectRegion();
+    requestAnimationFrame(() => {
+      if (active) {
+        BULLETIN_STORE.dimProblem(problemId);
+      } else {
+        BULLETIN_STORE.highlightProblem(problemId);
+      }
     });
   }
 
-  render() {
-    const problemText = this.props.intl.formatMessage({
-      id: "problem:" + this.props.problemId
-    });
+  const problemText = intl.formatMessage({
+    id: "problem:" + problemId
+  });
 
-    const title = this.props.intl.formatMessage(
-      {
-        id: this.props.active
-          ? "bulletin:legend:dehighlight:hover"
-          : "bulletin:legend:highlight:hover"
-      },
-      { problem: problemText }
-    );
-    const classes = "img " + (this.props.active ? "" : " js-deactivated");
+  const title = intl.formatMessage(
+    {
+      id: active
+        ? "bulletin:legend:dehighlight:hover"
+        : "bulletin:legend:highlight:hover"
+    },
+    { problem: problemText }
+  );
+  const classes = "img " + (active ? "" : " js-deactivated");
 
-    return (
-      <li>
-        <Tooltip label={title}>
-          <a href="#" className={classes} onClick={e => this.toggle(e)}>
-            <ProblemIcon
-              problem={this.props.problemId}
-              active
-              alt={problemText}
-            />
-            {/* <ProblemIcon
-              problem={this.props.problemId}
+  return (
+    <li>
+      <Tooltip label={title}>
+        <a href="#" className={classes} onClick={e => toggle(e)}>
+          <ProblemIcon problem={problemId} active alt={problemText} />
+          {/* <ProblemIcon
+              problem={problemId}
               active={false}
               alt={problemText}
             /> */}
-          </a>
-        </Tooltip>
-      </li>
-    );
-  }
+        </a>
+      </Tooltip>
+    </li>
+  );
 }
 
-export default injectIntl(observer(BulletinProblemFilterItem));
+export default observer(BulletinProblemFilterItem);

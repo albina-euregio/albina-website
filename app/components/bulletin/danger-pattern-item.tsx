@@ -1,29 +1,21 @@
 import React from "react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
+import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
-/**
- * @typedef {object} Props
- * @prop {Caaml.DangerPattern} dangerPattern
- *
- * @extends {React.Component<Props>}
- */
-class DangerPatternItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+type Props = { dangerPattern: Caaml.DangerPattern };
 
-  render() {
-    return (
-      <Link
-        to={"/education/danger-patterns#" + this.props.dangerPattern.type}
-        className="label"
-      >
-        {this.props.intl.formatMessage({
-          id: "danger-patterns:" + this.props.dangerPattern.type
-        })}
-      </Link>
-    );
-  }
+function DangerPatternItem({ dangerPattern }: Props) {
+  const intl = useIntl();
+  return (
+    <Link
+      to={"/education/danger-patterns#" + dangerPattern.type}
+      className="label"
+    >
+      {intl.formatMessage({
+        id: "danger-patterns:" + dangerPattern.type
+      })}
+    </Link>
+  );
 }
-export default injectIntl(DangerPatternItem);
+export default DangerPatternItem;

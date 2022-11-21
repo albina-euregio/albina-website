@@ -2,68 +2,59 @@ import React from "react";
 import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
-import { injectIntl } from "react-intl";
+import type { DaytimeBulletin } from "../../stores/bulletin/DaytimeBulletin";
 
-/**
- * @typedef {object} Props
- * @prop {Albina.DaytimeBulletin} bulletin
- * @prop {string} region
- *
- * @extends {React.Component<Props>}
- */
-class BulletinMapDetails extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+type Props = {
+  ampm: "am" | "pm";
+  daytimeBulletin: DaytimeBulletin;
+  region: string;
+};
 
-  render() {
-    // TODO: create common component with bulletin-report
+function BulletinMapDetails({ ampm, daytimeBulletin, region }: Props) {
+  // TODO: create common component with bulletin-report
 
-    const daytime =
-      this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm"
-        ? "afternoon"
-        : "forenoon";
-    const bulletin = this.props.bulletin[daytime];
-    const problems = bulletin.avalancheProblems || [];
-    let key = 0;
-    let count = 0;
+  const daytime =
+    daytimeBulletin.hasDaytimeDependency && ampm == "pm"
+      ? "afternoon"
+      : "forenoon";
+  const bulletin = daytimeBulletin[daytime]!;
+  const problems = bulletin.avalancheProblems || [];
+  let key = 0;
+  let count = 0;
 
-    return (
-      <>
-        <p className="bulletin-report-region-name">
-          <span className="bulletin-report-region-name-region">
-            {this.props.region}
-          </span>
-        </p>
-        <ul className="list-plain">
-          <li className="bulletin-report-picto">
-            <BulletinDangerRating bulletin={bulletin} />
-          </li>{" "}
-          {problems.map(problem => {
-            if (count < 2) {
-              if (!(key > 0 && problems[0].type == problems[key].type)) {
-                count++;
-                return (
-                  <li key={key++}>
-                    <ProblemIconLink problem={problem} />
-                  </li>
-                );
-              } else {
-                key++;
-              }
+  return (
+    <>
+      <p className="bulletin-report-region-name">
+        <span className="bulletin-report-region-name-region">{region}</span>
+      </p>
+      <ul className="list-plain">
+        <li className="bulletin-report-picto">
+          <BulletinDangerRating bulletin={bulletin} />
+        </li>{" "}
+        {problems.map(problem => {
+          if (count < 2) {
+            if (!(key > 0 && problems[0].type == problems[key].type)) {
+              count++;
+              return (
+                <li key={key++}>
+                  <ProblemIconLink problem={problem} />
+                </li>
+              );
+            } else {
+              key++;
             }
-          })}
-        </ul>
+          }
+        })}
+      </ul>
 
-        {bulletin.highlights && (
-          <p className="bulletin-report-public-alert">
-            <span className="icon-attention bulletin-report-public-alert-icon"></span>
-            {bulletin.highlights}
-          </p>
-        )}
-      </>
-    );
-  }
+      {bulletin.highlights && (
+        <p className="bulletin-report-public-alert">
+          <span className="icon-attention bulletin-report-public-alert-icon"></span>
+          {bulletin.highlights}
+        </p>
+      )}
+    </>
+  );
 }
 
-export default injectIntl(observer(BulletinMapDetails));
+export default observer(BulletinMapDetails);
