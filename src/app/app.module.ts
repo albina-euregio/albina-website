@@ -50,6 +50,7 @@ import { BlogService } from "./providers/blog-service/blog.service";
 import { MediaFileService } from "./providers/media-file-service/media-file.service";
 import { ConfirmationService } from "primeng/api";
 import { GetQfaFilesService } from './providers/qfa-service/getQfaFiles.service';
+import { QfaMapService } from './providers/map-service/qfa-map.service';
 
 // Pipes
 import { PipeModule } from "./pipes/pipes.module";
@@ -208,7 +209,8 @@ registerLocaleData(localeOc, "oc");
     CopyService,
     BlogService,
     MediaFileService,
-    GetQfaFilesService
+    GetQfaFilesService,
+    QfaMapService
   ],
   bootstrap: [AppComponent],
   exports: [

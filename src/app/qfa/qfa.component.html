@@ -1,5 +1,9 @@
 <button (click)="qfaPopupVisible = !qfaPopupVisible" value="Toggle Qfa"></button>
 
+<div class="layout-map">
+  <div class="section-map qfa-map" id="qfaMap" #qfaMap></div>
+</div>
+
 <p-dialog #qfaDialog (onShow)="qfaDialog.maximize()" [(visible)]="qfaPopupVisible"
   [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
   <p-header>

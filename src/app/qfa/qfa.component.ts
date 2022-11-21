@@ -2,10 +2,12 @@ import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
 import { Markers } from "./models/markers.model";
 import { GetQfaFilesService } from "../providers/qfa-service/getQfaFiles.service";
-import { OnInit } from "@angular/core";
+import { QfaMapService } from '../providers/map-service/qfa-map.service';
+import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
+declare var L: any;
 @Component({
   templateUrl: "qfa.component.html",
   styleUrls: ["qfa.component.scss", "table.scss"]
@@ -17,9 +19,11 @@ export class QfaComponent implements OnInit {
   dates = [];
   parameters = [] as string[];
   parameterClasses = {};
+  @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
     public getQfaFilesService: GetQfaFilesService,
+    public mapService: QfaMapService,
     private http: HttpClient
   ) {}
 
@@ -64,5 +68,29 @@ export class QfaComponent implements OnInit {
 
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
+  }
+
+  ngAfterViewInit() {
+    this.mapService.initMaps(this.mapDiv.nativeElement);
+
+    const info = L.control();
+    info.onAdd = function() {
+      this._div = L.DomUtil.create("div", "info"); // create a div with a class "info"
+      this.update();
+      return this._div;
+    };
+    // method that we will use to update the control based on feature properties passed
+    info.update = function(props) {
+      this._div.innerHTML = (props ?
+        "<b>" + props.name_de + "</b>" : " ");
+    };
+    info.addTo(this.mapService.qfaMap);
+  }
+
+  ngOnDestroy() {
+    if (this.mapService.qfaMap) {
+      this.mapService.qfaMap.remove();
+      this.mapService.qfaMap = undefined;
+    }
   }
 }
