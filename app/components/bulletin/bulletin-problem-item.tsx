@@ -149,7 +149,6 @@ function BulletinProblemItem({ problem }: Props) {
       return (
         <ElevationIcon
           elevation={[]}
-          text={this.elevationText}
           where={"all"}
           title={intl.formatMessage({
             id: "bulletin:report:problem:elevation:all:hover"
