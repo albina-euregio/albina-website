@@ -13,13 +13,12 @@ export interface metadata {
     date: Date;
     timezone: string;
     model: string;
-    days: number
+    nDays: number;
+    dates?: Date[];
 }
 
 export interface parameters {
-    [key: string]: {
-        [key: string]: any;
-    }
+    [key: string]: any[];
 }
 
 export interface data {
@@ -28,15 +27,15 @@ export interface data {
 }
 
 export interface QFA {
-    data: data;
-    coordinates: coordinates;
-    height: number;
-    metadata: metadata;
-    date: string;
-    paramDates: string[];
-    parameters: parameters;
-    loadFromURL: (url: string) => Promise<void>;
-    listParameters(): string[];
+  data: data;
+  metadata: metadata;
+  parameters: parameters;
+  coordinates: coordinates;
+  height: number;
+  date: string;
+  paramDates: string[];
+  loadFromURL: (url: string) => Promise<void>;
+  listParameters(): string[];
 }
 
 export interface marker {

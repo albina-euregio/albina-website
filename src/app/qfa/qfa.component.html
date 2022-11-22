@@ -1,5 +1,3 @@
-<button (click)="qfaPopupVisible = !qfaPopupVisible" value="Toggle Qfa"></button>
-
 <div class="layout-map">
   <div class="section-map qfa-map" id="qfaMap" #qfaMap></div>
 </div>
@@ -51,8 +49,8 @@
     </div>
   </div>
   <div *ngIf="!displaySelectedQfa">
-    <div *ngFor="let run of selectedFiles" class="file-wrapper">
-      <span (click)="showRun(run)">{{run}}</span>
+    <div *ngFor="let run of selectedFiles" (click)="showRun(run)" class="file-wrapper">
+      <span>{{run}}</span>
     </div>
   </div>
 </p-dialog>

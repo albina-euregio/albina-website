@@ -3,24 +3,24 @@ import * as types from  "../../qfa/types/QFA";
 import { HttpClient } from "@angular/common/http";
 
 export class QfaFile implements types.QFA {
-  public data = {} as types.data;
+  public metadata = {} as types.metadata;
+  public parameters = {} as types.parameters;
 
   constructor(private http: HttpClient) {}
 
+  get data(): types.data {
+    return {
+      metadata: this.metadata,
+      parameters: this.parameters
+    }
+  }
+
   get coordinates() {
-      return this.data.metadata.coords;
+      return this.metadata.coords;
   }
 
   get height () {
-      return this.data.metadata.height;
-  }
-
-  get metadata() {
-      return this.data.metadata;
-  }
-
-  get parameters() {
-      return this.data.parameters;
+      return this.metadata.height;
   }
 
   get date() {
@@ -39,16 +39,7 @@ export class QfaFile implements types.QFA {
   }
 
   get paramDates() {
-    const dates = Object.keys(Object.values(this.data.parameters)[0])
-      .map(date => date.split("-"))
-      .map(date => {
-        return new Date(Date.UTC(
-          Number(date[0]),
-          Number(date[1]) - 1,
-          Number(date[2])))
-      });
-
-    const intlDates = dates.map(date => new Intl.DateTimeFormat("de", {
+    const intlDates = this.metadata.dates.map(date => new Intl.DateTimeFormat("de", {
       weekday: "short",
       day: "2-digit",
       month: "long",
@@ -63,7 +54,7 @@ export class QfaFile implements types.QFA {
   }
 
   public listParameters() {
-      return Object.keys(this.data.parameters);
+      return Object.keys(this.parameters);
   }
 
   private getHTMLFile = (url: string) => {
@@ -78,7 +69,7 @@ export class QfaFile implements types.QFA {
   public loadFromURL = async (url: string) => {
     const fullUrl = `https://static.avalanche.report/zamg_qfa/${url}`;
     const response = await this.getHTMLFile(fullUrl).toPromise() as string;
-    this.data = this.parseText(response);
+    this.parseText(response);
     // console.log(this.data);
     return;
   }
@@ -102,7 +93,7 @@ export class QfaFile implements types.QFA {
           date: date,
           timezone: data[7].split(" ")[1],
           model: data[8],
-          days: nDays
+          nDays: nDays,
       }
       return parameters
   }
@@ -123,15 +114,12 @@ export class QfaFile implements types.QFA {
       data = data.replace(/[-]{5,}\|/g, "");
       const allLines = data.split("\n");
       const plainDates = allLines[1].split(" |");
-      console.log(plainDates);
-      const dates = [
+      this.metadata.dates = [
           this.parseDate(plainDates[1]),
           this.parseDate(plainDates[2]),
           this.parseDate(plainDates[3]),
       ]
-      console.log("dates: ", dates);
-      const dateStrings = dates.map(el => el.toISOString().split('T')[0]);
-      console.log(dateStrings);
+      const dateStrings = this.metadata.dates.map(el => el.toISOString().split('T')[0]);
       const lines = allLines.filter((el, i) => el !== '' && i > 3);
 
       const parameters = {} as types.parameters;
@@ -146,17 +134,17 @@ export class QfaFile implements types.QFA {
           const cols = sub.split(" | ");
           // console.log(cols);
 
-          const partial = {}
-          for(const [strKey, value] of Object.entries(dateStrings)) {
+          const partial = []
+          for(const strKey of Object.keys(dateStrings)) {
               // console.log(key, value)
               const key = parseInt(strKey) + 1;
               // console.log(key);
-              partial[value] = {
+              partial.push({
                   "00": cols[key].split(" ")[0],
                   "06": cols[key].split(" ")[1],
                   "12": cols[key].split(" ")[2],
                   "18": cols[key].split(" ")[3],
-              }
+              })
           }
           const parameterName = cols[0].split(" ---")[0];
           parameters[parameterName] = partial;
@@ -166,14 +154,7 @@ export class QfaFile implements types.QFA {
   }
 
   private parseText = (plainText: string) =>  {
-      const metadata = this.parseMetaData(plainText);
-      const parameters = this.parseParameters(plainText);
-
-      const result = {
-          metadata,
-          parameters,
-      }
-
-      return result;
+      this.metadata = this.parseMetaData(plainText);
+      this.parameters = this.parseParameters(plainText);
   }
 }
