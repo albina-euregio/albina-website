@@ -23,3 +23,14 @@
   height: 800px;
   width: 100%;
 }
+
+.file-wrapper {
+  width: 100%;
+  padding: 10px 5px;
+  cursor: pointer;
+
+}
+
+.file-wrapper:nth-child(odd) {
+  background-color: #cfd8dc;
+}

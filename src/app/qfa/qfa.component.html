@@ -51,7 +51,7 @@
     </div>
   </div>
   <div *ngIf="!displaySelectedQfa">
-    <div *ngFor="let run of selectedFiles">
+    <div *ngFor="let run of selectedFiles" class="file-wrapper">
       <span (click)="showRun(run)">{{run}}</span>
     </div>
   </div>

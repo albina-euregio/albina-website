@@ -86,6 +86,7 @@ export class QfaComponent implements OnInit, OnDestroy {
     const icon = new Icon({
       iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
       iconSize: [25, 41],
+      iconAnchor: [12.5, 41]
     });
     const marker = new Marker(ll, {
       icon: icon,
@@ -99,6 +100,7 @@ export class QfaComponent implements OnInit, OnDestroy {
 
   private displayRuns(ll) {
     this.qfaPopupVisible = true;
+    this.displaySelectedQfa = false;
     this.selectedFiles = this.markers.getFilenames(ll);
   }
 
