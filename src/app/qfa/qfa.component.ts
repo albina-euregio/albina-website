@@ -1,20 +1,17 @@
 import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
-import { Markers } from "./models/markers.model";
-import { GetFilenamesService } from "../providers/qfa-service/get-filenames-service";
+import { GetFilenamesService } from "../providers/qfa-service/get-filenames.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
 import { Marker, Icon } from "leaflet";
-
-declare var L: any;
 @Component({
   templateUrl: "qfa.component.html",
   styleUrls: ["qfa.component.scss", "table.scss"]
 })
-export class QfaComponent implements OnInit, OnDestroy {
+export class QfaComponent implements AfterViewInit, OnDestroy {
   qfaPopupVisible = false;
   selectedQfa = {} as types.data;
   displaySelectedQfa = false;
@@ -22,9 +19,22 @@ export class QfaComponent implements OnInit, OnDestroy {
   dates = [];
   parameters = [] as string[];
   parameterClasses = {};
-  coordinates =  [] as types.coordinates[];
-  markers = {} as types.markers;
+  markers = {
+    "bozen": {
+      lng: 11.33,
+      lat: 46.47
+    },
+    "innsbruck": {
+      lng: 11.35,
+      lat: 47.27
+    },
+    "linz": {
+      lng: 12.80,
+      lat: 46.83
+    }
+  } as types.markers;
   selectedFiles = [] as string[];
+  baseUrl = "https://static.avalanche.report/zamg_qfa/";
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
@@ -33,16 +43,16 @@ export class QfaComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {}
 
-  async ngOnInit() {
-    const filenames = await this.getFilenamesService.getFilenames("https://static.avalanche.report/zamg_qfa");
-    const markers = new Markers().markers;
-    this.markers = markers;
-
+  async ngAfterViewInit() {
     this.mapService.initMaps(this.mapDiv.nativeElement);
 
-    for(const coord of this.coordinates) {
+    for(const coord of Object.values(this.markers)) {
       this.drawMarker(coord);
     }
+  }
+
+  getCityName(ll: types.coordinates) {
+    return Object.keys(this.markers).find(key => this.markers[key] === ll);
   }
 
   private drawMarker(ll) {
@@ -61,10 +71,12 @@ export class QfaComponent implements OnInit, OnDestroy {
     marker.addTo(this.mapService.qfaMap);
   }
 
-  private displayRuns(ll) {
+  private async displayRuns(ll) {
     this.qfaPopupVisible = true;
     this.displaySelectedQfa = false;
-    this.selectedFiles = this.markers.getFilenames(ll);
+    const city = this.getCityName(ll);
+    const filenames = await this.getFilenamesService.getFilenames(this.baseUrl, city);
+    this.selectedFiles = filenames;
   }
 
   private async showRun(run) {
