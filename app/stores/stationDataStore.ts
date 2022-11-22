@@ -276,7 +276,7 @@ export default class StationDataStore {
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
-    return fetchJSON(stationsFile, {})
+    return fetchJSON(stationsFile, { cache: "no-cache" })
       .then(data => this.setDataAfterLoad(data))
       .catch(error => {
         if (error.response.status === 404) {
