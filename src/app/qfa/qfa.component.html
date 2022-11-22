@@ -46,10 +46,10 @@
           <td class="header">{{param}}</td>
           <td *ngFor="let day of selectedQfa.parameters[param]" class="table-entry" [ngClass]="[parameterClasses[param]]">
             <div>
-              <span>{{day["00"]}}</span>
-              <span>{{day["06"]}}</span>
-              <span>{{day["12"]}}</span>
-              <span>{{day["18"]}}</span>
+              <span [ngClass]="getCellClass(param, day['00'])">{{day["00"]}}</span>
+              <span [ngClass]="getCellClass(param, day['06'])">{{day["06"]}}</span>
+              <span [ngClass]="getCellClass(param, day['12'])">{{day["12"]}}</span>
+              <span [ngClass]="getCellClass(param, day['18'])">{{day["18"]}}</span>
             </div>
           </td>
         </tr>

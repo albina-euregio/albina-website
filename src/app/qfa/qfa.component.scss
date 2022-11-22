@@ -30,23 +30,42 @@ $border-color: darkgrey;
 
 .table {
   border-spacing: 0px;
-  border-collapse: collapse;
-  border: 1px solid darkgrey;
+  border-collapse: separate;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
-.table td,.table th {
+.table td, .table th {
+  border-top: none;
+}
+
+.table th {
+  border-right: 1px solid black;
+}
+
+.table th:last-child {
+  border-right: none;
+}
+
+.table tr:first-child th {
+  border-top: 1px solid black;
+}
+
+.table tr:nth-child(2) th {
+  border-bottom: 1px solid black;
+}
+
+.table td {
   border-bottom: 1px solid $border-color;
   border-right: 1px solid $border-color;
 }
 
-.table th {
-  box-shadow: inset 1px 0 #000000, inset 0 -1px 0 #000000;
-  background-clip: padding-box;
+.table td:last-child {
+  border-right: none;
 }
 
-.table th:last-child {
-  box-shadow: inset -1px 0 #000000;
-  background-clip: padding-box;
+.table tr:last-child td {
+  border-bottom: 1px solid black;
 }
 
 .table tr:first-child {

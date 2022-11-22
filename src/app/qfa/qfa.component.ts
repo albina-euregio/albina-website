@@ -9,7 +9,7 @@ import * as types from "./types/QFA";
 import { Marker, Icon } from "leaflet";
 @Component({
   templateUrl: "qfa.component.html",
-  styleUrls: ["qfa.component.scss", "table.scss"]
+  styleUrls: ["qfa.component.scss", "table.scss", "params.scss"]
 })
 export class QfaComponent implements AfterViewInit, OnDestroy {
   qfaPopupVisible = false;
@@ -55,7 +55,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     return Object.keys(this.markers).find(key => this.markers[key] === ll);
   }
 
-  private drawMarker(ll) {
+  private drawMarker(ll: types.coordinates) {
     const icon = new Icon({
       iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
       iconSize: [25, 41],
@@ -77,6 +77,19 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     const city = this.getCityName(ll);
     const filenames = await this.getFilenamesService.getFilenames(this.baseUrl, city);
     this.selectedFiles = filenames;
+  }
+
+  private getCellClass(param: string, value: string): string {
+    const nParams = ["N", "Nh", "Nm", "Nl", "N_CU"];
+    if(nParams.includes(this.parameterClasses[param])) {
+      const parsedVal = Number(value);
+      if (parsedVal >= 7) return "darkest";
+      if (parsedVal >= 5) return "darker";
+      if (parsedVal >= 3) return "dark";
+      if (parsedVal == 0) return "opacity-0";
+    }
+
+    return "";
   }
 
   private async showRun(run) {
