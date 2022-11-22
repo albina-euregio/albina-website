@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   handleSelectRegion: any;

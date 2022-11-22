@@ -1,21 +1,15 @@
 import { observable, action, makeObservable } from "mobx";
-import {
-  parseDate,
-  parseDateSeconds,
-  getSuccDate,
-  dateToISODateString
-} from "../util/date.js";
+import { getSuccDate, dateToISODateString } from "../util/date.js";
 
 import { GeoJSON as LeafletGeoJSON, PathOptions, Util } from "leaflet";
 import {
   AvalancheProblem,
   AvalancheProblemType,
+  Bulletin,
   Bulletins,
-  convertCaamlToJson,
-  DaytimeBulletin,
-  toDaytimeBulletins
+  isAmPm
 } from "./bulletin";
-import { fetchText } from "../util/fetch.js";
+import { fetchJSON, fetchText } from "../util/fetch.js";
 import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
@@ -32,12 +26,13 @@ const enableEawsRegions = true;
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
+type AmPm = "am" | "pm" | "";
+
 class BulletinCollection {
   date: string;
   status: Status;
   statusMessage: string;
-  dataRaw: Bulletins;
-  daytimeBulletins: DaytimeBulletin[];
+  dataRaw: Bulletins | null;
   eawsBulletins: GeoJSON.FeatureCollection;
 
   constructor(date: string) {
@@ -45,49 +40,24 @@ class BulletinCollection {
     this.status = "pending";
     this.statusMessage = "";
     this.dataRaw = null;
-    this.daytimeBulletins = [];
   }
 
-  get regions(): string[] {
-    return this.daytimeBulletins.map(el => el.id);
+  get bulletins(): Bulletin[] {
+    return this.dataRaw?.bulletins || [];
   }
 
   get publicationDate(): Date {
-    // return maximum of all publicationDates
-    if (this.status == "ok" && this.length > 0) {
-      return this.daytimeBulletins
-        .map(b => parseDate(b.forenoon.publicationTime))
-        .reduce((acc, d) => (d > acc ? d : acc), new Date(0));
-    }
-
-    return null;
-  }
-
-  get publicationDateSeconds(): Date {
-    // return maximum of all publicationDates
-    if (this.status == "ok" && this.length > 0) {
-      return this.daytimeBulletins
-        .map(b => parseDateSeconds(b.forenoon.publicationTime))
-        .reduce((acc, d) => (d > acc ? d : acc), new Date(0));
-    }
-
-    return null;
+    return new Date(this.bulletins[0]?.publicationTime);
   }
 
   get length(): number {
-    return this.daytimeBulletins.length;
+    return this.dataRaw.bulletins.length;
   }
 
-  hasDaytimeDependency(): boolean {
-    return this.daytimeBulletins.some(b => b.hasDaytimeDependency);
-  }
-
-  getBulletinForRegion(regionId: string): DaytimeBulletin {
+  getBulletinForBulletinOrRegion(id: string): Bulletin {
     return (
-      this.daytimeBulletins.find(el => el.id == regionId) ??
-      this.daytimeBulletins.find(el =>
-        el.forenoon.regions.find(r => r.id === regionId)
-      )
+      this.bulletins.find(el => el.bulletinID == id) ??
+      this.bulletins.find(el => el.regions.some(r => r.regionID === id))
     );
   }
 
@@ -95,24 +65,15 @@ class BulletinCollection {
     return this.dataRaw;
   }
 
-  setData(xmlString: string | any[]) {
-    if (typeof xmlString !== "string" || xmlString.length == 0) {
-      this.dataRaw = undefined;
-      this.status = "empty";
-      return;
-    }
-    const parser = new DOMParser();
-    const document = parser.parseFromString(xmlString, "application/xml");
-    this.dataRaw = convertCaamlToJson(document.documentElement);
+  setData(caaml: Bulletins | null) {
+    this.dataRaw = caaml;
     this.dataRaw?.bulletins.forEach(b => {
       b.avalancheProblems?.forEach(p => {
-        if (p.type === "wind_drifted_snow") {
-          p.type = "wind_slab";
+        if (p.problemType === ("wind_drifted_snow" as any)) {
+          p.problemType = "wind_slab" as any;
         }
       });
     });
-    this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
-    // console.log(this.dataRaw);
     this.status =
       typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletins
         ? this.dataRaw.bulletins.length > 0
@@ -149,7 +110,7 @@ class BulletinStore {
   bulletins: Record<string, BulletinCollection> = {};
   latest: string | null = null;
   settings = {
-    status: "",
+    status: "" as Status,
     eawsCount: 0,
     date: "",
     region: ""
@@ -257,7 +218,7 @@ class BulletinStore {
 
     const url = BulletinStore._getBulletinUrl(date);
     try {
-      const response = await fetchText(url, {});
+      const response = await fetchJSON(url, {});
       this.bulletins[date].setData(response);
     } catch (error) {
       console.error("Cannot load bulletin for date " + date, error);
@@ -310,13 +271,13 @@ class BulletinStore {
     this.settings.region = id;
   }
 
-  dimProblem(problemId: string | number) {
+  dimProblem(problemId: AvalancheProblemType) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = false;
     }
   }
 
-  highlightProblem(problemId: string | number) {
+  highlightProblem(problemId: AvalancheProblemType) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = true;
     }
@@ -351,9 +312,9 @@ class BulletinStore {
    * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
-  get activeBulletin(): DaytimeBulletin {
+  get activeBulletin(): Bulletin {
     if (this.activeBulletinCollection) {
-      return this.activeBulletinCollection.getBulletinForRegion(
+      return this.activeBulletinCollection.getBulletinForBulletinOrRegion(
         this.settings.region
       );
     }
@@ -364,28 +325,29 @@ class BulletinStore {
     return this._eawsRegions.features.find(f => f.id === this.settings.region);
   }
 
-  getProblemsForRegion(regionId: string, ampm = null): AvalancheProblem[] {
+  getProblemsForRegion(
+    regionId: string,
+    ampm: AmPm = null
+  ): AvalancheProblem[] {
     if (!this.activeBulletinCollection) {
       return [];
     }
     const bulletin =
-      this.activeBulletinCollection.getBulletinForRegion(regionId);
-    if (!bulletin) {
-      return [];
-    }
-    const daytime =
-      bulletin.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
-    return bulletin[daytime].avalancheProblems || [];
+      this.activeBulletinCollection.getBulletinForBulletinOrRegion(regionId);
+    const problems = bulletin?.avalancheProblems?.filter(p =>
+      isAmPm(ampm, p.validTimePeriod)
+    );
+    return problems || [];
   }
 
   getRegionState(
     regionId: string,
-    ampm = null
+    ampm: AmPm = null
   ): "selected" | "highlighted" | "dimmed" | "dehighlighted" | "default" {
     if (this.settings?.region === regionId) {
       return "selected";
     }
-    if (this.activeBulletin?.forenoon?.regions?.some(r => r.id === regionId)) {
+    if (this.activeBulletin?.regions?.some(r => r.regionID === regionId)) {
       return "highlighted";
     }
     if (this.settings.region) {
@@ -394,30 +356,30 @@ class BulletinStore {
     }
 
     const problems = this.getProblemsForRegion(regionId, ampm);
-    if (problems.some(p => this.problems?.[p.type]?.highlighted)) {
+    if (problems.some(p => this.problems?.[p.problemType]?.highlighted)) {
       return "highlighted";
     }
 
     // dehighligt if any filter is activated
-    if (Object.keys(this.problems).some(p => this.problems[p].highlighted)) {
+    if (
+      (Object.keys(this.problems) as AvalancheProblemType[]).some(
+        p => this.problems[p].highlighted
+      )
+    ) {
       return "dehighlighted";
     }
     return "default";
   }
 
   getWarnlevel(
-    ampm: "am" | "pm",
+    ampm: AmPm,
     regionId: string,
     elevation: "low" | "high"
   ): WarnLevelNumber {
-    const daytimeBulletin =
-      this.activeBulletinCollection.getBulletinForRegion(regionId);
-    const daytime =
-      daytimeBulletin?.hasDaytimeDependency && ampm == "pm"
-        ? "afternoon"
-        : "forenoon";
-    const bulletin = daytimeBulletin?.[daytime];
+    const bulletin =
+      this.activeBulletinCollection.getBulletinForBulletinOrRegion(regionId);
     return bulletin?.dangerRatings
+      .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
       .filter(
         danger =>
           (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
@@ -460,7 +422,7 @@ class BulletinStore {
       .map(f => this._augmentFeature(f));
   }
 
-  _augmentFeature(f: GeoJSON.Feature, ampm = null): GeoJSON.Feature {
+  _augmentFeature(f: GeoJSON.Feature, ampm: AmPm = null): GeoJSON.Feature {
     if (!f.properties) f.properties = {};
     f.properties.state = this.getRegionState(f.id, ampm);
     if (!f.properties.latlngs) {
@@ -473,7 +435,7 @@ class BulletinStore {
   }
 
   // assign states to regions
-  getVectorRegions(ampm = null): GeoJSON.Feature[] {
+  getVectorRegions(ampm: AmPm = null): GeoJSON.Feature[] {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
@@ -502,7 +464,7 @@ class BulletinStore {
 
   static _getBulletinUrl(date: string): string {
     const region = date > "2022-05-06" ? "EUREGIO_" : "";
-    return Util.template(config.apis.bulletin.xml, {
+    return Util.template(config.apis.bulletin.CAAMLv6_2022, {
       date,
       region,
       lang: APP_STORE.language
@@ -511,6 +473,7 @@ class BulletinStore {
 
   static getBulletinStatus(date: string): Promise<Status> {
     const url = BulletinStore._getBulletinUrl(date);
+    // cannot use fetchJSON for HTTP HEAD
     return fetchText(url, { method: "head" }).then(
       () => "ok",
       () => "n/a"

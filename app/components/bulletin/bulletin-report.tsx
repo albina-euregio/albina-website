@@ -8,18 +8,23 @@ import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { findGlossaryStrings } from "./bulletin-glossary";
 import { Tooltip } from "../tooltips/tooltip";
-import type { DaytimeBulletin } from "../../stores/bulletin";
+import {
+  Bulletin,
+  hasDaytimeDependency,
+  isDangerPattern
+} from "../../stores/bulletin";
 
-type Props = { date: string; daytimeBulletin: DaytimeBulletin };
+type Props = { date: string; bulletin: Bulletin };
 
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
  */
-function BulletinReport({ date, daytimeBulletin }: Props) {
+function BulletinReport({ date, bulletin }: Props) {
   const intl = useIntl();
-  const bulletin = daytimeBulletin?.forenoon;
-  const dangerPatterns = bulletin.dangerPatterns || [];
+  const dangerPatterns = Array.isArray(bulletin.customData)
+    ? bulletin.customData.filter(isDangerPattern)
+    : [];
 
   function getLocalizedText(elem: string | undefined) {
     // bulletins are loaded in correct language
@@ -36,20 +41,22 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
     return preprocessContent(elem);
   }
 
-  if (!daytimeBulletin || !bulletin) {
+  if (!bulletin || !bulletin) {
     return <div />;
   }
 
-  const maxWarnlevel = {
-    id: daytimeBulletin.maxWarnlevel,
-    number: getWarnlevelNumber(daytimeBulletin.maxWarnlevel)
-  };
-  const classes = "panel field callout warning-level-" + maxWarnlevel.number;
+  const maxWarnlevel = bulletin.dangerRatings
+    .map(r => r.mainValue)
+    .reduce((v1, v2) =>
+      getWarnlevelNumber(v1) > getWarnlevelNumber(v2) ? v1 : v2
+    );
+  const classes =
+    "panel field callout warning-level-" + getWarnlevelNumber(maxWarnlevel);
 
   return (
     <div>
       <section
-        id={daytimeBulletin.id + "-main"}
+        id={bulletin.bulletinID + "-main"}
         className="section-centered section-bulletin section-bulletin-report"
       >
         <div className={classes}>
@@ -70,42 +77,42 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
               <span>
                 <FormattedMessage
                   id={
-                    maxWarnlevel.number == 0
+                    getWarnlevelNumber(maxWarnlevel) == 0
                       ? "bulletin:report:headline2:level0"
                       : "bulletin:report:headline2"
                   }
                   values={{
-                    number: maxWarnlevel.number,
+                    number: getWarnlevelNumber(maxWarnlevel),
                     text: intl.formatMessage({
-                      id: "danger-level:" + maxWarnlevel.id
+                      id: "danger-level:" + maxWarnlevel
                     })
                   }}
                 />
               </span>
             </h1>
           </header>
-          {daytimeBulletin.hasDaytimeDependency ? (
+          {hasDaytimeDependency(bulletin) ? (
             [
               <BulletinDaytimeReport
                 key={"am"}
-                bulletin={daytimeBulletin.forenoon}
+                bulletin={bulletin}
                 date={date}
-                publicationTime={daytimeBulletin.forenoon.publicationTime}
+                publicationTime={bulletin.publicationTime}
                 ampm={"am"}
               />,
               <BulletinDaytimeReport
                 key={"pm"}
-                bulletin={daytimeBulletin.afternoon}
+                bulletin={bulletin}
                 date={date}
-                publicationTime={daytimeBulletin.afternoon.publicationTime}
+                publicationTime={bulletin.publicationTime}
                 ampm={"pm"}
               />
             ]
           ) : (
             <BulletinDaytimeReport
-              bulletin={daytimeBulletin.forenoon}
+              bulletin={bulletin}
               date={date}
-              publicationTime={daytimeBulletin.forenoon.publicationTime}
+              publicationTime={bulletin.publicationTime}
             />
           )}
           {bulletin.highlights && (
@@ -115,19 +122,19 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
             </p>
           )}
           <h2 className="subheader">
-            {getLocalizedText(bulletin.avalancheActivityHighlights)}
+            {getLocalizedText(bulletin.avalancheActivity?.highlights)}
           </h2>
-          <p>{getLocalizedText(bulletin.avalancheActivityComment)}</p>
+          <p>{getLocalizedText(bulletin.avalancheActivity?.comment)}</p>
         </div>
       </section>
-      {(bulletin.tendencyComment || bulletin.snowpackStructureComment) && (
+      {(bulletin.tendency?.comment || bulletin.snowpackStructure?.comment) && (
         <section
-          id={daytimeBulletin.id + "-bulletin-additional"}
+          id={bulletin.bulletinID + "-bulletin-additional"}
           className="section-centered section-bulletin section-bulletin-additional"
         >
           <div className="panel brand">
             {(dangerPatterns.length > 0 ||
-              bulletin.snowpackStructureComment) && (
+              bulletin.snowpackStructure?.comment) && (
               <div>
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
@@ -146,16 +153,16 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
                     ))}
                   </ul>
                 )}
-                <p>{getLocalizedText(bulletin.snowpackStructureComment)}</p>
+                <p>{getLocalizedText(bulletin.snowpackStructure?.comment)}</p>
               </div>
             )}
-            {bulletin.tendencyComment &&
-              getLocalizedText(bulletin.tendencyComment) && (
+            {bulletin.tendency?.highlights &&
+              getLocalizedText(bulletin.tendency?.highlights) && (
                 <div>
                   <h2 className="subheader">
                     <FormattedMessage id="bulletin:report:tendency:headline" />
                   </h2>
-                  <p>{getLocalizedText(bulletin.tendencyComment)}</p>
+                  <p>{getLocalizedText(bulletin.tendency?.highlights)}</p>
                 </div>
               )}
             {/*
@@ -172,7 +179,7 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
         </section>
       )}
       <section
-        id={daytimeBulletin.id + "-back-to-map"}
+        id={bulletin.bulletinID + "-back-to-map"}
         className="section-centered section-bulletin section-bulletin-additional"
       >
         <div className="panel brand">

@@ -33,7 +33,7 @@ function BulletinHeader() {
       className={`section-padding section-header section-bulletin-header bulletin-updated ${statusClass}`}
     >
       <header className="section-centered">
-        <BulletinStatusLine status={BULLETIN_STORE.settings.status} />
+        <BulletinStatusLine />
         {/* <h2 className="subheader">{this.props.title}</h2> */}
         <h1 className="bulletin-datetime-validity">{date}</h1>
         <BulletinDateFlipper

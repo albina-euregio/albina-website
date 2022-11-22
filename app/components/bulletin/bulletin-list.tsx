@@ -2,31 +2,31 @@ import React from "react";
 import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import type { DaytimeBulletin } from "../../stores/bulletin/DaytimeBulletin";
+import type { Bulletin } from "../../stores/bulletin";
 
-type Props = { daytimeBulletins: DaytimeBulletin[] };
+type Props = { bulletins: Bulletin[] };
 
-function BulletinList({ daytimeBulletins }: Props) {
+function BulletinList({ bulletins }: Props) {
   return (
     <section
       id="section-bulletin-reports"
       className="section-centered section-bulletin-reports"
     >
       <ul className="list-plain bulletin-list">
-        {daytimeBulletins.map(daytimeBulletin => (
+        {bulletins.map(bulletin => (
           <li
-            id={daytimeBulletin.id}
-            key={daytimeBulletin.id}
+            id={bulletin.bulletinID}
+            key={bulletin.bulletinID}
             className={
               "bulletin-list-item" +
-              (daytimeBulletin.id === BULLETIN_STORE.settings.region
+              (bulletin.bulletinID === BULLETIN_STORE.settings.region
                 ? " selected"
                 : "")
             }
           >
             {
               <BulletinReport
-                daytimeBulletin={daytimeBulletin}
+                bulletin={bulletin}
                 date={BULLETIN_STORE.settings.date}
               />
             }

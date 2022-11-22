@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   handleSelectRegion: any;

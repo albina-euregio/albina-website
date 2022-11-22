@@ -11,7 +11,7 @@ type Props = {
 
 export default function ProblemIconLink({ problem }: Props) {
   const intl = useIntl();
-  const problemType = problem.type;
+  const problemType = problem.problemType;
   const title = intl.formatMessage({
     id: "problem:" + problemType
   });

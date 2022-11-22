@@ -1,15 +1,25 @@
 import { Util } from "leaflet";
 import React from "react";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { Bulletin } from "../../stores/bulletin";
 import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
 
+type Props = {
+  bulletin: Bulletin;
+  date: string;
+  region: string;
+  onError: any;
+  imgFormat: string;
+  publicationTime: string;
+};
+
 function BulletinAWMapStatic({
+  bulletin,
   date,
   region,
   onError,
-  publicationTime,
-  imgFormat
-}) {
+  imgFormat,
+  publicationTime
+}: Props) {
   const publicationDirectory =
     publicationTime && date > "2019-05-06"
       ? getPublicationTimeString(parseDateSeconds(publicationTime))
@@ -23,10 +33,7 @@ function BulletinAWMapStatic({
     file: file,
     format: imgFormat
   });
-  const regions = BULLETIN_STORE.bulletins[date]?.daytimeBulletins
-    ?.find(element => element.id == region.split("_")[0])
-    ?.forenoon?.regions?.map(elem => elem.name)
-    ?.join(", ");
+  const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");
   return <img src={url} alt={regions} title={regions} onError={onError} />;
 }
 

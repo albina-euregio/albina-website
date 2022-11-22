@@ -2,10 +2,11 @@ import React from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import { getLocalDate } from "../../util/date.js";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
 
-const BulletinStatusLine = ({ status }) => {
+const BulletinStatusLine = () => {
   const intl = useIntl();
+  const status = BULLETIN_STORE.settings.status;
   const collection = BULLETIN_STORE.activeBulletinCollection;
   let statusText = "";
   let isRepublished = false;

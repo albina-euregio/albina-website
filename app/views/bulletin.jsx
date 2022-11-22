@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
+import { hasDaytimeDependency } from "../stores/bulletin";
 import { MAP_STORE } from "../stores/mapStore";
 
 import { FormattedMessage, useIntl } from "react-intl";
@@ -189,6 +190,9 @@ const Bulletin = props => {
   };
 
   const collection = BULLETIN_STORE.activeBulletinCollection;
+  const daytimeDependency = collection?.bulletins?.some(b =>
+    hasDaytimeDependency(b)
+  );
   // console.log("rendering bulletin ", BULLETIN_STORE.bulletins);
 
   const shareDescription =
@@ -210,8 +214,7 @@ const Bulletin = props => {
       ? Util.template(config.apis.bulletin.map, {
           date: BULLETIN_STORE.settings.date,
           publication: ".",
-          file:
-            (collection.hasDaytimeDependency() ? "am" : "fd") + "_EUREGIO_map",
+          file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
           format: ".jpg"
         })
       : "";
@@ -266,20 +269,19 @@ const Bulletin = props => {
       )}
 
       <Suspense fallback={<div>...</div>}>
-        {BULLETIN_STORE.activeBulletinCollection &&
-        BULLETIN_STORE.activeBulletinCollection.hasDaytimeDependency() ? (
+        {daytimeDependency ? (
           <div className="bulletin-parallel-view">
-            {["am", "pm"].map((daytime, index) => (
+            {["am", "pm"].map((ampm, index) => (
               <BulletinMap
-                key={daytime}
+                key={ampm}
                 handleMapViewportChanged={handleMapViewportChanged}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
                 highlightedRegion={highlightedRegion}
-                regions={BULLETIN_STORE.getVectorRegions(daytime)}
+                regions={BULLETIN_STORE.getVectorRegions(ampm)}
                 onMapInit={handleMapInit}
-                ampm={daytime}
+                ampm={ampm}
               />
             ))}
           </div>
@@ -298,14 +300,8 @@ const Bulletin = props => {
           problems={BULLETIN_STORE.problems}
         />
       </Suspense>
-      <BulletinButtonbar />
-      {BULLETIN_STORE.activeBulletinCollection && (
-        <BulletinList
-          daytimeBulletins={
-            BULLETIN_STORE.activeBulletinCollection.daytimeBulletins
-          }
-        />
-      )}
+      <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
+      {collection && <BulletinList bulletins={collection.bulletins} />}
       <SmShare
         image={shareImage}
         title={title}

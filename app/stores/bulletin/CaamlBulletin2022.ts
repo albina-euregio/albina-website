@@ -1,16 +1,16 @@
 /**
  * JSON schema for EAWS avalanche bulletin collection following the CAAMLv6 schema
  */
-export interface AvalancheBulletins {
-  bulletins: AvalancheBulletin[];
-  customData?: any;
+export interface Bulletins {
+  bulletins: Bulletin[];
+  customData?: CustomData;
   metaData?: MetaData;
 }
 
 /**
  * Avalanche Bulletin valid for a given set of regions.
  */
-export interface AvalancheBulletin {
+export interface Bulletin {
   /**
    * Texts element with highlight and comment for the avalanche activity.
    */
@@ -23,7 +23,7 @@ export interface AvalancheBulletin {
    * Unique ID for the bulletin.
    */
   bulletinID?: string;
-  customData?: any;
+  customData?: CustomData;
   /**
    * Collection of Danger Rating elements for this bulletin.
    */
@@ -41,7 +41,7 @@ export interface AvalancheBulletin {
    * Time and date when the bulletin was issued by the AWS to the Public. ISO 8601 timestamp
    * in UTC or with time zone information.
    */
-  publicationTime?: Date;
+  publicationTime?: string;
   /**
    * Collection of region elements for which this bulletin is valid.
    */
@@ -100,7 +100,7 @@ export interface Texts {
 export interface AvalancheProblem {
   aspects?: Aspect[];
   avalancheSize?: number;
-  customData?: any;
+  customData?: CustomData;
   elevation?: ElevationBoundaryOrBand;
   frequency?: ExpectedAvalancheFrequency;
   metaData?: MetaData;
@@ -208,7 +208,7 @@ export enum ValidTimePeriod {
  * dangerRating for all the other cases.
  */
 export interface DangerRating {
-  customData?: any;
+  customData?: CustomData;
   elevation?: ElevationBoundaryOrBand;
   mainValue?: DangerRatingValue;
   metaData?: MetaData;
@@ -234,7 +234,7 @@ export enum DangerRatingValue {
  * gitlab.com/eaws/eaws-regions. Additionally, the region name can be added.
  */
 export interface Region {
-  customData?: any;
+  customData?: CustomData;
   metaData?: MetaData;
   name?: string;
   regionID?: string;
@@ -255,7 +255,7 @@ export interface AvalancheBulletinSource {
  * Details on a person.
  */
 export interface Person {
-  customData?: any;
+  customData?: CustomData;
   metaData?: MetaData;
   name?: string;
   website?: string;
@@ -267,7 +267,7 @@ export interface Person {
  */
 export interface AvalancheBulletinProvider {
   contactPerson?: Person;
-  customData?: any;
+  customData?: CustomData;
   metaData?: MetaData;
   name?: string;
   website?: string;
@@ -295,7 +295,7 @@ export interface AvalancheBulletinProvider {
 export interface Tendency {
   comment?: string;
   highlights?: string;
-  customData?: any;
+  customData?: CustomData;
   metaData?: MetaData;
   tendencyType?: TendencyType;
   validTime?: ValidTime;
@@ -314,6 +314,8 @@ export enum TendencyType {
  * time zone information.
  */
 export interface ValidTime {
-  endTime?: Date;
-  startTime?: Date;
+  endTime?: string;
+  startTime?: string;
 }
+
+export interface CustomData {}

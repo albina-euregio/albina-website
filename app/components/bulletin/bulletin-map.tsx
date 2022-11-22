@@ -132,7 +132,7 @@ const BulletinMap = props => {
       res.push(
         <BulletinMapDetails
           key="details"
-          daytimeBulletin={activeBulletin}
+          bulletin={activeBulletin}
           region={intl.formatMessage({
             id: "region:" + activeRegionName
           })}
@@ -140,7 +140,7 @@ const BulletinMap = props => {
         />
       );
       res.push(
-        activeBulletin?.id && (
+        activeBulletin?.bulletinID && (
           <Tooltip
             key="tp-link"
             label={intl.formatMessage({
@@ -150,7 +150,7 @@ const BulletinMap = props => {
             <a
               tabIndex="-1"
               key="link"
-              href={"#" + activeBulletin?.id}
+              href={"#" + activeBulletin?.bulletinID}
               className="pure-button"
               data-scroll=""
             >
