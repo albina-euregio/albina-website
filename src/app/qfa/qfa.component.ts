@@ -50,30 +50,6 @@ export class QfaComponent implements OnInit, OnDestroy {
     markers.save();
     this.coordinates = markers.coordinates;
     this.markers = markers;
-    const files = markers.getFilenames({
-      lng: 11.33,
-      lat: 46.47
-    })
-    const tempQfa = new QfaFile(this.http);
-    await tempQfa.loadFromURL(files[0]);
-    this.selectedQfa = tempQfa.data;
-    //prevent alphabetical sorting
-    this.parameters = Object.keys(this.selectedQfa.parameters);
-
-    for(const param of this.parameters) {
-      this.parameterClasses[param] = param
-        .replace("--", "_")
-        .replace(" -", "_")
-        .replace(" cm", "")
-        .replace(" --", "")
-        .replace(" s", "")
-        .replace("-", "_")
-        .replace(".", "_")
-        .replace(" ", "_")
-    }
-
-    this.date = tempQfa.date;
-    this.dates = tempQfa.paramDates;
 
     this.mapService.initMaps(this.mapDiv.nativeElement);
 
@@ -108,6 +84,20 @@ export class QfaComponent implements OnInit, OnDestroy {
     const tempQfa = new QfaFile(this.http);
     await tempQfa.loadFromURL(run);
     this.selectedQfa = tempQfa.data;
+    this.date = tempQfa.date;
+    this.dates = tempQfa.paramDates;
+    this.parameters = Object.keys(this.selectedQfa.parameters);
+    for(const param of this.parameters) {
+      this.parameterClasses[param] = param
+        .replace("--", "_")
+        .replace(" -", "_")
+        .replace(" cm", "")
+        .replace(" --", "")
+        .replace(" s", "")
+        .replace("-", "_")
+        .replace(".", "_")
+        .replace(" ", "_")
+    }
     this.displaySelectedQfa = true;
   }
 
