@@ -1,5 +1,5 @@
 import React from "react";
-import WarnLevelIcon from "../icons/warn-level-icon.jsx";
+import WarnLevelIcon from "../icons/warn-level-icon";
 import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
 type Props = { bulletin: Caaml.Bulletin };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
-import ProblemIcon from "../icons/problem-icon.jsx";
+import ProblemIcon from "../icons/problem-icon";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
