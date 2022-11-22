@@ -151,8 +151,9 @@ export default class StationDataStore {
     temp: true,
     wind: true
   };
-  sortValue = "";
+  sortValue: keyof StationData = "name";
   sortDir: "asc" | "desc" = "asc";
+  collator = new Intl.Collator("de");
 
   constructor() {
     regionCodes.forEach(r => (this._activeRegions[r] = true));
@@ -227,9 +228,46 @@ export default class StationDataStore {
     this.activeData[key] = !this.activeData[key];
   }
 
-  sortBy(sortValue: string, sortDir: "asc" | "desc") {
+  sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     this.sortValue = sortValue;
     this.sortDir = sortDir;
+  }
+
+  get sortedFilteredData(): StationData[] {
+    const pattern = this.searchText
+      ? new RegExp(this.searchText, "i")
+      : undefined;
+    const activeRegion = regionCodes.includes(this.activeRegion)
+      ? this.activeRegion
+      : undefined;
+    return this.data
+      .filter(
+        row =>
+          !pattern ||
+          row.name.match(pattern) ||
+          row.microRegion.match(pattern) ||
+          row.operator.match(pattern)
+      )
+      .filter(row => !activeRegion || row.region == activeRegion)
+      .sort((val1, val2) => {
+        const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
+        const a = val1[this.sortValue];
+        const b = val2[this.sortValue];
+
+        if (a === b) {
+          return 0;
+        }
+        if (typeof a === "string" && typeof b === "string") {
+          return (this.sortDir == "asc" ? 1 : -1) * this.collator.compare(a, b);
+        }
+        if (typeof b === "undefined" || b === false || b === null) {
+          return order[1];
+        }
+        if (typeof a === "undefined" || a === false || a === null) {
+          return order[0];
+        }
+        return a < b ? order[0] : order[1];
+      });
   }
 
   load(timePrefix: any) {
@@ -238,7 +276,7 @@ export default class StationDataStore {
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
-    return fetchJSON(stationsFile, {})
+    return fetchJSON(stationsFile, { cache: "no-cache" })
       .then(data => this.setDataAfterLoad(data))
       .catch(error => {
         if (error.response.status === 404) {
@@ -253,10 +291,7 @@ export default class StationDataStore {
   ) {
     this.data = data.features
       .filter(el => el.properties.date)
-      .map(feature => new StationData(feature))
-      .sort((f1, f2) =>
-        f1.properties.name.localeCompare(f2.properties.name, "de")
-      );
+      .map(feature => new StationData(feature));
     return this.data;
   }
 }

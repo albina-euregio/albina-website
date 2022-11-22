@@ -6,7 +6,7 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
-import { parseDate, dateToDateTimeString } from "../util/date";
+import { DATE_TIME_FORMAT, parseDate } from "../util/date";
 import { parseTags } from "../util/tagging";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
@@ -100,7 +100,9 @@ const BlogPost = () => {
         subtitle={intl.formatMessage({ id: "blog:subtitle" })}
       >
         <ul className="list-inline blog-feature-meta">
-          <li className="blog-date">{dateToDateTimeString(date)}</li>
+          <li className="blog-date">
+            {intl.formatDate(date, DATE_TIME_FORMAT)}
+          </li>
           <li className="blog-province">
             {regions.map(region => (
               <Link key={region} to={"/blog?searchLang=all&region=" + region}>

@@ -2,10 +2,10 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Util } from "leaflet";
-import { dateToDateTimeString } from "../../util/date";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
+import { DATE_TIME_FORMAT } from "../../util/date";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -303,7 +303,11 @@ class WeatherStationDiagrams extends React.Component {
         ))}
         <li>
           <small>
-            (<time>{dateToDateTimeString(stationData.date)}</time>)
+            (
+            <time dateTime={stationData.date}>
+              {this.props.intl.formatDate(stationData.date, DATE_TIME_FORMAT)}
+            </time>
+            )
           </small>
         </li>
       </ul>

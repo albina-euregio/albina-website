@@ -61,7 +61,7 @@
       "simple": "https://static.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}{format}",
-      "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{file}.pdf",
+      "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
@@ -306,7 +306,7 @@
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
       "baseQuery": "isNameRequired=true",
       "position": "topleft",
-      "showMarker": true,
+      "showMarker": false,
       "showPopup": true,
       "alwaysOpen": false,
       "clearOnPopupClose": true,

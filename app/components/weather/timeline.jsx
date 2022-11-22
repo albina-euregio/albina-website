@@ -1,11 +1,8 @@
 import React from "react";
+import $ from "jquery";
+import { injectIntl } from "react-intl";
 
-import {
-  dateToDateTimeString,
-  dateToShortDayString,
-  dateToWeekdayString,
-  isSameDay
-} from "../../util/date.js";
+import { DATE_TIME_FORMAT, isSameDay } from "../../util/date.js";
 
 class Timeline extends React.Component {
   constructor(props) {
@@ -135,7 +132,7 @@ class Timeline extends React.Component {
     }
     //console.log("timeArray#3", timeArray, this.props.timeArray);
     timeArray.forEach(aTime => {
-      let weekday = dateToWeekdayString(aTime);
+      let weekday = this.props.intl.formatDate(aTime, { weekday: "long" });
 
       if (lastTime !== weekday) {
         let firstAvailableTime;
@@ -153,7 +150,10 @@ class Timeline extends React.Component {
               className={spanClass.join(" ")}
               data-timestamp={currentHour}
               data-selectable={isSelectable}
-              data-time={dateToDateTimeString(currentHour)}
+              data-time={this.props.intl.formatDate(
+                currentHour,
+                DATE_TIME_FORMAT
+              )}
             ></span>
           );
         }
@@ -178,7 +178,7 @@ class Timeline extends React.Component {
               >
                 {weekday.substring(0, 2)}
                 <span>{weekday.substring(2, 20)}</span>{" "}
-                {dateToShortDayString(aTime)}
+                {this.props.intl.formatDate(aTime)}
               </a>
             </span>
             <div key="cp-scale-hours" className="cp-scale-hours">
@@ -203,4 +203,4 @@ class Timeline extends React.Component {
     );
   }
 }
-export default Timeline;
+export default injectIntl(Timeline);

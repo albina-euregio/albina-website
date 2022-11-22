@@ -1,15 +1,12 @@
 import React from "react";
+import $ from "jquery";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
 import { Tooltip } from "../tooltips/tooltip";
-
-import {
-  dateToShortDateTimeString,
-  dateToTimeString
-} from "../../util/date.js";
+import { DATE_TIME_FORMAT } from "../../util/date.js";
 //import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
@@ -327,7 +324,7 @@ class WeatherMapCockpit extends React.Component {
     let parts = [];
 
     if (this.props.currentTime) {
-      const timeStart = dateToTimeString(this.props.currentTime);
+      const timeStart = this.props.intl.formatTime(this.props.currentTime);
       let timeEnd = new Date(this.props.currentTime);
       timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
       //console.log("weathermapcockpit->gettimeline hhh", this.getLeftForTime, this.props.currentTime);
@@ -382,7 +379,7 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-range-end"
                   className="cp-scale-stamp-range-end"
                 >
-                  {dateToTimeString(timeEnd)}
+                  {this.props.intl.formatTime(timeEnd)}
                 </span>
               </div>
             </Dragger>
@@ -564,8 +561,6 @@ class WeatherMapCockpit extends React.Component {
     );
   }
   getReleaseInfo() {
-    //console.log("getReleaseInfo: kkk", this.props, dateToDateTimeString(this.props.lastUpdateTime));
-
     return (
       <div key="cp-release" className="cp-release">
         <Tooltip
@@ -580,7 +575,10 @@ class WeatherMapCockpit extends React.Component {
                 id: "weathermap:cockpit:maps-creation-date:prefix"
               })}{" "}
             </span>
-            {dateToShortDateTimeString(this.props.lastUpdateTime)}
+            {this.props.intl.formatDate(
+              this.props.lastUpdateTime,
+              DATE_TIME_FORMAT
+            )}
           </span>
         </Tooltip>
         <Tooltip
@@ -595,7 +593,10 @@ class WeatherMapCockpit extends React.Component {
                 id: "weathermap:cockpit:maps-update-date:prefix"
               })}{" "}
             </span>{" "}
-            {dateToShortDateTimeString(this.props.nextUpdateTime)}
+            {this.props.intl.formatDate(
+              this.props.nextUpdateTime,
+              DATE_TIME_FORMAT
+            )}
           </span>
         </Tooltip>
         <Tooltip

@@ -183,7 +183,7 @@ const BulletinMap = props => {
       res.push(
         <BulletinMapDetails
           key="details"
-          bulletin={activeBulletin}
+          daytimeBulletin={activeBulletin}
           region={intl.formatMessage({
             id: "region:" + activeRegionName
           })}

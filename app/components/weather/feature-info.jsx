@@ -1,6 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
-import { dateToDateTimeString } from "../../util/date.js";
+import { DATE_TIME_FORMAT } from "../../util/date";
 
 class FeatureInfo extends React.Component {
   constructor(props) {
@@ -23,7 +23,10 @@ class FeatureInfo extends React.Component {
             )}
             {this.props.feature.date && (
               <p className="feature-date">
-                {dateToDateTimeString(this.props.feature.date)}
+                {this.props.intl.formatDate(
+                  this.props.feature.date,
+                  DATE_TIME_FORMAT
+                )}
               </p>
             )}
           </div>

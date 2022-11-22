@@ -136,10 +136,9 @@ export default class BlogStore {
   }
 
   // checking if the url has been changed and applying new values
-  checkUrl(): void {
+  checkUrl(search: URLSearchParams): void {
     let needLoad = false;
 
-    const search = parseSearchParams();
     const urlValues = {
       year: this.validateYear(search.get("year")),
       month: this.validateMonth(search.get("month")),

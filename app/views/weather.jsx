@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import $ from "jquery";
 
 import { observer } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";

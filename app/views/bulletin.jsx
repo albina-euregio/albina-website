@@ -14,12 +14,16 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, dateToLongDateString } from "../util/date.js";
+import { parseDate, LONG_DATE_FORMAT } from "../util/date.js";
 //import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
-import { parseSearchParams } from "../util/searchParams";
 import { Suspense } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  useSearchParams
+} from "react-router-dom";
 
 import "leaflet.sync";
 import { Util } from "leaflet";
@@ -32,6 +36,7 @@ const Bulletin = props => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [title] = useState("");
   // const [sharable, setSharable] = useState(false);
   const [highlightedRegion] = useState(null);
@@ -117,7 +122,7 @@ const Bulletin = props => {
   };
 
   const checkRegion = () => {
-    let urlRegion = parseSearchParams().get("region");
+    let urlRegion = searchParams.get("region");
     const storeRegion = BULLETIN_STORE.settings.region;
     if (urlRegion !== storeRegion) {
       BULLETIN_STORE.setRegion(urlRegion);
@@ -126,24 +131,23 @@ const Bulletin = props => {
 
   const handleSelectRegion = id => {
     if (id) {
-      const oldRegion = parseSearchParams().get("region");
+      const oldRegion = searchParams.get("region");
       if (oldRegion !== id) {
-        const search = "?region=" + encodeURIComponent(id);
         if (oldRegion) {
           // replace history when a (different) region was selected previously to avoid polluting browser history
           //.log("bulletin navigate #2", oldRegion);
           //todo: trans
-          navigate({ pathname: location.pathname, search, replace: true });
+          setSearchParams({ region: id }, true);
         } else {
           //console.log("bulletin navigate #3", oldRegion);
           //todo: trans
-          navigate({ pathname: location.pathname, search });
+          setSearchParams({ region: id });
         }
       }
     } else if (BULLETIN_STORE.settings.region) {
       //console.log("bulletin navigate #4", BULLETIN_STORE.settings.region);
       //todo: trans
-      navigate({ pathname: location.pathname, search: "" });
+      setSearchParams({});
     }
   };
 
@@ -179,7 +183,10 @@ const Bulletin = props => {
       ? collection
         ? title +
           " | " +
-          dateToLongDateString(parseDate(BULLETIN_STORE.settings.date))
+          this.props.intl.formatDate(
+            parseDate(BULLETIN_STORE.settings.date),
+            LONG_DATE_FORMAT
+          )
         : intl.formatMessage({
             id: "bulletin:header:info-no-data"
           })
@@ -198,15 +205,7 @@ const Bulletin = props => {
 
   return (
     <>
-      <HTMLHeader
-        title={intl.formatMessage({ id: "bulletin:title" })}
-        description={shareDescription}
-        meta={{
-          "og:image": shareImage,
-          "og:image:width": 1890,
-          "og:image:height": 1890
-        }}
-      />
+      <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
       <BulletinHeader title={title} />
 
       <Suspense fallback={<div>...</div>}>
