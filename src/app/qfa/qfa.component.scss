@@ -1,3 +1,5 @@
+$border-color: darkgrey;
+
 .table-entry > div {
   display: inline-flex;
   flex-direction: row;
@@ -9,14 +11,60 @@
   text-align: center;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.back-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.back-button {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  padding: 10px 0px;
+  cursor: pointer;
+}
+
 .table {
   border-spacing: 0px;
   border-collapse: collapse;
-  border: 1px solid #cfd8dc
+  border: 1px solid darkgrey;
 }
 
-.table td {
-  border: 1px solid #cfd8dc;
+.table td,.table th {
+  border-bottom: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+}
+
+.table th {
+  box-shadow: inset 1px 0 #000000, inset 0 -1px 0 #000000;
+  background-clip: padding-box;
+}
+
+.table th:last-child {
+  box-shadow: inset -1px 0 #000000;
+  background-clip: padding-box;
+}
+
+.table tr:first-child {
+  background-color: #DBD9DB;
+  position: sticky;
+  display: table-header-group;
+  top:0px;
+}
+
+.table tr:nth-child(2) {
+  background-color: #DBD9DB;
+  position: sticky;
+  display: table-header-group;
+  top:29px;
+}
+
+.table td:first-child {
+  background-color: #EBE9EB;
 }
 
 .qfa-map {

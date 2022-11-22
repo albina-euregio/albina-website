@@ -1,43 +1,24 @@
 import * as types from  "../../qfa/types/QFA";
 
-export class Markers {
-  public data = {} as types.markers;
+export class Markers implements types.MarkerData {
+  public markers = {
+    "bozen": {
+      lng: 11.33,
+      lat: 46.47
+    },
+    "innsbruck": {
+      lng: 11.35,
+      lat: 47.27
+    },
+    "linz": {
+      lng: 12.80,
+      lat: 46.83
+    }
+  } as types.markers;
 
   constructor() {}
 
-  public load() {
-      if(localStorage.getItem("markers") !== null) {
-        this.data = JSON.parse(localStorage.getItem("markers") || "{}");
-      }
-  }
-
-  public add(marker: types.marker) {
-      const key = `${marker.coordinates.lng}:${marker.coordinates.lat}`;
-      if(key in this.data) {
-          if(!(marker.name in this.data[key].names)) {
-              this.data[key].names.push(marker.name);
-          }
-      } else {
-          this.data[key] = {
-              coordinates: marker.coordinates,
-              names: [
-                  marker.name
-              ]
-          }
-      }
-  }
-
-  public get coordinates(): types.coordinates[] {
-      const coordinates = Object.values(this.data).map(el => el.coordinates);
-      return coordinates;
-  }
-
-  public getFilenames(coordinates: types.coordinates): string[] {
-      const key = `${coordinates.lng}:${coordinates.lat}`;
-      return this.data[key].names;
-  }
-
-  public save() {
-      localStorage.setItem("markers", JSON.stringify(this.data));
+  getCityName(ll: types.coordinates) {
+    return Object.keys(this.markers).find(key => this.markers[key] === ll);
   }
 }

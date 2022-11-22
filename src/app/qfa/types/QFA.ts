@@ -38,23 +38,11 @@ export interface QFA {
   listParameters(): string[];
 }
 
-export interface marker {
-    coordinates: coordinates;
-    name: string;
-}
-
 export interface markers {
-    [key: string]: {
-        coordinates: coordinates;
-        names: string[];
-    }
+    [key: string]: coordinates
 }
 
 export interface MarkerData {
-    data: markers;
-    coordinates: coordinates[];
-    load: (marker: marker) => void;
-    add: (marker: marker) => void;
-    getFilenames: (coordinates: coordinates) => string[];
-    save: () => void;
+  markers: markers;
+  getCityName: (ll: coordinates) => string;
 }

@@ -8,7 +8,7 @@ import { QfaComponent } from "./qfa.component";
 import { QfaRoutingModule } from "./qfa-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
 
-import { GetQfaFilesService } from "../providers/qfa-service/getQfaFiles.service";
+import { GetFilenamesService } from "../providers/qfa-service/get-filenames-service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { QfaMapService } from '../providers/map-service/qfa-map.service';
     QfaComponent
   ],
   providers: [
-    GetQfaFilesService,
+    GetFilenamesService,
     QfaMapService
   ]
 })
