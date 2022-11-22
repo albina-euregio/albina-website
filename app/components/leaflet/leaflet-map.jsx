@@ -1,11 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 //import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
+import { parseSearchParams } from "../../util/searchParams";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
   MapContainer,
+  useMapEvents,
   //MapConsumer,
   TileLayer,
   LayersControl,
@@ -15,8 +17,21 @@ import {
 
 import { MAP_STORE } from "../../stores/mapStore";
 
+const EventHandler = () => {
+  const map = useMapEvents({
+    zoomend: () => {
+      //console.log("xxx zoomend");
+      const newZoom = Math.round(map.getZoom());
+      map.setMaxBounds(config.map.maxBounds[newZoom]);
+    }
+  });
+  return null;
+};
+
 const LeafletMap = props => {
   //const intl = useIntl();
+
+  const [map, setMap] = useState(null);
 
   //let _layers = [];
 
@@ -53,13 +68,13 @@ const LeafletMap = props => {
     props.mapConfigOverride
   );
 
-  const _zoomend = () => {
-    const map = map;
-    const newZoom = Math.round(map.getZoom());
-    //console.log("leaflet-map->_zoomend newZoom", newZoom);
-    map.setMaxBounds(config.map.maxBounds[newZoom]);
-    //_init_tooltip();
-  };
+  useEffect(() => {
+    if (!map) return;
+
+    const province = parseSearchParams().get("province");
+    map.fitBounds(config.map[`${province}.bounds`] ?? config.map.euregioBounds);
+    map.zoom = MAP_STORE.mapZoom;
+  }, [map]);
 
   const tileLayers = () => {
     const tileLayerConfig = config.map.tileLayers;
@@ -101,123 +116,32 @@ const LeafletMap = props => {
     return tileLayers;
   };
 
-  //console.log("leaflet-map->render xx02", props);
+  //console.log("leaflet-map->render xx02", mapOptions);
   const displayMap = useMemo(
     () => (
       <MapContainer
-        onZoomEnd={_zoomend.bind(this)}
         className={props.loaded ? "" : "map-disabled"}
         gestureHandling={props.gestureHandling}
         style={mapStyle}
         zoomControl={false}
-        zoom={MAP_STORE.mapZoom}
         center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
+        whenCreated={setMap}
       >
+        <EventHandler />
         <AttributionControl prefix={config.map.attribution} />
         {props.loaded && (
           <ScaleControl imperial={false} position="bottomleft" />
         )}
         {props.loaded && props.controls}
         {tileLayers()}
-
         {props.overlays}
         <LeafletMapControls {...props} />
       </MapContainer>
     ),
     [props.loaded, props.overlays]
   );
-
-  // const displayActiveMap = useMemo(
-  //   () => (
-  //     <MapContainer
-  //       onZoomEnd={_zoomend.bind(this)}
-  //       onViewportChanged={props.onViewportChanged}
-  //       useFlyTo
-  //       gestureHandling={props.gestureHandling}
-  //       dragging={L.Browser.mobile}
-  //       style={mapStyle}
-  //       zoomControl={false}
-  //       zoom={MAP_STORE.mapZoom}
-  //       center={MAP_STORE.mapCenter}
-  //       {...mapOptions}
-  //       attributionControl={false}
-  //       whenCreated={map => {
-  //         updateMaps(map, false);
-  //       }}
-  //     >
-  //       <AttributionControl prefix={config.map.attribution} />
-  //       <ScaleControl imperial={false} position="bottomleft" />
-
-  //       {props.controls}
-  //       {tileLayers()}
-  //       {props.overlays}
-
-  //     </MapContainer>
-  //   ),
-  //   [],
-  // )
-
-  // const renderDisabledMap = mapOptions => {
-  //   return (
-  //     <MapContainer
-  //       onZoomEnd={_zoomend.bind(this)}
-  //       className="map-disabled"
-  //       gestureHandling={props.gestureHandling}
-  //       style={mapStyle}
-  //       zoomControl={false}
-  //       zoom={MAP_STORE.mapZoom}
-  //       center={MAP_STORE.mapCenter}
-  //       {...mapOptions}
-  //       attributionControl={false}
-  //     >
-  //       <Pane name="tooltips" />
-  //       <AttributionControl prefix={config.map.attribution} />
-  //       <MapConsumer>
-  //         {map => {
-  //           updateMaps(map, true);
-  //         }}
-  //       </MapConsumer>
-  //       {tileLayers()}
-  //     </MapContainer>
-  //   );
-  // };
-
-  // const renderLoadedMap = mapOptions => {
-  //   return (
-  //     <MapContainer
-  //       onZoomEnd={_zoomend.bind(this)}
-  //       onViewportChanged={props.onViewportChanged}
-  //       useFlyTo
-  //       gestureHandling={props.gestureHandling}
-  //       dragging={L.Browser.mobile}
-  //       style={mapStyle}
-  //       zoomControl={false}
-  //       zoom={MAP_STORE.mapZoom}
-  //       center={MAP_STORE.mapCenter}
-  //       {...mapOptions}
-  //       attributionControl={false}
-  //       whenCreated={map => {
-  //         updateMaps(map, false);
-  //       }}
-  //     >
-  //       <AttributionControl prefix={config.map.attribution} />
-  //       <ScaleControl imperial={false} position="bottomleft" />
-
-  //       {props.controls}
-  //       {tileLayers()}
-  //       {props.overlays}
-  //     </MapContainer>
-  //   );
-  // };
-
-  // connectLayers(map) {
-  //   //console.log("connectLayers", map);
-  //   if (map) {
-  //     mapRef = map;
-  //   }
-  // }
 
   //console.log("leaflet-map->render", props.overlays);
 
