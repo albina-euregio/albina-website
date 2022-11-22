@@ -10,11 +10,10 @@ export const warnlevelNumbers = Object.freeze({
   no_rating: 0 as WarnLevelNumber
 });
 
-export function getWarnlevelNumber(id: string): WarnLevelNumber {
-  if (warnlevelNumbers[id]) {
-    return warnlevelNumbers[id];
-  }
-  return 0;
+export function getWarnlevelNumber(
+  id: keyof typeof warnlevelNumbers
+): WarnLevelNumber {
+  return warnlevelNumbers[id] ?? 0;
 }
 
 export const WARNLEVEL_COLORS = Object.freeze([
