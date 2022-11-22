@@ -21,7 +21,8 @@ export class GetFilenamesService {
     this.baseUrl = baseUrl;
     const response = await this.getHTMLResponse().toPromise() as any[];
     const files = response.reverse();
-    const filteredFiles = files.filter(name => name.includes(city));
+    console.log(files);
+    const filteredFiles = files.filter(file => file.name.includes(city));
     return filteredFiles;
   }
 }
