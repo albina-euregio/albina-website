@@ -289,7 +289,6 @@ class BulletinStore {
    */
   activate(date: string) {
     if (this.bulletins[date]) {
-      this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
       this.settings.eawsCount =
