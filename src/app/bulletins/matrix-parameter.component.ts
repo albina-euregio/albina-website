@@ -6,7 +6,7 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { MapService } from "../providers/map-service/map.service";
 import * as Enums from "../enums/enums";
 import { BulletinModel } from "app/models/bulletin.model";
-import { Options, ChangeContext, PointerType } from '@angular-slider/ngx-slider';
+import type { Options, ChangeContext, PointerType } from '@angular-slider/ngx-slider';
 import { TranslateService } from "@ngx-translate/core";
 
 @Component({
