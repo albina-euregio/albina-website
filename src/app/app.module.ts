@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
 import { Observable, of } from "rxjs";
 
 import { AppComponent } from "./app.component";
