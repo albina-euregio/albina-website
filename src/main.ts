@@ -18,7 +18,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 function enableSentry() {
   Sentry.init({
     release: [pkg.name, pkg.version].join("@"),
-    dsn: "https://glet_31733ac62aeee70b77494f532cb4f898@gitlab.com/api/v4/error_tracking/collector/2700759",
+    dsn: "https://glet_31733ac62aeee70b77494f532cb4f898@observe.gitlab.com/errortracking/api/v1/projects/2700759",
     integrations: [
       new Integrations.BrowserTracing({
         routingInstrumentation: Sentry.routingInstrumentation,
