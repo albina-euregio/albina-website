@@ -317,7 +317,8 @@
       color: $anchor-font-color-hover;
     }
   }
-  img {
+  img,
+  svg {
     height: $picto-height;
     //max-width: none;//<- why?
     margin: 0;
@@ -330,14 +331,16 @@
   }
 
   &.avalanche-situation {
-    img {
+    img,
+    svg {
       height: $picto-height-plus;
       border: $border-width $border-style $border-color;
     }
   }
 
   &.problem-altitude {
-    img {
+    img,
+    svg {
       height: $picto-height-minus;
     }
     span {
