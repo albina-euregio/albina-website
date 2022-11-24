@@ -12,6 +12,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
+import { EawsDangerRatings, PbfLayer } from "../leaflet/eaws-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -54,43 +55,16 @@ const BulletinMap = props => {
   const getMapOverlays = () => {
     const overlays = [];
 
-    if (BULLETIN_STORE.eawsRegions) {
-      overlays.push(
-        <BulletinVectorLayer
-          key="eaws-regions"
-          name="eaws-regions"
-          problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.eawsRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
-        />
-      );
-    }
-
-    const { activeEawsBulletins } = BULLETIN_STORE;
-    if (BULLETIN_STORE.settings.eawsCount && activeEawsBulletins) {
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`eaws-bulletins-${activeEawsBulletins.name}`}
-          data={activeEawsBulletins}
-          pane="mapPane"
-          style={feature =>
-            props.ampm === "am"
-              ? feature.properties.amStyle
-              : props.ampm === "pm"
-              ? feature.properties.pmStyle
-              : feature.properties.style
-          }
-        />
-      );
-    }
-
     const b = BULLETIN_STORE.activeBulletinCollection;
     if (b) {
+      overlays.push(
+        <PbfLayer
+          key={`eaws-regions-${props.ampm}-${b.date}-${b.status}`}
+          pane="markerPane"
+        >
+          <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
+        </PbfLayer>
+      );
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332

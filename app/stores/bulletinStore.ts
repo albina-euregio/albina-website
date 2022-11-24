@@ -22,7 +22,7 @@ import {
 } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
-const enableEawsRegions = true;
+const enableEawsRegions = false;
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
