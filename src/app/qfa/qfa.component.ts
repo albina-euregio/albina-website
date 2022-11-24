@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
-import { GetFilenamesService } from "../providers/qfa-service/get-filenames.service";
+import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -34,11 +34,12 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     }
   } as types.markers;
   selectedFiles = [] as string[];
+  parsedFiles = [];
   baseUrl = "https://static.avalanche.report/zamg_qfa/";
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
-    public getFilenamesService: GetFilenamesService,
+    public filenamesService: GetFilenamesService,
     public mapService: QfaMapService,
     private http: HttpClient
   ) {}
@@ -51,7 +52,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  getCityName(ll: types.coordinates) {
+  private getCityName(ll: types.coordinates) {
     return Object.keys(this.markers).find(key => this.markers[key] === ll);
   }
 
@@ -75,7 +76,10 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.qfaPopupVisible = true;
     this.displaySelectedQfa = false;
     const city = this.getCityName(ll);
-    const filenames = await this.getFilenamesService.getFilenames(this.baseUrl, city);
+    const filenames = await this.filenamesService.getFilenames(this.baseUrl, city);
+    for(const file of filenames) {
+      this.parsedFiles.push(this.filenamesService.parseFilename(file.name));
+    }
     this.selectedFiles = filenames;
   }
 

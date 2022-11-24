@@ -63,9 +63,11 @@
       </table>
     </div>
   </div>
+
+  <!-- List of runs -->
   <div *ngIf="!displaySelectedQfa">
-    <div *ngFor="let file of selectedFiles" (click)="showRun(file.name)" class="file-wrapper">
-      <span>{{file.name}}</span>
+    <div *ngFor="let file of parsedFiles" (click)="showRun(file.filename)" class="file-wrapper">
+      <span>{{file.date}} {{file.hours}}:{{file.minutes}}<br>Tage: {{file.startDay}} - {{file.endDay}}</span>
     </div>
   </div>
 </p-dialog>
