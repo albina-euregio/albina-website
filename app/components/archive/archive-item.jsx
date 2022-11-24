@@ -1,19 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
 
-class ArchiveItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { fd: false };
-  }
+function ArchiveItem(props) {
+  const intl = useIntl();
 
-  getLanguage(dateString) {
+  function getLanguage(dateString) {
     var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
@@ -30,7 +27,7 @@ class ArchiveItem extends React.Component {
     }
   }
 
-  showMap(dateString) {
+  function showMap(dateString) {
     var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
@@ -47,93 +44,85 @@ class ArchiveItem extends React.Component {
     }
   }
 
-  render() {
-    const dateString = dateToISODateString(this.props.date);
-    const lang = this.getLanguage(dateString);
+  const dateString = dateToISODateString(props.date);
+  const lang = getLanguage(dateString);
 
-    return (
-      <tr>
-        <td>
-          <strong>
-            {this.props.intl.formatDate(this.props.date, LONG_DATE_FORMAT)}
-          </strong>
-        </td>
-        <td>
-          <ul className="list-inline list-download">
-            <li>
-              <Tooltip
-                label={this.props.intl.formatMessage({
-                  id: "archive:download-pdf:hover"
-                })}
-              >
-                <a
-                  href={Util.template(config.apis.bulletin.pdf, {
-                    date: dateString,
-                    region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                    lang,
-                    bw: ""
-                  })}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="small secondary pure-button tooltip"
-                >
-                  <FormattedMessage id="archive:download-pdf" />
-                </a>
-              </Tooltip>
-            </li>
-            <li>
-              <Tooltip
-                label={this.props.intl.formatMessage({
-                  id: "archive:download-xml:hover"
-                })}
-              >
-                <a
-                  href={Util.template(config.apis.bulletin.xml, {
-                    date: dateString,
-                    region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                    lang
-                  })}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="small secondary pure-button tooltip"
-                >
-                  <FormattedMessage id="archive:download-xml" />
-                </a>
-              </Tooltip>
-            </li>
-          </ul>
-        </td>
-        <td>
-          {this.showMap(dateString) && (
+  return (
+    <tr>
+      <td>
+        <strong>{intl.formatDate(props.date, LONG_DATE_FORMAT)}</strong>
+      </td>
+      <td>
+        <ul className="list-inline list-download">
+          <li>
             <Tooltip
-              label={this.props.intl.formatMessage({
-                id: "archive:show-forecast:hover"
+              label={intl.formatMessage({
+                id: "archive:download-pdf:hover"
               })}
             >
-              <Link
-                to={"/bulletin/" + dateString}
-                className="map-preview img tooltip"
+              <a
+                href={Util.template(config.apis.bulletin.pdf, {
+                  date: dateString,
+                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+                  lang,
+                  bw: ""
+                })}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="small secondary pure-button tooltip"
               >
-                <ArchiveAwmapStatic
-                  date={dateString}
-                  region={
-                    this.state.fd
-                      ? dateString < "2022-05-06"
-                        ? "fd_albina_thumbnail"
-                        : "fd_EUREGIO_thumbnail"
-                      : dateString < "2022-05-06"
-                      ? "am_albina_thumbnail"
-                      : "am_EUREGIO_thumbnail"
-                  }
-                  onError={() => this.setState({ fd: true })}
-                />
-              </Link>
+                <FormattedMessage id="archive:download-pdf" />
+              </a>
             </Tooltip>
-          )}
-        </td>
-      </tr>
-    );
-  }
+          </li>
+          <li>
+            <Tooltip
+              label={intl.formatMessage({
+                id: "archive:download-xml:hover"
+              })}
+            >
+              <a
+                href={Util.template(config.apis.bulletin.xml, {
+                  date: dateString,
+                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+                  lang
+                })}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="small secondary pure-button tooltip"
+              >
+                <FormattedMessage id="archive:download-xml" />
+              </a>
+            </Tooltip>
+          </li>
+        </ul>
+      </td>
+      <td>
+        {showMap(dateString) && (
+          <Tooltip
+            label={intl.formatMessage({
+              id: "archive:show-forecast:hover"
+            })}
+          >
+            <Link
+              to={"/bulletin/" + dateString}
+              className={"map-preview img tooltip"}
+            >
+              <ArchiveAwmapStatic
+                date={dateString}
+                imgFormat=".jpg"
+                region={
+                  dateString < "2022-05-06"
+                    ? "fd_albina_thumbnail"
+                    : "fd_EUREGIO_thumbnail"
+                }
+              />
+            </Link>
+          </Tooltip>
+        )}
+      </td>
+    </tr>
+  );
 }
 
-export default injectIntl(ArchiveItem);
+export default ArchiveItem;

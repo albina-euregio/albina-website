@@ -3,13 +3,18 @@ import React from "react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
 
-function BulletinAWMapStatic({ date, region, onError, publicationTime }) {
+function BulletinAWMapStatic({
+  date,
+  region,
+  onError,
+  publicationTime,
+  imgFormat
+}) {
   const publicationDirectory =
     publicationTime && date > "2019-05-06"
       ? getPublicationTimeString(parseDateSeconds(publicationTime))
       : "";
-  const imgFormat =
-    window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
+  imgFormat ||= window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
   const file =
     publicationTime && date > "2022-05-06" ? "EUREGIO_" + region : region;
   const url = Util.template(config.apis.bulletin.map, {
