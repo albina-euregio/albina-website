@@ -6,6 +6,7 @@ import { WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
+import { regionCodes } from "../../util/regions";
 
 export const PbfLayer = createLayerComponent((props, ctx) => {
   const instance = L.vectorGrid.protobuf(
@@ -18,11 +19,10 @@ export const PbfLayer = createLayerComponent((props, ctx) => {
           fill: false
         }
       },
-      filter(f) {
-        return filterFeature(f, "2022-12-01");
-      },
       getFeatureId(f) {
-        return props.ampm
+        return !filterFeature(f, "2022-12-01")
+          ? undefined
+          : props.ampm
           ? `${f.properties.id}:${f.properties.elevation}:${props.ampm}`
           : `${f.properties.id}:${f.properties.elevation}`;
       }
@@ -47,6 +47,7 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
   }, [setMaxDangerRatings]);
   useEffect(() => {
     Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
+      if (regionCodes.some(prefix => id.startsWith(prefix))) return;
       (ctx.vectorGrid as VectorGrid).setFeatureStyle(id, {
         stroke: false,
         fill: true,
