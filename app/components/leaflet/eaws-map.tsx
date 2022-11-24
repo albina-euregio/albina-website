@@ -7,7 +7,7 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 
-export const PbfLayer = createLayerComponent(({}, ctx) => {
+export const PbfLayer = createLayerComponent((props, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
@@ -22,7 +22,9 @@ export const PbfLayer = createLayerComponent(({}, ctx) => {
         return filterFeature(f, "2022-12-01");
       },
       getFeatureId(f) {
-        return `${f.properties.id}:${f.properties.elevation}`;
+        return props.ampm
+          ? `${f.properties.id}:${f.properties.elevation}:${props.ampm}`
+          : `${f.properties.id}:${f.properties.elevation}`;
       }
     }
   );
@@ -49,8 +51,8 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
         stroke: false,
         fill: true,
         fillColor: WARNLEVEL_COLORS[warnlevel],
-        fillOpacity: 0.5
-        // className: "mix-blend-mode-multiply"
+        fillOpacity: 0.5,
+        className: "mix-blend-mode-multiply"
       });
     });
   }, [maxDangerRatings]);

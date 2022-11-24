@@ -60,7 +60,7 @@ const BulletinMap = props => {
       overlays.push(
         <PbfLayer
           key={`eaws-regions-${props.ampm}-${b.date}-${b.status}`}
-          pane="markerPane"
+          ampm={props.ampm}
         >
           <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
         </PbfLayer>
