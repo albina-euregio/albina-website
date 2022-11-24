@@ -1,7 +1,7 @@
 <header class="app-header navbar" [style]="getStyle()">
-  <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button> 
+  <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
   <a class="navbar-brand" href="#" [style]="getStyle()"></a>
-  
+
   <ul class="nav navbar-nav hidden-md-down">
 <!--
     <li class="nav-item">
@@ -13,6 +13,9 @@
     </li>
     <li *ngIf="settingsService.getShowObservations() && authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
+    </li>
+    <li *ngIf="authenticationService.isEuregio() && authenticationService.isEuregio()" class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/qfa']">{{ "sidebar.qfa" | translate }}</a>
     </li>
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
@@ -28,7 +31,7 @@
     </li>
   </ul>
 
-  <ul class="nav navbar-nav ml-auto">
+  <ul class="nav navbar-nav ml-auto">/
 <!--
     <li class="nav-item hidden-md-down">
       <a class="nav-link" href="#"><i class="fa fa-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
@@ -62,11 +65,11 @@
         </div>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.education" | translate }}</strong></div>
-        
+
         <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/education']"><i class="fa fa-graduation-cap"></i> {{ "menu.education" | translate }}</a>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.settings" | translate }}</strong></div>
-        
+
         <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/settings']"><i class="fa fa-gear"></i> {{ "menu.settings" | translate }}</a>
         <a *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin']"><i class="fa fa-user-secret"></i>{{ "menu.admin" | translate }}</a>
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
@@ -76,7 +79,7 @@
       <a *ngIf="authenticationService.getActiveRegionId() && authenticationService.getActiveRegionId() !== undefined" class="nav-link"><i class="fa fa-comments aside-menu-toggler"></i><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegionId()) }}</span></a>
     </li>
   </ul>
-  
+
 </header>
 
 <div class="app-body">
