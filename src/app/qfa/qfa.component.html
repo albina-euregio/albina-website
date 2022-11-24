@@ -11,6 +11,7 @@
         {{date}}
       </h5>
     </p-header>
+    <div class="button-wrapper">
     <div (click)="displaySelectedQfa = false" class="back-button">
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="back-icon">
@@ -18,6 +19,15 @@
         </svg>
       </span>
       <span>Zurück</span>
+    </div>
+    <div>
+      <span (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
+        Tag 03 - 05
+      </span>
+      <span (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
+        Tag 06 - 08
+      </span>
+    </div>
     </div>
     <div id="qfa_div">
       <table *ngIf="selectedQfa.parameters" class="table table-sm qfatable">
@@ -66,8 +76,8 @@
 
   <!-- List of runs -->
   <div *ngIf="!displaySelectedQfa">
-    <div *ngFor="let file of parsedFiles" (click)="showRun(file.filename)" class="file-wrapper">
-      <span>{{file.date}} {{file.hours}}:{{file.minutes}}<br>Tage: {{file.startDay}} - {{file.endDay}}</span>
+    <div *ngFor="let file of selectedFiles" (click)="showRun(file)" class="file-wrapper">
+      <span>{{file.date}} {{file.hours}}:{{file.minutes}}<br> Tage: {{file.startDay}} - {{file.endDay}}</span>
     </div>
   </div>
 </p-dialog>

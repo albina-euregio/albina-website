@@ -33,8 +33,9 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
       lat: 46.83
     }
   } as types.markers;
-  selectedFiles = [] as string[];
   parsedFiles = [];
+  selectedFile = {};
+  selectedFiles = [];
   baseUrl = "https://static.avalanche.report/zamg_qfa/";
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
@@ -80,7 +81,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     for(const file of filenames) {
       this.parsedFiles.push(this.filenamesService.parseFilename(file.name));
     }
-    this.selectedFiles = filenames;
+    this.selectedFiles = this.parsedFiles.filter(el => el.startDay === "00");
   }
 
   private getCellClass(param: string, value: string): string {
@@ -142,8 +143,9 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   }
 
   private async showRun(run) {
+    this.selectedFile = run;
     const tempQfa = new QfaFile(this.http);
-    await tempQfa.loadFromURL(run);
+    await tempQfa.loadFromURL(run.filename);
     this.selectedQfa = tempQfa.data;
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
