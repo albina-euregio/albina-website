@@ -4,6 +4,16 @@
 
 <p-dialog #qfaDialog (onShow)="qfaDialog.maximize()" [(visible)]="qfaPopupVisible"
   [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
+  <!-- List of runs -->
+  <div *ngIf="!displaySelectedQfa">
+    <h5>
+      {{filenamesService.getCityName(selectedFiles)}}
+    </h5>
+    <div *ngFor="let file of selectedFiles" (click)="showRun(file)" class="file-wrapper">
+      <span>{{file.date}} {{file.hours}}:{{file.minutes}}</span>
+    </div>
+  </div>
+
   <div *ngIf="displaySelectedQfa">
     <p-header>
       <h5>
@@ -12,23 +22,36 @@
       </h5>
     </p-header>
     <div class="button-wrapper">
-    <div (click)="displaySelectedQfa = false" class="back-button">
-      <span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="back-icon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-        </svg>
-      </span>
-      <span>Zurück</span>
+      <div (click)="displaySelectedQfa = false" class="back-button">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="back-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+        </span>
+        <span>Zurück</span>
+      </div>
+      <div class="day-button-wrapper">
+        <span
+          class="day-button"
+          [ngClass]="selectedFile.startDay === '00' ? 'active-day' :''"
+          (click)="showRun(filenamesService.changeDay(selectedFile, '00', '02'))">
+          Tag 0-2
+        </span>
+        <span
+          class="day-button"
+          [ngClass]="selectedFile.startDay === '03' ? 'active-day' :''"
+          (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
+          Tag 3-5
+        </span>
+        <span
+          class="day-button"
+          [ngClass]="selectedFile.startDay === '06' ? 'active-day' :''"
+          (click)="showRun(filenamesService.changeDay(selectedFile, '06', '08'))">
+          Tag 6-8
+        </span>
+      </div>
     </div>
-    <div>
-      <span (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
-        Tag 03 - 05
-      </span>
-      <span (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
-        Tag 06 - 08
-      </span>
-    </div>
-    </div>
+
     <div id="qfa_div">
       <table *ngIf="selectedQfa.parameters" class="table table-sm qfatable">
         <tr>
@@ -71,13 +94,6 @@
           </td>
         </tr>
       </table>
-    </div>
-  </div>
-
-  <!-- List of runs -->
-  <div *ngIf="!displaySelectedQfa">
-    <div *ngFor="let file of selectedFiles" (click)="showRun(file)" class="file-wrapper">
-      <span>{{file.date}} {{file.hours}}:{{file.minutes}}<br> Tage: {{file.startDay}} - {{file.endDay}}</span>
     </div>
   </div>
 </p-dialog>

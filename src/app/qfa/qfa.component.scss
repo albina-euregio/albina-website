@@ -104,6 +104,39 @@ $border-color: darkgrey;
 
 }
 
-.file-wrapper:nth-child(odd) {
+.file-wrapper {
   background-color: #cfd8dc;
+  margin-bottom: 5px;
+}
+
+.day-button {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #cfd8dc;
+  border: 1px solid black;
+}
+
+.day-button:hover {
+  background-color: #5090ee;
+}
+
+.day-button:first-of-type {
+  border-radius: 5px 0 0 5px;
+  border-right: 0px;
+}
+
+.day-button:last-of-type{
+  border-radius: 0 5px 5px 0px;
+  border-left: 0px;
+}
+
+.active-day, .active-day:hover {
+  background-color: #60AFFF;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:baseline;
 }
