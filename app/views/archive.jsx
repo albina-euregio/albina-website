@@ -10,11 +10,17 @@ import HTMLHeader from "../components/organisms/html-header";
 import FilterBar from "../components/organisms/filter-bar.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
+import { useSearchParams } from "react-router-dom";
 
 function Archive() {
   const intl = useIntl();
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [month, setMonth] = useState(
+    +(searchParams.get("month") || new Date().getMonth() + 1)
+  );
+  const [year, setYear] = useState(
+    +searchParams.get("year") || new Date().getFullYear()
+  );
   const [bulletinStatus, setBulletinStatus] = useState({});
   const [dates, setDates] = useState([]);
 
@@ -32,7 +38,8 @@ function Archive() {
       );
     }
     setDates(dates);
-  }, [month, year, setDates]);
+    setSearchParams({ year, month }, { replace: true });
+  }, [month, year, setDates, setSearchParams]);
 
   return (
     <>
