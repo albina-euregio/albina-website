@@ -8,21 +8,24 @@ import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 
 export const PbfLayer = createLayerComponent(({}, ctx) => {
-  const instance = L.vectorGrid.protobuf("/pbf/{z}/{x}/{y}.pbf", {
-    maxNativeZoom: 9,
-    vectorTileLayerStyles: {
-      eaws: {
-        stroke: false,
-        fill: false
+  const instance = L.vectorGrid.protobuf(
+    "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+    {
+      maxNativeZoom: 9,
+      vectorTileLayerStyles: {
+        eaws: {
+          stroke: false,
+          fill: false
+        }
+      },
+      filter(f) {
+        return filterFeature(f, "2022-12-01");
+      },
+      getFeatureId(f) {
+        return `${f.properties.id}:${f.properties.elevation}`;
       }
-    },
-    filter(f) {
-      return filterFeature(f, "2022-12-01");
-    },
-    getFeatureId(f) {
-      return `${f.properties.id}:${f.properties.elevation}`;
     }
-  });
+  );
   return {
     instance,
     context: { ...ctx, vectorGrid: instance }
