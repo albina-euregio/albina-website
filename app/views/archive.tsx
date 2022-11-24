@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
-import { BulletinStore } from "../stores/bulletinStore";
+import { BulletinStore, Status } from "../stores/bulletinStore";
 import ArchiveItem from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
@@ -21,8 +21,10 @@ function Archive() {
   const [year, setYear] = useState(
     +searchParams.get("year") || new Date().getFullYear()
   );
-  const [bulletinStatus, setBulletinStatus] = useState({});
-  const [dates, setDates] = useState([]);
+  const [bulletinStatus, setBulletinStatus] = useState(
+    {} as Record<number, Status>
+  );
+  const [dates, setDates] = useState([] as Date[]);
 
   useEffect(() => {
     const dates = [];
@@ -34,11 +36,14 @@ function Archive() {
     ) {
       dates.push(date);
       BulletinStore.getBulletinStatus(dateToISODateString(date)).then(status =>
-        setBulletinStatus(s => ({ ...s, [date]: status }))
+        setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
       );
     }
     setDates(dates);
-    setSearchParams({ year, month }, { replace: true });
+    setSearchParams(
+      { year: String(year), month: String(month) },
+      { replace: true }
+    );
   }, [month, year, setDates, setSearchParams]);
 
   return (
@@ -95,7 +100,7 @@ function Archive() {
               <tbody>
                 {dates.map(
                   d =>
-                    bulletinStatus[d] === "ok" && (
+                    bulletinStatus[d.getTime()] === "ok" && (
                       <ArchiveItem key={d.getTime()} date={d} />
                     )
                 )}

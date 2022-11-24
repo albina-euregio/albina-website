@@ -7,10 +7,10 @@ import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
 
-function ArchiveItem(props) {
+function ArchiveItem({ date }: { date: Date }) {
   const intl = useIntl();
 
-  function getLanguage(dateString) {
+  function getLanguage(dateString: string) {
     var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
@@ -27,7 +27,7 @@ function ArchiveItem(props) {
     }
   }
 
-  function showMap(dateString) {
+  function showMap(dateString: string) {
     var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
@@ -44,13 +44,13 @@ function ArchiveItem(props) {
     }
   }
 
-  const dateString = dateToISODateString(props.date);
+  const dateString = dateToISODateString(date);
   const lang = getLanguage(dateString);
 
   return (
     <tr>
       <td>
-        <strong>{intl.formatDate(props.date, LONG_DATE_FORMAT)}</strong>
+        <strong>{intl.formatDate(date, LONG_DATE_FORMAT)}</strong>
       </td>
       <td>
         <ul className="list-inline list-download">
