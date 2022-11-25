@@ -28,26 +28,26 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
           </svg>
         </span>
-        <span>Zurück</span>
+        <span>{{"qfa.back" | translate}}</span>
       </div>
       <div class="day-button-wrapper">
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '00' ? 'active-day' :''"
           (click)="showRun(filenamesService.changeDay(selectedFile, '00', '02'))">
-          Tag 0-2
+          {{"qfa.day" | translate}} 0-2
         </span>
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '03' ? 'active-day' :''"
           (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
-          Tag 3-5
+          {{"qfa.day" | translate}} 3-5
         </span>
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '06' ? 'active-day' :''"
           (click)="showRun(filenamesService.changeDay(selectedFile, '06', '08'))">
-          Tag 6-8
+          {{"qfa.day" | translate}} 6-8
         </span>
       </div>
     </div>
@@ -55,9 +55,7 @@
     <div id="qfa_div">
       <table *ngIf="selectedQfa.parameters" class="table table-sm qfatable">
         <tr>
-          <th>
-            Tag
-          </th>
+          <th>{{"qfa.day" | translate}}</th>
           <th *ngFor="let date of dates" class="text-center">
             <span>
               {{date}}
@@ -65,7 +63,7 @@
           </th>
         </tr>
         <tr>
-          <th>Zeit</th>
+          <th>{{"qfa.time" | translate}}</th>
           <th *ngFor="let _ of dates" class="table-entry">
             <div>
               <span>00</span>

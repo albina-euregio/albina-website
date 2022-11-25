@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
 import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
-import { OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
+import { AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
@@ -42,7 +42,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   constructor(
     public filenamesService: GetFilenamesService,
     public mapService: QfaMapService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   async ngAfterViewInit() {

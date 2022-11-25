@@ -101,7 +101,7 @@
           <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/observations']"><i class="fa fa-eye"></i> {{ "sidebar.observations" | translate }}</a>
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/qfa']"><i class="fa fa-line-chart"></i> {{ "sidebar.qfa" | translate }}</a>
+          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/qfa']"><i class="fa fa-line-chart"></i> {{ "sidebar.qfa" | translate }}</a>
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/zamg']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}</a>
