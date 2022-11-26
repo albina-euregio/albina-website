@@ -431,9 +431,22 @@ class BulletinStore {
   }
 
   get microRegions(): GeoJSON.Feature[] {
-    return this._microRegions.features.filter(f =>
-      filterFeature(f, this.settings.date)
-    );
+    const states = [
+      "selected",
+      "highlighted",
+      "dehighlighted",
+      "dimmed",
+      "default"
+    ];
+    return this._microRegions.features
+      .filter(f => filterFeature(f, this.settings.date))
+      .map(f => this._augmentFeature(f))
+      .sort((r1, r2) =>
+        states.indexOf(r1.properties.state) <
+        states.indexOf(r2.properties.state)
+          ? 1
+          : -1
+      );
   }
 
   get microRegionsElevation(): GeoJSON.Feature[] {
@@ -458,34 +471,6 @@ class BulletinStore {
       );
     }
     return f;
-  }
-
-  // assign states to regions
-  getVectorRegions(ampm: AmPm = null): GeoJSON.Feature[] {
-    const collection = this.activeBulletinCollection;
-
-    if (collection && collection.length > 0) {
-      const regions: GeoJSON.Feature[] = this.microRegions.map(f =>
-        this._augmentFeature(f, ampm)
-      );
-
-      const states = [
-        "selected",
-        "highlighted",
-        "dehighlighted",
-        "dimmed",
-        "default"
-      ];
-      regions.sort((r1, r2) => {
-        return states.indexOf(r1.properties.state) <
-          states.indexOf(r2.properties.state)
-          ? 1
-          : -1;
-      });
-      return regions;
-    } else {
-      return [];
-    }
   }
 
   static _getBulletinUrl(date: string): string {

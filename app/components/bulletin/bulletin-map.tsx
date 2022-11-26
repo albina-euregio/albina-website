@@ -30,9 +30,8 @@ const BulletinMap = props => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    //console.log("BulletinMap->useEffect[props.regions] xx03");
     scroll_init();
-  }, [props.regions]);
+  }, []);
 
   const handleMapInit = map => {
     setMap(map);
@@ -88,7 +87,7 @@ const BulletinMap = props => {
       );
     }
 
-    if (props.regions) {
+    if (BULLETIN_STORE.microRegions) {
       //console.log("bulletin-map push Vector xx01", "eaws-regions");
       overlays.push(
         <BulletinVectorLayer
@@ -97,7 +96,7 @@ const BulletinMap = props => {
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
-          regions={props.regions}
+          regions={BULLETIN_STORE.microRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={props.handleSelectRegion}
           handleCenterToRegion={center => map.panTo(center)}
@@ -223,7 +222,7 @@ const BulletinMap = props => {
         }
       >
         <LeafletMap
-          loaded={props.regions}
+          loaded={BULLETIN_STORE.microRegions}
           onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}

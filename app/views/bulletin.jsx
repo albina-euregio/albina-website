@@ -272,7 +272,6 @@ const Bulletin = props => {
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
                 highlightedRegion={highlightedRegion}
-                regions={BULLETIN_STORE.getVectorRegions(ampm)}
                 onMapInit={handleMapInit}
                 ampm={ampm}
               />
@@ -285,7 +284,6 @@ const Bulletin = props => {
             handleSelectRegion={handleSelectRegion}
             date={params.date}
             highlightedRegion={highlightedRegion}
-            regions={BULLETIN_STORE.getVectorRegions()}
           />
         )}
         <BulletinLegend handleSelectRegion={handleSelectRegion} />
