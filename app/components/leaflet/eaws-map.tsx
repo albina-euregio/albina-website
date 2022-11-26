@@ -1,7 +1,11 @@
 import type { VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
-import { WARNLEVEL_COLORS } from "../../util/warn-levels";
+import {
+  WarnLevelNumber,
+  WARNLEVEL_COLORS,
+  WARNLEVEL_OPACITY
+} from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
@@ -43,26 +47,40 @@ export const PbfLayer = createLayerComponent((props, ctx) => {
 
 export const EawsDangerRatings = ({ date }: { date: string }) => {
   const [maxDangerRatings, setMaxDangerRatings] = useState(
-    {} as Record<string, number>
+    {} as MaxDangerRatings
   );
-  const ctx = useLeafletContext();
   useEffect(() => {
     fetchJSON(
       `https://static.avalanche.report/eaws_bulletins/${date}/${date}.ratings.json`,
       {}
     ).then(json => setMaxDangerRatings(json.maxDangerRatings));
   }, [setMaxDangerRatings]);
+  return (
+    <DangerRatings maxDangerRatings={maxDangerRatings} fillOpacity={0.5} />
+  );
+};
+
+type Region = string;
+type MaxDangerRatings = Record<Region, WarnLevelNumber>;
+
+type DangerRatingsProps = {
+  maxDangerRatings: MaxDangerRatings;
+  fillOpacity?: number | undefined;
+};
+
+export const DangerRatings = ({
+  maxDangerRatings,
+  fillOpacity
+}: DangerRatingsProps) => {
+  const ctx = useLeafletContext();
   useEffect(() => {
-    Object.keys(ctx.vectorGrid._overriddenStyles).forEach(id =>
-      ctx.vectorGrid.resetFeatureStyle(id)
-    );
     Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
       if (regionCodes.some(prefix => id.startsWith(prefix))) return;
       ctx.vectorGrid.setFeatureStyle(id, {
         stroke: false,
         fill: true,
         fillColor: WARNLEVEL_COLORS[warnlevel],
-        fillOpacity: 0.5,
+        fillOpacity: fillOpacity || WARNLEVEL_OPACITY[warnlevel],
         className: "mix-blend-mode-multiply"
       });
     });
