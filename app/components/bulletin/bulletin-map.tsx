@@ -70,18 +70,16 @@ const BulletinMap = props => {
       );
     }
     const b = BULLETIN_STORE.activeBulletinCollection;
-    if (b) {
-      overlays.push(
-        <PbfLayer
-          key={`eaws-regions-${props.ampm}-${b.date}-${b.status}`}
-          date={b.date}
-          ampm={props.ampm}
-        >
-          <DangerRatings maxDangerRatings={b.maxDangerRatings} />
-          <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
-        </PbfLayer>
-      );
-    }
+    overlays.push(
+      <PbfLayer
+        key={`eaws-regions-${props.ampm}-${BULLETIN_STORE.settings.date}-${BULLETIN_STORE.settings.status}`}
+        date={BULLETIN_STORE.settings.date}
+        ampm={props.ampm}
+      >
+        {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
+        <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
+      </PbfLayer>
+    );
 
     if (BULLETIN_STORE.microRegions) {
       //console.log("bulletin-map push Vector xx01", "eaws-regions");
