@@ -5,7 +5,6 @@ import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
 
 import ModalDialog from "./modal-dialog";
-import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
 import WeatherStationDiagrams from "./dialogs/weather-station-diagrams";
 import DownloadPdfDialog from "./dialogs/download-pdf-dialog";
@@ -106,9 +105,6 @@ const Page = props => {
       </ModalDialog>
       <ModalDialog id="downloadPdfDialog">
         <DownloadPdfDialog />
-      </ModalDialog>
-      <ModalDialog id="followDialog">
-        <FollowDialog />
       </ModalDialog>
       <ModalDialog id="subscribeEmailDialog">
         <SubscribeEmailDialog />

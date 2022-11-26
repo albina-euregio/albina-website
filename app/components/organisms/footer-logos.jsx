@@ -1,6 +1,7 @@
 import React from "react";
 import { injectIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
+import SmFollow from "./sm-follow";
 
 class FooterLogos extends React.Component {
   render() {
@@ -14,14 +15,20 @@ class FooterLogos extends React.Component {
           {icons.map((icon, i) => (
             <li key={i}>
               <Tooltip label={icon.title}>
-                <a
-                  href={icon.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="avoid-external-icon"
-                >
-                  <img alt={icon.title} src={imgRoot + icon.img + imgFormat} />
-                </a>
+                <div>
+                  <a
+                    href={icon.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="avoid-external-icon"
+                  >
+                    <img
+                      alt={icon.title}
+                      src={imgRoot + icon.img + imgFormat}
+                    />
+                  </a>
+                  <div>{icon.region && <SmFollow region={icon.region} />}</div>
+                </div>
               </Tooltip>
             </li>
           ))}

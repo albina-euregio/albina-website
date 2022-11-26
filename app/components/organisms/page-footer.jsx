@@ -2,7 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "../menu";
-import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
 import tilty from "vanilla-tilt";
@@ -126,8 +125,6 @@ class PageFooter extends React.Component {
           </div>
         </section>
         {!config.footer.iconsHidden && <FooterLogos />}
-
-        <SmFollow />
       </div>
     );
   }
