@@ -23,6 +23,7 @@ export const PbfLayer = createLayerComponent((props, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
+      pane: "overlayPane",
       maxNativeZoom: 9,
       vectorTileLayerStyles: {
         eaws: {
@@ -80,8 +81,7 @@ export const DangerRatings = ({
         stroke: false,
         fill: true,
         fillColor: WARNLEVEL_COLORS[warnlevel],
-        fillOpacity: fillOpacity || WARNLEVEL_OPACITY[warnlevel],
-        className: "mix-blend-mode-multiply"
+        fillOpacity: fillOpacity || WARNLEVEL_OPACITY[warnlevel]
       });
     });
   }, [maxDangerRatings]);
