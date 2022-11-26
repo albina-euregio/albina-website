@@ -13,12 +13,16 @@ import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
-import InfoBar from "../components/organisms/info-bar";
+import ControlBar from "../components/organisms/control-bar";
+import HTMLPageLoadingScreen, {
+  useSlowLoading
+} from "../components/organisms/html-page-loading-screen";
 import { useIntl } from "react-intl";
 
 const BlogOverview = () => {
   //console.log("BlogOverview const", BLOG_STORE);
   const [store] = useState(BLOG_STORE);
+  const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,28 +45,6 @@ const BlogOverview = () => {
       ({blog.lang})
     </a>
   ]);
-
-  const infoMessageLevels = {
-    init: {
-      message: "",
-      iconOn: true
-    },
-    loading: {
-      message: intl.formatMessage(
-        { id: "blog:overview:info-loading-data-slow" },
-        { a: () => standaloneLinks }
-      ),
-      iconOn: true,
-      delay: 0
-    },
-    noData: {
-      message: intl.formatMessage(
-        { id: "blog:overview:info-no-data" },
-        { a: () => standaloneLinks }
-      )
-    },
-    ok: { message: "", keep: false }
-  };
 
   useEffect(() => {
     if (!didMountRef.current) {
@@ -144,17 +126,11 @@ const BlogOverview = () => {
   };
 
   const classChanged = "selectric-changed";
-  let newLevel = "";
-  if (store) {
-    let newLevel = store.loading ? "loading" : "ok";
-    if (newLevel === "ok" && store.postsList.length == 0) newLevel = "noData";
-  }
-
-  //console.log("render", store, newLevel);
 
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "blog:title" })} />
+      <HTMLPageLoadingScreen loading={store?.loading} />
       <PageHeadline
         title={intl.formatMessage({ id: "blog:headline" })}
         marginal={headerText}
@@ -246,7 +222,15 @@ const BlogOverview = () => {
           </div>
         )}
       </section>
-      <InfoBar level={newLevel} levels={infoMessageLevels} />
+      {store.loading && slowLoading && (
+        <ControlBar
+          addClass="fade-in"
+          message={intl.formatMessage(
+            { id: "blog:overview:info-loading-data-slow" },
+            { a: () => standaloneLinks }
+          )}
+        />
+      )}
       <section className="section-padding-height section-blog-posts">
         <div className="section-centered">
           <BlogPostsList posts={store.postsList} loading={store.loading} />

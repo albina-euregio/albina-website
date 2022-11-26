@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
 import { MAP_STORE } from "../stores/mapStore";
 
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
@@ -14,7 +14,11 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, LONG_DATE_FORMAT } from "../util/date.js";
+import {
+  parseDate,
+  LONG_DATE_FORMAT,
+  dateToISODateString
+} from "../util/date.js";
 //import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
@@ -22,11 +26,18 @@ import {
   useParams,
   useNavigate,
   useLocation,
-  useSearchParams
+  useSearchParams,
+  Link
 } from "react-router-dom";
 
 import "leaflet.sync";
 import { Util } from "leaflet";
+import { Tooltip } from "../components/tooltips/tooltip";
+import ControlBar from "../components/organisms/control-bar";
+import { APP_STORE } from "../appStore";
+import HTMLPageLoadingScreen, {
+  useSlowLoading
+} from "../components/organisms/html-page-loading-screen";
 //import { scroll_init } from "../js/scroll";
 
 const Bulletin = props => {
@@ -38,6 +49,7 @@ const Bulletin = props => {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [title] = useState("");
+  const [slowLoading, setLoadingStart] = useSlowLoading();
   // const [sharable, setSharable] = useState(false);
   const [highlightedRegion] = useState(null);
   BULLETIN_STORE.init();
@@ -115,6 +127,7 @@ const Bulletin = props => {
     }
 
     try {
+      setLoadingStart(Date.now());
       await BULLETIN_STORE.load(startDate);
     } finally {
       await BULLETIN_STORE.loadEawss(startDate);
@@ -203,10 +216,54 @@ const Bulletin = props => {
         })
       : "";
 
+  const simple = () =>
+    Util.template(window.config.apis.bulletin.simple, {
+      date: BULLETIN_STORE.settings.date
+        ? dateToISODateString(parseDate(BULLETIN_STORE.settings.date))
+        : "latest",
+      lang: APP_STORE.language
+    });
+
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
+      <HTMLPageLoadingScreen
+        loading={BULLETIN_STORE.settings.status === "pending"}
+      />
       <BulletinHeader title={title} />
+
+      {BULLETIN_STORE.settings.status === "empty" && (
+        <ControlBar
+          addClass="fade-in"
+          message={
+            <>
+              <p>
+                <FormattedMessage id="bulletin:header:info-no-data" />
+              </p>
+              <p>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: "bulletin:map:blog:button:title"
+                  })}
+                >
+                  <Link to="/blog" className="secondary pure-button">
+                    {intl.formatMessage({ id: "blog:title" })}
+                  </Link>
+                </Tooltip>
+              </p>
+            </>
+          }
+        />
+      )}
+      {BULLETIN_STORE.settings.status === "pending" && slowLoading && (
+        <ControlBar
+          addClass="fade-in"
+          message={intl.formatMessage(
+            { id: "bulletin:header:info-loading-data-slow" },
+            { a: msg => <a href={simple()}>{msg}</a> }
+          )}
+        />
+      )}
 
       <Suspense fallback={<div>...</div>}>
         {BULLETIN_STORE.activeBulletinCollection &&
