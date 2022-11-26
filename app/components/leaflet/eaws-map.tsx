@@ -8,6 +8,12 @@ import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 import { regionCodes } from "../../util/regions";
 
+declare module "@react-leaflet/core" {
+  interface LeafletContextInterface {
+    vectorGrid: VectorGrid;
+  }
+}
+
 export const PbfLayer = createLayerComponent((props, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
@@ -48,7 +54,7 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
   useEffect(() => {
     Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
       if (regionCodes.some(prefix => id.startsWith(prefix))) return;
-      (ctx.vectorGrid as VectorGrid).setFeatureStyle(id, {
+      ctx.vectorGrid.setFeatureStyle(id, {
         stroke: false,
         fill: true,
         fillColor: WARNLEVEL_COLORS[warnlevel],
