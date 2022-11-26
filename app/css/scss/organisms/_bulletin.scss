@@ -460,7 +460,8 @@
   display: block;
   height: $picto-height;
   width: $picto-height;
-  img {
+  img,
+  svg {
     display: none;
     position: absolute;
     top: 0;
@@ -470,30 +471,6 @@
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
-  }
-  &.expo_n .expo_n {
-    display: block;
-  }
-  &.expo_ne .expo_ne {
-    display: block;
-  }
-  &.expo_e .expo_e {
-    display: block;
-  }
-  &.expo_se .expo_se {
-    display: block;
-  }
-  &.expo_s .expo_s {
-    display: block;
-  }
-  &.expo_sw .expo_sw {
-    display: block;
-  }
-  &.expo_w .expo_w {
-    display: block;
-  }
-  &.expo_nw .expo_nw {
-    display: block;
   }
 }
 
