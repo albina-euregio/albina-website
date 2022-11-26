@@ -59,6 +59,21 @@ const BulletinMap = props => {
   const getMapOverlays = () => {
     const overlays = [];
 
+    if (BULLETIN_STORE.eawsRegions) {
+      overlays.push(
+        <BulletinVectorLayer
+          key="eaws-regions"
+          name="eaws-regions"
+          problems={BULLETIN_STORE.problems}
+          date={BULLETIN_STORE.settings.date}
+          activeRegion={BULLETIN_STORE.settings.region}
+          regions={BULLETIN_STORE.eawsRegions}
+          bulletin={BULLETIN_STORE.activeBulletin}
+          handleSelectRegion={props.handleSelectRegion}
+          handleCenterToRegion={center => map.panTo(center)}
+        />
+      );
+    }
     const b = BULLETIN_STORE.activeBulletinCollection;
     if (b) {
       overlays.push(
