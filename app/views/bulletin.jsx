@@ -127,12 +127,8 @@ const Bulletin = props => {
       });
     }
 
-    try {
       setLoadingStart(Date.now());
-      await BULLETIN_STORE.load(startDate);
-    } finally {
-      await BULLETIN_STORE.loadEawss(startDate);
-    }
+    await BULLETIN_STORE.load(startDate);
   };
 
   const checkRegion = () => {

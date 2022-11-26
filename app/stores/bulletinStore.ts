@@ -10,7 +10,6 @@ import {
   isAmPm
 } from "./bulletin";
 import { fetchJSON, fetchText } from "../util/fetch.js";
-import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
@@ -22,9 +21,7 @@ import {
 } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
-const enableEawsRegions = false;
-
-export type Status = "pending" | "ok" | "empty" | "n/a";
+type Status = "pending" | "ok" | "empty" | "n/a";
 
 type AmPm = "am" | "pm" | "";
 
@@ -172,7 +169,6 @@ class BulletinStore {
       _latestBulletinChecker: action,
       _setLatest: action,
       load: action,
-      loadEawss: action,
       activate: action,
       setRegion: action,
       dimProblem: action,
@@ -280,18 +276,6 @@ class BulletinStore {
     }
   }
 
-  async loadEawss(date: string, activate = true) {
-    if (!enableEawsRegions) return;
-    if (typeof date !== "string") return;
-    this.settings.eawsCount = 0;
-    const geojson = await loadEawsBulletins(date);
-    this.bulletins[date].eawsBulletins = geojson;
-    if (activate && this.settings.date == date) {
-      // reactivate to notify status change
-      this.activate(date);
-    }
-  }
-
   /**
    * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
@@ -300,8 +284,6 @@ class BulletinStore {
     if (this.bulletins[date]) {
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
-      this.settings.eawsCount =
-        this.bulletins[date].eawsBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {
@@ -341,10 +323,6 @@ class BulletinStore {
       return this.bulletins[this.settings.date];
     }
     return null;
-  }
-
-  get activeEawsBulletins() {
-    return this.bulletins[this.settings.date]?.eawsBulletins;
   }
 
   get activeRegionName(): string {
