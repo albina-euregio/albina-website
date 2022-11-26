@@ -19,7 +19,9 @@ declare module "@react-leaflet/core" {
   }
 }
 
-export const PbfLayer = createLayerComponent((props, ctx) => {
+type PbfProps = { ampm: "am" | "pm"; date: string };
+
+export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
@@ -32,7 +34,7 @@ export const PbfLayer = createLayerComponent((props, ctx) => {
         }
       },
       getFeatureId(f: { properties: MicroRegionElevationProperties }) {
-        return !filterFeature(f, "2022-12-01")
+        return !filterFeature(f, props.date)
           ? undefined
           : props.ampm
           ? `${f.properties.id}:${f.properties.elevation}:${props.ampm}`
