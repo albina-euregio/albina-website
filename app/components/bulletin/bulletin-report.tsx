@@ -176,19 +176,13 @@ function BulletinReport({ date, daytimeBulletin }: Props) {
         className="section-centered section-bulletin section-bulletin-additional"
       >
         <div className="panel brand">
-          <Tooltip
-            label={intl.formatMessage({
-              id: "bulletin:linkbar:back-to-map:hover"
-            })}
+          <a
+            href="#page-main"
+            className="icon-link icon-arrow-up"
+            data-scroll=""
           >
-            <a
-              href="#page-main"
-              className="icon-link icon-arrow-up"
-              data-scroll=""
-            >
-              <FormattedMessage id="bulletin:linkbar:back-to-map" />
-            </a>
-          </Tooltip>
+            <FormattedMessage id="bulletin:linkbar:back-to-map" />
+          </a>
         </div>
       </section>
     </div>

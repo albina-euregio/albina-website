@@ -37,15 +37,9 @@ function BulletinLegend({ handleSelectRegion, problems }: Props) {
                 {
                   strong: msg => <strong>{msg}</strong>,
                   a: msg => (
-                    <Tooltip
-                      label={intl.formatMessage({
-                        id: "bulletin:legend:highlight-regions:hover"
-                      })}
-                    >
-                      <Link to="/education/avalanche-problems">
-                        <strong>{msg}</strong>
-                      </Link>
-                    </Tooltip>
+                    <Link to="/education/avalanche-problems">
+                      <strong>{msg}</strong>
+                    </Link>
                   )
                 }
               )}
@@ -57,20 +51,14 @@ function BulletinLegend({ handleSelectRegion, problems }: Props) {
           </div>
           <div className="normal-6 grid-item">
             <p>
-              <Tooltip
-                label={intl.formatMessage({
-                  id: "bulletin:legend:danger-levels:hover"
-                })}
-              >
-                <Link to="/education/danger-scale">
-                  <FormattedMessage
-                    id="bulletin:legend:danger-levels"
-                    values={{
-                      strong: (...msg) => <strong>{msg}</strong>
-                    }}
-                  />
-                </Link>
-              </Tooltip>
+              <Link to="/education/danger-scale">
+                <FormattedMessage
+                  id="bulletin:legend:danger-levels"
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </Link>
             </p>
             <ul className="list-inline list-legend">
               {warnlevels.map(l => (
