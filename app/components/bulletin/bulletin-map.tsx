@@ -27,15 +27,12 @@ import {
  */
 const BulletinMap = props => {
   const intl = useIntl();
-  const [map, setMap] = useState(null);
 
   useEffect(() => {
     scroll_init();
   }, []);
 
   const handleMapInit = map => {
-    setMap(map);
-
     map.on("click", _click, this);
     map.on("unload", () => map.off("click", _click, this));
 
@@ -69,7 +66,6 @@ const BulletinMap = props => {
           regions={BULLETIN_STORE.eawsRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
@@ -99,7 +95,6 @@ const BulletinMap = props => {
           regions={BULLETIN_STORE.microRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
