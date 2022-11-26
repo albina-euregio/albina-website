@@ -29,6 +29,7 @@ export default class SnowpackStabilityIcon extends React.Component {
                 this.props.snowpackStability +
                 ".png"
               }
+              alt={this.props.title}
               title={this.props.title}
             />
           </Link>

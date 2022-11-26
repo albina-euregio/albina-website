@@ -32,6 +32,7 @@ export default class ExpositionIcon extends React.Component {
         key={e[0]}
         className={"expo_" + e[0]}
         src={this.imgRoot + "exposition_" + e[0] + ".png"}
+        alt={this.alts[e[0]]}
         title={this.alts[e[0]]}
       />
     ));
@@ -41,6 +42,7 @@ export default class ExpositionIcon extends React.Component {
           <img
             className="bulletin-report-exposition-rose"
             src={this.imgRoot + "exposition_bg.png"}
+            alt={this.props.title}
             title={this.props.title}
           />
           {backgroundEntries}
