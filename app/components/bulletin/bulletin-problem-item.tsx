@@ -163,9 +163,10 @@ function BulletinProblemItem({ problem }: Props) {
   const snowpackStability = problem?.dangerRating?.snowpackStability;
   const frequency = problem?.dangerRating?.frequency;
   const avalancheSize = problem?.dangerRating?.avalancheSize;
-  const expositionText = intl.formatMessage({
-    id: "bulletin:report:exposition"
-  });
+  const expositionText =
+    intl.formatMessage({
+      id: "bulletin:report:exposition"
+    }) + (Array.isArray(expositions) ? ": " + expositions.join(", ") : "");
   const snowpackStabilityText = intl.formatMessage({
     id: "bulletin:report:problem:snowpack-stability"
   });
