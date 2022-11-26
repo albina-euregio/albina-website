@@ -7,6 +7,7 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 import { regionCodes } from "../../util/regions";
+import { MicroRegionElevationProperties } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -25,7 +26,7 @@ export const PbfLayer = createLayerComponent((props, ctx) => {
           fill: false
         }
       },
-      getFeatureId(f) {
+      getFeatureId(f: { properties: MicroRegionElevationProperties }) {
         return !filterFeature(f, "2022-12-01")
           ? undefined
           : props.ampm
