@@ -88,36 +88,26 @@ class BulletinCollection {
 
   private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {
     return Object.fromEntries(
-      this.daytimeBulletins.flatMap(b =>
-        b.forenoon.regions
-          .map(r => r.id)
-          .flatMap(region =>
-            (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
-              (["low", "high"] as ("low" | "high")[]).map(elevation => [
-                `${region}:${elevation}:${ampm}`.replace(/:$/, ""),
-                BulletinCollection.getWarnlevel(
-                  ampm,
-                  this.getBulletinForRegion(region),
-                  elevation
-                )
-              ])
-            )
+      this.dataRaw?.bulletins.flatMap(b =>
+        b.regions.flatMap(({ regionID }) =>
+          (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
+            (["low", "high"] as ("low" | "high")[]).map(elevation => [
+              `${regionID}:${elevation}:${ampm}`.replace(/:$/, ""),
+              this.getWarnlevel(ampm, b, elevation)
+            ])
           )
+        )
       )
     );
   }
 
-  private static getWarnlevel(
-    ampm: "" | "am" | "pm",
-    daytimeBulletin: DaytimeBulletin,
+  private getWarnlevel(
+    ampm: AmPm,
+    bulletin: Bulletin,
     elevation: "low" | "high"
   ): WarnLevelNumber {
-    const daytime =
-      daytimeBulletin?.hasDaytimeDependency && ampm == "pm"
-        ? "afternoon"
-        : "forenoon";
-    const bulletin = daytimeBulletin?.[daytime];
     return bulletin?.dangerRatings
+      .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
       .filter(
         danger =>
           (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
