@@ -26,6 +26,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
       pane: "overlayPane",
+      interactive: false,
       maxNativeZoom: 9,
       vectorTileLayerStyles: {
         eaws: {
