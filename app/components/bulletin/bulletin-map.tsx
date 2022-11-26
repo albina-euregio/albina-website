@@ -12,7 +12,11 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
-import { EawsDangerRatings, PbfLayer } from "../leaflet/eaws-map";
+import {
+  DangerRatings,
+  EawsDangerRatings,
+  PbfLayer
+} from "../leaflet/eaws-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -63,19 +67,9 @@ const BulletinMap = props => {
           date={b.date}
           ampm={props.ampm}
         >
+          <DangerRatings maxDangerRatings={b.maxDangerRatings} />
           <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
         </PbfLayer>
-      );
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`bulletin-regions-${props.ampm}-${b.date}-${b.status}`}
-          data={BULLETIN_STORE.microRegionsElevation}
-          pane="mapPane"
-          style={feature =>
-            BULLETIN_STORE.getMicroElevationStyle(feature, props.ampm)
-          }
-        />
       );
     }
 

@@ -34,6 +34,7 @@ class BulletinCollection {
   statusMessage: string;
   dataRaw: Bulletins | null;
   eawsBulletins: GeoJSON.FeatureCollection;
+  maxDangerRatings: Record<string, WarnLevelNumber>;
 
   constructor(date: string) {
     this.date = date;
@@ -76,6 +77,8 @@ class BulletinCollection {
           ? "ok"
           : "empty"
         : "n/a";
+
+    this.maxDangerRatings = this.computeMaxDangerRatings();
   }
 
   cancelLoad() {
@@ -84,6 +87,48 @@ class BulletinCollection {
 
   toString() {
     return JSON.stringify(this.dataRaw);
+  }
+
+  private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {
+    return Object.fromEntries(
+      this.daytimeBulletins.flatMap(b =>
+        b.forenoon.regions
+          .map(r => r.id)
+          .flatMap(region =>
+            (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
+              (["low", "high"] as ("low" | "high")[]).map(elevation => [
+                `${region}:${elevation}:${ampm}`.replace(/:$/, ""),
+                BulletinCollection.getWarnlevel(
+                  ampm,
+                  this.getBulletinForRegion(region),
+                  elevation
+                )
+              ])
+            )
+          )
+      )
+    );
+  }
+
+  private static getWarnlevel(
+    ampm: "" | "am" | "pm",
+    daytimeBulletin: DaytimeBulletin,
+    elevation: "low" | "high"
+  ): WarnLevelNumber {
+    const daytime =
+      daytimeBulletin?.hasDaytimeDependency && ampm == "pm"
+        ? "afternoon"
+        : "forenoon";
+    const bulletin = daytimeBulletin?.[daytime];
+    return bulletin?.dangerRatings
+      .filter(
+        danger =>
+          (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
+          (danger?.elevation?.upperBound && elevation === "low") ||
+          (danger?.elevation?.lowerBound && elevation === "high")
+      )
+      .map(danger => warnlevelNumbers[danger.mainValue])
+      .reduce((w1, w2) => Math.max(w1, w2), 0);
   }
 }
 

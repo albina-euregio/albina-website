@@ -56,7 +56,15 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
     fetchJSON(
       `https://static.avalanche.report/eaws_bulletins/${date}/${date}.ratings.json`,
       {}
-    ).then(json => setMaxDangerRatings(json.maxDangerRatings));
+    ).then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
+      setMaxDangerRatings(
+        Object.fromEntries(
+          Object.entries(maxDangerRatings).filter(
+            ([id]) => !regionCodes.some(prefix => id.startsWith(prefix))
+          )
+        )
+      )
+    );
   }, [setMaxDangerRatings]);
   return (
     <DangerRatings maxDangerRatings={maxDangerRatings} fillOpacity={0.5} />
@@ -78,7 +86,6 @@ export const DangerRatings = ({
   const ctx = useLeafletContext();
   useEffect(() => {
     Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
-      if (regionCodes.some(prefix => id.startsWith(prefix))) return;
       ctx.vectorGrid.setFeatureStyle(id, {
         stroke: false,
         fill: true,
