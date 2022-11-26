@@ -46,13 +46,9 @@ class PageFooter extends React.Component {
                     label={this.props.intl.formatMessage({
                       id: "footer:subscribe:hover"
                     })}
-                    html={true}
                   >
                     <a
                       href="#subscribeDialog"
-                      title={this.props.intl.formatMessage({
-                        id: "footer:subscribe:hover"
-                      })}
                       className="modal-trigger popup-modal pure-button"
                     >
                       {this.props.intl.formatMessage({

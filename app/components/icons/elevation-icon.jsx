@@ -29,7 +29,7 @@ export default class ElevationIcon extends React.Component {
     return (
       <Tooltip label={this.props.title}>
         <div className={classes.join(" ")}>
-          <img src={src} alt={this.props.title} title={this.props.title} />
+          <img src={src} alt={this.props.title} />
           {this.props.where != "all" && (
             <span>
               {this.props.text}

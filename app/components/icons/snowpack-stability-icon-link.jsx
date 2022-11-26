@@ -15,7 +15,7 @@ export default class SnowpackStabilityIcon extends React.Component {
     const classes = ["bulletin-report-picto", "bulletin-situation-frequency"];
 
     return (
-      <div className={classes.join(" ")} title={this.props.title}>
+      <div className={classes.join(" ")}>
         <Tooltip label={this.props.title}>
           <Link
             to={"/education/avalanche-problems#snowpackStability"}
@@ -30,7 +30,6 @@ export default class SnowpackStabilityIcon extends React.Component {
                 ".png"
               }
               alt={this.props.title}
-              title={this.props.title}
             />
           </Link>
         </Tooltip>
