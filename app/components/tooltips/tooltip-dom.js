@@ -48,6 +48,7 @@ const tooltip_init = () => {
   if (tooltips.length) {
     tooltips.forEach(el => {
       if (el.hasAttribute("data-toolip-init")) return;
+      if (!el.getAttribute("title")) return;
       //console.log("addTootip for", el);
 
       el.setAttribute("data-toolip-init", "true");
