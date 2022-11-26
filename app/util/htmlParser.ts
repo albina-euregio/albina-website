@@ -24,6 +24,9 @@ export function preprocessContent(content: string, blogMode = false) {
             { ...props, href: undefined, to: props.href },
             children
           );
+        } else if (type === "a" && props.target === "_blank") {
+          // no opener for external links
+          props.rel = "noopener";
         } else if (
           blogMode &&
           type === "a" &&
@@ -43,10 +46,6 @@ export function preprocessContent(content: string, blogMode = false) {
             { className: "fitvids", key: props.src },
             children
           );
-        } else if (type === "a") {
-          // no opener for external links
-          props.target = "_blank";
-          props.rel = "noopener";
         } else if (/BulletinGlossary/i.exec(type)) {
           return React.createElement(BulletinGlossary, props, children);
         }
