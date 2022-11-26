@@ -52,6 +52,9 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
     ).then(json => setMaxDangerRatings(json.maxDangerRatings));
   }, [setMaxDangerRatings]);
   useEffect(() => {
+    Object.keys(ctx.vectorGrid._overriddenStyles).forEach(id =>
+      ctx.vectorGrid.resetFeatureStyle(id)
+    );
     Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
       if (regionCodes.some(prefix => id.startsWith(prefix))) return;
       ctx.vectorGrid.setFeatureStyle(id, {
