@@ -127,7 +127,11 @@ const LeafletMap = props => {
         center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
-        whenCreated={setMap}
+        whenCreated={map => {
+          setMap(map);
+          // Workaround for https://github.com/elmarquis/Leaflet.GestureHandling/issues/75
+          map.gestureHandling?._handleMouseOver?.();
+        }}
       >
         <EventHandler />
         <AttributionControl prefix={config.map.attribution} />
