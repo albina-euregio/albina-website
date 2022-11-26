@@ -27,7 +27,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     {
       pane: "overlayPane",
       interactive: false,
-      maxNativeZoom: 9,
+      maxNativeZoom: 10,
       vectorTileLayerStyles: {
         eaws: {
           stroke: false,
