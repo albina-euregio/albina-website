@@ -295,10 +295,7 @@ const Bulletin = props => {
             regions={BULLETIN_STORE.getVectorRegions()}
           />
         )}
-        <BulletinLegend
-          handleSelectRegion={handleSelectRegion}
-          problems={BULLETIN_STORE.problems}
-        />
+        <BulletinLegend handleSelectRegion={handleSelectRegion} />
       </Suspense>
       <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
       {collection && <BulletinList bulletins={collection.bulletins} />}
