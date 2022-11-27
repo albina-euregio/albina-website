@@ -54,19 +54,26 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
     {} as MaxDangerRatings
   );
   useEffect(() => {
+    if (date < "2021-01-25") {
+      return;
+    }
     fetchJSON(
       `https://static.avalanche.report/eaws_bulletins/${date}/${date}.ratings.json`,
       {}
-    ).then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
-      setMaxDangerRatings(
-        Object.fromEntries(
-          Object.entries(maxDangerRatings).filter(
-            ([id]) => !regionCodes.some(prefix => id.startsWith(prefix))
+    )
+      .then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
+        setMaxDangerRatings(
+          Object.fromEntries(
+            Object.entries(maxDangerRatings).filter(
+              ([id]) => !regionCodes.some(prefix => id.startsWith(prefix))
+            )
           )
         )
       )
-    );
-  }, [setMaxDangerRatings]);
+      .catch(error =>
+        console.warn("Cannot load EAWS bulletins for date " + date, error)
+      );
+  }, [date, setMaxDangerRatings]);
   return (
     <DangerRatings maxDangerRatings={maxDangerRatings} fillOpacity={0.5} />
   );
