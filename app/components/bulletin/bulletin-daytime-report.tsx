@@ -50,7 +50,8 @@ function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
               <BulletinAWMapStatic
                 bulletin={bulletin}
                 date={dateToISODateString(date)}
-                region={bulletin.bulletinID} // possibly contains _PM
+                region={bulletin.bulletinID}
+                ampm={ampm}
               />
             </a>
           </Tooltip>

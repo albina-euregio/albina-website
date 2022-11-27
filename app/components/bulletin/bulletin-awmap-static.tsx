@@ -3,6 +3,7 @@ import React from "react";
 import { Bulletin } from "../../stores/bulletin";
 
 type Props = {
+  ampm: "am" | "pm";
   bulletin: Bulletin;
   date: string;
   region: string;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 function BulletinAWMapStatic({
+  ampm,
   bulletin,
   date,
   region,
@@ -26,8 +28,9 @@ function BulletinAWMapStatic({
           .slice(0, "2021-12-04_16-00-00".length)
       : "";
   imgFormat ||= window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
-  const file =
-    publicationTime && date > "2022-05-06" ? "EUREGIO_" + region : region;
+  const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
+  const fileSuffix = ampm === "pm" ? "_PM" : "";
+  const file = filePrefix + region + fileSuffix;
   const url = Util.template(config.apis.bulletin.map, {
     date: date,
     publication: publicationDirectory,
