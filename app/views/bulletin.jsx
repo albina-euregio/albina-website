@@ -200,10 +200,7 @@ const Bulletin = props => {
       ? collection
         ? title +
           " | " +
-          this.props.intl.formatDate(
-            parseDate(BULLETIN_STORE.settings.date),
-            LONG_DATE_FORMAT
-          )
+          this.props.intl.formatDate(BULLETIN_STORE.date, LONG_DATE_FORMAT)
         : intl.formatMessage({
             id: "bulletin:header:info-no-data"
           })
@@ -298,7 +295,13 @@ const Bulletin = props => {
         <BulletinLegend handleSelectRegion={handleSelectRegion} />
       </Suspense>
       <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
-      {collection && <BulletinList bulletins={collection.bulletins} />}
+      {collection && (
+        <BulletinList
+          bulletins={collection.bulletins}
+          date={BULLETIN_STORE.date}
+          region={BULLETIN_STORE.settings.region}
+        />
+      )}
       <SmShare
         image={shareImage}
         title={title}

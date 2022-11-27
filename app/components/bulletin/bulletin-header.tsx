@@ -4,16 +4,13 @@ import { useIntl } from "react-intl";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
-import { parseDate, LONG_DATE_FORMAT } from "../../util/date.js";
+import { LONG_DATE_FORMAT } from "../../util/date.js";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 function BulletinHeader() {
   const intl = useIntl();
 
-  const date = intl.formatDate(
-    parseDate(BULLETIN_STORE.settings.date),
-    LONG_DATE_FORMAT
-  );
+  const date = intl.formatDate(BULLETIN_STORE.date, LONG_DATE_FORMAT);
 
   let statusClass: string = "";
   const status = BULLETIN_STORE.settings.status;
@@ -37,8 +34,8 @@ function BulletinHeader() {
         {/* <h2 className="subheader">{this.props.title}</h2> */}
         <h1 className="bulletin-datetime-validity">{date}</h1>
         <BulletinDateFlipper
-          date={BULLETIN_STORE.settings.date}
-          latest={BULLETIN_STORE.latest}
+          date={BULLETIN_STORE.date}
+          latest={BULLETIN_STORE.latestDate}
         />
       </header>
     </section>

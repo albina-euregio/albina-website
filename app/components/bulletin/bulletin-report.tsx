@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
-import { LONG_DATE_FORMAT, parseDate } from "../../util/date";
+import { LONG_DATE_FORMAT } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { findGlossaryStrings } from "./bulletin-glossary";
@@ -14,7 +14,7 @@ import {
   isDangerPattern
 } from "../../stores/bulletin";
 
-type Props = { date: string; bulletin: Bulletin };
+type Props = { date: Date; bulletin: Bulletin };
 
 /**
  * This component shows the detailed bulletin report including all icons and
@@ -67,7 +67,7 @@ function BulletinReport({ date, bulletin }: Props) {
                   id="bulletin:report:headline"
                   values={{
                     strong: (...msg) => <strong>{msg}</strong>,
-                    date: intl.formatDate(parseDate(date), LONG_DATE_FORMAT),
+                    date: intl.formatDate(date, LONG_DATE_FORMAT),
                     daytime: ""
                   }}
                 />

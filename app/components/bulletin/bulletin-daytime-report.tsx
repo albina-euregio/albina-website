@@ -4,14 +4,18 @@ import TendencyIcon from "../icons/tendency-icon";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
 import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
-import { parseDate, getSuccDate, LONG_DATE_FORMAT } from "../../util/date.js";
+import {
+  dateToISODateString,
+  getSuccDate,
+  LONG_DATE_FORMAT
+} from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
 import { isAmPm, Bulletin } from "../../stores/bulletin";
 
 type Props = {
   ampm: "am" | "pm";
   bulletin: Bulletin;
-  date: string;
+  date: Date;
   publicationTime: string;
 };
 
@@ -32,10 +36,7 @@ function BulletinDaytimeReport({
   const tendencyTitle = intl.formatMessage({
     id: "bulletin:report:tendency:" + tendency
   });
-  const tendencyDate = intl.formatDate(
-    getSuccDate(parseDate(date)),
-    LONG_DATE_FORMAT
-  );
+  const tendencyDate = intl.formatDate(getSuccDate(date), LONG_DATE_FORMAT);
 
   return (
     <div>
@@ -54,7 +55,7 @@ function BulletinDaytimeReport({
             <a href="#page-main" className="img icon-arrow-up" data-scroll="">
               <BulletinAWMapStatic
                 bulletin={bulletin}
-                date={date}
+                date={dateToISODateString(date)}
                 publicationTime={publicationTime}
                 region={bulletin.bulletinID} // possibly contains _PM
               />

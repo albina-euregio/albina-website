@@ -1,5 +1,5 @@
 import { observable, action, makeObservable } from "mobx";
-import { getSuccDate, dateToISODateString } from "../util/date.js";
+import { getSuccDate, dateToISODateString, parseDate } from "../util/date.js";
 
 import { GeoJSON as LeafletGeoJSON, PathOptions, Util } from "leaflet";
 import {
@@ -155,6 +155,14 @@ class BulletinStore {
       date: "",
       region: ""
     };
+  }
+
+  get date(): Date | undefined {
+    return this.settings.date ? parseDate(this.settings.date) : undefined;
+  }
+
+  get latestDate(): Date | undefined {
+    return this.latest ? parseDate(this.latest) : undefined;
   }
 
   async _latestBulletinChecker() {

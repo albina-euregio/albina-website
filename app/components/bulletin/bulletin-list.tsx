@@ -1,12 +1,10 @@
 import React from "react";
-import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import type { Bulletin } from "../../stores/bulletin";
 
-type Props = { bulletins: Bulletin[] };
+type Props = { bulletins: Bulletin[]; date: Date; region: string };
 
-function BulletinList({ bulletins }: Props) {
+function BulletinList({ bulletins, date, region }: Props) {
   return (
     <section
       id="section-bulletin-reports"
@@ -19,17 +17,10 @@ function BulletinList({ bulletins }: Props) {
             key={bulletin.bulletinID}
             className={
               "bulletin-list-item" +
-              (bulletin.bulletinID === BULLETIN_STORE.settings.region
-                ? " selected"
-                : "")
+              (bulletin.bulletinID === region ? " selected" : "")
             }
           >
-            {
-              <BulletinReport
-                bulletin={bulletin}
-                date={BULLETIN_STORE.settings.date}
-              />
-            }
+            {<BulletinReport bulletin={bulletin} date={date} />}
           </li>
         ))}
       </ul>
@@ -37,4 +28,4 @@ function BulletinList({ bulletins }: Props) {
   );
 }
 
-export default observer(BulletinList);
+export default BulletinList;
