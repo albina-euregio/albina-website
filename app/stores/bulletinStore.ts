@@ -478,8 +478,8 @@ class BulletinStore {
   static getBulletinStatus(date: string): Promise<Status> {
     const url = BulletinStore._getBulletinUrl(date);
     // cannot use fetchJSON for HTTP HEAD
-    return fetchText(url, { method: "head" }).then(
-      () => "ok",
+    return fetch(url, { method: "head" }).then(
+      res => (res.ok ? "ok" : "n/a"),
       () => "n/a"
     );
   }
