@@ -109,15 +109,6 @@ function isAfter(d1, d2) {
   return d1.valueOf() > d2.valueOf();
 }
 
-/* strange function needed to know if the bulletin for the next day should be displayed */
-function todayIsTomorrow(todayDate, tomorrowHours, tomorrowMinutes) {
-  return (
-    (todayDate.getHours() == tomorrowHours &&
-      todayDate.getMinutes() > tomorrowMinutes) ||
-    todayDate.getHours() > tomorrowHours
-  );
-}
-
 /* format date utc enabled */
 function dateFormat(date, fstr, utc) {
   utc = utc ? "getUTC" : "get";
@@ -171,6 +162,5 @@ export {
   isSummerTime,
   dateToISODateString,
   getDaysOfMonth,
-  todayIsTomorrow,
   dateFormat
 };
