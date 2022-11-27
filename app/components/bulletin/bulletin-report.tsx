@@ -97,23 +97,17 @@ function BulletinReport({ date, bulletin }: Props) {
                 key={"am"}
                 bulletin={bulletin}
                 date={date}
-                publicationTime={bulletin.publicationTime}
                 ampm={"am"}
               />,
               <BulletinDaytimeReport
                 key={"pm"}
                 bulletin={bulletin}
                 date={date}
-                publicationTime={bulletin.publicationTime}
                 ampm={"pm"}
               />
             ]
           ) : (
-            <BulletinDaytimeReport
-              bulletin={bulletin}
-              date={date}
-              publicationTime={bulletin.publicationTime}
-            />
+            <BulletinDaytimeReport bulletin={bulletin} date={date} />
           )}
           {bulletin.highlights && (
             <p className="bulletin-report-public-alert">

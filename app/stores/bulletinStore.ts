@@ -46,10 +46,6 @@ class BulletinCollection {
     return this.dataRaw?.bulletins || [];
   }
 
-  get publicationDate(): Date {
-    return new Date(this.bulletins[0]?.publicationTime);
-  }
-
   get length(): number {
     return this.dataRaw.bulletins.length;
   }

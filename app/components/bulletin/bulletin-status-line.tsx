@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
-import { getLocalDate } from "../../util/date.js";
 import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
 
 const BulletinStatusLine = () => {
@@ -17,14 +16,14 @@ const BulletinStatusLine = () => {
   }
 
   if (status == "ok") {
-    const pubDate = getLocalDate(collection.publicationDate);
-    isRepublished = pubDate.getHours() !== 17 || pubDate.getMinutes() !== 0;
+    const publicationTime = collection?.bulletins?.[0]?.publicationTime;
+    isRepublished = !/T16:00:00Z/.test(publicationTime);
 
     // There must be a status entry for each downloaded bulletin. Query its
     // original status message.
     const params = {
-      date: intl.formatDate(pubDate),
-      time: intl.formatTime(pubDate)
+      date: intl.formatDate(publicationTime),
+      time: intl.formatTime(publicationTime)
     };
 
     if (isRepublished) {

@@ -16,15 +16,9 @@ type Props = {
   ampm: "am" | "pm";
   bulletin: Bulletin;
   date: Date;
-  publicationTime: string;
 };
 
-function BulletinDaytimeReport({
-  ampm,
-  bulletin,
-  date,
-  publicationTime
-}: Props) {
+function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
   const intl = useIntl();
   const problems =
     bulletin?.avalancheProblems?.filter(p => isAmPm(ampm, p.validTimePeriod)) ||
@@ -56,7 +50,6 @@ function BulletinDaytimeReport({
               <BulletinAWMapStatic
                 bulletin={bulletin}
                 date={dateToISODateString(date)}
-                publicationTime={publicationTime}
                 region={bulletin.bulletinID} // possibly contains _PM
               />
             </a>

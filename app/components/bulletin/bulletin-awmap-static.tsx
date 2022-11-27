@@ -1,7 +1,6 @@
 import { Util } from "leaflet";
 import React from "react";
 import { Bulletin } from "../../stores/bulletin";
-import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
 
 type Props = {
   bulletin: Bulletin;
@@ -9,7 +8,6 @@ type Props = {
   region: string;
   onError: any;
   imgFormat: string;
-  publicationTime: string;
 };
 
 function BulletinAWMapStatic({
@@ -17,12 +15,15 @@ function BulletinAWMapStatic({
   date,
   region,
   onError,
-  imgFormat,
-  publicationTime
+  imgFormat
 }: Props) {
+  const publicationTime = bulletin?.publicationTime;
   const publicationDirectory =
     publicationTime && date > "2019-05-06"
-      ? getPublicationTimeString(parseDateSeconds(publicationTime))
+      ? publicationTime
+          .replace(/T/, "_")
+          .replace(/:/g, "-")
+          .slice(0, "2021-12-04_16-00-00".length)
       : "";
   imgFormat ||= window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
   const file =
