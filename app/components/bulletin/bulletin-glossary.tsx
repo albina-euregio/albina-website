@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { preprocessContent } from "../../util/htmlParser";
 import GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
 import GLOSSARY_CONTENT from "./bulletin-glossary-de-content.json";
@@ -9,12 +9,12 @@ const GLOSSARY_REGEX = new RegExp(
   "g"
 );
 
-console.warn(
-  "Missing glossary",
-  Array.from(
+if (import.meta.env.DEV) {
+  const missing = Array.from(
     new Set(Object.values(GLOSSARY_LINKS).filter(id => !GLOSSARY_CONTENT[id]))
-  ).join(" ")
-);
+  ).join(" ");
+  if (missing) console.warn("Missing glossary", missing);
+}
 
 export function findGlossaryStrings(text: string): string {
   return text.replace(GLOSSARY_REGEX, substring => {
@@ -24,34 +24,29 @@ export function findGlossaryStrings(text: string): string {
 }
 
 type Props = {
-  glossary: string;
+  glossary: keyof typeof GLOSSARY_CONTENT;
+  children: JSX.Element;
 };
 
-class BulletinGlossary extends React.Component<Props> {
-  render() {
-    const glossary = this.props.glossary;
-    if (!GLOSSARY_CONTENT[glossary]) {
-      return <span>{this.props.children}</span>;
-    }
-    const { heading, text, img, href, hrefCaption } =
-      GLOSSARY_CONTENT[glossary];
-    const defHref = `https://www.avalanches.org/glossary/?lang=de#${glossary}`;
-    const attribution = `<p className="tooltip-source">(${this.props.intl.formatMessage(
-      {
-        id: "glossary:source"
-      }
-    )}: <a href="${href || defHref}" target="_blank">${
-      hrefCaption || "EAWS"
-    }</a>)</p>`;
-    const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
-
-    const content = preprocessContent(html);
-    return (
-      <Tooltip label={content} html={true}>
-        <a className="glossary">{this.props.children}</a>
-      </Tooltip>
-    );
+export default function BulletinGlossary(props: Props) {
+  const intl = useIntl();
+  const glossary = props.glossary;
+  if (!GLOSSARY_CONTENT[glossary]) {
+    return <span>{props.children}</span>;
   }
-}
+  const { heading, text, img, href, hrefCaption } = GLOSSARY_CONTENT[glossary];
+  const defHref = `https://www.avalanches.org/glossary/?lang=de#${glossary}`;
+  const attribution = `<p className="tooltip-source">(${intl.formatMessage({
+    id: "glossary:source"
+  })}: <a href="${href || defHref}" target="_blank">${
+    hrefCaption || "EAWS"
+  }</a>)</p>`;
+  const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
 
-export default injectIntl(BulletinGlossary);
+  const content = preprocessContent(html);
+  return (
+    <Tooltip label={content} html={true}>
+      <a className="glossary">{props.children}</a>
+    </Tooltip>
+  );
+}
