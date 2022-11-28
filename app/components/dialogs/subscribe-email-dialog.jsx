@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
+import LanguageFilter from "../filters/language-filter";
 import ProvinceFilter from "../filters/province-filter";
 import { fetchText } from "../../util/fetch";
 import { APP_STORE } from "../../appStore";
@@ -49,8 +50,8 @@ class SubscribeEmailDialog extends React.Component {
     this.setState({ agree: e.target.checked });
   };
 
-  handleChangeLanguage = e => {
-    this.setState({ language: e.target.value });
+  handleChangeLanguage = language => {
+    this.setState({ language });
   };
 
   handleChangeRegion = newRegion => {
@@ -122,21 +123,29 @@ class SubscribeEmailDialog extends React.Component {
                 }}
               />
             </label>
-            <ul className="list-inline list-buttongroup">
-              <li>
-                <ProvinceFilter
-                  title={this.props.intl.formatMessage({
-                    id: "measurements:filter:province"
-                  })}
-                  className={this.state.region && "selectric-changed"}
-                  handleChange={r => this.handleChangeRegion(r)}
-                  value={this.state.region}
-                  none={this.props.intl.formatMessage({
-                    id: "blog:filter:province:nothing-selected"
-                  })}
-                />
-              </li>
-            </ul>
+            <ProvinceFilter
+              buttongroup={true}
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:province"
+              })}
+              handleChange={r => this.handleChangeRegion(r)}
+              value={this.state.region}
+              none={this.props.intl.formatMessage({
+                id: "blog:filter:province:nothing-selected"
+              })}
+            />
+
+            <label htmlFor="language">
+              <FormattedMessage id="dialog:subscribe-email:language" />
+            </label>
+            <LanguageFilter
+              buttongroup={true}
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:province"
+              })}
+              handleChange={l => this.handleChangeLanguage(l)}
+              value={this.state.language}
+            />
 
             <hr />
 
@@ -156,27 +165,6 @@ class SubscribeEmailDialog extends React.Component {
                 })}
               />
             </p>
-            <label htmlFor="language">
-              <FormattedMessage id="dialog:subscribe-email:language" />
-              <span className="normal" />
-            </label>
-            <ul className="list-inline list-subscribe-language">
-              {APP_STORE.mainLanguages.map(l => (
-                <li key={l}>
-                  <label className="pure-checkbox">
-                    <input
-                      name="language"
-                      onChange={this.handleChangeLanguage}
-                      value={l}
-                      type="radio"
-                      checked={this.state.language == l ? "checked" : ""}
-                    />
-                    &nbsp;
-                    <span className="normal">{l.toUpperCase()}</span>
-                  </label>
-                </li>
-              ))}
-            </ul>
 
             <hr />
 
@@ -188,6 +176,7 @@ class SubscribeEmailDialog extends React.Component {
                   onChange={e => this.handleChangeAgree(e)}
                   checked={!!this.state.agree}
                 />
+                &nbsp; &nbsp;
                 {this.props.intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-before-link"
                 })}

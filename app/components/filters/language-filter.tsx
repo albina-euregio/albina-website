@@ -3,12 +3,36 @@ import { APP_STORE } from "../../appStore";
 import Selectric from "../selectric";
 
 type Props = {
+  value: string;
   all: JSX.Element;
   title: JSX.Element;
   handleChange(str: string): unknown;
+  buttongroup: boolean;
 };
 
 export default function LanguageFilter(props: Props) {
+  if (props.buttongroup) {
+    return (
+      <ul className="list-inline list-buttongroup-dense">
+        {APP_STORE.mainLanguages.map(l => (
+          <li key={l}>
+            <button
+              className={
+                props.value === l ? "pure-button" : "inverse pure-button"
+              }
+              onClick={e => {
+                e.preventDefault();
+                props.handleChange(l);
+              }}
+            >
+              {props.value === l ? "☑ " : "☐ "}
+              {l.toUpperCase()}
+            </button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}

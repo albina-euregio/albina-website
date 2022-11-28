@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl, FormattedMessage } from "react-intl";
 
+import LanguageFilter from "../filters/language-filter";
 import ProvinceFilter from "../filters/province-filter";
 import { APP_STORE } from "../../appStore";
 
@@ -32,8 +33,8 @@ class SubscribeTelegramDialog extends React.Component {
     }
   }
 
-  handleChangeLanguage = e => {
-    this.setState({ language: e.target.value });
+  handleChangeLanguage = language => {
+    this.setState({ language: language });
   };
 
   handleChangeRegion = newRegion => {
@@ -71,48 +72,35 @@ class SubscribeTelegramDialog extends React.Component {
           >
             <label htmlFor="province">
               <FormattedMessage
-                id="dialog:subscribe-telegram:region"
+                id="dialog:subscribe-email:region"
                 values={{
                   strong: (...msg) => <strong>{msg}</strong>
                 }}
               />
             </label>
-            <ul className="list-inline list-buttongroup">
-              <li>
-                <ProvinceFilter
-                  title={this.props.intl.formatMessage({
-                    id: "measurements:filter:province"
-                  })}
-                  className={this.state.region && "selectric-changed"}
-                  handleChange={r => this.handleChangeRegion(r)}
-                  value={this.state.region}
-                  none={this.props.intl.formatMessage({
-                    id: "blog:filter:province:nothing-selected"
-                  })}
-                />
-              </li>
-            </ul>
+            <ProvinceFilter
+              buttongroup={true}
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:province"
+              })}
+              handleChange={r => this.handleChangeRegion(r)}
+              value={this.state.region}
+              none={this.props.intl.formatMessage({
+                id: "blog:filter:province:nothing-selected"
+              })}
+            />
+
             <label htmlFor="language">
-              <FormattedMessage id="dialog:subscribe-telegram:language" />
-              <span className="normal" />
+              <FormattedMessage id="dialog:subscribe-email:language" />
             </label>
-            <ul className="list-inline list-subscribe-language">
-              {APP_STORE.mainLanguages.map(l => (
-                <li key={l}>
-                  <label className="pure-checkbox">
-                    <input
-                      name="language"
-                      onChange={this.handleChangeLanguage}
-                      value={l}
-                      type="radio"
-                      checked={this.state.language == l ? "checked" : ""}
-                    />
-                    &nbsp;
-                    <span className="normal">{l.toUpperCase()}</span>
-                  </label>
-                </li>
-              ))}
-            </ul>
+            <LanguageFilter
+              buttongroup={true}
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:province"
+              })}
+              handleChange={l => this.handleChangeLanguage(l)}
+              value={this.state.language}
+            />
 
             <button
               type="submit"
