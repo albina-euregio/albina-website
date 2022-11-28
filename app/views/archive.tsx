@@ -11,6 +11,7 @@ import FilterBar from "../components/organisms/filter-bar.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import { useSearchParams } from "react-router-dom";
+import { RegionCodes } from "../util/regions.js";
 
 function Archive() {
   const intl = useIntl();
@@ -22,7 +23,7 @@ function Archive() {
     +searchParams.get("year") || new Date().getFullYear()
   );
   const [bulletinStatus, setBulletinStatus] = useState(
-    {} as Record<number, Status>
+    {} as Record<number, Status | Record<RegionCodes, string | undefined>>
   );
   const [dates, setDates] = useState([] as Date[]);
 
@@ -35,9 +36,33 @@ function Archive() {
       date = getSuccDate(date)
     ) {
       dates.push(date);
-      BulletinStore.getBulletinStatus(dateToISODateString(date)).then(status =>
-        setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
-      );
+      const dateString = dateToISODateString(date);
+      if (dateString >= "2018-12-01") {
+        BulletinStore.getBulletinStatus(dateToISODateString(date)).then(
+          status => setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+        );
+      } else {
+        Promise.all([
+          fetch(
+            `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`
+          ),
+          fetch(
+            `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.de.pdf`
+          ),
+          fetch(
+            `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`
+          )
+        ]).then(([at07, it32bz, it32tn]) =>
+          setBulletinStatus(s => ({
+            ...s,
+            [date.getTime()]: {
+              "AT-07": at07.ok ? at07.url : undefined,
+              "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
+              "IT-32-TN": it32tn.ok ? it32tn.url : undefined
+            }
+          }))
+        );
+      }
     }
     setDates(dates);
     setSearchParams(
@@ -106,8 +131,16 @@ function Archive() {
               <tbody>
                 {dates.map(
                   d =>
-                    bulletinStatus[d.getTime()] === "ok" && (
-                      <ArchiveItem key={d.getTime()} date={d} />
+                    (bulletinStatus[d.getTime()] === "ok" ||
+                      (typeof bulletinStatus[d.getTime()] === "object" &&
+                        Object.values(bulletinStatus[d.getTime()]).some(
+                          url => !!url
+                        ))) && (
+                      <ArchiveItem
+                        key={d.getTime()}
+                        date={d}
+                        status={bulletinStatus[d.getTime()]}
+                      />
                     )
                 )}
               </tbody>

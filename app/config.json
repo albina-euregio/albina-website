@@ -63,6 +63,7 @@
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}{format}",
       "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "archive": "https://static.avalanche.report/bulletins/archive/",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
     "push": "https://api.avalanche.report/albina/api/push",
@@ -368,7 +369,7 @@
   },
 
   "archive": {
-    "minYear": 2016,
+    "minYear": 1993,
     "maxResults": 31
   },
   "languageHostSettings": {

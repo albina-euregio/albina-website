@@ -6,8 +6,14 @@ import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
+import { Status } from "../../stores/bulletinStore";
+import { RegionCodes } from "../../util/regions";
 
-function ArchiveItem({ date }: { date: Date }) {
+type Props = {
+  date: Date;
+  status: Status | Record<RegionCodes, string | undefined>;
+};
+function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
   function getLanguage(dateString: string) {
@@ -46,6 +52,37 @@ function ArchiveItem({ date }: { date: Date }) {
 
   const dateString = dateToISODateString(date);
   const lang = getLanguage(dateString);
+  console.log(status);
+
+  if (typeof status === "object") {
+    return (
+      <tr>
+        <td>
+          <strong>{intl.formatDate(date, LONG_DATE_FORMAT)}</strong>
+        </td>
+        <td colSpan={2}>
+          <ul className="list-inline list-download">
+            {Object.entries(status).map(
+              ([region, url]) =>
+                url && (
+                  <li>
+                    <a
+                      href={url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="small secondary pure-button"
+                    >
+                      <FormattedMessage id={`region:${region}`} />{" "}
+                      <FormattedMessage id="archive:download-pdf" />
+                    </a>
+                  </li>
+                )
+            )}
+          </ul>
+        </td>
+      </tr>
+    );
+  }
 
   return (
     <tr>
