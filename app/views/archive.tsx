@@ -62,15 +62,21 @@ function Archive() {
           })}
           minYear={window.config.archive.minYear}
           handleChange={setYear}
+          formatter={y => `${y}/${y + 1}`}
           value={year}
         />
         {year && (
           <MonthFilter
+            buttongroup={true}
             title={intl.formatMessage({
               id: "archive:filter:month"
             })}
+            dateFormat={{ year: "2-digit", month: "short" }}
             handleChange={setMonth}
+            length={7}
+            minMonth={+year === 2019 ? 10 : 11}
             value={month}
+            year={year}
           />
         )}
       </FilterBar>
