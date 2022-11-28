@@ -227,7 +227,6 @@ class BulletinStore {
     } catch (error) {
       console.error("Cannot load bulletin for date " + date, error);
       this.bulletins[date].setData(null);
-      return;
     }
 
     if (activate && this.settings.date == date) {
