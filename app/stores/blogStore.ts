@@ -375,6 +375,20 @@ export default class BlogStore {
     return this.setPostsLoaded(newPosts);
   }
 
+  async loadBlogPost(blogId: unknown, postId: unknown) {
+    const url =
+      window.config.apis.blogger +
+      blogId +
+      "/posts/" +
+      postId +
+      "?key=" +
+      encodeURIComponent(window.config.apiKeys.google);
+    this._loading = true;
+    const post = await fetchJSON(url, {});
+    this._loading = false;
+    return post;
+  }
+
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
     // console.log("posts loaded", newPosts);
     this.posts = newPosts;

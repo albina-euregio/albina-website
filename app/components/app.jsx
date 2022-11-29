@@ -56,7 +56,6 @@ const App = () => {
   useEffect(() => {
     window["page_html"] = $("html");
     window["page_body"] = $("body");
-    window["page_loading_screen"] = $(".page-loading-screen");
 
     let debug_selector = $(
       ".modal-trigger, .modal-gallery-trigger, [data-scroll]"
@@ -66,11 +65,6 @@ const App = () => {
     }
 
     orientation_change();
-
-    // remove splash screen
-    setTimeout(function () {
-      $("html").addClass("page-loaded");
-    }, 150);
   });
 
   return (

@@ -18,7 +18,7 @@ import React from "react";
 */
 }
 
-export default class ControllBar extends React.Component {
+export default class ControlBar extends React.Component {
   render() {
     const props = this.props;
     const styleClasses = {

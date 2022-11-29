@@ -1,13 +1,9 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
+import React, { useState, useEffect } from "react";
+import { useIntl } from "react-intl";
 import { GeoJSON } from "react-leaflet";
-import InfoBar from "../organisms/info-bar";
-import { dateToISODateString, parseDate } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 
 import LeafletMap from "../leaflet/leaflet-map";
-import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import { preprocessContent } from "../../util/htmlParser";
@@ -32,53 +28,6 @@ const BulletinMap = props => {
     //console.log("BulletinMap->useEffect[props.regions] xx03");
     scroll_init();
   }, [props.regions]);
-
-  const infoMessageLevels = useMemo(() => {
-    const simple = Util.template(window.config.apis.bulletin.simple, {
-      date: props.date ? dateToISODateString(parseDate(props.date)) : "latest",
-      lang: APP_STORE.language
-    });
-
-    let levels = {
-      init: {
-        message: "",
-        iconOn: true
-      },
-      ok: { message: "", keep: false }
-    };
-
-    levels.pending = {
-      message: intl.formatMessage(
-        { id: "bulletin:header:info-loading-data-slow" },
-        { a: msg => <a href={simple}>{msg}</a> }
-      ),
-      iconOn: true,
-      delay: 5000
-    };
-
-    levels.empty = {
-      message: (
-        <>
-          <p>
-            <FormattedMessage id="bulletin:header:info-no-data" />
-          </p>
-          <p>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "bulletin:map:blog:button:title"
-              })}
-            >
-              <Link to="/blog" className="secondary pure-button">
-                {intl.formatMessage({ id: "blog:title" })}
-              </Link>
-            </Tooltip>
-          </p>
-        </>
-      ),
-      keep: false
-    };
-    return levels;
-  }, [props.date, intl]);
 
   const handleMapInit = map => {
     setMap(map);
@@ -284,12 +233,6 @@ const BulletinMap = props => {
       className="section section-bulletin-map"
       aria-hidden
     >
-      {props.administrateLoadingBar && (
-        <InfoBar
-          level={BULLETIN_STORE.settings.status}
-          levels={infoMessageLevels}
-        />
-      )}
       <div
         className={
           "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
