@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { observer } from "mobx-react";
 import { injectIntl, useIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
@@ -163,10 +163,23 @@ function BulletinProblemItem({ problem }: Props) {
   const snowpackStability = problem?.dangerRating?.snowpackStability;
   const frequency = problem?.dangerRating?.frequency;
   const avalancheSize = problem?.dangerRating?.avalancheSize;
-  const expositionText =
-    intl.formatMessage({
-      id: "bulletin:report:exposition"
-    }) + (Array.isArray(expositions) ? ": " + expositions.join(", ") : "");
+  const expositionText = useMemo(
+    () =>
+      intl.formatMessage({
+        id: "bulletin:report:exposition"
+      }) +
+      (Array.isArray(expositions)
+        ? ": " +
+          expositions
+            .map(e =>
+              intl.formatMessage({
+                id: "bulletin:report:problem:aspect:" + e.toLocaleLowerCase()
+              })
+            )
+            .join(", ")
+        : ""),
+    []
+  );
   const snowpackStabilityText = intl.formatMessage({
     id: "bulletin:report:problem:snowpack-stability"
   });
