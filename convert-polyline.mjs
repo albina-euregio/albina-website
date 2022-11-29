@@ -101,16 +101,6 @@ encodeFiles(
   { doFilter: false }
 );
 
-encodeFiles(
-  [
-    "eaws-regions/public/micro-regions_elevation/AT-07_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json"
-  ],
-  "app/stores/micro-regions_elevation.polyline.json",
-  { doFilter: false }
-);
-
 const eawsRegions = [
   "AD",
   "AT-02",
@@ -141,22 +131,6 @@ const eawsRegions = [
   "SK"
 ];
 
-const eawsRegionsWithoutElevation = [
-  "AD",
-  "CH",
-  "CZ",
-  "ES",
-  "ES-CT",
-  "FI",
-  "FR",
-  "GB",
-  "IS",
-  "NO",
-  "PL",
-  "PL-12",
-  "SK"
-];
-
 encodeFiles(
   [...eawsRegions, "LI", "IT-25-SO-LI"]
     .sort()
@@ -164,15 +138,4 @@ encodeFiles(
       region => `eaws-regions/public/outline/${region}_outline.geojson.json`
     ),
   "app/stores/eaws_regions.polyline.json"
-);
-
-eawsRegions.forEach(region =>
-  encodeFiles(
-    [
-      eawsRegionsWithoutElevation.includes(region)
-        ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
-        : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
-    ],
-    `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
-  )
 );

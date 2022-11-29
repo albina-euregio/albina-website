@@ -214,12 +214,6 @@ class BulletinStore {
     this._microRegions = decodeFeatureCollection(polyline.default);
   }
 
-  async loadMicroRegionsElevation() {
-    if (this._microRegionsElevation.features.length) return;
-    const polyline = await import("./micro-regions_elevation.polyline.json");
-    this._microRegionsElevation = decodeFeatureCollection(polyline.default);
-  }
-
   async loadEawsRegions() {
     if (this._eawsRegions.features.length) return;
     const polyline = await import("./eaws_regions.polyline.json");
@@ -235,7 +229,6 @@ class BulletinStore {
    */
   async load(date: string, activate = true) {
     this.loadMicroRegions();
-    this.loadMicroRegionsElevation();
     this.loadEawsRegions();
     // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
@@ -437,12 +430,6 @@ class BulletinStore {
           ? 1
           : -1
       );
-  }
-
-  get microRegionsElevation(): GeoJSON.Feature[] {
-    return this._microRegionsElevation.features
-      .filter(f => filterFeature(f, this.settings.date))
-      .map(f => this._augmentFeature(f));
   }
 
   get eawsRegions(): GeoJSON.Feature[] {
