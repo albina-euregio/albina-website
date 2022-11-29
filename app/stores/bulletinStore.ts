@@ -30,7 +30,7 @@ import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
 const enableEawsRegions = true;
 
-type Status = "pending" | "ok" | "empty" | "n/a";
+export type Status = "pending" | "ok" | "empty" | "n/a";
 
 class BulletinCollection {
   date: string;
@@ -509,7 +509,7 @@ class BulletinStore {
     });
   }
 
-  static getBulletinStatus(date: string): Promise<string> {
+  static getBulletinStatus(date: string): Promise<Status> {
     const url = BulletinStore._getBulletinUrl(date);
     return fetchText(url, { method: "head" }).then(
       () => "ok",
