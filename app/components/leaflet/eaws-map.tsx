@@ -19,6 +19,21 @@ declare module "@react-leaflet/core" {
   }
 }
 
+const eawsRegionsWithoutElevation = [
+  "AD",
+  "CH",
+  "CZ",
+  "ES",
+  "ES-CT",
+  "FI",
+  "FR",
+  "GB",
+  "IS",
+  "NO",
+  "PL",
+  "SK"
+];
+
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
@@ -35,11 +50,11 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
         }
       },
       getFeatureId(f: { properties: MicroRegionElevationProperties }) {
-        return !filterFeature(f, props.date)
-          ? undefined
-          : props.ampm
-          ? `${f.properties.id}:${f.properties.elevation}:${props.ampm}`
-          : `${f.properties.id}:${f.properties.elevation}`;
+        if (!filterFeature(f, props.date)) return undefined;
+        let id = f.properties.id;
+        if (f.properties.elevation) id += ":" + f.properties.elevation;
+        if (props.ampm) id += ":" + props.ampm;
+        return id;
       }
     }
   );
