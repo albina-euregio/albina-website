@@ -19,8 +19,11 @@ export default function MonthFilter(props: Props) {
 
   const months = useMemo(() => {
     const months = [];
-    for (var i = 1; i <= (props.length ?? 12); i++) {
-      const month = i + (props.minMonth ?? 0);
+    for (
+      var month = props.minMonth ?? 1;
+      month < (props.minMonth ?? 1) + (props.length ?? 12);
+      month++
+    ) {
       const date = new Date(props.year ?? 2000, month - 1, 15);
       const name = intl.formatDate(date, props.dateFormat ?? { month: "long" });
       months.push({ month, date, name });
