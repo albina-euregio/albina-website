@@ -54,6 +54,7 @@ const BulletinMap = props => {
 
   const getMapOverlays = () => {
     const overlays = [];
+    const date = BULLETIN_STORE.settings.date;
 
     if (BULLETIN_STORE.eawsRegions) {
       overlays.push(
@@ -61,7 +62,7 @@ const BulletinMap = props => {
           key="eaws-regions"
           name="eaws-regions"
           problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
+          date={date}
           activeRegion={BULLETIN_STORE.settings.region}
           regions={BULLETIN_STORE.eawsRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
@@ -72,12 +73,12 @@ const BulletinMap = props => {
     const b = BULLETIN_STORE.activeBulletinCollection;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.ampm}-${BULLETIN_STORE.settings.date}-${BULLETIN_STORE.settings.status}`}
-        date={BULLETIN_STORE.settings.date}
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}`}
+        date={date}
         ampm={props.ampm}
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
-        <EawsDangerRatings date={BULLETIN_STORE.settings.date} />
+        <EawsDangerRatings date={date} />
       </PbfLayer>
     );
 
