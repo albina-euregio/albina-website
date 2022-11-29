@@ -15,6 +15,7 @@ import { useSearchParams } from "react-router-dom";
 function Archive() {
   const intl = useIntl();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [buttongroup] = useState(searchParams.get("buttongroup"));
   const [month, setMonth] = useState(
     +(searchParams.get("month") || new Date().getMonth() + 1)
   );
@@ -41,7 +42,16 @@ function Archive() {
     }
     setDates(dates);
     setSearchParams(
-      { year: String(year), month: String(month) },
+      buttongroup
+        ? {
+            year: String(year),
+            month: String(month),
+            buttongroup
+          }
+        : {
+            year: String(year),
+            month: String(month)
+          },
       { replace: true }
     );
   }, [month, year, setDates, setSearchParams]);
@@ -57,7 +67,7 @@ function Archive() {
       />
       <FilterBar search={false}>
         <YearFilter
-          buttongroup={false}
+          buttongroup={buttongroup}
           title={intl.formatMessage({
             id: "archive:filter:year"
           })}
@@ -68,7 +78,7 @@ function Archive() {
         />
         {year && (
           <MonthFilter
-            buttongroup={false}
+            buttongroup={buttongroup}
             title={intl.formatMessage({
               id: "archive:filter:month"
             })}
