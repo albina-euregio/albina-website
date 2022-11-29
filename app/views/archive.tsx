@@ -57,6 +57,7 @@ function Archive() {
       />
       <FilterBar search={false}>
         <YearFilter
+          buttongroup={false}
           title={intl.formatMessage({
             id: "archive:filter:year"
           })}
@@ -67,7 +68,7 @@ function Archive() {
         />
         {year && (
           <MonthFilter
-            buttongroup={true}
+            buttongroup={false}
             title={intl.formatMessage({
               id: "archive:filter:month"
             })}
