@@ -12,11 +12,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
-import {
-  DangerRatings,
-  EawsDangerRatings,
-  PbfLayer
-} from "../leaflet/eaws-map";
+import { DangerRatings, EawsDangerRatings, PbfLayer } from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
