@@ -126,6 +126,7 @@ const LeafletMap = props => {
         zoomControl={false}
         center={MAP_STORE.mapCenter}
         {...mapOptions}
+        zoom={MAP_STORE.mapZoom}
         attributionControl={false}
         whenCreated={map => {
           setMap(map);
