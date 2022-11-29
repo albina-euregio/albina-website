@@ -79,6 +79,9 @@ const BulletinMap = props => {
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
         <EawsDangerRatings date={date} />
+        {["IT-21", "IT-23", "IT-25", "IT-34", "IT-36", "IT-57"].map(region => (
+          <EawsDangerRatings key={region} date={date} region={region} />
+        ))}
       </PbfLayer>
     );
 

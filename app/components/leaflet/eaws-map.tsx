@@ -64,7 +64,13 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   };
 });
 
-export const EawsDangerRatings = ({ date }: { date: string }) => {
+export const EawsDangerRatings = ({
+  date,
+  region
+}: {
+  date: string;
+  region?: string;
+}) => {
   const [maxDangerRatings, setMaxDangerRatings] = useState(
     {} as MaxDangerRatings
   );
@@ -73,7 +79,9 @@ export const EawsDangerRatings = ({ date }: { date: string }) => {
       return;
     }
     fetchJSON(
-      `https://static.avalanche.report/eaws_bulletins/${date}/${date}.ratings.json`,
+      `https://static.avalanche.report/eaws_bulletins/${date}/${date}${
+        region ? "-" + region : ""
+      }.ratings.json`,
       {}
     )
       .then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
