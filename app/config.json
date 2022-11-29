@@ -401,7 +401,7 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "startUTCHourForTimespans": 5,
+      "startUTCHourForTimespans": -1,
       "mapOptionsOverride": {
         "maxZoom": 12,
         "minZoom": 7
@@ -486,6 +486,7 @@
       },
       "diff-snow": {
         "domainDefault": false,
+        "startUTCHourForTimespans": 5,
         "domainIdStart": "+6",
         "item": {
           "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
