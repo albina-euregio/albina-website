@@ -12,6 +12,7 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import { useSearchParams } from "react-router-dom";
 import { RegionCodes } from "../util/regions.js";
+import { APP_STORE } from "../appStore.js";
 
 function Archive() {
   const intl = useIntl();
@@ -47,7 +48,9 @@ function Archive() {
             `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`
           ),
           fetch(
-            `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.de.pdf`
+            `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
+              APP_STORE.language === "it" ? "it" : "de"
+            }.pdf`
           ),
           fetch(
             `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`
