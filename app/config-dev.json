@@ -401,7 +401,7 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "startUTCHourForTimespans": 5,
+      "startUTCHourForTimespans": 0,
       "mapOptionsOverride": {
         "maxZoom": 12,
         "minZoom": 7

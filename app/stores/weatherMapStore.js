@@ -68,7 +68,14 @@ export default class WeatherMapStore_new {
   _loadDomainData() {
     this._loading.set(true);
     this._lastDataUpdate = 0;
-    //console.log("_loadDomainData bbb", this._domainId, this.getMetaFile("agl"));
+    console.log(
+      "_loadDomainData bbb",
+      this._domainId,
+      config.apis.weather.overlays +
+        this._domainId.get() +
+        "/" +
+        this.getMetaFile("agl")
+    );
 
     const fetchDate = async url => {
       const response = await fetch(url);
