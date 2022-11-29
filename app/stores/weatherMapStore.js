@@ -10,6 +10,7 @@ export default class WeatherMapStore_new {
     this.grid = null;
     this._domainId = observable.box(false);
     this._timeSpan = observable.box(false);
+    this._startUTCHourForTimespans;
     this._lastDataUpdate = 0;
     this._dateStart = null;
     this._agl = null;
@@ -433,10 +434,10 @@ export default class WeatherMapStore_new {
   */
   _getPossibleTimesForSpan() {
     let posTimes = [];
-    let temp = this.config.settings.startUTCHourForTimespans;
+    let temp = this._startUTCHourForTimespans;
     const absTimeSpan = this._absTimeSpan;
     //console.log("temp#1", temp, absTimeSpan, temp % 24);
-    while (temp < 24 + this.config.settings.startUTCHourForTimespans) {
+    while (temp < 24 + this._startUTCHourForTimespans) {
       posTimes.push(temp < 24 ? temp : temp - 24);
       temp = temp + absTimeSpan;
       //console.log("temp#2", temp, temp % 24);
@@ -466,8 +467,7 @@ export default class WeatherMapStore_new {
         "+48",
         "+72"
       ].includes(this._timeSpan.get()) &&
-      currentTime.getUTCHours() !==
-        this.config.settings.startUTCHourForTimespans
+      currentTime.getUTCHours() !== this._startUTCHourForTimespans
     ) {
       let foundStartHour;
       const currHours = currentTime.getUTCHours();
@@ -613,6 +613,9 @@ export default class WeatherMapStore_new {
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._lastCurrentTime = this.currentTime;
       this._domainId.set(domainId);
+      this._startUTCHourForTimespans =
+        this.config.domains[domainId]?.startUTCHourForTimespans ||
+        this.config.settings.startUTCHourForTimespans;
       this._timeSpan.set(null);
       this._timeIndex.set(null);
       this._agl = null;
