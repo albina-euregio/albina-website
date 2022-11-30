@@ -1,47 +1,49 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
-export default function SmFollow({ region }) {
-  const intl = useIntl();
-  const accounts = config.subscribe.socialMedia.filter(
-    account => account.url[region]
-  );
-  return (
-    <section className="section section-padding sm-share-follow">
-      <p>
-        <FormattedMessage
-          id="footer:follow-us"
-          values={{
-            strong: (...msg) => <strong>{msg}</strong>
-          }}
-        />
-      </p>
-      <ul className="list-inline sm-buttons">
-        {accounts.map((a, i) => (
-          <li key={a.id + i}>
-            <Tooltip
-              label={intl.formatMessage(
-                { id: "footer:follow-us:hover" },
-                { on: a.name }
-              )}
-            >
-              <a
-                className={"sm-button icon-sm-" + a.id}
-                href={a.url[region]}
-                rel="noopener noreferrer"
-                target="_blank"
-                aria-label={intl.formatMessage(
+class SmFollow extends React.Component {
+  render() {
+    const accounts = config.subscribe.socialMedia.filter(account => {
+      return Object.keys(account.url).some(region => {
+        return account.url[region];
+      });
+    });
+    return (
+      <section className="section section-padding sm-share-follow">
+        <p>
+          <FormattedMessage
+            id="footer:follow-us"
+            values={{
+              strong: (...msg) => <strong>{msg}</strong>
+            }}
+          />
+        </p>
+        <ul className="list-inline sm-buttons">
+          {accounts.map((a, i) => (
+            <li key={a.id + i}>
+              <Tooltip
+                label={this.props.intl.formatMessage(
                   { id: "footer:follow-us:hover" },
                   { on: a.name }
                 )}
               >
-                <span>{a.name}</span>
-              </a>
-            </Tooltip>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+                <a
+                  href="#followDialog"
+                  className={"sm-button icon-sm-" + a.id + " modal-trigger"}
+                  aria-label={this.props.intl.formatMessage(
+                    { id: "footer:follow-us:hover" },
+                    { on: a.name }
+                  )}
+                >
+                  <span>{a.name}</span>
+                </a>
+              </Tooltip>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
 }
+export default injectIntl(SmFollow);

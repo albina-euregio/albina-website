@@ -243,6 +243,7 @@ $body-font-family-monospace: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",
   "Droid Sans Mono", "Source Code Pro", monospace;
 $body-font-weight-monospace: $body-font-weight;
 
+$nano-font-size: 0.6rem;
 $micro-font-size: 0.7rem; //font-size($rem-base - 6);//$rem-base - 6 + px;//=10px
 $tiny-font-size: 0.8rem; //font-size($rem-base - 4);//$rem-base - 4 + px;//=12px
 $small-font-size: 0.9rem; //font-size($rem-base - 2);//$rem-base - 2 + px;//=14px

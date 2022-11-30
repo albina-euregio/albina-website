@@ -48,39 +48,35 @@
   }
 
   .list-avalanche-problems-filter {
+    padding-top: $padding;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0 $padding;
     li {
-      float: left;
-    }
-    img {
-      position: absolute;
-      top: 0;
-      opacity: 1;
-      background: none;
-
-      //from alien app.scss
-      //Animation bei den Lawinenproblemen lässt kleinen blauen Strich an der Oberkannte der Logos erkennen
-      //background: none !important;
-
-      border: $border-width $border-style $border-color;
-      transform: translateY(0);
-      &:first-child {
-        z-index: 5;
-      }
+      position: relative;
     }
     a {
       position: relative;
-      top: 0;
       display: block;
       width: $picto-height-plus;
       height: $picto-height-plus;
       background: none;
+      transform: translateY(-$padding);
+      img {
+        background: none;
+        border: $border-width $border-style $border-color;
+        opacity: 1;
+        &:first-child {
+          z-index: 5;
+        }
+      }
       &:hover {
         img {
           opacity: 1;
         }
       }
       &.js-deactivated {
-        top: $padding;
+        transform: translateY(0);
         img {
           opacity: 0.5;
           filter: grayscale(100%);
@@ -92,7 +88,15 @@
         }
       }
     }
+    span {
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: $nano-font-size;
+    }
   }
+
   .list-legend {
     display: flex;
     margin-bottom: 0;
