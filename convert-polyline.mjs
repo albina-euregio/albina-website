@@ -135,6 +135,7 @@ const eawsRegions = [
   "IT-36",
   "IT-57",
   "NO",
+  "PL",
   "SI",
   "SK"
 ];
