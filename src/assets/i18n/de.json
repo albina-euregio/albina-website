@@ -814,10 +814,5 @@
     "cm" : "cm",
     "mm" : "mm",
     "m" : "m"
-  },
-  "qfa": {
-    "day": "Tag",
-    "time": "Zeit",
-    "back": " Zurück"
   }
 }

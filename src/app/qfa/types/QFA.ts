@@ -36,6 +36,7 @@ export interface QFA {
   paramDates: string[];
   loadFromURL: (url: string) => Promise<void>;
   listParameters(): string[];
+  getDustParams: () => Promise<void>;
 }
 
 export interface markers {
