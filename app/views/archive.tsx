@@ -46,15 +46,18 @@ function Archive() {
       } else {
         Promise.all([
           fetch(
-            `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`
+            `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
+            { method: "head" }
           ),
           fetch(
             `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
               APP_STORE.language === "it" ? "it" : "de"
-            }.pdf`
+            }.pdf`,
+            { method: "head" }
           ),
           fetch(
-            `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`
+            `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`,
+            { method: "head" }
           )
         ]).then(([at07, it32bz, it32tn]) =>
           setBulletinStatus(s => ({
