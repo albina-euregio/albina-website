@@ -15,7 +15,6 @@
   "sidebar" : {
     "bulletins" : "Lawinen.report",
     "observations" : "Beobachtungen",
-    "qfa": "Wetterbericht",
     "modellingZamg": "ZAMG Multimodel",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK Modell",

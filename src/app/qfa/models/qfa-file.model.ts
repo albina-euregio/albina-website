@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class QfaFile implements types.QFA {
   public metadata = {} as types.metadata;
   public parameters = {} as types.parameters;
-  private skironURL = "https://forecast.uoa.gr/maps/0day/DUST/GRID1/zoomdload/%d.zoomdload.png"
+  private skironURL = "https://admin.avalanche.report/forecast.uoa.gr/0day/DUST/GRID1/zoomdload/%d.zoomdload.png"
 
   constructor(private http: HttpClient) {}
 
@@ -83,8 +83,8 @@ export class QfaFile implements types.QFA {
   }
 
   public getDustParams = async () => {
-    const nSteps = 22
-    for(let i = 12; i <= nSteps*6; i+=6) {
+    const nSteps = 16
+    for(let i = 0; i <= nSteps*6; i+=6) {
       const imageBlob = await this.loadSkironForecast(i).toPromise() as Blob;
       console.log(imageBlob);
     }
