@@ -38,6 +38,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   selectedFile = {};
   selectedFiles = [];
   baseUrl = "https://static.avalanche.report/zamg_qfa/";
+  dustParams = {};
   @ViewChild("qfaMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
@@ -52,6 +53,14 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
 
     for(const coord of Object.values(this.markers)) {
       this.drawMarker(coord);
+    }
+
+    const dustParams = this.dustParamService.getDustParams();
+    for(const city of Object.keys(dustParams)) {
+      Promise.all(dustParams[city])
+        .then((rgbs: number[][]) => {
+          this.dustParams[city] = rgbs;
+        })
     }
   }
 
@@ -148,10 +157,6 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.selectedFile = run;
     const tempQfa = new QfaFile(this.http);
     await tempQfa.loadFromURL(run.filename);
-    Promise.all(this.dustParamService.getDustParams())
-      .then((values) => {
-        console.log(values);
-      });
     this.selectedQfa = tempQfa.data;
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;
