@@ -1,42 +1,41 @@
 import type { VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
-import {
-  WarnLevelNumber,
-  WARNLEVEL_COLORS,
-  WARNLEVEL_OPACITY
-} from "../../util/warn-levels";
+import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
-import { regionCodes } from "../../util/regions";
-import { MicroRegionElevationProperties } from "../../stores/bulletin";
+import { regionsRegex } from "../../util/regions";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
     vectorGrid: VectorGrid;
   }
 }
+declare module "leaflet" {
+  interface VectorGridOptions {
+    dangerRatings: MaxDangerRatings;
+  }
+}
 
-const eawsRegionsWithoutElevation = [
-  "AD",
-  "CH",
-  "CZ",
-  "ES",
-  "ES-CT",
-  "FI",
-  "FR",
-  "GB",
-  "IS",
-  "NO",
-  "PL",
-  "SK"
-];
+const eawsRegionsWithoutElevation = /(AD|CH|CZ|ES|ES-CT|FI|FR|GB|IS|NO|PL|SK)/;
+
+type Region = string;
+type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
+  const hidden = Object.freeze({ stroke: false, fill: false });
+  const style = (id: string) => {
+    if (props.ampm) id += ":" + props.ampm;
+    const warnlevel = instance.options.dangerRatings[id];
+    if (!warnlevel) return hidden;
+    return regionsRegex.test(id)
+      ? WARNLEVEL_STYLES.albina[warnlevel]
+      : WARNLEVEL_STYLES.eaws[warnlevel];
+  };
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
@@ -44,16 +43,17 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       interactive: false,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
-        "micro-regions_elevation": { stroke: false, fill: false },
-        "micro-regions": { stroke: false, fill: false },
-        outline: { stroke: false, fill: false }
-      },
-      getFeatureId(f: { properties: MicroRegionElevationProperties }) {
-        if (!filterFeature(f, props.date)) return undefined;
-        let id = f.properties.id;
-        if (f.properties.elevation) id += ":" + f.properties.elevation;
-        if (props.ampm) id += ":" + props.ampm;
-        return id;
+        "micro-regions_elevation"(properties) {
+          if (eawsRegionsWithoutElevation.test(properties.id)) return hidden;
+          if (!filterFeature({ properties }, props.date)) return hidden;
+          return style(properties.id + ":" + properties.elevation);
+        },
+        "micro-regions"(properties) {
+          if (!eawsRegionsWithoutElevation.test(properties.id)) return hidden;
+          if (!filterFeature({ properties }, props.date)) return hidden;
+          return style(properties.id);
+        },
+        outline: hidden
       }
     }
   );
@@ -62,6 +62,19 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     context: { ...ctx, vectorGrid: instance }
   };
 });
+
+type DangerRatingsProps = { maxDangerRatings: MaxDangerRatings };
+
+export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
+  const { vectorGrid } = useLeafletContext();
+  useEffect(() => {
+    vectorGrid.options.dangerRatings = {
+      ...vectorGrid.options.dangerRatings,
+      ...maxDangerRatings
+    };
+  }, [maxDangerRatings]);
+  return <></>;
+};
 
 export const EawsDangerRatings = ({
   date,
@@ -87,7 +100,7 @@ export const EawsDangerRatings = ({
         setMaxDangerRatings(
           Object.fromEntries(
             Object.entries(maxDangerRatings).filter(
-              ([id]) => !regionCodes.some(prefix => id.startsWith(prefix))
+              ([id]) => !regionsRegex.test(id)
             )
           )
         )
@@ -96,33 +109,5 @@ export const EawsDangerRatings = ({
         console.warn("Cannot load EAWS bulletins for date " + date, error)
       );
   }, [date, setMaxDangerRatings]);
-  return (
-    <DangerRatings maxDangerRatings={maxDangerRatings} fillOpacity={0.5} />
-  );
-};
-
-type Region = string;
-type MaxDangerRatings = Record<Region, WarnLevelNumber>;
-
-type DangerRatingsProps = {
-  maxDangerRatings: MaxDangerRatings;
-  fillOpacity?: number | undefined;
-};
-
-export const DangerRatings = ({
-  maxDangerRatings,
-  fillOpacity
-}: DangerRatingsProps) => {
-  const ctx = useLeafletContext();
-  useEffect(() => {
-    Object.entries(maxDangerRatings).forEach(([id, warnlevel]) => {
-      ctx.vectorGrid.setFeatureStyle(id, {
-        stroke: false,
-        fill: true,
-        fillColor: WARNLEVEL_COLORS[warnlevel],
-        fillOpacity: fillOpacity || WARNLEVEL_OPACITY[warnlevel]
-      });
-    });
-  }, [maxDangerRatings]);
-  return <></>;
+  return <DangerRatings maxDangerRatings={maxDangerRatings} />;
 };
