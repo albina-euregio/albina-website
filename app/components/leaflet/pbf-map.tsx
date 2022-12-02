@@ -1,4 +1,4 @@
-import type { VectorGrid } from "leaflet";
+import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
@@ -7,6 +7,10 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 import { regionsRegex } from "../../util/regions";
+import {
+  MicroRegionElevationProperties,
+  MicroRegionProperties
+} from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -27,8 +31,8 @@ type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
-  const hidden = Object.freeze({ stroke: false, fill: false });
-  const style = (id: string) => {
+  const hidden: PathOptions = Object.freeze({ stroke: false, fill: false });
+  const style = (id: string): PathOptions => {
     if (props.ampm) id += ":" + props.ampm;
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return hidden;
@@ -43,17 +47,22 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       interactive: false,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
-        "micro-regions_elevation"(properties) {
+        "micro-regions_elevation"(
+          properties: MicroRegionElevationProperties
+        ): PathOptions {
           if (eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id + ":" + properties.elevation);
         },
-        "micro-regions"(properties) {
+        "micro-regions"(properties: MicroRegionProperties): PathOptions {
+          if (regionsRegex.test(properties.id)) return hidden;
           if (!eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id);
         },
-        outline: hidden
+        outline(): PathOptions {
+          return hidden;
+        }
       }
     }
   );
