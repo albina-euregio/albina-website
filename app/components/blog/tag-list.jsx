@@ -1,27 +1,20 @@
 import React from "react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-class TagList extends React.Component {
-  constructor(props) {
-    super(props);
+export default function TagList({ tags }) {
+  const intl = useIntl();
+  if (Array.isArray(tags) && tags.length > 0) {
+    return (
+      <ul className="list-inline blog-list-labels">
+        {tags.map((t, i) => (
+          <li key={i}>
+            <span className="label">
+              {intl.formatMessage({ id: "problem:" + t })}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
   }
-
-  render() {
-    if (Array.isArray(this.props.tags) && this.props.tags.length > 0) {
-      return (
-        <ul className="list-inline blog-list-labels">
-          {this.props.tags.map((t, i) => (
-            <li key={i}>
-              <span className="label">
-                {this.props.intl.formatMessage({ id: "problem:" + t })}
-              </span>
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    return null;
-  }
+  return null;
 }
-
-export default injectIntl(TagList);
