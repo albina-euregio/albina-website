@@ -136,6 +136,7 @@ const eawsRegions = [
   "IT-57",
   "NO",
   "PL",
+  "PL-12",
   "SI",
   "SK"
 ];
@@ -152,6 +153,7 @@ const eawsRegionsWithoutElevation = [
   "IS",
   "NO",
   "PL",
+  "PL-12",
   "SK"
 ];
 
