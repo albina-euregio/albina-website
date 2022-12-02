@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import ProblemIconLink from "../icons/problem-icon-link.jsx";
+import ProblemIconLink from "../icons/problem-icon-link";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import type { DaytimeBulletin } from "../../stores/bulletin/DaytimeBulletin";
 
