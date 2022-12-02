@@ -912,6 +912,32 @@
       }
     },
     {
+      "id": "PL-12",
+      "type": "Feature",
+      "properties": {
+        "id": "PL-12",
+        "aws": [
+          {
+            "name": "TOPR",
+            "url": [
+              {
+                "en": "https://lawiny.topr.pl/"
+              },
+              {
+                "pl": "https://lawiny.topr.pl"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "egf@}c_BF\\BTNRR\\BBbAUb@Sj@e@d@OvAIp@H~@j@TLF@h@FjBMJA`@[Oe@o@g@w@q@@AO@M?AGKAEFK?AECBE@C?EBGBI???MBIAEAM@ACCCG?AB]CA?G?I?IAG@[AKAQ?K?G?ABEC?CI?CAG@EAK?ACE@C@CA?A?CAAAAE?AAE?C@G?AB?@K?MCKAOAGCEAABEAG?I?C@E@G@E@?FABCACAGCEA@CCCDCD?ECE?C@EFGBG@]?d@z@HNFb@"
+        ]
+      }
+    },
+    {
       "id": "SI",
       "type": "Feature",
       "properties": {
