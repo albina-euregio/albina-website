@@ -60,6 +60,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
       Promise.all(dustParams[city])
         .then((rgbs: number[][]) => {
           this.dustParams[city] = rgbs;
+          console.log(this.dustParams);
         })
     }
   }
