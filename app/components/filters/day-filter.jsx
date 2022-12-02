@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Selectric from "../selectric";
 import { getDaysOfMonth } from "../../util/date";
 
-export default class DayFilter extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  get days() {
+export default function DayFilter(props) {
+  const days = useMemo(() => {
     const days = [];
     const maxDay = getDaysOfMonth(this.props.year, this.props.month);
     for (let i = 1; i <= maxDay; i++) {
@@ -15,21 +11,18 @@ export default class DayFilter extends React.Component {
     }
 
     return days;
-  }
-
-  render() {
-    return (
-      <div>
-        {this.props.title && <p className="info">{this.props.title}</p>}
-        <Selectric onChange={this.props.handleChange} {...this.props}>
-          {this.props.all && <option value="">{this.props.all}</option>}
-          {this.days.map(d => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </Selectric>
-      </div>
-    );
-  }
+  }, []);
+  return (
+    <div>
+      {props.title && <p className="info">{props.title}</p>}
+      <Selectric onChange={props.handleChange} {...props}>
+        {props.all && <option value="">{props.all}</option>}
+        {days.map(d => (
+          <option key={d} value={d}>
+            {d}
+          </option>
+        ))}
+      </Selectric>
+    </div>
+  );
 }
