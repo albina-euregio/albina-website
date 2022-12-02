@@ -44,10 +44,9 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       interactive: false,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
-        eaws: {
-          stroke: false,
-          fill: false
-        }
+        "micro-regions_elevation": { stroke: false, fill: false },
+        "micro-regions": { stroke: false, fill: false },
+        outline: { stroke: false, fill: false }
       },
       getFeatureId(f: { properties: MicroRegionElevationProperties }) {
         if (!filterFeature(f, props.date)) return undefined;
