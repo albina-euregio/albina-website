@@ -9,7 +9,7 @@
     <h5>
       {{filenamesService.getCityName(selectedFiles)}}
     </h5>
-    <div *ngFor="let file of selectedFiles" (click)="showRun(file)" class="file-wrapper">
+    <div *ngFor="let file of selectedFiles" (click)="showRun(file, 0)" class="file-wrapper">
       <span>{{file.date}} {{file.hours}}:{{file.minutes}}</span>
     </div>
   </div>
@@ -34,19 +34,19 @@
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '00' ? 'active-day' :''"
-          (click)="showRun(filenamesService.changeDay(selectedFile, '00', '02'))">
+          (click)="showRun(filenamesService.changeDay(selectedFile, '00', '02'), 0)">
           {{"qfa.day" | translate}} 0-2
         </span>
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '03' ? 'active-day' :''"
-          (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'))">
+          (click)="showRun(filenamesService.changeDay(selectedFile, '03', '05'), 1)">
           {{"qfa.day" | translate}} 3-5
         </span>
         <span
           class="day-button"
           [ngClass]="selectedFile.startDay === '06' ? 'active-day' :''"
-          (click)="showRun(filenamesService.changeDay(selectedFile, '06', '08'))">
+          (click)="showRun(filenamesService.changeDay(selectedFile, '06', '08'), 2)">
           {{"qfa.day" | translate}} 6-8
         </span>
       </div>
@@ -72,6 +72,16 @@
               <span>18</span>
             </div>
           </th>
+        </tr>
+        <tr>
+          <td class="header">DUST</td>
+          <td *ngFor="let day of dustParams['innsbruck'][selectedDayIndex]" class="table-entry">
+            <div>
+              <span *ngFor="let param of day" [ngStyle]="{'background-color': '{{dustParamService.dustToColor(param)}}'}">
+                {{param}}
+              </span>
+            </div>
+          </td>
         </tr>
         <tr *ngFor="let param of parameters" [ngClass]="[parameterClasses[param]]">
           <td class="header">{{param}}</td>
