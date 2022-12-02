@@ -1,38 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Tooltip } from "../tooltips/tooltip";
+import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
-export default class AvalancheSizeIcon extends React.Component {
-  imgRoot;
+type Props = { avalancheSize: Caaml.AvalancheSize; title: string };
 
-  constructor(props) {
-    super(props);
-    this.imgRoot = window.config.projectRoot + "images/pro/avalanche-sizes/";
-  }
-
-  render() {
-    const classes = ["bulletin-report-picto", "bulletin-situation-frequency"];
-
-    return (
-      <div className={classes.join(" ")}>
-        <Tooltip label={this.props.title}>
-          <Link
-            to={"/education/avalanche-problems#avalancheSize"}
-            className="img"
-            href="#"
-          >
-            <img
-              src={
-                this.imgRoot +
-                "avalanche-size_" +
-                this.props.avalancheSize +
-                ".png"
-              }
-              alt={this.props.title}
-            />
-          </Link>
-        </Tooltip>
-      </div>
-    );
-  }
+export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
+  const imgRoot = `${window.config.projectRoot}images/pro/avalanche-sizes/`;
+  return (
+    <div
+      className="bulletin-report-picto bulletin-situation-frequency"
+      title={title}
+    >
+      <Tooltip label={title}>
+        <Link
+          to={"/education/avalanche-problems#avalancheSize"}
+          className="img"
+          href="#"
+        >
+          <img
+            src={`${imgRoot}avalanche-size_${avalancheSize}.png`}
+            alt={title}
+          />
+        </Link>
+      </Tooltip>
+    </div>
+  );
 }

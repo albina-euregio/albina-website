@@ -1,24 +1,16 @@
 import React from "react";
 
-export default class TendencyIcon extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+type Props = { tendency: "increasing" | "steady" | "decreasing" };
 
-  get className() {
-    switch (this.props.tendency) {
-      case "increasing":
-        return "icon-arrow-increase";
-      case "steady":
-        return "icon-arrow-steady";
-      case "decreasing":
-        return "icon-arrow-decrease";
-      default:
-        return "";
-    }
-  }
-
-  render() {
-    return <span className={this.className} />;
+export default function TendencyIcon({ tendency }: Props) {
+  switch (tendency) {
+    case "increasing":
+      return <span className="icon-arrow-increase"></span>;
+    case "steady":
+      return <span className="icon-arrow-steady"></span>;
+    case "decreasing":
+      return <span className="icon-arrow-decrease"></span>;
+    default:
+      return <span className=""></span>;
   }
 }

@@ -1,43 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl } from "react-intl";
-import ProblemIcon from "./problem-icon.jsx";
+import { useIntl } from "react-intl";
+import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
+import { AvalancheProblem } from "../../stores/bulletin";
 
-/**
- * @typedef {object} Props
- * @prop {Caaml.AvalancheProblem} problem
- *
- * @extends {React.Component<Props>}
- */
-class ProblemIconLink extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+type Props = {
+  problem: AvalancheProblem;
+};
 
-  render() {
-    const problem = this.props.problem;
-    const problemType = problem.type;
-    const title = this.props.intl.formatMessage({
-      id: "problem:" + problemType
-    });
+export default function ProblemIconLink({ problem }: Props) {
+  const intl = useIntl();
+  const problemType = problem.type;
+  const title = intl.formatMessage({
+    id: "problem:" + problemType
+  });
 
-    return (
-      <div className="bulletin-report-picto avalanche-situation">
-        {title && (
-          <Tooltip label={title}>
-            <Link
-              to={"/education/avalanche-problems#" + problemType}
-              className="img"
-              href="#"
-            >
-              <ProblemIcon problem={problemType} alt={title} active={true} />
-            </Link>
-          </Tooltip>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="bulletin-report-picto avalanche-situation">
+      {title && (
+        <Tooltip label={title}>
+          <Link
+            to={"/education/avalanche-problems#" + problemType}
+            className="img"
+            href="#"
+          >
+            <ProblemIcon problem={problemType} alt={title} active={true} />
+          </Link>
+        </Tooltip>
+      )}
+    </div>
+  );
 }
-
-export default injectIntl(ProblemIconLink);
