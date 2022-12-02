@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
 import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
+import { GetDustParamService } from "app/providers/qfa-service/dust.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 import { AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -41,6 +42,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     public filenamesService: GetFilenamesService,
+    public dustParamService: GetDustParamService,
     public mapService: QfaMapService,
     private http: HttpClient,
   ) {}
@@ -146,7 +148,10 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.selectedFile = run;
     const tempQfa = new QfaFile(this.http);
     await tempQfa.loadFromURL(run.filename);
-    await tempQfa.getDustParams();
+    Promise.all(this.dustParamService.getDustParams())
+      .then((values) => {
+        console.log(values);
+      });
     this.selectedQfa = tempQfa.data;
     this.date = tempQfa.date;
     this.dates = tempQfa.paramDates;

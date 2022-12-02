@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class QfaFile implements types.QFA {
   public metadata = {} as types.metadata;
   public parameters = {} as types.parameters;
-  private skironURL = "https://admin.avalanche.report/forecast.uoa.gr/0day/DUST/GRID1/zoomdload/%d.zoomdload.png"
 
   constructor(private http: HttpClient) {}
 
@@ -65,29 +64,6 @@ export class QfaFile implements types.QFA {
         observe: "body"
       }
     )
-  }
-
-  private loadSkironForecast = (time: number) => {
-    const paddedNumber = time.toString().padStart(3, "0");
-    const url = this.skironURL.replace("%d", paddedNumber);
-    const headers = new HttpHeaders({
-      "Accept": "image/avif,image/webp,*/*"
-    })
-    return this.http.get(
-      url, {
-        responseType: "blob",
-        observe: "body",
-        headers: headers
-      }
-    )
-  }
-
-  public getDustParams = async () => {
-    const nSteps = 16
-    for(let i = 0; i <= nSteps*6; i+=6) {
-      const imageBlob = await this.loadSkironForecast(i).toPromise() as Blob;
-      console.log(imageBlob);
-    }
   }
 
   public loadFromURL = async (url: string) => {
