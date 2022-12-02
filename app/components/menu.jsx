@@ -4,8 +4,10 @@ import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
 import { Link } from "react-router-dom";
 import { APP_STORE } from "../appStore";
+import { useIntl } from "react-intl";
 
 const Menu = props => {
+  const intl = useIntl();
   const location = useLocation();
 
   const testActive = (e, recursive = true) => {
@@ -49,7 +51,7 @@ const Menu = props => {
     }
     const title =
       e.title ||
-      props.intl.formatMessage({
+      intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
     const url = e["url:" + APP_STORE.language] || e["url"];
@@ -88,7 +90,6 @@ const Menu = props => {
         )}
         {e.children && e.children.length > 0 && (
           <Menu
-            intl={props.intl}
             className={props.childClassName}
             entries={e.children}
             location={location}

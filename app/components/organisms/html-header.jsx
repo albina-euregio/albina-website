@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useEffect } from "react";
 
-const HTMLHeader = props => {
+export default function HTMLHeader(props) {
   const intl = useIntl();
   useEffect(
     () =>
@@ -12,6 +12,4 @@ const HTMLHeader = props => {
       ].join(" | "))
   );
   return <></>;
-};
-
-export default HTMLHeader;
+}
