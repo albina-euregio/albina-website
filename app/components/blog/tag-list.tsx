@@ -1,7 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function TagList({ tags }) {
+type Props = {
+  tags: string[];
+};
+
+export default function TagList({ tags }: Props) {
   const intl = useIntl();
   if (Array.isArray(tags) && tags.length > 0) {
     return (

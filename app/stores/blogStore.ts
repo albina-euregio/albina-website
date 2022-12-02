@@ -19,7 +19,7 @@ type BlogConfig = {
   };
 };
 
-class BlogPostPreviewItem {
+export class BlogPostPreviewItem {
   constructor(
     public blogName: string,
     public postId: string,

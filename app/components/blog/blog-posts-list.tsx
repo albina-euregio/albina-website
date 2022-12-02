@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 import TagList from "./tag-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import type { BlogPostPreviewItem } from "../../stores/blogStore";
 
-export default function BlogPostsList({ posts }) {
+type Props = {
+  posts: BlogPostPreviewItem[];
+};
+
+export default function BlogPostsList({ posts }: Props) {
   const intl = useIntl();
   const havePictures = posts.some(i => i.image);
   return (
