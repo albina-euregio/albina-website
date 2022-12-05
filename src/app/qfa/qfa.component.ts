@@ -166,6 +166,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   }
 
   private async showRun(run, startDayIndex) {
+    this.selectedQfa = {} as types.data;
     this.selectedDayIndex = startDayIndex;
     this.selectedFile = run;
     const tempQfa = new QfaFile(this.http);
