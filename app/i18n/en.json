@@ -68,7 +68,7 @@
   "footer:euregio:hover": "European Region Tyrol - South Tyrol - Trentino",
   "footer:eaws:hover": "European Avalanche Warning Services",
   "footer:top:hover": "Go back to top",
-  "footer:follow-us": "<strong>Follow us</strong> on Social Media",
+  "footer:follow-us": "<strong>Follow {region}</strong> on Social Media",
   "footer:follow-us:hover": "Follow us on {on}",
   "bulletin:title": "Avalanche Forecast",
   "bulletin:header:forecast": "Avalanche Forecast",
