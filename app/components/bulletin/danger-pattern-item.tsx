@@ -9,11 +9,11 @@ function DangerPatternItem({ dangerPattern }: Props) {
   const intl = useIntl();
   return (
     <Link
-      to={"/education/danger-patterns#" + dangerPattern.id.toLowerCase()}
+      to={"/education/danger-patterns#" + dangerPattern.toLowerCase()}
       className="label"
     >
       {intl.formatMessage({
-        id: "danger-patterns:" + dangerPattern.id.toLowerCase()
+        id: "danger-patterns:" + dangerPattern.toLowerCase()
       })}
     </Link>
   );

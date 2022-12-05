@@ -11,7 +11,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import {
   Bulletin,
   hasDaytimeDependency,
-  isDangerPattern
+  getDangerPatterns
 } from "../../stores/bulletin";
 
 type Props = { date: Date; bulletin: Bulletin };
@@ -22,9 +22,7 @@ type Props = { date: Date; bulletin: Bulletin };
  */
 function BulletinReport({ date, bulletin }: Props) {
   const intl = useIntl();
-  const dangerPatterns = Array.isArray(bulletin.customData)
-    ? bulletin.customData.filter(isDangerPattern)
-    : [];
+  const dangerPatterns = getDangerPatterns(bulletin.customData);
 
   function getLocalizedText(elem: string | undefined) {
     // bulletins are loaded in correct language

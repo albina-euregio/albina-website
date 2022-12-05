@@ -22,22 +22,27 @@ export function isAmPm(ampm: "am" | "pm" | "", t: ValidTimePeriod): boolean {
   );
 }
 
-export interface DangerPattern {
-  type: "dangerPattern";
-  id:
-    | "DP1"
-    | "DP2"
-    | "DP3"
-    | "DP4"
-    | "DP5"
-    | "DP6"
-    | "DP7"
-    | "DP8"
-    | "DP9"
-    | "DP10";
-  name: string;
+export type DangerPattern =
+  | "DP1"
+  | "DP2"
+  | "DP3"
+  | "DP4"
+  | "DP5"
+  | "DP6"
+  | "DP7"
+  | "DP8"
+  | "DP9"
+  | "DP10";
+
+interface AlbinaCustomData extends CustomData {
+  ALBINA: {
+    mainDate: string;
+  };
+  LWD_Tyrol: {
+    dangerPatterns: DangerPattern[];
+  };
 }
 
-export function isDangerPattern(data: CustomData): data is DangerPattern {
-  return (data as DangerPattern).type === "dangerPattern";
+export function getDangerPatterns(data: CustomData): DangerPattern[] {
+  return (data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns || [];
 }
