@@ -17,6 +17,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   selectedQfa = {} as types.data;
   displaySelectedQfa = false;
   date = "";
+  isLatestRun = false;
   dates = [];
   parameters = [] as string[];
   parameterClasses = {};
@@ -170,7 +171,22 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     const tempQfa = new QfaFile(this.http);
     await tempQfa.loadFromURL(run.filename);
     this.selectedQfa = tempQfa.data;
+
     this.date = tempQfa.date;
+    const today = new Date()
+    const date = new Intl.DateTimeFormat("de", {
+      weekday: "short",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+      timeZoneName: "short"
+    })
+    const stringDate = date.format(today)
+      .replace(/\./, "")
+      .replace(" um", ",");
+    this.isLatestRun = stringDate === this.date;
+
     this.dates = tempQfa.paramDates;
     this.parameters = Object.keys(this.selectedQfa.parameters);
     for(const param of this.parameters) {
