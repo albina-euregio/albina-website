@@ -13,11 +13,6 @@ import { BLOG_STORE } from "./stores/blogStore";
 window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
-window["tiltySettings"] = {
-  "data-tilt-speed": window["scroll_duration"] / 2,
-  "data-tilt-transition": "false",
-  "data-tilt-scale": 1.1
-};
 
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
