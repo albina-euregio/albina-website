@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 type Props = { loading: boolean };
 
-function HTMLPageLoadingScreen({ loading }: Props) {
+export default function HTMLPageLoadingScreen({ loading }: Props) {
   useEffect(() => {
     if (loading) {
       document.body.classList.remove("page-loaded");
@@ -19,8 +19,6 @@ function HTMLPageLoadingScreen({ loading }: Props) {
   }, [loading]);
   return <></>;
 }
-
-export default HTMLPageLoadingScreen;
 
 export function useSlowLoading(timeout = 5000) {
   const [loadingStart, setLoadingStart] = useState(Date.now());
