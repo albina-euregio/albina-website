@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { APP_STORE } from "../../appStore";
 import { modal_init } from "../../js/modal";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
 
-function BulletinButtonbar() {
+type Props = { showPdfDialog: boolean };
+
+function BulletinButtonbar({ showPdfDialog }: Props) {
   const intl = useIntl();
 
   useEffect(() => modal_init());
@@ -27,7 +28,7 @@ function BulletinButtonbar() {
           </div>
           <div className="normal-8 grid-item">
             <ul className="list-inline bulletin-buttonbar">
-              {BULLETIN_STORE.activeBulletinCollection && (
+              {showPdfDialog && (
                 <li>
                   <Tooltip
                     label={intl.formatMessage({

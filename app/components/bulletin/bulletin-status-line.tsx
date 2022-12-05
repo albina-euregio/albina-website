@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
-import { getLocalDate } from "../../util/date.js";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
+import { isSummerTime } from "../../util/date.js";
 
-const BulletinStatusLine = ({ status }) => {
+const BulletinStatusLine = () => {
   const intl = useIntl();
+  const status = BULLETIN_STORE.settings.status;
   const collection = BULLETIN_STORE.activeBulletinCollection;
   let statusText = "";
-  let isRepublished = false;
+  const publicationTime = collection?.bulletins?.[0]?.publicationTime;
+  const isRepublished = useMemo(() => {
+    const summerTime = isSummerTime(new Date(publicationTime));
+    return (
+      publicationTime &&
+      !(summerTime ? /T15:00:00Z/ : /T16:00:00Z/).test(publicationTime)
+    );
+  }, []);
 
   if (status == "pending") {
     statusText =
@@ -16,14 +24,11 @@ const BulletinStatusLine = ({ status }) => {
   }
 
   if (status == "ok") {
-    const pubDate = getLocalDate(collection.publicationDate);
-    isRepublished = pubDate.getHours() !== 17 || pubDate.getMinutes() !== 0;
-
     // There must be a status entry for each downloaded bulletin. Query its
     // original status message.
     const params = {
-      date: intl.formatDate(pubDate),
-      time: intl.formatTime(pubDate)
+      date: intl.formatDate(publicationTime),
+      time: intl.formatTime(publicationTime)
     };
 
     if (isRepublished) {

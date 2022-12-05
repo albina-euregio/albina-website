@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import ProblemIcon from "../icons/problem-icon";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   active: boolean;

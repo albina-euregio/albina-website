@@ -7,15 +7,15 @@ import ElevationIcon from "../icons/elevation-icon";
 // import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import { AvalancheProblem } from "../../stores/bulletin";
 
-type Props = { problem: Caaml.AvalancheProblem };
+type Props = { problem: AvalancheProblem };
 
 function BulletinProblemItem({ problem }: Props) {
   const intl = useIntl();
   function getElevationIcon() {
-    const lowerBound = problem?.dangerRating?.elevation?.lowerBound;
-    const upperBound = problem?.dangerRating?.elevation?.upperBound;
+    const lowerBound = problem?.elevation?.lowerBound;
+    const upperBound = problem?.elevation?.upperBound;
 
     if (lowerBound && upperBound) {
       if (lowerBound === "treeline") {
@@ -158,11 +158,11 @@ function BulletinProblemItem({ problem }: Props) {
     }
   }
 
-  const expositions = problem?.dangerRating?.aspects;
+  const expositions = problem?.aspects;
   if (!expositions) return <li></li>;
-  const snowpackStability = problem?.dangerRating?.snowpackStability;
-  const frequency = problem?.dangerRating?.frequency;
-  const avalancheSize = problem?.dangerRating?.avalancheSize;
+  const snowpackStability = problem?.snowpackStability;
+  const frequency = problem?.frequency;
+  const avalancheSize = problem?.avalancheSize;
   const expositionText = useMemo(
     () =>
       intl.formatMessage({

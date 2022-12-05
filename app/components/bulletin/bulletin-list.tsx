@@ -1,35 +1,26 @@
 import React from "react";
-import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import type { DaytimeBulletin } from "../../stores/bulletin/DaytimeBulletin";
+import type { Bulletin } from "../../stores/bulletin";
 
-type Props = { daytimeBulletins: DaytimeBulletin[] };
+type Props = { bulletins: Bulletin[]; date: Date; region: string };
 
-function BulletinList({ daytimeBulletins }: Props) {
+function BulletinList({ bulletins, date, region }: Props) {
   return (
     <section
       id="section-bulletin-reports"
       className="section-centered section-bulletin-reports"
     >
       <ul className="list-plain bulletin-list">
-        {daytimeBulletins.map(daytimeBulletin => (
+        {bulletins.map(bulletin => (
           <li
-            id={daytimeBulletin.id}
-            key={daytimeBulletin.id}
+            id={bulletin.bulletinID}
+            key={bulletin.bulletinID}
             className={
               "bulletin-list-item" +
-              (daytimeBulletin.id === BULLETIN_STORE.settings.region
-                ? " selected"
-                : "")
+              (bulletin.bulletinID === region ? " selected" : "")
             }
           >
-            {
-              <BulletinReport
-                daytimeBulletin={daytimeBulletin}
-                date={BULLETIN_STORE.settings.date}
-              />
-            }
+            {<BulletinReport bulletin={bulletin} date={date} />}
           </li>
         ))}
       </ul>
@@ -37,4 +28,4 @@ function BulletinList({ daytimeBulletins }: Props) {
   );
 }
 
-export default observer(BulletinList);
+export default BulletinList;

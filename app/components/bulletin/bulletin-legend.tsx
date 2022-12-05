@@ -4,13 +4,11 @@ import { FormattedMessage, useIntl } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
 type Props = {
   handleSelectRegion: any;
-  problems: Record<Caaml.AvalancheProblemType, { highlighted: boolean }>;
 };
-function BulletinLegend({ handleSelectRegion, problems }: Props) {
+function BulletinLegend({ handleSelectRegion }: Props) {
   const intl = useIntl();
   const warnlevelKeys = [
     "low",
@@ -44,10 +42,7 @@ function BulletinLegend({ handleSelectRegion, problems }: Props) {
                 }
               )}
             </p>
-            <BulletinProblemFilter
-              handleSelectRegion={handleSelectRegion}
-              problems={problems}
-            />
+            <BulletinProblemFilter handleSelectRegion={handleSelectRegion} />
           </div>
           <div className="normal-6 grid-item">
             <p>

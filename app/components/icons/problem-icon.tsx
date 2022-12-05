@@ -1,8 +1,8 @@
 import React from "react";
-import { AvalancheProblem } from "../../stores/bulletin";
+import { AvalancheProblemType } from "../../stores/bulletin";
 
 type Props = {
-  problem: AvalancheProblem;
+  problem: AvalancheProblemType;
   alt: string;
   active: boolean;
 };

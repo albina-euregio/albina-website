@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 import {
-  parseDate,
   getPredDate,
   getSuccDate,
   dateToISODateString,
@@ -11,18 +10,16 @@ import {
 } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
 
-type Props = { date: string; latest: string };
+type Props = { date: Date; latest: Date };
 
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();
-  const date$: Date | null = date ? parseDate(date) : null;
+  const date$: Date | null = date && +date ? date : null;
   let nextDate$: Date | null = null;
   if (date$ && latest) {
     const next = getSuccDate(date$);
-    const latest0 = parseDate(latest);
     /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
-    nextDate$ =
-      isSameDay(latest0, next) || isAfter(latest0, next) ? next : null;
+    nextDate$ = isSameDay(latest, next) || isAfter(latest, next) ? next : null;
   }
   const prevDate$: Date | null = date$ ? getPredDate(date$) : null;
   const prevLink = dateToISODateString(prevDate$);
