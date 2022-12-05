@@ -23,7 +23,8 @@ declare module "leaflet" {
   }
 }
 
-const eawsRegionsWithoutElevation = /(AD|CH|CZ|ES|ES-CT|FI|FR|GB|IS|NO|PL|SK)/;
+const eawsRegionsWithoutElevation =
+  /(AD|CH|CZ|ES|ES-CT-RF|ES-CT-PA|ES-CT-PP|ES-CT-VN|ES-CT-TF|ES-CT-PR|ES-CT-L-04|FI|FR|GB|IS|NO|PL|SK)/;
 
 type Region = string;
 type MaxDangerRatings = Record<Region, WarnLevelNumber>;
