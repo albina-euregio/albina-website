@@ -5,7 +5,6 @@ import Menu from "../menu";
 // import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
-import tilty from "vanilla-tilt";
 
 import { Tooltip } from "../../components/tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
@@ -18,10 +17,6 @@ const version = import.meta.env.APP_VERSION; // included via vite.config.js
 const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.config.js
 
 class PageFooter extends React.Component {
-  componentDidMount() {
-    tilty.init(document.querySelectorAll(".tilt"));
-  }
-
   render() {
     return (
       <div id="page-footer" className="page-footer">
@@ -77,8 +72,7 @@ class PageFooter extends React.Component {
                 >
                   <a
                     href="https://www.avalanches.org/"
-                    {...window["tiltySettings"]}
-                    className="footer-logo-tertiary tilt"
+                    className="footer-logo-tertiary"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -97,8 +91,7 @@ class PageFooter extends React.Component {
                     href={Util.template(config.links.euregio, {
                       lang: APP_STORE.language
                     })}
-                    {...window["tiltySettings"]}
-                    className="header-footer-logo-secondary tilt"
+                    className="header-footer-logo-secondary"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
