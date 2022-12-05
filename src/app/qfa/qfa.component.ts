@@ -96,7 +96,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     marker.addTo(this.mapService.qfaMap);
   }
 
-  private async displayRuns(ll) {
+  private async displayRuns(ll: types.coordinates) {
     this.qfaPopupVisible = true;
     this.displaySelectedQfa = false;
     const city = this.getCityName(ll);
@@ -105,6 +105,13 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
       this.parsedFiles.push(this.filenamesService.parseFilename(file.name));
     }
     this.selectedFiles = this.parsedFiles.filter(el => el.startDay === "00");
+  }
+
+  private async resetRun() {
+    this.displaySelectedQfa = false;
+    this.selectedQfa = {} as types.data;
+    this.selectedDayIndex = 0;
+    this.selectedFile["startDay"] = "00";
   }
 
   private getCellClass(param: string, value: string): string {
