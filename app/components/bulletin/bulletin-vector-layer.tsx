@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from "react";
 import L from "leaflet";
-import { Pane, Polygon, Tooltip } from "react-leaflet";
+import { Pane, Polygon, Tooltip, useMap } from "react-leaflet";
 import { useIntl } from "react-intl";
 
 const BulletinVectorLayer = props => {
   const intl = useIntl();
+  const map = useMap();
 
   const [over] = useState(false);
 
@@ -15,7 +16,7 @@ const BulletinVectorLayer = props => {
       if (L.Browser.mobile) {
         const polygon = e.target;
         const center = polygon.getCenter();
-        props.handleCenterToRegion(center);
+        map.panTo(center);
       }
       props.handleSelectRegion(bid);
     }

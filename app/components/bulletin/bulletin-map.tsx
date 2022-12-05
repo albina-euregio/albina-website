@@ -12,6 +12,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
+import { DangerRatings, EawsDangerRatings, PbfLayer } from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -22,16 +23,12 @@ import { scroll_init } from "../../js/scroll";
  */
 const BulletinMap = props => {
   const intl = useIntl();
-  const [map, setMap] = useState(null);
 
   useEffect(() => {
-    //console.log("BulletinMap->useEffect[props.regions] xx03");
     scroll_init();
-  }, [props.regions]);
+  }, []);
 
   const handleMapInit = map => {
-    setMap(map);
-
     map.on("click", _click, this);
     map.on("unload", () => map.off("click", _click, this));
 
@@ -53,6 +50,7 @@ const BulletinMap = props => {
 
   const getMapOverlays = () => {
     const overlays = [];
+    const date = BULLETIN_STORE.settings.date;
 
     if (BULLETIN_STORE.eawsRegions) {
       overlays.push(
@@ -60,51 +58,30 @@ const BulletinMap = props => {
           key="eaws-regions"
           name="eaws-regions"
           problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
+          date={date}
           activeRegion={BULLETIN_STORE.settings.region}
           regions={BULLETIN_STORE.eawsRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
-
-    const { activeEawsBulletins } = BULLETIN_STORE;
-    if (BULLETIN_STORE.settings.eawsCount && activeEawsBulletins) {
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`eaws-bulletins-${activeEawsBulletins.name}`}
-          data={activeEawsBulletins}
-          pane="mapPane"
-          style={feature =>
-            props.ampm === "am"
-              ? feature.properties.amStyle
-              : props.ampm === "pm"
-              ? feature.properties.pmStyle
-              : feature.properties.style
-          }
-        />
-      );
-    }
-
     const b = BULLETIN_STORE.activeBulletinCollection;
-    if (b) {
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`bulletin-regions-${props.ampm}-${b.date}-${b.status}`}
-          data={BULLETIN_STORE.microRegionsElevation}
-          pane="mapPane"
-          style={feature =>
-            BULLETIN_STORE.getMicroElevationStyle(feature, props.ampm)
-          }
-        />
-      );
-    }
+    overlays.push(
+      <PbfLayer
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}`}
+        date={date}
+        ampm={props.ampm}
+      >
+        {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
+        <EawsDangerRatings date={date} />
+        {["IT-21", "IT-23", "IT-25", "IT-34", "IT-36", "IT-57"].map(region => (
+          <EawsDangerRatings key={region} date={date} region={region} />
+        ))}
+      </PbfLayer>
+    );
 
-    if (props.regions) {
+    if (BULLETIN_STORE.microRegions) {
       //console.log("bulletin-map push Vector xx01", "eaws-regions");
       overlays.push(
         <BulletinVectorLayer
@@ -113,10 +90,9 @@ const BulletinMap = props => {
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
-          regions={props.regions}
+          regions={BULLETIN_STORE.microRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
@@ -239,7 +215,7 @@ const BulletinMap = props => {
         }
       >
         <LeafletMap
-          loaded={props.regions}
+          loaded={BULLETIN_STORE.microRegions}
           onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}

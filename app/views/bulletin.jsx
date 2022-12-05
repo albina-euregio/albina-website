@@ -127,12 +127,8 @@ const Bulletin = props => {
       });
     }
 
-    try {
       setLoadingStart(Date.now());
-      await BULLETIN_STORE.load(startDate);
-    } finally {
-      await BULLETIN_STORE.loadEawss(startDate);
-    }
+    await BULLETIN_STORE.load(startDate);
   };
 
   const checkRegion = () => {
@@ -276,7 +272,6 @@ const Bulletin = props => {
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
                 highlightedRegion={highlightedRegion}
-                regions={BULLETIN_STORE.getVectorRegions(ampm)}
                 onMapInit={handleMapInit}
                 ampm={ampm}
               />
@@ -289,7 +284,6 @@ const Bulletin = props => {
             handleSelectRegion={handleSelectRegion}
             date={params.date}
             highlightedRegion={highlightedRegion}
-            regions={BULLETIN_STORE.getVectorRegions()}
           />
         )}
         <BulletinLegend handleSelectRegion={handleSelectRegion} />

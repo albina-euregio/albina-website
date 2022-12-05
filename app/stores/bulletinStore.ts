@@ -10,7 +10,6 @@ import {
   isAmPm
 } from "./bulletin";
 import { fetchJSON, fetchText } from "../util/fetch.js";
-import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
@@ -22,9 +21,7 @@ import {
 } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
-const enableEawsRegions = true;
-
-export type Status = "pending" | "ok" | "empty" | "n/a";
+type Status = "pending" | "ok" | "empty" | "n/a";
 
 type AmPm = "am" | "pm" | "";
 
@@ -34,6 +31,7 @@ class BulletinCollection {
   statusMessage: string;
   dataRaw: Bulletins | null;
   eawsBulletins: GeoJSON.FeatureCollection;
+  maxDangerRatings: Record<string, WarnLevelNumber>;
 
   constructor(date: string) {
     this.date = date;
@@ -76,6 +74,8 @@ class BulletinCollection {
           ? "ok"
           : "empty"
         : "n/a";
+
+    this.maxDangerRatings = this.computeMaxDangerRatings();
   }
 
   cancelLoad() {
@@ -84,6 +84,38 @@ class BulletinCollection {
 
   toString() {
     return JSON.stringify(this.dataRaw);
+  }
+
+  private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {
+    return Object.fromEntries(
+      this.dataRaw?.bulletins.flatMap(b =>
+        b.regions.flatMap(({ regionID }) =>
+          (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
+            (["low", "high"] as ("low" | "high")[]).map(elevation => [
+              `${regionID}:${elevation}:${ampm}`.replace(/:$/, ""),
+              this.getWarnlevel(ampm, b, elevation)
+            ])
+          )
+        )
+      ) || []
+    );
+  }
+
+  private getWarnlevel(
+    ampm: AmPm,
+    bulletin: Bulletin,
+    elevation: "low" | "high"
+  ): WarnLevelNumber {
+    return bulletin?.dangerRatings
+      .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
+      .filter(
+        danger =>
+          (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
+          (danger?.elevation?.upperBound && elevation === "low") ||
+          (danger?.elevation?.lowerBound && elevation === "high")
+      )
+      .map(danger => warnlevelNumbers[danger.mainValue])
+      .reduce((w1, w2) => Math.max(w1, w2), 0);
   }
 }
 
@@ -127,7 +159,6 @@ class BulletinStore {
       _latestBulletinChecker: action,
       _setLatest: action,
       load: action,
-      loadEawss: action,
       activate: action,
       setRegion: action,
       dimProblem: action,
@@ -183,12 +214,6 @@ class BulletinStore {
     this._microRegions = decodeFeatureCollection(polyline.default);
   }
 
-  async loadMicroRegionsElevation() {
-    if (this._microRegionsElevation.features.length) return;
-    const polyline = await import("./micro-regions_elevation.polyline.json");
-    this._microRegionsElevation = decodeFeatureCollection(polyline.default);
-  }
-
   async loadEawsRegions() {
     if (this._eawsRegions.features.length) return;
     const polyline = await import("./eaws_regions.polyline.json");
@@ -204,7 +229,6 @@ class BulletinStore {
    */
   async load(date: string, activate = true) {
     this.loadMicroRegions();
-    this.loadMicroRegionsElevation();
     this.loadEawsRegions();
     // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
@@ -235,18 +259,6 @@ class BulletinStore {
     }
   }
 
-  async loadEawss(date: string, activate = true) {
-    if (!enableEawsRegions) return;
-    if (typeof date !== "string") return;
-    this.settings.eawsCount = 0;
-    const geojson = await loadEawsBulletins(date);
-    this.bulletins[date].eawsBulletins = geojson;
-    if (activate && this.settings.date == date) {
-      // reactivate to notify status change
-      this.activate(date);
-    }
-  }
-
   /**
    * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
@@ -255,8 +267,6 @@ class BulletinStore {
     if (this.bulletins[date]) {
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
-      this.settings.eawsCount =
-        this.bulletins[date].eawsBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {
@@ -296,10 +306,6 @@ class BulletinStore {
       return this.bulletins[this.settings.date];
     }
     return null;
-  }
-
-  get activeEawsBulletins() {
-    return this.bulletins[this.settings.date]?.eawsBulletins;
   }
 
   get activeRegionName(): string {
@@ -408,15 +414,22 @@ class BulletinStore {
   }
 
   get microRegions(): GeoJSON.Feature[] {
-    return this._microRegions.features.filter(f =>
-      filterFeature(f, this.settings.date)
-    );
-  }
-
-  get microRegionsElevation(): GeoJSON.Feature[] {
-    return this._microRegionsElevation.features
+    const states = [
+      "selected",
+      "highlighted",
+      "dehighlighted",
+      "dimmed",
+      "default"
+    ];
+    return this._microRegions.features
       .filter(f => filterFeature(f, this.settings.date))
-      .map(f => this._augmentFeature(f));
+      .map(f => this._augmentFeature(f))
+      .sort((r1, r2) =>
+        states.indexOf(r1.properties.state) <
+        states.indexOf(r2.properties.state)
+          ? 1
+          : -1
+      );
   }
 
   get eawsRegions(): GeoJSON.Feature[] {
@@ -435,34 +448,6 @@ class BulletinStore {
       );
     }
     return f;
-  }
-
-  // assign states to regions
-  getVectorRegions(ampm: AmPm = null): GeoJSON.Feature[] {
-    const collection = this.activeBulletinCollection;
-
-    if (collection && collection.length > 0) {
-      const regions: GeoJSON.Feature[] = this.microRegions.map(f =>
-        this._augmentFeature(f, ampm)
-      );
-
-      const states = [
-        "selected",
-        "highlighted",
-        "dehighlighted",
-        "dimmed",
-        "default"
-      ];
-      regions.sort((r1, r2) => {
-        return states.indexOf(r1.properties.state) <
-          states.indexOf(r2.properties.state)
-          ? 1
-          : -1;
-      });
-      return regions;
-    } else {
-      return [];
-    }
   }
 
   static _getBulletinUrl(date: string): string {
