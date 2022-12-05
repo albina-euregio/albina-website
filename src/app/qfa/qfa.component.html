@@ -77,7 +77,7 @@
           <td class="header">DUST</td>
           <td *ngFor="let day of dustParams['innsbruck'][selectedDayIndex]" class="table-entry">
             <div>
-              <span *ngFor="let param of day" [ngStyle]="{'background-color': '{{dustParamService.dustToColor(param)}}'}">
+              <span *ngFor="let param of day" [ngStyle]="{'background-color': dustParamService.dustToColor(param)}">
                 {{param}}
               </span>
             </div>
