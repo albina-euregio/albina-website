@@ -351,16 +351,19 @@
   "footer": {
     "icons": [
       {
+        "region": "AT-07",
         "img": "Landeslogo_Regular_4c",
         "title": "Tirol",
         "url": "https://www.tirol.gv.at/"
       },
       {
+        "region": "IT-32-BZ",
         "img": "LW-4Z-3sprachig",
         "title": "Südtirol",
         "url": "http://wetter.provinz.bz.it/"
       },
       {
+        "region": "IT-32-TN",
         "img": "Stemma_PAT_colore",
         "title": "Trentino",
         "url": "https://www.meteotrentino.it/"

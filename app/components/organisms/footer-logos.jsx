@@ -1,33 +1,33 @@
 import React from "react";
-import { injectIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
+import SmFollow from "./sm-follow";
 
-class FooterLogos extends React.Component {
-  render() {
-    const icons = config.footer.icons;
-    const imgRoot = window.config.projectRoot + "images/pro/footer/";
-    const imgFormat = ".png"; //window.config.webp ? ".webp" : ".png";
+export default function FooterLogos() {
+  const icons = config.footer.icons;
+  const imgRoot = window.config.projectRoot + "images/pro/footer/";
+  const imgFormat = ".png"; //window.config.webp ? ".webp" : ".png";
 
-    return (
-      <section className="section section-padding page-footer-images">
-        <ul className="list-inline">
-          {icons.map((icon, i) => (
-            <li key={i}>
-              <Tooltip label={icon.title}>
-                <a
-                  href={icon.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="avoid-external-icon"
-                >
-                  <img alt={icon.title} src={imgRoot + icon.img + imgFormat} />
-                </a>
-              </Tooltip>
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  }
+  return (
+    <section className="section section-padding page-footer-logos">
+      {icons.map((icon, i) => (
+        <div className="footer-logo" key={i}>
+          <Tooltip label={icon.title}>
+            <a
+              href={icon.url}
+              rel="noopener noreferrer"
+              target="_blank"
+              className="footer-logo-link avoid-external-icon"
+            >
+              <img
+                className="footer-logo-img"
+                alt={icon.title}
+                src={imgRoot + icon.img + imgFormat}
+              />
+            </a>
+          </Tooltip>
+          {icon.region && <SmFollow region={icon.region} />}
+        </div>
+      ))}
+    </section>
+  );
 }
-export default injectIntl(FooterLogos);
