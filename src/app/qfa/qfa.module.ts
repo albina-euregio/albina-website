@@ -10,6 +10,7 @@ import { TranslateModule } from "@ngx-translate/core";
 
 import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
 import { GetDustParamService } from "../providers/qfa-service/dust.service";
+import { ParamService } from "../providers/qfa-service/param.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { QfaMapService } from '../providers/map-service/qfa-map.service';
   providers: [
     GetFilenamesService,
     GetDustParamService,
+    ParamService,
     QfaMapService
   ]
 })

@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { QfaFile } from "./models/qfa-file.model";
 import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
-import { GetDustParamService } from "app/providers/qfa-service/dust.service";
+import { GetDustParamService } from "../providers/qfa-service/dust.service";
+import { ParamService } from "../providers/qfa-service/param.service";
 import { QfaMapService } from '../providers/map-service/qfa-map.service';
 import { AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -20,7 +21,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   isLatestRun = false;
   dates = [];
   parameters = [] as string[];
-  parameterClasses = {};
+
   markers = {
     "bozen": {
       lng: 11.33,
@@ -46,6 +47,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   constructor(
     public filenamesService: GetFilenamesService,
     public dustParamService: GetDustParamService,
+    public paramService: ParamService,
     public mapService: QfaMapService,
     private http: HttpClient,
   ) {}
@@ -114,64 +116,6 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.selectedFile["startDay"] = "00";
   }
 
-  private getCellClass(param: string, value: string): string {
-    let params = ["N", "Nh", "Nm", "Nl", "N_CU"];
-    if(params.includes(this.parameterClasses[param])) {
-      const parsedVal = Number(value);
-      if (parsedVal >= 7) return "darkest";
-      if (parsedVal >= 5) return "darker";
-      if (parsedVal >= 3) return "dark";
-      if (parsedVal == 0) return "opacity-0";
-    }
-
-    params = ["RF_300", "RF_400", "RF_500", "RF_700", "RF_850", "RF_925"];
-    if(params.includes(this.parameterClasses[param])) {
-      const parsedVal = Number(value);
-      if (parsedVal >= 90) return "darkest";
-      if (parsedVal >= 80) return "darker";
-      if (parsedVal >= 70) return "dark";
-    }
-
-    params = ["WX_CUF"];
-    if(params.includes(this.parameterClasses[param])) {
-      if (value === "NIL") return "opacity-0";
-      if (value === "TS") return "yellow";
-      if (value === "XXTS") return "orange";
-    }
-
-    params = ["SN_RA"];
-    if(params.includes(this.parameterClasses[param])) {
-      const parsedVal = Number(value);
-      if(parsedVal <= 1000) return "sn-rf-color";
-    }
-
-    params = ["RR, RR_24h, SN"];
-    if(params.includes(this.parameterClasses[param])) {
-      if(value === "0.0" || value === "---") return "opacity-0";
-    }
-
-    params = ["QANmax"];
-    if(params.includes(this.parameterClasses[param])) {
-      const parsedVal = Number(value);
-      if(parsedVal >= 15) return "orange";
-    }
-
-    return "";
-  }
-
-  private getWParam(value: string): string {
-    const parsedVal = Number(value);
-    if (parsedVal <= -1000) return `-----${value}`;
-    if (parsedVal <= -25) return `---${value}`;
-    if (parsedVal <= -9) return `--${value}`;
-    if (parsedVal <= -3) return `-${value}`;
-    if (parsedVal <= 3) return value;
-    if (parsedVal <= 15) return `+${value}`;
-    if (parsedVal <= 30) return `++${value}`;
-    if (parsedVal <= 100) return `+++${value}`;
-    return `++++${value}`;
-  }
-
   private async showRun(run, startDayIndex) {
     this.selectedQfa = {} as types.data;
     this.selectedDayIndex = startDayIndex;
@@ -197,17 +141,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
 
     this.dates = tempQfa.paramDates;
     this.parameters = Object.keys(this.selectedQfa.parameters);
-    for(const param of this.parameters) {
-      this.parameterClasses[param] = param
-        .replace("--", "_")
-        .replace(" -", "_")
-        .replace(" cm", "")
-        .replace(" --", "")
-        .replace(" s", "")
-        .replace("-", "_")
-        .replace(".", "_")
-        .replace(" ", "_")
-    }
+    this.paramService.setParameterClasses(this.parameters);
     this.displaySelectedQfa = true;
   }
 

@@ -83,21 +83,21 @@
             </div>
           </td>
         </tr>
-        <tr *ngFor="let param of parameters" [ngClass]="[parameterClasses[param]]">
+        <tr *ngFor="let param of parameters" [ngClass]="[paramService.parameterClasses[param]]">
           <td class="header">{{param}}</td>
-          <td *ngFor="let day of selectedQfa.parameters[param] | keyvalue" class="table-entry" [ngClass]="[parameterClasses[param]]">
-            <div *ngIf="!['W500', 'W700', 'W850'].includes(parameterClasses[param])">
+          <td *ngFor="let day of selectedQfa.parameters[param] | keyvalue" class="table-entry" [ngClass]="[paramService.parameterClasses[param]]">
+            <div *ngIf="!['W500', 'W700', 'W850'].includes(paramService.parameterClasses[param])">
               <span *ngIf="param === 'QANmax' && day.key === '0'">---</span>
-              <span *ngIf="param !== 'QANmax'" [ngClass]="getCellClass(param, day.value['00'])">{{day.value["00"]}}</span>
-              <span [ngClass]="getCellClass(param, day.value['06'])">{{day.value["06"]}}</span>
-              <span [ngClass]="getCellClass(param, day.value['12'])">{{day.value["12"]}}</span>
-              <span [ngClass]="getCellClass(param, day.value['18'])">{{day.value["18"]}}</span>
+              <span *ngIf="param !== 'QANmax'" [ngClass]="paramService.getCellClass(param, day.value['00'])">{{day.value["00"]}}</span>
+              <span [ngClass]="paramService.getCellClass(param, day.value['06'])">{{day.value["06"]}}</span>
+              <span [ngClass]="paramService.getCellClass(param, day.value['12'])">{{day.value["12"]}}</span>
+              <span [ngClass]="paramService.getCellClass(param, day.value['18'])">{{day.value["18"]}}</span>
             </div>
-            <div *ngIf="['W500', 'W700', 'W850'].includes(parameterClasses[param])">
-              <span>{{getWParam(day.value["00"])}}</span>
-              <span>{{getWParam(day.value["06"])}}</span>
-              <span>{{getWParam(day.value["12"])}}</span>
-              <span>{{getWParam(day.value["18"])}}</span>
+            <div *ngIf="['W500', 'W700', 'W850'].includes(paramService.parameterClasses[param])">
+              <span>{{paramService.getWParam(day.value["00"])}}</span>
+              <span>{{paramService.getWParam(day.value["06"])}}</span>
+              <span>{{paramService.getWParam(day.value["12"])}}</span>
+              <span>{{paramService.getWParam(day.value["18"])}}</span>
             </div>
           </td>
         </tr>

@@ -51,6 +51,7 @@ import { MediaFileService } from "./providers/media-file-service/media-file.serv
 import { ConfirmationService } from "primeng/api";
 import { GetFilenamesService } from './providers/qfa-service/filenames.service';
 import { GetDustParamService } from "./providers/qfa-service/dust.service";
+import { ParamService } from "./providers/qfa-service/param.service"
 import { QfaMapService } from './providers/map-service/qfa-map.service';
 
 // Pipes
@@ -212,6 +213,7 @@ registerLocaleData(localeOc, "oc");
     MediaFileService,
     GetFilenamesService,
     GetDustParamService,
+    ParamService,
     QfaMapService
   ],
   bootstrap: [AppComponent],
