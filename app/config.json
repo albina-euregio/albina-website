@@ -490,7 +490,6 @@
       },
       "diff-snow": {
         "domainDefault": false,
-        "startUTCHourForTimespans": 5,
         "domainIdStart": "+6",
         "item": {
           "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
