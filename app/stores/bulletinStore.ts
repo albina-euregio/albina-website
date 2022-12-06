@@ -251,6 +251,8 @@ class BulletinStore {
     } catch (error) {
       console.error("Cannot load bulletin for date " + date, error);
       this.bulletins[date].setData(null);
+      this.settings.status = "n/a";
+      return;
     }
 
     if (activate && this.settings.date == date) {
@@ -276,7 +278,7 @@ class BulletinStore {
       }
       */
     } else {
-      this.settings.status = "missing";
+      this.settings.status = "empty";
     }
   }
 

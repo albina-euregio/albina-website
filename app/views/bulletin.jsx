@@ -127,7 +127,7 @@ const Bulletin = props => {
       });
     }
 
-      setLoadingStart(Date.now());
+    setLoadingStart(Date.now());
     await BULLETIN_STORE.load(startDate);
   };
 
@@ -228,7 +228,7 @@ const Bulletin = props => {
       />
       <BulletinHeader title={title} />
 
-      {BULLETIN_STORE.settings.status === "empty" && (
+      {BULLETIN_STORE.settings.status === "n/a" && (
         <ControlBar
           addClass="fade-in"
           message={
