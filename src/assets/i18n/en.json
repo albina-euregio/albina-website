@@ -15,6 +15,7 @@
   "sidebar" : {
     "bulletins" : "Avalanche.report",
     "observations" : "Observations",
+    "qfa": "Forecast",
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK model",
@@ -535,7 +536,7 @@
         "create" : "Create user",
         "update" : "Update user",
         "cancel" : "Cancel"
-      }  
+      }
     },
     "statistics" : {
       "title" : "Statistics",
@@ -837,5 +838,10 @@
     "cm" : "cm",
     "mm" : "mm",
     "m" : "m"
+  },
+  "qfa": {
+    "day": "Day",
+    "time": "Time",
+    "back":" Back"
   }
 }

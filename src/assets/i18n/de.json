@@ -535,7 +535,7 @@
         "create" : "Benutzer anlegen",
         "update" : "Benutzer aktualisieren",
         "cancel" : "Abbrechen"
-      }  
+      }
     },
     "statistics" : {
       "title" : "Statistik",
