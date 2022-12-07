@@ -29,9 +29,15 @@ export class ObservationTableComponent {
   }
 
   newObservation() {
+    const today = new Date(Date.now())
+    const date = today.toISOString().split('T')[0]
     this.observation = {
-      eventType: EventType.Normal
+      eventType: EventType.Normal,
+      eventDate: `${date}T00:00`,
+      reportDate: `${date}T00:00`
     } as Observation;
+
+    console.log(this.observation);
   }
 
   hasNoCoordinates(element, index, array) {
