@@ -203,9 +203,7 @@ function BulletinProblemItem({ problem }: Props) {
             <div className="matrix-info">
               <span className="matrix-info-name">{snowpackStabilityText}:</span>
               <span className="matrix-info-value">
-                <a
-                  href={"/education/snowpack-stabilities#" + snowpackStability}
-                >
+                <a href={"/education/snowpack-stability"}>
                   {intl.formatMessage({
                     id:
                       "bulletin:report:problem:snowpack-stability:" +
@@ -219,7 +217,7 @@ function BulletinProblemItem({ problem }: Props) {
             <div className="matrix-info">
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
-                <a href={"/education/frequencies#" + frequency}>
+                <a href={"/education/frequency"}>
                   {intl.formatMessage({
                     id: "bulletin:report:problem:frequency:" + frequency
                   })}

@@ -28,8 +28,12 @@
     "children": [
       { "url": "/education/danger-scale" },
       { "url": "/education/avalanche-problems" },
+      { "url": "/education/workflow" },
       { "url": "/education/matrix" },
+      { "url": "/education/snowpack-stability" },
+      { "url": "/education/frequency" },
       { "url": "/education/avalanche-sizes" },
+      { "url": "/education/spatio-temporal-scale" },
       { "url": "/education/danger-patterns" },
       { "url": "/education/community" },
       {
