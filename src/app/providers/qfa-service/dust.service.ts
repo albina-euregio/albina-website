@@ -18,7 +18,7 @@ export class GetDustParamService {
       x: 275,
       y: 164
     },
-    "linz": {
+    "lienz": {
       x: 285,
       y: 162
     }

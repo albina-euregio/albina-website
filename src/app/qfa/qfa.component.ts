@@ -21,6 +21,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   isLatestRun = false;
   dates = [];
   parameters = [] as string[];
+  city = "";
 
   markers = {
     "bozen": {
@@ -101,6 +102,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.qfaPopupVisible = true;
     this.displaySelectedQfa = false;
     const city = this.getCityName(ll);
+    this.city = city;
     const filenames = await this.filenamesService.getFilenames(this.baseUrl, city);
     this.parsedFiles = [];
     for(const file of filenames) {

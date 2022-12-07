@@ -73,9 +73,9 @@
             </div>
           </th>
         </tr>
-        <tr *ngIf="isLatestRun">
+        <tr *ngIf="isLatestRun && dustParams[city.toLowerCase()]">
           <td class="header DUST">DUST</td>
-          <td *ngFor="let day of dustParams['innsbruck'][selectedDayIndex]" class="table-entry DUST">
+          <td *ngFor="let day of dustParams[city.toLowerCase()][selectedDayIndex]" class="table-entry DUST">
             <div>
               <span *ngFor="let param of day" [ngStyle]="{'background-color': dustParamService.dustToColor(param)}">
                 {{param}}
