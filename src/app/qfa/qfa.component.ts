@@ -31,7 +31,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
       lng: 11.35,
       lat: 47.27
     },
-    "linz": {
+    "lienz": {
       lng: 12.80,
       lat: 46.83
     }
@@ -103,8 +103,10 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.displaySelectedQfa = false;
     const city = this.getCityName(ll);
     const filenames = await this.filenamesService.getFilenames(this.baseUrl, city);
+    this.parsedFiles = [];
     for(const file of filenames) {
-      this.parsedFiles.push(this.filenamesService.parseFilename(file.name));
+      const parsedFile = this.filenamesService.parseFilename(file.name);
+      this.parsedFiles.push(parsedFile);
     }
     this.selectedFiles = this.parsedFiles.filter(el => el.startDay === "00");
 
@@ -119,6 +121,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   }
 
   private async showRun(run, startDayIndex: number) {
+    console.log(run)
     this.selectedQfa = {} as types.data;
     this.selectedDayIndex = startDayIndex;
     this.selectedFile = run;
