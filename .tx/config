@@ -19,17 +19,41 @@ source_lang = en
 type = HTML
 file_filter = public/content/education/avalanche-problems/<lang>.html
 
+[albina-website.workflow]
+source_file = public/content/education/workflow/en.html
+source_lang = en
+type = HTML
+file_filter = public/content/education/workflow/<lang>.html
+
 [albina-website.matrix]
 source_file = public/content/education/matrix/en.html
 source_lang = en
 type = HTML
 file_filter = public/content/education/matrix/<lang>.html
 
+[albina-website.snowpack-stability]
+source_file = public/content/education/snowpack-stability/en.html
+source_lang = en
+type = HTML
+file_filter = public/content/education/snowpack-stability/<lang>.html
+
+[albina-website.frequency]
+source_file = public/content/education/frequency/en.html
+source_lang = en
+type = HTML
+file_filter = public/content/education/frequency/<lang>.html
+
 [albina-website.avalanche-sizes]
 source_file = public/content/education/avalanche-sizes/en.html
 source_lang = en
 type = HTML
 file_filter = public/content/education/avalanche-sizes/<lang>.html
+
+[albina-website.spatio-temporal-scale]
+source_file = public/content/education/spatio-temporal-scale/en.html
+source_lang = en
+type = HTML
+file_filter = public/content/education/spatio-temporal-scale/<lang>.html
 
 [albina-website.danger-patterns]
 source_file = public/content/education/danger-patterns/en.html
