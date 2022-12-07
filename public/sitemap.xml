@@ -42,11 +42,27 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://avalanche.report/education/workflow</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://avalanche.report/education/matrix</loc>
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://avalanche.report/education/snowpack-stability</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://avalanche.report/education/frequency</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://avalanche.report/education/avalanche-sizes</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://avalanche.report/education/spatio-temporal-scale</loc>
     <priority>0.5</priority>
   </url>
   <url>
