@@ -73,7 +73,6 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
             paramDays.push(paramDay.slice(i, i+3));
           }
           this.dustParams[city] = paramDays;
-          console.log(this.dustParams);
         })
     }
   }
@@ -121,7 +120,6 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   }
 
   private async showRun(run, startDayIndex: number) {
-    console.log(run)
     this.selectedQfa = {} as types.data;
     this.selectedDayIndex = startDayIndex;
     this.selectedFile = run;
