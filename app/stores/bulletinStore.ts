@@ -246,7 +246,7 @@ class BulletinStore {
 
     const url = BulletinStore._getBulletinUrl(date);
     try {
-      const response = await fetchJSON(url, {});
+      const response = await fetchJSON(url, { cache: "no-cache" });
       this.bulletins[date].setData(response);
     } catch (error) {
       console.error("Cannot load bulletin for date " + date, error);
