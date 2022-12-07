@@ -104,7 +104,7 @@ export const EawsDangerRatings = ({
       `https://static.avalanche.report/eaws_bulletins/${date}/${date}${
         region ? "-" + region : ""
       }.ratings.json`,
-      {}
+      { cache: "no-cache" }
     )
       .then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
         setMaxDangerRatings(
