@@ -134,12 +134,14 @@ function convertAvalancheReport(
 }
 
 function getAvalancheReportStability(report: AvalancheReport): Stability {
-  if (report.avalanchePotential.riskAssessment < 30) {
+  if (report.avalanchePotential.riskAssessment < 25) {
     return Enums.Stability.good;
-  } else if (report.avalanchePotential.riskAssessment < 60) {
-    return Enums.Stability.medium;
+  } else if (report.avalanchePotential.riskAssessment < 50) {
+    return Enums.Stability.fair;
+  } else if (report.avalanchePotential.riskAssessment < 75) {
+    return Enums.Stability.poor;
   } else {
-    return Enums.Stability.weak;
+    return Enums.Stability.very_poor;
   }
 }
 

@@ -264,10 +264,12 @@ function getLawisProfileStability(profile: ProfileDetails): Stability {
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
   const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
-  if (colors.includes(Enums.Stability.weak)) {
-    return Enums.Stability.weak;
-  } else if (colors.includes(Enums.Stability.medium)) {
-    return Enums.Stability.medium;
+  if (colors.includes(Enums.Stability.very_poor)) {
+    return Enums.Stability.very_poor;
+  } else if (colors.includes(Enums.Stability.poor)) {
+    return Enums.Stability.poor;
+  } else if (colors.includes(Enums.Stability.fair)) {
+    return Enums.Stability.fair;
   } else if (colors.includes(Enums.Stability.good)) {
     return Enums.Stability.good;
   }
@@ -278,18 +280,18 @@ export function getECTestStability(step: number, propagation: string): Stability
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const propagation1 = /\bP\b/.test(propagation);
   const propagation0 = /\bN\b/.test(propagation);
-  if (step <= 13 && propagation1) {
+  if (step <= 11 && propagation1) {
     // sehr schwach
-    return Enums.Stability.weak;
+    return Enums.Stability.very_poor;
   } else if (step <= 22 && propagation1) {
     // schwach
-    return Enums.Stability.weak;
+    return Enums.Stability.poor;
   } else if (step <= 30 && propagation1) {
     // mittel
-    return Enums.Stability.medium;
+    return Enums.Stability.fair;
   } else if (step <= 10 && propagation0) {
     // mittel
-    return Enums.Stability.medium;
+    return Enums.Stability.fair;
   } else if (step <= 30 && propagation0) {
     return Enums.Stability.good;
   } else if (step === 31) {
@@ -304,8 +306,8 @@ function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
 
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
-    ? Enums.Stability.weak
-    : Enums.Stability.medium;
+    ? Enums.Stability.poor
+    : Enums.Stability.fair;
 }
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {

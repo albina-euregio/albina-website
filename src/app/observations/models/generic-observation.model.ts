@@ -96,12 +96,13 @@ export enum ObservationFilterType {
   Local = "Local"
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.medium | Enums.Stability.weak | Enums.Stability.unknown;
+export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor | Enums.Stability.unknown;
 
 const colors: Record<Stability, string> = {
   good: "green",
-  medium: "orange",
-  weak: "red",
+  fair: "orange",
+  poor: "red",
+  very_poor: "black",
   unknown: "gray",
 };
 

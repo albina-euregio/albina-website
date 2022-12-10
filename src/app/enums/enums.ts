@@ -363,7 +363,7 @@ export enum Aspect {
 }
 
 export enum Stability {
-  "good" = "good", "medium" = "medium", "weak" = "weak", "unknown" = "unknown"
+  "good" = "good", "fair" = "fair", "poor" = "poor", "very_poor" = "very_poor", "unknown" = "unknown"
 }
 
 export class AspectUtil {

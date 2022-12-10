@@ -49,15 +49,15 @@ export function isAlbinaObservation(observation: GenericObservation): observatio
 function getObservationStability(observation: Observation): Stability {
   switch (observation.eventType ?? EventType.Normal) {
     case EventType.PersonDead:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonInjured:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonUninjured:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonNo:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.Important:
-      return Enums.Stability.medium;
+      return Enums.Stability.fair;
     default:
       return Enums.Stability.unknown;
   }
