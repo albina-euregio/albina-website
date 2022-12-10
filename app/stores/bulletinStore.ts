@@ -139,6 +139,7 @@ class BulletinStore {
   latest: string | null = null;
   settings = {
     status: "" as Status,
+    microRegionsCount: 0,
     eawsCount: 0,
     date: "",
     region: ""
@@ -178,6 +179,7 @@ class BulletinStore {
     this.bulletins = {};
     this.settings = {
       status: "",
+      microRegionsCount: 0,
       eawsCount: 0,
       date: "",
       region: ""
@@ -212,12 +214,16 @@ class BulletinStore {
     if (this._microRegions.features.length) return;
     const polyline = await import("./micro_regions.polyline.json");
     this._microRegions = decodeFeatureCollection(polyline.default);
+    // this.settings is observable, this._microRegions is not
+    this.settings.microRegionsCount = this._microRegions.features.length;
   }
 
   async loadEawsRegions() {
     if (this._eawsRegions.features.length) return;
     const polyline = await import("./eaws_regions.polyline.json");
     this._eawsRegions = decodeFeatureCollection(polyline.default);
+    // this.settings is observable, this._eawsRegions is not
+    this.settings.eawsCount = this._eawsRegions.features.length;
   }
 
   /**
@@ -413,6 +419,14 @@ class BulletinStore {
       fillColor: WARNLEVEL_COLORS[warnlevel],
       fillOpacity: WARNLEVEL_OPACITY[warnlevel]
     };
+  }
+
+  get microRegionIds(): string[] {
+    const today = "2022-12-01";
+    return this._microRegions.features
+      .filter(f => filterFeature(f, this.settings.date || today))
+      .map(f => String(f.id))
+      .sort();
   }
 
   get microRegions(): GeoJSON.Feature[] {

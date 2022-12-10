@@ -237,6 +237,8 @@
   "blog:overview:info-no-data": "Currently no blog posts available. You can use our standalone versions: <a>here</a>",
   "blog:overview:info-loading-data-slow": "Loading blogs posts. In case of slow network you might consider to use our standalone versions: <a>here</a>",
   "blog:all-blog-posts": "All Blog Posts",
+  "region:table:header:region": "Region",
+  "region:table:header:code": "Code",
   "measurements:title": "Station Measurements",
   "measurements:headline": "Station Measurements",
   "measurements:search": "Search for station",
