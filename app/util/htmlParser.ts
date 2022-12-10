@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
 import BulletinGlossary from "../components/bulletin/bulletin-glossary";
-import RegionTable from "../components/stationTable/regionTable";
+import { RegionsTables } from "../components/stationTable/regionTable";
 
 export function preprocessContent(content: string, blogMode = false) {
   return htmr(content, {
@@ -49,8 +49,8 @@ export function preprocessContent(content: string, blogMode = false) {
           );
         } else if (/BulletinGlossary/i.exec(type)) {
           return React.createElement(BulletinGlossary, props, children);
-        } else if (/RegionTable/i.exec(type)) {
-          return React.createElement(RegionTable, props, children);
+        } else if (/RegionsTables/i.exec(type)) {
+          return React.createElement(RegionsTables, props, children);
         }
         // Remove deprecated html attributes
         ["align", "border"].forEach(prop => delete props[prop]);

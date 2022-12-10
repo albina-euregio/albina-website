@@ -1,4 +1,4 @@
-import { RegionCodes } from "../../util/regions";
+import { regionCodes, RegionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { observer } from "mobx-react";
 import { FormattedMessage } from "react-intl";
@@ -51,3 +51,20 @@ function RegionTable({ region }: { region: RegionCodes }) {
 }
 
 export default observer(RegionTable);
+
+export function RegionsTables() {
+  return (
+    <>
+      {regionCodes.map(region => (
+        <div key={region}>
+          <h3 style={{ textAlign: "center" }}>
+            <FormattedMessage id={"region:" + region} />
+          </h3>
+          <div className="table-container">
+            <RegionTable region={region}></RegionTable>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
