@@ -237,6 +237,8 @@
   "blog:overview:info-no-data": "Derzeit sind keine Blog-Einträge verfügbar. Du kannst die eigenständigen Blogs aufrufen: <a>hier</a>",
   "blog:overview:info-loading-data-slow": "Blog-Einträge werden geladen. Du kannst auch die eigenständigen Blogs aufrufen: <a>here</a>",
   "blog:all-blog-posts": "Alle Blog-Beiträge",
+  "region:table:header:region": "Region",
+  "region:table:header:code": "Code",
   "measurements:title": "Stationsmesswerte",
   "measurements:headline": "Stationsmesswerte",
   "measurements:search": "Station suchen",
