@@ -8,6 +8,7 @@ import {
   Bulletin,
   Bulletins,
   isAmPm,
+  MicroRegionProperties,
   RegionOutlineProperties
 } from "./bulletin";
 import { fetchJSON } from "../util/fetch.js";
@@ -16,8 +17,13 @@ import { APP_STORE } from "../appStore";
 import { WarnLevelNumber, warnlevelNumbers } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
-import microRegions from "./micro_regions.features.json";
-import eawsRegions from "./eaws_regions.features.json";
+import _p1 from "eaws-regions/public/micro-regions_properties/AT-07_micro-regions.json";
+import _p2 from "eaws-regions/public/micro-regions_properties/IT-32-BZ_micro-regions.json";
+import _p3 from "eaws-regions/public/micro-regions_properties/IT-32-TN_micro-regions.json";
+export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
+
+import eawsRegions from "eaws-regions/public/outline.json";
+import { regionsRegex } from "../util/regions.js";
 
 type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -348,7 +354,9 @@ class BulletinStore {
   }
 
   get eawsRegionIds(): string[] {
-    return eawsRegions.map(properties => properties.id);
+    return eawsRegions
+      .map(properties => properties.id)
+      .filter(id => !regionsRegex.test(id));
   }
 
   get microRegionIds(): string[] {
