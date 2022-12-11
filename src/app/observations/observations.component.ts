@@ -166,7 +166,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         break;
       case "sources":
         this.filter.observationSources = event.value;
-        this.loadObservations();
+        this.applyLocalFilter();
         break;
       default:
     }
@@ -178,13 +178,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     switch (target) {
       case "regions":
         this.filter.regions = this.filter.regions.filter(e => e !== item.id);
+        this.applyLocalFilter();
         break;
       case "sources":
         this.filter.observationSources = this.filter.observationSources.filter(e => e !== item.id);
+        this.applyLocalFilter();
         break;
       default:
     }
-    this.loadObservations();
   }
 
   onSidebarChange(e: Event) {
@@ -217,8 +218,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         
         //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
         
-        if (this.filter.inObservationSources(observation) &&
-          this.filter.inDateRange(observation)) {
+        if (this.filter.inDateRange(observation)) {
 
           //console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);
           this.addObservation(observation)
@@ -270,7 +270,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
       //console.log("applyLocalFilter ##3.0", observation.filterType);
-      if (this.filter.isSelected(observation)) {
+      if (this.filter.inObservationSources(observation) && this.filter.isSelected(observation)) {
 //        console.log("applyLocalFilter ##3.1", observation);
         observation.filterType = ObservationFilterType.Local;
       }
