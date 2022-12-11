@@ -1,3 +1,4 @@
+import React from "react";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";

@@ -100,8 +100,8 @@ const BulletinMap = props => {
   };
 
   const getBulletinMapDetails = () => {
-    let res = [];
-    let detailsClasses = ["bulletin-map-details", "top-right"];
+    const res = [];
+    const detailsClasses = ["bulletin-map-details", "top-right"];
     const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
     if (activeBulletin) {
       detailsClasses.push("js-active");

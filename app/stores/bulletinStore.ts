@@ -411,7 +411,7 @@ class BulletinStore {
     feature: GeoJSON.Feature,
     ampm: "am" | "pm"
   ): PathOptions {
-    let id = String(feature.id);
+    const id = String(feature.id);
     let warnlevel = this.getWarnlevel(ampm, id, feature.properties.elevation);
     if (warnlevel == undefined) warnlevel = 0;
     return {

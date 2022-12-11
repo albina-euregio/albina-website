@@ -20,7 +20,7 @@ export default function MonthFilter(props: Props) {
   const months = useMemo(() => {
     const months = [];
     for (
-      var month = props.minMonth ?? 1;
+      let month = props.minMonth ?? 1;
       month < (props.minMonth ?? 1) + (props.length ?? 12);
       month++
     ) {

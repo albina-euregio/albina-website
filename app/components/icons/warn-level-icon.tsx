@@ -42,8 +42,8 @@ class WarnLevelIcon extends React.Component {
     const img =
       this.imgRoot + "levels_" + numberBelow + "_" + numberAbove + imgFormat;
 
-    var title;
-    var elevationText;
+    let title;
+    let elevationText;
     if (below == this.props.above) {
       title = this.props.intl.formatMessage(
         { id: "bulletin:report:dangerlevel" },

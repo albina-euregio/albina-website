@@ -158,8 +158,7 @@ function BulletinProblemItem({ problem }: Props) {
     }
   }
 
-  const expositions = problem?.aspects;
-  if (!expositions) return <li></li>;
+  const expositions = problem?.aspects || [];
   const snowpackStability = problem?.snowpackStability;
   const frequency = problem?.frequency;
   const avalancheSize = problem?.avalancheSize;

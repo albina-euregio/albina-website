@@ -17,7 +17,7 @@ function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
   function getLanguage(dateString: string) {
-    var lang = APP_STORE.language;
+    const lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -34,7 +34,7 @@ function ArchiveItem({ date, status }: Props) {
   }
 
   function showMap(dateString: string) {
-    var lang = APP_STORE.language;
+    const lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -52,7 +52,6 @@ function ArchiveItem({ date, status }: Props) {
 
   const dateString = dateToISODateString(date);
   const lang = getLanguage(dateString);
-  console.log(status);
 
   if (typeof status === "object") {
     return (
@@ -65,7 +64,7 @@ function ArchiveItem({ date, status }: Props) {
             {Object.entries(status).map(
               ([region, url]) =>
                 url && (
-                  <li>
+                  <li key={url}>
                     <a
                       href={url}
                       rel="noopener noreferrer"

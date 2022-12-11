@@ -176,6 +176,14 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns lastUpdateTime
+  */
+  get lastUpdateTime() {
+    //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
+    return this._lastDataUpdate;
+  }
+
+  /*
     returns metafile
   */
   getMetaFile(type) {
@@ -190,14 +198,6 @@ export default class WeatherMapStore_new {
         this.config.settings.metaFiles.startDate;
 
     return foundDef.replace("{timespan}", this._absTimeSpan);
-  }
-
-  /*
-    returns lastUpdateTime
-  */
-  get lastUpdateTime() {
-    //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
-    return this._lastDataUpdate;
   }
 
   /*

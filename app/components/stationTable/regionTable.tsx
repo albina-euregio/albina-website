@@ -1,3 +1,4 @@
+import React from "react";
 import { regionCodes, RegionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { observer } from "mobx-react";
