@@ -13,8 +13,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/bulletin";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { observer } from "mobx-react";
+import { RegionState } from "../../stores/bulletinStore";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -126,20 +125,11 @@ type PbfLayerOverlayProps = PbfProps & {
   handleSelectRegion: (id?: string) => void;
 };
 
-export const PbfLayerOverlay = observer(
-  createLayerComponent((props: PbfLayerOverlayProps, ctx) => {
+export const PbfLayerOverlay = createLayerComponent(
+  (props: PbfLayerOverlayProps, ctx) => {
     const hidden = Object.freeze({
       stroke: false,
       fill: false
-    } as PathOptions);
-    const selectable = Object.freeze({
-      color: "#aaaaaa",
-      fill: true,
-      fillColor: "black",
-      fillOpacity: 0.1,
-      opacity: 1.0,
-      stroke: true,
-      weight: 1.0
     } as PathOptions);
     const mouseOver = Object.freeze({
       color: "#555555",
@@ -180,41 +170,21 @@ export const PbfLayerOverlay = observer(
           },
           "micro-regions"(properties: MicroRegionProperties): PathOptions {
             if (!filterFeature({ properties }, props.date)) return hidden;
-            BULLETIN_STORE.activeBulletin?.regions;
-            BULLETIN_STORE.settings.date;
-            BULLETIN_STORE.settings.region;
-            BULLETIN_STORE.settings.status;
-            BULLETIN_STORE.problems.new_snow;
-            const regionState = BULLETIN_STORE.getRegionState(properties.id);
             return {
               stroke: false,
               fill: regionsRegex.test(properties.id),
               fillColor: "black",
-              fillOpacity: 0.05,
-              ...(config.map.regionStyling[regionState] ||
-                config.map.regionStyling.all)
+              fillOpacity: 0.05
             };
-            // return regionsRegex.test(properties.id) ? selectable : hidden;
-            // return selectable;
           },
           outline(properties: RegionOutlineProperties): PathOptions {
             if (!filterFeature({ properties }, props.date)) return hidden;
-            BULLETIN_STORE.activeBulletin?.regions;
-            BULLETIN_STORE.settings.date;
-            BULLETIN_STORE.settings.region;
-            BULLETIN_STORE.settings.status;
-            BULLETIN_STORE.problems.new_snow;
-            const regionState = BULLETIN_STORE.getRegionState(properties.id);
             return {
               stroke: false,
               fill: !regionsRegex.test(properties.id),
               fillColor: "black",
-              fillOpacity: 0.05,
-              ...(config.map.regionStyling[regionState] ||
-                config.map.regionStyling.all)
+              fillOpacity: 0.05
             };
-            // return !regionsRegex.test(properties.id) ? selectable : hidden;
-            // return selectable;
           }
         }
       }
@@ -229,6 +199,32 @@ export const PbfLayerOverlay = observer(
     instance.on("mouseout", e => {
       instance.resetFeatureStyle(e.sourceTarget.properties.id);
     });
-    return { instance, context: ctx };
-  })
+
+    return {
+      instance,
+      context: { ...ctx, vectorGrid: instance }
+    };
+  }
 );
+
+type PbfRegionStateProps = {
+  region: string;
+  regionState: RegionState;
+};
+
+export const PbfRegionState = ({
+  region,
+  regionState
+}: PbfRegionStateProps) => {
+  const { vectorGrid } = useLeafletContext();
+  useEffect(() => {
+    vectorGrid.setFeatureStyle(region as any, {
+      stroke: false,
+      fill: regionsRegex.test(region),
+      fillColor: "black",
+      fillOpacity: 0.05,
+      ...(config.map.regionStyling[regionState] || config.map.regionStyling.all)
+    });
+  }, []);
+  return <></>;
+};

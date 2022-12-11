@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { GeoJSON } from "react-leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
-import BulletinVectorLayer from "./bulletin-vector-layer";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { observer } from "mobx-react";
@@ -16,7 +14,8 @@ import {
   DangerRatings,
   EawsDangerRatings,
   PbfLayer,
-  PbfLayerOverlay
+  PbfLayerOverlay,
+  PbfRegionState
 } from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
@@ -76,7 +75,17 @@ const BulletinMap = props => {
         date={date}
         ampm={props.ampm}
         handleSelectRegion={props.handleSelectRegion}
-      />
+      >
+        {Object.entries(BULLETIN_STORE.regionStates).map(
+          ([region, regionState]) => (
+            <PbfRegionState
+              key={region + regionState}
+              region={region}
+              regionState={regionState}
+            />
+          )
+        )}
+      </PbfLayerOverlay>
     );
     return overlays;
   };

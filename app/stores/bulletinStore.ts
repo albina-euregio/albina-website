@@ -24,7 +24,7 @@ import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
 type Status = "pending" | "ok" | "empty" | "n/a";
 
-type RegionState =
+export type RegionState =
   | "selected"
   | "highlighted"
   | "dehighlighted"
@@ -369,6 +369,12 @@ class BulletinStore {
       isAmPm(ampm, p.validTimePeriod)
     );
     return problems || [];
+  }
+
+  get regionStates(): Record<string, RegionState> {
+    return Object.fromEntries(
+      this.microRegionIds.map(r => [r, this.getRegionState(r)])
+    );
   }
 
   getRegionState(regionId: string, ampm: AmPm = null): RegionState {
