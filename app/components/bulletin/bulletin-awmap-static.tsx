@@ -1,5 +1,5 @@
 import { Util } from "leaflet";
-import React from "react";
+import React, { type ReactEventHandler } from "react";
 import { Bulletin } from "../../stores/bulletin";
 
 type Props = {
@@ -7,8 +7,8 @@ type Props = {
   bulletin: Bulletin;
   date: string;
   region: string;
-  onError: any;
-  imgFormat: string;
+  onError?: ReactEventHandler<HTMLImageElement>;
+  imgFormat?: string;
 };
 
 function BulletinAWMapStatic({

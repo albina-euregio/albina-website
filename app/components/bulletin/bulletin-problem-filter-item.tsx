@@ -8,7 +8,7 @@ import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   active: boolean;
-  handleSelectRegion: any;
+  handleSelectRegion: (id?: string) => void;
   problemId: Caaml.AvalancheProblemType;
 };
 

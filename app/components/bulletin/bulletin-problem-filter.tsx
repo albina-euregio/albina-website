@@ -4,7 +4,7 @@ import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
 import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
 
 type Props = {
-  handleSelectRegion: any;
+  handleSelectRegion: (id?: string) => void;
 };
 
 function BulletinProblemFilter({ handleSelectRegion }: Props) {

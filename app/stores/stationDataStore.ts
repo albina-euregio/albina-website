@@ -270,7 +270,7 @@ export default class StationDataStore {
       });
   }
 
-  load(timePrefix: any) {
+  load(timePrefix = "") {
     const stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });

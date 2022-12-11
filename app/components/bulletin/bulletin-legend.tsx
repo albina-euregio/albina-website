@@ -6,7 +6,7 @@ import { getWarnlevelNumber } from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip";
 
 type Props = {
-  handleSelectRegion: any;
+  handleSelectRegion: (id?: string) => void;
 };
 function BulletinLegend({ handleSelectRegion }: Props) {
   const intl = useIntl();
