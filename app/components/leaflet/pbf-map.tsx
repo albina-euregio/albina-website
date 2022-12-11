@@ -10,17 +10,15 @@ import { useEffect, useState } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
   MicroRegionElevationProperties,
-  MicroRegionProperties
+  MicroRegionProperties,
+  RegionOutlineProperties
 } from "../../stores/bulletin";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { observer } from "mobx-react";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
     vectorGrid: VectorGrid;
-  }
-}
-declare module "leaflet" {
-  interface VectorGridOptions {
-    dangerRatings: MaxDangerRatings;
   }
 }
 
@@ -47,6 +45,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     {
       pane: "overlayPane",
       interactive: false,
+      rendererFactory: L.canvas.tile,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(
@@ -122,3 +121,114 @@ export const EawsDangerRatings = ({
   }, [date, setMaxDangerRatings]);
   return <DangerRatings maxDangerRatings={maxDangerRatings} />;
 };
+
+type PbfLayerOverlayProps = PbfProps & {
+  handleSelectRegion: (id?: string) => void;
+};
+
+export const PbfLayerOverlay = observer(
+  createLayerComponent((props: PbfLayerOverlayProps, ctx) => {
+    const hidden = Object.freeze({
+      stroke: false,
+      fill: false
+    } as PathOptions);
+    const selectable = Object.freeze({
+      color: "#aaaaaa",
+      fill: true,
+      fillColor: "black",
+      fillOpacity: 0.1,
+      opacity: 1.0,
+      stroke: true,
+      weight: 1.0
+    } as PathOptions);
+    const mouseOver = Object.freeze({
+      color: "#555555",
+      fill: true,
+      fillColor: "white",
+      fillOpacity: 0.1,
+      stroke: true,
+      weight: 2.0
+    } as PathOptions);
+
+    const instance = L.vectorGrid.protobuf(
+      "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+      {
+        pane: "markerPane",
+        interactive: true,
+        rendererFactory: L.svg.tile,
+        maxNativeZoom: 10,
+        getFeatureId({
+          properties
+        }: {
+          properties:
+            | MicroRegionElevationProperties
+            | MicroRegionProperties
+            | RegionOutlineProperties;
+        }) {
+          if (
+            properties.elevation ||
+            !filterFeature({ properties }, props.date)
+          ) {
+            return undefined;
+          } else {
+            return properties.id;
+          }
+        },
+        vectorTileLayerStyles: {
+          "micro-regions_elevation"(): PathOptions {
+            return hidden;
+          },
+          "micro-regions"(properties: MicroRegionProperties): PathOptions {
+            if (!filterFeature({ properties }, props.date)) return hidden;
+            BULLETIN_STORE.activeBulletin?.regions;
+            BULLETIN_STORE.settings.date;
+            BULLETIN_STORE.settings.region;
+            BULLETIN_STORE.settings.status;
+            BULLETIN_STORE.problems.new_snow;
+            const regionState = BULLETIN_STORE.getRegionState(properties.id);
+            return {
+              stroke: false,
+              fill: regionsRegex.test(properties.id),
+              fillColor: "black",
+              fillOpacity: 0.05,
+              ...(config.map.regionStyling[regionState] ||
+                config.map.regionStyling.all)
+            };
+            // return regionsRegex.test(properties.id) ? selectable : hidden;
+            // return selectable;
+          },
+          outline(properties: RegionOutlineProperties): PathOptions {
+            if (!filterFeature({ properties }, props.date)) return hidden;
+            BULLETIN_STORE.activeBulletin?.regions;
+            BULLETIN_STORE.settings.date;
+            BULLETIN_STORE.settings.region;
+            BULLETIN_STORE.settings.status;
+            BULLETIN_STORE.problems.new_snow;
+            const regionState = BULLETIN_STORE.getRegionState(properties.id);
+            return {
+              stroke: false,
+              fill: !regionsRegex.test(properties.id),
+              fillColor: "black",
+              fillOpacity: 0.05,
+              ...(config.map.regionStyling[regionState] ||
+                config.map.regionStyling.all)
+            };
+            // return !regionsRegex.test(properties.id) ? selectable : hidden;
+            // return selectable;
+          }
+        }
+      }
+    );
+
+    instance.on("click", e => {
+      props.handleSelectRegion(e.sourceTarget.properties.id);
+    });
+    instance.on("mouseover", e => {
+      instance.setFeatureStyle(e.sourceTarget.properties.id, mouseOver);
+    });
+    instance.on("mouseout", e => {
+      instance.resetFeatureStyle(e.sourceTarget.properties.id);
+    });
+    return { instance, context: ctx };
+  })
+);

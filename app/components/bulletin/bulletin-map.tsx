@@ -12,7 +12,12 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
-import { DangerRatings, EawsDangerRatings, PbfLayer } from "../leaflet/pbf-map";
+import {
+  DangerRatings,
+  EawsDangerRatings,
+  PbfLayer,
+  PbfLayerOverlay
+} from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -51,21 +56,6 @@ const BulletinMap = props => {
   const getMapOverlays = () => {
     const overlays = [];
     const date = BULLETIN_STORE.settings.date;
-
-    if (BULLETIN_STORE.eawsRegions) {
-      overlays.push(
-        <BulletinVectorLayer
-          key="eaws-regions"
-          name="eaws-regions"
-          problems={BULLETIN_STORE.problems}
-          date={date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.eawsRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-        />
-      );
-    }
     const b = BULLETIN_STORE.activeBulletinCollection;
     overlays.push(
       <PbfLayer
@@ -80,22 +70,14 @@ const BulletinMap = props => {
         ))}
       </PbfLayer>
     );
-
-    if (BULLETIN_STORE.microRegions) {
-      //console.log("bulletin-map push Vector xx01", "eaws-regions");
-      overlays.push(
-        <BulletinVectorLayer
-          key="bulletin-regions"
-          name="bulletin-regions"
-          problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.microRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-        />
-      );
-    }
+    overlays.push(
+      <PbfLayerOverlay
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
+        date={date}
+        ampm={props.ampm}
+        handleSelectRegion={props.handleSelectRegion}
+      />
+    );
     return overlays;
   };
 
