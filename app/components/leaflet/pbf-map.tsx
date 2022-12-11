@@ -27,6 +27,14 @@ const eawsRegionsWithoutElevation =
 type Region = string;
 type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
+type PbfStyleFunction = {
+  "micro-regions_elevation": (
+    properties: MicroRegionElevationProperties
+  ) => L.PathOptions;
+  "micro-regions": (properties: MicroRegionProperties) => L.PathOptions;
+  outline: (properties: RegionOutlineProperties) => L.PathOptions;
+};
+
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
@@ -47,23 +55,21 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       rendererFactory: L.canvas.tile,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
-        "micro-regions_elevation"(
-          properties: MicroRegionElevationProperties
-        ): PathOptions {
+        "micro-regions_elevation"(properties) {
           if (eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id + ":" + properties.elevation);
         },
-        "micro-regions"(properties: MicroRegionProperties): PathOptions {
+        "micro-regions"(properties) {
           if (regionsRegex.test(properties.id)) return hidden;
           if (!eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id);
         },
-        outline(): PathOptions {
+        outline() {
           return hidden;
         }
-      }
+      } as PbfStyleFunction
     }
   );
   return {
@@ -155,10 +161,10 @@ export const PbfLayerOverlay = createLayerComponent(
           }
         },
         vectorTileLayerStyles: {
-          "micro-regions_elevation"(): PathOptions {
+          "micro-regions_elevation"() {
             return hidden;
           },
-          "micro-regions"(properties: MicroRegionProperties): PathOptions {
+          "micro-regions"(properties) {
             if (!filterFeature({ properties }, props.date)) return hidden;
             return {
               stroke: false,
@@ -167,7 +173,7 @@ export const PbfLayerOverlay = createLayerComponent(
               fillOpacity: 0.05
             };
           },
-          outline(properties: RegionOutlineProperties): PathOptions {
+          outline(properties) {
             if (!filterFeature({ properties }, props.date)) return hidden;
             return {
               stroke: false,
@@ -176,7 +182,7 @@ export const PbfLayerOverlay = createLayerComponent(
               fillOpacity: 0.05
             };
           }
-        }
+        } as PbfStyleFunction
       }
     );
 
