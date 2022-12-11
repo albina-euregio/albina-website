@@ -51,7 +51,7 @@ export class ObservationsService {
 
   loadAll(): Observable<GenericObservation<any>> {
     return onErrorResumeNext(
-      this.getAvalancheWarningService(),
+      this.getObservers(),
       this.getLawisIncidents(),
       this.getLawisProfiles(),
       this.getLoLaKronos(),
@@ -181,7 +181,7 @@ export class ObservationsService {
     await this.http.delete(url, options).toPromise();
   }
 
-  getAvalancheWarningService(): Observable<GenericObservation> {
+  getObservers(): Observable<GenericObservation> {
     const eventDate = new Date();
     eventDate.setHours(0, 0, 0, 0);
     return of(BeobachterAT, BeobachterIT).pipe(
@@ -190,8 +190,8 @@ export class ObservationsService {
         (observer): GenericObservation => ({
           $data: observer,
           $externalURL: `https://wiski.tirol.gv.at/lawine/grafiken/800/beobachter/${observer["plot.id"]}.png`,
-          $source: ObservationSource.AvalancheWarningService,
-          $type: ObservationType.Observation,
+          $source: ObservationSource.Observer,
+          $type: ObservationType.TimeSeries,
           aspect: undefined,
           authorName: observer.name,
           content: "",
@@ -218,7 +218,7 @@ export class ObservationsService {
     const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
     return this.http
-      .get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe)
+      .get<LoLaSafetyApi>(api.LoLaSafety + timeframe)
       .pipe(mergeMap(lola => convertLoLaSafety(lola)));
   }
 
@@ -234,10 +234,11 @@ export class ObservationsService {
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
-    const { observationApi: api, observationWeb: web } = this.constantsService;
+    const { observationApi: api, lawisSnowProfilesWeb: web } = this.constantsService;
     return this.http
       .get<Profile[]>(
-        api.LawisSnowProfiles +
+        api.Lawis +
+          "profile" +
           "?startDate=" +
           this.startDateString +
           "&endDate=" +
@@ -246,13 +247,13 @@ export class ObservationsService {
           nowWithHourPrecision()
       ).pipe(
         mergeAll(),
-        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles)),
+        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web)),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((profile) => {
           if (!LAWIS_FETCH_DETAILS) {
             return of(profile);
           }
-          return from(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
+          return from(this.getCachedOrFetch<ProfileDetails>(api.Lawis + "profile/" + profile.$data.id))
             .pipe(
               map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails)),
               catchError(() => of(profile))
@@ -262,10 +263,11 @@ export class ObservationsService {
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
-    const { observationApi: api, observationWeb: web } = this.constantsService;
+    const { observationApi: api, lawisIncidentsWeb: web } = this.constantsService;
     return this.http
       .get<Incident[]>(
-        api.LawisIncidents +
+        api.Lawis + 
+          "incident" +
           "?startDate=" +
           this.startDateString +
           "&endDate=" +
@@ -274,13 +276,13 @@ export class ObservationsService {
           nowWithHourPrecision()
       ).pipe(
         mergeAll(),
-        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents)),
+        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web)),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((incident) => {
           if (!LAWIS_FETCH_DETAILS) {
             return of(incident);
           }
-          return from(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id)).pipe(
+          return from(this.getCachedOrFetch<IncidentDetails>(api.Lawis + "incident/" + incident.$data.id)).pipe(
             map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails)),
             catchError(() => of(incident))
           );

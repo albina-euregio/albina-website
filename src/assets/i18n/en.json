@@ -567,27 +567,30 @@
         "selectionLabel": "{0} sources selected"
       },
       "charts": {
-        "nan": "Ohne Angabe",
+        "nan": "Without specification",
         "invert": "Invert",
         "reset": "Reset",
         "aspect": {
-          "caption": "Aspekt"
+          "caption": "Aspect"
         },
         "elevation": {
-          "caption": "Seehöhe"
+          "caption": "Elevation"
         },
         "stability": {
-          "caption": "Stabilität"
+          "caption": "Stability"
+        },
+        "observationType": {
+          "caption": "Observation Type"
         },
         "avalancheProblem": {
-          "caption": "Lawinenproblem"
+          "caption": "Avalanche Problem"
         },
         "dangerPattern": {
-          "caption": "Gefahrenmuster"
+          "caption": "Danger Pattern"
         }
         ,
         "days": {
-          "caption": "Tag"
+          "caption": "Day"
         }
       }
     },

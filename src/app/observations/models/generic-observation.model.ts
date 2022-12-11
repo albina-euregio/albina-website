@@ -111,73 +111,51 @@ export function toMarkerColor(observation: GenericObservation) {
 }
 
 export enum ObservationSource {
-  Albina = "Albina",
   AvalancheWarningService = "AvalancheWarningService",
-  LwdKipBeobachtung = "LwdKipBeobachtung",
-  LwdKipLawinenabgang = "LwdKipLawinenabgang",
-  LwdKipSperre = "LwdKipSperre",
-  LwdKipSprengerfolg = "LwdKipSprengerfolg",
-  LawisSnowProfiles = "LawisSnowProfiles",
-  LawisIncidents = "LawisIncidents",
-  LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
-  LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
-  AvaObsAvalancheEvent = "AvaObsAvalancheEvent",
-  AvaObsEvaluation = "AvaObsEvaluation",
-  AvaObsSimpleObservation = "AvaObsSimpleObservation",
-  AvaObsSnowProfile = "AvaObsSnowProfile",
-  KipLiveAvalancheEvent = "KipLiveAvalancheEvent",
-  KipLiveEvaluation = "KipLiveEvaluation",
-  KipLiveSimpleObservation = "KipLiveSimpleObservation",
-  KipLiveSnowProfile = "KipLiveSnowProfile",
-  NatlefsAvalancheEvent = "NatlefsAvalancheEvent",
-  NatlefsEvaluation = "NatlefsEvaluation",
-  NatlefsSimpleObservation = "NatlefsSimpleObservation",
-  NatlefsSnowProfile = "NatlefsSnowProfile",
+  Observer = "Observer",
+  LwdKip = "LwdKip",
+  Lawis = "Lawis",
+  LoLaSafety = "LoLaSafety",
+  AvaObs = "AvaObs",
+  KipLive = "KipLive",
+  Natlefs = "Natlefs",
   WikisnowECT = "WikisnowECT",
 }
 
 export enum ObservationType {
-  Observation = "Observation",
+  SimpleObservation = "SimpleObservation",
+  Evaluation = "Evaluation",
   Avalanche = "Avalanche",
   Blasting = "Blasting",
+  Closure = "Closure",
   Profile = "Profile",
   Incident = "Incident",
+  TimeSeries = "TimeSeries",
 }
 
 export const ObservationSourceColors: Record<ObservationSource, string> =
   Object.freeze({
-    [ObservationSource.Albina]: "#ca0020",
-    [ObservationSource.AvalancheWarningService]: "#83e4f0",
-    [ObservationSource.LwdKipBeobachtung]: "#f781bf",
-    [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
-    [ObservationSource.LwdKipSperre]: "#455132",
-    [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
-    [ObservationSource.LawisSnowProfiles]: "#44a9db",
-    [ObservationSource.LawisIncidents]: "#b76bd9",
-    [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
-    [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
-    [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.AvaObsEvaluation]: "#018571",
-    [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
-    [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
-    [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.KipLiveEvaluation]: "#018571",
-    [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
-    [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
-    [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.NatlefsEvaluation]: "#018571",
-    [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
-    [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
+    [ObservationSource.AvalancheWarningService]: "#ca0020",
+    [ObservationSource.Observer]: "#83e4f0",
+    [ObservationSource.LwdKip]: "#f781bf",
+    [ObservationSource.Lawis]: "#44a9db",
+    [ObservationSource.LoLaSafety]: "#a6d96a",
+    [ObservationSource.AvaObs]: "#6a3d9a",
+    [ObservationSource.KipLive]: "#6a3d9a",
+    [ObservationSource.Natlefs]: "#6a3d9a",
     [ObservationSource.WikisnowECT]: "#c6e667",
   });
 
 export const ObservationTypeIcons: Record<ObservationType, string> =
   Object.freeze({
-    [ObservationType.Observation]: appCircleAddIcon.data,
+    [ObservationType.SimpleObservation]: appCircleAlertIcon.data,
+    [ObservationType.Evaluation]: appCircleAlertIcon.data,
     [ObservationType.Incident]: appCircleAlertIcon.data,
-    [ObservationType.Profile]: appCircleCheckIcon.data,
+    [ObservationType.Profile]: appCircleAlertIcon.data,
     [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
-    [ObservationType.Blasting]: appCircleFullIcon.data,
+    [ObservationType.Blasting]: appCircleAlertIcon.data,
+    [ObservationType.Closure]: appCircleAlertIcon.data,
+    [ObservationType.TimeSeries]: appCircleAlertIcon.data,
   });
 
 export enum Aspect {
@@ -196,6 +174,7 @@ export enum LocalFilterTypes {
   Aspect = "Aspect",
   AvalancheProblem = "AvalancheProblem",
   Stability = "Stability",
+  ObservationType = "ObservationType",
   DangerPattern = "DangerPattern",
   Days = "Days",
 }
@@ -205,6 +184,7 @@ export interface ChartsData {
   Aspects: Object;
   AvalancheProblem: Object;
   Stability: Object;
+  ObservationType: Object;
   DangerPattern: Object;
   Days: Object;
 }

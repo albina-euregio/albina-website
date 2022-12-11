@@ -358,6 +358,18 @@ export enum ObservationFilterType {
   Local = "Local"
 }
 
+// FIXME duplicate of enum in GenericObservation model
+export enum ObservationType {
+  SimpleObservation = "SimpleObservation",
+  Evaluation = "Evaluation",
+  Avalanche = "Avalanche",
+  Blasting = "Blasting",
+  Closure = "Closure",
+  Profile = "Profile",
+  Incident = "Incident",
+  TimeSeries = "TimeSeries",
+}
+
 export enum Aspect {
   N = 1, NE = 2, E = 3, SE = 4, S = 5, SW = 6, W = 7, NW = 8
 }

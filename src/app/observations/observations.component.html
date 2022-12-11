@@ -229,6 +229,15 @@
             </app-bar-chart>
             <app-bar-chart 
               class="chart-container"
+              [caption] = "'admin.observations.charts.observationType.caption' | translate"
+              [type]="LocalFilterTypes.ObservationType"
+              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].includes('nan')}"
+              [data]="chartsData.ObservationType"  
+              [isActive]="filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].length > 0"
+              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+            </app-bar-chart>
+            <app-bar-chart 
+              class="chart-container"
               [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
               [translationBase] = "'avalancheProblem.'"
               [type]="LocalFilterTypes.AvalancheProblem"

@@ -14,15 +14,12 @@ export class ConstantsService {
 
   public lolaKronosApi = "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/"
   public observationApi = {
-    [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/public/incident",
-    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/public/profile",
-    [ObservationSource.LoLaSafetyAvalancheReports]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
+    [ObservationSource.Lawis]: "https://admin.avalanche.report/lawis/public/",
+    [ObservationSource.LoLaSafety]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
-  public observationWeb = {
-    [ObservationSource.LawisIncidents]: "https://lawis.at/incident/#{{id}}",
-    [ObservationSource.LawisSnowProfiles]: "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
-  };
+  public lawisIncidentsWeb: string = "https://lawis.at/incident/#{{id}}";
+  public lawisSnowProfilesWeb: string = "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf";
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
   public osmNominatimCountries = "at,it";

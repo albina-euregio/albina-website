@@ -183,7 +183,7 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
   return {
     $data: lawis,
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
-    $source: ObservationSource.LawisSnowProfiles,
+    $source: ObservationSource.Lawis,
     $type: ObservationType.Profile,
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
@@ -211,7 +211,7 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
   return {
     $data: lawis,
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
-    $source: ObservationSource.LawisIncidents,
+    $source: ObservationSource.Lawis,
     $type: ObservationType.Incident,
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",

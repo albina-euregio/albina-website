@@ -131,8 +131,8 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
       Object.keys(feature.properties)
         .map((label) => (typeof feature.properties[label] === "string" ? { label, value: feature.properties[label] } : undefined))
         .filter((row) => row !== undefined),
-    $source: ObservationSource.LwdKipBeobachtung,
-    $type: ObservationType.Observation,
+    $source: ObservationSource.LwdKip,
+    $type: ObservationType.Evaluation,
     stability: getLwdKipBeobachtungStability(feature),
     $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
     aspect: undefined,
@@ -176,7 +176,7 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
       { label: "Sprenggrund", value: feature.properties.SPRENGGRUND },
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
-    $source: ObservationSource.LwdKipSprengerfolg,
+    $source: ObservationSource.LwdKip,
     $type: ObservationType.Blasting,
     stability: getLwdKipSprengerfolgStability(feature),
     $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
@@ -227,7 +227,7 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
       { label: "Sprengung", boolean: feature.properties.SPRENGUNG > 0 },
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
-    $source: ObservationSource.LwdKipLawinenabgang,
+    $source: ObservationSource.LwdKip,
     $type: ObservationType.Avalanche,
     stability: getLwdKipLawinenabgangStability(feature),
     $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
@@ -269,8 +269,8 @@ export function convertLwdKipSperren(
 ): GenericObservation {
   return {
     $data: feature.properties,
-    $source: ObservationSource.LwdKipSperre,
-    $type: ObservationType.Observation,
+    $source: ObservationSource.LwdKip,
+    $type: ObservationType.Closure,
     stability: getLwdKipSperreStability(feature),
     $markerRadius: getLwdKipSperreMarkerRadius(feature),
     aspect: undefined,

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { EventType, isAlbinaObservation, Observation } from "./models/observation.model";
+import { EventType, isAvalancheWarningServiceObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
@@ -23,7 +23,7 @@ export class ObservationTableComponent {
 
   get shownObservations(): GenericObservation[] {
     const observations = (this.observations || []).filter(
-      (o) => o.$source !== ObservationSource.AvalancheWarningService
+      (o) => o.$source !== ObservationSource.Observer
     );
     return this.showObservationsWithoutCoordinates ? observations.filter(this.hasNoCoordinates) : observations;
   }
@@ -39,7 +39,7 @@ export class ObservationTableComponent {
   }
 
   onClick(observation: GenericObservation) {
-    if (isAlbinaObservation(observation)) {
+    if (isAvalancheWarningServiceObservation(observation)) {
       this.editObservation(observation.$data);
     } else {
       this.observationClick.emit(observation);
@@ -81,7 +81,7 @@ export class ObservationTableComponent {
       if (observation.id) {
         const newObservation = await this.observationsService.putObservation(observation).toPromise();
         Object.assign(
-          this.observations.find((o) => isAlbinaObservation(o) && o.$data.id === observation.id),
+          this.observations.find((o) => isAvalancheWarningServiceObservation(o) && o.$data.id === observation.id),
           newObservation
         );
       } else {
@@ -104,7 +104,7 @@ export class ObservationTableComponent {
     try {
       this.saving = true;
       await this.observationsService.deleteObservation(observation);
-      const index = this.observations.findIndex((o) => isAlbinaObservation(o) && o.$data.id === observation.id);
+      const index = this.observations.findIndex((o) => isAvalancheWarningServiceObservation(o) && o.$data.id === observation.id);
       this.observations.splice(index, 1);
       this.showDialog = false;
     } catch (error) {
@@ -127,7 +127,7 @@ export class ObservationTableComponent {
   }
 
   getTableRowStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
-    if (!isAlbinaObservation(observation)) {
+    if (!isAvalancheWarningServiceObservation(observation)) {
       return;
     }
     switch (observation.$data.eventType) {

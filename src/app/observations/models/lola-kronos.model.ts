@@ -301,11 +301,11 @@ export function convertLoLaKronos(
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsAvalancheEvent
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveAvalancheEvent
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsAvalancheEvent
+          ? ObservationSource.Natlefs
           : undefined,
           ObservationType.Avalanche,
           "https://www.lola-kronos.info/avalancheEvent/"
@@ -315,21 +315,21 @@ export function convertLoLaKronos(
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsEvaluation
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveEvaluation
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsEvaluation
+          ? ObservationSource.Natlefs
           : undefined,
-          ObservationType.Observation,
+          ObservationType.Evaluation,
           "https://www.lola-kronos.info/evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        ObservationSource.AvaObsSimpleObservation, // FIXME
-        ObservationType.Observation,
+        ObservationSource.AvaObs, // FIXME
+        ObservationType.SimpleObservation,
         "https://www.lola-kronos.info/simpleObservation/"
       )
     ),
@@ -337,11 +337,11 @@ export function convertLoLaKronos(
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsSnowProfile
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveSnowProfile
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsSnowProfile
+          ? ObservationSource.Natlefs
           : undefined,
         ObservationType.Profile,
         "https://www.lola-kronos.info/snowProfile/"
