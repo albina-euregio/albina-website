@@ -27,6 +27,7 @@ import {
  */
 const BulletinMap = props => {
   const intl = useIntl();
+  const [regionMouseover, setRegionMouseover] = useState("");
 
   useEffect(() => {
     scroll_init();
@@ -105,10 +106,32 @@ const BulletinMap = props => {
         key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
         date={date}
         ampm={props.ampm}
-        handleSelectRegion={props.handleSelectRegion}
+        eventHandlers={{
+          click(e) {
+            props.handleSelectRegion(e.sourceTarget.properties.id);
+          },
+          mouseover(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(e.sourceTarget.properties.id)
+            );
+          },
+          mouseout(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(id =>
+                id === e.sourceTarget.properties.id ? "" : id
+              )
+            );
+          }
+        }}
       >
-        {BULLETIN_STORE.microRegionIds.map(region => {
-          const regionState = BULLETIN_STORE.getRegionState(region, props.ampm);
+        {[
+          ...BULLETIN_STORE.microRegionIds,
+          ...BULLETIN_STORE.eawsRegionIds
+        ].map(region => {
+          const regionState =
+            region === regionMouseover
+              ? "mouseOver"
+              : BULLETIN_STORE.getRegionState(region, props.ampm);
           return (
             <PbfRegionState
               key={region + regionState + props.ampm}

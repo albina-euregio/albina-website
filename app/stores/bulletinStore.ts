@@ -347,6 +347,10 @@ class BulletinStore {
     return "default";
   }
 
+  get eawsRegionIds(): string[] {
+    return eawsRegions.map(properties => properties.id);
+  }
+
   get microRegionIds(): string[] {
     const today = "2022-12-01";
     return microRegions

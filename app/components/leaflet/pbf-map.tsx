@@ -35,10 +35,20 @@ type PbfStyleFunction = {
   outline: (properties: RegionOutlineProperties) => L.PathOptions;
 };
 
+const hidden = Object.freeze({
+  stroke: false,
+  fill: false
+} as PathOptions);
+const clickable = Object.freeze({
+  stroke: false,
+  fill: true,
+  fillColor: "black",
+  fillOpacity: 0.0
+} as PathOptions);
+
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
-  const hidden: PathOptions = Object.freeze({ stroke: false, fill: false });
   const style = (id: string): PathOptions => {
     if (props.ampm) id += ":" + props.ampm;
     const warnlevel = instance.options.dangerRatings[id];
@@ -123,19 +133,6 @@ type PbfLayerOverlayProps = PbfProps & {
 
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
-    const hidden = Object.freeze({
-      stroke: false,
-      fill: false
-    } as PathOptions);
-    const mouseOver = Object.freeze({
-      color: "#555555",
-      fill: true,
-      fillColor: "white",
-      fillOpacity: 0.1,
-      stroke: true,
-      weight: 2.0
-    } as PathOptions);
-
     const instance = L.vectorGrid.protobuf(
       "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
       {
@@ -152,7 +149,7 @@ export const PbfLayerOverlay = createLayerComponent(
             | RegionOutlineProperties;
         }) {
           if (
-            properties.elevation ||
+            (properties as MicroRegionElevationProperties).elevation ||
             !filterFeature({ properties }, props.date)
           ) {
             return undefined;
@@ -166,35 +163,15 @@ export const PbfLayerOverlay = createLayerComponent(
           },
           "micro-regions"(properties) {
             if (!filterFeature({ properties }, props.date)) return hidden;
-            return {
-              stroke: false,
-              fill: regionsRegex.test(properties.id),
-              fillColor: "black",
-              fillOpacity: 0.05
-            };
+            return regionsRegex.test(properties.id) ? clickable : hidden;
           },
           outline(properties) {
             if (!filterFeature({ properties }, props.date)) return hidden;
-            return {
-              stroke: false,
-              fill: !regionsRegex.test(properties.id),
-              fillColor: "black",
-              fillOpacity: 0.05
-            };
+            return !regionsRegex.test(properties.id) ? clickable : hidden;
           }
         } as PbfStyleFunction
       }
     );
-
-    instance.on("click", e => {
-      props.handleSelectRegion(e.sourceTarget.properties.id);
-    });
-    instance.on("mouseover", e => {
-      instance.setFeatureStyle(e.sourceTarget.properties.id, mouseOver);
-    });
-    instance.on("mouseout", e => {
-      instance.resetFeatureStyle(e.sourceTarget.properties.id);
-    });
 
     return {
       instance,
@@ -215,11 +192,9 @@ export const PbfRegionState = ({
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
     vectorGrid.setFeatureStyle(region as any, {
-      stroke: false,
-      fill: regionsRegex.test(region),
-      fillColor: "black",
-      fillOpacity: 0.05,
-      ...(config.map.regionStyling[regionState] || config.map.regionStyling.all)
+      ...clickable,
+      ...config.map.regionStyling.all,
+      ...(config.map.regionStyling[regionState] || {})
     });
   }, []);
   return <></>;
