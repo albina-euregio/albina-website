@@ -7,6 +7,7 @@ import {
   AvalancheProblemType,
   Bulletin,
   Bulletins,
+  MicroRegionProperties,
   isAmPm
 } from "./bulletin";
 import { fetchJSON, fetchText } from "../util/fetch.js";
@@ -22,6 +23,13 @@ import {
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
 type Status = "pending" | "ok" | "empty" | "n/a";
+
+type RegionState =
+  | "selected"
+  | "highlighted"
+  | "dehighlighted"
+  | "dimmed"
+  | "default";
 
 type AmPm = "am" | "pm" | "";
 
@@ -121,7 +129,13 @@ class BulletinCollection {
 
 class BulletinStore {
   // not observable
-  _microRegions: GeoJSON.FeatureCollection = {
+  _microRegions: GeoJSON.FeatureCollection<
+    GeoJSON.Geometry,
+    MicroRegionProperties & {
+      state: RegionState;
+      latlngs: L.LatLng[][] | L.LatLng[][][];
+    }
+  > = {
     type: "FeatureCollection",
     features: []
   };
@@ -357,10 +371,7 @@ class BulletinStore {
     return problems || [];
   }
 
-  getRegionState(
-    regionId: string,
-    ampm: AmPm = null
-  ): "selected" | "highlighted" | "dimmed" | "dehighlighted" | "default" {
+  getRegionState(regionId: string, ampm: AmPm = null): RegionState {
     if (this.settings?.region === regionId) {
       return "selected";
     }
@@ -430,7 +441,7 @@ class BulletinStore {
   }
 
   get microRegions(): GeoJSON.Feature[] {
-    const states = [
+    const states: RegionState[] = [
       "selected",
       "highlighted",
       "dehighlighted",
