@@ -152,7 +152,7 @@ const StationTable = props => {
     }
   ];
 
-  let [columnGroups] = useState({
+  const [columnGroups] = useState({
     snow: {
       active: true
     },

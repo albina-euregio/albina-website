@@ -19,7 +19,7 @@ export default function YearFilter(props: Props) {
     const years = [];
     const maxYear = new Date().getFullYear();
 
-    for (var year = props.minYear; year <= maxYear; year++) {
+    for (let year = props.minYear; year <= maxYear; year++) {
       const date = new Date(year, 0, 15);
       const name = props.formatter
         ? props.formatter(year)

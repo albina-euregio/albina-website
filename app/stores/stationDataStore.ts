@@ -271,7 +271,7 @@ export default class StationDataStore {
   }
 
   load(timePrefix: any) {
-    let stationsFile = Util.template(window.config.apis.weather.stations, {
+    const stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);

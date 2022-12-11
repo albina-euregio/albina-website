@@ -37,7 +37,7 @@ export class BlogPostPreviewItem {
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
-  _regions: {};
+  _regions: object;
   _languages: { de: boolean; it: boolean; en: boolean };
   _year: number | "";
   _month: number | "";
@@ -169,7 +169,6 @@ export default class BlogStore {
 
     // region
     if (urlValues.region != this.regionActive) {
-      console.log("blogStore->setRegion");
       this.setRegions(urlValues.region);
       needLoad = true;
     }
@@ -193,7 +192,6 @@ export default class BlogStore {
     }
 
     if (needLoad) {
-      // console.log("reload needed");
       this.load(true);
     }
   }
@@ -202,7 +200,7 @@ export default class BlogStore {
     labels: string | string[],
     published: string | number | Date
   ): number {
-    let newUntil = new Date(published);
+    const newUntil = new Date(published);
     //newUntil.setMonth(newUntil.getMonth() + 12);
     if (labels.includes("valid_72h"))
       return newUntil.setHours(newUntil.getHours() + 72);
@@ -337,8 +335,7 @@ export default class BlogStore {
     const newPosts = {};
 
     // filter config for lang and region
-    // eslint-disable-next-line no-unused-vars
-    for (let cfg of blogsConfig) {
+    for (const cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
@@ -390,7 +387,6 @@ export default class BlogStore {
   }
 
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
-    // console.log("posts loaded", newPosts);
     this.posts = newPosts;
     this._loading = false;
   }
@@ -503,18 +499,15 @@ export default class BlogStore {
 
   setRegions(region: string) {
     const newRegions = this.regions;
-    // eslint-disable-next-line no-unused-vars
-    for (let r in newRegions) {
+    for (const r in newRegions) {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
-    console.log("blogstore->setRegions xx101", region, newRegions);
     this._regions = newRegions;
   }
 
   setLanguages(lang: string) {
     const newLanguages = this.languages;
-    // eslint-disable-next-line no-unused-vars
-    for (let l in newLanguages) {
+    for (const l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }
     this._languages = newLanguages;
@@ -546,8 +539,7 @@ export default class BlogStore {
     const currentDate = new Date().getTime();
     let nrOfNewPosts = 0;
     if (this.posts) {
-      // eslint-disable-next-line no-unused-vars
-      for (let prop in this.posts) {
+      for (const prop in this.posts) {
         this.posts[prop].forEach(aPost => {
           if (currentDate < aPost.newUntil) nrOfNewPosts++;
         });

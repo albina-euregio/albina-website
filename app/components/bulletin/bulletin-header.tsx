@@ -12,7 +12,7 @@ function BulletinHeader() {
 
   const date = intl.formatDate(BULLETIN_STORE.date, LONG_DATE_FORMAT);
 
-  let statusClass: string = "";
+  let statusClass = "";
   const status = BULLETIN_STORE.settings.status;
   if (status === "pending") {
     statusClass = "loading";
