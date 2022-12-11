@@ -63,8 +63,39 @@ const BulletinMap = props => {
         ampm={props.ampm}
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
-        <EawsDangerRatings date={date} />
-        {["IT-21", "IT-23", "IT-25", "IT-34", "IT-36", "IT-57"].map(region => (
+        {[
+          "AD",
+          "AT-02",
+          "AT-03",
+          "AT-04",
+          "AT-05",
+          "AT-06",
+          "AT-07",
+          "AT-08",
+          "CH",
+          "CZ",
+          "DE-BY",
+          "ES-CT-L",
+          "ES-CT",
+          "ES",
+          "FR",
+          "GB",
+          "IS",
+          "IT-21",
+          "IT-23",
+          "IT-25",
+          "IT-32-BZ",
+          "IT-32-TN",
+          "IT-34",
+          "IT-36",
+          "IT-57",
+          "NO",
+          "PL",
+          "PL-12",
+          "SE",
+          "SI",
+          "SK"
+        ].map(region => (
           <EawsDangerRatings key={region} date={date} region={region} />
         ))}
       </PbfLayer>

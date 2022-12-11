@@ -90,7 +90,7 @@ export const EawsDangerRatings = ({
   region
 }: {
   date: string;
-  region?: string;
+  region: string;
 }) => {
   const [maxDangerRatings, setMaxDangerRatings] = useState(
     {} as MaxDangerRatings
@@ -100,20 +100,10 @@ export const EawsDangerRatings = ({
       return;
     }
     fetchJSON(
-      `https://static.avalanche.report/eaws_bulletins/${date}/${date}${
-        region ? "-" + region : ""
-      }.ratings.json`,
+      `https://static.avalanche.report/eaws_bulletins/${date}/${date}-${region}.ratings.json`,
       { cache: "no-cache" }
     )
-      .then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
-        setMaxDangerRatings(
-          Object.fromEntries(
-            Object.entries(maxDangerRatings).filter(
-              ([id]) => !regionsRegex.test(id)
-            )
-          )
-        )
-      )
+      .then(json => setMaxDangerRatings(json.maxDangerRatings))
       .catch(error =>
         console.warn("Cannot load EAWS bulletins for date " + date, error)
       );
