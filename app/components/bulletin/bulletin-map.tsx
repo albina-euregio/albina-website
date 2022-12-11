@@ -76,15 +76,16 @@ const BulletinMap = props => {
         ampm={props.ampm}
         handleSelectRegion={props.handleSelectRegion}
       >
-        {Object.entries(BULLETIN_STORE.regionStates).map(
-          ([region, regionState]) => (
+        {BULLETIN_STORE.microRegionIds.map(region => {
+          const regionState = BULLETIN_STORE.getRegionState(region, props.ampm);
+          return (
             <PbfRegionState
-              key={region + regionState}
+              key={region + regionState + props.ampm}
               region={region}
               regionState={regionState}
             />
-          )
-        )}
+          );
+        })}
       </PbfLayerOverlay>
     );
     return overlays;
@@ -93,15 +94,15 @@ const BulletinMap = props => {
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
-    if (activeBulletin) {
+    if (BULLETIN_STORE.activeBulletin) {
+      const activeBulletin = BULLETIN_STORE.activeBulletin;
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
           region={intl.formatMessage({
-            id: "region:" + activeRegionName
+            id: "region:" + BULLETIN_STORE.settings.region
           })}
           ampm={props.ampm}
         />
@@ -131,7 +132,8 @@ const BulletinMap = props => {
           </Tooltip>
         )
       );
-    } else if (activeEaws) {
+    } else if (BULLETIN_STORE.activeEaws) {
+      const activeEaws = BULLETIN_STORE.activeEaws;
       detailsClasses.push("js-active");
       const language = APP_STORE.language;
       const country = activeEaws.id.replace(/-.*/, "");
@@ -153,7 +155,7 @@ const BulletinMap = props => {
           </span>
         </p>
       );
-      (activeEaws.properties.aws || []).forEach((aws, index) => {
+      (activeEaws.aws || []).forEach((aws, index) => {
         const href =
           aws.url.find(url => url[language])?.[language] ||
           Object.values(aws.url[0])[0];
@@ -206,7 +208,7 @@ const BulletinMap = props => {
         }
       >
         <LeafletMap
-          loaded={BULLETIN_STORE.microRegions}
+          loaded={BULLETIN_STORE.microRegionIds}
           onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}
