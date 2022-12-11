@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@floating-ui/react-dom-interactions": "^0.0.15",
-    "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^7.24.2",
     "animejs": "3.2.1",
     "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/98c6db520362b3f924defeac2212b956e98e2cfc/eaws-regions-98c6db520362b3f924defeac2212b956e98e2cfc.tar.gz",
