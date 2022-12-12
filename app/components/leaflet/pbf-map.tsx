@@ -21,9 +21,6 @@ declare module "@react-leaflet/core" {
   }
 }
 
-const eawsRegionsWithoutElevation =
-  /^(AD|CH|CZ|ES-GA|ES-JA|ES-NA|ES-RI|ES-SO|ES-CT-RF|ES-CT-PA|ES-CT-PP|ES-CT-VN|ES-CT-TF|ES-CT-PR|ES-CT-L-04|FI|FR|GB|IS|NO|PL|SK)/;
-
 type Region = string;
 type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
@@ -66,15 +63,13 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(properties) {
-          if (eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
-          return style(properties.id + ":" + properties.elevation);
+          return properties.elevation === "low_high"
+            ? style(properties.id)
+            : style(properties.id + ":" + properties.elevation);
         },
-        "micro-regions"(properties) {
-          if (regionsRegex.test(properties.id)) return hidden;
-          if (!eawsRegionsWithoutElevation.test(properties.id)) return hidden;
-          if (!filterFeature({ properties }, props.date)) return hidden;
-          return style(properties.id);
+        "micro-regions"() {
+          return hidden;
         },
         outline() {
           return hidden;
