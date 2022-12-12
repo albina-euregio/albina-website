@@ -109,7 +109,7 @@ source_lang = en
 type = HTML
 file_filter = public/content/more/open-data/<lang>.html
 
-[albina-website.bulletin-glossary]
+[bulletin-glossary.bulletin-glossary]
 source_file = app/components/bulletin/bulletin-glossary-qqq-links.json
 source_lang = eo
 type = KEYVALUEJSON
