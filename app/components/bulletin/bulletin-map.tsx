@@ -226,7 +226,16 @@ const BulletinMap = props => {
               href={href}
               rel="noopener noreferrer"
               target="_blank"
-              className="pure-button"
+              className={
+                /ALPSOLUT|METEOMONT/.test(aws.name)
+                  ? "pure-button pure-button-disabled"
+                  : "pure-button"
+              }
+              style={{
+                // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
+                cursor: "pointer",
+                pointerEvents: "initial"
+              }}
             >
               {aws.name} <span className="icon-arrow-right" />
             </a>
