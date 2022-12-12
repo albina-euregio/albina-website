@@ -108,3 +108,9 @@ source_file = public/content/more/open-data/en.html
 source_lang = en
 type = HTML
 file_filter = public/content/more/open-data/<lang>.html
+
+[bulletin-glossary.bulletin-glossary]
+source_file = app/components/bulletin/bulletin-glossary-qqq-links.json
+source_lang = eo
+type = KEYVALUEJSON
+file_filter = app/components/bulletin/bulletin-glossary-<lang>-links.json

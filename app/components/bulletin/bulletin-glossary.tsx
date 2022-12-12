@@ -2,8 +2,18 @@ import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 import { useIntl } from "react-intl";
 import { preprocessContent } from "../../util/htmlParser";
-import GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
+import RAW_GLOSSARY_LINKS from "./bulletin-glossary-de-links.json";
 import GLOSSARY_CONTENT from "./bulletin-glossary-de-content.json";
+
+const GLOSSARY_LINKS = Object.fromEntries(
+  Object.entries(RAW_GLOSSARY_LINKS).flatMap(([id, phrases]) =>
+    phrases
+      .trim()
+      .split(/\n/g)
+      .map(phrase => [phrase, id])
+  )
+);
+
 const GLOSSARY_REGEX = new RegExp(
   "\\b(" + Object.keys(GLOSSARY_LINKS).join("|") + ")\\b",
   "g"
