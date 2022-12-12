@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { GeoJSON } from "react-leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
-import BulletinVectorLayer from "./bulletin-vector-layer";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
-import { DangerRatings, EawsDangerRatings, PbfLayer } from "../leaflet/pbf-map";
+import {
+  DangerRatings,
+  EawsDangerRatings,
+  PbfLayer,
+  PbfLayerOverlay,
+  PbfRegionState
+} from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -23,6 +27,7 @@ import { DangerRatings, EawsDangerRatings, PbfLayer } from "../leaflet/pbf-map";
  */
 const BulletinMap = props => {
   const intl = useIntl();
+  const [regionMouseover, setRegionMouseover] = useState("");
 
   useEffect(() => {
     scroll_init();
@@ -51,21 +56,6 @@ const BulletinMap = props => {
   const getMapOverlays = () => {
     const overlays = [];
     const date = BULLETIN_STORE.settings.date;
-
-    if (BULLETIN_STORE.eawsRegions) {
-      overlays.push(
-        <BulletinVectorLayer
-          key="eaws-regions"
-          name="eaws-regions"
-          problems={BULLETIN_STORE.problems}
-          date={date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.eawsRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-        />
-      );
-    }
     const b = BULLETIN_STORE.activeBulletinCollection;
     overlays.push(
       <PbfLayer
@@ -74,43 +64,99 @@ const BulletinMap = props => {
         ampm={props.ampm}
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
-        <EawsDangerRatings date={date} />
-        {["IT-21", "IT-23", "IT-25", "IT-34", "IT-36", "IT-57"].map(region => (
+        {[
+          "AD",
+          "AT-02",
+          "AT-03",
+          "AT-04",
+          "AT-05",
+          "AT-06",
+          "AT-07",
+          "AT-08",
+          "CH",
+          "CZ",
+          "DE-BY",
+          "ES-CT-L",
+          "ES-CT",
+          "ES",
+          "FR",
+          "GB",
+          "IS",
+          "IT-21",
+          "IT-23",
+          "IT-25",
+          "IT-32-BZ",
+          "IT-32-TN",
+          "IT-34",
+          "IT-36",
+          "IT-57",
+          "NO",
+          "PL",
+          "PL-12",
+          "SE",
+          "SI",
+          "SK"
+        ].map(region => (
           <EawsDangerRatings key={region} date={date} region={region} />
         ))}
       </PbfLayer>
     );
-
-    if (BULLETIN_STORE.microRegions) {
-      //console.log("bulletin-map push Vector xx01", "eaws-regions");
-      overlays.push(
-        <BulletinVectorLayer
-          key="bulletin-regions"
-          name="bulletin-regions"
-          problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.microRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-        />
-      );
-    }
+    overlays.push(
+      <PbfLayerOverlay
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
+        date={date}
+        ampm={props.ampm}
+        eventHandlers={{
+          click(e) {
+            props.handleSelectRegion(e.sourceTarget.properties.id);
+          },
+          mouseover(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(e.sourceTarget.properties.id)
+            );
+          },
+          mouseout(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(id =>
+                id === e.sourceTarget.properties.id ? "" : id
+              )
+            );
+          }
+        }}
+      >
+        {[
+          ...BULLETIN_STORE.microRegionIds,
+          ...BULLETIN_STORE.eawsRegionIds
+        ].map(region => {
+          const regionState =
+            region === regionMouseover
+              ? "mouseOver"
+              : BULLETIN_STORE.getRegionState(region, props.ampm);
+          return (
+            <PbfRegionState
+              key={region + regionState + props.ampm}
+              region={region}
+              regionState={regionState}
+            />
+          );
+        })}
+      </PbfLayerOverlay>
+    );
     return overlays;
   };
 
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
-    if (activeBulletin) {
+    if (BULLETIN_STORE.activeBulletin) {
+      const activeBulletin = BULLETIN_STORE.activeBulletin;
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
           region={intl.formatMessage({
-            id: "region:" + activeRegionName
+            id: "region:" + BULLETIN_STORE.settings.region
           })}
           ampm={props.ampm}
         />
@@ -140,7 +186,8 @@ const BulletinMap = props => {
           </Tooltip>
         )
       );
-    } else if (activeEaws) {
+    } else if (BULLETIN_STORE.activeEaws) {
+      const activeEaws = BULLETIN_STORE.activeEaws;
       detailsClasses.push("js-active");
       const language = APP_STORE.language;
       const country = activeEaws.id.replace(/-.*/, "");
@@ -162,7 +209,7 @@ const BulletinMap = props => {
           </span>
         </p>
       );
-      (activeEaws.properties.aws || []).forEach((aws, index) => {
+      (activeEaws.aws || []).forEach((aws, index) => {
         const href =
           aws.url.find(url => url[language])?.[language] ||
           Object.values(aws.url[0])[0];
@@ -215,7 +262,7 @@ const BulletinMap = props => {
         }
       >
         <LeafletMap
-          loaded={BULLETIN_STORE.microRegions}
+          loaded={BULLETIN_STORE.microRegionIds}
           onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}

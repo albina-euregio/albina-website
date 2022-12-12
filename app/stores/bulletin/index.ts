@@ -7,6 +7,7 @@ import type {
 export * from "./CaamlBulletin2022";
 export * from "./MicroRegionElevationProperties";
 export * from "./MicroRegionProperties";
+export * from "./RegionOutlineProperties";
 
 export function hasDaytimeDependency(b: Bulletin): boolean {
   return b.dangerRatings?.some(({ validTimePeriod }) => {

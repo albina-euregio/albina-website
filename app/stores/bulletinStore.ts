@@ -1,30 +1,44 @@
 import { observable, action, makeObservable } from "mobx";
 import { getSuccDate, dateToISODateString, parseDate } from "../util/date.js";
 
-import { GeoJSON as LeafletGeoJSON, PathOptions, Util } from "leaflet";
+import { Util } from "leaflet";
 import {
   AvalancheProblem,
   AvalancheProblemType,
   Bulletin,
   Bulletins,
-  isAmPm
+  isAmPm,
+  MicroRegionProperties,
+  RegionOutlineProperties
 } from "./bulletin";
-import { fetchJSON, fetchText } from "../util/fetch.js";
+import { fetchJSON } from "../util/fetch.js";
 
-import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
-import {
-  WarnLevelNumber,
-  warnlevelNumbers,
-  WARNLEVEL_COLORS,
-  WARNLEVEL_OPACITY
-} from "../util/warn-levels";
+import { WarnLevelNumber, warnlevelNumbers } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
+
+import _p1 from "eaws-regions/public/micro-regions_properties/AT-07_micro-regions.json";
+import _p2 from "eaws-regions/public/micro-regions_properties/IT-32-BZ_micro-regions.json";
+import _p3 from "eaws-regions/public/micro-regions_properties/IT-32-TN_micro-regions.json";
+export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
+
+import eawsRegions from "eaws-regions/public/outline.json";
+import { regionsRegex } from "../util/regions.js";
 
 type Status = "pending" | "ok" | "empty" | "n/a";
 
+export type RegionState =
+  | "selected"
+  | "highlighted"
+  | "dehighlighted"
+  | "dimmed"
+  | "default";
+
 type AmPm = "am" | "pm" | "";
 
+/**
+ * Class storing one Caaml.Bulletins object with additional state.
+ */
 class BulletinCollection {
   date: string;
   status: Status;
@@ -120,27 +134,10 @@ class BulletinCollection {
 }
 
 class BulletinStore {
-  // not observable
-  _microRegions: GeoJSON.FeatureCollection = {
-    type: "FeatureCollection",
-    features: []
-  };
-  // not observable
-  _microRegionsElevation: GeoJSON.FeatureCollection = {
-    type: "FeatureCollection",
-    features: []
-  };
-  // not observable
-  _eawsRegions: GeoJSON.FeatureCollection = {
-    type: "FeatureCollection",
-    features: []
-  };
   bulletins: Record<string, BulletinCollection> = {};
   latest: string | null = null;
   settings = {
     status: "" as Status,
-    microRegionsCount: 0,
-    eawsCount: 0,
     date: "",
     region: ""
   };
@@ -179,8 +176,6 @@ class BulletinStore {
     this.bulletins = {};
     this.settings = {
       status: "",
-      microRegionsCount: 0,
-      eawsCount: 0,
       date: "",
       region: ""
     };
@@ -210,22 +205,6 @@ class BulletinStore {
     this.latest = latest;
   }
 
-  async loadMicroRegions() {
-    if (this._microRegions.features.length) return;
-    const polyline = await import("./micro_regions.polyline.json");
-    this._microRegions = decodeFeatureCollection(polyline.default);
-    // this.settings is observable, this._microRegions is not
-    this.settings.microRegionsCount = this._microRegions.features.length;
-  }
-
-  async loadEawsRegions() {
-    if (this._eawsRegions.features.length) return;
-    const polyline = await import("./eaws_regions.polyline.json");
-    this._eawsRegions = decodeFeatureCollection(polyline.default);
-    // this.settings is observable, this._eawsRegions is not
-    this.settings.eawsCount = this._eawsRegions.features.length;
-  }
-
   /**
    * Load a bulletin from the APIs and activate it, if desired.
    * @param date The date in YYYY-MM-DD format.
@@ -234,9 +213,6 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   async load(date: string, activate = true) {
-    this.loadMicroRegions();
-    this.loadEawsRegions();
-    // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
     if (this.bulletins[date]) {
       if (activate) {
@@ -316,14 +292,6 @@ class BulletinStore {
     return null;
   }
 
-  get activeRegionName(): string {
-    if (!this.settings?.region?.match(config.regionsRegex)) {
-      return "";
-    }
-    const feature = this.microRegions.find(f => f.id === this.settings.region);
-    return (feature?.id as string) ?? "";
-  }
-
   /**
    * Get the bulletin that is relevant for the currently set region.
    * @return A bulletin object that matches the selection of
@@ -338,8 +306,8 @@ class BulletinStore {
     return null;
   }
 
-  get activeEaws(): GeoJSON.Feature {
-    return this._eawsRegions.features.find(f => f.id === this.settings.region);
+  get activeEaws(): RegionOutlineProperties | undefined {
+    return eawsRegions.find(r => r.id === this.settings.region);
   }
 
   getProblemsForRegion(
@@ -357,10 +325,7 @@ class BulletinStore {
     return problems || [];
   }
 
-  getRegionState(
-    regionId: string,
-    ampm: AmPm = null
-  ): "selected" | "highlighted" | "dimmed" | "dehighlighted" | "default" {
+  getRegionState(regionId: string, ampm: AmPm = null): RegionState {
     if (this.settings?.region === regionId) {
       return "selected";
     }
@@ -388,82 +353,20 @@ class BulletinStore {
     return "default";
   }
 
-  getWarnlevel(
-    ampm: AmPm,
-    regionId: string,
-    elevation: "low" | "high"
-  ): WarnLevelNumber {
-    const bulletin =
-      this.activeBulletinCollection.getBulletinForBulletinOrRegion(regionId);
-    return bulletin?.dangerRatings
-      .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
-      .filter(
-        danger =>
-          (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
-          (danger?.elevation?.upperBound && elevation === "low") ||
-          (danger?.elevation?.lowerBound && elevation === "high")
-      )
-      .map(danger => warnlevelNumbers[danger.mainValue])
-      .reduce((w1, w2) => Math.max(w1, w2), 0);
-  }
-
-  getMicroElevationStyle(
-    feature: GeoJSON.Feature,
-    ampm: "am" | "pm"
-  ): PathOptions {
-    const id = String(feature.id);
-    let warnlevel = this.getWarnlevel(ampm, id, feature.properties.elevation);
-    if (warnlevel == undefined) warnlevel = 0;
-    return {
-      stroke: false,
-      fillColor: WARNLEVEL_COLORS[warnlevel],
-      fillOpacity: WARNLEVEL_OPACITY[warnlevel]
-    };
+  get eawsRegionIds(): string[] {
+    return eawsRegions
+      .map(properties => properties.id)
+      .filter(id => !regionsRegex.test(id));
   }
 
   get microRegionIds(): string[] {
     const today = "2022-12-01";
-    return this._microRegions.features
-      .filter(f => filterFeature(f, this.settings.date || today))
+    return microRegions
+      .filter(properties =>
+        filterFeature({ properties }, this.settings.date || today)
+      )
       .map(f => String(f.id))
       .sort();
-  }
-
-  get microRegions(): GeoJSON.Feature[] {
-    const states = [
-      "selected",
-      "highlighted",
-      "dehighlighted",
-      "dimmed",
-      "default"
-    ];
-    return this._microRegions.features
-      .filter(f => filterFeature(f, this.settings.date))
-      .map(f => this._augmentFeature(f))
-      .sort((r1, r2) =>
-        states.indexOf(r1.properties.state) <
-        states.indexOf(r2.properties.state)
-          ? 1
-          : -1
-      );
-  }
-
-  get eawsRegions(): GeoJSON.Feature[] {
-    return this._eawsRegions.features
-      .filter(f => filterFeature(f, this.settings.date))
-      .map(f => this._augmentFeature(f));
-  }
-
-  _augmentFeature(f: GeoJSON.Feature, ampm: AmPm = null): GeoJSON.Feature {
-    if (!f.properties) f.properties = {};
-    f.properties.state = this.getRegionState(f.id, ampm);
-    if (!f.properties.latlngs) {
-      f.properties.latlngs = LeafletGeoJSON.coordsToLatLngs(
-        f.geometry.coordinates,
-        f.geometry.type === "Polygon" ? 1 : 2
-      );
-    }
-    return f;
   }
 
   static _getBulletinUrl(date: string): string {

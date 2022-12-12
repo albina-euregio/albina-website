@@ -318,6 +318,7 @@
       "all": {
         "color": "#aaaaaa",
         "opacity": 1.0,
+        "stroke": true,
         "weight": 1
       },
       "default": {
@@ -329,6 +330,7 @@
         "fillOpacity": 0.75
       },
       "mouseOver": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555"
       },
@@ -337,6 +339,7 @@
         "fillOpacity": 0.5
       },
       "selected": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555",
         "fillColor": "none"

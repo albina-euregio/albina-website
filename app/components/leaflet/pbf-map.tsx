@@ -10,17 +10,14 @@ import { useEffect, useState } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
   MicroRegionElevationProperties,
-  MicroRegionProperties
+  MicroRegionProperties,
+  RegionOutlineProperties
 } from "../../stores/bulletin";
+import { RegionState } from "../../stores/bulletinStore";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
     vectorGrid: VectorGrid;
-  }
-}
-declare module "leaflet" {
-  interface VectorGridOptions {
-    dangerRatings: MaxDangerRatings;
   }
 }
 
@@ -30,10 +27,28 @@ const eawsRegionsWithoutElevation =
 type Region = string;
 type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
+type PbfStyleFunction = {
+  "micro-regions_elevation": (
+    properties: MicroRegionElevationProperties
+  ) => L.PathOptions;
+  "micro-regions": (properties: MicroRegionProperties) => L.PathOptions;
+  outline: (properties: RegionOutlineProperties) => L.PathOptions;
+};
+
+const hidden = Object.freeze({
+  stroke: false,
+  fill: false
+} as PathOptions);
+const clickable = Object.freeze({
+  stroke: false,
+  fill: true,
+  fillColor: "black",
+  fillOpacity: 0.0
+} as PathOptions);
+
 type PbfProps = { ampm: "am" | "pm"; date: string };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
-  const hidden: PathOptions = Object.freeze({ stroke: false, fill: false });
   const style = (id: string): PathOptions => {
     if (props.ampm) id += ":" + props.ampm;
     const warnlevel = instance.options.dangerRatings[id];
@@ -47,25 +62,24 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     {
       pane: "overlayPane",
       interactive: false,
+      rendererFactory: L.canvas.tile,
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
-        "micro-regions_elevation"(
-          properties: MicroRegionElevationProperties
-        ): PathOptions {
+        "micro-regions_elevation"(properties) {
           if (eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id + ":" + properties.elevation);
         },
-        "micro-regions"(properties: MicroRegionProperties): PathOptions {
+        "micro-regions"(properties) {
           if (regionsRegex.test(properties.id)) return hidden;
           if (!eawsRegionsWithoutElevation.test(properties.id)) return hidden;
           if (!filterFeature({ properties }, props.date)) return hidden;
           return style(properties.id);
         },
-        outline(): PathOptions {
+        outline() {
           return hidden;
         }
-      }
+      } as PbfStyleFunction
     }
   );
   return {
@@ -92,7 +106,7 @@ export const EawsDangerRatings = ({
   region
 }: {
   date: string;
-  region?: string;
+  region: string;
 }) => {
   const [maxDangerRatings, setMaxDangerRatings] = useState(
     {} as MaxDangerRatings
@@ -102,23 +116,86 @@ export const EawsDangerRatings = ({
       return;
     }
     fetchJSON(
-      `https://static.avalanche.report/eaws_bulletins/${date}/${date}${
-        region ? "-" + region : ""
-      }.ratings.json`,
+      `https://static.avalanche.report/eaws_bulletins/${date}/${date}-${region}.ratings.json`,
       { cache: "no-cache" }
     )
-      .then(({ maxDangerRatings }: { maxDangerRatings: MaxDangerRatings }) =>
-        setMaxDangerRatings(
-          Object.fromEntries(
-            Object.entries(maxDangerRatings).filter(
-              ([id]) => !regionsRegex.test(id)
-            )
-          )
-        )
-      )
+      .then(json => setMaxDangerRatings(json.maxDangerRatings))
       .catch(error =>
         console.warn("Cannot load EAWS bulletins for date " + date, error)
       );
   }, [date, setMaxDangerRatings]);
   return <DangerRatings maxDangerRatings={maxDangerRatings} />;
+};
+
+type PbfLayerOverlayProps = PbfProps & {
+  handleSelectRegion: (id?: string) => void;
+};
+
+export const PbfLayerOverlay = createLayerComponent(
+  (props: PbfLayerOverlayProps, ctx) => {
+    const instance = L.vectorGrid.protobuf(
+      "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+      {
+        pane: "markerPane",
+        interactive: true,
+        rendererFactory: L.svg.tile,
+        maxNativeZoom: 10,
+        getFeatureId({
+          properties
+        }: {
+          properties:
+            | MicroRegionElevationProperties
+            | MicroRegionProperties
+            | RegionOutlineProperties;
+        }) {
+          if (
+            (properties as MicroRegionElevationProperties).elevation ||
+            !filterFeature({ properties }, props.date)
+          ) {
+            return undefined;
+          } else {
+            return properties.id;
+          }
+        },
+        vectorTileLayerStyles: {
+          "micro-regions_elevation"() {
+            return hidden;
+          },
+          "micro-regions"(properties) {
+            if (!filterFeature({ properties }, props.date)) return hidden;
+            return regionsRegex.test(properties.id) ? clickable : hidden;
+          },
+          outline(properties) {
+            if (!filterFeature({ properties }, props.date)) return hidden;
+            return !regionsRegex.test(properties.id) ? clickable : hidden;
+          }
+        } as PbfStyleFunction
+      }
+    );
+
+    return {
+      instance,
+      context: { ...ctx, vectorGrid: instance }
+    };
+  }
+);
+
+type PbfRegionStateProps = {
+  region: string;
+  regionState: RegionState;
+};
+
+export const PbfRegionState = ({
+  region,
+  regionState
+}: PbfRegionStateProps) => {
+  const { vectorGrid } = useLeafletContext();
+  useEffect(() => {
+    vectorGrid.setFeatureStyle(region as any, {
+      ...clickable,
+      ...config.map.regionStyling.all,
+      ...(config.map.regionStyling[regionState] || {})
+    });
+  }, []);
+  return <></>;
 };

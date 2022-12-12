@@ -5,7 +5,6 @@ import { observer } from "mobx-react";
 import { FormattedMessage } from "react-intl";
 
 function RegionTable({ region }: { region: RegionCodes }) {
-  BULLETIN_STORE.loadMicroRegions();
   const regions = BULLETIN_STORE.microRegionIds.filter(id =>
     id.startsWith(region)
   );
@@ -15,10 +14,7 @@ function RegionTable({ region }: { region: RegionCodes }) {
     .map((r, idx) => [r, regions[idx + length2]]);
 
   return (
-    <table
-      className="pure-table pure-table-striped full-width"
-      key={BULLETIN_STORE.settings.microRegionsCount}
-    >
+    <table className="pure-table pure-table-striped full-width">
       <thead>
         <tr>
           <th>
