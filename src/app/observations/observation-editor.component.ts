@@ -24,6 +24,16 @@ export class ObservationEditorComponent {
     this.geocodingService.searchLocation($event.query).subscribe((collection) => (this.locationResults = collection.features));
   }
 
+  setEventDate(value:string) {
+    console.log(value);
+    this.observation.eventDate = value;
+  }
+
+  getEventDate() {
+    console.log(this.observation.eventDate);
+    return "----/--/--T00:00";
+  }
+
   selectLocation(feature: Feature<Point, GeocodingProperties>): void {
     setTimeout(() => {
       // display_name	"Zischgeles, Gemeinde Sankt Sigmund im Sellrain, Bezirk Innsbruck-Land, Tirol, Österreich" -> "Zischgeles"

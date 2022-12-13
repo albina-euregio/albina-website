@@ -84,16 +84,17 @@ export class ObservationTableComponent {
     const { observation } = this;
     try {
       this.saving = true;
-      if (observation.id) {
-        const newObservation = await this.observationsService.putObservation(observation).toPromise();
-        Object.assign(
-          this.observations.find((o) => isAlbinaObservation(o) && o.$data.id === observation.id),
-          newObservation
-        );
-      } else {
-        const newObservation = await this.observationsService.postObservation(observation).toPromise();
-        this.observations.splice(0, 0, newObservation);
-      }
+      console.log(observation);
+      // if (observation.id) {
+      //   const newObservation = await this.observationsService.putObservation(observation).toPromise();
+      //   Object.assign(
+      //     this.observations.find((o) => isAlbinaObservation(o) && o.$data.id === observation.id),
+      //     newObservation
+      //   );
+      // } else {
+      //   const newObservation = await this.observationsService.postObservation(observation).toPromise();
+      //   this.observations.splice(0, 0, newObservation);
+      // }
       this.showDialog = false;
     } catch (error) {
       this.reportError(error);
