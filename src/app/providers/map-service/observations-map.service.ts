@@ -16,7 +16,7 @@ import {
 } from "app/observations/models/generic-observation.model";
 
 // icons
-import { appCircleStopIcon } from "../../svg/circle_stop";
+import { appCircleIcon } from "../../svg/circle";
 
 import {CanvasIconLayer} from './leaflet.canvas-markers';
 
@@ -110,7 +110,7 @@ export class ObservationsMapService {
       activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
       // overlay to select regions (when editing an aggregated region)
-      
+
       editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
         onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
       }),
@@ -149,7 +149,7 @@ export class ObservationsMapService {
       activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
       // overlay to select regions (when editing an aggregated region)
-      
+
       editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
         onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
       }),
@@ -234,7 +234,7 @@ export class ObservationsMapService {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
 
-    
+
     return {
       fillColor: this.constantsService.lineColor,
       weight: this.constantsService.lineWeight,
@@ -362,7 +362,7 @@ export class ObservationsMapService {
 
 
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
-    
+
     return function onEachFeature(feature, layer) {
       //console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
@@ -471,7 +471,7 @@ export class ObservationsMapService {
 
   private getIcon(observation: GenericObservation<any>): Icon | DivIcon {
 
-    const iconSize = observation.$markerRadius ?? 5;
+    const iconSize = 2*observation.$markerRadius ?? 5;
 
     if (!this.USE_CANVAS_LAYER) {
       const html = this.getSvg(observation);
@@ -500,13 +500,43 @@ export class ObservationsMapService {
 
   private getSvg(observation: GenericObservation<any>) {
     //const iconColor = toMarkerColor(observation);
-    let iconColor = "#000";
+    let svg = appCircleIcon.data;
+
+    let iconColor = "#fff";
+    let textColor = "#000";
 
     if (observation.isHighlighted) {
-      iconColor = "#ff0000"
+      iconColor = "#ff0000";
+      textColor = "#fff";
     }
 
-    const svg = ObservationTypeIcons[observation.$type] ?? appCircleStopIcon.data;
-    return svg.replace(/currentcolor/g, iconColor);
+    // Style background of circle
+    svg = svg.replace("$bg", iconColor);
+    // Style text color
+    svg = svg.replace("$color", textColor);
+
+    // Set text of Marker (max. 2 characters)
+    svg = svg.replace("$data", "MM");
+
+    const aspect = observation.aspect;
+
+    // Colorize aspect of observation
+    svg = svg.replace(`"$${aspect}"`, "\"20\"");
+    svg = svg.replace(/"\$[NEWS]+"/g, "\"0\"");
+
+    // Remove seperators if there is a gap between two aspects
+    let allAspects = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    allAspects = allAspects.filter(e => e !== aspect);
+
+    allAspects.forEach(value => {
+      const regex = new RegExp(`(("\\$[NWSE]{1,2}_${value})")|(("\\$${value}_[NWSE]{1,2})")`, "g");
+      console.log(regex);
+      svg = svg.replace(regex, "\"0\"");
+    });
+
+    // Add seperators when there are two adjacent aspects
+    svg = svg.replace(/"\$[NWSE_]+"/g, "\"3\"");
+
+    return svg;
   }
 }

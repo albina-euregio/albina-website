@@ -176,7 +176,7 @@ export const ObservationTypeIcons: Record<ObservationType, string> =
     [ObservationType.Incident]: appCircleAlertIcon.data,
     [ObservationType.Profile]: appCircleCheckIcon.data,
     [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
-    [ObservationType.Blasting]: appCircleFullIcon.data,
+    [ObservationType.Blasting]: appCircleFullIcon.data
   });
 
 export enum Aspect {
