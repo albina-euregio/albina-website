@@ -16,6 +16,7 @@ import {
   useHover,
   useFocus,
   useRole,
+  useClick,
   useDismiss,
   safePolygon
 } from "@floating-ui/react-dom-interactions";
@@ -43,6 +44,9 @@ export const Tooltip = ({
       restMs: 40,
       mouseOnly: true,
       handleClose: safePolygon()
+    }),
+    useClick(context, {
+      ignoreMouse: true
     }),
     useFocus(context),
     useRole(context, { role: "tooltip" }),
