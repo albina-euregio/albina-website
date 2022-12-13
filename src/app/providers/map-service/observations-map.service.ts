@@ -530,7 +530,6 @@ export class ObservationsMapService {
 
     allAspects.forEach(value => {
       const regex = new RegExp(`(("\\$[NWSE]{1,2}_${value})")|(("\\$${value}_[NWSE]{1,2})")`, "g");
-      console.log(regex);
       svg = svg.replace(regex, "\"0\"");
     });
 
