@@ -273,7 +273,7 @@ function getLawisProfileStability(profile: ProfileDetails): Stability {
   } else if (colors.includes(Enums.Stability.good)) {
     return Enums.Stability.good;
   }
-  return Enums.Stability.unknown;
+  return null;
 }
 
 export function getECTestStability(step: number, propagation: string): Stability {
@@ -289,7 +289,7 @@ export function getECTestStability(step: number, propagation: string): Stability
   } else if (step <= 30 && propagation1) {
     // mittel
     return Enums.Stability.fair;
-  } else if (step <= 10 && propagation0) {
+  } else if (step <= 11 && propagation0) {
     // mittel
     return Enums.Stability.fair;
   } else if (step <= 30 && propagation0) {
@@ -297,11 +297,11 @@ export function getECTestStability(step: number, propagation: string): Stability
   } else if (step === 31) {
     return Enums.Stability.good;
   }
-  return Enums.Stability.unknown;
+  return null;
 }
 
 function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
-  return 15;
+  return 20;
 }
 
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
@@ -312,5 +312,6 @@ function getLawisIncidentStability(incident: IncidentDetails): Stability {
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
   const size_id = incident.avalanche?.size?.id;
-  return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
+  //return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
+  return 20;
 }

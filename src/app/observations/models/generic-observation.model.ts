@@ -87,6 +87,16 @@ export interface GenericObservation<Data = any> {
    * Danger pattern corresponding with this observation
    */
   dangerPattern?: Enums.DangerPattern;
+  /**
+   * Important observations
+   */
+  snowLine?: number;
+  surfaceHoar?: boolean;
+  graupel?: boolean;
+  stabilityTest?: boolean;
+  iceFormation?: boolean;
+  veryLightNewSnow?: boolean;
+
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;
 }
@@ -96,18 +106,17 @@ export enum ObservationFilterType {
   Local = "Local"
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor | Enums.Stability.unknown;
+export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor;
 
 const colors: Record<Stability, string> = {
   good: "green",
   fair: "orange",
   poor: "red",
-  very_poor: "black",
-  unknown: "gray",
+  very_poor: "black"
 };
 
 export function toMarkerColor(observation: GenericObservation) {
-  return colors[observation?.stability ?? "unknown"] ?? colors.unknown;
+  return colors[observation?.stability ?? "unknown"] ?? "gray";
 }
 
 export enum ObservationSource {
@@ -134,6 +143,7 @@ export enum ObservationType {
 }
 
 export const ObservationSourceColors: Record<ObservationSource, string> =
+  // FIXME
   Object.freeze({
     [ObservationSource.AvalancheWarningService]: "#ca0020",
     [ObservationSource.Observer]: "#83e4f0",
@@ -147,6 +157,7 @@ export const ObservationSourceColors: Record<ObservationSource, string> =
   });
 
 export const ObservationTypeIcons: Record<ObservationType, string> =
+  // FIXME
   Object.freeze({
     [ObservationType.SimpleObservation]: appCircleAlertIcon.data,
     [ObservationType.Evaluation]: appCircleAlertIcon.data,
@@ -175,6 +186,7 @@ export enum LocalFilterTypes {
   AvalancheProblem = "AvalancheProblem",
   Stability = "Stability",
   ObservationType = "ObservationType",
+  ImportantObservation = "ImportantObservation",
   DangerPattern = "DangerPattern",
   Days = "Days",
 }
@@ -185,6 +197,7 @@ export interface ChartsData {
   AvalancheProblem: Object;
   Stability: Object;
   ObservationType: Object;
+  ImportantObservation: Object;
   DangerPattern: Object;
   Days: Object;
 }

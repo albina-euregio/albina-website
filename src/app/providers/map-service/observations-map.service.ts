@@ -471,7 +471,7 @@ export class ObservationsMapService {
 
   private getIcon(observation: GenericObservation<any>): Icon | DivIcon {
 
-    const iconSize = observation.$markerRadius ?? 15;
+    const iconSize = observation.$markerRadius ?? 20;
 
     if (!this.USE_CANVAS_LAYER) {
       const html = this.getSvg(observation);

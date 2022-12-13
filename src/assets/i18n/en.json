@@ -582,6 +582,9 @@
         "observationType": {
           "caption": "Observation Type"
         },
+        "importantObservation": {
+          "caption": "Important Observation"
+        },
         "avalancheProblem": {
           "caption": "Avalanche Problem"
         },
@@ -673,12 +676,20 @@
   },
   "avalancheProblem" : {
     "newSnow" : "New snow",
+    "new_snow" : "New snow",
     "windSlab" : "Wind slab",
+    "wind_slab" : "Wind slab",
     "persistentWeakLayers" : "Persistent weak layers",
+    "persistent_weak_layers" : "Persistent weak layers",
     "wetSnow" : "Wet snow",
+    "wet_snow" : "Wet snow",
     "glidingSnow" : "Gliding snow",
+    "gliding_snow" : "Gliding snow",
     "cornices" : "Cornices",
-    "noDistinctAvalancheProblem" : "No distict avalanche problem"
+    "noDistinctAvalancheProblem" : "No distinct problem",
+    "no_distinct_problem" : "No distinct problem",
+    "favourableSituation" : "Favourable situation",
+    "favourable_situation" : "Favourable situation"
   },
   "dangerPattern" : {
     "dp1" : "dp.1: deep persistent weak layer",
@@ -691,6 +702,24 @@
     "dp8" : "dp.8: buried surface hoar",
     "dp9" : "dp.9: buried graupel",
     "dp10" : "dp.10: springtime scenario"
+  },
+  "observationType" : {
+    "TimeSeries" : "Time series",
+    "Incident" : "Incident",
+    "Profile" : "Snow profile",
+    "Closure" : "Closure",
+    "Blasting" : "Blasting",
+    "Avalanche" : "Avalanche",
+    "Evaluation" : "Evaluation",
+    "SimpleObservation" : "Simple observation"
+  },
+  "importantObservation" : {
+    "SnowLine" : "Snow line",
+    "SurfaceHoar" : "Surface hoar",
+    "Graupel" : "Graupel",
+    "StabilityTest" : "Stability test",
+    "IceFormation" : "Ice formation",
+    "VeryLightNewSnow" : "Very light new snow"
   },
   "aspect" : {
     "N" : "N",
@@ -714,6 +743,7 @@
     "increasing" : " Avalanche danger increases"
   },
   "snowpackStability" : {
+    "unknown" : "unknown",
     "good" : "good",
     "fair" : "fair",
     "poor" : "poor",

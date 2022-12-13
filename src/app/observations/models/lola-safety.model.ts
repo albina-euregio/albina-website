@@ -146,5 +146,5 @@ function getAvalancheReportStability(report: AvalancheReport): Stability {
 }
 
 function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
-  return 15;
+  return 20;
 }

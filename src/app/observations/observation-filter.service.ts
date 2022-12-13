@@ -40,6 +40,7 @@ export class ObservationFilterService {
     AvalancheProblem: {all: [], selected: [], highlighted: []},
     Stability: {all: [], selected: [], highlighted: []},
     ObservationType: {all: [], selected: [], highlighted: []},
+    ImportantObservation: {all: [], selected: [], highlighted: []},
     DangerPattern: {all: [], selected: [], highlighted: []},
     Days: {all: [], selected: [], highlighted: []}
   }
@@ -181,6 +182,11 @@ export class ObservationFilterService {
       this.filterSelection.ObservationType.all.unshift(key);
     }
 
+    for (const [key, value] of Object.entries(Enums.ImportantObservation)) {
+      //console.log("seedFilterSelections ##1", key);
+      this.filterSelection.ImportantObservation.all.unshift(key);
+    }
+
     let curElevation = this.elevationRange[0];
     while(curElevation <= this.elevationRange[1]) {
       this.filterSelection.Elevation.all.push(curElevation + "");
@@ -274,6 +280,48 @@ export class ObservationFilterService {
 
     for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
     //    console.log("getobservationtypeDataset ##4 dataset", dataset);
+    return {dataset: {source: dataset}, nan}
+  }
+
+  public getImportantObservationDataset(observations: GenericObservation[]) {
+    const dataRaw = {};
+    let nan = 0;
+    //console.log("getimportantobservationDataset ##1");
+
+    this.filterSelection[LocalFilterTypes.ImportantObservation]["all"].forEach(key => dataRaw[key] = {"max": 0, "all": 0, "available": 0, "selected": this.filterSelection[LocalFilterTypes.ImportantObservation].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.ImportantObservation].highlighted.includes(key) ? 1 : 0})
+
+    observations.forEach(observation => {
+      //console.log("getimportantobservationDataset ##2", observation);
+      if (observation.snowLine) {
+        dataRaw[Enums.ImportantObservation.SnowLine].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.SnowLine].available++;
+      }
+      if (observation.surfaceHoar) {
+        dataRaw[Enums.ImportantObservation.SurfaceHoar].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.SurfaceHoar].available++;
+      }
+      if (observation.graupel) {
+        dataRaw[Enums.ImportantObservation.Graupel].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.Graupel].available++;
+      }
+      if (observation.stabilityTest) {
+        dataRaw[Enums.ImportantObservation.StabilityTest].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.StabilityTest].available++;
+      }
+      if (observation.iceFormation) {
+        dataRaw[Enums.ImportantObservation.IceFormation].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.IceFormation].available++;
+      }
+      if (observation.veryLightNewSnow) {
+        dataRaw[Enums.ImportantObservation.VeryLightNewSnow].all++;
+        if(observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.VeryLightNewSnow].available++;
+      }
+    });
+    //console.log("getimportantobservationDataset", dataRaw);
+    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
+
+    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
+    //    console.log("getimportantobservationDataset ##4 dataset", dataset);
     return {dataset: {source: dataset}, nan}
   }
 

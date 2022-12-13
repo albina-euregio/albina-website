@@ -61,7 +61,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public selectedRegionItems: string[];
   public selectedSourceItems: ObservationSource[];
   public toMarkerColor = toMarkerColor;
-  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, ObservationType: {}, DangerPattern: {}, Days: {}};
+  public chartsData: ChartsData = {Elevation: {}, Aspects: {}, AvalancheProblem: {}, Stability: {}, ObservationType: {}, ImportantObservation: {}, DangerPattern: {}, Days: {}};
   public moreItems: MenuItem[];
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
@@ -306,6 +306,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.chartsData.Stability = this.filter.getStabilityDataset(this.observations)
 
     this.chartsData.ObservationType = this.filter.getObservationTypeDataset(this.observations)
+
+    this.chartsData.ImportantObservation = this.filter.getImportantObservationDataset(this.observations)
 
     this.chartsData.AvalancheProblem = this.filter.getAvalancheProblemDataset(this.observations)
 

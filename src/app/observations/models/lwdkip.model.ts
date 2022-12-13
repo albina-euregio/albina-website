@@ -288,11 +288,11 @@ export function convertLwdKipSperren(
 }
 
 function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): Stability {
-  return Enums.Stability.unknown;
+  return null;
 }
 
 function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
-  return 15;
+  return 20;
 }
 
 function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
@@ -306,17 +306,17 @@ function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, 
     case "sehr guter Erfolg":
       return Enums.Stability.very_poor;
     default:
-      return Enums.Stability.unknown;
+      return null;
   }
 }
 
 function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): number {
   switch (feature.properties.SPRENGERFOLG || "") {
-    case 'kein Erfolg': return 5;
-    case 'mäßiger Erfolg': return 10;
-    case 'guter Erfolg': return 15;
-    case 'sehr guter Erfolg': return 15;
-    default: return 5;
+    case 'kein Erfolg': return 20;
+    case 'mäßiger Erfolg': return 20;
+    case 'guter Erfolg': return 20;
+    case 'sehr guter Erfolg': return 20;
+    default: return 20;
   }
 }
 
@@ -325,7 +325,7 @@ function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineSt
 }
 
 function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
-  return 15;
+  return 20;
 }
 
 function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
@@ -333,5 +333,5 @@ function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, S
 }
 
 function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
-  return 10;
+  return 20;
 }

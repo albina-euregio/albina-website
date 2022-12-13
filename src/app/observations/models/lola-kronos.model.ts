@@ -223,6 +223,9 @@ export interface LolaSimpleObservation {
   storedInDb: Date;
   time: Date;
   userId: string;
+  snowSurface: any[];
+  snowLine: number;
+  stabilityTests: any[];
 }
 
 export interface LolaSnowProfile {
@@ -360,6 +363,7 @@ export function convertLoLaToGeneric(
   $type: ObservationType,
   urlPrefix: string
 ): GenericObservation {
+  debugger
   return {
     $data: obs,
     $externalURL: urlPrefix + obs.uuId,
@@ -385,5 +389,13 @@ export function convertLoLaToGeneric(
       (obs as LolaSnowProfile | LolaEvaluation).position
     )?.lng,
     region: obs.regionName,
+    snowLine: (obs as LolaSimpleObservation).snowLine,
+    surfaceHoar: (obs as LolaSimpleObservation).snowSurface.includes("surfaceHoar"),
+    veryLightNewSnow: (obs as LolaSimpleObservation).snowSurface.includes("veryLightNewSnow"),
+    graupel: (obs as LolaSimpleObservation).snowSurface.includes("graupel"),
+    iceFormation: (obs as LolaSimpleObservation).snowSurface.includes("iceFormation"),
+    stabilityTest: (obs as LolaSimpleObservation).stabilityTests?.length > 0,
+    // avalancheProblem: freshSnowProblem.active, glidingSnowProblem.active, wetSnowProblem.active, windDriftedSnowProblem.active, persistentWeakLayersProblem.active
+    // dangerPatterns: dangerPatterns[GM1, ...]
   };
 }

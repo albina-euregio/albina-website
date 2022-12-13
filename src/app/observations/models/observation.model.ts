@@ -59,12 +59,12 @@ function getObservationStability(observation: Observation): Stability {
     case EventType.Important:
       return Enums.Stability.fair;
     default:
-      return Enums.Stability.unknown;
+      return null;
   }
 }
 
 function getObservationMarkerRadius(observation: Observation): number {
-  return 15;
+  return 20;
 }
 
 function getObservationType(observation: Observation): ObservationType {

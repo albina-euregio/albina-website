@@ -221,6 +221,7 @@
             <app-bar-chart 
               class="chart-container"
               [caption] = "'admin.observations.charts.stability.caption' | translate"
+              [translationBase] = "'snowpackStability.'"
               [type]="LocalFilterTypes.Stability"
               [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')}"
               [data]="chartsData.Stability"  
@@ -230,10 +231,21 @@
             <app-bar-chart 
               class="chart-container"
               [caption] = "'admin.observations.charts.observationType.caption' | translate"
+              [translationBase] = "'observationType.'"
               [type]="LocalFilterTypes.ObservationType"
               [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].includes('nan')}"
               [data]="chartsData.ObservationType"  
               [isActive]="filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].length > 0"
+              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+            </app-bar-chart>
+            <app-bar-chart 
+              class="chart-container"
+              [caption] = "'admin.observations.charts.importantObservation.caption' | translate"
+              [translationBase] = "'importantObservation.'"
+              [type]="LocalFilterTypes.ImportantObservation"
+              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.ImportantObservation]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.ImportantObservation]['highlighted'].includes('nan')}"
+              [data]="chartsData.ImportantObservation"  
+              [isActive]="filter.filterSelection[LocalFilterTypes.ImportantObservation]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.ImportantObservation]['highlighted'].length > 0"
               (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
             </app-bar-chart>
             <app-bar-chart 
