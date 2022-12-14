@@ -39,13 +39,15 @@ export default class ExpositionIcon extends React.Component {
     return (
       <Tooltip label={this.props.title}>
         <div className={classes.join(" ")}>
-          <img
-            className="bulletin-report-exposition-rose"
-            src={this.imgRoot + "exposition_bg.png"}
-            alt={this.props.title}
-            title={this.props.title}
-          />
-          {backgroundEntries}
+          <div>
+            <img
+              className="bulletin-report-exposition-rose"
+              src={this.imgRoot + "exposition_bg.png"}
+              alt={this.props.title}
+              title={this.props.title}
+            />
+            {backgroundEntries}
+          </div>
         </div>
       </Tooltip>
     );

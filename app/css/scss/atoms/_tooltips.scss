@@ -107,3 +107,6 @@ $tooltip-width-large: $line-length - 10em;
   line-height: 1.2;
   @include last-child;
 }
+.tooltip-source {
+  font-size: $tiny-font-size;
+}

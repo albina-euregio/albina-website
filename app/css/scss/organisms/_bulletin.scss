@@ -48,51 +48,85 @@
   }
 
   .list-avalanche-problems-filter {
+    padding-top: $padding;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0 ($padding * 2);
+
     li {
-      float: left;
+      position: relative;
     }
-    img {
-      position: absolute;
-      top: 0;
-      opacity: 1;
-      background: none;
 
-      //from alien app.scss
-      //Animation bei den Lawinenproblemen lässt kleinen blauen Strich an der Oberkannte der Logos erkennen
-      //background: none !important;
-
+    .picto-img {
+      transform: translateY(-$padding);
       border: $border-width $border-style $border-color;
-      transform: translateY(0);
-      &:first-child {
+      @include rollout;
+
+      img {
+        opacity: 1;
+      }
+      &:after {
         z-index: 5;
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba($brand, 0);
+        @include rollout(all, $transition-duration * 2);
       }
     }
+
+    .picto-caption {
+      position: relative;
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
+      font-size: $nano-font-size;
+      line-height: 1.2;
+      text-align: center;
+    }
+
     a {
       position: relative;
-      top: 0;
       display: block;
       width: $picto-height-plus;
-      height: $picto-height-plus;
+      // height: $picto-height-plus;
       background: none;
+
+      &:after {
+        content: none;
+      }
+
       &:hover {
-        img {
-          opacity: 1;
+        .picto-img {
+          @include rollover;
+          &:after {
+            background-color: rgba($brand, 0.5);
+            @include rollover(all, $transition-duration * 2);
+          }
         }
       }
+
       &.js-deactivated {
-        top: $padding;
-        img {
-          opacity: 0.5;
-          filter: grayscale(100%);
+        .picto-img {
+          transform: translateY(0);
+          img {
+            opacity: 0.5;
+            filter: grayscale(100%);
+          }
         }
         &:hover {
-          img {
-            filter: grayscale(50%);
+          .picto-img {
+            img {
+              opacity: 1;
+              filter: grayscale(0%);
+            }
           }
         }
       }
     }
   }
+
   .list-legend {
     display: flex;
     margin-bottom: 0;
@@ -259,7 +293,7 @@
   li {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    // align-items: center;
     padding: 0;
     border-top: $border-width $border-style $border-color;
     &:first-child {
@@ -326,9 +360,53 @@
   }
 
   &.avalanche-situation {
-    img {
-      height: $picto-height-plus;
+    .picto-img {
+      position: relative;
       border: $border-width $border-style $border-color;
+      @include rollout;
+      img {
+        margin: 0;
+      }
+      &:after {
+        z-index: 5;
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba($brand, 0);
+        @include rollout(all, $transition-duration * 2);
+      }
+    }
+
+    .picto-caption {
+      position: relative;
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
+      @include font-normal;
+      @include letter-spacing(0);
+      font-size: $nano-font-size;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    > a {
+      &:link,
+      &:visited {
+        display: block;
+        &:after {
+          content: none;
+        }
+      }
+      &:hover {
+        .picto-img {
+          @include rollover;
+          &:after {
+            background-color: rgba($brand, 0.5);
+            @include rollover(all, $transition-duration * 2);
+          }
+        }
+      }
     }
   }
 
@@ -434,6 +512,7 @@
     gap: 0 ($padding * 0.5);
     span {
       margin: 0;
+      // font-size: $nano-font-size;
     }
     .matrix-info-name {
       // width: 50%;
@@ -451,8 +530,13 @@
 
 .bulletin-report-expositions {
   display: block;
-  height: $picto-height;
-  width: $picto-height;
+  // height: $picto-height;
+  // width: $picto-height;
+  div {
+    position: relative;
+    height: $picto-height;
+    width: $picto-height;
+  }
   img {
     display: none;
     position: absolute;

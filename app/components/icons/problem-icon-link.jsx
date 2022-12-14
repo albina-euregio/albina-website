@@ -31,7 +31,10 @@ class ProblemIconLink extends React.Component {
               className="img"
               href="#"
             >
-              <ProblemIcon problem={problemType} alt={title} active={true} />
+              <div className="picto-img">
+                <ProblemIcon problem={problemType} alt={title} active={true} />
+              </div>
+              <div className="picto-caption">Neuschnee</div>
             </Link>
           </Tooltip>
         )}
