@@ -351,14 +351,10 @@ export default class BlogStore {
                     newPosts[cfg.name].push(i);
                   });
                 },
-                (errorText, statusCode) => {
-                  console.warn(errorText);
-                  if (
-                    parseInt(statusCode) == 304 &&
-                    Array.isArray(this._posts[cfg.name])
-                  ) {
-                    newPosts[cfg.name] = this._posts[cfg.name];
-                  }
+                error => {
+                  //todo: indicate loading error
+                  console.warn("Error while fetching post from " + url, error);
+                  throw error;
                 }
               )
             );
