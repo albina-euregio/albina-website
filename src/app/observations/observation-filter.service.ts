@@ -332,6 +332,7 @@ export class ObservationFilterService {
     observations.forEach((observation) => {
       if (Array.isArray(observation.dangerPatterns)) {
         observation.dangerPatterns.forEach(dangerPattern => {
+        if (!dangerPattern) return;
         dataRaw[dangerPattern].all++;
 
         if (observation.filterType === ObservationFilterType.Local) dataRaw[dangerPattern].available++;
