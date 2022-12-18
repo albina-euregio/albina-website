@@ -354,6 +354,7 @@ export class ObservationFilterService {
   }
 
   _normedDateString(date: Date):string {
+    date = new Date(date);
     date.setHours(0, 0, 0, 0);
     return date.toISOString();
   }
