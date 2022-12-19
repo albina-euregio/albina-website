@@ -7,20 +7,30 @@ import {
   AvalancheProblemType,
   Bulletin,
   Bulletins,
+  DangerRating,
   isAmPm,
+  MicroRegionElevationProperties,
   MicroRegionProperties,
   RegionOutlineProperties
 } from "./bulletin";
 import { fetchJSON } from "../util/fetch.js";
 
 import { APP_STORE } from "../appStore";
-import { WarnLevelNumber, warnlevelNumbers } from "../util/warn-levels";
+import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
 import _p1 from "eaws-regions/public/micro-regions_properties/AT-07_micro-regions.json";
 import _p2 from "eaws-regions/public/micro-regions_properties/IT-32-BZ_micro-regions.json";
 import _p3 from "eaws-regions/public/micro-regions_properties/IT-32-TN_micro-regions.json";
 export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
+import _pe1 from "eaws-regions/public/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
+import _pe2 from "eaws-regions/public/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
+import _pe3 from "eaws-regions/public/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
+export const microRegionsElevation: MicroRegionElevationProperties[] = [
+  ..._pe1,
+  ..._pe2,
+  ..._pe3
+];
 
 import eawsRegions from "eaws-regions/public/outline.json";
 import { regionsRegex } from "../util/regions.js";
@@ -107,7 +117,7 @@ class BulletinCollection {
           (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
             (["low", "high"] as ("low" | "high")[]).map(elevation => [
               `${regionID}:${elevation}:${ampm}`.replace(/:$/, ""),
-              this.getWarnlevel(ampm, b, elevation)
+              this.getWarnLevel(regionID, ampm, b, elevation)
             ])
           )
         )
@@ -115,11 +125,39 @@ class BulletinCollection {
     );
   }
 
-  private getWarnlevel(
+  private getWarnLevel(
+    regionID: string,
+    ampm: AmPm,
+    b: Bulletin,
+    elevation: "low" | "high"
+  ): WarnLevelNumber {
+    const dangerRatings = this.dangerRatings(ampm, b, elevation);
+    const warnlevel = dangerRatings
+      .map(danger => getWarnlevelNumber(danger.mainValue))
+      .reduce((w1, w2) => Math.max(w1, w2) as WarnLevelNumber, 0);
+
+    if (elevation === "high") {
+      // take "low" when lowerBound exceeds region threshold
+      const threshold = microRegionsElevation.find(feature => {
+        return feature.id === regionID && feature.elevation === "high";
+      })?.threshold;
+      if (
+        dangerRatings
+          .map(e => e.elevation?.lowerBound)
+          .some(bound => +bound > threshold)
+      ) {
+        return this.getWarnLevel(regionID, ampm, b, "low");
+      }
+    }
+
+    return warnlevel;
+  }
+
+  private dangerRatings(
     ampm: AmPm,
     bulletin: Bulletin,
     elevation: "low" | "high"
-  ): WarnLevelNumber {
+  ): DangerRating[] {
     return bulletin?.dangerRatings
       .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
       .filter(
@@ -127,9 +165,7 @@ class BulletinCollection {
           (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
           (danger?.elevation?.upperBound && elevation === "low") ||
           (danger?.elevation?.lowerBound && elevation === "high")
-      )
-      .map(danger => warnlevelNumbers[danger.mainValue])
-      .reduce((w1, w2) => Math.max(w1, w2), 0);
+      );
   }
 }
 

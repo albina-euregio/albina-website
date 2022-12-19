@@ -1232,9 +1232,9 @@ domutils@^2.5.2:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
-"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/521ff9097cf9fddf6851ef90d8e0fb8123008928/eaws-regions-521ff9097cf9fddf6851ef90d8e0fb8123008928.tar.gz":
+"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/56ce8fa305e7e3ca5c745f71e816141cb8fc18b0/eaws-regions-56ce8fa305e7e3ca5c745f71e816141cb8fc18b0.tar.gz":
   version "1.0.0"
-  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/521ff9097cf9fddf6851ef90d8e0fb8123008928/eaws-regions-521ff9097cf9fddf6851ef90d8e0fb8123008928.tar.gz#dd0aa7cc55db3539fd76bb7400d41040c0a4d73e"
+  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/56ce8fa305e7e3ca5c745f71e816141cb8fc18b0/eaws-regions-56ce8fa305e7e3ca5c745f71e816141cb8fc18b0.tar.gz#7aa519d14c061a6c2ce06a457af7748215d5a3e2"
 
 electron-to-chromium@^1.4.251:
   version "1.4.258"
