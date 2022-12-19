@@ -237,6 +237,8 @@
   "blog:overview:info-no-data": "Actuauments non i a publicacions en blòg disponibles. Pòs utilizar es nòstes versions autonòmes: <a>aciu</a>",
   "blog:overview:info-loading-data-slow": "En tot cargar publicacions deth blòg. En cas d'hilat lent, pòs considerar era utilizacion des nòstes versions autonòmes: <a>here</a>",
   "blog:all-blog-posts": "Totes es entrades de Blòg",
+  "region:table:header:region": "Region",
+  "region:table:header:code": "Còdi",
   "measurements:title": "Donades meteorologiques",
   "measurements:headline": "Donades meteorologiques",
   "measurements:search": "Cercar per estacion",

@@ -237,6 +237,8 @@
   "blog:overview:info-no-data": "Actualmente no hay entradas de Blog disponibles. Puedes utilizar nuestras versiones autónomas <a>aquí</a>",
   "blog:overview:info-loading-data-slow": "Cargando entradas de Blog. En caso de conexión lenta puedes utilizar nuestras versiones autónomas: <a>aquí</a>",
   "blog:all-blog-posts": "Todas las entradas de blog",
+  "region:table:header:region": "Región",
+  "region:table:header:code": "Código",
   "measurements:title": "Estaciones de Medida",
   "measurements:headline": "Estaciones de Medida",
   "measurements:search": "Busca estación",

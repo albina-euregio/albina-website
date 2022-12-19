@@ -237,6 +237,8 @@
   "blog:overview:info-no-data": "Attualmente non sono disponibili post sul blog. È possibile utilizzare le nostre versioni standalone <a>qui</a>",
   "blog:overview:info-loading-data-slow": "Caricare i post del blog. In caso di rete lenta potreste considerare di utilizzare le nostre versioni standalone: <a>qui</a>",
   "blog:all-blog-posts": "Tutti i blog post",
+  "region:table:header:region": "Regione",
+  "region:table:header:code": "Codice",
   "measurements:title": "Dati di Stazioni Meteo",
   "measurements:headline": "Dati di Stazioni Meteo",
   "measurements:search": "Cercare Stazioni",
