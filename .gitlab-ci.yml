@@ -10,7 +10,7 @@ stages:
 #   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
-  image: node:14
+  image: node:18
   stage: build
   variables:
     COMPRESS_BROTLI: 1
