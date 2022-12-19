@@ -9,14 +9,16 @@ const BulletinStatusLine = () => {
   const status = BULLETIN_STORE.settings.status;
   const collection = BULLETIN_STORE.activeBulletinCollection;
   let statusText = "";
-  const publicationTime = collection?.bulletins?.[0]?.publicationTime;
+  const publicationTime = (collection?.bulletins || [])
+    .map(b => b.publicationTime)
+    .reduce((t1, t2) => (t1 > t2 ? t1 : t2), "");
   const isRepublished = useMemo(() => {
     const summerTime = isSummerTime(new Date(publicationTime));
     return (
       publicationTime &&
       !(summerTime ? /T15:00:00Z/ : /T16:00:00Z/).test(publicationTime)
     );
-  }, []);
+  }, [publicationTime]);
 
   if (status == "pending") {
     statusText =
