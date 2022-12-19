@@ -55,7 +55,7 @@ export default function BulletinGlossary(props: Props) {
 
   const content = preprocessContent(html);
   return (
-    <Tooltip label={content} html={true}>
+    <Tooltip label={content} html={true} enableClick={true}>
       <a className="glossary">{props.children}</a>
     </Tooltip>
   );

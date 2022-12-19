@@ -26,7 +26,8 @@ export const Tooltip = ({
   children,
   label,
   placement = "bottom",
-  html = false
+  html = false,
+  enableClick = false
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -45,9 +46,10 @@ export const Tooltip = ({
       mouseOnly: true,
       handleClose: safePolygon()
     }),
-    useClick(context, {
-      ignoreMouse: true
-    }),
+    enableClick &&
+      useClick(context, {
+        ignoreMouse: true
+      }),
     useFocus(context),
     useRole(context, { role: "tooltip" }),
     useDismiss(context)
