@@ -1,5 +1,8 @@
+import * as Enums from "app/enums/enums";
+
 import {
   Aspect,
+  AvalancheProblem,
   GenericObservation,
   imageCountString,
   ObservationSource,
@@ -384,6 +387,18 @@ export function convertLoLaToGeneric(
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
     )?.lng,
+    avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
+    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
     region: obs.regionName,
   };
+}
+
+function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
+  const problems: AvalancheProblem[] = [];
+  if (data.freshSnowProblem?.result > 0) problems.push(AvalancheProblem.new_snow);
+  if (data.glidingSnowProblem?.result > 0) problems.push(AvalancheProblem.gliding_snow);
+  if (data.persistentWeakLayersProblem?.result > 0) problems.push(AvalancheProblem.persistent_weak_layers);
+  if (data.wetSnowProblem?.result > 0) problems.push(AvalancheProblem.wet_snow);
+  if (data.windDriftetSnowProblem?.result > 0) problems.push(AvalancheProblem.wind_slab);
+  return problems;
 }

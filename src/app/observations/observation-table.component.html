@@ -26,6 +26,7 @@
       <th><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</th>
       <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
       <th><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</th>
+      <th><!-- avalancheProblems --></th>
       <th><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</th>
     </tr>
   </thead>
@@ -46,6 +47,18 @@
       <td>
         {{ observation.locationName }}
         <i *ngIf="observation.latitude && observation.longitude" class="fa fa-map-marker" title="{{ 'observations.hasCoordinates' | translate }}"></i>
+      </td>
+      <td style="padding: 0;">
+        <span *ngFor="let problem of observation.avalancheProblems">
+          <img *ngIf="problem === 'new_snow'" src="./assets/img/New_snow_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'wind_slab'" src="./assets/img/Drifting_snow_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'persistent_weak_layers'" src="./assets/img/Persistent_weak_layers_c.svg"  style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'wet_snow'" src="./assets/img/Wet_snow_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'gliding_snow'" src="./assets/img/Gliding_snow_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'favourable_situation'" src="./assets/img/Favourable_situation_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'cornices'" src="./assets/img/Cornices_c.svg" style="width: 40px; max-width: unset;">
+          <img *ngIf="problem === 'no_distinct_problem'" src="./assets/img/No_distinct_problem_c.svg" style="width: 40px; max-width: unset;">
+        </span>
       </td>
       <td>{{ observation.content }}</td>
     </tr>

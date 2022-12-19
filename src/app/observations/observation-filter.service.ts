@@ -4,7 +4,8 @@ import {
   GenericObservation,
   ObservationSource,
   LocalFilterTypes,
-  FilterSelectionData
+  FilterSelectionData,
+  AvalancheProblem
 } from "./models/generic-observation.model";
 import * as Enums from "../enums/enums";
 import {
@@ -185,7 +186,7 @@ export class ObservationFilterService {
       }
     }
 
-    for (const [key] of Object.entries(Enums.AvalancheProblem)) {
+    for (const [key] of Object.entries(AvalancheProblem)) {
       if(isNaN(Number(key))) {
         this.filterSelection.AvalancheProblem.all.push(key);
       }
@@ -274,52 +275,86 @@ export class ObservationFilterService {
   public getAvalancheProblemDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     let nan = 0;
-//    console.log("getAvalancheProblemDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.AvalancheProblem].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.AvalancheProblem]["all"].forEach(
+      (key) =>
+        (dataRaw[key] = {
+          max: 0,
+          available: 0,
+          all: 0,
+          selected: this.filterSelection[LocalFilterTypes.AvalancheProblem].selected.includes(key) ? 1 : 0,
+          highlighted: this.filterSelection[LocalFilterTypes.AvalancheProblem].highlighted.includes(key) ? 1 : 0
+        })
+    );
 
-    observations.forEach(observation => {
-      //console.log("getAvalancheProblemDataset ##2", observation);
-      if(observation.avalancheProblem) {
-        //console.log("getAvalancheProblemDataset ##3", observation);
-        dataRaw[observation.avalancheProblem].all++;
+    observations.forEach((observation) => {
+      if (Array.isArray(observation.avalancheProblems)) {
+        observation.avalancheProblems.forEach(avalancheProblem => {
+        if (!dataRaw[avalancheProblem]) {
+          console.warn("Unsupported avalanche problem:", avalancheProblem);
+          return;
+        }
+        dataRaw[avalancheProblem].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.avalancheProblem].available++;
+        if (observation.filterType === ObservationFilterType.Local) dataRaw[avalancheProblem].available++;
+        });
       } else nan++;
     });
-    //console.log("getAvalancheProblemDataset", dataRaw);
-    const dataset = [['category', 'max', 'all', 'highlighted','available', 'selected']];
+    const dataset = [["category", "max", "all", "highlighted", "available", "selected"]];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
-    //    console.log("getAvalancheProblemDataset ##4 dataset", dataset);
-    return {dataset: {source: dataset}, nan}
+    for (const [key, values] of Object.entries(dataRaw))
+      dataset.push([
+        key,
+        values["all"] * DATASET_MAX_FACTOR,
+        values["all"],
+        values["highlighted"] === 1 ? values["all"] : 0,
+        values["selected"] === 0 ? values["available"] : 0,
+        values["selected"] === 1 ? values["available"] : 0
+      ]);
+    return { dataset: { source: dataset }, nan };
   }
 
   public getDangerPatternDataset(observations: GenericObservation[]) {
     const dataRaw = {};
     let nan = 0;
-//    console.log("getDangerPatternDataset ##1");
 
-    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(key => dataRaw[key] = {"max": 0, "available": 0, "all": 0, "selected": this.filterSelection[LocalFilterTypes.DangerPattern].selected.includes(key) ? 1 : 0, "highlighted": this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0})
+    this.filterSelection[LocalFilterTypes.DangerPattern]["all"].forEach(
+      (key) =>
+        (dataRaw[key] = {
+          max: 0,
+          available: 0,
+          all: 0,
+          selected: this.filterSelection[LocalFilterTypes.DangerPattern].selected.includes(key) ? 1 : 0,
+          highlighted: this.filterSelection[LocalFilterTypes.DangerPattern].highlighted.includes(key) ? 1 : 0
+        })
+    );
 
-    observations.forEach(observation => {
-//      console.log("getDangerPatternDataset ##2", observation.dangerPattern);
-      if(observation.dangerPattern) {
-//        console.log("getDangerPatternDataset ##3", observation);
-        dataRaw[observation.dangerPattern].all++;
+    observations.forEach((observation) => {
+      if (Array.isArray(observation.dangerPatterns)) {
+        observation.dangerPatterns.forEach(dangerPattern => {
+        if (!dangerPattern) return;
+        dataRaw[dangerPattern].all++;
 
-        if(observation.filterType === ObservationFilterType.Local) dataRaw[observation.dangerPattern].available++;
+        if (observation.filterType === ObservationFilterType.Local) dataRaw[dangerPattern].available++;
+        });
       } else nan++;
     });
-    //console.log("getDangerPatternDataset", dataRaw);
-    const dataset = [['category', 'max', 'all','available','selected', 'highlighted']];
+    const dataset = [["category", "max", "all", "available", "selected", "highlighted"]];
 
-    for (const [key, values] of Object.entries(dataRaw)) dataset.push([key, values["all"] * DATASET_MAX_FACTOR, values["all"], values["highlighted"] === 1 ? values["all"] : 0, values["selected"] === 0 ? values["available"] : 0, values["selected"] === 1 ? values["available"] : 0] );
-//    console.log("getDangerPatternDataset ##4 dataset", dataset);
-    return {dataset: {source: dataset}, nan}
+    for (const [key, values] of Object.entries(dataRaw))
+      dataset.push([
+        key,
+        values["all"] * DATASET_MAX_FACTOR,
+        values["all"],
+        values["highlighted"] === 1 ? values["all"] : 0,
+        values["selected"] === 0 ? values["available"] : 0,
+        values["selected"] === 1 ? values["available"] : 0
+      ]);
+    return { dataset: { source: dataset }, nan };
   }
 
   _normedDateString(date: Date):string {
+    date = new Date(date);
     date.setHours(0, 0, 0, 0);
     return date.toISOString();
   }

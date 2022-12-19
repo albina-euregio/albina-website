@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
+import { AvalancheProblem, GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -90,7 +90,16 @@ export interface Incident {
 
 export interface Danger {
   rating: IdText;
-  problem: IdText;
+  problem: IdText<ProblemText>;
+}
+
+export enum ProblemText {
+  FreshSnow = "fresh snow",
+  GlidingSnow = "gliding snow",
+  OldSnow = "old snow",
+  Unknown="unknown", 
+  WetSnow="wet snow", 
+  WindDriftedSnow = "wind-drifted snow",
 }
 
 export interface Location {
@@ -174,9 +183,9 @@ export enum AvalancheSize {
   extreme = 5
 }
 
-export interface IdText {
+export interface IdText<T=string> {
   id: number;
-  text: string;
+  text: T;
 }
 
 export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObservation<Profile> {
@@ -197,9 +206,10 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
   };
 }
 
-export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
+export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<ProfileDetails> {
   return {
     ...profile,
+    $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
     $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
@@ -228,11 +238,13 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
 export function toLawisIncidentDetails(
   incident: GenericObservation<Incident>,
   lawisDetails: IncidentDetails
-): GenericObservation<Incident> {
+): GenericObservation<IncidentDetails> {
   return {
     ...incident,
+    $data: lawisDetails,
     $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
     stability: getLawisIncidentStability(lawisDetails),
+    avalancheProblems: getLawisIncidentAvalancheProblems(lawisDetails),
     $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
@@ -306,6 +318,24 @@ function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
     ? Enums.Stability.weak
     : Enums.Stability.medium;
+}
+
+function getLawisIncidentAvalancheProblems(incident: IncidentDetails): AvalancheProblem[] {
+  const problem = incident?.danger?.problem?.text;
+  switch (problem || "") {
+    case ProblemText.FreshSnow:
+      return [AvalancheProblem.new_snow];
+    case ProblemText.GlidingSnow:
+      return [AvalancheProblem.gliding_snow];
+    case ProblemText.OldSnow:
+      return [AvalancheProblem.persistent_weak_layers];
+    case ProblemText.WetSnow:
+      return [AvalancheProblem.wet_snow];
+    case ProblemText.WindDriftedSnow:
+      return [AvalancheProblem.wind_slab];
+    default:
+      return [];
+  }
 }
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
