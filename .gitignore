@@ -67,3 +67,8 @@ size-plugin.json
 eaws-regions
 
 package-lock.json
+
+# playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
