@@ -10,7 +10,7 @@ stages:
 #   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
-  image: node:14
+  image: node:18
   stage: build
   variables:
     COMPRESS_BROTLI: 1
@@ -105,4 +105,16 @@ deploy:prod:
     - build:prod
   only:
     - tags
+  when: manual
+
+playwright:
+  extends: .build
+  image: mcr.microsoft.com/playwright:v1.29.0-focal
+  artifacts:
+    when: always
+    paths:
+      - playwright-report/
+      - test-results/
+  script:
+    - yarn playwright test
   when: manual
