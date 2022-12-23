@@ -12,7 +12,11 @@
   </div>
   <div class="p-field p-col-12 p-md-6">
     <label for="eventDate"><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</label>
-    <input id="eventDate" required [(ngModel)]="observation.eventDate" type="datetime-local" pInputText />
+    <div id="eventDate" pInputText>
+      <input type="date" required (change)="setEventDate($event)" [ngModel]="getDate(observation.eventDate)" class="date">
+      <input type="time" required (change)="setEventTime($event)" [ngModel]="getTime(observation.eventDate)" class="time">
+    </div>
+    <!-- <input id="eventDate" required [ngModel]="getEventDate()" (ngModelChange)="setEventDate($event)" type="datetime-local" pInputText /> -->
   </div>
   <div class="p-field p-col-12">
     <label for="locationName"><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</label>
@@ -45,7 +49,10 @@
   </div>
   <div class="p-field p-col-12 p-md-6">
     <label for="reportDate"><i class="fa fa-pencil"></i> {{ "observations.reportDate" | translate }}</label>
-    <input id="reportDate" required [(ngModel)]="observation.reportDate" type="datetime-local" pInputText />
+    <div id="reportDate" pInputText>
+      <input type="date" required (change)="setReportDate($event)" [ngModel]="getDate(observation.reportDate)" class="date">
+      <input type="time" required (change)="setReportTime($event)" [ngModel]="getTime(observation.reportDate)" class="time">
+    </div>
   </div>
   <div class="p-field p-col-12">
     <label for="content"><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</label>
