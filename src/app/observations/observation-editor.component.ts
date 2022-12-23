@@ -8,7 +8,8 @@ import { geocoders } from 'leaflet-control-geocoder'
 
 @Component({
   selector: "app-observation-editor",
-  templateUrl: "observation-editor.component.html"
+  templateUrl: "observation-editor.component.html",
+  styleUrls: ["observation-editor.component.scss"]
 })
 export class ObservationEditorComponent {
   constructor(private translate: TranslateService, private geocodingService: GeocodingService) {}
@@ -22,16 +23,6 @@ export class ObservationEditorComponent {
 
   searchLocation($event: { originalEvent: Event; query: string }) {
     this.geocodingService.searchLocation($event.query).subscribe((collection) => (this.locationResults = collection.features));
-  }
-
-  setEventDate(value:string) {
-    console.log(value);
-    this.observation.eventDate = value;
-  }
-
-  getEventDate() {
-    console.log(this.observation.eventDate);
-    return "----/--/--T00:00";
   }
 
   selectLocation(feature: Feature<Point, GeocodingProperties>): void {

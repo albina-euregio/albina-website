@@ -33,8 +33,8 @@ export class ObservationTableComponent {
     const date = today.toISOString().split('T')[0]
     this.observation = {
       eventType: EventType.Normal,
-      eventDate: `${date}T00:00`,
-      reportDate: `${date}T00:00`
+      eventTime: "00:00",
+      reportTime: "00:00"
     } as Observation;
 
     console.log(this.observation);

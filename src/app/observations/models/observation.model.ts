@@ -7,6 +7,7 @@ export interface Observation {
   content: string;
   elevation: number;
   eventDate: string | Date;
+  eventTime: string;
   eventType: EventType;
   id: number;
   latitude: number;
@@ -14,6 +15,7 @@ export interface Observation {
   longitude: number;
   region: string;
   reportDate?: string | Date;
+  reportTime?: string;
 }
 
 export enum EventType {
