@@ -13,8 +13,8 @@
   <div class="p-field p-col-12 p-md-6">
     <label for="eventDate"><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</label>
     <div id="eventDate" pInputText>
-      <input type="date" required [(ngModel)]="observation.eventDate" class="date">
-      <input type="time" required [(ngModel)]="observation.eventTime" class="time">
+      <input type="date" required (change)="setEventDate($event)" [ngModel]="getDate(observation.eventDate)" class="date">
+      <input type="time" required (change)="setEventTime($event)" [ngModel]="getTime(observation.eventDate)" class="time">
     </div>
     <!-- <input id="eventDate" required [ngModel]="getEventDate()" (ngModelChange)="setEventDate($event)" type="datetime-local" pInputText /> -->
   </div>
@@ -50,8 +50,8 @@
   <div class="p-field p-col-12 p-md-6">
     <label for="reportDate"><i class="fa fa-pencil"></i> {{ "observations.reportDate" | translate }}</label>
     <div id="reportDate" pInputText>
-      <input type="date" required [(ngModel)]="observation.reportDate" class="date">
-      <input type="time" required [(ngModel)]="observation.reportTime" class="time">
+      <input type="date" required (change)="setReportDate($event)" [ngModel]="getDate(observation.reportDate)" class="date">
+      <input type="time" required (change)="setReportTime($event)" [ngModel]="getTime(observation.reportDate)" class="time">
     </div>
   </div>
   <div class="p-field p-col-12">

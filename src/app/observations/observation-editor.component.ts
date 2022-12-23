@@ -34,6 +34,40 @@ export class ObservationEditorComponent {
     }, 0);
   }
 
+  setEventDate(event) {
+    const date = this.observation.eventDate as string || "T00:00";
+    const time = date.split("T")[1];
+    this.observation.eventDate = `${event.target.value}T${time}`;
+  }
+
+  setReportDate(event) {
+    const date = this.observation.reportDate as string || "T00:00";
+    const time = date.split("T")[1];
+    this.observation.reportDate = `${event.target.value}T${time}`;
+  }
+
+  setEventTime(event) {
+    const fullDate = this.observation.eventDate as string || "T00:00";
+    const date = fullDate.split("T")[0];
+    this.observation.eventDate = `${date}T${event.target.value}`;
+  }
+
+  setReportTime(event) {
+    const fullDate = this.observation.reportDate as string || "T00:00";
+    const date = fullDate.split("T")[0];
+    this.observation.reportDate = `${date}T${event.target.value}`;
+  }
+
+  getDate(obj: string | Date) {
+    const date = obj as string || "T00:00";
+    return date?.split("T")[0];
+  }
+
+  getTime(obj: string | Date) {
+    const date = obj as string || "T00:00";
+    return date?.split("T")[1] || "00:00";
+  }
+
   parseContent($event: { clipboardData: DataTransfer }): void {
     setTimeout(() => {
       const content = this.observation.content;
