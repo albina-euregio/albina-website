@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type AllHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
 import BulletinGlossary from "../components/bulletin/bulletin-glossary";
@@ -7,7 +7,7 @@ import { RegionsTables } from "../components/stationTable/regionTable";
 export function preprocessContent(content: string, blogMode = false) {
   return htmr(content, {
     transform: {
-      _(type, props: any, children) {
+      _(type, props: AllHTMLAttributes<HTMLLinkElement>, children) {
         if (!props && !children) {
           return type;
         } else if (type === "style" || type === "script") {
@@ -31,7 +31,8 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (
           blogMode &&
           type === "a" &&
-          (children as any)?.some(c => c.type == "img")
+          Array.isArray(children) &&
+          children?.some(c => c.type == "img")
         ) {
           // Turn image links into lightboxes
           props.className =

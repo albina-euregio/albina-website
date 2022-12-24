@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { observer } from "mobx-react";
-import { injectIntl, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
@@ -158,7 +158,7 @@ function BulletinProblemItem({ problem }: Props) {
     }
   }
 
-  const expositions = problem?.aspects || [];
+  const expositions = problem?.aspects;
   const snowpackStability = problem?.snowpackStability;
   const frequency = problem?.frequency;
   const avalancheSize = problem?.avalancheSize;
@@ -177,7 +177,7 @@ function BulletinProblemItem({ problem }: Props) {
             )
             .join(", ")
         : ""),
-    []
+    [expositions, intl]
   );
   const snowpackStabilityText = intl.formatMessage({
     id: "bulletin:report:problem:snowpack-stability"

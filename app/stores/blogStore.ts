@@ -19,6 +19,32 @@ type BlogConfig = {
   };
 };
 
+type BloggerItem = {
+  kind: string;
+  id: string;
+  blog: {
+    id: string;
+  };
+  published: Date;
+  updated: Date;
+  url: string;
+  selfLink: string;
+  title: string;
+  images?: {
+    url: string;
+  }[];
+  author: {
+    id: string;
+    displayName: string;
+    url: string;
+    image: {
+      url: string;
+    };
+  };
+  labels?: string[];
+  etag: string;
+};
+
 export class BlogPostPreviewItem {
   constructor(
     public blogName: string,
@@ -54,7 +80,10 @@ export default class BlogStore {
   blogProcessor: {
     blogger: {
       createUrl: (config: BlogConfig) => string;
-      process: (response: any, config: BlogConfig) => BlogPostPreviewItem[];
+      process: (
+        response: { items: BloggerItem[] },
+        config: BlogConfig
+      ) => BlogPostPreviewItem[];
     };
   };
 

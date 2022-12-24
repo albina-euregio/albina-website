@@ -92,7 +92,7 @@ export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
       ...vectorGrid.options.dangerRatings,
       ...maxDangerRatings
     };
-  }, [maxDangerRatings]);
+  }, [maxDangerRatings, vectorGrid.options]);
   return <></>;
 };
 
@@ -118,7 +118,7 @@ export const EawsDangerRatings = ({
       .catch(error =>
         console.warn("Cannot load EAWS bulletins for date " + date, error)
       );
-  }, [date, setMaxDangerRatings]);
+  }, [date, region, setMaxDangerRatings]);
   return <DangerRatings maxDangerRatings={maxDangerRatings} />;
 };
 
@@ -186,11 +186,11 @@ export const PbfRegionState = ({
 }: PbfRegionStateProps) => {
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
-    vectorGrid.setFeatureStyle(region as any, {
+    vectorGrid.setFeatureStyle(region as unknown as number, {
       ...clickable,
       ...config.map.regionStyling.all,
       ...(config.map.regionStyling[regionState] || {})
     });
-  }, []);
+  }, [region, regionState, vectorGrid]);
   return <></>;
 };

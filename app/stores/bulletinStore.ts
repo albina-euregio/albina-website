@@ -87,8 +87,8 @@ class BulletinCollection {
     this.dataRaw = caaml;
     this.dataRaw?.bulletins.forEach(b => {
       b.avalancheProblems?.forEach(p => {
-        if (p.problemType === ("wind_drifted_snow" as any)) {
-          p.problemType = "wind_slab" as any;
+        if (p.problemType === ("wind_drifted_snow" as string)) {
+          p.problemType = "wind_slab" as AvalancheProblemType;
         }
       });
     });
