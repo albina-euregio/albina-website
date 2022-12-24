@@ -8,6 +8,7 @@ type Props = {
   all: JSX.Element;
   none: JSX.Element;
   handleChange(str: string): unknown;
+  regionCodes?: string[];
 };
 
 export default function ProvinceFilter(props: Props) {
@@ -18,7 +19,7 @@ export default function ProvinceFilter(props: Props) {
       <Selectric onChange={props.handleChange} {...props}>
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
-        {regionCodes.map(r => (
+        {(props.regionCodes ?? regionCodes).map(r => (
           <option key={r} value={r}>
             {intl.formatMessage({ id: `region:${r}` })}
           </option>

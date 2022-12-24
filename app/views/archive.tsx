@@ -3,13 +3,14 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
-import { BulletinStore, Status } from "../stores/bulletinStore";
+import { BulletinStore, BULLETIN_STORE, Status } from "../stores/bulletinStore";
 import ArchiveItem from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
 import FilterBar from "../components/organisms/filter-bar.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
+import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
 import { RegionCodes } from "../util/regions.js";
 import { APP_STORE } from "../appStore.js";
@@ -28,6 +29,7 @@ function Archive() {
     {} as Record<number, Status | Record<RegionCodes, string | undefined>>
   );
   const [dates, setDates] = useState([] as Date[]);
+  const [region, setRegion] = useState("");
 
   useEffect(() => {
     const dates = [];
@@ -121,6 +123,14 @@ function Archive() {
             year={year}
           />
         )}
+        <ProvinceFilter
+          all={intl.formatMessage({ id: "filter:all" })}
+          handleChange={setRegion}
+          regionCodes={BULLETIN_STORE.microRegionIds}
+          title={intl.formatMessage({
+            id: "measurements:table:header:microRegion"
+          })}
+        />
       </FilterBar>
       <section className="section-padding-height">
         <section className="section-centered">
