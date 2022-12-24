@@ -3,8 +3,8 @@ import React, { type ReactEventHandler } from "react";
 import { Bulletin } from "../../stores/bulletin";
 
 type Props = {
-  ampm: "am" | "pm";
-  bulletin: Bulletin;
+  ampm?: "am" | "pm";
+  bulletin?: Bulletin;
   date: string;
   region: string;
   onError?: ReactEventHandler<HTMLImageElement>;

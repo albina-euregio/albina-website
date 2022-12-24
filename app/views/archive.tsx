@@ -6,6 +6,7 @@ import { getSuccDate, dateToISODateString } from "../util/date.js";
 import { BulletinStore, BULLETIN_STORE } from "../stores/bulletinStore";
 import ArchiveItem, {
   type BulletinStatus,
+  type RegionBulletinStatus,
   type LegacyBulletinStatus
 } from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
@@ -43,9 +44,13 @@ function Archive() {
     ) {
       dates.push(date);
       const dateString = dateToISODateString(date);
-      if (dateString >= "2018-12-01") {
-        BulletinStore.getBulletinStatus(dateToISODateString(date)).then(
-          status => setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+      if (dateString >= "2018-12-01" && region) {
+        getRegionBulletinStatus(dateString, region).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+        );
+      } else if (dateString >= "2018-12-01") {
+        BulletinStore.getBulletinStatus(dateString).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       } else {
         getArchiveBulletinStatus(dateString).then(status =>
@@ -67,7 +72,7 @@ function Archive() {
           },
       { replace: true }
     );
-  }, [month, year, setDates, setSearchParams, buttongroup]);
+  }, [month, year, setDates, setSearchParams, buttongroup, region]);
 
   return (
     <>
@@ -128,11 +133,7 @@ function Archive() {
                       id: "archive:table-header:download"
                     })}
                   </th>
-                  <th>
-                    {intl.formatMessage({
-                      id: "archive:table-header:map"
-                    })}
-                  </th>
+                  <th colSpan={99}></th>
                 </tr>
               </thead>
               <tbody>
@@ -209,6 +210,18 @@ function Archive() {
 }
 
 export default observer(Archive);
+
+async function getRegionBulletinStatus(
+  dateString: string,
+  region: string
+): Promise<RegionBulletinStatus> {
+  const collection = await BULLETIN_STORE.load(dateString, false);
+  return {
+    $type: "RegionBulletinStatus",
+    status: collection.status,
+    bulletin: collection.getBulletinForBulletinOrRegion(region)
+  };
+}
 
 async function getArchiveBulletinStatus(
   dateString: string

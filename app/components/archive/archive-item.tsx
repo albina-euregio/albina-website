@@ -6,14 +6,25 @@ import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
-import { Status } from "../../stores/bulletinStore";
+import { type Bulletin } from "../../stores/bulletin";
+import { type Status } from "../../stores/bulletinStore";
 import { RegionCodes } from "../../util/regions";
+import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
+import ProblemIconLink from "../icons/problem-icon-link.js";
 
+export type RegionBulletinStatus = {
+  $type: "RegionBulletinStatus";
+  status: Status;
+  bulletin: Bulletin;
+};
 export type LegacyBulletinStatus = {
   $type: "LegacyBulletinStatus";
   status: Record<RegionCodes, string | undefined>;
 };
-export type BulletinStatus = Status | LegacyBulletinStatus;
+export type BulletinStatus =
+  | Status
+  | RegionBulletinStatus
+  | LegacyBulletinStatus;
 
 type Props = {
   date: Date;
@@ -89,6 +100,11 @@ function ArchiveItem({ date, status }: Props) {
     );
   }
 
+  const bulletin =
+    typeof status === "object" && status.$type === "RegionBulletinStatus"
+      ? status.bulletin
+      : undefined;
+
   return (
     <tr>
       <td>
@@ -101,6 +117,24 @@ function ArchiveItem({ date, status }: Props) {
         </ul>
       </td>
       <td>{bulletinMap()}</td>
+      {bulletin?.dangerRatings && (
+        <td>
+          <div className="bulletin-report-picto">
+            <BulletinDangerRating dangerRatings={bulletin.dangerRatings} />
+          </div>
+        </td>
+      )}
+      {bulletin?.avalancheProblems?.length > 0 && (
+        <td>
+          <div className="bulletin-report-picto">
+            {bulletin.avalancheProblems.map((problem, index) => (
+              <span key={index + problem.problemType}>
+                <ProblemIconLink problem={problem} wrapper={false} />
+              </span>
+            ))}
+          </div>
+        </td>
+      )}
     </tr>
   );
 
@@ -141,10 +175,11 @@ function ArchiveItem({ date, status }: Props) {
 
   function bulletinMap(): React.ReactNode {
     if (!showMap(dateString)) return;
-    const region =
-      dateString < "2022-05-06"
-        ? "fd_albina_thumbnail"
-        : "fd_EUREGIO_thumbnail";
+    const region = bulletin
+      ? bulletin.bulletinID
+      : dateString < "2022-05-06"
+      ? "fd_albina_thumbnail"
+      : "fd_EUREGIO_thumbnail";
     return (
       <Tooltip
         label={intl.formatMessage({
