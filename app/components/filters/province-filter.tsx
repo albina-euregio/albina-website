@@ -1,9 +1,17 @@
 import React from "react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
 import Selectric from "../selectric";
 
-function ProvinceFilter(props) {
+type Props = {
+  title: JSX.Element;
+  all: JSX.Element;
+  none: JSX.Element;
+  handleChange(str: string): unknown;
+};
+
+export default function ProvinceFilter(props: Props) {
+  const intl = useIntl();
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
@@ -12,12 +20,10 @@ function ProvinceFilter(props) {
         {props.none && <option value="none">{props.none}</option>}
         {regionCodes.map(r => (
           <option key={r} value={r}>
-            {props.intl.formatMessage({ id: `region:${r}` })}
+            {intl.formatMessage({ id: `region:${r}` })}
           </option>
         ))}
       </Selectric>
     </div>
   );
 }
-
-export default injectIntl(ProvinceFilter);
