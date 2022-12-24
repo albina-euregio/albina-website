@@ -9,9 +9,15 @@ import { APP_STORE } from "../../appStore";
 import { Status } from "../../stores/bulletinStore";
 import { RegionCodes } from "../../util/regions";
 
+export type LegacyBulletinStatus = {
+  $type: "LegacyBulletinStatus";
+  status: Record<RegionCodes, string | undefined>;
+};
+export type BulletinStatus = Status | LegacyBulletinStatus;
+
 type Props = {
   date: Date;
-  status: Status | Record<RegionCodes, string | undefined>;
+  status: BulletinStatus;
 };
 function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
@@ -53,7 +59,7 @@ function ArchiveItem({ date, status }: Props) {
   const dateString = dateToISODateString(date);
   const lang = getLanguage(dateString);
 
-  if (typeof status === "object") {
+  if (typeof status === "object" && status.$type === "LegacyBulletinStatus") {
     return (
       <tr>
         <td>
@@ -61,7 +67,7 @@ function ArchiveItem({ date, status }: Props) {
         </td>
         <td colSpan={2}>
           <ul className="list-inline list-download">
-            {Object.entries(status).map(
+            {Object.entries(status.status).map(
               ([region, url]) =>
                 url && (
                   <li key={url}>

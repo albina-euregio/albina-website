@@ -3,8 +3,11 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
-import { BulletinStore, BULLETIN_STORE, Status } from "../stores/bulletinStore";
-import ArchiveItem from "../components/archive/archive-item.jsx";
+import { BulletinStore, BULLETIN_STORE } from "../stores/bulletinStore";
+import ArchiveItem, {
+  type BulletinStatus,
+  type LegacyBulletinStatus
+} from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
 import FilterBar from "../components/organisms/filter-bar.jsx";
@@ -12,7 +15,6 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
-import { RegionCodes } from "../util/regions.js";
 import { APP_STORE } from "../appStore.js";
 
 function Archive() {
@@ -26,7 +28,7 @@ function Archive() {
     +searchParams.get("year") || new Date().getFullYear()
   );
   const [bulletinStatus, setBulletinStatus] = useState(
-    {} as Record<number, Status | Record<RegionCodes, string | undefined>>
+    {} as Record<number, BulletinStatus>
   );
   const [dates, setDates] = useState([] as Date[]);
   const [region, setRegion] = useState("");
@@ -208,7 +210,9 @@ function Archive() {
 
 export default observer(Archive);
 
-async function getArchiveBulletinStatus(dateString: string) {
+async function getArchiveBulletinStatus(
+  dateString: string
+): Promise<LegacyBulletinStatus> {
   const [at07, it32bz, it32tn] = await Promise.all([
     fetch(
       `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
@@ -226,8 +230,11 @@ async function getArchiveBulletinStatus(dateString: string) {
     )
   ]);
   return {
-    "AT-07": at07.ok ? at07.url : undefined,
-    "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
-    "IT-32-TN": it32tn.ok ? it32tn.url : undefined
+    $type: "LegacyBulletinStatus",
+    status: {
+      "AT-07": at07.ok ? at07.url : undefined,
+      "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
+      "IT-32-TN": it32tn.ok ? it32tn.url : undefined
+    }
   };
 }
