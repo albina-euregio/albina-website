@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
+import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
@@ -105,6 +106,7 @@ const BulletinMap = props => {
         ampm={props.ampm}
         eventHandlers={{
           click(e) {
+            DomEvent.stop(e);
             props.handleSelectRegion(e.sourceTarget.properties.id);
           },
           mouseover(e) {
