@@ -7,7 +7,6 @@ import { LONG_DATE_FORMAT } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import { findGlossaryStrings } from "./bulletin-glossary";
-import { Tooltip } from "../tooltips/tooltip";
 import {
   Bulletin,
   hasDaytimeDependency,

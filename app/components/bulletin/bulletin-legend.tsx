@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
-import { Tooltip } from "../tooltips/tooltip";
 
 type Props = {
   handleSelectRegion: (id?: string) => void;

@@ -27,7 +27,7 @@ export default function YearFilter(props: Props) {
       years.push({ year, date, name });
     }
     return years;
-  }, [intl, props.dateFormat, props.minYear]);
+  }, [intl, props]);
 
   if (props.buttongroup) {
     return (

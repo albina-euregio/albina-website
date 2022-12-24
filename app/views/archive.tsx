@@ -85,7 +85,7 @@ function Archive() {
           },
       { replace: true }
     );
-  }, [month, year, setDates, setSearchParams]);
+  }, [month, year, setDates, setSearchParams, buttongroup]);
 
   return (
     <>

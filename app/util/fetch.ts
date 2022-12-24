@@ -1,7 +1,7 @@
-export async function fetchJSON(
+export async function fetchJSON<T>(
   request: RequestInfo | URL,
   init?: RequestInit
-): Promise<any> {
+): Promise<T> {
   const res = await fetch(request, init);
   if (!res.ok) throw new Error(res.statusText);
   return res.json();

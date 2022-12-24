@@ -26,6 +26,6 @@ export function useSlowLoading(timeout = 5000) {
   useEffect(() => {
     setSlowLoading(Date.now() - loadingStart > timeout);
     setTimeout(() => setSlowLoading(true), timeout);
-  }, [loadingStart, setSlowLoading]);
+  }, [loadingStart, setSlowLoading, timeout]);
   return [slowLoading, setLoadingStart];
 }
