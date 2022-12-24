@@ -46,30 +46,8 @@ function Archive() {
           status => setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       } else {
-        Promise.all([
-          fetch(
-            `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
-            { method: "head" }
-          ),
-          fetch(
-            `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
-              APP_STORE.language === "it" ? "it" : "de"
-            }.pdf`,
-            { method: "head" }
-          ),
-          fetch(
-            `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`,
-            { method: "head" }
-          )
-        ]).then(([at07, it32bz, it32tn]) =>
-          setBulletinStatus(s => ({
-            ...s,
-            [date.getTime()]: {
-              "AT-07": at07.ok ? at07.url : undefined,
-              "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
-              "IT-32-TN": it32tn.ok ? it32tn.url : undefined
-            }
-          }))
+        getArchiveBulletinStatus(dateString).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       }
     }
@@ -229,3 +207,27 @@ function Archive() {
 }
 
 export default observer(Archive);
+
+async function getArchiveBulletinStatus(dateString: string) {
+  const [at07, it32bz, it32tn] = await Promise.all([
+    fetch(
+      `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
+      { method: "head" }
+    ),
+    fetch(
+      `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
+        APP_STORE.language === "it" ? "it" : "de"
+      }.pdf`,
+      { method: "head" }
+    ),
+    fetch(
+      `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`,
+      { method: "head" }
+    )
+  ]);
+  return {
+    "AT-07": at07.ok ? at07.url : undefined,
+    "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
+    "IT-32-TN": it32tn.ok ? it32tn.url : undefined
+  };
+}
