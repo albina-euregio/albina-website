@@ -96,75 +96,74 @@ function ArchiveItem({ date, status }: Props) {
       </td>
       <td>
         <ul className="list-inline list-download">
-          <li>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "archive:download-pdf:hover"
-              })}
-            >
-              <a
-                href={Util.template(config.apis.bulletin.pdf, {
-                  date: dateString,
-                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                  lang,
-                  bw: ""
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="small secondary pure-button tooltip"
-              >
-                <FormattedMessage id="archive:download-pdf" />
-              </a>
-            </Tooltip>
-          </li>
-          <li>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "archive:download-xml:hover"
-              })}
-            >
-              <a
-                href={Util.template(config.apis.bulletin.xml, {
-                  date: dateString,
-                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                  lang
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="small secondary pure-button tooltip"
-              >
-                <FormattedMessage id="archive:download-xml" />
-              </a>
-            </Tooltip>
-          </li>
+          <li>{pdfDownloadLink()}</li>
+          <li>{xmlDownloadLink()}</li>
         </ul>
       </td>
-      <td>
-        {showMap(dateString) && (
-          <Tooltip
-            label={intl.formatMessage({
-              id: "archive:show-forecast:hover"
-            })}
-          >
-            <Link
-              to={"/bulletin/" + dateString}
-              className={"map-preview img tooltip"}
-            >
-              <ArchiveAwmapStatic
-                date={dateString}
-                imgFormat=".jpg"
-                region={
-                  dateString < "2022-05-06"
-                    ? "fd_albina_thumbnail"
-                    : "fd_EUREGIO_thumbnail"
-                }
-              />
-            </Link>
-          </Tooltip>
-        )}
-      </td>
+      <td>{bulletinMap()}</td>
     </tr>
   );
+
+  function pdfDownloadLink() {
+    return (
+      <a
+        href={Util.template(config.apis.bulletin.pdf, {
+          date: dateString,
+          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+          lang,
+          bw: ""
+        })}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="small secondary pure-button tooltip"
+      >
+        <FormattedMessage id="archive:download-pdf" />
+      </a>
+    );
+  }
+
+  function xmlDownloadLink() {
+    return (
+      <a
+        href={Util.template(config.apis.bulletin.xml, {
+          date: dateString,
+          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+          lang
+        })}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="small secondary pure-button tooltip"
+      >
+        <FormattedMessage id="archive:download-xml" />
+      </a>
+    );
+  }
+
+  function bulletinMap(): React.ReactNode {
+    if (!showMap(dateString)) return;
+    const region =
+      dateString < "2022-05-06"
+        ? "fd_albina_thumbnail"
+        : "fd_EUREGIO_thumbnail";
+    return (
+      <Tooltip
+        label={intl.formatMessage({
+          id: "archive:show-forecast:hover"
+        })}
+      >
+        <Link
+          to={"/bulletin/" + dateString}
+          className={"map-preview img tooltip"}
+        >
+          <ArchiveAwmapStatic
+            date={dateString}
+            imgFormat=".jpg"
+            region={region}
+          />
+        </Link>
+      </Tooltip>
+    );
+  }
 }
 
 export default ArchiveItem;
