@@ -17,7 +17,15 @@ const routes: Routes = [
     path: "zamg_eps_ecmwf",
     component: ZamgModelsComponent,
     data: {
-      ecmwf: true
+      zamgType: "eps_ecmwf"
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "zamg_eps_claef",
+    component: ZamgModelsComponent,
+    data: {
+      zamgType: "eps_claef"
     },
     canActivate: [AuthGuard]
   },

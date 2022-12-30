@@ -74,9 +74,11 @@ export class ModellingService {
   /**
    * Fetches ZAMG model points via HTTP, parses CSV file and returns parsed results.
    */
-  getZamgModelPoints({ ecmwf }): Observable<ZamgModelPoint[]> {
-    return ecmwf
+  getZamgModelPoints({ zamgType }: {zamgType: "" | "eps_ecmwf" | "eps_claef"}): Observable<ZamgModelPoint[]> {
+    return zamgType === 'eps_ecmwf'
       ? this.getZamgEcmwfModelPoints()
+      : zamgType === 'eps_claef'
+      ? this.getZamgClaefModelPoints()
       : this.getZamgMultiModelPoints();
   }
 
@@ -158,6 +160,34 @@ export class ModellingService {
                     name,
                     [],
                     `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,
+                    +lat,
+                    +lon
+                  )
+              )
+            )
+            .reduce((acc, x) => acc.concat(x))
+        )
+      );
+  }
+
+  private getZamgClaefModelPoints(): Observable<ZamgModelPoint[]> {
+    const { zamgModelsUrl } = this.constantsService;
+    const url = `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_stationlist.txt`;
+    return this.http
+      .get(url, { responseType: "text" })
+      .pipe(
+        map(response => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
+        map(parseResult =>
+          this.getZamgEcmwfTypes()
+            .map(type =>
+              parseResult.data.map(
+                ({ synop, lat, lon, name }) =>
+                  new ZamgModelPoint(
+                    synop,
+                    `${type} ${synop}`,
+                    name,
+                    [],
+                    `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${synop}_${type}.png`,
                     +lat,
                     +lon
                   )
