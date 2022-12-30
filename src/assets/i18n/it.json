@@ -444,8 +444,8 @@
         "sendTelegramMessages" : "Invia messaggi via Telegram",
         "sendPushNotifications" : "Invia notifiche push",
         "enableMediaFile" : "Attiva file media",
-        "enableAvalancheProblemCornices" : "Enable avalanche problem CORNICES",
-        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Enable avalanche problem NO DISTINCT AVALANCHE PROBLEM",
+        "enableAvalancheProblemCornices" : "Attivare problema tipico valanghivo CORNICI",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Attivare problema tipico valanghivo NESSUN PROBLEMA VALANGHIVO EVIDENTE",
         "pdfColor" : "PDF in colore",
         "emailColor" : "Email in colore",
         "pdfMapYAmPm" : "Y per mappa PDF (am/pm)",
@@ -559,11 +559,11 @@
       },
       "selectRegion": {
         "placeholder": "Regione",
-        "selectionLabel": "{0} regions selected"
+        "selectionLabel": "{0} regioni selezionati"
       },
       "selectSources": {
-        "placeholder": "Sources",
-        "selectionLabel": "{0} sources selected"
+        "placeholder": "origine dati",
+        "selectionLabel": "{0} origini dati selezionati"
       }
     },
     "blog" : {
