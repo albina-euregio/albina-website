@@ -1,0 +1,30 @@
+<ul>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/qfa']"> <i class="fa fa-line-chart"></i> {{ "sidebar.qfa" | translate }} </a>
+  </li>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/modelling/zamg']">
+      <i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}
+    </a>
+  </li>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/modelling/zamg_eps_ecmwf']">
+      <i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamgECMWF" | translate }}
+    </a>
+  </li>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/modelling/zamg_eps_claef']">
+      <i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamgCLAEF" | translate }}
+    </a>
+  </li>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/modelling/snowpack']">
+      <i class="fa fa-area-chart"></i> {{ "sidebar.modellingSnowpack" | translate }}
+    </a>
+  </li>
+  <li style="display: block; padding: 1rem; margin: 1rem; border: 1px solid black">
+    <a style="display: block" [routerLink]="['/modelling/snowpackMeteo']">
+      <i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}
+    </a>
+  </li>
+</ul>
