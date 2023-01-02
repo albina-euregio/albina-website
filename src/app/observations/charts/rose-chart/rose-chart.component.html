@@ -1,50 +1,59 @@
 <div class="chart">
+  <!-- !chart-header -->
+  <div class="chart-header">
+    <div class="chart-name">
+      {{ caption }}
+    </div>
 
+    <div class="chart-controls">
+      <div class="obs-switch">
+        <div
+          class="obs-switch-item"
+          [ngClass]="{ 'is-active': isActive }"
+          (click)="onInvert()"
+        >
+          <span class="switch-text">{{
+            "admin.observations.charts.invert" | translate
+          }}</span>
+        </div>
+        <div
+          class="obs-switch-item"
+          [ngClass]="{ 'is-active': isActive }"
+          (click)="onReset()"
+        >
+          <span class="switch-text">{{
+            "admin.observations.charts.reset" | translate
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /chart-header -->
 
-
-	<!-- !chart-header -->
-	<div class="chart-header">
-
-		<div class="chart-name">
-		{{caption}}
-		</div>
-
-		<div class="chart-controls">
-			<div class="obs-switch">
-				<div class="obs-switch-item"  [ngClass]="{'is-active': isActive}"  (click)="onInvert()">
-					<span class="switch-text">{{ 'admin.observations.charts.invert' | translate }}</span>
-				</div>
-				<div class="obs-switch-item"  [ngClass]="{'is-active': isActive}"  (click)="onReset()">
-					<span class="switch-text">{{ 'admin.observations.charts.reset' | translate }}</span>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<!-- /chart-header -->
-
-
-
-	<!-- !chart-unspecified -->
-	<div class="chart-unspecified">
-		<span [ngClass]="{'highlighted': nanStatus.highlighted, 'selected': nanStatus.selected}" (click)="onClickNan($event)" *ngIf="data.nan > 0">{{ 'admin.observations.charts.nan' | translate }}: {{ data.nan }}</span>
-	</div>
-	<!-- /chart-unspecified -->
-
-
+  <!-- !chart-unspecified -->
+  <div class="chart-unspecified">
+    <span
+      [ngClass]="{
+        highlighted: nanStatus.highlighted,
+        selected: nanStatus.selected
+      }"
+      (click)="onClickNan($event)"
+      *ngIf="data.nan > 0"
+      >{{ "admin.observations.charts.nan" | translate }}: {{ data.nan }}</span
+    >
+  </div>
+  <!-- /chart-unspecified -->
 
   <!-- !chart-content -->
-	<div class="chart-content">
-		<div echarts 
-			[options]="defaultOptions" 
-			[merge]="{dataset: data.dataset}" 
-			(chartMouseDown)="onMouseDown($event)" 
-			(chartMouseUp)="onMouseUp($event)" 
-			class="chart">
-		</div>
-	</div>
-	<!-- /chart-content -->
-    
-
-
+  <div class="chart-content">
+    <div
+      echarts
+      [options]="defaultOptions"
+      [merge]="{ dataset: data.dataset }"
+      (chartMouseDown)="onMouseDown($event)"
+      (chartMouseUp)="onMouseUp($event)"
+      class="chart"
+    ></div>
+  </div>
+  <!-- /chart-content -->
 </div>

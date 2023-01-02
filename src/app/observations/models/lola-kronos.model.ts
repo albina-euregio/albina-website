@@ -299,9 +299,7 @@ export interface Temperature {
   position: number;
 }
 
-export function convertLoLaKronos(
-  kronos: LolaKronosApi
-): GenericObservation[] {
+export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
   return [
     ...kronos.lolaAvalancheEvent.map((obs) =>
       convertLoLaToGeneric(
@@ -313,8 +311,8 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.Natlefs
           : undefined,
-          ObservationType.Avalanche,
-          "https://www.lola-kronos.info/avalancheEvent/"
+        ObservationType.Avalanche,
+        "https://www.lola-kronos.info/avalancheEvent/"
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
@@ -327,8 +325,8 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.Natlefs
           : undefined,
-          ObservationType.Evaluation,
-          "https://www.lola-kronos.info/evaluation/"
+        ObservationType.Evaluation,
+        "https://www.lola-kronos.info/evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
@@ -366,7 +364,7 @@ export function convertLoLaToGeneric(
   $type: ObservationType,
   urlPrefix: string
 ): GenericObservation {
-  debugger
+  debugger;
   return {
     $data: obs,
     $externalURL: urlPrefix + obs.uuId,
@@ -392,13 +390,22 @@ export function convertLoLaToGeneric(
       (obs as LolaSnowProfile | LolaEvaluation).position
     )?.lng,
     avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
-    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
+    dangerPatterns:
+      (obs as LolaEvaluation).dangerPatterns?.map(
+        (dp): Enums.DangerPattern => Enums.DangerPattern[dp]
+      ) || [],
     region: obs.regionName,
     snowLine: (obs as LolaSimpleObservation).snowLine,
-    surfaceHoar: (obs as LolaSimpleObservation).snowSurface.includes("surfaceHoar"),
-    veryLightNewSnow: (obs as LolaSimpleObservation).snowSurface.includes("veryLightNewSnow"),
+    surfaceHoar: (obs as LolaSimpleObservation).snowSurface.includes(
+      "surfaceHoar"
+    ),
+    veryLightNewSnow: (obs as LolaSimpleObservation).snowSurface.includes(
+      "veryLightNewSnow"
+    ),
     graupel: (obs as LolaSimpleObservation).snowSurface.includes("graupel"),
-    iceFormation: (obs as LolaSimpleObservation).snowSurface.includes("iceFormation"),
+    iceFormation: (obs as LolaSimpleObservation).snowSurface.includes(
+      "iceFormation"
+    ),
     stabilityTest: (obs as LolaSimpleObservation).stabilityTests?.length > 0,
     // avalancheProblem: freshSnowProblem.active, glidingSnowProblem.active, wetSnowProblem.active, windDriftedSnowProblem.active, persistentWeakLayersProblem.active
     // dangerPatterns: dangerPatterns[GM1, ...]
@@ -407,10 +414,14 @@ export function convertLoLaToGeneric(
 
 function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
   const problems: AvalancheProblem[] = [];
-  if (data.freshSnowProblem?.result > 0) problems.push(AvalancheProblem.new_snow);
-  if (data.glidingSnowProblem?.result > 0) problems.push(AvalancheProblem.gliding_snow);
-  if (data.persistentWeakLayersProblem?.result > 0) problems.push(AvalancheProblem.persistent_weak_layers);
+  if (data.freshSnowProblem?.result > 0)
+    problems.push(AvalancheProblem.new_snow);
+  if (data.glidingSnowProblem?.result > 0)
+    problems.push(AvalancheProblem.gliding_snow);
+  if (data.persistentWeakLayersProblem?.result > 0)
+    problems.push(AvalancheProblem.persistent_weak_layers);
   if (data.wetSnowProblem?.result > 0) problems.push(AvalancheProblem.wet_snow);
-  if (data.windDriftetSnowProblem?.result > 0) problems.push(AvalancheProblem.wind_slab);
+  if (data.windDriftetSnowProblem?.result > 0)
+    problems.push(AvalancheProblem.wind_slab);
   return problems;
 }

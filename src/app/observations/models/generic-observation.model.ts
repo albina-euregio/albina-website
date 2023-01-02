@@ -110,21 +110,25 @@ export enum AvalancheProblem {
   gliding_snow = "gliding_snow",
   favourable_situation = "favourable_situation",
   cornices = "cornices",
-  no_distinct_problem = "no_distinct_problem"
+  no_distinct_problem = "no_distinct_problem",
 }
 
 export enum ObservationFilterType {
   Global = "Global",
-  Local = "Local"
+  Local = "Local",
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor;
+export type Stability =
+  | Enums.Stability.good
+  | Enums.Stability.fair
+  | Enums.Stability.poor
+  | Enums.Stability.very_poor;
 
 const colors: Record<Stability, string> = {
   good: "green",
   fair: "orange",
   poor: "red",
-  very_poor: "black"
+  very_poor: "black",
 };
 
 export function toMarkerColor(observation: GenericObservation) {
@@ -219,7 +223,6 @@ export interface FilterSelectionData {
   selected: string[];
   highlighted: string[];
 }
-
 
 export interface ObservationTableRow {
   label: string;

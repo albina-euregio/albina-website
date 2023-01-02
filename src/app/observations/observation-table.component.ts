@@ -1,36 +1,51 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { EventType, isAvalancheWarningServiceObservation, Observation } from "./models/observation.model";
+import {
+  EventType,
+  isAvalancheWarningServiceObservation,
+  Observation,
+} from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
+import {
+  GenericObservation,
+  ObservationSource,
+  ObservationTypeIcons,
+  toMarkerColor,
+} from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
-  templateUrl: "observation-table.component.html"
+  templateUrl: "observation-table.component.html",
 })
 export class ObservationTableComponent {
   @Input() observations: GenericObservation[];
-  @Output() observationClick: EventEmitter<GenericObservation> = new EventEmitter<GenericObservation>();
+  @Output() observationClick: EventEmitter<GenericObservation> =
+    new EventEmitter<GenericObservation>();
   observation: Observation;
   saving = false;
   messages: Message[] = [];
   showObservationsWithoutCoordinates: boolean = false;
   ObservationTypeIcons = ObservationTypeIcons;
 
-  constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
+  constructor(
+    private observationsService: ObservationsService,
+    private translate: TranslateService
+  ) {}
 
   get shownObservations(): GenericObservation[] {
     const observations = (this.observations || []).filter(
       (o) => o.$source !== ObservationSource.Observer
     );
-    return this.showObservationsWithoutCoordinates ? observations.filter(this.hasNoCoordinates) : observations;
+    return this.showObservationsWithoutCoordinates
+      ? observations.filter(this.hasNoCoordinates)
+      : observations;
   }
 
   newObservation() {
-    const today = new Date(Date.now())
-    const date = today.toISOString().split('T')[0]
+    const today = new Date(Date.now());
+    const date = today.toISOString().split("T")[0];
     this.observation = {
       eventType: EventType.Normal,
     } as Observation;
@@ -39,7 +54,7 @@ export class ObservationTableComponent {
   }
 
   hasNoCoordinates(element, index, array) {
-    return (!element.latitude || !element.longitude);
+    return !element.latitude || !element.longitude;
   }
 
   onClick(observation: GenericObservation) {
@@ -51,18 +66,26 @@ export class ObservationTableComponent {
   }
 
   async editObservation(observation: Observation) {
-    this.observation = (await this.observationsService.getObservation(observation.id).toPromise()).$data;
+    this.observation = (
+      await this.observationsService.getObservation(observation.id).toPromise()
+    ).$data;
     if (typeof this.observation?.eventDate === "object") {
       this.observation.eventDate = this.observation.eventDate.toISOString();
     }
     if (typeof this.observation?.eventDate === "string") {
-      this.observation.eventDate = this.observation.eventDate.slice(0, "2006-01-02T15:04".length);
+      this.observation.eventDate = this.observation.eventDate.slice(
+        0,
+        "2006-01-02T15:04".length
+      );
     }
     if (typeof this.observation?.reportDate === "object") {
       this.observation.reportDate = this.observation.reportDate.toISOString();
     }
     if (typeof this.observation?.reportDate === "string") {
-      this.observation.reportDate = this.observation.reportDate.slice(0, "2006-01-02T15:04".length);
+      this.observation.reportDate = this.observation.reportDate.slice(
+        0,
+        "2006-01-02T15:04".length
+      );
     }
   }
 
@@ -83,13 +106,21 @@ export class ObservationTableComponent {
     try {
       this.saving = true;
       if (observation.id) {
-        const newObservation = await this.observationsService.putObservation(observation).toPromise();
+        const newObservation = await this.observationsService
+          .putObservation(observation)
+          .toPromise();
         Object.assign(
-          this.observations.find((o) => isAvalancheWarningServiceObservation(o) && o.$data.id === observation.id),
+          this.observations.find(
+            (o) =>
+              isAvalancheWarningServiceObservation(o) &&
+              o.$data.id === observation.id
+          ),
           newObservation
         );
       } else {
-        const newObservation = await this.observationsService.postObservation(observation).toPromise();
+        const newObservation = await this.observationsService
+          .postObservation(observation)
+          .toPromise();
         this.observations.splice(0, 0, newObservation);
       }
       this.showDialog = false;
@@ -102,13 +133,21 @@ export class ObservationTableComponent {
 
   async deleteObservation() {
     const { observation } = this;
-    if (!window.confirm(this.translate.instant("observations.button.deleteConfirm"))) {
+    if (
+      !window.confirm(
+        this.translate.instant("observations.button.deleteConfirm")
+      )
+    ) {
       return;
     }
     try {
       this.saving = true;
       await this.observationsService.deleteObservation(observation);
-      const index = this.observations.findIndex((o) => isAvalancheWarningServiceObservation(o) && o.$data.id === observation.id);
+      const index = this.observations.findIndex(
+        (o) =>
+          isAvalancheWarningServiceObservation(o) &&
+          o.$data.id === observation.id
+      );
       this.observations.splice(index, 1);
       this.showDialog = false;
     } catch (error) {
@@ -126,11 +165,13 @@ export class ObservationTableComponent {
     this.messages.push({
       severity: "error",
       summary: error.statusText,
-      detail: error.message
+      detail: error.message,
     });
   }
 
-  getTableRowStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
+  getTableRowStyle(
+    observation: GenericObservation
+  ): Partial<CSSStyleDeclaration> {
     if (!isAvalancheWarningServiceObservation(observation)) {
       return;
     }
@@ -140,7 +181,9 @@ export class ObservationTableComponent {
       case EventType.PersonNo:
         return { background: "linear-gradient(90deg, cyan 0%, white 50%)" };
       case EventType.PersonUninjured:
-        return { background: "linear-gradient(90deg, limegreen 0%, white 50%)" };
+        return {
+          background: "linear-gradient(90deg, limegreen 0%, white 50%)",
+        };
       case EventType.PersonInjured:
         return { background: "linear-gradient(90deg, yellow 0%, white 50%)" };
       case EventType.PersonDead:
@@ -148,15 +191,19 @@ export class ObservationTableComponent {
       case EventType.PersonUnknown:
         return { background: "linear-gradient(90deg, gray 0%, white 50%)" };
       case EventType.NeighborRegion:
-        return { background: "linear-gradient(90deg, darkviolet 0%, white 50%)" };
+        return {
+          background: "linear-gradient(90deg, darkviolet 0%, white 50%)",
+        };
     }
   }
 
-  getTableIconStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
+  getTableIconStyle(
+    observation: GenericObservation
+  ): Partial<CSSStyleDeclaration> {
     return {
       color: toMarkerColor(observation),
       width: `${observation.$markerRadius || 10}px`,
-      height: `${observation.$markerRadius || 10}px`
+      height: `${observation.$markerRadius || 10}px`,
     };
   }
 }

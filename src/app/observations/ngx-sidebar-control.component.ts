@@ -1,6 +1,12 @@
 // https://github.com/runette/ngx-leaflet-sidebar/blob/master/src/lib/ngx-sidebar-control.component.ts
 /// <reference types='leaflet-sidebar-v2' />
-import { Component, OnDestroy, Input, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  OnDestroy,
+  Input,
+  EventEmitter,
+  Output,
+} from "@angular/core";
 import { Map, Control, LeafletEvent, SidebarEventHandlerFnMap } from "leaflet";
 import "leaflet-sidebar-v2";
 
@@ -14,7 +20,7 @@ export type SidebarEvent = LeafletEvent;
 
 @Component({
   selector: "leaflet-sidebar-control",
-  template: ""
+  template: "",
 })
 export class NgxSidebarControlComponent implements OnDestroy {
   private _map: Map;
@@ -29,7 +35,7 @@ export class NgxSidebarControlComponent implements OnDestroy {
     },
     content: (e) => {
       this.change$.emit(e);
-    }
+    },
   };
 
   constructor() {}

@@ -1,4 +1,7 @@
-import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kronos.model";
+import {
+  convertLoLaToGeneric,
+  LolaSnowProfile as SnowProfile,
+} from "./lola-kronos.model";
 import {
   GenericObservation,
   ObservationSource,
@@ -104,7 +107,12 @@ export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
   return [
     ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
     ...lola.snowProfiles.map((obs) =>
-      convertLoLaToGeneric(obs, ObservationSource.LoLaSafety, ObservationType.Profile, "https://www.lola-safety.info/snowProfile/")
+      convertLoLaToGeneric(
+        obs,
+        ObservationSource.LoLaSafety,
+        ObservationType.Profile,
+        "https://www.lola-safety.info/snowProfile/"
+      )
     ),
   ];
 }
@@ -129,7 +137,7 @@ function convertAvalancheReport(
     latitude: report.latitude,
     locationName: report.regionName + " " + report.avalancheName,
     longitude: report.longitude,
-    region: undefined
+    region: undefined,
   };
 }
 

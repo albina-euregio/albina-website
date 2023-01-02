@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { LeafletModule} from "@asymmetrik/ngx-leaflet";
+import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 
 import { NgxSidebarControlComponent } from "./ngx-sidebar-control.component";
 import { ObservationsComponent } from "./observations.component";
@@ -14,7 +14,7 @@ import { ObservationsRoutingModule } from "./observations-routing.module";
 
 import { TranslateModule } from "@ngx-translate/core";
 import { CalendarModule } from "primeng/calendar";
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from "primeng/multiselect";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import { ToggleButtonModule } from "primeng/togglebutton";
@@ -25,17 +25,17 @@ import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { AutoCompleteModule } from "primeng/autocomplete";
 
-import {MenubarModule} from 'primeng/menubar';
+import { MenubarModule } from "primeng/menubar";
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
 
 import { GeocodingService } from "./geocoding.service";
 import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
-import { NgxEchartsModule } from 'ngx-echarts';
-import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
-import { RoseChartComponent } from './charts/rose-chart/rose-chart.component';
-import { BaseComponent } from './charts/base/base-chart.component';
+import { NgxEchartsModule } from "ngx-echarts";
+import { BarChartComponent } from "./charts/bar-chart/bar-chart.component";
+import { RoseChartComponent } from "./charts/rose-chart/rose-chart.component";
+import { BaseComponent } from "./charts/base/base-chart.component";
 import { MapService } from "../providers/map-service/map.service";
 
 @NgModule({
@@ -60,8 +60,8 @@ import { MapService } from "../providers/map-service/map.service";
     AutoCompleteModule,
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    })
+      echarts: () => import("echarts"),
+    }),
   ],
   declarations: [
     NgxSidebarControlComponent,
@@ -69,13 +69,13 @@ import { MapService } from "../providers/map-service/map.service";
     ObservationEditorComponent,
     ObservationTableComponent,
     BarChartComponent,
-    RoseChartComponent
+    RoseChartComponent,
   ],
   providers: [
     GeocodingService,
     ObservationFilterService,
     ObservationsService,
-    MapService
-  ]
+    MapService,
+  ],
 })
-export class ObservationsModule { }
+export class ObservationsModule {}

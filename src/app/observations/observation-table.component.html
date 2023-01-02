@@ -10,68 +10,203 @@
           [(ngModel)]="showObservationsWithoutCoordinates"
         ></p-toggleButton>
 
-        <div class="global-bar-item global-bar-item-add" style="float: right; padding-left: 10px;">
+        <div
+          class="global-bar-item global-bar-item-add"
+          style="float: right; padding-left: 10px"
+        >
           <p>
-            {{ 'observations.count' | translate }} {{ shownObservations.length }}
+            {{ "observations.count" | translate }}
+            {{ shownObservations.length }}
           </p>
         </div>
         <div class="global-bar-item global-bar-item-add" style="float: right">
-          <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
-          label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
+          <button
+            type="button"
+            pButton
+            icon="pi pi-plus-circle"
+            (click)="newObservation()"
+            label="{{ 'observations.button.add' | translate }}"
+            class="p-button-text"
+          ></button>
         </div>
       </td>
     </tr>
     <tr>
       <th></th>
-      <th><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</th>
-      <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
-      <th><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</th>
+      <th>
+        <i class="fa fa-calendar"></i>
+        {{ "observations.eventDate" | translate }}
+      </th>
+      <th>
+        <i class="fa fa-user"></i> {{ "observations.authorName" | translate }}
+      </th>
+      <th>
+        <i class="fa fa-globe"></i>
+        {{ "observations.locationName" | translate }}
+      </th>
       <th><!-- avalancheProblems --></th>
-      <th><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</th>
+      <th>
+        <i class="fa fa-comment"></i> {{ "observations.content" | translate }}
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let observation of shownObservations" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
+    <tr
+      *ngFor="let observation of shownObservations"
+      (click)="onClick(observation)"
+      style="cursor: pointer"
+      [ngStyle]="getTableRowStyle(observation)"
+    >
       <td [title]="observation.$source">
         <div [ngStyle]="getTableIconStyle(observation)">
           <!-- ObservationTypeIcons -->
-          <svg *ngIf="observation.$type === 'Observation'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="currentcolor" fill-rule="evenodd"/></svg>
-          <svg *ngIf="observation.$type === 'Incident'" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h0"/></svg>
-          <svg *ngIf="observation.$type === 'Profile'" xmlns="http://www.w3.org/2000/svg" fill="currentcolor" stroke="currentcolor" viewBox="0 0 96 96"><path d="M48 4C23.7 4 4 23.699 4 48s19.7 44 44 44 44-19.699 44-44S72.3 4 48 4zm0 80c-19.882 0-36-16.118-36-36s16.118-36 36-36 36 16.118 36 36-16.118 36-36 36z"/><path d="M64.284 37.17a4.002 4.002 0 00-5.657 0L44.485 51.313l-5.657-5.657a4 4 0 10-5.657 5.658l8.484 8.483a4.002 4.002 0 005.658 0l16.97-16.97a3.998 3.998 0 00.001-5.657z"/></svg>
-          <svg *ngIf="observation.$type === 'Avalanche'" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-          <svg *ngIf="observation.$type === 'Blasting'" xmlns="http://www.w3.org/2000/svg" fill="currentcolor" stroke="currentcolor" viewBox="0 0 512 512"><path d="M256 512C114.625 512 0 397.375 0 256S114.625 0 256 0s256 114.625 256 256-114.625 256-256 256zm0-448C149.969 64 64 149.969 64 256s85.969 192 192 192c106.03 0 192-85.969 192-192S362.031 64 256 64zm0 320c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128-57.312 128-128 128z"/></svg>
+          <svg
+            *ngIf="observation.$type === 'Observation'"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"
+              fill="currentcolor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <svg
+            *ngIf="observation.$type === 'Incident'"
+            fill="none"
+            stroke="currentcolor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h0" />
+          </svg>
+          <svg
+            *ngIf="observation.$type === 'Profile'"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentcolor"
+            stroke="currentcolor"
+            viewBox="0 0 96 96"
+          >
+            <path
+              d="M48 4C23.7 4 4 23.699 4 48s19.7 44 44 44 44-19.699 44-44S72.3 4 48 4zm0 80c-19.882 0-36-16.118-36-36s16.118-36 36-36 36 16.118 36 36-16.118 36-36 36z"
+            />
+            <path
+              d="M64.284 37.17a4.002 4.002 0 00-5.657 0L44.485 51.313l-5.657-5.657a4 4 0 10-5.657 5.658l8.484 8.483a4.002 4.002 0 005.658 0l16.97-16.97a3.998 3.998 0 00.001-5.657z"
+            />
+          </svg>
+          <svg
+            *ngIf="observation.$type === 'Avalanche'"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+          <svg
+            *ngIf="observation.$type === 'Blasting'"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentcolor"
+            stroke="currentcolor"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M256 512C114.625 512 0 397.375 0 256S114.625 0 256 0s256 114.625 256 256-114.625 256-256 256zm0-448C149.969 64 64 149.969 64 256s85.969 192 192 192c106.03 0 192-85.969 192-192S362.031 64 256 64zm0 320c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128-57.312 128-128 128z"
+            />
+          </svg>
         </div>
       </td>
-      <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
+      <td style="white-space: nowrap">
+        {{ observation.eventDate | localizedDate : "dd.MM.yyyy HH:mm" }}
+      </td>
       <td>{{ observation.authorName }}</td>
       <td>
         {{ observation.locationName }}
-        <i *ngIf="observation.latitude && observation.longitude" class="fa fa-map-marker" title="{{ 'observations.hasCoordinates' | translate }}"></i>
+        <i
+          *ngIf="observation.latitude && observation.longitude"
+          class="fa fa-map-marker"
+          title="{{ 'observations.hasCoordinates' | translate }}"
+        ></i>
       </td>
-      <td style="padding: 0;">
+      <td style="padding: 0">
         <span *ngFor="let problem of observation.avalancheProblems">
-          <img *ngIf="problem === 'new_snow'" src="./assets/img/New_snow_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'wind_slab'" src="./assets/img/Drifting_snow_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'persistent_weak_layers'" src="./assets/img/Persistent_weak_layers_c.svg"  style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'wet_snow'" src="./assets/img/Wet_snow_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'gliding_snow'" src="./assets/img/Gliding_snow_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'favourable_situation'" src="./assets/img/Favourable_situation_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'cornices'" src="./assets/img/Cornices_c.svg" style="width: 40px; max-width: unset;">
-          <img *ngIf="problem === 'no_distinct_problem'" src="./assets/img/No_distinct_problem_c.svg" style="width: 40px; max-width: unset;">
+          <img
+            *ngIf="problem === 'new_snow'"
+            src="./assets/img/New_snow_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'wind_slab'"
+            src="./assets/img/Drifting_snow_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'persistent_weak_layers'"
+            src="./assets/img/Persistent_weak_layers_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'wet_snow'"
+            src="./assets/img/Wet_snow_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'gliding_snow'"
+            src="./assets/img/Gliding_snow_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'favourable_situation'"
+            src="./assets/img/Favourable_situation_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'cornices'"
+            src="./assets/img/Cornices_c.svg"
+            style="width: 40px; max-width: unset"
+          />
+          <img
+            *ngIf="problem === 'no_distinct_problem'"
+            src="./assets/img/No_distinct_problem_c.svg"
+            style="width: 40px; max-width: unset"
+          />
         </span>
       </td>
       <td>{{ observation.content }}</td>
     </tr>
   </tbody>
-  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
+  <p-dialog
+    [(visible)]="showDialog"
+    [modal]="true"
+    [header]="observation?.locationName"
+    [style]="{ width: '80vw' }"
+  >
     <p-messages [(value)]="messages"></p-messages>
-    <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
+    <app-observation-editor
+      *ngIf="observation"
+      [observation]="observation"
+    ></app-observation-editor>
     <p-footer>
       <button
         type="button"
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="saving || observation?.reportDate === undefined || observation?.eventDate === undefined || observation?.reportDate === '' || observation?.eventDate === ''"
+        [disabled]="
+          saving ||
+          observation?.reportDate === undefined ||
+          observation?.eventDate === undefined ||
+          observation?.reportDate === '' ||
+          observation?.eventDate === ''
+        "
         (click)="saveObservation()"
         label="{{ 'observations.button.save' | translate }}"
       ></button>

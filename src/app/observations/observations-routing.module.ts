@@ -11,13 +11,13 @@ const routes: Routes = [
     component: ObservationsComponent,
     canActivate: [AuthGuard],
     data: {
-      title: "Observations"
-    }
-  }
+      title: "Observations",
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ObservationsRoutingModule { }
+export class ObservationsRoutingModule {}
