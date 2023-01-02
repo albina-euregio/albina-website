@@ -12,6 +12,7 @@ import {
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
+import { APP_STORE } from "../../appStore";
 
 type Props = { date: Date; bulletin: Bulletin };
 
@@ -28,7 +29,7 @@ function BulletinReport({ date, bulletin }: Props) {
     if (!elem) return "";
     elem = elem.replace(/&lt;br\/&gt;/g, "<br/>");
     if (import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") {
-      const withGlossary = findGlossaryStrings(elem);
+      const withGlossary = findGlossaryStrings(elem, APP_STORE.language);
       try {
         return preprocessContent(withGlossary);
       } catch (e) {
