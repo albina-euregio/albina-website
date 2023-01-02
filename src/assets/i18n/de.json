@@ -15,8 +15,11 @@
   "sidebar" : {
     "bulletins" : "Lawinen.report",
     "observations" : "Beobachtungen",
+    "qfa": "QFA",
+    "modelling": "Modelling",
     "modellingZamg": "ZAMG Multimodel",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
+    "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
     "modellingSnowpack": "SNOWPACK Modell",
     "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK"
   },
@@ -564,6 +567,30 @@
       "selectSources": {
         "placeholder": "Quellen",
         "selectionLabel": "{0} Quellen ausgewählt"
+      },
+      "charts": {
+        "nan": "Ohne Angabe",
+        "invert": "Invert",
+        "reset": "Reset",
+        "aspect": {
+          "caption": "Aspekt"
+        },
+        "elevation": {
+          "caption": "Seehöhe"
+        },
+        "stability": {
+          "caption": "Stabilität"
+        },
+        "avalancheProblem": {
+          "caption": "Lawinenproblem"
+        },
+        "dangerPattern": {
+          "caption": "Gefahrenmuster"
+        }
+        ,
+        "days": {
+          "caption": "Tag"
+        }
       }
     },
     "blog" : {
@@ -813,5 +840,10 @@
     "cm" : "cm",
     "mm" : "mm",
     "m" : "m"
+  },
+  "qfa": {
+    "day": "Tag",
+    "time": "Time",
+    "back":" Zurück"
   }
 }

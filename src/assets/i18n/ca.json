@@ -15,8 +15,11 @@
   "sidebar" : {
     "bulletins" : "Avalanche.report",
     "observations" : "Observacions",
+    "qfa": "QFA",
+    "modelling": "Modelling",
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
+    "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
     "modellingSnowpack": "SNOWPACK model",
     "modellingSnowpackMeteo": "SNOWPACK modelled meteo"
   },
@@ -535,7 +538,7 @@
         "create" : "Crear usuari",
         "update" : "Actualitzar l'usuari",
         "cancel" : "Cancel·lar"
-      }  
+      }
     },
     "statistics" : {
       "title" : "Estadístiques",
@@ -564,6 +567,30 @@
       "selectSources": {
         "placeholder": "Fonts",
         "selectionLabel": "{0} fonts seleccionades"
+      },
+      "charts": {
+        "nan": "Ohne Angabe",
+        "invert": "Invert",
+        "reset": "Reset",
+        "aspect": {
+          "caption": "Aspekt"
+        },
+        "elevation": {
+          "caption": "Seehöhe"
+        },
+        "stability": {
+          "caption": "Stabilität"
+        },
+        "avalancheProblem": {
+          "caption": "Lawinenproblem"
+        },
+        "dangerPattern": {
+          "caption": "Gefahrenmuster"
+        }
+        ,
+        "days": {
+          "caption": "Tag"
+        }
       }
     },
     "blog" : {
@@ -813,5 +840,10 @@
     "cm" : "cm",
     "mm" : "mm",
     "m" : "m"
+  },
+  "qfa": {
+    "day": "Dia",
+    "time": "Time",
+    "back":"Enrera"
   }
 }
