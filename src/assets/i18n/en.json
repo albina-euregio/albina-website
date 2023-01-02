@@ -15,7 +15,7 @@
   "sidebar" : {
     "bulletins" : "Avalanche.report",
     "observations" : "Observations",
-    "qfa": "Forecast",
+    "qfa": "QFA",
     "modelling": "Modelling",
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
