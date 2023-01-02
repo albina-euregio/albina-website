@@ -381,12 +381,14 @@ export function convertLoLaToGeneric(
     avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
     dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp) => getDangerPattern(dp)) || [],
     region: obs.regionName,
-    snowLine: (obs as LolaSimpleObservation).snowLine,
-    surfaceHoar: (obs as LolaSimpleObservation).snowSurface.includes("surfaceHoar"),
-    veryLightNewSnow: (obs as LolaSimpleObservation).snowSurface.includes("veryLightNewSnow"),
-    graupel: (obs as LolaSimpleObservation).snowSurface.includes("graupel"),
-    iceFormation: (obs as LolaSimpleObservation).snowSurface.includes("iceFormation"),
-    stabilityTest: (obs as LolaSimpleObservation).stabilityTests?.length > 0
+    importantObservations: [
+      (obs as LolaSimpleObservation).snowLine ? Enums.ImportantObservation.SnowLine : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("surfaceHoar") ? Enums.ImportantObservation.SurfaceHoar : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("veryLightNewSnow") ? Enums.ImportantObservation.VeryLightNewSnow : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("graupel") ? Enums.ImportantObservation.Graupel : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("iceFormation") ? Enums.ImportantObservation.IceFormation : undefined,
+      (obs as LolaSimpleObservation).stabilityTests?.length > 0 ? Enums.ImportantObservation.StabilityTest : undefined
+    ]
   };
 }
 
@@ -401,7 +403,6 @@ function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
 }
 
 function getDangerPattern(data: DangerPattern): GenericDangerPattern {
-  console.log(data)
   switch (data) {
     case DangerPattern.Gm1:
       return GenericDangerPattern.dp1;

@@ -88,12 +88,7 @@ export interface GenericObservation<Data = any> {
   /**
    * Important observations
    */
-  snowLine?: number;
-  surfaceHoar?: boolean;
-  graupel?: boolean;
-  stabilityTest?: boolean;
-  iceFormation?: boolean;
-  veryLightNewSnow?: boolean;
+  importantObservations?: Enums.ImportantObservation[];
 
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;

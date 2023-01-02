@@ -125,6 +125,7 @@ export class ObservationFilterService {
       this.isIncluded(LocalFilterTypes.AvalancheProblem, observation.avalancheProblems) &&
       this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
       this.isIncluded(LocalFilterTypes.ObservationType, observation.$type) &&
+      this.isIncluded(LocalFilterTypes.ImportantObservation, observation.importantObservations) &&
       this.isIncluded(LocalFilterTypes.DangerPattern, observation.dangerPatterns) &&
       this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate))
     );
@@ -140,6 +141,7 @@ export class ObservationFilterService {
       this.isIncluded(LocalFilterTypes.AvalancheProblem, observation.avalancheProblems, true) ||
       this.isIncluded(LocalFilterTypes.Stability, observation.stability, true) ||
       this.isIncluded(LocalFilterTypes.ObservationType, observation.$type, true) ||
+      this.isIncluded(LocalFilterTypes.ImportantObservation, observation.importantObservations, true) ||
       this.isIncluded(LocalFilterTypes.DangerPattern, observation.dangerPatterns, true) ||
       this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate), true)
     );
@@ -305,29 +307,17 @@ export class ObservationFilterService {
     );
 
     observations.forEach((observation) => {
-      if (observation.snowLine) {
-        dataRaw[Enums.ImportantObservation.SnowLine].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.SnowLine].available++;
-      }
-      if (observation.surfaceHoar) {
-        dataRaw[Enums.ImportantObservation.SurfaceHoar].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.SurfaceHoar].available++;
-      }
-      if (observation.graupel) {
-        dataRaw[Enums.ImportantObservation.Graupel].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.Graupel].available++;
-      }
-      if (observation.stabilityTest) {
-        dataRaw[Enums.ImportantObservation.StabilityTest].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.StabilityTest].available++;
-      }
-      if (observation.iceFormation) {
-        dataRaw[Enums.ImportantObservation.IceFormation].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.IceFormation].available++;
-      }
-      if (observation.veryLightNewSnow) {
-        dataRaw[Enums.ImportantObservation.VeryLightNewSnow].all++;
-        if (observation.filterType === ObservationFilterType.Local) dataRaw[Enums.ImportantObservation.VeryLightNewSnow].available++;
+      if (Array.isArray(observation.importantObservations)) {
+        observation.importantObservations.forEach((importantObservation) => {
+          if (!importantObservation) return;
+          if (!dataRaw[importantObservation]) {
+            console.warn("Unsupported important observation:", importantObservation);
+            return;
+          }
+          dataRaw[importantObservation].all++;
+
+          if (observation.filterType === ObservationFilterType.Local) dataRaw[importantObservation].available++;
+        });
       }
     });
     const dataset = [["category", "max", "all", "highlighted", "available", "selected"]];
@@ -534,14 +524,14 @@ export class ObservationFilterService {
       return (
         (this.filterSelection[filter][testField].includes("nan") && !testData) ||
         !this.filterSelection[filter][testField].length ||
-        (Array.isArray(testData) && testData.some((d) => this.filterSelection[filter][testField].includes(d))) ||
+        (Array.isArray(testData) && testData.some((d) => d && this.filterSelection[filter][testField].includes(d))) ||
         (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
       );
     } else {
       testField = "highlighted";
       return (
         (this.filterSelection[filter][testField].includes("nan") && !testData) ||
-        (Array.isArray(testData) && testData.some((d) => this.filterSelection[filter][testField].includes(d))) ||
+        (Array.isArray(testData) && testData.some((d) => d && this.filterSelection[filter][testField].includes(d))) ||
         (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
       );
     }
