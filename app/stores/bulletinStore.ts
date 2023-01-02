@@ -35,7 +35,7 @@ export const microRegionsElevation: MicroRegionElevationProperties[] = [
 import eawsRegions from "eaws-regions/public/outline.json";
 import { regionsRegex } from "../util/regions.js";
 
-type Status = "pending" | "ok" | "empty" | "n/a";
+export type Status = "pending" | "ok" | "empty" | "n/a";
 
 export type RegionState =
   | "selected"
@@ -248,13 +248,13 @@ class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
-  async load(date: string, activate = true) {
+  async load(date: string, activate = true): Promise<BulletinCollection> {
     if (typeof date !== "string") return;
     if (this.bulletins[date]) {
       if (activate) {
         this.activate(date);
       }
-      return;
+      return this.bulletins[date];
     }
     // create empty bulletin entry
     this.bulletins[date] = new BulletinCollection(date);
@@ -270,13 +270,14 @@ class BulletinStore {
       console.error("Cannot load bulletin for date " + date, error);
       this.bulletins[date].setData(null);
       this.settings.status = "n/a";
-      return;
+      return this.bulletins[date];
     }
 
     if (activate && this.settings.date == date) {
       // reactivate to notify status change
       this.activate(date);
     }
+    return this.bulletins[date];
   }
 
   /**

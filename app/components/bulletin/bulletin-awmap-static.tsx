@@ -3,8 +3,8 @@ import React, { type ReactEventHandler } from "react";
 import { Bulletin } from "../../stores/bulletin";
 
 type Props = {
-  ampm: "am" | "pm";
-  bulletin: Bulletin;
+  ampm?: "am" | "pm";
+  bulletin?: Bulletin;
   date: string;
   region: string;
   onError?: ReactEventHandler<HTMLImageElement>;
@@ -36,7 +36,7 @@ function BulletinAWMapStatic({
     publication: publicationDirectory,
     file: file,
     format: imgFormat
-  });
+  }).replaceAll("//", "/");
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");
   return <img src={url} alt={regions} title={regions} onError={onError} />;
 }

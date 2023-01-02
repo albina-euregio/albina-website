@@ -2,7 +2,13 @@ import React from "react";
 import { APP_STORE } from "../../appStore";
 import Selectric from "../selectric";
 
-export default function LanguageFilter(props) {
+type Props = {
+  all: JSX.Element;
+  title: JSX.Element;
+  handleChange(str: string): unknown;
+};
+
+export default function LanguageFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}

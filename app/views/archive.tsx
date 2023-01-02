@@ -3,15 +3,19 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
-import { BulletinStore, Status } from "../stores/bulletinStore";
-import ArchiveItem from "../components/archive/archive-item.jsx";
+import { BulletinStore, BULLETIN_STORE } from "../stores/bulletinStore";
+import ArchiveItem, {
+  type BulletinStatus,
+  type RegionBulletinStatus,
+  type LegacyBulletinStatus
+} from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
 import FilterBar from "../components/organisms/filter-bar.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
+import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
-import { RegionCodes } from "../util/regions.js";
 import { APP_STORE } from "../appStore.js";
 
 function Archive() {
@@ -25,9 +29,10 @@ function Archive() {
     +searchParams.get("year") || new Date().getFullYear()
   );
   const [bulletinStatus, setBulletinStatus] = useState(
-    {} as Record<number, Status | Record<RegionCodes, string | undefined>>
+    {} as Record<number, BulletinStatus>
   );
   const [dates, setDates] = useState([] as Date[]);
+  const [region, setRegion] = useState("");
 
   useEffect(() => {
     const dates = [];
@@ -39,35 +44,17 @@ function Archive() {
     ) {
       dates.push(date);
       const dateString = dateToISODateString(date);
-      if (dateString >= "2018-12-01") {
-        BulletinStore.getBulletinStatus(dateToISODateString(date)).then(
-          status => setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+      if (dateString >= "2018-12-01" && region) {
+        getRegionBulletinStatus(dateString, region).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+        );
+      } else if (dateString >= "2018-12-01") {
+        BulletinStore.getBulletinStatus(dateString).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       } else {
-        Promise.all([
-          fetch(
-            `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
-            { method: "head" }
-          ),
-          fetch(
-            `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
-              APP_STORE.language === "it" ? "it" : "de"
-            }.pdf`,
-            { method: "head" }
-          ),
-          fetch(
-            `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`,
-            { method: "head" }
-          )
-        ]).then(([at07, it32bz, it32tn]) =>
-          setBulletinStatus(s => ({
-            ...s,
-            [date.getTime()]: {
-              "AT-07": at07.ok ? at07.url : undefined,
-              "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
-              "IT-32-TN": it32tn.ok ? it32tn.url : undefined
-            }
-          }))
+        getArchiveBulletinStatus(dateString).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       }
     }
@@ -85,7 +72,7 @@ function Archive() {
           },
       { replace: true }
     );
-  }, [month, year, setDates, setSearchParams, buttongroup]);
+  }, [month, year, setDates, setSearchParams, buttongroup, region]);
 
   return (
     <>
@@ -121,6 +108,14 @@ function Archive() {
             year={year}
           />
         )}
+        <ProvinceFilter
+          all={intl.formatMessage({ id: "filter:all" })}
+          handleChange={setRegion}
+          regionCodes={BULLETIN_STORE.microRegionIds}
+          title={intl.formatMessage({
+            id: "measurements:table:header:microRegion"
+          })}
+        />
       </FilterBar>
       <section className="section-padding-height">
         <section className="section-centered">
@@ -138,11 +133,7 @@ function Archive() {
                       id: "archive:table-header:download"
                     })}
                   </th>
-                  <th>
-                    {intl.formatMessage({
-                      id: "archive:table-header:map"
-                    })}
-                  </th>
+                  <th colSpan={99}></th>
                 </tr>
               </thead>
               <tbody>
@@ -219,3 +210,44 @@ function Archive() {
 }
 
 export default observer(Archive);
+
+async function getRegionBulletinStatus(
+  dateString: string,
+  region: string
+): Promise<RegionBulletinStatus> {
+  const collection = await BULLETIN_STORE.load(dateString, false);
+  return {
+    $type: "RegionBulletinStatus",
+    status: collection.status,
+    bulletin: collection.getBulletinForBulletinOrRegion(region)
+  };
+}
+
+async function getArchiveBulletinStatus(
+  dateString: string
+): Promise<LegacyBulletinStatus> {
+  const [at07, it32bz, it32tn] = await Promise.all([
+    fetch(
+      `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`,
+      { method: "head" }
+    ),
+    fetch(
+      `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
+        APP_STORE.language === "it" ? "it" : "de"
+      }.pdf`,
+      { method: "head" }
+    ),
+    fetch(
+      `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`,
+      { method: "head" }
+    )
+  ]);
+  return {
+    $type: "LegacyBulletinStatus",
+    status: {
+      "AT-07": at07.ok ? at07.url : undefined,
+      "IT-32-BZ": it32bz.ok ? it32bz.url : undefined,
+      "IT-32-TN": it32tn.ok ? it32tn.url : undefined
+    }
+  };
+}

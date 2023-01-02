@@ -6,12 +6,29 @@ import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { APP_STORE } from "../../appStore";
-import { Status } from "../../stores/bulletinStore";
+import { type Bulletin } from "../../stores/bulletin";
+import { type Status } from "../../stores/bulletinStore";
 import { RegionCodes } from "../../util/regions";
+import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
+import ProblemIconLink from "../icons/problem-icon-link.js";
+
+export type RegionBulletinStatus = {
+  $type: "RegionBulletinStatus";
+  status: Status;
+  bulletin: Bulletin;
+};
+export type LegacyBulletinStatus = {
+  $type: "LegacyBulletinStatus";
+  status: Record<RegionCodes, string | undefined>;
+};
+export type BulletinStatus =
+  | Status
+  | RegionBulletinStatus
+  | LegacyBulletinStatus;
 
 type Props = {
   date: Date;
-  status: Status | Record<RegionCodes, string | undefined>;
+  status: BulletinStatus;
 };
 function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
@@ -53,7 +70,7 @@ function ArchiveItem({ date, status }: Props) {
   const dateString = dateToISODateString(date);
   const lang = getLanguage(dateString);
 
-  if (typeof status === "object") {
+  if (typeof status === "object" && status.$type === "LegacyBulletinStatus") {
     return (
       <tr>
         <td>
@@ -61,7 +78,7 @@ function ArchiveItem({ date, status }: Props) {
         </td>
         <td colSpan={2}>
           <ul className="list-inline list-download">
-            {Object.entries(status).map(
+            {Object.entries(status.status).map(
               ([region, url]) =>
                 url && (
                   <li key={url}>
@@ -83,6 +100,11 @@ function ArchiveItem({ date, status }: Props) {
     );
   }
 
+  const bulletin =
+    typeof status === "object" && status.$type === "RegionBulletinStatus"
+      ? status.bulletin
+      : undefined;
+
   return (
     <tr>
       <td>
@@ -90,75 +112,93 @@ function ArchiveItem({ date, status }: Props) {
       </td>
       <td>
         <ul className="list-inline list-download">
-          <li>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "archive:download-pdf:hover"
-              })}
-            >
-              <a
-                href={Util.template(config.apis.bulletin.pdf, {
-                  date: dateString,
-                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                  lang,
-                  bw: ""
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="small secondary pure-button tooltip"
-              >
-                <FormattedMessage id="archive:download-pdf" />
-              </a>
-            </Tooltip>
-          </li>
-          <li>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "archive:download-xml:hover"
-              })}
-            >
-              <a
-                href={Util.template(config.apis.bulletin.xml, {
-                  date: dateString,
-                  region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-                  lang
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="small secondary pure-button tooltip"
-              >
-                <FormattedMessage id="archive:download-xml" />
-              </a>
-            </Tooltip>
-          </li>
+          <li>{pdfDownloadLink()}</li>
+          <li>{xmlDownloadLink()}</li>
         </ul>
       </td>
-      <td>
-        {showMap(dateString) && (
-          <Tooltip
-            label={intl.formatMessage({
-              id: "archive:show-forecast:hover"
-            })}
-          >
-            <Link
-              to={"/bulletin/" + dateString}
-              className={"map-preview img tooltip"}
-            >
-              <ArchiveAwmapStatic
-                date={dateString}
-                imgFormat=".jpg"
-                region={
-                  dateString < "2022-05-06"
-                    ? "fd_albina_thumbnail"
-                    : "fd_EUREGIO_thumbnail"
-                }
-              />
-            </Link>
-          </Tooltip>
-        )}
-      </td>
+      <td>{bulletinMap()}</td>
+      {bulletin?.dangerRatings && (
+        <td>
+          <div className="bulletin-report-picto">
+            <BulletinDangerRating dangerRatings={bulletin.dangerRatings} />
+          </div>
+        </td>
+      )}
+      {bulletin?.avalancheProblems?.length > 0 && (
+        <td>
+          <div className="bulletin-report-picto">
+            {bulletin.avalancheProblems.map((problem, index) => (
+              <span key={index + problem.problemType}>
+                <ProblemIconLink problem={problem} wrapper={false} />
+              </span>
+            ))}
+          </div>
+        </td>
+      )}
     </tr>
   );
+
+  function pdfDownloadLink() {
+    return (
+      <a
+        href={Util.template(config.apis.bulletin.pdf, {
+          date: dateString,
+          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+          lang,
+          bw: ""
+        })}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="small secondary pure-button tooltip"
+      >
+        <FormattedMessage id="archive:download-pdf" />
+      </a>
+    );
+  }
+
+  function xmlDownloadLink() {
+    return (
+      <a
+        href={Util.template(config.apis.bulletin.xml, {
+          date: dateString,
+          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+          lang
+        })}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="small secondary pure-button tooltip"
+      >
+        <FormattedMessage id="archive:download-xml" />
+      </a>
+    );
+  }
+
+  function bulletinMap(): React.ReactNode {
+    if (!showMap(dateString)) return;
+    const region = bulletin
+      ? bulletin.bulletinID
+      : dateString < "2022-05-06"
+      ? "fd_albina_thumbnail"
+      : "fd_EUREGIO_thumbnail";
+    return (
+      <Tooltip
+        label={intl.formatMessage({
+          id: "archive:show-forecast:hover"
+        })}
+      >
+        <Link
+          to={"/bulletin/" + dateString}
+          className={"map-preview img tooltip"}
+        >
+          <ArchiveAwmapStatic
+            date={dateString}
+            imgFormat=".jpg"
+            region={region}
+          />
+        </Link>
+      </Tooltip>
+    );
+  }
 }
 
 export default ArchiveItem;
