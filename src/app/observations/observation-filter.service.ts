@@ -119,23 +119,29 @@ export class ObservationFilterService {
   public isSelected(observation: GenericObservation) {
     return (
       this.inMapBounds(observation) &&
+      this.inRegions(observation.region) &&
       this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation)) &&
       this.isIncluded(LocalFilterTypes.Aspect, observation.aspect) &&
+      this.isIncluded(LocalFilterTypes.AvalancheProblem, observation.avalancheProblems) &&
       this.isIncluded(LocalFilterTypes.Stability, observation.stability) &&
       this.isIncluded(LocalFilterTypes.ObservationType, observation.$type) &&
-      this.inRegions(observation.region) &&
+      this.isIncluded(LocalFilterTypes.DangerPattern, observation.dangerPatterns) &&
       this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate))
     );
   }
 
   public isHighlighted(observation: GenericObservation) {
+    if (!this.inMapBounds(observation)) {
+      return false;
+    }
     return (
-      this.inMapBounds(observation) &&
-      (this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
-        this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
-        this.isIncluded(LocalFilterTypes.Stability, observation.stability, true) ||
-        this.isIncluded(LocalFilterTypes.ObservationType, observation.$type, true) ||
-        this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate), true))
+      this.isIncluded(LocalFilterTypes.Elevation, this.getElevationIndex(observation.elevation), true) ||
+      this.isIncluded(LocalFilterTypes.Aspect, observation.aspect, true) ||
+      this.isIncluded(LocalFilterTypes.AvalancheProblem, observation.avalancheProblems, true) ||
+      this.isIncluded(LocalFilterTypes.Stability, observation.stability, true) ||
+      this.isIncluded(LocalFilterTypes.ObservationType, observation.$type, true) ||
+      this.isIncluded(LocalFilterTypes.DangerPattern, observation.dangerPatterns, true) ||
+      this.isIncluded(LocalFilterTypes.Days, this._normedDateString(observation.eventDate), true)
     );
   }
 
@@ -521,19 +527,21 @@ export class ObservationFilterService {
     return !this.observationSources.length || (typeof $source === "string" && this.observationSources.includes($source));
   }
 
-  isIncluded(filter: LocalFilterTypes, testData: any, testHighlighted: boolean = false): boolean {
+  isIncluded(filter: LocalFilterTypes, testData: string | string[], testHighlighted: boolean = false): boolean {
     let testField = "selected";
 
     if (!testHighlighted) {
       return (
         (this.filterSelection[filter][testField].includes("nan") && !testData) ||
         !this.filterSelection[filter][testField].length ||
+        (Array.isArray(testData) && testData.some((d) => this.filterSelection[filter][testField].includes(d))) ||
         (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
       );
     } else {
       testField = "highlighted";
       return (
         (this.filterSelection[filter][testField].includes("nan") && !testData) ||
+        (Array.isArray(testData) && testData.some((d) => this.filterSelection[filter][testField].includes(d))) ||
         (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
       );
     }

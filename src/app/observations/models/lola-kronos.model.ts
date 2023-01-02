@@ -3,6 +3,7 @@ import * as Enums from "app/enums/enums";
 import {
   Aspect,
   AvalancheProblem,
+  DangerPattern as GenericDangerPattern,
   GenericObservation,
   imageCountString,
   ObservationSource,
@@ -378,7 +379,7 @@ export function convertLoLaToGeneric(
       (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ?? (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
     longitude: ((obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ?? (obs as LolaSnowProfile | LolaEvaluation).position)?.lng,
     avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
-    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
+    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp) => getDangerPattern(dp)) || [],
     region: obs.regionName,
     snowLine: (obs as LolaSimpleObservation).snowLine,
     surfaceHoar: (obs as LolaSimpleObservation).snowSurface.includes("surfaceHoar"),
@@ -386,8 +387,6 @@ export function convertLoLaToGeneric(
     graupel: (obs as LolaSimpleObservation).snowSurface.includes("graupel"),
     iceFormation: (obs as LolaSimpleObservation).snowSurface.includes("iceFormation"),
     stabilityTest: (obs as LolaSimpleObservation).stabilityTests?.length > 0
-    // avalancheProblem: freshSnowProblem.active, glidingSnowProblem.active, wetSnowProblem.active, windDriftedSnowProblem.active, persistentWeakLayersProblem.active
-    // dangerPatterns: dangerPatterns[GM1, ...]
   };
 }
 
@@ -399,4 +398,30 @@ function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
   if (data.wetSnowProblem?.result > 0) problems.push(AvalancheProblem.wet_snow);
   if (data.windDriftetSnowProblem?.result > 0) problems.push(AvalancheProblem.wind_slab);
   return problems;
+}
+
+function getDangerPattern(data: DangerPattern): GenericDangerPattern {
+  console.log(data)
+  switch (data) {
+    case DangerPattern.Gm1:
+      return GenericDangerPattern.dp1;
+    case DangerPattern.Gm2:
+      return GenericDangerPattern.dp2;
+    case DangerPattern.Gm3:
+      return GenericDangerPattern.dp3;
+    case DangerPattern.Gm4:
+      return GenericDangerPattern.dp4;
+    case DangerPattern.Gm5:
+      return GenericDangerPattern.dp5;
+    case DangerPattern.Gm6:
+      return GenericDangerPattern.dp6;
+    case DangerPattern.Gm7:
+      return GenericDangerPattern.dp7;
+    case DangerPattern.Gm8:
+      return GenericDangerPattern.dp8;
+    case DangerPattern.Gm9:
+      return GenericDangerPattern.dp9;
+    case DangerPattern.Gm10:
+      return GenericDangerPattern.dp10;
+  }
 }
