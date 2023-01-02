@@ -15,8 +15,11 @@
   "sidebar" : {
     "bulletins" : "Valanghe.report",
     "observations" : "Osservazioni",
+    "qfa": "QFA",
+    "modelling": "Modelling",
     "modellingZamg": "Multi modelli dello ZAMG ",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
+    "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
     "modellingSnowpack": "Modello SNOWPACK",
     "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK"
   },
@@ -444,8 +447,8 @@
         "sendTelegramMessages" : "Invia messaggi via Telegram",
         "sendPushNotifications" : "Invia notifiche push",
         "enableMediaFile" : "Attiva file media",
-        "enableAvalancheProblemCornices" : "Enable avalanche problem CORNICES",
-        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Enable avalanche problem NO DISTINCT AVALANCHE PROBLEM",
+        "enableAvalancheProblemCornices" : "Attivare problema tipico valanghivo CORNICI",
+        "enableAvalancheProblemNoDistinctAvalancheProblem" : "Attivare problema tipico valanghivo NESSUN PROBLEMA VALANGHIVO EVIDENTE",
         "pdfColor" : "PDF in colore",
         "emailColor" : "Email in colore",
         "pdfMapYAmPm" : "Y per mappa PDF (am/pm)",
@@ -535,7 +538,7 @@
         "create" : "Crea utente",
         "update" : "Aggiornare utente",
         "cancel" : "Cancellare"
-      }  
+      }
     },
     "statistics" : {
       "title" : "Statistiche",
@@ -559,11 +562,35 @@
       },
       "selectRegion": {
         "placeholder": "Regione",
-        "selectionLabel": "{0} regions selected"
+        "selectionLabel": "{0} regioni selezionati"
       },
       "selectSources": {
-        "placeholder": "Sources",
-        "selectionLabel": "{0} sources selected"
+        "placeholder": "origine dati",
+        "selectionLabel": "{0} origini dati selezionati"
+      },
+      "charts": {
+        "nan": "Ohne Angabe",
+        "invert": "Invert",
+        "reset": "Reset",
+        "aspect": {
+          "caption": "Aspekt"
+        },
+        "elevation": {
+          "caption": "Seehöhe"
+        },
+        "stability": {
+          "caption": "Stabilität"
+        },
+        "avalancheProblem": {
+          "caption": "Lawinenproblem"
+        },
+        "dangerPattern": {
+          "caption": "Gefahrenmuster"
+        }
+        ,
+        "days": {
+          "caption": "Tag"
+        }
       }
     },
     "blog" : {
@@ -813,5 +840,10 @@
     "cm" : "cm",
     "mm" : "mm",
     "m" : "m"
+  },
+  "qfa": {
+    "day": "Giorno",
+    "time": "Time",
+    "back":" Indietro"
   }
 }

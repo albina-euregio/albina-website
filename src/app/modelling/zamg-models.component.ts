@@ -15,7 +15,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedModelPoint: ZamgModelPoint;
   showMap: boolean;
   showTable: boolean;
-  ecmwf: boolean;
+  zamgType: "" | "eps_ecmwf" | "eps_claef";
 
   @ViewChild("select") select: ElementRef<HTMLSelectElement>;
   @ViewChild("zamgModelsMap") mapDiv: ElementRef<HTMLDivElement>;
@@ -31,14 +31,12 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.showMap = true;
     this.showTable = false;
-    this.route.data.subscribe(({ ecmwf }) => {
-      this.ecmwf = ecmwf;
-      this.modellingService
-        .getZamgModelPoints({ ecmwf })
-        .subscribe(zamgModelPoints => {
-          this.modelPoints = zamgModelPoints;
-          this.initMaps();
-        });
+    this.route.data.subscribe(({ zamgType }) => {
+      this.zamgType = zamgType;
+      this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
+        this.modelPoints = zamgModelPoints;
+        this.initMaps();
+      });
     });
   }
 
@@ -54,7 +52,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSelectedModelPointKeydown(event: KeyboardEvent) {
-    if (!this.ecmwf) {
+    if (this.zamgType !== "eps_ecmwf" && this.zamgType !== "eps_claef") {
       return;
     }
     const lengthPoints = this.modelPoints.length;
@@ -124,7 +122,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
       const modelPoint = this.modelPoints[i];
       new CircleMarker(new LatLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
       .on({ click: () => this.selectModelPoint(modelPoint)})
-      .addTo(this.mapService.layers.zamgModelPoints);
+        .addTo(this.mapService.layers.zamgModelPoints);
     }
   }
 }

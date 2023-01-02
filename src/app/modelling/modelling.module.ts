@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ModellingRoutingModule } from "./modelling-routing.module";
+import { IndexComponent } from './index.component';
 import { ZamgModelsComponent } from "./zamg-models.component";
 import { SnowpackComponent } from "./snowpack.component";
 import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
@@ -11,6 +12,6 @@ import { FormsModule } from "@angular/forms";
 @NgModule({
   imports: [CommonModule, FormsModule, ModellingRoutingModule, TranslateModule],
   providers: [ModellingService],
-  declarations: [ZamgModelsComponent, SnowpackComponent, SnowpackMeteoComponent]
+  declarations: [IndexComponent, ZamgModelsComponent, SnowpackComponent, SnowpackMeteoComponent]
 })
 export class ModellingModule {}

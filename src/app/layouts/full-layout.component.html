@@ -14,20 +14,8 @@
     <li *ngIf="settingsService.getShowObservations() && authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
     </li>
-    <li *ngIf="authenticationService.isEuregio() && authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/qfa']">{{ "sidebar.qfa" | translate }}</a>
-    </li>
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
-    </li>
-    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg_eps_ecmwf']">{{ "sidebar.modellingZamgECMWF" | translate }}</a>
-    </li>
-    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']">{{ "sidebar.modellingSnowpack" | translate }}</a>
-    </li>
-    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling']">{{ "sidebar.modelling" | translate }}</a>
     </li>
   </ul>
 
@@ -101,19 +89,7 @@
           <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/observations']"><i class="fa fa-eye"></i> {{ "sidebar.observations" | translate }}</a>
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/qfa']"><i class="fa fa-line-chart"></i> {{ "sidebar.qfa" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/zamg']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/zamg_eps_ecmwf']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamgECMWF" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/snowpack']"><i class="fa fa-area-chart"></i> {{ "sidebar.modellingSnowpack" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']"><i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
+          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling']"><i class="fa fa-area-chart"></i> {{ "sidebar.modelling" | translate }}</a>
         </li>
       </ul>
     </nav>

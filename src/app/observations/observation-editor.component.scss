@@ -1,0 +1,9 @@
+.time, .date {
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.time:focus, .date:focus {
+  outline:none;
+}
