@@ -10,6 +10,7 @@ import { DATE_TIME_FORMAT } from "../../util/date";
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
     super(props);
+    this.myRef = React.createRef();
     this.timeRanges = {
       day: "tag",
       threedays: "dreitage",
@@ -17,7 +18,6 @@ class WeatherStationDiagrams extends React.Component {
       month: "monat",
       winter: "winter"
     };
-    this.imageWidths = ["800", "1100"];
     this.state = { timeRange: "threedays", selectedYear: null };
     this.keyFunction = this.keyFunction.bind(this);
 
@@ -249,7 +249,7 @@ class WeatherStationDiagrams extends React.Component {
         tolerance={100}
       >
         <div className="modal-container">
-          <div className="modal-weatherstation">
+          <div className="modal-weatherstation" ref={this.myRef}>
             <div className="modal-header">
               {isStation && (
                 <p className="caption">
@@ -343,21 +343,24 @@ class WeatherStationDiagrams extends React.Component {
     const template = isStation
       ? window.config.apis.weather.plots
       : window.config.apis.weather.observers;
-    const src = this.imageWidths.map(width =>
-      Util.template(template, {
-        width,
-        interval: this.timeRanges[this.state.timeRange],
-        name: stationData.plot,
-        year: this.state.selectedYear ? "_" + this.state.selectedYear : "",
-        t: this.cacheHash
-      })
-    );
+    /**
+     * @type {HTMLDivElement}
+     */
+    const div = this.myRef?.current;
+    const clientWidth = div?.clientWidth ?? 1;
+    const width = clientWidth >= 1100 ? 1100 : 800;
+    const src = Util.template(template, {
+      width,
+      interval: this.timeRanges[this.state.timeRange],
+      name: stationData.plot,
+      year: this.state.selectedYear ? "_" + this.state.selectedYear : "",
+      t: this.cacheHash
+    });
     return (
       <img
         alt={stationData.name}
         title={stationData.name}
-        src={src[0]}
-        srcSet={`${src[0]} 300w, ${src[1]} 800w`}
+        src={src}
         className="weatherstation-img"
       />
     );
