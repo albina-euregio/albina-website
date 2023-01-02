@@ -1,13 +1,5 @@
-import {
-  convertLoLaToGeneric,
-  LolaSnowProfile as SnowProfile,
-} from "./lola-kronos.model";
-import {
-  GenericObservation,
-  ObservationSource,
-  ObservationType,
-  Stability,
-} from "./generic-observation.model";
+import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kronos.model";
+import { GenericObservation, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
 import * as Enums from "app/enums/enums";
 
 export interface LoLaSafetyApi {
@@ -107,24 +99,15 @@ export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
   return [
     ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
     ...lola.snowProfiles.map((obs) =>
-      convertLoLaToGeneric(
-        obs,
-        ObservationSource.LoLaSafety,
-        ObservationType.Profile,
-        "https://www.lola-safety.info/snowProfile/"
-      )
-    ),
+      convertLoLaToGeneric(obs, ObservationSource.LoLaSafety, ObservationType.Profile, "https://www.lola-safety.info/snowProfile/")
+    )
   ];
 }
 
-function convertAvalancheReport(
-  report: AvalancheReport
-): GenericObservation<AvalancheReport> {
+function convertAvalancheReport(report: AvalancheReport): GenericObservation<AvalancheReport> {
   return {
     $data: report,
-    $externalURL:
-      "https://www.lola-safety.info/api/file/avalancheReport/" +
-      (report.detailedPdf ?? report.publicPdf),
+    $externalURL: "https://www.lola-safety.info/api/file/avalancheReport/" + (report.detailedPdf ?? report.publicPdf),
     $source: ObservationSource.LoLaSafety,
     $type: ObservationType.Evaluation,
     stability: getAvalancheReportStability(report),
@@ -137,7 +120,7 @@ function convertAvalancheReport(
     latitude: report.latitude,
     locationName: report.regionName + " " + report.avalancheName,
     longitude: report.longitude,
-    region: undefined,
+    region: undefined
   };
 }
 

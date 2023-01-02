@@ -3,7 +3,7 @@ import { dataTool } from "echarts";
 
 @Component({
   selector: "app-base-chart",
-  template: `<div class="zippy">Base Chart Template</div>`,
+  template: `<div class="zippy">Base Chart Template</div>`
 })
 export class BaseComponent {
   longClickDur = 200;

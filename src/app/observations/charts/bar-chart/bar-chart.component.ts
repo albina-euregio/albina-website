@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  SimpleChanges,
-  OnChanges,
-  OnInit,
-  EventEmitter,
-  Output,
-} from "@angular/core";
+import { Component, Input, SimpleChanges, OnChanges, OnInit, EventEmitter, Output } from "@angular/core";
 import { BaseComponent } from "../base/base-chart.component";
 import { TranslateService } from "@ngx-translate/core";
 import { formatDate } from "@angular/common";
@@ -19,15 +11,15 @@ const defaultDataBarOptions = {
   },
   barGap: "-100%",
   emphasis: {
-    focus: "series",
+    focus: "series"
     //blurScope: 'coordinateSystem'
-  },
+  }
 };
 
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html",
-  styleUrls: ["./bar-chart.component.scss"],
+  styleUrls: ["./bar-chart.component.scss"]
 })
 export class BarChartComponent extends BaseComponent {
   private pressTimer;
@@ -39,9 +31,7 @@ export class BarChartComponent extends BaseComponent {
       const locale = "en-US";
       return formatDate(params.value[0], format, locale);
     }
-    return this.translationBase
-      ? this.translateService.instant(this.translationBase + params.value[0])
-      : params.value[0];
+    return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]) : params.value[0];
   };
 
   public readonly defaultOptions = {
@@ -53,8 +43,8 @@ export class BarChartComponent extends BaseComponent {
         top: "5px",
         left: 0,
         right: 0,
-        bottom: 0,
-      },
+        bottom: 0
+      }
     ],
     tooltip: {
       // position: ['50%', '5'],
@@ -64,8 +54,8 @@ export class BarChartComponent extends BaseComponent {
       borderWidth: "0",
       textStyle: {
         color: "#839194",
-        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-      },
+        fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif"
+      }
     },
     yAxis: {
       inverse: true,
@@ -75,28 +65,28 @@ export class BarChartComponent extends BaseComponent {
       scale: true,
       type: "category",
       axisLabel: {
-        show: false,
+        show: false
       },
       splitLine: {
-        show: false,
+        show: false
       },
       axisLine: {
-        show: false,
+        show: false
       },
       axisTick: {
-        show: false,
-      },
+        show: false
+      }
     },
     xAxis: {
       axisLabel: {
-        show: false,
+        show: false
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
-        show: false,
-      },
+        show: false
+      }
     },
     series: [
       {
@@ -105,16 +95,16 @@ export class BarChartComponent extends BaseComponent {
         animation: false,
         barGap: "-100%",
         tooltip: {
-          show: false,
+          show: false
         },
         showBackground: true,
         itemStyle: {
           color: "#F6F6F6",
-          borderWidth: 0,
+          borderWidth: 0
         },
         emphasis: {
-          disabled: true,
-        },
+          disabled: true
+        }
       },
       {
         ...defaultDataBarOptions,
@@ -126,14 +116,14 @@ export class BarChartComponent extends BaseComponent {
           color: "#839194",
           position: [0, -14],
           formatter: this.formatLabel,
-          show: true,
+          show: true
         },
         itemStyle: {
-          color: "#B1C1C7",
+          color: "#B1C1C7"
         },
         emphasis: {
-          disabled: true,
-        },
+          disabled: true
+        }
       },
       {
         ...defaultDataBarOptions,
@@ -145,32 +135,32 @@ export class BarChartComponent extends BaseComponent {
           //yellow
           shadowColor: "#FF0000",
           shadowBlur: 0,
-          shadowOffsetY: barWidth,
+          shadowOffsetY: barWidth
         },
         emphasis: {
-          disabled: true,
-        },
+          disabled: true
+        }
       },
       {
         ...defaultDataBarOptions,
         itemStyle: {
-          color: "#000000",
+          color: "#000000"
         },
         emphasis: {
-          disabled: true,
-        },
+          disabled: true
+        }
       },
       {
         ...defaultDataBarOptions,
         itemStyle: {
           //blue
-          color: "#19ABFF",
+          color: "#19ABFF"
         },
         emphasis: {
-          disabled: true,
-        },
-      },
-    ],
+          disabled: true
+        }
+      }
+    ]
   };
   public options = Object.assign(this.defaultOptions);
 
@@ -202,10 +192,7 @@ export class BarChartComponent extends BaseComponent {
     console.log("RosehartComponent->onMouseUp", event, this);
     if (this.pressTimer) {
       this.resetTimeout();
-      this.submitChange([
-        this.type,
-        { value: event.data[0], altKey: event.event.event.altKey },
-      ]);
+      this.submitChange([this.type, { value: event.data[0], altKey: event.event.event.altKey }]);
     }
     return false;
   }

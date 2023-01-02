@@ -1,10 +1,4 @@
-import {
-  GenericObservation,
-  Aspect,
-  ObservationSource,
-  ObservationType,
-  Stability,
-} from "./generic-observation.model";
+import { GenericObservation, Aspect, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
 import * as Enums from "app/enums/enums";
 
 export interface Observation {
@@ -31,12 +25,10 @@ export enum EventType {
   PersonNo = "PERSON_NO",
   PersonUninjured = "PERSON_UNINJURED",
   PersonUnknown = "PERSON_UNKNOWN",
-  Traffic = "TRAFFIC",
+  Traffic = "TRAFFIC"
 }
 
-export function convertObservationToGeneric(
-  observation: Observation
-): GenericObservation<Observation> {
+export function convertObservationToGeneric(observation: Observation): GenericObservation<Observation> {
   return {
     ...observation,
     $data: observation,
@@ -45,18 +37,12 @@ export function convertObservationToGeneric(
     $type: getObservationType(observation),
     stability: getObservationStability(observation),
     $markerRadius: getObservationMarkerRadius(observation),
-    eventDate: observation.eventDate
-      ? new Date(observation.eventDate)
-      : undefined,
-    reportDate: observation.reportDate
-      ? new Date(observation.reportDate)
-      : undefined,
+    eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
+    reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
 }
 
-export function isAvalancheWarningServiceObservation(
-  observation: GenericObservation
-): observation is GenericObservation<Observation> {
+export function isAvalancheWarningServiceObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
   return observation.$source === ObservationSource.AvalancheWarningService;
 }
 

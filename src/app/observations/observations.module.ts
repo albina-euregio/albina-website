@@ -60,8 +60,8 @@ import { MapService } from "../providers/map-service/map.service";
     AutoCompleteModule,
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
-      echarts: () => import("echarts"),
-    }),
+      echarts: () => import("echarts")
+    })
   ],
   declarations: [
     NgxSidebarControlComponent,
@@ -69,13 +69,8 @@ import { MapService } from "../providers/map-service/map.service";
     ObservationEditorComponent,
     ObservationTableComponent,
     BarChartComponent,
-    RoseChartComponent,
+    RoseChartComponent
   ],
-  providers: [
-    GeocodingService,
-    ObservationFilterService,
-    ObservationsService,
-    MapService,
-  ],
+  providers: [GeocodingService, ObservationFilterService, ObservationsService, MapService]
 })
 export class ObservationsModule {}

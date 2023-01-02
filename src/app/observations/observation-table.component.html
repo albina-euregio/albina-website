@@ -10,10 +10,7 @@
           [(ngModel)]="showObservationsWithoutCoordinates"
         ></p-toggleButton>
 
-        <div
-          class="global-bar-item global-bar-item-add"
-          style="float: right; padding-left: 10px"
-        >
+        <div class="global-bar-item global-bar-item-add" style="float: right; padding-left: 10px">
           <p>
             {{ "observations.count" | translate }}
             {{ shownObservations.length }}
@@ -37,17 +34,13 @@
         <i class="fa fa-calendar"></i>
         {{ "observations.eventDate" | translate }}
       </th>
-      <th>
-        <i class="fa fa-user"></i> {{ "observations.authorName" | translate }}
-      </th>
+      <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
       <th>
         <i class="fa fa-globe"></i>
         {{ "observations.locationName" | translate }}
       </th>
       <th><!-- avalancheProblems --></th>
-      <th>
-        <i class="fa fa-comment"></i> {{ "observations.content" | translate }}
-      </th>
+      <th><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</th>
     </tr>
   </thead>
   <tbody>
@@ -60,11 +53,7 @@
       <td [title]="observation.$source">
         <div [ngStyle]="getTableIconStyle(observation)">
           <!-- ObservationTypeIcons -->
-          <svg
-            *ngIf="observation.$type === 'Observation'"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
+          <svg *ngIf="observation.$type === 'Observation'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path
               d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"
               fill="currentcolor"
@@ -98,12 +87,7 @@
               d="M64.284 37.17a4.002 4.002 0 00-5.657 0L44.485 51.313l-5.657-5.657a4 4 0 10-5.657 5.658l8.484 8.483a4.002 4.002 0 005.658 0l16.97-16.97a3.998 3.998 0 00.001-5.657z"
             />
           </svg>
-          <svg
-            *ngIf="observation.$type === 'Avalanche'"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
+          <svg *ngIf="observation.$type === 'Avalanche'" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               stroke="currentcolor"
@@ -139,41 +123,21 @@
       </td>
       <td style="padding: 0">
         <span *ngFor="let problem of observation.avalancheProblems">
-          <img
-            *ngIf="problem === 'new_snow'"
-            src="./assets/img/New_snow_c.svg"
-            style="width: 40px; max-width: unset"
-          />
-          <img
-            *ngIf="problem === 'wind_slab'"
-            src="./assets/img/Drifting_snow_c.svg"
-            style="width: 40px; max-width: unset"
-          />
+          <img *ngIf="problem === 'new_snow'" src="./assets/img/New_snow_c.svg" style="width: 40px; max-width: unset" />
+          <img *ngIf="problem === 'wind_slab'" src="./assets/img/Drifting_snow_c.svg" style="width: 40px; max-width: unset" />
           <img
             *ngIf="problem === 'persistent_weak_layers'"
             src="./assets/img/Persistent_weak_layers_c.svg"
             style="width: 40px; max-width: unset"
           />
-          <img
-            *ngIf="problem === 'wet_snow'"
-            src="./assets/img/Wet_snow_c.svg"
-            style="width: 40px; max-width: unset"
-          />
-          <img
-            *ngIf="problem === 'gliding_snow'"
-            src="./assets/img/Gliding_snow_c.svg"
-            style="width: 40px; max-width: unset"
-          />
+          <img *ngIf="problem === 'wet_snow'" src="./assets/img/Wet_snow_c.svg" style="width: 40px; max-width: unset" />
+          <img *ngIf="problem === 'gliding_snow'" src="./assets/img/Gliding_snow_c.svg" style="width: 40px; max-width: unset" />
           <img
             *ngIf="problem === 'favourable_situation'"
             src="./assets/img/Favourable_situation_c.svg"
             style="width: 40px; max-width: unset"
           />
-          <img
-            *ngIf="problem === 'cornices'"
-            src="./assets/img/Cornices_c.svg"
-            style="width: 40px; max-width: unset"
-          />
+          <img *ngIf="problem === 'cornices'" src="./assets/img/Cornices_c.svg" style="width: 40px; max-width: unset" />
           <img
             *ngIf="problem === 'no_distinct_problem'"
             src="./assets/img/No_distinct_problem_c.svg"
@@ -184,17 +148,9 @@
       <td>{{ observation.content }}</td>
     </tr>
   </tbody>
-  <p-dialog
-    [(visible)]="showDialog"
-    [modal]="true"
-    [header]="observation?.locationName"
-    [style]="{ width: '80vw' }"
-  >
+  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
     <p-messages [(value)]="messages"></p-messages>
-    <app-observation-editor
-      *ngIf="observation"
-      [observation]="observation"
-    ></app-observation-editor>
+    <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
     <p-footer>
       <button
         type="button"

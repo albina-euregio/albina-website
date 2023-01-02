@@ -7,16 +7,9 @@ import { FeatureCollection, Point } from "geojson";
 
 @Injectable()
 export class GeocodingService {
-  constructor(
-    public http: HttpClient,
-    public translateService: TranslateService,
-    public constantsService: ConstantsService
-  ) {}
+  constructor(public http: HttpClient, public translateService: TranslateService, public constantsService: ConstantsService) {}
 
-  searchLocation(
-    query: string,
-    limit = 8
-  ): Observable<FeatureCollection<Point, GeocodingProperties>> {
+  searchLocation(query: string, limit = 8): Observable<FeatureCollection<Point, GeocodingProperties>> {
     // https://nominatim.org/release-docs/develop/api/Search/
     const { osmNominatimApi, osmNominatimCountries } = this.constantsService;
     const params: Record<string, string> = {
@@ -24,12 +17,9 @@ export class GeocodingService {
       countrycodes: osmNominatimCountries,
       format: "geojson",
       limit: String(limit),
-      q: query,
+      q: query
     };
-    return this.http.get<FeatureCollection<Point, GeocodingProperties>>(
-      osmNominatimApi,
-      { params }
-    );
+    return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
   }
 }
 
