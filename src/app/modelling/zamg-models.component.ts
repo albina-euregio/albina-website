@@ -112,23 +112,12 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initMaps() {
-    const map = new Map(this.mapDiv.nativeElement, {
-      zoomControl: false,
-      doubleClickZoom: true,
-      scrollWheelZoom: true,
-      touchZoom: true,
-      center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-      zoom: 8,
-      minZoom: 7,
-      maxZoom: 12,
-      zoomSnap: 0.25,
-      layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.layers.zamgModelPoints]
-    });
+    this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+    this.mapService.map.addLayer(this.mapService.layers.zamgModelPoints);
 
-    new Control.Zoom({ position: "topleft" }).addTo(map);
-    new Control.Scale().addTo(map);
+    new Control.Zoom({ position: "topleft" }).addTo(this.mapService.map);
+    new Control.Scale().addTo(this.mapService.map);
 
-    this.mapService.map = map;
     this.mapService.layers.zamgModelPoints.clearLayers();
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
