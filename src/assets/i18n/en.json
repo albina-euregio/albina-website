@@ -846,6 +846,7 @@
     "time": "Time",
     "back":" Back",
     "parameters": {
+      "DUST": "sahara dust",
       "N": "total cloud cover in /8",
       "Nh": "high cloud cover in /8",
       "Nm": "medium high cloud cover in /8",
