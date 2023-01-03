@@ -2,10 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } fr
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
-import { ZamgModelsMapService } from "../providers/map-service/zamg-models-map.service";
+import { BaseMapService } from "../providers/map-service/base-map.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 
-import { Map, CircleMarker, LatLng, Control } from "leaflet";
+import { Map, CircleMarkerOptions, CircleMarker, LatLng, Control } from "leaflet";
+import { ConstantsService } from "../providers/constants-service/constants.service";
 
 @Component({
   templateUrl: "./zamg-models.component.html"
@@ -25,7 +26,8 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
     private modellingService: ModellingService,
     public translate: TranslateService,
     private authenticationService: AuthenticationService,
-    private mapService: ZamgModelsMapService
+    private mapService: BaseMapService,
+    private constantsService: ConstantsService
   ) {}
 
   ngOnInit() {
@@ -45,9 +47,9 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.mapService.zamgModelsMap) {
-      this.mapService.zamgModelsMap.remove();
-      this.mapService.zamgModelsMap = undefined;
+    if (this.mapService.map) {
+      this.mapService.map.remove();
+      this.mapService.map = undefined;
     }
   }
 
@@ -98,6 +100,17 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mapDiv.nativeElement.style.height = "0";
   }
 
+  createZamgModelPointOptions(): CircleMarkerOptions {
+    return {
+      radius: 8,
+      fillColor: this.constantsService.colorBrand,
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
+  }
+
   private initMaps() {
     const map = new Map(this.mapDiv.nativeElement, {
       zoomControl: false,
@@ -109,18 +122,18 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
       minZoom: 7,
       maxZoom: 12,
       zoomSnap: 0.25,
-      layers: [this.mapService.zamgModelsMaps.AlbinaBaseMap, this.mapService.layers.zamgModelPoints]
+      layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.layers.zamgModelPoints]
     });
 
     new Control.Zoom({ position: "topleft" }).addTo(map);
     new Control.Scale().addTo(map);
 
-    this.mapService.zamgModelsMap = map;
+    this.mapService.map = map;
     this.mapService.layers.zamgModelPoints.clearLayers();
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
-      new CircleMarker(new LatLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
+      new CircleMarker(new LatLng(modelPoint.lat, modelPoint.lng), this.createZamgModelPointOptions())
       .on({ click: () => this.selectModelPoint(modelPoint)})
         .addTo(this.mapService.layers.zamgModelPoints);
     }

@@ -3,7 +3,7 @@ import { QfaFile } from "./models/qfa-file.model";
 import { GetFilenamesService } from "../providers/qfa-service/filenames.service";
 import { GetDustParamService } from "../providers/qfa-service/dust.service";
 import { ParamService } from "../providers/qfa-service/param.service";
-import { QfaMapService } from '../providers/map-service/qfa-map.service';
+import { BaseMapService } from '../providers/map-service/base-map.service';
 import { AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
@@ -49,7 +49,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     public filenamesService: GetFilenamesService,
     public dustParamService: GetDustParamService,
     public paramService: ParamService,
-    public mapService: QfaMapService,
+    public mapService: BaseMapService,
     private http: HttpClient,
   ) {}
 

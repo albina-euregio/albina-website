@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
-import { ObservationsMapService } from "../providers/map-service/observations-map.service";
+import { BaseMapService } from "../providers/map-service/base-map.service";
 import {
   GenericObservation,
   ObservationFilterType,
@@ -77,7 +77,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    public mapService: ObservationsMapService,
+    public mapService: BaseMapService,
   ) {
 
     this.allRegions = this.regionsService
@@ -96,7 +96,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
           label: 'Mehr',
           items: [
               // {
-              //   label: this.translateService.instant("observations.showTable"), 
+              //   label: this.translateService.instant("observations.showTable"),
               //   icon: '',
               //   command: (event) => {
               //     //console.log("showTable", this.showTable);
@@ -108,7 +108,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
                 icon: '',
                 command: (event) => {
                   this.exportObservations();
-                } 
+                }
               }
           ]
       }];
@@ -133,10 +133,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this._div.innerHTML = (props ?
         "<b>" + props.name_de + "</b>" : " ");
     };
-    info.addTo(this.mapService.observationsMap);
+    info.addTo(this.mapService.map);
 
     this.loadObservations({days: 7});
-    this.mapService.observationsMap.on("click", () => {
+    this.mapService.map.on("click", () => {
 
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
 
@@ -150,9 +150,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngOnDestroy() {
-    if (this.mapService.observationsMap) {
-      this.mapService.observationsMap.remove();
-      this.mapService.observationsMap = undefined;
+    if (this.mapService.map) {
+      this.mapService.map.remove();
+      this.mapService.map = undefined;
     }
   }
 
@@ -170,7 +170,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
         break;
       default:
     }
-    
+
 
   }
 
@@ -195,7 +195,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   closeTable(){
     this.layout = 'map';
-  } 
+  }
 
   newObservation() {
     this.layout = 'table';
@@ -211,12 +211,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.loading = true;
     this.observations.length = 0;
     // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
-    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.typeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
-        
+
         //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
-        
+
         if (this.filter.inObservationSources(observation) &&
           this.filter.inDateRange(observation)) {
 
@@ -257,7 +257,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   setDate() {
     this.filter.setDateRange();
-    this.loadObservations({}); 
+    this.loadObservations({});
   }
 
 
@@ -266,7 +266,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
-    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.typeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
       //console.log("applyLocalFilter ##3.0", observation.filterType);
@@ -284,10 +284,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.forEach(observation => {
       const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
-      
+
       //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
       if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) {
-        
+
         this.localObservations.push(observation);
         if (!ll) {
           return;
@@ -300,7 +300,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   buildChartsData() {
 
-    
+
     this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
 
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations)
@@ -312,7 +312,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations)
 
     this.chartsData.Days = this.filter.getDaysDataset(this.observations)
-      
+
     //console.log("buildChartsData", this.chartsData);
 
   }
@@ -326,7 +326,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     //   // @ts-ignore
     //   marker.observation = observation;
     // } else {
-      
+
     // }
     marker.on("click", () => this.onObservationClick(observation));
     marker.bindTooltip(observation.locationName + " " + observation.filterType, {opacity: 1, className: "obs-tooltip"});
@@ -334,7 +334,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
     //console.log("drawMarker xx05", marker);
-    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
+    marker.addTo(this.mapService.typeLayers[observation.$type]);
   }
 
   private addObservation(observation: GenericObservation): void {
@@ -358,7 +358,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.observationsWithoutCoordinates++;
       return;
     }
-    
+
     this.drawMarker(observation, ll);
   }
 
