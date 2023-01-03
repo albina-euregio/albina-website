@@ -459,7 +459,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
       default:
         return "0";
     }
-    
+
     var result = snowpackStabilityFactor * 15 + frequencyFactor * 5 + avalancheSizeFactor;
     return "" + result;
   }

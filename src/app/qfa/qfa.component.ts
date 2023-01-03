@@ -54,7 +54,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   async ngAfterViewInit() {
-    this.mapService.initMaps(this.mapDiv.nativeElement);
+    this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
 
     for(const coord of Object.values(this.markers)) {
       this.drawMarker(coord);
@@ -95,7 +95,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     marker.on("click", () => this.displayRuns(ll, true));
 
     marker.options.pane = "markerPane";
-    marker.addTo(this.mapService.qfaMap);
+    marker.addTo(this.mapService.map);
   }
 
   private async displayRuns(ll: types.coordinates, first=false) {
@@ -151,9 +151,9 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.mapService.qfaMap) {
-      this.mapService.qfaMap.remove();
-      this.mapService.qfaMap = undefined;
+    if (this.mapService.map) {
+      this.mapService.map.remove();
+      this.mapService.map = undefined;
     }
   }
 }
