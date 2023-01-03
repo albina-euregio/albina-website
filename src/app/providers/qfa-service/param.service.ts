@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class ParamService {
   parameterClasses = {};
-  parameterAbbreviations = {}
 
-  constructor() {}
+  constructor(private translateService: TranslateService) {}
 
   public setParameterClasses(parameters: string[]) {
     for(const param of parameters) {
@@ -77,5 +77,9 @@ export class ParamService {
     if (parsedVal <= 30) return `++${value}`;
     if (parsedVal <= 100) return `+++${value}`;
     return `++++${value}`;
+  }
+
+  public getFullName(abbreviation: string): string {
+    return this.translateService.instant(`qfa.parameters.${abbreviation}`);
   }
 }

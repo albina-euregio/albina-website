@@ -85,7 +85,7 @@
         </tr>
         <tr *ngFor="let param of parameters" [ngClass]="[paramService.parameterClasses[param]]">
           <td class="header">
-            <abbr title="test">{{param}}</abbr>
+            <abbr title={{paramService.getFullName(param)}}>{{param}}</abbr>
           </td>
           <td *ngFor="let day of selectedQfa.parameters[param] | keyvalue" class="table-entry" [ngClass]="[paramService.parameterClasses[param]]">
             <div *ngIf="!['W500', 'W700', 'W850'].includes(paramService.parameterClasses[param])">
