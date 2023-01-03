@@ -113,6 +113,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initMaps() {
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+
     this.mapService.map.addLayer(this.mapService.layers.zamgModelPoints);
 
     new Control.Zoom({ position: "topleft" }).addTo(this.mapService.map);

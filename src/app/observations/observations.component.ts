@@ -211,7 +211,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.loading = true;
     this.observations.length = 0;
     // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
-    Object.values(this.mapService.typeLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll()
       .forEach((observation) => {
 
@@ -266,7 +266,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
-    Object.values(this.mapService.typeLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations = this.observations.map(observation => {
       observation.filterType = ObservationFilterType.Global;
       //console.log("applyLocalFilter ##3.0", observation.filterType);
@@ -334,7 +334,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
     //console.log("drawMarker xx05", marker);
-    marker.addTo(this.mapService.typeLayers[observation.$type]);
+    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
   private addObservation(observation: GenericObservation): void {
