@@ -25,6 +25,10 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   visibleLayers: string[] = [];
   public readonly allSources: MultiselectDropdownData[] = [
     {
+      id: "default",
+      name: "default"
+    },
+    {
       id: "qfa",
       name: "QFA"
     },
@@ -136,7 +140,8 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   }
 
   onDropdownSelect(id, event) {
-    this.visibleLayers = event.values;
+    this.visibleLayers = event.value;
+    console.log(event);
     this.mapService.removeMarkerLayers();
     if(this.visibleLayers.length) {
       this.visibleLayers.forEach(layerName => {
