@@ -495,6 +495,23 @@ export class BulletinDaytimeDescriptionModel {
       json["avalancheProblem5"] = this.avalancheProblem5.toJson();
     }
 
+    // TODO delete if AINEVA does not need it anymore
+    if (this.avalancheProblem1 && this.avalancheProblem1 !== undefined) {
+      json["avalancheSituation1"] = this.avalancheProblem1.toAinevaJson();
+    }
+    if (this.avalancheProblem2 && this.avalancheProblem2 !== undefined) {
+      json["avalancheSituation2"] = this.avalancheProblem2.toAinevaJson();
+    }
+    if (this.avalancheProblem3 && this.avalancheProblem3 !== undefined) {
+      json["avalancheSituation3"] = this.avalancheProblem3.toAinevaJson();
+    }
+    if (this.avalancheProblem4 && this.avalancheProblem4 !== undefined) {
+      json["avalancheSituation4"] = this.avalancheProblem4.toAinevaJson();
+    }
+    if (this.avalancheProblem5 && this.avalancheProblem5 !== undefined) {
+      json["avalancheSituation5"] = this.avalancheProblem5.toAinevaJson();
+    }
+
     if (this.hasElevationDependency) {
       json["hasElevationDependency"] = true;
       if (this.treeline) {
