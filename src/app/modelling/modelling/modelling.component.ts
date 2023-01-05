@@ -17,6 +17,20 @@ import { LatLngLiteral } from 'leaflet';
 export class ModellingComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["", "eps_ecmwf", "eps_ecmwf"];
   modelPoints: ZamgModelPoint[];
+  qfaPoints = {
+    "bozen": {
+      lng: 11.33,
+      lat: 46.47
+    },
+    "innsbruck": {
+      lng: 11.35,
+      lat: 47.27
+    },
+    "lienz": {
+      lng: 12.80,
+      lat: 46.83
+    }
+  };
 
   @ViewChild("mapDiv") mapDiv: ElementRef<HTMLDivElement>;
 
@@ -27,6 +41,8 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit() {
+    this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+    this.mapService.addControls();
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
         this.modelPoints = zamgModelPoints;
@@ -48,8 +64,22 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
         })
       });
     })
-    this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
-    this.mapService.addControls();
+
+    for(const [cityName, coords] of Object.entries(this.qfaPoints)) {
+      const ll: LatLngLiteral = coords;
+      console.log(cityName,ll);
+      const callback = {
+        callback: this.onClickQfa,
+        parameters: cityName,
+        context: this
+      }
+      this.mapService.drawMarker(
+        ll,
+        this.qfaPointOptions,
+        "qfa",
+        callback
+      );
+    }
   }
 
   ngOnDestroy() {
@@ -70,7 +100,22 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     };
   }
 
+  get qfaPointOptions() {
+    return {
+      radius: 8,
+      fillColor: "red",
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
+  }
+
   onClickZamgModelPoint(ll: LatLngLiteral, params) {
+    console.log(params);
+  }
+
+  onClickQfa(ll: LatLngLiteral, params) {
     console.log(params);
   }
 }
