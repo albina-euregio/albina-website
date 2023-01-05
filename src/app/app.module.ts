@@ -52,6 +52,7 @@ import { GetDustParamService } from "./providers/qfa-service/dust.service";
 import { ParamService } from "./providers/qfa-service/param.service"
 import { BaseMapService } from './providers/map-service/base-map.service';
 import { ObservationMapService } from "./providers/map-service/observation-map.service";
+import { QfaService } from './providers/qfa-service/qfa.service';
 
 // Pipes
 import { PipeModule } from "./pipes/pipes.module";
@@ -212,7 +213,8 @@ registerLocaleData(localeOc, "oc");
     GetDustParamService,
     ParamService,
     BaseMapService,
-    ObservationMapService
+    ObservationMapService,
+    QfaService,
   ],
   bootstrap: [AppComponent],
   exports: [

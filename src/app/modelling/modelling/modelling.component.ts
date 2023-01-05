@@ -9,7 +9,10 @@ import {
 import { BaseMapService } from "../../providers/map-service/base-map.service";
 import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
+import { QfaService } from "app/providers/qfa-service/qfa.service";
+import { ParamService } from "app/providers/qfa-service/param.service";
 import { LatLngLiteral } from 'leaflet';
+import * as qfaTypes from "../../qfa/types/QFA";
 
 export interface MultiselectDropdownData {
   id: string;
@@ -17,7 +20,8 @@ export interface MultiselectDropdownData {
 }
 
 @Component({
-  templateUrl: "./modelling.component.html"
+  templateUrl: "./modelling.component.html",
+  styleUrls: ["../../qfa/qfa.component.scss", "../../qfa/table.scss", "../../qfa/params.scss"]
 })
 export class ModellingComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["", "eps_ecmwf"];
@@ -25,6 +29,8 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   selectedModelPoint: ZamgModelPoint;
   showMap: boolean = true;
   visibleLayers: string[] = [];
+  qfa: any;
+  showQfa: boolean = false;
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "default",
@@ -60,10 +66,15 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     public mapService: BaseMapService,
     private modellingService: ModellingService,
     private constantsService: ConstantsService,
+    private qfaService: QfaService,
+    private paramService: ParamService,
   ) {}
 
-  ngAfterViewInit() {
+  files = {}
+
+  async ngAfterViewInit() {
     this.initMaps();
+    this.files = await this.qfaService.getFiles();
   }
 
   initMaps() {
@@ -141,11 +152,16 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
 
   setShowMap() {
     this.showMap = true;
+    this.showQfa = false;
     this.selectedModelPoint = {} as ZamgModelPoint;
   }
 
-  onClickQfa(ll: LatLngLiteral, params) {
-    console.log(params);
+  async onClickQfa(ll: LatLngLiteral, params) {
+    this.qfa = await this.qfaService.getRun(this.files[params][0], 0);
+    this.paramService.setParameterClasses(this.qfa.parameters);
+    console.log(this.qfa);
+    this.showMap = false;
+    this.showQfa = true;
   }
 
   onDropdownSelect(id, event) {
