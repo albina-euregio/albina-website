@@ -96,7 +96,7 @@ import { UpdateUserComponent } from "./admin/update-user.component";
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
   handleError(error) {
-    console.error(error);
+    // console.error(error);s
   }
 }
 
