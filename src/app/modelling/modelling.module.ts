@@ -9,9 +9,16 @@ import { ModellingService } from "./modelling.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { ModellingComponent } from "./modelling/modelling.component";
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ModellingRoutingModule, TranslateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ModellingRoutingModule,
+    TranslateModule,
+    MultiSelectModule
+  ],
   providers: [ModellingService],
   declarations: [IndexComponent, ZamgModelsComponent, SnowpackComponent, SnowpackMeteoComponent, ModellingComponent]
 })

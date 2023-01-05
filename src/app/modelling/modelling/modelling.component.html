@@ -6,7 +6,17 @@
       </div>
 
       <div class="card-block">
-        <div id="mapDiv" #mapDiv style="height: 500px"></div>
+        <div class="global-bar-item global-bar-item-source">
+          <p-multiSelect
+          placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
+          [options]="allSources"
+          optionLabel="name"
+          optionValue="id"
+          [maxSelectedLabels]="0"
+          (onChange)="onDropdownSelect('sources', $event)"
+          ></p-multiSelect>
+        </div>
+        <div id="mapDiv" #mapDiv style="height: 500px; margin-top: 5px"></div>
       </div>
     </div>
   </div>

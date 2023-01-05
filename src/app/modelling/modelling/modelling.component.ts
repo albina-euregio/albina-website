@@ -11,12 +11,28 @@ import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { LatLngLiteral } from 'leaflet';
 
+export interface MultiselectDropdownData {
+  id: string;
+  name: string;
+}
+
 @Component({
   templateUrl: "./modelling.component.html"
 })
 export class ModellingComponent implements AfterViewInit, OnDestroy {
-  zamgTypes = ["", "eps_ecmwf", "eps_ecmwf"];
+  zamgTypes = ["", "eps_ecmwf"];
   modelPoints: ZamgModelPoint[];
+  visibleLayers: string[] = [];
+  public readonly allSources: MultiselectDropdownData[] = [
+    {
+      id: "qfa",
+      name: "QFA"
+    },
+    {
+      id: "eps_ecmwf",
+      name: "eps_ecmwf"
+    }
+  ]
   qfaPoints = {
     "bozen": {
       lng: 11.33,
@@ -41,6 +57,10 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit() {
+    this.initMaps();
+  }
+
+  initMaps() {
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
     this.mapService.addControls();
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
@@ -58,7 +78,7 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
           }
           this.mapService.drawMarker(
             ll,
-            this.zamgModelPointOptions,
+            this.getModelPointOptions(zamgType||"default"),
             zamgType || "default",
             callback);
         })
@@ -75,7 +95,7 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
       }
       this.mapService.drawMarker(
         ll,
-        this.qfaPointOptions,
+        this.getModelPointOptions("qfa"),
         "qfa",
         callback
       );
@@ -89,21 +109,17 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  get zamgModelPointOptions() {
-    return {
-      radius: 8,
-      fillColor: this.constantsService.colorBrand,
-      color: "black",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
-  }
+  getModelPointOptions(type) {
+    const fillColors = {
+      "default": this.constantsService.colorBrand,
+      "qfa": "red",
+      "zamg_ecmwf": "green",
+      "eps_ecmwf": "yellow"
+    }
 
-  get qfaPointOptions() {
     return {
       radius: 8,
-      fillColor: "red",
+      fillColor: fillColors[type],
       color: "black",
       weight: 1,
       opacity: 1,
@@ -117,5 +133,19 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
 
   onClickQfa(ll: LatLngLiteral, params) {
     console.log(params);
+  }
+
+  onDropdownSelect(id, event) {
+    this.visibleLayers = event.values;
+    this.mapService.removeMarkerLayers();
+    if(this.visibleLayers.length) {
+      this.visibleLayers.forEach(layerName => {
+        this.mapService.addMarkerLayer(layerName);
+      })
+    } else {
+      this.allSources.forEach(source => {
+        this.mapService.addMarkerLayer(source.id);
+      })
+    }
   }
 }

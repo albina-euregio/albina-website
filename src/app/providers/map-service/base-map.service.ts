@@ -377,6 +377,12 @@ export class BaseMapService {
     this.map.removeLayer(this.layers[name]);
   }
 
+  removeMarkerLayers() {
+    for(const layer of Object.values(this.layers)) {
+      this.map.removeLayer(layer);
+    }
+  }
+
   addMarkerLayer(name) {
     this.map.addLayer(this.layers[name]);
   }
