@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        {{ (zamgType === "eps_ecmwf" ? "sidebar.modellingZamgECMWF" : zamgType === "eps_claef" ? "sidebar.modellingZamgCLAEF" : "sidebar.modellingZamg") | translate }}
+      </div>
+
+      <div class="card-block">
+        <div id="mapDiv" #mapDiv style="height: 500px"></div>
+      </div>
+    </div>
+  </div>
+</div>
