@@ -57,7 +57,12 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
 
     for(const coord of Object.values(this.markers)) {
-      this.mapService.drawMarker(coord, this.displayRuns, {first: true}, this);
+      const callback = {
+        callback: this.displayRuns,
+        parameters: {first: true},
+        context: this
+      }
+      this.mapService.drawMarker(coord, callback);
     }
 
     const dustParams = this.dustParamService.getDustParams();
