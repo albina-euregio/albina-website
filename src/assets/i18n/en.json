@@ -17,6 +17,7 @@
     "observations" : "Observations",
     "qfa": "QFA",
     "modelling": "Modelling",
+    "modellingAll": "Test",
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingZamgCLAEF": "ZAMG CLAEF-EPS",

@@ -5,6 +5,7 @@ import { IndexComponent } from "./index.component";
 import { ZamgModelsComponent } from "./zamg-models.component";
 import { SnowpackComponent } from "./snowpack.component";
 import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
+import { ModellingComponent } from "./modelling/modelling.component";
 
 import { AuthGuard } from "../guards/auth.guard";
 
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: "",
     component: IndexComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "test",
+    component: ModellingComponent,
     canActivate: [AuthGuard]
   },
   {

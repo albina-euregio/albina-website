@@ -8,7 +8,7 @@ import { AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as types from "./types/QFA";
 
-import { Marker, Icon } from "leaflet";
+import { Marker, Icon, LatLngLiteral } from "leaflet";
 @Component({
   templateUrl: "qfa.component.html",
   styleUrls: ["qfa.component.scss", "table.scss", "params.scss"]
@@ -57,7 +57,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
 
     for(const coord of Object.values(this.markers)) {
-      this.drawMarker(coord);
+      this.mapService.drawMarker(coord, this.displayRuns, {first: true}, this);
     }
 
     const dustParams = this.dustParamService.getDustParams();
@@ -82,23 +82,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     return Object.keys(this.markers).find(key => this.markers[key] === ll);
   }
 
-  private drawMarker(ll: types.coordinates) {
-    const icon = new Icon({
-      iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png",
-      iconSize: [25, 41],
-      iconAnchor: [12.5, 41]
-    });
-    const marker = new Marker(ll, {
-      icon: icon,
-    });
-
-    marker.on("click", () => this.displayRuns(ll, true));
-
-    marker.options.pane = "markerPane";
-    marker.addTo(this.mapService.map);
-  }
-
-  private async displayRuns(ll: types.coordinates, first=false) {
+  private async displayRuns(ll: types.coordinates, params) {
     this.qfaPopupVisible = true;
     this.displaySelectedQfa = false;
     const city = this.getCityName(ll);
@@ -111,7 +95,7 @@ export class QfaComponent implements AfterViewInit, OnDestroy {
     }
     this.selectedFiles = this.parsedFiles.filter(el => el.startDay === "00");
 
-    if(first) this.showRun(this.selectedFiles[0], 0);
+    if(params.first) this.showRun(this.selectedFiles[0], 0);
   }
 
   private async resetRun() {

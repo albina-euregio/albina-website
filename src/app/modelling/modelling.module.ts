@@ -8,10 +8,11 @@ import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
 import { ModellingService } from "./modelling.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
+import { ModellingComponent } from "./modelling/modelling.component";
 
 @NgModule({
   imports: [CommonModule, FormsModule, ModellingRoutingModule, TranslateModule],
   providers: [ModellingService],
-  declarations: [IndexComponent, ZamgModelsComponent, SnowpackComponent, SnowpackMeteoComponent]
+  declarations: [IndexComponent, ZamgModelsComponent, SnowpackComponent, SnowpackMeteoComponent, ModellingComponent]
 })
 export class ModellingModule {}
