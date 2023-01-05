@@ -16,7 +16,25 @@
           (onChange)="onDropdownSelect('sources', $event)"
           ></p-multiSelect>
         </div>
-        <div id="mapDiv" #mapDiv style="height: 500px; margin-top: 5px"></div>
+        <button
+          type="button"
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="setShowMap()"
+        >
+          <i class="fa fa-map"></i>
+          {{ "zamg.map" | translate }}
+        </button>
+        <img
+          *ngIf="selectedModelPoint"
+          [src]="selectedModelPoint.plotUrl"
+          class="img-fluid"
+        />
+        <div
+          id="mapDiv"
+          #mapDiv
+          style="height: 500px; margin-top: 5px"
+          [ngStyle]="{'display': (showMap ? 'block': 'none')}"></div>
       </div>
     </div>
   </div>

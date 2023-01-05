@@ -22,11 +22,13 @@ export interface MultiselectDropdownData {
 export class ModellingComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["", "eps_ecmwf"];
   modelPoints: ZamgModelPoint[];
+  selectedModelPoint: ZamgModelPoint;
+  showMap: boolean = true;
   visibleLayers: string[] = [];
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "default",
-      name: "default"
+      name: "multimodel"
     },
     {
       id: "qfa",
@@ -132,7 +134,14 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   }
 
   onClickZamgModelPoint(ll: LatLngLiteral, params) {
+    this.selectedModelPoint = params;
+    this.showMap = false;
     console.log(params);
+  }
+
+  setShowMap() {
+    this.showMap = true;
+    this.selectedModelPoint = {} as ZamgModelPoint;
   }
 
   onClickQfa(ll: LatLngLiteral, params) {
