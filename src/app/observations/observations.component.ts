@@ -26,6 +26,7 @@ import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
+import { formatDate } from "@angular/common";
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 declare var L: any;
@@ -312,7 +313,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     //console.log("buildChartsData", this.chartsData);
   }
 
-  private drawMarker(observation, ll) {
+  private drawMarker(observation: GenericObservation, ll: LatLng) {
     const styledObservation = observation.isHighlighted ? this.mapService.highlightStyle(observation) : this.mapService.style(observation);
     styledObservation.bubblingMouseEvents = false;
     //styledObservation.riseOnHover = true;
@@ -324,7 +325,21 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     // }
     marker.on("click", () => this.onObservationClick(observation));
-    marker.bindTooltip(observation.locationName + " " + observation.filterType, { opacity: 1, className: "obs-tooltip" });
+
+    const tooltip = [
+      `<i class="fa fa-calendar"></i> ${
+        observation.eventDate instanceof Date ? formatDate(observation.eventDate, "yyyy-MM-dd HH:mm", "en-US") : undefined
+      }`,
+      `<i class="fa fa-globe"></i> ${observation.locationName || undefined}`,
+      `<i class="fa fa-user"></i> ${observation.authorName || undefined}`,
+      `[${observation.$source}, ${observation.$type}]`
+    ]
+      .filter((s) => !/undefined/.test(s))
+      .join("<br>");
+    marker.bindTooltip(tooltip, {
+      opacity: 1,
+      className: "obs-tooltip"
+    });
 
     marker.options.pane = "markerPane";
     // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
