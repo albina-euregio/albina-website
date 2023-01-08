@@ -515,7 +515,8 @@ export class ObservationsMapService {
     svg = svg.replace("$color", textColor);
 
     // Set text of Marker (max. 2 characters)
-    svg = svg.replace("$data", "MM");
+    const label = String(observation.$source).slice(0, 1) + String(observation.$type).slice(0, 1);
+    svg = svg.replace("$data", label);
 
     const aspect = observation.aspect;
 
