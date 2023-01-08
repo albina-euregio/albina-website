@@ -523,7 +523,7 @@ export class ObservationsMapService {
     svg = svg.replace(`"$${aspect}"`, "\"20\"");
     svg = svg.replace(/"\$[NEWS]+"/g, "\"0\"");
 
-    // Remove seperators if there is a gap between two aspects
+    // Remove separators if there is a gap between two aspects
     let allAspects = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     allAspects = allAspects.filter(e => e !== aspect);
 
@@ -532,7 +532,7 @@ export class ObservationsMapService {
       svg = svg.replace(regex, "\"0\"");
     });
 
-    // Add seperators when there are two adjacent aspects
+    // Add separators when there are two adjacent aspects
     svg = svg.replace(/"\$[NWSE_]+"/g, "\"3\"");
 
     return svg;
