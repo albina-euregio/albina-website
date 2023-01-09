@@ -53,8 +53,7 @@
             (change)="onChangeQfa($event)"
           >
             <option *ngFor="let file of files[selectedCity]" [value]="file.filename">
-              {{ file.city }}: [{{ file.date }}]
-              {{ file.startDay }} - {{ file.endDay}}
+              {{ file.date }} {{ file.city }}
             </option>
           </select>
 
