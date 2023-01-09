@@ -25,9 +25,9 @@ export interface MultiselectDropdownData {
 })
 export class ModellingComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["", "eps_ecmwf", "eps_claef"];
-  modelPoints: ZamgModelPoint[];
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: "default" | "eps_ecmwf" | "eps_claef";
+  selectedCity: string;
   showMap: boolean = true;
   visibleLayers: string[] = [];
   qfa: any;
@@ -86,6 +86,7 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   async ngAfterViewInit() {
     this.initMaps();
     this.files = await this.qfaService.getFiles();
+    console.log(this.files);
   }
 
   initMaps() {
@@ -95,11 +96,10 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
         const type = zamgType || "default";
         this.dropDownOptions[type] = zamgModelPoints;
-        console.log(this.modelPoints);
         zamgModelPoints.forEach(point => {
           const ll: LatLngLiteral = {
-            lat: point.lat,
-            lng: point.lng
+            lat: type === "eps_claef" ? (point.lat+0.0001) : point.lat,
+            lng: type === "eps_claef" ? (point.lng-0.002) : point.lng
           };
           const callback = {
             callback: this.onClickZamgModelPoint,
@@ -172,8 +172,11 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   }
 
   async onClickQfa(ll: LatLngLiteral, params) {
-    this.qfa = await this.qfaService.getRun(this.files[params][0], 0);
+    this.qfa = await this.qfaService.getRun(this.files[params][0]);
+    this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
+    console.log(this.selectedCity);
     this.paramService.setParameterClasses(this.qfa.parameters);
+    this.selectedModelPoint = undefined;
     this.showMap = false;
     this.showQfa = true;
   }
@@ -190,5 +193,14 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
         this.mapService.addMarkerLayer(source.id);
       })
     }
+  }
+
+  async onChangeQfa(event) {
+    const file = {
+      filename: event.target.value
+    };
+    this.qfa = await this.qfaService.getRun(file);
+    this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
+    this.paramService.setParameterClasses(this.qfa.parameters);
   }
 }

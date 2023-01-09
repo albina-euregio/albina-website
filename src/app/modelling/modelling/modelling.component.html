@@ -30,7 +30,7 @@
         </div>
 
         <div
-          *ngIf="showMap === false">
+          *ngIf="selectedModelPoint && showMap === false">
           <select
             [(ngModel)]="selectedModelPoint"
             class="custom-select mb-2 mb-sm-0"
@@ -47,8 +47,16 @@
           class="img-fluid"
         /></div>
 
-
         <div *ngIf="showQfa" id="qfa_div">
+          <select
+            class="custom-select mb-2 mb-sm-0"
+            (change)="onChangeQfa($event)"
+          >
+            <option *ngFor="let file of files[selectedCity]" [value]="file.filename">
+              {{ file.city }}: [{{ file.date }}]
+              {{ file.startDay }} - {{ file.endDay}}
+            </option>
+          </select>
           <table *ngIf="qfa.parameters" class="table table-sm qfatable">
             <tr>
               <th>{{"qfa.day" | translate}}</th>
