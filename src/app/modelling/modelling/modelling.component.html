@@ -17,21 +17,36 @@
           ></p-multiSelect>
         </div>
 
-        <button
-          type="button"
-          type="button"
-          class="btn btn-sm btn-secondary"
-          (click)="setShowMap()"
-        >
-          <i class="fa fa-map"></i>
-          {{ "zamg.map" | translate }}
-        </button>
+        <div>
+          <button
+            type="button"
+            class="btn btn-sm btn-secondary"
+            style="margin-bottom: 5px;"
+            (click)="setShowMap()"
+          >
+            <i class="fa fa-map"></i>
+            {{ "zamg.map" | translate }}
+          </button>
+        </div>
 
-        <img
+        <div
+          *ngIf="showMap === false">
+          <select
+            [(ngModel)]="selectedModelPoint"
+            class="custom-select mb-2 mb-sm-0"
+          >
+            <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
+              {{ point.regionCode }}:
+              {{ point.regionName }}
+              ({{ point.id }})
+            </option>
+          </select>
+          <img
           *ngIf="selectedModelPoint"
           [src]="selectedModelPoint.plotUrl"
           class="img-fluid"
-        />
+        /></div>
+
 
         <div *ngIf="showQfa" id="qfa_div">
           <table *ngIf="qfa.parameters" class="table table-sm qfatable">
@@ -90,7 +105,7 @@
         <div
           id="mapDiv"
           #mapDiv
-          style="height: 500px; margin-top: 5px"
+          style="height: 500px"
           [ngStyle]="{'display': showMap ? 'block' : 'none'}"></div>
       </div>
     </div>

@@ -24,13 +24,20 @@ export interface MultiselectDropdownData {
   styleUrls: ["../../qfa/qfa.component.scss", "../../qfa/table.scss", "../../qfa/params.scss"]
 })
 export class ModellingComponent implements AfterViewInit, OnDestroy {
-  zamgTypes = ["", "eps_ecmwf"];
+  zamgTypes = ["", "eps_ecmwf", "eps_claef"];
   modelPoints: ZamgModelPoint[];
   selectedModelPoint: ZamgModelPoint;
+  selectedModelType: "default" | "eps_ecmwf" | "eps_claef";
   showMap: boolean = true;
   visibleLayers: string[] = [];
   qfa: any;
   showQfa: boolean = false;
+  dropDownOptions = {
+    "default": [],
+    "qfa": [],
+    "eps_ecmwf": [],
+    "eps_claef": []
+  };
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "default",
@@ -43,6 +50,10 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     {
       id: "eps_ecmwf",
       name: "eps_ecmwf"
+    },
+    {
+      id: "eps_claef",
+      name: "eps_claef"
     }
   ]
   qfaPoints = {
@@ -82,21 +93,26 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     this.mapService.addControls();
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
-        this.modelPoints = zamgModelPoints;
-        this.modelPoints.forEach(point => {
+        const type = zamgType || "default";
+        this.dropDownOptions[type] = zamgModelPoints;
+        console.log(this.modelPoints);
+        zamgModelPoints.forEach(point => {
           const ll: LatLngLiteral = {
             lat: point.lat,
             lng: point.lng
           };
           const callback = {
             callback: this.onClickZamgModelPoint,
-            parameters: point,
+            parameters: {
+              point: point,
+              type: type,
+            },
             context: this,
           }
           this.mapService.drawMarker(
             ll,
-            this.getModelPointOptions(zamgType||"default"),
-            zamgType || "default",
+            this.getModelPointOptions(type),
+            type,
             callback);
         })
       });
@@ -104,7 +120,6 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
 
     for(const [cityName, coords] of Object.entries(this.qfaPoints)) {
       const ll: LatLngLiteral = coords;
-      console.log(cityName,ll);
       const callback = {
         callback: this.onClickQfa,
         parameters: cityName,
@@ -130,8 +145,8 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     const fillColors = {
       "default": this.constantsService.colorBrand,
       "qfa": "red",
-      "zamg_ecmwf": "green",
-      "eps_ecmwf": "yellow"
+      "eps_ecmwf": "yellow",
+      "eps_claef": "green",
     }
 
     return {
@@ -145,9 +160,9 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   }
 
   onClickZamgModelPoint(ll: LatLngLiteral, params) {
-    this.selectedModelPoint = params;
+    this.selectedModelPoint = params.point;
+    this.selectedModelType = params.type;
     this.showMap = false;
-    console.log(params);
   }
 
   setShowMap() {
@@ -159,14 +174,12 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   async onClickQfa(ll: LatLngLiteral, params) {
     this.qfa = await this.qfaService.getRun(this.files[params][0], 0);
     this.paramService.setParameterClasses(this.qfa.parameters);
-    console.log(this.qfa);
     this.showMap = false;
     this.showQfa = true;
   }
 
   onDropdownSelect(id, event) {
     this.visibleLayers = event.value;
-    console.log(event);
     this.mapService.removeMarkerLayers();
     if(this.visibleLayers.length) {
       this.visibleLayers.forEach(layerName => {
