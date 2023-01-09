@@ -1,0 +1,142 @@
+$border-color: darkgrey;
+
+.table-entry > div {
+  display: inline-flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.table-entry > div > span {
+  flex: 1;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.back-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.back-button {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  padding: 10px 0px;
+  cursor: pointer;
+}
+
+.table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.table td, .table th {
+  border-top: none;
+}
+
+.table th {
+  border-right: 1px solid black;
+}
+
+.table th:last-child {
+  border-right: none;
+}
+
+.table tr:first-child th {
+  border-top: 1px solid black;
+}
+
+.table tr:nth-child(2) th {
+  border-bottom: 1px solid black;
+}
+
+.table td {
+  border-bottom: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+}
+
+.table td:last-child {
+  border-right: none;
+}
+
+.table tr:last-child td {
+  border-bottom: 1px solid black;
+}
+
+.table tr:first-child {
+  background-color: #60AFFF;
+  position: sticky;
+  display: table-header-group;
+  top:0px;
+}
+
+.table tr:nth-child(2) {
+  background-color: #60AFFF;
+  position: sticky;
+  display: table-header-group;
+  top:29px;
+}
+
+.table td:first-child {
+  background-color: #CBF7ED;
+}
+
+.layout-map {
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+.qfa-map {
+  height: 800px;
+  width: 100%;
+}
+
+.file-wrapper {
+  width: 100%;
+  padding: 10px 5px;
+  cursor: pointer;
+
+}
+
+.file-wrapper {
+  background-color: #cfd8dc;
+  margin-bottom: 5px;
+}
+
+.day-button {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #cfd8dc;
+  border: 1px solid black;
+}
+
+.day-button:hover {
+  background-color: #5090ee;
+}
+
+.day-button:first-of-type {
+  border-radius: 5px 0 0 5px;
+  border-right: 0px;
+}
+
+.day-button:last-of-type{
+  border-radius: 0 5px 5px 0px;
+  border-left: 0px;
+}
+
+.active-day, .active-day:hover {
+  background-color: #60AFFF;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:baseline;
+}
