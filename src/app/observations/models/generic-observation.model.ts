@@ -26,9 +26,7 @@ export interface GenericObservation<Data = any> {
   /**
    * Additional information to display as table rows in the observation dialog
    */
-  $extraDialogRows?:
-    | ObservationTableRow[]
-    | ((t: TranslationFunction) => ObservationTableRow[]);
+  $extraDialogRows?: ObservationTableRow[] | ((t: TranslationFunction) => ObservationTableRow[]);
   /**
    * Snowpack stability that can be inferred from this observation
    */
@@ -86,7 +84,12 @@ export interface GenericObservation<Data = any> {
   /**
    * Danger pattern corresponding with this observation
    */
-  dangerPatterns?: Enums.DangerPattern[];
+  dangerPatterns?: DangerPattern[];
+  /**
+   * Important observations
+   */
+  importantObservations?: Enums.ImportantObservation[];
+
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;
 }
@@ -103,92 +106,86 @@ export enum AvalancheProblem {
   no_distinct_problem = "no_distinct_problem"
 }
 
+// similar to Enum.DangerPattern as string enum
+export enum DangerPattern {
+  dp1 = "dp1",
+  dp2 = "dp2",
+  dp3 = "dp3",
+  dp4 = "dp4",
+  dp5 = "dp5",
+  dp6 = "dp6",
+  dp7 = "dp7",
+  dp8 = "dp8",
+  dp9 = "dp9",
+  dp10 = "dp10"
+}
+
 export enum ObservationFilterType {
   Global = "Global",
   Local = "Local"
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.medium | Enums.Stability.weak | Enums.Stability.unknown;
+export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor;
 
 const colors: Record<Stability, string> = {
   good: "green",
-  medium: "orange",
-  weak: "red",
-  unknown: "gray",
+  fair: "orange",
+  poor: "red",
+  very_poor: "black"
 };
 
 export function toMarkerColor(observation: GenericObservation) {
-  return colors[observation?.stability ?? "unknown"] ?? colors.unknown;
+  return colors[observation?.stability ?? "unknown"] ?? "gray";
 }
 
 export enum ObservationSource {
-  Albina = "Albina",
   AvalancheWarningService = "AvalancheWarningService",
-  LwdKipBeobachtung = "LwdKipBeobachtung",
-  LwdKipLawinenabgang = "LwdKipLawinenabgang",
-  LwdKipSperre = "LwdKipSperre",
-  LwdKipSprengerfolg = "LwdKipSprengerfolg",
-  LawisSnowProfiles = "LawisSnowProfiles",
-  LawisIncidents = "LawisIncidents",
-  LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
-  LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
-  AvaObsAvalancheEvent = "AvaObsAvalancheEvent",
-  AvaObsEvaluation = "AvaObsEvaluation",
-  AvaObsSimpleObservation = "AvaObsSimpleObservation",
-  AvaObsSnowProfile = "AvaObsSnowProfile",
-  KipLiveAvalancheEvent = "KipLiveAvalancheEvent",
-  KipLiveEvaluation = "KipLiveEvaluation",
-  KipLiveSimpleObservation = "KipLiveSimpleObservation",
-  KipLiveSnowProfile = "KipLiveSnowProfile",
-  NatlefsAvalancheEvent = "NatlefsAvalancheEvent",
-  NatlefsEvaluation = "NatlefsEvaluation",
-  NatlefsSimpleObservation = "NatlefsSimpleObservation",
-  NatlefsSnowProfile = "NatlefsSnowProfile",
-  WikisnowECT = "WikisnowECT",
+  Observer = "Observer",
+  LwdKip = "LwdKip",
+  Lawis = "Lawis",
+  LoLaSafety = "LoLaSafety",
+  AvaObs = "AvaObs",
+  KipLive = "KipLive",
+  Natlefs = "Natlefs",
+  WikisnowECT = "WikisnowECT"
 }
 
 export enum ObservationType {
-  Observation = "Observation",
+  SimpleObservation = "SimpleObservation",
+  Evaluation = "Evaluation",
   Avalanche = "Avalanche",
   Blasting = "Blasting",
+  Closure = "Closure",
   Profile = "Profile",
   Incident = "Incident",
+  TimeSeries = "TimeSeries"
 }
 
 export const ObservationSourceColors: Record<ObservationSource, string> =
+  // FIXME
   Object.freeze({
-    [ObservationSource.Albina]: "#ca0020",
-    [ObservationSource.AvalancheWarningService]: "#83e4f0",
-    [ObservationSource.LwdKipBeobachtung]: "#f781bf",
-    [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
-    [ObservationSource.LwdKipSperre]: "#455132",
-    [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
-    [ObservationSource.LawisSnowProfiles]: "#44a9db",
-    [ObservationSource.LawisIncidents]: "#b76bd9",
-    [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
-    [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
-    [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.AvaObsEvaluation]: "#018571",
-    [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
-    [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
-    [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.KipLiveEvaluation]: "#018571",
-    [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
-    [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
-    [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
-    [ObservationSource.NatlefsEvaluation]: "#018571",
-    [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
-    [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
-    [ObservationSource.WikisnowECT]: "#c6e667",
+    [ObservationSource.AvalancheWarningService]: "#ca0020",
+    [ObservationSource.Observer]: "#83e4f0",
+    [ObservationSource.LwdKip]: "#f781bf",
+    [ObservationSource.Lawis]: "#44a9db",
+    [ObservationSource.LoLaSafety]: "#a6d96a",
+    [ObservationSource.AvaObs]: "#6a3d9a",
+    [ObservationSource.KipLive]: "#6a3d9a",
+    [ObservationSource.Natlefs]: "#6a3d9a",
+    [ObservationSource.WikisnowECT]: "#c6e667"
   });
 
 export const ObservationTypeIcons: Record<ObservationType, string> =
+  // FIXME
   Object.freeze({
-    [ObservationType.Observation]: appCircleAddIcon.data,
+    [ObservationType.SimpleObservation]: appCircleAlertIcon.data,
+    [ObservationType.Evaluation]: appCircleAlertIcon.data,
     [ObservationType.Incident]: appCircleAlertIcon.data,
-    [ObservationType.Profile]: appCircleCheckIcon.data,
+    [ObservationType.Profile]: appCircleAlertIcon.data,
     [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
-    [ObservationType.Blasting]: appCircleFullIcon.data,
+    [ObservationType.Blasting]: appCircleAlertIcon.data,
+    [ObservationType.Closure]: appCircleAlertIcon.data,
+    [ObservationType.TimeSeries]: appCircleAlertIcon.data
   });
 
 export enum Aspect {
@@ -199,7 +196,7 @@ export enum Aspect {
   S = "S",
   SW = "SW",
   W = "W",
-  NW = "NW",
+  NW = "NW"
 }
 
 export enum LocalFilterTypes {
@@ -207,8 +204,10 @@ export enum LocalFilterTypes {
   Aspect = "Aspect",
   AvalancheProblem = "AvalancheProblem",
   Stability = "Stability",
+  ObservationType = "ObservationType",
+  ImportantObservation = "ImportantObservation",
   DangerPattern = "DangerPattern",
-  Days = "Days",
+  Days = "Days"
 }
 
 export interface ChartsData {
@@ -216,6 +215,8 @@ export interface ChartsData {
   Aspects: Object;
   AvalancheProblem: Object;
   Stability: Object;
+  ObservationType: Object;
+  ImportantObservation: Object;
   DangerPattern: Object;
   Days: Object;
 }
@@ -226,7 +227,6 @@ export interface FilterSelectionData {
   highlighted: string[];
 }
 
-
 export interface ObservationTableRow {
   label: string;
   date?: Date;
@@ -236,10 +236,7 @@ export interface ObservationTableRow {
   value?: string;
 }
 
-export function toObservationTable(
-  observation: GenericObservation,
-  t: (key: string) => string
-): ObservationTableRow[] {
+export function toObservationTable(observation: GenericObservation, t: (key: string) => string): ObservationTableRow[] {
   return [
     { label: t("observations.eventDate"), date: observation.eventDate },
     { label: t("observations.reportDate"), date: observation.reportDate },
@@ -248,18 +245,13 @@ export function toObservationTable(
     { label: t("observations.elevation"), number: observation.elevation },
     {
       label: t("observations.aspect"),
-      value:
-        observation.aspect !== undefined
-          ? t("aspect." + observation.aspect)
-          : undefined,
+      value: observation.aspect !== undefined ? t("aspect." + observation.aspect) : undefined
     },
-    { label: t("observations.comment"), value: observation.content },
+    { label: t("observations.comment"), value: observation.content }
   ];
 }
 
-export function toAspect(
-  aspect: Enums.Aspect | string | undefined
-): Aspect | undefined {
+export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
   if (typeof aspect === "number") {
     const string = Enums.Aspect[aspect];
     return Aspect[string];
@@ -278,22 +270,18 @@ export function toGeoJSON(observations: GenericObservation[]) {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [
-          o.longitude ?? 0.0,
-          o.latitude ?? 0.0,
-          o.elevation ?? 0.0,
-        ],
+        coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
       },
       properties: {
         ...o,
         ...(o.$data || {}),
-        $data: undefined,
-      },
+        $data: undefined
+      }
     })
   );
   const collection: GeoJSON.FeatureCollection = {
     type: "FeatureCollection",
-    features,
+    features
   };
   return collection;
 }

@@ -33,7 +33,7 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     ...observation,
     $data: observation,
     $extraDialogRows: null,
-    $source: ObservationSource.Albina,
+    $source: ObservationSource.AvalancheWarningService,
     $type: getObservationType(observation),
     stability: getObservationStability(observation),
     $markerRadius: getObservationMarkerRadius(observation),
@@ -42,29 +42,29 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
   };
 }
 
-export function isAlbinaObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
-  return observation.$source === ObservationSource.Albina;
+export function isAvalancheWarningServiceObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
+  return observation.$source === ObservationSource.AvalancheWarningService;
 }
 
 function getObservationStability(observation: Observation): Stability {
   switch (observation.eventType ?? EventType.Normal) {
     case EventType.PersonDead:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonInjured:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonUninjured:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.PersonNo:
-      return Enums.Stability.weak;
+      return Enums.Stability.poor;
     case EventType.Important:
-      return Enums.Stability.medium;
+      return Enums.Stability.fair;
     default:
-      return Enums.Stability.unknown;
+      return null;
   }
 }
 
 function getObservationMarkerRadius(observation: Observation): number {
-  return 15;
+  return 20;
 }
 
 function getObservationType(observation: Observation): ObservationType {
@@ -78,6 +78,6 @@ function getObservationType(observation: Observation): ObservationType {
     case EventType.PersonNo:
       return ObservationType.Avalanche;
     default:
-      return ObservationType.Observation;
+      return ObservationType.SimpleObservation;
   }
 }

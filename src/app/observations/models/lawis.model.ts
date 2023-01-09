@@ -1,5 +1,15 @@
 import * as Enums from "app/enums/enums";
-import { AvalancheProblem, GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect, TranslationFunction } from "./generic-observation.model";
+import {
+  AvalancheProblem,
+  GenericObservation,
+  imageCountString,
+  ObservationSource,
+  ObservationTableRow,
+  ObservationType,
+  Stability,
+  toAspect,
+  TranslationFunction
+} from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -97,9 +107,9 @@ export enum ProblemText {
   FreshSnow = "fresh snow",
   GlidingSnow = "gliding snow",
   OldSnow = "old snow",
-  Unknown="unknown", 
-  WetSnow="wet snow", 
-  WindDriftedSnow = "wind-drifted snow",
+  Unknown = "unknown",
+  WetSnow = "wet snow",
+  WindDriftedSnow = "wind-drifted snow"
 }
 
 export interface Location {
@@ -183,7 +193,7 @@ export enum AvalancheSize {
   extreme = 5
 }
 
-export interface IdText<T=string> {
+export interface IdText<T = string> {
   id: number;
   text: T;
 }
@@ -192,7 +202,7 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
   return {
     $data: lawis,
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
-    $source: ObservationSource.LawisSnowProfiles,
+    $source: ObservationSource.Lawis,
     $type: ObservationType.Profile,
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
@@ -206,11 +216,15 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
   };
 }
 
-export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<ProfileDetails> {
+export function toLawisProfileDetails(
+  profile: GenericObservation<Profile>,
+  lawisDetails: ProfileDetails
+): GenericObservation<ProfileDetails> {
   return {
     ...profile,
     $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
+    importantObservations: [lawisDetails.stability_tests.length ? Enums.ImportantObservation.StabilityTest : undefined],
     $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments
@@ -221,7 +235,7 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
   return {
     $data: lawis,
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
-    $source: ObservationSource.LawisIncidents,
+    $source: ObservationSource.Lawis,
     $type: ObservationType.Incident,
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
@@ -257,14 +271,32 @@ export function toLawisIncidentTable(incident: IncidentDetails, t: TranslationFu
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
   const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];
   return [
-    { label: t("observations.dangerRating"), value: t("dangerRating." + dangerRating) },
-    { label: t("observations.avalancheProblem"), value: incident.danger?.problem?.id },
-    { label: t("observations.incline"), number: incident.location?.slope_angle },
+    {
+      label: t("observations.dangerRating"),
+      value: t("dangerRating." + dangerRating)
+    },
+    {
+      label: t("observations.avalancheProblem"),
+      value: incident.danger?.problem?.id
+    },
+    {
+      label: t("observations.incline"),
+      number: incident.location?.slope_angle
+    },
     { label: t("observations.avalancheType"), value: avalancheType },
     { label: t("observations.avalancheSize"), value: avalancheSize },
-    { label: t("observations.avalancheLength"), number: incident.avalanche?.extent?.length },
-    { label: t("observations.avalancheWidth"), number: incident.avalanche?.extent?.width },
-    { label: t("observations.fractureDepth"), number: incident.avalanche?.breakheight }
+    {
+      label: t("observations.avalancheLength"),
+      number: incident.avalanche?.extent?.length
+    },
+    {
+      label: t("observations.avalancheWidth"),
+      number: incident.avalanche?.extent?.width
+    },
+    {
+      label: t("observations.fractureDepth"),
+      number: incident.avalanche?.breakheight
+    }
   ];
 }
 
@@ -276,48 +308,50 @@ function getLawisProfileStability(profile: ProfileDetails): Stability {
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
   const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
-  if (colors.includes(Enums.Stability.weak)) {
-    return Enums.Stability.weak;
-  } else if (colors.includes(Enums.Stability.medium)) {
-    return Enums.Stability.medium;
+  if (colors.includes(Enums.Stability.very_poor)) {
+    return Enums.Stability.very_poor;
+  } else if (colors.includes(Enums.Stability.poor)) {
+    return Enums.Stability.poor;
+  } else if (colors.includes(Enums.Stability.fair)) {
+    return Enums.Stability.fair;
   } else if (colors.includes(Enums.Stability.good)) {
     return Enums.Stability.good;
   }
-  return Enums.Stability.unknown;
+  return null;
 }
 
 export function getECTestStability(step: number, propagation: string): Stability {
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const propagation1 = /\bP\b/.test(propagation);
   const propagation0 = /\bN\b/.test(propagation);
-  if (step <= 13 && propagation1) {
+  if (step <= 11 && propagation1) {
     // sehr schwach
-    return Enums.Stability.weak;
+    return Enums.Stability.very_poor;
   } else if (step <= 22 && propagation1) {
     // schwach
-    return Enums.Stability.weak;
+    return Enums.Stability.poor;
   } else if (step <= 30 && propagation1) {
     // mittel
-    return Enums.Stability.medium;
-  } else if (step <= 10 && propagation0) {
+    return Enums.Stability.fair;
+  } else if (step <= 11 && propagation0) {
     // mittel
-    return Enums.Stability.medium;
+    return Enums.Stability.fair;
   } else if (step <= 30 && propagation0) {
     return Enums.Stability.good;
   } else if (step === 31) {
     return Enums.Stability.good;
   }
-  return Enums.Stability.unknown;
+  return null;
 }
 
 function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
-  return 15;
+  return 20;
 }
 
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
-    ? Enums.Stability.weak
-    : Enums.Stability.medium;
+    ? Enums.Stability.poor
+    : Enums.Stability.fair;
 }
 
 function getLawisIncidentAvalancheProblems(incident: IncidentDetails): AvalancheProblem[] {
@@ -340,5 +374,6 @@ function getLawisIncidentAvalancheProblems(incident: IncidentDetails): Avalanche
 
 function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
   const size_id = incident.avalanche?.size?.id;
-  return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
+  //return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
+  return 20;
 }

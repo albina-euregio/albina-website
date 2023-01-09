@@ -7,10 +7,7 @@ import { FeatureCollection, Point } from "geojson";
 
 @Injectable()
 export class GeocodingService {
-  constructor(public http: HttpClient,
-    public translateService: TranslateService,
-    public constantsService: ConstantsService
-) {}
+  constructor(public http: HttpClient, public translateService: TranslateService, public constantsService: ConstantsService) {}
 
   searchLocation(query: string, limit = 8): Observable<FeatureCollection<Point, GeocodingProperties>> {
     // https://nominatim.org/release-docs/develop/api/Search/
