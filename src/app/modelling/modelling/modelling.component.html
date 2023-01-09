@@ -57,6 +57,28 @@
               {{ file.startDay }} - {{ file.endDay}}
             </option>
           </select>
+
+          <div class="day-button-wrapper">
+            <span
+              class="day-button"
+              [ngClass]="{'active-day': qfaStartDay === 0}"
+              (click)="setQfa(qfa.file.filename, 0)">
+              {{"qfa.day" | translate}} 0-2
+            </span>
+            <span
+              class="day-button"
+              [ngClass]="{'active-day': qfaStartDay === 3}"
+              (click)="setQfa(qfa.file.filename, 3)">
+              {{"qfa.day" | translate}} 3-5
+            </span>
+            <span
+              class="day-button"
+              [ngClass]="{'active-day': qfaStartDay === 6}"
+              (click)="setQfa(qfa.file.filename, 6)">
+              {{"qfa.day" | translate}} 6-8
+            </span>
+          </div>
+
           <table *ngIf="qfa.parameters" class="table table-sm qfatable">
             <tr>
               <th>{{"qfa.day" | translate}}</th>

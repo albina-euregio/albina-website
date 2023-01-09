@@ -31,6 +31,7 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   showMap: boolean = true;
   visibleLayers: string[] = [];
   qfa: any;
+  qfaStartDay: number;
   showQfa: boolean = false;
   dropDownOptions = {
     "default": [],
@@ -171,11 +172,8 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     this.selectedModelPoint = {} as ZamgModelPoint;
   }
 
-  async onClickQfa(ll: LatLngLiteral, params) {
-    this.qfa = await this.qfaService.getRun(this.files[params][0]);
-    this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
-    console.log(this.selectedCity);
-    this.paramService.setParameterClasses(this.qfa.parameters);
+  onClickQfa(ll: LatLngLiteral, params) {
+    this.setQfa(this.files[params][0], 0);
     this.selectedModelPoint = undefined;
     this.showMap = false;
     this.showQfa = true;
@@ -195,11 +193,14 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  async onChangeQfa(event) {
-    const file = {
-      filename: event.target.value
-    };
-    this.qfa = await this.qfaService.getRun(file);
+  onChangeQfa(event) {
+    this.setQfa(event.target.value, 0);
+  }
+
+  async setQfa(file, startDay) {
+    this.qfaStartDay = startDay;
+    const fileMap = typeof file === "string" ? {filename: file} : file;
+    this.qfa = await this.qfaService.getRun(fileMap, startDay);
     this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
     this.paramService.setParameterClasses(this.qfa.parameters);
   }
