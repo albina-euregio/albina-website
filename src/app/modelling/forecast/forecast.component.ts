@@ -89,9 +89,13 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   async ngAfterViewInit() {
     this.initMaps();
     this.files = await this.qfaService.getFiles();
+    this.allSources.forEach(source => {
+      this.mapService.addMarkerLayer(source.id);
+    })
   }
 
   initMaps() {
+    console.log("init maps at qfa");
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
     this.mapService.addControls();
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
