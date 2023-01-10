@@ -220,6 +220,15 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
         const newIndex = index === 0 ? filenames.length - 1 : index - 1;
         this.setQfa(filenames[newIndex], 0);
       }
+    } else if(this. selectedModelPoint && !this.showMap) {
+      const index = this.dropDownOptions[this.selectedModelType].findIndex(point => point.id === this.selectedModelPoint.id);
+      if(event.key === "ArrowRight") {
+        const newIndex = index + 1 < this.dropDownOptions[this.selectedModelType].length - 1 ? index + 1 : 0;
+        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
+      } else if (event.key === "ArrowLeft") {
+        const newIndex = index === 0 ? this.dropDownOptions[this.selectedModelType].length - 1 : index - 1;
+        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
+      }
     }
   }
 }
