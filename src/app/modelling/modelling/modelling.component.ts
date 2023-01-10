@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   OnDestroy,
+  HostListener
 } from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
 import { ModellingService, ZamgModelPoint } from "../modelling.service";
@@ -73,6 +74,7 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   };
 
   @ViewChild("mapDiv") mapDiv: ElementRef<HTMLDivElement>;
+  @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
 
   constructor(
     public mapService: BaseMapService,
@@ -87,7 +89,6 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
   async ngAfterViewInit() {
     this.initMaps();
     this.files = await this.qfaService.getFiles();
-    console.log(this.files);
   }
 
   initMaps() {
@@ -144,10 +145,10 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
 
   getModelPointOptions(type) {
     const fillColors = {
-      "default": this.constantsService.colorBrand,
+      "default": "green",
       "qfa": "red",
-      "eps_ecmwf": "yellow",
-      "eps_claef": "green",
+      "eps_ecmwf": this.constantsService.colorBrand,
+      "eps_claef": "violet",
     }
 
     return {
@@ -197,11 +198,28 @@ export class ModellingComponent implements AfterViewInit, OnDestroy {
     this.setQfa(event.target.value, 0);
   }
 
+
+
   async setQfa(file, startDay) {
     this.qfaStartDay = startDay;
     const fileMap = typeof file === "string" ? {filename: file} : file;
     this.qfa = await this.qfaService.getRun(fileMap, startDay);
     this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
     this.paramService.setParameterClasses(this.qfa.parameters);
+  }
+
+  @HostListener("document:keydown", ["$event"])
+  handleKeyBoardEvent(event: KeyboardEvent) {
+    if(this.showQfa) {
+      const filenames = this.files[this.selectedCity].map(file => file.filename);
+      const index = filenames.indexOf(this.qfa.file.filename);
+      if(event.key === "ArrowRight") {
+        const newIndex = index + 1 < filenames.length - 1 ? index + 1 : 0;
+        this.setQfa(filenames[newIndex], 0);
+      } else if (event.key === "ArrowLeft") {
+        const newIndex = index === 0 ? filenames.length - 1 : index - 1;
+        this.setQfa(filenames[newIndex], 0);
+      }
+    }
   }
 }

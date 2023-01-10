@@ -56,9 +56,7 @@ export class QfaService {
 
   async getRun(file, startDay: number) {
     const days = `0${startDay}0${startDay+2}`;
-    console.log(days);
     const filename = file.filename.replace(/\d{4}\.txt/g, `${days}.txt`);
-    console.log(filename);
     const run = new QfaFile(this.http);
     await run.loadFromURL(filename);
     const qfa = {

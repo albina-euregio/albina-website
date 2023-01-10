@@ -49,7 +49,9 @@
 
         <div *ngIf="showQfa" id="qfa_div">
           <select
+            #qfaSelect
             class="custom-select mb-2 mb-sm-0"
+            [(ngModel)]="qfa.file.filename"
             (change)="onChangeQfa($event)"
           >
             <option *ngFor="let file of files[selectedCity]" [value]="file.filename">
