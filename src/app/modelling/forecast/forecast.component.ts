@@ -22,7 +22,7 @@ export interface MultiselectDropdownData {
 
 @Component({
   templateUrl: "./forecast.component.html",
-  styleUrls: ["../qfa.component.scss", "../table.scss", "../params.scss"]
+  styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"]
 })
 export class ForecastComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["", "eps_ecmwf", "eps_claef"];
