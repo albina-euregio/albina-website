@@ -2,10 +2,9 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { IndexComponent } from "./index.component";
-import { ZamgModelsComponent } from "./zamg-models.component";
 import { SnowpackComponent } from "./snowpack.component";
 import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
-import { ModellingComponent } from "./modelling/modelling.component";
+import { ForecastComponent } from "./forecast/forecast.component";
 
 import { AuthGuard } from "../guards/auth.guard";
 
@@ -16,29 +15,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "test",
-    component: ModellingComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "zamg",
-    component: ZamgModelsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "zamg_eps_ecmwf",
-    component: ZamgModelsComponent,
-    data: {
-      zamgType: "eps_ecmwf"
-    },
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "zamg_eps_claef",
-    component: ZamgModelsComponent,
-    data: {
-      zamgType: "eps_claef"
-    },
+    path: "forecast",
+    component: ForecastComponent,
     canActivate: [AuthGuard]
   },
   {
