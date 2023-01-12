@@ -1,6 +1,6 @@
 (function (window) {
   window.ENV = {
-    apiBaseUrl: "https://api.avalanche.report/albina_dev/api/",
+    apiBaseUrl: "/albina/api/",
     wsBaseUrl: "wss://socket.avalanche.report/albina/",
     textcatUrl: "/textcat-ng/",
     headerBgColor: "#f95bdc"
