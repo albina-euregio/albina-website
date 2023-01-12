@@ -6,41 +6,65 @@
       </div>
 
       <div class="card-block">
-        <div class="global-bar-item global-bar-item-source">
-          <p-multiSelect
-          placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
-          [options]="allSources"
-          optionLabel="name"
-          optionValue="id"
-          [maxSelectedLabels]="0"
-          (onChange)="onDropdownSelect('sources', $event)"
-          ></p-multiSelect>
+        <div class="controls">
+          <div class="global-bar-item global-bar-item-source">
+            <p-multiSelect
+            placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
+            [options]="allSources"
+            optionLabel="name"
+            optionValue="id"
+            [maxSelectedLabels]="0"
+            (onChange)="onDropdownSelect('sources', $event)"
+            ></p-multiSelect>
+          </div>
+
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary"
+              (click)="setShowMap()"
+            >
+              <i class="fa fa-map"></i>
+              {{ "zamg.map" | translate }}
+            </button>
+          </div>
+
+          <div *ngIf="!showMap">
+            &mdash;
+          </div>
+
+          <div
+          *ngIf="selectedModelPoint && showMap === false">
+            <select
+              [(ngModel)]="selectedModelPoint"
+              class="custom-select mb-2 mb-sm-0"
+            >
+              <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
+                {{ point.regionCode }}:
+                {{ point.regionName }}
+                ({{ point.id }})
+              </option>
+            </select>
+          </div>
+
+          <div *ngIf="showQfa" id="qfa_div">
+            <select
+              #qfaSelect
+              class="custom-select mb-2 mb-sm-0"
+              [(ngModel)]="qfa.file.filename"
+              (change)="onChangeQfa($event)"
+            >
+              <option *ngFor="let file of files[selectedCity]" [value]="file.filename">
+                {{ file.date }} {{ file.city }}
+              </option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <button
-            type="button"
-            class="btn btn-sm btn-secondary"
-            style="margin-bottom: 5px;"
-            (click)="setShowMap()"
-          >
-            <i class="fa fa-map"></i>
-            {{ "zamg.map" | translate }}
-          </button>
-        </div>
+        <hr />
 
         <div
           *ngIf="selectedModelPoint && showMap === false">
-          <select
-            [(ngModel)]="selectedModelPoint"
-            class="custom-select mb-2 mb-sm-0"
-          >
-            <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
-              {{ point.regionCode }}:
-              {{ point.regionName }}
-              ({{ point.id }})
-            </option>
-          </select>
           <img
           *ngIf="selectedModelPoint"
           [src]="selectedModelPoint.plotUrl"
@@ -48,17 +72,6 @@
         /></div>
 
         <div *ngIf="showQfa" id="qfa_div">
-          <select
-            #qfaSelect
-            class="custom-select mb-2 mb-sm-0"
-            [(ngModel)]="qfa.file.filename"
-            (change)="onChangeQfa($event)"
-          >
-            <option *ngFor="let file of files[selectedCity]" [value]="file.filename">
-              {{ file.date }} {{ file.city }}
-            </option>
-          </select>
-
           <div class="day-button-wrapper">
             <span
               class="day-button"
