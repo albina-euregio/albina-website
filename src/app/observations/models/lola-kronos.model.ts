@@ -3,10 +3,11 @@ import * as Enums from "app/enums/enums";
 import {
   Aspect,
   AvalancheProblem,
+  DangerPattern as GenericDangerPattern,
   GenericObservation,
   imageCountString,
   ObservationSource,
-  ObservationType,
+  ObservationType
 } from "./generic-observation.model";
 
 export interface LolaKronosApi {
@@ -63,7 +64,7 @@ export interface Image {
 export enum LolaApplication {
   Avaobs = "avaobs",
   KipLive = "kipLive",
-  Natlefs = "natlefs",
+  Natlefs = "natlefs"
 }
 
 export interface LolaEvaluation {
@@ -130,7 +131,7 @@ export enum DangerPattern {
   Gm7 = "GM7",
   Gm8 = "GM8",
   Gm9 = "GM9",
-  Gm10 = "GM10",
+  Gm10 = "GM10"
 }
 
 export enum DangerSign {
@@ -138,7 +139,7 @@ export enum DangerSign {
   GlideCracks = "glideCracks",
   NoDangerSigns = "noDangerSigns",
   ShootingCracks = "shootingCracks",
-  Whumpfing = "whumpfing",
+  Whumpfing = "whumpfing"
 }
 
 export interface Problem {
@@ -226,6 +227,9 @@ export interface LolaSimpleObservation {
   storedInDb: Date;
   time: Date;
   userId: string;
+  snowSurface: any[];
+  snowLine: number;
+  stabilityTests: any[];
 }
 
 export interface LolaSnowProfile {
@@ -296,43 +300,41 @@ export interface Temperature {
   position: number;
 }
 
-export function convertLoLaKronos(
-  kronos: LolaKronosApi
-): GenericObservation[] {
+export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
   return [
     ...kronos.lolaAvalancheEvent.map((obs) =>
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsAvalancheEvent
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveAvalancheEvent
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsAvalancheEvent
+          ? ObservationSource.Natlefs
           : undefined,
-          ObservationType.Avalanche,
-          "https://www.lola-kronos.info/avalancheEvent/"
+        ObservationType.Avalanche,
+        "https://www.lola-kronos.info/avalancheEvent/"
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsEvaluation
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveEvaluation
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsEvaluation
+          ? ObservationSource.Natlefs
           : undefined,
-          ObservationType.Observation,
-          "https://www.lola-kronos.info/evaluation/"
+        ObservationType.Evaluation,
+        "https://www.lola-kronos.info/evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        ObservationSource.AvaObsSimpleObservation, // FIXME
-        ObservationType.Observation,
+        ObservationSource.AvaObs, // FIXME
+        ObservationType.SimpleObservation,
         "https://www.lola-kronos.info/simpleObservation/"
       )
     ),
@@ -340,25 +342,21 @@ export function convertLoLaKronos(
       convertLoLaToGeneric(
         obs,
         obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObsSnowProfile
+          ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLiveSnowProfile
+          ? ObservationSource.KipLive
           : obs.lolaApplication === "natlefs"
-          ? ObservationSource.NatlefsSnowProfile
+          ? ObservationSource.Natlefs
           : undefined,
         ObservationType.Profile,
         "https://www.lola-kronos.info/snowProfile/"
       )
-    ),
+    )
   ];
 }
 
 export function convertLoLaToGeneric(
-  obs:
-    | LolaSimpleObservation
-    | LolaAvalancheEvent
-    | LolaSnowProfile
-    | LolaEvaluation,
+  obs: LolaSimpleObservation | LolaAvalancheEvent | LolaSnowProfile | LolaEvaluation,
   $source: ObservationSource,
   $type: ObservationType,
   urlPrefix: string
@@ -376,20 +374,21 @@ export function convertLoLaToGeneric(
     content: obs.comment + imageCountString(obs.images),
     elevation: (obs as LolaSnowProfile).altitude,
     eventDate: new Date(obs.time),
-    latitude: (
-      (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
-      (obs as LolaSnowProfile | LolaEvaluation).position
-    )?.lat,
+    latitude: ((obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ?? (obs as LolaSnowProfile | LolaEvaluation).position)?.lat,
     locationName:
-      (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ??
-      (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
-    longitude: (
-      (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
-      (obs as LolaSnowProfile | LolaEvaluation).position
-    )?.lng,
+      (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ?? (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
+    longitude: ((obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ?? (obs as LolaSnowProfile | LolaEvaluation).position)?.lng,
     avalancheProblems: getAvalancheProblems(obs as LolaEvaluation),
-    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp): Enums.DangerPattern => Enums.DangerPattern[dp]) || [],
+    dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp) => getDangerPattern(dp)) || [],
     region: obs.regionName,
+    importantObservations: [
+      (obs as LolaSimpleObservation).snowLine ? Enums.ImportantObservation.SnowLine : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("surfaceHoar") ? Enums.ImportantObservation.SurfaceHoar : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("veryLightNewSnow") ? Enums.ImportantObservation.VeryLightNewSnow : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("graupel") ? Enums.ImportantObservation.Graupel : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("iceFormation") ? Enums.ImportantObservation.IceFormation : undefined,
+      (obs as LolaSimpleObservation).stabilityTests?.length > 0 ? Enums.ImportantObservation.StabilityTest : undefined
+    ]
   };
 }
 
@@ -401,4 +400,29 @@ function getAvalancheProblems(data: LolaEvaluation): AvalancheProblem[] {
   if (data.wetSnowProblem?.result > 0) problems.push(AvalancheProblem.wet_snow);
   if (data.windDriftetSnowProblem?.result > 0) problems.push(AvalancheProblem.wind_slab);
   return problems;
+}
+
+function getDangerPattern(data: DangerPattern): GenericDangerPattern {
+  switch (data) {
+    case DangerPattern.Gm1:
+      return GenericDangerPattern.dp1;
+    case DangerPattern.Gm2:
+      return GenericDangerPattern.dp2;
+    case DangerPattern.Gm3:
+      return GenericDangerPattern.dp3;
+    case DangerPattern.Gm4:
+      return GenericDangerPattern.dp4;
+    case DangerPattern.Gm5:
+      return GenericDangerPattern.dp5;
+    case DangerPattern.Gm6:
+      return GenericDangerPattern.dp6;
+    case DangerPattern.Gm7:
+      return GenericDangerPattern.dp7;
+    case DangerPattern.Gm8:
+      return GenericDangerPattern.dp8;
+    case DangerPattern.Gm9:
+      return GenericDangerPattern.dp9;
+    case DangerPattern.Gm10:
+      return GenericDangerPattern.dp10;
+  }
 }

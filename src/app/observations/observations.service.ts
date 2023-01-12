@@ -51,7 +51,7 @@ export class ObservationsService {
 
   loadAll(): Observable<GenericObservation<any>> {
     return onErrorResumeNext(
-      this.getAvalancheWarningService(),
+      this.getObservers(),
       this.getLawisIncidents(),
       this.getLawisProfiles(),
       this.getLoLaKronos(),
@@ -73,38 +73,37 @@ export class ObservationsService {
     if (!this.lwdKipLayers) {
       const url = this.constantsService.getServerUrl() + "observations/lwdkip/layers?f=json";
       const headers = this.authenticationService.newAuthHeader();
-      this.lwdKipLayers = this.http
-        .get<ArcGisApi>(url, { headers })
-        .pipe(map((data) => {
-          if ('error' in data) {
+      this.lwdKipLayers = this.http.get<ArcGisApi>(url, { headers }).pipe(
+        map((data) => {
+          if ("error" in data) {
             throw new Error(data.error?.message);
           } else if (!data.layers?.length) {
             throw new Error("No LWDKIP layers found!");
           }
           return data.layers;
-        }));
+        })
+      );
     }
     const lwdKipLayers = this.lwdKipLayers.pipe(last());
-    return lwdKipLayers.pipe(mergeMap((layers) => {
-      const layer = layers.find((l) => l.name.trim() === name && l.type === "Feature Layer");
-      if (!layer) {
-        throw new Error("No LWDKIP layer for " + name);
-      }
-      const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
-      const headers = this.authenticationService.newAuthHeader();
-      return this.http
-        .get<T | { error: { message: string } }>(url, { headers, params })
-        .pipe(map((data) => {
-          if ("error" in data) {
-            console.error(
-              "Failed fetching LWDKIP " + name,
-              new Error(data.error?.message)
-            );
-            return { features: [] };
-          }
-          return data;
-        }));
-    }));
+    return lwdKipLayers.pipe(
+      mergeMap((layers) => {
+        const layer = layers.find((l) => l.name.trim() === name && l.type === "Feature Layer");
+        if (!layer) {
+          throw new Error("No LWDKIP layer for " + name);
+        }
+        const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
+        const headers = this.authenticationService.newAuthHeader();
+        return this.http.get<T | { error: { message: string } }>(url, { headers, params }).pipe(
+          map((data) => {
+            if ("error" in data) {
+              console.error("Failed fetching LWDKIP " + name, new Error(data.error?.message));
+              return { features: [] };
+            }
+            return data;
+          })
+        );
+      })
+    );
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
@@ -130,7 +129,7 @@ export class ObservationsService {
     );
     const o3 = this.getLwdKipLayer<LwdKipSperren>("aktive_Sperren", {
       ...params,
-      where: "1=1",
+      where: "1=1"
     }).pipe(
       mergeMap((featureCollection) => featureCollection.features),
       map((feature) => convertLwdKipSperren(feature))
@@ -139,15 +138,13 @@ export class ObservationsService {
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
-//    console.log("getObservations ##1", this.startDateString, this.endDateString);
+    //    console.log("getObservations ##1", this.startDateString, this.endDateString);
     const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
     const headers = this.authenticationService.newAuthHeader();
-    return this.http
-      .get<Observation[]>(url, { headers })
-      .pipe(
-        mergeAll(),
-        map((o) => convertObservationToGeneric(o))
-      );
+    return this.http.get<Observation[]>(url, { headers }).pipe(
+      mergeAll(),
+      map((o) => convertObservationToGeneric(o))
+    );
   }
 
   postObservation(observation: Observation): Observable<GenericObservation<Observation>> {
@@ -181,7 +178,7 @@ export class ObservationsService {
     await this.http.delete(url, options).toPromise();
   }
 
-  getAvalancheWarningService(): Observable<GenericObservation> {
+  getObservers(): Observable<GenericObservation> {
     const eventDate = new Date();
     eventDate.setHours(0, 0, 0, 0);
     return of(BeobachterAT, BeobachterIT).pipe(
@@ -190,8 +187,8 @@ export class ObservationsService {
         (observer): GenericObservation => ({
           $data: observer,
           $externalURL: `https://wiski.tirol.gv.at/lawine/grafiken/800/beobachter/${observer["plot.id"]}.png`,
-          $source: ObservationSource.AvalancheWarningService,
-          $type: ObservationType.Observation,
+          $source: ObservationSource.Observer,
+          $type: ObservationType.TimeSeries,
           aspect: undefined,
           authorName: observer.name,
           content: "",
@@ -209,78 +206,61 @@ export class ObservationsService {
   getLoLaKronos(): Observable<GenericObservation> {
     const { lolaKronosApi } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http
-      .get<LolaKronosApi>(lolaKronosApi + timeframe)
-      .pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
+    return this.http.get<LolaKronosApi>(lolaKronosApi + timeframe).pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
   }
 
   getLoLaSafety(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http
-      .get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe)
-      .pipe(mergeMap(lola => convertLoLaSafety(lola)));
+    return this.http.get<LoLaSafetyApi>(api.LoLaSafety + timeframe).pipe(mergeMap((lola) => convertLoLaSafety(lola)));
   }
 
   getWikisnowECT(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
-    return this.http
-      .get<ApiWikisnowECT>(api.WikisnowECT)
-      .pipe(
-        mergeMap(api => api.data),
-        map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow)),
-        filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation))
-      );
+    return this.http.get<ApiWikisnowECT>(api.WikisnowECT).pipe(
+      mergeMap((api) => api.data),
+      map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow)),
+      filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation))
+    );
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
-    const { observationApi: api, observationWeb: web } = this.constantsService;
+    const { observationApi: api, lawisSnowProfilesWeb: web } = this.constantsService;
     return this.http
       .get<Profile[]>(
-        api.LawisSnowProfiles +
-          "?startDate=" +
-          this.startDateString +
-          "&endDate=" +
-          this.endDateString +
-          "&_=" +
-          nowWithHourPrecision()
-      ).pipe(
+        api.Lawis + "profile" + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString + "&_=" + nowWithHourPrecision()
+      )
+      .pipe(
         mergeAll(),
-        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles)),
+        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web)),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((profile) => {
           if (!LAWIS_FETCH_DETAILS) {
             return of(profile);
           }
-          return from(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
-            .pipe(
-              map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails)),
-              catchError(() => of(profile))
-            );
+          return from(this.getCachedOrFetch<ProfileDetails>(api.Lawis + "profile/" + profile.$data.id)).pipe(
+            map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails)),
+            catchError(() => of(profile))
+          );
         })
       );
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
-    const { observationApi: api, observationWeb: web } = this.constantsService;
+    const { observationApi: api, lawisIncidentsWeb: web } = this.constantsService;
     return this.http
       .get<Incident[]>(
-        api.LawisIncidents +
-          "?startDate=" +
-          this.startDateString +
-          "&endDate=" +
-          this.endDateString +
-          "&_=" +
-          nowWithHourPrecision()
-      ).pipe(
+        api.Lawis + "incident" + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString + "&_=" + nowWithHourPrecision()
+      )
+      .pipe(
         mergeAll(),
-        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents)),
+        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web)),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((incident) => {
           if (!LAWIS_FETCH_DETAILS) {
             return of(incident);
           }
-          return from(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id)).pipe(
+          return from(this.getCachedOrFetch<IncidentDetails>(api.Lawis + "incident/" + incident.$data.id)).pipe(
             map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails)),
             catchError(() => of(incident))
           );
@@ -316,7 +296,12 @@ export class ObservationsService {
   }
 
   getCsv(startDate: Date, endDate: Date): Observable<Blob> {
-    const url = this.constantsService.getServerUrl() + "observations/export?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate);
+    const url =
+      this.constantsService.getServerUrl() +
+      "observations/export?startDate=" +
+      this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) +
+      "&endDate=" +
+      this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate);
     const headers = this.authenticationService.newAuthHeader("text/csv");
 
     return this.http.get(url, { headers: headers, responseType: "blob" });

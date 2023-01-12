@@ -48,14 +48,7 @@ export class ModalMediaFileComponent {
 
   uploadFile() {
     if (this.text == null || this.text == "") {
-      console.log("No text entered!");
-      window.scrollTo(0, 0);
-      this.alerts.push({
-        type: "danger",
-        msg: this.translateService.instant("bulletins.table.mediaFileDialog.missingText"),
-        timeout: 5000
-      });
-      return;
+      this.text = "---"
     }
     if (this.file == null) {
       console.log("No file selected!");

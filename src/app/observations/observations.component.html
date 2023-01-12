@@ -1,96 +1,94 @@
 <!-- !layout-outer -->
 <div class="layout-outer" [ngClass]="'layout--is-' + layout">
-
-
-	
-	<!-- !layout-inner -->
-	<div class="layout-inner">
-
-
-
+  <!-- !layout-inner -->
+  <div class="layout-inner">
     <!-- !layout-left -->
     <div class="layout-left">
-
-
-
       <!-- !layout-global -->
       <div class="layout-global">
-
-
-
-				<!-- !global-bar -->
-				<div class="global-bar-scroll">
-
-
-
-					<!-- !global-bar-left -->
-					<div class="global-bar global-bar-left">
-
+        <!-- !global-bar -->
+        <div class="global-bar-scroll">
+          <!-- !global-bar-left -->
+          <div class="global-bar global-bar-left">
             <div class="global-bar-item global-bar-item-load">
-              <button type="button" pButton class="p-button-text" (click)="loadObservations()"
-                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"></button>
+              <button
+                type="button"
+                pButton
+                class="p-button-text"
+                (click)="loadObservations()"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
+              ></button>
             </div>
-          
+
             <div class="global-bar-item global-bar-item-source">
-              <p-multiSelect 
-              placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
-              [options]="allSources" 
-              [(ngModel)]="selectedSourceItems" 
-              optionLabel="name" 
-              optionValue="id"
-              [maxSelectedLabels]="0"
-              selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
-              (onChange)="onDropdownSelect('sources', $event)"
+              <p-multiSelect
+                placeholder="{{ 'admin.observations.selectSources.placeholder' | translate }}"
+                [options]="allSources"
+                [(ngModel)]="selectedSourceItems"
+                optionLabel="name"
+                optionValue="id"
+                [maxSelectedLabels]="0"
+                selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
+                (onChange)="onDropdownSelect('sources', $event)"
               ></p-multiSelect>
             </div>
-          
+
             <div class="global-bar-item global-bar-item-region">
-              <p-multiSelect 
-              placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
-              [options]="allRegions" 
-              [(ngModel)]="filter.regions" 
-              optionLabel="name" 
-              optionValue="id"
-              [maxSelectedLabels]="0"
-              selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
-              (onChange)="onDropdownSelect('regions', $event)"
+              <p-multiSelect
+                placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
+                [options]="allRegions"
+                [(ngModel)]="filter.regions"
+                optionLabel="name"
+                optionValue="id"
+                [maxSelectedLabels]="0"
+                selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
+                (onChange)="onDropdownSelect('regions', $event)"
               ></p-multiSelect>
             </div>
-            
+
             <div class="global-bar-item global-bar-item-calendar">
-              <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" (onInput)="setDate()" (onSelect)="setDate()" [showIcon]="false" dateFormat="dd.mm.yy">
+              <p-calendar
+                [(ngModel)]="filter.dateRange"
+                selectionMode="range"
+                (onInput)="setDate()"
+                (onSelect)="setDate()"
+                [showIcon]="false"
+                dateFormat="dd.mm.yy"
+              >
               </p-calendar>
               <div class="obs-switch">
-                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 1})">
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({ days: 1 })">
                   <span class="switch-text">1d</span>
                 </div>
-                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 2})">
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({ days: 2 })">
                   <span class="switch-text">2d</span>
                 </div>
-                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 3})">
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({ days: 3 })">
                   <span class="switch-text">3d</span>
                 </div>
-                <div class="obs-switch-item 0is-active" (click)="loadObservations({days: 7})">
+                <div class="obs-switch-item 0is-active" (click)="loadObservations({ days: 7 })">
                   <span class="switch-text">7d</span>
                 </div>
               </div>
             </div>
-          
           </div>
           <!-- /global-bar-left -->
-          
-
 
           <!-- !global-bar-right -->
           <div class="global-bar global-bar-right">
-
             <div class="global-bar-item global-bar-item-add">
-              <button type="button" pButton icon="pi pi-plus-circle" (click)="newObservation()"
-                label="{{ 'observations.button.add' | translate }}" class="p-button-text"></button>
+              <button
+                type="button"
+                pButton
+                icon="pi pi-plus-circle"
+                (click)="newObservation()"
+                label="{{ 'observations.button.add' | translate }}"
+                class="p-button-text"
+              ></button>
             </div>
 
             <div class="global-bar-item global-bar-item-more">
-                <p-menubar [model]="moreItems"></p-menubar>
+              <p-menubar [model]="moreItems"></p-menubar>
             </div>
 
             <!-- <div class="global-bar-item">
@@ -133,163 +131,207 @@
             </div>
 
             <input type="checkbox" id="global_open" /> -->
-
           </div>
           <!-- /global-bar-right -->
-
-
-            
         </div>
         <!-- /global-bar -->
-
-
-
       </div>
-			<!-- /layout-global -->
-
-
+      <!-- /layout-global -->
 
       <!-- !layout-map -->
       <div class="layout-map">
         <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
       </div>
-			<!-- /layout-map -->
-
-
-
+      <!-- /layout-map -->
     </div>
-		<!-- /layout-left -->
-
-
+    <!-- /layout-left -->
 
     <!-- !layout-right -->
     <div class="layout-right">
-
-
-
       <!-- !toolset -->
       <div class="toolset">
-
         <!-- !toolset-header -->
         <div class="toolset-header">
-
           <div class="toolset-name">Beobachtungen</div>
           <div class="toolset-keydata">
             <div class="keydata">
-              <span class="keydata-selected">431</span> / <span class="keydata-all">765</span>
+              <span class="keydata-selected">431</span> /
+              <span class="keydata-all">765</span>
             </div>
           </div>
-
         </div>
         <!-- /toolset-header -->
 
         <!-- !toolset-content -->
         <div class="toolset-content">
-
           <!-- !toolset-charts -->
           <div class="toolset-charts">
-            
             <app-rose-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.aspect.caption' | translate"
-              [translationBase] = "'aspect.'"
+              [caption]="'admin.observations.charts.aspect.caption' | translate"
+              [translationBase]="'aspect.'"
               [type]="LocalFilterTypes.Aspect"
-              [data]="chartsData.Aspects" 
-              [isActive]="filter.filterSelection[LocalFilterTypes.Aspect]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].length > 0"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Aspect]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].includes('nan')}"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              [data]="chartsData.Aspects"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.Aspect]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].length > 0
+              "
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.Aspect]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.Aspect]['highlighted'].includes('nan')
+              }"
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-rose-chart>
-            <app-bar-chart 
+            <app-bar-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.days.caption' | translate"
+              [caption]="'admin.observations.charts.days.caption' | translate"
               [type]="LocalFilterTypes.Days"
-              [data]="chartsData.Days"  
-              [isActive]="filter.filterSelection[LocalFilterTypes.Days]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Days]['highlighted'].length > 0"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Days]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Days]['highlighted'].includes('nan')}"
+              [data]="chartsData.Days"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.Days]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.Days]['highlighted'].length > 0
+              "
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.Days]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.Days]['highlighted'].includes('nan')
+              }"
               [formatter]="'date'"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-bar-chart>
-            <app-bar-chart 
+            <app-bar-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.elevation.caption' | translate"
+              [caption]="'admin.observations.charts.elevation.caption' | translate"
               [type]="LocalFilterTypes.Elevation"
-              [data]="chartsData.Elevation" 
-              [isActive]="filter.filterSelection[LocalFilterTypes.Elevation]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].length > 0"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Elevation]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].includes('nan')}"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              [data]="chartsData.Elevation"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.Elevation]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].length > 0
+              "
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.Elevation]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.Elevation]['highlighted'].includes('nan')
+              }"
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-bar-chart>
-            <app-bar-chart 
+            <app-bar-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.stability.caption' | translate"
+              [caption]="'admin.observations.charts.stability.caption' | translate"
+              [translationBase]="'snowpackStability.'"
               [type]="LocalFilterTypes.Stability"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')}"
-              [data]="chartsData.Stability"  
-              [isActive]="filter.filterSelection[LocalFilterTypes.Stability]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].length > 0"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.Stability]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].includes('nan')
+              }"
+              [data]="chartsData.Stability"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.Stability]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.Stability]['highlighted'].length > 0
+              "
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-bar-chart>
-            <app-bar-chart 
+            <app-bar-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.avalancheProblem.caption' | translate"
-              [translationBase] = "'avalancheProblem.'"
+              [caption]="'admin.observations.charts.observationType.caption' | translate"
+              [translationBase]="'observationType.'"
+              [type]="LocalFilterTypes.ObservationType"
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].includes('nan')
+              }"
+              [data]="chartsData.ObservationType"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.ObservationType]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.ObservationType]['highlighted'].length > 0
+              "
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
+            </app-bar-chart>
+            <app-bar-chart
+              class="chart-container"
+              [caption]="'admin.observations.charts.importantObservation.caption' | translate"
+              [translationBase]="'importantObservation.'"
+              [type]="LocalFilterTypes.ImportantObservation"
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.ImportantObservation]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.ImportantObservation]['highlighted'].includes('nan')
+              }"
+              [data]="chartsData.ImportantObservation"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.ImportantObservation]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.ImportantObservation]['highlighted'].length > 0
+              "
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
+            </app-bar-chart>
+            <app-bar-chart
+              class="chart-container"
+              [caption]="'admin.observations.charts.avalancheProblem.caption' | translate"
+              [translationBase]="'avalancheProblem.'"
               [type]="LocalFilterTypes.AvalancheProblem"
-              [data]="chartsData.AvalancheProblem"  
-              [isActive]="filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].length > 0"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].includes('nan')}"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              [data]="chartsData.AvalancheProblem"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].length > 0
+              "
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.AvalancheProblem]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.AvalancheProblem]['highlighted'].includes('nan')
+              }"
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-bar-chart>
-            <app-bar-chart 
+            <app-bar-chart
               class="chart-container"
-              [caption] = "'admin.observations.charts.dangerPattern.caption' | translate"
-              [translationBase] = "'dangerPattern.'"
+              [caption]="'admin.observations.charts.dangerPattern.caption' | translate"
+              [translationBase]="'dangerPattern.'"
               [type]="LocalFilterTypes.DangerPattern"
-              [data]="chartsData.DangerPattern"  
-              [isActive]="filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].length > 0 || filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].length > 0"
-              [nanStatus]="{'selected': filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].includes('nan'), 'highlighted': filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].includes('nan')}"
-              (handleChange)="toggleFilter({type: $event[0], data:  $event[1]})">
+              [data]="chartsData.DangerPattern"
+              [isActive]="
+                filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].length > 0 ||
+                filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].length > 0
+              "
+              [nanStatus]="{
+                selected: filter.filterSelection[LocalFilterTypes.DangerPattern]['selected'].includes('nan'),
+                highlighted: filter.filterSelection[LocalFilterTypes.DangerPattern]['highlighted'].includes('nan')
+              }"
+              (handleChange)="toggleFilter({ type: $event[0], data: $event[1] })"
+            >
             </app-bar-chart>
-
           </div>
           <!-- /toolset-charts -->
 
-        <!-- /toolset-content -->
+          <!-- /toolset-content -->
         </div>
-        
       </div>
       <!-- /toolset -->
-
-
-
     </div>
-		<!-- /layout-right -->
-
-
+    <!-- /layout-right -->
 
     <!-- !layout-switch -->
     <div class="layout-switch">
-			<div *ngIf="layout!=='map'" (click)="layout='map'" class="layout-switch-map obs-button">
-				<span class="button-icon pi pi-map"></span>
-				<span class="button-text">Map</span>
-			</div>
-			<div *ngIf="layout!=='table'" (click)="layout='table'" class="layout-switch-table obs-button">
-				<span class="button-icon pi pi-list"></span>
-				<span class="button-text">Table</span>
-			</div>
-			<div *ngIf="layout!=='chart'" (click)="layout='chart'" class="layout-switch-charts obs-button">
-				<span class="button-icon pi pi-chart-bar"></span>
-				<span class="button-text">Charts</span>
-			</div>
-		</div>
+      <div *ngIf="layout !== 'map'" (click)="layout = 'map'" class="layout-switch-map obs-button">
+        <span class="button-icon pi pi-map"></span>
+        <span class="button-text">Map</span>
+      </div>
+      <div *ngIf="layout !== 'table'" (click)="layout = 'table'" class="layout-switch-table obs-button">
+        <span class="button-icon pi pi-list"></span>
+        <span class="button-text">Table</span>
+      </div>
+      <div *ngIf="layout !== 'chart'" (click)="layout = 'chart'" class="layout-switch-charts obs-button">
+        <span class="button-icon pi pi-chart-bar"></span>
+        <span class="button-text">Charts</span>
+      </div>
+    </div>
     <!-- /layout-switch -->
-
-
-
   </div>
   <!-- /layout-inner -->
 
-
-
-  <div [ngStyle]="{ display: layout==='table' ? '' : 'none' }" class="layout-table">
-    <div class="card" style="height: 100%;">
+  <div [ngStyle]="{ display: layout === 'table' ? '' : 'none' }" class="layout-table">
+    <div class="card" style="height: 100%">
       <!-- <div class="card-header">
         {{ "sidebar.observations" | translate }}
         <button
@@ -301,43 +343,57 @@
         class="p-button-text"
       ></button>  
       </div> -->
-      <div class="card-block" style="overflow-y: auto;">
+      <div class="card-block" style="overflow-y: auto">
         <div>
-          <app-observation-table #observationTable [observations]="localObservations"
-            (observationClick)="onObservationClick($event)"></app-observation-table>
+          <app-observation-table
+            #observationTable
+            [observations]="localObservations"
+            (observationClick)="onObservationClick($event)"
+          ></app-observation-table>
         </div>
       </div>
     </div>
   </div>
-
-
-
 </div>
 <!-- /layout-outer -->
 
-
-
-<p-dialog #observationDialog (onShow)="observationDialog.maximize()" [(visible)]="observationPopupVisible"
-  [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
+<p-dialog
+  #observationDialog
+  (onShow)="observationDialog.maximize()"
+  [(visible)]="observationPopupVisible"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [maximizable]="true"
+>
   <p-header>
-    <span [style]="{ color: toMarkerColor(observationPopup?.observation) }"
-      [title]="observationPopup?.observation?.$source">█</span>
+    <span [style]="{ color: toMarkerColor(observationPopup?.observation) }" [title]="observationPopup?.observation?.$source">█</span>
     {{ observationPopup?.observation?.locationName }}
   </p-header>
   <table *ngIf="observationPopup" class="table table-sm">
     <tr *ngFor="let row of observationPopup.table">
       <th style="padding-right: 1ex">{{ row.label }}</th>
       <td>
-        <span *ngIf="row.date !== undefined">{{ row.date | localizedDate: "full" }}</span>
+        <span *ngIf="row.date !== undefined">{{ row.date | localizedDate : "full" }}</span>
         <span *ngIf="row.number !== undefined">{{ row.number | number }}</span>
         <span *ngIf="row.boolean !== undefined"><i [class]="row.boolean ? 'pi pi-check' : 'pi pi-times'"></i></span>
-        <span *ngIf="row.url !== undefined"><a href="{{ row.url }}" rel="noopener"
-            target="_blank">{{ row.url }}</a></span>
+        <span *ngIf="row.url !== undefined"
+          ><a href="{{ row.url }}" rel="noopener" target="_blank">{{ row.url }}</a></span
+        >
         <span *ngIf="row.value !== undefined">{{ row.value }}</span>
         <span
-          *ngIf="row.date === undefined && row.number === undefined && row.boolean === undefined && row.url === undefined && row.value === undefined">&mdash;</span>
+          *ngIf="
+            row.date === undefined &&
+            row.number === undefined &&
+            row.boolean === undefined &&
+            row.url === undefined &&
+            row.value === undefined
+          "
+          >&mdash;</span
+        >
       </td>
     </tr>
   </table>
-  <iframe *ngIf="observationPopup?.iframe" [src]="observationPopup?.iframe" style="width: 100%; height: 80vh;"></iframe>
+  <iframe *ngIf="observationPopup?.iframe" [src]="observationPopup?.iframe" style="width: 100%; height: 80vh"></iframe>
 </p-dialog>

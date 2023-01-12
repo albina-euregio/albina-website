@@ -1,3 +1,4 @@
+import { logger } from "@sentry/utils";
 import * as Enums from "../enums/enums";
 import { MatrixInformationModel } from "./matrix-information.model";
 import { TextModel } from "./text.model";
@@ -254,6 +255,54 @@ export class AvalancheProblemModel {
     }
     if (this.matrixInformation && this.matrixInformation !== undefined) {
       json["eawsMatrixInformation"] = this.matrixInformation.toJson();
+    }
+    if (this.terrainFeatureTextcat && this.terrainFeatureTextcat !== undefined) {
+      json["terrainFeatureTextcat"] = this.terrainFeatureTextcat;
+    }
+    if (this.terrainFeature && this.terrainFeature !== undefined && this.terrainFeature.length > 0) {
+      const terrainFeature = [];
+      for (let i = 0; i <= this.terrainFeature.length - 1; i++) {
+        terrainFeature.push(this.terrainFeature[i].toJson());
+      }
+      json["terrainFeature"] = terrainFeature;
+    }
+
+    return json;
+  }
+
+  toAinevaJson() {
+    const json = Object();
+
+    if (this.avalancheProblem && this.avalancheProblem !== undefined) {
+      if (this.avalancheProblem === Enums.AvalancheProblem[Enums.AvalancheProblem.wind_slab] as any) {
+        json["avalancheSituation"] = "wind_drifted_snow";
+      } else {
+        json["avalancheSituation"] = this.avalancheProblem;
+      }
+    }
+    if (this.aspects && this.aspects.length > 0) {
+      const aspects = [];
+      for (let i = 0; i <= this.aspects.length - 1; i++) {
+        aspects.push(this.aspects[i]);
+      }
+      json["aspects"] = aspects;
+    }
+    if (this.treelineHigh) {
+      json["treelineHigh"] = this.treelineHigh;
+    } else {
+      if (this.elevationHigh && this.elevationHigh !== undefined) {
+        json["elevationHigh"] = this.elevationHigh;
+      }
+    }
+    if (this.treelineLow) {
+      json["treelineLow"] = this.treelineLow;
+    } else {
+      if (this.elevationLow && this.elevationLow !== undefined) {
+        json["elevationLow"] = this.elevationLow;
+      }
+    }
+    if (this.dangerRatingDirection) {
+      json["dangerRatingDirection"] = this.dangerRatingDirection;
     }
     if (this.terrainFeatureTextcat && this.terrainFeatureTextcat !== undefined) {
       json["terrainFeatureTextcat"] = this.terrainFeatureTextcat;

@@ -1,10 +1,5 @@
 import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kronos.model";
-import {
-  GenericObservation,
-  ObservationSource,
-  ObservationType,
-  Stability,
-} from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
 import * as Enums from "app/enums/enums";
 
 export interface LoLaSafetyApi {
@@ -104,21 +99,17 @@ export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
   return [
     ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
     ...lola.snowProfiles.map((obs) =>
-      convertLoLaToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles, ObservationType.Profile, "https://www.lola-safety.info/snowProfile/")
-    ),
+      convertLoLaToGeneric(obs, ObservationSource.LoLaSafety, ObservationType.Profile, "https://www.lola-safety.info/snowProfile/")
+    )
   ];
 }
 
-function convertAvalancheReport(
-  report: AvalancheReport
-): GenericObservation<AvalancheReport> {
+function convertAvalancheReport(report: AvalancheReport): GenericObservation<AvalancheReport> {
   return {
     $data: report,
-    $externalURL:
-      "https://www.lola-safety.info/api/file/avalancheReport/" +
-      (report.detailedPdf ?? report.publicPdf),
-    $source: ObservationSource.LoLaSafetyAvalancheReports,
-    $type: ObservationType.Observation,
+    $externalURL: "https://www.lola-safety.info/api/file/avalancheReport/" + (report.detailedPdf ?? report.publicPdf),
+    $source: ObservationSource.LoLaSafety,
+    $type: ObservationType.Evaluation,
     stability: getAvalancheReportStability(report),
     $markerRadius: getAvalancheReportMarkerRadius(report),
     aspect: undefined,
@@ -134,15 +125,17 @@ function convertAvalancheReport(
 }
 
 function getAvalancheReportStability(report: AvalancheReport): Stability {
-  if (report.avalanchePotential.riskAssessment < 30) {
+  if (report.avalanchePotential.riskAssessment < 25) {
     return Enums.Stability.good;
-  } else if (report.avalanchePotential.riskAssessment < 60) {
-    return Enums.Stability.medium;
+  } else if (report.avalanchePotential.riskAssessment < 50) {
+    return Enums.Stability.fair;
+  } else if (report.avalanchePotential.riskAssessment < 75) {
+    return Enums.Stability.poor;
   } else {
-    return Enums.Stability.weak;
+    return Enums.Stability.very_poor;
   }
 }
 
 function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
-  return 15;
+  return 20;
 }

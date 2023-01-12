@@ -1,401 +1,401 @@
 [
-    {
-      "latitude": "46.201525",
-      "longitude": "11.788910",
-      "name": "Lago Di Calaita Mod. 1",
-      "number": "18CL",
-      "plot.id": "TN_mod1_lago_di_calaita"
-    },
-    {
-      "latitude": "46.685062",
-      "longitude": "11.273284",
-      "name": "Waidmannalm Mod. 1 - Waidmannalm Mod. 1",
-      "number": "23960BL",
-      "plot.id": "STI_mod1_waidmannalm"
-    },
-    {
-      "latitude": "46.487173",
-      "longitude": "10.829985",
-      "name": "Weissbrunn Mod. 1 - Fontana Bianca Mod. 1",
-      "number": "24390BL",
-      "plot.id": "STI_mod1_weissbrunn"
-    },
-    {
-      "latitude": "46.346236",
-      "longitude": "11.682069",
-      "name": "Lusia Mod. 1",
-      "number": "42LU",
-      "plot.id": "TN_mod1_lusia"
-    },
-    {
-      "latitude": "46.810054",
-      "longitude": "10.485004",
-      "name": "Ausserrojen Mod. 1 - Roia di Fuori Mod. 1",
-      "number": "00590BL",
-      "plot.id": "STI_mod1_ausserrojen"
-    },
-    {
-      "latitude": "46.171442",
-      "longitude": "11.001019",
-      "name": "Andalo Mod. 1",
-      "number": "11AN",
-      "plot.id": "TN_mod1_andalo"
-    },
-    {
-      "latitude": "46.437389",
-      "longitude": "11.878395",
-      "name": "Marmolada Mod. 1",
-      "number": "50MA",
-      "plot.id": "TN_mod1_marmolada"
-    },
-    {
-      "latitude": "46.538467",
-      "longitude": "11.753357",
-      "name": "Ciampinoi Mod. 1 - Ciampinoi Mod. 1",
-      "number": "73390BL",
-      "plot.id": "STI_mod1_ciampinoi"
-    },
-    {
-      "latitude": "46.484675",
-      "longitude": "11.800697",
-      "name": "Belvedere - Sas Bece\u0027 Mod. 1",
-      "number": "39BE",
-      "plot.id": "TN_mod1_belvederesasbece"
-    },
-    {
-      "latitude": "46.142993",
-      "longitude": "11.021504",
-      "name": "Paganella Mod. 1",
-      "number": "40PA",
-      "plot.id": "TN_mod1_paganella"
-    },
-    {
-      "latitude": "46.052899",
-      "longitude": "10.514122",
-      "name": "Bissina Mod. 1",
-      "number": "21MB",
-      "plot.id": "TN_mod1_bissina"
-    },
-    {
-      "latitude": "46.843835",
-      "longitude": "11.686247",
-      "name": "Gitschberg Mod. 1 - Monte Cuzzo Mod. 1",
-      "number": "67690BL",
-      "plot.id": "STI_mod1_gitschberg"
-    },
-    {
-      "latitude": "46.342359",
-      "longitude": "11.539623",
-      "name": "Pampeago Mod. 1",
-      "number": "10PM",
-      "plot.id": "TN_mod1_pampeago"
-    },
-    {
-      "latitude": "46.453836",
-      "longitude": "11.008492",
-      "name": "Rumo Mod. 1",
-      "number": "28RM",
-      "plot.id": "TN_mod1_rumo"
-    },
-    {
-      "latitude": "46.430315",
-      "longitude": "11.723802",
-      "name": "Buffaure Mod. 1",
-      "number": "43BU",
-      "plot.id": "TN_mod1_buffaure"
-    },
-    {
-      "latitude": "47.048110",
-      "longitude": "12.127485",
-      "name": "Kasern Mod. 1 - Casere Mod. 1",
-      "number": "50190BL",
-      "plot.id": "STI_mod1_kasern"
-    },
-    {
-      "latitude": "46.261569",
-      "longitude": "11.796306",
-      "name": "S. Martino Mod. 1",
-      "number": "4SMC",
-      "plot.id": "TN_mod1_smartino"
-    },
-    {
-      "latitude": "46.347085",
-      "longitude": "11.551903",
-      "name": "Pampeago M. Mod. 1",
-      "number": "10MS",
-      "plot.id": "TN_mod1_pampeagom"
-    },
-    {
-      "latitude": "46.200566",
-      "longitude": "11.793483",
-      "name": "Canal San Bovo Mod. 1",
-      "number": "18SB",
-      "plot.id": "TN_mod1_canalsanbovo"
-    },
-    {
-      "latitude": "46.071922",
-      "longitude": "11.120948",
-      "name": "Trento Piazza Dante Mod. 1",
-      "number": "60TN",
-      "plot.id": "TN_mod1_trentopiazzadante"
-    },
-    {
-      "latitude": "46.975616",
-      "longitude": "11.975749",
-      "name": "Klausberg Mod. 1 - Monte Chiusetta Mod. 1",
-      "number": "51590BL",
-      "plot.id": "STI_mod1_klausberg"
-    },
-    {
-      "latitude": "46.339416",
-      "longitude": "11.801232",
-      "name": "Passo Valles Mod. 1",
-      "number": "7PVA",
-      "plot.id": "TN_mod1_passovalles"
-    },
-    {
-      "latitude": "46.334447",
-      "longitude": "11.554464",
-      "name": "Pampeago Na. Mod. 1",
-      "number": "10NT",
-      "plot.id": "TN_mod1_pampeagona"
-    },
-    {
-      "latitude": "46.933989",
-      "longitude": "11.366032",
-      "name": "Ladurns Mod. 1 - Ladurns Mod. 1",
-      "number": "31790BL",
-      "plot.id": "STI_mod1_ladurns"
-    },
-    {
-      "latitude": "46.446927",
-      "longitude": "11.771404",
-      "name": "Ciampac Mod. 1",
-      "number": "22CI",
-      "plot.id": "TN_mod1_ciampac"
-    },
-    {
-      "latitude": "46.370392",
-      "longitude": "10.662712",
-      "name": "Pejo Mod. 1",
-      "number": "1PEI",
-      "plot.id": "TN_mod1_pejo"
-    },
-    {
-      "latitude": "46.050153",
-      "longitude": "11.319889",
-      "name": "Panarotta Mod. 1",
-      "number": "9PTA",
-      "plot.id": "TN_mod1_panarotta"
-    },
-    {
-      "latitude": "46.837324",
-      "longitude": "10.655989",
-      "name": "Melag Mod. 1 - Melago  Mod. 1",
-      "number": "01090BL",
-      "plot.id": "STI_mod1_melag"
-    },
-    {
-      "latitude": "45.758877",
-      "longitude": "11.174829",
-      "name": "Vallarsa Mod. 1",
-      "number": "19PF",
-      "plot.id": "TN_mod1_vallarsa"
-    },
-    {
-      "latitude": "46.426335",
-      "longitude": "11.692259",
-      "name": "Pozza Di Fassa Mod. 1",
-      "number": "14PO",
-      "plot.id": "TN_mod1_pozzadifassa"
-    },
-    {
-      "latitude": "46.432997",
-      "longitude": "11.663027",
-      "name": "Ciampedie Mod. 1",
-      "number": "27CM",
-      "plot.id": "TN_mod1_ciampedie"
-    },
-    {
-      "latitude": "46.309470",
-      "longitude": "11.747503",
-      "name": "Paneveggio Mod. 1",
-      "number": "8PAN",
-      "plot.id": "TN_mod1_paneveggio"
-    },
-    {
-      "latitude": "46.373066",
-      "longitude": "11.529714",
-      "name": "Obereggen Mod. 1 - S.Floriano Mod. 1",
-      "number": "78500BL",
-      "plot.id": "STI_mod1_obereggen"
-    },
-    {
-      "latitude": "46.138661",
-      "longitude": "11.839286",
-      "name": "Val Noana Mod. 1",
-      "number": "24NO",
-      "plot.id": "TN_mod1_valnoana"
-    },
-    {
-      "latitude": "46.116633",
-      "longitude": "11.663267",
-      "name": "Passo Brocon Mod. 1",
-      "number": "16PT",
-      "plot.id": "TN_mod1_passobrocon"
-    },
-    {
-      "latitude": "46.340272",
-      "longitude": "11.575774",
-      "name": "Predazzo Mod. 1",
-      "number": "13PR",
-      "plot.id": "TN_mod1_predazzo"
-    },
-    {
-      "latitude": "46.037398",
-      "longitude": "11.060217",
-      "name": "Vason Mod. 1",
-      "number": "49VA",
-      "plot.id": "TN_mod1_vason"
-    },
-    {
-      "latitude": "46.781487",
-      "longitude": "11.426887",
-      "name": "Pens Mod. 1 - Pennes Mod. 1",
-      "number": "80190BL",
-      "plot.id": "STI_mod1_pens"
-    },
-    {
-      "latitude": "46.261382",
-      "longitude": "11.761506",
-      "name": "Cigolera Mod. 1",
-      "number": "35VC",
-      "plot.id": "TN_mod1_cigolera"
-    },
-    {
-      "latitude": "46.297867",
-      "longitude": "11.787124",
-      "name": "Passo Rolle Mod. 1",
-      "number": "31RO",
-      "plot.id": "TN_mod1_passorolle"
-    },
-    {
-      "latitude": "46.228088",
-      "longitude": "10.578733",
-      "name": "Presena Mod. 1",
-      "number": "30PN",
-      "plot.id": "TN_mod1_presena"
-    },
-    {
-      "latitude": "46.796151",
-      "longitude": "11.088341",
-      "name": "Pfelders Mod. 1 - Plan Mod. 1",
-      "number": "20580BL",
-      "plot.id": "STI_mod1_pfelders"
-    },
-    {
-      "latitude": "46.013636",
-      "longitude": "11.054878",
-      "name": "Viote Mod. 1",
-      "number": "6BON",
-      "plot.id": "TN_mod1_viote"
-    },
-    {
-      "latitude": "46.564962",
-      "longitude": "11.903624",
-      "name": "Piz la Ila Mod. 1 - Piz la Ila Mod. 1",
-      "number": "61710BL",
-      "plot.id": "STI_mod1_pizlaila"
-    },
-    {
-      "latitude": "45.758556",
-      "longitude": "10.881764",
-      "name": "Dossioli Mod. 1",
-      "number": "44DO",
-      "plot.id": "TN_mod1_dossioli"
-    },
-    {
-      "latitude": "46.409570",
-      "longitude": "10.803199",
-      "name": "Rabbi Mod. 1",
-      "number": "2RAB",
-      "plot.id": "TN_mod1_rabbi"
-    },
-    {
-      "latitude": "46.384123",
-      "longitude": "11.795139",
-      "name": "Passo S. Pellegrino Mod. 1",
-      "number": "26SP",
-      "plot.id": "TN_mod1_passospellegrino"
-    },
-    {
-      "latitude": "46.198872",
-      "longitude": "11.868612",
-      "name": "Welsperg Mod. 1",
-      "number": "37VW",
-      "plot.id": "TN_mod1_welsperg"
-    },
-    {
-      "latitude": "45.782950",
-      "longitude": "10.910676",
-      "name": "Passo S. Valentino Mod. 1",
-      "number": "5PSV",
-      "plot.id": "TN_mod1_passosvalentino"
-    },
-    {
-      "latitude": "45.918626",
-      "longitude": "11.206076",
-      "name": "Folgaria Mod. 1",
-      "number": "12FO",
-      "plot.id": "TN_mod1_folgaria"
-    },
-    {
-      "latitude": "47.035356",
-      "longitude": "12.095436",
-      "name": "Prettau Mod. 1 - Predoi Mod. 1",
-      "number": "50490BL",
-      "plot.id": "STI_mod1_prettau"
-    },
-    {
-      "latitude": "46.049760",
-      "longitude": "10.611615",
-      "name": "Rif. Trivena Mod. 1",
-      "number": "36RT",
-      "plot.id": "TN_mod1_riftrivena"
-    },
-    {
-      "latitude": "46.262559",
-      "longitude": "10.596828",
-      "name": "Passo Tonale Mod. 1",
-      "number": "25TO",
-      "plot.id": "TN_mod1_passotonale"
-    },
-    {
-      "latitude": "46.290164",
-      "longitude": "10.846682",
-      "name": "Folgarida Mod. 1",
-      "number": "29FL",
-      "plot.id": "TN_mod1_folgarida"
-    },
-    {
-      "latitude": "46.942751",
-      "longitude": "12.082375",
-      "name": "Rein in Taufers Mod. 1 - Riva di Tures Mod. 1",
-      "number": "54490BL",
-      "plot.id": "STI_mod1_reinintaufers"
-    },
-    {
-      "latitude": "46.941321",
-      "longitude": "11.787360",
-      "name": "Stausee Neves Mod. 1 - Diga di Neves Mod. 1",
-      "number": "55290BL",
-      "plot.id": "STI_mod1_stauseeneves"
-    },
-    {
-      "latitude": "46.217714",
-      "longitude": "10.889758",
-      "name": "Groste\u0027 Mod. 1",
-      "number": "41GR",
-      "plot.id": "TN_mod1_groste"
-    }
-  ]
+  {
+    "latitude": "46.201525",
+    "longitude": "11.788910",
+    "name": "Lago Di Calaita Mod. 1",
+    "number": "18CL",
+    "plot.id": "TN_mod1_lago_di_calaita"
+  },
+  {
+    "latitude": "46.685062",
+    "longitude": "11.273284",
+    "name": "Waidmannalm Mod. 1 - Waidmannalm Mod. 1",
+    "number": "23960BL",
+    "plot.id": "STI_mod1_waidmannalm"
+  },
+  {
+    "latitude": "46.487173",
+    "longitude": "10.829985",
+    "name": "Weissbrunn Mod. 1 - Fontana Bianca Mod. 1",
+    "number": "24390BL",
+    "plot.id": "STI_mod1_weissbrunn"
+  },
+  {
+    "latitude": "46.346236",
+    "longitude": "11.682069",
+    "name": "Lusia Mod. 1",
+    "number": "42LU",
+    "plot.id": "TN_mod1_lusia"
+  },
+  {
+    "latitude": "46.810054",
+    "longitude": "10.485004",
+    "name": "Ausserrojen Mod. 1 - Roia di Fuori Mod. 1",
+    "number": "00590BL",
+    "plot.id": "STI_mod1_ausserrojen"
+  },
+  {
+    "latitude": "46.171442",
+    "longitude": "11.001019",
+    "name": "Andalo Mod. 1",
+    "number": "11AN",
+    "plot.id": "TN_mod1_andalo"
+  },
+  {
+    "latitude": "46.437389",
+    "longitude": "11.878395",
+    "name": "Marmolada Mod. 1",
+    "number": "50MA",
+    "plot.id": "TN_mod1_marmolada"
+  },
+  {
+    "latitude": "46.538467",
+    "longitude": "11.753357",
+    "name": "Ciampinoi Mod. 1 - Ciampinoi Mod. 1",
+    "number": "73390BL",
+    "plot.id": "STI_mod1_ciampinoi"
+  },
+  {
+    "latitude": "46.484675",
+    "longitude": "11.800697",
+    "name": "Belvedere - Sas Bece\u0027 Mod. 1",
+    "number": "39BE",
+    "plot.id": "TN_mod1_belvederesasbece"
+  },
+  {
+    "latitude": "46.142993",
+    "longitude": "11.021504",
+    "name": "Paganella Mod. 1",
+    "number": "40PA",
+    "plot.id": "TN_mod1_paganella"
+  },
+  {
+    "latitude": "46.052899",
+    "longitude": "10.514122",
+    "name": "Bissina Mod. 1",
+    "number": "21MB",
+    "plot.id": "TN_mod1_bissina"
+  },
+  {
+    "latitude": "46.843835",
+    "longitude": "11.686247",
+    "name": "Gitschberg Mod. 1 - Monte Cuzzo Mod. 1",
+    "number": "67690BL",
+    "plot.id": "STI_mod1_gitschberg"
+  },
+  {
+    "latitude": "46.342359",
+    "longitude": "11.539623",
+    "name": "Pampeago Mod. 1",
+    "number": "10PM",
+    "plot.id": "TN_mod1_pampeago"
+  },
+  {
+    "latitude": "46.453836",
+    "longitude": "11.008492",
+    "name": "Rumo Mod. 1",
+    "number": "28RM",
+    "plot.id": "TN_mod1_rumo"
+  },
+  {
+    "latitude": "46.430315",
+    "longitude": "11.723802",
+    "name": "Buffaure Mod. 1",
+    "number": "43BU",
+    "plot.id": "TN_mod1_buffaure"
+  },
+  {
+    "latitude": "47.048110",
+    "longitude": "12.127485",
+    "name": "Kasern Mod. 1 - Casere Mod. 1",
+    "number": "50190BL",
+    "plot.id": "STI_mod1_kasern"
+  },
+  {
+    "latitude": "46.261569",
+    "longitude": "11.796306",
+    "name": "S. Martino Mod. 1",
+    "number": "4SMC",
+    "plot.id": "TN_mod1_smartino"
+  },
+  {
+    "latitude": "46.347085",
+    "longitude": "11.551903",
+    "name": "Pampeago M. Mod. 1",
+    "number": "10MS",
+    "plot.id": "TN_mod1_pampeagom"
+  },
+  {
+    "latitude": "46.200566",
+    "longitude": "11.793483",
+    "name": "Canal San Bovo Mod. 1",
+    "number": "18SB",
+    "plot.id": "TN_mod1_canalsanbovo"
+  },
+  {
+    "latitude": "46.071922",
+    "longitude": "11.120948",
+    "name": "Trento Piazza Dante Mod. 1",
+    "number": "60TN",
+    "plot.id": "TN_mod1_trentopiazzadante"
+  },
+  {
+    "latitude": "46.975616",
+    "longitude": "11.975749",
+    "name": "Klausberg Mod. 1 - Monte Chiusetta Mod. 1",
+    "number": "51590BL",
+    "plot.id": "STI_mod1_klausberg"
+  },
+  {
+    "latitude": "46.339416",
+    "longitude": "11.801232",
+    "name": "Passo Valles Mod. 1",
+    "number": "7PVA",
+    "plot.id": "TN_mod1_passovalles"
+  },
+  {
+    "latitude": "46.334447",
+    "longitude": "11.554464",
+    "name": "Pampeago Na. Mod. 1",
+    "number": "10NT",
+    "plot.id": "TN_mod1_pampeagona"
+  },
+  {
+    "latitude": "46.933989",
+    "longitude": "11.366032",
+    "name": "Ladurns Mod. 1 - Ladurns Mod. 1",
+    "number": "31790BL",
+    "plot.id": "STI_mod1_ladurns"
+  },
+  {
+    "latitude": "46.446927",
+    "longitude": "11.771404",
+    "name": "Ciampac Mod. 1",
+    "number": "22CI",
+    "plot.id": "TN_mod1_ciampac"
+  },
+  {
+    "latitude": "46.370392",
+    "longitude": "10.662712",
+    "name": "Pejo Mod. 1",
+    "number": "1PEI",
+    "plot.id": "TN_mod1_pejo"
+  },
+  {
+    "latitude": "46.050153",
+    "longitude": "11.319889",
+    "name": "Panarotta Mod. 1",
+    "number": "9PTA",
+    "plot.id": "TN_mod1_panarotta"
+  },
+  {
+    "latitude": "46.837324",
+    "longitude": "10.655989",
+    "name": "Melag Mod. 1 - Melago  Mod. 1",
+    "number": "01090BL",
+    "plot.id": "STI_mod1_melag"
+  },
+  {
+    "latitude": "45.758877",
+    "longitude": "11.174829",
+    "name": "Vallarsa Mod. 1",
+    "number": "19PF",
+    "plot.id": "TN_mod1_vallarsa"
+  },
+  {
+    "latitude": "46.426335",
+    "longitude": "11.692259",
+    "name": "Pozza Di Fassa Mod. 1",
+    "number": "14PO",
+    "plot.id": "TN_mod1_pozzadifassa"
+  },
+  {
+    "latitude": "46.432997",
+    "longitude": "11.663027",
+    "name": "Ciampedie Mod. 1",
+    "number": "27CM",
+    "plot.id": "TN_mod1_ciampedie"
+  },
+  {
+    "latitude": "46.309470",
+    "longitude": "11.747503",
+    "name": "Paneveggio Mod. 1",
+    "number": "8PAN",
+    "plot.id": "TN_mod1_paneveggio"
+  },
+  {
+    "latitude": "46.373066",
+    "longitude": "11.529714",
+    "name": "Obereggen Mod. 1 - S.Floriano Mod. 1",
+    "number": "78500BL",
+    "plot.id": "STI_mod1_obereggen"
+  },
+  {
+    "latitude": "46.138661",
+    "longitude": "11.839286",
+    "name": "Val Noana Mod. 1",
+    "number": "24NO",
+    "plot.id": "TN_mod1_valnoana"
+  },
+  {
+    "latitude": "46.116633",
+    "longitude": "11.663267",
+    "name": "Passo Brocon Mod. 1",
+    "number": "16PT",
+    "plot.id": "TN_mod1_passobrocon"
+  },
+  {
+    "latitude": "46.340272",
+    "longitude": "11.575774",
+    "name": "Predazzo Mod. 1",
+    "number": "13PR",
+    "plot.id": "TN_mod1_predazzo"
+  },
+  {
+    "latitude": "46.037398",
+    "longitude": "11.060217",
+    "name": "Vason Mod. 1",
+    "number": "49VA",
+    "plot.id": "TN_mod1_vason"
+  },
+  {
+    "latitude": "46.781487",
+    "longitude": "11.426887",
+    "name": "Pens Mod. 1 - Pennes Mod. 1",
+    "number": "80190BL",
+    "plot.id": "STI_mod1_pens"
+  },
+  {
+    "latitude": "46.261382",
+    "longitude": "11.761506",
+    "name": "Cigolera Mod. 1",
+    "number": "35VC",
+    "plot.id": "TN_mod1_cigolera"
+  },
+  {
+    "latitude": "46.297867",
+    "longitude": "11.787124",
+    "name": "Passo Rolle Mod. 1",
+    "number": "31RO",
+    "plot.id": "TN_mod1_passorolle"
+  },
+  {
+    "latitude": "46.228088",
+    "longitude": "10.578733",
+    "name": "Presena Mod. 1",
+    "number": "30PN",
+    "plot.id": "TN_mod1_presena"
+  },
+  {
+    "latitude": "46.796151",
+    "longitude": "11.088341",
+    "name": "Pfelders Mod. 1 - Plan Mod. 1",
+    "number": "20580BL",
+    "plot.id": "STI_mod1_pfelders"
+  },
+  {
+    "latitude": "46.013636",
+    "longitude": "11.054878",
+    "name": "Viote Mod. 1",
+    "number": "6BON",
+    "plot.id": "TN_mod1_viote"
+  },
+  {
+    "latitude": "46.564962",
+    "longitude": "11.903624",
+    "name": "Piz la Ila Mod. 1 - Piz la Ila Mod. 1",
+    "number": "61710BL",
+    "plot.id": "STI_mod1_pizlaila"
+  },
+  {
+    "latitude": "45.758556",
+    "longitude": "10.881764",
+    "name": "Dossioli Mod. 1",
+    "number": "44DO",
+    "plot.id": "TN_mod1_dossioli"
+  },
+  {
+    "latitude": "46.409570",
+    "longitude": "10.803199",
+    "name": "Rabbi Mod. 1",
+    "number": "2RAB",
+    "plot.id": "TN_mod1_rabbi"
+  },
+  {
+    "latitude": "46.384123",
+    "longitude": "11.795139",
+    "name": "Passo S. Pellegrino Mod. 1",
+    "number": "26SP",
+    "plot.id": "TN_mod1_passospellegrino"
+  },
+  {
+    "latitude": "46.198872",
+    "longitude": "11.868612",
+    "name": "Welsperg Mod. 1",
+    "number": "37VW",
+    "plot.id": "TN_mod1_welsperg"
+  },
+  {
+    "latitude": "45.782950",
+    "longitude": "10.910676",
+    "name": "Passo S. Valentino Mod. 1",
+    "number": "5PSV",
+    "plot.id": "TN_mod1_passosvalentino"
+  },
+  {
+    "latitude": "45.918626",
+    "longitude": "11.206076",
+    "name": "Folgaria Mod. 1",
+    "number": "12FO",
+    "plot.id": "TN_mod1_folgaria"
+  },
+  {
+    "latitude": "47.035356",
+    "longitude": "12.095436",
+    "name": "Prettau Mod. 1 - Predoi Mod. 1",
+    "number": "50490BL",
+    "plot.id": "STI_mod1_prettau"
+  },
+  {
+    "latitude": "46.049760",
+    "longitude": "10.611615",
+    "name": "Rif. Trivena Mod. 1",
+    "number": "36RT",
+    "plot.id": "TN_mod1_riftrivena"
+  },
+  {
+    "latitude": "46.262559",
+    "longitude": "10.596828",
+    "name": "Passo Tonale Mod. 1",
+    "number": "25TO",
+    "plot.id": "TN_mod1_passotonale"
+  },
+  {
+    "latitude": "46.290164",
+    "longitude": "10.846682",
+    "name": "Folgarida Mod. 1",
+    "number": "29FL",
+    "plot.id": "TN_mod1_folgarida"
+  },
+  {
+    "latitude": "46.942751",
+    "longitude": "12.082375",
+    "name": "Rein in Taufers Mod. 1 - Riva di Tures Mod. 1",
+    "number": "54490BL",
+    "plot.id": "STI_mod1_reinintaufers"
+  },
+  {
+    "latitude": "46.941321",
+    "longitude": "11.787360",
+    "name": "Stausee Neves Mod. 1 - Diga di Neves Mod. 1",
+    "number": "55290BL",
+    "plot.id": "STI_mod1_stauseeneves"
+  },
+  {
+    "latitude": "46.217714",
+    "longitude": "10.889758",
+    "name": "Groste\u0027 Mod. 1",
+    "number": "41GR",
+    "plot.id": "TN_mod1_groste"
+  }
+]
