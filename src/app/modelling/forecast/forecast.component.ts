@@ -104,7 +104,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.dropDownOptions[type] = zamgModelPoints;
         zamgModelPoints.forEach(point => {
           const ll: LatLngLiteral = {
-            lat: type === "eps_claef" ? (point.lat+0.0001) : point.lat,
+            lat: type === "eps_claef" ? (point.lat+0.01) : point.lat,
             lng: type === "eps_claef" ? (point.lng-0.002) : point.lng
           };
           const callback = {
