@@ -150,10 +150,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngOnDestroy() {
+    this.mapService.resetAll();
     if (this.mapService.map) {
       this.mapService.map.remove();
       this.mapService.map = undefined;
     }
+
   }
 
   onDropdownSelect(target: string, event: any) {

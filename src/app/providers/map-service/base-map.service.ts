@@ -264,12 +264,12 @@ export class BaseMapService {
   }
 
   resetAll() {
-
     console.log("resetAll ##09", this.authenticationService);
     this.resetRegions();
     this.resetActiveSelection();
     //this.resetAggregatedRegions();
     this.resetEditSelection();
+
   }
 
   private onEachAggregatedRegionsFeature(feature, layer) {
