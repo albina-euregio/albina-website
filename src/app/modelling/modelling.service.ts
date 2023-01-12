@@ -7,24 +7,12 @@ import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 
 interface MultimodelPointCsv {
-  UID: string;
-  CHARID: string;
-  "SEEHOEHE [m]": string;
-  id: string;
-  MuMo_X: string;
-  MuMo_Y: string;
-  OBJECTID: string;
-  Region: string;
-  regione: string;
-  RegionCode: string;
-  Provinz: string;
-  provincia: string;
-  ProvinzId: string;
-  nome_zona: string;
-  Name_Zone: string;
-  Nr_Zone: string;
-  Shape_Area: string;
-  NameTechel: string;
+  statnr: string;
+  lat: string;
+  lon: string;
+  elev: string;
+  name: string;
+  code: string;
 }
 
 export interface ZamgFreshSnow {
@@ -84,21 +72,21 @@ export class ModellingService {
 
   private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
     const urls = [
-      "MultimodelPointsEuregio_001.csv",
+      "snowgridmultimodel_stationlist.txt",
       "snowgridmultimodel_modprog1400_HN.txt",
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);
     return forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
       .pipe(
-        map(responses => responses.map(r => this.parseCSV(r.toString()))),
+        map(responses => responses.map((r, index) => this.parseCSV(index === 0 ? r.toString().replace(/^#\s*/, "") : r.toString()))),
         map(([points, hs1400, hn910, hn990]) =>
           points.data.map((row: MultimodelPointCsv) => {
-            const id = row.UID;
-            const regionCode = row.RegionCode;
+            const id = row.statnr;
+            const regionCode = row.code;
             const region = this.regionsService.getRegionForId(regionCode);
-            const lat = parseFloat(row.MuMo_Y.replace(/,/g, "."));
-            const lng = parseFloat(row.MuMo_X.replace(/,/g, "."));
+            const lat = parseFloat(row.lat);
+            const lng = parseFloat(row.lon);
 
             const freshSnow: ZamgFreshSnow[] = [];
             try {
@@ -133,7 +121,7 @@ export class ModellingService {
               lat,
               lng
             );
-          })
+          }).sort((p1, p2) => p1.regionCode.localeCompare(p2.regionCode))
         )
       );
   }
