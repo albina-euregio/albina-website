@@ -58,20 +58,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       name: "eps_claef"
     }
   ]
-  qfaPoints = {
-    "bozen": {
-      lng: 11.33,
-      lat: 46.47
-    },
-    "innsbruck": {
-      lng: 11.35,
-      lat: 47.27
-    },
-    "lienz": {
-      lng: 12.80,
-      lat: 46.83
-    }
-  };
+  qfaPoints = {};
 
   @ViewChild("mapDiv") mapDiv: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -87,6 +74,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   files = {}
 
   async ngAfterViewInit() {
+    this.qfaPoints = this.qfaService.coords;
     this.initMaps();
     this.files = await this.qfaService.getFiles();
     this.allSources.forEach(source => {
@@ -125,7 +113,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     })
 
     for(const [cityName, coords] of Object.entries(this.qfaPoints)) {
-      const ll: LatLngLiteral = coords;
+      const ll = coords as LatLngLiteral;
       const callback = {
         callback: this.onClickQfa,
         parameters: cityName,
