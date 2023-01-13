@@ -220,12 +220,12 @@ const StationTable = (props: Props) => {
     return cls.join(" ");
   };
 
-  const handleSort = (e: React.MouseEvent, el: Column, dir: SortDir) => {
+  const handleSort = (e: React.MouseEvent, col: Column, dir: SortDir) => {
     e.preventDefault();
     e.stopPropagation();
     props.handleSort(
-      el.data,
-      props.sortValue == el.data ? (dir == "asc" ? "desc" : "asc") : dir
+      col.data,
+      props.sortValue == col.data ? (dir == "asc" ? "desc" : "asc") : dir
     );
   };
 
@@ -241,50 +241,46 @@ const StationTable = (props: Props) => {
       id: "measurements:table:header:" + id
     });
 
+  const displayColumns = columns.filter(c => isDisplayColumn(c));
+
   return (
     <table className="pure-table pure-table-striped pure-table-small table-measurements">
       <thead>
         <tr>
-          {columns.map((el, i) => {
-            if (!isDisplayColumn(el)) return false;
-            return (
-              <th key={i}>
-                {title(el.data)}
-                {el.unit && <span className="measure">{el.unit}</span>}
-                {el.sortable !== false && (
-                  <span className="sort-buttons">
-                    {(["asc", "desc"] as SortDir[]).map(dir => (
-                      <Tooltip key={dir} label={sortTitle(el.data, dir)}>
-                        <a
-                          href="#"
-                          className={sortClasses(el.data, dir)}
-                          onClick={e => handleSort(e, el, dir)}
-                        >
-                          <span className="is-visually-hidden">
-                            {title(el.data)}: {sortTitle(el.data, dir)}
-                          </span>
-                        </a>
-                      </Tooltip>
-                    ))}
-                  </span>
-                )}
-              </th>
-            );
-          })}
+          {displayColumns.map(col => (
+            <th key={col.data}>
+              {title(col.data)}
+              {col.unit && <span className="measure">{col.unit}</span>}
+              {col.sortable !== false && (
+                <span className="sort-buttons">
+                  {(["asc", "desc"] as SortDir[]).map(dir => (
+                    <Tooltip key={dir} label={sortTitle(col.data, dir)}>
+                      <a
+                        href="#"
+                        className={sortClasses(col.data, dir)}
+                        onClick={e => handleSort(e, col, dir)}
+                      >
+                        <span className="is-visually-hidden">
+                          {title(col.data)}: {sortTitle(col.data, dir)}
+                        </span>
+                      </a>
+                    </Tooltip>
+                  ))}
+                </span>
+              )}
+            </th>
+          ))}
         </tr>
       </thead>
 
       <tbody>
         {props.sortedFilteredData.map((row: StationData) => (
           <tr key={row.id} onClick={() => _rowClicked(row)}>
-            {columns.map(
-              (col, i) =>
-                isDisplayColumn(col) && (
-                  <td key={row.id + "-" + i} className={col.className}>
-                    {col.render(row[col.data], row, col.digits)}
-                  </td>
-                )
-            )}
+            {displayColumns.map(col => (
+              <td key={row.id + "-" + col.data} className={col.className}>
+                {col.render(row[col.data], row, col.digits)}
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>
