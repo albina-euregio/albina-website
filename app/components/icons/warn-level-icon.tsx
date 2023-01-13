@@ -93,6 +93,7 @@ class WarnLevelIcon extends React.Component {
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 65 48"
+        fontSize={12}
       >
         <defs>
           <path
@@ -114,16 +115,8 @@ class WarnLevelIcon extends React.Component {
             <g fill={colorBelow} mask="url(#m0)">
               <path d="M0-1h65v50H0z" />
             </g>
-            <text
-              fill={colorBelowText}
-              fontSize="12"
-              fontWeight="bold"
-              letterSpacing=".5"
-              mask="url(#m0)"
-            >
-              <tspan x="28.119" y="35">
-                {numberBelow}
-              </tspan>
+            <text textAnchor="middle" fill={colorBelowText} x={65 / 2} y="35">
+              {numberBelow}
             </text>
             <path stroke="#222" d="M63 47.5 36 .5l-6 11-4-7-25 43h62Z" />
           </g>
@@ -141,15 +134,12 @@ class WarnLevelIcon extends React.Component {
                 <path d="M-1-30h65v50H-1z" />
               </g>
               <text
+                textAnchor="middle"
                 fill={colorBelowText}
-                fontSize="12"
-                fontWeight="bold"
-                letterSpacing=".5"
-                mask="url(#m1)"
+                x={65 / 2 - 0.5}
+                y="14"
               >
-                <tspan x="27.119" y="14">
-                  {numberBelow}
-                </tspan>
+                {numberBelow}
               </text>
             </g>
             <g transform="translate(11.5 1)">
@@ -160,15 +150,12 @@ class WarnLevelIcon extends React.Component {
                 <path d="M-12-2h65v50h-65z" />
               </g>
               <text
+                textAnchor="middle"
                 fill={colorAboveText}
-                fontSize="12"
-                fontWeight="bold"
-                letterSpacing=".5"
-                mask="url(#m2)"
+                x={65 / 2 - 11.5}
+                y="23"
               >
-                <tspan x="17.171" y="23">
-                  {numberAbove}
-                </tspan>
+                {numberAbove}
               </text>
             </g>
           </g>
