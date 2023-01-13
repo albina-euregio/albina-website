@@ -2,8 +2,6 @@ import React from "react";
 import { modal_open_by_params } from "../../js/modal";
 import { useIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
-import { useState } from "react";
-import { useEffect } from "react";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -44,7 +42,7 @@ const StationTable = (props: Props) => {
     sortable?: boolean;
     className: string;
     unit?: string;
-    group?: string;
+    group?: keyof Props["activeData"];
     digits?: number;
   };
 
@@ -167,30 +165,9 @@ const StationTable = (props: Props) => {
       className: "mb-wind m-windmax"
     }
   ];
-
-  const [columnGroups] = useState({
-    snow: {
-      active: true
-    },
-    temp: {
-      active: true
-    },
-    wind: {
-      active: true
-    }
-  });
-
-  useEffect(
-    () =>
-      Object.keys(columnGroups).forEach(e => {
-        columnGroups[e].active = props.activeData[e];
-      }),
-    [columnGroups, props.activeData]
+  const displayColumns = columns.filter(
+    c => !c.group || props.activeData[c.group]
   );
-
-  function isDisplayColumn(column: Column) {
-    return !column.group || columnGroups[column.group].active;
-  }
 
   function _rowClicked(station: StationData) {
     window["modalStateStore"].setData({
@@ -240,8 +217,6 @@ const StationTable = (props: Props) => {
     intl.formatMessage({
       id: "measurements:table:header:" + id
     });
-
-  const displayColumns = columns.filter(c => isDisplayColumn(c));
 
   return (
     <table className="pure-table pure-table-striped pure-table-small table-measurements">
