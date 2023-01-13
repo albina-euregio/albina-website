@@ -3,14 +3,11 @@ import ReactDOM from "react-dom";
 import App from "./components/app.jsx";
 import { APP_STORE } from "./appStore";
 import ModalStateStore from "./stores/modalStateStore";
-import StaticPageStore from "./stores/staticPageStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import { BLOG_STORE } from "./stores/blogStore";
 
 (() => import("./sentry"))();
 
-// TODO: check content API for maintenance mode before starting the app
-window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
 

@@ -6,6 +6,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { video_init } from "../js/video";
 import { useIntl } from "react-intl";
+import StaticPageStore from "../stores/staticPageStore";
 
 //import { scroll } from "../js/scroll";
 /*
@@ -41,7 +42,7 @@ const StaticPage = () => {
     // remove projectRoot from the URL
 
     if (site) {
-      window["staticPageStore"].loadPage(site).then(responseParsed => {
+      StaticPageStore.loadPage(site).then(responseParsed => {
         setTitle(responseParsed.data.attributes.title);
         setChapter(
           responseParsed.data.attributes.chapter
