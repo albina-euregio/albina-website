@@ -21,7 +21,14 @@ Object.assign(process.env, {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: { sourcemap: true },
+  build: {
+    rollupOptions: {
+      output: {
+        chunkFileNames: "[hash:23].js"
+      }
+    },
+    sourcemap: true
+  },
   envPrefix: ["APP_", "VITE_"],
   plugins: [
     react(),
