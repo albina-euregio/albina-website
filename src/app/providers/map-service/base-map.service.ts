@@ -54,12 +54,6 @@ declare module "leaflet" {
 interface SelectableRegionProperties extends RegionWithElevationProperties {
   selected: boolean;
 }
-interface markerCallback {
-  callback: Function;
-  parameters: any;
-  context: any;
-}
-
 @Injectable()
 export class BaseMapService {
   public map: Map;
@@ -387,16 +381,11 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  drawMarker(ll: LatLngLiteral, options, layerName="default", callback={} as markerCallback) {
+  drawMarker(ll: LatLngLiteral, options, layerName="default", callback?) {
 
     const marker = new CircleMarker(ll, options);
 
-    if(callback) {
-      marker.on("click", () => {
-        const _callback = callback.callback.bind(callback.context);
-        _callback(ll, callback.parameters);
-      });
-    }
+    if(callback) marker.on("click", () => callback(ll));
 
     marker.options.pane = "markerPane";
 

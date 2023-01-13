@@ -93,14 +93,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
             lat: type === "eps_claef" ? (point.lat+0.01) : point.lat,
             lng: type === "eps_claef" ? (point.lng-0.002) : point.lng
           };
-          const callback = {
-            callback: this.onClickZamgModelPoint,
-            parameters: {
-              point: point,
-              type: type,
-            },
-            context: this,
-          }
+          const callback = (ll) => this.onClickZamgModelPoint(point, type);
           this.mapService.drawMarker(
             ll,
             this.getModelPointOptions(type),
@@ -112,11 +105,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
     for(const [cityName, coords] of Object.entries(this.qfaService.coords)) {
       const ll = coords as LatLngLiteral;
-      const callback = {
-        callback: this.onClickQfa,
-        parameters: cityName,
-        context: this
-      }
+      const callback = (ll) => this.onClickQfa(ll, cityName);
       this.mapService.drawMarker(
         ll,
         this.getModelPointOptions("qfa"),
@@ -151,9 +140,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  onClickZamgModelPoint(ll: LatLngLiteral, params) {
-    this.selectedModelPoint = params.point;
-    this.selectedModelType = params.type;
+  onClickZamgModelPoint(point, type) {
+    this.selectedModelPoint = point;
+    this.selectedModelType = type;
     this.showMap = false;
   }
 
