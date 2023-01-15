@@ -14,6 +14,7 @@ export class ConstantsService {
 
   public lolaKronosApi = "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/"
   public observationApi = {
+    [ObservationSource.AvalancheWarningService]: "https://admin.avalanche.report/observed-profiles/observed_profiles.json",
     [ObservationSource.Lawis]: "https://admin.avalanche.report/lawis/public/",
     [ObservationSource.LoLaSafety]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
