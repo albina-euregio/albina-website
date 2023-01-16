@@ -4,7 +4,23 @@ import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
-import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions, Browser, Control, LatLng } from "leaflet";
+import {
+  Map,
+  Canvas,
+  LayerGroup,
+  TileLayer,
+  SidebarOptions,
+  Icon,
+  DivIcon,
+  MarkerOptions,
+  CircleMarkerOptions,
+  Browser,
+  Control,
+  LatLng,
+  LatLngLiteral,
+  Marker,
+  CircleMarker,
+  Layer } from "leaflet";
 import {
   GenericObservation,
   ObservationFilterType,
@@ -15,13 +31,9 @@ import {
   toMarkerColor
 } from "app/observations/models/generic-observation.model";
 
-// icons
-import { appCircleIcon } from "../../svg/circle";
-
-import {CanvasIconLayer} from './leaflet.canvas-markers';
-
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { RegionsService, RegionWithElevationProperties } from "../regions-service/regions.service";
+import { ObservationMapService } from "./observation-map.service";
 declare module "leaflet" {
   interface GeoJSON<P = any> {
     feature?: geojson.Feature<geojson.MultiPoint, P>;
@@ -42,13 +54,11 @@ declare module "leaflet" {
 interface SelectableRegionProperties extends RegionWithElevationProperties {
   selected: boolean;
 }
-
 @Injectable()
-export class ObservationsMapService {
-  public USE_CANVAS_LAYER = true;
-  public observationsMap: Map;
-  public observationsMaps: Record<string, TileLayer>;
-  public observationSourceLayers: Record<ObservationSource, LayerGroup>;
+export class BaseMapService {
+  public map: Map;
+  public baseMaps: Record<string, TileLayer>;
+  public sourceLayers: Record<ObservationSource, LayerGroup>;
   public observationTypeLayers: Record<ObservationType, LayerGroup>;
   public overlayMaps: {
     // Micro  regions without elevation
@@ -65,65 +75,24 @@ export class ObservationsMapService {
     container: "sidebar",
   }
 
-  // This is very important! Use a canvas otherwise the chart is too heavy for the browser when
-  // the number of points is too high
-  public myRenderer = !this.USE_CANVAS_LAYER ? undefined : new Canvas({
-    padding: 0.5
-  });
+  public layers = {
+    zamgModelPoints: new LayerGroup()
+  };
 
   constructor(
     private authenticationService: AuthenticationService,
     private regionsService: RegionsService,
-    private constantsService: ConstantsService) {
-    this.observationSourceLayers = {} as any;
+    private constantsService: ConstantsService,
+    private observationMapService: ObservationMapService) {
+    this.sourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = new LayerGroup());
+    Object.keys(ObservationSource).forEach(source => this.sourceLayers[source] = new LayerGroup());
     Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new LayerGroup());
-    this.prepear();
-  }
-
-
-  prepear() {
-    this.observationsMaps = {
-      OpenTopoMap: new TileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-        className: "leaflet-layer-grayscale",
-        minZoom: 12.5,
-        maxZoom: 17,
-        attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-      }),
-      AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
-        minZoom: 5,
-        maxZoom: 12,
-        tms: false,
-        attribution: ""
-      })
-    };
-
-    console.log("initMaps", this.overlayMaps);
-    this.overlayMaps = {
-      // overlay to show micro regions without elevation (only outlines)
-      regions: new GeoJSON(this.regionsService.getRegions(), {
-        onEachFeature: this.onEachAggregatedRegionsFeature
-      }),
-
-      // overlay to show selected regions
-      activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
-
-      // overlay to select regions (when editing an aggregated region)
-
-      editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
-        onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
-      }),
-
-      // // overlay to show aggregated regions
-      aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
-    };
-
-
   }
 
   initMaps(el: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
-    this.observationsMaps = {
+    Object.values(this.observationTypeLayers).forEach((layer) => layer.clearLayers());
+    this.baseMaps = {
       OpenTopoMap: new TileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
         className: "leaflet-layer-grayscale",
         minZoom: 12.5,
@@ -169,7 +138,7 @@ export class ObservationsMapService {
       minZoom: 4,
       maxZoom: 17,
       layers: [
-        ...Object.values(this.observationsMaps),
+        ...Object.values(this.baseMaps),
         //...Object.values(this.observationTypeLayers)
       ]
     });
@@ -185,7 +154,12 @@ export class ObservationsMapService {
       aLayer.addTo(map)
     });
     this.resetAll();
-    this.observationsMap = map;
+    this.map = map;
+  }
+
+  addControls() {
+    new Control.Zoom({ position: "topleft" }).addTo(this.map);
+    new Control.Scale().addTo(this.map);
   }
 
   clickRegion(regionIds: Array<String>) {
@@ -255,16 +229,6 @@ export class ObservationsMapService {
     };
   }
 
-  // private getUserDependentBaseStyle(region) {
-  //   return {
-  //     fillColor: this.constantsService.getDangerRatingColor("missing"),
-  //     weight: this.constantsService.lineWeight,
-  //     opacity: 0.0,
-  //     color: this.constantsService.lineColor,
-  //     fillOpacity: 0.0
-  //   };
-  // }
-
   private getEditSelectionBaseStyle() {
     return {
       fillColor: this.constantsService.getDangerRatingColor("missing"),
@@ -274,35 +238,6 @@ export class ObservationsMapService {
       fillOpacity: 0.0
     };
   }
-
-  // private getEditSelectionStyle(status) {
-  //   let fillOpacity = this.constantsService.fillOpacityEditSuggested;
-  //   if (status === Enums.RegionStatus.saved) {
-  //     fillOpacity = this.constantsService.fillOpacityEditSelected;
-  //   } else if (status === Enums.RegionStatus.suggested) {
-  //     fillOpacity = this.constantsService.fillOpacityEditSuggested;
-  //   }
-
-  //   return {
-  //     fillColor: this.constantsService.lineColor,
-  //     weight: this.constantsService.lineWeight,
-  //     opacity: 1,
-  //     color: this.constantsService.lineColor,
-  //     fillOpacity: fillOpacity
-  //   };
-  // }
-
-  // resetAggregatedRegions() {
-  //   for (const entry of this.overlayMaps.aggregatedRegions.getLayers()) {
-  //     entry.setStyle(this.getUserDependentBaseStyle(entry.feature.properties.id));
-  //   }
-  // }
-
-  // deselectAggregatedRegions() {
-  //   for (const entry of this.overlayMaps.aggregatedRegions.getLayers()) {
-  //     entry.feature.properties.selected = false;
-  //   }
-  // }
 
   resetRegions() {
     for (const entry of this.overlayMaps.regions.getLayers()) {
@@ -323,12 +258,12 @@ export class ObservationsMapService {
   }
 
   resetAll() {
-
     console.log("resetAll ##09", this.authenticationService);
     this.resetRegions();
     this.resetActiveSelection();
     //this.resetAggregatedRegions();
     this.resetEditSelection();
+
   }
 
   private onEachAggregatedRegionsFeature(feature, layer) {
@@ -432,110 +367,40 @@ export class ObservationsMapService {
     }
   }
 
+  removeMarkerLayer(name) {
+    this.map.removeLayer(this.layers[name]);
+  }
 
-  // private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>, sidebar: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
-  //   if (this.USE_CANVAS_LAYER) {
-  //     Object.values(layersObj).forEach((l: any) =>
-  //       l.addOnClickListener((e, data) =>
-  //         onObservationClick(data[0].data.observation)
-  //       )
-  //     );
-  //   }
+  removeMarkerLayers() {
+    for(const layer of Object.values(this.layers)) {
+      this.map.removeLayer(layer);
+    }
+  }
 
-  //   const layers = new Control.Layers(null, layersObj, { collapsed: false });
-  //   layers.addTo(map);
+  addMarkerLayer(name) {
+    this.map.addLayer(this.layers[name]);
+  }
 
-  //   const htmlObject = layers.getContainer();
-  //   sidebar.appendChild(htmlObject);
-  // }
+  drawMarker(ll: LatLngLiteral, options, layerName="default", callback?) {
+
+    const marker = new CircleMarker(ll, options);
+
+    if(callback) marker.on("click", () => callback(ll));
+
+    marker.options.pane = "markerPane";
+
+    if(this.layers[layerName] === undefined) {
+      this.layers[layerName] = new LayerGroup();
+      this.layers[layerName].addTo(this.map);
+    }
+    marker.addTo(this.layers[layerName])
+  }
 
   style(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
-    return {
-        icon: this.getIcon(observation),
-        radius: observation.$markerRadius,
-        weight: 0,
-        opacity: 1,
-        renderer: this.myRenderer
-    };
+    return this.observationMapService.style(observation);
   }
 
   highlightStyle(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
-    return {
-        icon: this.getIcon(observation),
-        radius: observation.$markerRadius,
-        weight: 1,
-        opacity: 1,
-        renderer: this.myRenderer
-    };
-  }
-
-  private getIcon(observation: GenericObservation<any>): Icon | DivIcon {
-    const iconSize = 2*observation.$markerRadius ?? 20;
-
-    if (!this.USE_CANVAS_LAYER) {
-      const html = this.getSvg(observation);
-      return new DivIcon({
-        html,
-        className: `leaflet-div-icon-${iconSize}`,
-        iconSize: [iconSize, iconSize],
-        iconAnchor: [iconSize / 2, iconSize / 2]
-      });
-    }
-
-    // 700533 - drawImage() fails silently when drawing an SVG image without @width or @height
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=700533
-    const iconUrl = Browser.gecko
-      ? "data:image/svg+xml;base64," + btoa(this.getSvg(observation).replace(/<svg/, '<svg width="20" height="20"'))
-      : "data:image/svg+xml;base64," + btoa(this.getSvg(observation));
-
-    const icon = new Icon({
-      iconUrl: iconUrl,
-      iconSize: [iconSize, iconSize],
-      iconAnchor: [iconSize / 2, iconSize / 2]
-    });
-
-    return icon;
-  }
-
-  private getSvg(observation: GenericObservation<any>) {
-    //const iconColor = toMarkerColor(observation);
-    let svg = appCircleIcon.data;
-
-    let iconColor = "#fff";
-    let textColor = "#000";
-
-    if (observation.isHighlighted) {
-      iconColor = "#ff0000";
-      textColor = "#fff";
-    }
-
-    // Style background of circle
-    svg = svg.replace("$bg", iconColor);
-    // Style text color
-    svg = svg.replace("$color", textColor);
-
-    // Set text of Marker (max. 2 characters)
-    const label = String(observation.$source).slice(0, 1) + String(observation.$type).slice(0, 1);
-    svg = svg.replace("$data", label);
-
-    const aspect = observation.aspect;
-
-    // Colorize aspect of observation
-    svg = svg.replace(`"$${aspect}"`, "\"20\"");
-    svg = svg.replace(/"\$[NEWS]+"/g, "\"0\"");
-
-    // Remove separators if there is a gap between two aspects
-    let allAspects = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    allAspects = allAspects.filter(e => e !== aspect);
-
-    allAspects.forEach(value => {
-      const regex = new RegExp(`(("\\$[NWSE]{1,2}_${value})")|(("\\$${value}_[NWSE]{1,2})")`, "g");
-      svg = svg.replace(regex, "\"0\"");
-    });
-
-    // Add separators when there are two adjacent aspects
-    svg = svg.replace(/"\$[NWSE_]+"/g, "\"3\"");
-
-    return svg;
+    return this.observationMapService.highlightStyle(observation);
   }
 }

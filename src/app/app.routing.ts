@@ -26,12 +26,6 @@ export const routes: Routes = [
     loadChildren: () => import("./observations/observations.module").then(m => m.ObservationsModule)
   },
   {
-    path: "qfa",
-    component: FullLayoutComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () => import("./qfa/qfa.module").then(m => m.QfaModule)
-  },
-  {
     path: "admin",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],

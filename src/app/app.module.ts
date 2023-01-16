@@ -36,8 +36,6 @@ import { SettingsService } from "./providers/settings-service/settings.service";
 import { ObservationsService } from "./observations/observations.service";
 import { ObservationFilterService } from "./observations/observation-filter.service";
 import { MapService } from "./providers/map-service/map.service";
-import { ObservationsMapService } from "./providers/map-service/observations-map.service";
-import { ZamgModelsMapService } from "./providers/map-service/zamg-models-map.service";
 import { WsBulletinService } from "./providers/ws-bulletin-service/ws-bulletin.service";
 import { WsUpdateService } from "./providers/ws-update-service/ws-update.service";
 import { WsRegionService } from "./providers/ws-region-service/ws-region.service";
@@ -52,7 +50,9 @@ import { ConfirmationService } from "primeng/api";
 import { GetFilenamesService } from './providers/qfa-service/filenames.service';
 import { GetDustParamService } from "./providers/qfa-service/dust.service";
 import { ParamService } from "./providers/qfa-service/param.service"
-import { QfaMapService } from './providers/map-service/qfa-map.service';
+import { BaseMapService } from './providers/map-service/base-map.service';
+import { ObservationMapService } from "./providers/map-service/observation-map.service";
+import { QfaService } from './providers/qfa-service/qfa.service';
 
 // Pipes
 import { PipeModule } from "./pipes/pipes.module";
@@ -97,7 +97,7 @@ import { UpdateUserComponent } from "./admin/update-user.component";
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
   handleError(error) {
-    console.error(error);
+    // console.error(error);s
   }
 }
 
@@ -198,8 +198,6 @@ registerLocaleData(localeOc, "oc");
     StatisticsService,
     RegionsService,
     MapService,
-    ObservationsMapService,
-    ZamgModelsMapService,
     WsRegionService,
     WsUpdateService,
     WsBulletinService,
@@ -214,7 +212,9 @@ registerLocaleData(localeOc, "oc");
     GetFilenamesService,
     GetDustParamService,
     ParamService,
-    QfaMapService
+    BaseMapService,
+    ObservationMapService,
+    QfaService,
   ],
   bootstrap: [AppComponent],
   exports: [

@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
-import { ObservationsMapService } from "../providers/map-service/observations-map.service";
+import { BaseMapService } from "../providers/map-service/base-map.service";
 import {
   GenericObservation,
   ObservationFilterType,
@@ -83,7 +83,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    public mapService: ObservationsMapService
+    public mapService: BaseMapService,
   ) {
     this.allRegions = this.regionsService
       .getRegionsEuregio()
@@ -98,26 +98,26 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.moreItems = [
       {
-        label: "Mehr",
-        items: [
-          // {
-          //   label: this.translateService.instant("observations.showTable"),
-          //   icon: '',
-          //   command: (event) => {
-          //     //console.log("showTable", this.showTable);
-          //     this.showTable = !this.showTable
-          //   }
-          // },
-          {
-            label: "Export",
-            icon: "",
-            command: (event) => {
-              this.exportObservations();
-            }
-          }
-        ]
-      }
-    ];
+          label: 'Mehr',
+          items: [
+              // {
+              //   label: this.translateService.instant("observations.showTable"),
+              //   icon: '',
+              //   command: (event) => {
+              //     //console.log("showTable", this.showTable);
+              //     this.showTable = !this.showTable
+              //   }
+              // },
+              {
+                label: "Export",
+                icon: '',
+                command: (event) => {
+                  this.exportObservations();
+                }
+              }
+          ]
+      }];
+
   }
 
   ngAfterContentInit() {
@@ -137,10 +137,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     info.update = function (props) {
       this._div.innerHTML = props ? "<b>" + props.name_de + "</b>" : " ";
     };
-    info.addTo(this.mapService.observationsMap);
+    info.addTo(this.mapService.map);
 
-    this.loadObservations({ days: 7 });
-    this.mapService.observationsMap.on("click", () => {
+    this.loadObservations({days: 7});
+    this.mapService.map.on("click", () => {
+
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
 
       this.filter.regions = this.mapService.getSelectedRegions().map((aRegion) => aRegion.id);
@@ -152,10 +153,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngOnDestroy() {
-    if (this.mapService.observationsMap) {
-      this.mapService.observationsMap.remove();
-      this.mapService.observationsMap = undefined;
+    this.mapService.resetAll();
+    if (this.mapService.map) {
+      this.mapService.map.remove();
+      this.mapService.map = undefined;
     }
+
   }
 
   onDropdownSelect(target: string, event: any) {
@@ -216,6 +219,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationsService
       .loadAll()
       .forEach((observation) => {
+
         //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
 
         if (this.filter.inDateRange(observation)) {
@@ -322,6 +326,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     //   // @ts-ignore
     //   marker.observation = observation;
     // } else {
+
 
     // }
     marker.on("click", () => this.onObservationClick(observation));

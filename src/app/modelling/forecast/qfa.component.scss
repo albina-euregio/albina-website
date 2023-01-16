@@ -109,6 +109,10 @@ $border-color: darkgrey;
   margin-bottom: 5px;
 }
 
+.day-button-wrapper {
+  margin-bottom: 15px;
+}
+
 .day-button {
   cursor: pointer;
   padding: 5px;
@@ -139,4 +143,11 @@ $border-color: darkgrey;
   flex-direction: row;
   justify-content: space-between;
   align-items:baseline;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 5px;
 }
