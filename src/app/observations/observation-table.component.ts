@@ -12,11 +12,11 @@ import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerCo
 })
 export class ObservationTableComponent {
   @Input() observations: GenericObservation[];
+  @Input() showObservationsWithoutCoordinates: boolean;
   @Output() observationClick: EventEmitter<GenericObservation> = new EventEmitter<GenericObservation>();
   observation: Observation;
   saving = false;
   messages: Message[] = [];
-  showObservationsWithoutCoordinates: boolean = false;
   ObservationTypeIcons = ObservationTypeIcons;
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}

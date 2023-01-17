@@ -1,7 +1,7 @@
 <table class="table table-hover observation-table">
   <thead>
     <tr>
-      <td colspan="99" style="text-align: left">
+      <td *ngIf="false" colspan="99" style="text-align: left">
         <p-toggleButton
           onLabel=""
           offLabel=""
@@ -40,7 +40,10 @@
         {{ "observations.locationName" | translate }}
       </th>
       <th><!-- avalancheProblems --></th>
-      <th><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</th>
+      <th>
+        <i class="fa fa-comment"></i> {{ "observations.content" | translate }}
+        <span class="observation-count">({{ "observations.count" | translate }} {{ shownObservations.length }})</span>
+      </th>
     </tr>
   </thead>
   <tbody>

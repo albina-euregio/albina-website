@@ -18,6 +18,17 @@
               <button type="button" pButton (click)="layout = 'table'" [icon]="'pi pi-list'" label="Table"></button>
             </div>
 
+            <div *ngIf="layout === 'table'">
+              <p-toggleButton
+                onLabel=""
+                offLabel=""
+                onIcon="fa fa-map-marker"
+                offIcon="fa fa-map-marker"
+                title="Observations without Coordinates"
+                [(ngModel)]="showObservationsWithoutCoordinates"
+              ></p-toggleButton>
+            </div>
+
             <div class="global-bar-item global-bar-item-load">
               <button
                 type="button"
@@ -174,6 +185,7 @@
               <app-observation-table
                 #observationTable
                 [observations]="localObservations"
+                [showObservationsWithoutCoordinates]="showObservationsWithoutCoordinates"
                 (observationClick)="onObservationClick($event)"
               ></app-observation-table>
             </div>
