@@ -552,6 +552,9 @@
       }
     },
     "observations" : {
+      "table" : "Table",
+      "map" : "Map",
+      "filters": "Filters",
       "title" : "Observations",
       "button" : {
         "submit" : "Download"
@@ -569,6 +572,7 @@
         "selectionLabel": "{0} sources selected"
       },
       "charts": {
+        "charts" : "Charts",
         "nan": "Without specification",
         "invert": "Invert",
         "reset": "Reset",

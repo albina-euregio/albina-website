@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { LocalFilterTypes } from "app/observations/models/generic-observation.model";
 import { dataTool } from "echarts";
 
 @Component({
@@ -8,10 +9,10 @@ import { dataTool } from "echarts";
 export class BaseComponent {
   longClickDur = 200;
 
-  @Input() caption: String;
-  @Input() translationBase: String;
-  @Input() formatter: String;
-  @Input() type: String;
+  @Input() caption: string;
+  @Input() translationBase: string;
+  @Input() formatter: string;
+  @Input() type: LocalFilterTypes;
   @Input() data: { dataset: Object; nan: Number };
   @Output() handleChange: EventEmitter<any> = new EventEmitter();
   @Input() nanStatus: { selected: Boolean; highlighted: Boolean };
