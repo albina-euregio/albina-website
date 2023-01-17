@@ -166,6 +166,13 @@
             style="width: 40px; max-width: unset"
           />
         </span>
+        <abbr
+          *ngFor="let importantObservation of observation.importantObservations"
+          [title]="importantObservation"
+          style="display: inline-block; margin: 1rem 0"
+        >
+          {{ formatImportantObservation(importantObservation) }}
+        </abbr>
       </td>
       <td>{{ observation.content }}</td>
     </tr>

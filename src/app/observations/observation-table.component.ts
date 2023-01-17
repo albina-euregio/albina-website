@@ -5,6 +5,7 @@ import { EventType, isAvalancheWarningServiceObservation, Observation } from "./
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
+import { ImportantObservation } from "app/enums/enums";
 
 @Component({
   selector: "app-observation-table",
@@ -160,5 +161,9 @@ export class ObservationTableComponent {
       width: `${observation.$markerRadius || 10}px`,
       height: `${observation.$markerRadius || 10}px`
     };
+  }
+
+  formatImportantObservation(importantObservation: ImportantObservation): string {
+    return String(importantObservation).replace(/[a-z]/g, "");
   }
 }
