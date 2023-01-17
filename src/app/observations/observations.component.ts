@@ -42,7 +42,8 @@ export interface MultiselectDropdownData {
 })
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
-  public layout = "map"; // map,table,chart
+  public layout: "map" | "table" | "chart" = "map";
+  public layoutFilters = true;
   public observations: GenericObservation[] = [];
   public localObservations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
@@ -83,7 +84,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    public mapService: BaseMapService,
+    public mapService: BaseMapService
   ) {
     this.allRegions = this.regionsService
       .getRegionsEuregio()
@@ -98,26 +99,26 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.moreItems = [
       {
-          label: 'Mehr',
-          items: [
-              // {
-              //   label: this.translateService.instant("observations.showTable"),
-              //   icon: '',
-              //   command: (event) => {
-              //     //console.log("showTable", this.showTable);
-              //     this.showTable = !this.showTable
-              //   }
-              // },
-              {
-                label: "Export",
-                icon: '',
-                command: (event) => {
-                  this.exportObservations();
-                }
-              }
-          ]
-      }];
-
+        label: "Mehr",
+        items: [
+          // {
+          //   label: this.translateService.instant("observations.showTable"),
+          //   icon: '',
+          //   command: (event) => {
+          //     //console.log("showTable", this.showTable);
+          //     this.showTable = !this.showTable
+          //   }
+          // },
+          {
+            label: "Export",
+            icon: "",
+            command: (event) => {
+              this.exportObservations();
+            }
+          }
+        ]
+      }
+    ];
   }
 
   ngAfterContentInit() {
@@ -139,9 +140,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     };
     info.addTo(this.mapService.map);
 
-    this.loadObservations({days: 7});
+    this.loadObservations({ days: 7 });
     this.mapService.map.on("click", () => {
-
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
 
       this.filter.regions = this.mapService.getSelectedRegions().map((aRegion) => aRegion.id);
@@ -158,7 +158,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.mapService.map.remove();
       this.mapService.map = undefined;
     }
-
   }
 
   onDropdownSelect(target: string, event: any) {
@@ -219,7 +218,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationsService
       .loadAll()
       .forEach((observation) => {
-
         //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
 
         if (this.filter.inDateRange(observation)) {
@@ -327,7 +325,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     //   marker.observation = observation;
     // } else {
 
-
     // }
     marker.on("click", () => this.onObservationClick(observation));
 
@@ -392,5 +389,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };
     }
+  }
+
+  toggleFilters() {
+    this.layoutFilters = !this.layoutFilters;
+    this.mapService.map.invalidateSize();
   }
 }

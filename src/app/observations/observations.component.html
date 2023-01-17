@@ -91,6 +91,16 @@
               <p-menubar [model]="moreItems"></p-menubar>
             </div>
 
+            <div>
+              <button
+                type="button"
+                pButton
+                (click)="toggleFilters()"
+                [icon]="'pi pi-filter'"
+                label="{{ 'observations.sidebar.filter.title' | translate }}"
+              ></button>
+            </div>
+
             <!-- <div class="global-bar-item">
               <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }}
                 <b>{{ observationsWithoutCoordinates }}</b></p>
@@ -147,7 +157,7 @@
     <!-- /layout-left -->
 
     <!-- !layout-right -->
-    <div class="layout-right">
+    <div *ngIf="layoutFilters" class="layout-right">
       <!-- !toolset -->
       <div class="toolset">
         <!-- !toolset-header -->
