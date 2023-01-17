@@ -2,6 +2,16 @@ import { Injectable } from "@angular/core";
 
 import { HttpClient } from "@angular/common/http";
 
+export interface CaddyListingItem {
+  name: string;
+  size: number;
+  url: string;
+  mod_time: Date;
+  mode: number;
+  is_dir: boolean;
+  is_symlink: boolean;
+}
+
 interface File {
   date: string;
   hours: string;
@@ -20,7 +30,9 @@ export class GetFilenamesService {
   constructor(private http: HttpClient) {}
 
   private getHTMLResponse() {
-    return this.http.get(
+    // Caddy serves directory index as JSON for Accept=application/json
+    // https://github.com/caddyserver/caddy/blob/e8ad9b32c9730ddb162b6fb1443fc0b36fcef7dc/modules/caddyhttp/fileserver/browse.go#L105-L109
+    return this.http.get<CaddyListingItem[]>(
       this.baseUrl, {
         observe: "body"
       }
@@ -29,7 +41,7 @@ export class GetFilenamesService {
 
   public getFilenames = async (baseUrl: string, city: string) => {
     this.baseUrl = baseUrl;
-    const response = await this.getHTMLResponse().toPromise() as any[];
+    const response = await this.getHTMLResponse().toPromise();
     const files = response.reverse();
     // console.log(files);
     const filteredFiles = files.filter(file => file.name.includes(city));
