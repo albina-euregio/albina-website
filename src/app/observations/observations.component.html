@@ -10,6 +10,14 @@
         <div class="global-bar-scroll">
           <!-- !global-bar-left -->
           <div class="global-bar global-bar-left">
+            <div *ngIf="layout !== 'map'">
+              <button type="button" pButton (click)="layout = 'map'" [icon]="'pi pi-map'" label="Map"></button>
+            </div>
+
+            <div *ngIf="layout !== 'table'">
+              <button type="button" pButton (click)="layout = 'table'" [icon]="'pi pi-list'" label="Table"></button>
+            </div>
+
             <div class="global-bar-item global-bar-item-load">
               <button
                 type="button"
