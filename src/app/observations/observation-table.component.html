@@ -131,11 +131,11 @@
           </svg>
         </div>
       </td>
-      <td style="white-space: nowrap">
+      <td style="padding: 1rem 0;white-space: nowrap">
         {{ observation.eventDate | localizedDate : "dd.MM.yyyy HH:mm" }}
       </td>
-      <td>{{ observation.authorName }}</td>
-      <td>
+      <td style="padding: 1rem 0">{{ observation.authorName }}</td>
+      <td style="padding: 1rem 0">
         {{ observation.locationName }}
         <i
           *ngIf="observation.latitude && observation.longitude"
@@ -174,7 +174,7 @@
           {{ formatImportantObservation(importantObservation) }}
         </abbr>
       </td>
-      <td>{{ observation.content }}</td>
+      <td style="padding: 1rem 0">{{ observation.content }}</td>
     </tr>
   </ng-template>
 </p-table>
