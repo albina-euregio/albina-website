@@ -24,6 +24,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { AutoCompleteModule } from "primeng/autocomplete";
+import { TableModule } from "primeng/table";
 
 import { MenubarModule } from "primeng/menubar";
 // Pipes
@@ -58,6 +59,7 @@ import { MapService } from "../providers/map-service/map.service";
     MessagesModule,
     MessageModule,
     AutoCompleteModule,
+    TableModule,
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
       echarts: () => import("echarts")

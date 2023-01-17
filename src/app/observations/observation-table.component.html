@@ -1,7 +1,7 @@
-<table class="table table-hover observation-table">
-  <thead>
-    <tr>
-      <td *ngIf="false" colspan="99" style="text-align: left">
+<p-table [value]="shownObservations" sortField="eventDate" [sortOrder]="-1" class="table table-hover observation-table">
+  <ng-template pTemplate="header">
+    <tr *ngIf="false">
+      <td colspan="99" style="text-align: left">
         <p-toggleButton
           onLabel=""
           offLabel=""
@@ -30,12 +30,15 @@
     </tr>
     <tr>
       <th *ngIf="false"></th>
-      <th>
+      <th pSortableColumn="eventDate">
         <i class="fa fa-calendar"></i>
         {{ "observations.eventDate" | translate }}
       </th>
-      <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
-      <th>
+      <th pSortableColumn="authorName">
+        <i class="fa fa-user"></i>
+        {{ "observations.authorName" | translate }}
+      </th>
+      <th pSortableColumn="locationName">
         <i class="fa fa-globe"></i>
         {{ "observations.locationName" | translate }}
       </th>
@@ -45,14 +48,9 @@
         <span class="observation-count">({{ "observations.count" | translate }} {{ shownObservations.length }})</span>
       </th>
     </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let observation of shownObservations"
-      (click)="onClick(observation)"
-      style="cursor: pointer"
-      [ngStyle]="getTableRowStyle(observation)"
-    >
+  </ng-template>
+  <ng-template pTemplate="body" let-observation>
+    <tr (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
       <td *ngIf="false" [title]="observation.$source">
         <div [ngStyle]="getTableIconStyle(observation)">
           <!-- ObservationTypeIcons -->
@@ -150,42 +148,42 @@
       </td>
       <td>{{ observation.content }}</td>
     </tr>
-  </tbody>
-  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
-    <p-messages [(value)]="messages"></p-messages>
-    <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
-    <p-footer>
-      <button
-        type="button"
-        pButton
-        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="
-          saving ||
-          observation?.reportDate === undefined ||
-          observation?.eventDate === undefined ||
-          observation?.reportDate === '' ||
-          observation?.eventDate === ''
-        "
-        (click)="saveObservation()"
-        label="{{ 'observations.button.save' | translate }}"
-      ></button>
-      <button
-        type="button"
-        pButton
-        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
-        [disabled]="saving || observation?.id === undefined"
-        (click)="deleteObservation()"
-        label="{{ 'observations.button.delete' | translate }}"
-        class="ui-button-danger"
-      ></button>
-      <button
-        type="button"
-        pButton
-        icon="pi pi-times"
-        (click)="discardObservation()"
-        label="{{ 'observations.button.discard' | translate }}"
-        class="ui-button-secondary"
-      ></button>
-    </p-footer>
-  </p-dialog>
-</table>
+  </ng-template>
+</p-table>
+<p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
+  <p-messages [(value)]="messages"></p-messages>
+  <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
+  <p-footer>
+    <button
+      type="button"
+      pButton
+      [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+      [disabled]="
+        saving ||
+        observation?.reportDate === undefined ||
+        observation?.eventDate === undefined ||
+        observation?.reportDate === '' ||
+        observation?.eventDate === ''
+      "
+      (click)="saveObservation()"
+      label="{{ 'observations.button.save' | translate }}"
+    ></button>
+    <button
+      type="button"
+      pButton
+      [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
+      [disabled]="saving || observation?.id === undefined"
+      (click)="deleteObservation()"
+      label="{{ 'observations.button.delete' | translate }}"
+      class="ui-button-danger"
+    ></button>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-times"
+      (click)="discardObservation()"
+      label="{{ 'observations.button.discard' | translate }}"
+      class="ui-button-secondary"
+    ></button>
+  </p-footer>
+</p-dialog>
