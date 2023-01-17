@@ -17,6 +17,7 @@
     "observations" : "Observaciones",
     "qfa": "QFA",
     "modelling": "Modelling",
+    "modellingForecast": "Forecast",
     "modellingZamg": "ZAMG multi modelo",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
@@ -317,7 +318,6 @@
       "mediaFileDialog" : {
         "headline" : "Archivo multimedia",
         "important" : "IMPORTANTE",
-        "missingText" : "¡Falta el texto!",
         "missingFile" : "¡Ningún archivo seleccionado!",
         "uploadError" : "¡Subida fallida!",
         "accept" : "Enviar",
@@ -552,6 +552,9 @@
       }
     },
     "observations" : {
+      "table" : "Tabla",
+      "map" : "Mapa",
+      "filters": "Filters",
       "title" : "Observaciones",
       "button" : {
         "submit" : "Descargar"
@@ -569,27 +572,34 @@
         "selectionLabel": "{0} fuentes seleccionadas"
       },
       "charts": {
-        "nan": "Ohne Angabe",
+        "charts" : "Charts",
+        "nan": "Without specification",
         "invert": "Invert",
         "reset": "Reset",
         "aspect": {
-          "caption": "Aspekt"
+          "caption": "Orientación"
         },
         "elevation": {
-          "caption": "Seehöhe"
+          "caption": "Altitud"
         },
         "stability": {
-          "caption": "Stabilität"
+          "caption": "Stability"
+        },
+        "observationType": {
+          "caption": "Observation Type"
+        },
+        "importantObservation": {
+          "caption": "Important Observation"
         },
         "avalancheProblem": {
-          "caption": "Lawinenproblem"
+          "caption": "Problema de aludes"
         },
         "dangerPattern": {
-          "caption": "Gefahrenmuster"
+          "caption": "Danger Pattern"
         }
         ,
         "days": {
-          "caption": "Tag"
+          "caption": "Día"
         }
       }
     },
@@ -672,12 +682,20 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nieve reciente",
+    "new_snow" : "Nieve reciente",
     "windSlab" : "Placas de viento",
+    "wind_slab" : "Placas de viento",
     "persistentWeakLayers" : "Capas débiles persistentes",
+    "persistent_weak_layers" : "Capas débiles persistentes",
     "wetSnow" : "Nieve húmeda",
+    "wet_snow" : "Nieve húmeda",
     "glidingSnow" : "Deslizamientos basales",
+    "gliding_snow" : "Deslizamientos basales",
     "cornices" : "Cornisas",
-    "noDistinctAvalancheProblem" : "Problema de aludes no diferenciado"
+    "noDistinctAvalancheProblem" : "Ningún problema de aludes evidente",
+    "no_distinct_problem" : "Ningún problema de aludes evidente",
+    "favourableSituation" : "Situación favorable",
+    "favourable_situation" : "Situación favorable"
   },
   "dangerPattern" : {
     "dp1" : "pp.1: capas débiles persistentes",
@@ -690,6 +708,24 @@
     "dp8" : "pp.8: escarcha de superfície enterrada",
     "dp9" : "pp.9: nieve redonda enterrada",
     "dp10" : "pp.10: escenario de primavera"
+  },
+  "observationType" : {
+    "TimeSeries" : "Time series",
+    "Incident" : "Incident",
+    "Profile" : "Snow profile",
+    "Closure" : "Closure",
+    "Blasting" : "Blasting",
+    "Avalanche" : "Avalanche",
+    "Evaluation" : "Evaluation",
+    "SimpleObservation" : "Simple observation"
+  },
+  "importantObservation" : {
+    "SnowLine" : "Snow line",
+    "SurfaceHoar" : "Surface hoar",
+    "Graupel" : "Graupel",
+    "StabilityTest" : "Stability test",
+    "IceFormation" : "Ice formation",
+    "VeryLightNewSnow" : "Very light new snow"
   },
   "aspect" : {
     "N" : "N",
@@ -713,6 +749,7 @@
     "increasing" : "El peligro de aludes aumenta"
   },
   "snowpackStability" : {
+    "unknown" : "unknown",
     "good" : "buena",
     "fair" : "regular",
     "poor" : "pobre",
@@ -844,6 +881,55 @@
   "qfa": {
     "day": "Día",
     "time": "Time",
-    "back":"Volver"
+    "back":"Volver",
+    "parameters": {
+      "DUST": "sahara dust",
+      "N": "total cloud cover in /8",
+      "Nh": "high cloud cover in /8",
+      "Nm": "medium high cloud cover in /8",
+      "Nl": "low cloud cover in /8",
+      "N-CU": "cumulus cloud cover in /8",
+      "AUSL.T": "trigger temperature",
+      "SHW-IX": "Showalter-Index",
+      "WX -CUF": "significant weather: NIL (none), RASH (rain), TS (thunder storm)",
+      "RR": "total precipitation in mm",
+      "RR-str": "stratiform precipitation",
+      "CONV": "convective precipitation in mm",
+      "SN": "precipitation in form of snow in mm",
+      "SN--RA": "snowline in m",
+      "QA0 300": "300 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 500": "500 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 700": "700 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 850": "850 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 925": "925 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QAN": "mean wind on the ground, direction and strength in ° and m/s",
+      "QANmax": "max. wind (gusts) on the ground in m/s",
+      "T 300": "300 hPa eq. temperature in °C",
+      "T 500": "500 hPa eq. temperature in °C",
+      "T 3000m": "temperature on 3000m in °C",
+      "T 2000m": "temperature on 2000m in °C",
+      "T 1500m": "temperature on 1500m in °C",
+      "T 1000m": "temperature on 1000m in °C",
+      "T 800m": "temperature on 800m in °C",
+      "T 700m": "temperature on 700m in °C",
+      "T 500m": "temperature on 500m in °C",
+      "T 2m": "temperature on 2m in °C",
+      "Tk 2m": "temperature on 2m in °K",
+      "T GND": "ground temperature",
+      "Max-ADI": "maximum mixing temperature in °C",
+      "Min Max": "min./max. temperature in the last 24h",
+      "FROST": "zero degree line in m",
+      "W500 cm": "500 hPa eq. vertical wind in cm/s",
+      "W700 --": "700 hPa eq. vertical wind in cm/s",
+      "W850 s": "850 hPa eq. vertical wind in cm/s",
+      "H 700": "700 hPa geopotential height in m",
+      "H 1000": "1000 hPa geopotential height in m",
+      "RF 300": "300 hPa eq. relative moisture in %",
+      "RF 400": "400 hPa eq. relative moisture in %",
+      "RF 500": "500 hPa eq. relative moisture in %",
+      "RF 700": "700 hPa eq. relative moisture in %",
+      "RF 850": "850 hPa eq. relative moisture in %",
+      "RF 925": "925 hPa eq. relative moisture in %"
+    }
   }
 }

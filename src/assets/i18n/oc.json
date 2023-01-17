@@ -16,7 +16,8 @@
     "bulletins" : "Avalanche.report",
     "observations" : "Observacions",
     "qfa": "QFA",
-    "modelling": "Modelling",
+    "modelling": "Modelitzacion",
+    "modellingForecast": "Forecast",
     "modellingZamg": "Modèl multiple ZAMG",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
@@ -317,7 +318,6 @@
       "mediaFileDialog" : {
         "headline" : "Fichèr multimèdia",
         "important" : "IMPORTANT",
-        "missingText" : "Manque eth tèxte!",
         "missingFile" : "Non s'a pas seleccionat cap fichèr!",
         "uploadError" : "Era carga a mancat!",
         "accept" : "Enviar",
@@ -552,6 +552,9 @@
       }
     },
     "observations" : {
+      "table" : "Taula",
+      "map" : "Mapa",
+      "filters": "Filters",
       "title" : "Observacions",
       "button" : {
         "submit" : "Descargar"
@@ -569,27 +572,34 @@
         "selectionLabel": "{0} hònts seleccionades"
       },
       "charts": {
-        "nan": "Ohne Angabe",
-        "invert": "Invert",
-        "reset": "Reset",
+        "charts" : "Charts",
+        "nan": "Without specification",
+        "invert": "Invertir",
+        "reset": "Restablir",
         "aspect": {
-          "caption": "Aspekt"
+          "caption": "Orientacion"
         },
         "elevation": {
-          "caption": "Seehöhe"
+          "caption": "Nautada"
         },
         "stability": {
-          "caption": "Stabilität"
+          "caption": "Stability"
+        },
+        "observationType": {
+          "caption": "Observation Type"
+        },
+        "importantObservation": {
+          "caption": "Important Observation"
         },
         "avalancheProblem": {
-          "caption": "Lawinenproblem"
+          "caption": "Problèma de lauegi"
         },
         "dangerPattern": {
-          "caption": "Gefahrenmuster"
+          "caption": "Danger Pattern"
         }
         ,
         "days": {
-          "caption": "Tag"
+          "caption": "Dia"
         }
       }
     },
@@ -672,12 +682,20 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Nhèu recenta",
+    "new_snow" : "Nhèu recenta",
     "windSlab" : "Plaques de vent",
+    "wind_slab" : "Plaques de vent",
     "persistentWeakLayers" : "Coches fèbles persistentes",
+    "persistent_weak_layers" : "Coches febles persistentes",
     "wetSnow" : "Nhèu umida",
+    "wet_snow" : "Nhèu umida",
     "glidingSnow" : "Litsades basaus",
+    "gliding_snow" : "Esguitlament basau",
     "cornices" : "Cornises",
-    "noDistinctAvalancheProblem" : "Cap problèma de lauegi diferenciat"
+    "noDistinctAvalancheProblem" : "Cap problèma de lauegi evident",
+    "no_distinct_problem" : "Cap problèma de lauegi evident",
+    "favourableSituation" : "Situacion favorabla",
+    "favourable_situation" : "Situacion favorabla"
   },
   "dangerPattern" : {
     "dp1" : "pp.1:  capa fèbla persistenta e prigonda",
@@ -690,6 +708,24 @@
     "dp8" : "pp.8: geladiua de superfícia enterrada",
     "dp9" : "pp.9: graupel enterrat",
     "dp10" : "pp.10: scenari de primauera"
+  },
+  "observationType" : {
+    "TimeSeries" : "Time series",
+    "Incident" : "Incident",
+    "Profile" : "Snow profile",
+    "Closure" : "Closure",
+    "Blasting" : "Blasting",
+    "Avalanche" : "Avalanche",
+    "Evaluation" : "Evaluation",
+    "SimpleObservation" : "Simple observation"
+  },
+  "importantObservation" : {
+    "SnowLine" : "Snow line",
+    "SurfaceHoar" : "Surface hoar",
+    "Graupel" : "Graupel",
+    "StabilityTest" : "Stability test",
+    "IceFormation" : "Ice formation",
+    "VeryLightNewSnow" : "Very light new snow"
   },
   "aspect" : {
     "N" : "N",
@@ -713,6 +749,7 @@
     "increasing" : "El perill d’allaus aumente"
   },
   "snowpackStability" : {
+    "unknown" : "unknown",
     "good" : "Bona",
     "fair" : "Regular",
     "poor" : "Praube",
@@ -843,7 +880,56 @@
   },
   "qfa": {
     "day": "Dia",
-    "time": "Time",
-    "back":"Endarrere"
+    "time": "Òra",
+    "back":"Endarrere",
+    "parameters": {
+      "DUST": "sahara dust",
+      "N": "total cloud cover in /8",
+      "Nh": "high cloud cover in /8",
+      "Nm": "medium high cloud cover in /8",
+      "Nl": "low cloud cover in /8",
+      "N-CU": "cumulus cloud cover in /8",
+      "AUSL.T": "trigger temperature",
+      "SHW-IX": "Showalter-Index",
+      "WX -CUF": "significant weather: NIL (none), RASH (rain), TS (thunder storm)",
+      "RR": "total precipitation in mm",
+      "RR-str": "stratiform precipitation",
+      "CONV": "convective precipitation in mm",
+      "SN": "precipitation in form of snow in mm",
+      "SN--RA": "snowline in m",
+      "QA0 300": "300 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 500": "500 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 700": "700 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 850": "850 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QA0 925": "925 hPa eq. mean wind, direction and strength in ° and m/s",
+      "QAN": "mean wind on the ground, direction and strength in ° and m/s",
+      "QANmax": "max. wind (gusts) on the ground in m/s",
+      "T 300": "300 hPa eq. temperature in °C",
+      "T 500": "500 hPa eq. temperature in °C",
+      "T 3000m": "temperature on 3000m in °C",
+      "T 2000m": "temperature on 2000m in °C",
+      "T 1500m": "temperature on 1500m in °C",
+      "T 1000m": "temperature on 1000m in °C",
+      "T 800m": "temperature on 800m in °C",
+      "T 700m": "temperature on 700m in °C",
+      "T 500m": "temperature on 500m in °C",
+      "T 2m": "temperature on 2m in °C",
+      "Tk 2m": "temperature on 2m in °K",
+      "T GND": "ground temperature",
+      "Max-ADI": "maximum mixing temperature in °C",
+      "Min Max": "min./max. temperature in the last 24h",
+      "FROST": "zero degree line in m",
+      "W500 cm": "500 hPa eq. vertical wind in cm/s",
+      "W700 --": "700 hPa eq. vertical wind in cm/s",
+      "W850 s": "850 hPa eq. vertical wind in cm/s",
+      "H 700": "700 hPa geopotential height in m",
+      "H 1000": "1000 hPa geopotential height in m",
+      "RF 300": "300 hPa eq. relative moisture in %",
+      "RF 400": "400 hPa eq. relative moisture in %",
+      "RF 500": "500 hPa eq. relative moisture in %",
+      "RF 700": "700 hPa eq. relative moisture in %",
+      "RF 850": "850 hPa eq. relative moisture in %",
+      "RF 925": "925 hPa eq. relative moisture in %"
+    }
   }
 }
