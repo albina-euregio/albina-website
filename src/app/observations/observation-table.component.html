@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table class="table table-hover observation-table">
   <thead>
     <tr>
       <td colspan="99" style="text-align: left">
@@ -29,7 +29,7 @@
       </td>
     </tr>
     <tr>
-      <th></th>
+      <th *ngIf="false"></th>
       <th>
         <i class="fa fa-calendar"></i>
         {{ "observations.eventDate" | translate }}
@@ -50,7 +50,7 @@
       style="cursor: pointer"
       [ngStyle]="getTableRowStyle(observation)"
     >
-      <td [title]="observation.$source">
+      <td *ngIf="false" [title]="observation.$source">
         <div [ngStyle]="getTableIconStyle(observation)">
           <!-- ObservationTypeIcons -->
           <svg *ngIf="observation.$type === 'Observation'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
