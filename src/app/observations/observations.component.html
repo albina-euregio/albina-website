@@ -156,6 +156,31 @@
       </div>
       <!-- /layout-global -->
 
+      <div [ngStyle]="{ display: layout === 'table' ? '' : 'none' }" class="layout-table">
+        <div class="card" style="height: 100%">
+          <!-- <div class="card-header">
+            {{ "sidebar.observations" | translate }}
+            <button
+            type="button"
+            pButton
+            icon="pi pi-times"
+            (click)="closeTable()"
+            label="{{ 'observations.button.close' | translate }}"
+            class="p-button-text"
+          ></button>  
+          </div> -->
+          <div class="card-block" style="overflow-y: auto">
+            <div>
+              <app-observation-table
+                #observationTable
+                [observations]="localObservations"
+                (observationClick)="onObservationClick($event)"
+              ></app-observation-table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- !layout-map -->
       <div class="layout-map">
         <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
@@ -347,31 +372,6 @@
     <!-- /layout-switch -->
   </div>
   <!-- /layout-inner -->
-
-  <div [ngStyle]="{ display: layout === 'table' ? '' : 'none' }" class="layout-table">
-    <div class="card" style="height: 100%">
-      <!-- <div class="card-header">
-        {{ "sidebar.observations" | translate }}
-        <button
-        type="button"
-        pButton
-        icon="pi pi-times"
-        (click)="closeTable()"
-        label="{{ 'observations.button.close' | translate }}"
-        class="p-button-text"
-      ></button>  
-      </div> -->
-      <div class="card-block" style="overflow-y: auto">
-        <div>
-          <app-observation-table
-            #observationTable
-            [observations]="localObservations"
-            (observationClick)="onObservationClick($event)"
-          ></app-observation-table>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <!-- /layout-outer -->
 

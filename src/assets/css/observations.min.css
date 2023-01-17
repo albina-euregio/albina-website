@@ -8057,9 +8057,9 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .layout-table {
   z-index: 30;
   position: absolute;
-  width: 100vw;
-  height: calc(100vh - 55px);
-  overflow: hidden;
+  top: 55px;
+  bottom: 0;
+  width: 100%;
 }
 .layout-table tr.highlighted td:first-child {
   position: relative;
