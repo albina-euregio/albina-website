@@ -11,11 +11,23 @@
           <!-- !global-bar-left -->
           <div class="global-bar global-bar-left">
             <div *ngIf="layout !== 'map'">
-              <button type="button" pButton (click)="layout = 'map'" [icon]="'pi pi-map'" label="Map"></button>
+              <button
+                type="button"
+                pButton
+                (click)="layout = 'map'"
+                [icon]="'pi pi-map'"
+                [label]="translateService.instant('admin.observations.map')"
+              ></button>
             </div>
 
             <div *ngIf="layout !== 'table'">
-              <button type="button" pButton (click)="layout = 'table'" [icon]="'pi pi-list'" label="Table"></button>
+              <button
+                type="button"
+                pButton
+                (click)="layout = 'table'"
+                [icon]="'pi pi-list'"
+                [label]="translateService.instant('admin.observations.table')"
+              ></button>
             </div>
 
             <div *ngIf="layout === 'table'">
@@ -24,7 +36,7 @@
                 offLabel=""
                 onIcon="fa fa-map-marker"
                 offIcon="fa fa-map-marker"
-                title="Observations without Coordinates"
+                [title]="translateService.instant('observations.withoutCoordinates')"
                 [(ngModel)]="showObservationsWithoutCoordinates"
               ></p-toggleButton>
             </div>
@@ -207,7 +219,7 @@
       <div class="toolset">
         <!-- !toolset-header -->
         <div class="toolset-header">
-          <div class="toolset-name">Beobachtungen</div>
+          <div class="toolset-name">{{ "sidebar.observations" | translate }}</div>
           <div class="toolset-keydata">
             <div class="keydata">
               <span class="keydata-selected">431</span> /
@@ -370,15 +382,21 @@
     <div class="layout-switch">
       <div *ngIf="layout !== 'map'" (click)="layout = 'map'" class="layout-switch-map obs-button">
         <span class="button-icon pi pi-map"></span>
-        <span class="button-text">Map</span>
+        <span class="button-text">
+          {{ "admin.observations.map" | translate }}
+        </span>
       </div>
       <div *ngIf="layout !== 'table'" (click)="layout = 'table'" class="layout-switch-table obs-button">
         <span class="button-icon pi pi-list"></span>
-        <span class="button-text">Table</span>
+        <span class="button-text">
+          {{ "admin.observations.table" | translate }}
+        </span>
       </div>
       <div *ngIf="layout !== 'chart'" (click)="layout = 'chart'" class="layout-switch-charts obs-button">
         <span class="button-icon pi pi-chart-bar"></span>
-        <span class="button-text">Charts</span>
+        <span class="button-text">
+          {{ "admin.observations.charts.charts" | translate }}
+        </span>
       </div>
     </div>
     <!-- /layout-switch -->
