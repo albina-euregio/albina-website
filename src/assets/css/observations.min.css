@@ -7832,7 +7832,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   }
 }
 .layout-global {
-  z-index: 10;
+  z-index: 70;
   position: absolute;
   top: 0;
   width: 100%;
