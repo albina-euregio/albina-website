@@ -260,7 +260,7 @@
   "measurements:table:header:snow24": "24h Snow Height Diff",
   "measurements:table:header:snow48": "48h Snow Height Diff",
   "measurements:table:header:snow72": "72h Snow Height Diff",
-  "measurements:table:header:temp": "Temperature now",
+  "measurements:table:header:temp": "Temperature",
   "measurements:table:header:temp_max": "Temperature max",
   "measurements:table:header:temp_min": "Temperature min",
   "measurements:table:header:wdir": "Wind Direction",
