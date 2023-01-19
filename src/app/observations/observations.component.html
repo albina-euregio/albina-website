@@ -61,6 +61,7 @@
                 [maxSelectedLabels]="0"
                 selectedItemsLabel="{{ 'admin.observations.selectSources.selectionLabel' | translate }}"
                 (onChange)="onDropdownSelect('sources', $event)"
+                scrollHeight="400px"
               ></p-multiSelect>
             </div>
 
@@ -74,6 +75,7 @@
                 [maxSelectedLabels]="0"
                 selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
                 (onChange)="onDropdownSelect('regions', $event)"
+                scrollHeight="400px"
               ></p-multiSelect>
             </div>
 
