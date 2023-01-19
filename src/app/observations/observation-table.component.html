@@ -6,20 +6,6 @@
   [globalFilterFields]="['authorName', 'locationName', 'content']"
   class="table table-hover observation-table"
 >
-  <ng-template pTemplate="caption">
-    <div class="flex">
-      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="observationTable.clear()"></button>
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (input)="observationTable.filterGlobal($event.target.value, 'contains')"
-          placeholder="Search keyword"
-        />
-      </span>
-    </div>
-  </ng-template>
   <ng-template pTemplate="header">
     <tr *ngIf="false">
       <td colspan="99" style="text-align: left">

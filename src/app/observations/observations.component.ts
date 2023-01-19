@@ -206,6 +206,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationTableComponent.newObservation();
   }
 
+  observationTableFilterGlobal(value: string) {
+    this.observationTableComponent.observationTable.filterGlobal(value, 'contains');
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
     //console.log("loadObservations ##x1", this.selectedSourceItems, this.filter.dateRange);
     this.observationsWithoutCoordinates = 0;

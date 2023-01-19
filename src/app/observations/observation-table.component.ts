@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAvalancheWarningServiceObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
+import { Table } from "primeng/table";
 import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
 import { ImportantObservation } from "app/enums/enums";
 
@@ -15,6 +16,7 @@ export class ObservationTableComponent {
   @Input() observations: GenericObservation[];
   @Input() showObservationsWithoutCoordinates: boolean;
   @Output() observationClick: EventEmitter<GenericObservation> = new EventEmitter<GenericObservation>();
+  @ViewChild("observationTable") observationTable: Table;
   observation: Observation;
   saving = false;
   messages: Message[] = [];

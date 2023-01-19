@@ -104,6 +104,17 @@
                 </div>
               </div>
             </div>
+
+            <span *ngIf="layout === 'table'" class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="selectedSourceItems"
+                (input)="observationTableFilterGlobal($event.target.value)"
+                placeholder="Filter"
+              />
+            </span>
           </div>
           <!-- /global-bar-left -->
 
