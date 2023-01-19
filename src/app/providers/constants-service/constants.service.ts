@@ -54,6 +54,11 @@ export class ConstantsService {
 
   public colorBrand = "#19ABFF";
 
+  // micro regions elevation
+  public microRegionsElevationHigh = "high"
+  public microRegionsElevationLowHigh = "low_high"
+  public microRegionsElevationLow = "low"
+
   // danger rating (color)
   public colorDangerRatingLow = "#CCFF66";
   public colorDangerRatingModerate = "#FFFF00";
