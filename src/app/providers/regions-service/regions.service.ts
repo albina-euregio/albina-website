@@ -27,7 +27,7 @@ const RegionsEuregioElevation: FeatureCollection<MultiPolygon, RegionWithElevati
   RegionsEuregioElevation_IT_32_BZ as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
   RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
 );
-    
+
 // @ts-ignore
 import RegionsAineva_IT_21 from "eaws-regions/public/micro-regions/IT-21_micro-regions.geojson.json";
 // @ts-ignore
@@ -105,7 +105,7 @@ const Regions: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureC
   RegionsAineva_IT_36 as FeatureCollection<MultiPolygon, RegionProperties>,
   RegionsAineva_IT_57 as FeatureCollection<MultiPolygon, RegionProperties>,
   RegionsAran_ES_CT_L as FeatureCollection<MultiPolygon, RegionProperties>
-);  
+);
 
 const RegionsElevation: FeatureCollection<MultiPolygon, RegionWithElevationProperties> = mergeFeatureCollections(
   RegionsEuregioElevation_AT_07 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
@@ -118,7 +118,7 @@ const RegionsElevation: FeatureCollection<MultiPolygon, RegionWithElevationPrope
   RegionsAinevaElevation_IT_36 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
   RegionsAinevaElevation_IT_57 as FeatureCollection<MultiPolygon, RegionWithElevationProperties>,
   RegionsAranElevation_ES_CT_L as FeatureCollection<MultiPolygon, RegionWithElevationProperties>
-);  
+);
 
 import * as L from "leaflet";
 import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
@@ -148,13 +148,13 @@ export class RegionsService {
     ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-04", "IT-32-TN-05"], // west
     ["IT-32-TN-18", "IT-32-TN-12", "IT-32-TN-03", "IT-32-TN-11", "IT-32-TN-17", "IT-32-TN-15"], // center
     ["IT-32-TN-14", "IT-32-TN-06", "IT-32-TN-10", "IT-32-TN-21", "IT-32-TN-08", "IT-32-TN-07", "IT-32-TN-09", "IT-32-TN-16", "IT-32-TN-13"] // east
-  ]; 
+  ];
   // Level 2 regions: provinces
   level2: string[][] = [
     ["AT-07-01", "AT-07-02-01", "AT-07-02-02", "AT-07-03", "AT-07-04-01", "AT-07-04-02", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14-01", "AT-07-14-02", "AT-07-14-03", "AT-07-14-04", "AT-07-14-05", "AT-07-15", "AT-07-16", "AT-07-17-01", "AT-07-17-02", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"],
     ["IT-32-BZ-01-01", "IT-32-BZ-01-02", "IT-32-BZ-02-01", "IT-32-BZ-02-02", "IT-32-BZ-03", "IT-32-BZ-04-01", "IT-32-BZ-04-02", "IT-32-BZ-05-01", "IT-32-BZ-05-02", "IT-32-BZ-05-03", "IT-32-BZ-06", "IT-32-BZ-07-01", "IT-32-BZ-07-02", "IT-32-BZ-08-01", "IT-32-BZ-08-02", "IT-32-BZ-08-03", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18-01", "IT-32-BZ-18-02", "IT-32-BZ-19", "IT-32-BZ-20"],
     ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-06", "IT-32-TN-07", "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13", "IT-32-TN-14", "IT-32-TN-15", "IT-32-TN-16", "IT-32-TN-17", "IT-32-TN-18", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-21"]
-  ]; 
+  ];
 
   constructor(private translateService: TranslateService) {
     this.translateAllNames();
@@ -273,7 +273,7 @@ export interface RegionProperties {
 }
 
 export interface RegionWithElevationProperties extends RegionProperties {
-  elevation: "high" | "low";
+  elevation: "high" | "low" | "low_high";
 }
 
 function mergeFeatureCollections<G extends Geometry, P>(
