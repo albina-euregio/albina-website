@@ -95,6 +95,24 @@ export default function StationTable(props: Props) {
         // 72h Differenz Schneehöhe <br> (72h Niederschlag)
         group: "snow",
         data: `snow${hour}`,
+        subtitle: "(" + title(`precipitation${hour}`) + ")",
+        render: (_value, row) => (
+          <>
+            <span className={`snow${hour}`} title={title(`snow${hour}`)}>
+              {formatNumber(row[`snow${hour}`], "cm")}
+            </span>
+            {isFinite(row[`precipitation${hour}`]) && (
+              <span
+                className={`precipitation${hour}`}
+                title={title(`precipitation${hour}`)}
+              >
+                {"("}
+                {formatNumber(row[`precipitation${hour}`], "mm")}
+                {")"}
+              </span>
+            )}
+          </>
+        ),
         unit: "cm",
         className: `mb-snow m-${hour}`
       })
