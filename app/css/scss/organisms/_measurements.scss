@@ -68,29 +68,43 @@
       }
     }
 
-    //from alien app.scss
-    td.mb-wind {
-      white-space: nowrap;
+    span[title]:hover {
+      color: $brand;
+      @include rollout;
     }
 
     .region {
       font-size: $micro-font-size;
+      display: block;
     }
-    .region-nt {
+    .region-AT-07 {
       color: $tyrol-color;
     }
-    .region-st {
+    .region-IT-32-BZ {
       color: $south-tyrol-color;
     }
-    .region-tr {
+    .region-IT-32-TN {
       color: $trentino-color;
     }
 
+    .temp,
+    .wdir {
+      display: block;
+    }
+
+    .precipitation24,
+    .precipitation48,
+    .precipitation72,
+    .temp_min_max,
+    .wdir,
     .datetime {
       display: block;
       font-size: $micro-font-size;
-      @include font-normal;
-      @include letter-spacing;
+    }
+
+    .temp_max::before,
+    .wgus::before {
+      content: "\202F/\202F";
     }
   }
 
