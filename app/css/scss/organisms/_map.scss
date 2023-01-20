@@ -478,6 +478,12 @@ $search-width-wide: 300px;
       background: $anchor-font-color;
       border-color: $anchor-font-color;
     }
+    &.is-de-highlighted {
+      color: $grey;
+      &:hover {
+        color: $white;
+      }
+    }
   }
 }
 
