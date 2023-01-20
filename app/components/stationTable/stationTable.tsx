@@ -32,6 +32,7 @@ export default function StationTable(props: Props) {
 
   type Column = {
     data: keyof StationData;
+    subtitle?: string;
     render?: RenderFun;
     sortable?: boolean;
     className: string;
@@ -102,6 +103,7 @@ export default function StationTable(props: Props) {
       // <b>Temperatur jetzt</b> <br> (Temperatur min / Temperatur max)
       group: "temp",
       data: "temp",
+      subtitle: "(" + title("temp_min") + " / " + title("temp_max") + ")",
       render: (_value, row) => (
         <>
           <span className="temp" title={title("temp")}>
@@ -132,6 +134,7 @@ export default function StationTable(props: Props) {
       // Wind Geschw. / Wind Böe <br> (i18n Wind Richtung)
       group: "wind",
       data: "wspd",
+      subtitle: "(" + title("wdir") + ")",
       render: (_value, row) => (
         <>
           <span className="wspd" title={title("wspd")}>
@@ -217,10 +220,11 @@ export default function StationTable(props: Props) {
         (props.sortValue == id ? "sort-toggle" : "sort-" + dir)
     });
 
-  const title = (id: keyof StationData) =>
-    intl.formatMessage({
+  function title(id: keyof StationData) {
+    return intl.formatMessage({
       id: "measurements:table:header:" + id
     });
+  }
 
   return (
     <table className="pure-table pure-table-striped pure-table-small table-measurements">
@@ -229,6 +233,8 @@ export default function StationTable(props: Props) {
           {displayColumns.map(col => (
             <th key={col.data}>
               {title(col.data)}
+              {col.subtitle && <br />}
+              {col.subtitle ? col.subtitle : ""}
               {col.sortable !== false && (
                 <span className="sort-buttons">
                   {(["asc", "desc"] as SortDir[]).map(dir => (
