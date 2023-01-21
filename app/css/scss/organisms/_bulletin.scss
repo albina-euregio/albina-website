@@ -293,7 +293,7 @@
   li {
     display: flex;
     flex-wrap: wrap;
-    // align-items: center;
+    align-items: center;
     padding: 0;
     border-top: $border-width $border-style $border-color;
     &:first-child {
