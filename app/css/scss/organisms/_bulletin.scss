@@ -41,7 +41,7 @@
     }
   }
   img {
-    height: $picto-height-plus;
+    height: $picto-height;
     //max-width: none;//<- why?
     margin: 0;
     @include rollover;
@@ -62,7 +62,8 @@
       border: $border-width $border-style $border-color;
       @include rollout;
 
-      img {
+      img,
+      svg {
         opacity: 1;
       }
       &:after {
@@ -89,7 +90,7 @@
     a {
       position: relative;
       display: block;
-      width: $picto-height-plus;
+      width: $picto-height;
       // height: $picto-height-plus;
       background: none;
 
@@ -347,7 +348,8 @@
       color: $anchor-font-color-hover;
     }
   }
-  img {
+  img,
+  svg {
     height: $picto-height;
     //max-width: none;//<- why?
     margin: 0;
@@ -364,7 +366,9 @@
       position: relative;
       border: $border-width $border-style $border-color;
       @include rollout;
-      img {
+      img,
+      svg {
+        height: $picto-height;
         margin: 0;
       }
       &:after {
@@ -411,7 +415,8 @@
   }
 
   &.problem-altitude {
-    img {
+    img,
+    svg {
       height: $picto-height-minus;
     }
     span {
@@ -492,7 +497,8 @@
 
   &.situation-frequency {
     display: none;
-    img {
+    img,
+    svg {
       width: $picto-height-plus;
       height: 100%;
       //border: $border-width $border-style $border-color;
@@ -530,48 +536,49 @@
 
 .bulletin-report-expositions {
   display: block;
-  // height: $picto-height;
-  // width: $picto-height;
-  div {
-    position: relative;
-    height: $picto-height;
-    width: $picto-height;
-  }
-  img {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
+
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
   }
-  &.expo_n .expo_n {
-    display: block;
-  }
-  &.expo_ne .expo_ne {
-    display: block;
-  }
-  &.expo_e .expo_e {
-    display: block;
-  }
-  &.expo_se .expo_se {
-    display: block;
-  }
-  &.expo_s .expo_s {
-    display: block;
-  }
-  &.expo_sw .expo_sw {
-    display: block;
-  }
-  &.expo_w .expo_w {
-    display: block;
-  }
-  &.expo_nw .expo_nw {
-    display: block;
-  }
+
+  //until 202212
+  // div {
+  //   position: relative;
+  //   height: $picto-height;
+  //   width: $picto-height;
+  //   img, svg {
+  //     display: none;
+  //     position: absolute;
+  //     top: 0;
+  //     left: 0;
+  //     right: 0;
+  //   }
+  // }
+  // &.expo_n .expo_n {
+  //   display: block;
+  // }
+  // &.expo_ne .expo_ne {
+  //   display: block;
+  // }
+  // &.expo_e .expo_e {
+  //   display: block;
+  // }
+  // &.expo_se .expo_se {
+  //   display: block;
+  // }
+  // &.expo_s .expo_s {
+  //   display: block;
+  // }
+  // &.expo_sw .expo_sw {
+  //   display: block;
+  // }
+  // &.expo_w .expo_w {
+  //   display: block;
+  // }
+  // &.expo_nw .expo_nw {
+  //   display: block;
+  // }
 }
 
 .bulletin-report-tendency {

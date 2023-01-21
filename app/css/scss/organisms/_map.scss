@@ -443,9 +443,9 @@ $search-width-wide: 300px;
         box-sizing: content-box;
       }
     }
-    li:not(.bulletin-report-no) + li img {
-      border: $border-width $border-style $border-color;
-    }
+    // li:not(.bulletin-report-no) + li img {
+    //   border: $border-width $border-style $border-color;
+    // }
   }
 
   .bulletin-report-public-alert {

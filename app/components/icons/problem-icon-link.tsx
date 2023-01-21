@@ -24,7 +24,10 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
         className="img"
         href="#"
       >
-        <ProblemIcon problem={problemType} alt={title} active={true} />
+        <div class="picto-img">
+          <ProblemIcon problem={problemType} alt={title} active={true} />
+        </div>
+        {/* <div class="picto-caption">Triebschnee</div> */}
       </Link>
     </Tooltip>
   );
