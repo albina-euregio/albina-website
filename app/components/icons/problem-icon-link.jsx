@@ -21,6 +21,9 @@ class ProblemIconLink extends React.Component {
     const title = this.props.intl.formatMessage({
       id: "problem:" + problemType
     });
+    const caption = this.props.intl.formatMessage({
+      id: "problem:" + problemType + ":short"
+    });
 
     return (
       <div className="bulletin-report-picto avalanche-situation">
@@ -34,7 +37,7 @@ class ProblemIconLink extends React.Component {
               <div className="picto-img">
                 <ProblemIcon problem={problemType} alt={title} active={true} />
               </div>
-              <div className="picto-caption">Neuschnee</div>
+              <div className="picto-caption">{ caption }</div>
             </Link>
           </Tooltip>
         )}
