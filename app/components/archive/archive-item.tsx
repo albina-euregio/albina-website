@@ -175,11 +175,14 @@ function ArchiveItem({ date, status }: Props) {
 
   function bulletinMap(): React.ReactNode {
     if (!showMap(dateString)) return;
-    const region = bulletin
-      ? bulletin.bulletinID
-      : dateString < "2022-05-06"
-      ? "fd_albina_thumbnail"
-      : "fd_EUREGIO_thumbnail";
+    const region =
+      bulletin && dateString > "2022-05-06"
+        ? `EUREGIO_${bulletin.bulletinID}`
+        : bulletin
+        ? bulletin.bulletinID
+        : dateString < "2022-05-06"
+        ? "fd_albina_thumbnail"
+        : "fd_EUREGIO_thumbnail";
     return (
       <Tooltip
         label={intl.formatMessage({
