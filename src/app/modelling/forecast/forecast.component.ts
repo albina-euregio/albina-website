@@ -83,6 +83,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   initMaps() {
     console.log("init maps at qfa");
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+    this.mapService.removeObservationLayers();
     this.mapService.addControls();
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {

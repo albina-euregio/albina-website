@@ -367,6 +367,10 @@ export class BaseMapService {
     }
   }
 
+  removeObservationLayers() {
+    Object.values(this.observationTypeLayers).forEach((layer) => this.map.removeLayer(layer));
+  }
+
   removeMarkerLayer(name) {
     this.map.removeLayer(this.layers[name]);
   }
