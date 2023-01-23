@@ -14,6 +14,7 @@ import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { LatLngLiteral } from 'leaflet';
 import * as qfaTypes from "../../qfa/types/QFA";
+import { TranslateService } from "@ngx-translate/core";
 
 export interface MultiselectDropdownData {
   id: string;
@@ -43,19 +44,19 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "default",
-      name: "multimodel"
+      name: this.translateService.instant('sidebar.modellingZamg')
     },
     {
       id: "qfa",
-      name: "QFA"
+      name: this.translateService.instant('sidebar.qfa')
     },
     {
       id: "eps_ecmwf",
-      name: "eps_ecmwf"
+      name: this.translateService.instant('sidebar.modellingZamgECMWF')
     },
     {
       id: "eps_claef",
-      name: "eps_claef"
+      name: this.translateService.instant('sidebar.modellingZamgCLAEF')
     }
   ]
 
@@ -68,6 +69,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     private constantsService: ConstantsService,
     private qfaService: QfaService,
     private paramService: ParamService,
+    private translateService: TranslateService,
   ) {}
 
   files = {}
