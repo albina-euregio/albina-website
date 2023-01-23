@@ -20,7 +20,7 @@ function BulletinProblemFilter({ handleSelectRegion }: Props) {
   );
 
   return (
-    <ul className="list-inline list-avalanche-problems-filter">{listItems}</ul>
+    <ul className="list-plain list-avalanche-problems-filter">{listItems}</ul>
   );
 }
 
