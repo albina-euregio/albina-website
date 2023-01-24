@@ -12,10 +12,11 @@ import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
-import { LatLngLiteral } from 'leaflet';
+import { LatLngLiteral, Control } from 'leaflet';
 import * as qfaTypes from "../../qfa/types/QFA";
 import { TranslateService } from "@ngx-translate/core";
 
+declare var L: any;
 export interface MultiselectDropdownData {
   id: string;
   name: string;
@@ -83,9 +84,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   }
 
   initMaps() {
-    console.log("init maps at qfa");
     this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+    this.mapService.addInfo();
     this.mapService.addControls();
+
+    this.mapService.removeObservationLayers();
+
     this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
         const type = zamgType || "default";
