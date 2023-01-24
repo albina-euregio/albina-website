@@ -14,6 +14,11 @@
                 (onChange)="onDropdownSelect($event)"
               ></p-multiSelect>
             </div>
+            <span *ngFor="let source of allSources" class="global-bar-item">
+              &mdash;
+              <span [style]="{ color: source.fillColor }">●</span>
+              {{ source.name }}
+            </span>
           </div>
         </div>
       </div>
