@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "./models/observation.model";
-import { convertObservedProfile } from "./models/observed-profiles.model";
 import { convertLoLaKronos, LolaKronosApi } from "./models/lola-kronos.model";
 import { convertLoLaSafety, LoLaSafetyApi } from "./models/lola-safety.model";
 import {
@@ -59,7 +58,6 @@ export class ObservationsService {
       this.getLoLaSafety(),
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
-      this.getObservedProfilesObservations(),
       this.getObservations()
     );
   }
@@ -137,14 +135,6 @@ export class ObservationsService {
       map((feature) => convertLwdKipSperren(feature))
     );
     return merge(o0, o1, o2, o3);
-  }
-
-  getObservedProfilesObservations(): Observable<GenericObservation> {
-    const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http.get<GenericObservation[]>(url).pipe(
-      mergeAll(),
-      map((o): GenericObservation => convertObservedProfile(o))
-    );
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {

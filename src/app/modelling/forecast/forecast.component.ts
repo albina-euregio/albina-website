@@ -1,13 +1,14 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
-import { ModellingService, ZamgModelPoint } from "../modelling.service";
+import { AvalancheWarningServiceObservedProfiles, ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
-import { LatLngLiteral } from "leaflet";
+import { CircleMarker, LatLngLiteral } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
+import { formatDate } from "@angular/common";
 
-type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa";
+type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile";
 
 export interface MultiselectDropdownData {
   id: ModelType;
@@ -25,6 +26,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
+  selectedObservedProfile: AvalancheWarningServiceObservedProfiles;
   selectedCity: string;
   visibleLayers: string[] = [];
   qfa: any;
@@ -55,6 +57,11 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       id: "eps_claef",
       fillColor: "violet",
       name: this.translateService.instant("sidebar.modellingZamgCLAEF")
+    },
+    {
+      id: "observed_profile",
+      fillColor: "#f8d229",
+      name: this.translateService.instant("observationType.Profile")
     }
   ];
 
@@ -98,11 +105,26 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           const callback = () => {
             this.selectedModelPoint = point;
             this.selectedModelType = zamgType;
+            this.selectedObservedProfile = undefined;
             this.observationPopupVisible = true;
           };
           this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, callback);
         });
       });
+    });
+
+    this.modellingService.getObservedProfiles().subscribe((profile) => {
+      const ll = { lat: profile.latitude, lng: profile.longitude };
+      const callback = () => {
+        this.selectedModelPoint = undefined;
+        this.selectedModelType = "observed_profile";
+        this.selectedObservedProfile = profile;
+        this.observationPopupVisible = true;
+      };
+      const marker = new CircleMarker(ll, this.getModelPointOptions("observed_profile"))
+        .on("click", callback)
+        .bindTooltip(formatDate(profile.eventDate, "yyyy-MM-dd", "de") + ": " + profile.locationName);
+      this.mapService.addMarker(marker, "observed_profile");
     });
 
     for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
@@ -111,6 +133,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.setQfa(this.files[cityName][0], 0);
         this.selectedModelPoint = undefined;
         this.selectedModelType = "qfa";
+        this.selectedObservedProfile = undefined;
         this.observationPopupVisible = true;
       };
       this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", callback);

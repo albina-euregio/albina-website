@@ -68,6 +68,10 @@
     <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.plotUrl" class="img-fluid" />
   </div>
 
+  <div *ngIf="selectedModelType === 'observed_profile'">
+    <img [src]="selectedObservedProfile.$externalURL" />
+  </div>
+
   <div *ngIf="selectedModelType === 'qfa'" id="qfa_div">
     <div class="day-button-wrapper">
       <span class="day-button" [ngClass]="{ 'active-day': qfaStartDay === 0 }" (click)="setQfa(qfa.file.filename, 0)">
