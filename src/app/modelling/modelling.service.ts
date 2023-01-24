@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { forkJoin, Observable } from "rxjs";
-import { map, mergeAll } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 
@@ -253,8 +253,8 @@ export class ModellingService {
    * SNOWPACK modelled snow profiles
    * https://gitlab.com/avalanche-warning
    */
-  getObservedProfiles(): Observable<AvalancheWarningServiceObservedProfiles> {
+  getObservedProfiles(): Observable<AvalancheWarningServiceObservedProfiles[]> {
     const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url).pipe(mergeAll());
+    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url);
   }
 }

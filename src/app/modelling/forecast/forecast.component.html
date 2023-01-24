@@ -45,7 +45,6 @@
         <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
           {{ point.regionCode }}:
           {{ point.regionName }}
-          ({{ point.id }})
         </option>
       </select>
     </div>
@@ -66,10 +65,6 @@
 
   <div *ngIf="selectedModelPoint">
     <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.plotUrl" class="img-fluid" />
-  </div>
-
-  <div *ngIf="selectedModelType === 'observed_profile'">
-    <img [src]="selectedObservedProfile.$externalURL" />
   </div>
 
   <div *ngIf="selectedModelType === 'qfa'" id="qfa_div">

@@ -26,16 +26,16 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
-  selectedObservedProfile: AvalancheWarningServiceObservedProfiles;
   selectedCity: string;
   visibleLayers: string[] = [];
   qfa: any;
   qfaStartDay: number;
-  dropDownOptions = {
+  dropDownOptions: Record<ModelType, any[]> = {
     multimodel: [],
     qfa: [],
     eps_ecmwf: [],
-    eps_claef: []
+    eps_claef: [],
+    observed_profile: []
   };
   public readonly allSources: MultiselectDropdownData[] = [
     {
@@ -105,7 +105,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           const callback = () => {
             this.selectedModelPoint = point;
             this.selectedModelType = zamgType;
-            this.selectedObservedProfile = undefined;
             this.observationPopupVisible = true;
           };
           this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, callback);
@@ -113,18 +112,30 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       });
     });
 
-    this.modellingService.getObservedProfiles().subscribe((profile) => {
-      const ll = { lat: profile.latitude, lng: profile.longitude };
-      const callback = () => {
-        this.selectedModelPoint = undefined;
-        this.selectedModelType = "observed_profile";
-        this.selectedObservedProfile = profile;
-        this.observationPopupVisible = true;
-      };
-      const marker = new CircleMarker(ll, this.getModelPointOptions("observed_profile"))
-        .on("click", callback)
-        .bindTooltip(formatDate(profile.eventDate, "yyyy-MM-dd", "de") + ": " + profile.locationName);
-      this.mapService.addMarker(marker, "observed_profile");
+    this.modellingService.getObservedProfiles().subscribe((profiles) => {
+      this.dropDownOptions.observed_profile = profiles.map((profile) => {
+        const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
+        const modelPoint = new ZamgModelPoint(
+          profile.$externalURL,
+          date,
+          profile.locationName,
+          [],
+          profile.$externalURL,
+          profile.latitude,
+          profile.longitude
+        );
+        const ll = { lat: profile.latitude, lng: profile.longitude };
+        const callback = () => {
+          this.selectedModelPoint = modelPoint;
+          this.selectedModelType = "observed_profile";
+          this.observationPopupVisible = true;
+        };
+        const marker = new CircleMarker(ll, this.getModelPointOptions("observed_profile"))
+          .on("click", callback)
+          .bindTooltip(date + ": " + profile.locationName);
+        this.mapService.addMarker(marker, "observed_profile");
+        return modelPoint;
+      });
     });
 
     for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
@@ -133,7 +144,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.setQfa(this.files[cityName][0], 0);
         this.selectedModelPoint = undefined;
         this.selectedModelType = "qfa";
-        this.selectedObservedProfile = undefined;
         this.observationPopupVisible = true;
       };
       this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", callback);
