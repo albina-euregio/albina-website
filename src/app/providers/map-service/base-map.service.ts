@@ -41,9 +41,9 @@ declare module "leaflet" {
   }
 }
 
-
-import * as L from "leaflet";
 import * as geojson from "geojson";
+
+declare var L: any;
 
 declare module "leaflet" {
   interface GeoJSON<P = any> {
@@ -160,6 +160,20 @@ export class BaseMapService {
   addControls() {
     new Control.Zoom({ position: "topleft" }).addTo(this.map);
     new Control.Scale().addTo(this.map);
+  }
+
+  addInfo() {
+    const info = L.control();
+    info.onAdd = function () {
+      this._div = L.DomUtil.create("div", "info"); // create a div with a class "info"
+      this.update();
+      return this._div;
+    };
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+      this._div.innerHTML = props ? "<b>" + props.name_de + "</b>" : " ";
+    };
+    info.addTo(this.map);
   }
 
   clickRegion(regionIds: Array<String>) {
@@ -365,6 +379,10 @@ export class BaseMapService {
         }
       });
     }
+  }
+
+  removeObservationLayers() {
+    Object.values(this.observationTypeLayers).forEach((layer) => this.map.removeLayer(layer));
   }
 
   removeMarkerLayer(name) {
