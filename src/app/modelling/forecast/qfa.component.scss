@@ -86,17 +86,6 @@ $border-color: darkgrey;
   background-color: #CBF7ED;
 }
 
-.layout-map {
-  position: relative;
-  top: 0;
-  width: 100%;
-}
-
-.qfa-map {
-  height: 800px;
-  width: 100%;
-}
-
 .file-wrapper {
   width: 100%;
   padding: 10px 5px;
@@ -143,11 +132,4 @@ $border-color: darkgrey;
   flex-direction: row;
   justify-content: space-between;
   align-items:baseline;
-}
-
-.controls {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: 5px;
 }

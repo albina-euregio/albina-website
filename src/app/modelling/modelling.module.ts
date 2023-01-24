@@ -8,6 +8,7 @@ import { ModellingService } from "./modelling.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { ForecastComponent } from "./forecast/forecast.component";
+import { DialogModule } from "primeng/dialog";
 import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     FormsModule,
     ModellingRoutingModule,
     TranslateModule,
+    DialogModule,
     MultiSelectModule
   ],
   providers: [ModellingService],

@@ -62,7 +62,7 @@ export class ModellingService {
   /**
    * Fetches ZAMG model points via HTTP, parses CSV file and returns parsed results.
    */
-  getZamgModelPoints({ zamgType }: {zamgType: "" | "eps_ecmwf" | "eps_claef"}): Observable<ZamgModelPoint[]> {
+  getZamgModelPoints({ zamgType }: {zamgType: "multimodel" | "eps_ecmwf" | "eps_claef"}): Observable<ZamgModelPoint[]> {
     return zamgType === 'eps_ecmwf'
       ? this.getZamgEcmwfModelPoints()
       : zamgType === 'eps_claef'
