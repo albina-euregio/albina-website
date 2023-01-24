@@ -54,10 +54,12 @@
     }
     .map-preview {
       display: inline-block;
-      width: $picto-height;
-      height: $picto-height;
+      // width: $picto-height;
+      // height: $picto-height;
       img {
         @include box-border;
+        width: auto;
+        height: $picto-height;
       }
     }
   }

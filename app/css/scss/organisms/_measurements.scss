@@ -102,9 +102,11 @@
       font-size: $micro-font-size;
     }
 
-    .temp_max::before,
-    .wgus::before {
-      content: "\202F/\202F";
+    .temp_max,
+    .wgus {
+      &:before {
+        content: "\202F/\202F";
+      }
     }
   }
 
