@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "./models/observation.model";
-import { convertObservedProfile } from "./models/observed-profiles.model";
 import { convertLoLaKronos, LolaKronosApi } from "./models/lola-kronos.model";
 import { convertLoLaSafety, LoLaSafetyApi } from "./models/lola-safety.model";
 import {
@@ -59,7 +58,6 @@ export class ObservationsService {
       this.getLoLaSafety(),
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
-      this.getObservedProfilesObservations(),
       this.getObservations()
     );
   }
@@ -137,14 +135,6 @@ export class ObservationsService {
       map((feature) => convertLwdKipSperren(feature))
     );
     return merge(o0, o1, o2, o3);
-  }
-
-  getObservedProfilesObservations(): Observable<GenericObservation> {
-    const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http.get<GenericObservation[]>(url).pipe(
-      mergeAll(),
-      map((o): GenericObservation => convertObservedProfile(o))
-    );
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
@@ -248,7 +238,7 @@ export class ObservationsService {
           if (!LAWIS_FETCH_DETAILS) {
             return of(profile);
           }
-          return from(this.getCachedOrFetch<ProfileDetails>(api.Lawis + "profile/" + profile.$data.id)).pipe(
+          return from(this.getCachedOrFetchLowPriority<ProfileDetails>(api.Lawis + "profile/" + profile.$data.id)).pipe(
             map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails)),
             catchError(() => of(profile))
           );
@@ -270,7 +260,7 @@ export class ObservationsService {
           if (!LAWIS_FETCH_DETAILS) {
             return of(incident);
           }
-          return from(this.getCachedOrFetch<IncidentDetails>(api.Lawis + "incident/" + incident.$data.id)).pipe(
+          return from(this.getCachedOrFetchLowPriority<IncidentDetails>(api.Lawis + "incident/" + incident.$data.id)).pipe(
             map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails)),
             catchError(() => of(incident))
           );
@@ -278,7 +268,7 @@ export class ObservationsService {
       );
   }
 
-  async getCachedOrFetch<T>(url: string): Promise<T> {
+  async getCachedOrFetchLowPriority<T>(url: string): Promise<T> {
     let cache: Cache;
     try {
       cache = await caches.open("observations");
@@ -287,7 +277,11 @@ export class ObservationsService {
         return cached.json();
       }
     } catch (ignore) {}
-    const response = await fetch(url, { mode: "cors" });
+    const response = await fetch(url, {
+      mode: "cors",
+      priority: "low",
+      // https://developer.mozilla.org/en-US/docs/Web/API/Request/priority
+    } as RequestInit & { priority: "high" | "low" | "auto" });
     if (!response.ok) {
       throw Error(response.statusText);
     }

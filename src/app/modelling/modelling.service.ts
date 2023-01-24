@@ -43,6 +43,16 @@ export interface SnowpackPlots {
   stations: string[];
 }
 
+export interface AvalancheWarningServiceObservedProfiles {
+  latitude: number;
+  longitude: number;
+  elevation: number;
+  aspect: string;
+  eventDate: Date;
+  locationName: string;
+  $externalURL: string;
+}
+
 @Injectable()
 export class ModellingService {
   constructor(
@@ -62,7 +72,7 @@ export class ModellingService {
   /**
    * Fetches ZAMG model points via HTTP, parses CSV file and returns parsed results.
    */
-  getZamgModelPoints({ zamgType }: {zamgType: "" | "eps_ecmwf" | "eps_claef"}): Observable<ZamgModelPoint[]> {
+  getZamgModelPoints({ zamgType }: {zamgType: "multimodel" | "eps_ecmwf" | "eps_claef"}): Observable<ZamgModelPoint[]> {
     return zamgType === 'eps_ecmwf'
       ? this.getZamgEcmwfModelPoints()
       : zamgType === 'eps_claef'
@@ -80,7 +90,7 @@ export class ModellingService {
     return forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
       .pipe(
         map(responses => responses.map((r, index) => this.parseCSV(index === 0 ? r.toString().replace(/^#\s*/, "") : r.toString()))),
-        map(([points, hs1400, hn910, hn990]) =>
+      map(([points, hs1400, hn910, hn990]) =>
           points.data.map((row: MultimodelPointCsv) => {
             const id = row.statnr;
             const regionCode = row.code;
@@ -122,8 +132,8 @@ export class ModellingService {
               lng
             );
           }).sort((p1, p2) => p1.regionCode.localeCompare(p2.regionCode))
-        )
-      );
+      )
+    );
   }
 
   getZamgEcmwfTypes(): string[] {
@@ -138,24 +148,24 @@ export class ModellingService {
       .pipe(
         map(response => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
         map(parseResult =>
-          this.getZamgEcmwfTypes()
+        this.getZamgEcmwfTypes()
             .map(type =>
-              parseResult.data.map(
-                ({ synop, lat, lon, name }) =>
-                  new ZamgModelPoint(
-                    synop,
-                    `${type} ${synop}`,
-                    name,
-                    [],
-                    `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,
-                    +lat,
-                    +lon
-                  )
-              )
+            parseResult.data.map(
+              ({ synop, lat, lon, name }) =>
+                new ZamgModelPoint(
+                  synop,
+                  `${type} ${synop}`,
+                  name,
+                  [],
+                  `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,
+                  +lat,
+                  +lon
+                )
             )
-            .reduce((acc, x) => acc.concat(x))
-        )
-      );
+          )
+          .reduce((acc, x) => acc.concat(x))
+      )
+    );
   }
 
   private getZamgClaefModelPoints(): Observable<ZamgModelPoint[]> {
@@ -166,24 +176,24 @@ export class ModellingService {
       .pipe(
         map(response => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
         map(parseResult =>
-          this.getZamgEcmwfTypes()
+        this.getZamgEcmwfTypes()
             .map(type =>
-              parseResult.data.map(
-                ({ synop, lat, lon, name }) =>
-                  new ZamgModelPoint(
-                    synop,
-                    `${type} ${synop}`,
-                    name,
-                    [],
-                    `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${synop}_${type}.png`,
-                    +lat,
-                    +lon
-                  )
-              )
+            parseResult.data.map(
+              ({ synop, lat, lon, name }) =>
+                new ZamgModelPoint(
+                  synop,
+                  `${type} ${synop}`,
+                  name,
+                  [],
+                  `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${synop}_${type}.png`,
+                  +lat,
+                  +lon
+                )
             )
-            .reduce((acc, x) => acc.concat(x))
-        )
-      );
+          )
+          .reduce((acc, x) => acc.concat(x))
+      )
+    );
   }
 
   /**
@@ -237,5 +247,14 @@ export class ModellingService {
       "AT-7_TA_table_72h",
       "AT-7_TA_table_season"
     ];
+  }
+
+  /**
+   * SNOWPACK modelled snow profiles
+   * https://gitlab.com/avalanche-warning
+   */
+  getObservedProfiles(): Observable<AvalancheWarningServiceObservedProfiles[]> {
+    const url = this.constantsService.observationApi.AvalancheWarningService;
+    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url);
   }
 }

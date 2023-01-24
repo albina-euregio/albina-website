@@ -399,19 +399,23 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  drawMarker(ll: LatLngLiteral, options, layerName="default", callback?) {
+  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, callback?) {
 
     const marker = new CircleMarker(ll, options);
 
     if(callback) marker.on("click", () => callback(ll));
 
+    this.addMarker(marker, layerName);
+  }
+
+  addMarker(marker: CircleMarker, layerName: string) {
     marker.options.pane = "markerPane";
 
-    if(this.layers[layerName] === undefined) {
+    if (this.layers[layerName] === undefined) {
       this.layers[layerName] = new LayerGroup();
       this.layers[layerName].addTo(this.map);
     }
-    marker.addTo(this.layers[layerName])
+    marker.addTo(this.layers[layerName]);
   }
 
   style(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {

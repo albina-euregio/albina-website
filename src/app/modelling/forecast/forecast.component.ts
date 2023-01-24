@@ -1,24 +1,19 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
-  HostListener
-} from "@angular/core";
+import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
-import { ModellingService, ZamgModelPoint } from "../modelling.service";
+import { AvalancheWarningServiceObservedProfiles, ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
-import { LatLngLiteral, Control } from 'leaflet';
-import * as qfaTypes from "../../qfa/types/QFA";
+import { CircleMarker, LatLngLiteral } from "leaflet";
+import { TranslateService } from "@ngx-translate/core";
+import { formatDate } from "@angular/common";
 
-declare var L: any;
+type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile";
+
 export interface MultiselectDropdownData {
-  id: string;
+  id: ModelType;
   name: string;
+  fillColor: string;
 }
 
 @Component({
@@ -26,41 +21,51 @@ export interface MultiselectDropdownData {
   styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"]
 })
 export class ForecastComponent implements AfterViewInit, OnDestroy {
-  zamgTypes = ["", "eps_ecmwf", "eps_claef"];
+  layout = "map" as const;
+  observationPopupVisible = false;
+  zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
   selectedModelPoint: ZamgModelPoint;
-  selectedModelType: "default" | "eps_ecmwf" | "eps_claef";
+  selectedModelType: ModelType;
   selectedCity: string;
-  showMap: boolean = true;
   visibleLayers: string[] = [];
   qfa: any;
   qfaStartDay: number;
-  showQfa: boolean = false;
-  dropDownOptions = {
-    "default": [],
-    "qfa": [],
-    "eps_ecmwf": [],
-    "eps_claef": []
+  dropDownOptions: Record<ModelType, any[]> = {
+    multimodel: [],
+    qfa: [],
+    eps_ecmwf: [],
+    eps_claef: [],
+    observed_profile: []
   };
   public readonly allSources: MultiselectDropdownData[] = [
     {
-      id: "default",
-      name: "multimodel"
+      id: "multimodel",
+      fillColor: "green",
+      name: this.translateService.instant("sidebar.modellingZamg")
     },
     {
       id: "qfa",
-      name: "QFA"
+      fillColor: "red",
+      name: this.translateService.instant("sidebar.qfa")
     },
     {
       id: "eps_ecmwf",
-      name: "eps_ecmwf"
+      fillColor: this.constantsService.colorBrand,
+      name: this.translateService.instant("sidebar.modellingZamgECMWF")
     },
     {
       id: "eps_claef",
-      name: "eps_claef"
+      fillColor: "violet",
+      name: this.translateService.instant("sidebar.modellingZamgCLAEF")
+    },
+    {
+      id: "observed_profile",
+      fillColor: "#f8d229",
+      name: this.translateService.instant("observationType.Profile")
     }
-  ]
+  ];
 
-  @ViewChild("mapDiv") mapDiv: ElementRef<HTMLDivElement>;
+  @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
 
   constructor(
@@ -69,53 +74,79 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     private constantsService: ConstantsService,
     private qfaService: QfaService,
     private paramService: ParamService,
+    private translateService: TranslateService
   ) {}
 
-  files = {}
+  files = {};
 
   async ngAfterViewInit() {
     this.initMaps();
     this.files = await this.qfaService.getFiles();
-    this.allSources.forEach(source => {
+    this.allSources.forEach((source) => {
       this.mapService.addMarkerLayer(source.id);
-    })
+    });
   }
 
   initMaps() {
-    this.mapService.initMaps(this.mapDiv.nativeElement, () => {});
+    this.mapService.initMaps(this.observationsMap.nativeElement, () => {});
     this.mapService.addInfo();
     this.mapService.addControls();
 
     this.mapService.removeObservationLayers();
 
-    this.zamgTypes.forEach((zamgType: "" | "eps_ecmwf" | "eps_claef") => {
+    this.zamgTypes.forEach((zamgType) => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
-        const type = zamgType || "default";
-        this.dropDownOptions[type] = zamgModelPoints;
-        zamgModelPoints.forEach(point => {
+        this.dropDownOptions[zamgType] = zamgModelPoints;
+        zamgModelPoints.forEach((point) => {
           const ll: LatLngLiteral = {
-            lat: type === "eps_claef" ? (point.lat+0.01) : point.lat,
-            lng: type === "eps_claef" ? (point.lng-0.002) : point.lng
+            lat: zamgType === "eps_claef" ? point.lat + 0.01 : point.lat,
+            lng: zamgType === "eps_claef" ? point.lng - 0.002 : point.lng
           };
-          const callback = (ll) => this.onClickZamgModelPoint(point, type);
-          this.mapService.drawMarker(
-            ll,
-            this.getModelPointOptions(type),
-            type,
-            callback);
-        })
+          const callback = () => {
+            this.selectedModelPoint = point;
+            this.selectedModelType = zamgType;
+            this.observationPopupVisible = true;
+          };
+          this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, callback);
+        });
       });
-    })
+    });
 
-    for(const [cityName, coords] of Object.entries(this.qfaService.coords)) {
+    this.modellingService.getObservedProfiles().subscribe((profiles) => {
+      this.dropDownOptions.observed_profile = profiles.map((profile) => {
+        const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
+        const modelPoint = new ZamgModelPoint(
+          profile.$externalURL,
+          date,
+          profile.locationName,
+          [],
+          profile.$externalURL,
+          profile.latitude,
+          profile.longitude
+        );
+        const ll = { lat: profile.latitude, lng: profile.longitude };
+        const callback = () => {
+          this.selectedModelPoint = modelPoint;
+          this.selectedModelType = "observed_profile";
+          this.observationPopupVisible = true;
+        };
+        const marker = new CircleMarker(ll, this.getModelPointOptions("observed_profile"))
+          .on("click", callback)
+          .bindTooltip(date + ": " + profile.locationName);
+        this.mapService.addMarker(marker, "observed_profile");
+        return modelPoint;
+      });
+    });
+
+    for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
       const ll = coords as LatLngLiteral;
-      const callback = (ll) => this.onClickQfa(ll, cityName);
-      this.mapService.drawMarker(
-        ll,
-        this.getModelPointOptions("qfa"),
-        "qfa",
-        callback
-      );
+      const callback = () => {
+        this.setQfa(this.files[cityName][0], 0);
+        this.selectedModelPoint = undefined;
+        this.selectedModelType = "qfa";
+        this.observationPopupVisible = true;
+      };
+      this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", callback);
     }
   }
 
@@ -126,17 +157,10 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  getModelPointOptions(type) {
-    const fillColors = {
-      "default": "green",
-      "qfa": "red",
-      "eps_ecmwf": this.constantsService.colorBrand,
-      "eps_claef": "violet",
-    }
-
+  getModelPointOptions(type: ModelType): L.CircleMarkerOptions {
     return {
       radius: 8,
-      fillColor: fillColors[type],
+      fillColor: this.allSources.find((s) => s.id === type)?.fillColor,
       color: "black",
       weight: 1,
       opacity: 1,
@@ -144,48 +168,23 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  onClickZamgModelPoint(point, type) {
-    this.selectedModelPoint = point;
-    this.selectedModelType = type;
-    this.showMap = false;
-  }
-
-  setShowMap() {
-    this.showMap = true;
-    this.showQfa = false;
-    this.selectedModelPoint = {} as ZamgModelPoint;
-  }
-
-  onClickQfa(ll: LatLngLiteral, params) {
-    this.setQfa(this.files[params][0], 0);
-    this.selectedModelPoint = undefined;
-    this.showMap = false;
-    this.showQfa = true;
-  }
-
-  onDropdownSelect(id, event) {
+  onDropdownSelect(event) {
     this.visibleLayers = event.value;
     this.mapService.removeMarkerLayers();
-    if(this.visibleLayers.length) {
-      this.visibleLayers.forEach(layerName => {
+    if (this.visibleLayers.length) {
+      this.visibleLayers.forEach((layerName) => {
         this.mapService.addMarkerLayer(layerName);
-      })
+      });
     } else {
-      this.allSources.forEach(source => {
+      this.allSources.forEach((source) => {
         this.mapService.addMarkerLayer(source.id);
-      })
+      });
     }
   }
 
-  onChangeQfa(event) {
-    this.setQfa(event.target.value, 0);
-  }
-
-
-
-  async setQfa(file, startDay) {
+  async setQfa(file, startDay = 0) {
     this.qfaStartDay = startDay;
-    const fileMap = typeof file === "string" ? {filename: file} : file;
+    const fileMap = typeof file === "string" ? { filename: file } : file;
     this.qfa = await this.qfaService.getRun(fileMap, startDay);
     this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
     this.paramService.setParameterClasses(this.qfa.parameters);
@@ -193,19 +192,22 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
   @HostListener("document:keydown", ["$event"])
   handleKeyBoardEvent(event: KeyboardEvent) {
-    if(this.showQfa) {
-      const filenames = this.files[this.selectedCity].map(file => file.filename);
+    if (!this.observationPopupVisible) {
+      return;
+    }
+    if (this.selectedModelType === "qfa") {
+      const filenames = this.files[this.selectedCity].map((file) => file.filename);
       const index = filenames.indexOf(this.qfa.file.filename);
-      if(event.key === "ArrowRight") {
+      if (event.key === "ArrowRight") {
         const newIndex = index + 1 < filenames.length - 1 ? index + 1 : 0;
         this.setQfa(filenames[newIndex], 0);
       } else if (event.key === "ArrowLeft") {
         const newIndex = index === 0 ? filenames.length - 1 : index - 1;
         this.setQfa(filenames[newIndex], 0);
       }
-    } else if(this. selectedModelPoint && !this.showMap) {
-      const index = this.dropDownOptions[this.selectedModelType].findIndex(point => point.id === this.selectedModelPoint.id);
-      if(event.key === "ArrowRight") {
+    } else if (this.selectedModelPoint) {
+      const index = this.dropDownOptions[this.selectedModelType].findIndex((point) => point.id === this.selectedModelPoint.id);
+      if (event.key === "ArrowRight") {
         const newIndex = index + 1 < this.dropDownOptions[this.selectedModelType].length - 1 ? index + 1 : 0;
         this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
       } else if (event.key === "ArrowLeft") {
