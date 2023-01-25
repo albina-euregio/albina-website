@@ -388,7 +388,7 @@ export function convertLoLaToGeneric(
       (obs as LolaSimpleObservation).snowSurface?.includes("graupel") ? Enums.ImportantObservation.Graupel : undefined,
       (obs as LolaSimpleObservation).snowSurface?.includes("iceFormation") ? Enums.ImportantObservation.IceFormation : undefined,
       (obs as LolaSimpleObservation).stabilityTests?.length > 0 ? Enums.ImportantObservation.StabilityTest : undefined
-    ]
+    ].filter(o => !!o)
   };
 }
 

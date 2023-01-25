@@ -1,16 +1,13 @@
-import { Injectable, Input } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import {
   GenericObservation,
-  ObservationSource,
   LocalFilterTypes,
   FilterSelectionData,
   AvalancheProblem
 } from "./models/generic-observation.model";
 import * as Enums from "../enums/enums";
 import { ObservationFilterType } from "./models/generic-observation.model";
-import { LatLng } from "leaflet";
-import { RegionsService } from "../providers/regions-service/regions.service";
 
 const DATASET_MAX_FACTOR = 1;
 
@@ -518,23 +515,14 @@ export class ObservationFilterService {
   }
 
   isIncluded(filter: LocalFilterTypes, testData: string | string[], testHighlighted: boolean = false): boolean {
-    let testField = "selected";
-
-    if (!testHighlighted) {
-      return (
-        (this.filterSelection[filter][testField].includes("nan") && !testData) ||
-        !this.filterSelection[filter][testField].length ||
-        (Array.isArray(testData) && testData.some((d) => d && this.filterSelection[filter][testField].includes(d))) ||
-        (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
-      );
-    } else {
-      testField = "highlighted";
-      return (
-        (this.filterSelection[filter][testField].includes("nan") && !testData) ||
-        (Array.isArray(testData) && testData.some((d) => d && this.filterSelection[filter][testField].includes(d))) ||
-        (typeof testData === "string" && this.filterSelection[filter][testField].includes(testData))
-      );
-    }
+    const testField: keyof FilterSelectionData = testHighlighted ? "highlighted" : "selected";
+    const selectedData: string[] = this.filterSelection[filter][testField];
+    return (
+      (selectedData.includes("nan") && !testData) ||
+      (!testHighlighted && selectedData.length === 0) ||
+      (Array.isArray(testData) && testData.some((d) => d && selectedData.includes(d))) ||
+      (typeof testData === "string" && selectedData.includes(testData))
+    );
   }
 
   private getElevationIndex(elevation: number): string {

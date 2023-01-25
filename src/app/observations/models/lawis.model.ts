@@ -224,7 +224,7 @@ export function toLawisProfileDetails(
     ...profile,
     $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
-    importantObservations: [lawisDetails.stability_tests.length ? Enums.ImportantObservation.StabilityTest : undefined],
+    importantObservations: lawisDetails.stability_tests.length ? [Enums.ImportantObservation.StabilityTest] : [],
     $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments
