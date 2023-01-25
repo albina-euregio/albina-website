@@ -19,6 +19,8 @@ import { appCircleIcon } from "../../svg/circle";
 export class ObservationMapService {
   public USE_CANVAS_LAYER = true;
 
+  readonly markerRadius = 40;
+
   constructor() { }
 
   // This is very important! Use a canvas otherwise the chart is too heavy for the browser when
@@ -30,7 +32,7 @@ export class ObservationMapService {
   style(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
     return {
         icon: this.getIcon(observation),
-        radius: observation.$markerRadius,
+        radius: this.markerRadius,
         weight: 0,
         opacity: 1,
         renderer: this.myRenderer
@@ -40,7 +42,7 @@ export class ObservationMapService {
   highlightStyle(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
     return {
         icon: this.getIcon(observation),
-        radius: observation.$markerRadius,
+        radius: this.markerRadius,
         weight: 1,
         opacity: 1,
         renderer: this.myRenderer
@@ -49,7 +51,7 @@ export class ObservationMapService {
 
   private getIcon(observation: GenericObservation<any>): Icon | DivIcon {
 
-    const iconSize = 2*observation.$markerRadius ?? 20;
+    const iconSize = this.markerRadius;
 
     if (!this.USE_CANVAS_LAYER) {
       const html = this.getSvg(observation);
