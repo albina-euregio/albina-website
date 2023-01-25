@@ -41,6 +41,11 @@ function BulletinDateFlipper({ date, latest }: Props) {
           </Link>
         </Tooltip>
       </li>
+      <li className="bulletin-flipper-calendar">
+        <a href="#" title="Calendar" className="tooltip">
+          <span className="icon-calendar"></span>
+        </a>
+      </li>
       {/* {nextLink && <li className="bulletin-flipper-separator">&nbsp;</li>} */}
       {nextLink && (
         <li className="bulletin-flipper-forward">

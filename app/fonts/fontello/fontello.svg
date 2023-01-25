@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2021 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2023 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -67,6 +67,8 @@
 <glyph glyph-name="snow-drop" unicode="&#xe828;" d="M517 550l0-171 148 85 16-28-148-86 148-86-16-28-148 85v-65l4-5c1-2 2-4 3-5l4-5 14-18 12-18c42-60 63-103 63-133 0-58-53-105-117-105s-117 47-117 105c0 30 21 73 63 133l12 18c3 3 5 6 7 9l14 19 4 5v65l-148-85-17 28 149 86-149 86 17 28 148-85 0 171z m-17-327l-7-10-13-18-11-16-11-15c-27-43-41-74-41-92 0-39 37-72 83-72s83 33 83 72c0 18-13 49-41 92l-10 15-12 16-13 18z m-5-63l27-20c-25-33-37-54-38-70l-1-3h-33c0 25 12 49 39 86z" horiz-adv-x="1000" />
 
 <glyph glyph-name="snow-line" unicode="&#xe82a;" d="M517 550v-171l148 85 16-28-148-86 148-86-16-28-148 85v-154h316v-34h-666v34h316v154l-148-85-17 28 149 86-149 86 17 28 148-85v171h34z" horiz-adv-x="1000" />
+
+<glyph glyph-name="calendar" unicode="&#xe833;" d="M433 550v-33h134v33h66v-33h67v-367h-400v367h67v33h66z m234-100h-334v-267h334v267z m-254-144h24c23 0 38-12 38-30 0-18-15-31-37-31-22 0-37 12-39 29h-32c1-35 29-57 70-57 42 0 73 24 73 57 0 25-17 43-43 46v2c22 5 35 22 35 44 0 29-28 51-65 51-39 0-65-22-67-57h32c2 18 15 29 34 29 20 0 33-11 33-28 0-17-13-29-33-29h-23v-26z m179-85h34v191h-34l-50-35v-33l48 34h2z" horiz-adv-x="1000" />
 
 <glyph glyph-name="pause" unicode="&#xe838;" d="M517 750c230 0 416-186 416-417s-186-416-416-416-417 186-417 416 187 417 417 417z m0-33c-212 0-384-172-384-384s172-383 384-383 383 172 383 383-172 384-383 384z m-100-217h66v-333h-66z m133 0h67v-333h-67z" horiz-adv-x="1000" />
 
