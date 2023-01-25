@@ -225,7 +225,6 @@ export function toLawisProfileDetails(
     $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
     importantObservations: lawisDetails.stability_tests.length ? [Enums.ImportantObservation.StabilityTest] : [],
-    $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments
   };
@@ -259,7 +258,6 @@ export function toLawisIncidentDetails(
     $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
     stability: getLawisIncidentStability(lawisDetails),
     avalancheProblems: getLawisIncidentAvalancheProblems(lawisDetails),
-    $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
     reportDate: parseLawisDate(lawisDetails.reported?.date)
@@ -344,10 +342,6 @@ export function getECTestStability(step: number, propagation: string): Stability
   return null;
 }
 
-function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
-  return 20;
-}
-
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
     ? Enums.Stability.poor
@@ -370,10 +364,4 @@ function getLawisIncidentAvalancheProblems(incident: IncidentDetails): Avalanche
     default:
       return [];
   }
-}
-
-function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
-  const size_id = incident.avalanche?.size?.id;
-  //return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
-  return 20;
 }

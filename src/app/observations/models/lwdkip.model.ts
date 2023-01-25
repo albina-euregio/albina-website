@@ -132,7 +132,6 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
     $source: ObservationSource.LwdKip,
     $type: ObservationType.Evaluation,
     stability: getLwdKipBeobachtungStability(feature),
-    $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
     aspect: undefined,
     authorName: feature.properties.BEZEICHNUNG,
     content: [feature.properties.BESCHREIBUNG, feature.properties.NOTIZEN].filter((s) => !!s).join(" – "),
@@ -177,7 +176,6 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
     $source: ObservationSource.LwdKip,
     $type: ObservationType.Blasting,
     stability: getLwdKipSprengerfolgStability(feature),
-    $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -228,7 +226,6 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
     $source: ObservationSource.LwdKip,
     $type: ObservationType.Avalanche,
     stability: getLwdKipLawinenabgangStability(feature),
-    $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -268,7 +265,6 @@ export function convertLwdKipSperren(feature: GeoJSON.Feature<GeoJSON.LineString
     $source: ObservationSource.LwdKip,
     $type: ObservationType.Closure,
     stability: getLwdKipSperreStability(feature),
-    $markerRadius: getLwdKipSperreMarkerRadius(feature),
     aspect: undefined,
     authorName: undefined,
     content: [feature.properties.SPERRETYP, feature.properties.SPERREBEREICH].filter((s) => !!s).join(" – "),
@@ -283,10 +279,6 @@ export function convertLwdKipSperren(feature: GeoJSON.Feature<GeoJSON.LineString
 
 function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): Stability {
   return null;
-}
-
-function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
-  return 20;
 }
 
 function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
@@ -304,33 +296,10 @@ function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, 
   }
 }
 
-function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): number {
-  switch (feature.properties.SPRENGERFOLG || "") {
-    case "kein Erfolg":
-      return 20;
-    case "mäßiger Erfolg":
-      return 20;
-    case "guter Erfolg":
-      return 20;
-    case "sehr guter Erfolg":
-      return 20;
-    default:
-      return 20;
-  }
-}
-
 function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): Stability {
   return Enums.Stability.poor;
 }
 
-function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
-  return 20;
-}
-
 function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
   return Enums.Stability.very_poor;
-}
-
-function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
-  return 20;
 }

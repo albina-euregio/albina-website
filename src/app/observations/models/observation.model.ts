@@ -36,7 +36,6 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $source: ObservationSource.AvalancheWarningService,
     $type: getObservationType(observation),
     stability: getObservationStability(observation),
-    $markerRadius: getObservationMarkerRadius(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
@@ -61,10 +60,6 @@ function getObservationStability(observation: Observation): Stability {
     default:
       return null;
   }
-}
-
-function getObservationMarkerRadius(observation: Observation): number {
-  return 20;
 }
 
 function getObservationType(observation: Observation): ObservationType {

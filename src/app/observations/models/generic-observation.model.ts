@@ -31,10 +31,6 @@ export interface GenericObservation<Data = any> {
    * Snowpack stability that can be inferred from this observation
    */
   stability?: Stability;
-  /**
-   * Radius of the map marker
-   */
-  $markerRadius?: number;
   $source: ObservationSource;
   $type: ObservationType;
   /**

@@ -111,7 +111,6 @@ function convertAvalancheReport(report: AvalancheReport): GenericObservation<Ava
     $source: ObservationSource.LoLaSafety,
     $type: ObservationType.Evaluation,
     stability: getAvalancheReportStability(report),
-    $markerRadius: getAvalancheReportMarkerRadius(report),
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
     content: report.headlineGerman + " " + report.headlineEnglish,
@@ -134,8 +133,4 @@ function getAvalancheReportStability(report: AvalancheReport): Stability {
   } else {
     return Enums.Stability.very_poor;
   }
-}
-
-function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
-  return 20;
 }

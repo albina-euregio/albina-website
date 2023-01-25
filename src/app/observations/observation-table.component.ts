@@ -160,8 +160,8 @@ export class ObservationTableComponent {
   getTableIconStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
     return {
       color: toMarkerColor(observation),
-      width: `${observation.$markerRadius || 10}px`,
-      height: `${observation.$markerRadius || 10}px`
+      width: "20px",
+      height: "20px"
     };
   }
 
