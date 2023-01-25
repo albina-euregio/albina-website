@@ -24,6 +24,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
   observationPopupVisible = false;
   zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
+  fullModelNames = {
+    "multimodel": "ZAMG Multimodel",
+    "qfa": "QFA",
+    "eps_ecmwf": "ZAMG ECMWF-EPS",
+    "eps_claef": "ZAMG CLAEF-EPS"
+  };
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
   selectedCity: string;
@@ -102,12 +108,14 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
             lat: zamgType === "eps_claef" ? point.lat + 0.01 : point.lat,
             lng: zamgType === "eps_claef" ? point.lng - 0.002 : point.lng
           };
+          console.log(point);
           const callback = () => {
             this.selectedModelPoint = point;
             this.selectedModelType = zamgType;
             this.observationPopupVisible = true;
           };
-          this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, callback);
+          const tooltip = `${this.fullModelNames[zamgType]}: ${point.regionName}`;
+          this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, tooltip, callback);
         });
       });
     });
@@ -130,10 +138,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           this.selectedModelType = "observed_profile";
           this.observationPopupVisible = true;
         };
-        const marker = new CircleMarker(ll, this.getModelPointOptions("observed_profile"))
-          .on("click", callback)
-          .bindTooltip(date + ": " + profile.locationName);
-        this.mapService.addMarker(marker, "observed_profile");
+        const tooltip = `${date}: ${profile.locationName}`;
+        this.mapService.drawMarker(ll, this.getModelPointOptions("observed_profile"), "observed_profile", tooltip, callback);
         return modelPoint;
       });
     });
@@ -146,7 +152,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.selectedModelType = "qfa";
         this.observationPopupVisible = true;
       };
-      this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", callback);
+      const tooltip = `QFA: ${cityName}`;
+      this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", tooltip, callback);
     }
   }
 
@@ -164,7 +171,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       color: "black",
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.8
+      fillOpacity: 1
     };
   }
 

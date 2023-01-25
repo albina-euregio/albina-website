@@ -399,10 +399,11 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, callback?) {
+  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, tooltip?: string, callback?) {
 
     const marker = new CircleMarker(ll, options);
 
+    if(tooltip) marker.bindTooltip(tooltip);
     if(callback) marker.on("click", () => callback(ll));
 
     this.addMarker(marker, layerName);
