@@ -122,8 +122,15 @@ build:aran:
     TEXTCAT_URL: "https://admin.lauegi.report/textcat-ng/"
     HEADER_BG_COLOR: "#ffffff"
 
+build:docker:
+  extends: .envsubst
+  environment:
+    name: docker
+
 docker-build:
   stage: build
+  needs:
+    - build:docker
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
