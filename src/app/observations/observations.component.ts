@@ -260,16 +260,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
-    this.observations = this.observations.map((observation) => {
-      observation.filterType = ObservationFilterType.Global;
-      //console.log("applyLocalFilter ##3.0", observation.filterType);
-      if (this.filter.inObservationSources(observation) && this.filter.isSelected(observation)) {
-        //        console.log("applyLocalFilter ##3.1", observation);
-        observation.filterType = ObservationFilterType.Local;
-      }
+    this.observations.forEach((observation) => {
+      observation.filterType =
+        this.filter.inObservationSources(observation) && this.filter.isSelected(observation)
+          ? ObservationFilterType.Local
+          : ObservationFilterType.Global;
       observation.isHighlighted = this.filter.isHighlighted(observation);
-
-      return observation;
     });
 
     //    console.log("applyLocalFilter ##3.99", this.observations);
