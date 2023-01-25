@@ -68,9 +68,9 @@
       }
     }
 
-    span[title]:hover {
-      color: $brand;
-      @include rollout;
+    //from alien app.scss
+    td.mb-wind {
+      white-space: nowrap;
     }
 
     .region {
@@ -100,6 +100,8 @@
     .datetime {
       display: block;
       font-size: $micro-font-size;
+      @include font-normal;
+      @include letter-spacing;
     }
 
     .temp_max,
