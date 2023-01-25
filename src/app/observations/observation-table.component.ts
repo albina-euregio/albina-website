@@ -5,7 +5,7 @@ import { EventType, isAvalancheWarningServiceObservation, Observation } from "./
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 import { Table } from "primeng/table";
-import { GenericObservation, ObservationSource, ObservationTypeIcons, toMarkerColor } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, toMarkerColor } from "./models/generic-observation.model";
 import { ImportantObservation } from "app/enums/enums";
 
 @Component({
@@ -20,7 +20,6 @@ export class ObservationTableComponent {
   observation: Observation;
   saving = false;
   messages: Message[] = [];
-  ObservationTypeIcons = ObservationTypeIcons;
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 

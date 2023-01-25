@@ -1,35 +1,24 @@
 import { Injectable } from "@angular/core";
 import { GeoJSON } from "leaflet";
 import { ConstantsService } from "../constants-service/constants.service";
-import * as Enums from "../../enums/enums";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
 import {
   Map,
-  Canvas,
   LayerGroup,
   TileLayer,
   SidebarOptions,
-  Icon,
-  DivIcon,
   MarkerOptions,
   CircleMarkerOptions,
   Browser,
   Control,
   LatLng,
   LatLngLiteral,
-  Marker,
-  CircleMarker,
-  Layer } from "leaflet";
+  CircleMarker } from "leaflet";
 import {
   GenericObservation,
-  ObservationFilterType,
   ObservationSource,
-  ObservationType,
-  ObservationTypeIcons,
-  Stability,
-  toMarkerColor
-} from "app/observations/models/generic-observation.model";
+  ObservationType} from "app/observations/models/generic-observation.model";
 
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { RegionsService, RegionWithElevationProperties } from "../regions-service/regions.service";

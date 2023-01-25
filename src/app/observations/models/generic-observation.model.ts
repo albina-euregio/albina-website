@@ -1,17 +1,4 @@
 import * as Enums from "app/enums/enums";
-
-// icons
-import { appCircleAddIcon } from "../../svg/circle_add";
-import { appCircleAlertIcon } from "../../svg/circle_alert";
-import { appCircleCheckIcon } from "../../svg/circle_check";
-import { appCircleDotsHorizontalIcon } from "../../svg/circle_dots_horizontal";
-import { appCircleFullIcon } from "../../svg/circle_full";
-import { appCircleMinusIcon } from "../../svg/circle_minus";
-import { appCircleOkayTickIcon } from "../../svg/circle_okay_tick";
-import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
-import { appCirclePlayIcon } from "../../svg/circle_play";
-import { appCircleStopIcon } from "../../svg/circle_stop";
-
 export type TranslationFunction = (key: string) => string;
 
 export interface GenericObservation<Data = any> {
@@ -169,19 +156,6 @@ export const ObservationSourceColors: Record<ObservationSource, string> =
     [ObservationSource.KipLive]: "#6a3d9a",
     [ObservationSource.Natlefs]: "#6a3d9a",
     [ObservationSource.WikisnowECT]: "#c6e667"
-  });
-
-export const ObservationTypeIcons: Record<ObservationType, string> =
-  // FIXME
-  Object.freeze({
-    [ObservationType.SimpleObservation]: appCircleAlertIcon.data,
-    [ObservationType.Evaluation]: appCircleAlertIcon.data,
-    [ObservationType.Incident]: appCircleAlertIcon.data,
-    [ObservationType.Profile]: appCircleAlertIcon.data,
-    [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
-    [ObservationType.Blasting]: appCircleAlertIcon.data,
-    [ObservationType.Closure]: appCircleAlertIcon.data,
-    [ObservationType.TimeSeries]: appCircleAlertIcon.data
   });
 
 export enum Aspect {
