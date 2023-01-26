@@ -36,6 +36,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   visibleLayers: string[] = [];
   qfa: any;
   qfaStartDay: number;
+  loading = true;
   dropDownOptions: Record<ModelType, any[]> = {
     multimodel: [],
     qfa: [],
@@ -155,6 +156,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       const tooltip = `QFA: ${cityName}`;
       this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", tooltip, callback);
     }
+    this.loading = false;
   }
 
   ngOnDestroy() {

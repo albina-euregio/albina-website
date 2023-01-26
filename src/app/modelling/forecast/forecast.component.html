@@ -14,6 +14,14 @@
                 (onChange)="onDropdownSelect($event)"
               ></p-multiSelect>
             </div>
+            <div class="global-bar-item global-bar-item-load">
+              <button
+                type="button"
+                pButton
+                class="p-button-text"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
+              ></button>
+            </div>
             <span *ngFor="let source of allSources" class="global-bar-item">
               &mdash;
               <span [style]="{ color: source.fillColor }">●</span>
