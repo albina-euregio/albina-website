@@ -86,6 +86,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   files = {};
 
   async ngAfterViewInit() {
+    this.qfaService.loadDustParams();
     this.initMaps();
     this.files = await this.qfaService.getFiles();
     this.allSources.forEach((source) => {
