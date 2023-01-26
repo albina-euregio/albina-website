@@ -192,7 +192,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   async setQfa(file, startDay = 0) {
     this.qfaStartDay = startDay;
     const fileMap = typeof file === "string" ? { filename: file } : file;
-    this.qfa = await this.qfaService.getRun(fileMap, startDay);
+    const city = fileMap.filename.split("_")[3];
+    console.log(city);
+    console.log(this.files[city][0]);
+    console.log(file);
+    const first = this.files[city][0].filename === fileMap.filename;
+    this.qfa = await this.qfaService.getRun(fileMap, startDay, first);
     this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
     this.paramService.setParameterClasses(this.qfa.parameters);
   }
