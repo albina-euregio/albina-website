@@ -107,7 +107,6 @@ export class BaseMapService {
       })
     };
 
-    console.log("initMaps", this.overlayMaps);
     this.overlayMaps = {
       // overlay to show micro regions without elevation (only outlines)
       regions: new GeoJSON(this.regionsService.getRegions(), {

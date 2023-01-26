@@ -95,7 +95,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   }
 
   async load() {
-    console.log(this.visibleLayers);
     this.mapService.removeMarkerLayers();
     this.loading = true;
     this.loadZamgTypes();
