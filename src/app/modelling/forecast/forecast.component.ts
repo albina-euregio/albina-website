@@ -108,7 +108,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
             lat: zamgType === "eps_claef" ? point.lat + 0.01 : point.lat,
             lng: zamgType === "eps_claef" ? point.lng - 0.002 : point.lng
           };
-          console.log(point);
           const callback = () => {
             this.selectedModelPoint = point;
             this.selectedModelType = zamgType;

@@ -45,6 +45,9 @@ export class QfaService {
       const filenames = await this.filenamesService.getFilenames(this.baseUrl, city);
       const parsedFiles = [];
       for(const file of filenames) {
+        if(filenames[0] === file) {
+          console.log(await this.dustParamService.getDustParams());
+        }
         const parsedFile = this.filenamesService.parseFilename(file.name);
         parsedFiles.push(parsedFile);
       }
