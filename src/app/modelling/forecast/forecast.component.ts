@@ -86,21 +86,25 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
   files = {};
 
-  async ngAfterViewInit() {
+  ngAfterViewInit() {
     this.initMaps();
-    this.files = await this.qfaService.getFiles();
+    this.load();
     this.allSources.forEach((source) => {
       this.mapService.addMarkerLayer(source.id);
     });
   }
 
-  async initMaps() {
-    this.mapService.initMaps(this.observationsMap.nativeElement, () => {});
-    this.mapService.addInfo();
-    this.mapService.addControls();
+  async load() {
+    console.log(this.visibleLayers);
+    this.mapService.removeMarkerLayers();
+    this.loading = true;
+    this.loadZamgTypes();
+    this.loadProfiles();
+    await this.loadQfa();
+    this.loading = false;
+  }
 
-    this.mapService.removeObservationLayers();
-
+  loadZamgTypes() {
     this.zamgTypes.forEach((zamgType) => {
       this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
         this.dropDownOptions[zamgType] = zamgModelPoints;
@@ -116,10 +120,13 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           };
           const tooltip = `${this.fullModelNames[zamgType]}: ${point.regionName}`;
           this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, tooltip, callback);
+          if(this.visibleLayers.includes(zamgType) || this.visibleLayers.length === 0) this.mapService.addMarkerLayer(zamgType);
         });
       });
     });
+  }
 
+  loadProfiles() {
     this.modellingService.getObservedProfiles().subscribe((profiles) => {
       this.dropDownOptions.observed_profile = profiles.map((profile) => {
         const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
@@ -142,8 +149,11 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.mapService.drawMarker(ll, this.getModelPointOptions("observed_profile"), "observed_profile", tooltip, callback);
         return modelPoint;
       });
+      if(this.visibleLayers.includes("observed_profile") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("observed_profile");
     });
+  }
 
+  async loadQfa() {
     await this.qfaService.loadDustParams();
     for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
       const ll = coords as LatLngLiteral;
@@ -156,7 +166,16 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       const tooltip = `QFA: ${cityName}`;
       this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", tooltip, callback);
     }
-    this.loading = false;
+    this.files = await this.qfaService.getFiles();
+    if(this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("qfa");
+  }
+
+  initMaps() {
+    this.mapService.initMaps(this.observationsMap.nativeElement, () => {});
+    this.mapService.addInfo();
+    this.mapService.addControls();
+
+    this.mapService.removeObservationLayers();
   }
 
   ngOnDestroy() {
