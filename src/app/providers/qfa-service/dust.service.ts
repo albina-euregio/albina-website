@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import * as types from './../../qfa/types/QFA';
 
-interface DustParams {
-  [key:string]: Array<Promise<number[]>>;
+enum Cities {
+  INNSBRUCK = "innsbruck",
+  BOZEN = "bozen",
+  LIENZ = "lienz"
+}
+type DustParams = {
+  [key in Cities]?: Array<Promise<string[]>>;
 }
 
 @Injectable()
@@ -128,7 +133,7 @@ export class GetDustParamService {
   }
 
   public getDustParams = (): DustParams => {
-    const dustParams = {};
+    const dustParams: DustParams = {};
     for(const city of Object.keys(this.pxOfCity)) {
       const promises = this.getParamsForCity(city);
       dustParams[city] = promises;
