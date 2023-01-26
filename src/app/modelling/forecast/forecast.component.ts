@@ -86,7 +86,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   files = {};
 
   async ngAfterViewInit() {
-    this.qfaService.loadDustParams();
     this.initMaps();
     this.files = await this.qfaService.getFiles();
     this.allSources.forEach((source) => {
@@ -94,7 +93,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  initMaps() {
+  async initMaps() {
     this.mapService.initMaps(this.observationsMap.nativeElement, () => {});
     this.mapService.addInfo();
     this.mapService.addControls();
@@ -144,6 +143,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       });
     });
 
+    await this.qfaService.loadDustParams();
     for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
       const ll = coords as LatLngLiteral;
       const callback = () => {
@@ -193,9 +193,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     this.qfaStartDay = startDay;
     const fileMap = typeof file === "string" ? { filename: file } : file;
     const city = fileMap.filename.split("_")[3];
-    console.log(city);
-    console.log(this.files[city][0]);
-    console.log(file);
     const first = this.files[city][0].filename === fileMap.filename;
     this.qfa = await this.qfaService.getRun(fileMap, startDay, first);
     this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
