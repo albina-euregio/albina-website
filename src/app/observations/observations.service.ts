@@ -204,9 +204,9 @@ export class ObservationsService {
   }
 
   getLoLaKronos(): Observable<GenericObservation> {
-    const { lolaKronosApi } = this.constantsService;
+    const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http.get<LolaKronosApi>(lolaKronosApi + timeframe).pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
+    return this.http.get<LolaKronosApi>(api.AvaObs + timeframe).pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
   }
 
   getLoLaSafety(): Observable<GenericObservation> {

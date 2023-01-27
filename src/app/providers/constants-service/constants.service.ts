@@ -12,10 +12,10 @@ export class ConstantsService {
   public zamgModelsUrl: string = "https://avalanche.report/zamg/zamg/";
   public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/html/";
 
-  public lolaKronosApi = "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/"
   public observationApi = {
     [ObservationSource.AvalancheWarningService]: "https://admin.avalanche.report/observed-profiles/observed_profiles.json",
     [ObservationSource.Lawis]: "https://admin.avalanche.report/lawis/public/",
+    [ObservationSource.AvaObs]: "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/",
     [ObservationSource.LoLaSafety]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
