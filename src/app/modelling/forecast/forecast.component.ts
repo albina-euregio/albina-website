@@ -7,8 +7,9 @@ import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
 import { formatDate } from "@angular/common";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
-type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile";
+type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile" | "alpsolut_profile";
 
 export interface MultiselectDropdownData {
   id: ModelType;
@@ -23,7 +24,7 @@ export interface MultiselectDropdownData {
 export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
   observationPopupVisible = false;
-  zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
+  allTypes = ["multimodel", "eps_ecmwf", "eps_claef", "observed_profile", "alpsolut_profile"] as const;
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
   selectedCity: string;
@@ -36,7 +37,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     qfa: [],
     eps_ecmwf: [],
     eps_claef: [],
-    observed_profile: []
+    observed_profile: [],
+    alpsolut_profile: []
   };
   public readonly allSources: MultiselectDropdownData[] = [
     {
@@ -62,7 +64,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     {
       id: "observed_profile",
       fillColor: "#f8d229",
-      name: this.translateService.instant("observationType.Profile")
+      name: this.translateService.instant("sidebar.modellingSnowpack")
+    },
+    {
+      id: "alpsolut_profile",
+      fillColor: "#d95f0e",
+      name: this.translateService.instant("sidebar.modellingSnowpackMeteo")
     }
   ];
   fullModelNames = {}
@@ -76,6 +83,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     private constantsService: ConstantsService,
     private qfaService: QfaService,
     private paramService: ParamService,
+    private sanitizer: DomSanitizer,
     private translateService: TranslateService
   ) {}
 
@@ -95,15 +103,14 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   async load() {
     this.mapService.removeMarkerLayers();
     this.loading = true;
-    this.loadZamgTypes();
-    this.loadProfiles();
+    this.loadAll();
     await this.loadQfa();
     this.loading = false;
   }
 
-  loadZamgTypes() {
-    this.zamgTypes.forEach((zamgType) => {
-      this.modellingService.getZamgModelPoints({ zamgType }).subscribe((zamgModelPoints) => {
+  loadAll() {
+    this.allTypes.forEach((zamgType) => {
+      this.modellingService.get(zamgType).subscribe((zamgModelPoints) => {
         this.dropDownOptions[zamgType] = zamgModelPoints;
         zamgModelPoints.forEach((point) => {
           const ll: LatLngLiteral = {
@@ -120,23 +127,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           if(this.visibleLayers.includes(zamgType) || this.visibleLayers.length === 0) this.mapService.addMarkerLayer(zamgType);
         });
       });
-    });
-  }
-
-  loadProfiles() {
-    this.modellingService.getObservedProfiles().subscribe((profiles) => {
-      this.dropDownOptions.observed_profile = profiles.map((modelPoint) => {
-        const ll = { lat: modelPoint.lat, lng: modelPoint.lng };
-        const callback = () => {
-          this.selectedModelPoint = modelPoint;
-          this.selectedModelType = "observed_profile";
-          this.observationPopupVisible = true;
-        };
-        const tooltip = `${date}: ${profile.locationName}`;
-        this.mapService.drawMarker(ll, this.getModelPointOptions("observed_profile"), "observed_profile", tooltip, callback);
-        return modelPoint;
-      });
-      if(this.visibleLayers.includes("observed_profile") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("observed_profile");
     });
   }
 
@@ -183,6 +173,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     };
   }
 
+  get observationPopupIframe(): SafeResourceUrl {
+    if (this.observationPopupVisible && /dashboard.alpsolut.eu/.test(this.selectedModelPoint?.plotUrl)) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedModelPoint?.plotUrl);
+    }
+  }
+
   onDropdownSelect(event) {
     this.visibleLayers = event.value;
     this.mapService.removeMarkerLayers();
@@ -223,7 +219,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.setQfa(filenames[newIndex], 0);
       }
     } else if (this.selectedModelPoint) {
-      const index = this.dropDownOptions[this.selectedModelType].findIndex((point) => point.id === this.selectedModelPoint.id);
+      const index = this.dropDownOptions[this.selectedModelType].findIndex(
+        (point) => point.id === this.selectedModelPoint.id
+      );
       if (event.key === "ArrowRight") {
         const newIndex = index + 1 < this.dropDownOptions[this.selectedModelType].length - 1 ? index + 1 : 0;
         this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];

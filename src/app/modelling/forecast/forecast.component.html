@@ -73,8 +73,11 @@
     </div>
   </p-header>
 
-  <div *ngIf="selectedModelPoint">
+  <div *ngIf="selectedModelPoint && !observationPopupIframe">
     <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.plotUrl" class="img-fluid" />
+  </div>
+  <div *ngIf="selectedModelPoint && observationPopupIframe">
+    <iframe [src]="observationPopupIframe" style="width: 100%; height: 1714px"></iframe>
   </div>
 
   <div *ngIf="selectedModelType === 'qfa'" id="qfa_div">
