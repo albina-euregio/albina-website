@@ -24,12 +24,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
   observationPopupVisible = false;
   zamgTypes = ["multimodel", "eps_ecmwf", "eps_claef"] as const;
-  fullModelNames = {
-    "multimodel": "ZAMG Multimodel",
-    "qfa": "QFA",
-    "eps_ecmwf": "ZAMG ECMWF-EPS",
-    "eps_claef": "ZAMG CLAEF-EPS"
-  };
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
   selectedCity: string;
@@ -71,6 +65,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       name: this.translateService.instant("observationType.Profile")
     }
   ];
+  fullModelNames = {}
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -87,6 +82,10 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   files = {};
 
   ngAfterViewInit() {
+    for(const source of this.allSources) {
+      this.fullModelNames[source.id] = source.name;
+    }
+    console.log(this.fullModelNames)
     this.initMaps();
     this.load();
     this.allSources.forEach((source) => {
