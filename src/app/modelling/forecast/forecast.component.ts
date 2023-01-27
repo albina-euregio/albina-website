@@ -74,6 +74,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
+  @ViewChild("observationDialog") observationDialog;
 
   constructor(
     public mapService: BaseMapService,

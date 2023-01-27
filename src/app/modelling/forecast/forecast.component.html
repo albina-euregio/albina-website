@@ -41,6 +41,7 @@
 
 <p-dialog
   #observationDialog
+  (onShow)="observationDialog.maximize()"
   [(visible)]="observationPopupVisible"
   [modal]="true"
   [style]="{ width: '80vw' }"
