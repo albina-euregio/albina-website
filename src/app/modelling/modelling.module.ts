@@ -10,6 +10,7 @@ import { FormsModule } from "@angular/forms";
 import { ForecastComponent } from "./forecast/forecast.component";
 import { DialogModule } from "primeng/dialog";
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ModellingRoutingModule,
     TranslateModule,
     DialogModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ButtonModule
   ],
   providers: [ModellingService],
   declarations: [IndexComponent, SnowpackComponent, SnowpackMeteoComponent, ForecastComponent]

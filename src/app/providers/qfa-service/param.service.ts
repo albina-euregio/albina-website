@@ -80,6 +80,10 @@ export class ParamService {
   }
 
   public getFullName(abbreviation: string): string {
+    const match = abbreviation.match(/\d{3,4}/g)
+    if(match) {
+      return this.translateService.instant(`qfa.parameters.${abbreviation.replace(match.join(""), "")}`, {"value": match});
+    }
     return this.translateService.instant(`qfa.parameters.${abbreviation}`);
   }
 }

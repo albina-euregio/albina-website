@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import * as types from './../../qfa/types/QFA';
 import { QfaFile } from "../../qfa/models/qfa-file.model";
@@ -10,6 +10,7 @@ import { R3BoundTarget } from '@angular/compiler';
 @Injectable()
 export class QfaService {
   baseUrl = "https://static.avalanche.report/zamg_qfa/";
+  dustParams = {};
   coords = {
     "bozen": {
       lng: 11.33,
@@ -40,6 +41,10 @@ export class QfaService {
     this.cities = Object.keys(this.files);
   }
 
+  async loadDustParams() {
+    this.dustParams = await this.dustParamService.parseDustParams();
+  }
+
   async getFiles() {
     for (const city of this.cities) {
       const filenames = await this.filenamesService.getFilenames(this.baseUrl, city);
@@ -54,16 +59,28 @@ export class QfaService {
     return this.files;
   }
 
-  async getRun(file, startDay: number) {
+  async getRun(file, startDay: number, first: boolean) {
     const days = `0${startDay}0${startDay+2}`;
     const filename = file.filename.replace(/\d{4}\.txt/g, `${days}.txt`);
     const run = new QfaFile(this.http);
     await run.loadFromURL(filename);
+
+    const parameters = Object.keys(run.data.parameters);
+
+    if(first) {
+      const city = run.data.metadata.location.split(" ")[2].toLowerCase();
+      if(this.dustParams) {
+        const dust = this.dustParams[city][startDay / 3];
+        run.data.parameters["DUST"] = dust;
+        parameters.unshift("DUST");
+      }
+    }
+
     const qfa = {
       data: run.data,
       date: run.date,
       dates: run.paramDates,
-      parameters: Object.keys(run.data.parameters),
+      parameters: parameters,
       file: file
     }
 

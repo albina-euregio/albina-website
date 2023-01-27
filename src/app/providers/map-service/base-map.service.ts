@@ -96,7 +96,6 @@ export class BaseMapService {
       })
     };
 
-    console.log("initMaps", this.overlayMaps);
     this.overlayMaps = {
       // overlay to show micro regions without elevation (only outlines)
       regions: new GeoJSON(this.regionsService.getRegions(), {
@@ -388,10 +387,11 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, callback?) {
+  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, tooltip?: string, callback?) {
 
     const marker = new CircleMarker(ll, options);
 
+    if(tooltip) marker.bindTooltip(tooltip);
     if(callback) marker.on("click", () => callback(ll));
 
     this.addMarker(marker, layerName);

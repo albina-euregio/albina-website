@@ -14,6 +14,15 @@
                 (onChange)="onDropdownSelect($event)"
               ></p-multiSelect>
             </div>
+            <div class="global-bar-item global-bar-item-load">
+              <button
+                type="button"
+                pButton
+                class="p-button-text"
+                (click)="load()"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
+              ></button>
+            </div>
             <span *ngFor="let source of allSources" class="global-bar-item">
               &mdash;
               <span [style]="{ color: source.fillColor }">●</span>
@@ -32,6 +41,7 @@
 
 <p-dialog
   #observationDialog
+  (onShow)="observationDialog.maximize()"
   [(visible)]="observationPopupVisible"
   [modal]="true"
   [style]="{ width: '80vw' }"
@@ -41,7 +51,7 @@
 >
   <p-header>
     <div *ngIf="selectedModelPoint">
-      <select [(ngModel)]="selectedModelPoint" class="custom-select mb-2 mb-sm-0">
+      <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select mb-2 mb-sm-0">
         <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
           {{ point.regionCode }}:
           {{ point.regionName }}
@@ -55,7 +65,7 @@
       </select>
     </div>
 
-    <div>
+    <div class="control-info">
       &mdash; Tipp:
       <kbd>←</kbd>,
       <kbd>→</kbd>

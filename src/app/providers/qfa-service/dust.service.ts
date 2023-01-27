@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import * as types from './../../qfa/types/QFA';
 
-interface DustParams {
-  [key:string]: Array<Promise<number[]>>;
+enum Cities {
+  INNSBRUCK = "innsbruck",
+  BOZEN = "bozen",
+  LIENZ = "lienz"
+}
+type DustParams = {
+  [key in Cities]?: Array<Promise<string[]>>;
 }
 
 @Injectable()
@@ -128,11 +133,38 @@ export class GetDustParamService {
   }
 
   public getDustParams = (): DustParams => {
-    const dustParams = {};
+    const dustParams: DustParams = {};
     for(const city of Object.keys(this.pxOfCity)) {
       const promises = this.getParamsForCity(city);
       dustParams[city] = promises;
     }
     return dustParams;
+  }
+
+  public parseDustParams = async () => {
+    const promises = this.getDustParams();
+    const dustForCity = {};
+    for(const key of Object.keys(promises)) {
+      const values = await Promise.all(promises[key]);
+      const runs = [];
+      while(values.length) runs.push(values.splice(0, 12));
+      for(let i = 0; i < runs.length; i++) {
+        const days = [];
+        while(runs[i].length) {
+          const day = runs[i].splice(0, 4);
+          const parsedDay = {
+            "00": day[0],
+            "06": day[1],
+            "12": day[2],
+            "18": day[3]
+          }
+          days.push(parsedDay);
+        }
+        runs[i] = days;
+      }
+      dustForCity[key] = runs;
+    }
+
+    return dustForCity;
   }
 }
