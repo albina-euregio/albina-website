@@ -13,11 +13,9 @@ import {
   Browser,
   Control,
   LatLng,
-  LatLngLiteral,
   CircleMarker } from "leaflet";
 import {
   GenericObservation,
-  ObservationSource,
   ObservationType} from "app/observations/models/generic-observation.model";
 
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -47,7 +45,6 @@ interface SelectableRegionProperties extends RegionWithElevationProperties {
 export class BaseMapService {
   public map: Map;
   public baseMaps: Record<string, TileLayer>;
-  public sourceLayers: Record<ObservationSource, LayerGroup>;
   public observationTypeLayers: Record<ObservationType, LayerGroup>;
   public overlayMaps: {
     // Micro  regions without elevation
@@ -73,9 +70,7 @@ export class BaseMapService {
     private regionsService: RegionsService,
     private constantsService: ConstantsService,
     private observationMapService: ObservationMapService) {
-    this.sourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.sourceLayers[source] = new LayerGroup());
     Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new LayerGroup());
   }
 
@@ -131,7 +126,6 @@ export class BaseMapService {
       ]
     });
 
-    //this.initLayer(map, this.observationSourceLayers, document.getElementById("sourcesDiv"), onObservationClick);
     //this.initLayer(map, this.observationTypeLayers, document.getElementById("typesDiv"), onObservationClick);
     map.addLayer(this.overlayMaps.regions);
     map.addLayer(this.overlayMaps.activeSelection);
@@ -387,21 +381,11 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  drawMarker(ll: LatLngLiteral, options: CircleMarkerOptions, layerName:string, tooltip?: string, callback?) {
-
-    const marker = new CircleMarker(ll, options);
-
-    if(tooltip) marker.bindTooltip(tooltip);
-    if(callback) marker.on("click", () => callback(ll));
-
-    this.addMarker(marker, layerName);
-  }
-
-  addMarker(marker: CircleMarker, layerName: string) {
+  addMarker(marker: CircleMarker, layerName: string, attribution: string | undefined = undefined) {
     marker.options.pane = "markerPane";
 
     if (this.layers[layerName] === undefined) {
-      this.layers[layerName] = new LayerGroup();
+      this.layers[layerName] = new LayerGroup([], { attribution });
       this.layers[layerName].addTo(this.map);
     }
     marker.addTo(this.layers[layerName]);
