@@ -19,8 +19,11 @@ export class ConstantsService {
     [ObservationSource.LoLaSafety]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
-  public lawisIncidentsWeb: string = "https://lawis.at/incident/#{{id}}";
-  public lawisSnowProfilesWeb: string = "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf";
+
+  public observationWeb = {
+    [`${ObservationSource.Lawis}-${Enums.ObservationType.Incident}` as const]: 'https://lawis.at/incident/#{{id}}',
+    [`${ObservationSource.Lawis}-${Enums.ObservationType.Profile}` as const]: 'https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf',
+  };
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
   public osmNominatimCountries = "at,it";
