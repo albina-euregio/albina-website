@@ -1,12 +1,11 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
-import { AvalancheWarningServiceObservedProfiles, ModellingService, ZamgModelPoint } from "../modelling.service";
+import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
-import { formatDate } from "@angular/common";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile" | "alpsolut_profile";
@@ -24,7 +23,6 @@ export interface MultiselectDropdownData {
 export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
   observationPopupVisible = false;
-  allTypes = ["multimodel", "eps_ecmwf", "eps_claef", "observed_profile", "alpsolut_profile"] as const;
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
   selectedCity: string;
@@ -72,7 +70,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       name: this.translateService.instant("sidebar.modellingSnowpackMeteo")
     }
   ];
-  fullModelNames = {}
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -90,9 +87,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   files = {};
 
   ngAfterViewInit() {
-    for(const source of this.allSources) {
-      this.fullModelNames[source.id] = source.name;
-    }
     this.initMaps();
     this.load();
     this.allSources.forEach((source) => {
@@ -109,22 +103,33 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   }
 
   loadAll() {
-    this.allTypes.forEach((zamgType) => {
-      this.modellingService.get(zamgType).subscribe((zamgModelPoints) => {
-        this.dropDownOptions[zamgType] = zamgModelPoints;
-        zamgModelPoints.forEach((point) => {
+    this.allSources.forEach((source) => {
+      if (source.id === "qfa") return;
+      this.modellingService.get(source.id).subscribe((points) => {
+        this.dropDownOptions[source.id] = points;
+        points.forEach((point) => {
           const ll: LatLngLiteral = {
-            lat: zamgType === "eps_claef" ? point.lat + 0.01 : point.lat,
-            lng: zamgType === "eps_claef" ? point.lng - 0.002 : point.lng
+            lat: source.id === "eps_claef" ? point.lat + 0.01 : point.lat,
+            lng: source.id === "eps_claef" ? point.lng - 0.002 : point.lng
           };
           const callback = () => {
             this.selectedModelPoint = point;
-            this.selectedModelType = zamgType;
+            this.selectedModelType = source.id;
             this.observationPopupVisible = true;
           };
-          const tooltip = `${this.fullModelNames[zamgType]}: ${point.regionName}`;
-          this.mapService.drawMarker(ll, this.getModelPointOptions(zamgType), zamgType, tooltip, callback);
-          if(this.visibleLayers.includes(zamgType) || this.visibleLayers.length === 0) this.mapService.addMarkerLayer(zamgType);
+          const tooltip = [
+            `<i class="fa fa-asterisk"></i> ${point.regionCode || undefined}`,
+            `<i class="fa fa-globe"></i> ${point.regionName || undefined}`,
+            this.allSources.find((s) => s.id === source.id)?.name
+          ]
+            .filter((s) => !/undefined/.test(s))
+            .join("<br>");
+          const marker = new CircleMarker(ll, this.getModelPointOptions(source.id))
+            .on("click", callback)
+            .bindTooltip(tooltip);
+          this.mapService.addMarker(marker, source.id);
+          if (this.visibleLayers.includes(source.id) || this.visibleLayers.length === 0)
+            this.mapService.addMarkerLayer(source.id);
         });
       });
     });
@@ -140,11 +145,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.selectedModelType = "qfa";
         this.observationPopupVisible = true;
       };
-      const tooltip = `QFA: ${cityName}`;
-      this.mapService.drawMarker(ll, this.getModelPointOptions("qfa"), "qfa", tooltip, callback);
+      const tooltip = `<i class="fa fa-globe"></i> ${cityName}<br>QFA`;
+      const marker = new CircleMarker(ll, this.getModelPointOptions("qfa")).on("click", callback).bindTooltip(tooltip);
+      this.mapService.addMarker(marker, "qfa");
     }
     this.files = await this.qfaService.getFiles();
-    if(this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("qfa");
+    if (this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("qfa");
   }
 
   initMaps() {
