@@ -85,7 +85,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     for(const source of this.allSources) {
       this.fullModelNames[source.id] = source.name;
     }
-    console.log(this.fullModelNames)
     this.initMaps();
     this.load();
     this.allSources.forEach((source) => {
