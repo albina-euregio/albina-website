@@ -83,7 +83,6 @@ export class QfaService {
       parameters: parameters,
       file: file
     }
-    console.log(qfa.data.parameters);
 
     return qfa;
   }
