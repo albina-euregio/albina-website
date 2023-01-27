@@ -5,6 +5,7 @@ import { forkJoin, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
+import { formatDate } from "@angular/common";
 
 interface MultimodelPointCsv {
   statnr: string;
@@ -35,6 +36,10 @@ export class ZamgModelPoint {
     public lat: number,
     public lng: number
   ) {}
+
+  get label(): string {
+    return this.regionCode + ": " + this.regionName;
+  }
 }
 
 export interface SnowpackPlots {
@@ -253,8 +258,23 @@ export class ModellingService {
    * SNOWPACK modelled snow profiles
    * https://gitlab.com/avalanche-warning
    */
-  getObservedProfiles(): Observable<AvalancheWarningServiceObservedProfiles[]> {
+  getObservedProfiles(): Observable<ZamgModelPoint[]> {
     const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url);
+    return this.http
+      .get<AvalancheWarningServiceObservedProfiles[]>(url)
+      .pipe(map((profiles) => profiles.map((profile) => toPoint(profile))));
+
+    function toPoint(profile: AvalancheWarningServiceObservedProfiles) {
+      const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
+      return new ZamgModelPoint(
+        profile.$externalURL,
+        date,
+        profile.locationName,
+        [],
+        profile.$externalURL,
+        profile.latitude,
+        profile.longitude
+      );
+    }
   }
 }

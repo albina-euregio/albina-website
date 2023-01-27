@@ -125,18 +125,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
   loadProfiles() {
     this.modellingService.getObservedProfiles().subscribe((profiles) => {
-      this.dropDownOptions.observed_profile = profiles.map((profile) => {
-        const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
-        const modelPoint = new ZamgModelPoint(
-          profile.$externalURL,
-          date,
-          profile.locationName,
-          [],
-          profile.$externalURL,
-          profile.latitude,
-          profile.longitude
-        );
-        const ll = { lat: profile.latitude, lng: profile.longitude };
+      this.dropDownOptions.observed_profile = profiles.map((modelPoint) => {
+        const ll = { lat: modelPoint.lat, lng: modelPoint.lng };
         const callback = () => {
           this.selectedModelPoint = modelPoint;
           this.selectedModelType = "observed_profile";
