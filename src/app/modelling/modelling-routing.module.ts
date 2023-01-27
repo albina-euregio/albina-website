@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { IndexComponent } from "./index.component";
 import { SnowpackComponent } from "./snowpack.component";
 import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
 import { ForecastComponent } from "./forecast/forecast.component";
@@ -11,7 +10,7 @@ import { AuthGuard } from "../guards/auth.guard";
 const routes: Routes = [
   {
     path: "",
-    component: IndexComponent,
+    component: ForecastComponent,
     canActivate: [AuthGuard]
   },
   {
