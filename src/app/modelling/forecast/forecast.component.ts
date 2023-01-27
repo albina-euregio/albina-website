@@ -109,8 +109,10 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.dropDownOptions[source.id] = points;
         points.forEach((point) => {
           const ll: LatLngLiteral = {
-            lat: source.id === "eps_claef" ? point.lat + 0.01 : point.lat,
-            lng: source.id === "eps_claef" ? point.lng - 0.002 : point.lng
+            lat:
+              source.id === "eps_claef" ? point.lat + 0.01 : source.id === "eps_ecmwf" ? point.lat - 0.01 : point.lat,
+            lng:
+              source.id === "eps_claef" ? point.lng - 0.002 : source.id === "eps_ecmwf" ? point.lng + 0.002 : point.lng
           };
           const callback = () => {
             this.selectedModelPoint = point;
