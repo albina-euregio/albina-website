@@ -127,6 +127,8 @@ export enum ObservationSource {
   LwdKip = "LwdKip",
   Lawis = "Lawis",
   LoLaSafety = "LoLaSafety",
+  LoLaAvalancheFeedbackAT5 = "LoLaAvalancheFeedbackAT5",
+  LoLaAvalancheFeedbackAT8 = "LoLaAvalancheFeedbackAT8",
   AvaObs = "AvaObs",
   KipLive = "KipLive",
   Natlefs = "Natlefs",
@@ -143,20 +145,6 @@ export enum ObservationType {
   Incident = "Incident",
   TimeSeries = "TimeSeries"
 }
-
-export const ObservationSourceColors: Record<ObservationSource, string> =
-  // FIXME
-  Object.freeze({
-    [ObservationSource.AvalancheWarningService]: "#ca0020",
-    [ObservationSource.Observer]: "#83e4f0",
-    [ObservationSource.LwdKip]: "#f781bf",
-    [ObservationSource.Lawis]: "#44a9db",
-    [ObservationSource.LoLaSafety]: "#a6d96a",
-    [ObservationSource.AvaObs]: "#6a3d9a",
-    [ObservationSource.KipLive]: "#6a3d9a",
-    [ObservationSource.Natlefs]: "#6a3d9a",
-    [ObservationSource.WikisnowECT]: "#c6e667"
-  });
 
 export enum Aspect {
   N = "N",

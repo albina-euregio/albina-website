@@ -54,7 +54,9 @@ export class ObservationsService {
       this.getObservers(),
       this.getLawisIncidents(),
       this.getLawisProfiles(),
-      this.getLoLaKronos(),
+      this.getLoLaKronos(ObservationSource.AvaObs),
+      this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT5),
+      this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT8),
       this.getLoLaSafety(),
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
@@ -203,10 +205,21 @@ export class ObservationsService {
     );
   }
 
-  getLoLaKronos(): Observable<GenericObservation> {
-    const { lolaKronosApi } = this.constantsService;
+  getLoLaKronos(
+    source:
+      | ObservationSource.AvaObs
+      | ObservationSource.LoLaAvalancheFeedbackAT5
+      | ObservationSource.LoLaAvalancheFeedbackAT8
+  ): Observable<GenericObservation> {
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http.get<LolaKronosApi>(lolaKronosApi + timeframe).pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
+    return this.http
+      .get<LolaKronosApi>(api[source] + timeframe)
+      .pipe(
+        mergeMap((kronos) =>
+          convertLoLaKronos(kronos, web[source], source === ObservationSource.AvaObs ? undefined : source)
+        )
+      );
   }
 
   getLoLaSafety(): Observable<GenericObservation> {
@@ -225,14 +238,14 @@ export class ObservationsService {
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
-    const { observationApi: api, lawisSnowProfilesWeb: web } = this.constantsService;
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
       .get<Profile[]>(
         api.Lawis + "profile" + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString + "&_=" + nowWithHourPrecision()
       )
       .pipe(
         mergeAll(),
-        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web)),
+        map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web["Lawis-Profile"])),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((profile) => {
           if (!LAWIS_FETCH_DETAILS) {
@@ -247,14 +260,14 @@ export class ObservationsService {
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
-    const { observationApi: api, lawisIncidentsWeb: web } = this.constantsService;
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
       .get<Incident[]>(
         api.Lawis + "incident" + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString + "&_=" + nowWithHourPrecision()
       )
       .pipe(
         mergeAll(),
-        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web)),
+        map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web["Lawis-Incident"])),
         filter((observation) => this.filter.inMapBounds(observation)),
         mergeMap((incident) => {
           if (!LAWIS_FETCH_DETAILS) {

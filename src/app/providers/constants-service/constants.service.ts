@@ -12,15 +12,23 @@ export class ConstantsService {
   public zamgModelsUrl: string = "https://avalanche.report/zamg/zamg/";
   public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/html/";
 
-  public lolaKronosApi = "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/"
   public observationApi = {
     [ObservationSource.AvalancheWarningService]: "https://admin.avalanche.report/observed-profiles/observed_profiles.json",
     [ObservationSource.Lawis]: "https://admin.avalanche.report/lawis/public/",
+    [ObservationSource.AvaObs]: "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/",
+    [ObservationSource.LoLaAvalancheFeedbackAT5]: "https://admin.avalanche.report/avalanche-feedback/AT-5/dataexport/dataFromToken/",
+    [ObservationSource.LoLaAvalancheFeedbackAT8]: "https://admin.avalanche.report/avalanche-feedback/AT-8/dataexport/dataFromToken/",
     [ObservationSource.LoLaSafety]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
-  public lawisIncidentsWeb: string = "https://lawis.at/incident/#{{id}}";
-  public lawisSnowProfilesWeb: string = "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf";
+
+  public observationWeb = {
+    [ObservationSource.AvaObs]: "https://www.lola-kronos.info/",
+    [ObservationSource.LoLaAvalancheFeedbackAT5]: "https://avalanche-feedback.eu/",
+    [ObservationSource.LoLaAvalancheFeedbackAT8]: "https://avalanche-feedback.eu/",
+    [`${ObservationSource.Lawis}-${Enums.ObservationType.Incident}` as const]: 'https://lawis.at/incident/#{{id}}',
+    [`${ObservationSource.Lawis}-${Enums.ObservationType.Profile}` as const]: 'https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf',
+  };
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
   public osmNominatimCountries = "at,it";

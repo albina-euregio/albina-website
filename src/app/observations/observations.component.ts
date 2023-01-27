@@ -1,7 +1,6 @@
 import { Component, AfterContentInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
-import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { BaseMapService } from "../providers/map-service/base-map.service";
@@ -9,7 +8,6 @@ import {
   GenericObservation,
   ObservationFilterType,
   ObservationSource,
-  ObservationSourceColors,
   ObservationTableRow,
   toGeoJSON,
   toMarkerColor,
@@ -22,7 +20,7 @@ import { MenuItem } from "primeng/api";
 
 import { saveAs } from "file-saver";
 
-import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
+import { LatLng, Marker } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
@@ -54,7 +52,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     iframe: SafeResourceUrl;
   };
 
-  public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
   public readonly allSources: MultiselectDropdownData[];
   public selectedRegionItems: string[];
