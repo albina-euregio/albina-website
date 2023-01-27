@@ -127,7 +127,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           const marker = new CircleMarker(ll, this.getModelPointOptions(source.id))
             .on("click", callback)
             .bindTooltip(tooltip);
-          this.mapService.addMarker(marker, source.id);
+          const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
+          this.mapService.addMarker(marker, source.id, attribution);
           if (this.visibleLayers.includes(source.id) || this.visibleLayers.length === 0)
             this.mapService.addMarkerLayer(source.id);
         });

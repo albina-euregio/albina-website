@@ -386,11 +386,11 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  addMarker(marker: CircleMarker, layerName: string) {
+  addMarker(marker: CircleMarker, layerName: string, attribution: string | undefined = undefined) {
     marker.options.pane = "markerPane";
 
     if (this.layers[layerName] === undefined) {
-      this.layers[layerName] = new LayerGroup();
+      this.layers[layerName] = new LayerGroup([], { attribution });
       this.layers[layerName].addTo(this.map);
     }
     marker.addTo(this.layers[layerName]);
