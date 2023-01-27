@@ -207,7 +207,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     this.loading = true;
     this.observations.length = 0;
-    // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService
       .loadAll()
@@ -332,10 +331,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       opacity: 1,
       className: "obs-tooltip"
     });
-
     marker.options.pane = "markerPane";
-    // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
-    //console.log("drawMarker xx05", marker);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 

@@ -16,7 +16,6 @@ import {
   CircleMarker } from "leaflet";
 import {
   GenericObservation,
-  ObservationSource,
   ObservationType} from "app/observations/models/generic-observation.model";
 
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -46,7 +45,6 @@ interface SelectableRegionProperties extends RegionWithElevationProperties {
 export class BaseMapService {
   public map: Map;
   public baseMaps: Record<string, TileLayer>;
-  public sourceLayers: Record<ObservationSource, LayerGroup>;
   public observationTypeLayers: Record<ObservationType, LayerGroup>;
   public overlayMaps: {
     // Micro  regions without elevation
@@ -72,9 +70,7 @@ export class BaseMapService {
     private regionsService: RegionsService,
     private constantsService: ConstantsService,
     private observationMapService: ObservationMapService) {
-    this.sourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.sourceLayers[source] = new LayerGroup());
     Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new LayerGroup());
   }
 
@@ -130,7 +126,6 @@ export class BaseMapService {
       ]
     });
 
-    //this.initLayer(map, this.observationSourceLayers, document.getElementById("sourcesDiv"), onObservationClick);
     //this.initLayer(map, this.observationTypeLayers, document.getElementById("typesDiv"), onObservationClick);
     map.addLayer(this.overlayMaps.regions);
     map.addLayer(this.overlayMaps.activeSelection);
