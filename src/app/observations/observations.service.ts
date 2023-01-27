@@ -54,7 +54,9 @@ export class ObservationsService {
       this.getObservers(),
       this.getLawisIncidents(),
       this.getLawisProfiles(),
-      this.getLoLaKronos(),
+      this.getLoLaKronos(ObservationSource.AvaObs),
+      this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT5),
+      this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT8),
       this.getLoLaSafety(),
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
@@ -203,10 +205,21 @@ export class ObservationsService {
     );
   }
 
-  getLoLaKronos(): Observable<GenericObservation> {
-    const { observationApi: api } = this.constantsService;
+  getLoLaKronos(
+    source:
+      | ObservationSource.AvaObs
+      | ObservationSource.LoLaAvalancheFeedbackAT5
+      | ObservationSource.LoLaAvalancheFeedbackAT8
+  ): Observable<GenericObservation> {
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http.get<LolaKronosApi>(api.AvaObs + timeframe).pipe(mergeMap((kronos) => convertLoLaKronos(kronos)));
+    return this.http
+      .get<LolaKronosApi>(api[source] + timeframe)
+      .pipe(
+        mergeMap((kronos) =>
+          convertLoLaKronos(kronos, web[source], source === ObservationSource.AvaObs ? undefined : source)
+        )
+      );
   }
 
   getLoLaSafety(): Observable<GenericObservation> {

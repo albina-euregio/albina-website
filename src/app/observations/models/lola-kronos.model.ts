@@ -300,12 +300,18 @@ export interface Temperature {
   position: number;
 }
 
-export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
+export function convertLoLaKronos(
+  kronos: LolaKronosApi,
+  urlPrefix: string,
+  source?: ObservationSource
+): GenericObservation[] {
   return [
     ...kronos.lolaAvalancheEvent.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        obs.lolaApplication === "avaobs"
+        source
+          ? source
+          : obs.lolaApplication === "avaobs"
           ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
           ? ObservationSource.KipLive
@@ -313,13 +319,15 @@ export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
           ? ObservationSource.Natlefs
           : undefined,
         ObservationType.Avalanche,
-        "https://www.lola-kronos.info/avalancheEvent/"
+        urlPrefix + "avalancheEvent/"
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        obs.lolaApplication === "avaobs"
+        source
+          ? source
+          : obs.lolaApplication === "avaobs"
           ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
           ? ObservationSource.KipLive
@@ -327,21 +335,23 @@ export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
           ? ObservationSource.Natlefs
           : undefined,
         ObservationType.Evaluation,
-        "https://www.lola-kronos.info/evaluation/"
+        urlPrefix + "evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        ObservationSource.AvaObs, // FIXME
+        source ? source : ObservationSource.AvaObs, // FIXME
         ObservationType.SimpleObservation,
-        "https://www.lola-kronos.info/simpleObservation/"
+        urlPrefix + "simpleObservation/"
       )
     ),
     ...kronos.lolaSnowProfile.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        obs.lolaApplication === "avaobs"
+        source
+          ? source
+          : obs.lolaApplication === "avaobs"
           ? ObservationSource.AvaObs
           : obs.lolaApplication === "kipLive"
           ? ObservationSource.KipLive
@@ -349,7 +359,7 @@ export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
           ? ObservationSource.Natlefs
           : undefined,
         ObservationType.Profile,
-        "https://www.lola-kronos.info/snowProfile/"
+        urlPrefix + "snowProfile/"
       )
     )
   ];

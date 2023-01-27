@@ -127,6 +127,8 @@ export enum ObservationSource {
   LwdKip = "LwdKip",
   Lawis = "Lawis",
   LoLaSafety = "LoLaSafety",
+  LoLaAvalancheFeedbackAT5 = "LoLaAvalancheFeedbackAT5",
+  LoLaAvalancheFeedbackAT8 = "LoLaAvalancheFeedbackAT8",
   AvaObs = "AvaObs",
   KipLive = "KipLive",
   Natlefs = "Natlefs",
