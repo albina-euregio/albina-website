@@ -1,4 +1,11 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  HostListener,
+} from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
 import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
@@ -8,7 +15,13 @@ import { CircleMarker, LatLngLiteral } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
-type ModelType = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile" | "alpsolut_profile";
+type ModelType =
+  | "multimodel"
+  | "eps_ecmwf"
+  | "eps_claef"
+  | "qfa"
+  | "observed_profile"
+  | "alpsolut_profile";
 
 export interface MultiselectDropdownData {
   id: ModelType;
@@ -18,7 +31,7 @@ export interface MultiselectDropdownData {
 
 @Component({
   templateUrl: "./forecast.component.html",
-  styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"]
+  styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"],
 })
 export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
@@ -36,40 +49,43 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     eps_ecmwf: [],
     eps_claef: [],
     observed_profile: [],
-    alpsolut_profile: []
+    alpsolut_profile: [],
   };
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "multimodel",
       fillColor: "green",
-      name: this.translateService.instant("sidebar.modellingZamg")
+      name: this.translateService.instant("sidebar.modellingZamg"),
     },
     {
       id: "qfa",
       fillColor: "red",
-      name: this.translateService.instant("sidebar.qfa")
+      name: this.translateService.instant("sidebar.qfa"),
     },
     {
       id: "eps_ecmwf",
       fillColor: this.constantsService.colorBrand,
-      name: this.translateService.instant("sidebar.modellingZamgECMWF")
+      name: this.translateService.instant("sidebar.modellingZamgECMWF"),
     },
     {
       id: "eps_claef",
       fillColor: "violet",
-      name: this.translateService.instant("sidebar.modellingZamgCLAEF")
+      name: this.translateService.instant("sidebar.modellingZamgCLAEF"),
     },
     {
       id: "observed_profile",
       fillColor: "#f8d229",
-      name: this.translateService.instant("sidebar.modellingSnowpack")
+      name: this.translateService.instant("sidebar.modellingSnowpack"),
     },
     {
       id: "alpsolut_profile",
       fillColor: "#d95f0e",
-      name: this.translateService.instant("sidebar.modellingSnowpackMeteo")
-    }
+      name: this.translateService.instant("sidebar.modellingSnowpackMeteo"),
+    },
   ];
+
+  private swipeCoord?: [number, number];
+  private swipeTime?: number;
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -110,9 +126,17 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         points.forEach((point) => {
           const ll: LatLngLiteral = {
             lat:
-              source.id === "eps_claef" ? point.lat + 0.01 : source.id === "eps_ecmwf" ? point.lat - 0.01 : point.lat,
+              source.id === "eps_claef"
+                ? point.lat + 0.01
+                : source.id === "eps_ecmwf"
+                ? point.lat - 0.01
+                : point.lat,
             lng:
-              source.id === "eps_claef" ? point.lng - 0.002 : source.id === "eps_ecmwf" ? point.lng + 0.002 : point.lng
+              source.id === "eps_claef"
+                ? point.lng - 0.002
+                : source.id === "eps_ecmwf"
+                ? point.lng + 0.002
+                : point.lng,
           };
           const callback = () => {
             this.selectedModelPoint = point;
@@ -122,16 +146,22 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           const tooltip = [
             `<i class="fa fa-asterisk"></i> ${point.regionCode || undefined}`,
             `<i class="fa fa-globe"></i> ${point.regionName || undefined}`,
-            this.allSources.find((s) => s.id === source.id)?.name
+            this.allSources.find((s) => s.id === source.id)?.name,
           ]
             .filter((s) => !/undefined/.test(s))
             .join("<br>");
-          const marker = new CircleMarker(ll, this.getModelPointOptions(source.id))
+          const marker = new CircleMarker(
+            ll,
+            this.getModelPointOptions(source.id)
+          )
             .on("click", callback)
             .bindTooltip(tooltip);
           const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
           this.mapService.addMarker(marker, source.id, attribution);
-          if (this.visibleLayers.includes(source.id) || this.visibleLayers.length === 0)
+          if (
+            this.visibleLayers.includes(source.id) ||
+            this.visibleLayers.length === 0
+          )
             this.mapService.addMarkerLayer(source.id);
         });
       });
@@ -149,11 +179,14 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.observationPopupVisible = true;
       };
       const tooltip = `<i class="fa fa-globe"></i> ${cityName}<br>QFA`;
-      const marker = new CircleMarker(ll, this.getModelPointOptions("qfa")).on("click", callback).bindTooltip(tooltip);
+      const marker = new CircleMarker(ll, this.getModelPointOptions("qfa"))
+        .on("click", callback)
+        .bindTooltip(tooltip);
       this.mapService.addMarker(marker, "qfa");
     }
     this.files = await this.qfaService.getFiles();
-    if (this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0) this.mapService.addMarkerLayer("qfa");
+    if (this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0)
+      this.mapService.addMarkerLayer("qfa");
   }
 
   initMaps() {
@@ -178,13 +211,18 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       color: "black",
       weight: 1,
       opacity: 1,
-      fillOpacity: 1
+      fillOpacity: 1,
     };
   }
 
   get observationPopupIframe(): SafeResourceUrl {
-    if (this.observationPopupVisible && /dashboard.alpsolut.eu/.test(this.selectedModelPoint?.plotUrl)) {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedModelPoint?.plotUrl);
+    if (
+      this.observationPopupVisible &&
+      /dashboard.alpsolut.eu/.test(this.selectedModelPoint?.plotUrl)
+    ) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.selectedModelPoint?.plotUrl
+      );
     }
   }
 
@@ -208,22 +246,54 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     const city = fileMap.filename.split("_")[3];
     const first = this.files[city][0].filename === fileMap.filename;
     this.qfa = await this.qfaService.getRun(fileMap, startDay, first);
-    this.selectedCity = this.qfa.data.metadata.location.split(" ").pop().toLowerCase();
+    this.selectedCity = this.qfa.data.metadata.location
+      .split(" ")
+      .pop()
+      .toLowerCase();
     this.paramService.setParameterClasses(this.qfa.parameters);
   }
 
-  @HostListener("document:keydown", ["$event"])
-  handleKeyBoardEvent(event: KeyboardEvent) {
-    if (!this.observationPopupVisible) {
-      return;
+  // Source: https://stackoverflow.com/a/44511007/9947071
+  swipe(e: TouchEvent, when: string): void {
+    const coord: [number, number] = [
+      e.changedTouches[0].clientX,
+      e.changedTouches[0].clientY,
+    ];
+    const time = new Date().getTime();
+
+    if (when === "start") {
+      this.swipeCoord = coord;
+      this.swipeTime = time;
+    } else if (when === "end") {
+      const direction = [
+        coord[0] - this.swipeCoord[0],
+        coord[1] - this.swipeCoord[1],
+      ];
+      const duration = time - this.swipeTime;
+
+      if (
+        duration < 1000 && //
+        Math.abs(direction[0]) > 30 && // Long enough
+        Math.abs(direction[0]) > Math.abs(direction[1] * 3)
+      ) {
+        // Horizontal enough
+        const swipe = direction[0] < 0 ? "next" : "previous";
+        // Do whatever you want with swipe
+        this.changeRun(swipe);
+      }
     }
+  }
+
+  changeRun(type: "next" | "previous") {
     if (this.selectedModelType === "qfa") {
-      const filenames = this.files[this.selectedCity].map((file) => file.filename);
+      const filenames = this.files[this.selectedCity].map(
+        (file) => file.filename
+      );
       const index = filenames.indexOf(this.qfa.file.filename);
-      if (event.key === "ArrowRight") {
+      if (type === "next") {
         const newIndex = index + 1 < filenames.length - 1 ? index + 1 : 0;
         this.setQfa(filenames[newIndex], 0);
-      } else if (event.key === "ArrowLeft") {
+      } else if (type === "previous") {
         const newIndex = index === 0 ? filenames.length - 1 : index - 1;
         this.setQfa(filenames[newIndex], 0);
       }
@@ -231,13 +301,31 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       const index = this.dropDownOptions[this.selectedModelType].findIndex(
         (point) => point.id === this.selectedModelPoint.id
       );
-      if (event.key === "ArrowRight") {
-        const newIndex = index + 1 < this.dropDownOptions[this.selectedModelType].length - 1 ? index + 1 : 0;
-        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
-      } else if (event.key === "ArrowLeft") {
-        const newIndex = index === 0 ? this.dropDownOptions[this.selectedModelType].length - 1 : index - 1;
-        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
+      if (type === "next") {
+        const newIndex =
+          index + 1 < this.dropDownOptions[this.selectedModelType].length - 1
+            ? index + 1
+            : 0;
+        this.selectedModelPoint =
+          this.dropDownOptions[this.selectedModelType][newIndex];
+      } else if (type === "previous") {
+        const newIndex =
+          index === 0
+            ? this.dropDownOptions[this.selectedModelType].length - 1
+            : index - 1;
+        this.selectedModelPoint =
+          this.dropDownOptions[this.selectedModelType][newIndex];
       }
     }
+  }
+
+  @HostListener("document:keydown", ["$event"])
+  handleKeyBoardEvent(event: KeyboardEvent) {
+    if (!this.observationPopupVisible) {
+      return;
+    }
+
+    if (event.key === "ArrowRight") this.changeRun("next");
+    if (event.key === "ArrowLeft") this.changeRun("previous");
   }
 }
