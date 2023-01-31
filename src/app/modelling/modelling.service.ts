@@ -297,8 +297,15 @@ export class ModellingService {
             .pipe(
               map((collection) =>
                 collection.features
-                  .map((f) => toPoint(f, f.properties.dataSets?.[0], apiKey, "cbc610ef-7b29-46c8-b070-333d339c2cd4"))
-                  .filter((p) => p !== undefined)
+                  .flatMap((f) => [
+                    ...f.properties.dataSets.map((d) =>
+                      toPoint(f, d, apiKey, "cbc610ef-7b29-46c8-b070-333d339c2cd4", "stratigraphies + RTA")
+                    ),
+                    ...f.properties.dataSets.map((d) =>
+                      toPoint(f, d, apiKey, "f3ecf8fb-3fd7-427c-99fd-582750be236d", "wind drift")
+                    )
+                  ])
+                  .sort((p1, p2) => p1.label.localeCompare(p2.label))
               )
             );
         })
@@ -308,9 +315,9 @@ export class ModellingService {
       f: AlpsolutFeatureCollection["features"][0],
       d: DataSet,
       apiKey: string,
-      configurationId: string
+      configurationId: string,
+      configurationLabel: string
     ): ZamgModelPoint {
-      if (!d) return;
       const configuration = {
         apiKey,
         configurationId,
@@ -328,11 +335,14 @@ export class ModellingService {
         },
         useHeightHints: true
       };
+      // URL hash params are interpreted by dashboard.alpsolut.eu
       const params = new URLSearchParams({ ViewerAppProps: JSON.stringify(configuration) });
-      const url = "https://dashboard.alpsolut.eu/graphs/stable/viewer.html#" + params;
+      // URL search param is a trick to force reload iframe
+      const search = new URLSearchParams({ configurationId, aliasId: String(d.dataSetId) });
+      const url = `https://dashboard.alpsolut.eu/graphs/stable/viewer.html?${search}#${params}`;
       return new ZamgModelPoint(
-        d.stage,
-        f.properties.code,
+        `${f.properties.code} ${d.aspect} ${d.slopeAngle}° ${configurationLabel}`,
+        `${f.properties.code} ${d.aspect} ${d.slopeAngle}° ${configurationLabel}`,
         f.properties.name,
         [],
         url,
