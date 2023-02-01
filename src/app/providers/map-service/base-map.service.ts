@@ -439,6 +439,7 @@ export class BaseMapService {
       this.layers[layerName] = new LayerGroup([], { attribution });
       this.layers[layerName].addTo(this.map);
     }
+
     marker.addTo(this.layers[layerName]);
   }
 
