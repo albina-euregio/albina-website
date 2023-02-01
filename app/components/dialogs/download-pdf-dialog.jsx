@@ -1,28 +1,15 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 
-class DownloadPdfDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      region: false,
-      mode: "color" // 'bw'
-    };
-  }
+function DownloadPdfDialog() {
+  const intl = useIntl();
 
-  handleChangeRegion = newRegion => {
-    this.setState({ region: newRegion !== "none" ? newRegion : false });
-  };
-  handleChangeMode = newMode => {
-    this.setState({ mode: newMode });
-  };
-
-  pdfLink(region, isBw) {
+  function pdfLink(region, isBw) {
     region = region
       ? `${region}_`
       : BULLETIN_STORE.settings.date > "2022-05-06"
@@ -36,12 +23,12 @@ class DownloadPdfDialog extends React.Component {
     });
   }
 
-  regionSelector(region) {
+  function regionSelector(region) {
     const label = region
-      ? this.props.intl.formatMessage({
+      ? intl.formatMessage({
           id: `region:${region}`
         })
-      : this.props.intl.formatMessage({
+      : intl.formatMessage({
           id: "dialog:subscribe-email:region-all:button"
         });
     return [
@@ -60,12 +47,12 @@ class DownloadPdfDialog extends React.Component {
           <button
             type="button"
             onClick={() => {
-              window.open(this.pdfLink(region, false));
+              window.open(pdfLink(region, false));
             }}
             title=""
             className="pure-button"
           >
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: "dialog:download-pdf:mode:color"
             })}
           </button>
@@ -79,12 +66,12 @@ class DownloadPdfDialog extends React.Component {
           <button
             type="button"
             onClick={() => {
-              window.open(this.pdfLink(region, true));
+              window.open(pdfLink(region, true));
             }}
             title=""
             className="inverse pure-button"
           >
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: "dialog:download-pdf:mode:bw"
             })}
           </button>
@@ -92,30 +79,27 @@ class DownloadPdfDialog extends React.Component {
       </ul>
     ];
   }
-
-  render() {
-    return (
-      <div className="modal-container" key="modal-download-pdf-dialog">
-        <div className="modal-subscribe" key="modal-subscribe">
-          <div className="modal-header" key="modal-header">
-            <h2 key="subheading" className="subheader">
-              <FormattedMessage id="dialog:download-pdf:subheading" />
-            </h2>
-            <h2 key="heading">
-              <FormattedMessage id="dialog:download-pdf:heading" />
-            </h2>
-            <span key="description">
-              <FormattedMessage id="dialog:download-pdf:description" />
-            </span>
-          </div>
-          <form className="pure-form pure-form-stacked" key="form">
-            {this.regionSelector()}
-            {regionCodes.map(r => this.regionSelector(r))}
-          </form>
+  return (
+    <div className="modal-container" key="modal-download-pdf-dialog">
+      <div className="modal-subscribe" key="modal-subscribe">
+        <div className="modal-header" key="modal-header">
+          <h2 key="subheading" className="subheader">
+            <FormattedMessage id="dialog:download-pdf:subheading" />
+          </h2>
+          <h2 key="heading">
+            <FormattedMessage id="dialog:download-pdf:heading" />
+          </h2>
+          <span key="description">
+            <FormattedMessage id="dialog:download-pdf:description" />
+          </span>
         </div>
+        <form className="pure-form pure-form-stacked" key="form">
+          {regionSelector()}
+          {regionCodes.map(r => regionSelector(r))}
+        </form>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default injectIntl(observer(DownloadPdfDialog));
+export default observer(DownloadPdfDialog);

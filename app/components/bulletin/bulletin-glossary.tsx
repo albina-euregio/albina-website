@@ -1,49 +1,64 @@
 import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
-
+import { useIntl } from "react-intl";
 import { preprocessContent } from "../../util/htmlParser";
-import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
-import GLOSSARY_CONTENT from "./bulletin-glossary-content.json";
-const GLOSSARY_REGEX = new RegExp(
-  "\\b(" + Object.keys(GLOSSARY_LINKS).join("|") + ")\\b",
-  "g"
-);
+import RAW_GLOSSARY_LINKS_de from "./bulletin-glossary-de-links.json";
+import GLOSSARY_CONTENT_de from "./bulletin-glossary-de-content.json";
+import RAW_GLOSSARY_LINKS_en from "./bulletin-glossary-en-links.json";
+import GLOSSARY_CONTENT_en from "./bulletin-glossary-en-content.json";
 
-console.warn(
-  "Missing glossary",
-  Array.from(
-    new Set(Object.values(GLOSSARY_LINKS).filter(id => !GLOSSARY_CONTENT[id]))
-  ).join(" ")
-);
-
-export function findGlossaryStrings(text: string): string {
-  return text.replace(GLOSSARY_REGEX, substring => {
-    const glossary = GLOSSARY_LINKS[substring];
-    return `<BulletinGlossary glossary="${glossary}">${substring}</BulletinGlossary>`;
+export function findGlossaryStrings(text: string, locale: "de" | "en"): string {
+  if (locale !== "de" && locale !== "en") {
+    return text;
+  }
+  const links = locale === "de" ? RAW_GLOSSARY_LINKS_de : RAW_GLOSSARY_LINKS_en;
+  const glossaryLinks = Object.fromEntries(
+    Object.entries(links).flatMap(([id, phrases]) =>
+      phrases
+        .trim()
+        .split(/\n/g)
+        .map(phrase => [phrase, id])
+    )
+  );
+  const regex = new RegExp(
+    "\\b(" + Object.keys(glossaryLinks).join("|") + ")\\b",
+    "g"
+  );
+  return text.replace(regex, substring => {
+    const glossary = glossaryLinks[substring];
+    return `<BulletinGlossary locale="${locale}" glossary="${glossary}">${substring}</BulletinGlossary>`;
   });
 }
 
 type Props = {
-  glossary: string;
+  glossary: keyof typeof GLOSSARY_CONTENT_de;
+  locale: "de" | "en";
+  children: JSX.Element;
 };
 
-export default class BulletinGlossary extends React.Component<Props> {
-  render() {
-    const glossary = this.props.glossary;
-    if (!GLOSSARY_CONTENT[glossary]) {
-      return <span>{this.props.children}</span>;
-    }
-    const { text, img } = GLOSSARY_CONTENT[glossary];
-    const content = preprocessContent(text + (img ?? ""));
-    return (
-      <Tooltip label={content} html={true}>
-        <a
-          className="glossary"
-          // href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
-        >
-          {this.props.children}
-        </a>
-      </Tooltip>
-    );
+export default function BulletinGlossary(props: Props) {
+  const intl = useIntl();
+  const glossary = props.glossary;
+  const glossaryContent =
+    props.locale === "de"
+      ? GLOSSARY_CONTENT_de[glossary]
+      : GLOSSARY_CONTENT_en[glossary];
+  if (!glossaryContent) {
+    return <span>{props.children}</span>;
   }
+  const { heading, text, img, href, hrefCaption } = glossaryContent;
+  const defHref = `https://www.avalanches.org/glossary/?lang=${props.locale}#${glossary}`;
+  const attribution = `<p className="tooltip-source">(${intl.formatMessage({
+    id: "glossary:source"
+  })}: <a href="${href || defHref}" target="_blank">${
+    hrefCaption || "EAWS"
+  }</a>)</p>`;
+  const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
+
+  const content = preprocessContent(html);
+  return (
+    <Tooltip label={content} html={true} enableClick={true}>
+      <a className="glossary">{props.children}</a>
+    </Tooltip>
+  );
 }

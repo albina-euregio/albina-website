@@ -1,37 +1,36 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import TendencyIcon from "../icons/tendency-icon.jsx";
+import TendencyIcon from "../icons/tendency-icon";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
 import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
-import { parseDate, getSuccDate, LONG_DATE_FORMAT } from "../../util/date.js";
+import {
+  dateToISODateString,
+  getSuccDate,
+  LONG_DATE_FORMAT
+} from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import { isAmPm, Bulletin } from "../../stores/bulletin";
 
 type Props = {
   ampm: "am" | "pm";
-  bulletin: Caaml.Bulletin;
-  date: string;
-  publicationTime: string;
+  bulletin: Bulletin;
+  date: Date;
 };
 
-function BulletinDaytimeReport({
-  ampm,
-  bulletin,
-  date,
-  publicationTime
-}: Props) {
+function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
   const intl = useIntl();
-  const problems = bulletin?.avalancheProblems || [];
+  const problems =
+    bulletin?.avalancheProblems?.filter(p => isAmPm(ampm, p.validTimePeriod)) ||
+    [];
+  const dangerRatings =
+    bulletin?.dangerRatings?.filter(p => isAmPm(ampm, p.validTimePeriod)) || [];
 
-  const tendency = bulletin?.tendency?.type || "none";
+  const tendency = bulletin?.tendency?.tendencyType || "none";
   const tendencyTitle = intl.formatMessage({
     id: "bulletin:report:tendency:" + tendency
   });
-  const tendencyDate = intl.formatDate(
-    getSuccDate(parseDate(date)),
-    LONG_DATE_FORMAT
-  );
+  const tendencyDate = intl.formatDate(getSuccDate(date), LONG_DATE_FORMAT);
 
   return (
     <div>
@@ -49,9 +48,10 @@ function BulletinDaytimeReport({
           >
             <a href="#page-main" className="img icon-arrow-up" data-scroll="">
               <BulletinAWMapStatic
-                date={date}
-                publicationTime={publicationTime}
-                region={bulletin.id} // possibly contains _PM
+                bulletin={bulletin}
+                date={dateToISODateString(date)}
+                region={bulletin.bulletinID}
+                ampm={ampm}
               />
             </a>
           </Tooltip>
@@ -59,7 +59,7 @@ function BulletinDaytimeReport({
         <ul className="list-plain list-bulletin-report-pictos">
           <li>
             <div className="bulletin-report-picto tooltip">
-              <BulletinDangerRating bulletin={bulletin} />
+              <BulletinDangerRating dangerRatings={dangerRatings} />
             </div>
             <Tooltip
               label={intl.formatMessage({

@@ -2,9 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
+import { hasDaytimeDependency } from "../stores/bulletin";
 import { MAP_STORE } from "../stores/mapStore";
 
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
@@ -14,7 +15,11 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, LONG_DATE_FORMAT } from "../util/date.js";
+import {
+  parseDate,
+  LONG_DATE_FORMAT,
+  dateToISODateString
+} from "../util/date.js";
 //import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
@@ -22,11 +27,18 @@ import {
   useParams,
   useNavigate,
   useLocation,
-  useSearchParams
+  useSearchParams,
+  Link
 } from "react-router-dom";
 
 import "leaflet.sync";
 import { Util } from "leaflet";
+import { Tooltip } from "../components/tooltips/tooltip";
+import ControlBar from "../components/organisms/control-bar";
+import { APP_STORE } from "../appStore";
+import HTMLPageLoadingScreen, {
+  useSlowLoading
+} from "../components/organisms/html-page-loading-screen";
 //import { scroll_init } from "../js/scroll";
 
 const Bulletin = props => {
@@ -38,6 +50,7 @@ const Bulletin = props => {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [title] = useState("");
+  const [slowLoading, setLoadingStart] = useSlowLoading();
   // const [sharable, setSharable] = useState(false);
   const [highlightedRegion] = useState(null);
   BULLETIN_STORE.init();
@@ -114,11 +127,8 @@ const Bulletin = props => {
       });
     }
 
-    try {
-      await BULLETIN_STORE.load(startDate);
-    } finally {
-      await BULLETIN_STORE.loadEawss(startDate);
-    }
+    setLoadingStart(Date.now());
+    await BULLETIN_STORE.load(startDate);
   };
 
   const checkRegion = () => {
@@ -176,6 +186,9 @@ const Bulletin = props => {
   };
 
   const collection = BULLETIN_STORE.activeBulletinCollection;
+  const daytimeDependency = collection?.bulletins?.some(b =>
+    hasDaytimeDependency(b)
+  );
   // console.log("rendering bulletin ", BULLETIN_STORE.bulletins);
 
   const shareDescription =
@@ -183,10 +196,7 @@ const Bulletin = props => {
       ? collection
         ? title +
           " | " +
-          this.props.intl.formatDate(
-            parseDate(BULLETIN_STORE.settings.date),
-            LONG_DATE_FORMAT
-          )
+          this.props.intl.formatDate(BULLETIN_STORE.date, LONG_DATE_FORMAT)
         : intl.formatMessage({
             id: "bulletin:header:info-no-data"
           })
@@ -197,32 +207,73 @@ const Bulletin = props => {
       ? Util.template(config.apis.bulletin.map, {
           date: BULLETIN_STORE.settings.date,
           publication: ".",
-          file:
-            (collection.hasDaytimeDependency() ? "am" : "fd") + "_EUREGIO_map",
+          file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
           format: ".jpg"
         })
       : "";
 
+  const simple = () =>
+    Util.template(window.config.apis.bulletin.simple, {
+      date: BULLETIN_STORE.settings.date
+        ? dateToISODateString(parseDate(BULLETIN_STORE.settings.date))
+        : "latest",
+      lang: APP_STORE.language
+    });
+
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
+      <HTMLPageLoadingScreen
+        loading={BULLETIN_STORE.settings.status === "pending"}
+      />
       <BulletinHeader title={title} />
 
+      {BULLETIN_STORE.settings.status === "n/a" && (
+        <ControlBar
+          addClass="fade-in"
+          message={
+            <>
+              <p>
+                <FormattedMessage id="bulletin:header:info-no-data" />
+              </p>
+              <p>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: "bulletin:map:blog:button:title"
+                  })}
+                >
+                  <Link to="/blog" className="secondary pure-button">
+                    {intl.formatMessage({ id: "blog:title" })}
+                  </Link>
+                </Tooltip>
+              </p>
+            </>
+          }
+        />
+      )}
+      {BULLETIN_STORE.settings.status === "pending" && slowLoading && (
+        <ControlBar
+          addClass="fade-in"
+          message={intl.formatMessage(
+            { id: "bulletin:header:info-loading-data-slow" },
+            { a: msg => <a href={simple()}>{msg}</a> }
+          )}
+        />
+      )}
+
       <Suspense fallback={<div>...</div>}>
-        {BULLETIN_STORE.activeBulletinCollection &&
-        BULLETIN_STORE.activeBulletinCollection.hasDaytimeDependency() ? (
+        {daytimeDependency ? (
           <div className="bulletin-parallel-view">
-            {["am", "pm"].map((daytime, index) => (
+            {["am", "pm"].map((ampm, index) => (
               <BulletinMap
-                key={daytime}
+                key={ampm}
                 handleMapViewportChanged={handleMapViewportChanged}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
                 highlightedRegion={highlightedRegion}
-                regions={BULLETIN_STORE.getVectorRegions(daytime)}
                 onMapInit={handleMapInit}
-                ampm={daytime}
+                ampm={ampm}
               />
             ))}
           </div>
@@ -233,20 +284,16 @@ const Bulletin = props => {
             handleSelectRegion={handleSelectRegion}
             date={params.date}
             highlightedRegion={highlightedRegion}
-            regions={BULLETIN_STORE.getVectorRegions()}
           />
         )}
-        <BulletinLegend
-          handleSelectRegion={handleSelectRegion}
-          problems={BULLETIN_STORE.problems}
-        />
+        <BulletinLegend handleSelectRegion={handleSelectRegion} />
       </Suspense>
-      <BulletinButtonbar />
-      {BULLETIN_STORE.activeBulletinCollection && (
+      <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
+      {collection && (
         <BulletinList
-          daytimeBulletins={
-            BULLETIN_STORE.activeBulletinCollection.daytimeBulletins
-          }
+          bulletins={collection.bulletins}
+          date={BULLETIN_STORE.date}
+          region={BULLETIN_STORE.settings.region}
         />
       )}
       <SmShare

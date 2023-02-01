@@ -12,6 +12,10 @@ interface FeatureProperties {
   HSD24?: number;
   HSD48?: number;
   HSD72?: number;
+  N6?: number;
+  N24?: number;
+  N48?: number;
+  N72?: number;
   LD?: number;
   LT_MAX?: number;
   LT_MIN?: number;
@@ -89,6 +93,18 @@ export class StationData {
   }
   get snow72() {
     return this.properties.HSD72;
+  }
+  get precipitation6() {
+    return this.properties.N6;
+  }
+  get precipitation24() {
+    return this.properties.N24;
+  }
+  get precipitation48() {
+    return this.properties.N48;
+  }
+  get precipitation72() {
+    return this.properties.N72;
   }
   get rhum() {
     return this.properties.RH;
@@ -270,8 +286,8 @@ export default class StationDataStore {
       });
   }
 
-  load(timePrefix: any) {
-    let stationsFile = Util.template(window.config.apis.weather.stations, {
+  load(timePrefix = "") {
+    const stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);

@@ -63,6 +63,8 @@
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}{format}",
       "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "CAAMLv6_2022": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6_2022.json",
+      "archive": "https://static.avalanche.report/bulletins/archive/",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
     "push": "https://api.avalanche.report/albina/api/push",
@@ -79,7 +81,7 @@
   },
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
-    "google": "AIzaSyBN0GUcRlTfoVnarVFVpA1hUEnDcDjuXQY"
+    "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
   },
   "links": {
     "euregio": "http://www.europaregion.info/",
@@ -88,7 +90,9 @@
       "Bundesforschungszentrum für Wald - BFW": "https://www.bfw.gv.at/",
       "DIVERSE": "",
       "E-Werk St. Anton aArlberg": "https://www.ewa-services.at/",
+      "Eurac Research": "http://lter.eurac.edu/en/",
       "Firma Hella": "https://www.hella.info/",
+      "GeoSphere Austria": "https://www.geosphere.at/",
       "HD Tirol": "https://wiski.tirol.gv.at/hydro/",
       "Institut für Interdisziplinäre Gebirgsforschung ÖAW": "https://www.oeaw.ac.at/",
       "LWD Tirol": "",
@@ -316,6 +320,7 @@
       "all": {
         "color": "#aaaaaa",
         "opacity": 1.0,
+        "stroke": true,
         "weight": 1
       },
       "default": {
@@ -327,6 +332,7 @@
         "fillOpacity": 0.75
       },
       "mouseOver": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555"
       },
@@ -335,6 +341,7 @@
         "fillOpacity": 0.5
       },
       "selected": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555",
         "fillColor": "none"
@@ -349,16 +356,19 @@
   "footer": {
     "icons": [
       {
+        "region": "AT-07",
         "img": "Landeslogo_Regular_4c",
         "title": "Tirol",
         "url": "https://www.tirol.gv.at/"
       },
       {
+        "region": "IT-32-BZ",
         "img": "LW-4Z-3sprachig",
         "title": "Südtirol",
         "url": "http://wetter.provinz.bz.it/"
       },
       {
+        "region": "IT-32-TN",
         "img": "Stemma_PAT_colore",
         "title": "Trentino",
         "url": "https://www.meteotrentino.it/"
@@ -368,7 +378,7 @@
   },
 
   "archive": {
-    "minYear": 2016,
+    "minYear": 1993,
     "maxResults": 31
   },
   "languageHostSettings": {
@@ -400,7 +410,7 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "startUTCHourForTimespans": 5,
+      "startUTCHourForTimespans": -1,
       "mapOptionsOverride": {
         "maxZoom": 12,
         "minZoom": 7

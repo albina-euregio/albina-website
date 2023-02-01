@@ -109,13 +109,6 @@
 .leaflet-geonames-icon {
   background-size: cover !important;
   background: transparent no-repeat center center;
-  /*src: https://material.io/icons/#ic_search*/
-  background-image: url(./../images/pro/geonames/search.png);
-}
-
-.leaflet-geonames-icon:hover {
-  /*src: https://material.io/icons/#ic_search*/
-  background-image: url(./../images/pro/geonames/search-hover.png);
 }
 
 .leaflet-geonames-icon-working {

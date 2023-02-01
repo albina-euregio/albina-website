@@ -1,30 +1,26 @@
 import React from "react";
 import { NAVIGATION_STORE } from "../../stores/navigationStore";
 
-export default class PageHeadline extends React.Component {
-  render() {
-    // if no subtitle is given, take the active first-level header menu entry
-    const subtitle = this.props.subtitle
-      ? this.props.subtitle
-      : NAVIGATION_STORE.activeTopLevelElement
-      ? NAVIGATION_STORE.activeTopLevelElement.title
-      : "";
+export default function PageHeadline(props) {
+  // if no subtitle is given, take the active first-level header menu entry
+  const subtitle = props.subtitle
+    ? props.subtitle
+    : NAVIGATION_STORE.activeTopLevelElement
+    ? NAVIGATION_STORE.activeTopLevelElement.title
+    : "";
 
-    return (
-      <section className="section-padding section-header">
-        <header className="section-centered">
-          {this.props.marginal && (
-            <p className="marginal">{this.props.marginal}</p>
-          )}
-          {subtitle && (
-            <h2 className="subheader" aria-hidden>
-              {subtitle}
-            </h2>
-          )}
-          {this.props.title && <h1>{this.props.title}</h1>}
-          {this.props.children}
-        </header>
-      </section>
-    );
-  }
+  return (
+    <section className="section-padding section-header">
+      <header className="section-centered">
+        {props.marginal && <p className="marginal">{props.marginal}</p>}
+        {subtitle && (
+          <h2 className="subheader" aria-hidden>
+            {subtitle}
+          </h2>
+        )}
+        {props.title && <h1>{props.title}</h1>}
+        {props.children}
+      </header>
+    </section>
+  );
 }

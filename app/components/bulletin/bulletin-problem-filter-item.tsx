@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
-import ProblemIcon from "../icons/problem-icon.jsx";
+import ProblemIcon from "../icons/problem-icon";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   active: boolean;
-  handleSelectRegion: any;
+  handleSelectRegion: (id?: string) => void;
   problemId: Caaml.AvalancheProblemType;
 };
 

@@ -1,59 +1,11 @@
 /* eslint-env node */
 import { writeFileSync } from "fs";
-import polyline from "@mapbox/polyline";
 import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const precision = 3;
 const today = "2022-12-01";
 const excludeAws = ["ALPSOLUT", "METEOMONT Carabinieri"];
-
-/**
- * @param {GeoJSON.FeatureCollection<Polygon>} geojson
- * @param {GeoJSON.Polygon => GeoJSON.Polygon} function
- */
-function mapFeatureCollection(geojson, geometryMapper) {
-  if (geojson.type !== "FeatureCollection") {
-    throw "Invalid type " + geojson.type;
-  }
-  return {
-    ...geojson,
-    features: geojson.features.map(feature => ({
-      ...feature,
-      geometry: geometryMapper(feature.geometry)
-    }))
-  };
-}
-
-/**
- * @param {GeoJSON.FeatureCollection<Polygon>} geojson
- */
-function encodeFeatureCollection(geojson) {
-  return mapFeatureCollection(geojson, encodeGeometry);
-}
-
-/**
- * @param {GeoJSON.Geometry} geometry
- */
-function encodeGeometry(geometry) {
-  if (geometry.type === "Polygon") {
-    return {
-      ...geometry,
-      coordinates: geometry.coordinates
-        .map(c => polyline.encode(c, precision))
-        .join("\n")
-    };
-  } else if (geometry.type === "MultiPolygon") {
-    return {
-      ...geometry,
-      coordinates: geometry.coordinates.map(cc =>
-        cc.map(c => polyline.encode(c, precision)).join("\n")
-      )
-    };
-  }
-  throw "Invalid type " + geometry.type;
-}
 
 /**
  * @param {string[]} files
@@ -87,8 +39,15 @@ function encodeFiles(files, output, { doFilter } = { doFilter: true }) {
     properties.threshold || delete properties.threshold;
     delete properties["elevation line_visualization"];
   });
-  const polyline = encodeFeatureCollection(geojson);
-  writeFileSync(output, JSON.stringify(polyline, undefined, 2));
+  geojson.features.forEach(feature => delete feature.geometry);
+  writeFileSync(
+    output,
+    JSON.stringify(
+      geojson.features.map(feature => feature.properties),
+      undefined,
+      2
+    )
+  );
 }
 
 encodeFiles(
@@ -97,17 +56,7 @@ encodeFiles(
     "eaws-regions/public/micro-regions/IT-32-BZ_micro-regions.geojson.json",
     "eaws-regions/public/micro-regions/IT-32-TN_micro-regions.geojson.json"
   ],
-  "app/stores/micro_regions.polyline.json",
-  { doFilter: false }
-);
-
-encodeFiles(
-  [
-    "eaws-regions/public/micro-regions_elevation/AT-07_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json"
-  ],
-  "app/stores/micro-regions_elevation.polyline.json",
+  "app/stores/micro_regions.features.json",
   { doFilter: false }
 );
 
@@ -135,22 +84,9 @@ const eawsRegions = [
   "IT-36",
   "IT-57",
   "NO",
-  "SI",
-  "SK"
-];
-
-const eawsRegionsWithoutElevation = [
-  "AD",
-  "CH",
-  "CZ",
-  "ES",
-  "ES-CT",
-  "FI",
-  "FR",
-  "GB",
-  "IS",
-  "NO",
   "PL",
+  "PL-12",
+  "SI",
   "SK"
 ];
 
@@ -160,16 +96,5 @@ encodeFiles(
     .map(
       region => `eaws-regions/public/outline/${region}_outline.geojson.json`
     ),
-  "app/stores/eaws_regions.polyline.json"
-);
-
-eawsRegions.forEach(region =>
-  encodeFiles(
-    [
-      eawsRegionsWithoutElevation.includes(region)
-        ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
-        : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
-    ],
-    `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
-  )
+  "app/stores/eaws_regions.features.json"
 );

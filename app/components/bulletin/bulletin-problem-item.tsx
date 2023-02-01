@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { observer } from "mobx-react";
-import { injectIntl, useIntl } from "react-intl";
-import ProblemIconLink from "../icons/problem-icon-link.jsx";
-import ExpositionIcon from "../icons/exposition-icon.jsx";
-import ElevationIcon from "../icons/elevation-icon.jsx";
-// import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link.jsx";
-// import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
-// import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link.jsx";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import { useIntl } from "react-intl";
+import ProblemIconLink from "../icons/problem-icon-link";
+import ExpositionIcon from "../icons/exposition-icon";
+import ElevationIcon from "../icons/elevation-icon";
+// import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
+// import FrequencyIconLink from "../icons/frequency-icon-link";
+// import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
+import { AvalancheProblem } from "../../stores/bulletin";
 
-type Props = { problem: Caaml.AvalancheProblem };
+type Props = { problem: AvalancheProblem };
 
 function BulletinProblemItem({ problem }: Props) {
   const intl = useIntl();
   function getElevationIcon() {
-    const lowerBound = problem?.dangerRating?.elevation?.lowerBound;
-    const upperBound = problem?.dangerRating?.elevation?.upperBound;
+    const lowerBound = problem?.elevation?.lowerBound;
+    const upperBound = problem?.elevation?.upperBound;
 
     if (lowerBound && upperBound) {
       if (lowerBound === "treeline") {
@@ -158,14 +158,27 @@ function BulletinProblemItem({ problem }: Props) {
     }
   }
 
-  const expositions = problem?.dangerRating?.aspects;
-  if (!expositions) return <li></li>;
-  const snowpackStability = problem?.dangerRating?.snowpackStability;
-  const frequency = problem?.dangerRating?.frequency;
-  const avalancheSize = problem?.dangerRating?.avalancheSize;
-  const expositionText = intl.formatMessage({
-    id: "bulletin:report:exposition"
-  });
+  const expositions = problem?.aspects;
+  const snowpackStability = problem?.snowpackStability;
+  const frequency = problem?.frequency;
+  const avalancheSize = problem?.avalancheSize;
+  const expositionText = useMemo(
+    () =>
+      intl.formatMessage({
+        id: "bulletin:report:exposition"
+      }) +
+      (Array.isArray(expositions)
+        ? ": " +
+          expositions
+            .map(e =>
+              intl.formatMessage({
+                id: "bulletin:report:problem:aspect:" + e.toLocaleLowerCase()
+              })
+            )
+            .join(", ")
+        : ""),
+    [expositions, intl]
+  );
   const snowpackStabilityText = intl.formatMessage({
     id: "bulletin:report:problem:snowpack-stability"
   });
@@ -189,9 +202,7 @@ function BulletinProblemItem({ problem }: Props) {
             <div className="matrix-info">
               <span className="matrix-info-name">{snowpackStabilityText}:</span>
               <span className="matrix-info-value">
-                <a
-                  href={"/education/snowpack-stabilities#" + snowpackStability}
-                >
+                <a href={"/education/snowpack-stability"}>
                   {intl.formatMessage({
                     id:
                       "bulletin:report:problem:snowpack-stability:" +
@@ -205,7 +216,7 @@ function BulletinProblemItem({ problem }: Props) {
             <div className="matrix-info">
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
-                <a href={"/education/frequencies#" + frequency}>
+                <a href={"/education/frequency"}>
                   {intl.formatMessage({
                     id: "bulletin:report:problem:frequency:" + frequency
                   })}

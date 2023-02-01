@@ -19,7 +19,33 @@ type BlogConfig = {
   };
 };
 
-class BlogPostPreviewItem {
+type BloggerItem = {
+  kind: string;
+  id: string;
+  blog: {
+    id: string;
+  };
+  published: Date;
+  updated: Date;
+  url: string;
+  selfLink: string;
+  title: string;
+  images?: {
+    url: string;
+  }[];
+  author: {
+    id: string;
+    displayName: string;
+    url: string;
+    image: {
+      url: string;
+    };
+  };
+  labels?: string[];
+  etag: string;
+};
+
+export class BlogPostPreviewItem {
   constructor(
     public blogName: string,
     public postId: string,
@@ -37,7 +63,7 @@ class BlogPostPreviewItem {
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
-  _regions: {};
+  _regions: object;
   _languages: { de: boolean; it: boolean; en: boolean };
   _year: number | "";
   _month: number | "";
@@ -54,7 +80,10 @@ export default class BlogStore {
   blogProcessor: {
     blogger: {
       createUrl: (config: BlogConfig) => string;
-      process: (response: any, config: BlogConfig) => BlogPostPreviewItem[];
+      process: (
+        response: { items: BloggerItem[] },
+        config: BlogConfig
+      ) => BlogPostPreviewItem[];
     };
   };
 
@@ -169,7 +198,6 @@ export default class BlogStore {
 
     // region
     if (urlValues.region != this.regionActive) {
-      console.log("blogStore->setRegion");
       this.setRegions(urlValues.region);
       needLoad = true;
     }
@@ -193,7 +221,6 @@ export default class BlogStore {
     }
 
     if (needLoad) {
-      // console.log("reload needed");
       this.load(true);
     }
   }
@@ -202,7 +229,7 @@ export default class BlogStore {
     labels: string | string[],
     published: string | number | Date
   ): number {
-    let newUntil = new Date(published);
+    const newUntil = new Date(published);
     //newUntil.setMonth(newUntil.getMonth() + 12);
     if (labels.includes("valid_72h"))
       return newUntil.setHours(newUntil.getHours() + 72);
@@ -337,8 +364,7 @@ export default class BlogStore {
     const newPosts = {};
 
     // filter config for lang and region
-    // eslint-disable-next-line no-unused-vars
-    for (let cfg of blogsConfig) {
+    for (const cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
@@ -354,14 +380,10 @@ export default class BlogStore {
                     newPosts[cfg.name].push(i);
                   });
                 },
-                (errorText, statusCode) => {
-                  console.warn(errorText);
-                  if (
-                    parseInt(statusCode) == 304 &&
-                    Array.isArray(this._posts[cfg.name])
-                  ) {
-                    newPosts[cfg.name] = this._posts[cfg.name];
-                  }
+                error => {
+                  //todo: indicate loading error
+                  console.warn("Error while fetching post from " + url, error);
+                  throw error;
                 }
               )
             );
@@ -375,8 +397,21 @@ export default class BlogStore {
     return this.setPostsLoaded(newPosts);
   }
 
+  async loadBlogPost(blogId: unknown, postId: unknown) {
+    const url =
+      window.config.apis.blogger +
+      blogId +
+      "/posts/" +
+      postId +
+      "?key=" +
+      encodeURIComponent(window.config.apiKeys.google);
+    this._loading = true;
+    const post = await fetchJSON(url, {});
+    this._loading = false;
+    return post;
+  }
+
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
-    // console.log("posts loaded", newPosts);
     this.posts = newPosts;
     this._loading = false;
   }
@@ -489,18 +524,15 @@ export default class BlogStore {
 
   setRegions(region: string) {
     const newRegions = this.regions;
-    // eslint-disable-next-line no-unused-vars
-    for (let r in newRegions) {
+    for (const r in newRegions) {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
-    console.log("blogstore->setRegions xx101", region, newRegions);
     this._regions = newRegions;
   }
 
   setLanguages(lang: string) {
     const newLanguages = this.languages;
-    // eslint-disable-next-line no-unused-vars
-    for (let l in newLanguages) {
+    for (const l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }
     this._languages = newLanguages;
@@ -532,8 +564,7 @@ export default class BlogStore {
     const currentDate = new Date().getTime();
     let nrOfNewPosts = 0;
     if (this.posts) {
-      // eslint-disable-next-line no-unused-vars
-      for (let prop in this.posts) {
+      for (const prop in this.posts) {
         this.posts[prop].forEach(aPost => {
           if (currentDate < aPost.newUntil) nrOfNewPosts++;
         });

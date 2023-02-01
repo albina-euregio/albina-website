@@ -92,6 +92,38 @@ class Education extends React.Component {
             </li>
 
             <li className="feature-item">
+              <Link
+                to="/education/workflow"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_workflow.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:workflow:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:workflow:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:workflow:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:workflow:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
+
+            <li className="feature-item">
               <Link to="/education/matrix" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
@@ -114,6 +146,70 @@ class Education extends React.Component {
                   <p>
                     {this.props.intl.formatMessage({
                       id: "education:overview:eaws-matrix:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
+
+            <li className="feature-item">
+              <Link
+                to="/education/snowpack-stability"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_snowpack-stability.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:snowpack-stability:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:snowpack-stability:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:snowpack-stability:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:snowpack-stability:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
+
+            <li className="feature-item">
+              <Link
+                to="/education/frequency"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_frequency.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:frequency:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:frequency:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:frequency:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:frequency:text"
                     })}
                   </p>
                 </div>
@@ -146,6 +242,38 @@ class Education extends React.Component {
                   <p>
                     {this.props.intl.formatMessage({
                       id: "education:overview:avalanche-sizes:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
+
+            <li className="feature-item">
+              <Link
+                to="/education/spatio-temporal-scale"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_spatio-temporal-scale.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:spatio-temporal-scale:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:spatio-temporal-scale:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:spatio-temporal-scale:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:spatio-temporal-scale:text"
                     })}
                   </p>
                 </div>

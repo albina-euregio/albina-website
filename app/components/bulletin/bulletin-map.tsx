@@ -1,21 +1,23 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
-import { GeoJSON } from "react-leaflet";
-import InfoBar from "../organisms/info-bar";
-import { dateToISODateString, parseDate } from "../../util/date";
+import React, { useState, useEffect } from "react";
+import { useIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
+import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
-import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
-import BulletinVectorLayer from "./bulletin-vector-layer";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
+import {
+  DangerRatings,
+  EawsDangerRatings,
+  PbfLayer,
+  PbfLayerOverlay,
+  PbfRegionState
+} from "../leaflet/pbf-map";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -26,63 +28,13 @@ import { scroll_init } from "../../js/scroll";
  */
 const BulletinMap = props => {
   const intl = useIntl();
-  const [map, setMap] = useState(null);
+  const [regionMouseover, setRegionMouseover] = useState("");
 
   useEffect(() => {
-    //console.log("BulletinMap->useEffect[props.regions] xx03");
     scroll_init();
-  }, [props.regions]);
-
-  const infoMessageLevels = useMemo(() => {
-    const simple = Util.template(window.config.apis.bulletin.simple, {
-      date: props.date ? dateToISODateString(parseDate(props.date)) : "latest",
-      lang: APP_STORE.language
-    });
-
-    let levels = {
-      init: {
-        message: "",
-        iconOn: true
-      },
-      ok: { message: "", keep: false }
-    };
-
-    levels.pending = {
-      message: intl.formatMessage(
-        { id: "bulletin:header:info-loading-data-slow" },
-        { a: msg => <a href={simple}>{msg}</a> }
-      ),
-      iconOn: true,
-      delay: 5000
-    };
-
-    levels.empty = {
-      message: (
-        <>
-          <p>
-            <FormattedMessage id="bulletin:header:info-no-data" />
-          </p>
-          <p>
-            <Tooltip
-              label={intl.formatMessage({
-                id: "bulletin:map:blog:button:title"
-              })}
-            >
-              <Link to="/blog" className="secondary pure-button">
-                {intl.formatMessage({ id: "blog:title" })}
-              </Link>
-            </Tooltip>
-          </p>
-        </>
-      ),
-      keep: false
-    };
-    return levels;
-  }, [props.date, intl]);
+  }, []);
 
   const handleMapInit = map => {
-    setMap(map);
-
     map.on("click", _click, this);
     map.on("unload", () => map.off("click", _click, this));
 
@@ -104,94 +56,112 @@ const BulletinMap = props => {
 
   const getMapOverlays = () => {
     const overlays = [];
-
-    if (BULLETIN_STORE.eawsRegions) {
-      overlays.push(
-        <BulletinVectorLayer
-          key="eaws-regions"
-          name="eaws-regions"
-          problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.eawsRegions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
-        />
-      );
-    }
-
-    const { activeEawsBulletins } = BULLETIN_STORE;
-    if (BULLETIN_STORE.settings.eawsCount && activeEawsBulletins) {
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`eaws-bulletins-${activeEawsBulletins.name}`}
-          data={activeEawsBulletins}
-          pane="mapPane"
-          style={feature =>
-            props.ampm === "am"
-              ? feature.properties.amStyle
-              : props.ampm === "pm"
-              ? feature.properties.pmStyle
-              : feature.properties.style
-          }
-        />
-      );
-    }
-
+    const date = BULLETIN_STORE.settings.date;
     const b = BULLETIN_STORE.activeBulletinCollection;
-    if (b) {
-      overlays.push(
-        <GeoJSON
-          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`bulletin-regions-${props.ampm}-${b.date}-${b.status}`}
-          data={BULLETIN_STORE.microRegionsElevation}
-          pane="mapPane"
-          style={feature =>
-            BULLETIN_STORE.getMicroElevationStyle(feature, props.ampm)
+    overlays.push(
+      <PbfLayer
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}`}
+        date={date}
+        ampm={props.ampm}
+      >
+        {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
+        {[
+          "AD",
+          "AT-02",
+          "AT-03",
+          "AT-04",
+          "AT-05",
+          "AT-06",
+          "AT-08",
+          "CH",
+          "CZ",
+          "DE-BY",
+          "ES-CT-L",
+          "ES-CT",
+          "ES",
+          "FR",
+          "GB",
+          "IS",
+          "IT-21",
+          "IT-23",
+          "IT-25",
+          "IT-34",
+          "IT-36",
+          "IT-57",
+          "NO",
+          "PL",
+          "PL-12",
+          "SE",
+          "SI",
+          "SK"
+        ].map(region => (
+          <EawsDangerRatings key={region} date={date} region={region} />
+        ))}
+      </PbfLayer>
+    );
+    overlays.push(
+      <PbfLayerOverlay
+        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
+        date={date}
+        ampm={props.ampm}
+        eventHandlers={{
+          click(e) {
+            DomEvent.stop(e);
+            props.handleSelectRegion(e.sourceTarget.properties.id);
+          },
+          mouseover(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(e.sourceTarget.properties.id)
+            );
+          },
+          mouseout(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(id =>
+                id === e.sourceTarget.properties.id ? "" : id
+              )
+            );
           }
-        />
-      );
-    }
-
-    if (props.regions) {
-      //console.log("bulletin-map push Vector xx01", "eaws-regions");
-      overlays.push(
-        <BulletinVectorLayer
-          key="bulletin-regions"
-          name="bulletin-regions"
-          problems={BULLETIN_STORE.problems}
-          date={BULLETIN_STORE.settings.date}
-          activeRegion={BULLETIN_STORE.settings.region}
-          regions={props.regions}
-          bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={props.handleSelectRegion}
-          handleCenterToRegion={center => map.panTo(center)}
-        />
-      );
-    }
+        }}
+      >
+        {[
+          ...BULLETIN_STORE.microRegionIds,
+          ...BULLETIN_STORE.eawsRegionIds
+        ].map(region => {
+          const regionState =
+            region === regionMouseover
+              ? "mouseOver"
+              : BULLETIN_STORE.getRegionState(region, props.ampm);
+          return (
+            <PbfRegionState
+              key={region + regionState + props.ampm}
+              region={region}
+              regionState={regionState}
+            />
+          );
+        })}
+      </PbfLayerOverlay>
+    );
     return overlays;
   };
 
   const getBulletinMapDetails = () => {
-    let res = [];
-    let detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
-    if (activeBulletin) {
+    const res = [];
+    const detailsClasses = ["bulletin-map-details", "top-right"];
+    if (BULLETIN_STORE.activeBulletin) {
+      const activeBulletin = BULLETIN_STORE.activeBulletin;
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
-          daytimeBulletin={activeBulletin}
+          bulletin={activeBulletin}
           region={intl.formatMessage({
-            id: "region:" + activeRegionName
+            id: "region:" + BULLETIN_STORE.settings.region
           })}
           ampm={props.ampm}
         />
       );
       res.push(
-        activeBulletin?.id && (
+        activeBulletin?.bulletinID && (
           <Tooltip
             key="tp-link"
             label={intl.formatMessage({
@@ -201,7 +171,7 @@ const BulletinMap = props => {
             <a
               tabIndex="-1"
               key="link"
-              href={"#" + activeBulletin?.id}
+              href={"#" + activeBulletin?.bulletinID}
               className="pure-button"
               data-scroll=""
             >
@@ -215,7 +185,8 @@ const BulletinMap = props => {
           </Tooltip>
         )
       );
-    } else if (activeEaws) {
+    } else if (BULLETIN_STORE.activeEaws) {
+      const activeEaws = BULLETIN_STORE.activeEaws;
       detailsClasses.push("js-active");
       const language = APP_STORE.language;
       const country = activeEaws.id.replace(/-.*/, "");
@@ -237,7 +208,7 @@ const BulletinMap = props => {
           </span>
         </p>
       );
-      (activeEaws.properties.aws || []).forEach((aws, index) => {
+      (activeEaws.aws || []).forEach((aws, index) => {
         const href =
           aws.url.find(url => url[language])?.[language] ||
           Object.values(aws.url[0])[0];
@@ -254,7 +225,16 @@ const BulletinMap = props => {
               href={href}
               rel="noopener noreferrer"
               target="_blank"
-              className="pure-button"
+              className={
+                /ALPSOLUT|METEOMONT/.test(aws.name)
+                  ? "pure-button pure-button-disabled"
+                  : "pure-button"
+              }
+              style={{
+                // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
+                cursor: "pointer",
+                pointerEvents: "initial"
+              }}
             >
               {aws.name} <span className="icon-arrow-right" />
             </a>
@@ -284,19 +264,13 @@ const BulletinMap = props => {
       className="section section-bulletin-map"
       aria-hidden
     >
-      {props.administrateLoadingBar && (
-        <InfoBar
-          level={BULLETIN_STORE.settings.status}
-          levels={infoMessageLevels}
-        />
-      )}
       <div
         className={
           "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
         }
       >
         <LeafletMap
-          loaded={props.regions}
+          loaded={BULLETIN_STORE.microRegionIds}
           onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}

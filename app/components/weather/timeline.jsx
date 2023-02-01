@@ -178,7 +178,10 @@ class Timeline extends React.Component {
               >
                 {weekday.substring(0, 2)}
                 <span>{weekday.substring(2, 20)}</span>{" "}
-                {this.props.intl.formatDate(aTime)}
+                {this.props.intl.formatDate(aTime, {
+                  day: "numeric",
+                  month: "numeric"
+                })}
               </a>
             </span>
             <div key="cp-scale-hours" className="cp-scale-hours">

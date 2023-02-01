@@ -1,11 +1,10 @@
 import React from "react";
-import WarnLevelIcon from "../icons/warn-level-icon.jsx";
-import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
+import WarnLevelIcon from "../icons/warn-level-icon";
+import type * as Caaml from "../../stores/bulletin";
 
-type Props = { bulletin: Caaml.Bulletin };
+type Props = { dangerRatings: Caaml.DangerRating[] };
 
-function BulletinDangerRating({ bulletin }: Props) {
-  const dangerRatings = bulletin.dangerRatings;
+function BulletinDangerRating({ dangerRatings }: Props) {
   if (!dangerRatings || !dangerRatings.length) return null;
 
   const dangerRatingBelow = dangerRatings.find(
@@ -18,7 +17,7 @@ function BulletinDangerRating({ bulletin }: Props) {
     r?.elevation?.lowerBound,
     r?.elevation?.upperBound
   ]);
-  const elevation = dangerRatingBounds.find(bound => bound !== "treeline");
+  const elevation = dangerRatingBounds.find(b => b && b !== "treeline");
   const treeline = dangerRatingBounds.some(bound => bound === "treeline");
 
   return (

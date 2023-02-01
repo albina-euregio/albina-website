@@ -1,24 +1,21 @@
 import React from "react";
 import { observer } from "mobx-react";
-import ProblemIconLink from "../icons/problem-icon-link.jsx";
+import ProblemIconLink from "../icons/problem-icon-link";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
-import type { DaytimeBulletin } from "../../stores/bulletin/DaytimeBulletin";
+import { Bulletin, isAmPm } from "../../stores/bulletin";
 
 type Props = {
   ampm: "am" | "pm";
-  daytimeBulletin: DaytimeBulletin;
+  bulletin: Bulletin;
   region: string;
 };
 
-function BulletinMapDetails({ ampm, daytimeBulletin, region }: Props) {
-  // TODO: create common component with bulletin-report
-
-  const daytime =
-    daytimeBulletin.hasDaytimeDependency && ampm == "pm"
-      ? "afternoon"
-      : "forenoon";
-  const bulletin = daytimeBulletin[daytime]!;
-  const problems = bulletin.avalancheProblems || [];
+function BulletinMapDetails({ ampm, bulletin, region }: Props) {
+  const problems =
+    bulletin.avalancheProblems.filter(p => isAmPm(ampm, p.validTimePeriod)) ||
+    [];
+  const dangerRatings =
+    bulletin.dangerRatings.filter(p => isAmPm(ampm, p.validTimePeriod)) || [];
   let key = 0;
   let count = 0;
 
@@ -29,11 +26,13 @@ function BulletinMapDetails({ ampm, daytimeBulletin, region }: Props) {
       </p>
       <ul className="list-plain">
         <li className="bulletin-report-picto">
-          <BulletinDangerRating bulletin={bulletin} />
+          <BulletinDangerRating dangerRatings={dangerRatings} />
         </li>{" "}
         {problems.map(problem => {
           if (count < 2) {
-            if (!(key > 0 && problems[0].type == problems[key].type)) {
+            if (
+              !(key > 0 && problems[0].problemType == problems[key].problemType)
+            ) {
               count++;
               return (
                 <li key={key++}>

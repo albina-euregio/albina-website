@@ -55,7 +55,11 @@ const StationMeasurements = () => {
   };
 
   const classChanged = "selectric-changed";
-  const hideFilters = ["snow", "temp", "wind"];
+  const hideFilters: (keyof typeof store.activeData)[] = [
+    "snow",
+    "temp",
+    "wind"
+  ];
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "measurements:title" })} />
