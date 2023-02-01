@@ -11,9 +11,20 @@ import { ModellingService, ZamgModelPoint } from "../modelling.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
-import { CircleMarker, LatLngLiteral } from "leaflet";
+import {
+  CircleMarker,
+  Marker,
+  LatLngLiteral,
+  LatLng,
+  Browser,
+  Icon,
+} from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import {
+  RegionsService,
+  RegionProperties,
+} from "../../providers/regions-service/regions.service";
 
 type ModelType =
   | "multimodel"
@@ -51,6 +62,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     observed_profile: [],
     alpsolut_profile: [],
   };
+  public readonly allRegions: RegionProperties[];
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "multimodel",
@@ -87,10 +99,13 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
+  private selectedRegions: any[];
+
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
 
   constructor(
+    private regionsService: RegionsService,
     public mapService: BaseMapService,
     private modellingService: ModellingService,
     private constantsService: ConstantsService,
@@ -108,6 +123,38 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     this.allSources.forEach((source) => {
       this.mapService.addMarkerLayer(source.id);
     });
+    this.mapService.map.on("click", () => {
+      //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
+
+      this.selectedRegions = this.mapService
+        .getSelectedRegions()
+        .map((aRegion) => aRegion.id);
+      this.filterRegions();
+    });
+  }
+
+  filterRegions() {
+    console.log(this.selectedRegions);
+  }
+
+  getIcon(color: string) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="5" fill="${color}" /></svg>`;
+    const iconSize = 20;
+    const iconUrl = Browser.gecko
+      ? "data:image/svg+xml;base64," +
+        btoa(svg.replace(/<svg/, '<svg width="20" height="20"'))
+      : "data:image/svg+xml;base64," + btoa(svg);
+
+    const icon = new Icon({
+      iconUrl: iconUrl,
+      iconSize: [iconSize, iconSize],
+      iconAnchor: [iconSize / 2, iconSize / 2],
+    });
+
+    console.log(svg);
+    console.log(icon);
+
+    return icon;
   }
 
   async load() {
@@ -138,6 +185,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
                 ? point.lng + 0.002
                 : point.lng,
           };
+          const region = this.regionsService.getRegionForLatLng(
+            new LatLng(ll.lat, ll.lng)
+          );
           const callback = () => {
             this.selectedModelPoint = point;
             this.selectedModelType = source.id;
@@ -150,12 +200,14 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
           ]
             .filter((s) => !/undefined/.test(s))
             .join("<br>");
-          const marker = new CircleMarker(
-            ll,
-            this.getModelPointOptions(source.id)
-          )
+
+          const icon = this.getIcon(
+            this.allSources.find((s) => s.id === source.id)?.fillColor
+          );
+          const marker = new Marker(ll, { icon: icon })
             .on("click", callback)
             .bindTooltip(tooltip);
+
           const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
           this.mapService.addMarker(marker, source.id, attribution);
           if (
