@@ -386,6 +386,7 @@
 
     .picto-caption {
       position: relative;
+      max-width: $picto-height + $padding * 1.8;
       margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
       @include font-normal;
       @include letter-spacing(0);
