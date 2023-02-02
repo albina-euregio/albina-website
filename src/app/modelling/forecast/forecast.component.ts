@@ -33,6 +33,11 @@ export interface MultiselectDropdownData {
   fillColor: string;
 }
 
+export interface ModelPoint {
+  type: ModelType;
+  point: any;
+}
+
 @Component({
   templateUrl: "./forecast.component.html",
   styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"],
@@ -95,6 +100,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   private swipeTime?: number;
 
   private selectedRegions: any[];
+  public modelPoints: any[];
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -129,30 +135,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  // filterRegions() {
-  //   for (const layer of Object.values(this.mapService.layers)) {
-  //     layer.clearLayers();
-  //     this.addRegionalMarkers();
-  //   }
-  // }
-
-  // addRegionalMarkers() {
-  //   const filteredRegions = this.selectedRegions || this.allRegions;
-  //   // console.log(this.regionalMarkers);
-  //   console.log(filteredRegions);
-  //   for (const region of filteredRegions) {
-  //     console.log("regionalMarkers", this.regionalMarkers[region]);
-  //     for (const marker of this.regionalMarkers[region]) {
-  //       console.log(marker);
-  //       this.mapService.addMarker(
-  //         marker.marker,
-  //         marker.layerName,
-  //         marker.attribution
-  //       );
-  //     }
-  //   }
-  // }
-
   async load() {
     this.mapService.removeMarkerLayers();
     this.loading = true;
@@ -162,56 +144,65 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     this.loading = false;
   }
 
+  drawMarker(modelPoint: ModelPoint) {
+    const { type, point } = modelPoint;
+    const ll: LatLngLiteral = {
+      lat:
+        type === "eps_claef"
+          ? point.lat + 0.01
+          : type === "eps_ecmwf"
+          ? point.lat - 0.01
+          : point.lat,
+      lng:
+        type === "eps_claef"
+          ? point.lng - 0.002
+          : type === "eps_ecmwf"
+          ? point.lng + 0.002
+          : point.lng,
+    };
+    const region = this.regionsService.getRegionForLatLng(
+      new LatLng(point.lat, point.lng)
+    );
+
+    const callback = () => {
+      if (type === "qfa") this.setQfa(this.files[point.cityName][0], 0);
+      this.selectedModelPoint = type === "qfa" ? undefined : point;
+      this.selectedModelType = type;
+      this.observationPopupVisible = true;
+    };
+
+    const tooltip = [
+      `<i class="fa fa-asterisk"></i> ${point.regionCode || undefined}`,
+      `<i class="fa fa-globe"></i> ${
+        point.regionName || point.cityName || undefined
+      }`,
+      this.allSources.find((s) => s.id === type)?.name,
+      `<div hidden>${region.id}</div>`,
+    ]
+      .filter((s) => !/undefined/.test(s))
+      .join("<br>");
+
+    const marker = new CircleMarker(ll, this.getModelPointOptions(type))
+      .on("click", callback)
+      .bindTooltip(tooltip);
+
+    const source = this.allSources.find((el) => el.id === type);
+    const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
+    this.mapService.addMarker(marker, type, attribution);
+  }
+
   loadAll() {
     this.allSources.forEach((source) => {
       if (source.id === "qfa") return;
       this.modellingService.get(source.id).subscribe((points) => {
         this.dropDownOptions[source.id] = points;
+        console.log(points);
         points.forEach((point) => {
-          const ll: LatLngLiteral = {
-            lat:
-              source.id === "eps_claef"
-                ? point.lat + 0.01
-                : source.id === "eps_ecmwf"
-                ? point.lat - 0.01
-                : point.lat,
-            lng:
-              source.id === "eps_claef"
-                ? point.lng - 0.002
-                : source.id === "eps_ecmwf"
-                ? point.lng + 0.002
-                : point.lng,
+          const modelPoint: ModelPoint = {
+            type: source.id,
+            point: point,
           };
-          const region = this.regionsService.getRegionForLatLng(
-            new LatLng(ll.lat, ll.lng)
-          );
-          const callback = () => {
-            this.selectedModelPoint = point;
-            this.selectedModelType = source.id;
-            this.observationPopupVisible = true;
-          };
-          const tooltip = [
-            `<i class="fa fa-asterisk"></i> ${point.regionCode || undefined}`,
-            `<i class="fa fa-globe"></i> ${point.regionName || undefined}`,
-            this.allSources.find((s) => s.id === source.id)?.name,
-            `<div hidden>${region.id}</div>`,
-          ]
-            .filter((s) => !/undefined/.test(s))
-            .join("<br>");
-
-          const marker = new CircleMarker(
-            ll,
-            this.getModelPointOptions(source.id)
-          )
-            .on("click", callback)
-            .bindTooltip(tooltip);
-          const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
-          if (
-            this.selectedRegions.includes(region.id) ||
-            this.selectedRegions.length === 0
-          ) {
-            this.mapService.addMarker(marker, source.id, attribution);
-          }
+          this.drawMarker(modelPoint);
 
           if (
             this.visibleLayers.includes(source.id) ||
@@ -227,26 +218,16 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     await this.qfaService.loadDustParams();
     for (const [cityName, coords] of Object.entries(this.qfaService.coords)) {
       const ll = coords as LatLngLiteral;
-      const region = this.regionsService.getRegionForLatLng(
-        new LatLng(ll.lat, ll.lng)
-      );
-      const callback = () => {
-        this.setQfa(this.files[cityName][0], 0);
-        this.selectedModelPoint = undefined;
-        this.selectedModelType = "qfa";
-        this.observationPopupVisible = true;
+      const point = {
+        lat: ll.lat,
+        lng: ll.lng,
+        cityName: cityName,
       };
-      const tooltip = `<i class="fa fa-globe"></i> ${cityName}<br>QFA`;
-      const marker = new CircleMarker(ll, this.getModelPointOptions("qfa"))
-        .on("click", callback)
-        .bindTooltip(tooltip);
-      // this.mapService.addMarker(marker, "qfa");
-      if (
-        this.selectedRegions.includes(region.id) ||
-        this.selectedRegions.length === 0
-      ) {
-        this.mapService.addMarker(marker, "qfa");
-      }
+      const modelPoint = {
+        type: "qfa" as ModelType,
+        point: point,
+      };
+      this.drawMarker(modelPoint);
     }
     this.files = await this.qfaService.getFiles();
     if (this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0)
