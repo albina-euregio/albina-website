@@ -94,13 +94,13 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     },
   ];
 
-  private allRegions: RegionProperties[];
+  public allRegions: RegionProperties[];
   private regionalMarkers = {};
 
   private swipeCoord?: [number, number];
   private swipeTime?: number;
 
-  private selectedRegions: any[];
+  public selectedRegions: any[];
   private selectedSources: string[] = [];
   private modelPoints: ModelPoint[] = [];
 
@@ -302,8 +302,12 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  onDropdownSelect(event) {
-    this.selectedSources = event.value;
+  onDropdownSelect(type, event) {
+    if (type === "source") this.selectedSources = event.value;
+    if (type === "regions") {
+      this.selectedRegions = event.value;
+      this.mapService.clickRegion(event.value);
+    }
     this.applyFilter();
   }
 
