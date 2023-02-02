@@ -68,7 +68,7 @@ export class BaseMapService {
   };
 
   public layers = {
-    zamgModelPoints: new LayerGroup(),
+    forecast: new LayerGroup(),
   };
 
   constructor(

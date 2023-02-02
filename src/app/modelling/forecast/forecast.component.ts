@@ -18,6 +18,7 @@ import {
   RegionsService,
   RegionProperties,
 } from "../../providers/regions-service/regions.service";
+import { Subject } from "rxjs";
 
 type ModelType =
   | "multimodel"
@@ -34,7 +35,8 @@ export interface MultiselectDropdownData {
 }
 
 export interface ModelPoint {
-  type: ModelType;
+  source: ModelType;
+  region: RegionProperties;
   point: any;
 }
 
@@ -48,7 +50,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   selectedModelPoint: ZamgModelPoint;
   selectedModelType: ModelType;
   selectedCity: string;
-  visibleLayers: string[] = [];
   qfa: any;
   qfaStartDay: number;
   loading = true;
@@ -100,7 +101,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   private swipeTime?: number;
 
   private selectedRegions: any[];
-  public modelPoints: any[];
+  private selectedSources: string[] = [];
+  private modelPoints: ModelPoint[] = [];
 
   @ViewChild("observationsMap") observationsMap: ElementRef<HTMLDivElement>;
   @ViewChild("qfaSelect") qfaSelect: ElementRef<HTMLSelectElement>;
@@ -129,45 +131,65 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     });
 
     this.initMaps();
-    this.load();
-    this.allSources.forEach((source) => {
-      this.mapService.addMarkerLayer(source.id);
+    this.mapService.map.on("click", () => {
+      this.selectedRegions = this.mapService
+        .getSelectedRegions()
+        .map((aRegion) => aRegion.id);
+      this.applyFilter();
     });
+    this.mapService.addMarkerLayer("forecast");
+    this.load();
   }
 
   async load() {
-    this.mapService.removeMarkerLayers();
+    this.modelPoints = [];
     this.loading = true;
     this.loadAll();
     await this.loadQfa();
-    // this.addRegionalMarkers();
     this.loading = false;
   }
 
+  applyFilter() {
+    Object.values(this.mapService.layers).forEach((layer) =>
+      layer.clearLayers()
+    );
+
+    const filtered = this.modelPoints.filter((el) => {
+      const correctRegion =
+        this.selectedRegions.length === 0 ||
+        this.selectedRegions.includes(el.region.id);
+      const correctSource =
+        this.selectedSources.length === 0 ||
+        this.selectedSources.includes(el.source);
+      return correctRegion && correctSource;
+    });
+
+    filtered.forEach((point) => {
+      this.drawMarker(point);
+    });
+  }
+
   drawMarker(modelPoint: ModelPoint) {
-    const { type, point } = modelPoint;
+    const { source, point, region } = modelPoint;
     const ll: LatLngLiteral = {
       lat:
-        type === "eps_claef"
+        source === "eps_claef"
           ? point.lat + 0.01
-          : type === "eps_ecmwf"
+          : source === "eps_ecmwf"
           ? point.lat - 0.01
           : point.lat,
       lng:
-        type === "eps_claef"
+        source === "eps_claef"
           ? point.lng - 0.002
-          : type === "eps_ecmwf"
+          : source === "eps_ecmwf"
           ? point.lng + 0.002
           : point.lng,
     };
-    const region = this.regionsService.getRegionForLatLng(
-      new LatLng(point.lat, point.lng)
-    );
 
     const callback = () => {
-      if (type === "qfa") this.setQfa(this.files[point.cityName][0], 0);
-      this.selectedModelPoint = type === "qfa" ? undefined : point;
-      this.selectedModelType = type;
+      if (source === "qfa") this.setQfa(this.files[point.cityName][0], 0);
+      this.selectedModelPoint = source === "qfa" ? undefined : point;
+      this.selectedModelType = source;
       this.observationPopupVisible = true;
     };
 
@@ -176,19 +198,19 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       `<i class="fa fa-globe"></i> ${
         point.regionName || point.cityName || undefined
       }`,
-      this.allSources.find((s) => s.id === type)?.name,
+      this.allSources.find((s) => s.id === source)?.name,
       `<div hidden>${region.id}</div>`,
     ]
       .filter((s) => !/undefined/.test(s))
       .join("<br>");
 
-    const marker = new CircleMarker(ll, this.getModelPointOptions(type))
+    const marker = new CircleMarker(ll, this.getModelPointOptions(source))
       .on("click", callback)
       .bindTooltip(tooltip);
 
-    const source = this.allSources.find((el) => el.id === type);
-    const attribution = `<span style="color: ${source.fillColor}">●</span> ${source.name}`;
-    this.mapService.addMarker(marker, type, attribution);
+    const fullSource = this.allSources.find((el) => el.id === source);
+    const attribution = `<span style="color: ${fullSource.fillColor}">●</span> ${fullSource.name}`;
+    this.mapService.addMarker(marker, "forecast", attribution);
   }
 
   loadAll() {
@@ -196,19 +218,19 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       if (source.id === "qfa") return;
       this.modellingService.get(source.id).subscribe((points) => {
         this.dropDownOptions[source.id] = points;
-        console.log(points);
+
         points.forEach((point) => {
+          const region = this.regionsService.getRegionForLatLng(
+            new LatLng(point.lat, point.lng)
+          );
           const modelPoint: ModelPoint = {
-            type: source.id,
+            source: source.id,
+            region: region,
             point: point,
           };
-          this.drawMarker(modelPoint);
 
-          if (
-            this.visibleLayers.includes(source.id) ||
-            this.visibleLayers.length === 0
-          )
-            this.mapService.addMarkerLayer(source.id);
+          this.drawMarker(modelPoint);
+          this.modelPoints.push(modelPoint);
         });
       });
     });
@@ -223,15 +245,18 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         lng: ll.lng,
         cityName: cityName,
       };
+      const region = this.regionsService.getRegionForLatLng(
+        new LatLng(point.lat, point.lng)
+      );
       const modelPoint = {
-        type: "qfa" as ModelType,
+        source: "qfa" as ModelType,
+        region: region,
         point: point,
       };
       this.drawMarker(modelPoint);
+      this.modelPoints.push(modelPoint);
     }
     this.files = await this.qfaService.getFiles();
-    if (this.visibleLayers.includes("qfa") || this.visibleLayers.length === 0)
-      this.mapService.addMarkerLayer("qfa");
   }
 
   initMaps() {
@@ -278,17 +303,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   }
 
   onDropdownSelect(event) {
-    this.visibleLayers = event.value;
-    this.mapService.removeMarkerLayers();
-    if (this.visibleLayers.length) {
-      this.visibleLayers.forEach((layerName) => {
-        this.mapService.addMarkerLayer(layerName);
-      });
-    } else {
-      this.allSources.forEach((source) => {
-        this.mapService.addMarkerLayer(source.id);
-      });
-    }
+    this.selectedSources = event.value;
+    this.applyFilter();
   }
 
   async setQfa(file, startDay = 0) {
