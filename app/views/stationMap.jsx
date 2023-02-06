@@ -31,7 +31,7 @@ class StationMap extends React.Component {
   }
 
   componentDidMount() {
-    this.store.load("");
+    this.store.load();
   }
 
   onMarkerSelected(stationData, feature) {

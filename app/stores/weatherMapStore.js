@@ -119,14 +119,8 @@ export default class WeatherMapStore_new {
   */
   _loadIndexData() {
     this._loading.set(true);
-
-    let cTI = new Date(this.currentTime);
-    //cTI.setHours(cTI.getHours() - 1);
     this.stations = {};
     this.grid = {};
-    let prefix = this.currentTime
-      ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
-      : "";
     let loads = [];
 
     // console.log(
@@ -141,7 +135,7 @@ export default class WeatherMapStore_new {
     ) {
       loads.push(
         new StationDataStore()
-          .load(prefix)
+          .load(this.currentTime ? new Date(this.currentTime) : undefined)
           .then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];
