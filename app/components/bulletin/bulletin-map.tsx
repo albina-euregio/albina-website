@@ -79,6 +79,7 @@ const BulletinMap = props => {
           "ES-CT-L",
           "ES-CT",
           "ES",
+          "FI",
           "FR",
           "GB",
           "IS",
