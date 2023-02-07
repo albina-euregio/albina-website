@@ -79,6 +79,7 @@ const BulletinMap = props => {
           "ES-CT-L",
           "ES-CT",
           "ES",
+          "FI",
           "FR",
           "GB",
           "IS",
@@ -227,7 +228,7 @@ const BulletinMap = props => {
               target="_blank"
               className={
                 /ALPSOLUT|METEOMONT/.test(aws.name)
-                  ? "pure-button pure-button-disabled"
+                  ? "pure-button is-de-highlighted"
                   : "pure-button"
               }
               style={{
