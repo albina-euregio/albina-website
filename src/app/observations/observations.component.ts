@@ -1,18 +1,8 @@
-import {
-  Component,
-  AfterContentInit,
-  AfterViewInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef,
-} from "@angular/core";
+import { Component, AfterContentInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { ObservationsService } from "./observations.service";
-import {
-  RegionsService,
-  RegionProperties,
-} from "../providers/regions-service/regions.service";
+import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { BaseMapService } from "../providers/map-service/base-map.service";
 import {
   GenericObservation,
@@ -23,7 +13,7 @@ import {
   toMarkerColor,
   toObservationTable,
   LocalFilterTypes,
-  ChartsData,
+  ChartsData
 } from "./models/generic-observation.model";
 
 import { MenuItem } from "primeng/api";
@@ -46,11 +36,9 @@ export interface MultiselectDropdownData {
 
 @Component({
   templateUrl: "observations.component.html",
-  styleUrls: ["./observations.component.scss"],
+  styleUrls: ["./observations.component.scss"]
 })
-export class ObservationsComponent
-  implements AfterContentInit, AfterViewInit, OnDestroy
-{
+export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public layout: "map" | "table" | "chart" = "map";
   public layoutFilters = true;
@@ -77,7 +65,7 @@ export class ObservationsComponent
     ObservationType: {},
     ImportantObservation: {},
     DangerPattern: {},
-    Days: {},
+    Days: {}
   };
   public moreItems: MenuItem[];
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
@@ -124,10 +112,10 @@ export class ObservationsComponent
             icon: "",
             command: (event) => {
               this.exportObservations();
-            },
-          },
-        ],
-      },
+            }
+          }
+        ]
+      }
     ];
   }
 
@@ -136,18 +124,14 @@ export class ObservationsComponent
   }
 
   ngAfterViewInit() {
-    this.mapService.initMaps(this.mapDiv.nativeElement, (o) =>
-      this.onObservationClick(o)
-    );
+    this.mapService.initMaps(this.mapDiv.nativeElement, (o) => this.onObservationClick(o));
     this.mapService.addInfo();
 
     this.loadObservations({ days: 7 });
     this.mapService.map.on("click", () => {
       //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
 
-      this.filter.regions = this.mapService
-        .getSelectedRegions()
-        .map((aRegion) => aRegion.id);
+      this.filter.regions = this.mapService.getSelectedRegions().map((aRegion) => aRegion.id);
 
       //console.log("this.mapService.observationsMap click #2", this.filter.regions);
 
@@ -186,9 +170,7 @@ export class ObservationsComponent
         this.applyLocalFilter();
         break;
       case "sources":
-        this.filter.observationSources = this.filter.observationSources.filter(
-          (e) => e !== item.id
-        );
+        this.filter.observationSources = this.filter.observationSources.filter((e) => e !== item.id);
         this.applyLocalFilter();
         break;
       default:
@@ -211,10 +193,7 @@ export class ObservationsComponent
   }
 
   observationTableFilterGlobal(value: string) {
-    this.observationTableComponent.observationTable.filterGlobal(
-      value,
-      "contains"
-    );
+    this.observationTableComponent.observationTable.filterGlobal(value, "contains");
   }
 
   loadObservations({ days }: { days?: number } = {}) {
@@ -225,9 +204,7 @@ export class ObservationsComponent
     }
     this.loading = true;
     this.observations.length = 0;
-    Object.values(this.mapService.observationTypeLayers).forEach((layer) =>
-      layer.clearLayers()
-    );
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService
       .loadAll()
       .forEach((observation) => {
@@ -278,13 +255,10 @@ export class ObservationsComponent
 
     //console.log("applyLocalFilter ##2", this.filter.filterSelection);
 
-    Object.values(this.mapService.observationTypeLayers).forEach((layer) =>
-      layer.clearLayers()
-    );
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations.forEach((observation) => {
       observation.filterType =
-        this.filter.inObservationSources(observation) &&
-        this.filter.isSelected(observation)
+        this.filter.inObservationSources(observation) && this.filter.isSelected(observation)
           ? ObservationFilterType.Local
           : ObservationFilterType.Global;
       observation.isHighlighted = this.filter.isHighlighted(observation);
@@ -293,16 +267,10 @@ export class ObservationsComponent
     //    console.log("applyLocalFilter ##3.99", this.observations);
     this.localObservations = [];
     this.observations.forEach((observation) => {
-      const ll =
-        observation.latitude && observation.longitude
-          ? new LatLng(observation.latitude, observation.longitude)
-          : undefined;
+      const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
 
       //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
-      if (
-        observation.filterType === ObservationFilterType.Local ||
-        observation.isHighlighted
-      ) {
+      if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) {
         this.localObservations.push(observation);
         if (!ll) {
           return;
@@ -314,30 +282,19 @@ export class ObservationsComponent
   }
 
   buildChartsData() {
-    this.chartsData.Elevation = this.filter.getElevationDataset(
-      this.observations
-    );
+    this.chartsData.Elevation = this.filter.getElevationDataset(this.observations);
 
     this.chartsData.Aspects = this.filter.getAspectDataset(this.observations);
 
-    this.chartsData.Stability = this.filter.getStabilityDataset(
-      this.observations
-    );
+    this.chartsData.Stability = this.filter.getStabilityDataset(this.observations);
 
-    this.chartsData.ObservationType = this.filter.getObservationTypeDataset(
-      this.observations
-    );
+    this.chartsData.ObservationType = this.filter.getObservationTypeDataset(this.observations);
 
-    this.chartsData.ImportantObservation =
-      this.filter.getImportantObservationDataset(this.observations);
+    this.chartsData.ImportantObservation = this.filter.getImportantObservationDataset(this.observations);
 
-    this.chartsData.AvalancheProblem = this.filter.getAvalancheProblemDataset(
-      this.observations
-    );
+    this.chartsData.AvalancheProblem = this.filter.getAvalancheProblemDataset(this.observations);
 
-    this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(
-      this.observations
-    );
+    this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations);
 
     this.chartsData.Days = this.filter.getDaysDataset(this.observations);
 
@@ -345,9 +302,7 @@ export class ObservationsComponent
   }
 
   private drawMarker(observation: GenericObservation, ll: LatLng) {
-    const styledObservation = observation.isHighlighted
-      ? this.mapService.highlightStyle(observation)
-      : this.mapService.style(observation);
+    const styledObservation = observation.isHighlighted ? this.mapService.highlightStyle(observation) : this.mapService.style(observation);
     styledObservation.bubblingMouseEvents = false;
     //styledObservation.riseOnHover = true;
     const marker = new Marker(ll, styledObservation);
@@ -361,29 +316,24 @@ export class ObservationsComponent
 
     const tooltip = [
       `<i class="fa fa-calendar"></i> ${
-        observation.eventDate instanceof Date
-          ? formatDate(observation.eventDate, "yyyy-MM-dd HH:mm", "en-US")
-          : undefined
+        observation.eventDate instanceof Date ? formatDate(observation.eventDate, "yyyy-MM-dd HH:mm", "en-US") : undefined
       }`,
       `<i class="fa fa-globe"></i> ${observation.locationName || undefined}`,
       `<i class="fa fa-user"></i> ${observation.authorName || undefined}`,
-      `[${observation.$source}, ${observation.$type}]`,
+      `[${observation.$source}, ${observation.$type}]`
     ]
       .filter((s) => !/undefined/.test(s))
       .join("<br>");
     marker.bindTooltip(tooltip, {
       opacity: 1,
-      className: "obs-tooltip",
+      className: "obs-tooltip"
     });
     marker.options.pane = "markerPane";
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
   private addObservation(observation: GenericObservation): void {
-    const ll =
-      observation.latitude && observation.longitude
-        ? new LatLng(observation.latitude, observation.longitude)
-        : undefined;
+    const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
     observation.filterType = ObservationFilterType.Local;
 
     if (ll) {
@@ -397,13 +347,7 @@ export class ObservationsComponent
     // }
 
     this.observations.push(observation);
-    this.observations.sort((o1, o2) =>
-      +o1.eventDate === +o2.eventDate
-        ? 0
-        : +o1.eventDate < +o2.eventDate
-        ? 1
-        : -1
-    );
+    this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
     if (!ll) {
       this.observationsWithoutCoordinates++;
@@ -416,21 +360,15 @@ export class ObservationsComponent
   onObservationClick(observation: GenericObservation): void {
     //console.log("onObservationClick ##002", observation.$data);
     if (observation.$externalURL) {
-      const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(
-        observation.$externalURL
-      );
+      const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };
     } else {
       const extraRows = Array.isArray(observation.$extraDialogRows)
         ? observation.$extraDialogRows
         : typeof observation.$extraDialogRows === "function"
-        ? observation.$extraDialogRows((key) =>
-            this.translateService.instant(key)
-          )
+        ? observation.$extraDialogRows((key) => this.translateService.instant(key))
         : [];
-      const rows = toObservationTable(observation, (key) =>
-        this.translateService.instant(key)
-      ); // call toObservationTable after $extraDialogRows
+      const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };
     }
