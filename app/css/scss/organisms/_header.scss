@@ -98,7 +98,10 @@ ul.bulletin-flipper {
   }
   @include letter-spacing;
   li {
-    padding: 0 ($padding * 2) 0 0;
+    padding: 0 ($padding * 0.5) 0 0;
+    @media #{$tiny-up} {
+      padding: 0 ($padding * 2) 0 0;
+    }
   }
   a {
     span {
@@ -124,7 +127,13 @@ ul.bulletin-flipper {
       }
     }
   }
-  .bulletin-flipper-latest {
+  .bulletin-flipper-calendar {
+    span {
+      &:before {
+        margin-right: 0;
+        transform: scale(1.25);
+      }
+    }
   }
   .bulletin-flipper-forward {
     span {
@@ -143,6 +152,8 @@ ul.bulletin-flipper {
         }
       }
     }
+  }
+  .bulletin-flipper-latest {
   }
   .bulletin-flipper-archive {
     a {
