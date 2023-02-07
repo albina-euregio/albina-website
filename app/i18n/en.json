@@ -87,6 +87,7 @@
   "bulletin:header:dateflipper:latest": "Latest",
   "bulletin:header:dateflipper:latest:hover": "Go to current Avalanche Forecast",
   "bulletin:header:dateflipper:forward": "Forward",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Archive",
   "bulletin:header:archive:hover": "Past Avalanche Forecasts",
   "bulletin:map:locate:title": "Show my location",
