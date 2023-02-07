@@ -16,7 +16,6 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
   const title = intl.formatMessage({
     id: "problem:" + problemType
   });
-
   const problemTextShort = intl.formatMessage({
     id: "problem:" + problemType + ":short"
   });
