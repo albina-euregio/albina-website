@@ -17,6 +17,10 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
     id: "problem:" + problemType
   });
 
+  const problemTextShort = intl.formatMessage({
+    id: "problem:" + problemType + ":short"
+  });
+
   const icon = (
     <Tooltip label={title}>
       <Link
@@ -27,7 +31,7 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
         <div className="picto-img">
           <ProblemIcon problem={problemType} alt={title} active={true} />
         </div>
-        {/* <div class="picto-caption">Triebschnee</div> */}
+        <div className="picto-caption">{problemTextShort}</div>
       </Link>
     </Tooltip>
   );
