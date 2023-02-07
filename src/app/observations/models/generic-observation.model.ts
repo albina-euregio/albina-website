@@ -7,6 +7,10 @@ export interface GenericObservation<Data = any> {
    */
   $data: Data;
   /**
+   * External ID of this observations
+   */
+  $id?: string;
+  /**
    * External URL/image to display as iframe
    */
   $externalURL?: string;
@@ -18,7 +22,7 @@ export interface GenericObservation<Data = any> {
    * Snowpack stability that can be inferred from this observation
    */
   stability?: Stability;
-  $source: ObservationSource;
+  $source: ObservationSource | ForecastSource;
   $type: ObservationType;
   /**
    * Aspect corresponding with this observation
@@ -134,6 +138,8 @@ export enum ObservationSource {
   Natlefs = "Natlefs",
   WikisnowECT = "WikisnowECT"
 }
+
+export type ForecastSource = "multimodel" | "eps_ecmwf" | "eps_claef" | "qfa" | "observed_profile" | "alpsolut_profile";
 
 export enum ObservationType {
   SimpleObservation = "SimpleObservation",
