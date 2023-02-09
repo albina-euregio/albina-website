@@ -18,6 +18,7 @@
     "build-dev": "vite build --base=/dev/"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.19.1",
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@sentry/react": "^7.24.2",
     "animejs": "3.2.1",

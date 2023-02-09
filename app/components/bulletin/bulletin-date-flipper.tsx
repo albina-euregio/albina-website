@@ -9,14 +9,12 @@ import {
   isAfter
 } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
-import "react-calendar/dist/Calendar.css";
-import Calendar from "react-calendar";
+import { DatePicker } from "../datePicker/datePicker";
 
 type Props = { date: Date; latest: Date };
 
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();
-  const [showCalendar, setShowCalender] = useState(false);
   const navigate = useNavigate();
   const date$: Date | null = date && +date ? date : null;
   let nextDate$: Date | null = null;
@@ -34,21 +32,12 @@ function BulletinDateFlipper({ date, latest }: Props) {
 
   const onChangeCurrentDate = (newDate: Date) => {
     if (newDate) {
-      setShowCalender(!showCalendar);
       navigate("/bulletin/" + dateToISODateString(newDate));
     }
   };
 
   return (
     <>
-      {showCalendar && (
-        <Calendar
-          className="bulletin-calendar"
-          onChange={onChangeCurrentDate}
-          maxDate={latest}
-          value={date$}
-        />
-      )}
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
           <Tooltip
@@ -68,12 +57,14 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:showHideCalendar"
             })}
           >
-            <a
-              href="#"
-              title="Calendar"
-              onClick={() => setShowCalender(!showCalendar)}
-            >
-              <span className="icon-calendar"></span>
+            <a href="#" title="Calendar">
+              <DatePicker
+                value={date$}
+                onChange={onChangeCurrentDate}
+                maxDate={latest}
+              >
+                <span className="icon-calendar"></span>
+              </DatePicker>
             </a>
           </Tooltip>
         </li>
