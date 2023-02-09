@@ -43,6 +43,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
     <>
       {showCalendar && (
         <Calendar
+          className="bulletin-calendar"
           onChange={onChangeCurrentDate}
           maxDate={latest}
           value={date$}

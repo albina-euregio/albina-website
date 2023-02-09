@@ -158,16 +158,16 @@
     @include print-reset;
 
     //translink
-    &:after {
-      display: block;
-      margin-top: 1.5em;
-      padding: 0.5em 0;
-      font-size: $small-font-size;
-      color: $grey;
-      content: "To print the current Avalanche Report, click 'PDF' below the map. (c) www.transporter.at";
-      border-top: $border-width $border-style $brand-very-light;
-      @include print-bg;
-    }
+    // &:after {
+    //   display: block;
+    //   margin-top: 1.5em;
+    //   padding: 0.5em 0;
+    //   font-size: $small-font-size;
+    //   color: $grey;
+    //   content: "To print the current Avalanche Report, click 'PDF' below the map. (c) www.transporter.at";
+    //   border-top: $border-width $border-style $brand-very-light;
+    //   @include print-bg;
+    // }
   }
 
   //bulletin
