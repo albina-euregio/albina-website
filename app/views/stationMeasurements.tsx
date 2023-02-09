@@ -113,17 +113,22 @@ const StationMeasurements = () => {
           ))}
         </HideGroupFilter>
         {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
-          <input
-            type="datetime-local"
-            step={3600}
-            max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
-            value={
-              store.dateTime instanceof Date
-                ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
-                : ""
-            }
-            onChange={e => store.load(new Date(e.target.value))}
-          />
+          <div>
+            <p className="info">📅</p>
+            <div className="pure-form">
+              <input
+                type="datetime-local"
+                step={3600}
+                max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
+                value={
+                  store.dateTime instanceof Date
+                    ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
+                    : ""
+                }
+                onChange={e => store.load(new Date(e.target.value))}
+              />
+            </div>
+          </div>
         )}
       </FilterBar>
       <section className="section">
