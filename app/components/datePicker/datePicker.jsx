@@ -69,6 +69,7 @@ export const DatePicker = ({
             {...getFloatingProps()}
           >
             <Calendar
+              className="bulletin-calendar"
               onChange={value => {
                 setOpen(false);
                 onChange(value);
@@ -76,7 +77,7 @@ export const DatePicker = ({
               maxDate={maxDate}
               value={value}
             />
-            <div
+            {/* <div
               role="button"
               tabIndex={0}
               onClick={() => setOpen(false)}
@@ -88,7 +89,7 @@ export const DatePicker = ({
               }}
             >
               {intl.formatMessage({ id: "date-picker:close-button:caption" })}
-            </div>
+            </div> */}
           </motion.div>
         )}
       </AnimatePresence>

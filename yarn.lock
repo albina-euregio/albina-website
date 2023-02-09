@@ -286,12 +286,24 @@
   resolved "https://registry.npmjs.org/@floating-ui/core/-/core-0.6.2.tgz"
   integrity sha512-jktYRmZwmau63adUG3GKOAVCofBXkk55S/zQ94XOorAHhwqFIOFAy1rSp2N0Wp6/tGbe9V3u/ExlGZypyY17rg==
 
+"@floating-ui/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/@floating-ui/core/-/core-1.2.0.tgz"
+  integrity sha512-GHUXPEhMEmTpnpIfesFA2KAoMJPb1SPQw964tToQwt+BbGXdhqTCWT1rOb0VURGylsxsYxiGMnseJ3IlclVpVA==
+
 "@floating-ui/dom@^0.4.5":
   version "0.4.5"
   resolved "https://registry.npmjs.org/@floating-ui/dom/-/dom-0.4.5.tgz"
   integrity sha512-b+prvQgJt8pieaKYMSJBXHxX/DYwdLsAWxKYqnO5dO2V4oo/TYBZJAUQCVNjTWWsrs6o4VDrNcP9+E70HAhJdw==
   dependencies:
     "@floating-ui/core" "^0.6.2"
+
+"@floating-ui/dom@^1.1.1":
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/@floating-ui/dom/-/dom-1.2.0.tgz"
+  integrity sha512-QXzg57o1cjLz3cGETzKXjI3kx1xyS49DW9l7kV2jw2c8Yftd434t2hllX0sVGn2Q8MtcW/4pNm8bfE1/4n6mng==
+  dependencies:
+    "@floating-ui/core" "^1.2.0"
 
 "@floating-ui/react-dom-interactions@^0.0.15":
   version "0.0.15"
@@ -309,6 +321,22 @@
   dependencies:
     "@floating-ui/dom" "^0.4.5"
     use-isomorphic-layout-effect "^1.1.1"
+
+"@floating-ui/react-dom@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-1.2.2.tgz"
+  integrity sha512-DbmFBLwFrZhtXgCI2ra7wXYT8L2BN4/4AMQKyu05qzsVji51tXOfF36VE2gpMB6nhJGHa85PdEg75FB4+vnLFQ==
+  dependencies:
+    "@floating-ui/dom" "^1.1.1"
+
+"@floating-ui/react@^0.19.1":
+  version "0.19.1"
+  resolved "https://registry.npmjs.org/@floating-ui/react/-/react-0.19.1.tgz"
+  integrity sha512-h7hr53rLp+VVvWvbu0dOBvGsLeeZwn1DTLIllIaLYjGWw20YhAgEqegHU+nc7BJ30ttxq4Sq6hqARm0ne6chXQ==
+  dependencies:
+    "@floating-ui/react-dom" "^1.2.2"
+    aria-hidden "^1.1.3"
+    tabbable "^6.0.1"
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -587,7 +615,7 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
-"@types/react@*", "@types/react@16 || 17 || 18":
+"@types/react@*", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@16 || 17 || 18":
   version "18.0.10"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.10.tgz"
   integrity sha512-dIugadZuIPrRzvIEevIu7A1smqOAjkSMv8qOfwPt9Ve6i6JT/FQcCHyk2qIAxwsQNKZt5/oGR0T4z9h2dXRAkg==
@@ -768,6 +796,13 @@ argparse@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz"
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
+
+aria-hidden@^1.1.3:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/aria-hidden/-/aria-hidden-1.2.2.tgz"
+  integrity sha512-6y/ogyDTk/7YAe91T3E2PR1ALVKyM2QbTio5HwM+N1Q6CMlCKhvClyIjkckBswa0f2xJhjsfzIGa1yVSe1UMVA==
+  dependencies:
+    tslib "^2.0.0"
 
 aria-query@^5.1.3:
   version "5.1.3"
@@ -2904,7 +2939,7 @@ react-router@6.3.0:
   dependencies:
     history "^5.2.0"
 
-"react@^15.6.1 || ^16.0.0 || ^17.0.0", "react@^16.3.0 || 17 || 18", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^17.0.1, react@^17.0.2, react@>=16.8, "react@>=16.8 || ^17.0.0 || ^18.0.0", react@>=16.8.0, "react@15.x || 16.x || 17.x || 18.x", react@17.0.2:
+"react@^15.6.1 || ^16.0.0 || ^17.0.0", "react@^16.3.0 || 17 || 18", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18.0.0", react@^17.0.1, react@^17.0.2, react@>=16.8, "react@>=16.8 || ^17.0.0 || ^18.0.0", react@>=16.8.0, "react@15.x || 16.x || 17.x || 18.x", react@17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
@@ -3253,6 +3288,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+tabbable@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/tabbable/-/tabbable-6.0.1.tgz"
+  integrity sha512-SYJSIgeyXW7EuX1ytdneO5e8jip42oHWg9xl/o3oTYhmXusZVgiA+VlPvjIN+kHii9v90AmzTZEBcsEvuAY+TA==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
@@ -3281,6 +3321,11 @@ tslib@^1.8.1, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.0.0:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz"
+  integrity sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
 
 tslib@^2.1.0:
   version "2.4.0"

@@ -57,7 +57,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:showHideCalendar"
             })}
           >
-            <a href="#" title="Calendar">
+            <a href="#">
               <DatePicker
                 value={date$}
                 onChange={onChangeCurrentDate}
