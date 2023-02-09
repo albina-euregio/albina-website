@@ -13,13 +13,12 @@ import {
   offset,
   flip,
   shift,
-  autoUpdate,
   useFloating,
   useInteractions,
   useFocus,
   useClick
 } from "@floating-ui/react-dom-interactions";
-
+import { motion, AnimatePresence } from "framer-motion";
 export const DatePicker = ({
   children,
   value,
@@ -29,13 +28,13 @@ export const DatePicker = ({
 }) => {
   const [isOpen, setOpen] = useState(false);
   const intl = useIntl();
-  const { x, y, reference, floating, strategy, context, refs, update } =
-    useFloating({
-      placement,
-      open: isOpen,
-      onOpenChange: setOpen,
-      middleware: [offset(10), flip(), shift({ padding: 5 })]
-    });
+
+  const { x, y, reference, floating, strategy, context, refs } = useFloating({
+    placement,
+    open: isOpen,
+    onOpenChange: setOpen,
+    middleware: [offset(10), flip(), shift({ padding: 5 })]
+  });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     // useHover(context, {
@@ -49,48 +48,50 @@ export const DatePicker = ({
     })
   ]);
 
-  useEffect(() => {
-    if (refs.reference.current && refs.floating.current && isOpen) {
-      return autoUpdate(refs.reference.current, refs.floating.current, update);
-    }
-  }, [refs.reference, refs.floating, update, isOpen]);
-
   return (
     <>
       {isValidElement(children) &&
         cloneElement(children, getReferenceProps({ ref: reference }))}
-      {isOpen && (
-        <div
-          ref={refs.setFloating}
-          style={{
-            position: strategy,
-            top: y ?? 0,
-            left: x ?? 0,
-            zIndex: 9999
-          }}
-          {...getFloatingProps()}
-        >
-          <Calendar
-            onChange={value => {
-              setOpen(false);
-              onChange(value);
-            }}
-            maxDate={maxDate}
-            value={value}
-          />
-          <div
-            onClick={() => setOpen(false)}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: "just", damping: 20, stiffness: 300 }}
+            ref={floating}
             style={{
-              backgroundColor: "grey",
-              textAlign: "center",
-              color: "white",
-              padding: "4px"
+              position: strategy,
+              top: y ?? 0,
+              left: x ?? 0,
+              zIndex: 9999
             }}
+            {...getFloatingProps()}
           >
-            {intl.formatMessage({ id: "date-picker:close-button:caption" })}
-          </div>
-        </div>
-      )}
+            <Calendar
+              onChange={value => {
+                setOpen(false);
+                onChange(value);
+              }}
+              maxDate={maxDate}
+              value={value}
+            />
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => setOpen(false)}
+              style={{
+                backgroundColor: "grey",
+                textAlign: "center",
+                color: "white",
+                padding: "4px"
+              }}
+            >
+              {intl.formatMessage({ id: "date-picker:close-button:caption" })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
