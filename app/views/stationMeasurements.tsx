@@ -114,7 +114,9 @@ const StationMeasurements = () => {
         </HideGroupFilter>
         {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
           <div>
-            <p className="info">📅</p>
+            <p className="info">
+              {intl.formatMessage({ id: "archive:table-header:date" })}
+            </p>
             <div className="pure-form">
               <input
                 type="datetime-local"
