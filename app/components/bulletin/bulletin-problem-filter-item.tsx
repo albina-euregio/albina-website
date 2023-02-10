@@ -33,6 +33,9 @@ function BulletinProblemFilterItem({
   const problemText = intl.formatMessage({
     id: "problem:" + problemId
   });
+  const problemTextShort = intl.formatMessage({
+    id: "problem:" + problemId + ":short"
+  });
 
   const title = intl.formatMessage(
     {
@@ -50,13 +53,13 @@ function BulletinProblemFilterItem({
         <a href="#" className={classes} onClick={e => toggle(e)}>
           <div className="picto-img">
             <ProblemIcon problem={problemId} active alt={problemText} />
-            {/* <ProblemIcon
-                problem={problemId}
-                active={false}
-                alt={problemText}
-              /> */}
           </div>
-          {/* <div class="picto-caption">Neuschnee und so Sachen</div> */}
+          <div className="picto-caption">{problemTextShort}</div>
+          {/* <ProblemIcon
+              problem={problemId}
+              active={false}
+              alt={problemText}
+            /> */}
         </a>
       </Tooltip>
     </li>

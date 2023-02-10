@@ -12,6 +12,7 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
+import { dateFormat } from "../util/date";
 
 const StationMeasurements = () => {
   const intl = useIntl();
@@ -25,7 +26,7 @@ const StationMeasurements = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    store.load("");
+    store.load();
     store.fromURLSearchParams(searchParams);
   }, [searchParams, store]);
 
@@ -111,6 +112,26 @@ const StationMeasurements = () => {
             />
           ))}
         </HideGroupFilter>
+        {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
+          <div>
+            <p className="info">
+              {intl.formatMessage({ id: "archive:table-header:date" })}
+            </p>
+            <div className="pure-form">
+              <input
+                type="datetime-local"
+                step={3600}
+                max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
+                value={
+                  store.dateTime instanceof Date
+                    ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
+                    : ""
+                }
+                onChange={e => store.load(new Date(e.target.value))}
+              />
+            </div>
+          </div>
+        )}
       </FilterBar>
       <section className="section">
         <div className="table-container">

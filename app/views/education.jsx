@@ -345,8 +345,9 @@ class Education extends React.Component {
             </li>
 
             <li className="feature-item">
-              <Link
-                to={this.props.intl.formatMessage({
+              {/* glossary is an external link to www.avalanches.org/glossary/ */}
+              <a
+                href={this.props.intl.formatMessage({
                   id: "education:overview:glossary:link"
                 })}
                 rel="noopener noreferrer"
@@ -377,7 +378,7 @@ class Education extends React.Component {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </li>
 
             <li className="feature-item">
