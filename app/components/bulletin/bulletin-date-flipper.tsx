@@ -31,9 +31,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
   const nextDate = nextDate$ ? intl.formatDate(nextDate$) : "";
 
   const onChangeCurrentDate = (newDate: Date) => {
-    if (newDate) {
-      navigate("/bulletin/" + dateToISODateString(newDate));
-    }
+    navigate("/bulletin/" + dateToISODateString(newDate));
   };
 
   return (
@@ -53,6 +51,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
         </li>
         <li className="bulletin-flipper-calendar">
           <Tooltip
+            placement="top"
             label={intl.formatMessage({
               id: "bulletin:header:dateflipper:showHideCalendar"
             })}

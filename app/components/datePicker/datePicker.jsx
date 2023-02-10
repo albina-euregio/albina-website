@@ -48,6 +48,14 @@ export const DatePicker = ({
     })
   ]);
 
+  const onClick = newValue => {
+    console.log("onClick", newValue, value);
+
+    setOpen(false);
+    if (new Date(newValue).toISOString() != new Date(value).toISOString())
+      onChange(newValue);
+  };
+
   return (
     <>
       {isValidElement(children) &&
@@ -70,10 +78,7 @@ export const DatePicker = ({
           >
             <Calendar
               className="bulletin-calendar"
-              onChange={value => {
-                setOpen(false);
-                onChange(value);
-              }}
+              onChange={value => onClick(value)}
               maxDate={maxDate}
               value={value}
             />
