@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "app/providers/map-service/base-map.service";
 import { ModellingService } from "./modelling.service";
-import { QfaService } from "app/providers/qfa-service/qfa.service";
+import { QfaResult, QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral, LatLng } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
@@ -26,7 +26,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   selectedModelPoint: GenericObservation;
   selectedModelType: ForecastSource;
   selectedCity: string;
-  qfa: any;
+  qfa: QfaResult;
   qfaStartDay: number;
   loading = true;
   dropDownOptions: Record<ForecastSource, GenericObservation<unknown>[]> = {
