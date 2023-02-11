@@ -68,8 +68,8 @@
     <div class="d-inline-block" *ngIf="selectedModelPoint">
       <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select mb-2 mb-sm-0">
         <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
-          {{ point.regionCode }}:
-          {{ point.regionName }}
+          {{ point.region }}:
+          {{ point.locationName }}
         </option>
       </select>
     </div>

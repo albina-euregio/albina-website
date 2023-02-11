@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "../../providers/map-service/base-map.service";
 import { ModellingService } from "../modelling.service";
-import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral, LatLng } from "leaflet";
@@ -9,6 +8,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { RegionsService, RegionProperties } from "../../providers/regions-service/regions.service";
 import { ForecastSource, GenericObservation } from "app/observations/models/generic-observation.model";
+import { formatDate } from "@angular/common";
 
 export interface MultiselectDropdownData {
   id: ForecastSource;
@@ -29,11 +29,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   qfa: any;
   qfaStartDay: number;
   loading = true;
-  dropDownOptions: Record<ForecastSource, GenericObservation[]> = {
+  dropDownOptions: Record<ForecastSource, GenericObservation<unknown>[]> = {
     multimodel: [],
     qfa: [],
-    eps_ecmwf: [],
-    eps_claef: [],
     observed_profile: [],
     alpsolut_profile: []
   };
@@ -47,16 +45,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       id: "qfa",
       fillColor: "red",
       name: this.translateService.instant("sidebar.qfa")
-    },
-    {
-      id: "eps_ecmwf",
-      fillColor: this.constantsService.colorBrand,
-      name: this.translateService.instant("sidebar.modellingZamgECMWF")
-    },
-    {
-      id: "eps_claef",
-      fillColor: "violet",
-      name: this.translateService.instant("sidebar.modellingZamgCLAEF")
     },
     {
       id: "observed_profile",
@@ -87,9 +75,8 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     private regionsService: RegionsService,
     public mapService: BaseMapService,
     private modellingService: ModellingService,
-    private constantsService: ConstantsService,
     private qfaService: QfaService,
-    private paramService: ParamService,
+    public paramService: ParamService,
     private sanitizer: DomSanitizer,
     private translateService: TranslateService
   ) {}
@@ -127,19 +114,18 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     Object.values(this.mapService.layers).forEach((layer) => layer.clearLayers());
 
     const filtered = this.modelPoints.filter((el) => {
-      const correctRegion = this.selectedRegions.length === 0 || this.selectedRegions.includes(el.region); // FIXME
+      const correctRegion = this.selectedRegions.length === 0 || this.selectedRegions.includes(el.region);
       const correctSource = this.selectedSources.length === 0 || this.selectedSources.includes(el.$source);
       return correctRegion && correctSource;
     });
 
-    this.modelPoints.forEach((point) => {
-      // FIXME
+    filtered.forEach((point) => {
       this.drawMarker(point);
     });
   }
 
   drawMarker(point: GenericObservation) {
-    const { $source, region, locationName, latitude, longitude } = point;
+    const { $source, region, locationName, latitude, longitude, eventDate } = point;
     const callback = () => {
       if ($source === "qfa") this.setQfa(this.files[locationName][0], 0);
       this.selectedModelPoint = $source === "qfa" ? undefined : point;
@@ -148,6 +134,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     };
 
     const tooltip = [
+      `<i class="fa fa-calendar"></i> ${
+        eventDate instanceof Date ? formatDate(eventDate, "yyyy-MM-dd HH:mm", "en-US") : undefined
+      }`,
       `<i class="fa fa-asterisk"></i> ${region || undefined}`,
       `<i class="fa fa-globe"></i> ${locationName || undefined}`,
       this.allSources.find((s) => s.id === $source)?.name,
@@ -173,8 +162,6 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       if (source.id === "qfa") return;
       this.modellingService.get(source.id).subscribe((points) => {
         this.dropDownOptions[source.id] = points;
-
-        console.log(points);
         points.forEach((point) => {
           // const region = this.regionsService.getRegionForLatLng(new LatLng(point.latitude, point.lon));
           try {
@@ -196,7 +183,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         $source: "qfa",
         latitude: ll.lat,
         longitude: ll.lng,
-        // region: this.regionsService.getRegionForLatLng(new LatLng(ll.lat, ll.lng)),
+        region: this.regionsService.getRegionForLatLng(new LatLng(ll.lat, ll.lng))?.id,
         locationName: cityName
       } as GenericObservation;
       this.drawMarker(point);

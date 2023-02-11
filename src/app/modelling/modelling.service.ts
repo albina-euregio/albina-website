@@ -5,7 +5,6 @@ import { forkJoin, Observable, of } from "rxjs";
 import { flatMap, last, map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
-import { formatDate } from "@angular/common";
 import { GenericObservation } from "app/observations/models/generic-observation.model";
 
 interface MultimodelPointCsv {
@@ -56,17 +55,11 @@ export class ModellingService {
     });
   }
 
-  get(
-    type: "multimodel" | "eps_ecmwf" | "eps_claef" | "observed_profile" | "alpsolut_profile"
-  ): Observable<GenericObservation[]> {
+  get(type: "multimodel" | "observed_profile" | "alpsolut_profile"): Observable<GenericObservation[]> {
     if (type === "alpsolut_profile") {
       return this.getAlpsolutDashboardPoints();
     } else if (type === "observed_profile") {
       return this.getObservedProfiles();
-    } else if (type === "eps_ecmwf") {
-      return of([]);
-    } else if (type === "eps_claef") {
-      return of([]);
     } else if (type === "multimodel") {
       return this.getZamgMultiModelPoints();
     }
@@ -133,13 +126,9 @@ export class ModellingService {
               longitude: lng
             } as GenericObservation;
           })
-          .sort((p1, p2) => p1.locationName.localeCompare(p2.locationName))
+          .sort((p1, p2) => p1.region.localeCompare(p2.region))
       )
     );
-  }
-
-  getZamgEcmwfTypes(): string[] {
-    return ["HN", "HN_WOS", "HS"];
   }
 
   /**
@@ -201,12 +190,10 @@ export class ModellingService {
       .pipe(map((profiles) => profiles.map((profile) => toPoint(profile))));
 
     function toPoint(profile: AvalancheWarningServiceObservedProfiles): GenericObservation {
-      const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
       return {
         $source: "observed_profile",
         $id: profile.$externalURL,
-        eventDate: profile.eventDate,
-        // date,
+        eventDate: new Date(profile.eventDate),
         locationName: profile.locationName,
         $externalURL: profile.$externalURL,
         latitude: profile.latitude,
