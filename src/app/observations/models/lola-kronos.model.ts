@@ -1,11 +1,10 @@
-import * as Enums from "app/enums/enums";
-
 import {
   Aspect,
   AvalancheProblem,
   DangerPattern as GenericDangerPattern,
   GenericObservation,
   imageCountString,
+  ImportantObservation,
   ObservationSource,
   ObservationType
 } from "./generic-observation.model";
@@ -391,12 +390,12 @@ export function convertLoLaToGeneric(
     dangerPatterns: (obs as LolaEvaluation).dangerPatterns?.map((dp) => getDangerPattern(dp)) || [],
     region: obs.regionName,
     importantObservations: [
-      (obs as LolaSimpleObservation).snowLine ? Enums.ImportantObservation.SnowLine : undefined,
-      (obs as LolaSimpleObservation).snowSurface?.includes("surfaceHoar") ? Enums.ImportantObservation.SurfaceHoar : undefined,
-      (obs as LolaSimpleObservation).snowSurface?.includes("veryLightNewSnow") ? Enums.ImportantObservation.VeryLightNewSnow : undefined,
-      (obs as LolaSimpleObservation).snowSurface?.includes("graupel") ? Enums.ImportantObservation.Graupel : undefined,
-      (obs as LolaSimpleObservation).snowSurface?.includes("iceFormation") ? Enums.ImportantObservation.IceFormation : undefined,
-      (obs as LolaSimpleObservation).stabilityTests?.length > 0 ? Enums.ImportantObservation.StabilityTest : undefined
+      (obs as LolaSimpleObservation).snowLine ? ImportantObservation.SnowLine : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("surfaceHoar") ? ImportantObservation.SurfaceHoar : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("veryLightNewSnow") ? ImportantObservation.VeryLightNewSnow : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("graupel") ? ImportantObservation.Graupel : undefined,
+      (obs as LolaSimpleObservation).snowSurface?.includes("iceFormation") ? ImportantObservation.IceFormation : undefined,
+      (obs as LolaSimpleObservation).stabilityTests?.length > 0 ? ImportantObservation.StabilityTest : undefined
     ].filter(o => !!o)
   };
 }

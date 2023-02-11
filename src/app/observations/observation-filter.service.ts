@@ -4,9 +4,13 @@ import {
   GenericObservation,
   LocalFilterTypes,
   FilterSelectionData,
-  AvalancheProblem
+  AvalancheProblem,
+  Aspect,
+  ObservationType,
+  DangerPattern,
+  Stability,
+  ImportantObservation
 } from "./models/generic-observation.model";
-import * as Enums from "../enums/enums";
 import { ObservationFilterType } from "./models/generic-observation.model";
 
 const DATASET_MAX_FACTOR = 1;
@@ -145,21 +149,21 @@ export class ObservationFilterService {
   }
 
   private seedFilterSelectionsAll() {
-    for (const [key] of Object.entries(Enums.Aspect)) {
+    for (const [key] of Object.entries(Aspect)) {
       if (isNaN(Number(key))) {
         this.filterSelection.Aspect.all.push(key);
       }
     }
 
-    for (const [key, value] of Object.entries(Enums.Stability)) {
+    for (const [key, value] of Object.entries(Stability)) {
       this.filterSelection.Stability.all.unshift(key);
     }
 
-    for (const [key, value] of Object.entries(Enums.ObservationType)) {
+    for (const [key, value] of Object.entries(ObservationType)) {
       this.filterSelection.ObservationType.all.unshift(key);
     }
 
-    for (const [key, value] of Object.entries(Enums.ImportantObservation)) {
+    for (const [key, value] of Object.entries(ImportantObservation)) {
       this.filterSelection.ImportantObservation.all.unshift(key);
     }
 
@@ -169,7 +173,7 @@ export class ObservationFilterService {
       curElevation += this.elevationSectionSize;
     }
 
-    for (const [key] of Object.entries(Enums.DangerPattern)) {
+    for (const [key] of Object.entries(DangerPattern)) {
       if (isNaN(Number(key))) {
         this.filterSelection.DangerPattern.all.push(key);
       }
