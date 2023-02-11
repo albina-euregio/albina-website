@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
-import { BaseMapService } from "../../providers/map-service/base-map.service";
-import { ModellingService } from "../modelling.service";
+import { BaseMapService } from "app/providers/map-service/base-map.service";
+import { ModellingService } from "./modelling.service";
 import { QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral, LatLng } from "leaflet";
 import { TranslateService } from "@ngx-translate/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { RegionsService, RegionProperties } from "../../providers/regions-service/regions.service";
+import { RegionsService, RegionProperties } from "app/providers/regions-service/regions.service";
 import { ForecastSource, GenericObservation } from "app/observations/models/generic-observation.model";
 import { formatDate } from "@angular/common";
 
@@ -18,7 +18,7 @@ export interface MultiselectDropdownData {
 
 @Component({
   templateUrl: "./forecast.component.html",
-  styleUrls: ["./qfa.component.scss", "./table.scss", "./params.scss"]
+  styleUrls: ["./qfa.component.scss", "./qfa.table.scss", "./qfa.params.scss"]
 })
 export class ForecastComponent implements AfterViewInit, OnDestroy {
   layout = "map" as const;
