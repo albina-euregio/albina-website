@@ -194,17 +194,6 @@
 
       <div [ngStyle]="{ display: layout === 'table' ? '' : 'none' }" class="layout-table">
         <div class="card" style="height: 100%">
-          <!-- <div class="card-header">
-            {{ "sidebar.observations" | translate }}
-            <button
-            type="button"
-            pButton
-            icon="pi pi-times"
-            (click)="closeTable()"
-            label="{{ 'observations.button.close' | translate }}"
-            class="p-button-text"
-          ></button>  
-          </div> -->
           <div class="card-block" style="overflow-y: auto">
             <div>
               <app-observation-table
