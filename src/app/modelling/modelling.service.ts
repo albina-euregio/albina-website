@@ -272,7 +272,8 @@ export class ModellingService {
       return {
         $source: "alpsolut_profile",
         $id: search.toString(),
-        region: `${f.properties.code} ${d.aspect} ${d.slopeAngle}° ${configurationLabel}`,
+        region: `${configurationLabel}: ${d.aspect}/${d.slopeAngle}° ${f.properties.code}`,
+        aspect: !d.aspect || d.aspect === "MAIN" ? undefined : Aspect[d.aspect[0]],
         locationName: f.properties.name,
         $externalURL: url,
         latitude: f.geometry.coordinates[1],
