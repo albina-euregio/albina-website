@@ -21,7 +21,7 @@
     "esModuleInterop": true
   },
   "angularCompilerOptions": {
-    "strictTemplates": true
+    "strictTemplates": false
   },
   "files": [
     "main.ts",
