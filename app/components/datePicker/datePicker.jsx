@@ -63,6 +63,7 @@ export const DatePicker = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            className="albina-calendar-modal"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -77,24 +78,21 @@ export const DatePicker = ({
             {...getFloatingProps()}
           >
             <Calendar
-              className="bulletin-calendar"
+              className="albina-calendar-flesh"
               onChange={value => onClick(value)}
               maxDate={maxDate}
               value={value}
             />
-            {/* <div
+            <a
+              className="pure-button albina-calendar-close"
               role="button"
               tabIndex={0}
               onClick={() => setOpen(false)}
-              style={{
-                backgroundColor: "grey",
-                textAlign: "center",
-                color: "white",
-                padding: "4px"
-              }}
             >
-              {intl.formatMessage({ id: "date-picker:close-button:caption" })}
-            </div> */}
+              <span>
+                {intl.formatMessage({ id: "date-picker:close-button:caption" })}
+              </span>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

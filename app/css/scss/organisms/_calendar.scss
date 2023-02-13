@@ -8,14 +8,13 @@
 \*------------------------------------*/
 
 .react-calendar {
-  &.bulletin-calendar {
+  &.albina-calendar-flesh {
     z-index: 10;
     width: 250px;
     font-family: inherit;
     font-size: $tiny-font-size;
     line-height: inherit;
     border: 0px solid transparent;
-    @include box-shadow(0.15);
 
     .react-calendar__navigation {
       margin-bottom: 0;
@@ -99,5 +98,30 @@
         opacity: 0.25;
       }
     }
+  }
+}
+
+.albina-calendar-modal {
+  @include box-shadow(0.15);
+}
+
+a.albina-calendar-close {
+  // display: block;
+  width: 100%;
+  padding: ($padding * 0.5) ($padding * 2);
+  font-size: $tiny-font-size;
+  text-align: center;
+  color: $anchor-font-color;
+  background: $white;
+  border-color: transparent;
+  span {
+    @include font-normal;
+    @include letter-spacing(0);
+    text-transform: none;
+  }
+  &:hover {
+    color: $white;
+    background: $anchor-font-color;
+    border-color: transparent;
   }
 }
