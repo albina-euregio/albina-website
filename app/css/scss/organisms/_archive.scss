@@ -52,15 +52,20 @@
         padding-bottom: 0;
       }
     }
+
     .map-preview {
       display: inline-block;
-      // width: $picto-height;
-      // height: $picto-height;
+      height: $picto-height;
       img {
-        @include box-border;
-        width: auto;
+        max-width: none;
         height: $picto-height;
+        @include box-border;
       }
+    }
+
+    .avalanche-situation-preview {
+      display: flex;
+      gap: 0 $padding;
     }
   }
 }
