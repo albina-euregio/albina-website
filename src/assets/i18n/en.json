@@ -21,6 +21,7 @@
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
+    "modellingZamgMeteogram": "GeoSphere meteogram",
     "modellingSnowpack": "SNOWPACK model",
     "modellingSnowpackMeteo": "SNOWPACK modelled meteo"
   },

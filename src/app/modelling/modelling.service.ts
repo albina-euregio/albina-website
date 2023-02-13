@@ -5,8 +5,8 @@ import { forkJoin, Observable, of } from "rxjs";
 import { catchError, flatMap, last, map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
-import { GenericObservation } from "app/observations/models/generic-observation.model";
-import { LatLng } from "leaflet";
+import { GenericObservation, ObservationType } from "app/observations/models/generic-observation.model";
+import { geoJSON, LatLng } from "leaflet";
 
 interface MultimodelPointCsv {
   statnr: string;
@@ -56,14 +56,38 @@ export class ModellingService {
     });
   }
 
-  get(type: "multimodel" | "observed_profile" | "alpsolut_profile"): Observable<GenericObservation[]> {
+  get(type: "multimodel" | "meteogram" | "observed_profile" | "alpsolut_profile"): Observable<GenericObservation[]> {
     if (type === "alpsolut_profile") {
       return this.getAlpsolutDashboardPoints();
     } else if (type === "observed_profile") {
       return this.getObservedProfiles();
     } else if (type === "multimodel") {
       return this.getZamgMultiModelPoints();
+    } else if (type === "meteogram") {
+      return this.getZamgMeteograms();
     }
+  }
+
+  private getZamgMeteograms(): Observable<GenericObservation[]> {
+    const observations = this.regionsService
+      .getRegionsEuregio()
+      .features.filter((f) => /AT-07/.test(f.properties.id))
+      .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id))
+      .map((f): GenericObservation => {
+        const center = geoJSON(f).getBounds().getCenter();
+        const file = f.properties.id.replace(/AT-07-/, "");
+        const $externalURL = `https://wiski.tirol.gv.at/lawine/produkte/meteogramm_R-${file}.png`;
+        return {
+          $type: ObservationType.TimeSeries,
+          $externalURL,
+          $source: "meteogram",
+          region: f.properties.id,
+          locationName: f.properties.name,
+          latitude: center.lat,
+          longitude: center.lng
+        } as GenericObservation;
+      });
+    return of(observations);
   }
 
   private getZamgMultiModelPoints(): Observable<GenericObservation[]> {

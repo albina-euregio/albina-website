@@ -152,7 +152,7 @@ export enum ObservationSource {
   WikisnowECT = "WikisnowECT"
 }
 
-export type ForecastSource = "multimodel" | "qfa" | "observed_profile" | "alpsolut_profile";
+export type ForecastSource = "multimodel" | "meteogram" | "qfa" | "observed_profile" | "alpsolut_profile";
 
 export enum ObservationType {
   SimpleObservation = "SimpleObservation",

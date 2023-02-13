@@ -31,6 +31,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   loading = true;
   dropDownOptions: Record<ForecastSource, GenericObservation<unknown>[]> = {
     multimodel: [],
+    meteogram: [],
     qfa: [],
     observed_profile: [],
     alpsolut_profile: []
@@ -40,6 +41,11 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       id: "multimodel",
       fillColor: "green",
       name: this.translateService.instant("sidebar.modellingZamg")
+    },
+    {
+      id: "meteogram",
+      fillColor: "MediumVioletRed",
+      name: this.translateService.instant("sidebar.modellingZamgMeteogram")
     },
     {
       id: "qfa",
