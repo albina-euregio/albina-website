@@ -33,6 +33,9 @@ function BulletinProblemFilterItem({
   const problemText = intl.formatMessage({
     id: "problem:" + problemId
   });
+  const problemTextShort = intl.formatMessage({
+    id: "problem:" + problemId + ":short"
+  });
 
   const title = intl.formatMessage(
     {
@@ -51,7 +54,7 @@ function BulletinProblemFilterItem({
           <div className="picto-img">
             <ProblemIcon problem={problemId} active alt={problemText} />
           </div>
-          <div className="picto-caption">Neuschnee</div>
+          <div className="picto-caption">{problemTextShort}</div>
           {/* <ProblemIcon
               problem={problemId}
               active={false}

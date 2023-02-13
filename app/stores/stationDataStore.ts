@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { fetchJSON } from "../util/fetch";
 import { Util } from "leaflet";
 import { regionCodes } from "../util/regions";
+import { dateFormat } from "../util/date";
 
 interface FeatureProperties {
   "LWD-Region": string;
@@ -159,6 +159,8 @@ export class StationData {
 }
 
 export default class StationDataStore {
+  dateTime: Date;
+  readonly dateTimeMax = new Date();
   data: StationData[] = [];
   _activeRegions: Record<string, boolean> = {};
   searchText = "";
@@ -286,25 +288,27 @@ export default class StationDataStore {
       });
   }
 
-  load(timePrefix = "") {
+  async load(dateTime?: Date) {
+    dateTime ??= new Date();
+    const timePrefix =
+      dateTime instanceof Date && +dateTime
+        ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
+        : "";
     const stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });
-    //console.log("StationDataStore->load", timePrefix, stationsFile);
-
-    return fetchJSON(stationsFile, { cache: "no-cache" })
-      .then(data => this.setDataAfterLoad(data))
-      .catch(error => {
-        if (error.response.status === 404) {
-          //console.log("StationDataStore->load could not load", stationsFile);
-          return [];
-        } else return Promise.reject(error.response);
-      });
+    const response = await fetch(stationsFile, { cache: "no-cache" });
+    if (response.status === 404) return [];
+    if (!response.ok) return Promise.reject(new Error(response.statusText));
+    const data = await response.json();
+    return this.setDataAfterLoad(data, dateTime);
   }
 
   setDataAfterLoad(
-    data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>
+    data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>,
+    dateTime?: Date
   ) {
+    this.dateTime = dateTime;
     this.data = data.features
       .filter(el => el.properties.date)
       .map(feature => new StationData(feature));
