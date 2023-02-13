@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { forkJoin, Observable, of } from "rxjs";
-import { flatMap, last, map } from "rxjs/operators";
+import { catchError, flatMap, last, map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 import { GenericObservation } from "app/observations/models/generic-observation.model";
+import { LatLng } from "leaflet";
 
 interface MultimodelPointCsv {
   statnr: string;
@@ -185,9 +186,14 @@ export class ModellingService {
    */
   getObservedProfiles(): Observable<GenericObservation[]> {
     const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http
-      .get<AvalancheWarningServiceObservedProfiles[]>(url)
-      .pipe(map((profiles) => profiles.map((profile) => toPoint(profile))));
+    const regionsService = this.regionsService;
+    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url).pipe(
+      map((profiles) => profiles.map((profile) => toPoint(profile))),
+      catchError((e) => {
+        console.error("Failed to read observed_profiles from " + url, e);
+        return [];
+      })
+    );
 
     function toPoint(profile: AvalancheWarningServiceObservedProfiles): GenericObservation {
       return {
@@ -196,6 +202,7 @@ export class ModellingService {
         eventDate: new Date(profile.eventDate),
         locationName: profile.locationName,
         $externalURL: profile.$externalURL,
+        region: regionsService.getRegionForLatLng(new LatLng(profile.latitude, profile.longitude))?.id,
         latitude: profile.latitude,
         longitude: profile.longitude
       } as GenericObservation;
