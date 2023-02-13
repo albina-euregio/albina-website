@@ -106,10 +106,12 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   yearFlipper() {
-    const curYear = new Date().getFullYear();
+    const now = new Date();
+    const curYear =
+      now.getMonth() > 8 ? now.getFullYear() : now.getFullYear() - 1;
     let nextYear = null;
     let lastYear = null;
-    let selectedYear = new Date().getFullYear();
+    let selectedYear = curYear;
     if (this.state.selectedYear) {
       selectedYear = this.state.selectedYear;
       if (selectedYear > 1960) lastYear = selectedYear - 1;
@@ -133,12 +135,14 @@ class WeatherStationDiagrams extends React.Component {
                 }}
               >
                 <span className="icon-arrow-left"></span>
-                {lastYear}
+                {lastYear}/{lastYear + 1}
               </a>
             </Tooltip>
           </li>
         )}
-        <li className="weatherstation-flipper-current">{selectedYear}</li>
+        <li className="weatherstation-flipper-current">
+          {selectedYear}/{selectedYear + 1}
+        </li>
         {nextYear && (
           <li className="weatherstation-flipper-forward">
             <Tooltip
@@ -154,7 +158,7 @@ class WeatherStationDiagrams extends React.Component {
                   });
                 }}
               >
-                {nextYear}&nbsp;
+                {nextYear}/{nextYear + 1}&nbsp;
                 <span className="icon-arrow-right"></span>
               </a>
             </Tooltip>
