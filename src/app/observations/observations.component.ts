@@ -1,4 +1,12 @@
-import { Component, AfterContentInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  AfterContentInit,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  HostListener
+} from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { ObservationsService } from "./observations.service";
@@ -345,5 +353,31 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   toggleFilters() {
     this.layoutFilters = !this.layoutFilters;
     this.mapService.map.invalidateSize();
+  }
+
+  @HostListener("document:keydown", ["$event"])
+  handleKeyBoardEvent(event: KeyboardEvent | { key: "ArrowLeft" | "ArrowRight" }) {
+    if (!this.observationPopupVisible || !this.observationPopup?.observation) {
+      return;
+    }
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+      return;
+    }
+    let observation = this.observationPopup?.observation;
+    const observations = this.observations.filter(
+      (o) => o.$source === observation.$source && o.$type === observation.$type
+    );
+    const index = observations.indexOf(observation);
+    if (index < 0) {
+      return;
+    }
+    if (event.key === "ArrowRight") {
+      observation = observations[index + 1];
+    } else if (event.key === "ArrowLeft") {
+      observation = observations[index - 1];
+    }
+    if (observation) {
+      this.onObservationClick(observation);
+    }
   }
 }

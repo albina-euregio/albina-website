@@ -420,6 +420,12 @@
   <p-header>
     <span [style]="{ color: toMarkerColor(observationPopup?.observation) }" [title]="observationPopup?.observation?.$source">█</span>
     {{ observationPopup?.observation?.locationName }}
+    <div class="d-inline-block font-weight-normal">
+      &mdash; Tipp:
+      <kbd (click)="handleKeyBoardEvent({key: 'ArrowLeft'})">←</kbd>,
+      <kbd (click)="handleKeyBoardEvent({key: 'ArrowRight'})">→</kbd>
+      zum Blättern
+    </div>
   </p-header>
   <table *ngIf="observationPopup" class="table table-sm">
     <tr *ngFor="let row of observationPopup.table">
