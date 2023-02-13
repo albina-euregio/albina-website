@@ -1,4 +1,3 @@
-import * as Enums from "app/enums/enums";
 export type TranslationFunction = (key: string) => string;
 
 export interface GenericObservation<Data = any> {
@@ -6,6 +5,10 @@ export interface GenericObservation<Data = any> {
    * Additional data (e.g. original data stored when fetching from external API)
    */
   $data: Data;
+  /**
+   * External ID of this observations
+   */
+  $id?: string;
   /**
    * External URL/image to display as iframe
    */
@@ -18,7 +21,7 @@ export interface GenericObservation<Data = any> {
    * Snowpack stability that can be inferred from this observation
    */
   stability?: Stability;
-  $source: ObservationSource;
+  $source: ObservationSource | ForecastSource;
   $type: ObservationType;
   /**
    * Aspect corresponding with this observation
@@ -71,7 +74,7 @@ export interface GenericObservation<Data = any> {
   /**
    * Important observations
    */
-  importantObservations?: Enums.ImportantObservation[];
+  importantObservations?: ImportantObservation[];
 
   filterType?: ObservationFilterType;
   isHighlighted?: boolean;
@@ -108,7 +111,21 @@ export enum ObservationFilterType {
   Local = "Local"
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor;
+export enum ImportantObservation {
+  SnowLine = "SnowLine",
+  SurfaceHoar = "SurfaceHoar",
+  Graupel = "Graupel",
+  StabilityTest = "StabilityTest",
+  IceFormation = "IceFormation",
+  VeryLightNewSnow = "VeryLightNewSnow"
+}
+
+export enum Stability {
+  good = "good",
+  fair = "fair",
+  poor = "poor",
+  very_poor = "very_poor"
+}
 
 const colors: Record<Stability, string> = {
   good: "green",
@@ -134,6 +151,8 @@ export enum ObservationSource {
   Natlefs = "Natlefs",
   WikisnowECT = "WikisnowECT"
 }
+
+export type ForecastSource = "multimodel" | "qfa" | "observed_profile" | "alpsolut_profile";
 
 export enum ObservationType {
   SimpleObservation = "SimpleObservation",
@@ -209,9 +228,19 @@ export function toObservationTable(observation: GenericObservation, t: (key: str
   ];
 }
 
-export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
+export function toAspect(aspect: number | string | undefined): Aspect | undefined {
+  enum NumericAspect {
+    N = 1,
+    NE = 2,
+    E = 3,
+    SE = 4,
+    S = 5,
+    SW = 6,
+    W = 7,
+    NW = 8
+  }
   if (typeof aspect === "number") {
-    const string = Enums.Aspect[aspect];
+    const string = NumericAspect[aspect];
     return Aspect[string];
   } else if (typeof aspect === "string") {
     return Aspect[aspect];

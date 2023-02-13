@@ -68,8 +68,8 @@
     <div class="d-inline-block" *ngIf="selectedModelPoint">
       <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select mb-2 mb-sm-0">
         <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
-          {{ point.regionCode }}:
-          {{ point.regionName }}
+          {{ point.region }}:
+          {{ point.locationName }}
         </option>
       </select>
     </div>
@@ -89,7 +89,10 @@
   </p-header>
 
   <div *ngIf="selectedModelPoint && !observationPopupIframe">
-    <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.plotUrl" class="img-fluid" />
+    <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.$externalURL" class="img-fluid" />
+  </div>
+  <div *ngIf="selectedModelPoint && selectedModelPoint.$extraDialogRows">
+    <img *ngFor="let row of selectedModelPoint.$extraDialogRows" [src]="row.url" class="img-fluid">
   </div>
   <div *ngIf="selectedModelPoint && observationPopupIframe">
     <iframe [src]="observationPopupIframe" style="width: 100%; height: 1714px"></iframe>

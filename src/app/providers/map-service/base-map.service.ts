@@ -1,13 +1,10 @@
 import { Injectable } from "@angular/core";
 import { GeoJSON } from "leaflet";
 import { ConstantsService } from "../constants-service/constants.service";
-// @ts-ignore
-/// <reference types="leaflet-sidebar-v2" />
 import {
   Map,
   LayerGroup,
   TileLayer,
-  SidebarOptions,
   MarkerOptions,
   CircleMarkerOptions,
   Browser,
@@ -52,13 +49,6 @@ export class BaseMapService {
     activeSelection: GeoJSON<SelectableRegionProperties>;
     editSelection: GeoJSON<SelectableRegionProperties>;
     aggregatedRegions: GeoJSON<SelectableRegionProperties>;
-  };
-
-  public sidebarOptions: SidebarOptions = {
-    position: "right",
-    autopan: false,
-    closeButton: false,
-    container: "sidebar"
   };
 
   public layers = {

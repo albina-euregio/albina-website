@@ -25,6 +25,7 @@ import { LatLng, Marker } from "leaflet";
 import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
 import { formatDate } from "@angular/common";
+import type { Observable } from "rxjs";
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 declare var L: any;
@@ -39,7 +40,7 @@ export interface MultiselectDropdownData {
   styleUrls: ["./observations.component.scss"]
 })
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
-  public loading = false;
+  public loading: Observable<GenericObservation<any>> | undefined = undefined;
   public layout: "map" | "table" | "chart" = "map";
   public layoutFilters = true;
   public observations: GenericObservation[] = [];
@@ -89,8 +90,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .features.map((f) => f.properties)
       .sort((r1, r2) => r1.id.localeCompare(r2.id));
 
-    //    console.log("constructor", this.allRegions, this.regionsService.getRegionsEuregio(), Object.keys(ObservationSource).map((key) => {return {"id": key, "name": key} }));
-
     this.allSources = Object.keys(ObservationSource).map((key) => {
       return { id: key, name: key };
     });
@@ -99,14 +98,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       {
         label: "Mehr",
         items: [
-          // {
-          //   label: this.translateService.instant("observations.showTable"),
-          //   icon: '',
-          //   command: (event) => {
-          //     //console.log("showTable", this.showTable);
-          //     this.showTable = !this.showTable
-          //   }
-          // },
           {
             label: "Export",
             icon: "",
@@ -129,12 +120,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     this.loadObservations({ days: 7 });
     this.mapService.map.on("click", () => {
-      //console.log("this.mapService.observationsMap click #1", this.mapService.getSelectedRegions());
-
       this.filter.regions = this.mapService.getSelectedRegions().map((aRegion) => aRegion.id);
-
-      //console.log("this.mapService.observationsMap click #2", this.filter.regions);
-
       this.applyLocalFilter();
     });
   }
@@ -148,7 +134,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onDropdownSelect(target: string, event: any) {
-    //console.log("onDropdownSelect", event);
     switch (target) {
       case "regions":
         this.filter.regions = event.value;
@@ -183,10 +168,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  closeTable() {
-    this.layout = "map";
-  }
-
   newObservation() {
     this.layout = "table";
     this.observationTableComponent.newObservation();
@@ -197,29 +178,28 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   loadObservations({ days }: { days?: number } = {}) {
-    //console.log("loadObservations ##x1", this.selectedSourceItems, this.filter.dateRange);
-    this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       this.filter.days = days;
     }
-    this.loading = true;
-    this.observations.length = 0;
-    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
-    this.observationsService
-      .loadAll()
+    this.clear();
+    this.loading = this.observationsService.loadAll();
+    this.loading
       .forEach((observation) => {
-        //console.log("loadObservations ##2", regionId, observation.eventDate, observation.$source);
-
         if (this.filter.inDateRange(observation)) {
-          //console.log("loadObservations ADDDD ##4", regionId, observation.eventDate);
           this.addObservation(observation);
         }
       })
       .catch((e) => console.error(e))
       .finally(() => {
-        this.loading = false;
+        this.loading = undefined;
         this.applyLocalFilter();
       });
+  }
+
+  private clear() {
+    this.observationsWithoutCoordinates = 0;
+    this.observations.length = 0;
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
   }
 
   exportObservations() {
@@ -251,10 +231,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   applyLocalFilter() {
-    //console.log("applyLocalFilter ##1");
-
-    //console.log("applyLocalFilter ##2", this.filter.filterSelection);
-
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observations.forEach((observation) => {
       observation.filterType =
@@ -264,12 +240,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       observation.isHighlighted = this.filter.isHighlighted(observation);
     });
 
-    //    console.log("applyLocalFilter ##3.99", this.observations);
     this.localObservations = [];
     this.observations.forEach((observation) => {
-      const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
+      const ll =
+        observation.latitude && observation.longitude
+          ? new LatLng(observation.latitude, observation.longitude)
+          : undefined;
 
-      //if(observation.aspect || observation.elevation) console.log("applyLocalFilter ##3", observation);
       if (observation.filterType === ObservationFilterType.Local || observation.isHighlighted) {
         this.localObservations.push(observation);
         if (!ll) {
@@ -297,26 +274,21 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.chartsData.DangerPattern = this.filter.getDangerPatternDataset(this.observations);
 
     this.chartsData.Days = this.filter.getDaysDataset(this.observations);
-
-    //console.log("buildChartsData", this.chartsData);
   }
 
   private drawMarker(observation: GenericObservation, ll: LatLng) {
-    const styledObservation = observation.isHighlighted ? this.mapService.highlightStyle(observation) : this.mapService.style(observation);
+    const styledObservation = observation.isHighlighted
+      ? this.mapService.highlightStyle(observation)
+      : this.mapService.style(observation);
     styledObservation.bubblingMouseEvents = false;
-    //styledObservation.riseOnHover = true;
     const marker = new Marker(ll, styledObservation);
-    // if (this.mapService.USE_CANVAS_LAYER) {
-    //   // @ts-ignore
-    //   marker.observation = observation;
-    // } else {
-
-    // }
     marker.on("click", () => this.onObservationClick(observation));
 
     const tooltip = [
       `<i class="fa fa-calendar"></i> ${
-        observation.eventDate instanceof Date ? formatDate(observation.eventDate, "yyyy-MM-dd HH:mm", "en-US") : undefined
+        observation.eventDate instanceof Date
+          ? formatDate(observation.eventDate, "yyyy-MM-dd HH:mm", "en-US")
+          : undefined
       }`,
       `<i class="fa fa-globe"></i> ${observation.locationName || undefined}`,
       `<i class="fa fa-user"></i> ${observation.authorName || undefined}`,
@@ -333,18 +305,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
-    const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
+    const ll =
+      observation.latitude && observation.longitude
+        ? new LatLng(observation.latitude, observation.longitude)
+        : undefined;
     observation.filterType = ObservationFilterType.Local;
 
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
-    // if (
-    //   !this.selectedSourceItems.length || !this.selectedSourceItems.includes(observation.$source) ||
-    //   !this.filter.isSelected(observation)
-    // ) {
-    //   observation.filterType = ObservationFilterType.Global;
-    // }
 
     this.observations.push(observation);
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
@@ -358,7 +327,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
-    //console.log("onObservationClick ##002", observation.$data);
     if (observation.$externalURL) {
       const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
       this.observationPopup = { observation, table: [], iframe };

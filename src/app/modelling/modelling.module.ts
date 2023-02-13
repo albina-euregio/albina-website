@@ -7,7 +7,7 @@ import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
 import { ModellingService } from "./modelling.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
-import { ForecastComponent } from "./forecast/forecast.component";
+import { ForecastComponent } from "./forecast.component";
 import { DialogModule } from "primeng/dialog";
 import { MultiSelectModule } from "primeng/multiselect";
 import { ButtonModule } from "primeng/button";

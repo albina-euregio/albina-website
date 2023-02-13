@@ -353,38 +353,8 @@ export class SimpleGrainShapeUtil {
   }
 }
 
-export enum ObservationFilterType {
-  Global = "Global",
-  Local = "Local"
-}
-
-// FIXME duplicate of enum in GenericObservation model
-export enum ObservationType {
-  SimpleObservation = "SimpleObservation",
-  Evaluation = "Evaluation",
-  Avalanche = "Avalanche",
-  Blasting = "Blasting",
-  Closure = "Closure",
-  Profile = "Profile",
-  Incident = "Incident",
-  TimeSeries = "TimeSeries",
-}
-
-export enum ImportantObservation {
-  SnowLine = "SnowLine",
-  SurfaceHoar = "SurfaceHoar",
-  Graupel = "Graupel",
-  StabilityTest = "StabilityTest",
-  IceFormation = "IceFormation",
-  VeryLightNewSnow = "VeryLightNewSnow"
-}
-
 export enum Aspect {
   N = 1, NE = 2, E = 3, SE = 4, S = 5, SW = 6, W = 7, NW = 8
-}
-
-export enum Stability {
-  "good" = "good", "fair" = "fair", "poor" = "poor", "very_poor" = "very_poor"
 }
 
 export class AspectUtil {

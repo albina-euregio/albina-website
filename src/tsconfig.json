@@ -20,6 +20,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
+  "angularCompilerOptions": {
+    "strictTemplates": false
+  },
   "files": [
     "main.ts",
     "polyfills.ts"

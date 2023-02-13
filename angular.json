@@ -33,8 +33,7 @@
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/observations.min.css",
-              "node_modules/leaflet/dist/leaflet.css",
-              "node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.min.css"
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
           },

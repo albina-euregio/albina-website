@@ -1,8 +1,8 @@
-import * as Enums from "app/enums/enums";
 import {
   AvalancheProblem,
   GenericObservation,
   imageCountString,
+  ImportantObservation,
   ObservationSource,
   ObservationTableRow,
   ObservationType,
@@ -224,7 +224,7 @@ export function toLawisProfileDetails(
     ...profile,
     $data: lawisDetails,
     stability: getLawisProfileStability(lawisDetails),
-    importantObservations: lawisDetails.stability_tests.length ? [Enums.ImportantObservation.StabilityTest] : [],
+    importantObservations: lawisDetails.stability_tests.length ? [ImportantObservation.StabilityTest] : [],
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments
   };
@@ -265,13 +265,12 @@ export function toLawisIncidentDetails(
 }
 
 export function toLawisIncidentTable(incident: IncidentDetails, t: TranslationFunction): ObservationTableRow[] {
-  const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
   const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];
   return [
     {
       label: t("observations.dangerRating"),
-      value: t("dangerRating." + dangerRating)
+      value: incident.danger?.rating?.id
     },
     {
       label: t("observations.avalancheProblem"),
@@ -306,14 +305,14 @@ function getLawisProfileStability(profile: ProfileDetails): Stability {
   // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
   const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
   const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
-  if (colors.includes(Enums.Stability.very_poor)) {
-    return Enums.Stability.very_poor;
-  } else if (colors.includes(Enums.Stability.poor)) {
-    return Enums.Stability.poor;
-  } else if (colors.includes(Enums.Stability.fair)) {
-    return Enums.Stability.fair;
-  } else if (colors.includes(Enums.Stability.good)) {
-    return Enums.Stability.good;
+  if (colors.includes(Stability.very_poor)) {
+    return Stability.very_poor;
+  } else if (colors.includes(Stability.poor)) {
+    return Stability.poor;
+  } else if (colors.includes(Stability.fair)) {
+    return Stability.fair;
+  } else if (colors.includes(Stability.good)) {
+    return Stability.good;
   }
   return null;
 }
@@ -324,28 +323,28 @@ export function getECTestStability(step: number, propagation: string): Stability
   const propagation0 = /\bN\b/.test(propagation);
   if (step <= 11 && propagation1) {
     // sehr schwach
-    return Enums.Stability.very_poor;
+    return Stability.very_poor;
   } else if (step <= 22 && propagation1) {
     // schwach
-    return Enums.Stability.poor;
+    return Stability.poor;
   } else if (step <= 30 && propagation1) {
     // mittel
-    return Enums.Stability.fair;
+    return Stability.fair;
   } else if (step <= 11 && propagation0) {
     // mittel
-    return Enums.Stability.fair;
+    return Stability.fair;
   } else if (step <= 30 && propagation0) {
-    return Enums.Stability.good;
+    return Stability.good;
   } else if (step === 31) {
-    return Enums.Stability.good;
+    return Stability.good;
   }
   return null;
 }
 
 function getLawisIncidentStability(incident: IncidentDetails): Stability {
   return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
-    ? Enums.Stability.poor
-    : Enums.Stability.fair;
+    ? Stability.poor
+    : Stability.fair;
 }
 
 function getLawisIncidentAvalancheProblems(incident: IncidentDetails): AvalancheProblem[] {
