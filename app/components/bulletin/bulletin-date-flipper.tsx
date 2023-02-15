@@ -9,7 +9,7 @@ import {
   isAfter
 } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
-import { DatePicker } from "../datePicker/datePicker";
+import { dateFormat } from "../../util/date";
 
 type Props = { date: Date; latest: Date };
 
@@ -34,6 +34,8 @@ function BulletinDateFlipper({ date, latest }: Props) {
     navigate("/bulletin/" + dateToISODateString(newDate));
   };
 
+  console.log("xxx", latest, date$);
+
   return (
     <>
       <ul className="list-inline bulletin-flipper">
@@ -57,13 +59,14 @@ function BulletinDateFlipper({ date, latest }: Props) {
             })}
           >
             <a href="#">
-              <DatePicker
-                value={date$}
-                onChange={onChangeCurrentDate}
-                maxDate={latest}
-              >
-                <span className="icon-calendar"></span>
-              </DatePicker>
+              {date$ && (
+                <input
+                  type="date"
+                  max={dateFormat(latest, "%Y-%m-%d", false)}
+                  value={dateFormat(date$, "%Y-%m-%d", false)}
+                  onChange={e => onChangeCurrentDate(new Date(e.target.value))}
+                />
+              )}
             </a>
           </Tooltip>
         </li>
