@@ -34,8 +34,6 @@ function BulletinDateFlipper({ date, latest }: Props) {
     navigate("/bulletin/" + dateToISODateString(newDate));
   };
 
-  console.log("xxx", latest, date$);
-
   return (
     <>
       <ul className="list-inline bulletin-flipper">
@@ -65,7 +63,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                   max={dateFormat(latest, "%Y-%m-%d", false)}
                   value={dateFormat(date$, "%Y-%m-%d", false)}
                   onChange={e => onChangeCurrentDate(new Date(e.target.value))}
-                  onfocus="this.showPicker()"
+                  onFocus="this.showPicker()"
                 />
               )}
             </div>
