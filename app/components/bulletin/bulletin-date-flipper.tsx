@@ -58,16 +58,17 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:showHideCalendar"
             })}
           >
-            <a href="#">
+            <div className="calendar-trigger icon-calendar">
               {date$ && (
                 <input
                   type="date"
                   max={dateFormat(latest, "%Y-%m-%d", false)}
                   value={dateFormat(date$, "%Y-%m-%d", false)}
                   onChange={e => onChangeCurrentDate(new Date(e.target.value))}
+                  onfocus="this.showPicker()"
                 />
               )}
-            </a>
+            </div>
           </Tooltip>
         </li>
         {/* {nextLink && <li className="bulletin-flipper-separator">&nbsp;</li>} */}

@@ -88,6 +88,7 @@ const StationMeasurements = () => {
           value={store.activeRegion}
           className={store.activeRegion !== "all" ? classChanged : ""}
         />
+
         {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
           <div>
             <p className="info">
