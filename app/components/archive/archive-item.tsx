@@ -111,7 +111,7 @@ function ArchiveItem({ date, status }: Props) {
         <strong>{intl.formatDate(date, LONG_DATE_FORMAT)}</strong>
       </td>
       <td>
-        <ul className="list-inline list-download">
+        <ul className="list-inline list-buttongroup-dense list-download">
           <li>{pdfDownloadLink()}</li>
           <li>{xmlDownloadLink()}</li>
         </ul>
@@ -126,11 +126,14 @@ function ArchiveItem({ date, status }: Props) {
       )}
       {bulletin?.avalancheProblems?.length > 0 && (
         <td>
-          <div className="bulletin-report-picto">
+          <div className="avalanche-situation-preview">
             {bulletin.avalancheProblems.map((problem, index) => (
-              <span key={index + problem.problemType}>
+              <div
+                className="bulletin-report-picto avalanche-situation"
+                key={index + problem.problemType}
+              >
                 <ProblemIconLink problem={problem} wrapper={false} />
-              </span>
+              </div>
             ))}
           </div>
         </td>
