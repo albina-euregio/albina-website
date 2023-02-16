@@ -78,6 +78,13 @@ form {
     }
   }
 
+  // Safari
+  input::-webkit-datetime-edit {
+    line-height: 1em;
+    margin-bottom: -4px;
+    padding: 0px;
+  }
+
   .pure-control-group {
     margin-bottom: $padding;
     label {
@@ -89,6 +96,19 @@ form {
     input:last-child {
       top: -$border-width;
       border-radius: $global-radius;
+    }
+  }
+
+  .controlbar & {
+    input {
+      // line-height: 1em;
+      // border-width: 0px;
+      border-color: $white;
+      box-shadow: none;
+      &:hover,
+      &:focus {
+        border-color: $white;
+      }
     }
   }
 }
@@ -106,15 +126,6 @@ form {
   &:hover {
     input {
       width: 10em;
-    }
-  }
-  .controlbar & {
-    input {
-      border-color: $white;
-      &:hover,
-      &:focus {
-        border-color: $white;
-      }
     }
   }
 }
