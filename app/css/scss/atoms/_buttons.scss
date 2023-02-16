@@ -15,7 +15,7 @@
 a.pure-button {
   position: relative;
   display: inline-block;
-  padding: $padding ($padding * 2);
+  padding: $padding ($padding * 1.5);
   font-size: $tiny-font-size; //$body-font-size-tiny;
   @include font-heavy;
   line-height: $header-line-height;

@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Latest",
   "bulletin:header:dateflipper:latest:hover": "Go to current Avalanche Forecast",
   "bulletin:header:dateflipper:forward": "Forward",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Archive",
   "bulletin:header:archive:hover": "Past Avalanche Forecasts",
   "bulletin:map:locate:title": "Show my location",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Avalanche Sizes",
   "button:education:avalanche-problems:text": "Avalanche Problems",
   "button:education:danger-patterns:text": "Danger Patterns",
-  "button:education:handbook:text": "Handbook"
+  "button:education:handbook:text": "Handbook",
+  "date-picker:close-button:caption": "Close"
 }

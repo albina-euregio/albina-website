@@ -89,6 +89,27 @@ const StationMeasurements = () => {
           className={store.activeRegion !== "all" ? classChanged : ""}
         />
 
+        {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
+          <div>
+            <p className="info">
+              {intl.formatMessage({ id: "archive:table-header:date" })}
+            </p>
+            <div className="pure-form">
+              <input
+                type="datetime-local"
+                step={3600}
+                max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
+                value={
+                  store.dateTime instanceof Date
+                    ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
+                    : ""
+                }
+                onChange={e => store.load(new Date(e.target.value))}
+              />
+            </div>
+          </div>
+        )}
+
         <HideGroupFilter
           title={intl.formatMessage({
             id: "measurements:filter:hide"
@@ -112,26 +133,6 @@ const StationMeasurements = () => {
             />
           ))}
         </HideGroupFilter>
-        {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
-          <div>
-            <p className="info">
-              {intl.formatMessage({ id: "archive:table-header:date" })}
-            </p>
-            <div className="pure-form">
-              <input
-                type="datetime-local"
-                step={3600}
-                max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
-                value={
-                  store.dateTime instanceof Date
-                    ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
-                    : ""
-                }
-                onChange={e => store.load(new Date(e.target.value))}
-              />
-            </div>
-          </div>
-        )}
       </FilterBar>
       <section className="section">
         <div className="table-container">

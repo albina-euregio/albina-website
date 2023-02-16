@@ -127,14 +127,59 @@ ul.bulletin-flipper {
       }
     }
   }
+
   .bulletin-flipper-calendar {
-    span {
+    // position: relative;
+    line-height: 1;
+
+    .calendar-trigger {
+      display: block;
+      position: relative;
+      height: 1.5em;
+      width: 1.5em;
+      line-height: 1;
+
       &:before {
-        margin-right: 0;
-        transform: scale(1.25);
+        z-index: -5;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        padding: 0;
+        font-size: 2.75em;
+        color: $anchor-font-color;
+        @include rollout;
+      }
+
+      &:hover {
+        &:before {
+          color: $anchor-font-color-hover;
+          @include rollover;
+        }
+      }
+    }
+
+    input {
+      z-index: 5;
+      // display: block;
+      height: 1.5em;
+      width: 1.5em;
+      padding: 0;
+      font-size: $tiny-font-size;
+      line-height: 1;
+      color: transparent;
+      border-width: 0px;
+      border-color: transparent;
+      background-color: transparent;
+      //Chrome
+      &::-webkit-calendar-picker-indicator {
+        background: none;
       }
     }
   }
+
   .bulletin-flipper-forward {
     span {
       &:before {
