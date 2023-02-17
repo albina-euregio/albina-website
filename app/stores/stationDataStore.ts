@@ -289,7 +289,6 @@ export default class StationDataStore {
   }
 
   async load(dateTime?: Date) {
-    dateTime ??= new Date();
     const timePrefix =
       dateTime instanceof Date && +dateTime
         ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
