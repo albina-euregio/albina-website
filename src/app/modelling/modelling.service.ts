@@ -138,14 +138,14 @@ export class ModellingService {
               locationName: region?.name,
               $externalURL: `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               $extraDialogRows: [
-                {
-                  label: "ECMWF",
-                  url: `${this.constantsService.zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${id}_HS.png`
-                },
-                {
-                  label: "CLAEF",
-                  url: `${this.constantsService.zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${id}_HS.png`
-                }
+                ...["HN", "HS"].map((type) => ({
+                  label: `ECMWF ${type}`,
+                  url: `${this.constantsService.zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${id}_${type}.png`
+                })),
+                ...["HN", "HS"].map((type) => ({
+                  label: `CLAEF ${type}`,
+                  url: `${this.constantsService.zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${id}_${type}.png`
+                }))
               ],
               latitude: lat,
               longitude: lng
