@@ -66,7 +66,7 @@
 >
   <p-header>
     <div class="d-inline-block" *ngIf="selectedModelPoint">
-      <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select mb-2 mb-sm-0">
+      <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select" style="max-width: 70vw">
         <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
           {{ point.region }}:
           {{ point.locationName }}
@@ -75,7 +75,7 @@
     </div>
 
     <div class="d-inline-block" *ngIf="selectedModelType === 'qfa'" id="qfa_div">
-      <select #qfaSelect class="custom-select mb-2 mb-sm-0" [(ngModel)]="qfa.file.filename" (change)="setQfa($event.target.value)">
+      <select #qfaSelect class="custom-select" style="max-width: 70vw" [(ngModel)]="qfa.file.filename" (change)="setQfa($event.target.value)">
         <option *ngFor="let file of files[selectedCity]" [value]="file.filename">{{ file.date }} {{ file.city }}</option>
       </select>
     </div>
