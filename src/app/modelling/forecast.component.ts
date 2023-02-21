@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { BaseMapService } from "app/providers/map-service/base-map.service";
-import { ModellingService } from "./modelling.service";
+import { AlpsolutObservation, ModellingService } from "./modelling.service";
 import { QfaResult, QfaService } from "app/providers/qfa-service/qfa.service";
 import { ParamService } from "app/providers/qfa-service/param.service";
 import { CircleMarker, LatLngLiteral, LatLng } from "leaflet";
@@ -36,6 +36,9 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     observed_profile: [],
     alpsolut_profile: []
   };
+  observationConfigurations = new Set<string>();
+  observationConfiguration: string | undefined;
+
   public readonly allSources: MultiselectDropdownData[] = [
     {
       id: "multimodel",
@@ -136,6 +139,7 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
       if ($source === "qfa") this.setQfa(this.files[locationName][0], 0);
       this.selectedModelPoint = $source === "qfa" ? undefined : point;
       this.selectedModelType = $source as ForecastSource;
+      this.observationConfiguration = (point as AlpsolutObservation).$data?.configuration;
       this.observationPopupVisible = true;
     };
 
@@ -164,11 +168,16 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
   }
 
   loadAll() {
+    this.observationConfigurations.clear();
     this.allSources.forEach((source) => {
       if (source.id === "qfa") return;
       this.modellingService.get(source.id).subscribe((points) => {
         this.dropDownOptions[source.id] = points;
         points.forEach((point) => {
+          const configuration = (point as AlpsolutObservation)?.$data?.configuration;
+          if (configuration) {
+            this.observationConfigurations.add(configuration);
+          }
           // const region = this.regionsService.getRegionForLatLng(new LatLng(point.latitude, point.lon));
           try {
             this.drawMarker(point);
@@ -278,8 +287,18 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  changeRun(type: "next" | "previous") {
-    if (this.selectedModelType === "qfa") {
+  changeRun(type: "next" | "previous", changeType = "") {
+    if (changeType === "observationConfiguration") {
+      const configurations = [...this.observationConfigurations];
+      const index = configurations.indexOf(this.observationConfiguration);
+      if (type === "next") {
+        const newIndex = index + 1 < configurations.length - 1 ? index + 1 : 0;
+        this.observationConfiguration = configurations[newIndex];
+      } else if (type === "previous") {
+        const newIndex = index === 0 ? configurations.length - 1 : index - 1;
+        this.observationConfiguration = configurations[newIndex];
+      }
+    } else if (this.selectedModelType === "qfa") {
       const filenames = this.files[this.selectedCity].map((file) => file.filename);
       const index = filenames.indexOf(this.qfa.file.filename);
       if (type === "next") {
@@ -290,15 +309,21 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
         this.setQfa(filenames[newIndex], 0);
       }
     } else if (this.selectedModelPoint) {
-      const index = this.dropDownOptions[this.selectedModelType].findIndex(
-        (point) => point.region === this.selectedModelPoint.region
+      let points = this.dropDownOptions[this.selectedModelType];
+      if (this.showObservationConfigurations && this.observationConfiguration) {
+        points = points.filter(
+          (p) => (p as AlpsolutObservation).$data?.configuration === this.observationConfiguration
+        );
+      }
+      const index = points.findIndex(
+        (p) => p.region === this.selectedModelPoint.region && p.locationName === this.selectedModelPoint.locationName
       );
       if (type === "next") {
-        const newIndex = index + 1 < this.dropDownOptions[this.selectedModelType].length - 1 ? index + 1 : 0;
-        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
+        const newIndex = index + 1 < points.length - 1 ? index + 1 : 0;
+        this.selectedModelPoint = points[newIndex];
       } else if (type === "previous") {
-        const newIndex = index === 0 ? this.dropDownOptions[this.selectedModelType].length - 1 : index - 1;
-        this.selectedModelPoint = this.dropDownOptions[this.selectedModelType][newIndex];
+        const newIndex = index === 0 ? points.length - 1 : index - 1;
+        this.selectedModelPoint = points[newIndex];
       }
     }
   }
@@ -311,5 +336,28 @@ export class ForecastComponent implements AfterViewInit, OnDestroy {
 
     if (event.key === "ArrowRight") this.changeRun("next");
     if (event.key === "ArrowLeft") this.changeRun("previous");
+
+    if (event.key === "ArrowUp" && this.showObservationConfigurations) {
+      this.changeRun("previous", "observationConfiguration");
+      this.setObservationConfiguration();
+    } else if (event.key === "ArrowDown" && this.showObservationConfigurations) {
+      this.changeRun("next", "observationConfiguration");
+      this.setObservationConfiguration();
+    }
+  }
+
+  setObservationConfiguration() {
+    if (!this.showObservationConfigurations) return;
+    this.selectedModelPoint =
+      this.dropDownOptions[this.selectedModelType].find(
+        (p) =>
+          p.region === this.selectedModelPoint.region &&
+          p.locationName === this.selectedModelPoint.locationName &&
+          (p as AlpsolutObservation).$data?.configuration === this.observationConfiguration
+      ) ?? this.selectedModelPoint;
+  }
+
+  get showObservationConfigurations(): boolean {
+    return !!(this.selectedModelPoint as AlpsolutObservation)?.$data?.configuration;
   }
 }

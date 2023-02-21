@@ -67,9 +67,28 @@
   <p-header>
     <div class="d-inline-block" *ngIf="selectedModelPoint">
       <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select" style="max-width: 70vw">
-        <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
+        <option
+          *ngFor="let point of dropDownOptions[selectedModelType]"
+          [ngValue]="point"
+          [ngClass]="{
+            'd-none': showObservationConfigurations && point.$data.configuration !== observationConfiguration
+          }"
+        >
           {{ point.region }}:
           {{ point.locationName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-inline-block" *ngIf="showObservationConfigurations">
+      <select
+        class="custom-select"
+        style="max-width: 70vw"
+        [(ngModel)]="observationConfiguration"
+        (change)="setObservationConfiguration()"
+      >
+        <option *ngFor="let configuration of observationConfigurations" [ngValue]="configuration">
+          {{ configuration }}
         </option>
       </select>
     </div>

@@ -234,6 +234,7 @@ export class ModellingService {
   }
 
   getAlpsolutDashboardPoints(): Observable<GenericObservation[]> {
+    const regionsService = this.regionsService;
     const dateStart = new Date();
     dateStart.setHours(0, 0, 0, 0);
     const dateEnd = new Date(dateStart);
@@ -261,9 +262,9 @@ export class ModellingService {
                     ...f.properties.dataSets.map((d) =>
                       toPoint(f, d, apiKey, "cbc610ef-7b29-46c8-b070-333d339c2cd4", "stratigraphies + RTA")
                     ),
-                    ...f.properties.dataSets.map((d) =>
-                      toPoint(f, d, apiKey, "f3ecf8fb-3fd7-427c-99fd-582750be236d", "wind drift")
-                    )
+                    ...f.properties.dataSets
+                      .filter((d) => d.aspect === "MAIN")
+                      .map((d) => toPoint(f, d, apiKey, "f3ecf8fb-3fd7-427c-99fd-582750be236d", "wind drift"))
                   ])
                   .sort((p1, p2) => p1.region.localeCompare(p2.region))
               )
@@ -277,7 +278,7 @@ export class ModellingService {
       apiKey: string,
       configurationId: string,
       configurationLabel: string
-    ): GenericObservation {
+    ): AlpsolutObservation {
       const configuration = {
         apiKey,
         configurationId,
@@ -303,13 +304,16 @@ export class ModellingService {
       return {
         $source: "alpsolut_profile",
         $id: search.toString(),
-        region: `${configurationLabel}: ${d.aspect}/${d.slopeAngle}° ${f.properties.code}`,
+        $data: {
+          configuration: `${configurationLabel}: ${d.aspect}/${d.slopeAngle}°`
+        },
+        region: regionsService.getRegionForLatLng(new LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0]))?.id,
         aspect: !d.aspect || d.aspect === "MAIN" ? undefined : Aspect[d.aspect[0]],
         locationName: f.properties.name,
         $externalURL: url,
         latitude: f.geometry.coordinates[1],
         longitude: f.geometry.coordinates[0]
-      } as GenericObservation;
+      } as AlpsolutObservation;
     }
   }
 }
@@ -338,3 +342,5 @@ enum Aspect {
   South = "SOUTH",
   West = "WEST"
 }
+
+export type AlpsolutObservation = GenericObservation<{ configuration: string }>;
