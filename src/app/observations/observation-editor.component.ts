@@ -26,6 +26,23 @@ export class ObservationEditorComponent {
   }));
   locationResults: Feature<Point, GeocodingProperties>[] = [];
 
+  getElevation() {
+    console.log("getElevation");
+    this.elevationService
+      .getHeight(this.observation.latitude, this.observation.longitude)
+      .subscribe((elevation) => (this.observation.elevation = elevation));
+  }
+
+  setLatitude(event) {
+    this.observation.latitude = event.target.value;
+    this.getElevation();
+  }
+
+  setLongitude(event) {
+    this.observation.longitude = event.target.value;
+    this.getElevation();
+  }
+
   searchLocation($event: { originalEvent: Event; query: string }) {
     this.geocodingService
       .searchLocation($event.query)
@@ -42,17 +59,10 @@ export class ObservationEditorComponent {
       const lat = feature.geometry.coordinates[1];
       const lng = feature.geometry.coordinates[0];
 
-      this.elevationService
-        .getHeight(lat, lng)
-        .subscribe((elevation) => (this.observation.elevation = elevation));
-
       this.observation.latitude = lat;
       this.observation.longitude = lng;
-      navigator.clipboard.writeText(
-        `${lat.toString().replace(",", ".")},${lng
-          .toString()
-          .replace(",", ".")}`
-      );
+
+      this.getElevation();
     }, 0);
   }
 
@@ -117,6 +127,8 @@ export class ObservationEditorComponent {
         if (latlng) {
           this.observation.latitude = latlng.lat;
           this.observation.longitude = latlng.lng;
+
+          this.getElevation();
         }
       }
     });
