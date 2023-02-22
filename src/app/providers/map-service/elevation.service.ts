@@ -44,7 +44,7 @@ export class ElevationService {
       map((res: Response) => {
         if (res.abfragestatus !== "erfolgreich") return;
 
-        const elevation = Math.round(res.hoeheDSM / 10) * 10;
+        const elevation = Math.round(res.hoeheDTM);
         return elevation;
       })
     );
