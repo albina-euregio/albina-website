@@ -410,7 +410,7 @@ export class ObservationsService {
           authorName: "foto-webcam.eu",
           content: webcam.imgurl,
           elevation: webcam.elevation,
-          eventDate: new Date(Date.now()),
+          eventDate: new Date(webcam.modtime * 1000),
           latitude: webcam.latitude,
           longitude: webcam.longitude,
           locationName: webcam.name,
