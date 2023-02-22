@@ -27,19 +27,18 @@ export class ObservationEditorComponent {
   locationResults: Feature<Point, GeocodingProperties>[] = [];
 
   getElevation() {
-    console.log("getElevation");
     this.elevationService
       .getHeight(this.observation.latitude, this.observation.longitude)
       .subscribe((elevation) => (this.observation.elevation = elevation));
   }
 
   setLatitude(event) {
-    this.observation.latitude = event.target.value;
+    this.observation.latitude = event.target.value as number;
     this.getElevation();
   }
 
   setLongitude(event) {
-    this.observation.longitude = event.target.value;
+    this.observation.longitude = event.target.value as number;
     this.getElevation();
   }
 
