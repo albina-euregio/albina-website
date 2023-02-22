@@ -26,7 +26,7 @@ export class ObservationEditorComponent {
   }));
   locationResults: Feature<Point, GeocodingProperties>[] = [];
 
-  getElevation() {
+  newLocation() {
     if (this.observation.latitude && this.observation.longitude) {
       // copy coordinates to clipboard
       navigator.clipboard.writeText(
@@ -41,12 +41,12 @@ export class ObservationEditorComponent {
 
   setLatitude(event) {
     this.observation.latitude = event.target.value as number;
-    this.getElevation();
+    this.newLocation();
   }
 
   setLongitude(event) {
     this.observation.longitude = event.target.value as number;
-    this.getElevation();
+    this.newLocation();
   }
 
   searchLocation($event: { originalEvent: Event; query: string }) {
@@ -68,7 +68,7 @@ export class ObservationEditorComponent {
       this.observation.latitude = lat;
       this.observation.longitude = lng;
 
-      this.getElevation();
+      this.newLocation();
     }, 0);
   }
 
@@ -134,7 +134,7 @@ export class ObservationEditorComponent {
           this.observation.latitude = latlng.lat;
           this.observation.longitude = latlng.lng;
 
-          this.getElevation();
+          this.newLocation();
         }
       }
     });
