@@ -5,6 +5,7 @@ import { Feature, Point } from "geojson";
 import { SelectItem } from "primeng/api";
 import { GeocodingProperties, GeocodingService } from "./geocoding.service";
 import { geocoders } from "leaflet-control-geocoder";
+import { ElevationService } from "app/providers/map-service/elevation.service";
 
 @Component({
   selector: "app-observation-editor",
@@ -14,7 +15,8 @@ import { geocoders } from "leaflet-control-geocoder";
 export class ObservationEditorComponent {
   constructor(
     private translate: TranslateService,
-    private geocodingService: GeocodingService
+    private geocodingService: GeocodingService,
+    private elevationService: ElevationService
   ) {}
 
   @Input() observation: Observation;
@@ -39,6 +41,11 @@ export class ObservationEditorComponent {
       );
       const lat = feature.geometry.coordinates[1];
       const lng = feature.geometry.coordinates[0];
+
+      this.elevationService
+        .getHeight(lat, lng)
+        .subscribe((elevation) => (this.observation.elevation = elevation));
+
       this.observation.latitude = lat;
       this.observation.longitude = lng;
       navigator.clipboard.writeText(

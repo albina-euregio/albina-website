@@ -38,6 +38,7 @@ import { BarChartComponent } from "./charts/bar-chart/bar-chart.component";
 import { RoseChartComponent } from "./charts/rose-chart/rose-chart.component";
 import { BaseComponent } from "./charts/base/base-chart.component";
 import { MapService } from "../providers/map-service/map.service";
+import { ElevationService } from "./../providers/map-service/elevation.service";
 
 @NgModule({
   imports: [
@@ -62,8 +63,8 @@ import { MapService } from "../providers/map-service/map.service";
     TableModule,
     PipeModule.forRoot(),
     NgxEchartsModule.forRoot({
-      echarts: () => import("echarts")
-    })
+      echarts: () => import("echarts"),
+    }),
   ],
   declarations: [
     NgxSidebarControlComponent,
@@ -71,8 +72,14 @@ import { MapService } from "../providers/map-service/map.service";
     ObservationEditorComponent,
     ObservationTableComponent,
     BarChartComponent,
-    RoseChartComponent
+    RoseChartComponent,
   ],
-  providers: [GeocodingService, ObservationFilterService, ObservationsService, MapService]
+  providers: [
+    GeocodingService,
+    ObservationFilterService,
+    ObservationsService,
+    MapService,
+    ElevationService,
+  ],
 })
 export class ObservationsModule {}
