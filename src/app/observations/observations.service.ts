@@ -58,6 +58,35 @@ import { ObservationFilterService } from "./observation-filter.service";
 import { RegionsService } from "../providers/regions-service/regions.service";
 import { LatLng } from "leaflet";
 
+interface Webcam {
+  id: string;
+  name: string;
+  title: string;
+  keywords: string;
+  offline: boolean;
+  hidden: boolean;
+  imgurl: string;
+  link: string;
+  localLink: string;
+  modtime: number;
+  details: number;
+  sortscore: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  elevation: number;
+  direction: number;
+  focalLen: number;
+  radius_km: number;
+  sector: number;
+  partner: boolean;
+  captureInterval: number;
+}
+
+interface WebcamResponse {
+  cams: Webcam[];
+}
+
 @Injectable()
 export class ObservationsService {
   private lwdKipLayers: Observable<ArcGisLayer[]>;
@@ -399,16 +428,20 @@ export class ObservationsService {
   getWebcams(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
 
-    return this.http.get<any>(api.Webcams).pipe(
-      map<any, GenericObservation<any>>((webcam) => {
+    return this.http.get<WebcamResponse>(api.Webcams).pipe(
+      map<WebcamResponse, any>((res: WebcamResponse) => {
+        return { ...res.cams };
+      }),
+      map<Webcam, GenericObservation>((webcam: Webcam) => {
         const latlng = new LatLng(webcam.latitude, webcam.longitude);
 
         const cam: GenericObservation = {
           $data: webcam,
+          $externalURL: webcam.imgurl,
           $source: ObservationSource.Webcams,
           $type: ObservationType.Webcam,
           authorName: "foto-webcam.eu",
-          content: webcam.imgurl,
+          content: webcam.title,
           elevation: webcam.elevation,
           eventDate: new Date(webcam.modtime * 1000),
           latitude: webcam.latitude,
@@ -418,7 +451,8 @@ export class ObservationsService {
         };
         // console.log(cam);
         return cam;
-      })
+      }),
+      filter((observation) => observation.$data.offline === false)
     );
   }
 
