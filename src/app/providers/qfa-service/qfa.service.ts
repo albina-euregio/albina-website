@@ -7,6 +7,14 @@ import { GetDustParamService } from "./dust.service";
 import { ParamService } from "./param.service";
 import { R3BoundTarget } from '@angular/compiler';
 
+export type QfaResult = {
+  data: types.data;
+  date: string;
+  dates: string[];
+  parameters: string[];
+  file: any;
+};
+
 @Injectable()
 export class QfaService {
   baseUrl = "https://static.avalanche.report/zamg_qfa/";
@@ -59,7 +67,7 @@ export class QfaService {
     return this.files;
   }
 
-  async getRun(file, startDay: number, first: boolean) {
+  async getRun(file, startDay: number, first: boolean): Promise<QfaResult> {
     const days = `0${startDay}0${startDay+2}`;
     const filename = file.filename.replace(/\d{4}\.txt/g, `${days}.txt`);
     const run = new QfaFile(this.http);

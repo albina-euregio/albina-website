@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
-import { forkJoin, Observable } from "rxjs";
-import { flatMap, last, map } from "rxjs/operators";
+import { forkJoin, Observable, of } from "rxjs";
+import { catchError, flatMap, last, map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
-import { formatDate } from "@angular/common";
+import { GenericObservation, ObservationType } from "app/observations/models/generic-observation.model";
+import { geoJSON, LatLng } from "leaflet";
 
 interface MultimodelPointCsv {
   statnr: string;
@@ -21,25 +22,6 @@ export interface ZamgFreshSnow {
   values: number[];
   min: number;
   max: number;
-}
-
-/**
- * Represents one ZAMG multi model point.
- */
-export class ZamgModelPoint {
-  constructor(
-    public id: string,
-    public regionCode: string,
-    public regionName: string,
-    public freshSnow: ZamgFreshSnow[],
-    public plotUrl: string,
-    public lat: number,
-    public lng: number
-  ) {}
-
-  get label(): string {
-    return this.regionCode + ": " + this.regionName;
-  }
 }
 
 export interface SnowpackPlots {
@@ -74,23 +56,41 @@ export class ModellingService {
     });
   }
 
-  get(
-    type: "multimodel" | "eps_ecmwf" | "eps_claef" | "observed_profile" | "alpsolut_profile"
-  ): Observable<ZamgModelPoint[]> {
+  get(type: "multimodel" | "meteogram" | "observed_profile" | "alpsolut_profile"): Observable<GenericObservation[]> {
     if (type === "alpsolut_profile") {
       return this.getAlpsolutDashboardPoints();
     } else if (type === "observed_profile") {
       return this.getObservedProfiles();
-    } else if (type === "eps_ecmwf") {
-      return this.getZamgEcmwfModelPoints();
-    } else if (type === "eps_claef") {
-      return this.getZamgClaefModelPoints();
     } else if (type === "multimodel") {
       return this.getZamgMultiModelPoints();
+    } else if (type === "meteogram") {
+      return this.getZamgMeteograms();
     }
   }
 
-  private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
+  private getZamgMeteograms(): Observable<GenericObservation[]> {
+    const observations = this.regionsService
+      .getRegionsEuregio()
+      .features.filter((f) => /AT-07/.test(f.properties.id))
+      .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id))
+      .map((f): GenericObservation => {
+        const center = geoJSON(f).getBounds().getCenter();
+        const file = f.properties.id.replace(/AT-07-/, "");
+        const $externalURL = `https://wiski.tirol.gv.at/lawine/produkte/meteogramm_R-${file}.png`;
+        return {
+          $type: ObservationType.TimeSeries,
+          $externalURL,
+          $source: "meteogram",
+          region: f.properties.id,
+          locationName: f.properties.name,
+          latitude: center.lat,
+          longitude: center.lng
+        } as GenericObservation;
+      });
+    return of(observations);
+  }
+
+  private getZamgMultiModelPoints(): Observable<GenericObservation[]> {
     const urls = [
       "snowgridmultimodel_stationlist.txt",
       "snowgridmultimodel_modprog1400_HN.txt",
@@ -103,7 +103,7 @@ export class ModellingService {
       ),
       map(([points, hs1400, hn910, hn990]) =>
         points.data
-          .map((row: MultimodelPointCsv) => {
+          .map((row: MultimodelPointCsv): GenericObservation => {
             const id = row.statnr;
             const regionCode = row.code;
             const region = this.regionsService.getRegionForId(regionCode);
@@ -130,73 +130,28 @@ export class ModellingService {
               console.warn("Failed to build fresh snow", e);
             }
 
-            return new ZamgModelPoint(
-              id,
-              regionCode,
-              region?.name,
-              freshSnow,
-              `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
-              lat,
-              lng
-            );
+            return {
+              $source: "multimodel",
+              $data: row,
+              $id: id,
+              region: regionCode,
+              locationName: region?.name,
+              $externalURL: `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
+              $extraDialogRows: [
+                ...["HN", "HS"].map((type) => ({
+                  label: `ECMWF ${type}`,
+                  url: `${this.constantsService.zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${id}_${type}.png`
+                })),
+                ...["HN", "HS"].map((type) => ({
+                  label: `CLAEF ${type}`,
+                  url: `${this.constantsService.zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${id}_${type}.png`
+                }))
+              ],
+              latitude: lat,
+              longitude: lng
+            } as GenericObservation;
           })
-          .sort((p1, p2) => p1.regionCode.localeCompare(p2.regionCode))
-      )
-    );
-  }
-
-  getZamgEcmwfTypes(): string[] {
-    return ["HN", "HN_WOS", "HS"];
-  }
-
-  private getZamgEcmwfModelPoints(): Observable<ZamgModelPoint[]> {
-    const { zamgModelsUrl } = this.constantsService;
-    const url = `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_stationlist.txt`;
-    return this.http.get(url, { responseType: "text" }).pipe(
-      map((response) => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
-      map((parseResult) =>
-        this.getZamgEcmwfTypes()
-          .map((type) =>
-            parseResult.data.map(
-              ({ synop, lat, lon, name }) =>
-                new ZamgModelPoint(
-                  synop,
-                  `${type} ${synop}`,
-                  name,
-                  [],
-                  `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,
-                  +lat,
-                  +lon
-                )
-            )
-          )
-          .reduce((acc, x) => acc.concat(x))
-      )
-    );
-  }
-
-  private getZamgClaefModelPoints(): Observable<ZamgModelPoint[]> {
-    const { zamgModelsUrl } = this.constantsService;
-    const url = `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_stationlist.txt`;
-    return this.http.get(url, { responseType: "text" }).pipe(
-      map((response) => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
-      map((parseResult) =>
-        this.getZamgEcmwfTypes()
-          .map((type) =>
-            parseResult.data.map(
-              ({ synop, lat, lon, name }) =>
-                new ZamgModelPoint(
-                  synop,
-                  `${type} ${synop}`,
-                  name,
-                  [],
-                  `${zamgModelsUrl}eps_claef/snowgrid_C-LAEF_EPS_${synop}_${type}.png`,
-                  +lat,
-                  +lon
-                )
-            )
-          )
-          .reduce((acc, x) => acc.concat(x))
+          .sort((p1, p2) => p1.region.localeCompare(p2.region))
       )
     );
   }
@@ -253,27 +208,33 @@ export class ModellingService {
    * SNOWPACK modelled snow profiles
    * https://gitlab.com/avalanche-warning
    */
-  getObservedProfiles(): Observable<ZamgModelPoint[]> {
+  getObservedProfiles(): Observable<GenericObservation[]> {
     const url = this.constantsService.observationApi.AvalancheWarningService;
-    return this.http
-      .get<AvalancheWarningServiceObservedProfiles[]>(url)
-      .pipe(map((profiles) => profiles.map((profile) => toPoint(profile))));
+    const regionsService = this.regionsService;
+    return this.http.get<AvalancheWarningServiceObservedProfiles[]>(url).pipe(
+      map((profiles) => profiles.map((profile) => toPoint(profile))),
+      catchError((e) => {
+        console.error("Failed to read observed_profiles from " + url, e);
+        return [];
+      })
+    );
 
-    function toPoint(profile: AvalancheWarningServiceObservedProfiles) {
-      const date = formatDate(profile.eventDate, "yyyy-MM-dd", "de");
-      return new ZamgModelPoint(
-        profile.$externalURL,
-        date,
-        profile.locationName,
-        [],
-        profile.$externalURL,
-        profile.latitude,
-        profile.longitude
-      );
+    function toPoint(profile: AvalancheWarningServiceObservedProfiles): GenericObservation {
+      return {
+        $source: "observed_profile",
+        $id: profile.$externalURL,
+        eventDate: new Date(profile.eventDate),
+        locationName: profile.locationName,
+        $externalURL: profile.$externalURL,
+        region: regionsService.getRegionForLatLng(new LatLng(profile.latitude, profile.longitude))?.id,
+        latitude: profile.latitude,
+        longitude: profile.longitude
+      } as GenericObservation;
     }
   }
 
-  getAlpsolutDashboardPoints(): Observable<ZamgModelPoint[]> {
+  getAlpsolutDashboardPoints(): Observable<GenericObservation[]> {
+    const regionsService = this.regionsService;
     const dateStart = new Date();
     dateStart.setHours(0, 0, 0, 0);
     const dateEnd = new Date(dateStart);
@@ -301,11 +262,11 @@ export class ModellingService {
                     ...f.properties.dataSets.map((d) =>
                       toPoint(f, d, apiKey, "cbc610ef-7b29-46c8-b070-333d339c2cd4", "stratigraphies + RTA")
                     ),
-                    ...f.properties.dataSets.map((d) =>
-                      toPoint(f, d, apiKey, "f3ecf8fb-3fd7-427c-99fd-582750be236d", "wind drift")
-                    )
+                    ...f.properties.dataSets
+                      .filter((d) => d.aspect === "MAIN")
+                      .map((d) => toPoint(f, d, apiKey, "f3ecf8fb-3fd7-427c-99fd-582750be236d", "wind drift"))
                   ])
-                  .sort((p1, p2) => p1.label.localeCompare(p2.label))
+                  .sort((p1, p2) => p1.region.localeCompare(p2.region))
               )
             );
         })
@@ -317,7 +278,7 @@ export class ModellingService {
       apiKey: string,
       configurationId: string,
       configurationLabel: string
-    ): ZamgModelPoint {
+    ): AlpsolutObservation {
       const configuration = {
         apiKey,
         configurationId,
@@ -340,15 +301,19 @@ export class ModellingService {
       // URL search param is a trick to force reload iframe
       const search = new URLSearchParams({ configurationId, aliasId: String(d.dataSetId) });
       const url = `https://dashboard.alpsolut.eu/graphs/stable/viewer.html?${search}#${params}`;
-      return new ZamgModelPoint(
-        `${f.properties.code} ${d.aspect} ${d.slopeAngle}° ${configurationLabel}`,
-        `${f.properties.code} ${d.aspect} ${d.slopeAngle}° ${configurationLabel}`,
-        f.properties.name,
-        [],
-        url,
-        f.geometry.coordinates[1],
-        f.geometry.coordinates[0]
-      );
+      return {
+        $source: "alpsolut_profile",
+        $id: search.toString(),
+        $data: {
+          configuration: `${configurationLabel}: ${d.aspect}/${d.slopeAngle}°`
+        },
+        region: regionsService.getRegionForLatLng(new LatLng(f.geometry.coordinates[1], f.geometry.coordinates[0]))?.id,
+        aspect: !d.aspect || d.aspect === "MAIN" ? undefined : Aspect[d.aspect[0]],
+        locationName: f.properties.name,
+        $externalURL: url,
+        latitude: f.geometry.coordinates[1],
+        longitude: f.geometry.coordinates[0]
+      } as AlpsolutObservation;
     }
   }
 }
@@ -377,3 +342,5 @@ enum Aspect {
   South = "SOUTH",
   West = "WEST"
 }
+
+export type AlpsolutObservation = GenericObservation<{ configuration: string }>;

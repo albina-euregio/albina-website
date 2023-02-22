@@ -3,7 +3,6 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 
-import { NgxSidebarControlComponent } from "./ngx-sidebar-control.component";
 import { ObservationsComponent } from "./observations.component";
 import { ObservationEditorComponent } from "./observation-editor.component";
 import { ObservationTableComponent } from "./observation-table.component";
@@ -67,7 +66,6 @@ import { ElevationService } from "./../providers/map-service/elevation.service";
     }),
   ],
   declarations: [
-    NgxSidebarControlComponent,
     ObservationsComponent,
     ObservationEditorComponent,
     ObservationTableComponent,

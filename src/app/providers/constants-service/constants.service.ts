@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
-import { ObservationSource } from "app/observations/models/generic-observation.model";
+import {
+  ObservationSource,
+  ObservationType,
+} from "app/observations/models/generic-observation.model";
 import { environment } from "../../../environments/environment";
 import * as Enums from "../../enums/enums";
 const pkg = require("../../../../package.json");
@@ -36,9 +39,9 @@ export class ConstantsService {
       "https://avalanche-feedback.eu/",
     [ObservationSource.LoLaAvalancheFeedbackAT8]:
       "https://avalanche-feedback.eu/",
-    [`${ObservationSource.Lawis}-${Enums.ObservationType.Incident}` as const]:
+    [`${ObservationSource.Lawis}-${ObservationType.Incident}` as const]:
       "https://lawis.at/incident/#{{id}}",
-    [`${ObservationSource.Lawis}-${Enums.ObservationType.Profile}` as const]:
+    [`${ObservationSource.Lawis}-${ObservationType.Profile}` as const]:
       "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
   };
 

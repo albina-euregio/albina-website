@@ -5,8 +5,7 @@ import { EventType, isAvalancheWarningServiceObservation, Observation } from "./
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 import { Table } from "primeng/table";
-import { GenericObservation, ObservationSource, toMarkerColor } from "./models/generic-observation.model";
-import { ImportantObservation } from "app/enums/enums";
+import { GenericObservation, ImportantObservation, ObservationSource, toMarkerColor } from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",

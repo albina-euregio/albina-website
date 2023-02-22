@@ -11,7 +11,20 @@
                 optionLabel="name"
                 optionValue="id"
                 [maxSelectedLabels]="0"
-                (onChange)="onDropdownSelect($event)"
+                (onChange)="onDropdownSelect('source', $event)"
+              ></p-multiSelect>
+            </div>
+            <div class="global-bar-item global-bar-item-region">
+              <p-multiSelect
+                placeholder="{{ 'admin.observations.selectRegion.placeholder' | translate }}"
+                [options]="allRegions"
+                [(ngModel)]="selectedRegions"
+                optionLabel="name"
+                optionValue="id"
+                [maxSelectedLabels]="0"
+                selectedItemsLabel="{{ 'admin.observations.selectRegion.selectionLabel' | translate }}"
+                (onChange)="onDropdownSelect('regions', $event)"
+                scrollHeight="400px"
               ></p-multiSelect>
             </div>
             <div class="global-bar-item global-bar-item-load">
@@ -48,33 +61,57 @@
   [closeOnEscape]="true"
   [dismissableMask]="true"
   [maximizable]="true"
+  (touchstart)="swipe($event, 'start')"
+  (touchend)="swipe($event, 'end')"
 >
   <p-header>
     <div class="d-inline-block" *ngIf="selectedModelPoint">
-      <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select mb-2 mb-sm-0">
-        <option *ngFor="let point of dropDownOptions[selectedModelType]" [ngValue]="point">
-          {{ point.regionCode }}:
-          {{ point.regionName }}
+      <select [(ngModel)]="selectedModelPoint" autofocus class="custom-select" style="max-width: 70vw">
+        <option
+          *ngFor="let point of dropDownOptions[selectedModelType]"
+          [ngValue]="point"
+          [ngClass]="{
+            'd-none': showObservationConfigurations && point.$data.configuration !== observationConfiguration
+          }"
+        >
+          {{ point.region }}:
+          {{ point.locationName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="d-inline-block" *ngIf="showObservationConfigurations">
+      <select
+        class="custom-select"
+        style="max-width: 70vw"
+        [(ngModel)]="observationConfiguration"
+        (change)="setObservationConfiguration()"
+      >
+        <option *ngFor="let configuration of observationConfigurations" [ngValue]="configuration">
+          {{ configuration }}
         </option>
       </select>
     </div>
 
     <div class="d-inline-block" *ngIf="selectedModelType === 'qfa'" id="qfa_div">
-      <select #qfaSelect class="custom-select mb-2 mb-sm-0" [(ngModel)]="qfa.file.filename" (change)="setQfa($event.target.value)">
+      <select #qfaSelect class="custom-select" style="max-width: 70vw" [(ngModel)]="qfa.file.filename" (change)="setQfa($event.target.value)">
         <option *ngFor="let file of files[selectedCity]" [value]="file.filename">{{ file.date }} {{ file.city }}</option>
       </select>
     </div>
 
     <div class="d-inline-block font-weight-normal">
       &mdash; Tipp:
-      <kbd>←</kbd>,
-      <kbd>→</kbd>
+      <kbd (click)="changeRun('previous')">←</kbd>,
+      <kbd (click)="changeRun('next')">→</kbd>
       zum Blättern
     </div>
   </p-header>
 
   <div *ngIf="selectedModelPoint && !observationPopupIframe">
-    <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.plotUrl" class="img-fluid" />
+    <img *ngIf="selectedModelPoint" [src]="selectedModelPoint.$externalURL" class="img-fluid" />
+  </div>
+  <div *ngIf="selectedModelPoint && selectedModelPoint.$extraDialogRows">
+    <img *ngFor="let row of selectedModelPoint.$extraDialogRows" [src]="row.url" class="img-fluid">
   </div>
   <div *ngIf="selectedModelPoint && observationPopupIframe">
     <iframe [src]="observationPopupIframe" style="width: 100%; height: 1714px"></iframe>

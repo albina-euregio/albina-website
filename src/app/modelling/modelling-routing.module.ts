@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { SnowpackComponent } from "./snowpack.component";
 import { SnowpackMeteoComponent } from "./snowpack.meteo.component";
-import { ForecastComponent } from "./forecast/forecast.component";
+import { ForecastComponent } from "./forecast.component";
 
 import { AuthGuard } from "../guards/auth.guard";
 

@@ -17,10 +17,11 @@
     "observations" : "Observacions",
     "qfa": "QFA",
     "modelling": "Modelitzacion",
-    "modellingForecast": "Forecast",
+    "modellingForecast": "Prediccion",
     "modellingZamg": "Modèl multiple ZAMG",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingZamgCLAEF": "ZAMG CLAEF-EPS",
+    "modellingZamgMeteogram": "GeoSphere meteogram",
     "modellingSnowpack": "Modèl SNOWPACK",
     "modellingSnowpackMeteo": "Modèl meteo SNOWPACK"
   },
@@ -554,7 +555,7 @@
     "observations" : {
       "table" : "Taula",
       "map" : "Mapa",
-      "filters": "Filters",
+      "filters": "Filtres",
       "title" : "Observacions",
       "button" : {
         "submit" : "Descargar"
@@ -572,8 +573,8 @@
         "selectionLabel": "{0} hònts seleccionades"
       },
       "charts": {
-        "charts" : "Charts",
-        "nan": "Without specification",
+        "charts" : "Grafiques",
+        "nan": "Sense especificacion",
         "invert": "Invertir",
         "reset": "Restablir",
         "aspect": {
@@ -583,19 +584,19 @@
           "caption": "Nautada"
         },
         "stability": {
-          "caption": "Stability"
+          "caption": "Estabilitat"
         },
         "observationType": {
-          "caption": "Observation Type"
+          "caption": "Tipe d'observacions"
         },
         "importantObservation": {
-          "caption": "Important Observation"
+          "caption": "Observacion important"
         },
         "avalancheProblem": {
           "caption": "Problèma de lauegi"
         },
         "dangerPattern": {
-          "caption": "Danger Pattern"
+          "caption": "Patron de perilh"
         }
         ,
         "days": {
@@ -689,8 +690,8 @@
     "persistent_weak_layers" : "Coches febles persistentes",
     "wetSnow" : "Nhèu umida",
     "wet_snow" : "Nhèu umida",
-    "glidingSnow" : "Litsades basaus",
-    "gliding_snow" : "Esguitlament basau",
+    "glidingSnow" : "Esguitlaments basaus",
+    "gliding_snow" : "Esguitlaments basaus",
     "cornices" : "Cornises",
     "noDistinctAvalancheProblem" : "Cap problèma de lauegi evident",
     "no_distinct_problem" : "Cap problèma de lauegi evident",
@@ -710,22 +711,22 @@
     "dp10" : "pp.10: scenari de primauera"
   },
   "observationType" : {
-    "TimeSeries" : "Time series",
+    "TimeSeries" : "Series temporaus",
     "Incident" : "Incident",
-    "Profile" : "Snow profile",
-    "Closure" : "Closure",
-    "Blasting" : "Blasting",
-    "Avalanche" : "Avalanche",
-    "Evaluation" : "Evaluation",
-    "SimpleObservation" : "Simple observation"
+    "Profile" : "Perfil de nhèu",
+    "Closure" : "Barrament",
+    "Blasting" : "Voladura",
+    "Avalanche" : "Lauet",
+    "Evaluation" : "Avaloracion",
+    "SimpleObservation" : "Observacion simple"
   },
   "importantObservation" : {
-    "SnowLine" : "Snow line",
-    "SurfaceHoar" : "Surface hoar",
-    "Graupel" : "Graupel",
-    "StabilityTest" : "Stability test",
-    "IceFormation" : "Ice formation",
-    "VeryLightNewSnow" : "Very light new snow"
+    "SnowLine" : "Limit de nhèu",
+    "SurfaceHoar" : "Gibra de superfícia",
+    "Graupel" : "Nhèu redona",
+    "StabilityTest" : "Test d'estabilitat",
+    "IceFormation" : "Formacion de gèu",
+    "VeryLightNewSnow" : "Nhèu recenta molt leugèra"
   },
   "aspect" : {
     "N" : "N",
@@ -749,11 +750,11 @@
     "increasing" : "El perill d’allaus aumente"
   },
   "snowpackStability" : {
-    "unknown" : "unknown",
-    "good" : "Bona",
-    "fair" : "Regular",
-    "poor" : "Praube",
-    "very_poor" : "Molt praube"
+    "unknown" : "desconeishut",
+    "good" : "bona",
+    "fair" : "regular",
+    "poor" : "praube",
+    "very_poor" : "molt praube"
   },
   "frequency" : {
     "none" : "(quasi) cap",
@@ -788,8 +789,8 @@
     "plotType" : {
       "LWC_stratigraphy" : "nhèu umida: contengut d'aigua liquida",
       "wet_snow_instability" : "nhèu umida: inestabilitat dera nhèu umida",
-      "Sk38_stratigraphy" : "Coches fèbles persistentes: indèx estabilitat SK38",
-      "stratigraphy" : "Coches fèbles persistentes: estratigrafia dera nhèu"
+      "Sk38_stratigraphy" : "coches fèbles persistentes: indèx estabilitat SK38",
+      "stratigraphy" : "coches fèbles persistentes: estratigrafia dera nhèu"
     },
     "aspect" : {
       "flat" : "plan",
@@ -883,53 +884,36 @@
     "time": "Òra",
     "back":"Endarrere",
     "parameters": {
-      "DUST": "sahara dust",
-      "N": "total cloud cover in /8",
-      "Nh": "high cloud cover in /8",
-      "Nm": "medium high cloud cover in /8",
-      "Nl": "low cloud cover in /8",
-      "N-CU": "cumulus cloud cover in /8",
-      "AUSL.T": "trigger temperature",
-      "SHW-IX": "Showalter-Index",
-      "WX -CUF": "significant weather: NIL (none), RASH (rain), TS (thunder storm)",
-      "RR": "total precipitation in mm",
-      "RR-str": "stratiform precipitation",
-      "CONV": "convective precipitation in mm",
-      "SN": "precipitation in form of snow in mm",
-      "SN--RA": "snowline in m",
-      "QA0 300": "300 hPa eq. mean wind, direction and strength in ° and m/s",
-      "QA0 500": "500 hPa eq. mean wind, direction and strength in ° and m/s",
-      "QA0 700": "700 hPa eq. mean wind, direction and strength in ° and m/s",
-      "QA0 850": "850 hPa eq. mean wind, direction and strength in ° and m/s",
-      "QA0 925": "925 hPa eq. mean wind, direction and strength in ° and m/s",
-      "QAN": "mean wind on the ground, direction and strength in ° and m/s",
-      "QANmax": "max. wind (gusts) on the ground in m/s",
-      "T 300": "300 hPa eq. temperature in °C",
-      "T 500": "500 hPa eq. temperature in °C",
-      "T 3000m": "temperature on 3000m in °C",
-      "T 2000m": "temperature on 2000m in °C",
-      "T 1500m": "temperature on 1500m in °C",
-      "T 1000m": "temperature on 1000m in °C",
-      "T 800m": "temperature on 800m in °C",
-      "T 700m": "temperature on 700m in °C",
-      "T 500m": "temperature on 500m in °C",
-      "T 2m": "temperature on 2m in °C",
-      "Tk 2m": "temperature on 2m in °K",
-      "T GND": "ground temperature",
-      "Max-ADI": "maximum mixing temperature in °C",
-      "Min Max": "min./max. temperature in the last 24h",
-      "FROST": "zero degree line in m",
-      "W500 cm": "500 hPa eq. vertical wind in cm/s",
-      "W700 --": "700 hPa eq. vertical wind in cm/s",
-      "W850 s": "850 hPa eq. vertical wind in cm/s",
-      "H 700": "700 hPa geopotential height in m",
-      "H 1000": "1000 hPa geopotential height in m",
-      "RF 300": "300 hPa eq. relative moisture in %",
-      "RF 400": "400 hPa eq. relative moisture in %",
-      "RF 500": "500 hPa eq. relative moisture in %",
-      "RF 700": "700 hPa eq. relative moisture in %",
-      "RF 850": "850 hPa eq. relative moisture in %",
-      "RF 925": "925 hPa eq. relative moisture in %"
+      "DUST": "povàs saharià",
+      "N": "cobertura de bromes totau en /8",
+      "Nh": "cobertura de bromes nautes en /8",
+      "Nm": "cobertura de bromes mejanes en /8",
+      "Nl": "cobertura de bromes baishes en /8",
+      "N-CU": "cobertura de bromes cumulus en /8",
+      "AUSL.T": "temperatura desencadenant",
+      "SHW-IX": "Índex Showalter",
+      "WX -CUF": "temps significatiu: NIL (cap), RASH (ploja), TS (tempèsta)",
+      "RR": "total precipitation [mm]",
+      "RR-str": "precipitacion estratiforme",
+      "CONV": "convective precipitation [mm]",
+      "SN": "precipitation in form of snow [mm]",
+      "SN--RA": "snowline [m]",
+      "QAO ": "{{value}} hPa eq. mean wind, direction and strength, [°] and [m/s]",
+      "QAN": "mean wind on the ground, direction and strength, [°] and [m/s]",
+      "QANmax": "max. wind (gusts) on the ground [m/s]",
+      "T ": "{{value}} hPa eq. temperature [°C]",
+      "T m": "temperature on {{value}}m [°C]",
+      "T 2m": "temperature on 2m [°C]",
+      "Tk 2m": "temperature on 2m [°K]",
+      "T GND": "temperatura en tèrra",
+      "Max-ADI": "maximum mixing temperature [°C]",
+      "Min Max": "mín./màx. temperatura enes darrères 24ores",
+      "FROST": "zero degree line [m]",
+      "W cm": "500 hPa eq. vertical wind [cm/s]",
+      "W --": "700 hPa eq. vertical wind [cm/s]",
+      "W s": "{{value}} hPa eq. vertical wind [cm/s]",
+      "H ": "{{value}} hPa geopotential height [m]",
+      "RF ": "{{value}} hPa eq. relative moisture [%]"
     }
   }
 }

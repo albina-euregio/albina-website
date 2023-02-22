@@ -1,22 +1,19 @@
 import { Injectable } from "@angular/core";
 import { GeoJSON } from "leaflet";
 import { ConstantsService } from "../constants-service/constants.service";
-// @ts-ignore
-/// <reference types="leaflet-sidebar-v2" />
 import {
   Map,
   LayerGroup,
   TileLayer,
-  SidebarOptions,
   MarkerOptions,
   CircleMarkerOptions,
   Browser,
   Control,
   LatLng,
-  CircleMarker } from "leaflet";
-import {
-  GenericObservation,
-  ObservationType} from "app/observations/models/generic-observation.model";
+  CircleMarker,
+  Marker
+} from "leaflet";
+import { GenericObservation, ObservationType } from "app/observations/models/generic-observation.model";
 
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { RegionsService, RegionWithElevationProperties } from "../regions-service/regions.service";
@@ -54,24 +51,18 @@ export class BaseMapService {
     aggregatedRegions: GeoJSON<SelectableRegionProperties>;
   };
 
-  public sidebarOptions: SidebarOptions = {
-    position: "right",
-    autopan: false,
-    closeButton: false,
-    container: "sidebar",
-  }
-
   public layers = {
-    zamgModelPoints: new LayerGroup()
+    forecast: new LayerGroup()
   };
 
   constructor(
     private authenticationService: AuthenticationService,
     private regionsService: RegionsService,
     private constantsService: ConstantsService,
-    private observationMapService: ObservationMapService) {
+    private observationMapService: ObservationMapService
+  ) {
     this.observationTypeLayers = {} as any;
-    Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new LayerGroup());
+    Object.keys(ObservationType).forEach((type) => (this.observationTypeLayers[type] = new LayerGroup()));
   }
 
   initMaps(el: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
@@ -81,7 +72,8 @@ export class BaseMapService {
         className: "leaflet-layer-grayscale",
         minZoom: 12.5,
         maxZoom: 17,
-        attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+        attribution:
+          'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
       }),
       AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
         minZoom: 5,
@@ -121,7 +113,7 @@ export class BaseMapService {
       minZoom: 4,
       maxZoom: 17,
       layers: [
-        ...Object.values(this.baseMaps),
+        ...Object.values(this.baseMaps)
         //...Object.values(this.observationTypeLayers)
       ]
     });
@@ -131,9 +123,9 @@ export class BaseMapService {
     map.addLayer(this.overlayMaps.activeSelection);
     map.addLayer(this.overlayMaps.editSelection);
     //map.addLayer(this.overlayMaps.aggregatedRegions);
-    Object.values(this.observationTypeLayers).forEach(aLayer => {
+    Object.values(this.observationTypeLayers).forEach((aLayer) => {
       //aLayer.pane = "markerPane";
-      aLayer.addTo(map)
+      aLayer.addTo(map);
     });
     this.resetAll();
     this.map = map;
@@ -161,7 +153,7 @@ export class BaseMapService {
   clickRegion(regionIds: Array<String>) {
     //console.log("clickRegion", this.overlayMaps.regions);
     for (const entry of this.overlayMaps.regions.getLayers()) {
-        entry.feature.properties.selected = regionIds.includes(entry.feature.properties.id);
+      entry.feature.properties.selected = regionIds.includes(entry.feature.properties.id);
     }
     this.updateEditSelection();
   }
@@ -185,7 +177,6 @@ export class BaseMapService {
     return selected;
   }
 
-
   updateEditSelection() {
     for (const entry of this.overlayMaps.editSelection.getLayers()) {
       if (entry.feature.properties.selected) {
@@ -196,14 +187,12 @@ export class BaseMapService {
     }
   }
 
-
   private getUserDependentRegionStyle(region) {
     let opacity = this.constantsService.lineOpacityForeignRegion;
     //console.log("getUserDependentRegionStyle ##09", region);
     if (this.authenticationService.isInSuperRegion(region)) {
       opacity = this.constantsService.lineOpacityOwnRegion;
     }
-
 
     return {
       fillColor: this.constantsService.lineColor,
@@ -213,7 +202,6 @@ export class BaseMapService {
       fillOpacity: 0.0
     };
   }
-
 
   private getActiveSelectionBaseStyle() {
     return {
@@ -259,16 +247,15 @@ export class BaseMapService {
     this.resetActiveSelection();
     //this.resetAggregatedRegions();
     this.resetEditSelection();
-
   }
 
   private onEachAggregatedRegionsFeature(feature, layer) {
     layer.on({
-      click: function(e) {
+      click: function (e) {
         console.log("onEachAggregatedRegionsFeature", feature.properties.id);
         feature.properties.selected = true;
       },
-      mouseover: function(e) {
+      mouseover: function (e) {
         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
@@ -278,7 +265,7 @@ export class BaseMapService {
           l.bringToFront();
         }
       },
-      mouseout: function(e) {
+      mouseout: function (e) {
         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
         const l = e.target;
         l.setStyle({
@@ -291,13 +278,11 @@ export class BaseMapService {
     });
   }
 
-
   private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
-
     return function onEachFeature(feature, layer) {
       //console.log("onEachFeatureClosure op map", overlayMaps);
       layer.on({
-        click: function(e) {
+        click: function (e) {
           if (feature.properties.selected && feature.properties.selected === true) {
             if (e.originalEvent.ctrlKey) {
               const regions = regionsService.getLevel1Regions(feature.properties.id);
@@ -338,9 +323,9 @@ export class BaseMapService {
           }
           mapService.updateEditSelection();
         },
-        mouseover: function(e) {
+        mouseover: function (e) {
           // TODO get current language
-           e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
+          e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
           const l = e.target;
           l.setStyle({
             weight: 3
@@ -349,7 +334,7 @@ export class BaseMapService {
             l.bringToFront();
           }
         },
-        mouseout: function(e) {
+        mouseout: function (e) {
           e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
           const l = e.target;
           l.setStyle({
@@ -360,7 +345,7 @@ export class BaseMapService {
           }
         }
       });
-    }
+    };
   }
 
   removeObservationLayers() {
@@ -372,7 +357,7 @@ export class BaseMapService {
   }
 
   removeMarkerLayers() {
-    for(const layer of Object.values(this.layers)) {
+    for (const layer of Object.values(this.layers)) {
       this.map.removeLayer(layer);
     }
   }
@@ -381,13 +366,14 @@ export class BaseMapService {
     this.map.addLayer(this.layers[name]);
   }
 
-  addMarker(marker: CircleMarker, layerName: string, attribution: string | undefined = undefined) {
+  addMarker(marker: CircleMarker | Marker, layerName: string, attribution: string | undefined = undefined) {
     marker.options.pane = "markerPane";
 
     if (this.layers[layerName] === undefined) {
       this.layers[layerName] = new LayerGroup([], { attribution });
       this.layers[layerName].addTo(this.map);
     }
+
     marker.addTo(this.layers[layerName]);
   }
 

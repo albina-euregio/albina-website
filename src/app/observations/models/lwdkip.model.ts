@@ -1,5 +1,4 @@
 import { GenericObservation, ObservationSource, ObservationType, Stability, toAspect } from "./generic-observation.model";
-import * as Enums from "app/enums/enums";
 
 export type ArcGisApi = { layers: ArcGisLayer[] } | { error: { message: string } };
 
@@ -284,22 +283,22 @@ function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, B
 function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
   switch (feature.properties.SPRENGERFOLG || "") {
     case "kein Erfolg":
-      return Enums.Stability.good;
+      return Stability.good;
     case "mäßiger Erfolg":
-      return Enums.Stability.fair;
+      return Stability.fair;
     case "guter Erfolg":
-      return Enums.Stability.poor;
+      return Stability.poor;
     case "sehr guter Erfolg":
-      return Enums.Stability.very_poor;
+      return Stability.very_poor;
     default:
       return null;
   }
 }
 
 function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): Stability {
-  return Enums.Stability.poor;
+  return Stability.poor;
 }
 
 function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
-  return Enums.Stability.very_poor;
+  return Stability.very_poor;
 }

@@ -1,6 +1,5 @@
 import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kronos.model";
 import { GenericObservation, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
-import * as Enums from "app/enums/enums";
 
 export interface LoLaSafetyApi {
   snowProfiles: SnowProfile[];
@@ -125,12 +124,12 @@ function convertAvalancheReport(report: AvalancheReport): GenericObservation<Ava
 
 function getAvalancheReportStability(report: AvalancheReport): Stability {
   if (report.avalanchePotential.riskAssessment < 25) {
-    return Enums.Stability.good;
+    return Stability.good;
   } else if (report.avalanchePotential.riskAssessment < 50) {
-    return Enums.Stability.fair;
+    return Stability.fair;
   } else if (report.avalanchePotential.riskAssessment < 75) {
-    return Enums.Stability.poor;
+    return Stability.poor;
   } else {
-    return Enums.Stability.very_poor;
+    return Stability.very_poor;
   }
 }
