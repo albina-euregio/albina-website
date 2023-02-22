@@ -13,7 +13,9 @@ export interface GenericObservation<Data = any> {
   /**
    * Additional information to display as table rows in the observation dialog
    */
-  $extraDialogRows?: ObservationTableRow[] | ((t: TranslationFunction) => ObservationTableRow[]);
+  $extraDialogRows?:
+    | ObservationTableRow[]
+    | ((t: TranslationFunction) => ObservationTableRow[]);
   /**
    * Snowpack stability that can be inferred from this observation
    */
@@ -86,7 +88,7 @@ export enum AvalancheProblem {
   gliding_snow = "gliding_snow",
   favourable_situation = "favourable_situation",
   cornices = "cornices",
-  no_distinct_problem = "no_distinct_problem"
+  no_distinct_problem = "no_distinct_problem",
 }
 
 // similar to Enum.DangerPattern as string enum
@@ -100,21 +102,25 @@ export enum DangerPattern {
   dp7 = "dp7",
   dp8 = "dp8",
   dp9 = "dp9",
-  dp10 = "dp10"
+  dp10 = "dp10",
 }
 
 export enum ObservationFilterType {
   Global = "Global",
-  Local = "Local"
+  Local = "Local",
 }
 
-export type Stability = Enums.Stability.good | Enums.Stability.fair | Enums.Stability.poor | Enums.Stability.very_poor;
+export type Stability =
+  | Enums.Stability.good
+  | Enums.Stability.fair
+  | Enums.Stability.poor
+  | Enums.Stability.very_poor;
 
 const colors: Record<Stability, string> = {
   good: "green",
   fair: "orange",
   poor: "red",
-  very_poor: "black"
+  very_poor: "black",
 };
 
 export function toMarkerColor(observation: GenericObservation) {
@@ -132,7 +138,8 @@ export enum ObservationSource {
   AvaObs = "AvaObs",
   KipLive = "KipLive",
   Natlefs = "Natlefs",
-  WikisnowECT = "WikisnowECT"
+  WikisnowECT = "WikisnowECT",
+  Webcams = "Webcams",
 }
 
 export enum ObservationType {
@@ -143,7 +150,8 @@ export enum ObservationType {
   Closure = "Closure",
   Profile = "Profile",
   Incident = "Incident",
-  TimeSeries = "TimeSeries"
+  TimeSeries = "TimeSeries",
+  Webcam = "Webcam",
 }
 
 export enum Aspect {
@@ -154,7 +162,7 @@ export enum Aspect {
   S = "S",
   SW = "SW",
   W = "W",
-  NW = "NW"
+  NW = "NW",
 }
 
 export enum LocalFilterTypes {
@@ -165,7 +173,7 @@ export enum LocalFilterTypes {
   ObservationType = "ObservationType",
   ImportantObservation = "ImportantObservation",
   DangerPattern = "DangerPattern",
-  Days = "Days"
+  Days = "Days",
 }
 
 export interface ChartsData {
@@ -194,7 +202,10 @@ export interface ObservationTableRow {
   value?: string;
 }
 
-export function toObservationTable(observation: GenericObservation, t: (key: string) => string): ObservationTableRow[] {
+export function toObservationTable(
+  observation: GenericObservation,
+  t: (key: string) => string
+): ObservationTableRow[] {
   return [
     { label: t("observations.eventDate"), date: observation.eventDate },
     { label: t("observations.reportDate"), date: observation.reportDate },
@@ -203,13 +214,18 @@ export function toObservationTable(observation: GenericObservation, t: (key: str
     { label: t("observations.elevation"), number: observation.elevation },
     {
       label: t("observations.aspect"),
-      value: observation.aspect !== undefined ? t("aspect." + observation.aspect) : undefined
+      value:
+        observation.aspect !== undefined
+          ? t("aspect." + observation.aspect)
+          : undefined,
     },
-    { label: t("observations.comment"), value: observation.content }
+    { label: t("observations.comment"), value: observation.content },
   ];
 }
 
-export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
+export function toAspect(
+  aspect: Enums.Aspect | string | undefined
+): Aspect | undefined {
   if (typeof aspect === "number") {
     const string = Enums.Aspect[aspect];
     return Aspect[string];
@@ -228,18 +244,22 @@ export function toGeoJSON(observations: GenericObservation[]) {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
+        coordinates: [
+          o.longitude ?? 0.0,
+          o.latitude ?? 0.0,
+          o.elevation ?? 0.0,
+        ],
       },
       properties: {
         ...o,
         ...(o.$data || {}),
-        $data: undefined
-      }
+        $data: undefined,
+      },
     })
   );
   const collection: GeoJSON.FeatureCollection = {
     type: "FeatureCollection",
-    features
+    features,
   };
   return collection;
 }
