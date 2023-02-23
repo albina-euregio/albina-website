@@ -215,20 +215,28 @@ export class ObservationsComponent
     const stabilities = Object.values(Stability);
     const importantObservations = Object.values(ImportantObservation);
 
-    const matches = [...observation.content.matchAll(/#\S+/g)].map((el) =>
-      el[0].replace("#", "")
+    const matches = [...observation.content.matchAll(/#\S*(?=\s|$)/g)].map(
+      (el) => el[0].replace("#", "")
     );
     matches.forEach((match) => {
-      if (avalancheProblems.includes(match as AvalancheProblem))
-        observation.avalancheProblems?.push(match as AvalancheProblem);
-      if (dangerPatterns.includes(match as DangerPattern))
-        observation.dangerPatterns?.push(match as DangerPattern);
-      if (stabilities.includes(match as Stability))
+      if (avalancheProblems.includes(match as AvalancheProblem)) {
+        if (!observation.avalancheProblems) observation.avalancheProblems = [];
+        observation.avalancheProblems.push(match as AvalancheProblem);
+      } else if (dangerPatterns.includes(match as DangerPattern)) {
+        if (!observation.dangerPatterns) observation.dangerPatterns = [];
+        observation.dangerPatterns.push(match as DangerPattern);
+      } else if (
+        importantObservations.includes(match as ImportantObservation)
+      ) {
+        if (!observation.importantObservations)
+          observation.importantObservations = [];
+        observation.importantObservations.push(match as ImportantObservation);
+      } else if (stabilities.includes(match as Stability)) {
         observation.stability = match as Stability;
-      if (importantObservations.includes(match as ImportantObservation))
-        observation.importantObservations?.push(match as ImportantObservation);
+      }
     });
 
+    console.log(observation);
     return observation;
   }
 
