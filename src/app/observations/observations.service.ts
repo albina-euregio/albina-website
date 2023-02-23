@@ -440,28 +440,16 @@ export class ObservationsService {
         const cams = res.cams
           .map((webcam: Webcam) => {
             const latlng = new LatLng(webcam.latitude, webcam.longitude);
-            const date = new Date(webcam.modtime * 1000);
-            const dateString = date
-              .toISOString()
-              .split("T")[0]
-              .replace(/-/g, "/");
-            const hours = ("" + date.getHours()).padStart(2, "0");
-            const minutes = (Math.round(date.getMinutes() / 10) * 10) % 60;
-            const minutesString = ("" + minutes).padStart(2, "0");
-
-            const url = `${
-              webcam.imgurl.split("/current")[0]
-            }/${dateString}/${hours}${minutesString}_hd.jpg`;
 
             const cam: GenericObservation = {
               $data: webcam,
-              $externalURL: url,
+              $externalURL: webcam.link,
               $source: ObservationSource.Webcams,
               $type: ObservationType.Webcam,
               authorName: "foto-webcam.eu",
               content: webcam.title,
               elevation: webcam.elevation,
-              eventDate: date,
+              eventDate: new Date(webcam.modtime * 1000),
               latitude: webcam.latitude,
               longitude: webcam.longitude,
               locationName: webcam.name,
