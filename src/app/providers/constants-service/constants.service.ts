@@ -30,7 +30,7 @@ export class ConstantsService {
     [ObservationSource.WikisnowECT]:
       "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
     [ObservationSource.Webcams]:
-      "https://www.foto-webcam.eu/webcam/include/metadata.php",
+      "https://admin.avalanche.report/foto-webcam.eu/metadata.php",
   };
 
   public observationWeb = {

@@ -23,7 +23,7 @@ import {
   GenericObservation,
   ObservationSource,
   ObservationType,
-  toAspect,
+  Aspect,
 } from "./models/generic-observation.model";
 import {
   ArcGisApi,
@@ -425,34 +425,41 @@ export class ObservationsService {
       );
   }
 
+  degreeToAspect(degree: number): Aspect {
+    const aspects = Object.values(Aspect);
+
+    const n = (Math.round((degree * 8) / 360) + 8) % 8;
+    return aspects[n];
+  }
+
   getWebcams(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
 
     return this.http.get<WebcamResponse>(api.Webcams).pipe(
-      map<WebcamResponse, any>((res: WebcamResponse) => {
-        return { ...res.cams };
-      }),
-      map<Webcam, GenericObservation>((webcam: Webcam) => {
-        const latlng = new LatLng(webcam.latitude, webcam.longitude);
+      mergeMap((res: WebcamResponse) => {
+        return res.cams
+          .map((webcam: Webcam) => {
+            const latlng = new LatLng(webcam.latitude, webcam.longitude);
 
-        const cam: GenericObservation = {
-          $data: webcam,
-          $externalURL: webcam.imgurl,
-          $source: ObservationSource.Webcams,
-          $type: ObservationType.Webcam,
-          authorName: "foto-webcam.eu",
-          content: webcam.title,
-          elevation: webcam.elevation,
-          eventDate: new Date(webcam.modtime * 1000),
-          latitude: webcam.latitude,
-          longitude: webcam.longitude,
-          locationName: webcam.name,
-          region: this.regionsService.getRegionForLatLng(latlng).id,
-        };
-        // console.log(cam);
-        return cam;
-      }),
-      filter((observation) => observation.$data.offline === false)
+            const cam: GenericObservation = {
+              $data: webcam,
+              $externalURL: webcam.imgurl,
+              $source: ObservationSource.Webcams,
+              $type: ObservationType.Webcam,
+              authorName: "foto-webcam.eu",
+              content: webcam.title + webcam.direction,
+              elevation: webcam.elevation,
+              eventDate: new Date(webcam.modtime * 1000),
+              latitude: webcam.latitude,
+              longitude: webcam.longitude,
+              locationName: webcam.name,
+              region: this.regionsService.getRegionForLatLng(latlng)?.id,
+              aspect: this.degreeToAspect(webcam.direction),
+            };
+            return cam;
+          })
+          .filter((observation) => observation.$data.offline === false);
+      })
     );
   }
 
