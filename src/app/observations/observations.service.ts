@@ -437,7 +437,7 @@ export class ObservationsService {
 
     return this.http.get<WebcamResponse>(api.Webcams).pipe(
       mergeMap((res: WebcamResponse) => {
-        return res.cams
+        const cams = res.cams
           .map((webcam: Webcam) => {
             const latlng = new LatLng(webcam.latitude, webcam.longitude);
             const date = new Date(webcam.modtime * 1000);
@@ -470,7 +470,10 @@ export class ObservationsService {
             };
             return cam;
           })
-          .filter((observation) => observation.$data.offline === false);
+          .filter((observation) => observation.$data.offline === false)
+          .filter((observation) => observation.region !== undefined);
+
+        return cams;
       })
     );
   }
