@@ -25,6 +25,10 @@ import {
   toObservationTable,
   LocalFilterTypes,
   ChartsData,
+  AvalancheProblem,
+  DangerPattern,
+  ImportantObservation,
+  Stability,
 } from "./models/generic-observation.model";
 
 import { MenuItem } from "primeng/api";
@@ -205,6 +209,29 @@ export class ObservationsComponent
     );
   }
 
+  parseObservation(observation: GenericObservation): GenericObservation {
+    const avalancheProblems = Object.values(AvalancheProblem);
+    const dangerPatterns = Object.values(DangerPattern);
+    const stabilities = Object.values(Stability);
+    const importantObservations = Object.values(ImportantObservation);
+
+    const matches = [...observation.content.matchAll(/#\S+/g)].map((el) =>
+      el[0].replace("#", "")
+    );
+    matches.forEach((match) => {
+      if (avalancheProblems.includes(match as AvalancheProblem))
+        observation.avalancheProblems?.push(match as AvalancheProblem);
+      if (dangerPatterns.includes(match as DangerPattern))
+        observation.dangerPatterns?.push(match as DangerPattern);
+      if (stabilities.includes(match as Stability))
+        observation.stability = match as Stability;
+      if (importantObservations.includes(match as ImportantObservation))
+        observation.importantObservations?.push(match as ImportantObservation);
+    });
+
+    return observation;
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
     if (typeof days === "number") {
       this.filter.days = days;
@@ -214,6 +241,9 @@ export class ObservationsComponent
     this.loading
       .forEach((observation) => {
         if (this.filter.inDateRange(observation)) {
+          if (observation.$source === ObservationSource.AvalancheWarningService)
+            observation = this.parseObservation(observation);
+          this.addObservation(observation);
           if (!observation.elevation) {
             this.elevationService
               .getElevation(observation.latitude, observation.longitude)
