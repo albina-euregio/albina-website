@@ -214,7 +214,16 @@ export class ObservationsComponent
     this.loading
       .forEach((observation) => {
         if (this.filter.inDateRange(observation)) {
-          this.addObservation(observation);
+          if (!observation.elevation) {
+            this.elevationService
+              .getElevation(observation.latitude, observation.longitude)
+              .subscribe((elevation) => {
+                observation.elevation = elevation;
+                this.addObservation(observation);
+              });
+          } else {
+            this.addObservation(observation);
+          }
         }
       })
       .catch((e) => console.error(e))
