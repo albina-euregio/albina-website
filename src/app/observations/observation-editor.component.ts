@@ -107,6 +107,14 @@ export class ObservationEditorComponent {
   }
 
   parseContent($event: { clipboardData: DataTransfer }): void {
+    const codes = {
+      "ALP-LAW-NEG": EventType.PersonNo,
+      "ALP-LAW-UNKL": EventType.PersonUninjured,
+      "ALP-LAW-KLEIN": EventType.PersonUninjured,
+      "ALP-LAW-GROSS": EventType.PersonUninjured,
+      "ALP-LAW-FREI": EventType.PersonUninjured,
+    };
+
     setTimeout(() => {
       const content = this.observation.content;
       if (
@@ -115,6 +123,9 @@ export class ObservationEditorComponent {
         /beschickte Einsatzmittel/.test(content)
       ) {
         this.observation.authorName = "Leitstelle Tirol";
+
+        const code = content.match(/Einsatzcode:\s*(.*)\n/)[1];
+        if (codes[code]) this.observation.eventType = codes[code];
       }
       if (!this.observation.locationName && /Einsatzort/.test(content)) {
         const match = content.match(/Einsatzort:.*\n\s+.*\s+(.*)/);
