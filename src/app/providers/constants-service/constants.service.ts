@@ -45,6 +45,8 @@ export class ConstantsService {
       "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
   };
 
+  public rechenraumApi = "https://voibos.rechenraum.com/voibos/voibos";
+
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
   public osmNominatimCountries = "at,it";
 

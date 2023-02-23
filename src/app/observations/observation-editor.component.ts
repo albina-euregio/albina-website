@@ -34,7 +34,7 @@ export class ObservationEditorComponent {
       );
 
       this.elevationService
-        .getHeight(this.observation.latitude, this.observation.longitude)
+        .getElevation(this.observation.latitude, this.observation.longitude)
         .subscribe((elevation) => (this.observation.elevation = elevation));
     }
   }

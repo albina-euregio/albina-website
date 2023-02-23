@@ -37,6 +37,7 @@ import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
 import { formatDate } from "@angular/common";
 import type { Observable } from "rxjs";
+import { ElevationService } from "../providers/map-service/elevation.service";
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 declare var L: any;
@@ -96,6 +97,7 @@ export class ObservationsComponent
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
+    private elevationService: ElevationService,
     public mapService: BaseMapService
   ) {
     this.allRegions = this.regionsService

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { ConstantsService } from "../constants-service/constants.service";
 
 interface Request {
   Koordinate: string;
@@ -29,11 +30,16 @@ interface Response {
 @Injectable()
 export class ElevationService {
   private CRS = 4326;
-  private url = "https://voibos.rechenraum.com/voibos/voibos";
+  private url = "";
 
-  constructor(public http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private constantsService: ConstantsService
+  ) {
+    this.url = this.constantsService.rechenraumApi;
+  }
 
-  getHeight(lat: number, lng: number): Observable<number> {
+  getElevation(lat: number, lng: number): Observable<number> {
     const params = {
       Koordinate: `${lng},${lat}`,
       CRS: this.CRS,
