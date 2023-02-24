@@ -13,6 +13,7 @@ import {
   getDangerPatterns
 } from "../../stores/bulletin";
 import { APP_STORE } from "../../appStore";
+import { existsAudioFile } from "../../util/audio-files";
 
 type Props = { date: Date; bulletin: Bulletin };
 
@@ -88,6 +89,7 @@ function BulletinReport({ date, bulletin }: Props) {
                 />
               </span>
             </h1>
+            {existsAudioFile(bulletin) ? <p>Audio</p> : <p></p>}
           </header>
           {hasDaytimeDependency(bulletin) ? (
             [
