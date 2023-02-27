@@ -35,7 +35,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
         });
     };
     checkAudioFile(date, bulletin);
-  }, []);
+  }, [bulletin, date]);
 
   return (
     <div className="synthesizedReport">
