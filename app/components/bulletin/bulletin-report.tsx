@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
+import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -13,7 +14,6 @@ import {
   getDangerPatterns
 } from "../../stores/bulletin";
 import { APP_STORE } from "../../appStore";
-import { existsAudioFile } from "../../util/audio-files";
 
 type Props = { date: Date; bulletin: Bulletin };
 
@@ -89,7 +89,10 @@ function BulletinReport({ date, bulletin }: Props) {
                 />
               </span>
             </h1>
-            {existsAudioFile(bulletin) ? <p>Audio</p> : <p></p>}
+            <SynthesizedBulletin
+              date={date}
+              bulletin={bulletin}
+            ></SynthesizedBulletin>
           </header>
           {hasDaytimeDependency(bulletin) ? (
             [
