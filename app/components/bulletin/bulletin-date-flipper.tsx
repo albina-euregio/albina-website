@@ -13,11 +13,15 @@ import { dateFormat } from "../../util/date";
 
 type Props = { date: Date; latest: Date };
 
-function BulletinDateFlipper({ date, latest }: Props) {
+function BulletinDateFlipper({
+  date,
+  latest = dateToISODateString(now)
+}: Props) {
   const intl = useIntl();
   const navigate = useNavigate();
   const date$: Date | null = date && +date ? date : null;
   let nextDate$: Date | null = null;
+  console.log("xxx", latest, date);
   if (date$ && latest) {
     const next = getSuccDate(date$);
     /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
@@ -57,7 +61,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
             })}
           >
             <div className="calendar-trigger icon-calendar">
-              {date$ && (
+              {date$ && latest && (
                 <input
                   type="date"
                   max={dateFormat(latest, "%Y-%m-%d", false)}
