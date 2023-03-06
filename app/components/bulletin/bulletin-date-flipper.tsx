@@ -21,7 +21,6 @@ function BulletinDateFlipper({
   const navigate = useNavigate();
   const date$: Date | null = date && +date ? date : null;
   let nextDate$: Date | null = null;
-  console.log("xxx", latest, date);
   if (date$ && latest) {
     const next = getSuccDate(date$);
     /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
