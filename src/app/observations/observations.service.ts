@@ -539,7 +539,10 @@ export class ObservationsService {
                     longitude: cam.longitude,
                     locationName: res[0].instance.name,
                     region: this.regionsService.getRegionForLatLng(latlng)?.id,
-                    aspect: this.degreeToAspect(cam.zeroDirection),
+                    aspect:
+                      cam.viewAngle === 360
+                        ? this.degreeToAspect(cam.zeroDirection)
+                        : undefined,
                   };
                   return response;
                 })
