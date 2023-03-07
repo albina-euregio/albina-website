@@ -13,7 +13,10 @@ import { dateFormat } from "../../util/date";
 
 type Props = { date: Date; latest: Date };
 
-function BulletinDateFlipper({ date, latest }: Props) {
+function BulletinDateFlipper({
+  date,
+  latest = dateToISODateString(now)
+}: Props) {
   const intl = useIntl();
   const navigate = useNavigate();
   const date$: Date | null = date && +date ? date : null;
@@ -57,7 +60,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
             })}
           >
             <div className="calendar-trigger icon-calendar">
-              {date$ && (
+              {date$ && latest && (
                 <input
                   type="date"
                   max={dateFormat(latest, "%Y-%m-%d", false)}
