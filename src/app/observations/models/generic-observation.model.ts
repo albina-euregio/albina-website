@@ -152,7 +152,8 @@ export enum ObservationSource {
   KipLive = "KipLive",
   Natlefs = "Natlefs",
   WikisnowECT = "WikisnowECT",
-  Webcams = "Webcams",
+  FotoWebcamsEU = "FotoWebcamsEU",
+  Panomax = "Panomax",
 }
 
 export type ForecastSource =

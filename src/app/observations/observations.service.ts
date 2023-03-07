@@ -43,7 +43,7 @@ import {
   WikisnowECT,
 } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
-import { from, merge, Observable, of, onErrorResumeNext } from "rxjs";
+import { forkJoin, from, merge, Observable, of, onErrorResumeNext } from "rxjs";
 import {
   catchError,
   filter,
@@ -51,14 +51,16 @@ import {
   map,
   mergeAll,
   mergeMap,
+  flatMap,
 } from "rxjs/operators";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
 import { ObservationFilterService } from "./observation-filter.service";
 import { RegionsService } from "../providers/regions-service/regions.service";
+import { ElevationService } from "../providers/map-service/elevation.service";
 import { LatLng } from "leaflet";
 
-interface Webcam {
+interface FotoWebcamEU {
   id: string;
   name: string;
   title: string;
@@ -83,8 +85,76 @@ interface Webcam {
   captureInterval: number;
 }
 
-interface WebcamResponse {
-  cams: Webcam[];
+interface FotoWebcamEUResponse {
+  cams: FotoWebcamEU[];
+}
+
+interface PanomaxCam {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  zeroDirection: number;
+  viewAngle: number;
+  iconUrl: string;
+  mapMarkerGravity: string;
+  nightVision: boolean;
+  types?: any[];
+  elevation?: number;
+  tourCam?: boolean;
+  country?: string;
+  countryName?: string;
+  firstPano?: string;
+  lastPano?: string;
+}
+
+interface PanomaxInstance {
+  id: number;
+  name: string;
+  frontentryUrl?: string;
+  logo?: string;
+  initialDirection: number;
+  cam: PanomaxCam;
+}
+
+interface PanomaxThumbnailResponse {
+  mode: string;
+  name: string;
+  url: string;
+  tourCam: boolean;
+  zeroDirection: number;
+  viewAngle: number;
+  initialDirection: number;
+  clipping: any;
+  logo: string;
+  images: any;
+  instance: PanomaxInstance;
+  culture: any;
+  country: string;
+  position: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+interface PanomaxCamResponse {
+  id: string;
+  slug: string;
+  type: string;
+  minLatitude: number;
+  maxLatitude: number;
+  minLongitude: number;
+  maxLongitude: number;
+  otherInstances: any[];
+  instanceLogos: any[];
+  hotSpots: any[];
+  categories: any[];
+  sources: any[];
+  clusteringZoomLevel: number;
+  refreshInterval: number;
+  instances: {
+    [key: string]: PanomaxInstance;
+  };
 }
 
 @Injectable()
@@ -97,7 +167,8 @@ export class ObservationsService {
     public authenticationService: AuthenticationService,
     public translateService: TranslateService,
     public constantsService: ConstantsService,
-    public regionsService: RegionsService
+    public regionsService: RegionsService,
+    public elevationService: ElevationService
   ) {}
 
   loadAll(): Observable<GenericObservation<any>> {
@@ -112,7 +183,8 @@ export class ObservationsService {
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
       this.getObservations(),
-      this.getWebcams()
+      this.getFotoWebcamsEU(),
+      this.getPanomax()
     );
   }
 
@@ -432,19 +504,67 @@ export class ObservationsService {
     return aspects[n];
   }
 
-  getWebcams(): Observable<GenericObservation> {
+  getPanomax(): Observable<GenericObservation> {
+    const { observationApi: api } = this.constantsService;
+    const baseURL = "https://api.panomax.com/1.0/instances/thumbnails/";
+
+    // make request to observationApi.panomax and make a request to the thumbnail url for each result.instance.id
+    return this.http.get<PanomaxCamResponse>(api.Panomax).pipe(
+      mergeMap((res: PanomaxCamResponse) => {
+        const cams = Object.values(res.instances)
+          // make request to each thumbnail url
+          .filter((webcam: PanomaxInstance) => {
+            const region = this.regionsService.getRegionForLatLng(
+              new LatLng(webcam.cam.latitude, webcam.cam.longitude)
+            );
+            return region !== undefined;
+          })
+          .map((webcam: PanomaxInstance) => {
+            return this.http
+              .get<PanomaxThumbnailResponse[]>(baseURL + webcam.id)
+              .pipe(
+                map((res: PanomaxThumbnailResponse[]) => {
+                  const cam = res[0].instance.cam;
+                  const latlng = new LatLng(cam.latitude, cam.longitude);
+                  const response: GenericObservation = {
+                    $data: res[0],
+                    $externalURL: res[0].url,
+                    $source: ObservationSource.Panomax,
+                    $type: ObservationType.Webcam,
+                    authorName: "panomax.com",
+                    content: cam.name,
+                    elevation: cam.elevation,
+                    eventDate: new Date(Date.now()),
+                    latitude: cam.latitude,
+                    longitude: cam.longitude,
+                    locationName: res[0].instance.name,
+                    region: this.regionsService.getRegionForLatLng(latlng)?.id,
+                    aspect: this.degreeToAspect(cam.zeroDirection),
+                  };
+                  return response;
+                })
+              );
+          });
+
+        const observables = from(cams);
+        return observables.pipe(mergeAll());
+      })
+    );
+  }
+
+  getFotoWebcamsEU(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
 
-    return this.http.get<WebcamResponse>(api.Webcams).pipe(
-      mergeMap((res: WebcamResponse) => {
+    return this.http.get<FotoWebcamEUResponse>(api.FotoWebcamsEU).pipe(
+      mergeMap((res: FotoWebcamEUResponse) => {
         const cams = res.cams
-          .map((webcam: Webcam) => {
+          .map((webcam: FotoWebcamEU) => {
             const latlng = new LatLng(webcam.latitude, webcam.longitude);
 
             const cam: GenericObservation = {
               $data: webcam,
               $externalURL: webcam.link,
-              $source: ObservationSource.Webcams,
+              $source: ObservationSource.FotoWebcamsEU,
               $type: ObservationType.Webcam,
               authorName: "foto-webcam.eu",
               content: webcam.title,

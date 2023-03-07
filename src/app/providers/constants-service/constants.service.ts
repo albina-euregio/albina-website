@@ -29,8 +29,9 @@ export class ConstantsService {
       "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]:
       "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
-    [ObservationSource.Webcams]:
+    [ObservationSource.FotoWebcamsEU]:
       "https://admin.avalanche.report/foto-webcam.eu/metadata.php",
+    [ObservationSource.Panomax]: "https://api.panomax.com/1.0/maps/panomaxweb",
   };
 
   public observationWeb = {
