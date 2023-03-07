@@ -28,15 +28,16 @@ export class ObservationEditorComponent {
 
   newLocation() {
     if (this.observation.latitude && this.observation.longitude) {
-      // copy coordinates to clipboard
-      navigator.clipboard.writeText(
-        `${this.observation.latitude}, ${this.observation.longitude}`
-      );
-
       this.elevationService
         .getElevation(this.observation.latitude, this.observation.longitude)
         .subscribe((elevation) => (this.observation.elevation = elevation));
     }
+  }
+
+  copyLatLng() {
+    navigator.clipboard.writeText(
+      `${this.observation.latitude}, ${this.observation.longitude}`
+    );
   }
 
   setLatitude(event) {
