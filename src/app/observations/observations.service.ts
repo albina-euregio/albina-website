@@ -517,7 +517,7 @@ export class ObservationsService {
             const region = this.regionsService.getRegionForLatLng(
               new LatLng(webcam.cam.latitude, webcam.cam.longitude)
             );
-            return region !== undefined;
+            return region === undefined;
           })
           .map((webcam: PanomaxInstance) => {
             return this.http
