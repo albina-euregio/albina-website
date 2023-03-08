@@ -9,6 +9,7 @@ type Props = {
   dateFormat?: Intl.DateTimeFormatOptions;
   formatter?(year: number): string;
   minYear: number;
+  maxYear?: number;
   title: string;
   value: number;
 };
@@ -17,7 +18,7 @@ export default function YearFilter(props: Props) {
   const intl = useIntl();
   const years = useMemo(() => {
     const years = [];
-    const maxYear = new Date().getFullYear();
+    const maxYear = props.maxYear ?? new Date().getFullYear();
 
     for (let year = props.minYear; year <= maxYear; year++) {
       const date = new Date(year, 0, 15);

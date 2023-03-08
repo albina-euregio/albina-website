@@ -23,9 +23,11 @@ function Archive() {
   const intl = useIntl();
   const [searchParams, setSearchParams] = useSearchParams();
   const [buttongroup] = useState(searchParams.get("buttongroup"));
+  const minMonth = 11;
   const [month, setMonth] = useState(
     +(searchParams.get("month") || new Date().getMonth() + 1)
   );
+  if (month < minMonth) setMonth(m => m + 12);
   const [year, setYear] = useState(
     +searchParams.get("year") || currentSeasonYear()
   );
@@ -36,14 +38,8 @@ function Archive() {
   const [region, setRegion] = useState("");
 
   useEffect(() => {
-    const dates = [];
-    const startDate = new Date(year, month - 1, 1);
-    for (
-      let date = startDate;
-      date.getMonth() === startDate.getMonth();
-      date = getSuccDate(date)
-    ) {
-      dates.push(date);
+    const dates = getDatesInMonth(year, month);
+    dates.forEach(date => {
       const dateString = dateToISODateString(date);
       if (dateString >= "2018-12-01" && region) {
         getRegionBulletinStatus(dateString, region).then(status =>
@@ -58,7 +54,7 @@ function Archive() {
           setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       }
-    }
+    });
     setDates(dates);
     setSearchParams(
       buttongroup
@@ -91,6 +87,7 @@ function Archive() {
             id: "archive:filter:year"
           })}
           minYear={window.config.archive.minYear}
+          maxYear={currentSeasonYear()}
           handleChange={setYear}
           formatter={y => `${y}/${y + 1}`}
           value={year}
@@ -104,7 +101,7 @@ function Archive() {
             dateFormat={{ year: "2-digit", month: "short" }}
             handleChange={setMonth}
             length={7}
-            minMonth={11}
+            minMonth={minMonth}
             value={month}
             year={year}
           />
@@ -251,4 +248,17 @@ async function getArchiveBulletinStatus(
       "IT-32-TN": it32tn.ok ? it32tn.url : undefined
     }
   };
+}
+
+function getDatesInMonth(year: number, month: number): Date[] {
+  const dates: Date[] = [];
+  const startDate = new Date(year, month - 1, 1);
+  for (
+    let date = startDate;
+    date.getMonth() === startDate.getMonth();
+    date = getSuccDate(date)
+  ) {
+    dates.push(date);
+  }
+  return dates;
 }
