@@ -463,11 +463,7 @@
         "item": {
           "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
           "defaultTimeSpan": "+12",
-          "timeSpanToDataId": {
-            "+24": "snow24",
-            "+48": "snow48",
-            "+72": "snow72"
-          },
+          "timeSpanToDataId": {},
           "updateTimesOffset": { "*": 12 },
           "units": "cm",
           "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
@@ -499,7 +495,11 @@
         "item": {
           "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
           "defaultTimeSpan": null,
-          "timeSpanToDataId": {},
+          "timeSpanToDataId": {
+            "-24": "snow24",
+            "-48": "snow48",
+            "-72": "snow72"
+          },
           "updateTimesOffset": { "*": 24, "-6": 6, "-12": 12 },
           "metaFiles": {
             "agl": "agl_{timespan}h.ok"
@@ -522,7 +522,7 @@
           },
           "layer": {
             "overlay": true,
-            "stations": false,
+            "stations": true,
             "grid": false
           },
           "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
