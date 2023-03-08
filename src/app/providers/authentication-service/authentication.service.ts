@@ -180,10 +180,6 @@ export class AuthenticationService {
     );
   }
 
-  public isAran(): boolean {
-    return this.getActiveRegionId() === this.constantsService.codeAran
-  }
-
   public getUserLat() {
     return this.activeRegion.mapCenterLat ?? 47.1;
   }
