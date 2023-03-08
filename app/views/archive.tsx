@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
+import { currentSeasonYear } from "../util/date-season";
 import { BulletinStore, BULLETIN_STORE } from "../stores/bulletinStore";
 import ArchiveItem, {
   type BulletinStatus,
@@ -26,7 +27,7 @@ function Archive() {
     +(searchParams.get("month") || new Date().getMonth() + 1)
   );
   const [year, setYear] = useState(
-    +searchParams.get("year") || new Date().getFullYear()
+    +searchParams.get("year") || currentSeasonYear()
   );
   const [bulletinStatus, setBulletinStatus] = useState(
     {} as Record<number, BulletinStatus>

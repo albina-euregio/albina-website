@@ -1,6 +1,7 @@
 import { type LatLngExpression } from "leaflet";
 import { makeAutoObservable } from "mobx";
 import { dateToISODateString } from "../util/date";
+import { currentSeasonDate } from "../util/date-season";
 import { fetchJSON } from "../util/fetch";
 
 export interface Incident {
@@ -56,14 +57,7 @@ export default class IncidentStore {
   }
 
   async load() {
-    const now = new Date();
-    const startDate = dateToISODateString(
-      new Date(
-        now.getMonth() < 9 ? now.getFullYear() - 1 : now.getFullYear(),
-        9,
-        1
-      )
-    );
+    const startDate = dateToISODateString(currentSeasonDate());
     const url =
       "https://admin.avalanche.report/lawis/public/incident?startDate=" +
       startDate;

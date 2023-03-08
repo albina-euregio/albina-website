@@ -6,6 +6,7 @@ import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import { currentSeasonYear } from "../../util/date-season";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -106,9 +107,7 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   yearFlipper() {
-    const now = new Date();
-    const curYear =
-      now.getMonth() > 8 ? now.getFullYear() : now.getFullYear() - 1;
+    const curYear = currentSeasonYear();
     let nextYear = null;
     let lastYear = null;
     let selectedYear = curYear;
