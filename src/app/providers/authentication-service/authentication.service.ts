@@ -183,7 +183,7 @@ export class AuthenticationService {
   public getUserLat() {
     return this.activeRegion.mapCenterLat ?? 47.1;
   }
-  
+
   public getUserLng() {
     return this.activeRegion.mapCenterLng ?? 11.44;
   }

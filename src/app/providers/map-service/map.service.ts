@@ -49,19 +49,13 @@ export class MapService {
   }
 
   initMaps() {
-    if (this.authenticationService.isEuregio()) {
+
       this.baseMaps = {
-        AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
-          tms: false,
-          attribution: ""
-        })
+        AlbinaBaseMap: this.getAlbinaBaseMap()
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
-          tms: false,
-          attribution: ""
-        })
+        AlbinaBaseMap: this.getAlbinaBaseMap()
       };
 
       this.overlayMaps = {
@@ -74,7 +68,7 @@ export class MapService {
         activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getActiveRegion(this.authenticationService.getActiveRegionId()), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
@@ -92,65 +86,22 @@ export class MapService {
         activeSelection: new GeoJSON(this.regionsService.getRegionsWithElevation()),
 
         // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
+        editSelection: new GeoJSON(this.regionsService.getActiveRegion(this.authenticationService.getActiveRegionId()), {
           onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsWithElevation())
-      };
-    } else if (this.authenticationService.getActiveRegionId() === this.constantsService.codeAran) {
-      this.baseMaps = {
-        AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
-          tms: false,
-          attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-        })
+        aggregatedRegions: new GeoJSON(this.regionsService.getActiveRegionWithElevation(this.authenticationService.getActiveRegionId()))
       };
 
-      this.afternoonBaseMaps = {
-        AlbinaBaseMap: new TileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
-          tms: false,
-          attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-        })
-      };
-
-     this.overlayMaps = {
-        // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachAggregatedRegionsFeatureAM
-        }),
-
-        // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
-
-        // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
-        }),
-
-        // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
-      };
-
-      this.afternoonOverlayMaps = {
-        // overlay to show regions
-        regions: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachAggregatedRegionsFeaturePM
-        }),
-
-        // overlay to show selected regions
-        activeSelection: new GeoJSON(this.regionsService.getRegionsAranWithElevation()),
-
-        // overlay to select regions (when editing an aggregated region)
-        editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
-        }),
-
-        // overlay to show aggregated regions
-        aggregatedRegions: new GeoJSON(this.regionsService.getRegionsAranWithElevation())
-      };
-    }
     this.resetAll();
+  }
+
+  getAlbinaBaseMap(): TileLayer {
+    return new TileLayer("https://static.avalanche.report/tms/{z}/{x}/{y}.png", {
+      tms: false,
+      attribution: ""
+    });
   }
 
   getClickedRegion(): String {
