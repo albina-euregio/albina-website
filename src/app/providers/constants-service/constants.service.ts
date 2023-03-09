@@ -31,7 +31,8 @@ export class ConstantsService {
       "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
     [ObservationSource.FotoWebcamsEU]:
       "https://admin.avalanche.report/foto-webcam.eu/metadata.php",
-    [ObservationSource.Panomax]: "https://api.panomax.com/1.0/maps/panomaxweb",
+    [ObservationSource.Panomax]:
+      "https://api.avalanche.report/api.panomax.com/1.0/maps/panomaxweb",
   };
 
   public observationWeb = {

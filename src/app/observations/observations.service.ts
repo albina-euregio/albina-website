@@ -506,7 +506,8 @@ export class ObservationsService {
 
   getPanomax(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
-    const baseURL = "https://api.panomax.com/1.0/instances/thumbnails/";
+    const baseURL =
+      "https://api.avalanche.report/api.panomax.com/1.0/instances/thumbnails/";
 
     // make request to observationApi.panomax and make a request to the thumbnail url for each result.instance.id
     return this.http.get<PanomaxCamResponse>(api.Panomax).pipe(
@@ -555,6 +556,29 @@ export class ObservationsService {
     );
   }
 
+  // getLolaCads(cam: GenericObservation): Observable<any> {
+  //   const lolaCadsApi = "https://www.lola-cads.info/api/processPhoto";
+  //   const imgurl =
+  //     "https://panodata7.panomax.com/cams/1653/2023/03/09/06-40-00_thumb.jpg";
+
+  //   console.log(imgurl);
+
+  //   //get image from imgurl and post it to lola-cads
+  //   return this.http.get(imgurl, { responseType: "blob" }).pipe(
+  //     mergeMap((blob: Blob) => {
+  //       const formData = new FormData();
+  //       formData.append("image", blob);
+  //       console.log(formData);
+  //       return this.http.post(lolaCadsApi, formData).pipe(
+  //         map((res: any) => {
+  //           console.log(res);
+  //           return of(true);
+  //         })
+  //       );
+  //     })
+  //   );
+  // }
+
   getFotoWebcamsEU(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
 
@@ -587,6 +611,16 @@ export class ObservationsService {
         return cams;
       })
     );
+    // .pipe(
+    //   mergeMap((cam) => {
+    //     return this.getLolaCads(cam).pipe(
+    //       map((hasLolaCads) => {
+    //         cam.$data.hasLolaCads = hasLolaCads;
+    //         return cam;
+    //       })
+    //     );
+    //   })
+    // );
   }
 
   async getCachedOrFetchLowPriority<T>(url: string): Promise<T> {
