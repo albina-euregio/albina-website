@@ -105,7 +105,7 @@ export class ObservationsService {
       this.getObservers(),
       this.getLawisIncidents(),
       this.getLawisProfiles(),
-      this.getLoLaKronos(ObservationSource.AvaObs),
+      this.getLoLaKronos(ObservationSource.LoLaKronos),
       this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT5),
       this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT8),
       this.getLoLaSafety(),
@@ -309,7 +309,7 @@ export class ObservationsService {
 
   getLoLaKronos(
     source:
-      | ObservationSource.AvaObs
+      | ObservationSource.LoLaKronos
       | ObservationSource.LoLaAvalancheFeedbackAT5
       | ObservationSource.LoLaAvalancheFeedbackAT8
   ): Observable<GenericObservation> {
@@ -317,15 +317,7 @@ export class ObservationsService {
     const timeframe = this.startDateString + "/" + this.endDateString;
     return this.http
       .get<LolaKronosApi>(api[source] + timeframe)
-      .pipe(
-        mergeMap((kronos) =>
-          convertLoLaKronos(
-            kronos,
-            web[source],
-            source === ObservationSource.AvaObs ? undefined : source
-          )
-        )
-      );
+      .pipe(mergeMap((kronos) => convertLoLaKronos(kronos, web[source])));
   }
 
   getLoLaSafety(): Observable<GenericObservation> {

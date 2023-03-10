@@ -19,7 +19,7 @@ export class ConstantsService {
     [ObservationSource.AvalancheWarningService]:
       "https://admin.avalanche.report/observed-profiles/observed_profiles.json",
     [ObservationSource.Lawis]: "https://admin.avalanche.report/lawis/public/",
-    [ObservationSource.AvaObs]:
+    [ObservationSource.LoLaKronos]:
       "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/",
     [ObservationSource.LoLaAvalancheFeedbackAT5]:
       "https://admin.avalanche.report/avalanche-feedback/AT-5/dataexport/dataFromToken/",
@@ -34,7 +34,7 @@ export class ConstantsService {
   };
 
   public observationWeb = {
-    [ObservationSource.AvaObs]: "https://www.lola-kronos.info/",
+    [ObservationSource.LoLaKronos]: "https://www.lola-kronos.info/",
     [ObservationSource.LoLaAvalancheFeedbackAT5]:
       "https://avalanche-feedback.eu/",
     [ObservationSource.LoLaAvalancheFeedbackAT8]:

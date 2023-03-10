@@ -34,7 +34,6 @@ export interface LolaAvalancheEvent {
   images: Image[];
   lastName: string;
   locationDescription: string;
-  lolaApplication: LolaApplication;
   pdfGeneratedTime: Date;
   pdfName: string;
   processStatus: string;
@@ -60,12 +59,6 @@ export interface Image {
   fileName: string;
 }
 
-export enum LolaApplication {
-  Avaobs = "avaobs",
-  KipLive = "kipLive",
-  Natlefs = "natlefs"
-}
-
 export interface LolaEvaluation {
   uuId: string;
   avalanchePotential: number;
@@ -86,7 +79,6 @@ export interface LolaEvaluation {
   lastName: string;
   latency: string;
   loadCapacity: string;
-  lolaApplication: LolaApplication;
   looseSnowAvalanche: Avalanche | null;
   measures: string[];
   measuresComment: string;
@@ -247,7 +239,6 @@ export interface LolaSnowProfile {
   lastName: string;
   latency: string;
   loadCapacity: string;
-  lolaApplication: LolaApplication;
   lwdBayernBillable: null;
   lwdBayernBillingValue: number;
   lwdBayernGeneratedInCockpit: boolean;
@@ -308,15 +299,6 @@ export function convertLoLaKronos(
     ...kronos.lolaAvalancheEvent.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        source
-          ? source
-          : obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObs
-          : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLive
-          : obs.lolaApplication === "natlefs"
-          ? ObservationSource.Natlefs
-          : undefined,
         ObservationType.Avalanche,
         urlPrefix + "avalancheEvent/"
       )
@@ -324,15 +306,6 @@ export function convertLoLaKronos(
     ...kronos.lolaEvaluation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        source
-          ? source
-          : obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObs
-          : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLive
-          : obs.lolaApplication === "natlefs"
-          ? ObservationSource.Natlefs
-          : undefined,
         ObservationType.Evaluation,
         urlPrefix + "evaluation/"
       )
@@ -340,7 +313,6 @@ export function convertLoLaKronos(
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        source ? source : ObservationSource.AvaObs, // FIXME
         ObservationType.SimpleObservation,
         urlPrefix + "simpleObservation/"
       )
@@ -348,15 +320,6 @@ export function convertLoLaKronos(
     ...kronos.lolaSnowProfile.map((obs) =>
       convertLoLaToGeneric(
         obs,
-        source
-          ? source
-          : obs.lolaApplication === "avaobs"
-          ? ObservationSource.AvaObs
-          : obs.lolaApplication === "kipLive"
-          ? ObservationSource.KipLive
-          : obs.lolaApplication === "natlefs"
-          ? ObservationSource.Natlefs
-          : undefined,
         ObservationType.Profile,
         urlPrefix + "snowProfile/"
       )
@@ -366,14 +329,13 @@ export function convertLoLaKronos(
 
 export function convertLoLaToGeneric(
   obs: LolaSimpleObservation | LolaAvalancheEvent | LolaSnowProfile | LolaEvaluation,
-  $source: ObservationSource,
   $type: ObservationType,
   urlPrefix: string
 ): GenericObservation {
   return {
     $data: obs,
     $externalURL: urlPrefix + obs.uuId,
-    $source,
+    $source: ObservationSource.LoLaKronos,
     $type,
     // TODO implement,
     stability: undefined,

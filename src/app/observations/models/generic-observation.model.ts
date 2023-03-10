@@ -145,12 +145,10 @@ export enum ObservationSource {
   Observer = "Observer",
   LwdKip = "LwdKip",
   Lawis = "Lawis",
+  LoLaKronos = "LoLaKronos",
   LoLaSafety = "LoLaSafety",
   LoLaAvalancheFeedbackAT5 = "LoLaAvalancheFeedbackAT5",
   LoLaAvalancheFeedbackAT8 = "LoLaAvalancheFeedbackAT8",
-  AvaObs = "AvaObs",
-  KipLive = "KipLive",
-  Natlefs = "Natlefs",
   WikisnowECT = "WikisnowECT",
   Webcams = "Webcams",
 }
