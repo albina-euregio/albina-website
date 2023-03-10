@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
+import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -88,6 +89,12 @@ function BulletinReport({ date, bulletin }: Props) {
                 />
               </span>
             </h1>
+            {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
+              <SynthesizedBulletin
+                date={date}
+                bulletin={bulletin}
+              ></SynthesizedBulletin>
+            )}
           </header>
           {hasDaytimeDependency(bulletin) ? (
             [
