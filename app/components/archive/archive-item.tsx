@@ -127,14 +127,22 @@ function ArchiveItem({ date, status }: Props) {
       {bulletin?.avalancheProblems?.length > 0 && (
         <td>
           <div className="avalanche-situation-preview">
-            {bulletin.avalancheProblems.map((problem, index) => (
-              <div
-                className="bulletin-report-picto avalanche-situation"
-                key={index + problem.problemType}
-              >
-                <ProblemIconLink problem={problem} wrapper={false} />
-              </div>
-            ))}
+            {bulletin.avalancheProblems
+              .filter(
+                // deduplicate
+                (problem, index, array) =>
+                  array.findIndex(
+                    p => p.problemType === problem.problemType
+                  ) === index
+              )
+              .map((problem, index) => (
+                <div
+                  className="bulletin-report-picto avalanche-situation"
+                  key={index + problem.problemType}
+                >
+                  <ProblemIconLink problem={problem} wrapper={false} />
+                </div>
+              ))}
           </div>
         </td>
       )}
