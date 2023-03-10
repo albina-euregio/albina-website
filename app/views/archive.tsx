@@ -35,7 +35,7 @@ function Archive() {
     {} as Record<number, BulletinStatus>
   );
   const [dates, setDates] = useState([] as Date[]);
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState(searchParams.get("region") || "");
 
   useEffect(() => {
     const dates = getDatesInMonth(year, month);
@@ -61,11 +61,13 @@ function Archive() {
         ? {
             year: String(year),
             month: String(month),
+            region,
             buttongroup
           }
         : {
             year: String(year),
-            month: String(month)
+            month: String(month),
+            region
           },
       { replace: true }
     );
@@ -109,6 +111,7 @@ function Archive() {
         <ProvinceFilter
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={setRegion}
+          regionCode={region}
           regionCodes={BULLETIN_STORE.microRegionIds}
           title={intl.formatMessage({
             id: "measurements:table:header:microRegion"

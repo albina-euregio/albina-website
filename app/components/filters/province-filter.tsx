@@ -8,6 +8,7 @@ type Props = {
   all: JSX.Element;
   none: JSX.Element;
   handleChange(str: string): unknown;
+  regionCode?: string;
   regionCodes?: string[];
 };
 
@@ -20,7 +21,7 @@ export default function ProvinceFilter(props: Props) {
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
         {(props.regionCodes ?? regionCodes).map(r => (
-          <option key={r} value={r}>
+          <option key={r} value={r} selected={r === props.regionCode}>
             {intl.formatMessage({ id: `region:${r}` })}
           </option>
         ))}
