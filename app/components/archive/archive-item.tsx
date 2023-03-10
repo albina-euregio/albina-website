@@ -117,33 +117,37 @@ function ArchiveItem({ date, status }: Props) {
         </ul>
       </td>
       <td>{bulletinMap()}</td>
-      {bulletin?.dangerRatings && (
+      {bulletin && (
         <td>
-          <div className="bulletin-report-picto">
-            <BulletinDangerRating dangerRatings={bulletin.dangerRatings} />
-          </div>
+          {bulletin?.dangerRatings && (
+            <div className="bulletin-report-picto">
+              <BulletinDangerRating dangerRatings={bulletin.dangerRatings} />
+            </div>
+          )}
         </td>
       )}
-      {bulletin?.avalancheProblems?.length > 0 && (
+      {bulletin && (
         <td>
-          <div className="avalanche-situation-preview">
-            {bulletin.avalancheProblems
-              .filter(
-                // deduplicate
-                (problem, index, array) =>
-                  array.findIndex(
-                    p => p.problemType === problem.problemType
-                  ) === index
-              )
-              .map((problem, index) => (
-                <div
-                  className="bulletin-report-picto avalanche-situation"
-                  key={index + problem.problemType}
-                >
-                  <ProblemIconLink problem={problem} wrapper={false} />
-                </div>
-              ))}
-          </div>
+          {bulletin?.avalancheProblems?.length > 0 && (
+            <div className="avalanche-situation-preview">
+              {bulletin.avalancheProblems
+                .filter(
+                  // deduplicate
+                  (problem, index, array) =>
+                    array.findIndex(
+                      p => p.problemType === problem.problemType
+                    ) === index
+                )
+                .map((problem, index) => (
+                  <div
+                    className="bulletin-report-picto avalanche-situation"
+                    key={index + problem.problemType}
+                  >
+                    <ProblemIconLink problem={problem} wrapper={false} />
+                  </div>
+                ))}
+            </div>
+          )}
         </td>
       )}
     </tr>
