@@ -1,116 +1,117 @@
 [main]
 host = https://www.transifex.com
 
-[albina-website.website]
-source_file = app/i18n/en.json
-source_lang = en
-type = KEYVALUEJSON
-file_filter = app/i18n/<lang>.json
-
-[albina-website.danger-scale]
-source_file = public/content/education/danger-scale/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/danger-scale/<lang>.html
-
-[albina-website.avalanche-problems]
-source_file = public/content/education/avalanche-problems/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/avalanche-problems/<lang>.html
-
-[albina-website.workflow]
-source_file = public/content/education/workflow/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/workflow/<lang>.html
-
-[albina-website.matrix]
-source_file = public/content/education/matrix/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/matrix/<lang>.html
-
-[albina-website.snowpack-stability]
-source_file = public/content/education/snowpack-stability/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/snowpack-stability/<lang>.html
-
-[albina-website.frequency]
-source_file = public/content/education/frequency/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/frequency/<lang>.html
-
-[albina-website.avalanche-sizes]
-source_file = public/content/education/avalanche-sizes/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/avalanche-sizes/<lang>.html
-
-[albina-website.spatio-temporal-scale]
-source_file = public/content/education/spatio-temporal-scale/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/spatio-temporal-scale/<lang>.html
-
-[albina-website.danger-patterns]
-source_file = public/content/education/danger-patterns/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/danger-patterns/<lang>.html
-
-[albina-website.handbook]
-source_file = public/content/education/handbook/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/handbook/<lang>.html
-
-[albina-website.community]
-source_file = public/content/education/community/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/education/community/<lang>.html
-
-[albina-website.about]
+[o:albina-euregio:p:albina-website:r:about]
+file_filter = public/content/more/about/<lang>.html
 source_file = public/content/more/about/en.html
 source_lang = en
-type = HTML
-file_filter = public/content/more/about/<lang>.html
+type        = HTML
 
-[albina-website.contact]
-source_file = public/content/more/contact/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/more/contact/<lang>.html
-
-[albina-website.imprint]
-source_file = public/content/more/imprint/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/more/imprint/<lang>.html
-
-[albina-website.privacy]
-source_file = public/content/more/privacy/en.html
-source_lang = en
-type = HTML
-file_filter = public/content/more/privacy/<lang>.html
-
-[albina-website.accessibility]
+[o:albina-euregio:p:albina-website:r:accessibility]
+file_filter = public/content/more/accessibility/<lang>.html
 source_file = public/content/more/accessibility/en.html
 source_lang = en
-type = HTML
-file_filter = public/content/more/accessibility/<lang>.html
+type        = HTML
 
-[albina-website.open-data]
+[o:albina-euregio:p:albina-website:r:avalanche-problems]
+file_filter = public/content/education/avalanche-problems/<lang>.html
+source_file = public/content/education/avalanche-problems/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:avalanche-sizes]
+file_filter = public/content/education/avalanche-sizes/<lang>.html
+source_file = public/content/education/avalanche-sizes/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:community]
+file_filter = public/content/education/community/<lang>.html
+source_file = public/content/education/community/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:contact]
+file_filter = public/content/more/contact/<lang>.html
+source_file = public/content/more/contact/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:danger-patterns]
+file_filter = public/content/education/danger-patterns/<lang>.html
+source_file = public/content/education/danger-patterns/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:danger-scale]
+file_filter = public/content/education/danger-scale/<lang>.html
+source_file = public/content/education/danger-scale/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:frequency]
+file_filter = public/content/education/frequency/<lang>.html
+source_file = public/content/education/frequency/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:handbook]
+file_filter = public/content/education/handbook/<lang>.html
+source_file = public/content/education/handbook/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:imprint]
+file_filter = public/content/more/imprint/<lang>.html
+source_file = public/content/more/imprint/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:matrix]
+file_filter = public/content/education/matrix/<lang>.html
+source_file = public/content/education/matrix/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:open-data]
+file_filter = public/content/more/open-data/<lang>.html
 source_file = public/content/more/open-data/en.html
 source_lang = en
-type = HTML
-file_filter = public/content/more/open-data/<lang>.html
+type        = HTML
 
-[bulletin-glossary.bulletin-glossary]
+[o:albina-euregio:p:albina-website:r:privacy]
+file_filter = public/content/more/privacy/<lang>.html
+source_file = public/content/more/privacy/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:snowpack-stability]
+file_filter = public/content/education/snowpack-stability/<lang>.html
+source_file = public/content/education/snowpack-stability/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:spatio-temporal-scale]
+file_filter = public/content/education/spatio-temporal-scale/<lang>.html
+source_file = public/content/education/spatio-temporal-scale/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:albina-website:r:website]
+file_filter = app/i18n/<lang>.json
+source_file = app/i18n/en.json
+source_lang = en
+type        = KEYVALUEJSON
+
+[o:albina-euregio:p:albina-website:r:workflow]
+file_filter = public/content/education/workflow/<lang>.html
+source_file = public/content/education/workflow/en.html
+source_lang = en
+type        = HTML
+
+[o:albina-euregio:p:bulletin-glossary:r:bulletin-glossary]
+file_filter = app/components/bulletin/bulletin-glossary-<lang>-links.json
 source_file = app/components/bulletin/bulletin-glossary-qqq-links.json
 source_lang = eo
-type = KEYVALUEJSON
-file_filter = app/components/bulletin/bulletin-glossary-<lang>-links.json
+type        = KEYVALUEJSON
+
