@@ -73,6 +73,19 @@ function Archive() {
     );
   }, [month, year, setDates, setSearchParams, buttongroup, region]);
 
+  function isDateShown(d: Date): boolean {
+    const status = bulletinStatus[d.getTime()];
+    return (
+      status === "ok" ||
+      (typeof status === "object" &&
+        status.$type === "RegionBulletinStatus" &&
+        status.status === "ok") ||
+      (typeof status === "object" &&
+        status.$type === "LegacyBulletinStatus" &&
+        Object.values(status.status).some(url => !!url))
+    );
+  }
+
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "more:archive:headline" })} />
@@ -138,20 +151,15 @@ function Archive() {
                 </tr>
               </thead>
               <tbody>
-                {dates.map(
-                  d =>
-                    (bulletinStatus[d.getTime()] === "ok" ||
-                      (typeof bulletinStatus[d.getTime()] === "object" &&
-                        Object.values(bulletinStatus[d.getTime()]).some(
-                          url => !!url
-                        ))) && (
-                      <ArchiveItem
-                        key={d.getTime()}
-                        date={d}
-                        status={bulletinStatus[d.getTime()]}
-                      />
-                    )
-                )}
+                {dates
+                  .filter(d => isDateShown(d))
+                  .map(d => (
+                    <ArchiveItem
+                      key={d.getTime()}
+                      date={d}
+                      status={bulletinStatus[d.getTime()]}
+                    />
+                  ))}
               </tbody>
             </table>
           </div>
