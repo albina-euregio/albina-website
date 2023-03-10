@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Darrer",
   "bulletin:header:dateflipper:latest:hover": "Ves a la Previsió d'Allaus actual",
   "bulletin:header:dateflipper:forward": "Endavant",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Arxiu",
   "bulletin:header:archive:hover": "Prediccions d'Allaus passades",
   "bulletin:map:locate:title": "Mostra la meva situació",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Mides d'Allaus",
   "button:education:avalanche-problems:text": "Problemes d'allaus",
   "button:education:danger-patterns:text": "Patrons de Perill",
-  "button:education:handbook:text": "Manual"
+  "button:education:handbook:text": "Manual",
+  "date-picker:close-button:caption": "Close"
 }

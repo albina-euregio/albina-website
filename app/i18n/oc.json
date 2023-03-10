@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Mès recent",
   "bulletin:header:dateflipper:latest:hover": "Anar tara prediccion de lauegi",
   "bulletin:header:dateflipper:forward": "Endauant",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Archiu",
   "bulletin:header:archive:hover": "Prediccions de lauegi passadi",
   "bulletin:map:locate:title": "Mòstre era mia ubicacion",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Mides de lauegi",
   "button:education:avalanche-problems:text": "Problèmes de lauegi",
   "button:education:danger-patterns:text": "Patrons de perilh",
-  "button:education:handbook:text": "Manuau"
+  "button:education:handbook:text": "Manuau",
+  "date-picker:close-button:caption": "Close"
 }

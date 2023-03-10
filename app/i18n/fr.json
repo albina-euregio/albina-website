@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Dernière mise à jour",
   "bulletin:header:dateflipper:latest:hover": "Passer au bulletin d'avalanche actuel",
   "bulletin:header:dateflipper:forward": "Avant",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Archive",
   "bulletin:header:archive:hover": "Bulletins d'avalanche passés",
   "bulletin:map:locate:title": "Indiquer ma position",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Taille d'avalanche",
   "button:education:avalanche-problems:text": "Situations avalancheuses typiques",
   "button:education:danger-patterns:text": "Situations avalancheuses",
-  "button:education:handbook:text": "Manuel"
+  "button:education:handbook:text": "Manuel",
+  "date-picker:close-button:caption": "Close"
 }

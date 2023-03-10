@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Última",
   "bulletin:header:dateflipper:latest:hover": "Ir a la Predicción de Aludes actual",
   "bulletin:header:dateflipper:forward": "Adelante",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Fichero",
   "bulletin:header:archive:hover": "Predicciones de Aludes anteriores",
   "bulletin:map:locate:title": "Muestra mi ubicación",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Tamaño de Aludes",
   "button:education:avalanche-problems:text": "Problemas de Avalanchas",
   "button:education:danger-patterns:text": "Patrones de Peligro",
-  "button:education:handbook:text": "Manual"
+  "button:education:handbook:text": "Manual",
+  "date-picker:close-button:caption": "Close"
 }

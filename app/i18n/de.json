@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Aktuellste",
   "bulletin:header:dateflipper:latest:hover": "Zur aktuellen Lawinenvorhersage",
   "bulletin:header:dateflipper:forward": "Vor",
+  "bulletin:header:dateflipper:showHideCalendar": "Kalender anzeigen/verbergen",
   "bulletin:header:archive": "Archiv",
   "bulletin:header:archive:hover": "Ältere Lawinenvorhersagen",
   "bulletin:map:locate:title": "Aktuellen Standort anzeigen",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Lawinengrößen",
   "button:education:avalanche-problems:text": "Lawinenprobleme",
   "button:education:danger-patterns:text": "Gefahrenmuster",
-  "button:education:handbook:text": "Handbuch"
+  "button:education:handbook:text": "Handbuch",
+  "date-picker:close-button:caption": "Schließen"
 }

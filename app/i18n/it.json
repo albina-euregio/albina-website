@@ -95,6 +95,7 @@
   "bulletin:header:dateflipper:latest": "Ultimo",
   "bulletin:header:dateflipper:latest:hover": "Vai all'attuale bolletino valanghe",
   "bulletin:header:dateflipper:forward": "Avanti",
+  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
   "bulletin:header:archive": "Archivio",
   "bulletin:header:archive:hover": "Bollettini valanghe precedenti",
   "bulletin:map:locate:title": "Mostra la mia posizione",
@@ -455,5 +456,6 @@
   "button:education:avalanche-sizes:text": "Dimensione valanghe",
   "button:education:avalanche-problems:text": "Probleme Tipici Valanghivi",
   "button:education:danger-patterns:text": "Situazione Tipo",
-  "button:education:handbook:text": "Manuale"
+  "button:education:handbook:text": "Manuale",
+  "date-picker:close-button:caption": "Close"
 }
