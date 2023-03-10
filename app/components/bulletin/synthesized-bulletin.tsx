@@ -39,12 +39,11 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
 
   return (
     <div className="synthesizedReport">
-      {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") &&
-        audioFileUrl && (
-          <audio controls={true} src={audioFileUrl}>
-            <a href={audioFileUrl}></a>
-          </audio>
-        )}
+      {audioFileUrl && (
+        <audio controls={true} src={audioFileUrl}>
+          <a href={audioFileUrl}></a>
+        </audio>
+      )}
     </div>
   );
 }
