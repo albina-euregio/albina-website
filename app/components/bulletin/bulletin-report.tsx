@@ -15,6 +15,8 @@ import {
 } from "../../stores/bulletin";
 import { APP_STORE } from "../../appStore";
 
+const ENABLE_GLOSSARY = true;
+
 type Props = { date: Date; bulletin: Bulletin };
 
 /**
@@ -29,7 +31,7 @@ function BulletinReport({ date, bulletin }: Props) {
     // bulletins are loaded in correct language
     if (!elem) return "";
     elem = elem.replace(/&lt;br\/&gt;/g, "<br/>");
-    if (import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") {
+    if (ENABLE_GLOSSARY) {
       const withGlossary = findGlossaryStrings(elem, APP_STORE.language);
       try {
         return preprocessContent(withGlossary);
