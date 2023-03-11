@@ -38,7 +38,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
   }, [bulletin, date]);
 
   return (
-    <div className="synthesizedReport">
+    <div className="bulletin-synthesized">
       {audioFileUrl && (
         <audio controls={true} src={audioFileUrl}>
           <a href={audioFileUrl}></a>

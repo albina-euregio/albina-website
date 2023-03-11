@@ -62,6 +62,12 @@ function BulletinReport({ date, bulletin }: Props) {
       >
         <div className={classes}>
           <header className="bulletin-report-header">
+            {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
+              <SynthesizedBulletin
+                date={date}
+                bulletin={bulletin}
+              ></SynthesizedBulletin>
+            )}
             <p className="bulletin-report-header-meta">
               <span>
                 <FormattedMessage
@@ -91,12 +97,6 @@ function BulletinReport({ date, bulletin }: Props) {
                 />
               </span>
             </h1>
-            {(import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") && (
-              <SynthesizedBulletin
-                date={date}
-                bulletin={bulletin}
-              ></SynthesizedBulletin>
-            )}
           </header>
           {hasDaytimeDependency(bulletin) ? (
             [
