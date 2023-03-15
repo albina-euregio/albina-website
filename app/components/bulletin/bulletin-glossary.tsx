@@ -5,13 +5,30 @@ import { preprocessContent } from "../../util/htmlParser";
 import RAW_GLOSSARY_LINKS_de from "./bulletin-glossary-de-links.json";
 import GLOSSARY_CONTENT_de from "./bulletin-glossary-de-content.json";
 import RAW_GLOSSARY_LINKS_en from "./bulletin-glossary-en-links.json";
+import GLOSSARY_CONTENT_it from "./bulletin-glossary-it-content.json";
+import RAW_GLOSSARY_LINKS_it from "./bulletin-glossary-it-links.json";
 import GLOSSARY_CONTENT_en from "./bulletin-glossary-en-content.json";
 
-export function findGlossaryStrings(text: string, locale: "de" | "en"): string {
-  if (locale !== "de" && locale !== "en") {
+export function findGlossaryStrings(
+  text: string,
+  locale: "de" | "en" | "it"
+): string {
+  if (locale !== "de" && locale !== "en" && locale !== "it") {
     return text;
   }
-  const links = locale === "de" ? RAW_GLOSSARY_LINKS_de : RAW_GLOSSARY_LINKS_en;
+  let links;
+  switch (locale) {
+    case "de":
+      links = RAW_GLOSSARY_LINKS_de;
+      break;
+    case "it":
+      links = RAW_GLOSSARY_LINKS_it;
+      break;
+    case "en":
+      links = RAW_GLOSSARY_LINKS_en;
+      break;
+  }
+
   const glossaryLinks = Object.fromEntries(
     Object.entries(links).flatMap(([id, phrases]) =>
       phrases
@@ -32,17 +49,25 @@ export function findGlossaryStrings(text: string, locale: "de" | "en"): string {
 
 type Props = {
   glossary: keyof typeof GLOSSARY_CONTENT_de;
-  locale: "de" | "en";
+  locale: "de" | "en" | "it";
   children: JSX.Element;
 };
 
 export default function BulletinGlossary(props: Props) {
   const intl = useIntl();
   const glossary = props.glossary;
-  const glossaryContent =
-    props.locale === "de"
-      ? GLOSSARY_CONTENT_de[glossary]
-      : GLOSSARY_CONTENT_en[glossary];
+  let glossaryContent;
+  switch (props.locale) {
+    case "de":
+      glossaryContent = GLOSSARY_CONTENT_de[glossary];
+      break;
+    case "it":
+      glossaryContent = GLOSSARY_CONTENT_it[glossary];
+      break;
+    case "en":
+      glossaryContent = GLOSSARY_CONTENT_en[glossary];
+      break;
+  }
   if (!glossaryContent) {
     return <span>{props.children}</span>;
   }
