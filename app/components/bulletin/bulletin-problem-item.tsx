@@ -11,6 +11,27 @@ import { AvalancheProblem } from "../../stores/bulletin";
 
 type Props = { problem: AvalancheProblem };
 
+const textInfoToClass = {
+  frequency: {
+    few: 1,
+    some: 2,
+    many: 3
+  },
+  snowpackStability: {
+    fair: 1,
+    good: 2,
+    poor: 3,
+    very_poor: 5
+  },
+  avalancheSize: {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 3,
+    "5": 3
+  }
+};
+
 function BulletinProblemItem({ problem }: Props) {
   const intl = useIntl();
   function getElevationIcon() {
@@ -162,6 +183,7 @@ function BulletinProblemItem({ problem }: Props) {
   const snowpackStability = problem?.snowpackStability;
   const frequency = problem?.frequency;
   const avalancheSize = problem?.avalancheSize;
+
   const expositionText = useMemo(
     () =>
       intl.formatMessage({
@@ -199,7 +221,13 @@ function BulletinProblemItem({ problem }: Props) {
       {(snowpackStability || frequency || avalancheSize) && (
         <div className="bulletin-report-picto matrix-information">
           {snowpackStability && (
-            <div className="matrix-info">
+            <div
+              className={
+                "matrix-info  matrix-info-value-" +
+                textInfoToClass.snowpackStability[snowpackStability] +
+                ""
+              }
+            >
               <span className="matrix-info-name">{snowpackStabilityText}:</span>
               <span className="matrix-info-value">
                 <a href={"/education/snowpack-stability"}>
@@ -213,7 +241,13 @@ function BulletinProblemItem({ problem }: Props) {
             </div>
           )}
           {frequency && (
-            <div className="matrix-info">
+            <div
+              className={
+                "matrix-info  matrix-info-value-" +
+                textInfoToClass.frequency[frequency] +
+                ""
+              }
+            >
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
                 <a href={"/education/frequency"}>
@@ -225,7 +259,13 @@ function BulletinProblemItem({ problem }: Props) {
             </div>
           )}
           {avalancheSize && (
-            <div className="matrix-info">
+            <div
+              className={
+                "matrix-info  matrix-info-value-" +
+                textInfoToClass.avalancheSize[avalancheSize] +
+                ""
+              }
+            >
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">
                 <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>

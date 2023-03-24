@@ -518,21 +518,42 @@
     // justify-content: center;//flex-end;
     flex-wrap: nowrap;
     gap: 0 ($padding * 0.5);
+
+    border-left: $bar-width solid $grey-very-very-light;
+    padding-left: $bar-width;
+
     span {
       margin: 0;
       // font-size: $nano-font-size;
     }
-    .matrix-info-name {
-      // width: 50%;
-      // text-align: right;
-      @include font-normal;
-      letter-spacing: 0;
-    }
-    .matrix-info-value {
-      // min-width: 3.5em;
-      // width: 50%;
-      @include font-bold;
-    }
+  }
+
+  // [class*="matrix-info-value-"] {
+  //   border-left: $bar-width solid $grey-very-very-light;
+  //   padding-left: $bar-width;
+  // }
+  .matrix-info-value-1 {
+    border-color: $warning-level-2-color;
+  }
+  .matrix-info-value-2 {
+    border-color: $warning-level-3-color;
+  }
+  .matrix-info-value-3,
+  .matrix-info-value-4,
+  .matrix-info-value-5 {
+    border-color: $warning-level-4-color;
+  }
+
+  .matrix-info-name {
+    // width: 50%;
+    // text-align: right;
+    @include font-normal;
+    letter-spacing: 0;
+  }
+  .matrix-info-value {
+    // min-width: 3.5em;
+    // width: 50%;
+    @include font-bold;
   }
 }
 
