@@ -585,11 +585,6 @@ export class ObservationsService {
       mergeMap((cam: GenericObservation) => {
         return this.getLolaCads(cam).pipe(
           map((lolaCadsData) => {
-            if (lolaCadsData.length !== 0) {
-              console.log(lolaCadsData);
-              console.log(cam.$externalURL);
-            }
-
             const response: GenericObservation = {
               $data: cam,
               $externalURL: cam.$externalURL,
@@ -652,11 +647,6 @@ export class ObservationsService {
       mergeMap((cam: GenericObservation) => {
         return this.getLolaCads(cam).pipe(
           map((lolaCadsData) => {
-            if (lolaCadsData.length !== 0) {
-              console.log(lolaCadsData);
-              console.log(cam.$externalURL);
-            }
-
             const response: GenericObservation = {
               $data: cam,
               $externalURL: cam.$externalURL,
