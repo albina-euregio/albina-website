@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import {
@@ -504,6 +504,29 @@ export class ObservationsService {
     return aspects[n];
   }
 
+  getLolaCads(cam: GenericObservation): Observable<any> {
+    const lolaCadsApi = "https://www.lola-cads.info/api/LWDprocessPhotoURL";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2xhQWNjZXNzIjpmYWxzZSwibHdkQWNjZXNzIjp0cnVlLCJpYXQiOjE2Nzk1ODA3NjYsImV4cCI6MTcxMTExNjc2Nn0.IpZ4Nkkmvw0IiEi3Hvh9Pt4RvtJv7KktMLQCwdhVtBU";
+
+    //get url from latest image
+    const imgurl = cam.$data["latest"];
+
+    //make url safe
+    const imgurlSafe = encodeURIComponent(imgurl);
+    const fullUrl = lolaCadsApi + "?imageurl=" + imgurlSafe;
+
+    const headers = new HttpHeaders({
+      Authorization: token,
+    });
+
+    const options = { headers: headers };
+
+    //create post request to lolaCadsApi with imageurl: imgurl as parameter and token as authorization header
+    return this.http.post<any>(fullUrl, {}, options);
+  }
+
+  //get panomax cams and fetch lola cads data for each
   getPanomax(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     const baseURL =
@@ -513,6 +536,7 @@ export class ObservationsService {
     return this.http.get<PanomaxCamResponse>(api.Panomax).pipe(
       mergeMap((res: PanomaxCamResponse) => {
         const cams = Object.values(res.instances)
+
           // make request to each thumbnail url
           .filter((webcam: PanomaxInstance) => {
             const region = this.regionsService.getRegionForLatLng(
@@ -522,10 +546,15 @@ export class ObservationsService {
           })
           .map((webcam: PanomaxInstance) => {
             return this.http
+
               .get<PanomaxThumbnailResponse[]>(baseURL + webcam.id)
               .pipe(
                 map((res: PanomaxThumbnailResponse[]) => {
                   const cam = res[0].instance.cam;
+                  //set res[0].latest to the latest image from res[0].images
+                  res[0]["latest"] =
+                    res[0].images[Object.keys(res[0].images).sort().pop()];
+                  res[0]["latest"] = res[0]["latest"].small;
                   const latlng = new LatLng(cam.latitude, cam.longitude);
                   const response: GenericObservation = {
                     $data: res[0],
@@ -552,32 +581,39 @@ export class ObservationsService {
 
         const observables = from(cams);
         return observables.pipe(mergeAll());
+      }),
+      mergeMap((cam: GenericObservation) => {
+        return this.getLolaCads(cam).pipe(
+          map((lolaCadsData) => {
+            if (lolaCadsData.length !== 0) {
+              console.log(lolaCadsData);
+              console.log(cam.$externalURL);
+            }
+
+            const response: GenericObservation = {
+              $data: cam,
+              $externalURL: cam.$externalURL,
+              $source: ObservationSource.Panomax,
+              $type:
+                lolaCadsData.length !== 0
+                  ? ObservationType.Avalanche
+                  : ObservationType.Webcam,
+              authorName: "panomax.com",
+              content: cam.content,
+              elevation: cam.elevation,
+              eventDate: new Date(Date.now()),
+              latitude: cam.latitude,
+              longitude: cam.longitude,
+              locationName: cam.locationName,
+              region: cam.region,
+              aspect: cam.aspect,
+            };
+            return response;
+          })
+        );
       })
     );
   }
-
-  // getLolaCads(cam: GenericObservation): Observable<any> {
-  //   const lolaCadsApi = "https://www.lola-cads.info/api/processPhoto";
-  //   const imgurl =
-  //     "https://panodata7.panomax.com/cams/1653/2023/03/09/06-40-00_thumb.jpg";
-
-  //   console.log(imgurl);
-
-  //   //get image from imgurl and post it to lola-cads
-  //   return this.http.get(imgurl, { responseType: "blob" }).pipe(
-  //     mergeMap((blob: Blob) => {
-  //       const formData = new FormData();
-  //       formData.append("image", blob);
-  //       console.log(formData);
-  //       return this.http.post(lolaCadsApi, formData).pipe(
-  //         map((res: any) => {
-  //           console.log(res);
-  //           return of(true);
-  //         })
-  //       );
-  //     })
-  //   );
-  // }
 
   getFotoWebcamsEU(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
@@ -588,6 +624,7 @@ export class ObservationsService {
           .map((webcam: FotoWebcamEU) => {
             const latlng = new LatLng(webcam.latitude, webcam.longitude);
 
+            webcam["latest"] = webcam.imgurl;
             const cam: GenericObservation = {
               $data: webcam,
               $externalURL: webcam.link,
@@ -608,19 +645,41 @@ export class ObservationsService {
           .filter((observation) => observation.$data.offline === false)
           .filter((observation) => observation.region !== undefined);
 
-        return cams;
+        const observables = from(cams);
+        // get lola-cads data for each webcam
+        return observables;
+      }),
+      mergeMap((cam: GenericObservation) => {
+        return this.getLolaCads(cam).pipe(
+          map((lolaCadsData) => {
+            if (lolaCadsData.length !== 0) {
+              console.log(lolaCadsData);
+              console.log(cam.$externalURL);
+            }
+
+            const response: GenericObservation = {
+              $data: cam,
+              $externalURL: cam.$externalURL,
+              $source: ObservationSource.FotoWebcamsEU,
+              $type:
+                lolaCadsData.length !== 0
+                  ? ObservationType.Avalanche
+                  : ObservationType.Webcam,
+              authorName: "foto-webcam.eu",
+              content: cam.content,
+              elevation: cam.elevation,
+              eventDate: new Date(Date.now()),
+              latitude: cam.latitude,
+              longitude: cam.longitude,
+              locationName: cam.locationName,
+              region: cam.region,
+              aspect: cam.aspect,
+            };
+            return response;
+          })
+        );
       })
     );
-    // .pipe(
-    //   mergeMap((cam) => {
-    //     return this.getLolaCads(cam).pipe(
-    //       map((hasLolaCads) => {
-    //         cam.$data.hasLolaCads = hasLolaCads;
-    //         return cam;
-    //       })
-    //     );
-    //   })
-    // );
   }
 
   async getCachedOrFetchLowPriority<T>(url: string): Promise<T> {
