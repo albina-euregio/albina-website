@@ -5,7 +5,7 @@ import { Util } from "leaflet";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import { DATE_TIME_FORMAT } from "../../util/date";
+import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 
 class WeatherStationDiagrams extends React.Component {
@@ -308,7 +308,10 @@ class WeatherStationDiagrams extends React.Component {
           <small>
             (
             <time dateTime={stationData.date}>
-              {this.props.intl.formatDate(stationData.date, DATE_TIME_FORMAT)}
+              {this.props.intl.formatDate(
+                stationData.date,
+                DATE_TIME_ZONE_FORMAT
+              )}
             </time>
             )
           </small>
