@@ -51,7 +51,8 @@
       { "url": "/more/archive" },
       { "url": "/more/about" },
       { "url": "/more/contact" },
-      { "url": "/more/open-data" }
+      { "url": "/more/open-data" },
+      { "url": "/more/season-reports" }
     ]
   }
 ]
