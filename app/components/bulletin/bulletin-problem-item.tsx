@@ -19,9 +19,8 @@ const textInfoToClass = {
   },
   snowpackStability: {
     fair: 1,
-    good: 2,
-    poor: 3,
-    very_poor: 5
+    poor: 2,
+    very_poor: 3
   },
   avalancheSize: {
     "1": 1,
