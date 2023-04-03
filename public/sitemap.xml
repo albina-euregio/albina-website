@@ -94,6 +94,10 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://avalanche.report/more/annual-reports</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://avalanche.report/more/privacy</loc>
     <priority>0.5</priority>
   </url>

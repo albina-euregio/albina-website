@@ -259,6 +259,43 @@ class More extends React.Component {
                 </Link>
               </Tooltip>
             </li>
+            <li className="feature-item">
+              <Tooltip
+                label={this.props.intl.formatMessage({
+                  id: "more:annual-reports:headline"
+                })}
+              >
+                <Link
+                  to="/more/annual-reports"
+                  className="linkbox linkbox-feature "
+                >
+                  <div className="content-image">
+                    <img
+                      src="/content_files/feature_annual_reports.jpg"
+                      title={this.props.intl.formatMessage({
+                        id: "more:annual-reports:image:title"
+                      })}
+                      alt={this.props.intl.formatMessage({
+                        id: "more:annual-reports:image:alt"
+                      })}
+                      className=""
+                    />
+                  </div>
+                  <div className="content-text">
+                    <p className="h1 subheader">
+                      {this.props.intl.formatMessage({
+                        id: "more:annual-reports:headline"
+                      })}
+                    </p>
+                    <p>
+                      {this.props.intl.formatMessage({
+                        id: "more:annual-reports:text"
+                      })}
+                    </p>
+                  </div>
+                </Link>
+              </Tooltip>
+            </li>
           </ul>
         </section>
         <SmShare />

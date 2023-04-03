@@ -79,6 +79,12 @@ source_file = public/content/more/open-data/en.html
 source_lang = en
 type        = HTML
 
+[o:albina-euregio:p:albina-website:r:annual-reports]
+file_filter = public/content/more/annual-reports/<lang>.html
+source_file = public/content/more/annual-reports/en.html
+source_lang = en
+type        = HTML
+
 [o:albina-euregio:p:albina-website:r:privacy]
 file_filter = public/content/more/privacy/<lang>.html
 source_file = public/content/more/privacy/en.html
