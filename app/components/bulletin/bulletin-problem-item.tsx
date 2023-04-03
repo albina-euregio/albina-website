@@ -18,7 +18,7 @@ const textInfoToClass = {
     many: 3
   },
   snowpackStability: {
-    good: 1,
+    fair: 1,
     poor: 2,
     very_poor: 3
   },
