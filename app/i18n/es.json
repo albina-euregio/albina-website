@@ -95,7 +95,7 @@
   "bulletin:header:dateflipper:latest": "Última",
   "bulletin:header:dateflipper:latest:hover": "Ir a la Predicción de Aludes actual",
   "bulletin:header:dateflipper:forward": "Adelante",
-  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
+  "bulletin:header:dateflipper:showHideCalendar": "Mostrar / Ocultar Calendario",
   "bulletin:header:archive": "Fichero",
   "bulletin:header:archive:hover": "Predicciones de Aludes anteriores",
   "bulletin:map:locate:title": "Muestra mi ubicación",
@@ -179,6 +179,7 @@
   "bulletin:report:tendency:headline": "Tendencia",
   "bulletin:report:danger-patterns": "Patrones de Peligro",
   "bulletin:report:author": "Autor",
+  "bulletin:report:audio:feedback": "Send feedback",
   "bulletin:treeline": "Límite superior del bosque",
   "bulletin:howto": "<strong>Click sobre el mapa</strong> para tener información detallada del grado de peligro de las diferentes regiones.",
   "bulletin:feedback": "Encuesta",
@@ -378,6 +379,10 @@
   "more:open-data:image:alt": "Open Data",
   "more:open-data:headline": "Open Data",
   "more:open-data:text": "¿De quién son los datos?",
+  "more:season-reports:image:title": "Season Reports",
+  "more:season-reports:image:alt": "Season Reports",
+  "more:season-reports:headline": "Season Reports",
+  "more:season-reports:text": "Wanna learn from the past?",
   "more:linktree:title": "Los enlaces más importantes",
   "more:linktree:subtitle": "Árbol de enlaces",
   "more:linktree:marginal": "",
@@ -457,5 +462,5 @@
   "button:education:avalanche-problems:text": "Problemas de Avalanchas",
   "button:education:danger-patterns:text": "Patrones de Peligro",
   "button:education:handbook:text": "Manual",
-  "date-picker:close-button:caption": "Close"
+  "date-picker:close-button:caption": "Cerrar"
 }

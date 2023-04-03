@@ -95,7 +95,7 @@
   "bulletin:header:dateflipper:latest": "Mès recent",
   "bulletin:header:dateflipper:latest:hover": "Anar tara prediccion de lauegi",
   "bulletin:header:dateflipper:forward": "Endauant",
-  "bulletin:header:dateflipper:showHideCalendar": "Show / Hide Calendar",
+  "bulletin:header:dateflipper:showHideCalendar": "Mostrar / Amagar Calendari",
   "bulletin:header:archive": "Archiu",
   "bulletin:header:archive:hover": "Prediccions de lauegi passadi",
   "bulletin:map:locate:title": "Mòstre era mia ubicacion",
@@ -179,6 +179,7 @@
   "bulletin:report:tendency:headline": "Tendéncia",
   "bulletin:report:danger-patterns": "Patrons de perilh",
   "bulletin:report:author": "Autor",
+  "bulletin:report:audio:feedback": "Send feedback",
   "bulletin:treeline": "Limit deth bòsc",
   "bulletin:howto": "<strong>Hèr clic en mapa</strong> entà informacion detalhada sus eth perilh de lauegi as diferentes regions de prediccion.",
   "bulletin:feedback": "Enquèsta",
@@ -378,6 +379,10 @@
   "more:open-data:image:alt": "Open Data",
   "more:open-data:headline": "Open Data",
   "more:open-data:text": "De qui son es donades?",
+  "more:season-reports:image:title": "Season Reports",
+  "more:season-reports:image:alt": "Season Reports",
+  "more:season-reports:headline": "Season Reports",
+  "more:season-reports:text": "Wanna learn from the past?",
   "more:linktree:title": "Es links mès importanti",
   "more:linktree:subtitle": "Arbe de links",
   "more:linktree:marginal": "",
@@ -457,5 +462,5 @@
   "button:education:avalanche-problems:text": "Problèmes de lauegi",
   "button:education:danger-patterns:text": "Patrons de perilh",
   "button:education:handbook:text": "Manuau",
-  "date-picker:close-button:caption": "Close"
+  "date-picker:close-button:caption": "Barrar"
 }
