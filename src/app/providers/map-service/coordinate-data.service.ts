@@ -182,7 +182,7 @@ export class CoordinateDataService implements Plane {
   }
 
   private getAspectName(): string {
-    const index = Math.round(this.getAspect() / 45);
+    const index = Math.round(this.getAspect() / 45) % 8;
     return this.ASPECTS[index];
   }
 }
