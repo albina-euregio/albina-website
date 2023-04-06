@@ -169,6 +169,8 @@ export class CoordinateDataService implements Plane {
     );
     const aspectDeg = this.radToDeg(aspect);
 
+    if (aspectDeg < 0) return 360 + aspectDeg;
+
     return aspectDeg;
   }
 
@@ -180,7 +182,7 @@ export class CoordinateDataService implements Plane {
   }
 
   private getAspectName(): string {
-    const index = Math.floor(Math.abs(this.getAspect() / 45));
+    const index = Math.round(this.getAspect() / 45);
     return this.ASPECTS[index];
   }
 }
