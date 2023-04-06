@@ -5,8 +5,9 @@ import { Feature, Point } from "geojson";
 import { SelectItem } from "primeng/api";
 import { GeocodingProperties, GeocodingService } from "./geocoding.service";
 import { geocoders } from "leaflet-control-geocoder";
-import { ElevationService } from "app/providers/map-service/elevation.service";
+// import { ElevationService } from "app/providers/map-service/elevation.service";
 import { CoordinateDataService } from "app/providers/map-service/coordinate-data.service";
+import { Aspect } from "app/observations/models/generic-observation.model";
 
 @Component({
   selector: "app-observation-editor",
@@ -17,7 +18,6 @@ export class ObservationEditorComponent {
   constructor(
     private translate: TranslateService,
     private geocodingService: GeocodingService,
-    private elevationService: ElevationService,
     private coordinateDataService: CoordinateDataService
   ) {}
 
@@ -30,15 +30,13 @@ export class ObservationEditorComponent {
 
   newLocation() {
     if (this.observation.latitude && this.observation.longitude) {
-      // this.coordinateDataService
-      //   .getCoordData(this.observation.latitude, this.observation.longitude)
-      //   .subscribe((data) => {
-      //     this.observation.elevation = data.height;
-      //     console.log(data);
-      //   });
-      this.elevationService
-        .getElevation(this.observation.latitude, this.observation.longitude)
-        .subscribe((elevation) => (this.observation.elevation = elevation));
+      this.coordinateDataService
+        .getCoordData(this.observation.latitude, this.observation.longitude)
+        .subscribe((data) => {
+          this.observation.elevation = data.height;
+          this.observation.aspect = data.aspect as Aspect;
+          console.log(data);
+        });
     }
   }
 
