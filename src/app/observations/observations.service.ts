@@ -581,32 +581,32 @@ export class ObservationsService {
 
         const observables = from(cams);
         return observables.pipe(mergeAll());
-      }),
-      mergeMap((cam: GenericObservation) => {
-        return this.getLolaCads(cam).pipe(
-          map((lolaCadsData) => {
-            const response: GenericObservation = {
-              $data: cam,
-              $externalURL: cam.$externalURL,
-              $source: ObservationSource.Panomax,
-              $type:
-                lolaCadsData.length !== 0
-                  ? ObservationType.Avalanche
-                  : ObservationType.Webcam,
-              authorName: "panomax.com",
-              content: cam.content,
-              elevation: cam.elevation,
-              eventDate: new Date(Date.now()),
-              latitude: cam.latitude,
-              longitude: cam.longitude,
-              locationName: cam.locationName,
-              region: cam.region,
-              aspect: cam.aspect,
-            };
-            return response;
-          })
-        );
       })
+      // mergeMap((cam: GenericObservation) => {
+      //   return this.getLolaCads(cam).pipe(
+      //     map((lolaCadsData) => {
+      //       const response: GenericObservation = {
+      //         $data: cam,
+      //         $externalURL: cam.$externalURL,
+      //         $source: ObservationSource.Panomax,
+      //         $type:
+      //           lolaCadsData.length !== 0
+      //             ? ObservationType.Avalanche
+      //             : ObservationType.Webcam,
+      //         authorName: "panomax.com",
+      //         content: cam.content,
+      //         elevation: cam.elevation,
+      //         eventDate: new Date(Date.now()),
+      //         latitude: cam.latitude,
+      //         longitude: cam.longitude,
+      //         locationName: cam.locationName,
+      //         region: cam.region,
+      //         aspect: cam.aspect,
+      //       };
+      //       return response;
+      //     })
+      //   );
+      // })
     );
   }
 
