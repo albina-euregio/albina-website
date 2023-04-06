@@ -30,8 +30,11 @@ export class ObservationEditorComponent {
 
   newLocation() {
     if (this.observation.latitude && this.observation.longitude) {
+      const floatLat = parseFloat(this.observation.latitude as any);
+      const floatLng = parseFloat(this.observation.longitude as any);
+
       this.coordinateDataService
-        .getCoordData(this.observation.latitude, this.observation.longitude)
+        .getCoordData(floatLat, floatLng)
         .subscribe((data) => {
           this.observation.elevation = data.height;
           this.observation.aspect = data.aspect as Aspect;
