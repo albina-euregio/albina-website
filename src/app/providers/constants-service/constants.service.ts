@@ -39,7 +39,7 @@ export class ConstantsService {
       "https://avalanche-feedback.eu/",
     [ObservationSource.LoLaAvalancheFeedbackAT8]:
       "https://avalanche-feedback.eu/",
-    [`${ObservationSource.Lawis}-${ObservationType.Incident}` as const]:
+    [`${ObservationSource.Lawis}-incident` as const]:
       "https://lawis.at/incident/#{{id}}",
     [`${ObservationSource.Lawis}-${ObservationType.Profile}` as const]:
       "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
