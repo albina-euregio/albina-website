@@ -167,7 +167,6 @@ export enum ObservationType {
   Blasting = "Blasting",
   Closure = "Closure",
   Profile = "Profile",
-  Incident = "Incident",
   TimeSeries = "TimeSeries",
   Webcam = "Webcam",
 }

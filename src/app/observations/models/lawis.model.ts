@@ -236,7 +236,7 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
     $data: lawis,
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
     $source: ObservationSource.Lawis,
-    $type: ObservationType.Incident,
+    $type: ObservationType.Avalanche,
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
     content: "(LAWIS incident)",
