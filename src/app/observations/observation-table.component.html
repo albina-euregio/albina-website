@@ -40,6 +40,10 @@
         <i class="fa fa-calendar"></i>
         {{ "observations.eventDate" | translate }}
       </th>
+      <th pSortableColumn="reportDate">
+        <i class="fa fa-calendar"></i>
+        {{ "observations.reportDate" | translate }}
+      </th>
       <th pSortableColumn="authorName">
         <i class="fa fa-user"></i>
         {{ "observations.authorName" | translate }}
@@ -59,6 +63,9 @@
     <tr (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
       <td style="padding: 1rem 0;white-space: nowrap">
         {{ observation.eventDate | localizedDate : "dd.MM.yyyy HH:mm" }}
+      </td>
+      <td style="padding: 1rem 0;white-space: nowrap">
+        {{ observation.reportDate | localizedDate : "dd.MM.yyyy HH:mm" }}
       </td>
       <td style="padding: 1rem 0">{{ observation.authorName }}</td>
       <td style="padding: 1rem 0">

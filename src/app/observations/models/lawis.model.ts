@@ -209,6 +209,7 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
     content: "(LAWIS snow profile)",
     elevation: lawis.location.elevation,
     eventDate: parseLawisDate(lawis.date),
+    reportDate: parseLawisDate(lawis.reported.date),
     latitude: lawis.location.latitude,
     locationName: lawis.location.name,
     longitude: lawis.location.longitude,

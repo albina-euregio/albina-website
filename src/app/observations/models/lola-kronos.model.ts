@@ -344,6 +344,7 @@ export function convertLoLaToGeneric(
     content: obs.comment + imageCountString(obs.images),
     elevation: (obs as LolaSnowProfile).altitude,
     eventDate: new Date(obs.time),
+    reportDate: new Date(obs.storedInDb),
     latitude: ((obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ?? (obs as LolaSnowProfile | LolaEvaluation).position)?.lat,
     locationName:
       (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ?? (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
