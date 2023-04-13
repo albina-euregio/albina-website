@@ -287,10 +287,13 @@ export default class WeatherMapStore_new {
       );
       //if(parseInt(this._timeSpan.get(), 10) > 0)
       datePlusOffset.setHours(datePlusOffset.getHours() + this._absTimeSpan);
+      datePlusOffset.setHours(
+        datePlusOffset.getHours() + (isSummerTime(datePlusOffset) ? 1 : 0)
+      );
       // console.log(
       //   "weatherMapStore_new overlayFileName:#2 ",
       //   datePlusOffset,
-      //   new Date(this._availableTimes[this._timeIndex.get()]).getUTCDate()
+      //   this._absTimeSpan
       // );
 
       return (

@@ -18,7 +18,7 @@ const textInfoToClass = {
     many: 3
   },
   snowpackStability: {
-    good: 1,
+    fair: 1,
     poor: 2,
     very_poor: 3
   },
@@ -30,6 +30,9 @@ const textInfoToClass = {
     "5": 3
   }
 };
+
+const enableMatrixColors =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
 
 function BulletinProblemItem({ problem }: Props) {
   const intl = useIntl();
@@ -221,11 +224,12 @@ function BulletinProblemItem({ problem }: Props) {
         <div className="bulletin-report-picto matrix-information">
           {snowpackStability && (
             <div
-              className={
-                "matrix-info  matrix-info-value-" +
-                textInfoToClass.snowpackStability[snowpackStability] +
-                ""
-              }
+              className={`matrix-info  ${
+                enableMatrixColors
+                  ? "matrix-info-value-" +
+                    textInfoToClass.snowpackStability[snowpackStability]
+                  : ""
+              }`}
             >
               <span className="matrix-info-name">{snowpackStabilityText}:</span>
               <span className="matrix-info-value">
@@ -241,11 +245,11 @@ function BulletinProblemItem({ problem }: Props) {
           )}
           {frequency && (
             <div
-              className={
-                "matrix-info  matrix-info-value-" +
-                textInfoToClass.frequency[frequency] +
-                ""
-              }
+              className={`matrix-info  ${
+                enableMatrixColors
+                  ? "matrix-info-value-" + textInfoToClass.frequency[frequency]
+                  : ""
+              }`}
             >
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
@@ -259,11 +263,12 @@ function BulletinProblemItem({ problem }: Props) {
           )}
           {avalancheSize && (
             <div
-              className={
-                "matrix-info  matrix-info-value-" +
-                textInfoToClass.avalancheSize[avalancheSize] +
-                ""
-              }
+              className={`matrix-info  ${
+                enableMatrixColors
+                  ? "matrix-info-value-" +
+                    textInfoToClass.avalancheSize[avalancheSize]
+                  : ""
+              }`}
             >
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">

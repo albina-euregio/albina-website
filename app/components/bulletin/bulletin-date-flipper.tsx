@@ -63,7 +63,6 @@ function BulletinDateFlipper({ date, latest }: Props) {
                   max={dateFormat(latest, "%Y-%m-%d", false)}
                   value={dateFormat(date$, "%Y-%m-%d", false)}
                   onChange={e => onChangeCurrentDate(new Date(e.target.value))}
-                  onFocus="this.showPicker()"
                 />
               )}
             </div>

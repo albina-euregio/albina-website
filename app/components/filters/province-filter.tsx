@@ -17,11 +17,15 @@ export default function ProvinceFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={props.handleChange} {...props}>
+      <Selectric
+        onChange={props.handleChange}
+        value={props.regionCode}
+        {...props}
+      >
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
         {(props.regionCodes ?? regionCodes).map(r => (
-          <option key={r} value={r} selected={r === props.regionCode}>
+          <option key={r} value={r}>
             {intl.formatMessage({ id: `region:${r}` })}
           </option>
         ))}
