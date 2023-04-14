@@ -1,7 +1,7 @@
 import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
-import { dateFormat, isSummerTime } from "../util/date";
+import { dateFormat } from "../util/date";
 
 export default class WeatherMapStore_new {
   constructor(initialDomainId) {
@@ -10,7 +10,6 @@ export default class WeatherMapStore_new {
     this.grid = null;
     this._domainId = observable.box(false);
     this._timeSpan = observable.box(false);
-    this._startUTCHourForTimespans;
     this._lastDataUpdate = 0;
     this._dateStart = null;
     this._agl = null;
@@ -285,15 +284,14 @@ export default class WeatherMapStore_new {
       let datePlusOffset = new Date(
         this._availableTimes[this._timeIndex.get()]
       );
-      //if(parseInt(this._timeSpan.get(), 10) > 0)
-      datePlusOffset.setHours(datePlusOffset.getHours() + this._absTimeSpan);
-      datePlusOffset.setHours(
-        datePlusOffset.getHours() + (isSummerTime(datePlusOffset) ? 1 : 0)
-      );
+
       // console.log(
-      //   "weatherMapStore_new overlayFileName:#2 ",
+      //   "weatherMapStore_new overlayFileName:#1 ",
       //   datePlusOffset,
-      //   this._absTimeSpan
+      //   dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true),
+      //   this._timeIndex.get(),
+      //   this._availableTimes[this._timeIndex.get()],
+      //   this._availableTimes
       // );
 
       return (
@@ -431,10 +429,10 @@ export default class WeatherMapStore_new {
   */
   _getPossibleTimesForSpan() {
     let posTimes = [];
-    let temp = this._startUTCHourForTimespans;
+    let temp = 0;
     const absTimeSpan = this._absTimeSpan;
     //console.log("temp#1", temp, absTimeSpan, temp % 24);
-    while (temp < 24 + this._startUTCHourForTimespans) {
+    while (temp < 24) {
       posTimes.push(temp < 24 ? temp : temp - 24);
       temp = temp + absTimeSpan;
       //console.log("temp#2", temp, temp % 24);
@@ -448,8 +446,6 @@ export default class WeatherMapStore_new {
   */
   _getStartTimeForSpan(initDate) {
     let currentTime = new Date(initDate);
-    //currentTime.setUTCHours(currentTime.getUTCHours() - 6);
-    //console.log("_getStartTimeForSpan #1", currentTime.getUTCHours(), isSummerTime(currentTime), currentTime.toUTCString(), this._timeSpan.get());
 
     if (
       [
@@ -463,8 +459,7 @@ export default class WeatherMapStore_new {
         "+24",
         "+48",
         "+72"
-      ].includes(this._timeSpan.get()) &&
-      currentTime.getUTCHours() !== this._startUTCHourForTimespans
+      ].includes(this._timeSpan.get())
     ) {
       let foundStartHour;
       const currHours = currentTime.getUTCHours();
@@ -474,16 +469,15 @@ export default class WeatherMapStore_new {
         foundStartHour = Math.max.apply(Math, soonerTimesToday);
       else foundStartHour = Math.max.apply(Math, timesForSpan);
 
-      // last possible time was last day
+      // first possible time was last day
       if (soonerTimesToday.length === 0)
         currentTime.setUTCHours(currentTime.getUTCHours() - 24);
-
-      if (isSummerTime(currentTime)) currentTime.setUTCHours(foundStartHour);
-      else currentTime.setUTCHours(foundStartHour + 1);
-      //console.log("_getStartTimeForSpan #2", currentTime);
-      //console.log("_getStartTimeForSpan #3", currentTime, foundStartHour, timesForSpan, soonerTimes);
+      currentTime.setUTCHours(foundStartHour);
+      // console.log(
+      //   "_getStartTimeForSpan #1",
+      //   timesForSpan, soonerTimesToday, foundStartHour
+      // );
     }
-    // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.startUTCHourForTimespans, currentTime.getUTCHours(), this.config);
     return currentTime;
   }
 
@@ -508,7 +502,9 @@ export default class WeatherMapStore_new {
     //   "weatherMapStore_new _setTimeIndices #1",
     //   this._dateStart,
     //   timeSpanDir,
-    //   this._absTimeSpan
+    //   this._absTimeSpan,
+    //   this._dateStart,
+    //   this._agl
     // );
 
     if (timeSpanDir >= 0) {
@@ -521,7 +517,7 @@ export default class WeatherMapStore_new {
       endTime.setHours(endTime.getHours() + this._absTimeSpan);
       //console.log("weatherMapStore_new _setTimeIndices #2", endTime, maxTime);
       while (endTime <= maxTime) {
-        //console.log( "weatherMapStore_new _setTimeIndices add date", this._absTimeSpan, new Date(currentTime), new Date(maxTime));
+        //console.log( "weatherMapStore_new _setTimeIndices add date #1", {currentTime});
         indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
         endTime.setHours(endTime.getHours() + this._absTimeSpan);
@@ -610,9 +606,6 @@ export default class WeatherMapStore_new {
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._lastCurrentTime = this.currentTime;
       this._domainId.set(domainId);
-      this._startUTCHourForTimespans =
-        this.config.domains[domainId]?.startUTCHourForTimespans ||
-        this.config.settings.startUTCHourForTimespans;
       this._timeSpan.set(null);
       this._timeIndex.set(null);
       this._agl = null;
