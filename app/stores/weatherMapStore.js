@@ -512,12 +512,12 @@ export default class WeatherMapStore_new {
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
       );
-      console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
-        currentTime,
-        maxTime,
-        _absTimeSpan: this._absTimeSpan,
-        agl: this._agl
-      });
+      // console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
+      //   currentTime,
+      //   maxTime,
+      //   _absTimeSpan: this._absTimeSpan,
+      //   agl: this._agl
+      // });
 
       while (currentTime <= maxTime) {
         indices.push(new Date(currentTime).getTime());
