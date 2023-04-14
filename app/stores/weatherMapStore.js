@@ -459,7 +459,8 @@ export default class WeatherMapStore_new {
         "+24",
         "+48",
         "+72"
-      ].includes(this._timeSpan.get())
+      ].includes(this._timeSpan.get()) &&
+      currentTime.getUTCHours() !== 0
     ) {
       let foundStartHour;
       const currHours = currentTime.getUTCHours();
@@ -488,10 +489,8 @@ export default class WeatherMapStore_new {
     //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();
-
     let currentTime = this._getStartTimeForSpan(this._dateStart);
     let maxTime;
-    let endTime;
     let timeSpanDir = currentTimespan.includes("+-")
       ? 0
       : parseInt(currentTimespan, 10) > 0
@@ -513,76 +512,60 @@ export default class WeatherMapStore_new {
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
       );
-      endTime = new Date(currentTime);
-      endTime.setHours(endTime.getHours() + this._absTimeSpan);
-      //console.log("weatherMapStore_new _setTimeIndices #2", endTime, maxTime);
-      while (endTime <= maxTime) {
-        //console.log( "weatherMapStore_new _setTimeIndices add date #1", {currentTime});
+      console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
+        currentTime,
+        maxTime,
+        _absTimeSpan: this._absTimeSpan,
+        agl: this._agl
+      });
+
+      while (currentTime <= maxTime) {
         indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
-        endTime.setHours(endTime.getHours() + this._absTimeSpan);
       }
+
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
+      //   indices
+      // });
     }
     if (timeSpanDir <= 0) {
       let startFrom =
         currentTimespan.includes("+") && this._agl
           ? this._agl
           : this._getStartTimeForSpan(this._dateStart);
-      //console.log("_setAvailableTimes->this._agl", this._agl);
-      // console.log(
-      //   "_setAvailableTimes->this._getStart",
-      //   this._getStartTimeForSpan(this._dateStart)
-      // );
+
       currentTime = new Date(startFrom);
-      //console.log("_setAvailableTimes->currentTime#1", currentTime);
-      currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
-      //console.log("_setAvailableTimes->currentTime#2", currentTime);
+      // console.log(
+      //   "_setAvailableTimes timeSpanDir<= 0 ##2", {
+      //     _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
+      //     startFrom,
+      //     currentTime}
+      // );
+
       maxTime = new Date(startFrom);
-      //console.log("_setAvailableTimes->maxTime", maxTime);
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
       // if (maxTime. > startFrom)
       maxTime.setHours(maxTime.getHours() - this._absTimeSpan);
-      // console.log(
-      //   "weatherMapStore_new _setTimeIndices #3 >= 0",
-      //   currentTime,
-      //   maxTime
-      // );
+      currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       while (currentTime >= maxTime) {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
         }
-        const lastTime = new Date(currentTime.getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
-        //fix summertime and wintertime change bug
-        if (currentTime.toUTCString() === lastTime.toUTCString()) {
-          //console.log("weatherMapStore_new _setTimeIndices FIX BUG",);
-          currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -2);
-        }
-        // console.log(
-        //   "weatherMapStore_new _setTimeIndices add date",
-        //   currentTime.getHours() + this._absTimeSpan * -1,
-        //   currentTime,
-        //   this._absTimeSpan,
-        //   currentTime.getTime()
-        // );
       }
     }
     indices.sort();
-    // console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
-    // indices.map(aItem => {
-    //   console.log(
-    //     "weatherMapStore_new _setTimeIndices: new indices",
-    //     new Date(aItem),
-    //     aItem
-    //   );
-    // });
     this._availableTimes = indices;
 
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
     else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
+
+    // console.log("_setAvailableTimes timeSpanDir all ##2", {
+    //   indices
+    // });
   }
 
   /*
