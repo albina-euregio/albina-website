@@ -548,7 +548,7 @@ export default class WeatherMapStore_new {
       );
       // if (maxTime. > startFrom)
       maxTime.setHours(maxTime.getHours() - this._absTimeSpan);
-      currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
+      //currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       while (currentTime >= maxTime) {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
