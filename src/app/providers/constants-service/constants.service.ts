@@ -29,8 +29,10 @@ export class ConstantsService {
       "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]:
       "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
-    [ObservationSource.Webcams]:
+    [ObservationSource.FotoWebcamsEU]:
       "https://admin.avalanche.report/foto-webcam.eu/metadata.php",
+    [ObservationSource.Panomax]:
+      "https://api.avalanche.report/api.panomax.com/1.0/maps/panomaxweb",
   };
 
   public observationWeb = {
@@ -44,6 +46,8 @@ export class ConstantsService {
     [`${ObservationSource.Lawis}-${ObservationType.Profile}` as const]:
       "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
   };
+
+  public rechenraumApi = "https://voibos.rechenraum.com/voibos/voibos";
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
   public osmNominatimCountries = "at,it";

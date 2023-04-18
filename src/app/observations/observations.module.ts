@@ -38,6 +38,7 @@ import { RoseChartComponent } from "./charts/rose-chart/rose-chart.component";
 import { BaseComponent } from "./charts/base/base-chart.component";
 import { MapService } from "../providers/map-service/map.service";
 import { ElevationService } from "./../providers/map-service/elevation.service";
+import { CoordinateDataService } from "./../providers/map-service/coordinate-data.service";
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { ElevationService } from "./../providers/map-service/elevation.service";
     ObservationsService,
     MapService,
     ElevationService,
+    CoordinateDataService,
   ],
 })
 export class ObservationsModule {}

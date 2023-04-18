@@ -150,7 +150,8 @@ export enum ObservationSource {
   LoLaAvalancheFeedbackAT5 = "LoLaAvalancheFeedbackAT5",
   LoLaAvalancheFeedbackAT8 = "LoLaAvalancheFeedbackAT8",
   WikisnowECT = "WikisnowECT",
-  Webcams = "Webcams",
+  FotoWebcamsEU = "FotoWebcamsEU",
+  Panomax = "Panomax",
 }
 
 export type ForecastSource =

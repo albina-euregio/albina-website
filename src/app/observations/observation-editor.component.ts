@@ -5,7 +5,9 @@ import { Feature, Point } from "geojson";
 import { SelectItem } from "primeng/api";
 import { GeocodingProperties, GeocodingService } from "./geocoding.service";
 import { geocoders } from "leaflet-control-geocoder";
-import { ElevationService } from "app/providers/map-service/elevation.service";
+// import { ElevationService } from "app/providers/map-service/elevation.service";
+import { CoordinateDataService } from "app/providers/map-service/coordinate-data.service";
+import { Aspect } from "app/observations/models/generic-observation.model";
 
 @Component({
   selector: "app-observation-editor",
@@ -16,7 +18,7 @@ export class ObservationEditorComponent {
   constructor(
     private translate: TranslateService,
     private geocodingService: GeocodingService,
-    private elevationService: ElevationService
+    private coordinateDataService: CoordinateDataService
   ) {}
 
   @Input() observation: Observation;
@@ -28,15 +30,23 @@ export class ObservationEditorComponent {
 
   newLocation() {
     if (this.observation.latitude && this.observation.longitude) {
-      // copy coordinates to clipboard
-      navigator.clipboard.writeText(
-        `${this.observation.latitude}, ${this.observation.longitude}`
-      );
+      const floatLat = parseFloat(this.observation.latitude as any);
+      const floatLng = parseFloat(this.observation.longitude as any);
 
-      this.elevationService
-        .getHeight(this.observation.latitude, this.observation.longitude)
-        .subscribe((elevation) => (this.observation.elevation = elevation));
+      this.coordinateDataService
+        .getCoordData(floatLat, floatLng)
+        .subscribe((data) => {
+          this.observation.elevation = data.height;
+          // this.observation.aspect = data.aspect as Aspect;
+          // console.log(data);
+        });
     }
+  }
+
+  copyLatLng() {
+    navigator.clipboard.writeText(
+      `${this.observation.latitude}, ${this.observation.longitude}`
+    );
   }
 
   setLatitude(event) {
@@ -107,6 +117,14 @@ export class ObservationEditorComponent {
   }
 
   parseContent($event: { clipboardData: DataTransfer }): void {
+    const codes = {
+      "ALP-LAW-NEG": EventType.PersonNo,
+      "ALP-LAW-UNKL": EventType.PersonUninjured,
+      "ALP-LAW-KLEIN": EventType.PersonUninjured,
+      "ALP-LAW-GROSS": EventType.PersonUninjured,
+      "ALP-LAW-FREI": EventType.PersonUninjured,
+    };
+
     setTimeout(() => {
       const content = this.observation.content;
       if (
@@ -115,6 +133,9 @@ export class ObservationEditorComponent {
         /beschickte Einsatzmittel/.test(content)
       ) {
         this.observation.authorName = "Leitstelle Tirol";
+
+        const code = content.match(/Einsatzcode:\s*(.*)\n/)[1];
+        if (codes[code]) this.observation.eventType = codes[code];
       }
       if (!this.observation.locationName && /Einsatzort/.test(content)) {
         const match = content.match(/Einsatzort:.*\n\s+.*\s+(.*)/);

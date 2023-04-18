@@ -25,6 +25,10 @@ import {
   toObservationTable,
   LocalFilterTypes,
   ChartsData,
+  AvalancheProblem,
+  DangerPattern,
+  ImportantObservation,
+  Stability,
 } from "./models/generic-observation.model";
 
 import { MenuItem } from "primeng/api";
@@ -37,6 +41,7 @@ import { ObservationTableComponent } from "./observation-table.component";
 import { ObservationFilterService } from "./observation-filter.service";
 import { formatDate } from "@angular/common";
 import type { Observable } from "rxjs";
+import { ElevationService } from "../providers/map-service/elevation.service";
 
 //import { BarChart } from "./charts/bar-chart/bar-chart.component";
 declare var L: any;
@@ -96,6 +101,7 @@ export class ObservationsComponent
     private observationsService: ObservationsService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
+    private elevationService: ElevationService,
     public mapService: BaseMapService
   ) {
     this.allRegions = this.regionsService
@@ -203,6 +209,37 @@ export class ObservationsComponent
     );
   }
 
+  parseObservation(observation: GenericObservation): GenericObservation {
+    const avalancheProblems = Object.values(AvalancheProblem);
+    const dangerPatterns = Object.values(DangerPattern);
+    const stabilities = Object.values(Stability);
+    const importantObservations = Object.values(ImportantObservation);
+
+    const matches = [...observation.content.matchAll(/#\S*(?=\s|$)/g)].map(
+      (el) => el[0].replace("#", "")
+    );
+    matches.forEach((match) => {
+      if (avalancheProblems.includes(match as AvalancheProblem)) {
+        if (!observation.avalancheProblems) observation.avalancheProblems = [];
+        observation.avalancheProblems.push(match as AvalancheProblem);
+      } else if (dangerPatterns.includes(match as DangerPattern)) {
+        if (!observation.dangerPatterns) observation.dangerPatterns = [];
+        observation.dangerPatterns.push(match as DangerPattern);
+      } else if (
+        importantObservations.includes(match as ImportantObservation)
+      ) {
+        if (!observation.importantObservations)
+          observation.importantObservations = [];
+        observation.importantObservations.push(match as ImportantObservation);
+      } else if (stabilities.includes(match as Stability)) {
+        observation.stability = match as Stability;
+      }
+    });
+
+    console.log(observation);
+    return observation;
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
     if (typeof days === "number") {
       this.filter.days = days;
@@ -212,12 +249,36 @@ export class ObservationsComponent
     this.loading
       .forEach((observation) => {
         if (this.filter.inDateRange(observation)) {
+          if (observation.$source === ObservationSource.AvalancheWarningService)
+            observation = this.parseObservation(observation);
           this.addObservation(observation);
+          if (!observation.elevation) {
+            this.elevationService
+              .getElevation(observation.latitude, observation.longitude)
+              .subscribe((elevation) => {
+                observation.elevation = elevation;
+                this.addObservation(observation);
+              });
+          } else {
+            this.addObservation(observation);
+          }
         }
       })
       .catch((e) => console.error(e))
       .finally(() => {
         this.loading = undefined;
+        this.applyLocalFilter();
+      });
+
+    const webcams = this.observationsService.getFotoWebcamsEU();
+    webcams
+      .forEach((webcam) => {
+        if (this.filter.inDateRange(webcam)) {
+          this.addObservation(webcam);
+        }
+      })
+      .catch((e) => console.error(e))
+      .finally(() => {
         this.applyLocalFilter();
       });
   }

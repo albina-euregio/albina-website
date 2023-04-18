@@ -82,7 +82,18 @@
       pInputText
     />
   </div>
-  <div class="p-field p-col-12 p-md-4">
+  <div class="p-field p-col-1 p-col-sm-3 copy-icon-wrapper">
+    <button
+      class="p-element p-button p-component"
+      type="button"
+      (click)="copyLatLng()"
+    >
+      <span class="p-button-label">
+        <li class="fa fa-copy copy-icon"></li>
+      </span>
+    </button>
+  </div>
+  <div class="p-field p-col-12 p-col-md-3">
     <label for="elevation"
       ><i class="fa fa-arrows-v"></i>
       {{ "observations.elevation" | translate }}</label
