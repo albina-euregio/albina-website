@@ -523,7 +523,7 @@ export class ObservationsService {
 
     const options = { headers: headers };
 
-    console.log(fullUrl);
+    // console.log(fullUrl);
 
     //create post request to lolaCadsApi with imageurl: imgurl as parameter and token as authorization header
     return this.http.post<any>(fullUrl, {}, options);
@@ -624,10 +624,10 @@ export class ObservationsService {
       }),
       mergeMap((cam: GenericObservation) => {
         if (cam.$data["latest"].includes("foto-webcam.eu")) {
-          console.log(cam.$data["latest"]);
+          // console.log(cam.$data["latest"]);
           return this.getLolaCads(cam).pipe(
             map((lolaCadsData) => {
-              console.log(lolaCadsData);
+              // console.log(lolaCadsData);
               const response: GenericObservation = {
                 $data: cam,
                 $externalURL: cam.$externalURL,
