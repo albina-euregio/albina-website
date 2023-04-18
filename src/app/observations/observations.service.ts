@@ -627,7 +627,7 @@ export class ObservationsService {
           // console.log(cam.$data["latest"]);
           return this.getLolaCads(cam).pipe(
             map((lolaCadsData) => {
-              console.log(lolaCadsData);
+              // console.log(lolaCadsData);
               if (lolaCadsData.length === 0) return cam;
 
               const response: GenericObservation = {
