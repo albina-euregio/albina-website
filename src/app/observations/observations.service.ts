@@ -505,7 +505,8 @@ export class ObservationsService {
   }
 
   getLolaCads(cam: GenericObservation): Observable<any> {
-    const lolaCadsApi = "https://www.lola-cads.info/api/LWDprocessPhotoURL";
+    const lolaCadsApi =
+      "https://api.avalanche.report/www.lola-cads.info/LWDprocessPhotoURL";
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2xhQWNjZXNzIjpmYWxzZSwibHdkQWNjZXNzIjp0cnVlLCJpYXQiOjE2Nzk1ODA3NjYsImV4cCI6MTcxMTExNjc2Nn0.IpZ4Nkkmvw0IiEi3Hvh9Pt4RvtJv7KktMLQCwdhVtBU";
 
@@ -521,6 +522,8 @@ export class ObservationsService {
     });
 
     const options = { headers: headers };
+
+    console.log(fullUrl);
 
     //create post request to lolaCadsApi with imageurl: imgurl as parameter and token as authorization header
     return this.http.post<any>(fullUrl, {}, options);
@@ -582,31 +585,6 @@ export class ObservationsService {
         const observables = from(cams);
         return observables.pipe(mergeAll());
       })
-      // mergeMap((cam: GenericObservation) => {
-      //   return this.getLolaCads(cam).pipe(
-      //     map((lolaCadsData) => {
-      //       const response: GenericObservation = {
-      //         $data: cam,
-      //         $externalURL: cam.$externalURL,
-      //         $source: ObservationSource.Panomax,
-      //         $type:
-      //           lolaCadsData.length !== 0
-      //             ? ObservationType.Avalanche
-      //             : ObservationType.Webcam,
-      //         authorName: "panomax.com",
-      //         content: cam.content,
-      //         elevation: cam.elevation,
-      //         eventDate: new Date(Date.now()),
-      //         latitude: cam.latitude,
-      //         longitude: cam.longitude,
-      //         locationName: cam.locationName,
-      //         region: cam.region,
-      //         aspect: cam.aspect,
-      //       };
-      //       return response;
-      //     })
-      //   );
-      // })
     );
   }
 
@@ -645,29 +623,35 @@ export class ObservationsService {
         return observables;
       }),
       mergeMap((cam: GenericObservation) => {
-        return this.getLolaCads(cam).pipe(
-          map((lolaCadsData) => {
-            const response: GenericObservation = {
-              $data: cam,
-              $externalURL: cam.$externalURL,
-              $source: ObservationSource.FotoWebcamsEU,
-              $type:
-                lolaCadsData.length !== 0
-                  ? ObservationType.Avalanche
-                  : ObservationType.Webcam,
-              authorName: "foto-webcam.eu",
-              content: cam.content,
-              elevation: cam.elevation,
-              eventDate: new Date(Date.now()),
-              latitude: cam.latitude,
-              longitude: cam.longitude,
-              locationName: cam.locationName,
-              region: cam.region,
-              aspect: cam.aspect,
-            };
-            return response;
-          })
-        );
+        if (cam.$data["latest"].includes("foto-webcam.eu")) {
+          console.log(cam.$data["latest"]);
+          return this.getLolaCads(cam).pipe(
+            map((lolaCadsData) => {
+              console.log(lolaCadsData);
+              const response: GenericObservation = {
+                $data: cam,
+                $externalURL: cam.$externalURL,
+                $source: ObservationSource.FotoWebcamsEU,
+                $type:
+                  lolaCadsData.length !== 0
+                    ? ObservationType.Avalanche
+                    : ObservationType.Webcam,
+                authorName: "foto-webcam.eu",
+                content: cam.content,
+                elevation: cam.elevation,
+                eventDate: new Date(Date.now()),
+                latitude: cam.latitude,
+                longitude: cam.longitude,
+                locationName: cam.locationName,
+                region: cam.region,
+                aspect: cam.aspect,
+              };
+              return response;
+            })
+          );
+        } else {
+          return of(cam);
+        }
       })
     );
   }
