@@ -37,8 +37,8 @@ export class ObservationEditorComponent {
         .getCoordData(floatLat, floatLng)
         .subscribe((data) => {
           this.observation.elevation = data.height;
-          this.observation.aspect = data.aspect as Aspect;
-          console.log(data);
+          // this.observation.aspect = data.aspect as Aspect;
+          // console.log(data);
         });
     }
   }
