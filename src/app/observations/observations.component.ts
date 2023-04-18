@@ -269,6 +269,18 @@ export class ObservationsComponent
         this.loading = undefined;
         this.applyLocalFilter();
       });
+
+    const webcams = this.observationsService.getFotoWebcamsEU();
+    webcams
+      .forEach((webcam) => {
+        if (this.filter.inDateRange(webcam)) {
+          this.addObservation(webcam);
+        }
+      })
+      .catch((e) => console.error(e))
+      .finally(() => {
+        this.applyLocalFilter();
+      });
   }
 
   private clear() {

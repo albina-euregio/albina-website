@@ -183,7 +183,7 @@ export class ObservationsService {
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
       this.getObservations(),
-      this.getFotoWebcamsEU(),
+      // this.getFotoWebcamsEU(),
       this.getPanomax()
     );
   }
