@@ -627,16 +627,17 @@ export class ObservationsService {
           // console.log(cam.$data["latest"]);
           return this.getLolaCads(cam).pipe(
             map((lolaCadsData) => {
-              // console.log(lolaCadsData);
+              console.log(lolaCadsData);
+              if (lolaCadsData.length === 0) return cam;
+
               const response: GenericObservation = {
                 $data: cam,
                 $externalURL: cam.$externalURL,
                 $source: ObservationSource.FotoWebcamsEU,
-                $type:
-                  lolaCadsData.length !== 0
-                    ? ObservationType.Avalanche
-                    : ObservationType.Webcam,
-                authorName: "foto-webcam.eu",
+                $type: ObservationType.Avalanche,
+                authorName: `foto-webcam.eu, ${
+                  lolaCadsData[0].label
+                }, ${Math.round(lolaCadsData[0].conf * 100)}%`,
                 content: cam.content,
                 elevation: cam.elevation,
                 eventDate: new Date(Date.now()),
