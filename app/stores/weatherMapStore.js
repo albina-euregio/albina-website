@@ -123,14 +123,13 @@ export default class WeatherMapStore_new {
     let loads = [];
 
     // console.log(
-    //   "_loadData this.currentTime bbb",
-    //   new Date(this.currentTime),
-    //   prefix
+    //   "_loadData this.currentTime ##33",
+    //   new Date(this.currentTime)
     // );
     if (
       this.domainConfig &&
       this.domainConfig.layer.stations &&
-      this.currentTime < this._agl
+      this.currentTime <= this._agl
     ) {
       loads.push(
         new StationDataStore()
@@ -652,11 +651,15 @@ export default class WeatherMapStore_new {
     // );
     if (this._availableTimes.includes(timeIndex)) {
       // console.log(
-      //   "weatherMapStore_new: bbb changeCurrentTime SET",
-      //   new Date(timeIndex),
-      //   timeIndex
+      //   "weathermap->changeCurrentTime_1 ##33",
+      //   {timeIndex2Date: new Date(timeIndex),
+
+      //   curTimeIndex: this._timeIndex.get(),
+      //   timeIndex,
+      //   availTimeIndex: this._availableTimes.indexOf(timeIndex)}
       // );
       if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
+        // console.log("weathermap->changeCurrentTime_2 ##33", timeIndex);
         this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
         this._loadIndexData();
         this.selectedFeature = null;
