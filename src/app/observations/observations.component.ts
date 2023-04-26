@@ -249,9 +249,12 @@ export class ObservationsComponent
     this.loading
       .forEach((observation) => {
         if (this.filter.inDateRange(observation)) {
-          if (observation.$source === ObservationSource.AvalancheWarningService)
+          if (
+            observation.$source === ObservationSource.AvalancheWarningService
+          ) {
             observation = this.parseObservation(observation);
-          this.addObservation(observation);
+            this.addObservation(observation);
+          }
           if (!observation.elevation) {
             this.elevationService
               .getElevation(observation.latitude, observation.longitude)
@@ -260,17 +263,7 @@ export class ObservationsComponent
                 this.addObservation(observation);
               });
           } else {
-            // check if observation is in this.observations
-
-            if (
-              !this.observations.find((o) => {
-                // compare all properties except elevation
-                return Object.keys(o)
-                  .filter((k) => k !== "elevation")
-                  .every((k) => o[k] === observation[k]);
-              })
-            )
-              this.addObservation(observation);
+            this.addObservation(observation);
           }
         }
       })
