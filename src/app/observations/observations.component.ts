@@ -249,9 +249,12 @@ export class ObservationsComponent
     this.loading
       .forEach((observation) => {
         if (this.filter.inDateRange(observation)) {
-          if (observation.$source === ObservationSource.AvalancheWarningService)
+          if (
+            observation.$source === ObservationSource.AvalancheWarningService
+          ) {
             observation = this.parseObservation(observation);
-          this.addObservation(observation);
+            this.addObservation(observation);
+          }
           if (!observation.elevation) {
             this.elevationService
               .getElevation(observation.latitude, observation.longitude)
@@ -279,6 +282,7 @@ export class ObservationsComponent
       })
       .catch((e) => console.error(e))
       .finally(() => {
+        this.loading = undefined;
         this.applyLocalFilter();
       });
   }
