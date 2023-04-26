@@ -253,7 +253,6 @@ export class ObservationsComponent
             observation.$source === ObservationSource.AvalancheWarningService
           ) {
             observation = this.parseObservation(observation);
-            this.addObservation(observation);
           }
           if (!observation.elevation) {
             this.elevationService
