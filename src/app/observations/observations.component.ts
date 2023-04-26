@@ -260,7 +260,17 @@ export class ObservationsComponent
                 this.addObservation(observation);
               });
           } else {
-            this.addObservation(observation);
+            // check if observation is in this.observations
+
+            if (
+              !this.observations.find((o) => {
+                // compare all properties except elevation
+                return Object.keys(o)
+                  .filter((k) => k !== "elevation")
+                  .every((k) => o[k] === observation[k]);
+              })
+            )
+              this.addObservation(observation);
           }
         }
       })
@@ -279,6 +289,7 @@ export class ObservationsComponent
       })
       .catch((e) => console.error(e))
       .finally(() => {
+        this.loading = undefined;
         this.applyLocalFilter();
       });
   }
