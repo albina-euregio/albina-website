@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "@angular/upgrade": "^16.0.0",
-    "@asymmetrik/ngx-leaflet": "^14.0.1",
+    "@asymmetrik/ngx-leaflet": "^15.0.1",
     "@auth0/angular-jwt": "^5.0.2",
     "@ngx-translate/core": "^14.0.0",
     "@types/geojson": "^7946.0.7",
