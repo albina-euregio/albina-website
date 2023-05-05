@@ -55,14 +55,14 @@
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet.sync": "0.2.4",
     "ng-multiselect-dropdown": "^0.3.8",
-    "ngx-bootstrap": "^9.0.0",
+    "ngx-bootstrap": "^10.3.0",
     "ngx-echarts": "^8.0.1",
     "papaparse": "^5.3.0",
     "primeflex": "^2.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^15.0.0-rc.1",
     "rbush": "^3.0.1",
-    "rxjs": "7.5.6",
+    "rxjs": "7.8.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

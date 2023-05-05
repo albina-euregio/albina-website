@@ -5978,10 +5978,10 @@ ng-multiselect-dropdown@^0.3.8:
   dependencies:
     tslib "^1.9.0"
 
-ngx-bootstrap@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-9.0.0.tgz#8524958cdd479aefcc9549788694fe08789f2f52"
-  integrity sha512-wVwKs1jIASzJrKSPUhOcHY8f39MKyG31SruJdVQ3S/v/PdBVmVuFUJL86Awc8F60di2xD9C4DzzGObkvsHbirw==
+ngx-bootstrap@^10.3.0:
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-10.3.0.tgz#688e7df7c8b4302ce342a13c4b49c4d67d117311"
+  integrity sha512-Ok9umbq4tqJSXMy/5/+2VZJHcwj7hD3a3x2KkF1A+f0e70BARY8rfr9QKjGgvywWNyZMf0Z5PvE1WEeEiMvCkA==
   dependencies:
     tslib "^2.3.0"
 
@@ -6922,13 +6922,6 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
-
-rxjs@7.5.6:
-  version "7.5.6"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.6.tgz#0446577557862afd6903517ce7cae79ecb9662bc"
-  integrity sha512-dnyv2/YsXhnm461G+R/Pe5bWP41Nm6LBXEYWI6eiFP4fiwx6WRI/CD0zbdVAudd9xwLEF2IDcKXLHit0FYjUzw==
-  dependencies:
-    tslib "^2.1.0"
 
 rxjs@7.8.1, rxjs@^7.5.5:
   version "7.8.1"
