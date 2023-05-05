@@ -197,7 +197,7 @@ export class ObservationsService {
       .pipe(map((o) => convertObservationToGeneric(o)));
   }
 
-  private getLwdKipLayer<T>(name: string, params: Record<string, string>) {
+  private getLwdKipLayer<T extends object>(name: string, params: Record<string, string>) {
     if (!this.lwdKipLayers) {
       const url =
         this.constantsService.getServerUrl() +
