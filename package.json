@@ -58,7 +58,7 @@
     "ngx-bootstrap": "^10.3.0",
     "ngx-echarts": "^15.0.3",
     "papaparse": "^5.4.1",
-    "primeflex": "^2.0.0",
+    "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primeng": "^15.4.1",
     "rbush": "^3.0.1",
