@@ -16,23 +16,34 @@ const defaultDataBarOptions = {
   }
 };
 
+const isIsoDate = (str) => {
+  if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
+  const d = new Date(str); 
+  return d instanceof Date && d.toISOString()===str; // valid date 
+}
+
+const fDate = (aDate) => {
+  const format = "yyyy-MM-dd";
+  const locale = "en-US";
+  return formatDate(aDate, format, locale);
+}
+
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.scss"]
 })
+
 export class BarChartComponent extends BaseComponent {
   private pressTimer;
 
   public formatLabel = (params) => {
     //console.log("formatter", this.formatter, params.value[0], this.translateService.instant(this.translationBase + params.value[0]));
-    if (this.formatter === "date") {
-      const format = "yyyy-MM-dd";
-      const locale = "en-US";
-      return formatDate(params.value[0], format, locale);
-    }
+    if (this.formatter === "date") return fDate(params.value[0]);
     return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]) : params.value[0];
   };
+
+
 
   public readonly defaultOptions = {
     // title: {
@@ -55,6 +66,13 @@ export class BarChartComponent extends BaseComponent {
       textStyle: {
         color: "#839194",
         fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif"
+      },
+      formatter: function (params) {
+        //console.log("formatter", params);
+        let dname = new Date(params.name);
+        let name = isIsoDate(params.name) ? fDate(params.name): params.name;
+        let val = params.data[4] === 0 ? params.data[5] : params.data[4];
+        return `${name}: <span style="color: #000">${val}</span> / ${params.data[2]}`;
       }
     },
     yAxis: {
