@@ -43,8 +43,6 @@ export class BarChartComponent extends BaseComponent {
     return this.translationBase ? this.translateService.instant(this.translationBase + params.value[0]) : params.value[0];
   };
 
-
-
   public readonly defaultOptions = {
     // title: {
     //     text: 'bar chart'
