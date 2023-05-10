@@ -176,7 +176,7 @@ export class RoseChartComponent extends BaseComponent {
   // }
 
   onMouseDown(event: any) {
-    console.log("RosehartComponent->onMouseDown", event, this);
+    //console.log("RosehartComponent->onMouseDown", event, this);
     const self = this;
     this.pressTimer = window.setTimeout(function () {
       self.resetTimeout();
