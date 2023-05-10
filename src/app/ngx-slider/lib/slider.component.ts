@@ -129,6 +129,7 @@ const NGX_SLIDER_CONTROL_VALUE_ACCESSOR: any = {
   selector: "ngx-slider",
   templateUrl: "./slider.component.html",
   styleUrls: ["./slider.component.scss"],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: "ngx-slider" },
   providers: [NGX_SLIDER_CONTROL_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
