@@ -28,7 +28,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-slider/ngx-slider": "danisss9/ngx-slider#037808490545e72436792b97ca0e82f65a095102",
     "@angular/animations": "^16.0.0",
     "@angular/cdk": "^16.0.0",
     "@angular/common": "^16.0.0",
@@ -48,6 +47,7 @@
     "@types/papaparse": "^5.3.7",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.6.2",
+    "detect-passive-events": "^2.0.3",
     "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/ec336a7accb5036e772b28a10e4505a0905fb3b6/eaws-regions-ec336a7accb5036e772b28a10e4505a0905fb3b6.tar.gz",
     "echarts": "^5.4.2",
     "file-saver": "^2.0.5",
