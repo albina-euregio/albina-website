@@ -209,9 +209,9 @@ export class StabilityTestClassificationUtil {
     switch (classification) {
       case StabilityTestClassification.weak:
         return "stabilityTestClassification.weak";
-      case StabilityTestClassification.weak:
+      case StabilityTestClassification.moderate:
         return "stabilityTestClassification.moderate";
-      case StabilityTestClassification.weak:
+      case StabilityTestClassification.stable:
         return "stabilityTestClassification.stable";
       default:
         return "undefined";
@@ -828,12 +828,10 @@ export class TerrainFeatureUtil {
     switch (feature) {
       case TerrainFeature.moderatelySteepSlopes:
         return "terrainFeature.moderatelySteepSlopes";
-      case TerrainFeature.moderatelySteepSlopes:
-        return "terrainFeature.steepSlopes";
       case TerrainFeature.steepSlopes:
-        return "terrainFeature.verySteepSlopes";
-      case TerrainFeature.verySteepSlopes:
         return "terrainFeature.steepSlopes";
+      case TerrainFeature.verySteepSlopes:
+        return "terrainFeature.verySteepSlopes";
       case TerrainFeature.convexSlopes:
         return "terrainFeature.convexSlopes";
       case TerrainFeature.denseTrees:

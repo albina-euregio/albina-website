@@ -1,5 +1,5 @@
 import { Component, Inject, Injectable, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 
 import { Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeUrl, SafeResourceUrl } from "@angular/platform-browser";

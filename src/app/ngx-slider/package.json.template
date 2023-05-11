@@ -1,0 +1,22 @@
+{
+  "keysToCopyFromMainPackageJson": [
+    "name",
+    "version",
+    "description",
+    "keywords",
+    "author",
+    "license",
+    "repository",
+    "bugs",
+    "homepage"
+  ],
+  "dependenciesToCopyFromMainPackageJson": [
+    "detect-passive-events",
+    "rxjs"
+  ],
+  "dependenciesToCopyAsPeerDependenciesFromMainPackageJson": [
+    "@angular/core",
+    "@angular/common",
+    "@angular/forms"
+  ]
+}

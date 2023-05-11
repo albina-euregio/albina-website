@@ -1,4 +1,3 @@
-import { logger } from "@sentry/utils";
 import * as Enums from "../enums/enums";
 import { MatrixInformationModel } from "./matrix-information.model";
 import { TextModel } from "./text.model";

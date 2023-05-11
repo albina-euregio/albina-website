@@ -13,7 +13,7 @@ export class BaseComponent {
   @Input() translationBase: string;
   @Input() formatter: string;
   @Input() type: LocalFilterTypes;
-  @Input() data: { dataset: Object; nan: Number };
+  @Input() data: { dataset: object; nan: number };
   @Output() handleChange: EventEmitter<any> = new EventEmitter();
   @Input() nanStatus: { selected: Boolean; highlighted: Boolean };
   @Input() isActive: Boolean;
