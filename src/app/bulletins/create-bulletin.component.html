@@ -356,10 +356,6 @@
                       <div style="text-align: right;; float: left; margin-right: 10px;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheProblems(false) || !isCreator(activeBulletin)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheProblem(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheProblem" | translate }}</button>
                       </div>
-                      <div style="text-align: left; float: left;">
-                        <button *ngIf="activeBulletin.afternoon.complexity === 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(true, '')" class="btn btn-sm btn-danger" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
-                        <button *ngIf="activeBulletin.afternoon.complexity !== 'complex'" [disabled]="editRegions || loading || !bulletinsService.getIsEditable() || !isCreator(activeBulletin)" (click)="setComplexity(true, 'complex')" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.complexity.complex' | translate }}"><i class="fa fa-cogs"></i></button>
-                      </div>
                     </div>
                     <app-avalanche-problem [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [afternoon]="true" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-problem>
                   </div>
