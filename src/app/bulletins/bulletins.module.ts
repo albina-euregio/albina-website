@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
 import { BulletinsComponent } from "./bulletins.component";
 import { CreateBulletinComponent } from "./create-bulletin.component";
 import { AspectsComponent } from "./aspects.component";
-import { ComplexityComponent } from "./complexity.component";
 import { DangerRatingComponent } from "./danger-rating.component";
 import { DangerRatingIconComponent } from "./danger-rating-icon.component";
 import { AvalancheProblemComponent } from "./avalanche-problem.component";
@@ -50,7 +49,6 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         BulletinsComponent,
         CreateBulletinComponent,
         AspectsComponent,
-        ComplexityComponent,
         DangerRatingComponent,
         DangerRatingIconComponent,
         AvalancheProblemComponent,

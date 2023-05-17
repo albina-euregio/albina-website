@@ -1,5 +1,4 @@
 import * as Enums from "../enums/enums";
-import { MatrixInformationModel } from "./matrix-information.model";
 import { AvalancheProblemModel } from "./avalanche-problem.model";
 import { TextModel } from "./text.model";
 
@@ -12,8 +11,6 @@ export class BulletinDaytimeDescriptionModel {
   public dangerRatingBelow: Enums.DangerRating;
   public terrainFeatureBelowTextcat: string;
   public terrainFeatureBelow: TextModel[];
-
-  public complexity: Enums.Complexity;
 
   public hasElevationDependency: boolean;
   public elevation: number;
@@ -56,10 +53,6 @@ export class BulletinDaytimeDescriptionModel {
     }
     bulletinDaytimeDescription.setTerrainFeatureBelow(terrainFeatureBelow);
 
-    if (json.complexity) {
-      bulletinDaytimeDescription.setComplexity(json.complexity);
-    }
-
     if (json.avalancheProblem1) {
       bulletinDaytimeDescription.avalancheProblem1 = AvalancheProblemModel.createFromJson(json.avalancheProblem1);
     }
@@ -94,7 +87,6 @@ export class BulletinDaytimeDescriptionModel {
       this.setDangerRatingBelow("low");
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
-      this.complexity = undefined;
       this.elevation = undefined;
       this.treeline = false;
       this.hasElevationDependency = false;
@@ -112,7 +104,6 @@ export class BulletinDaytimeDescriptionModel {
       for (const entry of bulletinDaytimeDescription.terrainFeatureBelow) {
         arrayBelow.push(TextModel.createFromJson(entry.toJson()));
       }
-      this.complexity = bulletinDaytimeDescription.getComplexity();
       this.terrainFeatureBelow = arrayBelow;
       if (bulletinDaytimeDescription.getAvalancheProblem1() !== undefined) {
         this.avalancheProblem1 = new AvalancheProblemModel(bulletinDaytimeDescription.getAvalancheProblem1());
@@ -231,14 +222,6 @@ export class BulletinDaytimeDescriptionModel {
     model.setLanguageCode(language);
     model.setText(text);
     this.terrainFeatureBelow.push(model);
-  }
-
-  getComplexity() {
-    return this.complexity;
-  }
-
-  setComplexity(complexity: Enums.Complexity) {
-    this.complexity = complexity;
   }
 
   getAvalancheProblem1() {
@@ -474,9 +457,6 @@ export class BulletinDaytimeDescriptionModel {
         terrainFeature.push(this.terrainFeatureBelow[i].toJson());
       }
       json["terrainFeatureBelow"] = terrainFeature;
-    }
-    if (this.complexity && this.complexity !== undefined) {
-      json["complexity"] = this.complexity;
     }
 
     if (this.avalancheProblem1 && this.avalancheProblem1 !== undefined) {

@@ -104,11 +104,6 @@
           "steady": "Avalanche danger stays the same",
           "increasing": "Avalanche danger increases"
         },
-        "complexity": {
-          "easy": "Assessment in the field is easy",
-          "challenging": "Assessment in the field is challenging",
-          "complex": "Assessment in the field is complex"
-        },
         "textcat": {
           "edit": "Edit",
           "copy": "Copy",

@@ -1230,24 +1230,6 @@ export class TendencyUtil {
   }
 }
 
-export enum Complexity {
-  easy, challenging, complex
-}
-export class ComplexityUtil {
-  public static getString(complexity: Complexity) {
-    switch (complexity) {
-      case Complexity.easy:
-        return "tendency.easy";
-      case Complexity.challenging:
-        return "tendency.challenging";
-      case Complexity.complex:
-        return "complexity.complex";
-      default:
-        return "undefined";
-    }
-  }
-}
-
 export enum Direction {
   up, down
 }

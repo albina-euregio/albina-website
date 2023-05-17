@@ -2933,18 +2933,4 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       return true;
     }
   }
-
-  setComplexity(isAfternoon: boolean, complexity: string) {
-    let daytimeDescription;
-    if (isAfternoon) {
-      daytimeDescription = this.activeBulletin.afternoon;
-    } else {
-      daytimeDescription = this.activeBulletin.forenoon;
-    }
-    if (complexity) {
-      daytimeDescription.complexity = complexity;
-    } else {
-      daytimeDescription.complexity = undefined;
-    }
-  }
 }
