@@ -3,7 +3,7 @@
 // `ng build --env=docker` then `environment.docker.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 export const environment = {
-  production: window["ENV"].PROPDUCTION,
+  production: window["ENV"].PRODUCTION,
   apiBaseUrl: window["ENV"].API_BASE_URL,
   wsBaseUrl: window["ENV"].WS_BASE_URL,
   textcatUrl: window["ENV"].TEXTCAT_URL,
