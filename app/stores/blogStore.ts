@@ -10,7 +10,8 @@ import {
   type BlogProcessor,
   type BlogConfig,
   type BlogPostPreviewItem,
-  BloggerProcessor
+  BloggerProcessor,
+  WordpressProcessor
 } from "./blog";
 
 export default class BlogStore {
@@ -31,6 +32,7 @@ export default class BlogStore {
   perPage = L.Browser.mobile ? 20 : 20;
   blogProcessor: {
     blogger: BlogProcessor;
+    wordpress: BlogProcessor;
   };
 
   get searchParams() {
@@ -220,7 +222,8 @@ export default class BlogStore {
     this._searchText = initialParameters.searchText;
 
     this.blogProcessor = {
-      blogger: new BloggerProcessor()
+      blogger: new BloggerProcessor(),
+      wordpress: new WordpressProcessor()
     };
     makeAutoObservable(this);
   }

@@ -3,56 +3,56 @@
   "blogs": [
     {
       "lang": "de",
-      "name": "lawinenwarndienst.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-at-07-de",
+      "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
-        "id": "7062477220886068374"
+        "id": "blog.avalanche.report/at-07"
       }
     },
     {
       "lang": "en",
-      "name": "avalanche-warning-service-tirol.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-at-07-en",
+      "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
-        "id": "2617650030094227041"
+        "id": "blog.avalanche.report/at-07"
       }
     },
     {
       "lang": "it",
-      "name": "servizio-valanghe-tirolo.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-at-07-it",
+      "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
-        "id": "6964779683196470218"
+        "id": "blog.avalanche.report/at-07"
       }
     },
     {
       "lang": "de",
-      "name": "lawinensuedtirol.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-it-32-bz-de",
+      "apiType": "wordpress",
       "regions": ["IT-32-BZ"],
       "params": {
-        "id": "1263754381945501754"
+        "id": "blog.avalanche.report/it-32-bz"
       }
     },
     {
       "lang": "it",
-      "name": "valanghealtoadige.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-it-32-bz-it",
+      "apiType": "wordpress",
       "regions": ["IT-32-BZ"],
       "params": {
-        "id": "8922564068473612459"
+        "id": "blog.avalanche.report/it-32-bz"
       }
     },
     {
       "lang": "it",
-      "name": "trentinovalanghe.blogspot.com",
-      "apiType": "blogger",
+      "name": "blog.avalanche.report-it-32-tn-it",
+      "apiType": "wordpress",
       "regions": ["IT-32-TN"],
       "params": {
-        "id": "232334535081247038"
+        "id": "blog.avalanche.report/it-32-tn"
       }
     }
   ],
