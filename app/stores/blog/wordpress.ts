@@ -2,7 +2,6 @@ import { BlogConfig, BlogPostPreviewItem, BlogProcessor } from ".";
 import type BlogStore from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
-import { parseTags } from "../../util/tagging";
 
 export class WordpressProcessor implements BlogProcessor {
   async loadBlogPosts(
@@ -71,8 +70,7 @@ export class WordpressProcessor implements BlogProcessor {
       config.lang,
       config.regions,
       post.featured_image_url,
-      parseTags(post.categories),
-      BlogPostPreviewItem.getNewUntil(categories, parseDate(post.date))
+      categories
     );
   }
 

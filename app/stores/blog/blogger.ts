@@ -2,7 +2,6 @@ import { BlogProcessor, BlogConfig, BlogPostPreviewItem } from ".";
 import type BlogStore from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
-import { parseTags } from "../../util/tagging";
 
 type BloggerItem = {
   kind: string;
@@ -101,11 +100,7 @@ export class BloggerProcessor implements BlogProcessor {
       config.lang,
       config.regions,
       previewImage,
-      parseTags(item.labels),
-      BlogPostPreviewItem.getNewUntil(
-        item.labels || [],
-        parseDate(item.published)
-      )
+      item.labels || []
     );
   }
 }

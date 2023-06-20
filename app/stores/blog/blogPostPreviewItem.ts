@@ -1,4 +1,9 @@
+import { parseTags } from "../../util/tagging";
+
 export class BlogPostPreviewItem {
+  tags: string[];
+  newUntil: number;
+
   constructor(
     public blogName: string,
     public postId: string,
@@ -10,11 +15,13 @@ export class BlogPostPreviewItem {
     public lang: string,
     public regions: string[] = [],
     public image: string = null,
-    public tags: string[] = [],
-    public newUntil: number
-  ) {}
+    public labels: string[] = []
+  ) {
+    this.tags = parseTags(this.labels);
+    this.newUntil = BlogPostPreviewItem.getNewUntil(this.labels, this.date);
+  }
 
-  static getNewUntil(
+  private static getNewUntil(
     labels: string | string[],
     published: string | number | Date
   ): number {
