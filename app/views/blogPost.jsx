@@ -7,8 +7,7 @@ import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-scr
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
-import { DATE_TIME_FORMAT, parseDate } from "../util/date";
-import { parseTags } from "../util/tagging";
+import { DATE_TIME_FORMAT } from "../util/date";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
 import { BLOG_STORE } from "../stores/blogStore";
@@ -27,17 +26,14 @@ const BlogPost = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    const blogConfig = window.config.blogs.find(
-      e => e.name === params.blogName
-    );
-    if (blogConfig && params.postId) {
-      BLOG_STORE.loadBlogPost(blogConfig.params.id, params.postId)
+    if (params.blogName && params.postId) {
+      BLOG_STORE.loadBlogPost(params.blogName, params.postId)
         .then(b => {
           setTitle(b.title);
-          setDate(parseDate(b.published));
-          setTags(parseTags(b.labels));
-          setRegions(blogConfig.regions);
-          setLanguage(blogConfig.lang);
+          setDate(b.date);
+          setTags(b.tags);
+          setRegions(b.regions);
+          setLanguage(b.lang);
           setContent(preprocessContent(b.content, true));
         })
         .then(() => {
