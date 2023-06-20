@@ -1,170 +1,17 @@
-import { toJS, makeAutoObservable } from "mobx";
-import { fetchJSON } from "../util/fetch";
-import { parseDate, getDaysOfMonth } from "../util/date";
-import { parseTags } from "../util/tagging";
+import { makeAutoObservable, toJS } from "mobx";
+import { getDaysOfMonth } from "../util/date";
 import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { APP_STORE } from "../appStore";
-
-type BlogConfig = {
-  lang: string;
-  name: string;
-  apiType: string;
-  regions: string[];
-  params: {
-    id: string;
-  };
-};
-
-type BloggerItem = {
-  kind: string;
-  id: string;
-  content?: string;
-  blog: {
-    id: string;
-  };
-  published: Date;
-  updated: Date;
-  url: string;
-  selfLink: string;
-  title: string;
-  images?: {
-    url: string;
-  }[];
-  author: {
-    id: string;
-    displayName: string;
-    url: string;
-    image: {
-      url: string;
-    };
-  };
-  labels?: string[];
-  etag: string;
-};
-
-export class BlogPostPreviewItem {
-  constructor(
-    public blogName: string,
-    public postId: string,
-    public url: string,
-    public author: string,
-    public date: Date,
-    public title: string,
-    public content: string,
-    public lang: string,
-    public regions: string[] = [],
-    public image = null,
-    public tags = [],
-    public newUntil: number
-  ) {}
-
-  static getNewUntil(
-    labels: string | string[],
-    published: string | number | Date
-  ): number {
-    const newUntil = new Date(published);
-    //newUntil.setMonth(newUntil.getMonth() + 12);
-    if (labels.includes("valid_72h"))
-      return newUntil.setHours(newUntil.getHours() + 72);
-    if (labels.includes("valid_48h"))
-      return newUntil.setHours(newUntil.getHours() + 48);
-    return newUntil.setHours(newUntil.getHours() + 24);
-  }
-}
-
-interface BlogProcessor {
-  loadBlogPosts: (
-    config: BlogConfig,
-    state: BlogStore
-  ) => Promise<BlogPostPreviewItem[]>;
-  loadBlogPost: (
-    config: BlogConfig,
-    postId: unknown
-  ) => Promise<BlogPostPreviewItem>;
-}
-
-class BloggerProcessor implements BlogProcessor {
-  async loadBlogPosts(
-    config: BlogConfig,
-    state: BlogStore
-  ): Promise<BlogPostPreviewItem[]> {
-    let baseUrl = window.config.apis.blogger + config.params.id + "/posts";
-    const params = new URLSearchParams({
-      maxResults: String(500),
-      fetchBodies: String(false),
-      fetchImages: String(true),
-      status: "live",
-      key: window.config.apiKeys.google
-    });
-    if (state.searchText) {
-      params.set("q", state.searchText);
-      baseUrl += "/search";
-    } else {
-      if (state.problem && state.problem !== "all") {
-        params.set("labels", state.problem);
-      }
-      if (state.year) {
-        params.set("startDate", state.startDate.toISOString());
-        params.set("endDate", state.endDate.toISOString());
-      }
-    }
-    const url = baseUrl + "?" + params;
-
-    const response = await fetchJSON<{ items: BloggerItem[] }>(url, {
-      headers: { Accept: "application/json" }
-    });
-    if (Array.isArray(response.items)) {
-      return (response.items as BloggerItem[]).map(item =>
-        this.newItem(item, config)
-      );
-    }
-    return [];
-  }
-
-  async loadBlogPost(
-    config: BlogConfig,
-    postId: unknown
-  ): Promise<BlogPostPreviewItem> {
-    const url =
-      window.config.apis.blogger +
-      config.params.id +
-      "/posts/" +
-      postId +
-      "?key=" +
-      encodeURIComponent(window.config.apiKeys.google);
-    const item = await fetchJSON<BloggerItem>(url, {});
-    return this.newItem(item, config);
-  }
-
-  private newItem(item: BloggerItem, config: BlogConfig) {
-    const previewImage =
-      Array.isArray(item.images) && item.images.length > 0
-        ? item.images[0].url
-        : null;
-
-    return new BlogPostPreviewItem(
-      config.name,
-      item.id,
-      item.url,
-      item.author.displayName,
-      parseDate(item.published),
-      item.title,
-      item.content,
-      config.lang,
-      config.regions,
-      previewImage,
-      parseTags(item.labels),
-      BlogPostPreviewItem.getNewUntil(
-        item.labels || [],
-        parseDate(item.published)
-      )
-    );
-  }
-}
+import {
+  type BlogProcessor,
+  type BlogConfig,
+  type BlogPostPreviewItem,
+  BloggerProcessor
+} from "./blog";
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
