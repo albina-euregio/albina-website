@@ -22,7 +22,7 @@ const BlogPost = () => {
   const [date, setDate] = useState("");
   const [tags, setTags] = useState([]);
   const [regions, setRegions] = useState([]);
-  const [language, setLanguage] = useState("");
+  const [languageLinks, setLanguageLinks] = useState([]);
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const BlogPost = () => {
           setDate(b.date);
           setTags(b.tags);
           setRegions(b.regions);
-          setLanguage(b.lang);
+          setLanguageLinks(b.langLinks);
           setContent(preprocessContent(b.content, true));
         })
         .then(() => {
@@ -80,16 +80,16 @@ const BlogPost = () => {
           </li>
           <li className="blog-province">
             {regions.map(region => (
-              <Link key={region} to={"/blog?searchLang=all&region=" + region}>
+              <Link key={region} to={`/blog?searchLang=all&region=${region}`}>
                 {intl.formatMessage({ id: `region:${region}` })}
               </Link>
             ))}
           </li>
-          <li className="blog-language">
-            <Link to={"/blog?region=&searchLang=" + language}>
-              {language.toUpperCase()}
-            </Link>
-          </li>
+          {languageLinks.map(({ lang, link }) => (
+            <li className="blog-language" key={lang}>
+              <Link to={link}>{lang.toUpperCase()}</Link>
+            </li>
+          ))}
         </ul>
         <TagList tags={tags} />
       </PageHeadline>

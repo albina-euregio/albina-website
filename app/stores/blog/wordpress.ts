@@ -19,8 +19,19 @@ export class WordpressProcessor implements BlogProcessor {
     );
     // https://developer.wordpress.org/rest-api/reference/posts/#arguments
     const params = new URLSearchParams({
-      _fields:
-        "categories,date,featured_image_url,featured_media,id,link,polylang_current_lang,title",
+      _fields: (
+        [
+          "categories",
+          "date",
+          "featured_image_url",
+          "featured_media",
+          "id",
+          "link",
+          "polylang_current_lang",
+          "polylang_translations",
+          "title"
+        ] as (keyof Post)[]
+      ).join(),
       per_page: String(100)
     });
     if (state.searchText) {
@@ -56,7 +67,7 @@ export class WordpressProcessor implements BlogProcessor {
   }
 
   private newItem(post: Post, categories: string[], config: BlogConfig) {
-    if (config.lang !== post.polylang_current_lang?.slice(0, 2)) {
+    if (config.lang !== this.parseLang(post.polylang_current_lang)) {
       return undefined;
     }
     return new BlogPostPreviewItem(
@@ -68,10 +79,23 @@ export class WordpressProcessor implements BlogProcessor {
       WordpressProcessor.decodeHtmlEntities(post.title?.rendered),
       post.content?.rendered,
       config.lang,
+      (post.polylang_translations || [])
+        .map(t => ({
+          lang: this.parseLang(t.locale),
+          link: `/blog/${config.name.replace(
+            new RegExp(`-${config.lang}$`),
+            `-${this.parseLang(t.locale)}`
+          )}/${t.id}`
+        }))
+        .filter(({ lang }) => config.lang !== lang),
       config.regions,
       post.featured_image_url,
       categories
     );
+  }
+
+  private parseLang(lang: PolylangCurrentLang) {
+    return lang?.slice(0, 2);
   }
 
   private static decodeHtmlEntities(str: string) {

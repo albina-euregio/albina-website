@@ -13,6 +13,7 @@ export class BlogPostPreviewItem {
     public title: string,
     public content: string,
     public lang: string,
+    public langLinks: { lang: string; link: string }[] = [],
     public regions: string[] = [],
     public image: string = null,
     public labels: string[] = []

@@ -98,6 +98,7 @@ export class BloggerProcessor implements BlogProcessor {
       item.title,
       item.content,
       config.lang,
+      [],
       config.regions,
       previewImage,
       item.labels || []
