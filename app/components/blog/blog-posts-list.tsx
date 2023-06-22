@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 import TagList from "./tag-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
-import type { BlogPostPreviewItem } from "../../stores/blogStore";
+
+import type { BlogPostPreviewItem } from "../../stores/blog";
 
 type Props = {
   posts: BlogPostPreviewItem[];
