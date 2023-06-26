@@ -3,7 +3,7 @@
   "blogs": [
     {
       "lang": "de",
-      "name": "blog.avalanche.report-at-07-de",
+      "name": "at-07-de",
       "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
@@ -12,7 +12,7 @@
     },
     {
       "lang": "en",
-      "name": "blog.avalanche.report-at-07-en",
+      "name": "at-07-en",
       "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
@@ -21,7 +21,7 @@
     },
     {
       "lang": "it",
-      "name": "blog.avalanche.report-at-07-it",
+      "name": "at-07-it",
       "apiType": "wordpress",
       "regions": ["AT-07"],
       "params": {
@@ -30,7 +30,7 @@
     },
     {
       "lang": "de",
-      "name": "blog.avalanche.report-it-32-bz-de",
+      "name": "it-32-bz-de",
       "apiType": "wordpress",
       "regions": ["IT-32-BZ"],
       "params": {
@@ -39,7 +39,7 @@
     },
     {
       "lang": "it",
-      "name": "blog.avalanche.report-it-32-bz-it",
+      "name": "it-32-bz-it",
       "apiType": "wordpress",
       "regions": ["IT-32-BZ"],
       "params": {
@@ -48,7 +48,7 @@
     },
     {
       "lang": "it",
-      "name": "blog.avalanche.report-it-32-tn-it",
+      "name": "it-32-tn-it",
       "apiType": "wordpress",
       "regions": ["IT-32-TN"],
       "params": {
