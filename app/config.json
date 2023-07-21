@@ -378,7 +378,7 @@
   },
 
   "archive": {
-    "minYear": 1993,
+    "minYear": 1960,
     "maxResults": 31
   },
   "languageHostSettings": {
@@ -410,7 +410,6 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "startUTCHourForTimespans": -1,
       "mapOptionsOverride": {
         "maxZoom": 12,
         "minZoom": 7

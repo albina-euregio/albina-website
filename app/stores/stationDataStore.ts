@@ -289,6 +289,7 @@ export default class StationDataStore {
   }
 
   async load(dateTime?: Date) {
+    //console.log("stationDataStore->load ##33", dateTime);
     const timePrefix =
       dateTime instanceof Date && +dateTime
         ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"

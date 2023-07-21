@@ -1,65 +1,18 @@
-import { toJS, makeAutoObservable } from "mobx";
-import { fetchJSON } from "../util/fetch";
-import { parseDate, getDaysOfMonth } from "../util/date";
-import { parseTags } from "../util/tagging";
+import { makeAutoObservable, toJS } from "mobx";
+import { getDaysOfMonth } from "../util/date";
 import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { APP_STORE } from "../appStore";
-
-type BlogConfig = {
-  lang: string;
-  name: string;
-  apiType: string;
-  regions: string[];
-  params: {
-    id: string;
-  };
-};
-
-type BloggerItem = {
-  kind: string;
-  id: string;
-  blog: {
-    id: string;
-  };
-  published: Date;
-  updated: Date;
-  url: string;
-  selfLink: string;
-  title: string;
-  images?: {
-    url: string;
-  }[];
-  author: {
-    id: string;
-    displayName: string;
-    url: string;
-    image: {
-      url: string;
-    };
-  };
-  labels?: string[];
-  etag: string;
-};
-
-export class BlogPostPreviewItem {
-  constructor(
-    public blogName: string,
-    public postId: string,
-    public url: string,
-    public author: string,
-    public date: Date,
-    public title: string,
-    public lang: string,
-    public regions: string[] = [],
-    public image = null,
-    public tags = [],
-    public newUntil: number
-  ) {}
-}
+import {
+  type BlogProcessor,
+  type BlogConfig,
+  type BlogPostPreviewItem,
+  BloggerProcessor,
+  WordpressProcessor
+} from "./blog";
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
@@ -78,13 +31,8 @@ export default class BlogStore {
   // show only 5 blog posts when the mobile phone is detected
   perPage = L.Browser.mobile ? 20 : 20;
   blogProcessor: {
-    blogger: {
-      createUrl: (config: BlogConfig) => string;
-      process: (
-        response: { items: BloggerItem[] },
-        config: BlogConfig
-      ) => BlogPostPreviewItem[];
-    };
+    blogger: BlogProcessor;
+    wordpress: BlogProcessor;
   };
 
   get searchParams() {
@@ -225,19 +173,6 @@ export default class BlogStore {
     }
   }
 
-  getNewUntil(
-    labels: string | string[],
-    published: string | number | Date
-  ): number {
-    const newUntil = new Date(published);
-    //newUntil.setMonth(newUntil.getMonth() + 12);
-    if (labels.includes("valid_72h"))
-      return newUntil.setHours(newUntil.getHours() + 72);
-    if (labels.includes("valid_48h"))
-      return newUntil.setHours(newUntil.getHours() + 48);
-    return newUntil.setHours(newUntil.getHours() + 24);
-  }
-
   initialParams() {
     const search = parseSearchParams();
     const searchLang = this.validateLanguage(search.get("searchLang"));
@@ -287,60 +222,8 @@ export default class BlogStore {
     this._searchText = initialParameters.searchText;
 
     this.blogProcessor = {
-      blogger: {
-        createUrl: config => {
-          let baseUrl =
-            window.config.apis.blogger + config.params.id + "/posts";
-
-          const params = {
-            maxResults: String(500),
-            fetchBodies: String(false),
-            fetchImages: String(true),
-            status: "live",
-            key: window.config.apiKeys.google
-          };
-          if (this.searchText) {
-            params["q"] = this.searchText;
-            baseUrl += "/search";
-          } else {
-            if (this.problem && this.problem !== "all") {
-              params["labels"] = this.problem;
-            }
-            if (this.year) {
-              params["startDate"] = this.startDate.toISOString();
-              params["endDate"] = this.endDate.toISOString();
-            }
-          }
-
-          return baseUrl + "?" + new URLSearchParams(params);
-        },
-
-        process: (response, config) => {
-          if (Array.isArray(response.items)) {
-            return response.items.map(item => {
-              const previewImage =
-                Array.isArray(item.images) && item.images.length > 0
-                  ? item.images[0].url
-                  : null;
-
-              return new BlogPostPreviewItem(
-                config.name,
-                item.id,
-                item.url,
-                item.author.displayName,
-                parseDate(item.published),
-                item.title,
-                config.lang,
-                config.regions,
-                previewImage,
-                parseTags(item.labels),
-                this.getNewUntil(item.labels || [], parseDate(item.published))
-              );
-            });
-          }
-          return [];
-        }
-      }
+      blogger: new BloggerProcessor(),
+      wordpress: new WordpressProcessor()
     };
     makeAutoObservable(this);
   }
@@ -370,19 +253,13 @@ export default class BlogStore {
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
           if (this.blogProcessor[cfg.apiType]) {
-            const p = this.blogProcessor[cfg.apiType];
-            const url = p.createUrl(cfg);
-
+            const p: BlogProcessor = this.blogProcessor[cfg.apiType];
             loads.push(
-              fetchJSON(url, { headers: { Accept: "application/json" } }).then(
-                data => {
-                  p.process(data, cfg).forEach(i => {
-                    newPosts[cfg.name].push(i);
-                  });
-                },
+              p.loadBlogPosts(cfg, this).then(
+                items => items.forEach(i => newPosts[cfg.name].push(i)),
                 error => {
                   //todo: indicate loading error
-                  console.warn("Error while fetching post from " + url, error);
+                  console.warn("Error while fetching blog posts", cfg, error);
                   throw error;
                 }
               )
@@ -397,18 +274,16 @@ export default class BlogStore {
     return this.setPostsLoaded(newPosts);
   }
 
-  async loadBlogPost(blogId: unknown, postId: unknown) {
-    const url =
-      window.config.apis.blogger +
-      blogId +
-      "/posts/" +
-      postId +
-      "?key=" +
-      encodeURIComponent(window.config.apiKeys.google);
+  async loadBlogPost(
+    blogName: string,
+    postId: unknown
+  ): Promise<BlogPostPreviewItem> {
+    const config = window.config.blogs.find(e => e.name === blogName);
     this._loading = true;
-    const post = await fetchJSON(url, {});
+    const processor: BlogProcessor = this.blogProcessor[config.apiType];
+    const item = await processor.loadBlogPost(config, postId);
     this._loading = false;
-    return post;
+    return item;
   }
 
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {

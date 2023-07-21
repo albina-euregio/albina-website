@@ -136,12 +136,10 @@ class WeatherMapCockpit extends React.Component {
       }
 
       if (this.props.lastAnalyticTime) {
-        // console.log(
-        //   "xxx",
-        //   this.props.lastAnalyticTime,
-        //   new Date(this.props.lastAnalyticTime),
-        //   $(".t" + this.props.lastAnalyticTime)
-        // );
+        // console.log("placeCockpitItems", {
+        //   lastAnalyticTime: this.props.lastAnalyticTime,
+        //   posFirstAvailable
+        // });
         const lastAnalyticTime = $(".t" + this.props.lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
           left: posFirstAvailable.left - posContainer.left,
@@ -634,14 +632,38 @@ class WeatherMapCockpit extends React.Component {
       this.props.nextTime();
   }
 
+  setOffsetTime(offset) {
+    const currentKey = this.props.timeArray.findIndex(
+      element => element === this.props.currentTime
+    );
+    //console.log('setOffsetTime', offset, currentKey, this.props.timeSpan, this.props.currentTime, this.props.timeArray);
+    if (currentKey > -1) {
+      if (offset < 0) {
+        if (currentKey + offset >= 0)
+          this.props.changeCurrentTime(
+            this.props.timeArray[currentKey + offset]
+          );
+      } else {
+        if (currentKey + offset < this.props.timeArray.length)
+          this.props.changeCurrentTime(
+            this.props.timeArray[currentKey + offset]
+          );
+      }
+    }
+  }
+
   onKeyPressed(e) {
-    //console.log(e.keyCode);
+    //console.log('ctrl', e.ctrlKey, this.props.timeSpan);
     switch (e.keyCode) {
       case 37:
-        this.setPreviousTime();
+        if (Number(this.props.timeSpan.replace("-", "")) === 1 && e.ctrlKey)
+          this.setOffsetTime(-24);
+        else this.setPreviousTime();
         break;
       case 39:
-        this.setNextTime();
+        if (Number(this.props.timeSpan.replace("-", "")) === 1 && e.ctrlKey)
+          this.setOffsetTime(24);
+        else this.setNextTime();
         break;
       case 32:
         this.props.player.toggle();

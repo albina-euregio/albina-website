@@ -186,8 +186,8 @@ export enum AvalancheProblemType {
  * fair, good).
  */
 export enum ExpectedSnowpackStability {
-  Fair = "fair",
   Good = "good",
+  Fair = "fair",
   Poor = "poor",
   VeryPoor = "very_poor"
 }

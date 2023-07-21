@@ -60,14 +60,21 @@ function isSummerTime(date) {
   return -date.getTimezoneOffset() >= summerTimeOffset;
 }
 
-export const LONG_DATE_FORMAT = Object.freeze({
+/**
+ * @type {Intl.DateTimeFormatOptions}
+ */
+export const LONG_DATE_FORMAT = {
   weekday: "long",
   year: "numeric",
   month: "numeric",
   day: "numeric"
-});
+};
+Object.freeze(LONG_DATE_FORMAT);
 
-export const DATE_TIME_FORMAT = Object.freeze({
+/**
+ * @type {Intl.DateTimeFormatOptions}
+ */
+export const DATE_TIME_FORMAT = {
   weekday: "long",
   year: "numeric",
   month: "numeric",
@@ -75,7 +82,23 @@ export const DATE_TIME_FORMAT = Object.freeze({
   hour: "numeric",
   minute: "numeric",
   hour12: false
-});
+};
+Object.freeze(DATE_TIME_FORMAT);
+
+/**
+ * @type {Intl.DateTimeFormatOptions}
+ */
+export const DATE_TIME_ZONE_FORMAT = {
+  weekday: "long",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  timeZoneName: "short",
+  hour12: false
+};
+Object.freeze(DATE_TIME_ZONE_FORMAT);
 
 function dateToISODateString(date) {
   let pad = function (d) {
