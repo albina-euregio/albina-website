@@ -14,7 +14,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
   useEffect(() => {
     const checkAudioFile = (date: Date, bulletin: Bulletin) => {
       const fileUrl =
-        "https://storage.googleapis.com/avalnache-podcast-audio/bulletins/" +
+        "https://static.avalanche.report/synthesizer/bulletins/" +
         dateToISODateString(date) +
         "/" +
         bulletin.bulletinID +
