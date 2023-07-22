@@ -5,13 +5,11 @@ import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import { dateToISODateString } from "../../util/date.js";
 import { Bulletin } from "../../stores/bulletin";
-import { useIntl } from "react-intl";
 
 type Props = { date: Date; bulletin: Bulletin };
 
 function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
-  const intl = useIntl();
 
   useEffect(() => {
     const checkAudioFile = (date: Date, bulletin: Bulletin) => {
