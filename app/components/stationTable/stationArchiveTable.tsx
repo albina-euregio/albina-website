@@ -265,7 +265,7 @@ export default function StationArchiveTable(props: Props) {
   }
 
   function downloadURL(id, parameter) {
-    return `https://wiski.tirol.gv.at/lawine/produkte/${id}/${parameterMap.get(
+    return `https://wiski.tirol.gv.at/lawine/produkte/ogd/${id}/${parameterMap.get(
       parameter
     )}/${season(props.activeYear, "_")}.csv`;
   }
