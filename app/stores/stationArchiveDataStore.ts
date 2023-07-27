@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { regionCodes } from "../util/regions";
+import { currentSeasonYear } from "../util/date-season";
 
 interface FeatureProperties {
   "LWD-Region": string;
@@ -34,6 +35,7 @@ export class StationArchiveData {
   id: string;
   geometry: GeoJSON.Point;
   properties: FeatureProperties;
+
   constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
     this.id = object.id as string;
     this.geometry = object.geometry;
@@ -84,6 +86,12 @@ export class StationArchiveData {
   get temp_min() {
     return this.properties.LT_MIN;
   }
+  get temp_srf() {
+    return this.properties.OFT;
+  }
+  get dewp() {
+    return this.properties.TD;
+  }
   get snow() {
     return this.properties.HS;
   }
@@ -128,6 +136,12 @@ export class StationArchiveData {
   get wgus() {
     return this.properties.WG_BOE;
   }
+  get gr_a() {
+    return this.properties.GS_O;
+  }
+  get gr_b() {
+    return this.properties.GS_U;
+  }
 
   get plot() {
     return this.properties.plot;
@@ -146,13 +160,14 @@ export class StationArchiveData {
 
 export default class StationArchiveDataStore {
   data: StationArchiveData[] = [];
-  activeYear: number;
+  activeYear: number = currentSeasonYear();
   _activeRegions: Record<string, boolean> = {};
   searchText = "";
   activeData = {
     snow: true,
     temp: true,
-    wind: true
+    wind: true,
+    radiation: true
   };
   sortValue: keyof StationArchiveData = "name";
   sortDir: "asc" | "desc" = "asc";

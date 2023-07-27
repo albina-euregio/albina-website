@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { StationArchiveData } from "../../stores/stationArchiveDataStore";
 import { Tooltip } from "../tooltips/tooltip";
+import { currentSeasonDate, currentSeasonYear } from "../../util/date-season";
 
 type SortDir = "desc" | "asc";
 
@@ -11,6 +12,7 @@ type Props = {
     snow: boolean;
     temp: boolean;
     wind: boolean;
+    radiation: boolean;
   };
   handleSort: (id: keyof StationArchiveData, dir: SortDir) => void;
   sortValue: keyof StationArchiveData;
@@ -22,6 +24,28 @@ type Props = {
 
 export default function StationArchiveTable(props: Props) {
   const intl = useIntl();
+
+  const parameterMap = new Map<string, string>([
+    ["temp", "LT"],
+    ["temp_max", "LT_MAX"],
+    ["temp_min", "LT_MIN"],
+    ["temp_srf", "OFT"],
+    ["dewp", "TD"],
+    ["snow", "HS"],
+    ["snow24", "HSD24"],
+    ["snow48", "HSD48"],
+    ["snow72", "HSD72"],
+    ["precipitation6", "N6"],
+    ["precipitation24", "N24"],
+    ["precipitation48", "N48"],
+    ["precipitation72", "N72"],
+    ["rhum", "RH"],
+    ["wdir", "WR"],
+    ["wspd", "WG"],
+    ["wgus", "WG_BOE"],
+    ["gr_a", "GS_O"],
+    ["gr_b", "GS_U"]
+  ]);
 
   type RenderFun = (
     _value: number,
@@ -77,7 +101,7 @@ export default function StationArchiveTable(props: Props) {
       className: "mb-station m-name"
     },
     {
-      // Schneehöhe [cm]
+      // Snow height
       group: "snow",
       data: "snow",
       unit: "cm",
@@ -85,56 +109,106 @@ export default function StationArchiveTable(props: Props) {
       className: "mb-snow m-snowheight"
     },
     {
-      // Temperatur
+      // Snow height difference 24h
+      group: "snow",
+      data: "snow24",
+      unit: "cm",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Snow height difference 48h
+      group: "snow",
+      data: "snow48",
+      unit: "cm",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Snow height difference 72h
+      group: "snow",
+      data: "snow72",
+      unit: "cm",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Temperature
       group: "temp",
       data: "temp",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
     {
-      // Temperatur min
+      // Temperature min
       group: "temp",
       data: "temp_min",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
     {
-      // Temperatur max
+      // Temperature max
       group: "temp",
       data: "temp_max",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
     {
-      // Wind Geschwindigkeit
+      // Surface temperature
+      group: "temp",
+      data: "temp_srf",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Dew point temperature
+      group: "temp",
+      data: "dewp",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Relative humidity
+      group: "temp",
+      data: "rhum",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Wind speed
       group: "wind",
       data: "wspd",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
     {
-      // Wind Richtung
+      // Wind direction
       group: "wind",
       data: "wdir",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
     {
-      // Wind Böe
+      // Wind gust
       group: "wind",
       data: "wgus",
       sortable: false,
       className: "mb-snow m-snowheight"
+    },
+    {
+      // Global radiation above
+      group: "radiation",
+      data: "gr_a",
+      sortable: false,
+      className: "mb-snow m-snowheight"
+    },
+    {
+      // Global radiation below
+      group: "radiation",
+      data: "gr_b",
+      sortable: false,
+      className: "mb-snow m-snowheight"
     }
-    // TODO
-    // Relative Feuchte (RH)
-    // Taupunkttemperatur (TD)
-    // Schneehöhendifferenz 24h (HSD24)
-    // Schneehöhendifferenz 48h (HSD48)
-    // Schneehöhendifferenz 72h (HSD72)
-    // Oberflächentemperatur (OFT)
-    // Globalstrahlung unten (GS_U)
-    // Globalstrahlung oben (GS_O)
   ];
   const displayColumns = columns.filter(
     c => !c.group || props.activeData[c.group]
@@ -179,18 +253,25 @@ export default function StationArchiveTable(props: Props) {
 
   function season(year: number, deliminator: string) {
     if (year != undefined) {
-      const nextYear = year + 1;
-      return `${year}${deliminator}${nextYear}`;
+      if (year == currentSeasonYear()) {
+        return "latest";
+      } else {
+        const nextYear = year + 1;
+        return `${year}${deliminator}${nextYear}`;
+      }
     } else {
       return `2022${deliminator}2023`;
     }
   }
 
   function downloadURL(id, parameter) {
-    return `https://wiski.tirol.gv.at/lawine/produkte/${id}/${parameter}/${season(
-      props.activeYear,
-      "_"
-    )}.csv`;
+    return `https://wiski.tirol.gv.at/lawine/produkte/${id}/${parameterMap.get(
+      parameter
+    )}/${season(props.activeYear, "_")}.csv`;
+  }
+
+  function parameterExists(parameter, properties) {
+    return properties[parameterMap.get(parameter)] != undefined;
   }
 
   return (
@@ -230,7 +311,7 @@ export default function StationArchiveTable(props: Props) {
             {displayColumns.map(col => (
               <td key={row.id + "-" + col.data} className={col.className}>
                 {col.render && col.render(row[col.data], row, col.unit)}
-                {!col.render && (
+                {!col.render && parameterExists(col.data, row.properties) && (
                   <span title={title(col.data)}>
                     <Tooltip
                       label={intl.formatMessage(

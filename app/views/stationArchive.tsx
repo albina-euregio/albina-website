@@ -65,7 +65,8 @@ const StationArchive = () => {
   const hideFilters: (keyof typeof store.activeData)[] = [
     "snow",
     "temp",
-    "wind"
+    "wind",
+    "radiation"
   ];
   return (
     <>
@@ -152,49 +153,21 @@ const StationArchive = () => {
       <section className="section-centered section-context">
         <div className="panel">
           <h2 className="subheader">
-            {intl.formatMessage({ id: "button:snow:headline" })}
+            {intl.formatMessage({ id: "button:stations:headline" })}
           </h2>
 
           <ul className="list-inline list-buttongroup-dense">
             <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/new-snow"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hn:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/snow-height"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hs:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/wind"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:ff:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/stations"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <a className="secondary pure-button" href="/weather/measurements">
                 {intl.formatMessage({
-                  id: "button:snow:stations:text"
+                  id: "button:stations:measurements:text"
+                })}
+              </a>
+            </li>
+            <li>
+              <a className="secondary pure-button" href="/weather/stations">
+                {intl.formatMessage({
+                  id: "button:stations:stations:text"
                 })}
               </a>
             </li>
