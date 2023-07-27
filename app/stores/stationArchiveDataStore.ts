@@ -30,7 +30,7 @@ interface FeatureProperties {
   WR?: number;
 }
 
-export class StationOgdData {
+export class StationArchiveData {
   id: string;
   geometry: GeoJSON.Point;
   properties: FeatureProperties;
@@ -144,8 +144,9 @@ export class StationOgdData {
   }
 }
 
-export default class StationOgdDataStore {
-  data: StationOgdData[] = [];
+export default class StationArchiveDataStore {
+  data: StationArchiveData[] = [];
+  activeYear: number;
   _activeRegions: Record<string, boolean> = {};
   searchText = "";
   activeData = {
@@ -153,12 +154,19 @@ export default class StationOgdDataStore {
     temp: true,
     wind: true
   };
-  sortValue: keyof StationOgdData = "name";
+  sortValue: keyof StationArchiveData = "name";
   sortDir: "asc" | "desc" = "asc";
   collator = new Intl.Collator("de");
 
   constructor() {
-    regionCodes.forEach(r => (this._activeRegions[r] = true));
+    // enable other provinces
+    regionCodes.forEach(r => {
+      if (r.startsWith("AT-07")) {
+        this._activeRegions[r] = true;
+      } else {
+        this._activeRegions[r] = false;
+      }
+    });
     makeAutoObservable(this);
   }
 
@@ -168,6 +176,9 @@ export default class StationOgdDataStore {
     }
     if (params.has("activeRegion")) {
       this.activeRegion = params.get("activeRegion");
+    }
+    if (params.has("activeYear")) {
+      this.activeYear = +params.get("activeYear");
     }
     if (params.has("sortValue")) {
       this.sortValue = params.get("sortValue");
@@ -187,6 +198,9 @@ export default class StationOgdDataStore {
     }
     if (this.activeRegion !== "all") {
       params.set("activeRegion", this.activeRegion);
+    }
+    if (this.activeYear !== undefined) {
+      params.set("activeYear", this.activeYear.toString());
     }
     if (this.sortValue) {
       params.set("sortValue", this.sortValue);
@@ -230,12 +244,12 @@ export default class StationOgdDataStore {
     this.activeData[key] = !this.activeData[key];
   }
 
-  sortBy(sortValue: keyof StationOgdData, sortDir: "asc" | "desc") {
+  sortBy(sortValue: keyof StationArchiveData, sortDir: "asc" | "desc") {
     this.sortValue = sortValue;
     this.sortDir = sortDir;
   }
 
-  get sortedFilteredData(): StationOgdData[] {
+  get sortedFilteredData(): StationArchiveData[] {
     const pattern = this.searchText
       ? new RegExp(this.searchText, "i")
       : undefined;
@@ -272,23 +286,26 @@ export default class StationOgdDataStore {
       });
   }
 
-  async load(dateTime?: Date) {
+  async load() {
     //console.log("stationDataStore->load ##33", dateTime);
-    const response = await fetch(window.config.apis.weather.stationsOGD, {
+    const response = await fetch(window.config.apis.weather.stationsArchive, {
       cache: "no-cache"
     });
     if (response.status === 404) return [];
     if (!response.ok) return Promise.reject(new Error(response.statusText));
     const data = await response.json();
-    return this.setDataAfterLoad(data, dateTime);
+    return this.setDataAfterLoad(data);
   }
 
   setDataAfterLoad(
     data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>
   ) {
     this.data = data.features
-      .filter(el => el.properties.date)
-      .map(feature => new StationOgdData(feature));
+      // show only stations operated by LWD Tirol
+      .filter(el => {
+        return el.properties.operator.startsWith("LWD Tirol");
+      })
+      .map(feature => new StationArchiveData(feature));
     return this.data;
   }
 }

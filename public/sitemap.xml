@@ -30,6 +30,10 @@
   </url>
   <url>
     <loc>https://avalanche.report/weather/measurements</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://avalanche.report/weather/archive</loc>
     <changefreq>hourly</changefreq>
     <priority>0.5</priority>
   </url>
