@@ -265,6 +265,7 @@ export default class StationArchiveDataStore {
           row.operator.match(pattern)
       )
       .filter(row => !activeRegion || row.region == activeRegion)
+      .filter(row => +row.observationStart <= this.activeYear)
       .sort((val1, val2) => {
         const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
         const a = val1[this.sortValue];

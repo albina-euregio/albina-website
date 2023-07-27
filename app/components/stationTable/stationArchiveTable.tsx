@@ -1,9 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
-import StationArchiveDataStore, {
-  type StationArchiveData
-} from "../../stores/stationArchiveDataStore";
+import { StationArchiveData } from "../../stores/stationArchiveDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 
 type SortDir = "desc" | "asc";
