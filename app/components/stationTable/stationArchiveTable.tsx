@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { StationArchiveData } from "../../stores/stationArchiveDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import { currentSeasonDate, currentSeasonYear } from "../../util/date-season";
+import { currentSeasonYear } from "../../util/date-season";
 
 type SortDir = "desc" | "asc";
 
