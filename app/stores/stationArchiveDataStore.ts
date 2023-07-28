@@ -319,7 +319,7 @@ export default class StationArchiveDataStore {
     this.data = data.features
       // show only stations operated by LWD Tirol
       .filter(el => {
-        return el.properties.operator.startsWith("LWD Tirol");
+        return el.properties.operator.match(/^LWD Tirol$/);
       })
       .map(feature => new StationArchiveData(feature));
     return this.data;
