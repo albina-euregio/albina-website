@@ -94,7 +94,7 @@ const BlogPost = () => {
         <TagList tags={tags} />
       </PageHeadline>
       <section className="section-centered ">
-        <section className="panel blog-post">{content}</section>
+        <section className="0panel blog-post">{content}</section>
       </section>
       {renderLinkToBlogOverview()}
       <SmShare />

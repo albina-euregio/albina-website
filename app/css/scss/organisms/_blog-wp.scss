@@ -1,0 +1,102 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #BLOG
+\*------------------------------------*/
+
+.blog-feature-meta {
+  margin-bottom: $margin-bottom * 0.5;
+  .linkbox & {
+    margin-bottom: 0;
+  }
+  font-size: $tiny-font-size;
+  li {
+    padding-bottom: $padding * 0.5;
+    @include rollout(all, $transition-duration * 2, ease-in-out);
+  }
+  .blog-author,
+  .blog-province {
+    @include font-heavy;
+  }
+}
+
+.blog-feature-title {
+  flex-grow: 10;
+  margin-bottom: $header-margin-bottom * 2;
+}
+
+.blog-list-labels {
+  .section-header & li {
+    line-height: inherit !important;
+  }
+  span {
+    margin: 0;
+    @include rollout(all, $transition-duration * 2, ease-in-out);
+    &:hover {
+      color: $anchor-font-color;
+      border-color: $anchor-font-color;
+      @include rollover(all, $transition-duration * 2, ease-in-out);
+    }
+  }
+}
+
+/*------------------------------------*\
+  all from here downwards comes from super funny fancy freaky funky alien app.scss
+\*------------------------------------*/
+
+.blog-page-flipper {
+  text-align: center;
+  a {
+    color: $brand;
+  }
+
+  + .section-blog-posts {
+    padding-top: 0;
+  }
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+/* blog styling */
+.blog-post tr td.tr-caption,
+.blog-post tr td.tr-caption * {
+  font-size: 0.8rem !important;
+}
+
+.blog-post {
+  // font-size: 1rem !important;
+  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  > *:not(.wp-block-post-featured-image):not(.wp-block-image):not(.wp-block-gallery):not(.wp-block-video) {
+    padding-left: $all-h-padding;
+    padding-right: $all-h-padding;
+  }
+}
+
+.wp-block-post-featured-image,
+.wp-post-image,
+.wp-block-image {
+  img {
+    margin-bottom: 0;
+  }
+}
+
+.wp-block-gallery {
+  img {
+    margin-bottom: 0;
+  }
+}
+
+.wp-element-caption {
+  margin: 0 $all-h-padding;
+  font-size: $small-font-size;
+  color: $grey;
+}
+
+.blocks-gallery-caption {
+  margin-top: -$margin-bottom;
+}
