@@ -379,6 +379,9 @@
     "minYear": 1993,
     "maxResults": 31
   },
+  "stationArchive": {
+    "minYear": 1973
+  },
   "languageHostSettings": {
     "en": "avalanche.report",
     "ca": "ca.avalanche.report",
