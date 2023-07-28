@@ -76,6 +76,7 @@
       "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
       "stations": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
       "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{id}/{parameter}/{file}.csv",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://static.avalanche.report/zamg_meteo/overlays/"
     }
