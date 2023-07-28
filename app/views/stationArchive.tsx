@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import { currentSeasonYear } from "../util/date-season";
-import StationArchiveDataStore from "../stores/stationArchiveDataStore";
+import StationDataStore from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
@@ -23,11 +23,13 @@ const StationArchive = () => {
     content: "",
     sharable: false
   });
-  const [store] = useState(() => new StationArchiveDataStore());
+  const [store] = useState(
+    () => new StationDataStore(r => r.startsWith("AT-07"))
+  );
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    store.load();
+    store.load({ ogd: true });
     store.fromURLSearchParams(searchParams);
   }, [searchParams, store]);
 

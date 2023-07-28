@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
-import { StationArchiveData } from "../../stores/stationArchiveDataStore";
+import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { currentSeasonYear } from "../../util/date-season";
 
@@ -14,10 +14,10 @@ type Props = {
     wind: boolean;
     radiation: boolean;
   };
-  handleSort: (id: keyof StationArchiveData, dir: SortDir) => void;
-  sortValue: keyof StationArchiveData;
+  handleSort: (id: keyof StationData, dir: SortDir) => void;
+  sortValue: keyof StationData;
   sortDir: SortDir;
-  sortedFilteredData: StationArchiveData[];
+  sortedFilteredData: StationData[];
   activeYear: number;
   activeRegion: string;
 };
@@ -53,13 +53,13 @@ export default function StationArchiveTable(props: Props) {
 
   type RenderFun = (
     _value: number,
-    row: StationArchiveData,
+    row: StationData,
     unit: string,
     digits?: number
   ) => string | JSX.Element;
 
   type Column = {
-    data: keyof StationArchiveData;
+    data: keyof StationData;
     subtitle?: string;
     render?: RenderFun;
     sortable?: boolean;
@@ -180,7 +180,7 @@ export default function StationArchiveTable(props: Props) {
     c => !c.group || props.activeData[c.group]
   );
 
-  const sortClasses = (id: keyof StationArchiveData, dir: SortDir) => {
+  const sortClasses = (id: keyof StationData, dir: SortDir) => {
     const cls: string[] = [];
     if (dir == "asc") {
       cls.push("sort-ascending");
@@ -204,14 +204,14 @@ export default function StationArchiveTable(props: Props) {
     );
   };
 
-  const sortTitle = (id: keyof StationArchiveData, dir: SortDir) =>
+  const sortTitle = (id: keyof StationData, dir: SortDir) =>
     intl.formatMessage({
       id:
         "measurements-archive:table:" +
         (props.sortValue == id ? "sort-toggle" : "sort-" + dir)
     });
 
-  function title(id: keyof StationArchiveData) {
+  function title(id: keyof StationData) {
     return intl.formatMessage({
       id: "measurements-archive:table:header:" + id
     });
@@ -272,7 +272,7 @@ export default function StationArchiveTable(props: Props) {
       </thead>
 
       <tbody>
-        {props.sortedFilteredData.map((row: StationArchiveData) => (
+        {props.sortedFilteredData.map((row: StationData) => (
           <tr key={row.id}>
             {displayColumns.map(col => (
               <td key={row.id + "-" + col.data} className={col.className}>

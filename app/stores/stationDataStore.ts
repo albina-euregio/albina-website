@@ -1,10 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import { Util } from "leaflet";
-import { regionCodes } from "../util/regions";
+import { RegionCodes, regionCodes } from "../util/regions";
 import { dateFormat } from "../util/date";
+import { currentSeasonYear } from "../util/date-season";
 
 interface FeatureProperties {
+  "LWD-Nummer": string;
   "LWD-Region": string;
+  Beobachtungsbeginn: string;
   date?: Date;
   GS_O?: number;
   GS_U?: number;
@@ -35,6 +38,7 @@ export class StationData {
   id: string;
   geometry: GeoJSON.Point;
   properties: FeatureProperties;
+
   constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
     this.id = object.id as string;
     this.geometry = object.geometry;
@@ -54,6 +58,9 @@ export class StationData {
   }
   get operator() {
     return this.properties.operator;
+  }
+  get observationStart() {
+    return this.properties.Beobachtungsbeginn;
   }
   get state() {
     const region = this.properties["LWD-Region"];
@@ -75,6 +82,12 @@ export class StationData {
   }
   get temp() {
     return this.properties.LT;
+  }
+  get temp_srf() {
+    return this.properties.OFT;
+  }
+  get dewp() {
+    return this.properties.TD;
   }
   get temp_max() {
     return this.properties.LT_MAX;
@@ -126,6 +139,12 @@ export class StationData {
   get wgus() {
     return this.properties.WG_BOE;
   }
+  get gr_a() {
+    return this.properties.GS_O;
+  }
+  get gr_b() {
+    return this.properties.GS_U;
+  }
 
   get plot() {
     return this.properties.plot;
@@ -162,19 +181,21 @@ export default class StationDataStore {
   dateTime: Date;
   readonly dateTimeMax = new Date();
   data: StationData[] = [];
+  activeYear: number = currentSeasonYear();
   _activeRegions: Record<string, boolean> = {};
   searchText = "";
   activeData = {
     snow: true,
     temp: true,
-    wind: true
+    wind: true,
+    radiation: true
   };
   sortValue: keyof StationData = "name";
   sortDir: "asc" | "desc" = "asc";
   collator = new Intl.Collator("de");
 
-  constructor() {
-    regionCodes.forEach(r => (this._activeRegions[r] = true));
+  constructor(activeRegion: (r: RegionCodes) => boolean = () => true) {
+    regionCodes.forEach(r => (this._activeRegions[r] = activeRegion(r)));
     makeAutoObservable(this);
   }
 
@@ -184,6 +205,9 @@ export default class StationDataStore {
     }
     if (params.has("activeRegion")) {
       this.activeRegion = params.get("activeRegion");
+    }
+    if (params.has("activeYear")) {
+      this.activeYear = +params.get("activeYear");
     }
     if (params.has("sortValue")) {
       this.sortValue = params.get("sortValue");
@@ -203,6 +227,9 @@ export default class StationDataStore {
     }
     if (this.activeRegion !== "all") {
       params.set("activeRegion", this.activeRegion);
+    }
+    if (this.activeYear !== undefined) {
+      params.set("activeYear", this.activeYear.toString());
     }
     if (this.sortValue) {
       params.set("sortValue", this.sortValue);
@@ -267,6 +294,9 @@ export default class StationDataStore {
           row.operator.match(pattern)
       )
       .filter(row => !activeRegion || row.region == activeRegion)
+      .filter(
+        row => !this.activeYear || +row.observationStart <= this.activeYear
+      )
       .sort((val1, val2) => {
         const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
         const a = val1[this.sortValue];
@@ -288,29 +318,32 @@ export default class StationDataStore {
       });
   }
 
-  async load(dateTime?: Date) {
-    //console.log("stationDataStore->load ##33", dateTime);
+  async load({ dateTime, ogd }: { dateTime?: Date; ogd?: boolean } = {}) {
     const timePrefix =
       dateTime instanceof Date && +dateTime
         ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
         : "";
-    const stationsFile = Util.template(window.config.apis.weather.stations, {
-      dateTime: timePrefix
-    });
+    const stationsFile = ogd
+      ? window.config.apis.weather.stationsArchive
+      : Util.template(window.config.apis.weather.stations, {
+          dateTime: timePrefix
+        });
     const response = await fetch(stationsFile, { cache: "no-cache" });
     if (response.status === 404) return [];
     if (!response.ok) return Promise.reject(new Error(response.statusText));
     const data = await response.json();
-    return this.setDataAfterLoad(data, dateTime);
+    return this.setDataAfterLoad(data, { dateTime, ogd });
   }
 
   setDataAfterLoad(
     data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>,
-    dateTime?: Date
+    { dateTime, ogd }: { dateTime?: Date; ogd?: boolean } = {}
   ) {
     this.dateTime = dateTime;
     this.data = data.features
-      .filter(el => el.properties.date)
+      .filter(el => ogd || el.properties.date)
+      .filter(el => !ogd || el.properties.operator.match(/^LWD Tirol$/))
+      .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
       .map(feature => new StationData(feature));
     return this.data;
   }

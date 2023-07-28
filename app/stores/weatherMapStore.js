@@ -133,7 +133,9 @@ export default class WeatherMapStore_new {
     ) {
       loads.push(
         new StationDataStore()
-          .load(this.currentTime ? new Date(this.currentTime) : undefined)
+          .load({
+            dateTime: this.currentTime ? new Date(this.currentTime) : undefined
+          })
           .then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];

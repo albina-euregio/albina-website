@@ -103,7 +103,7 @@ const StationMeasurements = () => {
                   ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
                   : ""
               }
-              onChange={e => store.load(new Date(e.target.value))}
+              onChange={e => store.load({ dateTime: new Date(e.target.value) })}
             />
           </div>
         </div>
