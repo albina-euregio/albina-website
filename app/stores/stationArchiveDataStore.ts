@@ -9,21 +9,10 @@ interface FeatureProperties {
   GS_O?: number;
   GS_U?: number;
   HS?: number;
-  HSD24?: number;
-  HSD48?: number;
-  HSD72?: number;
-  N6?: number;
-  N24?: number;
-  N48?: number;
-  N72?: number;
-  LD?: number;
-  LT_MAX?: number;
-  LT_MIN?: number;
   LT?: number;
   name: string;
   OFT?: number;
   operator: string;
-  plot: string;
   RH?: number;
   TD?: number;
   WG_BOE?: number;
@@ -80,12 +69,6 @@ export class StationArchiveData {
   get temp() {
     return this.properties.LT;
   }
-  get temp_max() {
-    return this.properties.LT_MAX;
-  }
-  get temp_min() {
-    return this.properties.LT_MIN;
-  }
   get temp_srf() {
     return this.properties.OFT;
   }
@@ -94,27 +77,6 @@ export class StationArchiveData {
   }
   get snow() {
     return this.properties.HS;
-  }
-  get snow24() {
-    return this.properties.HSD24;
-  }
-  get snow48() {
-    return this.properties.HSD48;
-  }
-  get snow72() {
-    return this.properties.HSD72;
-  }
-  get precipitation6() {
-    return this.properties.N6;
-  }
-  get precipitation24() {
-    return this.properties.N24;
-  }
-  get precipitation48() {
-    return this.properties.N48;
-  }
-  get precipitation72() {
-    return this.properties.N72;
   }
   get rhum() {
     return this.properties.RH;
@@ -141,10 +103,6 @@ export class StationArchiveData {
   }
   get gr_b() {
     return this.properties.GS_U;
-  }
-
-  get plot() {
-    return this.properties.plot;
   }
 
   round(value: number, digits = 0) {

@@ -27,18 +27,22 @@ export default function StationArchiveTable(props: Props) {
 
   const parameterMap = new Map<string, string>([
     ["temp", "LT"],
-    ["temp_max", "LT_MAX"],
-    ["temp_min", "LT_MIN"],
+    ["temp_srf", "T0"],
+    ["dewp", "TP"],
+    ["snow", "HS"],
+    ["rhum", "RH"],
+    ["wdir", "WR"],
+    ["wspd", "WG"],
+    ["wgus", "WG.Boe"],
+    ["gr_a", "GS"],
+    ["gr_b", "GS.unten"]
+  ]);
+
+  const parameterOgdMap = new Map<string, string>([
+    ["temp", "LT"],
     ["temp_srf", "OFT"],
     ["dewp", "TD"],
     ["snow", "HS"],
-    ["snow24", "HSD24"],
-    ["snow48", "HSD48"],
-    ["snow72", "HSD72"],
-    ["precipitation6", "N6"],
-    ["precipitation24", "N24"],
-    ["precipitation48", "N48"],
-    ["precipitation72", "N72"],
     ["rhum", "RH"],
     ["wdir", "WR"],
     ["wspd", "WG"],
@@ -109,47 +113,9 @@ export default function StationArchiveTable(props: Props) {
       className: "mb-snow m-snowheight"
     },
     {
-      // Snow height difference 24h
-      group: "snow",
-      data: "snow24",
-      unit: "cm",
-      sortable: false,
-      className: "mb-snow m-snowheight"
-    },
-    {
-      // Snow height difference 48h
-      group: "snow",
-      data: "snow48",
-      unit: "cm",
-      sortable: false,
-      className: "mb-snow m-snowheight"
-    },
-    {
-      // Snow height difference 72h
-      group: "snow",
-      data: "snow72",
-      unit: "cm",
-      sortable: false,
-      className: "mb-snow m-snowheight"
-    },
-    {
       // Temperature
       group: "temp",
       data: "temp",
-      sortable: false,
-      className: "mb-snow m-snowheight"
-    },
-    {
-      // Temperature min
-      group: "temp",
-      data: "temp_min",
-      sortable: false,
-      className: "mb-snow m-snowheight"
-    },
-    {
-      // Temperature max
-      group: "temp",
-      data: "temp_max",
       sortable: false,
       className: "mb-snow m-snowheight"
     },
@@ -271,7 +237,7 @@ export default function StationArchiveTable(props: Props) {
   }
 
   function parameterExists(parameter, properties) {
-    return properties[parameterMap.get(parameter)] != undefined;
+    return properties[parameterOgdMap.get(parameter)] != undefined;
   }
 
   return (
