@@ -321,6 +321,9 @@ export default class StationArchiveDataStore {
       .filter(el => {
         return el.properties.operator.match(/^LWD Tirol$/);
       })
+      .filter(el => {
+        return !el.properties.name.startsWith("Beobachter");
+      })
       .map(feature => new StationArchiveData(feature));
     return this.data;
   }
