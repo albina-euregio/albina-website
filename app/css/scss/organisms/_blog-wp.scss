@@ -17,9 +17,26 @@
     padding-bottom: $padding * 0.5;
     @include rollout(all, $transition-duration * 2, ease-in-out);
   }
+  .blog-date {
+  }
   .blog-author,
   .blog-province {
     @include font-heavy;
+  }
+
+  .blog-languages {
+    position: relative;
+    clear: left;
+    display: flex;
+
+    @include icon(language, 1.5em, $padding, $text-color, -0.25em, none);
+
+    .blog-feature-meta-languages {
+      margin-bottom: 0;
+      li {
+        padding-bottom: 0;
+      }
+    }
   }
 }
 
@@ -42,10 +59,6 @@
     }
   }
 }
-
-/*------------------------------------*\
-  all from here downwards comes from super funny fancy freaky funky alien app.scss
-\*------------------------------------*/
 
 .blog-page-flipper {
   text-align: center;
