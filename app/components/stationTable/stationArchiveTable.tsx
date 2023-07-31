@@ -257,7 +257,8 @@ export default function StationArchiveTable(props: Props) {
                         href={Util.template(
                           window.config.apis.weather.stationsArchiveFile,
                           {
-                            id: row.id,
+                            "LWD-Nummer":
+                              row.properties["LWD-Nummer"] || row.id,
                             parameter: col.parameter,
                             file: season(props.activeYear, "_")
                           }
