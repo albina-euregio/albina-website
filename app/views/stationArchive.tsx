@@ -23,9 +23,11 @@ const StationArchive = () => {
     content: "",
     sharable: false
   });
-  const [store] = useState(
-    () => new StationDataStore(r => r.startsWith("AT-07"))
-  );
+  const [store] = useState(() => {
+    const store = new StationDataStore(r => r.startsWith("AT-07"));
+    store.setActiveYear("");
+    return store;
+  });
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const StationArchive = () => {
   };
 
   const handleChangeYear = val => {
-    store.activeYear = val;
+    store.setActiveYear(val);
     updateURL();
   };
 
@@ -104,14 +106,13 @@ const StationArchive = () => {
           title={intl.formatMessage({
             id: "measurements-archive:filter:year"
           })}
+          all={"latest"}
           minYear={window.config.stationArchive.minYear}
           maxYear={currentSeasonYear()}
           handleChange={handleChangeYear}
           formatter={y => `${y}/${y + 1}`}
           value={store.activeYear}
-          className={
-            store.activeYear !== currentSeasonYear() ? classChanged : ""
-          }
+          className={store.activeYear ? classChanged : ""}
         />
 
         <HideGroupFilter

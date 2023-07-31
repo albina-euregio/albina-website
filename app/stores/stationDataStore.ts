@@ -181,7 +181,7 @@ export default class StationDataStore {
   dateTime: Date;
   readonly dateTimeMax = new Date();
   data: StationData[] = [];
-  activeYear: number = currentSeasonYear();
+  activeYear: number | "" = currentSeasonYear();
   _activeRegions: Record<string, boolean> = {};
   searchText = "";
   activeData = {
@@ -207,7 +207,8 @@ export default class StationDataStore {
       this.activeRegion = params.get("activeRegion");
     }
     if (params.has("activeYear")) {
-      this.activeYear = +params.get("activeYear");
+      const year = params.get("activeYear");
+      this.activeYear = year === "" ? year : +year;
     }
     if (params.has("sortValue")) {
       this.sortValue = params.get("sortValue");
@@ -267,6 +268,10 @@ export default class StationDataStore {
 
   setSearchText(searchText: string) {
     this.searchText = searchText;
+  }
+
+  setActiveYear(activeYear: number | "") {
+    this.activeYear = activeYear;
   }
 
   toggleActiveData(key: string | number) {

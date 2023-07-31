@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import { currentSeasonYear } from "../../util/date-season";
 import { Util } from "leaflet";
 
 type SortDir = "desc" | "asc";
@@ -19,7 +18,7 @@ type Props = {
   sortValue: keyof StationData;
   sortDir: SortDir;
   sortedFilteredData: StationData[];
-  activeYear: number;
+  activeYear: number | "";
   activeRegion: string;
 };
 
@@ -191,16 +190,14 @@ export default function StationArchiveTable(props: Props) {
     });
   }
 
-  function season(year: number, deliminator: string) {
-    if (year != undefined) {
-      if (year == currentSeasonYear()) {
-        return "latest";
-      } else {
-        const nextYear = year + 1;
-        return `${year}${deliminator}${nextYear}`;
-      }
+  function season(year: number | "", delimiter: string) {
+    if (year === "") {
+      return "latest";
+    } else if (typeof year === "number") {
+      const nextYear = year + 1;
+      return `${year}${delimiter}${nextYear}`;
     } else {
-      return `2022${deliminator}2023`;
+      return year;
     }
   }
 
