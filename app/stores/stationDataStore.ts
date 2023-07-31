@@ -343,7 +343,7 @@ export default class StationDataStore {
     this.dateTime = dateTime;
     this.data = data.features
       .filter(el => ogd || el.properties.date)
-      .filter(el => !ogd || el.properties.operator.match(/^LWD Tirol$/))
+      .filter(el => !ogd || el.properties.operator.match(/LWD Tirol/))
       .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
       .map(feature => new StationData(feature));
     return this.data;
