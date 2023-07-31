@@ -283,6 +283,12 @@ export default class StationDataStore {
     this.sortDir = sortDir;
   }
 
+  get minYear(): number {
+    return this.data.length
+      ? Math.min(...this.data.map(d => +d.observationStart))
+      : 2000;
+  }
+
   get sortedFilteredData(): StationData[] {
     const pattern = this.searchText
       ? new RegExp(this.searchText, "i")

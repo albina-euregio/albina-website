@@ -107,7 +107,7 @@ const StationArchive = () => {
             id: "measurements-archive:filter:year"
           })}
           all={"latest"}
-          minYear={window.config.stationArchive.minYear}
+          minYear={store.minYear}
           maxYear={currentSeasonYear()}
           handleChange={handleChangeYear}
           formatter={y => `${y}/${y + 1}`}
