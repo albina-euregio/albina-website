@@ -6,7 +6,11 @@ https://admin.avalanche.report/ – A frontend to enter avalanche bulletins.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.  
 
-`npm run start-dev`
+```
+nvm install
+yarn install
+yarn run start-dev
+```
 
 ## Code scaffolding
 
