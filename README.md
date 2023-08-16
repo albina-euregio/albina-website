@@ -71,7 +71,9 @@ To interact with Transifex, install the official [transifex-client](https://gith
 
 ```sh
 # push updated en.json to Transifex
-$ tx push --source
+$ tx push --source albina-website.website
+# show status
+$ tx statuxs albina-website.website
 # fetch updated translations from Transifex
-$ tx pull
+$ tx pull --use-git-timestamps
 ```
