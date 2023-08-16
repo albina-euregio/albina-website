@@ -21,6 +21,7 @@ const Weather = React.lazy(() => import("./../views/weather"));
 const StationMeasurements = React.lazy(() =>
   import("./../views/stationMeasurements")
 );
+const StationArchive = React.lazy(() => import("./../views/stationArchive"));
 const StationMap = React.lazy(() => import("./../views/stationMap"));
 const SnowProfileMap = React.lazy(() => import("./../views/snowProfileMap"));
 const Education = React.lazy(() => import("./../views/education"));
@@ -111,6 +112,14 @@ const App = () => {
                 element={
                   <Page>
                     <StationMeasurements />
+                  </Page>
+                }
+              />
+              <Route
+                path="/weather/archive"
+                element={
+                  <Page>
+                    <StationArchive />
                   </Page>
                 }
               />

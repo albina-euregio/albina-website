@@ -6,6 +6,7 @@
     "children": [
       { "url": "/weather/map/" },
       { "url": "/weather/measurements" },
+      { "url": "/weather/archive" },
       {
         "key": "lawis:station",
         "url": "/weather/stations"

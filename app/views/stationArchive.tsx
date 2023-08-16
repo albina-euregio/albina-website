@@ -3,18 +3,19 @@ import { useSearchParams } from "react-router-dom";
 
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
+import { currentSeasonYear } from "../util/date-season";
 import StationDataStore from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
+import YearFilter from "../components/filters/year-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import StationTable from "../components/stationTable/stationTable";
-import { dateFormat } from "../util/date";
+import StationArchiveTable from "../components/stationTable/stationArchiveTable";
 
-const StationMeasurements = () => {
+const StationArchive = () => {
   const intl = useIntl();
   const [state] = useState({
     title: "",
@@ -22,11 +23,15 @@ const StationMeasurements = () => {
     content: "",
     sharable: false
   });
-  const [store] = useState(() => new StationDataStore());
+  const [store] = useState(() => {
+    const store = new StationDataStore(r => r.startsWith("AT-07"));
+    store.setActiveYear("");
+    return store;
+  });
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    store.load();
+    store.load({ ogd: true });
     store.fromURLSearchParams(searchParams);
   }, [searchParams, store]);
 
@@ -50,6 +55,11 @@ const StationMeasurements = () => {
     updateURL();
   };
 
+  const handleChangeYear = val => {
+    store.setActiveYear(val);
+    updateURL();
+  };
+
   const handleSort = (id, dir) => {
     store.sortBy(id, dir);
     updateURL();
@@ -59,13 +69,16 @@ const StationMeasurements = () => {
   const hideFilters: (keyof typeof store.activeData)[] = [
     "snow",
     "temp",
-    "wind"
+    "wind",
+    "radiation"
   ];
   return (
     <>
-      <HTMLHeader title={intl.formatMessage({ id: "measurements:title" })} />
+      <HTMLHeader
+        title={intl.formatMessage({ id: "measurements-archive:title" })}
+      />
       <PageHeadline
-        title={intl.formatMessage({ id: "measurements:headline" })}
+        title={intl.formatMessage({ id: "measurements-archive:headline" })}
         marginal={state.headerText}
         subtitle={intl.formatMessage({
           id: "weather:subpages:subtitle"
@@ -74,14 +87,14 @@ const StationMeasurements = () => {
       <FilterBar
         search={true}
         searchTitle={intl.formatMessage({
-          id: "measurements:search"
+          id: "measurements-archive:search"
         })}
         searchOnChange={handleChangeSearch}
         searchValue={store.searchText}
       >
         <ProvinceFilter
           title={intl.formatMessage({
-            id: "measurements:filter:province"
+            id: "measurements-archive:filter:province"
           })}
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={handleChangeRegion}
@@ -89,28 +102,22 @@ const StationMeasurements = () => {
           className={store.activeRegion !== "all" ? classChanged : ""}
         />
 
-        <div>
-          <p className="info">
-            {intl.formatMessage({ id: "archive:table-header:date" })}
-          </p>
-          <div className="pure-form">
-            <input
-              type="datetime-local"
-              step={3600}
-              max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
-              value={
-                store.dateTime instanceof Date
-                  ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
-                  : ""
-              }
-              onChange={e => store.load({ dateTime: new Date(e.target.value) })}
-            />
-          </div>
-        </div>
+        <YearFilter
+          title={intl.formatMessage({
+            id: "measurements-archive:filter:year"
+          })}
+          all={"latest"}
+          minYear={store.minYear}
+          maxYear={currentSeasonYear()}
+          handleChange={handleChangeYear}
+          formatter={y => `${y}/${y + 1}`}
+          value={store.activeYear}
+          className={store.activeYear ? classChanged : ""}
+        />
 
         <HideGroupFilter
           title={intl.formatMessage({
-            id: "measurements:filter:hide"
+            id: "measurements-archive:filter:hide"
           })}
         >
           {hideFilters.map(e => (
@@ -118,11 +125,11 @@ const StationMeasurements = () => {
               key={e}
               id={e}
               title={intl.formatMessage({
-                id: "measurements:filter:hide:" + e
+                id: "measurements-archive:filter:hide:" + e
               })}
               tooltip={intl.formatMessage({
                 id:
-                  "measurements:filter:hide:" +
+                  "measurements-archive:filter:hide:" +
                   (store.activeData[e] ? "active" : "inactive") +
                   ":hover"
               })}
@@ -134,10 +141,11 @@ const StationMeasurements = () => {
       </FilterBar>
       <section className="section">
         <div className="table-container">
-          <StationTable
+          <StationArchiveTable
             sortedFilteredData={store.sortedFilteredData}
             activeData={store.activeData}
             activeRegion={store.activeRegion}
+            activeYear={store.activeYear}
             sortValue={store.sortValue}
             sortDir={store.sortDir}
             searchText={store.searchText}
@@ -148,49 +156,21 @@ const StationMeasurements = () => {
       <section className="section-centered section-context">
         <div className="panel">
           <h2 className="subheader">
-            {intl.formatMessage({ id: "button:snow:headline" })}
+            {intl.formatMessage({ id: "button:stations:headline" })}
           </h2>
 
           <ul className="list-inline list-buttongroup-dense">
             <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/new-snow"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hn:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/snow-height"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hs:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/wind"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:ff:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/stations"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <a className="secondary pure-button" href="/weather/measurements">
                 {intl.formatMessage({
-                  id: "button:snow:stations:text"
+                  id: "button:stations:measurements:text"
+                })}
+              </a>
+            </li>
+            <li>
+              <a className="secondary pure-button" href="/weather/stations">
+                {intl.formatMessage({
+                  id: "button:stations:stations:text"
                 })}
               </a>
             </li>
@@ -201,4 +181,4 @@ const StationMeasurements = () => {
     </>
   );
 };
-export default observer(StationMeasurements);
+export default observer(StationArchive);
