@@ -87,10 +87,8 @@ const BlogPost = () => {
             ))}
           </li>
 
-          {/* if languageLinks */}
           <li className="blog-languages">
             <ul className="list-inline blog-feature-meta-languages">
-              <li className="blog-language">EN</li>
               {languageLinks.map(({ lang, link }) => (
                 <li className="blog-language" key={lang}>
                   <Link to={link}>{lang.toUpperCase()}</Link>
