@@ -296,6 +296,7 @@
   "measurements-archive:filter:hide:radiation": "Strahlung",
   "measurements-archive:filter:hide:active:hover": "Ausblenden",
   "measurements-archive:filter:hide:inactive:hover": "Einblenden",
+  "measurements-archive:license": "Die Daten des Wetterstationsarchivs werden unter der Lizenz <a>Creative Commons — Namensnennung 4.0 International — CC BY 4.0</a> frei zur Verfügung gestellt. Du musst angemessene Urheber- und Rechteangaben machen, einen Link zur Lizenz beifügen und angeben, ob Änderungen vorgenommen wurden.",
   "measurements-archive:table:sort-asc": "Aufsteigend sortieren",
   "measurements-archive:table:sort-desc": "Absteigend sortieren",
   "measurements-archive:table:sort-toggle": "Sortierung ändern",

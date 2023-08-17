@@ -296,6 +296,7 @@
   "measurements-archive:filter:hide:radiation": "Radiation",
   "measurements-archive:filter:hide:active:hover": "Cacher",
   "measurements-archive:filter:hide:inactive:hover": "Afficher",
+  "measurements-archive:license": "The weather station archive data is provided freely under the <a>Creative Commons — Attribution 4.0 International — CC BY 4.0</a> license. You must give appropriate credit, provide a link to the license, and indicate if changes were made.",
   "measurements-archive:table:sort-asc": "Tri ascendant",
   "measurements-archive:table:sort-desc": "Tri décroissant",
   "measurements-archive:table:sort-toggle": "Invertir le tri",

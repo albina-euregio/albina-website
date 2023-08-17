@@ -296,6 +296,7 @@
   "measurements-archive:filter:hide:radiation": "Radiation",
   "measurements-archive:filter:hide:active:hover": "Amaga",
   "measurements-archive:filter:hide:inactive:hover": "Mostra",
+  "measurements-archive:license": "The weather station archive data is provided freely under the <a>Creative Commons — Attribution 4.0 International — CC BY 4.0</a> license. You must give appropriate credit, provide a link to the license, and indicate if changes were made.",
   "measurements-archive:table:sort-asc": "Ordena ascendent",
   "measurements-archive:table:sort-desc": "Ordena descendent",
   "measurements-archive:table:sort-toggle": "Inverteix ordre",
