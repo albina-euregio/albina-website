@@ -84,6 +84,20 @@ const StationArchive = () => {
           id: "weather:subpages:subtitle"
         })}
       />
+      <section className="section section-centered section-padding-height">
+        {intl.formatMessage(
+          {
+            id: "measurements-archive:license"
+          },
+          {
+            a: msg => (
+              <a href="https://creativecommons.org/licenses/by/4.0/deed.de">
+                {msg}
+              </a>
+            )
+          }
+        )}
+      </section>
       <FilterBar
         search={true}
         searchTitle={intl.formatMessage({
