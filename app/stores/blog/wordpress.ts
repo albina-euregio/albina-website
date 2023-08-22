@@ -19,6 +19,7 @@ export class WordpressProcessor implements BlogProcessor {
     );
     // https://developer.wordpress.org/rest-api/reference/posts/#arguments
     const params = new URLSearchParams({
+      lang: config.lang, // via parse_query_polylang
       _fields: (
         [
           "categories",
@@ -124,9 +125,9 @@ interface Post {
   format: string;
   categories: number[];
   tags: number[];
-  polylang_current_lang: PolylangCurrentLang;
-  polylang_translations: PolylangTranslation[];
-  featured_image_url: string;
+  polylang_current_lang: PolylangCurrentLang; // via register_rest_polylang
+  polylang_translations: PolylangTranslation[]; // via register_rest_polylang
+  featured_image_url: string; // via register_rest_images
 }
 
 enum PolylangCurrentLang {
