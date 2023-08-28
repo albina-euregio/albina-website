@@ -78,6 +78,7 @@ const BlogPost = () => {
           <li className="blog-date">
             {date && intl.formatDate(date, DATE_TIME_FORMAT)}
           </li>
+
           <li className="blog-province">
             {regions.map(region => (
               <Link key={region} to={`/blog?searchLang=all&region=${region}`}>
@@ -85,11 +86,16 @@ const BlogPost = () => {
               </Link>
             ))}
           </li>
-          {languageLinks.map(({ lang, link }) => (
-            <li className="blog-language" key={lang}>
-              <Link to={link}>{lang.toUpperCase()}</Link>
-            </li>
-          ))}
+
+          <li className="blog-languages">
+            <ul className="list-inline blog-feature-meta-languages">
+              {languageLinks.map(({ lang, link }) => (
+                <li className="blog-language" key={lang}>
+                  <Link to={link}>{lang.toUpperCase()}</Link>
+                </li>
+              ))}
+            </ul>
+          </li>
         </ul>
         <TagList tags={tags} />
       </PageHeadline>
