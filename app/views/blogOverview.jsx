@@ -38,7 +38,14 @@ const BlogOverview = () => {
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
     index > 0 ? ", " : undefined,
-    <a key={blog.name} href={"https://" + blog.name}>
+    <a
+      key={blog.name}
+      href={
+        blog.apiType === "blogger"
+          ? `https://${blog.name}`
+          : `https://${blog.params.id}/?lang=${blog.lang}`
+      }
+    >
       {blog.regions.map(region =>
         intl.formatMessage({ id: "region:" + region })
       )}{" "}
