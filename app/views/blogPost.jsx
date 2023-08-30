@@ -82,7 +82,7 @@ const BlogPost = () => {
           <li className="blog-province">
             {regions.map(region => (
               <Link key={region} to={`/blog?searchLang=all&region=${region}`}>
-                {intl.formatMessage({ id: `region:${region}` })}
+                {intl.formatMessage({ id: `region:${region}` })}&nbsp;&nbsp;
               </Link>
             ))}
           </li>
