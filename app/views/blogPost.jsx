@@ -21,6 +21,7 @@ const BlogPost = () => {
   //const [author, setauthor] = useState("");
   const [date, setDate] = useState("");
   const [tags, setTags] = useState([]);
+  const [lang, setLanguage] = useState([]);
   const [regions, setRegions] = useState([]);
   const [languageLinks, setLanguageLinks] = useState([]);
   const [content, setContent] = useState("");
@@ -32,6 +33,7 @@ const BlogPost = () => {
           setTitle(b.title);
           setDate(b.date);
           setTags(b.tags);
+          setLanguage(b.lang);
           setRegions(b.regions);
           setLanguageLinks(b.langLinks);
           setContent(preprocessContent(b.content, true));
@@ -81,7 +83,10 @@ const BlogPost = () => {
 
           <li className="blog-province">
             {regions.map(region => (
-              <Link key={region} to={`/blog?searchLang=all&region=${region}`}>
+              <Link
+                key={region}
+                to={`/blog?searchLang=${lang}&region=${region}`}
+              >
                 {intl.formatMessage({ id: `region:${region}` })}&nbsp;&nbsp;
               </Link>
             ))}
