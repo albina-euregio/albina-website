@@ -17,7 +17,6 @@ export class ModalPublicationStatusComponent {
   component;
 
   public alerts: any[] = [];
-  public testAlerts: any[] = [];
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -127,30 +126,6 @@ export class ModalPublicationStatusComponent {
     );
   }
 
-  createStaticWidget(event) {
-    event.stopPropagation();
-    this.bulletinsService.createStaticWidget(this.date).subscribe(
-      data => {
-        console.info("Static widget created");
-        window.scrollTo(0, 0);
-        this.alerts.push({
-          type: "success",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.staticWidget.success", {prefix: ""}),
-          timeout: 5000
-        });
-      },
-      error => {
-        console.error("Static widget could not be created!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
-          type: "danger",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.staticWidget.error", {prefix: ""}),
-          timeout: 5000
-        });
-      }
-    );
-  }
-
   sendEmail(event, language: string = "") {
     event.stopPropagation();
     this.bulletinsService.sendEmail(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
@@ -175,30 +150,6 @@ export class ModalPublicationStatusComponent {
     );
   }
 
-  sendTestEmail(event, language: string = "") {
-    event.stopPropagation();
-    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
-      data => {
-        console.info("Test emails sent for %s in %s", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "success",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.email.success", {prefix: "[TEST] "}),
-          timeout: 5000
-        });
-      },
-      error => {
-        console.error("Test emails could not be sent for %s in %s!", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "danger",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.email.error", {prefix: "[TEST] "}),
-          timeout: 5000
-        });
-      }
-    );
-  }
-
   triggerTelegramChannel(event, language: string = "") {
     event.stopPropagation();
     this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
@@ -217,30 +168,6 @@ export class ModalPublicationStatusComponent {
         this.alerts.push({
           type: "danger",
           msg: this.translateService.instant("bulletins.table.publicationStatusDialog.telegram.error", {prefix: ""}),
-          timeout: 5000
-        });
-      }
-    );
-  }
-
-  triggerTestTelegramChannel(event, language: string = "") {
-    event.stopPropagation();
-    this.bulletinsService.triggerTestTelegramChannel(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
-      data => {
-        console.info("Test telegram channel triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "success",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.telegram.success", {prefix: "[TEST] "}),
-          timeout: 5000
-        });
-      },
-      error => {
-        console.error("Test telegram channel could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "danger",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.telegram.error", {prefix: "[TEST] "}),
           timeout: 5000
         });
       }
@@ -272,33 +199,7 @@ export class ModalPublicationStatusComponent {
     );
   }
 
-  triggerTestPushNotifications(event, language: string = "") {
-    event.stopPropagation();
-
-    this.bulletinsService.triggerTestPushNotifications(this.date, this.authenticationService.getActiveRegionId(), language).subscribe(
-      data => {
-        console.info("Test push notifications triggered for %s in %s", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "success",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.push.success", {prefix: "[TEST] "}),
-          timeout: 5000
-        });
-      },
-      error => {
-        console.error("Test push notifications could not be triggered for %s in %s!", this.authenticationService.getActiveRegionId(), language);
-        window.scrollTo(0, 0);
-        this.testAlerts.push({
-          type: "danger",
-          msg: this.translateService.instant("bulletins.table.publicationStatusDialog.push.error", {prefix: "[TEST] "}),
-          timeout: 5000
-        });
-      }
-    );
-  }
-
   onClosed(dismissedAlert: AlertComponent): void {
     this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
-    this.testAlerts = this.testAlerts.filter(alert => alert !== dismissedAlert);
   }
 }

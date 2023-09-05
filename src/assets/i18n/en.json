@@ -251,7 +251,6 @@
         "validFor": "Valid for: ",
         "title": {
           "prod": "Serious stuff",
-          "test": "Just testing",
           "task": "Task",
           "language": {
             "all": "ALL",
@@ -278,12 +277,6 @@
           "tooltip": "Create PDFs",
           "success": "{{prefix}}PDFs successfully created!",
           "error": "{{prefix}}PDFs could not be created!"
-        },
-        "staticWidget": {
-          "label": "Static Widgets",
-          "tooltip": "Create Static Widgets",
-          "success": "{{prefix}}Static Widgets successfully created!",
-          "error": "{{prefix}}Static Widgets could not be created!"
         },
         "html": {
           "label": "Simple HTMLs",
