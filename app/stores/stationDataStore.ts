@@ -330,26 +330,50 @@ export default class StationDataStore {
       });
   }
 
-  async load({ dateTime, ogd }: { dateTime?: Date; ogd?: boolean } = {}) {
+  async load({ dateTime, ogd }: LoadOptions = {}): Promise<StationData[]> {
     const timePrefix =
       dateTime instanceof Date && +dateTime
         ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
         : "";
     const stationsFile = ogd
       ? window.config.apis.weather.stationsArchive
-      : Util.template(window.config.apis.weather.stations, {
+      : !dateTime
+      ? window.config.apis.weather.stations
+      : Util.template(window.config.apis.weather.stationsDateTime, {
           dateTime: timePrefix
         });
-    const response = await fetch(stationsFile, { cache: "no-cache" });
+    let response: Response;
+    try {
+      response = await fetch(stationsFile, { cache: "no-cache" });
+      if (!response.ok) throw new Error(response.statusText);
+      if (
+        !dateTime &&
+        window.config.apis.weatherFallback &&
+        Date.now() - Date.parse(response.headers.get("last-modified")) >
+          3 * 3600 * 1000
+      ) {
+        throw new Error("Too old!");
+      }
+    } catch (err) {
+      if (window.config.apis.weatherFallback) {
+        Object.assign(
+          window.config.apis.weather,
+          window.config.apis.weatherFallback
+        );
+        delete window.config.apis.weatherFallback;
+        console.warn("Using fallback weather data!");
+        return this.load({ dateTime, ogd });
+      }
+      throw err;
+    }
     if (response.status === 404) return [];
-    if (!response.ok) return Promise.reject(new Error(response.statusText));
     const data = await response.json();
     return this.setDataAfterLoad(data, { dateTime, ogd });
   }
 
   setDataAfterLoad(
     data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>,
-    { dateTime, ogd }: { dateTime?: Date; ogd?: boolean } = {}
+    { dateTime, ogd }: LoadOptions = {}
   ) {
     this.dateTime = dateTime;
     this.data = data.features
@@ -359,4 +383,9 @@ export default class StationDataStore {
       .map(feature => new StationData(feature));
     return this.data;
   }
+}
+
+interface LoadOptions {
+  dateTime?: Date;
+  ogd?: boolean;
 }
