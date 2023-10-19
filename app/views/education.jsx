@@ -417,12 +417,12 @@ class Education extends React.Component {
             <li className="feature-item">
               <Link
                 to="/education/virtual-reality-project"
-                title="VR Project"
+                title="Virtual Reality Project"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_handbook.jpg"
+                    src="/content_files/feature_vr.jpg"
                     title={this.props.intl.formatMessage({
                       id: "education:overview:virtual-reality-project:image:title"
                     })}
