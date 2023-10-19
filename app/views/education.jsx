@@ -416,7 +416,7 @@ class Education extends React.Component {
 
             <li className="feature-item">
               <Link
-                to="/education/vr"
+                to="/education/virtual-reality-project"
                 title="VR Project"
                 className="linkbox linkbox-feature"
               >
@@ -424,10 +424,10 @@ class Education extends React.Component {
                   <img
                     src="/content_files/feature_handbook.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:overview:vr:image:title"
+                      id: "education:overview:virtual-reality-project:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:overview:vr:image:alt"
+                      id: "education:overview:virtual-reality-project:image:alt"
                     })}
                     className=""
                   />
@@ -435,12 +435,12 @@ class Education extends React.Component {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:overview:vr:headline"
+                      id: "education:overview:virtual-reality-project:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:overview:vr:text"
+                      id: "education:overview:virtual-reality-project:text"
                     })}
                   </p>
                 </div>
