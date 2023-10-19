@@ -413,6 +413,39 @@ class Education extends React.Component {
                 </div>
               </Link>
             </li>
+
+            <li className="feature-item">
+              <Link
+                to="/education/virtual-reality-project"
+                title="Virtual Reality Project"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_vr.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:virtual-reality-project:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:virtual-reality-project:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:virtual-reality-project:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:virtual-reality-project:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
           </ul>
         </section>
         <SmShare />

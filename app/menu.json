@@ -43,7 +43,8 @@
         "url:de": "https://www.avalanches.org/glossary/?lang=de",
         "url:it": "https://www.avalanches.org/glossary/?lang=it"
       },
-      { "url": "/education/handbook" }
+      { "url": "/education/handbook" },
+      { "url": "/education/virtual-reality-project" }
     ]
   },
   {

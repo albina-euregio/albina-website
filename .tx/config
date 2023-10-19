@@ -85,6 +85,12 @@ source_file = public/content/more/season-reports/en.html
 source_lang = en
 type        = HTML
 
+[o:albina-euregio:p:albina-website:r:virtual-reality-project]
+file_filter = public/content/more/virtual-reality-project/<lang>.html
+source_file = public/content/more/virtual-reality-project/en.html
+source_lang = en
+type        = HTML
+
 [o:albina-euregio:p:albina-website:r:privacy]
 file_filter = public/content/more/privacy/<lang>.html
 source_file = public/content/more/privacy/en.html
