@@ -519,10 +519,12 @@ export default class WeatherMapStore_new {
       //   _absTimeSpan: this._absTimeSpan,
       //   agl: this._agl
       // });
-
       while (currentTime <= maxTime) {
         indices.push(new Date(currentTime).getTime());
-        currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
+        currentTime.setHours(
+          currentTime.getHours() +
+            (this._absTimeSpan <= 24 ? this._absTimeSpan : 24)
+        );
       }
 
       // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
@@ -554,7 +556,10 @@ export default class WeatherMapStore_new {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
         }
-        currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
+        currentTime.setHours(
+          currentTime.getHours() +
+            (this._absTimeSpan <= 24 ? this._absTimeSpan : 24) * -1
+        );
       }
     }
     indices.sort();
