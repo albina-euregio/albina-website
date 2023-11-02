@@ -1,8 +1,7 @@
 import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
-import { dateFormat } from "../util/date";
-
+import { dateFormat, isSummerTime } from "../util/date";
 export default class WeatherMapStore_new {
   constructor(initialDomainId) {
     this.config = config.weathermaps;
@@ -91,7 +90,12 @@ export default class WeatherMapStore_new {
           this._domainId.get() +
           "/" +
           this.getMetaFile("agl")
-      ).then(action(date => (this._dateStart = date ?? this._dateStart))),
+      ).then(
+        action(
+          date =>
+            (this._dateStart = date ? this._getNow(true) : this._dateStart)
+        )
+      ),
       fetchDate(
         config.apis.weather.overlays +
           this._domainId.get() +
@@ -248,7 +252,10 @@ export default class WeatherMapStore_new {
     returns the start date for history information
   */
   get startDate() {
-    return this._dateStart;
+    console.log("startDate", (this._dateStart * 10) / 10);
+    return this._dateStart
+      ? this._dateStart.setDate(this._dateStart.getDate())
+      : this._dateStart;
   }
 
   /*
@@ -560,26 +567,40 @@ export default class WeatherMapStore_new {
       // if endTimeDate of periode is in the future set startdate to one offset earlier
       const endTime = new Date(startFrom);
       endTime.setHours(endTime.getHours() + this._absTimeSpan);
-      if (endTime > new Date())
+      if (endTime > this._getNow())
         startFrom.setHours(startFrom.getHours() - this._absTimeSpan);
 
       currentTime = new Date(startFrom);
+      //if((startFrom - currentTime) / 36e5 > this._absTimeSpan) currentTime.setHours(currentTime.getHours() + 1);
+      //if((startFrom - currentTime) / 36e5 < this._absTimeSpan) currentTime.setHours(currentTime.getHours() - 1);
+
       //currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       while (currentTime >= maxTime) {
-        console.log("_setAvailableTimes timeSpanDir<= 0 ##3", {
-          startFrom: startFrom.toUTCString(),
-          currentTimeUTC: currentTime.toUTCString(),
-          maxTimeUtc: maxTime.toUTCString(),
-          endTimeUtc: endTime.toUTCString(),
-          timeSpanDir
-        });
+        // console.log("_setAvailableTimes timeSpanDir<= 0 ##3", {
+        //   startFrom: startFrom.toUTCString(),
+        //   currentTimeUTC: currentTime.toUTCString(),
+        //   maxTimeUtc: maxTime.toUTCString(),
+        //   endTimeUtc: endTime.toUTCString(),
+        //   timeSpanDir
+        // });
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
         }
+        const lastCurrent = new Date(currentTime);
         currentTime.setHours(
           currentTime.getHours() +
             (this._absTimeSpan <= 24 ? this._absTimeSpan : 24) * -1
         );
+        // compensate winter- and summertime change
+        if ((lastCurrent - currentTime) / 36e5 > this._absTimeSpan)
+          currentTime.setHours(currentTime.getHours() + 1);
+        if ((lastCurrent - currentTime) / 36e5 < this._absTimeSpan)
+          currentTime.setHours(currentTime.getHours() - 1);
+        // console.log("_setAvailableTimes timeSpanDir<= 0 ##4",{
+        //   currentTimeUTC: currentTime.toUTCString(),
+        //   lastCurrent: currentTime.toUTCString(),
+        //   diff: Math.abs(lastCurrent - currentTime) / 36e5
+        // });
       }
     }
     indices.sort();
@@ -587,7 +608,7 @@ export default class WeatherMapStore_new {
 
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
-    else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
+    else this._timeIndex.set(this._findClosestIndex(indices, this._getNow()));
 
     debIndezes = indices.map(etime => {
       return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
@@ -595,6 +616,18 @@ export default class WeatherMapStore_new {
     console.log("_setAvailableTimes timeSpanDir all ##2", {
       debIndezes
     });
+  }
+
+  _getNow(setToDayStart) {
+    const now = new Date();
+    now.setDate(now.getDate() - 2);
+    if (setToDayStart) {
+      now.setHours(0);
+      now.setMinutes(0);
+      now.setSeconds(0);
+    }
+    console.log("xxx", now.toDateString());
+    return now;
   }
 
   /*
