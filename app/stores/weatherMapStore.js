@@ -101,7 +101,9 @@ export default class WeatherMapStore_new {
           this._domainId.get() +
           "/" +
           this.getMetaFile("startDate")
-      ).then(action(date => (this._agl = date ?? this._agl)))
+      ).then(
+        action(date => (this._agl = date ? this._getNow(true) : this._agl))
+      )
     ];
 
     Promise.all(loads)
@@ -521,8 +523,8 @@ export default class WeatherMapStore_new {
     if (timeSpanDir >= 0) {
       currentTime = this._getStartTimeForSpan(this._agl);
       maxTime = new Date(this._agl);
-      maxTime.setHours(
-        maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
+      maxTime.setUTCHours(
+        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[1], 10)
       );
       console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
         currentTime,
@@ -532,8 +534,8 @@ export default class WeatherMapStore_new {
       });
       while (currentTime <= maxTime) {
         indices.push(new Date(currentTime).getTime());
-        currentTime.setHours(
-          currentTime.getHours() +
+        currentTime.setUTCHours(
+          currentTime.getUTCHours() +
             (this._absTimeSpan <= 24 ? this._absTimeSpan : 24)
         );
       }
@@ -549,30 +551,36 @@ export default class WeatherMapStore_new {
           : this._getStartTimeForSpan(this._dateStart);
 
       maxTime = new Date(startFrom);
-      maxTime.setHours(
-        maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
+      maxTime.setUTCHours(
+        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
 
       debIndezes = indices.map(etime => {
         return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
       });
 
-      console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
-        _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
-        startFromUTC: startFrom.toUTCString(),
-        maxTimeUtc: maxTime.toUTCString(),
-        debIndezes
-      });
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
+      //   _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
+      //   startFromUTC: startFrom.toUTCString(),
+      //   maxTimeUtc: maxTime.toUTCString(),
+      //   debIndezes
+      // });
 
       // if endTimeDate of periode is in the future set startdate to one offset earlier
+
       const endTime = new Date(startFrom);
-      endTime.setHours(endTime.getHours() + this._absTimeSpan);
-      if (endTime > this._getNow())
-        startFrom.setHours(startFrom.getHours() - this._absTimeSpan);
+      endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
+      //console.log("_setAvailableTimes timeSpanDir<= 0 ##2aa", {startFrom: startFrom *10/10, endTime: endTime *10/10});
+      if (endTime > startFrom)
+        startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
 
       currentTime = new Date(startFrom);
-      //if((startFrom - currentTime) / 36e5 > this._absTimeSpan) currentTime.setHours(currentTime.getHours() + 1);
-      //if((startFrom - currentTime) / 36e5 < this._absTimeSpan) currentTime.setHours(currentTime.getHours() - 1);
+
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##3a",{
+      //   currentTimeUTC: currentTime.toUTCString(),
+      //   startFromUTC: this._dateStart.toUTCString(),
+      //   diff: Math.abs(startFrom - currentTime) / 36e5
+      // });
 
       //currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       while (currentTime >= maxTime) {
@@ -586,16 +594,12 @@ export default class WeatherMapStore_new {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
         }
-        const lastCurrent = new Date(currentTime);
-        currentTime.setHours(
-          currentTime.getHours() +
+
+        currentTime.setUTCHours(
+          currentTime.getUTCHours() +
             (this._absTimeSpan <= 24 ? this._absTimeSpan : 24) * -1
         );
-        // compensate winter- and summertime change
-        if ((lastCurrent - currentTime) / 36e5 > this._absTimeSpan)
-          currentTime.setHours(currentTime.getHours() + 1);
-        if ((lastCurrent - currentTime) / 36e5 < this._absTimeSpan)
-          currentTime.setHours(currentTime.getHours() - 1);
+
         // console.log("_setAvailableTimes timeSpanDir<= 0 ##4",{
         //   currentTimeUTC: currentTime.toUTCString(),
         //   lastCurrent: currentTime.toUTCString(),
@@ -619,14 +623,19 @@ export default class WeatherMapStore_new {
   }
 
   _getNow(setToDayStart) {
+    const minusDays = 2;
     const now = new Date();
-    now.setDate(now.getDate() - 2);
+    now.setHours(now.getHours() - 24 * minusDays);
     if (setToDayStart) {
-      now.setHours(0);
-      now.setMinutes(0);
-      now.setSeconds(0);
+      now.setUTCHours(0);
+      now.setUTCMinutes(0);
+      now.setUTCSeconds(0);
     }
-    console.log("xxx", now.toDateString());
+
+    // if((new Date() - now) / 36e5 > (24 * minusDays)) now.setHours(now.getHours() + 1);
+    // if((new Date() - now) / 36e5 < (24 * minusDays)) now.setHours(now.getHours() - 1);
+
+    console.log("_getNow", now.toUTCString());
     return now;
   }
 
