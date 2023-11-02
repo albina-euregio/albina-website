@@ -130,7 +130,7 @@ class Timeline extends React.Component {
         timeArray.push(extraTime.getTime());
       }
     }
-    console.log("timeArray#3", timeArray, this.props.timeArray);
+    //console.log("timeArray#3", timeArray, this.props.timeArray);
     timeArray.forEach(aTime => {
       let weekday = this.props.intl.formatDate(aTime, { weekday: "long" });
 
