@@ -105,7 +105,9 @@ class WeatherMapCockpit extends React.Component {
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const posContainer = $(".cp-scale-days").offset();
-      const posFirstAvailable = $(".t" + this.props.timeArray[0]).offset();
+      const startDateTime = new Date(this.props.timeArray[0]);
+      startDateTime.setUTCHours(startDateTime.getUTCHours() - timespan);
+      const posFirstAvailable = $(".t" + startDateTime.getTime()).offset();
       const posLast = $(
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
       ).offset();
@@ -127,7 +129,7 @@ class WeatherMapCockpit extends React.Component {
           display: ""
         });
         $(".cp-scale-flipper-right").css({
-          left: posLast.left - posContainer.left + timespan * this.tickWidth,
+          left: posLast.left - posContainer.left,
           display: ""
         });
         $(".cp-movie").css({
@@ -296,14 +298,14 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setClosestTick(x) {
-    //console.log("setClosestTick hhhh", x, y);
-
     let closestTime = this.getClosestTick(x);
-
+    //console.log("setClosestTick hhhh", closestTime, this.props.currentTime, this.getTimeStartForCurrentTime()?.getTime());
     // place back to origin
     if (closestTime === this.props.currentTime) {
       this.showTimes(true);
-      this.rePostionsStamp(this.getLeftForTime(this.props.currentTime));
+      this.rePostionsStamp(
+        this.getLeftForTime(this.getTimeStartForCurrentTime()?.getTime())
+      );
     }
 
     try {
@@ -316,19 +318,29 @@ class WeatherMapCockpit extends React.Component {
     }
   }
 
+  getTimeStartForCurrentTime() {
+    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
+    let timeStart = new Date(this.props.currentTime);
+    timeStart.setHours(timeStart.getHours() - parseInt(nrOnlyTimespan, 10));
+    return timeStart;
+  }
+
   getTimeline() {
     let self = this;
     let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let parts = [];
 
     if (this.props.currentTime) {
-      const timeStart = this.props.intl.formatTime(this.props.currentTime);
-      let timeEnd = new Date(this.props.currentTime);
-      timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
-      //console.log("weathermapcockpit->gettimeline hhh", this.getLeftForTime, this.props.currentTime);
+      let timeStart = this.props.intl.formatTime(
+        this.getTimeStartForCurrentTime()
+      );
+      const timeEnd = this.props.intl.formatTime(this.props.currentTime);
+
+      //console.log("weathermapcockpit->gettimeline ##55", this.getLeftForTime, this.props.currentTime);
       const dragSettings = {
         left: this.getLeftForTime
-          ? this.getLeftForTime(this.props.currentTime)
+          ? this.getLeftForTime(this.props.currentTime) -
+            this.tickWidth * nrOnlyTimespan
           : 0,
         onDragEnd: self.setClosestTick.bind(self),
         onDragStart: self.onDragStart.bind(this),
@@ -377,7 +389,7 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-range-end"
                   className="cp-scale-stamp-range-end"
                 >
-                  {this.props.intl.formatTime(timeEnd)}
+                  {timeEnd}
                 </span>
               </div>
             </Dragger>
