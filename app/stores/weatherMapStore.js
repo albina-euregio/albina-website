@@ -628,9 +628,9 @@ export default class WeatherMapStore_new {
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
     else this._timeIndex.set(this._findClosestIndex(indices, this._getNow()));
 
-    debIndezes = indices.map(etime => {
-      return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-    });
+    // debIndezes = indices.map(etime => {
+    //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+    // });
     // console.log("_setAvailableTimes timeSpanDir all ##2", {
     //   debIndezes
     // });
