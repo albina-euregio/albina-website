@@ -22,7 +22,7 @@
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@sentry/react": "^7.24.2",
     "animejs": "3.2.1",
-    "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/ec336a7accb5036e772b28a10e4505a0905fb3b6/eaws-regions-ec336a7accb5036e772b28a10e4505a0905fb3b6.tar.gz",
+    "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/bb265bc8720cee51cabfa5d5a9011919cf18be1d/eaws-regions-bb265bc8720cee51cabfa5d5a9011919cf18be1d.tar.gz",
     "fluidvids.js": "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz",
     "framer-motion": "^6.3.3",
     "htmr": "^1.0.1",

@@ -193,6 +193,7 @@ export default class StationDataStore {
   sortValue: keyof StationData = "name";
   sortDir: "asc" | "desc" = "asc";
   collator = new Intl.Collator("de");
+  _filterObservationStart = false;
 
   constructor(activeRegion: (r: RegionCodes) => boolean = () => true) {
     regionCodes.forEach(r => (this._activeRegions[r] = activeRegion(r)));
@@ -242,6 +243,14 @@ export default class StationDataStore {
       .filter(key => this.activeData[key] === false)
       .forEach(key => params.set(key, String(this.activeData[key])));
     return params;
+  }
+
+  get filterObservationStart() {
+    return this._filterObservationStart;
+  }
+
+  setFilterObservationStart(filterObservationStart: boolean) {
+    this._filterObservationStart = filterObservationStart;
   }
 
   get activeRegion() {
@@ -307,7 +316,10 @@ export default class StationDataStore {
       )
       .filter(row => !activeRegion || row.region == activeRegion)
       .filter(
-        row => !this.activeYear || +row.observationStart <= this.activeYear
+        row =>
+          !this._filterObservationStart ||
+          !this.activeYear ||
+          +row.observationStart <= this.activeYear
       )
       .sort((val1, val2) => {
         const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
