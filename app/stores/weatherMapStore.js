@@ -520,7 +520,7 @@ export default class WeatherMapStore_new {
       : parseInt(currentTimespan, 10) > 0
       ? 1
       : -1;
-    let debIndezes;
+    //let debIndezes;
     // console.log(
     //   "weatherMapStore_new _setTimeIndices #1",
     //   this._dateStart,
