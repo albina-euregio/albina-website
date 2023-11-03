@@ -60,6 +60,10 @@ function isSummerTime(date) {
   return -date.getTimezoneOffset() >= summerTimeOffset;
 }
 
+function removeMilliseconds(unixTimeStamp) {
+  return Math.floor(unixTimeStamp / 1000) * 1000;
+}
+
 /**
  * @type {Intl.DateTimeFormatOptions}
  */
@@ -185,5 +189,6 @@ export {
   isSummerTime,
   dateToISODateString,
   getDaysOfMonth,
-  dateFormat
+  dateFormat,
+  removeMilliseconds
 };

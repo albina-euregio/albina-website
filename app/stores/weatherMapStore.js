@@ -1,8 +1,8 @@
 import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
-import { dateFormat } from "../util/date";
-
+import { dateFormat, removeMilliseconds } from "../util/date";
+const EARLIER_FAKE_DAYS = 0; // for debugging day light saving, simulates time of client to be EARLIER_FAKE_DAYS in the past from now
 export default class WeatherMapStore_new {
   constructor(initialDomainId) {
     this.config = config.weathermaps;
@@ -91,13 +91,29 @@ export default class WeatherMapStore_new {
           this._domainId.get() +
           "/" +
           this.getMetaFile("agl")
-      ).then(action(date => (this._dateStart = date ?? this._dateStart))),
+      ).then(
+        action(
+          date =>
+            (this._dateStart =
+              EARLIER_FAKE_DAYS > 0
+                ? this._getNow(true)
+                : new Date(date) ?? this._dateStart)
+        )
+      ),
       fetchDate(
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
           this.getMetaFile("startDate")
-      ).then(action(date => (this._agl = date ?? this._agl)))
+      ).then(
+        action(
+          date =>
+            (this._agl =
+              EARLIER_FAKE_DAYS > 0
+                ? this._getNow(true)
+                : new Date(date) ?? this._agl)
+        )
+      )
     ];
 
     Promise.all(loads)
@@ -248,7 +264,10 @@ export default class WeatherMapStore_new {
     returns the start date for history information
   */
   get startDate() {
-    return this._dateStart;
+    //console.log("startDate", this._dateStart, (this._dateStart * 10) / 10);
+    return this._dateStart
+      ? this._dateStart.setDate(this._dateStart.getDate())
+      : this._dateStart;
   }
 
   /*
@@ -477,7 +496,11 @@ export default class WeatherMapStore_new {
       currentTime.setUTCHours(foundStartHour);
       // console.log(
       //   "_getStartTimeForSpan #1",
-      //   timesForSpan, soonerTimesToday, foundStartHour
+      //   currentTime,
+      //   currentTime.getUTCHours(),
+      //   timesForSpan,
+      //   soonerTimesToday,
+      //   foundStartHour
       // );
     }
     return currentTime;
@@ -497,7 +520,7 @@ export default class WeatherMapStore_new {
       : parseInt(currentTimespan, 10) > 0
       ? 1
       : -1;
-
+    //let debIndezes;
     // console.log(
     //   "weatherMapStore_new _setTimeIndices #1",
     //   this._dateStart,
@@ -510,21 +533,26 @@ export default class WeatherMapStore_new {
     if (timeSpanDir >= 0) {
       currentTime = this._getStartTimeForSpan(this._agl);
       maxTime = new Date(this._agl);
-      maxTime.setHours(
-        maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
+      maxTime.setUTCHours(
+        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[1], 10)
       );
       // console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
-      //   currentTime,
-      //   maxTime,
+      //   currentTime: currentTime.toUTCString(),
+      //   maxTimeUC: maxTime.toUTCString(),
+      //   maxTime: maxTime*100/100,
       //   _absTimeSpan: this._absTimeSpan,
-      //   agl: this._agl
+      //   agl: this._agl.toUTCString()
       // });
       while (currentTime <= maxTime) {
-        indices.push(new Date(currentTime).getTime());
-        currentTime.setHours(
-          currentTime.getHours() +
+        indices.push(removeMilliseconds(new Date(currentTime).getTime()));
+        currentTime.setUTCHours(
+          currentTime.getUTCHours() +
             (this._absTimeSpan <= 24 ? this._absTimeSpan : 24)
         );
+
+        // console.log("_setAvailableTimes timeSpanDir<= 0 ##1a",{
+        //   currentTimeUTC: currentTime.toUTCString()
+        // });
       }
 
       // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
@@ -537,29 +565,60 @@ export default class WeatherMapStore_new {
           ? this._agl
           : this._getStartTimeForSpan(this._dateStart);
 
-      currentTime = new Date(startFrom);
-      // console.log(
-      //   "_setAvailableTimes timeSpanDir<= 0 ##2", {
-      //     _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
-      //     startFrom,
-      //     currentTime}
-      // );
-
       maxTime = new Date(startFrom);
-      maxTime.setHours(
-        maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
+      maxTime.setUTCHours(
+        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
-      // if (maxTime. > startFrom)
-      maxTime.setHours(maxTime.getHours() - this._absTimeSpan);
+
+      // debIndezes = indices.map(etime => {
+      //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+      // });
+
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
+      //   _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
+      //   startFromUTC: startFrom.toUTCString(),
+      //   maxTimeUtc: maxTime.toUTCString(),
+      //   debIndezes
+      // });
+
+      // if endTimeDate of periode is in the future set startdate to one offset earlier
+      const endTime = new Date(startFrom);
+      endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
+      //console.log("_setAvailableTimes timeSpanDir<= 0 ##2aa", {startFrom: startFrom *10/10, endTime: endTime *10/10});
+      //if (endTime > startFrom)
+      //startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
+
+      currentTime = new Date(startFrom);
+
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##3a",{
+      //   currentTimeUTC: currentTime.toUTCString(),
+      //   startFromUTC: this._dateStart.toUTCString(),
+      //   diff: Math.abs(startFrom - currentTime) / 36e5
+      // });
+
       //currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       while (currentTime >= maxTime) {
+        // console.log("_setAvailableTimes timeSpanDir<= 0 ##3", {
+        //   startFrom: startFrom.toUTCString(),
+        //   currentTimeUTC: currentTime.toUTCString(),
+        //   maxTimeUtc: maxTime.toUTCString(),
+        //   endTimeUtc: endTime.toUTCString(),
+        //   timeSpanDir
+        // });
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
-          indices.push(new Date(currentTime).getTime());
+          indices.push(removeMilliseconds(new Date(currentTime).getTime()));
         }
-        currentTime.setHours(
-          currentTime.getHours() +
+
+        currentTime.setUTCHours(
+          currentTime.getUTCHours() +
             (this._absTimeSpan <= 24 ? this._absTimeSpan : 24) * -1
         );
+
+        // console.log("_setAvailableTimes timeSpanDir<= 0 ##4",{
+        //   currentTimeUTC: currentTime.toUTCString(),
+        //   lastCurrent: currentTime.toUTCString(),
+        //   diff: Math.abs(lastCurrent - currentTime) / 36e5
+        // });
       }
     }
     indices.sort();
@@ -567,11 +626,27 @@ export default class WeatherMapStore_new {
 
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
-    else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
+    else this._timeIndex.set(this._findClosestIndex(indices, this._getNow()));
 
-    // console.log("_setAvailableTimes timeSpanDir all ##2", {
-    //   indices
+    // debIndezes = indices.map(etime => {
+    //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
     // });
+    // console.log("_setAvailableTimes timeSpanDir all ##2", {
+    //   debIndezes
+    // });
+  }
+
+  _getNow(setToDayStart) {
+    let now = new Date();
+    now.setHours(now.getHours() - 24 * EARLIER_FAKE_DAYS);
+    if (setToDayStart) {
+      now.setUTCHours(0);
+      now.setUTCMinutes(0);
+      now.setUTCSeconds(0);
+    }
+    now = new Date(removeMilliseconds(now.getTime()));
+    //console.log("_getNow ##888", now?.toUTCString());
+    return now;
   }
 
   /*

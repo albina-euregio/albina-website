@@ -137,7 +137,7 @@ class WeatherMapCockpit extends React.Component {
 
       if (this.props.lastAnalyticTime) {
         // console.log("placeCockpitItems", {
-        //   lastAnalyticTime: this.props.lastAnalyticTime,
+        //   lastAnalyticTime: (this.props.lastAnalyticTime * 10) / 10,
         //   posFirstAvailable
         // });
         const lastAnalyticTime = $(".t" + this.props.lastAnalyticTime).offset();
