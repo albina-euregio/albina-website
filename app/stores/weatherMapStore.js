@@ -520,7 +520,7 @@ export default class WeatherMapStore_new {
       : parseInt(currentTimespan, 10) > 0
       ? 1
       : -1;
-    let debIndezes;
+    //let debIndezes;
     // console.log(
     //   "weatherMapStore_new _setTimeIndices #1",
     //   this._dateStart,
@@ -572,9 +572,9 @@ export default class WeatherMapStore_new {
           this._absTimeSpan
       );
 
-      debIndezes = indices.map(etime => {
-        return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-      });
+      // debIndezes = indices.map(etime => {
+      //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+      // });
 
       // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
       //   _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
@@ -583,7 +583,7 @@ export default class WeatherMapStore_new {
       //   debIndezes
       // });
 
-      //startFrom.setUTCHours(startFrom.getUTCHours() + this._absTimeSpan );  // add _absTimeSpan to due to *CHANGE_202311
+      startFrom.setUTCHours(startFrom.getUTCHours() + this._absTimeSpan);
 
       // if endTimeDate of periode is in the future set startdate to one offset earlier
       //const endTime = new Date(startFrom);
@@ -592,7 +592,8 @@ export default class WeatherMapStore_new {
       //   startFromUTC: startFrom.toUTCString(),
       //   nowUTC: new Date().toUTCString()
       // });
-      //if (new Date() < startFrom) startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan );
+      if (new Date() < startFrom)
+        startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
 
       currentTime = new Date(startFrom);
 
