@@ -129,10 +129,10 @@ class Timeline extends React.Component {
         extraTime.setHours(extraTime.getHours() - 12);
         timeArray.unshift(extraTime.getTime());
       }
-      console.log("timeArray#3 ##55", {
-        timeArray,
-        extraTimeUTC: extraTime.toUTCString()
-      });
+      // console.log("timeArray#3 ##55", {
+      //   timeArray,
+      //   extraTimeUTC: extraTime.toUTCString()
+      // });
     }
 
     timeArray.forEach(aTime => {

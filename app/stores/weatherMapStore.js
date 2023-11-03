@@ -588,10 +588,10 @@ export default class WeatherMapStore_new {
       // if endTimeDate of periode is in the future set startdate to one offset earlier
       //const endTime = new Date(startFrom);
       //endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
-      console.log("_setAvailableTimes timeSpanDir<= 0 ##55 ##2aa", {
-        startFromUTC: startFrom.toUTCString(),
-        nowUTC: new Date().toUTCString()
-      });
+      // console.log("_setAvailableTimes timeSpanDir<= 0 ##55 ##2aa", {
+      //   startFromUTC: startFrom.toUTCString(),
+      //   nowUTC: new Date().toUTCString()
+      // });
       //if (new Date() < startFrom) startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan );
 
       currentTime = new Date(startFrom);
@@ -634,9 +634,9 @@ export default class WeatherMapStore_new {
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
     else this._timeIndex.set(this._findClosestIndex(indices, this._getNow()));
 
-    debIndezes = indices.map(etime => {
-      return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-    });
+    // debIndezes = indices.map(etime => {
+    //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+    // });
     // console.log("_setAvailableTimes timeSpanDir all ##2", {
     //   debIndezes
     // });
