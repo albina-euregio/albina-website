@@ -570,9 +570,9 @@ export default class WeatherMapStore_new {
         maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
 
-      debIndezes = indices.map(etime => {
-        return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-      });
+      // debIndezes = indices.map(etime => {
+      //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+      // });
 
       // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
       //   _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
