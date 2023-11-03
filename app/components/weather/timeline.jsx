@@ -119,18 +119,22 @@ class Timeline extends React.Component {
     let timeArray = this.props.timeArray.slice();
 
     if (nrOnlyTimespan > 1) {
-      let extraTime = new Date(timeArray[timeArray.length - 1]);
-      let maxTime = new Date(extraTime);
+      let extraTime = new Date(timeArray[0]);
+      let minTime = new Date(extraTime);
       //console.log("timeArray#1", extraTime, maxTime, nrOnlyTimespan);
-      maxTime.setHours(maxTime.getHours() + nrOnlyTimespan);
+      minTime.setHours(minTime.getHours() - nrOnlyTimespan);
 
       //console.log("timeArray#2", extraTime, maxTime, nrOnlyTimespan);
-      while (extraTime < maxTime) {
-        extraTime.setHours(extraTime.getHours() + 24);
-        timeArray.push(extraTime.getTime());
+      while (extraTime > minTime) {
+        extraTime.setHours(extraTime.getHours() - 12);
+        timeArray.unshift(extraTime.getTime());
       }
+      console.log("timeArray#3 ##55", {
+        timeArray,
+        extraTimeUTC: extraTime.toUTCString()
+      });
     }
-    //console.log("timeArray#3", timeArray, this.props.timeArray);
+
     timeArray.forEach(aTime => {
       let weekday = this.props.intl.formatDate(aTime, { weekday: "long" });
 

@@ -567,7 +567,9 @@ export default class WeatherMapStore_new {
 
       maxTime = new Date(startFrom);
       maxTime.setUTCHours(
-        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[0], 10)
+        maxTime.getUTCHours() +
+          parseInt(this.config.settings.timeRange[0], 10) +
+          this._absTimeSpan
       );
 
       debIndezes = indices.map(etime => {
@@ -581,12 +583,16 @@ export default class WeatherMapStore_new {
       //   debIndezes
       // });
 
+      //startFrom.setUTCHours(startFrom.getUTCHours() + this._absTimeSpan );  // add _absTimeSpan to due to *CHANGE_202311
+
       // if endTimeDate of periode is in the future set startdate to one offset earlier
-      const endTime = new Date(startFrom);
-      endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
-      //console.log("_setAvailableTimes timeSpanDir<= 0 ##2aa", {startFrom: startFrom *10/10, endTime: endTime *10/10});
-      //if (endTime > startFrom)
-      //startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
+      //const endTime = new Date(startFrom);
+      //endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
+      console.log("_setAvailableTimes timeSpanDir<= 0 ##55 ##2aa", {
+        startFromUTC: startFrom.toUTCString(),
+        nowUTC: new Date().toUTCString()
+      });
+      //if (new Date() < startFrom) startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan );
 
       currentTime = new Date(startFrom);
 
