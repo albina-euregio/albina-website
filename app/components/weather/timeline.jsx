@@ -80,13 +80,13 @@ class Timeline extends React.Component {
       //console.log("setClosestTick eTime", eTime);
       const curItemLeft = this.getLeftForTime(eTime);
       // console.log(
-      //   "setClosestTick ccc eee ITEM",
+      //   "getClosestTick hhhh ITEM",{
       //   eTime,
       //   arrowLeft,
       //   curItemLeft,
-      //   new Date(eTime),
-      //   Math.abs(arrowLeft - curItemLeft)
-      // );
+      //   eTimeUtc: new Date(eTime).toUTCString(),
+      //   diff: Math.abs(arrowLeft - curItemLeft)
+      //   });
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
         closestTime = eTime;
         closestDist = Math.abs(arrowLeft - curItemLeft);
