@@ -25,6 +25,7 @@ const StationArchive = () => {
   });
   const [store] = useState(() => {
     const store = new StationDataStore(r => r.startsWith("AT-07"));
+    store.setFilterObservationStart(true);
     store.setActiveYear("");
     return store;
   });
