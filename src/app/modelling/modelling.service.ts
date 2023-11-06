@@ -136,7 +136,6 @@ export class ModellingService {
               $id: id,
               region: regionCode,
               locationName: region?.name,
-              $externalURL: `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               $extraDialogRows: [
                 ...["HN", "HS"].map((type) => ({
                   label: `ECMWF ${type}`,
