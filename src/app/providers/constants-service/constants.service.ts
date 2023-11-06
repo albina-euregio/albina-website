@@ -25,8 +25,6 @@ export class ConstantsService {
       "https://admin.avalanche.report/avalanche-feedback/AT-5/dataexport/dataFromToken/",
     [ObservationSource.LoLaAvalancheFeedbackAT8]:
       "https://admin.avalanche.report/avalanche-feedback/AT-8/dataexport/dataFromToken/",
-    [ObservationSource.LoLaSafety]:
-      "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]:
       "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
     [ObservationSource.FotoWebcamsEU]:

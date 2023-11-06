@@ -7,7 +7,6 @@ import {
   Observation,
 } from "./models/observation.model";
 import { convertLoLaKronos, LolaKronosApi } from "./models/lola-kronos.model";
-import { convertLoLaSafety, LoLaSafetyApi } from "./models/lola-safety.model";
 import {
   Profile,
   Incident,
@@ -178,7 +177,6 @@ export class ObservationsService {
       this.getLoLaKronos(ObservationSource.LoLaKronos),
       this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT5),
       this.getLoLaKronos(ObservationSource.LoLaAvalancheFeedbackAT8),
-      this.getLoLaSafety(),
       this.getLwdKipObservations(),
       this.getWikisnowECT(),
       this.getObservations(),
@@ -389,14 +387,6 @@ export class ObservationsService {
     return this.http
       .get<LolaKronosApi>(api[source] + timeframe)
       .pipe(mergeMap((kronos) => convertLoLaKronos(kronos, web[source])));
-  }
-
-  getLoLaSafety(): Observable<GenericObservation> {
-    const { observationApi: api } = this.constantsService;
-    const timeframe = this.startDateString + "/" + this.endDateString;
-    return this.http
-      .get<LoLaSafetyApi>(api.LoLaSafety + timeframe)
-      .pipe(mergeMap((lola) => convertLoLaSafety(lola)));
   }
 
   getWikisnowECT(): Observable<GenericObservation> {
