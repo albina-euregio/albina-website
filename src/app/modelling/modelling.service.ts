@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
-import { forkJoin, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { catchError, flatMap, last, map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
@@ -91,17 +91,11 @@ export class ModellingService {
   }
 
   private getZamgMultiModelPoints(): Observable<GenericObservation[]> {
-    const urls = [
-      "snowgridmultimodel_stationlist.txt",
-      "snowgridmultimodel_modprog1400_HN.txt",
-      "snowgridmultimodel_modprog910_HN.txt",
-      "snowgridmultimodel_modprog990_HN.txt"
-    ].map((file) => this.constantsService.zamgModelsUrl + file);
-    return forkJoin(urls.map((url) => this.http.get(url, { responseType: "text" }))).pipe(
-      map((responses) =>
-        responses.map((r, index) => this.parseCSV(index === 0 ? r.toString().replace(/^#\s*/, "") : r.toString()))
-      ),
-      map(([points, hs1400, hn910, hn990]) =>
+    const url = this.constantsService.zamgModelsUrl+"snowgridmultimodel_stationlist.txt";
+
+    return this.http.get(url, { responseType: "text" }).pipe(
+      map((response) => this.parseCSV(response.toString().replace(/^#\s*/, ""))),
+      map((points) =>
         points.data
           .map((row: MultimodelPointCsv): GenericObservation => {
             const id = row.statnr;
@@ -110,33 +104,12 @@ export class ModellingService {
             const lat = parseFloat(row.lat);
             const lng = parseFloat(row.lon);
 
-            const freshSnow: ZamgFreshSnow[] = [];
-            try {
-              [12, 24, 48, 72].map((hour) => {
-                const values = [hs1400, hn910, hn990]
-                  .map((csv) => {
-                    const rowIndex = csv.data.findIndex((r) => r["-9999.0"] === `${hour}.0`);
-                    return rowIndex >= 0 ? parseFloat(csv.data[rowIndex][`${id}.0`]) : undefined;
-                  })
-                  .filter((v) => isFinite(v));
-                freshSnow.push({
-                  hour,
-                  values,
-                  min: Math.min(...values),
-                  max: Math.max(...values)
-                });
-              });
-            } catch (e) {
-              console.warn("Failed to build fresh snow", e);
-            }
-
             return {
               $source: "multimodel",
               $data: row,
               $id: id,
               region: regionCode,
               locationName: region?.name,
-              $externalURL: `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               $extraDialogRows: [
                 ...["HN", "HS"].map((type) => ({
                   label: `ECMWF ${type}`,
