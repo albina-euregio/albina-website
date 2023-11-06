@@ -60,10 +60,11 @@ class Timeline extends React.Component {
       theTick.offset()["left"] - $(this.refs.daysContainer).offset()["left"]
     );
     // console.log(
-    //   "leftPosForCurrentTime ggg",
-    //   new Date(this.props.currentTime),
+    //   "leftPosForCurrentTime hhhh1",{
+    //   currentTimeUtc: new Date(this.props.currentTime).toUTCString(),
+    //   tickWidth: this.tickWidth(),
     //   left
-    // );
+    //   });
     return left;
   }
 
@@ -76,6 +77,7 @@ class Timeline extends React.Component {
 
     const arrowLeft = left; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: left });
+
     this.props.timeArray.forEach(eTime => {
       //console.log("setClosestTick eTime", eTime);
       const curItemLeft = this.getLeftForTime(eTime);
@@ -85,7 +87,7 @@ class Timeline extends React.Component {
       //   arrowLeft,
       //   curItemLeft,
       //   eTimeUtc: new Date(eTime).toUTCString(),
-      //   diff: Math.abs(arrowLeft - curItemLeft)
+      //   diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
       //   });
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
         closestTime = eTime;

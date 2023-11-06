@@ -298,12 +298,14 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setClosestTick(x) {
+    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let closestTime = this.getClosestTick(x);
+    let newLeft;
     //closestTime = this.getTimeStart(closestTime).getTime();
     //debugger;
     // console.log("setClosestTick hhhh", {
-    //   draggerWidth: $('#dragger').width(),
-    //   x,
+    //   //draggerWidth: $('#dragger').width(),
+    //   //x,
     //   closest: new Date(closestTime).toUTCString(),
     //   current: new Date(this.props.currentTime).toUTCString(),
     // //new Date(this.getTimeStart(closestTime)).toUTCString()
@@ -311,12 +313,15 @@ class WeatherMapCockpit extends React.Component {
 
     // place back to origin
     if (closestTime === this.props.currentTime) {
+      //console.log("setClosestTick hhhh #1");
       this.showTimes(true);
-      this.rePostionsStamp(this.getLeftForTime(closestTime));
+      newLeft =
+        this.getLeftForTime(closestTime) - this.tickWidth * nrOnlyTimespan;
+      this.rePostionsStamp(newLeft);
     }
 
     try {
-      //console.log("setClosestTick hhhh closestTime:", new Date(closestTime));
+      //console.log("setClosestTick hhhh1 closestTime:", new Date(closestTime).toUTCString(), newLeft);
 
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
