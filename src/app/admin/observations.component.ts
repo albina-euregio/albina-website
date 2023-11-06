@@ -1,22 +1,24 @@
 import { Component } from "@angular/core";
 import { formatDate } from "@angular/common";
-import { ObservationsService } from "../observations/observations.service";
-import { SettingsService } from "../providers/settings-service/settings.service";
+import { HttpClient } from "@angular/common/http";
+import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
+import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { saveAs } from "file-saver";
 
 @Component({
   templateUrl: "observations.component.html",
-  selector: "app-observations"
+  selector: "app-observations",
 })
 export class ObservationsComponent {
-
   public loadingStatistics: boolean;
   public bsRangeValue: Date[];
 
   constructor(
-    public observationsService: ObservationsService,
-    public settingsService: SettingsService) {
-      this.loadingStatistics = false;
+    public http: HttpClient,
+    public constantsService: ConstantsService,
+    public authenticationService: AuthenticationService
+  ) {
+    this.loadingStatistics = false;
   }
 
   getStatistics(event) {
@@ -24,7 +26,14 @@ export class ObservationsComponent {
     if (this.bsRangeValue) {
       this.loadingStatistics = true;
       document.getElementById("overlay").style.display = "block";
-      this.observationsService.getCsv(this.bsRangeValue[0], this.bsRangeValue[1]).subscribe(blob => {
+      const url =
+        this.constantsService.getServerUrl() +
+        "observations/export?startDate=" +
+        this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.bsRangeValue[0]) +
+        "&endDate=" +
+        this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.bsRangeValue[1]);
+      const headers = this.authenticationService.newAuthHeader("text/csv");
+      this.http.get(url, { headers: headers, responseType: "blob" }).subscribe((blob) => {
         this.loadingStatistics = false;
         document.getElementById("overlay").style.display = "none";
         const format = "yyyy-MM-dd";
@@ -35,7 +44,7 @@ export class ObservationsComponent {
         filename = filename + ".csv";
         saveAs(blob, filename);
         console.log("Observations loaded.");
-      })
+      });
     }
   }
 }

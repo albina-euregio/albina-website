@@ -10,7 +10,6 @@ import { RegionConfigurationComponent } from "./region-configuration.component";
 import { UsersComponent } from "./users.component";
 import { StatisticsComponent } from "./statistics.component";
 import { ObservationsComponent } from "./observations.component";
-import { ObservationsService } from "../observations/observations.service";
 import { BlogComponent } from "./blog.component";
 
 import { AdminRoutingModule } from "./admin-routing.module";
@@ -51,8 +50,6 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     ObservationsComponent,
     BlogComponent
   ],
-  providers: [
-    ObservationsService
-  ]
+  providers: []
 })
 export class AdminModule { }

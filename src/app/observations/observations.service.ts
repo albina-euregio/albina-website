@@ -43,7 +43,7 @@ import {
   WikisnowECT,
 } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
-import { forkJoin, from, merge, Observable, of, onErrorResumeNext } from "rxjs";
+import { from, merge, Observable, of, onErrorResumeNext } from "rxjs";
 import {
   catchError,
   filter,
@@ -51,7 +51,6 @@ import {
   map,
   mergeAll,
   mergeMap,
-  flatMap,
 } from "rxjs/operators";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
@@ -682,20 +681,6 @@ export class ObservationsService {
     return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(
       this.filter.endDate
     );
-  }
-
-  getCsv(startDate: Date, endDate: Date): Observable<Blob> {
-    const url =
-      this.constantsService.getServerUrl() +
-      "observations/export?startDate=" +
-      this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(
-        startDate
-      ) +
-      "&endDate=" +
-      this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate);
-    const headers = this.authenticationService.newAuthHeader("text/csv");
-
-    return this.http.get(url, { headers: headers, responseType: "blob" });
   }
 }
 
