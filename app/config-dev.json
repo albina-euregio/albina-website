@@ -75,7 +75,7 @@
       "LWD Tirol/ÖBB": "",
       "LWD Tirol/TIWAG": "",
       "LWD Tirol/WLV": "",
-      "LWD Tirol/ZAMG": "",
+      "LWD Tirol/GeoSphere Austria": "",
       "Meteomont EI": "http://www.meteomont.org/",
       "Nationalpark Hohe Tauern": "https://hohetauern.at/",
       "ÖBB": "https://www.oebb.at/",
@@ -87,6 +87,7 @@
       "Universität Innsbruck, Institut für Geographie": "https://www.uibk.ac.at/geographie/",
       "Verbund Hydro Power AG": "https://www.verbund.com/",
       "Wildbach- und Lawinenverbaung Sektion Tirol": "https://die-wildbach.at/",
+      "LWD Tirol/ZAMG": "",
       "ZAMG": "https://www.zamg.ac.at/"
     },
     "feedback": {
