@@ -230,6 +230,7 @@
   "weathermap:cockpit:select-parameter": "Select parameter",
   "weathermap:cockpit:unit:title": "Unit",
   "weathermap:cockpit:zamg:hover": "GeoSphere Austria",
+  "weathermap:attribution": "Show datalayer with CTRL+Click",
   "weatherstation-diagrams:back": "Back",
   "weatherstation-diagrams:forward": "Forward",
   "weatherstation-diagrams:latest": "Latest",

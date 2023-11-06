@@ -4,6 +4,7 @@ import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
 import { isBlendingSupported } from "../../util/blendMode";
 import { useMap } from "react-leaflet";
+import { useIntl } from "react-intl";
 
 const css = `
     .debug-almost-invisible {
@@ -17,6 +18,8 @@ const css = `
     }
 `;
 const DataOverlay = props => {
+  const intl = useIntl();
+
   //console.log('dataOverlay->start xxx1', props);
 
   const parentMap = useMap();
@@ -310,7 +313,9 @@ const DataOverlay = props => {
             url={props.overlay + ".png"}
             opacity={1}
             bounds={config.weathermaps.settings.bbox}
-            attribution="Show datalayer with CTRL+Click"
+            attribution={intl.formatMessage({
+              id: "weathermap:attribution"
+            })}
             eventHandlers={{
               click: showDataMarker.bind(this)
             }}
@@ -326,7 +331,11 @@ const DataOverlay = props => {
           opacity={isBlendingSupported() ? 1 : 0.5}
           bounds={config.weathermaps.settings.bbox}
           interactive={true}
-          attribution={props.debug ? "Show datalayer with CTRL+Click" : null}
+          attribution={
+            props.debug
+              ? intl.formatMessage({ id: "weathermap:attribution" })
+              : null
+          }
           //onClick={()=>console.log('dataOverlay->click')}
           eventHandlers={{
             click: showDataMarker,
