@@ -575,7 +575,7 @@ $selectric-max-width: 20em;
 
   background: $white;
   border: $border-width $border-style $brand;
-  z-index: -1;
+  // z-index: -1;
   opacity: 0;
   @include box-shadow;
   @include rollout;
