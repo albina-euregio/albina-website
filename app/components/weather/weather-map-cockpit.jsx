@@ -425,7 +425,7 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-point-exact"
                   className="cp-scale-stamp-point-exact"
                 >
-                  {timeStart}
+                  {timeEnd}
                 </span>
               </div>
             </Dragger>
