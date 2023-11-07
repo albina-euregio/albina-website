@@ -485,7 +485,7 @@ export default class WeatherMapStore_new {
       let foundStartHour;
       const currHours = currentTime.getUTCHours();
       const timesForSpan = this._getPossibleTimesForSpan();
-      const soonerTimesToday = timesForSpan.filter(aTime => aTime < currHours);
+      const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
       if (soonerTimesToday.length)
         foundStartHour = Math.max.apply(Math, soonerTimesToday);
       else foundStartHour = Math.max.apply(Math, timesForSpan);
@@ -495,13 +495,13 @@ export default class WeatherMapStore_new {
         currentTime.setUTCHours(currentTime.getUTCHours() - 24);
       currentTime.setUTCHours(foundStartHour);
       // console.log(
-      //   "_getStartTimeForSpan #1",
-      //   currentTime,
-      //   currentTime.getUTCHours(),
-      //   timesForSpan,
-      //   soonerTimesToday,
-      //   foundStartHour
-      // );
+      //   "_getStartTimeForSpan #1",{
+      //     currentTimeUTC: currentTime.toUTCString(),
+      //     currHours,
+      //     timesForSpan,
+      //     soonerTimesToday,
+      //     foundStartHour
+      //   });
     }
     return currentTime;
   }
@@ -583,7 +583,7 @@ export default class WeatherMapStore_new {
       //   debIndezes
       // });
 
-      startFrom.setUTCHours(startFrom.getUTCHours() + this._absTimeSpan);
+      //startFrom.setUTCHours(startFrom.getUTCHours() + (this._absTimeSpan != 1 ? 0 : 0));
 
       // if endTimeDate of periode is in the future set startdate to one offset earlier
       //const endTime = new Date(startFrom);
@@ -592,8 +592,8 @@ export default class WeatherMapStore_new {
       //   startFromUTC: startFrom.toUTCString(),
       //   nowUTC: new Date().toUTCString()
       // });
-      if (new Date() < startFrom)
-        startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
+      //if (new Date() < startFrom)
+      //startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
 
       currentTime = new Date(startFrom);
 
@@ -609,7 +609,7 @@ export default class WeatherMapStore_new {
         //   startFrom: startFrom.toUTCString(),
         //   currentTimeUTC: currentTime.toUTCString(),
         //   maxTimeUtc: maxTime.toUTCString(),
-        //   endTimeUtc: endTime.toUTCString(),
+        //   //endTimeUtc: endTime.toUTCString(),
         //   timeSpanDir
         // });
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
@@ -623,8 +623,8 @@ export default class WeatherMapStore_new {
 
         // console.log("_setAvailableTimes timeSpanDir<= 0 ##4",{
         //   currentTimeUTC: currentTime.toUTCString(),
-        //   lastCurrent: currentTime.toUTCString(),
-        //   diff: Math.abs(lastCurrent - currentTime) / 36e5
+        //   lastCurrent: currentTime.toUTCString()
+        //  // diff: Math.abs(lastCurrent - currentTime) / 36e5
         // });
       }
     }
