@@ -744,11 +744,11 @@ class WeatherMapCockpit extends React.Component {
               })}
             >
               <a
-                href="https://www.zamg.ac.at"
+                href="https://www.geosphere.at/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className="is-visually-hidden">ZAMG</span>
+                <span className="is-visually-hidden">GeoSphere Austria</span>
               </a>
             </Tooltip>
           </div>
