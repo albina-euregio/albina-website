@@ -86,6 +86,9 @@ class BulletinCollection {
   setData(caaml: Bulletins | null) {
     this.dataRaw = caaml;
     this.dataRaw?.bulletins.forEach(b => {
+      if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
+        b.tendency = [b.tendency];
+      }
       b.avalancheProblems?.forEach(p => {
         if (p.problemType === ("wind_drifted_snow" as string)) {
           p.problemType = "wind_slab" as AvalancheProblemType;
