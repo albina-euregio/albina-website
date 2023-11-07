@@ -708,6 +708,8 @@ class WeatherMapCockpit extends React.Component {
       "weather-map-cockpit",
       "lastRedraw-" + this.state.lastRedraw
     ];
+
+    const imgRoot = `${window.config.projectRoot}images/pro/`;
     return (
       <div
         role="button"
@@ -748,7 +750,11 @@ class WeatherMapCockpit extends React.Component {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className="is-visually-hidden">GeoSphere Austria</span>
+                <img
+                  src={`${imgRoot}weathermaps/zamg-logo-small.png`}
+                  alt={"GeoSphere Austria"}
+                />
+                <span className="">GeoSphere Austria</span>
               </a>
             </Tooltip>
           </div>
