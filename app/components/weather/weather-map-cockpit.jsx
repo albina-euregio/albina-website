@@ -298,18 +298,30 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setClosestTick(x) {
+    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let closestTime = this.getClosestTick(x);
-    //console.log("setClosestTick hhhh", closestTime, this.props.currentTime, this.getTimeStartForCurrentTime()?.getTime());
+    let newLeft;
+    //closestTime = this.getTimeStart(closestTime).getTime();
+    //debugger;
+    // console.log("setClosestTick hhhh", {
+    //   //draggerWidth: $('#dragger').width(),
+    //   //x,
+    //   closest: new Date(closestTime).toUTCString(),
+    //   current: new Date(this.props.currentTime).toUTCString(),
+    // //new Date(this.getTimeStart(closestTime)).toUTCString()
+    // });
+
     // place back to origin
     if (closestTime === this.props.currentTime) {
+      //console.log("setClosestTick hhhh #1");
       this.showTimes(true);
-      this.rePostionsStamp(
-        this.getLeftForTime(this.getTimeStartForCurrentTime()?.getTime())
-      );
+      newLeft =
+        this.getLeftForTime(closestTime) - this.tickWidth * nrOnlyTimespan;
+      this.rePostionsStamp(newLeft);
     }
 
     try {
-      //console.log("setClosestTick hhhh closestTime:", new Date(closestTime));
+      //console.log("setClosestTick hhhh1 closestTime:", new Date(closestTime).toUTCString(), newLeft);
 
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
@@ -318,9 +330,9 @@ class WeatherMapCockpit extends React.Component {
     }
   }
 
-  getTimeStartForCurrentTime() {
+  getTimeStart(triggerTime) {
     let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
-    let timeStart = new Date(this.props.currentTime);
+    let timeStart = new Date(triggerTime);
     timeStart.setHours(timeStart.getHours() - parseInt(nrOnlyTimespan, 10));
     return timeStart;
   }
@@ -332,7 +344,7 @@ class WeatherMapCockpit extends React.Component {
 
     if (this.props.currentTime) {
       let timeStart = this.props.intl.formatTime(
-        this.getTimeStartForCurrentTime()
+        this.getTimeStart(this.props.currentTime)
       );
       const timeEnd = this.props.intl.formatTime(this.props.currentTime);
 
@@ -342,7 +354,9 @@ class WeatherMapCockpit extends React.Component {
           ? this.getLeftForTime(this.props.currentTime) -
             this.tickWidth * nrOnlyTimespan
           : 0,
-        onDragEnd: self.setClosestTick.bind(self),
+        onDragEnd: x => {
+          self.setClosestTick(x + $("#dragger").width());
+        },
         onDragStart: self.onDragStart.bind(this),
         parent: ".cp-scale-stamp",
         rePosition: f => {
@@ -368,6 +382,7 @@ class WeatherMapCockpit extends React.Component {
           {nrOnlyTimespan !== 1 && (
             <Dragger {...dragSettings}>
               <div
+                id="dragger"
                 key="scale-stamp-range"
                 style={{
                   left: 0,
@@ -397,6 +412,7 @@ class WeatherMapCockpit extends React.Component {
           {nrOnlyTimespan === 1 && (
             <Dragger {...dragSettings}>
               <div
+                id="dragger"
                 style={{ left: 0 }}
                 key="scale-stamp-point"
                 className="cp-scale-stamp-point js-active"
@@ -409,7 +425,7 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-point-exact"
                   className="cp-scale-stamp-point-exact"
                 >
-                  {timeStart}
+                  {timeEnd}
                 </span>
               </div>
             </Dragger>
@@ -692,6 +708,8 @@ class WeatherMapCockpit extends React.Component {
       "weather-map-cockpit",
       "lastRedraw-" + this.state.lastRedraw
     ];
+
+    const imgRoot = `${window.config.projectRoot}images/pro/`;
     return (
       <div
         role="button"
@@ -732,7 +750,11 @@ class WeatherMapCockpit extends React.Component {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className="is-visually-hidden">GeoSphere Austria</span>
+                <img
+                  src={`${imgRoot}weathermaps/zamg-logo-small.png`}
+                  alt={"GeoSphere Austria"}
+                />
+                <span className="">GeoSphere Austria</span>
               </a>
             </Tooltip>
           </div>
