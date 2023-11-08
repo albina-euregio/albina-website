@@ -189,7 +189,8 @@ $search-width-wide: 300px;
 
   .leaflet-control-zoom,
   .leaflet-geonames-search,
-  .leaflet-control-locate {
+  .leaflet-control-locate,
+  .leaflet-control-showhide {
     margin-bottom: $padding;
     @include box-shadow(0.15);
     a:before {
@@ -308,6 +309,23 @@ $search-width-wide: 300px;
     }
     .icon-geolocate {
       display: none;
+    }
+  }
+
+  .leaflet-control-showhide {
+    &.leaflet-control-show {
+      a {
+        &:before {
+          @include icon(show, 0, 0, none, 0, none);
+        }
+      }
+    }
+    &.leaflet-control-hide {
+      a {
+        &:before {
+          @include icon(hide, 0, 0, none, 0, none);
+        }
+      }
     }
   }
 }

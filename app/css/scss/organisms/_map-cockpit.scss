@@ -25,7 +25,7 @@ $cp-legend-height: 20px;
 $cp-release-height: 20px;
 
 $cp-copyright-height: 40px;
-$cp-copyright-width: 35px;
+$cp-copyright-width: 40px;
 
 $cp-font-size-small: 10px;
 $cp-font-size-medium: 12px;
@@ -622,14 +622,14 @@ $cp-breakpoint-2: 1024px;
 
   height: $cp-copyright-height;
   width: $cp-copyright-width;
-  padding: 2px;
+  padding: 5px;
   border-top: $border-width $border-style $brand-very-light;
 
   a {
     display: block;
-    height: calc(#{$cp-copyright-height} - 4px);
-    width: calc(#{$cp-copyright-width} - 4px);
-    background: transparent url(../images/pro/logos/zamg-logo-small.png)
+    height: calc(#{$cp-copyright-height} - 10px);
+    width: calc(#{$cp-copyright-width} - 10px);
+    background: transparent url(../images/pro/logos/geosphere-logo-small.png)
       no-repeat 50% 50%;
     background-size: contain;
   }

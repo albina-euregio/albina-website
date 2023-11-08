@@ -749,12 +749,9 @@ class WeatherMapCockpit extends React.Component {
                 href="https://www.geosphere.at/"
                 rel="noopener noreferrer"
                 target="_blank"
+                className="avoid-external-icon"
               >
-                <img
-                  src={`${imgRoot}weathermaps/zamg-logo-small.png`}
-                  alt={"GeoSphere Austria"}
-                />
-                <span className="">GeoSphere Austria</span>
+                <span className="is-visually-hidden">GeoSphere Austria</span>
               </a>
             </Tooltip>
           </div>
