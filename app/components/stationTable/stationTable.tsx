@@ -1,10 +1,10 @@
-import React from "react";
-import { modal_open_by_params } from "../../js/modal";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
+import WeatherStationDiagrams from "../dialogs/weather-station-diagrams";
 
 type SortDir = "desc" | "asc";
 
@@ -22,6 +22,7 @@ type Props = {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
+  const ref = useRef<HTMLDialogElement>(null);
 
   type RenderFun = (
     _value: number,
@@ -199,12 +200,7 @@ export default function StationTable(props: Props) {
       stationData: props.sortedFilteredData,
       rowId: station.id
     });
-    modal_open_by_params(
-      null,
-      "inline",
-      "#weatherStationDiagrams",
-      "weatherStationDiagrams"
-    );
+    ref.current.showModal();
   }
 
   const sortClasses = (id: keyof StationData, dir: SortDir) => {
@@ -245,52 +241,62 @@ export default function StationTable(props: Props) {
   }
 
   return (
-    <table className="pure-table pure-table-striped pure-table-small table-measurements">
-      <thead>
-        <tr>
-          {displayColumns.map(col => (
-            <th key={col.data}>
-              {title(col.data)}
-              {col.subtitle && <br />}
-              {col.subtitle ? col.subtitle : ""}
-              {col.sortable !== false && (
-                <span className="sort-buttons">
-                  {(["asc", "desc"] as SortDir[]).map(dir => (
-                    <Tooltip key={dir} label={sortTitle(col.data, dir)}>
-                      <a
-                        href="#"
-                        className={sortClasses(col.data, dir)}
-                        onClick={e => handleSort(e, col, dir)}
-                      >
-                        <span className="is-visually-hidden">
-                          {title(col.data)}: {sortTitle(col.data, dir)}
-                        </span>
-                      </a>
-                    </Tooltip>
-                  ))}
-                </span>
-              )}
-            </th>
-          ))}
-        </tr>
-      </thead>
-
-      <tbody>
-        {props.sortedFilteredData.map((row: StationData) => (
-          <tr key={row.id} onClick={() => _rowClicked(row)}>
+    <>
+      <table className="pure-table pure-table-striped pure-table-small table-measurements">
+        <thead>
+          <tr>
             {displayColumns.map(col => (
-              <td key={row.id + "-" + col.data} className={col.className}>
-                {col.render && col.render(row[col.data], row, col.unit)}
-                {!col.render && (
-                  <span className={col.data} title={title(col.data)}>
-                    {formatNumber(row[col.data], col.unit)}
+              <th key={col.data}>
+                {title(col.data)}
+                {col.subtitle && <br />}
+                {col.subtitle ? col.subtitle : ""}
+                {col.sortable !== false && (
+                  <span className="sort-buttons">
+                    {(["asc", "desc"] as SortDir[]).map(dir => (
+                      <Tooltip key={dir} label={sortTitle(col.data, dir)}>
+                        <a
+                          href="#"
+                          className={sortClasses(col.data, dir)}
+                          onClick={e => handleSort(e, col, dir)}
+                        >
+                          <span className="is-visually-hidden">
+                            {title(col.data)}: {sortTitle(col.data, dir)}
+                          </span>
+                        </a>
+                      </Tooltip>
+                    ))}
                   </span>
                 )}
-              </td>
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {props.sortedFilteredData.map((row: StationData) => (
+            <tr key={row.id} onClick={() => _rowClicked(row)}>
+              {displayColumns.map(col => (
+                <td key={row.id + "-" + col.data} className={col.className}>
+                  {col.render && col.render(row[col.data], row, col.unit)}
+                  {!col.render && (
+                    <span className={col.data} title={title(col.data)}>
+                      {formatNumber(row[col.data], col.unit)}
+                    </span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <dialog
+        ref={ref}
+        onClick={e => e.target == ref.current && ref.current.close()}
+      >
+        <form method="dialog">
+          <WeatherStationDiagrams isOpen={() => ref.current.open} />
+        </form>
+      </dialog>
+    </>
   );
 }

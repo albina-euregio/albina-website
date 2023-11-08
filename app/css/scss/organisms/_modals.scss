@@ -22,6 +22,18 @@ $mfp-overlay-color: $primary-color; // Color of overlay screen
 $mfp-overlay-opacity: 0.9; // Opacity of overlay screen
 $mfp-shadow: none; // Shadow on image or iframe
 
+dialog {
+  padding: 0;
+}
+dialog > form {
+  margin: 0;
+  padding: 1rem;
+}
+::backdrop {
+  opacity: $mfp-overlay-opacity;
+  background-color: $mfp-overlay-color;
+}
+
 // spacing
 $mfp-popup-padding-left: 0; // Padding from left and from right side
 $mfp-popup-padding-left-mobile: 0; // Same as above, but is applied when width of window is less than 800px

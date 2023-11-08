@@ -27,7 +27,7 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   keyFunction(event) {
-    if (window["modalStateStore"].isOpen) {
+    if (this.props.isOpen?.() ?? window["modalStateStore"].isOpen) {
       if (event.keyCode === 37) {
         //arrow left
         this.previous();
