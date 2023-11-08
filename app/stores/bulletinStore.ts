@@ -411,7 +411,7 @@ class BulletinStore {
 
   static _getBulletinUrl(date: string): string {
     const region = date > "2022-05-06" ? "EUREGIO_" : "";
-    return Util.template(config.apis.bulletin.CAAMLv6_2022, {
+    return Util.template(config.apis.bulletin.json, {
       date,
       region,
       lang: APP_STORE.language
