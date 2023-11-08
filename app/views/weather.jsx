@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import $ from "jquery";
 
 import { observer } from "mobx-react";
-import { modal_open_by_params } from "../js/modal";
 import { useIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -17,10 +16,12 @@ import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { useParams } from "react-router-dom";
 
 import Player from "../js/player";
+import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
 const Weather = () => {
   const intl = useIntl();
   const params = useParams();
+  const dialogRef = useRef(null);
 
   const [headerText] = useState("");
 
@@ -98,13 +99,7 @@ const Weather = () => {
         ),
         rowId: feature.id
       });
-      modal_open_by_params(
-        null,
-        "inline",
-        "#weatherStationDiagrams",
-        "weatherStationDiagrams",
-        true
-      );
+      dialogRef.current.showModal();
       //store.selectedFeature = null;
     } else {
       //store.selectedFeature = feature;
@@ -114,6 +109,7 @@ const Weather = () => {
   //console.log("weather->render", store.domainId, store.agl, player);
   return (
     <>
+      <WeatherStationDialog ref={dialogRef} />
       <HTMLHeader title={intl.formatMessage({ id: "weathermap:title" })} />
       <PageHeadline
         title={intl.formatMessage({ id: "weathermap:headline" })}

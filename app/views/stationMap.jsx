@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
@@ -9,6 +8,7 @@ import StationDataStore from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
+import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 
@@ -28,6 +28,7 @@ class StationMap extends React.Component {
   constructor(props) {
     super(props);
     this.store = new StationDataStore();
+    this.dialogRef = React.createRef();
   }
 
   componentDidMount() {
@@ -40,13 +41,7 @@ class StationMap extends React.Component {
         stationData,
         rowId: feature.id
       });
-      modal_open_by_params(
-        null,
-        "inline",
-        "#weatherStationDiagrams",
-        "weatherStationDiagrams",
-        true
-      );
+      this.dialogRef.current.showModal();
     }
   }
 
@@ -100,6 +95,7 @@ class StationMap extends React.Component {
     const overlays = [this.stationOverlay, this.observerOverlay];
     return (
       <>
+        <WeatherStationDialog ref={this.dialogRef} />
         <HTMLHeader
           title={this.props.intl.formatMessage({ id: "menu:lawis:station" })}
         />

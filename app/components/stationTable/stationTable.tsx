@@ -22,7 +22,7 @@ type Props = {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
-  const ref = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   type RenderFun = (
     _value: number,
@@ -200,7 +200,7 @@ export default function StationTable(props: Props) {
       stationData: props.sortedFilteredData,
       rowId: station.id
     });
-    ref.current.showModal();
+    dialogRef.current.showModal();
   }
 
   const sortClasses = (id: keyof StationData, dir: SortDir) => {
@@ -242,6 +242,7 @@ export default function StationTable(props: Props) {
 
   return (
     <>
+      <WeatherStationDialog ref={dialogRef} />
       <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <thead>
           <tr>
@@ -289,7 +290,6 @@ export default function StationTable(props: Props) {
           ))}
         </tbody>
       </table>
-      <WeatherStationDialog ref={ref} />
     </>
   );
 }

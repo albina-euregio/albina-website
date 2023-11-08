@@ -6,7 +6,6 @@ import PageFooter from "./organisms/page-footer.jsx";
 
 import ModalDialog from "./modal-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
-import WeatherStationDiagrams from "./dialogs/weather-station-diagrams";
 import DownloadPdfDialog from "./dialogs/download-pdf-dialog";
 import SubscribeTelegramDialog from "./dialogs/subscribe-telegram-dialog";
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
@@ -97,9 +96,6 @@ const Page = props => {
           <div className="tooltip-content"></div>
         </div>
       </div>
-      <ModalDialog id="weatherStationDiagrams">
-        <WeatherStationDiagrams />
-      </ModalDialog>
       <ModalDialog id="subscribeDialog">
         <SubscribeDialog />
       </ModalDialog>
