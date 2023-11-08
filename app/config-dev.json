@@ -36,7 +36,7 @@
       "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}{format}",
       "pdf": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "CAAMLv6_2022": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6_2022.json",
+      "json": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "archive": "https://static.avalanche.report/bulletins/archive/",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },

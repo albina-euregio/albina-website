@@ -54,6 +54,12 @@ function BulletinReport({ date, bulletin }: Props) {
   const classes =
     "panel field callout warning-level-" + getWarnlevelNumber(maxWarnlevel);
 
+  const hasTendencyHighlights =
+    Array.isArray(bulletin.tendency) &&
+    bulletin.tendency.some(
+      tendency => tendency.highlights && getLocalizedText(tendency.highlights)
+    );
+
   return (
     <div>
       <section
@@ -126,7 +132,7 @@ function BulletinReport({ date, bulletin }: Props) {
           <p>{getLocalizedText(bulletin.avalancheActivity?.comment)}</p>
         </div>
       </section>
-      {(bulletin.tendency?.comment || bulletin.snowpackStructure?.comment) && (
+      {(hasTendencyHighlights || bulletin.snowpackStructure?.comment) && (
         <section
           id={bulletin.bulletinID + "-bulletin-additional"}
           className="section-centered section-bulletin section-bulletin-additional"
@@ -155,15 +161,21 @@ function BulletinReport({ date, bulletin }: Props) {
                 <p>{getLocalizedText(bulletin.snowpackStructure?.comment)}</p>
               </div>
             )}
-            {bulletin.tendency?.highlights &&
-              getLocalizedText(bulletin.tendency?.highlights) && (
-                <div>
-                  <h2 className="subheader">
-                    <FormattedMessage id="bulletin:report:tendency:headline" />
-                  </h2>
-                  <p>{getLocalizedText(bulletin.tendency?.highlights)}</p>
-                </div>
-              )}
+            {hasTendencyHighlights && (
+              <div>
+                <h2 className="subheader">
+                  <FormattedMessage id="bulletin:report:tendency:headline" />
+                </h2>
+                {bulletin.tendency.map(
+                  (tendency, index) =>
+                    getLocalizedText(tendency?.highlights) && (
+                      <p key={index}>
+                        {getLocalizedText(tendency?.highlights)}
+                      </p>
+                    )
+                )}
+              </div>
+            )}
             {/*
             <p className="bulletin-author">
               <FormattedMessage id="bulletin:report:author" />
