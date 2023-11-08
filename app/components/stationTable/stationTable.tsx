@@ -4,7 +4,7 @@ import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import WeatherStationDiagrams from "../dialogs/weather-station-diagrams";
+import WeatherStationDialog from "../dialogs/weather-station-dialog";
 
 type SortDir = "desc" | "asc";
 
@@ -289,14 +289,7 @@ export default function StationTable(props: Props) {
           ))}
         </tbody>
       </table>
-      <dialog
-        ref={ref}
-        onClick={e => e.target == ref.current && ref.current.close()}
-      >
-        <form method="dialog">
-          <WeatherStationDiagrams isOpen={() => ref.current.open} />
-        </form>
-      </dialog>
+      <WeatherStationDialog ref={ref} />
     </>
   );
 }
