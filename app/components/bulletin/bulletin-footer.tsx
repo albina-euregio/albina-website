@@ -109,7 +109,7 @@ function BulletinFooter() {
           <li>
             <a className="secondary pure-button" href="/weather/stations">
               {intl.formatMessage({
-                id: "button:snow:stations:text"
+                id: "button:stations:stations:text"
               })}
             </a>
           </li>

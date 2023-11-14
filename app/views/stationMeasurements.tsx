@@ -190,7 +190,7 @@ const StationMeasurements = () => {
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "button:snow:stations:text"
+                  id: "button:stations:stations:text"
                 })}
               </a>
             </li>
