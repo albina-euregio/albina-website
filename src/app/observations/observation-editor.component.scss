@@ -13,6 +13,7 @@
 .copy-icon-wrapper {
   display: flex;
   align-items: end;
+  padding: 0.5rem;
 }
 
 .copy-icon {
@@ -28,5 +29,23 @@
 @media screen and (min-width: 768px) {
   .p-col-md-3 {
     width: 25%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .p-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto -0.5rem auto -0.5rem;
+  }
+
+  .p-grid > *:not(.flex-break, .copy-icon-wrapper) {
+    flex: 1;
+    padding: 0.5rem;
+  }
+
+  .flex-break {
+    flex-basis: 100%;
+    padding: 0;
   }
 }
