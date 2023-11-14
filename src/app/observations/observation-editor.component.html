@@ -1,159 +1,58 @@
 <div *ngIf="observation" class="p-fluid p-formgrid p-grid">
   <div class="p-field p-col-12 p-md-6">
-    <label for="eventType"
-      ><i class="fa fa-square"></i>
-      {{ "observations.eventType" | translate }}</label
-    >
-    <p-dropdown
-      inputId="eventType"
-      [options]="eventTypes"
-      [(ngModel)]="observation.eventType"
-      [showTransitionOptions]="'0ms'"
-      [hideTransitionOptions]="'0ms'"
-    >
-    </p-dropdown>
+    <label for="eventType"><i class="fa fa-square"></i> {{ "observations.eventType" | translate }}</label>
+    <p-dropdown inputId="eventType" [options]="eventTypes" [(ngModel)]="observation.eventType" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
   </div>
   <div class="p-field p-col-12 p-md-6">
-    <label for="eventDate"
-      ><i class="fa fa-calendar"></i>
-      {{ "observations.eventDate" | translate }}</label
-    >
+    <label for="eventDate"><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</label>
     <div id="eventDate" pInputText>
-      <input
-        type="date"
-        required
-        (change)="setEventDate($event)"
-        [ngModel]="getDate(observation.eventDate)"
-        class="date"
-      />
-      <input
-        type="time"
-        required
-        (change)="setEventTime($event)"
-        [ngModel]="getTime(observation.eventDate)"
-        class="time"
-      />
+      <input type="date" required (change)="setEventDate($event)" [ngModel]="getDate(observation.eventDate)" class="date"/>
+      <input type="time" required (change)="setEventTime($event)" [ngModel]="getTime(observation.eventDate)" class="time"/>
     </div>
     <!-- <input id="eventDate" required [ngModel]="getEventDate()" (ngModelChange)="setEventDate($event)" type="datetime-local" pInputText /> -->
   </div>
+  <div class="flex-break"></div>
   <div class="p-field p-col-12">
-    <label for="locationName"
-      ><i class="fa fa-globe"></i>
-      {{ "observations.locationName" | translate }}</label
-    >
-    <p-autoComplete
-      id="locationName"
-      required
-      [(ngModel)]="observation.locationName"
-      (completeMethod)="searchLocation($event)"
-      [suggestions]="locationResults"
-      (onSelect)="selectLocation($event)"
-    >
-      <ng-template let-feature pTemplate="item">{{
-        feature.properties.display_name
-      }}</ng-template>
+    <label for="locationName"><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</label>
+    <p-autoComplete id="locationName" required [(ngModel)]="observation.locationName" (completeMethod)="searchLocation($event)" [suggestions]="locationResults" (onSelect)="selectLocation($event)">
+      <ng-template let-feature pTemplate="item">{{ feature.properties.display_name }}</ng-template>
     </p-autoComplete>
   </div>
+  <div class="flex-break"></div>
   <div class="p-field p-col-12 p-md-4">
-    <label for="latitude"
-      ><i class="fa fa-map-marker"></i>
-      {{ "observations.latitude" | translate }}</label
-    >
-    <input
-      id="latitude"
-      (change)="setLatitude($event)"
-      [ngModel]="observation.latitude"
-      type="number"
-      step="0.0000001"
-      pInputText
-    />
+    <label for="latitude"><i class="fa fa-map-marker"></i> {{ "observations.latitude" | translate }}</label>
+    <input id="latitude" (change)="setLatitude($event)" [ngModel]="observation.latitude" type="number" step="0.0000001" pInputText/>
   </div>
   <div class="p-field p-col-12 p-md-4">
-    <label for="longitude"
-      ><i class="fa fa-map-marker"></i>
-      {{ "observations.longitude" | translate }}</label
-    >
-    <input
-      id="longitude"
-      (change)="setLongitude($event)"
-      [ngModel]="observation.longitude"
-      type="number"
-      step="0.0000001"
-      pInputText
-    />
+    <label for="longitude"><i class="fa fa-map-marker"></i> {{ "observations.longitude" | translate }}</label>
+    <input id="longitude" (change)="setLongitude($event)" [ngModel]="observation.longitude" type="number" step="0.0000001" pInputText/>
   </div>
   <div class="p-field p-col-1 p-col-sm-3 copy-icon-wrapper">
-    <button
-      class="p-element p-button p-component"
-      type="button"
-      (click)="copyLatLng()"
-    >
+    <button class="p-element p-button p-component" type="button" (click)="copyLatLng()">
       <span class="p-button-label">
         <li class="fa fa-copy copy-icon"></li>
       </span>
     </button>
   </div>
   <div class="p-field p-col-12 p-col-md-3">
-    <label for="elevation"
-      ><i class="fa fa-arrows-v"></i>
-      {{ "observations.elevation" | translate }}</label
-    >
-    <input
-      id="elevation"
-      [(ngModel)]="observation.elevation"
-      type="number"
-      step="1"
-      pInputText
-    />
+    <label for="elevation"><i class="fa fa-arrows-v"></i> {{ "observations.elevation" | translate }}</label>
+    <input id="elevation" [(ngModel)]="observation.elevation" type="number" step="1" pInputText/>
+  </div>
+  <div class="flex-break"></div>
+  <div class="p-field p-col-12 p-md-6">
+    <label for="authorName"><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</label>
+    <input id="authorName" required [(ngModel)]="observation.authorName" type="text" pInputText/>
   </div>
   <div class="p-field p-col-12 p-md-6">
-    <label for="authorName"
-      ><i class="fa fa-user"></i>
-      {{ "observations.authorName" | translate }}</label
-    >
-    <input
-      id="authorName"
-      required
-      [(ngModel)]="observation.authorName"
-      type="text"
-      pInputText
-    />
-  </div>
-  <div class="p-field p-col-12 p-md-6">
-    <label for="reportDate"
-      ><i class="fa fa-pencil"></i>
-      {{ "observations.reportDate" | translate }}</label
-    >
+    <label for="reportDate"><i class="fa fa-pencil"></i> {{ "observations.reportDate" | translate }}</label>
     <div id="reportDate" pInputText>
-      <input
-        type="date"
-        required
-        (change)="setReportDate($event)"
-        [ngModel]="getDate(observation.reportDate)"
-        class="date"
-      />
-      <input
-        type="time"
-        required
-        (change)="setReportTime($event)"
-        [ngModel]="getTime(observation.reportDate)"
-        class="time"
-      />
+      <input type="date" required (change)="setReportDate($event)" [ngModel]="getDate(observation.reportDate)" class="date"/>
+      <input type="time" required (change)="setReportTime($event)" [ngModel]="getTime(observation.reportDate)" class="time"/>
     </div>
   </div>
+  <div class="flex-break"></div>
   <div class="p-field p-col-12">
-    <label for="content"
-      ><i class="fa fa-comment"></i>
-      {{ "observations.content" | translate }}</label
-    >
-    <textarea
-      id="content"
-      required
-      [(ngModel)]="observation.content"
-      (paste)="parseContent($event)"
-      type="text"
-      rows="8"
-      pInputTextarea
-    ></textarea>
+    <label for="content"><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</label>
+    <textarea id="content" required [(ngModel)]="observation.content" (paste)="parseContent($event)" type="text" rows="8" pInputTextarea></textarea>
   </div>
 </div>
