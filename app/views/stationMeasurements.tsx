@@ -35,26 +35,6 @@ const StationMeasurements = () => {
     setSearchParams(search);
   };
 
-  const handleChangeSearch = val => {
-    store.setSearchText(val);
-    updateURL();
-  };
-
-  const handleToggleActive = val => {
-    store.toggleActiveData(val);
-    updateURL();
-  };
-
-  const handleChangeRegion = val => {
-    store.activeRegion = val;
-    updateURL();
-  };
-
-  const handleSort = (id, dir) => {
-    store.sortBy(id, dir);
-    updateURL();
-  };
-
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof store.activeData)[] = [
     "snow",
@@ -76,7 +56,10 @@ const StationMeasurements = () => {
         searchTitle={intl.formatMessage({
           id: "measurements:search"
         })}
-        searchOnChange={handleChangeSearch}
+        searchOnChange={val => {
+          store.setSearchText(val);
+          updateURL();
+        }}
         searchValue={store.searchText}
       >
         <ProvinceFilter
@@ -84,7 +67,10 @@ const StationMeasurements = () => {
             id: "measurements:filter:province"
           })}
           all={intl.formatMessage({ id: "filter:all" })}
-          handleChange={handleChangeRegion}
+          handleChange={val => {
+            store.activeRegion = val;
+            updateURL();
+          }}
           value={store.activeRegion}
           className={store.activeRegion !== "all" ? classChanged : ""}
         />
@@ -127,7 +113,10 @@ const StationMeasurements = () => {
                   ":hover"
               })}
               active={store.activeData[e]}
-              onToggle={handleToggleActive}
+              onToggle={val => {
+                store.toggleActiveData(val);
+                updateURL();
+              }}
             />
           ))}
         </HideGroupFilter>
@@ -141,7 +130,10 @@ const StationMeasurements = () => {
             sortValue={store.sortValue}
             sortDir={store.sortDir}
             searchText={store.searchText}
-            handleSort={handleSort}
+            handleSort={(id, dir) => {
+              store.sortBy(id, dir);
+              updateURL();
+            }}
           />
         </div>
       </section>
