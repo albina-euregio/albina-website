@@ -209,6 +209,10 @@
         "glidingSnow": "Gliding snow",
         "favourableSituation": "Favourable situation",
         "cancel": "Cancel"
+      },
+      "decisionTree" : {
+        "decisionTree" : "Decision tree",
+        "feedback" : "Feedback"
       }
     },
     "table": {

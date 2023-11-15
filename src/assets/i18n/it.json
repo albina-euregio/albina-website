@@ -214,6 +214,10 @@
         "glidingSnow" : "Valanghe di slittamento",
         "favourableSituation" : "Situazione favorevole",
         "cancel" : "Cancella"
+      },
+      "decisionTree" : {
+        "decisionTree" : "Albero di decisione",
+        "feedback" : "Feedback"
       }
     },
     "table" : {

@@ -214,6 +214,10 @@
         "glidingSnow" : "Gleitschnee",
         "favourableSituation" : "Günstige Situation",
         "cancel" : "Abbrechen"
+      },
+      "decisionTree" : {
+        "decisionTree" : "Entscheidungsbaum",
+        "feedback" : "Feedback"
       }
     },
     "table" : {

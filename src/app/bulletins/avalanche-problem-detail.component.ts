@@ -9,7 +9,8 @@ import { BulletinModel } from "app/models/bulletin.model";
 
 @Component({
   selector: "app-avalanche-problem-detail",
-  templateUrl: "avalanche-problem-detail.component.html"
+  templateUrl: "avalanche-problem-detail.component.html",
+  styleUrls: ["avalanche-problem-detail.component.scss"]
 })
 export class AvalancheProblemDetailComponent implements OnChanges {
 
