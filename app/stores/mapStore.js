@@ -1,10 +1,9 @@
 import { makeAutoObservable } from "mobx";
-
 export default class MapStore {
   constructor() {
     this.mapCenter = { lat: 47, lon: 12 };
     this._mapZoom = 9;
-    this._showStations = false;
+    this._showStations = !/android|ip(hone|od|ad)/i.test(navigator.userAgent);
     makeAutoObservable(this);
   }
 
