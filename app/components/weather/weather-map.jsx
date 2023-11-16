@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
+import { useIntl } from "react-intl";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
@@ -9,8 +10,8 @@ import { MAP_STORE } from "../../stores/mapStore";
 import { CustomLeafletControl } from "../leaflet/controls/customLeafletControl";
 
 const WeatherMap = props => {
-  //console.log("WeatherMap->start uu122", props);
-  //const [showStations, setShowStations] = useState(false);
+  const intl = useIntl();
+
   const overlays = [];
   let showStationsToggle = false;
   if (props.item) {
@@ -84,6 +85,9 @@ const WeatherMap = props => {
     }
   }
 
+  let showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
+    { id: "weathermap:showHidePin" }
+  )}"></a>`;
   let showHideStationsCtrl = (
     <CustomLeafletControl
       key="showHideControler"
@@ -94,7 +98,7 @@ const WeatherMap = props => {
           ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
           : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
       }
-      innerHTML='<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="Hide Pins"></a>'
+      innerHTML={showHideStationsCtrlInnerHTML}
       onClick={() => MAP_STORE.setShowStations(!MAP_STORE.showStations)}
       enabled={showStationsToggle}
     />
