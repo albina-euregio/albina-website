@@ -86,6 +86,9 @@ class BulletinCollection {
   setData(caaml: Bulletins | null) {
     this.dataRaw = caaml;
     this.dataRaw?.bulletins.forEach(b => {
+      if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
+        b.tendency = [b.tendency];
+      }
       b.avalancheProblems?.forEach(p => {
         if (p.problemType === ("wind_drifted_snow" as string)) {
           p.problemType = "wind_slab" as AvalancheProblemType;
@@ -408,7 +411,7 @@ class BulletinStore {
 
   static _getBulletinUrl(date: string): string {
     const region = date > "2022-05-06" ? "EUREGIO_" : "";
-    return Util.template(config.apis.bulletin.CAAMLv6_2022, {
+    return Util.template(config.apis.bulletin.json, {
       date,
       region,
       lang: APP_STORE.language

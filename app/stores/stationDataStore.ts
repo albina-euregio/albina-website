@@ -5,8 +5,8 @@ import { dateFormat } from "../util/date";
 import { currentSeasonYear } from "../util/date-season";
 
 interface FeatureProperties {
-  "LWD-Nummer": string;
-  "LWD-Region": string;
+  "LWD-Nummer"?: string;
+  "LWD-Region"?: string;
   Beobachtungsbeginn: string;
   date?: Date;
   GS_O?: number;
@@ -64,18 +64,21 @@ export class StationData {
   }
   get state() {
     const region = this.properties["LWD-Region"];
-    if (typeof region === "string") {
-      const match = region.match(window.config.regionsRegex);
-      return match ? match[0] : "";
-    } else {
+    if (typeof region !== "string") {
       return "";
     }
+    const match = region.match(window.config.regionsRegex);
+    return match ? match[0] : "";
   }
   get region() {
     return this.state;
   }
   get microRegion() {
-    return this.properties["LWD-Region"].split(/ /)?.[0];
+    const region = this.properties["LWD-Region"];
+    if (typeof region !== "string") {
+      return "";
+    }
+    return region.split(/ /)?.[0];
   }
   get date() {
     return new Date(this.properties.date);
