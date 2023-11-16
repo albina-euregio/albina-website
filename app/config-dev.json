@@ -256,6 +256,9 @@
       "position": "topleft",
       "flyTo": true
     },
+    "showHideOptions": {
+      "position": "topleft"
+    },
     "vectorOptions": {
       "smoothFactor": 0.8
     },

@@ -4,6 +4,7 @@ export default class MapStore {
   constructor() {
     this.mapCenter = { lat: 47, lon: 12 };
     this._mapZoom = 9;
+    this._showStations = false;
     makeAutoObservable(this);
   }
 
@@ -40,6 +41,15 @@ export default class MapStore {
   get mapZoom() {
     return this._mapZoom;
   }
+
+  get showStations() {
+    return this._showStations;
+  }
+
+  setShowStations = setTo => {
+    console.log("setShowStations", setTo);
+    this._showStations = setTo;
+  };
 }
 
 export const MAP_STORE = new MapStore();

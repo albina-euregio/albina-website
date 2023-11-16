@@ -1,15 +1,18 @@
-import React from "react";
-
+import React, { useMemo } from "react";
+import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
 import { MAP_STORE } from "../../stores/mapStore";
+import { CustomLeafletControl } from "../leaflet/controls/customLeafletControl";
 
 const WeatherMap = props => {
-  //console.log("WeatherMap->start xxx1", props);
+  //console.log("WeatherMap->start uu122", props);
+  //const [showStations, setShowStations] = useState(false);
   const overlays = [];
+  let showStationsToggle = false;
   if (props.item) {
     if (props.overlay) {
       //console.log("wather-map->#2 yyy2:", props.overlay);
@@ -76,12 +79,30 @@ const WeatherMap = props => {
           }}
         />
       );
+      showStationsToggle = true;
     }
   }
 
-  const controls = [];
+  const showHideStationsCtrl = showStationsToggle && (
+    <CustomLeafletControl
+      key="showHideControler"
+      config={config.map.showHideOptions}
+      containerElement="div"
+      classNames={
+        MAP_STORE.showStations
+          ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
+          : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
+      }
+      innerHTML='<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="Hide Pins"></a>'
+      onClick={() => MAP_STORE.setShowStations(!MAP_STORE.showStations)}
+    />
+  );
 
-  //console.log("weatherMap->render xxx1", overlays);
+  console.log(
+    "weatherMap->render uu122",
+    MAP_STORE.showStations,
+    showStationsToggle
+  );
   return (
     <>
       <LeafletMap
@@ -89,7 +110,7 @@ const WeatherMap = props => {
         identifier={props.domainId + "_" + props.itemId}
         onViewportChanged={props.onViewportChanged}
         overlays={overlays}
-        controls={controls}
+        controls={[showHideStationsCtrl]}
         timeArray={props.timeArray}
         mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
         tileLayerConfigOverride={config.weathermaps.settings.mapOptionsOverride}
@@ -106,4 +127,4 @@ const WeatherMap = props => {
   );
 };
 
-export default WeatherMap;
+export default observer(WeatherMap);
