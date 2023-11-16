@@ -7,31 +7,16 @@ export const CustomLeafletControl = ({
   containerElement,
   classNames,
   innerHTML,
-  onClick
+  onClick,
+  enabled
 }) => {
   const [control, setControl] = useState(null);
   const parentMap = useMap();
   const classNamesRef = useRef(classNames);
 
-  useEffect(() => {
-    return () => {
-      if (control) parentMap.removeControl(control);
-    };
-  }, []);
-
-  useEffect(() => {
-    classNamesRef.current = classNames;
-  }, [classNames]);
-
-  useEffect(() => {
-    if (!control) {
-      console.log(
-        "CustomLeafletControl->useEffect #1 uu12",
-        control,
-        parentMap
-      );
+  const createControl = () => {
+    if (!control && enabled && parentMap && config?.position) {
       const ctrl = L.control({ ...config });
-
       ctrl.onAdd = function (map) {
         //console.log("CustomLeafletControl->onAdd",map);
         let domElement = L.DomUtil.create(containerElement, classNames);
@@ -43,18 +28,40 @@ export const CustomLeafletControl = ({
       ctrl.addTo(parentMap);
       setControl(ctrl);
     }
-  }, [config?.position, classNames, parentMap]);
-  //console.log("CustomLeafletControl->render", ctrlRef.current);
+  };
+
+  const removeControl = () => {
+    if (control) {
+      control.remove();
+      setControl(null);
+    }
+  };
 
   useEffect(() => {
-    // Update the class of the existing control when dynamicClass changes
-    console.log("CustomLeafletControl->useEffect #2 uu12", control);
+    return () => {
+      removeControl();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (enabled) createControl();
+    else removeControl();
+  }, [enabled]);
+
+  useEffect(() => {
+    classNamesRef.current = classNames;
+  }, [classNames]);
+
+  useEffect(() => {
+    createControl();
+  }, [config?.position, classNames, parentMap]);
+
+  useEffect(() => {
     if (control) {
       const container = control.getContainer();
       container.className = classNamesRef.current;
     }
-  }, [classNames, parentMap]);
+  }, [classNames]);
 
-  console.log("CustomLeafletControl->render uu12", classNames);
-  return <></>;
+  return null;
 };

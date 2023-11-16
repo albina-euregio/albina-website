@@ -59,31 +59,32 @@ const WeatherMap = props => {
       props.stations.features &&
       !props.isPlaying
     ) {
-      overlays.push(
-        <StationOverlay
-          key={"stations"}
-          zoom={MAP_STORE.mapZoom}
-          onMarkerSelected={props.onMarkerSelected}
-          selectedFeature={props.selectedFeature}
-          item={props.item}
-          itemId={props.stationDataId}
-          features={props.stations.features}
-          onLoading={() => {
-            props.playerCB("stations", "loading");
-          }}
-          onLoad={() => {
-            props.playerCB("stations", "load");
-          }}
-          onTileerror={() => {
-            props.playerCB("stations", "error");
-          }}
-        />
-      );
+      if (MAP_STORE.showStations)
+        overlays.push(
+          <StationOverlay
+            key={"stations"}
+            zoom={MAP_STORE.mapZoom}
+            onMarkerSelected={props.onMarkerSelected}
+            selectedFeature={props.selectedFeature}
+            item={props.item}
+            itemId={props.stationDataId}
+            features={props.stations.features}
+            onLoading={() => {
+              props.playerCB("stations", "loading");
+            }}
+            onLoad={() => {
+              props.playerCB("stations", "load");
+            }}
+            onTileerror={() => {
+              props.playerCB("stations", "error");
+            }}
+          />
+        );
       showStationsToggle = true;
     }
   }
 
-  const showHideStationsCtrl = showStationsToggle && (
+  let showHideStationsCtrl = (
     <CustomLeafletControl
       key="showHideControler"
       config={config.map.showHideOptions}
@@ -95,14 +96,10 @@ const WeatherMap = props => {
       }
       innerHTML='<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="Hide Pins"></a>'
       onClick={() => MAP_STORE.setShowStations(!MAP_STORE.showStations)}
+      enabled={showStationsToggle}
     />
   );
 
-  console.log(
-    "weatherMap->render uu122",
-    MAP_STORE.showStations,
-    showStationsToggle
-  );
   return (
     <>
       <LeafletMap

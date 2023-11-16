@@ -47,7 +47,6 @@ export default class MapStore {
   }
 
   setShowStations = setTo => {
-    console.log("setShowStations", setTo);
     this._showStations = setTo;
   };
 }

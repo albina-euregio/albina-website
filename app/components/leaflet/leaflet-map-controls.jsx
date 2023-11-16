@@ -19,7 +19,6 @@ const LeafletMapControls = props => {
   const intl = useIntl();
   const parentMap = useMap();
 
-  console.log("LeafletMapControls", props);
   //const didMountRef = useRef(false);
   useEffect(() => {
     updateControls();
