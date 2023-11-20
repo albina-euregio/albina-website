@@ -26,6 +26,7 @@ interface FeatureProperties {
   name: string;
   OFT?: number;
   operator: string;
+  operatorLink?: string;
   plot: string;
   RH?: number;
   TD?: number;
@@ -58,6 +59,9 @@ export class StationData {
   }
   get operator() {
     return this.properties.operator;
+  }
+  get operatorLink() {
+    return this.properties.operatorLink || "";
   }
   get observationStart() {
     return this.properties.Beobachtungsbeginn;

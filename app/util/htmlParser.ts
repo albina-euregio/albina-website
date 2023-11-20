@@ -14,6 +14,7 @@ export function preprocessContent(content: string, blogMode = false) {
           return;
         } else if (
           (type === "a" || type === "button") &&
+          props.href &&
           !props.href.includes("http://") &&
           !props.href.includes("https://") &&
           !props.href.includes("mailto") &&
