@@ -86,7 +86,9 @@ const WeatherMap = props => {
   }
 
   let showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
-    { id: "weathermap:showHidePin" }
+    {
+      id: MAP_STORE.showStations ? "weathermap:hidePins" : "weathermap:showPins"
+    }
   )}"></a>`;
   let showHideStationsCtrl = (
     <CustomLeafletControl

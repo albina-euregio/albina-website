@@ -63,5 +63,12 @@ export const CustomLeafletControl = ({
     }
   }, [classNames]);
 
+  useEffect(() => {
+    if (control) {
+      const container = control.getContainer();
+      container.innerHTML = innerHTML;
+    }
+  }, [innerHTML]);
+
   return null;
 };
