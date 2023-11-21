@@ -1,15 +1,19 @@
-import React from "react";
-
+import React, { useMemo } from "react";
+import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
+import { useIntl } from "react-intl";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
 import { MAP_STORE } from "../../stores/mapStore";
+import { CustomLeafletControl } from "../leaflet/controls/customLeafletControl";
 
 const WeatherMap = props => {
-  //console.log("WeatherMap->start xxx1", props);
+  const intl = useIntl();
+
   const overlays = [];
+  let showStationsToggle = false;
   if (props.item) {
     if (props.overlay) {
       //console.log("wather-map->#2 yyy2:", props.overlay);
@@ -56,32 +60,52 @@ const WeatherMap = props => {
       props.stations.features &&
       !props.isPlaying
     ) {
-      overlays.push(
-        <StationOverlay
-          key={"stations"}
-          zoom={MAP_STORE.mapZoom}
-          onMarkerSelected={props.onMarkerSelected}
-          selectedFeature={props.selectedFeature}
-          item={props.item}
-          itemId={props.stationDataId}
-          features={props.stations.features}
-          onLoading={() => {
-            props.playerCB("stations", "loading");
-          }}
-          onLoad={() => {
-            props.playerCB("stations", "load");
-          }}
-          onTileerror={() => {
-            props.playerCB("stations", "error");
-          }}
-        />
-      );
+      if (MAP_STORE.showStations)
+        overlays.push(
+          <StationOverlay
+            key={"stations"}
+            zoom={MAP_STORE.mapZoom}
+            onMarkerSelected={props.onMarkerSelected}
+            selectedFeature={props.selectedFeature}
+            item={props.item}
+            itemId={props.stationDataId}
+            features={props.stations.features}
+            onLoading={() => {
+              props.playerCB("stations", "loading");
+            }}
+            onLoad={() => {
+              props.playerCB("stations", "load");
+            }}
+            onTileerror={() => {
+              props.playerCB("stations", "error");
+            }}
+          />
+        );
+      showStationsToggle = true;
     }
   }
 
-  const controls = [];
+  let showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
+    {
+      id: MAP_STORE.showStations ? "weathermap:hidePins" : "weathermap:showPins"
+    }
+  )}"></a>`;
+  let showHideStationsCtrl = (
+    <CustomLeafletControl
+      key="showHideControler"
+      config={config.map.showHideOptions}
+      containerElement="div"
+      classNames={
+        MAP_STORE.showStations
+          ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
+          : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
+      }
+      innerHTML={showHideStationsCtrlInnerHTML}
+      onClick={() => MAP_STORE.setShowStations(!MAP_STORE.showStations)}
+      enabled={showStationsToggle}
+    />
+  );
 
-  //console.log("weatherMap->render xxx1", overlays);
   return (
     <>
       <LeafletMap
@@ -89,7 +113,7 @@ const WeatherMap = props => {
         identifier={props.domainId + "_" + props.itemId}
         onViewportChanged={props.onViewportChanged}
         overlays={overlays}
-        controls={controls}
+        controls={[showHideStationsCtrl]}
         timeArray={props.timeArray}
         mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
         tileLayerConfigOverride={config.weathermaps.settings.mapOptionsOverride}
@@ -106,4 +130,4 @@ const WeatherMap = props => {
   );
 };
 
-export default WeatherMap;
+export default observer(WeatherMap);
