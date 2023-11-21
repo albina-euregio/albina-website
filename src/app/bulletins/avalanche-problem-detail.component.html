@@ -1,6 +1,10 @@
 <div>
   <div class="form-group row">
-    <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheProblems" | translate }}</strong></label>
+    <div class="container-label-buttons">
+      <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheProblems" | translate }}</strong></label>
+      <button type="button" class="btn btn-primary" (click)="showDecisionTreeDialog()">{{ "bulletins.create.decisionTree.decisionTree" | translate }}</button>
+      <a class="btn btn-link" href="https://models.avalanche.report:8061/" target="_blank">{{ "bulletins.create.decisionTree.feedback" | translate }}</a>
+    </div>
     <div *ngIf="!disabled" class="col-md-12">
       <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90"style="padding-right: 15px;" >
       <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblemEnum.new_snow)" width="90" style="opacity: 0.3; padding-right: 15px;">

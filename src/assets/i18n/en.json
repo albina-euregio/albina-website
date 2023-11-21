@@ -209,6 +209,13 @@
         "glidingSnow": "Gliding snow",
         "favourableSituation": "Favourable situation",
         "cancel": "Cancel"
+      },
+      "decisionTree" : {
+        "filepath": "./assets/img/decision_tree-en.svg",
+        "decisionTree" : "Decision tree",
+        "feedback" : "Feedback",
+        "save": "Save",
+        "discard": "Discard"
       }
     },
     "table": {

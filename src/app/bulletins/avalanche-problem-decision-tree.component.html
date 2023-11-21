@@ -1,0 +1,9 @@
+<div class="dialog">
+  <div class="container-decision-tree">
+    <object data="./assets/img/decision_tree-en.svg" id="picker-result" class="decision-tree" type="image/svg+xml"></object>
+  </div>
+  <div class="footer">
+    <button type="button" (click)="save()" pButton class="btn btn-primary" label="{{ 'bulletins.create.decisionTree.save' | translate }}"></button>
+    <button type="button" (click)="discard()" pButton class="btn btn-primary" label="{{ 'bulletins.create.decisionTree.discard' | translate }}"></button>
+  </div>
+</div>
