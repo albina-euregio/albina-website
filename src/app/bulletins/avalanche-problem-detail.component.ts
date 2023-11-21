@@ -6,11 +6,15 @@ import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-desc
 import { AvalancheProblemModel } from "../models/avalanche-problem.model";
 import * as Enums from "../enums/enums";
 import { BulletinModel } from "app/models/bulletin.model";
+import { TranslateService } from "@ngx-translate/core";
+import { DialogService } from "primeng/dynamicdialog";
+import { AvalancheProblemDecisionTreeComponent } from "./avalanche-problem-decision-tree.component";
 
 @Component({
   selector: "app-avalanche-problem-detail",
   templateUrl: "avalanche-problem-detail.component.html",
-  styleUrls: ["avalanche-problem-detail.component.scss"]
+  styleUrls: ["avalanche-problem-detail.component.scss"],
+  providers: [DialogService]
 })
 export class AvalancheProblemDetailComponent implements OnChanges {
 
@@ -35,7 +39,9 @@ export class AvalancheProblemDetailComponent implements OnChanges {
   constructor(
     public settingsService: SettingsService,
     public authenticationService: AuthenticationService,
-    public mapService: MapService) {
+    public mapService: MapService,
+    public dialogService: DialogService,
+    public translateService: TranslateService) {
   }
 
   ngOnChanges() {
@@ -144,5 +150,18 @@ export class AvalancheProblemDetailComponent implements OnChanges {
     this.terrainFeatureIt = undefined;
     this.terrainFeatureEn = undefined;
     this.terrainFeatureFr = undefined;
+  }
+
+  showDecisionTreeDialog() {
+    const ref = this.dialogService.open(AvalancheProblemDecisionTreeComponent, {
+      header: this.translateService.instant("bulletins.create.decisionTree.decisionTree"),
+      contentStyle: {"width": "95vw", "height": "85vh", "overflow": "hidden"}
+    });
+    ref.onClose.subscribe((data) => {
+      if (data && "problem" in data) {
+        this.avalancheProblemModel.setAvalancheProblem(undefined);
+        this.selectAvalancheProblem(data["problem"]);
+      }
+    });
   }
 }

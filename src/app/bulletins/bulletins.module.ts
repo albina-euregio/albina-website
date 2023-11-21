@@ -9,6 +9,7 @@ import { DangerRatingComponent } from "./danger-rating.component";
 import { DangerRatingIconComponent } from "./danger-rating-icon.component";
 import { AvalancheProblemComponent } from "./avalanche-problem.component";
 import { AvalancheProblemDetailComponent } from "./avalanche-problem-detail.component";
+import { AvalancheProblemDecisionTreeComponent } from "./avalanche-problem-decision-tree.component";
 import { AvalancheProblemPreviewComponent } from "./avalanche-problem-preview.component";
 import { MatrixObsoleteComponent } from "./matrix-obsolete.component";
 import { MatrixComponent } from "./matrix.component";
@@ -29,6 +30,8 @@ import { PipeModule } from "../pipes/pipes.module";
 import { DatePipe } from "@angular/common";
 
 import { AccordionModule } from "ngx-bootstrap/accordion";
+import { DialogModule } from "primeng/dialog";
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -40,7 +43,8 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         ConfirmDialogModule,
         PipeModule.forRoot(),
         AccordionModule.forRoot(),
-        NgxSliderModule
+        NgxSliderModule,
+        DialogModule
     ],
     exports: [
         AspectsComponent
@@ -53,6 +57,7 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         DangerRatingIconComponent,
         AvalancheProblemComponent,
         AvalancheProblemDetailComponent,
+        AvalancheProblemDecisionTreeComponent,
         AvalancheProblemPreviewComponent,
         MatrixObsoleteComponent,
         MatrixComponent,

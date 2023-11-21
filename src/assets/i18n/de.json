@@ -216,8 +216,11 @@
         "cancel" : "Abbrechen"
       },
       "decisionTree" : {
+        "filepath": "./assets/img/decision_tree-de.svg",
         "decisionTree" : "Entscheidungsbaum",
-        "feedback" : "Feedback"
+        "feedback" : "Feedback",
+        "save": "Übernehmen",
+        "discard": "Verwerfen"
       }
     },
     "table" : {

@@ -2,7 +2,7 @@
   <div class="form-group row">
     <div class="container-label-buttons">
       <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheProblems" | translate }}</strong></label>
-      <button type="button" class="btn btn-primary">{{ "bulletins.create.decisionTree.decisionTree" | translate }}</button>
+      <button type="button" class="btn btn-primary" (click)="showDecisionTreeDialog()">{{ "bulletins.create.decisionTree.decisionTree" | translate }}</button>
       <a class="btn btn-link" href="https://models.avalanche.report:8061/" target="_blank">{{ "bulletins.create.decisionTree.feedback" | translate }}</a>
     </div>
     <div *ngIf="!disabled" class="col-md-12">
