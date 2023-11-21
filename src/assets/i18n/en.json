@@ -212,6 +212,7 @@
       },
       "decisionTree" : {
         "filepath": "./assets/img/decision_tree-en.svg",
+        "feedbackURL": "https://models.avalanche.report:8061/en/",
         "decisionTree" : "Decision tree",
         "feedback" : "Feedback",
         "save": "Save",
