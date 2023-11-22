@@ -8,11 +8,17 @@ import { Bulletin } from "../../stores/bulletin";
 
 type Props = { date: Date; bulletin: Bulletin };
 
+const ENABLED_LANGUAGES = ["de"];
+
 function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
 
   useEffect(() => {
     const checkAudioFile = (date: Date, bulletin: Bulletin) => {
+      if (!ENABLED_LANGUAGES.includes(bulletin.lang)) {
+        setAudioFileUrl(null);
+        return;
+      }
       const fileUrl =
         "https://static.avalanche.report/synthesizer/bulletins/" +
         dateToISODateString(date) +
