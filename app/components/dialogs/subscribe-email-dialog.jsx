@@ -226,6 +226,9 @@ class SubscribeEmailDialog extends React.Component {
               <p className="status-message">
                 <FormattedMessage
                   id={"dialog:subscribe-email:status:" + this.state.status}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
                 />
               </p>
             )}
