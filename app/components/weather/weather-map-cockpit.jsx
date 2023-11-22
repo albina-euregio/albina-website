@@ -305,9 +305,9 @@ class WeatherMapCockpit extends React.Component {
     //debugger;
     // console.log("setClosestTick hhhh", {
     //   //draggerWidth: $('#dragger').width(),
-    //   //x,
+    //   x,
     //   closest: new Date(closestTime).toUTCString(),
-    //   current: new Date(this.props.currentTime).toUTCString(),
+    //   current: new Date(this.props.currentTime).toUTCString()
     // //new Date(this.getTimeStart(closestTime)).toUTCString()
     // });
 
@@ -348,11 +348,11 @@ class WeatherMapCockpit extends React.Component {
       );
       const timeEnd = this.props.intl.formatTime(this.props.currentTime);
 
-      //console.log("weathermapcockpit->gettimeline ##55", this.getLeftForTime, this.props.currentTime);
+      //console.log("weathermapcockpit->gettimeline ##55",  this.props.currentTime);
       const dragSettings = {
         left: this.getLeftForTime
           ? this.getLeftForTime(this.props.currentTime) -
-            this.tickWidth * nrOnlyTimespan
+            (nrOnlyTimespan > 1 ? this.tickWidth * nrOnlyTimespan : 0)
           : 0,
         onDragEnd: x => {
           self.setClosestTick(x + $("#dragger").width());

@@ -736,7 +736,7 @@ export default class WeatherMapStore_new {
     //   this._timeIndex.get(),
     //   timeIndex,
     //   this._availableTimes.indexOf(timeIndex),
-    //   this._availableTimes
+    //   //this._availableTimes
     // );
     if (this._availableTimes.includes(timeIndex)) {
       // console.log(
