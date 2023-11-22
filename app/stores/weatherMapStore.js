@@ -467,6 +467,12 @@ export default class WeatherMapStore_new {
   _getStartTimeForSpan(initDate) {
     let currentTime = new Date(initDate);
 
+    console.log(
+      "_getStartTimeForSpan #1",
+      initDate,
+      this._timeSpan.get(),
+      currentTime.getUTCHours()
+    );
     if (
       [
         "-6",
@@ -486,6 +492,7 @@ export default class WeatherMapStore_new {
       const currHours = currentTime.getUTCHours();
       const timesForSpan = this._getPossibleTimesForSpan();
       const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
+      console.log("_getStartTimeForSpan #2", currHours, soonerTimesToday);
       if (soonerTimesToday.length)
         foundStartHour = Math.max.apply(Math, soonerTimesToday);
       else foundStartHour = Math.max.apply(Math, timesForSpan);
@@ -510,7 +517,7 @@ export default class WeatherMapStore_new {
     calc indeces for timespan
   */
   _setAvailableTimes() {
-    //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
+    console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();
     let currentTime = this._getStartTimeForSpan(this._dateStart);
@@ -543,6 +550,11 @@ export default class WeatherMapStore_new {
       //   _absTimeSpan: this._absTimeSpan,
       //   agl: this._agl.toUTCString()
       // });
+
+      if (currentTime < new Date()) {
+        currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
+      }
+
       while (currentTime <= maxTime) {
         indices.push(removeMilliseconds(new Date(currentTime).getTime()));
         currentTime.setUTCHours(
