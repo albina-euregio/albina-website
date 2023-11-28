@@ -13,21 +13,21 @@ type Props = { problem: AvalancheProblem };
 
 const textInfoToClass = {
   frequency: {
-    few: 1,
-    some: 2,
-    many: 3
+    few: 2,
+    some: 3,
+    many: 4
   },
   snowpackStability: {
-    fair: 1,
-    poor: 2,
-    very_poor: 3
+    fair: 2,
+    poor: 3,
+    very_poor: 4
   },
   avalancheSize: {
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 3,
-    "5": 3
+    "1": 2,
+    "2": 3,
+    "3": 4,
+    "4": 4,
+    "5": 4
   }
 };
 
