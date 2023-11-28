@@ -18,11 +18,14 @@
     "build-dev": "vite build --base=/dev/"
   },
   "dependencies": {
+    "@eaws/micro-regions_elevation_properties": "^6.0.0",
+    "@eaws/micro-regions_names": "^6.0.0",
+    "@eaws/micro-regions_properties": "^6.0.0",
+    "@eaws/outline_properties": "^6.0.0",
     "@floating-ui/react": "^0.19.1",
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@sentry/react": "^7.24.2",
     "animejs": "3.2.1",
-    "eaws-regions": "https://gitlab.com/eaws/eaws-regions/-/archive/674b754dd86b58c104bf5fab537205a7271ca763/eaws-regions-674b754dd86b58c104bf5fab537205a7271ca763.tar.gz",
     "fluidvids.js": "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz",
     "framer-motion": "^6.3.3",
     "htmr": "^1.0.1",
