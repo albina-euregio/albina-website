@@ -15,13 +15,13 @@ const it = () => import("./i18n/it.json");
 const oc = () => import("./i18n/oc.json");
 const translationImports = Object.freeze({ ca, en, de, es, fr, it, oc });
 const regionTranslationImports = Object.freeze({
-  ca: () => import("eaws-regions/public/micro-regions_names/ca.json"),
-  de: () => import("eaws-regions/public/micro-regions_names/de.json"),
-  en: () => import("eaws-regions/public/micro-regions_names/en.json"),
-  es: () => import("eaws-regions/public/micro-regions_names/es.json"),
-  fr: () => import("eaws-regions/public/micro-regions_names/fr.json"),
-  it: () => import("eaws-regions/public/micro-regions_names/it.json"),
-  oc: () => import("eaws-regions/public/micro-regions_names/oc.json")
+  ca: () => import("@eaws/micro-regions_names/ca.json"),
+  de: () => import("@eaws/micro-regions_names/de.json"),
+  en: () => import("@eaws/micro-regions_names/en.json"),
+  es: () => import("@eaws/micro-regions_names/es.json"),
+  fr: () => import("@eaws/micro-regions_names/fr.json"),
+  it: () => import("@eaws/micro-regions_names/it.json"),
+  oc: () => import("@eaws/micro-regions_names/oc.json")
 });
 
 class AppStore {

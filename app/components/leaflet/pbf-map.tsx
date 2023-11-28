@@ -1,7 +1,6 @@
 import React from "react";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
-import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
@@ -13,7 +12,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/bulletin";
-import { RegionState } from "../../stores/bulletinStore";
+import { filterFeature, RegionState } from "../../stores/bulletinStore";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
