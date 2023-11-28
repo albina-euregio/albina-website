@@ -41,7 +41,7 @@ you can copy over the contents of the `dist` directory to the server.
 | beta        | `npm run build-beta` | `npm run deploy-beta` | https://avalanche.report/beta/ |
 | development | `npm run build-dev`  | `npm run deploy-dev`  | https://avalanche.report/dev/  |
 
-## Server configuration
+## Server configuration (Apache)
 
 You will need to setup an URL rewrite module. For Apache you have to enable it
 
@@ -62,6 +62,41 @@ RewriteRule ^ index.html [L]
 where `YOUR_PATH` is the path of the project location relative to the webserver's
 root (i.e. should be the same as the `--output-public-path` setting in the
 build script - use `/` for the webserver's root directory).
+
+## Server configuration (nginx)
+
+Since this project uses `BrowserRouter` from `react-router`, the webserver must be configured to return `index.html` for the routes defined in `app/components/app.jsx`, for instance:
+
+```
+server {
+  root /var/www/avalanche.report/;
+  location / {
+    autoindex on;
+    try_files $uri /ROOT/$uri $uri/ =404;
+  }
+  location = / {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /archive {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /blog {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /bulletin {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /education {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /more {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+  location /weather {
+    try_files $uri /ROOT/$uri /ROOT/index.html =404;
+  }
+}
+```
 
 ## Translation
 
