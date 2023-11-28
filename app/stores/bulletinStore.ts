@@ -17,22 +17,21 @@ import { fetchJSON } from "../util/fetch.js";
 
 import { APP_STORE } from "../appStore";
 import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
-import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
 
-import _p1 from "eaws-regions/public/micro-regions_properties/AT-07_micro-regions.json";
-import _p2 from "eaws-regions/public/micro-regions_properties/IT-32-BZ_micro-regions.json";
-import _p3 from "eaws-regions/public/micro-regions_properties/IT-32-TN_micro-regions.json";
+import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
+import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
+import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
 export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
-import _pe1 from "eaws-regions/public/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
-import _pe2 from "eaws-regions/public/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
-import _pe3 from "eaws-regions/public/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
+import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
+import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
+import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
 export const microRegionsElevation: MicroRegionElevationProperties[] = [
   ..._pe1,
   ..._pe2,
   ..._pe3
 ];
 
-import eawsRegions from "eaws-regions/public/outline.json";
+import eawsRegions from "@eaws/outline_properties/index.json";
 import { regionsRegex } from "../util/regions.js";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
@@ -431,3 +430,20 @@ class BulletinStore {
 export const BULLETIN_STORE = new BulletinStore();
 
 export { BulletinStore, BulletinCollection };
+
+/**
+ * Determines whether the GeoJSON feature's start_date/end_date is valid today
+ * @param {GeoJSON.Feature} feature the GeoJSON feature
+ * @param {string} today the reference date
+ * @returns {boolean}
+ */
+export function filterFeature(
+  feature: GeoJSON.Feature,
+  today = new Date().toISOString().slice(0, "2006-01-02".length)
+): boolean {
+  const properties = feature.properties;
+  return (
+    (!properties.start_date || properties.start_date <= today) &&
+    (!properties.end_date || properties.end_date > today)
+  );
+}

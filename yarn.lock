@@ -227,6 +227,26 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@eaws/micro-regions_elevation_properties@^6.0.0":
+  version "6.0.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-6.0.0.tgz#434c308cad75edf96c20886b897f3c1ad160aa22"
+  integrity sha1-Q0wwjK117flsIIhriX88GtFgqiI=
+
+"@eaws/micro-regions_names@^6.0.0":
+  version "6.0.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-6.0.0.tgz#0b36337d8a1654bd808d7832a53072fd9ecbf457"
+  integrity sha1-CzYzfYoWVL2AjXgypTBy/Z7L9Fc=
+
+"@eaws/micro-regions_properties@^6.0.0":
+  version "6.0.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-6.0.0.tgz#972ae6ed79baceaecd0469b0a9d85478defd4603"
+  integrity sha1-lyrm7Xm6zq7NBGmwqdhUeN79RgM=
+
+"@eaws/outline_properties@^6.0.0":
+  version "6.0.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-6.0.0.tgz#64985509f4b073c0498370346cb0771e56c399ad"
+  integrity sha1-ZJhVCfSwc8BJg3A0bLB3HlbDma0=
+
 "@emotion/is-prop-valid@^0.8.2":
   version "0.8.8"
   resolved "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz"
@@ -1284,11 +1304,6 @@ domutils@^2.5.2:
     dom-serializer "^1.0.1"
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
-
-"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/674b754dd86b58c104bf5fab537205a7271ca763/eaws-regions-674b754dd86b58c104bf5fab537205a7271ca763.tar.gz":
-  version "1.0.0"
-  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/674b754dd86b58c104bf5fab537205a7271ca763/eaws-regions-674b754dd86b58c104bf5fab537205a7271ca763.tar.gz"
-  integrity sha512-sMqvkb8Xhedjb1GC0z2F36VeSN8Y8qFZfdi83jAV5KseUo5abdbYl2V+qL5ODbL8DJCHxQ7rFqfNYcbtLM5oYg==
 
 electron-to-chromium@^1.4.535:
   version "1.4.577"
