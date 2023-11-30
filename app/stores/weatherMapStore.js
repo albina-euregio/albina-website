@@ -2,10 +2,8 @@ import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
-const SIMULATE_START = null;
-("2023-11-28T22:00Z"); // for debugging day light saving, simulates certain time
-const SIMULATE_NOW = null;
-("2023-11-28T23:18Z");
+const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
+const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
 export default class WeatherMapStore_new {
   constructor(initialDomainId) {
     this.config = config.weathermaps;
@@ -112,7 +110,7 @@ export default class WeatherMapStore_new {
           date =>
             (this._agl = SIMULATE_START
               ? new Date(SIMULATE_START)
-              : new Date() ?? this._agl)
+              : new Date(date) ?? this._agl)
         )
       )
     ];
