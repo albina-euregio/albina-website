@@ -296,7 +296,6 @@
       "all": {
         "color": "#aaaaaa",
         "opacity": 1.0,
-        "stroke": true,
         "weight": 1
       },
       "default": {

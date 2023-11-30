@@ -280,6 +280,7 @@
         "fillOpacity": 0.75
       },
       "mouseOver": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555"
       },
@@ -288,6 +289,7 @@
         "fillOpacity": 0.5
       },
       "selected": {
+        "stroke": true,
         "weight": 2.0,
         "color": "#555555",
         "fillColor": "none"
