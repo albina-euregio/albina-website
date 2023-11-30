@@ -106,7 +106,14 @@ class WeatherMapCockpit extends React.Component {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const posContainer = $(".cp-scale-days").offset();
       const startDateTime = new Date(this.props.timeArray[0]);
-      startDateTime.setUTCHours(startDateTime.getUTCHours() - timespan);
+      startDateTime.setUTCHours(
+        startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
+      );
+      // console.log("cockpit #33", {currTime: new Date(this.props.currentTime),
+      //   firstTimeStamp: this.props.timeArray[0],
+      //   firstTime: new Date(this.props.timeArray[0]),
+      //   firstTimeMinusTimeSpan: startDateTime,
+      //   timespan} );
       const posFirstAvailable = $(".t" + startDateTime.getTime()).offset();
       const posLast = $(
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
