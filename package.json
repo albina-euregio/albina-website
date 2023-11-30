@@ -18,10 +18,10 @@
     "build-dev": "vite build --base=/dev/"
   },
   "dependencies": {
-    "@eaws/micro-regions_elevation_properties": "^6.0.0",
-    "@eaws/micro-regions_names": "^6.0.0",
-    "@eaws/micro-regions_properties": "^6.0.0",
-    "@eaws/outline_properties": "^6.0.0",
+    "@eaws/micro-regions_elevation_properties": "^6.1.0",
+    "@eaws/micro-regions_names": "^6.1.0",
+    "@eaws/micro-regions_properties": "^6.1.0",
+    "@eaws/outline_properties": "^6.1.0",
     "@floating-ui/react": "^0.19.1",
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@sentry/react": "^7.24.2",
