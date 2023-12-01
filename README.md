@@ -10,19 +10,19 @@
 
 ## Development
 
-Use `npm install` to download necessary packages.
+Use `yarn install` to download necessary packages.
 
-Use `npm start` and browse to http://localhost:3000/ to use dev server.
+Use `yarn start` and browse to http://localhost:3000/ to use dev server.
 
 ### Run with sample data
 
-Use `npm run start-dev` and browse to http://localhost:3000/ to use dev server.
+Use `yarn run start-dev` and browse to http://localhost:3000/ to use dev server.
 
 Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
 
 ## Deployment
 
-Use `npm run build` to create a (minified) production build.
+Use `yarn run build` to create a (minified) production build.
 
 After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
@@ -30,16 +30,16 @@ please adjust the `--output-public-path` option in the `scripts.build` settings
 of `package.json` before running the deploy target.
 
 Note that `package.json` contains deploy scripts.
-Use `npm run deploy` to copy the built files over to the live server.
+Use `yarn run deploy` to copy the built files over to the live server.
 Both scripts make use of the `rsync` command https://rsync.samba.org/
 that is available for Linux, Windows and MacOS. If you do not want to use rsync
 you can copy over the contents of the `dist` directory to the server.
 
-| environment | build                | deploy                | link                           |
-| ----------- | -------------------- | --------------------- | ------------------------------ |
-| production  | `npm run build-prod` | `npm run deploy-prod` | https://avalanche.report/      |
-| beta        | `npm run build-beta` | `npm run deploy-beta` | https://avalanche.report/beta/ |
-| development | `npm run build-dev`  | `npm run deploy-dev`  | https://avalanche.report/dev/  |
+| environment | build                 | deploy                 | link                           |
+| ----------- | --------------------- | ---------------------- | ------------------------------ |
+| production  | `yarn run build-prod` | `yarn run deploy-prod` | https://avalanche.report/      |
+| beta        | `yarn run build-beta` | `yarn run deploy-beta` | https://avalanche.report/beta/ |
+| development | `yarn run build-dev`  | `yarn run deploy-dev`  | https://avalanche.report/dev/  |
 
 ## Server configuration (Apache)
 
