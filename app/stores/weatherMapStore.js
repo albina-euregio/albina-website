@@ -2,7 +2,8 @@ import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
-const EARLIER_FAKE_DAYS = 0; // for debugging day light saving, simulates time of client to be EARLIER_FAKE_DAYS in the past from now
+const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
+const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
 export default class WeatherMapStore_new {
   constructor(initialDomainId) {
     this.config = config.weathermaps;
@@ -94,10 +95,9 @@ export default class WeatherMapStore_new {
       ).then(
         action(
           date =>
-            (this._dateStart =
-              EARLIER_FAKE_DAYS > 0
-                ? this._getNow(true)
-                : new Date(date) ?? this._dateStart)
+            (this._dateStart = SIMULATE_START
+              ? new Date(SIMULATE_START)
+              : new Date(date) ?? this._dateStart)
         )
       ),
       fetchDate(
@@ -108,10 +108,9 @@ export default class WeatherMapStore_new {
       ).then(
         action(
           date =>
-            (this._agl =
-              EARLIER_FAKE_DAYS > 0
-                ? this._getNow(true)
-                : new Date(date) ?? this._agl)
+            (this._agl = SIMULATE_START
+              ? new Date(SIMULATE_START)
+              : new Date(date) ?? this._agl)
         )
       )
     ];
@@ -645,8 +644,13 @@ export default class WeatherMapStore_new {
 
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
-    else this._timeIndex.set(this._findClosestIndex(indices, this._getNow()));
-
+    else
+      this._timeIndex.set(
+        this._findClosestIndex(
+          indices,
+          SIMULATE_NOW ? new Date(SIMULATE_NOW) : new Date()
+        )
+      );
     // debIndezes = indices.map(etime => {
     //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
     // });
@@ -655,18 +659,18 @@ export default class WeatherMapStore_new {
     // });
   }
 
-  _getNow(setToDayStart) {
-    let now = new Date();
-    now.setHours(now.getHours() - 24 * EARLIER_FAKE_DAYS);
-    if (setToDayStart) {
-      now.setUTCHours(0);
-      now.setUTCMinutes(0);
-      now.setUTCSeconds(0);
-    }
-    now = new Date(removeMilliseconds(now.getTime()));
-    //console.log("_getNow ##888", now?.toUTCString());
-    return now;
-  }
+  // _getNow(setToDayStart) {
+  //   let now = new Date();
+  //   now.setHours(now.getHours() - 24 * EARLIER_FAKE_DAYS);
+  //   if (setToDayStart) {
+  //     now.setUTCHours(0);
+  //     now.setUTCMinutes(0);
+  //     now.setUTCSeconds(0);
+  //   }
+  //   now = new Date(removeMilliseconds(now.getTime()));
+  //   //console.log("_getNow ##888", now?.toUTCString());
+  //   return now;
+  // }
 
   /*
     control method to check if the domain does exist in the config
