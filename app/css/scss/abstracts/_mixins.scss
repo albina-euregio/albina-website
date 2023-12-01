@@ -113,6 +113,14 @@
 @mixin smooth-scroll() {
   -webkit-overflow-scrolling: touch;
 }
+@mixin scrollbar-hide() {
+  -ms-overflow-style: none; //IE and Edge
+  scrollbar-width: none; //Firefox
+
+  &::-webkit-scrollbar {
+    display: none; //Chrome, Safari and Opera
+  }
+}
 
 //text color
 @mixin text-color($color) {

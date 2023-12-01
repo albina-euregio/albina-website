@@ -25,6 +25,7 @@ $white: #fff;
 
 //brand
 $brand: #19abff;
+$brand-very-very-dark: #062a3f;
 $brand-very-dark: #0f6799;
 $brand-dark: #1489cc;
 $brand-light: #66c7ff;
@@ -73,7 +74,7 @@ $sm-whatsapp-color: #25d366;
 $sm-telegram-color: #0088cc;
 
 $bg-print-color: $grey;
-$box-shadow-color: $black;
+$box-shadow-color: $brand-very-dark;
 
 $debug-color: #fac;
 

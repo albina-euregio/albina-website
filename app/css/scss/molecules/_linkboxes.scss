@@ -27,19 +27,19 @@ a.linkbox {
     background-color: $anchor-font-color;
     border: $border-width $border-style $brand-very-light;
     overflow: hidden;
-    @include rollout(all, $transition-duration * 2, ease-in-out);
+    @include rollout(all, $transition-duration, ease-in-out);
   }
 
   .content-image {
     width: 100%;
-    overflow: hidden;
-    @include rollout(all, $transition-duration * 2, ease-out);
+    // overflow: hidden;
+    @include rollout(all, $transition-duration, ease-out);
     img {
       max-width: none;
       width: 100%;
       margin-bottom: 0;
       transform: scale3d(1.01, 1.01, 1);
-      @include rollout(all, $transition-duration * 2, ease-out);
+      @include rollout(all, $transition-duration, ease-out);
     }
   }
 
@@ -48,7 +48,8 @@ a.linkbox {
     padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
     @include text-color($anchor-font-color);
     background-color: $white;
-    @include rollout(all, $transition-duration * 2, ease-in-out);
+    @include scrollbar-hide;
+    @include rollout(all, $transition-duration, ease-in-out);
 
     @include last-child;
 
@@ -63,7 +64,7 @@ a.linkbox {
 
   .pure-button {
     border-color: $white;
-    @include rollout(all, $transition-duration * 2, ease-in-out);
+    @include rollout(all, $transition-duration, ease-in-out);
   }
 
   &:hover {
@@ -136,7 +137,7 @@ a.linkbox-feature {
 
     .content-text {
       top: 0;
-      background-color: $brand;
+      background-color: rgba($brand, 0.8);
     }
 
     .content-additional {
