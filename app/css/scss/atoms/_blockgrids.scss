@@ -48,10 +48,10 @@
       }
     }
     @media #{$xlarge-up} {
-      width: calc(100% * 0, 1666666667 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0.1666666667 - #{$grid-gutter} - 0.1px);
 
       @if $grid-activated {
-        grid-column: span ($grid-columns * 0, 1666666667);
+        grid-column: span ($grid-columns * 0.1666666667);
         @supports (display: grid) {
           width: auto;
         }
