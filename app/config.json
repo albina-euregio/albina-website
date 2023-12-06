@@ -397,7 +397,8 @@
       "metaFiles": {
         "agl": "agl.ok",
         "startDate": "startDate.ok"
-      }
+      },
+      "dataOverlayFilePostFix": { "main": "_V2.gif", "debug": "_V2.png" }
     },
     "domains": {
       "snow-height": {
@@ -426,7 +427,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -457,7 +458,7 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
           "displayedItems": ["snow6f"],
           "direction": false,
           "clusterOperation": "max"
@@ -499,7 +500,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -563,7 +564,7 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": ".png", "type": "snowLine" }],
+          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowLine" }],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -598,7 +599,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": ".png", "type": "temperature" }],
+          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "temperature" }],
           "direction": false,
           "clusterOperation": "min"
         }
@@ -628,8 +629,8 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": ".png", "type": "windSpeed" },
-            { "filePostfix": "-dir.png", "type": "windDirection" }
+            { "filePostfix": "_V2.png", "type": "windSpeed" },
+            { "filePostfix": "-dir_V2.png", "type": "windDirection" }
           ],
           "direction": "wdir",
           "clusterOperation": "max"

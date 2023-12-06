@@ -22,6 +22,7 @@ const WeatherMap = props => {
           <DataOverlay
             key="background-map"
             overlay={props.overlay}
+            dataOverlayFilePostFix={props.dataOverlayFilePostFix}
             currentTime={props.currentTime}
             debug={props.debug}
             playerCB={props.playerCB}
