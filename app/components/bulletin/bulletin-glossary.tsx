@@ -2,31 +2,47 @@ import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 import { useIntl } from "react-intl";
 import { preprocessContent } from "../../util/htmlParser";
-import RAW_GLOSSARY_LINKS_de from "./bulletin-glossary-de-links.json";
+import GLOSSARY_CONTENT_ca from "./bulletin-glossary-ca-content.json";
 import GLOSSARY_CONTENT_de from "./bulletin-glossary-de-content.json";
-import RAW_GLOSSARY_LINKS_en from "./bulletin-glossary-en-links.json";
-import GLOSSARY_CONTENT_it from "./bulletin-glossary-it-content.json";
-import RAW_GLOSSARY_LINKS_it from "./bulletin-glossary-it-links.json";
 import GLOSSARY_CONTENT_en from "./bulletin-glossary-en-content.json";
+import GLOSSARY_CONTENT_es from "./bulletin-glossary-es-content.json";
+import GLOSSARY_CONTENT_it from "./bulletin-glossary-it-content.json";
+import GLOSSARY_CONTENT_oc from "./bulletin-glossary-oc-content.json";
+import RAW_GLOSSARY_LINKS_ca from "./bulletin-glossary-ca-links.json";
+import RAW_GLOSSARY_LINKS_de from "./bulletin-glossary-de-links.json";
+import RAW_GLOSSARY_LINKS_en from "./bulletin-glossary-en-links.json";
+import RAW_GLOSSARY_LINKS_es from "./bulletin-glossary-es-links.json";
+import RAW_GLOSSARY_LINKS_it from "./bulletin-glossary-it-links.json";
+import RAW_GLOSSARY_LINKS_oc from "./bulletin-glossary-oc-links.json";
+
+const RAW_GLOSSARY_LINKS = Object.freeze({
+  ca: RAW_GLOSSARY_LINKS_ca,
+  de: RAW_GLOSSARY_LINKS_de,
+  en: RAW_GLOSSARY_LINKS_en,
+  es: RAW_GLOSSARY_LINKS_es,
+  it: RAW_GLOSSARY_LINKS_it,
+  oc: RAW_GLOSSARY_LINKS_oc
+});
+
+const GLOSSARY_CONTENT = Object.freeze({
+  ca: GLOSSARY_CONTENT_ca,
+  de: GLOSSARY_CONTENT_de,
+  en: GLOSSARY_CONTENT_en,
+  es: GLOSSARY_CONTENT_es,
+  it: GLOSSARY_CONTENT_it,
+  oc: GLOSSARY_CONTENT_oc
+});
+
+type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
+  keyof typeof GLOSSARY_CONTENT;
 
 export function findGlossaryStrings(
   text: string,
-  locale: "de" | "en" | "it"
+  locale: EnabledLanguages
 ): string {
-  if (locale !== "de" && locale !== "en" && locale !== "it") {
+  const links = RAW_GLOSSARY_LINKS[locale];
+  if (!links) {
     return text;
-  }
-  let links;
-  switch (locale) {
-    case "de":
-      links = RAW_GLOSSARY_LINKS_de;
-      break;
-    case "it":
-      links = RAW_GLOSSARY_LINKS_it;
-      break;
-    case "en":
-      links = RAW_GLOSSARY_LINKS_en;
-      break;
   }
 
   const glossaryLinks = Object.fromEntries(
@@ -48,26 +64,15 @@ export function findGlossaryStrings(
 }
 
 type Props = {
-  glossary: keyof typeof GLOSSARY_CONTENT_de;
-  locale: "de" | "en" | "it";
+  glossary: keyof typeof GLOSSARY_CONTENT[EnabledLanguages];
+  locale: EnabledLanguages;
   children: JSX.Element;
 };
 
 export default function BulletinGlossary(props: Props) {
   const intl = useIntl();
   const glossary = props.glossary;
-  let glossaryContent;
-  switch (props.locale) {
-    case "de":
-      glossaryContent = GLOSSARY_CONTENT_de[glossary];
-      break;
-    case "it":
-      glossaryContent = GLOSSARY_CONTENT_it[glossary];
-      break;
-    case "en":
-      glossaryContent = GLOSSARY_CONTENT_en[glossary];
-      break;
-  }
+  const glossaryContent = GLOSSARY_CONTENT[props.locale][glossary];
   if (!glossaryContent) {
     return <span>{props.children}</span>;
   }
