@@ -8,6 +8,7 @@ import L from "leaflet";
 import { createPathComponent } from "@react-leaflet/core";
 import "leaflet.markercluster";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function createMarkerCluster({ children: _c, ...props }, context) {
   const clusterProps = {};
   const clusterEvents = {};
