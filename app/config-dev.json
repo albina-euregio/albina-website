@@ -234,20 +234,18 @@
     "vectorOptions": {
       "smoothFactor": 0.8
     },
-    "tileLayers": [
-      {
-        "id": "ALBINA",
-        "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.png",
-        "maxZoom": 10,
-        "minZoom": 5,
-        "detectRetina": false,
-        "tms": false,
-        "maxBounds": [
-          [45.150876, 7.932124],
-          [48.240084, 15.118646]
-        ]
-      }
-    ],
+    "tileLayer": {
+      "id": "ALBINA",
+      "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.png",
+      "maxZoom": 10,
+      "minZoom": 5,
+      "detectRetina": false,
+      "tms": false,
+      "maxBounds": [
+        [45.150876, 7.932124],
+        [48.240084, 15.118646]
+      ]
+    },
     "geonames": {
       "geonamesURL": "//api.geonames.org/searchJSON",
       "username": "avalanche.report",

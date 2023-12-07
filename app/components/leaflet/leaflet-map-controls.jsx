@@ -73,18 +73,18 @@ const LeafletMapControls = props => {
       })
       .addTo(parentMap);
 
-    L.control
-      .geonames({
-        lang: APP_STORE.language,
-        title: intl.formatMessage({
-          id: "bulletin:map:search"
-        }),
-        placeholder: intl.formatMessage({
-          id: "bulletin:map:search:hover"
-        }),
-        ...config.map.geonames
-      })
-      .addTo(parentMap);
+    // L.control
+    //   .geonames({
+    //     lang: APP_STORE.language,
+    //     title: intl.formatMessage({
+    //       id: "bulletin:map:search"
+    //     }),
+    //     placeholder: intl.formatMessage({
+    //       id: "bulletin:map:search:hover"
+    //     }),
+    //     ...config.map.geonames
+    //   })
+    //   .addTo(parentMap);
     L.control
       .locate({
         ...config.map.locateOptions,
