@@ -2270,10 +2270,10 @@ htmlparser2@^6.0.0:
     domutils "^2.5.2"
     entities "^2.0.0"
 
-htmr@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/htmr/-/htmr-1.0.1.tgz"
-  integrity sha512-7YF4lq4xlwKs+0AYu9cRnBAIh5bPrjArgMwiZIbSrF3z9MhCzbeqoCp4mYnHdK22DMkcwYakE07PJTYbITOhqA==
+htmr@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/htmr/-/htmr-1.0.2.tgz#6e1feb8e4a62bae69774a95ca00702a32ac96b16"
+  integrity sha512-7T9babEHZwECQ2/ouxNPow1uGcKbj/BcbslPGPRxBKIOLNiIrFKq6ELzor7mc4HiexZzdb3izQQLl16bhPR9jw==
   dependencies:
     html-entities "^2.1.0"
     htmlparser2 "^6.0.0"
