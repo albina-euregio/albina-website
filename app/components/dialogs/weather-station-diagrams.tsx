@@ -210,6 +210,37 @@ const TimeRangeButtons: React.FC<{
   );
 };
 
+const StationDiagramImage: React.FC<{
+  stationData: StationData;
+  clientWidth: number;
+  selectedYear: number;
+  timeRange: TimeRange;
+}> = ({ stationData, clientWidth, selectedYear, timeRange }) => {
+  const currentTS = new Date();
+  currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
+  const cacheHash = currentTS.valueOf();
+  const isStation = stationData instanceof StationData;
+  const template = isStation
+    ? window.config.apis.weather.plots
+    : window.config.apis.weather.observers;
+  const width = clientWidth >= 1100 ? 1100 : 800;
+  const src = Util.template(template, {
+    width,
+    interval: timeRanges[timeRange],
+    name: stationData.plot,
+    year: selectedYear ? "_" + selectedYear : "",
+    t: cacheHash
+  });
+  return (
+    <img
+      alt={stationData.name}
+      title={stationData.name}
+      src={src}
+      className="weatherstation-img"
+    />
+  );
+};
+
 class WeatherStationDiagrams extends React.Component<
   Props & { intl: IntlShape },
   { timeRange: TimeRange; selectedYear: null | number }
@@ -269,14 +300,6 @@ class WeatherStationDiagrams extends React.Component<
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.keyFunction, false);
-  }
-
-  get cacheHash(): number {
-    const currentTS = new Date();
-    currentTS.setMilliseconds(0);
-    currentTS.setSeconds(0);
-    currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5);
-    return currentTS.valueOf();
   }
 
   regionName(microRegion: string): string {
@@ -343,37 +366,17 @@ class WeatherStationDiagrams extends React.Component<
                   setTimeRange={timeRange => this.setState({ timeRange })}
                 />
               )}
-              {this.renderImage(stationData)}
+              <StationDiagramImage
+                clientWidth={this.myRef?.current?.clientWidth ?? 1}
+                selectedYear={this.state.selectedYear}
+                stationData={stationData}
+                timeRange={this.state.timeRange}
+              />
               {isStation && this.renderOperator(stationData)}
             </div>
           </div>
         </div>
       </Swipe>
-    );
-  }
-
-  renderImage(stationData: StationData) {
-    const isStation = stationData instanceof StationData;
-    const template = isStation
-      ? window.config.apis.weather.plots
-      : window.config.apis.weather.observers;
-    const div = this.myRef?.current;
-    const clientWidth = div?.clientWidth ?? 1;
-    const width = clientWidth >= 1100 ? 1100 : 800;
-    const src = Util.template(template, {
-      width,
-      interval: timeRanges[this.state.timeRange],
-      name: stationData.plot,
-      year: this.state.selectedYear ? "_" + this.state.selectedYear : "",
-      t: this.cacheHash
-    });
-    return (
-      <img
-        alt={stationData.name}
-        title={stationData.name}
-        src={src}
-        className="weatherstation-img"
-      />
     );
   }
 
