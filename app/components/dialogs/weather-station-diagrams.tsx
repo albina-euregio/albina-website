@@ -140,6 +140,42 @@ const StationFlipper: React.FC<{
   );
 };
 
+const MeasurementValues: React.FC<{ stationData: StationData }> = ({
+  stationData
+}) => {
+  const intl = useIntl();
+  return (
+    <ul className="list-inline weatherstation-info">
+      {stationData.parametersForDialog.map(aInfo => (
+        <li key={aInfo.type} className={aInfo.type}>
+          <span className="weatherstation-info-caption">
+            {intl.formatMessage({
+              id: "measurements:table:header:" + aInfo.type
+            })}
+            :{" "}
+          </span>
+          <span className="weatherstation-info-value">
+            {intl.formatNumber(aInfo.value, {
+              minimumFractionDigits: aInfo.digits,
+              maximumFractionDigits: aInfo.digits
+            })}
+            &thinsp;{aInfo.unit}
+          </span>
+        </li>
+      ))}
+      <li>
+        <small>
+          (
+          <time dateTime={stationData.date}>
+            {intl.formatDate(stationData.date, DATE_TIME_ZONE_FORMAT)}
+          </time>
+          )
+        </small>
+      </li>
+    </ul>
+  );
+};
+
 class WeatherStationDiagrams extends React.Component<
   Props & { intl: IntlShape },
   { timeRange: keyof typeof timeRanges; selectedYear: null | number }
@@ -266,7 +302,7 @@ class WeatherStationDiagrams extends React.Component<
               )}
             </StationFlipper>
             <div className="modal-content">
-              {isStation && this.renderMeasurementValues(stationData)}
+              {isStation && <MeasurementValues stationData={stationData} />}
               {isStation && this.renderTimeRangeButtons()}
               {this.renderImage(stationData)}
               {isStation && this.renderOperator(stationData)}
@@ -274,42 +310,6 @@ class WeatherStationDiagrams extends React.Component<
           </div>
         </div>
       </Swipe>
-    );
-  }
-
-  renderMeasurementValues(stationData: StationData) {
-    return (
-      <ul className="list-inline weatherstation-info">
-        {stationData.parametersForDialog.map(aInfo => (
-          <li key={aInfo.type} className={aInfo.type}>
-            <span className="weatherstation-info-caption">
-              {this.props.intl.formatMessage({
-                id: "measurements:table:header:" + aInfo.type
-              })}
-              :{" "}
-            </span>
-            <span className="weatherstation-info-value">
-              {this.props.intl.formatNumber(aInfo.value, {
-                minimumFractionDigits: aInfo.digits,
-                maximumFractionDigits: aInfo.digits
-              })}
-              &thinsp;{aInfo.unit}
-            </span>
-          </li>
-        ))}
-        <li>
-          <small>
-            (
-            <time dateTime={stationData.date}>
-              {this.props.intl.formatDate(
-                stationData.date,
-                DATE_TIME_ZONE_FORMAT
-              )}
-            </time>
-            )
-          </small>
-        </li>
-      </ul>
     );
   }
 
