@@ -33,7 +33,7 @@ const GLOSSARY_CONTENT = Object.freeze({
   oc: GLOSSARY_CONTENT_oc
 });
 
-type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
+export type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
   keyof typeof GLOSSARY_CONTENT;
 
 class GlossaryReplacer {

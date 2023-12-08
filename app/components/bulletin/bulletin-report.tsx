@@ -1,13 +1,14 @@
-import React, { type FunctionComponent } from "react";
+import React, { type FunctionComponent, Suspense } from "react";
 import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
-import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
-import { findGlossaryStrings } from "./bulletin-glossary";
+const BulletinGlossaryText = React.lazy(
+  () => import("./bulletin-glossary-text")
+);
 import {
   Bulletin,
   hasDaytimeDependency,
@@ -15,21 +16,15 @@ import {
 } from "../../stores/bulletin";
 import { APP_STORE } from "../../appStore";
 
-const ENABLE_GLOSSARY = true;
-
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
-  if (ENABLE_GLOSSARY) {
-    const withGlossary = findGlossaryStrings(text, APP_STORE.language);
-    try {
-      return preprocessContent(withGlossary);
-    } catch (e) {
-      console.warn(e, { text, withGlossary });
-    }
-  }
-  return preprocessContent(text);
+  return (
+    <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
+      <BulletinGlossaryText text={text} locale={APP_STORE.language} />
+    </Suspense>
+  );
 };
 
 type Props = { date: Date; bulletin: Bulletin };
