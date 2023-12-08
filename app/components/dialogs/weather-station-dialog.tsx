@@ -14,6 +14,12 @@ const WeatherStationDialog = forwardRef(function WeatherStationDialog(
       }}
     >
       <form method="dialog">
+        <button
+          className="mfp-close"
+          formMethod="dialog"
+          title="Close (Esc)"
+          value="cancel"
+        />
         <WeatherStationDiagrams isOpen={() => ref.current.open} />
       </form>
     </dialog>
