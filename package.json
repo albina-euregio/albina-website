@@ -30,7 +30,7 @@
     "fluidvids.js": "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz",
     "framer-motion": "^6.3.3",
     "htmr": "^1.0.1",
-    "jquery": "^3.6.0",
+    "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
     "leaflet-geonames": "^0.4.9",
     "leaflet-gesture-handling": "^1.2.2",
