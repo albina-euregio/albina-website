@@ -326,21 +326,13 @@ class WeatherStationDiagrams extends React.Component<
     document.removeEventListener("keydown", this.keyFunction, false);
   }
 
-  regionName(microRegion: string): string {
-    const pieces = microRegion.split(" ");
-    const name = this.props.intl.formatMessage({
-      id: "region:" + pieces[0]
-    });
-    return pieces[0] + " " + name;
-  }
-
   render() {
     const stationsData = this.props.stationData;
-    const rowId = this.props.stationId;
     if (!stationsData) return <div></div>;
-    const stationData = stationsData.find(element => element.id == rowId);
+    const stationData = stationsData[this.stationIndex];
     if (!stationData) return <div></div>;
     const isStation = stationData instanceof StationData;
+    const [microRegionId] = stationData.microRegion.split(" ");
     return (
       <Swipe
         onSwipeLeft={this.next}
@@ -355,7 +347,11 @@ class WeatherStationDiagrams extends React.Component<
                   {this.props.intl.formatMessage({
                     id: "dialog:weather-station-diagram:header"
                   })}{" "}
-                  ({this.regionName(stationData.microRegion)})
+                  ({microRegionId}{" "}
+                  {this.props.intl.formatMessage({
+                    id: "region:" + microRegionId
+                  })}
+                  )
                 </p>
               )}
               <h2 className="">
