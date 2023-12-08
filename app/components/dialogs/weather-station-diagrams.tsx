@@ -16,6 +16,8 @@ const timeRanges = {
   winter: "winter"
 };
 
+type TimeRange = keyof typeof timeRanges;
+
 export type Props = {
   stationData: StationData[];
   stationId: string;
@@ -176,9 +178,41 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
   );
 };
 
+const TimeRangeButtons: React.FC<{
+  timeRange: TimeRange;
+  setTimeRange: (timeRange: TimeRange) => void;
+}> = ({ timeRange, setTimeRange }) => {
+  const intl = useIntl();
+  return (
+    <ul className="list-inline filter primary">
+      {Object.keys(timeRanges).map(key => {
+        const classes = ["label"];
+        if (key == timeRange) classes.push("js-active");
+        return (
+          <li key={key}>
+            <a
+              href="#"
+              onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                setTimeRange(key !== "none" ? (key as TimeRange) : "threedays");
+              }}
+              className={classes.join(" ")}
+            >
+              {intl.formatMessage({
+                id: "dialog:weather-station-diagram:timerange:" + key
+              })}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 class WeatherStationDiagrams extends React.Component<
   Props & { intl: IntlShape },
-  { timeRange: keyof typeof timeRanges; selectedYear: null | number }
+  { timeRange: TimeRange; selectedYear: null | number }
 > {
   myRef: React.RefObject<HTMLDivElement>;
   constructor(props: Props) {
@@ -303,46 +337,18 @@ class WeatherStationDiagrams extends React.Component<
             </StationFlipper>
             <div className="modal-content">
               {isStation && <MeasurementValues stationData={stationData} />}
-              {isStation && this.renderTimeRangeButtons()}
+              {isStation && (
+                <TimeRangeButtons
+                  timeRange={this.state.timeRange}
+                  setTimeRange={timeRange => this.setState({ timeRange })}
+                />
+              )}
               {this.renderImage(stationData)}
               {isStation && this.renderOperator(stationData)}
             </div>
           </div>
         </div>
       </Swipe>
-    );
-  }
-
-  renderTimeRangeButtons() {
-    return (
-      <ul className="list-inline filter primary">
-        {Object.keys(timeRanges).map(key => {
-          const classes = ["label"];
-          if (key == this.state.timeRange) classes.push("js-active");
-          return (
-            <li key={key}>
-              <a
-                href="#"
-                onClick={event => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  this.setState({
-                    timeRange:
-                      key !== "none"
-                        ? (key as keyof typeof timeRanges)
-                        : "threedays"
-                  });
-                }}
-                className={classes.join(" ")}
-              >
-                {this.props.intl.formatMessage({
-                  id: "dialog:weather-station-diagram:timerange:" + key
-                })}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
     );
   }
 
