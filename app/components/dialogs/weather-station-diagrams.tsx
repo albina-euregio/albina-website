@@ -47,40 +47,32 @@ class WeatherStationDiagrams extends React.Component<
     }
   }
 
-  getNextStation() {
-    const stationsData = this.props.stationData;
-    const rowId = this.props.stationId;
-
-    let index = stationsData.findIndex(element => element.id == rowId);
-    if (index < stationsData.length - 1) {
-      index++;
-    }
-    return {
-      stationData: stationsData,
-      rowId: stationsData[index].id
-    };
+  get stationIndex(): number {
+    return this.props.stationData.findIndex(e => e.id == this.props.stationId);
   }
 
-  getPreviousStation() {
-    const stationsData = this.props.stationData;
-    const rowId = this.props.stationId;
+  get nextStation(): StationData {
+    let index = this.stationIndex;
+    if (index < this.props.stationData.length - 1) {
+      index++;
+    }
+    return this.props.stationData[index];
+  }
 
-    let index = stationsData.findIndex(element => element.id == rowId);
+  get previousStation(): StationData {
+    let index = this.stationIndex;
     if (index > 0) {
       index--;
     }
-    return {
-      stationData: stationsData,
-      rowId: stationsData[index].id
-    };
+    return this.props.stationData[index];
   }
 
   next() {
-    this.props.setStationId(this.getNextStation().rowId);
+    this.props.setStationId(this.nextStation.id);
   }
 
   previous() {
-    this.props.setStationId(this.getPreviousStation().rowId);
+    this.props.setStationId(this.previousStation.id);
   }
 
   componentDidMount() {
@@ -193,16 +185,6 @@ class WeatherStationDiagrams extends React.Component<
   }
 
   stationFlipper(isStation: boolean) {
-    const nextStation = this.getNextStation();
-    const previousStation = this.getPreviousStation();
-
-    const nextStationData = nextStation.stationData.find(
-      element => element.id == nextStation.rowId
-    );
-    const previousStationData = previousStation.stationData.find(
-      element => element.id == previousStation.rowId
-    );
-
     return (
       <ul className="list-inline weatherstation-flipper">
         <li></li>
@@ -217,7 +199,7 @@ class WeatherStationDiagrams extends React.Component<
               >
                 <a href="#" onClick={this.previous}>
                   <span className="icon-arrow-left"></span>
-                  {previousStationData.name}
+                  {this.previousStation.name}
                 </a>
               </Tooltip>
             </li>
@@ -228,7 +210,7 @@ class WeatherStationDiagrams extends React.Component<
                 })}
               >
                 <a href="#" onClick={this.next}>
-                  {nextStationData.name}&nbsp;
+                  {this.nextStation.name}&nbsp;
                   <span className="icon-arrow-right"></span>
                 </a>
               </Tooltip>
