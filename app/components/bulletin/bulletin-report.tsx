@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type FunctionComponent } from "react";
 import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
@@ -17,6 +17,21 @@ import { APP_STORE } from "../../appStore";
 
 const ENABLE_GLOSSARY = true;
 
+const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
+  // bulletins are loaded in correct language
+  if (!text) return <></>;
+  text = text.replace(/&lt;br\/&gt;/g, "<br/>");
+  if (ENABLE_GLOSSARY) {
+    const withGlossary = findGlossaryStrings(text, APP_STORE.language);
+    try {
+      return preprocessContent(withGlossary);
+    } catch (e) {
+      console.warn(e, { text, withGlossary });
+    }
+  }
+  return preprocessContent(text);
+};
+
 type Props = { date: Date; bulletin: Bulletin };
 
 /**
@@ -26,21 +41,6 @@ type Props = { date: Date; bulletin: Bulletin };
 function BulletinReport({ date, bulletin }: Props) {
   const intl = useIntl();
   const dangerPatterns = getDangerPatterns(bulletin.customData);
-
-  function getLocalizedText(elem: string | undefined) {
-    // bulletins are loaded in correct language
-    if (!elem) return "";
-    elem = elem.replace(/&lt;br\/&gt;/g, "<br/>");
-    if (ENABLE_GLOSSARY) {
-      const withGlossary = findGlossaryStrings(elem, APP_STORE.language);
-      try {
-        return preprocessContent(withGlossary);
-      } catch (e) {
-        console.warn(e, { elem, withGlossary });
-      }
-    }
-    return preprocessContent(elem);
-  }
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -56,9 +56,7 @@ function BulletinReport({ date, bulletin }: Props) {
 
   const hasTendencyHighlights =
     Array.isArray(bulletin.tendency) &&
-    bulletin.tendency.some(
-      tendency => tendency.highlights && getLocalizedText(tendency.highlights)
-    );
+    bulletin.tendency.some(tendency => tendency.highlights);
 
   return (
     <div>
@@ -127,9 +125,11 @@ function BulletinReport({ date, bulletin }: Props) {
             </p>
           )}
           <h2 className="subheader">
-            {getLocalizedText(bulletin.avalancheActivity?.highlights)}
+            <LocalizedText text={bulletin.avalancheActivity?.highlights} />
           </h2>
-          <p>{getLocalizedText(bulletin.avalancheActivity?.comment)}</p>
+          <p>
+            <LocalizedText text={bulletin.avalancheActivity?.comment} />
+          </p>
         </div>
       </section>
       {(hasTendencyHighlights || bulletin.snowpackStructure?.comment) && (
@@ -158,7 +158,9 @@ function BulletinReport({ date, bulletin }: Props) {
                     ))}
                   </ul>
                 )}
-                <p>{getLocalizedText(bulletin.snowpackStructure?.comment)}</p>
+                <p>
+                  <LocalizedText text={bulletin.snowpackStructure?.comment} />
+                </p>
               </div>
             )}
             {hasTendencyHighlights && (
@@ -166,14 +168,11 @@ function BulletinReport({ date, bulletin }: Props) {
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:tendency:headline" />
                 </h2>
-                {bulletin.tendency.map(
-                  (tendency, index) =>
-                    getLocalizedText(tendency?.highlights) && (
-                      <p key={index}>
-                        {getLocalizedText(tendency?.highlights)}
-                      </p>
-                    )
-                )}
+                {bulletin.tendency.map((tendency, index) => (
+                  <p key={index}>
+                    <LocalizedText text={tendency?.highlights} />
+                  </p>
+                ))}
               </div>
             )}
             {/*
