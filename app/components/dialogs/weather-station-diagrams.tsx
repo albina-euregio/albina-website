@@ -16,12 +16,18 @@ const timeRanges = {
   winter: "winter"
 };
 
+export type Props = {
+  stationData: StationData[];
+  stationId: string;
+  setStationId: (rowId: string) => void;
+};
+
 class WeatherStationDiagrams extends React.Component<
-  { intl: IntlShape; isOpen?: () => boolean },
+  Props & { intl: IntlShape },
   { timeRange: keyof typeof timeRanges; selectedYear: null | number }
 > {
   myRef: React.RefObject<HTMLDivElement>;
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.myRef = React.createRef();
     this.state = { timeRange: "threedays", selectedYear: null };
@@ -32,20 +38,18 @@ class WeatherStationDiagrams extends React.Component<
   }
 
   keyFunction(event: KeyboardEvent) {
-    if (this.props.isOpen?.() ?? window["modalStateStore"].isOpen) {
-      if (event.keyCode === 37) {
-        //arrow left
-        this.previous();
-      } else if (event.keyCode === 39) {
-        //arrow right
-        this.next();
-      }
+    if (event.keyCode === 37) {
+      //arrow left
+      this.previous();
+    } else if (event.keyCode === 39) {
+      //arrow right
+      this.next();
     }
   }
 
   getNextStation() {
-    const stationsData = window["modalStateStore"].data.stationData;
-    const rowId = window["modalStateStore"].data.rowId;
+    const stationsData = this.props.stationData;
+    const rowId = this.props.stationId;
 
     let index = stationsData.findIndex(element => element.id == rowId);
     if (index < stationsData.length - 1) {
@@ -58,8 +62,8 @@ class WeatherStationDiagrams extends React.Component<
   }
 
   getPreviousStation() {
-    const stationsData = window["modalStateStore"].data.stationData;
-    const rowId = window["modalStateStore"].data.rowId;
+    const stationsData = this.props.stationData;
+    const rowId = this.props.stationId;
 
     let index = stationsData.findIndex(element => element.id == rowId);
     if (index > 0) {
@@ -72,11 +76,11 @@ class WeatherStationDiagrams extends React.Component<
   }
 
   next() {
-    window["modalStateStore"].setData(this.getNextStation());
+    this.props.setStationId(this.getNextStation().rowId);
   }
 
   previous() {
-    window["modalStateStore"].setData(this.getPreviousStation());
+    this.props.setStationId(this.getPreviousStation().rowId);
   }
 
   componentDidMount() {
@@ -236,8 +240,8 @@ class WeatherStationDiagrams extends React.Component<
   }
 
   render() {
-    const stationsData = window["modalStateStore"].data.stationData;
-    const rowId = window["modalStateStore"].data.rowId;
+    const stationsData = this.props.stationData;
+    const rowId = this.props.stationId;
     if (!stationsData) return <div></div>;
     const stationData = stationsData.find(element => element.id == rowId);
     if (!stationData) return <div></div>;

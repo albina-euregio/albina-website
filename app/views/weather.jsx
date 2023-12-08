@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import $ from "jquery";
 
 import { observer } from "mobx-react";
@@ -21,7 +21,7 @@ import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 const Weather = () => {
   const intl = useIntl();
   const params = useParams();
-  const dialogRef = useRef(null);
+  const [stationId, setStationId] = useState("");
 
   const [headerText] = useState("");
 
@@ -80,36 +80,14 @@ const Weather = () => {
     });
   };
 
-  const handleMarkerSelected = feature => {
-    if (!feature) return;
-    // console.log(
-    //   "handleMarkerSelected ggg1",
-    //   feature,
-    //   store.stations.features.find(
-    //     point => point.id == feature.id
-    //   )
-    // );
-    if (feature.id) {
-      window["modalStateStore"].setData({
-        stationData: store.stations.features.sort((f1, f2) =>
-          (f1.properties["LWD-Region"] || "").localeCompare(
-            f2.properties["LWD-Region"] || "",
-            "de"
-          )
-        ),
-        rowId: feature.id
-      });
-      dialogRef.current.showModal();
-      //store.selectedFeature = null;
-    } else {
-      //store.selectedFeature = feature;
-    }
-  };
-
   //console.log("weather->render", store.domainId, store.agl, player);
   return (
     <>
-      <WeatherStationDialog ref={dialogRef} />
+      <WeatherStationDialog
+        stationData={store.stations?.features ?? []}
+        stationId={stationId}
+        setStationId={setStationId}
+      />
       <HTMLHeader title={intl.formatMessage({ id: "weathermap:title" })} />
       <PageHeadline
         title={intl.formatMessage({ id: "weathermap:headline" })}
@@ -149,7 +127,7 @@ const Weather = () => {
                 playerCB={player.onLayerEvent.bind(player)}
                 isPlaying={player.playing}
                 selectedFeature={store.selectedFeature}
-                onMarkerSelected={handleMarkerSelected}
+                onMarkerSelected={feature => setStationId(feature?.id)}
                 onViewportChanged={handleMapViewportChanged}
               />
               {store.selectedFeature && (

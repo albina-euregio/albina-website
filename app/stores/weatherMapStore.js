@@ -148,6 +148,7 @@ export default class WeatherMapStore_new {
     ) {
       loads.push(
         new StationDataStore()
+          .sortBy("microRegions", "asc")
           .load({
             dateTime: this.currentTime ? new Date(this.currentTime) : undefined
           })

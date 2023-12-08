@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
@@ -22,7 +22,7 @@ type Props = {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [stationId, setStationId] = useState("");
 
   type RenderFun = (
     _value: number,
@@ -195,14 +195,6 @@ export default function StationTable(props: Props) {
       : "–";
   }
 
-  function _rowClicked(station: StationData) {
-    window["modalStateStore"].setData({
-      stationData: props.sortedFilteredData,
-      rowId: station.id
-    });
-    dialogRef.current.showModal();
-  }
-
   const sortClasses = (id: keyof StationData, dir: SortDir) => {
     const cls: string[] = [];
     if (dir == "asc") {
@@ -242,7 +234,11 @@ export default function StationTable(props: Props) {
 
   return (
     <>
-      <WeatherStationDialog ref={dialogRef} />
+      <WeatherStationDialog
+        stationData={props.sortedFilteredData}
+        stationId={stationId}
+        setStationId={setStationId}
+      />
       <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <thead>
           <tr>
@@ -275,7 +271,7 @@ export default function StationTable(props: Props) {
 
         <tbody>
           {props.sortedFilteredData.map((row: StationData) => (
-            <tr key={row.id} onClick={() => _rowClicked(row)}>
+            <tr key={row.id} onClick={() => setStationId(row.id)}>
               {displayColumns.map(col => (
                 <td key={row.id + "-" + col.data} className={col.className}>
                   {col.render && col.render(row[col.data], row, col.unit)}

@@ -294,9 +294,10 @@ export default class StationDataStore {
     this.activeData[key] = !this.activeData[key];
   }
 
-  sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
+  sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc"): this {
     this.sortValue = sortValue;
     this.sortDir = sortDir;
+    return this;
   }
 
   get minYear(): number {
@@ -328,25 +329,27 @@ export default class StationDataStore {
           !this.activeYear ||
           +row.observationStart <= this.activeYear
       )
-      .sort((val1, val2) => {
-        const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
-        const a = val1[this.sortValue];
-        const b = val2[this.sortValue];
+      .sort((val1, val2) => this.compareStationData(val1, val2));
+  }
 
-        if (a === b) {
-          return 0;
-        }
-        if (typeof a === "string" && typeof b === "string") {
-          return (this.sortDir == "asc" ? 1 : -1) * this.collator.compare(a, b);
-        }
-        if (typeof b === "undefined" || b === false || b === null) {
-          return order[1];
-        }
-        if (typeof a === "undefined" || a === false || a === null) {
-          return order[0];
-        }
-        return a < b ? order[0] : order[1];
-      });
+  private compareStationData(val1: StationData, val2: StationData): number {
+    const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
+    const a = val1[this.sortValue];
+    const b = val2[this.sortValue];
+
+    if (a === b) {
+      return 0;
+    }
+    if (typeof a === "string" && typeof b === "string") {
+      return (this.sortDir == "asc" ? 1 : -1) * this.collator.compare(a, b);
+    }
+    if (typeof b === "undefined" || b === false || b === null) {
+      return order[1];
+    }
+    if (typeof a === "undefined" || a === false || a === null) {
+      return order[0];
+    }
+    return a < b ? order[0] : order[1];
   }
 
   async load({ dateTime, ogd }: LoadOptions = {}): Promise<StationData[]> {
@@ -399,7 +402,8 @@ export default class StationDataStore {
       .filter(el => ogd || el.properties.date)
       .filter(el => !ogd || el.properties.operator.match(/LWD Tirol/))
       .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-      .map(feature => new StationData(feature));
+      .map(feature => new StationData(feature))
+      .sort((val1, val2) => this.compareStationData(val1, val2));
     return this.data;
   }
 }
