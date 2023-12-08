@@ -96,6 +96,50 @@ const YearFlipper: React.FC<{
   );
 };
 
+const StationFlipper: React.FC<{
+  previous: () => void;
+  previousStation: StationData;
+  next: () => void;
+  nextStation: StationData;
+  children: React.ReactNode;
+}> = ({ previous, previousStation, next, nextStation, children }) => {
+  const intl = useIntl();
+  return (
+    <ul className="list-inline weatherstation-flipper">
+      <li></li>
+      {children}
+      <li className="weatherstation-flipper-station">
+        <ul className="list-inline weatherstation-flipper">
+          <li className="weatherstation-flipper-back">
+            <Tooltip
+              label={intl.formatMessage({
+                id: "weatherstation-diagrams:priorstation"
+              })}
+            >
+              <a href="#" onClick={previous}>
+                <span className="icon-arrow-left"></span>
+                {previousStation.name}
+              </a>
+            </Tooltip>
+          </li>
+          <li className="weatherstation-flipper-forward">
+            <Tooltip
+              label={intl.formatMessage({
+                id: "weatherstation-diagrams:nextstation"
+              })}
+            >
+              <a href="#" onClick={next}>
+                {nextStation.name}&nbsp;
+                <span className="icon-arrow-right"></span>
+              </a>
+            </Tooltip>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  );
+};
+
 class WeatherStationDiagrams extends React.Component<
   Props & { intl: IntlShape },
   { timeRange: keyof typeof timeRanges; selectedYear: null | number }
@@ -173,48 +217,6 @@ class WeatherStationDiagrams extends React.Component<
     return pieces[0] + " " + name;
   }
 
-  stationFlipper(isStation: boolean) {
-    return (
-      <ul className="list-inline weatherstation-flipper">
-        <li></li>
-        {!isStation && (
-          <YearFlipper
-            selectedYear={this.state.selectedYear}
-            setSelectedYear={selectedYear => this.setState({ selectedYear })}
-          />
-        )}
-        <li className="weatherstation-flipper-station">
-          <ul className="list-inline weatherstation-flipper">
-            <li className="weatherstation-flipper-back">
-              <Tooltip
-                label={this.props.intl.formatMessage({
-                  id: "weatherstation-diagrams:priorstation"
-                })}
-              >
-                <a href="#" onClick={this.previous}>
-                  <span className="icon-arrow-left"></span>
-                  {this.previousStation.name}
-                </a>
-              </Tooltip>
-            </li>
-            <li className="weatherstation-flipper-forward">
-              <Tooltip
-                label={this.props.intl.formatMessage({
-                  id: "weatherstation-diagrams:nextstation"
-                })}
-              >
-                <a href="#" onClick={this.next}>
-                  {this.nextStation.name}&nbsp;
-                  <span className="icon-arrow-right"></span>
-                </a>
-              </Tooltip>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    );
-  }
-
   render() {
     const stationsData = this.props.stationData;
     const rowId = this.props.stationId;
@@ -248,7 +250,21 @@ class WeatherStationDiagrams extends React.Component<
                 )}
               </h2>
             </div>
-            {this.stationFlipper(isStation)}
+            <StationFlipper
+              next={this.next}
+              nextStation={this.nextStation}
+              previous={this.previous}
+              previousStation={this.previousStation}
+            >
+              {!isStation && (
+                <YearFlipper
+                  selectedYear={this.state.selectedYear}
+                  setSelectedYear={selectedYear =>
+                    this.setState({ selectedYear })
+                  }
+                />
+              )}
+            </StationFlipper>
             <div className="modal-content">
               {isStation && this.renderMeasurementValues(stationData)}
               {isStation && this.renderTimeRangeButtons()}
