@@ -10,7 +10,7 @@ import {
   LONG_DATE_FORMAT
 } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
-import { isAmPm, Bulletin } from "../../stores/bulletin";
+import { isAmPm, type Bulletin, type Tendency } from "../../stores/bulletin";
 
 type Props = {
   ampm: "am" | "pm";
@@ -57,44 +57,7 @@ function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
             </div>
             {Array.isArray(bulletin.tendency) &&
               bulletin.tendency.map((tendency, index) => (
-                <Tooltip
-                  key={index}
-                  label={intl.formatMessage({
-                    id: "bulletin:report:tendency:hover"
-                  })}
-                >
-                  <div className="bulletin-report-tendency">
-                    <span>
-                      <FormattedMessage
-                        id="bulletin:report:tendency"
-                        values={{
-                          strong: (...msg) => (
-                            <strong className="heavy">{msg}</strong>
-                          ),
-                          br: (...msg) => (
-                            <>
-                              <br />
-                              {msg}
-                            </>
-                          ),
-                          tendency: intl.formatMessage({
-                            id: `bulletin:report:tendency:${tendency.tendencyType}`
-                          }),
-                          daytime: "", // ampmId ? intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
-                          date: intl.formatDate(
-                            getSuccDate(
-                              tendency.validTime?.startTime
-                                ? new Date(tendency.validTime?.startTime)
-                                : date
-                            ),
-                            LONG_DATE_FORMAT
-                          )
-                        }}
-                      />
-                    </span>
-                    <TendencyIcon tendency={tendency.tendencyType} />
-                  </div>
-                </Tooltip>
+                <TendencyReport tendency={tendency} date={date} key={index} />
               ))}
           </li>
           {problems.map((p, index) => (
@@ -106,3 +69,50 @@ function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
   );
 }
 export default BulletinDaytimeReport;
+
+function TendencyReport({
+  tendency,
+  date
+}: {
+  tendency: Tendency;
+  date: Date;
+}) {
+  const intl = useIntl();
+  return (
+    <Tooltip
+      label={intl.formatMessage({
+        id: "bulletin:report:tendency:hover"
+      })}
+    >
+      <div className="bulletin-report-tendency">
+        <span>
+          <FormattedMessage
+            id="bulletin:report:tendency"
+            values={{
+              strong: (...msg) => <strong className="heavy">{msg}</strong>,
+              br: (...msg) => (
+                <>
+                  <br />
+                  {msg}
+                </>
+              ),
+              tendency: intl.formatMessage({
+                id: `bulletin:report:tendency:${tendency.tendencyType}`
+              }),
+              daytime: "", // ampmId ? intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
+              date: intl.formatDate(
+                getSuccDate(
+                  tendency.validTime?.startTime
+                    ? new Date(tendency.validTime?.startTime)
+                    : date
+                ),
+                LONG_DATE_FORMAT
+              )
+            }}
+          />
+        </span>
+        <TendencyIcon tendency={tendency.tendencyType} />
+      </div>
+    </Tooltip>
+  );
+}
