@@ -50,6 +50,7 @@ export function findGlossaryStrings(
       phrases
         .trim()
         .split(/\n/g)
+        .filter(phrase => !!phrase)
         .map(phrase => [phrase, id])
     )
   );
