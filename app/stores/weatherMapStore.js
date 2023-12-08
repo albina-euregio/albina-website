@@ -320,7 +320,7 @@ export default class WeatherMapStore_new {
         dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
         "_" +
         this._domainId.get() +
-        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h_V2" : "_V2")
+        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
       );
     }
     return false;

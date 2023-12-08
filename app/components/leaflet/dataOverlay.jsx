@@ -35,9 +35,9 @@ const DataOverlay = props => {
   }, [props.overlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
-    //onsole.log("getLayerPixelAtLatLng", this);
+    //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
     //const self = this;
-    const map = parentMap;
+    const map = overlay._map;
     let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
     let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
     let dx =
@@ -65,8 +65,8 @@ const DataOverlay = props => {
   const getPixelData = coordinates => {
     let values = {};
     props.dataOverlays.forEach(anOverlay => {
-      //console.log("getPixelData", coordinates, overlayCanvases[anOverlay.type]);
-      if (oCanvases[anOverlay.type]["loaded"]) {
+      //console.log("getPixelData", coordinates, oCanvases, anOverlay.type);
+      if (oCanvases[anOverlay.type]?.["loaded"]) {
         let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
           coordinates.x,
           coordinates.y,
@@ -81,12 +81,17 @@ const DataOverlay = props => {
           b: p.data[2]
         });
 
-        /* console.log(
-          "pixelData",
-          anOverlay.type,
-          p.data,
-          oCanvases[anOverlay.type]
-        ); */
+        // console.log(
+        //   "pixelData #3 p",
+        //   p?.data, oCanvases[anOverlay.type].canvas.ctx
+        // );
+
+        // console.log(
+        //   "pixelData",
+        //   anOverlay.type,
+        //   p.data,
+        //   oCanvases[anOverlay.type]
+        // );
 
         // if (props.debug) {
         //   for (var y = 0; y < p.height; y++) {
@@ -110,6 +115,10 @@ const DataOverlay = props => {
         // }
       }
     });
+
+    // console.log(
+    //   "pixelData #4", values
+    // );
 
     return {
       value:
@@ -165,7 +174,7 @@ const DataOverlay = props => {
     setDirectionOverlay(null);
     if (props.dataOverlaysEnabled) {
       props.dataOverlays.forEach(anOverlay => {
-        //console.log("setupDataLayer#2 yyy2", anOverlay.type, overlayCanvases);
+        //console.log("setupDataLayer#2 yyy2", {overlay: props.overlay, filepaht: anOverlay.filePostfix});
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
@@ -176,8 +185,15 @@ const DataOverlay = props => {
           img.crossOrigin = "anonymous";
           overlayCanvases[anOverlay.type].canvas.ctx =
             overlayCanvases[anOverlay.type]["canvas"].getContext("2d");
+          var domPoint = document.getElementsByClassName(
+            "leaflet-overlay-pane"
+          );
+
           img.onload = function () {
             //console.log("setupDataLayer->onload jjj", anOverlay.type);
+
+            //domPoint?.[0].appendChild(overlayCanvases[anOverlay.type].canvas);
+
             // data files have 1/2 the size
             overlayCanvases[anOverlay.type].canvas.width =
               this.naturalWidth * 2;
@@ -205,13 +221,14 @@ const DataOverlay = props => {
               props.playerCB("background", "load");
             }
           };
-
+          //console.log("setupDataLayer xxxx", {overlayFile, filepaht: anOverlay.filePostfix});
           let overlayFile = props.overlay + anOverlay.filePostfix;
           if (anOverlay.fixPath)
             overlayFile = overlayFile.replace(
               RegExp(anOverlay.fixPath.find, "g"),
               anOverlay.fixPath.replace
             );
+
           img.src = overlayFile;
         }
       });
@@ -310,7 +327,7 @@ const DataOverlay = props => {
             className={["leaflet-image-layer", "map-data-layer", "hide"].join(
               " "
             )}
-            url={props.overlay + ".png"}
+            url={props.overlay + props.dataOverlayFilePostFix.debug}
             opacity={1}
             bounds={config.weathermaps.settings.bbox}
             attribution={intl.formatMessage({
@@ -327,7 +344,7 @@ const DataOverlay = props => {
           key="background-map"
           className={["leaflet-image-layer", "map-info-layer"].join(" ")}
           style={props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={props.overlay + ".gif"}
+          url={props.overlay + props.dataOverlayFilePostFix.main}
           opacity={isBlendingSupported() ? 1 : 0.5}
           bounds={config.weathermaps.settings.bbox}
           interactive={true}

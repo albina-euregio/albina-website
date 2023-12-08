@@ -134,6 +134,9 @@ const Weather = () => {
                 currentTime={store.currentTime}
                 startDate={store.startDate}
                 overlay={store.overlayFileName}
+                dataOverlayFilePostFix={
+                  store.config.settings.dataOverlayFilePostFix
+                }
                 dataOverlays={store.domainConfig.dataOverlays}
                 stationDataId={
                   store.domainConfig.timeSpanToDataId[store.timeSpan]
