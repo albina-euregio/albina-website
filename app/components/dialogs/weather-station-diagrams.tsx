@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { IntlShape, injectIntl } from "react-intl";
+import { IntlShape, injectIntl, useIntl } from "react-intl";
 import { Util } from "leaflet";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
@@ -20,6 +20,80 @@ export type Props = {
   stationData: StationData[];
   stationId: string;
   setStationId: (rowId: string) => void;
+};
+
+const YearFlipper: React.FC<{
+  selectedYear: number;
+  setSelectedYear: (selectedYear: number) => void;
+}> = ({ selectedYear, setSelectedYear }) => {
+  const intl = useIntl();
+  const curYear = currentSeasonYear();
+  let nextYear: null | number = null;
+  let lastYear: null | number = null;
+  if (selectedYear) {
+    if (selectedYear > 1960) lastYear = selectedYear - 1;
+    if (selectedYear < curYear) nextYear = selectedYear + 1;
+  } else {
+    selectedYear = curYear;
+    lastYear = curYear - 1;
+  }
+  return (
+    <>
+      {lastYear && (
+        <li className="weatherstation-flipper-back">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:back"
+            })}
+          >
+            <a href="#" onClick={() => setSelectedYear(lastYear)}>
+              <span className="icon-arrow-left"></span>
+              {lastYear}/{lastYear + 1}
+            </a>
+          </Tooltip>
+        </li>
+      )}
+      <li className="weatherstation-flipper-current">
+        {selectedYear}/{selectedYear + 1}
+      </li>
+      {nextYear && (
+        <li className="weatherstation-flipper-forward">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:forward"
+            })}
+          >
+            <a
+              href="#"
+              onClick={() =>
+                setSelectedYear(curYear === nextYear ? null : nextYear)
+              }
+            >
+              {nextYear}/{nextYear + 1}&nbsp;
+              <span className="icon-arrow-right"></span>
+            </a>
+          </Tooltip>
+        </li>
+      )}
+      {selectedYear && (
+        <li className="weatherstation-flipper-forward">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:latest"
+            })}
+          >
+            <a href="#" onClick={() => setSelectedYear(null)}>
+              <span>
+                {intl.formatMessage({
+                  id: "dialog:weather-station-diagram:yearFlipper:latest"
+                })}
+              </span>
+            </a>
+          </Tooltip>
+        </li>
+      )}
+    </>
+  );
 };
 
 class WeatherStationDiagrams extends React.Component<
@@ -99,96 +173,16 @@ class WeatherStationDiagrams extends React.Component<
     return pieces[0] + " " + name;
   }
 
-  yearFlipper() {
-    const curYear = currentSeasonYear();
-    let nextYear: null | number = null;
-    let lastYear: null | number = null;
-    let selectedYear = curYear;
-    if (this.state.selectedYear) {
-      selectedYear = this.state.selectedYear;
-      if (selectedYear > 1960) lastYear = selectedYear - 1;
-      if (selectedYear < curYear) nextYear = selectedYear + 1;
-    } else {
-      lastYear = curYear - 1;
-    }
-    return (
-      <>
-        {lastYear && (
-          <li className="weatherstation-flipper-back">
-            <Tooltip
-              label={this.props.intl.formatMessage({
-                id: "weatherstation-diagrams:back"
-              })}
-            >
-              <a
-                href="#"
-                onClick={() => {
-                  this.setState({ selectedYear: lastYear });
-                }}
-              >
-                <span className="icon-arrow-left"></span>
-                {lastYear}/{lastYear + 1}
-              </a>
-            </Tooltip>
-          </li>
-        )}
-        <li className="weatherstation-flipper-current">
-          {selectedYear}/{selectedYear + 1}
-        </li>
-        {nextYear && (
-          <li className="weatherstation-flipper-forward">
-            <Tooltip
-              label={this.props.intl.formatMessage({
-                id: "weatherstation-diagrams:forward"
-              })}
-            >
-              <a
-                href="#"
-                onClick={() => {
-                  this.setState({
-                    selectedYear: curYear === nextYear ? null : nextYear
-                  });
-                }}
-              >
-                {nextYear}/{nextYear + 1}&nbsp;
-                <span className="icon-arrow-right"></span>
-              </a>
-            </Tooltip>
-          </li>
-        )}
-        {this.state.selectedYear && (
-          <li className="weatherstation-flipper-forward">
-            <Tooltip
-              label={this.props.intl.formatMessage({
-                id: "weatherstation-diagrams:latest"
-              })}
-            >
-              <a
-                href="#"
-                onClick={() => {
-                  this.setState({
-                    selectedYear: null
-                  });
-                }}
-              >
-                <span>
-                  {this.props.intl.formatMessage({
-                    id: "dialog:weather-station-diagram:yearFlipper:latest"
-                  })}
-                </span>
-              </a>
-            </Tooltip>
-          </li>
-        )}
-      </>
-    );
-  }
-
   stationFlipper(isStation: boolean) {
     return (
       <ul className="list-inline weatherstation-flipper">
         <li></li>
-        {!isStation && this.yearFlipper()}
+        {!isStation && (
+          <YearFlipper
+            selectedYear={this.state.selectedYear}
+            setSelectedYear={selectedYear => this.setState({ selectedYear })}
+          />
+        )}
         <li className="weatherstation-flipper-station">
           <ul className="list-inline weatherstation-flipper">
             <li className="weatherstation-flipper-back">
