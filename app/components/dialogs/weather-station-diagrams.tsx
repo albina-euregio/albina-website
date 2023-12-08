@@ -12,6 +12,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
+import WeatherStationUplot from "./weather-station-uplot";
 
 export type ObserverData = {
   geometry: {
@@ -31,6 +32,14 @@ const timeRanges = {
 };
 
 type TimeRange = keyof typeof timeRanges;
+
+const timeRangesMilli: Record<TimeRange, number> = {
+  day: 24 * 3600e3,
+  threedays: 3 * 24 * 3600e3,
+  week: 7 * 24 * 3600e3,
+  month: 31 * 24 * 3600e3,
+  winter: 183 * 24 * 3600e3
+};
 
 export type Props = {
   stationData: StationData[] | ObserverData[];
@@ -230,6 +239,50 @@ const StationDiagramImage: React.FC<{
   selectedYear: number;
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
+  const intl = useIntl();
+  if (stationData.operator?.startsWith?.("LWD Tirol")) {
+    const timeRangeMilli = timeRangesMilli[timeRange];
+    const width = document.body.clientWidth * 0.9;
+    const height = 240;
+    // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
+    return (
+      <>
+        <WeatherStationUplot
+          stationData={stationData}
+          parameter="HS"
+          parameterLabel={intl.formatMessage({
+            id: "measurements:table:header:snow"
+          })}
+          timeRangeMilli={timeRangeMilli}
+          stroke="#984ea3"
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={stationData}
+          parameter="LT"
+          parameterLabel={intl.formatMessage({
+            id: "measurements:table:header:temp"
+          })}
+          timeRangeMilli={timeRangeMilli}
+          stroke="#e41a1c"
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={stationData}
+          parameter="WG"
+          parameterLabel={intl.formatMessage({
+            id: "measurements:table:header:wspd"
+          })}
+          timeRangeMilli={timeRangeMilli}
+          stroke="#4daf4a"
+          width={width}
+          height={height}
+        />
+      </>
+    );
+  }
   const currentTS = new Date();
   currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
   const cacheHash = currentTS.valueOf();
