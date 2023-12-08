@@ -241,6 +241,30 @@ const StationDiagramImage: React.FC<{
   );
 };
 
+const StationOperator: React.FC<{ stationData: StationData }> = ({
+  stationData
+}) => {
+  const intl = useIntl();
+  return (
+    <p className="weatherstation-provider">
+      {intl.formatMessage(
+        { id: "dialog:weather-station-diagram:operator:caption" },
+        {
+          operator: (
+            <a
+              href={stationData.operatorLink}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {stationData.operator}
+            </a>
+          )
+        }
+      )}
+    </p>
+  );
+};
+
 class WeatherStationDiagrams extends React.Component<
   Props & { intl: IntlShape },
   { timeRange: TimeRange; selectedYear: null | number }
@@ -372,32 +396,11 @@ class WeatherStationDiagrams extends React.Component<
                 stationData={stationData}
                 timeRange={this.state.timeRange}
               />
-              {isStation && this.renderOperator(stationData)}
+              {isStation && <StationOperator stationData={stationData} />}
             </div>
           </div>
         </div>
       </Swipe>
-    );
-  }
-
-  renderOperator(stationData: StationData) {
-    return (
-      <p className="weatherstation-provider">
-        {this.props.intl.formatMessage(
-          { id: "dialog:weather-station-diagram:operator:caption" },
-          {
-            operator: (
-              <a
-                href={stationData.operatorLink}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {stationData.operator}
-              </a>
-            )
-          }
-        )}
-      </p>
     );
   }
 }
