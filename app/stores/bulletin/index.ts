@@ -1,10 +1,6 @@
-import type {
-  Bulletin,
-  CustomData,
-  ValidTimePeriod
-} from "./CaamlBulletin2022";
+import type { Bulletin, CustomData, ValidTimePeriod } from "./CAAMLv6";
 
-export * from "./CaamlBulletin2022";
+export * from "./CAAMLv6";
 export * from "./MicroRegionElevationProperties";
 export * from "./MicroRegionProperties";
 export * from "./RegionOutlineProperties";
