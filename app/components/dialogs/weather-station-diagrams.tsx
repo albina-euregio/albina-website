@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { IntlShape, injectIntl } from "react-intl";
 import { Util } from "leaflet";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
@@ -8,17 +8,22 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 
-class WeatherStationDiagrams extends React.Component {
+const timeRanges = {
+  day: "tag",
+  threedays: "dreitage",
+  week: "woche",
+  month: "monat",
+  winter: "winter"
+};
+
+class WeatherStationDiagrams extends React.Component<
+  { intl: IntlShape; isOpen?: () => boolean },
+  { timeRange: keyof typeof timeRanges; selectedYear: null | number }
+> {
+  myRef: React.RefObject<HTMLDivElement>;
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-    this.timeRanges = {
-      day: "tag",
-      threedays: "dreitage",
-      week: "woche",
-      month: "monat",
-      winter: "winter"
-    };
     this.state = { timeRange: "threedays", selectedYear: null };
     this.keyFunction = this.keyFunction.bind(this);
 
@@ -26,7 +31,7 @@ class WeatherStationDiagrams extends React.Component {
     this.previous = this.previous.bind(this);
   }
 
-  keyFunction(event) {
+  keyFunction(event: KeyboardEvent) {
     if (this.props.isOpen?.() ?? window["modalStateStore"].isOpen) {
       if (event.keyCode === 37) {
         //arrow left
@@ -39,8 +44,8 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   getNextStation() {
-    let stationsData = window["modalStateStore"].data.stationData;
-    let rowId = window["modalStateStore"].data.rowId;
+    const stationsData = window["modalStateStore"].data.stationData;
+    const rowId = window["modalStateStore"].data.rowId;
 
     let index = stationsData.findIndex(element => element.id == rowId);
     if (index < stationsData.length - 1) {
@@ -53,8 +58,8 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   getPreviousStation() {
-    let stationsData = window["modalStateStore"].data.stationData;
-    let rowId = window["modalStateStore"].data.rowId;
+    const stationsData = window["modalStateStore"].data.stationData;
+    const rowId = window["modalStateStore"].data.rowId;
 
     let index = stationsData.findIndex(element => element.id == rowId);
     if (index > 0) {
@@ -82,25 +87,17 @@ class WeatherStationDiagrams extends React.Component {
     document.removeEventListener("keydown", this.keyFunction, false);
   }
 
-  get cacheHash() {
-    let currentTS = new Date();
+  get cacheHash(): number {
+    const currentTS = new Date();
     currentTS.setMilliseconds(0);
     currentTS.setSeconds(0);
     currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5);
     return currentTS.valueOf();
   }
 
-  handleChangeTimeRange = (newTimeRange, event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    this.setState({
-      timeRange: newTimeRange !== "none" ? newTimeRange : "threedays"
-    });
-  };
-
-  regionName(microRegion) {
-    var pieces = microRegion.split(" ");
-    var name = this.props.intl.formatMessage({
+  regionName(microRegion: string): string {
+    const pieces = microRegion.split(" ");
+    const name = this.props.intl.formatMessage({
       id: "region:" + pieces[0]
     });
     return pieces[0] + " " + name;
@@ -108,8 +105,8 @@ class WeatherStationDiagrams extends React.Component {
 
   yearFlipper() {
     const curYear = currentSeasonYear();
-    let nextYear = null;
-    let lastYear = null;
+    let nextYear: null | number = null;
+    let lastYear: null | number = null;
     let selectedYear = curYear;
     if (this.state.selectedYear) {
       selectedYear = this.state.selectedYear;
@@ -191,14 +188,14 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
-  stationFlipper(isStation) {
+  stationFlipper(isStation: boolean) {
     const nextStation = this.getNextStation();
     const previousStation = this.getPreviousStation();
 
-    let nextStationData = nextStation.stationData.find(
+    const nextStationData = nextStation.stationData.find(
       element => element.id == nextStation.rowId
     );
-    let previousStationData = previousStation.stationData.find(
+    const previousStationData = previousStation.stationData.find(
       element => element.id == previousStation.rowId
     );
 
@@ -239,10 +236,10 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   render() {
-    let stationsData = window["modalStateStore"].data.stationData;
-    let rowId = window["modalStateStore"].data.rowId;
+    const stationsData = window["modalStateStore"].data.stationData;
+    const rowId = window["modalStateStore"].data.rowId;
     if (!stationsData) return <div></div>;
-    var stationData = stationsData.find(element => element.id == rowId);
+    const stationData = stationsData.find(element => element.id == rowId);
     if (!stationData) return <div></div>;
     const isStation = stationData instanceof StationData;
     return (
@@ -284,7 +281,7 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
-  renderMeasurementValues(stationData) {
+  renderMeasurementValues(stationData: StationData) {
     return (
       <ul className="list-inline weatherstation-info">
         {stationData.parametersForDialog.map(aInfo => (
@@ -323,14 +320,23 @@ class WeatherStationDiagrams extends React.Component {
   renderTimeRangeButtons() {
     return (
       <ul className="list-inline filter primary">
-        {Object.keys(this.timeRanges).map(key => {
-          let classes = ["label"];
+        {Object.keys(timeRanges).map(key => {
+          const classes = ["label"];
           if (key == this.state.timeRange) classes.push("js-active");
           return (
             <li key={key}>
               <a
                 href="#"
-                onClick={this.handleChangeTimeRange.bind(this, key)}
+                onClick={event => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this.setState({
+                    timeRange:
+                      key !== "none"
+                        ? (key as keyof typeof timeRanges)
+                        : "threedays"
+                  });
+                }}
                 className={classes.join(" ")}
               >
                 {this.props.intl.formatMessage({
@@ -344,20 +350,17 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
-  renderImage(stationData) {
+  renderImage(stationData: StationData) {
     const isStation = stationData instanceof StationData;
     const template = isStation
       ? window.config.apis.weather.plots
       : window.config.apis.weather.observers;
-    /**
-     * @type {HTMLDivElement}
-     */
     const div = this.myRef?.current;
     const clientWidth = div?.clientWidth ?? 1;
     const width = clientWidth >= 1100 ? 1100 : 800;
     const src = Util.template(template, {
       width,
-      interval: this.timeRanges[this.state.timeRange],
+      interval: timeRanges[this.state.timeRange],
       name: stationData.plot,
       year: this.state.selectedYear ? "_" + this.state.selectedYear : "",
       t: this.cacheHash
@@ -372,10 +375,7 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
-  /**
-   * @param {StationData} stationData
-   */
-  renderOperator(stationData) {
+  renderOperator(stationData: StationData) {
     return (
       <p className="weatherstation-provider">
         {this.props.intl.formatMessage(

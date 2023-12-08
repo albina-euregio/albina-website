@@ -1,9 +1,15 @@
 import { makeAutoObservable } from "mobx";
+import type { StationData } from "./stationDataStore";
+
+type Data = {
+  stationData: StationData[];
+  rowId: string;
+};
 
 export default class ModalStateStore {
+  private _isOpen = false;
+  private _data: Data = false as unknown as Data;
   constructor() {
-    this._isOpen = false;
-    this._data = false;
     makeAutoObservable(this);
   }
 
@@ -15,7 +21,7 @@ export default class ModalStateStore {
     this._isOpen = false;
   }
 
-  setData(data) {
+  setData(data: Data) {
     this._data = data;
   }
 
@@ -23,7 +29,7 @@ export default class ModalStateStore {
     return this._isOpen;
   }
 
-  get data() {
+  get data(): Data {
     return this._data;
   }
 }
