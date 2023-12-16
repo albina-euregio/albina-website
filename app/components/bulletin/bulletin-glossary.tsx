@@ -93,7 +93,9 @@ export default function BulletinGlossary(props: Props) {
     return <span>{props.children}</span>;
   }
   const { heading, text, img, href, hrefCaption } = glossaryContent;
-  const defHref = `https://www.avalanches.org/glossary/?lang=${props.locale}#${glossary}`;
+  const anchor =
+    GLOSSARY_CONTENT[props.locale][glossary]?.["ids"]?.[props.locale];
+  const defHref = `https://www.avalanches.org/glossary/?lang=${props.locale}#${anchor}`;
   const attribution = `<p className="tooltip-source">(${intl.formatMessage({
     id: "glossary:source"
   })}: <a href="${href || defHref}" target="_blank">${
