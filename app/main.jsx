@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
 import { APP_STORE } from "./appStore";
 import ModalStateStore from "./stores/modalStateStore";
@@ -41,7 +41,7 @@ Promise.all([configRequest, isWebpSupported]).then(
     if (webp) {
       document.body.className += " webp";
       // enable WebP for ALBINA layer
-      configParsed["map"]["tileLayers"]
+      [configParsed["map"]["tileLayer"]]
         .filter(layer => layer["id"] === "ALBINA")
         .forEach(
           layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
@@ -69,10 +69,8 @@ Promise.all([configRequest, isWebpSupported]).then(
     BLOG_STORE.initLanguage();
     BLOG_STORE.update();
 
-    ReactDOM.render(
-      <App />,
-      document.body.appendChild(document.getElementById("page-all"))
-    );
+    const root = document.body.appendChild(document.getElementById("page-all"));
+    createRoot(root).render(<App />);
   }
 );
 

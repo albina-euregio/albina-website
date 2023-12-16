@@ -1,7 +1,7 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 //import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
-import MarkerClusterGroup from "react-leaflet-markercluster";
+import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 

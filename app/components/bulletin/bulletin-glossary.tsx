@@ -33,39 +33,54 @@ const GLOSSARY_CONTENT = Object.freeze({
   oc: GLOSSARY_CONTENT_oc
 });
 
-type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
+export type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
   keyof typeof GLOSSARY_CONTENT;
+
+class GlossaryReplacer {
+  links: (typeof RAW_GLOSSARY_LINKS)[EnabledLanguages];
+  glossaryLinks: Record<string, string>;
+  regex: RegExp;
+
+  constructor(private locale: EnabledLanguages) {
+    this.links = RAW_GLOSSARY_LINKS[locale];
+    this.glossaryLinks = Object.fromEntries(
+      Object.entries(RAW_GLOSSARY_LINKS[locale]).flatMap(([id, phrases]) =>
+        phrases
+          .trim()
+          .split(/\n/g)
+          .filter(phrase => !!phrase)
+          .map(phrase => [phrase, id])
+      )
+    );
+    this.regex = new RegExp(
+      "\\b(" + Object.keys(this.glossaryLinks).join("|") + ")\\b",
+      "g"
+    );
+  }
+
+  replace(text: string) {
+    if (!this.links) {
+      return text;
+    }
+    return text.replace(this.regex, substring => {
+      const glossary = this.glossaryLinks[substring];
+      return `<BulletinGlossary locale="${this.locale}" glossary="${glossary}">${substring}</BulletinGlossary>`;
+    });
+  }
+}
+
+const GLOSSARY_REPLACER = {} as Record<EnabledLanguages, GlossaryReplacer>;
 
 export function findGlossaryStrings(
   text: string,
   locale: EnabledLanguages
 ): string {
-  const links = RAW_GLOSSARY_LINKS[locale];
-  if (!links) {
-    return text;
-  }
-
-  const glossaryLinks = Object.fromEntries(
-    Object.entries(links).flatMap(([id, phrases]) =>
-      phrases
-        .trim()
-        .split(/\n/g)
-        .filter(phrase => !!phrase)
-        .map(phrase => [phrase, id])
-    )
-  );
-  const regex = new RegExp(
-    "\\b(" + Object.keys(glossaryLinks).join("|") + ")\\b",
-    "g"
-  );
-  return text.replace(regex, substring => {
-    const glossary = glossaryLinks[substring];
-    return `<BulletinGlossary locale="${locale}" glossary="${glossary}">${substring}</BulletinGlossary>`;
-  });
+  GLOSSARY_REPLACER[locale] ??= new GlossaryReplacer(locale);
+  return GLOSSARY_REPLACER[locale].replace(text);
 }
 
 type Props = {
-  glossary: keyof typeof GLOSSARY_CONTENT[EnabledLanguages];
+  glossary: keyof (typeof GLOSSARY_CONTENT)[EnabledLanguages];
   locale: EnabledLanguages;
   children: JSX.Element;
 };

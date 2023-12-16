@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import $ from "jquery";
 
 const modalRoot = document.body;
@@ -30,7 +30,7 @@ const ModalDialog = ({ children, id }) => {
   }, [location.pathname]);
 
   //console.log("ModalDialog->render", id, getModalElement(id), children);
-  return ReactDOM.createPortal(children, getModalElement(id));
+  return createPortal(children, getModalElement(id));
 };
 
 export default ModalDialog;

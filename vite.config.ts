@@ -24,7 +24,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        chunkFileNames: "[hash:23].js"
+        chunkFileNames: "[hash:19].js"
       }
     },
     sourcemap: true
