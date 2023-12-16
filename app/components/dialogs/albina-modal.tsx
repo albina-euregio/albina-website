@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import type { Property } from "csstype";
 
 export interface ModalProps {
   isOpen: boolean;
   onClose?: () => void;
   children: React.ReactNode;
+  width?: Property.Width;
 }
 
 // https://blog.logrocket.com/creating-reusable-pop-up-modal-react/
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
@@ -50,6 +52,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onKeyDown={handleKeyDown}
       onClick={handleClick}
       className="modal"
+      style={{ width }}
     >
       <button className="modal-close-btn" onClick={handleCloseModal}>
         Close
