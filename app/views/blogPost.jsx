@@ -8,7 +8,6 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
 import { DATE_TIME_FORMAT } from "../util/date";
-import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
 import { BLOG_STORE } from "../stores/blogStore";
 import { preprocessContent } from "../util/htmlParser";
@@ -39,10 +38,7 @@ const BlogPost = () => {
           setContent(preprocessContent(b.content, true));
         })
         .then(() => {
-          window.setTimeout(() => {
-            modal_init();
-            video_init();
-          }, 1000);
+          window.setTimeout(() => video_init(), 1000);
         });
     }
   }, [params.blogName, params.postId]);

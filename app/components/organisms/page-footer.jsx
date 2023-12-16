@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import Menu from "../menu";
@@ -6,10 +6,12 @@ import Menu from "../menu";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
 
-import { Tooltip } from "../../components/tooltips/tooltip";
+import { Tooltip } from "../tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 import { APP_STORE } from "../../appStore";
+import Modal from "../dialogs/albina-modal";
+import SubscribeDialog from "../dialogs/subscribe-dialog";
 
 const license = import.meta.env.APP_LICENSE; // included via vite.config.js
 const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
@@ -18,8 +20,17 @@ const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.confi
 
 const PageFooter = () => {
   const intl = useIntl();
+  const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   return (
     <div id="page-footer" className="page-footer">
+      {isSubscribeDialogOpen && (
+        <Modal
+          isOpen={isSubscribeDialogOpen}
+          onClose={() => setSubscribeDialogOpen(false)}
+        >
+          <SubscribeDialog />
+        </Modal>
+      )}
       <section className="section section-padding page-footer-navigation">
         <div className="grid">
           <div className="grid-item normal-6">
@@ -44,11 +55,15 @@ const PageFooter = () => {
                   html={true}
                 >
                   <a
-                    href="#subscribeDialog"
+                    href="#"
+                    onClick={e => {
+                      setSubscribeDialogOpen(true);
+                      e.preventDefault();
+                    }}
                     title={intl.formatMessage({
                       id: "footer:subscribe:hover"
                     })}
-                    className="modal-trigger popup-modal pure-button"
+                    className="pure-button"
                   >
                     {intl.formatMessage({
                       id: "footer:subscribe"

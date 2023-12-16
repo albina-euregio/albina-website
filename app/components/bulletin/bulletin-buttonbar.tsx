@@ -1,20 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { APP_STORE } from "../../appStore";
-import { modal_init } from "../../js/modal";
 import { Tooltip } from "../tooltips/tooltip";
+import Modal from "../dialogs/albina-modal";
+import SubscribeDialog from "../dialogs/subscribe-dialog";
+import DownloadPdfDialog from "../dialogs/download-pdf-dialog";
 
 type Props = { showPdfDialog: boolean };
 
 function BulletinButtonbar({ showPdfDialog }: Props) {
   const intl = useIntl();
+  const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
+  const [isPdfDialogOpen, setPdfDialogOpen] = useState(false);
 
-  useEffect(() => modal_init());
   return (
     <section
       id="section-bulletin-linkbar"
       className="section-padding section-linkbar section-bulletin-linkbar top-fix"
     >
+      {isSubscribeDialogOpen && (
+        <Modal
+          isOpen={isSubscribeDialogOpen}
+          onClose={() => setSubscribeDialogOpen(false)}
+        >
+          <SubscribeDialog />
+        </Modal>
+      )}
+      {isPdfDialogOpen && (
+        <Modal isOpen={isPdfDialogOpen} onClose={() => setPdfDialogOpen(false)}>
+          <DownloadPdfDialog />
+        </Modal>
+      )}
+
       <div className="section-centered">
         <div className="grid linkbar">
           <div className="normal-4 grid-item">
@@ -36,8 +53,12 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
                     })}
                   >
                     <a
-                      href="#downloadPdfDialog"
-                      className="modal-trigger popup-modal pure-button"
+                      href="#"
+                      onClick={e => {
+                        setPdfDialogOpen(true);
+                        e.preventDefault();
+                      }}
+                      className="pure-button"
                     >
                       {intl.formatMessage({
                         id: "bulletin:linkbar:pdf"
@@ -54,8 +75,12 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
                     })}
                   >
                     <a
-                      href="#subscribeDialog"
-                      className="modal-trigger popup-modal pure-button"
+                      href="#"
+                      onClick={e => {
+                        setSubscribeDialogOpen(true);
+                        e.preventDefault();
+                      }}
+                      className="pure-button"
                     >
                       {intl.formatMessage({
                         id: "bulletin:linkbar:subscribe"
@@ -91,4 +116,5 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
     </section>
   );
 }
+
 export default BulletinButtonbar;
