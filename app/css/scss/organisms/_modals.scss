@@ -23,6 +23,7 @@ $mfp-overlay-opacity: 0.9; // Opacity of overlay screen
 $mfp-shadow: none; // Shadow on image or iframe
 
 dialog {
+  border: 0;
   padding: 0;
 }
 dialog > form {
