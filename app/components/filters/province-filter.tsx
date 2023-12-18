@@ -30,7 +30,6 @@ export default function ProvinceFilter(props: Props) {
                 props.handleChange(region);
               }}
             >
-              {props.value === region ? "☑ " : "☐ "}
               {intl.formatMessage({ id: `region:${region}` })}
             </button>
           </li>

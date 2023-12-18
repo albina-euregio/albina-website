@@ -25,7 +25,6 @@ export default function LanguageFilter(props: Props) {
                 props.handleChange(l);
               }}
             >
-              {props.value === l ? "☑ " : "☐ "}
               {l.toUpperCase()}
             </button>
           </li>
