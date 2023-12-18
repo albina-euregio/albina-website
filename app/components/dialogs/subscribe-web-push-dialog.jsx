@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { APP_STORE } from "../../appStore";
 import ProvinceFilter from "../filters/province-filter";
+import LanguageFilter from "../filters/language-filter";
 
 /**
  * @param {PushSubscription} subscription
@@ -162,42 +163,30 @@ export default function SubscribeWebPushDialog() {
               }}
             />
           </label>
-          <ul className="list-inline list-buttongroup">
-            <li>
-              <ProvinceFilter
-                title={intl.formatMessage({
-                  id: "measurements:filter:province"
-                })}
-                className={region && "selectric-changed"}
-                handleChange={r => setRegion(r)}
-                value={region}
-                none={intl.formatMessage({
-                  id: "blog:filter:province:nothing-selected"
-                })}
-              />
-            </li>
-          </ul>
+          <ProvinceFilter
+            buttongroup={true}
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            className={region && "selectric-changed"}
+            handleChange={r => setRegion(r)}
+            value={region}
+            none={intl.formatMessage({
+              id: "blog:filter:province:nothing-selected"
+            })}
+          />
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-telegram:language" />
             <span className="normal" />
           </label>
-          <ul className="list-inline list-subscribe-language">
-            {APP_STORE.mainLanguages.map(l => (
-              <li key={l}>
-                <label className="pure-checkbox">
-                  <input
-                    name="language"
-                    onChange={() => setLanguage(l)}
-                    value={l}
-                    type="radio"
-                    checked={language === l ? "checked" : ""}
-                  />
-                  &nbsp;
-                  <span className="normal">{l.toUpperCase()}</span>
-                </label>
-              </li>
-            ))}
-          </ul>
+          <LanguageFilter
+            buttongroup={true}
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            handleChange={l => setLanguage(l)}
+            value={language}
+          />
           <button
             type="submit"
             className="pure-button"

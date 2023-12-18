@@ -42,7 +42,6 @@ export default function YearFilter(props: Props) {
                 props.handleChange(year);
               }}
             >
-              {props.value === year ? "☑ " : "☐ "}
               {name}
             </button>
           </li>

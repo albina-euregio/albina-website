@@ -43,7 +43,6 @@ export default function MonthFilter(props: Props) {
                 props.handleChange(month);
               }}
             >
-              {props.value === month ? "☑ " : "☐ "}
               {name}
             </button>
           </li>
