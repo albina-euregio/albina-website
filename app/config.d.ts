@@ -1,5 +1,3 @@
-import type ModalStateStore from "./stores/modalStateStore";
-
 declare let config: typeof import("./config.json");
 
 declare global {
@@ -8,6 +6,5 @@ declare global {
       projectRoot: string;
       webp: boolean;
     };
-    modalStateStore: ModalStateStore;
   }
 }
