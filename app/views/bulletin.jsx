@@ -122,8 +122,9 @@ const Bulletin = props => {
       // update URL if necessary
       //console.log("bulletin navigate #1", params, location.hash);
       navigate({
-        pathname: "/bulletin/latest" + (location.hash ? location.hash : ""),
-        search: document.location.search.substring(1)
+        pathname: "/bulletin/latest",
+        hash: location.hash,
+        search: location.search.substring(1)
       });
     }
 
