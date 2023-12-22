@@ -101,11 +101,9 @@ function TendencyReport({
               }),
               daytime: "", // ampmId ? intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
               date: intl.formatDate(
-                getSuccDate(
-                  tendency.validTime?.startTime
-                    ? new Date(tendency.validTime?.startTime)
-                    : date
-                ),
+                tendency.validTime?.startTime
+                  ? new Date(tendency.validTime?.startTime)
+                  : getSuccDate(date),
                 LONG_DATE_FORMAT
               )
             }}
