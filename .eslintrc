@@ -27,6 +27,7 @@
   },
   "rules": {
     "no-console": ["error", { "allow": ["info", "warn", "error", "assert"] }],
+    "require-await": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-this-alias": "warn",
     "react/no-string-refs": "warn",

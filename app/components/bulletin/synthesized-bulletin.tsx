@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import { dateToISODateString } from "../../util/date.js";
 import { Bulletin } from "../../stores/bulletin";
+import { fetchExists } from "../../util/fetch";
 
 type Props = { date: Date; bulletin: Bulletin };
 
@@ -14,7 +15,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
 
   useEffect(() => {
-    const checkAudioFile = (date: Date, bulletin: Bulletin) => {
+    const checkAudioFile = async (date: Date, bulletin: Bulletin) => {
       if (!ENABLED_LANGUAGES.includes(bulletin.lang)) {
         setAudioFileUrl(null);
         return;
@@ -28,17 +29,8 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
         bulletin.lang +
         ".mp3";
 
-      fetch(fileUrl, { method: "HEAD" })
-        .then(res => {
-          if (res.status == 200) {
-            setAudioFileUrl(fileUrl);
-          } else {
-            setAudioFileUrl(null);
-          }
-        })
-        .catch(() => {
-          setAudioFileUrl(null);
-        });
+      const ok = await fetchExists(fileUrl);
+      setAudioFileUrl(ok ? fileUrl : null);
     };
     checkAudioFile(date, bulletin);
   }, [bulletin, date]);

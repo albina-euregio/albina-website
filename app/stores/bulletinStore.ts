@@ -13,7 +13,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "./bulletin";
-import { fetchJSON } from "../util/fetch.js";
+import { fetchExists, fetchJSON } from "../util/fetch.js";
 
 import { APP_STORE } from "../appStore";
 import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
@@ -21,10 +21,12 @@ import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
 import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
 import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
 import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
+
 export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
 import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
 import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
 import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
+
 export const microRegionsElevation: MicroRegionElevationProperties[] = [
   ..._pe1,
   ..._pe2,
@@ -186,6 +188,7 @@ class BulletinStore {
     wet_snow: { highlighted: false },
     gliding_snow: { highlighted: false }
   };
+
   constructor() {
     makeObservable(this, {
       bulletins: observable,
@@ -417,13 +420,10 @@ class BulletinStore {
     });
   }
 
-  static getBulletinStatus(date: string): Promise<Status> {
+  static async getBulletinStatus(date: string): Promise<Status> {
     const url = BulletinStore._getBulletinUrl(date);
-    // cannot use fetchJSON for HTTP HEAD
-    return fetch(url, { method: "head" }).then(
-      res => (res.ok ? "ok" : "n/a"),
-      () => "n/a"
-    );
+    const ok = await fetchExists(url);
+    return ok ? "ok" : "n/a";
   }
 }
 
