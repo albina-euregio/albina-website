@@ -6,9 +6,11 @@ import { execSync } from "child_process";
 import { readFileSync } from "fs";
 import { brotliCompressSync } from "zlib";
 
-const { license, repository } = JSON.parse(readFileSync("./package.json"));
+const { license, repository } = JSON.parse(
+  readFileSync("./package.json", { encoding: "utf8" })
+);
 
-function git(command) {
+function git(command: string): string {
   return execSync(`git ${command}`, { encoding: "utf8" }).trim();
 }
 
