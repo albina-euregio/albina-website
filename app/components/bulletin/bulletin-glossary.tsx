@@ -101,8 +101,8 @@ export default function BulletinGlossary(props: Props) {
   })}: <a href="${href || defHref}" target="_blank">${
     hrefCaption || "EAWS"
   }</a>)</p>`;
-  const html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
-
+  let html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
+  html = html.replace(/<img /g, '<img loading="lazy" ');
   const content = preprocessContent(html);
   return (
     <Tooltip label={content} html={true} enableClick={true}>
