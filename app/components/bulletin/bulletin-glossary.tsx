@@ -103,7 +103,7 @@ export default function BulletinGlossary(props: Props) {
   }</a>)</p>`;
   let html = `<h3>${heading}</h3>` + text + (img ?? "") + attribution;
   html = html.replace(/<img /g, '<img loading="lazy" ');
-  const content = preprocessContent(html);
+  const content = () => preprocessContent(html);
   return (
     <Tooltip label={content} html={true} enableClick={true}>
       <a className="glossary">{props.children}</a>

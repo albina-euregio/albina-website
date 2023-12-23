@@ -30,7 +30,7 @@ export const Tooltip = ({
   enableClick = false
 }: {
   children: React.ReactNode;
-  label: React.ReactNode | string;
+  label: React.ReactNode | (() => React.ReactNode) | string;
   placement: "bottom";
   html: boolean;
   enableClick: boolean;
@@ -96,6 +96,8 @@ export const Tooltip = ({
                     __html: label.replace("\n", "<br>")
                   }}
                 ></div>
+              ) : typeof label === "function" ? (
+                <div className="tooltip-content">{label()}</div>
               ) : (
                 <div className="tooltip-content">{label}</div>
               )}
