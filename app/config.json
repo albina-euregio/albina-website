@@ -384,10 +384,6 @@
     "lawinen.report": "de",
     "valanghe.report": "it"
   },
-  "defaults": {
-    "language": "auto",
-    "ampm": "am"
-  },
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],

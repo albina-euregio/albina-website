@@ -1,9 +1,9 @@
 import { Util } from "leaflet";
 import React, { type ReactEventHandler } from "react";
-import { Bulletin } from "../../stores/bulletin";
+import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
 type Props = {
-  ampm?: "am" | "pm";
+  validTimePeriod?: ValidTimePeriod;
   bulletin?: Bulletin;
   date: string;
   region: string;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 function BulletinAWMapStatic({
-  ampm,
+  validTimePeriod,
   bulletin,
   date,
   region,
@@ -29,7 +29,7 @@ function BulletinAWMapStatic({
       : "";
   imgFormat ||= window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
   const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
-  const fileSuffix = ampm === "pm" ? "_PM" : "";
+  const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
   const url = Util.template(config.apis.bulletin.map, {
     date: date,

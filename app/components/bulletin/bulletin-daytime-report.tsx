@@ -10,27 +10,38 @@ import {
   LONG_DATE_FORMAT
 } from "../../util/date.js";
 import { Tooltip } from "../tooltips/tooltip";
-import { isAmPm, type Bulletin, type Tendency } from "../../stores/bulletin";
+import {
+  matchesValidTimePeriod,
+  type Bulletin,
+  type Tendency,
+  type ValidTimePeriod,
+  toAmPm
+} from "../../stores/bulletin";
 
 type Props = {
-  ampm: "am" | "pm";
+  validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
   date: Date;
 };
 
-function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
+function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
   const intl = useIntl();
   const problems =
-    bulletin?.avalancheProblems?.filter(p => isAmPm(ampm, p.validTimePeriod)) ||
-    [];
+    bulletin?.avalancheProblems?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
   const dangerRatings =
-    bulletin?.dangerRatings?.filter(p => isAmPm(ampm, p.validTimePeriod)) || [];
+    bulletin?.dangerRatings?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
 
   return (
     <div>
-      {ampm && (
+      {validTimePeriod && (
         <h2 className="subheader">
-          <FormattedMessage id={"bulletin:report:daytime:" + ampm} />
+          <FormattedMessage
+            id={`bulletin:report:daytime${toAmPm[validTimePeriod]}`}
+          />
         </h2>
       )}
       <div className="bulletin-report-pictobar">
@@ -45,7 +56,7 @@ function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
                 bulletin={bulletin}
                 date={dateToISODateString(date)}
                 region={bulletin.bulletinID}
-                ampm={ampm}
+                validTimePeriod={validTimePeriod}
               />
             </a>
           </Tooltip>
@@ -68,6 +79,7 @@ function BulletinDaytimeReport({ ampm, bulletin, date }: Props) {
     </div>
   );
 }
+
 export default BulletinDaytimeReport;
 
 function TendencyReport({
@@ -99,7 +111,7 @@ function TendencyReport({
               tendency: intl.formatMessage({
                 id: `bulletin:report:tendency:${tendency.tendencyType}`
               }),
-              daytime: "", // ampmId ? intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
+              daytime: "",
               date: intl.formatDate(
                 tendency.validTime?.startTime
                   ? new Date(tendency.validTime?.startTime)

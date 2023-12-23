@@ -18,9 +18,10 @@ import {
   PbfLayerOverlay,
   PbfRegionState
 } from "../leaflet/pbf-map";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 type Props = {
-  ampm: "am" | "pm";
+  validTimePeriod: ValidTimePeriod;
   date: string;
   handleMapViewportChanged: (map: L.Map) => void;
   handleSelectRegion: (region: string) => void;
@@ -93,9 +94,9 @@ const BulletinMap = (props: Props) => {
     const b = BULLETIN_STORE.activeBulletinCollection;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${BULLETIN_STORE.settings.status}`}
         date={date}
-        ampm={props.ampm}
+        validTimePeriod={props.validTimePeriod}
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
         {date >= "2023-11-01" ? (
@@ -109,9 +110,9 @@ const BulletinMap = (props: Props) => {
     );
     overlays.push(
       <PbfLayerOverlay
-        key={`eaws-regions-${props.ampm}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
         date={date}
-        ampm={props.ampm}
+        validTimePeriod={props.validTimePeriod}
         eventHandlers={{
           click(e) {
             DomEvent.stop(e);
@@ -138,10 +139,10 @@ const BulletinMap = (props: Props) => {
           const regionState =
             region === regionMouseover
               ? "mouseOver"
-              : BULLETIN_STORE.getRegionState(region, props.ampm);
+              : BULLETIN_STORE.getRegionState(region, props.validTimePeriod);
           return (
             <PbfRegionState
-              key={region + regionState + props.ampm}
+              key={region + regionState + props.validTimePeriod}
               region={region}
               regionState={regionState}
             />
@@ -165,7 +166,7 @@ const BulletinMap = (props: Props) => {
           region={intl.formatMessage({
             id: "region:" + BULLETIN_STORE.settings.region
           })}
-          ampm={props.ampm}
+          validTimePeriod={props.validTimePeriod}
         />
       );
       res.push(
@@ -318,11 +319,11 @@ const BulletinMap = (props: Props) => {
         )}
         {getBulletinMapDetails()}
 
-        {props.ampm && (
+        {props.validTimePeriod && (
           <p className="bulletin-map-daytime">
             <span className="primary label">
               {intl.formatMessage({
-                id: "bulletin:header:" + props.ampm
+                id: `bulletin:header${toAmPm[props.validTimePeriod]}`
               })}
             </span>
           </p>
