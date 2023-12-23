@@ -97,10 +97,10 @@ export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
 
 export const EawsDangerRatings = ({
   date,
-  region
+  regions
 }: {
   date: string;
-  region: string;
+  regions: readonly string[];
 }) => {
   const [maxDangerRatings, setMaxDangerRatings] = useState(
     {} as MaxDangerRatings
@@ -109,15 +109,24 @@ export const EawsDangerRatings = ({
     if (date < "2021-01-25") {
       return;
     }
-    fetchJSON(
-      `https://static.avalanche.report/eaws_bulletins/${date}/${date}-${region}.ratings.json`,
-      { cache: "no-cache" }
-    )
-      .then(json => setMaxDangerRatings(json.maxDangerRatings))
+    const regex = new RegExp("^(" + regions.join("|") + ")");
+    const url =
+      regions.length === 1
+        ? `https://static.avalanche.report/eaws_bulletins/${date}/${date}-${regions[0]}.ratings.json`
+        : `https://static.avalanche.report/eaws_bulletins/${date}/${date}.ratings.json`;
+    fetchJSON<{ maxDangerRatings: MaxDangerRatings }>(url, {
+      cache: "no-cache"
+    })
+      .then(({ maxDangerRatings }) =>
+        Object.fromEntries(
+          Object.entries(maxDangerRatings).filter(([r]) => regex.test(r))
+        )
+      )
+      .then(maxDangerRatings => setMaxDangerRatings(maxDangerRatings))
       .catch(error =>
         console.warn("Cannot load EAWS bulletins for date " + date, error)
       );
-  }, [date, region, setMaxDangerRatings]);
+  }, [date, regions, setMaxDangerRatings]);
   return <DangerRatings maxDangerRatings={maxDangerRatings} />;
 };
 

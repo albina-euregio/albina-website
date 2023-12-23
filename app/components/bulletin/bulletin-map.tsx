@@ -18,6 +18,7 @@ import {
   PbfLayerOverlay,
   PbfRegionState
 } from "../leaflet/pbf-map";
+
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -54,6 +55,38 @@ const BulletinMap = props => {
     };
   };
 
+  const eawsRegions = Object.freeze([
+    "AD",
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-08",
+    "CH",
+    "CZ",
+    "DE-BY",
+    "ES-CT-L",
+    "ES-CT",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "IS",
+    "IT-21",
+    "IT-23",
+    "IT-25",
+    "IT-34",
+    "IT-36",
+    "IT-57",
+    "NO",
+    "PL",
+    "PL-12",
+    "SE",
+    "SI",
+    "SK"
+  ]);
+
   const getMapOverlays = () => {
     const overlays = [];
     const date = BULLETIN_STORE.settings.date;
@@ -65,39 +98,13 @@ const BulletinMap = props => {
         ampm={props.ampm}
       >
         {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
-        {[
-          "AD",
-          "AT-02",
-          "AT-03",
-          "AT-04",
-          "AT-05",
-          "AT-06",
-          "AT-08",
-          "CH",
-          "CZ",
-          "DE-BY",
-          "ES-CT-L",
-          "ES-CT",
-          "ES",
-          "FI",
-          "FR",
-          "GB",
-          "IS",
-          "IT-21",
-          "IT-23",
-          "IT-25",
-          "IT-34",
-          "IT-36",
-          "IT-57",
-          "NO",
-          "PL",
-          "PL-12",
-          "SE",
-          "SI",
-          "SK"
-        ].map(region => (
-          <EawsDangerRatings key={region} date={date} region={region} />
-        ))}
+        {date >= "2023-11-01" ? (
+          <EawsDangerRatings date={date} regions={eawsRegions} />
+        ) : date >= "2021-01-25" ? (
+          eawsRegions.map(region => (
+            <EawsDangerRatings key={region} date={date} regions={[region]} />
+          ))
+        ) : undefined}
       </PbfLayer>
     );
     overlays.push(
