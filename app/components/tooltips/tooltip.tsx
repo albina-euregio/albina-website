@@ -52,10 +52,9 @@ export const Tooltip = ({
       mouseOnly: true,
       handleClose: safePolygon()
     }),
-    enableClick &&
-      useClick(context, {
-        ignoreMouse: true
-      }),
+    useClick(context, {
+      enabled: enableClick
+    }),
     useFocus(context),
     useRole(context, { role: "tooltip" }),
     useDismiss(context)
