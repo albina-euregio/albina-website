@@ -19,15 +19,15 @@ import {
   PbfRegionState
 } from "../leaflet/pbf-map";
 
-/**
- * @typedef {object} Props
- * @prop {*} date
- * @prop {*} intl
- * @prop {"am" | "pm" | undefined} ampm
- * ... props
- *
- */
-const BulletinMap = props => {
+type Props = {
+  ampm: "am" | "pm";
+  date: string;
+  handleMapViewportChanged: (map: L.Map) => void;
+  handleSelectRegion: (region: string) => void;
+  onMapInit: (map: L.Map) => void;
+};
+
+const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const [regionMouseover, setRegionMouseover] = useState("");
 
