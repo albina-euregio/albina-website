@@ -14,8 +14,7 @@ import {
   matchesValidTimePeriod,
   type Bulletin,
   type Tendency,
-  type ValidTimePeriod,
-  toAmPm
+  type ValidTimePeriod
 } from "../../stores/bulletin";
 
 type Props = {
@@ -39,9 +38,7 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
     <div>
       {validTimePeriod && (
         <h2 className="subheader">
-          <FormattedMessage
-            id={`bulletin:report:daytime${toAmPm[validTimePeriod]}`}
-          />
+          <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
         </h2>
       )}
       <div className="bulletin-report-pictobar">

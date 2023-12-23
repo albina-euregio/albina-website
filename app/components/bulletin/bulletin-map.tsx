@@ -18,7 +18,7 @@ import {
   PbfLayerOverlay,
   PbfRegionState
 } from "../leaflet/pbf-map";
-import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { ValidTimePeriod } from "../../stores/bulletin";
 
 type Props = {
   validTimePeriod: ValidTimePeriod;
@@ -323,7 +323,7 @@ const BulletinMap = (props: Props) => {
           <p className="bulletin-map-daytime">
             <span className="primary label">
               {intl.formatMessage({
-                id: `bulletin:header${toAmPm[props.validTimePeriod]}`
+                id: `bulletin:header:${props.validTimePeriod}`
               })}
             </span>
           </p>
