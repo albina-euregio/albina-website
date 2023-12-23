@@ -102,6 +102,9 @@ function ArchiveItem({ date, status }: Props) {
           <li>
             <DownloadLink format="xml" dateString={dateString} lang={lang} />
           </li>
+          <li>
+            <DownloadLink format="json" dateString={dateString} lang={lang} />
+          </li>
         </ul>
       </td>
       <td>
@@ -149,7 +152,7 @@ function DownloadLink({
   dateString,
   lang
 }: {
-  format: "pdf" | "xml";
+  format: "pdf" | "xml" | "json";
   dateString: string;
   lang: string;
 }) {
@@ -165,7 +168,7 @@ function DownloadLink({
       target="_blank"
       className="small secondary pure-button tooltip"
     >
-      <FormattedMessage id={`archive:download-${format}`} />
+      {format.toUpperCase()}
     </a>
   );
 }
