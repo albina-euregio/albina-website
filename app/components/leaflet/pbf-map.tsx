@@ -1,34 +1,21 @@
-import React, { useMemo } from "react";
-import type { PathOptions, VectorGrid } from "leaflet";
+import React, { useEffect,useMemo } from "react";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
-import { WARNLEVEL_STYLES } from "../../util/warn-levels";
-
+import { AvalancheProblemType, BulletinCollection, MaxDangerRatings, ValidTimePeriod, matchesValidTimePeriod, toAmPm } from "../../stores/bulletin";
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import { useEffect } from "react";
+import { MicroRegionElevationProperties, MicroRegionProperties, RegionOutlineProperties, eawsRegionIds, filterFeature, microRegionIds } from "../../stores/microRegions";
+import { PolygonSymbolizer, leafletLayer as pmLayer } from "protomaps-leaflet/src/index";
 import { regionsRegex } from "../../util/regions";
-import {
-  eawsRegionIds,
-  filterFeature,
-  MicroRegionElevationProperties,
-  microRegionIds,
-  MicroRegionProperties,
-  RegionOutlineProperties
-} from "../../stores/microRegions";
-import {
-  AvalancheProblemType,
-  BulletinCollection,
-  matchesValidTimePeriod,
-  MaxDangerRatings,
-  toAmPm,
-  ValidTimePeriod
-} from "../../stores/bulletin";
 import { RegionState } from "../../stores/bulletin";
+import { WARNLEVEL_STYLES } from "../../util/warn-levels";
+import type { Layer, PathOptions } from "leaflet";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
-    vectorGrid: VectorGrid;
+    vectorGrid: Layer;
   }
 }
+
+type Region = string;
 
 type PbfStyleFunction = {
   "micro-regions_elevation": (
@@ -40,13 +27,14 @@ type PbfStyleFunction = {
 
 const hidden = Object.freeze({
   stroke: false,
-  fill: false
+  fill: false,
+  fillOpacity: 0.0
 } as PathOptions);
 const clickable = Object.freeze({
   stroke: false,
   fill: true,
   fillColor: "black",
-  fillOpacity: 0.0
+  fillOpacity: 0.1
 } as PathOptions);
 
 type PbfProps = {
@@ -66,7 +54,6 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
-      dangerRatings: {},
       pane: "overlayPane",
       interactive: false,
       rendererFactory: L.canvas.tile,
@@ -112,44 +99,31 @@ type PbfLayerOverlayProps = PbfProps & {
 
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
-    const instance = L.vectorGrid.protobuf(
-      "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
-      {
-        pane: "markerPane",
-        interactive: true,
-        rendererFactory: L.svg.tile,
-        maxNativeZoom: 10,
-        getFeatureId({
-          properties
-        }: {
-          properties:
-            | MicroRegionElevationProperties
-            | MicroRegionProperties
-            | RegionOutlineProperties;
-        }) {
-          if (
-            (properties as MicroRegionElevationProperties).elevation ||
-            !filterFeature({ properties }, props.date)
-          ) {
-            return undefined;
-          } else {
-            return properties.id;
-          }
-        },
-        vectorTileLayerStyles: {
-          "micro-regions_elevation"() {
-            return hidden;
-          },
-          "micro-regions"(properties) {
-            if (!filterFeature({ properties }, props.date)) return hidden;
-            return regionsRegex.test(properties.id) ? clickable : hidden;
-          },
-          outline(properties) {
-            if (!filterFeature({ properties }, props.date)) return hidden;
-            return !regionsRegex.test(properties.id) ? clickable : hidden;
-          }
-        } as PbfStyleFunction
-      }
+    const instance = pmLayer({
+      pane: "markerPane",
+      interactive: true,
+      maxDataZoom: 10,
+      attribution: "",
+      url: "https://static.avalanche.report/eaws-regions.pmtiles",
+      label_rules: [],
+      paint_rules: [
+        {
+          dataLayer: "overlay",
+          filter: (z, f) => filterFeature({ properties: f.props }, props.date),
+          symbolizer: new PolygonSymbolizer({
+            fill: (z, f) =>
+              (instance.options.regionStyling[f.props.id] ?? clickable)
+                .fillColor,
+            opacity: (z, f) =>
+              (instance.options.regionStyling[f.props.id] ?? clickable)
+                .fillOpacity
+          })
+        }
+      ]
+    });
+    ctx.map.on("click", e =>
+      // FIXME
+      console.log(instance.queryFeatures(e.latlng.lat, e.latlng.lng))
     );
 
     return {
@@ -194,11 +168,13 @@ export const PbfRegionState = ({
   useEffect(() => {
     [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region => {
       const regionState = getRegionState(region);
-      vectorGrid.setFeatureStyle(region as unknown as number, {
-        ...clickable,
-        ...config.map.regionStyling.all,
-        ...(config.map.regionStyling[regionState] || {})
-      });
+      vectorGrid.options.regionStyling = {
+        [region]: {
+          ...clickable,
+          ...config.map.regionStyling.all,
+          ...(config.map.regionStyling[regionState] || {})
+        }
+      };
     });
 
     function getRegionState(regionId: string): RegionState {
