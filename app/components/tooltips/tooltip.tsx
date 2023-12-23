@@ -31,9 +31,9 @@ export const Tooltip = ({
 }: {
   children: React.ReactNode;
   label: React.ReactNode | (() => React.ReactNode) | string;
-  placement: "bottom";
-  html: boolean;
-  enableClick: boolean;
+  placement?: "bottom";
+  html?: boolean;
+  enableClick?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
 

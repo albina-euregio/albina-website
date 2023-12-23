@@ -30,6 +30,7 @@ type Props = {
   date: Date;
   status: BulletinStatus;
 };
+
 function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
@@ -47,23 +48,6 @@ function ArchiveItem({ date, status }: Props) {
       }
     } else {
       return lang;
-    }
-  }
-
-  function showMap(dateString: string) {
-    const lang = APP_STORE.language;
-    if (dateString < "2020-12-01") {
-      switch (lang) {
-        case "fr":
-        case "es":
-        case "ca":
-        case "oc":
-          return false;
-        default:
-          return true;
-      }
-    } else {
-      return true;
     }
   }
 
@@ -112,11 +96,17 @@ function ArchiveItem({ date, status }: Props) {
       </td>
       <td>
         <ul className="list-inline list-buttongroup-dense list-download">
-          <li>{pdfDownloadLink()}</li>
-          <li>{xmlDownloadLink()}</li>
+          <li>
+            <DownloadLink format="pdf" dateString={dateString} lang={lang} />
+          </li>
+          <li>
+            <DownloadLink format="xml" dateString={dateString} lang={lang} />
+          </li>
         </ul>
       </td>
-      <td>{bulletinMap()}</td>
+      <td>
+        <BulletinMap dateString={dateString} bulletin={bulletin} />
+      </td>
       {bulletin && (
         <td>
           {bulletin?.dangerRatings && (
@@ -152,70 +142,85 @@ function ArchiveItem({ date, status }: Props) {
       )}
     </tr>
   );
+}
 
-  function pdfDownloadLink() {
-    return (
-      <a
-        href={Util.template(config.apis.bulletin.pdf, {
-          date: dateString,
-          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-          lang,
-          bw: ""
-        })}
-        rel="noopener noreferrer"
-        target="_blank"
-        className="small secondary pure-button tooltip"
-      >
-        <FormattedMessage id="archive:download-pdf" />
-      </a>
-    );
-  }
+function DownloadLink({
+  format,
+  dateString,
+  lang
+}: {
+  format: "pdf" | "xml";
+  dateString: string;
+  lang: string;
+}) {
+  return (
+    <a
+      href={Util.template(config.apis.bulletin[format], {
+        date: dateString,
+        region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+        lang,
+        bw: ""
+      })}
+      rel="noopener noreferrer"
+      target="_blank"
+      className="small secondary pure-button tooltip"
+    >
+      <FormattedMessage id={`archive:download-${format}`} />
+    </a>
+  );
+}
 
-  function xmlDownloadLink() {
-    return (
-      <a
-        href={Util.template(config.apis.bulletin.xml, {
-          date: dateString,
-          region: dateString > "2022-05-06" ? "EUREGIO_" : "",
-          lang
-        })}
-        rel="noopener noreferrer"
-        target="_blank"
-        className="small secondary pure-button tooltip"
+function BulletinMap({
+  dateString,
+  bulletin
+}: {
+  dateString: string;
+  bulletin: Bulletin;
+}): React.ReactNode {
+  const intl = useIntl();
+  if (!showMap(dateString)) return <></>;
+  const region =
+    bulletin && dateString > "2022-05-06"
+      ? `EUREGIO_${bulletin.bulletinID}`
+      : bulletin
+      ? bulletin.bulletinID
+      : dateString < "2022-05-06"
+      ? "fd_albina_thumbnail"
+      : "fd_EUREGIO_thumbnail";
+  return (
+    <Tooltip
+      label={intl.formatMessage({
+        id: "archive:show-forecast:hover"
+      })}
+    >
+      <Link
+        to={"/bulletin/" + dateString}
+        className={"map-preview img tooltip"}
       >
-        <FormattedMessage id="archive:download-xml" />
-      </a>
-    );
-  }
+        <ArchiveAwmapStatic
+          date={dateString}
+          imgFormat=".jpg"
+          region={region}
+        />
+      </Link>
+    </Tooltip>
+  );
 
-  function bulletinMap(): React.ReactNode {
-    if (!showMap(dateString)) return;
-    const region =
-      bulletin && dateString > "2022-05-06"
-        ? `EUREGIO_${bulletin.bulletinID}`
-        : bulletin
-        ? bulletin.bulletinID
-        : dateString < "2022-05-06"
-        ? "fd_albina_thumbnail"
-        : "fd_EUREGIO_thumbnail";
-    return (
-      <Tooltip
-        label={intl.formatMessage({
-          id: "archive:show-forecast:hover"
-        })}
-      >
-        <Link
-          to={"/bulletin/" + dateString}
-          className={"map-preview img tooltip"}
-        >
-          <ArchiveAwmapStatic
-            date={dateString}
-            imgFormat=".jpg"
-            region={region}
-          />
-        </Link>
-      </Tooltip>
-    );
+  function showMap(dateString: string) {
+    const lang = APP_STORE.language;
+    if (dateString < "2020-12-01") {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return false;
+        default:
+          return true;
+      }
+    } else {
+      return true;
+    }
   }
 }
 
