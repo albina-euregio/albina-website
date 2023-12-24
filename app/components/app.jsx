@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from "react";
-import $ from "jquery";
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 
@@ -55,9 +54,6 @@ const RouteBulletin = () => {
 
 const App = () => {
   useEffect(() => {
-    window["page_html"] = $("html");
-    window["page_body"] = $("body");
-
     orientation_change();
   });
 
