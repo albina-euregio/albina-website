@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import Menu from "./../menu";
-import { NAVIGATION_STORE } from "../../stores/navigationStore";
 import { Util } from "leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -36,21 +35,6 @@ function PageHeader() {
     }
   };
 
-  const setActiveMenuItem = e => {
-    if (typeof e == "object") {
-      Object.keys(e).forEach(k => {
-        NAVIGATION_STORE.activeElement[k] = e[k];
-      });
-    }
-  };
-
-  const setActiveTopLevelMenuItem = e => {
-    if (typeof e == "object") {
-      Object.keys(e).forEach(k => {
-        NAVIGATION_STORE.activeTopLevelElement[k] = e[k];
-      });
-    }
-  };
   const lang = document.body.parentElement.lang;
 
   return (
@@ -89,8 +73,8 @@ function PageHeader() {
               $(".navigation-trigger").trigger("click");
             }
           }}
-          onActiveMenuItem={setActiveTopLevelMenuItem}
-          onActiveChildMenuItem={setActiveMenuItem}
+          onActiveMenuItem={() => {}}
+          onActiveChildMenuItem={() => {}}
         />
       </div>
       <div className="page-header-language">
