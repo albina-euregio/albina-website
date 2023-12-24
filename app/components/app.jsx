@@ -11,7 +11,8 @@ import {
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
 
-import { APP_STORE } from "../appStore";
+import { setLanguage, $locale, $messages } from "../appStore";
+import { useStore } from "@nanostores/react";
 
 const Bulletin = React.lazy(() => import("./../views/bulletin"));
 const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
@@ -38,7 +39,7 @@ const RouteStaticPage = () => {
   //console.log("SwtichLang", params);
 
   if (params?.name && /^([a-z]{2})$/.test(params?.name)) {
-    APP_STORE.setLanguage(params.name);
+    setLanguage(params.name);
     return <Navigate replace to="/" />;
   }
   return <StaticPage />;
@@ -53,12 +54,14 @@ const RouteBulletin = () => {
 };
 
 const App = () => {
+  const locale = useStore($locale);
+  const messages = useStore($messages);
   useEffect(() => {
     orientation_change();
   });
 
   return (
-    <IntlProvider locale={APP_STORE.locale} messages={APP_STORE.messages}>
+    <IntlProvider locale={locale} messages={messages}>
       <BrowserRouter basename={config.projectRoot}>
         <Suspense fallback={"..."}>
           <Routes>

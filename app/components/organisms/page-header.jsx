@@ -9,7 +9,7 @@ import { Util } from "leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
-import { APP_STORE } from "../../appStore";
+import { setLanguage } from "../../appStore";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 function PageHeader() {
@@ -20,7 +20,7 @@ function PageHeader() {
     if (import.meta.env.DEV) {
       const date = BULLETIN_STORE.settings.date;
       // since website is served from localhost, just change language in appStore
-      APP_STORE.setLanguage(newLanguage);
+      setLanguage(newLanguage);
       if (date) {
         BULLETIN_STORE.load(date, true);
       }
@@ -32,7 +32,7 @@ function PageHeader() {
       console.info("Changing hostname to " + newHost);
       document.location.hostname = newHost;
     } else {
-      APP_STORE.setLanguage(newLanguage);
+      setLanguage(newLanguage);
     }
   };
 
