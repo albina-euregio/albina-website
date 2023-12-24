@@ -17,7 +17,6 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
-import { APP_STORE } from "../appStore.js";
 import { fetchExists } from "../util/fetch";
 
 function Archive() {
@@ -242,7 +241,7 @@ async function getArchiveBulletinStatus(
     ),
     fetchExists(
       `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
-        APP_STORE.language === "it" ? "it" : "de"
+        document.body.parentElement.lang === "it" ? "it" : "de"
       }.pdf`
     ),
     fetchExists(

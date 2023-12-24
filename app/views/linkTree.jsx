@@ -9,7 +9,6 @@ import { injectIntl } from "react-intl";
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
-import { APP_STORE } from "../appStore";
 import { Util } from "leaflet";
 
 //import { scroll } from "../js/scroll";
@@ -46,7 +45,7 @@ class LinkTree extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = APP_STORE.language;
+    var lang = document.body.parentElement.lang;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

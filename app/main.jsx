@@ -55,7 +55,7 @@ Promise.all([configRequest, isWebpSupported]).then(
     window.config = configParsed;
 
     // initially set language-dependent body classes
-    const initialLang = APP_STORE.language;
+    const initialLang = document.body.parentElement.lang;
     document.body.parentElement.lang = initialLang;
     document.body.className +=
       (document.body.className ? " " : "") +

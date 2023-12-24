@@ -51,7 +51,7 @@ function PageHeader() {
       });
     }
   };
-  const lang = APP_STORE.language;
+  const lang = document.body.parentElement.lang;
 
   return (
     <div id="page-header" className="page-header" data-scroll-header>

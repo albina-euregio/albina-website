@@ -9,7 +9,6 @@ import { preprocessContent } from "../../util/htmlParser";
 
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { APP_STORE } from "../../appStore";
 import { scroll_init } from "../../js/scroll";
 import {
   DangerRatings,
@@ -197,7 +196,7 @@ const BulletinMap = (props: Props) => {
     } else if (BULLETIN_STORE.activeEaws) {
       const activeEaws = BULLETIN_STORE.activeEaws;
       detailsClasses.push("js-active");
-      const language = APP_STORE.language;
+      const language = document.body.parentElement.lang;
       const country = activeEaws.id.replace(/-.*/, "");
       const region = activeEaws.id;
       // res.push(

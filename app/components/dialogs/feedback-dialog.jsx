@@ -2,13 +2,12 @@ import React from "react";
 import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import CookieStore from "../../stores/cookieStore";
-import { APP_STORE } from "../../appStore";
 
 const cookieFeedback = new CookieStore("feedbackAccepted");
 
 function FeedbackDialog() {
   const intl = useIntl();
-  const url = config.links.feedback[APP_STORE.language];
+  const url = config.links.feedback[document.body.parentElement.lang];
   const accept = flag => {
     if (flag) {
       window.open(url, "_blank");

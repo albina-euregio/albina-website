@@ -14,7 +14,6 @@ import {
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
-import { APP_STORE } from "../../appStore";
 
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   // bulletins are loaded in correct language
@@ -22,7 +21,10 @@ const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
   return (
     <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
-      <BulletinGlossaryText text={text} locale={APP_STORE.language} />
+      <BulletinGlossaryText
+        text={text}
+        locale={document.body.parentElement.lang}
+      />
     </Suspense>
   );
 };

@@ -4,7 +4,6 @@ import { injectIntl, FormattedMessage } from "react-intl";
 
 import LanguageFilter from "../filters/language-filter";
 import ProvinceFilter from "../filters/province-filter";
-import { APP_STORE } from "../../appStore";
 
 class SubscribeTelegramDialog extends React.Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class SubscribeTelegramDialog extends React.Component {
 
   resetState() {
     this.setState({
-      language: APP_STORE.language,
+      language: document.body.parentElement.lang,
       region: false,
       status: "",
       errorMessage: ""

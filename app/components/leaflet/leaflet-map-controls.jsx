@@ -13,7 +13,6 @@ import "leaflet.locatecontrol";
 import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
-import { APP_STORE } from "../../appStore";
 
 const LeafletMapControls = props => {
   const intl = useIntl();
@@ -75,7 +74,7 @@ const LeafletMapControls = props => {
 
     L.control
       .geonames({
-        lang: APP_STORE.language,
+        lang: document.body.parentElement.lang,
         title: intl.formatMessage({
           id: "bulletin:map:search"
         }),

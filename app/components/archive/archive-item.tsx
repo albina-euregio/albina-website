@@ -5,7 +5,6 @@ import { Util } from "leaflet";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
-import { APP_STORE } from "../../appStore";
 import { type Bulletin } from "../../stores/bulletin";
 import { type Status } from "../../stores/bulletinStore";
 import { RegionCodes } from "../../util/regions";
@@ -35,7 +34,7 @@ function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
   function getLanguage(dateString: string) {
-    const lang = APP_STORE.language;
+    const lang = document.body.parentElement.lang;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -210,7 +209,7 @@ function BulletinMap({
   );
 
   function showMap(dateString: string) {
-    const lang = APP_STORE.language;
+    const lang = document.body.parentElement.lang;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { APP_STORE } from "../../appStore";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
@@ -97,7 +96,9 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
                     })}
                   >
                     <a
-                      href={config.links.feedback[APP_STORE.language]}
+                      href={
+                        config.links.feedback[document.body.parentElement.lang]
+                      }
                       rel="noopener noreferrer"
                       target="_blank"
                       className="success pure-button"

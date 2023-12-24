@@ -5,7 +5,6 @@ import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import { APP_STORE } from "../appStore";
 import {
   type BlogProcessor,
   type BlogConfig,
@@ -99,7 +98,7 @@ export default class BlogStore {
     if (this.supportedLanguages.includes(valueToValidate)) {
       return valueToValidate;
     }
-    valueToValidate = APP_STORE.language;
+    valueToValidate = document.body.parentElement.lang;
     if (this.supportedLanguages.includes(valueToValidate)) {
       return valueToValidate;
     }

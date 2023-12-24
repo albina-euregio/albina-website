@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { APP_STORE } from "../../appStore";
 
 function DownloadPdfDialog() {
   const intl = useIntl();
@@ -18,7 +17,7 @@ function DownloadPdfDialog() {
     return Util.template(config.apis.bulletin.pdf, {
       date: BULLETIN_STORE.settings.date,
       region,
-      lang: APP_STORE.language,
+      lang: document.body.parentElement.lang,
       bw: isBw ? "_bw" : ""
     });
   }

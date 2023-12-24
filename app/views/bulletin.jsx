@@ -35,7 +35,6 @@ import "leaflet.sync";
 import { Util } from "leaflet";
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
-import { APP_STORE } from "../appStore";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
@@ -218,7 +217,7 @@ const Bulletin = props => {
       date: BULLETIN_STORE.settings.date
         ? dateToISODateString(parseDate(BULLETIN_STORE.settings.date))
         : "latest",
-      lang: APP_STORE.language
+      lang: document.body.parentElement.lang
     });
 
   return (

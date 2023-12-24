@@ -17,7 +17,6 @@ import {
 } from "./bulletin";
 import { fetchExists, fetchJSON } from "../util/fetch.js";
 
-import { APP_STORE } from "../appStore";
 import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
 
 import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
@@ -419,7 +418,7 @@ class BulletinStore {
     return Util.template(config.apis.bulletin.json, {
       date,
       region,
-      lang: APP_STORE.language
+      lang: document.body.parentElement.lang
     });
   }
 

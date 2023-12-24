@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import LanguageFilter from "../filters/language-filter";
 import ProvinceFilter from "../filters/province-filter";
 import { fetchText } from "../../util/fetch";
-import { APP_STORE } from "../../appStore";
 
 class SubscribeEmailDialog extends React.Component {
   constructor(props) {
@@ -17,7 +16,7 @@ class SubscribeEmailDialog extends React.Component {
   resetState() {
     this.setState({
       email: "",
-      language: APP_STORE.language,
+      language: document.body.parentElement.lang,
       region: false,
       status: "",
       errorMessage: "",

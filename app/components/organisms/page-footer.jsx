@@ -9,7 +9,6 @@ import { Util } from "leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
-import { APP_STORE } from "../../appStore";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 
@@ -104,7 +103,7 @@ const PageFooter = () => {
               >
                 <a
                   href={Util.template(config.links.euregio, {
-                    lang: APP_STORE.language
+                    lang: document.body.parentElement.lang
                   })}
                   className="header-footer-logo-secondary"
                   rel="noopener noreferrer"

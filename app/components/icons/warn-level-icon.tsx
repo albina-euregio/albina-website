@@ -1,7 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import { APP_STORE } from "../../appStore";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { Tooltip } from "../../components/tooltips/tooltip";
 
@@ -28,7 +27,8 @@ class WarnLevelIcon extends React.Component {
       return "";
     };
 
-    const link = "/education/danger-scale?lang=" + APP_STORE.language;
+    const link =
+      "/education/danger-scale?lang=" + document.body.parentElement.lang;
 
     const below =
       this.props.elevation || this.props.treeline

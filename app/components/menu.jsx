@@ -1,9 +1,7 @@
 import React from "react";
-import { useLocation, matchPath } from "react-router-dom";
+import { Link, matchPath, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
-import { Link } from "react-router-dom";
-import { APP_STORE } from "../appStore";
 import { useIntl } from "react-intl";
 
 const Menu = props => {
@@ -54,7 +52,7 @@ const Menu = props => {
       intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
-    const url = e["url:" + APP_STORE.language] || e["url"];
+    const url = e["url:" + document.body.parentElement.lang] || e["url"];
     const numberNewPosts = BLOG_STORE.numberNewPosts;
 
     return (
