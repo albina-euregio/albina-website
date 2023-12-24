@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
-import CookieStore from "../../stores/cookieStore";
-
-const cookieFeedback = new CookieStore("feedbackAccepted");
 
 function FeedbackDialog() {
   const intl = useIntl();
+  const [active, setActive] = useState(true);
   const url = config.links.feedback[document.body.parentElement.lang];
   const accept = flag => {
     if (flag) {
       window.open(url, "_blank");
     }
-    cookieFeedback.active = false;
+    setActive(false);
   };
 
   return (
-    cookieFeedback.active && (
+    active && (
       <div className="candybar">
         <h3>
           <FormattedMessage id="dialog:feedback:header" />
