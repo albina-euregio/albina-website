@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
@@ -6,11 +6,13 @@ import { useIntl } from "react-intl";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
-import { MAP_STORE } from "../../stores/mapStore";
 import { CustomLeafletControl } from "../leaflet/controls/customLeafletControl";
 
 const WeatherMap = props => {
   const intl = useIntl();
+  const [showStations, setShowStations] = useState(
+    !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
+  );
 
   const overlays = [];
   let showStationsToggle = false;
@@ -39,7 +41,6 @@ const WeatherMap = props => {
       overlays.push(
         <GridOverlay
           key={"grid"}
-          zoom={MAP_STORE.mapZoom}
           item={props.item}
           grid={props.grid}
           onLoading={() => {
@@ -61,11 +62,10 @@ const WeatherMap = props => {
       props.stations.features &&
       !props.isPlaying
     ) {
-      if (MAP_STORE.showStations)
+      if (showStations)
         overlays.push(
           <StationOverlay
             key={"stations"}
-            zoom={MAP_STORE.mapZoom}
             onMarkerSelected={props.onMarkerSelected}
             selectedFeature={props.selectedFeature}
             item={props.item}
@@ -88,7 +88,7 @@ const WeatherMap = props => {
 
   let showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
     {
-      id: MAP_STORE.showStations ? "weathermap:hidePins" : "weathermap:showPins"
+      id: showStations ? "weathermap:hidePins" : "weathermap:showPins"
     }
   )}"></a>`;
   let showHideStationsCtrl = (
@@ -97,12 +97,12 @@ const WeatherMap = props => {
       config={config.map.showHideOptions}
       containerElement="div"
       classNames={
-        MAP_STORE.showStations
+        showStations
           ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
           : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
       }
       innerHTML={showHideStationsCtrlInnerHTML}
-      onClick={() => MAP_STORE.setShowStations(!MAP_STORE.showStations)}
+      onClick={() => setShowStations(v => !v)}
       enabled={showStationsToggle}
     />
   );

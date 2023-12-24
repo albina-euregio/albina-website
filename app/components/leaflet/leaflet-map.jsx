@@ -12,8 +12,6 @@ import {
   ScaleControl
 } from "react-leaflet";
 
-import { MAP_STORE } from "../../stores/mapStore";
-
 const EventHandler = () => {
   const map = useMapEvents({
     zoomend: () => {
@@ -39,7 +37,6 @@ const LeafletMap = props => {
         opacity: 1
       }}
       zoomControl={false}
-      center={MAP_STORE.mapCenter}
       {...{
         ...(props.loaded
           ? {
@@ -61,7 +58,6 @@ const LeafletMap = props => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      zoom={MAP_STORE.mapZoom}
       bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
       attributionControl={false}
       whenCreated={map => {

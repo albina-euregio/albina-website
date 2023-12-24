@@ -3,7 +3,6 @@ import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
 import { hasDaytimeDependency } from "../stores/bulletin";
-import { MAP_STORE } from "../stores/mapStore";
 
 import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -161,13 +160,6 @@ const Bulletin = props => {
     }
   };
 
-  const handleMapViewportChanged = map => {
-    MAP_STORE.setMapViewport({
-      zoom: map.zoom,
-      center: map.center
-    });
-  };
-
   const handleMapInit = map => {
     if (mapRefs.length > 0) {
       [map, ...mapRefs].forEach(otherMap => {
@@ -267,7 +259,7 @@ const Bulletin = props => {
             {["earlier", "later"].map((validTimePeriod, index) => (
               <BulletinMap
                 key={validTimePeriod}
-                handleMapViewportChanged={handleMapViewportChanged}
+                handleMapViewportChanged={() => {}}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
@@ -280,7 +272,7 @@ const Bulletin = props => {
         ) : (
           <BulletinMap
             administrateLoadingBar={true}
-            handleMapViewportChanged={handleMapViewportChanged}
+            handleMapViewportChanged={() => {}}
             handleSelectRegion={handleSelectRegion}
             date={params.date}
             highlightedRegion={highlightedRegion}

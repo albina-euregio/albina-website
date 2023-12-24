@@ -10,7 +10,6 @@ import HTMLHeader from "../components/organisms/html-header";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
-import { MAP_STORE } from "../stores/mapStore";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { useParams } from "react-router-dom";
@@ -73,13 +72,6 @@ const Weather = () => {
     }
   };
 
-  const handleMapViewportChanged = map => {
-    MAP_STORE.setMapViewport({
-      zoom: map.zoom,
-      center: map.center
-    });
-  };
-
   //console.log("weather->render", store.domainId, store.agl, player);
   return (
     <>
@@ -128,7 +120,7 @@ const Weather = () => {
                 isPlaying={player.playing}
                 selectedFeature={store.selectedFeature}
                 onMarkerSelected={feature => setStationId(feature?.id)}
-                onViewportChanged={handleMapViewportChanged}
+                onViewportChanged={() => {}}
               />
               {store.selectedFeature && (
                 <FeatureInfo feature={store.selectedFeature} />
