@@ -38,17 +38,6 @@ export function preprocessContent(content: string, blogMode = false) {
           // Turn image links into lightboxes
           props.className =
             (props.className || "") + " mfp-image modal-trigger img";
-        } else if (
-          blogMode &&
-          type === "iframe" &&
-          props?.className?.includes("YOUTUBE-iframe-video")
-        ) {
-          // Use Fitvids for youtube iframes
-          return React.createElement(
-            "div",
-            { className: "fitvids", key: props.src },
-            children
-          );
         } else if (/BulletinGlossary/i.exec(type)) {
           return React.createElement(BulletinGlossary, props, children);
         } else if (/RegionsTables/i.exec(type)) {

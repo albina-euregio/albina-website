@@ -8,7 +8,6 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
 import { DATE_TIME_FORMAT } from "../util/date";
-import { video_init } from "../js/video";
 import { BLOG_STORE } from "../stores/blogStore";
 import { preprocessContent } from "../util/htmlParser";
 
@@ -27,19 +26,15 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (params.blogName && params.postId) {
-      BLOG_STORE.loadBlogPost(params.blogName, params.postId)
-        .then(b => {
-          setTitle(b.title);
-          setDate(b.date);
-          setTags(b.tags);
-          setLanguage(b.lang);
-          setRegions(b.regions);
-          setLanguageLinks(b.langLinks);
-          setContent(preprocessContent(b.content, true));
-        })
-        .then(() => {
-          window.setTimeout(() => video_init(), 1000);
-        });
+      BLOG_STORE.loadBlogPost(params.blogName, params.postId).then(b => {
+        setTitle(b.title);
+        setDate(b.date);
+        setTags(b.tags);
+        setLanguage(b.lang);
+        setRegions(b.regions);
+        setLanguageLinks(b.langLinks);
+        setContent(preprocessContent(b.content, true));
+      });
     }
   }, [params.blogName, params.postId]);
 

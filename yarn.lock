@@ -1999,11 +1999,6 @@ flatted@^3.1.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-"fluidvids.js@https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz":
-  version "2.4.1"
-  resolved "https://github.com/toddmotto/fluidvids/archive/b6ca991b5ac1f7792b3cfb992607284b21fb3177.tar.gz"
-  integrity sha512-5Y1JHcV24395lwmlWVF5oV2hCpUlzuvReb+sub7HpDHcDCFvOGW0/Iy/sfwUNXLRZ0UrXrHRUvC8mL67L/SKYw==
-
 for-each@^0.3.3:
   version "0.3.3"
   resolved "https://registry.npmjs.org/for-each/-/for-each-0.3.3.tgz"
