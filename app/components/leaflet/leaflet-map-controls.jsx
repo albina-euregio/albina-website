@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import $ from "jquery";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
@@ -33,19 +32,20 @@ const LeafletMapControls = props => {
   });
 
   const _init_tooltip = () => {
-    // console.log("leaflet-map ggg1 update tooltip");
-    $(".leaflet-control-zoom a").addClass("tooltip");
-    $(".leaflet-control-zoom a").addClass("tooltip");
-    $(".leaflet-control-locate a").addClass("tooltip");
+    parentMap
+      .getContainer()
+      .querySelectorAll(".leaflet-control-zoom a, .leaflet-control-locate a")
+      .forEach(e => e.classList.add("tooltip"));
     tooltip_init();
   };
 
   const _init_aria = () => {
-    $(".leaflet-control-zoom a").attr("tabIndex", "-1");
-    $(".leaflet-control-zoom a").attr("tabIndex", "-1");
-    $(".leaflet-control-locate a").attr("tabIndex", "-1");
-    $(".leaflet-geonames-search a").attr("tabIndex", "-1");
-    $(".leaflet-touch-zoom").attr("tabIndex", "-1");
+    parentMap
+      .getContainer()
+      .querySelectorAll(
+        ".leaflet-control-zoom a, .leaflet-control-locate a, .leaflet-geonames-search a, .leaflet-touch-zoom"
+      )
+      .forEach(e => e.setAttribute("tabIndex", "-1"));
   };
 
   const updateControls = () => {
