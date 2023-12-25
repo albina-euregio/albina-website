@@ -8,13 +8,16 @@ import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
+  filterFeature,
   MicroRegionElevationProperties,
   MicroRegionProperties,
-  RegionOutlineProperties,
+  RegionOutlineProperties
+} from "../../stores/microRegions";
+import {
   toAmPm,
   ValidTimePeriod
 } from "../../stores/bulletin";
-import { filterFeature, RegionState } from "../../stores/bulletinStore";
+import { RegionState } from "../../stores/bulletinStore";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {

@@ -9,32 +9,19 @@ import {
   Bulletins,
   DangerRating,
   matchesValidTimePeriod,
-  MicroRegionElevationProperties,
-  MicroRegionProperties,
-  RegionOutlineProperties,
   toAmPm,
   ValidTimePeriod
 } from "./bulletin";
+import {
+  filterFeature,
+  microRegions,
+  microRegionsElevation,
+  RegionOutlineProperties
+} from "./microRegions";
 import { fetchExists, fetchJSON } from "../util/fetch.js";
-
 import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
-
-import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
-import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
-import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
-import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
-import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
-import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
 import eawsRegions from "@eaws/outline_properties/index.json";
 import { regionsRegex } from "../util/regions.js";
-
-export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
-
-export const microRegionsElevation: MicroRegionElevationProperties[] = [
-  ..._pe1,
-  ..._pe2,
-  ..._pe3
-];
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -53,7 +40,6 @@ class BulletinCollection {
   status: Status;
   statusMessage: string;
   dataRaw: Bulletins | null;
-  eawsBulletins: GeoJSON.FeatureCollection;
   maxDangerRatings: Record<string, WarnLevelNumber>;
 
   constructor(date: string) {
@@ -432,20 +418,3 @@ class BulletinStore {
 export const BULLETIN_STORE = new BulletinStore();
 
 export { BulletinStore, BulletinCollection };
-
-/**
- * Determines whether the GeoJSON feature's start_date/end_date is valid today
- * @param {GeoJSON.Feature} feature the GeoJSON feature
- * @param {string} today the reference date
- * @returns {boolean}
- */
-export function filterFeature(
-  feature: GeoJSON.Feature,
-  today = new Date().toISOString().slice(0, "2006-01-02".length)
-): boolean {
-  const properties = feature.properties;
-  return (
-    (!properties.start_date || properties.start_date <= today) &&
-    (!properties.end_date || properties.end_date > today)
-  );
-}
