@@ -1,5 +1,4 @@
 import React from "react";
-import anime from "animejs";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
@@ -45,17 +44,16 @@ function PageHeader() {
     }
     document.body.classList.add("navigation-open");
     document.querySelectorAll(".navigation li").forEach(li => {
-      anime.remove(li);
-      li.style.visibility = "visible";
-      li.style.opacity = "0";
-      li.style.marginTop = "-100px";
-      anime({
-        targets: li,
-        opacity: 1,
-        "margin-top": 0,
-        duration: window["scroll_duration"] / 2,
-        easing: "easeOutQuint"
-      });
+      li.animate(
+        [
+          { opacity: "0", marginTop: "-100px" },
+          { opacity: "1", marginTop: "0", visibility: "visible" }
+        ],
+        {
+          duration: window["scroll_duration"] / 2,
+          easing: "ease-out"
+        }
+      );
     });
     navOpen = true;
   }
