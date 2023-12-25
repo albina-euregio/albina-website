@@ -11,7 +11,6 @@ import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
 import { Util } from "leaflet";
 
-//import { scroll } from "../js/scroll";
 /*
  * Component to be used for pages with content delivered by CMS API.
  */

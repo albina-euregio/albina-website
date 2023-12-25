@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -9,7 +9,7 @@ import { preprocessContent } from "../../util/htmlParser";
 
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { scroll_init } from "../../js/scroll";
+import { scrollIntoView } from "../../util/scrollIntoView";
 import {
   DangerRatings,
   EawsDangerRatings,
@@ -30,10 +30,6 @@ type Props = {
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const [regionMouseover, setRegionMouseover] = useState("");
-
-  useEffect(() => {
-    scroll_init();
-  }, []);
 
   const handleMapInit = map => {
     map.on("click", _click, this);
@@ -180,8 +176,8 @@ const BulletinMap = (props: Props) => {
               tabIndex="-1"
               key="link"
               href={"#" + activeBulletin?.bulletinID}
+              onClick={e => scrollIntoView(e)}
               className="pure-button"
-              data-scroll=""
             >
               {preprocessContent(
                 intl.formatMessage({

@@ -16,6 +16,7 @@ import {
   type Tendency,
   type ValidTimePeriod
 } from "../../stores/bulletin";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 type Props = {
   validTimePeriod: ValidTimePeriod;
@@ -48,7 +49,11 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
               id: "bulletin:report:selected-region:hover"
             })}
           >
-            <a href="#page-main" className="img icon-arrow-up" data-scroll="">
+            <a
+              href="#page-main"
+              onClick={e => scrollIntoView(e)}
+              className="img icon-arrow-up"
+            >
               <BulletinAWMapStatic
                 bulletin={bulletin}
                 date={dateToISODateString(date)}

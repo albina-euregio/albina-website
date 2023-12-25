@@ -11,6 +11,7 @@ import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 const license = import.meta.env.APP_LICENSE; // included via vite.config.js
 const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
@@ -123,11 +124,11 @@ const PageFooter = () => {
               >
                 <a
                   href="#page-main"
+                  onClick={e => scrollIntoView(e)}
                   className="icon-arrow-up"
                   aria-label={intl.formatMessage({
                     id: "footer:top:hover"
                   })}
-                  data-scroll=""
                 >
                   <span>Top</span>
                 </a>

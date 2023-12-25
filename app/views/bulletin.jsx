@@ -37,7 +37,6 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-//import { scroll_init } from "../js/scroll";
 
 const Bulletin = props => {
   let lastLocationRef = useRef(null);

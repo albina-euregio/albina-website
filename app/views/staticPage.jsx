@@ -7,7 +7,6 @@ import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "react-intl";
 import StaticPageStore from "../stores/staticPageStore";
 
-//import { scroll } from "../js/scroll";
 /*
  * Component to be used for pages with content delivered by CMS API.
  */

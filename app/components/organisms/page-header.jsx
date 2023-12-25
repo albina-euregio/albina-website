@@ -63,7 +63,7 @@ function PageHeader() {
   const lang = document.body.parentElement.lang;
 
   return (
-    <div id="page-header" className="page-header" data-scroll-header>
+    <div id="page-header" className="page-header">
       <div className="page-header-logo">
         <Tooltip
           label={intl.formatMessage({

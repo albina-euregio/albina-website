@@ -14,6 +14,7 @@ import {
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   // bulletins are loaded in correct language
@@ -192,8 +193,8 @@ function BulletinReport({ date, bulletin }: Props) {
         <div className="panel brand">
           <a
             href="#page-main"
+            onClick={e => scrollIntoView(e)}
             className="icon-link icon-arrow-up"
-            data-scroll=""
           >
             <FormattedMessage id="bulletin:linkbar:back-to-map" />
           </a>

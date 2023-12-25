@@ -4,6 +4,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import DownloadPdfDialog from "../dialogs/download-pdf-dialog";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 type Props = { showPdfDialog: boolean };
 
@@ -36,8 +37,8 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
           <div className="normal-4 grid-item">
             <a
               href="#page-main"
+              onClick={e => scrollIntoView(e)}
               className="icon-link icon-arrow-up"
-              data-scroll=""
             >
               <FormattedMessage id="bulletin:linkbar:back-to-map" />
             </a>
