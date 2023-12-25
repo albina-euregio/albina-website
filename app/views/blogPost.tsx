@@ -16,7 +16,6 @@ const BlogPost = () => {
   const intl = useIntl();
 
   const [title, setTitle] = useState("");
-  //const [author, setauthor] = useState("");
   const [date, setDate] = useState("");
   const [tags, setTags] = useState([]);
   const [lang, setLanguage] = useState([]);
