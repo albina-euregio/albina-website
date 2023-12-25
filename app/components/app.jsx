@@ -4,15 +4,17 @@ import { IntlProvider } from "react-intl";
 
 import {
   BrowserRouter,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
-
-import { setLanguage, $locale, $messages } from "../appStore";
+import { $locale, $messages, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
+import Page from "./page";
+
+import "../css/style.scss"; // CSS overrides
 
 const Bulletin = React.lazy(() => import("./../views/bulletin"));
 const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
@@ -29,10 +31,6 @@ const More = React.lazy(() => import("./../views/more"));
 const Archive = React.lazy(() => import("./../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("./../views/staticPage"));
-import Page from "./page";
-import { orientation_change } from "../js/browser";
-
-import "../css/style.scss"; // CSS overrides
 
 const RouteStaticPage = () => {
   const params = useParams();
@@ -57,7 +55,17 @@ const App = () => {
   const locale = useStore($locale);
   const messages = useStore($messages);
   useEffect(() => {
-    orientation_change();
+    window.addEventListener("orientationchange", () => {
+      document.body.animate(
+        [
+          { opacity: "0", easing: "ease-out" },
+          { opacity: "1", easing: "ease-out" }
+        ],
+        {
+          duration: window["scroll_duration"]
+        }
+      );
+    });
   });
 
   return (
