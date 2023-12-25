@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
 import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
 import { isBlendingSupported } from "../../util/blendMode";
@@ -140,8 +139,10 @@ const DataOverlay = props => {
     //console.log('dataOverlay->showDataMarker', e.target );
 
     if (props.debug && e.originalEvent.ctrlKey) {
-      $(".map-data-layer").toggleClass("hide");
-      $(".map-data-layer").toggleClass("debug-high-contrast");
+      [...document.getElementsByClassName(".map-data-layer")].forEach(e => {
+        e.classList.toggle("hide");
+        e.classList.toggle("debug-high-contrast");
+      });
     }
 
     if (props.dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
