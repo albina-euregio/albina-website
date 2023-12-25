@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "jquery";
+import anime from "animejs";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
@@ -35,6 +35,31 @@ function PageHeader() {
     }
   };
 
+  let navOpen = false;
+
+  function toggleNavigation() {
+    if (navOpen) {
+      document.body.classList.remove("navigation-open");
+      navOpen = false;
+      return;
+    }
+    document.body.classList.add("navigation-open");
+    document.querySelectorAll(".navigation li").forEach(li => {
+      anime.remove(li);
+      li.style.visibility = "visible";
+      li.style.opacity = "0";
+      li.style.marginTop = "-100px";
+      anime({
+        targets: li,
+        opacity: 1,
+        "margin-top": 0,
+        duration: window["scroll_duration"] / 2,
+        easing: "easeOutQuint"
+      });
+    });
+    navOpen = true;
+  }
+
   const lang = document.body.parentElement.lang;
 
   return (
@@ -69,8 +94,8 @@ function PageHeader() {
           childClassName="list-plain subnavigation"
           onSelect={() => {
             // close mobile menu on selection
-            if ($("body").hasClass("navigation-open")) {
-              $(".navigation-trigger").trigger("click");
+            if (document.body.classList.contains("navigation-open")) {
+              toggleNavigation();
             }
           }}
           onActiveMenuItem={() => {}}
@@ -180,7 +205,7 @@ function PageHeader() {
           })}
         >
           <button
-            href="#"
+            onClick={() => toggleNavigation()}
             aria-label={intl.formatMessage({
               id: "header:hamburger:hover"
             })}

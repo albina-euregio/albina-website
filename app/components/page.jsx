@@ -4,7 +4,6 @@ import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
 import ControlBar from "../components/organisms/control-bar.jsx";
-import { navigation_init } from "../js/navigation";
 import { scroll_init, scroll } from "../js/scroll";
 
 const Page = props => {
@@ -15,7 +14,6 @@ const Page = props => {
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
-      navigation_init();
     }
   });
 
