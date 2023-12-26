@@ -8,8 +8,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 
-const BulletinMap = React.lazy(() =>
-  import("../components/bulletin/bulletin-map")
+const BulletinMap = React.lazy(
+  () => import("../components/bulletin/bulletin-map")
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
@@ -20,7 +20,6 @@ import {
   LONG_DATE_FORMAT,
   dateToISODateString
 } from "../util/date.js";
-//import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 import {
@@ -39,9 +38,9 @@ import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
 
-const Bulletin = props => {
-  let lastLocationRef = useRef(null);
-  let mapRefs = [];
+const Bulletin = () => {
+  const lastLocationRef = useRef(null);
+  const mapRefs = [];
   const intl = useIntl();
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,76 +48,47 @@ const Bulletin = props => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [title] = useState("");
   const [slowLoading, setLoadingStart] = useSlowLoading();
-  // const [sharable, setSharable] = useState(false);
   const [highlightedRegion] = useState(null);
   BULLETIN_STORE.init();
 
   useEffect(() => {
-    //("Bulletin->useEffect[]");
-    // reaction(
-    //   () => BULLETIN_STORE.settings.status
-    // () => {
-    //   window.setTimeout(tooltip_init, 100);
-    // }
-    // );
-    // reaction(
-    //   () => BULLETIN_STORE.settings.region
-    // region => {
-    //   if (region) {
-    //     window.setTimeout(tooltip_init, 100);
-    //   }
-    // }
-    // );
     reaction(
       () => BULLETIN_STORE.latest,
       () => didUpdate()
     );
-    _fetchData(props);
+    _fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   console.log("Bulletin->useEffect[BULLETIN_STORE.activeBulletinCollection.daytimeBulletins] xx03");
-  //   scroll_init();
-
-  // }, [BULLETIN_STORE?.activeBulletinCollection?.daytimeBulletins]);
-
   useEffect(() => {
-    //console.log("Bulletin->useEffect");
     didUpdate();
   });
 
   const didUpdate = () => {
-    //console.log("Bulletin->didUpdate", params.date, BULLETIN_STORE.settings.date);
     const updateConditions = [
-      // update when date changes to YEAR-MONTH-DAY format
       location !== lastLocationRef.current?.location &&
         params.date &&
         params.date != BULLETIN_STORE.settings.date,
 
-      // update when date changes to "latest"
       typeof params.date === "undefined" &&
         BULLETIN_STORE.latest &&
         BULLETIN_STORE.latest != BULLETIN_STORE.settings.date
     ];
 
     if (updateConditions.reduce((acc, cond) => acc || cond, false)) {
-      // if any update condition holds
-      _fetchData(props);
+      _fetchData();
     }
     checkRegion();
     lastLocationRef.current = location;
   };
 
   const _fetchData = async () => {
-    let startDate =
+    const startDate =
       params.date && parseDate(params.date)
         ? params.date
         : BULLETIN_STORE.latest;
 
-    //console.log("Bulletin->_fetchData",startDate);
     if (!params.date || params.date == BULLETIN_STORE.latest) {
-      // update URL if necessary
-      //console.log("bulletin navigate #1", params, location.hash);
       navigate({
         pathname: "/bulletin/latest",
         hash: location.hash,
@@ -131,7 +101,7 @@ const Bulletin = props => {
   };
 
   const checkRegion = () => {
-    let urlRegion = searchParams.get("region");
+    const urlRegion = searchParams.get("region");
     const storeRegion = BULLETIN_STORE.settings.region;
     if (urlRegion !== storeRegion) {
       BULLETIN_STORE.setRegion(urlRegion);
@@ -143,18 +113,12 @@ const Bulletin = props => {
       const oldRegion = searchParams.get("region");
       if (oldRegion !== id) {
         if (oldRegion) {
-          // replace history when a (different) region was selected previously to avoid polluting browser history
-          //.log("bulletin navigate #2", oldRegion);
-          //todo: trans
           setSearchParams({ region: id }, true);
         } else {
-          //console.log("bulletin navigate #3", oldRegion);
-          //todo: trans
           setSearchParams({ region: id });
         }
       }
     } else if (BULLETIN_STORE.settings.region) {
-      //console.log("bulletin navigate #4", BULLETIN_STORE.settings.region);
       //todo: trans
       setSearchParams({});
     }
