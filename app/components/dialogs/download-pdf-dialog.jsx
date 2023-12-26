@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
@@ -14,7 +13,7 @@ function DownloadPdfDialog() {
       : BULLETIN_STORE.settings.date > "2022-05-06"
       ? "EUREGIO_"
       : "";
-    return Util.template(config.apis.bulletin.pdf, {
+    return config.template(config.apis.bulletin.pdf, {
       date: BULLETIN_STORE.settings.date,
       region,
       lang: document.body.parentElement.lang,

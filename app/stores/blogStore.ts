@@ -1,6 +1,5 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { getDaysOfMonth } from "../util/date";
-import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
@@ -28,7 +27,7 @@ export default class BlogStore {
   _posts: Record<string, BlogPostPreviewItem[]>;
 
   // show only 5 blog posts when the mobile phone is detected
-  perPage = L.Browser.mobile ? 20 : 20;
+  perPage = 20;
   blogProcessor: {
     blogger: BlogProcessor;
     wordpress: BlogProcessor;

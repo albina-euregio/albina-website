@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import Menu from "../menu";
 // import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
-import { Util } from "leaflet";
 
 import { Tooltip } from "../tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
@@ -103,7 +102,7 @@ const PageFooter = () => {
                 })}
               >
                 <a
-                  href={Util.template(config.links.euregio, {
+                  href={config.template(config.links.euregio, {
                     lang: document.body.parentElement.lang
                   })}
                   className="header-footer-logo-secondary"

@@ -1,7 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import { dateToISODateString, getSuccDate, parseDate } from "../util/date.js";
 
-import { Util } from "leaflet";
 import {
   AvalancheProblem,
   AvalancheProblemType,
@@ -401,7 +400,7 @@ class BulletinStore {
 
   static _getBulletinUrl(date: string): string {
     const region = date > "2022-05-06" ? "EUREGIO_" : "";
-    return Util.template(config.apis.bulletin.json, {
+    return config.template(config.apis.bulletin.json, {
       date,
       region,
       lang: document.body.parentElement.lang

@@ -1,4 +1,3 @@
-import { Util } from "leaflet";
 import React, { type ReactEventHandler } from "react";
 import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
@@ -31,7 +30,7 @@ function BulletinAWMapStatic({
   const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
-  const url = Util.template(config.apis.bulletin.map, {
+  const url = config.template(config.apis.bulletin.map, {
     date: date,
     publication: publicationDirectory,
     file: file,

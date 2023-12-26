@@ -1,4 +1,4 @@
-import { type LatLngExpression } from "leaflet";
+import type { LatLngExpression } from "leaflet";
 import { makeAutoObservable } from "mobx";
 import { dateToISODateString } from "../util/date";
 import { currentSeasonDate } from "../util/date-season";

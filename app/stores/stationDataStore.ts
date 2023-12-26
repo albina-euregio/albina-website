@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx";
-import { Util } from "leaflet";
 import { RegionCodes, regionCodes } from "../util/regions";
 import { dateFormat } from "../util/date";
 import { currentSeasonYear } from "../util/date-season";
@@ -361,7 +360,7 @@ export default class StationDataStore {
       ? window.config.apis.weather.stationsArchive
       : !dateTime
       ? window.config.apis.weather.stations
-      : Util.template(window.config.apis.weather.stationsDateTime, {
+      : window.config.template(window.config.apis.weather.stationsDateTime, {
           dateTime: timePrefix
         });
     let response: Response;

@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { IntlShape, injectIntl, useIntl } from "react-intl";
-import { Util } from "leaflet";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -224,7 +223,7 @@ const StationDiagramImage: React.FC<{
     ? window.config.apis.weather.plots
     : window.config.apis.weather.observers;
   const width = clientWidth >= 1100 ? 1100 : 800;
-  const src = Util.template(template, {
+  const src = window.config.template(template, {
     width,
     interval: timeRanges[timeRange],
     name: stationData.plot,

@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import { Util } from "leaflet";
 
 type SortDir = "desc" | "asc";
 
@@ -251,7 +250,7 @@ export default function StationArchiveTable(props: Props) {
                       )}
                     >
                       <a
-                        href={Util.template(
+                        href={config.template(
                           window.config.apis.weather.stationsArchiveFile,
                           {
                             "LWD-Nummer":

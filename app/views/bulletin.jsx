@@ -31,7 +31,6 @@ import {
 } from "react-router-dom";
 
 import "leaflet.sync";
-import { Util } from "leaflet";
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
@@ -195,7 +194,7 @@ const Bulletin = props => {
 
   const shareImage =
     collection && BULLETIN_STORE.settings.date
-      ? Util.template(config.apis.bulletin.map, {
+      ? config.template(config.apis.bulletin.map, {
           date: BULLETIN_STORE.settings.date,
           publication: ".",
           file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
@@ -204,7 +203,7 @@ const Bulletin = props => {
       : "";
 
   const simple = () =>
-    Util.template(window.config.apis.bulletin.simple, {
+    config.template(window.config.apis.bulletin.simple, {
       date: BULLETIN_STORE.settings.date
         ? dateToISODateString(parseDate(BULLETIN_STORE.settings.date))
         : "latest",

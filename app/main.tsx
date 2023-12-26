@@ -36,6 +36,7 @@ Promise.all([configRequest, isWebpSupported]).then(
     configParsed = { ...configParsed };
     configParsed["projectRoot"] = import.meta.env.BASE_URL;
     configParsed["webp"] = webp;
+    configParsed["template"] = template;
     if (webp) {
       document.body.className += " webp";
       // enable WebP for ALBINA layer
@@ -78,4 +79,16 @@ if (isWebPushSupported()) {
     });
 } else {
   console.error("Browser does not support service workers or push messages.");
+}
+
+const templateRe = /\{ *([\w_ -]+) *\}/g;
+
+function template(str: string, data: Record<string, string>) {
+  return str.replace(templateRe, (str, key) => {
+    const value = data[key];
+    if (value === undefined) {
+      throw new Error("No value provided for variable " + str);
+    }
+    return value;
+  });
 }

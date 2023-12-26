@@ -9,7 +9,6 @@ import { injectIntl } from "react-intl";
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
-import { Util } from "leaflet";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
@@ -84,7 +83,7 @@ class LinkTree extends React.Component {
 
     const imgFormat = window.config.webp ? ".webp" : ".jpg";
     if (this.state.fd != null) {
-      bulletinImageUrl = Util.template(config.apis.bulletin.map, {
+      bulletinImageUrl = config.template(config.apis.bulletin.map, {
         date: dateString,
         publication: ".",
         file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail",

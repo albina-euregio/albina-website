@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Util } from "leaflet";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
@@ -156,7 +155,7 @@ function DownloadLink({
 }) {
   return (
     <a
-      href={Util.template(config.apis.bulletin[format], {
+      href={config.template(config.apis.bulletin[format], {
         date: dateString,
         region: dateString > "2022-05-06" ? "EUREGIO_" : "",
         lang,

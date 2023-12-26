@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import Menu from "./../menu";
-import { Util } from "leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
@@ -223,7 +222,7 @@ function PageHeader() {
           })}
         >
           <a
-            href={Util.template(config.links.euregio, {
+            href={config.template(config.links.euregio, {
               lang: lang
             })}
             className="header-footer-logo-secondary"
