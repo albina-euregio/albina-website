@@ -1,7 +1,7 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
-import { parseSearchParams } from "../../util/searchParams";
+import { useParams } from "react-router-dom";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
@@ -23,8 +23,9 @@ const EventHandler = () => {
 };
 
 const LeafletMap = props => {
+  const params = useParams();
   /** * @type {"AT-7" | "IT-32-BZ" | "IT-32-TN"} */
-  const province = parseSearchParams().get("province");
+  const province = params.privince;
 
   return (
     <MapContainer
