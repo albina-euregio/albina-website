@@ -151,6 +151,7 @@ button.mfp-close,
 button.mfp-arrow {
   //from alien app.scss
   cursor: pointer;
+  z-index: 42;
 
   @include ir;
   position: fixed !important;
