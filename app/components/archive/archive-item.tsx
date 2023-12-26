@@ -71,8 +71,7 @@ function ArchiveItem({ date, status }: Props) {
                       target="_blank"
                       className="small secondary pure-button"
                     >
-                      <FormattedMessage id={`region:${region}`} />{" "}
-                      <FormattedMessage id="archive:download-pdf" />
+                      <FormattedMessage id={`region:${region}`} /> PDF
                     </a>
                   </li>
                 )
