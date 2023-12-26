@@ -2626,7 +2626,7 @@ iterator.prototype@^1.1.2:
     reflect.getprototypeof "^1.0.4"
     set-function-name "^2.0.1"
 
-jquery@^3.1.1, jquery@^3.7.1:
+jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -3570,13 +3570,6 @@ scheduler@^0.23.0:
   integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
   dependencies:
     loose-envify "^1.1.0"
-
-"selectric@https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz":
-  version "1.13.0"
-  resolved "https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
-  integrity sha512-lhvd4GYCPbvqO4ugE8KZzzLKxeLKd4c/4qnmz0w4Cjai4uqYvJjWRetGKgPrBgNNHYYugVhE+Y1WGInRexxdtQ==
-  dependencies:
-    jquery "^3.1.1"
 
 semver-compare@^1.0.0:
   version "1.0.0"
