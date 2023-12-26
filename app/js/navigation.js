@@ -6,7 +6,6 @@ function navigation_init() {
   var navigation_trigger = $(".navigation-trigger");
   var navigation_li = $(".navigation li");
   var page_window = $(window);
-  var page_body = $("body");
 
   navigation_trigger.off("click");
 
@@ -23,7 +22,7 @@ function navigation_init() {
 
   function navigation_open_close() {
     if (nav_open == 0) {
-      window["page_body"].addClass("navigation-open");
+      $("body").addClass("navigation-open");
       navigation_li.each(function () {
         anime.remove($(this).get(0));
         $(this)
@@ -46,7 +45,7 @@ function navigation_init() {
 
       nav_open = 1;
     } else {
-      page_body.removeClass("navigation-open");
+      $("body").removeClass("navigation-open");
       nav_open = 0;
     }
   }

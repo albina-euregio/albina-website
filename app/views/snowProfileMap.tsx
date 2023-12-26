@@ -3,11 +3,10 @@ import { observer } from "mobx-react";
 import { injectIntl, IntlShape } from "react-intl";
 import SnowProfileStore, { SnowProfile } from "../stores/snowProfileStore";
 import LeafletMap from "../components/leaflet/leaflet-map";
-import ModalDialog from "../components/modal-dialog";
+import Modal from "../components/dialogs/albina-modal";
 import StationMarker from "../components/leaflet/station-marker";
 import HTMLHeader from "../components/organisms/html-header";
 import { AttributionControl } from "react-leaflet";
-import { modal_open_by_params } from "../js/modal";
 import IncidentStore, { Incident } from "../stores/incidentStore";
 
 class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
@@ -21,16 +20,6 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
 
   componentDidMount() {
     this.isIncident ? this.incidentStore.load() : this.snowProfileStore.load();
-  }
-
-  onMarkerClick(active: SnowProfile | Incident) {
-    this.setState({ active });
-    modal_open_by_params(
-      null,
-      "inline",
-      "#snowProfileDialog",
-      "snowProfileDialog"
-    );
   }
 
   get title(): string {
@@ -61,7 +50,7 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
           iconAnchor={[12.5, 12.5]}
           itemId="any"
           key={`profile-${entry.id}`}
-          onClick={() => this.onMarkerClick(entry)}
+          onClick={() => this.setState({ active: entry })}
           tooltip={entry.$tooltip}
         />
       );
@@ -84,55 +73,69 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
               overlays={overlays}
             />
           </div>
-          <ModalDialog id="snowProfileDialog">
-            <div className="modal-container">
-              <div className="modal-weatherstation">
-                <div className="modal-header">
-                  <p className="caption">
-                    {this.state.active?.location?.country?.text}
-                    {" – "}
-                    {this.state.active?.location?.region?.text}
-                    {" – "}
-                    {this.state.active?.location?.subregion?.text}
-                  </p>
-                  <h2 className="">
-                    <span className="weatherstation-name">
-                      {this.state.active?.$tooltip}{" "}
-                    </span>
-                    {this.state.active?.location?.elevation && (
-                      <span className="weatherstation-altitude">
-                        ({this.state.active?.location?.elevation}&thinsp;m){" "}
-                        {this.state.active?.location?.aspect?.text}
-                      </span>
-                    )}
-                  </h2>
-                </div>
-                <div className="modal-content">
-                  {this.state.active?.$img && (
-                    <img
-                      title={this.state.active?.$tooltip}
-                      alt={this.state.active?.$tooltip}
-                      src={this.state.active?.$img}
-                      className="weatherstation-img"
-                    />
-                  )}
-                  {this.state.active?.$url && (
-                    <button
-                      type="button"
-                      onClick={() => window.open(this.state.active?.$url)}
-                      title={this.state.active?.$tooltip}
-                      className="pure-button"
-                    >
-                      LAWIS.AT
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </ModalDialog>
+          <Modal
+            isOpen={!!this.state.active}
+            onClose={() => this.setState({ active: undefined })}
+          >
+            {this.state.active && (
+              <SnowProfileDialog active={this.state.active} />
+            )}
+          </Modal>
         </section>
       </>
     );
   }
 }
+
 export default injectIntl(observer(SnowProfileMap));
+
+function SnowProfileDialog({
+  active
+}: {
+  active: SnowProfile | Incident | undefined;
+}) {
+  return (
+    <div className="modal-container">
+      <div className="modal-weatherstation">
+        <div className="modal-header">
+          <p className="caption">
+            {active?.location?.country?.text}
+            {" – "}
+            {active?.location?.region?.text}
+            {" – "}
+            {active?.location?.subregion?.text}
+          </p>
+          <h2 className="">
+            <span className="weatherstation-name">{active?.$tooltip} </span>
+            {active?.location?.elevation && (
+              <span className="weatherstation-altitude">
+                ({active?.location?.elevation}&thinsp;m){" "}
+                {active?.location?.aspect?.text}
+              </span>
+            )}
+          </h2>
+        </div>
+        <div className="modal-content">
+          {active?.$img && (
+            <img
+              title={active?.$tooltip}
+              alt={active?.$tooltip}
+              src={active?.$img}
+              className="weatherstation-img"
+            />
+          )}
+          {active?.$url && (
+            <button
+              type="button"
+              onClick={() => window.open(active?.$url)}
+              title={active?.$tooltip}
+              className="pure-button"
+            >
+              LAWIS.AT
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

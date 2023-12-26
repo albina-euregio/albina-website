@@ -22,6 +22,43 @@ $mfp-overlay-color: $primary-color; // Color of overlay screen
 $mfp-overlay-opacity: 0.9; // Opacity of overlay screen
 $mfp-shadow: none; // Shadow on image or iframe
 
+// based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#transitioning_dialog_elements
+dialog[open] {
+  opacity: 1;
+  transform: translateY(0) perspective(600px) rotateX(0);
+}
+
+dialog {
+  border: 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(-20px) perspective(600px) rotateX(10deg);
+  @include rollover(all, $transition-duration * 2);
+}
+
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: translateY(-20px) perspective(600px) rotateX(10deg);
+  }
+}
+
+dialog::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  @include rollover(all, $transition-duration * 2);
+}
+
+dialog[open]::backdrop {
+  background-color: $mfp-overlay-color;
+  opacity: $mfp-overlay-opacity;
+}
+
+@starting-style {
+  dialog[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+  }
+}
+
 // spacing
 $mfp-popup-padding-left: 0; // Padding from left and from right side
 $mfp-popup-padding-left-mobile: 0; // Same as above, but is applied when width of window is less than 800px
@@ -58,31 +95,6 @@ $mfp-caption-subtitle-color: $white; //Caption subtitle color
 // A11y
 $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
 
-//@import "../../../bower_components/magnific-popup_1.1.0/src/css/main.scss";
-@import "../../../../node_modules/magnific-popup/src/css/main.scss";
-
-.mfp-bg {
-}
-
-.mfp-wrap {
-  position: fixed !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  @include smooth-scroll;
-}
-
-.mfp-container {
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
 .mfp-content {
   position: fixed;
   top: 0 !important;
@@ -134,10 +146,12 @@ $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it avail
 }
 
 //close
+button.modal-close-btn,
 button.mfp-close,
 button.mfp-arrow {
   //from alien app.scss
   cursor: pointer;
+  z-index: 42;
 
   @include ir;
   position: fixed !important;
@@ -154,6 +168,7 @@ button.mfp-arrow {
   @include rollout;
 
   @include icon(close, "auto", 0, $brand, 0, "none");
+
   &:before {
     //from alien app.scss
     cursor: pointer;
@@ -175,6 +190,7 @@ button.mfp-arrow {
     background-color: $white;
     @include rollover;
   }
+
   &:active {
     top: $padding !important;
   }
@@ -191,6 +207,7 @@ button.mfp-arrow {
   &:before {
     border: none !important;
   }
+
   &:after {
     display: none !important;
   }
@@ -202,10 +219,12 @@ button.mfp-arrow {
   &.mfp-arrow-left {
     left: $padding;
     @include icon(arrow-left, 2rem, 0, inherit, 0, "none");
+
     &:hover {
       cursor: w-resize;
     }
   }
+
   &.mfp-arrow-right {
     right: $padding;
     @include icon(arrow-right, 2rem, 0, inherit, 0, "none");
@@ -216,137 +235,9 @@ button.mfp-arrow {
   }
 }
 
-//status
-.mfp-s-loading .mfp-preloader {
-  color: $white;
-}
-.mfp-s-ready .mfp-preloader {
-  color: $white;
-}
-.mfp-s-error .mfp-preloader {
-  color: $error-color;
-}
-
-//image
-.mfp-image-holder {
-  .mfp-content {
-    position: relative;
-    min-height: 0;
-    background-color: transparent;
-
-    @include last-child;
-
-    @media #{$medium-up} {
-      max-width: $modal-max-width !important;
-    }
-    @media #{$xlarge-up} {
-      max-width: $modal-max-width-xlarge !important;
-    }
-    .mfp-figure {
-      overflow: hidden !important;
-    }
-  }
-  figure,
-  image {
-    margin: 0;
-  }
-  figure {
-    color: #caf;
-  }
-  .mfp-close {
-    display: none;
-  }
-}
-
-.mfp-bottom-bar {
-  position: relative;
-  bottom: 0;
-  padding: ($padding * 0.5) $padding;
-  line-height: $body-line-height;
-  .mfp-title {
-    margin-bottom: $padding * 0.25;
-    padding: 0;
-    text-align: center;
-    font-size: $small-font-size; //$body-font-size-small;
-    line-height: $body-line-height;
-    color: $mfp-controls-text-color;
-    a {
-      &:link,
-      &:visited {
-        color: $brand-very-dark;
-      }
-      &:hover,
-      &:active {
-        color: white;
-      }
-    }
-  }
-  .mfp-counter {
-    position: relative;
-    text-align: center;
-    font-size: $small-font-size; //$body-font-size-small;
-    color: $brand-very-dark;
-  }
-}
-
-//iframe
-.mfp-iframe-holder {
-  .mfp-content {
-    max-width: none !important;
-    overflow: hidden !important;
-    @media #{$medium-up} {
-      max-width: $modal-max-width !important;
-    }
-    @media #{$xlarge-up} {
-      max-width: $modal-max-width-xlarge !important;
-    }
-    .mfp-iframe-scaler {
-      overflow: hidden !important;
-    }
-  }
-  iframe {
-    margin-bottom: 0;
-  }
-  .mfp-close {
-    display: none;
-  }
-}
-
-//animation
-.mfp-slide-animation {
-  //start
-  .mfp-content {
-    opacity: 0;
-    @include rollover(all, $transition-duration * 2);
-    transform: translateY(-20px) perspective(600px) rotateX(10deg);
-  }
-  //animate in
-  &.mfp-ready .mfp-content {
-    opacity: 1;
-    transform: translateY(0) perspective(600px) rotateX(0);
-  }
-  //animate out
-  &.mfp-removing .mfp-content {
-    opacity: 0;
-    transform: translateY(20px) perspective(600px) rotateX(-10deg);
-  }
-  //overlay, start state
-  &.mfp-bg {
-    opacity: 0.01;
-    @include rollover(opacity, $transition-duration * 2);
-  }
-  //animate out, animate in
-  &.mfp-ready.mfp-bg {
-    opacity: $mfp-overlay-opacity;
-    background-color: $mfp-overlay-color;
-  }
-  &.mfp-removing.mfp-bg {
-    opacity: 0;
-  }
-}
-
 .modal-header {
   padding-bottom: $all-v-padding;
+
   h1,
   h2,
   h3,
@@ -361,10 +252,12 @@ button.mfp-arrow {
 .modal-follow {
   //text-align: center;
   @include last-child;
+
   .list-inline {
     margin-bottom: $margin-bottom * 0.5;
   }
 }
+
 .follow-region {
   h1,
   h2,
@@ -375,6 +268,7 @@ button.mfp-arrow {
   p {
     margin-bottom: 0;
   }
+
   .sm-buttons {
     margin: $padding 0 ($padding * 2) 0;
   }
@@ -384,10 +278,12 @@ button.mfp-arrow {
 .modal-weatherstation {
   .modal-header {
     padding-bottom: $padding;
+
     .weatherstation-caption {
       margin-bottom: 0;
       font-size: $small-font-size;
     }
+
     .weatherstation-altitude {
       @include font-normal;
     }
@@ -399,12 +295,15 @@ button.mfp-arrow {
     line-height: 1;
     font-size: $tiny-font-size;
     @include letter-spacing;
+
     li {
       padding: 0 ($padding * 2) 0 0;
+
       &:last-child {
         padding-right: 0;
       }
     }
+
     a {
       span {
         &:before {
@@ -414,10 +313,12 @@ button.mfp-arrow {
         }
       }
     }
+
     .weatherstation-flipper-back {
       span:before {
         transform: translateX(0);
       }
+
       a {
         &:hover,
         &:active {
@@ -429,8 +330,10 @@ button.mfp-arrow {
         }
       }
     }
+
     .weatherstation-flipper-current {
     }
+
     .weatherstation-flipper-forward {
       span {
         &:before {
@@ -438,6 +341,7 @@ button.mfp-arrow {
           transform: translateX(0);
         }
       }
+
       a {
         &:hover,
         &:active {
@@ -449,17 +353,21 @@ button.mfp-arrow {
         }
       }
     }
+
     .weatherstation-flipper-station {
       float: right;
+
       ul {
         margin-bottom: 0;
       }
+
       a {
         &:hover,
         &:active {
           display: inline-block;
         }
       }
+
       @media #{$tiny-up} {
       }
     }
@@ -469,6 +377,7 @@ button.mfp-arrow {
     @extend .bg-subtle;
     margin-bottom: $padding;
     padding: $padding;
+
     li {
       padding-bottom: 0;
     }
@@ -480,14 +389,17 @@ button.mfp-arrow {
 
   .pure-form {
     margin-bottom: 0;
+
     ul li {
       padding-bottom: 0;
     }
   }
+
   .weatherstation-img {
     display: block;
     margin: 0 auto $margin-bottom auto;
   }
+
   .weatherstation-provider {
     margin: 0;
     font-size: $small-font-size;

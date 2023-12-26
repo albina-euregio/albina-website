@@ -2,13 +2,11 @@ import React from "react"; // eslint-disable-line no-unused-vars
 import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
 import { APP_STORE } from "./appStore";
-import ModalStateStore from "./stores/modalStateStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import { BLOG_STORE } from "./stores/blogStore";
 
 (() => import("./sentry"))();
 
-window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
 
 // detect WebP support

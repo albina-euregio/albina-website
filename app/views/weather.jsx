@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import $ from "jquery";
 
 import { observer } from "mobx-react";
-import { modal_open_by_params } from "../js/modal";
 import { useIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -17,10 +16,12 @@ import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { useParams } from "react-router-dom";
 
 import Player from "../js/player";
+import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
 const Weather = () => {
   const intl = useIntl();
   const params = useParams();
+  const [stationId, setStationId] = useState("");
 
   const [headerText] = useState("");
 
@@ -79,41 +80,14 @@ const Weather = () => {
     });
   };
 
-  const handleMarkerSelected = feature => {
-    if (!feature) return;
-    // console.log(
-    //   "handleMarkerSelected ggg1",
-    //   feature,
-    //   store.stations.features.find(
-    //     point => point.id == feature.id
-    //   )
-    // );
-    if (feature.id) {
-      window["modalStateStore"].setData({
-        stationData: store.stations.features.sort((f1, f2) =>
-          (f1.properties["LWD-Region"] || "").localeCompare(
-            f2.properties["LWD-Region"] || "",
-            "de"
-          )
-        ),
-        rowId: feature.id
-      });
-      modal_open_by_params(
-        null,
-        "inline",
-        "#weatherStationDiagrams",
-        "weatherStationDiagrams",
-        true
-      );
-      //store.selectedFeature = null;
-    } else {
-      //store.selectedFeature = feature;
-    }
-  };
-
   //console.log("weather->render", store.domainId, store.agl, player);
   return (
     <>
+      <WeatherStationDialog
+        stationData={store.stations?.features ?? []}
+        stationId={stationId}
+        setStationId={setStationId}
+      />
       <HTMLHeader title={intl.formatMessage({ id: "weathermap:title" })} />
       <PageHeadline
         title={intl.formatMessage({ id: "weathermap:headline" })}
@@ -153,7 +127,7 @@ const Weather = () => {
                 playerCB={player.onLayerEvent.bind(player)}
                 isPlaying={player.playing}
                 selectedFeature={store.selectedFeature}
-                onMarkerSelected={handleMarkerSelected}
+                onMarkerSelected={feature => setStationId(feature?.id)}
                 onViewportChanged={handleMapViewportChanged}
               />
               {store.selectedFeature && (

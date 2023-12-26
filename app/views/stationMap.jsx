@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
@@ -9,6 +8,7 @@ import StationDataStore from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
+import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 
@@ -27,27 +27,12 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
 class StationMap extends React.Component {
   constructor(props) {
     super(props);
-    this.store = new StationDataStore();
+    this.store = new StationDataStore().sortBy("microRegion", "asc");
+    this.dialogRef = React.createRef();
   }
 
   componentDidMount() {
     this.store.load();
-  }
-
-  onMarkerSelected(stationData, feature) {
-    if (feature && feature.id) {
-      window["modalStateStore"].setData({
-        stationData,
-        rowId: feature.id
-      });
-      modal_open_by_params(
-        null,
-        "inline",
-        "#weatherStationDiagrams",
-        "weatherStationDiagrams",
-        true
-      );
-    }
   }
 
   get stationOverlay() {
@@ -60,17 +45,12 @@ class StationMap extends React.Component {
     return (
       <StationOverlay
         key={"stations"}
-        onMarkerSelected={this.onMarkerSelected.bind(
-          this,
-          this.store.data
-            .slice()
-            .sort((f1, f2) =>
-              (f1.properties["LWD-Region"] || "").localeCompare(
-                f2.properties["LWD-Region"] || "",
-                "de"
-              )
-            )
-        )}
+        onMarkerSelected={feature =>
+          this.setState({
+            stationData: this.store.data,
+            stationId: feature.id
+          })
+        }
         itemId="any"
         item={item}
         features={this.store.data}
@@ -88,7 +68,12 @@ class StationMap extends React.Component {
     return (
       <StationOverlay
         key={"observers"}
-        onMarkerSelected={this.onMarkerSelected.bind(this, observers)}
+        onMarkerSelected={feature =>
+          this.setState({
+            stationData: observers,
+            stationId: feature.id
+          })
+        }
         itemId="any"
         item={observerItem}
         features={observers}
@@ -100,6 +85,11 @@ class StationMap extends React.Component {
     const overlays = [this.stationOverlay, this.observerOverlay];
     return (
       <>
+        <WeatherStationDialog
+          stationData={this.state?.stationData}
+          stationId={this.state?.stationId}
+          setStationId={stationId => this.setState({ stationId })}
+        />
         <HTMLHeader
           title={this.props.intl.formatMessage({ id: "menu:lawis:station" })}
         />
@@ -116,9 +106,6 @@ class StationMap extends React.Component {
                 config.weathermaps.settings.mapOptionsOverride
               }
               overlays={overlays}
-              onInit={map => {
-                map.on("click", () => this.onMarkerSelected(), this);
-              }}
             />
           </div>
         </section>

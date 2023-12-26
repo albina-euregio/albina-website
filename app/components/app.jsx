@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from "react";
-import $ from "jquery";
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 
@@ -55,16 +54,6 @@ const RouteBulletin = () => {
 
 const App = () => {
   useEffect(() => {
-    window["page_html"] = $("html");
-    window["page_body"] = $("body");
-
-    let debug_selector = $(
-      ".modal-trigger, .modal-gallery-trigger, [data-scroll]"
-    );
-    for (var i = 0; i < debug_selector.length; i++) {
-      debug_selector[i].onclick = null;
-    }
-
     orientation_change();
   });
 

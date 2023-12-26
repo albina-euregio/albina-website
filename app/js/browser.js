@@ -1,8 +1,9 @@
 import anime from "animejs";
+import $ from "jquery";
 
 function orientation_change() {
   window.addEventListener("orientationchange", function () {
-    let target = window["page_body"];
+    let target = $("body");
     switch (window.orientation) {
       //case -90:200
       //case 90:
