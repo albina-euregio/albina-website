@@ -2,20 +2,27 @@ import React from "react";
 import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
-import { Bulletin, isAmPm } from "../../stores/bulletin";
+import {
+  Bulletin,
+  matchesValidTimePeriod,
+  ValidTimePeriod
+} from "../../stores/bulletin";
 
 type Props = {
-  ampm: "am" | "pm";
+  validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
   region: string;
 };
 
-function BulletinMapDetails({ ampm, bulletin, region }: Props) {
+function BulletinMapDetails({ validTimePeriod, bulletin, region }: Props) {
   const problems =
-    bulletin.avalancheProblems.filter(p => isAmPm(ampm, p.validTimePeriod)) ||
-    [];
+    bulletin.avalancheProblems.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
   const dangerRatings =
-    bulletin.dangerRatings.filter(p => isAmPm(ampm, p.validTimePeriod)) || [];
+    bulletin.dangerRatings.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
   let key = 0;
   let count = 0;
 

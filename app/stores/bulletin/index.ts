@@ -1,4 +1,4 @@
-import type { Bulletin, CustomData, ValidTimePeriod } from "./CAAMLv6";
+import { Bulletin, CustomData, ValidTimePeriod } from "./CAAMLv6";
 
 export * from "./CAAMLv6";
 export * from "./MicroRegionElevationProperties";
@@ -11,13 +11,26 @@ export function hasDaytimeDependency(b: Bulletin): boolean {
   });
 }
 
-export function isAmPm(ampm: "am" | "pm" | "", t: ValidTimePeriod): boolean {
+export function matchesValidTimePeriod(
+  p1: ValidTimePeriod | undefined,
+  p2: ValidTimePeriod | undefined
+): boolean {
   return (
-    !ampm ||
-    (ampm == "am" && (!t || t === "all_day" || t === "earlier")) ||
-    (ampm == "pm" && (!t || t === "all_day" || t === "later"))
+    !p1 ||
+    !p2 ||
+    p1 === "all_day" ||
+    p2 === "all_day" ||
+    (p1 === "earlier" && p2 === "earlier") ||
+    (p1 === "later" && p2 === "later")
   );
 }
+
+export const toAmPm: Record<ValidTimePeriod, "" | ":am" | ":pm"> =
+  Object.freeze({
+    [ValidTimePeriod.AllDay]: "",
+    [ValidTimePeriod.Earlier]: ":am",
+    [ValidTimePeriod.Later]: ":pm"
+  });
 
 export type DangerPattern =
   | "DP1"

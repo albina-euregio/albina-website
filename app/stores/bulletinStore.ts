@@ -1,5 +1,5 @@
-import { observable, action, makeObservable } from "mobx";
-import { getSuccDate, dateToISODateString, parseDate } from "../util/date.js";
+import { action, makeObservable, observable } from "mobx";
+import { dateToISODateString, getSuccDate, parseDate } from "../util/date.js";
 
 import { Util } from "leaflet";
 import {
@@ -8,10 +8,12 @@ import {
   Bulletin,
   Bulletins,
   DangerRating,
-  isAmPm,
+  matchesValidTimePeriod,
   MicroRegionElevationProperties,
   MicroRegionProperties,
-  RegionOutlineProperties
+  RegionOutlineProperties,
+  toAmPm,
+  ValidTimePeriod
 } from "./bulletin";
 import { fetchExists, fetchJSON } from "../util/fetch.js";
 
@@ -21,20 +23,19 @@ import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
 import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
 import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
 import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
-
-export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
 import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
 import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
 import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
+import eawsRegions from "@eaws/outline_properties/index.json";
+import { regionsRegex } from "../util/regions.js";
+
+export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
 
 export const microRegionsElevation: MicroRegionElevationProperties[] = [
   ..._pe1,
   ..._pe2,
   ..._pe3
 ];
-
-import eawsRegions from "@eaws/outline_properties/index.json";
-import { regionsRegex } from "../util/regions.js";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -44,8 +45,6 @@ export type RegionState =
   | "dehighlighted"
   | "dimmed"
   | "default";
-
-type AmPm = "am" | "pm" | "";
 
 /**
  * Class storing one Caaml.Bulletins object with additional state.
@@ -118,11 +117,12 @@ class BulletinCollection {
     return Object.fromEntries(
       this.dataRaw?.bulletins.flatMap(b =>
         b.regions.flatMap(({ regionID }) =>
-          (["", "am", "pm"] as ("" | "am" | "pm")[]).flatMap(ampm =>
-            (["low", "high"] as ("low" | "high")[]).map(elevation => [
-              `${regionID}:${elevation}:${ampm}`.replace(/:$/, ""),
-              this.getWarnLevel(regionID, ampm, b, elevation)
-            ])
+          (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
+            validTimePeriod =>
+              (["low", "high"] as const).map(elevation => [
+                `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
+                this.getWarnLevel(regionID, validTimePeriod, b, elevation)
+              ])
           )
         )
       ) || []
@@ -131,11 +131,11 @@ class BulletinCollection {
 
   private getWarnLevel(
     regionID: string,
-    ampm: AmPm,
+    validTimePeriod: ValidTimePeriod,
     b: Bulletin,
     elevation: "low" | "high"
   ): WarnLevelNumber {
-    const dangerRatings = this.dangerRatings(ampm, b, elevation);
+    const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
     const warnlevel = dangerRatings
       .map(danger => getWarnlevelNumber(danger.mainValue))
       .reduce((w1, w2) => Math.max(w1, w2) as WarnLevelNumber, 0);
@@ -150,7 +150,7 @@ class BulletinCollection {
           .map(e => e.elevation?.lowerBound)
           .some(bound => +bound > threshold)
       ) {
-        return this.getWarnLevel(regionID, ampm, b, "low");
+        return this.getWarnLevel(regionID, validTimePeriod, b, "low");
       }
     }
 
@@ -158,12 +158,14 @@ class BulletinCollection {
   }
 
   private dangerRatings(
-    ampm: AmPm,
+    validTimePeriod: ValidTimePeriod,
     bulletin: Bulletin,
     elevation: "low" | "high"
   ): DangerRating[] {
     return bulletin?.dangerRatings
-      .filter(({ validTimePeriod }) => isAmPm(ampm, validTimePeriod))
+      .filter(({ validTimePeriod }) =>
+        matchesValidTimePeriod(validTimePeriod, validTimePeriod)
+      )
       .filter(
         danger =>
           (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
@@ -324,8 +326,7 @@ class BulletinStore {
 
   /**
    * Get the bulletins that match the current selection.
-   * @return {BulletinCollection} A list of bulletins that match the selection of
-   *   this.date and this.ampm
+   * @return {BulletinCollection} A list of bulletins that match the selection
    */
   get activeBulletinCollection(): BulletinCollection {
     if (this.settings.status == "ok") {
@@ -336,8 +337,7 @@ class BulletinStore {
 
   /**
    * Get the bulletin that is relevant for the currently set region.
-   * @return A bulletin object that matches the selection of
-   *   this.date, this.ampm and this.region
+   * @return A bulletin object that matches the selection
    */
   get activeBulletin(): Bulletin {
     if (this.activeBulletinCollection) {
@@ -354,7 +354,7 @@ class BulletinStore {
 
   getProblemsForRegion(
     regionId: string,
-    ampm: AmPm = null
+    validTimePeriod?: ValidTimePeriod
   ): AvalancheProblem[] {
     if (!this.activeBulletinCollection) {
       return [];
@@ -362,12 +362,15 @@ class BulletinStore {
     const bulletin =
       this.activeBulletinCollection.getBulletinForBulletinOrRegion(regionId);
     const problems = bulletin?.avalancheProblems?.filter(p =>
-      isAmPm(ampm, p.validTimePeriod)
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     );
     return problems || [];
   }
 
-  getRegionState(regionId: string, ampm: AmPm = null): RegionState {
+  getRegionState(
+    regionId: string,
+    validTimePeriod?: ValidTimePeriod
+  ): RegionState {
     if (this.settings?.region === regionId) {
       return "selected";
     }
@@ -379,7 +382,7 @@ class BulletinStore {
       return "dimmed";
     }
 
-    const problems = this.getProblemsForRegion(regionId, ampm);
+    const problems = this.getProblemsForRegion(regionId, validTimePeriod);
     if (problems.some(p => this.problems?.[p.problemType]?.highlighted)) {
       return "highlighted";
     }

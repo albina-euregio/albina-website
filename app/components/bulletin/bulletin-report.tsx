@@ -98,16 +98,16 @@ function BulletinReport({ date, bulletin }: Props) {
           {hasDaytimeDependency(bulletin) ? (
             [
               <BulletinDaytimeReport
-                key={"am"}
+                key={"earlier"}
                 bulletin={bulletin}
                 date={date}
-                ampm={"am"}
+                validTimePeriod={"earlier"}
               />,
               <BulletinDaytimeReport
-                key={"pm"}
+                key={"later"}
                 bulletin={bulletin}
                 date={date}
-                ampm={"pm"}
+                validTimePeriod={"later"}
               />
             ]
           ) : (

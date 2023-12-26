@@ -265,16 +265,16 @@ const Bulletin = props => {
       <Suspense fallback={<div>...</div>}>
         {daytimeDependency ? (
           <div className="bulletin-parallel-view">
-            {["am", "pm"].map((ampm, index) => (
+            {["earlier", "later"].map((validTimePeriod, index) => (
               <BulletinMap
-                key={ampm}
+                key={validTimePeriod}
                 handleMapViewportChanged={handleMapViewportChanged}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
                 highlightedRegion={highlightedRegion}
                 onMapInit={handleMapInit}
-                ampm={ampm}
+                validTimePeriod={validTimePeriod}
               />
             ))}
           </div>

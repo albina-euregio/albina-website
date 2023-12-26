@@ -10,7 +10,9 @@ import { regionsRegex } from "../../util/regions";
 import {
   MicroRegionElevationProperties,
   MicroRegionProperties,
-  RegionOutlineProperties
+  RegionOutlineProperties,
+  toAmPm,
+  ValidTimePeriod
 } from "../../stores/bulletin";
 import { filterFeature, RegionState } from "../../stores/bulletinStore";
 
@@ -42,11 +44,14 @@ const clickable = Object.freeze({
   fillOpacity: 0.0
 } as PathOptions);
 
-type PbfProps = { ampm: "am" | "pm"; date: string };
+type PbfProps = {
+  validTimePeriod: ValidTimePeriod;
+  date: string;
+};
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const style = (id: string): PathOptions => {
-    if (props.ampm) id += ":" + props.ampm;
+    id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return hidden;
     return regionsRegex.test(id)
