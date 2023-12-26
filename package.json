@@ -5,7 +5,6 @@
   "version": "0.2.0",
   "type": "module",
   "private": false,
-  "main": "app/main.jsx",
   "scripts": {
     "dev": "vite",
     "start": "vite",
