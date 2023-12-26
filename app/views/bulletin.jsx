@@ -7,6 +7,7 @@ import { hasDaytimeDependency } from "../stores/bulletin";
 import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
+
 const BulletinMap = React.lazy(() =>
   import("../components/bulletin/bulletin-map")
 );
@@ -30,6 +31,7 @@ import {
   Link
 } from "react-router-dom";
 
+import "leaflet";
 import "leaflet.sync";
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
