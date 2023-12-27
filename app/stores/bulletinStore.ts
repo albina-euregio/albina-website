@@ -48,6 +48,34 @@ class BulletinCollection {
     this.dataRaw = null;
   }
 
+  static _getBulletinUrl(date: string): string {
+    const region = date > "2022-05-06" ? "EUREGIO_" : "";
+    return config.template(config.apis.bulletin.json, {
+      date,
+      region,
+      lang: document.body.parentElement.lang
+    });
+  }
+
+  async loadStatus(): Promise<Status> {
+    const url = BulletinCollection._getBulletinUrl(this.date);
+    const ok = await fetchExists(url);
+    return ok ? "ok" : "n/a";
+  }
+
+  async load(): Promise<this> {
+    const url = BulletinCollection._getBulletinUrl(this.date);
+    try {
+      const response = await fetchJSON(url, { cache: "no-cache" });
+      this.setData(response);
+    } catch (error) {
+      console.error("Cannot load bulletin for date " + this.date, error);
+      this.setData(null);
+      this.status = "n/a";
+    }
+    return this;
+  }
+
   get bulletins(): Bulletin[] {
     return this.dataRaw?.bulletins || [];
   }
@@ -219,7 +247,7 @@ class BulletinStore {
     const now = new Date();
     const today = dateToISODateString(now);
     const tomorrow = dateToISODateString(getSuccDate(now));
-    const status = await BulletinStore.getBulletinStatus(tomorrow);
+    const status = await new BulletinCollection(tomorrow).loadStatus();
     this._setLatest(status === "ok" ? tomorrow : today);
     window.setTimeout(
       () => this._latestBulletinChecker(),
@@ -252,13 +280,10 @@ class BulletinStore {
       this.activate(date);
     }
 
-    const url = BulletinStore._getBulletinUrl(date);
     try {
-      const response = await fetchJSON(url, { cache: "no-cache" });
-      this.bulletins[date].setData(response);
+      await this.bulletins[date].load();
     } catch (error) {
       console.error("Cannot load bulletin for date " + date, error);
-      this.bulletins[date].setData(null);
       this.settings.status = "n/a";
       return this.bulletins[date];
     }
@@ -390,21 +415,6 @@ class BulletinStore {
       )
       .map(f => String(f.id))
       .sort();
-  }
-
-  static _getBulletinUrl(date: string): string {
-    const region = date > "2022-05-06" ? "EUREGIO_" : "";
-    return config.template(config.apis.bulletin.json, {
-      date,
-      region,
-      lang: document.body.parentElement.lang
-    });
-  }
-
-  static async getBulletinStatus(date: string): Promise<Status> {
-    const url = BulletinStore._getBulletinUrl(date);
-    const ok = await fetchExists(url);
-    return ok ? "ok" : "n/a";
   }
 }
 

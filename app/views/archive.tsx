@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
 import { currentSeasonYear } from "../util/date-season";
-import { BulletinStore, BULLETIN_STORE } from "../stores/bulletinStore";
+import { BULLETIN_STORE, BulletinCollection } from "../stores/bulletinStore";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,
@@ -46,9 +46,11 @@ function Archive() {
           setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
         );
       } else if (dateString >= "2018-12-01") {
-        BulletinStore.getBulletinStatus(dateString).then(status =>
-          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
-        );
+        new BulletinCollection(dateString)
+          .loadStatus()
+          .then(status =>
+            setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+          );
       } else {
         getArchiveBulletinStatus(dateString).then(status =>
           setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
@@ -224,7 +226,7 @@ async function getRegionBulletinStatus(
   dateString: string,
   region: string
 ): Promise<RegionBulletinStatus> {
-  const collection = await BULLETIN_STORE.load(dateString, false);
+  const collection = await new BulletinCollection(dateString).load();
   return {
     $type: "RegionBulletinStatus",
     status: collection.status,
