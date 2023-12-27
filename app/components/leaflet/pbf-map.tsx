@@ -13,10 +13,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
-import {
-  toAmPm,
-  ValidTimePeriod
-} from "../../stores/bulletin";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 import { RegionState } from "../../stores/bulletinStore";
 
 declare module "@react-leaflet/core" {
@@ -64,6 +61,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
+      dangerRatings: {},
       pane: "overlayPane",
       interactive: false,
       rendererFactory: L.canvas.tile,

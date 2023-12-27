@@ -1,5 +1,4 @@
 import { action, makeObservable, observable } from "mobx";
-import { dateToISODateString, getSuccDate, parseDate } from "../util/date.js";
 
 import {
   AvalancheProblemType,
@@ -181,7 +180,6 @@ class BulletinCollection {
 
 class BulletinStore {
   bulletins: Record<string, BulletinCollection> = {};
-  latest: string | null = null;
   settings = {
     status: "" as Status,
     date: ""
@@ -190,21 +188,10 @@ class BulletinStore {
   constructor() {
     makeObservable(this, {
       bulletins: observable,
-      latest: observable,
       settings: observable,
-      _latestBulletinChecker: action,
-      _setLatest: action,
       load: action,
       activate: action
     });
-  }
-
-  init(): this {
-    if (this.latest) {
-      return;
-    }
-    this._latestBulletinChecker();
-    return this;
   }
 
   clear() {
@@ -213,30 +200,6 @@ class BulletinStore {
       status: "",
       date: ""
     };
-  }
-
-  get date(): Date | undefined {
-    return this.settings.date ? parseDate(this.settings.date) : undefined;
-  }
-
-  get latestDate(): Date | undefined {
-    return this.latest ? parseDate(this.latest) : undefined;
-  }
-
-  async _latestBulletinChecker() {
-    const now = new Date();
-    const today = dateToISODateString(now);
-    const tomorrow = dateToISODateString(getSuccDate(now));
-    const status = await new BulletinCollection(tomorrow).loadStatus();
-    this._setLatest(status === "ok" ? tomorrow : today);
-    window.setTimeout(
-      () => this._latestBulletinChecker(),
-      config.bulletin.checkForLatestInterval * 60000
-    );
-  }
-
-  _setLatest(latest: string) {
-    this.latest = latest;
   }
 
   /**

@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import {
   BULLETIN_STORE,
@@ -27,7 +26,8 @@ import HTMLHeader from "../components/organisms/html-header";
 import {
   parseDate,
   LONG_DATE_FORMAT,
-  dateToISODateString
+  dateToISODateString,
+  getSuccDate
 } from "../util/date.js";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
@@ -121,62 +121,49 @@ const Bulletin = () => {
   const [slowLoading, setLoadingStart] = useSlowLoading();
   const { problems, toggleProblem, getRegionState } = useProblems();
   const [region, setRegion] = useState("");
-
-  BULLETIN_STORE.init();
+  const [latest, setLatest] = useState("");
 
   useEffect(() => {
-    reaction(
-      () => BULLETIN_STORE.latest,
-      () => didUpdate()
-    );
-    _fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    _latestBulletinChecker();
+    async function _latestBulletinChecker() {
+      const now = new Date();
+      const today = dateToISODateString(now);
+      const tomorrow = dateToISODateString(getSuccDate(now));
+      const status = await new BulletinCollection(tomorrow).loadStatus();
+      setLatest(status === "ok" ? tomorrow : today);
+      window.setTimeout(
+        () => _latestBulletinChecker(),
+        config.bulletin.checkForLatestInterval * 60000
+      );
+    }
   }, []);
 
   useEffect(() => {
-    didUpdate();
-  });
-
-  const didUpdate = () => {
-    const updateConditions = [
-      location !== lastLocationRef.current?.location &&
+    if (
+      (location !== lastLocationRef.current?.location &&
         params.date &&
-        params.date != BULLETIN_STORE.settings.date,
-
-      typeof params.date === "undefined" &&
-        BULLETIN_STORE.latest &&
-        BULLETIN_STORE.latest != BULLETIN_STORE.settings.date
-    ];
-
-    if (updateConditions.reduce((acc, cond) => acc || cond, false)) {
-      _fetchData();
+        params.date != BULLETIN_STORE.settings.date) ||
+      (typeof params.date === "undefined" &&
+        latest &&
+        latest != BULLETIN_STORE.settings.date)
+    ) {
+      (async () => {
+        const startDate =
+          params.date && parseDate(params.date) ? params.date : latest;
+        if (!params.date || params.date == latest) {
+          navigate({
+            pathname: "/bulletin/latest",
+            hash: location.hash,
+            search: location.search.substring(1)
+          });
+        }
+        setLoadingStart(Date.now());
+        await BULLETIN_STORE.load(startDate);
+      })();
     }
-    checkRegion();
+    setRegion(searchParams.get("region"));
     lastLocationRef.current = location;
-  };
-
-  const _fetchData = async () => {
-    const startDate =
-      params.date && parseDate(params.date)
-        ? params.date
-        : BULLETIN_STORE.latest;
-
-    if (!params.date || params.date == BULLETIN_STORE.latest) {
-      navigate({
-        pathname: "/bulletin/latest",
-        hash: location.hash,
-        search: location.search.substring(1)
-      });
-    }
-
-    setLoadingStart(Date.now());
-    await BULLETIN_STORE.load(startDate);
-  };
-
-  const checkRegion = () => {
-    const urlRegion = searchParams.get("region");
-    setRegion(urlRegion);
-  };
+  }, [latest, location, navigate, params.date, searchParams, setLoadingStart]);
 
   const handleSelectRegion = id => {
     if (id) {
@@ -247,8 +234,12 @@ const Bulletin = () => {
         loading={BULLETIN_STORE.settings.status === "pending"}
       />
       <BulletinHeader
-        date={BULLETIN_STORE.date}
-        latestDate={BULLETIN_STORE.latestDate}
+        date={
+          BULLETIN_STORE.settings.date
+            ? parseDate(BULLETIN_STORE.settings.date)
+            : undefined
+        }
+        latestDate={latest ? parseDate(latest) : undefined}
         status={BULLETIN_STORE.settings.status}
         activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
       />
@@ -341,7 +332,11 @@ const Bulletin = () => {
       {collection && (
         <BulletinList
           bulletins={collection.bulletins}
-          date={BULLETIN_STORE.date}
+          date={
+            BULLETIN_STORE.settings.date
+              ? parseDate(BULLETIN_STORE.settings.date)
+              : undefined
+          }
           region={region}
         />
       )}
