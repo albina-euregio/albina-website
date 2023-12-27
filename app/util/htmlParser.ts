@@ -1,7 +1,6 @@
 import React, { type AllHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
-import BulletinGlossary from "../components/bulletin/bulletin-glossary";
 import { RegionsTables } from "../components/stationTable/regionTable";
 import { scrollIntoView } from "./scrollIntoView";
 
@@ -41,8 +40,6 @@ export function preprocessContent(content: string, blogMode = false) {
           // Turn image links into lightboxes
           props.className =
             (props.className || "") + " mfp-image modal-trigger img";
-        } else if (/BulletinGlossary/i.exec(type)) {
-          return React.createElement(BulletinGlossary, props, children);
         } else if (/RegionsTables/i.exec(type)) {
           return React.createElement(RegionsTables, props, children);
         }

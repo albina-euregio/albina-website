@@ -45,7 +45,9 @@
     "react-easy-swipe": "0.0.23",
     "react-intl": "^6.5.5",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.20.1"
+    "react-router-dom": "^6.20.1",
+    "react-string-replace": "^1.1.1",
+    "selectric": "https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
   },
   "devDependencies": {
     "@playwright/test": "^1.29.0",
