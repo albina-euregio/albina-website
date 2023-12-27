@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { observer } from "mobx-react";
 import {
-  BULLETIN_STORE,
   BulletinCollection,
-  RegionState
+  RegionState,
+  Status
 } from "../stores/bulletinStore";
 import {
   AvalancheProblemType,
@@ -122,6 +121,8 @@ const Bulletin = () => {
   const { problems, toggleProblem, getRegionState } = useProblems();
   const [region, setRegion] = useState("");
   const [latest, setLatest] = useState("");
+  const [status, setStatus] = useState<Status>();
+  const [collection, setCollection] = useState<BulletinCollection>();
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -142,13 +143,13 @@ const Bulletin = () => {
     if (
       (location !== lastLocationRef.current?.location &&
         params.date &&
-        params.date != BULLETIN_STORE.settings.date) ||
+        params.date != collection?.date) ||
       (typeof params.date === "undefined" &&
         latest &&
-        latest != BULLETIN_STORE.settings.date)
+        latest != collection?.date)
     ) {
       (async () => {
-        const startDate =
+        const date =
           params.date && parseDate(params.date) ? params.date : latest;
         if (!params.date || params.date == latest) {
           navigate({
@@ -158,12 +159,29 @@ const Bulletin = () => {
           });
         }
         setLoadingStart(Date.now());
-        await BULLETIN_STORE.load(startDate);
+        const collection = new BulletinCollection(date);
+        setStatus(collection.status);
+        try {
+          await collection.load();
+          setStatus(collection.status);
+          setCollection(collection);
+        } catch (error) {
+          console.error("Cannot load bulletin for date " + date, error);
+          setStatus("n/a");
+        }
       })();
     }
-    setRegion(searchParams.get("region"));
     lastLocationRef.current = location;
-  }, [latest, location, navigate, params.date, searchParams, setLoadingStart]);
+  }, [
+    collection?.date,
+    latest,
+    location,
+    navigate,
+    params.date,
+    setLoadingStart
+  ]);
+
+  useEffect(() => setRegion(searchParams.get("region")), [searchParams]);
 
   const handleSelectRegion = id => {
     if (id) {
@@ -197,7 +215,6 @@ const Bulletin = () => {
     mapRefs.push(map);
   };
 
-  const collection = BULLETIN_STORE.activeBulletinCollection;
   const daytimeDependency = collection?.bulletins?.some(b =>
     hasDaytimeDependency(b)
   );
@@ -210,9 +227,9 @@ const Bulletin = () => {
       });
 
   const shareImage =
-    collection && BULLETIN_STORE.settings.date
+    collection && collection?.date
       ? config.template(config.apis.bulletin.map, {
-          date: BULLETIN_STORE.settings.date,
+          date: collection?.date,
           publication: ".",
           file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
           format: ".jpg"
@@ -221,8 +238,8 @@ const Bulletin = () => {
 
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
-      date: BULLETIN_STORE.settings.date
-        ? dateToISODateString(parseDate(BULLETIN_STORE.settings.date))
+      date: collection?.date
+        ? dateToISODateString(parseDate(collection?.date))
         : "latest",
       lang: document.body.parentElement.lang
     });
@@ -230,21 +247,15 @@ const Bulletin = () => {
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
-      <HTMLPageLoadingScreen
-        loading={BULLETIN_STORE.settings.status === "pending"}
-      />
+      <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
-        date={
-          BULLETIN_STORE.settings.date
-            ? parseDate(BULLETIN_STORE.settings.date)
-            : undefined
-        }
+        date={collection?.date ? parseDate(collection?.date) : undefined}
         latestDate={latest ? parseDate(latest) : undefined}
-        status={BULLETIN_STORE.settings.status}
-        activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
+        status={status}
+        activeBulletinCollection={collection}
       />
 
-      {BULLETIN_STORE.settings.status === "n/a" && (
+      {status === "n/a" && (
         <ControlBar
           addClass="fade-in"
           message={
@@ -267,7 +278,7 @@ const Bulletin = () => {
           }
         />
       )}
-      {BULLETIN_STORE.settings.status === "pending" && slowLoading && (
+      {status === "pending" && slowLoading && (
         <ControlBar
           addClass="fade-in"
           message={intl.formatMessage(
@@ -286,20 +297,13 @@ const Bulletin = () => {
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 region={region}
-                status={BULLETIN_STORE.settings.status}
-                date={BULLETIN_STORE.settings.date}
+                status={status}
+                date={collection?.date}
                 onMapInit={handleMapInit}
                 validTimePeriod={validTimePeriod}
-                activeBulletinCollection={
-                  BULLETIN_STORE.activeBulletinCollection
-                }
+                activeBulletinCollection={collection}
                 getRegionState={(regionId, validTimePeriod) =>
-                  getRegionState(
-                    BULLETIN_STORE.activeBulletinCollection,
-                    region,
-                    regionId,
-                    validTimePeriod
-                  )
+                  getRegionState(collection, region, regionId, validTimePeriod)
                 }
               />
             ))}
@@ -309,16 +313,11 @@ const Bulletin = () => {
             administrateLoadingBar={true}
             handleSelectRegion={handleSelectRegion}
             region={region}
-            status={BULLETIN_STORE.settings.status}
-            date={BULLETIN_STORE.settings.date}
-            activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
+            status={status}
+            date={collection?.date}
+            activeBulletinCollection={collection}
             getRegionState={(regionId, validTimePeriod) =>
-              getRegionState(
-                BULLETIN_STORE.activeBulletinCollection,
-                region,
-                regionId,
-                validTimePeriod
-              )
+              getRegionState(collection, region, regionId, validTimePeriod)
             }
           />
         )}
@@ -332,11 +331,7 @@ const Bulletin = () => {
       {collection && (
         <BulletinList
           bulletins={collection.bulletins}
-          date={
-            BULLETIN_STORE.settings.date
-              ? parseDate(BULLETIN_STORE.settings.date)
-              : undefined
-          }
+          date={collection?.date ? parseDate(collection?.date) : undefined}
           region={region}
         />
       )}
@@ -350,4 +345,4 @@ const Bulletin = () => {
   );
 };
 
-export default observer(Bulletin);
+export default Bulletin;
