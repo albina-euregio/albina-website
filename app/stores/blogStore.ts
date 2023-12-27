@@ -8,8 +8,7 @@ import {
   type BlogProcessor,
   type BlogConfig,
   type BlogPostPreviewItem,
-  BloggerProcessor,
-  WordpressProcessor
+  blogProcessors
 } from "./blog";
 
 export default class BlogStore {
@@ -28,10 +27,6 @@ export default class BlogStore {
 
   // show only 5 blog posts when the mobile phone is detected
   perPage = 20;
-  blogProcessor: {
-    blogger: BlogProcessor;
-    wordpress: BlogProcessor;
-  };
 
   get searchParams() {
     const languageHostConfig = config.languageHostSettings;
@@ -219,10 +214,6 @@ export default class BlogStore {
     this._loading = false;
     this._searchText = initialParameters.searchText;
 
-    this.blogProcessor = {
-      blogger: new BloggerProcessor(),
-      wordpress: new WordpressProcessor()
-    };
     makeAutoObservable(this);
   }
 
@@ -250,8 +241,8 @@ export default class BlogStore {
 
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
-          if (this.blogProcessor[cfg.apiType]) {
-            const p: BlogProcessor = this.blogProcessor[cfg.apiType];
+          if (blogProcessors[cfg.apiType]) {
+            const p: BlogProcessor = blogProcessors[cfg.apiType];
             loads.push(
               p.loadBlogPosts(cfg, this).then(
                 items => items.forEach(i => newPosts[cfg.name].push(i)),
@@ -270,18 +261,6 @@ export default class BlogStore {
     //todo: indicate loading error
     await Promise.all(loads);
     return this.setPostsLoaded(newPosts);
-  }
-
-  async loadBlogPost(
-    blogName: string,
-    postId: unknown
-  ): Promise<BlogPostPreviewItem> {
-    const config = window.config.blogs.find(e => e.name === blogName);
-    this._loading = true;
-    const processor: BlogProcessor = this.blogProcessor[config.apiType];
-    const item = await processor.loadBlogPost(config, postId);
-    this._loading = false;
-    return item;
   }
 
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {

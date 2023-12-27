@@ -1,4 +1,5 @@
 import { parseTags } from "../../util/tagging";
+import { BlogProcessor, blogProcessors } from ".";
 
 export class BlogPostPreviewItem {
   tags: string[];
@@ -33,5 +34,15 @@ export class BlogPostPreviewItem {
     if (labels.includes("valid_48h"))
       return newUntil.setHours(newUntil.getHours() + 48);
     return newUntil.setHours(newUntil.getHours() + 24);
+  }
+
+  static async loadBlogPost(
+    blogName: string,
+    postId: unknown
+  ): Promise<BlogPostPreviewItem> {
+    const config = window.config.blogs.find(e => e.name === blogName);
+    const processor: BlogProcessor = blogProcessors[config.apiType];
+    const item = await processor.loadBlogPost(config, postId);
+    return item;
   }
 }
