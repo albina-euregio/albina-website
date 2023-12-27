@@ -6,23 +6,12 @@ import LeafletMapControls from "./leaflet-map-controls";
 
 import {
   MapContainer,
-  useMapEvents,
   TileLayer,
   AttributionControl,
   ScaleControl,
   MapContainerProps,
   TileLayerProps
 } from "react-leaflet";
-
-const EventHandler = () => {
-  const map = useMapEvents({
-    zoomend: () => {
-      const newZoom = Math.round(map.getZoom());
-      map.setMaxBounds(config.map.maxBounds[newZoom]);
-    }
-  });
-  return null;
-};
 
 type Props = {
   loaded: boolean;
@@ -80,7 +69,6 @@ const LeafletMap = (props: Props) => {
         map.gestureHandling?._handleMouseOver?.();
       }}
     >
-      <EventHandler />
       <AttributionControl prefix={config.map.attribution} />
       {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}
       {props.loaded && props.controls}
