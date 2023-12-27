@@ -48,7 +48,6 @@ const Bulletin = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [title] = useState("");
   const [slowLoading, setLoadingStart] = useSlowLoading();
-  const [highlightedRegion] = useState(null);
   BULLETIN_STORE.init();
 
   useEffect(() => {
@@ -182,7 +181,12 @@ const Bulletin = () => {
       <HTMLPageLoadingScreen
         loading={BULLETIN_STORE.settings.status === "pending"}
       />
-      <BulletinHeader title={title} />
+      <BulletinHeader
+        date={BULLETIN_STORE.date}
+        latestDate={BULLETIN_STORE.latestDate}
+        status={BULLETIN_STORE.settings.status}
+        activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
+      />
 
       {BULLETIN_STORE.settings.status === "n/a" && (
         <ControlBar
@@ -227,9 +231,19 @@ const Bulletin = () => {
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
-                highlightedRegion={highlightedRegion}
                 onMapInit={handleMapInit}
                 validTimePeriod={validTimePeriod}
+                activeBulletin={BULLETIN_STORE.activeBulletin}
+                activeBulletinCollection={
+                  BULLETIN_STORE.activeBulletinCollection
+                }
+                activeEaws={BULLETIN_STORE.activeEaws}
+                eawsRegionIds={BULLETIN_STORE.eawsRegionIds}
+                getRegionState={BULLETIN_STORE.getRegionState.bind(
+                  BULLETIN_STORE
+                )}
+                microRegionIds={BULLETIN_STORE.microRegionIds}
+                settings={BULLETIN_STORE.settings}
               />
             ))}
           </div>
@@ -239,10 +253,20 @@ const Bulletin = () => {
             handleMapViewportChanged={() => {}}
             handleSelectRegion={handleSelectRegion}
             date={params.date}
-            highlightedRegion={highlightedRegion}
+            activeBulletin={BULLETIN_STORE.activeBulletin}
+            activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
+            activeEaws={BULLETIN_STORE.activeEaws}
+            eawsRegionIds={BULLETIN_STORE.eawsRegionIds}
+            getRegionState={BULLETIN_STORE.getRegionState.bind(BULLETIN_STORE)}
+            microRegionIds={BULLETIN_STORE.microRegionIds}
+            settings={BULLETIN_STORE.settings}
           />
         )}
-        <BulletinLegend handleSelectRegion={handleSelectRegion} />
+        <BulletinLegend
+          handleSelectRegion={handleSelectRegion}
+          problems={BULLETIN_STORE.problems}
+          toggleProblem={BULLETIN_STORE.toggleProblem.bind(BULLETIN_STORE)}
+        />
       </Suspense>
       <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
       {collection && (

@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";
@@ -270,4 +269,4 @@ function BulletinProblemItem({ problem }: Props) {
   );
 }
 
-export default observer(BulletinProblemItem);
+export default BulletinProblemItem;

@@ -1,33 +1,27 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import ProblemIcon from "../icons/problem-icon";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin";
 
 type Props = {
   active: boolean;
   handleSelectRegion: (id?: string) => void;
+  toggleProblem: (problemId: Caaml.AvalancheProblemType) => void;
   problemId: Caaml.AvalancheProblemType;
 };
 
 function BulletinProblemFilterItem({
   active,
   handleSelectRegion,
+  toggleProblem,
   problemId
 }: Props) {
   const intl = useIntl();
   function toggle(e: React.MouseEvent) {
     e.preventDefault();
     handleSelectRegion();
-    requestAnimationFrame(() => {
-      if (active) {
-        BULLETIN_STORE.dimProblem(problemId);
-      } else {
-        BULLETIN_STORE.highlightProblem(problemId);
-      }
-    });
+    requestAnimationFrame(() => toggleProblem(problemId));
   }
 
   const problemText = intl.formatMessage({
@@ -55,15 +49,10 @@ function BulletinProblemFilterItem({
             <ProblemIcon problem={problemId} active alt={problemText} />
           </div>
           <div className="picto-caption">{problemTextShort}</div>
-          {/* <ProblemIcon
-              problem={problemId}
-              active={false}
-              alt={problemText}
-            /> */}
         </a>
       </Tooltip>
     </li>
   );
 }
 
-export default observer(BulletinProblemFilterItem);
+export default BulletinProblemFilterItem;

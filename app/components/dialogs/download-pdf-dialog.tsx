@@ -1,20 +1,23 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import type { BulletinCollection } from "../../stores/bulletinStore";
 
-function DownloadPdfDialog() {
+type Props = {
+  activeBulletinCollection: BulletinCollection;
+};
+
+function DownloadPdfDialog(props: Props) {
   const intl = useIntl();
 
   function pdfLink(region, isBw) {
     region = region
       ? `${region}_`
-      : BULLETIN_STORE.settings.date > "2022-05-06"
+      : props.activeBulletinCollection.date > "2022-05-06"
       ? "EUREGIO_"
       : "";
     return config.template(config.apis.bulletin.pdf, {
-      date: BULLETIN_STORE.settings.date,
+      date: props.activeBulletinCollection.date,
       region,
       lang: document.body.parentElement.lang,
       bw: isBw ? "_bw" : ""
@@ -100,4 +103,4 @@ function DownloadPdfDialog() {
   );
 }
 
-export default observer(DownloadPdfDialog);
+export default DownloadPdfDialog;

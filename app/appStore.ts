@@ -1,5 +1,4 @@
 import { atom, computed } from "nanostores";
-import { BULLETIN_STORE } from "./stores/bulletinStore";
 
 export type Language = "ca" | "en" | "de" | "es" | "fr" | "it" | "oc";
 
@@ -36,7 +35,6 @@ export async function setLanguage(newLanguage: Language) {
   if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
     return Promise.resolve();
   }
-  BULLETIN_STORE.clear(); // bulleting store is language dependent
   const messages = (await translationImports[newLanguage]()).default;
   const regions = (await regionTranslationImports[newLanguage]()).default;
   $messages.set(

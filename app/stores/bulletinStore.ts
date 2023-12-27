@@ -186,8 +186,7 @@ class BulletinStore {
       load: action,
       activate: action,
       setRegion: action,
-      dimProblem: action,
-      highlightProblem: action
+      toggleProblem: action
     });
   }
 
@@ -296,15 +295,10 @@ class BulletinStore {
     this.settings.region = id;
   }
 
-  dimProblem(problemId: AvalancheProblemType) {
+  toggleProblem(problemId: AvalancheProblemType) {
     if (typeof this.problems[problemId] !== "undefined") {
-      this.problems[problemId].highlighted = false;
-    }
-  }
-
-  highlightProblem(problemId: AvalancheProblemType) {
-    if (typeof this.problems[problemId] !== "undefined") {
-      this.problems[problemId].highlighted = true;
+      this.problems[problemId].highlighted =
+        !this.problems[problemId].highlighted;
     }
   }
 

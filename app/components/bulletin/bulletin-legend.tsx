@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
 type Props = {
   handleSelectRegion: (id?: string) => void;
+  problems: Record<
+    AvalancheProblemType,
+    {
+      highlighted: boolean;
+    }
+  >;
+  toggleProblem: (problemId: AvalancheProblemType) => void;
 };
-function BulletinLegend({ handleSelectRegion }: Props) {
+
+function BulletinLegend(props: Props) {
   const intl = useIntl();
   const warnlevelKeys = [
     "low",
@@ -41,7 +50,11 @@ function BulletinLegend({ handleSelectRegion }: Props) {
                 }
               )}
             </p>
-            <BulletinProblemFilter handleSelectRegion={handleSelectRegion} />
+            <BulletinProblemFilter
+              handleSelectRegion={props.handleSelectRegion}
+              problems={props.problems}
+              toggleProblem={props.toggleProblem}
+            />
           </div>
           <div className="normal-6 grid-item">
             <p>

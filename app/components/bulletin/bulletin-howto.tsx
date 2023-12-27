@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage } from "react-intl";
 
 function BulletinHowTo() {
@@ -17,4 +16,4 @@ function BulletinHowTo() {
   );
 }
 
-export default observer(BulletinHowTo);
+export default BulletinHowTo;

@@ -7,7 +7,6 @@ import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
 import { setLanguage } from "../../appStore";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 function PageHeader() {
   const intl = useIntl();
@@ -15,12 +14,8 @@ function PageHeader() {
   const handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
-      const date = BULLETIN_STORE.settings.date;
       // since website is served from localhost, just change language in appStore
       setLanguage(newLanguage);
-      if (date) {
-        BULLETIN_STORE.load(date, true);
-      }
       return;
     }
 

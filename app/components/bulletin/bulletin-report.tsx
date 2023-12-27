@@ -1,5 +1,4 @@
 import React, { type FunctionComponent, Suspense } from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
@@ -204,4 +203,4 @@ function BulletinReport({ date, bulletin }: Props) {
   );
 }
 
-export default observer(BulletinReport);
+export default BulletinReport;
