@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { regionCodes, RegionCodes } from "../../util/regions";
 import { microRegionIds } from "../../stores/microRegions";
-import { observer } from "mobx-react";
 import { FormattedMessage } from "react-intl";
 
 function RegionTable({ region }: { region: RegionCodes }) {
@@ -46,7 +45,7 @@ function RegionTable({ region }: { region: RegionCodes }) {
   );
 }
 
-export default observer(RegionTable);
+export default RegionTable;
 
 export function RegionsTables() {
   return (

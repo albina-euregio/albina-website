@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import Menu from "../menu";
 // import SmFollow from "./sm-follow.jsx";
@@ -142,4 +141,4 @@ const PageFooter = () => {
   );
 };
 
-export default observer(PageFooter);
+export default PageFooter;

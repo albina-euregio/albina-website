@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage, injectIntl } from "react-intl";
 
 import LanguageFilter from "../filters/language-filter";
@@ -27,7 +26,7 @@ class SubscribeTelegramDialog extends React.Component {
 
   componentDidUpdate() {
     // reset on dialog close after form has been submitted
-    if (this.state.status !== "" && !window["modalStateStore"].isOpen) {
+    if (this.state.status !== "") {
       this.resetState();
     }
   }
@@ -139,4 +138,4 @@ class SubscribeTelegramDialog extends React.Component {
     );
   }
 }
-export default injectIntl(observer(SubscribeTelegramDialog));
+export default injectIntl(SubscribeTelegramDialog);

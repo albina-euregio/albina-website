@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 function FeedbackDialog() {
@@ -54,4 +53,4 @@ function FeedbackDialog() {
   );
 }
 
-export default observer(FeedbackDialog);
+export default FeedbackDialog;

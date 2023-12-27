@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -30,7 +29,7 @@ class SubscribeEmailDialog extends React.Component {
 
   componentDidUpdate() {
     // reset on dialog close after form has been submitted
-    if (this.state.status !== "" && !window["modalStateStore"].isOpen) {
+    if (this.state.status !== "") {
       this.resetState();
     }
   }
@@ -237,4 +236,4 @@ class SubscribeEmailDialog extends React.Component {
     );
   }
 }
-export default injectIntl(observer(SubscribeEmailDialog));
+export default injectIntl(SubscribeEmailDialog);

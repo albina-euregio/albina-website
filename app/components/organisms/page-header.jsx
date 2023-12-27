@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import Menu from "./../menu";
 import { Tooltip } from "../tooltips/tooltip";
@@ -231,4 +230,4 @@ function PageHeader() {
   );
 }
 
-export default observer(PageHeader);
+export default PageHeader;

@@ -1,6 +1,4 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-
-import { observer } from "mobx-react";
+import React from "react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -453,4 +451,4 @@ class Education extends React.Component {
     );
   }
 }
-export default injectIntl(observer(Education));
+export default injectIntl(Education);

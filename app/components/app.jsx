@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from "react";
-import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 
 import {
@@ -227,4 +226,4 @@ const App = () => {
   );
 };
 
-export default observer(App);
+export default App;
