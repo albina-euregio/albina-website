@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
 import { currentSeasonYear } from "../util/date-season";
-import { BULLETIN_STORE, BulletinCollection } from "../stores/bulletinStore";
+import { BulletinCollection } from "../stores/bulletinStore";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,
@@ -18,6 +18,7 @@ import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
+import { microRegionIds } from "../stores/microRegions.js";
 
 function Archive() {
   const intl = useIntl();
@@ -36,6 +37,7 @@ function Archive() {
   );
   const [dates, setDates] = useState([] as Date[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
+  const [microRegions] = useState(() => microRegionIds());
 
   useEffect(() => {
     const dates = getDatesInMonth(year, month);
@@ -127,7 +129,7 @@ function Archive() {
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={setRegion}
           regionCode={region}
-          regionCodes={BULLETIN_STORE.microRegionIds}
+          regionCodes={microRegions}
           title={intl.formatMessage({
             id: "measurements:table:header:microRegion"
           })}

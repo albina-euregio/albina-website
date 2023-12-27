@@ -10,16 +10,9 @@ import {
   toAmPm,
   ValidTimePeriod
 } from "./bulletin";
-import {
-  filterFeature,
-  microRegions,
-  microRegionsElevation,
-  RegionOutlineProperties
-} from "./microRegions";
+import { microRegionsElevation } from "./microRegions";
 import { fetchExists, fetchJSON } from "../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
-import eawsRegions from "@eaws/outline_properties/index.json";
-import { regionsRegex } from "../util/regions.js";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -336,22 +329,6 @@ class BulletinStore {
 
   get activeEaws(): RegionOutlineProperties | undefined {
     return eawsRegions.find(r => r.id === this.settings.region);
-  }
-
-  get eawsRegionIds(): string[] {
-    return eawsRegions
-      .map(properties => properties.id)
-      .filter(id => !regionsRegex.test(id));
-  }
-
-  get microRegionIds(): string[] {
-    const today = "2022-12-01";
-    return microRegions
-      .filter(properties =>
-        filterFeature({ properties }, this.settings.date || today)
-      )
-      .map(f => String(f.id))
-      .sort();
   }
 }
 

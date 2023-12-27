@@ -4,7 +4,9 @@ import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
 import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
 import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
 import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
+import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
+import { regionsRegex } from "../util/regions";
 
 export interface MicroRegionProperties {
   id: string;
@@ -52,4 +54,22 @@ export function filterFeature(
     (!properties.start_date || properties.start_date <= today) &&
     (!properties.end_date || properties.end_date > today)
   );
+}
+
+export function eawsRegionIds(
+  today = new Date().toISOString().slice(0, "2006-01-02".length)
+): string[] {
+  return eawsRegions
+    .filter(properties => filterFeature({ properties }, today))
+    .map(properties => properties.id)
+    .filter(id => !regionsRegex.test(id));
+}
+
+export function microRegionIds(
+  today = new Date().toISOString().slice(0, "2006-01-02".length)
+): string[] {
+  return microRegions
+    .filter(properties => filterFeature({ properties }, today))
+    .map(f => String(f.id))
+    .sort();
 }
