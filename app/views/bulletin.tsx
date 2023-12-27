@@ -295,7 +295,6 @@ const Bulletin = () => {
             {["earlier", "later"].map((validTimePeriod, index) => (
               <BulletinMap
                 key={validTimePeriod}
-                handleMapViewportChanged={() => {}}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
                 date={params.date}
@@ -321,7 +320,6 @@ const Bulletin = () => {
         ) : (
           <BulletinMap
             administrateLoadingBar={true}
-            handleMapViewportChanged={() => {}}
             handleSelectRegion={handleSelectRegion}
             date={params.date}
             activeBulletin={BULLETIN_STORE.activeBulletin}

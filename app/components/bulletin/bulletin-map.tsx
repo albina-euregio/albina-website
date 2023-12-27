@@ -38,7 +38,6 @@ type Props = {
   };
   validTimePeriod: ValidTimePeriod;
   date: string;
-  handleMapViewportChanged: (map: L.Map) => void;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
 };
@@ -278,7 +277,6 @@ const BulletinMap = (props: Props) => {
       >
         <LeafletMap
           loaded={props.microRegionIds}
-          onViewportChanged={props.handleMapViewportChanged}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}
           tileLayerConfigOverride={{}}
