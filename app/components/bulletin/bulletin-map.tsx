@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
+import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
@@ -26,12 +27,10 @@ type Props = {
   activeBulletin: Bulletin;
   activeBulletinCollection: BulletinCollection;
   activeEaws: RegionOutlineProperties;
-  eawsRegionIds: string[];
   getRegionState: (
     regionId: string,
     validTimePeriod?: ValidTimePeriod
   ) => RegionState;
-  microRegionIds: string[];
   settings: {
     status: Status;
     date: string;
@@ -99,6 +98,11 @@ const BulletinMap = (props: Props) => {
     "SK"
   ]);
 
+  const regionIds = useMemo(
+    () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
+    [props.date]
+  );
+
   const getMapOverlays = () => {
     const overlays = [];
     const date = props.settings.date;
@@ -143,7 +147,7 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
-        {[...props.microRegionIds, ...props.eawsRegionIds].map(region => {
+        {regionIds.map(region => {
           const regionState =
             region === regionMouseover
               ? "mouseOver"

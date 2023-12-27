@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import {
@@ -46,7 +46,6 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { eawsRegionIds, microRegionIds } from "../stores/microRegions";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -136,15 +135,6 @@ const Bulletin = () => {
   useEffect(() => {
     didUpdate();
   });
-
-  const microRegions = useMemo(
-    () => microRegionIds(BULLETIN_STORE.settings.date),
-    [BULLETIN_STORE.settings.date]
-  );
-  const eawsRegions = useMemo(
-    () => eawsRegionIds(BULLETIN_STORE.settings.date),
-    [BULLETIN_STORE.settings.date]
-  );
 
   const didUpdate = () => {
     const updateConditions = [
@@ -316,7 +306,6 @@ const Bulletin = () => {
                   BULLETIN_STORE.activeBulletinCollection
                 }
                 activeEaws={BULLETIN_STORE.activeEaws}
-                eawsRegionIds={eawsRegions}
                 getRegionState={(regionId, validTimePeriod) =>
                   getRegionState(
                     BULLETIN_STORE.activeBulletinCollection,
@@ -325,7 +314,6 @@ const Bulletin = () => {
                     validTimePeriod
                   )
                 }
-                microRegionIds={microRegions}
                 settings={BULLETIN_STORE.settings}
               />
             ))}
@@ -339,7 +327,6 @@ const Bulletin = () => {
             activeBulletin={BULLETIN_STORE.activeBulletin}
             activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
             activeEaws={BULLETIN_STORE.activeEaws}
-            eawsRegionIds={eawsRegions}
             getRegionState={(regionId, validTimePeriod) =>
               getRegionState(
                 BULLETIN_STORE.activeBulletinCollection,
@@ -348,7 +335,6 @@ const Bulletin = () => {
                 validTimePeriod
               )
             }
-            microRegionIds={microRegions}
             settings={BULLETIN_STORE.settings}
           />
         )}
