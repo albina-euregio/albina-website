@@ -6,7 +6,6 @@ import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import {
   type BlogProcessor,
-  type BlogConfig,
   type BlogPostPreviewItem,
   blogProcessors
 } from "./blog";
@@ -229,38 +228,22 @@ export default class BlogStore {
     }
 
     this._loading = true;
-
-    const blogsConfig: BlogConfig[] = window.config.blogs;
-    const loads = [];
-
-    const newPosts = {};
-
-    // filter config for lang and region
-    for (const cfg of blogsConfig) {
-      newPosts[cfg.name] = [];
-
-      if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
-        if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
-          if (blogProcessors[cfg.apiType]) {
-            const p: BlogProcessor = blogProcessors[cfg.apiType];
-            loads.push(
-              p.loadBlogPosts(cfg, this).then(
-                items => items.forEach(i => newPosts[cfg.name].push(i)),
-                error => {
-                  //todo: indicate loading error
-                  console.warn("Error while fetching blog posts", cfg, error);
-                  throw error;
-                }
-              )
-            );
-          }
-        }
-      }
-    }
-
-    //todo: indicate loading error
-    await Promise.all(loads);
-    return this.setPostsLoaded(newPosts);
+    const posts = await Promise.all(
+      config.blogs
+        .filter(cfg => this.languages[cfg.lang])
+        .filter(cfg => cfg.regions.some(r => this.regions[r]))
+        .filter(cfg => blogProcessors[cfg.apiType])
+        .map(cfg =>
+          (blogProcessors[cfg.apiType] as BlogProcessor)
+            .loadBlogPosts(cfg, this)
+            .then(posts => [cfg.name, posts] as const)
+            .catch(error => {
+              console.warn("Error while fetching blog posts", cfg, error);
+              return [cfg.name, []] as const;
+            })
+        )
+    );
+    return this.setPostsLoaded(Object.fromEntries(posts));
   }
 
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
@@ -288,6 +271,7 @@ export default class BlogStore {
   get page(): number {
     return toJS(this._page);
   }
+
   set page(val: number | string) {
     this._page = typeof val === "string" ? parseInt(val) : val;
   }
@@ -302,11 +286,13 @@ export default class BlogStore {
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
     this.setPage(nextPageNo);
   }
+
   previousPage() {
     const thisPage = this.page;
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
     this.setPage(previousPageNo);
   }
+
   get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
   }
@@ -314,6 +300,7 @@ export default class BlogStore {
   get searchText() {
     return this._searchText;
   }
+
   set searchText(val) {
     if (val != this.searchText) {
       this._searchText = val;
@@ -323,6 +310,7 @@ export default class BlogStore {
   get problem() {
     return this._problem;
   }
+
   set problem(val) {
     this._problem = val;
   }
@@ -330,6 +318,7 @@ export default class BlogStore {
   get year() {
     return this._year;
   }
+
   set year(y) {
     this._year = y;
   }
@@ -337,6 +326,7 @@ export default class BlogStore {
   get month() {
     return this._month;
   }
+
   set month(m) {
     this._month = m;
   }
@@ -370,6 +360,7 @@ export default class BlogStore {
   get languages() {
     return toJS(this._languages);
   }
+
   get regions() {
     return toJS(this._regions);
   }
@@ -404,25 +395,16 @@ export default class BlogStore {
     return active.length > 1 ? "all" : active[0];
   }
 
+  get postItems(): BlogPostPreviewItem[] {
+    return Object.values(this.posts ?? {}).flat();
+  }
+
   get numberOfPosts() {
-    return this.posts
-      ? Object.values(this.posts)
-          .map(l => l.length)
-          .reduce((acc, v) => acc + v, 0)
-      : 0;
+    return this.postItems.length;
   }
 
   get numberNewPosts() {
-    const currentDate = new Date().getTime();
-    let nrOfNewPosts = 0;
-    if (this.posts) {
-      for (const prop in this.posts) {
-        this.posts[prop].forEach(aPost => {
-          if (currentDate < aPost.newUntil) nrOfNewPosts++;
-        });
-      }
-    }
-    return nrOfNewPosts;
+    return this.postItems.filter(aPost => Date.now() < aPost.newUntil).length;
   }
 
   get postsList() {
