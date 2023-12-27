@@ -34,8 +34,6 @@ import {
   Link
 } from "react-router-dom";
 
-import "leaflet";
-import "leaflet.sync";
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
@@ -107,7 +105,7 @@ function useProblems() {
 
 const Bulletin = () => {
   const lastLocationRef = useRef(null);
-  const mapRefs = [];
+  const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
@@ -199,7 +197,7 @@ const Bulletin = () => {
     }
   };
 
-  const handleMapInit = map => {
+  const handleMapInit = (map: L.Map) => {
     if (mapRefs.length > 0) {
       [map, ...mapRefs].forEach(otherMap => {
         // patch out the slow parts of L.Map.Sync

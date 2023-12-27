@@ -38,23 +38,12 @@ const LeafletMap = (props: Props) => {
       }}
       zoomControl={false}
       {...{
-        ...(props.loaded
-          ? {
-              dragging: true,
-              touchZoom: true,
-              doubleClickZoom: true,
-              scrollWheelZoom: true,
-              boxZoom: true,
-              keyboard: true
-            }
-          : {
-              dragging: false,
-              touchZoom: false,
-              doubleClickZoom: false,
-              scrollWheelZoom: false,
-              boxZoom: false,
-              keyboard: false
-            }),
+        dragging: true,
+        touchZoom: true,
+        doubleClickZoom: true,
+        scrollWheelZoom: true,
+        boxZoom: true,
+        keyboard: true,
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
@@ -64,10 +53,6 @@ const LeafletMap = (props: Props) => {
         ] ?? config.map.euregioBounds
       }
       attributionControl={false}
-      whenCreated={map => {
-        // Workaround for https://github.com/elmarquis/Leaflet.GestureHandling/issues/75
-        map.gestureHandling?._handleMouseOver?.();
-      }}
     >
       <AttributionControl prefix={config.map.attribution} />
       {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}

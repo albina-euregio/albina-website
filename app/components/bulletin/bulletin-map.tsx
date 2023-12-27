@@ -2,6 +2,8 @@ import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { Tooltip } from "../tooltips/tooltip";
 
+import "leaflet";
+import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
 import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
