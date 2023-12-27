@@ -1,8 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
-import { BULLETIN_STORE } from "../stores/bulletinStore";
-import { hasDaytimeDependency } from "../stores/bulletin";
+import {
+  BULLETIN_STORE,
+  BulletinCollection,
+  RegionState
+} from "../stores/bulletinStore";
+import {
+  AvalancheProblemType,
+  ValidTimePeriod,
+  hasDaytimeDependency,
+  matchesValidTimePeriod
+} from "../stores/bulletin";
 
 import { FormattedMessage, useIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -38,6 +47,69 @@ import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
 
+function useProblems() {
+  const [problems, setProblems] = useState({
+    new_snow: { highlighted: false },
+    wind_slab: { highlighted: false },
+    persistent_weak_layers: { highlighted: false },
+    wet_snow: { highlighted: false },
+    gliding_snow: { highlighted: false }
+  } as Record<AvalancheProblemType, { highlighted: boolean }>);
+
+  function toggleProblem(problemId: AvalancheProblemType) {
+    if (typeof problems[problemId] === "undefined") {
+      return;
+    }
+    setProblems({
+      ...problems,
+      [problemId]: { highlighted: !problems[problemId].highlighted }
+    });
+  }
+
+  function getRegionState(
+    activeBulletinCollection: BulletinCollection | undefined,
+    activeRegion: string,
+    regionId: string,
+    validTimePeriod: ValidTimePeriod | undefined
+  ): RegionState {
+    if (activeRegion === regionId) {
+      return "selected";
+    }
+    if (
+      activeBulletinCollection
+        ?.getBulletinForBulletinOrRegion(activeRegion)
+        ?.regions?.some(r => r.regionID === regionId)
+    ) {
+      return "highlighted";
+    }
+    if (activeRegion) {
+      // some other region is selected
+      return "dimmed";
+    }
+
+    const bulletin =
+      activeBulletinCollection?.getBulletinForBulletinOrRegion(regionId);
+    const bulletinProblems =
+      bulletin?.avalancheProblems?.filter(p =>
+        matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+      ) ?? [];
+    if (bulletinProblems.some(p => problems?.[p.problemType]?.highlighted)) {
+      return "highlighted";
+    }
+
+    // dehighligt if any filter is activated
+    if (
+      (Object.keys(problems) as AvalancheProblemType[]).some(
+        p => problems[p].highlighted
+      )
+    ) {
+      return "dehighlighted";
+    }
+    return "default";
+  }
+  return { problems, toggleProblem, getRegionState };
+}
+
 const Bulletin = () => {
   const lastLocationRef = useRef(null);
   const mapRefs = [];
@@ -47,6 +119,8 @@ const Bulletin = () => {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [slowLoading, setLoadingStart] = useSlowLoading();
+  const { problems, toggleProblem, getRegionState } = useProblems();
+
   BULLETIN_STORE.init();
 
   useEffect(() => {
@@ -233,9 +307,14 @@ const Bulletin = () => {
                 }
                 activeEaws={BULLETIN_STORE.activeEaws}
                 eawsRegionIds={BULLETIN_STORE.eawsRegionIds}
-                getRegionState={BULLETIN_STORE.getRegionState.bind(
-                  BULLETIN_STORE
-                )}
+                getRegionState={(regionId, validTimePeriod) =>
+                  getRegionState(
+                    BULLETIN_STORE.activeBulletinCollection,
+                    BULLETIN_STORE.settings.region,
+                    regionId,
+                    validTimePeriod
+                  )
+                }
                 microRegionIds={BULLETIN_STORE.microRegionIds}
                 settings={BULLETIN_STORE.settings}
               />
@@ -251,15 +330,22 @@ const Bulletin = () => {
             activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
             activeEaws={BULLETIN_STORE.activeEaws}
             eawsRegionIds={BULLETIN_STORE.eawsRegionIds}
-            getRegionState={BULLETIN_STORE.getRegionState.bind(BULLETIN_STORE)}
+            getRegionState={(regionId, validTimePeriod) =>
+              getRegionState(
+                BULLETIN_STORE.activeBulletinCollection,
+                BULLETIN_STORE.settings.region,
+                regionId,
+                validTimePeriod
+              )
+            }
             microRegionIds={BULLETIN_STORE.microRegionIds}
             settings={BULLETIN_STORE.settings}
           />
         )}
         <BulletinLegend
           handleSelectRegion={handleSelectRegion}
-          problems={BULLETIN_STORE.problems}
-          toggleProblem={BULLETIN_STORE.toggleProblem.bind(BULLETIN_STORE)}
+          problems={problems}
+          toggleProblem={toggleProblem}
         />
       </Suspense>
       <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />

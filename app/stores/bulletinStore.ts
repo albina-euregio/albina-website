@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from "mobx";
 import { dateToISODateString, getSuccDate, parseDate } from "../util/date.js";
 
 import {
-  AvalancheProblem,
   AvalancheProblemType,
   Bulletin,
   Bulletins,
@@ -195,26 +194,17 @@ class BulletinStore {
     date: "",
     region: ""
   };
-  problems: Record<AvalancheProblemType, { highlighted: boolean }> = {
-    new_snow: { highlighted: false },
-    wind_slab: { highlighted: false },
-    persistent_weak_layers: { highlighted: false },
-    wet_snow: { highlighted: false },
-    gliding_snow: { highlighted: false }
-  };
 
   constructor() {
     makeObservable(this, {
       bulletins: observable,
       latest: observable,
       settings: observable,
-      problems: observable,
       _latestBulletinChecker: action,
       _setLatest: action,
       load: action,
       activate: action,
-      setRegion: action,
-      toggleProblem: action
+      setRegion: action
     });
   }
 
@@ -320,13 +310,6 @@ class BulletinStore {
     this.settings.region = id;
   }
 
-  toggleProblem(problemId: AvalancheProblemType) {
-    if (typeof this.problems[problemId] !== "undefined") {
-      this.problems[problemId].highlighted =
-        !this.problems[problemId].highlighted;
-    }
-  }
-
   /**
    * Get the bulletins that match the current selection.
    * @return {BulletinCollection} A list of bulletins that match the selection
@@ -353,52 +336,6 @@ class BulletinStore {
 
   get activeEaws(): RegionOutlineProperties | undefined {
     return eawsRegions.find(r => r.id === this.settings.region);
-  }
-
-  getProblemsForRegion(
-    regionId: string,
-    validTimePeriod?: ValidTimePeriod
-  ): AvalancheProblem[] {
-    if (!this.activeBulletinCollection) {
-      return [];
-    }
-    const bulletin =
-      this.activeBulletinCollection.getBulletinForBulletinOrRegion(regionId);
-    const problems = bulletin?.avalancheProblems?.filter(p =>
-      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-    );
-    return problems || [];
-  }
-
-  getRegionState(
-    regionId: string,
-    validTimePeriod?: ValidTimePeriod
-  ): RegionState {
-    if (this.settings?.region === regionId) {
-      return "selected";
-    }
-    if (this.activeBulletin?.regions?.some(r => r.regionID === regionId)) {
-      return "highlighted";
-    }
-    if (this.settings.region) {
-      // some other region is selected
-      return "dimmed";
-    }
-
-    const problems = this.getProblemsForRegion(regionId, validTimePeriod);
-    if (problems.some(p => this.problems?.[p.problemType]?.highlighted)) {
-      return "highlighted";
-    }
-
-    // dehighligt if any filter is activated
-    if (
-      (Object.keys(this.problems) as AvalancheProblemType[]).some(
-        p => this.problems[p].highlighted
-      )
-    ) {
-      return "dehighlighted";
-    }
-    return "default";
   }
 
   get eawsRegionIds(): string[] {
