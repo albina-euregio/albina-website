@@ -6,10 +6,10 @@ import {
   matchesValidTimePeriod,
   toAmPm,
   ValidTimePeriod
-} from "./bulletin";
-import { microRegionsElevation } from "./microRegions";
-import { fetchExists, fetchJSON } from "../util/fetch.js";
-import { getWarnlevelNumber, WarnLevelNumber } from "../util/warn-levels";
+} from ".";
+import { microRegionsElevation } from "../microRegions";
+import { fetchExists, fetchJSON } from "../../util/fetch.js";
+import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 

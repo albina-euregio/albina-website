@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { LONG_DATE_FORMAT } from "../../util/date.js";
-import type { BulletinCollection, Status } from "../../stores/bulletinStore";
+import type { BulletinCollection, Status } from "../../stores/bulletin";
 
 type Props = {
   date: Date;

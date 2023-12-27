@@ -11,7 +11,7 @@ import type {
   BulletinCollection,
   RegionState,
   Status
-} from "../../stores/bulletinStore";
+} from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import {
   DangerRatings,

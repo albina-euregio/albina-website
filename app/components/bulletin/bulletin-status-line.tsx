@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import type { BulletinCollection, Status } from "../../stores/bulletinStore.js";
+import type { BulletinCollection, Status } from "../../stores/bulletin";
 import { isSummerTime } from "../../util/date.js";
 
 type Props = {

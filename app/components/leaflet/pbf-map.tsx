@@ -14,7 +14,7 @@ import {
   RegionOutlineProperties
 } from "../../stores/microRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
-import { RegionState } from "../../stores/bulletinStore";
+import { RegionState } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {

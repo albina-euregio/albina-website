@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
-import type { BulletinCollection } from "../../stores/bulletinStore";
+import type { BulletinCollection } from "../../stores/bulletin";
 
 type Props = {
   activeBulletinCollection: BulletinCollection;

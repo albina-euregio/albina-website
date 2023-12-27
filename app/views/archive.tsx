@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
 import { currentSeasonYear } from "../util/date-season";
-import { BulletinCollection } from "../stores/bulletinStore";
+import { BulletinCollection } from "../stores/bulletin";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,

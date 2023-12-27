@@ -1,6 +1,7 @@
 import { Bulletin, CustomData, ValidTimePeriod } from "./CAAMLv6";
 
 export * from "./CAAMLv6";
+export * from "./bulletinCollection";
 
 export function hasDaytimeDependency(b: Bulletin): boolean {
   return b.dangerRatings?.some(({ validTimePeriod }) => {

@@ -5,7 +5,7 @@ import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import DownloadPdfDialog from "../dialogs/download-pdf-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import type { BulletinCollection } from "../../stores/bulletinStore";
+import type { BulletinCollection } from "../../stores/bulletin";
 
 type Props = {
   showPdfDialog: boolean;

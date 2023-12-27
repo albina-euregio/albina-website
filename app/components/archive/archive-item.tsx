@@ -5,7 +5,7 @@ import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin } from "../../stores/bulletin";
-import { type Status } from "../../stores/bulletinStore";
+import { type Status } from "../../stores/bulletin";
 import { RegionCodes } from "../../util/regions";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";

@@ -1,9 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  BulletinCollection,
-  RegionState,
-  Status
-} from "../stores/bulletinStore";
+import { BulletinCollection, RegionState, Status } from "../stores/bulletin";
 import {
   AvalancheProblemType,
   ValidTimePeriod,
