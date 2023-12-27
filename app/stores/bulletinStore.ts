@@ -163,8 +163,8 @@ class BulletinCollection {
     elevation: "low" | "high"
   ): DangerRating[] {
     return bulletin?.dangerRatings
-      .filter(({ validTimePeriod }) =>
-        matchesValidTimePeriod(validTimePeriod, validTimePeriod)
+      .filter(danger =>
+        matchesValidTimePeriod(validTimePeriod, danger.validTimePeriod)
       )
       .filter(
         danger =>
