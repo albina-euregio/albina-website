@@ -57,6 +57,9 @@ const LeafletMapControls = props => {
       props.onInit(parentMap);
     }
 
+    // Workaround for https://github.com/elmarquis/Leaflet.GestureHandling/issues/75
+    parentMap.gestureHandling?._handleMouseOver?.();
+
     parentMap.fitBounds(config.map.euregioBounds);
 
     //console.log("map", map);
