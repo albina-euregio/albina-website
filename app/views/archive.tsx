@@ -228,7 +228,10 @@ async function getRegionBulletinStatus(
   dateString: string,
   region: string
 ): Promise<RegionBulletinStatus> {
-  const collection = await new BulletinCollection(dateString).load();
+  const collection = await new BulletinCollection(
+    dateString,
+    document.body.parentElement.lang
+  ).load();
   return {
     $type: "RegionBulletinStatus",
     status: collection.status,

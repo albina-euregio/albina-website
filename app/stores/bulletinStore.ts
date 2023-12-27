@@ -24,36 +24,35 @@ export type RegionState =
  * Class storing one Caaml.Bulletins object with additional state.
  */
 class BulletinCollection {
-  date: string;
   status: Status;
-  statusMessage: string;
   dataRaw: Bulletins | null;
   maxDangerRatings: Record<string, WarnLevelNumber>;
 
-  constructor(date: string) {
-    this.date = date;
+  constructor(
+    public readonly date: string,
+    public readonly lang: string
+  ) {
     this.status = "pending";
-    this.statusMessage = "";
     this.dataRaw = null;
   }
 
-  static _getBulletinUrl(date: string): string {
-    const region = date > "2022-05-06" ? "EUREGIO_" : "";
+  private _getBulletinUrl(): string {
+    const region = this.date > "2022-05-06" ? "EUREGIO_" : "";
     return config.template(config.apis.bulletin.json, {
-      date,
+      date: this.date,
       region,
-      lang: document.body.parentElement.lang
+      lang: this.lang
     });
   }
 
   async loadStatus(): Promise<Status> {
-    const url = BulletinCollection._getBulletinUrl(this.date);
+    const url = this._getBulletinUrl();
     const ok = await fetchExists(url);
     return ok ? "ok" : "n/a";
   }
 
   async load(): Promise<this> {
-    const url = BulletinCollection._getBulletinUrl(this.date);
+    const url = this._getBulletinUrl();
     try {
       const response = await fetchJSON(url, { cache: "no-cache" });
       this.setData(response);

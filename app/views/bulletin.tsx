@@ -130,20 +130,24 @@ const Bulletin = () => {
       const now = new Date();
       const today = dateToISODateString(now);
       const tomorrow = dateToISODateString(getSuccDate(now));
-      const status = await new BulletinCollection(tomorrow).loadStatus();
+      const status = await new BulletinCollection(
+        tomorrow,
+        intl.locale.slice(0, 2)
+      ).loadStatus();
       setLatest(status === "ok" ? tomorrow : today);
       window.setTimeout(
         () => _latestBulletinChecker(),
         config.bulletin.checkForLatestInterval * 60000
       );
     }
-  }, []);
+  }, [intl.locale]);
 
   useEffect(() => {
     if (
       (location !== lastLocationRef.current?.location &&
         params.date &&
         params.date != collection?.date) ||
+      intl.locale.slice(0, 2) != collection?.lang ||
       (typeof params.date === "undefined" &&
         latest &&
         latest != collection?.date)
@@ -159,7 +163,10 @@ const Bulletin = () => {
           });
         }
         setLoadingStart(Date.now());
-        const collection = new BulletinCollection(date);
+        const collection = new BulletinCollection(
+          date,
+          intl.locale.slice(0, 2)
+        );
         setStatus(collection.status);
         try {
           await collection.load();
@@ -174,6 +181,8 @@ const Bulletin = () => {
     lastLocationRef.current = location;
   }, [
     collection?.date,
+    collection?.lang,
+    intl.locale,
     latest,
     location,
     navigate,
