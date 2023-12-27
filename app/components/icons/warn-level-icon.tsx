@@ -27,9 +27,6 @@ class WarnLevelIcon extends React.Component {
       return "";
     };
 
-    const link =
-      "/education/danger-scale?lang=" + document.body.parentElement.lang;
-
     const below =
       this.props.elevation || this.props.treeline
         ? this.props.below
@@ -165,7 +162,7 @@ class WarnLevelIcon extends React.Component {
 
     return (
       <Tooltip label={title}>
-        <Link to={link} tabIndex="-1">
+        <Link to={"/education/danger-scale?"} tabIndex="-1">
           {numberAbove === 5 || numberBelow === 5 ? (
             <img src={img} alt={title} />
           ) : (

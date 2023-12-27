@@ -4,8 +4,9 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 function FeedbackDialog() {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const [active, setActive] = useState(true);
-  const url = config.links.feedback[document.body.parentElement.lang];
+  const url = config.links.feedback[lang];
   const accept = flag => {
     if (flag) {
       window.open(url, "_blank");

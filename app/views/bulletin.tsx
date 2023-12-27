@@ -113,6 +113,7 @@ const Bulletin = () => {
   const lastLocationRef = useRef(null);
   const mapRefs = [];
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -130,17 +131,14 @@ const Bulletin = () => {
       const now = new Date();
       const today = dateToISODateString(now);
       const tomorrow = dateToISODateString(getSuccDate(now));
-      const status = await new BulletinCollection(
-        tomorrow,
-        intl.locale.slice(0, 2)
-      ).loadStatus();
+      const status = await new BulletinCollection(tomorrow, lang).loadStatus();
       setLatest(status === "ok" ? tomorrow : today);
       window.setTimeout(
         () => _latestBulletinChecker(),
         config.bulletin.checkForLatestInterval * 60000
       );
     }
-  }, [intl.locale]);
+  }, [lang]);
 
   useEffect(() => {
     if (
@@ -163,15 +161,12 @@ const Bulletin = () => {
 
   useEffect(() => {
     const date = params.date && parseDate(params.date) ? params.date : latest;
-    if (
-      date === collection?.date &&
-      intl.locale.slice(0, 2) === collection?.lang
-    ) {
+    if (date === collection?.date && lang === collection?.lang) {
       return;
     }
     (async () => {
       setLoadingStart(Date.now());
-      const collection = new BulletinCollection(date, intl.locale.slice(0, 2));
+      const collection = new BulletinCollection(date, lang);
       setStatus(collection.status);
       try {
         await collection.load();
@@ -185,7 +180,7 @@ const Bulletin = () => {
   }, [
     collection?.date,
     collection?.lang,
-    intl.locale,
+    lang,
     latest,
     params.date,
     setLoadingStart
@@ -251,7 +246,7 @@ const Bulletin = () => {
       date: collection?.date
         ? dateToISODateString(parseDate(collection?.date))
         : "latest",
-      lang: document.body.parentElement.lang
+      lang
     });
 
   return (

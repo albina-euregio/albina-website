@@ -14,6 +14,7 @@ type Props = {
 
 function BulletinButtonbar({ showPdfDialog, activeBulletinCollection }: Props) {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   const [isPdfDialogOpen, setPdfDialogOpen] = useState(false);
 
@@ -103,9 +104,7 @@ function BulletinButtonbar({ showPdfDialog, activeBulletinCollection }: Props) {
                     })}
                   >
                     <a
-                      href={
-                        config.links.feedback[document.body.parentElement.lang]
-                      }
+                      href={config.links.feedback[lang]}
                       rel="noopener noreferrer"
                       target="_blank"
                       className="success pure-button"

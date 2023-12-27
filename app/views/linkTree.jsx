@@ -43,7 +43,7 @@ class LinkTree extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = document.body.parentElement.lang;
+    var lang = this.props.intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

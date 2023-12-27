@@ -15,6 +15,7 @@ import "../../css/geonames.css";
 
 const LeafletMapControls = props => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const parentMap = useMap();
 
   //const didMountRef = useRef(false);
@@ -74,7 +75,7 @@ const LeafletMapControls = props => {
 
     L.control
       .geonames({
-        lang: document.body.parentElement.lang,
+        lang,
         title: intl.formatMessage({
           id: "bulletin:map:search"
         }),

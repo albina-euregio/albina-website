@@ -16,7 +16,7 @@ class SubscribeEmailDialog extends React.Component {
   resetState() {
     this.setState({
       email: "",
-      language: document.body.parentElement.lang,
+      language: this.props.intl.locale.slice(0, 2),
       region: false,
       status: "",
       errorMessage: "",

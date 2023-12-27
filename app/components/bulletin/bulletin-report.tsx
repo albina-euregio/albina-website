@@ -16,15 +16,14 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
   return (
     <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
-      <BulletinGlossaryText
-        text={text}
-        locale={document.body.parentElement.lang}
-      />
+      <BulletinGlossaryText text={text} locale={lang} />
     </Suspense>
   );
 };

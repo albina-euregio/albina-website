@@ -10,6 +10,7 @@ import { setLanguage } from "../../appStore";
 
 function PageHeader() {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   // changing language on header language button click
   const handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
@@ -51,8 +52,6 @@ function PageHeader() {
     });
     navOpen = true;
   }
-
-  const lang = document.body.parentElement.lang;
 
   return (
     <div id="page-header" className="page-header">

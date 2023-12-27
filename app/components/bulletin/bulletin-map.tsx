@@ -39,6 +39,7 @@ type Props = {
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
+  const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
   const handleMapInit = (map: L.Map) => {
@@ -209,7 +210,6 @@ const BulletinMap = (props: Props) => {
       );
     } else if (activeEaws) {
       detailsClasses.push("js-active");
-      const language = document.body.parentElement.lang;
       const country = activeEaws.id.replace(/-.*/, "");
       const region = activeEaws.id;
       res.push(

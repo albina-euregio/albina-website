@@ -14,7 +14,7 @@ class SubscribeTelegramDialog extends React.Component {
 
   resetState() {
     this.setState({
-      language: document.body.parentElement.lang,
+      language: this.props.intl.locale.slice(0, 2),
       region: false,
       status: "",
       errorMessage: ""

@@ -50,11 +50,12 @@ export function isWebPushSupported() {
  * @see https://developers.google.com/web/fundamentals/push-notifications
  */
 export default function SubscribeWebPushDialog() {
-  const [language, setLanguage] = useState(document.body.parentElement.lang);
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
+  const [language, setLanguage] = useState(lang);
   const [region, setRegion] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const intl = useIntl();
 
   const handleEnable = useCallback(async () => {
     setErrorMessage(undefined);

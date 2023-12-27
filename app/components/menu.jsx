@@ -6,6 +6,7 @@ import { useIntl } from "react-intl";
 
 const Menu = props => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const location = useLocation();
 
   const testActive = (e, recursive = true) => {
@@ -52,7 +53,7 @@ const Menu = props => {
       intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
-    const url = e["url:" + document.body.parentElement.lang] || e["url"];
+    const url = e["url:" + lang] || e["url"];
     const numberNewPosts = BLOG_STORE.numberNewPosts;
 
     return (

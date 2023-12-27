@@ -19,6 +19,7 @@ const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.confi
 
 const PageFooter = () => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   return (
     <div id="page-footer" className="page-footer">
@@ -102,9 +103,7 @@ const PageFooter = () => {
                 })}
               >
                 <a
-                  href={config.template(config.links.euregio, {
-                    lang: document.body.parentElement.lang
-                  })}
+                  href={config.template(config.links.euregio, { lang })}
                   className="header-footer-logo-secondary"
                   rel="noopener noreferrer"
                   target="_blank"

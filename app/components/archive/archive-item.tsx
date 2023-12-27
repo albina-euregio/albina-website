@@ -33,7 +33,7 @@ function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
   function getLanguage(dateString: string) {
-    const lang = document.body.parentElement.lang;
+    const lang = intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -207,7 +207,7 @@ function BulletinMap({
   );
 
   function showMap(dateString: string) {
-    const lang = document.body.parentElement.lang;
+    const lang = intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

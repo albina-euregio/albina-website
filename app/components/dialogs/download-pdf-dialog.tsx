@@ -19,7 +19,7 @@ function DownloadPdfDialog(props: Props) {
     return config.template(config.apis.bulletin.pdf, {
       date: props.activeBulletinCollection.date,
       region,
-      lang: document.body.parentElement.lang,
+      lang: intl.locale.slice(0, 2),
       bw: isBw ? "_bw" : ""
     });
   }
