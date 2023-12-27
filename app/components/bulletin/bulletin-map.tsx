@@ -6,6 +6,7 @@ import "leaflet";
 import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
+import { useMapEvent } from "react-leaflet";
 import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
@@ -44,18 +45,10 @@ const BulletinMap = (props: Props) => {
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
-  const handleMapInit = (map: L.Map) => {
-    map.on("click", _click, this);
-    map.on("unload", () => map.off("click", _click, this));
-
-    if (typeof props.onMapInit === "function") {
-      props.onMapInit(map);
-    }
-  };
-
-  const _click = () => {
-    props.handleSelectRegion(null);
-  };
+  function RegionClickHandler(): null {
+    useMapEvent("click", () => props.handleSelectRegion(""));
+    return null;
+  }
 
   const styleOverMap = () => {
     return {
@@ -101,7 +94,7 @@ const BulletinMap = (props: Props) => {
   );
 
   const getMapOverlays = () => {
-    const overlays = [];
+    const overlays = [<RegionClickHandler key="region-click-handler" />];
     const date = props.date;
     overlays.push(
       <PbfLayer
@@ -284,7 +277,7 @@ const BulletinMap = (props: Props) => {
           mapConfigOverride={{}}
           tileLayerConfigOverride={{}}
           gestureHandling={true}
-          onInit={handleMapInit}
+          onInit={props.onMapInit}
         />
         {getBulletinMapDetails()}
 
