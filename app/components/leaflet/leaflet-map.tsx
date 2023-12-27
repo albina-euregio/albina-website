@@ -9,7 +9,9 @@ import {
   useMapEvents,
   TileLayer,
   AttributionControl,
-  ScaleControl
+  ScaleControl,
+  MapContainerProps,
+  TileLayerProps
 } from "react-leaflet";
 
 const EventHandler = () => {
@@ -22,10 +24,18 @@ const EventHandler = () => {
   return null;
 };
 
-const LeafletMap = props => {
+type Props = {
+  loaded: boolean;
+  gestureHandling: boolean;
+  controls: boolean;
+  mapConfigOverride: Partial<MapContainerProps>;
+  tileLayerConfigOverride: Partial<TileLayerProps>;
+  overlays: React.ReactElement;
+  onInit: (map: L.Map) => void;
+};
+
+const LeafletMap = (props: Props) => {
   const params = useParams();
-  /** * @type {"AT-7" | "IT-32-BZ" | "IT-32-TN"} */
-  const province = params.privince;
 
   return (
     <MapContainer
@@ -59,7 +69,11 @@ const LeafletMap = props => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
+      bounds={
+        config.map[
+          `${params.province as "AT-7" | "IT-32-BZ" | "IT-32-TN"}.bounds`
+        ] ?? config.map.euregioBounds
+      }
       attributionControl={false}
       whenCreated={map => {
         // Workaround for https://github.com/elmarquis/Leaflet.GestureHandling/issues/75
