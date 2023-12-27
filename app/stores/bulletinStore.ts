@@ -184,8 +184,7 @@ class BulletinStore {
   latest: string | null = null;
   settings = {
     status: "" as Status,
-    date: "",
-    region: ""
+    date: ""
   };
 
   constructor() {
@@ -196,8 +195,7 @@ class BulletinStore {
       _latestBulletinChecker: action,
       _setLatest: action,
       load: action,
-      activate: action,
-      setRegion: action
+      activate: action
     });
   }
 
@@ -213,8 +211,7 @@ class BulletinStore {
     this.bulletins = {};
     this.settings = {
       status: "",
-      date: "",
-      region: ""
+      date: ""
     };
   }
 
@@ -299,10 +296,6 @@ class BulletinStore {
     }
   }
 
-  setRegion(id: string) {
-    this.settings.region = id;
-  }
-
   /**
    * Get the bulletins that match the current selection.
    * @return {BulletinCollection} A list of bulletins that match the selection
@@ -312,23 +305,6 @@ class BulletinStore {
       return this.bulletins[this.settings.date];
     }
     return null;
-  }
-
-  /**
-   * Get the bulletin that is relevant for the currently set region.
-   * @return A bulletin object that matches the selection
-   */
-  get activeBulletin(): Bulletin {
-    if (this.activeBulletinCollection) {
-      return this.activeBulletinCollection.getBulletinForBulletinOrRegion(
-        this.settings.region
-      );
-    }
-    return null;
-  }
-
-  get activeEaws(): RegionOutlineProperties | undefined {
-    return eawsRegions.find(r => r.id === this.settings.region);
   }
 }
 

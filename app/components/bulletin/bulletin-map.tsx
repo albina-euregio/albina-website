@@ -20,22 +20,17 @@ import {
   PbfLayerOverlay,
   PbfRegionState
 } from "../leaflet/pbf-map";
-import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
-import { RegionOutlineProperties } from "../../stores/microRegions";
+import { ValidTimePeriod } from "../../stores/bulletin";
+import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 type Props = {
-  activeBulletin: Bulletin;
   activeBulletinCollection: BulletinCollection;
-  activeEaws: RegionOutlineProperties;
   getRegionState: (
     regionId: string,
     validTimePeriod?: ValidTimePeriod
   ) => RegionState;
-  settings: {
-    status: Status;
-    date: string;
-    region: string;
-  };
+  status: Status;
+  region: string;
   validTimePeriod: ValidTimePeriod;
   date: string;
   handleSelectRegion: (region: string) => void;
@@ -46,7 +41,7 @@ const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const [regionMouseover, setRegionMouseover] = useState("");
 
-  const handleMapInit = map => {
+  const handleMapInit = (map: L.Map) => {
     map.on("click", _click, this);
     map.on("unload", () => map.off("click", _click, this));
 
@@ -104,15 +99,18 @@ const BulletinMap = (props: Props) => {
 
   const getMapOverlays = () => {
     const overlays = [];
-    const date = props.settings.date;
-    const b = props.activeBulletinCollection;
+    const date = props.date;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.settings.status}`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
         date={date}
         validTimePeriod={props.validTimePeriod}
       >
-        {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
+        {props.activeBulletinCollection && (
+          <DangerRatings
+            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
+          />
+        )}
         {date >= "2023-11-01" ? (
           <EawsDangerRatings date={date} regions={eawsRegions} />
         ) : date >= "2021-01-25" ? (
@@ -124,7 +122,7 @@ const BulletinMap = (props: Props) => {
     );
     overlays.push(
       <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.settings.status}-overlay`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
         date={date}
         validTimePeriod={props.validTimePeriod}
         eventHandlers={{
@@ -167,15 +165,19 @@ const BulletinMap = (props: Props) => {
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
-    if (props.activeBulletin) {
-      const activeBulletin = props.activeBulletin;
+    const activeBulletin =
+      props.activeBulletinCollection?.getBulletinForBulletinOrRegion(
+        props.region
+      );
+    const activeEaws = eawsRegionOutlines.find(r => r.id === props.region);
+    if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
           region={intl.formatMessage({
-            id: "region:" + props.settings.region
+            id: "region:" + props.region
           })}
           validTimePeriod={props.validTimePeriod}
         />
@@ -205,8 +207,7 @@ const BulletinMap = (props: Props) => {
           </Tooltip>
         )
       );
-    } else if (props.activeEaws) {
-      const activeEaws = props.activeEaws;
+    } else if (activeEaws) {
       detailsClasses.push("js-active");
       const language = document.body.parentElement.lang;
       const country = activeEaws.id.replace(/-.*/, "");

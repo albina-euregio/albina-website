@@ -120,6 +120,7 @@ const Bulletin = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [slowLoading, setLoadingStart] = useSlowLoading();
   const { problems, toggleProblem, getRegionState } = useProblems();
+  const [region, setRegion] = useState("");
 
   BULLETIN_STORE.init();
 
@@ -174,10 +175,7 @@ const Bulletin = () => {
 
   const checkRegion = () => {
     const urlRegion = searchParams.get("region");
-    const storeRegion = BULLETIN_STORE.settings.region;
-    if (urlRegion !== storeRegion) {
-      BULLETIN_STORE.setRegion(urlRegion);
-    }
+    setRegion(urlRegion);
   };
 
   const handleSelectRegion = id => {
@@ -190,8 +188,7 @@ const Bulletin = () => {
           setSearchParams({ region: id });
         }
       }
-    } else if (BULLETIN_STORE.settings.region) {
-      //todo: trans
+    } else {
       setSearchParams({});
     }
   };
@@ -297,23 +294,22 @@ const Bulletin = () => {
                 key={validTimePeriod}
                 administrateLoadingBar={index === 0}
                 handleSelectRegion={handleSelectRegion}
-                date={params.date}
+                region={region}
+                status={BULLETIN_STORE.settings.status}
+                date={BULLETIN_STORE.settings.date}
                 onMapInit={handleMapInit}
                 validTimePeriod={validTimePeriod}
-                activeBulletin={BULLETIN_STORE.activeBulletin}
                 activeBulletinCollection={
                   BULLETIN_STORE.activeBulletinCollection
                 }
-                activeEaws={BULLETIN_STORE.activeEaws}
                 getRegionState={(regionId, validTimePeriod) =>
                   getRegionState(
                     BULLETIN_STORE.activeBulletinCollection,
-                    BULLETIN_STORE.settings.region,
+                    region,
                     regionId,
                     validTimePeriod
                   )
                 }
-                settings={BULLETIN_STORE.settings}
               />
             ))}
           </div>
@@ -321,19 +317,18 @@ const Bulletin = () => {
           <BulletinMap
             administrateLoadingBar={true}
             handleSelectRegion={handleSelectRegion}
-            date={params.date}
-            activeBulletin={BULLETIN_STORE.activeBulletin}
+            region={region}
+            status={BULLETIN_STORE.settings.status}
+            date={BULLETIN_STORE.settings.date}
             activeBulletinCollection={BULLETIN_STORE.activeBulletinCollection}
-            activeEaws={BULLETIN_STORE.activeEaws}
             getRegionState={(regionId, validTimePeriod) =>
               getRegionState(
                 BULLETIN_STORE.activeBulletinCollection,
-                BULLETIN_STORE.settings.region,
+                region,
                 regionId,
                 validTimePeriod
               )
             }
-            settings={BULLETIN_STORE.settings}
           />
         )}
         <BulletinLegend
@@ -347,7 +342,7 @@ const Bulletin = () => {
         <BulletinList
           bulletins={collection.bulletins}
           date={BULLETIN_STORE.date}
-          region={BULLETIN_STORE.settings.region}
+          region={region}
         />
       )}
       <SmShare
