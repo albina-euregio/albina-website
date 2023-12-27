@@ -46,7 +46,6 @@ const Bulletin = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [title] = useState("");
   const [slowLoading, setLoadingStart] = useSlowLoading();
   BULLETIN_STORE.init();
 
@@ -144,18 +143,13 @@ const Bulletin = () => {
   const daytimeDependency = collection?.bulletins?.some(b =>
     hasDaytimeDependency(b)
   );
-  // console.log("rendering bulletin ", BULLETIN_STORE.bulletins);
 
-  const shareDescription =
-    title && BULLETIN_STORE.settings.date
-      ? collection
-        ? title +
-          " | " +
-          this.props.intl.formatDate(BULLETIN_STORE.date, LONG_DATE_FORMAT)
-        : intl.formatMessage({
-            id: "bulletin:header:info-no-data"
-          })
-      : "";
+  const title = intl.formatMessage({ id: "bulletin:title" });
+  const shareDescription = collection
+    ? title + " | " + intl.formatDate(collection.date, LONG_DATE_FORMAT)
+    : intl.formatMessage({
+        id: "bulletin:header:info-no-data"
+      });
 
   const shareImage =
     collection && BULLETIN_STORE.settings.date
