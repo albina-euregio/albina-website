@@ -144,48 +144,49 @@ const Bulletin = () => {
 
   useEffect(() => {
     if (
-      (location !== lastLocationRef.current?.location &&
+      ((location !== lastLocationRef.current?.location &&
         params.date &&
         params.date != collection?.date) ||
-      intl.locale.slice(0, 2) != collection?.lang ||
-      (typeof params.date === "undefined" &&
-        latest &&
-        latest != collection?.date)
+        (typeof params.date === "undefined" &&
+          latest &&
+          latest != collection?.date)) &&
+      (!params.date || params.date == latest)
     ) {
-      (async () => {
-        const date =
-          params.date && parseDate(params.date) ? params.date : latest;
-        if (!params.date || params.date == latest) {
-          navigate({
-            pathname: "/bulletin/latest",
-            hash: location.hash,
-            search: location.search.substring(1)
-          });
-        }
-        setLoadingStart(Date.now());
-        const collection = new BulletinCollection(
-          date,
-          intl.locale.slice(0, 2)
-        );
-        setStatus(collection.status);
-        try {
-          await collection.load();
-          setStatus(collection.status);
-          setCollection(collection);
-        } catch (error) {
-          console.error("Cannot load bulletin for date " + date, error);
-          setStatus("n/a");
-        }
-      })();
+      navigate({
+        pathname: "/bulletin/latest",
+        hash: location.hash,
+        search: location.search.substring(1)
+      });
     }
     lastLocationRef.current = location;
+  }, [collection?.date, latest, location, navigate, params.date]);
+
+  useEffect(() => {
+    const date = params.date && parseDate(params.date) ? params.date : latest;
+    if (
+      date === collection?.date &&
+      intl.locale.slice(0, 2) === collection?.lang
+    ) {
+      return;
+    }
+    (async () => {
+      setLoadingStart(Date.now());
+      const collection = new BulletinCollection(date, intl.locale.slice(0, 2));
+      setStatus(collection.status);
+      try {
+        await collection.load();
+        setStatus(collection.status);
+        setCollection(collection);
+      } catch (error) {
+        console.error("Cannot load bulletin for date " + date, error);
+        setStatus("n/a");
+      }
+    })();
   }, [
     collection?.date,
     collection?.lang,
     intl.locale,
     latest,
-    location,
-    navigate,
     params.date,
     setLoadingStart
   ]);
