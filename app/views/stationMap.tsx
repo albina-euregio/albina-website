@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { observer } from "mobx-react";
 import { useIntl } from "react-intl";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
-import StationDataStore, { StationData } from "../stores/stationDataStore";
+import { StationData, useStationData } from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
@@ -26,21 +25,19 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
 
 function StationMap(props) {
   const intl = useIntl();
-  const [store] = useState(() =>
-    new StationDataStore().sortBy("microRegion", "asc")
-  );
   const [stationData, setStationData] = useState<StationData[]>();
   const [stationId, setStationId] = useState<string>();
+  const { load, data } = useStationData("microRegion");
 
   useEffect(() => {
-    store.load();
-  }, [store]);
+    load();
+  }, [load]);
 
   const stationOverlay = (
     <StationOverlay
       key={"stations"}
       onMarkerSelected={feature => {
-        setStationData(store.data);
+        setStationData(data);
         setStationId(feature.id);
       }}
       itemId="any"
@@ -50,7 +47,7 @@ function StationMap(props) {
         thresholds: [],
         clusterOperation: "none"
       }}
-      features={store.data}
+      features={data}
     />
   );
 
@@ -97,4 +94,4 @@ function StationMap(props) {
   );
 }
 
-export default observer(StationMap);
+export default StationMap;

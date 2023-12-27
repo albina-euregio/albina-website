@@ -1,5 +1,5 @@
 import { action, observable, makeAutoObservable } from "mobx";
-import StationDataStore from "./stationDataStore";
+import { loadStationData } from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
@@ -147,12 +147,9 @@ export default class WeatherMapStore_new {
       this.currentTime <= this._agl
     ) {
       loads.push(
-        new StationDataStore()
-          .sortBy("microRegions", "asc")
-          .load({
-            dateTime: this.currentTime ? new Date(this.currentTime) : undefined
-          })
-          .then(action(features => (this.stations = { features })))
+        loadStationData({
+          dateTime: this.currentTime ? new Date(this.currentTime) : undefined
+        }).then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];
     if (this.domainConfig && this.domainConfig.layer.grid) {
