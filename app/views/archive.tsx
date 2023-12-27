@@ -75,6 +75,7 @@ function Archive() {
           },
       { replace: true }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month, year, setDates, setSearchParams, buttongroup, region, lang]);
 
   function isDateShown(d: Date): boolean {
