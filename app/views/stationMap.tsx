@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
-import StationDataStore from "../stores/stationDataStore";
+import StationDataStore, { StationData } from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
@@ -24,93 +24,77 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
   plot: observer["plot.id"]
 }));
 
-class StationMap extends React.Component {
-  constructor(props) {
-    super(props);
-    this.store = new StationDataStore().sortBy("microRegion", "asc");
-    this.dialogRef = React.createRef();
-  }
+function StationMap(props) {
+  const intl = useIntl();
+  const [store] = useState(() =>
+    new StationDataStore().sortBy("microRegion", "asc")
+  );
+  const [stationData, setStationData] = useState<StationData[]>();
+  const [stationId, setStationId] = useState<string>();
 
-  componentDidMount() {
-    this.store.load();
-  }
+  useEffect(() => {
+    store.load();
+  }, [store]);
 
-  get stationOverlay() {
-    const item = {
-      id: "name",
-      colors: [[25, 171, 255]],
-      thresholds: [],
-      clusterOperation: "none"
-    };
-    return (
-      <StationOverlay
-        key={"stations"}
-        onMarkerSelected={feature =>
-          this.setState({
-            stationData: this.store.data,
-            stationId: feature.id
-          })
-        }
-        itemId="any"
-        item={item}
-        features={this.store.data}
+  const stationOverlay = (
+    <StationOverlay
+      key={"stations"}
+      onMarkerSelected={feature => {
+        setStationData(store.data);
+        setStationId(feature.id);
+      }}
+      itemId="any"
+      item={{
+        id: "name",
+        colors: [[25, 171, 255]],
+        thresholds: [],
+        clusterOperation: "none"
+      }}
+      features={store.data}
+    />
+  );
+
+  const observerOverlay = (
+    <StationOverlay
+      key={"observers"}
+      onMarkerSelected={feature => {
+        setStationData(observers);
+        setStationId(feature.id);
+      }}
+      itemId="any"
+      item={{
+        id: "name",
+        colors: [[202, 0, 32]],
+        thresholds: [],
+        clusterOperation: "none"
+      }}
+      features={observers}
+    />
+  );
+  const overlays = [stationOverlay, observerOverlay];
+  return (
+    <>
+      <WeatherStationDialog
+        stationData={stationData}
+        stationId={stationId}
+        setStationId={stationId => setStationId(stationId)}
       />
-    );
-  }
-
-  get observerOverlay() {
-    const observerItem = {
-      id: "name",
-      colors: [[0xca, 0x00, 0x20]],
-      thresholds: [],
-      clusterOperation: "none"
-    };
-    return (
-      <StationOverlay
-        key={"observers"}
-        onMarkerSelected={feature =>
-          this.setState({
-            stationData: observers,
-            stationId: feature.id
-          })
-        }
-        itemId="any"
-        item={observerItem}
-        features={observers}
-      />
-    );
-  }
-
-  render() {
-    const overlays = [this.stationOverlay, this.observerOverlay];
-    return (
-      <>
-        <WeatherStationDialog
-          stationData={this.state?.stationData}
-          stationId={this.state?.stationId}
-          setStationId={stationId => this.setState({ stationId })}
-        />
-        <HTMLHeader
-          title={this.props.intl.formatMessage({ id: "menu:lawis:station" })}
-        />
-        <section
-          id="section-weather-map"
-          className="section section-weather-map"
-        >
-          <div className="section-map">
-            <LeafletMap
-              loaded={this.props.domainId !== false}
-              onViewportChanged={() => {}}
-              mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
-              tileLayerConfigOverride={
-                config.weathermaps.settings.mapOptionsOverride
-              }
-              overlays={overlays}
-            />
-          </div>
-        </section>
-      </>
-    );
-  }
+      <HTMLHeader title={intl.formatMessage({ id: "menu:lawis:station" })} />
+      <section id="section-weather-map" className="section section-weather-map">
+        <div className="section-map">
+          <LeafletMap
+            loaded={props.domainId !== false}
+            onViewportChanged={() => {}}
+            mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
+            tileLayerConfigOverride={
+              config.weathermaps.settings.mapOptionsOverride
+            }
+            overlays={overlays}
+          />
+        </div>
+      </section>
+    </>
+  );
 }
-export default injectIntl(observer(StationMap));
+
+export default observer(StationMap);
