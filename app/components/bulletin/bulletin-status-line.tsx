@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import type { BulletinCollection, Status } from "../../stores/bulletin";
 import { isSummerTime } from "../../util/date.js";
 
@@ -34,7 +34,7 @@ const BulletinStatusLine = (props: Props) => {
     // original status message.
     const params = {
       date: intl.formatDate(publicationTime),
-      time: intl.formatTime(publicationTime)
+      time: intl.formatDate(publicationTime, { timeStyle: "short" })
     };
 
     if (isRepublished) {

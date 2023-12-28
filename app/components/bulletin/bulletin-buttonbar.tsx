@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";

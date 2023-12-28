@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "../../i18n";
 import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../util/htmlParser";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import { Link } from "react-router-dom";
 import type * as Caaml from "../../stores/bulletin";
 

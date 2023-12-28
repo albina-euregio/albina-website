@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import TendencyIcon from "../icons/tendency-icon";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
@@ -102,6 +102,7 @@ function TendencyReport({
         <span>
           <FormattedMessage
             id="bulletin:report:tendency"
+            html={true}
             values={{
               strong: (...msg) => <strong className="heavy">{msg}</strong>,
               br: (...msg) => (

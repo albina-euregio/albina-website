@@ -7,7 +7,7 @@ import {
   matchesValidTimePeriod
 } from "../stores/bulletin";
 
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../i18n";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 

@@ -1,5 +1,5 @@
 import React, { type FunctionComponent, Suspense } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import SynthesizedBulletin from "./synthesized-bulletin";
@@ -66,6 +66,7 @@ function BulletinReport({ date, bulletin }: Props) {
               <span>
                 <FormattedMessage
                   id="bulletin:report:headline"
+                  html={true}
                   values={{
                     strong: (...msg) => <strong>{msg}</strong>,
                     date: intl.formatDate(date, LONG_DATE_FORMAT),

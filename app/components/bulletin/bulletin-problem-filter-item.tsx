@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import ProblemIcon from "../icons/problem-icon";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin";

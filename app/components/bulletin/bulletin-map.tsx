@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 import "leaflet";

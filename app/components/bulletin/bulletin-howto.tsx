@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "../../i18n";
 
 function BulletinHowTo() {
   return (
@@ -8,6 +8,7 @@ function BulletinHowTo() {
         <span>
           <FormattedMessage
             id="bulletin:howto"
+            html={true}
             values={{ strong: (...msg) => <strong>{msg}</strong> }}
           />
         </span>
