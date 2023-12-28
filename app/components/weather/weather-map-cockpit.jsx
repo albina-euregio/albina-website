@@ -1,6 +1,6 @@
 import React from "react";
 import $ from "jquery";
-import { injectIntl } from "react-intl";
+import { newLegacyIntl } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
@@ -44,6 +44,7 @@ const LOOP = false;
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
+    this.intl = newLegacyIntl();
     this.getClosestTick;
     this.getLeftForTime;
     this.tickWidth = 0;
@@ -185,7 +186,7 @@ class WeatherMapCockpit extends React.Component {
       ? Object.keys(this.props.storeConfig.domains).map(domainId => {
           return {
             id: domainId,
-            title: this.props.intl.formatMessage({
+            title: this.intl.formatMessage({
               id: "weathermap:domain:title:" + domainId
             }),
             url: "/weather/map/" + domainId,
@@ -236,7 +237,7 @@ class WeatherMapCockpit extends React.Component {
         buttons.push(
           <Tooltip
             key={"domain-timespan-desc-" + nrOnlyTimespan}
-            label={this.props.intl.formatMessage(
+            label={this.intl.formatMessage(
               { id: "weathermap:domain:timespan:description" },
               { range: nrOnlyTimespan }
             )}
@@ -263,7 +264,7 @@ class WeatherMapCockpit extends React.Component {
       else
         allButtons = (
           <span className="cp-range-hourly js-active">
-            {this.props.intl.formatMessage({
+            {this.intl.formatMessage({
               id: "weathermap:domain:timespan:description:1"
             })}
           </span>
@@ -275,7 +276,7 @@ class WeatherMapCockpit extends React.Component {
         <div key="cp-player" className="cp-layer">
           <Tooltip
             key="cp-select-parameter"
-            label={this.props.intl.formatMessage({
+            label={this.intl.formatMessage({
               id: "weathermap:cockpit:select-parameter"
             })}
           >
@@ -288,7 +289,7 @@ class WeatherMapCockpit extends React.Component {
               }}
             >
               <span className="layer-select icon-snow">
-                {this.props.intl.formatMessage({
+                {this.intl.formatMessage({
                   id: "weathermap:domain:title:" + this.props.domainId
                 })}
               </span>
@@ -350,10 +351,10 @@ class WeatherMapCockpit extends React.Component {
     let parts = [];
 
     if (this.props.currentTime) {
-      let timeStart = this.props.intl.formatTime(
+      let timeStart = this.intl.formatTime(
         this.getTimeStart(this.props.currentTime)
       );
-      const timeEnd = this.props.intl.formatTime(this.props.currentTime);
+      const timeEnd = this.intl.formatTime(this.props.currentTime);
 
       //console.log("weathermapcockpit->gettimeline ##55",  this.props.currentTime);
       const dragSettings = {
@@ -447,7 +448,7 @@ class WeatherMapCockpit extends React.Component {
         <div key="flipper" className="cp-scale-flipper">
           <Tooltip
             key="cockpit-flipper-prev"
-            label={this.props.intl.formatMessage({
+            label={this.intl.formatMessage({
               id: "weathermap:cockpit:flipper:previous"
             })}
           >
@@ -460,7 +461,7 @@ class WeatherMapCockpit extends React.Component {
               className="cp-scale-flipper-left icon-arrow-left "
             >
               <span className="is-visually-hidden">
-                {this.props.intl.formatMessage({
+                {this.intl.formatMessage({
                   id: "weathermap:cockpit:flipper:previous"
                 })}
               </span>
@@ -468,7 +469,7 @@ class WeatherMapCockpit extends React.Component {
           </Tooltip>
           <Tooltip
             key="cockpit-flipper-next"
-            label={this.props.intl.formatMessage({
+            label={this.intl.formatMessage({
               id: "weathermap:cockpit:flipper:next"
             })}
           >
@@ -481,7 +482,7 @@ class WeatherMapCockpit extends React.Component {
               className="cp-scale-flipper-right icon-arrow-right "
             >
               <span className="is-visually-hidden">
-                {this.props.intl.formatMessage({
+                {this.intl.formatMessage({
                   id: "weathermap:cockpit:flipper:next"
                 })}
               </span>
@@ -524,7 +525,7 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-movie" className={divClasses.join(" ")}>
         <Tooltip
           key="cp-movie-play"
-          label={this.props.intl.formatMessage({
+          label={this.intl.formatMessage({
             id: "weathermap:cockpit:play"
           })}
         >
@@ -537,7 +538,7 @@ class WeatherMapCockpit extends React.Component {
             }}
           >
             <span className="is-visually-hidden">
-              {this.props.intl.formatMessage({
+              {this.intl.formatMessage({
                 id: "weathermap:cockpit:play"
               })}
             </span>
@@ -545,7 +546,7 @@ class WeatherMapCockpit extends React.Component {
         </Tooltip>
         <Tooltip
           key="cp-movie-stop"
-          label={this.props.intl.formatMessage({
+          label={this.intl.formatMessage({
             id: "weathermap:cockpit:stop"
           })}
         >
@@ -558,7 +559,7 @@ class WeatherMapCockpit extends React.Component {
             }}
           >
             <span className="is-visually-hidden">
-              {this.props.intl.formatMessage({
+              {this.intl.formatMessage({
                 id: "weathermap:cockpit:stop"
               })}
             </span>
@@ -598,43 +599,37 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-release" className="cp-release">
         <Tooltip
           key="cp-release-released"
-          label={this.props.intl.formatMessage({
+          label={this.intl.formatMessage({
             id: "weathermap:cockpit:maps-creation-date:title"
           })}
         >
           <span className="cp-release-released">
             <span>
-              {this.props.intl.formatMessage({
+              {this.intl.formatMessage({
                 id: "weathermap:cockpit:maps-creation-date:prefix"
               })}{" "}
             </span>
-            {this.props.intl.formatDate(
-              this.props.lastUpdateTime,
-              DATE_TIME_FORMAT
-            )}
+            {this.intl.formatDate(this.props.lastUpdateTime, DATE_TIME_FORMAT)}
           </span>
         </Tooltip>
         <Tooltip
           key="cp-realse-date"
-          label={this.props.intl.formatMessage({
+          label={this.intl.formatMessage({
             id: "weathermap:cockpit:maps-update-date:title"
           })}
         >
           <span key="cp-release-update" className="cp-release-update">
             <span>
-              {this.props.intl.formatMessage({
+              {this.intl.formatMessage({
                 id: "weathermap:cockpit:maps-update-date:prefix"
               })}{" "}
             </span>{" "}
-            {this.props.intl.formatDate(
-              this.props.nextUpdateTime,
-              DATE_TIME_FORMAT
-            )}
+            {this.intl.formatDate(this.props.nextUpdateTime, DATE_TIME_FORMAT)}
           </span>
         </Tooltip>
         <Tooltip
           key="cockpit-title-tp"
-          label={this.props.intl.formatMessage({
+          label={this.intl.formatMessage({
             id: "weathermap:cockpit:unit:title"
           })}
         >
@@ -748,7 +743,7 @@ class WeatherMapCockpit extends React.Component {
           <div key="cp-copyright" className="cp-copyright">
             <Tooltip
               key="cp-copyright-tp"
-              label={this.props.intl.formatMessage({
+              label={this.intl.formatMessage({
                 id: "weathermap:cockpit:zamg:hover"
               })}
             >
@@ -767,4 +762,4 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 }
-export default injectIntl(observer(WeatherMapCockpit));
+export default observer(WeatherMapCockpit);

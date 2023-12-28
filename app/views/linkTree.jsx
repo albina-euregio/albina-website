@@ -4,7 +4,7 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
-import { injectIntl } from "react-intl";
+import { newLegacyIntl } from "../i18n";
 
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
@@ -16,6 +16,7 @@ import { BLOG_STORE } from "../stores/blogStore";
 class LinkTree extends React.Component {
   constructor(props) {
     super(props);
+    this.intl = newLegacyIntl();
     this.state = {
       title: "Linktree",
       subtitle: "subtitle",
@@ -43,7 +44,7 @@ class LinkTree extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = this.props.intl.locale.slice(0, 2);
+    var lang = this.intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -92,7 +93,7 @@ class LinkTree extends React.Component {
     }
 
     let blogImageUrl = "https://lawinen.report/content_files/base-map.webp";
-    let blogUrl = this.props.intl.formatMessage({
+    let blogUrl = this.intl.formatMessage({
       id: "more:linktree:blog:link"
     });
     let blogTitle = null;
@@ -107,13 +108,13 @@ class LinkTree extends React.Component {
       <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
-          title={this.props.intl.formatMessage({
+          title={this.intl.formatMessage({
             id: "more:linktree:title"
           })}
-          subtitle={this.props.intl.formatMessage({
+          subtitle={this.intl.formatMessage({
             id: "more:linktree:subtitle"
           })}
-          marginal={this.props.intl.formatMessage({
+          marginal={this.intl.formatMessage({
             id: "more:linktree:marginal"
           })}
         />
@@ -127,7 +128,7 @@ class LinkTree extends React.Component {
                 alt: "the alt",
                 onError: this.onBulletinImageError
               }}
-              title={this.props.intl.formatMessage({
+              title={this.intl.formatMessage({
                 id: "more:linktree:bulletin:title"
               })}
             />
@@ -140,14 +141,14 @@ class LinkTree extends React.Component {
                 title: blogTitle,
                 alt: blogTitle
               }}
-              title={this.props.intl.formatMessage({
+              title={this.intl.formatMessage({
                 id: "more:linktree:blog:title"
               })}
             />
 
             <LinkTreeFeature
               external={true}
-              url={this.props.intl.formatMessage({
+              url={this.intl.formatMessage({
                 id: "more:linktree:survey:link"
               })}
               image={{
@@ -169,4 +170,4 @@ class LinkTree extends React.Component {
     );
   }
 }
-export default injectIntl(observer(LinkTree));
+export default observer(LinkTree);

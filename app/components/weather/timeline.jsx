@@ -1,12 +1,13 @@
 import React from "react";
 import $ from "jquery";
-import { injectIntl } from "react-intl";
+import { newLegacyIntl } from "../../i18n";
 
 import { DATE_TIME_FORMAT, isSameDay } from "../../util/date.js";
 
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
+    this.intl = newLegacyIntl();
     this.state = {
       lastRedraw: new Date().getTime()
     };
@@ -138,7 +139,7 @@ class Timeline extends React.Component {
     }
 
     timeArray.forEach(aTime => {
-      let weekday = this.props.intl.formatDate(aTime, { weekday: "long" });
+      let weekday = this.intl.formatDate(aTime, { weekday: "long" });
 
       if (lastTime !== weekday) {
         let firstAvailableTime;
@@ -161,10 +162,7 @@ class Timeline extends React.Component {
               className={spanClass.join(" ")}
               data-timestamp={currentHour}
               data-selectable={isSelectable}
-              data-time={this.props.intl.formatDate(
-                currentHour,
-                DATE_TIME_FORMAT
-              )}
+              data-time={this.intl.formatDate(currentHour, DATE_TIME_FORMAT)}
             ></span>
           );
         }
@@ -190,7 +188,7 @@ class Timeline extends React.Component {
               >
                 {weekday.substring(0, 2)}
                 <span>{weekday.substring(2, 20)}</span>{" "}
-                {this.props.intl.formatDate(aTime, {
+                {this.intl.formatDate(aTime, {
                   day: "numeric",
                   month: "numeric"
                 })}
@@ -218,4 +216,4 @@ class Timeline extends React.Component {
     );
   }
 }
-export default injectIntl(Timeline);
+export default Timeline;

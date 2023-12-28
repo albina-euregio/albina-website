@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from "react";
-import { IntlProvider } from "react-intl";
 
 import {
   BrowserRouter,
@@ -9,8 +8,7 @@ import {
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
-import { $locale, $messages, setLanguage } from "../appStore";
-import { useStore } from "@nanostores/react";
+import { setLanguage } from "../appStore";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -51,8 +49,6 @@ const RouteBulletin = () => {
 };
 
 const App = () => {
-  const locale = useStore($locale);
-  const messages = useStore($messages);
   useEffect(() => {
     window.addEventListener("orientationchange", () => {
       document.body.animate(
@@ -68,7 +64,7 @@ const App = () => {
   });
 
   return (
-    <IntlProvider locale={locale} messages={messages}>
+    <>
       <BrowserRouter basename={config.projectRoot}>
         <Suspense fallback={"..."}>
           <Routes>
@@ -222,7 +218,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </IntlProvider>
+    </>
   );
 };
 

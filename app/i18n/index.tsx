@@ -83,3 +83,16 @@ export const FormattedMessage = ({
     return reactStringReplace(t[id], templateRe, match => values[match]);
   }
 };
+
+/**
+ * @deprecated
+ */
+export function newLegacyIntl() {
+  return Object.freeze({
+    locale: $locale.get(),
+    formatDate: format.get().time,
+    formatTime: format.get().time,
+    formatNumber: format.get().number,
+    formatMessage: ({ id }: { id: MessageId }) => $messages.get()[id]
+  });
+}
