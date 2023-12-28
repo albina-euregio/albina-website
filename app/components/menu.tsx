@@ -4,15 +4,35 @@ import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
 import { useIntl } from "react-intl";
 
-const Menu = props => {
+type Entry = {
+  key: string;
+  title?: string;
+  url: string;
+  "url:de"?: undefined;
+  showSub?: boolean;
+  children?: Entry[];
+};
+
+type Props = {
+  activeClassName: string;
+  childClassName: string;
+  className: string;
+  entries: Entry[];
+  menuItemClassName: string;
+  onActiveChildMenuItem?: (e: Entry) => void;
+  onActiveMenuItem?: (e: Entry) => void;
+  onSelect?: (e: Entry) => void;
+};
+
+const Menu = (props: Props) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
 
-  const testActive = (e, recursive = true) => {
+  const testActive = (e: Entry, recursive = true) => {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
-    const doTest = (loc, element) => {
+    const doTest = (loc, element: Entry) => {
       return (
         matchPath(loc, element.url.split("?")[0]) != null ||
         (recursive &&
@@ -27,12 +47,12 @@ const Menu = props => {
     return false;
   };
 
-  const onLinkClick = (e, hasSubs) => {
+  const onLinkClick = (e: Event, hasSubs: boolean) => {
     //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   };
 
-  const renderMenuItem = (e, activeItem) => {
+  const renderMenuItem = (e: Entry, activeItem: Entry) => {
     const classes = props.menuItemClassName
       ? props.menuItemClassName.split(" ")
       : [];

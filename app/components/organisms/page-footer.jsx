@@ -34,12 +34,10 @@ const PageFooter = () => {
         <div className="grid">
           <div className="grid-item normal-6">
             <Menu
-              intl={intl}
               className="list-inline footer-navigation footer-navigation-more"
               entries={footerMenuMore}
             />
             <Menu
-              intl={intl}
               className="list-plain footer-navigation footer-navigation-main"
               entries={footerMenuMain}
             />

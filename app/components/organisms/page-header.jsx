@@ -78,7 +78,6 @@ function PageHeader() {
       </div>
       <div id="navigation" className="page-header-navigation">
         <Menu
-          intl={intl}
           className="list-plain navigation"
           entries={menuItems}
           childClassName="list-plain subnavigation"
