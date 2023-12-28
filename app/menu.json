@@ -1,6 +1,6 @@
 [
   { "url": "/bulletin" },
-  { "url": "/blog" },
+  { "url": "/blog", "showNumberNewPosts": true },
   {
     "url": "/weather",
     "children": [

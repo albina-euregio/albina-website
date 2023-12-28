@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
-import { observer } from "mobx-react";
-import { BLOG_STORE } from "../stores/blogStore";
 import { useIntl } from "react-intl";
+import { BlogPostPreviewItem } from "../stores/blog";
 
 type Entry = {
   key: string;
@@ -10,6 +9,7 @@ type Entry = {
   url: string;
   "url:de"?: undefined;
   showSub?: boolean;
+  showNumberNewPosts?: boolean;
   children?: Entry[];
 };
 
@@ -28,6 +28,19 @@ const Menu = (props: Props) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
+  const [numberNewPosts, setNumberNewPosts] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      if (!props.entries.some(e => e.showNumberNewPosts)) return;
+      const posts = await BlogPostPreviewItem.loadBlogPosts(
+        l => l === lang,
+        () => true
+      );
+      const postItems = posts.map(([, p]) => p).flat();
+      setNumberNewPosts(postItems.filter(p => Date.now() < p.newUntil).length);
+    })();
+  }, [lang, props.entries]);
 
   const testActive = (e: Entry, recursive = true) => {
     // Test if element (or any of its child elements, if "recursive" is set)
@@ -74,7 +87,6 @@ const Menu = (props: Props) => {
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
     const url = e["url:" + lang] || e["url"];
-    const numberNewPosts = BLOG_STORE.numberNewPosts;
 
     return (
       <li
@@ -102,7 +114,7 @@ const Menu = (props: Props) => {
             className={classes.join(" ")}
           >
             {title}
-            {url === "/blog" && numberNewPosts > 0 && (
+            {e.showNumberNewPosts && numberNewPosts > 0 && (
               <small className="label blog-new">{numberNewPosts}</small>
             )}
           </Link>
@@ -136,4 +148,4 @@ const Menu = (props: Props) => {
   return null;
 };
 
-export default observer(Menu);
+export default Menu;

@@ -19,7 +19,11 @@ import HTMLPageLoadingScreen, {
 import { useIntl } from "react-intl";
 
 const BlogOverview = () => {
-  const [store] = useState(BLOG_STORE);
+  const [store] = useState(() => {
+    BLOG_STORE.initLanguage();
+    BLOG_STORE.update();
+    return BLOG_STORE;
+  });
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const location = useLocation();

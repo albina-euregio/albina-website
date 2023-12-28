@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
 import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
-import { BLOG_STORE } from "./stores/blogStore";
 
 (() => import("./sentry"))();
 
@@ -54,9 +53,6 @@ Promise.all([configRequest, isWebpSupported]).then(
     await setLanguage(language || "en");
 
     window.config = configParsed;
-
-    BLOG_STORE.initLanguage();
-    BLOG_STORE.update();
 
     const root = document.body.appendChild(document.getElementById("page-all"));
     createRoot(root).render(<App />);
