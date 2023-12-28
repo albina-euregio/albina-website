@@ -56,9 +56,12 @@ export const FormattedMessage = ({
   values,
   html
 }: FormattedMessageProps) => {
-  const intl = useIntl();
-  const message = intl.formatMessage({ id }, values);
-  if (html) {
+  const t = useStore($messages);
+  let message = t[id] ?? id;
+  if (typeof values !== "object") {
+    return <>{message}</>;
+  } else if (html) {
+    message = message.replace(templateRe, (str, match) => values[match]);
     return htmr(message, {
       transform: {
         _: (element, props, children) => {
@@ -66,6 +69,7 @@ export const FormattedMessage = ({
         }
       }
     });
+  } else {
+    return reactStringReplace(t[id], templateRe, match => values[match]);
   }
-  return <>{message}</>;
 };
