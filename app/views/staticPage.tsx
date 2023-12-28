@@ -20,25 +20,15 @@ const StaticPage = () => {
   const [content, setContent] = useState("");
   const [isShareable, setIsShareable] = useState(false);
 
-  // useEffect(() => {
-  //   //console.log("StaticPage->useEffect", location.hash);
-  //   //if(location.hash) scroll(location.hash, 2000);
-  // }, [location.hash]);
-
   useEffect(() => {
-    //console.log("StaticPage->useEffect", location.pathname);
-
     const site = location.pathname
       .substring(config.projectRoot)
       .replace(/^\//, "");
-
     _fetchData(site);
-    //if(!location.hash) scroll(location.hash || "#page-main", 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const _fetchData = site => {
-    // remove projectRoot from the URL
-
     if (site) {
       StaticPageStore.loadPage(site).then(responseParsed => {
         setTitle(responseParsed.data.attributes.title);
