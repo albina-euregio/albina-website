@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../i18n";
 import { Tooltip } from "./tooltips/tooltip";
 
 export default function SearchField({ value, title, handleSearch }) {

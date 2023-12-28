@@ -1,5 +1,5 @@
-import { FormattedNumber } from "react-intl";
 import React from "react";
+import { useIntl } from "../../i18n";
 
 export function FormattedNumberUnit({
   value,
@@ -10,14 +10,14 @@ export function FormattedNumberUnit({
   unit?: string;
   digits?: number;
 }) {
+  const intl = useIntl();
   return typeof value === "number" ? (
     <>
-      <FormattedNumber
-        value={value}
-        useGrouping={false}
-        minimumFractionDigits={digits ?? 0}
-        maximumFractionDigits={digits ?? 0}
-      />
+      {intl.formatNumber(value, {
+        useGrouping: false,
+        minimumFractionDigits: digits ?? 0,
+        maximumFractionDigits: digits ?? 0
+      })}
       {unit ? "\u202F" + unit : ""}
     </>
   ) : (

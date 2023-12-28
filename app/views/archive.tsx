@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
 import { currentSeasonYear } from "../util/date-season";

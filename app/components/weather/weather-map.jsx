@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import Menu from "../menu";
 // import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";

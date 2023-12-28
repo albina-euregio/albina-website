@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import Selectric from "../selectric";
 
 type Props = {

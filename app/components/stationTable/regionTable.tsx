@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { regionCodes, RegionCodes } from "../../util/regions";
 import { microRegionIds } from "../../stores/microRegions";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "../../i18n";
 
 function RegionTable({ region }: { region: RegionCodes }) {
   const [microRegions] = useState(() => microRegionIds());

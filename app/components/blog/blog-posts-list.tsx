@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import TagList from "./tag-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
 

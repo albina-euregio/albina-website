@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../i18n";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";

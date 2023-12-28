@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
 
 type Entry = {

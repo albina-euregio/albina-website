@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";

@@ -16,7 +16,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { useIntl } from "react-intl";
+import { useIntl } from "../i18n";
 
 const BlogOverview = () => {
   const [store] = useState(() => {

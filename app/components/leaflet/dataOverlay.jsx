@@ -3,7 +3,7 @@ import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
 import { isBlendingSupported } from "../../util/blendMode";
 import { useMap } from "react-leaflet";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 
 const css = `
     .debug-almost-invisible {
