@@ -1,6 +1,5 @@
-import React from "react";
-import { observer } from "mobx-react";
-import { IntlShape, injectIntl, useIntl } from "react-intl";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useIntl } from "../../i18n";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -264,140 +263,120 @@ const StationOperator: React.FC<{ stationData: StationData }> = ({
   );
 };
 
-class WeatherStationDiagrams extends React.Component<
-  Props & { intl: IntlShape },
-  { timeRange: TimeRange; selectedYear: null | number }
-> {
-  myRef: React.RefObject<HTMLDivElement>;
-  constructor(props: Props) {
-    super(props);
-    this.myRef = React.createRef();
-    this.state = { timeRange: "threedays", selectedYear: null };
-    this.keyFunction = this.keyFunction.bind(this);
+const WeatherStationDiagrams: React.FC<Props> = props => {
+  const intl = useIntl();
+  const myRef = useRef();
+  const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-  }
+  useEffect(() => {
+    document.addEventListener("keydown", keyFunction, false);
+    return () => document.removeEventListener("keydown", keyFunction, false);
 
-  keyFunction(event: KeyboardEvent) {
-    if (event.keyCode === 37) {
-      //arrow left
-      this.previous();
-    } else if (event.keyCode === 39) {
-      //arrow right
-      this.next();
+    function keyFunction(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft") {
+        previous();
+      } else if (event.key === "ArrowRight") {
+        next();
+      }
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  get stationIndex(): number {
-    return this.props.stationData.findIndex(e => e.id == this.props.stationId);
-  }
+  const stationIndex = useMemo((): number => {
+    return props.stationData.findIndex(e => e.id == props.stationId);
+  }, [props.stationData, props.stationId]);
 
-  get nextStation(): StationData {
-    let index = this.stationIndex;
-    if (index < this.props.stationData.length - 1) {
+  const nextStation = useMemo((): StationData => {
+    let index = stationIndex;
+    if (index < props.stationData.length - 1) {
       index++;
     }
-    return this.props.stationData[index];
-  }
+    return props.stationData[index];
+  }, [props.stationData, stationIndex]);
 
-  get previousStation(): StationData {
-    let index = this.stationIndex;
+  const previousStation = useMemo((): StationData => {
+    let index = stationIndex;
     if (index > 0) {
       index--;
     }
-    return this.props.stationData[index];
+    return props.stationData[index];
+  }, [props.stationData, stationIndex]);
+
+  function next() {
+    props.setStationId(nextStation.id);
   }
 
-  next() {
-    this.props.setStationId(this.nextStation.id);
+  function previous() {
+    props.setStationId(previousStation.id);
   }
 
-  previous() {
-    this.props.setStationId(this.previousStation.id);
-  }
+  const stationsData = props.stationData;
+  if (!stationsData) return <div></div>;
+  const stationData = stationsData[stationIndex];
+  if (!stationData) return <div></div>;
+  const isStation = stationData instanceof StationData;
+  const [microRegionId] = stationData.microRegion.split(" ");
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.keyFunction, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.keyFunction, false);
-  }
-
-  render() {
-    const stationsData = this.props.stationData;
-    if (!stationsData) return <div></div>;
-    const stationData = stationsData[this.stationIndex];
-    if (!stationData) return <div></div>;
-    const isStation = stationData instanceof StationData;
-    const [microRegionId] = stationData.microRegion.split(" ");
-    return (
-      <Swipe
-        onSwipeLeft={this.next}
-        onSwipeRight={this.previous}
-        tolerance={100}
-      >
-        <div className="modal-container">
-          <div className="modal-weatherstation" ref={this.myRef}>
-            <div className="modal-header">
-              {isStation && (
-                <p className="caption">
-                  {this.props.intl.formatMessage({
-                    id: "dialog:weather-station-diagram:header"
-                  })}{" "}
-                  ({microRegionId}{" "}
-                  {this.props.intl.formatMessage({
-                    id: "region:" + microRegionId
-                  })}
-                  )
-                </p>
+  return (
+    <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
+      <div className="modal-container">
+        <div className="modal-weatherstation" ref={myRef}>
+          <div className="modal-header">
+            {isStation && (
+              <p className="caption">
+                {intl.formatMessage({
+                  id: "dialog:weather-station-diagram:header"
+                })}{" "}
+                ({microRegionId}{" "}
+                {intl.formatMessage({
+                  id: "region:" + microRegionId
+                })}
+                )
+              </p>
+            )}
+            <h2 className="">
+              <span className="weatherstation-name">{stationData.name} </span>
+              {stationData.elev && (
+                <span className="weatherstation-altitude">
+                  ({stationData.elev}&thinsp;m)
+                </span>
               )}
-              <h2 className="">
-                <span className="weatherstation-name">{stationData.name} </span>
-                {stationData.elev && (
-                  <span className="weatherstation-altitude">
-                    ({stationData.elev}&thinsp;m)
-                  </span>
-                )}
-              </h2>
-            </div>
-            <StationFlipper
-              next={this.next}
-              nextStation={this.nextStation}
-              previous={this.previous}
-              previousStation={this.previousStation}
-            >
-              {!isStation && (
-                <YearFlipper
-                  selectedYear={this.state.selectedYear}
-                  setSelectedYear={selectedYear =>
-                    this.setState({ selectedYear })
-                  }
-                />
-              )}
-            </StationFlipper>
-            <div className="modal-content">
-              {isStation && <MeasurementValues stationData={stationData} />}
-              {isStation && (
-                <TimeRangeButtons
-                  timeRange={this.state.timeRange}
-                  setTimeRange={timeRange => this.setState({ timeRange })}
-                />
-              )}
-              <StationDiagramImage
-                clientWidth={this.myRef?.current?.clientWidth ?? 1}
-                selectedYear={this.state.selectedYear}
-                stationData={stationData}
-                timeRange={this.state.timeRange}
+            </h2>
+          </div>
+          <StationFlipper
+            next={next}
+            nextStation={nextStation}
+            previous={previous}
+            previousStation={previousStation}
+          >
+            {!isStation && (
+              <YearFlipper
+                selectedYear={selectedYear}
+                setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
               />
-              {isStation && <StationOperator stationData={stationData} />}
-            </div>
+            )}
+          </StationFlipper>
+          <div className="modal-content">
+            {isStation && <MeasurementValues stationData={stationData} />}
+            {isStation && (
+              <TimeRangeButtons
+                timeRange={timeRange}
+                setTimeRange={timeRange => setTimeRange(timeRange)}
+              />
+            )}
+            <StationDiagramImage
+              clientWidth={myRef?.current?.clientWidth ?? 1}
+              selectedYear={selectedYear}
+              stationData={stationData}
+              timeRange={timeRange}
+            />
+            {isStation && <StationOperator stationData={stationData} />}
           </div>
         </div>
-      </Swipe>
-    );
-  }
-}
+      </div>
+    </Swipe>
+  );
+};
 
-export default injectIntl(observer(WeatherStationDiagrams));
+export default WeatherStationDiagrams;
