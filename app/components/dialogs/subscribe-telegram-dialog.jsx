@@ -1,141 +1,88 @@
-import React from "react";
-import { FormattedMessage, injectIntl } from "react-intl";
-
-import LanguageFilter from "../filters/language-filter";
+import React, { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import ProvinceFilter from "../filters/province-filter";
+import LanguageFilter from "../filters/language-filter";
 
-class SubscribeTelegramDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.telegramChannels = config.subscribe.telegram;
-  }
+export default function SubscribeTelegramDialog() {
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
+  const [language, setLanguage] = useState(lang);
+  const [region, setRegion] = useState("");
+  const [status] = useState(undefined);
+  const [errorMessage] = useState(undefined);
+  const telegramChannels = config.subscribe.telegram;
 
-  resetState() {
-    this.setState({
-      language: this.props.intl.locale.slice(0, 2),
-      region: false,
-      status: "",
-      errorMessage: ""
-    });
-  }
-
-  componentDidMount() {
-    this.resetState();
-  }
-
-  componentDidUpdate() {
-    // reset on dialog close after form has been submitted
-    if (this.state.status !== "") {
-      this.resetState();
-    }
-  }
-
-  handleChangeLanguage = language => {
-    this.setState({ language: language });
-  };
-
-  handleChangeRegion = newRegion => {
-    this.setState({ region: newRegion !== "none" ? newRegion : false });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (this.state.region && this.state.language)
-      window.open(
-        this.telegramChannels[this.state.region + "-" + this.state.language]
-      );
-  };
-
-  validate() {
-    return this.state.language !== "" && this.state.region !== false;
-  }
-
-  render() {
-    // add a dummy class to react to close events
-    return (
-      <div className="modal-subscribe-telegram">
-        <div className="modal-header">
-          <h2>
-            <FormattedMessage id="dialog:subscribe-telegram:subheader" />
-          </h2>
-        </div>
-
-        {!this.state.status && (
-          <form
-            className="pure-form pure-form-stacked"
-            onSubmit={this.handleSubmit}
-          >
-            <label htmlFor="province">
-              <FormattedMessage
-                id="dialog:subscribe-email:region"
-                values={{
-                  strong: (...msg) => <strong>{msg}</strong>
-                }}
-              />
-            </label>
-            <ProvinceFilter
-              buttongroup={true}
-              title={this.props.intl.formatMessage({
-                id: "measurements:filter:province"
-              })}
-              handleChange={r => this.handleChangeRegion(r)}
-              value={this.state.region}
-              none={this.props.intl.formatMessage({
-                id: "blog:filter:province:nothing-selected"
-              })}
-            />
-
-            <label htmlFor="language">
-              <FormattedMessage id="dialog:subscribe-email:language" />
-            </label>
-            <LanguageFilter
-              buttongroup={true}
-              title={this.props.intl.formatMessage({
-                id: "measurements:filter:province"
-              })}
-              handleChange={l => this.handleChangeLanguage(l)}
-              value={this.state.language}
-            />
-
-            <button
-              type="submit"
-              className="pure-button"
-              disabled={this.validate() ? "" : "disabled"}
-            >
-              {this.props.intl.formatMessage({
-                id: "dialog:subscribe-telegram:subscribe:button"
-              })}
-            </button>
-          </form>
-        )}
-
-        {(this.state.status || this.state.errorMessage) && this.state.agree && (
-          <div className="field-2 panel">
-            {this.state.status && (
-              <p className="status-message">
-                <FormattedMessage
-                  id={"dialog:subscribe-telegram:status:" + this.state.status}
-                />
-              </p>
-            )}
-            {this.state.errorMessage && (
-              <p className="status-message">
-                <strong className="error">
-                  {this.props.intl.formatMessage({
-                    id: "dialog:subscribe-telegram:error"
-                  })}
-                  :
-                </strong>
-                &nbsp;{this.state.errorMessage}
-              </p>
-            )}
-          </div>
-        )}
+  return (
+    <div className="modal-subscribe-telegram">
+      <div className="modal-header">
+        <h2>
+          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
+        </h2>
       </div>
-    );
-  }
+
+      {!status && (
+        <form
+          className="pure-form pure-form-stacked"
+          onSubmit={event => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (region && language)
+              window.open(telegramChannels[region + "-" + language]);
+          }}
+        >
+          <label htmlFor="province">
+            <FormattedMessage
+              id="dialog:subscribe-email:region"
+              values={{
+                strong: (...msg) => <strong>{msg}</strong>
+              }}
+            />
+          </label>
+          <ProvinceFilter
+            buttongroup={true}
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            handleChange={r => setRegion(r !== "none" ? r : false)}
+            value={region}
+            none={intl.formatMessage({
+              id: "blog:filter:province:nothing-selected"
+            })}
+          />
+          <label htmlFor="language">
+            <FormattedMessage id="dialog:subscribe-email:language" />
+          </label>
+          <LanguageFilter
+            buttongroup={true}
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            handleChange={l => setLanguage(l)}
+            value={language}
+          />
+          <button
+            type="submit"
+            className="pure-button"
+            disabled={region && language ? "" : "disabled"}
+          >
+            {intl.formatMessage({
+              id: "dialog:subscribe-telegram:subscribe:button"
+            })}
+          </button>
+        </form>
+      )}
+      {errorMessage && (
+        <div className="field-2 panel">
+          <p className="status-message">
+            <strong className="error">
+              {intl.formatMessage({
+                id: "dialog:subscribe-web-push:error"
+              })}
+            </strong>
+            &nbsp;{errorMessage}
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }
-export default injectIntl(SubscribeTelegramDialog);
