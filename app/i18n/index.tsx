@@ -3,7 +3,9 @@ import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { formatter } from "@nanostores/i18n";
+import reactStringReplace from "react-string-replace";
 
+const templateRe = /\{ *([\w_ -]+) *\}/g;
 export const format = formatter($locale);
 type MessageId = keyof (typeof $messages)["value"];
 
@@ -30,10 +32,7 @@ export function useIntl() {
     ) =>
       typeof values !== "object"
         ? t[id]
-        : Object.entries(values).reduce(
-            (str, [k, v]) => str.replace(`{${k}}`, v),
-            t[id]
-          )
+        : reactStringReplace(t[id], templateRe, match => values[match])
   };
 }
 
