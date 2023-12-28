@@ -1,30 +1,40 @@
 import React from "react";
 import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
+import { computed } from "nanostores";
 import { useStore } from "@nanostores/react";
-import { formatter } from "@nanostores/i18n";
 import reactStringReplace from "react-string-replace";
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
-export const format = formatter($locale);
 type MessageId = keyof (typeof $messages)["value"];
+
+const format = computed($locale, code => ({
+  number(num: number, opts: Intl.NumberFormatOptions) {
+    return new Intl.NumberFormat(code, opts).format(num);
+  },
+  relativeTime(
+    num: number,
+    unit: Intl.RelativeTimeFormatUnit,
+    opts: Intl.RelativeTimeFormatOptions
+  ) {
+    return new Intl.RelativeTimeFormat(code, opts).format(num, unit);
+  },
+  time(date: Date | number | string, opts: Intl.DateTimeFormatOptions) {
+    if (typeof date === "string") date = Date.parse(date);
+    if (!isFinite(+date)) return "";
+    return new Intl.DateTimeFormat(code, opts).format(date);
+  }
+}));
 
 export function useIntl() {
   const locale = useStore($locale);
   const t = useStore($messages);
   const formatter = useStore(format);
 
-  function formatDate(
-    date?: Date | number | string,
-    opts?: Intl.DateTimeFormatOptions
-  ) {
-    if (typeof date === "string") date = Date.parse(date);
-    return date && isFinite(+date) ? formatter.time(date, opts) : "";
-  }
   return {
     locale,
-    formatDate,
-    formatTime: formatDate,
+    formatDate: formatter.time,
+    formatTime: formatter.time,
     formatNumber: formatter.number,
     formatMessage: (
       { id }: { id: MessageId },
