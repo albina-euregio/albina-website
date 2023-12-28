@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "react-intl";
-import StaticPageStore from "../stores/staticPageStore";
+import { fetchText } from "../util/fetch";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
  */
 const StaticPage = () => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const location = useLocation();
 
   const [title, setTitle] = useState("");
@@ -20,32 +21,33 @@ const StaticPage = () => {
   const [content, setContent] = useState("");
   const [isShareable, setIsShareable] = useState(false);
 
-  useEffect(() => {
-    const site = location.pathname
+  const _fetchData = useCallback(async () => {
+    let url = location.pathname
       .substring(config.projectRoot)
       .replace(/^\//, "");
-    _fetchData(site);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+    if (!url) return;
+    url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
-  const _fetchData = site => {
-    if (site) {
-      StaticPageStore.loadPage(site).then(responseParsed => {
-        setTitle(responseParsed.data.attributes.title);
-        setChapter(
-          responseParsed.data.attributes.chapter
-            ? intl.formatMessage({
-                id:
-                  responseParsed.data.attributes.chapter + ":subpages:subtitle"
-              })
-            : ""
-        );
-        setHeaderText(responseParsed.data.attributes.header_text);
-        setContent(preprocessContent(responseParsed.data.attributes.body));
-        setIsShareable(responseParsed.data.attributes.sharable);
-      });
-    }
-  };
+    const text = await fetchText(url);
+    // extract title from first <h1>...</h1>
+    const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
+    setTitle(text.match(titlePattern)?.[1]);
+    setContent(preprocessContent(text.replace(titlePattern, "")));
+    const chapter = url.split("/")[0] || "";
+    setChapter(
+      chapter
+        ? intl.formatMessage({
+            id: chapter + ":subpages:subtitle"
+          })
+        : ""
+    );
+    setHeaderText("");
+    setIsShareable(true);
+  }, [intl, lang, location.pathname]);
+
+  useEffect(() => {
+    _fetchData();
+  }, [_fetchData]);
 
   return (
     <>
