@@ -30,25 +30,27 @@ export const $messages = atom(
   {} as Record<FormatjsIntl.Message["ids"], string>
 );
 
+async function loadMessages(newLanguage: string) {
+  const messages = (await translationImports[newLanguage]()).default;
+  const regions = (await regionTranslationImports[newLanguage]()).default;
+  const allMessages = Object.freeze(
+    Object.assign(
+      { ...messages },
+      { "region:Salzburg": regions["AT-05"] }, // for StationTable
+      { "region:Vorarlberg": regions["AT-08"] }, // for StationTable
+      ...Object.entries(regions).map(([id, name]) => ({
+        [`region:${id}`]: name
+      }))
+    )
+  );
+  return allMessages;
+}
 export async function setLanguage(newLanguage: Language) {
   const oldLanguage = $language.get();
   if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
     return Promise.resolve();
   }
-  const messages = (await translationImports[newLanguage]()).default;
-  const regions = (await regionTranslationImports[newLanguage]()).default;
-  $messages.set(
-    Object.freeze(
-      Object.assign(
-        { ...messages },
-        { "region:Salzburg": regions["AT-05"] }, // for StationTable
-        { "region:Vorarlberg": regions["AT-08"] }, // for StationTable
-        ...Object.entries(regions).map(([id, name]) => ({
-          [`region:${id}`]: name
-        }))
-      )
-    )
-  );
+  $messages.set(await loadMessages(newLanguage));
   $language.set(newLanguage);
   requestAnimationFrame(() => {
     // replace language-dependent body classes on language change.
