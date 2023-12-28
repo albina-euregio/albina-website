@@ -4,11 +4,7 @@ import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import {
-  type BlogProcessor,
-  type BlogPostPreviewItem,
-  blogProcessors
-} from "./blog";
+import { BlogPostPreviewItem } from "./blog";
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
@@ -228,20 +224,9 @@ export default class BlogStore {
     }
 
     this._loading = true;
-    const posts = await Promise.all(
-      config.blogs
-        .filter(cfg => this.languages[cfg.lang])
-        .filter(cfg => cfg.regions.some(r => this.regions[r]))
-        .filter(cfg => blogProcessors[cfg.apiType])
-        .map(cfg =>
-          (blogProcessors[cfg.apiType] as BlogProcessor)
-            .loadBlogPosts(cfg, this)
-            .then(posts => [cfg.name, posts] as const)
-            .catch(error => {
-              console.warn("Error while fetching blog posts", cfg, error);
-              return [cfg.name, []] as const;
-            })
-        )
+    const posts = await BlogPostPreviewItem.loadBlogPosts(
+      l => this.languages[l],
+      r => this.regions[r]
     );
     return this.setPostsLoaded(Object.fromEntries(posts));
   }
