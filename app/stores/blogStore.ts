@@ -226,7 +226,8 @@ export default class BlogStore {
     this._loading = true;
     const posts = await BlogPostPreviewItem.loadBlogPosts(
       l => this.languages[l],
-      r => this.regions[r]
+      r => this.regions[r],
+      this
     );
     return this.setPostsLoaded(Object.fromEntries(posts));
   }

@@ -2,6 +2,7 @@ import { parseTags } from "../../util/tagging";
 import { BlogProcessor, blogProcessors } from ".";
 import type { Language } from "../../appStore";
 import type { RegionCodes } from "../../util/regions";
+import type BlogStore from "../blogStore";
 
 export class BlogPostPreviewItem {
   tags: string[];
@@ -50,7 +51,8 @@ export class BlogPostPreviewItem {
 
   static async loadBlogPosts(
     languagePredicate: (lang: Language) => boolean,
-    regionPredicate: (region: RegionCodes) => boolean
+    regionPredicate: (region: RegionCodes) => boolean,
+    state?: BlogStore
   ): Promise<(readonly [string, BlogPostPreviewItem[]])[]> {
     return await Promise.all(
       config.blogs
@@ -59,7 +61,7 @@ export class BlogPostPreviewItem {
         .filter(cfg => blogProcessors[cfg.apiType])
         .map(cfg =>
           (blogProcessors[cfg.apiType] as BlogProcessor)
-            .loadBlogPosts(cfg, this)
+            .loadBlogPosts(cfg, state)
             .then(posts => [cfg.name, posts] as const)
             .catch(error => {
               console.warn("Error while fetching blog posts", cfg, error);

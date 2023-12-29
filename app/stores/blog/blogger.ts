@@ -33,7 +33,7 @@ type BloggerItem = {
 export class BloggerProcessor implements BlogProcessor {
   async loadBlogPosts(
     config: BlogConfig,
-    state: BlogStore
+    state?: BlogStore
   ): Promise<BlogPostPreviewItem[]> {
     let baseUrl = window.config.apis.blogger + config.params.id + "/posts";
     const params = new URLSearchParams({
