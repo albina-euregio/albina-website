@@ -34,7 +34,6 @@ export function useIntl() {
   return {
     locale,
     formatDate: formatter.time,
-    formatTime: formatter.time,
     formatNumber: formatter.number,
     formatMessage: (
       { id }: { id: MessageId },
@@ -91,7 +90,6 @@ export function newLegacyIntl() {
   return Object.freeze({
     locale: $locale.get(),
     formatDate: format.get().time,
-    formatTime: format.get().time,
     formatNumber: format.get().number,
     formatMessage: ({ id }: { id: MessageId }) => $messages.get()[id]
   });

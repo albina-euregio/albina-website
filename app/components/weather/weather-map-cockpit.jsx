@@ -351,10 +351,13 @@ class WeatherMapCockpit extends React.Component {
     let parts = [];
 
     if (this.props.currentTime) {
-      let timeStart = this.intl.formatTime(
-        this.getTimeStart(this.props.currentTime)
+      let timeStart = this.intl.formatDate(
+        this.getTimeStart(this.props.currentTime),
+        { timeStyle: "short" }
       );
-      const timeEnd = this.intl.formatTime(this.props.currentTime);
+      const timeEnd = this.intl.formatDate(this.props.currentTime, {
+        timeStyle: "short"
+      });
 
       //console.log("weathermapcockpit->gettimeline ##55",  this.props.currentTime);
       const dragSettings = {
