@@ -74,7 +74,7 @@ function StationMap(props) {
       <WeatherStationDialog
         stationData={stationData}
         stationId={stationId}
-        setStationId={stationId => setStationId(stationId)}
+        setStationId={setStationId}
       />
       <HTMLHeader title={intl.formatMessage({ id: "menu:lawis:station" })} />
       <section id="section-weather-map" className="section section-weather-map">

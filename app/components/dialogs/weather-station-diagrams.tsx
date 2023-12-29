@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { useIntl } from "../../i18n";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
@@ -273,20 +279,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-  useEffect(() => {
-    document.addEventListener("keydown", keyFunction, false);
-    return () => document.removeEventListener("keydown", keyFunction, false);
-
-    function keyFunction(event: KeyboardEvent) {
-      if (event.key === "ArrowLeft") {
-        previous();
-      } else if (event.key === "ArrowRight") {
-        next();
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const stationIndex = useMemo((): number => {
     return stationData.findIndex(e => e.id == stationId);
   }, [stationData, stationId]);
@@ -307,13 +299,28 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData[index];
   }, [stationData, stationIndex]);
 
-  function next() {
-    setStationId(nextStation.id);
-  }
+  const next = useCallback(
+    () => setStationId(nextStation.id),
+    [nextStation.id, setStationId]
+  );
 
-  function previous() {
-    setStationId(previousStation.id);
-  }
+  const previous = useCallback(
+    () => setStationId(previousStation.id),
+    [previousStation.id, setStationId]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyFunction, false);
+    return () => document.removeEventListener("keydown", keyFunction, false);
+
+    function keyFunction(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft") {
+        previous();
+      } else if (event.key === "ArrowRight") {
+        next();
+      }
+    }
+  }, [next, previous]);
 
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
