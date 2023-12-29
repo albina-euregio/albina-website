@@ -16,7 +16,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { useIntl } from "../i18n";
+import { FormattedMessage, useIntl } from "../i18n";
 
 const BlogOverview = () => {
   const [store] = useState(() => {
@@ -201,10 +201,13 @@ const BlogOverview = () => {
       {store.loading && slowLoading && (
         <ControlBar
           addClass="fade-in"
-          message={intl.formatMessage(
-            { id: "blog:overview:info-loading-data-slow" },
-            { a: () => standaloneLinks }
-          )}
+          message={
+            <FormattedMessage
+              id="blog:overview:info-loading-data-slow"
+              html={true}
+              values={{ a: () => standaloneLinks }}
+            />
+          }
         />
       )}
       <section className="section-padding-height section-blog-posts">

@@ -33,6 +33,7 @@ export default function SubscribeTelegramDialog() {
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-email:region"
+              html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
               }}

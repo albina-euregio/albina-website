@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { useIntl } from "../i18n";
+import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";
 import { useStationData } from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -76,18 +76,17 @@ const StationArchive = () => {
         })}
       />
       <section className="section section-centered section-padding-height">
-        {intl.formatMessage(
-          {
-            id: "measurements-archive:license"
-          },
-          {
+        <FormattedMessage
+          id={"measurements-archive:license"}
+          html={true}
+          values={{
             a: msg => (
               <a href="https://creativecommons.org/licenses/by/4.0/deed.de">
                 {msg}
               </a>
             )
-          }
-        )}
+          }}
+        />
       </section>
       <FilterBar
         search={true}

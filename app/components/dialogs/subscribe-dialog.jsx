@@ -32,6 +32,7 @@ export default function SubscribeDialog() {
               <label htmlFor="input">
                 <FormattedMessage
                   id="dialog:subscribe:select-subscription"
+                  html={true}
                   values={{
                     span: (...msg) => <span className="normal">{msg}</span>
                   }}

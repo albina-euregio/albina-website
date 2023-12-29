@@ -158,6 +158,7 @@ export default function SubscribeWebPushDialog() {
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-telegram:region"
+              html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
               }}

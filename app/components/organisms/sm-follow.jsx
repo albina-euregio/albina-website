@@ -12,6 +12,7 @@ export default function SmFollow({ region }) {
       <p>
         <FormattedMessage
           id="footer:follow-us"
+          html={true}
           values={{
             region: intl.formatMessage({ id: `region:${region}` }),
             strong: (...msg) => <strong>{msg}</strong>

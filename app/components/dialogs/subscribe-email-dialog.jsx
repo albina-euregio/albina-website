@@ -64,6 +64,7 @@ export default function SubscribeEmailDialog() {
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-email:region"
+              html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
               }}
@@ -168,6 +169,7 @@ export default function SubscribeEmailDialog() {
             <p className="status-message">
               <FormattedMessage
                 id={"dialog:subscribe-email:status:" + status}
+                html={true}
                 values={{
                   strong: (...msg) => <strong>{msg}</strong>
                 }}

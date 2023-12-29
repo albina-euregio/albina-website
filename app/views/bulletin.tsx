@@ -280,10 +280,13 @@ const Bulletin = () => {
       {status === "pending" && slowLoading && (
         <ControlBar
           addClass="fade-in"
-          message={intl.formatMessage(
-            { id: "bulletin:header:info-loading-data-slow" },
-            { a: msg => <a href={simple()}>{msg}</a> }
-          )}
+          message={
+            <FormattedMessage
+              id="bulletin:header:info-loading-data-slow"
+              html={true}
+              values={{ a: msg => <a href={simple()}>{msg}</a> }}
+            />
+          }
         />
       )}
 

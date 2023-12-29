@@ -54,6 +54,7 @@ export default function SmShare(props) {
       <p>
         <FormattedMessage
           id="main:share-this"
+          html={true}
           values={{
             strong: (...msg) => <strong>{msg}</strong>
           }}
