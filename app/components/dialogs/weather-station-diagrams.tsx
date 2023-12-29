@@ -209,15 +209,15 @@ const TimeRangeButtons: React.FC<{
 };
 
 const StationDiagramImage: React.FC<{
-  stationData: StationData;
+  station: StationData;
   clientWidth: number;
   selectedYear: number;
   timeRange: TimeRange;
-}> = ({ stationData, clientWidth, selectedYear, timeRange }) => {
+}> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const currentTS = new Date();
   currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
   const cacheHash = currentTS.valueOf();
-  const isStation = stationData instanceof StationData;
+  const isStation = station instanceof StationData;
   const template = isStation
     ? window.config.apis.weather.plots
     : window.config.apis.weather.observers;
@@ -225,14 +225,14 @@ const StationDiagramImage: React.FC<{
   const src = window.config.template(template, {
     width,
     interval: timeRanges[timeRange],
-    name: stationData.plot,
+    name: station.plot,
     year: selectedYear ? "_" + selectedYear : "",
     t: cacheHash
   });
   return (
     <img
-      alt={stationData.name}
-      title={stationData.name}
+      alt={station.name}
+      title={station.name}
       src={src}
       className="weatherstation-img"
     />
@@ -263,7 +263,11 @@ const StationOperator: React.FC<{ stationData: StationData }> = ({
   );
 };
 
-const WeatherStationDiagrams: React.FC<Props> = props => {
+const WeatherStationDiagrams: React.FC<Props> = ({
+  stationData,
+  stationId,
+  setStationId
+}) => {
   const intl = useIntl();
   const myRef = useRef();
   const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
@@ -284,39 +288,38 @@ const WeatherStationDiagrams: React.FC<Props> = props => {
   }, []);
 
   const stationIndex = useMemo((): number => {
-    return props.stationData.findIndex(e => e.id == props.stationId);
-  }, [props.stationData, props.stationId]);
+    return stationData.findIndex(e => e.id == stationId);
+  }, [stationData, stationId]);
 
   const nextStation = useMemo((): StationData => {
     let index = stationIndex;
-    if (index < props.stationData.length - 1) {
+    if (index < stationData.length - 1) {
       index++;
     }
-    return props.stationData[index];
-  }, [props.stationData, stationIndex]);
+    return stationData[index];
+  }, [stationData, stationIndex]);
 
   const previousStation = useMemo((): StationData => {
     let index = stationIndex;
     if (index > 0) {
       index--;
     }
-    return props.stationData[index];
-  }, [props.stationData, stationIndex]);
+    return stationData[index];
+  }, [stationData, stationIndex]);
 
   function next() {
-    props.setStationId(nextStation.id);
+    setStationId(nextStation.id);
   }
 
   function previous() {
-    props.setStationId(previousStation.id);
+    setStationId(previousStation.id);
   }
 
-  const stationsData = props.stationData;
-  if (!stationsData) return <div></div>;
-  const stationData = stationsData[stationIndex];
   if (!stationData) return <div></div>;
-  const isStation = stationData instanceof StationData;
-  const [microRegionId] = stationData.microRegion.split(" ");
+  const station = stationData[stationIndex];
+  if (!station) return <div></div>;
+  const isStation = station instanceof StationData;
+  const [microRegionId] = station.microRegion.split(" ");
 
   return (
     <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
@@ -336,10 +339,10 @@ const WeatherStationDiagrams: React.FC<Props> = props => {
               </p>
             )}
             <h2 className="">
-              <span className="weatherstation-name">{stationData.name} </span>
-              {stationData.elev && (
+              <span className="weatherstation-name">{station.name} </span>
+              {station.elev && (
                 <span className="weatherstation-altitude">
-                  ({stationData.elev}&thinsp;m)
+                  ({station.elev}&thinsp;m)
                 </span>
               )}
             </h2>
@@ -358,7 +361,7 @@ const WeatherStationDiagrams: React.FC<Props> = props => {
             )}
           </StationFlipper>
           <div className="modal-content">
-            {isStation && <MeasurementValues stationData={stationData} />}
+            {isStation && <MeasurementValues stationData={station} />}
             {isStation && (
               <TimeRangeButtons
                 timeRange={timeRange}
@@ -368,10 +371,10 @@ const WeatherStationDiagrams: React.FC<Props> = props => {
             <StationDiagramImage
               clientWidth={myRef?.current?.clientWidth ?? 1}
               selectedYear={selectedYear}
-              stationData={stationData}
+              station={station}
               timeRange={timeRange}
             />
-            {isStation && <StationOperator stationData={stationData} />}
+            {isStation && <StationOperator stationData={station} />}
           </div>
         </div>
       </div>
