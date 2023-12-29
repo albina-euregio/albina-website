@@ -37,7 +37,7 @@ export function useIntl() {
     formatNumber: formatter.number,
     formatMessage: (
       { id }: { id: MessageId },
-      values: Record<string, string> = undefined
+      values: Record<string, string | React.ReactElement> = undefined
     ) =>
       typeof values !== "object"
         ? t[id]
@@ -55,7 +55,9 @@ type FormattedMessageProps =
       id: MessageId;
       values?: Record<
         string,
-        string | ((children: React.ReactElement) => React.ReactElement)
+        | string
+        | React.ReactElement
+        | ((children: React.ReactElement) => React.ReactElement)
       >;
       html: true;
     };
