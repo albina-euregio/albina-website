@@ -43,14 +43,14 @@ export class BloggerProcessor implements BlogProcessor {
       status: "live",
       key: window.config.apiKeys.google
     });
-    if (state.searchText) {
+    if (state?.searchText) {
       params.set("q", state.searchText);
       baseUrl += "/search";
     } else {
-      if (state.problem && state.problem !== "all") {
+      if (state?.problem && state?.problem !== "all") {
         params.set("labels", state.problem);
       }
-      if (state.year) {
+      if (state?.year) {
         params.set("startDate", state.startDate.toISOString());
         params.set("endDate", state.endDate.toISOString());
       }

@@ -35,10 +35,10 @@ export class WordpressProcessor implements BlogProcessor {
       ).join(),
       per_page: String(100)
     });
-    if (state.searchText) {
+    if (state?.searchText) {
       params.set("search", state.searchText);
     }
-    if (state.year) {
+    if (state?.year) {
       params.set("after", state.startDate.toISOString());
       params.set("before", state.endDate.toISOString());
     }
