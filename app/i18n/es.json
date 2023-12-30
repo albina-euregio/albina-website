@@ -135,7 +135,7 @@
   "bulletin:report:dangerlevel-treeline-above": "Grado de Peligro por encima el límite del bosque: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grado de Peligro por debajo del límite del bosque: {level}",
   "bulletin:report:selected-region:hover": "Ves la predicción de aludes para la región seleccionada. <br />Click para volver al mapa",
-  "bulletin:report:tendency": "<strong>Tendencia: {tendency}</strong><br></br>en {date} {daytime}",
+  "bulletin:report:tendency": "<strong>Tendencia: {tendency}</strong><br>en {date} {daytime}",
   "bulletin:report:tendency:none": "n/d",
   "bulletin:report:tendency:increasing": "Grado de Peligro en aumento",
   "bulletin:report:tendency:steady": "Grado de Peligro constante",

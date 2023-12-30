@@ -135,7 +135,7 @@
   "bulletin:report:dangerlevel-treeline-above": "Grad de perilh ath dessús deth limit deth bòsc: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grad de perilh ath dejós deth limit deth bòsc: {level}",
   "bulletin:report:selected-region:hover": "Veir era prediccion dera region seleccionada.<br />Hèr clic entà tornar ath mapa",
-  "bulletin:report:tendency": "<strong>Tendencia: {tendency}</strong><br></br>en {date} {daytime}",
+  "bulletin:report:tendency": "<strong>Tendencia: {tendency}</strong><br>en {date} {daytime}",
   "bulletin:report:tendency:none": "sense responsa",
   "bulletin:report:tendency:increasing": "Perilh de lauegi en tot aumentar",
   "bulletin:report:tendency:steady": "Perilh de lauegi constant",

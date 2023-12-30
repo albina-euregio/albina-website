@@ -135,7 +135,7 @@
   "bulletin:report:dangerlevel-treeline-above": "Gefahrenstufe oberhalb der Waldgrenze: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Gefahrenstufe unterhalb der Waldgrenze: {level}",
   "bulletin:report:selected-region:hover": "Du siehst die Gefahreneinschätzung für die ausgewählte Region.<br />Klicke, um zur Karte zurückzukehren",
-  "bulletin:report:tendency": "<strong>Tendenz: {tendency}</strong><br></br>am {date} {daytime}",
+  "bulletin:report:tendency": "<strong>Tendenz: {tendency}</strong><br>am {date} {daytime}",
   "bulletin:report:tendency:none": "n/a",
   "bulletin:report:tendency:increasing": "Lawinengefahr steigt",
   "bulletin:report:tendency:steady": "Lawinengefahr bleibt gleich",
