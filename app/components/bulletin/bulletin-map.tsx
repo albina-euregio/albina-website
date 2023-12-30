@@ -56,7 +56,7 @@ const BulletinMap = (props: Props) => {
     };
   };
 
-  const eawsRegions = Object.freeze([
+  const [eawsRegions] = useState([
     "AD",
     "AT-02",
     "AT-03",
