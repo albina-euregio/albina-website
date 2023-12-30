@@ -272,7 +272,7 @@ const BulletinMap = (props: Props) => {
         }
       >
         <LeafletMap
-          loaded={props.microRegionIds}
+          loaded={true}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}
           tileLayerConfigOverride={{}}
