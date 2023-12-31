@@ -95,15 +95,3 @@ export const FormattedDate = ({
   const formatter = useStore(format);
   return <>{formatter.time(date, options)}</>;
 };
-
-/**
- * @deprecated
- */
-export function newLegacyIntl() {
-  return Object.freeze({
-    locale: $locale.get(),
-    formatDate: format.get().time,
-    formatNumber: format.get().number,
-    formatMessage: ({ id }: { id: MessageId }) => $messages.get()[id]
-  });
-}

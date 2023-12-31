@@ -1,13 +1,11 @@
 import React from "react";
 import $ from "jquery";
-import { newLegacyIntl } from "../../i18n";
-
-import { DATE_TIME_FORMAT, isSameDay } from "../../util/date.js";
+import { FormattedDate } from "../../i18n";
+import { isSameDay } from "../../util/date.js";
 
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
-    this.intl = newLegacyIntl();
     this.state = {
       lastRedraw: new Date().getTime()
     };
@@ -139,7 +137,7 @@ class Timeline extends React.Component {
     }
 
     timeArray.forEach(aTime => {
-      let weekday = this.intl.formatDate(aTime, { weekday: "long" });
+      const weekday = new Date(aTime).getDay();
 
       if (lastTime !== weekday) {
         let firstAvailableTime;
@@ -162,7 +160,7 @@ class Timeline extends React.Component {
               className={spanClass.join(" ")}
               data-timestamp={currentHour}
               data-selectable={isSelectable}
-              data-time={this.intl.formatDate(currentHour, DATE_TIME_FORMAT)}
+              data-time={currentHour}
             ></span>
           );
         }
@@ -181,17 +179,19 @@ class Timeline extends React.Component {
               <a
                 role="button"
                 tabIndex="0"
-                data-firstHour={firstAvailableTime}
+                data-first-hour={firstAvailableTime}
                 onClick={() => {
                   this.props.changeCurrentTime(firstAvailableTime);
                 }}
               >
-                {weekday.substring(0, 2)}
-                <span>{weekday.substring(2, 20)}</span>{" "}
-                {this.intl.formatDate(aTime, {
-                  day: "numeric",
-                  month: "numeric"
-                })}
+                <FormattedDate
+                  date={aTime}
+                  options={{
+                    weekday: "short",
+                    day: "numeric",
+                    month: "numeric"
+                  }}
+                />
               </a>
             </span>
             <div key="cp-scale-hours" className="cp-scale-hours">
