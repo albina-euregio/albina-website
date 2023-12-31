@@ -1,6 +1,6 @@
 import React from "react";
 import $ from "jquery";
-import { FormattedMessage, newLegacyIntl } from "../../i18n";
+import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
@@ -44,7 +44,6 @@ const LOOP = false;
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
-    this.intl = newLegacyIntl();
     this.getClosestTick;
     this.getLeftForTime;
     this.tickWidth = 0;
@@ -353,14 +352,6 @@ class WeatherMapCockpit extends React.Component {
     let parts = [];
 
     if (this.props.currentTime) {
-      let timeStart = this.intl.formatDate(
-        this.getTimeStart(this.props.currentTime),
-        { timeStyle: "short" }
-      );
-      const timeEnd = this.intl.formatDate(this.props.currentTime, {
-        timeStyle: "short"
-      });
-
       //console.log("weathermapcockpit->gettimeline ##55",  this.props.currentTime);
       const dragSettings = {
         left: this.getLeftForTime
@@ -411,13 +402,19 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-range-begin"
                   className="cp-scale-stamp-range-begin"
                 >
-                  {timeStart}
+                  <FormattedDate
+                    date={this.getTimeStart(this.props.currentTime)}
+                    options={{ timeStyle: "short" }}
+                  />
                 </span>
                 <span
                   key="cp-scale-stamp-range-end"
                   className="cp-scale-stamp-range-end"
                 >
-                  {timeEnd}
+                  <FormattedDate
+                    date={this.props.currentTime}
+                    options={{ timeStyle: "short" }}
+                  />
                 </span>
               </div>
             </Dragger>
@@ -438,7 +435,10 @@ class WeatherMapCockpit extends React.Component {
                   key="cp-scale-stamp-point-exact"
                   className="cp-scale-stamp-point-exact"
                 >
-                  {timeEnd}
+                  <FormattedDate
+                    date={this.props.currentTime}
+                    options={{ timeStyle: "short" }}
+                  />
                 </span>
               </div>
             </Dragger>
@@ -598,7 +598,10 @@ class WeatherMapCockpit extends React.Component {
             <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            {this.intl.formatDate(this.props.lastUpdateTime, DATE_TIME_FORMAT)}
+            <FormattedDate
+              date={this.props.lastUpdateTime}
+              options={DATE_TIME_FORMAT}
+            />
           </span>
         </Tooltip>
         <Tooltip
@@ -611,7 +614,10 @@ class WeatherMapCockpit extends React.Component {
             <span>
               <FormattedMessage id="weathermap:cockpit:maps-update-date:prefix" />
             </span>{" "}
-            {this.intl.formatDate(this.props.nextUpdateTime, DATE_TIME_FORMAT)}
+            <FormattedDate
+              date={this.props.nextUpdateTime}
+              options={DATE_TIME_FORMAT}
+            />
           </span>
         </Tooltip>
         <Tooltip

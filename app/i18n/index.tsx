@@ -85,6 +85,17 @@ export const FormattedMessage = ({
   }
 };
 
+export const FormattedDate = ({
+  date,
+  options
+}: {
+  date: string | number | Date;
+  options: Intl.DateTimeFormatOptions;
+}) => {
+  const formatter = useStore(format);
+  return <>{formatter.time(date, options)}</>;
+};
+
 /**
  * @deprecated
  */
