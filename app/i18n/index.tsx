@@ -41,7 +41,9 @@ export function useIntl() {
     ) =>
       typeof values !== "object"
         ? t[id]
-        : reactStringReplace(t[id], templateRe, match => values[match])
+        : Object.values(values).some(v => typeof v === "object")
+        ? reactStringReplace(t[id], templateRe, match => values[match])
+        : t[id].replace(templateRe, (str, match) => values[match])
   };
 }
 
