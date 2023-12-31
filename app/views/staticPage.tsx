@@ -47,6 +47,12 @@ const StaticPage = () => {
     })();
   }, [intl, lang, location.pathname]);
 
+  useEffect(() => {
+    document
+      .getElementById(location.hash.slice(1))
+      ?.scrollIntoView({ behavior: "smooth" });
+  }, [location.hash, content]);
+
   return (
     <>
       <HTMLHeader title={title} />
