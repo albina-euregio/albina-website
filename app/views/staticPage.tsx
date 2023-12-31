@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -21,33 +21,31 @@ const StaticPage = () => {
   const [content, setContent] = useState("");
   const [isShareable, setIsShareable] = useState(false);
 
-  const _fetchData = useCallback(async () => {
-    let url = location.pathname
-      .substring(config.projectRoot)
-      .replace(/^\//, "");
-    if (!url) return;
-    url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
-
-    const text = await fetchText(url);
-    // extract title from first <h1>...</h1>
-    const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
-    setTitle(text.match(titlePattern)?.[1]);
-    setContent(preprocessContent(text.replace(titlePattern, "")));
-    const chapter = url.split("/")[0] || "";
-    setChapter(
-      chapter
-        ? intl.formatMessage({
-            id: chapter + ":subpages:subtitle"
-          })
-        : ""
-    );
-    setHeaderText("");
-    setIsShareable(true);
-  }, [intl, lang, location.pathname]);
-
   useEffect(() => {
-    _fetchData();
-  }, [_fetchData]);
+    (async () => {
+      let url = location.pathname
+        .substring(config.projectRoot)
+        .replace(/^\//, "");
+      if (!url) return;
+      url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
+
+      const text = await fetchText(url);
+      // extract title from first <h1>...</h1>
+      const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
+      setTitle(text.match(titlePattern)?.[1]);
+      setContent(preprocessContent(text.replace(titlePattern, "")));
+      const chapter = url.split("/")[0] || "";
+      setChapter(
+        chapter
+          ? intl.formatMessage({
+              id: chapter + ":subpages:subtitle"
+            })
+          : ""
+      );
+      setHeaderText("");
+      setIsShareable(true);
+    })();
+  }, [intl, lang, location.pathname]);
 
   return (
     <>
