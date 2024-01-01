@@ -18,6 +18,21 @@
     "text": "<p>Como resultado del transporte de la nieve por el viento se forman acumulaciones de nieve compactada en sectores de sotavento o resguardados, que a menudo tienen pocos anclajes. Las \u00e1reas propensas a la acumulaci\u00f3n de nieve venteada son canales, zonas deprimidas, discontinuidades en las pendientes y zonas cercanas a crestas o cordales a sotavento.</p><p>M\u00e1s explicaciones:<br/>La masa de nieve transportada est\u00e1 sometida a tres procesos: rodamiento, saltaci\u00f3n y suspensi\u00f3n. Durante el transporte, decrece considerablemente el tama\u00f1o de los cristales dependiendo de la velocidad y la duraci\u00f3n del viento, entre un 10 % y hasta un 20 % de su tama\u00f1o original. Las peque\u00f1as part\u00edculas fracturadas est\u00e1n \u00a0empaquetadas por el viento, dando lugar a una capa cohesiva de nieve (placa blanda, o placa dura) en la vertiente de sotavento.</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o de las acumulaciones de nieve venteada (espesor):</span></p><ul>\n<li>peque\u00f1as acumulaciones de nieve venteada: 5- 20 cm de espesor</li>\n<li>acumulaciones de nieve venteada medias: 20-50 cm de espesor</li>\n<li>grandes acumulaciones de nieve venteada: m\u00e1s de 50 cm de espesor</li>\n</ul><p><span class=\"wis-ce-fw-bld\">Extensi\u00f3n de sobreacumulaciones de nieve venteada (espacial):</span></p><ul>\n<li>algunas acumulaciones de nieve venteada:<br/>muy poca nieve venteada sobreacumulada con poca extensi\u00f3n espacial</li>\n<li>sobreacumulaciones de nieve venteada extensivas:<br/>grandes sobreacumulaciones de nieve venteada mayoritariamente con una gran extensi\u00f3n espacial en pendientes y orientaciones</li>\n</ul>",
     "img": ""
   },
+  "groundwater-outflow": {
+    "ids": {
+      "ar": "gessuda-daigues-sosterranes",
+      "cs": "vytok-podzemni-vody",
+      "de": "grundwasseraustritt",
+      "en": "groundwater-outflow",
+      "fr": "ecoulement-des-eaux-souterraines",
+      "is": "utstreymi-grunnvatns",
+      "it": "deflusso-di-acqua-di-falda",
+      "es": "agua-de-percolacion-en-capas-internas-afloramiento-de-aguas-subterraneas"
+    },
+    "heading": "Agua de percolaci\u00f3n en capas internas (afloramiento de aguas subterr\u00e1neas)",
+    "text": "<p>El agua puede salir del suelo elevada por un gradiente de presi\u00f3n hidr\u00e1ulica entre la superficie del suelo y la capa de nieve que lo cubre. Esta agua circula por canales en el suelo o se almacena en el terreno que se est\u00e1 descongelando. Los manantiales tambi\u00e9n se denominan \u201caguas subterr\u00e1neas\u201d. Ambas cosas conducen a que haya agua l\u00edquida dentro de la nieve, desestabilizando el manto nivoso.</p>",
+    "img": ""
+  },
   "altitudes": {
     "ids": {
       "ar": "altituds",
@@ -36,43 +51,43 @@
     "text": "<p>\u00c1reas con cierto rango de altitud (precisi\u00f3n \u00a0\u00b1 100 m)</p><ul>\n<li><span class=\"wis-ce-fw-bld\">regi\u00f3n alpina:</span> por encima los 3000 m</li>\n<li><span class=\"wis-ce-fw-bld\">cota alta:</span> 2000 a 3000 m</li>\n<li><span class=\"wis-ce-fw-bld\">cota media:</span> 1000 a 2000 m</li>\n<li><span class=\"wis-ce-fw-bld\">cota baja:</span> por debajo de 1000 m</li>\n</ul>",
     "img": ""
   },
-  "loose-snow-avalanche-point-release-avalanche": {
+  "zero-degree-level": {
     "ids": {
-      "ar": "laueg-de-gessuda-puntuau",
-      "ca": "allau-amb-sortida-puntual",
-      "cs": "lavina-z-volneho-snehu-s-bodovym-odtrhem",
-      "de": "lockerschneelawine",
-      "en": "loose-snow-avalanche-point-release-avalanche",
-      "fr": "avalanche-de-neige-molle-avalanche-a-depart-ponctuel",
-      "is": "lausasnjoflod-lausaflod",
-      "it": "valanga-di-neve-a-debole-coesione",
-      "no": "lossnoskred",
-      "ro": "avalansa-de-zapada-fara-coeziune-cu-declansare-punctuala",
-      "sk": "lavina-z-volneho-snehu-lavina-s-bodovym-odtrhom",
-      "es": "alud-con-salida-puntual"
+      "ar": "cota-disozero",
+      "ca": "cota-de-isozero",
+      "cs": "nulova-izoterma",
+      "de": "nullgradgrenze",
+      "en": "zero-degree-level",
+      "fr": "altitude-de-lisotherme-0c",
+      "is": "frostmarkshaed",
+      "it": "quota-dello-zero-termico",
+      "no": "nullisoterm",
+      "ro": "inaltimea-izotermei-de-0-grade",
+      "sk": "nulova-izoterma",
+      "es": "altitud-de-la-isocero"
     },
-    "heading": "Alud con salida puntual",
-    "text": "<p>Alud (de nieve seca o h\u00fameda sin cohesi\u00f3n) que empieza a partir de un punto y acaba teniendo forma de V invertida.</p>",
+    "heading": "Altitud de la isocero",
+    "text": "<p>Altura sobre el nivel del mar en la que la temperatura del aire es 0\u00baC.</p>",
     "img": ""
   },
-  "dense-flow-avalanche": {
+  "avalanche": {
     "ids": {
-      "ar": "laueg-de-flux-dens",
-      "ca": "allau-de-flux-dens",
-      "cs": "tekouci-lavina",
-      "de": "flieslawine",
-      "en": "dense-flow-avalanche",
-      "fr": "avalanche-avec-ecoulement-dense",
-      "is": "thett-snjoflod-thettur-kjarni-snjoflods",
-      "it": "valanga-radente",
-      "no": "flytelag",
-      "ro": "avalansa-curgatoare",
-      "sk": "tecuca-lavina",
-      "es": "alud-de-flujo-denso"
+      "ar": "laueg-laueg-de-nheu",
+      "ca": "allau-allau-de-neu",
+      "cs": "lavina",
+      "de": "lawine-schneelawine",
+      "en": "avalanche",
+      "fr": "avalanche",
+      "is": "snjoflod",
+      "it": "valanga",
+      "no": "snoskred",
+      "ro": "avalansa-de-zapada",
+      "sk": "lavina",
+      "es": "alud-avalancha-de-nieve"
     },
-    "heading": "Alud de flujo denso",
-    "text": "<p>El movimiento es fundamentalmente por deslizamiento sobre el suelo o por encima del resto del manto nivoso, en contraposici\u00f3n al que se produce en el aerosol de un alud de nieve polvo.</p>",
-    "img": "<img alt=\"Dense flow avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 1024w\">\n<img alt=\"Dense flow avalanche\" class=\"wis-lzload-img-plchldr\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg')\"></div>\n<p class=\"img-copyr\"><span>\u00a9 Avalanche Warning Service Tyrol</span></p>\n</img>"
+    "heading": "Alud (avalancha de nieve)",
+    "text": "<p>Masa de nieve que normalmente arrastra un volumen superior a 100 m\u00b3 con una longitud m\u00ednima de 50 m que se desplaza r\u00e1pidamente.</p>",
+    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\">\n<img alt=\"Avalanche\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg')\"></div>\n</img>"
   },
   "ground-avalanche": {
     "ids": {
@@ -130,6 +145,25 @@
     "heading": "Alud de hielo, ca\u00edda de seracs",
     "text": "<p>Rotura de hielo en zonas inclinadas de los glaciares</p><p>Algunos aludes de hielo evolucionan a aludes de nieve polvo. Pueden incluir, en su trayecto, nieve en el flujo. Este tipo de aludes han sido a menudo causa de cat\u00e1strofes.</p><table border=\"1\" data-mce-selected=\"1\" data-mce-style=\"border-collapse: collapse; width: 99.9877%;\" style=\"border-collapse: collapse; width: 99.9877%;\">\n<tbody>\n<tr>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\"><span class=\"wis-ce-fw-bld\">Year</span></td>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\"><span class=\"wis-ce-fw-bld\">Location</span></td>\n<td data-mce-style=\"width: 33.3028%;\" style=\"width: 33.3028%;\"></td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">1895</td>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">Altels (CH)</td>\n<td data-mce-style=\"width: 33.3028%;\" style=\"width: 33.3028%;\">6 muertos, 158 animales muertos</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">1965</td>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">Mattmark (CH)</td>\n<td data-mce-style=\"width: 33.3028%;\" style=\"width: 33.3028%;\">88 muertos</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">1970</td>\n<td data-mce-style=\"width: 33.2997%;\" style=\"width: 33.2997%;\">Huascaran (Peru)</td>\n<td data-mce-style=\"width: 33.3028%;\" style=\"width: 33.3028%;\">seguido de un debris flow: 18.000 muertos</td>\n</tr>\n</tbody>\n</table><div class=\"mce-resizehandle\" data-mce-bogus=\"all\" data-mce-style=\"cursor: nw-resize; margin: 0px; padding: 0px; left: 0px; top: 190px;\" id=\"mceResizeHandlenw\" style=\"cursor: nw-resize; margin: 0px; padding: 0px; left: 0px; top: 190px;\" unselectable=\"true\"></div><div class=\"mce-resizehandle\" data-mce-bogus=\"all\" data-mce-style=\"cursor: ne-resize; margin: 0px; padding: 0px; left: 673.317px; top: 190px;\" id=\"mceResizeHandlene\" style=\"cursor: ne-resize; margin: 0px; padding: 0px; left: 673.317px; top: 190px;\" unselectable=\"true\"></div><div class=\"mce-resizehandle\" data-mce-bogus=\"all\" data-mce-style=\"cursor: se-resize; margin: 0px; padding: 0px; left: 673.317px; top: 280px;\" id=\"mceResizeHandlese\" style=\"cursor: se-resize; margin: 0px; padding: 0px; left: 673.317px; top: 280px;\" unselectable=\"true\"></div><div class=\"mce-resizehandle\" data-mce-bogus=\"all\" data-mce-style=\"cursor: sw-resize; margin: 0px; padding: 0px; left: 0px; top: 280px;\" id=\"mceResizeHandlesw\" style=\"cursor: sw-resize; margin: 0px; padding: 0px; left: 0px; top: 280px;\" unselectable=\"true\"></div>",
     "img": "<img alt=\"Ice avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_024_ice-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "dense-flow-avalanche": {
+    "ids": {
+      "ar": "laueg-de-flux-dens",
+      "ca": "allau-de-flux-dens",
+      "cs": "tekouci-lavina",
+      "de": "flieslawine",
+      "en": "dense-flow-avalanche",
+      "fr": "avalanche-avec-ecoulement-dense",
+      "is": "thett-snjoflod-thettur-kjarni-snjoflods",
+      "it": "valanga-radente",
+      "no": "flytelag",
+      "ro": "avalansa-curgatoare",
+      "sk": "tecuca-lavina",
+      "es": "alud-de-nieve-densa"
+    },
+    "heading": "Alud de nieve densa",
+    "text": "<p>El movimiento es fundamentalmente por deslizamiento sobre el suelo o por encima del resto del manto nivoso, en contraposici\u00f3n al que se produce en el aerosol de un alud de nieve polvo.</p>",
+    "img": "<img alt=\"Dense flow avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 1024w\"/>"
   },
   "powder-avalanche-powder-cloud-avalanche": {
     "ids": {
@@ -207,6 +241,25 @@
     "text": "<p>Alud de placa donde el plano de deslizamiento no es el suelo como es el caso de la avalancha de fondo.</p>",
     "img": "<img alt=\"Surface layer slab avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_084_surface-layer-slab-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
+  "loose-snow-avalanche-point-release-avalanche": {
+    "ids": {
+      "ar": "laueg-de-gessuda-puntuau",
+      "ca": "allau-amb-sortida-puntual",
+      "cs": "lavina-z-volneho-snehu-s-bodovym-odtrhem",
+      "de": "lockerschneelawine",
+      "en": "loose-snow-avalanche-point-release-avalanche",
+      "fr": "avalanche-de-neige-molle-avalanche-a-depart-ponctuel",
+      "is": "lausasnjoflod-lausaflod",
+      "it": "valanga-di-neve-a-debole-coesione",
+      "no": "lossnoskred",
+      "ro": "avalansa-de-zapada-fara-coeziune-cu-declansare-punctuala",
+      "sk": "lavina-z-volneho-snehu-lavina-s-bodovym-odtrhom",
+      "es": "alud-de-salida-puntual"
+    },
+    "heading": "Alud de salida puntual",
+    "text": "<p>Alud (de nieve seca o h\u00fameda sin cohesi\u00f3n) que empieza a partir de un punto y acaba teniendo forma de V invertida.</p>",
+    "img": ""
+  },
   "valley-avalanche": {
     "ids": {
       "ar": "laueg-enquia-hons-de-val",
@@ -244,24 +297,24 @@
     "text": "<p>Alud no causado por la aplicaci\u00f3n de una fuerza artificial (por ejemplo por una nevada, por p\u00e9rdida de cohesi\u00f3n por causas meteorol\u00f3gicas).</p>",
     "img": "<img alt=\"Naturally triggered avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_115_naturally-triggered-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "avalanche": {
+  "artifical-avalanche-release": {
     "ids": {
-      "ar": "laueg-laueg-de-nheu",
-      "ca": "allau-allau-de-neu",
-      "cs": "lavina",
-      "de": "lawine-schneelawine",
-      "en": "avalanche",
-      "fr": "avalanche",
-      "is": "snjoflod",
-      "it": "valanga",
-      "no": "snoskred",
-      "ro": "avalansa-de-zapada",
-      "sk": "lavina",
-      "es": "alud-avalancha-avalancha-de-nieve"
+      "ar": "desencadeament-provocat",
+      "ca": "desencadenament-provocat",
+      "cs": "umele-spustene-laviny",
+      "de": "kunstliche-lawinenauslosung",
+      "en": "artifical-avalanche-release",
+      "fr": "declenchement-artificiel-davalanche",
+      "is": "snjoflod-sett-viljandi-af-stad",
+      "it": "distacco-provocato-di-valanghe",
+      "no": "kunstig-skredutlosning",
+      "ro": "avalansa-declansata-artificial",
+      "sk": "umele-uvolnenie-laviny",
+      "es": "alud-provocado-desencadenamiento-artificial"
     },
-    "heading": "Alud/Avalancha (avalancha de nieve)",
-    "text": "<p>Masa de nieve que normalmente arrastra un volumen superior a 100 m\u00b3 con una longitud m\u00ednima de 50 m que se desplaza r\u00e1pidamente.</p>",
-    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\"/>"
+    "heading": "Alud provocado, desencadenamiento artificial",
+    "text": "<p>Desencadenamiento de un alud con explosivos, u otras fuerzas externas como m\u00e1quinas pisanieves, veh\u00edculos que circulen sobre la nieve, personas.</p>",
+    "img": ""
   },
   "slab-width": {
     "ids": {
@@ -314,9 +367,9 @@
       "no": "okende-styrke-i-et-snolag",
       "ro": "cresterea-rezistentei-intr-un-strat-de-zapada",
       "sk": "zvysujuca-sa-pevnost-vrstvy-snehu",
-      "es": "aumento-de-la-cohesion-incremento-de-la-dureza-de-una-capa-de-nieve"
+      "es": "aumento-de-la-resistencia-de-un-estrato-de-nieve"
     },
-    "heading": "Aumento de la cohesi\u00f3n, incremento de la dureza (de una capa de nieve)",
+    "heading": "Aumento de la resistencia (de un estrato de nieve)",
     "text": "<p>Mejora de la cohesi\u00f3n entre los cristales que se traduce sobre todo en una mayor capacidad a absorber la sobrecarga por parte de los cristales.</p>",
     "img": "<img alt=\"Increasing firmness\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_034_increasing-firmness-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
@@ -352,9 +405,9 @@
       "no": "vindutsatte-terrengformasjoner",
       "ro": "in-apropierea-crestelor-liniei-de-creasta-sau-varfului",
       "sk": "uzemie-v-blizkosti-hrebena-piliera-alebo-vrcholu",
-      "es": "area-adyacente-a-la-linea-de-cresta-o-cima"
+      "es": "area-proxima-a-la-cresta-o-la-cima"
     },
-    "heading": "\u00c1rea adyacente a la l\u00ednea de cresta o cima",
+    "heading": "\u00c1rea pr\u00f3xima a la cresta o la cima",
     "text": "<p>Zona cercana a la l\u00ednea de cresta, la cresta o el pico. Estas \u00e1reas est\u00e1n fuertemente afectadas por la acci\u00f3n del viento.</p>",
     "img": "<img alt=\"Area adjacent to the ridge line\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_062_area-adjacent-to-the-ridge-line-2_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
@@ -428,11 +481,30 @@
       "no": "dognvariasjoner-snoskredfare",
       "ro": "modificari-diurne",
       "sk": "denne-zmeny-zmeny-v-priebehu-dna",
-      "es": "cambios-de-estabilidad-del-manto-durante-el-dia"
+      "es": "cambios-con-el-ciclo-diurno-segun-la-hora-del-dia"
     },
-    "heading": "Cambios de estabilidad del manto durante el d\u00eda",
+    "heading": "Cambios con el ciclo diurno, seg\u00fan la hora del d\u00eda",
     "text": "<p>Evoluci\u00f3n del peligro de aludes en el transcurso del d\u00eda. El peligro de aludes puede variar enormemente durante el d\u00eda. Las situaciones de primavera son t\u00edpicas: despu\u00e9s de una noche clara, el peligro es bajo en las primeras horas del d\u00eda, a partir de entonces se incrementa debido al calentamiento derivado de la acci\u00f3n solar y la temperatura.</p>",
     "img": "<img alt=\"Daytime changes\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_129_daytime_changes-1_lwd-tiroll_european-avalanche-warning-services-150x119.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_129_daytime_changes-1_lwd-tiroll_european-avalanche-warning-services-300x238.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_129_daytime_changes-1_lwd-tiroll_european-avalanche-warning-services-768x608.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_129_daytime_changes-1_lwd-tiroll_european-avalanche-warning-services.jpg 999w\"/>"
+  },
+  "slope-discontinuity": {
+    "ids": {
+      "ar": "cambi-sobtat-de-penent",
+      "ca": "discontinuitat-de-la-pendent",
+      "cs": "hrana-svahu",
+      "de": "hangkante",
+      "en": "slope-discontinuity",
+      "fr": "rupture-de-pente",
+      "is": "brekkubrun",
+      "it": "cambio-di-pendenza",
+      "no": "skraningskant",
+      "ro": "discontinuitate-a-pantei",
+      "sk": "hrana-svahu-lom-terenu",
+      "es": "cambios-de-pendiente"
+    },
+    "heading": "Cambios de pendiente",
+    "text": "<p>Zona de pendiente donde el gradiente de la pendiente de repente se vuelve significativamente m\u00e1s pronunciada; altamente propensos a acumular dep\u00f3sitos de nieve venteada.</p>",
+    "img": "<img alt=\"Slope discontinuity\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
   "couloir": {
     "ids": {
@@ -472,6 +544,25 @@
     "text": "<p>Cantidad de nieve reciente diaria acumulada en un intervalo determinado de teimpo p. Ej. tres d\u00edas</p>",
     "img": ""
   },
+  "snowpack-capable-of-bearing-loads": {
+    "ids": {
+      "ar": "nheu-capabla-de-tier-subercargues",
+      "ca": "neu-capac-de-suportar-sobrecarregues",
+      "cs": "schopnost-nest-zatizeni-snehove-pokryvky",
+      "de": "tragfahige-schneedecke",
+      "en": "snowpack-capable-of-bearing-loads",
+      "fr": "manteau-neigeux-portant",
+      "is": "snjothekja-med-burdargetu-mannheldur-snjor",
+      "it": "manto-nevoso-portante",
+      "no": "baerende-snodekke",
+      "ro": "strat-de-zapada-portant",
+      "sk": "snehova-pokryvka-schopna-niest-zatazenie",
+      "es": "capa-de-nieve-resistente-a-sobrecargas"
+    },
+    "heading": "Capa de nieve resistente a sobrecargas",
+    "text": "<p>Capa superficial de nieve suficientemente estable como para soportar el paso de una persona.</p>",
+    "img": "<img alt=\"Snowpack capable of bearing loads\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "weak-layer": {
     "ids": {
       "ar": "celh-feble",
@@ -504,11 +595,26 @@
       "no": "svakt-lag-svakt-bundet-lag",
       "ro": "strat-de-zapada-cu-coeziune-slaba",
       "sk": "vrstva-so-slabymi-vzajomnymi-vazbami",
-      "es": "capa-debilmente-consolidada"
+      "es": "capa-poco-cohesionada"
     },
-    "heading": "Capa d\u00e9bilmente consolidada",
+    "heading": "Capa poco cohesionada",
     "text": "<p>Apa con una estructura de enlaces d\u00e9biles entre granos.</p>",
     "img": "<img alt=\"Poorly bonded layer\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_012_poorly-bonded-layer-1_lisa-mannehl_european-avalanche-warning-services-1000x500-1-150x103.png 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_012_poorly-bonded-layer-1_lisa-mannehl_european-avalanche-warning-services-1000x500-1-300x206.png 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_012_poorly-bonded-layer-1_lisa-mannehl_european-avalanche-warning-services-1000x500-1-768x526.png 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_012_poorly-bonded-layer-1_lisa-mannehl_european-avalanche-warning-services-1000x500-1.png 1016w\"/>"
+  },
+  "persistent-weak-layers": {
+    "ids": {
+      "ar": "coches-febles-persistentes",
+      "cs": "problem-stary-snih",
+      "de": "altschneeproblem",
+      "en": "persistent-weak-layers",
+      "fr": "neige-ancienne-sous-couche-fragile-persistante-situation-avalancheuse-typique",
+      "is": "vidvarandi-veikt-lag",
+      "it": "strati-deboli-persistenti-problema-tipico-valanghivo",
+      "es": "capas-debiles-persistentes"
+    },
+    "heading": "Capas d\u00e9biles persistentes",
+    "text": "<p>Esta situaci\u00f3n est\u00e1 ligada a la presencia de capas d\u00e9biles persistentes en el manto de nieve. Por lo general, se trata de estratos sepultados formados por <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#escarcha-escarcha-de-superficie\" href=\"https://www.avalanches.org/glossary/?lang=es#escarcha-escarcha-de-superficie\">escarcha en superfice</a>, escarcha de profundidad o formas facetadas (caras planas). Las capas d\u00e9biles pueden persistir durante semanas o meses, probablemente durante la mayor parte de la temporada de invierno.</p><p>Para m\u00e1s informaci\u00f3n, consultar <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#escarcha-escarcha-de-superficie\" href=\"https://www.avalanches.org/glossary/?lang=es#escarcha-escarcha-de-superficie\">Capa d\u00e9bil</a>\u00a0y <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/#persistent-weak-layers\" href=\"https://www.avalanches.org/standards/avalanche-problems/#persistent-weak-layers\" rel=\"noopener\" target=\"_blank\">Persisten Weak Layers</a>.</p><p>Volver a <a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">Problemas de aludes</a>.</p>",
+    "img": "<img alt=\"Persistent weak layers\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Persistent-Weak-Layers-EAWS-1-scaled.jpg 2560w\"/>"
   },
   "endangered-traffic-route": {
     "ids": {
@@ -585,24 +691,24 @@
     "text": "<p>Ver: Aumento de la cohesi\u00f3n, incremento de la dureza (de una capa de nieve)</p>",
     "img": ""
   },
-  "snow-water-equivalent": {
+  "ridgeline": {
     "ids": {
-      "ar": "equivalent-en-aigua-liquida-dera-nheu",
-      "ca": "contingut-daigua-liquida-equivalent-en-aigua-liquida",
-      "cs": "vodni-hodnota-snehu",
-      "de": "wasserwert",
-      "en": "snow-water-equivalent",
-      "fr": "equivalent-en-eau",
-      "is": "vatnsgildi-snaevar",
-      "it": "equivalente-in-acqua",
-      "no": "snoens-vannekvivalent",
-      "ro": "echivalent-in-apa-al-zapezii",
-      "sk": "vodna-hodnota-snehu",
-      "es": "contenido-en-agua-liquida"
+      "ar": "grincha",
+      "ca": "carena",
+      "cs": "linie-hrebene",
+      "de": "kamm",
+      "en": "ridgeline",
+      "fr": "ligne-de-crete",
+      "is": "fjallshryggur",
+      "it": "crinale",
+      "no": "hoydedrag",
+      "ro": "linie-de-creasta",
+      "sk": "chrbat-linia-hrebena",
+      "es": "cordal"
     },
-    "heading": "Contenido en agua l\u00edquida",
-    "text": "<p>Altura de una columna de agua que resultar\u00eda de la fusi\u00f3n de una muestra de nieve (expresada en mm) con referencia a la misma \u00e1rea. El equivalente de agua l\u00edquida de una muestra de nieve de 20 cm con una densidad de la nieve mediana (de 100 Kg/m3) es 20 mm. Con una densidad de 500 Kg/m3 el equivalente de una muestra de 20 cm de nieve es 100 mm de agua.</p>",
-    "img": ""
+    "heading": "Cordal",
+    "text": "<p>Cresta de una monta\u00f1a larga y marcada</p><p>Explicaci\u00f3n m\u00e1s detallada:<br/>Una arista es una cresta que conecta dos picos de una cordillera.</p>",
+    "img": "<img alt=\"Ridgeline\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "cornice": {
     "ids": {
@@ -655,9 +761,9 @@
       "no": "overflateskare",
       "ro": "crusta",
       "sk": "kora",
-      "es": "costra"
+      "es": "costra-costra-de-rehielo"
     },
-    "heading": "Costra",
+    "heading": "Costra (costra de rehielo)",
     "text": "<p>Capa de nieve dura que se forma como resultado del proceso de fusi\u00f3n-rehielo o por acci\u00f3n del viento.</p>",
     "img": "<img alt=\"Crust\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_053_crust-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
@@ -775,25 +881,6 @@
     "text": "<p>L\u00edmite topogr\u00e1fico inferior desde donde hay presencia permanente de nieve en el suelo</p><p>En funci\u00f3n de la orientaci\u00f3n y de la inclinaci\u00f3n la cota de nieve en el suelo puede variar significativamente.</p>",
     "img": "<img alt=\"Snow line\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-150x120.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-300x240.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-768x614.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-1024x819.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services.jpg 1280w\"/>"
   },
-  "zero-degree-level": {
-    "ids": {
-      "ar": "cota-disozero",
-      "ca": "cota-de-isozero",
-      "cs": "nulova-izoterma",
-      "de": "nullgradgrenze",
-      "en": "zero-degree-level",
-      "fr": "altitude-de-lisotherme-0c",
-      "is": "frostmarkshaed",
-      "it": "quota-dello-zero-termico",
-      "no": "nullisoterm",
-      "ro": "inaltimea-izotermei-de-0-grade",
-      "sk": "nulova-izoterma",
-      "es": "cota-de-isocero"
-    },
-    "heading": "Cota de isocero",
-    "text": "<p>Altura sobre el nivel del mar en la que la temperatura del aire es 0\u00baC.</p>",
-    "img": ""
-  },
   "snowfall-level": {
     "ids": {
       "ar": "cota-de-nheu",
@@ -907,43 +994,24 @@
     "text": "<p>Alud provocado a distancia por una sobrecarga, por ejemplo, esquiadores o freeride</p><p>En general, el desencadenamiento se da fuera de la trayectoria del alud. Sin embargo, puede ocurrir que las personas puedan ser atrapadas y enterradas si la avalancha llega a afectar al lugar donde se ha desencadenado.</p>",
     "img": "<img alt=\"Remote triggering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "artifical-avalanche-release": {
+  "gliding-sluff-gliding-avalanche": {
     "ids": {
-      "ar": "desencadeament-provocat",
-      "ca": "desencadenament-provocat",
-      "cs": "umele-spustene-laviny",
-      "de": "kunstliche-lawinenauslosung",
-      "en": "artifical-avalanche-release",
-      "fr": "declenchement-artificiel-davalanche",
-      "is": "snjoflod-sett-viljandi-af-stad",
-      "it": "distacco-provocato-di-valanghe",
-      "no": "kunstig-skredutlosning",
-      "ro": "avalansa-declansata-artificial",
-      "sk": "umele-uvolnenie-laviny",
-      "es": "desencadenamiento-provocado"
+      "ar": "laueg-desguitlament-o-esguitlament",
+      "ca": "purga-de-lliscament-allau-de-lliscament-o-lliscaments",
+      "cs": "klouzava-lavina-klouzavy-splaz",
+      "de": "gleitschneerutsch-gleitschneelawine",
+      "en": "gliding-sluff-gliding-avalanche",
+      "fr": "ecoulement-par-glissement-avalanche-de-glissement",
+      "is": "skridflod",
+      "it": "valanga-di-slittamento-ch-valanga-da-reptazione",
+      "no": "glideskred",
+      "ro": "curgere-sau-avalansa-de-alunecare",
+      "sk": "klzavy-splaz-klzava-lavina",
+      "es": "deslizamiento-basal"
     },
-    "heading": "Desencadenamiento provocado",
-    "text": "<p>Desencadenamiento de un alud con explosivos, u otras fuerzas externas como m\u00e1quinas pisanieves, veh\u00edculos que circulen sobre la nieve, personas.</p>",
+    "heading": "Deslizamiento basal",
+    "text": "<p>Cuando los movimientos de deslizamiento se incrementan r\u00e1pidamente, se produce una purga o un deslizamiento. Los desencadenamientos se pueden producir a cualquier hora del d\u00eda.</p>",
     "img": ""
-  },
-  "slope-discontinuity": {
-    "ids": {
-      "ar": "cambi-sobtat-de-penent",
-      "ca": "discontinuitat-de-la-pendent",
-      "cs": "hrana-svahu",
-      "de": "hangkante",
-      "en": "slope-discontinuity",
-      "fr": "rupture-de-pente",
-      "is": "brekkubrun",
-      "it": "cambio-di-pendenza",
-      "no": "skraningskant",
-      "ro": "discontinuitate-a-pantei",
-      "sk": "hrana-svahu-lom-terenu",
-      "es": "discontinuidad-de-la-pendiente"
-    },
-    "heading": "Discontinuidad de la pendiente",
-    "text": "<p>Zona de pendiente donde el gradiente de la pendiente de repente se vuelve significativamente m\u00e1s pronunciada; altamente propensos a acumular dep\u00f3sitos de nieve venteada.</p>",
-    "img": "<img alt=\"Slope discontinuity\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_050_slope-discontinuity-1_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
   "decreasing-firmness-of-a-snow-layer": {
     "ids": {
@@ -958,30 +1026,11 @@
       "no": "avtakende-styrke-i-et-snolag",
       "ro": "scaderea-pierderea-rezistentei-in-interiorul-unui-strat-de-zapada",
       "sk": "znizujuca-sa-pevnost-vrstvy-snehu",
-      "es": "disminucion-de-la-dureza-del-manto-nivoso"
+      "es": "disminucion-de-la-resistencia-del-manto-nivoso"
     },
-    "heading": "Disminuci\u00f3n de la dureza (del manto nivoso)",
+    "heading": "Disminuci\u00f3n de la resistencia (del manto nivoso)",
     "text": "<p>Disminuci\u00f3n, debilitamiento o desaparici\u00f3n de los v\u00ednculos entre los cristales o granos de nieve que da lugar a una disminuci\u00f3n de la capacidad de absorber la sobrecarga.</p>",
     "img": "<img alt=\"Decreasing firmness\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services-150x56.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services-300x113.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services-768x288.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services-1024x384.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services-1536x576.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_033_decreasing-firmness-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
-  },
-  "spacing-distances-maintaining-distances": {
-    "ids": {
-      "ar": "separar-era-distancia-mantier-era-distancia",
-      "ca": "distancia-de-reduccio-de-sobrecarrega",
-      "cs": "rozestupy",
-      "de": "entlastungsabstande",
-      "en": "spacing-distances-maintaining-distances",
-      "fr": "distances-despacement-distances-de-securite",
-      "is": "bil-a-milli-manna",
-      "it": "distanza-di-alleggerimento",
-      "no": "avlastningsavstand",
-      "ro": "spatierea-sau-pastrarea-distantelor",
-      "sk": "rozstupy",
-      "es": "distancia-de-reduccion-de-sobrecarga"
-    },
-    "heading": "Distancia de reducci\u00f3n de sobrecarga",
-    "text": "<p>Medida de precauci\u00f3n que se adopta en el esqu\u00ed de monta\u00f1a que consiste en mantener una cierta distancia entre dos personas con el objetivo de no sobrecargar el manto nivoso</p><p>Durante el ascenso se debe mantener una distancia de al menos 10 m, y durante la bajada esta separaci\u00f3n debe aumentarse significativamente.</p>",
-    "img": "<img alt=\"Spacing distance\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "safety-spacing": {
     "ids": {
@@ -1002,6 +1051,25 @@
     "text": "<p>Medida se seguridad en la pr\u00e1ctica de deportes hibernales, que consiste en guardar una distancia entre personas al atravesar una zona expuesta a peligro de aludes con el objetivo de disminuir el riesgo.</p><p>Contrariamente a la distancia de reducci\u00f3n de sobrecarga, cuando se guarda la distancia de seguridad una sola persona est\u00e1 expuesta al peligro en un periodo de tiempo concreto. A menudo se utiliza en la bajada cuando una sola persona esqu\u00eda en una ladera.</p>",
     "img": "<img alt=\"Safety spacing\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_117_safety-spacing-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
+  "spacing-distances-maintaining-distances": {
+    "ids": {
+      "ar": "separar-era-distancia-mantier-era-distancia",
+      "ca": "distancia-de-reduccio-de-sobrecarrega",
+      "cs": "rozestupy",
+      "de": "entlastungsabstande",
+      "en": "spacing-distances-maintaining-distances",
+      "fr": "distances-despacement-distances-de-securite",
+      "is": "bil-a-milli-manna",
+      "it": "distanza-di-alleggerimento",
+      "no": "avlastningsavstand",
+      "ro": "spatierea-sau-pastrarea-distantelor",
+      "sk": "rozstupy",
+      "es": "distancia-de-separacion-distancia-de-seguridad"
+    },
+    "heading": "Distancia de separaci\u00f3n, distancia de seguridad",
+    "text": "<p>Medida de precauci\u00f3n que se adopta en el esqu\u00ed de monta\u00f1a que consiste en mantener una cierta distancia entre dos personas con el objetivo de no sobrecargar el manto nivoso</p><p>Durante el ascenso se debe mantener una distancia de al menos 10 m, y durante la bajada esta separaci\u00f3n debe aumentarse significativamente.</p>",
+    "img": "<img alt=\"Spacing distance\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "snow-dunes-ripples": {
     "ids": {
       "ar": "dunes-ripples",
@@ -1021,23 +1089,17 @@
     "text": "<p>Dep\u00f3sito de nieve formado por nieve transportada por el viento</p><p>La morfolog\u00eda de este dep\u00f3sito es por un lado plana, en el lugar desde el que ha soplado el viento (sobreviento) y por la otra parte con una inclinaci\u00f3n abrupta que corresponde al lugar donde se deposita la nieve (sotavento). No deben confundirse las dunas con los ripples.</p>",
     "img": ""
   },
-  "firmness-of-snow": {
+  "hardness-of-a-snowlayer": {
     "ids": {
-      "ar": "duretat-resistencia-deth-manteth-nivau",
-      "ca": "duresa-resistencia-del-mantell-nival",
-      "cs": "pevnost-snehu",
-      "de": "festigkeit-im-schnee",
-      "en": "firmness-of-snow",
-      "fr": "cohesion-dune-couche-de-neige",
-      "is": "styrkur-snaevar-thettleiki-snaevar",
-      "it": "resistenza-interna-della-neve",
-      "no": "styrke-i-snoen",
-      "ro": "rezistenta-zapezii",
-      "sk": "pevnost-snehu",
-      "es": "dureza-resistencia-del-manto-nivoso"
+      "ar": "hardness-of-a-snowlayer",
+      "cs": "tvrdost-snehovych-vrstev",
+      "de": "harte-einer-schneeschicht",
+      "en": "hardness-of-a-snowlayer",
+      "is": "harka-snjolags",
+      "es": "dureza-de-un-estrato-de-nieve"
     },
-    "heading": "Dureza/ resistencia (del manto nivoso)",
-    "text": "<p>Capacidad de la nieve a soportar una sobrecarga (resistencia a la desintegraci\u00f3n). Depende de la extensi\u00f3n, de la cualidad y cohesi\u00f3n de la nieve.</p>",
+    "heading": "Dureza (de un estrato de nieve)",
+    "text": "<p>Para evaluar la dureza de los estratos individuales de nieve se usa la manoPara evaluar la dureza de los estratos individuales de nieve se usa la mano.</p><table border=\"1\" data-mce-style=\"border-collapse: collapse; width: 99.9877%;\" style=\"border-collapse: collapse; width: 99.9877%;\">\n<tbody>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">1</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Pu\u00f1o</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Muy blanda</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Nieve reciente, escarcha de profundidad, escarcha de superficie, part\u00edculas reconocibles, caras planas, cristales que se est\u00e1n fundiendo</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">2</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">4 dedos</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Blanda</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Granos redondos, part\u00edculas reconocibles, caras planas, cristales que se est\u00e1n fundiendo, part\u00edculas facetadas redondeadas</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">3</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">1 dedo</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Dura</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Granos redondos, costra semifundida, part\u00edculas facetadas redondeadas</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">4</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">L\u00e1piz</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Muy dura</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Granos redondos, costra semifundida</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">5</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Navaja</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Compacta</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Costra semifundida</td>\n</tr>\n<tr>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">6</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Imposible</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Hielo</td>\n<td data-mce-style=\"width: 24.9755%;\" style=\"width: 24.9755%;\">Hielo compacto</td>\n</tr>\n</tbody>\n</table><p>En general, cuanto m\u00e1s blanda es la capa, menor es la resistencia y mayor es la diferencia de dureza entre dos capas adyacentes, por lo que es m\u00e1s probable que en este l\u00edmite haya una superficie de fractura potencial, ya que la diferencia de dureza puede conducir a la concentraci\u00f3n de tensiones y favorecer la propagaci\u00f3n de fracturas.</p><p>Por lo general, cuando se usa la mano, se considera cr\u00edtica una diferencia de dureza de dos o m\u00e1s niveles.</p>",
     "img": ""
   },
   "in-particular-with-high-additional-loading": {
@@ -1056,6 +1118,40 @@
     },
     "heading": "En particular (por sobrecarga fuerte)",
     "text": "<p>En general los aludes pueden desencadenarse por un grupo de personas en una misma vertiente pero tambi\u00e9n existe la posibilidad, en ciertas situaciones, de desencadenamiento al paso de una sola persona</p><p>Nota:<br>T\u00e9rmino de la escala de peligro de aludes \u00a0utilizado en el bolet\u00edn diario</br></p>",
+    "img": ""
+  },
+  "snow-water-equivalent": {
+    "ids": {
+      "ar": "equivalent-en-aigua-liquida-dera-nheu",
+      "ca": "contingut-daigua-liquida-equivalent-en-aigua-liquida",
+      "cs": "vodni-hodnota-snehu",
+      "de": "wasserwert",
+      "en": "snow-water-equivalent",
+      "fr": "equivalent-en-eau",
+      "is": "vatnsgildi-snaevar",
+      "it": "equivalente-in-acqua",
+      "no": "snoens-vannekvivalent",
+      "ro": "echivalent-in-apa-al-zapezii",
+      "sk": "vodna-hodnota-snehu",
+      "es": "equivalente-en-agua-de-la-nieve"
+    },
+    "heading": "Equivalente en agua de la nieve",
+    "text": "<p>Altura de una columna de agua que resultar\u00eda de la fusi\u00f3n de una muestra de nieve (expresada en mm) con referencia a la misma \u00e1rea. El equivalente de agua l\u00edquida de una muestra de nieve de 20 cm con una densidad de la nieve mediana (de 100 Kg/m3) es 20 mm. Con una densidad de 500 Kg/m3 el equivalente de una muestra de 20 cm de nieve es 100 mm de agua.</p>",
+    "img": ""
+  },
+  "danger-scale": {
+    "ids": {
+      "ar": "escala-de-perilh",
+      "cs": "stupne-nebezpeci",
+      "de": "lawinengefahrenstufe",
+      "en": "danger-scale",
+      "fr": "degres-de-danger",
+      "is": "haettuskali",
+      "it": "scala-del-pericolo",
+      "es": "escala-de-peligro"
+    },
+    "heading": "Escala de Peligro",
+    "text": "<p>El peigro de aludes se eval\u00faa en el <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#boletin-de-peligro-de-aludes\" href=\"https://www.avalanches.org/glossary/?lang=es#boletin-de-peligro-de-aludes\">bolet\u00edn de peligro de aludes</a> y describe el peligro de aludes usando la escala europea de peligro de aludes, que tiene cinco niveles:</p><ul>\n<li>1 \u2013 D\u00e9bil.</li>\n<li>2 \u2013 Limitado.</li>\n<li>3 \u2013 Notable.</li>\n<li>4 \u2013 Fuerte.</li>\n<li>5 \u2013 Muy fuerte.</li>\n</ul><p>Los niveles de peligro se describen mediante tres par\u00e1metros:</p><ul>\n<li>La probabilidad de que se desencadenen los aludes.</li>\n<li>La extensi\u00f3n de los lugares peligrosos.</li>\n<li>El tama\u00f1o y la frecuencia de los aludes esperados.</li>\n</ul><p>El grado de peligro siempre es v\u00e1lido para una regi\u00f3n de m\u00e1s de 100 km\u00b2 y nunca para una pendiente concreta. El peligro de aludes descrito en los boletines siempre tiene incertidumbres y debe ser comprobado en la zona.</p><p>Puede encontrar m\u00e1s informaci\u00f3n sobre la escala europea de niveles de peligro de avalanchas <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-danger-scale/\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-danger-scale/\" rel=\"noopener\" target=\"_blank\">aqu\u00ed</a>.</p>",
     "img": ""
   },
   "surface-hoar-hoar-frost": {
@@ -1077,24 +1173,43 @@
     "text": "<p>Cristales de hielo, a menudo transparentes, en forma de peque\u00f1as placas, que se forman por sublimaci\u00f3n inversa del vapor de agua contenido en el aire</p><p>La escarcha se forma y crece en noches serenas por irradiaci\u00f3n de la nieve. Cuando queda enterrado se convierte en capa d\u00e9bil persistente a lo largo del tiempo que puede actuar potencialmente como plano de deslizamiento de un alud.</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a></p>",
     "img": ""
   },
-  "stress-in-the-snowpack": {
+  "snow-depth": {
     "ids": {
-      "ar": "estres-en-manteth-de-nheu",
-      "ca": "esforc-de-cisalla",
-      "cs": "napeti-v-snehove-pokryvce",
-      "de": "spannungen-in-der-schneedecke",
-      "en": "stress-in-the-snowpack",
-      "fr": "tensions",
-      "is": "alag-spenna-i-snjothekjunni",
-      "it": "tensioni-allinterno-del-manto-nevoso",
-      "no": "spenning-i-snodekket",
-      "ro": "forte-interne-in-interiorul-stratului-de-zapada",
-      "sk": "napatia-v-snehovej-pokryvke",
-      "es": "esfuerzo-de-cizalla"
+      "ar": "celh-de-nheu",
+      "ca": "gruix-de-neu",
+      "cs": "vyska-snehu",
+      "de": "schneehohe",
+      "en": "snow-depth",
+      "fr": "hauteur-de-neige-epaisseur-du-manteau-neigeux-hauteur-totale-de-neige-au-sol",
+      "is": "snjodypt",
+      "it": "altezza-del-manto-nevoso",
+      "no": "snodybde-snohoyde",
+      "ro": "inaltimea-stratului-de-zapada",
+      "sk": "vyska-snehu",
+      "es": "espesor-de-la-capa-de-nieve-en-el-suelo"
     },
-    "heading": "Esfuerzo de cizalla",
-    "text": "<p>Presi\u00f3n ejercida sobre los enlaces entre los granos de nieve de una capa, por el peso de las capas superiores y por el deslizamiento entre capas suprayacentes.</p>",
-    "img": "<img alt=\"Stress\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+    "heading": "Espesor de la capa de nieve en el suelo",
+    "text": "<p>Espesor del manto nivoso medida verticalmente.</p>",
+    "img": "<img alt=\"Snow depth\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\"/>"
+  },
+  "snow-thickness": {
+    "ids": {
+      "ar": "celh-deth-manteth-nivau",
+      "ca": "gruix-del-mantell-nival",
+      "cs": "tloustka-snehu",
+      "de": "schneedicke",
+      "en": "snow-thickness",
+      "fr": "epaisseur-de-neige",
+      "is": "snjothykkt",
+      "it": "spessore-del-manto-nevoso",
+      "no": "snotykkelse",
+      "ro": "grosimea-stratului-zapada",
+      "sk": "hrubka-snehu",
+      "es": "espesor-de-la-capa-de-nieve-en-el-suelo"
+    },
+    "heading": "Espesor de la capa de nieve en el suelo",
+    "text": "<p>Espesor de nieve medido perpendicularmente a la pendiente.</p>",
+    "img": "<img alt=\"Snow thickness\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\"/>"
   },
   "fracture-depth": {
     "ids": {
@@ -1134,25 +1249,6 @@
     "text": "<p>Espesor de la placa en la l\u00ednea de fractura, medido en \u00e1ngulo recto respecto a la pendiente.</p>",
     "img": "<img alt=\"Slab thickness\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_008_slab-thickness-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "snow-depth": {
-    "ids": {
-      "ar": "celh-de-nheu",
-      "ca": "gruix-de-neu",
-      "cs": "vyska-snehu",
-      "de": "schneehohe",
-      "en": "snow-depth",
-      "fr": "hauteur-de-neige-epaisseur-du-manteau-neigeux-hauteur-totale-de-neige-au-sol",
-      "is": "snjodypt",
-      "it": "altezza-del-manto-nevoso",
-      "no": "snodybde-snohoyde",
-      "ro": "inaltimea-stratului-de-zapada",
-      "sk": "vyska-snehu",
-      "es": "espesor-de-nieve"
-    },
-    "heading": "Espesor de nieve",
-    "text": "<p>Espesor del manto nivoso medida verticalmente.</p>",
-    "img": "<img alt=\"Snow depth\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\"/>"
-  },
   "depth-of-new-fresh-fallen-snow": {
     "ids": {
       "ar": "celh-de-nheu-recent",
@@ -1172,25 +1268,6 @@
     "text": "<p>Cantidad de nieve reciente precipitada en 24 horas.</p>",
     "img": "<img alt=\"Depth of new snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services-300x199.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services-768x510.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services-1024x680.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services-1536x1020.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_183_depth-of-new-snow-1_adi-kerber_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "snow-thickness": {
-    "ids": {
-      "ar": "celh-deth-manteth-nivau",
-      "ca": "gruix-del-mantell-nival",
-      "cs": "tloustka-snehu",
-      "de": "schneedicke",
-      "en": "snow-thickness",
-      "fr": "epaisseur-de-neige",
-      "is": "snjothykkt",
-      "it": "spessore-del-manto-nevoso",
-      "no": "snotykkelse",
-      "ro": "grosimea-stratului-zapada",
-      "sk": "hrubka-snehu",
-      "es": "espesor-del-manto-nivoso"
-    },
-    "heading": "Espesor del manto nivoso",
-    "text": "<p>Espesor de nieve medido perpendicularmente a la pendiente.</p>",
-    "img": "<img alt=\"Snow thickness\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_109_snow-thickness-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\"/>"
-  },
   "stability-snowpack-stability": {
     "ids": {
       "ar": "estabilitat-estabilitat-deth-manteth-nivau",
@@ -1204,9 +1281,9 @@
       "no": "stabilitet-snodekkets-stabilitet",
       "ro": "stabilitate-stabilitatea-stratului-de-zapada",
       "sk": "stabilita-stabilita-snehovej-pokryvky",
-      "es": "estabilidad-manto-nivoso-estable"
+      "es": "estabilidad-del-manto-de-nieve"
     },
-    "heading": "Estabilidad, manto nivoso estable",
+    "heading": "Estabilidad del manto de nieve",
     "text": "<p>La resistencia de una capa de nieve para soportar las tensiones internas y externas del manto</p><p>La estabilidad es el balance entre la resistencia y el esfuerzo de cizalla en una capa de nieve.</p>",
     "img": "<img alt=\"Stability\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_123_stability-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
@@ -1222,9 +1299,9 @@
       "no": "stabilisert-konsolidert",
       "ro": "stabilizat-consolidat-cresterea-rezistentei",
       "sk": "stabilizovany",
-      "es": "estabilizado-consolidado"
+      "es": "estable-consolidado"
     },
-    "heading": "Estabilizado, consolidado",
+    "heading": "Estable, consolidado",
     "text": "<p>Ver tambi\u00e9n: Aumento de la cohesi\u00f3n, incremento de la dureza (de una capa de nieve)</p>",
     "img": ""
   },
@@ -1265,25 +1342,6 @@
     "heading": "Expuesto",
     "text": "<p>Exposici\u00f3n a diferentes fen\u00f3menos: al viento, al sol, a los aludes o a otros peligros en general.</p>",
     "img": "<img alt=\"Exposed\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_026_exposed-1_lwd-tirol_european-avalanche-warning-services-150x120.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_026_exposed-1_lwd-tirol_european-avalanche-warning-services-300x240.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_026_exposed-1_lwd-tirol_european-avalanche-warning-services-768x614.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_026_exposed-1_lwd-tirol_european-avalanche-warning-services-1024x819.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_026_exposed-1_lwd-tirol_european-avalanche-warning-services.jpg 1280w\"/>"
-  },
-  "faceted-snow-crystals-grains": {
-    "ids": {
-      "ar": "facetes-cares-planeres",
-      "ca": "facetes-cares-planes",
-      "cs": "hranatozrnity-snih",
-      "de": "kantigkorniger-schnee",
-      "en": "faceted-snow-crystals-grains",
-      "fr": "grains-anguleux-grains-a-facettes-ou-facettes",
-      "is": "kantadir-kristallar",
-      "it": "sfaccettati",
-      "no": "kantkornet-sno",
-      "ro": "cristale-plane-fatetate",
-      "sk": "hranatorznne-snehove-krystaly-zrna",
-      "es": "facetas-caras-planas"
-    },
-    "heading": "Facetas, caras planas",
-    "text": "<p>Cristales que presentan primordialmente superficies planas y \u00e1ngulos rectos formados por metamorfismo constructivo</p><p>Tama\u00f1o de grano t\u00edpico: 0.5 a 3 mm</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
-    "img": "<img alt=\"Faceted snow crystals\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-150x85.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-300x170.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-768x435.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services.jpg 800w\"/>"
   },
   "firn": {
     "ids": {
@@ -1361,44 +1419,6 @@
     "text": "<p>Fracturaci\u00f3n repentina de una capa d\u00e9bil; una clara se\u00f1al de la tensi\u00f3n y de inestabilidad</p>",
     "img": "<img alt=\"Shooting crack\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_090_shooting-crack_1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "sintering": {
-    "ids": {
-      "ar": "formacion-de-ponts-de-geu",
-      "ca": "formacio-de-ponts-de-gel",
-      "cs": "spojovani",
-      "de": "sintern",
-      "en": "sintering",
-      "fr": "frittage",
-      "is": "tengjamyndun-sindrun",
-      "it": "sinterizzazione",
-      "no": "sintring",
-      "ro": "sinterizare",
-      "sk": "spajanie",
-      "es": "formacion-de-puentes-de-hielo"
-    },
-    "heading": "Formaci\u00f3n de puentes de hielo",
-    "text": "<p>Formaci\u00f3n de enlaces entre los granos que dan como resultado un incremento en la cohesi\u00f3n</p><p>Este proceso es m\u00e1s r\u00e1pido a temperaturas relativamente altas de la nieve. La formaci\u00f3n de puentes de hielo se observa m\u00e1s f\u00e1cilmente en nieve compactada (bolas de nieve, nieve depositada por un alud, trazas viejas de esqu\u00eds).</p>",
-    "img": "<img alt=\"Sintering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
-  },
-  "slope-gradient": {
-    "ids": {
-      "ar": "gradients-de-penent",
-      "ca": "gradients-de-pendent",
-      "cs": "sklon-svahu",
-      "de": "hangneigung",
-      "en": "slope-gradient",
-      "fr": "inclinaison-de-pente",
-      "is": "landhalli-bratti",
-      "it": "inclinazione-del-pendio",
-      "no": "helningsvinkel-bratthet",
-      "ro": "declivitatea-inclinatia-unei-pante",
-      "sk": "sklon-svahu",
-      "es": "gradiente-de-pendiente"
-    },
-    "heading": "Gradiente de pendiente",
-    "text": "<ul>\n<li>Moderadamente inclinada: menos de 30 \u00b0 *)</li>\n<li>inclinado: 30 a 35 \u00b0 *)</li>\n<li>muy inclinado: 35 a 40 \u00b0 *)</li>\n<li>extremadamente inclinado: m\u00e1s de 40 \u00b0 *)</li>\n</ul><p>*) El grado de pendiente se mide en la l\u00ednea de la ca\u00edda en la parte m\u00e1s inclinada de una vertiente a una escala de 1: 25.000 o se estima en el sitio.</p>",
-    "img": "<img alt=\"Slope gradient\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-150x99.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-300x198.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-768x506.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-1024x675.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services.jpg 1277w\"/>"
-  },
   "temperature-gradient": {
     "ids": {
       "ar": "gradient-de-temperatura",
@@ -1418,24 +1438,24 @@
     "text": "<p>Cambio en la temperatura por unidad de espesor, expresada en \u00b0C/m o \u00b0C/cm</p><p>El gradiente de temperatura se mide en la nieve verticalmente desde el suelo hasta la superficie del manto. Se calcula por diferencia entre medidas consecutivas. Un gradiente de temperatura \u201cd\u00e9bil\u201d es por ejemplo 1\u00baC por metro, mientras que un gradiente temperatura \u201calto\u201d es 25\u00baC por metro.</p>",
     "img": "<img alt=\"Temperature gradient\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_132_temperature-gradient-1_lisa-manneh_european-avalanche-warning-services-150x80.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_132_temperature-gradient-1_lisa-manneh_european-avalanche-warning-services-300x160.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_132_temperature-gradient-1_lisa-manneh_european-avalanche-warning-services-768x409.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_132_temperature-gradient-1_lisa-manneh_european-avalanche-warning-services-1024x545.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_132_temperature-gradient-1_lisa-manneh_european-avalanche-warning-services.jpg 1458w\"/>"
   },
-  "snowmelt": {
+  "faceted-snow-crystals-grains": {
     "ids": {
-      "ar": "grans-de-fusion",
-      "ca": "grans-de-fusio",
-      "cs": "mokry-snih",
-      "de": "schmelzform",
-      "en": "snowmelt",
-      "fr": "grains-ronds",
-      "is": "bradnandi-snjor",
-      "it": "forme-di-fusione",
-      "no": "smelteformer",
-      "ro": "granule-rotunde-de-zapada-umeda",
-      "sk": "topiaci-sa-sneh",
-      "es": "granos-de-fusion"
+      "ar": "facetes-cares-planeres",
+      "ca": "facetes-cares-planes",
+      "cs": "hranatozrnity-snih",
+      "de": "kantigkorniger-schnee",
+      "en": "faceted-snow-crystals-grains",
+      "fr": "grains-anguleux-grains-a-facettes-ou-facettes",
+      "is": "kantadir-kristallar",
+      "it": "sfaccettati",
+      "no": "kantkornet-sno",
+      "ro": "cristale-plane-fatetate",
+      "sk": "hranatorznne-snehove-krystaly-zrna",
+      "es": "granos-facetados-caras-planas"
     },
-    "heading": "Granos de fusi\u00f3n",
-    "text": "<p>Granos redondeados formados por metamorfismo de fusi\u00f3n-rehielo, a menudo de forma agrupada</p><p>Tama\u00f1o caracter\u00edstico: 0,5 a 3 mm</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a></p>",
-    "img": ""
+    "heading": "Granos facetados, caras planas",
+    "text": "<p>Cristales que presentan primordialmente superficies planas y \u00e1ngulos rectos formados por metamorfismo constructivo</p><p>Tama\u00f1o de grano t\u00edpico: 0.5 a 3 mm</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
+    "img": "<img alt=\"Faceted snow crystals\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-150x85.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-300x170.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services-768x435.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_063_faceted-snow-crystals-1_www.snowcrystals.itl_european-avalanche-warning-services.jpg 800w\"/>"
   },
   "round-snow-grains": {
     "ids": {
@@ -1456,6 +1476,41 @@
     "text": "<p>Granos de nieve peque\u00f1os y redondeados resultado del metamorfismo de gradiente d\u00e9bil, metamorfismo destructivo</p><p>Tama\u00f1o de grano caracter\u00edstico: de 0.2 a 0.5 mm</p><p>Ver tamibi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
     "img": "<img alt=\"Rounded snow grains\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_092_rounded-snow-grains-1_www.snowcrystals.itl_european-avalanche-warning-services-150x78.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_092_rounded-snow-grains-1_www.snowcrystals.itl_european-avalanche-warning-services-300x157.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_092_rounded-snow-grains-1_www.snowcrystals.itl_european-avalanche-warning-services-768x401.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_092_rounded-snow-grains-1_www.snowcrystals.itl_european-avalanche-warning-services.jpg 800w\"/>"
   },
+  "rounding-faceted-particles": {
+    "ids": {
+      "ar": "particules-facetades-arredonides",
+      "cs": "hranatozrnity-snih-se-zaokrouhlenymi-hrany",
+      "de": "kantig-abgerundete-schneekristalle",
+      "en": "rounding-faceted-particles",
+      "fr": "grains-a-faces-planes",
+      "is": "kantadir-kristallar-sem-eru-ad-runnast",
+      "it": "cristalli-a-forme-miste",
+      "no": "avrundet-kantkornet-sno",
+      "es": "granos-finos-con-caras-planas"
+    },
+    "heading": "Granos finos con caras planas",
+    "text": "<p>Cristales facetados (caras planas) cuyas caras y \u00e1ngulos se redondean. Los granos de nieve pasan por una transici\u00f3n reduciendo su superficie espec\u00edfica; el redondeo de bordes y esquinas se debe a un <a data-mce-href=\"https://www.avalanches.org/glossary/#temperature-gradient\" href=\"https://www.avalanches.org/glossary/#temperature-gradient\">gradicente de temperatura</a> decreciente.</p>",
+    "img": ""
+  },
+  "snowmelt": {
+    "ids": {
+      "ar": "grans-de-fusion",
+      "ca": "grans-de-fusio",
+      "cs": "mokry-snih",
+      "de": "schmelzform",
+      "en": "snowmelt",
+      "fr": "grains-ronds",
+      "is": "bradnandi-snjor",
+      "it": "forme-di-fusione",
+      "no": "smelteformer",
+      "ro": "granule-rotunde-de-zapada-umeda",
+      "sk": "topiaci-sa-sneh",
+      "es": "granos-redondos-granos-de-fusion"
+    },
+    "heading": "Granos redondos, granos de fusi\u00f3n",
+    "text": "<p>Granos redondeados formados por metamorfismo de fusi\u00f3n-rehielo, a menudo de forma agrupada</p><p>Tama\u00f1o caracter\u00edstico: 0,5 a 3 mm</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a></p>",
+    "img": ""
+  },
   "glide-crack": {
     "ids": {
       "ar": "henerecla-desguitlament-henerecla",
@@ -1474,6 +1529,25 @@
     "heading": "Grieta de deslizamiento, fisura",
     "text": "<p>Grieta visible en la superficie del manto, formada por movimientos internos dispares por encima de pendientes especialmente en laderas herbosas</p><p>Hay que evitar, siempre que sea posible, las \u00e1reas que quedan por debajo de las grietas de deslizamiento o fisuras ya que es posible que se den purgas y aludes de deslizamiento.</p>",
     "img": "<img alt=\"Glide crack\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_038_glide-crack-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "slope-gradient": {
+    "ids": {
+      "ar": "gradients-de-penent",
+      "ca": "gradients-de-pendent",
+      "cs": "sklon-svahu",
+      "de": "hangneigung",
+      "en": "slope-gradient",
+      "fr": "inclinaison-de-pente",
+      "is": "landhalli-bratti",
+      "it": "inclinazione-del-pendio",
+      "no": "helningsvinkel-bratthet",
+      "ro": "declivitatea-inclinatia-unei-pante",
+      "sk": "sklon-svahu",
+      "es": "inclinacion-de-la-pendiente"
+    },
+    "heading": "Inclinaci\u00f3n de la pendiente",
+    "text": "<ul>\n<li>Moderadamente inclinada: menos de 30 \u00b0 *)</li>\n<li>inclinado: 30 a 35 \u00b0 *)</li>\n<li>muy inclinado: 35 a 40 \u00b0 *)</li>\n<li>extremadamente inclinado: m\u00e1s de 40 \u00b0 *)</li>\n</ul><p>*) El grado de pendiente se mide en la l\u00ednea de la ca\u00edda en la parte m\u00e1s inclinada de una vertiente a una escala de 1: 25.000 o se estima en el sitio.</p>",
+    "img": "<img alt=\"Slope gradient\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-150x99.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-300x198.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-768x506.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services-1024x675.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_052_slope_gradient-1_tiris-mapsl_european-avalanche-warning-services.jpg 1277w\"/>"
   },
   "snow-depth-increase": {
     "ids": {
@@ -1513,6 +1587,25 @@
     "text": "<p>P\u00e9rdida de resistencia</p>",
     "img": "<img alt=\"Unstable\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_017_unstable-1_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
+  "prone-to-triggering": {
+    "ids": {
+      "ar": "predispausadi-a-desencadear-se",
+      "ca": "mantell-nival-inestable-o-fragil-o-propens-a-desencadenar-se",
+      "cs": "nachylna-k-spusteni",
+      "de": "storanfallig",
+      "en": "prone-to-triggering",
+      "fr": "fragile-faible-sensible-instable",
+      "is": "ostodug-snjoalog",
+      "it": "manto-nevoso-instabile",
+      "no": "ustabilt-snodekke",
+      "ro": "predispus-la-declansare",
+      "sk": "nachylne-na-uvolnenie",
+      "es": "inestable-fragil-propenso-a-desencadenamiento-de-aludes"
+    },
+    "heading": "Inestable, fr\u00e1gil, propenso a desencadenamiento de aludes",
+    "text": "<p>Manto nivoso o capa de nieve que tiene tendencia a caer a partir de una sobrecarga.</p>",
+    "img": "<img alt=\"Prone to triggering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "windward-slope": {
     "ids": {
       "ar": "pala-a-susvent",
@@ -1525,9 +1618,9 @@
       "no": "loside",
       "ro": "panta-expusa-vantului",
       "sk": "naveterny-svah",
-      "es": "ladera-a-sobreviento-ladera-a-barlovento"
+      "es": "ladera-a-barlovento"
     },
-    "heading": "Ladera a sobreviento, ladera a barlovento",
+    "heading": "Ladera a barlovento",
     "text": "<p>Parte de la vertiente que mira hacia la direcci\u00f3n de la que viene el viento.</p>",
     "img": "<img alt=\"Windward slope\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_075_windward-slope-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
@@ -1620,9 +1713,9 @@
       "no": "bred-rygg",
       "ro": "muchie-larga-spinare",
       "sk": "siroky-hreben-chrbat",
-      "es": "loma-o-hombro"
+      "es": "loma"
     },
-    "heading": "Loma o hombro",
+    "heading": "Loma",
     "text": "<p>Zona morfol\u00f3gicamente alargada y redondeada.</p>",
     "img": "<img alt=\"Broad ridge\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_091_broad-ridge-1_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
@@ -1664,25 +1757,6 @@
     "text": "<p>Altura hasta la cual crecen \u00e1rboles y forman el bosque</p><p>Este l\u00edmite es funci\u00f3n del clima de cada cordillera. Bajo el l\u00edmite superior del bosque el manto nivoso es, generalmente, m\u00e1s estable que por encima debido a que el bosque puede actuar como protecci\u00f3n contra los aludes.</p><p>En los Pirineos:</p><ul>\n<li>Pirineo de Navarra: 2100-2300 m</li>\n<li>Pirineo de Arag\u00f3n: 2100-2300 m</li>\n<li>Pirineo de Catalu\u00f1a: 2100-2400 m</li>\n</ul><p>En Suiza:</p><ul>\n<li>Alpes del Sur y Pre-Alpes: 1650 \u2013 1850 m</li>\n<li>Norte Alpine Main Ridge: 1800 \u2013 2000 m</li>\n<li>Engadina y \u00e1reas alpinas secas interiores: 2000 \u2013 2200 m</li>\n</ul>",
     "img": "<img alt=\"Tree line\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_140_tree-line-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "ridgeline": {
-    "ids": {
-      "ar": "grincha",
-      "ca": "carena",
-      "cs": "linie-hrebene",
-      "de": "kamm",
-      "en": "ridgeline",
-      "fr": "ligne-de-crete",
-      "is": "fjallshryggur",
-      "it": "crinale",
-      "no": "hoydedrag",
-      "ro": "linie-de-creasta",
-      "sk": "chrbat-linia-hrebena",
-      "es": "linea-de-cresta"
-    },
-    "heading": "L\u00ednea de cresta",
-    "text": "<p>Cresta de una monta\u00f1a larga y marcada</p><p>Explicaci\u00f3n m\u00e1s detallada:<br>Una arista es una cresta que conecta dos picos de una cordillera.</br></p>",
-    "img": "<img alt=\"Ridgeline\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services.jpg 2048w\"/>"
-  },
   "snow-cover-snowpack": {
     "ids": {
       "ar": "manteth-nivau",
@@ -1701,25 +1775,6 @@
     "heading": "Manto nivoso",
     "text": "<p>Nieve depositada en el suelo en diversas capas.</p>",
     "img": "<img alt=\"Snow cover\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_098_snow-cover-1_lwd-tirol_european-avalanche-warning-services-150x120.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_098_snow-cover-1_lwd-tirol_european-avalanche-warning-services-300x240.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_098_snow-cover-1_lwd-tirol_european-avalanche-warning-services-768x614.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_098_snow-cover-1_lwd-tirol_european-avalanche-warning-services-1024x819.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_098_snow-cover-1_lwd-tirol_european-avalanche-warning-services.jpg 1280w\"/>"
-  },
-  "prone-to-triggering": {
-    "ids": {
-      "ar": "predispausadi-a-desencadear-se",
-      "ca": "mantell-nival-inestable-o-fragil-o-propens-a-desencadenar-se",
-      "cs": "nachylna-k-spusteni",
-      "de": "storanfallig",
-      "en": "prone-to-triggering",
-      "fr": "fragile-faible-sensible-instable",
-      "is": "ostodug-snjoalog",
-      "it": "manto-nevoso-instabile",
-      "no": "ustabilt-snodekke",
-      "ro": "predispus-la-declansare",
-      "sk": "nachylne-na-uvolnenie",
-      "es": "manto-nivoso-inestable-o-fragil-o-propenso-a-desencadenarse"
-    },
-    "heading": "Manto nivoso inestable o fr\u00e1gil o propenso a desencadenarse",
-    "text": "<p>Manto nivoso o capa de nieve que tiene tendencia a caer a partir de una sobrecarga.</p>",
-    "img": "<img alt=\"Prone to triggering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_126_prone-to-triggering-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "isothermal-snow-cover": {
     "ids": {
@@ -1740,25 +1795,6 @@
     "text": "<p>Un manto nivoso es isotermo cuando en su interior, desde el suelo hasta la superficie, la temperatura es la misma</p><p>Se da frecuentemente en primavera cuando todo el manto nivoso est\u00e1 muy pr\u00f3ximo a 0\u00baC. En este estado el manto nivoso se encuentra denso y h\u00famedo, y pierde su resistencia.</p>",
     "img": "<img alt=\"Isothermal snow cover\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services-106x150.jpg 106w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services-212x300.jpg 212w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services-724x1024.jpg 724w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services-768x1086.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services-1086x1536.jpg 1086w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_059_isothermal-snow-cover-1_lwd-tirol_european-avalanche-warning-services.jpg 1448w\"/>"
   },
-  "kinetic-metamorphism-faceting": {
-    "ids": {
-      "ar": "metamorfisme-cinetic-facetament",
-      "ca": "metamorfisme-dalt-i-mig-gradient-metamorfisme-constructiu-de-la-neu-formacio-de-facetes-facetament",
-      "cs": "konstruktivni-rustova-premena",
-      "de": "aufbauende-umwandlung-facettenbildung",
-      "en": "kinetic-metamorphism-faceting",
-      "fr": "facettage",
-      "is": "ummyndun-vegna-hreyfiorku-kontun",
-      "it": "metamorfismo-costruttivo-della-neve",
-      "no": "oppbyggende-omvandling-kinetisk-omvandling",
-      "ro": "metamorfism-cinetic-fatetare",
-      "sk": "konstruktivna-premena-snehu",
-      "es": "metamorfismo-de-alto-y-medio-gradiente-metamorfismo-constructivo-de-la-nieve-formacion-de-facetas-facetamiento"
-    },
-    "heading": "Metamorfismo de alto y medio gradiente, metamorfismo constructivo de la nieve, formaci\u00f3n de facetas (facetamiento)",
-    "text": "<p>Proceso metam\u00f3rfico de nieve seca con alto gradiente de temperatura; los granos crecen en forma de caras planas y \u00e1ngulos rectos; finalmente se forman cristales grandes en forma de caras planas o cubiletes; las capas formadas por estos tipos de granos tienen normalmente baja resistencia</p><p>Nota adicional:<br/>El proceso se acelera en orinetacions umbr\u00edas con poco espesor de nieve y alto gradiente t\u00e9rmico. Este proceso puede afectar a en todo el manto nivoso. En la superficie de la nieve se desarrolla preferentemente durante las noches claras en pendientes umbr\u00edas.</p>",
-    "img": "<img alt=\"Kinetic metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-150x48.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-300x96.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-768x245.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-1024x326.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services.jpg 1450w\"/>"
-  },
   "melt-freeze-metamorphism": {
     "ids": {
       "ar": "metamorfisme-de-fusion-regeu",
@@ -1772,9 +1808,9 @@
       "no": "smelteomvandling",
       "ro": "metamorfoza-de-topire",
       "sk": "premena-topenim-a-zamrzanim",
-      "es": "metamorfismo-de-fusion-rehielo"
+      "es": "metamorfosis-de-fusion-rehielo"
     },
-    "heading": "Metamorfismo de fusi\u00f3n-rehielo",
+    "heading": "Metamorfosis de fusi\u00f3n-rehielo",
     "text": "<p>Cuando la nieve se calienta a 0 \u00b0 C se crea una mezcla de cristales de hielo y agua. La estructura de grano es d\u00e9bil, pero forma costras duras cuando se vuelve a congelar por rehielo.</p>",
     "img": ""
   },
@@ -1791,11 +1827,49 @@
       "no": "snoomvandling",
       "ro": "metamorfoza-zapezii",
       "sk": "premena-snehu-metamorfoza-snehu",
-      "es": "metamorfismo-de-la-nieve"
+      "es": "metamorfosis-de-la-nieve"
     },
-    "heading": "Metamorfismo de la nieve",
+    "heading": "Metamorfosis de la nieve",
     "text": "<p>Cambio en la forma y en la medida de los granos del manto nivoso.</p>",
     "img": ""
+  },
+  "equilibrium-metamorphism-isothermal-metamorphism-snow-crystal-rounding": {
+    "ids": {
+      "ar": "arredoniment-des-grans-de-nheu",
+      "ca": "arrodoniment-dels-grans-de-neu",
+      "cs": "bortici-izotermalni-premena-zakulacovani-zrn",
+      "de": "abbauende-schneeumwandlung-isotherme-metamorphose",
+      "en": "equilibrium-metamorphism-isothermal-metamorphism-snow-crystal-rounding",
+      "fr": "arrondissement-des-grains-de-neige",
+      "is": "jafnhitabreyting-runnun-snjokristalla",
+      "it": "metamorfismo-distruttivo-della-neve",
+      "no": "likevektsomvandling",
+      "ro": "rotunjirea-cristalelor-de-zapada",
+      "sk": "zaokruhlovanie-snehovych-zrn",
+      "es": "metamorfosis-isoterma-redondeo-de-los-granos-de-nieve"
+    },
+    "heading": "Metamorfosis isoterma, redondeo de los granos de nieve",
+    "text": "<p>Proceso de transformaci\u00f3n de nieve seca con poco gradiente de temperatura dentro del manto</p><p>Nieve reciente, agujas reconocibles, granos finos, hasta que se transforman dando lugar a un manto bien asentado y consolidado.</p>",
+    "img": "<img alt=\"Snow metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-300x46.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-768x118.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-1024x158.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services.jpg 1452w\"/>"
+  },
+  "kinetic-metamorphism-faceting": {
+    "ids": {
+      "ar": "metamorfisme-cinetic-facetament",
+      "ca": "metamorfisme-dalt-i-mig-gradient-metamorfisme-constructiu-de-la-neu-formacio-de-facetes-facetament",
+      "cs": "konstruktivni-rustova-premena",
+      "de": "aufbauende-umwandlung-facettenbildung",
+      "en": "kinetic-metamorphism-faceting",
+      "fr": "facettage",
+      "is": "ummyndun-vegna-hreyfiorku-kontun",
+      "it": "metamorfismo-costruttivo-della-neve",
+      "no": "oppbyggende-omvandling-kinetisk-omvandling",
+      "ro": "metamorfism-cinetic-fatetare",
+      "sk": "konstruktivna-premena-snehu",
+      "es": "metamorfosis-por-accion-del-viento-formacion-de-caras-planas"
+    },
+    "heading": "Metamorfosis por acci\u00f3n del viento (formaci\u00f3n de caras planas)",
+    "text": "<p>Proceso metam\u00f3rfico de nieve seca con alto gradiente de temperatura; los granos crecen en forma de caras planas y \u00e1ngulos rectos; finalmente se forman cristales grandes en forma de caras planas o cubiletes; las capas formadas por estos tipos de granos tienen normalmente baja resistencia</p><p>Nota adicional:<br>El proceso se acelera en orinetacions umbr\u00edas con poco espesor de nieve y alto gradiente t\u00e9rmico. Este proceso puede afectar a en todo el manto nivoso. En la superficie de la nieve se desarrolla preferentemente durante las noches claras en pendientes umbr\u00edas.</br></p>",
+    "img": "<img alt=\"Kinetic metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-150x48.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-300x96.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-768x245.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-1024x326.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services.jpg 1450w\"/>"
   },
   "multiple-starting-zones": {
     "ids": {
@@ -1816,25 +1890,6 @@
     "text": "<p>\u00c1rea en la que se pueden originar diversas avalanchas. El t\u00e9rmino a menudo se asocia a aludes de tama\u00f1o 4 y 5.</p>",
     "img": "<img alt=\"Multiple starting zones\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_022_multiple_starting_zones_1_2002-05-01_LWD_Tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "snowpack-capable-of-bearing-loads": {
-    "ids": {
-      "ar": "nheu-capabla-de-tier-subercargues",
-      "ca": "neu-capac-de-suportar-sobrecarregues",
-      "cs": "schopnost-nest-zatizeni-snehove-pokryvky",
-      "de": "tragfahige-schneedecke",
-      "en": "snowpack-capable-of-bearing-loads",
-      "fr": "manteau-neigeux-portant",
-      "is": "snjothekja-med-burdargetu-mannheldur-snjor",
-      "it": "manto-nevoso-portante",
-      "no": "baerende-snodekke",
-      "ro": "strat-de-zapada-portant",
-      "sk": "snehova-pokryvka-schopna-niest-zatazenie",
-      "es": "nieve-capaz-de-soportar-sobrecargas"
-    },
-    "heading": "Nieve capaz de soportar sobrecargas",
-    "text": "<p>Capa superficial de nieve suficientemente estable como para soportar el paso de una persona.</p>",
-    "img": "<img alt=\"Snowpack capable of bearing loads\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
-  },
   "bonded-snow": {
     "ids": {
       "ar": "nheu-coesionada",
@@ -1848,10 +1903,29 @@
       "no": "bundet-sno",
       "ro": "zapada-legata-consolidata",
       "sk": "zviazany-sneh",
-      "es": "nieve-consolidada"
+      "es": "nieve-cohesionada"
     },
-    "heading": "Nieve consolidada",
+    "heading": "Nieve cohesionada",
     "text": "<p>Nieve en la que los granos presentan uniones por puente de hielo de manera que la capa de nieve no se colapsa.</p><p>Este tipo de nieve se forma a trav\u00e9s de transporte por viento y por el proceso de gradiente bajo de temperatura (redondeo de los granos). Aparte de la presencia de capas d\u00e9biles, para desencadenarse un alud de placa, tambi\u00e9n es necesario que haya una capa de nieve consolidada.</p>",
+    "img": ""
+  },
+  "gliding-snow": {
+    "ids": {
+      "ar": "nheu-esguitladissa",
+      "ca": "neu-reptant",
+      "cs": "klouzavy-snih",
+      "de": "gleiten-schneegleiten",
+      "en": "gliding-snow",
+      "fr": "reptation-de-la-neige",
+      "is": "snjoskrid",
+      "it": "slittamento",
+      "no": "glidning-snoglidning",
+      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "sk": "klzuci-sneh",
+      "es": "nieve-deslizante"
+    },
+    "heading": "Nieve deslizante",
+    "text": "<p>Nieve que se desplaza en un movimiento de reptaci\u00f3n por sobre un terreno suave o h\u00famedo, por ejemplo, laderas cubiertas de hierba o losas de piedra lisa, y que llega a velocidades desde unos pocos mil\u00edmetros a unos pocos metros por d\u00eda</p><p>Pueden aparecer grietas como resultado de los movimientos de deslizamiento dispares.</p>",
     "img": ""
   },
   "graupel": {
@@ -1892,6 +1966,24 @@
     "text": "<p>Nieve que se ha humidificado a una temperatura de 0 \u00baC. Con esta nieve es f\u00e1cil hacer una bola con la mano con el guante puesto.</p>",
     "img": "<img alt=\"Thoroughly moist snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services-768x513.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services-1024x684.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services-1536x1026.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_018_thoroughly-moist-snow-2_lukas-ruetz_european-avalanche-warning-services.jpg 2000w\"/>"
   },
+  "slush": {
+    "ids": {
+      "ar": "nheu-sopa",
+      "cs": "kase",
+      "de": "schneematsch-faulschnee-gatsch",
+      "en": "slush",
+      "fr": "neige-detrempee-soupe",
+      "is": "krapi",
+      "it": "neve-fradicia",
+      "no": "sorpe",
+      "ro": "zloata-zapada-flescaita-saturata-cu-apa",
+      "sk": "kasa",
+      "es": "nieve-humeda-sopa"
+    },
+    "heading": "Nieve h\u00fameda (\"sopa\")",
+    "text": "<p>Part\u00edculas redondeadas separadas completamente sumergidas en agua (contenido de agua l\u00edquida &gt; 15% (fracci\u00f3n en volumen)).</p>",
+    "img": "<img alt=\"Slush\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_186_slush_colbeck_european-avalanche-warning-services-150x103.png 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_186_slush_colbeck_european-avalanche-warning-services-300x206.png 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_186_slush_colbeck_european-avalanche-warning-services.png 311w\"/>"
+  },
   "thoroughly-wet-snow": {
     "ids": {
       "ar": "nheu-moja",
@@ -1911,6 +2003,25 @@
     "text": "<p>Nieve con un alto contenido de agua y a temperatura de fusi\u00f3n (0\u00baC). El agua es visible y la nieve puede comprimirse f\u00e1cilmente.</p>",
     "img": ""
   },
+  "unbonded-snow": {
+    "ids": {
+      "ar": "nheu-sense-coesion",
+      "ca": "neu-sense-cohesio",
+      "cs": "volny-snih",
+      "de": "ungebundener-schnee",
+      "en": "unbonded-snow",
+      "fr": "neige-sans-cohesion",
+      "is": "snjor-med-litla-samlodun",
+      "it": "neve-a-debole-coesione-neve-priva-di-legami",
+      "no": "ubunden-sno",
+      "ro": "zapada-fara-coeziune",
+      "sk": "volny-sneh",
+      "es": "nieve-poco-cohesionada"
+    },
+    "heading": "Nieve poco cohesionada",
+    "text": "<p>Nieve no cohesionada, sin enlaces entre los granos, como por ejemplo la nieve reciente, los cubiletes o facetas muy desarrolladas; no obstante tambi\u00e9n se aplica a nieve h\u00fameda. Este tipo de nieve puede dar lugar a aludes de salida puntual.</p>",
+    "img": "<img alt=\"Unbonded snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "corn-snow": {
     "ids": {
       "ca": "neu-primavera",
@@ -1923,30 +2034,11 @@
       "no": "varsno",
       "ro": "zapada-grauntoasa",
       "sk": "jarny-sneh-firn",
-      "es": "nieve-primavera"
+      "es": "nieve-primavera-nieve-humeda-sopa"
     },
-    "heading": "Nieve primavera",
+    "heading": "Nieve primavera, nieve h\u00fameda (\"sopa\")",
     "text": "<p>Grano de fusi\u00f3n, nieve h\u00fameda, resultado de repetidos ciclos de hielo-deshielo; se da principalmente durante la primavera</p><p>Ver tambi\u00e9n: Firn</p>",
     "img": "<img alt=\"Corn snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_128_corn-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_128_corn-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_128_corn-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_128_corn-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 1024w\"/>"
-  },
-  "gliding-snow": {
-    "ids": {
-      "ar": "nheu-esguitladissa",
-      "ca": "neu-reptant",
-      "cs": "klouzavy-snih",
-      "de": "gleiten-schneegleiten",
-      "en": "gliding-snow",
-      "fr": "reptation-de-la-neige",
-      "is": "snjoskrid",
-      "it": "slittamento",
-      "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
-      "sk": "klzuci-sneh",
-      "es": "nieve-que-repta"
-    },
-    "heading": "Nieve que repta",
-    "text": "<p>Nieve que se desplaza en un movimiento de reptaci\u00f3n por sobre un terreno suave o h\u00famedo, por ejemplo, laderas cubiertas de hierba o losas de piedra lisa, y que llega a velocidades desde unos pocos mil\u00edmetros a unos pocos metros por d\u00eda</p><p>Pueden aparecer grietas como resultado de los movimientos de deslizamiento dispares.</p>",
-    "img": ""
   },
   "very-light-new-snow": {
     "ids": {
@@ -1986,25 +2078,6 @@
     "text": "<p>Nieve reci\u00e9n ca\u00edda<br>Se trata de nieve poco transformada y poco compactada que resulta de nevadas actuales o muy recientes</br></p><p>El tama\u00f1o de grano caracter\u00edstico: 1-3 mm</p><p>El per\u00edodo de la nevada se indica en el bolet\u00edn de peligro de aludes.</p>",
     "img": "<img alt=\"New fallen snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "unbonded-snow": {
-    "ids": {
-      "ar": "nheu-sense-coesion",
-      "ca": "neu-sense-cohesio",
-      "cs": "volny-snih",
-      "de": "ungebundener-schnee",
-      "en": "unbonded-snow",
-      "fr": "neige-sans-cohesion",
-      "is": "snjor-med-litla-samlodun",
-      "it": "neve-a-debole-coesione-neve-priva-di-legami",
-      "no": "ubunden-sno",
-      "ro": "zapada-fara-coeziune",
-      "sk": "volny-sneh",
-      "es": "nieve-sin-cohesion"
-    },
-    "heading": "Nieve sin cohesi\u00f3n",
-    "text": "<p>Nieve no cohesionada, sin enlaces entre los granos, como por ejemplo la nieve reciente, los cubiletes o facetas muy desarrolladas; no obstante tambi\u00e9n se aplica a nieve h\u00fameda. Este tipo de nieve puede dar lugar a aludes de salida puntual.</p>",
-    "img": "<img alt=\"Unbonded snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_136_unbonded-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
-  },
   "transported-snow": {
     "ids": {
       "ar": "nheu-transportada-peth-vent",
@@ -2024,6 +2097,25 @@
     "text": "<p>Desplazamiento de la nieve provocado por el viento, A partir de una velocidad de aproximadamente 4 m/s (unos 15 km/h) la nieve de baja densidad ya puede ser transportada, mientras que para movilizar una nieve m\u00e1s compacta es necesaria una velocidad del viento de 10m/s (unos 36 km/h).</p><p>Explicaci\u00f3n m\u00e1s detallada:<br/>La acumulaci\u00f3n de nieve venteada crece al cubo de la velocidad del viento. Si la velocidad del viento se dobla, la cantidad de nieve acumulada se multiplica por ocho. El proceso de acumulaci\u00f3n es m\u00e1ximo cuando la velocidad del viento est\u00e1 entre 50-80 km/h. A velocidades mayores la acumulaci\u00f3n se reduce debido al car\u00e1cter turbulento del viento.</p>",
     "img": "<img alt=\"Transported snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
+  "blowing-snow": {
+    "ids": {
+      "ar": "transport-turbulent",
+      "ca": "transport-turbulent",
+      "cs": "zvireny-snih",
+      "de": "schneetreiben",
+      "en": "blowing-snow",
+      "fr": "chasse-neige",
+      "is": "skafrenningur-renningur",
+      "it": "sospensione-turbolenta",
+      "no": "snofokk-snodrift",
+      "ro": "transport-de-zapada-la-inaltime",
+      "sk": "previevany-sneh-vysoko-zvireny-sneh",
+      "es": "nieve-venteada"
+    },
+    "heading": "Nieve venteada",
+    "text": "<p>Proceso por el cual se transporta la nieve en suspensi\u00f3n por el viento (por encima 2 m aproximadamente) de la superficie de la nieve (la visibilidad se ve reducida significativamente).</p>",
+    "img": "<img alt=\"Blowing snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "old-snow-cover-old-snowpack": {
     "ids": {
       "ar": "nheu-vielha-celh-de-nheu-vielha",
@@ -2037,9 +2129,9 @@
       "no": "gammel-snooverflate-gammelt-snodekke",
       "ro": "zapada-veche-strat-vechi-de-zapada",
       "sk": "stara-snehova-pokryvka-stare-snehove-vrstvy",
-      "es": "nieve-vieja"
+      "es": "nieve-vieja-capa-de-nieve-vieja"
     },
-    "heading": "Nieve vieja",
+    "heading": "Nieve vieja, capa de nieve vieja",
     "text": "<p>Manto nivoso previamente depositado que se ha transformado en el transcurso de la temporada por diferentes tipos de metamorfismos.</p>",
     "img": "<img alt=\"Old snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_003_old-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
@@ -2075,9 +2167,9 @@
       "no": "nedbrytende-omvandling",
       "ro": "cristale-identificabile",
       "sk": "plstnaty-sneh",
-      "es": "particulas-de-nieve-reciente-descompuestas-y-fragmentadas-particulas-reconocibles"
+      "es": "particulas-reconocibles"
     },
-    "heading": "Part\u00edculas de nieve reciente descompuestas y fragmentadas (part\u00edculas reconocibles)",
+    "heading": "Part\u00edculas reconocibles",
     "text": "<p>Part\u00edculas irregulares que resultan del proceso de redondeo de los cristales y/o la acci\u00f3n mec\u00e1nica por ejemplo del viento<br/>Los fragmentos originales todav\u00eda se reconocen</p><p>Tama\u00f1o de grano caracter\u00edstico: 1 a 2 mm</p><p>Ver tambi\u00e9n: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
     "img": ""
   },
@@ -2112,9 +2204,9 @@
       "no": "snosky",
       "ro": "transport-de-zapada-in-altitudine",
       "sk": "oblak-snehu",
-      "es": "penacho"
+      "es": "penacho-de-nieve"
     },
-    "heading": "Penacho",
+    "heading": "Penacho de nieve",
     "text": "<p>Nieve de un pico o una cresta que es transportada por el viento en direcci\u00f3n hacia la atm\u00f3sfera</p><p>Ver tambi\u00e9n: Transporte turbulent</p>",
     "img": "<img alt=\"Snow plume\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_103_snow-plume_lwd-tirol_european-avalanche-warning-services-Kopie.jpg 2048w\"/>"
   },
@@ -2136,6 +2228,19 @@
     "heading": "Peque\u00f1a escala",
     "text": "<p>Extensi\u00f3n de el \u00e1rea de una zona que va desde pocos metros hasta 20 metros.</p>",
     "img": "<img alt=\"Small scale\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_064_small-scale-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_064_small-scale-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_064_small-scale-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_064_small-scale-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_064_small-scale-1_lwd-tirol_european-avalanche-warning-services.jpg 1500w\"/>"
+  },
+  "snow-profile": {
+    "ids": {
+      "ar": "perfiu-de-nheu",
+      "cs": "snehovy-profil",
+      "de": "schneeprofil",
+      "en": "snow-profile",
+      "is": "snjogryfja-snjosnid",
+      "es": "perfil-estratigrafico"
+    },
+    "heading": "Perfil estratigr\u00e1fico",
+    "text": "<p>Los perfiles estratigr\u00e1ficos son registros realizados en una localizaci\u00f3n y en un momento concretos del manto nivoso y desempe\u00f1an un papel importante en la evaluaci\u00f3n del peligro de aludes. En dicho perfil, el manto queda expuesta hasta el suelo para su inspecci\u00f3n transversal. De esta manera, las diferentes capas se hacen visibles, pudi\u00e9ndose estimar par\u00e1metros como la dureza, el tipo de nieve/forma del grano, el contenido de agua/humedad y la temperatura de la nieve.<br>Debido a la transformaci\u00f3n de la nieve, las distintas capas se encuentran en constante cambio y, por lo tanto, este perfil permite sacar conclusiones sobre la influencia meteorol\u00f3gica en el momento de la formaci\u00f3n de cada una de las capas (nieve fresca, lluvia, viento, radiaci\u00f3n solar, etc\u2026), al igual que su desarrollo posterior dentro del manto (presi\u00f3n inherente, pendiente, etc.).<br/>El perfil estratigr\u00e1fico permite identificar posibles capas d\u00e9biles dentro del manto nivoso, pero no se puede evaluar su estabilidad real. Esto se puede determinar mediante un test de estabilidad</br></p>",
+    "img": "<img alt=\"Snow profile\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-150x114.png 150w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-300x227.png 300w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-768x581.png 768w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services.png 905w\"/>"
   },
   "base-of-a-rock-wall": {
     "ids": {
@@ -2172,7 +2277,7 @@
       "es": "plano-de-deslizamiento"
     },
     "heading": "Plano de deslizamiento",
-    "text": "<p>Superficie sobre la que se desplaza un alud de placa (puede ser el suelo)</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br>No se debe confundir con la capa d\u00e9bil</br></p>",
+    "text": "<p>Superficie sobre la que se desplaza un alud de placa (puede ser el suelo)</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br/>No se debe confundir con la capa d\u00e9bil</p>",
     "img": ""
   },
   "possible-potential": {
@@ -2188,9 +2293,9 @@
       "no": "mulig",
       "ro": "posibil-ceva-care-este-posibil",
       "sk": "mozny-potencialny",
-      "es": "posible-evento-posible"
+      "es": "posible-potencial"
     },
-    "heading": "Posible (evento posible)",
+    "heading": "Posible (potencial)",
     "text": "<p>Evento con una probabilidad de ocurrencia que no excede el 50%.</p>",
     "img": ""
   },
@@ -2213,24 +2318,83 @@
     "text": "<p>Evento con una probabilidad de ocurrencia por encima del 50%.</p>",
     "img": ""
   },
-  "gliding-sluff-gliding-avalanche": {
+  "gliding-snow-problem": {
     "ids": {
-      "ar": "laueg-desguitlament-o-esguitlament",
-      "ca": "purga-de-lliscament-allau-de-lliscament-o-lliscaments",
-      "cs": "klouzava-lavina-klouzavy-splaz",
-      "de": "gleitschneerutsch-gleitschneelawine",
-      "en": "gliding-sluff-gliding-avalanche",
-      "fr": "ecoulement-par-glissement-avalanche-de-glissement",
-      "is": "skridflod",
-      "it": "valanga-di-slittamento-ch-valanga-da-reptazione",
-      "no": "glideskred",
-      "ro": "curgere-sau-avalansa-de-alunecare",
-      "sk": "klzavy-splaz-klzava-lavina",
-      "es": "purga-de-deslizamiento-avalancha-de-deslizamiento-o-deslizamientos"
+      "ar": "problema-desguitlament",
+      "cs": "problem-klouzave-laviny",
+      "de": "gleitschneeproblem",
+      "en": "gliding-snow-problem",
+      "fr": "neige-glissante-situation-avalancheuse-typique",
+      "is": "snjoskrid-sem-snjoflodavandi",
+      "it": "valanghe-di-slittamento-problema-tipico-valanghivo",
+      "es": "problema-de-deslizamiento-basal"
     },
-    "heading": "Purga de deslizamiento, avalancha de deslizamiento o deslizamientos",
-    "text": "<p>Cuando los movimientos de deslizamiento se incrementan r\u00e1pidamente, se produce una purga o un deslizamiento. Los desencadenamientos se pueden producir a cualquier hora del d\u00eda.</p>",
-    "img": ""
+    "heading": "Problema de deslizamiento basal",
+    "text": "<p>Esta situaci\u00f3n se caracteriza por el deslizamiento de toda el manto nivoso sobre el suelo. Estos aludes de gran profundidad (aludes de fondo) se desencadenan debido a un fallo de la capa basal o un fallo en la interfaz nieve-suelo. La presencia de agua l\u00edquida en el plano de deslizamiento es crucial para el desencadenamiento. Dependiendo del origen del agua, se pueden clasificar en dos categor\u00edas: eventos c\u00e1lidos (el agua se derrite o la lluvia se filtra a trav\u00e9s de la capa de nieve) y eventos fr\u00edos (el suelo c\u00e1lido provoca el derretimiento de la capa basal o existe un flujo de agua subyacente). Predecir el desencadenamiento de un alud por deslizamiento basal es muy dif\u00edcil, aunque a menudo se anuncia por la aparici\u00f3n de <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#grieta-de-deslizamiento-fisura\" href=\"https://www.avalanches.org/glossary/?lang=es#grieta-de-deslizamiento-fisura\">grietas</a>.</p><p>Para m\u00e1s informaci\u00f3n, consultar <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#deslizamiento-basal\" href=\"https://www.avalanches.org/glossary/?lang=es#deslizamiento-basal\">Deslizamiento basal</a> y <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/#gliding-snow\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-problems/#gliding-snow\" rel=\"noopener\" target=\"_blank\">Avalanche Problem \u2013 Gliding Snow</a>.\u00a0</p><p>Volver a <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-problems/\" rel=\"noopener\" target=\"_blank\">Avalanche Problems</a> / <a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">Problemas de Aludes</a>.</p>",
+    "img": "<img alt=\"Gliding snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Gliding-Snow-EAWS-1-scaled.jpg 2560w\"/>"
+  },
+  "new-snow-problem": {
+    "ids": {
+      "ar": "problema-de-nheu-recenta",
+      "cs": "problem-novy-snih",
+      "de": "neuschneeproblem",
+      "en": "new-snow-problem",
+      "fr": "neige-fraiche-situation-avalancheuse-typique",
+      "is": "nysnaevi-sem-snjoflodavandi",
+      "it": "neve-fresca-problema-tipico-valanghivo",
+      "es": "problema-de-nieve-reciente"
+    },
+    "heading": "Problema de nieve reciente",
+    "text": "<p>El problema de nieve reciente est\u00e1 ligado a las nevadas actuales o recientes. La sobrecarga por la ca\u00edda de nieve sobre una capa d\u00e9bil ya existente o la falta de conexiones entre cristales de nieve frescos pueden provocar un alud. Este problema es muy com\u00fan, est\u00e1 presente en todas las <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#orientacion\" href=\"https://www.avalanches.org/glossary/?lang=es#orientacion\">orientaciones</a> y permanece activo durante las nevadas as\u00ed como en los d\u00edas posteriores.</p><p>Para obtener m\u00e1s informaci\u00f3n, consulte <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/#new-snow\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-problems/#new-snow\" rel=\"noopener\" target=\"_blank\">Avalanche Problem \u2013 New Snow</a>, <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#nieve-reciente-o-fresca\" href=\"https://www.avalanches.org/glossary/?lang=es#nieve-reciente-o-fresca\" rel=\"noopener\" target=\"_blank\">Nieve reciente</a>\u00a0y <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#nieve-reciente-muy-ligera\" href=\"https://www.avalanches.org/glossary/?lang=es#nieve-reciente-muy-ligera\" rel=\"noopener\" target=\"_blank\">Nieve reciente muy ligera</a>.</p><p>Volver a <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-problems/\" rel=\"noopener\" target=\"_blank\">Avalanche Problems</a> / <a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">Problemas de aludes</a>.</p>",
+    "img": "<img alt=\"New snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-New-Snow-EAWS-1-scaled.jpg 2560w\"/>"
+  },
+  "wind-slab-problem": {
+    "ids": {
+      "ar": "problema-de-plaques-de-vent",
+      "cs": "problem-vitr-a-navaty-snih",
+      "de": "triebschneeproblem",
+      "en": "wind-slab-problem",
+      "fr": "neige-ventee-situation-avalancheuse-typique",
+      "is": "skafsnjor-sem-snjoflodavandi",
+      "it": "neve-ventata-problema-tipico-valanghivo",
+      "es": "problema-de-placa-de-viento-nieve-venteada"
+    },
+    "heading": "Problema de placa de viento / nieve venteada",
+    "text": "<p>El problema de placa de viento est\u00e1 relacionado con la nieve venteada. La nieve transportada por el viento normalmente se acumula <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#ladera-a-sotavento\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/?lang=es#ladera-a-sotavento\">a sotavento</a> en barrancos, peque\u00f1as depresiones y detr\u00e1s de crestas u otros lugares protegidos del viento. Tambi\u00e9n se conoce como \u201cplaca de viento\u201d. El problema est\u00e1 menos extendido que el <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#problema-de-nieve-reciente\" href=\"https://www.avalanches.org/glossary/?lang=es#problema-de-nieve-reciente\">problema de nieve reciente</a>.</p><p>Para m\u00e1s informaci\u00f3n ver: <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/#wind-slab\" href=\"https://www.avalanches.org/standards/avalanche-problems/#wind-slab\" rel=\"noopener\" target=\"_blank\">Avalanche problem \u2013 Wind Slab</a>, <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#nieve-venteada\" href=\"https://www.avalanches.org/glossary/?lang=es#nieve-venteada\" rel=\"noopener\" target=\"_blank\">nieve venteda</a> y <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#nieve-transportada-por-el-viento\" href=\"https://www.avalanches.org/glossary/?lang=es#nieve-transportada-por-el-viento\" rel=\"noopener\" target=\"_blank\">nieve transportada por el viento</a>.</p><p>Volver a <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/\" href=\"https://www.avalanches.org/standards/avalanche-problems/\" rel=\"noopener\" target=\"_blank\">Avalanche Problems</a> /\u00a0<a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">Problemas de Aludes</a>.</p>",
+    "img": "<img alt=\"Wind slab\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-scaled.jpg 2560w\"/>"
+  },
+  "avalanche-problems": {
+    "ids": {
+      "ar": "problemes-de-lauegi",
+      "cs": "lavinove-problemy",
+      "de": "lawinenprobleme",
+      "en": "avalanche-problems",
+      "fr": "situations-avalancheuses-typiques",
+      "is": "daemigerdur-snjoflodavandi",
+      "it": "problemi-tipici-valanghivi",
+      "es": "problemas-tipicos-de-aludes"
+    },
+    "heading": "Problemas t\u00edpicos de aludes",
+    "text": "<p>Los cinco problemas t\u00edpicos de aludes definidos por el Servicio Europeo de Alerta de Aludes (EAWS) tienen como objetivo describir situaciones t\u00edpicas que se producen en terrenos de aludes y ayudar a los profesionales y usuarios en la evaluaci\u00f3n del peligro de aludes. Complementan el nivel de peligro y los lugares de peligro (orientaci\u00f3n y elevaci\u00f3n) y representan el tercer nivel de la pir\u00e1mide de informaci\u00f3n. Las definiciones incluyen una caracterizaci\u00f3n general del problema, incluidos los tipos de aludes esperados, una descripci\u00f3n de la distribuci\u00f3n espacial t\u00edpica y de la posici\u00f3n de la capa d\u00e9bil en el manto nivoso, una caracterizaci\u00f3n del mecanismo de liberaci\u00f3n, una descripci\u00f3n de la duraci\u00f3n y de los per\u00edodos de tiempo t\u00edpicos del problema, y \u200b\u200bfinalmente algunos indicaciones para los profesionales. En este caso, la atenci\u00f3n se centra principalmente en los usuarios que transitan en terrenos de aludes. Sin embargo, los problemas t\u00edpicos de aludes tambi\u00e9n pueden ser \u00fatiles para los servicios de seguridad contra aludes.</p><p>Para m\u00e1s informaci\u00f3n ver: Problemas de aludes</p><p><a data-mce-href=\"#new-snow-problem\" href=\"#new-snow-problem\" rel=\"noopener\" target=\"_blank\">NIEVE </a>RECIENTE</p><p>PLACAS DE VIENTO</p><p><a data-mce-href=\"#persistent-weak-layers\" data-mce-selected=\"inline-boundary\" href=\"#persistent-weak-layers\" rel=\"noopener\" target=\"_blank\">CAPAS D\u00c9BILES PERSISTENTES</a></p><p>DESLIZAMIENTOS BASALES</p><p><a data-mce-href=\"#wet-snow-problem\" data-mce-selected=\"inline-boundary\" href=\"#wet-snow-problem\" rel=\"noopener\" target=\"_blank\">NIEVE H\u00daMEDA\ufeff</a></p>",
+    "img": "<img alt=\"New snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-New-Snow-c-EAWS-1-150x150.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-New-Snow-c-EAWS-1-300x300.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-New-Snow-c-EAWS-1.jpg 600w\"/><img alt=\"Wind slab\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wind-drifted-Snow-c-EAWS-1-150x150.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wind-drifted-Snow-c-EAWS-1-300x300.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wind-drifted-Snow-c-EAWS-1.jpg 600w\"/><img alt=\"Persistent weak layers\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Persistent-weak-Layer-c-EAWS-1-150x150.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Persistent-weak-Layer-c-EAWS-1-300x300.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Persistent-weak-Layer-c-EAWS-1.jpg 600w\"/><img alt=\"Gliding snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Gliding-Snow-c-EAWS-1-150x150.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Gliding-Snow-c-EAWS-1-300x300.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Gliding-Snow-c-EAWS-1.jpg 600w\"/><img alt=\"Wet snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wet-snow-c-EAWS-1-150x150.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wet-snow-c-EAWS-1-300x300.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Icon-Avalanche-Problems-Wet-snow-c-EAWS-1.jpg 600w\"/>"
+  },
+  "slushflow": {
+    "ids": {
+      "ar": "flux-de-nheu-sopa",
+      "cs": "snehotok-breckotok",
+      "de": "nassschneemure-sulzstrom",
+      "en": "slushflow",
+      "fr": "ecoulement-de-neige-detrempee",
+      "is": "krapaflod",
+      "it": "neve-fradicia",
+      "no": "sorpeskred",
+      "ro": "avalansa-de-zapada-saturata-cu-apa",
+      "sk": "snehotok-tecuca-lavina",
+      "es": "purga-de-nieve-humeda"
+    },
+    "heading": "Purga de nieve h\u00fameda",
+    "text": "<p>Este alud, que fluye como si fuera un deslizamiento de tierra, est\u00e1 compuesto por nieve saturada de agua l\u00edquida. Por lo com\u00fan ocurre despu\u00e9s de fuertes lluvias o una intensa fusi\u00f3n, lo que genera m\u00e1s agua l\u00edquida de lo que la nieve y/o el suelo pueden absorber. Los aludes de <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#nieve-humeda-sopa\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/?lang=es#nieve-humeda-sopa\">nieve h\u00fameda\ufeff</a> puede producirse en pendientes muy suaves. Generalmente sucede en el \u00c1rtico durante la primavera, sobre el permafrost, cuando los estratos secos de escarcha de profundidad se saturan r\u00e1pidamente de agua l\u00edquida.</p>",
+    "img": "<img alt=\"Slushflow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_187_slushflow_markus-eckerstorfer_european-avalanche-warning-services-150x115.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_187_slushflow_markus-eckerstorfer_european-avalanche-warning-services-300x229.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_187_slushflow_markus-eckerstorfer_european-avalanche-warning-services-768x587.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_187_slushflow_markus-eckerstorfer_european-avalanche-warning-services.jpg 850w\"/>"
   },
   "radiation": {
     "ids": {
@@ -2289,25 +2453,6 @@
     "text": "<p>Radiaci\u00f3n externa que incide sobre el manto nivoso</p><p>La radiaci\u00f3n de onda corta se refleja mayoritariamente (hasta un 90 %) desde la superficie de la nieve dependiendo de su tipo. El resto calienta las capas m\u00e1s superficiales de la nieve y posiblemente la humedece.</p><p>La radiaci\u00f3n de onda larga (radiaci\u00f3n infrarroja) es casi completamente absorbida por la superficie del manto nivoso.</p>",
     "img": "<img alt=\"Incoming radiation\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_021_incoming-radiation-1_lwd-tirol_european-avalanche-warning-services-150x120.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_021_incoming-radiation-1_lwd-tirol_european-avalanche-warning-services-300x240.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_021_incoming-radiation-1_lwd-tirol_european-avalanche-warning-services-768x614.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_021_incoming-radiation-1_lwd-tirol_european-avalanche-warning-services-1024x819.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_021_incoming-radiation-1_lwd-tirol_european-avalanche-warning-services.jpg 1280w\"/>"
   },
-  "equilibrium-metamorphism-isothermal-metamorphism-snow-crystal-rounding": {
-    "ids": {
-      "ar": "arredoniment-des-grans-de-nheu",
-      "ca": "arrodoniment-dels-grans-de-neu",
-      "cs": "bortici-izotermalni-premena-zakulacovani-zrn",
-      "de": "abbauende-schneeumwandlung-isotherme-metamorphose",
-      "en": "equilibrium-metamorphism-isothermal-metamorphism-snow-crystal-rounding",
-      "fr": "arrondissement-des-grains-de-neige",
-      "is": "jafnhitabreyting-runnun-snjokristalla",
-      "it": "metamorfismo-distruttivo-della-neve",
-      "no": "likevektsomvandling",
-      "ro": "rotunjirea-cristalelor-de-zapada",
-      "sk": "zaokruhlovanie-snehovych-zrn",
-      "es": "redondeo-de-los-granos-de-nieve"
-    },
-    "heading": "Redondeo de los granos de nieve",
-    "text": "<p>Proceso de transformaci\u00f3n de nieve seca con poco gradiente de temperatura dentro del manto</p><p>Nieve reciente, agujas reconocibles, granos finos, hasta que se transforman dando lugar a un manto bien asentado y consolidado.</p>",
-    "img": "<img alt=\"Snow metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-300x46.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-768x118.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-1024x158.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services.jpg 1452w\"/>"
-  },
   "inneralpine-regions": {
     "ids": {
       "ar": "regions-intraaupines",
@@ -2345,6 +2490,43 @@
     "text": "<p>Zona de gran extensi\u00f3n que incluye varios valles</p><p>En los boletines de peligro de aludes, las regiones se subdividen en funci\u00f3n de la climatolog\u00eda o de divisiones administrativas.</p>",
     "img": "<img alt=\"Regions\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-145x150.jpg 145w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-290x300.jpg 290w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-768x795.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-989x1024.jpg 989w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-1483x1536.jpg 1483w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services-1978x2048.jpg 1978w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_086_regions-1_lwd-tiroll_european-avalanche-warning-services.jpg 2419w\"/>"
   },
+  "firmness-of-snow": {
+    "ids": {
+      "ar": "duretat-resistencia-deth-manteth-nivau",
+      "ca": "duresa-resistencia-del-mantell-nival",
+      "cs": "pevnost-snehu",
+      "de": "festigkeit-im-schnee",
+      "en": "firmness-of-snow",
+      "fr": "cohesion-dune-couche-de-neige",
+      "is": "styrkur-snaevar-thettleiki-snaevar",
+      "it": "resistenza-interna-della-neve",
+      "no": "styrke-i-snoen",
+      "ro": "rezistenta-zapezii",
+      "sk": "pevnost-snehu",
+      "es": "resistencia-de-la-nieve"
+    },
+    "heading": "Resistencia (de la nieve)",
+    "text": "<p>Capacidad de la nieve a soportar una sobrecarga (resistencia a la desintegraci\u00f3n). Depende de la extensi\u00f3n, de la cualidad y cohesi\u00f3n de la nieve.</p>",
+    "img": ""
+  },
+  "rib": {
+    "ids": {
+      "ar": "cresta-segondaria",
+      "cs": "zebro",
+      "de": "rippe",
+      "en": "rib",
+      "fr": "cote-crete-secondaire",
+      "is": "hryggur-litill-hryggur",
+      "it": "costone",
+      "no": "smal-rygg",
+      "ro": "coasta",
+      "sk": "rebro",
+      "es": "rib"
+    },
+    "heading": "Rib",
+    "text": "<p>Zona elevada, lineal y orientada hacia el fondo del valle, claramente diferenciada del entorno circundante.</p>",
+    "img": "<img alt=\"Rib\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_088_rib-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
   "risk": {
     "ids": {
       "ar": "risc",
@@ -2362,25 +2544,6 @@
     },
     "heading": "Riesgo",
     "text": "<p>Concepto que re\u00fane la probabilidad de un evento (que se pueda producir) la presencia del hombre o bienes (que se encuentra en la zona de peligro) y los posibles da\u00f1os</p><p>Explicaci\u00f3n m\u00e1s detallada:<br/>Los boletines de aludes describen el peligro y no el riesgo.</p>",
-    "img": ""
-  },
-  "sastrugi": {
-    "ids": {
-      "ar": "sastrugi",
-      "ca": "ripples",
-      "cs": "sastrugi",
-      "de": "windgangeln",
-      "en": "sastrugi",
-      "fr": "sastruggis",
-      "is": "rifskaflar",
-      "it": "sastrugi",
-      "no": "sastrugi-vinderodert-snoflate",
-      "ro": "zapada-valurita-incretita",
-      "sk": "vlnky",
-      "es": "ripples"
-    },
-    "heading": "Ripples",
-    "text": "<p>Formas erosivas de la superficie del manto nivoso que apuntan en la direcci\u00f3n del viento; no deben confundirse con las dunas.</p>",
     "img": ""
   },
   "whumpfing-collapsing-sound": {
@@ -2402,24 +2565,56 @@
     "text": "<p>Ruido distintivo (parecido a un sonido de \u201cwhumpf\u201d ) que se produce cuando una capa d\u00e9bil colapsa bajo una placa</p><p>El sonido generalmente indica una situaci\u00f3n inestable y puede estar acompa\u00f1ado por la aparici\u00f3n de fracturas. Un whumpf es un aviso claro de alud.</p>",
     "img": ""
   },
-  "drifting-snow": {
+  "sastrugi": {
     "ids": {
-      "ar": "sautacion",
-      "ca": "saltacio",
-      "cs": "zvyreny-snih",
-      "de": "schneefegen",
-      "en": "drifting-snow",
-      "fr": "reptation-saltation",
-      "is": "lagarenningur",
-      "it": "saltazione",
-      "no": "snodriv",
-      "ro": "transport-de-zapada-la-sol",
-      "sk": "unasany-previevany-sneh",
-      "es": "saltacion"
+      "ar": "sastrugi",
+      "ca": "ripples",
+      "cs": "sastrugi",
+      "de": "windgangeln",
+      "en": "sastrugi",
+      "fr": "sastruggis",
+      "is": "rifskaflar",
+      "it": "sastrugi",
+      "no": "sastrugi-vinderodert-snoflate",
+      "ro": "zapada-valurita-incretita",
+      "sk": "vlnky",
+      "es": "sastrugi-ripples"
     },
-    "heading": "Saltaci\u00f3n",
-    "text": "<p>Proceso de levantamiento de la nieve de la superficie del manto nivoso que es transportada por el viento (la visibilidad horizontal no se reduce notablemente).</p>",
-    "img": "<img alt=\"Drifting snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+    "heading": "Sastrugi, ripples",
+    "text": "<p>Formas erosivas de la superficie del manto nivoso que apuntan en la direcci\u00f3n del viento; no deben confundirse con las dunas.</p>",
+    "img": ""
+  },
+  "sintering": {
+    "ids": {
+      "ar": "formacion-de-ponts-de-geu",
+      "ca": "formacio-de-ponts-de-gel",
+      "cs": "spojovani",
+      "de": "sintern",
+      "en": "sintering",
+      "fr": "frittage",
+      "is": "tengjamyndun-sindrun",
+      "it": "sinterizzazione",
+      "no": "sintring",
+      "ro": "sinterizare",
+      "sk": "spajanie",
+      "es": "sinterizacion-formacion-de-puentes-de-cohesion"
+    },
+    "heading": "Sinterizaci\u00f3n, formaci\u00f3n de puentes de cohesi\u00f3n",
+    "text": "<p>Formaci\u00f3n de enlaces entre los granos que dan como resultado un incremento en la cohesi\u00f3n</p><p>Este proceso es m\u00e1s r\u00e1pido a temperaturas relativamente altas de la nieve. La formaci\u00f3n de puentes de hielo se observa m\u00e1s f\u00e1cilmente en nieve compactada (bolas de nieve, nieve depositada por un alud, trazas viejas de esqu\u00eds).</p>",
+    "img": "<img alt=\"Sintering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_118_sintering-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "danger-patterns": {
+    "ids": {
+      "cs": "modely-lavinoveho-nebezpeci",
+      "de": "gefahrenmuster",
+      "en": "danger-patterns",
+      "fr": "modeles-de-danger",
+      "it": "situazioni-tipo",
+      "es": "situaciones-de-peligro"
+    },
+    "heading": "Situaciones de peligro",
+    "text": "<p>Los problemas t\u00edpicos de los aludes y las situaciones de peligro tienen una cosa en com\u00fan: indican escenarios de peligro t\u00edpicos, repetitivos y normalmente obvios.<br/>Sin embargo, cabe se\u00f1alar que, mientras que en los <a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">problemas t\u00edpicos de aludes </a>se ofrece una primera visi\u00f3n general de las posibles fuentes de peligro (por ejemplo, nieve reciente), las situaciones de peligro profundizan en el problema y buscan las causas del mismo (por ejemplo, una carga excesiva de nieve reciente sobre una capa d\u00e9bil). Por lo tanto, las situaciones de peligro describen diferentes escenarios o procesos que provocan el desencadenamiento del respectivo alud. Al reconocer los problemas de aludes y sus situaciones de peligro, se puede adaptar el comportamiento y, en consecuencia, evitar accidentes por avalanchas.</p>",
+    "img": ""
   },
   "additional-load": {
     "ids": {
@@ -2456,7 +2651,7 @@
       "es": "sotavento"
     },
     "heading": "Sotavento",
-    "text": "<p>Ver: Ladera a sotavento</p>",
+    "text": "<p>Consulte <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=es#ladera-a-sotavento\" href=\"https://www.avalanches.org/glossary/?lang=es#ladera-a-sotavento\" rel=\"noopener\" target=\"_blank\">Ladera a sotavento</a>.</p>",
     "img": ""
   },
   "size-of-the-starting-zone-for-slab-avalanches": {
@@ -2497,24 +2692,24 @@
     "text": "<p>Extensi\u00f3n del alud clasificado a partir del potencial destructivo y de la zona de llegada del alud</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o 1:</span> Alud peque\u00f1o (purga o colada)</p><ul>\n<li>M\u00ednimo peligro de enterrar a una persona (peligro de ca\u00edda).</li>\n<li>Desplazamiento de la nieve que se para normalmente antes del final de la pendiente.</li>\n</ul><p>Alud peque\u00f1o (purga o colada) \u2013 tama\u00f1o 1</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o 2:</span> Alud mediano</p><ul>\n<li>Puede enterrar, da\u00f1ar o matar una persona.</li>\n<li>El alud se para normalmente al final de la pendiente.</li>\n</ul><p>Alud mediano \u2013 tama\u00f1o 2</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o 3:</span> Alud grande</p><ul>\n<li>Puede enterrar y destrozar un coche, da\u00f1ar un cami\u00f3n, destruir un edificio peque\u00f1o o romper algunos \u00e1rboles.</li>\n<li>El alud puede atravesar terreno plano (considerablemente por debajo de los 30\u00b0) de longitud menor a 50m.</li>\n</ul><p>Alud grande \u2013 tama\u00f1o 3</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o 4:</span> Alud muy grande</p><ul>\n<li>Puede enterrar y destruir un vag\u00f3n de tren, un cami\u00f3n grande, varios edificios o una parte de bosque.</li>\n<li>El alud atraviesa terreno plano (considerablemente por debajo de los 30\u00ba) de longitud mayor a 50 m y puede alcanzar el fondo de valle.</li>\n</ul><p>Alud muy grande \u2013 tama\u00f1o 4</p><p><span class=\"wis-ce-fw-bld\">Tama\u00f1o 5:</span> Alud extremadamente grande</p><ul>\n<li>Puede alterar el paisaje. Posibilidad de da\u00f1os catastr\u00f3ficos.</li>\n<li>El alud llega al fondo de valle; zona de m\u00e1xima llegada conocida.</li>\n</ul><p>Alud extremadamente grande \u2013 tama\u00f1o 5</p>",
     "img": "<img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\"/><img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\"/>"
   },
-  "very-steep-extreme-terrain": {
+  "stress-in-the-snowpack": {
     "ids": {
-      "ar": "terren-extrem",
-      "ca": "terreny-extrem",
-      "cs": "velmi-strmy-extremni-teren",
-      "de": "extremes-steilgelande",
-      "en": "very-steep-extreme-terrain",
-      "fr": "tres-pentu-tres-raide-pente-extreme",
-      "is": "mjog-brattar-hlidar-og-erfitt-landslag",
-      "it": "terreno-estremamente-ripido",
-      "no": "veldig-bratt-ekstremt-terreng",
-      "ro": "teren-extrem",
-      "sk": "velmi-strmy-extremny-teren",
-      "es": "terreno-extremo"
+      "ar": "estres-en-manteth-de-nheu",
+      "ca": "esforc-de-cisalla",
+      "cs": "napeti-v-snehove-pokryvce",
+      "de": "spannungen-in-der-schneedecke",
+      "en": "stress-in-the-snowpack",
+      "fr": "tensions",
+      "is": "alag-spenna-i-snjothekjunni",
+      "it": "tensioni-allinterno-del-manto-nevoso",
+      "no": "spenning-i-snodekket",
+      "ro": "forte-interne-in-interiorul-stratului-de-zapada",
+      "sk": "napatia-v-snehovej-pokryvke",
+      "es": "tensiones-internas-del-manto"
     },
-    "heading": "Terreno extremo",
-    "text": "<p>Pendiente muy desfavorable por lo que refiere al \u00e1ngulo (m\u00e1s de 40 grados), relieve, la proximidad a la carena, la suavidad de la superficie del terreno subyacente.</p>",
-    "img": "<img alt=\"Very steep terrain\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services.jpg 2048w\"/>"
+    "heading": "Tensiones internas del manto",
+    "text": "<p>Presi\u00f3n ejercida sobre los enlaces entre los granos de nieve de una capa, por el peso de las capas superiores y por el deslizamiento entre capas suprayacentes.</p>",
+    "img": "<img alt=\"Stress\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_120_stress-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "steep-terrain": {
     "ids": {
@@ -2529,11 +2724,46 @@
       "no": "bratt-terreng",
       "ro": "teren-inclinat",
       "sk": "strmy-teren",
-      "es": "terreno-pendiente"
+      "es": "terreno-inclinado"
     },
-    "heading": "Terreno pendiente",
+    "heading": "Terreno inclinado",
     "text": "<p>Terreno donde el \u00e1ngulo de la vertiente es superior a 30\u00ba, independientemente de su morfolog\u00eda y sus caracter\u00edsticas.</p>",
     "img": "<img alt=\"Steep terrain\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_125_steep-terrain-1_tiris-mapsl_european-avalanche-warning-services-150x116.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_125_steep-terrain-1_tiris-mapsl_european-avalanche-warning-services-300x231.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_125_steep-terrain-1_tiris-mapsl_european-avalanche-warning-services-768x593.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_125_steep-terrain-1_tiris-mapsl_european-avalanche-warning-services.jpg 963w\"/>"
+  },
+  "very-steep-extreme-terrain": {
+    "ids": {
+      "ar": "terren-extrem",
+      "ca": "terreny-extrem",
+      "cs": "velmi-strmy-extremni-teren",
+      "de": "extremes-steilgelande",
+      "en": "very-steep-extreme-terrain",
+      "fr": "tres-pentu-tres-raide-pente-extreme",
+      "is": "mjog-brattar-hlidar-og-erfitt-landslag",
+      "it": "terreno-estremamente-ripido",
+      "no": "veldig-bratt-ekstremt-terreng",
+      "ro": "teren-extrem",
+      "sk": "velmi-strmy-extremny-teren",
+      "es": "terreno-muy-inclinado-extremo"
+    },
+    "heading": "Terreno muy inclinado, extremo",
+    "text": "<p>Pendiente muy desfavorable por lo que refiere al \u00e1ngulo (m\u00e1s de 40 grados), relieve, la proximidad a la carena, la suavidad de la superficie del terreno subyacente.</p>",
+    "img": "<img alt=\"Very steep terrain\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_029_very-steep-extreme-terrain-1_thomas-mariacher_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "avalanche-types": {
+    "ids": {
+      "ar": "tipes-de-lauegi",
+      "cs": "typy-lavin",
+      "de": "lawinenarten",
+      "en": "avalanche-types",
+      "fr": "types-davalanches",
+      "is": "tegundir-snjofloda-gerdir-snjofloda",
+      "it": "tipi-di-valanghe",
+      "ro": "tipuri-de-avalanse",
+      "es": "tipos-de-aludes"
+    },
+    "heading": "Tipos de aludes",
+    "text": "<p>Los aludes se clasifican seg\u00fan diferentes criterios. Las distinciones m\u00e1s importantes se hacen con respecto a:</p><ul>\n<li>La <span class=\"wis-ce-fw-bld\">manera de empezar</span> (<a data-mce-href=\"https://www.avalanches.org/glossary/#loose-snow-avalanche-point-release-avalanche\" href=\"https://www.avalanches.org/glossary/#loose-snow-avalanche-point-release-avalanche\">alud de salida puntual</a>/ <a data-mce-href=\"https://www.avalanches.org/glossary/#slab-avalanche\" href=\"https://www.avalanches.org/glossary/#slab-avalanche\">alud de placa</a>)</li>\n<li>La <span class=\"wis-ce-fw-bld\">forma en la que se desplaza\u00a0 </span>(alud de nieve densa/ <a data-mce-href=\"https://www.avalanches.org/glossary/#powder-avalanche-powder-cloud-avalanche\" href=\"https://www.avalanches.org/glossary/#powder-avalanche-powder-cloud-avalanche\">alud de nieve reciente seca</a>) y</li>\n<li>El <span class=\"wis-ce-fw-bld\">contenido de agua l\u00edquida\u00a0 </span>de la nieve (nieve seca/<a data-mce-href=\"https://www.avalanches.org/glossary/#wet-snow-avalanche\" href=\"https://www.avalanches.org/glossary/#wet-snow-avalanche\">alud de fusi\u00f3n</a>).</li>\n</ul><p>Adem\u00e1s, est\u00e1n los <a data-mce-href=\"https://www.avalanches.org/glossary/#gliding-snow\" href=\"https://www.avalanches.org/glossary/#gliding-snow\">deslizamientos basales</a>, donde toda la capa de nieve se desliza sobre el suelo.</p><p><a data-mce-href=\"#slab-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#slab-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">ALUD DE PLACA\ufeff</span></a><br data-mce-bogus=\"1\"/></p><p><a data-mce-href=\"#loose-snow-avalanche-point-release-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#loose-snow-avalanche-point-release-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">ALUD DE SALIDA PUNTUAL\ufeff</span></a><br data-mce-bogus=\"1\"/></p><p><a data-mce-href=\"#dense-flow-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#dense-flow-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">AlUD DE NIEVE DESNSA\ufeff</span></a><br data-mce-bogus=\"1\"/></p><p><a data-mce-href=\"#powder-avalanche-powder-cloud-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#powder-avalanche-powder-cloud-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">ALUD DE NIEVE POLVO\ufeff</span></a><br data-mce-bogus=\"1\"/></p><p><a data-mce-href=\"#wet-snow-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#wet-snow-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">ALUD DE NIEVE H\u00daMEDA\ufeff</span></a><br data-mce-bogus=\"1\"/></p><p><a data-mce-href=\"#glide-snow-avalanche\" data-mce-selected=\"inline-boundary\" href=\"#glide-snow-avalanche\" rel=\"noopener\" target=\"_blank\"><span class=\"wis-ce-tt-upprcs\">\ufeffDESLIZAMIENTO BASAL</span></a><br data-mce-bogus=\"1\"/></p>",
+    "img": "<img alt=\"Slab avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_097_slab-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Loose snow avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_073_loose-snow-avalanche-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Dense flow avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_039_dense-flow-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 1024w\"/><img alt=\"Powder avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_124_powder-avalanche_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_124_powder-avalanche_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_124_powder-avalanche_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_124_powder-avalanche_no-name_european-avalanche-warning-services.jpg 800w\"/><img alt=\"Wet snow avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_078_wet-snow-avalanche-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Gliding avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_046_gliding-avalanche-2_michael-auckenthaler_european-avalanche-warning-services.jpg 2016w\"/>"
   },
   "wind-metamorphism-mechanical-transformation-of-crystals": {
     "ids": {
@@ -2554,24 +2784,24 @@
     "text": "<p>Transformaci\u00f3n mec\u00e1nica de los cristales de nieve por el viento en la que se liman las ramificaciones</p><p>Esto puede ocurrir en la atm\u00f3sfera durante las nevadas o en el suelo \u2013 resultados ventisquero.</p><p>V\u00e9ase tambi\u00e9n: Redondeo de los granos de nieve</p>",
     "img": "<img alt=\"Wind metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_181_wind-metamorphism-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "blowing-snow": {
+  "drifting-snow": {
     "ids": {
-      "ar": "transport-turbulent",
-      "ca": "transport-turbulent",
-      "cs": "zvireny-snih",
-      "de": "schneetreiben",
-      "en": "blowing-snow",
-      "fr": "chasse-neige",
-      "is": "skafrenningur-renningur",
-      "it": "sospensione-turbolenta",
-      "no": "snofokk-snodrift",
-      "ro": "transport-de-zapada-la-inaltime",
-      "sk": "previevany-sneh-vysoko-zvireny-sneh",
-      "es": "transporte-turbulento"
+      "ar": "sautacion",
+      "ca": "saltacio",
+      "cs": "zvyreny-snih",
+      "de": "schneefegen",
+      "en": "drifting-snow",
+      "fr": "reptation-saltation",
+      "is": "lagarenningur",
+      "it": "saltazione",
+      "no": "snodriv",
+      "ro": "transport-de-zapada-la-sol",
+      "sk": "unasany-previevany-sneh",
+      "es": "transporte-de-la-nieve"
     },
-    "heading": "Transporte turbulento",
-    "text": "<p>Proceso por el cual se transporta la nieve en suspensi\u00f3n por el viento (por encima 2 m aproximadamente) de la superficie de la nieve (la visibilidad se ve reducida significativamente).</p>",
-    "img": "<img alt=\"Blowing snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_110_blowing-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+    "heading": "Transporte de la nieve",
+    "text": "<p>Proceso de levantamiento de la nieve de la superficie del manto nivoso que es transportada por el viento (la visibilidad horizontal no se reduce notablemente).</p>",
+    "img": "<img alt=\"Drifting snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_105_drifting-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "critical-depth-of-new-fallen-snow": {
     "ids": {
@@ -2630,6 +2860,21 @@
     "text": "<p>Parte de una carretera, l\u00ednea ferroviaria u otro tipo de comunicaci\u00f3n expuesto al peligro de aludes; a menudo a la zona de llegada del alud.</p>",
     "img": "<img alt=\"Exposed transportation route\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-2048x1365.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_027_exposed-transportation-route-1_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\"/>"
   },
+  "wet-snow-problem": {
+    "ids": {
+      "ar": "problema-de-nheu-umida",
+      "cs": "problem-mokry-snih",
+      "de": "nassschneeproblem",
+      "en": "wet-snow-problem",
+      "fr": "neige-humide-situation-avalancheuse-typique",
+      "is": "votur-snjor-sem-snjoflodavandi",
+      "it": "neve-bagnata-problema-tipico-valanghivo",
+      "es": "wet-snow-problem"
+    },
+    "heading": "Wet snow problem",
+    "text": "<p>El problema de la nieve h\u00fameda est\u00e1 relacionado con el debilitamiento del manto de nieve provocado por la presencia de agua l\u00edquida. El agua se infiltra en el manto de nieve debido al fuerte impacto de la radiaci\u00f3n solar, que derrite la nieve, o bien a la lluvia (que aporta energ\u00eda al manto de nieve y por tanto tambi\u00e9n la derrite).</p><p>Para m\u00e1s informaci\u00f3n consulte <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/#wet-snow\" href=\"https://www.avalanches.org/standards/avalanche-problems/#wet-snow\" rel=\"noopener\" target=\"_blank\">Avalanche Problems \u2013 Wet Snow</a>.</p><p>Volver a <a data-mce-href=\"https://www.avalanches.org/standards/avalanche-problems/\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/standards/avalanche-problems/\" rel=\"noopener\" target=\"_blank\">Avalanche Problems</a> / <a data-mce-href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" href=\"https://www.avalanches.org/wp-content/uploads/2022/09/ES_EAWS_avalanche_problems.pdf\" rel=\"noopener\" target=\"_blank\">Problemas de aludes</a>.</p>",
+    "img": "<img alt=\"Wet snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wet-Snow-EAWS-scaled.jpg 2560w\"/>"
+  },
   "bowl": {
     "ids": {
       "ar": "zona-concava-relheu-concau-conca",
@@ -2652,7 +2897,7 @@
   "accumulation-zone": {
     "ids": {
       "ar": "zona-dacumulacion",
-      "ca": "zona-de-deflacio",
+      "ca": "zona-dacumulacio",
       "cs": "akumulacni-zona",
       "de": "eingewehte-hangzone",
       "en": "accumulation-zone",
@@ -2662,9 +2907,9 @@
       "no": "leheng",
       "ro": "portiune-a-pantei-unde-sunt-acumulari-de-zapada",
       "sk": "naviaty-svah",
-      "es": "zona-de-erosion-zona-de-deflacion"
+      "es": "zona-de-acumulacion"
     },
-    "heading": "Zona de erosi\u00f3n, zona de deflaci\u00f3n",
+    "heading": "Zona de acumulaci\u00f3n",
     "text": "<p>Pendiente donde grandes masas de nieve han sido transportadas por el viento.</p>",
     "img": "<img alt=\"Wafted slope area\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie.jpg 2048w\"/>"
   },
@@ -2738,10 +2983,10 @@
       "no": "skredutsatt-terreng",
       "ro": "zona-periculoasa-in-caz-de-avalansa",
       "sk": "lavinove-uzemie-ohrozena-zona",
-      "es": "zonas-propensas-a-la-caida-de-aludes-lugares-peligrosos-por-alud"
+      "es": "zonas-favorables-a-desencadenamiento-de-aludes-zonas-peligrosas"
     },
-    "heading": "Zonas propensas a la ca\u00edda de aludes, lugares peligrosos (por alud)",
-    "text": "<p>Lugar donde personas u objetos pueden verse afectados por aludes</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br/>En el bolet\u00edn de peligro de aludes normalmente se emplea para indicar lugares donde un alud puede desencadenarse por sobrecarga.</p>",
+    "heading": "Zonas favorables a desencadenamiento de aludes, zonas peligrosas",
+    "text": "<p>Lugar donde personas u objetos pueden verse afectados por aludes</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br>En el bolet\u00edn de peligro de aludes normalmente se emplea para indicar lugares donde un alud puede desencadenarse por sobrecarga.</br></p>",
     "img": ""
   }
 }
