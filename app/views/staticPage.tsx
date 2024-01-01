@@ -34,18 +34,11 @@ const StaticPage = () => {
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
       setTitle(text.match(titlePattern)?.[1]);
       setContent(preprocessContent(text.replace(titlePattern, "")));
-      const chapter = url.split("/")[0] || "";
-      setChapter(
-        chapter
-          ? intl.formatMessage({
-              id: chapter + ":subpages:subtitle"
-            })
-          : ""
-      );
+      setChapter(url.split("/")[0] || "");
       setHeaderText("");
       setIsShareable(true);
     })();
-  }, [intl, lang, location.pathname]);
+  }, [lang, location.pathname]);
 
   useEffect(() => {
     document
@@ -56,7 +49,17 @@ const StaticPage = () => {
   return (
     <>
       <HTMLHeader title={title} />
-      <PageHeadline title={title} marginal={headerText} subtitle={chapter} />
+      <PageHeadline
+        title={title}
+        marginal={headerText}
+        subtitle={
+          chapter
+            ? intl.formatMessage({
+                id: chapter + ":subpages:subtitle"
+              })
+            : ""
+        }
+      />
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
