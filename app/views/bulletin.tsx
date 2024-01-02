@@ -163,7 +163,7 @@ const Bulletin = () => {
       const collection = new BulletinCollection(date, lang);
       setStatus(collection.status);
       try {
-        await collection.load();
+        await Promise.all([collection.load(), collection.loadEawsBulletins()]);
         setStatus(collection.status);
         setCollection(collection);
       } catch (error) {

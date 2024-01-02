@@ -18,7 +18,6 @@ import type {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import {
   DangerRatings,
-  EawsDangerRatings,
   PbfLayer,
   PbfLayerOverlay,
   PbfRegionState
@@ -56,38 +55,6 @@ const BulletinMap = (props: Props) => {
     };
   };
 
-  const [eawsRegions] = useState([
-    "AD",
-    "AT-02",
-    "AT-03",
-    "AT-04",
-    "AT-05",
-    "AT-06",
-    "AT-08",
-    "CH",
-    "CZ",
-    "DE-BY",
-    "ES-CT-L",
-    "ES-CT",
-    "ES",
-    "FI",
-    "FR",
-    "GB",
-    "IS",
-    "IT-21",
-    "IT-23",
-    "IT-25",
-    "IT-34",
-    "IT-36",
-    "IT-57",
-    "NO",
-    "PL",
-    "PL-12",
-    "SE",
-    "SI",
-    "SK"
-  ]);
-
   const regionIds = useMemo(
     () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
     [props.date]
@@ -107,13 +74,13 @@ const BulletinMap = (props: Props) => {
             maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
           />
         )}
-        {date >= "2023-11-01" ? (
-          <EawsDangerRatings date={date} regions={eawsRegions} />
-        ) : date >= "2021-01-25" ? (
-          eawsRegions.map(region => (
-            <EawsDangerRatings key={region} date={date} regions={[region]} />
-          ))
-        ) : undefined}
+        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
+          <DangerRatings
+            maxDangerRatings={
+              props.activeBulletinCollection.eawsMaxDangerRatings
+            }
+          />
+        )}
       </PbfLayer>
     );
     overlays.push(
