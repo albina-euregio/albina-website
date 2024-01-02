@@ -120,7 +120,7 @@ const StationArchive = () => {
           minYear={minYear}
           maxYear={currentSeasonYear()}
           handleChange={val => {
-            setActiveYear(val);
+            setActiveYear(+val || "");
             updateURL();
           }}
           formatter={y => `${y}/${y + 1}`}
