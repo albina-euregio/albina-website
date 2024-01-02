@@ -11,6 +11,7 @@ import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
+import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
 
 const timeRanges = {
   day: "tag",
@@ -349,7 +350,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
               <span className="weatherstation-name">{station.name} </span>
               {station.elev && (
                 <span className="weatherstation-altitude">
-                  ({station.elev}&thinsp;m)
+                  (<FormattedNumberUnit value={station.elev} unit="m" />)
                 </span>
               )}
             </h2>
