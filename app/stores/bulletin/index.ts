@@ -23,12 +23,13 @@ export function matchesValidTimePeriod(
   );
 }
 
-export const toAmPm: Record<ValidTimePeriod, "" | ":am" | ":pm"> =
-  Object.freeze({
-    [ValidTimePeriod.AllDay]: "",
-    [ValidTimePeriod.Earlier]: ":am",
-    [ValidTimePeriod.Later]: ":pm"
-  });
+export type ColonAmPm = "" | ":am" | ":pm";
+
+export const toAmPm: Record<ValidTimePeriod, ColonAmPm> = Object.freeze({
+  [ValidTimePeriod.AllDay]: "",
+  [ValidTimePeriod.Earlier]: ":am",
+  [ValidTimePeriod.Later]: ":pm"
+});
 
 export type DangerPattern =
   | "DP1"

@@ -2,6 +2,7 @@ import {
   AvalancheProblemType,
   Bulletin,
   Bulletins,
+  ColonAmPm,
   DangerRating,
   matchesValidTimePeriod,
   toAmPm,
@@ -21,7 +22,18 @@ export type RegionState =
   | "default";
 
 type RegionID = string;
-type MaxDangerRatings = Record<RegionID, WarnLevelNumber>;
+type LowHigh = "low" | "high";
+type ColonLowHigh = "" | `:${LowHigh}`;
+
+export type MaxDangerRatings = Record<
+  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  WarnLevelNumber
+>;
+
+export type EawsAvalancheProblems = Record<
+  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  AvalancheProblemType[]
+>;
 
 const eawsRegions = Object.freeze([
   "AD",
@@ -63,6 +75,7 @@ class BulletinCollection {
   dataRaw: Bulletins | null;
   maxDangerRatings: MaxDangerRatings;
   eawsMaxDangerRatings: MaxDangerRatings;
+  eawsAvalancheProblems: EawsAvalancheProblems;
 
   constructor(
     public readonly date: string,
@@ -129,6 +142,23 @@ class BulletinCollection {
     }
   }
 
+  async loadEawsProblems() {
+    if (this.date < "2024-01-01") {
+      return;
+    }
+    try {
+      const url = `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.problems.json`;
+      const { avalancheProblems } = await fetchJSON<{
+        avalancheProblems: EawsAvalancheProblems;
+      }>(url, {
+        cache: "no-cache"
+      });
+      this.eawsAvalancheProblems = avalancheProblems;
+    } catch (error) {
+      console.warn("Cannot load EAWS  problems for date " + this.date, error);
+    }
+  }
+
   get bulletins(): Bulletin[] {
     return this.dataRaw?.bulletins || [];
   }
@@ -178,7 +208,7 @@ class BulletinCollection {
     return JSON.stringify(this.dataRaw);
   }
 
-  private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {
+  private computeMaxDangerRatings(): MaxDangerRatings {
     return Object.fromEntries(
       this.dataRaw?.bulletins.flatMap(b =>
         b.regions.flatMap(({ regionID }) =>
@@ -198,7 +228,7 @@ class BulletinCollection {
     regionID: string,
     validTimePeriod: ValidTimePeriod,
     b: Bulletin,
-    elevation: "low" | "high"
+    elevation: LowHigh
   ): WarnLevelNumber {
     const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
     const warnlevel = dangerRatings
@@ -225,7 +255,7 @@ class BulletinCollection {
   private dangerRatings(
     validTimePeriod: ValidTimePeriod,
     bulletin: Bulletin,
-    elevation: "low" | "high"
+    elevation: LowHigh
   ): DangerRating[] {
     return bulletin?.dangerRatings
       .filter(danger =>
