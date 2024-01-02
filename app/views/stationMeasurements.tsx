@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { observer } from "mobx-react";
-import { useIntl } from "react-intl";
-import StationDataStore from "../stores/stationDataStore";
+import { useIntl } from "../i18n";
+import { useStationData } from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
@@ -22,25 +21,41 @@ const StationMeasurements = () => {
     content: "",
     sharable: false
   });
-  const [store] = useState(() => new StationDataStore());
   const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    activeData,
+    activeRegion,
+    dateTime,
+    dateTimeMax,
+    fromURLSearchParams,
+    load,
+    searchText,
+    setActiveRegion,
+    setSearchText,
+    sortBy,
+    sortDir,
+    sortedFilteredData,
+    sortValue,
+    toggleActiveData,
+    toURLSearchParams
+  } = useStationData();
 
   useEffect(() => {
-    store.load();
-    store.fromURLSearchParams(searchParams);
-  }, [searchParams, store]);
+    fromURLSearchParams(searchParams);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const updateURL = () => {
-    const search = store.toURLSearchParams();
+    const search = toURLSearchParams();
     setSearchParams(search);
   };
 
   const classChanged = "selectric-changed";
-  const hideFilters: (keyof typeof store.activeData)[] = [
-    "snow",
-    "temp",
-    "wind"
-  ];
+  const hideFilters: (keyof typeof activeData)[] = ["snow", "temp", "wind"];
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "measurements:title" })} />
@@ -57,10 +72,10 @@ const StationMeasurements = () => {
           id: "measurements:search"
         })}
         searchOnChange={val => {
-          store.setSearchText(val);
+          setSearchText(val);
           updateURL();
         }}
-        searchValue={store.searchText}
+        searchValue={searchText}
       >
         <ProvinceFilter
           title={intl.formatMessage({
@@ -68,11 +83,11 @@ const StationMeasurements = () => {
           })}
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={val => {
-            store.activeRegion = val;
+            setActiveRegion(val);
             updateURL();
           }}
-          value={store.activeRegion}
-          className={store.activeRegion !== "all" ? classChanged : ""}
+          value={activeRegion}
+          className={activeRegion !== "all" ? classChanged : ""}
         />
 
         <div>
@@ -83,13 +98,13 @@ const StationMeasurements = () => {
             <input
               type="datetime-local"
               step={3600}
-              max={dateFormat(store.dateTimeMax, "%Y-%m-%dT%H:00", false)}
+              max={dateFormat(dateTimeMax, "%Y-%m-%dT%H:00", false)}
               value={
-                store.dateTime instanceof Date
-                  ? dateFormat(store.dateTime, "%Y-%m-%dT%H:00", false)
+                dateTime instanceof Date
+                  ? dateFormat(dateTime, "%Y-%m-%dT%H:00", false)
                   : ""
               }
-              onChange={e => store.load({ dateTime: new Date(e.target.value) })}
+              onChange={e => load({ dateTime: new Date(e.target.value) })}
             />
           </div>
         </div>
@@ -109,12 +124,12 @@ const StationMeasurements = () => {
               tooltip={intl.formatMessage({
                 id:
                   "measurements:filter:hide:" +
-                  (store.activeData[e] ? "active" : "inactive") +
+                  (activeData[e] ? "active" : "inactive") +
                   ":hover"
               })}
-              active={store.activeData[e]}
+              active={activeData[e]}
               onToggle={val => {
-                store.toggleActiveData(val);
+                toggleActiveData(val);
                 updateURL();
               }}
             />
@@ -124,14 +139,14 @@ const StationMeasurements = () => {
       <section className="section">
         <div className="table-container">
           <StationTable
-            sortedFilteredData={store.sortedFilteredData}
-            activeData={store.activeData}
-            activeRegion={store.activeRegion}
-            sortValue={store.sortValue}
-            sortDir={store.sortDir}
-            searchText={store.searchText}
+            sortedFilteredData={sortedFilteredData}
+            activeData={activeData}
+            activeRegion={activeRegion}
+            sortValue={sortValue}
+            sortDir={sortDir}
+            searchText={searchText}
             handleSort={(id, dir) => {
-              store.sortBy(id, dir);
+              sortBy(id, dir);
               updateURL();
             }}
           />
@@ -193,4 +208,4 @@ const StationMeasurements = () => {
     </>
   );
 };
-export default observer(StationMeasurements);
+export default StationMeasurements;

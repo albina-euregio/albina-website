@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 
 export default function Jumpnav() {
   const intl = useIntl();

@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import {
@@ -63,4 +62,4 @@ function BulletinMapDetails({ validTimePeriod, bulletin, region }: Props) {
   );
 }
 
-export default observer(BulletinMapDetails);
+export default BulletinMapDetails;

@@ -66,6 +66,8 @@ $tooltip-max-height: 40vh;
   // max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
 
+  transition: all 0.2s;
+
   // overflow: hidden;
 }
 .tooltip-inner {

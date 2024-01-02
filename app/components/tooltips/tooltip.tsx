@@ -20,7 +20,6 @@ import {
   useDismiss,
   safePolygon
 } from "@floating-ui/react-dom-interactions";
-import { motion, AnimatePresence } from "framer-motion";
 
 export const Tooltip = ({
   children,
@@ -70,40 +69,34 @@ export const Tooltip = ({
     <>
       {isValidElement(children) &&
         cloneElement(children, getReferenceProps({ ref: reference }))}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "just", damping: 20, stiffness: 300 }}
-            {...getFloatingProps({
-              ref: floating,
-              className: "tooltip-container",
-              style: {
-                position: strategy,
-                top: y ?? "",
-                left: x ?? ""
-              }
-            })}
-          >
-            <div className={html ? "tooltip-inner-html" : "tooltip-inner"}>
-              {typeof label === "string" ? (
-                <div
-                  className="tooltip-content"
-                  dangerouslySetInnerHTML={{
-                    __html: label.replace("\n", "<br>")
-                  }}
-                ></div>
-              ) : typeof label === "function" ? (
-                <div className="tooltip-content">{label()}</div>
-              ) : (
-                <div className="tooltip-content">{label}</div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div
+          {...getFloatingProps({
+            ref: floating,
+            className: "tooltip-container",
+            style: {
+              position: strategy,
+              top: y ?? "",
+              left: x ?? ""
+            }
+          })}
+        >
+          <div className={html ? "tooltip-inner-html" : "tooltip-inner"}>
+            {typeof label === "string" ? (
+              <div
+                className="tooltip-content"
+                dangerouslySetInnerHTML={{
+                  __html: label.replace("\n", "<br>")
+                }}
+              ></div>
+            ) : typeof label === "function" ? (
+              <div className="tooltip-content">{label()}</div>
+            ) : (
+              <div className="tooltip-content">{label}</div>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

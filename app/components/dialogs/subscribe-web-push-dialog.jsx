@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-import { APP_STORE } from "../../appStore";
+import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 
@@ -51,11 +50,12 @@ export function isWebPushSupported() {
  * @see https://developers.google.com/web/fundamentals/push-notifications
  */
 export default function SubscribeWebPushDialog() {
-  const [language, setLanguage] = useState(APP_STORE.language);
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
+  const [language, setLanguage] = useState(lang);
   const [region, setRegion] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const intl = useIntl();
 
   const handleEnable = useCallback(async () => {
     setErrorMessage(undefined);
@@ -158,6 +158,7 @@ export default function SubscribeWebPushDialog() {
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-telegram:region"
+              html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
               }}

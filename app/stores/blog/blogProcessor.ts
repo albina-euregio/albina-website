@@ -4,7 +4,7 @@ import type BlogStore from "../blogStore";
 export interface BlogProcessor {
   loadBlogPosts: (
     config: BlogConfig,
-    state: BlogStore
+    state?: BlogStore
   ) => Promise<BlogPostPreviewItem[]>;
   loadBlogPost: (
     config: BlogConfig,

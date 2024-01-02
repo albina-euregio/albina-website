@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Selectric from "../selectric";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 
 type Props = {
   handleChange(month: number): unknown;

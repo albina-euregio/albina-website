@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 export default function SmFollow({ region }) {
@@ -12,6 +12,7 @@ export default function SmFollow({ region }) {
       <p>
         <FormattedMessage
           id="footer:follow-us"
+          html={true}
           values={{
             region: intl.formatMessage({ id: `region:${region}` }),
             strong: (...msg) => <strong>{msg}</strong>

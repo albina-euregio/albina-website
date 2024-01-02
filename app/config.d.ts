@@ -5,6 +5,7 @@ declare global {
     config: typeof import("./config.json") & {
       projectRoot: string;
       webp: boolean;
+      template(str: string, data: Record<string, string>): string;
     };
   }
 }

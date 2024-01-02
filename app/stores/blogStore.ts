@@ -1,18 +1,10 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { getDaysOfMonth } from "../util/date";
-import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import { APP_STORE } from "../appStore";
-import {
-  type BlogProcessor,
-  type BlogConfig,
-  type BlogPostPreviewItem,
-  BloggerProcessor,
-  WordpressProcessor
-} from "./blog";
+import { BlogPostPreviewItem } from "./blog";
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
@@ -29,11 +21,7 @@ export default class BlogStore {
   _posts: Record<string, BlogPostPreviewItem[]>;
 
   // show only 5 blog posts when the mobile phone is detected
-  perPage = L.Browser.mobile ? 20 : 20;
-  blogProcessor: {
-    blogger: BlogProcessor;
-    wordpress: BlogProcessor;
-  };
+  perPage = 20;
 
   get searchParams() {
     const languageHostConfig = config.languageHostSettings;
@@ -99,7 +87,7 @@ export default class BlogStore {
     if (this.supportedLanguages.includes(valueToValidate)) {
       return valueToValidate;
     }
-    valueToValidate = APP_STORE.language;
+    valueToValidate = document.body.parentElement.lang;
     if (this.supportedLanguages.includes(valueToValidate)) {
       return valueToValidate;
     }
@@ -221,10 +209,6 @@ export default class BlogStore {
     this._loading = false;
     this._searchText = initialParameters.searchText;
 
-    this.blogProcessor = {
-      blogger: new BloggerProcessor(),
-      wordpress: new WordpressProcessor()
-    };
     makeAutoObservable(this);
   }
 
@@ -240,50 +224,12 @@ export default class BlogStore {
     }
 
     this._loading = true;
-
-    const blogsConfig: BlogConfig[] = window.config.blogs;
-    const loads = [];
-
-    const newPosts = {};
-
-    // filter config for lang and region
-    for (const cfg of blogsConfig) {
-      newPosts[cfg.name] = [];
-
-      if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
-        if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
-          if (this.blogProcessor[cfg.apiType]) {
-            const p: BlogProcessor = this.blogProcessor[cfg.apiType];
-            loads.push(
-              p.loadBlogPosts(cfg, this).then(
-                items => items.forEach(i => newPosts[cfg.name].push(i)),
-                error => {
-                  //todo: indicate loading error
-                  console.warn("Error while fetching blog posts", cfg, error);
-                  throw error;
-                }
-              )
-            );
-          }
-        }
-      }
-    }
-
-    //todo: indicate loading error
-    await Promise.all(loads);
-    return this.setPostsLoaded(newPosts);
-  }
-
-  async loadBlogPost(
-    blogName: string,
-    postId: unknown
-  ): Promise<BlogPostPreviewItem> {
-    const config = window.config.blogs.find(e => e.name === blogName);
-    this._loading = true;
-    const processor: BlogProcessor = this.blogProcessor[config.apiType];
-    const item = await processor.loadBlogPost(config, postId);
-    this._loading = false;
-    return item;
+    const posts = await BlogPostPreviewItem.loadBlogPosts(
+      l => this.languages[l],
+      r => this.regions[r],
+      this
+    );
+    return this.setPostsLoaded(Object.fromEntries(posts));
   }
 
   setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
@@ -311,6 +257,7 @@ export default class BlogStore {
   get page(): number {
     return toJS(this._page);
   }
+
   set page(val: number | string) {
     this._page = typeof val === "string" ? parseInt(val) : val;
   }
@@ -325,11 +272,13 @@ export default class BlogStore {
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
     this.setPage(nextPageNo);
   }
+
   previousPage() {
     const thisPage = this.page;
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
     this.setPage(previousPageNo);
   }
+
   get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
   }
@@ -337,6 +286,7 @@ export default class BlogStore {
   get searchText() {
     return this._searchText;
   }
+
   set searchText(val) {
     if (val != this.searchText) {
       this._searchText = val;
@@ -346,6 +296,7 @@ export default class BlogStore {
   get problem() {
     return this._problem;
   }
+
   set problem(val) {
     this._problem = val;
   }
@@ -353,6 +304,7 @@ export default class BlogStore {
   get year() {
     return this._year;
   }
+
   set year(y) {
     this._year = y;
   }
@@ -360,6 +312,7 @@ export default class BlogStore {
   get month() {
     return this._month;
   }
+
   set month(m) {
     this._month = m;
   }
@@ -393,6 +346,7 @@ export default class BlogStore {
   get languages() {
     return toJS(this._languages);
   }
+
   get regions() {
     return toJS(this._regions);
   }
@@ -427,25 +381,16 @@ export default class BlogStore {
     return active.length > 1 ? "all" : active[0];
   }
 
+  get postItems(): BlogPostPreviewItem[] {
+    return Object.values(this.posts ?? {}).flat();
+  }
+
   get numberOfPosts() {
-    return this.posts
-      ? Object.values(this.posts)
-          .map(l => l.length)
-          .reduce((acc, v) => acc + v, 0)
-      : 0;
+    return this.postItems.length;
   }
 
   get numberNewPosts() {
-    const currentDate = new Date().getTime();
-    let nrOfNewPosts = 0;
-    if (this.posts) {
-      for (const prop in this.posts) {
-        this.posts[prop].forEach(aPost => {
-          if (currentDate < aPost.newUntil) nrOfNewPosts++;
-        });
-      }
-    }
-    return nrOfNewPosts;
+    return this.postItems.filter(aPost => Date.now() < aPost.newUntil).length;
   }
 
   get postsList() {

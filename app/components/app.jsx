@@ -1,17 +1,17 @@
 import React, { Suspense, useEffect } from "react";
-import { observer } from "mobx-react";
-import { IntlProvider } from "react-intl";
 
 import {
   BrowserRouter,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
+import { setLanguage } from "../appStore";
+import Page from "./page";
 
-import { APP_STORE } from "../appStore";
+import "../css/style.scss"; // CSS overrides
 
 const Bulletin = React.lazy(() => import("./../views/bulletin"));
 const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
@@ -28,17 +28,13 @@ const More = React.lazy(() => import("./../views/more"));
 const Archive = React.lazy(() => import("./../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("./../views/staticPage"));
-import Page from "./page";
-import { orientation_change } from "../js/browser";
-
-import "../css/style.scss"; // CSS overrides
 
 const RouteStaticPage = () => {
   const params = useParams();
   //console.log("SwtichLang", params);
 
   if (params?.name && /^([a-z]{2})$/.test(params?.name)) {
-    APP_STORE.setLanguage(params.name);
+    setLanguage(params.name);
     return <Navigate replace to="/" />;
   }
   return <StaticPage />;
@@ -54,11 +50,21 @@ const RouteBulletin = () => {
 
 const App = () => {
   useEffect(() => {
-    orientation_change();
+    window.addEventListener("orientationchange", () => {
+      document.body.animate(
+        [
+          { opacity: "0", easing: "ease-out" },
+          { opacity: "1", easing: "ease-out" }
+        ],
+        {
+          duration: window["scroll_duration"]
+        }
+      );
+    });
   });
 
   return (
-    <IntlProvider locale={APP_STORE.locale} messages={APP_STORE.messages}>
+    <>
       <BrowserRouter basename={config.projectRoot}>
         <Suspense fallback={"..."}>
           <Routes>
@@ -212,8 +218,8 @@ const App = () => {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </IntlProvider>
+    </>
   );
 };
 
-export default observer(App);
+export default App;

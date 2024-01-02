@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 export default function SmShare(props) {
@@ -54,6 +54,7 @@ export default function SmShare(props) {
       <p>
         <FormattedMessage
           id="main:share-this"
+          html={true}
           values={{
             strong: (...msg) => <strong>{msg}</strong>
           }}

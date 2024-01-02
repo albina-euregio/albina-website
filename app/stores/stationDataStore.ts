@@ -1,8 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { Util } from "leaflet";
 import { RegionCodes, regionCodes } from "../util/regions";
 import { dateFormat } from "../util/date";
 import { currentSeasonYear } from "../util/date-season";
+import { useCallback, useMemo, useState } from "react";
 
 interface FeatureProperties {
   "LWD-Nummer"?: string;
@@ -184,136 +183,148 @@ export class StationData {
   }
 }
 
-export default class StationDataStore {
-  dateTime: Date;
-  readonly dateTimeMax = new Date();
-  data: StationData[] = [];
-  activeYear: number | "" = currentSeasonYear();
-  _activeRegions: Record<string, boolean> = {};
-  searchText = "";
-  activeData = {
+export function useStationData(
+  sortValue0: keyof StationData = "name",
+  activeRegionPredicate: (r: RegionCodes) => boolean = () => true,
+  activeYear0: number | "" = currentSeasonYear(),
+  filterObservationStart0 = false
+) {
+  const [dateTime, setDateTime] = useState<Date>();
+  const dateTimeMax = new Date();
+  const [data, setData] = useState<StationData[]>([]);
+  const [activeYear, setActiveYear] = useState<number | "">(activeYear0);
+  const [searchText, setSearchText] = useState<string>("");
+  const [sortValue, setSortValue] = useState<keyof StationData>(sortValue0);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [activeRegions, setActiveRegions] = useState({
+    "AT-07": activeRegionPredicate("AT-07"),
+    "IT-32-BZ": activeRegionPredicate("IT-32-BZ"),
+    "IT-32-TN": activeRegionPredicate("IT-32-TN")
+  } as Record<RegionCodes, boolean>);
+  const [activeData, setActiveData] = useState({
     snow: true,
     temp: true,
     wind: true,
     radiation: true
-  };
-  sortValue: keyof StationData = "name";
-  sortDir: "asc" | "desc" = "asc";
-  collator = new Intl.Collator("de");
-  _filterObservationStart = false;
+  });
+  const [filterObservationStart, setFilterObservationStart] = useState<boolean>(
+    filterObservationStart0
+  );
 
-  constructor(activeRegion: (r: RegionCodes) => boolean = () => true) {
-    regionCodes.forEach(r => (this._activeRegions[r] = activeRegion(r)));
-    makeAutoObservable(this);
+  const activeRegion = useMemo<RegionCodes | "all">(() => {
+    const actives = Object.keys(activeRegions).filter(e => activeRegions[e]);
+    return actives.length > 0 &&
+      actives.length < Object.keys(activeRegions).length
+      ? actives[0]
+      : "all";
+  }, [activeRegions]);
+
+  function setActiveRegion(el: string) {
+    // activate all if undefined or null is given
+    const newActive = el ? [el] : Object.keys(activeRegions);
+    setActiveRegions(
+      Object.fromEntries(
+        Object.keys(activeRegions).map(key => [key, newActive.includes(key)])
+      )
+    );
   }
 
-  fromURLSearchParams(params: URLSearchParams) {
+  function fromURLSearchParams(params: URLSearchParams) {
     if (params.has("searchText")) {
-      this.searchText = params.get("searchText");
+      setSearchText(params.get("searchText"));
     }
     if (params.has("activeRegion")) {
-      this.activeRegion = params.get("activeRegion");
+      setActiveRegion(params.get("activeRegion"));
     }
     if (params.has("activeYear")) {
       const year = params.get("activeYear");
-      this.activeYear = year === "" ? year : +year;
+      setActiveYear(year === "" ? year : +year);
     }
     if (params.has("sortValue")) {
-      this.sortValue = params.get("sortValue");
+      setSortValue(params.get("sortValue") as keyof StationData);
     }
     if (params.has("sortDir")) {
-      this.sortDir = params.get("sortDir") as "asc" | "desc";
+      setSortDir(params.get("sortDir") as "asc" | "desc");
     }
-    Object.keys(this.activeData).filter(
-      key => (this.activeData[key] = params.get(key) !== "false")
+    setActiveData(
+      Object.fromEntries(
+        Object.keys(activeData).map(key => [key, params.get(key) !== "false"])
+      )
     );
   }
 
-  toURLSearchParams(): URLSearchParams {
+  function toURLSearchParams(): URLSearchParams {
     const params = new URLSearchParams();
-    if (this.searchText) {
-      params.set("searchText", this.searchText);
+    if (searchText) {
+      params.set("searchText", searchText);
     }
-    if (this.activeRegion !== "all") {
-      params.set("activeRegion", this.activeRegion);
+    if (activeRegion !== "all") {
+      params.set("activeRegion", activeRegion);
     }
-    if (this.activeYear !== undefined) {
-      params.set("activeYear", this.activeYear.toString());
+    if (activeYear !== undefined) {
+      params.set("activeYear", activeYear.toString());
     }
-    if (this.sortValue) {
-      params.set("sortValue", this.sortValue);
+    if (sortValue) {
+      params.set("sortValue", sortValue);
     }
-    if (this.sortDir && this.sortDir !== "asc") {
-      params.set("sortDir", this.sortDir);
+    if (sortDir && sortDir !== "asc") {
+      params.set("sortDir", sortDir);
     }
-    Object.keys(this.activeData)
-      .filter(key => this.activeData[key] === false)
-      .forEach(key => params.set(key, String(this.activeData[key])));
+    Object.entries(activeData).forEach(
+      ([key, value]) => value === false && params.set(key, String(value))
+    );
     return params;
   }
 
-  get filterObservationStart() {
-    return this._filterObservationStart;
+  function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
+    setSortValue(sortValue);
+    setSortDir(sortDir);
   }
 
-  setFilterObservationStart(filterObservationStart: boolean) {
-    this._filterObservationStart = filterObservationStart;
+  const minYear = useMemo(
+    () =>
+      data.length
+        ? Math.min(
+            ...data.map(d => +d.observationStart).filter(year => isFinite(year))
+          )
+        : 2000,
+    [data]
+  );
+
+  function toggleActiveData(key: keyof typeof activeData) {
+    setActiveData({ ...activeData, [key]: !activeData[key] });
   }
 
-  get activeRegion() {
-    const actives = Object.keys(this._activeRegions).filter(
-      e => this._activeRegions[e]
-    );
+  const compareStationData = useCallback(
+    function compareStationData(val1: StationData, val2: StationData): number {
+      const collator = new Intl.Collator("de");
+      const order = sortDir == "asc" ? [-1, 1] : [1, -1];
+      const a = val1[sortValue];
+      const b = val2[sortValue];
 
-    const a =
-      actives.length > 0 &&
-      actives.length < Object.keys(this._activeRegions).length
-        ? actives[0]
-        : "all";
-    return a;
-  }
+      if (a === b) {
+        return 0;
+      }
+      if (typeof a === "string" && typeof b === "string") {
+        return (sortDir == "asc" ? 1 : -1) * collator.compare(a, b);
+      }
+      if (typeof b === "undefined" || b === false || b === null) {
+        return order[1];
+      }
+      if (typeof a === "undefined" || a === false || a === null) {
+        return order[0];
+      }
+      return a < b ? order[0] : order[1];
+    },
+    [sortDir, sortValue]
+  );
 
-  set activeRegion(el) {
-    // activate all if undefined or null is given
-    const newActive = el ? [el] : Object.keys(this._activeRegions);
-
-    Object.keys(this._activeRegions).forEach(e => {
-      this._activeRegions[e] = newActive.indexOf(e) >= 0;
-    });
-  }
-
-  setSearchText(searchText: string) {
-    this.searchText = searchText;
-  }
-
-  setActiveYear(activeYear: number | "") {
-    this.activeYear = activeYear;
-  }
-
-  toggleActiveData(key: string | number) {
-    this.activeData[key] = !this.activeData[key];
-  }
-
-  sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc"): this {
-    this.sortValue = sortValue;
-    this.sortDir = sortDir;
-    return this;
-  }
-
-  get minYear(): number {
-    return this.data.length
-      ? Math.min(...this.data.map(d => +d.observationStart))
-      : 2000;
-  }
-
-  get sortedFilteredData(): StationData[] {
-    const pattern = this.searchText
-      ? new RegExp(this.searchText, "i")
+  const sortedFilteredData = useMemo(() => {
+    const pattern = searchText ? new RegExp(searchText, "i") : undefined;
+    const region = regionCodes.includes(activeRegion)
+      ? activeRegion
       : undefined;
-    const activeRegion = regionCodes.includes(this.activeRegion)
-      ? this.activeRegion
-      : undefined;
-    return this.data
+    return data
       .filter(
         row =>
           !pattern ||
@@ -322,93 +333,119 @@ export default class StationDataStore {
           row.microRegion.match(pattern) ||
           row.operator.match(pattern)
       )
-      .filter(row => !activeRegion || row.region == activeRegion)
+      .filter(row => !region || row.region == region)
       .filter(
         row =>
-          !this._filterObservationStart ||
-          !this.activeYear ||
-          +row.observationStart <= this.activeYear
+          !filterObservationStart ||
+          !activeYear ||
+          +row.observationStart <= activeYear
       )
-      .sort((val1, val2) => this.compareStationData(val1, val2));
-  }
+      .sort((val1, val2) => compareStationData(val1, val2));
+  }, [
+    activeRegion,
+    activeYear,
+    compareStationData,
+    data,
+    filterObservationStart,
+    searchText
+  ]);
 
-  private compareStationData(val1: StationData, val2: StationData): number {
-    const order = this.sortDir == "asc" ? [-1, 1] : [1, -1];
-    const a = val1[this.sortValue];
-    const b = val2[this.sortValue];
+  const load = useCallback(
+    async function load({ dateTime, ogd }: LoadOptions = {}): Promise<
+      StationData[]
+    > {
+      const data = await loadStationData({ dateTime, ogd });
+      data.sort((val1, val2) => compareStationData(val1, val2));
+      setData(data);
+      setDateTime(dateTime);
+      return data;
+    },
+    [compareStationData]
+  );
 
-    if (a === b) {
-      return 0;
-    }
-    if (typeof a === "string" && typeof b === "string") {
-      return (this.sortDir == "asc" ? 1 : -1) * this.collator.compare(a, b);
-    }
-    if (typeof b === "undefined" || b === false || b === null) {
-      return order[1];
-    }
-    if (typeof a === "undefined" || a === false || a === null) {
-      return order[0];
-    }
-    return a < b ? order[0] : order[1];
-  }
-
-  async load({ dateTime, ogd }: LoadOptions = {}): Promise<StationData[]> {
-    const timePrefix =
-      dateTime instanceof Date && +dateTime
-        ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
-        : "";
-    const stationsFile = ogd
-      ? window.config.apis.weather.stationsArchive
-      : !dateTime
-      ? window.config.apis.weather.stations
-      : Util.template(window.config.apis.weather.stationsDateTime, {
-          dateTime: timePrefix
-        });
-    let response: Response;
-    try {
-      response = await fetch(stationsFile, { cache: "no-cache" });
-      if (!response.ok) throw new Error(response.statusText);
-      if (
-        !dateTime &&
-        window.config.apis.weatherFallback &&
-        Date.now() - Date.parse(response.headers.get("last-modified")) >
-          3 * 3600 * 1000
-      ) {
-        throw new Error("Too old!");
-      }
-    } catch (err) {
-      if (window.config.apis.weatherFallback) {
-        Object.assign(
-          window.config.apis.weather,
-          window.config.apis.weatherFallback
-        );
-        delete window.config.apis.weatherFallback;
-        console.warn("Using fallback weather data!");
-        return this.load({ dateTime, ogd });
-      }
-      throw err;
-    }
-    if (response.status === 404) return [];
-    const data = await response.json();
-    return this.setDataAfterLoad(data, { dateTime, ogd });
-  }
-
-  setDataAfterLoad(
-    data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>,
-    { dateTime, ogd }: LoadOptions = {}
-  ) {
-    this.dateTime = dateTime;
-    this.data = data.features
-      .filter(el => ogd || el.properties.date)
-      .filter(el => !ogd || el.properties.operator.match(/LWD Tirol/))
-      .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-      .map(feature => new StationData(feature))
-      .sort((val1, val2) => this.compareStationData(val1, val2));
-    return this.data;
-  }
+  return {
+    activeData,
+    activeRegion,
+    activeRegions,
+    activeYear,
+    compareStationData,
+    data,
+    dateTime,
+    dateTimeMax,
+    filterObservationStart,
+    fromURLSearchParams,
+    load,
+    minYear,
+    searchText,
+    setActiveData,
+    setActiveRegion,
+    setActiveRegions,
+    setActiveYear,
+    setData,
+    setDateTime,
+    setFilterObservationStart,
+    setSearchText,
+    setSortDir,
+    setSortValue,
+    sortBy,
+    sortDir,
+    sortedFilteredData,
+    sortValue,
+    toggleActiveData,
+    toURLSearchParams
+  };
 }
 
 interface LoadOptions {
   dateTime?: Date;
   ogd?: boolean;
+}
+
+export async function loadStationData({
+  dateTime,
+  ogd
+}: LoadOptions = {}): Promise<StationData[]> {
+  const timePrefix =
+    dateTime instanceof Date && +dateTime
+      ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
+      : "";
+  const stationsFile = ogd
+    ? window.config.apis.weather.stationsArchive
+    : !dateTime
+    ? window.config.apis.weather.stations
+    : window.config.template(window.config.apis.weather.stationsDateTime, {
+        dateTime: timePrefix
+      });
+  let response: Response;
+  try {
+    response = await fetch(stationsFile, { cache: "no-cache" });
+    if (!response.ok) throw new Error(response.statusText);
+    if (
+      !dateTime &&
+      window.config.apis.weatherFallback &&
+      Date.now() - Date.parse(response.headers.get("last-modified")) >
+        3 * 3600 * 1000
+    ) {
+      throw new Error("Too old!");
+    }
+  } catch (err) {
+    if (window.config.apis.weatherFallback) {
+      Object.assign(
+        window.config.apis.weather,
+        window.config.apis.weatherFallback
+      );
+      delete window.config.apis.weatherFallback;
+      console.warn("Using fallback weather data!");
+      return load({ dateTime, ogd });
+    }
+    throw err;
+  }
+  if (response.status === 404) return [];
+  const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
+    await response.json();
+  return json.features
+    .filter(el => ogd || el.properties.date)
+    .filter(el => !ogd || el.properties.operator.match(/LWD Tirol/))
+    .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+    .map(feature => new StationData(feature));
 }

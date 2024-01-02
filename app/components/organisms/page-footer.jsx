@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import Menu from "../menu";
 // import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
-import { Util } from "leaflet";
 
 import { Tooltip } from "../tooltips/tooltip";
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
-import { APP_STORE } from "../../appStore";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 const license = import.meta.env.APP_LICENSE; // included via vite.config.js
 const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
@@ -20,6 +18,7 @@ const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.confi
 
 const PageFooter = () => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   return (
     <div id="page-footer" className="page-footer">
@@ -35,12 +34,10 @@ const PageFooter = () => {
         <div className="grid">
           <div className="grid-item normal-6">
             <Menu
-              intl={intl}
               className="list-inline footer-navigation footer-navigation-more"
               entries={footerMenuMore}
             />
             <Menu
-              intl={intl}
               className="list-plain footer-navigation footer-navigation-main"
               entries={footerMenuMain}
             />
@@ -103,9 +100,7 @@ const PageFooter = () => {
                 })}
               >
                 <a
-                  href={Util.template(config.links.euregio, {
-                    lang: APP_STORE.language
-                  })}
+                  href={config.template(config.links.euregio, { lang })}
                   className="header-footer-logo-secondary"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -124,11 +119,11 @@ const PageFooter = () => {
               >
                 <a
                   href="#page-main"
+                  onClick={e => scrollIntoView(e)}
                   className="icon-arrow-up"
                   aria-label={intl.formatMessage({
                     id: "footer:top:hover"
                   })}
-                  data-scroll=""
                 >
                   <span>Top</span>
                 </a>
@@ -144,4 +139,4 @@ const PageFooter = () => {
   );
 };
 
-export default observer(PageFooter);
+export default PageFooter;

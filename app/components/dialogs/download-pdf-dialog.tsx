@@ -1,24 +1,25 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { FormattedMessage, useIntl } from "react-intl";
-import { Util } from "leaflet";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { regionCodes } from "../../util/regions";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { APP_STORE } from "../../appStore";
+import type { BulletinCollection } from "../../stores/bulletin";
 
-function DownloadPdfDialog() {
+type Props = {
+  activeBulletinCollection: BulletinCollection;
+};
+
+function DownloadPdfDialog(props: Props) {
   const intl = useIntl();
 
   function pdfLink(region, isBw) {
     region = region
       ? `${region}_`
-      : BULLETIN_STORE.settings.date > "2022-05-06"
+      : props.activeBulletinCollection.date > "2022-05-06"
       ? "EUREGIO_"
       : "";
-    return Util.template(config.apis.bulletin.pdf, {
-      date: BULLETIN_STORE.settings.date,
+    return config.template(config.apis.bulletin.pdf, {
+      date: props.activeBulletinCollection.date,
       region,
-      lang: APP_STORE.language,
+      lang: intl.locale.slice(0, 2),
       bw: isBw ? "_bw" : ""
     });
   }
@@ -102,4 +103,4 @@ function DownloadPdfDialog() {
   );
 }
 
-export default observer(DownloadPdfDialog);
+export default DownloadPdfDialog;

@@ -1,13 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
 type Props = {
   handleSelectRegion: (id?: string) => void;
+  problems: Record<
+    AvalancheProblemType,
+    {
+      highlighted: boolean;
+    }
+  >;
+  toggleProblem: (problemId: AvalancheProblemType) => void;
 };
-function BulletinLegend({ handleSelectRegion }: Props) {
+
+function BulletinLegend(props: Props) {
   const intl = useIntl();
   const warnlevelKeys = [
     "low",
@@ -29,25 +38,31 @@ function BulletinLegend({ handleSelectRegion }: Props) {
         <div className="grid">
           <div className="normal-6 grid-item">
             <p>
-              {intl.formatMessage(
-                { id: "bulletin:legend:highlight-regions" },
-                {
+              <FormattedMessage
+                id="bulletin:legend:highlight-regions"
+                html={true}
+                values={{
                   strong: msg => <strong>{msg}</strong>,
                   a: msg => (
                     <Link to="/education/avalanche-problems">
                       <strong>{msg}</strong>
                     </Link>
                   )
-                }
-              )}
+                }}
+              />
             </p>
-            <BulletinProblemFilter handleSelectRegion={handleSelectRegion} />
+            <BulletinProblemFilter
+              handleSelectRegion={props.handleSelectRegion}
+              problems={props.problems}
+              toggleProblem={props.toggleProblem}
+            />
           </div>
           <div className="normal-6 grid-item">
             <p>
               <Link to="/education/danger-scale">
                 <FormattedMessage
                   id="bulletin:legend:danger-levels"
+                  html={true}
                   values={{
                     strong: (...msg) => <strong>{msg}</strong>
                   }}

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useIntl } from "react-intl";
-import { observer } from "mobx-react";
+import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
 import { DATE_TIME_FORMAT } from "../util/date";
-import { BLOG_STORE } from "../stores/blogStore";
 import { preprocessContent } from "../util/htmlParser";
+import { BlogPostPreviewItem } from "../stores/blog";
 
 const BlogPost = () => {
   const params = useParams();
   const intl = useIntl();
 
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
-  //const [author, setauthor] = useState("");
   const [date, setDate] = useState("");
   const [tags, setTags] = useState([]);
   const [lang, setLanguage] = useState([]);
@@ -26,15 +25,19 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (params.blogName && params.postId) {
-      BLOG_STORE.loadBlogPost(params.blogName, params.postId).then(b => {
-        setTitle(b.title);
-        setDate(b.date);
-        setTags(b.tags);
-        setLanguage(b.lang);
-        setRegions(b.regions);
-        setLanguageLinks(b.langLinks);
-        setContent(preprocessContent(b.content, true));
-      });
+      setLoading(true);
+      BlogPostPreviewItem.loadBlogPost(params.blogName, params.postId).then(
+        b => {
+          setLoading(false);
+          setTitle(b.title);
+          setDate(b.date);
+          setTags(b.tags);
+          setLanguage(b.lang);
+          setRegions(b.regions);
+          setLanguageLinks(b.langLinks);
+          setContent(preprocessContent(b.content, true));
+        }
+      );
     }
   }, [params.blogName, params.postId]);
 
@@ -61,7 +64,7 @@ const BlogPost = () => {
   return (
     <>
       <HTMLHeader title={title} />
-      <HTMLPageLoadingScreen loading={BLOG_STORE.loading} />
+      <HTMLPageLoadingScreen loading={loading} />
       {renderLinkToBlogOverview()}
       <PageHeadline
         title={title}
@@ -103,4 +106,4 @@ const BlogPost = () => {
     </>
   );
 };
-export default observer(BlogPost);
+export default BlogPost;

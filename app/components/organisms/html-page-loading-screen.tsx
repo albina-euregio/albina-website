@@ -27,5 +27,5 @@ export function useSlowLoading(timeout = 5000) {
     setSlowLoading(Date.now() - loadingStart > timeout);
     setTimeout(() => setSlowLoading(true), timeout);
   }, [loadingStart, setSlowLoading, timeout]);
-  return [slowLoading, setLoadingStart];
+  return [slowLoading, setLoadingStart] as const;
 }

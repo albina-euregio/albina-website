@@ -1,9 +1,8 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
-import { APP_STORE } from "./appStore";
+import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
-import { BLOG_STORE } from "./stores/blogStore";
 
 (() => import("./sentry"))();
 
@@ -36,6 +35,7 @@ Promise.all([configRequest, isWebpSupported]).then(
     configParsed = { ...configParsed };
     configParsed["projectRoot"] = import.meta.env.BASE_URL;
     configParsed["webp"] = webp;
+    configParsed["template"] = template;
     if (webp) {
       document.body.className += " webp";
       // enable WebP for ALBINA layer
@@ -50,22 +50,9 @@ Promise.all([configRequest, isWebpSupported]).then(
     if (!language && location.host.startsWith("www.")) {
       location.host = location.host.substring("www.".length);
     }
-    await APP_STORE.setLanguage(language || "en");
+    await setLanguage(language || "en");
 
     window.config = configParsed;
-
-    // initially set language-dependent body classes
-    const initialLang = APP_STORE.language;
-    document.body.parentElement.lang = initialLang;
-    document.body.className +=
-      (document.body.className ? " " : "") +
-      "domain-" +
-      initialLang +
-      " language-" +
-      initialLang;
-
-    BLOG_STORE.initLanguage();
-    BLOG_STORE.update();
 
     const root = document.body.appendChild(document.getElementById("page-all"));
     createRoot(root).render(<App />);
@@ -88,4 +75,16 @@ if (isWebPushSupported()) {
     });
 } else {
   console.error("Browser does not support service workers or push messages.");
+}
+
+const templateRe = /\{ *([\w_ -]+) *\}/g;
+
+function template(str: string, data: Record<string, string>) {
+  return str.replace(templateRe, (str, key) => {
+    const value = data[key];
+    if (value === undefined) {
+      throw new Error("No value provided for variable " + str);
+    }
+    return value;
+  });
 }

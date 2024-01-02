@@ -1,6 +1,5 @@
 import React, { type FunctionComponent, Suspense } from "react";
-import { observer } from "mobx-react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import SynthesizedBulletin from "./synthesized-bulletin";
@@ -14,15 +13,17 @@ import {
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
-import { APP_STORE } from "../../appStore";
+import { scrollIntoView } from "../../util/scrollIntoView";
 
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
   return (
     <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
-      <BulletinGlossaryText text={text} locale={APP_STORE.language} />
+      <BulletinGlossaryText text={text} locale={lang} />
     </Suspense>
   );
 };
@@ -65,6 +66,7 @@ function BulletinReport({ date, bulletin }: Props) {
               <span>
                 <FormattedMessage
                   id="bulletin:report:headline"
+                  html={true}
                   values={{
                     strong: (...msg) => <strong>{msg}</strong>,
                     date: intl.formatDate(date, LONG_DATE_FORMAT),
@@ -190,8 +192,8 @@ function BulletinReport({ date, bulletin }: Props) {
         <div className="panel brand">
           <a
             href="#page-main"
+            onClick={e => scrollIntoView(e)}
             className="icon-link icon-arrow-up"
-            data-scroll=""
           >
             <FormattedMessage id="bulletin:linkbar:back-to-map" />
           </a>
@@ -201,4 +203,4 @@ function BulletinReport({ date, bulletin }: Props) {
   );
 }
 
-export default observer(BulletinReport);
+export default BulletinReport;

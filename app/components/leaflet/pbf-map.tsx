@@ -8,13 +8,13 @@ import { fetchJSON } from "../../util/fetch";
 import { useEffect, useState } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
+  filterFeature,
   MicroRegionElevationProperties,
   MicroRegionProperties,
-  RegionOutlineProperties,
-  toAmPm,
-  ValidTimePeriod
-} from "../../stores/bulletin";
-import { filterFeature, RegionState } from "../../stores/bulletinStore";
+  RegionOutlineProperties
+} from "../../stores/microRegions";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { RegionState } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -61,6 +61,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const instance = L.vectorGrid.protobuf(
     "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
     {
+      dangerRatings: {},
       pane: "overlayPane",
       interactive: false,
       rendererFactory: L.canvas.tile,

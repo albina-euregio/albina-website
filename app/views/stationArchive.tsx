@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { observer } from "mobx-react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";
-import StationDataStore from "../stores/stationDataStore";
+import { useStationData } from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
@@ -23,51 +22,42 @@ const StationArchive = () => {
     content: "",
     sharable: false
   });
-  const [store] = useState(() => {
-    const store = new StationDataStore(r => r.startsWith("AT-07"));
-    store.setFilterObservationStart(true);
-    store.setActiveYear("");
-    return store;
-  });
   const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    activeData,
+    activeRegion,
+    activeYear,
+    fromURLSearchParams,
+    load,
+    searchText,
+    setActiveRegion,
+    setActiveYear,
+    setSearchText,
+    sortBy,
+    minYear,
+    sortDir,
+    sortedFilteredData,
+    sortValue,
+    toggleActiveData,
+    toURLSearchParams
+  } = useStationData("name", r => r.startsWith("AT-07"), "", true);
 
   useEffect(() => {
-    store.load({ ogd: true });
-    store.fromURLSearchParams(searchParams);
-  }, [searchParams, store]);
+    fromURLSearchParams(searchParams);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    load({ ogd: true });
+  }, [load]);
 
   const updateURL = () => {
-    const search = store.toURLSearchParams();
+    const search = toURLSearchParams();
     setSearchParams(search);
   };
 
-  const handleChangeSearch = val => {
-    store.setSearchText(val);
-    updateURL();
-  };
-
-  const handleToggleActive = val => {
-    store.toggleActiveData(val);
-    updateURL();
-  };
-
-  const handleChangeRegion = val => {
-    store.activeRegion = val;
-    updateURL();
-  };
-
-  const handleChangeYear = val => {
-    store.setActiveYear(val);
-    updateURL();
-  };
-
-  const handleSort = (id, dir) => {
-    store.sortBy(id, dir);
-    updateURL();
-  };
-
   const classChanged = "selectric-changed";
-  const hideFilters: (keyof typeof store.activeData)[] = [
+  const hideFilters: (keyof typeof activeData)[] = [
     "snow",
     "temp",
     "wind",
@@ -86,35 +76,40 @@ const StationArchive = () => {
         })}
       />
       <section className="section section-centered section-padding-height">
-        {intl.formatMessage(
-          {
-            id: "measurements-archive:license"
-          },
-          {
+        <FormattedMessage
+          id={"measurements-archive:license"}
+          html={true}
+          values={{
             a: msg => (
               <a href="https://creativecommons.org/licenses/by/4.0/deed.de">
                 {msg}
               </a>
             )
-          }
-        )}
+          }}
+        />
       </section>
       <FilterBar
         search={true}
         searchTitle={intl.formatMessage({
           id: "measurements-archive:search"
         })}
-        searchOnChange={handleChangeSearch}
-        searchValue={store.searchText}
+        searchOnChange={val => {
+          setSearchText(val);
+          updateURL();
+        }}
+        searchValue={searchText}
       >
         <ProvinceFilter
           title={intl.formatMessage({
             id: "measurements-archive:filter:province"
           })}
           all={intl.formatMessage({ id: "filter:all" })}
-          handleChange={handleChangeRegion}
-          value={store.activeRegion}
-          className={store.activeRegion !== "all" ? classChanged : ""}
+          handleChange={val => {
+            setActiveRegion(val);
+            updateURL();
+          }}
+          value={activeRegion}
+          className={activeRegion !== "all" ? classChanged : ""}
         />
 
         <YearFilter
@@ -122,12 +117,15 @@ const StationArchive = () => {
             id: "measurements-archive:filter:year"
           })}
           all={"latest"}
-          minYear={store.minYear}
+          minYear={minYear}
           maxYear={currentSeasonYear()}
-          handleChange={handleChangeYear}
+          handleChange={val => {
+            setActiveYear(+val || "");
+            updateURL();
+          }}
           formatter={y => `${y}/${y + 1}`}
-          value={store.activeYear}
-          className={store.activeYear ? classChanged : ""}
+          value={activeYear}
+          className={activeYear ? classChanged : ""}
         />
 
         <HideGroupFilter
@@ -145,11 +143,14 @@ const StationArchive = () => {
               tooltip={intl.formatMessage({
                 id:
                   "measurements-archive:filter:hide:" +
-                  (store.activeData[e] ? "active" : "inactive") +
+                  (activeData[e] ? "active" : "inactive") +
                   ":hover"
               })}
-              active={store.activeData[e]}
-              onToggle={handleToggleActive}
+              active={activeData[e]}
+              onToggle={val => {
+                toggleActiveData(val);
+                updateURL();
+              }}
             />
           ))}
         </HideGroupFilter>
@@ -157,14 +158,17 @@ const StationArchive = () => {
       <section className="section">
         <div className="table-container">
           <StationArchiveTable
-            sortedFilteredData={store.sortedFilteredData}
-            activeData={store.activeData}
-            activeRegion={store.activeRegion}
-            activeYear={store.activeYear}
-            sortValue={store.sortValue}
-            sortDir={store.sortDir}
-            searchText={store.searchText}
-            handleSort={handleSort}
+            sortedFilteredData={sortedFilteredData}
+            activeData={activeData}
+            activeRegion={activeRegion}
+            activeYear={activeYear}
+            sortValue={sortValue}
+            sortDir={sortDir}
+            searchText={searchText}
+            handleSort={(id, dir) => {
+              sortBy(id, dir);
+              updateURL();
+            }}
           />
         </div>
       </section>
@@ -196,4 +200,4 @@ const StationArchive = () => {
     </>
   );
 };
-export default observer(StationArchive);
+export default StationArchive;

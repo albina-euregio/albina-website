@@ -1,12 +1,17 @@
-import React from "react";
-import { observer } from "mobx-react";
-import { IntlShape, injectIntl, useIntl } from "react-intl";
-import { Util } from "leaflet";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
+import { useIntl } from "../../i18n";
 import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
+import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
 
 const timeRanges = {
   day: "tag",
@@ -211,30 +216,30 @@ const TimeRangeButtons: React.FC<{
 };
 
 const StationDiagramImage: React.FC<{
-  stationData: StationData;
+  station: StationData;
   clientWidth: number;
   selectedYear: number;
   timeRange: TimeRange;
-}> = ({ stationData, clientWidth, selectedYear, timeRange }) => {
+}> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const currentTS = new Date();
   currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
   const cacheHash = currentTS.valueOf();
-  const isStation = stationData instanceof StationData;
+  const isStation = station instanceof StationData;
   const template = isStation
     ? window.config.apis.weather.plots
     : window.config.apis.weather.observers;
   const width = clientWidth >= 1100 ? 1100 : 800;
-  const src = Util.template(template, {
+  const src = window.config.template(template, {
     width,
     interval: timeRanges[timeRange],
-    name: stationData.plot,
+    name: station.plot,
     year: selectedYear ? "_" + selectedYear : "",
     t: cacheHash
   });
   return (
     <img
-      alt={stationData.name}
-      title={stationData.name}
+      alt={station.name}
+      title={station.name}
       src={src}
       className="weatherstation-img"
     />
@@ -265,140 +270,124 @@ const StationOperator: React.FC<{ stationData: StationData }> = ({
   );
 };
 
-class WeatherStationDiagrams extends React.Component<
-  Props & { intl: IntlShape },
-  { timeRange: TimeRange; selectedYear: null | number }
-> {
-  myRef: React.RefObject<HTMLDivElement>;
-  constructor(props: Props) {
-    super(props);
-    this.myRef = React.createRef();
-    this.state = { timeRange: "threedays", selectedYear: null };
-    this.keyFunction = this.keyFunction.bind(this);
+const WeatherStationDiagrams: React.FC<Props> = ({
+  stationData,
+  stationId,
+  setStationId
+}) => {
+  const intl = useIntl();
+  const myRef = useRef();
+  const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-  }
+  const stationIndex = useMemo((): number => {
+    return stationData.findIndex(e => e.id == stationId);
+  }, [stationData, stationId]);
 
-  keyFunction(event: KeyboardEvent) {
-    if (event.keyCode === 37) {
-      //arrow left
-      this.previous();
-    } else if (event.keyCode === 39) {
-      //arrow right
-      this.next();
-    }
-  }
-
-  get stationIndex(): number {
-    return this.props.stationData.findIndex(e => e.id == this.props.stationId);
-  }
-
-  get nextStation(): StationData {
-    let index = this.stationIndex;
-    if (index < this.props.stationData.length - 1) {
+  const nextStation = useMemo((): StationData => {
+    let index = stationIndex;
+    if (index < stationData.length - 1) {
       index++;
     }
-    return this.props.stationData[index];
-  }
+    return stationData[index];
+  }, [stationData, stationIndex]);
 
-  get previousStation(): StationData {
-    let index = this.stationIndex;
+  const previousStation = useMemo((): StationData => {
+    let index = stationIndex;
     if (index > 0) {
       index--;
     }
-    return this.props.stationData[index];
-  }
+    return stationData[index];
+  }, [stationData, stationIndex]);
 
-  next() {
-    this.props.setStationId(this.nextStation.id);
-  }
+  const next = useCallback(
+    () => setStationId(nextStation.id),
+    [nextStation.id, setStationId]
+  );
 
-  previous() {
-    this.props.setStationId(this.previousStation.id);
-  }
+  const previous = useCallback(
+    () => setStationId(previousStation.id),
+    [previousStation.id, setStationId]
+  );
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.keyFunction, false);
-  }
+  useEffect(() => {
+    document.addEventListener("keydown", keyFunction, false);
+    return () => document.removeEventListener("keydown", keyFunction, false);
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.keyFunction, false);
-  }
+    function keyFunction(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft") {
+        previous();
+      } else if (event.key === "ArrowRight") {
+        next();
+      }
+    }
+  }, [next, previous]);
 
-  render() {
-    const stationsData = this.props.stationData;
-    if (!stationsData) return <div></div>;
-    const stationData = stationsData[this.stationIndex];
-    if (!stationData) return <div></div>;
-    const isStation = stationData instanceof StationData;
-    const [microRegionId] = stationData.microRegion.split(" ");
-    return (
-      <Swipe
-        onSwipeLeft={this.next}
-        onSwipeRight={this.previous}
-        tolerance={100}
-      >
-        <div className="modal-container">
-          <div className="modal-weatherstation" ref={this.myRef}>
-            <div className="modal-header">
-              {isStation && (
-                <p className="caption">
-                  {this.props.intl.formatMessage({
-                    id: "dialog:weather-station-diagram:header"
-                  })}{" "}
-                  ({microRegionId}{" "}
-                  {this.props.intl.formatMessage({
-                    id: "region:" + microRegionId
-                  })}
-                  )
-                </p>
+  if (!stationData) return <div></div>;
+  const station = stationData[stationIndex];
+  if (!station) return <div></div>;
+  const isStation = station instanceof StationData;
+  const [microRegionId] = station.microRegion.split(" ");
+
+  return (
+    <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
+      <div className="modal-container">
+        <div className="modal-weatherstation" ref={myRef}>
+          <div className="modal-header">
+            {isStation && (
+              <p className="caption">
+                {intl.formatMessage({
+                  id: "dialog:weather-station-diagram:header"
+                })}{" "}
+                ({microRegionId}{" "}
+                {intl.formatMessage({
+                  id: "region:" + microRegionId
+                })}
+                )
+              </p>
+            )}
+            <h2 className="">
+              <span className="weatherstation-name">{station.name} </span>
+              {station.elev && (
+                <span className="weatherstation-altitude">
+                  (<FormattedNumberUnit value={station.elev} unit="m" />)
+                </span>
               )}
-              <h2 className="">
-                <span className="weatherstation-name">{stationData.name} </span>
-                {stationData.elev && (
-                  <span className="weatherstation-altitude">
-                    ({stationData.elev}&thinsp;m)
-                  </span>
-                )}
-              </h2>
-            </div>
-            <StationFlipper
-              next={this.next}
-              nextStation={this.nextStation}
-              previous={this.previous}
-              previousStation={this.previousStation}
-            >
-              {!isStation && (
-                <YearFlipper
-                  selectedYear={this.state.selectedYear}
-                  setSelectedYear={selectedYear =>
-                    this.setState({ selectedYear })
-                  }
-                />
-              )}
-            </StationFlipper>
-            <div className="modal-content">
-              {isStation && <MeasurementValues stationData={stationData} />}
-              {isStation && (
-                <TimeRangeButtons
-                  timeRange={this.state.timeRange}
-                  setTimeRange={timeRange => this.setState({ timeRange })}
-                />
-              )}
-              <StationDiagramImage
-                clientWidth={this.myRef?.current?.clientWidth ?? 1}
-                selectedYear={this.state.selectedYear}
-                stationData={stationData}
-                timeRange={this.state.timeRange}
+            </h2>
+          </div>
+          <StationFlipper
+            next={next}
+            nextStation={nextStation}
+            previous={previous}
+            previousStation={previousStation}
+          >
+            {!isStation && (
+              <YearFlipper
+                selectedYear={selectedYear}
+                setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
               />
-              {isStation && <StationOperator stationData={stationData} />}
-            </div>
+            )}
+          </StationFlipper>
+          <div className="modal-content">
+            {isStation && <MeasurementValues stationData={station} />}
+            {isStation && (
+              <TimeRangeButtons
+                timeRange={timeRange}
+                setTimeRange={timeRange => setTimeRange(timeRange)}
+              />
+            )}
+            <StationDiagramImage
+              clientWidth={myRef?.current?.clientWidth ?? 1}
+              selectedYear={selectedYear}
+              station={station}
+              timeRange={timeRange}
+            />
+            {isStation && <StationOperator stationData={station} />}
           </div>
         </div>
-      </Swipe>
-    );
-  }
-}
+      </div>
+    </Swipe>
+  );
+};
 
-export default injectIntl(observer(WeatherStationDiagrams));
+export default WeatherStationDiagrams;

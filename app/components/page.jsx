@@ -4,8 +4,6 @@ import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
 import ControlBar from "../components/organisms/control-bar.jsx";
-import { navigation_init } from "../js/navigation";
-import { scroll_init, scroll } from "../js/scroll";
 
 const Page = props => {
   const location = useLocation();
@@ -15,7 +13,6 @@ const Page = props => {
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
-      navigation_init();
     }
   });
 
@@ -25,33 +22,25 @@ const Page = props => {
       location.pathname === "/" ||
       location.pathname === "/bulletin"
     ) {
-      //console.log("Page->useEffect[location.pathname]", location.path);
       navigate({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     } else {
-      //console.log("Page->useEffect[location.pathname]", location.path);
-      scroll_init();
-      //tooltip_init();
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
 
   useEffect(() => {
-    //console.log("Page->useEffect hash #1", location.hash, location.pathname);
     if (!location.pathname.split("/").includes("bulletin")) {
       if (!location.hash) {
-        //console.log("Page->useEffect hash #2", location.hash);
         window.scrollTo(0, 0);
       } else {
-        //console.log("Page->useEffect hash #3", location.hash);
-        setTimeout(() => scroll(location.hash, 2000), 1000);
+        // setTimeout(() => scroll(location.hash, 2000), 1000);
       }
     }
   }, [location.hash]);
 
-  //console.log("page->render", props.children);
   return (
     <>
       <div className="page-loading-screen" />

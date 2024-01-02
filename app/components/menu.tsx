@@ -1,19 +1,51 @@
-import React from "react";
-import { useLocation, matchPath } from "react-router-dom";
-import { observer } from "mobx-react";
-import { BLOG_STORE } from "../stores/blogStore";
-import { Link } from "react-router-dom";
-import { APP_STORE } from "../appStore";
-import { useIntl } from "react-intl";
+import React, { useEffect, useState } from "react";
+import { Link, matchPath, useLocation } from "react-router-dom";
+import { useIntl } from "../i18n";
+import { BlogPostPreviewItem } from "../stores/blog";
 
-const Menu = props => {
+type Entry = {
+  key: string;
+  title?: string;
+  url: string;
+  "url:de"?: undefined;
+  showSub?: boolean;
+  showNumberNewPosts?: boolean;
+  children?: Entry[];
+};
+
+type Props = {
+  activeClassName: string;
+  childClassName: string;
+  className: string;
+  entries: Entry[];
+  menuItemClassName: string;
+  onActiveChildMenuItem?: (e: Entry) => void;
+  onActiveMenuItem?: (e: Entry) => void;
+  onSelect?: (e: Entry) => void;
+};
+
+const Menu = (props: Props) => {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const location = useLocation();
+  const [numberNewPosts, setNumberNewPosts] = useState(0);
 
-  const testActive = (e, recursive = true) => {
+  useEffect(() => {
+    (async () => {
+      if (!props.entries.some(e => e.showNumberNewPosts)) return;
+      const posts = await BlogPostPreviewItem.loadBlogPosts(
+        l => l === lang,
+        () => true
+      );
+      const postItems = posts.map(([, p]) => p).flat();
+      setNumberNewPosts(postItems.filter(p => Date.now() < p.newUntil).length);
+    })();
+  }, [lang, props.entries]);
+
+  const testActive = (e: Entry, recursive = true) => {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
-    const doTest = (loc, element) => {
+    const doTest = (loc, element: Entry) => {
       return (
         matchPath(loc, element.url.split("?")[0]) != null ||
         (recursive &&
@@ -28,12 +60,12 @@ const Menu = props => {
     return false;
   };
 
-  const onLinkClick = (e, hasSubs) => {
+  const onLinkClick = (e: Event, hasSubs: boolean) => {
     //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   };
 
-  const renderMenuItem = (e, activeItem) => {
+  const renderMenuItem = (e: Entry, activeItem: Entry) => {
     const classes = props.menuItemClassName
       ? props.menuItemClassName.split(" ")
       : [];
@@ -54,8 +86,7 @@ const Menu = props => {
       intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
-    const url = e["url:" + APP_STORE.language] || e["url"];
-    const numberNewPosts = BLOG_STORE.numberNewPosts;
+    const url = e["url:" + lang] || e["url"];
 
     return (
       <li
@@ -83,7 +114,7 @@ const Menu = props => {
             className={classes.join(" ")}
           >
             {title}
-            {url === "/blog" && numberNewPosts > 0 && (
+            {e.showNumberNewPosts && numberNewPosts > 0 && (
               <small className="label blog-new">{numberNewPosts}</small>
             )}
           </Link>
@@ -117,4 +148,4 @@ const Menu = props => {
   return null;
 };
 
-export default observer(Menu);
+export default Menu;

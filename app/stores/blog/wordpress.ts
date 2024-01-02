@@ -6,7 +6,7 @@ import { parseDate } from "../../util/date";
 export class WordpressProcessor implements BlogProcessor {
   async loadBlogPosts(
     config: BlogConfig,
-    state: BlogStore
+    state?: BlogStore
   ): Promise<BlogPostPreviewItem[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
     const allCategories: Category[] = await fetchJSON(
@@ -35,10 +35,10 @@ export class WordpressProcessor implements BlogProcessor {
       ).join(),
       per_page: String(100)
     });
-    if (state.searchText) {
+    if (state?.searchText) {
       params.set("search", state.searchText);
     }
-    if (state.year) {
+    if (state?.year) {
       params.set("after", state.startDate.toISOString());
       params.set("before", state.endDate.toISOString());
     }

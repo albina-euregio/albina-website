@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from "react";
 import { useState, useEffect } from "react";
-import { observer } from "mobx-react";
 import { dateToISODateString } from "../../util/date.js";
 import { Bulletin } from "../../stores/bulletin";
 import { fetchExists } from "../../util/fetch";
@@ -47,4 +46,4 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
     </div>
   );
 }
-export default observer(SynthesizedBulletin);
+export default SynthesizedBulletin;

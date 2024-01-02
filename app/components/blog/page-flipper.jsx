@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 const BlogPageFlipper = props => {
   const intl = useIntl();

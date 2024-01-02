@@ -1,8 +1,7 @@
 import React from "react";
 import $ from "jquery";
-import { injectIntl } from "react-intl";
-
-import { DATE_TIME_FORMAT, isSameDay } from "../../util/date.js";
+import { FormattedDate } from "../../i18n";
+import { isSameDay } from "../../util/date.js";
 
 class Timeline extends React.Component {
   constructor(props) {
@@ -138,7 +137,7 @@ class Timeline extends React.Component {
     }
 
     timeArray.forEach(aTime => {
-      let weekday = this.props.intl.formatDate(aTime, { weekday: "long" });
+      const weekday = new Date(aTime).getDay();
 
       if (lastTime !== weekday) {
         let firstAvailableTime;
@@ -161,10 +160,7 @@ class Timeline extends React.Component {
               className={spanClass.join(" ")}
               data-timestamp={currentHour}
               data-selectable={isSelectable}
-              data-time={this.props.intl.formatDate(
-                currentHour,
-                DATE_TIME_FORMAT
-              )}
+              data-time={currentHour}
             ></span>
           );
         }
@@ -183,17 +179,19 @@ class Timeline extends React.Component {
               <a
                 role="button"
                 tabIndex="0"
-                data-firstHour={firstAvailableTime}
+                data-first-hour={firstAvailableTime}
                 onClick={() => {
                   this.props.changeCurrentTime(firstAvailableTime);
                 }}
               >
-                {weekday.substring(0, 2)}
-                <span>{weekday.substring(2, 20)}</span>{" "}
-                {this.props.intl.formatDate(aTime, {
-                  day: "numeric",
-                  month: "numeric"
-                })}
+                <FormattedDate
+                  date={aTime}
+                  options={{
+                    weekday: "short",
+                    day: "numeric",
+                    month: "numeric"
+                  }}
+                />
               </a>
             </span>
             <div key="cp-scale-hours" className="cp-scale-hours">
@@ -218,4 +216,4 @@ class Timeline extends React.Component {
     );
   }
 }
-export default injectIntl(Timeline);
+export default Timeline;

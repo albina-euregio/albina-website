@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormattedDate, FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { FormattedNumberUnit } from "./formattedNumberUnit";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
@@ -45,11 +45,10 @@ export default function StationTable(props: Props) {
           <strong>{row.name}</strong>{" "}
           <span className="operator operator-st">({row.operator})</span>{" "}
           <span className="datetime">
-            <FormattedDate
-              value={row.date}
-              {...DATE_TIME_FORMAT}
-              weekday={undefined}
-            />
+            {intl.formatDate(row.date, {
+              ...DATE_TIME_FORMAT,
+              weekday: undefined
+            })}
           </span>
         </span>
       ),

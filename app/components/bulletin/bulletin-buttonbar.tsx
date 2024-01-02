@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-import { APP_STORE } from "../../appStore";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import DownloadPdfDialog from "../dialogs/download-pdf-dialog";
+import { scrollIntoView } from "../../util/scrollIntoView";
+import type { BulletinCollection } from "../../stores/bulletin";
 
-type Props = { showPdfDialog: boolean };
+type Props = {
+  showPdfDialog: boolean;
+  activeBulletinCollection: BulletinCollection;
+};
 
-function BulletinButtonbar({ showPdfDialog }: Props) {
+function BulletinButtonbar({ showPdfDialog, activeBulletinCollection }: Props) {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   const [isPdfDialogOpen, setPdfDialogOpen] = useState(false);
 
@@ -28,7 +33,9 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
       )}
       {isPdfDialogOpen && (
         <Modal isOpen={isPdfDialogOpen} onClose={() => setPdfDialogOpen(false)}>
-          <DownloadPdfDialog />
+          <DownloadPdfDialog
+            activeBulletinCollection={activeBulletinCollection}
+          />
         </Modal>
       )}
 
@@ -37,8 +44,8 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
           <div className="normal-4 grid-item">
             <a
               href="#page-main"
+              onClick={e => scrollIntoView(e)}
               className="icon-link icon-arrow-up"
-              data-scroll=""
             >
               <FormattedMessage id="bulletin:linkbar:back-to-map" />
             </a>
@@ -97,7 +104,7 @@ function BulletinButtonbar({ showPdfDialog }: Props) {
                     })}
                   >
                     <a
-                      href={config.links.feedback[APP_STORE.language]}
+                      href={config.links.feedback[lang]}
                       rel="noopener noreferrer"
                       target="_blank"
                       className="success pure-button"

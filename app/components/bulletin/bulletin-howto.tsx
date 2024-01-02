@@ -1,6 +1,5 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "../../i18n";
 
 function BulletinHowTo() {
   return (
@@ -9,6 +8,7 @@ function BulletinHowTo() {
         <span>
           <FormattedMessage
             id="bulletin:howto"
+            html={true}
             values={{ strong: (...msg) => <strong>{msg}</strong> }}
           />
         </span>
@@ -17,4 +17,4 @@ function BulletinHowTo() {
   );
 }
 
-export default observer(BulletinHowTo);
+export default BulletinHowTo;

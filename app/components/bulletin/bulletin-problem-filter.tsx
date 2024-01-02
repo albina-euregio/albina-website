@@ -1,17 +1,24 @@
 import React from "react";
-import { observer } from "mobx-react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
-import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
+import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
 type Props = {
   handleSelectRegion: (id?: string) => void;
+  problems: Record<
+    AvalancheProblemType,
+    {
+      highlighted: boolean;
+    }
+  >;
+  toggleProblem: (problemId: AvalancheProblemType) => void;
 };
 
-function BulletinProblemFilter({ handleSelectRegion }: Props) {
-  const listItems = Object.entries(BULLETIN_STORE.problems).map(
+function BulletinProblemFilter(props: Props) {
+  const listItems = Object.entries(props.problems).map(
     ([p, { highlighted }]) => (
       <BulletinProblemFilterItem
-        handleSelectRegion={handleSelectRegion}
+        handleSelectRegion={props.handleSelectRegion}
+        toggleProblem={props.toggleProblem}
         key={p}
         problemId={p}
         active={highlighted}
@@ -24,4 +31,4 @@ function BulletinProblemFilter({ handleSelectRegion }: Props) {
   );
 }
 
-export default observer(BulletinProblemFilter);
+export default BulletinProblemFilter;

@@ -135,7 +135,7 @@
   "bulletin:report:dangerlevel-treeline-above": "Degré de danger au-dessus de la limite de la forêt: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Degré de danger au-dessous de la limite de la forêt: {level}",
   "bulletin:report:selected-region:hover": "Vous voyez les prévisions pour la région sélectionnée. <br />Cliquer pour retourner à la carte.",
-  "bulletin:report:tendency": "<strong>Tendence: {tendency}</strong><br></br>le {date} {daytime}",
+  "bulletin:report:tendency": "<strong>Tendence: {tendency}</strong><br>le {date} {daytime}",
   "bulletin:report:tendency:none": "n/a",
   "bulletin:report:tendency:increasing": "Le danger d'avalanche augmente",
   "bulletin:report:tendency:steady": "Le Danger d'avalanche reste le même",

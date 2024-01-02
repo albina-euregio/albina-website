@@ -135,7 +135,7 @@
   "bulletin:report:dangerlevel-treeline-above": "Grado di pericolo sopra il limite del bosco: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grado di pericolo sotto il limite del bosco: {level}",
   "bulletin:report:selected-region:hover": "Vedi la valutazione del pericolo per la regione selezionata.<br />Clicca, per tornare alla mappa",
-  "bulletin:report:tendency": "<strong>Tendenza: {tendency}</strong><br></br>per {date} {daytime}",
+  "bulletin:report:tendency": "<strong>Tendenza: {tendency}</strong><br>per {date} {daytime}",
   "bulletin:report:tendency:none": "n/a",
   "bulletin:report:tendency:increasing": "Pericolo valanghe in aumento",
   "bulletin:report:tendency:steady": "Pericolo valanghe stabile",

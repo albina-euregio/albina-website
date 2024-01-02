@@ -1,15 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, IntlShape } from "react-intl";
 import SnowProfileStore, { SnowProfile } from "../stores/snowProfileStore";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import Modal from "../components/dialogs/albina-modal";
 import StationMarker from "../components/leaflet/station-marker";
-import HTMLHeader from "../components/organisms/html-header";
 import { AttributionControl } from "react-leaflet";
 import IncidentStore, { Incident } from "../stores/incidentStore";
 
-class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
+class SnowProfileMap extends React.Component {
   snowProfileStore = new SnowProfileStore();
   incidentStore = new IncidentStore();
   state = { active: undefined as SnowProfile | Incident | undefined };
@@ -20,12 +18,6 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
 
   componentDidMount() {
     this.isIncident ? this.incidentStore.load() : this.snowProfileStore.load();
-  }
-
-  get title(): string {
-    return this.isIncident
-      ? this.props.intl.formatMessage({ id: "menu:lawis:incident" })
-      : this.props.intl.formatMessage({ id: "menu:lawis:profile" });
   }
 
   get attribution(): string {
@@ -57,7 +49,6 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
     });
     return (
       <>
-        <HTMLHeader title={this.title} />
         <section
           id="section-weather-map"
           className="section section-weather-map"
@@ -87,7 +78,7 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
   }
 }
 
-export default injectIntl(observer(SnowProfileMap));
+export default observer(SnowProfileMap);
 
 function SnowProfileDialog({
   active

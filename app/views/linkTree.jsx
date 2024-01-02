@@ -4,15 +4,12 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
-import { injectIntl } from "react-intl";
+import { FormattedMessage } from "../i18n";
 
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
-import { APP_STORE } from "../appStore";
-import { Util } from "leaflet";
 
-//import { scroll } from "../js/scroll";
 /*
  * Component to be used for pages with content delivered by CMS API.
  */
@@ -46,7 +43,7 @@ class LinkTree extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = APP_STORE.language;
+    var lang = document.body.parentElement.lang;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -86,7 +83,7 @@ class LinkTree extends React.Component {
 
     const imgFormat = window.config.webp ? ".webp" : ".jpg";
     if (this.state.fd != null) {
-      bulletinImageUrl = Util.template(config.apis.bulletin.map, {
+      bulletinImageUrl = config.template(config.apis.bulletin.map, {
         date: dateString,
         publication: ".",
         file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail",
@@ -95,9 +92,7 @@ class LinkTree extends React.Component {
     }
 
     let blogImageUrl = "https://lawinen.report/content_files/base-map.webp";
-    let blogUrl = this.props.intl.formatMessage({
-      id: "more:linktree:blog:link"
-    });
+    let blogUrl = <FormattedMessage id="more:linktree:blog:link" />;
     let blogTitle = null;
     if (BLOG_STORE.postsList[0]) {
       const firstEntry = BLOG_STORE.postsList[0];
@@ -110,15 +105,9 @@ class LinkTree extends React.Component {
       <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
-          title={this.props.intl.formatMessage({
-            id: "more:linktree:title"
-          })}
-          subtitle={this.props.intl.formatMessage({
-            id: "more:linktree:subtitle"
-          })}
-          marginal={this.props.intl.formatMessage({
-            id: "more:linktree:marginal"
-          })}
+          title={<FormattedMessage id="more:linktree:title" />}
+          subtitle={<FormattedMessage id="more:linktree:subtitle" />}
+          marginal={<FormattedMessage id="more:linktree:marginal" />}
         />
         <section className="section-padding-height section-linktree-features">
           <div className="section-centered">
@@ -130,9 +119,7 @@ class LinkTree extends React.Component {
                 alt: "the alt",
                 onError: this.onBulletinImageError
               }}
-              title={this.props.intl.formatMessage({
-                id: "more:linktree:bulletin:title"
-              })}
+              title={<FormattedMessage id="more:linktree:bulletin:title" />}
             />
 
             <LinkTreeFeature
@@ -143,16 +130,12 @@ class LinkTree extends React.Component {
                 title: blogTitle,
                 alt: blogTitle
               }}
-              title={this.props.intl.formatMessage({
-                id: "more:linktree:blog:title"
-              })}
+              title={<FormattedMessage id="more:linktree:blog:title" />}
             />
 
             <LinkTreeFeature
               external={true}
-              url={this.props.intl.formatMessage({
-                id: "more:linktree:survey:link"
-              })}
+              url={<FormattedMessage id="more:linktree:survey:link" />}
               image={{
                 url: "https://lawinen.report/content_files/feature_community.jpg",
                 title: "Survey",
@@ -172,4 +155,4 @@ class LinkTree extends React.Component {
     );
   }
 }
-export default injectIntl(observer(LinkTree));
+export default observer(LinkTree);

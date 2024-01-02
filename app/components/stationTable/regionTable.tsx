@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { regionCodes, RegionCodes } from "../../util/regions";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { observer } from "mobx-react";
-import { FormattedMessage } from "react-intl";
+import { microRegionIds } from "../../stores/microRegions";
+import { FormattedMessage } from "../../i18n";
 
 function RegionTable({ region }: { region: RegionCodes }) {
-  const regions = BULLETIN_STORE.microRegionIds.filter(id =>
-    id.startsWith(region)
-  );
+  const [microRegions] = useState(() => microRegionIds());
+  const regions = microRegions.filter(id => id.startsWith(region));
   const length2 = Math.ceil(regions.length / 2);
   const regionPairs = regions
     .slice(0, length2)
@@ -47,7 +45,7 @@ function RegionTable({ region }: { region: RegionCodes }) {
   );
 }
 
-export default observer(RegionTable);
+export default RegionTable;
 
 export function RegionsTables() {
   return (

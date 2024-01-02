@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
+import React, { useMemo, useState } from "react";
+import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
+import "leaflet";
+import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
+import { useMapEvent } from "react-leaflet";
+import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
-
-import { observer } from "mobx-react";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
-import { APP_STORE } from "../../appStore";
-import { scroll_init } from "../../js/scroll";
+import type {
+  BulletinCollection,
+  RegionState,
+  Status
+} from "../../stores/bulletin";
+import { scrollIntoView } from "../../util/scrollIntoView";
 import {
   DangerRatings,
   EawsDangerRatings,
@@ -19,36 +24,31 @@ import {
   PbfRegionState
 } from "../leaflet/pbf-map";
 import { ValidTimePeriod } from "../../stores/bulletin";
+import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 type Props = {
+  activeBulletinCollection: BulletinCollection;
+  getRegionState: (
+    regionId: string,
+    validTimePeriod?: ValidTimePeriod
+  ) => RegionState;
+  status: Status;
+  region: string;
   validTimePeriod: ValidTimePeriod;
   date: string;
-  handleMapViewportChanged: (map: L.Map) => void;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
 };
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
+  const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
-  useEffect(() => {
-    scroll_init();
-  }, []);
-
-  const handleMapInit = map => {
-    map.on("click", _click, this);
-    map.on("unload", () => map.off("click", _click, this));
-
-    if (typeof props.onMapInit === "function") {
-      props.onMapInit(map);
-    }
-  };
-
-  const _click = () => {
-    //console.log("Bulletin-map->_click");
-    props.handleSelectRegion(null);
-  };
+  function RegionClickHandler(): null {
+    useMapEvent("click", () => props.handleSelectRegion(""));
+    return null;
+  }
 
   const styleOverMap = () => {
     return {
@@ -56,7 +56,7 @@ const BulletinMap = (props: Props) => {
     };
   };
 
-  const eawsRegions = Object.freeze([
+  const [eawsRegions] = useState([
     "AD",
     "AT-02",
     "AT-03",
@@ -88,17 +88,25 @@ const BulletinMap = (props: Props) => {
     "SK"
   ]);
 
+  const regionIds = useMemo(
+    () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
+    [props.date]
+  );
+
   const getMapOverlays = () => {
-    const overlays = [];
-    const date = BULLETIN_STORE.settings.date;
-    const b = BULLETIN_STORE.activeBulletinCollection;
+    const overlays = [<RegionClickHandler key="region-click-handler" />];
+    const date = props.date;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${BULLETIN_STORE.settings.status}`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
         date={date}
         validTimePeriod={props.validTimePeriod}
       >
-        {b && <DangerRatings maxDangerRatings={b.maxDangerRatings} />}
+        {props.activeBulletinCollection && (
+          <DangerRatings
+            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
+          />
+        )}
         {date >= "2023-11-01" ? (
           <EawsDangerRatings date={date} regions={eawsRegions} />
         ) : date >= "2021-01-25" ? (
@@ -110,7 +118,7 @@ const BulletinMap = (props: Props) => {
     );
     overlays.push(
       <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${BULLETIN_STORE.settings.status}-overlay`}
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
         date={date}
         validTimePeriod={props.validTimePeriod}
         eventHandlers={{
@@ -132,14 +140,11 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
-        {[
-          ...BULLETIN_STORE.microRegionIds,
-          ...BULLETIN_STORE.eawsRegionIds
-        ].map(region => {
+        {regionIds.map(region => {
           const regionState =
             region === regionMouseover
               ? "mouseOver"
-              : BULLETIN_STORE.getRegionState(region, props.validTimePeriod);
+              : props.getRegionState(region, props.validTimePeriod);
           return (
             <PbfRegionState
               key={region + regionState + props.validTimePeriod}
@@ -156,15 +161,19 @@ const BulletinMap = (props: Props) => {
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
-    if (BULLETIN_STORE.activeBulletin) {
-      const activeBulletin = BULLETIN_STORE.activeBulletin;
+    const activeBulletin =
+      props.activeBulletinCollection?.getBulletinForBulletinOrRegion(
+        props.region
+      );
+    const activeEaws = eawsRegionOutlines.find(r => r.id === props.region);
+    if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
           region={intl.formatMessage({
-            id: "region:" + BULLETIN_STORE.settings.region
+            id: "region:" + props.region
           })}
           validTimePeriod={props.validTimePeriod}
         />
@@ -181,8 +190,8 @@ const BulletinMap = (props: Props) => {
               tabIndex="-1"
               key="link"
               href={"#" + activeBulletin?.bulletinID}
+              onClick={e => scrollIntoView(e)}
               className="pure-button"
-              data-scroll=""
             >
               {preprocessContent(
                 intl.formatMessage({
@@ -194,18 +203,10 @@ const BulletinMap = (props: Props) => {
           </Tooltip>
         )
       );
-    } else if (BULLETIN_STORE.activeEaws) {
-      const activeEaws = BULLETIN_STORE.activeEaws;
+    } else if (activeEaws) {
       detailsClasses.push("js-active");
-      const language = APP_STORE.language;
       const country = activeEaws.id.replace(/-.*/, "");
       const region = activeEaws.id;
-      // res.push(
-      //   <p>{intl.formatMessage({ id: "region:" + country })}</p>
-      // );
-      // res.push(
-      //   <p>{intl.formatMessage({ id: "region:" + region })}</p>
-      // );
       res.push(
         <p key={`eaws-name-${country}`} className="bulletin-report-region-name">
           <span className="bulletin-report-region-name-country">
@@ -259,14 +260,6 @@ const BulletinMap = (props: Props) => {
     );
   };
 
-  //console.log("bulletin-map->render", BULLETIN_STORE.settings.status);
-
-  // if (lastDate != props.date) {
-  //   console.log("bulletin-map->render:SET TO INIT #aaa",  BULLETIN_STORE.settings.status, lastDate, props.date);
-  //   newLevel = "init";
-  //   lastDate = props.date;
-  // }
-
   return (
     <section
       id="section-bulletin-map"
@@ -279,44 +272,13 @@ const BulletinMap = (props: Props) => {
         }
       >
         <LeafletMap
-          loaded={BULLETIN_STORE.microRegionIds}
-          onViewportChanged={props.handleMapViewportChanged}
+          loaded={true}
           overlays={getMapOverlays()}
           mapConfigOverride={{}}
           tileLayerConfigOverride={{}}
           gestureHandling={true}
-          onInit={handleMapInit}
+          onInit={props.onMapInit}
         />
-        {false /* hide map search */ && (
-          <div style={styleOverMap()} className="bulletin-map-search">
-            <div className="pure-form pure-form-search">
-              <Tooltip
-                label={intl.formatMessage({
-                  id: "bulletin:map:search:hover"
-                })}
-              >
-                <input
-                  tabIndex="-1"
-                  type="text"
-                  id="input"
-                  placeholder={intl.formatMessage({
-                    id: "bulletin:map:search"
-                  })}
-                />
-              </Tooltip>
-              <button
-                tabIndex="-1"
-                href="#"
-                title={intl.formatMessage({
-                  id: "bulletin:map:search:label"
-                })}
-                className="pure-button pure-button-icon icon-search"
-              >
-                <span>&nbsp;</span>
-              </button>
-            </div>
-          </div>
-        )}
         {getBulletinMapDetails()}
 
         {props.validTimePeriod && (
@@ -333,4 +295,4 @@ const BulletinMap = (props: Props) => {
   );
 };
 
-export default observer(BulletinMap);
+export default BulletinMap;

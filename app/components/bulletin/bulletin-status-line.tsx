@@ -1,13 +1,17 @@
 import React, { useMemo } from "react";
-import { observer } from "mobx-react";
-import { useIntl } from "react-intl";
-import { BULLETIN_STORE } from "../../stores/bulletinStore.js";
+import { useIntl } from "../../i18n";
+import type { BulletinCollection, Status } from "../../stores/bulletin";
 import { isSummerTime } from "../../util/date.js";
 
-const BulletinStatusLine = () => {
+type Props = {
+  activeBulletinCollection: BulletinCollection;
+  status: Status;
+};
+
+const BulletinStatusLine = (props: Props) => {
   const intl = useIntl();
-  const status = BULLETIN_STORE.settings.status;
-  const collection = BULLETIN_STORE.activeBulletinCollection;
+  const status = props.status;
+  const collection = props.activeBulletinCollection;
   let statusText = "";
   const publicationTime = (collection?.bulletins || [])
     .map(b => b.publicationTime)
@@ -30,7 +34,7 @@ const BulletinStatusLine = () => {
     // original status message.
     const params = {
       date: intl.formatDate(publicationTime),
-      time: intl.formatTime(publicationTime)
+      time: intl.formatDate(publicationTime, { timeStyle: "short" })
     };
 
     if (isRepublished) {
@@ -60,4 +64,4 @@ const BulletinStatusLine = () => {
   );
 };
 
-export default observer(BulletinStatusLine);
+export default BulletinStatusLine;

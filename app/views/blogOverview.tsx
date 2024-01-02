@@ -12,29 +12,25 @@ import ProvinceFilter from "../components/filters/province-filter";
 import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
-// import TagFilter from "../components/filters/tag-filter";
 import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "../i18n";
 
 const BlogOverview = () => {
-  //console.log("BlogOverview const", BLOG_STORE);
-  const [store] = useState(BLOG_STORE);
+  const [store] = useState(() => {
+    BLOG_STORE.initLanguage();
+    BLOG_STORE.update();
+    return BLOG_STORE;
+  });
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
   let _settingFilters = false;
-
-  //const [title, setTitle] = useState("");
-  //const [header, setHeader] = useState("");
   const [headerText] = useState("");
-  //const [content, setContent] = useState("");
-  //const [currentContentInfoMessage, setCurrentContentInfoMessage] = useState("");
-  //const [isShareable, setIsShareable] = useState(false);
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
     index > 0 ? ", " : undefined,
@@ -55,7 +51,6 @@ const BlogOverview = () => {
 
   useEffect(() => {
     if (!didMountRef.current) {
-      //console.log("blogOverview useEffect didMount", store);
       didMountRef.current = true;
     }
   });
@@ -64,24 +59,21 @@ const BlogOverview = () => {
     if (!_settingFilters) {
       store.checkUrl(searchParams);
     }
-  }, [location]);
+  }, [_settingFilters, location, searchParams, store]);
 
   const doStoreUpdate = () => {
-    //console.log("blogOverview doStoreUpdate", store.searchParams);
     setSearchParams(store.searchParams);
     store.update();
     _settingFilters = false;
   };
 
   const handleChangeRegion = val => {
-    //console.log("blogOverview->handleChangeRegion", val);
     _settingFilters = true;
     store.setRegions(val);
     doStoreUpdate();
   };
 
   const handleChangeLanguage = val => {
-    // console.log("new lang", val);
     _settingFilters = true;
     store.setLanguages(val);
     doStoreUpdate();
@@ -102,14 +94,6 @@ const BlogOverview = () => {
 
     doStoreUpdate();
   };
-
-  // const handleChangeAvalancheProblem = val => {
-  //   _settingFilters = true;
-  //   store.searchText = "";
-  //   store.problem = val;
-
-  //   doStoreUpdate();
-  // };
 
   const handleChangeSearch = val => {
     _settingFilters = true;
@@ -170,21 +154,6 @@ const BlogOverview = () => {
           value={store.regionActive}
           className={store.regionActive !== "all" ? classChanged : ""}
         />
-        {/* <TagFilter
-          title={intl.formatMessage({
-            id: "blog:filter:avalanche-problem"
-          })}
-          all={intl.formatMessage({ id: "filter:all" })}
-          handleChange={handleChangeAvalancheProblem}
-          value={store.problem}
-          className={
-            store.problem !== "all"
-              ? classChanged
-              : "" + store.searchText
-              ? "disabled"
-              : ""
-          }
-        /> */}
         <YearFilter
           title={intl.formatMessage({
             id: "blog:filter:year"
@@ -232,10 +201,13 @@ const BlogOverview = () => {
       {store.loading && slowLoading && (
         <ControlBar
           addClass="fade-in"
-          message={intl.formatMessage(
-            { id: "blog:overview:info-loading-data-slow" },
-            { a: () => standaloneLinks }
-          )}
+          message={
+            <FormattedMessage
+              id="blog:overview:info-loading-data-slow"
+              html={true}
+              values={{ a: () => standaloneLinks }}
+            />
+          }
         />
       )}
       <section className="section-padding-height section-blog-posts">

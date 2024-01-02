@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
-import { Util } from "leaflet";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
-import { APP_STORE } from "../../appStore";
 import { type Bulletin } from "../../stores/bulletin";
-import { type Status } from "../../stores/bulletinStore";
+import { type Status } from "../../stores/bulletin";
 import { RegionCodes } from "../../util/regions";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
@@ -35,7 +33,7 @@ function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
   function getLanguage(dateString: string) {
-    const lang = APP_STORE.language;
+    const lang = intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -72,8 +70,7 @@ function ArchiveItem({ date, status }: Props) {
                       target="_blank"
                       className="small secondary pure-button"
                     >
-                      <FormattedMessage id={`region:${region}`} />{" "}
-                      <FormattedMessage id="archive:download-pdf" />
+                      <FormattedMessage id={`region:${region}`} /> PDF
                     </a>
                   </li>
                 )
@@ -158,7 +155,7 @@ function DownloadLink({
 }) {
   return (
     <a
-      href={Util.template(config.apis.bulletin[format], {
+      href={config.template(config.apis.bulletin[format], {
         date: dateString,
         region: dateString > "2022-05-06" ? "EUREGIO_" : "",
         lang,
@@ -210,7 +207,7 @@ function BulletinMap({
   );
 
   function showMap(dateString: string) {
-    const lang = APP_STORE.language;
+    const lang = intl.locale.slice(0, 2);
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

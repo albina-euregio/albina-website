@@ -1,29 +1,21 @@
 import React from "react";
-import $ from "jquery";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import Menu from "./../menu";
-import { NAVIGATION_STORE } from "../../stores/navigationStore";
-import { Util } from "leaflet";
 import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
-import { APP_STORE } from "../../appStore";
-import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { setLanguage } from "../../appStore";
 
 function PageHeader() {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   // changing language on header language button click
   const handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
-      const date = BULLETIN_STORE.settings.date;
       // since website is served from localhost, just change language in appStore
-      APP_STORE.setLanguage(newLanguage);
-      if (date) {
-        BULLETIN_STORE.load(date, true);
-      }
+      setLanguage(newLanguage);
       return;
     }
 
@@ -32,29 +24,36 @@ function PageHeader() {
       console.info("Changing hostname to " + newHost);
       document.location.hostname = newHost;
     } else {
-      APP_STORE.setLanguage(newLanguage);
+      setLanguage(newLanguage);
     }
   };
 
-  const setActiveMenuItem = e => {
-    if (typeof e == "object") {
-      Object.keys(e).forEach(k => {
-        NAVIGATION_STORE.activeElement[k] = e[k];
-      });
-    }
-  };
+  let navOpen = false;
 
-  const setActiveTopLevelMenuItem = e => {
-    if (typeof e == "object") {
-      Object.keys(e).forEach(k => {
-        NAVIGATION_STORE.activeTopLevelElement[k] = e[k];
-      });
+  function toggleNavigation() {
+    if (navOpen) {
+      document.body.classList.remove("navigation-open");
+      navOpen = false;
+      return;
     }
-  };
-  const lang = APP_STORE.language;
+    document.body.classList.add("navigation-open");
+    document.querySelectorAll(".navigation li").forEach(li => {
+      li.animate(
+        [
+          { opacity: "0", marginTop: "-100px" },
+          { opacity: "1", marginTop: "0", visibility: "visible" }
+        ],
+        {
+          duration: window["scroll_duration"] / 2,
+          easing: "ease-out"
+        }
+      );
+    });
+    navOpen = true;
+  }
 
   return (
-    <div id="page-header" className="page-header" data-scroll-header>
+    <div id="page-header" className="page-header">
       <div className="page-header-logo">
         <Tooltip
           label={intl.formatMessage({
@@ -79,18 +78,17 @@ function PageHeader() {
       </div>
       <div id="navigation" className="page-header-navigation">
         <Menu
-          intl={intl}
           className="list-plain navigation"
           entries={menuItems}
           childClassName="list-plain subnavigation"
           onSelect={() => {
             // close mobile menu on selection
-            if ($("body").hasClass("navigation-open")) {
-              $(".navigation-trigger").trigger("click");
+            if (document.body.classList.contains("navigation-open")) {
+              toggleNavigation();
             }
           }}
-          onActiveMenuItem={setActiveTopLevelMenuItem}
-          onActiveChildMenuItem={setActiveMenuItem}
+          onActiveMenuItem={() => {}}
+          onActiveChildMenuItem={() => {}}
         />
       </div>
       <div className="page-header-language">
@@ -196,7 +194,7 @@ function PageHeader() {
           })}
         >
           <button
-            href="#"
+            onClick={() => toggleNavigation()}
             aria-label={intl.formatMessage({
               id: "header:hamburger:hover"
             })}
@@ -216,7 +214,7 @@ function PageHeader() {
           })}
         >
           <a
-            href={Util.template(config.links.euregio, {
+            href={config.template(config.links.euregio, {
               lang: lang
             })}
             className="header-footer-logo-secondary"
@@ -231,4 +229,4 @@ function PageHeader() {
   );
 }
 
-export default observer(PageHeader);
+export default PageHeader;
