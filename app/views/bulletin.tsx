@@ -163,7 +163,9 @@ const Bulletin = () => {
       const collection = new BulletinCollection(date, lang);
       setStatus(collection.status);
       try {
-        await collection.load();
+        await Promise.all([collection.load(), collection.loadEawsBulletins()]);
+        setStatus(collection.status);
+        setCollection(collection);
       } catch (error) {
         console.error("Cannot load bulletin for date " + date, error);
         collection.status = "n/a";
