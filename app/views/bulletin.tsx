@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { BulletinCollection, RegionState, Status } from "../stores/bulletin";
+import {
+  BulletinCollection,
+  RegionState,
+  Status,
+  toAmPm
+} from "../stores/bulletin";
 import {
   AvalancheProblemType,
   ValidTimePeriod,
@@ -65,7 +70,7 @@ function useProblems() {
     regionId: string,
     validTimePeriod: ValidTimePeriod | undefined
   ): RegionState {
-    if (activeRegion === regionId) {
+    if (regionId.startsWith(activeRegion)) {
       return "selected";
     }
     if (
@@ -82,11 +87,17 @@ function useProblems() {
 
     const bulletin =
       activeBulletinCollection?.getBulletinForBulletinOrRegion(regionId);
-    const bulletinProblems =
-      bulletin?.avalancheProblems?.filter(p =>
-        matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-      ) ?? [];
-    if (bulletinProblems.some(p => problems?.[p.problemType]?.highlighted)) {
+    const bulletinProblemTypes =
+      bulletin?.avalancheProblems
+        ?.filter(p =>
+          matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+        )
+        ?.map(p => p.problemType) ??
+      activeBulletinCollection?.eawsAvalancheProblems?.[
+        `${regionId}${toAmPm[validTimePeriod || ValidTimePeriod.AllDay]}`
+      ] ??
+      [];
+    if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
       return "highlighted";
     }
 

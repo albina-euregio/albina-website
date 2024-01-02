@@ -24,6 +24,7 @@ import {
 } from "../leaflet/pbf-map";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
+import { regionsRegex } from "../../util/regions";
 
 type Props = {
   activeBulletinCollection: BulletinCollection;
@@ -58,6 +59,14 @@ const BulletinMap = (props: Props) => {
   const regionIds = useMemo(
     () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
     [props.date]
+  );
+
+  const eawsMicroRegionIds = useMemo(
+    () =>
+      Object.keys(
+        props.activeBulletinCollection?.eawsMaxDangerRatings || {}
+      ).filter(region => !region.includes(":")),
+    [props.activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
   const getMapOverlays = () => {
@@ -107,14 +116,18 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
-        {regionIds.map(region => {
+        {[...regionIds, ...eawsMicroRegionIds].map(region => {
           const regionState =
             region === regionMouseover
               ? "mouseOver"
               : props.getRegionState(region, props.validTimePeriod);
           return (
             <PbfRegionState
-              key={region + regionState + props.validTimePeriod}
+              key={region}
+              isClickable={regionIds.includes(region)}
+              isStyled={
+                regionsRegex.test(region) || eawsMicroRegionIds.includes(region)
+              }
               region={region}
               regionState={regionState}
             />
