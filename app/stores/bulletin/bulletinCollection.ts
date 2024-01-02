@@ -37,6 +37,9 @@ class BulletinCollection {
   }
 
   private _getBulletinUrl(): string {
+    if (!this.date || !this.lang) {
+      return;
+    }
     const region = this.date > "2022-05-06" ? "EUREGIO_" : "";
     return config.template(config.apis.bulletin.json, {
       date: this.date,
@@ -47,12 +50,14 @@ class BulletinCollection {
 
   async loadStatus(): Promise<Status> {
     const url = this._getBulletinUrl();
+    if (!url) return "empty";
     const ok = await fetchExists(url);
     return ok ? "ok" : "n/a";
   }
 
   async load(): Promise<this> {
     const url = this._getBulletinUrl();
+    if (!url) return;
     try {
       const response = await fetchJSON(url, { cache: "no-cache" });
       this.setData(response);
