@@ -120,6 +120,7 @@ class BulletinCollection {
   }
 
   async loadEawsBulletins() {
+    this.eawsMaxDangerRatings = {};
     if (this.date < "2021-01-25") {
       return;
     }
@@ -143,6 +144,7 @@ class BulletinCollection {
   }
 
   async loadEawsProblems() {
+    this.eawsAvalancheProblems = {};
     if (this.date < "2024-01-01") {
       return;
     }

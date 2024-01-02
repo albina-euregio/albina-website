@@ -1,11 +1,10 @@
 import React from "react";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
-import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
+import { WARNLEVEL_STYLES } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import { fetchJSON } from "../../util/fetch";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
   filterFeature,
@@ -13,7 +12,11 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
-import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import {
+  MaxDangerRatings,
+  toAmPm,
+  ValidTimePeriod
+} from "../../stores/bulletin";
 import { RegionState } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
@@ -21,9 +24,6 @@ declare module "@react-leaflet/core" {
     vectorGrid: VectorGrid;
   }
 }
-
-type Region = string;
-type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
 type PbfStyleFunction = {
   "micro-regions_elevation": (
@@ -155,21 +155,25 @@ export const PbfLayerOverlay = createLayerComponent(
 );
 
 type PbfRegionStateProps = {
+  isClickable: boolean;
+  isStyled: boolean;
   region: string;
   regionState: RegionState | "mouseOver";
 };
 
 export const PbfRegionState = ({
+  isClickable,
+  isStyled,
   region,
   regionState
 }: PbfRegionStateProps) => {
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
     vectorGrid.setFeatureStyle(region as unknown as number, {
-      ...clickable,
-      ...config.map.regionStyling.all,
-      ...(config.map.regionStyling[regionState] || {})
+      ...(isClickable ? clickable : hidden),
+      ...(isStyled ? config.map.regionStyling.all : {}),
+      ...(isStyled ? config.map.regionStyling[regionState] || {} : {})
     });
-  }, [region, regionState, vectorGrid]);
+  }, [isClickable, isStyled, region, regionState, vectorGrid]);
   return <></>;
 };
