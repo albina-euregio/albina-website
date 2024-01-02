@@ -156,7 +156,7 @@ export const PbfLayerOverlay = createLayerComponent(
 
 type PbfRegionStateProps = {
   region: string;
-  regionState: RegionState;
+  regionState: RegionState | "mouseOver";
 };
 
 export const PbfRegionState = ({
