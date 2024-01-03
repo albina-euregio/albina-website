@@ -102,11 +102,7 @@ function useProblems() {
     }
 
     // dehighligt if any filter is activated
-    if (
-      (Object.keys(problems) as AvalancheProblemType[]).some(
-        p => problems[p].highlighted
-      )
-    ) {
+    if (Object.values(problems).some(p => p.highlighted)) {
       return "dehighlighted";
     }
     return "default";
