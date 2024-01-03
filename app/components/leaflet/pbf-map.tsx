@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { WARNLEVEL_STYLES } from "../../util/warn-levels";
@@ -7,12 +7,17 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import { useEffect } from "react";
 import { regionsRegex } from "../../util/regions";
 import {
+  eawsRegionIds,
   filterFeature,
   MicroRegionElevationProperties,
+  microRegionIds,
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
 import {
+  AvalancheProblemType,
+  BulletinCollection,
+  matchesValidTimePeriod,
   MaxDangerRatings,
   toAmPm,
   ValidTimePeriod
@@ -155,25 +160,97 @@ export const PbfLayerOverlay = createLayerComponent(
 );
 
 type PbfRegionStateProps = {
-  isClickable: boolean;
-  isStyled: boolean;
+  activeBulletinCollection: BulletinCollection;
+  problems: Record<AvalancheProblemType, { highlighted: boolean }>;
   region: string;
-  regionState: RegionState | "mouseOver";
+  regionMouseover: string;
+  validTimePeriod: ValidTimePeriod | undefined;
 };
 
 export const PbfRegionState = ({
-  isClickable,
-  isStyled,
+  activeBulletinCollection,
+  problems,
   region,
-  regionState
+  regionMouseover,
+  validTimePeriod
 }: PbfRegionStateProps) => {
+  const microRegions = useMemo(
+    () => microRegionIds(activeBulletinCollection?.date),
+    [activeBulletinCollection?.date]
+  );
+  const eawsRegions = useMemo(
+    () => eawsRegionIds(activeBulletinCollection?.date),
+    [activeBulletinCollection?.date]
+  );
+  const eawsMicroRegions = useMemo(
+    () =>
+      Object.keys(activeBulletinCollection?.eawsMaxDangerRatings || {}).filter(
+        region => !region.includes(":")
+      ),
+    [activeBulletinCollection?.eawsMaxDangerRatings]
+  );
+
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
-    vectorGrid.setFeatureStyle(region as unknown as number, {
-      ...(isClickable ? clickable : hidden),
-      ...(isStyled ? config.map.regionStyling.all : {}),
-      ...(isStyled ? config.map.regionStyling[regionState] || {} : {})
+    [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region => {
+      const regionState = getRegionState(region);
+      vectorGrid.setFeatureStyle(region as unknown as number, {
+        ...clickable,
+        ...config.map.regionStyling.all,
+        ...(config.map.regionStyling[regionState] || {})
+      });
     });
-  }, [isClickable, isStyled, region, regionState, vectorGrid]);
+
+    function getRegionState(regionId: string): RegionState {
+      if (regionId === regionMouseover) {
+        return "mouseOver";
+      }
+      if (regionId === region) {
+        return "selected";
+      }
+      if (
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(region)
+          ?.regions?.some(r => r.regionID === regionId)
+      ) {
+        return "highlighted";
+      }
+      if (region) {
+        // some other region is selected
+        return "dimmed";
+      }
+
+      const bulletinProblemTypes =
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(regionId)
+          ?.avalancheProblems?.filter(p =>
+            matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+          )
+          ?.map(p => p.problemType) ??
+        activeBulletinCollection?.eawsAvalancheProblems?.[
+          `${regionId}${toAmPm[validTimePeriod || ValidTimePeriod.AllDay]}`
+        ] ??
+        [];
+      if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
+        return "highlighted";
+      }
+
+      // dehighligt if any filter is activated
+      if (Object.values(problems).some(p => p.highlighted)) {
+        return "dehighlighted";
+      }
+      return "default";
+    }
+  }, [
+    activeBulletinCollection,
+    eawsMicroRegions,
+    eawsRegions,
+    microRegions,
+    problems,
+    region,
+    regionMouseover,
+    validTimePeriod,
+    vectorGrid
+  ]);
   return <></>;
 };

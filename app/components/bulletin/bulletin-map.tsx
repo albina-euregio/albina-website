@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -7,12 +7,11 @@ import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
 import { useMapEvent } from "react-leaflet";
-import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
+  AvalancheProblemType,
   BulletinCollection,
-  RegionState,
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
@@ -24,14 +23,10 @@ import {
 } from "../leaflet/pbf-map";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
-import { regionsRegex } from "../../util/regions";
 
 type Props = {
   activeBulletinCollection: BulletinCollection;
-  getRegionState: (
-    regionId: string,
-    validTimePeriod?: ValidTimePeriod
-  ) => RegionState;
+  problems: Record<AvalancheProblemType, { highlighted: boolean }>;
   status: Status;
   region: string;
   validTimePeriod: ValidTimePeriod;
@@ -55,19 +50,6 @@ const BulletinMap = (props: Props) => {
       zIndex: 1000
     };
   };
-
-  const regionIds = useMemo(
-    () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
-    [props.date]
-  );
-
-  const eawsMicroRegionIds = useMemo(
-    () =>
-      Object.keys(
-        props.activeBulletinCollection?.eawsMaxDangerRatings || {}
-      ).filter(region => !region.includes(":")),
-    [props.activeBulletinCollection?.eawsMaxDangerRatings]
-  );
 
   const getMapOverlays = () => {
     const overlays = [<RegionClickHandler key="region-click-handler" />];
@@ -116,23 +98,13 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
-        {[...regionIds, ...eawsMicroRegionIds].map(region => {
-          const regionState =
-            region === regionMouseover
-              ? "mouseOver"
-              : props.getRegionState(region, props.validTimePeriod);
-          return (
-            <PbfRegionState
-              key={region}
-              isClickable={regionIds.includes(region)}
-              isStyled={
-                regionsRegex.test(region) || eawsMicroRegionIds.includes(region)
-              }
-              region={region}
-              regionState={regionState}
-            />
-          );
-        })}
+        <PbfRegionState
+          activeBulletinCollection={props.activeBulletinCollection}
+          problems={props.problems}
+          region={props.region}
+          regionMouseover={regionMouseover}
+          validTimePeriod={props.validTimePeriod}
+        />
       </PbfLayerOverlay>
     );
     return overlays;

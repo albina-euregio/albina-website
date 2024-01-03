@@ -1,16 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  BulletinCollection,
-  RegionState,
-  Status,
-  toAmPm
-} from "../stores/bulletin";
-import {
-  AvalancheProblemType,
-  ValidTimePeriod,
-  hasDaytimeDependency,
-  matchesValidTimePeriod
-} from "../stores/bulletin";
+import { BulletinCollection, Status } from "../stores/bulletin";
+import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
 
 import { FormattedMessage, useIntl } from "../i18n";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -64,50 +54,7 @@ function useProblems() {
     });
   }
 
-  function getRegionState(
-    activeBulletinCollection: BulletinCollection | undefined,
-    activeRegion: string,
-    regionId: string,
-    validTimePeriod: ValidTimePeriod | undefined
-  ): RegionState {
-    if (regionId.startsWith(activeRegion)) {
-      return "selected";
-    }
-    if (
-      activeBulletinCollection
-        ?.getBulletinForBulletinOrRegion(activeRegion)
-        ?.regions?.some(r => r.regionID === regionId)
-    ) {
-      return "highlighted";
-    }
-    if (activeRegion) {
-      // some other region is selected
-      return "dimmed";
-    }
-
-    const bulletin =
-      activeBulletinCollection?.getBulletinForBulletinOrRegion(regionId);
-    const bulletinProblemTypes =
-      bulletin?.avalancheProblems
-        ?.filter(p =>
-          matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-        )
-        ?.map(p => p.problemType) ??
-      activeBulletinCollection?.eawsAvalancheProblems?.[
-        `${regionId}${toAmPm[validTimePeriod || ValidTimePeriod.AllDay]}`
-      ] ??
-      [];
-    if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
-      return "highlighted";
-    }
-
-    // dehighligt if any filter is activated
-    if (Object.values(problems).some(p => p.highlighted)) {
-      return "dehighlighted";
-    }
-    return "default";
-  }
-  return { problems, toggleProblem, getRegionState };
+  return { problems, toggleProblem };
 }
 
 const Bulletin = () => {
@@ -120,7 +67,7 @@ const Bulletin = () => {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [slowLoading, setLoadingStart] = useSlowLoading();
-  const { problems, toggleProblem, getRegionState } = useProblems();
+  const { problems, toggleProblem } = useProblems();
   const [region, setRegion] = useState("");
   const [latest, setLatest] = useState("");
   const [status, setStatus] = useState<Status>();
@@ -317,9 +264,7 @@ const Bulletin = () => {
                 onMapInit={handleMapInit}
                 validTimePeriod={validTimePeriod}
                 activeBulletinCollection={collection}
-                getRegionState={(regionId, validTimePeriod) =>
-                  getRegionState(collection, region, regionId, validTimePeriod)
-                }
+                problems={problems}
               />
             ))}
           </div>
@@ -331,9 +276,7 @@ const Bulletin = () => {
             status={status}
             date={collection?.date}
             activeBulletinCollection={collection}
-            getRegionState={(regionId, validTimePeriod) =>
-              getRegionState(collection, region, regionId, validTimePeriod)
-            }
+            problems={problems}
           />
         )}
         <BulletinLegend
