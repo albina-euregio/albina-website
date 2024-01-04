@@ -19,14 +19,11 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
         setAudioFileUrl(null);
         return;
       }
-      const fileUrl =
-        "https://static.avalanche.report/synthesizer/bulletins/" +
-        dateToISODateString(date) +
-        "/" +
-        bulletin.bulletinID +
-        "_" +
-        bulletin.lang +
-        ".mp3";
+      const fileUrl = config.template(config.apis.bulletin.mp3, {
+        date: dateToISODateString(date),
+        region: bulletin.bulletinID + "_",
+        lang: bulletin.lang
+      });
 
       const ok = await fetchExists(fileUrl);
       setAudioFileUrl(ok ? fileUrl : null);

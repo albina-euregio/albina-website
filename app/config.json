@@ -64,6 +64,7 @@
       "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "https://static.avalanche.report/synthesizer/bulletins/{date}/{region}{lang}.mp3",
       "archive": "https://static.avalanche.report/bulletins/archive/",
       "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
     },
