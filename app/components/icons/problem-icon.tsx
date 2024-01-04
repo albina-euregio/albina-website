@@ -9,7 +9,7 @@ type Props = {
 
 export default function ProblemIcon({ problem, active, alt }: Props) {
   const imgRoot = window.config.projectRoot + "images/pro/avalanche-problems/";
-  const imgFormat = window.config.webp ? ".webp" : ".png";
+  const imgFormat = ".svg";
   const path = imgRoot + problem + imgFormat;
   const style = active ? {} : { filter: "grayscale(100%)" };
 
