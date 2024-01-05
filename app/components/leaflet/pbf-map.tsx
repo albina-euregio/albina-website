@@ -1,16 +1,35 @@
-import React, { useEffect,useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
-import { AvalancheProblemType, BulletinCollection, MaxDangerRatings, ValidTimePeriod, matchesValidTimePeriod, toAmPm } from "../../stores/bulletin";
+import {
+  AvalancheProblemType,
+  BulletinCollection,
+  MaxDangerRatings,
+  ValidTimePeriod,
+  matchesValidTimePeriod,
+  toAmPm
+} from "../../stores/bulletin";
+import {
+  leafletLayer as pmLayer,
+  type Feature,
+  PolygonSymbolizer
+} from "protomaps-leaflet/src/index";
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import { MicroRegionElevationProperties, MicroRegionProperties, RegionOutlineProperties, eawsRegionIds, filterFeature, microRegionIds } from "../../stores/microRegions";
-import { PolygonSymbolizer, leafletLayer as pmLayer } from "protomaps-leaflet/src/index";
+import {
+  MicroRegionElevationProperties,
+  MicroRegionProperties,
+  RegionOutlineProperties,
+  eawsRegionIds,
+  filterFeature,
+  microRegionIds
+} from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
 import { RegionState } from "../../stores/bulletin";
 import { WARNLEVEL_STYLES } from "../../util/warn-levels";
-import type { Layer, PathOptions } from "leaflet";
+import { DomEvent, type Map, type Layer, type PathOptions } from "leaflet";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
+    map: Map;
     vectorGrid: Layer;
   }
 }
@@ -58,12 +77,17 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const instance = pmLayer({
     pane: "overlayPane",
     interactive: false,
-    maxDataZoom: 10,
+    sources: {
+      "eaws-regions": {
+        maxDataZoom: 10,
+        url: "https://static.avalanche.report/eaws-regions.pmtiles"
+      }
+    },
     attribution: "",
-    url: "https://static.avalanche.report/eaws-regions.pmtiles",
     label_rules: [],
     paint_rules: [
       {
+        dataSource: "eaws-regions",
         dataLayer: "micro-regions_elevation",
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
@@ -100,14 +124,19 @@ export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
     const instance = pmLayer({
       pane: "markerPane",
+      sources: {
+        "eaws-regions": {
+          maxDataZoom: 10,
+          url: "https://static.avalanche.report/eaws-regions.pmtiles"
+        }
+      },
       interactive: true,
-      maxDataZoom: 10,
       attribution: "",
-      url: "https://static.avalanche.report/eaws-regions.pmtiles",
       label_rules: [],
       paint_rules: [
         {
-          dataLayer: "overlay",
+          dataSource: "eaws-regions",
+          dataLayer: "outline",
           filter: (z, f) => filterFeature({ properties: f.props }, props.date),
           symbolizer: new PolygonSymbolizer({
             fill: (z, f) =>
@@ -120,10 +149,24 @@ export const PbfLayerOverlay = createLayerComponent(
         }
       ]
     });
-    ctx.map.on("click", e =>
-      // FIXME
-      console.log(instance.queryFeatures(e.latlng.lat, e.latlng.lng))
-    );
+    ctx.map.on("click", e => {
+      DomEvent.stop(e);
+      instance._map = ctx.map;
+      const features: {
+        feature: Feature;
+        layerName: "outline" | string;
+      }[] = instance
+        .queryFeatures(e.latlng.lng, e.latlng.lat)
+        .get("eaws-regions");
+      const feature = features.find(
+        feature =>
+          (feature.layerName === "micro-regions" &&
+            regionsRegex.test(feature.feature?.props?.id)) ||
+          (feature.layerName === "outline" &&
+            !regionsRegex.test(feature.feature?.props?.id))
+      );
+      props.handleSelectRegion(feature?.feature?.props?.id || "");
+    });
 
     return {
       instance,

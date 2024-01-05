@@ -6,7 +6,6 @@ import "leaflet";
 import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
-import { useMapEvent } from "react-leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
@@ -40,11 +39,6 @@ const BulletinMap = (props: Props) => {
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
-  function RegionClickHandler(): null {
-    useMapEvent("click", () => props.handleSelectRegion(""));
-    return null;
-  }
-
   const styleOverMap = () => {
     return {
       zIndex: 1000
@@ -52,7 +46,7 @@ const BulletinMap = (props: Props) => {
   };
 
   const getMapOverlays = () => {
-    const overlays = [<RegionClickHandler key="region-click-handler" />];
+    const overlays = [];
     const date = props.date;
     overlays.push(
       <PbfLayer
@@ -77,6 +71,7 @@ const BulletinMap = (props: Props) => {
     overlays.push(
       <PbfLayerOverlay
         key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
+        handleSelectRegion={props.handleSelectRegion}
         date={date}
         validTimePeriod={props.validTimePeriod}
         eventHandlers={{
