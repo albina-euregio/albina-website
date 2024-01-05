@@ -43,7 +43,11 @@ type PbfProps = {
 };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
-  const style = (id: string): PathOptions => {
+  const style = ({
+    id,
+    elevation
+  }: MicroRegionElevationProperties): PathOptions => {
+    if (elevation !== "low_high") id += ":" + elevation;
     id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return hidden;
@@ -51,29 +55,24 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       ? WARNLEVEL_STYLES.albina[warnlevel]
       : WARNLEVEL_STYLES.eaws[warnlevel];
   };
-  const instance = L.vectorGrid.protobuf(
-    "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
-    {
-      pane: "overlayPane",
-      interactive: false,
-      rendererFactory: L.canvas.tile,
-      maxNativeZoom: 10,
-      vectorTileLayerStyles: {
-        "micro-regions_elevation"(properties) {
-          if (!filterFeature({ properties }, props.date)) return hidden;
-          return properties.elevation === "low_high"
-            ? style(properties.id)
-            : style(properties.id + ":" + properties.elevation);
-        },
-        "micro-regions"() {
-          return hidden;
-        },
-        outline() {
-          return hidden;
-        }
-      } as PbfStyleFunction
-    }
-  );
+  const instance = pmLayer({
+    pane: "overlayPane",
+    interactive: false,
+    maxDataZoom: 10,
+    attribution: "",
+    url: "https://static.avalanche.report/eaws-regions.pmtiles",
+    label_rules: [],
+    paint_rules: [
+      {
+        dataLayer: "micro-regions_elevation",
+        filter: (z, f) => filterFeature({ properties: f.props }, props.date),
+        symbolizer: new PolygonSymbolizer({
+          fill: (z, f) => style(f.props).fillColor,
+          opacity: (z, f) => style(f.props).fillOpacity
+        })
+      }
+    ]
+  });
   return {
     instance,
     context: { ...ctx, vectorGrid: instance }
