@@ -14,12 +14,7 @@ import type {
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import {
-  DangerRatings,
-  PbfLayer,
-  PbfLayerOverlay,
-  PbfRegionState
-} from "../leaflet/pbf-map";
+import { DangerRatings, PbfLayer, PbfRegionState } from "../leaflet/pbf-map";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
@@ -52,25 +47,6 @@ const BulletinMap = (props: Props) => {
       <PbfLayer
         key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
         date={date}
-        validTimePeriod={props.validTimePeriod}
-      >
-        {props.activeBulletinCollection && (
-          <DangerRatings
-            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
-          />
-        )}
-        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
-          <DangerRatings
-            maxDangerRatings={
-              props.activeBulletinCollection.eawsMaxDangerRatings
-            }
-          />
-        )}
-      </PbfLayer>
-    );
-    overlays.push(
-      <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
         handleSelectRegion={props.handleSelectRegion}
         date={date}
         validTimePeriod={props.validTimePeriod}
@@ -93,6 +69,18 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
+        {props.activeBulletinCollection && (
+          <DangerRatings
+            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
+          />
+        )}
+        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
+          <DangerRatings
+            maxDangerRatings={
+              props.activeBulletinCollection.eawsMaxDangerRatings
+            }
+          />
+        )}
         <PbfRegionState
           activeBulletinCollection={props.activeBulletinCollection}
           problems={props.problems}
@@ -100,7 +88,7 @@ const BulletinMap = (props: Props) => {
           regionMouseover={regionMouseover}
           validTimePeriod={props.validTimePeriod}
         />
-      </PbfLayerOverlay>
+      </PbfLayer>
     );
     return overlays;
   };

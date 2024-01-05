@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import {
   AvalancheProblemType,
   BulletinCollection,
@@ -57,6 +56,7 @@ const clickable = Object.freeze({
 } as PathOptions);
 
 type PbfProps = {
+  handleSelectRegion: (id?: string) => void;
   validTimePeriod: ValidTimePeriod;
   date: string;
 };
@@ -94,8 +94,38 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
           fill: (z, f) => style(f.props).fillColor,
           opacity: (z, f) => style(f.props).fillOpacity
         })
+      },
+      {
+        dataSource: "eaws-regions",
+        dataLayer: "outline",
+        filter: (z, f) => filterFeature({ properties: f.props }, props.date),
+        symbolizer: new PolygonSymbolizer({
+          fill: (z, f) =>
+            (instance.options.regionStyling[f.props.id] ?? clickable).fillColor,
+          opacity: (z, f) =>
+            (instance.options.regionStyling[f.props.id] ?? clickable)
+              .fillOpacity
+        })
       }
     ]
+  });
+  ctx.map.on("click", e => {
+    DomEvent.stop(e);
+    instance._map = ctx.map;
+    const features: {
+      feature: Feature;
+      layerName: "outline" | string;
+    }[] = instance
+      .queryFeatures(e.latlng.lng, e.latlng.lat)
+      .get("eaws-regions");
+    const feature = features.find(
+      feature =>
+        (feature.layerName === "micro-regions" &&
+          regionsRegex.test(feature.feature?.props?.id)) ||
+        (feature.layerName === "outline" &&
+          !regionsRegex.test(feature.feature?.props?.id))
+    );
+    props.handleSelectRegion(feature?.feature?.props?.id || "");
   });
   return {
     instance,
@@ -115,65 +145,6 @@ export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
   }, [maxDangerRatings, vectorGrid.options]);
   return <></>;
 };
-
-type PbfLayerOverlayProps = PbfProps & {
-  handleSelectRegion: (id?: string) => void;
-};
-
-export const PbfLayerOverlay = createLayerComponent(
-  (props: PbfLayerOverlayProps, ctx) => {
-    const instance = pmLayer({
-      pane: "markerPane",
-      sources: {
-        "eaws-regions": {
-          maxDataZoom: 10,
-          url: "https://static.avalanche.report/eaws-regions.pmtiles"
-        }
-      },
-      interactive: true,
-      attribution: "",
-      label_rules: [],
-      paint_rules: [
-        {
-          dataSource: "eaws-regions",
-          dataLayer: "outline",
-          filter: (z, f) => filterFeature({ properties: f.props }, props.date),
-          symbolizer: new PolygonSymbolizer({
-            fill: (z, f) =>
-              (instance.options.regionStyling[f.props.id] ?? clickable)
-                .fillColor,
-            opacity: (z, f) =>
-              (instance.options.regionStyling[f.props.id] ?? clickable)
-                .fillOpacity
-          })
-        }
-      ]
-    });
-    ctx.map.on("click", e => {
-      DomEvent.stop(e);
-      instance._map = ctx.map;
-      const features: {
-        feature: Feature;
-        layerName: "outline" | string;
-      }[] = instance
-        .queryFeatures(e.latlng.lng, e.latlng.lat)
-        .get("eaws-regions");
-      const feature = features.find(
-        feature =>
-          (feature.layerName === "micro-regions" &&
-            regionsRegex.test(feature.feature?.props?.id)) ||
-          (feature.layerName === "outline" &&
-            !regionsRegex.test(feature.feature?.props?.id))
-      );
-      props.handleSelectRegion(feature?.feature?.props?.id || "");
-    });
-
-    return {
-      instance,
-      context: { ...ctx, vectorGrid: instance }
-    };
-  }
-);
 
 type PbfRegionStateProps = {
   activeBulletinCollection: BulletinCollection;
