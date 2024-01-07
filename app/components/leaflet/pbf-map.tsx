@@ -22,7 +22,12 @@ import { DomEvent, type Map, type Layer, type PathOptions } from "leaflet";
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
     map: Map;
-    vectorGrid: Layer;
+    vectorGrid: Layer & {
+      options: {
+        dangerRatings: MaxDangerRatings;
+        regionStyling: Record<string, PathOptions>;
+      };
+    };
   }
 }
 
