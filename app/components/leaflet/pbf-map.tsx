@@ -13,11 +13,21 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import {
   EawsRegionDataLayer,
   MicroRegionElevationProperties,
+  MicroRegionProperties,
+  RegionOutlineProperties,
   filterFeature
 } from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
 import { WARNLEVEL_STYLES } from "../../util/warn-levels";
-import { DomEvent, type Map, type PathOptions } from "leaflet";
+import {
+  DomEvent,
+  type LeafletMouseEventHandlerFn,
+  type LeafletEventHandlerFnMap,
+  type LeafletMouseEvent,
+  type Map,
+  type PathOptions
+} from "leaflet";
+import { mapValues } from "../../util/mapValues";
 
 type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
   options: {
@@ -48,6 +58,7 @@ export const clickable = Object.freeze({
 type PbfProps = {
   handleSelectRegion: (id?: string) => void;
   validTimePeriod: ValidTimePeriod;
+  eventHandlers: LeafletEventHandlerFnMap;
   date: string;
 };
 
@@ -100,7 +111,21 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       }
     ]
   }) as LeafletPbfLayer;
-  ctx.map.on("click", e => {
+
+  ctx.map.on(
+    mapValues<
+      "click" | "mouseover" | "mouseout",
+      LeafletMouseEventHandlerFn,
+      LeafletMouseEventHandlerFn
+    >(props.eventHandlers, handler => e => {
+      e.sourceTarget = { properties: findFeature(e) };
+      return handler(e);
+    })
+  );
+
+  function findFeature(
+    e: LeafletMouseEvent
+  ): MicroRegionProperties | RegionOutlineProperties | undefined {
     DomEvent.stop(e);
     instance._map = ctx.map;
     const features: {
@@ -110,12 +135,16 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     const feature = features.find(
       feature =>
         (feature.layerName === EawsRegionDataLayer.micro_regions &&
-          regionsRegex.test(feature.feature?.props?.id)) ||
+          regionsRegex.test(feature.feature?.props?.id as string)) ||
         (feature.layerName === EawsRegionDataLayer.outline &&
-          !regionsRegex.test(feature.feature?.props?.id))
+          !regionsRegex.test(feature.feature?.props?.id as string))
     );
-    props.handleSelectRegion(feature?.feature?.props?.id || "");
-  });
+    return feature?.feature?.props as unknown as
+      | MicroRegionProperties
+      | RegionOutlineProperties
+      | undefined;
+  }
+
   return {
     instance,
     context: { ...ctx, vectorGrid: instance }

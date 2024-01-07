@@ -49,22 +49,21 @@ const BulletinMap = (props: Props) => {
         key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
         date={date}
         handleSelectRegion={props.handleSelectRegion}
-        date={date}
         validTimePeriod={props.validTimePeriod}
         eventHandlers={{
           click(e) {
             DomEvent.stop(e);
-            props.handleSelectRegion(e.sourceTarget.properties.id);
+            props.handleSelectRegion(e.sourceTarget.properties?.id);
           },
           mouseover(e) {
             requestAnimationFrame(() =>
-              setRegionMouseover(e.sourceTarget.properties.id)
+              setRegionMouseover(e.sourceTarget.properties?.id)
             );
           },
           mouseout(e) {
             requestAnimationFrame(() =>
               setRegionMouseover(id =>
-                id === e.sourceTarget.properties.id ? "" : id
+                id === e.sourceTarget.properties?.id ? "" : id
               )
             );
           }
