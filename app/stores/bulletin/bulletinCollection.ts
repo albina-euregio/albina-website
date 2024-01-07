@@ -14,14 +14,6 @@ import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
-export type RegionState =
-  | "mouseOver"
-  | "selected"
-  | "highlighted"
-  | "dehighlighted"
-  | "dimmed"
-  | "default";
-
 type RegionID = string;
 type LowHigh = "low" | "high";
 type ColonLowHigh = "" | `:${LowHigh}`;

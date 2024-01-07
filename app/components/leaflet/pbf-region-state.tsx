@@ -8,8 +8,14 @@ import {
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
-import { RegionState } from "../../stores/bulletin";
-import type { PathOptions } from "leaflet";
+
+export type RegionState =
+  | "mouseOver"
+  | "selected"
+  | "highlighted"
+  | "dehighlighted"
+  | "dimmed"
+  | "default";
 
 export type PbfRegionStateProps = {
   activeBulletinCollection: BulletinCollection;
@@ -42,25 +48,12 @@ export function PbfRegionState({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
-  const regionStyling = useMemo(() => {
-    return Object.fromEntries<PathOptions>(
-      Object.entries(config.map.regionStyling).map(([k, v]) => [
-        k,
-        {
-          ...config.map.regionStyling.clickable,
-          ...config.map.regionStyling.all,
-          ...v
-        }
-      ])
-    );
-  }, []);
-
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
     vectorGrid.options.regionStyling = Object.fromEntries(
       [...microRegions, ...eawsRegions, ...eawsMicroRegions].map(region => [
         region,
-        regionStyling[getRegionState(region)]
+        getRegionState(region)
       ])
     );
     requestAnimationFrame(() => vectorGrid.rerenderTiles());
@@ -113,7 +106,6 @@ export function PbfRegionState({
     problems,
     region,
     regionMouseover,
-    regionStyling,
     validTimePeriod,
     vectorGrid
   ]);

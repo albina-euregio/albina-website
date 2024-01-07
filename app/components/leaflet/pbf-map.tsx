@@ -28,16 +28,16 @@ import {
   type LeafletMouseEventHandlerFn,
   type LeafletEventHandlerFnMap,
   type LeafletMouseEvent,
-  type Map,
-  type PathOptions
+  type Map
 } from "leaflet";
 import { mapValues } from "../../util/mapValues";
+import { RegionState } from "./pbf-region-state";
 
 type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
   options: {
     rerenderTiles(): void;
     dangerRatings: MaxDangerRatings;
-    regionStyling: Record<string, PathOptions>;
+    regionStyling: Record<string, RegionState>;
   };
 };
 
@@ -80,23 +80,30 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
           opacity: WARNLEVEL_OPACITY[warnlevel]
         })
       })),
-      {
+      ...(
+        [
+          "mouseOver",
+          "selected",
+          "highlighted",
+          "dehighlighted",
+          "dimmed",
+          "default"
+        ] as RegionState[]
+      ).map(regionState => ({
         dataSource,
         dataLayer: EawsRegionDataLayer.outline,
-        filter: (z, f) => filterFeature({ properties: f.props }, props.date),
+        filter: (z, f) =>
+          filterFeature({ properties: f.props }, props.date) &&
+          instance.options.regionStyling[f.props.id] === regionState,
         symbolizer: new PolygonSymbolizer({
-          fill: (z, f) =>
-            (
-              instance.options.regionStyling[f.props.id] ??
-              config.map.regionStyling.clickable
-            ).fillColor,
-          opacity: (z, f) =>
-            (
-              instance.options.regionStyling[f.props.id] ??
-              config.map.regionStyling.clickable
-            ).fillOpacity
+          fill:
+            config.map.regionStyling[regionState].fillColor ??
+            config.map.regionStyling["clickable"].fillColor,
+          opacity:
+            config.map.regionStyling[regionState].fillOpacity ??
+            config.map.regionStyling["clickable"].fillOpacity
         })
-      }
+      }))
     ]
   }) as LeafletPbfLayer;
 
