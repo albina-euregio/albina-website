@@ -18,7 +18,11 @@ import {
   filterFeature
 } from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
-import { WARNLEVEL_STYLES } from "../../util/warn-levels";
+import {
+  WARNLEVEL_COLORS,
+  WARNLEVEL_OPACITY,
+  WarnLevelNumber
+} from "../../util/warn-levels";
 import {
   DomEvent,
   type LeafletMouseEventHandlerFn,
@@ -65,18 +69,6 @@ type PbfProps = {
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const dataSource = "eaws-regions";
-  const style = ({
-    id,
-    elevation
-  }: MicroRegionElevationProperties): PathOptions => {
-    if (elevation !== "low_high") id += ":" + elevation;
-    id += toAmPm[props.validTimePeriod] ?? "";
-    const warnlevel = instance.options.dangerRatings[id];
-    if (!warnlevel) return hidden;
-    return regionsRegex.test(id)
-      ? WARNLEVEL_STYLES.albina[warnlevel]
-      : WARNLEVEL_STYLES.eaws[warnlevel];
-  };
   const instance = pmLayer({
     pane: "overlayPane",
     interactive: false,
@@ -89,15 +81,17 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     attribution: "",
     label_rules: [],
     paint_rules: [
-      {
+      ...([1, 2, 3, 4, 5] as WarnLevelNumber[]).map(warnlevel => ({
         dataSource,
         dataLayer: EawsRegionDataLayer.micro_regions_elevation,
-        filter: (z, f) => filterFeature({ properties: f.props }, props.date),
+        filter: (z, f) =>
+          filterFeature({ properties: f.props }, props.date) &&
+          dangerRating(f.props) === warnlevel,
         symbolizer: new PolygonSymbolizer({
-          fill: (z, f) => style(f.props).fillColor,
-          opacity: (z, f) => style(f.props).fillOpacity
+          fill: WARNLEVEL_COLORS[warnlevel],
+          opacity: WARNLEVEL_OPACITY[warnlevel]
         })
-      },
+      })),
       {
         dataSource,
         dataLayer: EawsRegionDataLayer.outline,
@@ -144,6 +138,15 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       | MicroRegionProperties
       | RegionOutlineProperties
       | undefined;
+  }
+
+  function dangerRating({
+    id,
+    elevation
+  }: MicroRegionElevationProperties): WarnLevelNumber {
+    if (elevation !== "low_high") id += ":" + elevation;
+    id += toAmPm[props.validTimePeriod] ?? "";
+    return instance.options.dangerRatings[id];
   }
 
   return {
