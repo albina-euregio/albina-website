@@ -43,16 +43,21 @@ export function PbfRegionState({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
+  const regionStyling = useMemo(() => {
+    return Object.fromEntries<PathOptions>(
+      Object.entries(config.map.regionStyling).map(([k, v]) => [
+        k,
+        { ...clickable, ...config.map.regionStyling.all, ...v }
+      ])
+    );
+  }, []);
+
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
     vectorGrid.options.regionStyling = Object.fromEntries(
       [...microRegions, ...eawsRegions, ...eawsMicroRegions].map(region => [
         region,
-        {
-          ...clickable,
-          ...config.map.regionStyling.all,
-          ...(config.map.regionStyling[getRegionState(region)] || {})
-        } satisfies PathOptions
+        regionStyling[getRegionState(region)]
       ])
     );
 
@@ -104,6 +109,7 @@ export function PbfRegionState({
     problems,
     region,
     regionMouseover,
+    regionStyling,
     validTimePeriod,
     vectorGrid
   ]);
