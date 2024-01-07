@@ -7,6 +7,7 @@ import {
 import {
   leafletLayer as pmLayer,
   type Feature,
+  type Rule,
   PolygonSymbolizer
 } from "protomaps-leaflet/src/index";
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
@@ -31,7 +32,7 @@ import {
   type Map
 } from "leaflet";
 import { mapValues } from "../../util/mapValues";
-import { RegionState } from "./pbf-region-state";
+import { RegionState, regionStates } from "./pbf-region-state";
 
 type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
   options: {
@@ -69,41 +70,42 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     attribution: "",
     label_rules: [],
     paint_rules: [
-      ...([1, 2, 3, 4, 5] as WarnLevelNumber[]).map(warnlevel => ({
-        dataSource,
-        dataLayer: EawsRegionDataLayer.micro_regions_elevation,
-        filter: (z, f) =>
-          filterFeature({ properties: f.props }, props.date) &&
-          dangerRating(f.props) === warnlevel,
-        symbolizer: new PolygonSymbolizer({
-          fill: WARNLEVEL_COLORS[warnlevel],
-          opacity: WARNLEVEL_OPACITY[warnlevel]
-        })
-      })),
-      ...(
-        [
-          "mouseOver",
-          "selected",
-          "highlighted",
-          "dehighlighted",
-          "dimmed",
-          "default"
-        ] as RegionState[]
-      ).map(regionState => ({
-        dataSource,
-        dataLayer: EawsRegionDataLayer.outline,
-        filter: (z, f) =>
-          filterFeature({ properties: f.props }, props.date) &&
-          instance.options.regionStyling[f.props.id] === regionState,
-        symbolizer: new PolygonSymbolizer({
-          fill:
-            config.map.regionStyling[regionState].fillColor ??
-            config.map.regionStyling["clickable"].fillColor,
-          opacity:
-            config.map.regionStyling[regionState].fillOpacity ??
-            config.map.regionStyling["clickable"].fillOpacity
-        })
-      }))
+      ...([1, 2, 3, 4, 5] as WarnLevelNumber[]).map(
+        warnlevel =>
+          ({
+            dataSource,
+            dataLayer: EawsRegionDataLayer.micro_regions_elevation,
+            filter: (z, f) =>
+              filterFeature({ properties: f.props }, props.date) &&
+              dangerRating(f.props) === warnlevel,
+            symbolizer: new PolygonSymbolizer({
+              fill: WARNLEVEL_COLORS[warnlevel],
+              opacity: WARNLEVEL_OPACITY[warnlevel]
+            })
+          }) satisfies Rule
+      ),
+      ...regionStates.flatMap(regionState =>
+        [EawsRegionDataLayer.outline, EawsRegionDataLayer.micro_regions].map(
+          dataLayer =>
+            ({
+              dataSource,
+              dataLayer,
+              filter: (z, f) =>
+                microRegionOrOutline(f, dataLayer) &&
+                filterFeature({ properties: f.props }, props.date) &&
+                instance.options.regionStyling[f.props.id] === regionState,
+              symbolizer: new PolygonSymbolizer({
+                fill:
+                  config.map.regionStyling[regionState].fillColor ??
+                  config.map.regionStyling["clickable"].fillColor,
+                opacity:
+                  config.map.regionStyling[regionState].fillOpacity ??
+                  config.map.regionStyling["clickable"].fillOpacity,
+                width: config.map.regionStyling[regionState].weight ?? 0.0
+              })
+            }) satisfies Rule
+        )
+      )
     ]
   }) as LeafletPbfLayer;
 
@@ -127,17 +129,25 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       feature: Feature;
       layerName: EawsRegionDataLayer;
     }[] = instance.queryFeatures(e.latlng.lng, e.latlng.lat).get(dataSource);
-    const feature = features.find(
-      feature =>
-        (feature.layerName === EawsRegionDataLayer.micro_regions &&
-          regionsRegex.test(feature.feature?.props?.id as string)) ||
-        (feature.layerName === EawsRegionDataLayer.outline &&
-          !regionsRegex.test(feature.feature?.props?.id as string))
+    const feature = features.find(({ feature, layerName }) =>
+      microRegionOrOutline(feature, layerName)
     );
     return feature?.feature?.props as unknown as
       | MicroRegionProperties
       | RegionOutlineProperties
       | undefined;
+  }
+
+  function microRegionOrOutline(
+    feature: Feature,
+    dataLayer: EawsRegionDataLayer
+  ): unknown {
+    return (
+      (dataLayer === EawsRegionDataLayer.micro_regions &&
+        regionsRegex.test(feature?.props?.id as string)) ||
+      (dataLayer === EawsRegionDataLayer.outline &&
+        !regionsRegex.test(feature?.props?.id as string))
+    );
   }
 
   function dangerRating({

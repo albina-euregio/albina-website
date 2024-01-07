@@ -17,6 +17,15 @@ export type RegionState =
   | "dimmed"
   | "default";
 
+export const regionStates: RegionState[] = [
+  "mouseOver",
+  "selected",
+  "highlighted",
+  "dehighlighted",
+  "dimmed",
+  "default"
+];
+
 export type PbfRegionStateProps = {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
