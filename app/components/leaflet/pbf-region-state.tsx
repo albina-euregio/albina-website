@@ -10,6 +10,7 @@ import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import { RegionState } from "../../stores/bulletin";
 import { clickable } from "./pbf-map";
+import type { PathOptions } from "leaflet";
 
 export type PbfRegionStateProps = {
   activeBulletinCollection: BulletinCollection;
@@ -44,16 +45,16 @@ export function PbfRegionState({
 
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
-    [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region => {
-      const regionState = getRegionState(region);
-      vectorGrid.options.regionStyling = {
-        [region]: {
+    vectorGrid.options.regionStyling = Object.fromEntries(
+      [...microRegions, ...eawsRegions, ...eawsMicroRegions].map(region => [
+        region,
+        {
           ...clickable,
           ...config.map.regionStyling.all,
-          ...(config.map.regionStyling[regionState] || {})
-        }
-      };
-    });
+          ...(config.map.regionStyling[getRegionState(region)] || {})
+        } satisfies PathOptions
+      ])
+    );
 
     function getRegionState(regionId: string): RegionState {
       if (regionId === regionMouseover) {
