@@ -8,6 +8,11 @@ import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
 import { regionsRegex } from "../util/regions";
 
+export enum EawsRegionDataLayer {
+  micro_regions_elevation = "micro-regions_elevation",
+  micro_regions = "micro-regions",
+  outline = "outline"
+}
 export interface MicroRegionProperties {
   id: string;
   start_date?: Date;

@@ -11,9 +11,8 @@ import {
 } from "protomaps-leaflet/src/index";
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import {
+  EawsRegionDataLayer,
   MicroRegionElevationProperties,
-  MicroRegionProperties,
-  RegionOutlineProperties,
   filterFeature
 } from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
@@ -26,16 +25,6 @@ declare module "@react-leaflet/core" {
     vectorGrid: Layer;
   }
 }
-
-type Region = string;
-
-type PbfStyleFunction = {
-  "micro-regions_elevation": (
-    properties: MicroRegionElevationProperties
-  ) => L.PathOptions;
-  "micro-regions": (properties: MicroRegionProperties) => L.PathOptions;
-  outline: (properties: RegionOutlineProperties) => L.PathOptions;
-};
 
 const hidden = Object.freeze({
   stroke: false,
@@ -82,7 +71,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     paint_rules: [
       {
         dataSource: "eaws-regions",
-        dataLayer: "micro-regions_elevation",
+        dataLayer: EawsRegionDataLayer.micro_regions_elevation,
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
           fill: (z, f) => style(f.props).fillColor,
@@ -91,7 +80,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       },
       {
         dataSource: "eaws-regions",
-        dataLayer: "outline",
+        dataLayer: EawsRegionDataLayer.outline,
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
           fill: (z, f) =>
@@ -108,15 +97,15 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     instance._map = ctx.map;
     const features: {
       feature: Feature;
-      layerName: "outline" | string;
+      layerName: EawsRegionDataLayer;
     }[] = instance
       .queryFeatures(e.latlng.lng, e.latlng.lat)
       .get("eaws-regions");
     const feature = features.find(
       feature =>
-        (feature.layerName === "micro-regions" &&
+        (feature.layerName === EawsRegionDataLayer.micro_regions &&
           regionsRegex.test(feature.feature?.props?.id)) ||
-        (feature.layerName === "outline" &&
+        (feature.layerName === EawsRegionDataLayer.outline &&
           !regionsRegex.test(feature.feature?.props?.id))
     );
     props.handleSelectRegion(feature?.feature?.props?.id || "");
