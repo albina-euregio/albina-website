@@ -48,18 +48,6 @@ declare module "@react-leaflet/core" {
   }
 }
 
-const hidden = Object.freeze({
-  stroke: false,
-  fill: false,
-  fillOpacity: 0.0
-} as PathOptions);
-export const clickable = Object.freeze({
-  stroke: false,
-  fill: true,
-  fillColor: "black",
-  fillOpacity: 0.1
-} as PathOptions);
-
 type PbfProps = {
   handleSelectRegion: (id?: string) => void;
   validTimePeriod: ValidTimePeriod;
@@ -98,10 +86,15 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
           fill: (z, f) =>
-            (instance.options.regionStyling[f.props.id] ?? clickable).fillColor,
+            (
+              instance.options.regionStyling[f.props.id] ??
+              config.map.regionStyling.clickable
+            ).fillColor,
           opacity: (z, f) =>
-            (instance.options.regionStyling[f.props.id] ?? clickable)
-              .fillOpacity
+            (
+              instance.options.regionStyling[f.props.id] ??
+              config.map.regionStyling.clickable
+            ).fillOpacity
         })
       }
     ]

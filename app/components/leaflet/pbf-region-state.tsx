@@ -9,7 +9,6 @@ import {
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import { RegionState } from "../../stores/bulletin";
-import { clickable } from "./pbf-map";
 import type { PathOptions } from "leaflet";
 
 export type PbfRegionStateProps = {
@@ -47,7 +46,11 @@ export function PbfRegionState({
     return Object.fromEntries<PathOptions>(
       Object.entries(config.map.regionStyling).map(([k, v]) => [
         k,
-        { ...clickable, ...config.map.regionStyling.all, ...v }
+        {
+          ...config.map.regionStyling.clickable,
+          ...config.map.regionStyling.all,
+          ...v
+        }
       ])
     );
   }, []);
