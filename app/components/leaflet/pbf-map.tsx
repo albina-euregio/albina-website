@@ -45,6 +45,7 @@ type PbfProps = {
 };
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
+  const dataSource = "eaws-regions";
   const style = ({
     id,
     elevation
@@ -61,7 +62,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     pane: "overlayPane",
     interactive: false,
     sources: {
-      "eaws-regions": {
+      [dataSource]: {
         maxDataZoom: 10,
         url: "https://static.avalanche.report/eaws-regions.pmtiles"
       }
@@ -70,7 +71,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     label_rules: [],
     paint_rules: [
       {
-        dataSource: "eaws-regions",
+        dataSource,
         dataLayer: EawsRegionDataLayer.micro_regions_elevation,
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
@@ -79,7 +80,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
         })
       },
       {
-        dataSource: "eaws-regions",
+        dataSource,
         dataLayer: EawsRegionDataLayer.outline,
         filter: (z, f) => filterFeature({ properties: f.props }, props.date),
         symbolizer: new PolygonSymbolizer({
@@ -98,9 +99,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     const features: {
       feature: Feature;
       layerName: EawsRegionDataLayer;
-    }[] = instance
-      .queryFeatures(e.latlng.lng, e.latlng.lat)
-      .get("eaws-regions");
+    }[] = instance.queryFeatures(e.latlng.lng, e.latlng.lat).get(dataSource);
     const feature = features.find(
       feature =>
         (feature.layerName === EawsRegionDataLayer.micro_regions &&
