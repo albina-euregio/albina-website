@@ -14,7 +14,8 @@ import type {
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { DangerRatings, PbfLayer, PbfRegionState } from "../leaflet/pbf-map";
+import { DangerRatings, PbfLayer } from "../leaflet/pbf-map";
+import { PbfRegionState } from "../leaflet/pbf-region-state";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 

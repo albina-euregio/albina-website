@@ -1,10 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import {
-  AvalancheProblemType,
-  BulletinCollection,
   MaxDangerRatings,
   ValidTimePeriod,
-  matchesValidTimePeriod,
   toAmPm
 } from "../../stores/bulletin";
 import {
@@ -17,12 +14,9 @@ import {
   MicroRegionElevationProperties,
   MicroRegionProperties,
   RegionOutlineProperties,
-  eawsRegionIds,
-  filterFeature,
-  microRegionIds
+  filterFeature
 } from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
-import { RegionState } from "../../stores/bulletin";
 import { WARNLEVEL_STYLES } from "../../util/warn-levels";
 import { DomEvent, type Map, type Layer, type PathOptions } from "leaflet";
 
@@ -48,7 +42,7 @@ const hidden = Object.freeze({
   fill: false,
   fillOpacity: 0.0
 } as PathOptions);
-const clickable = Object.freeze({
+export const clickable = Object.freeze({
   stroke: false,
   fill: true,
   fillColor: "black",
@@ -143,103 +137,5 @@ export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
       ...maxDangerRatings
     };
   }, [maxDangerRatings, vectorGrid.options]);
-  return <></>;
-};
-
-type PbfRegionStateProps = {
-  activeBulletinCollection: BulletinCollection;
-  problems: Record<AvalancheProblemType, { highlighted: boolean }>;
-  region: string;
-  regionMouseover: string;
-  validTimePeriod: ValidTimePeriod | undefined;
-};
-
-export const PbfRegionState = ({
-  activeBulletinCollection,
-  problems,
-  region,
-  regionMouseover,
-  validTimePeriod
-}: PbfRegionStateProps) => {
-  const microRegions = useMemo(
-    () => microRegionIds(activeBulletinCollection?.date),
-    [activeBulletinCollection?.date]
-  );
-  const eawsRegions = useMemo(
-    () => eawsRegionIds(activeBulletinCollection?.date),
-    [activeBulletinCollection?.date]
-  );
-  const eawsMicroRegions = useMemo(
-    () =>
-      Object.keys(activeBulletinCollection?.eawsMaxDangerRatings || {}).filter(
-        region => !region.includes(":")
-      ),
-    [activeBulletinCollection?.eawsMaxDangerRatings]
-  );
-
-  const { vectorGrid } = useLeafletContext();
-  useEffect(() => {
-    [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region => {
-      const regionState = getRegionState(region);
-      vectorGrid.options.regionStyling = {
-        [region]: {
-          ...clickable,
-          ...config.map.regionStyling.all,
-          ...(config.map.regionStyling[regionState] || {})
-        }
-      };
-    });
-
-    function getRegionState(regionId: string): RegionState {
-      if (regionId === regionMouseover) {
-        return "mouseOver";
-      }
-      if (regionId === region) {
-        return "selected";
-      }
-      if (
-        activeBulletinCollection
-          ?.getBulletinForBulletinOrRegion(region)
-          ?.regions?.some(r => r.regionID === regionId)
-      ) {
-        return "highlighted";
-      }
-      if (region) {
-        // some other region is selected
-        return "dimmed";
-      }
-
-      const bulletinProblemTypes =
-        activeBulletinCollection
-          ?.getBulletinForBulletinOrRegion(regionId)
-          ?.avalancheProblems?.filter(p =>
-            matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-          )
-          ?.map(p => p.problemType) ??
-        activeBulletinCollection?.eawsAvalancheProblems?.[
-          `${regionId}${toAmPm[validTimePeriod || ValidTimePeriod.AllDay]}`
-        ] ??
-        [];
-      if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
-        return "highlighted";
-      }
-
-      // dehighligt if any filter is activated
-      if (Object.values(problems).some(p => p.highlighted)) {
-        return "dehighlighted";
-      }
-      return "default";
-    }
-  }, [
-    activeBulletinCollection,
-    eawsMicroRegions,
-    eawsRegions,
-    microRegions,
-    problems,
-    region,
-    regionMouseover,
-    validTimePeriod,
-    vectorGrid
-  ]);
   return <></>;
 };
