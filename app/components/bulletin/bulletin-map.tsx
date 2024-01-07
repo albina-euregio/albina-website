@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -41,6 +41,25 @@ const BulletinMap = (props: Props) => {
     };
   };
 
+  const regionState = useMemo(
+    () => (
+      <PbfRegionState
+        activeBulletinCollection={props.activeBulletinCollection}
+        problems={props.problems}
+        region={props.region}
+        regionMouseover={regionMouseover}
+        validTimePeriod={props.validTimePeriod}
+      />
+    ),
+    [
+      props.activeBulletinCollection,
+      props.problems,
+      props.region,
+      props.validTimePeriod,
+      regionMouseover
+    ]
+  );
+
   const getMapOverlays = () => {
     const overlays = [];
     const date = props.date;
@@ -55,17 +74,8 @@ const BulletinMap = (props: Props) => {
             DomEvent.stop(e);
             props.handleSelectRegion(e.sourceTarget.properties?.id);
           },
-          mouseover(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(e.sourceTarget.properties?.id)
-            );
-          },
-          mouseout(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(id =>
-                id === e.sourceTarget.properties?.id ? "" : id
-              )
-            );
+          mousemove(e) {
+            setRegionMouseover(e.sourceTarget.properties?.id ?? "");
           }
         }}
       >
@@ -81,13 +91,7 @@ const BulletinMap = (props: Props) => {
             }
           />
         )}
-        <PbfRegionState
-          activeBulletinCollection={props.activeBulletinCollection}
-          problems={props.problems}
-          region={props.region}
-          regionMouseover={regionMouseover}
-          validTimePeriod={props.validTimePeriod}
-        />
+        {regionState}
       </PbfLayer>
     );
     return overlays;

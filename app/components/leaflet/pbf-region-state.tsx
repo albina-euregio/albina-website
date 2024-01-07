@@ -60,6 +60,7 @@ export function PbfRegionState({
         regionStyling[getRegionState(region)]
       ])
     );
+    requestAnimationFrame(() => vectorGrid.rerenderTiles());
 
     function getRegionState(regionId: string): RegionState {
       if (regionId === regionMouseover) {

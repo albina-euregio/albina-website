@@ -31,6 +31,7 @@ import { mapValues } from "../../util/mapValues";
 
 type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
   options: {
+    rerenderTiles(): void;
     dangerRatings: MaxDangerRatings;
     regionStyling: Record<string, PathOptions>;
   };
