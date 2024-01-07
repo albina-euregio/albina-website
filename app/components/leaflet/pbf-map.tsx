@@ -17,17 +17,19 @@ import {
 } from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
 import { WARNLEVEL_STYLES } from "../../util/warn-levels";
-import { DomEvent, type Map, type Layer, type PathOptions } from "leaflet";
+import { DomEvent, type Map, type PathOptions } from "leaflet";
+
+type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
+  options: {
+    dangerRatings: MaxDangerRatings;
+    regionStyling: Record<string, PathOptions>;
+  };
+};
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
     map: Map;
-    vectorGrid: Layer & {
-      options: {
-        dangerRatings: MaxDangerRatings;
-        regionStyling: Record<string, PathOptions>;
-      };
-    };
+    vectorGrid: LeafletPbfLayer;
   }
 }
 
@@ -97,7 +99,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
         })
       }
     ]
-  });
+  }) as LeafletPbfLayer;
   ctx.map.on("click", e => {
     DomEvent.stop(e);
     instance._map = ctx.map;
