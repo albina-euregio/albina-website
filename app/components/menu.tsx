@@ -54,7 +54,7 @@ const Menu = (props: Props) => {
       );
     };
 
-    if (location && location.pathname) {
+    if (location?.pathname) {
       return doTest(location.pathname, e);
     }
     return false;

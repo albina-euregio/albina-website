@@ -236,7 +236,7 @@ export default function StationArchiveTable(props: Props) {
           <tr key={row.id}>
             {displayColumns.map(col => (
               <td key={row.id + "-" + col.data} className={col.className}>
-                {col.render && col.render(row[col.data], row, col.unit)}
+                {col.render?.(row[col.data], row, col.unit)}
                 {!col.render && !!row[col.data] && (
                   <span title={title(col.data)}>
                     <Tooltip

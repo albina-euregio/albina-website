@@ -33,6 +33,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-this-alias": "warn",
     "@typescript-eslint/prefer-includes": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-regexp-exec": "warn",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "react/no-string-refs": "warn",

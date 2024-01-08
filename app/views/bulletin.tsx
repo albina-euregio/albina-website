@@ -225,15 +225,14 @@ const Bulletin = () => {
         id: "bulletin:header:info-no-data"
       });
 
-  const shareImage =
-    collection && collection?.date
-      ? config.template(config.apis.bulletin.map, {
-          date: collection?.date,
-          publication: ".",
-          file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
-          format: ".jpg"
-        })
-      : "";
+  const shareImage = collection?.date
+    ? config.template(config.apis.bulletin.map, {
+        date: collection?.date,
+        publication: ".",
+        file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
+        format: ".jpg"
+      })
+    : "";
 
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {

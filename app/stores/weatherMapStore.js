@@ -141,18 +141,14 @@ export default class WeatherMapStore_new {
     //   "_loadData this.currentTime ##33",
     //   new Date(this.currentTime)
     // );
-    if (
-      this.domainConfig &&
-      this.domainConfig.layer.stations &&
-      this.currentTime <= this._agl
-    ) {
+    if (this.domainConfig?.layer.stations && this.currentTime <= this._agl) {
       loads.push(
         loadStationData({
           dateTime: this.currentTime ? new Date(this.currentTime) : undefined
         }).then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];
-    if (this.domainConfig && this.domainConfig.layer.grid) {
+    if (this.domainConfig?.layer.grid) {
       loads.push(
         fetchJSON(config.apis.weather.grid).then(response => {
           // console.log("WeatherMapStore_new->_loadData aaa: Grid");
@@ -676,9 +672,7 @@ export default class WeatherMapStore_new {
   checkDomainId(domainId) {
     return (
       domainId &&
-      this.config &&
-      this.config.domains[domainId] &&
-      this.config.domains[domainId].item &&
+      this.config?.domains[domainId]?.item &&
       this.config.domains[domainId].domainIdStart
     );
   }

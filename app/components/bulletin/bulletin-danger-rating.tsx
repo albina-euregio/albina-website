@@ -5,7 +5,7 @@ import type * as Caaml from "../../stores/bulletin";
 type Props = { dangerRatings: Caaml.DangerRating[] };
 
 function BulletinDangerRating({ dangerRatings }: Props) {
-  if (!dangerRatings || !dangerRatings.length) return null;
+  if (!dangerRatings?.length) return null;
 
   const dangerRatingBelow = dangerRatings.find(
     r => r?.elevation?.lowerBound === undefined
