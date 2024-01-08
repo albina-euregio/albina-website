@@ -1,6 +1,6 @@
-import { parseTags } from "../../util/tagging";
 import { BlogProcessor, blogProcessors } from ".";
 import type { Language } from "../../appStore";
+import { avalancheProblems } from "../../util/avalancheProblems";
 import type { RegionCodes } from "../../util/regions";
 import type BlogStore from "../blogStore";
 
@@ -22,7 +22,9 @@ export class BlogPostPreviewItem {
     public image: string = null,
     public labels: string[] = []
   ) {
-    this.tags = parseTags(this.labels);
+    this.tags = Array.isArray(this.labels)
+      ? this.labels.filter(l => avalancheProblems.includes(l))
+      : [];
     this.newUntil = BlogPostPreviewItem.getNewUntil(this.labels, this.date);
   }
 
