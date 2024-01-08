@@ -32,6 +32,7 @@
     "require-await": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-this-alias": "warn",
+    "@typescript-eslint/prefer-for-of": "warn",
     "@typescript-eslint/prefer-includes": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-regexp-exec": "warn",
