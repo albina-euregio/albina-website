@@ -445,7 +445,7 @@ export async function loadStationData({
     await response.json();
   return json.features
     .filter(el => ogd || el.properties.date)
-    .filter(el => !ogd || el.properties.operator.match(/LWD Tirol/))
+    .filter(el => !ogd || /LWD Tirol/.exec(el.properties.operator))
     .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
     .map(feature => new StationData(feature));
 }

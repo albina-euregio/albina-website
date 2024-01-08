@@ -32,7 +32,7 @@ const StaticPage = () => {
       const text = await fetchText(url);
       // extract title from first <h1>...</h1>
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
-      setTitle(text.match(titlePattern)?.[1]);
+      setTitle(titlePattern.exec(text)?.[1]);
       setContent(preprocessContent(text.replace(titlePattern, "")));
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
