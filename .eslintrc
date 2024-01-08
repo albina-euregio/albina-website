@@ -12,7 +12,9 @@
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": 2022,
     "ecmaFeatures": {
       "jsx": true,
@@ -21,7 +23,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["prettier", "react", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "prettier", "react", "jsx-a11y"],
   "globals": {
     "config": true
   },
@@ -30,6 +32,7 @@
     "require-await": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-this-alias": "warn",
+    "@typescript-eslint/prefer-includes": "warn",
     "react/no-string-refs": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error",

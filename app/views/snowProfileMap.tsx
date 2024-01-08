@@ -13,7 +13,7 @@ class SnowProfileMap extends React.Component {
   state = { active: undefined as SnowProfile | Incident | undefined };
 
   get isIncident(): boolean {
-    return /incident/.test(location.pathname);
+    return location.pathname.includes("incident");
   }
 
   componentDidMount() {
