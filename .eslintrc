@@ -33,6 +33,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-this-alias": "warn",
     "@typescript-eslint/prefer-includes": "warn",
+    "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "react/no-string-refs": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error",
