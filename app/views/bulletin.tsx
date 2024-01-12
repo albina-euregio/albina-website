@@ -328,7 +328,7 @@ const Bulletin = () => {
           toggleProblem={toggleProblem}
         />
       </Suspense>
-      <BulletinButtonbar showPdfDialog={collection?.bulletins?.length} />
+      <BulletinButtonbar activeBulletinCollection={collection} />
       {collection && (
         <BulletinList
           bulletins={collection.bulletins}
