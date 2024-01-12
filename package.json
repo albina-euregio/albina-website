@@ -49,7 +49,7 @@
     "selectric": "https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
   },
   "devDependencies": {
-    "@playwright/test": "^1.29.0",
+    "@playwright/test": "^1.40.1",
     "@types/leaflet": "^1.9.8",
     "@types/leaflet.vectorgrid": "^1.3.5",
     "@types/react": "^18.2.46",
