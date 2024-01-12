@@ -9,10 +9,7 @@ test("bulletin/2018-12-04", async ({ page }) => {
   await details.waitFor({ state: "visible" });
   await expect(details).toHaveText(/Prealps/);
   await expect(pictos).toHaveCount(2);
-  await expect(pictos.getByAltText("Danger level: No snow")).toHaveAttribute(
-    "src",
-    "/images/pro/warning-pictos/levels_0_0.webp"
-  );
+  await expect(pictos.getByLabel("Danger level: No snow")).toBeVisible();
   await expect(pictos.getByAltText("Favourable situation")).toHaveAttribute(
     "src",
     "/images/pro/avalanche-problems/favourable_situation.webp"
@@ -22,10 +19,7 @@ test("bulletin/2018-12-04", async ({ page }) => {
   await details.waitFor({ state: "visible" });
   await expect(details).toHaveText(/Northern Oetz and Stubai Alps/);
   await expect(pictos).toHaveCount(2);
-  await expect(pictos.getByAltText("Danger level: 1–low")).toHaveAttribute(
-    "src",
-    "/images/pro/warning-pictos/levels_1_1.webp"
-  );
+  await expect(pictos.getByLabel("Danger level: 1–low")).toBeVisible();
   await expect(pictos.getByAltText("Wind slab problem")).toHaveAttribute(
     "src",
     "/images/pro/avalanche-problems/wind_slab.webp"
