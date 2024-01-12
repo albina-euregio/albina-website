@@ -414,8 +414,8 @@ export default class WeatherMapStore_new {
         break;
       case "snowHeight":
         //console.log("snowHeight", pixelRGB);
-        if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) res = 0;
-        else if (pixelRGB.g + pixelRGB.g === 0) res = -251 + pixelRGB.r;
+        if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) res = 0;
+        else if (pixelRGB.g + pixelRGB.b === 0) res = -251 + pixelRGB.r;
         else if (pixelRGB.r + pixelRGB.g === 0) res = 249 + pixelRGB.b;
         else if (pixelRGB.r + pixelRGB.b === 0) res = 2019 + pixelRGB.g;
         else if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
