@@ -72,7 +72,12 @@ const Weather = () => {
     }
   };
 
-  //console.log("weather->render", store.domainId, store.agl, player);
+  console.log(
+    "weather->render",
+    new Date(store.currentTime),
+    store.agl,
+    player
+  );
   return (
     <>
       <WeatherStationDialog
@@ -109,7 +114,7 @@ const Weather = () => {
                 }
                 dataOverlaysEnabled={
                   !store.domainConfig.layer.stations ||
-                  store.currentTime >= store.agl
+                  store.currentTime > store.agl
                 }
                 rgbToValue={store.valueForPixel}
                 item={store.item}
