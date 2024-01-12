@@ -164,12 +164,12 @@ const Bulletin = () => {
       setStatus(collection.status);
       try {
         await collection.load();
-        setStatus(collection.status);
-        setCollection(collection);
       } catch (error) {
         console.error("Cannot load bulletin for date " + date, error);
-        setStatus("n/a");
+        collection.status = "n/a";
       }
+      setStatus(collection.status);
+      setCollection(collection);
     })();
   }, [
     collection?.date,
@@ -247,6 +247,7 @@ const Bulletin = () => {
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
       <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
+        //
         date={collection?.date ? parseDate(collection?.date) : undefined}
         latestDate={latest ? parseDate(latest) : undefined}
         status={status}
