@@ -24,12 +24,9 @@ const Timeline = ({
   const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    updateCB({
-      tickWidth: tickWidth,
-      getClosestTick: getClosestTick,
-      getLeftForTime: getLeftForTime
-    });
-  });
+    const thickWidth = getTickWidth();
+    if (thickWidth > 0) updateCB({ thickWidth });
+  }, [timeArray, currentTime, timeSpan]);
 
   useEffect(() => {
     console.log("Timeline->useEffect s03", {
@@ -38,7 +35,7 @@ const Timeline = ({
       timeArray,
       changeCurrentTime
     });
-    const thickWidth = tickWidth();
+    const thickWidth = getTickWidth();
 
     setDraggerCoordinates({
       x: getLeftForTime(currentTime) - thickWidth * nrOnlyTimespan,
@@ -50,7 +47,7 @@ const Timeline = ({
     setNrOnlyTimespan(parseInt(timeSpan.replace(/\D/g, ""), 10));
   }, [timeSpan]);
 
-  const tickWidth = () => {
+  const getTickWidth = () => {
     const posFirstTick = $(".cp-scale-hour-1").first().offset();
     const posSecondTick = $(".cp-scale-hour-2").first().offset();
     if (posFirstTick === undefined || posSecondTick === undefined) return 0;
@@ -69,12 +66,12 @@ const Timeline = ({
     let left = Math.abs(
       theTick.offset()["left"] - $(daysContainer.current).offset()["left"]
     );
-    console.log("getLeftForTime s03", {
-      currentTimeUtc: new Date(currentTime).toUTCString(),
-      foundTimeUtc: new Date(time).toUTCString(),
-      tickWidth: tickWidth(),
-      left
-    });
+    // console.log("getLeftForTime s03", {
+    //   currentTimeUtc: new Date(currentTime).toUTCString(),
+    //   foundTimeUtc: new Date(time).toUTCString(),
+    //   tickWidth: tickWidth(),
+    //   left
+    // });
     return left;
   };
 
@@ -231,7 +228,7 @@ const Timeline = ({
     //if (closestTime === currentTime) {
 
     showTimes(true);
-    newLeft = getLeftForTime(closestTime) - tickWidth() * nrOnlyTimespan;
+    newLeft = getLeftForTime(closestTime) - getTickWidth() * nrOnlyTimespan;
     //console.log("setClosestTick s01 #2", {x, closestTime, tickWidth: tickWidth(), nrOnlyTimespan, newLeft});
     setDraggerCoordinates({ x: newLeft, y: 0 });
     //}
@@ -250,11 +247,11 @@ const Timeline = ({
     let parts = [];
 
     if (currentTime) {
-      console.log(
-        "weathermapcockpit->gettimeline s03",
-        currentTime,
-        draggerCoordinates
-      );
+      // console.log(
+      //   "weathermapcockpit->gettimeline s03",
+      //   currentTime,
+      //   draggerCoordinates
+      // );
       const dragSettings = {
         onDragEnd: x => {
           setClosestTick(x + $("#dragger").width());
@@ -265,11 +262,11 @@ const Timeline = ({
         classes: []
       };
 
-      console.log("getDragger s03", {
-        tickWidth: tickWidth(),
-        nrOnlyTimespan,
-        draggerCoordinates
-      });
+      // console.log("getDragger s03", {
+      //   tickWidth: tickWidth(),
+      //   nrOnlyTimespan,
+      //   draggerCoordinates
+      // });
       parts.push(
         <div key="cp-scale-stamp" className="cp-scale-stamp">
           {nrOnlyTimespan !== 1 && (
@@ -279,7 +276,7 @@ const Timeline = ({
                 key="scale-stamp-range"
                 style={{
                   left: 0,
-                  width: tickWidth() * nrOnlyTimespan
+                  width: getTickWidth() * nrOnlyTimespan
                 }}
                 className="cp-scale-stamp-range js-active"
               >
