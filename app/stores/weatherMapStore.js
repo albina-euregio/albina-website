@@ -230,6 +230,7 @@ export default class WeatherMapStore_new {
     returns current timeIndex
   */
   get currentTime() {
+    console.log("weatherMapStore_new currentTime: ", this._timeIndex.get());
     return (
       this._availableTimes &&
       this._timeIndex &&

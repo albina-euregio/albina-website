@@ -72,12 +72,12 @@ const Weather = () => {
     }
   };
 
-  console.log(
-    "weather->render",
-    new Date(store.currentTime),
-    store.agl,
-    player
-  );
+  // console.log(
+  //   "weather->render",
+  //   new Date(store.currentTime),
+  //   store.agl,
+  //   player
+  // );
   return (
     <>
       <WeatherStationDialog

@@ -1,93 +1,78 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import { FormattedDate } from "../../i18n";
 import { isSameDay } from "../../util/date.js";
 
-class Timeline extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lastRedraw: new Date().getTime()
-    };
-    this.getClosestTick = this.getClosestTick.bind(this);
-    this.getLeftForTime = this.getLeftForTime.bind(this);
-    //this.redraw = this.redraw.bind(this);
-  }
+const Timeline = ({
+  timeSpan,
+  currentTime,
+  timeArray,
+  startDate,
+  changeCurrentTime,
+  updateCB
+}) => {
+  const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
-  componentDidMount() {
-    // window.addEventListener(
-    //     "resize",
-    //     this.redraw
-    // );
-    this.onMountorUpdate();
-  }
+  const daysContainer = useRef();
 
-  componentDidUpdate() {
-    this.onMountorUpdate();
-  }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.redraw);
-  // }
-
-  // redraw() {
-  //   this.setState({ lastRedraw: new Date().getTime() })
-  // }
-
-  onMountorUpdate() {
-    //console.log("onMountorUpdate hhh", this.state);
-    const thickWidth = this.tickWidth();
-    if (thickWidth > 0)
-      this.props.updateCB({
+  useEffect(() => {
+    console.log("Timeline->useEffect", {
+      timeSpan,
+      currentTime: new Date(currentTime),
+      timeArray,
+      startDate: new Date(startDate),
+      changeCurrentTime
+    });
+    const thickWidth = tickWidth();
+    if (currentTime && thickWidth > 0)
+      updateCB({
         tickWidth: thickWidth,
-        getClosestTick: this.getClosestTick,
-        getLeftForTime: this.getLeftForTime
+        getClosestTick: getClosestTick,
+        getLeftForTime: getLeftForTime
       });
-  }
+  }, [currentTime]);
 
-  tickWidth() {
+  const tickWidth = () => {
     const posFirstTick = $(".cp-scale-hour-1").first().offset();
     const posSecondTick = $(".cp-scale-hour-2").first().offset();
     if (posFirstTick === undefined || posSecondTick === undefined) return 0;
     return posSecondTick.left - posFirstTick.left;
-  }
+  };
 
-  getLeftForTime(time) {
+  const getLeftForTime = time => {
     const theTick = $(".t" + time);
     if (theTick.offset() === undefined) return null;
     let left = Math.abs(
-      theTick.offset()["left"] - $(this.refs.daysContainer).offset()["left"]
+      theTick.offset()["left"] - $(daysContainer.current).offset()["left"]
     );
-    // console.log(
-    //   "leftPosForCurrentTime hhhh1",{
-    //   currentTimeUtc: new Date(this.props.currentTime).toUTCString(),
-    //   tickWidth: this.tickWidth(),
-    //   left
-    //   });
+    console.log("leftPosForCurrentTime hhhh1", {
+      currentTimeUtc: new Date(currentTime).toUTCString(),
+      tickWidth: tickWidth(),
+      left
+    });
     return left;
-  }
+  };
 
-  getClosestTick(left) {
-    //console.log("setClosestTick cccc", ui);
+  const getClosestTick = left => {
+    console.log("getClosestTick cccc", ui);
 
     let closestDist = 9999;
     let closestTime;
-    //let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
+    //let nrOnlyTimespan = props.timeSpan.replace(/\D/g, "");
 
     const arrowLeft = left; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: left });
 
-    this.props.timeArray.forEach(eTime => {
+    timeArray.forEach(eTime => {
       //console.log("setClosestTick eTime", eTime);
-      const curItemLeft = this.getLeftForTime(eTime);
-      // console.log(
-      //   "getClosestTick hhhh ITEM",{
-      //   eTime,
-      //   arrowLeft,
-      //   curItemLeft,
-      //   eTimeUtc: new Date(eTime).toUTCString(),
-      //   diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
-      //   });
+      const curItemLeft = getLeftForTime(eTime);
+      console.log("getClosestTick hhhh ITEM", {
+        eTime,
+        arrowLeft,
+        curItemLeft,
+        eTimeUtc: new Date(eTime).toUTCString(),
+        diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
+      });
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
         closestTime = eTime;
         closestDist = Math.abs(arrowLeft - curItemLeft);
@@ -103,24 +88,23 @@ class Timeline extends React.Component {
 
     if (closestTime) return closestTime;
     return null;
-  }
+  };
 
-  getTimeline() {
-    let self = this;
+  const getTimeline = () => {
     let lastTime;
     let days = [];
-    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
+    let nrOnlyTimespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
 
     // console.log(
     //   "getTimeline fff",
-    //   self.props.timeArray.indexOf(self.props.startDate),
-    //   self.props.startDate,
+    //   timeArray.indexOf(startDate),
+    //   startDate,
     //   self.props.agl
     // );
-    let timeArray = this.props.timeArray.slice();
+    let tempTimeArray = timeArray.slice();
 
     if (nrOnlyTimespan > 1) {
-      let extraTime = new Date(timeArray[0]);
+      let extraTime = new Date(tempTimeArray[0]);
       let minTime = new Date(extraTime);
       //console.log("timeArray#1", extraTime, maxTime, nrOnlyTimespan);
       minTime.setHours(minTime.getHours() - nrOnlyTimespan);
@@ -128,15 +112,15 @@ class Timeline extends React.Component {
       //console.log("timeArray#2", extraTime, maxTime, nrOnlyTimespan);
       while (extraTime > minTime) {
         extraTime.setHours(extraTime.getHours() - 12);
-        timeArray.unshift(extraTime.getTime());
+        tempTimeArray.unshift(extraTime.getTime());
       }
       // console.log("timeArray#3 ##55", {
-      //   timeArray,
+      //   tempTimeArray,
       //   extraTimeUTC: extraTime.toUTCString()
       // });
     }
 
-    timeArray.forEach(aTime => {
+    tempTimeArray.forEach(aTime => {
       const weekday = new Date(aTime).getDay();
 
       if (lastTime !== weekday) {
@@ -148,10 +132,10 @@ class Timeline extends React.Component {
             new Date(aTime).getHours() +
               (nrOnlyTimespan > 1 ? nrOnlyTimespan : 0)
           );
-          let isSelectable = self.props.timeArray.includes(currentStartHour);
+          let isSelectable = tempTimeArray.includes(currentStartHour);
 
           let spanClass = ["cp-scale-hour-" + i, "t" + currentHour];
-          if (aTime < self.props.startDate) spanClass.push("cp-analyse-item");
+          if (aTime < startDate) spanClass.push("cp-analyse-item");
           if (isSelectable && !firstAvailableTime)
             firstAvailableTime = currentStartHour;
           hours.push(
@@ -168,8 +152,7 @@ class Timeline extends React.Component {
         days.push(
           <div
             className={
-              self.props.currentTime &&
-              isSameDay(new Date(self.props.currentTime), new Date(aTime))
+              currentTime && isSameDay(new Date(currentTime), new Date(aTime))
                 ? "cp-scale-day cp-scale-day-today"
                 : "cp-scale-day "
             }
@@ -181,7 +164,7 @@ class Timeline extends React.Component {
                 tabIndex="0"
                 data-first-hour={firstAvailableTime}
                 onClick={() => {
-                  this.props.changeCurrentTime(firstAvailableTime);
+                  changeCurrentTime(firstAvailableTime);
                 }}
               >
                 <FormattedDate
@@ -205,15 +188,14 @@ class Timeline extends React.Component {
     });
 
     return days;
-  }
+  };
 
-  render() {
-    let classes = ["cp-scale-days", "redraw-" + this.state.lastRedraw];
-    return (
-      <div ref="daysContainer" key="days" className={classes.join(" ")}>
-        {this.getTimeline()}
-      </div>
-    );
-  }
-}
+  let classes = ["cp-scale-days", "redraw-" + lastRedraw];
+  return (
+    <div ref={daysContainer} key="days" className={classes.join(" ")}>
+      {getTimeline()}
+    </div>
+  );
+};
+
 export default Timeline;
