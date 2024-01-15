@@ -107,13 +107,13 @@ const WeatherMapCockpit = ({
       startDateTime.setUTCHours(
         startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
       );
-      console.log("cockpit #33", {
-        currTime: new Date(currentTime),
-        firstTimeStamp: timeArray[0],
-        firstTime: new Date(timeArray[0]),
-        firstTimeMinusTimeSpan: startDateTime,
-        timespan
-      });
+      // console.log("cockpit #33", {
+      //   currTime: new Date(currentTime),
+      //   firstTimeStamp: timeArray[0],
+      //   firstTime: new Date(timeArray[0]),
+      //   firstTimeMinusTimeSpan: startDateTime,
+      //   timespan
+      // });
       const posFirstAvailable = $(".t" + startDateTime.getTime()).offset();
       const posLast = $(".t" + timeArray[timeArray.length - 1]).offset();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();

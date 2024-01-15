@@ -24,12 +24,13 @@ const Timeline = ({
   const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    console.log("useEffect s04", { currentTime, timeSpan });
     const thickWidth = getTickWidth();
     if (thickWidth > 0) updateCB({ thickWidth });
   }, [timeArray, currentTime, timeSpan]);
 
   useEffect(() => {
-    console.log("Timeline->useEffect s03", {
+    console.log("Timeline->useEffect s04", {
       timeSpan,
       currentTime: new Date(currentTime),
       timeArray,
@@ -229,7 +230,7 @@ const Timeline = ({
 
     showTimes(true);
     newLeft = getLeftForTime(closestTime) - getTickWidth() * nrOnlyTimespan;
-    //console.log("setClosestTick s01 #2", {x, closestTime, tickWidth: tickWidth(), nrOnlyTimespan, newLeft});
+    console.log("setClosestTick s04 #2", { x, newLeft });
     setDraggerCoordinates({ x: newLeft, y: 0 });
     //}
 
@@ -309,7 +310,7 @@ const Timeline = ({
             <Dragger {...dragSettings}>
               <div
                 id="dragger"
-                style={{ left: 0 }}
+                style={{ left: getTickWidth() }}
                 key="scale-stamp-point"
                 className="cp-scale-stamp-point js-active"
               >

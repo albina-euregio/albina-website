@@ -9,9 +9,9 @@ const Dragger = ({
   classes,
   children
 }) => {
-  const [currentX, setCurrentX] = useState(0);
-  const [currentY, setCurrentY] = useState(0);
-  const [dragging, setDragging] = useState(false);
+  const [currentX, setCurrentX] = useState(-1);
+  const [currentY, setCurrentY] = useState(-1);
+  const [dragging, setDragging] = useState(null);
 
   const draggableRef = useRef(null);
 
@@ -22,8 +22,8 @@ const Dragger = ({
   }, [coordinates]);
 
   useEffect(() => {
-    if (!dragging) {
-      //console.log("useEffect-> s02", {currentX, currentY})
+    console.log("Dragger->useEffect-> s04", { currentX, dragging });
+    if (!dragging && dragging != null) {
       if (onDragEnd) onDragEnd(currentX, currentY);
     }
   }, [dragging]);
