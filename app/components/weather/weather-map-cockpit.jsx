@@ -308,211 +308,6 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
-  setClosestTick(x) {
-    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
-    let closestTime = this.getClosestTick(x);
-    let newLeft;
-    //closestTime = this.getTimeStart(closestTime).getTime();
-    //debugger;
-    // console.log("setClosestTick hhhh", {
-    //   //draggerWidth: $('#dragger').width(),
-    //   x,
-    //   closest: new Date(closestTime).toUTCString(),
-    //   current: new Date(this.props.currentTime).toUTCString()
-    // //new Date(this.getTimeStart(closestTime)).toUTCString()
-    // });
-
-    // place back to origin
-    if (closestTime === this.props.currentTime) {
-      //console.log("setClosestTick hhhh #1");
-      this.showTimes(true);
-      newLeft =
-        this.getLeftForTime(closestTime) - this.tickWidth * nrOnlyTimespan;
-      this.rePostionsStamp(newLeft);
-    }
-
-    try {
-      //console.log("setClosestTick hhhh1 closestTime:", new Date(closestTime).toUTCString(), newLeft);
-
-      if (closestTime) this.props.changeCurrentTime(closestTime);
-    } catch (e) {
-      // Anweisungen für jeden Fehler
-      console.error(e, this.props); // Fehler-Objekt an die Error-Funktion geben
-    }
-  }
-
-  getTimeStart(triggerTime) {
-    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
-    let timeStart = new Date(triggerTime);
-    timeStart.setHours(timeStart.getHours() - parseInt(nrOnlyTimespan, 10));
-    return timeStart;
-  }
-
-  getTimeline() {
-    let self = this;
-    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
-    let parts = [];
-
-    if (this.props.currentTime) {
-      //console.log("weathermapcockpit->gettimeline ##55",  this.props.currentTime);
-      const dragSettings = {
-        left: this.getLeftForTime
-          ? this.getLeftForTime(this.props.currentTime) -
-            (nrOnlyTimespan > 1 ? this.tickWidth * nrOnlyTimespan : 0)
-          : 0,
-        onDragEnd: x => {
-          self.setClosestTick(x + $("#dragger").width());
-        },
-        onDragStart: self.onDragStart.bind(this),
-        parent: ".cp-scale-stamp",
-        rePosition: f => {
-          this.rePostionsStamp = f;
-        },
-        classes: []
-      };
-
-      parts.push(
-        <div key="cp-scale-stamp" className="cp-scale-stamp">
-          {/* <div
-            key="whereami"
-            id="whereami"
-            style={{
-              position: "absolute",
-              width: "1px",
-              height: "20px",
-              backgroundColor: "#f00",
-              left: "20px"
-            }}
-          ></div> */}
-
-          {nrOnlyTimespan !== 1 && (
-            <Dragger {...dragSettings}>
-              <div
-                id="dragger"
-                key="scale-stamp-range"
-                style={{
-                  left: 0,
-                  width: this.tickWidth * nrOnlyTimespan
-                }}
-                className="cp-scale-stamp-range js-active"
-              >
-                <span
-                  key="cp-scale-stamp-range-bar"
-                  className="cp-scale-stamp-range-bar"
-                ></span>
-                <span
-                  key="cp-scale-stamp-range-begin"
-                  className="cp-scale-stamp-range-begin"
-                >
-                  <FormattedDate
-                    date={this.getTimeStart(this.props.currentTime)}
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-                <span
-                  key="cp-scale-stamp-range-end"
-                  className="cp-scale-stamp-range-end"
-                >
-                  <FormattedDate
-                    date={this.props.currentTime}
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-              </div>
-            </Dragger>
-          )}
-          {nrOnlyTimespan === 1 && (
-            <Dragger {...dragSettings}>
-              <div
-                id="dragger"
-                style={{ left: 0 }}
-                key="scale-stamp-point"
-                className="cp-scale-stamp-point js-active"
-              >
-                <span
-                  key="cp-scale-stamp-point-arrow"
-                  className="cp-scale-stamp-point-arrow"
-                ></span>
-                <span
-                  key="cp-scale-stamp-point-exact"
-                  className="cp-scale-stamp-point-exact"
-                >
-                  <FormattedDate
-                    date={this.props.currentTime}
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-              </div>
-            </Dragger>
-          )}
-        </div>
-      );
-    }
-
-    return (
-      <div key="cp-scale" className="cp-scale">
-        {parts}
-        <div key="flipper" className="cp-scale-flipper">
-          <Tooltip
-            key="cockpit-flipper-prev"
-            label={
-              <FormattedMessage id="weathermap:cockpit:flipper:previous" />
-            }
-          >
-            <a
-              role="button"
-              tabIndex="0"
-              href="#"
-              onClick={self.setPreviousTime.bind(self)}
-              key="arrow-left"
-              className="cp-scale-flipper-left icon-arrow-left "
-            >
-              <span className="is-visually-hidden">
-                {<FormattedMessage id="weathermap:cockpit:flipper:previous" />}
-              </span>
-            </a>
-          </Tooltip>
-          <Tooltip
-            key="cockpit-flipper-next"
-            label={<FormattedMessage id="weathermap:cockpit:flipper:next" />}
-          >
-            <a
-              role="button"
-              tabIndex="0"
-              href="#"
-              onClick={self.setNextTime.bind(self)}
-              key="arrow-right"
-              className="cp-scale-flipper-right icon-arrow-right "
-            >
-              <span className="is-visually-hidden">
-                {<FormattedMessage id="weathermap:cockpit:flipper:next" />}
-              </span>
-            </a>
-          </Tooltip>
-        </div>
-
-        <Timeline
-          timeArray={this.props.timeArray}
-          timeSpan={this.props.timeSpan}
-          currentTime={this.props.currentTime}
-          changeCurrentTime={this.props.changeCurrentTime}
-          updateCB={this.onTimelineUpdate.bind(this)}
-        />
-
-        <div key="analyse-forecast" className="cp-scale-analyse-forecast">
-          <span
-            key="cp-scale-analyse-bar"
-            className="cp-scale-analyse-bar"
-          ></span>
-          <span
-            key="cp-scale-forecast-bar"
-            className="cp-scale-forecast-bar"
-          ></span>
-        </div>
-      </div>
-    );
-  }
-
   getPlayerButtons() {
     //console.log("getPlayerButtons", this.props.player.playing);
     // const label =
@@ -642,8 +437,10 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setPreviousTime() {
-    if (LOOP || this.props.currentTime != this.props.timeArray[0])
+    if (LOOP || this.props.currentTime != this.props.timeArray[0]) {
+      //console.log("setPreviousTime s03", this.props.currentTime);
       this.props.previousTime();
+    }
   }
 
   setNextTime() {
@@ -722,7 +519,17 @@ class WeatherMapCockpit extends React.Component {
           {/* {this.getTickButtons()}
            */}
           <div key="cp-container-timeline" className="cp-container-timeline">
-            {this.getTimeline()}
+            <Timeline
+              timeArray={this.props.timeArray}
+              timeSpan={this.props.timeSpan}
+              currentTime={this.props.currentTime}
+              changeCurrentTime={this.props.changeCurrentTime}
+              updateCB={this.onTimelineUpdate.bind(this)}
+              showTimes={this.showTimes.bind(this)}
+              setPreviousTime={this.setPreviousTime.bind(this)}
+              setNextTime={this.setNextTime.bind(this)}
+              onDragStart={this.onDragStart.bind(this)}
+            />
             {this.getPlayerButtons()}
           </div>
           {this.getTimeSpanOptions()}

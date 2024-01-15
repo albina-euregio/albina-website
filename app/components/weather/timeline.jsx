@@ -2,35 +2,53 @@ import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import { FormattedDate } from "../../i18n";
 import { isSameDay } from "../../util/date.js";
+import Dragger from "./dragger.jsx";
+import { Tooltip } from "../tooltips/tooltip";
+import { FormattedMessage } from "../../i18n";
 
 const Timeline = ({
   timeSpan,
   currentTime,
   timeArray,
-  startDate,
   changeCurrentTime,
+  setPreviousTime,
+  setNextTime,
+  showTimes,
+  onDragStart,
   updateCB
 }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
   const daysContainer = useRef();
+  const [nrOnlyTimespan, setNrOnlyTimespan] = useState(null);
+  const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    console.log("Timeline->useEffect", {
+    updateCB({
+      tickWidth: tickWidth,
+      getClosestTick: getClosestTick,
+      getLeftForTime: getLeftForTime
+    });
+  });
+
+  useEffect(() => {
+    console.log("Timeline->useEffect s03", {
       timeSpan,
       currentTime: new Date(currentTime),
       timeArray,
-      startDate: new Date(startDate),
       changeCurrentTime
     });
     const thickWidth = tickWidth();
-    if (currentTime && thickWidth > 0)
-      updateCB({
-        tickWidth: thickWidth,
-        getClosestTick: getClosestTick,
-        getLeftForTime: getLeftForTime
-      });
+
+    setDraggerCoordinates({
+      x: getLeftForTime(currentTime) - thickWidth * nrOnlyTimespan,
+      y: draggerCoordinates.y
+    });
   }, [currentTime]);
+
+  useEffect(() => {
+    setNrOnlyTimespan(parseInt(timeSpan.replace(/\D/g, ""), 10));
+  }, [timeSpan]);
 
   const tickWidth = () => {
     const posFirstTick = $(".cp-scale-hour-1").first().offset();
@@ -39,14 +57,21 @@ const Timeline = ({
     return posSecondTick.left - posFirstTick.left;
   };
 
+  const getTimeStart = triggerTime => {
+    let timeStart = new Date(triggerTime);
+    timeStart.setHours(timeStart.getHours() - parseInt(nrOnlyTimespan, 10));
+    return timeStart;
+  };
+
   const getLeftForTime = time => {
     const theTick = $(".t" + time);
     if (theTick.offset() === undefined) return null;
     let left = Math.abs(
       theTick.offset()["left"] - $(daysContainer.current).offset()["left"]
     );
-    console.log("leftPosForCurrentTime hhhh1", {
+    console.log("getLeftForTime s03", {
       currentTimeUtc: new Date(currentTime).toUTCString(),
+      foundTimeUtc: new Date(time).toUTCString(),
       tickWidth: tickWidth(),
       left
     });
@@ -54,11 +79,11 @@ const Timeline = ({
   };
 
   const getClosestTick = left => {
-    console.log("getClosestTick cccc", ui);
+    //console.log("getClosestTick cccc", ui);
 
     let closestDist = 9999;
     let closestTime;
-    //let nrOnlyTimespan = props.timeSpan.replace(/\D/g, "");
+    //let nrOnlyTimespan = timeSpan.replace(/\D/g, "");
 
     const arrowLeft = left; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: left });
@@ -66,25 +91,19 @@ const Timeline = ({
     timeArray.forEach(eTime => {
       //console.log("setClosestTick eTime", eTime);
       const curItemLeft = getLeftForTime(eTime);
-      console.log("getClosestTick hhhh ITEM", {
-        eTime,
-        arrowLeft,
-        curItemLeft,
-        eTimeUtc: new Date(eTime).toUTCString(),
-        diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
-      });
+      // console.log("getClosestTick hhhh ITEM", {
+      //   eTime,
+      //   arrowLeft,
+      //   curItemLeft,
+      //   eTimeUtc: new Date(eTime).toUTCString(),
+      //   diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
+      // });
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
         closestTime = eTime;
         closestDist = Math.abs(arrowLeft - curItemLeft);
-        // console.log(
-        //   "setClosestTick eee SET",
-        //   closestDist,
-        //   new Date(eTime),
-        //   arrowLeft,
-        //   curItemLeft
-        // );
       }
     });
+    //console.log("getClosestTick closestTime:", {closestTime});
 
     if (closestTime) return closestTime;
     return null;
@@ -93,13 +112,14 @@ const Timeline = ({
   const getTimeline = () => {
     let lastTime;
     let days = [];
-    let nrOnlyTimespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
+    const startDate = getTimeStart(currentTime);
 
     // console.log(
     //   "getTimeline fff",
-    //   timeArray.indexOf(startDate),
-    //   startDate,
-    //   self.props.agl
+    //   {indexStart: timeArray.indexOf(startDate),
+    //     startDate,
+    //     nrOnlyTimespan
+    //   }
     // );
     let tempTimeArray = timeArray.slice();
 
@@ -186,16 +206,195 @@ const Timeline = ({
         lastTime = weekday;
       }
     });
-
-    return days;
+    let classes = ["cp-scale-days", "redraw-" + lastRedraw];
+    return (
+      <div ref={daysContainer} key="days" className={classes.join(" ")}>
+        {days}
+      </div>
+    );
   };
 
-  let classes = ["cp-scale-days", "redraw-" + lastRedraw];
-  return (
-    <div ref={daysContainer} key="days" className={classes.join(" ")}>
-      {getTimeline()}
-    </div>
-  );
+  const setClosestTick = x => {
+    let closestTime = getClosestTick(x);
+    let newLeft;
+    //closestTime = this.getTimeStart(closestTime).getTime();
+    //debugger;
+    // console.log("setClosestTick hhhh", {
+    //   //draggerWidth: $('#dragger').width(),
+    //   x,
+    //   closest: new Date(closestTime).toUTCString(),
+    //   current: new Date(this.props.currentTime).toUTCString()
+    // //new Date(this.getTimeStart(closestTime)).toUTCString()
+    // });
+    //console.log("setClosestTick hhhh #1", {closestTime, currentTime});
+    // place back to origin
+    //if (closestTime === currentTime) {
+
+    showTimes(true);
+    newLeft = getLeftForTime(closestTime) - tickWidth() * nrOnlyTimespan;
+    //console.log("setClosestTick s01 #2", {x, closestTime, tickWidth: tickWidth(), nrOnlyTimespan, newLeft});
+    setDraggerCoordinates({ x: newLeft, y: 0 });
+    //}
+
+    try {
+      //console.log("setClosestTick hhhh1 closestTime:", new Date(closestTime).toUTCString(), newLeft);
+
+      if (closestTime) changeCurrentTime(closestTime);
+    } catch (e) {
+      // Anweisungen für jeden Fehler
+      console.error(e); // Fehler-Objekt an die Error-Funktion geben
+    }
+  };
+
+  const getDragger = () => {
+    let parts = [];
+
+    if (currentTime) {
+      console.log(
+        "weathermapcockpit->gettimeline s03",
+        currentTime,
+        draggerCoordinates
+      );
+      const dragSettings = {
+        onDragEnd: x => {
+          setClosestTick(x + $("#dragger").width());
+        },
+        onDrag: onDragStart,
+        parent: ".cp-scale-stamp",
+        coordinates: draggerCoordinates,
+        classes: []
+      };
+
+      console.log("getDragger s03", {
+        tickWidth: tickWidth(),
+        nrOnlyTimespan,
+        draggerCoordinates
+      });
+      parts.push(
+        <div key="cp-scale-stamp" className="cp-scale-stamp">
+          {nrOnlyTimespan !== 1 && (
+            <Dragger {...dragSettings}>
+              <div
+                id="dragger"
+                key="scale-stamp-range"
+                style={{
+                  left: 0,
+                  width: tickWidth() * nrOnlyTimespan
+                }}
+                className="cp-scale-stamp-range js-active"
+              >
+                <span
+                  key="cp-scale-stamp-range-bar"
+                  className="cp-scale-stamp-range-bar"
+                ></span>
+                <span
+                  key="cp-scale-stamp-range-begin"
+                  className="cp-scale-stamp-range-begin"
+                >
+                  <FormattedDate
+                    date={getTimeStart(currentTime)}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+                <span
+                  key="cp-scale-stamp-range-end"
+                  className="cp-scale-stamp-range-end"
+                >
+                  <FormattedDate
+                    date={currentTime}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+              </div>
+            </Dragger>
+          )}
+          {nrOnlyTimespan === 1 && (
+            <Dragger {...dragSettings}>
+              <div
+                id="dragger"
+                style={{ left: 0 }}
+                key="scale-stamp-point"
+                className="cp-scale-stamp-point js-active"
+              >
+                <span
+                  key="cp-scale-stamp-point-arrow"
+                  className="cp-scale-stamp-point-arrow"
+                ></span>
+                <span
+                  key="cp-scale-stamp-point-exact"
+                  className="cp-scale-stamp-point-exact"
+                >
+                  <FormattedDate
+                    date={currentTime}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+              </div>
+            </Dragger>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div key="cp-scale" className="cp-scale">
+        {parts}
+        <div key="flipper" className="cp-scale-flipper">
+          <Tooltip
+            key="cockpit-flipper-prev"
+            label={
+              <FormattedMessage id="weathermap:cockpit:flipper:previous" />
+            }
+          >
+            <a
+              role="button"
+              tabIndex="0"
+              href="#"
+              onClick={() => setPreviousTime()}
+              key="arrow-left"
+              className="cp-scale-flipper-left icon-arrow-left "
+            >
+              <span className="is-visually-hidden">
+                {<FormattedMessage id="weathermap:cockpit:flipper:previous" />}
+              </span>
+            </a>
+          </Tooltip>
+          <Tooltip
+            key="cockpit-flipper-next"
+            label={<FormattedMessage id="weathermap:cockpit:flipper:next" />}
+          >
+            <a
+              role="button"
+              tabIndex="0"
+              href="#"
+              onClick={() => setNextTime()}
+              key="arrow-right"
+              className="cp-scale-flipper-right icon-arrow-right "
+            >
+              <span className="is-visually-hidden">
+                {<FormattedMessage id="weathermap:cockpit:flipper:next" />}
+              </span>
+            </a>
+          </Tooltip>
+        </div>
+
+        {getTimeline()}
+
+        <div key="analyse-forecast" className="cp-scale-analyse-forecast">
+          <span
+            key="cp-scale-analyse-bar"
+            className="cp-scale-analyse-bar"
+          ></span>
+          <span
+            key="cp-scale-forecast-bar"
+            className="cp-scale-forecast-bar"
+          ></span>
+        </div>
+      </div>
+    );
+  };
+
+  return getDragger();
 };
 
 export default Timeline;
