@@ -24,18 +24,18 @@ const Timeline = ({
   const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    console.log("useEffect s04", { currentTime, timeSpan });
+    //console.log("useEffect s04", { currentTime, timeSpan });
     const thickWidth = getTickWidth();
     if (thickWidth > 0) updateCB({ thickWidth });
   }, [timeArray, currentTime, timeSpan]);
 
   useEffect(() => {
-    console.log("Timeline->useEffect s04", {
-      timeSpan,
-      currentTime: new Date(currentTime),
-      timeArray,
-      changeCurrentTime
-    });
+    //console.log("Timeline->useEffect s04", {
+    //   timeSpan,
+    //   currentTime: new Date(currentTime),
+    //   timeArray,
+    //   changeCurrentTime
+    // });
     const thickWidth = getTickWidth();
 
     setDraggerCoordinates({
@@ -230,7 +230,7 @@ const Timeline = ({
 
     showTimes(true);
     newLeft = getLeftForTime(closestTime) - getTickWidth() * nrOnlyTimespan;
-    console.log("setClosestTick s04 #2", { x, newLeft });
+    //console.log("setClosestTick s04 #2", { x, newLeft });
     setDraggerCoordinates({ x: newLeft, y: 0 });
     //}
 

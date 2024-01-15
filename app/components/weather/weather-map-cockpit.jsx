@@ -162,7 +162,7 @@ const WeatherMapCockpit = ({
   };
 
   const onTimelineUpdate = ({ tickWidth }) => {
-    console.log("onTimelineUpdate hhh", tickWidth);
+    //console.log("onTimelineUpdate hhh", tickWidth);
 
     placeCockpitItems(tickWidth);
   };
