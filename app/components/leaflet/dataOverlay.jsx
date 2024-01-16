@@ -75,7 +75,7 @@ const DataOverlay = ({
   const getPixelData = coordinates => {
     let values = {};
     dataOverlays.forEach(anOverlay => {
-      //console.log("getPixelData", coordinates, oCanvases, anOverlay.type);
+      //console.log("getPixelData t01", coordinates, oCanvases[anOverlay.type], anOverlay.type);
       if (oCanvases[anOverlay.type]?.["loaded"]) {
         let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
           coordinates.x,
@@ -97,7 +97,7 @@ const DataOverlay = ({
         // );
 
         // console.log(
-        //   "pixelData",
+        //   "pixelData t01",
         //   anOverlay.type,
         //   p.data,
         //   oCanvases[anOverlay.type]
@@ -147,10 +147,10 @@ const DataOverlay = ({
   };
 
   const showDataMarker = e => {
-    // console.log('dataOverlay->showDataMarker', e.target, allCanvasesLoaded(), dataOverlaysEnabled );
+    //console.log('dataOverlay->showDataMarker', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
 
     if (debug && e.originalEvent.ctrlKey) {
-      [...document.getElementsByClassName(".map-data-layer")].forEach(e => {
+      [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
         e.classList.toggle("debug-high-contrast");
       });
@@ -186,7 +186,7 @@ const DataOverlay = ({
   };
 
   const setupDataLayer = e => {
-    //console.log("dataOverlay->setupDataLayer#1 s06");
+    //console.log("dataOverlay->setupDataLayer#1 t02");
 
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
@@ -324,14 +324,14 @@ const DataOverlay = ({
   //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    //console.log("dataOverlay->useMemo s07", dataMarker);
+    //console.log("dataOverlay->useMemo t02", dataMarker);
     let overlays = [];
     if (overlay) {
       //console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
-      //console.log("overlay->render xxx1:", this.state);
+      //console.log("overlay->render xxx1:", debug);
       if (overlay) {
         if (debug)
           overlays.push(
@@ -397,12 +397,12 @@ const DataOverlay = ({
         //   "loading",
         //   dataMarker
         // );
-        if (!dataMarker && !directionMarkers) playerCB("background", "loading");
+        playerCB("background", "loading");
       }
     }
 
     return overlays;
-  }, [overlay]);
+  }, [overlay, oCanvases]);
 
   //console.log('dataOverlay->render xxx1', overlays );
 
