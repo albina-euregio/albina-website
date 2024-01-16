@@ -316,7 +316,7 @@ const DataOverlay = props => {
   const overlays = useMemo(() => {
     let overlays = [];
     if (props.overlay) {
-      console.log("dataOverlay->render s06", props);
+      //console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
