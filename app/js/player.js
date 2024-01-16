@@ -51,7 +51,13 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
   };
 
   const onLayerEvent = (layerId, state) => {
-    //console.log("Player->onEvent: s06", state, layerId,_itemsToLoad,_itemsToLoad.includes(layerId));
+    console.log(
+      "Player->onEvent: s071",
+      state,
+      layerId,
+      _itemsToLoad,
+      _itemsToLoad.includes(layerId)
+    );
 
     switch (state) {
       case "loading":

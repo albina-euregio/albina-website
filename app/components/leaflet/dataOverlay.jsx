@@ -16,7 +16,17 @@ const css = `
       filter: contrast(20);
     }
 `;
-const DataOverlay = props => {
+const DataOverlay = ({
+  overlay,
+  dataOverlays,
+  item,
+  rgbToValue,
+  debug,
+  dataOverlaysEnabled,
+  playerCB,
+  currentTime,
+  dataOverlayFilePostFix
+}) => {
   const intl = useIntl();
 
   //console.log('dataOverlay->start xxx1', props);
@@ -28,10 +38,11 @@ const DataOverlay = props => {
   const [directionMarkers, setDirectionMarkers] = useState([]);
   const [directionOverlay, setDirectionOverlay] = useState(null);
   const [oCanvases, setOCanvases] = useState({});
+  const [lastUpdateOverlays, setLastUpdateOverlays] = useState({});
 
   useEffect(() => {
     setOCanvases({});
-  }, [props.overlay]);
+  }, [overlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
     //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
@@ -49,10 +60,10 @@ const DataOverlay = props => {
 
   const getColor = value => {
     const v = parseFloat(value);
-    const colors = Object.values(props.item.colors);
+    const colors = Object.values(item.colors);
 
     let color = colors[0];
-    props.item.thresholds.forEach((tr, i) => {
+    item.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
@@ -63,7 +74,7 @@ const DataOverlay = props => {
 
   const getPixelData = coordinates => {
     let values = {};
-    props.dataOverlays.forEach(anOverlay => {
+    dataOverlays.forEach(anOverlay => {
       //console.log("getPixelData", coordinates, oCanvases, anOverlay.type);
       if (oCanvases[anOverlay.type]?.["loaded"]) {
         let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
@@ -74,7 +85,7 @@ const DataOverlay = props => {
         );
         //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 
-        values[anOverlay.type] = props.rgbToValue(anOverlay.type, {
+        values[anOverlay.type] = rgbToValue(anOverlay.type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
@@ -92,7 +103,7 @@ const DataOverlay = props => {
         //   oCanvases[anOverlay.type]
         // );
 
-        // if (props.debug) {
+        // if (debug) {
         //   for (var y = 0; y < p.height; y++) {
         //     for (var x = 0; x < p.width; x++) {
         //       p.data[4 * (y * p.width + x)] = 255;
@@ -136,18 +147,24 @@ const DataOverlay = props => {
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker', e.target );
+    // console.log('dataOverlay->showDataMarker', e.target, allCanvasesLoaded(), dataOverlaysEnabled );
 
-    if (props.debug && e.originalEvent.ctrlKey) {
+    if (debug && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName(".map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
         e.classList.toggle("debug-high-contrast");
       });
     }
 
-    if (props.dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
+    if (dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
       const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
-
+      console.log(
+        "dataOverlay->showDataMarker",
+        e.target,
+        allCanvasesLoaded(),
+        dataOverlaysEnabled,
+        pixelData
+      );
       setDataMarker(
         <StationMarker
           type="station"
@@ -173,9 +190,9 @@ const DataOverlay = props => {
 
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
-    if (props.dataOverlaysEnabled) {
-      props.dataOverlays.forEach(anOverlay => {
-        //console.log("setupDataLayer#2 yyy2", {overlay: props.overlay, filepaht: anOverlay.filePostfix});
+    if (dataOverlaysEnabled) {
+      dataOverlays.forEach(anOverlay => {
+        //console.log("setupDataLayer#2 yyy2", {overlay: overlay, filepaht: anOverlay.filePostfix});
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
@@ -214,16 +231,16 @@ const DataOverlay = props => {
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", props.playerCB);
+              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
                 addDirectionIndicators();
               }
-              props.playerCB("background", "load");
+              playerCB("background", "load");
             }
           };
           //console.log("setupDataLayer xxxx", {overlayFile, filepaht: anOverlay.filePostfix});
-          let overlayFile = props.overlay + anOverlay.filePostfix;
+          let overlayFile = overlay + anOverlay.filePostfix;
           if (anOverlay.fixPath)
             overlayFile = overlayFile.replace(
               RegExp(anOverlay.fixPath.find, "g"),
@@ -233,7 +250,7 @@ const DataOverlay = props => {
           img.src = overlayFile;
         }
       });
-    } else props.playerCB("background", "load");
+    } else playerCB("background", "load");
 
     setOCanvases(overlayCanvases);
   };
@@ -247,8 +264,8 @@ const DataOverlay = props => {
     const bounds = config.weathermaps.settings.bbox;
     let markers = [];
 
-    if (props.dataOverlaysEnabled) {
-      const foundOverlays = props.dataOverlays.filter(element => {
+    if (dataOverlaysEnabled) {
+      const foundOverlays = dataOverlays.filter(element => {
         //console.log("addDirectionIndicators eee element", element.type);
         return ["windDirection"].includes(element.type);
       });
@@ -281,14 +298,7 @@ const DataOverlay = props => {
                 type="grid"
                 dataType="noCircle"
                 key={
-                  "pos-" +
-                  curV +
-                  "_" +
-                  curH +
-                  "_" +
-                  props.currentTime +
-                  "_" +
-                  curZoom
+                  "pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom
                 }
                 itemId="directionMarker"
                 iconAnchor={[12, 12]}
@@ -314,22 +324,23 @@ const DataOverlay = props => {
   //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
+    console.log("dataOverlay->useMemo s07", dataMarker);
     let overlays = [];
-    if (props.overlay) {
+    if (overlay) {
       //console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
       //console.log("overlay->render xxx1:", this.state);
-      if (props.overlay) {
-        if (props.debug)
+      if (overlay) {
+        if (debug)
           overlays.push(
             <ImageOverlay
               key="data-image"
               className={["leaflet-image-layer", "map-data-layer", "hide"].join(
                 " "
               )}
-              url={props.overlay + props.dataOverlayFilePostFix.debug}
+              url={overlay + dataOverlayFilePostFix.debug}
               opacity={1}
               bounds={config.weathermaps.settings.bbox}
               attribution={intl.formatMessage({
@@ -345,13 +356,13 @@ const DataOverlay = props => {
           <ImageOverlay
             key="background-map"
             className={["leaflet-image-layer", "map-info-layer"].join(" ")}
-            style={props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-            url={props.overlay + props.dataOverlayFilePostFix.main}
+            style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+            url={overlay + dataOverlayFilePostFix.main}
             opacity={isBlendingSupported() ? 1 : 0.5}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
             attribution={
-              props.debug
+              debug
                 ? intl.formatMessage({ id: "weathermap:attribution" })
                 : null
             }
@@ -368,29 +379,30 @@ const DataOverlay = props => {
                   //console.log("onZoomed eee", e);
                   addDirectionIndicators(e);
                 });
-                console.log("dataOverlay background LOADED s06");
-                props.playerCB("background", "load");
+                //console.log("dataOverlay background LOADED s07");
+                if (!dataMarker && !directionMarkers)
+                  playerCB("background", "load");
               },
               error: err => {
-                console.log("dataOverlay background ERROR s06");
-                props.playerCB("background", err);
+                //console.log("dataOverlay background ERROR s06");
+                if (!dataMarker && !directionMarkers)
+                  playerCB("background", err);
               }
             }}
             bindPopup
           />
         );
-        console.log(
-          "dataOverlay background s06",
-          "loading",
-          props.overlay + props.dataOverlayFilePostFix.debug
-        );
-        props.playerCB("background", "loading");
+        // console.log(
+        //   "dataOverlay background s071",
+        //   "loading",
+        //   dataMarker
+        // );
+        if (!dataMarker && !directionMarkers) playerCB("background", "loading");
       }
     }
-    if (dataMarker) overlays.push(dataMarker);
-    if (directionMarkers) overlays.push(directionMarkers);
+
     return overlays;
-  }, [props.overlay]);
+  }, [overlay]);
 
   //console.log('dataOverlay->render xxx1', overlays );
 
@@ -398,6 +410,8 @@ const DataOverlay = props => {
     <>
       <style>{css}</style>
       {overlays}
+      {dataMarker}
+      {directionMarkers}
     </>
   );
 };
