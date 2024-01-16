@@ -22,7 +22,7 @@ const Dragger = ({
   }, [coordinates]);
 
   useEffect(() => {
-    console.log("Dragger->useEffect-> s04", { currentX, dragging });
+    //console.log("Dragger->useEffect-> s04", { currentX, dragging });
     if (!dragging && dragging != null) {
       if (onDragEnd) onDragEnd(currentX, currentY);
     }

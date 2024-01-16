@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
 import { isBlendingSupported } from "../../util/blendMode";
@@ -169,7 +169,7 @@ const DataOverlay = props => {
   };
 
   const setupDataLayer = e => {
-    //console.log("dataOverlay->setupDataLayer#1 yyy2");
+    //console.log("dataOverlay->setupDataLayer#1 s06");
 
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
@@ -214,7 +214,7 @@ const DataOverlay = props => {
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED xxx2", props.playerCB);
+              //console.log("setupDataLayer #4 ALL LOADED S06", props.playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
                 addDirectionIndicators();
@@ -313,77 +313,80 @@ const DataOverlay = props => {
   };
   //console.log('dataOverlay->render #1 xxx1');
 
-  let overlays = [];
-  if (props.overlay) {
-    //console.log("props.item.layer.overlay", props);
-    //const mapMinZoom = config.map.initOptions.minZoom;
-    //const mapMaxZoom = config.map.initOptions.maxZoom;
-
-    //console.log("overlay->render xxx1:", this.state);
+  const overlays = useMemo(() => {
+    let overlays = [];
     if (props.overlay) {
-      if (props.debug)
+      //console.log("dataOverlay->render s06", props);
+      //const mapMinZoom = config.map.initOptions.minZoom;
+      //const mapMaxZoom = config.map.initOptions.maxZoom;
+
+      //console.log("overlay->render xxx1:", this.state);
+      if (props.overlay) {
+        if (props.debug)
+          overlays.push(
+            <ImageOverlay
+              key="data-image"
+              className={["leaflet-image-layer", "map-data-layer", "hide"].join(
+                " "
+              )}
+              url={props.overlay + props.dataOverlayFilePostFix.debug}
+              opacity={1}
+              bounds={config.weathermaps.settings.bbox}
+              attribution={intl.formatMessage({
+                id: "weathermap:attribution"
+              })}
+              eventHandlers={{
+                click: showDataMarker.bind(this)
+              }}
+              interactive={true}
+            />
+          );
         overlays.push(
           <ImageOverlay
-            key="data-image"
-            className={["leaflet-image-layer", "map-data-layer", "hide"].join(
-              " "
-            )}
-            url={props.overlay + props.dataOverlayFilePostFix.debug}
-            opacity={1}
+            key="background-map"
+            className={["leaflet-image-layer", "map-info-layer"].join(" ")}
+            style={props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+            url={props.overlay + props.dataOverlayFilePostFix.main}
+            opacity={isBlendingSupported() ? 1 : 0.5}
             bounds={config.weathermaps.settings.bbox}
-            attribution={intl.formatMessage({
-              id: "weathermap:attribution"
-            })}
-            eventHandlers={{
-              click: showDataMarker.bind(this)
-            }}
             interactive={true}
+            attribution={
+              props.debug
+                ? intl.formatMessage({ id: "weathermap:attribution" })
+                : null
+            }
+            //onClick={()=>console.log('dataOverlay->click')}
+            eventHandlers={{
+              click: showDataMarker,
+              load: e => {
+                //console.log("background jjj", "load", e.target._map);
+                setDataMarker(null);
+                setDirectionMarkers(null);
+                //console.log("background yyy2", "load");
+                setupDataLayer(e);
+                e.target._map.on("zoomend", e => {
+                  //console.log("onZoomed eee", e);
+                  addDirectionIndicators(e);
+                });
+                //console.log("dataOverlay background LOADED s06");
+                props.playerCB("background", "load");
+              },
+              error: err => {
+                //console.log("dataOverlay background ERROR s06");
+                props.playerCB("background", err);
+              }
+            }}
+            bindPopup
           />
         );
-      overlays.push(
-        <ImageOverlay
-          key="background-map"
-          className={["leaflet-image-layer", "map-info-layer"].join(" ")}
-          style={props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={props.overlay + props.dataOverlayFilePostFix.main}
-          opacity={isBlendingSupported() ? 1 : 0.5}
-          bounds={config.weathermaps.settings.bbox}
-          interactive={true}
-          attribution={
-            props.debug
-              ? intl.formatMessage({ id: "weathermap:attribution" })
-              : null
-          }
-          //onClick={()=>console.log('dataOverlay->click')}
-          eventHandlers={{
-            click: showDataMarker,
-            load: e => {
-              //console.log("background jjj", "load", e.target._map);
-              setDataMarker(null);
-              setDirectionMarkers(null);
-              //console.log("background yyy2", "load");
-              setupDataLayer(e);
-              e.target._map.on("zoomend", e => {
-                //console.log("onZoomed eee", e);
-                addDirectionIndicators(e);
-              });
-
-              //props.playerCB("background", "load");
-            },
-            error: err => {
-              //console.log("background eee", "error");
-              props.playerCB("background", err);
-            }
-          }}
-          bindPopup
-        />
-      );
-      //console.log("background yyy2", "loading");
-      props.playerCB("background", "loading");
+        //console.log("dataOverlay background s06", "loading", (props.overlay + props.dataOverlayFilePostFix.debug));
+        props.playerCB("background", "loading");
+      }
     }
-  }
-  if (dataMarker) overlays.push(dataMarker);
-  if (directionMarkers) overlays.push(directionMarkers);
+    if (dataMarker) overlays.push(dataMarker);
+    if (directionMarkers) overlays.push(directionMarkers);
+    return overlays;
+  }, [props.overlay]);
 
   //console.log('dataOverlay->render xxx1', overlays );
 
