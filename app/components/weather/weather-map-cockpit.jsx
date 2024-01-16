@@ -143,12 +143,6 @@ const WeatherMapCockpit = ({
       }
 
       if (lastAnalyticTime) {
-        // console.log("placeCockpitItems s081", {
-        //   lastAnalyticTime: (lastAnalyticTime * 10) / 10,
-        //   lastAsDate: new Date(lastAnalyticTime),
-        //   posFirstAvailable,
-        //   tickWidth
-        // });
         const lastAnalyticTimeComp = $(".t" + lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
           left: posFirstAvailable.left - posContainer.left,
