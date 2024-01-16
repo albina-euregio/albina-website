@@ -316,7 +316,7 @@ const DataOverlay = props => {
   const overlays = useMemo(() => {
     let overlays = [];
     if (props.overlay) {
-      //console.log("dataOverlay->render s06", props);
+      console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
@@ -368,18 +368,22 @@ const DataOverlay = props => {
                   //console.log("onZoomed eee", e);
                   addDirectionIndicators(e);
                 });
-                //console.log("dataOverlay background LOADED s06");
+                console.log("dataOverlay background LOADED s06");
                 props.playerCB("background", "load");
               },
               error: err => {
-                //console.log("dataOverlay background ERROR s06");
+                console.log("dataOverlay background ERROR s06");
                 props.playerCB("background", err);
               }
             }}
             bindPopup
           />
         );
-        //console.log("dataOverlay background s06", "loading", (props.overlay + props.dataOverlayFilePostFix.debug));
+        console.log(
+          "dataOverlay background s06",
+          "loading",
+          props.overlay + props.dataOverlayFilePostFix.debug
+        );
         props.playerCB("background", "loading");
       }
     }
