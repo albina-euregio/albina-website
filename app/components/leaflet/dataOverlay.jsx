@@ -158,13 +158,13 @@ const DataOverlay = ({
 
     if (dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
       const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
-      console.log(
-        "dataOverlay->showDataMarker",
-        e.target,
-        allCanvasesLoaded(),
-        dataOverlaysEnabled,
-        pixelData
-      );
+      // console.log(
+      //   "dataOverlay->showDataMarker",
+      //   e.target,
+      //   allCanvasesLoaded(),
+      //   dataOverlaysEnabled,
+      //   pixelData
+      // );
       setDataMarker(
         <StationMarker
           type="station"
@@ -324,7 +324,7 @@ const DataOverlay = ({
   //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    console.log("dataOverlay->useMemo s07", dataMarker);
+    //console.log("dataOverlay->useMemo s07", dataMarker);
     let overlays = [];
     if (overlay) {
       //console.log("dataOverlay->render s06", props);

@@ -25,8 +25,8 @@ const Timeline = ({
 
   useEffect(() => {
     //console.log("useEffect s04", { currentTime, timeSpan });
-    const thickWidth = getTickWidth();
-    if (thickWidth > 0) updateCB({ thickWidth });
+    const tickWidth = getTickWidth();
+    if (tickWidth > 0) updateCB({ tickWidth: tickWidth });
   }, [timeArray, currentTime, timeSpan]);
 
   useEffect(() => {

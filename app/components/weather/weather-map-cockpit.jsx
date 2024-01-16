@@ -93,7 +93,7 @@ const WeatherMapCockpit = ({
     });
   };
 
-  const placeCockpitItems = thickWidth => {
+  const placeCockpitItems = tickWidth => {
     // console.log(
     //   "placeCockpitItems: hhh",
     //   currentTime,
@@ -143,15 +143,16 @@ const WeatherMapCockpit = ({
       }
 
       if (lastAnalyticTime) {
-        // console.log("placeCockpitItems", {
+        // console.log("placeCockpitItems s081", {
         //   lastAnalyticTime: (lastAnalyticTime * 10) / 10,
-        //   posFirstAvailable
+        //   lastAsDate: new Date(lastAnalyticTime),
+        //   posFirstAvailable,
+        //   tickWidth
         // });
         const lastAnalyticTimeComp = $(".t" + lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
           left: posFirstAvailable.left - posContainer.left,
-          width:
-            lastAnalyticTimeComp.left - posFirstAvailable.left - thickWidth,
+          width: lastAnalyticTimeComp.left - posFirstAvailable.left - tickWidth,
           display: ""
         });
       } else
