@@ -303,7 +303,7 @@ const WeatherMapCockpit = ({
     let linkClassesPlay = ["cp-movie-play", "icon-play"];
     let linkClassesStop = ["cp-movie-stop", "icon-pause"];
     let divClasses = ["cp-movie"];
-    if (player.playing) divClasses.push("js-playing");
+    if (player.playing()) divClasses.push("js-playing");
     return (
       <div key="cp-movie" className={divClasses.join(" ")}>
         <Tooltip
