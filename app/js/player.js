@@ -14,6 +14,7 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
       _tickOverdue = true;
       return;
     }
+    _tickOverdue = false;
     //console.log("Player->tick: #2 s05",_itemsToLoad,);
     if (typeof _onTick === "function") _onTick();
   };
@@ -76,7 +77,10 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
     //console.log("Player->onE_removeItemToLoadvent: s06", layerId);
 
     _itemsToLoad = _itemsToLoad.filter(item => item !== layerId);
-    if (_intervalID && _tickOverdue) _tick();
+    if (_intervalID && _tickOverdue) {
+      //console.log("Player->onE_removeItemToLoadvent: s06", layerId);
+      _tick();
+    }
   };
 
   const setTransitionTime = transitionTime => {
