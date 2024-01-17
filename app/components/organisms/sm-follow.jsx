@@ -15,7 +15,7 @@ export default function SmFollow({ region }) {
           html={true}
           values={{
             region: intl.formatMessage({ id: `region:${region}` }),
-            strong: (...msg) => <strong>{msg}</strong>
+            strong: (...msg) => <strong key="strong">{msg}</strong>
           }}
         />
       </p>

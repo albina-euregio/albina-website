@@ -1,52 +1,59 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import $ from "jquery";
 
-class Dragger extends React.Component {
-  constructor(props) {
-    super(props);
-    this.currentX = 0;
-    this.currentY = 0;
-    this.forcePositionTo = this.forcePositionTo.bind(this);
-  }
+const Dragger = ({
+  parent,
+  onDrag,
+  onDragEnd,
+  coordinates,
+  classes,
+  children
+}) => {
+  const [currentX, setCurrentX] = useState(-1);
+  const [currentY, setCurrentY] = useState(-1);
+  const [dragging, setDragging] = useState(null);
 
-  componentDidUpdate() {
-    this.updateOrMount();
-  }
+  const draggableRef = useRef(null);
 
-  componentDidMount() {
-    this.updateOrMount();
-    if (this.props.rePosition) this.props.rePosition(this.forcePositionTo);
-  }
+  useEffect(() => {
+    //console.log("Dragger->useEffect s01 x : ", {dragging, coordinates, ref: draggableRef.createElement});
+    if (!dragging && coordinates.x && draggableRef.current)
+      setCurrentX(coordinates.x);
+  }, [coordinates]);
 
-  updateOrMount() {
-    if (!this.draggable) this.draggable = this.refs.draggingContainer;
-    this.parent = $(this.props.parent);
-  }
+  useEffect(() => {
+    //console.log("Dragger->useEffect-> s04", { currentX, dragging });
+    if (!dragging && dragging != null) {
+      if (onDragEnd) onDragEnd(currentX, currentY);
+    }
+  }, [dragging]);
 
-  onDragStart(event, getXInit, getYInit, getXOnMove, getYOnMove) {
+  const onDragStart = (event, getXInit, getYInit, getXOnMove, getYOnMove) => {
     event.stopPropagation();
     //console.log("onTouchStart", event);
-    const self = this;
-    if (this.props.onDragStart) this.props.onDragStart(event);
 
-    let shiftX = getXInit(event) - self.draggable.getBoundingClientRect().left;
-    let shiftY = getYInit(event) - self.draggable.getBoundingClientRect().top;
+    setDragging(true);
+    const parent$ = $(parent);
+    if (onDrag) onDrag(event);
 
-    self.draggable.style.zIndex = 1000;
+    let shiftX =
+      getXInit(event) - draggableRef.current.getBoundingClientRect().left;
+    let shiftY =
+      getYInit(event) - draggableRef.current.getBoundingClientRect().top;
+
+    draggableRef.current.style.zIndex = 1000;
 
     moveAt(getXOnMove(event), getYOnMove(event));
 
     // moves the draggable at (pageX, pageY) coordinates
     // taking initial shifts into account
     function moveAt(pageX, pageY) {
-      //console.log("moveAt" ,pageX, pageY, shiftX, shiftY);
-      let parentOffset = self.parent.offset();
+      let parentOffset = parent$.offset();
       let left = pageX - shiftX - parentOffset.left;
-      self.currentX = Math.min(self.parent.width(), Math.max(left));
-      self.currentY = pageY - shiftY - parentOffset.top;
-      self.draggable.style.left = self.currentX + "px";
-      //draggable.style.top = self.currentY + 'px';
-      if (self.props.onDrag) self.props.onDrag(self.currentX, self.currentY);
+      setCurrentX(Math.min(parent$.width(), Math.max(left)));
+      setCurrentY(pageY - shiftY - parentOffset.top);
+      //console.log("moveAt s02" , {currentX, currentY});
+      if (onDrag) onDrag();
     }
 
     function onMouseMove(event) {
@@ -63,67 +70,50 @@ class Dragger extends React.Component {
       event.stopPropagation();
       document.removeEventListener("touchmove", onMouseMove);
       document.removeEventListener("mousemove", onMouseMove);
-      if (self.props.onDragEnd)
-        self.props.onDragEnd(self.currentX, self.currentY);
       document.removeEventListener("mouseup", unregister);
       document.removeEventListener("touchend", unregister);
+      setDragging(false);
     }
     document.addEventListener("mouseup", unregister);
     document.addEventListener("touchend", unregister);
-  }
+  };
 
-  onTouchStart(event) {
-    this.onDragStart(
+  const onTouchStart = event => {
+    onDragStart(
       event,
       event => event.changedTouches[0].clientX,
       event => event.changedTouches[0].clientY,
       event => event.changedTouches[0].clientX,
       event => event.changedTouches[0].clientY
     );
-  }
+  };
 
-  onMouseDown(event) {
-    this.onDragStart(
+  const onMouseDown = event => {
+    onDragStart(
       event,
       event => event.clientX,
       event => event.clientY,
       event => event.pageX,
       event => event.pageY
     );
-  }
+  };
 
-  forcePositionTo(x, y) {
-    //console.log("dragger->forcePositionTo gggg", x, y, this.draggable);
-    this.currentX = x;
-    this.currentY = y;
-    this.draggable.style.left = this.currentX + "px";
-    //this.draggable.style.top = this.currentY + "px";
-  }
-
-  render() {
-    //console.log("dragger->render hhh", this.currentX);
-    this.currentX = this.props.left || 0;
-    this.currentY = this.props.top || 0;
-    return (
-      <div
-        role="button"
-        tabIndex="0"
-        style={{
-          display: "block",
-          position: "absolute",
-          left: this.currentX || 0
-        }}
-        onDragStart={() => {
-          return false;
-        }}
-        className={this.props.classes ? this.props.classes.join(" ") : ""}
-        onMouseDown={this.onMouseDown.bind(this)}
-        onTouchStart={this.onTouchStart.bind(this)}
-        ref="draggingContainer"
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      role="button"
+      tabIndex="0"
+      style={{
+        display: "block",
+        position: "absolute",
+        left: currentX || 0
+      }}
+      className={classes ? classes.join(" ") : ""}
+      onMouseDown={event => onMouseDown(event, currentX, currentY)}
+      onTouchStart={event => onTouchStart(event, currentX, currentY)}
+      ref={draggableRef}
+    >
+      {children}
+    </div>
+  );
+};
 export default Dragger;

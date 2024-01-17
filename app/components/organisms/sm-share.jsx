@@ -56,7 +56,7 @@ export default function SmShare(props) {
           id="main:share-this"
           html={true}
           values={{
-            strong: (...msg) => <strong>{msg}</strong>
+            strong: (...msg) => <strong key="strong">{msg}</strong>
           }}
         />
       </p>

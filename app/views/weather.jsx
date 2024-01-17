@@ -25,17 +25,24 @@ const Weather = () => {
   const [headerText] = useState("");
 
   const [store] = useState(() => new WeatherMapStore(params.domain));
+  const [playing, setPlaying] = useState(false);
 
-  const [player] = useState(
-    () =>
-      new Player({
-        transitionTime: 1000,
-        owner: this,
-        onTick: () => {
-          store.changeCurrentTime(store.nextTime);
-        }
-      })
-  );
+  const [player] = useState(() => {
+    //console.log("player->new Player s05");
+    return Player({
+      transitionTime: 1000,
+      onTick: () => {
+        //console.log("player->onTick s05");
+        store.changeCurrentTime(store.nextTime);
+      },
+      onStop: () => {
+        setPlaying(false);
+      },
+      onStart: () => {
+        setPlaying(true);
+      }
+    });
+  });
 
   useEffect(() => {
     $("#page-footer").css({ display: "none" });
@@ -72,7 +79,12 @@ const Weather = () => {
     }
   };
 
-  //console.log("weather->render", store.domainId, store.agl, player);
+  // console.log(
+  //   "weather->render",
+  //   new Date(store.currentTime),
+  //   store.agl,
+  //   player
+  // );
   return (
     <>
       <WeatherStationDialog
@@ -109,15 +121,15 @@ const Weather = () => {
                 }
                 dataOverlaysEnabled={
                   !store.domainConfig.layer.stations ||
-                  store.currentTime >= store.agl
+                  store.currentTime > store.agl
                 }
                 rgbToValue={store.valueForPixel}
                 item={store.item}
                 debug={store.config.settings.debugModus}
                 grid={store.grid}
-                stations={!player.playing && store.stations}
-                playerCB={player.onLayerEvent.bind(player)}
-                isPlaying={player.playing}
+                stations={!playing && store.stations}
+                playerCB={player.onLayerEvent}
+                isPlaying={playing}
                 selectedFeature={store.selectedFeature}
                 onMarkerSelected={feature => setStationId(feature?.id)}
                 onViewportChanged={() => {}}
