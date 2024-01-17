@@ -58,6 +58,9 @@ class GlossaryReplacer {
   }
 
   static async init(locale: EnabledLanguages) {
+    if (!RAW_GLOSSARY_LINKS[locale] || !GLOSSARY_CONTENT[locale]) {
+      return undefined;
+    }
     return new GlossaryReplacer(
       locale,
       await RAW_GLOSSARY_LINKS[locale](),
@@ -65,8 +68,12 @@ class GlossaryReplacer {
     );
   }
 
-  findGlossaryStrings(text: string) {
-    text = reactStringReplace(text, "<br/>", () => <br />);
+  static findBreaks(textRaw: string): React.ReactNode[] {
+    return reactStringReplace(textRaw, "<br/>", () => <br />);
+  }
+
+  findGlossaryStrings(textRaw: string) {
+    const text = GlossaryReplacer.findBreaks(textRaw);
     return reactStringReplace(text, this.regex, (substring, index, offset) => {
       const glossary = this.glossaryLinks[substring] as keyof GlossaryContent;
       const glossaryContent = this.content[glossary];
@@ -112,7 +119,12 @@ const GLOSSARY_REPLACER = {} as Record<
 export async function findGlossaryStrings(
   text: string,
   locale: EnabledLanguages
-): Promise<React.ReactNode[]> {
+): Promise<string | React.ReactNode[]> {
   GLOSSARY_REPLACER[locale] ??= GlossaryReplacer.init(locale);
-  return (await GLOSSARY_REPLACER[locale]).findGlossaryStrings(text);
+  const glossaryReplacer = await GLOSSARY_REPLACER[locale];
+  if (!glossaryReplacer) {
+    // unsupported language
+    return GlossaryReplacer.findBreaks(text);
+  }
+  return glossaryReplacer.findGlossaryStrings(text);
 }

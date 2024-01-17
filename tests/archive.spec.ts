@@ -2,15 +2,12 @@ import { test, expect } from "@playwright/test";
 
 test("archive", async ({ page }) => {
   await page.goto("/more/archive");
-  await page.waitForTimeout(200); // selectric
 
   const year = page.locator("text=Year").locator("..");
-  await year.locator(".selectric").click();
-  await year.locator(".selectric-items").getByText("2020/2021").click();
+  await year.locator(".selectric").selectOption("2020");
 
   const month = page.locator("text=Month").locator("..");
-  await month.locator(".selectric").click();
-  await month.locator(".selectric-items").getByText("Mar 21").click();
+  await month.locator(".selectric").selectOption("15");
 
   const preview = page
     .getByRole("row", { name: "Tuesday, 16/03/2021" })

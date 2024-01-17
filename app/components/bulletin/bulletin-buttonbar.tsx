@@ -8,15 +8,15 @@ import { scrollIntoView } from "../../util/scrollIntoView";
 import type { BulletinCollection } from "../../stores/bulletin";
 
 type Props = {
-  showPdfDialog: boolean;
   activeBulletinCollection: BulletinCollection;
 };
 
-function BulletinButtonbar({ showPdfDialog, activeBulletinCollection }: Props) {
+function BulletinButtonbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   const [isPdfDialogOpen, setPdfDialogOpen] = useState(false);
+  const showPdfDialog = activeBulletinCollection?.bulletins?.length;
 
   return (
     <section

@@ -111,9 +111,11 @@ function TendencyReport({
                   {msg}
                 </>
               ),
-              tendency: intl.formatMessage({
-                id: `bulletin:report:tendency:${tendency.tendencyType}`
-              }),
+              tendency: tendency.tendencyType
+                ? intl.formatMessage({
+                    id: `bulletin:report:tendency:${tendency.tendencyType}`
+                  })
+                : "–",
               daytime: "",
               date: intl.formatDate(
                 tendency.validTime?.startTime

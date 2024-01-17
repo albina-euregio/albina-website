@@ -44,20 +44,9 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
-  await page
-    .locator("#subscribeDialog")
-    .getByRole("link", { name: "Telegram" })
-    .click();
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: "State / Province" })
-    .locator("span")
-    .click();
-  await page.locator("#subscribeDialog").getByText("Tyrol").nth(2).click();
-  await page
-    .locator("#subscribeDialog label")
-    .filter({ hasText: "DE" })
-    .click();
+  await page.locator("dialog").getByRole("link", { name: "Telegram" }).click();
+  await page.getByRole("button", { name: "Tyrol", exact: true }).click();
+  await page.getByRole("button", { name: "DE" }).click();
 
   const [telegram] = await Promise.all([
     page.waitForEvent("popup"),
@@ -68,7 +57,7 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   );
   await telegram.getByRole("link", { name: "Preview channel" }).click();
   await telegram.close();
-  await page.locator(".mfp-close").click();
+  await page.getByRole("button", { name: "Close" }).click();
 });
 
 test("bulletin/2022-02-01 pdf", async ({ page }) => {
@@ -87,5 +76,5 @@ test("bulletin/2022-02-01 pdf", async ({ page }) => {
     "https://static.avalanche.report/bulletins/2022-02-01/2022-02-01_en.pdf"
   );
   await pdf.close();
-  await page.getByRole("button", { name: "×" }).click();
+  await page.getByRole("button", { name: "Close" }).click();
 });

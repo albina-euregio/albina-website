@@ -159,7 +159,7 @@ const WarnLevelIcon = (props: Props) => {
 
   return (
     <Tooltip label={title}>
-      <Link to={"/education/danger-scale?"} tabIndex="-1">
+      <Link to={"/education/danger-scale?"} tabIndex="-1" aria-label={title}>
         {numberAbove === 5 || numberBelow === 5 ? (
           <img src={img} alt={title} />
         ) : (

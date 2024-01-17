@@ -22,5 +22,6 @@ test("weather/measurements", async ({ page }) => {
   await expect(
     page.locator(".modal-weatherstation").getByRole("heading")
   ).toHaveText("Gallreideschrofen (2180 m)");
-  await page.getByRole("button", { name: "×" }).click();
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page.locator("h1")).toContainText("Station Measurements");
 });

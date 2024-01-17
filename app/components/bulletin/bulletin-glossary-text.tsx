@@ -10,12 +10,11 @@ export default function BulletinGlossaryText({
 }) {
   const [withGlossary, setWithGlossary] = useState<string | ReactNode[]>(text);
   useEffect(() => {
-    findGlossaryStrings(text, locale).then(g => setWithGlossary(g));
+    try {
+      findGlossaryStrings(text, locale).then(g => setWithGlossary(g));
+    } catch (e) {
+      console.warn(e);
+    }
   }, [locale, text]);
-  try {
-    return <>{withGlossary}</>;
-  } catch (e) {
-    console.warn(e);
-    return <>{text}</>;
-  }
+  return <>{withGlossary}</>;
 }

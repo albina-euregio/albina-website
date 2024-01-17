@@ -7,17 +7,17 @@ type Props = {
   activeBulletinCollection: BulletinCollection;
 };
 
-function DownloadPdfDialog(props: Props) {
+function DownloadPdfDialog({ activeBulletinCollection }: Props) {
   const intl = useIntl();
 
   function pdfLink(region, isBw) {
     region = region
       ? `${region}_`
-      : props.activeBulletinCollection.date > "2022-05-06"
+      : activeBulletinCollection?.date > "2022-05-06"
       ? "EUREGIO_"
       : "";
     return config.template(config.apis.bulletin.pdf, {
-      date: props.activeBulletinCollection.date,
+      date: activeBulletinCollection?.date,
       region,
       lang: intl.locale.slice(0, 2),
       bw: isBw ? "_bw" : ""
