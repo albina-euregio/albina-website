@@ -13,6 +13,15 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
 
+export type ObserverData = {
+  geometry: {
+    coordinates: number[];
+  };
+  name: string;
+  id: string;
+  plot: string;
+};
+
 const timeRanges = {
   day: "tag",
   threedays: "dreitage",
@@ -24,7 +33,7 @@ const timeRanges = {
 type TimeRange = keyof typeof timeRanges;
 
 export type Props = {
-  stationData: StationData[];
+  stationData: StationData[] | ObserverData[];
   stationId: string;
   setStationId: (rowId: string) => void;
 };
@@ -105,9 +114,9 @@ const YearFlipper: React.FC<{
 
 const StationFlipper: React.FC<{
   previous: () => void;
-  previousStation: StationData;
+  previousStation: StationData | ObserverData;
   next: () => void;
-  nextStation: StationData;
+  nextStation: StationData | ObserverData;
   children: React.ReactNode;
 }> = ({ previous, previousStation, next, nextStation, children }) => {
   const intl = useIntl();
@@ -216,7 +225,7 @@ const TimeRangeButtons: React.FC<{
 };
 
 const StationDiagramImage: React.FC<{
-  station: StationData;
+  station: StationData | ObserverData;
   clientWidth: number;
   selectedYear: number;
   timeRange: TimeRange;
@@ -246,9 +255,9 @@ const StationDiagramImage: React.FC<{
   );
 };
 
-const StationOperator: React.FC<{ stationData: StationData }> = ({
-  stationData
-}) => {
+const StationOperator: React.FC<{
+  stationData: StationData;
+}> = ({ stationData }) => {
   const intl = useIntl();
   return (
     <p className="weatherstation-provider">
@@ -284,7 +293,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData.findIndex(e => e.id == stationId);
   }, [stationData, stationId]);
 
-  const nextStation = useMemo((): StationData => {
+  const nextStation = useMemo((): StationData | ObserverData => {
     let index = stationIndex;
     if (index < stationData.length - 1) {
       index++;
@@ -292,7 +301,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData[index];
   }, [stationData, stationIndex]);
 
-  const previousStation = useMemo((): StationData => {
+  const previousStation = useMemo((): StationData | ObserverData => {
     let index = stationIndex;
     if (index > 0) {
       index--;
@@ -327,7 +336,8 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   const station = stationData[stationIndex];
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
-  const [microRegionId] = station.microRegion.split(" ");
+  const [microRegionId] =
+    station instanceof StationData ? station.microRegion.split(" ") : "";
 
   return (
     <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
@@ -348,7 +358,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             )}
             <h2 className="">
               <span className="weatherstation-name">{station.name} </span>
-              {station.elev && (
+              {isStation && station.elev && (
                 <span className="weatherstation-altitude">
                   (<FormattedNumberUnit value={station.elev} unit="m" />)
                 </span>
