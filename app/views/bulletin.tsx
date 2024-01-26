@@ -119,8 +119,8 @@ const Bulletin = () => {
       try {
         await Promise.all([
           collection.load(),
-          collection.loadEawsBulletins(),
-          collection.loadEawsProblems()
+          collection.loadEawsBulletins()
+          // collection.loadEawsProblems()
         ]);
         setStatus(collection.status);
         setCollection(collection);
