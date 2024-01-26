@@ -69,7 +69,7 @@ class GlossaryReplacer {
   }
 
   static findBreaks(textRaw: string): React.ReactNode[] {
-    return reactStringReplace(textRaw, "<br/>", () => <br />);
+    return reactStringReplace(textRaw, "<br/>", (_, i) => <br key={i} />);
   }
 
   findGlossaryStrings(textRaw: string) {
