@@ -109,6 +109,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                 />
               </span>
               {bulletin.unscheduled && (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <span
                   onClick={() => setShowDiff(d => !d)}
                   style={{ color: "#ff0000", cursor: "pointer" }}
