@@ -69,7 +69,32 @@ class GlossaryReplacer {
   }
 
   static findBreaks(textRaw: string): React.ReactNode[] {
-    return reactStringReplace(textRaw, "<br/>", (_, i) => <br key={i} />);
+    let nodes = reactStringReplace(textRaw, "<br/>", (_, i) => <br key={i} />);
+    nodes = reactStringReplace(
+      nodes,
+      /<ins>([^<]*)<\/ins>/g,
+      (match, index, offset) => (
+        <ins
+          key={`ins-${match}-${index}-${offset}`}
+          style={{ color: "#28a745" }}
+        >
+          {match}
+        </ins>
+      )
+    );
+    nodes = reactStringReplace(
+      nodes,
+      /<del>([^<]*)<\/del>/g,
+      (match, index, offset) => (
+        <del
+          key={`del-${match}-${index}-${offset}`}
+          style={{ color: "#dc3545" }}
+        >
+          {match}
+        </del>
+      )
+    );
+    return nodes;
   }
 
   findGlossaryStrings(textRaw: string) {

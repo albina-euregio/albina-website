@@ -1,5 +1,5 @@
 import React, { type FunctionComponent, Suspense, useState } from "react";
-import { diffWords } from "diff/lib/diff/word";
+import { diffWordsWithSpace as diffWords } from "diff/lib/diff/word";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
@@ -17,12 +17,39 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import BulletinStatusLine from "./bulletin-status-line";
 
-const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
+type Change = {
+  count?: number;
+  /**
+   * Text content.
+   */
+  value: string;
+  /**
+   * `true` if the value was inserted into the new string.
+   */
+  added?: boolean;
+  /**
+   * `true` if the value was removed from the old string.
+   */
+  removed?: boolean;
+};
+
+const LocalizedText: FunctionComponent<{
+  text: string;
+  text170000: string;
+  showDiff: boolean;
+}> = ({ text, text170000, showDiff }) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
+  if (text !== text170000 && text170000 && showDiff) {
+    text = (diffWords(text, text170000) as Change[])
+      .map(({ value, added, removed }) =>
+        added ? `<ins>${value}</ins>` : removed ? `<del>${value}</del>` : value
+      )
+      .join("");
+  }
   return (
     <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
       <BulletinGlossaryText text={text} locale={lang} />
@@ -84,7 +111,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               {bulletin.unscheduled && (
                 <span
                   onClick={() => setShowDiff(d => !d)}
-                  style={{ cursor: "pointer" }}
+                  style={{ color: "#ff0000", cursor: "pointer" }}
                 >
                   <BulletinStatusLine status="ok" bulletin={bulletin} />
                   {showDiff && "Δ"}
@@ -138,40 +165,18 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
             </p>
           )}
           <h2 className="subheader">
-            <LocalizedText text={bulletin.avalancheActivity?.highlights} />
+            <LocalizedText
+              text={bulletin.avalancheActivity?.highlights}
+              text170000={bulletin170000?.avalancheActivity?.highlights}
+              showDiff={showDiff}
+            />
           </h2>
           <p>
-            <LocalizedText text={bulletin.avalancheActivity?.comment} />
-            {bulletin.avalancheActivity?.comment &&
-              bulletin170000?.avalancheActivity?.comment &&
-              bulletin.avalancheActivity?.comment !==
-                bulletin170000?.avalancheActivity?.comment && (
-                <details style={{ display: "inline-block" }}>
-                  <summary>Δ</summary>
-                  {diffWords(
-                    bulletin.avalancheActivity?.comment,
-                    bulletin170000?.avalancheActivity?.comment
-                  ).map(({ count, value, added, removed }, index) =>
-                    added ? (
-                      <ins key={index} style={{ color: "#28a745" }}>
-                        {value}
-                      </ins>
-                    ) : removed ? (
-                      <del
-                        key={index}
-                        style={{
-                          color: "#dc3545",
-                          textDecoration: "line-through"
-                        }}
-                      >
-                        {value}
-                      </del>
-                    ) : (
-                      <span key={index}>{value}</span>
-                    )
-                  )}
-                </details>
-              )}
+            <LocalizedText
+              text={bulletin.avalancheActivity?.comment}
+              text170000={bulletin170000?.avalancheActivity?.comment}
+              showDiff={showDiff}
+            />
           </p>
         </div>
       </section>
@@ -202,9 +207,10 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                   </ul>
                 )}
                 <p>
-                  <LocalizedText text={bulletin.snowpackStructure?.comment} />
                   <LocalizedText
-                    text={bulletin170000?.snowpackStructure?.comment}
+                    text={bulletin.snowpackStructure?.comment}
+                    text170000={bulletin170000?.snowpackStructure?.comment}
+                    showDiff={showDiff}
                   />
                 </p>
               </div>
@@ -216,7 +222,11 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                 </h2>
                 {bulletin.tendency.map((tendency, index) => (
                   <p key={index}>
-                    <LocalizedText text={tendency?.highlights} />
+                    <LocalizedText
+                      text={tendency?.highlights}
+                      text170000={bulletin170000?.tendency?.[index]?.highlights}
+                      showDiff={showDiff}
+                    />
                   </p>
                 ))}
               </div>
