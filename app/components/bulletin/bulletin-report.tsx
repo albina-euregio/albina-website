@@ -1,4 +1,5 @@
-import React, { type FunctionComponent, Suspense } from "react";
+import React, { type FunctionComponent, Suspense, useState } from "react";
+import { diffWords } from "diff/lib/diff/word";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
@@ -14,6 +15,7 @@ import {
   getDangerPatterns
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
+import BulletinStatusLine from "./bulletin-status-line";
 
 const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   const intl = useIntl();
@@ -28,14 +30,19 @@ const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   );
 };
 
-type Props = { date: Date; bulletin: Bulletin };
+type Props = {
+  date: Date;
+  bulletin: Bulletin;
+  bulletin170000: Bulletin;
+};
 
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
  */
-function BulletinReport({ date, bulletin }: Props) {
+function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
+  const [showDiff, setShowDiff] = useState(false);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
 
   if (!bulletin || !bulletin) {
@@ -74,6 +81,15 @@ function BulletinReport({ date, bulletin }: Props) {
                   }}
                 />
               </span>
+              {bulletin.unscheduled && (
+                <span
+                  onClick={() => setShowDiff(d => !d)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <BulletinStatusLine status="ok" bulletin={bulletin} />
+                  {showDiff && "Δ"}
+                </span>
+              )}
             </p>
             <h1 className="bulletin-report-header-danger-level">
               <span>
@@ -126,6 +142,36 @@ function BulletinReport({ date, bulletin }: Props) {
           </h2>
           <p>
             <LocalizedText text={bulletin.avalancheActivity?.comment} />
+            {bulletin.avalancheActivity?.comment &&
+              bulletin170000?.avalancheActivity?.comment &&
+              bulletin.avalancheActivity?.comment !==
+                bulletin170000?.avalancheActivity?.comment && (
+                <details style={{ display: "inline-block" }}>
+                  <summary>Δ</summary>
+                  {diffWords(
+                    bulletin.avalancheActivity?.comment,
+                    bulletin170000?.avalancheActivity?.comment
+                  ).map(({ count, value, added, removed }, index) =>
+                    added ? (
+                      <ins key={index} style={{ color: "#28a745" }}>
+                        {value}
+                      </ins>
+                    ) : removed ? (
+                      <del
+                        key={index}
+                        style={{
+                          color: "#dc3545",
+                          textDecoration: "line-through"
+                        }}
+                      >
+                        {value}
+                      </del>
+                    ) : (
+                      <span key={index}>{value}</span>
+                    )
+                  )}
+                </details>
+              )}
           </p>
         </div>
       </section>
@@ -157,6 +203,9 @@ function BulletinReport({ date, bulletin }: Props) {
                 )}
                 <p>
                   <LocalizedText text={bulletin.snowpackStructure?.comment} />
+                  <LocalizedText
+                    text={bulletin170000?.snowpackStructure?.comment}
+                  />
                 </p>
               </div>
             )}

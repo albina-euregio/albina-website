@@ -2,7 +2,11 @@ import React from "react";
 import BulletinReport from "./bulletin-report";
 import type { Bulletin } from "../../stores/bulletin";
 
-type Props = { bulletins: Bulletin[]; date: Date; region: string };
+type Props = {
+  bulletins: [Bulletin, Bulletin][];
+  date: Date;
+  region: string;
+};
 
 function BulletinList({ bulletins, date, region }: Props) {
   return (
@@ -11,7 +15,7 @@ function BulletinList({ bulletins, date, region }: Props) {
       className="section-centered section-bulletin-reports"
     >
       <ul className="list-plain bulletin-list">
-        {bulletins.map(bulletin => (
+        {bulletins.map(([bulletin, bulletin170000]) => (
           <li
             id={bulletin.bulletinID}
             key={bulletin.bulletinID}
@@ -20,7 +24,13 @@ function BulletinList({ bulletins, date, region }: Props) {
               (bulletin.bulletinID === region ? " selected" : "")
             }
           >
-            {<BulletinReport bulletin={bulletin} date={date} />}
+            {
+              <BulletinReport
+                bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                date={date}
+              />
+            }
           </li>
         ))}
       </ul>

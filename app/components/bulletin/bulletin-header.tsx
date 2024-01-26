@@ -38,7 +38,13 @@ function BulletinHeader(props: Props) {
       <header className="section-centered">
         <BulletinStatusLine
           status={props.status}
-          activeBulletinCollection={props.activeBulletinCollection}
+          bulletin={
+            props.activeBulletinCollection?.bulletins?.length
+              ? props.activeBulletinCollection.bulletins.reduce((b1, b2) =>
+                  b1.publicationTime > b2.publicationTime ? b1 : b2
+                )
+              : undefined
+          }
         />
         {/* <h2 className="subheader">{this.props.title}</h2> */}
         <h1 className="bulletin-datetime-validity">{date}</h1>
