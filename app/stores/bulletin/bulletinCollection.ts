@@ -93,7 +93,12 @@ class BulletinCollection {
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
     return (this.dataRaw?.bulletins || []).map(b => [
       b,
-      this.dataRaw170000?.bulletins?.find(b2 => b.bulletinID === b2.bulletinID)
+      this.dataRaw170000?.bulletins?.find(
+        b2 => b.bulletinID === b2.bulletinID
+      ) ??
+        this.dataRaw170000?.bulletins?.find(b2 =>
+          b2.regions.some(r2 => r2.regionID === b.regions[0]?.regionID)
+        )
     ]);
   }
 
