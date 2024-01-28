@@ -1,5 +1,5 @@
 import React, { type FunctionComponent, Suspense, useState } from "react";
-import { diffWordsWithSpace as diffWords } from "diff/lib/diff/word";
+import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
@@ -16,22 +16,7 @@ import {
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import BulletinStatusLine from "./bulletin-status-line";
-
-type Change = {
-  count?: number;
-  /**
-   * Text content.
-   */
-  value: string;
-  /**
-   * `true` if the value was inserted into the new string.
-   */
-  added?: boolean;
-  /**
-   * `true` if the value was removed from the old string.
-   */
-  removed?: boolean;
-};
+import { wordDiff } from "../../util/wordDiff";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -44,9 +29,19 @@ const LocalizedText: FunctionComponent<{
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
   if (text !== text170000 && text170000 && showDiff) {
-    text = (diffWords(text, text170000) as Change[])
-      .map(({ value, added, removed }) =>
-        added ? `<ins>${value}</ins>` : removed ? `<del>${value}</del>` : value
+    text = wordDiff(text, text170000)
+      .map(([diff, value]) =>
+        diff === DiffMatchPatch.DIFF_INSERT
+          ? `<ins>${value.replace(
+              /(<br\/>)+/g,
+              br => `</ins>${br}<ins>`
+            )}</ins>`
+          : diff === DiffMatchPatch.DIFF_DELETE
+          ? `<del>${value.replace(
+              /(<br\/>)+/g,
+              br => `</del>${br}<del>`
+            )}</del>`
+          : value
       )
       .join("");
   }
