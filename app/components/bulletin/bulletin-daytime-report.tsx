@@ -99,7 +99,13 @@ function BulletinDaytimeReport({
             </div>
             {Array.isArray(bulletin.tendency) &&
               bulletin.tendency.map((tendency, index) => (
-                <TendencyReport tendency={tendency} date={date} key={index} />
+                <TendencyReport
+                  tendency={tendency}
+                  tendency170000={bulletin170000?.tendency?.[index]}
+                  showDiff={showDiff}
+                  date={date}
+                  key={index}
+                />
               ))}
           </li>
           {problems.map((p, index) => (
@@ -115,9 +121,13 @@ export default BulletinDaytimeReport;
 
 function TendencyReport({
   tendency,
+  tendency170000,
+  showDiff,
   date
 }: {
   tendency: Tendency;
+  tendency170000: Tendency;
+  showDiff: 0 | 1 | 2;
   date: Date;
 }) {
   const intl = useIntl();
@@ -127,7 +137,16 @@ function TendencyReport({
         id: "bulletin:report:tendency:hover"
       })}
     >
-      <div className="bulletin-report-tendency">
+      <div
+        className="bulletin-report-tendency"
+        style={
+          showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
+            ? {
+                backgroundColor: "#e6eef2"
+              }
+            : {}
+        }
+      >
         <span>
           <FormattedMessage
             id="bulletin:report:tendency"
