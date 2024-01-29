@@ -83,7 +83,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
   const isInserted = useMemo(() => {
-    if (!ENABLE_DIFFING) {
+    if (!ENABLE_DIFFING || !bulletin || !bulletin170000) {
       return false;
     }
     const checks: ((b: Bulletin) => string | number)[] = [
