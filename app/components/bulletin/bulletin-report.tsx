@@ -29,7 +29,7 @@ const LocalizedText: FunctionComponent<{
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
   if (text !== text170000 && text170000 && showDiff) {
-    text = wordDiff(text, text170000)
+    text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
           ? `<ins>${value.replace(
