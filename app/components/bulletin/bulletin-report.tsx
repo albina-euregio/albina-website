@@ -68,6 +68,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
   const [showDiff, setShowDiff] = useState(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
+  const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -199,7 +200,12 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                     </li>
                     {dangerPatterns.map((dp, index) => (
                       <li key={index}>
-                        <DangerPatternItem dangerPattern={dp} />
+                        <DangerPatternItem
+                          dangerPattern={dp}
+                          isInserted={
+                            showDiff && !dangerPatterns170000.includes(dp)
+                          }
+                        />
                       </li>
                     ))}
                   </ul>
