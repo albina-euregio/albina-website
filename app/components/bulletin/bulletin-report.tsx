@@ -21,14 +21,14 @@ import { wordDiff } from "../../util/wordDiff";
 const LocalizedText: FunctionComponent<{
   text: string;
   text170000: string;
-  showDiff: boolean;
+  showDiff: number;
 }> = ({ text, text170000, showDiff }) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
-  if (text !== text170000 && text170000 && showDiff) {
+  if (text !== text170000 && text170000 && showDiff > 0) {
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
@@ -37,10 +37,12 @@ const LocalizedText: FunctionComponent<{
               br => `</ins>${br}<ins>`
             )}</ins>`
           : diff === DiffMatchPatch.DIFF_DELETE
-          ? `<del>${value.replace(
-              /(<br\/>)+/g,
-              br => `</del>${br}<del>`
-            )}</del>`
+          ? showDiff === 2
+            ? `<del>${value.replace(
+                /(<br\/>)+/g,
+                br => `</del>${br}<del>`
+              )}</del>`
+            : ""
           : value
       )
       .join("");
@@ -64,7 +66,7 @@ type Props = {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
-  const [showDiff, setShowDiff] = useState(false);
+  const [showDiff, setShowDiff] = useState(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
 
   if (!bulletin || !bulletin) {
@@ -106,7 +108,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               {bulletin.unscheduled && (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <span
-                  onClick={() => setShowDiff(d => !d)}
+                  onClick={() => setShowDiff(d => (d + 1) % 3)}
                   style={{ color: "#ff0000", cursor: "pointer" }}
                 >
                   <BulletinStatusLine status="ok" bulletin={bulletin} />
