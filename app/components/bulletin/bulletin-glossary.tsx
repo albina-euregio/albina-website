@@ -52,7 +52,14 @@ class GlossaryReplacer {
       )
     );
     this.regex = new RegExp(
-      "\\b(" + Object.keys(this.glossaryLinks).join("|") + ")\\b",
+      "(" +
+        [
+          ...Object.keys(this.glossaryLinks),
+          /<br\/>/.source,
+          /<ins>[^<]*<\/ins>/.source,
+          /<del>[^<]*<\/del>/.source
+        ].join("|") +
+        ")",
       "g"
     );
   }
@@ -98,41 +105,67 @@ class GlossaryReplacer {
   }
 
   findGlossaryStrings(textRaw: string) {
-    const text = GlossaryReplacer.findBreaks(textRaw);
-    return reactStringReplace(text, this.regex, (substring, index, offset) => {
-      const glossary = this.glossaryLinks[substring] as keyof GlossaryContent;
-      const glossaryContent = this.content[glossary];
-      if (!glossaryContent) {
-        return <>{substring}</>;
-      }
-      const { heading, text, ids, img } = glossaryContent;
-      const anchor = ids?.[this.locale];
-      const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
-      const content = () => (
-        <>
-          <h3>{heading}</h3>
-          {preprocessContent(text + (img ?? ""))}
-          <p className="tooltip-source">
-            (<FormattedMessage id={"glossary:source"} />:{" "}
-            <a href={href} target="_blank" rel="external noreferrer">
-              EAWS
-            </a>
-            )
-          </p>
-        </>
-      );
+    return reactStringReplace(
+      textRaw,
+      this.regex,
+      (substring, index, offset) => {
+        if (substring.startsWith("<br")) {
+          return <br key={index} />;
+        } else if (substring.startsWith("<ins")) {
+          const match = substring.slice("<ins>".length, -"</ins>".length);
+          return (
+            <ins
+              key={`ins-${match}-${index}-${offset}`}
+              style={{ color: "#28a745" }}
+            >
+              {this.findGlossaryStrings(match)}
+            </ins>
+          );
+        } else if (substring.startsWith("<del")) {
+          const match = substring.slice("<del>".length, -"</del>".length);
+          return (
+            <del
+              key={`del-${match}-${index}-${offset}`}
+              style={{ color: "#dc3545" }}
+            >
+              {this.findGlossaryStrings(match)}
+            </del>
+          );
+        }
+        const glossary = this.glossaryLinks[substring] as keyof GlossaryContent;
+        const glossaryContent = this.content[glossary];
+        if (!glossaryContent) {
+          return <>{substring}</>;
+        }
+        const { heading, text, ids, img } = glossaryContent;
+        const anchor = ids?.[this.locale];
+        const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
+        const content = () => (
+          <>
+            <h3>{heading}</h3>
+            {preprocessContent(text + (img ?? ""))}
+            <p className="tooltip-source">
+              (<FormattedMessage id={"glossary:source"} />:{" "}
+              <a href={href} target="_blank" rel="external noreferrer">
+                EAWS
+              </a>
+              )
+            </p>
+          </>
+        );
 
-      return (
-        <Tooltip
-          key={`${substring}-${index}-${offset}`}
-          label={content}
-          html={true}
-          enableClick={true}
-        >
-          <a className="glossary">{substring}</a>
-        </Tooltip>
-      );
-    });
+        return (
+          <Tooltip
+            key={`${substring}-${index}-${offset}`}
+            label={content}
+            html={true}
+            enableClick={true}
+          >
+            <a className="glossary">{substring}</a>
+          </Tooltip>
+        );
+      }
+    );
   }
 }
 
