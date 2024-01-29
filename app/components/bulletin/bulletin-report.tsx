@@ -1,8 +1,17 @@
-import React, { type FunctionComponent, Suspense, useState } from "react";
+import React, {
+  type FunctionComponent,
+  Suspense,
+  useState,
+  useMemo
+} from "react";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
-import BulletinDaytimeReport from "./bulletin-daytime-report";
+import BulletinDaytimeReport, {
+  compareDangerRatings,
+  compareRegions
+} from "./bulletin-daytime-report";
+import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -70,6 +79,33 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
+  const isInserted = useMemo(() => {
+    const checks: ((b: Bulletin) => string | number)[] = [
+      b => b.avalancheActivity?.highlights,
+      b => b.avalancheActivity?.comment,
+      b => b.snowpackStructure?.comment,
+      b => b.tendency?.[0]?.highlights,
+      b => b.tendency?.[0]?.tendencyType,
+      b => getDangerPatterns(b.customData).join()
+    ];
+    return !(
+      checks.every(c => c(bulletin) === c(bulletin170000)) &&
+      compareRegions(bulletin.regions, bulletin170000?.regions) &&
+      compareDangerRatings(
+        bulletin.dangerRatings,
+        bulletin170000?.dangerRatings
+      ) &&
+      bulletin.avalancheProblems.every(problem =>
+        compareAvalancheProblem(
+          problem,
+          bulletin170000?.avalancheProblems.find(
+            p => p.problemType === problem.problemType
+          )
+        )
+      )
+    );
+  }, [bulletin, bulletin170000]);
+
   if (!bulletin || !bulletin) {
     return <div />;
   }
@@ -106,7 +142,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                   }}
                 />
               </span>
-              {bulletin.unscheduled && (
+              {isInserted && (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <span
                   onClick={() => setShowDiff(d => (d + 1) % 3)}

@@ -13,7 +13,9 @@ import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,
   type Bulletin,
+  type DangerRating,
   type Tendency,
+  type Region,
   type ValidTimePeriod
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
@@ -50,18 +52,7 @@ function BulletinDaytimeReport({
     bulletin170000?.dangerRatings?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
-  const isInserted =
-    dangerRatings.length !== dangerRatings170000.length ||
-    !dangerRatings.every((r1, i) => {
-      const r2 = dangerRatings170000[i];
-      if (!r2) return true;
-      return (
-        r1.elevation?.lowerBound === r2.elevation?.lowerBound &&
-        r1.elevation?.upperBound === r2.elevation?.upperBound &&
-        r1.mainValue === r2.mainValue &&
-        r1.validTimePeriod === r2.validTimePeriod
-      );
-    });
+  const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
   return (
     <div>
@@ -83,14 +74,7 @@ function BulletinDaytimeReport({
               className="img icon-arrow-up"
               style={
                 showDiff &&
-                bulletin?.regions
-                  .map(r => r.regionID)
-                  .sort((s1, s2) => s1.localeCompare(s2))
-                  .join() !==
-                  bulletin170000?.regions
-                    .map(r => r.regionID)
-                    .sort((s1, s2) => s1.localeCompare(s2))
-                    .join()
+                !compareRegions(bulletin?.regions, bulletin170000?.regions)
                   ? { border: "#e6eef2 5px solid" }
                   : {}
               }
@@ -142,6 +126,41 @@ function BulletinDaytimeReport({
 }
 
 export default BulletinDaytimeReport;
+
+export function compareRegions(regions: Region[], regions170000: Region[]) {
+  return (
+    regions
+      .map(r => r.regionID)
+      .sort((s1, s2) => s1.localeCompare(s2))
+      .join() ===
+    regions170000
+      ?.map(r => r.regionID)
+      .sort((s1, s2) => s1.localeCompare(s2))
+      .join()
+  );
+}
+
+export function compareDangerRatings(
+  dangerRatings: DangerRating[],
+  dangerRatings170000: DangerRating[]
+): boolean {
+  return (
+    dangerRatings.length === dangerRatings170000.length &&
+    dangerRatings.every((r1, i) =>
+      compareDangerRating(r1, dangerRatings170000[i])
+    )
+  );
+}
+
+function compareDangerRating(r1: DangerRating, r2: DangerRating): boolean {
+  if (!r2) return false;
+  return (
+    r1.elevation?.lowerBound === r2.elevation?.lowerBound &&
+    r1.elevation?.upperBound === r2.elevation?.upperBound &&
+    r1.mainValue === r2.mainValue &&
+    r1.validTimePeriod === r2.validTimePeriod
+  );
+}
 
 function TendencyReport({
   tendency,

@@ -219,8 +219,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
       {problem?.aspects && (
         <div
           style={
-            showDiff &&
-            problem?.aspects.join() !== problem170000?.aspects.join()
+            showDiff && !compareAspects(problem, problem170000)
               ? { backgroundColor: "#e6eef2" }
               : {}
           }
@@ -230,11 +229,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
       )}
       <div
         style={
-          showDiff &&
-          (problem?.elevation?.lowerBound !==
-            problem170000?.elevation?.lowerBound ||
-            problem?.elevation?.upperBound !==
-              problem170000?.elevation?.upperBound)
+          showDiff && !compareElevation(problem, problem170000)
             ? { backgroundColor: "#e6eef2" }
             : {}
         }
@@ -252,8 +247,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 textInfoToClass.snowpackStability[problem?.snowpackStability]
               }`}
               style={
-                showDiff &&
-                problem?.snowpackStability !== problem170000?.snowpackStability
+                showDiff && !compareSnowpackStability(problem, problem170000)
                   ? { backgroundColor: "#e6eef2" }
                   : {}
               }
@@ -274,7 +268,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 textInfoToClass.frequency[problem?.frequency]
               }`}
               style={
-                showDiff && problem?.frequency !== problem170000?.frequency
+                showDiff && !compareFrequency(problem, problem170000)
                   ? { backgroundColor: "#e6eef2" }
                   : {}
               }
@@ -295,8 +289,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 textInfoToClass.avalancheSize[problem?.avalancheSize]
               }`}
               style={
-                showDiff &&
-                problem?.avalancheSize !== problem170000?.avalancheSize
+                showDiff && !compareAvalancheSize(problem, problem170000)
                   ? { backgroundColor: "#e6eef2" }
                   : {}
               }
@@ -323,3 +316,56 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
 }
 
 export default BulletinProblemItem;
+
+export function compareAvalancheProblem(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+) {
+  return (
+    problem &&
+    problem170000 &&
+    compareAspects(problem, problem170000) &&
+    compareElevation(problem, problem170000) &&
+    compareSnowpackStability(problem, problem170000) &&
+    compareFrequency(problem, problem170000) &&
+    compareAvalancheSize(problem, problem170000)
+  );
+}
+
+function compareAspects(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+): boolean {
+  return problem?.aspects.join() === problem170000?.aspects.join();
+}
+
+function compareElevation(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+): boolean {
+  return (
+    problem?.elevation?.lowerBound === problem170000?.elevation?.lowerBound &&
+    problem?.elevation?.upperBound === problem170000?.elevation?.upperBound
+  );
+}
+
+function compareSnowpackStability(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+) {
+  return problem?.snowpackStability === problem170000?.snowpackStability;
+}
+
+function compareFrequency(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+) {
+  return problem?.frequency === problem170000?.frequency;
+}
+
+function compareAvalancheSize(
+  problem: AvalancheProblem,
+  problem170000: AvalancheProblem
+) {
+  return problem?.avalancheSize === problem170000?.avalancheSize;
+}
