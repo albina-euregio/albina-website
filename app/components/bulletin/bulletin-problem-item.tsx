@@ -8,7 +8,11 @@ import ElevationIcon from "../icons/elevation-icon";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import { AvalancheProblem } from "../../stores/bulletin";
 
-type Props = { problem: AvalancheProblem };
+type Props = {
+  problem: AvalancheProblem;
+  problem170000: AvalancheProblem;
+  showDiff: 0 | 1 | 2;
+};
 
 const textInfoToClass = {
   frequency: {
@@ -30,7 +34,7 @@ const textInfoToClass = {
   }
 };
 
-function BulletinProblemItem({ problem }: Props) {
+function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const intl = useIntl();
   function getElevationIcon() {
     const lowerBound = problem?.elevation?.lowerBound;
@@ -177,19 +181,14 @@ function BulletinProblemItem({ problem }: Props) {
     }
   }
 
-  const expositions = problem?.aspects;
-  const snowpackStability = problem?.snowpackStability;
-  const frequency = problem?.frequency;
-  const avalancheSize = problem?.avalancheSize;
-
-  const expositionText = useMemo(
+  const aspectText = useMemo(
     () =>
       intl.formatMessage({
         id: "bulletin:report:exposition"
       }) +
-      (Array.isArray(expositions)
+      (Array.isArray(problem?.aspects)
         ? ": " +
-          expositions
+          problem?.aspects
             .map(e =>
               intl.formatMessage({
                 id: "bulletin:report:problem:aspect:" + e.toLocaleLowerCase()
@@ -197,7 +196,7 @@ function BulletinProblemItem({ problem }: Props) {
             )
             .join(", ")
         : ""),
-    [expositions, intl]
+    [problem?.aspects, intl]
   );
   const snowpackStabilityText = intl.formatMessage({
     id: "bulletin:report:problem:snowpack-stability"
@@ -209,55 +208,109 @@ function BulletinProblemItem({ problem }: Props) {
     id: "bulletin:report:problem:avalanche-size"
   });
   return (
-    <li>
+    <li
+      style={
+        showDiff && problem170000 === undefined
+          ? { backgroundColor: "#e6eef2" }
+          : {}
+      }
+    >
       {problem && <ProblemIconLink problem={problem} />}
-      {expositions && (
-        <ExpositionIcon expositions={expositions} title={expositionText} />
+      {problem?.aspects && (
+        <div
+          style={
+            showDiff &&
+            problem?.aspects.join() !== problem170000?.aspects.join()
+              ? { backgroundColor: "#e6eef2" }
+              : {}
+          }
+        >
+          <ExpositionIcon expositions={problem?.aspects} title={aspectText} />
+        </div>
       )}
-      {getElevationIcon()}
+      <div
+        style={
+          showDiff &&
+          (problem?.elevation?.lowerBound !==
+            problem170000?.elevation?.lowerBound ||
+            problem?.elevation?.upperBound !==
+              problem170000?.elevation?.upperBound)
+            ? { backgroundColor: "#e6eef2" }
+            : {}
+        }
+      >
+        {getElevationIcon()}
+      </div>
 
-      {(snowpackStability || frequency || avalancheSize) && (
+      {(problem?.snowpackStability ||
+        problem?.frequency ||
+        problem?.avalancheSize) && (
         <div className="bulletin-report-picto matrix-information">
-          {snowpackStability && (
+          {problem?.snowpackStability && (
             <div
-              className={`matrix-info matrix-info-value-${textInfoToClass.snowpackStability[snowpackStability]}`}
+              className={`matrix-info matrix-info-value-${
+                textInfoToClass.snowpackStability[problem?.snowpackStability]
+              }`}
+              style={
+                showDiff &&
+                problem?.snowpackStability !== problem170000?.snowpackStability
+                  ? { backgroundColor: "#e6eef2" }
+                  : {}
+              }
             >
               <span className="matrix-info-name">{snowpackStabilityText}:</span>
               <span className="matrix-info-value">
                 <a href={"/education/snowpack-stability"}>
                   {intl.formatMessage({
-                    id:
-                      "bulletin:report:problem:snowpack-stability:" +
-                      snowpackStability
+                    id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
                   })}
                 </a>
               </span>
             </div>
           )}
-          {frequency && (
+          {problem?.frequency && (
             <div
-              className={`matrix-info matrix-info-value-${textInfoToClass.frequency[frequency]}`}
+              className={`matrix-info matrix-info-value-${
+                textInfoToClass.frequency[problem?.frequency]
+              }`}
+              style={
+                showDiff && problem?.frequency !== problem170000?.frequency
+                  ? { backgroundColor: "#e6eef2" }
+                  : {}
+              }
             >
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
                 <a href={"/education/frequency"}>
                   {intl.formatMessage({
-                    id: "bulletin:report:problem:frequency:" + frequency
+                    id: `bulletin:report:problem:frequency:${problem?.frequency}`
                   })}
                 </a>
               </span>
             </div>
           )}
-          {avalancheSize && (
+          {problem?.avalancheSize && (
             <div
-              className={`matrix-info matrix-info-value-${textInfoToClass.avalancheSize[avalancheSize]}`}
+              className={`matrix-info matrix-info-value-${
+                textInfoToClass.avalancheSize[problem?.avalancheSize]
+              }`}
+              style={
+                showDiff &&
+                problem?.avalancheSize !== problem170000?.avalancheSize
+                  ? { backgroundColor: "#e6eef2" }
+                  : {}
+              }
             >
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">
-                <a href={"/education/avalanche-sizes#anchor-" + avalancheSize}>
+                <a
+                  href={
+                    "/education/avalanche-sizes#anchor-" +
+                    problem?.avalancheSize
+                  }
+                >
                   {intl.formatMessage({
-                    id:
-                      "bulletin:report:problem:avalanche-size:" + avalancheSize
+                    id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
                   })}
                 </a>
               </span>

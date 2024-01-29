@@ -38,6 +38,10 @@ function BulletinDaytimeReport({
     bulletin?.avalancheProblems?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
+  const problems170000 =
+    bulletin170000?.avalancheProblems?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
   const dangerRatings =
     bulletin?.dangerRatings?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
@@ -108,8 +112,15 @@ function BulletinDaytimeReport({
                 />
               ))}
           </li>
-          {problems.map((p, index) => (
-            <BulletinProblemItem key={index} problem={p} />
+          {problems.map((problem, index) => (
+            <BulletinProblemItem
+              key={index}
+              problem={problem}
+              problem170000={problems170000.find(
+                p => p.problemType === problem.problemType
+              )}
+              showDiff={showDiff}
+            />
           ))}
         </ul>
       </div>
