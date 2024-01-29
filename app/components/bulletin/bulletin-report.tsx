@@ -69,6 +69,9 @@ type Props = {
   bulletin170000: Bulletin;
 };
 
+const ENABLE_DIFFING =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
+
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
@@ -80,6 +83,9 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
   const isInserted = useMemo(() => {
+    if (!ENABLE_DIFFING) {
+      return false;
+    }
     const checks: ((b: Bulletin) => string | number)[] = [
       b => b.avalancheActivity?.highlights,
       b => b.avalancheActivity?.comment,
