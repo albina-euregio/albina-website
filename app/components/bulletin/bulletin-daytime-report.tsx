@@ -21,10 +21,18 @@ import { scrollIntoView } from "../../util/scrollIntoView";
 type Props = {
   validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
+  bulletin170000: Bulletin;
+  showDiff: 0 | 1 | 2;
   date: Date;
 };
 
-function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
+function BulletinDaytimeReport({
+  validTimePeriod,
+  bulletin,
+  bulletin170000,
+  showDiff,
+  date
+}: Props) {
   const intl = useIntl();
   const problems =
     bulletin?.avalancheProblems?.filter(p =>
@@ -34,6 +42,22 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
     bulletin?.dangerRatings?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
+  const dangerRatings170000 =
+    bulletin170000?.dangerRatings?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
+  const isInserted =
+    dangerRatings.length !== dangerRatings170000.length ||
+    !dangerRatings.every((r1, i) => {
+      const r2 = dangerRatings170000[i];
+      if (!r2) return true;
+      return (
+        r1.elevation?.lowerBound === r2.elevation?.lowerBound &&
+        r1.elevation?.upperBound === r2.elevation?.upperBound &&
+        r1.mainValue === r2.mainValue &&
+        r1.validTimePeriod === r2.validTimePeriod
+      );
+    });
 
   return (
     <div>
@@ -65,7 +89,12 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
         </div>
         <ul className="list-plain list-bulletin-report-pictos">
           <li>
-            <div className="bulletin-report-picto tooltip">
+            <div
+              className="bulletin-report-picto tooltip"
+              style={
+                showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              }
+            >
               <BulletinDangerRating dangerRatings={dangerRatings} />
             </div>
             {Array.isArray(bulletin.tendency) &&

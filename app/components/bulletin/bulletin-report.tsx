@@ -21,7 +21,7 @@ import { wordDiff } from "../../util/wordDiff";
 const LocalizedText: FunctionComponent<{
   text: string;
   text170000: string;
-  showDiff: number;
+  showDiff: 0 | 1 | 2;
 }> = ({ text, text170000, showDiff }) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -66,7 +66,7 @@ type Props = {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
-  const [showDiff, setShowDiff] = useState(0);
+  const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
@@ -144,18 +144,27 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               <BulletinDaytimeReport
                 key={"earlier"}
                 bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                showDiff={showDiff}
                 date={date}
                 validTimePeriod={"earlier"}
               />,
               <BulletinDaytimeReport
                 key={"later"}
                 bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                showDiff={showDiff}
                 date={date}
                 validTimePeriod={"later"}
               />
             ]
           ) : (
-            <BulletinDaytimeReport bulletin={bulletin} date={date} />
+            <BulletinDaytimeReport
+              bulletin={bulletin}
+              bulletin170000={bulletin170000}
+              showDiff={showDiff}
+              date={date}
+            />
           )}
           {bulletin.highlights && (
             <p className="bulletin-report-public-alert">
