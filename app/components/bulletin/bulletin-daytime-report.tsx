@@ -81,6 +81,19 @@ function BulletinDaytimeReport({
               href="#page-main"
               onClick={e => scrollIntoView(e)}
               className="img icon-arrow-up"
+              style={
+                showDiff &&
+                bulletin?.regions
+                  .map(r => r.regionID)
+                  .sort((s1, s2) => s1.localeCompare(s2))
+                  .join() !==
+                  bulletin170000?.regions
+                    .map(r => r.regionID)
+                    .sort((s1, s2) => s1.localeCompare(s2))
+                    .join()
+                  ? { border: "#e6eef2 5px solid" }
+                  : {}
+              }
             >
               <BulletinAWMapStatic
                 bulletin={bulletin}
