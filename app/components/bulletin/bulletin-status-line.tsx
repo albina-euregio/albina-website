@@ -1,21 +1,18 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
-import type { BulletinCollection, Status } from "../../stores/bulletin";
+import type { Bulletin, Status } from "../../stores/bulletin";
 import { isSummerTime } from "../../util/date.js";
 
 type Props = {
-  activeBulletinCollection: BulletinCollection;
+  bulletin: Bulletin;
   status: Status;
 };
 
 const BulletinStatusLine = (props: Props) => {
   const intl = useIntl();
   const status = props.status;
-  const collection = props.activeBulletinCollection;
   let statusText = "";
-  const publicationTime = (collection?.bulletins || [])
-    .map(b => b.publicationTime)
-    .reduce((t1, t2) => (t1 > t2 ? t1 : t2), "");
+  const publicationTime = props.bulletin?.publicationTime;
   const isRepublished = useMemo(() => {
     const summerTime = isSummerTime(new Date(publicationTime));
     return (
@@ -51,7 +48,7 @@ const BulletinStatusLine = (props: Props) => {
   }
 
   return (
-    <p
+    <span
       className={
         "marginal " +
         (isRepublished
@@ -60,7 +57,7 @@ const BulletinStatusLine = (props: Props) => {
       }
     >
       {statusText}
-    </p>
+    </span>
   );
 };
 

@@ -1,7 +1,17 @@
-import React, { type FunctionComponent, Suspense } from "react";
+import React, {
+  type FunctionComponent,
+  Suspense,
+  useState,
+  useMemo
+} from "react";
+import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
-import BulletinDaytimeReport from "./bulletin-daytime-report";
+import BulletinDaytimeReport, {
+  compareDangerRatings,
+  compareRegions
+} from "./bulletin-daytime-report";
+import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -14,13 +24,38 @@ import {
   getDangerPatterns
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
+import BulletinStatusLine from "./bulletin-status-line";
+import { wordDiff } from "../../util/wordDiff";
 
-const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
+const LocalizedText: FunctionComponent<{
+  text: string;
+  text170000: string;
+  showDiff: 0 | 1 | 2;
+}> = ({ text, text170000, showDiff }) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
   text = text.replace(/&lt;br\/&gt;/g, "<br/>");
+  if (text !== text170000 && text170000 && showDiff > 0) {
+    text = wordDiff(text170000, text)
+      .map(([diff, value]) =>
+        diff === DiffMatchPatch.DIFF_INSERT
+          ? `<ins>${value.replace(
+              /(<br\/>)+/g,
+              br => `</ins>${br}<ins>`
+            )}</ins>`
+          : diff === DiffMatchPatch.DIFF_DELETE
+          ? showDiff === 2
+            ? `<del>${value.replace(
+                /(<br\/>)+/g,
+                br => `</del>${br}<del>`
+              )}</del>`
+            : ""
+          : value
+      )
+      .join("");
+  }
   return (
     <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
       <BulletinGlossaryText text={text} locale={lang} />
@@ -28,15 +63,54 @@ const LocalizedText: FunctionComponent<{ text: string }> = ({ text }) => {
   );
 };
 
-type Props = { date: Date; bulletin: Bulletin };
+type Props = {
+  date: Date;
+  bulletin: Bulletin;
+  bulletin170000: Bulletin;
+};
+
+const ENABLE_DIFFING =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
 
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
  */
-function BulletinReport({ date, bulletin }: Props) {
+function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
+  const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
+  const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
+
+  const isInserted = useMemo(() => {
+    if (!ENABLE_DIFFING || !bulletin || !bulletin170000) {
+      return false;
+    }
+    const checks: ((b: Bulletin) => string | number)[] = [
+      b => b.avalancheActivity?.highlights,
+      b => b.avalancheActivity?.comment,
+      b => b.snowpackStructure?.comment,
+      b => b.tendency?.[0]?.highlights,
+      b => b.tendency?.[0]?.tendencyType,
+      b => getDangerPatterns(b.customData).join()
+    ];
+    return !(
+      checks.every(c => c(bulletin) === c(bulletin170000)) &&
+      compareRegions(bulletin.regions, bulletin170000?.regions) &&
+      compareDangerRatings(
+        bulletin.dangerRatings,
+        bulletin170000?.dangerRatings
+      ) &&
+      bulletin.avalancheProblems.every(problem =>
+        compareAvalancheProblem(
+          problem,
+          bulletin170000?.avalancheProblems.find(
+            p => p.problemType === problem.problemType
+          )
+        )
+      )
+    );
+  }, [bulletin, bulletin170000]);
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -74,6 +148,16 @@ function BulletinReport({ date, bulletin }: Props) {
                   }}
                 />
               </span>
+              {isInserted && (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <span
+                  onClick={() => setShowDiff(d => (d + 1) % 3)}
+                  style={{ color: "#ff0000", cursor: "pointer" }}
+                >
+                  <BulletinStatusLine status="ok" bulletin={bulletin} />
+                  {showDiff > 0 && "Δ"}
+                </span>
+              )}
             </p>
             <h1 className="bulletin-report-header-danger-level">
               <span>
@@ -102,18 +186,27 @@ function BulletinReport({ date, bulletin }: Props) {
               <BulletinDaytimeReport
                 key={"earlier"}
                 bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                showDiff={showDiff}
                 date={date}
                 validTimePeriod={"earlier"}
               />,
               <BulletinDaytimeReport
                 key={"later"}
                 bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                showDiff={showDiff}
                 date={date}
                 validTimePeriod={"later"}
               />
             ]
           ) : (
-            <BulletinDaytimeReport bulletin={bulletin} date={date} />
+            <BulletinDaytimeReport
+              bulletin={bulletin}
+              bulletin170000={bulletin170000}
+              showDiff={showDiff}
+              date={date}
+            />
           )}
           {bulletin.highlights && (
             <p className="bulletin-report-public-alert">
@@ -122,10 +215,18 @@ function BulletinReport({ date, bulletin }: Props) {
             </p>
           )}
           <h2 className="subheader">
-            <LocalizedText text={bulletin.avalancheActivity?.highlights} />
+            <LocalizedText
+              text={bulletin.avalancheActivity?.highlights}
+              text170000={bulletin170000?.avalancheActivity?.highlights}
+              showDiff={showDiff}
+            />
           </h2>
           <p>
-            <LocalizedText text={bulletin.avalancheActivity?.comment} />
+            <LocalizedText
+              text={bulletin.avalancheActivity?.comment}
+              text170000={bulletin170000?.avalancheActivity?.comment}
+              showDiff={showDiff}
+            />
           </p>
         </div>
       </section>
@@ -150,13 +251,22 @@ function BulletinReport({ date, bulletin }: Props) {
                     </li>
                     {dangerPatterns.map((dp, index) => (
                       <li key={index}>
-                        <DangerPatternItem dangerPattern={dp} />
+                        <DangerPatternItem
+                          dangerPattern={dp}
+                          isInserted={
+                            showDiff && !dangerPatterns170000.includes(dp)
+                          }
+                        />
                       </li>
                     ))}
                   </ul>
                 )}
                 <p>
-                  <LocalizedText text={bulletin.snowpackStructure?.comment} />
+                  <LocalizedText
+                    text={bulletin.snowpackStructure?.comment}
+                    text170000={bulletin170000?.snowpackStructure?.comment}
+                    showDiff={showDiff}
+                  />
                 </p>
               </div>
             )}
@@ -167,7 +277,11 @@ function BulletinReport({ date, bulletin }: Props) {
                 </h2>
                 {bulletin.tendency.map((tendency, index) => (
                   <p key={index}>
-                    <LocalizedText text={tendency?.highlights} />
+                    <LocalizedText
+                      text={tendency?.highlights}
+                      text170000={bulletin170000?.tendency?.[index]?.highlights}
+                      showDiff={showDiff}
+                    />
                   </p>
                 ))}
               </div>

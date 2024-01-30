@@ -10,6 +10,7 @@ import {
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
+import { dateToISODateString, getPredDate } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -26,6 +27,7 @@ export type RegionState =
 class BulletinCollection {
   status: Status;
   dataRaw: Bulletins | null;
+  dataRaw170000: Bulletins | null;
   maxDangerRatings: Record<string, WarnLevelNumber>;
 
   constructor(
@@ -36,16 +38,22 @@ class BulletinCollection {
     this.dataRaw = null;
   }
 
-  private _getBulletinUrl(): string {
+  private _getBulletinUrl(publicationDate = ""): string {
     if (!this.date || !this.lang) {
       return;
     }
     const region = this.date > "2022-05-06" ? "EUREGIO_" : "";
-    return config.template(config.apis.bulletin.json, {
-      date: this.date,
-      region,
-      lang: this.lang
-    });
+    return config.template(
+      publicationDate
+        ? config.apis.bulletin.jsonPublicationDate
+        : config.apis.bulletin.json,
+      {
+        date: this.date,
+        publicationDate,
+        region,
+        lang: this.lang
+      }
+    );
   }
 
   async loadStatus(): Promise<Status> {
@@ -59,8 +67,17 @@ class BulletinCollection {
     const url = this._getBulletinUrl();
     if (!url) return;
     try {
-      const response = await fetchJSON(url, { cache: "no-cache" });
+      const response: Bulletins = await fetchJSON(url, { cache: "no-cache" });
       this.setData(response);
+      this.dataRaw170000 = undefined;
+      if (response.bulletins.some(b => b.unscheduled)) {
+        const publicationDate =
+          dateToISODateString(getPredDate(new Date(this.date))) + "_16-00-00";
+        const url2 = this._getBulletinUrl(publicationDate);
+        this.dataRaw170000 = await fetchJSON(url2, {
+          cache: "no-cache"
+        });
+      }
     } catch (error) {
       console.error("Cannot load bulletin for date " + this.date, error);
       this.setData(null);
@@ -71,6 +88,18 @@ class BulletinCollection {
 
   get bulletins(): Bulletin[] {
     return this.dataRaw?.bulletins || [];
+  }
+
+  get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
+    return (this.dataRaw?.bulletins || []).map(b => [
+      b,
+      this.dataRaw170000?.bulletins?.find(
+        b2 => b.bulletinID === b2.bulletinID
+      ) ??
+        this.dataRaw170000?.bulletins?.find(b2 =>
+          b2.regions.some(r2 => r2.regionID === b.regions[0]?.regionID)
+        )
+    ]);
   }
 
   get length(): number {
@@ -90,32 +119,28 @@ class BulletinCollection {
 
   setData(caaml: Bulletins | null) {
     this.dataRaw = caaml;
-    this.dataRaw?.bulletins.forEach(b => {
-      if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
-        b.tendency = [b.tendency];
-      }
-      b.avalancheProblems?.forEach(p => {
-        if (p.problemType === ("wind_drifted_snow" as string)) {
-          p.problemType = "wind_slab" as AvalancheProblemType;
-        }
-      });
-    });
-    this.status =
-      typeof this.dataRaw === "object" && this.dataRaw.bulletins
-        ? this.dataRaw.bulletins.length > 0
-          ? "ok"
-          : "empty"
-        : "n/a";
-
+    this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
+    this.status = this.computeStatus();
     this.maxDangerRatings = this.computeMaxDangerRatings();
   }
 
-  cancelLoad() {
-    this.status = "empty";
+  private upgradeLegacyCAAML(b: Bulletin) {
+    if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
+      b.tendency = [b.tendency];
+    }
+    b.avalancheProblems?.forEach(p => {
+      if (p.problemType === ("wind_drifted_snow" as string)) {
+        p.problemType = "wind_slab" as AvalancheProblemType;
+      }
+    });
   }
 
-  toString() {
-    return JSON.stringify(this.dataRaw);
+  private computeStatus(): Status {
+    return typeof this.dataRaw === "object" && this.dataRaw.bulletins
+      ? this.dataRaw.bulletins.length > 0
+        ? "ok"
+        : "empty"
+      : "n/a";
   }
 
   private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {

@@ -332,7 +332,7 @@ const Bulletin = () => {
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection && (
         <BulletinList
-          bulletins={collection.bulletins}
+          bulletins={collection.bulletinsWith170000}
           date={collection?.date ? parseDate(collection?.date) : undefined}
           region={region}
         />
