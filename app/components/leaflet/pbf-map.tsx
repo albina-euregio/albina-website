@@ -56,6 +56,19 @@ type PbfProps = {
   date: string;
 };
 
+class MyPolygonSymbolizer extends PolygonSymbolizer {
+  constructor(
+    private blendMode: GlobalCompositeOperation,
+    ...args: ConstructorParameters<typeof PolygonSymbolizer>
+  ) {
+    super(...args);
+  }
+  before(ctx: CanvasRenderingContext2D, z: number): void {
+    ctx.globalCompositeOperation = this.blendMode;
+    super.before(ctx, z);
+  }
+}
+
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const dataSource = "eaws-regions";
   const instance = pmLayer({
@@ -78,33 +91,30 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
             filter: (z, f) =>
               filterFeature({ properties: f.props }, props.date) &&
               dangerRating(f.props) === warnlevel,
-            symbolizer: new PolygonSymbolizer({
+            symbolizer: new MyPolygonSymbolizer("multiply", {
               fill: WARNLEVEL_COLORS[warnlevel],
               opacity: WARNLEVEL_OPACITY[warnlevel]
             })
           }) satisfies Rule
       ),
-      ...regionStates.flatMap(regionState =>
-        [EawsRegionDataLayer.outline, EawsRegionDataLayer.micro_regions].map(
-          dataLayer =>
-            ({
-              dataSource,
-              dataLayer,
-              filter: (z, f) =>
-                microRegionOrOutline(f, dataLayer) &&
-                filterFeature({ properties: f.props }, props.date) &&
-                instance.options.regionStyling[f.props.id] === regionState,
-              symbolizer: new PolygonSymbolizer({
-                fill:
-                  config.map.regionStyling[regionState].fillColor ??
-                  config.map.regionStyling["clickable"].fillColor,
-                opacity:
-                  config.map.regionStyling[regionState].fillOpacity ??
-                  config.map.regionStyling["clickable"].fillOpacity,
-                width: config.map.regionStyling[regionState].weight ?? 0.0
-              })
-            }) satisfies Rule
-        )
+      ...regionStates.map(
+        regionState =>
+          ({
+            dataSource,
+            dataLayer: EawsRegionDataLayer.micro_regions_elevation,
+            filter: (z, f) =>
+              filterFeature({ properties: f.props }, props.date) &&
+              instance.options.regionStyling[f.props.id] === regionState,
+            symbolizer: new MyPolygonSymbolizer("source-over", {
+              fill:
+                config.map.regionStyling[regionState].fillColor ??
+                config.map.regionStyling["clickable"].fillColor,
+              opacity:
+                config.map.regionStyling[regionState].fillOpacity ??
+                config.map.regionStyling["clickable"].fillOpacity,
+              width: config.map.regionStyling[regionState].weight ?? 0.0
+            })
+          }) satisfies Rule
       )
     ]
   }) as LeafletPbfLayer;
