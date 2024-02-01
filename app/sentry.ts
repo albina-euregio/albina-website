@@ -3,6 +3,7 @@
 import * as Sentry from "@sentry/react";
 if (import.meta.env.PROD) {
   Sentry.init({
+    ignoreErrors: [/Importing a module script failed/],
     beforeSend(event) {
       const exception = event.exception?.values?.[0];
       if (
