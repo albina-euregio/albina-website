@@ -3,7 +3,10 @@
 import * as Sentry from "@sentry/react";
 if (import.meta.env.PROD) {
   Sentry.init({
-    ignoreErrors: [/Importing a module script failed/],
+    ignoreErrors: [
+      /Failed to fetch dynamically imported module/,
+      /Importing a module script failed/
+    ],
     beforeSend(event) {
       event.breadcrumbs = event.breadcrumbs?.filter(
         b => !b.data?.url?.includes?.("eaws_pbf")
