@@ -5,6 +5,9 @@ if (import.meta.env.PROD) {
   Sentry.init({
     ignoreErrors: [/Importing a module script failed/],
     beforeSend(event) {
+      event.breadcrumbs = event.breadcrumbs?.filter(
+        b => !b.data?.url?.includes?.("eaws_pbf")
+      );
       const exception = event.exception?.values?.[0];
       if (
         exception?.value?.includes("reading '_leaflet_pos'") ||
