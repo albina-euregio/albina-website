@@ -4,6 +4,7 @@ import * as Sentry from "@sentry/react";
 if (import.meta.env.PROD) {
   Sentry.init({
     ignoreErrors: [
+      /Load failed/,
       /Failed to fetch dynamically imported module/,
       /Importing a module script failed/
     ],
