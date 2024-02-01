@@ -1,174 +1,74 @@
 import React, { useEffect } from "react";
-import {
-  MaxDangerRatings,
-  ValidTimePeriod,
-  toAmPm
-} from "../../stores/bulletin";
-import {
-  leafletLayer as pmLayer,
-  type Feature,
-  type Rule,
-  PolygonSymbolizer
-} from "protomaps-leaflet/src/index";
+import type { PathOptions, VectorGrid } from "leaflet";
+import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
+import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
+
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import {
-  EawsRegionDataLayer,
-  MicroRegionElevationProperties,
-  MicroRegionProperties,
-  RegionOutlineProperties,
-  filterFeature
-} from "../../stores/microRegions";
 import { regionsRegex } from "../../util/regions";
 import {
-  WARNLEVEL_COLORS,
-  WARNLEVEL_OPACITY,
-  WarnLevelNumber
-} from "../../util/warn-levels";
-import {
-  DomEvent,
-  type LeafletMouseEventHandlerFn,
-  type LeafletEventHandlerFnMap,
-  type LeafletMouseEvent,
-  type Map
-} from "leaflet";
-import { mapValues } from "../../util/mapValues";
-import { RegionState, regionStates } from "./pbf-region-state";
-
-type LeafletPbfLayer = ReturnType<typeof pmLayer> & {
-  options: {
-    rerenderTiles(): void;
-    dangerRatings: MaxDangerRatings;
-    regionStyling: Record<string, RegionState>;
-  };
-};
+  filterFeature,
+  MicroRegionElevationProperties,
+  MicroRegionProperties,
+  RegionOutlineProperties
+} from "../../stores/microRegions";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
-    map: Map;
-    vectorGrid: LeafletPbfLayer;
+    vectorGrid: VectorGrid;
   }
 }
 
+type Region = string;
+type MaxDangerRatings = Record<Region, WarnLevelNumber>;
+
+type PbfStyleFunction = {
+  "micro-regions_elevation": (
+    properties: MicroRegionElevationProperties
+  ) => L.PathOptions;
+  "micro-regions": (properties: MicroRegionProperties) => L.PathOptions;
+  outline: (properties: RegionOutlineProperties) => L.PathOptions;
+};
+
 type PbfProps = {
-  handleSelectRegion: (id?: string) => void;
   validTimePeriod: ValidTimePeriod;
-  eventHandlers: LeafletEventHandlerFnMap;
   date: string;
 };
 
-class MyPolygonSymbolizer extends PolygonSymbolizer {
-  constructor(
-    private blendMode: GlobalCompositeOperation,
-    ...args: ConstructorParameters<typeof PolygonSymbolizer>
-  ) {
-    super(...args);
-  }
-  before(ctx: CanvasRenderingContext2D, z: number): void {
-    ctx.globalCompositeOperation = this.blendMode;
-    super.before(ctx, z);
-  }
-}
-
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
-  const dataSource = "eaws-regions";
-  const instance = pmLayer({
-    pane: "overlayPane",
-    interactive: false,
-    sources: {
-      [dataSource]: {
-        maxDataZoom: 10,
-        url: "https://static.avalanche.report/eaws-regions.pmtiles"
-      }
-    },
-    attribution: "",
-    label_rules: [],
-    paint_rules: [
-      ...([1, 2, 3, 4, 5] as WarnLevelNumber[]).map(
-        warnlevel =>
-          ({
-            dataSource,
-            dataLayer: EawsRegionDataLayer.micro_regions_elevation,
-            filter: (z, f) =>
-              filterFeature({ properties: f.props }, props.date) &&
-              dangerRating(f.props) === warnlevel,
-            symbolizer: new MyPolygonSymbolizer("multiply", {
-              fill: WARNLEVEL_COLORS[warnlevel],
-              opacity: WARNLEVEL_OPACITY[warnlevel]
-            })
-          }) satisfies Rule
-      ),
-      ...regionStates.map(
-        regionState =>
-          ({
-            dataSource,
-            dataLayer: EawsRegionDataLayer.micro_regions_elevation,
-            filter: (z, f) =>
-              filterFeature({ properties: f.props }, props.date) &&
-              instance.options.regionStyling[f.props.id] === regionState,
-            symbolizer: new MyPolygonSymbolizer("source-over", {
-              fill:
-                config.map.regionStyling[regionState].fillColor ??
-                config.map.regionStyling["clickable"].fillColor,
-              opacity:
-                config.map.regionStyling[regionState].fillOpacity ??
-                config.map.regionStyling["clickable"].fillOpacity,
-              width: config.map.regionStyling[regionState].weight ?? 0.0
-            })
-          }) satisfies Rule
-      )
-    ]
-  }) as LeafletPbfLayer;
-
-  ctx.map.on(
-    mapValues<
-      "click" | "mouseover" | "mouseout",
-      LeafletMouseEventHandlerFn,
-      LeafletMouseEventHandlerFn
-    >(props.eventHandlers, handler => e => {
-      e.sourceTarget = { properties: findFeature(e) };
-      return handler(e);
-    })
-  );
-
-  function findFeature(
-    e: LeafletMouseEvent
-  ): MicroRegionProperties | RegionOutlineProperties | undefined {
-    DomEvent.stop(e);
-    instance._map = ctx.map;
-    const features: {
-      feature: Feature;
-      layerName: EawsRegionDataLayer;
-    }[] = instance.queryFeatures(e.latlng.lng, e.latlng.lat).get(dataSource);
-    const feature = features.find(({ feature, layerName }) =>
-      microRegionOrOutline(feature, layerName)
-    );
-    return feature?.feature?.props as unknown as
-      | MicroRegionProperties
-      | RegionOutlineProperties
-      | undefined;
-  }
-
-  function microRegionOrOutline(
-    feature: Feature,
-    dataLayer: EawsRegionDataLayer
-  ): unknown {
-    return (
-      (dataLayer === EawsRegionDataLayer.micro_regions &&
-        regionsRegex.test(feature?.props?.id as string)) ||
-      (dataLayer === EawsRegionDataLayer.outline &&
-        !regionsRegex.test(feature?.props?.id as string))
-    );
-  }
-
-  function dangerRating({
-    id,
-    elevation
-  }: MicroRegionElevationProperties): WarnLevelNumber {
-    if (elevation !== "low_high") id += ":" + elevation;
+  const style = (id: string): PathOptions => {
     id += toAmPm[props.validTimePeriod] ?? "";
-    return instance.options.dangerRatings[id];
-  }
-
+    const warnlevel = instance.options.dangerRatings[id];
+    if (!warnlevel) return config.map.regionStyling.hidden;
+    return regionsRegex.test(id)
+      ? WARNLEVEL_STYLES.albina[warnlevel]
+      : WARNLEVEL_STYLES.eaws[warnlevel];
+  };
+  const instance = L.vectorGrid.protobuf(
+    "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+    {
+      dangerRatings: {},
+      pane: "overlayPane",
+      interactive: false,
+      rendererFactory: L.canvas.tile,
+      maxNativeZoom: 10,
+      vectorTileLayerStyles: {
+        "micro-regions_elevation"(properties) {
+          if (!filterFeature({ properties }, props.date))
+            return config.map.regionStyling.hidden;
+          return properties.elevation === "low_high"
+            ? style(properties.id)
+            : style(properties.id + ":" + properties.elevation);
+        },
+        "micro-regions"() {
+          return config.map.regionStyling.hidden;
+        },
+        outline() {
+          return config.map.regionStyling.hidden;
+        }
+      } as PbfStyleFunction
+    }
+  );
   return {
     instance,
     context: { ...ctx, vectorGrid: instance }
@@ -187,3 +87,60 @@ export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
   }, [maxDangerRatings, vectorGrid.options]);
   return <></>;
 };
+
+type PbfLayerOverlayProps = PbfProps & {
+  handleSelectRegion: (id?: string) => void;
+};
+
+export const PbfLayerOverlay = createLayerComponent(
+  (props: PbfLayerOverlayProps, ctx) => {
+    const instance = L.vectorGrid.protobuf(
+      "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+      {
+        pane: "markerPane",
+        interactive: true,
+        rendererFactory: L.svg.tile,
+        maxNativeZoom: 10,
+        getFeatureId({
+          properties
+        }: {
+          properties:
+            | MicroRegionElevationProperties
+            | MicroRegionProperties
+            | RegionOutlineProperties;
+        }) {
+          if (
+            (properties as MicroRegionElevationProperties).elevation ||
+            !filterFeature({ properties }, props.date)
+          ) {
+            return undefined;
+          } else {
+            return properties.id;
+          }
+        },
+        vectorTileLayerStyles: {
+          "micro-regions_elevation"() {
+            return config.map.regionStyling.hidden;
+          },
+          "micro-regions"(properties) {
+            return filterFeature({ properties }, props.date) &&
+              regionsRegex.test(properties.id)
+              ? config.map.regionStyling.clickable
+              : config.map.regionStyling.hidden;
+          },
+          outline(properties) {
+            return filterFeature({ properties }, props.date) &&
+              !regionsRegex.test(properties.id)
+              ? config.map.regionStyling.clickable
+              : config.map.regionStyling.hidden;
+          }
+        } as PbfStyleFunction
+      }
+    );
+
+    return {
+      instance,
+      context: { ...ctx, vectorGrid: instance }
+    };
+  }
+);

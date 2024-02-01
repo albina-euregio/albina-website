@@ -59,13 +59,13 @@ export function PbfRegionState({
 
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
-    vectorGrid.options.regionStyling = Object.fromEntries(
-      [...microRegions, ...eawsRegions, ...eawsMicroRegions].map(region => [
-        region,
-        getRegionState(region)
-      ])
+    [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region =>
+      vectorGrid.setFeatureStyle(region, {
+        ...config.map.regionStyling.clickable,
+        ...config.map.regionStyling.all,
+        ...config.map.regionStyling[getRegionState(region)]
+      })
     );
-    requestAnimationFrame(() => vectorGrid.rerenderTiles());
 
     function getRegionState(regionId: string): RegionState {
       if (regionId === regionMouseover) {

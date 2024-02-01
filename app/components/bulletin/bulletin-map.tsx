@@ -14,10 +14,11 @@ import type {
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { DangerRatings, PbfLayer } from "../leaflet/pbf-map";
+import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
 import { PbfRegionState } from "../leaflet/pbf-region-state";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
+import { useMapEvent } from "react-leaflet";
 
 type Props = {
   activeBulletinCollection: BulletinCollection;
@@ -34,6 +35,11 @@ const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
+
+  function RegionClickHandler(): null {
+    useMapEvent("click", () => props.handleSelectRegion(""));
+    return null;
+  }
 
   const styleOverMap = () => {
     return {
@@ -61,7 +67,7 @@ const BulletinMap = (props: Props) => {
   );
 
   const getMapOverlays = () => {
-    const overlays = [];
+    const overlays = [<RegionClickHandler key="region-click-handler" />];
     const date = props.date;
     overlays.push(
       <PbfLayer
@@ -69,15 +75,6 @@ const BulletinMap = (props: Props) => {
         date={date}
         handleSelectRegion={props.handleSelectRegion}
         validTimePeriod={props.validTimePeriod}
-        eventHandlers={{
-          click(e) {
-            DomEvent.stop(e);
-            props.handleSelectRegion(e.sourceTarget.properties?.id);
-          },
-          mousemove(e) {
-            setRegionMouseover(e.sourceTarget.properties?.id ?? "");
-          }
-        }}
       >
         {props.activeBulletinCollection && (
           <DangerRatings
@@ -91,8 +88,32 @@ const BulletinMap = (props: Props) => {
             }
           />
         )}
-        {regionState}
       </PbfLayer>
+    );
+    overlays.push(
+      <PbfLayerOverlay
+        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
+        eventHandlers={{
+          click(e) {
+            DomEvent.stop(e);
+            props.handleSelectRegion(e.sourceTarget.properties.id);
+          },
+          mouseover(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(e.sourceTarget.properties.id)
+            );
+          },
+          mouseout(e) {
+            requestAnimationFrame(() =>
+              setRegionMouseover(id =>
+                id === e.sourceTarget.properties.id ? "" : id
+              )
+            );
+          }
+        }}
+      >
+        {regionState}
+      </PbfLayerOverlay>
     );
     return overlays;
   };
