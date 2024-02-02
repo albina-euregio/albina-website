@@ -100,13 +100,14 @@ const WeatherMapCockpit = ({
     //   firstAnalyticTime,
     //   tickWidth
     // );
-    if (currentTime) {
-      const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
+    const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
+    const startDateTime = new Date(timeArray[0]);
+    startDateTime.setUTCHours(
+      startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
+    );
+    if (currentTime && startDateTime) {
       const posContainer = $(".cp-scale-days").offset();
-      const startDateTime = new Date(timeArray[0]);
-      startDateTime.setUTCHours(
-        startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
-      );
+
       // console.log("cockpit #33", {
       //   currTime: new Date(currentTime),
       //   firstTimeStamp: timeArray[0],
