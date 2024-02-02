@@ -131,7 +131,7 @@ const WeatherMapCockpit = ({
         });
       } else {
         $(".cp-scale-flipper-left").css({
-          left: posFirstAvailable.left - posContainer.left,
+          left: posFirstAvailable?.left - posContainer.left,
           display: ""
         });
         $(".cp-scale-flipper-right").css({
@@ -146,8 +146,9 @@ const WeatherMapCockpit = ({
       if (lastAnalyticTime) {
         const lastAnalyticTimeComp = $(".t" + lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
-          left: posFirstAvailable.left - posContainer.left,
-          width: lastAnalyticTimeComp.left - posFirstAvailable.left - tickWidth,
+          left: posFirstAvailable?.left - posContainer.left,
+          width:
+            lastAnalyticTimeComp.left - posFirstAvailable?.left - tickWidth,
           display: ""
         });
       } else
