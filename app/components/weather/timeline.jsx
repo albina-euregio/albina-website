@@ -22,12 +22,39 @@ const Timeline = ({
   const daysContainer = useRef();
   const [nrOnlyTimespan, setNrOnlyTimespan] = useState(null);
   const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
+  const [tickWidth, setTickWidth] = useState(0);
+
+  //console.log("render s04", { currentTime, timeSpan, tickWidth });
+
+  const updateTickWidth = () => {
+    // Select the first instance of each element using querySelector
+    const posFirstTickEl = document.querySelector(".cp-scale-hour-1");
+    const posSecondTickEl = document.querySelector(".cp-scale-hour-2");
+
+    // Check if both elements exist
+    if (!posFirstTickEl || !posSecondTickEl) {
+      return 0;
+    }
+
+    // Get the offset positions of the elements
+    const posFirstTick = posFirstTickEl.getBoundingClientRect();
+    const posSecondTick = posSecondTickEl.getBoundingClientRect();
+
+    // Calculate and return the horizontal distance between the elements
+    // The left position is relative to the viewport, which is consistent across browsers
+    const res = posSecondTick.left - posFirstTick.left;
+    if (res != tickWidth) setTickWidth(res);
+  };
 
   useEffect(() => {
-    //console.log("useEffect s04", { currentTime, timeSpan });
-    const tickWidth = getTickWidth();
-    if (tickWidth > 0) updateCB({ tickWidth: tickWidth });
-  }, [timeArray, currentTime, timeSpan]);
+    updateTickWidth();
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLastRedraw(new Date().getTime());
+    }, 3000);
+  }, [timeSpan]);
 
   useEffect(() => {
     //console.log("Timeline->useEffect s04", {
@@ -36,24 +63,21 @@ const Timeline = ({
     //   timeArray,
     //   changeCurrentTime
     // });
-    const thickWidth = getTickWidth();
-
     setDraggerCoordinates({
-      x: getLeftForTime(currentTime) - thickWidth * nrOnlyTimespan,
+      x: getLeftForTime(currentTime) - tickWidth * nrOnlyTimespan,
       y: draggerCoordinates.y
     });
-  }, [currentTime]);
+  }, [currentTime, tickWidth]);
+
+  useEffect(() => {
+    if (currentTime && timeSpan && tickWidth) {
+      updateCB({ tickWidth });
+    }
+  }, [tickWidth, currentTime, timeArray]);
 
   useEffect(() => {
     setNrOnlyTimespan(parseInt(timeSpan.replace(/\D/g, ""), 10));
   }, [timeSpan]);
-
-  const getTickWidth = () => {
-    const posFirstTick = $(".cp-scale-hour-1").first().offset();
-    const posSecondTick = $(".cp-scale-hour-2").first().offset();
-    if (posFirstTick === undefined || posSecondTick === undefined) return 0;
-    return posSecondTick.left - posFirstTick.left;
-  };
 
   const getTimeStart = triggerTime => {
     let timeStart = new Date(triggerTime);
@@ -62,11 +86,13 @@ const Timeline = ({
   };
 
   const getLeftForTime = time => {
-    const theTick = $(".t" + time);
-    if (theTick.offset() === undefined) return null;
-    let left = Math.abs(
-      theTick.offset()["left"] - $(daysContainer.current).offset()["left"]
-    );
+    const theTickEl = document.querySelector(".t" + time);
+    if (!theTickEl) return;
+    const theTick = theTickEl.getBoundingClientRect();
+
+    const daysContainerRec = daysContainer.current?.getBoundingClientRect();
+
+    let left = Math.abs(theTick.left - daysContainerRec.left);
     // console.log("getLeftForTime s03", {
     //   currentTimeUtc: new Date(currentTime).toUTCString(),
     //   foundTimeUtc: new Date(time).toUTCString(),
@@ -113,10 +139,11 @@ const Timeline = ({
     const startDate = getTimeStart(currentTime);
 
     // console.log(
-    //   "getTimeline fff",
+    //   "getTimeline s04",
     //   {indexStart: timeArray.indexOf(startDate),
     //     startDate,
-    //     nrOnlyTimespan
+    //     nrOnlyTimespan,
+    //     tickWidth
     //   }
     // );
     let tempTimeArray = timeArray.slice();
@@ -229,7 +256,7 @@ const Timeline = ({
     //if (closestTime === currentTime) {
 
     showTimes(true);
-    newLeft = getLeftForTime(closestTime) - getTickWidth() * nrOnlyTimespan;
+    newLeft = getLeftForTime(closestTime) - tickWidth * nrOnlyTimespan;
     //console.log("setClosestTick s04 #2", { x, newLeft });
     setDraggerCoordinates({ x: newLeft, y: 0 });
     //}
@@ -277,7 +304,7 @@ const Timeline = ({
                 key="scale-stamp-range"
                 style={{
                   left: 0,
-                  width: getTickWidth() * nrOnlyTimespan
+                  width: tickWidth * nrOnlyTimespan
                 }}
                 className="cp-scale-stamp-range js-active"
               >
@@ -310,7 +337,7 @@ const Timeline = ({
             <Dragger {...dragSettings}>
               <div
                 id="dragger"
-                style={{ left: getTickWidth() }}
+                style={{ left: tickWidth }}
                 key="scale-stamp-point"
                 className="cp-scale-stamp-point js-active"
               >
