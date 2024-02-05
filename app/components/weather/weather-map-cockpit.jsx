@@ -95,27 +95,52 @@ const WeatherMapCockpit = ({
 
   const placeCockpitItems = tickWidth => {
     // console.log(
-    //   "placeCockpitItems: hhh",
+    //   "placeCockpitItems: s04",
     //   currentTime,
-    //   firstAnalyticTime,
     //   tickWidth
     // );
-    if (currentTime) {
-      const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
-      const posContainer = $(".cp-scale-days").offset();
-      const startDateTime = new Date(timeArray[0]);
-      startDateTime.setUTCHours(
-        startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
-      );
+    const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
+    const startDateTime = new Date(timeArray[0]);
+    startDateTime.setUTCHours(
+      startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
+    );
+    if (currentTime && startDateTime) {
+      const posContainerEl = document.querySelector(".cp-scale-days");
+      const posContainer = posContainerEl.getBoundingClientRect();
+
       // console.log("cockpit #33", {
       //   currTime: new Date(currentTime),
       //   firstTimeStamp: timeArray[0],
       //   firstTime: new Date(timeArray[0]),
       //   firstTimeMinusTimeSpan: startDateTime,
+      //   timespan,
+      //   posContainerL: posContainer.left,
+      //   scrollx: window.scrollX
+      // });
+      const posFirstAvailableEl = document.querySelector(
+        ".t" + startDateTime.getTime()
+      );
+      if (!posFirstAvailableEl) {
+        // console.log("cockpit s044 ERROR", {
+        //   currTime: new Date(currentTime),
+        //   startDateTime: startDateTime.getTime(),
+        //   timespan
+        // });
+
+        return;
+      }
+      // console.log("cockpit s044 OK", {
+      //   currTime: new Date(currentTime),
+      //   startDateTime: startDateTime.getTime(),
       //   timespan
       // });
-      const posFirstAvailable = $(".t" + startDateTime.getTime()).offset();
-      const posLast = $(".t" + timeArray[timeArray.length - 1]).offset();
+      const posFirstAvailable = posFirstAvailableEl.getBoundingClientRect();
+
+      const posLastEl = document.querySelector(
+        ".t" + timeArray[timeArray.length - 1]
+      );
+      const posLast = posLastEl.getBoundingClientRect();
+
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
       showTimes(true);
       if (timeArray.length < 2) {
@@ -130,7 +155,7 @@ const WeatherMapCockpit = ({
         });
       } else {
         $(".cp-scale-flipper-left").css({
-          left: posFirstAvailable.left - posContainer.left,
+          left: posFirstAvailable?.left - posContainer.left,
           display: ""
         });
         $(".cp-scale-flipper-right").css({
@@ -143,10 +168,15 @@ const WeatherMapCockpit = ({
       }
 
       if (lastAnalyticTime) {
-        const lastAnalyticTimeComp = $(".t" + lastAnalyticTime).offset();
+        const lastAnalyticTimeCompEl = document.querySelector(
+          ".t" + lastAnalyticTime
+        );
+        const lastAnalyticTimeComp =
+          lastAnalyticTimeCompEl.getBoundingClientRect();
         $(".cp-scale-analyse-bar").css({
-          left: posFirstAvailable.left - posContainer.left,
-          width: lastAnalyticTimeComp.left - posFirstAvailable.left - tickWidth,
+          left: posFirstAvailable?.left - posContainer.left,
+          width:
+            lastAnalyticTimeComp?.left - posFirstAvailable?.left - tickWidth,
           display: ""
         });
       } else
@@ -157,7 +187,7 @@ const WeatherMapCockpit = ({
   };
 
   const onTimelineUpdate = ({ tickWidth }) => {
-    //console.log("onTimelineUpdate hhh", tickWidth);
+    //console.log("onTimelineUpdate s04", tickWidth);
 
     placeCockpitItems(tickWidth);
   };
