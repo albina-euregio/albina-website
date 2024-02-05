@@ -20,6 +20,10 @@ Use `yarn run start-dev` and browse to http://localhost:3000/ to use dev server.
 
 Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
 
+### Browserstack debugging
+
+in order to test IOS Devices in local mode, server.host in vite.config.ts has to be set to "bs-local.com"
+
 ## Deployment
 
 Use `yarn run build` to create a (minified) production build.
