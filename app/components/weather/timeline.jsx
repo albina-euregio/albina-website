@@ -57,12 +57,6 @@ const Timeline = ({
   }, [timeSpan]);
 
   useEffect(() => {
-    //console.log("Timeline->useEffect s04", {
-    //   timeSpan,
-    //   currentTime: new Date(currentTime),
-    //   timeArray,
-    //   changeCurrentTime
-    // });
     setDraggerCoordinates({
       x: getLeftForTime(currentTime) - tickWidth * nrOnlyTimespan,
       y: draggerCoordinates.y
