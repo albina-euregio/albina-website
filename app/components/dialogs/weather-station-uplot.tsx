@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type uPlot from "uplot";
 import UplotReact from "uplot-react";
-import { useIntl } from "react-intl";
+import { useIntl } from "../../i18n";
 import { Util } from "leaflet";
 import type { StationData } from "../../stores/stationDataStore";
 import "uplot/dist/uPlot.min.css";
@@ -53,7 +53,8 @@ const WeatherStationUplot: React.FC<{
           },
           {
             label: parameterLabel,
-            values: (_, vs) => vs.map(v => intl.formatNumber(v) + " " + unit)
+            values: (_, vs) =>
+              vs.map(v => intl.formatNumber(v, {}) + " " + unit)
           }
         ],
         series: [

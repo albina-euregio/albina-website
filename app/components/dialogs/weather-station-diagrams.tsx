@@ -240,7 +240,10 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
-  if (stationData.operator?.startsWith?.("LWD Tirol")) {
+  if (
+    station instanceof StationData &&
+    station.operator?.startsWith?.("LWD Tirol")
+  ) {
     const timeRangeMilli = timeRangesMilli[timeRange];
     const width = document.body.clientWidth * 0.9;
     const height = 240;
@@ -248,33 +251,39 @@ const StationDiagramImage: React.FC<{
     return (
       <>
         <WeatherStationUplot
-          stationData={stationData}
+          stationData={station}
           parameter="HS"
-          parameterLabel={intl.formatMessage({
-            id: "measurements:table:header:snow"
-          })}
+          parameterLabel={
+            intl.formatMessage({
+              id: "measurements:table:header:snow"
+            }) as string
+          }
           timeRangeMilli={timeRangeMilli}
           stroke="#984ea3"
           width={width}
           height={height}
         />
         <WeatherStationUplot
-          stationData={stationData}
+          stationData={station}
           parameter="LT"
-          parameterLabel={intl.formatMessage({
-            id: "measurements:table:header:temp"
-          })}
+          parameterLabel={
+            intl.formatMessage({
+              id: "measurements:table:header:temp"
+            }) as string
+          }
           timeRangeMilli={timeRangeMilli}
           stroke="#e41a1c"
           width={width}
           height={height}
         />
         <WeatherStationUplot
-          stationData={stationData}
+          stationData={station}
           parameter="WG"
-          parameterLabel={intl.formatMessage({
-            id: "measurements:table:header:wspd"
-          })}
+          parameterLabel={
+            intl.formatMessage({
+              id: "measurements:table:header:wspd"
+            }) as string
+          }
           timeRangeMilli={timeRangeMilli}
           stroke="#4daf4a"
           width={width}
