@@ -34,7 +34,8 @@ const WeatherStationUplot: React.FC<{
 
   useEffect(() => {
     fetch("https://corsproxy.io/?" + encodeURIComponent(url))
-      .then(res => res.text())
+      .then(res => res.arrayBuffer())
+      .then(arrayBuffer => new TextDecoder("iso-8859-1").decode(arrayBuffer))
       .then(csv => parseData(csv, timeRangeMilli, setUnit))
       .then(data => setData(data));
   }, [timeRangeMilli, url]);
