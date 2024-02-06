@@ -103,7 +103,7 @@ function parseData(
     // 02.12.2023 06:10:00;-6,8
     const regex =
       /(?<day>\d{2})\.(?<month>\d{2})\.(?<year>\d{4}) (?<time>\d{2}:\d{2}:\d{2});(?<value>[-+0-9,.]+)/;
-    const match = line.match(regex);
+    const match = regex.exec(line);
     if (!match) return;
     const { day, month, year, time, value } = match.groups;
     const date = Date.parse(`${year}-${month}-${day}T${time}${timezone}`);
