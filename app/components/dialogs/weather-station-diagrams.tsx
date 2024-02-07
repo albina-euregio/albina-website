@@ -265,7 +265,7 @@ const StationDiagramImage: React.FC<{
         />
         <WeatherStationUplot
           stationData={station}
-          parameter="LT"
+          parameter="TA"
           parameterLabel={
             intl.formatMessage({
               id: "measurements:table:header:temp"
@@ -278,7 +278,7 @@ const StationDiagramImage: React.FC<{
         />
         <WeatherStationUplot
           stationData={station}
-          parameter="WG"
+          parameter="VW"
           parameterLabel={
             intl.formatMessage({
               id: "measurements:table:header:wspd"

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import type uPlot from "uplot";
 import UplotReact from "uplot-react";
 import { useIntl } from "../../i18n";
-import { Util } from "leaflet";
 import type { StationData } from "../../stores/stationDataStore";
 import "uplot/dist/uPlot.min.css";
 
@@ -26,19 +25,15 @@ const WeatherStationUplot: React.FC<{
   const intl = useIntl();
   const [data, setData] = useState<uPlot.AlignedData>([[], []]);
   const [unit, setUnit] = useState("");
-  const url = Util.template(window.config.apis.weather.stationsArchiveFile, {
-    "LWD-Nummer": stationData.properties["LWD-Nummer"] || stationData.id,
-    parameter,
-    file: "latest"
-  });
+  const id = stationData.properties["LWD-Nummer"];
+  const url = `https://api.avalanche.report/lawine/grafiken/smet/woche/${id}.smet.gz`;
 
   useEffect(() => {
-    fetch("https://corsproxy.io/?" + encodeURIComponent(url))
-      .then(res => res.arrayBuffer())
-      .then(arrayBuffer => new TextDecoder("iso-8859-1").decode(arrayBuffer))
-      .then(csv => parseData(csv, timeRangeMilli, setUnit))
+    fetch(url)
+      .then(res => res.text())
+      .then(csv => parseData(csv, parameter, timeRangeMilli, setUnit))
       .then(data => setData(data));
-  }, [timeRangeMilli, url]);
+  }, [parameter, timeRangeMilli, url]);
 
   if (!data[0].length) return <></>;
 
@@ -86,30 +81,33 @@ export default WeatherStationUplot;
 
 function parseData(
   csv: string,
+  parameter: string,
   timeRangeMilli: number,
   setUnit: (unit: string) => void
 ): uPlot.AlignedData {
-  let timezone = "+01:00";
+  let index = -1;
   const timestamps: number[] = [];
   const values: number[] = [];
   csv.split(/\r?\n/).forEach(line => {
-    if (line.startsWith("Zeitzone;")) {
-      timezone = line.slice("Zeitzone;".length);
+    if (line.startsWith("fields =")) {
+      const fields = line.slice("fields =".length).trim().split(" ");
+      index = fields.indexOf(parameter);
       return;
-    } else if (line.startsWith("Einheit der Zeitreihe;")) {
-      setUnit(line.slice("Einheit der Zeitreihe;".length));
+    } else if (line.startsWith("#units =") && index >= 0) {
+      const units = line.slice("#units =".length).trim().split(" ");
+      setUnit(units[index]);
+      return;
+    } else if (!/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/.test(line)) {
+      return;
+    } else if (index < 0) {
+      return;
     }
-
-    // 02.12.2023 06:10:00;-6,8
-    const regex =
-      /(?<day>\d{2})\.(?<month>\d{2})\.(?<year>\d{4}) (?<time>\d{2}:\d{2}:\d{2});(?<value>[-+0-9,.]+)/;
-    const match = regex.exec(line);
-    if (!match) return;
-    const { day, month, year, time, value } = match.groups;
-    const date = Date.parse(`${year}-${month}-${day}T${time}${timezone}`);
+    const cells = line.split(" ");
+    const date = Date.parse(cells[0]);
     if (Date.now() - date > timeRangeMilli) return;
     // uPlot uses epoch seconds (instead of milliseconds)
     timestamps.push(date / 1000);
+    const value = cells[index];
     values.push(+value.replace(",", "."));
   });
   return [timestamps, values];
