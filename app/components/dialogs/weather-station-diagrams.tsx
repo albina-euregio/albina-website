@@ -252,40 +252,91 @@ const StationDiagramImage: React.FC<{
       <>
         <WeatherStationUplot
           stationData={station}
-          parameter="HS"
-          parameterLabel={
-            intl.formatMessage({
-              id: "measurements:table:header:snow"
-            }) as string
-          }
+          parameters={[
+            {
+              id: "HS",
+              stroke: "#984ea3",
+              label: intl.formatMessage({
+                id: "measurements:table:header:snow"
+              }) as string
+            }
+          ]}
           timeRangeMilli={timeRangeMilli}
-          stroke="#984ea3"
           width={width}
           height={height}
         />
         <WeatherStationUplot
           stationData={station}
-          parameter="TA"
-          parameterLabel={
-            intl.formatMessage({
-              id: "measurements:table:header:temp"
-            }) as string
-          }
+          parameters={[
+            {
+              id: "TA",
+              stroke: "#e41a1c",
+              label: intl.formatMessage({
+                id: "measurements:table:header:temp"
+              }) as string
+            },
+            {
+              id: "TD",
+              stroke: "#6464FF",
+              label: "TD"
+            },
+            {
+              id: "TSS",
+              stroke: "#999999",
+              label: "TSS"
+            }
+          ]}
           timeRangeMilli={timeRangeMilli}
-          stroke="#e41a1c"
           width={width}
           height={height}
         />
         <WeatherStationUplot
           stationData={station}
-          parameter="VW"
-          parameterLabel={
-            intl.formatMessage({
-              id: "measurements:table:header:wspd"
-            }) as string
-          }
+          parameters={[
+            {
+              id: "ISWR",
+              stroke: "#00CC00",
+              label: "ISWR"
+            }
+          ]}
           timeRangeMilli={timeRangeMilli}
-          stroke="#4daf4a"
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "VW",
+              stroke: "#4daf4a",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wspd"
+              }) as string
+            },
+            {
+              id: "VW_MAX",
+              stroke: "#C80064",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wgus"
+              }) as string
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "DW",
+              stroke: "#064464",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wdir"
+              }) as string
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
           width={width}
           height={height}
         />
