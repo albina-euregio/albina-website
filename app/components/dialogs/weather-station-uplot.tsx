@@ -61,7 +61,7 @@ const WeatherStationUplot: React.FC<{
   useEffect(() => {
     fetch(url)
       .then(res => res.text())
-      .then(csv => parseData(csv, parameters, timeRangeMilli, setUnit))
+      .then(smet => parseData(smet, parameters, timeRangeMilli, setUnit))
       .then(data => setData(data));
   }, [parameters, timeRangeMilli, url]);
 
@@ -119,15 +119,16 @@ const WeatherStationUplot: React.FC<{
 export default WeatherStationUplot;
 
 function parseData(
-  csv: string,
+  smet: string,
   parameters: Parameter[],
   timeRangeMilli: number,
   setUnit: (unit: string) => void
 ): uPlot.AlignedData {
+  // https://code.wsl.ch/snow-models/meteoio/-/blob/master/doc/SMET_specifications.pdf
   let index = [] as number[];
   const timestamps: number[] = [];
   const values: number[][] = parameters.map(() => []);
-  csv.split(/\r?\n/).forEach(line => {
+  smet.split(/\r?\n/).forEach(line => {
     if (line.startsWith("fields =")) {
       const fields = line.slice("fields =".length).trim().split(" ");
       index = parameters.map(p => fields.indexOf(p.id));
