@@ -183,10 +183,10 @@ function BulletinMap({
     bulletin && dateString > "2022-05-06"
       ? `EUREGIO_${bulletin.bulletinID}`
       : bulletin
-      ? bulletin.bulletinID
-      : dateString < "2022-05-06"
-      ? "fd_albina_thumbnail"
-      : "fd_EUREGIO_thumbnail";
+        ? bulletin.bulletinID
+        : dateString < "2022-05-06"
+          ? "fd_albina_thumbnail"
+          : "fd_EUREGIO_thumbnail";
   return (
     <Tooltip
       label={intl.formatMessage({

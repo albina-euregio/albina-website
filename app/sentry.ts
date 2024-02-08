@@ -15,8 +15,8 @@ if (import.meta.env.PROD) {
       const exception = event.exception?.values?.[0];
       if (
         exception?.value?.includes("reading '_leaflet_pos'") ||
-        exception?.stacktrace?.frames?.some(
-          f => f.function?.includes("_onZoomTransitionEnd")
+        exception?.stacktrace?.frames?.some(f =>
+          f.function?.includes("_onZoomTransitionEnd")
         )
       ) {
         return null;

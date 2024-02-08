@@ -412,10 +412,10 @@ export async function loadStationData({
   const stationsFile = ogd
     ? window.config.apis.weather.stationsArchive
     : !dateTime
-    ? window.config.apis.weather.stations
-    : window.config.template(window.config.apis.weather.stationsDateTime, {
-        dateTime: timePrefix
-      });
+      ? window.config.apis.weather.stations
+      : window.config.template(window.config.apis.weather.stationsDateTime, {
+          dateTime: timePrefix
+        });
   let response: Response;
   try {
     response = await fetch(stationsFile, { cache: "no-cache" });

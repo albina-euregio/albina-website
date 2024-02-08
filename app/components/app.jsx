@@ -17,8 +17,8 @@ const Bulletin = React.lazy(() => import("./../views/bulletin"));
 const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
 const BlogPost = React.lazy(() => import("./../views/blogPost"));
 const Weather = React.lazy(() => import("./../views/weather"));
-const StationMeasurements = React.lazy(() =>
-  import("./../views/stationMeasurements")
+const StationMeasurements = React.lazy(
+  () => import("./../views/stationMeasurements")
 );
 const StationArchive = React.lazy(() => import("./../views/stationArchive"));
 const StationMap = React.lazy(() => import("./../views/stationMap"));

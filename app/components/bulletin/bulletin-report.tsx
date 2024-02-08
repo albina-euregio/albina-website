@@ -46,13 +46,13 @@ const LocalizedText: FunctionComponent<{
               br => `</ins>${br}<ins>`
             )}</ins>`
           : diff === DiffMatchPatch.DIFF_DELETE
-          ? showDiff === 2
-            ? `<del>${value.replace(
-                /(<br\/>)+/g,
-                br => `</del>${br}<del>`
-              )}</del>`
-            : ""
-          : value
+            ? showDiff === 2
+              ? `<del>${value.replace(
+                  /(<br\/>)+/g,
+                  br => `</del>${br}<del>`
+                )}</del>`
+              : ""
+            : value
       )
       .join("");
   }
