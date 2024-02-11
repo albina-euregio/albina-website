@@ -81,13 +81,11 @@ class LinkTree extends React.Component {
 
     let bulletinImageUrl = "https://lawinen.report/content_files/base-map.webp";
 
-    const imgFormat = window.config.webp ? ".webp" : ".jpg";
     if (this.state.fd != null) {
       bulletinImageUrl = config.template(config.apis.bulletin.map, {
         date: dateString,
         publication: ".",
-        file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail",
-        format: imgFormat
+        file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail"
       });
     }
 

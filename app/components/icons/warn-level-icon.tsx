@@ -37,8 +37,7 @@ const WarnLevelIcon = (props: Props) => {
   const colorAboveText = numberAbove >= 4 ? "#FFF" : "#222";
 
   const imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
-  const imgFormat = window.config.webp ? ".webp" : ".png";
-  const img = imgRoot + "levels_" + numberBelow + "_" + numberAbove + imgFormat;
+  const img = imgRoot + "levels_" + numberBelow + "_" + numberAbove + ".webp";
 
   let title;
   let elevationText;

@@ -8,18 +8,6 @@ import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dial
 
 window["scroll_duration"] = 1000;
 
-// detect WebP support
-// test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
-const isWebpSupported = new Promise(resolve => {
-  const webpImage = new Image();
-  webpImage.onload = webpImage.onerror = event => {
-    const isSupported = event.type === "load" && webpImage.width === 1;
-    resolve(isSupported);
-  };
-  webpImage.src =
-    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
-});
-
 /*
  * Request config.json before starting the app (do not cache config!).
  * Also, append date to force reloading at least once a day.
@@ -30,34 +18,22 @@ const configRequest =
   import.meta.env.BASE_URL === "/dev/"
     ? import("./config-dev.json")
     : import("./config.json");
-Promise.all([configRequest, isWebpSupported]).then(
-  async ([configParsed, webp]) => {
-    configParsed = { ...configParsed };
-    configParsed["projectRoot"] = import.meta.env.BASE_URL;
-    configParsed["webp"] = webp;
-    configParsed["template"] = template;
-    if (webp) {
-      document.body.className += " webp";
-      // enable WebP for ALBINA layer
-      [configParsed["map"]["tileLayer"]]
-        .filter(layer => layer["id"] === "ALBINA")
-        .forEach(
-          layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
-        );
-    }
+configRequest.then(async configParsed => {
+  configParsed = { ...configParsed };
+  configParsed["projectRoot"] = import.meta.env.BASE_URL;
+  configParsed["template"] = template;
 
-    const language = configParsed["hostLanguageSettings"][location.host];
-    if (!language && location.host.startsWith("www.")) {
-      location.host = location.host.substring("www.".length);
-    }
-    await setLanguage(language || "en");
-
-    window.config = configParsed;
-
-    const root = document.body.appendChild(document.getElementById("page-all"));
-    createRoot(root).render(<App />);
+  const language = configParsed["hostLanguageSettings"][location.host];
+  if (!language && location.host.startsWith("www.")) {
+    location.host = location.host.substring("www.".length);
   }
-);
+  await setLanguage(language || "en");
+
+  window.config = configParsed;
+
+  const root = document.body.appendChild(document.getElementById("page-all"));
+  createRoot(root).render(<App />);
+});
 
 if (isWebPushSupported()) {
   navigator.serviceWorker

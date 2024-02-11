@@ -26,7 +26,7 @@ function BulletinAWMapStatic({
           .replace(/:/g, "-")
           .slice(0, "2021-12-04_16-00-00".length)
       : "";
-  imgFormat ||= window.config.webp && date > "2020-12-01" ? ".webp" : ".jpg";
+  imgFormat ||= date > "2020-12-01" ? ".webp" : ".jpg";
   const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;

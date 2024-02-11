@@ -9,8 +9,7 @@ type Props = {
 
 export default function ElevationIcon({ where, text, title }: Props) {
   const imgRoot = `${window.config.projectRoot}images/pro/warning-pictos/`;
-  const imgFormat = window.config.webp ? ".webp" : ".png";
-  const src = `${imgRoot}levels_${where}${imgFormat}`;
+  const src = `${imgRoot}levels_${where}.webp`;
 
   return (
     <Tooltip label={title}>
