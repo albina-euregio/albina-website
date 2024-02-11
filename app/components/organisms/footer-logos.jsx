@@ -5,7 +5,6 @@ import SmFollow from "./sm-follow";
 export default function FooterLogos() {
   const icons = config.footer.icons;
   const imgRoot = window.config.projectRoot + "images/pro/footer/";
-  const imgFormat = ".png"; //window.config.webp ? ".webp" : ".png";
 
   return (
     <section className="section section-padding page-footer-logos">
@@ -21,7 +20,7 @@ export default function FooterLogos() {
               <img
                 className="footer-logo-img"
                 alt={icon.title}
-                src={imgRoot + icon.img + imgFormat}
+                src={imgRoot + icon.img}
               />
             </a>
           </Tooltip>

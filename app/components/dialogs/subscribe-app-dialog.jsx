@@ -5,7 +5,6 @@ import { Tooltip } from "../tooltips/tooltip";
 export default function SubscribeAppDialog() {
   const intl = useIntl();
   const imgRoot = window.config.projectRoot + "images/pro/apps/";
-  const imgFormat = window.config.webp ? ".webp" : ".png";
 
   const apps = config.subscribe.apps;
   const downloads = {};
@@ -44,7 +43,7 @@ export default function SubscribeAppDialog() {
         <div className="app-dl" key={a.id}>
           <img
             className="app-logo"
-            src={imgRoot + a.logo.replace(/\.png$/, imgFormat)}
+            src={imgRoot + a.logo}
             title={intl.formatMessage({
               id: "dialog:subscribe-app:" + a.id + ":title"
             })}

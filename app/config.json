@@ -60,7 +60,7 @@
     "bulletin": {
       "simple": "https://static.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
-      "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}{format}",
+      "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
@@ -170,7 +170,7 @@
     "apps": [
       {
         "id": "lawine-tirol",
-        "logo": "App_Lawine_Tirol_Logo.png",
+        "logo": "App_Lawine_Tirol_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=com.m_pulso.android.lawine",
           "ios": "https://itunes.apple.com/at/app/lawine-tirol/id776081927"
@@ -178,7 +178,7 @@
       },
       {
         "id": "snowsafe",
-        "logo": "App_SnowSafe_Logo.png",
+        "logo": "App_SnowSafe_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
           "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
@@ -186,7 +186,7 @@
       },
       {
         "id": "snowhow",
-        "logo": "App_SnowHow_Logo.png",
+        "logo": "App_SnowHow_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=info.snowhow",
           "ios": "https://itunes.apple.com/us/app/snowhow-freeride/id594335976"
@@ -247,7 +247,7 @@
     },
     "tileLayer": {
       "id": "ALBINA",
-      "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.png",
+      "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.webp",
       "maxZoom": 10,
       "minZoom": 5,
       "detectRetina": false,
@@ -325,19 +325,19 @@
     "icons": [
       {
         "region": "AT-07",
-        "img": "Landeslogo_Regular_4c",
+        "img": "Landeslogo_Regular_4c.webp",
         "title": "Tirol",
         "url": "https://www.tirol.gv.at/"
       },
       {
         "region": "IT-32-BZ",
-        "img": "LW-4Z-3sprachig",
+        "img": "LW-4Z-3sprachig.webp",
         "title": "Südtirol",
         "url": "http://wetter.provinz.bz.it/"
       },
       {
         "region": "IT-32-TN",
-        "img": "Stemma_PAT_colore",
+        "img": "Stemma_PAT_colore.webp",
         "title": "Trentino",
         "url": "https://www.meteotrentino.it/"
       }
