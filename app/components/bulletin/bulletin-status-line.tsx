@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
 import type { Bulletin, Status } from "../../stores/bulletin";
-import { isSummerTime } from "../../util/date";
 
 type Props = {
   bulletin: Bulletin;
@@ -13,13 +12,14 @@ const BulletinStatusLine = (props: Props) => {
   const status = props.status;
   let statusText = "";
   const publicationTime = props.bulletin?.publicationTime;
-  const isRepublished = useMemo(() => {
-    const summerTime = isSummerTime(new Date(publicationTime));
-    return (
+  const isRepublished = useMemo(
+    () =>
       publicationTime &&
-      !(summerTime ? /T15:00:00Z/ : /T16:00:00Z/).test(publicationTime)
-    );
-  }, [publicationTime]);
+      !new Date(publicationTime)
+        .toLocaleTimeString("de", { timeZone: "Europe/Vienna" })
+        .includes("17:00"),
+    [publicationTime]
+  );
 
   if (status == "pending") {
     statusText =

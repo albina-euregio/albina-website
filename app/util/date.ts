@@ -17,17 +17,6 @@ export function getSuccDate(date: Date) {
   return date;
 }
 
-export function isSummerTime(date: Date) {
-  // NOTE: getTimezoneOffset gives negative values for timezones east of GMT!
-  const summerTimeOffset = (() => {
-    const jan = new Date(date.getFullYear(), 0, 1);
-    const jul = new Date(date.getFullYear(), 6, 1);
-    return -Math.min(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-  })();
-
-  return -date.getTimezoneOffset() >= summerTimeOffset;
-}
-
 export function removeMilliseconds(unixTimeStamp: number) {
   return Math.floor(unixTimeStamp / 1000) * 1000;
 }
