@@ -28,25 +28,17 @@ export function _parseDatetime(dateTimeString: string) {
 }
 
 export function getPredDate(date: Date) {
-  if (date) {
-    const candidate = new Date(date.valueOf() - 1000 * 60 * 60 * 24);
-    if (isSummerTime(date) && !isSummerTime(candidate)) {
-      // there is one day when switching from winter to summer time that has
-      // only 23h !!
-      return new Date(date.valueOf() - 1000 * 60 * 60 * 23);
-    }
-    return candidate;
-  }
-  return null;
+  if (!date) return date;
+  date = new Date(date);
+  date.setDate(date.getDate() - 1);
+  return date;
 }
 
 export function getSuccDate(date: Date) {
-  const timeValue = date.valueOf();
-
-  if (date) {
-    return new Date(timeValue + 1000 * 60 * 60 * 24);
-  }
-  return null;
+  if (!date) return date;
+  date = new Date(date);
+  date.setDate(date.getDate() + 1);
+  return date;
 }
 
 export function isSummerTime(date: Date) {
