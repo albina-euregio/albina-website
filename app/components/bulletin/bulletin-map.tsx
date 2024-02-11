@@ -6,32 +6,23 @@ import "leaflet";
 import "leaflet.sync";
 import { DomEvent } from "leaflet";
 import LeafletMap from "../leaflet/leaflet-map";
-import { useMapEvent } from "react-leaflet";
-import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
+  AvalancheProblemType,
   BulletinCollection,
-  RegionState,
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import {
-  DangerRatings,
-  EawsDangerRatings,
-  PbfLayer,
-  PbfLayerOverlay,
-  PbfRegionState
-} from "../leaflet/pbf-map";
+import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
+import { PbfRegionState } from "../leaflet/pbf-region-state";
 import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
+import { useMapEvent } from "react-leaflet";
 
 type Props = {
   activeBulletinCollection: BulletinCollection;
-  getRegionState: (
-    regionId: string,
-    validTimePeriod?: ValidTimePeriod
-  ) => RegionState;
+  problems: Record<AvalancheProblemType, { highlighted: boolean }>;
   status: Status;
   region: string;
   validTimePeriod: ValidTimePeriod;
@@ -56,41 +47,23 @@ const BulletinMap = (props: Props) => {
     };
   };
 
-  const [eawsRegions] = useState([
-    "AD",
-    "AT-02",
-    "AT-03",
-    "AT-04",
-    "AT-05",
-    "AT-06",
-    "AT-08",
-    "CH",
-    "CZ",
-    "DE-BY",
-    "ES-CT-L",
-    "ES-CT",
-    "ES",
-    "FI",
-    "FR",
-    "GB",
-    "IS",
-    "IT-21",
-    "IT-23",
-    "IT-25",
-    "IT-34",
-    "IT-36",
-    "IT-57",
-    "NO",
-    "PL",
-    "PL-12",
-    "SE",
-    "SI",
-    "SK"
-  ]);
-
-  const regionIds = useMemo(
-    () => [...microRegionIds(props.date), ...eawsRegionIds(props.date)],
-    [props.date]
+  const regionState = useMemo(
+    () => (
+      <PbfRegionState
+        activeBulletinCollection={props.activeBulletinCollection}
+        problems={props.problems}
+        region={props.region}
+        regionMouseover={regionMouseover}
+        validTimePeriod={props.validTimePeriod}
+      />
+    ),
+    [
+      props.activeBulletinCollection,
+      props.problems,
+      props.region,
+      props.validTimePeriod,
+      regionMouseover
+    ]
   );
 
   const getMapOverlays = () => {
@@ -100,6 +73,7 @@ const BulletinMap = (props: Props) => {
       <PbfLayer
         key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
         date={date}
+        handleSelectRegion={props.handleSelectRegion}
         validTimePeriod={props.validTimePeriod}
       >
         {props.activeBulletinCollection && (
@@ -107,20 +81,18 @@ const BulletinMap = (props: Props) => {
             maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
           />
         )}
-        {date >= "2023-11-01" ? (
-          <EawsDangerRatings date={date} regions={eawsRegions} />
-        ) : date >= "2021-01-25" ? (
-          eawsRegions.map(region => (
-            <EawsDangerRatings key={region} date={date} regions={[region]} />
-          ))
-        ) : undefined}
+        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
+          <DangerRatings
+            maxDangerRatings={
+              props.activeBulletinCollection.eawsMaxDangerRatings
+            }
+          />
+        )}
       </PbfLayer>
     );
     overlays.push(
       <PbfLayerOverlay
         key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
-        date={date}
-        validTimePeriod={props.validTimePeriod}
         eventHandlers={{
           click(e) {
             DomEvent.stop(e);
@@ -140,19 +112,7 @@ const BulletinMap = (props: Props) => {
           }
         }}
       >
-        {regionIds.map(region => {
-          const regionState =
-            region === regionMouseover
-              ? "mouseOver"
-              : props.getRegionState(region, props.validTimePeriod);
-          return (
-            <PbfRegionState
-              key={region + regionState + props.validTimePeriod}
-              region={region}
-              regionState={regionState}
-            />
-          );
-        })}
+        {regionState}
       </PbfLayerOverlay>
     );
     return overlays;

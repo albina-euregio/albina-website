@@ -2,6 +2,7 @@ import {
   AvalancheProblemType,
   Bulletin,
   Bulletins,
+  ColonAmPm,
   DangerRating,
   matchesValidTimePeriod,
   toAmPm,
@@ -14,12 +15,51 @@ import { dateToISODateString, getPredDate } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
-export type RegionState =
-  | "selected"
-  | "highlighted"
-  | "dehighlighted"
-  | "dimmed"
-  | "default";
+type RegionID = string;
+type LowHigh = "low" | "high";
+type ColonLowHigh = "" | `:${LowHigh}`;
+
+export type MaxDangerRatings = Record<
+  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  WarnLevelNumber
+>;
+
+export type EawsAvalancheProblems = Record<
+  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  AvalancheProblemType[]
+>;
+
+const eawsRegions = Object.freeze([
+  "AD",
+  "AT-02",
+  "AT-03",
+  "AT-04",
+  "AT-05",
+  "AT-06",
+  "AT-08",
+  "CH",
+  "CZ",
+  "DE-BY",
+  "ES-CT-L",
+  "ES-CT",
+  "ES",
+  "FI",
+  "FR",
+  "GB",
+  "IS",
+  "IT-21",
+  "IT-23",
+  "IT-25",
+  "IT-34",
+  "IT-36",
+  "IT-57",
+  "NO",
+  "PL",
+  "PL-12",
+  "SE",
+  "SI",
+  "SK"
+]);
 
 /**
  * Class storing one Caaml.Bulletins object with additional state.
@@ -28,7 +68,9 @@ class BulletinCollection {
   status: Status;
   dataRaw: Bulletins | null;
   dataRaw170000: Bulletins | null;
-  maxDangerRatings: Record<string, WarnLevelNumber>;
+  maxDangerRatings: MaxDangerRatings;
+  eawsMaxDangerRatings: MaxDangerRatings;
+  eawsAvalancheProblems: EawsAvalancheProblems;
 
   constructor(
     public readonly date: string,
@@ -67,7 +109,7 @@ class BulletinCollection {
     const url = this._getBulletinUrl();
     if (!url) return;
     try {
-      const response: Bulletins = await fetchJSON(url, { cache: "no-cache" });
+      const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
       this.setData(response);
       this.dataRaw170000 = undefined;
       if (response.bulletins.some(b => b.unscheduled)) {
@@ -83,7 +125,50 @@ class BulletinCollection {
       this.setData(null);
       this.status = "n/a";
     }
+    //
     return this;
+  }
+
+  async loadEawsBulletins() {
+    this.eawsMaxDangerRatings = {};
+    if (this.date < "2021-01-25") {
+      return;
+    }
+    const regex = new RegExp("^(" + eawsRegions.join("|") + ")");
+    try {
+      const url =
+        eawsRegions.length === 1 // this.date < "2023-11-01"
+          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${eawsRegions[0]}.ratings.json`
+          : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
+      const { maxDangerRatings } = await fetchJSON<{
+        maxDangerRatings: MaxDangerRatings;
+      }>(url, {
+        cache: "no-cache"
+      });
+      this.eawsMaxDangerRatings = Object.fromEntries(
+        Object.entries(maxDangerRatings).filter(([r]) => regex.test(r))
+      );
+    } catch (error) {
+      console.warn("Cannot load EAWS bulletins for date " + this.date, error);
+    }
+  }
+
+  async loadEawsProblems() {
+    this.eawsAvalancheProblems = {};
+    if (this.date < "2024-01-01") {
+      return;
+    }
+    try {
+      const url = `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.problems.json`;
+      const { avalancheProblems } = await fetchJSON<{
+        avalancheProblems: EawsAvalancheProblems;
+      }>(url, {
+        cache: "no-cache"
+      });
+      this.eawsAvalancheProblems = avalancheProblems;
+    } catch (error) {
+      console.warn("Cannot load EAWS  problems for date " + this.date, error);
+    }
   }
 
   get bulletins(): Bulletin[] {
@@ -143,7 +228,7 @@ class BulletinCollection {
       : "n/a";
   }
 
-  private computeMaxDangerRatings(): Record<string, WarnLevelNumber> {
+  private computeMaxDangerRatings(): MaxDangerRatings {
     return Object.fromEntries(
       this.dataRaw?.bulletins.flatMap(b =>
         b.regions.flatMap(({ regionID }) =>
@@ -163,7 +248,7 @@ class BulletinCollection {
     regionID: string,
     validTimePeriod: ValidTimePeriod,
     b: Bulletin,
-    elevation: "low" | "high"
+    elevation: LowHigh
   ): WarnLevelNumber {
     const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
     const warnlevel = dangerRatings
@@ -190,7 +275,7 @@ class BulletinCollection {
   private dangerRatings(
     validTimePeriod: ValidTimePeriod,
     bulletin: Bulletin,
-    elevation: "low" | "high"
+    elevation: LowHigh
   ): DangerRating[] {
     return bulletin?.dangerRatings
       .filter(danger =>

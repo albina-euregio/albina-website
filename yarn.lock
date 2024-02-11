@@ -733,9 +733,9 @@
   integrity sha512-xFdR6tkm0MWvBfO8xXCSsinYxHcqkQUlcHeSpMC2ukzOb6lwQAfDmW+Qt0AvlGd8HpsS28qKsB+oPeJn9I39jg==
 
 "@types/geojson-vt@*":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@types/geojson-vt/-/geojson-vt-3.2.0.tgz"
-  integrity sha512-w3Suw6tXNOPZZROz7+cEkYF+ufVZKKfhKByxRFQwwm5BMyC1pflI9nEsiFQ1eQ27IiO1TEkxjvvcbyKW5YJJKA==
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/@types/geojson-vt/-/geojson-vt-3.2.5.tgz#b6c356874991d9ab4207533476dfbcdb21e38408"
+  integrity sha512-qDO7wqtprzlpe8FfQ//ClPV9xiuoh2nkIgiouIptON9w5jvD/fA4szvP9GBlDVdJ5dldAl0kX/sy3URbWwLx0g==
   dependencies:
     "@types/geojson" "*"
 
@@ -1247,7 +1247,7 @@ commander@11.1.0:
 
 commander@2:
   version "2.20.3"
-  resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
 concat-map@0.0.1:
@@ -2450,7 +2450,7 @@ leaflet.sync@^0.2.4:
 
 leaflet.vectorgrid@^1.3.0:
   version "1.3.0"
-  resolved "https://registry.npmjs.org/leaflet.vectorgrid/-/leaflet.vectorgrid-1.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/leaflet.vectorgrid/-/leaflet.vectorgrid-1.3.0.tgz#ff2deea17d06a9c6cc5e65d8c7287093950e219a"
   integrity sha512-kWmj1pKM+MVdo/7Mg5zsB3YrGZvo/uIuiANV9MvWUFOG+Y2xAJzrteDhoIcCgTjHSSRJ36xdeGdIQVhuWjnCZw==
   dependencies:
     pbf "^3.0.2"
@@ -2825,7 +2825,7 @@ path-type@^4.0.0:
 
 pbf@^3.0.2:
   version "3.2.1"
-  resolved "https://registry.npmjs.org/pbf/-/pbf-3.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/pbf/-/pbf-3.2.1.tgz#b4c1b9e72af966cd82c6531691115cc0409ffe2a"
   integrity sha512-ClrV7pNOn7rtmoQVF4TS1vyU0WhYRnP92fzbfF75jAIwpnzdJXf8iTd4CMEqO4yUenH6NDqLiwjqlh6QgZzgLQ==
   dependencies:
     ieee754 "^1.1.12"
@@ -2862,7 +2862,7 @@ playwright@1.40.1:
 
 point-geometry@0.0.0:
   version "0.0.0"
-  resolved "https://registry.npmjs.org/point-geometry/-/point-geometry-0.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/point-geometry/-/point-geometry-0.0.0.tgz#6fcbcad7a803b6418247dd6e49c2853c584daff7"
   integrity sha512-tXK8bY2l3/CPkyO7+UbOWbVjCpKoYY4t6uY3AYYy4Bagd4Z942gLeQOgtHICwBwgPf8dI6fw4VqKwzSNgvlw4A==
 
 point-in-polygon@^1.1.0:
@@ -3370,7 +3370,7 @@ to-regex-range@^5.0.1:
 
 topojson-client@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npmjs.org/topojson-client/-/topojson-client-2.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/topojson-client/-/topojson-client-2.1.0.tgz#ff9f7bf38991185e0b4284c2b06ae834f0eac6c8"
   integrity sha512-mxXNa6imbsrWXqUKF7iwGl2TkrshZ7dwQF+KuAB4hX9wTmfecNzqSjMmQZNhP2Ztvfwx8rKt0BfQfHF+ki6hQw==
   dependencies:
     commander "2"
@@ -3493,7 +3493,7 @@ use-sync-external-store@^1.2.0:
 
 vector-tile@^1.3.0:
   version "1.3.0"
-  resolved "https://registry.npmjs.org/vector-tile/-/vector-tile-1.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/vector-tile/-/vector-tile-1.3.0.tgz#06d516a83b063f04c82ef539cf1bb1aebeb696b4"
   integrity sha512-ECpYpDhbgTSGIRwaf4bLbiDHcUHDM+LGrBOmV1tdG+Lde8vajJtywP5vGFmMj0Z3cApTV0+9sLWgBCVsRuoAKQ==
   dependencies:
     point-geometry "0.0.0"
@@ -3511,7 +3511,7 @@ vite@^5.1.0:
 
 whatwg-fetch@^2.0.3:
   version "2.0.4"
-  resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
   integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
 which-boxed-primitive@^1.0.2:

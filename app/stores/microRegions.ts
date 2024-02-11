@@ -8,10 +8,15 @@ import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
 import { regionsRegex } from "../util/regions";
 
+export enum EawsRegionDataLayer {
+  micro_regions_elevation = "micro-regions_elevation",
+  micro_regions = "micro-regions",
+  outline = "outline"
+}
 export interface MicroRegionProperties {
   id: string;
-  start_date?: Date;
-  end_date?: Date;
+  start_date?: string;
+  end_date?: string;
 }
 
 export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
@@ -21,8 +26,8 @@ export interface MicroRegionElevationProperties {
   elevation: "high" | "low" | "low_high";
   "elevation line_visualization"?: number;
   threshold?: number;
-  start_date?: Date;
-  end_date?: Date;
+  start_date?: string;
+  end_date?: string;
 }
 
 export const microRegionsElevation: MicroRegionElevationProperties[] = [
@@ -46,10 +51,9 @@ export interface RegionOutlineProperties {
  * @returns {boolean}
  */
 export function filterFeature(
-  feature: GeoJSON.Feature,
-  today = new Date().toISOString().slice(0, "2006-01-02".length)
+  { properties }: { properties: MicroRegionProperties },
+  today: string = new Date().toISOString().slice(0, "2006-01-02".length)
 ): boolean {
-  const properties = feature.properties;
   return (
     (!properties.start_date || properties.start_date <= today) &&
     (!properties.end_date || properties.end_date > today)
