@@ -3,7 +3,7 @@ import { useIntl } from "../../i18n";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
-import { LONG_DATE_FORMAT } from "../../util/date.js";
+import { LONG_DATE_FORMAT } from "../../util/date";
 import type { BulletinCollection, Status } from "../../stores/bulletin";
 
 type Props = {

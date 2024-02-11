@@ -23,7 +23,7 @@ import {
   LONG_DATE_FORMAT,
   dateToISODateString,
   getSuccDate
-} from "../util/date.js";
+} from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 import {

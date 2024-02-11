@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
 import type { Bulletin, Status } from "../../stores/bulletin";
-import { isSummerTime } from "../../util/date.js";
+import { isSummerTime } from "../../util/date";
 
 type Props = {
   bulletin: Bulletin;

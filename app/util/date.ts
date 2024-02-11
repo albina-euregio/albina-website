@@ -1,5 +1,5 @@
-function parseDate(dateString) {
-  const dateMatch = dateString.match(/^(\d{4}-\d{2}-\d{2})([T ].*)?$/);
+export function parseDate(dateString: string) {
+  const dateMatch = /^(\d{4}-\d{2}-\d{2})([T ].*)?$/.exec(dateString);
   if (dateMatch) {
     console.assert(typeof dateMatch[1] === "string", dateMatch);
     const dateString = dateMatch[1];
@@ -9,8 +9,8 @@ function parseDate(dateString) {
     }
 
     // time supplied
-    const timeString = dateMatch[2].substr(1);
-    let timeMatch = timeString.match(/^(\d{2}:\d{2})(:\d{2})?.*$/);
+    const timeString = dateMatch[2].slice(1);
+    const timeMatch = /^(\d{2}:\d{2})(:\d{2})?.*$/.exec(timeString);
     if (timeMatch) {
       const str = timeMatch[1] + (timeMatch[2] ? timeMatch[2] : ":00");
       return _parseDatetime(dateString + "T" + str);
@@ -19,15 +19,15 @@ function parseDate(dateString) {
   return null;
 }
 
-function _parseDatetime(dateTimeString) {
-  var a = dateTimeString.split(/[^0-9]/);
+export function _parseDatetime(dateTimeString: string) {
+  const a = dateTimeString.split(/[^0-9]/);
   //for (i=0;i<a.length;i++) { alert(a[i]); }
-  var parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4]);
+  const parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4]);
 
   return parsedDate ? parsedDate : null;
 }
 
-function getPredDate(date) {
+export function getPredDate(date: Date) {
   if (date) {
     const candidate = new Date(date.valueOf() - 1000 * 60 * 60 * 24);
     if (isSummerTime(date) && !isSummerTime(candidate)) {
@@ -40,8 +40,8 @@ function getPredDate(date) {
   return null;
 }
 
-function getSuccDate(date) {
-  let timeValue = date.valueOf();
+export function getSuccDate(date: Date) {
+  const timeValue = date.valueOf();
 
   if (date) {
     return new Date(timeValue + 1000 * 60 * 60 * 24);
@@ -49,7 +49,7 @@ function getSuccDate(date) {
   return null;
 }
 
-function isSummerTime(date) {
+export function isSummerTime(date: Date) {
   // NOTE: getTimezoneOffset gives negative values for timezones east of GMT!
   const summerTimeOffset = (() => {
     const jan = new Date(date.getFullYear(), 0, 1);
@@ -60,7 +60,7 @@ function isSummerTime(date) {
   return -date.getTimezoneOffset() >= summerTimeOffset;
 }
 
-function removeMilliseconds(unixTimeStamp) {
+export function removeMilliseconds(unixTimeStamp: number) {
   return Math.floor(unixTimeStamp / 1000) * 1000;
 }
 
@@ -104,8 +104,8 @@ export const DATE_TIME_ZONE_FORMAT = {
 };
 Object.freeze(DATE_TIME_ZONE_FORMAT);
 
-function dateToISODateString(date) {
-  let pad = function (d) {
+export function dateToISODateString(date: Date) {
+  const pad = function (d: number) {
     if (d < 10) {
       return "0" + d;
     }
@@ -124,7 +124,7 @@ function dateToISODateString(date) {
   return "";
 }
 
-function isSameDay(d1, d2) {
+export function isSameDay(d1: Date, d2: Date) {
   return (
     d1.getDate() == d2.getDate() &&
     d1.getMonth() == d2.getMonth() &&
@@ -132,31 +132,31 @@ function isSameDay(d1, d2) {
   );
 }
 
-function isAfter(d1, d2) {
+export function isAfter(d1: Date, d2: Date) {
   return d1.valueOf() > d2.valueOf();
 }
 
 /* format date utc enabled */
-function dateFormat(date, fstr, utc) {
-  utc = utc ? "getUTC" : "get";
-  return fstr.replace(/%[YmdHMS]/g, function (m) {
+export function dateFormat(date: Date, fstr, isUTC: boolean) {
+  const utc = isUTC ? "getUTC" : "get";
+  return fstr.replace(/%[YmdHMS]/g, (m: string) => {
     switch (m) {
       case "%Y":
-        return date[utc + "FullYear"](); // no leading zeros required
+        return date[`${utc}FullYear`](); // no leading zeros required
       case "%m":
-        m = 1 + date[utc + "Month"]();
+        m = 1 + date[`${utc}Month`]();
         break;
       case "%d":
-        m = date[utc + "Date"]();
+        m = date[`${utc}Date`]();
         break;
       case "%H":
-        m = date[utc + "Hours"]();
+        m = date[`${utc}Hours`]();
         break;
       case "%M":
-        m = date[utc + "Minutes"]();
+        m = date[`${utc}Minutes`]();
         break;
       case "%S":
-        m = date[utc + "Seconds"]();
+        m = date[`${utc}Seconds`]();
         break;
       default:
         return m.slice(1); // unknown code, remove %
@@ -166,29 +166,16 @@ function dateFormat(date, fstr, utc) {
   });
 }
 
-function getDaysOfMonth(year, month) {
+export function getDaysOfMonth(year: number, month: number) {
   // according to ECMA Standard, day is relative to the first of the month:
   // that means 0 is the last day of the previous month - see:
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setDate
   //
   // therefore we set y and m to the successor month, to get the number of
   // days (the last day in month) for the desired month
-  const y = month == 12 ? parseInt(year) + 1 : year;
+  const y = month == 12 ? year + 1 : year;
   const m = month == 12 ? 0 : month;
   const d = new Date(y, m, 0);
 
   return d.getDate();
 }
-
-export {
-  parseDate,
-  getPredDate,
-  getSuccDate,
-  isSameDay,
-  isAfter,
-  isSummerTime,
-  dateToISODateString,
-  getDaysOfMonth,
-  dateFormat,
-  removeMilliseconds
-};

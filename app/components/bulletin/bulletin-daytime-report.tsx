@@ -8,7 +8,7 @@ import {
   dateToISODateString,
   getSuccDate,
   LONG_DATE_FORMAT
-} from "../../util/date.js";
+} from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,

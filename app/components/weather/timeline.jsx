@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import { FormattedDate } from "../../i18n";
-import { isSameDay } from "../../util/date.js";
+import { isSameDay } from "../../util/date";
 import Dragger from "./dragger.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";

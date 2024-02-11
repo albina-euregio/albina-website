@@ -7,7 +7,7 @@ import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
 
 import { parseSearchParams } from "../util/searchParams";
-import { dateToISODateString } from "../util/date.js";
+import { dateToISODateString } from "../util/date";
 import { BLOG_STORE } from "../stores/blogStore";
 
 /*

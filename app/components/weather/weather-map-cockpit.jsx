@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import { Tooltip } from "../tooltips/tooltip";
-import { DATE_TIME_FORMAT } from "../../util/date.js";
+import { DATE_TIME_FORMAT } from "../../util/date";
 //import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
