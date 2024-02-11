@@ -1,11 +1,17 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-const BlogPageFlipper = props => {
-  const intl = useIntl();
-  let { curPage, maxPages } = props;
-  //console.log("PageFlipper", curPage, maxPages);
 
+type Props = {
+  curPage: number;
+  maxPages: number;
+  handlePreviousPage: () => void;
+  handleNextPage: () => void;
+};
+
+const BlogPageFlipper = (props: Props) => {
+  const intl = useIntl();
+  const { curPage, maxPages } = props;
   const pageTranslation = intl.formatMessage({
     id: "blog:page-flipper:page"
   });
