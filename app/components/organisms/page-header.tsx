@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
-import Menu from "./../menu";
+import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
 
 import menuItems from "../../menu.json";
