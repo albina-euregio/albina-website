@@ -14,22 +14,26 @@ window["scroll_duration"] = 1000;
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-window.config =
+const configRequest =
   import.meta.env.BASE_URL === "/dev/"
-    ? await import("./config-dev.json")
-    : await import("./config.json");
-window.config = { ...window.config };
-window.config["projectRoot"] = import.meta.env.BASE_URL;
-window.config["template"] = template;
+    ? import("./config-dev.json")
+    : import("./config.json");
+configRequest.then(async configParsed => {
+  configParsed = { ...configParsed };
+  configParsed["projectRoot"] = import.meta.env.BASE_URL;
+  configParsed["template"] = template;
 
-const language = window.config["hostLanguageSettings"][location.host];
-if (!language && location.host.startsWith("www.")) {
-  location.host = location.host.substring("www.".length);
-}
-await setLanguage(language || "en");
+  const language = configParsed["hostLanguageSettings"][location.host];
+  if (!language && location.host.startsWith("www.")) {
+    location.host = location.host.substring("www.".length);
+  }
+  await setLanguage(language || "en");
 
-const root = document.body.appendChild(document.getElementById("page-all"));
-createRoot(root).render(<App />);
+  window.config = configParsed;
+
+  const root = document.body.appendChild(document.getElementById("page-all"));
+  createRoot(root).render(<App />);
+});
 
 if (isWebPushSupported()) {
   navigator.serviceWorker
