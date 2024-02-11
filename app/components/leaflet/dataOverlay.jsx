@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
-import { isBlendingSupported } from "../../util/blendMode";
 import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
 
@@ -358,7 +357,7 @@ const DataOverlay = ({
             className={["leaflet-image-layer", "map-info-layer"].join(" ")}
             style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
             url={overlay + dataOverlayFilePostFix.main}
-            opacity={isBlendingSupported() ? 1 : 0.5}
+            opacity={1}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
             attribution={
