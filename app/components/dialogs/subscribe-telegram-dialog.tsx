@@ -64,7 +64,7 @@ export default function SubscribeTelegramDialog() {
           <button
             type="submit"
             className="pure-button"
-            disabled={region && language ? "" : "disabled"}
+            disabled={!(region && language)}
           >
             {intl.formatMessage({
               id: "dialog:subscribe-telegram:subscribe:button"

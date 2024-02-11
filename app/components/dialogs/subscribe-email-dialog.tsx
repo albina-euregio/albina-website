@@ -39,8 +39,8 @@ export default function SubscribeEmailDialog() {
     }
   }, [setErrorMessage, email, language, region]);
 
-  function validateEmail(email) {
-    var re = /\S+@\S+\.\S+/;
+  function validateEmail(email: string) {
+    const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
 
@@ -154,7 +154,7 @@ export default function SubscribeEmailDialog() {
           <button
             type="submit"
             className="pure-button"
-            disabled={email && region && language && agree ? "" : "disabled"}
+            disabled={!(email && region && language && agree)}
           >
             {intl.formatMessage({
               id: "dialog:subscribe-email:subscribe:button"

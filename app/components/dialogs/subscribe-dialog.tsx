@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { FormattedMessage } from "../../i18n";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
@@ -8,11 +8,11 @@ import SubscribeWebPushDialog, {
 } from "./subscribe-web-push-dialog";
 
 export default function SubscribeDialog() {
-  const intl = useIntl();
-  const [selectedDialog, selectDialog] = useState(null);
   const dialogTypes = isWebPushSupported()
-    ? ["WebPush", "Telegram", "Email", "App"]
-    : ["Telegram", "Email", "App"];
+    ? (["WebPush", "Telegram", "Email", "App"] as const)
+    : (["Telegram", "Email", "App"] as const);
+  const [selectedDialog, selectDialog] =
+    useState<(typeof dialogTypes)[number]>(null);
   return (
     <>
       <div className="modal-container">
@@ -53,8 +53,8 @@ export default function SubscribeDialog() {
                         selectDialog(type);
                       }}
                     >
-                      {intl.formatMessage({
-                        id:
+                      <FormattedMessage
+                        id={
                           type === "WebPush"
                             ? "dialog:subscribe:web-push"
                             : type === "Telegram"
@@ -64,7 +64,8 @@ export default function SubscribeDialog() {
                                 : type === "App"
                                   ? "dialog:subscribe:app"
                                   : undefined
-                      })}
+                        }
+                      />
                     </a>
                   </li>
                 ))}

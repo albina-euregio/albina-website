@@ -3,10 +3,12 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 
-/**
- * @param {PushSubscription} subscription
- */
-function updatePushSubscription(subscription, url, language = "", region = "") {
+function updatePushSubscription(
+  subscription: PushSubscription,
+  url: string,
+  language = "",
+  region = ""
+) {
   const { endpoint, keys } = subscription.toJSON();
   return fetch(url, {
     method: "POST",
@@ -23,10 +25,7 @@ function updatePushSubscription(subscription, url, language = "", region = "") {
   });
 }
 
-/**
- * @param {string} base64String
- */
-function urlBase64ToUint8Array(base64String) {
+function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
   const rawData = atob(base64);
@@ -191,7 +190,7 @@ export default function SubscribeWebPushDialog() {
           <button
             type="submit"
             className="pure-button"
-            disabled={region && language ? "" : "disabled"}
+            disabled={!(region && language)}
           >
             {intl.formatMessage({
               id: "dialog:subscribe-web-push:enable"
