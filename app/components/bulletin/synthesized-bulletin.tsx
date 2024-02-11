@@ -21,7 +21,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
       }
       const fileUrl = config.template(config.apis.bulletin.mp3, {
         date: dateToISODateString(date),
-        region: bulletin.bulletinID + "_",
+        region: bulletin.bulletinID,
         lang: bulletin.lang
       });
 
