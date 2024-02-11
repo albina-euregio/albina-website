@@ -1,8 +1,13 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
+import type { RegionCodes } from "../../util/regions";
 
-export default function SmFollow({ region }) {
+type Props = {
+  region: RegionCodes;
+};
+
+export default function SmFollow({ region }: Props) {
   const intl = useIntl();
   const accounts = config.subscribe.socialMedia.filter(
     account => account.url[region]
