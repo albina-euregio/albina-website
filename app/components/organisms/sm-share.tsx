@@ -2,14 +2,20 @@ import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
-export default function SmShare(props) {
+type Props = {
+  description: string;
+  image: string;
+  title: string;
+};
+
+export default function SmShare(props: Props) {
   const intl = useIntl();
-  function getShareUrl(type) {
+  function getShareUrl(type: "Telegram" | "Facebook" | "Twitter" | "WhatsApp") {
     const currentUrl = String(window.location);
     let url = "";
     const params = new URLSearchParams();
 
-    if (type == "facebook") {
+    if (type == "Facebook") {
       url = "https://www.facebook.com/sharer.php";
       params.set("u", currentUrl);
       if (props.image) {
@@ -22,15 +28,15 @@ export default function SmShare(props) {
         params.set("description", props.description);
       }
     }
-    if (type == "twitter") {
-      url = "https://www.twitter.com/share";
+    if (type == "Twitter") {
+      url = "https://twitter.com/intent/tweet";
       params.set("url", currentUrl);
     }
-    if (type == "whatsapp") {
+    if (type == "WhatsApp") {
       url = "https://wa.me/";
       params.set("text", currentUrl);
     }
-    if (type == "telegram") {
+    if (type == "Telegram") {
       url = "https://telegram.me/share/";
       params.set("url", currentUrl);
       if (props.title) {
@@ -47,7 +53,7 @@ export default function SmShare(props) {
     // "YouTube",
     "WhatsApp",
     "Telegram"
-  ];
+  ] as const;
 
   return (
     <section className="section section-padding sm-share-follow">
@@ -70,7 +76,7 @@ export default function SmShare(props) {
               )}
             >
               <a
-                href={getShareUrl(type.toLowerCase())}
+                href={getShareUrl(type)}
                 className={`sm-button icon-sm-${type.toLowerCase()}`}
                 aria-label={intl.formatMessage(
                   { id: "main:share-this:hover" },
