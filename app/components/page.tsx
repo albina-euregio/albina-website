@@ -3,9 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
-import ControlBar from "../components/organisms/control-bar";
+import ControlBar from "./organisms/control-bar";
 
-const Page = props => {
+type Props = {
+  children: React.ReactNode;
+};
+
+const Page = (props: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const didMountRef = useRef(false);
