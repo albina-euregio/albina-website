@@ -1,30 +1,6 @@
 export function parseDate(dateString: string) {
-  const dateMatch = /^(\d{4}-\d{2}-\d{2})([T ].*)?$/.exec(dateString);
-  if (dateMatch) {
-    console.assert(typeof dateMatch[1] === "string", dateMatch);
-    const dateString = dateMatch[1];
-    if (typeof dateMatch[2] === "undefined") {
-      // no time supplied
-      return _parseDatetime(dateString + "T00:00:00");
-    }
-
-    // time supplied
-    const timeString = dateMatch[2].slice(1);
-    const timeMatch = /^(\d{2}:\d{2})(:\d{2})?.*$/.exec(timeString);
-    if (timeMatch) {
-      const str = timeMatch[1] + (timeMatch[2] ? timeMatch[2] : ":00");
-      return _parseDatetime(dateString + "T" + str);
-    }
-  }
-  return null;
-}
-
-export function _parseDatetime(dateTimeString: string) {
-  const a = dateTimeString.split(/[^0-9]/);
-  //for (i=0;i<a.length;i++) { alert(a[i]); }
-  const parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4]);
-
-  return parsedDate ? parsedDate : null;
+  // 2023-03-26 or 2023-12-15T06:38:19
+  return new Date(dateString);
 }
 
 export function getPredDate(date: Date) {
