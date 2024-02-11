@@ -13,21 +13,21 @@ import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
 
-const Bulletin = React.lazy(() => import("./../views/bulletin"));
-const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
-const BlogPost = React.lazy(() => import("./../views/blogPost"));
-const Weather = React.lazy(() => import("./../views/weather"));
+const Bulletin = React.lazy(() => import("../views/bulletin"));
+const BlogOverview = React.lazy(() => import("../views/blogOverview"));
+const BlogPost = React.lazy(() => import("../views/blogPost"));
+const Weather = React.lazy(() => import("../views/weather"));
 const StationMeasurements = React.lazy(
-  () => import("./../views/stationMeasurements")
+  () => import("../views/stationMeasurements")
 );
-const StationArchive = React.lazy(() => import("./../views/stationArchive"));
-const StationMap = React.lazy(() => import("./../views/stationMap"));
-const SnowProfileMap = React.lazy(() => import("./../views/snowProfileMap"));
-const Education = React.lazy(() => import("./../views/education"));
-const More = React.lazy(() => import("./../views/more"));
-const Archive = React.lazy(() => import("./../views/archive"));
+const StationArchive = React.lazy(() => import("../views/stationArchive"));
+const StationMap = React.lazy(() => import("../views/stationMap"));
+const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
+const Education = React.lazy(() => import("../views/education"));
+const More = React.lazy(() => import("../views/more"));
+const Archive = React.lazy(() => import("../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
-const StaticPage = React.lazy(() => import("./../views/staticPage"));
+const StaticPage = React.lazy(() => import("../views/staticPage"));
 
 const RouteStaticPage = () => {
   const params = useParams();
