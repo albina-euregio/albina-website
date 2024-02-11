@@ -3,9 +3,9 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 type Props = {
-  description: string;
-  image: string;
-  title: string;
+  description?: string;
+  image?: string;
+  title?: string;
 };
 
 export default function SmShare(props: Props) {
