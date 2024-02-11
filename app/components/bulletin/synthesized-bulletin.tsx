@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from "react";
 import { useState, useEffect } from "react";
-import { dateToISODateString } from "../../util/date.js";
+import { dateToISODateString } from "../../util/date";
 import { Bulletin } from "../../stores/bulletin";
 import { fetchExists } from "../../util/fetch";
 

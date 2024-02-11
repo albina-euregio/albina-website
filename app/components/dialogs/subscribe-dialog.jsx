@@ -58,12 +58,12 @@ export default function SubscribeDialog() {
                           type === "WebPush"
                             ? "dialog:subscribe:web-push"
                             : type === "Telegram"
-                            ? "dialog:subscribe:telegram"
-                            : type === "Email"
-                            ? "dialog:subscribe:email"
-                            : type === "App"
-                            ? "dialog:subscribe:app"
-                            : undefined
+                              ? "dialog:subscribe:telegram"
+                              : type === "Email"
+                                ? "dialog:subscribe:email"
+                                : type === "App"
+                                  ? "dialog:subscribe:app"
+                                  : undefined
                       })}
                     </a>
                   </li>

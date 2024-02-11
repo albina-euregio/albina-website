@@ -1,28 +1,26 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
-import type { BulletinCollection, Status } from "../../stores/bulletin";
-import { isSummerTime } from "../../util/date.js";
+import type { Bulletin, Status } from "../../stores/bulletin";
 
 type Props = {
-  activeBulletinCollection: BulletinCollection;
+  bulletin: Bulletin;
   status: Status;
 };
 
 const BulletinStatusLine = (props: Props) => {
   const intl = useIntl();
   const status = props.status;
-  const collection = props.activeBulletinCollection;
   let statusText = "";
-  const publicationTime = (collection?.bulletins || [])
-    .map(b => b.publicationTime)
-    .reduce((t1, t2) => (t1 > t2 ? t1 : t2), "");
-  const isRepublished = useMemo(() => {
-    const summerTime = isSummerTime(new Date(publicationTime));
-    return (
-      publicationTime &&
-      !(summerTime ? /T15:00:00Z/ : /T16:00:00Z/).test(publicationTime)
-    );
-  }, [publicationTime]);
+  const publicationTime = props.bulletin?.publicationTime;
+  const unscheduled = useMemo(
+    () =>
+      props.bulletin?.unscheduled ??
+      (publicationTime &&
+        !new Date(publicationTime)
+          .toLocaleTimeString("de", { timeZone: "Europe/Vienna" })
+          .includes("17:00")),
+    [props.bulletin?.unscheduled, publicationTime]
+  );
 
   if (status == "pending") {
     statusText =
@@ -37,7 +35,7 @@ const BulletinStatusLine = (props: Props) => {
       time: intl.formatDate(publicationTime, { timeStyle: "short" })
     };
 
-    if (isRepublished) {
+    if (unscheduled) {
       statusText = intl.formatMessage(
         { id: "bulletin:header:updated-at" },
         params
@@ -51,16 +49,16 @@ const BulletinStatusLine = (props: Props) => {
   }
 
   return (
-    <p
+    <span
       className={
         "marginal " +
-        (isRepublished
+        (unscheduled
           ? "bulletin-datetime-publishing"
           : "bulletin-datetime-validity")
       }
     >
       {statusText}
-    </p>
+    </span>
   );
 };
 

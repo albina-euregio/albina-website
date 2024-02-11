@@ -1,20 +1,27 @@
 import React from "react";
-import { useIntl } from "../../i18n";
+import { FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import type * as Caaml from "../../stores/bulletin";
 
-type Props = { dangerPattern: Caaml.DangerPattern };
+type Props = { dangerPattern: Caaml.DangerPattern; isInserted: boolean };
 
-function DangerPatternItem({ dangerPattern }: Props) {
-  const intl = useIntl();
+function DangerPatternItem({ dangerPattern, isInserted }: Props) {
   return (
     <Link
       to={"/education/danger-patterns#" + dangerPattern.toLowerCase()}
       className="label"
     >
-      {intl.formatMessage({
-        id: "danger-patterns:" + dangerPattern.toLowerCase()
-      })}
+      {isInserted ? (
+        <ins style={{ color: "#28a745" }}>
+          <FormattedMessage
+            id={`danger-patterns:${dangerPattern.toLowerCase()}`}
+          />
+        </ins>
+      ) : (
+        <FormattedMessage
+          id={`danger-patterns:${dangerPattern.toLowerCase()}`}
+        />
+      )}
     </Link>
   );
 }

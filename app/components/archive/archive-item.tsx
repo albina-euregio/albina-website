@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date.js";
+import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin } from "../../stores/bulletin";
@@ -183,10 +183,10 @@ function BulletinMap({
     bulletin && dateString > "2022-05-06"
       ? `EUREGIO_${bulletin.bulletinID}`
       : bulletin
-      ? bulletin.bulletinID
-      : dateString < "2022-05-06"
-      ? "fd_albina_thumbnail"
-      : "fd_EUREGIO_thumbnail";
+        ? bulletin.bulletinID
+        : dateString < "2022-05-06"
+          ? "fd_albina_thumbnail"
+          : "fd_EUREGIO_thumbnail";
   return (
     <Tooltip
       label={intl.formatMessage({

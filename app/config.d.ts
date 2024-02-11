@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare let config: typeof import("./config.json");
 
 declare global {

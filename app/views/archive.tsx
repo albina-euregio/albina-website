@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
-import { getSuccDate, dateToISODateString } from "../util/date.js";
+import { getSuccDate, dateToISODateString } from "../util/date";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
 import ArchiveItem, {

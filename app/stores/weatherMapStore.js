@@ -519,8 +519,8 @@ export default class WeatherMapStore_new {
     let timeSpanDir = currentTimespan.includes("+-")
       ? 0
       : parseInt(currentTimespan, 10) > 0
-      ? 1
-      : -1;
+        ? 1
+        : -1;
     //let debIndezes;
     // console.log(
     //   "weatherMapStore_new _setTimeIndices #1",

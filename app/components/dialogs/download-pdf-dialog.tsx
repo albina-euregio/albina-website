@@ -14,8 +14,8 @@ function DownloadPdfDialog({ activeBulletinCollection }: Props) {
     region = region
       ? `${region}_`
       : activeBulletinCollection?.date > "2022-05-06"
-      ? "EUREGIO_"
-      : "";
+        ? "EUREGIO_"
+        : "";
     return config.template(config.apis.bulletin.pdf, {
       date: activeBulletinCollection?.date,
       region,

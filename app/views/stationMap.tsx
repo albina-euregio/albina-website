@@ -8,24 +8,29 @@ import { StationData, useStationData } from "../stores/stationDataStore";
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 
-const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
-  geometry: {
-    coordinates: [
-      +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
-      +observer.latitude
-    ]
-  },
-  name: observer.name,
-  id: "observer-" + observer["plot.id"],
-  plot: observer["plot.id"]
-}));
+export const observers = [...BeobachterAT, ...BeobachterIT].map(
+  (observer): ObserverData => ({
+    geometry: {
+      coordinates: [
+        +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
+        +observer.latitude
+      ]
+    },
+    name: observer.name,
+    id: "observer-" + observer["plot.id"],
+    plot: observer["plot.id"]
+  })
+);
 
 function StationMap(props) {
   const intl = useIntl();
-  const [stationData, setStationData] = useState<StationData[]>();
+  const [stationData, setStationData] = useState<
+    StationData[] | ObserverData[]
+  >();
   const [stationId, setStationId] = useState<string>();
   const { load, data } = useStationData("microRegion");
 

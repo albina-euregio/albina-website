@@ -18,7 +18,7 @@ import {
   LONG_DATE_FORMAT,
   dateToISODateString,
   getSuccDate
-} from "../util/date.js";
+} from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 import {
@@ -288,7 +288,7 @@ const Bulletin = () => {
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection && (
         <BulletinList
-          bulletins={collection.bulletins}
+          bulletins={collection.bulletinsWith170000}
           date={collection?.date ? parseDate(collection?.date) : undefined}
           region={region}
         />

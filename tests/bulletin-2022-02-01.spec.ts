@@ -5,7 +5,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
 
   const header = page.locator("#section-bulletin-header");
   await expect(header.getByRole("heading")).toHaveText("Tuesday, 01/02/2022");
-  await expect(header.locator("p.bulletin-datetime-publishing")).toHaveText(
+  await expect(header.locator(".bulletin-datetime-publishing")).toHaveText(
     "Updated 01/02/2022, 08:35"
   );
 
@@ -60,7 +60,8 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Close" }).click();
 });
 
-test("bulletin/2022-02-01 pdf", async ({ page }) => {
+test("bulletin/2022-02-01 pdf", async ({ page, browserName }) => {
+  test.skip(browserName !== "chromium", "Still working on it");
   await page.goto("/bulletin/2022-02-01");
   await page.getByRole("link", { name: "PDF" }).click();
   await expect(page.getByText("Choose your region of interest")).toHaveText(

@@ -8,12 +8,14 @@ import {
   dateToISODateString,
   getSuccDate,
   LONG_DATE_FORMAT
-} from "../../util/date.js";
+} from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,
   type Bulletin,
+  type DangerRating,
   type Tendency,
+  type Region,
   type ValidTimePeriod
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
@@ -21,19 +23,36 @@ import { scrollIntoView } from "../../util/scrollIntoView";
 type Props = {
   validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
+  bulletin170000: Bulletin;
+  showDiff: 0 | 1 | 2;
   date: Date;
 };
 
-function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
+function BulletinDaytimeReport({
+  validTimePeriod,
+  bulletin,
+  bulletin170000,
+  showDiff,
+  date
+}: Props) {
   const intl = useIntl();
   const problems =
     bulletin?.avalancheProblems?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
+  const problems170000 =
+    bulletin170000?.avalancheProblems?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
   const dangerRatings =
     bulletin?.dangerRatings?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
+  const dangerRatings170000 =
+    bulletin170000?.dangerRatings?.filter(p =>
+      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+    ) || [];
+  const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
   return (
     <div>
@@ -53,6 +72,12 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
               href="#page-main"
               onClick={e => scrollIntoView(e)}
               className="img icon-arrow-up"
+              style={
+                showDiff &&
+                !compareRegions(bulletin?.regions, bulletin170000?.regions)
+                  ? { border: "#e6eef2 5px solid" }
+                  : {}
+              }
             >
               <BulletinAWMapStatic
                 bulletin={bulletin}
@@ -65,16 +90,34 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
         </div>
         <ul className="list-plain list-bulletin-report-pictos">
           <li>
-            <div className="bulletin-report-picto tooltip">
+            <div
+              className="bulletin-report-picto tooltip"
+              style={
+                showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              }
+            >
               <BulletinDangerRating dangerRatings={dangerRatings} />
             </div>
             {Array.isArray(bulletin.tendency) &&
               bulletin.tendency.map((tendency, index) => (
-                <TendencyReport tendency={tendency} date={date} key={index} />
+                <TendencyReport
+                  tendency={tendency}
+                  tendency170000={bulletin170000?.tendency?.[index]}
+                  showDiff={showDiff}
+                  date={date}
+                  key={index}
+                />
               ))}
           </li>
-          {problems.map((p, index) => (
-            <BulletinProblemItem key={index} problem={p} />
+          {problems.map((problem, index) => (
+            <BulletinProblemItem
+              key={index}
+              problem={problem}
+              problem170000={problems170000.find(
+                p => p.problemType === problem.problemType
+              )}
+              showDiff={showDiff}
+            />
           ))}
         </ul>
       </div>
@@ -84,11 +127,50 @@ function BulletinDaytimeReport({ validTimePeriod, bulletin, date }: Props) {
 
 export default BulletinDaytimeReport;
 
+export function compareRegions(regions: Region[], regions170000: Region[]) {
+  return (
+    regions
+      .map(r => r.regionID)
+      .sort((s1, s2) => s1.localeCompare(s2))
+      .join() ===
+    regions170000
+      ?.map(r => r.regionID)
+      .sort((s1, s2) => s1.localeCompare(s2))
+      .join()
+  );
+}
+
+export function compareDangerRatings(
+  dangerRatings: DangerRating[],
+  dangerRatings170000: DangerRating[]
+): boolean {
+  return (
+    dangerRatings.length === dangerRatings170000.length &&
+    dangerRatings.every((r1, i) =>
+      compareDangerRating(r1, dangerRatings170000[i])
+    )
+  );
+}
+
+function compareDangerRating(r1: DangerRating, r2: DangerRating): boolean {
+  if (!r2) return false;
+  return (
+    r1.elevation?.lowerBound === r2.elevation?.lowerBound &&
+    r1.elevation?.upperBound === r2.elevation?.upperBound &&
+    r1.mainValue === r2.mainValue &&
+    r1.validTimePeriod === r2.validTimePeriod
+  );
+}
+
 function TendencyReport({
   tendency,
+  tendency170000,
+  showDiff,
   date
 }: {
   tendency: Tendency;
+  tendency170000: Tendency;
+  showDiff: 0 | 1 | 2;
   date: Date;
 }) {
   const intl = useIntl();
@@ -98,7 +180,16 @@ function TendencyReport({
         id: "bulletin:report:tendency:hover"
       })}
     >
-      <div className="bulletin-report-tendency">
+      <div
+        className="bulletin-report-tendency"
+        style={
+          showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
+            ? {
+                backgroundColor: "#e6eef2"
+              }
+            : {}
+        }
+      >
         <span>
           <FormattedMessage
             id="bulletin:report:tendency"

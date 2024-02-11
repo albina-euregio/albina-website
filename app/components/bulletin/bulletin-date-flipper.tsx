@@ -7,7 +7,7 @@ import {
   dateToISODateString,
   isSameDay,
   isAfter
-} from "../../util/date.js";
+} from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import { dateFormat } from "../../util/date";
 
