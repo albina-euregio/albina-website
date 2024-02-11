@@ -8,7 +8,7 @@ import { fetchExists } from "../../util/fetch";
 
 type Props = { date: Date; bulletin: Bulletin };
 
-const ENABLED_LANGUAGES = ["de"];
+const ENABLED_LANGUAGES = ["de", "en"];
 
 function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
