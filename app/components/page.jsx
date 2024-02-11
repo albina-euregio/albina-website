@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Jumpnav from "./organisms/jumpnav.jsx";
+import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
 import ControlBar from "../components/organisms/control-bar.jsx";
