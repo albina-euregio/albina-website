@@ -12,13 +12,14 @@ const BulletinStatusLine = (props: Props) => {
   const status = props.status;
   let statusText = "";
   const publicationTime = props.bulletin?.publicationTime;
-  const isRepublished = useMemo(
+  const unscheduled = useMemo(
     () =>
-      publicationTime &&
-      !new Date(publicationTime)
-        .toLocaleTimeString("de", { timeZone: "Europe/Vienna" })
-        .includes("17:00"),
-    [publicationTime]
+      props.bulletin?.unscheduled ??
+      (publicationTime &&
+        !new Date(publicationTime)
+          .toLocaleTimeString("de", { timeZone: "Europe/Vienna" })
+          .includes("17:00")),
+    [props.bulletin?.unscheduled, publicationTime]
   );
 
   if (status == "pending") {
@@ -34,7 +35,7 @@ const BulletinStatusLine = (props: Props) => {
       time: intl.formatDate(publicationTime, { timeStyle: "short" })
     };
 
-    if (isRepublished) {
+    if (unscheduled) {
       statusText = intl.formatMessage(
         { id: "bulletin:header:updated-at" },
         params
@@ -51,7 +52,7 @@ const BulletinStatusLine = (props: Props) => {
     <span
       className={
         "marginal " +
-        (isRepublished
+        (unscheduled
           ? "bulletin-datetime-publishing"
           : "bulletin-datetime-validity")
       }
