@@ -18,13 +18,25 @@ import React from "react";
 */
 }
 
-export default function ControlBar(props) {
+type Props = {
+  backgroundImage?: string;
+  isBig?: boolean;
+  style?: "light" | "yellow";
+  addClass?: string;
+  message: React.ReactNode;
+  subCaption?: React.ReactNode;
+  buttonLink?: string;
+  buttonTitle?: string;
+  buttonCaption?: string;
+};
+
+export default function ControlBar(props: Props) {
   const styleClasses = {
     light: "controlbar-subtle",
     yellow: "controlbar-dev"
   };
 
-  let sectionClasses = ["section", "controlbar"];
+  const sectionClasses = ["section", "controlbar"];
   if (props.backgroundImage) sectionClasses.push("controlbar-image");
   if (props.isBig) sectionClasses.push("controlbar-big");
   if (props.style && styleClasses[props.style])
