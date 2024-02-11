@@ -2,7 +2,11 @@ import React from "react";
 import { useIntl } from "../../i18n";
 import { useEffect } from "react";
 
-export default function HTMLHeader(props) {
+type Props = {
+  title: string;
+};
+
+export default function HTMLHeader(props: Props) {
   const intl = useIntl();
   useEffect(() => {
     document.title = [
