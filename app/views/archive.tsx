@@ -11,7 +11,7 @@ import ArchiveItem, {
 } from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
-import FilterBar from "../components/organisms/filter-bar.jsx";
+import FilterBar from "../components/organisms/filter-bar";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";

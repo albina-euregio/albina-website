@@ -1,7 +1,15 @@
 import React from "react";
 import SearchField from "../search-field";
 
-export default function FilterBar(props) {
+type Props = {
+  children: React.ReactNode;
+  search: boolean;
+  searchTitle: string;
+  searchOnChange: (val: string) => void;
+  searchValue: string;
+};
+
+export default function FilterBar(props: Props) {
   const filterList = (
     <ul className="list-inline list-controlbar">
       {Array.isArray(props.children) &&
