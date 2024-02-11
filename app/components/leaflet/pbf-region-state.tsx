@@ -59,7 +59,7 @@ export function PbfRegionState({
 
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
-    [...microRegions, ...eawsRegions, ...eawsMicroRegions].forEach(region =>
+    [...microRegions, ...eawsRegions].forEach(region =>
       vectorGrid.setFeatureStyle(region, {
         ...config.map.regionStyling.clickable,
         ...config.map.regionStyling.all,
