@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
-import Cluster from "../leaflet/cluster";
+import Cluster from "./leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
-import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
+import ClusterSelectedMarker from "./leaflet/cluster-selected-marker";
 
 const StationOverlay = props => {
   const [activeMarkerPos, setActiveMarkerPos] = useState(null);
