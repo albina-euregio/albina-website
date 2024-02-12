@@ -5,12 +5,11 @@
     "url": "/weather",
     "children": [
       { "url": "/weather/map/" },
+      { "url": "" },
+      { "url": "/weather/stations" },
       { "url": "/weather/measurements" },
       { "url": "/weather/archive" },
-      {
-        "key": "lawis:station",
-        "url": "/weather/stations"
-      },
+      { "url": "" },
       {
         "key": "lawis:incident",
         "url": "https://www.lawis.at/incident?lang=en",

@@ -81,7 +81,7 @@ function StationMap(props) {
         stationId={stationId}
         setStationId={setStationId}
       />
-      <HTMLHeader title={intl.formatMessage({ id: "menu:lawis:station" })} />
+      <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
       <section id="section-weather-map" className="section section-weather-map">
         <div className="section-map">
           <LeafletMap

@@ -16,7 +16,7 @@
   "menu:weather:map:": "Wetterkarten",
   "menu:weather:measurements": "Stationsmesswerte",
   "menu:weather:archive": "Stationsarchiv",
-  "menu:lawis:station": "Wetterstationen",
+  "menu:weather:stations": "Stationskarte",
   "menu:lawis:incident": "Ereignisse",
   "menu:lawis:profile": "Schneeprofile",
   "menu:webcam": "Webcams",

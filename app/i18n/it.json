@@ -16,7 +16,7 @@
   "menu:weather:map:": "Carte meteo",
   "menu:weather:measurements": "Dati stazioni meteo automatiche",
   "menu:weather:archive": "Archivi stazioni automatiche",
-  "menu:lawis:station": "Stazioni automatiche",
+  "menu:weather:stations": "Stazioni automatiche",
   "menu:lawis:incident": "Incidenti",
   "menu:lawis:profile": "Profili stratografici neve",
   "menu:webcam": "Webcam",

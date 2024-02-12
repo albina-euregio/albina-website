@@ -16,7 +16,7 @@
   "menu:weather:map:": "Mapes deth temps",
   "menu:weather:measurements": "Donades meteorologiques",
   "menu:weather:archive": "Archiu d'estacion",
-  "menu:lawis:station": "Estacions meteorologiques",
+  "menu:weather:stations": "Estacions meteorologiques",
   "menu:lawis:incident": "Incidents",
   "menu:lawis:profile": "Perfils de nhèu",
   "menu:webcam": "Webcams",
