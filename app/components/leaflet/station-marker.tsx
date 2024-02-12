@@ -4,7 +4,24 @@ import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
 
-const StationMarker = props => {
+type Props<T = unknown> = {
+  coordinates: L.LatLngExpression;
+  data: T;
+  stationName: string;
+  tooltip?: string;
+  onClick: (data: T) => void;
+  itemId: "any" | string;
+  type: string;
+  color: string;
+  dataType: "forcast" | "analyse" | string;
+  selected: boolean;
+  value: number | "";
+  direction?: number;
+  iconAnchor?: L.PointExpression;
+  className: string;
+};
+
+const StationMarker = (props: Props<unknown>): React.ReactNode => {
   const context = useLeafletContext();
 
   useEffect(() => {
