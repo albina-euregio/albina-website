@@ -382,7 +382,7 @@
         [45.6167, 9.4],
         [47.8167, 13.0333]
       ],
-      "debugModus": true,
+      "debugModus": false,
       "metaFiles": {
         "agl": "agl.ok",
         "startDate": "startDate.ok"
