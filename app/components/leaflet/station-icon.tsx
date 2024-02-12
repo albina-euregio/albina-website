@@ -5,8 +5,19 @@ const iconSVGS = {
   "directionArrow-combined":
     "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
 };
-export default class StationIcon extends React.Component {
-  RGBToHex(color) {
+
+type Props = {
+  type: string;
+  value: number | "";
+  itemId: "any" | string;
+  dataType?: "forcast" | "analyse" | string;
+  color: string | [number, number, number];
+  selected?: boolean;
+  direction?: number;
+};
+
+export default class StationIcon extends React.Component<Props> {
+  RGBToHex(color: [number, number, number]) {
     //console.log("RGBToHex", color);
     let r = color[0].toString(16);
     let g = color[1].toString(16);
@@ -19,8 +30,8 @@ export default class StationIcon extends React.Component {
     return "#" + r + g + b;
   }
 
-  getCircle(type, color) {
-    let analyseStrokeColor = type === "forcast" ? color : "#000";
+  getCircle(type: Props["dataType"], color: "string") {
+    const analyseStrokeColor = type === "forcast" ? color : "#000";
     if (["forcast", "analyse"].includes(type))
       return (
         <svg
@@ -71,7 +82,7 @@ export default class StationIcon extends React.Component {
       );
   }
 
-  getdirection(type, direction) {
+  getDirection(type: "combined" | "only", direction: Props["direction"]) {
     let style = {
       position: "absolute",
       left: "6px",
@@ -107,7 +118,7 @@ export default class StationIcon extends React.Component {
     );
   }
 
-  getText(text) {
+  getText(text: string) {
     return (
       <svg
         style={{ position: "absolute", left: "0px", top: "0px" }}
@@ -151,7 +162,7 @@ export default class StationIcon extends React.Component {
       >
         {this.showCircle() && this.getCircle(this.props.dataType, fill)}
         {typeof this.props.direction == "number" &&
-          this.getdirection(
+          this.getDirection(
             this.hasValue ? "combined" : "only",
             this.props.direction + 180
           )}
