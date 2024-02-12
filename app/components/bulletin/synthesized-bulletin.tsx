@@ -4,7 +4,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { dateToISODateString } from "../../util/date";
 import { Bulletin } from "../../stores/bulletin";
-import { fetchExists } from "../../util/fetch";
 
 type Props = { date: Date; bulletin: Bulletin };
 
@@ -14,28 +13,29 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
 
   useEffect(() => {
-    const checkAudioFile = async (date: Date, bulletin: Bulletin) => {
-      if (!ENABLED_LANGUAGES.includes(bulletin.lang)) {
-        setAudioFileUrl(null);
-        return;
-      }
-      const fileUrl = config.template(config.apis.bulletin.mp3, {
+    if (!ENABLED_LANGUAGES.includes(bulletin.lang)) {
+      setAudioFileUrl(null);
+      return;
+    }
+
+    setAudioFileUrl(
+      config.template(config.apis.bulletin.mp3, {
         date: dateToISODateString(date),
         region: bulletin.bulletinID,
         lang: bulletin.lang
-      });
-
-      const ok = await fetchExists(fileUrl);
-      setAudioFileUrl(ok ? fileUrl : null);
-    };
-    checkAudioFile(date, bulletin);
+      })
+    );
   }, [bulletin, date]);
 
   return (
     <div className="synthesizedReport">
       {audioFileUrl && (
         <div>
-          <audio controls={true} src={audioFileUrl}>
+          <audio
+            controls={true}
+            src={audioFileUrl}
+            onError={() => setAudioFileUrl(null)}
+          >
             <a href={audioFileUrl}></a>
           </audio>
         </div>
