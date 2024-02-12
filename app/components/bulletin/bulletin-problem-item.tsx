@@ -6,7 +6,7 @@ import ElevationIcon from "../icons/elevation-icon";
 // import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
-import { AvalancheProblem } from "../../stores/bulletin";
+import { AvalancheProblem, AvalancheProblemType } from "../../stores/bulletin";
 
 type Props = {
   problem: AvalancheProblem;
@@ -241,27 +241,30 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
         problem?.frequency ||
         problem?.avalancheSize) && (
         <div className="bulletin-report-picto matrix-information">
-          {problem?.snowpackStability && (
-            <div
-              className={`matrix-info matrix-info-value-${
-                textInfoToClass.snowpackStability[problem?.snowpackStability]
-              }`}
-              style={
-                showDiff && !compareSnowpackStability(problem, problem170000)
-                  ? { backgroundColor: "#e6eef2" }
-                  : {}
-              }
-            >
-              <span className="matrix-info-name">{snowpackStabilityText}:</span>
-              <span className="matrix-info-value">
-                <a href={"/education/snowpack-stability"}>
-                  {intl.formatMessage({
-                    id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
-                  })}
-                </a>
-              </span>
-            </div>
-          )}
+          {problem?.snowpackStability &&
+            problem?.problemType !== AvalancheProblemType.GlidingSnow && (
+              <div
+                className={`matrix-info matrix-info-value-${
+                  textInfoToClass.snowpackStability[problem?.snowpackStability]
+                }`}
+                style={
+                  showDiff && !compareSnowpackStability(problem, problem170000)
+                    ? { backgroundColor: "#e6eef2" }
+                    : {}
+                }
+              >
+                <span className="matrix-info-name">
+                  {snowpackStabilityText}:
+                </span>
+                <span className="matrix-info-value">
+                  <a href={"/education/snowpack-stability"}>
+                    {intl.formatMessage({
+                      id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                    })}
+                  </a>
+                </span>
+              </div>
+            )}
           {problem?.frequency && (
             <div
               className={`matrix-info matrix-info-value-${
