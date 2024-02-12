@@ -8,7 +8,7 @@ import { fetchExists } from "../../util/fetch";
 
 type Props = { date: Date; bulletin: Bulletin };
 
-const ENABLED_LANGUAGES = ["de"];
+const ENABLED_LANGUAGES = ["de", "en"];
 
 function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
@@ -21,7 +21,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
       }
       const fileUrl = config.template(config.apis.bulletin.mp3, {
         date: dateToISODateString(date),
-        region: bulletin.bulletinID + "_",
+        region: bulletin.bulletinID,
         lang: bulletin.lang
       });
 
