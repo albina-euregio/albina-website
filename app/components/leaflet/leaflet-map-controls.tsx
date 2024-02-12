@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -12,15 +12,15 @@ import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
 
-const LeafletMapControls = props => {
-  const intl = useIntl();
-  const lang = intl.locale.slice(0, 2);
-  const parentMap = useMap();
+type Props = {
+  loaded: boolean;
+  gestureHandling: boolean;
+  onInit: (map: L.Map) => void;
+};
 
-  //const didMountRef = useRef(false);
-  useEffect(() => {
-    updateControls();
-  }, []);
+const LeafletMapControls = (props: Props) => {
+  const intl = useIntl();
+  const parentMap = useMap();
 
   useEffect(() => {
     if (props.loaded) {
@@ -31,38 +31,40 @@ const LeafletMapControls = props => {
       L.Util.setOptions(parentMap, { gestureHandling: true });
   });
 
-  const _init_tooltip = () => {
+  const _init_tooltip = useCallback(() => {
     parentMap
       .getContainer()
       .querySelectorAll(".leaflet-control-zoom a, .leaflet-control-locate a")
       .forEach(e => e.classList.add("tooltip"));
     tooltip_init();
-  };
+  }, [parentMap]);
 
-  const _init_aria = () => {
+  const _init_aria = useCallback(() => {
     parentMap
       .getContainer()
       .querySelectorAll(
         ".leaflet-control-zoom a, .leaflet-control-locate a, .leaflet-geonames-search a, .leaflet-touch-zoom"
       )
       .forEach(e => e.setAttribute("tabIndex", "-1"));
-  };
+  }, [parentMap]);
 
-  const updateControls = () => {
-    //("LeafletMapControls->updateControls xx02", parentMap, props);
-
-    //console.log("updateMaps xyz", map, disabled);
+  useEffect(() => {
     if (props.onInit) {
       props.onInit(parentMap);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parentMap]);
 
+  useEffect(() => {
     // Workaround for https://github.com/elmarquis/Leaflet.GestureHandling/issues/75
     parentMap.gestureHandling?._handleMouseOver?.();
+  }, [parentMap]);
 
+  useEffect(() => {
     parentMap.fitBounds(config.map.euregioBounds);
+  }, [parentMap]);
 
-    //console.log("map", map);
-
+  useEffect(() => {
     L.control
       .zoom({
         position: "topleft",
@@ -77,7 +79,7 @@ const LeafletMapControls = props => {
 
     L.control
       .geonames({
-        lang,
+        lang: intl.locale.slice(0, 2),
         title: intl.formatMessage({
           id: "bulletin:map:search"
         }),
@@ -115,10 +117,13 @@ const LeafletMapControls = props => {
         }
       })
       .addTo(parentMap);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  useEffect(() => {
     _init_tooltip();
     _init_aria();
-  };
+  }, [_init_aria, _init_tooltip]);
 
   return <></>;
 };
