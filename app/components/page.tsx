@@ -33,7 +33,7 @@ const Page = (props: Props) => {
     } else {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     if (!location.pathname.split("/").includes("bulletin")) {
@@ -43,7 +43,7 @@ const Page = (props: Props) => {
         // setTimeout(() => scroll(location.hash, 2000), 1000);
       }
     }
-  }, [location.hash]);
+  }, [location.hash, location.pathname]);
 
   return (
     <>
