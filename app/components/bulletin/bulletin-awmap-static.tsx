@@ -26,16 +26,17 @@ function BulletinAWMapStatic({
           .replace(/:/g, "-")
           .slice(0, "2021-12-04_16-00-00".length)
       : "";
-  imgFormat ||= date > "2020-12-01" ? ".webp" : ".jpg";
   const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
-  const url = config.template(config.apis.bulletin.map, {
+  let url = config.template(config.apis.bulletin.map, {
     date: date,
     publication: publicationDirectory,
-    file: file,
-    format: imgFormat
+    file: file
   });
+  if (imgFormat || date <= "2022-05-06") {
+    url = url.replace(/.webp$/, imgFormat);
+  }
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");
   return <img src={url} alt={regions} title={regions} onError={onError} />;
 }
