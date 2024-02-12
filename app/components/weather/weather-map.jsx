@@ -6,7 +6,7 @@ import { useIntl } from "../../i18n";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
-import { CustomLeafletControl } from "../leaflet/controls/customLeafletControl";
+import { CustomLeafletControl } from "./customLeafletControl";
 
 const WeatherMap = props => {
   const intl = useIntl();
