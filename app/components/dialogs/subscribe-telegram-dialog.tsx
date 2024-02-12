@@ -30,6 +30,7 @@ export default function SubscribeTelegramDialog() {
               window.open(telegramChannels[region + "-" + language]);
           }}
         >
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-email:region"
@@ -50,6 +51,7 @@ export default function SubscribeTelegramDialog() {
               id: "blog:filter:province:nothing-selected"
             })}
           />
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-email:language" />
           </label>

@@ -61,6 +61,7 @@ export default function SubscribeEmailDialog() {
             handleSubmit();
           }}
         >
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-email:region"
@@ -82,6 +83,7 @@ export default function SubscribeEmailDialog() {
             })}
           />
 
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-email:language" />
           </label>
@@ -97,6 +99,7 @@ export default function SubscribeEmailDialog() {
           <hr />
 
           <p>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="email">
               <FormattedMessage id="dialog:subscribe-email:email" />
               <span className="normal" />

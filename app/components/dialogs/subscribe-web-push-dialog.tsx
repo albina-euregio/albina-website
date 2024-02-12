@@ -154,6 +154,7 @@ export default function SubscribeWebPushDialog() {
             handleEnable();
           }}
         >
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="province">
             <FormattedMessage
               id="dialog:subscribe-telegram:region"
@@ -175,6 +176,7 @@ export default function SubscribeWebPushDialog() {
               id: "blog:filter:province:nothing-selected"
             })}
           />
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-telegram:language" />
             <span className="normal" />
