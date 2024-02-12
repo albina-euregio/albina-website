@@ -48,7 +48,7 @@ class GlossaryReplacer {
           .trim()
           .split(/\n/g)
           .filter(phrase => !!phrase)
-          .map(phrase => [phrase, id])
+          .map(phrase => [escapeRegExp(phrase), id])
       )
     );
     this.regex = new RegExp(
@@ -185,4 +185,9 @@ export async function findGlossaryStrings(
     return GlossaryReplacer.findBreaks(text);
   }
   return glossaryReplacer.findGlossaryStrings(text);
+}
+
+function escapeRegExp(string: string) {
+  // https://stackoverflow.com/a/6969486
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
