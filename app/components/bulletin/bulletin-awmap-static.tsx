@@ -35,7 +35,7 @@ function BulletinAWMapStatic({
     file: file
   });
   if (imgFormat || date <= "2022-05-06") {
-    url = url.replace(/.webp$/, imgFormat);
+    url = url.replace(/.webp$/, imgFormat || ".jpg");
   }
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");
   return <img src={url} alt={regions} title={regions} onError={onError} />;

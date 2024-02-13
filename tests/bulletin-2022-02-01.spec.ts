@@ -27,6 +27,25 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await expect(bulletin.locator("p").nth(1)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
+
+  // <br/> elements have been substituted
+  await expect(page.locator("#section-bulletin-reports")).not.toContainText(
+    "<br"
+  );
+
+  // glossary tooltips
+  await page
+    .getByText("strong to storm force northwesterly wind")
+    .first()
+    .hover();
+  const tooltip = page.getByRole("tooltip", { name: "Wind speed" });
+  await tooltip.isVisible();
+  await expect(tooltip).toContainText("Wind speed");
+  await expect(tooltip).toContainText("low: 0 – 20 km/h");
+  await expect(tooltip).toContainText("moderate: 20 – 40 km/h");
+  await expect(tooltip).toContainText("strong: 40 – 60 km/h");
+  await expect(tooltip).toContainText("very strong: 60 – 100 km/h");
+  await expect(tooltip).toContainText("gale, hurricane: > 100 km/h");
 });
 
 // test("bulletin/2022-02-01 snapshot", async ({ page }) => {

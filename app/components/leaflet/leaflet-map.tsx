@@ -1,6 +1,5 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import "./leaflet-player.css";
 import { useParams } from "react-router-dom";
 import LeafletMapControls from "./leaflet-map-controls";
 

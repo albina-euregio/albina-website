@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { ImageOverlay } from "react-leaflet";
-import StationMarker from "./station-marker";
+import StationMarker from "../leaflet/station-marker";
 import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
 
