@@ -83,7 +83,7 @@ class GlossaryReplacer {
       (match, index, offset) => (
         <ins
           key={`ins-${match}-${index}-${offset}`}
-          style={{ color: "#28a745" }}
+          // style={{ color: "#28a745" }}
         >
           {match}
         </ins>
@@ -95,7 +95,7 @@ class GlossaryReplacer {
       (match, index, offset) => (
         <del
           key={`del-${match}-${index}-${offset}`}
-          style={{ color: "#dc3545" }}
+          // style={{ color: "#dc3545" }}
         >
           {match}
         </del>
@@ -116,7 +116,7 @@ class GlossaryReplacer {
           return (
             <ins
               key={`ins-${match}-${index}-${offset}`}
-              style={{ color: "#28a745" }}
+              // style={{ color: "#28a745" }}
             >
               {this.findGlossaryStrings(match)}
             </ins>
@@ -126,7 +126,7 @@ class GlossaryReplacer {
           return (
             <del
               key={`del-${match}-${index}-${offset}`}
-              style={{ color: "#dc3545" }}
+              // style={{ color: "#dc3545" }}
             >
               {this.findGlossaryStrings(match)}
             </del>

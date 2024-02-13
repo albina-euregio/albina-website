@@ -29,6 +29,8 @@
 //   }
 // }
 
+
+
 // from 202112
 // https://atomiks.github.io/tippyjs/v6/themes/
 
@@ -53,9 +55,12 @@
 //   }
 // }
 
+
 $tooltip-width: 380px;
 $tooltip-max-width: 80vw;
 $tooltip-max-height: 40vh;
+
+
 
 // from 202205
 .tooltip-container {
@@ -66,9 +71,10 @@ $tooltip-max-height: 40vh;
   // max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
 
-  transition: all 0.2s;
+  transition: all $transition-duration;
 
   // overflow: hidden;
+
 }
 .tooltip-inner {
   position: relative;
@@ -89,7 +95,7 @@ $tooltip-max-height: 40vh;
 }
 .tooltip-inner-html {
   @extend .tooltip-inner;
-
+  
   width: $tooltip-width;
   max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
@@ -120,8 +126,7 @@ $tooltip-max-height: 40vh;
   left: 0;
   line-height: 1.2;
 
-  h3,
-  p {
+  h3, p {
     margin: 0 $padding $padding $padding;
     font-size: $tiny-font-size;
     &:first-child {

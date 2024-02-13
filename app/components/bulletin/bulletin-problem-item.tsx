@@ -209,18 +209,28 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   });
   return (
     <li
-      style={
+      // style={
+      //   showDiff && problem170000 === undefined
+      //     ? { backgroundColor: "#e6eef2" }
+      //     : {}
+      // }
+      className={
         showDiff && problem170000 === undefined
-          ? { backgroundColor: "#e6eef2" }
+          ? "bulletin-update-diff"
           : {}
       }
     >
       {problem && <ProblemIconLink problem={problem} />}
       {problem?.aspects && (
         <div
-          style={
+          // style={
+          //   showDiff && !compareAspects(problem, problem170000)
+          //     ? { backgroundColor: "#e6eef2" }
+          //     : {}
+          // }
+          className={
             showDiff && !compareAspects(problem, problem170000)
-              ? { backgroundColor: "#e6eef2" }
+              ? "bulletin-update-diff"
               : {}
           }
         >
@@ -228,9 +238,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
         </div>
       )}
       <div
-        style={
+        // style={
+        //   showDiff && !compareElevation(problem, problem170000)
+        //     ? { backgroundColor: "#e6eef2" }
+        //     : {}
+        // }
+        className={
           showDiff && !compareElevation(problem, problem170000)
-            ? { backgroundColor: "#e6eef2" }
+            ? "bulletin-update-diff"
             : {}
         }
       >
@@ -247,9 +262,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 className={`matrix-info matrix-info-value-${
                   textInfoToClass.snowpackStability[problem?.snowpackStability]
                 }`}
-                style={
+                // style={
+                //   showDiff && !compareSnowpackStability(problem, problem170000)
+                //     ? { backgroundColor: "#e6eef2" }
+                //     : {}
+                // }
+                className={
                   showDiff && !compareSnowpackStability(problem, problem170000)
-                    ? { backgroundColor: "#e6eef2" }
+                    ? "bulletin-update-diff"
                     : {}
                 }
               >
@@ -270,9 +290,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               className={`matrix-info matrix-info-value-${
                 textInfoToClass.frequency[problem?.frequency]
               }`}
-              style={
+              // style={
+              //   showDiff && !compareFrequency(problem, problem170000)
+              //     ? { backgroundColor: "#e6eef2" }
+              //     : {}
+              // }
+              className={
                 showDiff && !compareFrequency(problem, problem170000)
-                  ? { backgroundColor: "#e6eef2" }
+                  ? "bulletin-update-diff"
                   : {}
               }
             >
@@ -291,9 +316,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               className={`matrix-info matrix-info-value-${
                 textInfoToClass.avalancheSize[problem?.avalancheSize]
               }`}
-              style={
+              // style={
+              //   showDiff && !compareAvalancheSize(problem, problem170000)
+              //     ? { backgroundColor: "#e6eef2" }
+              //     : {}
+              // }
+              className={
                 showDiff && !compareAvalancheSize(problem, problem170000)
-                  ? { backgroundColor: "#e6eef2" }
+                  ? "bulletin-update-diff"
                   : {}
               }
             >

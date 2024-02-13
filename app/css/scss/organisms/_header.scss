@@ -152,7 +152,7 @@ ul.bulletin-flipper {
         color: $anchor-font-color;
         @include rollout;
       }
-
+      
       &:hover {
         &:before {
           color: $anchor-font-color-hover;

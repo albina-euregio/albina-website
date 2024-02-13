@@ -91,9 +91,14 @@ function BulletinDaytimeReport({
         <ul className="list-plain list-bulletin-report-pictos">
           <li>
             <div
-              className="bulletin-report-picto tooltip"
-              style={
-                showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              // className="bulletin-report-picto tooltip"
+              // style={
+              //   showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              // }
+              className={
+                showDiff && isInserted
+                  ? "bulletin-report-picto tooltip bulletin-update-diff"
+                  : "bulletin-report-picto tooltip"
               }
             >
               <BulletinDangerRating dangerRatings={dangerRatings} />
@@ -181,13 +186,18 @@ function TendencyReport({
       })}
     >
       <div
-        className="bulletin-report-tendency"
-        style={
+        // className="bulletin-report-tendency"
+        // style={
+        //   showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
+        //     ? {
+        //         backgroundColor: "#e6eef2"
+        //       }
+        //     : {}
+        // }
+        className={
           showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
-            ? {
-                backgroundColor: "#e6eef2"
-              }
-            : {}
+            ? "bulletin-report-tendency bulletin-update-diff"
+            : "bulletin-report-tendency"
         }
       >
         <span>

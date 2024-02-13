@@ -318,8 +318,7 @@ input[type="range"] {
       display: inline-block;
       float: left;
       margin: 0;
-      padding: ($padding * 0.2) ($padding * 0.5) ($padding * 0.25)
-        ($padding * 0.5);
+      padding: ($padding * 0.2) ($padding * 0.5) ($padding * 0.25) ($padding * 0.5);
       color: rgba($brand, 0.5);
       border: $border-width $border-style $brand;
       background-color: transparent;

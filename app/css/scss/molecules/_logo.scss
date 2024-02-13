@@ -51,10 +51,8 @@ $logo-url-it-width: math.div(130, $logo-factor-url-and-else) + 0em;
 $logo-url-en-height: math.div(17, $logo-factor-url-and-else) + 0em;
 $logo-url-en-width: math.div(138, $logo-factor-url-and-else) + 0em;
 
-$logo-header-footer-secondary-height: math.div(162, $logo-factor-url-and-else) +
-  0em;
-$logo-header-footer-secondary-width: math.div(364, $logo-factor-url-and-else) +
-  0em;
+$logo-header-footer-secondary-height: math.div(162, $logo-factor-url-and-else) + 0em;
+$logo-header-footer-secondary-width: math.div(364, $logo-factor-url-and-else) + 0em;
 
 //400 125
 $logo-footer-tertiary-height: math.div(115, $logo-factor-url-and-else) + 0em;

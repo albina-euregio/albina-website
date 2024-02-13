@@ -8,120 +8,120 @@
 \*------------------------------------*/
 
 .page-footer {
-  position: relative;
-  z-index: 0;
-  //font-size: $small-font-size;//$body-font-size-small;
+	position: relative;
+	z-index: 0;
+	//font-size: $small-font-size;//$body-font-size-small;
 
-  background-color: $white;
-  border-top: $border-width $border-style $brand-very-light;
+	background-color: $white;
+	border-top: $border-width $border-style $brand-very-light;
 }
 
 .page-footer-navigation {
-  text-align: center;
-  @media #{$normal-up} {
-    text-align: left;
-  }
-  @media #{$medium-up} {
-    font-size: $tiny-font-size;
-  }
-  border-bottom: $border-width $border-style $brand-very-light;
+	text-align: center;
+	@media #{$normal-up} {
+		text-align: left;
+	}
+	@media #{$medium-up} {
+		font-size: $tiny-font-size;
+	}
+	border-bottom: $border-width $border-style $brand-very-light;
 }
 
 .page-footer-subscribe {
-  margin-bottom: $margin-bottom;
-  @media #{$large-up} {
-    float: right;
-    margin-left: $grid-gutter;
-  }
+	margin-bottom: $margin-bottom;
+	@media #{$large-up} {
+		float: right;
+		margin-left: $grid-gutter;
+	}
 }
 .page-footer-text {
-  margin-bottom: $margin-bottom;
-  @media #{$medium-up} {
-    font-size: $tiny-font-size;
-  }
-  color: $grey;
-  @media #{$large-up} {
-  }
+	margin-bottom: $margin-bottom;
+	@media #{$medium-up} {
+		font-size: $tiny-font-size;
+	}
+	color: $grey;
+	@media #{$large-up} {
+	}
 }
 .page-footer-logo-secondary {
-  @media #{$large-up} {
-    display: none;
-  }
+	@media #{$large-up} {
+		display: none;
+	}
 }
 .header-footer-logo-secondary {
-  //initial see _page-header.scss
-  display: inline-block;
+	//initial see _page-header.scss
+	display: inline-block;
 }
 
 .page-footer-logo-tertiary {
 }
 .footer-logo-tertiary {
-  @include ir;
-  position: relative;
-  display: inline-block;
-  height: $logo-footer-tertiary-height * 0.5;
-  width: $logo-footer-tertiary-width * 0.5;
-  background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
-  background-size: ($logo-footer-tertiary-width * 0.5)
-    ($logo-footer-tertiary-height * 0.5);
-  filter: grayscale(100%);
-  &:hover {
-    transform: scale(1.05);
-    filter: grayscale(0%);
-  }
+	@include ir;
+	position: relative;
+	display: inline-block;
+	height: $logo-footer-tertiary-height * 0.5;
+	width: $logo-footer-tertiary-width * 0.5;
+	background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
+	background-size: ($logo-footer-tertiary-width * 0.5)
+		($logo-footer-tertiary-height * 0.5);
+	filter: grayscale(100%);
+	&:hover {
+		transform: scale(1.05);
+		filter: grayscale(0%);
+	}
 }
 
 .page-footer-top {
-  text-align: center;
-  a {
-    display: inline-block;
-    span {
-      display: none;
-    }
-    &:before {
-      margin: 0;
-      transform: translateY(0);
-    }
-    &:hover,
-    &:active {
-      &:before {
-        transform: translateY(-$padding * 0.5);
-      }
-    }
-  }
+	text-align: center;
+	a {
+		display: inline-block;
+		span {
+			display: none;
+		}
+		&:before {
+			margin: 0;
+			transform: translateY(0);
+		}
+		&:hover,
+		&:active {
+			&:before {
+				transform: translateY(-$padding * 0.5);
+			}
+		}
+	}
 }
 
 .page-footer-version {
-  text-align: center;
-  color: $grey;
+	text-align: center;
+	color: $grey;
 }
 
 .page-footer-logos {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  gap: ($margin-bottom * 2) ($padding * 4);
-  @media #{$normal-up} {
-    flex-direction: row;
-    align-items: start;
-  }
-  .footer-logo {
-    text-align: center;
-  }
-  .footer-logo-link {
-    display: block;
-    margin-bottom: $padding;
-  }
-  .footer-logo-img {
-    height: 64px;
-    margin: 0;
-  }
-  .footer-logo-share-follow {
-    p {
-      font-size: $tiny-font-size;
-      @include letter-spacing;
-      margin-bottom: $margin-bottom * 0.5;
-    }
-  }
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	gap: ($margin-bottom * 2) ($padding * 4);
+	@media #{$normal-up} {
+		flex-direction: row;
+		align-items: start;
+	}
+	.footer-logo {
+		text-align: center;
+	}
+	.footer-logo-link {
+		display: block;
+		margin-bottom: $padding;
+	}
+	.footer-logo-img {
+		height: 64px;
+		margin: 0;
+	}
+	.footer-logo-share-follow {
+		p {
+			font-size: $tiny-font-size;
+			@include letter-spacing;
+			margin-bottom: $margin-bottom * 0.5;
+		}
+	}
 }

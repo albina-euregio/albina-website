@@ -50,23 +50,20 @@
   }
 
   //misc
-  audio,
-  object,
-  embed,
-  video,
-  .jumpnav,
-  .bulletin-flipper,
-  .section-bulletin-map,
-  .bulletin-map-details,
+  audio, object, embed, video,
+	.jumpnav,
+	.bulletin-flipper,
+	.section-bulletin-map,
+	.bulletin-map-details,
   .section-bulletin-legend,
-  .flipper-controls,
-  .section-linkbar,
-  .section-context,
-  .section.controlbar,
-  .sm-share-follow,
-  .fitvids,
-  #page-footer,
-  .tippy-popper {
+	.flipper-controls,
+	.section-linkbar,
+	.section-context,
+	.section.controlbar,
+	.sm-share-follow,
+	.fitvids,
+	#page-footer,
+	.tippy-popper {
     display: none;
   }
 

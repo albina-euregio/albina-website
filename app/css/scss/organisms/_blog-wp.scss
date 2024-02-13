@@ -17,8 +17,7 @@
     padding-bottom: $padding * 0.5;
     @include rollout(all, $transition-duration * 2, ease-in-out);
   }
-  .blog-date {
-  }
+  .blog-date {}
   .blog-author,
   .blog-province {
     @include font-heavy;
@@ -40,6 +39,8 @@
   }
 }
 
+
+
 .blog-feature-title {
   flex-grow: 10;
   margin-bottom: $header-margin-bottom * 2;
@@ -59,6 +60,8 @@
     }
   }
 }
+
+
 
 .blog-page-flipper {
   text-align: center;
@@ -80,6 +83,8 @@ img {
 .blog-post tr td.tr-caption * {
   font-size: 0.8rem !important;
 }
+
+
 
 .blog-post {
   // font-size: 1rem !important;
@@ -113,3 +118,6 @@ img {
 .blocks-gallery-caption {
   margin-top: -$margin-bottom;
 }
+
+
+
