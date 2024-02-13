@@ -71,12 +71,17 @@ function BulletinDaytimeReport({
             <a
               href="#page-main"
               onClick={e => scrollIntoView(e)}
-              className="img icon-arrow-up"
-              style={
-                showDiff &&
+              // className="img icon-arrow-up"
+              // style={
+              //   showDiff &&
+              //   !compareRegions(bulletin?.regions, bulletin170000?.regions)
+              //     ? { border: "#ff0000 5px solid" }
+              //     : {}
+              // }
+              className={
                 !compareRegions(bulletin?.regions, bulletin170000?.regions)
-                  ? { border: "#e6eef2 5px solid" }
-                  : {}
+                  ? "img icon-arrow-up bulletin-update-diff"
+                  : "img icon-arrow-up"
               }
             >
               <BulletinAWMapStatic
