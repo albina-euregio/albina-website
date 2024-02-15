@@ -14,6 +14,9 @@ import { currentSeasonYear } from "../../util/date-season";
 import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
 import WeatherStationUplot from "./weather-station-uplot";
 
+const ENABLE_UPLOT =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
+
 export type ObserverData = {
   geometry: {
     coordinates: number[];
@@ -24,6 +27,7 @@ export type ObserverData = {
 };
 
 const timeRanges = {
+  interactive: "interactive",
   day: "tag",
   threedays: "dreitage",
   week: "woche",
@@ -34,6 +38,7 @@ const timeRanges = {
 type TimeRange = keyof typeof timeRanges;
 
 const timeRangesMilli: Record<TimeRange, number> = {
+  interactive: 7 * 24 * 3600e3,
   day: 24 * 3600e3,
   threedays: 3 * 24 * 3600e3,
   week: 7 * 24 * 3600e3,
@@ -208,7 +213,8 @@ const TimeRangeButtons: React.FC<{
   const intl = useIntl();
   return (
     <ul className="list-inline filter primary">
-      {Object.keys(timeRanges).map(key => {
+      {(Object.keys(timeRanges) as TimeRange[]).map(key => {
+        if (key === "interactive" && !ENABLE_UPLOT) return <></>;
         const classes = ["label"];
         if (key == timeRange) classes.push("js-active");
         return (
@@ -223,7 +229,7 @@ const TimeRangeButtons: React.FC<{
               className={classes.join(" ")}
             >
               {intl.formatMessage({
-                id: "dialog:weather-station-diagram:timerange:" + key
+                id: `dialog:weather-station-diagram:timerange:${key}`
               })}
             </a>
           </li>
@@ -241,10 +247,12 @@ const StationDiagramImage: React.FC<{
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
   if (
+    timeRange === "interactive" &&
     station instanceof StationData &&
     station.operator?.startsWith?.("LWD Tirol")
   ) {
-    const timeRangeMilli = timeRangesMilli[timeRange];
+    const timeRangeMilli =
+      timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const width = document.body.clientWidth * 0.9;
     const height = 240;
     // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
@@ -342,6 +350,8 @@ const StationDiagramImage: React.FC<{
         />
       </>
     );
+  } else if (timeRange === "interactive") {
+    timeRange = "week";
   }
   const currentTS = new Date();
   currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
@@ -399,7 +409,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const myRef = useRef();
-  const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
+  const [timeRange, setTimeRange] = useState<TimeRange>(
+    ENABLE_UPLOT ? "interactive" : "threedays"
+  );
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const stationIndex = useMemo((): number => {
