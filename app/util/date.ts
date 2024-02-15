@@ -1,30 +1,27 @@
-export function parseDate(dateString: string) {
+export function parseDate(dateString: string): Date {
   // 2023-03-26 or 2023-12-15T06:38:19
   return new Date(dateString);
 }
 
-export function getPredDate(date: Date) {
+export function getPredDate(date: Date): Date {
   if (!date) return date;
   date = new Date(date);
   date.setDate(date.getDate() - 1);
   return date;
 }
 
-export function getSuccDate(date: Date) {
+export function getSuccDate(date: Date): Date {
   if (!date) return date;
   date = new Date(date);
   date.setDate(date.getDate() + 1);
   return date;
 }
 
-export function removeMilliseconds(unixTimeStamp: number) {
+export function removeMilliseconds(unixTimeStamp: number): number {
   return Math.floor(unixTimeStamp / 1000) * 1000;
 }
 
-/**
- * @type {Intl.DateTimeFormatOptions}
- */
-export const LONG_DATE_FORMAT = {
+export const LONG_DATE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
   month: "numeric",
@@ -32,10 +29,7 @@ export const LONG_DATE_FORMAT = {
 };
 Object.freeze(LONG_DATE_FORMAT);
 
-/**
- * @type {Intl.DateTimeFormatOptions}
- */
-export const DATE_TIME_FORMAT = {
+export const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
   month: "numeric",
@@ -46,10 +40,7 @@ export const DATE_TIME_FORMAT = {
 };
 Object.freeze(DATE_TIME_FORMAT);
 
-/**
- * @type {Intl.DateTimeFormatOptions}
- */
-export const DATE_TIME_ZONE_FORMAT = {
+export const DATE_TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
   month: "numeric",
@@ -61,7 +52,7 @@ export const DATE_TIME_ZONE_FORMAT = {
 };
 Object.freeze(DATE_TIME_ZONE_FORMAT);
 
-export function dateToISODateString(date: Date) {
+export function dateToISODateString(date: Date): string {
   const pad = function (d: number) {
     if (d < 10) {
       return "0" + d;
@@ -81,7 +72,7 @@ export function dateToISODateString(date: Date) {
   return "";
 }
 
-export function isSameDay(d1: Date, d2: Date) {
+export function isSameDay(d1: Date, d2: Date): boolean {
   return (
     d1.getDate() == d2.getDate() &&
     d1.getMonth() == d2.getMonth() &&
@@ -89,12 +80,12 @@ export function isSameDay(d1: Date, d2: Date) {
   );
 }
 
-export function isAfter(d1: Date, d2: Date) {
+export function isAfter(d1: Date, d2: Date): boolean {
   return d1.valueOf() > d2.valueOf();
 }
 
 /* format date utc enabled */
-export function dateFormat(date: Date, fstr, isUTC: boolean) {
+export function dateFormat(date: Date, fstr: string, isUTC: boolean): string {
   const utc = isUTC ? "getUTC" : "get";
   return fstr.replace(/%[YmdHMS]/g, (m: string) => {
     switch (m) {
@@ -123,7 +114,7 @@ export function dateFormat(date: Date, fstr, isUTC: boolean) {
   });
 }
 
-export function getDaysOfMonth(year: number, month: number) {
+export function getDaysOfMonth(year: number, month: number): number {
   // according to ECMA Standard, day is relative to the first of the month:
   // that means 0 is the last day of the previous month - see:
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setDate
