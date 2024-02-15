@@ -126,6 +126,7 @@ function parseData(
 ): uPlot.AlignedData {
   // https://code.wsl.ch/snow-models/meteoio/-/blob/master/doc/SMET_specifications.pdf
   let index = [] as number[];
+  let nodata = "-777";
   const timestamps: number[] = [];
   const values: number[][] = parameters.map(() => []);
   smet.split(/\r?\n/).forEach(line => {
@@ -137,6 +138,9 @@ function parseData(
       const units = line.slice("#units =".length).trim().split(" ");
       setUnit(units[index[0]]);
       return;
+    } else if (line.startsWith("nodata =")) {
+      nodata = line.slice("nodata =".length).trim();
+      return;
     } else if (!/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/.test(line)) {
       return;
     } else if (index[0] < 0) {
@@ -147,9 +151,10 @@ function parseData(
     if (Date.now() - date > timeRangeMilli) return;
     // uPlot uses epoch seconds (instead of milliseconds)
     timestamps.push(date / 1000);
-    index.forEach(
-      (i, k) => i < 0 || values[k].push(+cells[i].replace(",", "."))
-    );
+    index.forEach((i, k) => {
+      if (i < 0 || cells[i] === nodata) return;
+      values[k].push(+cells[i].replace(",", "."));
+    });
   });
   return [timestamps, ...values];
 }
