@@ -312,19 +312,18 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
           )}
           {problem?.avalancheSize && (
             <div
-              className={`matrix-info matrix-info-value-${
-                textInfoToClass.avalancheSize[problem?.avalancheSize]
-              }`}
+              className={
+                `matrix-info matrix-info-value-${
+                  textInfoToClass.avalancheSize[problem?.avalancheSize]
+                }` + showDiff && !compareAvalancheSize(problem, problem170000)
+                  ? "bulletin-update-diff"
+                  : ""
+              }
               // style={
               //   showDiff && !compareAvalancheSize(problem, problem170000)
               //     ? { backgroundColor: "#e6eef2" }
               //     : {}
               // }
-              className={
-                showDiff && !compareAvalancheSize(problem, problem170000)
-                  ? "bulletin-update-diff"
-                  : {}
-              }
             >
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">
