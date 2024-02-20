@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
 import type { Bulletin, Status } from "../../stores/bulletin";
+import { Tooltip } from "../tooltips/tooltip";
 
 type Props = {
   bulletin: Bulletin;
@@ -57,7 +58,11 @@ const BulletinStatusLine = (props: Props) => {
           : "bulletin-datetime-validity")
       }
     >
-      {statusText}
+      <Tooltip
+        label={intl.formatMessage({ id: "bulletin:header:updated-at:tooltip" })}
+      >
+        <span>{statusText}</span>
+      </Tooltip>
     </span>
   );
 };
