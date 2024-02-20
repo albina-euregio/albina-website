@@ -215,7 +215,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
       //     : {}
       // }
       className={
-        showDiff && problem170000 === undefined ? "bulletin-update-diff" : {}
+        showDiff && problem170000 === undefined ? "bulletin-update-diff" : ""
       }
     >
       {problem && <ProblemIconLink problem={problem} />}
