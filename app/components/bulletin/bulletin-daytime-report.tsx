@@ -54,6 +54,28 @@ function BulletinDaytimeReport({
     ) || [];
   const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
+  let tendencyReportItems: JSX.Element[] = [];
+  let tendencyReportItemsAllNew = true;
+  if (Array.isArray(bulletin.tendency)) {
+    tendencyReportItems = bulletin.tendency.map((tendency, index) => {
+      const problem170000 = bulletin170000?.tendency?.[index];
+      //console.log("BulletinDaytimeReport #1", {index, problem170000});
+      tendencyReportItemsAllNew =
+        problem170000 === undefined ? tendencyReportItemsAllNew : false;
+      return (
+        <TendencyReport
+          tendency={tendency}
+          tendency170000={problem170000}
+          showDiff={showDiff}
+          date={date}
+          key={index}
+        />
+      );
+    });
+  }
+
+  //console.log("BulletinDaytimeReport #2", {tendencyReportItemsAllNew});
+
   return (
     <div>
       {validTimePeriod && (
@@ -94,7 +116,11 @@ function BulletinDaytimeReport({
           </Tooltip>
         </div>
         <ul className="list-plain list-bulletin-report-pictos">
-          <li>
+          <li
+            className={
+              tendencyReportItemsAllNew ? "bulletin-datetime-publishing" : ""
+            }
+          >
             <div
               // className="bulletin-report-picto tooltip"
               // style={
@@ -108,16 +134,7 @@ function BulletinDaytimeReport({
             >
               <BulletinDangerRating dangerRatings={dangerRatings} />
             </div>
-            {Array.isArray(bulletin.tendency) &&
-              bulletin.tendency.map((tendency, index) => (
-                <TendencyReport
-                  tendency={tendency}
-                  tendency170000={bulletin170000?.tendency?.[index]}
-                  showDiff={showDiff}
-                  date={date}
-                  key={index}
-                />
-              ))}
+            {tendencyReportItems}
           </li>
           {problems.map((problem, index) => (
             <BulletinProblemItem
