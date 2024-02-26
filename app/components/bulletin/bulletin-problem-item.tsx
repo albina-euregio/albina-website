@@ -262,10 +262,10 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                     textInfoToClass.snowpackStability[
                       problem?.snowpackStability
                     ]
-                  }` + showDiff &&
-                  !compareSnowpackStability(problem, problem170000)
+                  }` +
+                  (showDiff && !compareSnowpackStability(problem, problem170000)
                     ? " bulletin-update-diff"
-                    : ""
+                    : "")
                 }
                 // style={
                 //   showDiff && !compareSnowpackStability(problem, problem170000)
@@ -290,9 +290,10 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               className={
                 `matrix-info matrix-info-value-${
                   textInfoToClass.frequency[problem?.frequency]
-                }` + showDiff && !compareFrequency(problem, problem170000)
+                }` +
+                (showDiff && !compareFrequency(problem, problem170000)
                   ? " bulletin-update-diff"
-                  : ""
+                  : "")
               }
               // style={
               //   showDiff && !compareFrequency(problem, problem170000)
@@ -315,9 +316,10 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               className={
                 `matrix-info matrix-info-value-${
                   textInfoToClass.avalancheSize[problem?.avalancheSize]
-                }` + showDiff && !compareAvalancheSize(problem, problem170000)
+                }` +
+                (showDiff && !compareAvalancheSize(problem, problem170000)
                   ? "bulletin-update-diff"
-                  : ""
+                  : "")
               }
               // style={
               //   showDiff && !compareAvalancheSize(problem, problem170000)
