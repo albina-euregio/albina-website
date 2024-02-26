@@ -22,6 +22,42 @@ $mfp-overlay-color: $primary-color; // Color of overlay screen
 $mfp-overlay-opacity: 0.9; // Opacity of overlay screen
 $mfp-shadow: none; // Shadow on image or iframe
 
+// spacing
+$mfp-popup-padding-left: 0; // Padding from left and from right side
+$mfp-popup-padding-left-mobile: 0; // Same as above, but is applied when width of window is less than 800px
+
+$mfp-z-index-base: 9000; //11000;// Base z-index of popup
+
+// controls
+$mfp-include-arrows: true; // Include styles for nav arrows
+$mfp-controls-opacity: 0.9; // Opacity of controls
+$mfp-controls-color: $anchor-font-color; // Color of controls
+$mfp-controls-border-color: none; // Border color of controls
+$mfp-inner-close-icon-color: $anchor-font-color; // Color of close button when inside
+$mfp-controls-text-color: $white; // Color of preloader and "1 of X" indicator
+$mfp-controls-text-color-hover: $anchor-font-color; // Hover color of preloader and "1 of X" indicator
+
+// Iframe-type options
+$mfp-include-iframe-type: true; // Enable Iframe-type popups
+$mfp-iframe-padding-top: $modal-vertical-margin; // Iframe padding top
+$mfp-iframe-background: $modal-background-color; //Background color of iframes
+$mfp-iframe-max-width: $modal-max-width; //Maximum width of iframes
+$mfp-iframe-ratio: 0.75; //Ratio of iframe (9/16 = widescreen, 3/4 = standard, etc.)
+
+// Image-type options
+$mfp-include-image-type: true; // Enable Image-type popups
+$mfp-image-background: none; //Background color of images
+$mfp-image-padding-top: $modal-vertical-margin; //Image padding top
+$mfp-image-padding-bottom: $modal-vertical-margin; // Image padding bottom
+$mfp-include-mobile-layout-for-image: true; // Removes paddings from top and bottom
+
+// Image caption options
+$mfp-caption-title-color: $white; //Caption title color
+$mfp-caption-subtitle-color: $white; //Caption subtitle color
+
+// A11y
+$mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
+
 // based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#transitioning_dialog_elements
 dialog[open] {
   opacity: 1;
@@ -58,42 +94,6 @@ dialog[open]::backdrop {
     background-color: rgb(0 0 0 / 0);
   }
 }
-
-// spacing
-$mfp-popup-padding-left: 0; // Padding from left and from right side
-$mfp-popup-padding-left-mobile: 0; // Same as above, but is applied when width of window is less than 800px
-
-$mfp-z-index-base: 9000; //11000;// Base z-index of popup
-
-// controls
-$mfp-include-arrows: true; // Include styles for nav arrows
-$mfp-controls-opacity: 0.9; // Opacity of controls
-$mfp-controls-color: $anchor-font-color; // Color of controls
-$mfp-controls-border-color: none; // Border color of controls
-$mfp-inner-close-icon-color: $anchor-font-color; // Color of close button when inside
-$mfp-controls-text-color: $white; // Color of preloader and "1 of X" indicator
-$mfp-controls-text-color-hover: $anchor-font-color; // Hover color of preloader and "1 of X" indicator
-
-// Iframe-type options
-$mfp-include-iframe-type: true; // Enable Iframe-type popups
-$mfp-iframe-padding-top: $modal-vertical-margin; // Iframe padding top
-$mfp-iframe-background: $modal-background-color; //Background color of iframes
-$mfp-iframe-max-width: $modal-max-width; //Maximum width of iframes
-$mfp-iframe-ratio: 0.75; //Ratio of iframe (9/16 = widescreen, 3/4 = standard, etc.)
-
-// Image-type options
-$mfp-include-image-type: true; // Enable Image-type popups
-$mfp-image-background: none; //Background color of images
-$mfp-image-padding-top: $modal-vertical-margin; //Image padding top
-$mfp-image-padding-bottom: $modal-vertical-margin; // Image padding bottom
-$mfp-include-mobile-layout-for-image: true; // Removes paddings from top and bottom
-
-// Image caption options
-$mfp-caption-title-color: $white; //Caption title color
-$mfp-caption-subtitle-color: $white; //Caption subtitle color
-
-// A11y
-$mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
 
 .mfp-content {
   position: fixed;
@@ -366,9 +366,6 @@ button.mfp-arrow {
         &:active {
           display: inline-block;
         }
-      }
-
-      @media #{$tiny-up} {
       }
     }
   }

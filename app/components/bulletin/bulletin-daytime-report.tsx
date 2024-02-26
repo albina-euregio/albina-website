@@ -54,6 +54,30 @@ function BulletinDaytimeReport({
     ) || [];
   const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
+  let tendencyReportItems: JSX.Element[] = [];
+  let tendencyReportItemsAllNew = isInserted;
+  if (Array.isArray(bulletin.tendency)) {
+    tendencyReportItems = bulletin.tendency.map((tendency, index) => {
+      const tendency170000 = bulletin170000?.tendency?.[index];
+      //console.log("BulletinDaytimeReport #1 #juhu", {index, isInserted, tendency, tendency170000, tendencyType: tendency?.tendencyType, tendency170000Type: tendency170000?.tendencyType});
+      tendencyReportItemsAllNew =
+        tendency?.tendencyType !== tendency170000?.tendencyType
+          ? tendencyReportItemsAllNew
+          : false;
+      return (
+        <TendencyReport
+          tendency={tendency}
+          tendency170000={tendency170000}
+          showDiff={showDiff}
+          date={date}
+          key={index}
+        />
+      );
+    });
+  }
+
+  //console.log("BulletinDaytimeReport #2 #juhu", {tendencyReportItemsAllNew});
+
   return (
     <div>
       {validTimePeriod && (
@@ -71,12 +95,17 @@ function BulletinDaytimeReport({
             <a
               href="#page-main"
               onClick={e => scrollIntoView(e)}
-              className="img icon-arrow-up"
-              style={
-                showDiff &&
+              // className="img icon-arrow-up"
+              // style={
+              //   showDiff &&
+              //   !compareRegions(bulletin?.regions, bulletin170000?.regions)
+              //     ? { border: "#ff0000 5px solid" }
+              //     : {}
+              // }
+              className={
                 !compareRegions(bulletin?.regions, bulletin170000?.regions)
-                  ? { border: "#e6eef2 5px solid" }
-                  : {}
+                  ? "img icon-arrow-up bulletin-update-diff"
+                  : "img icon-arrow-up"
               }
             >
               <BulletinAWMapStatic
@@ -89,25 +118,27 @@ function BulletinDaytimeReport({
           </Tooltip>
         </div>
         <ul className="list-plain list-bulletin-report-pictos">
-          <li>
+          <li
+            className={
+              showDiff && tendencyReportItemsAllNew
+                ? "bulletin-update-diff"
+                : ""
+            }
+          >
             <div
-              className="bulletin-report-picto tooltip"
-              style={
-                showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              // className="bulletin-report-picto tooltip"
+              // style={
+              //   showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
+              // }
+              className={
+                showDiff && isInserted
+                  ? "bulletin-report-picto tooltip bulletin-update-diff"
+                  : "bulletin-report-picto tooltip"
               }
             >
               <BulletinDangerRating dangerRatings={dangerRatings} />
             </div>
-            {Array.isArray(bulletin.tendency) &&
-              bulletin.tendency.map((tendency, index) => (
-                <TendencyReport
-                  tendency={tendency}
-                  tendency170000={bulletin170000?.tendency?.[index]}
-                  showDiff={showDiff}
-                  date={date}
-                  key={index}
-                />
-              ))}
+            {tendencyReportItems}
           </li>
           {problems.map((problem, index) => (
             <BulletinProblemItem
@@ -181,13 +212,18 @@ function TendencyReport({
       })}
     >
       <div
-        className="bulletin-report-tendency"
-        style={
+        // className="bulletin-report-tendency"
+        // style={
+        //   showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
+        //     ? {
+        //         backgroundColor: "#e6eef2"
+        //       }
+        //     : {}
+        // }
+        className={
           showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
-            ? {
-                backgroundColor: "#e6eef2"
-              }
-            : {}
+            ? "bulletin-report-tendency bulletin-update-diff"
+            : "bulletin-report-tendency"
         }
       >
         <span>

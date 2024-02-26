@@ -188,12 +188,12 @@ $page-header-logo-width: 3.25em;
     .mark-de {
       background-image: url("../images/pro/logos/logo_mark_de.svg");
       background-size: $logo-mark-de-width $logo-mark-de-height;
-      transform: rotate(90deg); //rotate: 90deg;
+      transform: rotate(90deg);//rotate: 90deg;
     }
     .mark-it {
       background-image: url("../images/pro/logos/logo_mark_it.svg");
       background-size: $logo-mark-it-width $logo-mark-it-height;
-      transform: rotate(180deg); //rotate: 180deg;
+      transform: rotate(180deg);//rotate: 180deg;
     }
     .mark-en {
       opacity: 1;
@@ -268,21 +268,21 @@ $page-header-logo-width: 3.25em;
     transform: scale(1.05);
     .domain-de & {
       .mark-en {
-        transform: rotate(-135deg); //rotate: -135deg;
+        transform: rotate(-135deg);//rotate: -135deg;
         opacity: 0;
       }
       .mark-de {
-        transform: rotate(-45deg); //rotate: -45deg;
+        transform: rotate(-45deg);//rotate: -45deg;
         opacity: 1;
       }
     }
     .domain-it & {
       .mark-en {
-        transform: rotate(-180deg); //rotate: -180deg;
+        transform: rotate(-180deg);//rotate: -180deg;
         opacity: 0;
       }
       .mark-it {
-        transform: rotate(0deg); //rotate: 0deg;
+        transform: rotate(0deg);//rotate: 0deg;
         opacity: 1;
       }
     }
@@ -424,8 +424,8 @@ $page-header-logo-width: 3.25em;
 .page-header-logo-secondary {
   align-items: center;
   margin-right: calc(
-    -#{$logo-header-footer-secondary-width} * 0.2857142857 - #{$page-header-padding-h} *
-      2 - #{$border-width} * 2
+    -#{$logo-header-footer-secondary-width} * 0.2857142857 - #{$page-header-padding-h} * 2 -
+      #{$border-width} * 2
   );
 
   .header-footer-logo-secondary {

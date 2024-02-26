@@ -91,6 +91,7 @@
   "bulletin:header:info-loading-data-slow": "<a>Loading avalanche forecast. In case of slow network you might consider to use our lightweight version.</a>",
   "bulletin:header:published-at": "Published {date}, {time}",
   "bulletin:header:updated-at": "Updated {date}, {time}",
+  "bulletin:header:updated-at:tooltip": "Show difference",
   "bulletin:header:loading": "Loading",
   "bulletin:header:all_day": "All Day",
   "bulletin:header:earlier": "Earlier",

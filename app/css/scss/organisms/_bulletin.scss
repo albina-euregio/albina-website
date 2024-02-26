@@ -56,14 +56,13 @@
     li {
       position: relative;
     }
-
+      
     .picto-img {
       transform: translateY(-$padding);
       border: $border-width $border-style $border-color;
       @include rollout;
 
-      img,
-      svg {
+      img, svg {
         opacity: 1;
       }
       &:after {
@@ -81,7 +80,7 @@
 
     .picto-caption {
       position: relative;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding  * 0.9);
       font-size: $nano-font-size;
       line-height: 1.2;
       text-align: center;
@@ -126,6 +125,7 @@
         }
       }
     }
+
   }
 
   .list-legend {
@@ -348,8 +348,7 @@
       color: $anchor-font-color-hover;
     }
   }
-  img,
-  svg {
+  img, svg {
     height: $picto-height;
     //max-width: none;//<- why?
     margin: 0;
@@ -362,12 +361,12 @@
   }
 
   &.avalanche-situation {
+
     .picto-img {
       position: relative;
       border: $border-width $border-style $border-color;
       @include rollout;
-      img,
-      svg {
+      img, svg {
         max-width: none;
         height: $picto-height;
         margin: 0;
@@ -388,14 +387,14 @@
     .picto-caption {
       position: relative;
       max-width: $picto-height + $padding * 1.8;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding  * 0.9);
       @include font-normal;
       @include letter-spacing(0);
       font-size: $nano-font-size;
       line-height: 1.2;
       text-align: center;
     }
-
+    
     > a {
       &:link,
       &:visited {
@@ -414,11 +413,11 @@
         }
       }
     }
+
   }
 
   &.problem-altitude {
-    img,
-    svg {
+    img, svg {
       height: $picto-height-minus;
     }
     span {
@@ -499,8 +498,7 @@
 
   &.situation-frequency {
     display: none;
-    img,
-    svg {
+    img, svg {
       width: $picto-height-plus;
       height: 100%;
       //border: $border-width $border-style $border-color;
@@ -557,11 +555,12 @@
     // width: 50%;
     @include font-bold;
   }
+
 }
 
 .bulletin-report-expositions {
   display: block;
-
+  
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
@@ -604,6 +603,7 @@
   // &.expo_nw .expo_nw {
   //   display: block;
   // }
+
 }
 
 .bulletin-report-tendency {
@@ -613,7 +613,7 @@
   span {
     display: inline-block;
     &:first-child {
-      padding-right: $grid-gutter * 0.25;
+      padding-right: $grid-gutter* 0.25;
     }
     &:last-child {
       font-size: $large-font-size;
@@ -656,3 +656,35 @@
     @include font-heavy;
   }
 }
+
+
+
+
+.bulletin-update-diff {
+  // position: relative;
+  background-color: lighten($green, 55%);
+  outline: lighten($green, 55%) $bar-width $border-style;
+  // background-color: rgba($green, 0.1);
+  // outline: rgba($green, 0.1) $bar-width $border-style;
+  // background: radial-gradient($green, transparent 50%);
+  // outline: $green $border-width dashed;
+  // outline: $green $border-width dotted;
+  // > * {
+  //   background-color: lighten($green, 50%);
+  //   outline: $green $border-width dashed;
+  // }
+  // &:before {
+  //   z-index: 100;
+  //   content: "";
+  //   position: absolute;
+  //   display: block;
+  //   top: calc(50% - #{$bar-width});
+  //   left: calc(50% - #{$bar-width});
+  //   width: $bar-width * 2;
+  //   height: $bar-width * 2;
+  //   background-color: $green;
+  //   border-radius: $global-rounded;
+  //   filter: blur(5px);
+  // }
+}
+

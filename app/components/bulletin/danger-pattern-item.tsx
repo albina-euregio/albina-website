@@ -12,7 +12,9 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
       className="label"
     >
       {isInserted ? (
-        <ins style={{ color: "#28a745" }}>
+        <ins
+          // style={{ color: "#28a745" }}
+          >
           <FormattedMessage
             id={`danger-patterns:${dangerPattern.toLowerCase()}`}
           />

@@ -7,7 +7,9 @@
     #CALENDAR
 \*------------------------------------*/
 
+
 .react-calendar {
+
   &.albina-calendar-flesh {
     z-index: 10;
     width: 250px;
@@ -24,8 +26,7 @@
         min-height: 40px;
         &:enabled {
           color: $anchor-font-color;
-          &:hover,
-          &:focus {
+          &:hover, &:focus {
             color: $white;
             background-color: $anchor-font-color;
           }
@@ -36,30 +37,23 @@
         }
       }
     }
-
+    
     .react-calendar__tile {
       &:enabled {
-        &:hover,
-        &:focus {
+        &:hover, &:focus {
           background-color: $anchor-font-color;
-          abbr {
-            color: $white;
-          }
+          abbr { color: $white; }
         }
       }
       &[disabled] {
         background-color: transparent;
         opacity: 0.25;
-        abbr {
-          color: $text-color;
-        }
+        abbr { color: $text-color; }
       }
     }
     .react-calendar__tile--active {
       background-color: $anchor-font-color !important;
-      abbr {
-        color: $white;
-      }
+      abbr { color: $white; }
     }
 
     .react-calendar__month-view__weekdays {
@@ -76,7 +70,7 @@
 
     .react-calendar__year-view,
     .react-calendar__decade-view,
-    .react-calendar__century-view {
+    .react-calendar__century-view  {
       .react-calendar__tile {
         padding: 1em 0.5em;
       }
@@ -86,8 +80,7 @@
     .react-calendar__century-view__decades__decade {
       color: $anchor-font-color;
       &:enabled {
-        &:hover,
-        &:focus {
+        &:hover, &:focus {
           color: $white;
           background-color: $anchor-font-color;
         }
@@ -98,12 +91,18 @@
         opacity: 0.25;
       }
     }
+
   }
+
 }
+
+
 
 .albina-calendar-modal {
   @include box-shadow(0.15);
 }
+
+
 
 a.albina-calendar-close {
   // display: block;
@@ -125,3 +124,5 @@ a.albina-calendar-close {
     border-color: transparent;
   }
 }
+
+

@@ -15,6 +15,7 @@
     }
   }
   @media #{$normal-up} {
+
     .grid-item + .grid-item:last-child {
       text-align: right;
     }
