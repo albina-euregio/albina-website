@@ -4,16 +4,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { dateToISODateString } from "../../util/date";
 import { Bulletin } from "../../stores/bulletin";
+import type { Language } from "../../appStore";
 
 type Props = { date: Date; bulletin: Bulletin };
 
-const ENABLED_LANGUAGES = ["de", "en"];
+const ENABLED_LANGUAGES: Language[] = ["de", "en", "it"];
 
 function SynthesizedBulletin({ date, bulletin }: Props) {
   const [audioFileUrl, setAudioFileUrl] = useState(null);
 
   useEffect(() => {
-    if (!ENABLED_LANGUAGES.includes(bulletin.lang)) {
+    if (!ENABLED_LANGUAGES.includes(bulletin.lang as Language)) {
       setAudioFileUrl(null);
       return;
     }
