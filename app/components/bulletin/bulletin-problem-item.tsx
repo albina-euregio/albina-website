@@ -318,7 +318,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   textInfoToClass.avalancheSize[problem?.avalancheSize]
                 }` +
                 (showDiff && !compareAvalancheSize(problem, problem170000)
-                  ? "bulletin-update-diff"
+                  ? " bulletin-update-diff"
                   : "")
               }
               // style={
