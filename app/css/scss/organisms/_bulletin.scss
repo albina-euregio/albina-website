@@ -56,13 +56,14 @@
     li {
       position: relative;
     }
-      
+
     .picto-img {
       transform: translateY(-$padding);
       border: $border-width $border-style $border-color;
       @include rollout;
 
-      img, svg {
+      img,
+      svg {
         opacity: 1;
       }
       &:after {
@@ -80,7 +81,7 @@
 
     .picto-caption {
       position: relative;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding  * 0.9);
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
       font-size: $nano-font-size;
       line-height: 1.2;
       text-align: center;
@@ -125,7 +126,6 @@
         }
       }
     }
-
   }
 
   .list-legend {
@@ -209,6 +209,15 @@
   .bulletin-report-header-meta {
     margin-bottom: 0;
     font-size: $tiny-font-size;
+    @include letter-spacing;
+    strong {
+      @include font-heavy;
+    }
+  }
+  .bulletin-report-header-diff {
+    font-size: $tiny-font-size;
+    font-weight: 600;
+    font-size: 0.7rem;
     @include letter-spacing;
     strong {
       @include font-heavy;
@@ -348,7 +357,8 @@
       color: $anchor-font-color-hover;
     }
   }
-  img, svg {
+  img,
+  svg {
     height: $picto-height;
     //max-width: none;//<- why?
     margin: 0;
@@ -361,12 +371,12 @@
   }
 
   &.avalanche-situation {
-
     .picto-img {
       position: relative;
       border: $border-width $border-style $border-color;
       @include rollout;
-      img, svg {
+      img,
+      svg {
         max-width: none;
         height: $picto-height;
         margin: 0;
@@ -387,14 +397,14 @@
     .picto-caption {
       position: relative;
       max-width: $picto-height + $padding * 1.8;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding  * 0.9);
+      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
       @include font-normal;
       @include letter-spacing(0);
       font-size: $nano-font-size;
       line-height: 1.2;
       text-align: center;
     }
-    
+
     > a {
       &:link,
       &:visited {
@@ -413,11 +423,11 @@
         }
       }
     }
-
   }
 
   &.problem-altitude {
-    img, svg {
+    img,
+    svg {
       height: $picto-height-minus;
     }
     span {
@@ -498,7 +508,8 @@
 
   &.situation-frequency {
     display: none;
-    img, svg {
+    img,
+    svg {
       width: $picto-height-plus;
       height: 100%;
       //border: $border-width $border-style $border-color;
@@ -555,12 +566,11 @@
     // width: 50%;
     @include font-bold;
   }
-
 }
 
 .bulletin-report-expositions {
   display: block;
-  
+
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
@@ -603,7 +613,6 @@
   // &.expo_nw .expo_nw {
   //   display: block;
   // }
-
 }
 
 .bulletin-report-tendency {
@@ -613,7 +622,7 @@
   span {
     display: inline-block;
     &:first-child {
-      padding-right: $grid-gutter* 0.25;
+      padding-right: $grid-gutter * 0.25;
     }
     &:last-child {
       font-size: $large-font-size;
@@ -657,9 +666,6 @@
   }
 }
 
-
-
-
 .bulletin-update-diff {
   // position: relative;
   background-color: lighten($green, 55%);
@@ -687,4 +693,3 @@
   //   filter: blur(5px);
   // }
 }
-
