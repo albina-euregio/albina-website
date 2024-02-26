@@ -155,7 +155,8 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                   style={{ color: "#ff0000", cursor: "pointer" }}
                 >
                   <BulletinStatusLine status="ok" bulletin={bulletin} />
-                  {showDiff > 0 && " ⇔"}
+                  {showDiff == 2 && " ⇔"}
+                  {showDiff == 1 && " ⇒"}
                 </span>
               )}
             </p>
