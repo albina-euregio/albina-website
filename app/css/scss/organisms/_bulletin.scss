@@ -669,7 +669,7 @@
 .bulletin-update-diff {
   // position: relative;
   background-color: lighten($green, 55%);
-  outline: lighten($green, 55%) $bar-width $border-style;
+
   // background-color: rgba($green, 0.1);
   // outline: rgba($green, 0.1) $bar-width $border-style;
   // background: radial-gradient($green, transparent 50%);
@@ -692,4 +692,8 @@
   //   border-radius: $global-rounded;
   //   filter: blur(5px);
   // }
+}
+
+.bulletin-update-diff-border {
+  outline: lighten($green, 55%) $bar-width $border-style;
 }
