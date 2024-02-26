@@ -55,17 +55,19 @@ function BulletinDaytimeReport({
   const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
   let tendencyReportItems: JSX.Element[] = [];
-  let tendencyReportItemsAllNew = true;
+  let tendencyReportItemsAllNew = isInserted;
   if (Array.isArray(bulletin.tendency)) {
     tendencyReportItems = bulletin.tendency.map((tendency, index) => {
-      const problem170000 = bulletin170000?.tendency?.[index];
-      //console.log("BulletinDaytimeReport #1", {index, problem170000});
+      const tendency170000 = bulletin170000?.tendency?.[index];
+      //console.log("BulletinDaytimeReport #1 #juhu", {index, isInserted, tendency, tendency170000, tendencyType: tendency?.tendencyType, tendency170000Type: tendency170000?.tendencyType});
       tendencyReportItemsAllNew =
-        problem170000 === undefined ? tendencyReportItemsAllNew : false;
+        tendency?.tendencyType !== tendency170000?.tendencyType
+          ? tendencyReportItemsAllNew
+          : false;
       return (
         <TendencyReport
           tendency={tendency}
-          tendency170000={problem170000}
+          tendency170000={tendency170000}
           showDiff={showDiff}
           date={date}
           key={index}
@@ -74,7 +76,7 @@ function BulletinDaytimeReport({
     });
   }
 
-  //console.log("BulletinDaytimeReport #2", {tendencyReportItemsAllNew});
+  //console.log("BulletinDaytimeReport #2 #juhu", {tendencyReportItemsAllNew});
 
   return (
     <div>
@@ -118,7 +120,9 @@ function BulletinDaytimeReport({
         <ul className="list-plain list-bulletin-report-pictos">
           <li
             className={
-              tendencyReportItemsAllNew ? "bulletin-datetime-publishing" : ""
+              showDiff && tendencyReportItemsAllNew
+                ? "bulletin-update-diff"
+                : ""
             }
           >
             <div
