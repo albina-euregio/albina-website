@@ -103,8 +103,9 @@ function BulletinDaytimeReport({
               //     : {}
               // }
               className={
+                showDiff &&
                 !compareRegions(bulletin?.regions, bulletin170000?.regions)
-                  ? "img icon-arrow-up bulletin-update-diff"
+                  ? "img icon-arrow-up bulletin-update-diff bulletin-update-diff-border"
                   : "img icon-arrow-up"
               }
             >

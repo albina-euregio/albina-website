@@ -136,6 +136,20 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
       >
         <div className={classes}>
           <header className="bulletin-report-header">
+            {isInserted && (
+              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              <p className="bulletin-report-header-diff">
+                <button
+                  type="button"
+                  className="pure-button tertiary small red-label"
+                  onClick={() => setShowDiff(d => (d + 1) % 3)}
+                >
+                  <BulletinStatusLine status="ok" bulletin={bulletin} />
+                  {showDiff == 2 && " ⇔"}
+                  {showDiff == 1 && " ⇒"}
+                </button>
+              </p>
+            )}
             <p className="bulletin-report-header-meta">
               <span>
                 <FormattedMessage
@@ -148,16 +162,6 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                   }}
                 />
               </span>
-              {isInserted && (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <span
-                  onClick={() => setShowDiff(d => (d + 1) % 3)}
-                  style={{ color: "#ff0000", cursor: "pointer" }}
-                >
-                  <BulletinStatusLine status="ok" bulletin={bulletin} />
-                  {showDiff > 0 && " ⇔"}
-                </span>
-              )}
             </p>
             <h1 className="bulletin-report-header-danger-level">
               <span>
