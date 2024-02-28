@@ -57,7 +57,6 @@ a.pure-button {
   &:focus:not(:focus-visible) {
     outline: none;
   }
-  
 
   &.primary {
   }
@@ -206,6 +205,10 @@ a.pure-button {
   }
   &.large {
     font-size: $medium-font-size; //$body-font-size-medium;
+  }
+
+  &.red-label {
+    color: $red;
   }
 
   &.pure-button-icon {
