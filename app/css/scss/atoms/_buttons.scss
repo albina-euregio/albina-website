@@ -57,6 +57,7 @@ a.pure-button {
   &:focus:not(:focus-visible) {
     outline: none;
   }
+  
 
   &.primary {
   }
@@ -207,7 +208,7 @@ a.pure-button {
     font-size: $medium-font-size; //$body-font-size-medium;
   }
 
-  &.red-label {
+   &.red-label {
     color: $red;
   }
 

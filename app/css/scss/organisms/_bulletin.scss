@@ -56,7 +56,7 @@
     li {
       position: relative;
     }
-
+      
     .picto-img {
       transform: translateY(-$padding);
       border: $border-width $border-style $border-color;
@@ -371,6 +371,7 @@
   }
 
   &.avalanche-situation {
+
     .picto-img {
       position: relative;
       border: $border-width $border-style $border-color;
@@ -404,7 +405,7 @@
       line-height: 1.2;
       text-align: center;
     }
-
+    
     > a {
       &:link,
       &:visited {
@@ -570,7 +571,7 @@
 
 .bulletin-report-expositions {
   display: block;
-
+  
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
@@ -613,6 +614,7 @@
   // &.expo_nw .expo_nw {
   //   display: block;
   // }
+
 }
 
 .bulletin-report-tendency {
@@ -669,7 +671,6 @@
 .bulletin-update-diff {
   // position: relative;
   background-color: lighten($green, 55%);
-
   // background-color: rgba($green, 0.1);
   // outline: rgba($green, 0.1) $bar-width $border-style;
   // background: radial-gradient($green, transparent 50%);
