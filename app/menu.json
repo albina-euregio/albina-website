@@ -28,21 +28,24 @@
     "children": [
       { "url": "/education/danger-scale" },
       { "url": "/education/avalanche-problems" },
-      { "url": "/education/workflow" },
+      { "url": "/education/danger-patterns" },
+      { "url": "" },
       { "url": "/education/matrix" },
       { "url": "/education/snowpack-stability" },
       { "url": "/education/frequency" },
       { "url": "/education/avalanche-sizes" },
+      { "url": "/education/workflow" },
+      { "url": "" },
+      { "url": "/education/handbook" },
       { "url": "/education/spatio-temporal-scale" },
-      { "url": "/education/danger-patterns" },
-      { "url": "/education/community" },
+      { "url": "" },
       {
         "key": "glossary",
         "url": "https://www.avalanches.org/glossary/?lang=en",
         "url:de": "https://www.avalanches.org/glossary/?lang=de",
         "url:it": "https://www.avalanches.org/glossary/?lang=it"
       },
-      { "url": "/education/handbook" },
+      { "url": "" },
       { "url": "/education/virtual-reality-project" }
     ]
   },
@@ -50,10 +53,12 @@
     "url": "/more",
     "children": [
       { "url": "/more/archive" },
-      { "url": "/more/about" },
-      { "url": "/more/contact" },
+      { "url": "/more/season-reports" },
+      { "url": "/education/community" },
       { "url": "/more/open-data" },
-      { "url": "/more/season-reports" }
+      { "url": "" },
+      { "url": "/more/about" },
+      { "url": "/more/contact" }
     ]
   }
 ]
