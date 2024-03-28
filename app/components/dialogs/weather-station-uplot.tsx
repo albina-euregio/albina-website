@@ -118,6 +118,15 @@ const WeatherStationUplot: React.FC<{
 
 export default WeatherStationUplot;
 
+const UNIT_MAPPING: Record<
+  string,
+  { to: string; convert: (v: number) => number }
+> = {
+  K: { to: "°C", convert: v => v - 273.15 },
+  m: { to: "cm", convert: v => v * 100 },
+  "m/s": { to: "km/h", convert: v => v * 3.6 }
+};
+
 function parseData(
   smet: string,
   parameters: Parameter[],
@@ -126,6 +135,7 @@ function parseData(
 ): uPlot.AlignedData {
   // https://code.wsl.ch/snow-models/meteoio/-/blob/master/doc/SMET_specifications.pdf
   let index = [] as number[];
+  let units = [] as string[];
   let nodata = "-777";
   const timestamps: number[] = [];
   const values: number[][] = parameters.map(() => []);
@@ -135,8 +145,7 @@ function parseData(
       index = parameters.map(p => fields.indexOf(p.id));
       return;
     } else if (line.startsWith("#units =") && index[0] >= 0) {
-      const units = line.slice("#units =".length).trim().split(" ");
-      setUnit(units[index[0]]);
+      units = line.slice("#units =".length).trim().split(" ");
       return;
     } else if (line.startsWith("nodata =")) {
       nodata = line.slice("nodata =".length).trim();
@@ -153,8 +162,15 @@ function parseData(
     timestamps.push(date / 1000);
     index.forEach((i, k) => {
       if (i < 0 || cells[i] === nodata) return;
-      values[k].push(+cells[i].replace(",", "."));
+      const value = +cells[i].replace(",", ".");
+      values[k].push(UNIT_MAPPING[units[i]]?.convert(value) ?? value);
     });
   });
+  setUnit(
+    units
+      .map(u => UNIT_MAPPING[u]?.to ?? u)
+      .filter((u, i, array) => index.includes(i) && array.indexOf(u) === i)
+      .join()
+  );
   return [timestamps, ...values];
 }
