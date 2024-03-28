@@ -28,8 +28,8 @@ function BulletinDateFlipper({ date, latest }: Props) {
   const prevDate = prevDate$ ? intl.formatDate(prevDate$) : "";
   const nextDate = nextDate$ ? intl.formatDate(nextDate$) : "";
 
-  function bulletinURL(newDate: Date) {
-    return "/bulletin/" + dateToISODateString(newDate);
+  function bulletinURL(newDate?: Date) {
+    return `../bulletin/${newDate ? dateToISODateString(newDate) : "latest"}`;
   }
 
   return (
@@ -90,7 +90,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
             >
-              <Link to={"/bulletin/latest"}>
+              <Link to={bulletinURL()}>
                 {intl.formatMessage({
                   id: "bulletin:header:dateflipper:latest"
                 })}

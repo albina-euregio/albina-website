@@ -60,25 +60,42 @@ const App = () => {
       <Suspense fallback={"..."}>
         <Routes>
           {/* prettier-ignore */}
+          <Route path="/headless">
+            <Route index element={<Navigate replace to="bulletin/latest" />} />
+            <Route path="bulletin/:date" element={<Bulletin headless={true} />} />
+            <Route path="bulletin/latest" element={<Bulletin headless={true} />} />
+          </Route>
           <Route path="/" element={<Page />}>
             <Route index element={<Navigate replace to="/bulletin/latest" />} />
-            <Route path="/bulletin" element={<Navigate replace to="/bulletin/latest" />} />
+            <Route
+              path="/bulletin"
+              element={<Navigate replace to="/bulletin/latest" />}
+            />
             <Route path="/bulletin/:date" element={<Bulletin />} />
             <Route path="/bulletin/latest" element={<Bulletin />} />
             <Route path="/weather/map/:domain" element={<Weather />} />
             <Route path="/weather/map/" element={<Weather />} />
-            <Route path="/weather/measurements" element={<StationMeasurements />} />
+            <Route
+              path="/weather/measurements"
+              element={<StationMeasurements />}
+            />
             <Route path="/weather/archive" element={<StationArchive />} />
             <Route path="/weather/stations" element={<StationMap />} />
             <Route path="/weather/snow-profiles" element={<SnowProfileMap />} />
-            <Route path="/weather" element={<Navigate replace to="/weather/map" />} />
+            <Route
+              path="/weather"
+              element={<Navigate replace to="/weather/map" />}
+            />
             <Route path="/education" element={<Education />} />
             <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
             <Route path="/blog" element={<BlogOverview />} />
             <Route path="/more" element={<More />} />
             <Route path="/more/archive" element={<Archive />} />
             <Route path="/more/linktree" element={<Linktree />} />
-            <Route path="/archive" element={<Navigate replace to="/more/archive" />} />
+            <Route
+              path="/archive"
+              element={<Navigate replace to="/more/archive" />}
+            />
             <Route path="/education/*" element={<StaticPage />} />
             <Route path="/:name" element={<RouteStaticPage />} />
             <Route path="/:segment/:name" element={<RouteStaticPage />} />

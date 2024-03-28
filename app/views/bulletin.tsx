@@ -51,7 +51,11 @@ function useProblems() {
   return { problems, toggleProblem };
 }
 
-const Bulletin = () => {
+type Props = {
+  headless?: boolean;
+};
+
+const Bulletin = ({ headless }: Props) => {
   const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -265,12 +269,18 @@ const Bulletin = () => {
           region={region}
         />
       )}
-      <SmShare
-        image={shareImage}
-        title={title}
-        description={shareDescription}
-      />
-      <BulletinFooter />
+      {headless ? (
+        <></>
+      ) : (
+        <>
+          <SmShare
+            image={shareImage}
+            title={title}
+            description={shareDescription}
+          />
+          <BulletinFooter />
+        </>
+      )}
     </>
   );
 };
