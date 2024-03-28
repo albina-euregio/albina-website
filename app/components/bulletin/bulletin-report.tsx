@@ -105,7 +105,9 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
         compareAvalancheProblem(
           problem,
           bulletin170000?.avalancheProblems.find(
-            p => p.problemType === problem.problemType
+            p =>
+              p.problemType === problem.problemType &&
+              p.validTimePeriod === problem.validTimePeriod
           )
         )
       )
