@@ -95,13 +95,7 @@ const WeatherStationUplot: React.FC<{
           ...parameters.map(
             (p): uPlot.Series => ({
               label: p.label,
-              value: (_, v) =>
-                intl.formatNumber(v, {
-                  minimumFractionDigits: 1,
-                  maximumFractionDigits: 1
-                }) +
-                " " +
-                unit,
+              value: (_, v) => intl.formatNumberUnit(v, unit, 1),
               stroke: p.stroke,
               points:
                 p.id === "DW"

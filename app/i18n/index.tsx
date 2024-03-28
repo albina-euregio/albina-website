@@ -35,6 +35,14 @@ export function useIntl() {
     locale,
     formatDate: formatter.time,
     formatNumber: formatter.number,
+    formatNumberUnit: (value: number, unit?: string, digits?: number) =>
+      typeof value === "number"
+        ? formatter.number(value, {
+            useGrouping: false,
+            minimumFractionDigits: digits ?? 0,
+            maximumFractionDigits: digits ?? 0
+          }) + (unit ? "\u202F" + unit : "")
+        : "–",
     formatMessage: (
       { id }: { id: MessageId },
       values: Record<string, string | React.ReactElement> = undefined

@@ -11,7 +11,6 @@ import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
-import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
 import WeatherStationUplot from "./weather-station-uplot";
 
 const ENABLE_UPLOT =
@@ -185,11 +184,7 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
             :{" "}
           </span>
           <span className="weatherstation-info-value">
-            {intl.formatNumber(aInfo.value, {
-              minimumFractionDigits: aInfo.digits,
-              maximumFractionDigits: aInfo.digits
-            })}
-            &thinsp;{aInfo.unit}
+            {intl.formatNumberUnit(aInfo.value, aInfo.unit, aInfo.digits)}
           </span>
         </li>
       ))}
@@ -485,7 +480,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
               <span className="weatherstation-name">{station.name} </span>
               {isStation && station.elev && (
                 <span className="weatherstation-altitude">
-                  (<FormattedNumberUnit value={station.elev} unit="m" />)
+                  {intl.formatNumberUnit(station.elev, "m")}
                 </span>
               )}
             </h2>

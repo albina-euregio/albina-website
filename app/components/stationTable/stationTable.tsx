@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { FormattedNumberUnit } from "./formattedNumberUnit";
 import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
@@ -76,7 +75,7 @@ export default function StationTable(props: Props) {
       render(row) {
         return (
           <span className={this.data} title={title(this.data)}>
-            <FormattedNumberUnit value={row[this.data]} unit={this.unit} />
+            {intl.formatNumberUnit(row[this.data], this.unit)}
           </span>
         );
       },
@@ -90,7 +89,7 @@ export default function StationTable(props: Props) {
       render(row) {
         return (
           <span className={this.data} title={title(this.data)}>
-            <FormattedNumberUnit value={row[this.data]} unit={this.unit} />
+            {intl.formatNumberUnit(row[this.data], this.unit)}
           </span>
         );
       },
@@ -109,10 +108,7 @@ export default function StationTable(props: Props) {
           return (
             <>
               <span className={`snow${hour}`} title={title(`snow${hour}`)}>
-                <FormattedNumberUnit
-                  value={row[`snow${hour}`]}
-                  unit={this.unit}
-                />
+                {intl.formatNumberUnit(row[`snow${hour}`], this.unit)}
               </span>
               {isFinite(row[`precipitation${hour}`]) && (
                 <span
@@ -120,10 +116,7 @@ export default function StationTable(props: Props) {
                   title={title(`precipitation${hour}`)}
                 >
                   {"("}
-                  <FormattedNumberUnit
-                    value={row[`precipitation${hour}`]}
-                    unit={"mm"}
-                  />
+                  {intl.formatNumberUnit(row[`precipitation${hour}`], "mm")}
                   {")"}
                 </span>
               )}
@@ -143,11 +136,7 @@ export default function StationTable(props: Props) {
         return (
           <>
             <span className="temp" title={title("temp")}>
-              <FormattedNumberUnit
-                value={row.temp}
-                unit={this.unit}
-                digits={1}
-              />
+              {intl.formatNumberUnit(row.temp, this.unit, 1)}
             </span>
             {isFinite(row.temp_min) && (
               <span
@@ -156,10 +145,10 @@ export default function StationTable(props: Props) {
               >
                 {"("}
                 <span className="temp_min">
-                  <FormattedNumberUnit value={row.temp_min} digits={1} />
+                  {intl.formatNumberUnit(row.temp_min, undefined, 1)}
                 </span>
                 <span className="temp_max">
-                  <FormattedNumberUnit value={row.temp_max} digits={1} />
+                  {intl.formatNumberUnit(row.temp_max, undefined, 1)}
                 </span>
                 {")"}
               </span>
@@ -180,14 +169,11 @@ export default function StationTable(props: Props) {
         return (
           <>
             <span className="wspd" title={title("wspd")}>
-              <FormattedNumberUnit
-                value={row.wspd}
-                unit={row.wgus ? "" : this.unit}
-              />
+              {intl.formatNumberUnit(row.wspd, row.wgus ? "" : this.unit)}
             </span>
             {row.wgus && (
               <span className="wgus" title={title("wgus")}>
-                <FormattedNumberUnit value={row.wgus} unit={this.unit} />
+                {intl.formatNumberUnit(row.wgus, this.unit)}
               </span>
             )}
             {row.x_wdir && (
