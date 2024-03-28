@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
 import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog";
+import { template } from "./util/template";
 
 (() => import("./sentry"))();
 
@@ -51,16 +52,4 @@ if (isWebPushSupported()) {
     });
 } else {
   console.error("Browser does not support service workers or push messages.");
-}
-
-const templateRe = /\{ *([\w_ -]+) *\}/g;
-
-function template(str: string, data: Record<string, string>) {
-  return str.replace(templateRe, (str, key) => {
-    const value = data[key];
-    if (value === undefined) {
-      throw new Error("No value provided for variable " + str);
-    }
-    return value;
-  });
 }
