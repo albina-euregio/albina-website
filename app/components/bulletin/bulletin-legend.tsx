@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
-import { getWarnlevelNumber } from "../../util/warn-levels";
+import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
 type Props = {
@@ -18,16 +18,6 @@ type Props = {
 
 function BulletinLegend(props: Props) {
   const intl = useIntl();
-  const warnlevelKeys = [
-    "low",
-    "moderate",
-    "considerable",
-    "high",
-    "very_high"
-  ];
-  const warnlevels = warnlevelKeys.map(k => {
-    return { id: k, num: getWarnlevelNumber(k) };
-  });
 
   return (
     <section
@@ -70,16 +60,19 @@ function BulletinLegend(props: Props) {
               </Link>
             </p>
             <ul className="list-inline list-legend">
-              {warnlevels.map(l => (
-                <li key={l.id} className={"warning-level-" + l.num}>
-                  <span>
-                    <strong>{l.num}</strong>{" "}
-                    {intl.formatMessage({
-                      id: "danger-level:" + l.id
-                    })}
-                  </span>
-                </li>
-              ))}
+              {Object.entries(warnlevelNumbers).map(
+                ([id, num]) =>
+                  num > 0 && (
+                    <li key={id} className={`warning-level-${num}`}>
+                      <span>
+                        <strong>{num}</strong>{" "}
+                        {intl.formatMessage({
+                          id: `danger-level:${id}`
+                        })}
+                      </span>
+                    </li>
+                  )
+              )}
             </ul>
           </div>
         </div>
