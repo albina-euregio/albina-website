@@ -220,25 +220,25 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@eaws/micro-regions_elevation_properties@^6.1.0":
-  version "6.1.0"
-  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-6.1.0.tgz#f459acc879eb04dc86abf912c5dd854c3e802c35"
-  integrity sha1-9FmsyHnrBNyGq/kSxd2FTD6ALDU=
+"@eaws/micro-regions_elevation_properties@^6.2.0":
+  version "6.2.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-6.2.0.tgz#444c9017c23a488e0bb9a2c9219e38e0a753b238"
+  integrity sha1-REyQF8I6SI4LuaLJIZ444KdTsjg=
 
-"@eaws/micro-regions_names@^6.1.0":
-  version "6.1.0"
-  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-6.1.0.tgz#ea325911a9658866034d7d0e000c33c4697ed764"
-  integrity sha1-6jJZEalliGYDTX0OAAwzxGl+12Q=
+"@eaws/micro-regions_names@^6.2.0":
+  version "6.2.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-6.2.0.tgz#b9d903cea5273401b1af6e2edee03384d8b5ca74"
+  integrity sha1-udkDzqUnNAGxr24u3uAzhNi1ynQ=
 
-"@eaws/micro-regions_properties@^6.1.0":
-  version "6.1.0"
-  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-6.1.0.tgz#e79e1e4bc9a616a8dc311ec6a6a33c3b0ec54d9b"
-  integrity sha1-554eS8mmFqjcMR7GpqM8Ow7FTZs=
+"@eaws/micro-regions_properties@^6.2.0":
+  version "6.2.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-6.2.0.tgz#cf560d694a1651fde25e1e4bceab1c651fe95e6b"
+  integrity sha1-z1YNaUoWUf3iXh5LzqscZR/pXms=
 
-"@eaws/outline_properties@^6.1.0":
-  version "6.1.0"
-  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-6.1.0.tgz#88bc4afbcac8fcdee4abdf88de6cefb61e18ecc4"
-  integrity sha1-iLxK+8rI/N7kq9+I3mzvth4Y7MQ=
+"@eaws/outline_properties@^6.2.0":
+  version "6.2.0"
+  resolved "https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-6.2.0.tgz#6a9cbd6265a2ec28fec1a449b2aebe3d91f79408"
+  integrity sha1-apy9YmWi7Cj+waRJsq6+PZH3lAg=
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"

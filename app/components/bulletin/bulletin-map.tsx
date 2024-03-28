@@ -179,9 +179,7 @@ const BulletinMap = (props: Props) => {
         </p>
       );
       (activeEaws.aws || []).forEach((aws, index) => {
-        const href =
-          aws.url.find(url => url[language])?.[language] ||
-          Object.values(aws.url[0])[0];
+        const href = aws.url[language] || Object.values(aws.url)[0];
         res.push(
           <Tooltip
             key={`tp-eaws-link-${index}`}

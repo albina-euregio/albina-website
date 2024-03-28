@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
+import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 export default function SubscribeTelegramDialog() {
   const intl = useIntl();
@@ -10,7 +11,13 @@ export default function SubscribeTelegramDialog() {
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
-  const telegramChannels = config.subscribe.telegram;
+
+  function openTelegram() {
+    if (!region || !language) return;
+    const urls = eawsRegionOutlines.find(r => r.id === region)?.aws[0].url;
+    if (!urls) return;
+    window.open(urls[`telegram:${language}`]);
+  }
 
   return (
     <div className="modal-subscribe-telegram">
@@ -26,8 +33,7 @@ export default function SubscribeTelegramDialog() {
           onSubmit={event => {
             event.preventDefault();
             event.stopPropagation();
-            if (region && language)
-              window.open(telegramChannels[region + "-" + language]);
+            openTelegram();
           }}
         >
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}

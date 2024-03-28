@@ -82,64 +82,6 @@
   },
   "subscribe": {
     "buttonHidden": false,
-    "telegram": {
-      "AT-07-de": "https://t.me/lawinenwarndienst_tirol",
-      "AT-07-it": "https://t.me/servizio_valanghe_tirolo",
-      "AT-07-en": "https://t.me/avalanche_warning_service_tirol",
-      "IT-32-BZ-de": "https://t.me/lawinenwarndienst_suedtirol",
-      "IT-32-BZ-it": "https://t.me/servizio_valanghe_alto_adige",
-      "IT-32-BZ-en": "https://t.me/aws_south_tyrol",
-      "IT-32-TN-de": "https://t.me/lawinenwarndienst_trentino",
-      "IT-32-TN-it": "https://t.me/servizio_valanghe_trento",
-      "IT-32-TN-en": "https://t.me/avalanche_warning_service_trento"
-    },
-    "socialMedia": [
-      {
-        "id": "facebook",
-        "name": "Facebook",
-        "url": {
-          "AT-07": "http://www.facebook.com/lawinenwarndienst",
-          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/",
-          "IT-32-TN": "https://www.facebook.com/Servizio-Prevenzione-Valanghe-Trentino-353994245173831/"
-        }
-      },
-      {
-        "id": "twitter",
-        "name": "Twitter",
-        "url": {
-          "AT-07": false,
-          "IT-32-BZ": false,
-          "IT-32-TN": false
-        }
-      },
-      {
-        "id": "instagram",
-        "name": "Instagram",
-        "url": {
-          "AT-07": "https://www.instagram.com/lawinenwarndienst_tirol",
-          "IT-32-BZ": false,
-          "IT-32-TN": false
-        }
-      },
-      {
-        "id": "youtube",
-        "name": "YouTube",
-        "url": {
-          "AT-07": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ",
-          "IT-32-BZ": false,
-          "IT-32-TN": false
-        }
-      },
-      {
-        "id": "whatsapp",
-        "name": "WhatsApp",
-        "url": {
-          "AT-07": false,
-          "IT-32-BZ": false,
-          "IT-32-TN": false
-        }
-      }
-    ],
     "apps": [
       {
         "id": "lawine-tirol",
