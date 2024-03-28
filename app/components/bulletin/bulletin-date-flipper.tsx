@@ -25,14 +25,12 @@ function BulletinDateFlipper({ date, latest }: Props) {
   }
 
   const prevDate$: Date | null = date$ ? getPredDate(date$) : null;
-  const prevLink = dateToISODateString(prevDate$);
-  const nextLink = dateToISODateString(nextDate$);
   const prevDate = prevDate$ ? intl.formatDate(prevDate$) : "";
   const nextDate = nextDate$ ? intl.formatDate(nextDate$) : "";
 
-  const onChangeCurrentDate = (newDate: Date) => {
-    navigate("/bulletin/" + dateToISODateString(newDate));
-  };
+  function bulletinURL(newDate?: Date) {
+    return `../bulletin/${newDate ? dateToISODateString(newDate) : "latest"}`;
+  }
 
   return (
     <>
@@ -43,7 +41,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:back"
             })}
           >
-            <Link to={"/bulletin/" + prevLink}>
+            <Link to={bulletinURL(prevDate$)}>
               <span className="icon-arrow-left" />
               {prevDate}
             </Link>
@@ -62,21 +60,23 @@ function BulletinDateFlipper({ date, latest }: Props) {
                   type="date"
                   max={dateFormat(latest, "%Y-%m-%d", false)}
                   value={dateFormat(date$, "%Y-%m-%d", false)}
-                  onChange={e => onChangeCurrentDate(new Date(e.target.value))}
+                  onChange={e =>
+                    navigate(bulletinURL(new Date(e.target.value)))
+                  }
                 />
               )}
             </div>
           </Tooltip>
         </li>
         {/* {nextLink && <li className="bulletin-flipper-separator">&nbsp;</li>} */}
-        {nextLink && (
+        {nextDate$ && (
           <li className="bulletin-flipper-forward">
             <Tooltip
               label={intl.formatMessage({
                 id: "bulletin:header:dateflipper:forward"
               })}
             >
-              <Link to={"/bulletin/" + nextLink}>
+              <Link to={bulletinURL(nextDate$)}>
                 {nextDate + " "}
                 <span className="icon-arrow-right" />
               </Link>
@@ -90,7 +90,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
             >
-              <Link to={"/bulletin/" + (latest || "")}>
+              <Link to={bulletinURL()}>
                 {intl.formatMessage({
                   id: "bulletin:header:dateflipper:latest"
                 })}

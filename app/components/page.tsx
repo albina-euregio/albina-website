@@ -1,46 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
 import ControlBar from "./organisms/control-bar";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const Page = (props: Props) => {
+const Page = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const didMountRef = useRef(false);
-
-  useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-    }
-  });
-
-  useEffect(() => {
-    if (
-      location.pathname === "" ||
-      location.pathname === "/" ||
-      location.pathname === "/bulletin"
-    ) {
-      navigate({
-        pathname: "/bulletin/latest",
-        search: document.location.search.substring(1)
-      });
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [location.pathname, navigate]);
 
   useEffect(() => {
     if (!location.pathname.split("/").includes("bulletin")) {
       if (!location.hash) {
         window.scrollTo(0, 0);
-      } else {
-        // setTimeout(() => scroll(location.hash, 2000), 1000);
       }
     }
   }, [location.hash, location.pathname]);
@@ -63,7 +34,7 @@ const Page = (props: Props) => {
             }
           />
         )}
-        {props.children}
+        <Outlet />
       </main>
       <PageFooter />
       <div
