@@ -376,6 +376,7 @@
   "dialog:feedback:text": "We want <strong>your feedback</strong> on the new cross-border avalanche forecast.<br /><strong>Help us</strong> to improve our products and <strong>win</strong> an attractive prize! The survey takes about <strong>10 minutes</strong>.<br />Thanks a lot!",
   "dialog:feedback:button": "No, thanks!",
   "dialog:weather-station-diagram:header": "Weather Station",
+  "dialog:weather-station-diagram:timerange:interactive": "Interactive",
   "dialog:weather-station-diagram:timerange:day": "Day",
   "dialog:weather-station-diagram:timerange:threedays": "Three days",
   "dialog:weather-station-diagram:timerange:week": "Week",

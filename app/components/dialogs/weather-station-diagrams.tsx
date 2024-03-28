@@ -12,6 +12,10 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import { FormattedNumberUnit } from "../stationTable/formattedNumberUnit";
+import WeatherStationUplot from "./weather-station-uplot";
+
+const ENABLE_UPLOT =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
 
 export type ObserverData = {
   geometry: {
@@ -23,6 +27,7 @@ export type ObserverData = {
 };
 
 const timeRanges = {
+  interactive: "interactive",
   day: "tag",
   threedays: "dreitage",
   week: "woche",
@@ -31,6 +36,15 @@ const timeRanges = {
 };
 
 type TimeRange = keyof typeof timeRanges;
+
+const timeRangesMilli: Record<TimeRange, number> = {
+  interactive: 7 * 24 * 3600e3,
+  day: 24 * 3600e3,
+  threedays: 3 * 24 * 3600e3,
+  week: 7 * 24 * 3600e3,
+  month: 31 * 24 * 3600e3,
+  winter: 183 * 24 * 3600e3
+};
 
 export type Props = {
   stationData: StationData[] | ObserverData[];
@@ -199,7 +213,8 @@ const TimeRangeButtons: React.FC<{
   const intl = useIntl();
   return (
     <ul className="list-inline filter primary">
-      {Object.keys(timeRanges).map(key => {
+      {(Object.keys(timeRanges) as TimeRange[]).map(key => {
+        if (key === "interactive" && !ENABLE_UPLOT) return <></>;
         const classes = ["label"];
         if (key == timeRange) classes.push("js-active");
         return (
@@ -214,7 +229,7 @@ const TimeRangeButtons: React.FC<{
               className={classes.join(" ")}
             >
               {intl.formatMessage({
-                id: "dialog:weather-station-diagram:timerange:" + key
+                id: `dialog:weather-station-diagram:timerange:${key}`
               })}
             </a>
           </li>
@@ -230,6 +245,114 @@ const StationDiagramImage: React.FC<{
   selectedYear: number;
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
+  const intl = useIntl();
+  if (
+    timeRange === "interactive" &&
+    station instanceof StationData &&
+    station.operator?.startsWith?.("LWD Tirol")
+  ) {
+    const timeRangeMilli =
+      timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
+    const width = document.body.clientWidth * 0.9;
+    const height = 240;
+    // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
+    return (
+      <>
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "HS",
+              stroke: "#984ea3",
+              label: intl.formatMessage({
+                id: "measurements:table:header:snow"
+              }) as string
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "TA",
+              stroke: "#e41a1c",
+              label: intl.formatMessage({
+                id: "measurements:table:header:temp"
+              }) as string
+            },
+            {
+              id: "TD",
+              stroke: "#6464FF",
+              label: "TD"
+            },
+            {
+              id: "TSS",
+              stroke: "#999999",
+              label: "TSS"
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "ISWR",
+              stroke: "#00CC00",
+              label: "ISWR"
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "VW",
+              stroke: "#4daf4a",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wspd"
+              }) as string
+            },
+            {
+              id: "VW_MAX",
+              stroke: "#C80064",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wgus"
+              }) as string
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          stationData={station}
+          parameters={[
+            {
+              id: "DW",
+              stroke: "#064464",
+              label: intl.formatMessage({
+                id: "measurements:table:header:wdir"
+              }) as string
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+      </>
+    );
+  } else if (timeRange === "interactive") {
+    timeRange = "week";
+  }
   const currentTS = new Date();
   currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
   const cacheHash = currentTS.valueOf();
@@ -286,7 +409,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const myRef = useRef();
-  const [timeRange, setTimeRange] = useState<TimeRange>("threedays");
+  const [timeRange, setTimeRange] = useState<TimeRange>(
+    ENABLE_UPLOT ? "interactive" : "threedays"
+  );
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const stationIndex = useMemo((): number => {
