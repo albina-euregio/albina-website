@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
 import ControlBar from "./organisms/control-bar";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const Page = (props: Props) => {
+const Page = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -38,7 +34,7 @@ const Page = (props: Props) => {
             }
           />
         )}
-        {props.children}
+        <Outlet />
       </main>
       <PageFooter />
       <div

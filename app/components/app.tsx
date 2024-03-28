@@ -56,168 +56,36 @@ const App = () => {
   });
 
   return (
-    <>
-      <BrowserRouter basename={config.projectRoot}>
-        <Suspense fallback={"..."}>
-          <Routes>
-            <Route path="/">
-              <Route
-                index
-                element={<Navigate replace to="/bulletin/latest" />}
-              />
-              <Route
-                path="/bulletin"
-                element={<Navigate replace to="/bulletin/latest" />}
-              />
-              <Route
-                path="/bulletin/:date"
-                element={
-                  <Page>
-                    <Bulletin />
-                  </Page>
-                }
-              />
-              <Route
-                path="/bulletin/latest"
-                element={
-                  <Page>
-                    <Bulletin />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/map/:domain"
-                element={
-                  <Page>
-                    <Weather />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/map/"
-                element={
-                  <Page>
-                    <Weather />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/measurements"
-                element={
-                  <Page>
-                    <StationMeasurements />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/archive"
-                element={
-                  <Page>
-                    <StationArchive />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/stations"
-                element={
-                  <Page>
-                    <StationMap />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather/snow-profiles"
-                element={
-                  <Page>
-                    <SnowProfileMap />
-                  </Page>
-                }
-              />
-              <Route
-                path="/weather"
-                element={<Navigate replace to="/weather/map" />}
-              />
-              <Route
-                path="/education"
-                element={
-                  <Page>
-                    <Education />
-                  </Page>
-                }
-              />
-              <Route
-                path="/blog/:blogName/:postId"
-                element={
-                  <Page>
-                    <BlogPost />
-                  </Page>
-                }
-              />
-              <Route
-                path="/blog"
-                element={
-                  <Page>
-                    <BlogOverview />
-                  </Page>
-                }
-              />
-              <Route
-                path="/more"
-                element={
-                  <Page>
-                    <More />
-                  </Page>
-                }
-              />
-              <Route
-                path="/more/archive"
-                element={
-                  <Page>
-                    <Archive />
-                  </Page>
-                }
-              />
-              <Route
-                path="/more/linktree"
-                element={
-                  <Page>
-                    <Linktree />
-                  </Page>
-                }
-              />
-              <Route
-                path="/archive"
-                element={<Navigate replace to="/more/archive" />}
-              />
-              <Route
-                path="/education/*"
-                element={
-                  <Page>
-                    <StaticPage />
-                  </Page>
-                }
-              />
-              <Route
-                path="/:name"
-                element={
-                  <Page>
-                    <RouteStaticPage />
-                  </Page>
-                }
-              />
-              <Route
-                path="/:segment/:name"
-                element={
-                  <Page>
-                    <RouteStaticPage />
-                  </Page>
-                }
-              />
-            </Route>
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </>
+    <BrowserRouter basename={config.projectRoot}>
+      <Suspense fallback={"..."}>
+        <Routes>
+          {/* prettier-ignore */}
+          <Route path="/" element={<Page />}>
+            <Route index element={<Navigate replace to="/bulletin/latest" />} />
+            <Route path="/bulletin" element={<Navigate replace to="/bulletin/latest" />} />
+            <Route path="/bulletin/:date" element={<Bulletin />} />
+            <Route path="/bulletin/latest" element={<Bulletin />} />
+            <Route path="/weather/map/:domain" element={<Weather />} />
+            <Route path="/weather/map/" element={<Weather />} />
+            <Route path="/weather/measurements" element={<StationMeasurements />} />
+            <Route path="/weather/archive" element={<StationArchive />} />
+            <Route path="/weather/stations" element={<StationMap />} />
+            <Route path="/weather/snow-profiles" element={<SnowProfileMap />} />
+            <Route path="/weather" element={<Navigate replace to="/weather/map" />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
+            <Route path="/blog" element={<BlogOverview />} />
+            <Route path="/more" element={<More />} />
+            <Route path="/more/archive" element={<Archive />} />
+            <Route path="/more/linktree" element={<Linktree />} />
+            <Route path="/archive" element={<Navigate replace to="/more/archive" />} />
+            <Route path="/education/*" element={<StaticPage />} />
+            <Route path="/:name" element={<RouteStaticPage />} />
+            <Route path="/:segment/:name" element={<RouteStaticPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 };
 
