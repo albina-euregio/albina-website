@@ -156,14 +156,6 @@
           "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
           "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
         }
-      },
-      {
-        "id": "snowhow",
-        "logo": "App_SnowHow_Logo.webp",
-        "url": {
-          "android": "https://play.google.com/store/apps/details?id=info.snowhow",
-          "ios": "https://itunes.apple.com/us/app/snowhow-freeride/id594335976"
-        }
       }
     ]
   },
