@@ -3,9 +3,8 @@ import { FormattedMessage } from "../../i18n";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
-import SubscribeWebPushDialog, {
-  isWebPushSupported
-} from "./subscribe-web-push-dialog";
+import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
+import { isWebPushSupported } from "../../util/isWebPushSupported";
 
 export default function SubscribeDialog() {
   const dialogTypes = isWebPushSupported()

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
+import { isWebPushSupported } from "../../util/isWebPushSupported";
 
 function updatePushSubscription(
   subscription: PushSubscription,
@@ -34,14 +35,6 @@ function urlBase64ToUint8Array(base64String: string) {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
-}
-
-export function isWebPushSupported() {
-  return (
-    "serviceWorker" in navigator &&
-    "Notification" in window &&
-    "PushManager" in window
-  );
 }
 
 /**

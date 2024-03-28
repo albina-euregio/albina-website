@@ -2,7 +2,7 @@ import React from "react"; // eslint-disable-line no-unused-vars
 import { createRoot } from "react-dom/client";
 import App from "./components/app.jsx";
 import { setLanguage } from "./appStore";
-import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog";
+import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
 
 (() => import("./sentry"))();
