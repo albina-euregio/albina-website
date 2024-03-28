@@ -90,7 +90,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
             >
-              <Link to={"/bulletin/" + (latest || "")}>
+              <Link to={"/bulletin/latest"}>
                 {intl.formatMessage({
                   id: "bulletin:header:dateflipper:latest"
                 })}

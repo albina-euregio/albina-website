@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
 
@@ -21,13 +21,7 @@ import {
 } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
-import {
-  useParams,
-  useNavigate,
-  useLocation,
-  useSearchParams,
-  Link
-} from "react-router-dom";
+import { useParams, useSearchParams, Link } from "react-router-dom";
 
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
@@ -58,12 +52,9 @@ function useProblems() {
 }
 
 const Bulletin = () => {
-  const lastLocationRef = useRef(null);
   const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const location = useLocation();
-  const navigate = useNavigate();
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [slowLoading, setLoadingStart] = useSlowLoading();
@@ -87,25 +78,6 @@ const Bulletin = () => {
       );
     }
   }, [lang]);
-
-  useEffect(() => {
-    if (
-      ((location !== lastLocationRef.current?.location &&
-        params.date &&
-        params.date != collection?.date) ||
-        (typeof params.date === "undefined" &&
-          latest &&
-          latest != collection?.date)) &&
-      (!params.date || params.date == latest)
-    ) {
-      navigate({
-        pathname: "/bulletin/latest",
-        hash: location.hash,
-        search: location.search.substring(1)
-      });
-    }
-    lastLocationRef.current = location;
-  }, [collection?.date, latest, location, navigate, params.date]);
 
   useEffect(() => {
     const date = params.date && parseDate(params.date) ? params.date : latest;

@@ -40,14 +40,6 @@ const RouteStaticPage = () => {
   return <StaticPage />;
 };
 
-const RouteBulletin = () => {
-  const params = useParams();
-
-  if (params?.date && /^([0-9]{4}-[0-9]{2}-[0-9]{2})$/.test(params?.date))
-    return <Bulletin />;
-  else return <Navigate replace to="/bulletin/latest" />;
-};
-
 const App = () => {
   useEffect(() => {
     window.addEventListener("orientationchange", () => {
@@ -69,12 +61,19 @@ const App = () => {
         <Suspense fallback={"..."}>
           <Routes>
             <Route path="/">
-              <Route index element={<Page></Page>} />
+              <Route
+                index
+                element={<Navigate replace to="/bulletin/latest" />}
+              />
+              <Route
+                path="/bulletin"
+                element={<Navigate replace to="/bulletin/latest" />}
+              />
               <Route
                 path="/bulletin/:date"
                 element={
                   <Page>
-                    <RouteBulletin />
+                    <Bulletin />
                   </Page>
                 }
               />
