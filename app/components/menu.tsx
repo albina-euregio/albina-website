@@ -45,12 +45,10 @@ const Menu = (props: Props) => {
   const testActive = (e: Entry, recursive = true) => {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
-    const doTest = (loc, element: Entry) => {
+    const doTest = (loc: string, element: Entry): boolean => {
       return (
         matchPath(loc, element.url.split("?")[0]) != null ||
-        (recursive &&
-          element.children &&
-          element.children.some(el => doTest(loc, el)))
+        (recursive && element.children?.some(el => doTest(loc, el)))
       );
     };
 

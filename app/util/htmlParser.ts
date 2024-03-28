@@ -26,7 +26,7 @@ export function preprocessContent(content: string, blogMode = false) {
             { ...props, href: undefined, to: props.href },
             children
           );
-        } else if (type === "a" && props.href && props.href.startsWith("#")) {
+        } else if (type === "a" && props.href?.startsWith("#")) {
           props.onClick = e => scrollIntoView(e);
         } else if (type === "a" && props.target === "_blank") {
           // no opener for external links
