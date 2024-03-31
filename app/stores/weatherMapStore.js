@@ -383,7 +383,9 @@ export default class WeatherMapStore_new {
 
     //console.log("nextUpdateTime kkk #4", utcHour, addHours);
     if (addHours)
-      res = new Date(lastUpdate).setHours(lastUpdate.getHours() + addHours);
+      res = new Date(lastUpdate).setUTCHours(
+        lastUpdate.getUTCHours() + addHours
+      );
 
     return res;
   }
@@ -546,7 +548,7 @@ export default class WeatherMapStore_new {
       // });
 
       if (currentTime < new Date()) {
-        currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
+        currentTime.setUTCHours(currentTime.getUTCHours() + this._absTimeSpan);
       }
 
       while (currentTime <= maxTime) {
@@ -650,8 +652,10 @@ export default class WeatherMapStore_new {
     //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
     // });
     // console.log("_setAvailableTimes timeSpanDir all ##2", {
-    //   debIndezes
-    // });
+    //   indices: indices.map(etime => {
+    //     return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
+    //   })}
+    // );
   }
 
   // _getNow(setToDayStart) {
