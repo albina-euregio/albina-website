@@ -111,18 +111,17 @@ class BulletinCollection {
     try {
       const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
       this.setData(response);
-      this.dataRaw170000 = undefined;
-      /*
+      //this.dataRaw170000 = undefined;
       if (response.bulletins.some(b => b.unscheduled)) {
-        debugger
+        debugger;
         const publicationDate =
           dateToISODateString(getPredDate(new Date(this.date))) + "_16-00-00";
         const url2 = this._getBulletinUrl(publicationDate);
-        this.dataRaw170000 = await fetchJSON(url2, {
+        /*this.dataRaw170000 = await fetchJSON(url2, {
           cache: "no-cache"
         });
+        */
       }
-      */
     } catch (error) {
       console.error("Cannot load bulletin for date " + this.date, error);
       this.setData(null);
