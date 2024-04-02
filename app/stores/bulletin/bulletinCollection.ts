@@ -83,6 +83,10 @@ class BulletinCollection {
     this.dataRaw = null;
   }
 
+  get dateDate() {
+    return new Date(this.date + "T12:00:00Z");
+  }
+
   private _getBulletinUrl(publicationDate = ""): string {
     if (!this.date || !this.lang) {
       return;
@@ -122,9 +126,17 @@ class BulletinCollection {
     try {
       this.dataRaw170000 = undefined;
       if (ENABLE_DIFFING && this.dataRaw.bulletins.some(b => b.unscheduled)) {
-        const date = new Date(this.date + "T17:00:00.000+02:00");
+        const date = new Date(this.dateDate);
         date.setDate(date.getDate() - 1);
-        const publicationDate = `${dateToISODateString(date)}_${date.getUTCHours()}-00-00`;
+        const isSummertime = date
+          .toLocaleDateString("en", {
+            timeZone: "Europe/Vienna",
+            timeZoneName: "longOffset"
+          })
+          .includes("GMT+02:00");
+        const publicationDate = isSummertime
+          ? `${dateToISODateString(date)}_15-00-00`
+          : `${dateToISODateString(date)}_16-00-00`;
         const url2 = this._getBulletinUrl(publicationDate);
         const response = await fetchJSON<Bulletins>(url2, {
           cache: "no-cache"
