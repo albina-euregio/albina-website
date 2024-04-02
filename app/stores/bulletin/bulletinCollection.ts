@@ -11,7 +11,7 @@ import {
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
-//import { dateToISODateString, getPredDate } from "../../util/date";
+import { dateToISODateString } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -111,19 +111,16 @@ class BulletinCollection {
     try {
       const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
       this.setData(response);
-      /*
       this.dataRaw170000 = undefined;
       if (response.bulletins.some(b => b.unscheduled)) {
-        debugger
-        const publicationDate =
-          dateToISODateString(getPredDate(new Date(this.date))) + "_16-00-00";
+        const date = new Date(this.date + "T17:00:00.000+02:00");
+        date.setDate(date.getDate() - 1);
+        const publicationDate = `${dateToISODateString(date)}_${date.getUTCHours()}-00-00`;
         const url2 = this._getBulletinUrl(publicationDate);
         this.dataRaw170000 = await fetchJSON(url2, {
           cache: "no-cache"
         });
-        
       }
-      */
     } catch (error) {
       console.error("Cannot load bulletin for date " + this.date, error);
       this.setData(null);
