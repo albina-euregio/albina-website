@@ -15,6 +15,9 @@ import { dateToISODateString } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
+export const ENABLE_DIFFING =
+  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
+
 type RegionID = string;
 type LowHigh = "low" | "high";
 type ColonLowHigh = "" | `:${LowHigh}`;
@@ -111,22 +114,28 @@ class BulletinCollection {
     try {
       const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
       this.setData(response);
-      this.dataRaw170000 = undefined;
-      if (response.bulletins.some(b => b.unscheduled)) {
-        const date = new Date(this.date + "T17:00:00.000+02:00");
-        date.setDate(date.getDate() - 1);
-        const publicationDate = `${dateToISODateString(date)}_${date.getUTCHours()}-00-00`;
-        const url2 = this._getBulletinUrl(publicationDate);
-        this.dataRaw170000 = await fetchJSON(url2, {
-          cache: "no-cache"
-        });
-      }
     } catch (error) {
       console.error("Cannot load bulletin for date " + this.date, error);
       this.setData(null);
       this.status = "n/a";
     }
-    //
+    try {
+      this.dataRaw170000 = undefined;
+      if (ENABLE_DIFFING && this.dataRaw.bulletins.some(b => b.unscheduled)) {
+        const date = new Date(this.date + "T17:00:00.000+02:00");
+        date.setDate(date.getDate() - 1);
+        const publicationDate = `${dateToISODateString(date)}_${date.getUTCHours()}-00-00`;
+        const url2 = this._getBulletinUrl(publicationDate);
+        const response = await fetchJSON<Bulletins>(url2, {
+          cache: "no-cache"
+        });
+        if (response?.bulletins?.length) {
+          this.dataRaw170000 = response;
+        }
+      }
+    } catch (error) {
+      console.error("Cannot load 17:00 bulletin for date " + this.date, error);
+    }
     return this;
   }
 

@@ -20,6 +20,7 @@ const BulletinGlossaryText = React.lazy(
 );
 import {
   Bulletin,
+  ENABLE_DIFFING,
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
@@ -68,9 +69,6 @@ type Props = {
   bulletin: Bulletin;
   bulletin170000: Bulletin;
 };
-
-const ENABLE_DIFFING =
-  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
 
 /**
  * This component shows the detailed bulletin report including all icons and
