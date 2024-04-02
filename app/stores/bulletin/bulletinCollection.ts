@@ -11,7 +11,7 @@ import {
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
-import { dateToISODateString } from "../../util/date";
+import { dateToISODateString, parseDate } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -84,7 +84,7 @@ class BulletinCollection {
   }
 
   get dateDate() {
-    return new Date(this.date + "T12:00:00Z");
+    return parseDate(this.date);
   }
 
   private _getBulletinUrl(publicationDate = ""): string {

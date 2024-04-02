@@ -1,6 +1,8 @@
 export function parseDate(dateString: string): Date {
   // 2023-03-26 or 2023-12-15T06:38:19
-  return new Date(dateString);
+  return dateString.length === "2023-03-26".length
+    ? new Date(dateString + "T12:00:00")
+    : new Date(dateString);
 }
 
 export function getPredDate(date: Date): Date {

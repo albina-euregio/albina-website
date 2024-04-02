@@ -172,9 +172,7 @@ const Bulletin = ({ headless }: Props) => {
 
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
-      date: collection?.date
-        ? dateToISODateString(parseDate(collection?.date))
-        : "latest",
+      date: collection?.date || "latest",
       lang
     });
 
@@ -184,7 +182,7 @@ const Bulletin = ({ headless }: Props) => {
       <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
         //
-        date={collection?.date ? parseDate(collection?.date) : undefined}
+        date={collection?.dateDate}
         latestDate={latest ? parseDate(latest) : undefined}
         status={status}
         activeBulletinCollection={collection}
@@ -265,7 +263,7 @@ const Bulletin = ({ headless }: Props) => {
       {collection && (
         <BulletinList
           bulletins={collection.bulletinsWith170000}
-          date={collection?.date ? parseDate(collection?.date) : undefined}
+          date={collection?.dateDate}
           region={region}
         />
       )}
