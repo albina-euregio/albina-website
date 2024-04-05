@@ -355,7 +355,8 @@ $search-width-wide: 300px;
   }
   .leaflet-control-attribution {
     position: relative;
-    background-color: rgba($white, 0.5) !important;
+    font-size: $nano-font-size;
+    background-color: rgba($white, 0.8) !important;
   }
 }
 
