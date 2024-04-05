@@ -1,6 +1,8 @@
 export function parseDate(dateString: string): Date {
   // 2023-03-26 or 2023-12-15T06:38:19
-  return new Date(dateString);
+  return dateString.length === "2023-03-26".length
+    ? new Date(dateString + "T12:00:00")
+    : new Date(dateString);
 }
 
 export function getPredDate(date: Date): Date {
@@ -52,24 +54,11 @@ export const DATE_TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
 };
 Object.freeze(DATE_TIME_ZONE_FORMAT);
 
-export function dateToISODateString(date: Date): string {
-  const pad = function (d: number) {
-    if (d < 10) {
-      return "0" + d;
-    }
-    return d;
-  };
-
-  if (date) {
-    return (
-      date.getFullYear() +
-      "-" +
-      pad(date.getMonth() + 1) +
-      "-" +
-      pad(date.getDate())
-    );
-  }
-  return "";
+export function dateToISODateString(
+  date: Date,
+  isUTC: boolean = false
+): string {
+  return dateFormat(date, "%Y-%m-%d", isUTC);
 }
 
 export function isSameDay(d1: Date, d2: Date): boolean {
