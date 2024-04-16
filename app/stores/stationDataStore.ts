@@ -436,7 +436,7 @@ export async function loadStationData({
       );
       delete window.config.apis.weatherFallback;
       console.warn("Using fallback weather data!");
-      return load({ dateTime, ogd });
+      return loadStationData({ dateTime, ogd });
     }
     throw err;
   }
