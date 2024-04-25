@@ -10,6 +10,10 @@
 
 ## Development
 
+Install [Node.js](https://nodejs.org/en).
+
+Use `corepack enable` to install [Yarn](https://yarnpkg.com/).
+
 Use `yarn install` to download necessary packages.
 
 Use `yarn start` and browse to http://localhost:3000/ to use dev server.

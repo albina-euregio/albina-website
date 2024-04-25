@@ -10,11 +10,12 @@ stages:
 #   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
-  image: node:18
+  image: node:20
   stage: build
   variables:
     COMPRESS_BROTLI: 1
     COMPRESS_GZIP: 1
+    YARN_CACHE_FOLDER: .yarn-cache/
   cache:
     key:
       files:
@@ -22,9 +23,8 @@ stages:
     paths:
       - .yarn-cache/
   before_script:
-    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
-    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
-    - yarn install --frozen-lockfile --no-progress
+    - corepack enable
+    - yarn install --immutable
   script:
     - yarn test
     - yarn build-$CI_ENVIRONMENT_NAME
