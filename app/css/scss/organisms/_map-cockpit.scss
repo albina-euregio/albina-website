@@ -9,13 +9,11 @@
 
 $cp-base-unit: 10px;
 
-$cp-layer-selector-button-height: 30px;
+$cp-layer-selector-button-height: 50px;
 $cp-layer-selector-width: 185px;
-$cp-layer-selector-width-open: 304px;
 
 $cp-layer-range-height: 40px;
-$cp-layer-width: $cp-layer-selector-width;
-$cp-range-width: 175px;
+$cp-range-width: $cp-layer-selector-width; //175px;
 
 $cp-timeline-height: 50px;
 $cp-scale-height: 35px;
@@ -64,16 +62,16 @@ $cp-breakpoint-2: 1024px;
   );
   left: 0;
 
+  width: calc(100% - #{$cp-range-width});
+
   @media screen and (min-width: $cp-breakpoint-1) {
     bottom: calc(#{$cp-layer-range-height} + #{$border-width});
-  }
-  @media screen and (min-width: $cp-breakpoint-2) {
-    z-index: auto;
 
-    position: relative;
-    bottom: auto;
-    left: auto;
-    width: $cp-layer-selector-width-open;
+    width: calc(#{$cp-layer-selector-width} * 2);
+  }
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    bottom: calc(#{$cp-layer-range-height} + #{$cp-timeline-height});
   }
 }
 
@@ -81,64 +79,83 @@ $cp-breakpoint-2: 1024px;
 .cp-layer-selector {
   display: none;
 
-  height: $cp-layer-selector-button-height * 6;
-  width: $cp-layer-selector-width;
-  @include font-bold;
+  overflow: hidden;
 
   @extend .bg-box;
   @include box-shadow;
 
-  .layer-selector-open & {
-    display: block;
+  @media screen and (min-width: $cp-breakpoint-2) {
+    border-bottom: $border-width $border-style $brand-very-light;
   }
 
-  @media screen and (min-width: $cp-breakpoint-2) {
-    overflow: hidden;
-    height: calc(
-      #{$cp-legend-release-height} + #{$cp-timeline-height} + #{$border-width}
-    );
-    width: $cp-layer-selector-width-open;
-
-    box-shadow: none;
-
-    display: flex !important;
-    flex-direction: column;
-    flex-wrap: wrap;
+  .layer-selector-open & {
+    display: block;
   }
 }
 .cp-layer-selector-item {
   height: $cp-layer-selector-button-height;
   width: 100%;
-  line-height: $cp-layer-selector-button-height;
+  padding: ($cp-base-unit * 0.5) $cp-base-unit ($cp-base-unit * 0.5) 0;
+
+  line-height: 1;
+
+  // @extend .bg-box;
 
   display: flex;
-  justify-content: space-between;
+  gap: $cp-base-unit;
   align-items: center;
 
-  @media screen and (min-width: $cp-breakpoint-2) {
-    width: 50%;
-    flex-grow: 1;
-  }
-
-  span {
-    display: flex;
-    align-items: center;
+  &:not(:last-child) {
+    border-bottom: $border-width $border-style $grey-very-very-light;
   }
 
   .layer-select {
+    display: flex;
+    align-items: center;
     &:before {
       margin: 0;
       font-size: 32px;
     }
   }
 
+  .layer-select-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layer-select-name {
+    @include font-bold;
+  }
+
+  .layer-select-info {
+    color: $grey-light;
+    @include rollout;
+  }
+
+  &:hover {
+    // @extend .bg-brand-subtle;
+    .layer-select-info {
+      color: $grey;
+      @include rollover;
+    }
+  }
+
   &.js-active {
     @extend .bg-brand;
+    .layer-select-info {
+      color: $white;
+    }
   }
 
   &.cp-layer-trigger {
     height: $cp-layer-range-height;
+    padding: 0;
+    justify-content: space-between;
+    @media screen and (min-width: $cp-breakpoint-2) {
+      height: $cp-timeline-height;
+    }
   }
+
   .layer-trigger {
     &:before {
       @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
@@ -172,6 +189,8 @@ $cp-breakpoint-2: 1024px;
   width: 100%;
 
   @media screen and (min-width: $cp-breakpoint-2) {
+    left: $cp-layer-selector-width;
+    width: calc(100% - #{$cp-layer-selector-width});
     border-left: $border-width $border-style $brand-very-light;
   }
 }
@@ -441,10 +460,13 @@ $cp-breakpoint-2: 1024px;
   border-top: $border-width $border-style $brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-1) {
-    width: 50%;
+    width: $cp-layer-selector-width * 2;
   }
   @media screen and (min-width: $cp-breakpoint-2) {
-    width: $cp-range-width;
+    position: absolute;
+    flex-direction: column;
+    width: $cp-layer-selector-width;
+    border-top: none;
   }
 }
 
@@ -453,12 +475,17 @@ $cp-breakpoint-2: 1024px;
   overflow: hidden;
 
   height: $cp-layer-range-height;
-  width: calc(100% - #{$cp-range-width});
+  width: calc(100% - #{$cp-layer-selector-width});
   @include font-bold;
   line-height: $cp-layer-range-height;
 
+  @media screen and (min-width: $cp-breakpoint-1) {
+    width: $cp-layer-selector-width;
+  }
+
   @media screen and (min-width: $cp-breakpoint-2) {
-    display: none;
+    height: $cp-timeline-height;
+    line-height: $cp-timeline-height;
   }
 }
 
@@ -468,7 +495,13 @@ $cp-breakpoint-2: 1024px;
   display: flex;
   align-items: stretch;
 
-  width: $cp-range-width;
+  width: $cp-layer-selector-width;
+  border-left: $border-width $border-style $border-color;
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    border-top: $border-width $border-style $border-color;
+    border-left: none;
+  }
 }
 .cp-range-hourly {
   display: block;
@@ -477,7 +510,6 @@ $cp-breakpoint-2: 1024px;
 
   text-align: center;
   line-height: $cp-layer-range-height;
-  border-left: $border-width $border-style $border-color;
 
   &.js-inactive {
     display: none;
@@ -496,7 +528,9 @@ $cp-breakpoint-2: 1024px;
 
     text-align: center;
     line-height: $cp-layer-range-height;
-    border-left: $border-width $border-style $border-color;
+    &:not(:first-child) {
+      border-left: $border-width $border-style $border-color;
+    }
     &:hover,
     &.js-active {
       color: $white;
@@ -516,17 +550,23 @@ $cp-breakpoint-2: 1024px;
 }
 
 .cp-container-legend-release {
+  position: relative;
   overflow: hidden;
-
-  flex-grow: 2;
 
   height: $cp-legend-release-height;
   width: calc(100% - #{$cp-copyright-width});
   border-top: $border-width $border-style $brand-very-light;
+  border-left: $border-width $border-style $brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-1) {
-    width: calc(50% - #{$cp-copyright-width});
-    border-left: $border-width $border-style $brand-very-light;
+    width: calc(
+      100% - (#{$cp-layer-selector-width} * 2) - #{$cp-copyright-width}
+    );
+  }
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    left: $cp-layer-selector-width;
+    width: calc(100% - #{$cp-layer-selector-width} - #{$cp-copyright-width});
   }
 }
 
@@ -551,7 +591,10 @@ $cp-breakpoint-2: 1024px;
       transform: translateX(-50%);
       line-height: $cp-legend-height;
       color: $black;
-      text-shadow: 0 0 3px #fff, 0 0 2px #fff, 0 0 1px #fff;
+      text-shadow:
+        0 0 3px #fff,
+        0 0 2px #fff,
+        0 0 1px #fff;
     }
   }
 }
@@ -618,6 +661,9 @@ $cp-breakpoint-2: 1024px;
 
 //copyright
 .cp-copyright {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
 
   height: $cp-copyright-height;

@@ -226,7 +226,15 @@ const WeatherMapCockpit = ({
           onClick={() => handleEvent("domain", aButton.id)}
           className={linkClasses.join(" ")}
         >
-          <span className={spanClasses.join(" ")}>{aButton.title}</span>
+          {/* <span className={spanClasses.join(" ")}>{aButton.title}</span> */}
+          <div className={spanClasses.join(" ")}>
+            <span className="layer-select-text">
+              <span className="layer-select-name">{aButton.title}</span>
+              <span className="layer-select-info">
+                Possibility to add supporting information
+              </span>
+            </span>
+          </div>
         </Link>
       );
     });
@@ -294,6 +302,7 @@ const WeatherMapCockpit = ({
             }
           >
             <a
+              href="#"
               role="button"
               tabIndex="0"
               className="cp-layer-selector-item cp-layer-trigger "
