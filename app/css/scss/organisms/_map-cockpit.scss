@@ -151,6 +151,7 @@ $cp-breakpoint-2: 1024px;
     height: $cp-layer-range-height;
     padding: 0;
     justify-content: space-between;
+    border-bottom: none;
     @media screen and (min-width: $cp-breakpoint-2) {
       height: $cp-timeline-height;
     }
@@ -415,13 +416,19 @@ $cp-breakpoint-2: 1024px;
   left: 20px;
   height: $cp-scale-height;
   width: 175px;
-  @extend .bg-subtle;
+  @extend .bg-box;
 }
 .cp-scale-forecast-bar {
-  display: none;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 40px;
+  height: $cp-scale-height;
+  width: 175px;
+  @extend .bg-subtle;
 }
 
-.cp-movie {
+.cp-calendar {
   position: absolute;
   top: 13px;
   left: 3px;
@@ -433,6 +440,24 @@ $cp-breakpoint-2: 1024px;
     position: absolute;
     top: 0;
     left: 0;
+    &:before {
+      margin: 0;
+    }
+  }
+}
+
+.cp-movie {
+  position: absolute;
+  top: 13px;
+  right: 3px;
+
+  font-size: 14px;
+
+  a {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
     &:before {
       margin: 0;
     }

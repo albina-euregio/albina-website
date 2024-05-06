@@ -520,6 +520,14 @@ const WeatherMapCockpit = ({
         {/* {getTickButtons()}
          */}
         <div key="cp-container-timeline" className="cp-container-timeline">
+          <div className="cp-calendar">
+            <a
+              href="#"
+              className="cp-calendar-select icon-calendar-big tooltip"
+              title="Select Date"
+            ></a>
+          </div>
+
           <Timeline
             timeArray={timeArray}
             timeSpan={timeSpan}
@@ -531,6 +539,7 @@ const WeatherMapCockpit = ({
             setNextTime={setNextTime}
             onDragStart={onDragStart}
           />
+
           {getPlayerButtons()}
         </div>
         {getTimeSpanOptions()}
