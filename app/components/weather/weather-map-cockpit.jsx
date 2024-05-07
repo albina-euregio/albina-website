@@ -310,13 +310,20 @@ const WeatherMapCockpit = ({
                 $("body").toggleClass("layer-selector-open");
               }}
             >
-              <span className="layer-select icon-snow">
-                {
-                  <FormattedMessage
-                    id={"weathermap:domain:title:" + domainId}
-                  />
-                }
-              </span>
+              <div className="layer-select icon-snow">
+                <span class="layer-select-text">
+                  <span class="layer-select-name">
+                    {
+                      <FormattedMessage
+                        id={"weathermap:domain:title:" + domainId}
+                      />
+                    }
+                  </span>
+                  <span class="layer-select-info">
+                    Possibility to add supporting information
+                  </span>
+                </span>
+              </div>
               <span className="layer-trigger"></span>
             </a>
           </Tooltip>

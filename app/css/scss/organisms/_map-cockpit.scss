@@ -11,9 +11,11 @@ $cp-base-unit: 10px;
 
 $cp-layer-selector-button-height: 50px;
 $cp-layer-selector-width: 185px;
+$cp-layer-selector-width-2: 285px;
 
 $cp-layer-range-height: 40px;
-$cp-range-width: $cp-layer-selector-width; //175px;
+$cp-range-width: $cp-layer-selector-width;
+$cp-range-width-2: $cp-layer-selector-width-2;
 
 $cp-timeline-height: 50px;
 $cp-scale-height: 35px;
@@ -97,7 +99,7 @@ $cp-breakpoint-2: 1024px;
   width: 100%;
   padding: ($cp-base-unit * 0.5) $cp-base-unit ($cp-base-unit * 0.5) 0;
 
-  line-height: 1;
+  line-height: 1.2;
 
   // @extend .bg-box;
 
@@ -152,8 +154,23 @@ $cp-breakpoint-2: 1024px;
     padding: 0;
     justify-content: space-between;
     border-bottom: none;
+
     @media screen and (min-width: $cp-breakpoint-2) {
       height: $cp-timeline-height;
+    }
+
+    .layer-select-info {
+      display: none;
+      font-size: $cp-font-size-small;
+      @media #{$tiny} {
+        display: inline;
+      }
+      @media screen and (min-width: $cp-breakpoint-1) {
+        display: none;
+      }
+      @media screen and (min-width: $cp-breakpoint-2) {
+        display: inline;
+      }
     }
   }
 
@@ -190,8 +207,8 @@ $cp-breakpoint-2: 1024px;
   width: 100%;
 
   @media screen and (min-width: $cp-breakpoint-2) {
-    left: $cp-layer-selector-width;
-    width: calc(100% - #{$cp-layer-selector-width});
+    left: $cp-layer-selector-width-2;
+    width: calc(100% - #{$cp-layer-selector-width-2});
     border-left: $border-width $border-style $brand-very-light;
   }
 }
@@ -490,7 +507,7 @@ $cp-breakpoint-2: 1024px;
   @media screen and (min-width: $cp-breakpoint-2) {
     position: absolute;
     flex-direction: column;
-    width: $cp-layer-selector-width;
+    width: $cp-layer-selector-width-2;
     border-top: none;
   }
 }
@@ -501,7 +518,6 @@ $cp-breakpoint-2: 1024px;
 
   height: $cp-layer-range-height;
   width: calc(100% - #{$cp-layer-selector-width});
-  @include font-bold;
   line-height: $cp-layer-range-height;
 
   @media screen and (min-width: $cp-breakpoint-1) {
@@ -510,6 +526,8 @@ $cp-breakpoint-2: 1024px;
 
   @media screen and (min-width: $cp-breakpoint-2) {
     height: $cp-timeline-height;
+
+    width: $cp-layer-selector-width-2;
     line-height: $cp-timeline-height;
   }
 }
@@ -521,10 +539,11 @@ $cp-breakpoint-2: 1024px;
   align-items: stretch;
 
   width: $cp-layer-selector-width;
-  border-left: $border-width $border-style $border-color;
+  border-left: $border-width $border-style $brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-2) {
-    border-top: $border-width $border-style $border-color;
+    width: $cp-layer-selector-width-2;
+    border-top: $border-width $border-style $brand-very-light;
     border-left: none;
   }
 }
@@ -536,6 +555,10 @@ $cp-breakpoint-2: 1024px;
   text-align: center;
   line-height: $cp-layer-range-height;
 
+  @media screen and (min-width: $cp-breakpoint-2) {
+    width: $cp-range-width-2;
+  }
+
   &.js-inactive {
     display: none;
   }
@@ -546,6 +569,10 @@ $cp-breakpoint-2: 1024px;
 
   width: $cp-range-width;
   @include font-bold;
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    width: $cp-range-width-2;
+  }
 
   a {
     display: block;
@@ -590,8 +617,8 @@ $cp-breakpoint-2: 1024px;
   }
 
   @media screen and (min-width: $cp-breakpoint-2) {
-    left: $cp-layer-selector-width;
-    width: calc(100% - #{$cp-layer-selector-width} - #{$cp-copyright-width});
+    left: $cp-layer-selector-width-2;
+    width: calc(100% - #{$cp-layer-selector-width-2} - #{$cp-copyright-width});
   }
 }
 
