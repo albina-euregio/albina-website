@@ -509,6 +509,9 @@ const WeatherMapCockpit = ({
     "lastRedraw-" + lastRedraw
   ];
 
+  const firstHour = new Date(timeArray?.[0]);
+  firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
+  const finalTime = timeArray?.[timeArray.length - 1];
   const imgRoot = `${window.config.projectRoot}images/pro/`;
   return (
     <div
@@ -535,17 +538,21 @@ const WeatherMapCockpit = ({
             ></a>
           </div>
 
-          <Timeline
-            timeArray={timeArray}
-            timeSpan={timeSpan}
-            currentTime={currentTime}
-            changeCurrentTime={changeCurrentTime}
-            updateCB={onTimelineUpdate}
-            showTimes={showTimes}
-            setPreviousTime={setPreviousTime}
-            setNextTime={setNextTime}
-            onDragStart={onDragStart}
-          />
+          {currentTime && firstHour && (
+            <Timeline
+              timeSpan={timeSpan}
+              currentTime={currentTime}
+              forecastTime={currentTime}
+              firstHour={firstHour?.getTime()}
+              finalTime={finalTime}
+              changeCurrentTime={changeCurrentTime}
+              updateCB={onTimelineUpdate}
+              showTimes={showTimes}
+              setPreviousTime={setPreviousTime}
+              setNextTime={setNextTime}
+              onDragStart={onDragStart}
+            />
+          )}
 
           {getPlayerButtons()}
         </div>

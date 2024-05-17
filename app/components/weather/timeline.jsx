@@ -6,226 +6,135 @@ import Dragger from "./dragger.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 
+const offsetHours = 24 * 14;
+
 const Timeline = ({
   timeSpan,
-  currentTime,
-  timeArray,
-  changeCurrentTime,
+  currentTime, // set time for now
+  firstHour, // from when is data available
+  forecastTime, // from when is forecast available
+  finalTime, // last available time
   setPreviousTime,
   setNextTime,
+  changeCurrentTime,
   showTimes,
   onDragStart,
   updateCB
 }) => {
-  const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+  console.log("Timeline ##77", {
+    timeSpan,
+    finalTime,
+    currentTime,
+    firstHour,
+    forecastTime,
+    setPreviousTime,
+    changeCurrentTime,
+    setNextTime,
+    showTimes,
+    onDragStart,
+    updateCB
+  });
+  //const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
   const daysContainer = useRef();
   const [nrOnlyTimespan, setNrOnlyTimespan] = useState(null);
   const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
-  const [tickWidth, setTickWidth] = useState(0);
-
-  //console.log("render s04", { currentTime, timeSpan, tickWidth });
-
-  const updateTickWidth = () => {
-    // Select the first instance of each element using querySelector
-    const posFirstTickEl = document.querySelector(".cp-scale-hour-1");
-    const posSecondTickEl = document.querySelector(".cp-scale-hour-2");
-
-    // Check if both elements exist
-    if (!posFirstTickEl || !posSecondTickEl) {
-      return 0;
-    }
-
-    // Get the offset positions of the elements
-    const posFirstTick = posFirstTickEl.getBoundingClientRect();
-    const posSecondTick = posSecondTickEl.getBoundingClientRect();
-
-    // Calculate and return the horizontal distance between the elements
-    // The left position is relative to the viewport, which is consistent across browsers
-    const res = posSecondTick.left - posFirstTick.left;
-    if (res != tickWidth) setTickWidth(res);
-  };
-
-  useEffect(() => {
-    updateTickWidth();
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLastRedraw(new Date().getTime());
-    }, 3000);
-  }, [timeSpan]);
-
-  useEffect(() => {
-    setDraggerCoordinates({
-      x: getLeftForTime(currentTime) - tickWidth * nrOnlyTimespan,
-      y: draggerCoordinates.y
-    });
-  }, [currentTime, tickWidth]);
-
-  useEffect(() => {
-    if (currentTime && timeSpan && tickWidth) {
-      updateCB({ tickWidth });
-    }
-  }, [tickWidth, currentTime, timeArray]);
+  const [firstTime, setFirstTime] = useState(null);
+  const [lastTime, setLastTime] = useState(null);
 
   useEffect(() => {
     setNrOnlyTimespan(parseInt(timeSpan.replace(/\D/g, ""), 10));
   }, [timeSpan]);
 
-  const getTimeStart = triggerTime => {
-    let timeStart = new Date(triggerTime);
-    timeStart.setHours(timeStart.getHours() - parseInt(nrOnlyTimespan, 10));
-    return timeStart;
-  };
+  useEffect(() => {
+    const startTime = new Date();
+    startTime.setUTCHours(0, 0, 0, 0);
+    const lastTime = new Date(finalTime);
+    lastTime.setUTCHours(0, 0, 0, 0);
+    startTime.setUTCHours(startTime.getUTCHours() - offsetHours);
+    lastTime.setUTCHours(startTime.getUTCHours() + nrOnlyTimespan);
 
-  const getLeftForTime = time => {
-    const theTickEl = document.querySelector(".t" + time);
-    if (!theTickEl) return;
-    const theTick = theTickEl.getBoundingClientRect();
+    setFirstTime(startTime);
+    setLastTime(lastTime);
+  }, [firstHour, timeSpan]);
 
-    const daysContainerRec = daysContainer.current?.getBoundingClientRect();
-
-    let left = Math.abs(theTick.left - daysContainerRec.left);
-    // console.log("getLeftForTime s03", {
-    //   currentTimeUtc: new Date(currentTime).toUTCString(),
-    //   foundTimeUtc: new Date(time).toUTCString(),
-    //   tickWidth: tickWidth(),
-    //   left
-    // });
-    return left;
-  };
-
-  const getClosestTick = left => {
-    //console.log("getClosestTick cccc", ui);
-
-    let closestDist = 9999;
-    let closestTime;
-    //let nrOnlyTimespan = timeSpan.replace(/\D/g, "");
-
-    const arrowLeft = left; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
-    $("#whereami").css({ left: left });
-
-    timeArray.forEach(eTime => {
-      //console.log("setClosestTick eTime", eTime);
-      const curItemLeft = getLeftForTime(eTime);
-      // console.log("getClosestTick hhhh ITEM", {
-      //   eTime,
-      //   arrowLeft,
-      //   curItemLeft,
-      //   eTimeUtc: new Date(eTime).toUTCString(),
-      //   diff: Math.floor(Math.abs(arrowLeft - curItemLeft))
-      // });
-      if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
-        closestTime = eTime;
-        closestDist = Math.abs(arrowLeft - curItemLeft);
-      }
-    });
-    //console.log("getClosestTick closestTime:", {closestTime});
-
-    if (closestTime) return closestTime;
-    return null;
+  const getDay = (firstHourOfDay, hours) => {
+    //console.log("getDay ##78", {firstHourOfDay, first: hours?.[0]});
+    return (
+      <div
+        className={
+          currentTime &&
+          isSameDay(new Date(hours?.[hours?.length - 1]), new Date())
+            ? "cp-scale-day cp-scale-day-today"
+            : "cp-scale-day "
+        }
+        key={firstHourOfDay.getTime()}
+      >
+        <span className="cp-scale-day-name">
+          <a
+            role="button"
+            tabIndex="0"
+            data-first-hour={firstHourOfDay}
+            onClick={() => {
+              changeCurrentTime(firstHourOfDay);
+            }}
+          >
+            <FormattedDate
+              date={firstHourOfDay}
+              options={{
+                weekday: "short",
+                day: "numeric",
+                month: "numeric"
+              }}
+            />
+          </a>
+        </span>
+        <div key="cp-scale-hours" className="cp-scale-hours">
+          {hours}
+        </div>
+      </div>
+    );
   };
 
   const getTimeline = () => {
-    let lastTime;
+    const lastTime = new Date(finalTime);
     let days = [];
-    const startDate = getTimeStart(currentTime);
+    let hours = [];
+    const currentHour = new Date(firstTime);
 
-    // console.log(
-    //   "getTimeline s04",
-    //   {indexStart: timeArray.indexOf(startDate),
-    //     startDate,
-    //     nrOnlyTimespan,
-    //     tickWidth
-    //   }
-    // );
-    let tempTimeArray = timeArray.slice();
-
-    if (nrOnlyTimespan > 1) {
-      let extraTime = new Date(tempTimeArray[0]);
-      let minTime = new Date(extraTime);
-      //console.log("timeArray#1", extraTime, maxTime, nrOnlyTimespan);
-      minTime.setHours(minTime.getHours() - nrOnlyTimespan);
-
-      //console.log("timeArray#2", extraTime, maxTime, nrOnlyTimespan);
-      while (extraTime > minTime) {
-        extraTime.setHours(extraTime.getHours() - 12);
-        tempTimeArray.unshift(extraTime.getTime());
+    console.log("getTimeline ##78", { currentHour });
+    let weekday = currentHour.getDay();
+    while (currentHour < lastTime) {
+      //console.log("getTimeline ##78-1", {weekday, currWeekday: currentHour.getDay()});
+      if (weekday != currentHour.getDay()) {
+        const firstHourOfDay = new Date(currentHour);
+        firstHourOfDay.setUTCHours(0, 0, 0, 0);
+        firstHourOfDay.setUTCHours(firstHourOfDay.getUTCHours() - 24);
+        days.push(getDay(firstHourOfDay, hours));
+        hours = [];
       }
-      // console.log("timeArray#3 ##55", {
-      //   tempTimeArray,
-      //   extraTimeUTC: extraTime.toUTCString()
-      // });
+      weekday = currentHour.getDay();
+      let isSelectable = true; // todo: fix
+
+      let spanClass = [
+        "cp-scale-hour-" + currentHour.getUTCHours(),
+        "t" + currentHour
+      ];
+      if (currentHour < forecastTime) spanClass.push("cp-analyse-item");
+      // console.log("getTimeline ##78-1", {currentHour});
+      hours.push(
+        <span
+          key={currentHour}
+          className={spanClass.join(" ")}
+          data-timestamp={currentHour}
+          data-selectable={isSelectable}
+          data-time={currentHour}
+        ></span>
+      );
+      currentHour.setUTCHours(currentHour.getUTCHours() + 1);
     }
 
-    tempTimeArray.forEach(aTime => {
-      const weekday = new Date(aTime).getDay();
-
-      if (lastTime !== weekday) {
-        let firstAvailableTime;
-        let hours = [];
-        for (let i = 0; i < 25; i++) {
-          let currentHour = new Date(aTime).setHours(i);
-          let currentStartHour = new Date(currentHour).setHours(
-            new Date(aTime).getHours() +
-              (nrOnlyTimespan > 1 ? nrOnlyTimespan : 0)
-          );
-          let isSelectable = tempTimeArray.includes(currentStartHour);
-
-          let spanClass = ["cp-scale-hour-" + i, "t" + currentHour];
-          if (aTime < startDate) spanClass.push("cp-analyse-item");
-          if (isSelectable && !firstAvailableTime)
-            firstAvailableTime = currentStartHour;
-          hours.push(
-            <span
-              key={currentHour}
-              className={spanClass.join(" ")}
-              data-timestamp={currentHour}
-              data-selectable={isSelectable}
-              data-time={currentHour}
-            ></span>
-          );
-        }
-
-        days.push(
-          <div
-            className={
-              currentTime && isSameDay(new Date(currentTime), new Date(aTime))
-                ? "cp-scale-day cp-scale-day-today"
-                : "cp-scale-day "
-            }
-            key={aTime}
-          >
-            <span className="cp-scale-day-name">
-              <a
-                role="button"
-                tabIndex="0"
-                data-first-hour={firstAvailableTime}
-                onClick={() => {
-                  changeCurrentTime(firstAvailableTime);
-                }}
-              >
-                <FormattedDate
-                  date={aTime}
-                  options={{
-                    weekday: "short",
-                    day: "numeric",
-                    month: "numeric"
-                  }}
-                />
-              </a>
-            </span>
-            <div key="cp-scale-hours" className="cp-scale-hours">
-              {hours}
-            </div>
-          </div>
-        );
-
-        lastTime = weekday;
-      }
-    });
-    let classes = ["cp-scale-days", "redraw-" + lastRedraw];
+    let classes = ["cp-scale-days"];
     return (
       <div ref={daysContainer} key="days" className={classes.join(" ")}>
         {days}
@@ -275,9 +184,9 @@ const Timeline = ({
       //   draggerCoordinates
       // );
       const dragSettings = {
-        onDragEnd: x => {
-          setClosestTick(x + $("#dragger").width());
-        },
+        // onDragEnd: x => { // todo: fix
+        //   setClosestTick(x + $("#dragger").width());
+        // },
         onDrag: onDragStart,
         parent: ".cp-scale-stamp",
         coordinates: draggerCoordinates,
@@ -298,7 +207,7 @@ const Timeline = ({
                 key="scale-stamp-range"
                 style={{
                   left: 0,
-                  width: tickWidth * nrOnlyTimespan
+                  width: 1 * nrOnlyTimespan // todo: fix
                 }}
                 className="cp-scale-stamp-range js-active"
               >
@@ -311,7 +220,7 @@ const Timeline = ({
                   className="cp-scale-stamp-range-begin"
                 >
                   <FormattedDate
-                    date={getTimeStart(currentTime)}
+                    date={currentTime} // todo: fix
                     options={{ timeStyle: "short" }}
                   />
                 </span>
@@ -397,7 +306,7 @@ const Timeline = ({
           </Tooltip>
         </div>
 
-        {getTimeline()}
+        {firstTime && lastTime && getTimeline()}
 
         <div key="analyse-forecast" className="cp-scale-analyse-forecast">
           <span
