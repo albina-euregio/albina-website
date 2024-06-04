@@ -13,7 +13,7 @@ export class WordpressProcessor implements BlogProcessor {
       `https://${
         config.params.id
       }/wp-json/wp/v2/categories?${new URLSearchParams({
-        per_page: String(100)
+        per_page: String(99)
       })}`,
       {}
     );
@@ -33,7 +33,7 @@ export class WordpressProcessor implements BlogProcessor {
           "title"
         ] as (keyof Post)[]
       ).join(),
-      per_page: String(100)
+      per_page: String(99)
     });
     if (state?.searchText) {
       params.set("search", state.searchText);
