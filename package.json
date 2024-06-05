@@ -26,7 +26,7 @@
     "@floating-ui/react": "^0.19.1",
     "@floating-ui/react-dom-interactions": "^0.0.15",
     "@nanostores/react": "^0.7.1",
-    "@sentry/react": "^7.24.2",
+    "@sentry/react": "^8.7.0",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "husky": "^9.0.11",
