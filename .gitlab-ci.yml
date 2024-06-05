@@ -13,8 +13,6 @@ stages:
   image: node:20
   stage: build
   variables:
-    COMPRESS_BROTLI: 1
-    COMPRESS_GZIP: 1
     YARN_CACHE_FOLDER: .yarn-cache/
   cache:
     key:

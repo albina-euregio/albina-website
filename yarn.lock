@@ -1371,7 +1371,6 @@ __metadata:
     react-leaflet: "npm:^4.2.1"
     react-router-dom: "npm:^6.20.1"
     react-string-replace: "npm:^1.1.1"
-    rollup-plugin-gzip: "npm:^3.1.0"
     sass: "npm:^1.69.5"
     selectric: "https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
     typescript: "npm:^5.4.3"
@@ -4651,15 +4650,6 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 10c0/9cb7757acb489bd83757ba1a274ab545eafd75598a9d817e0c3f8b164238dd90eba50d6b848bd4dcc5f3040912e882dc7ba71653e35af660d77b25c381d402e8
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-gzip@npm:^3.1.0":
-  version: 3.1.2
-  resolution: "rollup-plugin-gzip@npm:3.1.2"
-  peerDependencies:
-    rollup: ">=2.0.0"
-  checksum: 10c0/5129d3970cca37bfb5a2fdeddb863bc76be12489ec0a6fcb2be2764902aa2f8548eb8e6532c4e15912d95e8baaa7391a5ed6b58790ed2529c86a98fa75467edc
   languageName: node
   linkType: hard
 
