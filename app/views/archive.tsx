@@ -15,7 +15,7 @@ import FilterBar from "../components/organisms/filter-bar";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "wouter";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
 

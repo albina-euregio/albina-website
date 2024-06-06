@@ -3,7 +3,7 @@ import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 const Education = () => {
   const intl = useIntl();

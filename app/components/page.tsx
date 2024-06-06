@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useRoute } from "wouter";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
 import ControlBar from "./organisms/control-bar";
 
-const Page = () => {
-  const location = useLocation();
+const Page = ({ children }: React.PropsWithChildren) => {
+  const [match] = useRoute("/bulletin");
 
   useEffect(() => {
-    if (!location.pathname.split("/").includes("bulletin")) {
-      if (!location.hash) {
+    if (!match) {
+      if (!window.location.hash) {
         window.scrollTo(0, 0);
       }
     }
-  }, [location.hash, location.pathname]);
+  }, [match]);
 
   return (
     <>
@@ -34,7 +34,7 @@ const Page = () => {
             }
           />
         )}
-        <Outlet />
+        {children}
       </main>
       <PageFooter />
       <div

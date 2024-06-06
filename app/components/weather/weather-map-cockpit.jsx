@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import { FormattedDate, FormattedMessage } from "../../i18n";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import { Tooltip } from "../tooltips/tooltip";

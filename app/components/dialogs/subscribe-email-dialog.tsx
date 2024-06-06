@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";

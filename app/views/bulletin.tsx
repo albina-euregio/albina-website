@@ -21,7 +21,7 @@ import {
 } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
-import { useParams, useSearchParams, Link } from "react-router-dom";
+import { useParams, useSearchParams, Link } from "wouter";
 
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";

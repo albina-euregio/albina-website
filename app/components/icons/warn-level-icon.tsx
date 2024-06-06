@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { Tooltip } from "../../components/tooltips/tooltip";
 import { DangerRatingValue } from "../../stores/bulletin";

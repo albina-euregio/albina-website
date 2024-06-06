@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";

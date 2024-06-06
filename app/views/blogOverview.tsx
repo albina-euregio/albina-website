@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "wouter";
 import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -26,7 +26,7 @@ const BlogOverview = () => {
   });
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
-  const location = useLocation();
+  const [location] = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
   let _settingFilters = false;

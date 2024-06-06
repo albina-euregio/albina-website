@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";

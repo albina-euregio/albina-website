@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, matchPath, useLocation } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
 
@@ -27,7 +27,7 @@ type Props = {
 const Menu = (props: Props) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const location = useLocation();
+  const [location] = useLocation();
   const [numberNewPosts, setNumberNewPosts] = useState(0);
 
   useEffect(() => {
@@ -46,10 +46,7 @@ const Menu = (props: Props) => {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
     const doTest = (loc: string, element: Entry): boolean => {
-      return (
-        matchPath(loc, element.url.split("?")[0]) != null ||
-        (recursive && element.children?.some(el => doTest(loc, el)))
-      );
+      return false;
     };
 
     if (location?.pathname) {
@@ -131,11 +128,7 @@ const Menu = (props: Props) => {
   };
 
   if (props.entries && props.entries.length > 0) {
-    const activeMenuItems = props.entries.filter(e => testActive(e));
-    const activeItem =
-      activeMenuItems.length > 0
-        ? activeMenuItems[0] // in case someone messed up the menu
-        : null;
+    const activeItem = props.entries.find(e => testActive(e));
 
     return (
       <ul className={props.className}>

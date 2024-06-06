@@ -12,7 +12,7 @@ import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
-import { useParams } from "react-router-dom";
+import { useParams } from "wouter";
 
 import Player from "../js/player";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";

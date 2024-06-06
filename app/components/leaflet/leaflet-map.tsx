@@ -1,6 +1,6 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { useParams } from "react-router-dom";
+import { useParams } from "wouter";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {

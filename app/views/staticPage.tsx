@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "wouter";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -13,7 +13,7 @@ import { fetchText } from "../util/fetch";
 const StaticPage = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const location = useLocation();
+  const [location] = useLocation();
 
   const [title, setTitle] = useState("");
   const [chapter, setChapter] = useState("");
@@ -23,9 +23,7 @@ const StaticPage = () => {
 
   useEffect(() => {
     (async () => {
-      let url = location.pathname
-        .substring(config.projectRoot)
-        .replace(/^\//, "");
+      let url = location.substring(config.projectRoot).replace(/^\//, "");
       if (!url) return;
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
@@ -38,7 +36,7 @@ const StaticPage = () => {
       setHeaderText("");
       setIsShareable(true);
     })();
-  }, [lang, location.pathname]);
+  }, [lang, location]);
 
   useEffect(() => {
     document

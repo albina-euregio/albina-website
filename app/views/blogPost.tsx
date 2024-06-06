@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "wouter";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "wouter";
 
 import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";

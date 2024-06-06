@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "wouter";
 
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";

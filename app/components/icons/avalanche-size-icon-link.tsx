@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 

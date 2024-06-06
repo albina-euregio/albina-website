@@ -1,5 +1,5 @@
 import React, { type AllHTMLAttributes } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import htmr from "htmr";
 import { RegionsTables } from "../components/stationTable/regionTable";
 import { scrollIntoView } from "./scrollIntoView";

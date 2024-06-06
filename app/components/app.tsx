@@ -1,13 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useParams
-} from "react-router-dom";
-//import { ScrollContext } from "react-router-scroll";
+import { Redirect, Route, Router, Switch, useParams } from "wouter";
 import { setLanguage } from "../appStore";
 import Page from "./page";
 
@@ -29,17 +22,6 @@ const Archive = React.lazy(() => import("../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("../views/staticPage"));
 
-const RouteStaticPage = () => {
-  const params = useParams();
-  //console.log("SwtichLang", params);
-
-  if (params?.name && /^([a-z]{2})$/.test(params?.name)) {
-    setLanguage(params.name);
-    return <Navigate replace to="/" />;
-  }
-  return <StaticPage />;
-};
-
 const App = () => {
   useEffect(() => {
     window.addEventListener("orientationchange", () => {
@@ -56,53 +38,90 @@ const App = () => {
   });
 
   return (
-    <BrowserRouter basename={config.projectRoot}>
+    <Router base={config.projectRoot}>
       <Suspense fallback={"..."}>
-        <Routes>
-          {/* prettier-ignore */}
+        <Switch>
           <Route path="/headless">
-            <Route index element={<Navigate replace to="bulletin/latest" />} />
-            <Route path="bulletin/:date" element={<Bulletin headless={true} />} />
-            <Route path="bulletin/latest" element={<Bulletin headless={true} />} />
+            <Route path="bulletin/:date">
+              <Bulletin headless={true} />
+            </Route>
+            <Route path="bulletin/latest">
+              <Bulletin headless={true} />
+            </Route>
+            <Route>
+              <Redirect to="bulletin/latest" />
+            </Route>
           </Route>
-          <Route path="/" element={<Page />}>
-            <Route index element={<Navigate replace to="/bulletin/latest" />} />
-            <Route
-              path="/bulletin"
-              element={<Navigate replace to="/bulletin/latest" />}
-            />
-            <Route path="/bulletin/:date" element={<Bulletin />} />
-            <Route path="/bulletin/latest" element={<Bulletin />} />
-            <Route path="/weather/map/:domain" element={<Weather />} />
-            <Route path="/weather/map/" element={<Weather />} />
-            <Route
-              path="/weather/measurements"
-              element={<StationMeasurements />}
-            />
-            <Route path="/weather/archive" element={<StationArchive />} />
-            <Route path="/weather/stations" element={<StationMap />} />
-            <Route path="/weather/snow-profiles" element={<SnowProfileMap />} />
-            <Route
-              path="/weather"
-              element={<Navigate replace to="/weather/map" />}
-            />
-            <Route path="/education" element={<Education />} />
-            <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
-            <Route path="/blog" element={<BlogOverview />} />
-            <Route path="/more" element={<More />} />
-            <Route path="/more/archive" element={<Archive />} />
-            <Route path="/more/linktree" element={<Linktree />} />
-            <Route
-              path="/archive"
-              element={<Navigate replace to="/more/archive" />}
-            />
-            <Route path="/education/*" element={<StaticPage />} />
-            <Route path="/:name" element={<RouteStaticPage />} />
-            <Route path="/:segment/:name" element={<RouteStaticPage />} />
+          <Route path="/">
+            <Page>
+              <Route path="/bulletin/:date">
+                <Bulletin />
+              </Route>
+              <Route path="/bulletin/latest">
+                <Bulletin />
+              </Route>
+              <Route path="/bulletin">
+                <Redirect to="/bulletin/latest" />
+              </Route>
+              <Route path="/weather/map/:domain">
+                <Weather />
+              </Route>
+              <Route path="/weather/map/">
+                <Weather />
+              </Route>
+              <Route path="/weather/measurements">
+                <StationMeasurements />
+              </Route>
+              <Route path="/weather/archive">
+                <StationArchive />
+              </Route>
+              <Route path="/weather/stations">
+                <StationMap />
+              </Route>
+              <Route path="/weather/snow-profiles">
+                <SnowProfileMap />
+              </Route>
+              <Route path="/weather">
+                <Redirect to="/weather/map" />
+              </Route>
+              <Route path="/education">
+                <Education />
+              </Route>
+              <Route path="/blog/:blogName/:postId">
+                <BlogPost />
+              </Route>
+              <Route path="/blog">
+                <BlogOverview />
+              </Route>
+              <Route path="/more/archive">
+                <Archive />
+              </Route>
+              <Route path="/more/linktree">
+                <Linktree />
+              </Route>
+              <Route path="/more">
+                <More />
+              </Route>
+              <Route path="/archive">
+                <Redirect to="/more/archive" />
+              </Route>
+              <Route>
+                <Redirect to="/bulletin/latest" />
+              </Route>
+              <Route path="/education/*">
+                <StaticPage />
+              </Route>
+              <Route path="/:name">
+                <StaticPage />
+              </Route>
+              <Route path="/:segment/:name">
+                <StaticPage />
+              </Route>
+            </Page>
           </Route>
-        </Routes>
+        </Switch>
       </Suspense>
-    </BrowserRouter>
+    </Router>
   );
 };
 

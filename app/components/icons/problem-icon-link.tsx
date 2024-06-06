@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
