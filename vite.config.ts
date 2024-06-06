@@ -12,9 +12,23 @@ function git(command: string): string {
   return execSync(`git ${command}`, { encoding: "utf8" }).trim();
 }
 
+function json(file: string) {
+  return JSON.parse(readFileSync(file, { encoding: "utf8" }));
+}
+
 Object.assign(process.env, {
   APP_LICENSE: license,
   APP_REPOSITORY: repository.url,
+  APP_DEPENDENCIES: JSON.stringify(
+    Object.keys(json("./package.json").dependencies)
+      .map(dependency => json(`node_modules/${dependency}/package.json`))
+      .map(({ name, version, license }) => ({
+        name,
+        version,
+        license: license || "none",
+        homepage: `https://www.npmjs.com/package/${name}/v/${version}`
+      }))
+  ),
   APP_VERSION: git("describe --tags"),
   APP_VERSION_DATE: git("log -1 --format=%cd --date=short")
 });
