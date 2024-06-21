@@ -52,7 +52,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
           </div>
           <div className="normal-8 grid-item">
             <ul className="list-inline bulletin-buttonbar">
-              {showPdfDialog && (
+              {showPdfDialog != 0 && (
                 <li>
                   <Tooltip
                     label={intl.formatMessage({
