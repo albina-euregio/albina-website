@@ -248,7 +248,7 @@ const StationDiagramImage: React.FC<{
   ) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
-    const width = document.body.clientWidth * 0.9;
+    const width = document.body.clientWidth * 0.85;
     const height = 240;
     // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
     return (
