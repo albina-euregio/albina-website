@@ -73,6 +73,7 @@ const WeatherStationUplot: React.FC<{
       options={{
         width,
         height,
+        cursor: { sync: { key: "shieshaesh7loo6sho2Daghah0Agohzu" } },
         axes: [
           {
             values: (_, vs) =>
