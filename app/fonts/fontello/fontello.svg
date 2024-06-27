@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2023 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -71,6 +71,14 @@
 <glyph glyph-name="snow-line" unicode="&#xe82a;" d="M517 550v-171l148 85 16-28-148-86 148-86-16-28-148 85v-154h316v-34h-666v34h316v154l-148-85-17 28 149 86-149 86 17 28 148-85v171h34z" horiz-adv-x="1000" />
 
 <glyph glyph-name="show" unicode="&#xe82b;" d="M898 358c-1 3-29 66-92 130-58 58-159 129-306 129s-247-71-306-129c-63-64-91-127-92-130a21 21 0 0 1 0-16c1-3 29-66 92-130 59-58 159-129 306-129s248 71 306 129c63 64 91 127 92 130a21 21 0 0 1 0 16z m-398-241c-109 0-205 40-284 120a476 476 0 0 0-83 113c22 42 50 80 83 113 79 80 175 120 284 120s205-40 284-120a475 475 0 0 0 83-113c-22-43-134-233-367-233z m0 400a167 167 0 1 1 167-167 167 167 0 0 1-167 167z m0-300a133 133 0 1 0 0 266 133 133 0 0 0 0-266z" horiz-adv-x="1000" />
+
+<glyph glyph-name="calendar-big" unicode="&#xe82c;" d="M333 750l0-67 334 0 0 67 66 0 0-67 134 0 0-700-734 0 0 700 134 0 0 67 66 0z m500-133l-666 0 0-600 666 0 0 600z m-431-154c54 0 96-36 96-80 0-37-20-63-53-72l0-3c41-5 66-34 66-76 0-50-47-89-107-89-62 0-105 34-108 87l37 0c4-33 31-54 70-54 41 0 69 24 69 57 0 36-27 58-70 58l-39 0 0 32 37 0c35 0 59 23 59 55 0 31-23 51-58 51-35 0-58-19-61-52l-38 0c4 53 42 86 100 86z m282-8l0-305-39 0 0 263-3 0-78-56 0 40 82 58 38 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="release" unicode="&#xe82d;" d="M367 483l0-133 266 0-133 133 47 0 150-150-150-150-47 0 133 134-266 0 0-134-34 0 0 300 34 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="update" unicode="&#xe82e;" d="M367 483l0-133 33 0 0 133 33 0 0-133 200 0-133 133 47 0 150-150-150-150-47 0 133 134-200 0 0-134-33 0 0 134-33 0 0-134-34 0 0 300 34 0z" horiz-adv-x="1000" />
+
+<glyph glyph-name="validity" unicode="&#xe82f;" d="M367 483l0-133 300 0 0 133 33 0 0-300-33 0 0 134-300 0 0-134-34 0 0 300 34 0z" horiz-adv-x="1000" />
 
 <glyph glyph-name="calendar" unicode="&#xe833;" d="M433 550v-33h134v33h66v-33h67v-367h-400v367h67v33h66z m234-100h-334v-267h334v267z m-254-144h24c23 0 38-12 38-30 0-18-15-31-37-31-22 0-37 12-39 29h-32c1-35 29-57 70-57 42 0 73 24 73 57 0 25-17 43-43 46v2c22 5 35 22 35 44 0 29-28 51-65 51-39 0-65-22-67-57h32c2 18 15 29 34 29 20 0 33-11 33-28 0-17-13-29-33-29h-23v-26z m179-85h34v191h-34l-50-35v-33l48 34h2z" horiz-adv-x="1000" />
 

@@ -27,6 +27,7 @@ function BulletinMapDetails({ validTimePeriod, bulletin, region }: Props) {
 
   return (
     <>
+      <a href="" class="bulletin-map-details-close icon-close"></a>
       <p className="bulletin-report-region-name">
         <span className="bulletin-report-region-name-region">{region}</span>
       </p>

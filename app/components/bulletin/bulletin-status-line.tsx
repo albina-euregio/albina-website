@@ -50,20 +50,37 @@ const BulletinStatusLine = (props: Props) => {
   }
 
   return (
-    <span
-      className={
-        "marginal " +
-        (unscheduled
-          ? "bulletin-datetime-publishing"
-          : "bulletin-datetime-validity")
-      }
-    >
+    // <p
+    //   className={
+    //     "marginal " +
+    //     (unscheduled
+    //       ? "bulletin-datetime-publishing"
+    //       : "bulletin-datetime-validity")
+    //   }
+    // >
+    //   <Tooltip
+    //     label={intl.formatMessage({ id: "bulletin:header:updated-at:tooltip" })}
+    //   >
+    //     <span>{statusText}</span>
+    //   </Tooltip>
+    // </p>
+    <p className="marginal">
       <Tooltip
         label={intl.formatMessage({ id: "bulletin:header:updated-at:tooltip" })}
       >
-        <span>{statusText}</span>
+        <span
+          className={
+            "text-icon " +
+            (unscheduled
+              ? "bulletin-datetime-publishing"
+              : "bulletin-datetime-validity")
+          }
+        >
+          <span className="icon icon-release"></span>
+          <span className="text">{statusText}</span>
+        </span>
       </Tooltip>
-    </span>
+    </p>
   );
 };
 
