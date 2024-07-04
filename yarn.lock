@@ -1368,8 +1368,8 @@ __metadata:
     normalize.css: "npm:^8.0.1"
     prettier: "npm:3.3.1"
     purecss-sass: "npm:2.0.6"
-    react: "npm:19.0.0-rc-eb259b5d3b-20240605"
-    react-dom: "npm:19.0.0-rc-eb259b5d3b-20240605"
+    react: "npm:19.0.0-rc-9c6806964f-20240703"
+    react-dom: "npm:19.0.0-rc-9c6806964f-20240703"
     react-easy-swipe: "npm:0.0.23"
     react-leaflet: "npm:^4.2.1"
     react-router-dom: "npm:^6.20.1"
@@ -4441,14 +4441,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0-rc-eb259b5d3b-20240605":
-  version: 19.0.0-rc-eb259b5d3b-20240605
-  resolution: "react-dom@npm:19.0.0-rc-eb259b5d3b-20240605"
+"react-dom@npm:19.0.0-rc-9c6806964f-20240703":
+  version: 19.0.0-rc-9c6806964f-20240703
+  resolution: "react-dom@npm:19.0.0-rc-9c6806964f-20240703"
   dependencies:
-    scheduler: "npm:0.25.0-rc-eb259b5d3b-20240605"
+    scheduler: "npm:0.25.0-rc-9c6806964f-20240703"
   peerDependencies:
-    react: 19.0.0-rc-eb259b5d3b-20240605
-  checksum: 10c0/51940485274fd83d11fbd89ce95d163d6c3b6d49962f2a4fe68c22f786d9995d7477c8eec0cc99f1de325323c32e176a6cc6f196cc15ef4ab3e2be8a24f1e9ee
+    react: 19.0.0-rc-9c6806964f-20240703
+  checksum: 10c0/1089224fbfab48117894edd45baad588a2d2a55ae2d8dcd82ea8dd1a193b3aeff02771cf076ba588b5e695230666d5d7d8e3a8dbfd385c889f7098f7ce58c890
   languageName: node
   linkType: hard
 
@@ -4519,10 +4519,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0-rc-eb259b5d3b-20240605":
-  version: 19.0.0-rc-eb259b5d3b-20240605
-  resolution: "react@npm:19.0.0-rc-eb259b5d3b-20240605"
-  checksum: 10c0/6700eaf8fa114bd95161481bb266e83d5557b8aafa2f9c0068f7e39558e8cf2b17d5716f578ee8038353bb886620613847b8533926cfda54948347e110bd1065
+"react@npm:19.0.0-rc-9c6806964f-20240703":
+  version: 19.0.0-rc-9c6806964f-20240703
+  resolution: "react@npm:19.0.0-rc-9c6806964f-20240703"
+  checksum: 10c0/c454b85b47f1984e26b792420f1754c6c622067ec7e837b163d3a38e99cdc421f061451dd170f0cfc5e6f9d005a533bf258f116eaf81b0a5d3581fb763264765
   languageName: node
   linkType: hard
 
@@ -4765,10 +4765,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.25.0-rc-eb259b5d3b-20240605":
-  version: 0.25.0-rc-eb259b5d3b-20240605
-  resolution: "scheduler@npm:0.25.0-rc-eb259b5d3b-20240605"
-  checksum: 10c0/6c3185726a28cb2997c51bdd43e8d049384ce682636b275fadda28512d89e245d0dcf0cdf426ef260e5197e8ef37b43a2b73444363e2620e423d6e932951a6cb
+"scheduler@npm:0.25.0-rc-9c6806964f-20240703":
+  version: 0.25.0-rc-9c6806964f-20240703
+  resolution: "scheduler@npm:0.25.0-rc-9c6806964f-20240703"
+  checksum: 10c0/78cc3cbe0dcbcd85eb3a12a19562e6a049e3ab13f4438b42d5cd94f15f4b9879ee086b2e9b1975810adb920f894688366c89ee3eb5041cac0637027ceb43a177
   languageName: node
   linkType: hard
 
