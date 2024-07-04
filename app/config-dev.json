@@ -55,13 +55,6 @@
       "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://static.avalanche.report/zamg_meteo/overlays/"
-    },
-    "weatherFallback": {
-      "plots": "https://stations.avalanche.report/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "observers": "https://stations.avalanche.report/grafiken/{width}/beobachter/{name}{year}.png?{t}",
-      "stations": "https://stations.avalanche.report/produkte/albina.geojson",
-      "stationsArchive": "https://stations.avalanche.report/produkte/ogd.geojson",
-      "stationsArchiveFile": "https://stations.avalanche.report/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv"
     }
   },
   "apiKeys": {
