@@ -76,17 +76,22 @@ const StationArchive = () => {
         })}
       />
       <section className="section section-centered section-padding-height">
-        <FormattedMessage
-          id={"measurements-archive:license"}
-          html={true}
-          values={{
-            a: msg => (
-              <a href="https://creativecommons.org/licenses/by/4.0/deed.de">
-                {msg}
-              </a>
-            )
-          }}
-        />
+        <p>
+          <FormattedMessage
+            id={"measurements-archive:license"}
+            html={true}
+            values={{
+              a: msg => (
+                <a href="https://creativecommons.org/licenses/by/4.0/deed.de">
+                  {msg}
+                </a>
+              )
+            }}
+          />
+        </p>
+        <p>
+          <FormattedMessage id={"measurements-archive:elucidations"} />
+        </p>
       </section>
       <FilterBar
         search={true}

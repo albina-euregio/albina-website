@@ -80,6 +80,7 @@
       "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
       "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
       "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://static.avalanche.report/zamg_meteo/overlays/"
     }

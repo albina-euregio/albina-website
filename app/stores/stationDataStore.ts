@@ -409,13 +409,11 @@ export async function loadStationData({
     dateTime instanceof Date && +dateTime
       ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
       : "";
-  const stationsFile = ogd
-    ? window.config.apis.weather.stationsArchive
-    : !dateTime
-      ? window.config.apis.weather.stations
-      : window.config.template(window.config.apis.weather.stationsDateTime, {
-          dateTime: timePrefix
-        });
+  const stationsFile = !dateTime
+    ? window.config.apis.weather.stations
+    : window.config.template(window.config.apis.weather.stationsDateTime, {
+        dateTime: timePrefix
+      });
   let response: Response;
   try {
     response = await fetch(stationsFile, { cache: "no-cache" });
@@ -443,9 +441,12 @@ export async function loadStationData({
   if (response.status === 404) return [];
   const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
     await response.json();
+  const stationsArchiveOperators = new RegExp(
+    window.config.apis.weather.stationsArchiveOperators
+  );
   return json.features
     .filter(el => ogd || el.properties.date)
-    .filter(el => !ogd || /LWD Tirol/.exec(el.properties.operator))
+    .filter(el => !ogd || stationsArchiveOperators.exec(el.properties.operator))
     .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
     .map(feature => new StationData(feature));
 }
