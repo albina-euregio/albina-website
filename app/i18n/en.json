@@ -92,6 +92,7 @@
   "bulletin:header:published-at": "Published {date}, {time}",
   "bulletin:header:updated-at": "Updated {date}, {time}",
   "bulletin:header:updated-at:tooltip": "Show difference",
+  "bulletin:header:validity-time": "Valid from {start} until {end}",
   "bulletin:header:loading": "Loading",
   "bulletin:header:all_day": "All Day",
   "bulletin:header:earlier": "Earlier",
