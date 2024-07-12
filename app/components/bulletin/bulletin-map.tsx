@@ -194,7 +194,9 @@ const BulletinMap = (props: Props) => {
                 onClick={() => props.handleSelectRegion("")}
                 className="bulletin-map-details-close icon-close"
               >
-                {intl.formatMessage({ id: "bulletin:map:details:close" })}
+                <span className="is-visually-hidden">
+                  {intl.formatMessage({ id: "bulletin:map:details:close" })}
+                </span>
               </a>
               <a
                 tabIndex="-1"
