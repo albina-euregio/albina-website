@@ -80,14 +80,14 @@ const BulletinStatusLine = (props: Props) => {
       }
     );
   }
-  console.log("BulletinStatusLine->render", {
-    publishText,
-    updateText,
-    validityText,
-    unscheduled,
-    publicationTime,
-    updateTime
-  });
+  // console.log("BulletinStatusLine->render", {
+  //   publishText,
+  //   updateText,
+  //   validityText,
+  //   unscheduled,
+  //   publicationTime,
+  //   updateTime
+  // });
   return (
     <>
       <p className="marginal">

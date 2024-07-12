@@ -109,6 +109,7 @@
   "bulletin:map:locate:metersUnit": "meters",
   "bulletin:map:locate:popup": "You are within {distance} {unit} from this point",
   "bulletin:map:search": "Search",
+  "bulletin:map:details:close": "Close",
   "bulletin:map:search:hover": "Type in a location",
   "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Zoom in",

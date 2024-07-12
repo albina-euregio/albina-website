@@ -6,14 +6,22 @@ import {
   matchesValidTimePeriod,
   ValidTimePeriod
 } from "../../stores/bulletin";
+import { useIntl } from "../../i18n";
 
 type Props = {
   validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
   region: string;
+  unselectRegion: () => void;
 };
 
-function BulletinMapDetails({ validTimePeriod, bulletin, region }: Props) {
+function BulletinMapDetails({
+  validTimePeriod,
+  bulletin,
+  region,
+  unselectRegion
+}: Props) {
+  const intl = useIntl();
   const problems =
     bulletin.avalancheProblems.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
@@ -27,7 +35,13 @@ function BulletinMapDetails({ validTimePeriod, bulletin, region }: Props) {
 
   return (
     <>
-      <a href="" class="bulletin-map-details-close icon-close"></a>
+      <a
+        href="#"
+        onClick={() => unselectRegion()}
+        className="bulletin-map-details-close icon-close"
+      >
+        {intl.formatMessage({ id: "bulletin:map:details:close" })}
+      </a>
       <p className="bulletin-report-region-name">
         <span className="bulletin-report-region-name-region">{region}</span>
       </p>
