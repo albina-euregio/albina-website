@@ -91,36 +91,32 @@ const BulletinStatusLine = (props: Props) => {
   return (
     <>
       <p className="marginal">
-        <span className="text-icon bulletin-datetime-release">
-          <span className="icon icon-release"></span>
-          <span className="text">{publishText}</span>
-        </span>
-        {updateText && (
-          <span className="text-icon bulletin-datetime-publishing">
-            <span className="icon icon-update"></span>
-            <span className="text">{updateText}</span>
+        {publicationTime && (
+          <span className="text-icon bulletin-datetime-release">
+            <span className="icon icon-release"></span>
+            <span className="text">{publishText}</span>
           </span>
         )}
-        <span className="text-icon bulletin-datetime-validity">
-          <span className="icon icon-validity"></span>
-          <span className="text">{validityText}</span>
-        </span>
+        {updateTime && (
+          <Tooltip
+            label={intl.formatMessage({
+              id: "bulletin:header:updated-at:tooltip"
+            })}
+          >
+            <span className="text-icon bulletin-datetime-publishing">
+              <span className="icon icon-update"></span>
+              <span className="text">{updateText}</span>
+            </span>
+          </Tooltip>
+        )}
+        {props?.bulletin?.validTime?.startTime &&
+          props?.bulletin?.validTime?.endTime && (
+            <span className="text-icon bulletin-datetime-validity">
+              <span className="icon icon-validity"></span>
+              <span className="text">{validityText}</span>
+            </span>
+          )}
       </p>
-      {/* <Tooltip
-        label={intl.formatMessage({ id: "bulletin:header:updated-at:tooltip" })}
-      >
-        <span
-          className={
-            "text-icon " +
-            (unscheduled
-              ? "bulletin-datetime-publishing"
-              : "bulletin-datetime-validity")
-          }
-        >
-          <span className="icon icon-release"></span>
-          <span className="text">{validityText}</span>
-        </span>
-      </Tooltip> */}
     </>
   );
 };
