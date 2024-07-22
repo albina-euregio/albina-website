@@ -136,6 +136,7 @@ const BulletinMap = (props: Props) => {
             id: "region:" + props.region
           })}
           validTimePeriod={props.validTimePeriod}
+          unselectRegion={() => props.handleSelectRegion("")}
         />
       );
       res.push(
@@ -187,25 +188,36 @@ const BulletinMap = (props: Props) => {
               id: "bulletin:map:info:details:hover"
             })}
           >
-            <a
-              tabIndex="-1"
-              key={`eaws-link-${index}`}
-              href={href}
-              rel="noopener noreferrer"
-              target="_blank"
-              className={
-                /ALPSOLUT|METEOMONT/.test(aws.name)
-                  ? "pure-button is-de-highlighted"
-                  : "pure-button"
-              }
-              style={{
-                // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
-                cursor: "pointer",
-                pointerEvents: "initial"
-              }}
-            >
-              {aws.name} <span className="icon-arrow-right" />
-            </a>
+            <div>
+              <a
+                href="#"
+                onClick={() => props.handleSelectRegion("")}
+                className="bulletin-map-details-close icon-close"
+              >
+                <span className="is-visually-hidden">
+                  {intl.formatMessage({ id: "bulletin:map:details:close" })}
+                </span>
+              </a>
+              <a
+                tabIndex="-1"
+                key={`eaws-link-${index}`}
+                href={href}
+                rel="noopener noreferrer"
+                target="_blank"
+                className={
+                  /ALPSOLUT|METEOMONT/.test(aws.name)
+                    ? "pure-button is-de-highlighted"
+                    : "pure-button"
+                }
+                style={{
+                  // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
+                  cursor: "pointer",
+                  pointerEvents: "initial"
+                }}
+              >
+                {aws.name} <span className="icon-arrow-right" />
+              </a>
+            </div>
           </Tooltip>
         );
       });

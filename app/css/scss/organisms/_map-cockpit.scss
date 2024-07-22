@@ -9,13 +9,13 @@
 
 $cp-base-unit: 10px;
 
-$cp-layer-selector-button-height: 30px;
+$cp-layer-selector-button-height: 50px;
 $cp-layer-selector-width: 185px;
-$cp-layer-selector-width-open: 304px;
+$cp-layer-selector-width-2: 285px;
 
 $cp-layer-range-height: 40px;
-$cp-layer-width: $cp-layer-selector-width;
-$cp-range-width: 175px;
+$cp-range-width: $cp-layer-selector-width;
+$cp-range-width-2: $cp-layer-selector-width-2;
 
 $cp-timeline-height: 50px;
 $cp-scale-height: 35px;
@@ -30,8 +30,9 @@ $cp-copyright-width: 40px;
 $cp-font-size-small: 10px;
 $cp-font-size-medium: 12px;
 
-$cp-breakpoint-1: 720px;
-$cp-breakpoint-2: 1024px;
+$cp-breakpoint-1: 500px;
+$cp-breakpoint-2: 720px;
+$cp-breakpoint-3: 1024px;
 
 .weather-map-cockpit {
   z-index: 2;
@@ -45,8 +46,8 @@ $cp-breakpoint-2: 1024px;
   @extend .bg-box;
   @include box-shadow(0.15);
 
-  @media screen and (min-width: $cp-breakpoint-2) {
-    max-width: $cp-breakpoint-2;
+  @media screen and (min-width: $cp-breakpoint-3) {
+    max-width: $cp-breakpoint-3;
     left: 50%;
     transform: translateX(-50%);
 
@@ -64,16 +65,16 @@ $cp-breakpoint-2: 1024px;
   );
   left: 0;
 
-  @media screen and (min-width: $cp-breakpoint-1) {
-    bottom: calc(#{$cp-layer-range-height} + #{$border-width});
-  }
-  @media screen and (min-width: $cp-breakpoint-2) {
-    z-index: auto;
+  width: calc(100% - #{$cp-range-width});
 
-    position: relative;
-    bottom: auto;
-    left: auto;
-    width: $cp-layer-selector-width-open;
+  @media screen and (min-width: $cp-breakpoint-2) {
+    bottom: calc(#{$cp-layer-range-height} + #{$border-width});
+
+    width: calc(#{$cp-layer-selector-width} * 2);
+  }
+
+  @media screen and (min-width: $cp-breakpoint-3) {
+    bottom: calc(#{$cp-layer-range-height} + #{$cp-timeline-height});
   }
 }
 
@@ -81,64 +82,99 @@ $cp-breakpoint-2: 1024px;
 .cp-layer-selector {
   display: none;
 
-  height: $cp-layer-selector-button-height * 6;
-  width: $cp-layer-selector-width;
-  @include font-bold;
+  overflow: hidden;
 
   @extend .bg-box;
   @include box-shadow;
 
-  .layer-selector-open & {
-    display: block;
+  @media screen and (min-width: $cp-breakpoint-3) {
+    border-bottom: $border-width $border-style $brand-very-light;
   }
 
-  @media screen and (min-width: $cp-breakpoint-2) {
-    overflow: hidden;
-    height: calc(
-      #{$cp-legend-release-height} + #{$cp-timeline-height} + #{$border-width}
-    );
-    width: $cp-layer-selector-width-open;
-
-    box-shadow: none;
-
-    display: flex !important;
-    flex-direction: column;
-    flex-wrap: wrap;
+  .layer-selector-open & {
+    display: block;
   }
 }
 .cp-layer-selector-item {
   height: $cp-layer-selector-button-height;
   width: 100%;
-  line-height: $cp-layer-selector-button-height;
+  padding: ($cp-base-unit * 0.5) $cp-base-unit ($cp-base-unit * 0.5) 0;
+
+  line-height: 1.2;
+
+  // @extend .bg-box;
 
   display: flex;
-  justify-content: space-between;
+  gap: $cp-base-unit;
   align-items: center;
 
-  @media screen and (min-width: $cp-breakpoint-2) {
-    width: 50%;
-    flex-grow: 1;
-  }
-
-  span {
-    display: flex;
-    align-items: center;
+  &:not(:last-child) {
+    border-bottom: $border-width $border-style $grey-very-very-light;
   }
 
   .layer-select {
+    display: flex;
+    align-items: center;
     &:before {
       margin: 0;
       font-size: 32px;
     }
   }
 
+  .layer-select-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layer-select-name {
+    @include font-bold;
+  }
+
+  .layer-select-info {
+    color: $grey-light;
+    @include rollout;
+  }
+
+  &:hover {
+    // @extend .bg-brand-subtle;
+    .layer-select-info {
+      color: $grey;
+      @include rollover;
+    }
+  }
+
   &.js-active {
     @extend .bg-brand;
+    .layer-select-info {
+      color: $white;
+    }
   }
 
   &.cp-layer-trigger {
     height: $cp-layer-range-height;
+    padding: 0;
+    justify-content: space-between;
+    border-bottom: none;
+
+    @media screen and (min-width: $cp-breakpoint-3) {
+      height: $cp-timeline-height;
+    }
+
+    .layer-select-info {
+      display: none;
+      font-size: $cp-font-size-small;
+      @media #{$tiny} {
+        display: inline;
+      }
+      @media screen and (min-width: $cp-breakpoint-2) {
+        display: none;
+      }
+      @media screen and (min-width: $cp-breakpoint-3) {
+        display: inline;
+      }
+    }
   }
+
   .layer-trigger {
     &:before {
       @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
@@ -171,14 +207,23 @@ $cp-breakpoint-2: 1024px;
   height: $cp-timeline-height;
   width: 100%;
 
-  @media screen and (min-width: $cp-breakpoint-2) {
+  @media screen and (min-width: $cp-breakpoint-3) {
+    left: $cp-layer-selector-width-2;
+    width: calc(100% - #{$cp-layer-selector-width-2});
     border-left: $border-width $border-style $brand-very-light;
   }
 }
 
 //scale
 .cp-scale {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 35px;
+  right: 35px;
+  height: $cp-timeline-height;
+  overflow: hidden;
+  cursor: ew-resize;
+  @include rollout;
 }
 
 //stamp
@@ -186,8 +231,9 @@ $cp-breakpoint-2: 1024px;
   z-index: 4;
   position: absolute;
   top: 0;
-  left: 35px;
-  right: 35px;
+  left: 0;
+  right: 0;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
 }
 
 //stamp-range
@@ -197,8 +243,6 @@ $cp-breakpoint-2: 1024px;
   top: 0;
   left: 80px;
   width: 100px;
-  cursor: move;
-  @include rollout;
 
   &.js-active {
     display: block;
@@ -209,7 +253,7 @@ $cp-breakpoint-2: 1024px;
 }
 .cp-scale-stamp-range-bar {
   display: block;
-  height: 15px;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   width: 100%;
   @extend .bg-brand;
 }
@@ -217,24 +261,24 @@ $cp-breakpoint-2: 1024px;
   position: absolute;
   top: 0;
   left: 0;
-  height: 15px;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   transform: translateX(-100%);
   padding-right: 2px;
 
   font-size: $cp-font-size-small;
-  line-height: 15px;
+  line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   @include font-bold;
 }
 .cp-scale-stamp-range-end {
   position: absolute;
   top: 0;
   right: 0;
-  height: 15px;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   transform: translateX(100%);
   padding-left: 2px;
 
   font-size: $cp-font-size-small;
-  line-height: 15px;
+  line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   @include font-bold;
 }
 
@@ -244,10 +288,10 @@ $cp-breakpoint-2: 1024px;
   position: absolute;
   top: 0;
   left: 250px;
-  height: 15px;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   width: 0;
-  cursor: move;
-  @include rollout;
+  // cursor: move;
+  // @include rollout;
 
   &.js-active {
     display: block;
@@ -262,18 +306,20 @@ $cp-breakpoint-2: 1024px;
   height: 0;
   transform: translateX(-50%);
 
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 15px solid $brand;
+  border-left: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid
+    transparent;
+  border-right: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid
+    transparent;
+  border-top: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid $brand;
 }
 .cp-scale-stamp-point-exact {
   position: absolute;
   top: 0;
-  left: 15px;
-  height: 15px;
+  left: calc(#{$cp-timeline-height} - #{$cp-scale-height});
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
 
   font-size: $cp-font-size-small;
-  line-height: 15px;
+  line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
   @include font-bold;
 }
 
@@ -281,10 +327,10 @@ $cp-breakpoint-2: 1024px;
 .cp-scale-flipper {
   z-index: 3;
   position: absolute;
-  top: 15px;
-  left: 35px;
-  right: 35px;
-  height: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
 
   display: flex;
   justify-content: space-between;
@@ -292,12 +338,12 @@ $cp-breakpoint-2: 1024px;
 
   a {
     position: absolute;
-    top: 0;
-    height: 15px;
-    max-height: 15px;
+    top: 2.5px;
+    height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
+    max-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
 
     font-size: 16px;
-    line-height: 10px;
+    line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
     overflow: hidden;
 
     &:before {
@@ -306,28 +352,36 @@ $cp-breakpoint-2: 1024px;
   }
 }
 .cp-scale-flipper-left {
-  left: 20px;
+  left: 0; //$cp-base-unit;
 }
 .cp-scale-flipper-right {
-  left: 305px;
-  transform: translateX(-100%);
+  right: 0; //$cp-base-unit;
+  // transform: translateX(-100%);
 }
 
 //days
 .cp-scale-days {
   z-index: 2;
   position: absolute;
-  top: 15px;
-  left: 35px;
-  right: 35px;
+  top: calc(#{$cp-timeline-height} - #{$cp-scale-height});
+  left: 0;
   height: $cp-scale-height;
 
   display: flex;
+  flex-wrap: nowrap;
 }
 .cp-scale-day {
   position: relative;
-  flex-grow: 1;
+  width: 60px;
   margin-right: -1px;
+
+  @media screen and (min-width: $cp-breakpoint-1) {
+    width: 90px;
+  }
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    width: 120px;
+  }
 }
 .cp-scale-day-name {
   position: absolute;
@@ -347,7 +401,7 @@ $cp-breakpoint-2: 1024px;
 
   span {
     display: none;
-    // @media screen and (min-width: $cp-breakpoint-1) {
+    // @media screen and (min-width: $cp-breakpoint-2) {
     //   display: inline;
     // }
   }
@@ -363,7 +417,7 @@ $cp-breakpoint-2: 1024px;
     width: 1px;
     background-color: transparent;
 
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: $cp-breakpoint-1) {
       background-color: $grey-medium-light;
     }
   }
@@ -385,9 +439,9 @@ $cp-breakpoint-2: 1024px;
 .cp-scale-analyse-forecast {
   z-index: 1;
   position: absolute;
-  top: 15px;
-  left: 35px;
-  right: 35px;
+  top: calc(#{$cp-timeline-height} - #{$cp-scale-height});
+  width: 100%;
+  height: $cp-scale-height;
 }
 .cp-scale-analyse-bar {
   display: block;
@@ -396,13 +450,19 @@ $cp-breakpoint-2: 1024px;
   left: 20px;
   height: $cp-scale-height;
   width: 175px;
-  @extend .bg-subtle;
+  @extend .bg-box;
 }
 .cp-scale-forecast-bar {
-  display: none;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 40px;
+  height: $cp-scale-height;
+  width: 175px;
+  @extend .bg-subtle;
 }
 
-.cp-movie {
+.cp-calendar {
   position: absolute;
   top: 13px;
   left: 3px;
@@ -414,6 +474,24 @@ $cp-breakpoint-2: 1024px;
     position: absolute;
     top: 0;
     left: 0;
+    &:before {
+      margin: 0;
+    }
+  }
+}
+
+.cp-movie {
+  position: absolute;
+  top: 13px;
+  right: 3px;
+
+  font-size: 14px;
+
+  a {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
     &:before {
       margin: 0;
     }
@@ -440,11 +518,14 @@ $cp-breakpoint-2: 1024px;
   width: 100%;
   border-top: $border-width $border-style $brand-very-light;
 
-  @media screen and (min-width: $cp-breakpoint-1) {
-    width: 50%;
-  }
   @media screen and (min-width: $cp-breakpoint-2) {
-    width: $cp-range-width;
+    width: $cp-layer-selector-width * 2;
+  }
+  @media screen and (min-width: $cp-breakpoint-3) {
+    position: absolute;
+    flex-direction: column;
+    width: $cp-layer-selector-width-2;
+    border-top: none;
   }
 }
 
@@ -453,12 +534,18 @@ $cp-breakpoint-2: 1024px;
   overflow: hidden;
 
   height: $cp-layer-range-height;
-  width: calc(100% - #{$cp-range-width});
-  @include font-bold;
+  width: calc(100% - #{$cp-layer-selector-width});
   line-height: $cp-layer-range-height;
 
   @media screen and (min-width: $cp-breakpoint-2) {
-    display: none;
+    width: $cp-layer-selector-width;
+  }
+
+  @media screen and (min-width: $cp-breakpoint-3) {
+    height: $cp-timeline-height;
+
+    width: $cp-layer-selector-width-2;
+    line-height: $cp-timeline-height;
   }
 }
 
@@ -468,7 +555,14 @@ $cp-breakpoint-2: 1024px;
   display: flex;
   align-items: stretch;
 
-  width: $cp-range-width;
+  width: $cp-layer-selector-width;
+  border-left: $border-width $border-style $brand-very-light;
+
+  @media screen and (min-width: $cp-breakpoint-3) {
+    width: $cp-layer-selector-width-2;
+    border-top: $border-width $border-style $brand-very-light;
+    border-left: none;
+  }
 }
 .cp-range-hourly {
   display: block;
@@ -477,7 +571,10 @@ $cp-breakpoint-2: 1024px;
 
   text-align: center;
   line-height: $cp-layer-range-height;
-  border-left: $border-width $border-style $border-color;
+
+  @media screen and (min-width: $cp-breakpoint-3) {
+    width: $cp-range-width-2;
+  }
 
   &.js-inactive {
     display: none;
@@ -490,13 +587,19 @@ $cp-breakpoint-2: 1024px;
   width: $cp-range-width;
   @include font-bold;
 
+  @media screen and (min-width: $cp-breakpoint-3) {
+    width: $cp-range-width-2;
+  }
+
   a {
     display: block;
     width: calc(100% / 5);
 
     text-align: center;
     line-height: $cp-layer-range-height;
-    border-left: $border-width $border-style $border-color;
+    &:not(:first-child) {
+      border-left: $border-width $border-style $border-color;
+    }
     &:hover,
     &.js-active {
       color: $white;
@@ -516,17 +619,23 @@ $cp-breakpoint-2: 1024px;
 }
 
 .cp-container-legend-release {
+  position: relative;
   overflow: hidden;
-
-  flex-grow: 2;
 
   height: $cp-legend-release-height;
   width: calc(100% - #{$cp-copyright-width});
   border-top: $border-width $border-style $brand-very-light;
+  border-left: $border-width $border-style $brand-very-light;
 
-  @media screen and (min-width: $cp-breakpoint-1) {
-    width: calc(50% - #{$cp-copyright-width});
-    border-left: $border-width $border-style $brand-very-light;
+  @media screen and (min-width: $cp-breakpoint-2) {
+    width: calc(
+      100% - (#{$cp-layer-selector-width} * 2) - #{$cp-copyright-width}
+    );
+  }
+
+  @media screen and (min-width: $cp-breakpoint-3) {
+    left: $cp-layer-selector-width-2;
+    width: calc(100% - #{$cp-layer-selector-width-2} - #{$cp-copyright-width});
   }
 }
 
@@ -551,7 +660,10 @@ $cp-breakpoint-2: 1024px;
       transform: translateX(-50%);
       line-height: $cp-legend-height;
       color: $black;
-      text-shadow: 0 0 3px #fff, 0 0 2px #fff, 0 0 1px #fff;
+      text-shadow:
+        0 0 3px #fff,
+        0 0 2px #fff,
+        0 0 1px #fff;
     }
   }
 }
@@ -618,6 +730,9 @@ $cp-breakpoint-2: 1024px;
 
 //copyright
 .cp-copyright {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
 
   height: $cp-copyright-height;
@@ -638,13 +753,13 @@ $cp-breakpoint-2: 1024px;
 //leaflet-bottom.leaflet-left scale
 .leaflet-bottom.leaflet-left {
   .section-weather-map-cockpit & {
-    @media screen and (max-width: calc(#{$cp-breakpoint-2} + 300px)) {
+    @media screen and (max-width: calc(#{$cp-breakpoint-3} + 300px)) {
       bottom: calc(
         #{$cp-timeline-height} + #{$cp-legend-release-height} +
           (2 * #{$padding})
       );
     }
-    @media screen and (max-width: $cp-breakpoint-1) {
+    @media screen and (max-width: $cp-breakpoint-2) {
       bottom: calc(
         #{$cp-timeline-height} + #{$cp-layer-range-height} + #{$cp-legend-release-height} +
           (2 * #{$padding})

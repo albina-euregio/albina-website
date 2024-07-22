@@ -9,16 +9,37 @@
 
 .section-header {
   .marginal {
+    display: flex;
+    flex-direction: column;
+
     margin: 0;
-    @include font-heavy;
+    // @include font-heavy;
     font-size: $micro-font-size; //$body-font-size-micro;
     @include letter-spacing;
+
     @media #{$medium-up} {
       position: absolute;
       top: 0;
       right: 0;
       max-width: 50%;
       text-align: right;
+      align-items: end;
+    }
+
+    .text-icon {
+      display: flex;
+      gap: 0.25em;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 0 0 -0.25em;
+      }
+    }
+    .text {
     }
   }
   .subheader {
@@ -152,7 +173,7 @@ ul.bulletin-flipper {
         color: $anchor-font-color;
         @include rollout;
       }
-      
+
       &:hover {
         &:before {
           color: $anchor-font-color-hover;
