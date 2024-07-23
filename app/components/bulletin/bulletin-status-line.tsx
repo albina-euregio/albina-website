@@ -18,7 +18,9 @@ const BulletinStatusLine = (props: Props) => {
   let validityText = "";
   let publicationTime: string | undefined;
   let updateTime: string | undefined;
+  let updateTimeEl: JSX.Element | undefined;
 
+  const isReport = props?.allBulletins?.length > 1;
   const unscheduled = useMemo(
     () =>
       props.bulletin?.unscheduled ??
@@ -79,6 +81,12 @@ const BulletinStatusLine = (props: Props) => {
         time: intl.formatDate(updateTime, { timeStyle: "short" })
       }
     );
+    updateTimeEl = (
+      <span className="text-icon bulletin-datetime-publishing">
+        <span className="icon icon-update"></span>
+        <span className="text">{updateText}</span>
+      </span>
+    );
   }
   // console.log("BulletinStatusLine->render", {
   //   publishText,
@@ -97,19 +105,19 @@ const BulletinStatusLine = (props: Props) => {
             <span className="text">{publishText}</span>
           </span>
         )}
-        {updateTime && (
+        {updateTimeEl && !isReport && (
           <Tooltip
             label={intl.formatMessage({
               id: "bulletin:header:updated-at:tooltip"
             })}
           >
-            <span className="text-icon bulletin-datetime-publishing">
-              <span className="icon icon-update"></span>
-              <span className="text">{updateText}</span>
-            </span>
+            {updateTimeEl}
           </Tooltip>
         )}
-        {props?.bulletin?.validTime?.startTime &&
+        {updateTime && isReport && <>{updateTimeEl}</>}
+
+        {isReport &&
+          props?.bulletin?.validTime?.startTime &&
           props?.bulletin?.validTime?.endTime && (
             <span className="text-icon bulletin-datetime-validity">
               <span className="icon icon-validity"></span>
