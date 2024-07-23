@@ -40,7 +40,9 @@ function BulletinMapDetails({
         onClick={() => unselectRegion()}
         className="bulletin-map-details-close icon-close"
       >
-        {intl.formatMessage({ id: "bulletin:map:details:close" })}
+        <span className="is-visually-hidden">
+          {intl.formatMessage({ id: "bulletin:map:details:close" })}
+        </span>
       </a>
       <p className="bulletin-report-region-name">
         <span className="bulletin-report-region-name-region">{region}</span>
