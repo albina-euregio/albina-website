@@ -20,11 +20,15 @@ import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 
 const BlogOverview = () => {
-  const store = useStore(BLOG_STORE.$blogState);
-  const languageActive = useStore(BLOG_STORE.languageActive);
-  const regionActive = useStore(BLOG_STORE.regionActive);
-  const postsList = useStore(BLOG_STORE.postsList);
+  const loading = useStore(BLOG_STORE.loading);
   const maxPages = useStore(BLOG_STORE.maxPages);
+  const month = useStore(BLOG_STORE.month);
+  const page = useStore(BLOG_STORE.page);
+  const languageActive = useStore(BLOG_STORE.languageActive);
+  const postsList = useStore(BLOG_STORE.postsList);
+  const regionActive = useStore(BLOG_STORE.regionActive);
+  const searchText = useStore(BLOG_STORE.searchText);
+  const year = useStore(BLOG_STORE.year);
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const location = useLocation();
@@ -60,7 +64,7 @@ const BlogOverview = () => {
     if (!_settingFilters) {
       BLOG_STORE.checkUrl(searchParams);
     }
-  }, [_settingFilters, location, searchParams, store]);
+  }, [_settingFilters, location, searchParams]);
 
   const doStoreUpdate = () => {
     setSearchParams(BLOG_STORE.searchParams.get());
@@ -82,25 +86,25 @@ const BlogOverview = () => {
 
   const handleChangeYear = (val: number | "") => {
     _settingFilters = true;
-    store.searchText = "";
-    store.year = val;
+    BLOG_STORE.searchText.set("");
+    BLOG_STORE.year.set(val);
 
     doStoreUpdate();
   };
 
   const handleChangeMonth = (val: number | "") => {
     _settingFilters = true;
-    store.searchText = "";
-    store.month = val;
+    BLOG_STORE.searchText.set("");
+    BLOG_STORE.month.set(val);
 
     doStoreUpdate();
   };
 
   const handleChangeSearch = (val: string) => {
     _settingFilters = true;
-    store.searchText = val;
-    store.problem = "";
-    store.year = "";
+    BLOG_STORE.searchText.set(val);
+    BLOG_STORE.problem.set("");
+    BLOG_STORE.year.set("");
 
     doStoreUpdate();
   };
@@ -122,7 +126,7 @@ const BlogOverview = () => {
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "blog:title" })} />
-      <HTMLPageLoadingScreen loading={store?.loading} />
+      <HTMLPageLoadingScreen loading={loading} />
       <PageHeadline
         title={intl.formatMessage({ id: "blog:headline" })}
         marginal={headerText}
@@ -133,7 +137,7 @@ const BlogOverview = () => {
           id: "blog:search"
         })}
         searchOnChange={handleChangeSearch}
-        searchValue={store.searchText}
+        searchValue={searchText}
       >
         <LanguageFilter
           title={intl.formatMessage({
@@ -162,11 +166,11 @@ const BlogOverview = () => {
           all={intl.formatMessage({ id: "filter:all" })}
           minYear={window.config.archive.minYear}
           handleChange={handleChangeYear}
-          value={store.year}
-          className={store.year !== "" ? classChanged : ""}
+          value={year}
+          className={year !== "" ? classChanged : ""}
         />
 
-        {store.year && (
+        {year && (
           <MonthFilter
             title={intl.formatMessage({
               id: "blog:filter:month"
@@ -175,13 +179,13 @@ const BlogOverview = () => {
               id: "filter:all"
             })}
             handleChange={handleChangeMonth}
-            value={store.month}
-            className={store.month !== "" ? classChanged : ""}
+            value={month}
+            className={month !== "" ? classChanged : ""}
           />
         )}
       </FilterBar>
       <section className="section section-padding-height section blog-page-flipper">
-        {!store.loading && maxPages === 0 && (
+        {!loading && maxPages === 0 && (
           <div className="section-centered">
             {intl.formatMessage({
               id: "blog:page-flipper:no-posts"
@@ -193,13 +197,13 @@ const BlogOverview = () => {
             <PageFlipper
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
-              curPage={store.page}
+              curPage={page}
               maxPages={maxPages}
             />
           </div>
         )}
       </section>
-      {store.loading && slowLoading && (
+      {loading && slowLoading && (
         <ControlBar
           addClass="fade-in"
           message={
@@ -213,7 +217,7 @@ const BlogOverview = () => {
       )}
       <section className="section-padding-height section-blog-posts">
         <div className="section-centered">
-          <BlogPostsList posts={postsList} loading={store.loading} />
+          <BlogPostsList posts={postsList} loading={loading} />
         </div>
       </section>
       <section className="section section-padding-height section blog-page-flipper">
@@ -222,7 +226,7 @@ const BlogOverview = () => {
             <PageFlipper
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
-              curPage={store.page}
+              curPage={page}
               maxPages={maxPages}
             />
           </div>

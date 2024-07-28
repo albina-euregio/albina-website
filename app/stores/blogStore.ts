@@ -3,32 +3,24 @@ import { regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogPostPreviewItem } from "./blog";
-import { computed, map, onMount, StoreValue } from "nanostores";
+import { atom, computed, StoreValue } from "nanostores";
 
-export const $blogState = map({
-  regions: {},
-  supportedLanguages: ["de", "it", "en"] as const,
-  languages: { de: true, it: true, en: true },
-  year: "" as number | "",
-  month: "" as number | "",
-  problem: "",
-  searchText: "",
-  page: 1,
-  loading: false,
-  posts: {} as Record<string, BlogPostPreviewItem[]>,
-  perPage: 20
-});
-
-onMount($blogState, () => {
-  init();
-  initLanguage();
-  update();
-});
+export const regions = atom({});
+export const supportedLanguages = atom(["de", "it", "en"] as const);
+export const languages = atom({ de: true, it: true, en: true });
+export const year = atom("" as number | "");
+export const month = atom("" as number | "");
+export const problem = atom("");
+export const searchText = atom("");
+export const page = atom(1);
+export const loading = atom(false);
+export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
+export const perPage = atom(20);
 
 export type BlogStore = StoreValue<typeof $blogState>;
 
-export const postItems = computed($blogState, state =>
-  Object.values(state.posts ?? {}).flat()
+export const postItems = computed(posts, posts =>
+  Object.values(posts ?? {}).flat()
 );
 
 export const numberOfPosts = computed(postItems, postItems => postItems.length);
@@ -39,69 +31,59 @@ export const numberNewPosts = computed(
 );
 
 export const maxPages = computed(
-  [$blogState, numberOfPosts],
-  (state, numberOfPosts) => Math.ceil(numberOfPosts / state.perPage)
+  [perPage, numberOfPosts],
+  (perPage, numberOfPosts) => Math.ceil(numberOfPosts / perPage)
 );
 
-export const languageActive = computed($blogState, state => {
-  const active = Object.keys(state.languages).filter(
-    lang => state.languages[lang]
-  );
+export const languageActive = computed(languages, languages => {
+  const active = Object.keys(languages).filter(lang => languages[lang]);
   return active.length > 1 ? "all" : active[0];
 });
 
-export const regionActive = computed($blogState, state => {
-  const active = Object.keys(state.regions).filter(
-    region => state.regions[region]
-  );
+export const regionActive = computed(regions, regions => {
+  const active = Object.keys(regions).filter(region => regions[region]);
   return active.length > 1 ? "all" : active[0];
 });
 
-export const startDate = computed($blogState, state => {
-  if (state.year) {
-    if (state.month) {
-      return new Date(state.year, state.month - 1, 1);
+export const startDate = computed([year, month], (year, month) => {
+  if (year) {
+    if (month) {
+      return new Date(year, month - 1, 1);
     }
-    return new Date(state.year, 0, 1);
+    return new Date(year, 0, 1);
   }
   return null;
 });
 
-export const endDate = computed($blogState, state => {
-  if (state.year) {
-    if (state.month) {
-      return new Date(
-        state.year,
-        state.month - 1,
-        getDaysOfMonth(state.year, state.month),
-        23,
-        59
-      );
+export const endDate = computed([year, month], (year, month) => {
+  if (year) {
+    if (month) {
+      return new Date(year, month - 1, getDaysOfMonth(year, month), 23, 59);
     }
-    return new Date(state.year, 11, 31, 23, 59);
+    return new Date(year, 11, 31, 23, 59);
   }
   return null;
 });
 
 export const searchParams = computed(
-  [$blogState, regionActive],
-  (state, regionActive) => {
+  [year, month, problem, page, searchText, languageActive, regionActive],
+  (year, month, problem, page, searchText, languageActive, regionActive) => {
     const languageHostConfig = config.languageHostSettings;
-    const l = state.languageActive;
+    const l = languageActive;
     const searchLang =
       languageHostConfig[l] &&
       languageHostConfig[l] == document.location.hostname
         ? ""
-        : state.languageActive;
+        : languageActive;
 
     const params = new URLSearchParams();
-    params.set("year", String(state.year));
-    if (state.year != "") params.set("month", String(state.month));
+    params.set("year", String(year));
+    if (year != "") params.set("month", String(month));
     params.set("searchLang", searchLang || "");
     params.set("region", regionActive);
-    params.set("problem", state.problem);
-    params.set("page", String(state.page));
-    params.set("searchText", state.searchText || "");
+    params.set("problem", problem);
+    params.set("page", String(page));
+    params.set("searchText", searchText || "");
     params.forEach((value, key) => value || params.delete(key));
     return params;
   }
@@ -146,11 +128,11 @@ export function validateLanguage(valueToValidate: string): string {
   if (valueToValidate === "all") {
     return valueToValidate;
   }
-  if ($blogState.get().supportedLanguages.includes(valueToValidate)) {
+  if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
   valueToValidate = document.body.parentElement.lang;
-  if ($blogState.get().supportedLanguages.includes(valueToValidate)) {
+  if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
   return "all";
@@ -162,7 +144,6 @@ export function validateProblem(valueToValidate: string): string {
 
 // checking if the url has been changed and applying new values
 export function checkUrl(search: URLSearchParams): void {
-  const state = $blogState.get();
   let needLoad = false;
 
   const urlValues = {
@@ -176,14 +157,14 @@ export function checkUrl(search: URLSearchParams): void {
   };
 
   // year
-  if (urlValues.year != state.year) {
-    $blogState.setKey("year", urlValues.year);
+  if (urlValues.year != year.get()) {
+    year.set(urlValues.year);
     needLoad = true;
   }
 
   // month
-  if (urlValues.month != state.month) {
-    $blogState.setKey("month", urlValues.month);
+  if (urlValues.month != month.get()) {
+    month.set(urlValues.month);
     needLoad = true;
   }
 
@@ -200,20 +181,20 @@ export function checkUrl(search: URLSearchParams): void {
   }
 
   // problem
-  if (urlValues.problem != state.problem) {
-    $blogState.setKey("problem", urlValues.problem);
+  if (urlValues.problem != problem.get()) {
+    problem.set(urlValues.problem);
     needLoad = true;
   }
 
   // page
-  if (urlValues.page != state.page) {
-    $blogState.setKey("page", urlValues.page);
+  if (urlValues.page != page.get()) {
+    page.set(urlValues.page);
     needLoad = true;
   }
 
   // searchText
-  if (urlValues.searchText != state.searchText) {
-    $blogState.setKey("searchText", urlValues.searchText || "");
+  if (urlValues.searchText != searchText.get()) {
+    searchText.set(urlValues.searchText || "");
     needLoad = true;
   }
 
@@ -258,77 +239,75 @@ export function init() {
   // Do not make posts observable, otherwise posts list will be
   // unnecessarily rerendered during the filling of this array.
   // Views should only observe the value of the "loading" flag instead.
-  $blogState.setKey("posts", {});
-  $blogState.setKey("page", initialParameters.page);
+  posts.set({});
+  page.set(initialParameters.page);
 
-  $blogState.setKey("regions", initialParameters.regions);
-  $blogState.setKey("languages", initialParameters.languages);
-  $blogState.setKey("year", initialParameters.year);
-  $blogState.setKey("month", initialParameters.month);
-  $blogState.setKey("problem", initialParameters.problem);
+  regions.set(initialParameters.regions);
+  languages.set(initialParameters.languages);
+  year.set(initialParameters.year);
+  month.set(initialParameters.month);
+  problem.set(initialParameters.problem);
 
-  $blogState.setKey("loading", false);
-  $blogState.setKey("searchText", initialParameters.searchText || "");
+  loading.set(false);
+  searchText.set(initialParameters.searchText || "");
 }
 
 export function initLanguage() {
   const initialParameters = initialParams();
-  $blogState.setKey("languages", initialParameters.languages);
+  languages.set(initialParameters.languages);
 }
 
 export async function load(forceReload = false) {
-  const state = $blogState.get();
   if (!forceReload && postItems.get().length > 0) {
     // don't do a reload if already loaded unless reload is forced
     return;
   }
 
-  $blogState.setKey("loading", true);
-  const posts = await BlogPostPreviewItem.loadBlogPosts(
-    l => state.languages[l],
-    r => state.regions[r],
-    state
+  loading.set(true);
+  const posts0 = await BlogPostPreviewItem.loadBlogPosts(
+    l => languages.get()[l],
+    r => regions.get()[r],
+    {} // FIXME
   );
-  const newPosts = Object.fromEntries(posts);
-  $blogState.setKey("posts", newPosts);
-  $blogState.setKey("loading", false);
+  const newPosts = Object.fromEntries(posts0);
+  posts.set(newPosts);
+  loading.set(false);
 }
 
 export function nextPage() {
-  const thisPage = $blogState.get().page;
+  const thisPage = page.get();
   const nextPageNo = thisPage < maxPages.get() ? thisPage + 1 : thisPage;
-  $blogState.setKey("page", nextPageNo);
+  page.set(nextPageNo);
 }
 
 export function previousPage() {
-  const thisPage = $blogState.get().page;
+  const thisPage = page.get();
   const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
-  $blogState.setKey("page", previousPageNo);
+  page.set(previousPageNo);
 }
 
 export function setRegions(region: string) {
-  const newRegions = $blogState.get().regions;
+  const newRegions = regions.get();
   for (const r in newRegions) {
     newRegions[r] = [r, "all"].includes(region) || !region;
   }
-  $blogState.setKey("regions", newRegions);
+  regions.set(newRegions);
 }
 
 export function setLanguages(lang: string) {
-  const newLanguages = $blogState.get().languages;
+  const newLanguages = languages.get();
   for (const l in newLanguages) {
     newLanguages[l] = [l, "all"].includes(lang) || !lang;
   }
-  $blogState.setKey("languages", newLanguages);
+  languages.set(newLanguages);
 }
 
 export const postsList = computed(
-  [$blogState, numberOfPosts],
-  (state, numberOfPosts) => {
-    const start = (state.page - 1) * state.perPage;
-    const limit = state.perPage;
+  [page, perPage, posts, numberOfPosts],
+  (page, perPage, posts, numberOfPosts) => {
+    const start = (page - 1) * perPage;
+    const limit = perPage;
 
-    const posts = state.posts;
     const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, numberOfPosts - 1);
