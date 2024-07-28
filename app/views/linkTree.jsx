@@ -5,8 +5,6 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
-
-import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date";
 import { BLOG_STORE } from "../stores/blogStore";
 
@@ -37,7 +35,9 @@ class LinkTree extends React.Component {
   }
 
   checkRegion() {
-    this.regionParam = parseSearchParams().get("region");
+    this.regionParam = new URL(document.location.href).searchParams.get(
+      "region"
+    );
     const region = this.regionParam ? "?region=" + this.regionParam : "";
     if (region !== this.state.region) this.setState({ region });
   }

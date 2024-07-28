@@ -1,7 +1,6 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { getDaysOfMonth } from "../util/date";
 import { regionCodes } from "../util/regions";
-import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogPostPreviewItem } from "./blog";
@@ -162,7 +161,7 @@ export default class BlogStore {
   }
 
   initialParams() {
-    const search = parseSearchParams();
+    const search = new URL(document.location.href).searchParams;
     const searchLang = this.validateLanguage(search.get("searchLang"));
 
     const initialParameters = {
