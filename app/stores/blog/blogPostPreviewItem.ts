@@ -23,7 +23,9 @@ export class BlogPostPreviewItem {
     public tags: string[] = []
   ) {
     this.newUntil = BlogPostPreviewItem.getNewUntil(this.tags, this.date);
-    this.tags = this.tags.filter(t => !VALID_HOURS.test(t));
+    this.tags = this.tags.filter(
+      t => !VALID_HOURS.test(t) && !/Uncategorised|Uncategorized/.test(t)
+    );
   }
 
   private static getNewUntil(
