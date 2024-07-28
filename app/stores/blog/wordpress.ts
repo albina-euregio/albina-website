@@ -60,8 +60,11 @@ export class WordpressProcessor implements BlogProcessor {
     config: BlogConfig,
     postId: unknown
   ): Promise<BlogPostPreviewItem> {
+    const params = new URLSearchParams({
+      _embed: "wp:term"
+    });
     const post: Post = await fetchJSON(
-      `https://${config.params.id}/wp-json/wp/v2/posts/${postId}`,
+      `https://${config.params.id}/wp-json/wp/v2/posts/${postId}?${params}`,
       {}
     );
     return this.newItem(post, config);
