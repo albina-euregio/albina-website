@@ -1,7 +1,10 @@
 import type { BlogConfig, BlogPostPreviewItem } from ".";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
 
 export interface BlogProcessor {
+  loadCategories: (
+    config: BlogConfig
+  ) => Promise<{ name: string; id: string }[]>;
   loadBlogPosts: (
     config: BlogConfig,
     state?: BlogStore

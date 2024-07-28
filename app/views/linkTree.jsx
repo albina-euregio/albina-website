@@ -6,7 +6,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
 import { dateToISODateString } from "../util/date";
-import { BLOG_STORE } from "../stores/blogStore";
+import * as BLOG_STORE from "../stores/blogStore";
 
 /*
  * Component to be used for pages with content delivered by CMS API.

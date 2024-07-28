@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { observer } from "mobx-react";
-import { BLOG_STORE } from "../stores/blogStore";
+import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import PageFlipper from "../components/blog/page-flipper";
@@ -17,13 +17,14 @@ import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
 import { FormattedMessage, useIntl } from "../i18n";
+import { useStore } from "@nanostores/react";
 
 const BlogOverview = () => {
-  const [store] = useState(() => {
-    BLOG_STORE.initLanguage();
-    BLOG_STORE.update();
-    return BLOG_STORE;
-  });
+  const store = useStore(BLOG_STORE.$blogState);
+  const languageActive = useStore(BLOG_STORE.languageActive);
+  const regionActive = useStore(BLOG_STORE.regionActive);
+  const postsList = useStore(BLOG_STORE.postsList);
+  const maxPages = useStore(BLOG_STORE.maxPages);
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const location = useLocation();
@@ -57,29 +58,29 @@ const BlogOverview = () => {
 
   useEffect(() => {
     if (!_settingFilters) {
-      store.checkUrl(searchParams);
+      BLOG_STORE.checkUrl(searchParams);
     }
   }, [_settingFilters, location, searchParams, store]);
 
   const doStoreUpdate = () => {
-    setSearchParams(store.searchParams);
-    store.update();
+    setSearchParams(BLOG_STORE.searchParams.get());
+    BLOG_STORE.update();
     _settingFilters = false;
   };
 
-  const handleChangeRegion = val => {
+  const handleChangeRegion = (val: string) => {
     _settingFilters = true;
-    store.setRegions(val);
+    BLOG_STORE.setRegions(val);
     doStoreUpdate();
   };
 
-  const handleChangeLanguage = val => {
+  const handleChangeLanguage = (val: string) => {
     _settingFilters = true;
-    store.setLanguages(val);
+    BLOG_STORE.setLanguages(val);
     doStoreUpdate();
   };
 
-  const handleChangeYear = val => {
+  const handleChangeYear = (val: number | "") => {
     _settingFilters = true;
     store.searchText = "";
     store.year = val;
@@ -87,7 +88,7 @@ const BlogOverview = () => {
     doStoreUpdate();
   };
 
-  const handleChangeMonth = val => {
+  const handleChangeMonth = (val: number | "") => {
     _settingFilters = true;
     store.searchText = "";
     store.month = val;
@@ -95,7 +96,7 @@ const BlogOverview = () => {
     doStoreUpdate();
   };
 
-  const handleChangeSearch = val => {
+  const handleChangeSearch = (val: string) => {
     _settingFilters = true;
     store.searchText = val;
     store.problem = "";
@@ -106,13 +107,13 @@ const BlogOverview = () => {
 
   const handlePreviousPage = () => {
     _settingFilters = true;
-    store.previousPage();
+    BLOG_STORE.previousPage();
     doStoreUpdate();
   };
 
   const handleNextPage = () => {
     _settingFilters = true;
-    store.nextPage();
+    BLOG_STORE.nextPage();
     doStoreUpdate();
   };
 
@@ -142,8 +143,8 @@ const BlogOverview = () => {
             id: "filter:all"
           })}
           handleChange={handleChangeLanguage}
-          value={store.languageActive}
-          className={store.languageActive !== "all" ? classChanged : ""}
+          value={languageActive}
+          className={languageActive !== "all" ? classChanged : ""}
         />
         <ProvinceFilter
           title={intl.formatMessage({
@@ -151,8 +152,8 @@ const BlogOverview = () => {
           })}
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={handleChangeRegion}
-          value={store.regionActive}
-          className={store.regionActive !== "all" ? classChanged : ""}
+          value={regionActive}
+          className={regionActive !== "all" ? classChanged : ""}
         />
         <YearFilter
           title={intl.formatMessage({
@@ -180,20 +181,20 @@ const BlogOverview = () => {
         )}
       </FilterBar>
       <section className="section section-padding-height section blog-page-flipper">
-        {!store.loading && store.maxPages === 0 && (
+        {!store.loading && maxPages === 0 && (
           <div className="section-centered">
             {intl.formatMessage({
               id: "blog:page-flipper:no-posts"
             })}
           </div>
         )}
-        {store.maxPages > 0 && (
+        {maxPages > 0 && (
           <div className="section-centered">
             <PageFlipper
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
               curPage={store.page}
-              maxPages={store.maxPages}
+              maxPages={maxPages}
             />
           </div>
         )}
@@ -212,17 +213,17 @@ const BlogOverview = () => {
       )}
       <section className="section-padding-height section-blog-posts">
         <div className="section-centered">
-          <BlogPostsList posts={store.postsList} loading={store.loading} />
+          <BlogPostsList posts={postsList} loading={store.loading} />
         </div>
       </section>
       <section className="section section-padding-height section blog-page-flipper">
-        {store.maxPages > 0 && (
+        {maxPages > 0 && (
           <div className="section-centered">
             <PageFlipper
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
               curPage={store.page}
-              maxPages={store.maxPages}
+              maxPages={maxPages}
             />
           </div>
         )}

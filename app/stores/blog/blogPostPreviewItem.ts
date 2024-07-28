@@ -1,7 +1,7 @@
 import { BlogProcessor, blogProcessors } from ".";
 import type { Language } from "../../appStore";
 import type { RegionCodes } from "../../util/regions";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
 
 const VALID_HOURS = /valid_(?<hours>\d+)h/;
 
