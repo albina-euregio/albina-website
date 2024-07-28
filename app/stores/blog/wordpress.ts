@@ -6,11 +6,11 @@ import { parseDate } from "../../util/date";
 export class WordpressProcessor implements BlogProcessor {
   async loadCategories(config: BlogConfig): Promise<Category[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
-    const params0 = new URLSearchParams({
+    const params = new URLSearchParams({
       per_page: String(99)
     });
     return await fetchJSON<Category[]>(
-      `https://${config.params.id}/wp-json/wp/v2/categories?${params0}`,
+      `https://${config.params.id}/wp-json/wp/v2/categories?${params}`,
       {}
     );
   }
