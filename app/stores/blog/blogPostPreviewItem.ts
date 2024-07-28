@@ -3,6 +3,8 @@ import type { Language } from "../../appStore";
 import type { RegionCodes } from "../../util/regions";
 import type BlogStore from "../blogStore";
 
+const VALID_HOURS = /valid_(?<hours>\d+)h/;
+
 export class BlogPostPreviewItem {
   newUntil: number;
 
@@ -21,6 +23,7 @@ export class BlogPostPreviewItem {
     public tags: string[] = []
   ) {
     this.newUntil = BlogPostPreviewItem.getNewUntil(this.tags, this.date);
+    this.tags = this.tags.filter(t => !VALID_HOURS.test(t));
   }
 
   private static getNewUntil(
@@ -28,7 +31,7 @@ export class BlogPostPreviewItem {
     published: string | number | Date
   ): number {
     const newUntil = new Date(published);
-    const match = labels.join().match(/valid_(?<hours>\d+)h/);
+    const match = labels.join().match(VALID_HOURS);
     const hours = match?.groups ? +match.groups["hours"] : 24;
     return newUntil.setHours(newUntil.getHours() + hours);
   }
