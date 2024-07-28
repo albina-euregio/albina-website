@@ -33,7 +33,7 @@ export class BlogPostPreviewItem {
     published: string | number | Date
   ): number {
     const newUntil = new Date(published);
-    const match = labels.join().match(VALID_HOURS);
+    const match = VALID_HOURS.exec(labels.join());
     const hours = match?.groups ? +match.groups["hours"] : 24;
     return newUntil.setHours(newUntil.getHours() + hours);
   }
