@@ -1,11 +1,9 @@
 import { BlogProcessor, blogProcessors } from ".";
 import type { Language } from "../../appStore";
-import { avalancheProblems } from "../../util/avalancheProblems";
 import type { RegionCodes } from "../../util/regions";
 import type BlogStore from "../blogStore";
 
 export class BlogPostPreviewItem {
-  tags: string[];
   newUntil: number;
 
   constructor(
@@ -20,12 +18,9 @@ export class BlogPostPreviewItem {
     public langLinks: { lang: string; link: string }[] = [],
     public regions: string[] = [],
     public image: string = null,
-    public labels: string[] = []
+    public tags: string[] = []
   ) {
-    this.tags = Array.isArray(this.labels)
-      ? this.labels.filter(l => avalancheProblems.includes(l))
-      : [];
-    this.newUntil = BlogPostPreviewItem.getNewUntil(this.labels, this.date);
+    this.newUntil = BlogPostPreviewItem.getNewUntil(this.tags, this.date);
   }
 
   private static getNewUntil(
