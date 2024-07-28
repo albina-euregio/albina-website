@@ -4,23 +4,30 @@ import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
 
 export class WordpressProcessor implements BlogProcessor {
-  async loadBlogPosts(
-    config: BlogConfig,
-    state?: BlogStore
-  ): Promise<BlogPostPreviewItem[]> {
+  async loadCategories(config: BlogConfig): Promise<Category[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
     const params0 = new URLSearchParams({
       per_page: String(99)
     });
-    const allCategories: Category[] = await fetchJSON(
+    return await fetchJSON<Category[]>(
       `https://${config.params.id}/wp-json/wp/v2/categories?${params0}`,
       {}
     );
+  }
+
+  async loadBlogPosts(
+    config: BlogConfig,
+    state?: BlogStore
+  ): Promise<BlogPostPreviewItem[]> {
     // https://developer.wordpress.org/rest-api/reference/posts/#arguments
+    // https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
     const params = new URLSearchParams({
       lang: config.lang, // via parse_query_polylang
+      _embed: "wp:term",
       _fields: (
         [
+          "_links",
+          "_embedded",
           "categories",
           "date",
           "featured_image_url",
@@ -29,8 +36,9 @@ export class WordpressProcessor implements BlogProcessor {
           "link",
           "polylang_current_lang",
           "polylang_translations",
+          "tags",
           "title"
-        ] satisfies (keyof Post)[]
+        ] satisfies (keyof Post | "_links" | "_embedded")[]
       ).join(),
       per_page: String(99)
     });
@@ -45,14 +53,7 @@ export class WordpressProcessor implements BlogProcessor {
       `https://${config.params.id}/wp-json/wp/v2/posts?${params}`,
       {}
     );
-    return posts
-      .map(post => {
-        const categories = post.categories
-          ?.map(c => allCategories.find(({ id }) => c === id))
-          .map(c => c.name);
-        return this.newItem(post, categories, config);
-      })
-      .filter(item => !!item);
+    return posts.map(post => this.newItem(post, config)).filter(item => !!item);
   }
 
   async loadBlogPost(
@@ -63,10 +64,10 @@ export class WordpressProcessor implements BlogProcessor {
       `https://${config.params.id}/wp-json/wp/v2/posts/${postId}`,
       {}
     );
-    return this.newItem(post, [], config);
+    return this.newItem(post, config);
   }
 
-  private newItem(post: Post, categories: string[], config: BlogConfig) {
+  private newItem(post: Post, config: BlogConfig) {
     if (config.lang !== this.parseLang(post.polylang_current_lang)) {
       return undefined;
     }
@@ -90,7 +91,7 @@ export class WordpressProcessor implements BlogProcessor {
         .filter(({ lang }) => config.lang !== lang),
       config.regions,
       post.featured_image_url,
-      categories
+      post._embedded["wp:term"].flat().map(t => t.name)
     );
   }
 
@@ -128,6 +129,7 @@ interface Post {
   polylang_current_lang: PolylangCurrentLang; // via register_rest_polylang
   polylang_translations: PolylangTranslation[]; // via register_rest_polylang
   featured_image_url: string; // via register_rest_images
+  _embedded: Embedded;
 }
 
 enum PolylangCurrentLang {
@@ -154,4 +156,17 @@ interface Category {
   name: string;
   slug: string;
   parent: number;
+}
+
+export interface Embedded {
+  "wp:term": EmbeddedWpTerm[][];
+}
+
+export interface EmbeddedWpTerm {
+  id: number;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: "category" | "post_tag";
+  _links: unknown;
 }
