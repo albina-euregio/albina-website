@@ -24,16 +24,13 @@ export class BlogPostPreviewItem {
   }
 
   private static getNewUntil(
-    labels: string | string[],
+    labels: string[],
     published: string | number | Date
   ): number {
     const newUntil = new Date(published);
-    //newUntil.setMonth(newUntil.getMonth() + 12);
-    if (labels.includes("valid_72h"))
-      return newUntil.setHours(newUntil.getHours() + 72);
-    if (labels.includes("valid_48h"))
-      return newUntil.setHours(newUntil.getHours() + 48);
-    return newUntil.setHours(newUntil.getHours() + 24);
+    const match = labels.join().match(/valid_(?<hours>\d+)h/);
+    const hours = match?.groups ? +match.groups["hours"] : 24;
+    return newUntil.setHours(newUntil.getHours() + hours);
   }
 
   static async loadBlogPost(
