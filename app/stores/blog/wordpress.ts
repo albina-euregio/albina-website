@@ -9,12 +9,11 @@ export class WordpressProcessor implements BlogProcessor {
     state?: BlogStore
   ): Promise<BlogPostPreviewItem[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
+    const params0 = new URLSearchParams({
+      per_page: String(99)
+    });
     const allCategories: Category[] = await fetchJSON(
-      `https://${
-        config.params.id
-      }/wp-json/wp/v2/categories?${new URLSearchParams({
-        per_page: String(99)
-      })}`,
+      `https://${config.params.id}/wp-json/wp/v2/categories?${params0}`,
       {}
     );
     // https://developer.wordpress.org/rest-api/reference/posts/#arguments
@@ -31,7 +30,7 @@ export class WordpressProcessor implements BlogProcessor {
           "polylang_current_lang",
           "polylang_translations",
           "title"
-        ] as (keyof Post)[]
+        ] satisfies (keyof Post)[]
       ).join(),
       per_page: String(99)
     });
@@ -103,6 +102,7 @@ export class WordpressProcessor implements BlogProcessor {
     return str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
   }
 }
+
 interface Post {
   id: number;
   date: string;
