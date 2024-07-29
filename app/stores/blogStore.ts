@@ -18,7 +18,12 @@ export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
 export const perPage = atom(20);
 export const minYear = 2011;
 
-export type BlogStore = StoreValue<typeof $blogState>;
+export type BlogStore = {
+  searchText: string;
+  year: number | "";
+  startDate: Date | null;
+  endDate: Date | null;
+};
 
 export const postItems = computed(posts, posts =>
   Object.values(posts ?? {}).flat()
@@ -219,7 +224,7 @@ export async function load() {
       year: year.get(),
       startDate: startDate.get(),
       endDate: endDate.get()
-    }
+    } satisfies BlogStore
   );
   const newPosts = Object.fromEntries(posts0);
   posts.set(newPosts);
