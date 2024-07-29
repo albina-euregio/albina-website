@@ -1,13 +1,13 @@
 import { getDaysOfMonth } from "../util/date";
-import { regionCodes } from "../util/regions";
+import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogPostPreviewItem } from "./blog";
 import { atom, computed, StoreValue } from "nanostores";
 
-export const regions = atom({});
+export const region = atom<RegionCodes | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
-export const languages = atom({ de: true, it: true, en: true });
+export const language = atom<"de" | "it" | "en" | "all">("all");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
 export const problem = atom("");
@@ -16,6 +16,7 @@ export const page = atom(1);
 export const loading = atom(false);
 export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
 export const perPage = atom(20);
+export const minYear = 2011;
 
 export type BlogStore = StoreValue<typeof $blogState>;
 
@@ -34,16 +35,6 @@ export const maxPages = computed(
   [perPage, numberOfPosts],
   (perPage, numberOfPosts) => Math.ceil(numberOfPosts / perPage)
 );
-
-export const languageActive = computed(languages, languages => {
-  const active = Object.keys(languages).filter(lang => languages[lang]);
-  return active.length > 1 ? "all" : active[0];
-});
-
-export const regionActive = computed(regions, regions => {
-  const active = Object.keys(regions).filter(region => regions[region]);
-  return active.length > 1 ? "all" : active[0];
-});
 
 export const startDate = computed([year, month], (year, month) => {
   if (year) {
@@ -66,21 +57,13 @@ export const endDate = computed([year, month], (year, month) => {
 });
 
 export const searchParams = computed(
-  [year, month, problem, page, searchText, languageActive, regionActive],
-  (year, month, problem, page, searchText, languageActive, regionActive) => {
-    const languageHostConfig = config.languageHostSettings;
-    const l = languageActive;
-    const searchLang =
-      languageHostConfig[l] &&
-      languageHostConfig[l] == document.location.hostname
-        ? ""
-        : languageActive;
-
+  [year, month, problem, page, searchText, language, region],
+  (year, month, problem, page, searchText, language, region) => {
     const params = new URLSearchParams();
     params.set("year", String(year));
     if (year != "") params.set("month", String(month));
-    params.set("searchLang", searchLang || "");
-    params.set("region", regionActive);
+    params.set("searchLang", language);
+    params.set("region", region);
     params.set("problem", problem);
     params.set("page", String(page));
     params.set("searchText", searchText || "");
@@ -106,11 +89,7 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(
-      parsed,
-      window.config?.archive?.minYear ?? 2016,
-      new Date().getFullYear()
-    );
+    return clamp(parsed, minYear, new Date().getFullYear());
   } else {
     return "";
   }
@@ -120,7 +99,9 @@ export function validateRegion(valueToValidate: string): string {
   return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
 }
 
-export function validateLanguage(valueToValidate: string): string {
+export function validateLanguage(
+  valueToValidate: string
+): StoreValue<typeof language> {
   if (valueToValidate === "all") {
     return valueToValidate;
   }
@@ -165,14 +146,14 @@ export function checkUrl(search: URLSearchParams): void {
   }
 
   // language
-  if (urlValues.searchLang != languageActive.get()) {
-    setLanguages(urlValues.searchLang);
+  if (urlValues.searchLang != language.get()) {
+    language.set(urlValues.searchLang);
     needLoad = true;
   }
 
   // region
-  if (urlValues.region != regionActive.get()) {
-    setRegions(urlValues.region);
+  if (urlValues.region != region.get()) {
+    region.set(urlValues.region);
     needLoad = true;
   }
 
@@ -199,38 +180,17 @@ export function checkUrl(search: URLSearchParams): void {
   }
 }
 
-export function initialParams() {
+export function init() {
   const search = new URL(document.location.href).searchParams;
-  const searchLang = validateLanguage(search.get("searchLang"));
-
   const initialParameters = {
     year: validateYear(search.get("year")),
     month: validateMonth(search.get("month")),
     problem: validateProblem(search.get("problem")),
     page: validatePage(search.get("page")) || 1,
     searchText: search.get("searchText"),
-    languages: {
-      de: ["", "de", "all"].includes(searchLang) || !searchLang,
-      it: ["", "it", "all"].includes(searchLang) || !searchLang,
-      en: ["", "en", "all"].includes(searchLang) || !searchLang
-    },
-    regions: {}
+    languages: validateLanguage(search.get("searchLang")),
+    regions: validateRegion(search.get("region"))
   };
-
-  // get all regions from appStore and activate them
-  const searchRegion = validateRegion(search.get("region"));
-  const initialRegions = {};
-  regionCodes.forEach(region => {
-    initialRegions[region] =
-      ["", "all", region].includes(searchRegion) || !searchRegion;
-  });
-  initialParameters.regions = initialRegions;
-
-  return initialParameters;
-}
-
-export function init() {
-  const initialParameters = initialParams();
 
   // Do not make posts observable, otherwise posts list will be
   // unnecessarily rerendered during the filling of this array.
@@ -238,23 +198,28 @@ export function init() {
   posts.set({});
   page.set(initialParameters.page);
 
-  regions.set(initialParameters.regions);
-  languages.set(initialParameters.languages);
+  region.set(initialParameters.regions);
+  language.set(initialParameters.languages);
   year.set(initialParameters.year);
   month.set(initialParameters.month);
   problem.set(initialParameters.problem);
 
   loading.set(false);
   searchText.set(initialParameters.searchText || "");
-  languages.set(initialParameters.languages);
+  language.set(initialParameters.languages);
 }
 
 export async function load() {
   loading.set(true);
   const posts0 = await BlogPostPreviewItem.loadBlogPosts(
-    l => languages.get()[l],
-    r => regions.get()[r],
-    {} // FIXME
+    l => [l, "all", ""].includes(language.get()),
+    r => [r, "all", ""].includes(region.get()),
+    {
+      searchText: searchText.get(),
+      year: year.get(),
+      startDate: startDate.get(),
+      endDate: endDate.get()
+    }
   );
   const newPosts = Object.fromEntries(posts0);
   posts.set(newPosts);
@@ -271,22 +236,6 @@ export function previousPage() {
   const thisPage = page.get();
   const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
   page.set(previousPageNo);
-}
-
-export function setRegions(region: string) {
-  const newRegions = regions.get();
-  for (const r in newRegions) {
-    newRegions[r] = [r, "all"].includes(region) || !region;
-  }
-  regions.set(newRegions);
-}
-
-export function setLanguages(lang: string) {
-  const newLanguages = languages.get();
-  for (const l in newLanguages) {
-    newLanguages[l] = [l, "all"].includes(lang) || !lang;
-  }
-  languages.set(newLanguages);
 }
 
 export const postsList = computed(
