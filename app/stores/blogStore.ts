@@ -2,7 +2,7 @@ import { getDaysOfMonth } from "../util/date";
 import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import { BlogPostPreviewItem } from "./blog";
+import { BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 
 export const region = atom<RegionCodes | "all">("all");
@@ -15,6 +15,8 @@ export const searchText = atom("");
 export const page = atom(1);
 export const loading = atom(false);
 export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
+export const categories = atom([] as Category[]);
+export const searchCategory = atom("");
 export const perPage = atom(20);
 export const minYear = 2011;
 
@@ -141,19 +143,38 @@ export function init() {
 
 export async function load() {
   loading.set(true);
-  const posts0 = await BlogPostPreviewItem.loadBlogPosts(
-    l => [l, "all", ""].includes(language.get()),
-    r => [r, "all", ""].includes(region.get()),
-    {
-      searchText: searchText.get(),
-      year: year.get(),
-      startDate: startDate.get(),
-      endDate: endDate.get()
-    } satisfies BlogStore
-  );
-  const newPosts = Object.fromEntries(posts0);
-  posts.set(newPosts);
+  await Promise.all([loadCategories(), loadPosts()]);
   loading.set(false);
+
+  async function loadCategories() {
+    categories.set(
+      (
+        await BlogPostPreviewItem.loadCategories(
+          l => [l, "all", ""].includes(language.get()),
+          r => [r, "all", ""].includes(region.get())
+        )
+      )
+        .flatMap(([, c]) => c)
+        .sort((c1, c2) => c1.name.localeCompare(c2.name))
+    );
+  }
+
+  async function loadPosts() {
+    posts.set(
+      Object.fromEntries(
+        await BlogPostPreviewItem.loadBlogPosts(
+          l => [l, "all", ""].includes(language.get()),
+          r => [r, "all", ""].includes(region.get()),
+          {
+            searchText: searchText.get(),
+            year: year.get(),
+            startDate: startDate.get(),
+            endDate: endDate.get()
+          } satisfies BlogStore
+        )
+      )
+    );
+  }
 }
 
 export function nextPage() {

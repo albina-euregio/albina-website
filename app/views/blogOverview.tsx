@@ -17,6 +17,7 @@ import HTMLPageLoadingScreen, {
 } from "../components/organisms/html-page-loading-screen";
 import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
+import Selectric from "../components/selectric.tsx";
 
 const BlogOverview = () => {
   const loading = useStore(BLOG_STORE.loading);
@@ -28,6 +29,8 @@ const BlogOverview = () => {
   const region = useStore(BLOG_STORE.region);
   const searchText = useStore(BLOG_STORE.searchText);
   const year = useStore(BLOG_STORE.year);
+  const categories = useStore(BLOG_STORE.categories);
+  const searchCategory = useStore(BLOG_STORE.searchCategory);
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const [headerText] = useState("");
@@ -52,6 +55,11 @@ const BlogOverview = () => {
   useEffect(() => {
     BLOG_STORE.load();
   }, []);
+
+  const handleChangeCategory = (val: string) => {
+    BLOG_STORE.searchCategory.set(val);
+    BLOG_STORE.load();
+  };
 
   const handleChangeRegion = (val: string) => {
     BLOG_STORE.region.set(val);
@@ -130,6 +138,21 @@ const BlogOverview = () => {
           value={region}
           className={region !== "all" ? classChanged : ""}
         />
+        <div>
+          <p className="info">
+            {intl.formatMessage({
+              id: "archive:filter:categories"
+            })}
+          </p>
+          <Selectric onChange={handleChangeCategory} value={searchCategory}>
+            <option value="">{intl.formatMessage({ id: "filter:all" })}</option>
+            {categories.map(c => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </Selectric>
+        </div>
         <YearFilter
           title={intl.formatMessage({
             id: "blog:filter:year"

@@ -195,6 +195,7 @@
   "archive:filter:year": "Year",
   "archive:filter:month": "Month",
   "archive:filter:day": "Day",
+  "archive:filter:categories": "Categories",
   "archive:filter:language": "Language",
   "archive:table-header:date": "Date",
   "archive:table-header:download": "Download avalanche forecast",

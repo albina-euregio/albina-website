@@ -7,6 +7,19 @@ export class WordpressProcessor implements BlogProcessor {
   async loadCategories(config: BlogConfig): Promise<Category[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
     const params = new URLSearchParams({
+      lang: config.lang, // via parse_query_polylang
+      _fields: (
+        [
+          "id",
+          "count",
+          "description",
+          "name",
+          "slug",
+          "taxonomy",
+          "polylang_current_lang",
+          "polylang_translations"
+        ] satisfies (keyof Category)[]
+      ).join(),
       per_page: String(99)
     });
     return await fetchJSON<Category[]>(
@@ -151,14 +164,15 @@ interface Content {
   protected: boolean;
 }
 
-interface Category {
+export interface Category {
   id: number;
   count: number;
   description: string;
-  link: string;
   name: string;
   slug: string;
-  parent: number;
+  taxonomy: Taxonomy;
+  polylang_current_lang: PolylangCurrentLang;
+  polylang_translations: PolylangTranslation[];
 }
 
 export interface Embedded {
@@ -170,6 +184,8 @@ export interface EmbeddedWpTerm {
   link: string;
   name: string;
   slug: string;
-  taxonomy: "category" | "post_tag";
+  taxonomy: Taxonomy;
   _links: unknown;
 }
+
+type Taxonomy = "category" | "post_tag";

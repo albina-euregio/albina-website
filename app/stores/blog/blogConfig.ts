@@ -1,7 +1,7 @@
 export type BlogConfig = {
   lang: string;
   name: string;
-  apiType: string;
+  apiType: "blogger" | "wordpress";
   regions: string[];
   params: {
     id: string;

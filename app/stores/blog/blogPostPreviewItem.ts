@@ -1,4 +1,4 @@
-import { BlogProcessor, blogProcessors } from ".";
+import { BlogProcessor, blogProcessors, Category } from ".";
 import type { Language } from "../../appStore";
 import type { RegionCodes } from "../../util/regions";
 import type { BlogStore } from "../blogStore";
@@ -65,6 +65,27 @@ export class BlogPostPreviewItem {
             .catch(error => {
               console.warn("Error while fetching blog posts", cfg, error);
               return [cfg.name, [] as BlogPostPreviewItem[]] as const;
+            })
+        )
+    );
+  }
+
+  static async loadCategories(
+    languagePredicate: (lang: Language) => boolean,
+    regionPredicate: (region: RegionCodes) => boolean
+  ): Promise<[string, Category[]][]> {
+    return await Promise.all(
+      window.config.blogs
+        .filter(cfg => languagePredicate(cfg.lang))
+        .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
+        .filter(cfg => cfg.apiType === "wordpress")
+        .map(cfg =>
+          blogProcessors[cfg.apiType as "wordpress"]
+            .loadCategories(cfg)
+            .then(categories => [cfg.name, categories] as [string, Category[]])
+            .catch(error => {
+              console.warn("Error while fetching blog categories", cfg, error);
+              return [cfg.name, []] as [string, Category[]];
             })
         )
     );
