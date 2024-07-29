@@ -23,6 +23,7 @@ export const minYear = 2011;
 onMount(language, () => init());
 
 export type BlogStore = {
+  searchCategory: string;
   searchText: string;
   year: number | "";
   startDate: Date | null;
@@ -155,6 +156,7 @@ export async function load() {
         )
       )
         .flatMap(([, c]) => c)
+        .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
         .sort((c1, c2) => c1.name.localeCompare(c2.name))
     );
   }
@@ -166,6 +168,7 @@ export async function load() {
           l => [l, "all", ""].includes(language.get()),
           r => [r, "all", ""].includes(region.get()),
           {
+            searchCategory: searchCategory.get(),
             searchText: searchText.get(),
             year: year.get(),
             startDate: startDate.get(),
