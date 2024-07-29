@@ -54,7 +54,7 @@ export class BlogPostPreviewItem {
     state?: BlogStore
   ): Promise<(readonly [string, BlogPostPreviewItem[]])[]> {
     return await Promise.all(
-      config.blogs
+      window.config.blogs
         .filter(cfg => languagePredicate(cfg.lang))
         .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
         .filter(cfg => blogProcessors[cfg.apiType])
