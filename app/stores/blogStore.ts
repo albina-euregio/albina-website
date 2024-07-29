@@ -144,7 +144,8 @@ export function init() {
 
 export async function load() {
   loading.set(true);
-  await Promise.all([loadCategories(), loadPosts()]);
+  await loadCategories();
+  await loadPosts();
   loading.set(false);
 
   async function loadCategories() {
@@ -168,7 +169,11 @@ export async function load() {
           l => [l, "all", ""].includes(language.get()),
           r => [r, "all", ""].includes(region.get()),
           {
-            searchCategory: searchCategory.get(),
+            searchCategory: categories
+              .get()
+              .filter(c => c.name === searchCategory.get())
+              .map(c => c.id)
+              .join(),
             searchText: searchText.get(),
             year: year.get(),
             startDate: startDate.get(),

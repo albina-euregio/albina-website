@@ -146,11 +146,15 @@ const BlogOverview = () => {
           </p>
           <Selectric onChange={handleChangeCategory} value={searchCategory}>
             <option value="">{intl.formatMessage({ id: "filter:all" })}</option>
-            {categories.map(c => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
+            {categories
+              .filter(
+                (c, i, arr) => arr.findIndex(c2 => c.name === c2.name) === i
+              )
+              .map(c => (
+                <option key={c.name} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
           </Selectric>
         </div>
         <YearFilter
