@@ -75,7 +75,7 @@ class LinkTree extends React.Component {
       this.lastLang = lang;
       BLOG_STORE.setLanguages(this.lastLang);
       BLOG_STORE.setRegions(this.regionParam);
-      BLOG_STORE.update();
+      BLOG_STORE.load();
       //console.log("LinkTree->render xx101 new lang ", this.lastLang, this.regionParam);
     }
 

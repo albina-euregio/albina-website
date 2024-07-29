@@ -55,6 +55,11 @@ const BlogOverview = () => {
   ]);
 
   useEffect(() => {
+    BLOG_STORE.init();
+    BLOG_STORE.load();
+  }, []);
+
+  useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
     }
@@ -68,7 +73,7 @@ const BlogOverview = () => {
 
   const doStoreUpdate = () => {
     setSearchParams(BLOG_STORE.searchParams.get());
-    BLOG_STORE.update();
+    BLOG_STORE.load();
     _settingFilters = false;
   };
 

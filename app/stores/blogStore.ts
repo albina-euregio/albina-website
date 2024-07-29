@@ -89,10 +89,6 @@ export const searchParams = computed(
   }
 );
 
-export function update() {
-  load(true);
-}
-
 export function validatePage(page: string | number): number {
   const parsed = typeof page === "string" ? parseInt(page) : page;
   return clamp(parsed, 1, maxPages.get());
@@ -199,7 +195,7 @@ export function checkUrl(search: URLSearchParams): void {
   }
 
   if (needLoad) {
-    load(true);
+    load();
   }
 }
 
@@ -250,19 +246,10 @@ export function init() {
 
   loading.set(false);
   searchText.set(initialParameters.searchText || "");
-}
-
-export function initLanguage() {
-  const initialParameters = initialParams();
   languages.set(initialParameters.languages);
 }
 
-export async function load(forceReload = false) {
-  if (!forceReload && postItems.get().length > 0) {
-    // don't do a reload if already loaded unless reload is forced
-    return;
-  }
-
+export async function load() {
   loading.set(true);
   const posts0 = await BlogPostPreviewItem.loadBlogPosts(
     l => languages.get()[l],
