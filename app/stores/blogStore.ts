@@ -157,11 +157,6 @@ export async function load() {
       )
         .flatMap(([, c]) => c)
         .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
-        .filter((c, index, arr) => {
-          c.$ids = String(c.id);
-          arr.find(c2 => c.name === c2.name)!.$ids += "," + c.$ids;
-          return arr.findIndex(c2 => c.name === c2.name) === index;
-        })
         .sort((c1, c2) => c1.name.localeCompare(c2.name))
     );
   }

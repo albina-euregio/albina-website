@@ -168,7 +168,6 @@ interface Content {
 }
 
 export interface Category {
-  $ids: string;
   id: number;
   count: number;
   description: string;

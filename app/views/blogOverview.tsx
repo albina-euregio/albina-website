@@ -147,7 +147,7 @@ const BlogOverview = () => {
           <Selectric onChange={handleChangeCategory} value={searchCategory}>
             <option value="">{intl.formatMessage({ id: "filter:all" })}</option>
             {categories.map(c => (
-              <option key={c.$ids} value={c.$ids}>
+              <option key={c.id} value={c.id}>
                 {c.name}
               </option>
             ))}
