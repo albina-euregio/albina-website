@@ -3,7 +3,7 @@ import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogPostPreviewItem } from "./blog";
-import { atom, computed, StoreValue } from "nanostores";
+import { atom, computed, onMount, StoreValue } from "nanostores";
 
 export const region = atom<RegionCodes | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
@@ -17,6 +17,8 @@ export const loading = atom(false);
 export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
 export const perPage = atom(20);
 export const minYear = 2011;
+
+onMount(language, () => init());
 
 export type BlogStore = {
   searchText: string;
@@ -60,22 +62,6 @@ export const endDate = computed([year, month], (year, month) => {
   }
   return null;
 });
-
-export const searchParams = computed(
-  [year, month, problem, page, searchText, language, region],
-  (year, month, problem, page, searchText, language, region) => {
-    const params = new URLSearchParams();
-    params.set("year", String(year));
-    if (year != "") params.set("month", String(month));
-    params.set("searchLang", language);
-    params.set("region", region);
-    params.set("problem", problem);
-    params.set("page", String(page));
-    params.set("searchText", searchText || "");
-    params.forEach((value, key) => value || params.delete(key));
-    return params;
-  }
-);
 
 export function validatePage(page: string | number): number {
   const parsed = typeof page === "string" ? parseInt(page) : page;
@@ -122,67 +108,6 @@ export function validateLanguage(
 
 export function validateProblem(valueToValidate: string): string {
   return avalancheProblems.includes(valueToValidate) ? valueToValidate : "all";
-}
-
-// checking if the url has been changed and applying new values
-export function checkUrl(search: URLSearchParams): void {
-  let needLoad = false;
-
-  const urlValues = {
-    year: validateYear(search.get("year")),
-    month: validateMonth(search.get("month")),
-    searchLang: validateLanguage(search.get("searchLang")),
-    region: validateRegion(search.get("region")),
-    problem: validateProblem(search.get("problem")),
-    page: validatePage(search.get("page")),
-    searchText: search.get("searchText") || ""
-  };
-
-  // year
-  if (urlValues.year != year.get()) {
-    year.set(urlValues.year);
-    needLoad = true;
-  }
-
-  // month
-  if (urlValues.month != month.get()) {
-    month.set(urlValues.month);
-    needLoad = true;
-  }
-
-  // language
-  if (urlValues.searchLang != language.get()) {
-    language.set(urlValues.searchLang);
-    needLoad = true;
-  }
-
-  // region
-  if (urlValues.region != region.get()) {
-    region.set(urlValues.region);
-    needLoad = true;
-  }
-
-  // problem
-  if (urlValues.problem != problem.get()) {
-    problem.set(urlValues.problem);
-    needLoad = true;
-  }
-
-  // page
-  if (urlValues.page != page.get()) {
-    page.set(urlValues.page);
-    needLoad = true;
-  }
-
-  // searchText
-  if (urlValues.searchText != searchText.get()) {
-    searchText.set(urlValues.searchText || "");
-    needLoad = true;
-  }
-
-  if (needLoad) {
-    load();
-  }
 }
 
 export function init() {

@@ -50,7 +50,6 @@ const BlogOverview = () => {
   ]);
 
   useEffect(() => {
-    BLOG_STORE.init();
     BLOG_STORE.load();
   }, []);
 
