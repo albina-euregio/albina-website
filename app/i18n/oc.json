@@ -195,6 +195,7 @@
   "archive:filter:year": "An",
   "archive:filter:month": "Mes",
   "archive:filter:day": "Dia",
+  "archive:filter:categories": "Categories",
   "archive:filter:language": "Lengua",
   "archive:table-header:date": "Data",
   "archive:table-header:download": "Descargar prediccion de lauegi",

@@ -8,9 +8,10 @@ import type { BlogPostPreviewItem } from "../../stores/blog";
 
 type Props = {
   posts: BlogPostPreviewItem[];
+  handleChangeCategory?: (tag: string, e: React.MouseEvent) => void;
 };
 
-export default function BlogPostsList({ posts }: Props) {
+export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
   const intl = useIntl();
   const havePictures = posts.some(i => i.image);
   return (
@@ -46,7 +47,10 @@ export default function BlogPostsList({ posts }: Props) {
               <h1 title={item.title} className="subheader blog-feature-title">
                 {item.title}
               </h1>
-              <TagList tags={item.tags} />
+              <TagList
+                tags={item.tags}
+                handleChangeCategory={handleChangeCategory}
+              />
             </div>
           </Link>
         );

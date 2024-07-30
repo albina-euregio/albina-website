@@ -195,6 +195,7 @@
   "archive:filter:year": "Any",
   "archive:filter:month": "Mes",
   "archive:filter:day": "Dia",
+  "archive:filter:categories": "Categories",
   "archive:filter:language": "Idioma",
   "archive:table-header:date": "Data",
   "archive:table-header:download": "Descarrega la previsió d'allaus",

@@ -195,6 +195,7 @@
   "archive:filter:year": "Año",
   "archive:filter:month": "Mes",
   "archive:filter:day": "Día",
+  "archive:filter:categories": "Categories",
   "archive:filter:language": "Idioma",
   "archive:table-header:date": "Fecha",
   "archive:table-header:download": "Descargar la predicción de aludes",

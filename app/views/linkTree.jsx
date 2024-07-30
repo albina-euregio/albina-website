@@ -5,10 +5,8 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
-
-import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date";
-import { BLOG_STORE } from "../stores/blogStore";
+import * as BLOG_STORE from "../stores/blogStore";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
@@ -37,7 +35,9 @@ class LinkTree extends React.Component {
   }
 
   checkRegion() {
-    this.regionParam = parseSearchParams().get("region");
+    this.regionParam = new URL(document.location.href).searchParams.get(
+      "region"
+    );
     const region = this.regionParam ? "?region=" + this.regionParam : "";
     if (region !== this.state.region) this.setState({ region });
   }
@@ -73,9 +73,9 @@ class LinkTree extends React.Component {
 
     if (lang !== this.lastLang) {
       this.lastLang = lang;
-      BLOG_STORE.setLanguages(this.lastLang);
-      BLOG_STORE.setRegions(this.regionParam);
-      BLOG_STORE.update();
+      BLOG_STORE.language.set(this.lastLang);
+      BLOG_STORE.region.set(this.regionParam);
+      BLOG_STORE.load();
       //console.log("LinkTree->render xx101 new lang ", this.lastLang, this.regionParam);
     }
 

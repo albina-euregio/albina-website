@@ -1,5 +1,5 @@
 import { BlogProcessor, BlogConfig, BlogPostPreviewItem } from ".";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
 
