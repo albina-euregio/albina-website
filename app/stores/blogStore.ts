@@ -66,6 +66,34 @@ export const endDate = computed([year, month], (year, month) => {
   return null;
 });
 
+export const searchParams = computed(
+  [year, month, problem, page, searchCategory, searchText, language, region],
+  (
+    year,
+    month,
+    problem,
+    page,
+    searchCategory,
+    searchText,
+    language,
+    region
+  ) => {
+    const params = new URLSearchParams();
+    if (year) {
+      params.set("year", String(year));
+      params.set("month", String(month));
+    }
+    params.set("page", String(page));
+    params.set("problem", problem);
+    params.set("region", region);
+    params.set("searchCategory", searchCategory || "");
+    params.set("searchLang", language);
+    params.set("searchText", searchText || "");
+    params.forEach((value, key) => value || params.delete(key));
+    return params;
+  }
+);
+
 export function validatePage(page: string | number): number {
   const parsed = typeof page === "string" ? parseInt(page) : page;
   return clamp(parsed, 1, maxPages.get());
@@ -115,31 +143,16 @@ export function validateProblem(valueToValidate: string): string {
 
 export function init() {
   const search = new URL(document.location.href).searchParams;
-  const initialParameters = {
-    year: validateYear(search.get("year")),
-    month: validateMonth(search.get("month")),
-    problem: validateProblem(search.get("problem")),
-    page: validatePage(search.get("page")) || 1,
-    searchText: search.get("searchText"),
-    languages: validateLanguage(search.get("searchLang")),
-    regions: validateRegion(search.get("region"))
-  };
-
-  // Do not make posts observable, otherwise posts list will be
-  // unnecessarily rerendered during the filling of this array.
-  // Views should only observe the value of the "loading" flag instead.
-  posts.set({});
-  page.set(initialParameters.page);
-
-  region.set(initialParameters.regions);
-  language.set(initialParameters.languages);
-  year.set(initialParameters.year);
-  month.set(initialParameters.month);
-  problem.set(initialParameters.problem);
-
+  language.set(validateLanguage(search.get("searchLang")));
   loading.set(false);
-  searchText.set(initialParameters.searchText || "");
-  language.set(initialParameters.languages);
+  month.set(validateMonth(search.get("month")));
+  page.set(validatePage(search.get("page")) || 1);
+  posts.set({});
+  problem.set(validateProblem(search.get("problem")));
+  region.set(validateRegion(search.get("region")));
+  searchCategory.set(search.get("searchCategory") || "");
+  searchText.set(search.get("searchText") || "");
+  year.set(validateYear(search.get("year")));
 }
 
 export async function load() {

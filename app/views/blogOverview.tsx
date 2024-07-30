@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -34,6 +35,12 @@ const BlogOverview = () => {
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
   const [headerText] = useState("");
+
+  const [, setSearchParams] = useSearchParams();
+  const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
+  useEffect(() => {
+    setSearchParams(searchParamsBlogStore);
+  }, [setSearchParams, searchParamsBlogStore]);
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
     index > 0 ? ", " : undefined,
