@@ -3,6 +3,7 @@ import type { Language } from "../../appStore";
 import type { RegionCodes } from "../../util/regions";
 import type { BlogStore } from "../blogStore";
 
+const VALID_HOURS_DEFAULT = 72;
 const VALID_HOURS = /valid_(?<hours>\d+)h/;
 
 export class BlogPostPreviewItem {
@@ -34,7 +35,7 @@ export class BlogPostPreviewItem {
   ): number {
     const newUntil = new Date(published);
     const match = VALID_HOURS.exec(labels.join());
-    const hours = match?.groups ? +match.groups["hours"] : 24;
+    const hours = match?.groups ? +match.groups["hours"] : VALID_HOURS_DEFAULT;
     return newUntil.setHours(newUntil.getHours() + hours);
   }
 
