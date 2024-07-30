@@ -7,7 +7,7 @@ import { atom, computed, onMount, StoreValue } from "nanostores";
 
 export const region = atom<RegionCodes | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
-export const language = atom<"de" | "it" | "en" | "all">("all");
+export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
 export const problem = atom("");
@@ -126,9 +126,6 @@ export function validateRegion(valueToValidate: string): string {
 export function validateLanguage(
   valueToValidate: string
 ): StoreValue<typeof language> {
-  if (valueToValidate === "all") {
-    return valueToValidate;
-  }
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
@@ -136,7 +133,7 @@ export function validateLanguage(
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
-  return "all";
+  return "en";
 }
 
 export function validateProblem(valueToValidate: string): string {
