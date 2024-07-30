@@ -222,7 +222,13 @@ const BlogOverview = () => {
       )}
       <section className="section-padding-height section-blog-posts">
         <div className="section-centered">
-          <BlogPostsList posts={postsList} loading={loading} />
+          <BlogPostsList
+            posts={postsList}
+            handleChangeCategory={(t, e) => {
+              handleChangeCategory(t);
+              e.preventDefault();
+            }}
+          />
         </div>
       </section>
       <section className="section section-padding-height section blog-page-flipper">
