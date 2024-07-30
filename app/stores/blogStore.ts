@@ -83,7 +83,9 @@ export const searchParams = computed(
       params.set("year", String(year));
       params.set("month", String(month));
     }
-    params.set("page", String(page));
+    if (page > 1) {
+      params.set("page", String(page));
+    }
     params.set("problem", problem);
     params.set("region", region);
     params.set("searchCategory", searchCategory || "");
