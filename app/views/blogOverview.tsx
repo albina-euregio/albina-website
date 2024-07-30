@@ -129,9 +129,6 @@ const BlogOverview = () => {
           title={intl.formatMessage({
             id: "blog:filter:language"
           })}
-          all={intl.formatMessage({
-            id: "filter:all"
-          })}
           handleChange={handleChangeLanguage}
           value={language}
           className={language !== "all" ? classChanged : ""}
