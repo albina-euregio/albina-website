@@ -56,7 +56,7 @@
     li {
       position: relative;
     }
-      
+
     .picto-img {
       transform: translateY(-$padding);
       border: $border-width $border-style $border-color;
@@ -206,6 +206,7 @@
 
 .bulletin-report-header {
   margin-bottom: $margin-bottom;
+
   .bulletin-report-header-meta {
     margin-bottom: 0;
     font-size: $tiny-font-size;
@@ -214,13 +215,44 @@
       @include font-heavy;
     }
   }
+
   .bulletin-report-header-diff {
-    font-size: $tiny-font-size;
-    font-weight: 600;
-    font-size: 0.7rem;
-    @include letter-spacing;
-    strong {
-      @include font-heavy;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+
+    position: relative;
+    top: -$padding;
+    font-size: $micro-font-size;
+    color: $warning-color;
+    background: $tertiary-color;
+    border: $border-width $border-style $tertiary-color;
+    // @media (hover: hover) {
+    //   &:hover {
+    //     color: $primary-color;
+    //     background: $white;
+    //     border-color: $white;
+    //   }
+    // }
+
+    .marginal {
+      margin: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    .text-icon {
+      display: flex;
+      gap: 0.25em;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 0 0 -0.25em;
+      }
     }
   }
 }
@@ -371,7 +403,6 @@
   }
 
   &.avalanche-situation {
-
     .picto-img {
       position: relative;
       border: $border-width $border-style $border-color;
@@ -405,7 +436,7 @@
       line-height: 1.2;
       text-align: center;
     }
-    
+
     > a {
       &:link,
       &:visited {
@@ -571,7 +602,7 @@
 
 .bulletin-report-expositions {
   display: block;
-  
+
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
@@ -614,7 +645,6 @@
   // &.expo_nw .expo_nw {
   //   display: block;
   // }
-
 }
 
 .bulletin-report-tendency {

@@ -82,7 +82,7 @@ const BulletinStatusLine = (props: Props) => {
       }
     );
     updateTimeEl = (
-      <span className="text-icon bulletin-datetime-publishing">
+      <span className="text-icon bulletin-datetime-update">
         <span className="icon icon-update"></span>
         <span className="text">{updateText}</span>
       </span>
