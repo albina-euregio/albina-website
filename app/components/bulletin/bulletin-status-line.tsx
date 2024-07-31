@@ -45,7 +45,7 @@ const BulletinStatusLine = (props: Props) => {
       updateTime = props.bulletin?.publicationTime;
 
       const firstRelease = props.allBulletins?.[0].reduce((b1, b2) =>
-        b1.publicationTime < b2.publicationTime ? b1 : b2
+        b1?.publicationTime < b2?.publicationTime ? b1 : b2
       );
       publicationTime = firstRelease?.publicationTime;
     }
