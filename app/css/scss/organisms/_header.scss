@@ -14,7 +14,7 @@
 
     margin: 0;
     // @include font-heavy;
-    font-size: $micro-font-size; //$body-font-size-micro;
+    font-size: $micro-font-size;
     @include letter-spacing;
 
     @media #{$medium-up} {
@@ -38,8 +38,6 @@
       &:before {
         margin: 0 0 0 -0.25em;
       }
-    }
-    .text {
     }
   }
   .subheader {
@@ -72,11 +70,13 @@
     padding-top: ($medium-v-padding * 0.5) !important;
     padding-bottom: ($medium-v-padding * 0.5) !important;
   }
-  .bulletin-datetime-publishing {
+
+  .bulletin-datetime-release {
+  }
+  .bulletin-datetime-update {
+    color: $warning-color;
   }
   .bulletin-datetime-validity {
-    //from alien app.scss
-    @include rollout;
   }
 
   .subheadern,
@@ -94,22 +94,22 @@
   }
 
   //from alien app.scss
-  &.loading {
-    .bulletin-datetime-validity {
-      opacity: 0.5;
-    }
-  }
+  // &.loading {
+  //   .bulletin-datetime-validity {
+  //     opacity: 0.5;
+  //   }
+  // }
 
-  &.bulletin-updated {
-    .bulletin-datetime-publishing {
-      color: $warning-color;
-    }
-  }
-  &.bulletin-archive {
-    .bulletin-datetime-validity {
-      color: $text-color;
-    }
-  }
+  // &.bulletin-updated {
+  //   .bulletin-datetime-update {
+  //     color: $warning-color;
+  //   }
+  // }
+  // &.bulletin-archive {
+  //   .bulletin-datetime-validity {
+  //     color: $text-color;
+  //   }
+  // }
 }
 
 ul.bulletin-flipper {
@@ -233,10 +233,3 @@ ul.bulletin-flipper {
     }
   }
 }
-
-//from alien app.scss
-// @media only screen and (min-width: 64em) {
-//   .page-headline header {
-//     padding: 0 25px;
-//   }
-// }
