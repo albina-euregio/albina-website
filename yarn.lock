@@ -693,7 +693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nanostores/react@npm:^0.7.1":
+"@nanostores/react@npm:^0.7.2":
   version: 0.7.2
   resolution: "@nanostores/react@npm:0.7.2"
   peerDependencies:
@@ -1335,7 +1335,7 @@ __metadata:
     "@eaws/outline_properties": "npm:^6.2.0"
     "@floating-ui/react": "npm:^0.19.1"
     "@floating-ui/react-dom-interactions": "npm:^0.0.15"
-    "@nanostores/react": "npm:^0.7.1"
+    "@nanostores/react": "npm:^0.7.2"
     "@playwright/test": "npm:^1.44.1"
     "@sentry/react": "npm:^8.7.0"
     "@types/diff-match-patch": "npm:^1.0.36"
@@ -1364,7 +1364,7 @@ __metadata:
     lint-staged: "npm:^15.2.5"
     mobx: "npm:^6.12.0"
     mobx-react: "npm:^9.1.0"
-    nanostores: "npm:^0.9.5"
+    nanostores: "npm:^0.10.3"
     normalize.css: "npm:^8.0.1"
     prettier: "npm:3.3.1"
     purecss-sass: "npm:2.0.6"
@@ -3980,10 +3980,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanostores@npm:^0.9.5":
-  version: 0.9.5
-  resolution: "nanostores@npm:0.9.5"
-  checksum: 10c0/5d6a33647428bd3adcd4ddb2745a01420eae3cc1c3c49e48c307b078152603a26ac78f25d30d17f3c4e51b43ee18e2fcd5b80a8c704336366cbcc86a5d5210b5
+"nanostores@npm:^0.10.3":
+  version: 0.10.3
+  resolution: "nanostores@npm:0.10.3"
+  checksum: 10c0/5541f527240f159acfe44b5f1c92366aa50d04d4814d25c685e6443dd43f5437c2c4a9e687378f6af759e90c13547da6b78e1d0042ff246d6ba6c881b65b306b
   languageName: node
   linkType: hard
 
