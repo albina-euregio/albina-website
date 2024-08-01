@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { observer } from "mobx-react";
 import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -245,4 +244,4 @@ const BlogOverview = () => {
   );
 };
 
-export default observer(BlogOverview);
+export default BlogOverview;
