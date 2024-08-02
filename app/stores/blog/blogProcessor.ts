@@ -1,5 +1,5 @@
 import type { BlogConfig, BlogPostPreviewItem } from ".";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
 
 export interface BlogProcessor {
   loadBlogPosts: (

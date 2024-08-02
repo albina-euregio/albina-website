@@ -1,27 +1,46 @@
 import { BlogConfig, BlogPostPreviewItem, BlogProcessor } from ".";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
 
 export class WordpressProcessor implements BlogProcessor {
-  async loadBlogPosts(
-    config: BlogConfig,
-    state?: BlogStore
-  ): Promise<BlogPostPreviewItem[]> {
+  async loadCategories(config: BlogConfig): Promise<Category[]> {
     // https://developer.wordpress.org/rest-api/reference/categories/#arguments
-    const allCategories: Category[] = await fetchJSON(
-      `https://${
-        config.params.id
-      }/wp-json/wp/v2/categories?${new URLSearchParams({
-        per_page: String(99)
-      })}`,
-      {}
-    );
-    // https://developer.wordpress.org/rest-api/reference/posts/#arguments
     const params = new URLSearchParams({
       lang: config.lang, // via parse_query_polylang
       _fields: (
         [
+          "id",
+          "count",
+          "description",
+          "name",
+          "slug",
+          "taxonomy",
+          "polylang_current_lang",
+          "polylang_translations"
+        ] satisfies (keyof Category)[]
+      ).join(),
+      per_page: String(99)
+    });
+    return await fetchJSON<Category[]>(
+      `https://${config.params.id}/wp-json/wp/v2/categories?${params}`,
+      {}
+    );
+  }
+
+  async loadBlogPosts(
+    config: BlogConfig,
+    state?: BlogStore
+  ): Promise<BlogPostPreviewItem[]> {
+    // https://developer.wordpress.org/rest-api/reference/posts/#arguments
+    // https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
+    const params = new URLSearchParams({
+      lang: config.lang, // via parse_query_polylang
+      _embed: "wp:term",
+      _fields: (
+        [
+          "_links",
+          "_embedded",
           "categories",
           "date",
           "featured_image_url",
@@ -30,13 +49,17 @@ export class WordpressProcessor implements BlogProcessor {
           "link",
           "polylang_current_lang",
           "polylang_translations",
+          "tags",
           "title"
-        ] as (keyof Post)[]
+        ] satisfies (keyof Post | "_links" | "_embedded")[]
       ).join(),
       per_page: String(99)
     });
     if (state?.searchText) {
       params.set("search", state.searchText);
+    }
+    if (state?.searchCategory) {
+      params.set("categories", state.searchCategory);
     }
     if (state?.year) {
       params.set("after", state.startDate.toISOString());
@@ -46,28 +69,24 @@ export class WordpressProcessor implements BlogProcessor {
       `https://${config.params.id}/wp-json/wp/v2/posts?${params}`,
       {}
     );
-    return posts
-      .map(post => {
-        const categories = post.categories
-          ?.map(c => allCategories.find(({ id }) => c === id))
-          .map(c => c.name);
-        return this.newItem(post, categories, config);
-      })
-      .filter(item => !!item);
+    return posts.map(post => this.newItem(post, config)).filter(item => !!item);
   }
 
   async loadBlogPost(
     config: BlogConfig,
     postId: unknown
   ): Promise<BlogPostPreviewItem> {
+    const params = new URLSearchParams({
+      _embed: "wp:term"
+    });
     const post: Post = await fetchJSON(
-      `https://${config.params.id}/wp-json/wp/v2/posts/${postId}`,
+      `https://${config.params.id}/wp-json/wp/v2/posts/${postId}?${params}`,
       {}
     );
-    return this.newItem(post, [], config);
+    return this.newItem(post, config);
   }
 
-  private newItem(post: Post, categories: string[], config: BlogConfig) {
+  private newItem(post: Post, config: BlogConfig) {
     if (config.lang !== this.parseLang(post.polylang_current_lang)) {
       return undefined;
     }
@@ -91,7 +110,7 @@ export class WordpressProcessor implements BlogProcessor {
         .filter(({ lang }) => config.lang !== lang),
       config.regions,
       post.featured_image_url,
-      categories
+      post._embedded["wp:term"].flat().map(t => t.name)
     );
   }
 
@@ -103,6 +122,7 @@ export class WordpressProcessor implements BlogProcessor {
     return str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
   }
 }
+
 interface Post {
   id: number;
   date: string;
@@ -128,6 +148,7 @@ interface Post {
   polylang_current_lang: PolylangCurrentLang; // via register_rest_polylang
   polylang_translations: PolylangTranslation[]; // via register_rest_polylang
   featured_image_url: string; // via register_rest_images
+  _embedded: Embedded;
 }
 
 enum PolylangCurrentLang {
@@ -146,12 +167,28 @@ interface Content {
   protected: boolean;
 }
 
-interface Category {
+export interface Category {
   id: number;
   count: number;
   description: string;
+  name: string;
+  slug: string;
+  taxonomy: Taxonomy;
+  polylang_current_lang: PolylangCurrentLang;
+  polylang_translations: PolylangTranslation[];
+}
+
+export interface Embedded {
+  "wp:term": EmbeddedWpTerm[][];
+}
+
+export interface EmbeddedWpTerm {
+  id: number;
   link: string;
   name: string;
   slug: string;
-  parent: number;
+  taxonomy: Taxonomy;
+  _links: unknown;
 }
+
+type Taxonomy = "category" | "post_tag";

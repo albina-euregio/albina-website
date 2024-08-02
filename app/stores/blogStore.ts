@@ -1,408 +1,224 @@
-import { makeAutoObservable, toJS } from "mobx";
 import { getDaysOfMonth } from "../util/date";
-import { regionCodes } from "../util/regions";
-import { parseSearchParams } from "../util/searchParams";
+import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import { BlogPostPreviewItem } from "./blog";
+import { BlogPostPreviewItem, Category } from "./blog";
+import { atom, computed, onMount, StoreValue } from "nanostores";
 
-export default class BlogStore {
-  supportedLanguages = ["de", "it", "en"];
-  _regions: object;
-  _languages: { de: boolean; it: boolean; en: boolean };
-  _year: number | "";
-  _month: number | "";
-  _problem: string;
-  _searchText: string;
+export const region = atom<RegionCodes | "all">("all");
+export const supportedLanguages = atom(["de", "it", "en"] as const);
+export const language = atom<"de" | "it" | "en">("en");
+export const year = atom("" as number | "");
+export const month = atom("" as number | "");
+export const problem = atom("");
+export const searchText = atom("");
+export const page = atom(1);
+export const loading = atom(false);
+export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
+export const categories = atom([] as Category[]);
+export const searchCategory = atom("");
+export const perPage = atom(20);
+export const minYear = 2011;
 
-  _page: number;
+onMount(language, () => init());
 
-  _loading: boolean;
-  _posts: Record<string, BlogPostPreviewItem[]>;
+export type BlogStore = {
+  searchCategory: string;
+  searchText: string;
+  year: number | "";
+  startDate: Date | null;
+  endDate: Date | null;
+};
 
-  // show only 5 blog posts when the mobile phone is detected
-  perPage = 20;
+export const postItems = computed(posts, posts =>
+  Object.values(posts ?? {}).flat()
+);
 
-  get searchParams() {
-    const languageHostConfig = config.languageHostSettings;
-    const l = this.languageActive;
-    const searchLang =
-      languageHostConfig[l] &&
-      languageHostConfig[l] == document.location.hostname
-        ? ""
-        : this.languageActive;
+export const numberOfPosts = computed(postItems, postItems => postItems.length);
 
+export const numberNewPosts = computed(
+  postItems,
+  postItems => postItems.filter(aPost => Date.now() < aPost.newUntil).length
+);
+
+export const maxPages = computed(
+  [perPage, numberOfPosts],
+  (perPage, numberOfPosts) => Math.ceil(numberOfPosts / perPage)
+);
+
+export const startDate = computed([year, month], (year, month) => {
+  if (year) {
+    if (month) {
+      return new Date(year, month - 1, 1);
+    }
+    return new Date(year, 0, 1);
+  }
+  return null;
+});
+
+export const endDate = computed([year, month], (year, month) => {
+  if (year) {
+    if (month) {
+      return new Date(year, month - 1, getDaysOfMonth(year, month), 23, 59);
+    }
+    return new Date(year, 11, 31, 23, 59);
+  }
+  return null;
+});
+
+export const searchParams = computed(
+  [year, month, problem, page, searchCategory, searchText, language, region],
+  (
+    year,
+    month,
+    problem,
+    page,
+    searchCategory,
+    searchText,
+    language,
+    region
+  ) => {
     const params = new URLSearchParams();
-    params.set("year", String(this.year));
-    if (this.year != "") params.set("month", String(this.month));
-    params.set("searchLang", searchLang || "");
-    params.set("region", this.regionActive);
-    params.set("problem", this.problem);
-    params.set("page", String(this.page));
-    params.set("searchText", this.searchText || "");
+    if (year) {
+      params.set("year", String(year));
+      params.set("month", String(month));
+    }
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+    params.set("problem", problem);
+    params.set("region", region);
+    params.set("searchCategory", searchCategory || "");
+    params.set("searchLang", language);
+    params.set("searchText", searchText || "");
     params.forEach((value, key) => value || params.delete(key));
     return params;
   }
+);
 
-  update() {
-    this.load(true);
+export function validatePage(page: string | number): number {
+  const parsed = typeof page === "string" ? parseInt(page) : page;
+  return clamp(parsed, 1, maxPages.get());
+}
+
+export function validateMonth(valueToValidate: string): number | "" {
+  const parsed = parseInt(valueToValidate);
+  if (parsed) {
+    return clamp(parsed, 1, 12);
+  } else {
+    return "";
   }
+}
 
-  validatePage(page: string | number): number {
-    const parsed = typeof page === "string" ? parseInt(page) : page;
-    const maxPages = this.maxPages;
-    return clamp(parsed, 1, maxPages);
+export function validateYear(valueToValidate: string): number | "" {
+  const parsed = parseInt(valueToValidate);
+  if (parsed) {
+    return clamp(parsed, minYear, new Date().getFullYear());
+  } else {
+    return "";
   }
+}
 
-  validateMonth(valueToValidate: string): number | "" {
-    const parsed = parseInt(valueToValidate);
-    if (parsed) {
-      return clamp(parsed, 1, 12);
-    } else {
-      return "";
-    }
+export function validateRegion(valueToValidate: string): string {
+  return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
+}
+
+export function validateLanguage(
+  valueToValidate: string
+): StoreValue<typeof language> {
+  if (supportedLanguages.get().includes(valueToValidate)) {
+    return valueToValidate;
   }
-
-  validateYear(valueToValidate: string): number | "" {
-    const parsed = parseInt(valueToValidate);
-    if (parsed) {
-      return clamp(
-        parsed,
-        window.config?.archive?.minYear ?? 2016,
-        new Date().getFullYear()
-      );
-    } else {
-      return "";
-    }
+  valueToValidate = document.body.parentElement.lang;
+  if (supportedLanguages.get().includes(valueToValidate)) {
+    return valueToValidate;
   }
+  return "en";
+}
 
-  validateRegion(valueToValidate: string): string {
-    return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
-  }
+export function validateProblem(valueToValidate: string): string {
+  return avalancheProblems.includes(valueToValidate) ? valueToValidate : "all";
+}
 
-  validateLanguage(valueToValidate: string): string {
-    if (valueToValidate === "all") {
-      return valueToValidate;
-    }
-    if (this.supportedLanguages.includes(valueToValidate)) {
-      return valueToValidate;
-    }
-    valueToValidate = document.body.parentElement.lang;
-    if (this.supportedLanguages.includes(valueToValidate)) {
-      return valueToValidate;
-    }
-    return "all";
-  }
+export function init() {
+  const search = new URL(document.location.href).searchParams;
+  language.set(validateLanguage(search.get("searchLang")));
+  loading.set(false);
+  month.set(validateMonth(search.get("month")));
+  page.set(validatePage(search.get("page")) || 1);
+  posts.set({});
+  problem.set(validateProblem(search.get("problem")));
+  region.set(validateRegion(search.get("region")));
+  searchCategory.set(search.get("searchCategory") || "");
+  searchText.set(search.get("searchText") || "");
+  year.set(validateYear(search.get("year")));
+}
 
-  validateProblem(valueToValidate: string): string {
-    return avalancheProblems.includes(valueToValidate)
-      ? valueToValidate
-      : "all";
-  }
+export async function load() {
+  loading.set(true);
+  await loadCategories();
+  await loadPosts();
+  loading.set(false);
 
-  // checking if the url has been changed and applying new values
-  checkUrl(search: URLSearchParams): void {
-    let needLoad = false;
-
-    const urlValues = {
-      year: this.validateYear(search.get("year")),
-      month: this.validateMonth(search.get("month")),
-      searchLang: this.validateLanguage(search.get("searchLang")),
-      region: this.validateRegion(search.get("region")),
-      problem: this.validateProblem(search.get("problem")),
-      page: this.validatePage(search.get("page")),
-      searchText: search.get("searchText")
-    };
-
-    // year
-    if (urlValues.year != this.year) {
-      this.year = urlValues.year;
-      needLoad = true;
-    }
-
-    // month
-    if (urlValues.month != this.month) {
-      this.month = urlValues.month;
-      needLoad = true;
-    }
-
-    // language
-    if (urlValues.searchLang != this.languageActive) {
-      this.setLanguages(urlValues.searchLang);
-      needLoad = true;
-    }
-
-    // region
-    if (urlValues.region != this.regionActive) {
-      this.setRegions(urlValues.region);
-      needLoad = true;
-    }
-
-    // problem
-    if (urlValues.problem != this.problem) {
-      this.problem = urlValues.problem;
-      needLoad = true;
-    }
-
-    // page
-    if (urlValues.page != this.page) {
-      this.setPage(urlValues.page);
-      needLoad = true;
-    }
-
-    // searchText
-    if (urlValues.searchText != this.searchText) {
-      this.searchText = urlValues.searchText;
-      needLoad = true;
-    }
-
-    if (needLoad) {
-      this.load(true);
-    }
-  }
-
-  initialParams() {
-    const search = parseSearchParams();
-    const searchLang = this.validateLanguage(search.get("searchLang"));
-
-    const initialParameters = {
-      year: this.validateYear(search.get("year")),
-      month: this.validateMonth(search.get("month")),
-      problem: this.validateProblem(search.get("problem")),
-      page: this.validatePage(search.get("page")) || 1,
-      searchText: search.get("searchText"),
-      languages: {
-        de: ["", "de", "all"].includes(searchLang) || !searchLang,
-        it: ["", "it", "all"].includes(searchLang) || !searchLang,
-        en: ["", "en", "all"].includes(searchLang) || !searchLang
-      },
-      regions: {}
-    };
-
-    // get all regions from appStore and activate them
-    const searchRegion = this.validateRegion(search.get("region"));
-    const initialRegions = {};
-    regionCodes.forEach(region => {
-      initialRegions[region] =
-        ["", "all", region].includes(searchRegion) || !searchRegion;
-    });
-    initialParameters.regions = initialRegions;
-
-    return initialParameters;
-  }
-
-  constructor() {
-    const initialParameters = this.initialParams();
-
-    // Do not make posts observable, otherwise posts list will be
-    // unnecessarily rerendered during the filling of this array.
-    // Views should only observe the value of the "loading" flag instead.
-    this._posts = {};
-    this._page = initialParameters.page;
-
-    this._regions = initialParameters.regions;
-    this._languages = initialParameters.languages;
-    this._year = initialParameters.year;
-    this._month = initialParameters.month;
-    this._problem = initialParameters.problem;
-
-    this._loading = false;
-    this._searchText = initialParameters.searchText;
-
-    makeAutoObservable(this);
-  }
-
-  initLanguage() {
-    const initialParameters = this.initialParams();
-    this._languages = initialParameters.languages;
-  }
-
-  async load(forceReload = false) {
-    if (!forceReload && this._posts.length > 0) {
-      // don't do a reload if already loaded unless reload is forced
-      return;
-    }
-
-    this._loading = true;
-    const posts = await BlogPostPreviewItem.loadBlogPosts(
-      l => this.languages[l],
-      r => this.regions[r],
-      this
+  async function loadCategories() {
+    categories.set(
+      (
+        await BlogPostPreviewItem.loadCategories(
+          l => [l, "all", ""].includes(language.get()),
+          r => [r, "all", ""].includes(region.get())
+        )
+      )
+        .flatMap(([, c]) => c)
+        .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+        .sort((c1, c2) => c1.name.localeCompare(c2.name))
     );
-    return this.setPostsLoaded(Object.fromEntries(posts));
   }
 
-  setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
-    this.posts = newPosts;
-    this._loading = false;
-  }
-
-  get loading() {
-    return this._loading;
-  }
-
-  set loading(flag) {
-    this._loading = flag;
-  }
-
-  get posts() {
-    return toJS(this._posts);
-  }
-
-  set posts(val) {
-    this._posts = val;
-  }
-
-  /* actual page in the pagination through blog posts */
-  get page(): number {
-    return toJS(this._page);
-  }
-
-  set page(val: number | string) {
-    this._page = typeof val === "string" ? parseInt(val) : val;
-  }
-
-  setPage(newPage: number) {
-    this.page = this.validatePage(newPage);
-  }
-
-  nextPage() {
-    const thisPage = this.page;
-    const maxPages = this.maxPages;
-    const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
-    this.setPage(nextPageNo);
-  }
-
-  previousPage() {
-    const thisPage = this.page;
-    const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
-    this.setPage(previousPageNo);
-  }
-
-  get maxPages() {
-    return Math.ceil(this.numberOfPosts / this.perPage);
-  }
-
-  get searchText() {
-    return this._searchText;
-  }
-
-  set searchText(val) {
-    if (val != this.searchText) {
-      this._searchText = val;
-    }
-  }
-
-  get problem() {
-    return this._problem;
-  }
-
-  set problem(val) {
-    this._problem = val;
-  }
-
-  get year() {
-    return this._year;
-  }
-
-  set year(y) {
-    this._year = y;
-  }
-
-  get month() {
-    return this._month;
-  }
-
-  set month(m) {
-    this._month = m;
-  }
-
-  get startDate() {
-    if (this.year) {
-      if (this.month) {
-        return new Date(this.year, this.month - 1, 1);
-      }
-      return new Date(this.year, 0, 1);
-    }
-    return null;
-  }
-
-  get endDate() {
-    if (this.year) {
-      if (this.month) {
-        return new Date(
-          this.year,
-          this.month - 1,
-          getDaysOfMonth(this.year, this.month),
-          23,
-          59
-        );
-      }
-      return new Date(this.year, 11, 31, 23, 59);
-    }
-    return null;
-  }
-
-  get languages() {
-    return toJS(this._languages);
-  }
-
-  get regions() {
-    return toJS(this._regions);
-  }
-
-  setRegions(region: string) {
-    const newRegions = this.regions;
-    for (const r in newRegions) {
-      newRegions[r] = [r, "all"].includes(region) || !region;
-    }
-    this._regions = newRegions;
-  }
-
-  setLanguages(lang: string) {
-    const newLanguages = this.languages;
-    for (const l in newLanguages) {
-      newLanguages[l] = [l, "all"].includes(lang) || !lang;
-    }
-    this._languages = newLanguages;
-  }
-
-  get languageActive() {
-    const active = Object.keys(this.languages).filter(
-      lang => this.languages[lang]
+  async function loadPosts() {
+    posts.set(
+      Object.fromEntries(
+        await BlogPostPreviewItem.loadBlogPosts(
+          l => [l, "all", ""].includes(language.get()),
+          r => [r, "all", ""].includes(region.get()),
+          {
+            searchCategory: categories
+              .get()
+              .filter(c => c.name === searchCategory.get())
+              .map(c => c.id)
+              .join(),
+            searchText: searchText.get(),
+            year: year.get(),
+            startDate: startDate.get(),
+            endDate: endDate.get()
+          } satisfies BlogStore
+        )
+      )
     );
-    return active.length > 1 ? "all" : active[0];
   }
+}
 
-  get regionActive() {
-    const active = Object.keys(this.regions).filter(
-      region => this.regions[region]
-    );
-    return active.length > 1 ? "all" : active[0];
-  }
+export function nextPage() {
+  const thisPage = page.get();
+  const nextPageNo = thisPage < maxPages.get() ? thisPage + 1 : thisPage;
+  page.set(nextPageNo);
+}
 
-  get postItems(): BlogPostPreviewItem[] {
-    return Object.values(this.posts ?? {}).flat();
-  }
+export function previousPage() {
+  const thisPage = page.get();
+  const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
+  page.set(previousPageNo);
+}
 
-  get numberOfPosts() {
-    return this.postItems.length;
-  }
+export const postsList = computed(
+  [page, perPage, posts, numberOfPosts],
+  (page, perPage, posts, numberOfPosts) => {
+    const start = (page - 1) * perPage;
+    const limit = perPage;
 
-  get numberNewPosts() {
-    return this.postItems.filter(aPost => Date.now() < aPost.newUntil).length;
-  }
-
-  get postsList() {
-    const start = (this.page - 1) * this.perPage;
-    const limit = this.perPage;
-    const totalLength = this.numberOfPosts;
-
-    const posts = this.posts;
     const queues = Object.keys(posts);
 
-    const startIndex = Math.min(start, totalLength - 1);
-    const end = Math.min(start + limit, totalLength);
+    const startIndex = Math.min(start, numberOfPosts - 1);
+    const end = Math.min(start + limit, numberOfPosts);
 
     const postPointer = {};
     queues.forEach(queue => {
@@ -451,6 +267,4 @@ export default class BlogStore {
     }
     return [];
   }
-}
-
-export const BLOG_STORE = new BlogStore();
+);

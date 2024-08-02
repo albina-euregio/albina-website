@@ -1,12 +1,12 @@
 import React from "react";
 import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
-import { computed } from "nanostores";
+import { computed, StoreValue } from "nanostores";
 import { useStore } from "@nanostores/react";
 import reactStringReplace from "react-string-replace";
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
-type MessageId = keyof (typeof $messages)["value"];
+type MessageId = keyof StoreValue<typeof $messages>;
 
 const format = computed($locale, code => ({
   number(num: number, opts: Intl.NumberFormatOptions) {
