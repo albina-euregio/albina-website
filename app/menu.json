@@ -20,7 +20,9 @@
         "url": "https://www.lawis.at/profile?lang=en",
         "url:de": "https://www.lawis.at/profile?lang=de"
       },
-      { "key": "webcam", "url": "https://www.foto-webcam.eu" }
+      { "key": "webcam", "url": "https://www.foto-webcam.eu" },
+      { "url": "" },
+      { "key": "meteo-report", "url": "https://meteo.report/mountains/" }
     ]
   },
   {
