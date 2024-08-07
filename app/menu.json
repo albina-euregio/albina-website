@@ -22,7 +22,12 @@
       },
       { "key": "webcam", "url": "https://www.foto-webcam.eu" },
       { "url": "" },
-      { "key": "meteo-report", "url": "https://meteo.report/mountains/" }
+      {
+        "key": "meteo-report",
+        "url": "https://meteo.report/mountains/",
+        "url:de": "https://meteo.report/de/mountains/",
+        "url:it": "https://meteo.report/it/mountains/"
+      }
     ]
   },
   {
