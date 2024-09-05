@@ -1382,7 +1382,6 @@ __metadata:
     react-router-dom: "npm:^6.20.1"
     react-string-replace: "npm:^1.1.1"
     sass: "npm:^1.69.5"
-    selectric: "https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
     typescript: "npm:^5.4.3"
     uplot: "npm:^1.6.27"
     uplot-react: "npm:^1.1.5"
@@ -3471,7 +3470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:^3.1.1, jquery@npm:^3.7.1":
+"jquery@npm:^3.7.1":
   version: 3.7.1
   resolution: "jquery@npm:3.7.1"
   checksum: 10c0/808cfbfb758438560224bf26e17fcd5afc7419170230c810dd11f5c1792e2263e2970cca8d659eb84fcd9acc301edb6d310096e450277d54be4f57071b0c82d9
@@ -4779,15 +4778,6 @@ __metadata:
   version: 0.25.0-rc-4c58fce7-20240904
   resolution: "scheduler@npm:0.25.0-rc-4c58fce7-20240904"
   checksum: 10c0/5dd6858a966ba67fe2a3398f0464cc19d1156a7f9893c4396409651ff36bad00fdc5f25be2c28dc8cf4b2e5e8c35d22fd09ca6b4e9a13ef62d8689ff0e216fe2
-  languageName: node
-  linkType: hard
-
-"selectric@https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz":
-  version: 1.13.0
-  resolution: "selectric@https://github.com/lcdsantos/jQuery-Selectric/archive/1335d34ec8ea02cfe3834cae01e2f6c0203c0f45.tar.gz"
-  dependencies:
-    jquery: "npm:^3.1.1"
-  checksum: 10c0/c14fbb3d74d625c349e34a18e53004f04d06a5d7c66cdcdd54776cd21133f52005d1c7866b2e27c476462f410b10c76b86a488b9836b78fbf925e09387bb808c
   languageName: node
   linkType: hard
 
