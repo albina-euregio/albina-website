@@ -137,7 +137,6 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
         <div className={classes}>
           <header className="bulletin-report-header">
             {isInserted && (
-              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <button
                 type="button"
                 className="bulletin-report-header-diff"

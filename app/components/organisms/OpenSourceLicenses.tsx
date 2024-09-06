@@ -16,7 +16,8 @@ export default function OpenSourceLicenses() {
     <ul className="list-inline">
       <li>
         <strong>
-          {intl.formatMessage({ id: "more:open-data:open-source-licenses" })}{":"}
+          {intl.formatMessage({ id: "more:open-data:open-source-licenses" })}
+          {":"}
         </strong>
       </li>
       {dependencies.map(d => (

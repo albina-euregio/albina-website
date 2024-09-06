@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
-/* eslint-disable jsx-a11y/media-has-caption */
 import React from "react";
 import { useState, useEffect } from "react";
 import { dateToISODateString } from "../../util/date";
