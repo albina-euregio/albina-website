@@ -1354,8 +1354,8 @@ __metadata:
     sass: "npm:^1.69.5"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.4.0"
-    uplot: "npm:^1.6.27"
-    uplot-react: "npm:^1.1.5"
+    uplot: "npm:^1.6.30"
+    uplot-react: "npm:^1.2.2"
     vite: "npm:^5.4.3"
   languageName: unknown
   linkType: soft
@@ -5222,17 +5222,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uplot-react@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "uplot-react@npm:1.1.5"
+"uplot-react@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "uplot-react@npm:1.2.2"
   peerDependencies:
     react: ">=16.8.6"
-    uplot: ^1.6.7
-  checksum: 10c0/12a7a3041fb6ecdf4e349cd3b6562b026057a8d1649d2f2b7387c02c7c4eafebf60c638255baa3fe50ba9a80fcc62f38ab7a80bd1ad171c23ac8471f1ab50c35
+    uplot: ^1.6.20
+  checksum: 10c0/ec052e009d462b8308064707e9a35e90712bb67f67e6db935fb91083c0fe88b54d2be8089df8568153fa089a462158bb0e4eb11738c86a35a0ffa8b4cc9fe745
   languageName: node
   linkType: hard
 
-"uplot@npm:^1.6.27":
+"uplot@npm:^1.6.30":
   version: 1.6.30
   resolution: "uplot@npm:1.6.30"
   checksum: 10c0/af803fc23b9614979596c06dec55aa6967e748071b118fb960c5604b6095bb1dc511c1fa33d7d4990159db886475a617decf15e19691381f73f159fed4b1f32b
