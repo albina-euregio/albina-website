@@ -151,7 +151,9 @@ export default class StationIcon extends React.Component<Props> {
     const fill =
       typeof this.props.color === "string"
         ? this.props.color
-        : this.RGBToHex(this.props.color);
+        : Array.isArray(this.props.color)
+          ? this.RGBToHex(this.props.color)
+          : "black";
     //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
       <div
