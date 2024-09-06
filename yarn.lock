@@ -1344,7 +1344,7 @@ __metadata:
     nanostores: "npm:^0.10.3"
     normalize.css: "npm:^8.0.1"
     prettier: "npm:3.3.1"
-    purecss-sass: "npm:2.0.6"
+    purecss-sass: "npm:3.0.1"
     react: "npm:19.0.0-rc-4c58fce7-20240904"
     react-dom: "npm:19.0.0-rc-4c58fce7-20240904"
     react-easy-swipe: "npm:0.0.23"
@@ -4333,10 +4333,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"purecss-sass@npm:2.0.6":
-  version: 2.0.6
-  resolution: "purecss-sass@npm:2.0.6"
-  checksum: 10c0/51d9a6f4dde2fc7ffc7e6bec2893e826d9b58cb38a67080f859f76cbdfd3ccaece16c7b74bf98506249b7a44bf8f70b1e712dce833390ae861adc93517950d5f
+"purecss-sass@npm:3.0.1":
+  version: 3.0.1
+  resolution: "purecss-sass@npm:3.0.1"
+  checksum: 10c0/a75ef297aeb92aa1cec401014280d41daa58d9f83ef24be5570e4d1254e7f1a1cad760894924e16c83ec10e497467de0e5131bf0ae4b1c564bed903b882a3e1f
   languageName: node
   linkType: hard
 
