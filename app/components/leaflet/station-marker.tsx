@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // eslint-disable-line no-unused-vars
+import React, { useEffect } from "react";
 import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";

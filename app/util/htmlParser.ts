@@ -2,6 +2,7 @@ import React, { type AllHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
 import { RegionsTables } from "../components/stationTable/regionTable";
+import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
 
 export function preprocessContent(content: string, blogMode = false) {
@@ -42,6 +43,8 @@ export function preprocessContent(content: string, blogMode = false) {
             (props.className || "") + " mfp-image modal-trigger img";
         } else if (/RegionsTables/i.exec(type)) {
           return React.createElement(RegionsTables, props, children);
+        } else if (/OpenSourceLicenses/i.exec(type)) {
+          return React.createElement(OpenSourceLicenses, props, children);
         }
         // Remove deprecated html attributes
         ["align", "border"].forEach(prop => delete props[prop]);

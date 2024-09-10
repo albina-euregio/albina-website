@@ -1,20 +1,17 @@
 import React from "react";
-import { useIntl } from "../../i18n";
 
 type Props = {
   tags: string[];
+  handleChangeCategory?: (tag: string, e: React.MouseEvent) => void;
 };
 
-export default function TagList({ tags }: Props) {
-  const intl = useIntl();
+export default function TagList({ tags, handleChangeCategory }: Props) {
   if (Array.isArray(tags) && tags.length > 0) {
     return (
       <ul className="list-inline blog-list-labels">
         {tags.map((t, i) => (
-          <li key={i}>
-            <span className="label">
-              {intl.formatMessage({ id: "problem:" + t })}
-            </span>
+          <li key={i} onClick={e => handleChangeCategory?.(t, e)}>
+            <span className="label">{t}</span>
           </li>
         ))}
       </ul>

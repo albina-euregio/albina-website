@@ -38,6 +38,7 @@ function BulletinHeader(props: Props) {
       <header className="section-centered">
         <BulletinStatusLine
           status={props.status}
+          allBulletins={props.activeBulletinCollection?.bulletinsWith170000}
           bulletin={
             props.activeBulletinCollection?.bulletins?.length
               ? props.activeBulletinCollection.bulletins.reduce((b1, b2) =>
@@ -46,7 +47,9 @@ function BulletinHeader(props: Props) {
               : undefined
           }
         />
-        {/* <h2 className="subheader">{this.props.title}</h2> */}
+        <h2 className="subheader">
+          {intl.formatMessage({ id: "bulletin:title" })}
+        </h2>
         <h1 className="bulletin-datetime-validity">{date}</h1>
         <BulletinDateFlipper date={props.date} latest={props.latestDate} />
       </header>

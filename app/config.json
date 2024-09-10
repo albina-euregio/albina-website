@@ -80,15 +80,9 @@
       "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
       "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
       "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://static.avalanche.report/zamg_meteo/overlays/"
-    },
-    "weatherFallback": {
-      "plots": "https://stations.avalanche.report/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "observers": "https://stations.avalanche.report/grafiken/{width}/beobachter/{name}{year}.png?{t}",
-      "stations": "https://stations.avalanche.report/produkte/albina.geojson",
-      "stationsArchive": "https://stations.avalanche.report/produkte/ogd.geojson",
-      "stationsArchiveFile": "https://stations.avalanche.report/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv"
     }
   },
   "apiKeys": {
@@ -443,7 +437,8 @@
           "thresholds": [
             100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
             1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
-            2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500
+            2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500,
+            9876
           ],
           "colors": {
             "1": [192, 96, 255],
@@ -480,7 +475,8 @@
             "32": [153, 0, 102],
             "33": [192, 0, 102],
             "34": [204, 0, 102],
-            "35": [204, 0, 92]
+            "35": [204, 0, 92],
+            "36": [204, 0, 92]
           },
           "layer": {
             "overlay": true,

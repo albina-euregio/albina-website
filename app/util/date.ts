@@ -42,6 +42,16 @@ export const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
 };
 Object.freeze(DATE_TIME_FORMAT);
 
+export const DATE_TIME_FORMAT_SHORT: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  hour12: false
+};
+Object.freeze(DATE_TIME_FORMAT_SHORT);
+
 export const DATE_TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",

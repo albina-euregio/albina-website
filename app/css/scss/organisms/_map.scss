@@ -445,6 +445,34 @@ $search-width-wide: 300px;
     @include letter-spacing;
   }
 
+  .bulletin-map-details-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+
+    width: $padding * 2;
+    height: $padding * 2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    @include rollout;
+
+    &:before {
+      margin-right: 0;
+      font-size: 1.25em;
+    }
+
+    &:hover {
+      color: $brand-dark;
+      background: transparent;
+      border-color: transparent;
+      @include rollover;
+    }
+  }
+
   .bulletin-report-region-name {
     margin: ($padding * 1.5) ($padding * 2) $padding ($padding * 2);
     font-size: $tiny-font-size;

@@ -73,9 +73,23 @@ const WeatherStationUplot: React.FC<{
       options={{
         width,
         height,
+        cursor: { sync: { key: "shieshaesh7loo6sho2Daghah0Agohzu" } },
         axes: [
           {
-            values: "{YYYY}-{MM}-{DD}\n{HH}:{mm}"
+            values: (_, vs) =>
+              vs.map(v => {
+                const date = new Date(v * 1000);
+                return date.getHours() == 0
+                  ? intl.formatDate(date, {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "2-digit"
+                    })
+                  : intl.formatDate(date, {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    });
+              })
           },
           {
             label: parameters[0].label,
@@ -89,8 +103,14 @@ const WeatherStationUplot: React.FC<{
           {
             label: "Time",
             // uPlot uses epoch seconds (instead of milliseconds)
-            //value: (_, v) => intl.formatDate(v * 1000, DATE_TIME_ZONE_FORMAT)
-            value: "{YYYY}-{MM}-{DD} {HH}:{mm}"
+            value: (_, v) =>
+              intl.formatDate(new Date(v * 1000), {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+              })
           },
           ...parameters.map(
             (p): uPlot.Series => ({

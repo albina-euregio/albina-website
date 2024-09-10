@@ -29,7 +29,7 @@ export async function fetchExists(
       return res;
     }
     return false;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

@@ -17,7 +17,7 @@ class SnowProfileMap extends React.Component {
   }
 
   componentDidMount() {
-    this.isIncident ? this.incidentStore.load() : this.snowProfileStore.load();
+    (this.isIncident ? this.incidentStore : this.snowProfileStore).load();
   }
 
   get attribution(): string {

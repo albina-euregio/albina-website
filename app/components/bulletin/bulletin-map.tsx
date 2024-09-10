@@ -136,6 +136,7 @@ const BulletinMap = (props: Props) => {
             id: "region:" + props.region
           })}
           validTimePeriod={props.validTimePeriod}
+          unselectRegion={() => props.handleSelectRegion("")}
         />
       );
       res.push(
@@ -168,15 +169,30 @@ const BulletinMap = (props: Props) => {
       const country = activeEaws.id.replace(/-.*/, "");
       const region = activeEaws.id;
       res.push(
-        <p key={`eaws-name-${country}`} className="bulletin-report-region-name">
-          <span className="bulletin-report-region-name-country">
-            {intl.formatMessage({ id: "region:" + country })}
-          </span>
-          <span>&nbsp;/ </span>
-          <span className="bulletin-report-region-name-region">
-            {intl.formatMessage({ id: "region:" + region })}
-          </span>
-        </p>
+        <div>
+          <a
+            href="#"
+            onClick={() => props.handleSelectRegion("")}
+            className="bulletin-map-details-close icon-close"
+          >
+            <span className="is-visually-hidden">
+              {intl.formatMessage({ id: "bulletin:map:details:close" })}
+            </span>
+          </a>
+
+          <p
+            key={`eaws-name-${country}`}
+            className="bulletin-report-region-name"
+          >
+            <span className="bulletin-report-region-name-country">
+              {intl.formatMessage({ id: "region:" + country })}
+            </span>
+            <span>&nbsp;/ </span>
+            <span className="bulletin-report-region-name-region">
+              {intl.formatMessage({ id: "region:" + region })}
+            </span>
+          </p>
+        </div>
       );
       (activeEaws.aws || []).forEach((aws, index) => {
         const href = aws.url[language] || Object.values(aws.url)[0];

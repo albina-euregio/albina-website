@@ -1,11 +1,12 @@
-import { BlogProcessor, blogProcessors } from ".";
+import { BlogProcessor, blogProcessors, Category } from ".";
 import type { Language } from "../../appStore";
-import { avalancheProblems } from "../../util/avalancheProblems";
 import type { RegionCodes } from "../../util/regions";
-import type BlogStore from "../blogStore";
+import type { BlogStore } from "../blogStore";
+
+const VALID_HOURS_DEFAULT = 72;
+const VALID_HOURS = /valid_(?<hours>\d+)h/;
 
 export class BlogPostPreviewItem {
-  tags: string[];
   newUntil: number;
 
   constructor(
@@ -20,25 +21,22 @@ export class BlogPostPreviewItem {
     public langLinks: { lang: string; link: string }[] = [],
     public regions: string[] = [],
     public image: string = null,
-    public labels: string[] = []
+    public tags: string[] = []
   ) {
-    this.tags = Array.isArray(this.labels)
-      ? this.labels.filter(l => avalancheProblems.includes(l))
-      : [];
-    this.newUntil = BlogPostPreviewItem.getNewUntil(this.labels, this.date);
+    this.newUntil = BlogPostPreviewItem.getNewUntil(this.tags, this.date);
+    this.tags = this.tags.filter(
+      t => !VALID_HOURS.test(t) && !/Uncategorised|Uncategorized/.test(t)
+    );
   }
 
   private static getNewUntil(
-    labels: string | string[],
+    labels: string[],
     published: string | number | Date
   ): number {
     const newUntil = new Date(published);
-    //newUntil.setMonth(newUntil.getMonth() + 12);
-    if (labels.includes("valid_72h"))
-      return newUntil.setHours(newUntil.getHours() + 72);
-    if (labels.includes("valid_48h"))
-      return newUntil.setHours(newUntil.getHours() + 48);
-    return newUntil.setHours(newUntil.getHours() + 24);
+    const match = VALID_HOURS.exec(labels.join());
+    const hours = match?.groups ? +match.groups["hours"] : VALID_HOURS_DEFAULT;
+    return newUntil.setHours(newUntil.getHours() + hours);
   }
 
   static async loadBlogPost(
@@ -57,7 +55,7 @@ export class BlogPostPreviewItem {
     state?: BlogStore
   ): Promise<(readonly [string, BlogPostPreviewItem[]])[]> {
     return await Promise.all(
-      config.blogs
+      window.config.blogs
         .filter(cfg => languagePredicate(cfg.lang))
         .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
         .filter(cfg => blogProcessors[cfg.apiType])
@@ -68,6 +66,27 @@ export class BlogPostPreviewItem {
             .catch(error => {
               console.warn("Error while fetching blog posts", cfg, error);
               return [cfg.name, [] as BlogPostPreviewItem[]] as const;
+            })
+        )
+    );
+  }
+
+  static async loadCategories(
+    languagePredicate: (lang: Language) => boolean,
+    regionPredicate: (region: RegionCodes) => boolean
+  ): Promise<[string, Category[]][]> {
+    return await Promise.all(
+      window.config.blogs
+        .filter(cfg => languagePredicate(cfg.lang))
+        .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
+        .filter(cfg => cfg.apiType === "wordpress")
+        .map(cfg =>
+          blogProcessors[cfg.apiType as "wordpress"]
+            .loadCategories(cfg)
+            .then(categories => [cfg.name, categories] as [string, Category[]])
+            .catch(error => {
+              console.warn("Error while fetching blog categories", cfg, error);
+              return [cfg.name, []] as [string, Category[]];
             })
         )
     );

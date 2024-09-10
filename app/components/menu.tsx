@@ -24,7 +24,7 @@ type Props = {
   onSelect?: (e: Entry) => void;
 };
 
-const Menu = (props: Props) => {
+function Menu(props: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
@@ -63,87 +63,100 @@ const Menu = (props: Props) => {
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   };
 
-  const renderMenuItem = (e: Entry, activeItem: Entry) => {
-    const classes = props.menuItemClassName
-      ? props.menuItemClassName.split(" ")
-      : [];
-    const isActive = activeItem && e == activeItem;
-
-    if (isActive) {
-      if (props.onActiveMenuItem) {
-        props.onActiveMenuItem(e);
-      }
-
-      classes.push(props.activeClassName ? props.activeClassName : "active");
-    }
-    if (e.showSub || (e.children && e.children.length > 0)) {
-      classes.push("has-sub");
-    }
-    const title =
-      e.title ||
-      intl.formatMessage({
-        id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
-      });
-    const url = e["url:" + lang] || e["url"];
-
-    return (
-      <li
-        key={url}
-        onClick={event => {
-          event.stopPropagation();
-          if (typeof props.onSelect === "function") {
-            props.onSelect(e);
-          }
-        }}
-      >
-        {url.match("^http(s)?://") ? (
-          <a href={url} rel="noopener noreferrer" target="_blank">
-            {title}
-          </a>
-        ) : (
-          <Link
-            onTouchStart={() => {
-              if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
-            }}
-            onClick={e => {
-              onLinkClick(e, classes.includes("has-sub"));
-            }}
-            to={url}
-            className={classes.join(" ")}
-          >
-            {title}
-            {e.showNumberNewPosts && numberNewPosts > 0 && (
-              <small className="label blog-new">{numberNewPosts}</small>
-            )}
-          </Link>
-        )}
-        {e.children && e.children.length > 0 && (
-          <Menu
-            className={props.childClassName}
-            entries={e.children}
-            location={location}
-            onSelect={props.onSelect}
-            onActiveMenuItem={props.onActiveChildMenuItem}
-          />
-        )}
-      </li>
-    );
-  };
-
   if (props.entries && props.entries.length > 0) {
-    const activeMenuItems = props.entries.filter(e => testActive(e));
-    const activeItem =
-      activeMenuItems.length > 0
-        ? activeMenuItems[0] // in case someone messed up the menu
-        : null;
+    const activeItem = props.entries.find(e => testActive(e));
 
     return (
       <ul className={props.className}>
-        {props.entries.map(e => renderMenuItem(e, activeItem))}
+        {props.entries.map((e, index) => (
+          <MenuItem
+            key={e.url + index}
+            {...props}
+            entry={e}
+            isActive={e === activeItem}
+            onLinkClick={onLinkClick}
+            numberNewPosts={numberNewPosts}
+          />
+        ))}
       </ul>
     );
   }
   return null;
-};
+}
+
+function MenuItem(
+  props: Props & {
+    entry: Entry;
+    isActive: boolean;
+    onLinkClick: (e: Event, hasSubs: boolean) => void;
+    numberNewPosts: number;
+  }
+) {
+  const e = props.entry;
+  const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
+
+  const classes = props.menuItemClassName
+    ? props.menuItemClassName.split(" ")
+    : [];
+
+  if (props.isActive) {
+    if (props.onActiveMenuItem) {
+      props.onActiveMenuItem(e);
+    }
+
+    classes.push(props.activeClassName ? props.activeClassName : "active");
+  }
+  if (e.showSub || (e.children && e.children.length > 0)) {
+    classes.push("has-sub");
+  }
+  const title =
+    e.title ||
+    intl.formatMessage({
+      id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
+    });
+  const url = e["url:" + lang] || e["url"];
+
+  return (
+    <li
+      onClick={event => {
+        event.stopPropagation();
+        if (typeof props.onSelect === "function") {
+          props.onSelect(e);
+        }
+      }}
+    >
+      {url.match("^http(s)?://") ? (
+        <a href={url} rel="noopener noreferrer" target="_blank">
+          {title}
+        </a>
+      ) : (
+        <Link
+          onTouchStart={() => {
+            if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
+          }}
+          onClick={e => {
+            props.onLinkClick(e, classes.includes("has-sub"));
+          }}
+          to={url}
+          className={classes.join(" ")}
+        >
+          {title}
+          {e.showNumberNewPosts && props.numberNewPosts > 0 && (
+            <small className="label blog-new">{props.numberNewPosts}</small>
+          )}
+        </Link>
+      )}
+      {e.children && e.children.length > 0 && (
+        <Menu
+          className={props.childClassName}
+          entries={e.children}
+          onSelect={props.onSelect}
+          onActiveMenuItem={props.onActiveChildMenuItem}
+        />
+      )}
+    </li>
+  );
+}
 
 export default Menu;

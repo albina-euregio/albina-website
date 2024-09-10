@@ -9,16 +9,35 @@
 
 .section-header {
   .marginal {
+    display: flex;
+    flex-direction: column;
+
     margin: 0;
-    @include font-heavy;
-    font-size: $micro-font-size; //$body-font-size-micro;
+    // @include font-heavy;
+    font-size: $micro-font-size;
     @include letter-spacing;
+
     @media #{$medium-up} {
       position: absolute;
       top: 0;
       right: 0;
       max-width: 50%;
       text-align: right;
+      align-items: end;
+    }
+
+    .text-icon {
+      display: flex;
+      gap: 0.25em;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 0 0 -0.25em;
+      }
     }
   }
   .subheader {
@@ -51,11 +70,13 @@
     padding-top: ($medium-v-padding * 0.5) !important;
     padding-bottom: ($medium-v-padding * 0.5) !important;
   }
-  .bulletin-datetime-publishing {
+
+  .bulletin-datetime-release {
+  }
+  .bulletin-datetime-update {
+    color: $warning-color;
   }
   .bulletin-datetime-validity {
-    //from alien app.scss
-    @include rollout;
   }
 
   .subheadern,
@@ -73,22 +94,22 @@
   }
 
   //from alien app.scss
-  &.loading {
-    .bulletin-datetime-validity {
-      opacity: 0.5;
-    }
-  }
+  // &.loading {
+  //   .bulletin-datetime-validity {
+  //     opacity: 0.5;
+  //   }
+  // }
 
-  &.bulletin-updated {
-    .bulletin-datetime-publishing {
-      color: $warning-color;
-    }
-  }
-  &.bulletin-archive {
-    .bulletin-datetime-validity {
-      color: $text-color;
-    }
-  }
+  // &.bulletin-updated {
+  //   .bulletin-datetime-update {
+  //     color: $warning-color;
+  //   }
+  // }
+  // &.bulletin-archive {
+  //   .bulletin-datetime-validity {
+  //     color: $text-color;
+  //   }
+  // }
 }
 
 ul.bulletin-flipper {
@@ -152,7 +173,7 @@ ul.bulletin-flipper {
         color: $anchor-font-color;
         @include rollout;
       }
-      
+
       &:hover {
         &:before {
           color: $anchor-font-color-hover;
@@ -212,10 +233,3 @@ ul.bulletin-flipper {
     }
   }
 }
-
-//from alien app.scss
-// @media only screen and (min-width: 64em) {
-//   .page-headline header {
-//     padding: 0 25px;
-//   }
-// }

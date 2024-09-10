@@ -32,9 +32,9 @@ function BulletinLegend(props: Props) {
                 id="bulletin:legend:highlight-regions"
                 html={true}
                 values={{
-                  strong: msg => <strong>{msg}</strong>,
+                  strong: msg => <strong key={"strong"}>{msg}</strong>,
                   a: msg => (
-                    <Link to="/education/avalanche-problems">
+                    <Link key={"a"} to="/education/avalanche-problems">
                       <strong>{msg}</strong>
                     </Link>
                   )
@@ -80,4 +80,5 @@ function BulletinLegend(props: Props) {
     </section>
   );
 }
+
 export default BulletinLegend;

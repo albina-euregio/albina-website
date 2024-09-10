@@ -7,4 +7,4 @@ export const avalancheProblems = Object.freeze([
   "favourable_situation",
   "cornices",
   "no_distinct_problem"
-]);
+] as const);
