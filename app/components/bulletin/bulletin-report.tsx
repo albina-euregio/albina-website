@@ -136,52 +136,61 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
       >
         <div className={classes}>
           <header className="bulletin-report-header">
-            {isInserted && (
-              <button
-                type="button"
-                className="bulletin-report-header-diff"
-                onClick={() => setShowDiff(d => (d + 1) % 3)}
-              >
-                <BulletinStatusLine status="ok" bulletin={bulletin} />
-                {showDiff == 2 && <span className="icon icon-update"></span>}
-                {showDiff == 1 && <span className="icon icon-release"></span>}
-              </button>
-            )}
-            <p className="bulletin-report-header-meta">
-              <span>
-                <FormattedMessage
-                  id="bulletin:report:headline"
-                  html={true}
-                  values={{
-                    strong: (...msg) => <strong>{msg}</strong>,
-                    date: intl.formatDate(date, LONG_DATE_FORMAT),
-                    daytime: ""
-                  }}
-                />
-              </span>
-            </p>
-            <h1 className="bulletin-report-header-danger-level">
-              <span>
-                <FormattedMessage
-                  id={
-                    getWarnlevelNumber(maxWarnlevel) == 0
-                      ? "bulletin:report:headline2:level0"
-                      : "bulletin:report:headline2"
-                  }
-                  values={{
-                    number: getWarnlevelNumber(maxWarnlevel),
-                    text: intl.formatMessage({
-                      id: "danger-level:" + maxWarnlevel
-                    })
-                  }}
-                />
-              </span>
-            </h1>
-            <SynthesizedBulletin
-              date={date}
-              bulletin={bulletin}
-            ></SynthesizedBulletin>
+            <div>
+              {isInserted && (
+                <button
+                  type="button"
+                  className="bulletin-report-header-diff"
+                  onClick={() => setShowDiff(d => (d + 1) % 3)}
+                >
+                  <BulletinStatusLine status="ok" bulletin={bulletin} />
+                  {showDiff == 2 && <span className="icon icon-update"></span>}
+                  {showDiff == 1 && <span className="icon icon-release"></span>}
+                </button>
+              )}
+              <p className="bulletin-report-header-meta">
+                <span>
+                  <FormattedMessage
+                    id="bulletin:report:headline"
+                    html={true}
+                    values={{
+                      strong: (...msg) => <strong>{msg}</strong>,
+                      date: intl.formatDate(date, LONG_DATE_FORMAT),
+                      daytime: ""
+                    }}
+                  />
+                </span>
+              </p>
+              <h1 className="bulletin-report-header-danger-level">
+                <span>
+                  <FormattedMessage
+                    id={
+                      getWarnlevelNumber(maxWarnlevel) == 0
+                        ? "bulletin:report:headline2:level0"
+                        : "bulletin:report:headline2"
+                    }
+                    values={{
+                      number: getWarnlevelNumber(maxWarnlevel),
+                      text: intl.formatMessage({
+                        id: "danger-level:" + maxWarnlevel
+                      })
+                    }}
+                  />
+                </span>
+              </h1>
+              <SynthesizedBulletin
+                date={date}
+                bulletin={bulletin}
+              ></SynthesizedBulletin>
+            </div>
+
+            <div>
+              <ul className="list-inline list-buttongroup bulletin-report-header-download">
+                <li>PDF-Download</li>
+              </ul>
+            </div>
           </header>
+
           {hasDaytimeDependency(bulletin) ? (
             [
               <BulletinDaytimeReport
