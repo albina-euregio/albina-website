@@ -513,6 +513,17 @@ const WeatherMapCockpit = ({
   firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
   const finalTime = timeArray?.[timeArray.length - 1];
   const imgRoot = `${window.config.projectRoot}images/pro/`;
+
+  const initialDate = new Date();
+  //subtract 10 days from the current date and store in startDate variable
+  const startDate = new Date(initialDate);
+  startDate.setDate(startDate.getDate() - 10);
+  // set time to 6:0 am
+  startDate.setUTCHours(0, 0, 0, 0);
+  const endDate = new Date(initialDate);
+  endDate.setDate(endDate.getDate() + 10);
+  endDate.setUTCHours(0, 0, 0, 0);
+
   return (
     <div
       role="button"
@@ -541,13 +552,11 @@ const WeatherMapCockpit = ({
           {currentTime && firstHour && (
             <Timeline
               timeSpan={timeSpan}
-              currentTime={currentTime}
-              forecastTime={currentTime}
+              initialDate={initialDate}
+              startDate={startDate}
+              endDate={endDate}
               firstHour={firstHour?.getTime()}
-              finalTime={finalTime}
-              changeCurrentTime={changeCurrentTime}
               updateCB={onTimelineUpdate}
-              showTimes={showTimes}
               setPreviousTime={setPreviousTime}
               setNextTime={setNextTime}
               onDragStart={onDragStart}

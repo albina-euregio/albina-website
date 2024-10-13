@@ -1,328 +1,463 @@
 import React, { useEffect, useState, useRef } from "react";
-import $ from "jquery";
 import { FormattedDate } from "../../i18n";
-import { isSameDay } from "../../util/date";
-import Dragger from "./dragger.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 
-const offsetHours = 24 * 14;
-
 const Timeline = ({
-  timeSpan,
-  currentTime, // set time for now
-  firstHour, // from when is data available
-  forecastTime, // from when is forecast available
-  finalTime, // last available time
-  setPreviousTime,
-  setNextTime,
-  changeCurrentTime,
-  showTimes,
-  onDragStart,
+  initialDate = new Date(),
+  firstHour = 0,
+  timeSpan = 6,
+  startTime,
+  endTime,
+  markerPosition = "left",
+  showBar = false, // Toggle the bar visibility
+  barDuration = 24, // Bar duration in hours
+  barDirection = "future", // New prop: 'past' or 'future'
   updateCB
 }) => {
-  console.log("Timeline ##77", {
-    timeSpan,
-    finalTime,
-    currentTime,
-    firstHour,
-    forecastTime,
-    setPreviousTime,
-    changeCurrentTime,
-    setNextTime,
-    showTimes,
-    onDragStart,
-    updateCB
-  });
-  //const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+  const containerRef = useRef(null);
+  const rulerRef = useRef(null);
+  const [currentDate, setCurrentDate] = useState(new Date(initialDate));
+  const [currentTranslateX, setCurrentTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startTranslateX, setStartTranslateX] = useState(0);
+  const [rulerStartDay, setRulerStartDay] = useState(-10);
+  const [rulerEndDay, setRulerEndDay] = useState(10);
+  const [maxStartDay, setMaxStartDay] = useState(-30);
+  const [maxEndDay, setMaxEndDay] = useState(30);
+  const [indicatorPosition, setIndicatorPosition] = useState("50%");
+  const [barWidth, setBarWidth] = useState(0);
+  const [barOffset, setBarOffset] = useState(0); // New state for bar offset
 
-  const daysContainer = useRef();
-  const [nrOnlyTimespan, setNrOnlyTimespan] = useState(null);
-  const [draggerCoordinates, setDraggerCoordinates] = useState({ x: 0, y: 0 });
-  const [firstTime, setFirstTime] = useState(null);
-  const [lastTime, setLastTime] = useState(null);
+  const hoursPerDay = 24;
+  const pixelsPerHour = 5;
+  const daysBuild = 10;
+
+  const now = new Date();
+  const startOfDay = new Date(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate()
+  );
 
   useEffect(() => {
-    setNrOnlyTimespan(parseInt(timeSpan.replace(/\D/g, ""), 10));
-  }, [timeSpan]);
+    setMaxStartDay(
+      startTime
+        ? Math.floor(differenceInHours(startTime, now) / hoursPerDay)
+        : -30
+    );
+    setMaxEndDay(
+      endTime ? Math.floor(differenceInHours(endTime, now) / hoursPerDay) : 30
+    );
+  }, [startTime, endTime, now]);
 
   useEffect(() => {
-    const startTime = new Date();
-    startTime.setUTCHours(0, 0, 0, 0);
-    const lastTime = new Date(finalTime);
-    lastTime.setUTCHours(0, 0, 0, 0);
-    startTime.setUTCHours(startTime.getUTCHours() - offsetHours);
-    lastTime.setUTCHours(startTime.getUTCHours() + nrOnlyTimespan);
+    if (containerRef.current) {
+      const initial = new Date(initialDate);
+      const initialFullHour = new Date(
+        initial.getUTCFullYear(),
+        initial.getUTCMonth(),
+        initial.getUTCDate(),
+        initial.getUTCHours()
+      );
+      const initialOffsetHours = differenceInHours(initialFullHour, startOfDay);
 
-    setFirstTime(startTime);
-    setLastTime(lastTime);
-  }, [firstHour, timeSpan]);
+      let initialTranslateX;
+      let newIndicatorPosition;
 
-  const getDay = (firstHourOfDay, hours) => {
-    //console.log("getDay ##78", {firstHourOfDay, first: hours?.[0]});
-    return (
+      switch (markerPosition) {
+        case "left":
+          initialTranslateX =
+            -initialOffsetHours * pixelsPerHour +
+            containerRef.current.clientWidth * 0.25;
+          newIndicatorPosition = "25%";
+          break;
+        case "right":
+          initialTranslateX =
+            -initialOffsetHours * pixelsPerHour +
+            containerRef.current.clientWidth * 0.75;
+          newIndicatorPosition = "75%";
+          break;
+        case "center":
+        default:
+          initialTranslateX =
+            -initialOffsetHours * pixelsPerHour +
+            containerRef.current.clientWidth * 0.5;
+          newIndicatorPosition = "50%";
+      }
+
+      updateTimelinePosition(initialTranslateX, true);
+      setCurrentDate(initialFullHour);
+      setIndicatorPosition(newIndicatorPosition);
+    }
+  }, [initialDate, firstHour, timeSpan, markerPosition]);
+
+  useEffect(() => {
+    if (showBar) {
+      updateBarDimensions();
+    }
+  }, [showBar, barDuration, barDirection, containerRef.current]);
+
+  const jumpStep = direction => {
+    const newDate = new Date(currentDate);
+    newDate.setHours(newDate.getHours() + direction * timeSpan);
+    jumpToDate(newDate);
+  };
+
+  const createRulerMarkings = () => {
+    const markings = [];
+    console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
+
+    for (let day = rulerStartDay; day <= rulerEndDay; day++) {
+      for (let hour = 0; hour < hoursPerDay; hour++) {
+        const markDate = addHours(addDays(startOfDay, day), hour);
+        const totalHours = day * hoursPerDay + hour;
+        const isSelectable =
+          (hour - firstHour) % timeSpan === 0 && hour >= firstHour;
+        const markClass =
+          hour === 0
+            ? "day-mark"
+            : isSelectable
+              ? "selectable-hour-mark"
+              : "hour-mark";
+
+        markings.push(
+          <div
+            key={`${day}-${hour}`}
+            className={`absolute bottom-0 ruler-mark ${markClass}`}
+            style={{
+              left: `${totalHours * pixelsPerHour}px`,
+              height: hour === 0 ? "100%" : isSelectable ? "75%" : "50%",
+              width: hour === 0 ? "2px" : "1px",
+              backgroundColor:
+                hour === 0 ? "#333" : isSelectable ? "#666" : "#888"
+            }}
+            data-date={markDate.toISOString()}
+            data-hours={totalHours}
+          >
+            {hour === 0 && (
+              <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap">
+                {formatDate(markDate)}
+              </span>
+            )}
+            {isSelectable && (
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap">
+                {formatHour(markDate)}
+              </span>
+            )}
+          </div>
+        );
+      }
+    }
+    return markings;
+  };
+
+  const updateTimelinePosition = (newTranslateX, snap) => {
+    if (snap) {
+      const snapToHours = timeSpan * pixelsPerHour;
+      newTranslateX = Math.round(newTranslateX / snapToHours) * snapToHours;
+    }
+    setCurrentTranslateX(newTranslateX);
+
+    const rulerOffset =
+      -newTranslateX +
+      (containerRef.current.clientWidth * parseFloat(indicatorPosition)) / 100;
+    rulerRef.current.style.transform = `translateX(${rulerOffset}px)`;
+
+    const newVisibleMiddledDay = Math.ceil(
+      (-rulerOffset +
+        (containerRef.current.clientWidth * parseFloat(indicatorPosition)) /
+          100) /
+        (pixelsPerHour * hoursPerDay)
+    );
+
+    setRulerStartDay(Math.max(maxStartDay, newVisibleMiddledDay - daysBuild));
+    setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
+  };
+
+  const updateBarDimensions = () => {
+    const barWidthPixels = barDuration * pixelsPerHour;
+    setBarWidth(barWidthPixels);
+
+    if (barDirection === "past") {
+      setBarOffset(-barWidthPixels);
+    } else {
+      setBarOffset(0);
+    }
+  };
+
+  const handleMouseDown = e => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setStartTranslateX(currentTranslateX);
+    rulerRef.current.style.transition = "none";
+  };
+
+  const handleMouseMove = e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.clientX;
+    const walk = startX - x;
+    const newTranslateX = startTranslateX + walk;
+    updateTimelinePosition(newTranslateX, false);
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      rulerRef.current.style.transition = "transform 0.3s ease";
+      snapToNearestMarker();
+    }
+  };
+
+  const snapToNearestMarker = () => {
+    const indicatorRect = document
+      .getElementById("indicator")
+      .getBoundingClientRect();
+    const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
+
+    const markers = rulerRef.current.querySelectorAll(
+      ".selectable-hour-mark, .day-mark"
+    );
+    let nearestMarker = null;
+    let minDistance = Infinity;
+
+    markers.forEach(marker => {
+      const markerRect = marker.getBoundingClientRect();
+      const markerCenterX = markerRect.left + markerRect.width / 2;
+      const distance = Math.abs(markerCenterX - indicatorCenterX);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestMarker = marker;
+      }
+    });
+
+    if (nearestMarker) {
+      const markerDate = new Date(nearestMarker.dataset.date);
+      snapToDate(markerDate);
+    }
+  };
+
+  const snapToDate = targetDate => {
+    // Adjust targetDate to the nearest valid hour based on firstHour and timeSpan
+    const hours = targetDate.getUTCHours();
+    const adjustedHours =
+      Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
+    targetDate.setUTCHours(adjustedHours, 0, 0, 0);
+
+    const targetMarker = document.querySelectorAll(
+      `[data-date*="${targetDate.toISOString()}"]`
+    );
+    const indicatorRect = document
+      .getElementById("indicator")
+      .getBoundingClientRect();
+    const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
+    const markerRect = targetMarker?.[0]?.getBoundingClientRect();
+    const markerCenterX = markerRect.left;
+    const distanceToMove = markerCenterX - indicatorCenterX;
+
+    const newTranslateX = currentTranslateX + Math.round(distanceToMove);
+
+    updateTimelinePosition(newTranslateX, true);
+    setCurrentDate(targetDate);
+  };
+
+  const jumpToDate = targetDate => {
+    // Adjust targetDate to the nearest valid hour based on firstHour and timeSpan
+    const hours = targetDate.getUTCHours();
+    const adjustedHours =
+      Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
+    targetDate.setUTCHours(adjustedHours, 0, 0, 0);
+
+    const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
+    const targetTranslateX =
+      -(timeDifferenceInHours * pixelsPerHour) +
+      containerRef.current.clientWidth / 2;
+
+    const targetDay = Math.floor(timeDifferenceInHours / 24);
+    if (targetDay < rulerStartDay) {
+      setRulerStartDay(Math.min(rulerStartDay, targetDay - 7));
+    }
+    if (targetDay > rulerEndDay) {
+      setRulerEndDay(Math.max(rulerEndDay, targetDay + 7));
+    }
+    rulerRef.current.style.transition = "transform 0.5s ease";
+
+    setTimeout(() => {
+      snapToDate(targetDate);
+    }, 100);
+  };
+
+  const getDisplayDate = () => {
+    return formatDateTime(currentDate);
+  };
+
+  const getSelectedTime = () => {
+    return formatTime(currentDate);
+  };
+
+  const getCurrentTime = () => {
+    const offsetHours = differenceInHours(currentDate, now);
+    const offsetDays = Math.floor(Math.abs(offsetHours) / 24);
+    const remainingHours = Math.abs(offsetHours) % 24;
+    const timeDirection = offsetHours <= 0 ? "Past" : "Future";
+    return `${timeDirection}: ${offsetDays}d ${Math.floor(remainingHours)}h`;
+  };
+
+  const addDays = (date, days) => {
+    const result = new Date(date);
+    result.setUTCDate(result.getUTCDate() + days);
+    return result;
+  };
+
+  const addHours = (date, hours) => {
+    return new Date(date.getTime() + Math.round(hours) * 60 * 60 * 1000);
+  };
+
+  const differenceInHours = (dateLeft, dateRight) => {
+    return (dateLeft - dateRight) / (1000 * 60 * 60);
+  };
+
+  const formatDate = date => {
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  };
+
+  const formatHour = date => {
+    return date.getHours().toString().padStart(2, "0");
+  };
+
+  const formatTime = date => {
+    return date.toLocaleTimeString();
+  };
+
+  const formatDateTime = date => {
+    return date.toLocaleString();
+  };
+  console.log("Timeline #01", { startTime, endTime, maxStartDay, maxEndDay });
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "56rem",
+        margin: "0 auto"
+      }}
+    >
+      {/* <div style={{marginBottom: '1rem'}}>
+        <input
+          type="datetime-local"
+          onChange={(e) => jumpToDate(new Date(e.target.value))}
+          style={{
+            border: '1px solid #ccc',
+            borderRadius: '0.25rem',
+            padding: '0.25rem 0.5rem'
+          }}
+          min={startTime || "2022-10-01T00:00"}
+          max={endTime || "2025-10-01T00:00"}
+        />
+        <button
+          onClick={() => jumpToDate(new Date())}
+          style={{
+            marginLeft: '0.5rem',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            padding: '0.25rem 0.75rem',
+            borderRadius: '0.25rem'
+          }}
+        >
+          Jump to Now
+        </button>
+      </div> */}
       <div
-        className={
-          currentTime &&
-          isSameDay(new Date(hours?.[hours?.length - 1]), new Date())
-            ? "cp-scale-day cp-scale-day-today"
-            : "cp-scale-day "
-        }
-        key={firstHourOfDay.getTime()}
+        ref={containerRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        style={{
+          position: "relative",
+          height: "100%",
+          backgroundColor: "#e5e7eb",
+          borderRadius: "0.375rem",
+          userSelect: "none",
+          overflow: "hidden"
+        }}
       >
-        <span className="cp-scale-day-name">
-          <a
-            role="button"
-            tabIndex="0"
-            data-first-hour={firstHourOfDay}
-            onClick={() => {
-              changeCurrentTime(firstHourOfDay);
+        <div style={{ width: "100%", height: "2em", position: "relative" }}>
+          <div
+            ref={rulerRef}
+            id="ruler"
+            style={{
+              height: "100%",
+              position: "absolute",
+              left: "0",
+              top: "0",
+              transition: "transform 0.3s ease-in-out"
             }}
           >
-            <FormattedDate
-              date={firstHourOfDay}
-              options={{
-                weekday: "short",
-                day: "numeric",
-                month: "numeric"
+            {createRulerMarkings()}
+          </div>
+          {showBar && (
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                height: "100%",
+                backgroundColor: "rgba(253, 230, 138, 0.5)",
+                zIndex: "5",
+                left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                width: `${barWidth}px`,
+                transform: "translateX(-1px)"
               }}
-            />
-          </a>
-        </span>
-        <div key="cp-scale-hours" className="cp-scale-hours">
-          {hours}
-        </div>
-      </div>
-    );
-  };
-
-  const getTimeline = () => {
-    const lastTime = new Date(finalTime);
-    let days = [];
-    let hours = [];
-    const currentHour = new Date(firstTime);
-
-    console.log("getTimeline ##78", { currentHour });
-    let weekday = currentHour.getDay();
-    while (currentHour < lastTime) {
-      //console.log("getTimeline ##78-1", {weekday, currWeekday: currentHour.getDay()});
-      if (weekday != currentHour.getDay()) {
-        const firstHourOfDay = new Date(currentHour);
-        firstHourOfDay.setUTCHours(0, 0, 0, 0);
-        firstHourOfDay.setUTCHours(firstHourOfDay.getUTCHours() - 24);
-        days.push(getDay(firstHourOfDay, hours));
-        hours = [];
-      }
-      weekday = currentHour.getDay();
-      let isSelectable = true; // todo: fix
-
-      let spanClass = [
-        "cp-scale-hour-" + currentHour.getUTCHours(),
-        "t" + currentHour
-      ];
-      if (currentHour < forecastTime) spanClass.push("cp-analyse-item");
-      // console.log("getTimeline ##78-1", {currentHour});
-      hours.push(
-        <span
-          key={currentHour}
-          className={spanClass.join(" ")}
-          data-timestamp={currentHour}
-          data-selectable={isSelectable}
-          data-time={currentHour}
-        ></span>
-      );
-      currentHour.setUTCHours(currentHour.getUTCHours() + 1);
-    }
-
-    let classes = ["cp-scale-days"];
-    return (
-      <div ref={daysContainer} key="days" className={classes.join(" ")}>
-        {days}
-      </div>
-    );
-  };
-
-  const setClosestTick = x => {
-    let closestTime = getClosestTick(x);
-    let newLeft;
-    //closestTime = this.getTimeStart(closestTime).getTime();
-    //debugger;
-    // console.log("setClosestTick hhhh", {
-    //   //draggerWidth: $('#dragger').width(),
-    //   x,
-    //   closest: new Date(closestTime).toUTCString(),
-    //   current: new Date(this.props.currentTime).toUTCString()
-    // //new Date(this.getTimeStart(closestTime)).toUTCString()
-    // });
-    //console.log("setClosestTick hhhh #1", {closestTime, currentTime});
-    // place back to origin
-    //if (closestTime === currentTime) {
-
-    showTimes(true);
-    newLeft = getLeftForTime(closestTime) - tickWidth * nrOnlyTimespan;
-    //console.log("setClosestTick s04 #2", { x, newLeft });
-    setDraggerCoordinates({ x: newLeft, y: 0 });
-    //}
-
-    try {
-      //console.log("setClosestTick hhhh1 closestTime:", new Date(closestTime).toUTCString(), newLeft);
-
-      if (closestTime) changeCurrentTime(closestTime);
-    } catch (e) {
-      // Anweisungen für jeden Fehler
-      console.error(e); // Fehler-Objekt an die Error-Funktion geben
-    }
-  };
-
-  const getDragger = () => {
-    let parts = [];
-
-    if (currentTime) {
-      // console.log(
-      //   "weathermapcockpit->gettimeline s03",
-      //   currentTime,
-      //   draggerCoordinates
-      // );
-      const dragSettings = {
-        // onDragEnd: x => { // todo: fix
-        //   setClosestTick(x + $("#dragger").width());
-        // },
-        onDrag: onDragStart,
-        parent: ".cp-scale-stamp",
-        coordinates: draggerCoordinates,
-        classes: []
-      };
-
-      // console.log("getDragger s03", {
-      //   tickWidth: tickWidth(),
-      //   nrOnlyTimespan,
-      //   draggerCoordinates
-      // });
-      parts.push(
-        <div key="cp-scale-stamp" className="cp-scale-stamp">
-          {nrOnlyTimespan !== 1 && (
-            <Dragger {...dragSettings}>
-              <div
-                id="dragger"
-                key="scale-stamp-range"
-                style={{
-                  left: 0,
-                  width: 1 * nrOnlyTimespan // todo: fix
-                }}
-                className="cp-scale-stamp-range js-active"
-              >
-                <span
-                  key="cp-scale-stamp-range-bar"
-                  className="cp-scale-stamp-range-bar"
-                ></span>
-                <span
-                  key="cp-scale-stamp-range-begin"
-                  className="cp-scale-stamp-range-begin"
-                >
-                  <FormattedDate
-                    date={currentTime} // todo: fix
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-                <span
-                  key="cp-scale-stamp-range-end"
-                  className="cp-scale-stamp-range-end"
-                >
-                  <FormattedDate
-                    date={currentTime}
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-              </div>
-            </Dragger>
-          )}
-          {nrOnlyTimespan === 1 && (
-            <Dragger {...dragSettings}>
-              <div
-                id="dragger"
-                style={{ left: tickWidth }}
-                key="scale-stamp-point"
-                className="cp-scale-stamp-point js-active"
-              >
-                <span
-                  key="cp-scale-stamp-point-arrow"
-                  className="cp-scale-stamp-point-arrow"
-                ></span>
-                <span
-                  key="cp-scale-stamp-point-exact"
-                  className="cp-scale-stamp-point-exact"
-                >
-                  <FormattedDate
-                    date={currentTime}
-                    options={{ timeStyle: "short" }}
-                  />
-                </span>
-              </div>
-            </Dragger>
+            ></div>
           )}
         </div>
-      );
-    }
-
-    return (
-      <div key="cp-scale" className="cp-scale">
-        {parts}
-        <div key="flipper" className="cp-scale-flipper">
-          <Tooltip
-            key="cockpit-flipper-prev"
-            label={
-              <FormattedMessage id="weathermap:cockpit:flipper:previous" />
-            }
-          >
-            <a
-              role="button"
-              tabIndex="0"
-              href="#"
-              onClick={() => setPreviousTime()}
-              key="arrow-left"
-              className="cp-scale-flipper-left icon-arrow-left "
-            >
-              <span className="is-visually-hidden">
-                {<FormattedMessage id="weathermap:cockpit:flipper:previous" />}
-              </span>
-            </a>
-          </Tooltip>
-          <Tooltip
-            key="cockpit-flipper-next"
-            label={<FormattedMessage id="weathermap:cockpit:flipper:next" />}
-          >
-            <a
-              role="button"
-              tabIndex="0"
-              href="#"
-              onClick={() => setNextTime()}
-              key="arrow-right"
-              className="cp-scale-flipper-right icon-arrow-right "
-            >
-              <span className="is-visually-hidden">
-                {<FormattedMessage id="weathermap:cockpit:flipper:next" />}
-              </span>
-            </a>
-          </Tooltip>
-        </div>
-
-        {firstTime && lastTime && getTimeline()}
-
-        <div key="analyse-forecast" className="cp-scale-analyse-forecast">
-          <span
-            key="cp-scale-analyse-bar"
-            className="cp-scale-analyse-bar"
-          ></span>
-          <span
-            key="cp-scale-forecast-bar"
-            className="cp-scale-forecast-bar"
-          ></span>
+        <div
+          id="indicator"
+          style={{
+            position: "absolute",
+            top: "0",
+            width: "0.125rem",
+            height: "100%",
+            backgroundColor: "#3b82f6",
+            pointerEvents: "none",
+            zIndex: "10",
+            left: indicatorPosition,
+            transform: "translateX(-50%)"
+          }}
+        ></div>
+        <div
+          style={{
+            position: "absolute",
+            top: "-2rem",
+            backgroundColor: "#3b82f6",
+            color: "white",
+            padding: "0.25rem 0.5rem",
+            borderRadius: "0.25rem",
+            fontSize: "0.875rem",
+            zIndex: "20",
+            left: indicatorPosition,
+            transform: "translateX(-50%)"
+          }}
+        >
+          {getSelectedTime()}
         </div>
       </div>
-    );
-  };
-
-  return getDragger();
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "1.25rem",
+          fontSize: "1.125rem",
+          fontWeight: "600"
+        }}
+      >
+        <button onClick={() => jumpStep(-1)}>Previous</button>{" "}
+        {getDisplayDate()} <button onClick={() => jumpStep(1)}>Forward</button>
+      </div>
+    </div>
+  );
 };
 
 export default Timeline;
