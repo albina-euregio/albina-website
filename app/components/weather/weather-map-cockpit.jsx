@@ -93,103 +93,107 @@ const WeatherMapCockpit = ({
     });
   };
 
-  const placeCockpitItems = tickWidth => {
-    // console.log(
-    //   "placeCockpitItems: s04",
-    //   currentTime,
-    //   tickWidth
-    // );
-    const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
-    const startDateTime = new Date(timeArray[0]);
-    startDateTime.setUTCHours(
-      startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
-    );
-    if (currentTime && startDateTime) {
-      const posContainerEl = document.querySelector(".cp-scale-days");
-      const posContainer = posContainerEl.getBoundingClientRect();
+  // const placeCockpitItems = tickWidth => {
+  //   // console.log(
+  //   //   "placeCockpitItems: s04",
+  //   //   currentTime,
+  //   //   tickWidth
+  //   // );
+  //   const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
+  //   const startDateTime = new Date(timeArray[0]);
+  //   startDateTime.setUTCHours(
+  //     startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
+  //   );
+  //   if (currentTime && startDateTime) {
+  //     const posContainerEl = document.querySelector(".cp-scale-days");
+  //     const posContainer = posContainerEl.getBoundingClientRect();
 
-      // console.log("cockpit #33", {
-      //   currTime: new Date(currentTime),
-      //   firstTimeStamp: timeArray[0],
-      //   firstTime: new Date(timeArray[0]),
-      //   firstTimeMinusTimeSpan: startDateTime,
-      //   timespan,
-      //   posContainerL: posContainer.left,
-      //   scrollx: window.scrollX
-      // });
-      const posFirstAvailableEl = document.querySelector(
-        ".t" + startDateTime.getTime()
-      );
-      if (!posFirstAvailableEl) {
-        // console.log("cockpit s044 ERROR", {
-        //   currTime: new Date(currentTime),
-        //   startDateTime: startDateTime.getTime(),
-        //   timespan
-        // });
+  //     // console.log("cockpit #33", {
+  //     //   currTime: new Date(currentTime),
+  //     //   firstTimeStamp: timeArray[0],
+  //     //   firstTime: new Date(timeArray[0]),
+  //     //   firstTimeMinusTimeSpan: startDateTime,
+  //     //   timespan,
+  //     //   posContainerL: posContainer.left,
+  //     //   scrollx: window.scrollX
+  //     // });
+  //     const posFirstAvailableEl = document.querySelector(
+  //       ".t" + startDateTime.getTime()
+  //     );
+  //     if (!posFirstAvailableEl) {
+  //       // console.log("cockpit s044 ERROR", {
+  //       //   currTime: new Date(currentTime),
+  //       //   startDateTime: startDateTime.getTime(),
+  //       //   timespan
+  //       // });
 
-        return;
-      }
-      // console.log("cockpit s044 OK", {
-      //   currTime: new Date(currentTime),
-      //   startDateTime: startDateTime.getTime(),
-      //   timespan
-      // });
-      const posFirstAvailable = posFirstAvailableEl.getBoundingClientRect();
+  //       return;
+  //     }
+  //     // console.log("cockpit s044 OK", {
+  //     //   currTime: new Date(currentTime),
+  //     //   startDateTime: startDateTime.getTime(),
+  //     //   timespan
+  //     // });
+  //     const posFirstAvailable = posFirstAvailableEl.getBoundingClientRect();
 
-      const posLastEl = document.querySelector(
-        ".t" + timeArray[timeArray.length - 1]
-      );
-      const posLast = posLastEl.getBoundingClientRect();
+  //     const posLastEl = document.querySelector(
+  //       ".t" + timeArray[timeArray.length - 1]
+  //     );
+  //     const posLast = posLastEl.getBoundingClientRect();
 
-      //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
-      showTimes(true);
-      if (timeArray.length < 2) {
-        $(".cp-scale-flipper-left").css({
-          display: "none"
-        });
-        $(".cp-scale-flipper-right").css({
-          display: "none"
-        });
-        $(".cp-movie").css({
-          display: "none"
-        });
-      } else {
-        $(".cp-scale-flipper-left").css({
-          left: posFirstAvailable?.left - posContainer.left,
-          display: ""
-        });
-        $(".cp-scale-flipper-right").css({
-          left: posLast.left - posContainer.left,
-          display: ""
-        });
-        $(".cp-movie").css({
-          display: ""
-        });
-      }
+  //     //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
+  //     showTimes(true);
+  //     if (timeArray.length < 2) {
+  //       $(".cp-scale-flipper-left").css({
+  //         display: "none"
+  //       });
+  //       $(".cp-scale-flipper-right").css({
+  //         display: "none"
+  //       });
+  //       $(".cp-movie").css({
+  //         display: "none"
+  //       });
+  //     } else {
+  //       $(".cp-scale-flipper-left").css({
+  //         left: posFirstAvailable?.left - posContainer.left,
+  //         display: ""
+  //       });
+  //       $(".cp-scale-flipper-right").css({
+  //         left: posLast.left - posContainer.left,
+  //         display: ""
+  //       });
+  //       $(".cp-movie").css({
+  //         display: ""
+  //       });
+  //     }
 
-      if (lastAnalyticTime) {
-        const lastAnalyticTimeCompEl = document.querySelector(
-          ".t" + lastAnalyticTime
-        );
-        const lastAnalyticTimeComp =
-          lastAnalyticTimeCompEl.getBoundingClientRect();
-        $(".cp-scale-analyse-bar").css({
-          left: posFirstAvailable?.left - posContainer.left,
-          width:
-            lastAnalyticTimeComp?.left - posFirstAvailable?.left - tickWidth,
-          display: ""
-        });
-      } else
-        $(".cp-scale-analyse-bar").css({
-          display: "none"
-        });
-    }
-  };
+  //     if (lastAnalyticTime) {
+  //       const lastAnalyticTimeCompEl = document.querySelector(
+  //         ".t" + lastAnalyticTime
+  //       );
+  //       const lastAnalyticTimeComp =
+  //         lastAnalyticTimeCompEl.getBoundingClientRect();
+  //       $(".cp-scale-analyse-bar").css({
+  //         left: posFirstAvailable?.left - posContainer.left,
+  //         width:
+  //           lastAnalyticTimeComp?.left - posFirstAvailable?.left - tickWidth,
+  //         display: ""
+  //       });
+  //     } else
+  //       $(".cp-scale-analyse-bar").css({
+  //         display: "none"
+  //       });
+  //   }
+  // };
 
-  const onTimelineUpdate = ({ tickWidth }) => {
-    //console.log("onTimelineUpdate s04", tickWidth);
+  // const onTimelineUpdate = ({ tickWidth }) => {
+  //   //console.log("onTimelineUpdate s04", tickWidth);
 
-    placeCockpitItems(tickWidth);
+  //   placeCockpitItems(tickWidth);
+  // };
+
+  const onTimelineUpdate = newTime => {
+    console.log("onTimelineUpdate ##aa1", newTime);
   };
 
   const handleEvent = (type, value) => {
@@ -551,11 +555,11 @@ const WeatherMapCockpit = ({
 
           {currentTime && firstHour && (
             <Timeline
-              timeSpan={timeSpan}
+              timeSpan={Math.abs(timeSpan)}
               initialDate={initialDate}
               startDate={startDate}
               endDate={endDate}
-              firstHour={firstHour?.getTime()}
+              firstHour={firstHour?.getUTCHours()}
               updateCB={onTimelineUpdate}
               setPreviousTime={setPreviousTime}
               setNextTime={setNextTime}

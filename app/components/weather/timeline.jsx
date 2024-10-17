@@ -107,7 +107,7 @@ const Timeline = ({
 
   const createRulerMarkings = () => {
     const markings = [];
-    console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
+    //console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -292,6 +292,7 @@ const Timeline = ({
   };
 
   const getDisplayDate = () => {
+    if (updateCB) updateCB(currentDate);
     return formatDateTime(currentDate);
   };
 
@@ -336,7 +337,15 @@ const Timeline = ({
   const formatDateTime = date => {
     return date.toLocaleString();
   };
-  console.log("Timeline #01", { startTime, endTime, maxStartDay, maxEndDay });
+
+  console.log("Timeline ##aa1", {
+    startTime,
+    endTime,
+    firstHour,
+    timeSpan,
+    maxStartDay,
+    maxEndDay
+  });
 
   return (
     <div
