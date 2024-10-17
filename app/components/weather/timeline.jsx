@@ -128,6 +128,7 @@ const Timeline = ({
             className={`absolute bottom-0 ruler-mark ${markClass}`}
             style={{
               left: `${totalHours * pixelsPerHour}px`,
+              position: "absolute",
               height: hour === 0 ? "100%" : isSelectable ? "75%" : "50%",
               width: hour === 0 ? "2px" : "1px",
               backgroundColor:
@@ -377,7 +378,6 @@ const Timeline = ({
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         style={{
-          position: "relative",
           height: "100%",
           backgroundColor: "#e5e7eb",
           borderRadius: "0.375rem",
@@ -447,10 +447,7 @@ const Timeline = ({
       </div>
       <div
         style={{
-          textAlign: "center",
-          marginTop: "1.25rem",
-          fontSize: "1.125rem",
-          fontWeight: "600"
+          textAlign: "center"
         }}
       >
         <button onClick={() => jumpStep(-1)}>Previous</button>{" "}
