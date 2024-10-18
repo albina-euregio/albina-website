@@ -341,7 +341,40 @@ const StationDiagramImage: React.FC<{
               stroke: "#064464",
               label: intl.formatMessage({
                 id: "measurements:table:header:wdir"
-              }) as string
+              }) as string,
+              axis: {
+                label: intl.formatMessage({
+                  id: "measurements:table:header:wdir"
+                }) as string,
+                splits: [0, 45, 90, 135, 180, 225, 270, 315, 360],
+                values: [
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:n"
+                  }) + " ↑",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:e"
+                  }) + " ←",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:s"
+                  }) + " ↑",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:w"
+                  }) + " →",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:n"
+                  }) + " ↑"
+                ],
+                scale: "DW"
+              },
+              scales: {
+                DW: {
+                  range: [0, 360]
+                }
+              }
             }
           ]}
           timeRangeMilli={timeRangeMilli}

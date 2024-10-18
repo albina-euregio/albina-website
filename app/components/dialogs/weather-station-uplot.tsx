@@ -43,6 +43,8 @@ type Parameter = {
   id: ParameterType;
   stroke: string;
   label: string;
+  axis?: uPlot.Axis;
+  scales?: uPlot.Scales;
 };
 
 const WeatherStationUplot: React.FC<{
@@ -91,44 +93,13 @@ const WeatherStationUplot: React.FC<{
                     });
               })
           },
-          parameters[0].id === "DW"
-            ? {
-                label: parameters[0].label,
-                splits: [0, 45, 90, 135, 180, 225, 270, 315, 360],
-                values: [
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:n"
-                  }) + " ↑",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:e"
-                  }) + " ←",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:s"
-                  }) + " ↑",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:w"
-                  }) + " →",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:n"
-                  }) + " ↑"
-                ],
-                scale: "DW"
-              }
-            : {
-                label: `${parameters[0].label} [${unit}]`,
-                labelGap: 10,
-                values: (_, vs) => vs.map(v => intl.formatNumber(v, {}))
-              }
-        ],
-        scales: {
-          DW: {
-            range: [0, 360]
+          parameters[0]?.axis ?? {
+            label: `${parameters[0].label} [${unit}]`,
+            labelGap: 10,
+            values: (_, vs) => vs.map(v => intl.formatNumber(v, {}))
           }
-        },
+        ],
+        scales: parameters[0]?.scales,
         series: [
           {
             label: "Time",
