@@ -91,14 +91,45 @@ const WeatherStationUplot: React.FC<{
                     });
               })
           },
-          {
-            label: parameters[0].label,
-            incrs: parameters[0].id === "DW" ? [90] : undefined,
-            labelGap: 10,
-            values: (_, vs) =>
-              vs.map(v => intl.formatNumber(v, {}) + " " + unit)
-          }
+          parameters[0].id === "DW"
+            ? {
+                label: parameters[0].label,
+                splits: [0, 45, 90, 135, 180, 225, 270, 315, 360],
+                values: [
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:n"
+                  }) + " ↑",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:e"
+                  }) + " ←",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:s"
+                  }) + " ↑",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:w"
+                  }) + " →",
+                  "",
+                  intl.formatMessage({
+                    id: "bulletin:report:problem:aspect:n"
+                  }) + " ↑"
+                ],
+                scale: "DW"
+              }
+            : {
+                label: parameters[0].label,
+                labelGap: 10,
+                values: (_, vs) =>
+                  vs.map(v => intl.formatNumber(v, {}) + " " + unit)
+              }
         ],
+        scales: {
+          DW: {
+            range: [0, 360]
+          }
+        },
         series: [
           {
             label: "Time",
