@@ -16,6 +16,14 @@ import WeatherStationUplot from "./weather-station-uplot";
 const ENABLE_UPLOT =
   import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
 
+function hasInteractivePlot(station: StationData | ObserverData) {
+  return (
+    ENABLE_UPLOT &&
+    station instanceof StationData &&
+    station.operator?.startsWith?.("LWD Tirol")
+  );
+}
+
 export type ObserverData = {
   geometry: {
     coordinates: number[];
@@ -202,14 +210,15 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
 };
 
 const TimeRangeButtons: React.FC<{
+  station: StationData | ObserverData;
   timeRange: TimeRange;
   setTimeRange: (timeRange: TimeRange) => void;
-}> = ({ timeRange, setTimeRange }) => {
+}> = ({ station, timeRange, setTimeRange }) => {
   const intl = useIntl();
   return (
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[]).map(key => {
-        if (key === "interactive" && !ENABLE_UPLOT) return <></>;
+        if (key === "interactive" && !hasInteractivePlot(station)) return <></>;
         const classes = ["label"];
         if (key == timeRange) classes.push("js-active");
         return (
@@ -241,11 +250,7 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
-  if (
-    timeRange === "interactive" &&
-    station instanceof StationData &&
-    station.operator?.startsWith?.("LWD Tirol")
-  ) {
+  if (timeRange === "interactive" && hasInteractivePlot(station)) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const width = document.body.clientWidth * 0.85;
@@ -454,6 +459,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
+  if (timeRange === "interactive" && !hasInteractivePlot(station)) {
+    setTimeRange("threedays");
+  }
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
   const [microRegionId] =
@@ -502,6 +510,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             {isStation && <MeasurementValues stationData={station} />}
             {isStation && (
               <TimeRangeButtons
+                station={station}
                 timeRange={timeRange}
                 setTimeRange={timeRange => setTimeRange(timeRange)}
               />
