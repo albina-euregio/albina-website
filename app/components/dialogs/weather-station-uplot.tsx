@@ -119,10 +119,9 @@ const WeatherStationUplot: React.FC<{
                 scale: "DW"
               }
             : {
-                label: parameters[0].label,
+                label: `${parameters[0].label} [${unit}]`,
                 labelGap: 10,
-                values: (_, vs) =>
-                  vs.map(v => intl.formatNumber(v, {}) + " " + unit)
+                values: (_, vs) => vs.map(v => intl.formatNumber(v, {}))
               }
         ],
         scales: {
