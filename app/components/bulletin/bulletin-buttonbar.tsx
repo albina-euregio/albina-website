@@ -3,20 +3,12 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
-import DownloadPdfDialog from "../dialogs/download-pdf-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import type { BulletinCollection } from "../../stores/bulletin";
 
-type Props = {
-  activeBulletinCollection: BulletinCollection;
-};
-
-function BulletinButtonbar({ activeBulletinCollection }: Props) {
+function BulletinButtonbar() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
-  const [isPdfDialogOpen, setPdfDialogOpen] = useState(false);
-  const showPdfDialog = activeBulletinCollection?.bulletins?.length;
 
   return (
     <section
@@ -29,13 +21,6 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
           onClose={() => setSubscribeDialogOpen(false)}
         >
           <SubscribeDialog />
-        </Modal>
-      )}
-      {isPdfDialogOpen && (
-        <Modal isOpen={isPdfDialogOpen} onClose={() => setPdfDialogOpen(false)}>
-          <DownloadPdfDialog
-            activeBulletinCollection={activeBulletinCollection}
-          />
         </Modal>
       )}
 
@@ -52,28 +37,6 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
           </div>
           <div className="normal-8 grid-item">
             <ul className="list-inline bulletin-buttonbar">
-              {showPdfDialog != 0 && (
-                <li>
-                  <Tooltip
-                    label={intl.formatMessage({
-                      id: "bulletin:linkbar:pdf:hover"
-                    })}
-                  >
-                    <a
-                      href="#"
-                      onClick={e => {
-                        setPdfDialogOpen(true);
-                        e.preventDefault();
-                      }}
-                      className="pure-button"
-                    >
-                      {intl.formatMessage({
-                        id: "bulletin:linkbar:pdf"
-                      })}
-                    </a>
-                  </Tooltip>
-                </li>
-              )}
               {!config.subscribe.buttonHidden && (
                 <li>
                   <Tooltip

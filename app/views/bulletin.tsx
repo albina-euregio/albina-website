@@ -259,7 +259,7 @@ const Bulletin = ({ headless }: Props) => {
           toggleProblem={toggleProblem}
         />
       </Suspense>
-      <BulletinButtonbar activeBulletinCollection={collection} />
+      <BulletinButtonbar />
       {collection && (
         <BulletinList
           bulletins={collection.bulletinsWith170000}
