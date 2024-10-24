@@ -125,28 +125,33 @@ const Timeline = ({
         markings.push(
           <div
             key={`${day}-${hour}`}
-            className={`absolute bottom-0 ruler-mark ${markClass}`}
+            className={`ruler-mark ${markClass}`}
             style={{
-              left: `${totalHours * pixelsPerHour}px`,
-              position: "absolute",
-              height: hour === 0 ? "100%" : isSelectable ? "75%" : "50%",
-              width: hour === 0 ? "2px" : "1px",
-              backgroundColor:
-                hour === 0 ? "#333" : isSelectable ? "#666" : "#888"
+              left: `${totalHours * pixelsPerHour}px`
+              // position: "absolute",
+              // height: hour === 0 ? "100%" : isSelectable ? "75%" : "50%",
+              // width: hour === 0 ? "2px" : "1px",
+              // backgroundColor:
+              //   hour === 0 ? "#333" : isSelectable ? "#666" : "#888"
             }}
             data-date={markDate.toISOString()}
             data-hours={totalHours}
           >
             {hour === 0 && (
-              <span className="absolute top-0 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap">
+              <span
+                className="day-name"
+                style={{
+                  left: `${12 * pixelsPerHour}px`
+                }}
+              >
                 {formatDate(markDate)}
               </span>
             )}
-            {isSelectable && (
-              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap">
+            {/* {isSelectable && (
+              <span className="hour-name">
                 {formatHour(markDate)}
               </span>
-            )}
+            )} */}
           </div>
         );
       }
@@ -390,29 +395,32 @@ const Timeline = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        className="0cp-scale-days"
-        style={{
-          height: "100%",
-          backgroundColor: "#e5e7eb",
-          userSelect: "none",
-          overflow: "hidden"
-        }}
+        className="cp-scale-days-2024"
+        // style={{
+        //   height: "100%",
+        //   userSelect: "none",
+        //   overflow: "hidden"
+        // }}
       >
-        <div style={{ width: "100%", height: "2em", position: "relative" }}>
+        <div
+          className="cp-scale-days-outer"
+          // style={{ width: "100%", height: "2em", position: "relative" }}
+        >
           <div
             ref={rulerRef}
             id="ruler"
-            className=""
-            style={{
-              height: "100%",
-              position: "absolute",
-              left: "0",
-              top: "0",
-              transition: "transform 0.3s ease-in-out"
-            }}
+            className="cp-scale-days-inner"
+            // style={{
+            //   height: "100%",
+            //   position: "absolute",
+            //   left: "0",
+            //   top: "0",
+            //   transition: "transform 0.3s ease-in-out"
+            // }}
           >
             {createRulerMarkings()}
           </div>
+
           {showBar && (
             <div
               className=""

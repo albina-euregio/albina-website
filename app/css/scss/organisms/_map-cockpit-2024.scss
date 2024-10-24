@@ -19,6 +19,7 @@ $cp-range-width-2: $cp-layer-selector-width-2;
 
 $cp-timeline-height: 50px;
 $cp-scale-height: 35px;
+$cp-scale-inner-height: 25px;
 
 $cp-legend-release-height: 40px;
 $cp-legend-height: 20px;
@@ -363,79 +364,52 @@ $cp-breakpoint-3: 1024px;
 }
 
 //days
-.cp-scale-days {
-  z-index: 2;
-  position: absolute;
-  top: calc(#{$cp-timeline-height} - #{$cp-scale-height});
-  left: 0;
-  height: $cp-scale-height;
-
-  display: flex;
-  flex-wrap: nowrap;
-}
-.cp-scale-day {
+.cp-scale-days-2024 {
   position: relative;
-  width: 60px;
-  margin-right: -1px;
-
-  @media screen and (min-width: $cp-breakpoint-1) {
-    width: 90px;
-  }
-
-  @media screen and (min-width: $cp-breakpoint-2) {
-    width: 120px;
-  }
+  z-index: 2;
+  height: 100%;
+  user-select: none;
+  overflow: hidden;
 }
-.cp-scale-day-name {
+.cp-scale-days-outer {
+  position: relative;
+  top: calc(#{$cp-timeline-height} - #{$cp-scale-height});
+  height: $cp-scale-inner-height;
+}
+.cp-scale-days-inner {
+  height: 100%;
   position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
+  left: 0;
+  top: 0;
+  transition: transform ($transition-duration * 2) ease-in-out;
+}
+
+.ruler-mark {
+  position: absolute;
+  width: 1px;
+  height: 10px;
+  background-color: $grey-medium-light;
+}
+.day-mark {
+  height: 100%;
+  background-color: $grey-light;
+}
+.hour-mark {
+}
+.selectable-hour-mark {
+  background-color: $grey-light;
+}
+
+.day-name {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
   line-height: 10px;
   white-space: nowrap;
-
-  .cp-scale-day-today & {
-    @include font-bold;
-  }
-
-  a {
-    display: block;
-  }
-
-  span {
-    display: none;
-    // @media screen and (min-width: $cp-breakpoint-2) {
-    //   display: inline;
-    // }
-  }
 }
-.cp-scale-hours {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 
-  span {
-    display: block;
-    height: 10px;
-    width: 1px;
-    background-color: transparent;
-
-    @media screen and (min-width: $cp-breakpoint-1) {
-      background-color: $grey-medium-light;
-    }
-  }
-  .cp-scale-hour-0,
-  .cp-scale-hour-6,
-  .cp-scale-hour-12,
-  .cp-scale-hour-18,
-  .cp-scale-hour-24 {
-    display: block;
-    background-color: $grey-light;
-  }
-  .cp-scale-hour-0,
-  .cp-scale-hour-24 {
-    height: 25px;
-  }
+.hour-name {
 }
 
 //analyse-forecast
