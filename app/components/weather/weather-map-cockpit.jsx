@@ -541,9 +541,11 @@ const WeatherMapCockpit = ({
           {getDomainButtons()}
         </div>
       </div>
+
       <div key="cp-container-2" className="cp-container-2">
         {/* {getTickButtons()}
          */}
+
         <div key="cp-container-timeline" className="cp-container-timeline">
           <div className="cp-calendar">
             <a
@@ -569,7 +571,9 @@ const WeatherMapCockpit = ({
 
           {getPlayerButtons()}
         </div>
+
         {getTimeSpanOptions()}
+
         <div
           key="cp-containerl-legend-release"
           className="cp-container-legend-release"
@@ -577,6 +581,7 @@ const WeatherMapCockpit = ({
           {getLegend()}
           {getReleaseInfo()}
         </div>
+
         <div key="cp-copyright" className="cp-copyright">
           <Tooltip
             key="cp-copyright-tp"

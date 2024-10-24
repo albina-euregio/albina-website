@@ -349,11 +349,14 @@ const Timeline = ({
 
   return (
     <div
-      style={{
+      className="cp-scale"
+      /*
+        style={{
         width: "100%",
         maxWidth: "56rem",
         margin: "0 auto"
       }}
+      */
     >
       {/* <div style={{marginBottom: '1rem'}}>
         <input
@@ -380,16 +383,17 @@ const Timeline = ({
           Jump to Now
         </button>
       </div> */}
+
       <div
         ref={containerRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
+        className="0cp-scale-days"
         style={{
           height: "100%",
           backgroundColor: "#e5e7eb",
-          borderRadius: "0.375rem",
           userSelect: "none",
           overflow: "hidden"
         }}
@@ -398,6 +402,7 @@ const Timeline = ({
           <div
             ref={rulerRef}
             id="ruler"
+            className=""
             style={{
               height: "100%",
               position: "absolute",
@@ -410,6 +415,7 @@ const Timeline = ({
           </div>
           {showBar && (
             <div
+              className=""
               style={{
                 position: "absolute",
                 top: "0",
@@ -423,8 +429,10 @@ const Timeline = ({
             ></div>
           )}
         </div>
-        <div
+
+        {/* <div
           id="indicator"
+          className="oooo"
           style={{
             position: "absolute",
             top: "0",
@@ -436,8 +444,10 @@ const Timeline = ({
             left: indicatorPosition,
             transform: "translateX(-50%)"
           }}
-        ></div>
-        <div
+        ></div> */}
+
+        {/* <div
+          className=""
           style={{
             position: "absolute",
             top: "-2rem",
@@ -452,15 +462,54 @@ const Timeline = ({
           }}
         >
           {getSelectedTime()}
+        </div> */}
+      </div>
+
+      <div className="cp-scale-stamp">
+        <div
+          className="cp-scale-stamp-range 0js-active"
+          style={{
+            left: indicatorPosition
+          }}
+        >
+          <span className="cp-scale-stamp-range-bar"></span>
+          <span className="cp-scale-stamp-range-begin">
+            {getSelectedTime()}
+          </span>
+          <span className="cp-scale-stamp-range-end">{getSelectedTime()}</span>
+        </div>
+
+        <div
+          className="cp-scale-stamp-point js-active"
+          style={{
+            left: indicatorPosition
+          }}
+        >
+          <span className="cp-scale-stamp-point-arrow"></span>
+          <span className="cp-scale-stamp-point-exact">
+            {getSelectedTime()}
+          </span>
         </div>
       </div>
-      <div
-        style={{
-          textAlign: "center"
-        }}
-      >
-        <button onClick={() => jumpStep(-1)}>Previous</button>{" "}
-        {getDisplayDate()} <button onClick={() => jumpStep(1)}>Forward</button>
+
+      <div className="cp-scale-flipper">
+        <a
+          className="cp-scale-flipper-left icon-arrow-left"
+          href="#"
+          onClick={() => jumpStep(-1)}
+        ></a>
+        {/* {" "}
+        {getDisplayDate()} */}
+        <a
+          className="cp-scale-flipper-right icon-arrow-right"
+          href="#"
+          onClick={() => jumpStep(1)}
+        ></a>
+      </div>
+
+      <div className="cp-scale-analyse-forecast">
+        <span className="cp-scale-analyse-bar"></span>
+        <span className="cp-scale-forecast-bar"></span>
       </div>
     </div>
   );

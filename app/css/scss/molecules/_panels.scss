@@ -94,21 +94,24 @@
   }
 
   //warning levels
-  //&[class*="warning-level"] { @extend .callout; }
+  &[class*="warning-level"] {
+    .bulletin-report-header h1 {
+      margin-left: -$all-h-padding;
+      line-height: 1.2;
+      span {
+        padding: 0.05rem ($padding * 0.5) 0.05rem $all-h-padding;
+        box-decoration-break: clone;
+      }
+    }
+  }
   &.warning-level-1 {
     &:before {
       background-color: $warning-level-1-color;
     }
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
-
       span {
-        padding: 0 ($padding * 0.5) 0 $all-h-padding;
         color: $text-color;
         background-color: $warning-level-1-color;
-
-        //from alien app.scss
-        white-space: nowrap;
       }
     }
   }
@@ -117,14 +120,9 @@
       background-color: $warning-level-2-color;
     }
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
       span {
-        padding: 0 ($padding * 0.5) 0 $all-h-padding;
         color: $text-color;
         background-color: $warning-level-2-color;
-
-        //from alien app.scss
-        white-space: nowrap;
       }
     }
   }
@@ -133,13 +131,8 @@
       background-color: $warning-level-3-color;
     }
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
       span {
-        padding: 0 ($padding * 0.5) 0 $all-h-padding;
         color: $warning-level-3-color;
-
-        //from alien app.scss
-        white-space: nowrap;
       }
     }
   }
@@ -148,13 +141,8 @@
       background-color: $warning-level-4-color;
     }
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
       span {
-        padding: 0 ($padding * 0.5) 0 $all-h-padding;
         color: $warning-level-4-color;
-
-        //from alien app.scss
-        white-space: nowrap;
       }
     }
   }
@@ -164,13 +152,8 @@
         url("../images/pro/global/bg_checkered.png") repeat 0 0;
     }
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
       span {
-        padding: 0 ($padding * 0.5) 0 $all-h-padding;
         color: $warning-level-5-color;
-
-        //from alien app.scss
-        white-space: nowrap;
       }
     }
   }
