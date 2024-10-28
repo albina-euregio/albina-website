@@ -14,8 +14,7 @@ export default class WeatherMapStore_new {
     this._lastDataUpdate = 0;
     this._dateStart = null;
     this._agl = null;
-    this._availableTimes = [];
-    this._timeIndex = observable.box(false);
+    this.currentTime = observable.box(false);
     this.selectedFeature = null;
     this._loading = observable.box(false);
     this._lastCurrentTime = null;
@@ -118,8 +117,11 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        //console.log("Weathermap_new->_loadDomainData: loaded aaa", this);
-        this._setAvailableTimes();
+        console.log("Weathermap_new->_loadDomainData: loaded aaa", {
+          dateStart: this._dateStart
+        });
+        this.currentTime.set(this._getStartTimeForSpan(this._dateStart));
+        //this._setAvailableTimes();
         this._loadIndexData();
       })
       .catch(err => {
@@ -141,10 +143,15 @@ export default class WeatherMapStore_new {
     //   "_loadData this.currentTime ##33",
     //   new Date(this.currentTime)
     // );
-    if (this.domainConfig?.layer.stations && this.currentTime <= this._agl) {
+    if (
+      this.domainConfig?.layer.stations &&
+      this.currentTime.get() <= this._agl
+    ) {
       loads.push(
         loadStationData({
-          dateTime: this.currentTime ? new Date(this.currentTime) : undefined
+          dateTime: this.currentTime.get()
+            ? new Date(this.currentTime.get())
+            : undefined
         }).then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];
@@ -226,25 +233,25 @@ export default class WeatherMapStore_new {
     return this.domainId ? this.domain.item : false;
   }
 
-  /*
-    returns current timeIndex
-  */
-  get currentTime() {
-    //console.log("weatherMapStore_new currentTime: ", this._timeIndex.get());
-    return (
-      this._availableTimes &&
-      this._timeIndex &&
-      this._availableTimes[this._timeIndex.get()]
-    );
-  }
+  // /*
+  //   returns current timeIndex
+  // */
+  // get currentTime() {
+  //   //console.log("weatherMapStore_new currentTime: ", this._timeIndex.get());
+  //   return (
+  //     this._availableTimes &&
+  //     this._timeIndex &&
+  //     this._availableTimes[this._timeIndex.get()]
+  //   );
+  // }
 
-  /*
-    returns all _availableTimes
-  */
-  get availableTimes() {
-    //console.log("timeIndices GET", this._availableTimes);
-    return this._availableTimes;
-  }
+  // /*
+  //   returns all _availableTimes
+  // */
+  // get availableTimes() {
+  //   //console.log("timeIndices GET", this._availableTimes);
+  //   return this._availableTimes;
+  // }
 
   /*
     returns current timespan selection
@@ -288,31 +295,22 @@ export default class WeatherMapStore_new {
     returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
   */
   get overlayFileName() {
-    // console.log(
-    //   "weatherMapStore_new overlayFileName: ",
-    //   this._domainId.get(),
-    //   this._timeSpan.get()
-    // );
+    console.log(
+      "weatherMapStore_new overlayFileName: ",
+      this._domainId.get(),
+      this._timeSpan.get()
+    );
 
-    if (this._timeIndex.get() != null && this._availableTimes.length > 0) {
-      let datePlusOffset = new Date(
-        this._availableTimes[this._timeIndex.get()]
-      );
-
-      // console.log(
-      //   "weatherMapStore_new overlayFileName:#1 ",
-      //   datePlusOffset,
-      //   dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true),
-      //   this._timeIndex.get(),
-      //   this._availableTimes[this._timeIndex.get()],
-      //   this._availableTimes
-      // );
+    if (this.currentTime.get()) {
+      console.log("weatherMapStore_new overlayFileName:#1 ", {
+        currentTime: this.currentTime.get()
+      });
 
       return (
         config.apis.weather.overlays +
         this._domainId.get() +
         "/" +
-        dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
+        dateFormat(this.currentTime.get(), "%Y-%m-%d_%H-%M", true) +
         "_" +
         this._domainId.get() +
         (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
@@ -329,33 +327,9 @@ export default class WeatherMapStore_new {
       ? this.domain.item
       : false;
   }
-  /*
-   returns index of active timeIndex decremented by 1
-  */
-  get previousTime() {
-    return this._availableTimes[this._timeIndex.get() - 1]
-      ? this._availableTimes[this._timeIndex.get() - 1]
-      : this._availableTimes[this._availableTimes.length - 1];
-  }
-  /*
-    returns index of active timeIndex incremented by 1
-  */
-  get nextTime() {
-    //console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
-    return this._availableTimes[this._timeIndex.get() + 1]
-      ? this._availableTimes[this._timeIndex.get() + 1]
-      : this._availableTimes[0];
-  }
 
   /*
-    returns currentIndex
-  */
-  get currentIndex() {
-    return this._timeIndex.get();
-  }
-
-  /*
-    returns currentIndex
+    returns domain
   */
   get domainConfig() {
     return this.config.domains && this.domainId
@@ -510,168 +484,6 @@ export default class WeatherMapStore_new {
   }
 
   /*
-    calc indeces for timespan
-  */
-  _setAvailableTimes() {
-    //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
-    let indices = [];
-    let currentTimespan = this._timeSpan.get();
-    let currentTime = this._getStartTimeForSpan(this._dateStart);
-    let maxTime;
-    let timeSpanDir = currentTimespan.includes("+-")
-      ? 0
-      : parseInt(currentTimespan, 10) > 0
-        ? 1
-        : -1;
-    //let debIndezes;
-    // console.log(
-    //   "weatherMapStore_new _setTimeIndices #1",
-    //   this._dateStart,
-    //   timeSpanDir,
-    //   this._absTimeSpan,
-    //   this._dateStart,
-    //   this._agl
-    // );
-
-    if (timeSpanDir >= 0) {
-      currentTime = this._getStartTimeForSpan(this._agl);
-      maxTime = new Date(this._agl);
-      maxTime.setUTCHours(
-        maxTime.getUTCHours() + parseInt(this.config.settings.timeRange[1], 10)
-      );
-      // console.log("_setAvailableTimes timeSpanDir>= 0 ##1", {
-      //   currentTime: currentTime.toUTCString(),
-      //   maxTimeUC: maxTime.toUTCString(),
-      //   maxTime: maxTime*100/100,
-      //   _absTimeSpan: this._absTimeSpan,
-      //   agl: this._agl.toUTCString()
-      // });
-
-      if (currentTime < new Date()) {
-        currentTime.setUTCHours(currentTime.getUTCHours() + this._absTimeSpan);
-      }
-
-      while (currentTime <= maxTime) {
-        indices.push(removeMilliseconds(new Date(currentTime).getTime()));
-        currentTime.setUTCHours(
-          currentTime.getUTCHours() +
-            (this._absTimeSpan <= 24 ? this._absTimeSpan : 24)
-        );
-
-        // console.log("_setAvailableTimes timeSpanDir<= 0 ##1a",{
-        //   currentTimeUTC: currentTime.toUTCString()
-        // });
-      }
-
-      // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
-      //   indices
-      // });
-    }
-    if (timeSpanDir <= 0) {
-      let startFrom =
-        currentTimespan.includes("+") && this._agl
-          ? this._agl
-          : this._getStartTimeForSpan(this._dateStart);
-
-      maxTime = new Date(startFrom);
-      maxTime.setUTCHours(
-        maxTime.getUTCHours() +
-          parseInt(this.config.settings.timeRange[0], 10) +
-          this._absTimeSpan
-      );
-
-      // debIndezes = indices.map(etime => {
-      //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-      // });
-
-      // console.log("_setAvailableTimes timeSpanDir<= 0 ##2", {
-      //   _getStartTimeForSpan: this._getStartTimeForSpan(this._dateStart),
-      //   startFromUTC: startFrom.toUTCString(),
-      //   maxTimeUtc: maxTime.toUTCString(),
-      //   debIndezes
-      // });
-
-      //startFrom.setUTCHours(startFrom.getUTCHours() + (this._absTimeSpan != 1 ? 0 : 0));
-
-      // if endTimeDate of periode is in the future set startdate to one offset earlier
-      //const endTime = new Date(startFrom);
-      //endTime.setUTCHours(endTime.getUTCHours() + this._absTimeSpan);
-      // console.log("_setAvailableTimes timeSpanDir<= 0 ##55 ##2aa", {
-      //   startFromUTC: startFrom.toUTCString(),
-      //   nowUTC: new Date().toUTCString()
-      // });
-      //if (new Date() < startFrom)
-      //startFrom.setUTCHours(startFrom.getUTCHours() - this._absTimeSpan);
-
-      currentTime = new Date(startFrom);
-
-      // console.log("_setAvailableTimes timeSpanDir<= 0 ##3a",{
-      //   currentTimeUTC: currentTime.toUTCString(),
-      //   startFromUTC: this._dateStart.toUTCString(),
-      //   diff: Math.abs(startFrom - currentTime) / 36e5
-      // });
-
-      //currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
-      while (currentTime >= maxTime) {
-        // console.log("_setAvailableTimes timeSpanDir<= 0 ##3", {
-        //   startFrom: startFrom.toUTCString(),
-        //   currentTimeUTC: currentTime.toUTCString(),
-        //   maxTimeUtc: maxTime.toUTCString(),
-        //   //endTimeUtc: endTime.toUTCString(),
-        //   timeSpanDir
-        // });
-        if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
-          indices.push(removeMilliseconds(new Date(currentTime).getTime()));
-        }
-
-        currentTime.setUTCHours(
-          currentTime.getUTCHours() +
-            (this._absTimeSpan <= 24 ? this._absTimeSpan : 24) * -1
-        );
-
-        // console.log("_setAvailableTimes timeSpanDir<= 0 ##4",{
-        //   currentTimeUTC: currentTime.toUTCString(),
-        //   lastCurrent: currentTime.toUTCString()
-        //  // diff: Math.abs(lastCurrent - currentTime) / 36e5
-        // });
-      }
-    }
-    indices.sort();
-    this._availableTimes = indices;
-
-    if (indices.includes(this._lastCurrentTime))
-      this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
-    else
-      this._timeIndex.set(
-        this._findClosestIndex(
-          indices,
-          SIMULATE_NOW ? new Date(SIMULATE_NOW) : new Date()
-        )
-      );
-    // debIndezes = indices.map(etime => {
-    //   return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-    // });
-    // console.log("_setAvailableTimes timeSpanDir all ##2", {
-    //   indices: indices.map(etime => {
-    //     return { utc: new Date(etime).toUTCString(), norm: new Date(etime) };
-    //   })}
-    // );
-  }
-
-  // _getNow(setToDayStart) {
-  //   let now = new Date();
-  //   now.setHours(now.getHours() - 24 * EARLIER_FAKE_DAYS);
-  //   if (setToDayStart) {
-  //     now.setUTCHours(0);
-  //     now.setUTCMinutes(0);
-  //     now.setUTCSeconds(0);
-  //   }
-  //   now = new Date(removeMilliseconds(now.getTime()));
-  //   //console.log("_getNow ##888", now?.toUTCString());
-  //   return now;
-  // }
-
-  /*
     control method to check if the domain does exist in the config
   */
   checkDomainId(domainId) {
@@ -688,10 +500,10 @@ export default class WeatherMapStore_new {
   changeDomain(domainId) {
     //console.log("weatherMapStore_new changeDomain: " + domainId);
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
-      this._lastCurrentTime = this.currentTime;
+      this._lastCurrentTime = this.currentTime.get();
       this._domainId.set(domainId);
       this._timeSpan.set(null);
-      this._timeIndex.set(null);
+      //this._timeIndex.set(null);
       this._agl = null;
       this._dateStart = null;
 
@@ -731,7 +543,7 @@ export default class WeatherMapStore_new {
       timeSpan != this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
-      this._timeIndex.set(null);
+      //this._timeIndex.set(null);
       this._agl = null;
       this._dateStart = null;
       this._timeSpan.set(timeSpan);
@@ -743,7 +555,21 @@ export default class WeatherMapStore_new {
   /*
     setting a new timeIndex
   */
-  changeCurrentTime(timeIndex) {
+  changeCurrentTime(newTime) {
+    console.log("weatherMapStore_new: changeCurrentTime", {
+      newTime: new Date(newTime),
+      oldDate: new Date(this.currentTime.get())
+    });
+    if (
+      new Date(newTime).getTime() != new Date(this.currentTime.get()).getTime()
+    )
+      this.currentTime.set(newTime);
+  }
+
+  /*
+    setting a new timeIndex
+  */
+  changeCurrentTime1(timeIndex) {
     // console.log(
     //   "weatherMapStore_new: changeCurrentTime hhhh",
     //   this._timeIndex.get(),

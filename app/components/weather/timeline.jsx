@@ -4,7 +4,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 
 const Timeline = ({
-  initialDate = new Date(),
+  initialDate,
   firstHour = 0,
   timeSpan = 6,
   startTime,
@@ -53,6 +53,12 @@ const Timeline = ({
   }, [startTime, endTime, now]);
 
   useEffect(() => {
+    console.log("Timeline->useEffect #01", {
+      initialDate,
+      firstHour,
+      timeSpan,
+      markerPosition
+    });
     if (containerRef.current) {
       const initial = new Date(initialDate);
       const initialFullHour = new Date(
@@ -121,7 +127,7 @@ const Timeline = ({
   }, [showBar, barDuration, barDirection, containerRef.current]);
 
   const jumpStep = direction => {
-    console.log("jumpStep #01", { currentDate });
+    //console.log("jumpStep #01", { currentDate });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
     jumpToDate(newDate);
@@ -129,7 +135,7 @@ const Timeline = ({
 
   const createRulerMarkings = () => {
     const markings = [];
-    //console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
+    console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -290,6 +296,7 @@ const Timeline = ({
 
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
+    if (updateCB) updateCB(targetDate);
   };
 
   const jumpToDate = targetDate => {
@@ -319,7 +326,6 @@ const Timeline = ({
   };
 
   const getDisplayDate = () => {
-    if (updateCB) updateCB(currentDate);
     return formatDateTime(currentDate);
   };
 
@@ -365,13 +371,17 @@ const Timeline = ({
     return date.toLocaleString();
   };
 
-  console.log("Timeline ##aa1", {
+  console.log("Timeline->render ##aa1", {
+    currentDate,
+    initialDate,
     startTime,
     endTime,
     firstHour,
     timeSpan,
     maxStartDay,
-    maxEndDay
+    maxEndDay,
+    rulerStartDay,
+    rulerEndDay
   });
 
   return (
@@ -379,7 +389,6 @@ const Timeline = ({
       className="cp-scale"
       tabIndex="0"
       onKeyDown={handleKeyDown}
-      onClick={() => console.log("click")}
       /*
         style={{
         width: "100%",

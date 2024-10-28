@@ -41,16 +41,13 @@ const DOMAIN_UNITS = {
 const LOOP = false;
 
 const WeatherMapCockpit = ({
-  currentTime,
   timeSpan,
-  timeArray,
+  startDate,
+  currentTime,
   lastUpdateTime,
   nextUpdateTime,
-  lastAnalyticTime,
   domainId,
   eventCallback,
-  previousTime,
-  nextTime,
   changeCurrentTime,
   player,
   storeConfig
@@ -74,23 +71,6 @@ const WeatherMapCockpit = ({
   const adaptVH = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
-  };
-
-  const onDragStart = () => {
-    //console.log("onDragging");
-    showTimes(false);
-  };
-
-  const showTimes = show => {
-    $(".cp-scale-stamp-range-end").css({
-      display: show ? "" : "none"
-    });
-    $(".cp-scale-stamp-range-begin").css({
-      display: show ? "" : "none"
-    });
-    $(".cp-scale-stamp-point-exact").css({
-      display: show ? "" : "none"
-    });
   };
 
   // const placeCockpitItems = tickWidth => {
@@ -194,6 +174,7 @@ const WeatherMapCockpit = ({
 
   const onTimelineUpdate = newTime => {
     console.log("onTimelineUpdate ##aa1", newTime);
+    changeCurrentTime(newTime);
   };
 
   const handleEvent = (type, value) => {
@@ -459,19 +440,6 @@ const WeatherMapCockpit = ({
       </div>
     );
   };
-  const setOffsetTime = offset => {
-    const currentKey = timeArray.findIndex(element => element === currentTime);
-    //console.log('setOffsetTime', offset, currentKey, timeSpan, currentTime, timeArray);
-    if (currentKey > -1) {
-      if (offset < 0) {
-        if (currentKey + offset >= 0)
-          changeCurrentTime(timeArray[currentKey + offset]);
-      } else {
-        if (currentKey + offset < timeArray.length)
-          changeCurrentTime(timeArray[currentKey + offset]);
-      }
-    }
-  };
 
   //console.log("weather-map-cockpit->render hhhh", currentTime);
   let classes = [
@@ -480,20 +448,25 @@ const WeatherMapCockpit = ({
     "lastRedraw-" + lastRedraw
   ];
 
-  const firstHour = new Date(timeArray?.[0]);
+  const firstHour = new Date(startDate);
   firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
-  const finalTime = timeArray?.[timeArray.length - 1];
+
+  const finalTime = new Date(startDate) || new Date();
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
-  const initialDate = new Date();
-  //subtract 10 days from the current date and store in startDate variable
-  const startDate = new Date(initialDate);
-  startDate.setDate(startDate.getDate() - 10);
-  // set time to 6:0 am
-  startDate.setUTCHours(0, 0, 0, 0);
-  const endDate = new Date(initialDate);
+  let usedStartDate = new Date(startDate);
+  usedStartDate.setDate(usedStartDate.getDate() - 100);
+  const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + 10);
   endDate.setUTCHours(0, 0, 0, 0);
+  const initialDate = new Date();
+  initialDate.setUTCMinutes(0, 0, 0);
+  console.log("weather-map-cockpit->render", {
+    timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+    usedStartDate,
+    finalTime,
+    firstHour
+  });
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
@@ -516,15 +489,15 @@ const WeatherMapCockpit = ({
             ></a>
           </div>
 
-          {currentTime && firstHour && (
+          {firstHour && usedStartDate && (
             <Timeline
-              timeSpan={Math.abs(timeSpan)}
-              initialDate={initialDate}
-              startDate={startDate}
-              endDate={endDate}
+              key="cp-timeline"
+              timeSpan={Number(timeSpan.replace(/\D/g, ""), 10)}
+              initialDate={currentTime || initialDate}
+              startTime={usedStartDate}
+              endTime={finalTime}
               firstHour={firstHour?.getUTCHours()}
               updateCB={onTimelineUpdate}
-              onDragStart={onDragStart}
             />
           )}
 

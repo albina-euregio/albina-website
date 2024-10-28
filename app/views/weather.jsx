@@ -141,17 +141,13 @@ const Weather = () => {
                 key="cockpit"
                 startDate={store.startDate}
                 agl={store.agl}
-                timeArray={store.availableTimes}
                 storeConfig={store.config}
                 domainId={store.domainId}
                 timeSpan={store.timeSpan}
                 changeCurrentTime={store.changeCurrentTime.bind(store)}
                 player={player}
-                currentTime={store.currentTime}
+                currentTime={store.currentTime.get()}
                 eventCallback={handleClickCockpitEvent.bind(this)}
-                lastAnalyticTime={store.startDate}
-                nextUpdateTime={store.nextUpdateTime}
-                lastUpdateTime={store.lastUpdateTime}
                 nextTime={() => {
                   store.changeCurrentTime(store.nextTime);
                 }}
