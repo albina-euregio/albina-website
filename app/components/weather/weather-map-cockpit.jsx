@@ -459,18 +459,6 @@ const WeatherMapCockpit = ({
       </div>
     );
   };
-
-  const setPreviousTime = () => {
-    if (LOOP || currentTime != timeArray[0]) {
-      //console.log("setPreviousTime s03", currentTime);
-      previousTime();
-    }
-  };
-
-  const setNextTime = () => {
-    if (LOOP || currentTime != timeArray[timeArray.length - 1]) nextTime();
-  };
-
   const setOffsetTime = offset => {
     const currentKey = timeArray.findIndex(element => element === currentTime);
     //console.log('setOffsetTime', offset, currentKey, timeSpan, currentTime, timeArray);
@@ -482,27 +470,6 @@ const WeatherMapCockpit = ({
         if (currentKey + offset < timeArray.length)
           changeCurrentTime(timeArray[currentKey + offset]);
       }
-    }
-  };
-
-  const onKeyPressed = e => {
-    //console.log('ctrl', e.ctrlKey, timeSpan);
-    switch (e.keyCode) {
-      case 37:
-        if (Number(timeSpan.replace("-", "")) === 1 && e.ctrlKey)
-          setOffsetTime(-24);
-        else setPreviousTime();
-        break;
-      case 39:
-        if (Number(timeSpan.replace("-", "")) === 1 && e.ctrlKey)
-          setOffsetTime(24);
-        else setNextTime();
-        break;
-      case 32:
-        player.toggle();
-        break;
-      default:
-        break;
     }
   };
 
@@ -529,13 +496,7 @@ const WeatherMapCockpit = ({
   endDate.setUTCHours(0, 0, 0, 0);
 
   return (
-    <div
-      role="button"
-      tabIndex="0"
-      key="map-cockpit"
-      className={classes.join(" ")}
-      onKeyDown={onKeyPressed}
-    >
+    <div role="button" key="map-cockpit" className={classes.join(" ")}>
       <div key="cp-container-1" className="cp-container-1">
         <div key="cp-layer-selector" className="cp-layer-selector">
           {getDomainButtons()}
@@ -563,8 +524,6 @@ const WeatherMapCockpit = ({
               endDate={endDate}
               firstHour={firstHour?.getUTCHours()}
               updateCB={onTimelineUpdate}
-              setPreviousTime={setPreviousTime}
-              setNextTime={setNextTime}
               onDragStart={onDragStart}
             />
           )}

@@ -93,6 +93,27 @@ const Timeline = ({
     }
   }, [initialDate, firstHour, timeSpan, markerPosition]);
 
+  const handleKeyDown = event => {
+    const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
+    //console.log('handleKeyDown', {key: event.ctrlKey, timeSpan, factor});
+    switch (event.keyCode) {
+      case 37:
+        if (event.ctrlKey) jumpStep(-1 * factor);
+        else jumpStep(-1);
+        break;
+      case 39:
+        if (event.ctrlKey) {
+          jumpStep(1 * factor);
+        } else jumpStep(1);
+        break;
+      case 32:
+        //player.toggle();
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     if (showBar) {
       updateBarDimensions();
@@ -356,6 +377,9 @@ const Timeline = ({
   return (
     <div
       className="cp-scale"
+      tabIndex="0"
+      onKeyDown={handleKeyDown}
+      onClick={() => console.log("click")}
       /*
         style={{
         width: "100%",
@@ -397,6 +421,7 @@ const Timeline = ({
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         className="cp-scale-days-2024"
+
         // style={{
         //   height: "100%",
         //   userSelect: "none",
