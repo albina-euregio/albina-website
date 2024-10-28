@@ -9,10 +9,10 @@ const Timeline = ({
   timeSpan = 6,
   startTime,
   endTime,
-  markerPosition = "left",
-  showBar = false, // Toggle the bar visibility
+  markerPosition = "center",
+  showBar = true, // Toggle the bar visibility
   barDuration = 24, // Bar duration in hours
-  barDirection = "future", // New prop: 'past' or 'future'
+  barDirection = "past", // New prop: 'past' or 'future'
   updateCB
 }) => {
   const containerRef = useRef(null);
@@ -100,6 +100,7 @@ const Timeline = ({
   }, [showBar, barDuration, barDirection, containerRef.current]);
 
   const jumpStep = direction => {
+    console.log("jumpStep #01", { currentDate });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
     jumpToDate(newDate);
@@ -421,13 +422,13 @@ const Timeline = ({
             {createRulerMarkings()}
           </div>
 
-          {showBar && (
+          {/* {showBar && (
             <div
               className=""
               style={{
                 position: "absolute",
                 top: "0",
-                height: "100%",
+                height: "50%",
                 backgroundColor: "rgba(253, 230, 138, 0.5)",
                 zIndex: "5",
                 left: `calc(${indicatorPosition} + ${barOffset}px)`,
@@ -435,7 +436,7 @@ const Timeline = ({
                 transform: "translateX(-1px)"
               }}
             ></div>
-          )}
+          )} */}
         </div>
 
         {/* <div
@@ -452,28 +453,10 @@ const Timeline = ({
             left: indicatorPosition,
             transform: "translateX(-50%)"
           }}
-        ></div> */}
-
-        {/* <div
-          className=""
-          style={{
-            position: "absolute",
-            top: "-2rem",
-            backgroundColor: "#3b82f6",
-            color: "white",
-            padding: "0.25rem 0.5rem",
-            borderRadius: "0.25rem",
-            fontSize: "0.875rem",
-            zIndex: "20",
-            left: indicatorPosition,
-            transform: "translateX(-50%)"
-          }}
-        >
-          {getSelectedTime()}
-        </div> */}
+        >{getSelectedTime()}</div>  */}
       </div>
 
-      <div className="cp-scale-stamp">
+      <div id="indicator" className="cp-scale-stamp">
         <div
           className="cp-scale-stamp-range 0js-active"
           style={{
@@ -515,10 +498,30 @@ const Timeline = ({
         ></a>
       </div>
 
-      <div className="cp-scale-analyse-forecast">
-        <span className="cp-scale-analyse-bar"></span>
-        <span className="cp-scale-forecast-bar"></span>
-      </div>
+      {showBar && (
+        <div className="cp-scale-analyse-forecast">
+          {barDirection === "past" && (
+            <span
+              className="cp-scale-analyse-bar"
+              style={{
+                left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                width: `${barWidth}px`,
+                transform: "translateX(-1px)"
+              }}
+            ></span>
+          )}
+          {barDirection === "future" && (
+            <span
+              className="cp-scale-forecast-bar"
+              style={{
+                left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                width: `${barWidth}px`,
+                transform: "translateX(-1px)"
+              }}
+            ></span>
+          )}
+        </div>
+      )}
     </div>
   );
 };
