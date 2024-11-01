@@ -55,7 +55,7 @@ const Timeline = ({
 
   useEffect(() => {
     if (containerRef.current) {
-      const initialOffsetHours = differenceInHours(initialDate, startOfDay);
+      const initialOffsetHours = differenceInHours(startOfDay, initialDate);
 
       let initialTranslateX;
       let newIndicatorPosition;
