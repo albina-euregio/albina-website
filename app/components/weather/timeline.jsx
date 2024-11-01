@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
+import { marker } from "leaflet";
 
 const Timeline = ({
   initialDate,
@@ -17,7 +18,7 @@ const Timeline = ({
 }) => {
   const containerRef = useRef(null);
   const rulerRef = useRef(null);
-  const [currentDate, setCurrentDate] = useState(new Date(initialDate));
+  const [currentDate, setCurrentDate] = useState();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -53,21 +54,8 @@ const Timeline = ({
   }, [startTime, endTime, now]);
 
   useEffect(() => {
-    console.log("Timeline->useEffect #01", {
-      initialDate,
-      firstHour,
-      timeSpan,
-      markerPosition
-    });
     if (containerRef.current) {
-      const initial = new Date(initialDate);
-      const initialFullHour = new Date(
-        initial.getUTCFullYear(),
-        initial.getUTCMonth(),
-        initial.getUTCDate(),
-        initial.getUTCHours()
-      );
-      const initialOffsetHours = differenceInHours(initialFullHour, startOfDay);
+      const initialOffsetHours = differenceInHours(initialDate, startOfDay);
 
       let initialTranslateX;
       let newIndicatorPosition;
@@ -87,17 +75,25 @@ const Timeline = ({
           break;
         case "center":
         default:
-          initialTranslateX =
-            -initialOffsetHours * pixelsPerHour +
-            containerRef.current.clientWidth * 0.5;
+          initialTranslateX = -initialOffsetHours * pixelsPerHour;
           newIndicatorPosition = "50%";
       }
 
-      updateTimelinePosition(initialTranslateX, true);
-      setCurrentDate(initialFullHour);
       setIndicatorPosition(newIndicatorPosition);
+      updateTimelinePosition(initialTranslateX, true);
+      setCurrentDate(initialDate);
+
+      console.log("Timeline->useEffect #i0111", {
+        initialDate: new Date(initialDate).toISOString(),
+        startOfDay: new Date(startOfDay).toISOString(),
+        firstHour,
+        timeSpan,
+        markerPosition,
+        initialOffsetHours,
+        initialTranslateX
+      });
     }
-  }, [initialDate, firstHour, timeSpan, markerPosition]);
+  }, [firstHour, timeSpan, markerPosition, initialDate]);
 
   const handleKeyDown = event => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
@@ -135,7 +131,11 @@ const Timeline = ({
 
   const createRulerMarkings = () => {
     const markings = [];
-    console.log("createRulerMarkings #01", { rulerStartDay, rulerEndDay });
+    console.log("createRulerMarkings #i011", {
+      rulerStartDay,
+      rulerEndDay,
+      startOfDay
+    });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -188,23 +188,29 @@ const Timeline = ({
   };
 
   const updateTimelinePosition = (newTranslateX, snap) => {
+    console.log("updateTimelinePosition #i011", {
+      newTranslateX,
+      snap,
+      currentTranslateX
+    });
+    let usedTranslateX = newTranslateX;
     if (snap) {
       const snapToHours = timeSpan * pixelsPerHour;
-      newTranslateX = Math.round(newTranslateX / snapToHours) * snapToHours;
+      usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
-    setCurrentTranslateX(newTranslateX);
 
     const rulerOffset =
-      -newTranslateX +
+      -usedTranslateX +
       (containerRef.current.clientWidth * parseFloat(indicatorPosition)) / 100;
     rulerRef.current.style.transform = `translateX(${rulerOffset}px)`;
+    setCurrentTranslateX(usedTranslateX);
 
-    const newVisibleMiddledDay = Math.ceil(
-      (-rulerOffset +
-        (containerRef.current.clientWidth * parseFloat(indicatorPosition)) /
-          100) /
-        (pixelsPerHour * hoursPerDay)
-    );
+    // const newVisibleMiddledDay = Math.ceil(
+    //   (-rulerOffset +
+    //     (containerRef.current.clientWidth * parseFloat(indicatorPosition)) /
+    //       100) /
+    //     (pixelsPerHour * hoursPerDay)
+    // );
 
     //setRulerStartDay(Math.max(maxStartDay, newVisibleMiddledDay - daysBuild));
     //setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
@@ -245,11 +251,17 @@ const Timeline = ({
     }
   };
 
-  const snapToNearestMarker = () => {
+  const snapToNearestMarker = markerDate => {
+    let searchedMaker;
     const indicatorRect = document
       .getElementById("indicator")
       .getBoundingClientRect();
-    const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
+    let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
+    if (markerDate) {
+      const { markerCenterX, targetMarker } = getMarkerCenterX(markerDate);
+      searchedMaker = targetMarker;
+      targetCenterX = markerCenterX;
+    }
 
     const markers = rulerRef.current.querySelectorAll(
       ".selectable-hour-mark, .day-mark"
@@ -260,7 +272,7 @@ const Timeline = ({
     markers.forEach(marker => {
       const markerRect = marker.getBoundingClientRect();
       const markerCenterX = markerRect.left + markerRect.width / 2;
-      const distance = Math.abs(markerCenterX - indicatorCenterX);
+      const distance = Math.abs(markerCenterX - targetCenterX);
 
       if (distance < minDistance) {
         minDistance = distance;
@@ -270,8 +282,18 @@ const Timeline = ({
 
     if (nearestMarker) {
       const markerDate = new Date(nearestMarker.dataset.date);
+      console.log("snapToNearestMarker #i0111", { markerDate, searchedMaker });
       snapToDate(markerDate);
     }
+  };
+
+  const getMarkerCenterX = targetDate => {
+    const targetMarker = document.querySelectorAll(
+      `[data-date*="${targetDate.toISOString()}"]`
+    );
+    const markerRect = targetMarker?.[0]?.getBoundingClientRect();
+    const markerCenterX = markerRect.left;
+    return { markerCenterX, targetMarker: targetMarker?.[0] };
   };
 
   const snapToDate = targetDate => {
@@ -281,25 +303,21 @@ const Timeline = ({
       Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
-    const targetMarker = document.querySelectorAll(
-      `[data-date*="${targetDate.toISOString()}"]`
-    );
-    console.log("snapToDate #i01", {
-      targetDate: new Date(targetDate).toISOString()
-    });
-    const indicatorRect = document
-      .getElementById("indicator")
-      .getBoundingClientRect();
+    const indicator = document.getElementById("indicator");
+
+    const indicatorRect = indicator.getBoundingClientRect();
     const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
-    const markerRect = targetMarker?.[0]?.getBoundingClientRect();
-    const markerCenterX = markerRect.left;
+    const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
+
     console.log("snapToDate #i01", {
+      indicator,
       targetDate: new Date(targetDate).toISOString(),
-      distanceToMove
+      distanceToMove: Math.round(distanceToMove),
+      currentTranslateX
     });
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
-
+    console.log("snapToDate #i011", { targetDate, newTranslateX });
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
     if (updateCB) updateCB(targetDate);
@@ -328,17 +346,16 @@ const Timeline = ({
     console.log("jumpToDate #i01", {
       targetDate: new Date(targetDate).toISOString()
     });
-    setTimeout(() => {
-      snapToDate(targetDate);
-    }, 100);
+
+    snapToDate(targetDate);
   };
 
   const getDisplayDate = () => {
-    return formatDateTime(currentDate);
+    return currentDate ? formatDateTime(currentDate) : "";
   };
 
   const getSelectedTime = () => {
-    return formatTime(currentDate);
+    return currentDate ? formatTime(currentDate) : "";
   };
 
   const getCurrentTime = () => {
@@ -374,6 +391,7 @@ const Timeline = ({
   };
 
   const formatTime = date => {
+    console.log("formatTime #i01", { date: new Date(date).toISOString() });
     return date.toLocaleTimeString();
   };
 
@@ -381,16 +399,21 @@ const Timeline = ({
     return date.toLocaleString();
   };
 
-  console.log("Timeline->render #i01", {
+  console.log("Timeline->render #i011", {
     currentDate,
-    startTime,
-    endTime,
-    firstHour,
-    timeSpan,
-    maxStartDay,
-    maxEndDay,
-    rulerStartDay,
-    rulerEndDay
+    currentTranslateX,
+    params: {
+      initialDate,
+      firstHour,
+      timeSpan,
+      startTime,
+      endTime,
+      markerPosition,
+      showBar,
+      barDuration,
+      barDirection,
+      updateCB
+    }
   });
 
   return (
