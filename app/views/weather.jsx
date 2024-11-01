@@ -79,12 +79,7 @@ const Weather = () => {
     }
   };
 
-  // console.log(
-  //   "weather->render",
-  //   new Date(store.currentTime),
-  //   store.agl,
-  //   player
-  // );
+  console.log("weather->render #i01", new Date(store.currentTime), store.agl);
   return (
     <>
       <WeatherStationDialog
@@ -146,7 +141,7 @@ const Weather = () => {
                 timeSpan={store.timeSpan}
                 changeCurrentTime={store.changeCurrentTime.bind(store)}
                 player={player}
-                currentTime={store.currentTime.get()}
+                currentTime={store.currentTime}
                 eventCallback={handleClickCockpitEvent.bind(this)}
                 nextTime={() => {
                   store.changeCurrentTime(store.nextTime);
