@@ -37,10 +37,14 @@ const Timeline = ({
 
   const now = new Date();
   const startOfDay = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate()
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   );
+
+  // console.log("Timeline->calc start of day #i011", {
+  //   now: now.toISOString(),
+  //   startOfDay: startOfDay.toISOString(),
+  //   day: now.getUTCDate()
+  // });
 
   useEffect(() => {
     setMaxStartDay(
@@ -143,8 +147,11 @@ const Timeline = ({
         const totalHours = day * hoursPerDay + hour;
         const isSelectable =
           (hour - firstHour) % timeSpan === 0 && hour >= firstHour;
+
+        const localDate = new Date(markDate);
+        const localHour = localDate.getHours();
         const markClass =
-          hour === 0
+          localHour === 0
             ? "day-mark"
             : isSelectable
               ? "selectable-hour-mark"
@@ -165,7 +172,7 @@ const Timeline = ({
             data-date={markDate.toISOString()}
             data-hours={totalHours}
           >
-            {hour === 0 && (
+            {localHour === 0 && (
               <span
                 className="day-name"
                 style={{
