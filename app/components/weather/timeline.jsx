@@ -13,7 +13,7 @@ const Timeline = ({
   markerPosition = "center",
   showBar = true, // Toggle the bar visibility
   barDuration = 24, // Bar duration in hours
-  barDirection = "past", // New prop: 'past' or 'future'
+  barDirection = "future", // New prop: 'past' or 'future'
   updateCB
 }) => {
   const containerRef = useRef(null);
@@ -135,11 +135,11 @@ const Timeline = ({
 
   const createRulerMarkings = () => {
     const markings = [];
-    console.log("createRulerMarkings #i011", {
-      rulerStartDay,
-      rulerEndDay,
-      startOfDay
-    });
+    // console.log("createRulerMarkings #i011", {
+    //   rulerStartDay,
+    //   rulerEndDay,
+    //   startOfDay
+    // });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -398,7 +398,7 @@ const Timeline = ({
   };
 
   const formatTime = date => {
-    console.log("formatTime #i01", { date: new Date(date).toISOString() });
+    //console.log("formatTime #i01", { date: new Date(date).toISOString() });
     return date.toLocaleTimeString();
   };
 

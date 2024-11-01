@@ -465,6 +465,8 @@ const WeatherMapCockpit = ({
     firstHour
   });
 
+  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
+
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
       <div key="cp-container-1" className="cp-container-1">
@@ -489,7 +491,9 @@ const WeatherMapCockpit = ({
           {firstHour && currentTime && (
             <Timeline
               key="cp-timeline"
-              timeSpan={Number(timeSpan.replace(/\D/g, ""), 10)}
+              timeSpan={absSpan}
+              barDuration={absSpan}
+              showBar={absSpan > 1}
               initialDate={currentTime}
               startTime={usedStartTime}
               endTime={usedEndTime}
