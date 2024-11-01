@@ -1,4 +1,4 @@
-import { action, observable, makeAutoObservable } from "mobx";
+import { action, observable, makeAutoObservable, set } from "mobx";
 import { loadStationData } from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
@@ -14,7 +14,7 @@ export default class WeatherMapStore_new {
     this._lastDataUpdate = 0;
     this._dateStart = null;
     this._agl = null;
-    this._currentTime = observable.box(false);
+    this._currentTime = observable.box(null);
     this.selectedFeature = null;
     this._loading = observable.box(false);
     this._lastCurrentTime = null;
@@ -69,7 +69,7 @@ export default class WeatherMapStore_new {
     this._loading.set(true);
     this._lastDataUpdate = 0;
     // console.log(
-    //   "_loadDomainData bbb",
+    //   "_loadDomainData #i01",
     //   this._domainId,
     //   config.apis.weather.overlays +
     //     this._domainId.get() +
@@ -92,12 +92,12 @@ export default class WeatherMapStore_new {
           "/" +
           this.getMetaFile("agl")
       ).then(
-        action(
-          date =>
-            (this._dateStart = SIMULATE_START
-              ? new Date(SIMULATE_START)
-              : new Date(date) ?? this._dateStart)
-        )
+        action(retrievedDate => {
+          this._dateStart = SIMULATE_START
+            ? new Date(SIMULATE_START)
+            : new Date(retrievedDate) ?? this._dateStart;
+          //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._dateStart, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
+        })
       ),
       fetchDate(
         config.apis.weather.overlays +
@@ -105,23 +105,24 @@ export default class WeatherMapStore_new {
           "/" +
           this.getMetaFile("startDate")
       ).then(
-        action(
-          date =>
-            (this._agl = SIMULATE_START
-              ? new Date(SIMULATE_START)
-              : new Date(date) ?? this._agl)
-        )
+        action(retrievedDate => {
+          this._agl = SIMULATE_START
+            ? new Date(SIMULATE_START)
+            : new Date(retrievedDate) ?? this._agl;
+          //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._agl, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
+        })
       )
     ];
 
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new->_loadDomainData: loaded aaa", {
-          dateStart: this._dateStart
+        console.log("Weathermap_new->_loadDomainData: loaded #i011", {
+          _dateStart: this._dateStart,
+          _agl: this._agl,
+          currentTime: this._getStartTimeForSpan(this._dateStart)
         });
         this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
-        //this._setAvailableTimes();
         this._loadIndexData();
       })
       .catch(err => {

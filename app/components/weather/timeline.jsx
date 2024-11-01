@@ -48,7 +48,7 @@ const Timeline = ({
         : -30
     );
     setMaxEndDay(
-      endTime ? Math.floor(differenceInHours(endTime, now) / hoursPerDay) : 30
+      endTime ? Math.floor(differenceInHours(now, endTime) / hoursPerDay) : 30
     );
   }, [startTime, endTime, now]);
 
@@ -206,8 +206,8 @@ const Timeline = ({
         (pixelsPerHour * hoursPerDay)
     );
 
-    setRulerStartDay(Math.max(maxStartDay, newVisibleMiddledDay - daysBuild));
-    setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
+    //setRulerStartDay(Math.max(maxStartDay, newVisibleMiddledDay - daysBuild));
+    //setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
   };
 
   const updateBarDimensions = () => {
@@ -284,6 +284,9 @@ const Timeline = ({
     const targetMarker = document.querySelectorAll(
       `[data-date*="${targetDate.toISOString()}"]`
     );
+    console.log("snapToDate #i01", {
+      targetDate: new Date(targetDate).toISOString()
+    });
     const indicatorRect = document
       .getElementById("indicator")
       .getBoundingClientRect();
@@ -291,7 +294,10 @@ const Timeline = ({
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect.left;
     const distanceToMove = markerCenterX - indicatorCenterX;
-
+    console.log("snapToDate #i01", {
+      targetDate: new Date(targetDate).toISOString(),
+      distanceToMove
+    });
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
 
     updateTimelinePosition(newTranslateX, true);
@@ -319,7 +325,9 @@ const Timeline = ({
       setRulerEndDay(Math.max(rulerEndDay, targetDay + 7));
     }
     rulerRef.current.style.transition = "transform 0.5s ease";
-
+    console.log("jumpToDate #i01", {
+      targetDate: new Date(targetDate).toISOString()
+    });
     setTimeout(() => {
       snapToDate(targetDate);
     }, 100);
@@ -352,7 +360,9 @@ const Timeline = ({
   };
 
   const differenceInHours = (dateLeft, dateRight) => {
-    return (dateLeft - dateRight) / (1000 * 60 * 60);
+    const res = (dateLeft - dateRight) / (1000 * 60 * 60);
+    //console.log("differenceInHours #i01", { res, dateLeft: new Date(dateLeft).toISOString(), dateRight: new Date(dateRight).toISOString() });
+    return res;
   };
 
   const formatDate = date => {
@@ -371,9 +381,8 @@ const Timeline = ({
     return date.toLocaleString();
   };
 
-  console.log("Timeline->render ##aa1", {
+  console.log("Timeline->render #i01", {
     currentDate,
-    initialDate,
     startTime,
     endTime,
     firstHour,
@@ -521,14 +530,14 @@ const Timeline = ({
         <a
           className="cp-scale-flipper-left icon-arrow-left"
           href="#"
-          onClick={() => jumpStep(-1)}
+          onClick={() => jumpStep(1)}
         ></a>
         {/* {" "}
         {getDisplayDate()} */}
         <a
           className="cp-scale-flipper-right icon-arrow-right"
           href="#"
-          onClick={() => jumpStep(1)}
+          onClick={() => jumpStep(-1)}
         ></a>
       </div>
 

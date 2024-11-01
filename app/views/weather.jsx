@@ -79,7 +79,7 @@ const Weather = () => {
     }
   };
 
-  console.log("weather->render #i01", new Date(store.currentTime), store.agl);
+  //console.log("weather->render #i011", {currentTime: store.currentTime, agl: store.agl, dateStart: store.startDate});
   return (
     <>
       <WeatherStationDialog

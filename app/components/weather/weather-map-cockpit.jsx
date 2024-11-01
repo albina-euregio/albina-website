@@ -173,7 +173,7 @@ const WeatherMapCockpit = ({
   // };
 
   const onTimelineUpdate = newTime => {
-    console.log("onTimelineUpdate ##aa1", newTime);
+    console.log("onTimelineUpdate #i01", newTime);
     changeCurrentTime(newTime);
   };
 
@@ -451,20 +451,17 @@ const WeatherMapCockpit = ({
   const firstHour = new Date(startDate);
   firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
 
-  const finalTime = new Date(startDate) || new Date();
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
-  let usedStartDate = new Date(startDate);
-  usedStartDate.setDate(usedStartDate.getDate() - 100);
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + 10);
-  endDate.setUTCHours(0, 0, 0, 0);
-  const initialDate = new Date();
-  initialDate.setUTCMinutes(0, 0, 0);
-  console.log("weather-map-cockpit->render", {
+  let usedStartTime = new Date(startDate); // usedStartDate - 100 days from startDate
+  usedStartTime.setDate(usedStartTime.getDate() - 100);
+  const usedEndTime = new Date(startDate) || new Date();
+
+  console.log("weather-map-cockpit->render #i01", {
     timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-    usedStartDate,
-    finalTime,
+    currentTime,
+    usedStartTime,
+    usedEndTime,
     firstHour
   });
 
@@ -489,14 +486,14 @@ const WeatherMapCockpit = ({
             ></a>
           </div>
 
-          {firstHour && usedStartDate && (
+          {firstHour && currentTime && (
             <Timeline
               key="cp-timeline"
               timeSpan={Number(timeSpan.replace(/\D/g, ""), 10)}
-              initialDate={currentTime || initialDate}
-              startTime={usedStartDate}
-              endTime={finalTime}
-              firstHour={firstHour?.getUTCHours()}
+              initialDate={currentTime}
+              startTime={usedStartTime}
+              endTime={usedEndTime}
+              //firstHour={firstHour?.getUTCHours()}
               updateCB={onTimelineUpdate}
             />
           )}
