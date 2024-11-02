@@ -2,9 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
-import { marker } from "leaflet";
-import { offset } from "@floating-ui/react-dom-interactions";
-import { set } from "mobx";
 
 const Timeline = ({
   initialDate,
@@ -16,7 +13,7 @@ const Timeline = ({
   markerPosition = "center",
   showBar = true, // Toggle the bar visibility
   barDuration = 24, // Bar duration in hours
-  barDirection = "future", // New prop: 'past' or 'future'
+  barDirection = "future", // New prop: 'past' or 'future' NOT USED YET
   updateCB
 }) => {
   const containerRef = useRef(null);
@@ -537,22 +534,22 @@ const Timeline = ({
     );
   };
 
-  // console.log("Timeline->render #i011", {
-  //   currentDate,
-  //   currentTranslateX,
-  //   params: {
-  //     initialDate,
-  //     firstHour,
-  //     timeSpan,
-  //     startTime,
-  //     endTime,
-  //     markerPosition,
-  //     showBar,
-  //     barDuration,
-  //     barDirection,
-  //     updateCB
-  //   }
-  // });
+  console.log("Timeline->render #i011", {
+    currentDate,
+    currentTranslateX,
+    params: {
+      initialDate,
+      firstHour,
+      timeSpan,
+      startTime,
+      endTime,
+      markerPosition,
+      showBar,
+      barDuration,
+      barDirection,
+      updateCB
+    }
+  });
 
   return (
     <>
@@ -594,32 +591,48 @@ const Timeline = ({
         </div>
 
         <div id="indicator" className="cp-scale-stamp">
-          <div
-            className="cp-scale-stamp-range 0js-active"
-            style={{
-              left: indicatorPosition
-            }}
-          >
-            <span className="cp-scale-stamp-range-bar"></span>
-            <span className="cp-scale-stamp-range-begin">
-              {getSelectedTime()}
-            </span>
-            <span className="cp-scale-stamp-range-end">
-              {getSelectedTime()}
-            </span>
-          </div>
+          {timeSpan > 1 && (
+            <div
+              className="cp-scale-stamp-range js-active"
+              style={{
+                left: indicatorPosition,
+                width: timeSpan * pixelsPerHour
+              }}
+            >
+              <span className="cp-scale-stamp-range-bar"></span>
+              <span className="cp-scale-stamp-range-begin">
+                <FormattedDate
+                  date={currentDate}
+                  options={{ timeStyle: "short" }}
+                />
+              </span>
+              <span className="cp-scale-stamp-range-end">
+                <FormattedDate
+                  date={new Date(currentDate)?.setHours(
+                    currentDate?.getHours() + timeSpan
+                  )}
+                  options={{ timeStyle: "short" }}
+                />
+              </span>
+            </div>
+          )}
 
-          <div
-            className="cp-scale-stamp-point js-active"
-            style={{
-              left: indicatorPosition
-            }}
-          >
-            <span className="cp-scale-stamp-point-arrow"></span>
-            <span className="cp-scale-stamp-point-exact">
-              {getSelectedTime()}
-            </span>
-          </div>
+          {timeSpan === 1 && (
+            <div
+              className="cp-scale-stamp-point js-active"
+              style={{
+                left: indicatorPosition
+              }}
+            >
+              <span className="cp-scale-stamp-point-arrow"></span>
+              <span className="cp-scale-stamp-point-exact">
+                <FormattedDate
+                  date={currentDate}
+                  options={{ timeStyle: "short" }}
+                />
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="cp-scale-flipper">
@@ -635,7 +648,7 @@ const Timeline = ({
           ></a>
         </div>
 
-        {showBar && (
+        {/* {showBar && (
           <div className="cp-scale-analyse-forecast">
             {barDirection === "past" && (
               <span
@@ -658,7 +671,7 @@ const Timeline = ({
               ></span>
             )}
           </div>
-        )}
+        )} */}
       </div>
       {getPlayerButtons()}
     </>
