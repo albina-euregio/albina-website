@@ -141,10 +141,10 @@ export default class WeatherMapStore_new {
     this.grid = {};
     let loads = [];
 
-    // console.log(
-    //   "_loadData this._currentTime ##33",
-    //   new Date(this._currentTime)
-    // );
+    console.log(
+      "_loadData this._currentTime ##33",
+      new Date(this._currentTime)
+    );
     if (
       this.domainConfig?.layer.stations &&
       this._currentTime.get() <= this._agl
@@ -573,6 +573,7 @@ export default class WeatherMapStore_new {
       new Date(newTime).getTime() != new Date(this._currentTime.get()).getTime()
     )
       this._currentTime.set(newTime);
+    this._loadIndexData();
   }
 
   /*
