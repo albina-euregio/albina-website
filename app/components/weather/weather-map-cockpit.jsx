@@ -454,7 +454,8 @@ const WeatherMapCockpit = ({
 
   let usedStartTime = new Date(startDate); // usedStartDate - 100 days from startDate
   usedStartTime.setDate(usedStartTime.getDate() - 100);
-  const usedEndTime = new Date(startDate) || new Date();
+  let usedEndTime = new Date(startDate) || new Date();
+  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
 
   // console.log("weather-map-cockpit->render #i01", {
   //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),

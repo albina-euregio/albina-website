@@ -81,7 +81,7 @@ const Timeline = ({
         : -30
     );
     setMaxEndDay(
-      endTime ? Math.floor(differenceInHours(now, endTime) / hoursPerDay) : 30
+      endTime ? Math.floor(differenceInHours(endTime, now) / hoursPerDay) : 30
     );
   }, [startTime, endTime, now]);
 
@@ -348,6 +348,14 @@ const Timeline = ({
   };
 
   const setRulerDimensions = targetDate => {
+    console.log("setRulerDimensions #i011", {
+      targetDate: targetDate.toISOString(),
+      startOfDay: startOfDay.toISOString(),
+      maxStartDay,
+      maxEndDay,
+      rulerStartDay,
+      rulerEndDay
+    });
     const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
     const targetDay = Math.floor(timeDifferenceInHours / 24);
     setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
@@ -451,23 +459,6 @@ const Timeline = ({
     return date.toLocaleString();
   };
 
-  // console.log("Timeline->render #i011", {
-  //   currentDate,
-  //   currentTranslateX,
-  //   params: {
-  //     initialDate,
-  //     firstHour,
-  //     timeSpan,
-  //     startTime,
-  //     endTime,
-  //     markerPosition,
-  //     showBar,
-  //     barDuration,
-  //     barDirection,
-  //     updateCB
-  //   }
-  // });
-
   const handleOpenDateDialogClick = () => {
     datePickerRef.current.showPicker();
   };
@@ -546,6 +537,23 @@ const Timeline = ({
     );
   };
 
+  console.log("Timeline->render #i011", {
+    currentDate,
+    currentTranslateX,
+    params: {
+      initialDate,
+      firstHour,
+      timeSpan,
+      startTime,
+      endTime,
+      markerPosition,
+      showBar,
+      barDuration,
+      barDirection,
+      updateCB
+    }
+  });
+
   return (
     <>
       <div className="cp-calendar">
@@ -569,44 +577,7 @@ const Timeline = ({
           max={formatDateToLocalDateTime(endTime)}
         />
       </div>
-      <div
-        className="cp-scale"
-        tabIndex="0"
-        onKeyDown={handleKeyDown}
-        /*
-          style={{
-          width: "100%",
-          maxWidth: "56rem",
-          margin: "0 auto"
-        }}
-        */
-      >
-        {/* <div style={{marginBottom: '1rem'}}>
-          <input
-            type="datetime-local"
-            onChange={(e) => jumpToDate(new Date(e.target.value))}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '0.25rem',
-              padding: '0.25rem 0.5rem'
-            }}
-            min={startTime || "2022-10-01T00:00"}
-            max={endTime || "2025-10-01T00:00"}
-          />
-          <button
-            onClick={() => jumpToDate(new Date())}
-            style={{
-              marginLeft: '0.5rem',
-              backgroundColor: '#3b82f6',
-              color: 'white',
-              padding: '0.25rem 0.75rem',
-              borderRadius: '0.25rem'
-            }}
-          >
-            Jump to Now
-          </button>
-        </div> */}
-
+      <div className="cp-scale" tabIndex="0" onKeyDown={handleKeyDown}>
         <div
           ref={containerRef}
           onMouseDown={handleMouseDown}
@@ -614,64 +585,12 @@ const Timeline = ({
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           className="cp-scale-days-2024"
-
-          // style={{
-          //   height: "100%",
-          //   userSelect: "none",
-          //   overflow: "hidden"
-          // }}
         >
-          <div
-            className="cp-scale-days-outer"
-            // style={{ width: "100%", height: "2em", position: "relative" }}
-          >
-            <div
-              ref={rulerRef}
-              id="ruler"
-              className="cp-scale-days-inner"
-              // style={{
-              //   height: "100%",
-              //   position: "absolute",
-              //   left: "0",
-              //   top: "0",
-              //   transition: "transform 0.3s ease-in-out"
-              // }}
-            >
+          <div className="cp-scale-days-outer">
+            <div ref={rulerRef} id="ruler" className="cp-scale-days-inner">
               {createRulerMarkings()}
             </div>
-
-            {/* {showBar && (
-              <div
-                className=""
-                style={{
-                  position: "absolute",
-                  top: "0",
-                  height: "50%",
-                  backgroundColor: "rgba(253, 230, 138, 0.5)",
-                  zIndex: "5",
-                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                  width: `${barWidth}px`,
-                  transform: "translateX(-1px)"
-                }}
-              ></div>
-            )} */}
           </div>
-
-          {/* <div
-            id="indicator"
-            className="oooo"
-            style={{
-              position: "absolute",
-              top: "0",
-              width: "0.125rem",
-              height: "100%",
-              backgroundColor: "#3b82f6",
-              pointerEvents: "none",
-              zIndex: "10",
-              left: indicatorPosition,
-              transform: "translateX(-50%)"
-            }}
-          >{getSelectedTime()}</div>  */}
         </div>
 
         <div id="indicator" className="cp-scale-stamp">
@@ -709,8 +628,6 @@ const Timeline = ({
             href="#"
             onClick={() => jumpStep(1)}
           ></a>
-          {/* {" "}
-          {getDisplayDate()} */}
           <a
             className="cp-scale-flipper-right icon-arrow-right"
             href="#"
