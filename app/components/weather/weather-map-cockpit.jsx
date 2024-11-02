@@ -404,10 +404,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span className="cp-release-released">
-            <span>
+            {/* <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} />
+            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} /> */}
           </span>
         </Tooltip>
         <Tooltip
@@ -417,10 +417,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span key="cp-release-update" className="cp-release-update">
-            <span>
+            {/* <span>
               <FormattedMessage id="weathermap:cockpit:maps-update-date:prefix" />
             </span>{" "}
-            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} />
+            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} /> */}
           </span>
         </Tooltip>
         <Tooltip
@@ -454,13 +454,22 @@ const WeatherMapCockpit = ({
 
   let usedStartTime = new Date(startDate); // usedStartDate - 100 days from startDate
   usedStartTime.setDate(usedStartTime.getDate() - 100);
-  let usedEndTime = new Date(startDate) || new Date();
+  let usedEndTime = new Date(startDate) || null;
   usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
 
-  // console.log("weather-map-cockpit->render #i01", {
+  let usedInitialDate = new Date(currentTime);
+  if (
+    usedEndTime &&
+    new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
+  )
+    usedInitialDate = new Date(startDate);
+
+  // console.log("weather-map-cockpit->render #i41", {
   //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   startDate,
   //   currentTime,
   //   usedStartTime,
+  //   usedInitialDate,
   //   usedEndTime,
   //   firstHour
   // });
@@ -480,14 +489,14 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          {firstHour && currentTime && (
+          {firstHour && startDate && currentTime && (
             <Timeline
               key="cp-timeline"
               domainId={domainId}
               timeSpan={absSpan}
               barDuration={absSpan}
               showBar={absSpan > 1}
-              initialDate={currentTime}
+              initialDate={usedInitialDate}
               startTime={usedStartTime}
               endTime={usedEndTime}
               //firstHour={firstHour?.getUTCHours()}

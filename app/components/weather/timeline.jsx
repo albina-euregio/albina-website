@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
+import { set } from "mobx";
 
 const Timeline = ({
   initialDate,
@@ -40,6 +41,16 @@ const Timeline = ({
   const datePickerRef = useRef(null);
 
   const now = new Date();
+  const nowFullHour = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      0,
+      0
+    )
+  );
   const startOfDay = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   );
@@ -110,7 +121,13 @@ const Timeline = ({
 
       setIndicatorPosition(newIndicatorPosition);
       updateTimelinePosition(initialTranslateX, true);
-      setCurrentDate(initialDate);
+      // console.log("Timeline->useEffect #i41", {
+      //   initialDate: new Date(initialDate).toISOString(),
+      //   currentDate: currentDate ? new Date(currentDate).toISOString() : null,
+      //   endTime: new Date(endTime).toISOString(),
+      // });
+
+      if (!currentDate) snapToNearestMarker(initialDate);
 
       // console.log("Timeline->useEffect #i01", {
       //   initialDate: new Date(initialDate).toISOString(),
@@ -567,8 +584,8 @@ const Timeline = ({
             position: "absolute",
             opacity: 0,
             width: 0,
-            height: 0
-            //pointerEvents: "none"
+            height: 0,
+            pointerEvents: "none"
           }}
           min={formatDateToLocalDateTime(startTime)}
           max={formatDateToLocalDateTime(endTime)}

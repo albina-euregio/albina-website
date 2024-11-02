@@ -122,7 +122,8 @@ export default class WeatherMapStore_new {
         //   _agl: this._agl,
         //   currentTime: this._getStartTimeForSpan(this._dateStart)
         // });
-        this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
+        if (!this._currentTime.get())
+          this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
         this._loadIndexData();
       })
       .catch(err => {
