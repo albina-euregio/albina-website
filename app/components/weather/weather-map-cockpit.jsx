@@ -480,14 +480,6 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <div className="cp-calendar">
-            <a
-              href="#"
-              className="cp-calendar-select icon-calendar-big tooltip"
-              title="Select Date"
-            ></a>
-          </div>
-
           {firstHour && currentTime && (
             <Timeline
               key="cp-timeline"

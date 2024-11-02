@@ -36,6 +36,8 @@ const Timeline = ({
   const pixelsPerHour = 5;
   const daysBuild = 10;
 
+  const datePickerRef = useRef(null);
+
   const now = new Date();
   const startOfDay = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
@@ -434,179 +436,209 @@ const Timeline = ({
     }
   });
 
+  const handleSelectDateClick = () => {
+    console.log("handleSelectDateClick #i01", datePickerRef.current);
+    datePickerRef.current.click();
+  };
+
   return (
-    <div
-      className="cp-scale"
-      tabIndex="0"
-      onKeyDown={handleKeyDown}
-      /*
-        style={{
-        width: "100%",
-        maxWidth: "56rem",
-        margin: "0 auto"
-      }}
-      */
-    >
-      {/* <div style={{marginBottom: '1rem'}}>
+    <>
+      <div className="cp-calendar">
+        <a
+          onClick={() => handleSelectDateClick()}
+          className="cp-calendar-select icon-calendar-big tooltip"
+          title="Select Date"
+        ></a>
         <input
           type="datetime-local"
-          onChange={(e) => jumpToDate(new Date(e.target.value))}
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '0.25rem',
-            padding: '0.25rem 0.5rem'
-          }}
-          min={startTime || "2022-10-01T00:00"}
-          max={endTime || "2025-10-01T00:00"}
-        />
-        <button
-          onClick={() => jumpToDate(new Date())}
-          style={{
-            marginLeft: '0.5rem',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            padding: '0.25rem 0.75rem',
-            borderRadius: '0.25rem'
-          }}
-        >
-          Jump to Now
-        </button>
-      </div> */}
-
-      <div
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        className="cp-scale-days-2024"
-
-        // style={{
-        //   height: "100%",
-        //   userSelect: "none",
-        //   overflow: "hidden"
-        // }}
-      >
-        <div
-          className="cp-scale-days-outer"
-          // style={{ width: "100%", height: "2em", position: "relative" }}
-        >
-          <div
-            ref={rulerRef}
-            id="ruler"
-            className="cp-scale-days-inner"
-            // style={{
-            //   height: "100%",
-            //   position: "absolute",
-            //   left: "0",
-            //   top: "0",
-            //   transition: "transform 0.3s ease-in-out"
-            // }}
-          >
-            {createRulerMarkings()}
-          </div>
-
-          {/* {showBar && (
-            <div
-              className=""
-              style={{
-                position: "absolute",
-                top: "0",
-                height: "50%",
-                backgroundColor: "rgba(253, 230, 138, 0.5)",
-                zIndex: "5",
-                left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                width: `${barWidth}px`,
-                transform: "translateX(-1px)"
-              }}
-            ></div>
-          )} */}
-        </div>
-
-        {/* <div
-          id="indicator"
-          className="oooo"
+          ref={datePickerRef}
+          onChange={e => jumpToDate(new Date(e.target.value))}
           style={{
             position: "absolute",
-            top: "0",
-            width: "0.125rem",
-            height: "100%",
-            backgroundColor: "#3b82f6",
-            pointerEvents: "none",
-            zIndex: "10",
-            left: indicatorPosition,
-            transform: "translateX(-50%)"
+            opacity: 0,
+            width: 0,
+            height: 0,
+            pointerEvents: "none"
           }}
-        >{getSelectedTime()}</div>  */}
+          min={startTime}
+          max={endTime}
+        />
       </div>
-
-      <div id="indicator" className="cp-scale-stamp">
-        <div
-          className="cp-scale-stamp-range 0js-active"
+      <div
+        className="cp-scale"
+        tabIndex="0"
+        onKeyDown={handleKeyDown}
+        /*
           style={{
-            left: indicatorPosition
-          }}
-        >
-          <span className="cp-scale-stamp-range-bar"></span>
-          <span className="cp-scale-stamp-range-begin">
-            {getSelectedTime()}
-          </span>
-          <span className="cp-scale-stamp-range-end">{getSelectedTime()}</span>
-        </div>
+          width: "100%",
+          maxWidth: "56rem",
+          margin: "0 auto"
+        }}
+        */
+      >
+        {/* <div style={{marginBottom: '1rem'}}>
+          <input
+            type="datetime-local"
+            onChange={(e) => jumpToDate(new Date(e.target.value))}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '0.25rem',
+              padding: '0.25rem 0.5rem'
+            }}
+            min={startTime || "2022-10-01T00:00"}
+            max={endTime || "2025-10-01T00:00"}
+          />
+          <button
+            onClick={() => jumpToDate(new Date())}
+            style={{
+              marginLeft: '0.5rem',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '0.25rem'
+            }}
+          >
+            Jump to Now
+          </button>
+        </div> */}
 
         <div
-          className="cp-scale-stamp-point js-active"
-          style={{
-            left: indicatorPosition
-          }}
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          className="cp-scale-days-2024"
+
+          // style={{
+          //   height: "100%",
+          //   userSelect: "none",
+          //   overflow: "hidden"
+          // }}
         >
-          <span className="cp-scale-stamp-point-arrow"></span>
-          <span className="cp-scale-stamp-point-exact">
-            {getSelectedTime()}
-          </span>
-        </div>
-      </div>
+          <div
+            className="cp-scale-days-outer"
+            // style={{ width: "100%", height: "2em", position: "relative" }}
+          >
+            <div
+              ref={rulerRef}
+              id="ruler"
+              className="cp-scale-days-inner"
+              // style={{
+              //   height: "100%",
+              //   position: "absolute",
+              //   left: "0",
+              //   top: "0",
+              //   transition: "transform 0.3s ease-in-out"
+              // }}
+            >
+              {createRulerMarkings()}
+            </div>
 
-      <div className="cp-scale-flipper">
-        <a
-          className="cp-scale-flipper-left icon-arrow-left"
-          href="#"
-          onClick={() => jumpStep(1)}
-        ></a>
-        {/* {" "}
-        {getDisplayDate()} */}
-        <a
-          className="cp-scale-flipper-right icon-arrow-right"
-          href="#"
-          onClick={() => jumpStep(-1)}
-        ></a>
-      </div>
+            {/* {showBar && (
+              <div
+                className=""
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  height: "50%",
+                  backgroundColor: "rgba(253, 230, 138, 0.5)",
+                  zIndex: "5",
+                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                  width: `${barWidth}px`,
+                  transform: "translateX(-1px)"
+                }}
+              ></div>
+            )} */}
+          </div>
 
-      {showBar && (
-        <div className="cp-scale-analyse-forecast">
-          {barDirection === "past" && (
-            <span
-              className="cp-scale-analyse-bar"
-              style={{
-                left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                width: `${barWidth}px`,
-                transform: "translateX(-1px)"
-              }}
-            ></span>
-          )}
-          {barDirection === "future" && (
-            <span
-              className="cp-scale-forecast-bar"
-              style={{
-                left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                width: `${barWidth}px`,
-                transform: "translateX(-1px)"
-              }}
-            ></span>
-          )}
+          {/* <div
+            id="indicator"
+            className="oooo"
+            style={{
+              position: "absolute",
+              top: "0",
+              width: "0.125rem",
+              height: "100%",
+              backgroundColor: "#3b82f6",
+              pointerEvents: "none",
+              zIndex: "10",
+              left: indicatorPosition,
+              transform: "translateX(-50%)"
+            }}
+          >{getSelectedTime()}</div>  */}
         </div>
-      )}
-    </div>
+
+        <div id="indicator" className="cp-scale-stamp">
+          <div
+            className="cp-scale-stamp-range 0js-active"
+            style={{
+              left: indicatorPosition
+            }}
+          >
+            <span className="cp-scale-stamp-range-bar"></span>
+            <span className="cp-scale-stamp-range-begin">
+              {getSelectedTime()}
+            </span>
+            <span className="cp-scale-stamp-range-end">
+              {getSelectedTime()}
+            </span>
+          </div>
+
+          <div
+            className="cp-scale-stamp-point js-active"
+            style={{
+              left: indicatorPosition
+            }}
+          >
+            <span className="cp-scale-stamp-point-arrow"></span>
+            <span className="cp-scale-stamp-point-exact">
+              {getSelectedTime()}
+            </span>
+          </div>
+        </div>
+
+        <div className="cp-scale-flipper">
+          <a
+            className="cp-scale-flipper-left icon-arrow-left"
+            href="#"
+            onClick={() => jumpStep(1)}
+          ></a>
+          {/* {" "}
+          {getDisplayDate()} */}
+          <a
+            className="cp-scale-flipper-right icon-arrow-right"
+            href="#"
+            onClick={() => jumpStep(-1)}
+          ></a>
+        </div>
+
+        {showBar && (
+          <div className="cp-scale-analyse-forecast">
+            {barDirection === "past" && (
+              <span
+                className="cp-scale-analyse-bar"
+                style={{
+                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                  width: `${barWidth}px`,
+                  transform: "translateX(-1px)"
+                }}
+              ></span>
+            )}
+            {barDirection === "future" && (
+              <span
+                className="cp-scale-forecast-bar"
+                style={{
+                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
+                  width: `${barWidth}px`,
+                  transform: "translateX(-1px)"
+                }}
+              ></span>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
