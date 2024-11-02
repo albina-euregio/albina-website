@@ -43,6 +43,8 @@ type Parameter = {
   id: ParameterType;
   stroke: string;
   label: string;
+  axis?: uPlot.Axis;
+  scales?: uPlot.Scales;
 };
 
 const WeatherStationUplot: React.FC<{
@@ -91,14 +93,13 @@ const WeatherStationUplot: React.FC<{
                     });
               })
           },
-          {
-            label: parameters[0].label,
-            incrs: parameters[0].id === "DW" ? [90] : undefined,
+          parameters[0]?.axis ?? {
+            label: `${parameters[0].label} [${unit}]`,
             labelGap: 10,
-            values: (_, vs) =>
-              vs.map(v => intl.formatNumber(v, {}) + " " + unit)
+            values: (_, vs) => vs.map(v => intl.formatNumber(v, {}))
           }
         ],
+        scales: parameters[0]?.scales,
         series: [
           {
             label: "Time",

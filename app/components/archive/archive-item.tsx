@@ -93,9 +93,16 @@ function ArchiveItem({ date, status }: Props) {
       </td>
       <td>
         <ul className="list-inline list-buttongroup-dense list-download">
-          <li>
-            <DownloadLink format="pdf" dateString={dateString} lang={lang} />
-          </li>
+          {bulletin?.bulletinID && (
+            <li>
+              <DownloadLink
+                format="pdf"
+                dateString={dateString}
+                lang={lang}
+                bulletin={bulletin?.bulletinID}
+              />
+            </li>
+          )}
           <li>
             <DownloadLink format="xml" dateString={dateString} lang={lang} />
           </li>
@@ -145,10 +152,12 @@ function ArchiveItem({ date, status }: Props) {
 }
 
 function DownloadLink({
+  bulletin,
   format,
   dateString,
   lang
 }: {
+  bulletin?: string;
   format: "pdf" | "xml" | "json";
   dateString: string;
   lang: string;
@@ -156,6 +165,7 @@ function DownloadLink({
   return (
     <a
       href={config.template(config.apis.bulletin[format], {
+        bulletin: bulletin || "",
         date: dateString,
         region: dateString > "2022-05-06" ? "EUREGIO_" : "",
         lang,

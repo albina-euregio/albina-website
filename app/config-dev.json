@@ -34,7 +34,7 @@
       "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}.webp",
-      "pdf": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}{bw}.pdf",
+      "pdf": "https://api.avalanche.report/albina_dev/api/bulletins/{bulletin}/pdf?region=EUREGIO&lang={lang}&grayscale=false",
       "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static.avalanche.report/bulletins_dev/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",

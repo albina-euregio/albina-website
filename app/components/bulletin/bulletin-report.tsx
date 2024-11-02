@@ -27,6 +27,7 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import BulletinStatusLine from "./bulletin-status-line";
 import { wordDiff } from "../../util/wordDiff";
+import { Tooltip } from "../tooltips/tooltip.tsx";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -183,7 +184,31 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                 bulletin={bulletin}
               ></SynthesizedBulletin>
             </div>
+
+            <div>
+              <ul className="list-inline list-buttongroup bulletin-report-header-download">
+                <li>
+                  <Tooltip
+                    label={intl.formatMessage({
+                      id: "bulletin:linkbar:pdf:hover"
+                    })}
+                  >
+                    <a
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href={config.template(config.apis.bulletin.pdf, {
+                        bulletin: bulletin.bulletinID,
+                        lang: intl.locale.slice(0, 2)
+                      })}
+                    >
+                      PDF
+                    </a>
+                  </Tooltip>
+                </li>
+              </ul>
+            </div>
           </header>
+
           {hasDaytimeDependency(bulletin) ? (
             [
               <BulletinDaytimeReport
