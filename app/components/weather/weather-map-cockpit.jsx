@@ -73,105 +73,6 @@ const WeatherMapCockpit = ({
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
-  // const placeCockpitItems = tickWidth => {
-  //   // console.log(
-  //   //   "placeCockpitItems: s04",
-  //   //   currentTime,
-  //   //   tickWidth
-  //   // );
-  //   const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
-  //   const startDateTime = new Date(timeArray[0]);
-  //   startDateTime.setUTCHours(
-  //     startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
-  //   );
-  //   if (currentTime && startDateTime) {
-  //     const posContainerEl = document.querySelector(".cp-scale-days");
-  //     const posContainer = posContainerEl.getBoundingClientRect();
-
-  //     // console.log("cockpit #33", {
-  //     //   currTime: new Date(currentTime),
-  //     //   firstTimeStamp: timeArray[0],
-  //     //   firstTime: new Date(timeArray[0]),
-  //     //   firstTimeMinusTimeSpan: startDateTime,
-  //     //   timespan,
-  //     //   posContainerL: posContainer.left,
-  //     //   scrollx: window.scrollX
-  //     // });
-  //     const posFirstAvailableEl = document.querySelector(
-  //       ".t" + startDateTime.getTime()
-  //     );
-  //     if (!posFirstAvailableEl) {
-  //       // console.log("cockpit s044 ERROR", {
-  //       //   currTime: new Date(currentTime),
-  //       //   startDateTime: startDateTime.getTime(),
-  //       //   timespan
-  //       // });
-
-  //       return;
-  //     }
-  //     // console.log("cockpit s044 OK", {
-  //     //   currTime: new Date(currentTime),
-  //     //   startDateTime: startDateTime.getTime(),
-  //     //   timespan
-  //     // });
-  //     const posFirstAvailable = posFirstAvailableEl.getBoundingClientRect();
-
-  //     const posLastEl = document.querySelector(
-  //       ".t" + timeArray[timeArray.length - 1]
-  //     );
-  //     const posLast = posLastEl.getBoundingClientRect();
-
-  //     //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
-  //     showTimes(true);
-  //     if (timeArray.length < 2) {
-  //       $(".cp-scale-flipper-left").css({
-  //         display: "none"
-  //       });
-  //       $(".cp-scale-flipper-right").css({
-  //         display: "none"
-  //       });
-  //       $(".cp-movie").css({
-  //         display: "none"
-  //       });
-  //     } else {
-  //       $(".cp-scale-flipper-left").css({
-  //         left: posFirstAvailable?.left - posContainer.left,
-  //         display: ""
-  //       });
-  //       $(".cp-scale-flipper-right").css({
-  //         left: posLast.left - posContainer.left,
-  //         display: ""
-  //       });
-  //       $(".cp-movie").css({
-  //         display: ""
-  //       });
-  //     }
-
-  //     if (lastAnalyticTime) {
-  //       const lastAnalyticTimeCompEl = document.querySelector(
-  //         ".t" + lastAnalyticTime
-  //       );
-  //       const lastAnalyticTimeComp =
-  //         lastAnalyticTimeCompEl.getBoundingClientRect();
-  //       $(".cp-scale-analyse-bar").css({
-  //         left: posFirstAvailable?.left - posContainer.left,
-  //         width:
-  //           lastAnalyticTimeComp?.left - posFirstAvailable?.left - tickWidth,
-  //         display: ""
-  //       });
-  //     } else
-  //       $(".cp-scale-analyse-bar").css({
-  //         display: "none"
-  //       });
-  //   }
-  // };
-
-  // const onTimelineUpdate = ({ tickWidth }) => {
-  //   //console.log("onTimelineUpdate s04", tickWidth);
-
-  //   placeCockpitItems(tickWidth);
-  // };
-
   const onTimelineUpdate = newTime => {
     changeCurrentTime(newTime);
   };
@@ -320,55 +221,6 @@ const WeatherMapCockpit = ({
     );
   };
 
-  // const getPlayerButtons = () => {
-  //   //console.log("getPlayerButtons", player.playing);
-  //   // const label =
-  //   //   "weathermap:player:" + (player.playing ? "stop" : "play");
-
-  //   let linkClassesPlay = ["cp-movie-play", "icon-play"];
-  //   let linkClassesStop = ["cp-movie-stop", "icon-pause"];
-  //   let divClasses = ["cp-movie"];
-  //   if (player.playing()) divClasses.push("js-playing");
-  //   return (
-  //     <div key="cp-movie" className={divClasses.join(" ")}>
-  //       <Tooltip
-  //         key="cp-movie-play"
-  //         label={<FormattedMessage id="weathermap:cockpit:play" />}
-  //       >
-  //         <a
-  //           key="playerButton"
-  //           className={linkClassesPlay.join(" ")}
-  //           href="#"
-  //           onClick={() => {
-  //             player.toggle();
-  //           }}
-  //         >
-  //           <span className="is-visually-hidden">
-  //             {<FormattedMessage id="weathermap:cockpit:play" />}
-  //           </span>
-  //         </a>
-  //       </Tooltip>
-  //       <Tooltip
-  //         key="cp-movie-stop"
-  //         label={<FormattedMessage id="weathermap:cockpit:stop" />}
-  //       >
-  //         <a
-  //           key="stopButton"
-  //           className={linkClassesStop.join(" ")}
-  //           href="#"
-  //           onClick={() => {
-  //             player.toggle();
-  //           }}
-  //         >
-  //           <span className="is-visually-hidden">
-  //             {<FormattedMessage id="weathermap:cockpit:stop" />}
-  //           </span>
-  //         </a>
-  //       </Tooltip>
-  //     </div>
-  //   );
-  // };
-
   const legendItems = amount => {
     let items = [];
     for (let i = 1; i <= amount; i++) {
@@ -452,8 +304,8 @@ const WeatherMapCockpit = ({
 
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
-  let usedStartTime = new Date(startDate); // usedStartDate - 100 days from startDate
-  usedStartTime.setDate(usedStartTime.getDate() - 100);
+  let usedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
+  usedStartTime.setDate(usedStartTime.getDate() - 730);
   let usedEndTime = new Date(startDate) || null;
   usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
 
