@@ -173,7 +173,6 @@ const WeatherMapCockpit = ({
   // };
 
   const onTimelineUpdate = newTime => {
-    console.log("onTimelineUpdate #i01", newTime);
     changeCurrentTime(newTime);
   };
 
@@ -321,54 +320,54 @@ const WeatherMapCockpit = ({
     );
   };
 
-  const getPlayerButtons = () => {
-    //console.log("getPlayerButtons", player.playing);
-    // const label =
-    //   "weathermap:player:" + (player.playing ? "stop" : "play");
+  // const getPlayerButtons = () => {
+  //   //console.log("getPlayerButtons", player.playing);
+  //   // const label =
+  //   //   "weathermap:player:" + (player.playing ? "stop" : "play");
 
-    let linkClassesPlay = ["cp-movie-play", "icon-play"];
-    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
-    let divClasses = ["cp-movie"];
-    if (player.playing()) divClasses.push("js-playing");
-    return (
-      <div key="cp-movie" className={divClasses.join(" ")}>
-        <Tooltip
-          key="cp-movie-play"
-          label={<FormattedMessage id="weathermap:cockpit:play" />}
-        >
-          <a
-            key="playerButton"
-            className={linkClassesPlay.join(" ")}
-            href="#"
-            onClick={() => {
-              player.toggle();
-            }}
-          >
-            <span className="is-visually-hidden">
-              {<FormattedMessage id="weathermap:cockpit:play" />}
-            </span>
-          </a>
-        </Tooltip>
-        <Tooltip
-          key="cp-movie-stop"
-          label={<FormattedMessage id="weathermap:cockpit:stop" />}
-        >
-          <a
-            key="stopButton"
-            className={linkClassesStop.join(" ")}
-            href="#"
-            onClick={() => {
-              player.toggle();
-            }}
-          >
-            <span className="is-visually-hidden">
-              {<FormattedMessage id="weathermap:cockpit:stop" />}
-            </span>
-          </a>
-        </Tooltip>
-      </div>
-    );
-  };
+  //   let linkClassesPlay = ["cp-movie-play", "icon-play"];
+  //   let linkClassesStop = ["cp-movie-stop", "icon-pause"];
+  //   let divClasses = ["cp-movie"];
+  //   if (player.playing()) divClasses.push("js-playing");
+  //   return (
+  //     <div key="cp-movie" className={divClasses.join(" ")}>
+  //       <Tooltip
+  //         key="cp-movie-play"
+  //         label={<FormattedMessage id="weathermap:cockpit:play" />}
+  //       >
+  //         <a
+  //           key="playerButton"
+  //           className={linkClassesPlay.join(" ")}
+  //           href="#"
+  //           onClick={() => {
+  //             player.toggle();
+  //           }}
+  //         >
+  //           <span className="is-visually-hidden">
+  //             {<FormattedMessage id="weathermap:cockpit:play" />}
+  //           </span>
+  //         </a>
+  //       </Tooltip>
+  //       <Tooltip
+  //         key="cp-movie-stop"
+  //         label={<FormattedMessage id="weathermap:cockpit:stop" />}
+  //       >
+  //         <a
+  //           key="stopButton"
+  //           className={linkClassesStop.join(" ")}
+  //           href="#"
+  //           onClick={() => {
+  //             player.toggle();
+  //           }}
+  //         >
+  //           <span className="is-visually-hidden">
+  //             {<FormattedMessage id="weathermap:cockpit:stop" />}
+  //           </span>
+  //         </a>
+  //       </Tooltip>
+  //     </div>
+  //   );
+  // };
 
   const legendItems = amount => {
     let items = [];
@@ -457,13 +456,13 @@ const WeatherMapCockpit = ({
   usedStartTime.setDate(usedStartTime.getDate() - 100);
   const usedEndTime = new Date(startDate) || new Date();
 
-  console.log("weather-map-cockpit->render #i01", {
-    timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-    currentTime,
-    usedStartTime,
-    usedEndTime,
-    firstHour
-  });
+  // console.log("weather-map-cockpit->render #i01", {
+  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   currentTime,
+  //   usedStartTime,
+  //   usedEndTime,
+  //   firstHour
+  // });
 
   const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 
@@ -494,7 +493,7 @@ const WeatherMapCockpit = ({
             />
           )}
 
-          {getPlayerButtons()}
+          {/* {getPlayerButtons()} */}
         </div>
 
         {getTimeSpanOptions()}

@@ -4,6 +4,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 import { marker } from "leaflet";
 import { offset } from "@floating-ui/react-dom-interactions";
+import { set } from "mobx";
 
 const Timeline = ({
   initialDate,
@@ -31,6 +32,7 @@ const Timeline = ({
   const [indicatorPosition, setIndicatorPosition] = useState("50%");
   const [barWidth, setBarWidth] = useState(0);
   const [barOffset, setBarOffset] = useState(0); // New state for bar offset
+  const [playerIsActive, setPlayerIsActive] = useState(false);
 
   const hoursPerDay = 24;
   const pixelsPerHour = 5;
@@ -48,6 +50,27 @@ const Timeline = ({
   //   startOfDay: startOfDay.toISOString(),
   //   day: now.getUTCDate()
   // });
+
+  useEffect(() => {
+    let intervalId;
+
+    if (playerIsActive) {
+      // Start the interval when isActive is true
+      intervalId = setInterval(() => {
+        //console.log('Function called at: #i02', {currentDate: currentDate.toISOString(), endTime: endTime.toISOString()});
+        if (currentDate >= endTime) setPlayerIsActive(false);
+        else jumpStep(1);
+      }, 2000); // Runs every 2 seconds
+    }
+
+    // Cleanup function to clear interval when component unmounts
+    // or when isActive changes to false
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [playerIsActive, currentDate]);
 
   useEffect(() => {
     setMaxStartDay(
@@ -90,15 +113,15 @@ const Timeline = ({
       updateTimelinePosition(initialTranslateX, true);
       setCurrentDate(initialDate);
 
-      console.log("Timeline->useEffect #i01", {
-        initialDate: new Date(initialDate).toISOString(),
-        startOfDay: new Date(startOfDay).toISOString(),
-        firstHour,
-        timeSpan,
-        markerPosition,
-        initialOffsetHours,
-        initialTranslateX
-      });
+      // console.log("Timeline->useEffect #i01", {
+      //   initialDate: new Date(initialDate).toISOString(),
+      //   startOfDay: new Date(startOfDay).toISOString(),
+      //   firstHour,
+      //   timeSpan,
+      //   markerPosition,
+      //   initialOffsetHours,
+      //   initialTranslateX
+      // });
     }
   }, [firstHour, timeSpan, markerPosition, initialDate]);
 
@@ -130,19 +153,19 @@ const Timeline = ({
   }, [showBar, barDuration, barDirection, containerRef.current]);
 
   const jumpStep = direction => {
-    //console.log("jumpStep #01", { currentDate });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
+    //console.log("jumpStep #i031", { currentDate: new Date(currentDate).toISOString(), direction, newDate: newDate.toISOString(), add: direction * timeSpan });
     if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
   };
 
   const createRulerMarkings = () => {
     const markings = [];
-    console.log("createRulerMarkings #i0111", {
-      rulerStartDay,
-      rulerEndDay,
-      startOfDay
-    });
+    // console.log("createRulerMarkings #i0111", {
+    //   rulerStartDay,
+    //   rulerEndDay,
+    //   startOfDay
+    // });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -208,11 +231,11 @@ const Timeline = ({
   };
 
   const updateTimelinePosition = (newTranslateX, snap) => {
-    console.log("updateTimelinePosition #i011", {
-      newTranslateX,
-      snap,
-      currentTranslateX
-    });
+    // console.log("updateTimelinePosition #i011", {
+    //   newTranslateX,
+    //   snap,
+    //   currentTranslateX
+    // });
     let usedTranslateX = newTranslateX;
     if (snap) {
       const snapToHours = timeSpan * pixelsPerHour;
@@ -302,7 +325,7 @@ const Timeline = ({
 
     if (nearestMarker) {
       let markerDate = new Date(nearestMarker.dataset.date);
-      console.log("snapToNearestMarker #i0111", { markerDate, searchedMaker });
+      //console.log("snapToNearestMarker #i0111", { markerDate, searchedMaker });
       if (markerDate > endTime) markerDate = endTime;
       if (markerDate < startTime) markerDate = startTime;
       snapToDate(markerDate);
@@ -316,6 +339,13 @@ const Timeline = ({
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect.left;
     return { markerCenterX, targetMarker: targetMarker?.[0] };
+  };
+
+  const setRulerDimensions = targetDate => {
+    const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
+    const targetDay = Math.floor(timeDifferenceInHours / 24);
+    setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
+    setRulerEndDay(Math.min(maxEndDay + 3, targetDay + daysBuild));
   };
 
   const snapToDate = targetDate => {
@@ -332,22 +362,19 @@ const Timeline = ({
     const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
 
-    console.log("snapToDate #i01", {
-      indicator,
-      targetDate: new Date(targetDate).toISOString(),
-      distanceToMove: Math.round(distanceToMove),
-      currentTranslateX
-    });
+    // console.log("snapToDate #i01", {
+    //   indicator,
+    //   targetDate: new Date(targetDate).toISOString(),
+    //   distanceToMove: Math.round(distanceToMove),
+    //   currentTranslateX
+    // });
 
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
-    console.log("snapToDate #i011", { targetDate, newTranslateX });
+    //console.log("snapToDate #i031", { targetDate: targetDate.toISOString(), newTranslateX });
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
 
-    const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
-    const targetDay = Math.floor(timeDifferenceInHours / 24);
-    setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
-    setRulerEndDay(Math.min(maxEndDay + 3, targetDay + daysBuild));
+    setRulerDimensions(targetDate);
 
     if (updateCB) updateCB(targetDate);
   };
@@ -360,9 +387,8 @@ const Timeline = ({
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
     rulerRef.current.style.transition = "transform 0.5s ease";
-    // console.log("jumpToDate #i0111", {
+    // console.log("jumpToDate #i031", {
     //   targetDate: new Date(targetDate).toISOString(),
-    //   targetDay,
     //   maxStartDay,
     //   maxEndDay
     // });
@@ -419,49 +445,121 @@ const Timeline = ({
     return date.toLocaleString();
   };
 
-  console.log("Timeline->render #i011", {
-    currentDate,
-    currentTranslateX,
-    params: {
-      initialDate,
-      firstHour,
-      timeSpan,
-      startTime,
-      endTime,
-      markerPosition,
-      showBar,
-      barDuration,
-      barDirection,
-      updateCB
-    }
-  });
+  // console.log("Timeline->render #i011", {
+  //   currentDate,
+  //   currentTranslateX,
+  //   params: {
+  //     initialDate,
+  //     firstHour,
+  //     timeSpan,
+  //     startTime,
+  //     endTime,
+  //     markerPosition,
+  //     showBar,
+  //     barDuration,
+  //     barDirection,
+  //     updateCB
+  //   }
+  // });
 
-  const handleSelectDateClick = () => {
-    console.log("handleSelectDateClick #i01", datePickerRef.current);
-    datePickerRef.current.click();
+  const handleOpenDateDialogClick = () => {
+    datePickerRef.current.showPicker();
+  };
+
+  const formatDateToLocalDateTime = date => {
+    return date.toISOString().slice(0, 16);
+  };
+
+  const handleSelectDateClick = e => {
+    let targetDate = new Date(e.target.value);
+    targetDate = new Date(
+      Date.UTC(
+        targetDate.getUTCFullYear(),
+        targetDate.getUTCMonth(),
+        targetDate.getUTCDate(),
+        targetDate.getUTCHours(),
+        0,
+        0
+      )
+    );
+
+    setRulerDimensions(targetDate);
+    setCurrentDate(targetDate);
+    setTimeout(() => {
+      snapToNearestMarker(targetDate);
+    }, 500);
+  };
+
+  const getPlayerButtons = () => {
+    //console.log("getPlayerButtons", player.playing);
+    // const label =
+    //   "weathermap:player:" + (player.playing ? "stop" : "play");
+
+    let linkClassesPlay = ["cp-movie-play", "icon-play"];
+    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
+    let divClasses = ["cp-movie"];
+    if (playerIsActive) divClasses.push("js-playing");
+    return (
+      <div key="cp-movie" className={divClasses.join(" ")}>
+        <Tooltip
+          key="cp-movie-play"
+          label={<FormattedMessage id="weathermap:cockpit:play" />}
+        >
+          <a
+            key="playerButton"
+            className={linkClassesPlay.join(" ")}
+            href="#"
+            onClick={() => {
+              setPlayerIsActive(!playerIsActive);
+            }}
+          >
+            <span className="is-visually-hidden">
+              {<FormattedMessage id="weathermap:cockpit:play" />}
+            </span>
+          </a>
+        </Tooltip>
+        <Tooltip
+          key="cp-movie-stop"
+          label={<FormattedMessage id="weathermap:cockpit:stop" />}
+        >
+          <a
+            key="stopButton"
+            className={linkClassesStop.join(" ")}
+            href="#"
+            onClick={() => {
+              setPlayerIsActive(!playerIsActive);
+            }}
+          >
+            <span className="is-visually-hidden">
+              {<FormattedMessage id="weathermap:cockpit:stop" />}
+            </span>
+          </a>
+        </Tooltip>
+      </div>
+    );
   };
 
   return (
     <>
       <div className="cp-calendar">
         <a
-          onClick={() => handleSelectDateClick()}
+          onClick={() => handleOpenDateDialogClick()}
           className="cp-calendar-select icon-calendar-big tooltip"
           title="Select Date"
         ></a>
         <input
           type="datetime-local"
           ref={datePickerRef}
-          onChange={e => jumpToDate(new Date(e.target.value))}
+          onChange={e => handleSelectDateClick(e)}
           style={{
             position: "absolute",
             opacity: 0,
             width: 0,
-            height: 0,
-            pointerEvents: "none"
+            height: 0
+            //pointerEvents: "none"
           }}
-          min={startTime}
-          max={endTime}
+          min={formatDateToLocalDateTime(startTime)}
+          max={formatDateToLocalDateTime(endTime)}
         />
       </div>
       <div
@@ -638,6 +736,7 @@ const Timeline = ({
           </div>
         )}
       </div>
+      {getPlayerButtons()}
     </>
   );
 };

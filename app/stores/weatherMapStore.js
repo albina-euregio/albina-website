@@ -117,11 +117,11 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new->_loadDomainData: loaded #i011", {
-          _dateStart: this._dateStart,
-          _agl: this._agl,
-          currentTime: this._getStartTimeForSpan(this._dateStart)
-        });
+        // console.log("Weathermap_new->_loadDomainData: loaded #i011", {
+        //   _dateStart: this._dateStart,
+        //   _agl: this._agl,
+        //   currentTime: this._getStartTimeForSpan(this._dateStart)
+        // });
         this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
         this._loadIndexData();
       })
@@ -303,16 +303,16 @@ export default class WeatherMapStore_new {
     returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
   */
   get overlayFileName() {
-    console.log(
-      "weatherMapStore_new overlayFileName: ",
-      this._domainId.get(),
-      this._timeSpan.get()
-    );
+    // console.log(
+    //   "weatherMapStore_new overlayFileName: ",
+    //   this._domainId.get(),
+    //   this._timeSpan.get()
+    // );
 
     if (this._currentTime.get()) {
-      console.log("weatherMapStore_new overlayFileName:#1 ", {
-        currentTime: this._currentTime.get()
-      });
+      // console.log("weatherMapStore_new overlayFileName:#1 ", {
+      //   currentTime: this._currentTime.get()
+      // });
 
       return (
         config.apis.weather.overlays +
@@ -564,10 +564,10 @@ export default class WeatherMapStore_new {
     setting a new timeIndex
   */
   changeCurrentTime(newTime) {
-    console.log("weatherMapStore_new: changeCurrentTime", {
-      newTime: new Date(newTime),
-      oldDate: new Date(this._currentTime.get())
-    });
+    // console.log("weatherMapStore_new: changeCurrentTime", {
+    //   newTime: new Date(newTime),
+    //   oldDate: new Date(this._currentTime.get())
+    // });
     if (
       new Date(newTime).getTime() != new Date(this._currentTime.get()).getTime()
     )
