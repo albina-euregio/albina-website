@@ -9,6 +9,7 @@ import { set } from "mobx";
 const Timeline = ({
   initialDate,
   firstHour = 0,
+  domainId,
   timeSpan = 6,
   startTime,
   endTime,
@@ -37,6 +38,7 @@ const Timeline = ({
   const hoursPerDay = 24;
   const pixelsPerHour = 5;
   const daysBuild = 10;
+  const playDelay = 1000;
 
   const datePickerRef = useRef(null);
 
@@ -60,7 +62,7 @@ const Timeline = ({
         //console.log('Function called at: #i02', {currentDate: currentDate.toISOString(), endTime: endTime.toISOString()});
         if (currentDate >= endTime) setPlayerIsActive(false);
         else jumpStep(1);
-      }, 2000); // Runs every 2 seconds
+      }, playDelay); // Runs every 2 seconds
     }
 
     // Cleanup function to clear interval when component unmounts
@@ -124,6 +126,10 @@ const Timeline = ({
       // });
     }
   }, [firstHour, timeSpan, markerPosition, initialDate]);
+
+  useEffect(() => {
+    setPlayerIsActive(false);
+  }, [timeSpan, domainId]);
 
   const handleKeyDown = event => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
@@ -510,6 +516,7 @@ const Timeline = ({
             className={linkClassesPlay.join(" ")}
             href="#"
             onClick={() => {
+              jumpStep(1);
               setPlayerIsActive(!playerIsActive);
             }}
           >

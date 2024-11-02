@@ -482,6 +482,7 @@ const WeatherMapCockpit = ({
           {firstHour && currentTime && (
             <Timeline
               key="cp-timeline"
+              domainId={domainId}
               timeSpan={absSpan}
               barDuration={absSpan}
               showBar={absSpan > 1}
