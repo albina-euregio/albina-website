@@ -551,22 +551,22 @@ const Timeline = ({
     );
   };
 
-  console.log("Timeline->render #i011", {
-    currentDate,
-    currentTranslateX,
-    params: {
-      initialDate,
-      firstHour,
-      timeSpan,
-      startTime,
-      endTime,
-      markerPosition,
-      showBar,
-      barDuration,
-      barDirection,
-      updateCB
-    }
-  });
+  // console.log("Timeline->render #i011", {
+  //   currentDate,
+  //   currentTranslateX,
+  //   params: {
+  //     initialDate,
+  //     firstHour,
+  //     timeSpan,
+  //     startTime,
+  //     endTime,
+  //     markerPosition,
+  //     showBar,
+  //     barDuration,
+  //     barDirection,
+  //     updateCB
+  //   }
+  // });
 
   return (
     <>
