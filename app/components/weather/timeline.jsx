@@ -348,14 +348,14 @@ const Timeline = ({
   };
 
   const setRulerDimensions = targetDate => {
-    console.log("setRulerDimensions #i011", {
-      targetDate: targetDate.toISOString(),
-      startOfDay: startOfDay.toISOString(),
-      maxStartDay,
-      maxEndDay,
-      rulerStartDay,
-      rulerEndDay
-    });
+    // console.log("setRulerDimensions #i011", {
+    //   targetDate: targetDate.toISOString(),
+    //   startOfDay: startOfDay.toISOString(),
+    //   maxStartDay,
+    //   maxEndDay,
+    //   rulerStartDay,
+    //   rulerEndDay
+    // });
     const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
     const targetDay = Math.floor(timeDifferenceInHours / 24);
     setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
@@ -537,22 +537,22 @@ const Timeline = ({
     );
   };
 
-  console.log("Timeline->render #i011", {
-    currentDate,
-    currentTranslateX,
-    params: {
-      initialDate,
-      firstHour,
-      timeSpan,
-      startTime,
-      endTime,
-      markerPosition,
-      showBar,
-      barDuration,
-      barDirection,
-      updateCB
-    }
-  });
+  // console.log("Timeline->render #i011", {
+  //   currentDate,
+  //   currentTranslateX,
+  //   params: {
+  //     initialDate,
+  //     firstHour,
+  //     timeSpan,
+  //     startTime,
+  //     endTime,
+  //     markerPosition,
+  //     showBar,
+  //     barDuration,
+  //     barDirection,
+  //     updateCB
+  //   }
+  // });
 
   return (
     <>
