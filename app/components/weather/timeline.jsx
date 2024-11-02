@@ -3,6 +3,7 @@ import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 import { marker } from "leaflet";
+import { offset } from "@floating-ui/react-dom-interactions";
 
 const Timeline = ({
   initialDate,
@@ -87,7 +88,7 @@ const Timeline = ({
       updateTimelinePosition(initialTranslateX, true);
       setCurrentDate(initialDate);
 
-      console.log("Timeline->useEffect #i0111", {
+      console.log("Timeline->useEffect #i01", {
         initialDate: new Date(initialDate).toISOString(),
         startOfDay: new Date(startOfDay).toISOString(),
         firstHour,
@@ -130,16 +131,16 @@ const Timeline = ({
     //console.log("jumpStep #01", { currentDate });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
-    jumpToDate(newDate);
+    if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
   };
 
   const createRulerMarkings = () => {
     const markings = [];
-    // console.log("createRulerMarkings #i011", {
-    //   rulerStartDay,
-    //   rulerEndDay,
-    //   startOfDay
-    // });
+    console.log("createRulerMarkings #i0111", {
+      rulerStartDay,
+      rulerEndDay,
+      startOfDay
+    });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -150,17 +151,27 @@ const Timeline = ({
 
         const localDate = new Date(markDate);
         const localHour = localDate.getHours();
-        const markClass =
+        let markClass = [
           localHour === 0
             ? "day-mark"
             : isSelectable
               ? "selectable-hour-mark"
-              : "hour-mark";
+              : "hour-mark"
+        ];
+        if (markDate.getTime() === endTime?.getTime())
+          markClass.push("selectable-hours-end");
+        if (markDate.getTime() === startTime?.getTime())
+          markClass.push("selectable-hours-start");
+        // console.log("createRulerMarkings #i0111", {
+        //   markDate: markDate.toISOString(),
+        //   endTime: endTime.toISOString(),
+        //   markClass
+        // });
 
         markings.push(
           <div
             key={`${day}-${hour}`}
-            className={`ruler-mark ${markClass}`}
+            className={`ruler-mark ${markClass.join(" ")}`}
             style={{
               left: `${totalHours * pixelsPerHour}px`
               // position: "absolute",
@@ -288,8 +299,10 @@ const Timeline = ({
     });
 
     if (nearestMarker) {
-      const markerDate = new Date(nearestMarker.dataset.date);
+      let markerDate = new Date(nearestMarker.dataset.date);
       console.log("snapToNearestMarker #i0111", { markerDate, searchedMaker });
+      if (markerDate > endTime) markerDate = endTime;
+      if (markerDate < startTime) markerDate = startTime;
       snapToDate(markerDate);
     }
   };
@@ -323,10 +336,17 @@ const Timeline = ({
       distanceToMove: Math.round(distanceToMove),
       currentTranslateX
     });
+
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
     console.log("snapToDate #i011", { targetDate, newTranslateX });
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
+
+    const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
+    const targetDay = Math.floor(timeDifferenceInHours / 24);
+    setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
+    setRulerEndDay(Math.min(maxEndDay + 3, targetDay + daysBuild));
+
     if (updateCB) updateCB(targetDate);
   };
 
@@ -337,22 +357,13 @@ const Timeline = ({
       Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
-    const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
-    const targetTranslateX =
-      -(timeDifferenceInHours * pixelsPerHour) +
-      containerRef.current.clientWidth / 2;
-
-    const targetDay = Math.floor(timeDifferenceInHours / 24);
-    if (targetDay < rulerStartDay) {
-      setRulerStartDay(Math.min(rulerStartDay, targetDay - 7));
-    }
-    if (targetDay > rulerEndDay) {
-      setRulerEndDay(Math.max(rulerEndDay, targetDay + 7));
-    }
     rulerRef.current.style.transition = "transform 0.5s ease";
-    console.log("jumpToDate #i01", {
-      targetDate: new Date(targetDate).toISOString()
-    });
+    // console.log("jumpToDate #i0111", {
+    //   targetDate: new Date(targetDate).toISOString(),
+    //   targetDay,
+    //   maxStartDay,
+    //   maxEndDay
+    // });
 
     snapToDate(targetDate);
   };
