@@ -2,7 +2,8 @@ import React, {
   type FunctionComponent,
   Suspense,
   useState,
-  useMemo
+  useMemo,
+  useContext
 } from "react";
 import type { Temporal } from "temporal-polyfill";
 import DiffMatchPatch from "diff-match-patch";
@@ -27,6 +28,7 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
+import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -127,6 +129,8 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const hasTendencyHighlights =
     Array.isArray(bulletin.tendency) &&
     bulletin.tendency.some(tendency => tendency.highlights);
+
+  const headless = useContext(HeadlessContext);
 
   return (
     <div>
@@ -351,7 +355,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
       >
         <div className="panel brand">
           <a
-            href="#page-main"
+            href={headless ? "#page-all" : "#page-main"}
             onClick={e => scrollIntoView(e)}
             className="icon-link icon-arrow-up"
           >

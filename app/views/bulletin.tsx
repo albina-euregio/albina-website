@@ -25,6 +25,7 @@ import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
 import { type Language, setLanguage } from "../appStore";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -233,61 +234,63 @@ const Bulletin = ({ headless }: Props) => {
         />
       )}
 
-      <Suspense fallback={<div>...</div>}>
-        {daytimeDependency ? (
-          <div className="bulletin-parallel-view">
-            {["earlier", "later"].map((validTimePeriod, index) => (
-              <BulletinMap
-                key={validTimePeriod}
-                administrateLoadingBar={index === 0}
-                handleSelectRegion={handleSelectRegion}
-                region={region}
-                status={status}
-                date={collection?.date}
-                onMapInit={handleMapInit}
-                validTimePeriod={validTimePeriod}
-                activeBulletinCollection={collection}
-                problems={problems}
-              />
-            ))}
-          </div>
-        ) : (
-          <BulletinMap
-            administrateLoadingBar={true}
+      <HeadlessContext.Provider value={headless || false}>
+        <Suspense fallback={<div>...</div>}>
+          {daytimeDependency ? (
+            <div className="bulletin-parallel-view">
+              {["earlier", "later"].map((validTimePeriod, index) => (
+                <BulletinMap
+                  key={validTimePeriod}
+                  administrateLoadingBar={index === 0}
+                  handleSelectRegion={handleSelectRegion}
+                  region={region}
+                  status={status}
+                  date={collection?.date}
+                  onMapInit={handleMapInit}
+                  validTimePeriod={validTimePeriod}
+                  activeBulletinCollection={collection}
+                  problems={problems}
+                />
+              ))}
+            </div>
+          ) : (
+            <BulletinMap
+              administrateLoadingBar={true}
+              handleSelectRegion={handleSelectRegion}
+              region={region}
+              status={status}
+              date={collection?.date}
+              activeBulletinCollection={collection}
+              problems={problems}
+            />
+          )}
+          <BulletinLegend
             handleSelectRegion={handleSelectRegion}
-            region={region}
-            status={status}
-            date={collection?.date}
-            activeBulletinCollection={collection}
             problems={problems}
+            toggleProblem={toggleProblem}
+          />
+        </Suspense>
+        <BulletinButtonbar />
+        {collection && (
+          <BulletinList
+            bulletins={collection.bulletinsWith170000}
+            date={collection?.date}
+            region={region}
           />
         )}
-        <BulletinLegend
-          handleSelectRegion={handleSelectRegion}
-          problems={problems}
-          toggleProblem={toggleProblem}
-        />
-      </Suspense>
-      <BulletinButtonbar />
-      {collection && (
-        <BulletinList
-          bulletins={collection.bulletinsWith170000}
-          date={collection?.date}
-          region={region}
-        />
-      )}
-      {headless ? (
-        <></>
-      ) : (
-        <>
-          <SmShare
-            image={shareImage}
-            title={title}
-            description={shareDescription}
-          />
-          <BulletinFooter />
-        </>
-      )}
+        {headless ? (
+          <></>
+        ) : (
+          <>
+            <SmShare
+              image={shareImage}
+              title={title}
+              description={shareDescription}
+            />
+            <BulletinFooter />
+          </>
+        )}
+      </HeadlessContext.Provider>
     </>
   );
 };
