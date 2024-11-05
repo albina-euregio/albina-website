@@ -70,10 +70,6 @@ const Weather = () => {
       case "time":
         store.changeCurrentTime(value);
         break;
-      case "play":
-        if (value) player.start();
-        else player.stop();
-        break;
       default:
         break;
     }
@@ -140,7 +136,6 @@ const Weather = () => {
                 domainId={store.domainId}
                 timeSpan={store.timeSpan}
                 changeCurrentTime={store.changeCurrentTime.bind(store)}
-                player={player}
                 currentTime={store.currentTime}
                 eventCallback={handleClickCockpitEvent.bind(this)}
                 nextTime={() => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import { FormattedMessage } from "../../i18n";
-import { set } from "mobx";
+import { FormattedMessage, useIntl } from "../../i18n";
+import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
 
 const Timeline = ({
   initialDate,
@@ -36,6 +36,7 @@ const Timeline = ({
   const daysBuild = 10;
   const playDelay = 1000;
 
+  const intl = useIntl();
   const datePickerRef = useRef(null);
 
   const now = new Date();
@@ -416,7 +417,11 @@ const Timeline = ({
   };
 
   const formatDate = date => {
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return intl.formatDate(date, {
+      weekday: "short",
+      day: "numeric",
+      month: "numeric"
+    });
   };
 
   const formatHour = date => {

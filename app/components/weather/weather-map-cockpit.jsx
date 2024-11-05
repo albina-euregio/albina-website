@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import $ from "jquery";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -44,12 +43,9 @@ const WeatherMapCockpit = ({
   timeSpan,
   startDate,
   currentTime,
-  lastUpdateTime,
-  nextUpdateTime,
   domainId,
   eventCallback,
   changeCurrentTime,
-  player,
   storeConfig
 }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
@@ -57,7 +53,7 @@ const WeatherMapCockpit = ({
   useEffect(() => {
     window.addEventListener("resize", redraw);
     adaptVH();
-    $("body").removeClass("layer-selector-open");
+    document?.querySelector("body").classList.remove("layer-selector-open");
     return () => {
       window.removeEventListener("resize", redraw);
     };
@@ -79,7 +75,9 @@ const WeatherMapCockpit = ({
 
   const handleEvent = (type, value) => {
     if (typeof eventCallback === "function") {
-      player.stop();
+      const body = document?.querySelector("body");
+      if (body?.classList?.contains("layer-selector-open"))
+        body.classList.remove("layer-selector-open");
       eventCallback(type, value);
     }
   };
@@ -192,7 +190,9 @@ const WeatherMapCockpit = ({
               tabIndex="0"
               className="cp-layer-selector-item cp-layer-trigger "
               onClick={() => {
-                $("body").toggleClass("layer-selector-open");
+                document
+                  ?.querySelector("body")
+                  .classList.toggle("layer-selector-open");
               }}
             >
               <div className="layer-select icon-snow">
@@ -355,8 +355,6 @@ const WeatherMapCockpit = ({
               updateCB={onTimelineUpdate}
             />
           )}
-
-          {/* {getPlayerButtons()} */}
         </div>
 
         {getTimeSpanOptions()}
