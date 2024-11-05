@@ -3,6 +3,7 @@ import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
+import { set } from "mobx";
 
 const Timeline = ({
   initialDate,
@@ -30,9 +31,9 @@ const Timeline = ({
   const [maxEndDay, setMaxEndDay] = useState(30);
   const [rulerOffset, setRulerOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
+  const [pixelsPerHour, setPixelsPerHour] = useState(5);
 
   const hoursPerDay = 24;
-  const pixelsPerHour = 5;
   const daysBuild = 10;
   const playDelay = 1000;
 
@@ -59,6 +60,22 @@ const Timeline = ({
   //   startOfDay: startOfDay.toISOString(),
   //   day: now.getUTCDate()
   // });
+  useEffect(() => {
+    const handleWindowResize = () => {
+      let newPixelsPerHour = 5;
+
+      if (window.innerWidth < 768) newPixelsPerHour = 3;
+      if (window.innerWidth < 450) newPixelsPerHour = 2;
+
+      setPixelsPerHour(newPixelsPerHour);
+    };
+
+    // Add event listener
+    window.addEventListener("resize", handleWindowResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
 
   useEffect(() => {
     let intervalId;
@@ -417,11 +434,17 @@ const Timeline = ({
   };
 
   const formatDate = date => {
-    return intl.formatDate(date, {
-      weekday: "short",
-      day: "numeric",
-      month: "numeric"
-    });
+    if (pixelsPerHour < 3)
+      return intl.formatDate(date, {
+        day: "numeric",
+        month: "numeric"
+      });
+    else
+      return intl.formatDate(date, {
+        weekday: "short",
+        day: "numeric",
+        month: "numeric"
+      });
   };
 
   const formatHour = date => {
