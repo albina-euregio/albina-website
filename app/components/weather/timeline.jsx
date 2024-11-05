@@ -502,6 +502,7 @@ const Timeline = ({
         <Tooltip
           key="cp-movie-play"
           label={<FormattedMessage id="weathermap:cockpit:play" />}
+          placement="left"
         >
           <a
             key="playerButton"
@@ -560,11 +561,17 @@ const Timeline = ({
   return (
     <>
       <div className="cp-calendar">
-        <a
-          onClick={() => handleOpenDateDialogClick()}
-          className="cp-calendar-select icon-calendar-big tooltip"
-          title="Select Date"
-        ></a>
+        <Tooltip
+          key="cp-select-date"
+          label={<FormattedMessage id="weathermap:cockpit:select-date" />}
+          placement="right"
+        >
+          <a
+            onClick={() => handleOpenDateDialogClick()}
+            className="cp-calendar-select icon-calendar-big tooltip"
+            title="Select Date"
+          ></a>
+        </Tooltip>
         <input
           type="datetime-local"
           ref={datePickerRef}
@@ -645,16 +652,28 @@ const Timeline = ({
 
         {
           <div className="cp-scale-flipper">
-            <a
-              className="cp-scale-flipper-left icon-arrow-left"
-              href="#"
-              onClick={() => jumpStep(-1)}
-            ></a>
-            <a
-              className="cp-scale-flipper-right icon-arrow-right"
-              href="#"
-              onClick={() => jumpStep(1)}
-            ></a>
+            <Tooltip
+              key="cockpit-flipper-prev"
+              label={
+                <FormattedMessage id="weathermap:cockpit:flipper:previous" />
+              }
+            >
+              <a
+                className="cp-scale-flipper-left icon-arrow-left"
+                href="#"
+                onClick={() => jumpStep(-1)}
+              ></a>
+            </Tooltip>
+            <Tooltip
+              key="cockpit-flipper-next"
+              label={<FormattedMessage id="weathermap:cockpit:flipper:next" />}
+            >
+              <a
+                className="cp-scale-flipper-right icon-arrow-right"
+                href="#"
+                onClick={() => jumpStep(1)}
+              ></a>
+            </Tooltip>
           </div>
         }
       </div>

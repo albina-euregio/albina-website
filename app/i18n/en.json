@@ -229,6 +229,7 @@
   "weathermap:cockpit:play": "Play",
   "weathermap:cockpit:stop": "Stop",
   "weathermap:cockpit:select-parameter": "Select parameter",
+  "weathermap:cockpit:select-date": "Select date",
   "weathermap:cockpit:unit:title": "Unit",
   "weathermap:cockpit:zamg:hover": "GeoSphere Austria",
   "weathermap:attribution": "Show datalayer with CTRL+Click",
