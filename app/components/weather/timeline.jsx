@@ -11,14 +11,14 @@ const Timeline = ({
   timeSpan = 6,
   startTime,
   endTime,
-  markerPosition = "center",
+  markerPosition = "50%",
   showBar = true, // Toggle the bar visibility
   barDuration = 24, // Bar duration in hours
-  barDirection = "future", // New prop: 'past' or 'future' NOT USED YET
   updateCB
 }) => {
   const containerRef = useRef(null);
   const rulerRef = useRef(null);
+  const indicatorRef = useRef(null);
   const [currentDate, setCurrentDate] = useState();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -28,9 +28,7 @@ const Timeline = ({
   const [rulerEndDay, setRulerEndDay] = useState(10);
   const [maxStartDay, setMaxStartDay] = useState(-30);
   const [maxEndDay, setMaxEndDay] = useState(30);
-  const [indicatorPosition, setIndicatorPosition] = useState("50%");
-  const [barWidth, setBarWidth] = useState(0);
-  const [barOffset, setBarOffset] = useState(0); // New state for bar offset
+  const [rulerOffset, setRulerOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
 
   const hoursPerDay = 24;
@@ -94,33 +92,16 @@ const Timeline = ({
   }, [startTime, endTime, now]);
 
   useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef?.current?.clientWidth) {
       const initialOffsetHours = differenceInHours(startOfDay, initialDate);
 
-      let initialTranslateX;
-      let newIndicatorPosition;
+      let newRulerOffset =
+        (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
+      if (showBar) newRulerOffset -= (barDuration / 2) * pixelsPerHour;
+      const newTranslateX = -initialOffsetHours * pixelsPerHour;
 
-      switch (markerPosition) {
-        case "left":
-          initialTranslateX =
-            -initialOffsetHours * pixelsPerHour +
-            containerRef.current.clientWidth * 0.25;
-          newIndicatorPosition = "25%";
-          break;
-        case "right":
-          initialTranslateX =
-            -initialOffsetHours * pixelsPerHour +
-            containerRef.current.clientWidth * 0.75;
-          newIndicatorPosition = "75%";
-          break;
-        case "center":
-        default:
-          initialTranslateX = -initialOffsetHours * pixelsPerHour;
-          newIndicatorPosition = "50%";
-      }
-
-      setIndicatorPosition(newIndicatorPosition);
-      updateTimelinePosition(initialTranslateX, true);
+      setRulerOffset(newRulerOffset);
+      updateTimelinePosition(newTranslateX, true);
       // console.log("Timeline->useEffect #i41", {
       //   initialDate: new Date(initialDate).toISOString(),
       //   currentDate: currentDate ? new Date(currentDate).toISOString() : null,
@@ -139,7 +120,7 @@ const Timeline = ({
       //   initialTranslateX
       // });
     }
-  }, [firstHour, timeSpan, markerPosition, initialDate]);
+  }, [firstHour, timeSpan, markerPosition, initialDate, showBar, barDuration]);
 
   useEffect(() => {
     setPlayerIsActive(false);
@@ -165,12 +146,6 @@ const Timeline = ({
         break;
     }
   };
-
-  useEffect(() => {
-    if (showBar) {
-      updateBarDimensions();
-    }
-  }, [showBar, barDuration, barDirection, containerRef.current]);
 
   const jumpStep = direction => {
     const newDate = new Date(currentDate);
@@ -262,10 +237,8 @@ const Timeline = ({
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
 
-    const rulerOffset =
-      -usedTranslateX +
-      (containerRef.current.clientWidth * parseFloat(indicatorPosition)) / 100;
-    rulerRef.current.style.transform = `translateX(${rulerOffset}px)`;
+    const newOffset = -usedTranslateX + rulerOffset;
+    rulerRef.current.style.transform = `translateX(${newOffset}px)`;
     setCurrentTranslateX(usedTranslateX);
 
     // const newVisibleMiddledDay = Math.ceil(
@@ -277,17 +250,6 @@ const Timeline = ({
 
     //setRulerStartDay(Math.max(maxStartDay, newVisibleMiddledDay - daysBuild));
     //setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
-  };
-
-  const updateBarDimensions = () => {
-    const barWidthPixels = barDuration * pixelsPerHour;
-    setBarWidth(barWidthPixels);
-
-    if (barDirection === "past") {
-      setBarOffset(-barWidthPixels);
-    } else {
-      setBarOffset(0);
-    }
   };
 
   const handleMouseDown = e => {
@@ -315,10 +277,9 @@ const Timeline = ({
   };
 
   const snapToNearestMarker = markerDate => {
+    //if(!indicatorRef.current) return;
     let searchedMaker;
-    const indicatorRect = document
-      .getElementById("indicator")
-      .getBoundingClientRect();
+    const indicatorRect = indicatorRef.current.getBoundingClientRect();
     let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
     if (markerDate) {
       const { markerCenterX, targetMarker } = getMarkerCenterX(markerDate);
@@ -383,9 +344,7 @@ const Timeline = ({
       Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
-    const indicator = document.getElementById("indicator");
-
-    const indicatorRect = indicator.getBoundingClientRect();
+    const indicatorRect = indicatorRef.current.getBoundingClientRect();
     const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
     const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
@@ -554,18 +513,20 @@ const Timeline = ({
   // console.log("Timeline->render #i011", {
   //   currentDate,
   //   currentTranslateX,
-  //   params: {
-  //     initialDate,
-  //     firstHour,
-  //     timeSpan,
-  //     startTime,
-  //     endTime,
-  //     markerPosition,
-  //     showBar,
-  //     barDuration,
-  //     barDirection,
-  //     updateCB
-  //   }
+  //   rulerOffset,
+  //   markerPosition
+  //   // params: {
+  //   //   initialDate,
+  //   //   rulerOffset,
+  //   //   firstHour,
+  //   //   timeSpan,
+  //   //   startTime,
+  //   //   endTime,
+  //   //   markerPosition,
+  //   //   showBar,
+  //   //   barDuration,
+  //   //   updateCB
+  //   // }
   // });
 
   return (
@@ -607,88 +568,67 @@ const Timeline = ({
           </div>
         </div>
 
-        <div id="indicator" className="cp-scale-stamp">
-          {timeSpan > 1 && (
-            <div
-              className="cp-scale-stamp-range js-active"
-              style={{
-                left: indicatorPosition,
-                width: timeSpan * pixelsPerHour
-              }}
-            >
-              <span className="cp-scale-stamp-range-bar"></span>
-              <span className="cp-scale-stamp-range-begin">
-                <FormattedDate
-                  date={currentDate}
-                  options={{ timeStyle: "short" }}
-                />
-              </span>
-              <span className="cp-scale-stamp-range-end">
-                <FormattedDate
-                  date={new Date(currentDate)?.setHours(
-                    currentDate?.getHours() + timeSpan
-                  )}
-                  options={{ timeStyle: "short" }}
-                />
-              </span>
-            </div>
-          )}
-
-          {timeSpan === 1 && (
-            <div
-              className="cp-scale-stamp-point js-active"
-              style={{
-                left: indicatorPosition
-              }}
-            >
-              <span className="cp-scale-stamp-point-arrow"></span>
-              <span className="cp-scale-stamp-point-exact">
-                <FormattedDate
-                  date={currentDate}
-                  options={{ timeStyle: "short" }}
-                />
-              </span>
-            </div>
-          )}
-        </div>
-
-        <div className="cp-scale-flipper">
-          <a
-            className="cp-scale-flipper-left icon-arrow-left"
-            href="#"
-            onClick={() => jumpStep(1)}
-          ></a>
-          <a
-            className="cp-scale-flipper-right icon-arrow-right"
-            href="#"
-            onClick={() => jumpStep(-1)}
-          ></a>
-        </div>
-
-        {/* {showBar && (
-          <div className="cp-scale-analyse-forecast">
-            {barDirection === "past" && (
-              <span
-                className="cp-scale-analyse-bar"
+        {
+          <div ref={indicatorRef} className="cp-scale-stamp">
+            {timeSpan > 1 && (
+              <div
+                className="cp-scale-stamp-range js-active"
                 style={{
-                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                  width: `${barWidth}px`,
-                  transform: "translateX(-1px)"
+                  left: rulerOffset,
+                  width: timeSpan * pixelsPerHour
                 }}
-              ></span>
+              >
+                <span className="cp-scale-stamp-range-bar"></span>
+                <span className="cp-scale-stamp-range-begin">
+                  <FormattedDate
+                    date={currentDate}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+                <span className="cp-scale-stamp-range-end">
+                  <FormattedDate
+                    date={new Date(currentDate)?.setHours(
+                      currentDate?.getHours() + timeSpan
+                    )}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+              </div>
             )}
-            {barDirection === "future" && (
-              <span
-                className="cp-scale-forecast-bar"
+
+            {timeSpan === 1 && (
+              <div
+                className="cp-scale-stamp-point js-active"
                 style={{
-                  left: `calc(${indicatorPosition} + ${barOffset}px)`,
-                  width: `${barWidth}px`,
-                  transform: "translateX(-1px)"
+                  left: rulerOffset
                 }}
-              ></span>
+              >
+                <span className="cp-scale-stamp-point-arrow"></span>
+                <span className="cp-scale-stamp-point-exact">
+                  <FormattedDate
+                    date={currentDate}
+                    options={{ timeStyle: "short" }}
+                  />
+                </span>
+              </div>
             )}
           </div>
-        )} */}
+        }
+
+        {
+          <div className="cp-scale-flipper">
+            <a
+              className="cp-scale-flipper-left icon-arrow-left"
+              href="#"
+              onClick={() => jumpStep(-1)}
+            ></a>
+            <a
+              className="cp-scale-flipper-right icon-arrow-right"
+              href="#"
+              onClick={() => jumpStep(1)}
+            ></a>
+          </div>
+        }
       </div>
       {getPlayerButtons()}
     </>
