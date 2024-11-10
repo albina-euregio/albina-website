@@ -109,6 +109,9 @@
       overflow: auto; //probably needed for IE / Edge, but *fkn* big problems with scrolling
     }
   }
+  &.headless {
+    min-height: 0;
+  }
 
   &:before {
     content: "";

@@ -24,6 +24,7 @@ import {
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -41,6 +42,7 @@ const BulletinMap = (props: Props) => {
   const isOneDangerRating = useStore(isOneDangerRating0);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
+  const [searchParams] = useSearchParams();
 
   function RegionClickHandler(): null {
     useMapEvent("click", () => props.handleSelectRegion(""));
@@ -252,6 +254,7 @@ const BulletinMap = (props: Props) => {
         className={
           "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
         }
+        style={{ aspectRatio: searchParams.get("map-ratio") || "3/1" }}
       >
         <LeafletMap
           loaded={true}

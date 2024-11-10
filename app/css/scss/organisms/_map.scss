@@ -70,13 +70,13 @@ $search-width-wide: 300px;
 //the maps themselves
 .section-map {
   position: relative;
-  height: $map-height-bulletin;
+  // height: $map-height-bulletin;
   width: $map-width;
   overflow: hidden;
 
   .section-bulletin-map & {
-    height: $map-height-bulletin;
-    min-height: $map-height-min;
+    // height: $map-height-bulletin;
+    // min-height: $map-height-min;
     @include mixins.box-border(variables.$brand-very-light);
     border-left: none;
     border-right: none;
