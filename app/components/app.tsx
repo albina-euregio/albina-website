@@ -1,5 +1,9 @@
 import React, { Suspense, useEffect } from "react";
 
+window.iFrameResizer = {
+  sizeSelector: "#page-all"
+}
+
 import {
   BrowserRouter,
   Navigate,
