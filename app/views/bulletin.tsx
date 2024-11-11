@@ -175,6 +175,10 @@ const Bulletin = ({ headless }: Props) => {
       lang
     });
 
+  headless && document.getElementById("page-all").classList.add("headless");
+  searchParams.get("map-ratio") !== "" &&
+    document.body.classList.add("with-custom-ratio");
+
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
