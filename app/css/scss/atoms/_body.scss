@@ -37,6 +37,10 @@ body {
   display: flex;
   flex-direction: column;
 
+  &.with-custom-ratio {
+    min-height: 0;
+  }
+
   @include mixins.rollout;
 }
 
