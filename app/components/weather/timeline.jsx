@@ -17,10 +17,11 @@ const Timeline = ({
   barDuration = 24, // Bar duration in hours
   updateCB
 }) => {
+  console.log("Timeline->init #j01");
   const containerRef = useRef(null);
   const rulerRef = useRef(null);
   const indicatorRef = useRef(null);
-  const [currentDate, setCurrentDate] = useState();
+  const [currentDate, setCurrentDate] = useState(startTime);
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -367,12 +368,11 @@ const Timeline = ({
     const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
 
-    // console.log("snapToDate #i01", {
-    //   indicator,
-    //   targetDate: new Date(targetDate).toISOString(),
-    //   distanceToMove: Math.round(distanceToMove),
-    //   currentTranslateX
-    // });
+    console.log("snapToDate #j01", {
+      targetDate: new Date(targetDate).toISOString(),
+      distanceToMove: Math.round(distanceToMove),
+      currentTranslateX
+    });
 
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
     //console.log("snapToDate #i031", { targetDate: targetDate.toISOString(), newTranslateX });
@@ -539,25 +539,26 @@ const Timeline = ({
     );
   };
 
-  // console.log("Timeline->render #i011", {
-  //   currentDate,
-  //   currentTranslateX,
-  //   rulerOffset,
-  //   markerPosition
-  //   // params: {
-  //   //   initialDate,
-  //   //   rulerOffset,
-  //   //   firstHour,
-  //   //   timeSpan,
-  //   //   startTime,
-  //   //   endTime,
-  //   //   markerPosition,
-  //   //   showBar,
-  //   //   barDuration,
-  //   //   updateCB
-  //   // }
-  // });
-
+  console.log("Timeline->render #j01", {
+    currentDate,
+    currentTranslateX,
+    rulerOffset,
+    markerPosition
+    // params: {
+    //   initialDate,
+    //   rulerOffset,
+    //   firstHour,
+    //   timeSpan,
+    //   startTime,
+    //   endTime,
+    //   markerPosition,
+    //   showBar,
+    //   barDuration,
+    //   updateCB,
+    //   domainId
+    // }
+  });
+  if (!currentDate) return <div></div>;
   return (
     <>
       <div className="cp-calendar">

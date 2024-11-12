@@ -117,13 +117,18 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        // console.log("Weathermap_new->_loadDomainData: loaded #i011", {
-        //   _dateStart: this._dateStart,
-        //   _agl: this._agl,
-        //   currentTime: this._getStartTimeForSpan(this._dateStart)
-        // });
+        console.log("Weathermap_new->_loadDomainData: loaded #j01", {
+          _dateStart: this._dateStart,
+          _lastCurrentTime: this._lastCurrentTime,
+          _agl: this._agl,
+          currentTime: this._getStartTimeForSpan(
+            this._lastCurrentTime || this._dateStart
+          )
+        });
         if (!this._currentTime.get())
-          this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
+          this._currentTime.set(
+            this._getStartTimeForSpan(this._lastCurrentTime || this._dateStart)
+          );
         this._loadIndexData();
       })
       .catch(err => {
@@ -141,10 +146,10 @@ export default class WeatherMapStore_new {
     this.grid = {};
     let loads = [];
 
-    // console.log(
-    //   "_loadData this._currentTime ##33",
-    //   new Date(this._currentTime)
-    // );
+    console.log(
+      "_loadData this._currentTime #j01",
+      new Date(this._currentTime)
+    );
     if (
       this.domainConfig?.layer.stations &&
       this._currentTime.get() <= this._agl
@@ -519,6 +524,7 @@ export default class WeatherMapStore_new {
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
       );
+      this._loadDomainData();
       this.selectedFeature = null;
     }
   }
@@ -579,30 +585,30 @@ export default class WeatherMapStore_new {
   /*
     setting a new timeIndex
   */
-  changeCurrentTime1(timeIndex) {
-    // console.log(
-    //   "weatherMapStore_new: changeCurrentTime hhhh",
-    //   this._timeIndex.get(),
-    //   timeIndex,
-    //   this._availableTimes.indexOf(timeIndex),
-    //   //this._availableTimes
-    // );
-    if (this._availableTimes.includes(timeIndex)) {
-      // console.log(
-      //   "weathermap->changeCurrentTime_1 ##33",
-      //   {timeIndex2Date: new Date(timeIndex),
+  // changeCurrentTime1(timeIndex) {
+  //   // console.log(
+  //   //   "weatherMapStore_new: changeCurrentTime hhhh",
+  //   //   this._timeIndex.get(),
+  //   //   timeIndex,
+  //   //   this._availableTimes.indexOf(timeIndex),
+  //   //   //this._availableTimes
+  //   // );
+  //   if (this._availableTimes.includes(timeIndex)) {
+  //     // console.log(
+  //     //   "weathermap->changeCurrentTime_1 ##33",
+  //     //   {timeIndex2Date: new Date(timeIndex),
 
-      //   curTimeIndex: this._timeIndex.get(),
-      //   timeIndex,
-      //   availTimeIndex: this._availableTimes.indexOf(timeIndex)}
-      // );
-      if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
-        // console.log("weathermap->changeCurrentTime_2 ##33", timeIndex);
-        this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
-        this._loadIndexData();
-        this.selectedFeature = null;
-      }
-    } else
-      console.error("timeIndex not available", timeIndex, this._availableTimes);
-  }
+  //     //   curTimeIndex: this._timeIndex.get(),
+  //     //   timeIndex,
+  //     //   availTimeIndex: this._availableTimes.indexOf(timeIndex)}
+  //     // );
+  //     if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
+  //       // console.log("weathermap->changeCurrentTime_2 ##33", timeIndex);
+  //       this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
+  //       this._loadIndexData();
+  //       this.selectedFeature = null;
+  //     }
+  //   } else
+  //     console.error("timeIndex not available", timeIndex, this._availableTimes);
+  // }
 }

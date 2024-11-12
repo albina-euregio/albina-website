@@ -316,15 +316,15 @@ const WeatherMapCockpit = ({
   )
     usedInitialDate = new Date(startDate);
 
-  // console.log("weather-map-cockpit->render #i41", {
-  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   startDate,
-  //   currentTime,
-  //   usedStartTime,
-  //   usedInitialDate,
-  //   usedEndTime,
-  //   firstHour
-  // });
+  console.log("weather-map-cockpit->render #j01", {
+    timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+    startDate,
+    currentTime,
+    usedStartTime,
+    usedInitialDate,
+    usedEndTime,
+    firstHour
+  });
 
   const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 
@@ -341,20 +341,18 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          {firstHour && startDate && currentTime && (
-            <Timeline
-              key="cp-timeline"
-              domainId={domainId}
-              timeSpan={absSpan}
-              barDuration={absSpan}
-              showBar={absSpan > 1}
-              initialDate={usedInitialDate}
-              startTime={usedStartTime}
-              endTime={usedEndTime}
-              //firstHour={firstHour?.getUTCHours()}
-              updateCB={onTimelineUpdate}
-            />
-          )}
+          <Timeline
+            key="cp-timeline"
+            domainId={domainId}
+            timeSpan={absSpan}
+            barDuration={absSpan}
+            showBar={absSpan > 1}
+            initialDate={usedInitialDate}
+            startTime={usedStartTime}
+            endTime={usedEndTime}
+            //firstHour={firstHour?.getUTCHours()}
+            updateCB={onTimelineUpdate}
+          />
         </div>
 
         {getTimeSpanOptions()}
