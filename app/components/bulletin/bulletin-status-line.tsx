@@ -20,7 +20,7 @@ const BulletinStatusLine = (props: Props) => {
   let updateTime: string | undefined;
   let updateTimeEl: JSX.Element | undefined;
 
-  const isReport = props?.allBulletins?.length > 1;
+  const isReport = props?.allBulletins?.length >= 1;
   const unscheduled = useMemo(
     () =>
       props.bulletin?.unscheduled ??
