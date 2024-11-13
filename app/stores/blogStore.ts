@@ -5,6 +5,7 @@ import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 
+export const isTechBlog = atom<boolean>(false);
 export const region = atom<RegionCodes | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
@@ -31,11 +32,13 @@ export interface BlogStore {
 }
 
 export const blogConfigs = computed(
-  [language, region],
-  (language, region): BlogConfig[] =>
-    window.config.blogs
-      .filter(cfg => [cfg.lang, "all", ""].includes(language))
-      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)))
+  [language, region, isTechBlog],
+  (language, region, isTechBlog): BlogConfig[] =>
+    isTechBlog
+      ? [window.config.techBlog]
+      : window.config.blogs
+          .filter(cfg => [cfg.lang, "all", ""].includes(language))
+          .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)))
 );
 
 export const postItems = computed(posts, posts =>

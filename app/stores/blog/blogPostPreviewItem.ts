@@ -42,7 +42,9 @@ export class BlogPostPreviewItem {
     blogName: string,
     postId: unknown
   ): Promise<BlogPostPreviewItem> {
-    const config = window.config.blogs.find(e => e.name === blogName);
+    const config = [...window.config.blogs, window.config.techBlog].find(
+      e => e.name === blogName
+    );
     const processor: BlogProcessor = blogProcessors[config.apiType];
     const item = await processor.loadBlogPost(config, postId);
     return item;
