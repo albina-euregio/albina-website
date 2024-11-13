@@ -15,9 +15,6 @@ import { dateToISODateString, parseDate } from "../../util/date";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
-export const ENABLE_DIFFING =
-  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
-
 type RegionID = string;
 type LowHigh = "low" | "high";
 type ColonLowHigh = "" | `:${LowHigh}`;
@@ -125,7 +122,7 @@ class BulletinCollection {
     }
     try {
       this.dataRaw170000 = undefined;
-      if (ENABLE_DIFFING && this.dataRaw.bulletins.some(b => b.unscheduled)) {
+      if (this.dataRaw.bulletins.some(b => b.unscheduled)) {
         const date = new Date(this.dateDate);
         date.setDate(date.getDate() - 1);
         const isSummertime = date

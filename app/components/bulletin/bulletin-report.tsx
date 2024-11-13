@@ -20,7 +20,6 @@ const BulletinGlossaryText = React.lazy(
 );
 import {
   Bulletin,
-  ENABLE_DIFFING,
   hasDaytimeDependency,
   getDangerPatterns
 } from "../../stores/bulletin";
@@ -82,7 +81,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
 
   const isInserted = useMemo(() => {
-    if (!ENABLE_DIFFING || !bulletin || !bulletin170000) {
+    if (!bulletin || !bulletin170000) {
       return false;
     }
     const checks: ((b: Bulletin) => string | number)[] = [
