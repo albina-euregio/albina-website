@@ -2,7 +2,7 @@ import { getDaysOfMonth } from "../util/date";
 import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
-import { BlogPostPreviewItem, Category } from "./blog";
+import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 
 export const region = atom<RegionCodes | "all">("all");
@@ -29,6 +29,14 @@ export interface BlogStore {
   startDate: Date | null;
   endDate: Date | null;
 }
+
+export const blogConfigs = computed(
+  [language, region],
+  (language, region): BlogConfig[] =>
+    window.config.blogs
+      .filter(cfg => [cfg.lang, "all", ""].includes(language))
+      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)))
+);
 
 export const postItems = computed(posts, posts =>
   Object.values(posts ?? {}).flat()
@@ -162,12 +170,7 @@ export async function load() {
 
   async function loadCategories() {
     categories.set(
-      (
-        await BlogPostPreviewItem.loadCategories(
-          l => [l, "all", ""].includes(language.get()),
-          r => [r, "all", ""].includes(region.get())
-        )
-      )
+      (await BlogPostPreviewItem.loadCategories(blogConfigs.get()))
         .flatMap(([, c]) => c)
         .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
         .sort((c1, c2) => c1.name.localeCompare(c2.name))
@@ -177,21 +180,17 @@ export async function load() {
   async function loadPosts() {
     posts.set(
       Object.fromEntries(
-        await BlogPostPreviewItem.loadBlogPosts(
-          l => [l, "all", ""].includes(language.get()),
-          r => [r, "all", ""].includes(region.get()),
-          {
-            searchCategory: categories
-              .get()
-              .filter(c => c.name === searchCategory.get())
-              .map(c => c.id)
-              .join(),
-            searchText: searchText.get(),
-            year: year.get(),
-            startDate: startDate.get(),
-            endDate: endDate.get()
-          } satisfies BlogStore
-        )
+        await BlogPostPreviewItem.loadBlogPosts(blogConfigs.get(), {
+          searchCategory: categories
+            .get()
+            .filter(c => c.name === searchCategory.get())
+            .map(c => c.id)
+            .join(),
+          searchText: searchText.get(),
+          year: year.get(),
+          startDate: startDate.get(),
+          endDate: endDate.get()
+        } satisfies BlogStore)
       )
     );
   }
