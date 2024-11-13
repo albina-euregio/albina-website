@@ -1378,8 +1378,8 @@ __metadata:
     normalize.css: "npm:^8.0.1"
     prettier: "npm:3.3.1"
     purecss-sass: "npm:3.0.1"
-    react: "npm:19.0.0-rc-cd22717c-20241013"
-    react-dom: "npm:19.0.0-rc-cd22717c-20241013"
+    react: "npm:19.0.0-rc-7ac8e612-20241113"
+    react-dom: "npm:19.0.0-rc-7ac8e612-20241113"
     react-easy-swipe: "npm:0.0.23"
     react-leaflet: "npm:^4.2.1"
     react-router-dom: "npm:^6.20.1"
@@ -4367,14 +4367,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0-rc-cd22717c-20241013":
-  version: 19.0.0-rc-cd22717c-20241013
-  resolution: "react-dom@npm:19.0.0-rc-cd22717c-20241013"
+"react-dom@npm:19.0.0-rc-7ac8e612-20241113":
+  version: 19.0.0-rc-7ac8e612-20241113
+  resolution: "react-dom@npm:19.0.0-rc-7ac8e612-20241113"
   dependencies:
-    scheduler: "npm:0.25.0-rc-cd22717c-20241013"
+    scheduler: "npm:0.25.0-rc-7ac8e612-20241113"
   peerDependencies:
-    react: 19.0.0-rc-cd22717c-20241013
-  checksum: 10c0/5e9c3d5e82df73736ddb7ff9abcaf903ba39b3681f62f42fae0b4b7fc0667886b755ba31da7fc2d381a4ac313baba9266f648c8dce90c3312b6bcad6c3c354be
+    react: 19.0.0-rc-7ac8e612-20241113
+  checksum: 10c0/f6fc249b79c875b36c58a8d1e28cd0a79a759de6edb1a466a732ebb25d6d376e840626f383e479c74c731fc02f5f289044304731f652abb91a595f1f806a11ce
   languageName: node
   linkType: hard
 
@@ -4445,10 +4445,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0-rc-cd22717c-20241013":
-  version: 19.0.0-rc-cd22717c-20241013
-  resolution: "react@npm:19.0.0-rc-cd22717c-20241013"
-  checksum: 10c0/a2afd64fe2d3a5e7347af70183945fdfb5e24a755209a23be782a3b34da6c592b66570f3afb677a9b6ae1e27ed087c5e2d7f74b9b32174d53bc09974db60e570
+"react@npm:19.0.0-rc-7ac8e612-20241113":
+  version: 19.0.0-rc-7ac8e612-20241113
+  resolution: "react@npm:19.0.0-rc-7ac8e612-20241113"
+  checksum: 10c0/ec2c01b8697a248b5245368844938c4ebca86683c003357d6c0125f5adc9c1d98ef5f21f14838d58c39ee1efdbb7806167154ea846b13f05db67ef26b166f33c
   languageName: node
   linkType: hard
 
@@ -4676,10 +4676,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.25.0-rc-cd22717c-20241013":
-  version: 0.25.0-rc-cd22717c-20241013
-  resolution: "scheduler@npm:0.25.0-rc-cd22717c-20241013"
-  checksum: 10c0/63c9cac077c1bff5129e1734905c049d50d294348d68ebe34464222602dd99ff3960680d0bd51f81c1ca5fcea2829f7c0cb7dada884e0e6bac7c2c8fe51888d8
+"scheduler@npm:0.25.0-rc-7ac8e612-20241113":
+  version: 0.25.0-rc-7ac8e612-20241113
+  resolution: "scheduler@npm:0.25.0-rc-7ac8e612-20241113"
+  checksum: 10c0/a5cf25b1acf35db6facc1f85398161478d65636ec857654acb9189eb1b5de5ec826d7e5616a07e311c526538e71c33daf16ec8a84cd0a62e1a1f40321da9f890
   languageName: node
   linkType: hard
 
