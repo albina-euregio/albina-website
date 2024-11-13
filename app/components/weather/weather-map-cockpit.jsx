@@ -316,15 +316,15 @@ const WeatherMapCockpit = ({
   )
     usedInitialDate = new Date(startDate);
 
-  console.log("weather-map-cockpit->render #j01", {
-    timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-    startDate,
-    currentTime,
-    usedStartTime,
-    usedInitialDate,
-    usedEndTime,
-    firstHour
-  });
+  // console.log("weather-map-cockpit->render #j01", {
+  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   startDate,
+  //   currentTime,
+  //   usedStartTime,
+  //   usedInitialDate,
+  //   usedEndTime,
+  //   firstHour
+  // });
 
   const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 

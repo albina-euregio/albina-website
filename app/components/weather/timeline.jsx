@@ -163,7 +163,6 @@ const Timeline = ({
   };
 
   const jumpStep = direction => {
-    console.log("jumpStep #i031", { currentDate, direction });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
     if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
@@ -171,11 +170,6 @@ const Timeline = ({
 
   const createRulerMarkings = () => {
     const markings = [];
-    console.log("createRulerMarkings #i031", {
-      rulerStartDay,
-      rulerEndDay,
-      startOfDay
-    });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -294,7 +288,6 @@ const Timeline = ({
 
   const snapToNearestMarker = markerDate => {
     //if(!indicatorRef.current) return;
-    console.log("snapToNearestMarker #i031");
     let searchedMaker;
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
@@ -366,14 +359,7 @@ const Timeline = ({
     const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
 
-    console.log("snapToDate #i031", {
-      targetDate: new Date(targetDate).toISOString(),
-      distanceToMove: Math.round(distanceToMove),
-      currentTranslateX
-    });
-
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
-    console.log("snapToDate #i031", { currentDate });
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
 
@@ -469,7 +455,6 @@ const Timeline = ({
   };
 
   const handleSelectDateClick = e => {
-    console.log("handleSelectDateClick #j01", e.target.value);
     let targetDate = new Date(e.target.value);
     targetDate = new Date(
       Date.UTC(
@@ -540,27 +525,27 @@ const Timeline = ({
     );
   };
 
-  console.log("Timeline->render #j01", {
-    currentDate,
-    startTime,
-    initialDate,
-    currentTranslateX,
-    rulerOffset,
-    markerPosition
-    // params: {
-    //   initialDate,
-    //   rulerOffset,
-    //   firstHour,
-    //   timeSpan,
-    //   startTime,
-    //   endTime,
-    //   markerPosition,
-    //   showBar,
-    //   barDuration,
-    //   updateCB,
-    //   domainId
-    // }
-  });
+  // console.log("Timeline->render #j01", {
+  //   currentDate,
+  //   startTime,
+  //   initialDate,
+  //   currentTranslateX,
+  //   rulerOffset,
+  //   markerPosition
+  //   // params: {
+  //   //   initialDate,
+  //   //   rulerOffset,
+  //   //   firstHour,
+  //   //   timeSpan,
+  //   //   startTime,
+  //   //   endTime,
+  //   //   markerPosition,
+  //   //   showBar,
+  //   //   barDuration,
+  //   //   updateCB,
+  //   //   domainId
+  //   // }
+  // });
   if (!currentDate) return <div></div>;
   return (
     <>
