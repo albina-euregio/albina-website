@@ -209,10 +209,9 @@ export function previousPage() {
 }
 
 export const postsList = computed(
-  [page, perPage, posts],
-  (page, perPage, posts) =>
-    Object.values(posts)
-      .flat()
+  [page, perPage, postItems],
+  (page, perPage, postItems) =>
+    postItems
       .sort((p1, p2) => +p2.date - +p1.date)
       .slice((page - 1) * perPage, page * perPage)
 );
