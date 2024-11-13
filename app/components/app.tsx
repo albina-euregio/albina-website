@@ -14,7 +14,7 @@ import Page from "./page";
 import "../css/style.scss"; // CSS overrides
 
 const Bulletin = React.lazy(() => import("../views/bulletin"));
-const BlogOverview = React.lazy(() => import("../views/blogOverview"));
+const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
 const StationMeasurements = React.lazy(
@@ -88,7 +88,7 @@ const App = () => {
             />
             <Route path="/education" element={<Education />} />
             <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
-            <Route path="/blog" element={<BlogOverview />} />
+            <Route path="/blog" element={<BlogPostList />} />
             <Route path="/more" element={<More />} />
             <Route path="/more/archive" element={<Archive />} />
             <Route path="/more/linktree" element={<Linktree />} />

@@ -19,7 +19,7 @@ import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 import Selectric from "../components/selectric.tsx";
 
-const BlogOverview = () => {
+const BlogPostList = () => {
   const loading = useStore(BLOG_STORE.loading);
   const maxPages = useStore(BLOG_STORE.maxPages);
   const month = useStore(BLOG_STORE.month);
@@ -244,4 +244,4 @@ const BlogOverview = () => {
   );
 };
 
-export default BlogOverview;
+export default BlogPostList;
