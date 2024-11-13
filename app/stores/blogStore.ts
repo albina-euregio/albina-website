@@ -210,61 +210,10 @@ export function previousPage() {
 }
 
 export const postsList = computed(
-  [page, perPage, posts, numberOfPosts],
-  (page, perPage, posts, numberOfPosts) => {
-    const start = (page - 1) * perPage;
-    const limit = perPage;
-
-    const queues = Object.keys(posts);
-
-    const startIndex = Math.min(start, numberOfPosts - 1);
-    const end = Math.min(start + limit, numberOfPosts);
-
-    const postPointer = {};
-    queues.forEach(queue => {
-      postPointer[queue] = 0;
-    });
-
-    const getNext = () => {
-      // get the next items of all queues
-      const candidates = {};
-      queues.forEach(queue => {
-        if (posts[queue].length > postPointer[queue]) {
-          candidates[queue] = posts[queue][postPointer[queue]];
-        }
-      });
-
-      // find the maximum
-      const queueMax = Object.keys(candidates).reduce((acc, queue) => {
-        if (!acc || candidates[queue].date > candidates[acc].date) {
-          return queue;
-        }
-        return acc;
-      }, "");
-
-      if (queueMax) {
-        const next = posts[queueMax][postPointer[queueMax]];
-        postPointer[queueMax]++;
-        return next;
-      }
-      return null;
-    };
-
-    const list = [];
-    if (startIndex >= 0) {
-      for (let i = 0; i < startIndex; i++) {
-        getNext();
-      }
-
-      for (let j = startIndex; j < end; j++) {
-        const n = getNext();
-        if (n) {
-          list.push(n);
-        }
-      }
-
-      return list;
-    }
-    return [];
-  }
+  [page, perPage, posts],
+  (page, perPage, posts) =>
+    Object.values(posts)
+      .flat()
+      .sort((p1, p2) => +p2.date - +p1.date)
+      .slice((page - 1) * perPage, page * perPage)
 );
