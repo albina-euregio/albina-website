@@ -274,7 +274,7 @@
   },
   "weathermaps": {
     "settings": {
-      "timeRange": ["-72", "+72"],
+      "timeRange": ["-17520", "+72"],
       "mapOptionsOverride": {
         "maxZoom": 12,
         "minZoom": 7
@@ -403,9 +403,6 @@
           "defaultTimeSpan": null,
           "timeSpanToDataId": {},
           "updateTimesOffset": { "*": 1 },
-          "metaFiles": {
-            "agl": "agl.ok"
-          },
           "units": "m",
           "thresholds": [
             100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
@@ -458,7 +455,11 @@
           },
           "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowLine" }],
           "direction": false,
-          "clusterOperation": "max"
+          "clusterOperation": "max",
+          "metaFiles": {
+            "agl": "c-laef_agl.ok"
+          },
+          "timeRange": ["-17520", "+60"]
         }
       },
       "temp": {
@@ -493,7 +494,11 @@
           },
           "dataOverlays": [{ "filePostfix": "_V2.png", "type": "temperature" }],
           "direction": false,
-          "clusterOperation": "min"
+          "clusterOperation": "min",
+          "metaFiles": {
+            "agl": "c-laef_agl.ok"
+          },
+          "timeRange": ["-17520", "+60"]
         }
       },
       "wind": {
@@ -525,7 +530,11 @@
             { "filePostfix": "-dir_V2.png", "type": "windDirection" }
           ],
           "direction": "wdir",
-          "clusterOperation": "max"
+          "clusterOperation": "max",
+          "metaFiles": {
+            "agl": "c-laef_agl.ok"
+          },
+          "timeRange": ["-17520", "+60"]
         }
       },
       "gust": {
@@ -557,7 +566,11 @@
             { "filePostfix": "-dir_V3.png", "type": "windDirection" }
           ],
           "direction": "wdir",
-          "clusterOperation": "max"
+          "clusterOperation": "max",
+          "metaFiles": {
+            "agl": "c-laef_agl.ok"
+          },
+          "timeRange": ["-17520", "+60"]
         }
       }
     }
