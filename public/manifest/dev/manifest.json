@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Avalanche.report",
+  "short_name": "Avalanche.report",
+  "orientation": "any",
+  "display": "standalone",
+  "start_url": "/bulletin/latest",
+  "background_color": "#ffffff",
+  "theme_color": "#f4ea12",
+  "icons": [
+    {
+      "src": "images/fav/en/dev/apple-touch-icon-180x180.png",
+      "sizes": "180x180"
+    }
+  ]
+}

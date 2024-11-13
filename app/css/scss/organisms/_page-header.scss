@@ -189,16 +189,34 @@ $page-header-logo-width: 3.25em;
       background-image: url("../images/pro/logos/logo_mark_de.svg");
       background-size: $logo-mark-de-width $logo-mark-de-height;
       transform: rotate(90deg); //rotate: 90deg;
+      &[data-base-url="/beta/"] {
+        background-image: url("../images/pro/logos/beta/logo_mark_de.svg");
+      }
+      &[data-base-url="/dev/"] {
+        background-image: url("../images/pro/logos/dev/logo_mark_de.svg");
+      }
     }
     .mark-it {
       background-image: url("../images/pro/logos/logo_mark_it.svg");
       background-size: $logo-mark-it-width $logo-mark-it-height;
       transform: rotate(180deg); //rotate: 180deg;
+      &[data-base-url="/beta/"] {
+        background-image: url("../images/pro/logos/beta/logo_mark_it.svg");
+      }
+      &[data-base-url="/dev/"] {
+        background-image: url("../images/pro/logos/dev/logo_mark_it.svg");
+      }
     }
     .mark-en {
       opacity: 1;
       background-image: url("../images/pro/logos/logo_mark_en.svg");
       background-size: $logo-mark-en-width $logo-mark-en-height;
+      &[data-base-url="/beta/"] {
+        background-image: url("../images/pro/logos/beta/logo_mark_en.svg");
+      }
+      &[data-base-url="/dev/"] {
+        background-image: url("../images/pro/logos/dev/logo_mark_en.svg");
+      }
     }
   }
 
@@ -274,12 +292,24 @@ $page-header-logo-width: 3.25em;
     width: $logo-url-de-width;
     background-image: url("../images/pro/logos/logo_url_de.svg");
     background-size: $logo-url-de-width $logo-url-de-height;
+    &[data-base-url="/beta/"] {
+      background-image: url("../images/pro/logos/beta/logo_url_de.svg");
+    }
+    &[data-base-url="/dev/"] {
+      background-image: url("../images/pro/logos/dev/logo_url_de.svg");
+    }
   }
   .url-it {
     height: $logo-url-it-height;
     width: $logo-url-it-width;
     background-image: url("../images/pro/logos/logo_url_it.svg");
     background-size: $logo-url-it-width $logo-url-it-height;
+    &[data-base-url="/beta/"] {
+      background-image: url("../images/pro/logos/beta/logo_url_it.svg");
+    }
+    &[data-base-url="/dev/"] {
+      background-image: url("../images/pro/logos/dev/logo_url_it.svg");
+    }
   }
   .url-en,
   .url-oc,
@@ -290,6 +320,12 @@ $page-header-logo-width: 3.25em;
     width: $logo-url-en-width;
     background-image: url("../images/pro/logos/logo_url_en.svg");
     background-size: $logo-url-en-width $logo-url-en-height;
+    &[data-base-url="/beta/"] {
+      background-image: url("../images/pro/logos/beta/logo_url_en.svg");
+    }
+    &[data-base-url="/dev/"] {
+      background-image: url("../images/pro/logos/dev/logo_url_en.svg");
+    }
   }
 
   a:hover {
