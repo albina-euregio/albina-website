@@ -481,7 +481,7 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowLine" }],
+          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowLine" }],
           "direction": false,
           "clusterOperation": "max",
           "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
@@ -521,7 +521,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "temperature" }],
+          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "temperature" }],
           "direction": false,
           "clusterOperation": "min",
           "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
@@ -556,7 +556,7 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": "_V2.png", "type": "windSpeed" },
+            { "filePostfix": "_V3.png", "type": "windSpeed" },
             { "filePostfix": "-dir_V2.png", "type": "windDirection" }
           ],
           "direction": "wdir",
