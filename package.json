@@ -25,7 +25,7 @@
     "@eaws/outline_properties": "^7.0.0",
     "@floating-ui/react": "^0.26.23",
     "@floating-ui/react-dom-interactions": "^0.13.3",
-    "@nanostores/react": "^0.7.3",
+    "@nanostores/react": "^0.8.0",
     "@sentry/react": "^8.7.0",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
