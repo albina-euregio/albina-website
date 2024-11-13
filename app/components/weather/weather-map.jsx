@@ -115,7 +115,6 @@ const WeatherMap = props => {
         onViewportChanged={props.onViewportChanged}
         overlays={overlays}
         controls={[showHideStationsCtrl]}
-        timeArray={props.timeArray}
         mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
         tileLayerConfigOverride={config.weathermaps.settings.mapOptionsOverride}
         startDate={props.startDate}

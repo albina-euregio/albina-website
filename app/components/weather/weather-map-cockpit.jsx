@@ -13,8 +13,8 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
-  wind: "icon-wind"
-  //gust: "icon-wind-gust"
+  wind: "icon-wind",
+  gust: "icon-wind-gust"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -23,8 +23,8 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
-  wind: "cp-legend-wind"
-  //gust: "cp-legend-windgust"
+  wind: "cp-legend-wind",
+  gust: "cp-legend-windgust"
 };
 
 const DOMAIN_UNITS = {
@@ -44,6 +44,7 @@ const WeatherMapCockpit = ({
   startDate,
   currentTime,
   domainId,
+  timeRange,
   eventCallback,
   changeCurrentTime,
   storeConfig
@@ -292,7 +293,7 @@ const WeatherMapCockpit = ({
     );
   };
 
-  //console.log("weather-map-cockpit->render hhhh", currentTime);
+  //console.log("weather-map-cockpit->render hhhh", {currentTime, timeRange, startDate, timeSpan, lastRedraw});
   let classes = [
     "map-cockpit",
     "weather-map-cockpit",
@@ -305,9 +306,14 @@ const WeatherMapCockpit = ({
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
   let usedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-  usedStartTime.setDate(usedStartTime.getDate() - 730);
+  usedStartTime.setUTCHours(
+    usedStartTime.getUTCHours() + (Number(timeRange?.[0]) || -72)
+  );
   let usedEndTime = new Date(startDate) || null;
-  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
+  usedEndTime.setUTCHours(
+    usedEndTime.getUTCHours() +
+      (timeSpan.includes("+") ? Number(timeRange?.[1]) || 72 : 0)
+  );
 
   let usedInitialDate = new Date(currentTime);
   if (
@@ -318,6 +324,7 @@ const WeatherMapCockpit = ({
 
   // console.log("weather-map-cockpit->render #j01", {
   //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   timeRange: timeRange?.[0],
   //   startDate,
   //   currentTime,
   //   usedStartTime,

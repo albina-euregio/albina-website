@@ -1,4 +1,4 @@
-import { action, observable, makeAutoObservable, set } from "mobx";
+import { action, observable, makeAutoObservable, toJS } from "mobx";
 import { loadStationData } from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
@@ -207,7 +207,7 @@ export default class WeatherMapStore_new {
     let foundDef;
     if (type === "agl")
       foundDef =
-        this.domainConfig.metaFiles?.startDate ||
+        this.domainConfig.metaFiles?.agl ||
         this.config.settings.metaFiles.startDate;
     if (type === "startDate")
       foundDef =
@@ -283,6 +283,15 @@ export default class WeatherMapStore_new {
     return this._dateStart
       ? this._dateStart.setDate(this._dateStart.getDate())
       : this._dateStart;
+  }
+
+  /*
+    returns timeRange
+  */
+  get timeRange() {
+    const range =
+      this.domainConfig?.timeRange || this.config.settings?.timeRange;
+    return toJS(range);
   }
 
   /*

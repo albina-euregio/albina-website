@@ -527,6 +527,38 @@
           "direction": "wdir",
           "clusterOperation": "max"
         }
+      },
+      "gust": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "gust" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            { "filePostfix": "_V3.png", "type": "windSpeed" },
+            { "filePostfix": "-dir_V3.png", "type": "windDirection" }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
       }
     }
   }

@@ -99,11 +99,12 @@ const Weather = () => {
               <WeatherMap
                 domainId={store.domainId}
                 domain={store.domain}
-                timeArray={store.availableTimes}
                 currentTime={store.currentTime}
                 startDate={store.startDate}
                 overlay={store.overlayFileName}
                 dataOverlayFilePostFix={
+                  store.config.domains?.[store.domainId]?.item
+                    ?.dataOverlayFilePostFix ||
                   store.config.settings.dataOverlayFilePostFix
                 }
                 dataOverlays={store.domainConfig.dataOverlays}
@@ -132,6 +133,7 @@ const Weather = () => {
                 key="cockpit"
                 startDate={store.startDate}
                 agl={store.agl}
+                timeRange={store.timeRange}
                 storeConfig={store.config}
                 domainId={store.domainId}
                 timeSpan={store.timeSpan}
