@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "../../i18n";
 import { useEffect } from "react";
 
-type Props = {
+interface Props {
   title: string;
-};
+}
 
 export default function HTMLHeader(props: Props) {
   const intl = useIntl();

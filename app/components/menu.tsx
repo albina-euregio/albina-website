@@ -3,7 +3,7 @@ import { Link, matchPath, useLocation } from "react-router-dom";
 import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
 
-type Entry = {
+interface Entry {
   key: string;
   title?: string;
   url: string;
@@ -11,9 +11,9 @@ type Entry = {
   showSub?: boolean;
   showNumberNewPosts?: boolean;
   children?: Entry[];
-};
+}
 
-type Props = {
+interface Props {
   activeClassName: string;
   childClassName: string;
   className: string;
@@ -22,7 +22,7 @@ type Props = {
   onActiveChildMenuItem?: (e: Entry) => void;
   onActiveMenuItem?: (e: Entry) => void;
   onSelect?: (e: Entry) => void;
-};
+}
 
 function Menu(props: Props) {
   const intl = useIntl();

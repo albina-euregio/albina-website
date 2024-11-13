@@ -26,13 +26,13 @@ export const regionStates: RegionState[] = [
   "default"
 ];
 
-export type PbfRegionStateProps = {
+export interface PbfRegionStateProps {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
   region: string;
   regionMouseover: string;
   validTimePeriod: ValidTimePeriod | undefined;
-};
+}
 
 export function PbfRegionState({
   activeBulletinCollection,

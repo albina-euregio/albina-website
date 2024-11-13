@@ -20,13 +20,13 @@ import {
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 
-type Props = {
+interface Props {
   validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
   bulletin170000: Bulletin;
   showDiff: 0 | 1 | 2;
   date: Date;
-};
+}
 
 function BulletinDaytimeReport({
   validTimePeriod,

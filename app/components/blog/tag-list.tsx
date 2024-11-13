@@ -1,9 +1,9 @@
 import React from "react";
 
-type Props = {
+interface Props {
   tags: string[];
   handleChangeCategory?: (tag: string, e: React.MouseEvent) => void;
-};
+}
 
 export default function TagList({ tags, handleChangeCategory }: Props) {
   if (Array.isArray(tags) && tags.length > 0) {

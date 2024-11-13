@@ -6,12 +6,12 @@ import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import type { BulletinCollection, Status } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   date: Date;
   latestDate: Date;
   status: Status;
   activeBulletinCollection: BulletinCollection;
-};
+}
 
 function BulletinHeader(props: Props) {
   const intl = useIntl();

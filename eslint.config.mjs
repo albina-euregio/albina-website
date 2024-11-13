@@ -8,6 +8,8 @@ import a11y from "eslint-plugin-jsx-a11y";
 export default ts.config(
   js.configs.recommended,
   ...ts.configs.recommended,
+  ...ts.configs.strict,
+  ...ts.configs.stylistic,
   {
     languageOptions: {
       parserOptions: {
@@ -35,12 +37,12 @@ export default ts.config(
   },
   {
     plugins: {
-      'jsx-a11y': a11y,
-    },
+      "jsx-a11y": a11y
+    }
   },
   {
     rules: {
-      "no-console": ["error", { "allow": ["info", "warn", "error", "assert"] }],
+      "no-console": ["error", { allow: ["info", "warn", "error", "assert"] }],
       "require-await": "error",
       "@typescript-eslint/no-empty-function": "off",
       "@typescript-eslint/no-this-alias": "warn",

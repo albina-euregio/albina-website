@@ -18,7 +18,7 @@ import React from "react";
 */
 }
 
-type Props = {
+interface Props {
   backgroundImage?: string;
   isBig?: boolean;
   style?: "light" | "yellow";
@@ -28,7 +28,7 @@ type Props = {
   buttonLink?: string;
   buttonTitle?: string;
   buttonCaption?: string;
-};
+}
 
 export default function ControlBar(props: Props) {
   const styleClasses = {

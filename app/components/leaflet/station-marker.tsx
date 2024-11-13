@@ -4,7 +4,7 @@ import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
 
-type Props<T = unknown> = {
+interface Props<T = unknown> {
   coordinates: L.LatLngExpression;
   data: T;
   stationName: string;
@@ -19,7 +19,7 @@ type Props<T = unknown> = {
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
-};
+}
 
 const StationMarker = (props: Props<unknown>): React.ReactNode => {
   const context = useLeafletContext();

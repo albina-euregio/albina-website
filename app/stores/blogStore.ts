@@ -22,13 +22,13 @@ export const minYear = 2011;
 
 onMount(language, () => init());
 
-export type BlogStore = {
+export interface BlogStore {
   searchCategory: string;
   searchText: string;
   year: number | "";
   startDate: Date | null;
   endDate: Date | null;
-};
+}
 
 export const postItems = computed(posts, posts =>
   Object.values(posts ?? {}).flat()

@@ -2,11 +2,11 @@ import React from "react";
 import BulletinReport from "./bulletin-report";
 import type { Bulletin } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   bulletins: [Bulletin, Bulletin][];
   date: Date;
   region: string;
-};
+}
 
 function BulletinList({ bulletins, date, region }: Props) {
   return (

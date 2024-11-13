@@ -5,10 +5,10 @@ import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
 import { AvalancheProblem } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   problem: AvalancheProblem;
   wrapper?: boolean;
-};
+}
 
 export default function ProblemIconLink({ problem, wrapper }: Props) {
   const intl = useIntl();

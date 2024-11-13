@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Selectric from "../selectric";
 import { useIntl } from "../../i18n";
 
-type Props = {
+interface Props {
   handleChange(month: number): unknown;
   all?: string;
   buttongroup?: boolean;
@@ -12,7 +12,7 @@ type Props = {
   title: string;
   value: number;
   year?: number;
-};
+}
 
 export default function MonthFilter(props: Props) {
   const intl = useIntl();

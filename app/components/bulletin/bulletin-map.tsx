@@ -20,7 +20,7 @@ import { ValidTimePeriod } from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 import { useMapEvent } from "react-leaflet";
 
-type Props = {
+interface Props {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
   status: Status;
@@ -29,7 +29,7 @@ type Props = {
   date: string;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
-};
+}
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();

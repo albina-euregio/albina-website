@@ -6,10 +6,10 @@ import { DATE_TIME_FORMAT } from "../../util/date";
 
 import type { BlogPostPreviewItem } from "../../stores/blog";
 
-type Props = {
+interface Props {
   posts: BlogPostPreviewItem[];
   handleChangeCategory?: (tag: string, e: React.MouseEvent) => void;
-};
+}
 
 export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
   const intl = useIntl();

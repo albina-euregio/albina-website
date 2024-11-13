@@ -1,11 +1,11 @@
 import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 
-type Props = {
+interface Props {
   where: "above" | "below" | "all" | "middle";
   text: string;
   title: string;
-};
+}
 
 export default function ElevationIcon({ where, text, title }: Props) {
   const imgRoot = `${window.config.projectRoot}images/pro/warning-pictos/`;

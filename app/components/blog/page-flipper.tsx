@@ -2,12 +2,12 @@ import React from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
-type Props = {
+interface Props {
   curPage: number;
   maxPages: number;
   handlePreviousPage: () => void;
   handleNextPage: () => void;
-};
+}
 
 const BlogPageFlipper = (props: Props) => {
   const intl = useIntl();

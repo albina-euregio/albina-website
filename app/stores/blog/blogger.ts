@@ -3,7 +3,7 @@ import type { BlogStore } from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
 import { parseDate } from "../../util/date";
 
-type BloggerItem = {
+interface BloggerItem {
   kind: string;
   id: string;
   content?: string;
@@ -28,7 +28,7 @@ type BloggerItem = {
   };
   labels?: string[];
   etag: string;
-};
+}
 
 export class BloggerProcessor implements BlogProcessor {
   async loadBlogPosts(
