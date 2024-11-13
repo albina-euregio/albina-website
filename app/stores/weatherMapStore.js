@@ -117,14 +117,14 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new->_loadDomainData: loaded #j01", {
-          _dateStart: this._dateStart,
-          _lastCurrentTime: this._lastCurrentTime,
-          _agl: this._agl,
-          currentTime: this._getStartTimeForSpan(
-            this._lastCurrentTime || this._dateStart
-          )
-        });
+        // console.log("Weathermap_new->_loadDomainData: loaded #j01", {
+        //   _dateStart: this._dateStart,
+        //   _lastCurrentTime: this._lastCurrentTime,
+        //   _agl: this._agl,
+        //   currentTime: this._getStartTimeForSpan(
+        //     this._lastCurrentTime || this._dateStart
+        //   )
+        // });
         if (!this._currentTime.get())
           this._currentTime.set(
             this._getStartTimeForSpan(this._lastCurrentTime || this._dateStart)
@@ -146,10 +146,10 @@ export default class WeatherMapStore_new {
     this.grid = {};
     let loads = [];
 
-    console.log(
-      "_loadData this._currentTime #j01",
-      new Date(this._currentTime)
-    );
+    // console.log(
+    //   "_loadData this._currentTime #j01",
+    //   new Date(this._currentTime)
+    // );
     if (
       this.domainConfig?.layer.stations &&
       this._currentTime.get() <= this._agl

@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
-import { set } from "mobx";
 
 const Timeline = ({
   initialDate,
@@ -17,11 +15,23 @@ const Timeline = ({
   barDuration = 24, // Bar duration in hours
   updateCB
 }) => {
-  console.log("Timeline->init #j01");
+  const now = new Date();
+  const nowFullHour = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      0,
+      0
+    )
+  );
+  //console.log("Timeline->init #j01");
   const containerRef = useRef(null);
   const rulerRef = useRef(null);
   const indicatorRef = useRef(null);
-  const [currentDate, setCurrentDate] = useState(startTime);
+  let markerInitialized = false;
+  const [currentDate, setCurrentDate] = useState();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -41,17 +51,6 @@ const Timeline = ({
   const intl = useIntl();
   const datePickerRef = useRef(null);
 
-  const now = new Date();
-  const nowFullHour = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours(),
-      0,
-      0
-    )
-  );
   const startOfDay = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   );
@@ -77,6 +76,10 @@ const Timeline = ({
     // Clean up
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
+
+  useEffect(() => {
+    setCurrentDate(initialDate);
+  }, [initialDate]);
 
   useEffect(() => {
     let intervalId;
@@ -121,13 +124,6 @@ const Timeline = ({
 
       setRulerOffset(newRulerOffset);
       updateTimelinePosition(newTranslateX, true);
-      // console.log("Timeline->useEffect #i41", {
-      //   initialDate: new Date(initialDate).toISOString(),
-      //   currentDate: currentDate ? new Date(currentDate).toISOString() : null,
-      //   endTime: new Date(endTime).toISOString(),
-      // });
-
-      if (!currentDate) snapToNearestMarker(initialDate);
 
       // console.log("Timeline->useEffect #i01", {
       //   initialDate: new Date(initialDate).toISOString(),
@@ -167,19 +163,19 @@ const Timeline = ({
   };
 
   const jumpStep = direction => {
+    console.log("jumpStep #i031", { currentDate, direction });
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * timeSpan);
-    //console.log("jumpStep #i031", { currentDate: new Date(currentDate).toISOString(), direction, newDate: newDate.toISOString(), add: direction * timeSpan });
     if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
   };
 
   const createRulerMarkings = () => {
     const markings = [];
-    // console.log("createRulerMarkings #i0111", {
-    //   rulerStartDay,
-    //   rulerEndDay,
-    //   startOfDay
-    // });
+    console.log("createRulerMarkings #i031", {
+      rulerStartDay,
+      rulerEndDay,
+      startOfDay
+    });
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -241,6 +237,7 @@ const Timeline = ({
         );
       }
     }
+    markerInitialized = true;
     return markings;
   };
 
@@ -297,6 +294,7 @@ const Timeline = ({
 
   const snapToNearestMarker = markerDate => {
     //if(!indicatorRef.current) return;
+    console.log("snapToNearestMarker #i031");
     let searchedMaker;
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
@@ -368,20 +366,22 @@ const Timeline = ({
     const { markerCenterX } = getMarkerCenterX(targetDate);
     const distanceToMove = markerCenterX - indicatorCenterX;
 
-    console.log("snapToDate #j01", {
+    console.log("snapToDate #i031", {
       targetDate: new Date(targetDate).toISOString(),
       distanceToMove: Math.round(distanceToMove),
       currentTranslateX
     });
 
     const newTranslateX = currentTranslateX + Math.round(distanceToMove);
-    //console.log("snapToDate #i031", { targetDate: targetDate.toISOString(), newTranslateX });
+    console.log("snapToDate #i031", { currentDate });
     updateTimelinePosition(newTranslateX, true);
     setCurrentDate(targetDate);
 
     setRulerDimensions(targetDate);
 
-    if (updateCB) updateCB(targetDate);
+    if (updateCB) {
+      updateCB(targetDate);
+    }
   };
 
   const jumpToDate = targetDate => {
@@ -469,6 +469,7 @@ const Timeline = ({
   };
 
   const handleSelectDateClick = e => {
+    console.log("handleSelectDateClick #j01", e.target.value);
     let targetDate = new Date(e.target.value);
     targetDate = new Date(
       Date.UTC(
@@ -541,6 +542,8 @@ const Timeline = ({
 
   console.log("Timeline->render #j01", {
     currentDate,
+    startTime,
+    initialDate,
     currentTranslateX,
     rulerOffset,
     markerPosition
@@ -576,13 +579,14 @@ const Timeline = ({
         <input
           type="datetime-local"
           ref={datePickerRef}
-          onChange={e => handleSelectDateClick(e)}
+          onChange={handleSelectDateClick}
+          defaultValue={formatDateToLocalDateTime(currentDate)}
           style={{
             position: "absolute",
             opacity: 0,
+            //zIndex: 1000,
             width: 0,
-            height: 0,
-            pointerEvents: "none"
+            height: 0
           }}
           min={formatDateToLocalDateTime(startTime)}
           max={formatDateToLocalDateTime(endTime)}
