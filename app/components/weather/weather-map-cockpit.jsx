@@ -90,6 +90,11 @@ const WeatherMapCockpit = ({
             title: (
               <FormattedMessage id={"weathermap:domain:title:" + domainId} />
             ),
+            description: (
+              <FormattedMessage
+                id={"weathermap:domain:description:" + domainId}
+              />
+            ),
             url: "/weather/map/" + domainId,
             isExternal: false
           };
@@ -113,9 +118,7 @@ const WeatherMapCockpit = ({
           <div className={spanClasses.join(" ")}>
             <span className="layer-select-text">
               <span className="layer-select-name">{aButton.title}</span>
-              <span className="layer-select-info">
-                Possibility to add supporting information
-              </span>
+              <span className="layer-select-info">{aButton.description}</span>
             </span>
           </div>
         </Link>
@@ -205,7 +208,11 @@ const WeatherMapCockpit = ({
                     }
                   </span>
                   <span class="layer-select-info">
-                    Possibility to add supporting information
+                    {
+                      <FormattedMessage
+                        id={"weathermap:domain:description:" + domainId}
+                      />
+                    }
                   </span>
                 </span>
               </div>
