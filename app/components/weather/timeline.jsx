@@ -262,23 +262,24 @@ const Timeline = ({
     //setRulerEndDay(Math.min(maxEndDay, newVisibleMiddledDay + daysBuild));
   };
 
-  const handleMouseDown = e => {
+  const handleDragStart = e => {
     setIsDragging(true);
-    setStartX(e.clientX);
+    const clientX = e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
+    setStartX(clientX);
     setStartTranslateX(currentTranslateX);
     rulerRef.current.style.transition = "none";
   };
 
-  const handleMouseMove = e => {
+  const handleDragMove = e => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.clientX;
+    const x = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
     const walk = startX - x;
     const newTranslateX = startTranslateX + walk;
     updateTimelinePosition(newTranslateX, false);
   };
 
-  const handleMouseUp = () => {
+  const handleDragEnd = () => {
     if (isDragging) {
       setIsDragging(false);
       rulerRef.current.style.transition = "transform 0.3s ease";
@@ -580,10 +581,14 @@ const Timeline = ({
       <div className="cp-scale" tabIndex="0" onKeyDown={handleKeyDown}>
         <div
           ref={containerRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
+          onMouseDown={handleDragStart}
+          onMouseMove={handleDragMove}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchStart={handleDragStart}
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+          onTouchCancel={handleDragEnd}
           className="cp-scale-days-2024"
         >
           <div className="cp-scale-days-outer">
