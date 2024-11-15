@@ -30,6 +30,23 @@ const StaticPage = () => {
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
       const text = await fetchText(url);
+      if (
+        text.includes(
+          "This website requires a modern browser and JavaScript modules"
+        )
+      ) {
+        // Due to BrowserRouter, the webserver serves index.html for any non existing file.
+        // Detect this case and display an error 404.
+        setTitle("Error 404");
+        setContent(
+          <section className="section-centered">
+            Page not found: <code>{url}</code>
+          </section>
+        );
+        setChapter("");
+        setHeaderText("");
+        return;
+      }
       // extract title from first <h1>...</h1>
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
       setTitle(titlePattern.exec(text)?.[1]);
