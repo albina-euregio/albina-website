@@ -67,11 +67,20 @@ function PageHeader() {
             to="/"
           >
             <span className="mark">
-              <span key={"mark-" + lang} className={"mark-" + lang} />
-              <span key="en" className={"mark-en"} />
+              <span
+                className={`mark-${lang}`}
+                data-base-url={import.meta.env.BASE_URL}
+              />
+              <span
+                className={`mark-en`}
+                data-base-url={import.meta.env.BASE_URL}
+              />
             </span>
             <span className="url">
-              <span key={"url-" + lang} className={"url-" + lang} />
+              <span
+                className={`url-${lang}`}
+                data-base-url={import.meta.env.BASE_URL}
+              />
             </span>
           </Link>
         </Tooltip>
