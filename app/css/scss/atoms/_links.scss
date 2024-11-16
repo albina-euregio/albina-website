@@ -135,12 +135,12 @@ a.label {
 
 a.icon-link {
   @include letter-spacing;
+  display: inline-block;
   &:before {
     top: 0.15em;
     left: 0;
     font-size: 2rem;
   }
-  display: inline-block;
   &.icon-arrow-left {
     &:hover,
     &:active {
@@ -172,10 +172,15 @@ a.icon-link {
 }
 
 // from 202202
-a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not([class*="avoid-external-icon"]):not([class*="pp"]) {
+a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not(
+    [class*="sm-button"]
+  ):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
+    [class*="avoid-external-icon"]
+  ):not([class*="pp"]) {
   position: relative;
   padding-right: 1em;
-  background: url("../images/pro/global/icon_external-link.svg") no-repeat 100% 0;
+  background: url("../images/pro/global/icon_external-link.svg") no-repeat 100%
+    0;
   background-size: 0.75em 0.75em;
 }
 

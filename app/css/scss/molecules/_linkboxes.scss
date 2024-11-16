@@ -46,9 +46,9 @@ a.linkbox {
   .content-text {
     width: 100%;
     padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    @include text-color($anchor-font-color);
     background-color: $white;
     @include scrollbar-hide;
+    @include text-color($anchor-font-color);
     @include rollout(all, $transition-duration, ease-in-out);
 
     @include last-child;
