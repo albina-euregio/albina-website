@@ -240,9 +240,6 @@ $search-width-wide: 300px;
         left: $controls-width-height + 0.5 !important;
         height: $controls-width-height !important;
         width: $search-width;
-        @media #{$medium-up} {
-          width: $search-width-wide;
-        }
         margin: 0;
         padding: $padding;
         font-size: $tiny-font-size;
@@ -250,6 +247,9 @@ $search-width-wide: 300px;
         color: $brand;
         border: $border-width $border-style $brand;
         outline-style: none;
+        @media #{$medium-up} {
+          width: $search-width-wide;
+        }
       }
     }
     ul {
@@ -259,14 +259,14 @@ $search-width-wide: 300px;
       top: $controls-width-height;
       left: $controls-width-height + 0.5 !important;
       width: $search-width;
-      @media #{$medium-up} {
-        width: $search-width-wide;
-      }
       margin: 0;
       padding: 0;
       background: $white;
       border: $border-width $border-style $brand;
       border-top: none;
+      @media #{$medium-up} {
+        width: $search-width-wide;
+      }
       &.hasResults {
         display: block;
       }

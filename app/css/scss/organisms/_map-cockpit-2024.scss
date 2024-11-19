@@ -178,15 +178,15 @@ $cp-breakpoint-3: 1024px;
 
   .layer-trigger {
     &:before {
-      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
       margin: 0 10px 0 0;
       font-size: 24px;
+      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
     }
     .layer-selector-open & {
       &:before {
-        @include icon(close, 0.75em, 0.5em, none, 0, none);
         margin: 0 10px 0 0;
         font-size: 24px;
+        @include icon(close, 0.75em, 0.5em, none, 0, none);
       }
     }
   }

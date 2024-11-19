@@ -123,8 +123,8 @@
   right: 0;
   font-size: $body-font-size;
 
-  @include rollout(all, $transition-duration, $ease: ease-out);
   animation: ($transition-duration * 2) ease-out 0s 1 slideInFromTop;
+  @include rollout(all, $transition-duration, $ease: ease-out);
 }
 
 //page-main

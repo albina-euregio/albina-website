@@ -114,10 +114,10 @@
 
 ul.bulletin-flipper {
   line-height: 1;
+  @include letter-spacing;
   .section-bulletin-header & {
     font-size: $tiny-font-size;
   }
-  @include letter-spacing;
   li {
     padding: 0 ($padding * 0.5) 0 0;
     @media #{$tiny-up} {

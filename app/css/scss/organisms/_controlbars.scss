@@ -9,14 +9,15 @@
 
 .controlbar {
   z-index: 10;
+  padding: ($all-v-padding * 0.5) $all-h-padding;
+
+  @extend .bg-brand;
+  @include text-color($white);
+  @include link-color($black, $white);
+
   ~ .controlbar {
     z-index: 9;
   }
-  @extend .bg-brand;
-  padding: ($all-v-padding * 0.5) $all-h-padding;
-
-  @include text-color($white);
-  @include link-color($black, $white);
 
   .grid {
     grid-gap: $padding;
@@ -99,9 +100,6 @@
 
 .controlbar-bg-image {
   display: none;
-  .controlbar-image & {
-    display: block;
-  }
   position: absolute;
   top: 0;
   bottom: 0;
@@ -112,6 +110,9 @@
   background-size: cover;
   mix-blend-mode: luminosity;
   opacity: 0.2;
+  .controlbar-image & {
+    display: block;
+  }
 }
 
 .controlbar-big-hide {

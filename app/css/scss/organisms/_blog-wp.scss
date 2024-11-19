@@ -9,10 +9,10 @@
 
 .blog-feature-meta {
   margin-bottom: $margin-bottom * 0.5;
+  font-size: $tiny-font-size;
   .linkbox & {
     margin-bottom: 0;
   }
-  font-size: $tiny-font-size;
   li {
     padding-bottom: $padding * 0.5;
     @include rollout(all, $transition-duration * 2, ease-in-out);
