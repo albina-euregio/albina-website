@@ -27,14 +27,18 @@
   $transition-duration: $transition-duration,
   $ease: ease-in-out
 ) {
-  transition: $was ($transition-duration) $ease;
+  & {
+    transition: $was ($transition-duration) $ease;
+  }
 }
 @mixin rollover(
   $was: all,
   $transition-duration: $transition-duration,
   $ease: ease-out
 ) {
-  transition: $was ($transition-duration * 0.5) $ease;
+  & {
+    transition: $was ($transition-duration * 0.5) $ease;
+  }
 }
 
 //position
@@ -113,13 +117,17 @@
 @mixin smooth-scroll() {
   -webkit-overflow-scrolling: touch;
 }
-@mixin scrollbar-hide () {
-	-ms-overflow-style: none;//IE and Edge
-	scrollbar-width: none;//Firefox
-	
-	&::-webkit-scrollbar {
-		display: none;//Chrome, Safari and Opera
-	}
+@mixin scrollbar-hide() {
+  & {
+    -ms-overflow-style: none;
+  } //IE and Edge
+  & {
+    scrollbar-width: none;
+  } //Firefox
+
+  &::-webkit-scrollbar {
+    display: none; //Chrome, Safari and Opera
+  }
 }
 
 //text color

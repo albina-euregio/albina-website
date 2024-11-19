@@ -569,6 +569,8 @@ $selectric-max-width: 20em;
   border: $border-width $border-style $brand;
   opacity: 0;
 
+  @include box-shadow;
+
   @media #{$medium-up} {
     font-size: $tiny-font-size;
   }
@@ -577,7 +579,6 @@ $selectric-max-width: 20em;
     @include text-color($text-color);
   }
 
-  @include box-shadow;
   @include rollout;
 
   .selectric-scroll {
@@ -585,8 +586,8 @@ $selectric-max-width: 20em;
     overflow: auto;
   }
   ul {
-    @include list-plain;
     margin-bottom: 0;
+    @include list-plain;
   }
   li {
     padding: $padding !important;

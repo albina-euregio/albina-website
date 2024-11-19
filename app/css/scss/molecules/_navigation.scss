@@ -36,8 +36,8 @@ $item-padding: 0.175em;
   }
 
   .has-sub {
-    @include icon(down-open, auto, 0, $text-color, 0, none);
     padding-right: 3em;
+    @include icon(down-open, auto, 0, $text-color, 0, none);
     &:before {
       display: block;
       position: absolute;
@@ -119,19 +119,20 @@ $item-padding: 0.175em;
 .subnavigation {
   z-index: 5;
   display: none;
-  &:hover {
-    display: block;
-  }
   position: absolute;
   top: $page-header-height;
   left: -1em;
   min-width: 5em;
   margin: 0;
   padding: 0.5em 0 !important;
-  @include font-normal;
-
   background-color: rgba($white, 0.95);
+
+  @include font-normal;
   @include box-shadow;
+
+  &:hover {
+    display: block;
+  }
 
   a {
     padding: 0.25em 2em 0.25em 1em;

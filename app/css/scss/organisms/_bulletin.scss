@@ -209,12 +209,12 @@
   flex-direction: column;
   gap: $padding;
 
+  margin-bottom: $margin-bottom;
+
   @media #{$tiny-up} {
     flex-direction: row;
     justify-content: space-between;
   }
-
-  margin-bottom: $margin-bottom;
 
   > div {
     @include last-child;
@@ -351,23 +351,23 @@
     padding: 0;
     border-top: $border-width $border-style $border-color;
     &:first-child {
+      padding-top: 0;
+      border-top: none;
       > div:first-child {
         padding-right: $padding;
+        border-right: $border-width $border-style $border-color;
         @media #{$tiny-up} {
           padding-right: $padding * 2;
         }
-        border-right: $border-width $border-style $border-color;
       }
-      padding-top: 0;
-      border-top: none;
     }
     > div {
       position: relative;
       margin-right: $padding;
+      padding: $padding 0;
       @media #{$tiny-up} {
         margin-right: $padding * 2;
       }
-      padding: $padding 0;
       &:last-child {
         margin-right: 0;
       }

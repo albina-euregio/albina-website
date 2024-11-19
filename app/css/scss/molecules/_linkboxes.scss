@@ -47,9 +47,9 @@ a.linkbox {
     width: 100%;
     padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
     background-color: $white;
-    @include scrollbar-hide;
     @include text-color($anchor-font-color);
     @include rollout(all, $transition-duration, ease-in-out);
+    @include scrollbar-hide;
 
     @include last-child;
 
@@ -81,8 +81,8 @@ a.linkbox {
     }
 
     .content-text {
-      @include text-color($white);
       background-color: $anchor-font-color;
+      @include text-color($white);
       @include rollover(all, $transition-duration * 2, ease-in-out);
     }
 
@@ -151,6 +151,9 @@ a.linkbox-feature {
 a.linkbox-blog-feature {
   &:link,
   &:visited {
+    display: flex;
+    flex-wrap: wrap;
+
     margin-bottom: 0;
     background-color: $white;
     border: $border-width $border-style $border-color;
@@ -158,9 +161,6 @@ a.linkbox-blog-feature {
       border-left: none;
       border-right: none;
     }
-
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .content-image {
@@ -195,15 +195,15 @@ a.linkbox-blog-feature {
   }
 
   .content-text {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
     padding: 0.5em $all-h-padding ($all-v-padding * 2) $all-h-padding; //0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
     @media #{$small-up} {
       width: 75%;
       padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
     }
-
-    display: flex;
-    flex-direction: column;
 
     .blog-feature-meta {
       li {
@@ -230,8 +230,8 @@ a.linkbox-blog-feature {
     }
 
     .content-text {
-      @include text-color($anchor-font-color);
       background-color: $white;
+      @include text-color($anchor-font-color);
       .blog-feature-meta {
         li {
           color: $anchor-font-color !important;
@@ -245,6 +245,9 @@ a.linkbox-blog-feature {
 a.linkbox-linktree-feature {
   &:link,
   &:visited {
+    display: flex;
+    flex-wrap: wrap;
+
     margin-bottom: 0;
     background-color: $white;
     border: $border-width $border-style $border-color;
@@ -252,9 +255,6 @@ a.linkbox-linktree-feature {
       border-left: none;
       border-right: none;
     }
-
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .content-image {
@@ -299,8 +299,8 @@ a.linkbox-linktree-feature {
     }
 
     .content-text {
-      @include text-color($anchor-font-color);
       background-color: $white;
+      @include text-color($anchor-font-color);
     }
   }
 }
