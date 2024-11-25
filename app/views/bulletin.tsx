@@ -24,6 +24,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
+import { setLanguage } from "../appStore";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -63,6 +64,9 @@ const Bulletin = ({ headless }: Props) => {
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
+  if (["de", "en"].includes(searchParams.get("language") || "")) {
+    setLanguage(searchParams.get("language"));
+  }
 
   useEffect(() => {
     _latestBulletinChecker();

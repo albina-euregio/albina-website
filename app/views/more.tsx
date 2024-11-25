@@ -1,13 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { Tooltip } from "../components/tooltips/tooltip";
+import { useSearchParams } from "react-router-dom";
 
 const More = () => {
   const intl = useIntl();
+  const [searchParams] = useSearchParams();
+
+  if (["de", "en"].includes(searchParams.get("language") || "")) {
+    setLanguage(searchParams.get("language"));
+  }
+
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "more:title" })} />
