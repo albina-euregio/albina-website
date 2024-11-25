@@ -32,6 +32,9 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (type === "a" && props.target === "_blank") {
           // no opener for external links
           props.rel = "noopener";
+        } else if (blogMode && type === "img") {
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+          ["sizes"].forEach(prop => delete props[prop]);
         } else if (
           blogMode &&
           type === "a" &&
