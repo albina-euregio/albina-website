@@ -11,10 +11,12 @@
 //https://sass-lang.com/documentation/modules
 @use "sass:math";
 @use "sass:color";
+@use "sass:list";
+@use "sass:map";
 
 //http://bourbon.io
 
-@use "../../node_modules/normalize.css/normalize";
+@import "../../node_modules/normalize.css/normalize";
 
 @import "scss/abstracts/mixins";
 @import "scss/abstracts/variables";

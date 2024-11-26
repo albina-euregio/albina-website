@@ -7,8 +7,6 @@
     #MAP-COCKPIT-LEGEND-ITEMS
 \*------------------------------------*/
 
-@use "sass:map";
-
 @mixin legend-generator($legend-type, $item-count) {
   span {
     width: calc(100% / #{$item-count});
