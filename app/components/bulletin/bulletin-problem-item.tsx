@@ -8,11 +8,11 @@ import ElevationIcon from "../icons/elevation-icon";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import { AvalancheProblem, AvalancheProblemType } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   problem: AvalancheProblem;
   problem170000: AvalancheProblem;
   showDiff: 0 | 1 | 2;
-};
+}
 
 const textInfoToClass = {
   frequency: {

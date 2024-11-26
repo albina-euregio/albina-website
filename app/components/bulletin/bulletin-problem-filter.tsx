@@ -2,7 +2,7 @@ import React from "react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
-type Props = {
+interface Props {
   handleSelectRegion: (id?: string) => void;
   problems: Record<
     AvalancheProblemType,
@@ -11,7 +11,7 @@ type Props = {
     }
   >;
   toggleProblem: (problemId: AvalancheProblemType) => void;
-};
+}
 
 function BulletinProblemFilter(props: Props) {
   const listItems = Object.entries(props.problems).map(

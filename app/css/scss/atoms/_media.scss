@@ -60,8 +60,8 @@ figure.caption {
     @include box-border;
     border-top: 0;
     opacity: 0;
-    @include rollout();
     @include font-smoothing(antialiased);
+    @include rollout();
     p {
       margin: 0;
       font-size: $small-font-size;

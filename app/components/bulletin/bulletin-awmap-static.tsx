@@ -1,14 +1,14 @@
 import React, { type ReactEventHandler } from "react";
 import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   validTimePeriod?: ValidTimePeriod;
   bulletin?: Bulletin;
   date: string;
   region: string;
   onError?: ReactEventHandler<HTMLImageElement>;
   imgFormat?: string;
-};
+}
 
 function BulletinAWMapStatic({
   validTimePeriod,

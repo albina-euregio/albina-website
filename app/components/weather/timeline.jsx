@@ -43,6 +43,7 @@ const Timeline = ({
   const [rulerOffset, setRulerOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
+  const [selectableHoursOffset, setSelectableHoursOffset] = useState(timeSpan);
 
   const hoursPerDay = 24;
   const daysBuild = 10;
@@ -116,14 +117,15 @@ const Timeline = ({
   useEffect(() => {
     if (containerRef?.current?.clientWidth) {
       const initialOffsetHours = differenceInHours(startOfDay, initialDate);
-
+      //console.log("Timeline->useEffect #i01", {barDuration, showBar, pixelsPerHour});
       let newRulerOffset =
         (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
-      if (showBar) newRulerOffset -= (barDuration / 2) * pixelsPerHour;
+      if (showBar) newRulerOffset -= barDuration * pixelsPerHour;
       const newTranslateX = -initialOffsetHours * pixelsPerHour;
 
       setRulerOffset(newRulerOffset);
       updateTimelinePosition(newTranslateX, true);
+      setSelectableHoursOffset(timeSpan >= 24 ? 24 : timeSpan);
 
       // console.log("Timeline->useEffect #i01", {
       //   initialDate: new Date(initialDate).toISOString(),
@@ -164,30 +166,33 @@ const Timeline = ({
 
   const jumpStep = direction => {
     const newDate = new Date(currentDate);
-    newDate.setHours(newDate.getHours() + direction * timeSpan);
+    newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
+    //console.log("jumpStep #i01", {direction, selectableHoursOffset, newDate: newDate.toISOString()});
     if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
   };
 
   const createRulerMarkings = () => {
     const markings = [];
+    let usedEndTime = new Date(endTime);
+    usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
+
+    //console.log("createRulerMarkings #i011", {barDuration, usedEndTime: usedEndTime.toISOString(), endTime: endTime.toISOString(), selectableHoursOffset});
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
         const markDate = addHours(addDays(startOfDay, day), hour);
         const totalHours = day * hoursPerDay + hour;
+
         const isSelectable =
-          (hour - firstHour) % timeSpan === 0 && hour >= firstHour;
+          (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
 
         const localDate = new Date(markDate);
         const localHour = localDate.getHours();
-        let markClass = [
-          localHour === 0
-            ? "day-mark"
-            : isSelectable
-              ? "selectable-hour-mark"
-              : "hour-mark"
-        ];
-        if (markDate.getTime() === endTime?.getTime())
+        let markClass = [localHour === 0 ? "day-mark" : ""];
+        if (isSelectable) markClass.push("selectable-hour-mark");
+        else markClass.push("hour-mark");
+
+        if (markDate.getTime() === usedEndTime?.getTime())
           markClass.push("selectable-hours-end");
         if (markDate.getTime() === startTime?.getTime())
           markClass.push("selectable-hours-start");
@@ -243,7 +248,7 @@ const Timeline = ({
     // });
     let usedTranslateX = newTranslateX;
     if (snap) {
-      const snapToHours = timeSpan * pixelsPerHour;
+      const snapToHours = selectableHoursOffset * pixelsPerHour;
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
 
@@ -344,15 +349,20 @@ const Timeline = ({
     // });
     const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
     const targetDay = Math.floor(timeDifferenceInHours / 24);
-    setRulerStartDay(Math.max(maxStartDay - 3, targetDay - daysBuild));
-    setRulerEndDay(Math.min(maxEndDay + 3, targetDay + daysBuild));
+    const rulerPadding = Math.ceil(barDuration / 24) + 2;
+    setRulerStartDay(
+      Math.max(maxStartDay - rulerPadding, targetDay - daysBuild)
+    );
+    setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
   };
 
   const snapToDate = targetDate => {
     // Adjust targetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = targetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
+      Math.round((hours - firstHour) / selectableHoursOffset) *
+        selectableHoursOffset +
+      firstHour;
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
@@ -375,7 +385,9 @@ const Timeline = ({
     // Adjust targetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = targetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / timeSpan) * timeSpan + firstHour;
+      Math.round((hours - firstHour) / selectableHoursOffset) *
+        selectableHoursOffset +
+      firstHour;
     targetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
     rulerRef.current.style.transition = "transform 0.5s ease";
@@ -388,21 +400,21 @@ const Timeline = ({
     snapToDate(targetDate);
   };
 
-  const getDisplayDate = () => {
-    return currentDate ? formatDateTime(currentDate) : "";
-  };
+  // const getDisplayDate = () => {
+  //   return currentDate ? formatDateTime(currentDate) : "";
+  // };
 
-  const getSelectedTime = () => {
-    return currentDate ? formatTime(currentDate) : "";
-  };
+  // const getSelectedTime = () => {
+  //   return currentDate ? formatTime(currentDate) : "";
+  // };
 
-  const getCurrentTime = () => {
-    const offsetHours = differenceInHours(currentDate, now);
-    const offsetDays = Math.floor(Math.abs(offsetHours) / 24);
-    const remainingHours = Math.abs(offsetHours) % 24;
-    const timeDirection = offsetHours <= 0 ? "Past" : "Future";
-    return `${timeDirection}: ${offsetDays}d ${Math.floor(remainingHours)}h`;
-  };
+  // const getCurrentTime = () => {
+  //   const offsetHours = differenceInHours(currentDate, now);
+  //   const offsetDays = Math.floor(Math.abs(offsetHours) / 24);
+  //   const remainingHours = Math.abs(offsetHours) % 24;
+  //   const timeDirection = offsetHours <= 0 ? "Past" : "Future";
+  //   return `${timeDirection}: ${offsetDays}d ${Math.floor(remainingHours)}h`;
+  // };
 
   const addDays = (date, days) => {
     const result = new Date(date);

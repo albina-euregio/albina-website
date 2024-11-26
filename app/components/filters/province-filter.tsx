@@ -3,7 +3,7 @@ import { useIntl } from "../../i18n";
 import { regionCodes } from "../../util/regions";
 import Selectric from "../selectric";
 
-type Props = {
+interface Props {
   value: string;
   title: JSX.Element;
   all: JSX.Element;
@@ -12,7 +12,7 @@ type Props = {
   regionCode?: string;
   regionCodes?: string[];
   buttongroup: boolean;
-};
+}
 
 export default function ProvinceFilter(props: Props) {
   const intl = useIntl();

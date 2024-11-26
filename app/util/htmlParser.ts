@@ -47,6 +47,7 @@ export function preprocessContent(content: string, blogMode = false) {
           return React.createElement(OpenSourceLicenses, props, children);
         }
         // Remove deprecated html attributes
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         ["align", "border"].forEach(prop => delete props[prop]);
         return React.createElement(type, props, children);
       }

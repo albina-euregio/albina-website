@@ -64,10 +64,7 @@ export const DATE_TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
 };
 Object.freeze(DATE_TIME_ZONE_FORMAT);
 
-export function dateToISODateString(
-  date: Date,
-  isUTC: boolean = false
-): string {
+export function dateToISODateString(date: Date, isUTC = false): string {
   return dateFormat(date, "%Y-%m-%d", isUTC);
 }
 

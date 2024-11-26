@@ -11,7 +11,10 @@ import {
 import { Tooltip } from "../tooltips/tooltip";
 import { dateFormat } from "../../util/date";
 
-type Props = { date: Date; latest: Date };
+interface Props {
+  date: Date;
+  latest: Date;
+}
 
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();

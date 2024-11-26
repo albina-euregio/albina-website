@@ -1,11 +1,11 @@
 import React from "react";
 
-type Props = {
+interface Props {
   marginal: string;
   subtitle: string;
   title: string;
   children: React.ReactNode;
-};
+}
 
 export default function PageHeadline(props: Props) {
   return (

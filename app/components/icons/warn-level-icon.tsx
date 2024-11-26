@@ -5,12 +5,12 @@ import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { Tooltip } from "../../components/tooltips/tooltip";
 import { DangerRatingValue } from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   above: DangerRatingValue;
   below: DangerRatingValue;
   elevation: string;
   treeline: boolean;
-};
+}
 
 const WarnLevelIcon = (props: Props) => {
   const intl = useIntl();

@@ -3,7 +3,10 @@ import { FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import type * as Caaml from "../../stores/bulletin";
 
-type Props = { dangerPattern: Caaml.DangerPattern; isInserted: boolean };
+interface Props {
+  dangerPattern: Caaml.DangerPattern;
+  isInserted: boolean;
+}
 
 function DangerPatternItem({ dangerPattern, isInserted }: Props) {
   return (

@@ -9,11 +9,12 @@
 
 .panel {
   position: relative;
+  padding: $all-v-padding $all-h-padding;
   margin-bottom: $margin-bottom;
+
   + .panel {
     margin-top: -$margin-bottom;
   }
-  padding: $all-v-padding $all-h-padding;
   //overflow: auto;//why?
   @include last-child();
 

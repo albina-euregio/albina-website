@@ -12,7 +12,7 @@ import {
   TileLayerProps
 } from "react-leaflet";
 
-type Props = {
+interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   controls: boolean;
@@ -20,7 +20,7 @@ type Props = {
   tileLayerConfigOverride: Partial<TileLayerProps>;
   overlays: React.ReactElement;
   onInit: (map: L.Map) => void;
-};
+}
 
 const LeafletMap = (props: Props) => {
   const params = useParams();

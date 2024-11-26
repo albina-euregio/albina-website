@@ -4,9 +4,9 @@ import { Tooltip } from "../tooltips/tooltip";
 import type { RegionCodes } from "../../util/regions";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
-type Props = {
+interface Props {
   region: RegionCodes;
-};
+}
 
 export default function SmFollow({ region }: Props) {
   const intl = useIntl();

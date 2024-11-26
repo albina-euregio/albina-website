@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-type Props = { loading: boolean };
+interface Props {
+  loading: boolean;
+}
 
 export default function HTMLPageLoadingScreen({ loading }: Props) {
   useEffect(() => {

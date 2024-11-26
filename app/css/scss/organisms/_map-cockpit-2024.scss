@@ -178,15 +178,15 @@ $cp-breakpoint-3: 1024px;
 
   .layer-trigger {
     &:before {
-      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
       margin: 0 10px 0 0;
       font-size: 24px;
+      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
     }
     .layer-selector-open & {
       &:before {
-        @include icon(close, 0.75em, 0.5em, none, 0, none);
         margin: 0 10px 0 0;
         font-size: 24px;
+        @include icon(close, 0.75em, 0.5em, none, 0, none);
       }
     }
   }
@@ -398,6 +398,31 @@ $cp-breakpoint-3: 1024px;
 }
 .selectable-hour-mark {
   background-color: $grey-light;
+}
+.selectable-hours-start,
+.selectable-hours-end {
+  &:before {
+    z-index: -10;
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 10px;
+    width: 50px;
+  }
+}
+.selectable-hours-start {
+  background-color: $red;
+  &:before {
+    left: 0;
+    background: linear-gradient(to left, rgba($red, 0), rgba($red, 0.25));
+  }
+}
+.selectable-hours-end {
+  background-color: $red;
+  &:before {
+    left: -50px;
+    background: linear-gradient(to right, rgba($red, 0), rgba($red, 0.25));
+  }
 }
 
 .day-name {

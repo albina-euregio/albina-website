@@ -360,6 +360,7 @@ const WeatherMapCockpit = ({
             domainId={domainId}
             timeSpan={absSpan}
             barDuration={absSpan}
+            markerPosition={absSpan > 24 ? "75%" : "50%"}
             showBar={absSpan > 1}
             initialDate={usedInitialDate}
             startTime={usedStartTime}

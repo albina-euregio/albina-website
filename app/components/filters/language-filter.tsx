@@ -2,13 +2,13 @@ import React from "react";
 import { mainLanguages } from "../../appStore";
 import Selectric from "../selectric";
 
-type Props = {
+interface Props {
   value: string;
   all: JSX.Element;
   title: JSX.Element;
   handleChange(str: string): unknown;
   buttongroup: boolean;
-};
+}
 
 export default function LanguageFilter(props: Props) {
   if (props.buttongroup) {
