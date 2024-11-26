@@ -2,7 +2,9 @@ import React from "react";
 import WarnLevelIcon from "../icons/warn-level-icon";
 import type * as Caaml from "../../stores/bulletin";
 
-type Props = { dangerRatings: Caaml.DangerRating[] };
+interface Props {
+  dangerRatings: Caaml.DangerRating[];
+}
 
 function BulletinDangerRating({ dangerRatings }: Props) {
   if (!dangerRatings?.length) return null;

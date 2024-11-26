@@ -39,13 +39,13 @@ type ParameterType =
   | "PSUM"
   | "HS";
 
-type Parameter = {
+interface Parameter {
   id: ParameterType;
   stroke: string;
   label: string;
   axis?: uPlot.Axis;
   scales?: uPlot.Scales;
-};
+}
 
 const WeatherStationUplot: React.FC<{
   stationData: StationData;

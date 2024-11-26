@@ -1,12 +1,12 @@
 import React from "react";
 
-type Props = {
+interface Props {
   onChange: (value: string) => void;
   value: string;
   disabled: boolean;
   title: string;
   children: React.ReactNode;
-};
+}
 
 /**
  * Component to be used for selectric select boxes.

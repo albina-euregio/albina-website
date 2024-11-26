@@ -22,18 +22,18 @@ declare module "@react-leaflet/core" {
 type Region = string;
 type MaxDangerRatings = Record<Region, WarnLevelNumber>;
 
-type PbfStyleFunction = {
+interface PbfStyleFunction {
   "micro-regions_elevation": (
     properties: MicroRegionElevationProperties
   ) => L.PathOptions;
   "micro-regions": (properties: MicroRegionProperties) => L.PathOptions;
   outline: (properties: RegionOutlineProperties) => L.PathOptions;
-};
+}
 
-type PbfProps = {
+interface PbfProps {
   validTimePeriod: ValidTimePeriod;
   date: string;
-};
+}
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const style = (id: string): PathOptions => {
@@ -75,7 +75,9 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   };
 });
 
-type DangerRatingsProps = { maxDangerRatings: MaxDangerRatings };
+interface DangerRatingsProps {
+  maxDangerRatings: MaxDangerRatings;
+}
 
 export const DangerRatings = ({ maxDangerRatings }: DangerRatingsProps) => {
   const { vectorGrid } = useLeafletContext();

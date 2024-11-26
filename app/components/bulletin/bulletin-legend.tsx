@@ -5,7 +5,7 @@ import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 
-type Props = {
+interface Props {
   handleSelectRegion: (id?: string) => void;
   problems: Record<
     AvalancheProblemType,
@@ -14,7 +14,7 @@ type Props = {
     }
   >;
   toggleProblem: (problemId: AvalancheProblemType) => void;
-};
+}
 
 function BulletinLegend(props: Props) {
   const intl = useIntl();

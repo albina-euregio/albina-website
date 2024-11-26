@@ -2,11 +2,11 @@ import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
-type Props = {
+interface Props {
   description?: string;
   image?: string;
   title?: string;
-};
+}
 
 export default function SmShare(props: Props) {
   const intl = useIntl();

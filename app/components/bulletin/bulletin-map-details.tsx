@@ -8,12 +8,12 @@ import {
 } from "../../stores/bulletin";
 import { useIntl } from "../../i18n";
 
-type Props = {
+interface Props {
   validTimePeriod: ValidTimePeriod;
   bulletin: Bulletin;
   region: string;
   unselectRegion: () => void;
-};
+}
 
 function BulletinMapDetails({
   validTimePeriod,

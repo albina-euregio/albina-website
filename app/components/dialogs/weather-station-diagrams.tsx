@@ -24,14 +24,14 @@ function hasInteractivePlot(station: StationData | ObserverData) {
   );
 }
 
-export type ObserverData = {
+export interface ObserverData {
   geometry: {
     coordinates: number[];
   };
   name: string;
   id: string;
   plot: string;
-};
+}
 
 const timeRanges = {
   interactive: "interactive",
@@ -53,11 +53,11 @@ const timeRangesMilli: Record<TimeRange, number> = {
   winter: 183 * 24 * 3600e3
 };
 
-export type Props = {
+export interface Props {
   stationData: StationData[] | ObserverData[];
   stationId: string;
   setStationId: (rowId: string) => void;
-};
+}
 
 const YearFlipper: React.FC<{
   selectedYear: number;

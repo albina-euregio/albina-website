@@ -1,13 +1,13 @@
 import React from "react";
 import SearchField from "../search-field";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   search: boolean;
   searchTitle: string;
   searchOnChange: (val: string) => void;
   searchValue: string;
-};
+}
 
 export default function FilterBar(props: Props) {
   const filterList = (

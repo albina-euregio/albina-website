@@ -12,11 +12,11 @@ import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
 
-type Props = {
+interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   onInit: (map: L.Map) => void;
-};
+}
 
 const LeafletMapControls = (props: Props) => {
   const intl = useIntl();

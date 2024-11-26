@@ -1,6 +1,8 @@
 import React from "react";
 
-type Props = { tendency: "increasing" | "steady" | "decreasing" };
+interface Props {
+  tendency: "increasing" | "steady" | "decreasing";
+}
 
 export default function TendencyIcon({ tendency }: Props) {
   switch (tendency) {

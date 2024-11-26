@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
-type Props = { avalancheSize: Caaml.AvalancheSize; title: string };
+interface Props {
+  avalancheSize: Caaml.AvalancheSize;
+  title: string;
+}
 
 export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
   const imgRoot = `${window.config.projectRoot}images/pro/avalanche-sizes/`;

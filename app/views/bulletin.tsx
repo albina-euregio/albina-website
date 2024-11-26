@@ -51,9 +51,9 @@ function useProblems() {
   return { problems, toggleProblem };
 }
 
-type Props = {
+interface Props {
   headless?: boolean;
-};
+}
 
 const Bulletin = ({ headless }: Props) => {
   const mapRefs = [] as L.Map[];

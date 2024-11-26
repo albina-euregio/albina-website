@@ -8,6 +8,8 @@ import a11y from "eslint-plugin-jsx-a11y";
 export default ts.config(
   js.configs.recommended,
   ...ts.configs.recommended,
+  ...ts.configs.strict,
+  ...ts.configs.stylistic,
   {
     languageOptions: {
       parserOptions: {

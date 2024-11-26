@@ -64,11 +64,11 @@ const LocalizedText: FunctionComponent<{
   );
 };
 
-type Props = {
+interface Props {
   date: Date;
   bulletin: Bulletin;
   bulletin170000: Bulletin;
-};
+}
 
 /**
  * This component shows the detailed bulletin report including all icons and

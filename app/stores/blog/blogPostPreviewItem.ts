@@ -1,6 +1,5 @@
-import { BlogProcessor, blogProcessors, Category } from ".";
-import type { Language } from "../../appStore";
-import type { RegionCodes } from "../../util/regions";
+import type { BlogConfig, BlogProcessor, Category } from ".";
+import { blogProcessors } from ".";
 import type { BlogStore } from "../blogStore";
 
 const VALID_HOURS_DEFAULT = 72;
@@ -50,14 +49,11 @@ export class BlogPostPreviewItem {
   }
 
   static async loadBlogPosts(
-    languagePredicate: (lang: Language) => boolean,
-    regionPredicate: (region: RegionCodes) => boolean,
+    blogConfigs: BlogConfig[],
     state?: BlogStore
   ): Promise<(readonly [string, BlogPostPreviewItem[]])[]> {
     return await Promise.all(
-      window.config.blogs
-        .filter(cfg => languagePredicate(cfg.lang))
-        .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
+      blogConfigs
         .filter(cfg => blogProcessors[cfg.apiType])
         .map(cfg =>
           (blogProcessors[cfg.apiType] as BlogProcessor)
@@ -72,13 +68,10 @@ export class BlogPostPreviewItem {
   }
 
   static async loadCategories(
-    languagePredicate: (lang: Language) => boolean,
-    regionPredicate: (region: RegionCodes) => boolean
+    blogConfigs: BlogConfig[]
   ): Promise<[string, Category[]][]> {
     return await Promise.all(
-      window.config.blogs
-        .filter(cfg => languagePredicate(cfg.lang))
-        .filter(cfg => cfg.regions.some(region => regionPredicate(region)))
+      blogConfigs
         .filter(cfg => cfg.apiType === "wordpress")
         .map(cfg =>
           blogProcessors[cfg.apiType as "wordpress"]

@@ -4,7 +4,10 @@ import { dateToISODateString } from "../../util/date";
 import { Bulletin } from "../../stores/bulletin";
 import type { Language } from "../../appStore";
 
-type Props = { date: Date; bulletin: Bulletin };
+interface Props {
+  date: Date;
+  bulletin: Bulletin;
+}
 
 const ENABLED_LANGUAGES: Language[] = ["de", "en", "it"];
 

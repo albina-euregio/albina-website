@@ -8,7 +8,7 @@ import WeatherStationDialog from "../dialogs/weather-station-dialog";
 
 type SortDir = "desc" | "asc";
 
-type Props = {
+interface Props {
   activeData: {
     snow: boolean;
     temp: boolean;
@@ -18,9 +18,9 @@ type Props = {
   sortValue: keyof StationData;
   sortDir: SortDir;
   sortedFilteredData: StationData[];
-};
+}
 
-type Column = {
+interface Column {
   data: keyof StationData;
   subtitle?: string;
   render: (row: StationData) => React.ReactElement;
@@ -29,7 +29,7 @@ type Column = {
   unit?: string;
   group?: keyof Props["activeData"];
   digits?: number;
-};
+}
 
 export default function StationTable(props: Props) {
   const intl = useIntl();

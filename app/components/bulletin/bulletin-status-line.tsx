@@ -4,11 +4,11 @@ import type { Bulletin, Status } from "../../stores/bulletin";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 
-type Props = {
+interface Props {
   bulletin: Bulletin;
   allBulletins: Bulletin[];
   status: Status;
-};
+}
 
 const BulletinStatusLine = (props: Props) => {
   const intl = useIntl();

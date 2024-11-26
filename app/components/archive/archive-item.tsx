@@ -10,24 +10,24 @@ import { RegionCodes } from "../../util/regions";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
 
-export type RegionBulletinStatus = {
+export interface RegionBulletinStatus {
   $type: "RegionBulletinStatus";
   status: Status;
   bulletin: Bulletin;
-};
-export type LegacyBulletinStatus = {
+}
+export interface LegacyBulletinStatus {
   $type: "LegacyBulletinStatus";
   status: Record<RegionCodes, string | undefined>;
-};
+}
 export type BulletinStatus =
   | Status
   | RegionBulletinStatus
   | LegacyBulletinStatus;
 
-type Props = {
+interface Props {
   date: Date;
   status: BulletinStatus;
-};
+}
 
 function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();

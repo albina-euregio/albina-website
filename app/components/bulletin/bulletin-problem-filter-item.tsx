@@ -4,12 +4,12 @@ import ProblemIcon from "../icons/problem-icon";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin";
 
-type Props = {
+interface Props {
   active: boolean;
   handleSelectRegion: (id?: string) => void;
   toggleProblem: (problemId: Caaml.AvalancheProblemType) => void;
   problemId: Caaml.AvalancheProblemType;
-};
+}
 
 function BulletinProblemFilterItem({
   active,

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useIntl } from "../i18n";
 import { Tooltip } from "./tooltips/tooltip";
 
-type Props = {
+interface Props {
   value: string;
   title: string;
   handleSearch: (text: string) => void;
-};
+}
 
 export default function SearchField({ value, title, handleSearch }: Props) {
   const intl = useIntl();

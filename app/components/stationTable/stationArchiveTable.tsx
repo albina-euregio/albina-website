@@ -6,7 +6,7 @@ import { Tooltip } from "../tooltips/tooltip";
 
 type SortDir = "desc" | "asc";
 
-type Props = {
+interface Props {
   activeData: {
     snow: boolean;
     temp: boolean;
@@ -19,7 +19,7 @@ type Props = {
   sortedFilteredData: StationData[];
   activeYear: number | "";
   activeRegion: string;
-};
+}
 
 export default function StationArchiveTable(props: Props) {
   const intl = useIntl();
@@ -30,7 +30,7 @@ export default function StationArchiveTable(props: Props) {
     digits?: number
   ) => string | JSX.Element;
 
-  type Column = {
+  interface Column {
     data: keyof StationData;
     parameter?: string;
     subtitle?: string;
@@ -40,7 +40,7 @@ export default function StationArchiveTable(props: Props) {
     unit?: string;
     group?: keyof Props["activeData"];
     digits?: number;
-  };
+  }
 
   const columns: Column[] = [
     {

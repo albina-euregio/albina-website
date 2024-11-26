@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 
-type Dependency = {
+interface Dependency {
   name: string;
   version: string;
   license: string;
   homepage: string;
-};
+}
 
 const dependencies: Dependency[] = JSON.parse(import.meta.env.APP_DEPENDENCIES); // included via vite.config.js
 

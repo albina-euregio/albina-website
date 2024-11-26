@@ -1,4 +1,4 @@
-export type BlogConfig = {
+export interface BlogConfig {
   lang: string;
   name: string;
   apiType: "blogger" | "wordpress";
@@ -6,4 +6,4 @@ export type BlogConfig = {
   params: {
     id: string;
   };
-};
+}
