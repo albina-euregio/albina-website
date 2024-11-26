@@ -219,10 +219,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_elevation_properties@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.1::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.1.tgz"
-  checksum: 10c0/49e97835413ac0ba9d856da1a32e241eb78421fe5791d2730ba5a09181939e55f845958a418b65d1830223436b50d6b777b03f7e31c1aef794486b1dc8bcf1f9
+"@eaws/micro-regions_elevation_properties@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.2.tgz"
+  checksum: 10c0/ab75c22b183ae23a279035c4aa2c039b90d5a602800a52139e7948553999fafdc247339587a91e080446adcc55867501fe0dd05f995e77225005bbf9bbb2f993
   languageName: node
   linkType: hard
 
@@ -233,17 +233,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_properties@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@eaws/micro-regions_properties@npm:7.0.1::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.1.tgz"
-  checksum: 10c0/c374f9f0b305a968e005776e8bc806a0b357463e8c6e1ab5f6d73f27f245b25d53298468e7cba47a3caab3d446df358b75886bc15c538a0a4b50fede1c2708ca
+"@eaws/micro-regions_properties@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@eaws/micro-regions_properties@npm:7.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.2.tgz"
+  checksum: 10c0/25701a61ecc6af67977b34cb272aa878d9d2385085e2f737c212e2bcffbd5f5d26e3c7221f2d89cde3e80e14197cba4c33f1b18fb787d3782d388e3853e5c910
   languageName: node
   linkType: hard
 
-"@eaws/outline_properties@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@eaws/outline_properties@npm:7.0.1::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.1.tgz"
-  checksum: 10c0/e1b98169de8fca80dadbc2d9defac373d24534e8ef70e0c4d88f771bf7a54512a81281fc516a375ff3f03fa5236de8e3bd62e86040ca7fa8b87cc733c333d1bc
+"@eaws/outline_properties@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@eaws/outline_properties@npm:7.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.2.tgz"
+  checksum: 10c0/db4d5226d338bf7c55a35b4e56c6798cd7d0cfddcfba70f586c2ddf384d8b80b915935c2ceb4e19a5748439709ff761854f3b1731f0030066129c7e070dad027
   languageName: node
   linkType: hard
 
@@ -1434,10 +1434,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "albina-website@workspace:."
   dependencies:
-    "@eaws/micro-regions_elevation_properties": "npm:^7.0.1"
+    "@eaws/micro-regions_elevation_properties": "npm:^7.0.2"
     "@eaws/micro-regions_names": "npm:^7.0.0"
-    "@eaws/micro-regions_properties": "npm:^7.0.1"
-    "@eaws/outline_properties": "npm:^7.0.1"
+    "@eaws/micro-regions_properties": "npm:^7.0.2"
+    "@eaws/outline_properties": "npm:^7.0.2"
     "@eslint/js": "npm:^9.15.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
