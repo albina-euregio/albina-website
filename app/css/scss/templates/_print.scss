@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -25,7 +27,7 @@
   float: none;
   flex: none;
   overflow: auto;
-  background: $white;
+  background: variables.$white;
 }
 
 @mixin print-bg {
@@ -50,20 +52,23 @@
   }
 
   //misc
-  audio, object, embed, video,
-	.jumpnav,
-	.bulletin-flipper,
-	.section-bulletin-map,
-	.bulletin-map-details,
+  audio,
+  object,
+  embed,
+  video,
+  .jumpnav,
+  .bulletin-flipper,
+  .section-bulletin-map,
+  .bulletin-map-details,
   .section-bulletin-legend,
-	.flipper-controls,
-	.section-linkbar,
-	.section-context,
-	.section.controlbar,
-	.sm-share-follow,
-	.fitvids,
-	#page-footer,
-	.tippy-popper {
+  .flipper-controls,
+  .section-linkbar,
+  .section-context,
+  .section.controlbar,
+  .sm-share-follow,
+  .fitvids,
+  #page-footer,
+  .tippy-popper {
     display: none;
   }
 
@@ -141,8 +146,8 @@
   #page-header {
     @include print-reset;
     min-height: $page-header-height;
-    background: $white url("../images/pro/logos/logo_en_print.png") no-repeat 0
-      calc((#{$page-header-height} - #{$logo-height}) / 2);
+    background: variables.$white url("../images/pro/logos/logo_en_print.png")
+      no-repeat 0 calc((#{$page-header-height} - #{$logo-height}) / 2);
     background-size: $logo-width $logo-height;
     @include print-bg;
     > div {
@@ -174,7 +179,7 @@
   }
 
   .section-bulletin-legend {
-    margin-bottom: $margin-bottom;
+    margin-bottom: variables.$margin-bottom;
     .grid {
       .normal-6.grid-item:first-child {
         display: none;
@@ -230,11 +235,11 @@
       border: none !important;
       .content-text {
         position: relative;
-        background-color: $white;
+        background-color: variables.$white;
         @include print-bg;
         .content-additional {
           display: block;
-          background-color: $white;
+          background-color: variables.$white;
           @include print-bg;
         }
       }

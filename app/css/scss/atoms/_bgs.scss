@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,59 +12,68 @@
 
 //zuweisung mit @extend .bg-box;
 .bg-box {
-  background-color: $white;
+  background-color: variables.$white;
 }
 .bg-subtle {
-  background-color: $grey-very-very-light;
+  background-color: variables.$grey-very-very-light;
 }
 .bg-brand {
-  background-color: $brand;
+  background-color: variables.$brand;
 }
 .bg-brand-subtle {
-  background-color: $brand-very-very-light;
+  background-color: variables.$brand-very-very-light;
 }
 
 .bg-gradient-snow {
-  background-image: linear-gradient(to bottom, $white, $grey-very-very-light);
+  background-image: linear-gradient(
+    to bottom,
+    variables.$white,
+    variables.$grey-very-very-light
+  );
 }
 .bg-gradient-brand {
-  background-image: linear-gradient(to bottom, $brand-dark, $brand);
+  background-image: linear-gradient(
+    to bottom,
+    variables.$brand-dark,
+    variables.$brand
+  );
 }
 
 .bg-warning-level-1 {
-  background-color: $warning-level-1-color;
+  background-color: variables.$warning-level-1-color;
 }
 .bg-warning-level-2 {
-  background-color: $warning-level-2-color;
+  background-color: variables.$warning-level-2-color;
 }
 .bg-warning-level-3 {
-  background-color: $warning-level-3-color;
+  background-color: variables.$warning-level-3-color;
 }
 .bg-warning-level-4 {
-  background-color: $warning-level-4-color;
+  background-color: variables.$warning-level-4-color;
 }
 .bg-warning-level-5 {
-  background: $warning-level-5-color
+  background: variables.$warning-level-5-color
     url("../images/pro/global/bg_checkered.png") repeat 0 0;
 }
 
 .bg-brand,
 .bg-gradient-brand,
 .bg-warning-level-4 {
-  @include text-color(rgba($white, 0.9));
-  @include link-color($white, rgba($white, 0.9));
+  @include mixins.text-color(rgba(variables.$white, 0.9));
+  @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
 }
 
 .bg-warning-level-3 {
-  @include link-color($white, rgba($white, 0.9));
+  @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
 }
 
 .bg-warning-level-5 {
-  @include text-color($white);
+  @include mixins.text-color(variables.$white);
 }
 
 .bg-colorbar {
-  height: $bar-width;
-  background: $brand url("../images/pro/global/colorbar.gif") no-repeat 0 0;
-  background-size: 100% $bar-width;
+  height: variables.$bar-width;
+  background: variables.$brand url("../images/pro/global/colorbar.gif")
+    no-repeat 0 0;
+  background-size: 100% variables.$bar-width;
 }

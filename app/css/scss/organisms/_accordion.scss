@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,7 +13,8 @@
 
 .accordion {
   overflow: hidden;
-  border-bottom: $border-color $border-style $border-width;
+  border-bottom: variables.$border-color variables.$border-style
+    variables.$border-width;
   &:last-child {
     margin-bottom: 0;
     border-bottom: none;
@@ -18,7 +23,7 @@
 
 .accordion-trigger,
 .accordion-content {
-  padding: ($all-v-padding * 0.5) $all-h-padding;
+  padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
 }
 
 .accordion-trigger {
@@ -30,7 +35,7 @@
     position: relative;
     margin: 0;
     padding-right: 3em;
-    @include rollout;
+    @include mixins.rollout;
   }
   span {
     position: absolute;
@@ -39,20 +44,20 @@
     margin: 0;
     font-size: 1rem;
     @extend .icon-down-open-big;
-    @include rollout;
+    @include mixins.rollout;
     &:before {
       margin-right: 0;
     }
   }
   &:hover {
-    @include text-color($anchor-font-color-hover);
+    @include mixins.text-color(variables.$anchor-font-color-hover);
   }
 }
 
 .accordion-content {
   display: none;
   padding-top: 0;
-  @include last-child;
+  @include mixins.last-child;
 }
 
 .accordion.js-active {

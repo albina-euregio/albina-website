@@ -1,3 +1,10 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../molecules/logo";
+@use "../molecules/navigation";
+
 /*	TRANSPORTER
  Creating Your Web
  www.transporter.at
@@ -12,8 +19,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: rgba($white, 0.95);
-  border-bottom: $border-width $border-style $brand-very-light;
+  background-color: rgba(variables.$white, 0.95);
+  border-bottom: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 
   &:before {
     //preload for print
@@ -30,12 +38,12 @@
   a {
     &:link,
     &:visited {
-      color: $grey-dark;
+      color: variables.$grey-dark;
     }
     &:hover,
     &:active,
     &.active {
-      color: $anchor-font-color;
+      color: variables.$anchor-font-color;
     }
   }
 
@@ -43,14 +51,15 @@
     position: relative;
     display: flex;
     top: 0;
-    height: $page-header-height;
-    padding: 0 $page-header-padding-h;
-    border-right: $border-width $border-style $border-color;
+    height: navigation.$page-header-height;
+    padding: 0 navigation.$page-header-padding-h;
+    border-right: variables.$border-width variables.$border-style
+      variables.$border-color;
     opacity: 1;
-    @include rollover(all, $transition-duration * 2);
+    @include mixins.rollover(all, variables.$transition-duration * 2);
 
-    @media #{$large-up} {
-      padding: 0 $page-header-padding-h-large;
+    @media #{variables.$large-up} {
+      padding: 0 navigation.$page-header-padding-h-large;
     }
 
     //&:last-child {
@@ -59,30 +68,32 @@
     }
   }
 
-  @media screen and (max-width: #{lower-bound($tiny-range)}) {
+  @media screen and (max-width: #{bounds.lower-bound(variables.$tiny-range)}) {
     .page-header-logo {
       .mark {
         display: none;
       }
       .url {
-        margin-left: $padding * 0.25;
+        margin-left: variables.$padding * 0.25;
       }
     }
   }
 
-  @media screen and (max-width: #{upper-bound($normal-range)}) {
+  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
     .page-header-navigation {
       display: none;
       opacity: 0;
     }
 
     .navigation-open & {
-      height: calc(100vh - #{$bar-width} + #{$border-width});
+      height: calc(
+        100vh - #{variables.$bar-width} + #{variables.$border-width}
+      );
 
       .page-header-logo,
       .page-header-language,
       .page-header-logo-secondary {
-        top: calc(0 - #{$page-header-height});
+        top: calc(0 - #{navigation.$page-header-height});
         opacity: 0;
       }
       .page-header-navigation {
@@ -92,18 +103,21 @@
         left: 0;
         right: 0;
         margin: 0;
-        padding: ($page-header-padding-v * 5) $page-header-padding-h-large;
-        height: calc(100vh - #{$bar-width} + #{$border-width});
+        padding: (navigation.$page-header-padding-v * 5)
+          navigation.$page-header-padding-h-large;
+        height: calc(
+          100vh - #{variables.$bar-width} + #{variables.$border-width}
+        );
         border-right: none;
         opacity: 1;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
-        @include rollover(all, 0);
+        @include mixins.rollover(all, 0);
       }
       .page-header-hamburger {
         position: absolute;
         top: 0;
-        right: -$border-width * 2;
+        right: -(variables.$border-width) * 2;
         span {
           &:before {
             transform: rotate(-45deg);
@@ -125,7 +139,7 @@
     // }
   }
 
-  @media #{$medium-up} {
+  @media #{variables.$medium-up} {
     .page-header-hamburger {
       width: 0;
       padding-left: 0;
@@ -143,7 +157,7 @@
     // }
   }
 
-  @media #{$large-up} {
+  @media #{variables.$large-up} {
     .page-header-logo-secondary {
       margin-right: 0;
     }
@@ -164,14 +178,14 @@ $page-header-logo-width: 3.25em;
   .mark {
     position: relative;
     display: block;
-    height: $page-header-height;
+    height: navigation.$page-header-height;
     width: $page-header-logo-width;
 
     span {
       position: absolute;
       top: 0;
       left: 0;
-      height: $page-header-height;
+      height: navigation.$page-header-height;
       width: $page-header-logo-width;
       transform-origin: 50% 50%;
 
@@ -179,74 +193,74 @@ $page-header-logo-width: 3.25em;
       background-repeat: no-repeat;
       background-position: 50% 50%;
 
-      @include font-smoothing(subpixel-antialiased);
+      @include mixins.font-smoothing(subpixel-antialiased);
 
       opacity: 0;
-      @include rollout;
+      @include mixins.rollout;
     }
 
     .mark-de {
       background-image: url("../images/pro/logos/logo_mark_de.svg");
-      background-size: $logo-mark-de-width $logo-mark-de-height;
+      background-size: logo.$logo-mark-de-width logo.$logo-mark-de-height;
       transform: rotate(90deg); //rotate: 90deg;
     }
     .mark-it {
       background-image: url("../images/pro/logos/logo_mark_it.svg");
-      background-size: $logo-mark-it-width $logo-mark-it-height;
+      background-size: logo.$logo-mark-it-width logo.$logo-mark-it-height;
       transform: rotate(180deg); //rotate: 180deg;
     }
     .mark-en {
       opacity: 1;
       background-image: url("../images/pro/logos/logo_mark_en.svg");
-      background-size: $logo-mark-en-width $logo-mark-en-height;
+      background-size: logo.$logo-mark-en-width logo.$logo-mark-en-height;
     }
   }
 
   .url {
     position: relative;
     display: block;
-    height: $page-header-height;
+    height: navigation.$page-header-height;
     width: 4em;
     margin-left: 0.5em;
 
     .domain-de & {
-      width: $logo-url-de-width;
+      width: logo.$logo-url-de-width;
       .url-de {
         opacity: 1;
       }
     }
     .domain-it & {
-      width: $logo-url-it-width;
+      width: logo.$logo-url-it-width;
       .url-it {
         opacity: 1;
       }
     }
     .domain-en & {
-      width: $logo-url-en-width;
+      width: logo.$logo-url-en-width;
       .url-en {
         opacity: 1;
       }
     }
     .domain-oc & {
-      width: $logo-url-en-width;
+      width: logo.$logo-url-en-width;
       .url-oc {
         opacity: 1;
       }
     }
     .domain-ca & {
-      width: $logo-url-en-width;
+      width: logo.$logo-url-en-width;
       .url-ca {
         opacity: 1;
       }
     }
     .domain-es & {
-      width: $logo-url-en-width;
+      width: logo.$logo-url-en-width;
       .url-es {
         opacity: 1;
       }
     }
     .domain-fr & {
-      width: $logo-url-en-width;
+      width: logo.$logo-url-en-width;
       .url-fr {
         opacity: 1;
       }
@@ -254,7 +268,7 @@ $page-header-logo-width: 3.25em;
 
     span {
       position: absolute;
-      top: calc(#{$page-header-height} / 2 + 2px);
+      top: calc(#{navigation.$page-header-height} / 2 + 2px);
       left: 0;
       transform: translateY(-50%);
 
@@ -262,34 +276,34 @@ $page-header-logo-width: 3.25em;
       background-repeat: no-repeat;
       background-position: 0 0;
 
-      @include font-smoothing(subpixel-antialiased);
+      @include mixins.font-smoothing(subpixel-antialiased);
 
       opacity: 0;
-      @include rollout;
+      @include mixins.rollout;
     }
   }
 
   .url-de {
-    height: $logo-url-de-height;
-    width: $logo-url-de-width;
+    height: logo.$logo-url-de-height;
+    width: logo.$logo-url-de-width;
     background-image: url("../images/pro/logos/logo_url_de.svg");
-    background-size: $logo-url-de-width $logo-url-de-height;
+    background-size: logo.$logo-url-de-width logo.$logo-url-de-height;
   }
   .url-it {
-    height: $logo-url-it-height;
-    width: $logo-url-it-width;
+    height: logo.$logo-url-it-height;
+    width: logo.$logo-url-it-width;
     background-image: url("../images/pro/logos/logo_url_it.svg");
-    background-size: $logo-url-it-width $logo-url-it-height;
+    background-size: logo.$logo-url-it-width logo.$logo-url-it-height;
   }
   .url-en,
   .url-oc,
   .url-ca,
   .url-es,
   .url-fr {
-    height: $logo-url-en-height;
-    width: $logo-url-en-width;
+    height: logo.$logo-url-en-height;
+    width: logo.$logo-url-en-width;
     background-image: url("../images/pro/logos/logo_url_en.svg");
-    background-size: $logo-url-en-width $logo-url-en-height;
+    background-size: logo.$logo-url-en-width logo.$logo-url-en-height;
   }
 
   a:hover {
@@ -338,16 +352,30 @@ $page-header-logo-width: 3.25em;
       > a {
         display: flex;
         align-items: center;
-        color: $anchor-font-color;
+        color: variables.$anchor-font-color;
 
-        @include icon(language, auto, 0, $anchor-font-color, 0, none);
+        @include icons.icon(
+          language,
+          auto,
+          0,
+          variables.$anchor-font-color,
+          0,
+          none
+        );
         &:before {
           margin: 0;
         }
 
         span {
           margin: 0 -0.75em 0 -0.25em;
-          @include icon(down-open, auto, 0, $anchor-font-color, 0, none);
+          @include icons.icon(
+            down-open,
+            auto,
+            0,
+            variables.$anchor-font-color,
+            0,
+            none
+          );
           &:before {
             margin: 0;
           }
@@ -355,11 +383,11 @@ $page-header-logo-width: 3.25em;
 
         &:hover {
           &:before {
-            color: $anchor-font-color-hover;
+            color: variables.$anchor-font-color-hover;
           }
           span {
             &:before {
-              color: $anchor-font-color-hover;
+              color: variables.$anchor-font-color-hover;
             }
           }
 
@@ -372,27 +400,27 @@ $page-header-logo-width: 3.25em;
 
     .language-de & {
       .language-trigger-de {
-        color: $anchor-font-color !important;
+        color: variables.$anchor-font-color !important;
       }
     }
     .language-it & {
       .language-trigger-it {
-        color: $anchor-font-color !important;
+        color: variables.$anchor-font-color !important;
       }
     }
     .language-en & {
       .language-trigger-en {
-        color: $anchor-font-color !important;
+        color: variables.$anchor-font-color !important;
       }
     }
     .language-fr & {
       .language-trigger-fr {
-        color: $anchor-font-color !important;
+        color: variables.$anchor-font-color !important;
       }
     }
   }
 
-  @media #{$medium-up} {
+  @media #{variables.$medium-up} {
     flex-grow: 0;
   }
 }
@@ -401,7 +429,7 @@ $page-header-logo-width: 3.25em;
   .pure-button {
     padding: 0;
     font-size: 0.9em;
-    color: $anchor-font-color;
+    color: variables.$anchor-font-color;
     background-color: transparent;
 
     span {
@@ -425,7 +453,7 @@ $page-header-logo-width: 3.25em;
 
     &:hover,
     &:active {
-      color: $anchor-font-color-hover;
+      color: variables.$anchor-font-color-hover;
       border-color: transparent;
       box-shadow: none;
     }
@@ -433,15 +461,15 @@ $page-header-logo-width: 3.25em;
 }
 
 .header-footer-logo-secondary {
-  @include ir;
+  @include mixins.ir;
   position: relative;
   display: block;
-  height: $logo-header-footer-secondary-height * 0.5;
-  width: $logo-header-footer-secondary-width * 0.5;
+  height: logo.$logo-header-footer-secondary-height * 0.5;
+  width: logo.$logo-header-footer-secondary-width * 0.5;
   background: transparent
     url("../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
-  background-size: ($logo-header-footer-secondary-width * 0.5)
-    ($logo-header-footer-secondary-height * 0.5);
+  background-size: (logo.$logo-header-footer-secondary-width * 0.5)
+    (logo.$logo-header-footer-secondary-height * 0.5);
   filter: grayscale(100%);
 
   &:hover {
@@ -452,15 +480,15 @@ $page-header-logo-width: 3.25em;
 .page-header-logo-secondary {
   align-items: center;
   margin-right: calc(
-    -#{$logo-header-footer-secondary-width} * 0.2857142857 - #{$page-header-padding-h} *
-      2 - #{$border-width} * 2
+    -#{logo.$logo-header-footer-secondary-width} * 0.2857142857 - #{navigation.$page-header-padding-h} *
+      2 - #{variables.$border-width} * 2
   );
 
   .header-footer-logo-secondary {
-    height: $logo-header-footer-secondary-height * 0.2857142857;
-    width: $logo-header-footer-secondary-width * 0.2857142857;
-    background-size: ($logo-header-footer-secondary-width * 0.2857142857)
-      ($logo-header-footer-secondary-height * 0.2857142857);
+    height: logo.$logo-header-footer-secondary-height * 0.2857142857;
+    width: logo.$logo-header-footer-secondary-width * 0.2857142857;
+    background-size: (logo.$logo-header-footer-secondary-width * 0.2857142857)
+      (logo.$logo-header-footer-secondary-height * 0.2857142857);
   }
 }
 

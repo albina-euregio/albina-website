@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -17,7 +20,8 @@
     }
     th {
       position: relative;
-      padding: ($padding * 2) $padding $padding $padding;
+      padding: (variables.$padding * 2) variables.$padding variables.$padding
+        variables.$padding;
       line-height: 1;
       //vertical-align: middle;
       text-align: center;
@@ -27,9 +31,9 @@
     }
     .measure {
       display: block;
-      font-size: $micro-font-size;
-      @include font-normal;
-      @include letter-spacing;
+      font-size: variables.$micro-font-size;
+      @include mixins.font-normal;
+      @include mixins.letter-spacing;
     }
   }
   .sort-buttons {
@@ -74,24 +78,23 @@
     }
 
     .region {
-      font-size: $micro-font-size;
+      font-size: variables.$micro-font-size;
       display: block;
     }
     .region-AT-07 {
-      color: $tyrol-color;
+      color: variables.$tyrol-color;
     }
     .region-IT-32-BZ {
-      color: $south-tyrol-color;
+      color: variables.$south-tyrol-color;
     }
     .region-IT-32-TN {
-      color: $trentino-color;
+      color: variables.$trentino-color;
     }
 
     .temp,
     .wdir {
       display: block;
     }
-
 
     .precipitation24,
     .precipitation48,
@@ -100,9 +103,9 @@
     .wdir,
     .datetime {
       display: block;
-      font-size: $micro-font-size;
-      @include font-normal;
-      @include letter-spacing;
+      font-size: variables.$micro-font-size;
+      @include mixins.font-normal;
+      @include mixins.letter-spacing;
     }
 
     .temp_max,
@@ -111,21 +114,21 @@
         content: "\202F/\202F";
       }
     }
-
   }
 
   tr:hover {
     td.mb-station.m-name {
-      background-color: $table-row-hover-bg;
-      @include rollover;
+      background-color: variables.$table-row-hover-bg;
+      @include mixins.rollover;
     }
   }
 
   .m-name,
   .m-72,
   .m-ltmin {
-    margin-right: $border-width;
-    border-right: $border-color $border-style $border-width;
+    margin-right: variables.$border-width;
+    border-right: variables.$border-color variables.$border-style
+      variables.$border-width;
   }
 
   &.js-hide-mb-snow {

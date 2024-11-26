@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -10,53 +13,53 @@
 .label {
   position: relative;
   //top: -0.1em;
-  margin: 0 $padding 0 0; //10px @ $tiny-font-size 12px
+  margin: 0 variables.$padding 0 0; //10px @ $tiny-font-size 12px
   padding: 0.25em 0.66667em; //3px 8px @ $tiny-font-size 12px
-  font-size: $tiny-font-size; //$body-font-size-tiny;
-  @include letter-spacing(0.05em);
+  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+  @include mixins.letter-spacing(0.05em);
   //@include font-smoothing(antialiased);
-  color: $text-color;
-  background: $white;
-  @include box-border($grey);
+  color: variables.$text-color;
+  background: variables.$white;
+  @include mixins.box-border(variables.$grey);
   border-radius: 1em;
 
   &.primary {
-    color: $white;
-    background: $primary-color;
-    border-color: $primary-color;
+    color: variables.$white;
+    background: variables.$primary-color;
+    border-color: variables.$primary-color;
   }
   &.secondary {
-    color: $white;
-    background: $secondary-color;
-    border-color: $secondary-color;
+    color: variables.$white;
+    background: variables.$secondary-color;
+    border-color: variables.$secondary-color;
   }
   &.tertiary {
-    color: $text-color;
-    background: $tertiary-color;
-    border-color: $tertiary-color;
+    color: variables.$text-color;
+    background: variables.$tertiary-color;
+    border-color: variables.$tertiary-color;
   }
 
   &.success {
-    color: $success-color;
+    color: variables.$success-color;
     //background: $success-color;
-    border-color: $success-color;
+    border-color: variables.$success-color;
   }
   &.error,
   &.warning {
-    color: $error-color;
-    border-color: $error-color;
+    color: variables.$error-color;
+    border-color: variables.$error-color;
   }
   &.badge {
-    @include font-heavy;
-    color: $white;
-    background: $error-color;
-    border-color: $error-color;
+    @include mixins.font-heavy;
+    color: variables.$white;
+    background: variables.$error-color;
+    border-color: variables.$error-color;
   }
 
   &.black {
-    color: $white;
-    background: $black;
-    border: $black;
+    color: variables.$white;
+    background: variables.$black;
+    border: variables.$black;
   }
   &.white {
   }

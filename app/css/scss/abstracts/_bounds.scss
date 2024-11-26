@@ -1,0 +1,31 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #BOUNDS
+\*------------------------------------*/
+
+@use "sass:math";
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+
+//math
+@function lower-bound($range) {
+  // @if length($range) <= 0 {
+  @if list.length($range) <= 0 {
+    @return 0;
+  }
+  // @return nth($range, 1);
+  @return list.nth($range, 1);
+}
+@function upper-bound($range) {
+  // @if length($range) < 2 {
+  @if list.length($range) < 2 {
+    @return 999999999999;
+  }
+  // @return nth($range, 2);
+  @return list.nth($range, 2);
+}

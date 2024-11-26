@@ -1,3 +1,9 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../atoms/bgs";
+@use "../organisms/map-cockpit-legend-items";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -45,7 +51,7 @@ $cp-breakpoint-3: 1024px;
   user-select: none;
 
   @extend .bg-box;
-  @include box-shadow(0.15);
+  @include mixins.box-shadow(0.15);
 
   @media screen and (min-width: $cp-breakpoint-3) {
     max-width: $cp-breakpoint-3;
@@ -62,14 +68,14 @@ $cp-breakpoint-3: 1024px;
 
   position: absolute;
   bottom: calc(
-    #{$cp-legend-release-height} + #{$cp-layer-range-height} + #{$border-width}
+    #{$cp-legend-release-height} + #{$cp-layer-range-height} + #{variables.$border-width}
   );
   left: 0;
 
   width: calc(100% - #{$cp-range-width});
 
   @media screen and (min-width: $cp-breakpoint-2) {
-    bottom: calc(#{$cp-layer-range-height} + #{$border-width});
+    bottom: calc(#{$cp-layer-range-height} + #{variables.$border-width});
 
     width: calc(#{$cp-layer-selector-width} * 2);
   }
@@ -86,10 +92,11 @@ $cp-breakpoint-3: 1024px;
   overflow: hidden;
 
   @extend .bg-box;
-  @include box-shadow;
+  @include mixins.box-shadow;
 
   @media screen and (min-width: $cp-breakpoint-3) {
-    border-bottom: $border-width $border-style $brand-very-light;
+    border-bottom: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
   }
 
   .layer-selector-open & {
@@ -110,7 +117,8 @@ $cp-breakpoint-3: 1024px;
   align-items: center;
 
   &:not(:last-child) {
-    border-bottom: $border-width $border-style $grey-very-very-light;
+    border-bottom: variables.$border-width variables.$border-style
+      variables.$grey-very-very-light;
   }
 
   .layer-select {
@@ -128,26 +136,26 @@ $cp-breakpoint-3: 1024px;
   }
 
   .layer-select-name {
-    @include font-bold;
+    @include mixins.font-bold;
   }
 
   .layer-select-info {
-    color: $grey-light;
-    @include rollout;
+    color: variables.$grey-light;
+    @include mixins.rollout;
   }
 
   &:hover {
     // @extend .bg-brand-subtle;
     .layer-select-info {
-      color: $grey;
-      @include rollover;
+      color: variables.$grey;
+      @include mixins.rollover;
     }
   }
 
   &.js-active {
     @extend .bg-brand;
     .layer-select-info {
-      color: $white;
+      color: variables.$white;
     }
   }
 
@@ -164,7 +172,7 @@ $cp-breakpoint-3: 1024px;
     .layer-select-info {
       display: none;
       font-size: $cp-font-size-small;
-      @media #{$tiny} {
+      @media #{variables.$tiny} {
         display: inline;
       }
       @media screen and (min-width: $cp-breakpoint-2) {
@@ -180,13 +188,13 @@ $cp-breakpoint-3: 1024px;
     &:before {
       margin: 0 10px 0 0;
       font-size: 24px;
-      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
+      @include icons.icon(hamburger, 0.75em, 0.5em, none, 0, none);
     }
     .layer-selector-open & {
       &:before {
         margin: 0 10px 0 0;
         font-size: 24px;
-        @include icon(close, 0.75em, 0.5em, none, 0, none);
+        @include icons.icon(close, 0.75em, 0.5em, none, 0, none);
       }
     }
   }
@@ -211,7 +219,8 @@ $cp-breakpoint-3: 1024px;
   @media screen and (min-width: $cp-breakpoint-3) {
     left: $cp-layer-selector-width-2;
     width: calc(100% - #{$cp-layer-selector-width-2});
-    border-left: $border-width $border-style $brand-very-light;
+    border-left: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
   }
 }
 
@@ -224,7 +233,7 @@ $cp-breakpoint-3: 1024px;
   height: $cp-timeline-height;
   overflow: hidden;
   cursor: ew-resize;
-  @include rollout;
+  @include mixins.rollout;
 }
 
 //stamp
@@ -269,7 +278,7 @@ $cp-breakpoint-3: 1024px;
 
   font-size: $cp-font-size-small;
   line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
-  @include font-bold;
+  @include mixins.font-bold;
 }
 .cp-scale-stamp-range-end {
   position: absolute;
@@ -281,7 +290,7 @@ $cp-breakpoint-3: 1024px;
 
   font-size: $cp-font-size-small;
   line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
-  @include font-bold;
+  @include mixins.font-bold;
 }
 
 //stamp-point
@@ -312,7 +321,8 @@ $cp-breakpoint-3: 1024px;
     transparent;
   border-right: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid
     transparent;
-  border-top: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid $brand;
+  border-top: calc(#{$cp-timeline-height} - #{$cp-scale-height}) solid
+    variables.$brand;
 }
 .cp-scale-stamp-point-exact {
   position: absolute;
@@ -322,7 +332,7 @@ $cp-breakpoint-3: 1024px;
 
   font-size: $cp-font-size-small;
   line-height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
-  @include font-bold;
+  @include mixins.font-bold;
 }
 
 //flipper
@@ -381,22 +391,22 @@ $cp-breakpoint-3: 1024px;
   position: absolute;
   left: 0;
   top: 0;
-  transition: transform ($transition-duration * 2) ease-in-out;
+  transition: transform (variables.$transition-duration * 2) ease-in-out;
 }
 
 .ruler-mark {
   position: absolute;
   width: 1px;
   height: 10px;
-  background-color: $grey-medium-light;
+  background-color: variables.$grey-medium-light;
 }
 .day-mark {
   height: 100%;
-  background-color: $grey-light;
+  background-color: variables.$grey-light;
 }
 // .hour-mark {}
 .selectable-hour-mark {
-  background-color: $grey-light;
+  background-color: variables.$grey-light;
 }
 .selectable-hours-start,
 .selectable-hours-end {
@@ -410,17 +420,25 @@ $cp-breakpoint-3: 1024px;
   }
 }
 .selectable-hours-start {
-  background-color: $red;
+  background-color: variables.$red;
   &:before {
     left: 0;
-    background: linear-gradient(to left, rgba($red, 0), rgba($red, 0.25));
+    background: linear-gradient(
+      to left,
+      rgba(variables.$red, 0),
+      rgba(variables.$red, 0.25)
+    );
   }
 }
 .selectable-hours-end {
-  background-color: $red;
+  background-color: variables.$red;
   &:before {
     left: -50px;
-    background: linear-gradient(to right, rgba($red, 0), rgba($red, 0.25));
+    background: linear-gradient(
+      to right,
+      rgba(variables.$red, 0),
+      rgba(variables.$red, 0.25)
+    );
   }
 }
 
@@ -476,12 +494,12 @@ $cp-breakpoint-3: 1024px;
     top: 0;
     left: 0;
 
-    color: $brand;
+    color: variables.$brand;
     &:before {
       margin: 0;
     }
     &:hover {
-      color: $brand-dark;
+      color: variables.$brand-dark;
     }
   }
 }
@@ -498,12 +516,12 @@ $cp-breakpoint-3: 1024px;
     position: absolute;
     top: 0;
     right: 0;
-    color: $brand;
+    color: variables.$brand;
     &:before {
       margin: 0;
     }
     &:hover {
-      color: $brand-dark;
+      color: variables.$brand-dark;
     }
   }
 
@@ -526,7 +544,8 @@ $cp-breakpoint-3: 1024px;
   display: flex;
 
   width: 100%;
-  border-top: $border-width $border-style $brand-very-light;
+  border-top: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-2) {
     width: $cp-layer-selector-width * 2;
@@ -566,11 +585,13 @@ $cp-breakpoint-3: 1024px;
   align-items: stretch;
 
   width: $cp-layer-selector-width;
-  border-left: $border-width $border-style $brand-very-light;
+  border-left: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-3) {
     width: $cp-layer-selector-width-2;
-    border-top: $border-width $border-style $brand-very-light;
+    border-top: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
     border-left: none;
   }
 }
@@ -595,7 +616,7 @@ $cp-breakpoint-3: 1024px;
   align-items: stretch;
 
   width: $cp-range-width;
-  @include font-bold;
+  @include mixins.font-bold;
 
   @media screen and (min-width: $cp-breakpoint-3) {
     width: $cp-range-width-2;
@@ -608,15 +629,16 @@ $cp-breakpoint-3: 1024px;
     text-align: center;
     line-height: $cp-layer-range-height;
     &:not(:first-child) {
-      border-left: $border-width $border-style $border-color;
+      border-left: variables.$border-width variables.$border-style
+        variables.$border-color;
     }
     &:hover,
     &.js-active {
-      color: $white;
+      color: variables.$white;
       @extend .bg-brand;
     }
     &.js-inactive {
-      color: $grey;
+      color: variables.$grey;
       &:hover {
         @extend .bg-box;
       }
@@ -634,8 +656,10 @@ $cp-breakpoint-3: 1024px;
 
   height: $cp-legend-release-height;
   width: calc(100% - #{$cp-copyright-width});
-  border-top: $border-width $border-style $brand-very-light;
-  border-left: $border-width $border-style $brand-very-light;
+  border-top: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
+  border-left: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 
   @media screen and (min-width: $cp-breakpoint-2) {
     width: calc(
@@ -669,7 +693,7 @@ $cp-breakpoint-3: 1024px;
       left: 0;
       transform: translateX(-50%);
       line-height: $cp-legend-height;
-      color: $black;
+      color: variables.$black;
       text-shadow:
         0 0 3px #fff,
         0 0 2px #fff,
@@ -678,25 +702,46 @@ $cp-breakpoint-3: 1024px;
   }
 }
 .cp-legend-snow {
-  @include legend-generator($cp-legend-snow-items, 9);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snow-items,
+    9
+  );
 }
 .cp-legend-snownew {
-  @include legend-generator($cp-legend-snownew-items, 9);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snownew-items,
+    9
+  );
 }
 .cp-legend-snowdiff {
-  @include legend-generator($cp-legend-snowdiff-items, 12);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snowdiff-items,
+    12
+  );
 }
 .cp-legend-snowline {
-  @include legend-generator($cp-legend-snowline-items, 35);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snowline-items,
+    35
+  );
 }
 .cp-legend-temperature {
-  @include legend-generator($cp-legend-temperature-items, 13);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-temperature-items,
+    13
+  );
 }
 .cp-legend-wind {
-  @include legend-generator($cp-legend-wind-items, 7);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-wind-items,
+    7
+  );
 }
 .cp-legend-windgust {
-  @include legend-generator($cp-legend-windgust-items, 7);
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-windgust-items,
+    7
+  );
 }
 
 //release
@@ -729,7 +774,7 @@ $cp-breakpoint-3: 1024px;
 .cp-release-update {
   flex-grow: 2;
 
-  color: $grey-light;
+  color: variables.$grey-light;
 
   @media screen and (max-width: 420px) {
     span {
@@ -748,7 +793,8 @@ $cp-breakpoint-3: 1024px;
   height: $cp-copyright-height;
   width: $cp-copyright-width;
   padding: 5px;
-  border-top: $border-width $border-style $brand-very-light;
+  border-top: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 
   a {
     display: block;
@@ -766,13 +812,13 @@ $cp-breakpoint-3: 1024px;
     @media screen and (max-width: calc(#{$cp-breakpoint-3} + 300px)) {
       bottom: calc(
         #{$cp-timeline-height} + #{$cp-legend-release-height} +
-          (2 * #{$padding})
+          (2 * #{variables.$padding})
       );
     }
     @media screen and (max-width: $cp-breakpoint-2) {
       bottom: calc(
         #{$cp-timeline-height} + #{$cp-layer-range-height} + #{$cp-legend-release-height} +
-          (2 * #{$padding})
+          (2 * #{variables.$padding})
       );
     }
   }

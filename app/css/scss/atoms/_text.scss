@@ -1,3 +1,8 @@
+@use "sass:color";
+
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,13 +14,13 @@
 
 //absatz
 p {
-  margin: $paragraph-margin-top 0 $paragraph-margin-bottom 0;
-  font-size: $paragraph-font-size;
-  font-family: $paragraph-font-family;
-  font-weight: $paragraph-font-weight;
-  font-style: $paragraph-font-style;
-  line-height: $paragraph-line-height;
-  color: $paragraph-font-color;
+  margin: variables.$paragraph-margin-top 0 variables.$paragraph-margin-bottom 0;
+  font-size: variables.$paragraph-font-size;
+  font-family: variables.$paragraph-font-family;
+  font-weight: variables.$paragraph-font-weight;
+  font-style: variables.$paragraph-font-style;
+  line-height: variables.$paragraph-line-height;
+  color: variables.$paragraph-font-color;
 }
 
 //headlines
@@ -31,18 +36,18 @@ h6,
 .h4,
 .h5,
 .h6 {
-  margin: $header-margin-top 0 $header-margin-bottom 0;
-  font-family: $header-font-family;
-  font-weight: $header-font-weight;
-  font-style: $header-font-style;
-  line-height: $header-line-height;
-  color: $header-font-color;
+  margin: variables.$header-margin-top 0 variables.$header-margin-bottom 0;
+  font-family: variables.$header-font-family;
+  font-weight: variables.$header-font-weight;
+  font-style: variables.$header-font-style;
+  line-height: variables.$header-line-height;
+  color: variables.$header-font-color;
 }
 
 .subheader {
   //margin: $subheader-margin-top 0 $subheader-margin-bottom 0;
   //font-family: $subheader-font-family;
-  font-weight: $subheader-font-weight;
+  font-weight: variables.$subheader-font-weight;
   //font-style: $subheader-font-style;
   //line-height: $subheader-line-height;
   //color: $subheader-font-color;
@@ -50,115 +55,115 @@ h6,
 
 h1,
 .h1 {
-  font-size: $h1-font-size;
-  line-height: $h1-line-height;
-  color: $h1-font-color;
+  font-size: variables.$h1-font-size;
+  line-height: variables.$h1-line-height;
+  color: variables.$h1-font-color;
 }
 h2,
 .h2 {
-  font-size: $h2-font-size;
-  line-height: $h2-line-height;
-  color: $h2-font-color;
+  font-size: variables.$h2-font-size;
+  line-height: variables.$h2-line-height;
+  color: variables.$h2-font-color;
 }
 h3,
 .h3 {
-  font-size: $h3-font-size;
-  line-height: $h3-line-height;
-  color: $h3-font-color;
+  font-size: variables.$h3-font-size;
+  line-height: variables.$h3-line-height;
+  color: variables.$h3-font-color;
 }
 h4,
 .h4 {
-  font-size: $h4-font-size;
-  line-height: $h4-line-height;
-  color: $h4-font-color;
+  font-size: variables.$h4-font-size;
+  line-height: variables.$h4-line-height;
+  color: variables.$h4-font-color;
 }
 h5,
 .h5 {
   margin-bottom: 0;
-  font-size: $h5-font-size;
-  line-height: $h5-line-height;
-  color: $h5-font-color;
-  @include letter-spacing;
+  font-size: variables.$h5-font-size;
+  line-height: variables.$h5-line-height;
+  color: variables.$h5-font-color;
+  @include mixins.letter-spacing;
 }
 h6,
 .h6 {
   margin-bottom: 0;
-  font-size: $h6-font-size;
-  line-height: $h6-line-height;
-  color: $h6-font-color;
-  @include letter-spacing;
+  font-size: variables.$h6-font-size;
+  line-height: variables.$h6-line-height;
+  color: variables.$h6-font-color;
+  @include mixins.letter-spacing;
 }
 
 .light,
 .duenn {
-  @include font-light;
+  @include mixins.font-light;
 }
 .normal {
-  @include font-normal;
+  @include mixins.font-normal;
 }
 b,
 strong,
 .bold,
 .fett {
-  @include font-bold;
+  @include mixins.font-bold;
 }
 .heavy {
-  @include font-heavy;
+  @include mixins.font-heavy;
 }
 .headline {
-  @include font-header;
+  @include mixins.font-header;
 }
 
 i,
 em,
 .italic {
-  @include font-italic;
+  @include mixins.font-italic;
 }
 
 .monospace {
-  @include font-monospace;
+  @include mixins.font-monospace;
 }
 .letterspace {
-  @include letter-spacing;
+  @include mixins.letter-spacing;
 }
 .uppercase {
-  @include uppercase;
+  @include mixins.uppercase;
 }
 
 .tiny {
-  font-size: $tiny-font-size; //$body-font-size-tiny;
-  @include letter-spacing;
+  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+  @include mixins.letter-spacing;
 }
 small,
 .small,
 .klein,
 sub,
 sup {
-  font-size: $small-font-size; //$body-font-size-small;
+  font-size: variables.$small-font-size; //$body-font-size-small;
 }
 .large {
-  font-size: $large-font-size; //$body-font-size-large;
+  font-size: variables.$large-font-size; //$body-font-size-large;
 }
 .xlarge {
-  font-size: $xlarge-font-size; //$body-font-size-xlarge;
+  font-size: variables.$xlarge-font-size; //$body-font-size-xlarge;
 }
 
 blockquote {
-  margin: 0 0 $margin-bottom 0;
-  padding: $blockquote-padding;
-  color: $blockquote-font-color;
-  background-color: $blockquote-background-color;
-  border: $blockquote-border-size $blockquote-border-style
-    $blockquote-border-color;
-  @include last-child;
+  margin: 0 0 variables.$margin-bottom 0;
+  padding: variables.$blockquote-padding;
+  color: variables.$blockquote-font-color;
+  background-color: variables.$blockquote-background-color;
+  border: variables.$blockquote-border-size variables.$blockquote-border-style
+    variables.$blockquote-border-color;
+  @include mixins.last-child;
   p + cite {
     display: block;
-    margin-top: -$paragraph-margin-bottom;
+    margin-top: -(variables.$paragraph-margin-bottom);
   }
 }
 cite {
-  font-size: $blockquote-cite-font-size;
-  color: $blockquote-cite-font-color;
+  font-size: variables.$blockquote-cite-font-size;
+  color: variables.$blockquote-cite-font-color;
 }
 
 sub,
@@ -167,23 +172,23 @@ sup {
 }
 
 address {
-  margin: 0 0 $margin-bottom 0;
+  margin: 0 0 variables.$margin-bottom 0;
   font-style: normal;
 }
 dfn,
 var {
-  font-family: $header-font-family;
+  font-family: variables.$header-font-family;
 }
 var {
-  @include font-monospace;
+  @include mixins.font-monospace;
   font-style: normal;
 }
 kbd {
   padding: 0 0.25em;
-  @include font-normal;
-  background: $white;
-  @include box-border;
-  @include box-shadow();
+  @include mixins.font-normal;
+  background: variables.$white;
+  @include mixins.box-border;
+  @include mixins.box-shadow();
 }
 
 ins,
@@ -192,39 +197,39 @@ mark {
   text-decoration: none;
 }
 ins {
-  background-color: color.adjust($green, $lightness: 52%);
+  background-color: color.adjust(variables.$green, $lightness: 52%);
 }
 mark {
-  background-color: $yellow;
+  background-color: variables.$yellow;
 }
 
 del {
-  color: $grey;
-  background-color: color.adjust($red, $lightness: 46%);
+  color: variables.$grey;
+  background-color: color.adjust(variables.$red, $lightness: 46%);
 }
 
 code,
 samp {
   padding: 0 0.25em 0 0.5em;
-  @include font-monospace;
-  color: $text-color;
-  background-color: $grey-very-light;
-  border-left: $bar-width solid $text-color;
+  @include mixins.font-monospace;
+  color: variables.$text-color;
+  background-color: variables.$grey-very-light;
+  border-left: variables.$bar-width solid variables.$text-color;
 }
 
 abbr {
-  @include font-feature-settings("smcp" 1);
-  color: $anchor-font-color;
+  @include mixins.font-feature-settings("smcp" 1);
+  color: variables.$anchor-font-color;
   border: none;
   &:hover {
-    color: $anchor-font-color-hover;
+    color: variables.$anchor-font-color-hover;
   }
 }
 
 //focus https://css-tricks.com/the-focus-visible-trick/
 //keyboard
 :focus-visible {
-  @include keyboard-focus();
+  @include mixins.keyboard-focus();
 }
 //mouse, touch, stylus
 :focus:not(:focus-visible) {
@@ -233,12 +238,12 @@ abbr {
 
 //auswahl
 ::-moz-selection {
-  background: $primary-color;
-  color: $white;
+  background: variables.$primary-color;
+  color: variables.$white;
   text-shadow: none;
 }
 ::selection {
-  background: $primary-color;
-  color: $white;
+  background: variables.$primary-color;
+  color: variables.$white;
   text-shadow: none;
 }

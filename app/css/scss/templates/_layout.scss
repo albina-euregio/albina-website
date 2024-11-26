@@ -1,3 +1,9 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/bgs";
+@use "../molecules/navigation";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -27,7 +33,7 @@
 
 @keyframes slideInFromTop {
   0% {
-    transform: translateY(calc(0 - #{$page-header-height}));
+    transform: translateY(calc(0 - #{navigation.$page-header-height}));
     opacity: 0;
   }
   100% {
@@ -64,10 +70,10 @@
 
 //layout
 .v-padding {
-  @include v-padding($all-v-padding);
+  @include mixins.v-padding(variables.$all-v-padding);
 }
 .h-padding {
-  @include h-padding($all-h-padding);
+  @include mixins.h-padding(variables.$all-h-padding);
 }
 
 //page-loading-screen
@@ -83,7 +89,7 @@
 
 //jumpnav
 .jumpnav {
-  @include visually-hidden;
+  @include mixins.visually-hidden;
 }
 
 //page-all
@@ -96,9 +102,9 @@
   //height: 100vh;//ioS 12 Pro Safari //https://www.freecodecamp.org/news/html-page-width-height/
   min-height: 100vh;
   opacity: 0;
-  animation: ($transition-duration * 2) ease-out $transition-duration 1 fadeIn
-    forwards;
-  @media screen and (max-width: #{upper-bound($normal-range)}) {
+  animation: (variables.$transition-duration * 2) ease-out
+    variables.$transition-duration 1 fadeIn forwards;
+  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
     .navigation-open & {
       overflow: auto; //probably needed for IE / Edge, but *fkn* big problems with scrolling
     }
@@ -110,7 +116,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: $bar-width;
+    height: variables.$bar-width;
     @extend .bg-colorbar;
   }
 }
@@ -118,13 +124,13 @@
 //page-header
 .page-header {
   position: fixed;
-  top: $bar-width;
+  top: variables.$bar-width;
   left: 0;
   right: 0;
-  font-size: $body-font-size;
+  font-size: variables.$body-font-size;
 
-  animation: ($transition-duration * 2) ease-out 0s 1 slideInFromTop;
-  @include rollout(all, $transition-duration, $ease: ease-out);
+  animation: (variables.$transition-duration * 2) ease-out 0s 1 slideInFromTop;
+  @include mixins.rollout(all, variables.$transition-duration, $ease: ease-out);
 }
 
 //page-main
@@ -137,13 +143,13 @@
   z-index: 50; //from app.scss
   overflow: visible; //from app.scss
   position: relative;
-  top: $bar-width;
-  margin: 0 0 $bar-width 0;
-  padding-top: $page-header-height;
-  @include rollout(all, $transition-duration, $ease: ease-out);
-  @media screen and (max-width: #{upper-bound($normal-range)}) {
+  top: variables.$bar-width;
+  margin: 0 0 variables.$bar-width 0;
+  padding-top: navigation.$page-header-height;
+  @include mixins.rollout(all, variables.$transition-duration, $ease: ease-out);
+  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
     .navigation-open & {
-      transform: translateY($page-header-height);
+      transform: translateY(navigation.$page-header-height);
       opacity: 0;
     }
   }
@@ -155,8 +161,8 @@
 
   position: relative;
   z-index: 0; //from app.scss
-  padding-bottom: $bar-width;
-  @include rollout;
+  padding-bottom: variables.$bar-width;
+  @include mixins.rollout;
 
   &:after {
     content: "";
@@ -164,7 +170,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: $bar-width;
+    height: variables.$bar-width;
     @extend .bg-colorbar;
   }
 }
@@ -173,8 +179,8 @@
 .section {
   position: relative;
   margin: 0;
-  @include rollout;
-  @include last-child();
+  @include mixins.rollout;
+  @include mixins.last-child();
   /*
 	opacity: 0;
 	animation: ($transition-duration * 2) ease-out $transition-duration 1 fadeIn forwards;
@@ -183,49 +189,49 @@
 
 .section-centered {
   @extend .section;
-  max-width: $line-length;
+  max-width: variables.$line-length;
   margin-left: auto;
   margin-right: auto;
 }
 
 .section-centered-small {
   @extend .section;
-  max-width: $line-length * 0.75;
+  max-width: variables.$line-length * 0.75;
   margin-left: auto;
   margin-right: auto;
 }
 
 .section-padding {
   @extend .section;
-  padding: $all-v-padding $all-h-padding;
+  padding: variables.$all-v-padding variables.$all-h-padding;
 }
 
 .section-padding-width {
   @extend .section;
-  padding: 0 $all-h-padding;
+  padding: 0 variables.$all-h-padding;
 }
 .section-padding-height {
   @extend .section;
-  padding: $all-v-padding 0;
+  padding: variables.$all-v-padding 0;
 }
 
 .section-hiddenSmallUp {
-  @media #{$small-up} {
+  @media #{variables.$small-up} {
     display: none;
   }
 }
 .section-hiddenNormalUp {
-  @media #{$normal-up} {
+  @media #{variables.$normal-up} {
     display: none;
   }
 }
 .section-hiddenUntilSmall {
-  @media #{$screen} and (max-width:#{upper-bound($tiny-range)}) {
+  @media #{variables.$screen} and (max-width:#{bounds.upper-bound(variables.$tiny-range)}) {
     display: none;
   }
 }
 .section-hiddenUntilNormal {
-  @media #{$screen} and (max-width:#{upper-bound($small-range)}) {
+  @media #{variables.$screen} and (max-width:#{bounds.upper-bound(variables.$small-range)}) {
     display: none;
   }
 }
