@@ -192,17 +192,15 @@ mark {
   text-decoration: none;
 }
 ins {
-  // color: darken($green, 20%);
-  background-color: lighten($green, 52%);
+  background-color: color.adjust($green, $lightness: 52%);
 }
 mark {
   background-color: $yellow;
 }
 
 del {
-  // color: darken($red, 20%);
   color: $grey;
-  background-color: lighten($red, 46%);
+  background-color: color.adjust($red, $lightness: 46%);
 }
 
 code,

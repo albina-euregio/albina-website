@@ -7,6 +7,8 @@
     #MAP-COCKPIT-LEGEND-ITEMS
 \*------------------------------------*/
 
+@use "sass:map";
+
 @mixin legend-generator($legend-type, $item-count) {
   span {
     width: calc(100% / #{$item-count});
@@ -29,7 +31,7 @@
   }
 }
 @function get-legend-item-value($legend-type, $what, $value) {
-  @return map-get(map-get($legend-type, $what), $value);
+  @return map.get(map.get($legend-type, $what), $value);
 }
 
 $cp-legend-snow-items: (
@@ -151,41 +153,41 @@ $cp-legend-snowdiff-items: (
 
 $cp-legend-snowline-items: (
   colors: (
-    color-1: #C060FF,
-    color-2: #9B00E0,
-    color-3: #8000FF,
-    color-4: #6600C0,
+    color-1: #c060ff,
+    color-2: #9b00e0,
+    color-3: #8000ff,
+    color-4: #6600c0,
     color-5: #330080,
-    color-6: #0000C0,
-    color-7: #0000FF,
-    color-8: #3399FF,
-    color-9: #80CCFF,
-    color-10: #80FFFF,
-    color-11: #00FFC0,
-    color-12: #00FF80,
-    color-13: #00E400,
-    color-14: #00C000,
-    color-15: #009B00,
+    color-6: #0000c0,
+    color-7: #0000ff,
+    color-8: #3399ff,
+    color-9: #80ccff,
+    color-10: #80ffff,
+    color-11: #00ffc0,
+    color-12: #00ff80,
+    color-13: #00e400,
+    color-14: #00c000,
+    color-15: #009b00,
     color-16: #008000,
-    color-17: #609B00,
-    color-18: #9B9B00,
-    color-19: #C09B00,
-    color-20: #C0C000,
-    color-21: #C0E000,
-    color-22: #C0FF00,
-    color-23: #FFFF00,
-    color-24: #FFC000,
-    color-25: #FF9B00,
-    color-26: #FF8000,
-    color-27: #FF0000,
-    color-28: #E00000,
-    color-29: #C00000,
-    color-30: #B00000,
+    color-17: #609b00,
+    color-18: #9b9b00,
+    color-19: #c09b00,
+    color-20: #c0c000,
+    color-21: #c0e000,
+    color-22: #c0ff00,
+    color-23: #ffff00,
+    color-24: #ffc000,
+    color-25: #ff9b00,
+    color-26: #ff8000,
+    color-27: #ff0000,
+    color-28: #e00000,
+    color-29: #c00000,
+    color-30: #b00000,
     color-31: #800000,
     color-32: #990066,
-    color-33: #C00066,
-    color-34: #CC0066,
-    color-35: #CC005C
+    color-33: #c00066,
+    color-34: #cc0066,
+    color-35: #cc005c
   ),
   units: (
     unit-1: "",

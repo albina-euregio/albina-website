@@ -128,9 +128,6 @@ $icon-font-margin: 0.25em;
 .icon-show:before {
   content: "\e82b";
 } /* '' */
-.icon-calendar-big:before {
-  content: "\e82c";
-} /* '' */
 .icon-release:before {
   content: "\e82d";
 } /* '' */
@@ -140,9 +137,6 @@ $icon-font-margin: 0.25em;
 .icon-validity:before {
   content: "\e82f";
 } /* '' */
-.icon-calendar:before {
-  content: "\e833";
-} /* '' */
 .icon-pause:before {
   content: "\e838";
 } /* '' */
@@ -173,6 +167,12 @@ $icon-font-margin: 0.25em;
 .icon-sm-whatsapp:before {
   content: "\e847";
 } /* '' */
+.icon-calendar-big:before {
+  content: "\e892";
+} /* '' */
+.icon-calendar:before {
+  content: "\e893";
+} /* '' */
 
 // mit diesem mixin können icons in sass inkludiert werden
 // z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);

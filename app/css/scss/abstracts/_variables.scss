@@ -9,8 +9,9 @@
 
 //transporter
 $trans-color: #27a8e3; //2013
-$trans-color-light: lighten($trans-color, 20%);
-$trans-color-dark: darken($trans-color, 10%);
+// $trans-color-light: lighten($trans-color, 20%);
+$trans-color-light: color.adjust($trans-color, $lightness: 20%);
+$trans-color-dark: ($trans-color, 10%);
 
 //neutral
 $black: #000;
@@ -25,7 +26,7 @@ $white: #fff;
 
 //brand
 $brand: #19abff;
-$brand-very-very-dark: #062A3F;
+$brand-very-very-dark: #062a3f;
 $brand-very-dark: #0f6799;
 $brand-dark: #1489cc;
 $brand-light: #66c7ff;
@@ -56,7 +57,7 @@ $primary-color: $brand;
 $secondary-color: $brand-2;
 $tertiary-color: $grey-very-light;
 
-$success-color: #88CC00;
+$success-color: #88cc00;
 $error-color: $warning-level-4-color;
 $warning-color: $warning-level-4-color;
 $code-color: $warning-level-3-color;
@@ -219,7 +220,8 @@ $rem-base: 16;
 $base-line-height: 1.5em;
 $font-smoothing: antialiased; //Values: none, antialiased (default), subpixel-antialiased
 
-$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
   sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 $body-font-weight: 400; //normal

@@ -71,13 +71,11 @@
     padding-bottom: ($medium-v-padding * 0.5) !important;
   }
 
-  .bulletin-datetime-release {
-  }
+  // .bulletin-datetime-release {}
   .bulletin-datetime-update {
     color: $warning-color;
   }
-  .bulletin-datetime-validity {
-  }
+  // .bulletin-datetime-validity {}
 
   .subheadern,
   h1 {
@@ -160,7 +158,12 @@ ul.bulletin-flipper {
       width: 1.5em;
       line-height: 1;
 
+      input {
+        cursor: pointer;
+      }
+
       &:before {
+        cursor: pointer;
         z-index: -5;
         display: block;
         position: absolute;
@@ -175,7 +178,11 @@ ul.bulletin-flipper {
       }
 
       &:hover {
+        input {
+          cursor: pointer;
+        }
         &:before {
+          cursor: pointer;
           color: $anchor-font-color-hover;
           @include rollover;
         }
@@ -219,8 +226,7 @@ ul.bulletin-flipper {
       }
     }
   }
-  .bulletin-flipper-latest {
-  }
+  // .bulletin-flipper-latest {}
   .bulletin-flipper-archive {
     a {
       &:hover,

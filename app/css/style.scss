@@ -10,10 +10,11 @@
 //https://sass-lang.com/documentation/breaking-changes/slash-div
 //https://sass-lang.com/documentation/modules
 @use "sass:math";
+@use "sass:color";
 
 //http://bourbon.io
 
-@import "../../node_modules/normalize.css/normalize";
+@use "../../node_modules/normalize.css/normalize";
 
 @import "scss/abstracts/mixins";
 @import "scss/abstracts/variables";

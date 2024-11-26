@@ -394,8 +394,7 @@ $cp-breakpoint-3: 1024px;
   height: 100%;
   background-color: $grey-light;
 }
-.hour-mark {
-}
+// .hour-mark {}
 .selectable-hour-mark {
   background-color: $grey-light;
 }
@@ -434,8 +433,7 @@ $cp-breakpoint-3: 1024px;
   white-space: nowrap;
 }
 
-.hour-name {
-}
+// .hour-name {}
 
 //analyse-forecast
 .cp-scale-analyse-forecast {
@@ -477,8 +475,13 @@ $cp-breakpoint-3: 1024px;
     position: absolute;
     top: 0;
     left: 0;
+
+    color: $brand;
     &:before {
       margin: 0;
+    }
+    &:hover {
+      color: $brand-dark;
     }
   }
 }
@@ -495,8 +498,12 @@ $cp-breakpoint-3: 1024px;
     position: absolute;
     top: 0;
     right: 0;
+    color: $brand;
     &:before {
       margin: 0;
+    }
+    &:hover {
+      color: $brand-dark;
     }
   }
 

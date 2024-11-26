@@ -12,13 +12,11 @@
     background-color: $debug-color !important;
   }
   .outline {
-    outline: 1px dotted adjust-hue($debug-color, 270) !important;
+    outline: 1px dotted color.adjust($debug-color, $hue: 270deg) !important;
   }
   hr.dev {
     border-top: 1px dashed $debug-color !important;
   }
 }
 
-.controlbar {
-  //transform: translateY(200px);
-}
+// .controlbar {}
