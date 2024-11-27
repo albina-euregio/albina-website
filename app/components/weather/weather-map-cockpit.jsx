@@ -355,9 +355,9 @@ const WeatherMapCockpit = ({
             barDuration={absSpan}
             markerPosition={absSpan > 24 ? "75%" : "50%"}
             showBar={absSpan > 1}
-            initialDate={usedInitialDate}
-            startTime={usedStartTime}
-            endTime={usedEndTime}
+            initialDateTs={usedInitialDate.toISOString()}
+            startTimeTs={usedStartTime.toISOString()}
+            endTimeTs={usedEndTime.toISOString()}
             //firstHour={firstHour?.getUTCHours()}
             updateCB={onTimelineUpdate}
           />
