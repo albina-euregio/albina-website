@@ -299,7 +299,7 @@ const WeatherMapCockpit = ({
     );
   };
 
-  //console.log("weather-map-cockpit->render hhhh", currentTime);
+  console.log("weather-map-cockpit->render hhhh", currentTime);
   let classes = [
     "map-cockpit",
     "weather-map-cockpit",
@@ -321,7 +321,7 @@ const WeatherMapCockpit = ({
     usedEndTime &&
     new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
   )
-    usedInitialDate = new Date(startDate);
+    usedInitialDate = new Date(usedEndTime);
 
   // console.log("weather-map-cockpit->render #j01", {
   //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
