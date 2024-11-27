@@ -299,7 +299,7 @@ const WeatherMapCockpit = ({
     );
   };
 
-  console.log("weather-map-cockpit->render hhhh", currentTime);
+  //console.log("weather-map-cockpit->render hhhh", currentTime);
   let classes = [
     "map-cockpit",
     "weather-map-cockpit",

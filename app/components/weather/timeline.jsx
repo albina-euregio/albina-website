@@ -174,17 +174,16 @@ const Timeline = ({
   }, [startTime, endTime, now]);
 
   useEffect(() => {
+    // console.log("Timeline->useEffect->targetDate #k01", {
+    //   targetDate,
+    //   containerWidth: containerRef?.current?.clientWidth,
+    // });
     if (targetDate && containerRef?.current?.clientWidth) {
-      // console.log("Timeline->useEffect->targetDate #k01", {
-      //   targetDate,
-      //   currentDate,
-      // });
-
       setSelectableHoursOffset(timeSpan >= 24 ? 24 : timeSpan);
 
       calcIndicatorOffset();
 
-      const timeDifferenceInHours = differenceInHours(currentDate, startOfDay);
+      const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
       const targetDay = Math.floor(timeDifferenceInHours / 24);
       const rulerPadding = Math.ceil(barDuration / 24) + 2;
       setRulerStartDay(
@@ -205,7 +204,7 @@ const Timeline = ({
     //   markerRenewed,
     //   targetDate
     // });
-    if (markerRenewed && targetDate) snapToNearestMarker(targetDate);
+    if (markerRenewed && targetDate) snapToDate(targetDate);
   }, [markerRenewed]);
 
   useEffect(() => {
@@ -326,7 +325,13 @@ const Timeline = ({
   const jumpStep = direction => {
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
-    //console.log("jumpStep #i01", {direction, selectableHoursOffset, targetDate: targetDate.toISOString(), newDate: newDate.toISOString()});
+    console.log("jumpStep #i01", {
+      direction,
+      selectableHoursOffset,
+      targetDate: targetDate.toISOString(),
+      newDate: newDate.toISOString(),
+      endTime: endTime.toISOString()
+    });
     if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
   };
 
@@ -343,17 +348,32 @@ const Timeline = ({
         const markDate = addHours(addDays(startOfDay, day), hour);
         const totalHours = day * hoursPerDay + hour;
 
-        const isSelectable =
-          (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
-
         const localDate = new Date(markDate);
         const localHour = localDate.getHours();
         let markClass = [localHour === 0 ? "day-mark" : ""];
-        if (isSelectable) markClass.push("selectable-hour-mark");
-        else markClass.push("hour-mark");
 
-        if (markDate.getTime() === usedEndTime?.getTime())
-          markClass.push("selectable-hours-end");
+        const isSelectable =
+          (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
+
+        if (
+          isSelectable &&
+          markDate.getTime() >= startTime.getTime() &&
+          markDate.getTime() <= endTime.getTime()
+        )
+          markClass.push("selectable-hour-mark");
+        else markClass.push("hour-mark");
+        if (isSelectable) {
+          const nextSelectableDate = new Date(markDate);
+          nextSelectableDate.setUTCHours(
+            nextSelectableDate.getUTCHours() + selectableHoursOffset
+          );
+          //console.log("rulerMarkings #k0111", {markDate: markDate.toISOString(), nextSelectableDate: nextSelectableDate.toISOString(), usedEndTime: usedEndTime?.toISOString()});
+          if (
+            usedEndTime?.getTime() >= markDate.getTime() &&
+            nextSelectableDate.getTime() > usedEndTime?.getTime()
+          )
+            markClass.push("selectable-hours-end");
+        }
         if (markDate.getTime() === startTime?.getTime())
           markClass.push("selectable-hours-start");
         // console.log("rulerMarkingsi0111", {
@@ -437,7 +457,8 @@ const Timeline = ({
     if (isDragging) {
       setIsDragging(false);
       rulerRef.current.style.transition = "transform 0.3s ease";
-      snapToNearestMarker();
+      const nearestMarker = getNearestMarker();
+      if (nearestMarker) setTargetDate(new Date(nearestMarker?.dataset?.date));
     }
   };
 
@@ -449,12 +470,12 @@ const Timeline = ({
         selectableHoursOffset +
       firstHour;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
-
+    console.log("snapToDate #k011", { newTargetDate });
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
-    const { markerCenterX, targetMarker } = getMarkerCenterX(newTargetDate);
+    const { targetMarker } = getMarkerCenterX(newTargetDate);
     //const distanceToMove = markerCenterX - indicatorCenterX;
-    const distanceToMove = Number(targetMarker.style.left?.replace("px", ""));
+    const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
 
     const newTranslateX = distanceToMove;
     updateTimelinePosition(newTranslateX, true);
@@ -462,21 +483,11 @@ const Timeline = ({
     setCurrentDate(newTargetDate);
   };
 
-  const snapToNearestMarker = markerDate => {
-    //console.log("snapToNearestMarker #k011", { markerDate });
-    //if(!indicatorRef.current) return;
-    let searchedMaker;
+  const getNearestMarker = () => {
+    const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
-    if (markerDate) {
-      const { markerCenterX, targetMarker } = getMarkerCenterX(markerDate);
-      searchedMaker = targetMarker;
-      targetCenterX = markerCenterX;
-    }
 
-    const markers = rulerRef.current.querySelectorAll(
-      ".selectable-hour-mark, .day-mark"
-    );
     let nearestMarker = null;
     let minDistance = Infinity;
 
@@ -486,21 +497,28 @@ const Timeline = ({
       const distance = Math.abs(markerCenterX - targetCenterX);
 
       if (distance < minDistance) {
+        console.log("getNearestMarker #k0111", {
+          date: marker?.dataset?.date,
+          distance,
+          minDistance
+        });
         minDistance = distance;
         nearestMarker = marker;
       }
     });
-
-    if (nearestMarker) {
-      let markerDate = new Date(nearestMarker.dataset.date);
-      //console.log("snapToNearestMarker #2 #k011", { markerDate: markerDate.toISOString(), searchedMaker });
-      if (markerDate > endTime) markerDate = endTime;
-      if (markerDate < startTime) markerDate = startTime;
-      snapToDate(markerDate);
-    }
+    console.log("getNearestMarker #k011", {
+      markers,
+      targetCenterX,
+      nearestMarkerDate: nearestMarker?.dataset?.date,
+      minDistance
+    });
+    return nearestMarker;
   };
 
   const getMarkerCenterX = newTargetDate => {
+    console.log("getMarkerCenterX #k011", {
+      newTargetDate: newTargetDate?.toISOString()
+    });
     const targetMarker = document.querySelectorAll(
       `[data-date*="${newTargetDate.toISOString()}"]`
     );
@@ -603,28 +621,29 @@ const Timeline = ({
     );
   };
 
-  console.info("Timeline->render #k011", {
-    targetDate: targetDate?.toISOString(),
-    currentDate: currentDate?.toISOString()
-    // startTime: startTime?.toISOString(),
-    // initialDate: initialDate?.toISOString(),
-    // currentTranslateX,
-    // indicatorOffset,
-    // markerPosition
-    // params: {
-    //   initialDate,
-    //   indicatorOffset,
-    //   firstHour,
-    //   timeSpan,
-    //   startTime,
-    //   endTime,
-    //   markerPosition,
-    //   showBar,
-    //   barDuration,
-    //   updateCB,
-    //   domainId
-    // }
-  });
+  // console.info("Timeline->render #k011", {
+  //   targetDate: targetDate?.toISOString(),
+  //   currentDate: currentDate?.toISOString(),
+  //   startTime: startTime?.toISOString(),
+  //   endTime: endTime?.toISOString(),
+  //   // initialDate: initialDate?.toISOString(),
+  //   // currentTranslateX,
+  //   // indicatorOffset,
+  //   // markerPosition
+  //   // params: {
+  //   //   initialDate,
+  //   //   indicatorOffset,
+  //   //   firstHour,
+  //   //   timeSpan,
+  //   //   startTime,
+  //   //   endTime,
+  //   //   markerPosition,
+  //   //   showBar,
+  //   //   barDuration,
+  //   //   updateCB,
+  //   //   domainId
+  //   // }
+  // });
   if (!currentDate) return <div></div>;
   return (
     <>
