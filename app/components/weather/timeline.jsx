@@ -10,12 +10,12 @@ function useChangedProps(props) {
   useEffect(() => {
     Object.entries(props).forEach(([key, value]) => {
       if (prev.current[key] !== value) {
-        console.log(
-          `#j012 Prop '${key}' changed from:`,
-          prev.current[key],
-          "to:",
-          value
-        );
+        // console.log(
+        //   `#j012 Prop '${key}' changed from:`,
+        //   prev.current[key],
+        //   "to:",
+        //   value
+        // );
       }
     });
 
@@ -47,17 +47,17 @@ const Timeline = ({
     )
   );
 
-  useChangedProps({
-    initialDateTs,
-    firstHour,
-    domainId,
-    timeSpan,
-    startTimeTs,
-    endTimeTs,
-    markerPosition,
-    showBar, // Toggle the bar visibility
-    barDuration // Bar duration in hours
-  });
+  // useChangedProps({
+  //   initialDateTs,
+  //   firstHour,
+  //   domainId,
+  //   timeSpan,
+  //   startTimeTs,
+  //   endTimeTs,
+  //   markerPosition,
+  //   showBar, // Toggle the bar visibility
+  //   barDuration // Bar duration in hours
+  // });
   // console.log("Timeline->init #j01", {
   //   initialDateTs,
   //   firstHour,
@@ -74,7 +74,7 @@ const Timeline = ({
   const containerRef = useRef(null);
   const rulerRef = useRef(null);
   const indicatorRef = useRef(null);
-  const [markerInitialized, setMarkerInitialized] = useState(false);
+  const [markerRenewed, setMarkerRenewed] = useState(null);
   const initialDate = useMemo(() => new Date(initialDateTs), [initialDateTs]);
   const startTime = useMemo(() => new Date(startTimeTs), [startTimeTs]);
   const endTime = useMemo(() => new Date(endTimeTs), [endTimeTs]);
@@ -88,7 +88,7 @@ const Timeline = ({
   const [rulerEndDay, setRulerEndDay] = useState(10);
   const [maxStartDay, setMaxStartDay] = useState(-30);
   const [maxEndDay, setMaxEndDay] = useState(30);
-  const [rulerOffset, setRulerOffset] = useState(0);
+  const [indicatorOffset, setIndicatorOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
   const [selectableHoursOffset, setSelectableHoursOffset] = useState(timeSpan);
@@ -133,11 +133,11 @@ const Timeline = ({
         setTargetDate(new Date(initialDate));
         if (!currentDate) setCurrentDate(new Date(initialDate));
       }
-      console.log("Timeline->useEffect->initialDate #k01", {
-        initialDate,
-        targetDate,
-        currentDate
-      });
+      // console.log("Timeline->useEffect->initialDate #k01", {
+      //   initialDate,
+      //   targetDate,
+      //   currentDate
+      // });
     }
   }, [initialDate]);
 
@@ -175,48 +175,15 @@ const Timeline = ({
 
   useEffect(() => {
     if (targetDate && containerRef?.current?.clientWidth) {
-      console.log("Timeline->useEffect->targetDate #k01", {
-        targetDate,
-        currentDate,
-        currentTranslateX,
-        containerWidth: containerRef?.current?.clientWidth
-      });
-      let newRulerOffset =
-        (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
-      if (showBar) newRulerOffset -= barDuration * pixelsPerHour;
+      // console.log("Timeline->useEffect->targetDate #k01", {
+      //   targetDate,
+      //   currentDate,
+      // });
+
       setSelectableHoursOffset(timeSpan >= 24 ? 24 : timeSpan);
-      //updateTimelinePosition(newTranslateX, true);
-      setRulerOffset(newRulerOffset);
-      snapToNearestMarker(targetDate);
-    }
-  }, [markerPosition, timeSpan, targetDate, showBar]);
 
-  // useEffect(() => {
+      calcIndicatorOffset();
 
-  //   if(markerInitialized && targetDate) {
-
-  //     console.log("Timeline->useEffect->snapToNearestMarker #k01", {targetDate});
-  //     setTimeout(()=>snapToNearestMarker(targetDate),10);
-  //   }
-  // }, [markerInitialized, targetDate]);
-
-  useEffect(() => {
-    setPlayerIsActive(false);
-  }, [timeSpan, domainId]);
-
-  useEffect(() => {
-    console.log("Timeline->useEffect->currentTranslateX #k01", {
-      currentTranslateX,
-      rulerOffset
-    });
-    if (currentTranslateX && rulerOffset) {
-      const newOffset = -currentTranslateX + rulerOffset;
-      rulerRef.current.style.transform = `translateX(${newOffset}px)`;
-    }
-  }, [currentTranslateX, rulerOffset]);
-
-  useEffect(() => {
-    if (currentDate) {
       const timeDifferenceInHours = differenceInHours(currentDate, startOfDay);
       const targetDay = Math.floor(timeDifferenceInHours / 24);
       const rulerPadding = Math.ceil(barDuration / 24) + 2;
@@ -224,11 +191,57 @@ const Timeline = ({
         Math.max(maxStartDay - rulerPadding, targetDay - daysBuild)
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
+    }
+  }, [timeSpan, targetDate, showBar]);
+
+  useEffect(() => {
+    if (markerRenewed) {
+      calcIndicatorOffset();
+    }
+  }, [markerPosition]);
+
+  useEffect(() => {
+    // console.log("Timeline->useEffect->markerRenewed #k011", {
+    //   markerRenewed,
+    //   targetDate
+    // });
+    if (markerRenewed && targetDate) snapToNearestMarker(targetDate);
+  }, [markerRenewed]);
+
+  useEffect(() => {
+    setPlayerIsActive(false);
+  }, [timeSpan, domainId]);
+
+  useEffect(() => {
+    if (indicatorOffset) {
+      const newOffset = indicatorOffset - currentTranslateX;
+      rulerRef.current.style.transform = `translateX(${newOffset}px)`;
+
+      // console.log("Timeline->useEffect->currentTranslateX #k0112", {
+      //   newOffset,
+      //   currentTranslateX,
+      //   indicatorOffset,
+      // });
+    }
+  }, [currentTranslateX, indicatorOffset]);
+
+  useEffect(() => {
+    if (currentDate) {
       if (updateCB) {
         updateCB(currentDate);
       }
     }
   }, [currentDate]);
+
+  // ###### functions ######
+
+  const calcIndicatorOffset = () => {
+    //console.log("calcIndicatorOffset #k01", {});
+    let newIndicatorOffset =
+      (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
+    if (showBar) newIndicatorOffset -= barDuration * pixelsPerHour;
+    setIndicatorOffset(newIndicatorOffset);
+  };
 
   const addDays = (date, days) => {
     const result = new Date(date);
@@ -313,16 +326,17 @@ const Timeline = ({
   const jumpStep = direction => {
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
-    //console.log("jumpStep #i01", {direction, selectableHoursOffset, newDate: newDate.toISOString()});
-    if (newDate <= endTime && newDate >= startTime) jumpToDate(newDate);
+    //console.log("jumpStep #i01", {direction, selectableHoursOffset, targetDate: targetDate.toISOString(), newDate: newDate.toISOString()});
+    if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
   };
 
   const rulerMarkings = useMemo(() => {
+    if (!targetDate) return [];
     const markings = [];
     let usedEndTime = new Date(endTime);
     usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
 
-    console.log("rulerMarkings #i011", { rulerStartDay, rulerEndDay });
+    //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -382,21 +396,22 @@ const Timeline = ({
         );
       }
     }
-    setMarkerInitialized(true);
+    setMarkerRenewed(new Date());
     return markings;
-  }, [rulerStartDay, rulerEndDay, endTime, selectableHoursOffset]);
+  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   const updateTimelinePosition = (newTranslateX, snap) => {
-    console.log("updateTimelinePosition #k01", {
-      newTranslateX,
-      snap,
-      currentTranslateX
-    });
     let usedTranslateX = newTranslateX;
     if (snap) {
       const snapToHours = selectableHoursOffset * pixelsPerHour;
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
+    // console.log("updateTimelinePosition #k0112", {
+    //   newTranslateX,
+    //   snap,
+    //   currentTranslateX,
+    //   rulerWidth: rulerRef.current.clientWidth
+    // });
 
     setCurrentTranslateX(usedTranslateX);
   };
@@ -437,17 +452,18 @@ const Timeline = ({
 
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
-    const { markerCenterX } = getMarkerCenterX(newTargetDate);
-    const distanceToMove = markerCenterX - indicatorCenterX;
+    const { markerCenterX, targetMarker } = getMarkerCenterX(newTargetDate);
+    //const distanceToMove = markerCenterX - indicatorCenterX;
+    const distanceToMove = Number(targetMarker.style.left?.replace("px", ""));
 
-    const newTranslateX = currentTranslateX + Math.round(distanceToMove);
+    const newTranslateX = distanceToMove;
     updateTimelinePosition(newTranslateX, true);
-
+    //console.log("snapToDate #k011", {newTargetDate: newTargetDate.toISOString(), markerCenterX, indicatorCenterX, distanceToMove, newTranslateX});
     setCurrentDate(newTargetDate);
   };
 
   const snapToNearestMarker = markerDate => {
-    console.log("snapToNearestMarker #k01", { markerDate });
+    //console.log("snapToNearestMarker #k011", { markerDate });
     //if(!indicatorRef.current) return;
     let searchedMaker;
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
@@ -477,7 +493,7 @@ const Timeline = ({
 
     if (nearestMarker) {
       let markerDate = new Date(nearestMarker.dataset.date);
-      //console.log("snapToNearestMarker #i0111", { markerDate, searchedMaker });
+      //console.log("snapToNearestMarker #2 #k011", { markerDate: markerDate.toISOString(), searchedMaker });
       if (markerDate > endTime) markerDate = endTime;
       if (markerDate < startTime) markerDate = startTime;
       snapToDate(markerDate);
@@ -502,14 +518,14 @@ const Timeline = ({
       firstHour;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
-    rulerRef.current.style.transition = "transform 0.5s ease";
+    //rulerRef.current.style.transition = "transform 0.5s ease";
     // console.log("jumpToDate #i031", {
     //   newTargetDate: new Date(newTargetDate).toISOString(),
     //   maxStartDay,
     //   maxEndDay
     // });
 
-    snapToDate(newTargetDate);
+    setTargetDate(newTargetDate);
   };
 
   const handleOpenDateDialogClick = () => {
@@ -587,17 +603,17 @@ const Timeline = ({
     );
   };
 
-  console.log("Timeline->render #k01", {
+  console.info("Timeline->render #k011", {
     targetDate: targetDate?.toISOString(),
-    currentDate: currentDate?.toISOString(),
-    startTime: startTime?.toISOString(),
-    initialDate: initialDate?.toISOString(),
-    currentTranslateX,
-    rulerOffset,
-    markerPosition
+    currentDate: currentDate?.toISOString()
+    // startTime: startTime?.toISOString(),
+    // initialDate: initialDate?.toISOString(),
+    // currentTranslateX,
+    // indicatorOffset,
+    // markerPosition
     // params: {
     //   initialDate,
-    //   rulerOffset,
+    //   indicatorOffset,
     //   firstHour,
     //   timeSpan,
     //   startTime,
@@ -661,12 +677,13 @@ const Timeline = ({
         </div>
 
         {
-          <div ref={indicatorRef} className="cp-scale-stamp">
+          <div className="cp-scale-stamp">
             {timeSpan > 1 && (
               <div
+                ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
-                  left: rulerOffset,
+                  left: indicatorOffset,
                   width: timeSpan * pixelsPerHour
                 }}
               >
@@ -690,9 +707,10 @@ const Timeline = ({
 
             {timeSpan === 1 && (
               <div
+                ref={indicatorRef}
                 className="cp-scale-stamp-point js-active"
                 style={{
-                  left: rulerOffset
+                  left: indicatorOffset
                 }}
               >
                 <span className="cp-scale-stamp-point-arrow"></span>
