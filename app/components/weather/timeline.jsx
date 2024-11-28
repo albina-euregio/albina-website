@@ -307,7 +307,7 @@ const Timeline = ({
 
   const handleKeyDown = event => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
-    //console.log('handleKeyDown', {key: event.ctrlKey, timeSpan, factor});
+    console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
     switch (event.keyCode) {
       case 37:
         if (event.ctrlKey) jumpStep(-1 * factor);
