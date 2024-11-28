@@ -224,7 +224,7 @@ $page-header-logo-width: 3.25em;
     .mark-en {
       opacity: 1;
       background-image: url("../images/pro/logos/logo_mark_en.svg");
-      background-size: $logo-mark-en-width $logo-mark-en-height;
+      background-size: logo.$logo-mark-en-width logo.$logo-mark-en-height;
       &[data-base-url="/beta/"] {
         background-image: url("../images/pro/logos/beta/logo_mark_en.svg");
       }
@@ -305,7 +305,7 @@ $page-header-logo-width: 3.25em;
     height: logo.$logo-url-de-height;
     width: logo.$logo-url-de-width;
     background-image: url("../images/pro/logos/logo_url_de.svg");
-    background-size: $logo-url-de-width $logo-url-de-height;
+    background-size: logo.$logo-url-de-width logo.$logo-url-de-height;
     &[data-base-url="/beta/"] {
       background-image: url("../images/pro/logos/beta/logo_url_de.svg");
     }
@@ -317,7 +317,7 @@ $page-header-logo-width: 3.25em;
     height: logo.$logo-url-it-height;
     width: logo.$logo-url-it-width;
     background-image: url("../images/pro/logos/logo_url_it.svg");
-    background-size: $logo-url-it-width $logo-url-it-height;
+    background-size: logo.$logo-url-it-width logo.$logo-url-it-height;
     &[data-base-url="/beta/"] {
       background-image: url("../images/pro/logos/beta/logo_url_it.svg");
     }
@@ -333,7 +333,7 @@ $page-header-logo-width: 3.25em;
     height: logo.$logo-url-en-height;
     width: logo.$logo-url-en-width;
     background-image: url("../images/pro/logos/logo_url_en.svg");
-    background-size: $logo-url-en-width $logo-url-en-height;
+    background-size: logo.$logo-url-en-width logo.$logo-url-en-height;
     &[data-base-url="/beta/"] {
       background-image: url("../images/pro/logos/beta/logo_url_en.svg");
     }
