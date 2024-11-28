@@ -490,7 +490,7 @@ const Timeline = ({
   const getNearestMarker = () => {
     const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    let targetCenterX = indicatorRect.left + indicatorRect.width / 2;
+    let targetCenterX = indicatorRect.left;
 
     let nearestMarker = null;
     let minDistance = Infinity;
