@@ -1,3 +1,8 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -7,7 +12,7 @@
     #NAVIGATION
 \*------------------------------------*/
 
-$page-header-height: calc(3 * #{$body-font-size});
+$page-header-height: calc(3 * #{variables.$body-font-size});
 
 $page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;
@@ -24,9 +29,9 @@ $item-padding: 0.175em;
   position: relative;
   margin: 0;
 
-  @include font-bold;
+  @include mixins.font-bold;
   line-height: 1;
-  @include rollover;
+  @include mixins.rollover;
 
   a {
     position: relative;
@@ -37,7 +42,7 @@ $item-padding: 0.175em;
 
   .has-sub {
     padding-right: 3em;
-    @include icon(down-open, auto, 0, $text-color, 0, none);
+    @include icons.icon(down-open, auto, 0, variables.$text-color, 0, none);
     &:before {
       display: block;
       position: absolute;
@@ -47,7 +52,7 @@ $item-padding: 0.175em;
     &:hover,
     &.active {
       &:before {
-        color: $anchor-font-color;
+        color: variables.$anchor-font-color;
       }
     }
     &:hover {
@@ -59,29 +64,30 @@ $item-padding: 0.175em;
 
   //HOME and Posts
   small {
-    @include font-normal;
+    @include mixins.font-normal;
     font-size: 0.7em;
     &.label {
       margin: 0 0 0 0.25em;
     }
   }
 
-  @media screen and (max-width: #{upper-bound($normal-range)}) {
+  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
     .navigation-open & {
       top: 0;
-      margin: 0 calc(#{$padding} * 6 + #{$border-width} * 4) $margin-bottom 0;
+      margin: 0 calc(#{variables.$padding} * 6 + #{variables.$border-width} * 4)
+        variables.$margin-bottom 0;
 
       li {
         &:first-child a {
-          padding-top: $padding * 0.5;
+          padding-top: variables.$padding * 0.5;
         }
       }
 
       a {
         display: block;
-        padding: ($padding * 2) 0 $padding 0;
-        font-size: $h1-font-size;
-        @include font-heavy;
+        padding: (variables.$padding * 2) 0 variables.$padding 0;
+        font-size: variables.$h1-font-size;
+        @include mixins.font-heavy;
         white-space: normal;
       }
       .has-sub {
@@ -101,7 +107,7 @@ $item-padding: 0.175em;
     }
   }
 
-  @media #{$medium-up} {
+  @media #{variables.$medium-up} {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
@@ -125,10 +131,10 @@ $item-padding: 0.175em;
   min-width: 5em;
   margin: 0;
   padding: 0.5em 0 !important;
-  background-color: rgba($white, 0.95);
+  background-color: rgba(variables.$white, 0.95);
 
-  @include font-normal;
-  @include box-shadow;
+  @include mixins.font-normal;
+  @include mixins.box-shadow;
 
   &:hover {
     display: block;
@@ -145,19 +151,19 @@ $item-padding: 0.175em;
   a {
     &:link,
     &:visited {
-      color: $grey !important;
+      color: variables.$grey !important;
     }
     &:hover,
     &:active,
     &.active {
-      color: $anchor-font-color !important;
+      color: variables.$anchor-font-color !important;
     }
     &:before {
       right: 0.25em !important;
     }
   }
 
-  @media screen and (max-width: #{upper-bound($normal-range)}) {
+  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
     .navigation-open & {
       display: block;
       position: relative;
@@ -168,9 +174,9 @@ $item-padding: 0.175em;
       box-shadow: none;
 
       a {
-        padding: ($padding * 0.5) 0;
-        font-size: $body-font-size;
-        @include font-normal;
+        padding: (variables.$padding * 0.5) 0;
+        font-size: variables.$body-font-size;
+        @include mixins.font-normal;
         white-space: normal;
       }
 
@@ -187,7 +193,7 @@ $item-padding: 0.175em;
           left: auto;
         }
         &:last-child {
-          padding-bottom: $padding * 2;
+          padding-bottom: variables.$padding * 2;
         }
       }
     }
@@ -195,10 +201,10 @@ $item-padding: 0.175em;
 }
 
 .footer-navigation {
-  margin-bottom: $margin-bottom * 0.5;
-  @include font-bold;
+  margin-bottom: variables.$margin-bottom * 0.5;
+  @include mixins.font-bold;
   line-height: 1;
-  @include rollover;
+  @include mixins.rollover;
 
   a {
     position: relative;
@@ -211,10 +217,10 @@ $item-padding: 0.175em;
     }
     li {
       &:last-child {
-        @include font-normal;
+        @include mixins.font-normal;
       }
-      @media #{$tiny-up} {
-        padding-right: $padding * 2;
+      @media #{variables.$tiny-up} {
+        padding-right: variables.$padding * 2;
       }
     }
   }
@@ -222,14 +228,17 @@ $item-padding: 0.175em;
   &.footer-navigation-main {
     a {
       padding: $item-padding
-        calc(#{$icon-font-size} + #{$body-font-size-small} * 0.5);
-      @media #{$normal-up} {
+        calc(
+          #{variables.$icon-font-size} + #{variables.$body-font-size-small} *
+            0.5
+        );
+      @media #{variables.$normal-up} {
         padding-left: 0;
       }
     }
     small {
       font-size: 0.7em;
-      @include uppercase(0.05em);
+      @include mixins.uppercase(0.05em);
       &.label {
         margin: 0 0 0 0.25em;
       }
@@ -237,21 +246,28 @@ $item-padding: 0.175em;
   }
 
   .has-sub {
-    @include icon(arrow-right, auto, 0, $grey-light, -0.15em, none);
+    @include icons.icon(
+      arrow-right,
+      auto,
+      0,
+      variables.$grey-light,
+      -0.15em,
+      none
+    );
 
     &:before {
       display: block;
       position: absolute;
       right: 0;
-      @media #{$normal-up} {
-        color: $anchor-font-color;
+      @media #{variables.$normal-up} {
+        color: variables.$anchor-font-color;
       }
     }
     &:hover,
     &.active {
       &:before {
-        right: -($padding) * 0.5;
-        color: $anchor-font-color-hover;
+        right: -(variables.$padding) * 0.5;
+        color: variables.$anchor-font-color-hover;
       }
     }
   }

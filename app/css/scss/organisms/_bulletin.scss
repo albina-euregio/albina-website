@@ -1,3 +1,12 @@
+@use "sass:color";
+
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../atoms/bgs";
+@use "../atoms/media";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,7 +18,7 @@
 
 .section-bulletin {
   .list-labels {
-    margin-bottom: $margin-bottom * 0.5;
+    margin-bottom: variables.$margin-bottom * 0.5;
   }
 }
 
@@ -26,41 +35,42 @@
   */
 
   &.section-padding {
-    padding-top: $all-v-padding * 0.5;
+    padding-top: variables.$all-v-padding * 0.5;
     padding-bottom: 0;
   }
   .section-centered > * {
-    font-size: $tiny-font-size; //$body-font-size-tiny;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
   }
   p {
-    margin-bottom: $padding * 0.5;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    @include letter-spacing;
+    margin-bottom: variables.$padding * 0.5;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    @include mixins.letter-spacing;
     strong {
-      @include font-heavy;
+      @include mixins.font-heavy;
     }
   }
   img {
-    height: $picto-height;
+    height: media.$picto-height;
     //max-width: none;//<- why?
     margin: 0;
-    @include rollover;
+    @include mixins.rollover;
   }
 
   .list-avalanche-problems-filter {
-    padding-top: $padding;
+    padding-top: variables.$padding;
     display: flex;
     flex-wrap: nowrap;
-    gap: 0 ($padding * 2);
+    gap: 0 (variables.$padding * 2);
 
     li {
       position: relative;
     }
 
     .picto-img {
-      transform: translateY(-$padding);
-      border: $border-width $border-style $border-color;
-      @include rollout;
+      transform: translateY(-(variables.$padding));
+      border: variables.$border-width variables.$border-style
+        variables.$border-color;
+      @include mixins.rollout;
 
       img,
       svg {
@@ -74,15 +84,16 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: rgba($brand, 0);
-        @include rollout(all, $transition-duration * 2);
+        background-color: rgba(variables.$brand, 0);
+        @include mixins.rollout(all, variables.$transition-duration * 2);
       }
     }
 
     .picto-caption {
       position: relative;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
-      font-size: $nano-font-size;
+      margin: (variables.$padding * 0.25) (-(variables.$padding) * 0.9) 0
+        (-(variables.$padding) * 0.9);
+      font-size: variables.$nano-font-size;
       line-height: 1.2;
       text-align: center;
     }
@@ -90,7 +101,7 @@
     a {
       position: relative;
       display: block;
-      width: $picto-height;
+      width: media.$picto-height;
       // height: $picto-height-plus;
       background: none;
 
@@ -100,10 +111,10 @@
 
       &:hover {
         .picto-img {
-          @include rollover;
+          @include mixins.rollover;
           &:after {
-            background-color: rgba($brand, 0.05);
-            @include rollover(all, $transition-duration * 2);
+            background-color: rgba(variables.$brand, 0.05);
+            @include mixins.rollover(all, variables.$transition-duration * 2);
           }
         }
       }
@@ -134,8 +145,8 @@
     li {
       position: relative;
       width: 20%;
-      margin-right: $border-width;
-      padding: ($bar-width * 3) 0 0 0;
+      margin-right: variables.$border-width;
+      padding: (variables.$bar-width * 3) 0 0 0;
       &:last-child {
         margin-right: 0;
       }
@@ -143,13 +154,13 @@
         content: "";
         position: absolute;
         top: 0;
-        height: ($bar-width * 2);
+        height: (variables.$bar-width * 2);
         width: 100%;
       }
       span {
         display: block;
         text-align: center;
-        @include letter-spacing;
+        @include mixins.letter-spacing;
       }
       strong {
         display: block;
@@ -186,7 +197,7 @@
 .bulletin-list {
   margin: 0;
   .bulletin-list-item {
-    margin-bottom: $margin-bottom;
+    margin-bottom: variables.$margin-bottom;
     padding: 0;
     &:last-child {
       margin-bottom: 0;
@@ -207,17 +218,17 @@
 .bulletin-report-header {
   display: flex;
   flex-direction: column;
-  gap: $padding;
+  gap: variables.$padding;
 
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
 
-  @media #{$tiny-up} {
+  @media #{variables.$tiny-up} {
     flex-direction: row;
     justify-content: space-between;
   }
 
   > div {
-    @include last-child;
+    @include mixins.last-child;
   }
 
   .bulletin-report-header-diff {
@@ -225,11 +236,12 @@
     gap: 0.5em;
     align-items: center;
 
-    margin-bottom: $padding * 0.5;
-    font-size: $micro-font-size;
-    color: $warning-color;
-    background: $tertiary-color;
-    border: $border-width $border-style $tertiary-color;
+    margin-bottom: variables.$padding * 0.5;
+    font-size: variables.$micro-font-size;
+    color: variables.$warning-color;
+    background: variables.$tertiary-color;
+    border: variables.$border-width variables.$border-style
+      variables.$tertiary-color;
     // @media (hover: hover) {
     //   &:hover {
     //     color: $primary-color;
@@ -261,18 +273,18 @@
 
   .bulletin-report-header-meta {
     margin-bottom: 0;
-    font-size: $tiny-font-size;
-    @include letter-spacing;
+    font-size: variables.$tiny-font-size;
+    @include mixins.letter-spacing;
     strong {
-      @include font-heavy;
+      @include mixins.font-heavy;
     }
   }
 }
 
 .bulletin-report-pictobar {
-  margin-bottom: $margin-bottom;
-  font-size: $tiny-font-size;
-  @media #{$normal-up} {
+  margin-bottom: variables.$margin-bottom;
+  font-size: variables.$tiny-font-size;
+  @media #{variables.$normal-up} {
     display: flex;
     flex-wrap: wrap;
   }
@@ -280,9 +292,9 @@
 
 .bulletin-report-region {
   display: flex;
-  margin: 0 $grid-gutter ($padding * 2) 0;
+  margin: 0 variables.$grid-gutter (variables.$padding * 2) 0;
   line-height: 0;
-  @media #{$normal-up} {
+  @media #{variables.$normal-up} {
     display: flex;
     align-self: stretch;
     //max-width: none;//<- why?
@@ -297,13 +309,12 @@
       top: 50%;
       margin-right: 0;
       font-size: 3rem;
-      color: $white;
+      color: variables.$white;
       transform: translate(-50%, 0%);
       opacity: 0;
     }
     &:hover {
-      img {
-      }
+      // img {}
       &:before {
         transform: translate(-50%, -50%);
         opacity: 1;
@@ -316,15 +327,15 @@
     max-width: 45vw;
     margin-bottom: 0;
     line-height: 1.4;
-    @include box-border;
+    @include mixins.box-border;
   }
 
-  @media #{$tiny-up} {
+  @media #{variables.$tiny-up} {
     img {
       max-width: 30vw;
     }
   }
-  @media #{$normal-up} {
+  @media #{variables.$normal-up} {
     a.img {
       display: block;
       align-self: center;
@@ -333,7 +344,7 @@
       max-width: 20vw;
     }
   }
-  @media #{$large-up} {
+  @media #{variables.$large-up} {
     img {
       max-width: 15vw;
     }
@@ -349,24 +360,26 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 0;
-    border-top: $border-width $border-style $border-color;
+    border-top: variables.$border-width variables.$border-style
+      variables.$border-color;
     &:first-child {
       padding-top: 0;
       border-top: none;
       > div:first-child {
-        padding-right: $padding;
-        border-right: $border-width $border-style $border-color;
-        @media #{$tiny-up} {
-          padding-right: $padding * 2;
+        padding-right: variables.$padding;
+        border-right: variables.$border-width variables.$border-style
+          variables.$border-color;
+        @media #{variables.$tiny-up} {
+          padding-right: variables.$padding * 2;
         }
       }
     }
     > div {
       position: relative;
-      margin-right: $padding;
-      padding: $padding 0;
-      @media #{$tiny-up} {
-        margin-right: $padding * 2;
+      margin-right: variables.$padding;
+      padding: variables.$padding 0;
+      @media #{variables.$tiny-up} {
+        margin-right: variables.$padding * 2;
       }
       &:last-child {
         margin-right: 0;
@@ -374,8 +387,8 @@
     }
 
     &.list-bulletin-report-pictos-trigger {
-      @include font-bold;
-      @include letter-spacing;
+      @include mixins.font-bold;
+      @include mixins.letter-spacing;
       a {
         display: flex;
         justify-content: flex-start;
@@ -387,23 +400,23 @@
 
 .bulletin-report-picto {
   display: flex;
-  @include font-heavy;
-  @include letter-spacing;
+  @include mixins.font-heavy;
+  @include mixins.letter-spacing;
 
   > a {
     &:link,
     &:visited {
       display: flex;
-      color: $text-color;
+      color: variables.$text-color;
     }
     &:hover,
     &:active {
-      color: $anchor-font-color-hover;
+      color: variables.$anchor-font-color-hover;
     }
   }
   img,
   svg {
-    height: $picto-height;
+    height: media.$picto-height;
     //max-width: none;//<- why?
     margin: 0;
   }
@@ -417,12 +430,13 @@
   &.avalanche-situation {
     .picto-img {
       position: relative;
-      border: $border-width $border-style $border-color;
-      @include rollout;
+      border: variables.$border-width variables.$border-style
+        variables.$border-color;
+      @include mixins.rollout;
       img,
       svg {
         max-width: none;
-        height: $picto-height;
+        height: media.$picto-height;
         margin: 0;
       }
       &:after {
@@ -433,18 +447,19 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: rgba($brand, 0);
-        @include rollout(all, $transition-duration * 2);
+        background-color: rgba(variables.$brand, 0);
+        @include mixins.rollout(all, variables.$transition-duration * 2);
       }
     }
 
     .picto-caption {
       position: relative;
-      max-width: $picto-height + $padding * 1.8;
-      margin: ($padding * 0.25) (-$padding * 0.9) 0 (-$padding * 0.9);
-      @include font-normal;
-      @include letter-spacing(0);
-      font-size: $nano-font-size;
+      max-width: media.$picto-height + variables.$padding * 1.8;
+      margin: (variables.$padding * 0.25) (-(variables.$padding) * 0.9) 0
+        (-(variables.$padding) * 0.9);
+      @include mixins.font-normal;
+      @include mixins.letter-spacing(0);
+      font-size: variables.$nano-font-size;
       line-height: 1.2;
       text-align: center;
     }
@@ -459,10 +474,10 @@
       }
       &:hover {
         .picto-img {
-          @include rollover;
+          @include mixins.rollover;
           &:after {
-            background-color: rgba($brand, 0.05);
-            @include rollover(all, $transition-duration * 2);
+            background-color: rgba(variables.$brand, 0.05);
+            @include mixins.rollover(all, variables.$transition-duration * 2);
           }
         }
       }
@@ -472,29 +487,29 @@
   &.problem-altitude {
     img,
     svg {
-      height: $picto-height-minus;
+      height: media.$picto-height-minus;
     }
     span {
       position: relative;
-      @media screen and (max-width: #{lower-bound($tiny-range)}) {
-        font-size: $micro-font-size;
+      @media screen and (max-width: #{bounds.lower-bound(variables.$tiny-range)}) {
+        font-size: variables.$micro-font-size;
       }
-      @include icon(down-open, auto, 0, auto, 0, none);
+      @include icons.icon(down-open, auto, 0, auto, 0, none);
       &:before {
         position: absolute;
         top: 0.25em;
         left: -0.3em;
         font-size: 1.7rem;
-        color: $brand;
+        color: variables.$brand;
       }
       i {
-        @include icon(up-open, auto, 0, auto, 0, none);
+        @include icons.icon(up-open, auto, 0, auto, 0, none);
         &:before {
           position: absolute;
           top: -0.7em;
           left: -0.3em;
           font-size: 1.7rem;
-          color: $brand;
+          color: variables.$brand;
         }
       }
     }
@@ -554,7 +569,7 @@
     display: none;
     img,
     svg {
-      width: $picto-height-plus;
+      width: media.$picto-height-plus;
       height: 100%;
       //border: $border-width $border-style $border-color;
     }
@@ -563,15 +578,16 @@
   &.matrix-information {
     flex-grow: 3;
     flex-direction: column;
-    gap: ($padding * 0.25) 0;
+    gap: (variables.$padding * 0.25) 0;
   }
   .matrix-info {
     display: flex;
     flex-wrap: nowrap;
-    gap: 0 ($padding * 0.5);
+    gap: 0 (variables.$padding * 0.5);
 
-    padding-left: $bar-width;
-    border-left: ($bar-width * 1) solid $grey-very-very-light;
+    padding-left: variables.$bar-width;
+    border-left: (variables.$bar-width * 1) solid
+      variables.$grey-very-very-light;
 
     span {
       margin: 0;
@@ -586,29 +602,29 @@
   $matrix-info-value-opacity: 1;
 
   .matrix-info-value-1 {
-    border-color: rgba($white, $matrix-info-value-opacity);
+    border-color: rgba(variables.$white, $matrix-info-value-opacity);
   }
   .matrix-info-value-2 {
-    border-color: rgba($grey-very-light, $matrix-info-value-opacity);
+    border-color: rgba(variables.$grey-very-light, $matrix-info-value-opacity);
   }
   .matrix-info-value-3 {
-    border-color: rgba($grey-light, $matrix-info-value-opacity);
+    border-color: rgba(variables.$grey-light, $matrix-info-value-opacity);
   }
   .matrix-info-value-4 {
-    border-color: rgba($black, $matrix-info-value-opacity);
+    border-color: rgba(variables.$black, $matrix-info-value-opacity);
   }
   .matrix-info-value-5 {
-    border-color: rgba($black, $matrix-info-value-opacity);
+    border-color: rgba(variables.$black, $matrix-info-value-opacity);
   }
 
   .matrix-info-name {
-    @include font-normal;
+    @include mixins.font-normal;
     letter-spacing: 0;
   }
   .matrix-info-value {
     // min-width: 3.5em;
     // width: 50%;
-    @include font-bold;
+    @include mixins.font-bold;
   }
 }
 
@@ -662,28 +678,28 @@
 .bulletin-report-tendency {
   display: flex;
   align-items: center;
-  line-height: $header-line-height;
+  line-height: variables.$header-line-height;
   span {
     display: inline-block;
     &:first-child {
-      padding-right: $grid-gutter * 0.25;
+      padding-right: variables.$grid-gutter * 0.25;
     }
     &:last-child {
-      font-size: $large-font-size;
+      font-size: variables.$large-font-size;
       &:before {
-        color: $brand;
+        color: variables.$brand;
       }
     }
   }
   strong {
-    @include font-heavy;
-    @include letter-spacing;
+    @include mixins.font-heavy;
+    @include mixins.letter-spacing;
   }
 }
 
 .bulletin-report-public-alert {
-  @include font-bold;
-  @include letter-spacing;
+  @include mixins.font-bold;
+  @include mixins.letter-spacing;
 
   display: flex;
   flex-wrap: nowrap;
@@ -695,24 +711,23 @@
     font-size: 1.5em;
     &:before {
       margin: 0;
-      color: $warning-color;
+      color: variables.$warning-color;
     }
   }
-  .bulletin-report-public-alert-text {
-  }
+  // .bulletin-report-public-alert-text {}
 }
 
 .bulletin-author {
-  font-size: $tiny-font-size; //$body-font-size-tiny;
-  @include letter-spacing;
+  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+  @include mixins.letter-spacing;
   a {
-    @include font-heavy;
+    @include mixins.font-heavy;
   }
 }
 
 .bulletin-update-diff {
   // position: relative;
-  background-color: lighten($green, 55%);
+  background-color: color.adjust(variables.$green, $lightness: 55%);
   // background-color: rgba($green, 0.1);
   // outline: rgba($green, 0.1) $bar-width $border-style;
   // background: radial-gradient($green, transparent 50%);
@@ -738,5 +753,6 @@
 }
 
 .bulletin-update-diff-border {
-  outline: lighten($green, 55%) $bar-width $border-style;
+  outline: color.adjust(variables.$green, $lightness: 55%) variables.$bar-width
+    variables.$border-style;
 }

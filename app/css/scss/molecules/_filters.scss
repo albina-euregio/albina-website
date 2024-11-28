@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -13,24 +16,24 @@
     margin-right: 0;
   }
   .label {
-    color: $text-color;
-    border-color: $grey-light;
+    color: variables.$text-color;
+    border-color: variables.$grey-light;
     &:hover {
-      @include box-shadow;
+      @include mixins.box-shadow;
     }
     &:hover,
     &.js-active {
-      color: $anchor-font-color;
-      border-color: $anchor-font-color;
+      color: variables.$anchor-font-color;
+      border-color: variables.$anchor-font-color;
     }
   }
   &.primary {
     .label {
       &:hover,
       &.js-active {
-        color: $white;
-        border-color: $anchor-font-color;
-        background-color: $anchor-font-color;
+        color: variables.$white;
+        border-color: variables.$anchor-font-color;
+        background-color: variables.$anchor-font-color;
       }
     }
   }

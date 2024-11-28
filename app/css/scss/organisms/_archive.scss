@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/media";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -31,19 +35,19 @@
     }
 
     .region-nt {
-      color: $tyrol-color;
+      color: variables.$tyrol-color;
     }
     .region-st {
-      color: $south-tyrol-color;
+      color: variables.$south-tyrol-color;
     }
     .region-tr {
-      color: $trentino-color;
+      color: variables.$trentino-color;
     }
 
     .time {
-      font-size: $micro-font-size;
-      @include font-normal;
-      @include letter-spacing;
+      font-size: variables.$micro-font-size;
+      @include mixins.font-normal;
+      @include mixins.letter-spacing;
     }
 
     .list-download {
@@ -55,18 +59,17 @@
 
     .map-preview {
       display: inline-block;
-      height: $picto-height;
+      height: media.$picto-height;
       img {
         max-width: none;
-        height: $picto-height;
-        @include box-border;
+        height: media.$picto-height;
+        @include mixins.box-border;
       }
     }
 
     .avalanche-situation-preview {
       display: flex;
-      gap: 0 $padding;
+      gap: 0 variables.$padding;
     }
-
   }
 }

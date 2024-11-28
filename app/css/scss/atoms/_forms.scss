@@ -1,3 +1,9 @@
+@use "sass:meta";
+
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,32 +14,34 @@
 \*------------------------------------*/
 
 form {
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
 }
 
 //http://purecss.io/forms
 
-@import "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_forms.scss";
+@include meta.load-css(
+  "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_forms.scss"
+);
 
 .pure-form {
   legend {
-    margin-bottom: $padding * 2;
-    padding: 0 0 ($padding * 0.5) 0;
-    font-size: $large-font-size; //$body-font-size-large;
-    color: $text-color;
-    border-color: $border-color;
+    margin-bottom: variables.$padding * 2;
+    padding: 0 0 (variables.$padding * 0.5) 0;
+    font-size: variables.$large-font-size; //$body-font-size-large;
+    color: variables.$text-color;
+    border-color: variables.$border-color;
   }
   label {
     margin: 0;
-    @include font-heavy;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    @include letter-spacing(0.05em);
+    @include mixins.font-heavy;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    @include mixins.letter-spacing(0.05em);
   }
   .pure-checkbox,
   .pure-radio {
-    margin: 0 0 $padding 0;
+    margin: 0 0 variables.$padding 0;
     input {
-      margin-right: $padding;
+      margin-right: variables.$padding;
     }
   }
 
@@ -54,26 +62,26 @@ form {
   select,
   textarea {
     margin: 0;
-    padding: $padding;
-    @include font-normal;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    line-height: $header-line-height;
+    padding: variables.$padding;
+    @include mixins.font-normal;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    line-height: variables.$header-line-height;
     //@include letter-spacing(0.05em);
-    color: $brand;
-    border-radius: $global-radius;
+    color: variables.$brand;
+    border-radius: variables.$global-radius;
     -webkit-appearance: none;
-    @include box-shadow;
-    @include rollout;
+    @include mixins.box-shadow;
+    @include mixins.rollout;
 
     &::placeholder {
-      color: $grey-light;
-      @include rollover;
+      color: variables.$grey-light;
+      @include mixins.rollover;
     }
 
     &:hover {
-      border-color: $brand;
+      border-color: variables.$brand;
       &::placeholder {
-        color: $grey;
+        color: variables.$grey;
       }
     }
   }
@@ -86,16 +94,16 @@ form {
   }
 
   .pure-control-group {
-    margin-bottom: $padding;
+    margin-bottom: variables.$padding;
     label {
-      margin-right: $padding;
+      margin-right: variables.$padding;
     }
   }
 
   .pure-group {
     input:last-child {
-      top: -$border-width;
-      border-radius: $global-radius;
+      top: -(variables.$border-width);
+      border-radius: variables.$global-radius;
     }
   }
 
@@ -103,11 +111,11 @@ form {
     input {
       // line-height: 1em;
       // border-width: 0px;
-      border-color: $white;
+      border-color: variables.$white;
       box-shadow: none;
       &:hover,
       &:focus {
-        border-color: $white;
+        border-color: variables.$white;
       }
     }
   }
@@ -142,7 +150,7 @@ input[type="range"] {
   }
   //Focusing  with a keyboard
   &:focus-visible {
-    @include keyboard-focus();
+    @include mixins.keyboard-focus();
   }
   //Focusing with a mouse, touch, or stylus
   &:focus:not(:focus-visible) {
@@ -151,109 +159,109 @@ input[type="range"] {
 
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: $bar-width;
-    margin-top: calc(#{$bar-width} * 2 - #{$bar-width} / 2);
+    height: variables.$bar-width;
+    margin-top: calc(#{variables.$bar-width} * 2 - #{variables.$bar-width} / 2);
     cursor: pointer;
-    background: $grey-very-light;
-    border-radius: $global-rounded;
-    @include rollout;
+    background: variables.$grey-very-light;
+    border-radius: variables.$global-rounded;
+    @include mixins.rollout;
     &:hover,
     &:focus {
-      background: $brand;
+      background: variables.$brand;
       outline: none;
     }
   }
   &::-webkit-slider-thumb {
-    height: $bar-width * 4;
-    width: $bar-width * 4;
-    margin-top: calc(-#{$bar-width} - #{$bar-width} / 2);
-    background: $white;
-    border: $border-width $border-style $brand;
-    border-radius: $global-rounded;
+    height: variables.$bar-width * 4;
+    width: variables.$bar-width * 4;
+    margin-top: calc(-#{variables.$bar-width} - #{variables.$bar-width} / 2);
+    background: variables.$white;
+    border: variables.$border-width variables.$border-style variables.$brand;
+    border-radius: variables.$global-rounded;
     cursor: pointer;
     -webkit-appearance: none;
-    @include rollout;
+    @include mixins.rollout;
     &:hover {
     }
   }
 
   &::-moz-range-track {
     width: 100%;
-    height: $bar-width * 2;
+    height: variables.$bar-width * 2;
     cursor: pointer;
-    background: $grey-very-light;
-    border-radius: $global-rounded;
+    background: variables.$grey-very-light;
+    border-radius: variables.$global-rounded;
     &:hover,
     &:focus {
-      background: $grey-light;
+      background: variables.$grey-light;
       outline: none;
     }
   }
   &::-moz-range-thumb {
-    height: $bar-width * 4;
-    width: $bar-width * 4;
-    background: $white;
-    border: $border-width $border-style $brand;
-    border-radius: $global-rounded;
+    height: variables.$bar-width * 4;
+    width: variables.$bar-width * 4;
+    background: variables.$white;
+    border: variables.$border-width variables.$border-style variables.$brand;
+    border-radius: variables.$global-rounded;
     cursor: pointer;
     &:hover {
-      border-color: $brand;
-      background: $brand;
+      border-color: variables.$brand;
+      background: variables.$brand;
     }
   }
 
   &::-ms-track {
     width: 100%;
-    height: $bar-width * 2;
+    height: variables.$bar-width * 2;
     cursor: pointer;
     background: transparent;
     border-color: transparent;
-    border-width: $padding 0;
+    border-width: variables.$padding 0;
     color: transparent;
   }
   &::-ms-fill-lower {
-    background: $grey-very-light;
-    border-radius: $global-rounded;
+    background: variables.$grey-very-light;
+    border-radius: variables.$global-rounded;
     &:hover,
     &:focus {
-      background: $grey-light;
+      background: variables.$grey-light;
       outline: none;
     }
   }
   &::-ms-fill-upper {
-    background: $grey-very-light;
-    border-radius: $global-rounded;
+    background: variables.$grey-very-light;
+    border-radius: variables.$global-rounded;
     &:hover,
     &:focus {
-      background: $grey-light;
+      background: variables.$grey-light;
       outline: none;
     }
   }
   &::-ms-thumb {
-    border: $border-width $border-style $brand;
-    height: $padding * 2;
-    width: $padding * 2;
-    border-radius: $global-rounded;
-    background: $white;
+    border: variables.$border-width variables.$border-style variables.$brand;
+    height: variables.$padding * 2;
+    width: variables.$padding * 2;
+    border-radius: variables.$global-rounded;
+    background: variables.$white;
     cursor: pointer;
     &:hover {
-      border-color: $brand;
-      background: $brand;
+      border-color: variables.$brand;
+      background: variables.$brand;
     }
   }
 }
 
 //http://www.w3schools.com/howto/howto_css_switch.asp
 .switch {
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
   label {
     position: relative;
     display: inline-block;
-    width: $padding * 4;
-    height: $padding * 2;
+    width: variables.$padding * 4;
+    height: variables.$padding * 2;
     //Focusing  with a keyboard
     &:focus-visible {
-      @include keyboard-focus();
+      @include mixins.keyboard-focus();
     }
     //Focusing with a mouse, touch, or stylus
     &:focus:not(:focus-visible) {
@@ -270,36 +278,36 @@ input[type="range"] {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $grey-light;
-    border-radius: $global-rounded;
-    @include rollout;
+    background-color: variables.$grey-light;
+    border-radius: variables.$global-rounded;
+    @include mixins.rollout;
     &:before {
       position: absolute;
       content: "";
-      height: calc(#{$padding} * 2 - #{$border-width} * 2);
-      width: calc(#{$padding} * 2 - #{$border-width} * 2);
-      left: $border-width;
-      right: $border-width;
-      bottom: $border-width;
-      background-color: $white;
-      border-radius: $global-rounded;
-      @include rollout;
+      height: calc(#{variables.$padding} * 2 - #{variables.$border-width} * 2);
+      width: calc(#{variables.$padding} * 2 - #{variables.$border-width} * 2);
+      left: variables.$border-width;
+      right: variables.$border-width;
+      bottom: variables.$border-width;
+      background-color: variables.$white;
+      border-radius: variables.$global-rounded;
+      @include mixins.rollout;
     }
     &:hover {
-      background-color: $grey;
+      background-color: variables.$grey;
     }
   }
   input:checked + .slider {
-    background-color: $brand;
+    background-color: variables.$brand;
   }
   input:checked + .slider:before {
-    transform: translateX($padding * 2);
+    transform: translateX(variables.$padding * 2);
   }
 }
 
 .switch-text {
-  margin-bottom: $margin-bottom;
-  font-size: $small-font-size;
+  margin-bottom: variables.$margin-bottom;
+  font-size: variables.$small-font-size;
   label {
     position: relative;
     display: inline-block;
@@ -311,34 +319,34 @@ input[type="range"] {
     overflow: auto;
     cursor: pointer;
     padding: 0;
-    border-radius: $global-rounded;
-    @include rollout;
+    border-radius: variables.$global-rounded;
+    @include mixins.rollout;
 
     span {
       display: inline-block;
       float: left;
       margin: 0;
-      padding: ($padding * 0.2) ($padding * 0.5) ($padding * 0.25)
-        ($padding * 0.5);
-      color: rgba($brand, 0.5);
-      border: $border-width $border-style $brand;
+      padding: (variables.$padding * 0.2) (variables.$padding * 0.5)
+        (variables.$padding * 0.25) (variables.$padding * 0.5);
+      color: rgba(variables.$brand, 0.5);
+      border: variables.$border-width variables.$border-style variables.$brand;
       background-color: transparent;
-      @include rollout;
+      @include mixins.rollout;
       &:first-child {
-        padding-left: $padding;
-        color: $white;
-        background-color: $brand;
-        border-radius: $global-rounded 0 0 $global-rounded;
+        padding-left: variables.$padding;
+        color: variables.$white;
+        background-color: variables.$brand;
+        border-radius: variables.$global-rounded 0 0 variables.$global-rounded;
       }
       &:last-child {
-        padding-right: $padding;
-        border-radius: 0 $global-rounded $global-rounded 0;
+        padding-right: variables.$padding;
+        border-radius: 0 variables.$global-rounded variables.$global-rounded 0;
       }
     }
     &:hover {
       span {
         &:last-child {
-          color: $brand;
+          color: variables.$brand;
         }
       }
     }
@@ -346,18 +354,18 @@ input[type="range"] {
   input:checked + .slider {
     span {
       &:first-child {
-        color: rgba($brand, 0.5);
+        color: rgba(variables.$brand, 0.5);
         background-color: transparent;
       }
       &:last-child {
-        color: $white;
-        background-color: $brand;
+        color: variables.$white;
+        background-color: variables.$brand;
       }
     }
     &:hover {
       span {
         &:first-child {
-          color: $brand;
+          color: variables.$brand;
         }
       }
     }
@@ -384,37 +392,38 @@ $selectric-max-width: 20em;
   display: block; //inline-block;
   position: relative;
   min-width: $selectric-min-width;
-  padding: $padding ($padding * 3) $padding $padding;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
+  padding: variables.$padding (variables.$padding * 3) variables.$padding
+    variables.$padding;
+  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
   //@media #{$medium-up} { font-size: $tiny-font-size; }
-  @include font-heavy;
-  line-height: $header-line-height;
-  @include letter-spacing(0.1em);
-  @include uppercase;
+  @include mixins.font-heavy;
+  line-height: variables.$header-line-height;
+  @include mixins.letter-spacing(0.1em);
+  @include mixins.uppercase;
 
-  color: $brand;
-  background: $white;
-  border: $border-width $border-style $brand;
-  border-radius: $global-radius;
-  @include rollout;
+  color: variables.$brand;
+  background: variables.$white;
+  border: variables.$border-width variables.$border-style variables.$brand;
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
 
   .controlbar & {
-    color: $white;
-    background: $brand;
-    border-color: $white;
+    color: variables.$white;
+    background: variables.$brand;
+    border-color: variables.$white;
   }
 
   &:before {
     position: absolute;
-    top: $padding * 0.5;
-    right: $padding * 0.5;
+    top: variables.$padding * 0.5;
+    right: variables.$padding * 0.5;
     margin-right: 0;
-    color: $brand;
+    color: variables.$brand;
     //@mixin icon($type, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none)
-    @include icon(down-open, $icon-font-size, 0, auto, 0, none);
-    @include rollout;
+    @include icons.icon(down-open, variables.$icon-font-size, 0, auto, 0, none);
+    @include mixins.rollout;
     .controlbar & {
-      color: $white;
+      color: variables.$white;
     }
   }
 
@@ -425,15 +434,15 @@ $selectric-max-width: 20em;
     display: block;
     white-space: nowrap;
     overflow: hidden;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
     //@media #{$normal-up} { font-size: $tiny-font-size; }
     text-overflow: ellipsis;
-    color: $brand;
+    color: variables.$brand;
     background: none;
     border: none;
     border-radius: 0;
     .controlbar & {
-      color: $white;
+      color: variables.$white;
     }
   }
   .button {
@@ -443,35 +452,35 @@ $selectric-max-width: 20em;
   &:hover,
   .selectric-open &,
   .selectric-changed & {
-    color: $white;
-    background: $brand;
-    border-color: $brand;
-    @include box-shadow;
-    @include rollover;
+    color: variables.$white;
+    background: variables.$brand;
+    border-color: variables.$brand;
+    @include mixins.box-shadow;
+    @include mixins.rollover;
     .controlbar & {
-      color: $brand;
-      background: $white;
-      border-color: $white;
+      color: variables.$brand;
+      background: variables.$white;
+      border-color: variables.$white;
     }
 
     &:before {
-      color: $white;
+      color: variables.$white;
       .controlbar & {
-        color: $brand;
+        color: variables.$brand;
       }
     }
 
     .label {
-      color: $white;
+      color: variables.$white;
       .controlbar & {
-        color: $brand;
+        color: variables.$brand;
       }
     }
   }
   .selectric-open &,
   .selectric-changed & {
     .controlbar & {
-      border-color: $brand;
+      border-color: variables.$brand;
     }
   }
 }
@@ -485,7 +494,7 @@ $selectric-max-width: 20em;
   .selectric-items {
     display: block;
     opacity: 1;
-    @include rollover;
+    @include mixins.rollover;
   }
 }
 
@@ -532,8 +541,8 @@ $selectric-max-width: 20em;
   clip: rect(0, 0, 0, 0) !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: $border-width !important;
-  height: $border-width !important;
+  width: variables.$border-width !important;
+  height: variables.$border-width !important;
   outline: none !important;
   border: none !important;
   *font: 0/0 a !important;
@@ -549,37 +558,37 @@ $selectric-max-width: 20em;
 /* Items box */
 .selectric-above .selectric-items {
   top: auto;
-  bottom: calc(100% - #{$border-width});
+  bottom: calc(100% - #{variables.$border-width});
 }
 
 .selectric-items {
   display: none;
   position: absolute;
-  top: calc(100% - #{$border-width});
+  top: calc(100% - #{variables.$border-width});
   left: 0;
 
   min-width: $selectric-min-width !important;
   max-width: $selectric-max-width !important;
   width: auto !important;
 
-  font-size: $normal-font-size;
-  line-height: $header-line-height;
+  font-size: variables.$normal-font-size;
+  line-height: variables.$header-line-height;
 
-  background: $white;
-  border: $border-width $border-style $brand;
+  background: variables.$white;
+  border: variables.$border-width variables.$border-style variables.$brand;
   opacity: 0;
 
-  @include box-shadow;
+  @include mixins.box-shadow;
 
-  @media #{$medium-up} {
-    font-size: $tiny-font-size;
+  @media #{variables.$medium-up} {
+    font-size: variables.$tiny-font-size;
   }
 
   .controlbar & {
-    @include text-color($text-color);
+    @include mixins.text-color(variables.$text-color);
   }
 
-  @include rollout;
+  @include mixins.rollout;
 
   .selectric-scroll {
     height: 100%;
@@ -587,26 +596,27 @@ $selectric-max-width: 20em;
   }
   ul {
     margin-bottom: 0;
-    @include list-plain;
+    @include mixins.list-plain;
   }
   li {
-    padding: $padding !important;
-    border-top: $border-width $border-style $border-color;
+    padding: variables.$padding !important;
+    border-top: variables.$border-width variables.$border-style
+      variables.$border-color;
     cursor: pointer;
-    @include rollout;
+    @include mixins.rollout;
 
     &.selected {
-      color: $brand;
+      color: variables.$brand;
     }
     &.highlighted {
-      color: $brand;
+      color: variables.$brand;
     }
 
     &:hover {
-      color: $brand;
-      background: $table-row-hover-bg;
+      color: variables.$brand;
+      background: variables.$table-row-hover-bg;
       cursor: pointer;
-      @include rollover;
+      @include mixins.rollover;
     }
   }
 
@@ -614,20 +624,20 @@ $selectric-max-width: 20em;
     opacity: 0.5;
     cursor: default !important;
     background: none !important;
-    color: $grey-light !important;
+    color: variables.$grey-light !important;
     user-select: none;
   }
 
   .selectric-group {
     .selectric-group-label {
       font-weight: bold;
-      padding-left: $padding;
+      padding-left: variables.$padding;
       cursor: default;
       user-select: none;
       background: none;
     }
     li {
-      padding-left: $padding * 2;
+      padding-left: variables.$padding * 2;
     }
     &.disabled li {
       opacity: 1;

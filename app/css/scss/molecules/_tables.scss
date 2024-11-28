@@ -1,3 +1,8 @@
+//http://purecss.io/tables
+@use "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_tables.scss";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -7,65 +12,64 @@
     #TABLES
 \*------------------------------------*/
 
-//http://purecss.io/tables
-
-@import "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_tables.scss";
-
 .table-container {
   width: 100%;
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
   overflow: auto;
-  border: $table-border-size $table-border-style $table-border-color;
-  @include box-shadow;
-  @include smooth-scroll;
+  border: variables.$table-border-size variables.$table-border-style
+    variables.$table-border-color;
+  @include mixins.box-shadow;
+  @include mixins.smooth-scroll;
 }
 
 .pure-table {
   min-width: 100%;
-  background-color: $table-bg;
+  background-color: variables.$table-bg;
   border: none;
   border-collapse: inherit;
   td,
   th {
     text-align: left;
-    padding: $table-row-padding;
+    padding: variables.$table-row-padding;
     background-color: transparent;
     border: none;
     &:first-child {
-      padding-left: $table-row-padding;
+      padding-left: variables.$table-row-padding;
     }
     &:last-child {
-      padding-right: $table-row-padding;
+      padding-right: variables.$table-row-padding;
     }
   }
   thead {
-    color: $table-head-font-color;
-    background-color: $table-head-bg;
+    color: variables.$table-head-font-color;
+    background-color: variables.$table-head-bg;
     tr {
     }
     th {
-      font-size: $table-head-font-size;
-      font-weight: $table-head-font-weight;
-      border-bottom: $border-width $border-style $brand-very-light;
+      font-size: variables.$table-head-font-size;
+      font-weight: variables.$table-head-font-weight;
+      border-bottom: variables.$border-width variables.$border-style
+        variables.$brand-very-light;
     }
   }
   tbody {
-    line-height: $table-line-height;
-    color: $table-row-font-color;
+    line-height: variables.$table-line-height;
+    color: variables.$table-row-font-color;
     tr {
-      @include rollout(all, $transition-duration * 2);
+      @include mixins.rollout(all, variables.$transition-duration * 2);
       &:last-child {
         td {
           border-bottom: none;
         }
       }
       &:hover {
-        @include rollover;
+        @include mixins.rollover;
       }
     }
     td {
-      font-size: $table-row-font-size;
-      border-bottom: $border-width $border-style $border-color;
+      font-size: variables.$table-row-font-size;
+      border-bottom: variables.$border-width variables.$border-style
+        variables.$border-color;
     }
   }
 }
@@ -76,15 +80,15 @@
       background-color: transparent;
     }
     tr:nth-child(odd) {
-      background-color: $table-odd-row-bg;
+      background-color: variables.$table-odd-row-bg;
       &:hover {
-        background-color: $table-row-hover-bg;
+        background-color: variables.$table-row-hover-bg;
       }
     }
     tr:nth-child(even) {
-      background-color: $table-even-row-bg;
+      background-color: variables.$table-even-row-bg;
       &:hover {
-        background-color: $table-row-hover-bg;
+        background-color: variables.$table-row-hover-bg;
       }
     }
   }
@@ -93,12 +97,12 @@
 .pure-table-small {
   thead {
     th {
-      font-size: $table-small-font-size;
+      font-size: variables.$table-small-font-size;
     }
   }
   tbody {
     td {
-      font-size: $table-small-font-size;
+      font-size: variables.$table-small-font-size;
     }
   }
 }

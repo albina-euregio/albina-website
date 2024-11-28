@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,11 +11,11 @@
 \*------------------------------------*/
 
 .modal-subscribe {
-  @include last-child;
+  @include mixins.last-child;
   .list-inline {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: $margin-bottom * 0.5;
+    margin-bottom: variables.$margin-bottom * 0.5;
     //not overview
     &:not(.list-buttongroup-dense) {
       align-items: center;
@@ -21,7 +24,7 @@
   .list-subscribe-language {
     margin-bottom: 0;
     li {
-      padding: 0 ($padding * 4) $padding 0;
+      padding: 0 (variables.$padding * 4) variables.$padding 0;
       &:last-child {
         padding-right: 0;
       }
@@ -31,32 +34,34 @@
     max-width: 30em;
   }
   hr {
-    margin-bottom: $margin-bottom * 0.5;
+    margin-bottom: variables.$margin-bottom * 0.5;
   }
   .iamok {
-    font-size: $small-font-size;
+    font-size: variables.$small-font-size;
   }
   .status-message {
-    font-size: $small-font-size;
+    font-size: variables.$small-font-size;
     .error {
-      color: $error-color;
+      color: variables.$error-color;
     }
   }
 
   > div + div {
-    padding-top: $margin-bottom;
-    border-top: $border-width $border-style $border-color;
+    padding-top: variables.$margin-bottom;
+    border-top: variables.$border-width variables.$border-style
+      variables.$border-color;
   }
 }
 
 //from alien app.scss
 .status-message .error {
-  color: $error-color;
+  color: variables.$error-color;
 }
 
 .app-dl {
-  margin-bottom: $margin-bottom * 0.5;
-  border-bottom: $border-width $border-style $border-color;
+  margin-bottom: variables.$margin-bottom * 0.5;
+  border-bottom: variables.$border-width variables.$border-style
+    variables.$border-color;
   &:last-child {
     margin-bottom: 0;
     border-bottom: none;
@@ -72,8 +77,8 @@
 
 // messenger-people-plugin
 .messengerpeople-wrapper {
-  margin-left: -($padding * 0.5);
-  margin-right: -($padding * 0.5);
+  margin-left: -(variables.$padding * 0.5);
+  margin-right: -(variables.$padding * 0.5);
   iframe {
     height: 280px;
     width: 500px;
@@ -92,5 +97,5 @@ a.share-feed {
 }
 //from alien app.scss
 .modal-subscribe .blog-language {
-  @include font-bold;
+  @include mixins.font-bold;
 }

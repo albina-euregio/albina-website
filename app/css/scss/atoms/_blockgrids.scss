@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "grid";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,16 +11,16 @@
 \*------------------------------------*/
 
 .blockgrid {
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
 
   .grid-item {
-    @media #{$tiny-up} {
+    @media #{variables.$tiny-up} {
       // T H E   F U C K I N G   F A L L B A C K
-      width: calc(100% * 0.5 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0.5 - #{variables.$grid-gutter} - 0.1px);
 
       // T H E   G R I D
-      @if $grid-activated {
-        grid-column: span ($grid-columns * 0.5);
+      @if grid.$grid-activated {
+        grid-column: span (variables.$grid-columns * 0.5);
 
         // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
         @supports (display: grid) {
@@ -25,33 +28,33 @@
         }
       }
     }
-    @media #{$small-up} {
+    @media #{variables.$small-up} {
     }
-    @media #{$normal-up} {
-      width: calc(100% * 0.3333333333 - #{$grid-gutter} - 0.1px);
+    @media #{variables.$normal-up} {
+      width: calc(100% * 0.3333333333 - #{variables.$grid-gutter} - 0.1px);
 
-      @if $grid-activated {
-        grid-column: span ($grid-columns * 0.3333333333);
+      @if grid.$grid-activated {
+        grid-column: span (variables.$grid-columns * 0.3333333333);
         @supports (display: grid) {
           width: auto;
         }
       }
     }
-    @media #{$medium-up} {
-      width: calc(100% * 0.25 - #{$grid-gutter} - 0.1px);
+    @media #{variables.$medium-up} {
+      width: calc(100% * 0.25 - #{variables.$grid-gutter} - 0.1px);
 
-      @if $grid-activated {
-        grid-column: span ($grid-columns * 0.25);
+      @if grid.$grid-activated {
+        grid-column: span (variables.$grid-columns * 0.25);
         @supports (display: grid) {
           width: auto;
         }
       }
     }
-    @media #{$xlarge-up} {
-      width: calc(100% * 0.1666666667 - #{$grid-gutter} - 0.1px);
+    @media #{variables.$xlarge-up} {
+      width: calc(100% * 0.1666666667 - #{variables.$grid-gutter} - 0.1px);
 
-      @if $grid-activated {
-        grid-column: span ($grid-columns * 0.1666666667);
+      @if grid.$grid-activated {
+        grid-column: span (variables.$grid-columns * 0.1666666667);
         @supports (display: grid) {
           width: auto;
         }
