@@ -87,7 +87,10 @@ export class WordpressProcessor implements BlogProcessor {
   }
 
   private newItem(post: Post, config: BlogConfig) {
-    if (config.lang !== this.parseLang(post.polylang_current_lang)) {
+    if (
+      config.lang &&
+      config.lang !== this.parseLang(post.polylang_current_lang)
+    ) {
       return undefined;
     }
     return new BlogPostPreviewItem(

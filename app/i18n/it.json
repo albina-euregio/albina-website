@@ -2,6 +2,7 @@
   "app:title": "Valanghe.report",
   "menu:bulletin": "Report",
   "menu:blog": "Blog",
+  "menu:blog:tech": "Tech Blog",
   "menu:weather": "Meteo",
   "menu:education": "Formazione",
   "menu:more": "Altro",
