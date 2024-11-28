@@ -226,10 +226,10 @@ const Timeline = ({
 
   useEffect(() => {
     if (currentDate?.getTime() > 0) {
-      console.log("Timeline->useEffect->currentDate #k011", {
-        currentDate: currentDate.toISOString(),
-        currentDateTime: currentDate.getTime()
-      });
+      // console.log("Timeline->useEffect->currentDate #k011", {
+      //   currentDate: currentDate.toISOString(),
+      //   currentDateTime: currentDate.getTime()
+      // });
       if (updateCB) {
         updateCB(currentDate);
       }
@@ -307,7 +307,7 @@ const Timeline = ({
 
   const handleKeyDown = event => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
-    console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
+    //console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
     switch (event.keyCode) {
       case 37:
         if (event.ctrlKey) jumpStep(-1 * factor);
@@ -329,13 +329,13 @@ const Timeline = ({
   const jumpStep = direction => {
     const newDate = new Date(currentDate);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
-    console.log("jumpStep #i01", {
-      direction,
-      selectableHoursOffset,
-      targetDate: targetDate.toISOString(),
-      newDate: newDate.toISOString(),
-      endTime: endTime.toISOString()
-    });
+    // console.log("jumpStep #i01", {
+    //   direction,
+    //   selectableHoursOffset,
+    //   targetDate: targetDate.toISOString(),
+    //   newDate: newDate.toISOString(),
+    //   endTime: endTime.toISOString()
+    // });
     if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
   };
 
@@ -376,11 +376,11 @@ const Timeline = ({
             usedEndTime?.getTime() >= markDate.getTime() &&
             nextSelectableDate.getTime() > usedEndTime?.getTime()
           ) {
-            console.log("rulerMarkings #k0111", {
-              markDate: markDate.toISOString(),
-              nextSelectableDate: nextSelectableDate.toISOString(),
-              usedEndTime: usedEndTime?.toISOString()
-            });
+            // console.log("rulerMarkings #k0111", {
+            //   markDate: markDate.toISOString(),
+            //   nextSelectableDate: nextSelectableDate.toISOString(),
+            //   usedEndTime: usedEndTime?.toISOString()
+            // });
             markClass.push("selectable-hours-end");
           }
         }
@@ -480,7 +480,7 @@ const Timeline = ({
         selectableHoursOffset +
       firstHour;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
-    console.log("snapToDate #k011", { newTargetDate });
+    //console.log("snapToDate #k011", { newTargetDate });
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
     const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
     const { targetMarker } = getMarkerCenterX(newTargetDate);
@@ -507,28 +507,28 @@ const Timeline = ({
       const distance = Math.abs(markerCenterX - targetCenterX);
 
       if (distance < minDistance) {
-        console.log("getNearestMarker #k0111", {
-          date: marker?.dataset?.date,
-          distance,
-          minDistance
-        });
+        // console.log("getNearestMarker #k0111", {
+        //   date: marker?.dataset?.date,
+        //   distance,
+        //   minDistance
+        // });
         minDistance = distance;
         nearestMarker = marker;
       }
     });
-    console.log("getNearestMarker #k011", {
-      markers,
-      targetCenterX,
-      nearestMarkerDate: nearestMarker?.dataset?.date,
-      minDistance
-    });
+    // console.log("getNearestMarker #k011", {
+    //   markers,
+    //   targetCenterX,
+    //   nearestMarkerDate: nearestMarker?.dataset?.date,
+    //   minDistance
+    // });
     return nearestMarker;
   };
 
   const getMarkerCenterX = newTargetDate => {
-    console.log("getMarkerCenterX #k011", {
-      newTargetDate: newTargetDate?.toISOString()
-    });
+    // console.log("getMarkerCenterX #k011", {
+    //   newTargetDate: newTargetDate?.toISOString()
+    // });
     const targetMarker = document.querySelectorAll(
       `[data-date*="${newTargetDate.toISOString()}"]`
     );
