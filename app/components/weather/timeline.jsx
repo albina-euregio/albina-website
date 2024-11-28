@@ -225,7 +225,11 @@ const Timeline = ({
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
-    if (currentDate) {
+    if (currentDate?.getTime() > 0) {
+      console.log("Timeline->useEffect->currentDate #k011", {
+        currentDate: currentDate.toISOString(),
+        currentDateTime: currentDate.getTime()
+      });
       if (updateCB) {
         updateCB(currentDate);
       }
@@ -621,29 +625,29 @@ const Timeline = ({
     );
   };
 
-  // console.info("Timeline->render #k011", {
-  //   targetDate: targetDate?.toISOString(),
-  //   currentDate: currentDate?.toISOString(),
-  //   startTime: startTime?.toISOString(),
-  //   endTime: endTime?.toISOString(),
-  //   // initialDate: initialDate?.toISOString(),
-  //   // currentTranslateX,
-  //   // indicatorOffset,
-  //   // markerPosition
-  //   // params: {
-  //   //   initialDate,
-  //   //   indicatorOffset,
-  //   //   firstHour,
-  //   //   timeSpan,
-  //   //   startTime,
-  //   //   endTime,
-  //   //   markerPosition,
-  //   //   showBar,
-  //   //   barDuration,
-  //   //   updateCB,
-  //   //   domainId
-  //   // }
-  // });
+  console.info("Timeline->render #k011", {
+    targetDate: targetDate?.toISOString(),
+    currentDate: currentDate?.toISOString(),
+    startTime: startTime?.toISOString(),
+    endTime: endTime?.toISOString()
+    // initialDate: initialDate?.toISOString(),
+    // currentTranslateX,
+    // indicatorOffset,
+    // markerPosition
+    // params: {
+    //   initialDate,
+    //   indicatorOffset,
+    //   firstHour,
+    //   timeSpan,
+    //   startTime,
+    //   endTime,
+    //   markerPosition,
+    //   showBar,
+    //   barDuration,
+    //   updateCB,
+    //   domainId
+    // }
+  });
   if (!currentDate) return <div></div>;
   return (
     <>

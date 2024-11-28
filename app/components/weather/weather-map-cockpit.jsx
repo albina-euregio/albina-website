@@ -323,15 +323,15 @@ const WeatherMapCockpit = ({
   )
     usedInitialDate = new Date(usedEndTime);
 
-  // console.log("weather-map-cockpit->render #j01", {
-  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   startDate,
-  //   currentTime,
-  //   usedStartTime,
-  //   usedInitialDate,
-  //   usedEndTime,
-  //   firstHour
-  // });
+  console.log("weather-map-cockpit->render #j01", {
+    timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+    startDate,
+    currentTime,
+    usedStartTime,
+    usedInitialDate,
+    usedEndTime
+    // firstHour
+  });
 
   const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 
@@ -348,19 +348,21 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline
-            key="cp-timeline"
-            domainId={domainId}
-            timeSpan={absSpan}
-            barDuration={absSpan}
-            markerPosition={absSpan > 24 ? "75%" : "50%"}
-            showBar={absSpan > 1}
-            initialDateTs={usedInitialDate.toISOString()}
-            startTimeTs={usedStartTime.toISOString()}
-            endTimeTs={usedEndTime.toISOString()}
-            //firstHour={firstHour?.getUTCHours()}
-            updateCB={onTimelineUpdate}
-          />
+          {startDate && (
+            <Timeline
+              key="cp-timeline"
+              domainId={domainId}
+              timeSpan={absSpan}
+              barDuration={absSpan}
+              markerPosition={absSpan > 24 ? "75%" : "50%"}
+              showBar={absSpan > 1}
+              initialDateTs={usedInitialDate.toISOString()}
+              startTimeTs={usedStartTime.toISOString()}
+              endTimeTs={usedEndTime.toISOString()}
+              //firstHour={firstHour?.getUTCHours()}
+              updateCB={onTimelineUpdate}
+            />
+          )}
         </div>
 
         {getTimeSpanOptions()}
