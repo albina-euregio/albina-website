@@ -29,6 +29,14 @@
       }
     }
   ],
+  "techBlog": {
+    "lang": "",
+    "name": "tech",
+    "apiType": "wordpress",
+    "params": {
+      "id": "blog.avalanche.report/tech"
+    }
+  },
   "apis": {
     "bulletin": {
       "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",

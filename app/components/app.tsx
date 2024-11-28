@@ -88,7 +88,11 @@ const App = () => {
             />
             <Route path="/education" element={<Education />} />
             <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
-            <Route path="/blog" element={<BlogPostList />} />
+            <Route
+              path="/blog/tech"
+              element={<BlogPostList isTechBlog={true} />}
+            />
+            <Route path="/blog" element={<BlogPostList isTechBlog={false} />} />
             <Route path="/more" element={<More />} />
             <Route path="/more/archive" element={<Archive />} />
             <Route path="/more/linktree" element={<Linktree />} />

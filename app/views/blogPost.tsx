@@ -49,7 +49,7 @@ const BlogPost = () => {
             <div className="normal-4 grid-item">
               <Link
                 key="toBlog"
-                to={"/blog"}
+                to={params.blogName === "tech" ? "/blog/tech" : "/blog"}
                 className="icon-link icon-arrow-left"
               >
                 {intl.formatMessage({ id: "blog:all-blog-posts" })}

@@ -2,6 +2,7 @@
   "app:title": "Lawinen.report",
   "menu:bulletin": "Report",
   "menu:blog": "Blog",
+  "menu:blog:tech": "Tech Blog",
   "menu:weather": "Wetter",
   "menu:education": "Ausbildung",
   "menu:more": "Mehr",

@@ -19,7 +19,11 @@ import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 import Selectric from "../components/selectric.tsx";
 
-const BlogPostList = () => {
+interface Props {
+  isTechBlog: boolean;
+}
+
+const BlogPostList = ({ isTechBlog }: Props) => {
   const loading = useStore(BLOG_STORE.loading);
   const maxPages = useStore(BLOG_STORE.maxPages);
   const month = useStore(BLOG_STORE.month);
@@ -59,8 +63,9 @@ const BlogPostList = () => {
   ]);
 
   useEffect(() => {
+    BLOG_STORE.isTechBlog.set(isTechBlog);
     BLOG_STORE.load();
-  }, []);
+  }, [isTechBlog]);
 
   const handleChangeCategory = (val: string) => {
     BLOG_STORE.searchCategory.set(val);
@@ -113,7 +118,11 @@ const BlogPostList = () => {
       <HTMLHeader title={intl.formatMessage({ id: "blog:title" })} />
       <HTMLPageLoadingScreen loading={loading} />
       <PageHeadline
-        title={intl.formatMessage({ id: "blog:headline" })}
+        title={
+          isTechBlog
+            ? intl.formatMessage({ id: "menu:blog:tech" })
+            : intl.formatMessage({ id: "blog:headline" })
+        }
         marginal={headerText}
       />
       <FilterBar
@@ -124,23 +133,27 @@ const BlogPostList = () => {
         searchOnChange={handleChangeSearch}
         searchValue={searchText}
       >
-        <LanguageFilter
-          title={intl.formatMessage({
-            id: "blog:filter:language"
-          })}
-          handleChange={handleChangeLanguage}
-          value={language}
-          className={language !== "all" ? classChanged : ""}
-        />
-        <ProvinceFilter
-          title={intl.formatMessage({
-            id: "measurements:filter:province"
-          })}
-          all={intl.formatMessage({ id: "filter:all" })}
-          handleChange={handleChangeRegion}
-          value={region}
-          className={region !== "all" ? classChanged : ""}
-        />
+        {!isTechBlog && (
+          <LanguageFilter
+            title={intl.formatMessage({
+              id: "blog:filter:language"
+            })}
+            handleChange={handleChangeLanguage}
+            value={language}
+            className={language !== "all" ? classChanged : ""}
+          />
+        )}
+        {!isTechBlog && (
+          <ProvinceFilter
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            all={intl.formatMessage({ id: "filter:all" })}
+            handleChange={handleChangeRegion}
+            value={region}
+            className={region !== "all" ? classChanged : ""}
+          />
+        )}
         <div>
           <p className="info">
             {intl.formatMessage({

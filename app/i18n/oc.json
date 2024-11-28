@@ -2,6 +2,7 @@
   "app:title": "Avalanche.report",
   "menu:bulletin": "Bulletin",
   "menu:blog": "Blòg",
+  "menu:blog:tech": "Tech Blog",
   "menu:weather": "Meteo",
   "menu:education": "Educacion",
   "menu:more": "Mès",
