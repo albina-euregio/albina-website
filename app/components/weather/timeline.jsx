@@ -343,7 +343,8 @@ const Timeline = ({
     if (!targetDate) return [];
     const markings = [];
     let usedEndTime = new Date(endTime);
-    usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
+    if (timeSpan > 1)
+      usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
 
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
@@ -371,12 +372,17 @@ const Timeline = ({
           nextSelectableDate.setUTCHours(
             nextSelectableDate.getUTCHours() + selectableHoursOffset
           );
-          //console.log("rulerMarkings #k0111", {markDate: markDate.toISOString(), nextSelectableDate: nextSelectableDate.toISOString(), usedEndTime: usedEndTime?.toISOString()});
           if (
             usedEndTime?.getTime() >= markDate.getTime() &&
             nextSelectableDate.getTime() > usedEndTime?.getTime()
-          )
+          ) {
+            console.log("rulerMarkings #k0111", {
+              markDate: markDate.toISOString(),
+              nextSelectableDate: nextSelectableDate.toISOString(),
+              usedEndTime: usedEndTime?.toISOString()
+            });
             markClass.push("selectable-hours-end");
+          }
         }
         if (markDate.getTime() === startTime?.getTime())
           markClass.push("selectable-hours-start");

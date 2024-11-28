@@ -326,10 +326,10 @@ const WeatherMapCockpit = ({
   console.log("weather-map-cockpit->render #j01", {
     timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
     startDate,
-    currentTime,
-    usedStartTime,
-    usedInitialDate,
-    usedEndTime
+    currentTime: currentTime?.toUTCString(),
+    usedStartTime: usedStartTime?.toUTCString(),
+    usedInitialDate: usedInitialDate?.toUTCString(),
+    usedEndTime: usedEndTime?.toUTCString()
     // firstHour
   });
 
