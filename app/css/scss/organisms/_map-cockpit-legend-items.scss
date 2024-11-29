@@ -302,3 +302,24 @@ $cp-legend-windgust-items: (
     unit-7: ">80"
   )
 );
+
+$cp-legend-windhigh-items: (
+  colors: (
+    color-1: #ffff64,
+    color-2: #c8ff64,
+    color-3: #96ff96,
+    color-4: #32c8ff,
+    color-5: #6496ff,
+    color-6: #9664ff,
+    color-7: #ff3232
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "5",
+    unit-3: "10",
+    unit-4: "20",
+    unit-5: "40",
+    unit-6: "60",
+    unit-7: ">80"
+  )
+);

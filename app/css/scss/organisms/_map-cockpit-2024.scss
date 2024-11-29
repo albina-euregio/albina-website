@@ -743,6 +743,12 @@ $cp-breakpoint-3: 1024px;
     7
   );
 }
+.cp-legend-windhigh {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-windhigh-items,
+    7
+  );
+}
 
 //release
 .cp-release {
