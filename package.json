@@ -68,7 +68,7 @@
     "eslint-plugin-react-hooks": "5.1.0-rc-91061073-20241121",
     "lint-staged": "^15.2.5",
     "prettier": "3.3.1",
-    "sass": "^1.80.7",
+    "sass": "^1.81.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0",
     "vite": "^6.0.2"
