@@ -6,15 +6,14 @@
 
 ### Miscellaneous
 
-- _(eaws-regions)_ Update dependency to v7.0.2
-- _(season-reports)_ Season report for 2023-24 for Austria
+- Add season report for 2023/24 for Austria
 
 ## [7.0.3] - 2024-11-25
 
 ### Tech Blog
 
 - The 'More' section now includes a Tech Blog dedicated to sharing technical updates and
-  news about the Albina project.
+  news about the ALBINA project.
 
 ### Miscellaneous
 
@@ -33,7 +32,6 @@
 
 - Ability to create PDFs per warning region (in the currently selected language)
 - Improved diagrams for weather stations
-- _(eaws-regions)_ Update dependency to v7.0.0
 
 ## [7.0.0] - 2024-10-15
 
@@ -49,5 +47,5 @@
 
 ### Miscellaneous
 
-- _(stationArchive)_ Add IT-32-BZ
-- _(season-reports)_ Add avalanche report 2023/24
+- The 'Station Archive' section now includes historical data of weather station for South Tyrol
+- Add season report for 2023/24 for South Tyrol
