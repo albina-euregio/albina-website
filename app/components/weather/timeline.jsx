@@ -89,6 +89,7 @@ const Timeline = ({
   const [maxStartDay, setMaxStartDay] = useState(-30);
   const [maxEndDay, setMaxEndDay] = useState(30);
   const [indicatorOffset, setIndicatorOffset] = useState(0);
+  const [barOffset, setBarOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
   const [selectableHoursOffset, setSelectableHoursOffset] = useState(timeSpan);
@@ -239,10 +240,13 @@ const Timeline = ({
   // ###### functions ######
 
   const calcIndicatorOffset = () => {
-    //console.log("calcIndicatorOffset #k01", {});
+    //console.log("calcIndicatorOffset #k01", {showBar});
     let newIndicatorOffset =
       (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
-    if (showBar) newIndicatorOffset -= barDuration * pixelsPerHour;
+    if (showBar) {
+      setBarOffset(newIndicatorOffset - barDuration * pixelsPerHour);
+    }
+
     setIndicatorOffset(newIndicatorOffset);
   };
 
@@ -343,8 +347,7 @@ const Timeline = ({
     if (!targetDate) return [];
     const markings = [];
     let usedEndTime = new Date(endTime);
-    if (timeSpan > 1)
-      usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
+    //if (timeSpan > 1)usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
 
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
@@ -631,29 +634,30 @@ const Timeline = ({
     );
   };
 
-  console.info("Timeline->render #k011", {
-    targetDate: targetDate?.toISOString(),
-    currentDate: currentDate?.toISOString(),
-    startTime: startTime?.toISOString(),
-    endTime: endTime?.toISOString()
-    // initialDate: initialDate?.toISOString(),
-    // currentTranslateX,
-    // indicatorOffset,
-    // markerPosition
-    // params: {
-    //   initialDate,
-    //   indicatorOffset,
-    //   firstHour,
-    //   timeSpan,
-    //   startTime,
-    //   endTime,
-    //   markerPosition,
-    //   showBar,
-    //   barDuration,
-    //   updateCB,
-    //   domainId
-    // }
-  });
+  // console.info("Timeline->render #k011", {
+  //   targetDate: targetDate?.toISOString(),
+  //   currentDate: currentDate?.toISOString(),
+  //   startTime: startTime?.toISOString(),
+  //   endTime: endTime?.toISOString(),
+  //   // initialDate: initialDate?.toISOString(),
+  //   // currentTranslateX,
+  //   indicatorOffset,
+  //   showBar
+  //   // markerPosition
+  //   // params: {
+  //   //   initialDate,
+  //   //   indicatorOffset,
+  //   //   firstHour,
+  //   //   timeSpan,
+  //   //   startTime,
+  //   //   endTime,
+  //   //   markerPosition,
+  //   //   showBar,
+  //   //   barDuration,
+  //   //   updateCB,
+  //   //   domainId
+  //   // }
+  // });
   if (!currentDate) return <div></div>;
   return (
     <>
@@ -712,7 +716,7 @@ const Timeline = ({
                 ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
-                  left: indicatorOffset,
+                  left: barOffset,
                   width: timeSpan * pixelsPerHour
                 }}
               >
