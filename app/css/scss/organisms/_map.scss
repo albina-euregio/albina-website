@@ -73,6 +73,10 @@ $search-width-wide: 300px;
   // height: $map-height-bulletin;
   width: $map-width;
   overflow: hidden;
+  aspect-ratio: var(--mobile-map-ratio);
+  @media #{variables.$normal-up} {
+    aspect-ratio: var(--desktop-map-ratio);
+  }
 
   .section-bulletin-map & {
     // height: $map-height-bulletin;
