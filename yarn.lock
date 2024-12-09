@@ -219,10 +219,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_elevation_properties@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.3::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.3.tgz"
-  checksum: 10c0/fb77e51cabc527eec697c7ea176174d381db5a9e7b9bad4d645c431c202cf8349566b1a3a1c4af461b55e06ef7566f883055241eaa4884ee3965c387e98f2c57
+"@eaws/micro-regions_elevation_properties@npm:^7.0.4":
+  version: 7.0.4
+  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.4::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.4.tgz"
+  checksum: 10c0/5ee6ffeae281c17916feb3c0b8267eec3fa7babdde63595bba684054aba86c37abb67edf67772fa2cde93b6aa98c80ea1b8e52c341aeda5308d7ffbb946f30b6
   languageName: node
   linkType: hard
 
@@ -233,17 +233,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_properties@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "@eaws/micro-regions_properties@npm:7.0.3::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.3.tgz"
-  checksum: 10c0/39f5a8591cdf3c62850cfa34fdeef1656a89f5ccad797d5c271c1af723e4eed9f3b40daa028f66775527db57cfbc10fa4fff73c898a7e460ec553e4f198a3f6e
+"@eaws/micro-regions_properties@npm:^7.0.4":
+  version: 7.0.4
+  resolution: "@eaws/micro-regions_properties@npm:7.0.4::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.4.tgz"
+  checksum: 10c0/55201aa1eccabc9603b5e8f0f87550109ce0aabff953811a159dc1b529ed96fea0bf977d448eb958728b87ecdd2556c5195240327c5b247f53135e6d2ad6bd53
   languageName: node
   linkType: hard
 
-"@eaws/outline_properties@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "@eaws/outline_properties@npm:7.0.3::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.3.tgz"
-  checksum: 10c0/9708c28739f7d53d00d65db32e7345693441d3e98af99ed52286ec95fdfea0ca294c179040eaf3f255d6722c9285aef9e18cb93fc68c6e096b6698e981926d11
+"@eaws/outline_properties@npm:^7.0.4":
+  version: 7.0.4
+  resolution: "@eaws/outline_properties@npm:7.0.4::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.4.tgz"
+  checksum: 10c0/913110ffdcfb5e828343e2d643048d7dd6be16b48782681d796f7914667e7c32e2bf91cc67b8f52a5f8ebcd96495f42209756e8610ee2406f282aaaf7b30619e
   languageName: node
   linkType: hard
 
@@ -1235,20 +1235,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
-  version: 15.7.12
-  resolution: "@types/prop-types@npm:15.7.12"
-  checksum: 10c0/1babcc7db6a1177779f8fde0ccc78d64d459906e6ef69a4ed4dd6339c920c2e05b074ee5a92120fe4e9d9f1a01c952f843ebd550bee2332fc2ef81d1706878f8
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18.2.46":
-  version: 18.2.74
-  resolution: "@types/react@npm:18.2.74"
+"@types/react@npm:^19.0.1":
+  version: 19.0.1
+  resolution: "@types/react@npm:19.0.1"
   dependencies:
-    "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/347e38b4c5dc20d50ff71bf04b7caaef490e5ff695e74a0088a13fbb2a0c5d125a5ecfd142adfa30f0176da0e2734942c91ba61d95ce269c43b3265bd7379361
+  checksum: 10c0/25eb69114abb9a6d5fc4414ee584388275bbc9ac32976449cf58b95fe9880efe6b3f936c3842be9bed8c571546a9752e8d3e2095288381e9c809269f5f574f2e
   languageName: node
   linkType: hard
 
@@ -1448,10 +1440,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "albina-website@workspace:."
   dependencies:
-    "@eaws/micro-regions_elevation_properties": "npm:^7.0.3"
+    "@eaws/micro-regions_elevation_properties": "npm:^7.0.4"
     "@eaws/micro-regions_names": "npm:^7.0.0"
-    "@eaws/micro-regions_properties": "npm:^7.0.3"
-    "@eaws/outline_properties": "npm:^7.0.3"
+    "@eaws/micro-regions_properties": "npm:^7.0.4"
+    "@eaws/outline_properties": "npm:^7.0.4"
     "@eslint/js": "npm:^9.15.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
@@ -1461,7 +1453,7 @@ __metadata:
     "@types/diff-match-patch": "npm:^1.0.36"
     "@types/leaflet": "npm:^1.9.8"
     "@types/leaflet.vectorgrid": "npm:^1.3.5"
-    "@types/react": "npm:^18.2.46"
+    "@types/react": "npm:^19.0.1"
     "@vitejs/plugin-react": "npm:^4.3.4"
     diff-match-patch: "npm:^1.0.5"
     eslint: "npm:^9.15.0"
@@ -1488,11 +1480,11 @@ __metadata:
     normalize.css: "npm:^8.0.1"
     prettier: "npm:3.3.1"
     purecss-sass: "npm:3.0.1"
-    react: "npm:19.0.0-rc-7ac8e612-20241113"
-    react-dom: "npm:19.0.0-rc-7ac8e612-20241113"
+    react: "npm:19.0.0"
+    react-dom: "npm:19.0.0"
     react-easy-swipe: "npm:0.0.23"
     react-leaflet: "npm:^4.2.1"
-    react-router-dom: "npm:^7.0.1"
+    react-router-dom: "npm:^7.0.2"
     react-string-replace: "npm:^1.1.1"
     sass: "npm:^1.81.0"
     typescript: "npm:^5.7.2"
@@ -4419,14 +4411,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.0.0-rc-7ac8e612-20241113":
-  version: 19.0.0-rc-7ac8e612-20241113
-  resolution: "react-dom@npm:19.0.0-rc-7ac8e612-20241113"
+"react-dom@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react-dom@npm:19.0.0"
   dependencies:
-    scheduler: "npm:0.25.0-rc-7ac8e612-20241113"
+    scheduler: "npm:^0.25.0"
   peerDependencies:
-    react: 19.0.0-rc-7ac8e612-20241113
-  checksum: 10c0/f6fc249b79c875b36c58a8d1e28cd0a79a759de6edb1a466a732ebb25d6d376e840626f383e479c74c731fc02f5f289044304731f652abb91a595f1f806a11ce
+    react: ^19.0.0
+  checksum: 10c0/a36ce7ab507b237ae2759c984cdaad4af4096d8199fb65b3815c16825e5cfeb7293da790a3fc2184b52bfba7ba3ff31c058c01947aff6fd1a3701632aabaa6a9
   languageName: node
   linkType: hard
 
@@ -4466,21 +4458,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "react-router-dom@npm:7.0.1"
+"react-router-dom@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "react-router-dom@npm:7.0.2"
   dependencies:
-    react-router: "npm:7.0.1"
+    react-router: "npm:7.0.2"
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/aebc0af4ea4ac4e9482b0501c06f3af42adc68b4064c556b00954dcb7a6ec233d41f3eac86e388b9a8068e8ba5d44b854b7e29c806af9ed6a8798682d6984b46
+  checksum: 10c0/eb6fe524792f6cf645872c15ed1beb6aeb778c7c5ebcf6c1d4ccf2bdab7a969313b3fc3b4ec6bc4516bbc91b238f0ef651d9ad2551b2aa9ea54b01653dcd1c98
   languageName: node
   linkType: hard
 
-"react-router@npm:7.0.1":
-  version: 7.0.1
-  resolution: "react-router@npm:7.0.1"
+"react-router@npm:7.0.2":
+  version: 7.0.2
+  resolution: "react-router@npm:7.0.2"
   dependencies:
     "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^1.0.1"
@@ -4492,7 +4484,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/aac4c9989ae6b9cf989b5ddcda88f505ba0704a4e4b37ae04c819c2bd02f080361f9eb1793695e3ecf41080d91b79aee454c3163b586d1b19ceca13f6eacec0e
+  checksum: 10c0/f6c04939218a3d7f2b03b215c2299eab4dbb0dea4a16e0acfd8bf181ec69ff42d66abdba10a25cc3297c514f052a0d03bfb80431225eb763bb27e4e5b0b4a106
   languageName: node
   linkType: hard
 
@@ -4503,10 +4495,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.0.0-rc-7ac8e612-20241113":
-  version: 19.0.0-rc-7ac8e612-20241113
-  resolution: "react@npm:19.0.0-rc-7ac8e612-20241113"
-  checksum: 10c0/ec2c01b8697a248b5245368844938c4ebca86683c003357d6c0125f5adc9c1d98ef5f21f14838d58c39ee1efdbb7806167154ea846b13f05db67ef26b166f33c
+"react@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 10c0/9cad8f103e8e3a16d15cb18a0d8115d8bd9f9e1ce3420310aea381eb42aa0a4f812cf047bb5441349257a05fba8a291515691e3cb51267279b2d2c3253f38471
   languageName: node
   linkType: hard
 
@@ -4742,10 +4734,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.25.0-rc-7ac8e612-20241113":
-  version: 0.25.0-rc-7ac8e612-20241113
-  resolution: "scheduler@npm:0.25.0-rc-7ac8e612-20241113"
-  checksum: 10c0/a5cf25b1acf35db6facc1f85398161478d65636ec857654acb9189eb1b5de5ec826d7e5616a07e311c526538e71c33daf16ec8a84cd0a62e1a1f40321da9f890
+"scheduler@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "scheduler@npm:0.25.0"
+  checksum: 10c0/a4bb1da406b613ce72c1299db43759526058fdcc413999c3c3e0db8956df7633acf395cb20eb2303b6a65d658d66b6585d344460abaee8080b4aa931f10eaafe
   languageName: node
   linkType: hard
 
