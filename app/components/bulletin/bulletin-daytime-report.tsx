@@ -246,8 +246,11 @@ function TendencyReport({
                 : "–",
               daytime: "",
               date: intl.formatDate(
-                tendency.validTime?.startTime
-                  ? new Date(tendency.validTime?.startTime)
+                tendency.validTime?.startTime && tendency.validTime?.endTime
+                  ? new Date(
+                      Date.parse(tendency.validTime?.startTime) / 2 +
+                        Date.parse(tendency.validTime?.endTime) / 2
+                    )
                   : getSuccDate(date),
                 LONG_DATE_FORMAT
               )
