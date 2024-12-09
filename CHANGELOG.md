@@ -2,6 +2,17 @@
 
 <!-- To update, run `yarn changelog`. -->
 
+## [7.0.5] - 2024-12-09
+
+### Documentation
+
+- Comprehensive CHANGELOG
+
+### Miscellaneous Tasks
+
+- Minor bugfixes
+- Various package upgrades
+
 ## [7.0.4] - 2024-11-28
 
 ### Miscellaneous
