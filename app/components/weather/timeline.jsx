@@ -93,6 +93,7 @@ const Timeline = ({
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
   const [selectableHoursOffset, setSelectableHoursOffset] = useState(timeSpan);
+  const currentDateRef = useRef(currentDate);
 
   const hoursPerDay = 24;
   const daysBuild = 10;
@@ -149,7 +150,7 @@ const Timeline = ({
       // Start the interval when isActive is true
       intervalId = setInterval(() => {
         //console.log('Function called at: #i02', {currentDate: currentDate.toISOString(), endTime: endTime.toISOString()});
-        if (currentDate >= endTime) setPlayerIsActive(false);
+        if (currentDateRef.current >= endTime) setPlayerIsActive(false);
         else jumpStep(1);
       }, playDelay); // Runs every 2 seconds
     }
@@ -162,6 +163,10 @@ const Timeline = ({
       }
     };
   }, [playerIsActive]);
+
+  useEffect(() => {
+    currentDateRef.current = currentDate;
+  }, [currentDate]);
 
   useEffect(() => {
     setMaxStartDay(
@@ -331,7 +336,7 @@ const Timeline = ({
   };
 
   const jumpStep = direction => {
-    const newDate = new Date(currentDate);
+    const newDate = new Date(currentDateRef.current);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
     // console.log("jumpStep #i01", {
     //   direction,
@@ -492,7 +497,7 @@ const Timeline = ({
 
     const newTranslateX = distanceToMove;
     updateTimelinePosition(newTranslateX, true);
-    //console.log("snapToDate #k011", {newTargetDate: newTargetDate.toISOString(), markerCenterX, indicatorCenterX, distanceToMove, newTranslateX});
+    //console.log("snapToDate #k011", {newTargetDate: newTargetDate.toISOString()});
     setCurrentDate(newTargetDate);
   };
 
