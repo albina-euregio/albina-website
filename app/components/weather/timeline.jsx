@@ -728,15 +728,15 @@ const Timeline = ({
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={currentDate}
+                    date={new Date(currentDate)?.setHours(
+                      currentDate?.getHours() - timeSpan
+                    )}
                     options={{ timeStyle: "short" }}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">
                   <FormattedDate
-                    date={new Date(currentDate)?.setHours(
-                      currentDate?.getHours() + timeSpan
-                    )}
+                    date={currentDate}
                     options={{ timeStyle: "short" }}
                   />
                 </span>
