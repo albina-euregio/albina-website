@@ -112,19 +112,20 @@ const Timeline = ({
   //   startOfDay: startOfDay.toISOString(),
   //   day: now.getUTCDate()
   // });
+
   useEffect(() => {
     const handleWindowResize = () => {
       let newPixelsPerHour = 5;
 
-      if (window.innerWidth < 768) newPixelsPerHour = 3;
-      if (window.innerWidth < 450) newPixelsPerHour = 2;
+      if (window.innerWidth < 768) newPixelsPerHour = 4;
+      if (window.innerWidth < 450) newPixelsPerHour = 3;
 
       setPixelsPerHour(newPixelsPerHour);
     };
 
     // Add event listener
     window.addEventListener("resize", handleWindowResize);
-
+    handleWindowResize();
     // Clean up
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
