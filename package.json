@@ -17,7 +17,8 @@
     "build-prod": "vite build",
     "build-beta": "vite build --base=/beta/",
     "build-dev": "vite build --base=/dev/",
-    "changelog": "git-cliff --current --unreleased --prepend CHANGELOG.md"
+    "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
+    "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
     "@eaws/micro-regions_elevation_properties": "^7.0.4",
