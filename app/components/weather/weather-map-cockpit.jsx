@@ -49,7 +49,9 @@ const WeatherMapCockpit = ({
   domainId,
   eventCallback,
   changeCurrentTime,
-  storeConfig
+  storeConfig,
+  nextUpdateTime,
+  lastUpdateTime
 }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
@@ -249,10 +251,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span className="cp-release-released">
-            {/* <span>
+            <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} /> */}
+            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} />
           </span>
         </Tooltip>
         <Tooltip
@@ -262,10 +264,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span key="cp-release-update" className="cp-release-update">
-            {/* <span>
+            <span>
               <FormattedMessage id="weathermap:cockpit:maps-update-date:prefix" />
             </span>{" "}
-            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} /> */}
+            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} />
           </span>
         </Tooltip>
         <Tooltip
@@ -274,13 +276,13 @@ const WeatherMapCockpit = ({
         >
           <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
         </Tooltip>
-        {/* <span key="cp-release-copyright" className="cp-release-copyright">
+        <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
             className="icon-copyright icon-margin-no"
             title="Copyright"
           ></a>
-        </span> */}
+        </span>
       </div>
     );
   };
