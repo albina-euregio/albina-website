@@ -319,6 +319,8 @@ const WeatherMapCockpit = ({
   let usedEndTime = new Date(startDate) || null;
   usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
 
+  let analysesEndTs = new Date(startDate);
+
   let usedInitialDate = new Date(currentTime);
   if (
     usedEndTime &&
@@ -359,6 +361,7 @@ const WeatherMapCockpit = ({
               barDuration={absSpan}
               markerPosition={absSpan > 24 ? "75%" : "50%"}
               showBar={absSpan > 1}
+              analysesEndTs={analysesEndTs?.toISOString()}
               initialDateTs={usedInitialDate.toISOString()}
               startTimeTs={usedStartTime.toISOString()}
               endTimeTs={usedEndTime.toISOString()}

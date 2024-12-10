@@ -30,6 +30,7 @@ const Timeline = ({
   timeSpan = 6,
   startTimeTs,
   endTimeTs,
+  analysesEndTs,
   markerPosition = "50%",
   showBar = true, // Toggle the bar visibility
   barDuration = 24, // Bar duration in hours
@@ -350,8 +351,10 @@ const Timeline = ({
 
   const rulerMarkings = useMemo(() => {
     if (!targetDate) return [];
-    const markings = [];
+    const markingsAnalysis = [];
+    const markingsForecast = [];
     let usedEndTime = new Date(endTime);
+    let endAnalysisTime = new Date(analysesEndTs);
     //if (timeSpan > 1)usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
 
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
@@ -400,7 +403,7 @@ const Timeline = ({
         //   markClass
         // });
 
-        markings.push(
+        const marking = (
           <div
             key={`${day}-${hour}`}
             className={`ruler-mark ${markClass.join(" ")}`}
@@ -432,10 +435,18 @@ const Timeline = ({
             )} */}
           </div>
         );
+        if (markDate.getTime() < endAnalysisTime.getTime())
+          markingsAnalysis.push(marking);
+        else markingsForecast.push(marking);
       }
     }
     setMarkerRenewed(new Date());
-    return markings;
+    return (
+      <div className="cp-scale-analyse-forecast">
+        <span className="cp-scale-analyse-bar">{markingsAnalysis}</span>
+        <span className="cp-scale-forecast-bar">{markingsForecast}</span>
+      </div>
+    );
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   const updateTimelinePosition = (newTranslateX, snap) => {
