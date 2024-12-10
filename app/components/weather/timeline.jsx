@@ -535,12 +535,12 @@ const Timeline = ({
         nearestMarker = marker;
       }
     });
-    console.log("getNearestMarker #k011", {
-      markers,
-      targetCenterX,
-      nearestMarkerDate: nearestMarker?.dataset?.date,
-      minDistance
-    });
+    // console.log("getNearestMarker #k011", {
+    //   markers,
+    //   targetCenterX,
+    //   nearestMarkerDate: nearestMarker?.dataset?.date,
+    //   minDistance
+    // });
     return nearestMarker;
   };
 
