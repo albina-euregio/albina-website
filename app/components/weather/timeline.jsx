@@ -442,9 +442,9 @@ const Timeline = ({
     }
     setMarkerRenewed(new Date());
     return (
-      <div className="cp-scale-analyse-forecast">
-        <span className="cp-scale-analyse-bar">{markingsAnalysis}</span>
-        <span className="cp-scale-forecast-bar">{markingsForecast}</span>
+      <div className="cp-scale-analyse-forecast1">
+        <span className="cp-scale-analyse-bar1">{markingsAnalysis}</span>
+        <span className="cp-scale-forecast-bar1">{markingsForecast}</span>
       </div>
     );
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
@@ -580,7 +580,7 @@ const Timeline = ({
   };
 
   const formatDateToLocalDateTime = date => {
-    return date.toISOString().slice(0, 16);
+    return date.toLocaleString("sv").replace(" ", "T");
   };
 
   const handleSelectDateClick = e => {
