@@ -434,6 +434,12 @@ const Timeline = ({
                 {formatHour(markDate)}
               </span>
             )} */}
+            <div
+              className="ruler-mark-bg"
+              style={{
+                width: `${pixelsPerHour}px`
+              }}
+            ></div>
           </div>
         );
         if (markDate.getTime() < endAnalysisTime.getTime())
@@ -443,9 +449,9 @@ const Timeline = ({
     }
     setMarkerRenewed(new Date());
     return (
-      <div className="cp-scale-analyse-forecast1">
-        <span className="cp-scale-analyse-bar1">{markingsAnalysis}</span>
-        <span className="cp-scale-forecast-bar1">{markingsForecast}</span>
+      <div>
+        <span className="cp-scale-analyse">{markingsAnalysis}</span>
+        <span className="cp-scale-forecast">{markingsForecast}</span>
       </div>
     );
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);

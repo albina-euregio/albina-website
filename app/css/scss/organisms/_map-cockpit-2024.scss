@@ -400,11 +400,28 @@ $cp-breakpoint-3: 1024px;
   height: 10px;
   background-color: variables.$grey-medium-light;
 }
+
+.ruler-mark-bg {
+  position: absolute;
+  z-index: -20;
+  height: $cp-scale-height;
+}
+
 .day-mark {
   height: 100%;
   background-color: variables.$grey-light;
 }
+
+.day-name {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  line-height: 10px;
+  white-space: nowrap;
+}
 // .hour-mark {}
+
 .selectable-hour-mark {
   background-color: variables.$grey-light;
 }
@@ -442,43 +459,17 @@ $cp-breakpoint-3: 1024px;
   }
 }
 
-.day-name {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: translateX(-50%);
-  line-height: 10px;
-  white-space: nowrap;
-}
-
 // .hour-name {}
 
-//analyse-forecast
-.cp-scale-analyse-forecast {
-  pointer-events: none;
-  z-index: 1;
-  position: absolute;
-  top: calc(#{$cp-timeline-height} - #{$cp-scale-height});
-  width: 100%;
-  height: $cp-scale-height;
+.cp-scale-analyse {
+  .ruler-mark-bg {
+    // background-color: variables.$grey-very-very-light;
+  }
 }
-.cp-scale-analyse-bar {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 20px;
-  height: $cp-scale-height;
-  width: 175px;
-  @extend .bg-box;
-}
-.cp-scale-forecast-bar {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 40px;
-  height: $cp-scale-height;
-  width: 175px;
-  @extend .bg-subtle;
+.cp-scale-forecast {
+  .ruler-mark-bg {
+    background-color: variables.$grey-very-very-light;
+  }
 }
 
 .cp-calendar {
