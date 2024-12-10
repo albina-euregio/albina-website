@@ -145,25 +145,15 @@ const WeatherMapCockpit = ({
         if (timeSpan === aItem) linkClasses.push("js-active");
 
         buttons.push(
-          <Tooltip
-            key={"domain-timespan-desc-" + nrOnlyTimespan}
-            label={
-              <FormattedMessage
-                id="weathermap:domain:timespan:description"
-                values={{ range: nrOnlyTimespan }}
-              />
-            }
+          <a
+            role="button"
+            tabIndex="0"
+            key={aItem}
+            onClick={() => handleEvent("timeSpan", aItem)}
+            className={linkClasses.join(" ")}
           >
-            <a
-              role="button"
-              tabIndex="0"
-              key={aItem}
-              onClick={() => handleEvent("timeSpan", aItem)}
-              className={linkClasses.join(" ")}
-            >
-              {nrOnlyTimespan}h
-            </a>
-          </Tooltip>
+            {nrOnlyTimespan}h
+          </a>
         );
       });
 
@@ -184,44 +174,37 @@ const WeatherMapCockpit = ({
     return (
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
-          <Tooltip
-            key="cp-select-parameter"
-            label={
-              <FormattedMessage id="weathermap:cockpit:select-parameter" />
-            }
+          <a
+            href="#"
+            role="button"
+            tabIndex="0"
+            className="cp-layer-selector-item cp-layer-trigger "
+            onClick={() => {
+              document
+                ?.querySelector("body")
+                .classList.toggle("layer-selector-open");
+            }}
           >
-            <a
-              href="#"
-              role="button"
-              tabIndex="0"
-              className="cp-layer-selector-item cp-layer-trigger "
-              onClick={() => {
-                document
-                  ?.querySelector("body")
-                  .classList.toggle("layer-selector-open");
-              }}
-            >
-              <div className="layer-select icon-snow">
-                <span class="layer-select-text">
-                  <span class="layer-select-name">
-                    {
-                      <FormattedMessage
-                        id={"weathermap:domain:title:" + domainId}
-                      />
-                    }
-                  </span>
-                  <span class="layer-select-info">
-                    {
-                      <FormattedMessage
-                        id={"weathermap:domain:description:" + domainId}
-                      />
-                    }
-                  </span>
+            <div className="layer-select icon-snow">
+              <span class="layer-select-text">
+                <span class="layer-select-name">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:title:" + domainId}
+                    />
+                  }
                 </span>
-              </div>
-              <span className="layer-trigger"></span>
-            </a>
-          </Tooltip>
+                <span class="layer-select-info">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:description:" + domainId}
+                    />
+                  }
+                </span>
+              </span>
+            </div>
+            <span className="layer-trigger"></span>
+          </a>
         </div>
 
         <div key="cp-range" className="cp-range">
