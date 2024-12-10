@@ -515,7 +515,7 @@ const Timeline = ({
   const getNearestMarker = () => {
     const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    let targetCenterX = indicatorRect.left;
+    let targetCenterX = indicatorRect.right;
 
     let nearestMarker = null;
     let minDistance = Infinity;
@@ -535,12 +535,12 @@ const Timeline = ({
         nearestMarker = marker;
       }
     });
-    // console.log("getNearestMarker #k011", {
-    //   markers,
-    //   targetCenterX,
-    //   nearestMarkerDate: nearestMarker?.dataset?.date,
-    //   minDistance
-    // });
+    console.log("getNearestMarker #k011", {
+      markers,
+      targetCenterX,
+      nearestMarkerDate: nearestMarker?.dataset?.date,
+      minDistance
+    });
     return nearestMarker;
   };
 
