@@ -592,6 +592,9 @@ const Timeline = ({
 
   const handleSelectDateClick = e => {
     let newTargetDate = new Date(e.target.value);
+    //console.log("handleSelectDateClick #k011 #1", {newTargetDate: newTargetDate, timeSpan});
+    newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpan);
+    //console.log("handleSelectDateClick #k011 #2", {newTargetDate: newTargetDate});
     newTargetDate = new Date(
       Date.UTC(
         newTargetDate.getUTCFullYear(),
