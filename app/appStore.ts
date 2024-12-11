@@ -11,14 +11,16 @@ const fr = () => import("./i18n/fr.json");
 const it = () => import("./i18n/it.json");
 const oc = () => import("./i18n/oc.json");
 const translationImports = Object.freeze({ ca, en, de, es, fr, it, oc });
+
+// Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
 const regionTranslationImports = Object.freeze({
-  ca: () => import("@eaws/micro-regions_names/ca.json"),
-  de: () => import("@eaws/micro-regions_names/de.json"),
-  en: () => import("@eaws/micro-regions_names/en.json"),
-  es: () => import("@eaws/micro-regions_names/es.json"),
-  fr: () => import("@eaws/micro-regions_names/fr.json"),
-  it: () => import("@eaws/micro-regions_names/it.json"),
-  oc: () => import("@eaws/micro-regions_names/oc.json")
+  ca: () => import("./i18n/micro-regions_names/ca.json"),
+  de: () => import("./i18n/micro-regions_names/de.json"),
+  en: () => import("./i18n/micro-regions_names/en.json"),
+  es: () => import("./i18n/micro-regions_names/es.json"),
+  fr: () => import("./i18n/micro-regions_names/fr.json"),
+  it: () => import("./i18n/micro-regions_names/it.json"),
+  oc: () => import("./i18n/micro-regions_names/oc.json")
 });
 
 export const languages = ["ca", "en", "de", "es", "fr", "it", "oc"];
