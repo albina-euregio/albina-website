@@ -126,9 +126,7 @@ export default class WeatherMapStore_new {
         //   )
         // });
         if (!this._currentTime.get())
-          this._currentTime.set(
-            this._getStartTimeForSpan(this._lastCurrentTime || this._dateStart)
-          );
+          this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
         this._loadIndexData();
       })
       .catch(err => {
@@ -280,9 +278,26 @@ export default class WeatherMapStore_new {
   */
   get startDate() {
     //console.log("startDate", this._dateStart, (this._dateStart * 10) / 10);
+    let usedDate = new Date(this._dateStart);
+
+    // if (this._absTimeSpan === 12) {
+    //   const currentHours = usedDate.getUTCHours();
+    //   if ([6, 18].includes(currentHours))
+    //     usedDate.setUTCHours(usedDate.getUTCHours() - 6);
+    // }
+    // if (this._absTimeSpan % 24 === 0) {
+    //   const currentHours = usedDate.getUTCHours();
+    //   if ([12].includes(currentHours))
+    //     usedDate.setUTCHours(usedDate.getUTCHours() - 12);
+    // }
+    console.log("weathermapStore->startDate #44", {
+      startDate: new Date(this._dateStart).toISOString(),
+      usedDate: usedDate.toISOString()
+    });
+
     return this._dateStart
-      ? this._dateStart.setDate(this._dateStart.getDate())
-      : this._dateStart;
+      ? this._dateStart.setDate(usedDate.getDate())
+      : usedDate;
   }
 
   /*

@@ -294,14 +294,31 @@ const WeatherMapCockpit = ({
     "lastRedraw-" + lastRedraw
   ];
 
-  const firstHour = new Date(startDate);
-  firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
+  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
+  // const firstHour = new Date(startDate);
+  // firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
 
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
-  let usedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
+  let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
+
+  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
+    console.log("weather-map-cockpit->render FIX HOURS #1", {
+      currentHoursUsedStartTime: currentHoursFixedStartTime
+    });
+    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0) {
+    console.log("weather-map-cockpit->render FIX HOURS #2", {
+      currentHoursUsedStartTime: currentHoursFixedStartTime
+    });
+    if ([12].includes(currentHoursFixedStartTime))
+      fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
+  }
+  let usedStartTime = new Date(fixedStartTime) || null;
   usedStartTime.setDate(usedStartTime.getDate() - 730);
-  let usedEndTime = new Date(startDate) || null;
+  let usedEndTime = new Date(fixedStartTime) || null;
   usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
 
   let analysesEndTs = new Date(startDate);
@@ -313,17 +330,17 @@ const WeatherMapCockpit = ({
   )
     usedInitialDate = new Date(usedEndTime);
 
-  // console.log("weather-map-cockpit->render #j01", {
-  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   startDate,
-  //   currentTime: currentTime?.toUTCString(),
-  //   usedStartTime: usedStartTime?.toUTCString(),
-  //   usedInitialDate: usedInitialDate?.toUTCString(),
-  //   usedEndTime: usedEndTime?.toUTCString()
-  //   // firstHour
-  // });
-
-  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
+  console.log("weather-map-cockpit->render #j01", {
+    //absSpan,
+    //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+    //startDate: new Date(startDate).toUTCString(),
+    currentTime: currentTime?.toUTCString(),
+    //fixedStartTime: fixedStartTime?.toUTCString(),
+    usedStartTime: usedStartTime?.toUTCString(),
+    usedInitialDate: usedInitialDate?.toUTCString(),
+    usedEndTime: usedEndTime?.toUTCString()
+    // firstHour
+  });
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
