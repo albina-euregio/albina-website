@@ -132,13 +132,18 @@ const Timeline = ({
 
   useEffect(() => {
     if (initialDate && initialDate?.getTime() > 0) {
+      //console.log("Timeline->useEffect->initialDate #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
+
       const newInitialDate = new Date(initialDate);
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
         setTargetDate(new Date(initialDate));
-        if (!currentDate) setCurrentDate(new Date(initialDate));
+        if (!currentDate) {
+          //console.log("Timeline->useEffect->initialDate #2 #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
+          setCurrentDate(new Date(initialDate));
+        }
       }
       // console.log("Timeline->useEffect->initialDate #k01", {
       //   initialDate,
@@ -237,11 +242,12 @@ const Timeline = ({
 
   useEffect(() => {
     if (currentDate?.getTime() > 0) {
-      console.log("Timeline->useEffect-> #k011", {
-        currentDate: currentDate.toISOString(),
-        currentDateTime: currentDate.getTime()
-      });
+      // console.log("Timeline->useEffect-> #k011", {
+      //   currentDate: currentDate.toISOString(),
+      //   currentDateTime: currentDate.getTime()
+      // });
       if (updateCB) {
+        //console.log("Timeline->useEffect->currentDate #k0113", {currentDate: currentDate.toISOString()});
         updateCB(currentDate);
       }
     }
@@ -518,7 +524,7 @@ const Timeline = ({
 
     const newTranslateX = distanceToMove;
     updateTimelinePosition(newTranslateX, true);
-    //console.log("snapToDate #k011", {newTargetDate: newTargetDate.toISOString()});
+    //console.log("snapToDate #k0112 #k0113", {selectableHoursOffset, newTargetDate: newTargetDate.toISOString(), initialDate: initialDate.toISOString(), currentDate: currentDate.toISOString()});
     setCurrentDate(newTargetDate);
   };
 
@@ -663,30 +669,31 @@ const Timeline = ({
     );
   };
 
-  console.info("Timeline->render #k011", {
-    targetDate: targetDate?.toISOString(),
-    currentDate: currentDate?.toISOString(),
-    //startTime: startTime?.toISOString(),
-    endTime: endTime?.toISOString()
-    // initialDate: initialDate?.toISOString(),
-    // currentTranslateX,
-    //indicatorOffset,
-    //showBar
-    // markerPosition
-    // params: {
-    //   initialDate,
-    //   indicatorOffset,
-    //   firstHour,
-    //   timeSpan,
-    //   startTime,
-    //   endTime,
-    //   markerPosition,
-    //   showBar,
-    //   barDuration,
-    //   updateCB,
-    //   domainId
-    // }
-  });
+  // console.info("Timeline->render #k0112", {
+  //   targetDate: targetDate?.toISOString(),
+  //   currentDate: currentDate?.toISOString(),
+  //   currentDateRef: currentDateRef.current?.toISOString(),
+  //   //startTime: startTime?.toISOString(),
+  //   endTime: endTime?.toISOString(),
+  //   initialDate: initialDate?.toISOString(),
+  //   // currentTranslateX,
+  //   //indicatorOffset,
+  //   //showBar
+  //   // markerPosition
+  //   // params: {
+  //   //   initialDate,
+  //   //   indicatorOffset,
+  //   //   firstHour,
+  //   //   timeSpan,
+  //   //   startTime,
+  //   //   endTime,
+  //   //   markerPosition,
+  //   //   showBar,
+  //   //   barDuration,
+  //   //   updateCB,
+  //   //   domainId
+  //   // }
+  // });
   if (!currentDate) return <div></div>;
   return (
     <>

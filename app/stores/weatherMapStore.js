@@ -290,10 +290,10 @@ export default class WeatherMapStore_new {
     //   if ([12].includes(currentHours))
     //     usedDate.setUTCHours(usedDate.getUTCHours() - 12);
     // }
-    console.log("weathermapStore->startDate #44", {
-      startDate: new Date(this._dateStart).toISOString(),
-      usedDate: usedDate.toISOString()
-    });
+    // console.log("weathermapStore->startDate #44", {
+    //   startDate: new Date(this._dateStart).toISOString(),
+    //   usedDate: usedDate.toISOString()
+    // });
 
     return this._dateStart
       ? this._dateStart.setDate(usedDate.getDate())
@@ -533,8 +533,8 @@ export default class WeatherMapStore_new {
       this._domainId.set(domainId);
       this._timeSpan.set(null);
       //this._timeIndex.set(null);
-      this._agl = null;
-      this._dateStart = null;
+      //this._agl = null;
+      //this._dateStart = null;
 
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
@@ -574,8 +574,8 @@ export default class WeatherMapStore_new {
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
       //this._timeIndex.set(null);
-      this._agl = null;
-      this._dateStart = null;
+      //this._agl = null;
+      //this._dateStart = null;
       this._timeSpan.set(timeSpan);
       this._loadDomainData();
       this.selectedFeature = null;
@@ -586,14 +586,16 @@ export default class WeatherMapStore_new {
     setting a new timeIndex
   */
   changeCurrentTime(newTime) {
-    // console.log("weatherMapStore_new: changeCurrentTime", {
+    //console.log("weatherMapStore_new: changeCurrentTime #k0112 #k0113", {
     //   newTime: new Date(newTime),
     //   oldDate: new Date(this._currentTime.get())
     // });
     if (
       new Date(newTime).getTime() != new Date(this._currentTime.get()).getTime()
-    )
+    ) {
       this._currentTime.set(newTime);
+    }
+
     this._loadIndexData();
   }
 

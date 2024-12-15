@@ -75,6 +75,7 @@ const WeatherMapCockpit = ({
   };
 
   const onTimelineUpdate = newTime => {
+    //console.log("weather-map-cockpit->onTimelineUpdate #k0113", newTime);
     changeCurrentTime(newTime);
   };
 
@@ -302,19 +303,13 @@ const WeatherMapCockpit = ({
 
   let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
 
+  // fix startdate hours after possible timespan change
   const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
   if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
-    console.log("weather-map-cockpit->render FIX HOURS #1", {
-      currentHoursUsedStartTime: currentHoursFixedStartTime
-    });
     fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
   }
-  if (absSpan % 24 === 0) {
-    console.log("weather-map-cockpit->render FIX HOURS #2", {
-      currentHoursUsedStartTime: currentHoursFixedStartTime
-    });
-    if ([12].includes(currentHoursFixedStartTime))
-      fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
+  if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
   }
   let usedStartTime = new Date(fixedStartTime) || null;
   usedStartTime.setDate(usedStartTime.getDate() - 730);
@@ -323,6 +318,7 @@ const WeatherMapCockpit = ({
 
   let analysesEndTs = new Date(startDate);
 
+  // fix initdate hours after possible timespan change
   let usedInitialDate = new Date(currentTime);
   if (
     usedEndTime &&
@@ -330,17 +326,26 @@ const WeatherMapCockpit = ({
   )
     usedInitialDate = new Date(usedEndTime);
 
-  console.log("weather-map-cockpit->render #j01", {
-    //absSpan,
-    //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-    //startDate: new Date(startDate).toUTCString(),
-    currentTime: currentTime?.toUTCString(),
-    //fixedStartTime: fixedStartTime?.toUTCString(),
-    usedStartTime: usedStartTime?.toUTCString(),
-    usedInitialDate: usedInitialDate?.toUTCString(),
-    usedEndTime: usedEndTime?.toUTCString()
-    // firstHour
-  });
+  const initialDateHours = usedInitialDate.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(
+      usedInitialDate.getUTCHours() - initialDateHours
+    );
+  }
+  // console.log("weather-map-cockpit->render #j01", {
+  //   //absSpan,
+  //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   //startDate: new Date(startDate).toUTCString(),
+  //   currentTime: currentTime?.toUTCString(),
+  //   //fixedStartTime: fixedStartTime?.toUTCString(),
+  //   usedStartTime: usedStartTime?.toUTCString(),
+  //   usedInitialDate: usedInitialDate?.toUTCString(),
+  //   usedEndTime: usedEndTime?.toUTCString()
+  //   // firstHour
+  // });
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
