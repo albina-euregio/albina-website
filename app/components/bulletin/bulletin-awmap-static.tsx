@@ -19,13 +19,12 @@ function BulletinAWMapStatic({
   imgFormat
 }: Props) {
   const publicationTime = bulletin?.publicationTime;
-  const publicationDirectory =
-    publicationTime && date > "2019-05-06"
-      ? publicationTime
-          .replace(/T/, "_")
-          .replace(/:/g, "-")
-          .slice(0, "2021-12-04_16-00-00".length)
-      : "";
+  const publicationDirectory = publicationTime
+    ? publicationTime
+        .replace(/T/, "_")
+        .replace(/:/g, "-")
+        .slice(0, "2021-12-04_16-00-00".length)
+    : "";
   const filePrefix = publicationTime ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
