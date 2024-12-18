@@ -545,13 +545,13 @@
           "timeRange": ["-17520", "+60"]
         }
       },
-      "gust": {
+      "wind700hpa": {
         "domainDefault": false,
         "domainIdStart": "+-1",
         "item": {
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
-          "timeSpanToDataId": { "+-1": "gust" },
+          "timeSpanToDataId": { "+-1": "wind700hpa" },
           "updateTimesOffset": { "*": 1 },
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
@@ -570,11 +570,12 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": "_V3.png", "type": "windSpeed" },
-            { "filePostfix": "-dir_V3.png", "type": "windDirection" }
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
           ],
           "direction": "wdir",
           "clusterOperation": "max",
+          "dataOverlayFilePostFix": { "main": ".gif", "debug": ".png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
