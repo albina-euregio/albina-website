@@ -13,9 +13,9 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
-  wind: "icon-wind"
+  wind: "icon-wind",
   //windgust: "icon-wind-gust"
-  //wind700hpa: "icon-wind-high"
+  wind700hpa: "icon-wind-high"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -24,9 +24,9 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
-  wind: "cp-legend-wind"
+  wind: "cp-legend-wind",
   //windgust: "cp-legend-windgust"
-  //wind700hpa: "cp-legend-windhigh"
+  wind700hpa: "cp-legend-windhigh"
 };
 
 const DOMAIN_UNITS = {
