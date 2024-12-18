@@ -35,9 +35,9 @@ const DOMAIN_UNITS = {
   "diff-snow": "cm",
   "snow-line": "m",
   temp: "°C",
-  wind: "km/h"
+  wind: "km/h",
   //windgust: "km/h"
-  //windhigh: "km/h"
+  wind700hpa: "km/h"
 };
 
 const LOOP = false;
@@ -189,7 +189,7 @@ const WeatherMapCockpit = ({
                 .classList.toggle("layer-selector-open");
             }}
           >
-            <div className="layer-select icon-snow">
+            <div className={"layer-select " + DOMAIN_ICON_CLASSES[domainId]}>
               <span class="layer-select-text">
                 <span class="layer-select-name">
                   {
