@@ -81,7 +81,7 @@ const DataOverlay = ({
           coordinates.y,
           1,
           1,
-          {willReadFrequently: true}
+          { willReadFrequently: true }
         );
         //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 

@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,21 +11,22 @@
 \*------------------------------------*/
 
 .top-fix {
-  border-bottom-width: $border-width;
+  border-bottom-width: variables.$border-width;
   .js-top-fix & {
     z-index: 300;
     position: fixed;
     width: 100%;
-    background-color: rgba($white, 0.95);
-    border-bottom: $border-width $border-style $brand-very-light;
+    background-color: rgba(variables.$white, 0.95);
+    border-bottom: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
     //if linkbar decrease padding
     &.section-linkbar {
-      padding-top: $padding;
-      padding-bottom: $padding;
+      padding-top: variables.$padding;
+      padding-bottom: variables.$padding;
     }
   }
   //next sibling
   + section {
-    @include rollout(all, 0s);
+    @include mixins.rollout(all, 0s);
   }
 }

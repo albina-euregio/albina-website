@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../atoms/media";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,12 +11,12 @@
 \*------------------------------------*/
 
 .section-dangerscale {
-  @media #{$small-up} {
+  @media #{variables.$small-up} {
     .small-3 {
       text-align: center;
     }
   }
   .warning-level-icon {
-    height: $picto-height * 2;
+    height: media.$picto-height * 2;
   }
 }

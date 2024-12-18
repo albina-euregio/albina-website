@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import $ from "jquery";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -15,7 +14,8 @@ const DOMAIN_ICON_CLASSES = {
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
   wind: "icon-wind"
-  //gust: "icon-wind-gust"
+  //windgust: "icon-wind-gust"
+  //wind700hpa: "icon-wind-high"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -25,7 +25,8 @@ const DOMAIN_LEGEND_CLASSES = {
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
   wind: "cp-legend-wind"
-  //gust: "cp-legend-windgust"
+  //windgust: "cp-legend-windgust"
+  //wind700hpa: "cp-legend-windhigh"
 };
 
 const DOMAIN_UNITS = {
@@ -35,32 +36,29 @@ const DOMAIN_UNITS = {
   "snow-line": "m",
   temp: "°C",
   wind: "km/h"
-  //gust: "km/h"
+  //windgust: "km/h"
+  //windhigh: "km/h"
 };
 
 const LOOP = false;
 
 const WeatherMapCockpit = ({
-  currentTime,
   timeSpan,
-  timeArray,
-  lastUpdateTime,
-  nextUpdateTime,
-  lastAnalyticTime,
+  startDate,
+  currentTime,
   domainId,
   eventCallback,
-  previousTime,
-  nextTime,
   changeCurrentTime,
-  player,
-  storeConfig
+  storeConfig,
+  nextUpdateTime,
+  lastUpdateTime
 }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
     adaptVH();
-    $("body").removeClass("layer-selector-open");
+    document?.querySelector("body").classList.remove("layer-selector-open");
     return () => {
       window.removeEventListener("resize", redraw);
     };
@@ -76,125 +74,16 @@ const WeatherMapCockpit = ({
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
-  const onDragStart = () => {
-    //console.log("onDragging");
-    showTimes(false);
-  };
-
-  const showTimes = show => {
-    $(".cp-scale-stamp-range-end").css({
-      display: show ? "" : "none"
-    });
-    $(".cp-scale-stamp-range-begin").css({
-      display: show ? "" : "none"
-    });
-    $(".cp-scale-stamp-point-exact").css({
-      display: show ? "" : "none"
-    });
-  };
-
-  const placeCockpitItems = tickWidth => {
-    // console.log(
-    //   "placeCockpitItems: s04",
-    //   currentTime,
-    //   tickWidth
-    // );
-    const timespan = parseInt(timeSpan.replace(/\D/g, ""), 10);
-    const startDateTime = new Date(timeArray[0]);
-    startDateTime.setUTCHours(
-      startDateTime.getUTCHours() - (timespan > 1 ? timespan : 0)
-    );
-    if (currentTime && startDateTime) {
-      const posContainerEl = document.querySelector(".cp-scale-days");
-      const posContainer = posContainerEl.getBoundingClientRect();
-
-      // console.log("cockpit #33", {
-      //   currTime: new Date(currentTime),
-      //   firstTimeStamp: timeArray[0],
-      //   firstTime: new Date(timeArray[0]),
-      //   firstTimeMinusTimeSpan: startDateTime,
-      //   timespan,
-      //   posContainerL: posContainer.left,
-      //   scrollx: window.scrollX
-      // });
-      const posFirstAvailableEl = document.querySelector(
-        ".t" + startDateTime.getTime()
-      );
-      if (!posFirstAvailableEl) {
-        // console.log("cockpit s044 ERROR", {
-        //   currTime: new Date(currentTime),
-        //   startDateTime: startDateTime.getTime(),
-        //   timespan
-        // });
-
-        return;
-      }
-      // console.log("cockpit s044 OK", {
-      //   currTime: new Date(currentTime),
-      //   startDateTime: startDateTime.getTime(),
-      //   timespan
-      // });
-      const posFirstAvailable = posFirstAvailableEl.getBoundingClientRect();
-
-      const posLastEl = document.querySelector(
-        ".t" + timeArray[timeArray.length - 1]
-      );
-      const posLast = posLastEl.getBoundingClientRect();
-
-      //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
-      showTimes(true);
-      if (timeArray.length < 2) {
-        $(".cp-scale-flipper-left").css({
-          display: "none"
-        });
-        $(".cp-scale-flipper-right").css({
-          display: "none"
-        });
-        $(".cp-movie").css({
-          display: "none"
-        });
-      } else {
-        $(".cp-scale-flipper-left").css({
-          left: posFirstAvailable?.left - posContainer.left,
-          display: ""
-        });
-        $(".cp-scale-flipper-right").css({
-          left: posLast.left - posContainer.left,
-          display: ""
-        });
-        $(".cp-movie").css({
-          display: ""
-        });
-      }
-
-      if (lastAnalyticTime) {
-        const lastAnalyticTimeCompEl = document.querySelector(
-          ".t" + lastAnalyticTime
-        );
-        const lastAnalyticTimeComp =
-          lastAnalyticTimeCompEl.getBoundingClientRect();
-        $(".cp-scale-analyse-bar").css({
-          left: posFirstAvailable?.left - posContainer.left,
-          width:
-            lastAnalyticTimeComp?.left - posFirstAvailable?.left - tickWidth,
-          display: ""
-        });
-      } else
-        $(".cp-scale-analyse-bar").css({
-          display: "none"
-        });
-    }
-  };
-
-  const onTimelineUpdate = ({ tickWidth }) => {
-    //console.log("onTimelineUpdate s04", tickWidth);
-
-    placeCockpitItems(tickWidth);
+  const onTimelineUpdate = newTime => {
+    //console.log("weather-map-cockpit->onTimelineUpdate #k0113", newTime);
+    changeCurrentTime(newTime);
   };
 
   const handleEvent = (type, value) => {
     if (typeof eventCallback === "function") {
-      player.stop();
+      const body = document?.querySelector("body");
+      if (body?.classList?.contains("layer-selector-open"))
+        body.classList.remove("layer-selector-open");
       eventCallback(type, value);
     }
   };
@@ -206,6 +95,11 @@ const WeatherMapCockpit = ({
             id: domainId,
             title: (
               <FormattedMessage id={"weathermap:domain:title:" + domainId} />
+            ),
+            description: (
+              <FormattedMessage
+                id={"weathermap:domain:description:" + domainId}
+              />
             ),
             url: "/weather/map/" + domainId,
             isExternal: false
@@ -226,7 +120,13 @@ const WeatherMapCockpit = ({
           onClick={() => handleEvent("domain", aButton.id)}
           className={linkClasses.join(" ")}
         >
-          <span className={spanClasses.join(" ")}>{aButton.title}</span>
+          {/* <span className={spanClasses.join(" ")}>{aButton.title}</span> */}
+          <div className={spanClasses.join(" ")}>
+            <span className="layer-select-text">
+              <span className="layer-select-name">{aButton.title}</span>
+              <span className="layer-select-info">{aButton.description}</span>
+            </span>
+          </div>
         </Link>
       );
     });
@@ -248,25 +148,15 @@ const WeatherMapCockpit = ({
         if (timeSpan === aItem) linkClasses.push("js-active");
 
         buttons.push(
-          <Tooltip
-            key={"domain-timespan-desc-" + nrOnlyTimespan}
-            label={
-              <FormattedMessage
-                id="weathermap:domain:timespan:description"
-                values={{ range: nrOnlyTimespan }}
-              />
-            }
+          <a
+            role="button"
+            tabIndex="0"
+            key={aItem}
+            onClick={() => handleEvent("timeSpan", aItem)}
+            className={linkClasses.join(" ")}
           >
-            <a
-              role="button"
-              tabIndex="0"
-              key={aItem}
-              onClick={() => handleEvent("timeSpan", aItem)}
-              className={linkClasses.join(" ")}
-            >
-              {nrOnlyTimespan}h
-            </a>
-          </Tooltip>
+            {nrOnlyTimespan}h
+          </a>
         );
       });
 
@@ -287,84 +177,42 @@ const WeatherMapCockpit = ({
     return (
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
-          <Tooltip
-            key="cp-select-parameter"
-            label={
-              <FormattedMessage id="weathermap:cockpit:select-parameter" />
-            }
+          <a
+            href="#"
+            role="button"
+            tabIndex="0"
+            className="cp-layer-selector-item cp-layer-trigger "
+            onClick={() => {
+              document
+                ?.querySelector("body")
+                .classList.toggle("layer-selector-open");
+            }}
           >
-            <a
-              role="button"
-              tabIndex="0"
-              className="cp-layer-selector-item cp-layer-trigger "
-              onClick={() => {
-                $("body").toggleClass("layer-selector-open");
-              }}
-            >
-              <span className="layer-select icon-snow">
-                {
-                  <FormattedMessage
-                    id={"weathermap:domain:title:" + domainId}
-                  />
-                }
+            <div className="layer-select icon-snow">
+              <span class="layer-select-text">
+                <span class="layer-select-name">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:title:" + domainId}
+                    />
+                  }
+                </span>
+                <span class="layer-select-info">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:description:" + domainId}
+                    />
+                  }
+                </span>
               </span>
-              <span className="layer-trigger"></span>
-            </a>
-          </Tooltip>
+            </div>
+            <span className="layer-trigger"></span>
+          </a>
         </div>
 
         <div key="cp-range" className="cp-range">
           {allButtons}
         </div>
-      </div>
-    );
-  };
-
-  const getPlayerButtons = () => {
-    //console.log("getPlayerButtons", player.playing);
-    // const label =
-    //   "weathermap:player:" + (player.playing ? "stop" : "play");
-
-    let linkClassesPlay = ["cp-movie-play", "icon-play"];
-    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
-    let divClasses = ["cp-movie"];
-    if (player.playing()) divClasses.push("js-playing");
-    return (
-      <div key="cp-movie" className={divClasses.join(" ")}>
-        <Tooltip
-          key="cp-movie-play"
-          label={<FormattedMessage id="weathermap:cockpit:play" />}
-        >
-          <a
-            key="playerButton"
-            className={linkClassesPlay.join(" ")}
-            href="#"
-            onClick={() => {
-              player.toggle();
-            }}
-          >
-            <span className="is-visually-hidden">
-              {<FormattedMessage id="weathermap:cockpit:play" />}
-            </span>
-          </a>
-        </Tooltip>
-        <Tooltip
-          key="cp-movie-stop"
-          label={<FormattedMessage id="weathermap:cockpit:stop" />}
-        >
-          <a
-            key="stopButton"
-            className={linkClassesStop.join(" ")}
-            href="#"
-            onClick={() => {
-              player.toggle();
-            }}
-          >
-            <span className="is-visually-hidden">
-              {<FormattedMessage id="weathermap:cockpit:stop" />}
-            </span>
-          </a>
-        </Tooltip>
       </div>
     );
   };
@@ -429,61 +277,15 @@ const WeatherMapCockpit = ({
         >
           <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
         </Tooltip>
-        {/* <span key="cp-release-copyright" className="cp-release-copyright">
+        <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
             className="icon-copyright icon-margin-no"
             title="Copyright"
           ></a>
-        </span> */}
+        </span>
       </div>
     );
-  };
-
-  const setPreviousTime = () => {
-    if (LOOP || currentTime != timeArray[0]) {
-      //console.log("setPreviousTime s03", currentTime);
-      previousTime();
-    }
-  };
-
-  const setNextTime = () => {
-    if (LOOP || currentTime != timeArray[timeArray.length - 1]) nextTime();
-  };
-
-  const setOffsetTime = offset => {
-    const currentKey = timeArray.findIndex(element => element === currentTime);
-    //console.log('setOffsetTime', offset, currentKey, timeSpan, currentTime, timeArray);
-    if (currentKey > -1) {
-      if (offset < 0) {
-        if (currentKey + offset >= 0)
-          changeCurrentTime(timeArray[currentKey + offset]);
-      } else {
-        if (currentKey + offset < timeArray.length)
-          changeCurrentTime(timeArray[currentKey + offset]);
-      }
-    }
-  };
-
-  const onKeyPressed = e => {
-    //console.log('ctrl', e.ctrlKey, timeSpan);
-    switch (e.keyCode) {
-      case 37:
-        if (Number(timeSpan.replace("-", "")) === 1 && e.ctrlKey)
-          setOffsetTime(-24);
-        else setPreviousTime();
-        break;
-      case 39:
-        if (Number(timeSpan.replace("-", "")) === 1 && e.ctrlKey)
-          setOffsetTime(24);
-        else setNextTime();
-        break;
-      case 32:
-        player.toggle();
-        break;
-      default:
-        break;
-    }
   };
 
   //console.log("weather-map-cockpit->render hhhh", currentTime);
@@ -493,38 +295,91 @@ const WeatherMapCockpit = ({
     "lastRedraw-" + lastRedraw
   ];
 
+  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
+  // const firstHour = new Date(startDate);
+  // firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
+
   const imgRoot = `${window.config.projectRoot}images/pro/`;
+
+  let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
+
+  // fix startdate hours after possible timespan change
+  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
+  }
+  let usedStartTime = new Date(fixedStartTime) || null;
+  usedStartTime.setDate(usedStartTime.getDate() - 730);
+  let usedEndTime = new Date(fixedStartTime) || null;
+  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
+
+  let analysesEndTs = new Date(startDate);
+
+  // fix initdate hours after possible timespan change
+  let usedInitialDate = new Date(currentTime);
+  if (
+    usedEndTime &&
+    new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
+  )
+    usedInitialDate = new Date(usedEndTime);
+
+  const initialDateHours = usedInitialDate.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(
+      usedInitialDate.getUTCHours() - initialDateHours
+    );
+  }
+  // console.log("weather-map-cockpit->render #j01", {
+  //   //absSpan,
+  //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   //startDate: new Date(startDate).toUTCString(),
+  //   currentTime: currentTime?.toUTCString(),
+  //   //fixedStartTime: fixedStartTime?.toUTCString(),
+  //   usedStartTime: usedStartTime?.toUTCString(),
+  //   usedInitialDate: usedInitialDate?.toUTCString(),
+  //   usedEndTime: usedEndTime?.toUTCString()
+  //   // firstHour
+  // });
+
   return (
-    <div
-      role="button"
-      tabIndex="0"
-      key="map-cockpit"
-      className={classes.join(" ")}
-      onKeyDown={onKeyPressed}
-    >
+    <div role="button" key="map-cockpit" className={classes.join(" ")}>
       <div key="cp-container-1" className="cp-container-1">
         <div key="cp-layer-selector" className="cp-layer-selector">
           {getDomainButtons()}
         </div>
       </div>
+
       <div key="cp-container-2" className="cp-container-2">
         {/* {getTickButtons()}
          */}
+
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline
-            timeArray={timeArray}
-            timeSpan={timeSpan}
-            currentTime={currentTime}
-            changeCurrentTime={changeCurrentTime}
-            updateCB={onTimelineUpdate}
-            showTimes={showTimes}
-            setPreviousTime={setPreviousTime}
-            setNextTime={setNextTime}
-            onDragStart={onDragStart}
-          />
-          {getPlayerButtons()}
+          {startDate && (
+            <Timeline
+              key="cp-timeline"
+              domainId={domainId}
+              timeSpan={absSpan}
+              barDuration={absSpan}
+              markerPosition={absSpan > 24 ? "75%" : "50%"}
+              showBar={absSpan > 1}
+              analysesEndTs={analysesEndTs?.toISOString()}
+              initialDateTs={usedInitialDate.toISOString()}
+              startTimeTs={usedStartTime.toISOString()}
+              endTimeTs={usedEndTime.toISOString()}
+              //firstHour={firstHour?.getUTCHours()}
+              updateCB={onTimelineUpdate}
+            />
+          )}
         </div>
+
         {getTimeSpanOptions()}
+
         <div
           key="cp-containerl-legend-release"
           className="cp-container-legend-release"
@@ -532,6 +387,7 @@ const WeatherMapCockpit = ({
           {getLegend()}
           {getReleaseInfo()}
         </div>
+
         <div key="cp-copyright" className="cp-copyright">
           <Tooltip
             key="cp-copyright-tp"

@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/bgs";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,22 +13,23 @@
 
 .controlbar {
   z-index: 10;
+  padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
+
+  @extend .bg-brand;
+  @include mixins.text-color(variables.$white);
+  @include mixins.link-color(variables.$black, variables.$white);
+
   ~ .controlbar {
     z-index: 9;
   }
-  @extend .bg-brand;
-  padding: ($all-v-padding * 0.5) $all-h-padding;
-
-  @include text-color($white);
-  @include link-color($black, $white);
 
   .grid {
-    grid-gap: $padding;
+    grid-gap: variables.$padding;
   }
 
   .grid-item:last-child {
     //.info {display: none;}
-    @media #{$normal-up} {
+    @media #{variables.$normal-up} {
       //.info { display: block; }
       float: right;
       text-align: right;
@@ -40,30 +45,30 @@
     > li {
       position: relative;
       vertical-align: top;
-      padding-right: $padding;
+      padding-right: variables.$padding;
     }
   }
 
   .info {
-    margin-bottom: $padding * 0.4;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    @include letter-spacing;
+    margin-bottom: variables.$padding * 0.4;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    @include mixins.letter-spacing;
   }
 
   .filter {
     margin-top: 0.75em;
     li {
-      padding-right: $padding * 0.5;
+      padding-right: variables.$padding * 0.5;
     }
     .label {
-      color: $white;
-      border-color: $white;
+      color: variables.$white;
+      border-color: variables.$white;
       background: transparent;
       &:hover,
       &.js-active {
-        color: $brand;
-        background: $white;
-        border-color: $white;
+        color: variables.$brand;
+        background: variables.$white;
+        border-color: variables.$white;
       }
     }
   }
@@ -76,32 +81,35 @@
 @media (hover: none) {
   // disable hover styles on touch devices
   .controlbar .filter a.label:not(.js-active):hover {
-    color: $white;
+    color: variables.$white;
     background: transparent;
   }
 }
 
 .controlbar-big {
-  padding: ($all-v-padding * 2) $all-h-padding;
+  padding: (variables.$all-v-padding * 2) variables.$all-h-padding;
 }
 
 .controlbar-subtle {
-  @include text-color($black);
-  @include link-color($anchor-font-color, rgba($anchor-font-color-hover, 0.9));
+  @include mixins.text-color(variables.$black);
+  @include mixins.link-color(
+    variables.$anchor-font-color,
+    rgba(variables.$anchor-font-color-hover, 0.9)
+  );
   @extend .bg-brand-subtle;
 }
 
 .controlbar-dev {
-  @include text-color($black);
-  @include link-color($anchor-font-color, rgba($anchor-font-color-hover, 0.9));
+  @include mixins.text-color(variables.$black);
+  @include mixins.link-color(
+    variables.$anchor-font-color,
+    rgba(variables.$anchor-font-color-hover, 0.9)
+  );
   @extend .bg-warning-level-2;
 }
 
 .controlbar-bg-image {
   display: none;
-  .controlbar-image & {
-    display: block;
-  }
   position: absolute;
   top: 0;
   bottom: 0;
@@ -112,6 +120,9 @@
   background-size: cover;
   mix-blend-mode: luminosity;
   opacity: 0.2;
+  .controlbar-image & {
+    display: block;
+  }
 }
 
 .controlbar-big-hide {

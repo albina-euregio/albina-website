@@ -70,21 +70,12 @@ const Weather = () => {
       case "time":
         store.changeCurrentTime(value);
         break;
-      case "play":
-        if (value) player.start();
-        else player.stop();
-        break;
       default:
         break;
     }
   };
 
-  // console.log(
-  //   "weather->render",
-  //   new Date(store.currentTime),
-  //   store.agl,
-  //   player
-  // );
+  //console.log("weather->render #i011", {currentTime: store.currentTime, agl: store.agl, dateStart: store.startDate});
   return (
     <>
       <WeatherStationDialog
@@ -141,17 +132,14 @@ const Weather = () => {
                 key="cockpit"
                 startDate={store.startDate}
                 agl={store.agl}
-                timeArray={store.availableTimes}
                 storeConfig={store.config}
                 domainId={store.domainId}
                 timeSpan={store.timeSpan}
                 changeCurrentTime={store.changeCurrentTime.bind(store)}
-                player={player}
                 currentTime={store.currentTime}
-                eventCallback={handleClickCockpitEvent.bind(this)}
-                lastAnalyticTime={store.startDate}
                 nextUpdateTime={store.nextUpdateTime}
                 lastUpdateTime={store.lastUpdateTime}
+                eventCallback={handleClickCockpitEvent.bind(this)}
                 nextTime={() => {
                   store.changeCurrentTime(store.nextTime);
                 }}

@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -10,91 +13,40 @@
 //only for debugging purpose
 $grid-activated: true;
 
-@mixin grid($grid-columns: $grid-columns, $margin-bottom: 0) {
+@mixin grid($grid-columns: variables.$grid-columns, $margin-bottom: 0) {
   //@include clearfix;
   overflow: visible;
   position: relative;
   margin-bottom: $margin-bottom;
+  margin-left: 0;
+  margin-right: 0;
 
-  // T H E   F A L L B A C K
-  @include clearfix;
-  margin-left: -($grid-gutter-small * 0.5);
-  margin-right: -($grid-gutter-small * 0.5);
-  @media #{$normal-up} {
-    margin-left: -($grid-gutter * 0.5);
-    margin-right: -($grid-gutter * 0.5);
-  }
+  display: grid;
+  grid-template-columns: repeat(#{$grid-columns}, 1fr);
+  grid-template-rows: auto;
+  grid-gap: variables.$grid-gutter-small;
+  grid-auto-flow: row;
 
-  // T H E   G R I D
-  @if $grid-activated {
-    display: grid;
-    grid-template-columns: repeat(#{$grid-columns}, 1fr);
-    grid-template-rows: auto;
-    grid-gap: $grid-gutter-small;
-    @media #{$normal-up} {
-      grid-gap: $grid-gutter;
-    }
-    grid-auto-flow: row;
-
-    // I F   G R I D   U N D O   T H E   F A L L B A C K
-    @supports (display: grid) {
-      @include clearfix-undo;
-      margin-left: 0;
-      margin-right: 0;
-    }
+  @media #{variables.$normal-up} {
+    grid-gap: variables.$grid-gutter;
   }
 }
 
-@mixin grid-item($grid-columns: $grid-columns) {
-  transition: all ($transition-duration * 2) ease-in-out;
-  @include last-child();
+@mixin grid-item($grid-columns: variables.$grid-columns) {
+  transition: all (variables.$transition-duration * 2) ease-in-out;
 
-  // T H E   F A L L B A C K
-  float: left;
-  min-height: 1px;
-  width: calc(100% - #{$grid-gutter-small});
-  //margin: 0 ($grid-gutter-small * 0.5) $grid-gutter-small ($grid-gutter-small * 0.5);
-  margin: 0 ($grid-gutter-small * 0.5) ($grid-gutter-small * 0.5)
-    ($grid-gutter-small * 0.5);
-  @media #{$normal-up} {
-    width: calc(100% - #{$grid-gutter});
-    //margin: 0 ($grid-gutter * 0.5) $grid-gutter ($grid-gutter * 0.5);
-    margin: 0 ($grid-gutter * 0.5) ($grid-gutter * 0.5) ($grid-gutter * 0.5);
-  }
+  grid-column: span $grid-columns;
+  width: auto !important;
+  margin: 0;
 
-  // T H E   G R I D
-  @if $grid-activated {
-    grid-column: span $grid-columns;
-
-    // I F   G R I D   U N D O   T H E   F A L L B A C K
-    @supports (display: grid) {
-      float: none;
-      min-height: none;
-      width: auto !important;
-      margin: 0;
-    }
-  }
+  @include mixins.last-child();
 }
 
 @mixin grid-item-generator($query) {
   $i: 1;
-  @for $i from 1 through $grid-columns {
+  @for $i from 1 through variables.$grid-columns {
     .#{$query}-#{$i} {
-      // T H E   F A L L B A C K
-      width: calc(
-        100% / 12 * #{$i} - #{$grid-gutter-small} - 0.1px
-      ); // - 0.1px because of another IE bug
-
-      @media #{$normal-up} {
-        width: calc(
-          100% / 12 * #{$i} - #{$grid-gutter} - 0.1px
-        ); // - 0.1px because of another IE bug
-      }
-
-      // T H E   G R I D
-      @if $grid-activated {
-        grid-column: span $i;
-      }
+      grid-column: span $i;
     }
   }
 }
@@ -112,27 +64,27 @@ $grid-activated: true;
 
 //generate responsive grid-items
 @include grid-item-generator(all);
-@media #{$tiny-up} {
+@media #{variables.$tiny-up} {
   @include grid-item-generator(tiny);
 }
-@media #{$small-up} {
+@media #{variables.$small-up} {
   @include grid-item-generator(small);
 }
-@media #{$normal-up} {
+@media #{variables.$normal-up} {
   @include grid-item-generator(normal);
 }
-@media #{$medium-up} {
+@media #{variables.$medium-up} {
   @include grid-item-generator(medium);
 }
-@media #{$large-up} {
+@media #{variables.$large-up} {
   @include grid-item-generator(large);
 }
-@media #{$xlarge-up} {
+@media #{variables.$xlarge-up} {
   @include grid-item-generator(xlarge);
 }
-@media #{$xxlarge-up} {
+@media #{variables.$xxlarge-up} {
   @include grid-item-generator(xxlarge);
 }
-@media #{$xxxlarge-up} {
+@media #{variables.$xxxlarge-up} {
   @include grid-item-generator(xxxlarge);
 }

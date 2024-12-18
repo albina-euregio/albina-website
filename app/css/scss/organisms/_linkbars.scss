@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,14 +10,13 @@
 \*------------------------------------*/
 
 .linkbar {
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
   ul {
     li {
       padding-bottom: 0;
     }
   }
-  @media #{$normal-up} {
-
+  @media #{variables.$normal-up} {
     .grid-item + .grid-item:last-child {
       text-align: right;
     }

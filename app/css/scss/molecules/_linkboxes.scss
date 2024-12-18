@@ -1,3 +1,7 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -21,74 +25,95 @@ a.linkbox {
   &:visited {
     position: relative;
     display: block;
-    margin-bottom: $margin-bottom;
+    margin-bottom: variables.$margin-bottom;
     padding: 0;
     line-height: 0;
-    background-color: $anchor-font-color;
-    border: $border-width $border-style $brand-very-light;
+    background-color: variables.$anchor-font-color;
+    border: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
     overflow: hidden;
-    @include rollout(all, $transition-duration, ease-in-out);
+    @include mixins.rollout(all, variables.$transition-duration, ease-in-out);
   }
 
   .content-image {
     width: 100%;
     // overflow: hidden;
-    @include rollout(all, $transition-duration, ease-out);
+    @include mixins.rollout(all, variables.$transition-duration, ease-out);
     img {
       max-width: none;
       width: 100%;
       margin-bottom: 0;
       transform: scale3d(1.01, 1.01, 1);
-      @include rollout(all, $transition-duration, ease-out);
+      @include mixins.rollout(all, variables.$transition-duration, ease-out);
     }
   }
 
   .content-text {
     width: 100%;
-    padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    @include text-color($anchor-font-color);
-    background-color: $white;
-    @include scrollbar-hide;
-    @include rollout(all, $transition-duration, ease-in-out);
+    padding: calc(#{variables.$all-v-padding} - 0.5em) variables.$all-h-padding;
+    background-color: variables.$white;
+    @include mixins.text-color(variables.$anchor-font-color);
+    @include mixins.rollout(all, variables.$transition-duration, ease-in-out);
+    @include mixins.scrollbar-hide;
 
-    @include last-child;
+    @include mixins.last-child;
 
     p {
       margin: 0;
       color: inherit;
     }
     p:not(.subheader) + p {
-      margin-top: $paragraph-margin-bottom;
+      margin-top: variables.$paragraph-margin-bottom;
     }
   }
 
   .pure-button {
-    border-color: $white;
-    @include rollout(all, $transition-duration, ease-in-out);
+    border-color: variables.$white;
+    @include mixins.rollout(all, variables.$transition-duration, ease-in-out);
   }
 
   &:hover {
-    border-color: $anchor-font-color;
-    @include box-shadow;
-    @include rollover(all, $transition-duration * 2, ease-in-out);
+    border-color: variables.$anchor-font-color;
+    @include mixins.box-shadow;
+    @include mixins.rollover(
+      all,
+      variables.$transition-duration * 2,
+      ease-in-out
+    );
 
     .content-image {
-      @include rollover(all, $transition-duration * 2, ease-in-out);
+      @include mixins.rollover(
+        all,
+        variables.$transition-duration * 2,
+        ease-in-out
+      );
       img {
         transform: scale3d(1.2, 1.2, 1);
-        @include rollover(all, $transition-duration * 2, ease-in-out);
+        @include mixins.rollover(
+          all,
+          variables.$transition-duration * 2,
+          ease-in-out
+        );
       }
     }
 
     .content-text {
-      @include text-color($white);
-      background-color: $anchor-font-color;
-      @include rollover(all, $transition-duration * 2, ease-in-out);
+      background-color: variables.$anchor-font-color;
+      @include mixins.text-color(variables.$white);
+      @include mixins.rollover(
+        all,
+        variables.$transition-duration * 2,
+        ease-in-out
+      );
     }
 
     .pure-button {
-      border-color: $white;
-      @include rollover(all, $transition-duration * 2, ease-in-out);
+      border-color: variables.$white;
+      @include mixins.rollover(
+        all,
+        variables.$transition-duration * 2,
+        ease-in-out
+      );
     }
   }
 }
@@ -110,22 +135,23 @@ a.linkbox-feature {
     top: 0;
     bottom: 0;
     overflow: auto;
-    @media #{$normal-up} {
-      padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
+    @media #{variables.$normal-up} {
+      padding: calc(#{variables.$all-v-padding} - 0.5em)
+        variables.$all-h-padding;
     }
     .content-additional {
-      margin-bottom: $paragraph-margin-bottom !important;
+      margin-bottom: variables.$paragraph-margin-bottom !important;
     }
   }
 
   .content-image + .content-text {
     top: 50%;
-    background-color: $white; //rgba($white, 0.5);
+    background-color: variables.$white; //rgba($white, 0.5);
   }
 
   .content-additional {
     display: none;
-    margin-top: $paragraph-margin-bottom;
+    margin-top: variables.$paragraph-margin-bottom;
   }
 
   &:hover {
@@ -137,13 +163,17 @@ a.linkbox-feature {
 
     .content-text {
       top: 0;
-      background-color: rgba($brand, 0.8);
+      background-color: rgba(variables.$brand, 0.8);
     }
 
     .content-additional {
       display: block;
-      @include text-color($white);
-      @include rollover(all, $transition-duration * 2, ease-in-out);
+      @include mixins.text-color(variables.$white);
+      @include mixins.rollover(
+        all,
+        variables.$transition-duration * 2,
+        ease-in-out
+      );
     }
   }
 }
@@ -151,16 +181,17 @@ a.linkbox-feature {
 a.linkbox-blog-feature {
   &:link,
   &:visited {
+    display: flex;
+    flex-wrap: wrap;
+
     margin-bottom: 0;
-    background-color: $white;
-    border: $border-width $border-style $border-color;
-    @media screen and (max-width: #{upper-bound($small-range)}) {
+    background-color: variables.$white;
+    border: variables.$border-width variables.$border-style
+      variables.$border-color;
+    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
       border-left: none;
       border-right: none;
     }
-
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .content-image {
@@ -179,7 +210,7 @@ a.linkbox-blog-feature {
       min-height: 100%;
     }
 
-    @media #{$small-up} {
+    @media #{variables.$small-up} {
       width: 25%;
       height: auto;
       padding-top: 25%;
@@ -195,32 +226,38 @@ a.linkbox-blog-feature {
   }
 
   .content-text {
-    width: 100%;
-    padding: 0.5em $all-h-padding ($all-v-padding * 2) $all-h-padding; //0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    @media #{$small-up} {
-      width: 75%;
-      padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    }
-
     display: flex;
     flex-direction: column;
 
+    width: 100%;
+    padding: 0.5em variables.$all-h-padding (variables.$all-v-padding * 2)
+      variables.$all-h-padding; //0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
+    @media #{variables.$small-up} {
+      width: 75%;
+      padding: calc(#{variables.$all-v-padding} - 0.5em)
+        variables.$all-h-padding;
+    }
+
     .blog-feature-meta {
       li {
-        color: $text-color !important;
+        color: variables.$text-color !important;
       }
     }
 
     .blog-list-labels {
-      margin-bottom: -$padding !important;
+      margin-bottom: -(variables.$padding) !important;
     }
   }
 
   &:hover {
-    color: $anchor-font-color;
-    background-color: $white;
-    border-color: $anchor-font-color;
-    @include rollover(all, $transition-duration * 2, ease-in-out);
+    color: variables.$anchor-font-color;
+    background-color: variables.$white;
+    border-color: variables.$anchor-font-color;
+    @include mixins.rollover(
+      all,
+      variables.$transition-duration * 2,
+      ease-in-out
+    );
 
     .content-image {
       img {
@@ -230,12 +267,16 @@ a.linkbox-blog-feature {
     }
 
     .content-text {
-      @include text-color($anchor-font-color);
-      background-color: $white;
+      background-color: variables.$white;
+      @include mixins.text-color(variables.$anchor-font-color);
       .blog-feature-meta {
         li {
-          color: $anchor-font-color !important;
-          @include rollover(all, $transition-duration * 2, ease-in-out);
+          color: variables.$anchor-font-color !important;
+          @include mixins.rollover(
+            all,
+            variables.$transition-duration * 2,
+            ease-in-out
+          );
         }
       }
     }
@@ -245,16 +286,17 @@ a.linkbox-blog-feature {
 a.linkbox-linktree-feature {
   &:link,
   &:visited {
+    display: flex;
+    flex-wrap: wrap;
+
     margin-bottom: 0;
-    background-color: $white;
-    border: $border-width $border-style $border-color;
-    @media screen and (max-width: #{upper-bound($small-range)}) {
+    background-color: variables.$white;
+    border: variables.$border-width variables.$border-style
+      variables.$border-color;
+    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
       border-left: none;
       border-right: none;
     }
-
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .content-image {
@@ -282,14 +324,18 @@ a.linkbox-linktree-feature {
 
   .content-text {
     width: 80%;
-    padding: calc(#{$all-v-padding} / 2) $all-h-padding;
+    padding: calc(#{variables.$all-v-padding} / 2) variables.$all-h-padding;
   }
 
   &:hover {
-    color: $anchor-font-color;
-    background-color: $white;
-    border-color: $anchor-font-color;
-    @include rollover(all, $transition-duration * 2, ease-in-out);
+    color: variables.$anchor-font-color;
+    background-color: variables.$white;
+    border-color: variables.$anchor-font-color;
+    @include mixins.rollover(
+      all,
+      variables.$transition-duration * 2,
+      ease-in-out
+    );
 
     .content-image {
       img {
@@ -299,8 +345,8 @@ a.linkbox-linktree-feature {
     }
 
     .content-text {
-      @include text-color($anchor-font-color);
-      background-color: $white;
+      background-color: variables.$white;
+      @include mixins.text-color(variables.$anchor-font-color);
     }
   }
 }

@@ -1,3 +1,7 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,22 +13,23 @@
 
 .panel {
   position: relative;
-  margin-bottom: $margin-bottom;
+  padding: variables.$all-v-padding variables.$all-h-padding;
+  margin-bottom: variables.$margin-bottom;
+
   + .panel {
-    margin-top: -$margin-bottom;
+    margin-top: -(variables.$margin-bottom);
   }
-  padding: $all-v-padding $all-h-padding;
   //overflow: auto;//why?
-  @include last-child();
+  @include mixins.last-child();
 
   &.border {
-    @include box-border;
-    @media screen and (max-width: #{upper-bound($small-range)}) {
+    @include mixins.box-border;
+    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
       border-left: none;
       border-right: none;
     }
     + .panel.border {
-      margin-top: $all-v-padding !important;
+      margin-top: variables.$all-v-padding !important;
     }
   }
 
@@ -33,14 +38,14 @@
   }
 
   &.callout {
-    @include box-shadow;
+    @include mixins.box-shadow;
   }
 
   &.field {
-    background-color: $white;
+    background-color: variables.$white;
   }
   &.field-2 {
-    background-color: $grey-very-light;
+    background-color: variables.$grey-very-light;
   }
 
   &.brand,
@@ -55,112 +60,113 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: $bar-width;
+      width: variables.$bar-width;
       height: 100%;
-      @media #{$large-up} {
-        left: -$bar-width * 2;
-        width: $bar-width * 2;
+      @media #{variables.$large-up} {
+        left: -(variables.$bar-width) * 2;
+        width: variables.$bar-width * 2;
       }
     }
   }
 
   &.brand {
     &:before {
-      background-color: $brand;
+      background-color: variables.$brand;
     }
   }
   &.success {
-    @include headline-color($success-color);
+    @include mixins.headline-color(variables.$success-color);
     &:before {
-      background-color: $success-color;
+      background-color: variables.$success-color;
     }
   }
   &.error {
-    @include headline-color($error-color);
+    @include mixins.headline-color(variables.$error-color);
     &:before {
-      background-color: $error-color;
+      background-color: variables.$error-color;
     }
   }
   &.warning {
-    @include headline-color($warning-color);
+    @include mixins.headline-color(variables.$warning-color);
     &:before {
-      background-color: $warning-color;
+      background-color: variables.$warning-color;
     }
   }
 
   &.debug {
     //@include headline-color($warning-color);
-    background-color: $debug-color;
+    background-color: variables.$debug-color;
   }
 
   //warning levels
   &[class*="warning-level"] {
     .bulletin-report-header h1 {
-      margin-left: -$all-h-padding;
+      margin-left: -(variables.$all-h-padding);
       line-height: 1.2;
       span {
-        padding: 0.05rem ($padding * 0.5) 0.05rem $all-h-padding;
+        padding: 0.05rem (variables.$padding * 0.5) 0.05rem
+          variables.$all-h-padding;
         box-decoration-break: clone;
       }
     }
   }
   &.warning-level-1 {
     &:before {
-      background-color: $warning-level-1-color;
+      background-color: variables.$warning-level-1-color;
     }
     .bulletin-report-header h1 {
       span {
-        color: $text-color;
-        background-color: $warning-level-1-color;
+        color: variables.$text-color;
+        background-color: variables.$warning-level-1-color;
       }
     }
   }
   &.warning-level-2 {
     &:before {
-      background-color: $warning-level-2-color;
+      background-color: variables.$warning-level-2-color;
     }
     .bulletin-report-header h1 {
       span {
-        color: $text-color;
-        background-color: $warning-level-2-color;
+        color: variables.$text-color;
+        background-color: variables.$warning-level-2-color;
       }
     }
   }
   &.warning-level-3 {
     &:before {
-      background-color: $warning-level-3-color;
+      background-color: variables.$warning-level-3-color;
     }
     .bulletin-report-header h1 {
       span {
-        color: $warning-level-3-color;
+        color: variables.$warning-level-3-color;
       }
     }
   }
   &.warning-level-4 {
     &:before {
-      background-color: $warning-level-4-color;
+      background-color: variables.$warning-level-4-color;
     }
     .bulletin-report-header h1 {
       span {
-        color: $warning-level-4-color;
+        color: variables.$warning-level-4-color;
       }
     }
   }
   &.warning-level-5 {
     &:before {
-      background: $warning-level-5-color
+      background: variables.$warning-level-5-color
         url("../images/pro/global/bg_checkered.png") repeat 0 0;
     }
     .bulletin-report-header h1 {
       span {
-        color: $warning-level-5-color;
+        color: variables.$warning-level-5-color;
       }
     }
   }
 }
 
 .panel-header {
-  padding-bottom: $all-v-padding * 0.5;
+  padding-bottom: variables.$all-v-padding * 0.5;
   &:last-child {
     padding-bottom: 0;
   }
@@ -174,11 +180,12 @@
     margin-bottom: 0;
   }
   p {
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    @include letter-spacing;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    @include mixins.letter-spacing;
   }
 }
 
 .panel-image {
-  margin: (-$all-v-padding) (-$all-h-padding) 0 (-$all-h-padding);
+  margin: (-(variables.$all-v-padding)) (-(variables.$all-h-padding)) 0
+    (-(variables.$all-h-padding));
 }

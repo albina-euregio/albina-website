@@ -1,3 +1,7 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -16,7 +20,7 @@
 }
 
 .flipper-controls {
-  margin-bottom: $padding !important;
+  margin-bottom: variables.$padding !important;
   .grid-item:last-child {
     text-align: right;
   }
@@ -29,7 +33,7 @@
       &:hover,
       &:active {
         &:before {
-          left: -$padding * 0.5;
+          left: -(variables.$padding) * 0.5;
         }
       }
     }
@@ -41,7 +45,7 @@
       &:hover,
       &:active {
         &:before {
-          right: -$padding * 0.5;
+          right: -(variables.$padding) * 0.5;
         }
       }
     }
@@ -60,7 +64,7 @@
     &:active {
       span {
         &:before {
-          transform: translateX(-$padding * 0.5);
+          transform: translateX(-(variables.$padding) * 0.5);
         }
       }
     }
@@ -70,7 +74,7 @@
     &:active {
       span {
         &:before {
-          transform: translateX($padding * 0.5);
+          transform: translateX(variables.$padding * 0.5);
         }
       }
     }
@@ -78,9 +82,9 @@
 }
 
 .flipper-buttongroup {
-  margin-bottom: $padding * 2;
+  margin-bottom: variables.$padding * 2;
   &.flipper-centered {
-    @media #{$medium-up} {
+    @media #{variables.$medium-up} {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -92,16 +96,16 @@
 }
 
 .flipper-header {
-  margin-bottom: $padding * 2 !important;
+  margin-bottom: variables.$padding * 2 !important;
   .subheader {
     margin-bottom: 0;
   }
 }
 .flipper-image {
-  margin-bottom: $padding * 2 !important;
+  margin-bottom: variables.$padding * 2 !important;
   img {
-    @include box-border;
-    @media screen and (max-width: #{upper-bound($small-range)}) {
+    @include mixins.box-border;
+    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
       border-left: none;
       border-right: none;
     }
@@ -109,7 +113,7 @@
 }
 .flipper-caption {
   h2 {
-    margin-bottom: $padding * 0.5;
+    margin-bottom: variables.$padding * 0.5;
   }
 }
 
@@ -125,7 +129,7 @@
     width: calc(100vw - 2em); //100vw;
     padding: 0;
     opacity: 1;
-    @include rollout();
+    @include mixins.rollout();
     &.js-inactive {
       opacity: 0;
     }

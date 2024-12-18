@@ -1,3 +1,6 @@
+@use "variables";
+@use "mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,37 +12,37 @@
 
 //colors
 .color-trans {
-  color: $trans-color;
+  color: variables.$trans-color;
 }
 .color-white {
-  color: $white;
+  color: variables.$white;
 }
 .color-black {
-  color: $black;
+  color: variables.$black;
 }
 .color,
 .color-brand {
-  color: $brand;
+  color: variables.$brand;
 }
 .color-brand-dark {
-  color: $brand-dark;
+  color: variables.$brand-dark;
 }
 .color-brand-very-dark {
-  color: $brand-very-dark;
+  color: variables.$brand-very-dark;
 }
 .color1 {
-  color: $brand;
+  color: variables.$brand;
 }
 .color2 {
-  color: $brand-2;
+  color: variables.$brand-2;
 }
 
 //border
 .radius {
-  border-radius: $global-radius;
+  border-radius: variables.$global-radius;
 }
 .round {
-  border-radius: $global-rounded;
+  border-radius: variables.$global-rounded;
 }
 
 //text
@@ -56,7 +59,7 @@
   text-align: justify;
 }
 .text-indent {
-  text-indent: $padding * 3;
+  text-indent: variables.$padding * 3;
   .label,
   a {
     text-indent: 0;
@@ -71,12 +74,13 @@
   float: right;
 }
 .clearfix {
-  @include clearfix;
+  @include mixins.clearfix;
 }
 .expand {
   display: block;
 }
-.full-width {
+.full-width,
+.size-full {
   width: 100%;
 }
 .half-width {
@@ -87,10 +91,12 @@
 }
 
 .fade-in {
-  animation: fadeIn ($transition-duration * 2) ease-out 0s normal 1 forwards !important;
+  animation: fadeIn (variables.$transition-duration * 2) ease-out 0s normal 1
+    forwards !important;
 }
 .fade-out {
-  animation: fadeOut ($transition-duration * 2) ease-out 0s normal 1 forwards !important;
+  animation: fadeOut (variables.$transition-duration * 2) ease-out 0s normal 1
+    forwards !important;
 }
 
 //visibility
@@ -98,11 +104,11 @@
 .hidden,
 .hide {
   //Completely remove from the flow and screen readers
-  @include hidden;
+  @include mixins.hidden;
 }
 .is-visually-hidden {
   //Completely remove from the flow but leave available to screen readers
-  @include visually-hidden;
+  @include mixins.visually-hidden;
 }
 
 //style classes generieren

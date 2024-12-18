@@ -7,96 +7,96 @@
     $ABSTRACTS
 \*------------------------------------*/
 
-//https://sass-lang.com/documentation/breaking-changes/slash-div
-//https://sass-lang.com/documentation/modules
 @use "sass:math";
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
 
 //http://bourbon.io
 
-@import "../../node_modules/normalize.css/normalize";
+@use "../../node_modules/normalize.css/normalize";
 
-@import "scss/abstracts/mixins";
-@import "scss/abstracts/variables";
+@use "scss/abstracts/bounds";
+@use "scss/abstracts/variables";
+@use "scss/abstracts/mixins";
 
-@import "scss/abstracts/reset";
-@import "scss/abstracts/global-classes";
+@use "scss/abstracts/reset";
+@use "scss/abstracts/global-classes";
 
 /*------------------------------------*\
     $ATOMS
 \*------------------------------------*/
 
-@import "scss/atoms/grid";
-@import "scss/atoms/blockgrids";
-@import "scss/atoms/body";
+@use "scss/atoms/grid";
+@use "scss/atoms/blockgrids";
+@use "scss/atoms/body";
 
-@import "scss/atoms/icons";
-@import "scss/atoms/text";
-@import "scss/atoms/links";
+@use "scss/atoms/icons";
+@use "scss/atoms/text";
+@use "scss/atoms/links";
 
-@import "scss/atoms/lists";
-@import "scss/atoms/forms";
+@use "scss/atoms/lists";
+@use "scss/atoms/forms";
 
-@import "scss/atoms/lines";
-@import "scss/atoms/bgs";
+@use "scss/atoms/lines";
+@use "scss/atoms/bgs";
 
-@import "scss/atoms/media";
+@use "scss/atoms/media";
 
-@import "scss/atoms/buttons";
-@import "scss/atoms/labels";
-@import "scss/atoms/tooltips";
+@use "scss/atoms/buttons";
+@use "scss/atoms/labels";
+@use "scss/atoms/tooltips";
 
 /*------------------------------------*\
     $MOLECULES
 \*------------------------------------*/
 
-@import "scss/molecules/panels";
-@import "scss/molecules/tables";
-@import "scss/molecules/linkboxes";
-@import "scss/molecules/filters";
-@import "scss/molecules/candybars";
-@import "scss/molecules/sm-buttons";
+@use "scss/molecules/panels";
+@use "scss/molecules/tables";
+@use "scss/molecules/linkboxes";
+@use "scss/molecules/filters";
+@use "scss/molecules/candybars";
+@use "scss/molecules/sm-buttons";
 
-@import "scss/molecules/logo";
-@import "scss/molecules/navigation";
+@use "scss/molecules/logo";
+@use "scss/molecules/navigation";
 
 /*------------------------------------*\
     $ORGANISMS
 \*------------------------------------*/
 
-@import "scss/organisms/header";
-@import "scss/organisms/map";
-@import "scss/organisms/map-cockpit-legend-items";
-@import "scss/organisms/map-cockpit";
-@import "scss/organisms/bulletin";
-@import "scss/organisms/features";
-@import "scss/organisms/controlbars";
-@import "scss/organisms/linkbars";
-@import "scss/organisms/top-fix";
-@import "scss/organisms/flipper";
+@use "scss/organisms/header";
+@use "scss/organisms/map" as map2;
+@use "scss/organisms/map-cockpit-legend-items";
+// @import "scss/organisms/map-cockpit";
+@use "scss/organisms/map-cockpit-2024";
+@use "scss/organisms/bulletin";
+@use "scss/organisms/features";
+@use "scss/organisms/controlbars";
+@use "scss/organisms/linkbars";
+@use "scss/organisms/top-fix";
+@use "scss/organisms/flipper";
 // @import "scss/organisms/calendar";
-@import "scss/organisms/accordion";
-@import "scss/organisms/measurements";
-@import "scss/organisms/archive";
-@import "scss/organisms/thumbnails";
-@import "scss/organisms/subscribe";
+@use "scss/organisms/accordion";
+@use "scss/organisms/measurements";
+@use "scss/organisms/archive";
+@use "scss/organisms/thumbnails";
+@use "scss/organisms/subscribe";
 // @import "scss/organisms/blog";
-@import "scss/organisms/blog-wp";
-@import "scss/organisms/dangerscale";
+@use "scss/organisms/blog-wp";
+@use "scss/organisms/dangerscale";
 
-@import "scss/organisms/page-header";
-@import "scss/organisms/page-footer";
+@use "scss/organisms/page-header";
+@use "scss/organisms/page-footer";
 
-@import "scss/organisms/modals";
+@use "scss/organisms/modals";
 
 /*------------------------------------*\
     $TEMPLATES
 \*------------------------------------*/
 
-@import "scss/templates/layout";
-@import "scss/templates/print";
+@use "scss/templates/layout";
+@use "scss/templates/print";
 
-@import "scss/templates/patternlab";
-@import "scss/templates/debug";
-
-
-
+@use "scss/templates/patternlab";
+@use "scss/templates/debug";

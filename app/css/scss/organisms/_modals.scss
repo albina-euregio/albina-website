@@ -1,3 +1,8 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../atoms/bgs";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -12,13 +17,13 @@
 //modal-container
 $modal-max-width: 80vw;
 $modal-max-width-xlarge: 65vw;
-$modal-padding: $padding * 3;
-$modal-color: $text-color;
-$modal-background-color: $white;
+$modal-padding: variables.$padding * 3;
+$modal-color: variables.$text-color;
+$modal-background-color: variables.$white;
 $modal-vertical-margin: 0;
 
 // overlay
-$mfp-overlay-color: $primary-color; // Color of overlay screen
+$mfp-overlay-color: variables.$primary-color; // Color of overlay screen
 $mfp-overlay-opacity: 0.9; // Opacity of overlay screen
 $mfp-shadow: none; // Shadow on image or iframe
 
@@ -31,11 +36,11 @@ $mfp-z-index-base: 9000; //11000;// Base z-index of popup
 // controls
 $mfp-include-arrows: true; // Include styles for nav arrows
 $mfp-controls-opacity: 0.9; // Opacity of controls
-$mfp-controls-color: $anchor-font-color; // Color of controls
+$mfp-controls-color: variables.$anchor-font-color; // Color of controls
 $mfp-controls-border-color: none; // Border color of controls
-$mfp-inner-close-icon-color: $anchor-font-color; // Color of close button when inside
-$mfp-controls-text-color: $white; // Color of preloader and "1 of X" indicator
-$mfp-controls-text-color-hover: $anchor-font-color; // Hover color of preloader and "1 of X" indicator
+$mfp-inner-close-icon-color: variables.$anchor-font-color; // Color of close button when inside
+$mfp-controls-text-color: variables.$white; // Color of preloader and "1 of X" indicator
+$mfp-controls-text-color-hover: variables.$anchor-font-color; // Hover color of preloader and "1 of X" indicator
 
 // Iframe-type options
 $mfp-include-iframe-type: true; // Enable Iframe-type popups
@@ -52,8 +57,8 @@ $mfp-image-padding-bottom: $modal-vertical-margin; // Image padding bottom
 $mfp-include-mobile-layout-for-image: true; // Removes paddings from top and bottom
 
 // Image caption options
-$mfp-caption-title-color: $white; //Caption title color
-$mfp-caption-subtitle-color: $white; //Caption subtitle color
+$mfp-caption-title-color: variables.$white; //Caption title color
+$mfp-caption-subtitle-color: variables.$white; //Caption subtitle color
 
 // A11y
 $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
@@ -69,7 +74,7 @@ dialog {
   padding: 0;
   opacity: 0;
   transform: translateY(-20px) perspective(600px) rotateX(10deg);
-  @include rollover(all, $transition-duration * 2);
+  @include mixins.rollover(all, variables.$transition-duration * 2);
 }
 
 @starting-style {
@@ -81,7 +86,7 @@ dialog {
 
 dialog::backdrop {
   background-color: rgb(0 0 0 / 0);
-  @include rollover(all, $transition-duration * 2);
+  @include mixins.rollover(all, variables.$transition-duration * 2);
 }
 
 dialog[open]::backdrop {
@@ -109,16 +114,16 @@ dialog[open]::backdrop {
   overflow-y: auto;
   overflow-x: hidden;
 
-  @include last-child;
+  @include mixins.last-child;
 
-  @media #{$medium-up} {
+  @media #{variables.$medium-up} {
     position: relative;
     min-height: 0;
     max-width: $modal-max-width;
     margin: auto !important;
     vertical-align: middle;
   }
-  @media #{$xlarge-up} {
+  @media #{variables.$xlarge-up} {
     max-width: $modal-max-width-xlarge;
   }
 
@@ -127,7 +132,8 @@ dialog[open]::backdrop {
   }
 
   .modal-container + .modal-container {
-    border-top: $border-width $border-style $brand-very-light;
+    border-top: variables.$border-width variables.$border-style
+      variables.$brand-very-light;
   }
 }
 
@@ -137,8 +143,8 @@ dialog[open]::backdrop {
   min-height: 100vh;
   margin: 0 !important;
   padding: ($modal-padding * 2) $modal-padding $modal-padding $modal-padding;
-  @include last-child;
-  @media #{$medium-up} {
+  @include mixins.last-child;
+  @media #{variables.$medium-up} {
     min-height: 0;
     padding: $modal-padding;
   }
@@ -153,21 +159,21 @@ button.mfp-arrow {
   cursor: pointer;
   z-index: 42;
 
-  @include ir;
+  @include mixins.ir;
   position: fixed !important;
-  top: $padding;
-  right: $padding;
-  height: calc(#{$icon-font-size} + #{$padding}) !important;
-  width: calc(#{$icon-font-size} + #{$padding}) !important;
+  top: variables.$padding;
+  right: variables.$padding;
+  height: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
+  width: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
   margin: 0 !important;
   padding: 0 !important;
   font-size: 1rem;
-  color: $brand;
-  background-color: rgba($white, 0.75);
-  border-radius: $global-radius !important;
-  @include rollout;
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.75);
+  border-radius: variables.$global-radius !important;
+  @include mixins.rollout;
 
-  @include icon(close, "auto", 0, $brand, 0, "none");
+  @include icons.icon(close, "auto", 0, variables.$brand, 0, "none");
 
   &:before {
     //from alien app.scss
@@ -177,32 +183,32 @@ button.mfp-arrow {
     top: 0 !important;
     left: 0 !important;
     margin: 0 !important;
-    padding: ($padding * 0.5) !important;
+    padding: (variables.$padding * 0.5) !important;
     text-indent: 0 !important;
-    @include rollout;
+    @include mixins.rollout;
   }
 
   &:hover {
     //from alien app.scss
     cursor: pointer;
 
-    color: $brand-dark;
-    background-color: $white;
-    @include rollover;
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    @include mixins.rollover;
   }
 
   &:active {
-    top: $padding !important;
+    top: variables.$padding !important;
   }
 }
 
 button.mfp-arrow {
   top: calc(50% - #{$modal-padding}) !important;
-  height: calc(#{$icon-font-size} + #{$padding}) !important;
-  width: calc(#{$icon-font-size} + #{$padding}) !important;
+  height: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
+  width: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
   //font-size: 1rem;
   transform: scale(1) !important;
-  @include rollout;
+  @include mixins.rollout;
 
   &:before {
     border: none !important;
@@ -217,8 +223,8 @@ button.mfp-arrow {
   }
 
   &.mfp-arrow-left {
-    left: $padding;
-    @include icon(arrow-left, 2rem, 0, inherit, 0, "none");
+    left: variables.$padding;
+    @include icons.icon(arrow-left, 2rem, 0, inherit, 0, "none");
 
     &:hover {
       cursor: w-resize;
@@ -226,8 +232,8 @@ button.mfp-arrow {
   }
 
   &.mfp-arrow-right {
-    right: $padding;
-    @include icon(arrow-right, 2rem, 0, inherit, 0, "none");
+    right: variables.$padding;
+    @include icons.icon(arrow-right, 2rem, 0, inherit, 0, "none");
     //font-size: 2em;
     &:hover {
       cursor: e-resize;
@@ -236,7 +242,7 @@ button.mfp-arrow {
 }
 
 .modal-header {
-  padding-bottom: $all-v-padding;
+  padding-bottom: variables.$all-v-padding;
 
   h1,
   h2,
@@ -251,10 +257,10 @@ button.mfp-arrow {
 
 .modal-follow {
   //text-align: center;
-  @include last-child;
+  @include mixins.last-child;
 
   .list-inline {
-    margin-bottom: $margin-bottom * 0.5;
+    margin-bottom: variables.$margin-bottom * 0.5;
   }
 }
 
@@ -270,34 +276,34 @@ button.mfp-arrow {
   }
 
   .sm-buttons {
-    margin: $padding 0 ($padding * 2) 0;
+    margin: variables.$padding 0 (variables.$padding * 2) 0;
   }
 }
 
 //weatherstation
 .modal-weatherstation {
   .modal-header {
-    padding-bottom: $padding;
+    padding-bottom: variables.$padding;
 
     .weatherstation-caption {
       margin-bottom: 0;
-      font-size: $small-font-size;
+      font-size: variables.$small-font-size;
     }
 
     .weatherstation-altitude {
-      @include font-normal;
+      @include mixins.font-normal;
     }
   }
 
   ul.weatherstation-flipper {
     //overflow: auto;
-    margin-bottom: $padding;
+    margin-bottom: variables.$padding;
     line-height: 1;
-    font-size: $tiny-font-size;
-    @include letter-spacing;
+    font-size: variables.$tiny-font-size;
+    @include mixins.letter-spacing;
 
     li {
-      padding: 0 ($padding * 2) 0 0;
+      padding: 0 (variables.$padding * 2) 0 0;
 
       &:last-child {
         padding-right: 0;
@@ -309,7 +315,7 @@ button.mfp-arrow {
         &:before {
           top: 0.175em;
           line-height: 0;
-          @include rollover;
+          @include mixins.rollover;
         }
       }
     }
@@ -324,7 +330,7 @@ button.mfp-arrow {
         &:active {
           span {
             &:before {
-              transform: translateX(-$padding * 0.5);
+              transform: translateX(-(variables.$padding) * 0.5);
             }
           }
         }
@@ -347,7 +353,7 @@ button.mfp-arrow {
         &:active {
           span {
             &:before {
-              transform: translateX($padding * 0.5);
+              transform: translateX(variables.$padding * 0.5);
             }
           }
         }
@@ -372,8 +378,8 @@ button.mfp-arrow {
 
   .weatherstation-info {
     @extend .bg-subtle;
-    margin-bottom: $padding;
-    padding: $padding;
+    margin-bottom: variables.$padding;
+    padding: variables.$padding;
 
     li {
       padding-bottom: 0;
@@ -381,7 +387,7 @@ button.mfp-arrow {
   }
 
   .weatherstation-filter {
-    margin-bottom: $margin-bottom;
+    margin-bottom: variables.$margin-bottom;
   }
 
   .pure-form {
@@ -394,11 +400,11 @@ button.mfp-arrow {
 
   .weatherstation-img {
     display: block;
-    margin: 0 auto $margin-bottom auto;
+    margin: 0 auto variables.$margin-bottom auto;
   }
 
   .weatherstation-provider {
     margin: 0;
-    font-size: $small-font-size;
+    font-size: variables.$small-font-size;
   }
 }

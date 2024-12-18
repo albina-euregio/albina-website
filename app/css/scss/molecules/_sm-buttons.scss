@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -10,9 +13,9 @@
 .sm-share-follow {
   text-align: center;
   p {
-    font-size: $tiny-font-size; //$body-font-size-tiny;
-    @include letter-spacing;
-    margin-bottom: $margin-bottom * 0.5;
+    font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+    @include mixins.letter-spacing;
+    margin-bottom: variables.$margin-bottom * 0.5;
   }
 }
 
@@ -21,7 +24,7 @@
 }
 .sm-button {
   display: block;
-  font-size: $icon-sm-font-size;
+  font-size: variables.$icon-sm-font-size;
 
   &:before {
     margin: 0;
@@ -29,12 +32,12 @@
   }
   &:link,
   &:visited {
-    color: $text-color;
+    color: variables.$text-color;
   }
   &:hover,
   &:active {
     &:before {
-      transform: translateY(-$padding * 0.5);
+      transform: translateY(-(variables.$padding) * 0.5);
     }
   }
 
@@ -43,7 +46,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-facebook-color;
+      color: variables.$sm-facebook-color;
     }
   }
   &.icon-sm-twitter {
@@ -51,7 +54,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-twitter-color;
+      color: variables.$sm-twitter-color;
     }
   }
   &.icon-sm-instagram {
@@ -59,7 +62,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-instagram-color;
+      color: variables.$sm-instagram-color;
     }
   }
   &.icon-sm-youtube {
@@ -67,7 +70,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-youtube-color;
+      color: variables.$sm-youtube-color;
     }
   }
   &.icon-sm-whatsapp {
@@ -75,7 +78,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-whatsapp-color;
+      color: variables.$sm-whatsapp-color;
     }
   }
   &.icon-sm-telegram {
@@ -83,7 +86,7 @@
     &:active,
     .page-footer &,
     .modal-follow & {
-      color: $sm-telegram-color;
+      color: variables.$sm-telegram-color;
     }
   }
 

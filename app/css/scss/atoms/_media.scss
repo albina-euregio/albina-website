@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -21,7 +24,7 @@ figure {
   height: auto;
   max-width: 100%;
   width: auto; /* for ie 8 */
-  margin: 0 0 $margin-bottom 0;
+  margin: 0 0 variables.$margin-bottom 0;
 }
 
 //fluidvids
@@ -31,11 +34,11 @@ figure {
 //http://css-tricks.com/examples/SlideinCaptions
 div.caption {
   p {
-    margin-top: -($margin-bottom);
-    margin-left: $all-h-padding;
-    margin-right: $all-h-padding;
-    font-size: $small-font-size;
-    color: $grey;
+    margin-top: -(variables.$margin-bottom);
+    margin-left: variables.$all-h-padding;
+    margin-right: variables.$all-h-padding;
+    font-size: variables.$small-font-size;
+    color: variables.$grey;
   }
 }
 
@@ -51,24 +54,24 @@ figure.caption {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -$margin-bottom;
-    padding: $all-v-padding $all-h-padding;
-    font-size: $small-font-size;
-    line-height: $paragraph-line-height;
-    color: $grey;
-    background-color: $white;
-    @include box-border;
+    bottom: -(variables.$margin-bottom);
+    padding: variables.$all-v-padding variables.$all-h-padding;
+    font-size: variables.$small-font-size;
+    line-height: variables.$paragraph-line-height;
+    color: variables.$grey;
+    background-color: variables.$white;
+    @include mixins.box-border;
     border-top: 0;
     opacity: 0;
-    @include rollout();
-    @include font-smoothing(antialiased);
+    @include mixins.font-smoothing(antialiased);
+    @include mixins.rollout();
     p {
       margin: 0;
-      font-size: $small-font-size;
-      line-height: $paragraph-line-height;
-      color: $grey;
+      font-size: variables.$small-font-size;
+      line-height: variables.$paragraph-line-height;
+      color: variables.$grey;
       transform: translate3d(0, 50%, 0);
-      @include rollout();
+      @include mixins.rollout();
     }
   }
   &:hover {
@@ -76,17 +79,17 @@ figure.caption {
     figcaption {
       bottom: 0;
       opacity: 1;
-      @include rollover(all, $transition-duration * 2);
+      @include mixins.rollover(all, variables.$transition-duration * 2);
       p {
         transform: translate3d(0, 0, 0);
-        @include rollover(all, $transition-duration * 2);
+        @include mixins.rollover(all, variables.$transition-duration * 2);
       }
     }
   }
 }
 
 .google-map {
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
   iframe {
     height: 50vh;
     width: 100%;

@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/labels";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -29,8 +33,6 @@
 //   }
 // }
 
-
-
 // from 202112
 // https://atomiks.github.io/tippyjs/v6/themes/
 
@@ -55,12 +57,9 @@
 //   }
 // }
 
-
 $tooltip-width: 380px;
 $tooltip-max-width: 80vw;
 $tooltip-max-height: 40vh;
-
-
 
 // from 202205
 .tooltip-container {
@@ -71,10 +70,9 @@ $tooltip-max-height: 40vh;
   // max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
 
-  transition: all $transition-duration;
+  transition: all variables.$transition-duration;
 
   // overflow: hidden;
-
 }
 .tooltip-inner {
   position: relative;
@@ -84,18 +82,18 @@ $tooltip-max-height: 40vh;
   @extend .label;
   margin: 0;
 
-  font-weight: $body-font-weight;
-  font-style: $body-font-style;
+  font-weight: variables.$body-font-weight;
+  font-style: variables.$body-font-style;
   white-space: nowrap;
 
-  color: $text-color;
-  background: $white;
-  @include box-border;
-  @include box-shadow;
+  color: variables.$text-color;
+  background: variables.$white;
+  @include mixins.box-border;
+  @include mixins.box-shadow;
 }
 .tooltip-inner-html {
   @extend .tooltip-inner;
-  
+
   width: $tooltip-width;
   max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
@@ -106,7 +104,7 @@ $tooltip-max-height: 40vh;
 
   white-space: normal;
 
-  @include box-shadow(0.2);
+  @include mixins.box-shadow(0.2);
 
   // &:after {
   //   content: "";
@@ -126,15 +124,16 @@ $tooltip-max-height: 40vh;
   left: 0;
   line-height: 1.2;
 
-  h3, p {
-    margin: 0 $padding $padding $padding;
-    font-size: $tiny-font-size;
+  h3,
+  p {
+    margin: 0 variables.$padding variables.$padding variables.$padding;
+    font-size: variables.$tiny-font-size;
     &:first-child {
-      margin-top: $padding;
+      margin-top: variables.$padding;
     }
   }
   img {
-    margin: 0 0 $padding 0;
+    margin: 0 0 variables.$padding 0;
     &:last-child {
       margin-bottom: 0;
     }
