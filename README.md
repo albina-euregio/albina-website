@@ -120,3 +120,17 @@ $ tx statuxs albina-website.website
 # fetch updated translations from Transifex
 $ tx pull --use-git-timestamps
 ```
+
+## Update CHANGELOG (for new releases)
+
+Please use the following workflow when releasing new versions:
+
+1. determine new version number `<TAG>` and
+   run `yarn changelog <TAG>`
+2. edit `CHANGELOG.md` by hand if necessary and commit
+3. create `<TAG>` with git
+
+If you forgot to update the changelog before creating a new tag in git, use
+`yarn changelog-latest`. This will add all commits for the newest tag to
+the CHANGELOG. The downside compared to the workflow above is, that the
+changes to CHANGELOG itself are not included in the release.

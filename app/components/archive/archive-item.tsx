@@ -167,7 +167,7 @@ function DownloadLink({
       href={config.template(config.apis.bulletin[format], {
         bulletin: bulletin || "",
         date: dateString,
-        region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+        region: "EUREGIO_",
         lang,
         bw: ""
       })}
@@ -189,14 +189,9 @@ function BulletinMap({
 }): React.ReactNode {
   const intl = useIntl();
   if (!showMap(dateString)) return <></>;
-  const region =
-    bulletin && dateString > "2022-05-06"
-      ? `EUREGIO_${bulletin.bulletinID}`
-      : bulletin
-        ? bulletin.bulletinID
-        : dateString < "2022-05-06"
-          ? "fd_albina_thumbnail"
-          : "fd_EUREGIO_thumbnail";
+  const region = bulletin
+    ? `EUREGIO_${bulletin.bulletinID}`
+    : "fd_EUREGIO_thumbnail";
   return (
     <Tooltip
       label={intl.formatMessage({
