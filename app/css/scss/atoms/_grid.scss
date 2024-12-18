@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -10,7 +13,7 @@
 //only for debugging purpose
 $grid-activated: true;
 
-@mixin grid($grid-columns: $grid-columns, $margin-bottom: 0) {
+@mixin grid($grid-columns: variables.$grid-columns, $margin-bottom: 0) {
   //@include clearfix;
   overflow: visible;
   position: relative;
@@ -21,27 +24,27 @@ $grid-activated: true;
   display: grid;
   grid-template-columns: repeat(#{$grid-columns}, 1fr);
   grid-template-rows: auto;
-  grid-gap: $grid-gutter-small;
+  grid-gap: variables.$grid-gutter-small;
   grid-auto-flow: row;
 
-  @media #{$normal-up} {
-    grid-gap: $grid-gutter;
+  @media #{variables.$normal-up} {
+    grid-gap: variables.$grid-gutter;
   }
 }
 
-@mixin grid-item($grid-columns: $grid-columns) {
-  transition: all ($transition-duration * 2) ease-in-out;
+@mixin grid-item($grid-columns: variables.$grid-columns) {
+  transition: all (variables.$transition-duration * 2) ease-in-out;
 
   grid-column: span $grid-columns;
   width: auto !important;
   margin: 0;
 
-  @include last-child();
+  @include mixins.last-child();
 }
 
 @mixin grid-item-generator($query) {
   $i: 1;
-  @for $i from 1 through $grid-columns {
+  @for $i from 1 through variables.$grid-columns {
     .#{$query}-#{$i} {
       grid-column: span $i;
     }
@@ -61,27 +64,27 @@ $grid-activated: true;
 
 //generate responsive grid-items
 @include grid-item-generator(all);
-@media #{$tiny-up} {
+@media #{variables.$tiny-up} {
   @include grid-item-generator(tiny);
 }
-@media #{$small-up} {
+@media #{variables.$small-up} {
   @include grid-item-generator(small);
 }
-@media #{$normal-up} {
+@media #{variables.$normal-up} {
   @include grid-item-generator(normal);
 }
-@media #{$medium-up} {
+@media #{variables.$medium-up} {
   @include grid-item-generator(medium);
 }
-@media #{$large-up} {
+@media #{variables.$large-up} {
   @include grid-item-generator(large);
 }
-@media #{$xlarge-up} {
+@media #{variables.$xlarge-up} {
   @include grid-item-generator(xlarge);
 }
-@media #{$xxlarge-up} {
+@media #{variables.$xxlarge-up} {
   @include grid-item-generator(xxlarge);
 }
-@media #{$xxxlarge-up} {
+@media #{variables.$xxxlarge-up} {
   @include grid-item-generator(xxxlarge);
 }

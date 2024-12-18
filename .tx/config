@@ -115,6 +115,12 @@ source_file = app/i18n/en.json
 source_lang = en
 type        = KEYVALUEJSON
 
+[o:albina-euregio:p:eaws-regions:r:micro-region-names]
+file_filter = app/i18n/micro-regions_names/<lang>.json
+source_file = app/i18n/micro-regions_names/qqq.json
+source_lang = en
+type        = KEYVALUEJSON
+
 [o:albina-euregio:p:albina-website:r:workflow]
 file_filter = public/content/education/workflow/<lang>.html
 source_file = public/content/education/workflow/en.html

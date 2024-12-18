@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -10,14 +13,14 @@
 a {
   &:link,
   &:visited {
-    color: $anchor-font-color;
-    text-decoration: $anchor-text-decoration;
-    @include rollout;
+    color: variables.$anchor-font-color;
+    text-decoration: variables.$anchor-text-decoration;
+    @include mixins.rollout;
   }
   &:hover {
     cursor: pointer;
-    color: $anchor-font-color-hover;
-    @include rollover;
+    color: variables.$anchor-font-color-hover;
+    @include mixins.rollover;
     span {
       cursor: pointer;
     }
@@ -30,15 +33,15 @@ a.textlink {
   &:visited {
     margin: 0;
     padding: 0 0.25em;
-    color: $white;
-    background-color: $anchor-font-color;
-    border: $border-width $border-style transparent;
-    border-radius: $global-radius;
+    color: variables.$white;
+    background-color: variables.$anchor-font-color;
+    border: variables.$border-width variables.$border-style transparent;
+    border-radius: variables.$global-radius;
   }
   &:hover {
-    color: $anchor-font-color;
-    background-color: $white;
-    border-color: $anchor-font-color;
+    color: variables.$anchor-font-color;
+    background-color: variables.$white;
+    border-color: variables.$anchor-font-color;
   }
 }
 
@@ -46,18 +49,18 @@ a.textlink {
 a.glossary {
   color: inherit;
   //Safari wants it like that
-  text-decoration-color: $brand;
+  text-decoration-color: variables.$brand;
   text-decoration-style: dotted;
   text-decoration-line: underline;
   &:link,
   &:visited {
     color: inherit;
-    text-decoration-color: $brand;
+    text-decoration-color: variables.$brand;
     text-decoration-style: dotted;
     text-decoration-line: underline;
   }
   &:hover {
-    text-decoration-color: $brand;
+    text-decoration-color: variables.$brand;
     text-decoration-style: solid;
     text-decoration-line: underline;
   }
@@ -68,13 +71,13 @@ a.translink {
   @extend .textlink;
   &:link,
   &:visited {
-    color: $trans-color;
+    color: variables.$trans-color;
     background-color: transparent;
   }
   &:hover {
-    color: $white;
-    background-color: $trans-color;
-    border-color: $trans-color;
+    color: variables.$white;
+    background-color: variables.$trans-color;
+    border-color: variables.$trans-color;
   }
 }
 
@@ -107,8 +110,8 @@ a.img {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba($brand, 0);
-    @include rollout(all, $transition-duration * 2);
+    background-color: rgba(variables.$brand, 0);
+    @include mixins.rollout(all, variables.$transition-duration * 2);
   }
 
   &:hover {
@@ -117,8 +120,8 @@ a.img {
     }
 
     &:after {
-      background-color: rgba($brand, 0.05);
-      @include rollover(all, $transition-duration * 2);
+      background-color: rgba(variables.$brand, 0.05);
+      @include mixins.rollover(all, variables.$transition-duration * 2);
     }
   }
 }
@@ -126,15 +129,15 @@ a.img {
 a.label {
   &:link,
   &:visited {
-    border-color: $anchor-font-color;
+    border-color: variables.$anchor-font-color;
   }
   &:hover {
-    border-color: $anchor-font-color-hover;
+    border-color: variables.$anchor-font-color-hover;
   }
 }
 
 a.icon-link {
-  @include letter-spacing;
+  @include mixins.letter-spacing;
   display: inline-block;
   &:before {
     top: 0.15em;
@@ -145,7 +148,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        left: -$padding * 0.5;
+        left: -(variables.$padding) * 0.5;
       }
     }
   }
@@ -153,7 +156,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        top: -$padding * 0.5;
+        top: -(variables.$padding) * 0.5;
       }
     }
   }
@@ -165,7 +168,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        right: -$padding * 0.5;
+        right: -(variables.$padding) * 0.5;
       }
     }
   }

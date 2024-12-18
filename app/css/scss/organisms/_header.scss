@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -14,10 +17,10 @@
 
     margin: 0;
     // @include font-heavy;
-    font-size: $micro-font-size;
-    @include letter-spacing;
+    font-size: variables.$micro-font-size;
+    @include mixins.letter-spacing;
 
-    @media #{$medium-up} {
+    @media #{variables.$medium-up} {
       position: absolute;
       top: 0;
       right: 0;
@@ -46,13 +49,13 @@
   h1 {
     + .list-inline:not(.bulletin-flipper) {
       overflow: auto;
-      margin-top: $padding * 2;
+      margin-top: variables.$padding * 2;
     }
     small.label {
       position: relative;
       top: -0.15em;
       margin: 0 0 0 0.25em;
-      @include font-normal;
+      @include mixins.font-normal;
       font-size: 0.5em;
     }
   }
@@ -66,18 +69,16 @@
 
 //bulletin
 .section-bulletin-header {
-  @media #{$medium-up} {
-    padding-top: ($medium-v-padding * 0.5) !important;
-    padding-bottom: ($medium-v-padding * 0.5) !important;
+  @media #{variables.$medium-up} {
+    padding-top: (variables.$medium-v-padding * 0.5) !important;
+    padding-bottom: (variables.$medium-v-padding * 0.5) !important;
   }
 
-  .bulletin-datetime-release {
-  }
+  // .bulletin-datetime-release {}
   .bulletin-datetime-update {
-    color: $warning-color;
+    color: variables.$warning-color;
   }
-  .bulletin-datetime-validity {
-  }
+  // .bulletin-datetime-validity {}
 
   .subheadern,
   h1 {
@@ -114,14 +115,14 @@
 
 ul.bulletin-flipper {
   line-height: 1;
-  @include letter-spacing;
+  @include mixins.letter-spacing;
   .section-bulletin-header & {
-    font-size: $tiny-font-size;
+    font-size: variables.$tiny-font-size;
   }
   li {
-    padding: 0 ($padding * 0.5) 0 0;
-    @media #{$tiny-up} {
-      padding: 0 ($padding * 2) 0 0;
+    padding: 0 (variables.$padding * 0.5) 0 0;
+    @media #{variables.$tiny-up} {
+      padding: 0 (variables.$padding * 2) 0 0;
     }
   }
   a {
@@ -129,7 +130,7 @@ ul.bulletin-flipper {
       &:before {
         top: 0.175em;
         line-height: 0;
-        @include rollover;
+        @include mixins.rollover;
       }
     }
   }
@@ -142,7 +143,7 @@ ul.bulletin-flipper {
       &:active {
         span {
           &:before {
-            transform: translateX(-$padding * 0.5);
+            transform: translateX(-(variables.$padding) * 0.5);
           }
         }
       }
@@ -160,7 +161,12 @@ ul.bulletin-flipper {
       width: 1.5em;
       line-height: 1;
 
+      input {
+        cursor: pointer;
+      }
+
       &:before {
+        cursor: pointer;
         z-index: -5;
         display: block;
         position: absolute;
@@ -170,14 +176,18 @@ ul.bulletin-flipper {
         margin: 0;
         padding: 0;
         font-size: 2.75em;
-        color: $anchor-font-color;
-        @include rollout;
+        color: variables.$anchor-font-color;
+        @include mixins.rollout;
       }
 
       &:hover {
+        input {
+          cursor: pointer;
+        }
         &:before {
-          color: $anchor-font-color-hover;
-          @include rollover;
+          cursor: pointer;
+          color: variables.$anchor-font-color-hover;
+          @include mixins.rollover;
         }
       }
     }
@@ -188,7 +198,7 @@ ul.bulletin-flipper {
       height: 1.5em;
       width: 1.5em;
       padding: 0;
-      font-size: $tiny-font-size;
+      font-size: variables.$tiny-font-size;
       line-height: 1;
       color: transparent;
       border-width: 0px;
@@ -213,14 +223,13 @@ ul.bulletin-flipper {
       &:active {
         span {
           &:before {
-            transform: translateX($padding * 0.5);
+            transform: translateX(variables.$padding * 0.5);
           }
         }
       }
     }
   }
-  .bulletin-flipper-latest {
-  }
+  // .bulletin-flipper-latest {}
   .bulletin-flipper-archive {
     a {
       &:hover,
@@ -228,7 +237,7 @@ ul.bulletin-flipper {
         display: inline-block;
       }
     }
-    @media #{$tiny-up} {
+    @media #{variables.$tiny-up} {
       float: right;
     }
   }

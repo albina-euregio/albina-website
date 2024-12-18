@@ -1,3 +1,8 @@
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/bgs";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -7,7 +12,7 @@
     #BODY
 \*------------------------------------*/
 
-$min-height-adjustment: (4 * ($rem-base + 2) + px); //4em;
+$min-height-adjustment: (4 * (variables.$rem-base + 2) + px); //4em;
 
 html,
 body {
@@ -16,23 +21,23 @@ body {
   margin: 0;
   padding: 0;
 
-  font-family: $body-font-family;
-  font-weight: $body-font-weight;
-  font-style: $body-font-style;
-  font-size: $body-font-size-small;
-  line-height: $body-line-height;
+  font-family: variables.$body-font-family;
+  font-weight: variables.$body-font-weight;
+  font-style: variables.$body-font-style;
+  font-size: variables.$body-font-size-small;
+  line-height: variables.$body-line-height;
 
-  @include font-smoothing($font-smoothing);
+  @include mixins.font-smoothing(variables.$font-smoothing);
 
-  color: $text-color;
+  color: variables.$text-color;
 
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: $webkit-tap-highlight-color;
+  -webkit-tap-highlight-color: variables.$webkit-tap-highlight-color;
 
   display: flex;
   flex-direction: column;
 
-  @include rollout;
+  @include mixins.rollout;
 }
 
 body {
@@ -56,58 +61,58 @@ body {
   }
 }
 
-@media #{$normal-up} {
+@media #{variables.$normal-up} {
   html,
   body {
-    font-size: $body-font-size;
+    font-size: variables.$body-font-size;
   }
 }
 
-@media #{$medium-up} and (min-height:#{lower-bound($normal-range)}) {
+@media #{variables.$medium-up} and (min-height:#{bounds.lower-bound(variables.$normal-range)}) {
   html,
   body {
-    font-size: $body-font-size-medium;
+    font-size: variables.$body-font-size-medium;
   }
 }
 
-@media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
+@media #{variables.$large-up} and (min-height:#{bounds.lower-bound(variables.$medium-range) - $min-height-adjustment}) {
   html,
   body {
-    font-size: $body-font-size-large;
+    font-size: variables.$body-font-size-large;
   }
 }
 
-@media #{$xlarge-up} and (min-height:#{lower-bound($medium-range)}) {
+@media #{variables.$xlarge-up} and (min-height:#{bounds.lower-bound(variables.$medium-range)}) {
   html,
   body {
-    font-size: $body-font-size-xlarge;
+    font-size: variables.$body-font-size-xlarge;
   }
 }
 
-@media #{$xxlarge-up} and (min-height:#{lower-bound($medium-range) + $min-height-adjustment}) {
+@media #{variables.$xxlarge-up} and (min-height:#{bounds.lower-bound(variables.$medium-range) + $min-height-adjustment}) {
   html,
   body {
-    font-size: $body-font-size-xxlarge;
+    font-size: variables.$body-font-size-xxlarge;
   }
 }
 
-@media #{$xxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+@media #{variables.$xxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
   html,
   body {
-    font-size: $body-font-size-xxxlarge;
+    font-size: variables.$body-font-size-xxxlarge;
   }
 }
 
-@media #{$xxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+@media #{variables.$xxxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
   html,
   body {
-    font-size: $body-font-size-xxxxlarge;
+    font-size: variables.$body-font-size-xxxxlarge;
   }
 }
 
-@media #{$xxxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+@media #{variables.$xxxxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
   html,
   body {
-    font-size: $body-font-size-xxxxxlarge;
+    font-size: variables.$body-font-size-xxxxxlarge;
   }
 }

@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -13,36 +15,36 @@
   align-items: stretch;
   align-content: flex-start;
 
-  margin-bottom: $margin-bottom;
+  margin-bottom: variables.$margin-bottom;
   overflow: hidden;
 
   .thumbnail-item {
     width: 50%;
 
-    @media #{$tiny-up} {
+    @media #{variables.$tiny-up} {
     }
-    @media #{$small-up} {
+    @media #{variables.$small-up} {
       width: 33.333333333%; //calc(100% / 3);
     }
-    @media #{$normal-up} {
+    @media #{variables.$normal-up} {
       width: 25%; //calc(100% / 4);
     }
-    @media #{$medium-up} {
+    @media #{variables.$medium-up} {
       width: 20%; //calc(100% / 5);
     }
-    @media #{$large-up} {
+    @media #{variables.$large-up} {
       width: 16.66666666%; //calc(100% / 6);
     }
-    @media #{$xxlarge-up} {
+    @media #{variables.$xxlarge-up} {
       width: 12.5%; //calc(100% / 8);
     }
-    @media #{$xxxlarge-up} {
+    @media #{variables.$xxxlarge-up} {
       width: 10%; //calc(100% / 10);
     }
 
     a {
       display: block;
-      margin: 0 (-$border-width) (-$border-width) 0;
+      margin: 0 (-(variables.$border-width)) (-(variables.$border-width)) 0;
       img {
         max-width: none;
         width: 100%;

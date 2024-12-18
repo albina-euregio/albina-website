@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -128,9 +131,6 @@ $icon-font-margin: 0.25em;
 .icon-show:before {
   content: "\e82b";
 } /* '' */
-.icon-calendar-big:before {
-  content: "\e82c";
-} /* '' */
 .icon-release:before {
   content: "\e82d";
 } /* '' */
@@ -140,9 +140,6 @@ $icon-font-margin: 0.25em;
 .icon-validity:before {
   content: "\e82f";
 } /* '' */
-.icon-calendar:before {
-  content: "\e833";
-} /* '' */
 .icon-pause:before {
   content: "\e838";
 } /* '' */
@@ -173,6 +170,15 @@ $icon-font-margin: 0.25em;
 .icon-sm-whatsapp:before {
   content: "\e847";
 } /* '' */
+.icon-wind-high:before {
+  content: "\e860";
+} /* '' */
+.icon-calendar-big:before {
+  content: "\e892";
+} /* '' */
+.icon-calendar:before {
+  content: "\e893";
+} /* '' */
 
 // mit diesem mixin können icons in sass inkludiert werden
 // z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);
@@ -222,7 +228,7 @@ $icon-font-margin: 0.25em;
     font-family: "Fontello";
     font-weight: normal;
     font-style: normal;
-    font-size: $icon-font-size;
+    font-size: variables.$icon-font-size;
     text-decoration: none;
     speak: none;
     text-align: center;
@@ -233,7 +239,7 @@ $icon-font-margin: 0.25em;
     //background-color: #fac;
     /* Uncomment for 3D effect */
     //text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
-    @include rollover;
+    @include mixins.rollover;
   }
 }
 
@@ -245,7 +251,7 @@ $icon-font-margin: 0.25em;
 [class^="icon-sm"],
 [class*=" icon-sm"] {
   &:before {
-    font-size: $icon-sm-font-size;
+    font-size: variables.$icon-sm-font-size;
   }
 }
 

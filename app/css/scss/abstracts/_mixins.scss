@@ -1,3 +1,5 @@
+@use "variables";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -7,24 +9,10 @@
     #MIXINS
 \*------------------------------------*/
 
-//math
-@function lower-bound($range) {
-  @if length($range) <= 0 {
-    @return 0;
-  }
-  @return nth($range, 1);
-}
-@function upper-bound($range) {
-  @if length($range) < 2 {
-    @return 999999999999;
-  }
-  @return nth($range, 2);
-}
-
 //animation
 @mixin rollout(
   $was: all,
-  $transition-duration: $transition-duration,
+  $transition-duration: variables.$transition-duration,
   $ease: ease-in-out
 ) {
   & {
@@ -33,7 +21,7 @@
 }
 @mixin rollover(
   $was: all,
-  $transition-duration: $transition-duration,
+  $transition-duration: variables.$transition-duration,
   $ease: ease-out
 ) {
   & {
@@ -96,11 +84,11 @@
   }
 }
 
-@mixin v-padding($mypadding: $padding) {
+@mixin v-padding($mypadding: variables.$padding) {
   padding-top: $mypadding;
   padding-bottom: $mypadding;
 }
-@mixin h-padding($mypadding: $padding) {
+@mixin h-padding($mypadding: variables.$padding) {
   padding-left: $mypadding;
   padding-right: $mypadding;
 }
@@ -109,9 +97,9 @@
   -moz-column-count: $mycolumns;
   -webkit-column-count: $mycolumns;
   column-count: $mycolumns;
-  -moz-column-gap: $grid_gutter;
-  -webkit-column-gap: $grid_gutter;
-  column-gap: $grid_gutter;
+  -moz-column-gap: variables.$grid_gutter;
+  -webkit-column-gap: variables.$grid_gutter;
+  column-gap: variables.$grid_gutter;
 }
 
 @mixin smooth-scroll() {
@@ -133,7 +121,7 @@
 //text color
 @mixin text-color($color) {
   color: $color;
-  @if $color == $white {
+  @if $color == variables.$white {
     @include font-smoothing(antialiased);
   }
   p,
@@ -147,7 +135,7 @@
   h5,
   h6 {
     color: $color;
-    @if $color == $white {
+    @if $color == variables.$white {
       @include font-smoothing(antialiased);
     }
   }
@@ -160,7 +148,7 @@
   h5,
   h6 {
     color: $color;
-    @if $color == $white {
+    @if $color == variables.$white {
       @include font-smoothing(antialiased);
     }
   }
@@ -181,7 +169,7 @@
 
 @mixin keyboard-focus() {
   z-index: 2;
-  outline: $bar-width dotted $brand;
+  outline: variables.$bar-width dotted variables.$brand;
 }
 
 //bg, vborder, shadow
@@ -204,7 +192,7 @@
     background-image: url($file);
     background-repeat: $repeat;
     background-position: $xpos $ypos;
-    @media #{$retina} {
+    @media #{variables.$retina} {
       background-image: url($file-2x);
       background-size: $file-2x-width $file-2x-height; //tatsächliche pixel / 2
     }
@@ -213,41 +201,41 @@
 @mixin box-bg($bg-color: $bg-color) {
   background-color: $bg-color;
 }
-@mixin box-border($border-color: $border-color) {
-  border: $border-width $border-style $border-color;
+@mixin box-border($border-color: variables.$border-color) {
+  border: variables.$border-width variables.$border-style $border-color;
 }
 @mixin box-shadow($box-shadow-alpha: 0.075) {
-  box-shadow: 0 0 15px 0 rgba($box-shadow-color, $box-shadow-alpha);
+  box-shadow: 0 0 15px 0 rgba(variables.$box-shadow-color, $box-shadow-alpha);
 }
 
 //font
 @mixin font-light {
-  font-family: $body-font-family-light;
-  font-weight: $body-font-weight-light;
+  font-family: variables.$body-font-family-light;
+  font-weight: variables.$body-font-weight-light;
 }
 @mixin font-normal {
-  font-family: $body-font-family;
-  font-weight: $body-font-weight;
+  font-family: variables.$body-font-family;
+  font-weight: variables.$body-font-weight;
 }
 @mixin font-bold {
-  font-family: $body-font-family-bold;
-  font-weight: $body-font-weight-bold;
+  font-family: variables.$body-font-family-bold;
+  font-weight: variables.$body-font-weight-bold;
 }
 @mixin font-heavy {
-  font-family: $body-font-family-heavy;
-  font-weight: $body-font-weight-heavy;
+  font-family: variables.$body-font-family-heavy;
+  font-weight: variables.$body-font-weight-heavy;
 }
 @mixin font-header {
-  font-family: $header-font-family;
-  font-weight: $header-font-weight;
+  font-family: variables.$header-font-family;
+  font-weight: variables.$header-font-weight;
 }
 @mixin font-italic {
-  font-family: $body-font-family-italic;
+  font-family: variables.$body-font-family-italic;
   //font-weight: $body-font-weight-italic;
   font-style: italic;
 }
 @mixin font-monospace {
-  font-family: $body-font-family-monospace;
+  font-family: variables.$body-font-family-monospace;
   //font-weight: $body-font-weight-monospace;
 }
 
@@ -279,17 +267,17 @@
 //list
 @mixin list-plain {
   list-style-type: none;
-  margin-left: $list-side-margin-no-bullet;
+  margin-left: variables.$list-side-margin-no-bullet;
   padding: 0;
   > li {
-    padding-left: $list-side-padding-no-bullet;
+    padding-left: variables.$list-side-padding-no-bullet;
   }
 }
 @mixin list-inline {
   @include list-plain;
   > li {
     display: inline-block;
-    padding: 0 $padding $padding 0;
+    padding: 0 variables.$padding variables.$padding 0;
     line-height: 1em;
     &:last-child {
       padding-right: 0;
@@ -310,7 +298,7 @@
     flex-wrap: wrap;
     //overflow: hidden;//removed to let keyboard focus style appear
     > li {
-      margin: 0 (-$border-width) (-$border-width) 0;
+      margin: 0 (-(variables.$border-width)) (-(variables.$border-width)) 0;
       padding: 0;
       .js-active {
         z-index: 10;
@@ -318,7 +306,7 @@
     }
   }
   .buttongroup-boolean {
-    font-size: $tiny-font-size;
+    font-size: variables.$tiny-font-size;
     @include font-bold;
   }
 }
@@ -326,7 +314,8 @@
   @include list-plain;
   > li {
     line-height: 2em;
-    border-bottom: $border-width $border-style $border-color;
+    border-bottom: variables.$border-width variables.$border-style
+      variables.$border-color;
     &:last-child {
       border: none;
     }

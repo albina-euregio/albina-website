@@ -1,3 +1,8 @@
+//http://purecss.io/buttons
+@use "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -7,42 +12,38 @@
     #BUTTONS
 \*------------------------------------*/
 
-//http://purecss.io/buttons
-
-@import "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss";
-
 .pure-button,
 a.pure-button {
   position: relative;
   display: inline-block;
-  padding: $padding ($padding * 1.5);
-  font-size: $tiny-font-size; //$body-font-size-tiny;
-  @include font-heavy;
-  line-height: $header-line-height;
-  @include letter-spacing(0.1em);
-  @include uppercase;
+  padding: variables.$padding (variables.$padding * 1.5);
+  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+  @include mixins.font-heavy;
+  line-height: variables.$header-line-height;
+  @include mixins.letter-spacing(0.1em);
+  @include mixins.uppercase;
   //@include font-smoothing(antialiased);
-  color: $white;
-  background: $primary-color;
-  border: $border-width $border-style transparent;
-  border-radius: $global-radius;
-  @include rollout;
+  color: variables.$white;
+  background: variables.$primary-color;
+  border: variables.$border-width variables.$border-style transparent;
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
 
   @media (hover: hover) {
     &:hover {
-      color: $primary-color;
-      background: $white;
-      border-color: $primary-color;
-      @include box-shadow;
-      @include rollover;
+      color: variables.$primary-color;
+      background: variables.$white;
+      border-color: variables.$primary-color;
+      @include mixins.box-shadow;
+      @include mixins.rollover;
     }
   }
   &.js-active {
-    color: $primary-color;
-    background: $white;
-    border-color: $primary-color;
-    @include box-shadow;
-    @include rollover;
+    color: variables.$primary-color;
+    background: variables.$white;
+    border-color: variables.$primary-color;
+    @include mixins.box-shadow;
+    @include mixins.rollover;
   }
   &:focus {
     filter: none;
@@ -51,170 +52,169 @@ a.pure-button {
   }
   //Focusing  with a keyboard
   &:focus-visible {
-    @include keyboard-focus();
+    @include mixins.keyboard-focus();
   }
   //Focusing with a mouse, touch, or stylus
   &:focus:not(:focus-visible) {
     outline: none;
   }
-  
 
   &.primary {
   }
   &.inverse {
-    color: $primary-color;
-    background: $white;
-    border-color: $primary-color;
+    color: variables.$primary-color;
+    background: variables.$white;
+    border-color: variables.$primary-color;
     @media (hover: hover) {
       &:hover {
-        color: $white;
-        background: $primary-color;
-        border-color: $primary-color;
+        color: variables.$white;
+        background: variables.$primary-color;
+        border-color: variables.$primary-color;
       }
     }
     &.js-active {
-      color: $white;
-      background: $primary-color;
-      border-color: $primary-color;
+      color: variables.$white;
+      background: variables.$primary-color;
+      border-color: variables.$primary-color;
     }
   }
   &.secondary {
-    color: $text-color;
-    background: $white;
-    border-color: $secondary-color;
+    color: variables.$text-color;
+    background: variables.$white;
+    border-color: variables.$secondary-color;
     @media (hover: hover) {
       &:hover {
-        color: $primary-color;
-        background: $white;
-        border-color: $primary-color;
+        color: variables.$primary-color;
+        background: variables.$white;
+        border-color: variables.$primary-color;
       }
     }
     &.js-active {
-      color: $primary-color;
-      background: $white;
-      border-color: $primary-color;
+      color: variables.$primary-color;
+      background: variables.$white;
+      border-color: variables.$primary-color;
     }
     .controlbar & {
-      color: $primary-color;
-      border-color: $primary-color;
+      color: variables.$primary-color;
+      border-color: variables.$primary-color;
     }
   }
   &.tertiary {
-    color: $text-color;
-    background: $tertiary-color;
-    border-color: $tertiary-color;
+    color: variables.$text-color;
+    background: variables.$tertiary-color;
+    border-color: variables.$tertiary-color;
     @media (hover: hover) {
       &:hover {
-        color: $primary-color;
-        background: $white;
-        border-color: $primary-color;
+        color: variables.$primary-color;
+        background: variables.$white;
+        border-color: variables.$primary-color;
       }
     }
     &.js-active {
-      color: $primary-color;
-      background: $white;
-      border-color: $primary-color;
+      color: variables.$primary-color;
+      background: variables.$white;
+      border-color: variables.$primary-color;
     }
   }
 
   &.success {
-    background: $success-color;
+    background: variables.$success-color;
     @media (hover: hover) {
       &:hover {
-        color: $success-color;
-        background: $white;
-        border-color: $success-color;
+        color: variables.$success-color;
+        background: variables.$white;
+        border-color: variables.$success-color;
       }
     }
     &.js-active {
-      color: $success-color;
-      background: $white;
-      border-color: $success-color;
+      color: variables.$success-color;
+      background: variables.$white;
+      border-color: variables.$success-color;
     }
   }
   &.error {
-    background: $error-color;
+    background: variables.$error-color;
     @media (hover: hover) {
       &:hover {
-        color: $error-color;
-        background: $white;
-        border-color: $error-color;
+        color: variables.$error-color;
+        background: variables.$white;
+        border-color: variables.$error-color;
       }
     }
     &.js-active {
-      color: $error-color;
-      background: $white;
-      border-color: $error-color;
+      color: variables.$error-color;
+      background: variables.$white;
+      border-color: variables.$error-color;
     }
   }
   &.warning {
-    background: $warning-color;
+    background: variables.$warning-color;
     @media (hover: hover) {
       &:hover {
-        color: $warning-color;
-        background: $white;
-        border-color: $warning-color;
+        color: variables.$warning-color;
+        background: variables.$white;
+        border-color: variables.$warning-color;
       }
     }
     &.js-active {
-      color: $warning-color;
-      background: $white;
-      border-color: $warning-color;
+      color: variables.$warning-color;
+      background: variables.$white;
+      border-color: variables.$warning-color;
     }
   }
   &.emphasize {
-    background: $green;
+    background: variables.$green;
     @media (hover: hover) {
       &:hover {
-        color: $orange;
-        background: $white;
-        border-color: $orange;
+        color: variables.$orange;
+        background: variables.$white;
+        border-color: variables.$orange;
       }
     }
     &.js-active {
-      color: $orange;
-      background: $white;
-      border-color: $orange;
+      color: variables.$orange;
+      background: variables.$white;
+      border-color: variables.$orange;
     }
   }
 
   &.black {
-    background: $black;
+    background: variables.$black;
     @media (hover: hover) {
       &:hover {
-        color: $black;
-        background: $white;
-        border-color: $black;
+        color: variables.$black;
+        background: variables.$white;
+        border-color: variables.$black;
       }
     }
     &.js-active {
-      color: $black;
-      background: $white;
-      border-color: $black;
+      color: variables.$black;
+      background: variables.$white;
+      border-color: variables.$black;
     }
   }
 
   &.round {
-    border-radius: $global-rounded;
+    border-radius: variables.$global-rounded;
   }
   &.expand {
     display: block;
   }
 
   &.small {
-    font-size: $micro-font-size; //$body-font-size-micro;
+    font-size: variables.$micro-font-size; //$body-font-size-micro;
   }
   &.large {
-    font-size: $medium-font-size; //$body-font-size-medium;
+    font-size: variables.$medium-font-size; //$body-font-size-medium;
   }
 
-   &.red-label {
-    color: $red;
+  &.red-label {
+    color: variables.$red;
   }
 
   &.pure-button-icon {
     margin: 0;
-    padding: $padding;
+    padding: variables.$padding;
     //font-size: $normal-font-size;//$body-font-size-tiny;
     //@media #{$medium-up} { font-size: $tiny-font-size; }
     &:before {
@@ -226,15 +226,15 @@ a.pure-button {
     }
     span {
       display: block;
-      width: 1em + $header-line-height - 1;
+      width: 1em + variables.$header-line-height - 1;
     }
     .controlbar & {
-      background-color: $white;
-      color: $brand;
+      background-color: variables.$white;
+      color: variables.$brand;
       &:hover {
-        border-color: $white;
-        background-color: $brand;
-        color: $white;
+        border-color: variables.$white;
+        background-color: variables.$brand;
+        color: variables.$white;
       }
     }
   }
@@ -245,6 +245,6 @@ a.pure-button {
 .pure-button-disabled:hover,
 .pure-button-disabled:focus,
 .pure-button-disabled:active {
-  border: $border-width solid transparent;
+  border: variables.$border-width solid transparent;
   border-color: transparent;
 }

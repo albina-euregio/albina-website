@@ -139,6 +139,8 @@ const Weather = () => {
                 timeSpan={store.timeSpan}
                 changeCurrentTime={store.changeCurrentTime.bind(store)}
                 currentTime={store.currentTime}
+                nextUpdateTime={store.nextUpdateTime}
+                lastUpdateTime={store.lastUpdateTime}
                 eventCallback={handleClickCockpitEvent.bind(this)}
                 nextTime={() => {
                   store.changeCurrentTime(store.nextTime);

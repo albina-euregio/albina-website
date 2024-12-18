@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -14,8 +16,9 @@
   left: 0;
   right: 0;
   margin: 0;
-  padding: ($all-v-padding * 0.5) $all-h-padding ($all-v-padding * 0.25)
-    $all-h-padding;
-  background-color: $grey-very-light;
-  border-top: $border-width $border-style $brand-very-light;
+  padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding
+    (variables.$all-v-padding * 0.25) variables.$all-h-padding;
+  background-color: variables.$grey-very-light;
+  border-top: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 }

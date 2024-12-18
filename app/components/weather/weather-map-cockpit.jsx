@@ -13,8 +13,9 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
-  wind: "icon-wind",
-  gust: "icon-wind-gust"
+  wind: "icon-wind"
+  //windgust: "icon-wind-gust"
+  //wind700hpa: "icon-wind-high"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -23,8 +24,9 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
-  wind: "cp-legend-wind",
-  gust: "cp-legend-windgust"
+  wind: "cp-legend-wind"
+  //windgust: "cp-legend-windgust"
+  //wind700hpa: "cp-legend-windhigh"
 };
 
 const DOMAIN_UNITS = {
@@ -34,7 +36,8 @@ const DOMAIN_UNITS = {
   "snow-line": "m",
   temp: "°C",
   wind: "km/h"
-  //gust: "km/h"
+  //windgust: "km/h"
+  //windhigh: "km/h"
 };
 
 const LOOP = false;
@@ -47,7 +50,9 @@ const WeatherMapCockpit = ({
   timeRange,
   eventCallback,
   changeCurrentTime,
-  storeConfig
+  storeConfig,
+  nextUpdateTime,
+  lastUpdateTime
 }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
 
@@ -71,6 +76,7 @@ const WeatherMapCockpit = ({
   };
 
   const onTimelineUpdate = newTime => {
+    //console.log("weather-map-cockpit->onTimelineUpdate #k0113", newTime);
     changeCurrentTime(newTime);
   };
 
@@ -143,25 +149,15 @@ const WeatherMapCockpit = ({
         if (timeSpan === aItem) linkClasses.push("js-active");
 
         buttons.push(
-          <Tooltip
-            key={"domain-timespan-desc-" + nrOnlyTimespan}
-            label={
-              <FormattedMessage
-                id="weathermap:domain:timespan:description"
-                values={{ range: nrOnlyTimespan }}
-              />
-            }
+          <a
+            role="button"
+            tabIndex="0"
+            key={aItem}
+            onClick={() => handleEvent("timeSpan", aItem)}
+            className={linkClasses.join(" ")}
           >
-            <a
-              role="button"
-              tabIndex="0"
-              key={aItem}
-              onClick={() => handleEvent("timeSpan", aItem)}
-              className={linkClasses.join(" ")}
-            >
-              {nrOnlyTimespan}h
-            </a>
-          </Tooltip>
+            {nrOnlyTimespan}h
+          </a>
         );
       });
 
@@ -182,44 +178,37 @@ const WeatherMapCockpit = ({
     return (
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
-          <Tooltip
-            key="cp-select-parameter"
-            label={
-              <FormattedMessage id="weathermap:cockpit:select-parameter" />
-            }
+          <a
+            href="#"
+            role="button"
+            tabIndex="0"
+            className="cp-layer-selector-item cp-layer-trigger "
+            onClick={() => {
+              document
+                ?.querySelector("body")
+                .classList.toggle("layer-selector-open");
+            }}
           >
-            <a
-              href="#"
-              role="button"
-              tabIndex="0"
-              className="cp-layer-selector-item cp-layer-trigger "
-              onClick={() => {
-                document
-                  ?.querySelector("body")
-                  .classList.toggle("layer-selector-open");
-              }}
-            >
-              <div className="layer-select icon-snow">
-                <span class="layer-select-text">
-                  <span class="layer-select-name">
-                    {
-                      <FormattedMessage
-                        id={"weathermap:domain:title:" + domainId}
-                      />
-                    }
-                  </span>
-                  <span class="layer-select-info">
-                    {
-                      <FormattedMessage
-                        id={"weathermap:domain:description:" + domainId}
-                      />
-                    }
-                  </span>
+            <div className="layer-select icon-snow">
+              <span class="layer-select-text">
+                <span class="layer-select-name">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:title:" + domainId}
+                    />
+                  }
                 </span>
-              </div>
-              <span className="layer-trigger"></span>
-            </a>
-          </Tooltip>
+                <span class="layer-select-info">
+                  {
+                    <FormattedMessage
+                      id={"weathermap:domain:description:" + domainId}
+                    />
+                  }
+                </span>
+              </span>
+            </div>
+            <span className="layer-trigger"></span>
+          </a>
         </div>
 
         <div key="cp-range" className="cp-range">
@@ -264,10 +253,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span className="cp-release-released">
-            {/* <span>
+            <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} /> */}
+            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} />
           </span>
         </Tooltip>
         <Tooltip
@@ -277,10 +266,10 @@ const WeatherMapCockpit = ({
           }
         >
           <span key="cp-release-update" className="cp-release-update">
-            {/* <span>
+            <span>
               <FormattedMessage id="weathermap:cockpit:maps-update-date:prefix" />
             </span>{" "}
-            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} /> */}
+            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} />
           </span>
         </Tooltip>
         <Tooltip
@@ -289,13 +278,13 @@ const WeatherMapCockpit = ({
         >
           <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
         </Tooltip>
-        {/* <span key="cp-release-copyright" className="cp-release-copyright">
+        <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
             className="icon-copyright icon-margin-no"
             title="Copyright"
           ></a>
-        </span> */}
+        </span>
       </div>
     );
   };
@@ -307,40 +296,57 @@ const WeatherMapCockpit = ({
     "lastRedraw-" + lastRedraw
   ];
 
-  const firstHour = new Date(startDate);
-  firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
+  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
+  // const firstHour = new Date(startDate);
+  // firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
 
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
-  let usedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-  usedStartTime.setUTCHours(
-    usedStartTime.getUTCHours() + (Number(timeRange?.[0]) || -72)
-  );
-  let usedEndTime = new Date(startDate) || null;
-  usedEndTime.setUTCHours(
-    usedEndTime.getUTCHours() +
-      (timeSpan.includes("+") ? Number(timeRange?.[1]) || 72 : 0)
-  );
+  let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
 
+  // fix startdate hours after possible timespan change
+  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
+  }
+  let usedStartTime = new Date(fixedStartTime) || null;
+  usedStartTime.setDate(usedStartTime.getDate() - 730);
+  let usedEndTime = new Date(fixedStartTime) || null;
+  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
+
+  let analysesEndTs = new Date(startDate);
+
+  // fix initdate hours after possible timespan change
   let usedInitialDate = new Date(currentTime);
   if (
     usedEndTime &&
     new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
   )
-    usedInitialDate = new Date(startDate);
+    usedInitialDate = new Date(usedEndTime);
 
+  const initialDateHours = usedInitialDate.getUTCHours();
+  if (absSpan === 12 && [6, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
+  }
+  if (absSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(
+      usedInitialDate.getUTCHours() - initialDateHours
+    );
+  }
   // console.log("weather-map-cockpit->render #j01", {
-  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   timeRange: timeRange?.[0],
-  //   startDate,
-  //   currentTime,
-  //   usedStartTime,
-  //   usedInitialDate,
-  //   usedEndTime,
-  //   firstHour
+  //   //absSpan,
+  //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
+  //   //startDate: new Date(startDate).toUTCString(),
+  //   currentTime: currentTime?.toUTCString(),
+  //   //fixedStartTime: fixedStartTime?.toUTCString(),
+  //   usedStartTime: usedStartTime?.toUTCString(),
+  //   usedInitialDate: usedInitialDate?.toUTCString(),
+  //   usedEndTime: usedEndTime?.toUTCString()
+  //   // firstHour
   // });
-
-  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
@@ -355,19 +361,22 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline
-            key="cp-timeline"
-            domainId={domainId}
-            timeSpan={absSpan}
-            barDuration={absSpan}
-            markerPosition={absSpan > 24 ? "75%" : "50%"}
-            showBar={absSpan > 1}
-            initialDate={usedInitialDate}
-            startTime={usedStartTime}
-            endTime={usedEndTime}
-            //firstHour={firstHour?.getUTCHours()}
-            updateCB={onTimelineUpdate}
-          />
+          {startDate && (
+            <Timeline
+              key="cp-timeline"
+              domainId={domainId}
+              timeSpan={absSpan}
+              barDuration={absSpan}
+              markerPosition={absSpan > 24 ? "75%" : "50%"}
+              showBar={absSpan > 1}
+              analysesEndTs={analysesEndTs?.toISOString()}
+              initialDateTs={usedInitialDate.toISOString()}
+              startTimeTs={usedStartTime.toISOString()}
+              endTimeTs={usedEndTime.toISOString()}
+              //firstHour={firstHour?.getUTCHours()}
+              updateCB={onTimelineUpdate}
+            />
+          )}
         </div>
 
         {getTimeSpanOptions()}

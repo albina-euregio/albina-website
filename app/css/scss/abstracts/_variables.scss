@@ -1,3 +1,10 @@
+@use "sass:math";
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+
+@use "bounds";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -9,8 +16,9 @@
 
 //transporter
 $trans-color: #27a8e3; //2013
-$trans-color-light: lighten($trans-color, 20%);
-$trans-color-dark: darken($trans-color, 10%);
+// $trans-color-light: lighten($trans-color, 20%);
+$trans-color-light: color.adjust($trans-color, $lightness: 20%);
+$trans-color-dark: ($trans-color, 10%);
 
 //neutral
 $black: #000;
@@ -25,7 +33,7 @@ $white: #fff;
 
 //brand
 $brand: #19abff;
-$brand-very-very-dark: #062A3F;
+$brand-very-very-dark: #062a3f;
 $brand-very-dark: #0f6799;
 $brand-dark: #1489cc;
 $brand-light: #66c7ff;
@@ -56,7 +64,7 @@ $primary-color: $brand;
 $secondary-color: $brand-2;
 $tertiary-color: $grey-very-light;
 
-$success-color: #88CC00;
+$success-color: #88cc00;
 $error-color: $warning-level-4-color;
 $warning-color: $warning-level-4-color;
 $code-color: $warning-level-3-color;
@@ -147,34 +155,34 @@ $landscape: "#{$screen} and (orientation: landscape)";
 $portrait: "#{$screen} and (orientation: portrait)";
 
 $all-up: $screen;
-$all-only: "#{$screen} and (max-width:#{upper-bound($all-range)})";
+$all-only: "#{$screen} and (max-width:#{bounds.upper-bound($all-range)})";
 
-$tiny-up: "#{$screen} and (min-width:#{lower-bound($tiny-range)})";
-$tiny-only: "#{$screen} and (min-width:#{lower-bound($tiny-range)}) and (max-width:#{upper-bound($tiny-range)})";
+$tiny-up: "#{$screen} and (min-width:#{bounds.lower-bound($tiny-range)})";
+$tiny-only: "#{$screen} and (min-width:#{bounds.lower-bound($tiny-range)}) and (max-width:#{bounds.upper-bound($tiny-range)})";
 
-$small-up: "#{$screen} and (min-width:#{lower-bound($small-range)})";
-$small-only: "#{$screen} and (min-width:#{lower-bound($small-range)}) and (max-width:#{upper-bound($small-range)})";
+$small-up: "#{$screen} and (min-width:#{bounds.lower-bound($small-range)})";
+$small-only: "#{$screen} and (min-width:#{bounds.lower-bound($small-range)}) and (max-width:#{bounds.upper-bound($small-range)})";
 
-$normal-up: "#{$screen} and (min-width:#{lower-bound($normal-range)})";
-$normal-only: "#{$screen} and (min-width:#{lower-bound($normal-range)}) and (max-width:#{upper-bound($normal-range)})";
+$normal-up: "#{$screen} and (min-width:#{bounds.lower-bound($normal-range)})";
+$normal-only: "#{$screen} and (min-width:#{bounds.lower-bound($normal-range)}) and (max-width:#{bounds.upper-bound($normal-range)})";
 
-$medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
-$medium-only: "#{$screen} and (min-width:#{lower-bound($medium-range)}) and (max-width:#{upper-bound($medium-range)})";
+$medium-up: "#{$screen} and (min-width:#{bounds.lower-bound($medium-range)})";
+$medium-only: "#{$screen} and (min-width:#{bounds.lower-bound($medium-range)}) and (max-width:#{bounds.upper-bound($medium-range)})";
 
-$large-up: "#{$screen} and (min-width:#{lower-bound($large-range)})";
-$large-only: "#{$screen} and (min-width:#{lower-bound($large-range)}) and (max-width:#{upper-bound($large-range)})";
+$large-up: "#{$screen} and (min-width:#{bounds.lower-bound($large-range)})";
+$large-only: "#{$screen} and (min-width:#{bounds.lower-bound($large-range)}) and (max-width:#{bounds.upper-bound($large-range)})";
 
-$xlarge-up: "#{$screen} and (min-width:#{lower-bound($xlarge-range)})";
-$xlarge-only: "#{$screen} and (min-width:#{lower-bound($xlarge-range)}) and (max-width:#{upper-bound($xlarge-range)})";
+$xlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xlarge-range)})";
+$xlarge-only: "#{$screen} and (min-width:#{bounds.lower-bound($xlarge-range)}) and (max-width:#{bounds.upper-bound($xlarge-range)})";
 
-$xxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)})";
-$xxlarge-only: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)}) and (max-width:#{upper-bound($xxlarge-range)})";
+$xxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxlarge-range)})";
+$xxlarge-only: "#{$screen} and (min-width:#{bounds.lower-bound($xxlarge-range)}) and (max-width:#{bounds.upper-bound($xxlarge-range)})";
 
-$xxxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxxlarge-range)})";
+$xxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxlarge-range)})";
 
-$xxxxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxxxlarge-range)})";
+$xxxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxxlarge-range)})";
 
-$xxxxxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxxxxlarge-range)})";
+$xxxxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxxxlarge-range)})";
 
 //Legacy
 $all: $all-up;
@@ -219,7 +227,8 @@ $rem-base: 16;
 $base-line-height: 1.5em;
 $font-smoothing: antialiased; //Values: none, antialiased (default), subpixel-antialiased
 
-$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
   sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 $body-font-weight: 400; //normal

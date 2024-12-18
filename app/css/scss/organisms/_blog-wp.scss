@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -8,20 +12,24 @@
 \*------------------------------------*/
 
 .blog-feature-meta {
-  margin-bottom: $margin-bottom * 0.5;
-  font-size: $tiny-font-size;
+  margin-bottom: variables.$margin-bottom * 0.5;
+  font-size: variables.$tiny-font-size;
   .linkbox & {
     margin-bottom: 0;
   }
   li {
-    padding-bottom: $padding * 0.5;
-    @include rollout(all, $transition-duration * 2, ease-in-out);
+    padding-bottom: variables.$padding * 0.5;
+    @include mixins.rollout(
+      all,
+      variables.$transition-duration * 2,
+      ease-in-out
+    );
   }
   .blog-date {
   }
   .blog-author,
   .blog-province {
-    @include font-heavy;
+    @include mixins.font-heavy;
   }
 
   .blog-languages {
@@ -29,7 +37,14 @@
     clear: left;
     display: flex;
 
-    @include icon(language, 1.5em, $padding, $text-color, -0.25em, none);
+    @include icons.icon(
+      language,
+      1.5em,
+      variables.$padding,
+      variables.$text-color,
+      -0.25em,
+      none
+    );
 
     .blog-feature-meta-languages {
       margin-bottom: 0;
@@ -42,7 +57,7 @@
 
 .blog-feature-title {
   flex-grow: 10;
-  margin-bottom: $header-margin-bottom * 2;
+  margin-bottom: variables.$header-margin-bottom * 2;
 }
 
 .blog-list-labels {
@@ -51,11 +66,19 @@
   }
   span {
     margin: 0;
-    @include rollout(all, $transition-duration * 2, ease-in-out);
+    @include mixins.rollout(
+      all,
+      variables.$transition-duration * 2,
+      ease-in-out
+    );
     &:hover {
-      color: $anchor-font-color;
-      border-color: $anchor-font-color;
-      @include rollover(all, $transition-duration * 2, ease-in-out);
+      color: variables.$anchor-font-color;
+      border-color: variables.$anchor-font-color;
+      @include mixins.rollover(
+        all,
+        variables.$transition-duration * 2,
+        ease-in-out
+      );
     }
   }
 }
@@ -63,7 +86,7 @@
 .blog-page-flipper {
   text-align: center;
   a {
-    color: $brand;
+    color: variables.$brand;
   }
 
   + .section-blog-posts {
@@ -87,8 +110,8 @@ img {
   > *:not(.wp-block-post-featured-image):not(.wp-block-image):not(
       .wp-block-gallery
     ):not(.wp-block-video) {
-    padding-left: $all-h-padding;
-    padding-right: $all-h-padding;
+    padding-left: variables.$all-h-padding;
+    padding-right: variables.$all-h-padding;
   }
 }
 
@@ -113,11 +136,11 @@ img {
 }
 
 .wp-element-caption {
-  margin: 0 $all-h-padding;
-  font-size: $small-font-size;
-  color: $grey;
+  margin: 0 variables.$all-h-padding;
+  font-size: variables.$small-font-size;
+  color: variables.$grey;
 }
 
 .blocks-gallery-caption {
-  margin-top: -$margin-bottom;
+  margin-top: -(variables.$margin-bottom);
 }

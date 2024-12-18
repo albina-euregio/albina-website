@@ -1,3 +1,7 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../molecules/logo";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -12,37 +16,39 @@
   z-index: 0;
   //font-size: $small-font-size;//$body-font-size-small;
 
-  background-color: $white;
-  border-top: $border-width $border-style $brand-very-light;
+  background-color: variables.$white;
+  border-top: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
 }
 
 .page-footer-navigation {
   text-align: center;
-  border-bottom: $border-width $border-style $brand-very-light;
-  @media #{$normal-up} {
+  border-bottom: variables.$border-width variables.$border-style
+    variables.$brand-very-light;
+  @media #{variables.$normal-up} {
     text-align: left;
   }
-  @media #{$medium-up} {
-    font-size: $tiny-font-size;
+  @media #{variables.$medium-up} {
+    font-size: variables.$tiny-font-size;
   }
 }
 
 .page-footer-subscribe {
-  margin-bottom: $margin-bottom;
-  @media #{$large-up} {
+  margin-bottom: variables.$margin-bottom;
+  @media #{variables.$large-up} {
     float: right;
-    margin-left: $grid-gutter;
+    margin-left: variables.$grid-gutter;
   }
 }
 .page-footer-text {
-  margin-bottom: $margin-bottom;
-  color: $grey;
-  @media #{$medium-up} {
-    font-size: $tiny-font-size;
+  margin-bottom: variables.$margin-bottom;
+  color: variables.$grey;
+  @media #{variables.$medium-up} {
+    font-size: variables.$tiny-font-size;
   }
 }
 .page-footer-logo-secondary {
-  @media #{$large-up} {
+  @media #{variables.$large-up} {
     display: none;
   }
 }
@@ -54,14 +60,14 @@
 .page-footer-logo-tertiary {
 }
 .footer-logo-tertiary {
-  @include ir;
+  @include mixins.ir;
   position: relative;
   display: inline-block;
-  height: $logo-footer-tertiary-height * 0.5;
-  width: $logo-footer-tertiary-width * 0.5;
+  height: logo.$logo-footer-tertiary-height * 0.5;
+  width: logo.$logo-footer-tertiary-width * 0.5;
   background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
-  background-size: ($logo-footer-tertiary-width * 0.5)
-    ($logo-footer-tertiary-height * 0.5);
+  background-size: (logo.$logo-footer-tertiary-width * 0.5)
+    (logo.$logo-footer-tertiary-height * 0.5);
   filter: grayscale(100%);
   &:hover {
     transform: scale(1.05);
@@ -83,7 +89,7 @@
     &:hover,
     &:active {
       &:before {
-        transform: translateY(-$padding * 0.5);
+        transform: translateY(-(variables.$padding) * 0.5);
       }
     }
   }
@@ -91,7 +97,7 @@
 
 .page-footer-version {
   text-align: center;
-  color: $grey;
+  color: variables.$grey;
 }
 
 .page-footer-logos {
@@ -99,8 +105,8 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  gap: ($margin-bottom * 2) ($padding * 4);
-  @media #{$normal-up} {
+  gap: (variables.$margin-bottom * 2) (variables.$padding * 4);
+  @media #{variables.$normal-up} {
     flex-direction: row;
     align-items: start;
   }
@@ -109,7 +115,7 @@
   }
   .footer-logo-link {
     display: block;
-    margin-bottom: $padding;
+    margin-bottom: variables.$padding;
   }
   .footer-logo-img {
     height: 64px;
@@ -117,9 +123,9 @@
   }
   .footer-logo-share-follow {
     p {
-      font-size: $tiny-font-size;
-      @include letter-spacing;
-      margin-bottom: $margin-bottom * 0.5;
+      font-size: variables.$tiny-font-size;
+      @include mixins.letter-spacing;
+      margin-bottom: variables.$margin-bottom * 0.5;
     }
   }
 }

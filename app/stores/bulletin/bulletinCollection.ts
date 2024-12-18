@@ -88,7 +88,6 @@ class BulletinCollection {
     if (!this.date || !this.lang) {
       return;
     }
-    const region = this.date > "2022-05-06" ? "EUREGIO_" : "";
     return config.template(
       publicationDate
         ? config.apis.bulletin.jsonPublicationDate
@@ -96,7 +95,7 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region,
+        region: "EUREGIO_",
         lang: this.lang
       }
     );
