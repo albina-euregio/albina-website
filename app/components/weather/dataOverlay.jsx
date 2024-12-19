@@ -28,7 +28,17 @@ const DataOverlay = ({
 }) => {
   const intl = useIntl();
 
-  //console.log('dataOverlay->start xxx1', props);
+  // console.log('dataOverlay->start xxx1', {
+  //   overlay,
+  //   dataOverlays,
+  //   item,
+  //   rgbToValue,
+  //   debug,
+  //   dataOverlaysEnabled,
+  //   playerCB,
+  //   currentTime,
+  //   dataOverlayFilePostFix
+  // });
 
   const parentMap = useMap();
 
@@ -42,6 +52,10 @@ const DataOverlay = ({
   useEffect(() => {
     setOCanvases({});
   }, [overlay]);
+
+  useEffect(() => {
+    if (directionOverlay) addDirectionIndicators();
+  }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
     //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
@@ -231,10 +245,9 @@ const DataOverlay = ({
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
+              //console.log("setupDataLayer #4 ALL LOADED S06", {overlayCanvaseswind: overlayCanvases["windDirection"]});
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
-                addDirectionIndicators();
               }
               playerCB("background", "load");
             }
@@ -256,6 +269,7 @@ const DataOverlay = ({
   };
 
   const addDirectionIndicators = () => {
+    //console.log("addDirectionIndicators #1", directionOverlay);
     if (!directionOverlay) return;
     const map = parentMap;
     const curZoom = map.getZoom();
