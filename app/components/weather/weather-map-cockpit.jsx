@@ -189,15 +189,15 @@ const WeatherMapCockpit = ({
             }}
           >
             <div className="layer-select icon-snow">
-              <span class="layer-select-text">
-                <span class="layer-select-name">
+              <span className="layer-select-text">
+                <span className="layer-select-name">
                   {
                     <FormattedMessage
                       id={"weathermap:domain:title:" + domainId}
                     />
                   }
                 </span>
-                <span class="layer-select-info">
+                <span className="layer-select-info">
                   {
                     <FormattedMessage
                       id={"weathermap:domain:description:" + domainId}
