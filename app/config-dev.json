@@ -296,7 +296,7 @@
         "agl": "agl.ok",
         "startDate": "startDate.ok"
       },
-      "dataOverlayFilePostFix": { "main": "_V2.gif", "debug": "_V2.png" }
+      "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" }
     },
     "domains": {
       "snow-height": {
@@ -325,7 +325,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowHeight" }],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -356,7 +356,7 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowHeight" }],
           "displayedItems": ["snow6f"],
           "direction": false,
           "clusterOperation": "max"
@@ -398,7 +398,7 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
+          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowHeight" }],
           "direction": false,
           "clusterOperation": "max"
         }
