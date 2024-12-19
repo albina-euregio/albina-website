@@ -198,7 +198,7 @@ const WeatherMapCockpit = ({
                     />
                   }
                 </span>
-                <span class="layer-select-info">
+                <span className="layer-select-info">
                   {
                     <FormattedMessage
                       id={"weathermap:domain:description:" + domainId}
