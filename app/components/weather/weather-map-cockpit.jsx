@@ -14,7 +14,7 @@ const DOMAIN_ICON_CLASSES = {
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
   wind: "icon-wind",
-  //windgust: "icon-wind-gust"
+  gust: "icon-wind-gust",
   wind700hpa: "icon-wind-high"
 };
 
@@ -25,7 +25,7 @@ const DOMAIN_LEGEND_CLASSES = {
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
   wind: "cp-legend-wind",
-  //windgust: "cp-legend-windgust"
+  gust: "cp-legend-windgust",
   wind700hpa: "cp-legend-windhigh"
 };
 
@@ -36,7 +36,7 @@ const DOMAIN_UNITS = {
   "snow-line": "m",
   temp: "°C",
   wind: "km/h",
-  //windgust: "km/h"
+  gust: "km/h",
   wind700hpa: "km/h"
 };
 

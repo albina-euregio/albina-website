@@ -75,7 +75,9 @@ const Weather = () => {
     }
   };
 
-  //console.log("weather->render #i011", {currentTime: store.currentTime, agl: store.agl, dateStart: store.startDate});
+  console.log("weather->render #i011", {
+    overlayFileName: store.overlayFileName
+  });
   return (
     <>
       <WeatherStationDialog

@@ -23,6 +23,7 @@ const WeatherMap = props => {
         overlays.push(
           <DataOverlay
             key="background-map"
+            domainId={props.domainId}
             overlay={props.overlay}
             dataOverlayFilePostFix={props.dataOverlayFilePostFix}
             currentTime={props.currentTime}

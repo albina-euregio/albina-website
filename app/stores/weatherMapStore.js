@@ -346,11 +346,11 @@ export default class WeatherMapStore_new {
 
       return (
         config.apis.weather.overlays +
-        this._domainId.get() +
+        "%%DOMAIN%%" +
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
-        "_" +
-        this._domainId.get() +
+        "_%%FILE%%" +
+        //this._domainId.get() +
         (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
       );
     }
