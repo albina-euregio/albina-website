@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
+import $, { data } from "jquery";
 
 import { observer } from "mobx-react";
 import { useIntl } from "../i18n";
@@ -75,9 +75,15 @@ const Weather = () => {
     }
   };
 
-  console.log("weather->render #i011", {
-    overlayFileName: store.overlayFileName
-  });
+  // console.log("weather->render #i011", {
+  //   domainId: store.domainId,
+  //   overlayFileName: store.overlayFileName,
+  //   dataOverlays: store.domainConfig.dataOverlays,
+  //   overlaysEnabled: !store.domainConfig.layer.stations || store.currentTime > store.agl,
+  //   agl: store.agl,
+  //   currentTime: store.currentTime
+
+  // });
   return (
     <>
       <WeatherStationDialog

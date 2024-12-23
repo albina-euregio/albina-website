@@ -29,7 +29,7 @@ const DataOverlay = ({
 }) => {
   const intl = useIntl();
 
-  console.log("dataOverlay->start xxx1", overlay);
+  //console.log("dataOverlay->start xxx1", overlay);
 
   const parentMap = useMap();
 
@@ -43,6 +43,10 @@ const DataOverlay = ({
   useEffect(() => {
     setOCanvases({});
   }, [overlay]);
+
+  useEffect(() => {
+    if (directionOverlay) addDirectionIndicators();
+  }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
     //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
@@ -148,7 +152,7 @@ const DataOverlay = ({
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
+    //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
 
     if (debug && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
@@ -187,16 +191,16 @@ const DataOverlay = ({
   };
 
   const setupDataLayer = e => {
-    console.log("dataOverlay->setupDataLayer#1 t02");
+    //console.log("dataOverlay->setupDataLayer#1 t02");
 
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
     if (dataOverlaysEnabled) {
       dataOverlays.forEach(anOverlay => {
-        console.log("setupDataLayer#2 yyy2", {
-          overlay: overlay,
-          filepaht: anOverlay.filePostfix
-        });
+        // console.log("setupDataLayer#2 #i011", {
+        //   overlay: overlay,
+        //   filepaht: anOverlay.filePostfix
+        // });
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
@@ -212,11 +216,11 @@ const DataOverlay = ({
                 anOverlay?.domain || domainId
               )
             );
-          console.log("setupDataLayer xxxx", {
-            overlayFile,
-            filepaht: anOverlay.filePostfix,
-            domainId
-          });
+          // console.log("setupDataLayer xxxx", {
+          //   overlayFile,
+          //   filepaht: anOverlay.filePostfix,
+          //   domainId
+          // });
 
           let img = new Image();
           img.crossOrigin = "anonymous";
@@ -250,10 +254,11 @@ const DataOverlay = ({
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
+              // console.log("setupDataLayer #4 ALL LOADED #i011", {
+              //   oWinddirection: overlayCanvases["windDirection"]
+              // });
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
-                addDirectionIndicators();
               }
               playerCB("background", "load");
             }
@@ -278,7 +283,12 @@ const DataOverlay = ({
     const map = parentMap;
     const curZoom = map.getZoom();
     let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    //console.log("addDirectionIndicators jjj", curZoom, map._layersMinZoom, grids);
+    // console.log(
+    //   "addDirectionIndicators #i011",
+    //   curZoom,
+    //   map._layersMinZoom,
+    //   grids
+    // );
     const bounds = config.weathermaps.settings.bbox;
     let markers = [];
 
@@ -354,10 +364,10 @@ const DataOverlay = ({
         let usedDataOverlayFilePostFix =
           item?.dataOverlayFilePostFixOverride?.main ||
           dataOverlayFilePostFix.main;
-        console.log("dataOverlay->render #1 xxx33", {
-          overlay,
-          usedDataOverlayFilePostFix
-        });
+        // console.log("dataOverlay->render #1 xxx33", {
+        //   overlay,
+        //   usedDataOverlayFilePostFix
+        // });
         if (debug) usedDataOverlayFilePostFix = dataOverlayFilePostFix?.debug;
         overlays.push(
           <ImageOverlay
