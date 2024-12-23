@@ -18,11 +18,14 @@ const WeatherMap = props => {
   let showStationsToggle = false;
   if (props.item) {
     if (props.overlay) {
-      //console.log("wather-map->#2 s06:", props.overlay);
+      // console.log("wather-map->#2 #i011:", {
+      //   dataOverlaysEnabled: props.dataOverlaysEnabled
+      // });
       if (props.overlay) {
         overlays.push(
           <DataOverlay
             key="background-map"
+            domainId={props.domainId}
             overlay={props.overlay}
             dataOverlayFilePostFix={props.dataOverlayFilePostFix}
             currentTime={props.currentTime}

@@ -16,6 +16,7 @@ const css = `
     }
 `;
 const DataOverlay = ({
+  domainId,
   overlay,
   dataOverlays,
   item,
@@ -28,17 +29,7 @@ const DataOverlay = ({
 }) => {
   const intl = useIntl();
 
-  // console.log('dataOverlay->start xxx1', {
-  //   overlay,
-  //   dataOverlays,
-  //   item,
-  //   rgbToValue,
-  //   debug,
-  //   dataOverlaysEnabled,
-  //   playerCB,
-  //   currentTime,
-  //   dataOverlayFilePostFix
-  // });
+  //console.log("dataOverlay->start xxx1", overlay);
 
   const parentMap = useMap();
 
@@ -161,7 +152,7 @@ const DataOverlay = ({
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
+    //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
 
     if (debug && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
@@ -206,13 +197,31 @@ const DataOverlay = ({
     setDirectionOverlay(null);
     if (dataOverlaysEnabled) {
       dataOverlays.forEach(anOverlay => {
-        //console.log("setupDataLayer#2 yyy2", {overlay: overlay, filepaht: anOverlay.filePostfix});
+        // console.log("setupDataLayer#2 #i011", {
+        //   overlay: overlay,
+        //   filepaht: anOverlay.filePostfix
+        // });
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
             loaded: false
           };
           //console.log("setupDataLayer#3 jjj1", anOverlay.type, overlayCanvases[anOverlay.type].loaded);
+          let overlayFile = overlay
+            .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
+            .replaceAll(
+              "%%FILE%%",
+              anOverlay.filePostfix.replaceAll(
+                "%%DOMAIN%%",
+                anOverlay?.domain || domainId
+              )
+            );
+          // console.log("setupDataLayer xxxx", {
+          //   overlayFile,
+          //   filepaht: anOverlay.filePostfix,
+          //   domainId
+          // });
+
           let img = new Image();
           img.crossOrigin = "anonymous";
           overlayCanvases[anOverlay.type].canvas.ctx =
@@ -245,15 +254,14 @@ const DataOverlay = ({
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", {overlayCanvaseswind: overlayCanvases["windDirection"]});
+              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
               }
               playerCB("background", "load");
             }
           };
-          //console.log("setupDataLayer xxxx", {overlayFile, filepaht: anOverlay.filePostfix});
-          let overlayFile = overlay + anOverlay.filePostfix;
+
           if (anOverlay.fixPath)
             overlayFile = overlayFile.replace(
               RegExp(anOverlay.fixPath.find, "g"),
@@ -274,7 +282,12 @@ const DataOverlay = ({
     const map = parentMap;
     const curZoom = map.getZoom();
     let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    //console.log("addDirectionIndicators jjj", curZoom, map._layersMinZoom, grids);
+    // console.log(
+    //   "addDirectionIndicators #i011",
+    //   curZoom,
+    //   map._layersMinZoom,
+    //   grids
+    // );
     const bounds = config.weathermaps.settings.bbox;
     let markers = [];
 
@@ -347,31 +360,49 @@ const DataOverlay = ({
 
       //console.log("overlay->render xxx1:", debug);
       if (overlay) {
-        if (debug)
-          overlays.push(
-            <ImageOverlay
-              key="data-image"
-              className={["leaflet-image-layer", "map-data-layer", "hide"].join(
-                " "
+        let usedDataOverlayFilePostFix =
+          item?.dataOverlayFilePostFixOverride?.main ||
+          dataOverlayFilePostFix.main;
+        // console.log("dataOverlay->render #1 xxx33", {
+        //   overlay,
+        //   usedDataOverlayFilePostFix
+        // });
+        if (debug) usedDataOverlayFilePostFix = dataOverlayFilePostFix?.debug;
+        overlays.push(
+          <ImageOverlay
+            key="data-image"
+            className={["leaflet-image-layer", "map-data-layer", "hide"].join(
+              " "
+            )}
+            url={overlay
+              .replaceAll("%%DOMAIN%%", domainId)
+              .replaceAll(
+                "%%FILE%%",
+                usedDataOverlayFilePostFix.replaceAll("%%DOMAIN%%", domainId)
               )}
-              url={overlay + dataOverlayFilePostFix.debug}
-              opacity={1}
-              bounds={config.weathermaps.settings.bbox}
-              attribution={intl.formatMessage({
-                id: "weathermap:attribution"
-              })}
-              eventHandlers={{
-                click: showDataMarker.bind(this)
-              }}
-              interactive={true}
-            />
-          );
+            opacity={1}
+            bounds={config.weathermaps.settings.bbox}
+            attribution={intl.formatMessage({
+              id: "weathermap:attribution"
+            })}
+            eventHandlers={{
+              click: showDataMarker.bind(this)
+            }}
+            interactive={true}
+          />
+        );
+
         overlays.push(
           <ImageOverlay
             key="background-map"
             className={["leaflet-image-layer", "map-info-layer"].join(" ")}
             style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-            url={overlay + dataOverlayFilePostFix.main}
+            url={overlay
+              .replaceAll("%%DOMAIN%%", domainId)
+              .replaceAll(
+                "%%FILE%%",
+                usedDataOverlayFilePostFix.replaceAll("%%DOMAIN%%", domainId)
+              )}
             opacity={1}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}

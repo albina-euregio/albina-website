@@ -79,7 +79,10 @@ export default class WeatherMapStore_new {
 
     const fetchDate = async url => {
       const response = await fetch(url);
-      if (!response.ok) throw Error(response.statusText);
+      if (!response.ok) {
+        //throw Error(response.statusText);
+        return new Date();
+      }
       this.lastUpdateTime = response.headers.get("last-modified");
       const date = await response.text();
       return date.includes("T") ? new Date(date.trim()).getTime() : undefined;
@@ -346,11 +349,11 @@ export default class WeatherMapStore_new {
 
       return (
         config.apis.weather.overlays +
-        this._domainId.get() +
+        "%%DOMAIN%%" +
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
-        "_" +
-        this._domainId.get() +
+        "_%%FILE%%" +
+        //this._domainId.get() +
         (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
       );
     }
