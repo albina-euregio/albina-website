@@ -332,32 +332,43 @@ export default class WeatherMapStore_new {
     return Math.abs(parseInt(tempTimeSpan, 10));
   }
 
-  /*
-    returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
-  */
-  get overlayFileName() {
-    // console.log(
-    //   "weatherMapStore_new overlayFileName: ",
-    //   this._domainId.get(),
-    //   this._timeSpan.get()
-    // );
+  getOverlayFileName(filePostFix, overrideDomainId) {
+    // console.log("weatherMapStore_new overlayFileName: #1 ", {
+    //   self: this,
+    //   filePostFix,
+    //   domainId: this?._domainId.get(),
+    //   timespan: this?._timeSpan.get(),
+    //   currentTime: this?._currentTime.get()
+    // });
 
-    if (this._currentTime.get()) {
+    if (this?._currentTime.get()) {
       // console.log("weatherMapStore_new overlayFileName:#1 ", {
       //   currentTime: this._currentTime.get()
       // });
 
-      return (
+      let domainVar = overrideDomainId || this._domainId.get();
+      if (this._absTimeSpan !== 1) domainVar += "_" + this._absTimeSpan + "h";
+
+      let fileVar = filePostFix + "";
+      fileVar = fileVar.replaceAll("%%DOMAIN%%", domainVar);
+      // console.log("weatherMapStore_new overlayFileName: #2 ", {
+      //   domainId: this._domainId.get(),
+      //   domainVar,
+      //   fileVar
+      // });
+      const res =
         config.apis.weather.overlays +
-        "%%DOMAIN%%" +
+        (overrideDomainId || this._domainId.get()) +
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
-        "_%%FILE%%" +
-        //this._domainId.get() +
-        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
-      );
+        "_" +
+        fileVar;
+      // console.log("weatherMapStore_new overlayFileName: #3 ", {
+      //   res
+      // });
+      return res;
     }
-    return false;
+    return "";
   }
 
   /*

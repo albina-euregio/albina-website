@@ -77,7 +77,6 @@ const Weather = () => {
 
   // console.log("weather->render #i011", {
   //   domainId: store.domainId,
-  //   overlayFileName: store.overlayFileName,
   //   dataOverlays: store.domainConfig.dataOverlays,
   //   overlaysEnabled: !store.domainConfig.layer.stations || store.currentTime > store.agl,
   //   agl: store.agl,
@@ -109,7 +108,7 @@ const Weather = () => {
                 domain={store.domain}
                 currentTime={store.currentTime}
                 startDate={store.startDate}
-                overlay={store.overlayFileName}
+                getOverlayFileName={store.getOverlayFileName.bind(store)}
                 dataOverlayFilePostFix={
                   store.config.domains?.[store.domainId]?.item
                     ?.dataOverlayFilePostFix ||

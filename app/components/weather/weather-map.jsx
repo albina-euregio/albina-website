@@ -17,27 +17,23 @@ const WeatherMap = props => {
   const overlays = [];
   let showStationsToggle = false;
   if (props.item) {
-    if (props.overlay) {
-      // console.log("wather-map->#2 #i011:", {
-      //   dataOverlaysEnabled: props.dataOverlaysEnabled
-      // });
-      if (props.overlay) {
-        overlays.push(
-          <DataOverlay
-            key="background-map"
-            domainId={props.domainId}
-            overlay={props.overlay}
-            dataOverlayFilePostFix={props.dataOverlayFilePostFix}
-            currentTime={props.currentTime}
-            debug={props.debug}
-            playerCB={props.playerCB}
-            item={props.item}
-            dataOverlays={props.dataOverlays}
-            dataOverlaysEnabled={props.dataOverlaysEnabled}
-            rgbToValue={props.rgbToValue}
-          />
-        );
-      }
+    if (props.domainId) {
+      overlays.push(
+        <DataOverlay
+          key="background-map"
+          domainId={props.domainId}
+          //overlay={props.overlay}
+          getOverlayFileName={props.getOverlayFileName}
+          dataOverlayFilePostFix={props.dataOverlayFilePostFix}
+          currentTime={props.currentTime}
+          debug={props.debug}
+          playerCB={props.playerCB}
+          item={props.item}
+          dataOverlays={props.dataOverlays}
+          dataOverlaysEnabled={props.dataOverlaysEnabled}
+          rgbToValue={props.rgbToValue}
+        />
+      );
     }
 
     if (props.item.layer.grid && props.grid && props.grid.features) {

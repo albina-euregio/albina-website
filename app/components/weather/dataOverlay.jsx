@@ -17,7 +17,6 @@ const css = `
 `;
 const DataOverlay = ({
   domainId,
-  overlay,
   dataOverlays,
   item,
   rgbToValue,
@@ -25,7 +24,8 @@ const DataOverlay = ({
   dataOverlaysEnabled,
   playerCB,
   currentTime,
-  dataOverlayFilePostFix
+  dataOverlayFilePostFix,
+  getOverlayFileName
 }) => {
   const intl = useIntl();
 
@@ -42,7 +42,7 @@ const DataOverlay = ({
 
   useEffect(() => {
     setOCanvases({});
-  }, [overlay]);
+  }, [domainId, currentTime]);
 
   useEffect(() => {
     if (directionOverlay) addDirectionIndicators();
@@ -207,15 +207,20 @@ const DataOverlay = ({
             loaded: false
           };
           //console.log("setupDataLayer#3 jjj1", anOverlay.type, overlayCanvases[anOverlay.type].loaded);
-          let overlayFile = overlay
-            .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
-            .replaceAll(
-              "%%FILE%%",
-              anOverlay.filePostfix.replaceAll(
-                "%%DOMAIN%%",
-                anOverlay?.domain || domainId
-              )
-            );
+          // let overlayFile = overlay
+          //   .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
+          //   .replaceAll(
+          //     "%%FILE%%",
+          //     anOverlay.filePostfix.replaceAll(
+          //       "%%DOMAIN%%",
+          //       anOverlay?.domain || domainId
+          //     )
+          //   );
+
+          let overlayFile = getOverlayFileName(
+            anOverlay.filePostfix,
+            anOverlay?.domain
+          );
           // console.log("setupDataLayer xxxx", {
           //   overlayFile,
           //   filepaht: anOverlay.filePostfix,
@@ -351,103 +356,90 @@ const DataOverlay = ({
   //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    //console.log("dataOverlay->useMemo t02", dataMarker);
+    //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName });
     let overlays = [];
-    if (overlay) {
+    if (domainId) {
       //console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
       //console.log("overlay->render xxx1:", debug);
-      if (overlay) {
-        let usedDataOverlayFilePostFix =
-          item?.dataOverlayFilePostFixOverride?.main ||
-          dataOverlayFilePostFix.main;
-        // console.log("dataOverlay->render #1 xxx33", {
-        //   overlay,
-        //   usedDataOverlayFilePostFix
-        // });
-        if (debug) usedDataOverlayFilePostFix = dataOverlayFilePostFix?.debug;
-        overlays.push(
-          <ImageOverlay
-            key="data-image"
-            className={["leaflet-image-layer", "map-data-layer", "hide"].join(
-              " "
-            )}
-            url={overlay
-              .replaceAll("%%DOMAIN%%", domainId)
-              .replaceAll(
-                "%%FILE%%",
-                usedDataOverlayFilePostFix.replaceAll("%%DOMAIN%%", domainId)
-              )}
-            opacity={1}
-            bounds={config.weathermaps.settings.bbox}
-            attribution={intl.formatMessage({
-              id: "weathermap:attribution"
-            })}
-            eventHandlers={{
-              click: showDataMarker.bind(this)
-            }}
-            interactive={true}
-          />
-        );
 
-        overlays.push(
-          <ImageOverlay
-            key="background-map"
-            className={["leaflet-image-layer", "map-info-layer"].join(" ")}
-            style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-            url={overlay
-              .replaceAll("%%DOMAIN%%", domainId)
-              .replaceAll(
-                "%%FILE%%",
-                usedDataOverlayFilePostFix.replaceAll("%%DOMAIN%%", domainId)
-              )}
-            opacity={1}
-            bounds={config.weathermaps.settings.bbox}
-            interactive={true}
-            attribution={
-              debug
-                ? intl.formatMessage({ id: "weathermap:attribution" })
-                : null
+      let usedDataOverlayFilePostFix =
+        item?.dataOverlayFilePostFixOverride?.main ||
+        dataOverlayFilePostFix.main;
+      // console.log("dataOverlay->render #1 xxx33", {
+      //   overlay,
+      //   usedDataOverlayFilePostFix
+      // });
+      if (debug) usedDataOverlayFilePostFix = dataOverlayFilePostFix?.debug;
+      //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
+      overlays.push(
+        <ImageOverlay
+          key="data-image"
+          className={["leaflet-image-layer", "map-data-layer", "hide"].join(
+            " "
+          )}
+          url={getOverlayFileName(usedDataOverlayFilePostFix)}
+          opacity={1}
+          bounds={config.weathermaps.settings.bbox}
+          attribution={intl.formatMessage({
+            id: "weathermap:attribution"
+          })}
+          eventHandlers={{
+            click: showDataMarker.bind(this)
+          }}
+          interactive={true}
+        />
+      );
+
+      overlays.push(
+        <ImageOverlay
+          key="background-map"
+          className={["leaflet-image-layer", "map-info-layer"].join(" ")}
+          style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+          url={getOverlayFileName(usedDataOverlayFilePostFix)}
+          opacity={1}
+          bounds={config.weathermaps.settings.bbox}
+          interactive={true}
+          attribution={
+            debug ? intl.formatMessage({ id: "weathermap:attribution" }) : null
+          }
+          //onClick={()=>console.log('dataOverlay->click')}
+          eventHandlers={{
+            click: showDataMarker,
+            load: e => {
+              //console.log("background jjj", "load", e.target._map);
+              setDataMarker(null);
+              setDirectionMarkers(null);
+              //console.log("background yyy2", "load");
+              setupDataLayer(e);
+              e.target._map.on("zoomend", e => {
+                //console.log("onZoomed eee", e);
+                addDirectionIndicators(e);
+              });
+              //console.log("dataOverlay background LOADED s07");
+              if (!dataMarker && !directionMarkers)
+                playerCB("background", "load");
+            },
+            error: err => {
+              //console.log("dataOverlay background ERROR s06");
+              if (!dataMarker && !directionMarkers) playerCB("background", err);
             }
-            //onClick={()=>console.log('dataOverlay->click')}
-            eventHandlers={{
-              click: showDataMarker,
-              load: e => {
-                //console.log("background jjj", "load", e.target._map);
-                setDataMarker(null);
-                setDirectionMarkers(null);
-                //console.log("background yyy2", "load");
-                setupDataLayer(e);
-                e.target._map.on("zoomend", e => {
-                  //console.log("onZoomed eee", e);
-                  addDirectionIndicators(e);
-                });
-                //console.log("dataOverlay background LOADED s07");
-                if (!dataMarker && !directionMarkers)
-                  playerCB("background", "load");
-              },
-              error: err => {
-                //console.log("dataOverlay background ERROR s06");
-                if (!dataMarker && !directionMarkers)
-                  playerCB("background", err);
-              }
-            }}
-            bindPopup
-          />
-        );
-        // console.log(
-        //   "dataOverlay background s071",
-        //   "loading",
-        //   dataMarker
-        // );
-        playerCB("background", "loading");
-      }
+          }}
+          bindPopup
+        />
+      );
+      // console.log(
+      //   "dataOverlay background s071",
+      //   "loading",
+      //   dataMarker
+      // );
+      playerCB("background", "loading");
     }
 
     return overlays;
-  }, [overlay, oCanvases]);
+  }, [domainId, oCanvases]);
 
   //console.log('dataOverlay->render xxx1', overlays );
 

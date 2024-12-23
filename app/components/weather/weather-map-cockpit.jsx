@@ -303,7 +303,7 @@ const WeatherMapCockpit = ({
   const imgRoot = `${window.config.projectRoot}images/pro/`;
 
   let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-
+  let usedStartTime = new Date(fixedStartTime) || null;
   // fix startdate hours after possible timespan change
   const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
   if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
@@ -312,7 +312,7 @@ const WeatherMapCockpit = ({
   if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
     fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
   }
-  let usedStartTime = new Date(fixedStartTime) || null;
+
   usedStartTime.setDate(usedStartTime.getDate() - 730);
   let usedEndTime = new Date(fixedStartTime) || null;
   usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));

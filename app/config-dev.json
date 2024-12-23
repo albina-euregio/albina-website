@@ -548,7 +548,7 @@
           },
           "dataOverlays": [
             { "filePostfix": "%%DOMAIN%%_V3.png", "type": "windSpeed" },
-            { "filePostfix": "%%DOMAIN%%-dir_V3.png", "type": "windDirection" }
+            { "filePostfix": "%%DOMAIN%%-dir_V2.png", "type": "windDirection" }
           ],
           "direction": "wdir",
           "clusterOperation": "max",
@@ -586,7 +586,7 @@
             { "filePostfix": "%%DOMAIN%%_V3.png", "type": "windSpeed" },
             {
               "domain": "wind",
-              "filePostfix": "wind-dir_V3.png",
+              "filePostfix": "wind-dir_V2.png",
               "type": "windDirection"
             }
           ],
