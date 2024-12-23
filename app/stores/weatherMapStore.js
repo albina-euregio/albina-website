@@ -79,7 +79,10 @@ export default class WeatherMapStore_new {
 
     const fetchDate = async url => {
       const response = await fetch(url);
-      if (!response.ok) throw Error(response.statusText);
+      if (!response.ok) {
+        //throw Error(response.statusText);
+        return new Date();
+      }
       this.lastUpdateTime = response.headers.get("last-modified");
       const date = await response.text();
       return date.includes("T") ? new Date(date.trim()).getTime() : undefined;
