@@ -323,7 +323,10 @@
         "agl": "agl.ok",
         "startDate": "startDate.ok"
       },
-      "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" }
+      "dataOverlayFilePostFix": {
+        "main": "%%DOMAIN%%_V3.gif",
+        "debug": "%%DOMAIN%%_V3.png"
+      }
     },
     "domains": {
       "snow-height": {
@@ -352,8 +355,9 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowHeight" }],
-
+          "dataOverlays": [
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "snowHeight" }
+          ],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -384,8 +388,13 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V2.png", "type": "snowHeight" }],
-          "dataOverlayFilePostFix": { "main": "_V2.gif", "debug": "_V2.png" },
+          "dataOverlays": [
+            { "filePostfix": "%%DOMAIN%%_V2.png", "type": "snowHeight" }
+          ],
+          "dataOverlayFilePostFix": {
+            "main": "%%DOMAIN%%_V2.gif",
+            "debug": "%%DOMAIN%%_V2.png"
+          },
           "displayedItems": ["snow6f"],
           "direction": false,
           "clusterOperation": "max"
@@ -427,7 +436,9 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowHeight" }],
+          "dataOverlays": [
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "snowHeight" }
+          ],
           "direction": false,
           "clusterOperation": "max"
         }
@@ -490,10 +501,11 @@
             "stations": false,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "snowLine" }],
+          "dataOverlays": [
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "snowLine" }
+          ],
           "direction": false,
           "clusterOperation": "max",
-          "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
@@ -530,10 +542,11 @@
             "stations": true,
             "grid": false
           },
-          "dataOverlays": [{ "filePostfix": "_V3.png", "type": "temperature" }],
+          "dataOverlays": [
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "temperature" }
+          ],
           "direction": false,
           "clusterOperation": "min",
-          "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
@@ -565,12 +578,11 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": "_V3.png", "type": "windSpeed" },
-            { "filePostfix": "-dir_V3.png", "type": "windDirection" }
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "windSpeed" },
+            { "filePostfix": "%%DOMAIN%%-dir_V2.png", "type": "windDirection" }
           ],
           "direction": "wdir",
           "clusterOperation": "max",
-          "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
@@ -602,12 +614,15 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": "_V3.png", "type": "windSpeed" },
-            { "filePostfix": "-dir_V3.png", "type": "windDirection" }
+            { "filePostfix": "%%DOMAIN%%_V3.png", "type": "windSpeed" },
+            {
+              "domain": "wind",
+              "filePostfix": "wind-dir_V2.png",
+              "type": "windDirection"
+            }
           ],
           "direction": "wdir",
           "clusterOperation": "max",
-          "dataOverlayFilePostFix": { "main": "_V3.gif", "debug": "_V3.png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
@@ -639,12 +654,15 @@
             "grid": false
           },
           "dataOverlays": [
-            { "filePostfix": ".png", "type": "windSpeed" },
-            { "filePostfix": "-dir.png", "type": "windDirection" }
+            { "filePostfix": "%%DOMAIN%%.png", "type": "windSpeed" },
+            { "filePostfix": "wind-dir700hpa.png", "type": "windDirection" }
           ],
+          "dataOverlayFilePostFixOverride": {
+            "main": "%%DOMAIN%%.gif",
+            "debug": "%%DOMAIN%%.png"
+          },
           "direction": "wdir",
           "clusterOperation": "max",
-          "dataOverlayFilePostFix": { "main": ".gif", "debug": ".png" },
           "metaFiles": {
             "agl": "c-laef_agl.ok"
           },
