@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage, useIntl } from "../../i18n";
+import { dateFormat } from "../../util/date";
 
 // function useChangedProps(props) {
 //   const prev = useRef(props);
@@ -595,7 +596,7 @@ const Timeline = ({
   };
 
   const formatDateToLocalDateTime = date => {
-    return date.toLocaleString("sv").replace(" ", "T");
+    return dateFormat(date, "%Y-%m-%dT%H:%M:%S");
   };
 
   const handleSelectDateClick = e => {
