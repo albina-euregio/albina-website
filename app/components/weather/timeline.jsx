@@ -2,26 +2,25 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import { FormattedDate } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { init } from "@sentry/browser";
 
-function useChangedProps(props) {
-  const prev = useRef(props);
-
-  useEffect(() => {
-    Object.entries(props).forEach(([key, value]) => {
-      if (prev.current[key] !== value) {
-        // console.log(
-        //   `#j012 Prop '${key}' changed from:`,
-        //   prev.current[key],
-        //   "to:",
-        //   value
-        // );
-      }
-    });
-
-    prev.current = { ...props }; // Important: create a new object to store previous values
-  }, [props]);
-}
+// function useChangedProps(props) {
+//   const prev = useRef(props);
+//
+//   useEffect(() => {
+//     Object.entries(props).forEach(([key, value]) => {
+//       if (prev.current[key] !== value) {
+//         // console.log(
+//         //   `#j012 Prop '${key}' changed from:`,
+//         //   prev.current[key],
+//         //   "to:",
+//         //   value
+//         // );
+//       }
+//     });
+//
+//     prev.current = { ...props }; // Important: create a new object to store previous values
+//   }, [props]);
+// }
 
 const Timeline = ({
   initialDateTs,
