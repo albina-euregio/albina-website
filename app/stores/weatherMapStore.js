@@ -56,13 +56,13 @@ export default class WeatherMapStore_new {
     const configDefaultDomainId = Object.keys(this.config.domains).find(
       domainKey => this.config.domains[domainKey].domainDefault
     );
-    if (!initialDomainId || initialDomainId == "false") {
+    if (!initialDomainId || initialDomainId === "false") {
       initialDomainId = configDefaultDomainId;
     }
     this.changeDomain(initialDomainId);
   }
 
-  /* 
+  /*
     get data
   */
   _loadDomainData() {
@@ -138,7 +138,7 @@ export default class WeatherMapStore_new {
       });
   }
 
-  /* 
+  /*
     get data for currentTime
   */
   _loadIndexData() {
@@ -593,7 +593,7 @@ export default class WeatherMapStore_new {
     //   this.domainConfig
     // );
     if (
-      timeSpan != this._timeSpan.get() &&
+      timeSpan !== this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
       //this._timeIndex.set(null);
@@ -614,7 +614,8 @@ export default class WeatherMapStore_new {
     //   oldDate: new Date(this._currentTime.get())
     // });
     if (
-      new Date(newTime).getTime() != new Date(this._currentTime.get()).getTime()
+      new Date(newTime).getTime() !==
+      new Date(this._currentTime.get()).getTime()
     ) {
       this._currentTime.set(newTime);
     }
