@@ -8,76 +8,75 @@ import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
-const WeatherMap = props => {
+/**
+ * @param store {WeatherMapStore}
+ */
+const WeatherMap = ({
+  store,
+  playerCB,
+  isPlaying,
+  onMarkerSelected,
+  onViewportChanged
+}) => {
   const intl = useIntl();
   const [showStations, setShowStations] = useState(
     !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
   );
 
+  const domainId = store.domainId;
+  const startDate = store.startDate;
+  const itemId = store.domainConfig.timeSpanToDataId[store.timeSpan];
+  const item = store.item;
+  const grid = store.grid;
+  const stations = store.stations;
+  const selectedFeature = store.selectedFeature;
+
   const overlays = [];
   let showStationsToggle = false;
-  if (props.item) {
-    if (props.domainId) {
+  if (item) {
+    if (domainId) {
       overlays.push(
-        <DataOverlay
-          key="background-map"
-          domainId={props.domainId}
-          //overlay={props.overlay}
-          getOverlayFileName={props.getOverlayFileName}
-          dataOverlayFilePostFix={props.dataOverlayFilePostFix}
-          currentTime={props.currentTime}
-          debug={props.debug}
-          playerCB={props.playerCB}
-          item={props.item}
-          dataOverlays={props.dataOverlays}
-          dataOverlaysEnabled={props.dataOverlaysEnabled}
-          rgbToValue={props.rgbToValue}
-        />
+        <DataOverlay key="background-map" store={store} playerCB={playerCB} />
       );
     }
 
-    if (props.item.layer.grid && props.grid && props.grid.features) {
+    if (item.layer.grid && grid && grid.features) {
       overlays.push(
         <GridOverlay
           key={"grid"}
-          item={props.item}
-          grid={props.grid}
+          item={item}
+          grid={grid}
           onLoading={() => {
-            props.playerCB("grid", "loading");
+            playerCB("grid", "loading");
           }}
           onLoad={() => {
-            props.playerCB("gird", "load");
+            playerCB("gird", "load");
           }}
           onTileerror={() => {
-            props.playerCB("grid", "error");
+            playerCB("grid", "error");
           }}
         />
       );
     }
 
-    if (
-      props.item.layer.stations &&
-      props.stations &&
-      props.stations.features &&
-      !props.isPlaying
-    ) {
+    if (item.layer.stations && stations && stations.features && !isPlaying) {
       if (showStations)
         overlays.push(
           <StationOverlay
             key={"stations"}
-            onMarkerSelected={props.onMarkerSelected}
-            selectedFeature={props.selectedFeature}
-            item={props.item}
-            itemId={props.stationDataId}
-            features={props.stations.features}
+            onMarkerSelected={onMarkerSelected}
+            selectedFeature={selectedFeature}
+            item={item}
+            itemId={itemId}
+            features={stations.features}
             onLoading={() => {
-              props.playerCB("stations", "loading");
+              playerCB("stations", "loading");
             }}
             onLoad={() => {
-              props.playerCB("stations", "load");
+              playerCB("stations", "load");
             }}
             onTileerror={() => {
-              props.playerCB("stations", "error");
+              playerCB("stations", "error");
             }}
           />
         );
@@ -109,18 +108,18 @@ const WeatherMap = props => {
   return (
     <>
       <LeafletMap
-        loaded={props.domainId !== false}
-        identifier={props.domainId + "_" + props.itemId}
-        onViewportChanged={props.onViewportChanged}
+        loaded={domainId !== false}
+        identifier={domainId + "_" + itemId}
+        onViewportChanged={onViewportChanged}
         overlays={overlays}
         controls={[showHideStationsCtrl]}
-        mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
-        tileLayerConfigOverride={config.weathermaps.settings.mapOptionsOverride}
-        startDate={props.startDate}
+        mapConfigOverride={store.config.settings.mapOptionsOverride}
+        tileLayerConfigOverride={store.config.settings.mapOptionsOverride}
+        startDate={startDate}
         gestureHandling={false}
         onInit={map => {
           map.on("click", () => {
-            props.onMarkerSelected(null);
+            onMarkerSelected(null);
           });
         }}
         timeAwareLayers={["background-map"]}

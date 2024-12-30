@@ -42,19 +42,19 @@ const DOMAIN_UNITS = {
 
 const LOOP = false;
 
-const WeatherMapCockpit = ({
-  timeSpan,
-  startDate,
-  currentTime,
-  domainId,
-  timeRange,
-  eventCallback,
-  changeCurrentTime,
-  storeConfig,
-  nextUpdateTime,
-  lastUpdateTime
-}) => {
+/**
+ * @param store {WeatherMapStore}
+ */
+const WeatherMapCockpit = ({ store }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+  const startDate = store.startDate;
+  const storeConfig = store.config;
+  const domainId = store.domainId;
+  const timeSpan = store.timeSpan;
+  const changeCurrentTime = store.changeCurrentTime.bind(store);
+  const currentTime = store.currentTime;
+  const nextUpdateTime = store.nextUpdateTime;
+  const lastUpdateTime = store.lastUpdateTime;
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -81,11 +81,20 @@ const WeatherMapCockpit = ({
   };
 
   const handleEvent = (type, value) => {
-    if (typeof eventCallback === "function") {
-      const body = document?.querySelector("body");
-      if (body?.classList?.contains("layer-selector-open"))
-        body.classList.remove("layer-selector-open");
-      eventCallback(type, value);
+    const body = document?.querySelector("body");
+    body.classList.remove("layer-selector-open");
+    switch (type) {
+      case "domain":
+        store.changeDomain(value);
+        break;
+      case "timeSpan":
+        store.changeTimeSpan(value);
+        break;
+      case "time":
+        store.changeCurrentTime(value);
+        break;
+      default:
+        break;
     }
   };
 

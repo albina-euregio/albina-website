@@ -15,18 +15,11 @@ const css = `
       filter: contrast(20);
     }
 `;
-const DataOverlay = ({
-  domainId,
-  dataOverlays,
-  item,
-  rgbToValue,
-  debug,
-  dataOverlaysEnabled,
-  playerCB,
-  currentTime,
-  dataOverlayFilePostFix,
-  getOverlayFileName
-}) => {
+
+/**
+ * @param store {WeatherMapStore}
+ */
+const DataOverlay = ({ store, playerCB }) => {
   const intl = useIntl();
 
   //console.log("dataOverlay->start xxx1", overlay);
@@ -39,6 +32,21 @@ const DataOverlay = ({
   const [directionOverlay, setDirectionOverlay] = useState(null);
   const [oCanvases, setOCanvases] = useState({});
   const [lastUpdateOverlays, setLastUpdateOverlays] = useState({});
+
+  const domainId = store.domainId;
+  const currentTime = store.currentTime;
+  const getOverlayFileName = store.getOverlayFileName.bind(store);
+  const dataOverlayFilePostFix =
+    store.config.domains?.[store.domainId]?.item?.dataOverlayFilePostFix ||
+    store.config.settings.dataOverlayFilePostFix;
+  const dataOverlays = store.domainConfig?.dataOverlays;
+  const dataOverlaysEnabled =
+    !store.domainConfig.layer.stations || store.currentTime > store.agl;
+  const rgbToValue = store.valueForPixel;
+  const item = store.item;
+  const debug = store.config.settings.debugModus;
+  const grid = store.grid;
+  const stations = store.stations;
 
   useEffect(() => {
     setOCanvases({});
@@ -293,7 +301,7 @@ const DataOverlay = ({
     //   map._layersMinZoom,
     //   grids
     // );
-    const bounds = config.weathermaps.settings.bbox;
+    const bounds = store.config.settings.bbox;
     let markers = [];
 
     if (dataOverlaysEnabled) {
@@ -382,7 +390,7 @@ const DataOverlay = ({
           )}
           url={getOverlayFileName(usedDataOverlayFilePostFix)}
           opacity={1}
-          bounds={config.weathermaps.settings.bbox}
+          bounds={store.config.settings.bbox}
           attribution={intl.formatMessage({
             id: "weathermap:attribution"
           })}
@@ -400,7 +408,7 @@ const DataOverlay = ({
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
           url={getOverlayFileName(usedDataOverlayFilePostFix)}
           opacity={1}
-          bounds={config.weathermaps.settings.bbox}
+          bounds={store.config.settings.bbox}
           interactive={true}
           attribution={
             debug ? intl.formatMessage({ id: "weathermap:attribution" }) : null

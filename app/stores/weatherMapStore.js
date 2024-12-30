@@ -4,7 +4,8 @@ import { fetchJSON } from "../util/fetch";
 import { dateFormat, removeMilliseconds } from "../util/date";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
-export default class WeatherMapStore_new {
+
+export default class WeatherMapStore {
   constructor(initialDomainId) {
     this.config = config.weathermaps;
     this.stations = null;
