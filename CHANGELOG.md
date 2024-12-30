@@ -2,6 +2,31 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.1.1] - 2024-12-30
+
+### 🐛 Bug Fixes
+
+- Fix 12h snow-diff in weather maps
+- Fix CAAMLv5 links
+
+## [7.1.0] - 2024-12-19
+
+### Weather Maps
+
+- Implement draggable datetime bar
+- Add descriptive text to weather parameters
+- Allow more parameters in weather cockpit
+- Add calendar icon to select dates in the past
+
+### Documentation
+
+- Workflow for CHANGELOG
+
+### Miscellaneous Tasks
+
+- Upgrade EAWS regions to v7.0.5
+- Various package upgrades
+
 ## [7.0.5] - 2024-12-09
 
 ### Documentation
