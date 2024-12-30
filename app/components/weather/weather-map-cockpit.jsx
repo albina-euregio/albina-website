@@ -306,7 +306,7 @@ const WeatherMapCockpit = ({
   // fix startdate hours after possible timespan change
   const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
   if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 6);
   }
   if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
     fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
