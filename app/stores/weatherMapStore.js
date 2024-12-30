@@ -1,7 +1,8 @@
-import { action, observable, makeAutoObservable, toJS } from "mobx";
+import { action, makeAutoObservable, observable, toJS } from "mobx";
 import { loadStationData } from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
-import { dateFormat, removeMilliseconds } from "../util/date";
+import { dateFormat } from "../util/date";
+
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
 
@@ -18,15 +19,7 @@ export default class WeatherMapStore {
           [45.6167, 9.4],
           [47.8167, 13.0333]
         ],
-        debugModus: false,
-        metaFiles: {
-          agl: "agl.ok",
-          startDate: "startDate.ok"
-        },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V3.gif",
-          debug: "%%DOMAIN%%_V3.png"
-        }
+        debugModus: false
       },
       domains: {
         "snow-height": {
@@ -55,8 +48,16 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            metaFiles: {
+              agl: "agl.ok",
+              startDate: "startDate.ok"
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%_V3.png", type: "snowHeight" }
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
             ],
             direction: false,
             clusterOperation: "max"
@@ -88,8 +89,16 @@ export default class WeatherMapStore {
               stations: false,
               grid: false
             },
+            metaFiles: {
+              agl: "agl.ok",
+              startDate: "startDate.ok"
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%_V3.png", type: "snowHeight" }
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
             ],
             displayedItems: ["snow6f"],
             direction: false,
@@ -109,6 +118,7 @@ export default class WeatherMapStore {
             },
             updateTimesOffset: { "*": 24, "-6": 6, "-12": 12 },
             metaFiles: {
+              startDate: "startDate.ok",
               agl: "agl_{timespan}h.ok"
             },
             units: "cm",
@@ -132,8 +142,12 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%_V3.png", type: "snowHeight" }
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
             ],
             direction: false,
             clusterOperation: "max"
@@ -197,12 +211,17 @@ export default class WeatherMapStore {
               stations: false,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V3.gif",
+              debug: "%%DOMAIN%%_V3.png"
+            },
             dataOverlays: [
               { filePostfix: "%%DOMAIN%%_V3.png", type: "snowLine" }
             ],
             direction: false,
             clusterOperation: "max",
             metaFiles: {
+              startDate: "startDate.ok",
               agl: "c-laef_agl.ok"
             },
             timeRange: ["-17520", "+60"]
@@ -238,12 +257,17 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V3.gif",
+              debug: "%%DOMAIN%%_V3.png"
+            },
             dataOverlays: [
               { filePostfix: "%%DOMAIN%%_V3.png", type: "temperature" }
             ],
             direction: false,
             clusterOperation: "min",
             metaFiles: {
+              startDate: "startDate.ok",
               agl: "c-laef_agl.ok"
             },
             timeRange: ["-17520", "+60"]
@@ -273,13 +297,18 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "wind_V3.gif",
+              debug: "wind_V3.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%_V3.png", type: "windSpeed" },
-              { filePostfix: "%%DOMAIN%%-dir_V2.png", type: "windDirection" }
+              { filePostfix: "wind_V3.png", type: "windSpeed" },
+              { filePostfix: "wind-dir_V3.png", type: "windDirection" }
             ],
             direction: "wdir",
             clusterOperation: "max",
             metaFiles: {
+              startDate: "startDate.ok",
               agl: "c-laef_agl.ok"
             },
             timeRange: ["-17520", "+60"]
@@ -309,17 +338,22 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "gust_V3.gif",
+              debug: "gust_V3.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%_V3.png", type: "windSpeed" },
+              { filePostfix: "gust_V3.png", type: "windSpeed" },
               {
+                filePostfix: "wind-dir_V3.png",
                 domain: "wind",
-                filePostfix: "wind-dir_V2.png",
                 type: "windDirection"
               }
             ],
             direction: "wdir",
             clusterOperation: "max",
             metaFiles: {
+              startDate: "../wind/startDate.ok",
               agl: "c-laef_agl.ok"
             },
             timeRange: ["-17520", "+60"]
@@ -349,17 +383,18 @@ export default class WeatherMapStore {
               stations: true,
               grid: false
             },
+            dataOverlayFilePostFix: {
+              main: "wind700hpa.gif",
+              debug: "wind700hpa.png"
+            },
             dataOverlays: [
-              { filePostfix: "%%DOMAIN%%.png", type: "windSpeed" },
+              { filePostfix: "wind700hpa.png", type: "windSpeed" },
               { filePostfix: "wind-dir700hpa.png", type: "windDirection" }
             ],
-            dataOverlayFilePostFixOverride: {
-              main: "%%DOMAIN%%.gif",
-              debug: "%%DOMAIN%%.png"
-            },
             direction: "wdir",
             clusterOperation: "max",
             metaFiles: {
+              startDate: "../wind/startDate.ok",
               agl: "c-laef_agl.ok"
             },
             timeRange: ["-17520", "+60"]
@@ -565,16 +600,7 @@ export default class WeatherMapStore {
     returns metafile
   */
   getMetaFile(type) {
-    let foundDef;
-    if (type === "agl")
-      foundDef =
-        this.domainConfig.metaFiles?.agl ||
-        this.config.settings.metaFiles.startDate;
-    if (type === "startDate")
-      foundDef =
-        this.domainConfig.metaFiles?.startDate ||
-        this.config.settings.metaFiles.startDate;
-
+    const foundDef = this.domainConfig.metaFiles?.startDate;
     return foundDef.replace("{timespan}", this._absTimeSpan);
   }
 
@@ -709,8 +735,6 @@ export default class WeatherMapStore {
       let domainVar = overrideDomainId || this._domainId.get();
       if (this._absTimeSpan !== 1) domainVar += "_" + this._absTimeSpan + "h";
 
-      let fileVar = filePostFix + "";
-      fileVar = fileVar.replaceAll("%%DOMAIN%%", domainVar);
       // console.log("weatherMapStore_new overlayFileName: #2 ", {
       //   domainId: this._domainId.get(),
       //   domainVar,
@@ -722,7 +746,7 @@ export default class WeatherMapStore {
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
         "_" +
-        fileVar;
+        String(filePostFix).replaceAll("%%DOMAIN%%", domainVar);
       // console.log("weatherMapStore_new overlayFileName: #3 ", {
       //   res
       // });

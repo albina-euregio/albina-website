@@ -35,10 +35,7 @@ const DataOverlay = ({ store, playerCB }) => {
 
   const domainId = store.domainId;
   const currentTime = store.currentTime;
-  const getOverlayFileName = store.getOverlayFileName.bind(store);
-  const dataOverlayFilePostFix =
-    store.config.domains?.[store.domainId]?.item?.dataOverlayFilePostFix ||
-    store.config.settings.dataOverlayFilePostFix;
+  const dataOverlayFilePostFix = store.domainConfig?.dataOverlayFilePostFix;
   const dataOverlays = store.domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
     !store.domainConfig.layer.stations || store.currentTime > store.agl;
@@ -225,7 +222,7 @@ const DataOverlay = ({ store, playerCB }) => {
           //     )
           //   );
 
-          let overlayFile = getOverlayFileName(
+          let overlayFile = store.getOverlayFileName(
             anOverlay.filePostfix,
             anOverlay?.domain
           );
@@ -373,14 +370,13 @@ const DataOverlay = ({ store, playerCB }) => {
 
       //console.log("overlay->render xxx1:", debug);
 
-      let usedDataOverlayFilePostFix =
-        item?.dataOverlayFilePostFixOverride?.main ||
-        dataOverlayFilePostFix.main;
       // console.log("dataOverlay->render #1 xxx33", {
       //   overlay,
       //   usedDataOverlayFilePostFix
       // });
-      if (debug) usedDataOverlayFilePostFix = dataOverlayFilePostFix?.debug;
+      let usedDataOverlayFilePostFix = debug
+        ? dataOverlayFilePostFix?.debug
+        : dataOverlayFilePostFix.main;
       //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
       overlays.push(
         <ImageOverlay
@@ -388,7 +384,7 @@ const DataOverlay = ({ store, playerCB }) => {
           className={["leaflet-image-layer", "map-data-layer", "hide"].join(
             " "
           )}
-          url={getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
           opacity={1}
           bounds={store.config.settings.bbox}
           attribution={intl.formatMessage({
@@ -406,7 +402,7 @@ const DataOverlay = ({ store, playerCB }) => {
           key="background-map"
           className={["leaflet-image-layer", "map-info-layer"].join(" ")}
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
           opacity={1}
           bounds={store.config.settings.bbox}
           interactive={true}
