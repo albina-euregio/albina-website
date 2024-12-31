@@ -40,53 +40,13 @@ const Timeline = ({ store, updateCB }) => {
   );
 
   const domainId = store.domainId;
-
   const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
-
-  const fixedStartTime = new Date(store.startDate); // usedStartDate - 730 days from startDate
-
-  // fix startdate hours after possible timespan change
-  if (timeSpan === 12 && [6, 18].includes(fixedStartTime.getUTCHours())) {
-    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 6);
-  }
-  if (timeSpan % 24 === 0 && [12].includes(fixedStartTime.getUTCHours())) {
-    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
-  }
-
-  const usedStartTime = new Date(store.startDate);
-  usedStartTime.setDate(usedStartTime.getDate() - 730);
-
-  const usedEndTime = new Date(fixedStartTime);
-  usedEndTime.setDate(
-    usedEndTime.getDate() + (store.timeSpan.includes("+") ? 3 : 0) // fixme
-  );
-
-  // fix initdate hours after possible timespan change
-  let usedInitialDate = new Date(store.currentTime);
-  if (new Date(store.currentTime).getTime() > new Date(usedEndTime).getTime()) {
-    usedInitialDate = new Date(usedEndTime);
-  }
-
-  if (timeSpan === 12 && [6, 18].includes(usedInitialDate.getUTCHours())) {
-    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
-  }
-  if (
-    timeSpan % 24 === 0 &&
-    [6, 12, 18].includes(usedInitialDate.getUTCHours())
-  ) {
-    usedInitialDate.setUTCHours(
-      usedInitialDate.getUTCHours() - usedInitialDate.getUTCHours()
-    );
-  }
-
+  const startTime = store.startTime;
+  const endTime = store.endTime;
+  const initialDate = store.initialDate;
   const barDuration = timeSpan;
   const markerPosition = timeSpan > 24 ? "75%" : "50%";
   const showBar = timeSpan > 1;
-  const analysesEndTs = new Date(store.startDate).toISOString();
-  const initialDateTs = usedInitialDate.toISOString();
-  const startTimeTs = usedStartTime.toISOString();
-  const endTimeTs = usedEndTime.toISOString();
-
   // useChangedProps({
   //   initialDateTs,
   //   firstHour,
@@ -115,9 +75,6 @@ const Timeline = ({ store, updateCB }) => {
   const rulerRef = useRef(null);
   const indicatorRef = useRef(null);
   const [markerRenewed, setMarkerRenewed] = useState(null);
-  const initialDate = useMemo(() => new Date(initialDateTs), [initialDateTs]);
-  const startTime = useMemo(() => new Date(startTimeTs), [startTimeTs]);
-  const endTime = useMemo(() => new Date(endTimeTs), [endTimeTs]);
   const [targetDate, setTargetDate] = useState();
   const [currentDate, setCurrentDate] = useState();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
@@ -402,10 +359,6 @@ const Timeline = ({ store, updateCB }) => {
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];
-    const usedEndTime = new Date(endTime);
-    const endAnalysisTime = new Date(analysesEndTs);
-    //if (timeSpan > 1)usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
-
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
@@ -432,13 +385,13 @@ const Timeline = ({ store, updateCB }) => {
             nextSelectableDate.getUTCHours() + selectableHoursOffset
           );
           if (
-            usedEndTime?.getTime() >= markDate.getTime() &&
-            nextSelectableDate.getTime() > usedEndTime?.getTime()
+            endTime.getTime() >= markDate.getTime() &&
+            nextSelectableDate.getTime() > endTime.getTime()
           ) {
             // console.log("rulerMarkings #k0111", {
             //   markDate: markDate.toISOString(),
             //   nextSelectableDate: nextSelectableDate.toISOString(),
-            //   usedEndTime: usedEndTime?.toISOString()
+            //   endTime: endTime?.toISOString()
             // });
             markClass.push("selectable-hours-end");
           }
@@ -489,7 +442,7 @@ const Timeline = ({ store, updateCB }) => {
             ></div>
           </div>
         );
-        if (markDate.getTime() < endAnalysisTime.getTime())
+        if (markDate.getTime() < new Date(store.startDate).getTime())
           markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
