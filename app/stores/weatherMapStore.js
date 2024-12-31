@@ -412,7 +412,6 @@ export default class WeatherMapStore {
     this._currentTime = observable.box(null);
     this.selectedFeature = null;
     this._loading = observable.box(false);
-    this._lastCurrentTime = null;
 
     makeAutoObservable(this);
 
@@ -564,13 +563,6 @@ export default class WeatherMapStore {
   }
 
   /*
-    returns all items for the active domain in a form of array
-  */
-  get items() {
-    return this.domainId ? this.domain.item : false;
-  }
-
-  /*
     returns current timespan selection
   */
   get timeSpan() {
@@ -643,32 +635,28 @@ export default class WeatherMapStore {
     return this._agl;
   }
 
-  /*
-    returns _loading prop
-  */
-  get loading() {
-    return this._loading.get();
-  }
-
   get _absTimeSpan() {
     let tempTimeSpan = this._timeSpan.get();
     tempTimeSpan = tempTimeSpan.replace("+-", "");
     return Math.abs(parseInt(tempTimeSpan, 10));
   }
 
-  getOverlayFileName(filePostFix, overrideDomainId) {
+  getOverlayFileName(filePostFix, overrideDomainId = "") {
+    filePostFix ||= this.config.settings.debugModus
+      ? this.domainConfig?.dataOverlayFilePostFix.debug
+      : this.domainConfig?.dataOverlayFilePostFix.main;
     if (this?._currentTime.get()) {
       let domainVar = overrideDomainId || this._domainId.get();
       if (this._absTimeSpan !== 1) domainVar += "_" + this._absTimeSpan + "h";
 
-      const res =
+      return (
         config.apis.weather.overlays +
         (overrideDomainId || this._domainId.get()) +
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
         "_" +
-        String(filePostFix).replaceAll("%%DOMAIN%%", domainVar);
-      return res;
+        String(filePostFix).replaceAll("%%DOMAIN%%", domainVar)
+      );
     }
     return "";
   }
@@ -751,16 +739,6 @@ export default class WeatherMapStore {
   }
 
   /*
-  finds index of arr item closest to needle
-*/
-  _findClosestIndex(arr, needle) {
-    let foundItem = arr.reduce(function (prev, curr) {
-      return Math.abs(curr - needle) < Math.abs(prev - needle) ? curr : prev;
-    });
-    return arr.indexOf(foundItem) || 0;
-  }
-
-  /*
     Get hours of day for current timespan settings
   */
   _getPossibleTimesForSpan() {
@@ -826,7 +804,6 @@ export default class WeatherMapStore {
   */
   changeDomain(domainId) {
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
-      this._lastCurrentTime = this._currentTime.get();
       this._domainId.set(domainId);
       this._timeSpan.set(null);
 

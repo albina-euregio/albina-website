@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { ImageOverlay } from "react-leaflet";
+import React, { useEffect, useMemo, useState } from "react";
+import { ImageOverlay, useMap } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
-import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
 
 const css = `
@@ -22,28 +21,18 @@ const css = `
 const DataOverlay = ({ store, playerCB }) => {
   const intl = useIntl();
 
-  //console.log("dataOverlay->start xxx1", overlay);
-
   const parentMap = useMap();
 
   const [dataMarker, setDataMarker] = useState(null);
-  //const [showDataLayer, setShowDataLayer] = useState(false);
   const [directionMarkers, setDirectionMarkers] = useState([]);
   const [directionOverlay, setDirectionOverlay] = useState(null);
   const [oCanvases, setOCanvases] = useState({});
-  const [lastUpdateOverlays, setLastUpdateOverlays] = useState({});
 
   const domainId = store.domainId;
   const currentTime = store.currentTime;
-  const dataOverlayFilePostFix = store.domainConfig?.dataOverlayFilePostFix;
   const dataOverlays = store.domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
     !store.domainConfig.layer.stations || store.currentTime > store.agl;
-  const rgbToValue = store.valueForPixel;
-  const item = store.item;
-  const debug = store.config.settings.debugModus;
-  const grid = store.grid;
-  const stations = store.stations;
 
   useEffect(() => {
     setOCanvases({});
@@ -69,10 +58,10 @@ const DataOverlay = ({ store, playerCB }) => {
 
   const getColor = value => {
     const v = parseFloat(value);
-    const colors = Object.values(item.colors);
+    const colors = Object.values(store.item.colors);
 
     let color = colors[0];
-    item.thresholds.forEach((tr, i) => {
+    store.item.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
@@ -95,7 +84,7 @@ const DataOverlay = ({ store, playerCB }) => {
         );
         //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 
-        values[anOverlay.type] = rgbToValue(anOverlay.type, {
+        values[anOverlay.type] = store.valueForPixel(anOverlay.type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
@@ -159,7 +148,7 @@ const DataOverlay = ({ store, playerCB }) => {
   const showDataMarker = e => {
     //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
 
-    if (debug && e.originalEvent.ctrlKey) {
+    if (store.config.settings.debugModus && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
         e.classList.toggle("debug-high-contrast");
@@ -374,9 +363,6 @@ const DataOverlay = ({ store, playerCB }) => {
       //   overlay,
       //   usedDataOverlayFilePostFix
       // });
-      let usedDataOverlayFilePostFix = debug
-        ? dataOverlayFilePostFix?.debug
-        : dataOverlayFilePostFix.main;
       //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
       overlays.push(
         <ImageOverlay
@@ -384,7 +370,7 @@ const DataOverlay = ({ store, playerCB }) => {
           className={["leaflet-image-layer", "map-data-layer", "hide"].join(
             " "
           )}
-          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={store.getOverlayFileName()}
           opacity={1}
           bounds={store.config.settings.bbox}
           attribution={intl.formatMessage({
@@ -402,12 +388,14 @@ const DataOverlay = ({ store, playerCB }) => {
           key="background-map"
           className={["leaflet-image-layer", "map-info-layer"].join(" ")}
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={store.getOverlayFileName()}
           opacity={1}
           bounds={store.config.settings.bbox}
           interactive={true}
           attribution={
-            debug ? intl.formatMessage({ id: "weathermap:attribution" }) : null
+            store.config.settings.debugModus
+              ? intl.formatMessage({ id: "weathermap:attribution" })
+              : null
           }
           //onClick={()=>console.log('dataOverlay->click')}
           eventHandlers={{
