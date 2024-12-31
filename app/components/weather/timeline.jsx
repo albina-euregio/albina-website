@@ -26,7 +26,7 @@ import { observer } from "mobx-react";
 /**
  * @param store {WeatherMapStore}
  */
-const Timeline = ({ store, firstHour = 0, updateCB }) => {
+const Timeline = ({ store, updateCB }) => {
   const now = new Date();
   const nowFullHour = new Date(
     Date.UTC(
@@ -417,8 +417,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
         const localHour = localDate.getHours();
         const markClass = [localHour === 0 ? "day-mark" : ""];
 
-        const isSelectable =
-          (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
+        const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
 
         if (
           isSelectable &&
@@ -478,10 +477,10 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
               </span>
             )}
             {/* {isSelectable && (
-              <span className="hour-name">
-                {formatHour(markDate)}
-              </span>
-            )} */}
+            <span className="hour-name">
+              {formatHour(markDate)}
+            </span>
+          )} */}
             <div
               className="ruler-mark-bg"
               style={{
@@ -550,9 +549,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = newTargetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / selectableHoursOffset) *
-        selectableHoursOffset +
-      firstHour;
+      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
     //console.log("snapToDate #k011", { newTargetDate });
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
@@ -615,9 +612,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = newTargetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / selectableHoursOffset) *
-        selectableHoursOffset +
-      firstHour;
+      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
     //rulerRef.current.style.transition = "transform 0.5s ease";
