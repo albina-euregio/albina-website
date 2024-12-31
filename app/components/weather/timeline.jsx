@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
-import { FormattedDate } from "../../i18n";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import { FormattedMessage, useIntl } from "../../i18n";
 import { dateFormat } from "../../util/date";
+import { observer } from "mobx-react";
 
 // function useChangedProps(props) {
 //   const prev = useRef(props);
@@ -23,19 +23,10 @@ import { dateFormat } from "../../util/date";
 //   }, [props]);
 // }
 
-const Timeline = ({
-  initialDateTs,
-  firstHour = 0,
-  domainId,
-  timeSpan = 6,
-  startTimeTs,
-  endTimeTs,
-  analysesEndTs,
-  markerPosition = "50%",
-  showBar = true, // Toggle the bar visibility
-  barDuration = 24, // Bar duration in hours
-  updateCB
-}) => {
+/**
+ * @param store {WeatherMapStore}
+ */
+const Timeline = ({ store, firstHour = 0, updateCB }) => {
   const now = new Date();
   const nowFullHour = new Date(
     Date.UTC(
@@ -47,6 +38,54 @@ const Timeline = ({
       0
     )
   );
+
+  const domainId = store.domainId;
+
+  const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
+
+  let fixedStartTime = new Date(store.startDate); // usedStartDate - 730 days from startDate
+  let usedStartTime = new Date(fixedStartTime);
+
+  // fix startdate hours after possible timespan change
+  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
+  if (timeSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+  }
+  if (timeSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
+  }
+
+  usedStartTime.setDate(usedStartTime.getDate() - 730);
+  let usedEndTime = new Date(fixedStartTime);
+  usedEndTime.setDate(
+    usedEndTime.getDate() + (store.timeSpan.includes("+") ? 3 : 0)
+  );
+
+  // fix initdate hours after possible timespan change
+  let usedInitialDate = new Date(store.currentTime);
+  if (
+    usedEndTime &&
+    new Date(store.currentTime).getTime() > new Date(usedEndTime).getTime()
+  )
+    usedInitialDate = new Date(usedEndTime);
+
+  const initialDateHours = usedInitialDate.getUTCHours();
+  if (timeSpan === 12 && [6, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
+  }
+  if (timeSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
+    usedInitialDate.setUTCHours(
+      usedInitialDate.getUTCHours() - initialDateHours
+    );
+  }
+
+  const barDuration = timeSpan;
+  const markerPosition = timeSpan > 24 ? "75%" : "50%";
+  const showBar = timeSpan > 1;
+  const analysesEndTs = new Date(store.startDate).toISOString();
+  const initialDateTs = usedInitialDate.toISOString();
+  const startTimeTs = usedStartTime.toISOString();
+  const endTimeTs = usedEndTime.toISOString();
 
   // useChangedProps({
   //   initialDateTs,
@@ -826,4 +865,4 @@ const Timeline = ({
   );
 };
 
-export default Timeline;
+export default observer(Timeline);

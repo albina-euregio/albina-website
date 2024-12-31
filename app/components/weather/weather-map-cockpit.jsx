@@ -52,7 +52,6 @@ const WeatherMapCockpit = ({ store }) => {
   const domainId = store.domainId;
   const timeSpan = store.timeSpan;
   const changeCurrentTime = store.changeCurrentTime.bind(store);
-  const currentTime = store.currentTime;
   const nextUpdateTime = store.nextUpdateTime;
   const lastUpdateTime = store.lastUpdateTime;
 
@@ -305,46 +304,6 @@ const WeatherMapCockpit = ({ store }) => {
     "lastRedraw-" + lastRedraw
   ];
 
-  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
-  // const firstHour = new Date(startDate);
-  // firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
-
-  const imgRoot = `${window.config.projectRoot}images/pro/`;
-
-  let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-  let usedStartTime = new Date(fixedStartTime) || null;
-  // fix startdate hours after possible timespan change
-  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
-  if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
-  }
-  if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
-  }
-
-  usedStartTime.setDate(usedStartTime.getDate() - 730);
-  let usedEndTime = new Date(fixedStartTime) || null;
-  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
-
-  let analysesEndTs = new Date(startDate);
-
-  // fix initdate hours after possible timespan change
-  let usedInitialDate = new Date(currentTime);
-  if (
-    usedEndTime &&
-    new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
-  )
-    usedInitialDate = new Date(usedEndTime);
-
-  const initialDateHours = usedInitialDate.getUTCHours();
-  if (absSpan === 12 && [6, 18].includes(initialDateHours)) {
-    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
-  }
-  if (absSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
-    usedInitialDate.setUTCHours(
-      usedInitialDate.getUTCHours() - initialDateHours
-    );
-  }
   // console.log("weather-map-cockpit->render #j01", {
   //   //absSpan,
   //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
@@ -373,16 +332,7 @@ const WeatherMapCockpit = ({ store }) => {
           {startDate && (
             <Timeline
               key="cp-timeline"
-              domainId={domainId}
-              timeSpan={absSpan}
-              barDuration={absSpan}
-              markerPosition={absSpan > 24 ? "75%" : "50%"}
-              showBar={absSpan > 1}
-              analysesEndTs={analysesEndTs?.toISOString()}
-              initialDateTs={usedInitialDate.toISOString()}
-              startTimeTs={usedStartTime.toISOString()}
-              endTimeTs={usedEndTime.toISOString()}
-              //firstHour={firstHour?.getUTCHours()}
+              store={store}
               updateCB={onTimelineUpdate}
             />
           )}
