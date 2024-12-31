@@ -488,12 +488,12 @@ export default class WeatherMapStore {
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
-          this.getMetaFile("agl")
+          this.domainConfig.metaFiles?.startDate
       ).then(
         action(retrievedDate => {
           this._dateStart = SIMULATE_START
             ? new Date(SIMULATE_START)
-            : new Date(retrievedDate) ?? this._dateStart;
+            : new Date(retrievedDate);
           //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._dateStart, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       ),
@@ -501,12 +501,15 @@ export default class WeatherMapStore {
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
-          this.getMetaFile("startDate")
+          this.domainConfig.metaFiles?.agl.replace(
+            "{timespan}",
+            this._absTimeSpan
+          )
       ).then(
         action(retrievedDate => {
           this._agl = SIMULATE_START
             ? new Date(SIMULATE_START)
-            : new Date(retrievedDate) ?? this._agl;
+            : new Date(retrievedDate);
           //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._agl, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       )
@@ -597,14 +600,6 @@ export default class WeatherMapStore {
   }
 
   /*
-    returns metafile
-  */
-  getMetaFile(type) {
-    const foundDef = this.domainConfig.metaFiles?.startDate;
-    return foundDef.replace("{timespan}", this._absTimeSpan);
-  }
-
-  /*
     returns the active domain id
   */
   get domainId() {
@@ -666,38 +661,17 @@ export default class WeatherMapStore {
     returns the start date for history information
   */
   get startDate() {
-    //console.log("startDate", this._dateStart, (this._dateStart * 10) / 10);
-    let usedDate = new Date(this._dateStart);
-
-    // if (this._absTimeSpan === 12) {
-    //   const currentHours = usedDate.getUTCHours();
-    //   if ([6, 18].includes(currentHours))
-    //     usedDate.setUTCHours(usedDate.getUTCHours() - 6);
-    // }
-    // if (this._absTimeSpan % 24 === 0) {
-    //   const currentHours = usedDate.getUTCHours();
-    //   if ([12].includes(currentHours))
-    //     usedDate.setUTCHours(usedDate.getUTCHours() - 12);
-    // }
-    // console.log("weathermapStore->startDate #44", {
-    //   startDate: new Date(this._dateStart).toISOString(),
-    //   usedDate: usedDate.toISOString()
-    // });
-
-    return this._dateStart
-      ? this._dateStart.setDate(usedDate.getDate())
-      : usedDate;
+    return this._dateStart;
   }
 
   get startTime() {
     const startTime = new Date(this.startDate);
-    // usedStartDate - 730 days from startDate
-    startTime.setDate(startTime.getDate() - 730);
+    startTime.setUTCHours(startTime.getUTCHours() + +this.timeRange[0]);
     return startTime;
   }
 
   get endTime() {
-    const endTime = new Date(this.startDate);
+    const endTime = new Date(this.agl);
 
     // fix startdate hours after possible timespan change
     const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
@@ -707,8 +681,9 @@ export default class WeatherMapStore {
     if (timeSpan % 24 === 0 && [12].includes(endTime.getUTCHours())) {
       endTime.setUTCHours(endTime.getUTCHours() - 12);
     }
-    const timeSpan2 = this.timeSpan.includes("+") ? 3 : 0; // fixme
-    endTime.setDate(endTime.getDate() + timeSpan2);
+    if (this.timeSpan.includes("+")) {
+      endTime.setUTCHours(endTime.getUTCHours() + +this.timeRange[1]);
+    }
     return endTime;
   }
 
