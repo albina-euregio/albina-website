@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { dateFormat } from "../../util/date";
-import { observer } from "mobx-react";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 
 // function useChangedProps(props) {
 //   const prev = useRef(props);
@@ -23,27 +24,15 @@ import { observer } from "mobx-react";
 //   }, [props]);
 // }
 
-/**
- * @param store {WeatherMapStore}
- */
-const Timeline = ({ store, updateCB }) => {
+const Timeline = ({ updateCB }) => {
   const now = new Date();
-  const nowFullHour = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours(),
-      0,
-      0
-    )
-  );
-
-  const domainId = store.domainId;
-  const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
-  const startTime = store.startTime;
-  const endTime = store.endTime;
-  const initialDate = store.initialDate;
+  const domainId = useStore(store.domainId);
+  const timeSpan0 = useStore(store.timeSpan);
+  const timeSpan = Number(timeSpan0.replace(/\D/g, ""), 10);
+  const startDate = useStore(store.startDate);
+  const startTime = useStore(store.startTime);
+  const endTime = useStore(store.endTime);
+  const initialDate = useStore(store.initialDate);
   const barDuration = timeSpan;
   const markerPosition = timeSpan > 24 ? "75%" : "50%";
   const showBar = timeSpan > 1;
@@ -442,7 +431,7 @@ const Timeline = ({ store, updateCB }) => {
             ></div>
           </div>
         );
-        if (markDate.getTime() < new Date(store.startDate).getTime())
+        if (markDate.getTime() < startDate.getTime())
           markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
@@ -813,4 +802,4 @@ const Timeline = ({ store, updateCB }) => {
   );
 };
 
-export default observer(Timeline);
+export default Timeline;

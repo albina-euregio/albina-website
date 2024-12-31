@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "./dataOverlay";
 import { useIntl } from "../../i18n";
-
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
-/**
- * @param store {WeatherMapStore}
- */
 const WeatherMap = ({
-  store,
   playerCB,
   isPlaying,
   onMarkerSelected,
@@ -23,27 +19,28 @@ const WeatherMap = ({
     !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
   );
 
-  const domainId = store.domainId;
-  const itemId = store.domainConfig.timeSpanToDataId[store.timeSpan];
-  const item = store.item;
-  const grid = store.grid;
-  const stations = store.stations;
-  const selectedFeature = store.selectedFeature;
+  const domainId = useStore(store.domainId);
+  const timeSpan = useStore(store.timeSpan);
+  const domainConfig = useStore(store.domainConfig);
+  const itemId = domainConfig.timeSpanToDataId[timeSpan];
+  const grid = useStore(store.grid);
+  const stations = useStore(store.stations);
+  const selectedFeature = useStore(store.selectedFeature);
 
   const overlays = [];
   let showStationsToggle = false;
-  if (item) {
+  if (domainConfig) {
     if (domainId) {
       overlays.push(
         <DataOverlay key="background-map" store={store} playerCB={playerCB} />
       );
     }
 
-    if (item.layer.grid && grid && grid.features) {
+    if (domainConfig.layer.grid && grid && grid.features) {
       overlays.push(
         <GridOverlay
           key={"grid"}
-          item={item}
+          item={domainConfig}
           grid={grid}
           onLoading={() => {
             playerCB("grid", "loading");
@@ -58,14 +55,19 @@ const WeatherMap = ({
       );
     }
 
-    if (item.layer.stations && stations && stations.features && !isPlaying) {
+    if (
+      domainConfig.layer.stations &&
+      stations &&
+      stations.features &&
+      !isPlaying
+    ) {
       if (showStations)
         overlays.push(
           <StationOverlay
             key={"stations"}
             onMarkerSelected={onMarkerSelected}
             selectedFeature={selectedFeature}
-            item={item}
+            item={domainConfig}
             itemId={itemId}
             features={stations.features}
             onLoading={() => {
@@ -126,4 +128,4 @@ const WeatherMap = ({
   );
 };
 
-export default observer(WeatherMap);
+export default WeatherMap;

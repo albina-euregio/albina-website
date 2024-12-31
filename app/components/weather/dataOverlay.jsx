@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ImageOverlay, useMap } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
 import { useIntl } from "../../i18n";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 
 const css = `
     .debug-almost-invisible {
@@ -15,10 +17,7 @@ const css = `
     }
 `;
 
-/**
- * @param store {WeatherMapStore}
- */
-const DataOverlay = ({ store, playerCB }) => {
+const DataOverlay = ({ playerCB }) => {
   const intl = useIntl();
 
   const parentMap = useMap();
@@ -28,11 +27,12 @@ const DataOverlay = ({ store, playerCB }) => {
   const [directionOverlay, setDirectionOverlay] = useState(null);
   const [oCanvases, setOCanvases] = useState({});
 
-  const domainId = store.domainId;
-  const currentTime = store.currentTime;
-  const dataOverlays = store.domainConfig?.dataOverlays;
+  const domainId = useStore(store.domainId);
+  const currentTime = useStore(store.currentTime);
+  const domainConfig = useStore(store.domainConfig);
+  const dataOverlays = domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
-    !store.domainConfig.layer.stations || store.currentTime > store.agl;
+    !domainConfig.layer.stations || currentTime > store.agl;
 
   useEffect(() => {
     setOCanvases({});
@@ -58,10 +58,10 @@ const DataOverlay = ({ store, playerCB }) => {
 
   const getColor = value => {
     const v = parseFloat(value);
-    const colors = Object.values(store.item.colors);
+    const colors = Object.values(domainConfig.colors);
 
     let color = colors[0];
-    store.item.thresholds.forEach((tr, i) => {
+    domainConfig.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
