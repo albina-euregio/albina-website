@@ -414,38 +414,6 @@ export default class WeatherMapStore {
     this._loading = observable.box(false);
     this._lastCurrentTime = null;
 
-    // makeObservable(this, {
-    //   _domainId: observable,
-    //   _loading: observable,
-    //   selectedFeature: observable,
-    //   _timeSpan: observable,
-    //   _availableTimes: observable,
-    //   stations: observable,
-    //   _agl: observable,
-    //   _dateStart: observable,
-    //   _lastDataUpdate: observable,
-    //   config: observable,
-    //   changeDomain: action,
-    //   _getStartTimeForSpan: action,
-    //   changeTimeSpan: action,
-    //   changeCurrentTime: action,
-    //   _loadDomainData: action,
-    //   lastUpdateTime: computed,
-    //   domainId: computed,
-    //   items: computed,
-    //   currentTime: computed,
-    //   availableTimes: computed,
-    //   timeSpan: computed,
-    //   startDate: computed,
-    //   agl: computed,
-    //   loading: computed,
-    //   overlayFileName: computed,
-    //   previousTime: computed,
-    //   nextTime: computed,
-    //   currentIndex: computed,
-    //   domainConfig: computed,
-    //   nextUpdateTime: computed
-    // });
     makeAutoObservable(this);
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
@@ -463,19 +431,10 @@ export default class WeatherMapStore {
   _loadDomainData() {
     this._loading.set(true);
     this._lastDataUpdate = 0;
-    // console.log(
-    //   "_loadDomainData #i01",
-    //   this._domainId,
-    //   config.apis.weather.overlays +
-    //     this._domainId.get() +
-    //     "/" +
-    //     this.getMetaFile("agl")
-    // );
 
     const fetchDate = async url => {
       const response = await fetch(url);
       if (!response.ok) {
-        //throw Error(response.statusText);
         return new Date();
       }
       this.lastUpdateTime = response.headers.get("last-modified");
@@ -494,7 +453,6 @@ export default class WeatherMapStore {
           this._dateStart = SIMULATE_START
             ? new Date(SIMULATE_START)
             : new Date(retrievedDate);
-          //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._dateStart, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       ),
       fetchDate(
@@ -510,7 +468,6 @@ export default class WeatherMapStore {
           this._agl = SIMULATE_START
             ? new Date(SIMULATE_START)
             : new Date(retrievedDate);
-          //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._agl, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       )
     ];
@@ -518,14 +475,6 @@ export default class WeatherMapStore {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        // console.log("Weathermap_new->_loadDomainData: loaded #j01", {
-        //   _dateStart: this._dateStart,
-        //   _lastCurrentTime: this._lastCurrentTime,
-        //   _agl: this._agl,
-        //   currentTime: this._getStartTimeForSpan(
-        //     this._lastCurrentTime || this._dateStart
-        //   )
-        // });
         if (!this._currentTime.get())
           this._currentTime.set(this._getStartTimeForSpan(this._dateStart));
         this._loadIndexData();
@@ -545,10 +494,6 @@ export default class WeatherMapStore {
     this.grid = {};
     let loads = [];
 
-    // console.log(
-    //   "_loadData this._currentTime #j01",
-    //   new Date(this._currentTime)
-    // );
     if (
       this.domainConfig?.layer.stations &&
       this._currentTime.get() <= this._agl
@@ -564,7 +509,6 @@ export default class WeatherMapStore {
     if (this.domainConfig?.layer.grid) {
       loads.push(
         fetchJSON(config.apis.weather.grid).then(response => {
-          // console.log("WeatherMapStore_new->_loadData aaa: Grid");
           this.grid = response.data;
         })
       );
@@ -573,7 +517,6 @@ export default class WeatherMapStore {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        //console.log("Weathermap_new->_loadIndexData: loaded bbb", this);
       })
       .catch(err => {
         // TODO fail with error dialog
@@ -585,7 +528,6 @@ export default class WeatherMapStore {
     sets last update time
   */
   set lastUpdateTime(dateTime) {
-    //console.log("set lastUpdateTime kkk ", dateTime, this._lastDataUpdate);
     const updateDateTime = new Date(dateTime).getTime();
     if (updateDateTime < this._lastDataUpdate || this._lastDataUpdate === 0)
       this._lastDataUpdate = new Date(dateTime).getTime();
@@ -595,7 +537,6 @@ export default class WeatherMapStore {
     returns lastUpdateTime
   */
   get lastUpdateTime() {
-    //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
     return this._lastDataUpdate;
   }
 
@@ -629,31 +570,10 @@ export default class WeatherMapStore {
     return this.domainId ? this.domain.item : false;
   }
 
-  // /*
-  //   returns current timeIndex
-  // */
-  // get currentTime() {
-  //   //console.log("weatherMapStore_new currentTime: ", this._timeIndex.get());
-  //   return (
-  //     this._availableTimes &&
-  //     this._timeIndex &&
-  //     this._availableTimes[this._timeIndex.get()]
-  //   );
-  // }
-
-  // /*
-  //   returns all _availableTimes
-  // */
-  // get availableTimes() {
-  //   //console.log("timeIndices GET", this._availableTimes);
-  //   return this._availableTimes;
-  // }
-
   /*
     returns current timespan selection
   */
   get timeSpan() {
-    //console.log("timeSpan GET", this._timeSpan);
     return this._timeSpan.get();
   }
 
@@ -673,7 +593,6 @@ export default class WeatherMapStore {
   get endTime() {
     const endTime = new Date(this.agl);
 
-    // fix startdate hours after possible timespan change
     const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
     if (timeSpan === 12 && [6, 18].includes(endTime.getUTCHours())) {
       endTime.setUTCHours(endTime.getUTCHours() - 6);
@@ -693,7 +612,6 @@ export default class WeatherMapStore {
     const initialDate =
       currentTime.getTime() > endTime.getTime() ? endTime : currentTime;
 
-    // fix initdate hours after possible timespan change
     const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
     if (timeSpan === 12 && [6, 18].includes(initialDate.getUTCHours())) {
       initialDate.setUTCHours(initialDate.getUTCHours() - 6);
@@ -739,27 +657,10 @@ export default class WeatherMapStore {
   }
 
   getOverlayFileName(filePostFix, overrideDomainId) {
-    // console.log("weatherMapStore_new overlayFileName: #1 ", {
-    //   self: this,
-    //   filePostFix,
-    //   domainId: this?._domainId.get(),
-    //   timespan: this?._timeSpan.get(),
-    //   currentTime: this?._currentTime.get()
-    // });
-
     if (this?._currentTime.get()) {
-      // console.log("weatherMapStore_new overlayFileName:#1 ", {
-      //   currentTime: this._currentTime.get()
-      // });
-
       let domainVar = overrideDomainId || this._domainId.get();
       if (this._absTimeSpan !== 1) domainVar += "_" + this._absTimeSpan + "h";
 
-      // console.log("weatherMapStore_new overlayFileName: #2 ", {
-      //   domainId: this._domainId.get(),
-      //   domainVar,
-      //   fileVar
-      // });
       const res =
         config.apis.weather.overlays +
         (overrideDomainId || this._domainId.get()) +
@@ -767,9 +668,6 @@ export default class WeatherMapStore {
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
         "_" +
         String(filePostFix).replaceAll("%%DOMAIN%%", domainVar);
-      // console.log("weatherMapStore_new overlayFileName: #3 ", {
-      //   res
-      // });
       return res;
     }
     return "";
@@ -797,21 +695,16 @@ export default class WeatherMapStore {
     returns nextUpdateTime
   */
   get nextUpdateTime() {
-    //console.log("nextUpdateTime kkk #0", this.domainConfig);
     if (!this.domainConfig.updateTimesOffset || this._lastDataUpdate === 0)
       return null;
-    //console.log("nextUpdateTime kkk #1", this.domainConfig.updateTimes, Object.entries(this.domainConfig.updateTimes));
     let res = null;
     const timesConfig = this.domainConfig.updateTimesOffset;
     const lastUpdate = new Date(this._lastDataUpdate);
-
-    //const utcHour = lastUpdate.getUTCHours();
 
     let addHours;
 
     addHours = timesConfig[this._timeSpan] || timesConfig["*"];
 
-    //console.log("nextUpdateTime kkk #4", utcHour, addHours);
     if (addHours)
       res = new Date(lastUpdate).setUTCHours(
         lastUpdate.getUTCHours() + addHours
@@ -824,7 +717,6 @@ export default class WeatherMapStore {
     returns value for pixel color
   */
   valueForPixel(overlayType, pixelRGB) {
-    //console.log("valueForPixel jjj", overlayType, pixelRGB);
     let res;
     switch (overlayType) {
       case "temperature":
@@ -841,12 +733,10 @@ export default class WeatherMapStore {
         else res = pixelRGB.r;
         break;
       case "snowLine":
-        // console.log("valueForPixel", pixelRGB, pixelRGB.r * 50);
         if (pixelRGB.r < 0 || pixelRGB.r >= 100) res = null;
         else res = pixelRGB.r * 50;
         break;
       case "snowHeight":
-        //console.log("snowHeight t01", pixelRGB);
         if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) res = 0;
         else if (pixelRGB.g + pixelRGB.b === 0) res = -251 + pixelRGB.r;
         else if (pixelRGB.r + pixelRGB.g === 0) res = 249 + pixelRGB.b;
@@ -877,13 +767,10 @@ export default class WeatherMapStore {
     let posTimes = [];
     let temp = 0;
     const absTimeSpan = this._absTimeSpan;
-    //console.log("temp#1", temp, absTimeSpan, temp % 24);
     while (temp < 24) {
       posTimes.push(temp < 24 ? temp : temp - 24);
       temp = temp + absTimeSpan;
-      //console.log("temp#2", temp, temp % 24);
     }
-    //console.log("posTimes", posTimes);
     return posTimes;
   }
 
@@ -893,12 +780,6 @@ export default class WeatherMapStore {
   _getStartTimeForSpan(initDate) {
     let currentTime = new Date(initDate);
 
-    // console.log(
-    //   "_getStartTimeForSpan #1",
-    //   initDate,
-    //   this._timeSpan.get(),
-    //   currentTime.getUTCHours()
-    // );
     if (
       [
         "-6",
@@ -918,23 +799,13 @@ export default class WeatherMapStore {
       const currHours = currentTime.getUTCHours();
       const timesForSpan = this._getPossibleTimesForSpan();
       const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
-      //("_getStartTimeForSpan #2", currHours, soonerTimesToday);
       if (soonerTimesToday.length)
         foundStartHour = Math.max.apply(Math, soonerTimesToday);
       else foundStartHour = Math.max.apply(Math, timesForSpan);
 
-      // first possible time was last day
       if (soonerTimesToday.length === 0)
         currentTime.setUTCHours(currentTime.getUTCHours() - 24);
       currentTime.setUTCHours(foundStartHour);
-      // console.log(
-      //   "_getStartTimeForSpan #1",{
-      //     currentTimeUTC: currentTime.toUTCString(),
-      //     currHours,
-      //     timesForSpan,
-      //     soonerTimesToday,
-      //     foundStartHour
-      //   });
     }
     return currentTime;
   }
@@ -954,14 +825,10 @@ export default class WeatherMapStore {
     setting a new active domain
   */
   changeDomain(domainId) {
-    //console.log("weatherMapStore_new changeDomain: " + domainId);
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._lastCurrentTime = this._currentTime.get();
       this._domainId.set(domainId);
       this._timeSpan.set(null);
-      //this._timeIndex.set(null);
-      //this._agl = null;
-      //this._dateStart = null;
 
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
@@ -975,12 +842,6 @@ export default class WeatherMapStore {
   control method to check if the item does exist in the config
 */
   checkTimeSpan(domainId, timeSpan) {
-    // console.log(
-    //   "weatherMapStore_new: checktimeSpan",
-    //   domainId,
-    //   timeSpan,
-    //   this.config.domains[domainId].item.timeSpans
-    // );
     return (
       this.checkDomainId(domainId) &&
       this.config.domains[domainId].item.timeSpans.includes(timeSpan)
@@ -991,18 +852,10 @@ export default class WeatherMapStore {
     setting a new active timeSpan
   */
   changeTimeSpan(timeSpan) {
-    // console.log(
-    //   "weatherMapStore_new changeTimeSpan: ",
-    //   timeSpan,
-    //   this.domainConfig
-    // );
     if (
       timeSpan !== this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
-      //this._timeIndex.set(null);
-      //this._agl = null;
-      //this._dateStart = null;
       this._timeSpan.set(timeSpan);
       this._loadDomainData();
       this.selectedFeature = null;
@@ -1013,10 +866,6 @@ export default class WeatherMapStore {
     setting a new timeIndex
   */
   changeCurrentTime(newTime) {
-    //console.log("weatherMapStore_new: changeCurrentTime #k0112 #k0113", {
-    //   newTime: new Date(newTime),
-    //   oldDate: new Date(this._currentTime.get())
-    // });
     if (
       new Date(newTime).getTime() !==
       new Date(this._currentTime.get()).getTime()
@@ -1026,34 +875,4 @@ export default class WeatherMapStore {
 
     this._loadIndexData();
   }
-
-  /*
-    setting a new timeIndex
-  */
-  // changeCurrentTime1(timeIndex) {
-  //   // console.log(
-  //   //   "weatherMapStore_new: changeCurrentTime hhhh",
-  //   //   this._timeIndex.get(),
-  //   //   timeIndex,
-  //   //   this._availableTimes.indexOf(timeIndex),
-  //   //   //this._availableTimes
-  //   // );
-  //   if (this._availableTimes.includes(timeIndex)) {
-  //     // console.log(
-  //     //   "weathermap->changeCurrentTime_1 ##33",
-  //     //   {timeIndex2Date: new Date(timeIndex),
-
-  //     //   curTimeIndex: this._timeIndex.get(),
-  //     //   timeIndex,
-  //     //   availTimeIndex: this._availableTimes.indexOf(timeIndex)}
-  //     // );
-  //     if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
-  //       // console.log("weathermap->changeCurrentTime_2 ##33", timeIndex);
-  //       this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
-  //       this._loadIndexData();
-  //       this.selectedFeature = null;
-  //     }
-  //   } else
-  //     console.error("timeIndex not available", timeIndex, this._availableTimes);
-  // }
 }
