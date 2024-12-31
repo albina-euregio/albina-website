@@ -689,30 +689,26 @@ export default class WeatherMapStore {
       : usedDate;
   }
 
-  get fixedStartTime() {
-    const fixedStartTime = new Date(this.startDate); // usedStartDate - 730 days from startDate
-
-    // fix startdate hours after possible timespan change
-    const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
-    if (timeSpan === 12 && [6, 18].includes(fixedStartTime.getUTCHours())) {
-      fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 6);
-    }
-    if (timeSpan % 24 === 0 && [12].includes(fixedStartTime.getUTCHours())) {
-      fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
-    }
-    return fixedStartTime;
-  }
-
   get startTime() {
     const startTime = new Date(this.startDate);
+    // usedStartDate - 730 days from startDate
     startTime.setDate(startTime.getDate() - 730);
     return startTime;
   }
 
   get endTime() {
-    const endTime = new Date(this.fixedStartTime);
-    const timeSpan = this.timeSpan.includes("+") ? 3 : 0; // fixme
-    endTime.setDate(endTime.getDate() + timeSpan);
+    const endTime = new Date(this.startDate);
+
+    // fix startdate hours after possible timespan change
+    const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
+    if (timeSpan === 12 && [6, 18].includes(endTime.getUTCHours())) {
+      endTime.setUTCHours(endTime.getUTCHours() - 6);
+    }
+    if (timeSpan % 24 === 0 && [12].includes(endTime.getUTCHours())) {
+      endTime.setUTCHours(endTime.getUTCHours() - 12);
+    }
+    const timeSpan2 = this.timeSpan.includes("+") ? 3 : 0; // fixme
+    endTime.setDate(endTime.getDate() + timeSpan2);
     return endTime;
   }
 
