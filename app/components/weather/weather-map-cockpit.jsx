@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -142,33 +142,27 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   const getTimeSpanOptions = () => {
-    let buttons = [];
     let allButtons;
     //console.log("getTimeSpanOptions 777", props);
     if (storeConfig?.domains?.[domainId]) {
       let domainConfig = storeConfig.domains[domainId].item;
 
-      let firstNrOnlyTimespan = domainConfig.timeSpans[0].replace(/\D/g, "");
-
-      domainConfig.timeSpans.forEach(aItem => {
+      const buttons = domainConfig.timeSpans.map(aItem => {
         let nrOnlyTimespan = aItem.replace(/\D/g, "");
-        let linkClasses = ["cp-range-" + nrOnlyTimespan];
-        if (timeSpan === aItem) linkClasses.push("js-active");
-
-        buttons.push(
+        return (
           <a
             role="button"
             tabIndex="0"
             key={aItem}
             onClick={() => handleEvent("timeSpan", aItem)}
-            className={linkClasses.join(" ")}
+            className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
           >
             {nrOnlyTimespan}h
           </a>
         );
       });
 
-      if (firstNrOnlyTimespan != "1")
+      if (buttons.length > 1)
         allButtons = (
           <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
             {buttons}
