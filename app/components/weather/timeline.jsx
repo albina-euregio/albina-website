@@ -43,39 +43,39 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
 
   const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
 
-  let fixedStartTime = new Date(store.startDate); // usedStartDate - 730 days from startDate
-  let usedStartTime = new Date(fixedStartTime);
+  const fixedStartTime = new Date(store.startDate); // usedStartDate - 730 days from startDate
 
   // fix startdate hours after possible timespan change
-  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
-  if (timeSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(usedStartTime.getUTCHours() - 6);
+  if (timeSpan === 12 && [6, 18].includes(fixedStartTime.getUTCHours())) {
+    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 6);
   }
-  if (timeSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
+  if (timeSpan % 24 === 0 && [12].includes(fixedStartTime.getUTCHours())) {
     fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
   }
 
+  const usedStartTime = new Date(store.startDate);
   usedStartTime.setDate(usedStartTime.getDate() - 730);
-  let usedEndTime = new Date(fixedStartTime);
+
+  const usedEndTime = new Date(fixedStartTime);
   usedEndTime.setDate(
-    usedEndTime.getDate() + (store.timeSpan.includes("+") ? 3 : 0)
+    usedEndTime.getDate() + (store.timeSpan.includes("+") ? 3 : 0) // fixme
   );
 
   // fix initdate hours after possible timespan change
   let usedInitialDate = new Date(store.currentTime);
-  if (
-    usedEndTime &&
-    new Date(store.currentTime).getTime() > new Date(usedEndTime).getTime()
-  )
+  if (new Date(store.currentTime).getTime() > new Date(usedEndTime).getTime()) {
     usedInitialDate = new Date(usedEndTime);
+  }
 
-  const initialDateHours = usedInitialDate.getUTCHours();
-  if (timeSpan === 12 && [6, 18].includes(initialDateHours)) {
+  if (timeSpan === 12 && [6, 18].includes(usedInitialDate.getUTCHours())) {
     usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
   }
-  if (timeSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
+  if (
+    timeSpan % 24 === 0 &&
+    [6, 12, 18].includes(usedInitialDate.getUTCHours())
+  ) {
     usedInitialDate.setUTCHours(
-      usedInitialDate.getUTCHours() - initialDateHours
+      usedInitialDate.getUTCHours() - usedInitialDate.getUTCHours()
     );
   }
 
@@ -296,7 +296,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
 
   const calcIndicatorOffset = () => {
     //console.log("calcIndicatorOffset #k01", {showBar});
-    let newIndicatorOffset =
+    const newIndicatorOffset =
       (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
     if (showBar) {
       setBarOffset(newIndicatorOffset - barDuration * pixelsPerHour);
@@ -402,8 +402,8 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];
-    let usedEndTime = new Date(endTime);
-    let endAnalysisTime = new Date(analysesEndTs);
+    const usedEndTime = new Date(endTime);
+    const endAnalysisTime = new Date(analysesEndTs);
     //if (timeSpan > 1)usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
 
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
@@ -415,7 +415,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
 
         const localDate = new Date(markDate);
         const localHour = localDate.getHours();
-        let markClass = [localHour === 0 ? "day-mark" : ""];
+        const markClass = [localHour === 0 ? "day-mark" : ""];
 
         const isSelectable =
           (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
@@ -570,7 +570,7 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
   const getNearestMarker = () => {
     const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    let targetCenterX = indicatorRect.right;
+    const targetCenterX = indicatorRect.right;
 
     let nearestMarker = null;
     let minDistance = Infinity;
@@ -662,9 +662,9 @@ const Timeline = ({ store, firstHour = 0, updateCB }) => {
     // const label =
     //   "weathermap:player:" + (player.playing ? "stop" : "play");
 
-    let linkClassesPlay = ["cp-movie-play", "icon-play"];
-    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
-    let divClasses = ["cp-movie"];
+    const linkClassesPlay = ["cp-movie-play", "icon-play"];
+    const linkClassesStop = ["cp-movie-stop", "icon-pause"];
+    const divClasses = ["cp-movie"];
     if (playerIsActive) divClasses.push("js-playing");
     return (
       <div key="cp-movie" className={divClasses.join(" ")}>
