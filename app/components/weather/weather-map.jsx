@@ -24,7 +24,6 @@ const WeatherMap = ({
   );
 
   const domainId = store.domainId;
-  const startDate = store.startDate;
   const itemId = store.domainConfig.timeSpanToDataId[store.timeSpan];
   const item = store.item;
   const grid = store.grid;
@@ -115,7 +114,6 @@ const WeatherMap = ({
         controls={[showHideStationsCtrl]}
         mapConfigOverride={store.config.settings.mapOptionsOverride}
         tileLayerConfigOverride={store.config.settings.mapOptionsOverride}
-        startDate={startDate}
         gestureHandling={false}
         onInit={map => {
           map.on("click", () => {

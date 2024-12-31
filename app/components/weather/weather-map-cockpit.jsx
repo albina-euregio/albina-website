@@ -47,7 +47,6 @@ const LOOP = false;
  */
 const WeatherMapCockpit = ({ store }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
-  const startDate = store.startDate;
   const storeConfig = store.config;
   const domainId = store.domainId;
   const timeSpan = store.timeSpan;
@@ -329,13 +328,11 @@ const WeatherMapCockpit = ({ store }) => {
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          {startDate && (
-            <Timeline
-              key="cp-timeline"
-              store={store}
-              updateCB={onTimelineUpdate}
-            />
-          )}
+          <Timeline
+            key="cp-timeline"
+            store={store}
+            updateCB={onTimelineUpdate}
+          />
         </div>
 
         {getTimeSpanOptions()}
