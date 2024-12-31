@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import SnowProfileStore, { SnowProfile } from "../stores/snowProfileStore";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import Modal from "../components/dialogs/albina-modal";
@@ -78,7 +77,7 @@ class SnowProfileMap extends React.Component {
   }
 }
 
-export default observer(SnowProfileMap);
+export default SnowProfileMap;
 
 function SnowProfileDialog({
   active

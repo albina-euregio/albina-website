@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -153,4 +152,4 @@ class LinkTree extends React.Component {
     );
   }
 }
-export default observer(LinkTree);
+export default LinkTree;
