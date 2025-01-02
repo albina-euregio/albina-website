@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import { dateFormat } from "../../util/date";
-import { observer } from "mobx-react";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 
 // function useChangedProps(props) {
 //   const prev = useRef(props);
@@ -23,27 +24,15 @@ import { observer } from "mobx-react";
 //   }, [props]);
 // }
 
-/**
- * @param store {WeatherMapStore}
- */
-const Timeline = ({ store, updateCB }) => {
+const Timeline = ({ updateCB }) => {
   const now = new Date();
-  const nowFullHour = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours(),
-      0,
-      0
-    )
-  );
-
-  const domainId = store.domainId;
-  const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
-  const startTime = store.startTime;
-  const endTime = store.endTime;
-  const initialDate = store.initialDate;
+  const domainId = useStore(store.domainId);
+  const timeSpan0 = useStore(store.timeSpan);
+  const timeSpan = Number(timeSpan0.replace(/\D/g, ""), 10);
+  const startDate = useStore(store.startDate);
+  const startTime = useStore(store.startTime);
+  const endTime = useStore(store.endTime);
+  const initialDate = useStore(store.initialDate);
   const barDuration = timeSpan;
   const markerPosition = timeSpan > 24 ? "75%" : "50%";
   const showBar = timeSpan > 1;
@@ -150,7 +139,7 @@ const Timeline = ({ store, updateCB }) => {
   }, [initialDate]);
 
   useEffect(() => {
-    let intervalId;
+    let intervalId: number;
 
     if (playerIsActive) {
       // Start the interval when isActive is true
@@ -308,20 +297,7 @@ const Timeline = ({ store, updateCB }) => {
       });
   };
 
-  const formatHour = date => {
-    return date.getHours().toString().padStart(2, "0");
-  };
-
-  const formatTime = date => {
-    //console.log("formatTime #i01", { date: new Date(date).toISOString() });
-    return date.toLocaleTimeString();
-  };
-
-  const formatDateTime = date => {
-    return date.toLocaleString();
-  };
-
-  const handleKeyDown = event => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
     //console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
     switch (event.keyCode) {
@@ -342,7 +318,7 @@ const Timeline = ({ store, updateCB }) => {
     }
   };
 
-  const jumpStep = direction => {
+  const jumpStep = (direction: 1 | -1 | number) => {
     const newDate = new Date(currentDateRef.current);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
     // console.log("jumpStep #i01", {
@@ -442,7 +418,7 @@ const Timeline = ({ store, updateCB }) => {
             ></div>
           </div>
         );
-        if (markDate.getTime() < new Date(store.startDate).getTime())
+        if (markDate.getTime() < startDate.getTime())
           markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
@@ -505,8 +481,6 @@ const Timeline = ({ store, updateCB }) => {
       Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
     //console.log("snapToDate #k011", { newTargetDate });
-    const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
     const { targetMarker } = getMarkerCenterX(newTargetDate);
     //const distanceToMove = markerCenterX - indicatorCenterX;
     const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
@@ -559,23 +533,6 @@ const Timeline = ({ store, updateCB }) => {
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect?.left;
     return { markerCenterX, targetMarker: targetMarker?.[0] };
-  };
-
-  const jumpToDate = newTargetDate => {
-    // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
-    const hours = newTargetDate.getUTCHours();
-    const adjustedHours =
-      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
-    newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
-
-    //rulerRef.current.style.transition = "transform 0.5s ease";
-    // console.log("jumpToDate #i031", {
-    //   newTargetDate: new Date(newTargetDate).toISOString(),
-    //   maxStartDay,
-    //   maxEndDay
-    // });
-
-    setTargetDate(newTargetDate);
   };
 
   const handleOpenDateDialogClick = () => {
@@ -813,4 +770,4 @@ const Timeline = ({ store, updateCB }) => {
   );
 };
 
-export default observer(Timeline);
+export default Timeline;

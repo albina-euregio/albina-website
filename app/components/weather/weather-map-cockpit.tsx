@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 //import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
@@ -40,19 +41,12 @@ const DOMAIN_UNITS = {
   wind700hpa: "km/h"
 };
 
-const LOOP = false;
-
-/**
- * @param store {WeatherMapStore}
- */
-const WeatherMapCockpit = ({ store }) => {
+const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
-  const storeConfig = store.config;
-  const domainId = store.domainId;
-  const timeSpan = store.timeSpan;
-  const changeCurrentTime = store.changeCurrentTime.bind(store);
-  const nextUpdateTime = store.nextUpdateTime;
-  const lastUpdateTime = store.lastUpdateTime;
+  const domainId = useStore(store.domainId);
+  const timeSpan = useStore(store.timeSpan);
+  const nextUpdateTime = useStore(store.nextUpdateTime);
+  const lastUpdateTime = useStore(store.lastDataUpdate);
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -69,13 +63,13 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   const adaptVH = () => {
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
   const onTimelineUpdate = newTime => {
     //console.log("weather-map-cockpit->onTimelineUpdate #k0113", newTime);
-    changeCurrentTime(newTime);
+    store.changeCurrentTime(newTime);
   };
 
   const handleEvent = (type, value) => {
@@ -97,8 +91,8 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   const getDomainButtons = () => {
-    const domainButtons = storeConfig
-      ? Object.keys(storeConfig.domains).map(domainId => {
+    const domainButtons = store.config
+      ? Object.keys(store.config.domains).map(domainId => {
           return {
             id: domainId,
             title: (
@@ -115,10 +109,10 @@ const WeatherMapCockpit = ({ store }) => {
         })
       : [];
 
-    let buttons = [];
+    const buttons = [];
     domainButtons.forEach(aButton => {
-      let linkClasses = ["cp-layer-selector-item"];
-      let spanClasses = ["layer-select"];
+      const linkClasses = ["cp-layer-selector-item"];
+      const spanClasses = ["layer-select"];
       spanClasses.push(DOMAIN_ICON_CLASSES[aButton.id]);
       if (aButton.id === domainId) linkClasses.push("js-active");
       buttons.push(
@@ -144,11 +138,11 @@ const WeatherMapCockpit = ({ store }) => {
   const getTimeSpanOptions = () => {
     let allButtons;
     //console.log("getTimeSpanOptions 777", props);
-    if (storeConfig?.domains?.[domainId]) {
-      let domainConfig = storeConfig.domains[domainId].item;
+    if (store.config?.domains?.[domainId]) {
+      const domainConfig = store.config.domains[domainId].item;
 
       const buttons = domainConfig.timeSpans.map(aItem => {
-        let nrOnlyTimespan = aItem.replace(/\D/g, "");
+        const nrOnlyTimespan = aItem.replace(/\D/g, "");
         return (
           <a
             role="button"
@@ -220,7 +214,7 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   const legendItems = amount => {
-    let items = [];
+    const items = [];
     for (let i = 1; i <= amount; i++) {
       items.push(
         <span
@@ -233,7 +227,7 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   const getLegend = () => {
-    let divClasses = ["cp-legend-items"];
+    const divClasses = ["cp-legend-items"];
     if (DOMAIN_LEGEND_CLASSES[domainId])
       divClasses.push(DOMAIN_LEGEND_CLASSES[domainId]);
     return (
@@ -291,7 +285,7 @@ const WeatherMapCockpit = ({ store }) => {
   };
 
   //console.log("weather-map-cockpit->render hhhh", {currentTime, timeRange, startDate, timeSpan, lastRedraw});
-  let classes = [
+  const classes = [
     "map-cockpit",
     "weather-map-cockpit",
     "lastRedraw-" + lastRedraw
@@ -358,4 +352,4 @@ const WeatherMapCockpit = ({ store }) => {
     </div>
   );
 };
-export default observer(WeatherMapCockpit);
+export default WeatherMapCockpit;

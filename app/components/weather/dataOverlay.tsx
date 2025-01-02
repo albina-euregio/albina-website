@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { ImageOverlay } from "react-leaflet";
+import React, { useEffect, useMemo, useState } from "react";
+import { ImageOverlay, useMap } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
-import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 
 const css = `
     .debug-almost-invisible {
@@ -16,34 +17,24 @@ const css = `
     }
 `;
 
-/**
- * @param store {WeatherMapStore}
- */
-const DataOverlay = ({ store, playerCB }) => {
+const DataOverlay = ({ playerCB }) => {
   const intl = useIntl();
-
-  //console.log("dataOverlay->start xxx1", overlay);
 
   const parentMap = useMap();
 
   const [dataMarker, setDataMarker] = useState(null);
-  //const [showDataLayer, setShowDataLayer] = useState(false);
   const [directionMarkers, setDirectionMarkers] = useState([]);
   const [directionOverlay, setDirectionOverlay] = useState(null);
   const [oCanvases, setOCanvases] = useState({});
-  const [lastUpdateOverlays, setLastUpdateOverlays] = useState({});
 
-  const domainId = store.domainId;
-  const currentTime = store.currentTime;
-  const dataOverlayFilePostFix = store.domainConfig?.dataOverlayFilePostFix;
-  const dataOverlays = store.domainConfig?.dataOverlays;
+  const domainId = useStore(store.domainId);
+  const currentTime = useStore(store.currentTime);
+  const domainConfig = useStore(store.domainConfig);
+  const absTimeSpan = useStore(store.absTimeSpan);
+  const overlayFileName = useStore(store.overlayFileName);
+  const dataOverlays = domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
-    !store.domainConfig.layer.stations || store.currentTime > store.agl;
-  const rgbToValue = store.valueForPixel;
-  const item = store.item;
-  const debug = store.config.settings.debugModus;
-  const grid = store.grid;
-  const stations = store.stations;
+    !domainConfig.layer.stations || currentTime > store.agl;
 
   useEffect(() => {
     setOCanvases({});
@@ -54,25 +45,22 @@ const DataOverlay = ({ store, playerCB }) => {
   }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
-    //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
-    //const self = this;
     const map = overlay._map;
-    let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
-    let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
-    let dx =
+    const xY = overlay.getElement().naturalWidth / overlay.getElement().width;
+    const yY = overlay.getElement().naturalHeight / overlay.getElement().height;
+    const dx =
       map.project(latlng).x - map.project(overlay.getBounds()["_southWest"]).x;
-    let dy =
+    const dy =
       map.project(latlng).y - map.project(overlay.getBounds()["_northEast"]).y;
-    //console.log("getClickedPixel", {"xY": xY, "yY": yY, "SWx": map.project(overlay.getBounds()["_southWest"]).x, "NEy": map.project(overlay.getBounds()["_northEast"]).y});
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
   const getColor = value => {
     const v = parseFloat(value);
-    const colors = Object.values(item.colors);
+    const colors = Object.values(domainConfig.colors);
 
     let color = colors[0];
-    item.thresholds.forEach((tr, i) => {
+    domainConfig.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
@@ -82,63 +70,24 @@ const DataOverlay = ({ store, playerCB }) => {
   };
 
   const getPixelData = coordinates => {
-    let values = {};
+    const values = {};
     dataOverlays.forEach(anOverlay => {
-      //console.log("getPixelData t01", coordinates, oCanvases[anOverlay.type], anOverlay.type);
       if (oCanvases[anOverlay.type]?.["loaded"]) {
-        let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
+        const p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
           coordinates.x,
           coordinates.y,
           1,
           1,
           { willReadFrequently: true }
         );
-        //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 
-        values[anOverlay.type] = rgbToValue(anOverlay.type, {
+        values[anOverlay.type] = store.valueForPixel(anOverlay.type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
         });
-
-        // console.log(
-        //   "pixelData #3 p",
-        //   p?.data, oCanvases[anOverlay.type].canvas.ctx
-        // );
-
-        // console.log(
-        //   "pixelData t01",
-        //   anOverlay.type,
-        //   p.data,
-        //   oCanvases[anOverlay.type]
-        // );
-
-        // if (debug) {
-        //   for (var y = 0; y < p.height; y++) {
-        //     for (var x = 0; x < p.width; x++) {
-        //       p.data[4 * (y * p.width + x)] = 255;
-        //       p.data[4 * (y * p.width + x) + 1] = 0;
-        //       p.data[4 * (y * p.width + x) + 2] = 0;
-        //       p.data[4 * (y * p.width + x) + 3] = 255;
-        //     }
-        //   }
-        //   // indicate clicked position with red dot
-        //   oCanvases[anOverlay.type].canvas.ctx.putImageData(
-        //     p,
-        //     coordinates.x,
-        //     coordinates.y
-        //   );
-        //   $(".map-data-layer").attr(
-        //     "src",
-        //     overlayCanvases[anOverlay.type].canvas.toDataURL()
-        //   );
-        // }
       }
     });
-
-    // console.log(
-    //   "pixelData #4", values
-    // );
 
     return {
       value:
@@ -151,15 +100,11 @@ const DataOverlay = ({ store, playerCB }) => {
   };
 
   const allCanvasesLoaded = () => {
-    //console.log("dataOverlay->allCanvasesLoaded xxx2", oCanvases);
-
     return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
-
-    if (debug && e.originalEvent.ctrlKey) {
+    if (store.config.settings.debugModus && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
         e.classList.toggle("debug-high-contrast");
@@ -168,13 +113,6 @@ const DataOverlay = ({ store, playerCB }) => {
 
     if (dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
       const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
-      // console.log(
-      //   "dataOverlay->showDataMarker",
-      //   e.target,
-      //   allCanvasesLoaded(),
-      //   dataOverlaysEnabled,
-      //   pixelData
-      // );
       setDataMarker(
         <StationMarker
           type="station"
@@ -196,56 +134,29 @@ const DataOverlay = ({ store, playerCB }) => {
   };
 
   const setupDataLayer = e => {
-    //console.log("dataOverlay->setupDataLayer#1 t02");
-
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
     if (dataOverlaysEnabled) {
       dataOverlays.forEach(anOverlay => {
-        // console.log("setupDataLayer#2 #i011", {
-        //   overlay: overlay,
-        //   filepaht: anOverlay.filePostfix
-        // });
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
             loaded: false
           };
-          //console.log("setupDataLayer#3 jjj1", anOverlay.type, overlayCanvases[anOverlay.type].loaded);
-          // let overlayFile = overlay
-          //   .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
-          //   .replaceAll(
-          //     "%%FILE%%",
-          //     anOverlay.filePostfix.replaceAll(
-          //       "%%DOMAIN%%",
-          //       anOverlay?.domain || domainId
-          //     )
-          //   );
 
           let overlayFile = store.getOverlayFileName(
+            currentTime,
+            anOverlay?.domain || domainId,
             anOverlay.filePostfix,
-            anOverlay?.domain
+            absTimeSpan
           );
-          // console.log("setupDataLayer xxxx", {
-          //   overlayFile,
-          //   filepaht: anOverlay.filePostfix,
-          //   domainId
-          // });
 
-          let img = new Image();
+          const img = new Image();
           img.crossOrigin = "anonymous";
           overlayCanvases[anOverlay.type].canvas.ctx =
             overlayCanvases[anOverlay.type]["canvas"].getContext("2d");
-          var domPoint = document.getElementsByClassName(
-            "leaflet-overlay-pane"
-          );
 
           img.onload = function () {
-            //console.log("setupDataLayer->onload jjj", anOverlay.type);
-
-            //domPoint?.[0].appendChild(overlayCanvases[anOverlay.type].canvas);
-
-            // data files have 1/2 the size
             overlayCanvases[anOverlay.type].canvas.width =
               this.naturalWidth * 2;
             overlayCanvases[anOverlay.type].canvas.height =
@@ -260,11 +171,8 @@ const DataOverlay = ({ store, playerCB }) => {
               this.height * 2
             );
             overlayCanvases[anOverlay.type]["loaded"] = true;
-            //console.log("setupDataLayer#3-1 jjj1 direction loaded", anOverlay.type, overlayCanvases, overlayCanvases.filter(canvas => !canvas.loaded));
-            //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
               }
@@ -287,28 +195,18 @@ const DataOverlay = ({ store, playerCB }) => {
   };
 
   const addDirectionIndicators = () => {
-    //console.log("addDirectionIndicators #1", directionOverlay);
     if (!directionOverlay) return;
     const map = parentMap;
     const curZoom = map.getZoom();
-    let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    // console.log(
-    //   "addDirectionIndicators #i011",
-    //   curZoom,
-    //   map._layersMinZoom,
-    //   grids
-    // );
+    const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
-    let markers = [];
+    const markers = [];
 
     if (dataOverlaysEnabled) {
       const foundOverlays = dataOverlays.filter(element => {
-        //console.log("addDirectionIndicators eee element", element.type);
         return ["windDirection"].includes(element.type);
       });
-      //console.log("addDirectionIndicators #2 jjj", foundOverlays);
       if (foundOverlays) {
-        //foundOverlays.forEach(anOverlay => {
         const WEST = bounds[0][1];
         const SOUTH = bounds[0][0];
         const EAST = bounds[1][1];
@@ -317,19 +215,14 @@ const DataOverlay = ({ store, playerCB }) => {
         const DIST_V = (NORTH - SOUTH) / grids;
         let curH = WEST + DIST_H;
 
-        //console.log("addDirectionIndicators eee #3", WEST, DIST_H, curH + "<" + EAST, NORTH);
         while (curH < EAST - 0.001) {
           let curV = SOUTH + DIST_V;
-          //console.log("addDirectionIndicators eee #4", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
           while (curV < NORTH - 0.001) {
-            //console.log("addDirectionIndicators eee #5", WEST, DIST_H, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
-            //console.log("addDirectionIndicators eee #2", self, [curV, curH]);
             const pixelPos = getLayerPixelAtLatLng(directionOverlay, {
               lat: curV,
               lng: curH
             });
             const pixelData = getPixelData(pixelPos);
-            //console.log("addDirectionIndicators eee #5", curH, curV, pixelPos, pixelData);
             markers.push(
               <StationMarker
                 type="grid"
@@ -352,39 +245,21 @@ const DataOverlay = ({ store, playerCB }) => {
           }
           curH += DIST_H;
         }
-        //});
       }
     }
-    //console.log("addDirectionIndicators eee #6", markers);
     setDirectionMarkers(markers);
   };
-  //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName });
-    let overlays = [];
+    const overlays = [];
     if (domainId) {
-      //console.log("dataOverlay->render s06", props);
-      //const mapMinZoom = config.map.initOptions.minZoom;
-      //const mapMaxZoom = config.map.initOptions.maxZoom;
-
-      //console.log("overlay->render xxx1:", debug);
-
-      // console.log("dataOverlay->render #1 xxx33", {
-      //   overlay,
-      //   usedDataOverlayFilePostFix
-      // });
-      let usedDataOverlayFilePostFix = debug
-        ? dataOverlayFilePostFix?.debug
-        : dataOverlayFilePostFix.main;
-      //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
       overlays.push(
         <ImageOverlay
           key="data-image"
           className={["leaflet-image-layer", "map-data-layer", "hide"].join(
             " "
           )}
-          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={overlayFileName}
           opacity={1}
           bounds={store.config.settings.bbox}
           attribution={intl.formatMessage({
@@ -402,54 +277,43 @@ const DataOverlay = ({ store, playerCB }) => {
           key="background-map"
           className={["leaflet-image-layer", "map-info-layer"].join(" ")}
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          url={overlayFileName}
           opacity={1}
           bounds={store.config.settings.bbox}
           interactive={true}
           attribution={
-            debug ? intl.formatMessage({ id: "weathermap:attribution" }) : null
+            store.config.settings.debugModus
+              ? intl.formatMessage({ id: "weathermap:attribution" })
+              : null
           }
-          //onClick={()=>console.log('dataOverlay->click')}
           eventHandlers={{
             click: showDataMarker,
             load: e => {
-              //console.log("background jjj", "load", e.target._map);
               setDataMarker(null);
               setDirectionMarkers(null);
-              //console.log("background yyy2", "load");
               setupDataLayer(e);
               e.target._map.on("zoomend", e => {
-                //console.log("onZoomed eee", e);
                 addDirectionIndicators(e);
               });
-              //console.log("dataOverlay background LOADED s07");
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
             error: err => {
-              //console.log("dataOverlay background ERROR s06");
               if (!dataMarker && !directionMarkers) playerCB("background", err);
             }
           }}
           bindPopup
         />
       );
-      // console.log(
-      //   "dataOverlay background s071",
-      //   "loading",
-      //   dataMarker
-      // );
       playerCB("background", "loading");
     }
 
     return overlays;
-  }, [domainId, oCanvases]);
-
-  //console.log('dataOverlay->render xxx1', overlays );
+  }, [domainId, overlayFileName]);
 
   return (
     <>
-      <style>{css}</style>
+      {store.config.settings.debugModus && <style>{css}</style>}
       {overlays}
       {dataMarker}
       {directionMarkers}

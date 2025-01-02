@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import $, { data } from "jquery";
-
-import { observer } from "mobx-react";
+import $ from "jquery";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
-import WeatherMapStore from "../stores/weatherMapStore";
-
+import * as store from "../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { useParams } from "react-router-dom";
-
 import Player from "../js/player";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
@@ -24,8 +20,11 @@ const Weather = () => {
 
   const [headerText] = useState("");
 
-  const [store] = useState(() => new WeatherMapStore(params.domain));
   const [playing, setPlaying] = useState(false);
+
+  const domainId = useStore(store.domainId);
+  const stations = useStore(store.stations);
+  const selectedFeature = useStore(store.selectedFeature);
 
   const [player] = useState(() => {
     //console.log("player->new Player s05");
@@ -57,18 +56,10 @@ const Weather = () => {
     store.changeDomain(params.domain);
   }, [params.domain]);
 
-  // console.log("weather->render #i011", {
-  //   domainId: store.domainId,
-  //   dataOverlays: store.domainConfig.dataOverlays,
-  //   overlaysEnabled: !store.domainConfig.layer.stations || store.currentTime > store.agl,
-  //   agl: store.agl,
-  //   currentTime: store.currentTime
-
-  // });
   return (
     <>
       <WeatherStationDialog
-        stationData={store.stations?.features ?? []}
+        stationData={stations?.features ?? []}
         stationId={stationId}
         setStationId={setStationId}
       />
@@ -82,19 +73,16 @@ const Weather = () => {
         id="section-weather-map"
         className="section section-weather-map section-weather-map-cockpit"
       >
-        {store.domainId && (
+        {domainId && (
           <div className="section-map">
             <WeatherMap
-              store={store}
               playerCB={player.onLayerEvent}
               isPlaying={playing}
               onMarkerSelected={feature => setStationId(feature?.id)}
               onViewportChanged={() => {}}
             />
-            {store.selectedFeature && (
-              <FeatureInfo feature={store.selectedFeature} />
-            )}
-            <WeatherMapCockpit key="cockpit" store={store} />
+            {selectedFeature && <FeatureInfo feature={selectedFeature} />}
+            <WeatherMapCockpit key="cockpit" />
           </div>
         )}
       </section>
@@ -102,4 +90,4 @@ const Weather = () => {
     </>
   );
 };
-export default observer(Weather);
+export default Weather;

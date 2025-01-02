@@ -1,5 +1,4 @@
 import type { LatLngExpression } from "leaflet";
-import { makeAutoObservable } from "mobx";
 import { dateToISODateString } from "../util/date";
 import { currentSeasonDate } from "../util/date-season";
 import { fetchJSON } from "../util/fetch";
@@ -52,9 +51,6 @@ export interface Country {
 
 export default class IncidentStore {
   incidents: Incident[] = [];
-  constructor() {
-    makeAutoObservable(this);
-  }
 
   async load() {
     const startDate = dateToISODateString(currentSeasonDate());

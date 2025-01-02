@@ -1,5 +1,4 @@
 import type { LatLngExpression } from "leaflet";
-import { makeAutoObservable } from "mobx";
 import { dateToISODateString } from "../util/date";
 import { fetchJSON } from "../util/fetch";
 
@@ -46,9 +45,6 @@ export interface Country {
 export default class SnowProfileStore {
   profiles: SnowProfile[] = [];
   activeProfile: SnowProfile | undefined;
-  constructor() {
-    makeAutoObservable(this);
-  }
 
   async load() {
     const url =
