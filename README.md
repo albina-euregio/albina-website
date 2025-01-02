@@ -134,3 +134,7 @@ If you forgot to update the changelog before creating a new tag in git, use
 `yarn changelog-latest`. This will add all commits for the newest tag to
 the CHANGELOG. The downside compared to the workflow above is, that the
 changes to CHANGELOG itself are not included in the release.
+
+If there have been several new releases since the last update to CHANGELOG, 
+use e.g. `yarn git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that 
+happened *after* version v7.0.6 was released.
