@@ -43,8 +43,6 @@ const DataOverlay = ({ playerCB }) => {
   }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
-    //console.log("getLayerPixelAtLatLng", overlay._map, parentMap);
-    //const self = this;
     const map = overlay._map;
     let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
     let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
@@ -52,7 +50,6 @@ const DataOverlay = ({ playerCB }) => {
       map.project(latlng).x - map.project(overlay.getBounds()["_southWest"]).x;
     let dy =
       map.project(latlng).y - map.project(overlay.getBounds()["_northEast"]).y;
-    //console.log("getClickedPixel", {"xY": xY, "yY": yY, "SWx": map.project(overlay.getBounds()["_southWest"]).x, "NEy": map.project(overlay.getBounds()["_northEast"]).y});
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
@@ -73,7 +70,6 @@ const DataOverlay = ({ playerCB }) => {
   const getPixelData = coordinates => {
     let values = {};
     dataOverlays.forEach(anOverlay => {
-      //console.log("getPixelData t01", coordinates, oCanvases[anOverlay.type], anOverlay.type);
       if (oCanvases[anOverlay.type]?.["loaded"]) {
         let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
           coordinates.x,
@@ -82,52 +78,14 @@ const DataOverlay = ({ playerCB }) => {
           1,
           { willReadFrequently: true }
         );
-        //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 
         values[anOverlay.type] = store.valueForPixel(anOverlay.type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
         });
-
-        // console.log(
-        //   "pixelData #3 p",
-        //   p?.data, oCanvases[anOverlay.type].canvas.ctx
-        // );
-
-        // console.log(
-        //   "pixelData t01",
-        //   anOverlay.type,
-        //   p.data,
-        //   oCanvases[anOverlay.type]
-        // );
-
-        // if (debug) {
-        //   for (var y = 0; y < p.height; y++) {
-        //     for (var x = 0; x < p.width; x++) {
-        //       p.data[4 * (y * p.width + x)] = 255;
-        //       p.data[4 * (y * p.width + x) + 1] = 0;
-        //       p.data[4 * (y * p.width + x) + 2] = 0;
-        //       p.data[4 * (y * p.width + x) + 3] = 255;
-        //     }
-        //   }
-        //   // indicate clicked position with red dot
-        //   oCanvases[anOverlay.type].canvas.ctx.putImageData(
-        //     p,
-        //     coordinates.x,
-        //     coordinates.y
-        //   );
-        //   $(".map-data-layer").attr(
-        //     "src",
-        //     overlayCanvases[anOverlay.type].canvas.toDataURL()
-        //   );
-        // }
       }
     });
-
-    // console.log(
-    //   "pixelData #4", values
-    // );
 
     return {
       value:
@@ -140,14 +98,10 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const allCanvasesLoaded = () => {
-    //console.log("dataOverlay->allCanvasesLoaded xxx2", oCanvases);
-
     return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
-
     if (store.config.settings.debugModus && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
@@ -157,13 +111,6 @@ const DataOverlay = ({ playerCB }) => {
 
     if (dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
       const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
-      // console.log(
-      //   "dataOverlay->showDataMarker",
-      //   e.target,
-      //   allCanvasesLoaded(),
-      //   dataOverlaysEnabled,
-      //   pixelData
-      // );
       setDataMarker(
         <StationMarker
           type="station"
@@ -185,41 +132,20 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const setupDataLayer = e => {
-    //console.log("dataOverlay->setupDataLayer#1 t02");
-
     const overlayCanvases = oCanvases;
     setDirectionOverlay(null);
     if (dataOverlaysEnabled) {
       dataOverlays.forEach(anOverlay => {
-        // console.log("setupDataLayer#2 #i011", {
-        //   overlay: overlay,
-        //   filepaht: anOverlay.filePostfix
-        // });
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
             loaded: false
           };
-          //console.log("setupDataLayer#3 jjj1", anOverlay.type, overlayCanvases[anOverlay.type].loaded);
-          // let overlayFile = overlay
-          //   .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
-          //   .replaceAll(
-          //     "%%FILE%%",
-          //     anOverlay.filePostfix.replaceAll(
-          //       "%%DOMAIN%%",
-          //       anOverlay?.domain || domainId
-          //     )
-          //   );
 
           let overlayFile = store.getOverlayFileName(
             anOverlay.filePostfix,
             anOverlay?.domain
           );
-          // console.log("setupDataLayer xxxx", {
-          //   overlayFile,
-          //   filepaht: anOverlay.filePostfix,
-          //   domainId
-          // });
 
           let img = new Image();
           img.crossOrigin = "anonymous";
@@ -230,11 +156,6 @@ const DataOverlay = ({ playerCB }) => {
           );
 
           img.onload = function () {
-            //console.log("setupDataLayer->onload jjj", anOverlay.type);
-
-            //domPoint?.[0].appendChild(overlayCanvases[anOverlay.type].canvas);
-
-            // data files have 1/2 the size
             overlayCanvases[anOverlay.type].canvas.width =
               this.naturalWidth * 2;
             overlayCanvases[anOverlay.type].canvas.height =
@@ -249,11 +170,8 @@ const DataOverlay = ({ playerCB }) => {
               this.height * 2
             );
             overlayCanvases[anOverlay.type]["loaded"] = true;
-            //console.log("setupDataLayer#3-1 jjj1 direction loaded", anOverlay.type, overlayCanvases, overlayCanvases.filter(canvas => !canvas.loaded));
-            //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
               }
@@ -276,28 +194,18 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const addDirectionIndicators = () => {
-    //console.log("addDirectionIndicators #1", directionOverlay);
     if (!directionOverlay) return;
     const map = parentMap;
     const curZoom = map.getZoom();
     let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    // console.log(
-    //   "addDirectionIndicators #i011",
-    //   curZoom,
-    //   map._layersMinZoom,
-    //   grids
-    // );
     const bounds = store.config.settings.bbox;
     let markers = [];
 
     if (dataOverlaysEnabled) {
       const foundOverlays = dataOverlays.filter(element => {
-        //console.log("addDirectionIndicators eee element", element.type);
         return ["windDirection"].includes(element.type);
       });
-      //console.log("addDirectionIndicators #2 jjj", foundOverlays);
       if (foundOverlays) {
-        //foundOverlays.forEach(anOverlay => {
         const WEST = bounds[0][1];
         const SOUTH = bounds[0][0];
         const EAST = bounds[1][1];
@@ -306,19 +214,14 @@ const DataOverlay = ({ playerCB }) => {
         const DIST_V = (NORTH - SOUTH) / grids;
         let curH = WEST + DIST_H;
 
-        //console.log("addDirectionIndicators eee #3", WEST, DIST_H, curH + "<" + EAST, NORTH);
         while (curH < EAST - 0.001) {
           let curV = SOUTH + DIST_V;
-          //console.log("addDirectionIndicators eee #4", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
           while (curV < NORTH - 0.001) {
-            //console.log("addDirectionIndicators eee #5", WEST, DIST_H, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
-            //console.log("addDirectionIndicators eee #2", self, [curV, curH]);
             const pixelPos = getLayerPixelAtLatLng(directionOverlay, {
               lat: curV,
               lng: curH
             });
             const pixelData = getPixelData(pixelPos);
-            //console.log("addDirectionIndicators eee #5", curH, curV, pixelPos, pixelData);
             markers.push(
               <StationMarker
                 type="grid"
@@ -341,29 +244,14 @@ const DataOverlay = ({ playerCB }) => {
           }
           curH += DIST_H;
         }
-        //});
       }
     }
-    //console.log("addDirectionIndicators eee #6", markers);
     setDirectionMarkers(markers);
   };
-  //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName });
     let overlays = [];
     if (domainId) {
-      //console.log("dataOverlay->render s06", props);
-      //const mapMinZoom = config.map.initOptions.minZoom;
-      //const mapMaxZoom = config.map.initOptions.maxZoom;
-
-      //console.log("overlay->render xxx1:", debug);
-
-      // console.log("dataOverlay->render #1 xxx33", {
-      //   overlay,
-      //   usedDataOverlayFilePostFix
-      // });
-      //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
       overlays.push(
         <ImageOverlay
           key="data-image"
@@ -397,43 +285,30 @@ const DataOverlay = ({ playerCB }) => {
               ? intl.formatMessage({ id: "weathermap:attribution" })
               : null
           }
-          //onClick={()=>console.log('dataOverlay->click')}
           eventHandlers={{
             click: showDataMarker,
             load: e => {
-              //console.log("background jjj", "load", e.target._map);
               setDataMarker(null);
               setDirectionMarkers(null);
-              //console.log("background yyy2", "load");
               setupDataLayer(e);
               e.target._map.on("zoomend", e => {
-                //console.log("onZoomed eee", e);
                 addDirectionIndicators(e);
               });
-              //console.log("dataOverlay background LOADED s07");
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
             error: err => {
-              //console.log("dataOverlay background ERROR s06");
               if (!dataMarker && !directionMarkers) playerCB("background", err);
             }
           }}
           bindPopup
         />
       );
-      // console.log(
-      //   "dataOverlay background s071",
-      //   "loading",
-      //   dataMarker
-      // );
       playerCB("background", "loading");
     }
 
     return overlays;
   }, [domainId, oCanvases]);
-
-  //console.log('dataOverlay->render xxx1', overlays );
 
   return (
     <>
