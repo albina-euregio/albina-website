@@ -312,7 +312,7 @@ const DataOverlay = ({ playerCB }) => {
 
   return (
     <>
-      <style>{css}</style>
+      {store.config.settings.debugModus && <style>{css}</style>}
       {overlays}
       {dataMarker}
       {directionMarkers}
