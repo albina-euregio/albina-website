@@ -31,6 +31,7 @@ const DataOverlay = ({ playerCB }) => {
   const currentTime = useStore(store.currentTime);
   const domainConfig = useStore(store.domainConfig);
   const absTimeSpan = useStore(store.absTimeSpan);
+  const overlayFileName = useStore(store.overlayFileName);
   const dataOverlays = domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
     !domainConfig.layer.stations || currentTime > store.agl;
@@ -144,8 +145,10 @@ const DataOverlay = ({ playerCB }) => {
           };
 
           let overlayFile = store.getOverlayFileName(
+            currentTime,
+            anOverlay?.domain || domainId,
             anOverlay.filePostfix,
-            anOverlay?.domain
+            absTimeSpan
           );
 
           const img = new Image();
@@ -256,7 +259,7 @@ const DataOverlay = ({ playerCB }) => {
           className={["leaflet-image-layer", "map-data-layer", "hide"].join(
             " "
           )}
-          url={store.getOverlayFileName()}
+          url={overlayFileName}
           opacity={1}
           bounds={store.config.settings.bbox}
           attribution={intl.formatMessage({
@@ -274,7 +277,7 @@ const DataOverlay = ({ playerCB }) => {
           key="background-map"
           className={["leaflet-image-layer", "map-info-layer"].join(" ")}
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={store.getOverlayFileName()}
+          url={overlayFileName}
           opacity={1}
           bounds={store.config.settings.bbox}
           interactive={true}
@@ -306,7 +309,7 @@ const DataOverlay = ({ playerCB }) => {
     }
 
     return overlays;
-  }, [domainId, oCanvases, absTimeSpan]);
+  }, [domainId, overlayFileName]);
 
   return (
     <>

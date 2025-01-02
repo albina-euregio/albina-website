@@ -587,24 +587,34 @@ export const initialDate = computed(
   }
 );
 
-export function getOverlayFileName(filePostFix = "", overrideDomainId = "") {
-  filePostFix ||= config.settings.debugModus
-    ? domainConfig.get()?.dataOverlayFilePostFix.debug
-    : domainConfig.get()?.dataOverlayFilePostFix.main;
-  if (currentTime.get()) {
-    let domainVar = overrideDomainId || domainId.get();
-    if (absTimeSpan.get() !== 1) domainVar += "_" + absTimeSpan.get() + "h";
-
-    return (
-      window.config.apis.weather.overlays +
-      (overrideDomainId || domainId.get()) +
-      "/" +
-      dateFormat(currentTime.get(), "%Y-%m-%d_%H-%M", true) +
-      "_" +
-      String(filePostFix).replaceAll("%%DOMAIN%%", domainVar)
-    );
+export const overlayFileName = computed(
+  [currentTime, domainConfig, domainId, absTimeSpan],
+  (currentTime, domainConfig, domainId, absTimeSpan) => {
+    const filePostFix = config.settings.debugModus
+      ? domainConfig?.dataOverlayFilePostFix.debug
+      : domainConfig?.dataOverlayFilePostFix.main;
+    return getOverlayFileName(currentTime, domainId, filePostFix, absTimeSpan);
   }
-  return "";
+);
+
+export function getOverlayFileName(
+  currentTime: Date | null,
+  domainId: DomainId,
+  filePostFix: string | undefined,
+  absTimeSpan: number
+) {
+  if (!currentTime) return "";
+  return (
+    window.config.apis.weather.overlays +
+    domainId +
+    "/" +
+    dateFormat(currentTime, "%Y-%m-%d_%H-%M", true) +
+    "_" +
+    String(filePostFix).replaceAll(
+      "%%DOMAIN%%",
+      absTimeSpan !== 1 ? `${domainId}_${absTimeSpan}h` : domainId
+    )
+  );
 }
 
 /*
