@@ -25,7 +25,7 @@ import { useStore } from "@nanostores/react";
 // }
 
 const Timeline = ({ updateCB }) => {
-  const now = useMemo(() => new Date(), []);
+  const now = new Date();
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpan = Number(timeSpan0.replace(/\D/g, ""), 10);
@@ -136,7 +136,7 @@ const Timeline = ({ updateCB }) => {
       //   currentDate
       // });
     }
-  }, [initialDate]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [initialDate]);
 
   useEffect(() => {
     let intervalId: number;
@@ -157,7 +157,7 @@ const Timeline = ({ updateCB }) => {
         clearInterval(intervalId);
       }
     };
-  }, [playerIsActive]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [playerIsActive]);
 
   useEffect(() => {
     currentDateRef.current = currentDate;
@@ -192,13 +192,13 @@ const Timeline = ({ updateCB }) => {
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
-  }, [timeSpan, targetDate, showBar]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [timeSpan, targetDate, showBar]);
 
   useEffect(() => {
     if (markerRenewed) {
       calcIndicatorOffset();
     }
-  }, [markerPosition]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [markerPosition]);
 
   useEffect(() => {
     // console.log("Timeline->useEffect->markerRenewed #k011", {
@@ -206,7 +206,7 @@ const Timeline = ({ updateCB }) => {
     //   targetDate
     // });
     if (markerRenewed && targetDate) snapToDate(targetDate);
-  }, [markerRenewed]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [markerRenewed]);
 
   useEffect(() => {
     setPlayerIsActive(false);
@@ -236,7 +236,7 @@ const Timeline = ({ updateCB }) => {
         updateCB(currentDate);
       }
     }
-  }, [currentDate]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentDate]);
 
   // ###### functions ######
 
@@ -430,7 +430,7 @@ const Timeline = ({ updateCB }) => {
         <span className="cp-scale-forecast">{markingsForecast}</span>
       </div>
     );
-  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   const updateTimelinePosition = (newTranslateX, snap) => {
     let usedTranslateX = newTranslateX;

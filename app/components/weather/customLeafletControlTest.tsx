@@ -28,7 +28,7 @@ export const CustomLeafletControl = ({
       container.removeEventListener("click", onClick);
       map.controls[config?.position].remove(container);
     };
-  }, [map, config?.position]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [map, config?.position]);
 
   return null; // The actual control is added to the map imperatively in useEffect
 };

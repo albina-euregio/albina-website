@@ -5,7 +5,7 @@ import StationMarker from "../leaflet/station-marker";
 const StationOverlay = props => {
   const [activeMarkerPos, setActiveMarkerPos] = useState(null);
 
-  const [, setSpiderfiedMarkers] = useState(null);
+  const [spiderfiedMarkers, setSpiderfiedMarkers] = useState(null);
 
   useEffect(() => {
     if (props.onLoad) props.onLoad();

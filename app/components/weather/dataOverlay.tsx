@@ -41,7 +41,7 @@ const DataOverlay = ({ playerCB }) => {
 
   useEffect(() => {
     if (directionOverlay) addDirectionIndicators();
-  }, [directionOverlay]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
     const map = overlay._map;
@@ -306,7 +306,7 @@ const DataOverlay = ({ playerCB }) => {
     }
 
     return overlays;
-  }, [domainId, oCanvases, absTimeSpan]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [domainId, oCanvases, absTimeSpan]);
 
   return (
     <>

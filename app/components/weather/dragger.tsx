@@ -19,14 +19,14 @@ const Dragger = ({
     //console.log("Dragger->useEffect s01 x : ", {dragging, coordinates, ref: draggableRef.createElement});
     if (!dragging && coordinates.x && draggableRef.current)
       setCurrentX(coordinates.x);
-  }, [coordinates]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [coordinates]);
 
   useEffect(() => {
     //console.log("Dragger->useEffect-> s04", { currentX, dragging });
     if (!dragging && dragging != null) {
       if (onDragEnd) onDragEnd(currentX, currentY);
     }
-  }, [dragging]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dragging]);
 
   const onDragStart = (event, getXInit, getYInit, getXOnMove, getYOnMove) => {
     event.stopPropagation();
