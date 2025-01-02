@@ -57,7 +57,7 @@ const WeatherStationUplot: React.FC<{
   const intl = useIntl();
   const [data, setData] = useState<uPlot.AlignedData>([[], []]);
   const [unit, setUnit] = useState("");
-  const id = stationData.properties["LWD-Nummer"];
+  const id = stationData.properties?.["LWD-Nummer"] || stationData.id;
   const url = `https://api.avalanche.report/lawine/grafiken/smet/woche/${id}.smet.gz`;
 
   useEffect(() => {

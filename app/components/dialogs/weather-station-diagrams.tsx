@@ -20,7 +20,7 @@ function hasInteractivePlot(station: StationData | ObserverData) {
   return (
     ENABLE_UPLOT &&
     station instanceof StationData &&
-    station.operator?.startsWith?.("LWD Tirol")
+    /LWD Tirol|Südtirol - Alto Adige/.test(station.operator)
   );
 }
 
