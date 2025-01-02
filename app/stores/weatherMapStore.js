@@ -1,12 +1,407 @@
-import { action, observable, makeAutoObservable, set } from "mobx";
+import { action, makeAutoObservable, observable, toJS } from "mobx";
 import { loadStationData } from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
-import { dateFormat, removeMilliseconds } from "../util/date";
+import { dateFormat } from "../util/date";
+
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
-export default class WeatherMapStore_new {
+
+export default class WeatherMapStore {
   constructor(initialDomainId) {
-    this.config = config.weathermaps;
+    this.config = {
+      settings: {
+        timeRange: ["-17520", "+72"],
+        mapOptionsOverride: {
+          maxZoom: 12,
+          minZoom: 7
+        },
+        bbox: [
+          [45.6167, 9.4],
+          [47.8167, 13.0333]
+        ],
+        debugModus: false
+      },
+      domains: {
+        "snow-height": {
+          domainDefault: false,
+          domainIdStart: "-1",
+          item: {
+            timeSpans: ["-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: { "-1": "snow" },
+            updateTimesOffset: { "-1": 1 },
+            units: "cm",
+            thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
+            colors: {
+              1: [255, 255, 254],
+              2: [255, 255, 179],
+              3: [176, 255, 188],
+              4: [140, 255, 255],
+              5: [3, 205, 255],
+              6: [4, 129, 255],
+              7: [3, 91, 190],
+              8: [120, 75, 255],
+              9: [204, 12, 232]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            metaFiles: {
+              agl: "agl.ok",
+              startDate: "startDate.ok"
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
+            dataOverlays: [
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+            ],
+            direction: false,
+            clusterOperation: "max"
+          }
+        },
+        "new-snow": {
+          domainDefault: true,
+          domainIdStart: "+6",
+          item: {
+            timeSpans: ["+6", "+12", "+24", "+48", "+72"],
+            defaultTimeSpan: "+12",
+            timeSpanToDataId: {},
+            updateTimesOffset: { "*": 12 },
+            units: "cm",
+            thresholds: [1, 5, 10, 20, 30, 50, 75, 100],
+            colors: {
+              1: [255, 255, 254],
+              2: [255, 255, 179],
+              3: [176, 255, 188],
+              4: [140, 255, 255],
+              5: [3, 205, 255],
+              6: [4, 129, 255],
+              7: [3, 91, 190],
+              8: [120, 75, 255],
+              9: [204, 12, 232]
+            },
+            layer: {
+              overlay: true,
+              stations: false,
+              grid: false
+            },
+            metaFiles: {
+              agl: "agl.ok",
+              startDate: "startDate.ok"
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
+            dataOverlays: [
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+            ],
+            displayedItems: ["snow6f"],
+            direction: false,
+            clusterOperation: "max"
+          }
+        },
+        "diff-snow": {
+          domainDefault: false,
+          domainIdStart: "+6",
+          item: {
+            timeSpans: ["-6", "-12", "-24", "-48", "-72"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: {
+              "-24": "snow24",
+              "-48": "snow48",
+              "-72": "snow72"
+            },
+            updateTimesOffset: { "*": 24, "-6": 6, "-12": 12 },
+            metaFiles: {
+              startDate: "startDate.ok",
+              agl: "agl_{timespan}h.ok"
+            },
+            units: "cm",
+            thresholds: [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
+            colors: {
+              1: [255, 100, 100],
+              2: [255, 160, 160],
+              3: [255, 210, 210],
+              4: [255, 255, 254],
+              5: [255, 255, 179],
+              6: [176, 255, 188],
+              7: [140, 255, 255],
+              8: [3, 205, 255],
+              9: [4, 129, 255],
+              10: [3, 91, 190],
+              11: [120, 75, 255],
+              12: [204, 12, 232]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V2.gif",
+              debug: "%%DOMAIN%%_V2.png"
+            },
+            dataOverlays: [
+              { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+            ],
+            direction: false,
+            clusterOperation: "max"
+          }
+        },
+        "snow-line": {
+          domainDefault: false,
+          domainIdStart: "+-1",
+          item: {
+            timeSpans: ["+-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: {},
+            updateTimesOffset: { "*": 1 },
+            units: "m",
+            thresholds: [
+              100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200,
+              1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
+              2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400,
+              3500, 9876
+            ],
+            colors: {
+              1: [192, 96, 255],
+              2: [155, 0, 224],
+              3: [128, 0, 255],
+              4: [102, 0, 192],
+              5: [51, 0, 128],
+              6: [0, 0, 192],
+              7: [0, 0, 255],
+              8: [51, 153, 255],
+              9: [128, 204, 255],
+              10: [128, 255, 255],
+              11: [0, 255, 192],
+              12: [0, 255, 128],
+              13: [0, 228, 0],
+              14: [0, 192, 0],
+              15: [0, 155, 0],
+              16: [0, 128, 0],
+              17: [96, 155, 0],
+              18: [155, 155, 0],
+              19: [192, 155, 0],
+              20: [192, 192, 0],
+              21: [192, 224, 0],
+              22: [192, 255, 0],
+              23: [255, 255, 0],
+              24: [255, 192, 0],
+              25: [255, 155, 0],
+              26: [255, 128, 0],
+              27: [255, 0, 0],
+              28: [224, 0, 0],
+              29: [192, 0, 0],
+              30: [176, 0, 0],
+              31: [128, 0, 0],
+              32: [153, 0, 102],
+              33: [192, 0, 102],
+              34: [204, 0, 102],
+              35: [204, 0, 92],
+              36: [204, 0, 92]
+            },
+            layer: {
+              overlay: true,
+              stations: false,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V3.gif",
+              debug: "%%DOMAIN%%_V3.png"
+            },
+            dataOverlays: [
+              { filePostfix: "%%DOMAIN%%_V3.png", type: "snowLine" }
+            ],
+            direction: false,
+            clusterOperation: "max",
+            metaFiles: {
+              startDate: "startDate.ok",
+              agl: "c-laef_agl.ok"
+            },
+            timeRange: ["-17520", "+60"]
+          }
+        },
+        temp: {
+          domainDefault: false,
+          domainIdStart: "+-1",
+          item: {
+            timeSpans: ["+-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: { "+-1": "temp" },
+            updateTimesOffset: { "*": 1 },
+            units: "\u00b0C",
+            thresholds: [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+            colors: {
+              1: [159, 128, 255],
+              2: [120, 75, 255],
+              3: [3, 91, 190],
+              4: [4, 129, 255],
+              5: [3, 205, 255],
+              6: [140, 255, 255],
+              7: [176, 255, 188],
+              8: [255, 255, 103],
+              9: [255, 190, 130],
+              10: [255, 154, 53],
+              11: [255, 85, 54],
+              12: [255, 5, 5],
+              13: [250, 55, 150]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "%%DOMAIN%%_V3.gif",
+              debug: "%%DOMAIN%%_V3.png"
+            },
+            dataOverlays: [
+              { filePostfix: "%%DOMAIN%%_V3.png", type: "temperature" }
+            ],
+            direction: false,
+            clusterOperation: "min",
+            metaFiles: {
+              startDate: "startDate.ok",
+              agl: "c-laef_agl.ok"
+            },
+            timeRange: ["-17520", "+60"]
+          }
+        },
+        wind: {
+          domainDefault: false,
+          domainIdStart: "+-1",
+          item: {
+            timeSpans: ["+-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: { "+-1": "wspd" },
+            updateTimesOffset: { "*": 1 },
+            units: "km/h",
+            thresholds: [5, 10, 20, 40, 60, 80],
+            colors: {
+              1: [255, 255, 100],
+              2: [200, 255, 100],
+              3: [150, 255, 150],
+              4: [50, 200, 255],
+              5: [100, 150, 255],
+              6: [150, 100, 255],
+              7: [255, 50, 50]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "wind_V3.gif",
+              debug: "wind_V3.png"
+            },
+            dataOverlays: [
+              { filePostfix: "wind_V3.png", type: "windSpeed" },
+              { filePostfix: "wind-dir_V3.png", type: "windDirection" }
+            ],
+            direction: "wdir",
+            clusterOperation: "max",
+            metaFiles: {
+              startDate: "startDate.ok",
+              agl: "c-laef_agl.ok"
+            },
+            timeRange: ["-17520", "+60"]
+          }
+        },
+        gust: {
+          domainDefault: false,
+          domainIdStart: "+-1",
+          item: {
+            timeSpans: ["+-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: { "+-1": "gust" },
+            updateTimesOffset: { "*": 1 },
+            units: "km/h",
+            thresholds: [5, 10, 20, 40, 60, 80],
+            colors: {
+              1: [255, 255, 100],
+              2: [200, 255, 100],
+              3: [150, 255, 150],
+              4: [50, 200, 255],
+              5: [100, 150, 255],
+              6: [150, 100, 255],
+              7: [255, 50, 50]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "gust_V3.gif",
+              debug: "gust_V3.png"
+            },
+            dataOverlays: [
+              { filePostfix: "gust_V3.png", type: "windSpeed" },
+              {
+                filePostfix: "wind-dir_V3.png",
+                domain: "wind",
+                type: "windDirection"
+              }
+            ],
+            direction: "wdir",
+            clusterOperation: "max",
+            metaFiles: {
+              startDate: "../wind/startDate.ok",
+              agl: "c-laef_agl.ok"
+            },
+            timeRange: ["-17520", "+60"]
+          }
+        },
+        wind700hpa: {
+          domainDefault: false,
+          domainIdStart: "+-1",
+          item: {
+            timeSpans: ["+-1"],
+            defaultTimeSpan: null,
+            timeSpanToDataId: { "+-1": "wind700hpa" },
+            updateTimesOffset: { "*": 1 },
+            units: "km/h",
+            thresholds: [5, 10, 20, 40, 60, 80],
+            colors: {
+              1: [255, 255, 100],
+              2: [200, 255, 100],
+              3: [150, 255, 150],
+              4: [50, 200, 255],
+              5: [100, 150, 255],
+              6: [150, 100, 255],
+              7: [255, 50, 50]
+            },
+            layer: {
+              overlay: true,
+              stations: true,
+              grid: false
+            },
+            dataOverlayFilePostFix: {
+              main: "wind700hpa.gif",
+              debug: "wind700hpa.png"
+            },
+            dataOverlays: [
+              { filePostfix: "wind700hpa.png", type: "windSpeed" },
+              { filePostfix: "wind-dir700hpa.png", type: "windDirection" }
+            ],
+            direction: "wdir",
+            clusterOperation: "max",
+            metaFiles: {
+              startDate: "../wind/startDate.ok",
+              agl: "c-laef_agl.ok"
+            },
+            timeRange: ["-17520", "+60"]
+          }
+        }
+      }
+    };
     this.stations = null;
     this.grid = null;
     this._domainId = observable.box(false);
@@ -56,13 +451,13 @@ export default class WeatherMapStore_new {
     const configDefaultDomainId = Object.keys(this.config.domains).find(
       domainKey => this.config.domains[domainKey].domainDefault
     );
-    if (!initialDomainId || initialDomainId == "false") {
+    if (!initialDomainId || initialDomainId === "false") {
       initialDomainId = configDefaultDomainId;
     }
     this.changeDomain(initialDomainId);
   }
 
-  /* 
+  /*
     get data
   */
   _loadDomainData() {
@@ -79,7 +474,10 @@ export default class WeatherMapStore_new {
 
     const fetchDate = async url => {
       const response = await fetch(url);
-      if (!response.ok) throw Error(response.statusText);
+      if (!response.ok) {
+        //throw Error(response.statusText);
+        return new Date();
+      }
       this.lastUpdateTime = response.headers.get("last-modified");
       const date = await response.text();
       return date.includes("T") ? new Date(date.trim()).getTime() : undefined;
@@ -90,12 +488,12 @@ export default class WeatherMapStore_new {
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
-          this.getMetaFile("agl")
+          this.domainConfig.metaFiles?.startDate
       ).then(
         action(retrievedDate => {
           this._dateStart = SIMULATE_START
             ? new Date(SIMULATE_START)
-            : new Date(retrievedDate) ?? this._dateStart;
+            : new Date(retrievedDate);
           //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._dateStart, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       ),
@@ -103,12 +501,15 @@ export default class WeatherMapStore_new {
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
-          this.getMetaFile("startDate")
+          this.domainConfig.metaFiles?.agl.replace(
+            "{timespan}",
+            this._absTimeSpan
+          )
       ).then(
         action(retrievedDate => {
           this._agl = SIMULATE_START
             ? new Date(SIMULATE_START)
-            : new Date(retrievedDate) ?? this._agl;
+            : new Date(retrievedDate);
           //console.log("weathermapStore->loadOverlay->startDate loaded #i011", {retrievedDate, dateStartgl: this._agl, usedVar: (SIMULATE_START ? new Date(SIMULATE_START) : new Date(retrievedDate) ?? this._dateStart)});
         })
       )
@@ -135,7 +536,7 @@ export default class WeatherMapStore_new {
       });
   }
 
-  /* 
+  /*
     get data for currentTime
   */
   _loadIndexData() {
@@ -196,23 +597,6 @@ export default class WeatherMapStore_new {
   get lastUpdateTime() {
     //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
     return this._lastDataUpdate;
-  }
-
-  /*
-    returns metafile
-  */
-  getMetaFile(type) {
-    let foundDef;
-    if (type === "agl")
-      foundDef =
-        this.domainConfig.metaFiles?.startDate ||
-        this.config.settings.metaFiles.startDate;
-    if (type === "startDate")
-      foundDef =
-        this.domainConfig.metaFiles?.startDate ||
-        this.config.settings.metaFiles.startDate;
-
-    return foundDef.replace("{timespan}", this._absTimeSpan);
   }
 
   /*
@@ -277,27 +661,61 @@ export default class WeatherMapStore_new {
     returns the start date for history information
   */
   get startDate() {
-    //console.log("startDate", this._dateStart, (this._dateStart * 10) / 10);
-    let usedDate = new Date(this._dateStart);
+    return this._dateStart;
+  }
 
-    // if (this._absTimeSpan === 12) {
-    //   const currentHours = usedDate.getUTCHours();
-    //   if ([6, 18].includes(currentHours))
-    //     usedDate.setUTCHours(usedDate.getUTCHours() - 6);
-    // }
-    // if (this._absTimeSpan % 24 === 0) {
-    //   const currentHours = usedDate.getUTCHours();
-    //   if ([12].includes(currentHours))
-    //     usedDate.setUTCHours(usedDate.getUTCHours() - 12);
-    // }
-    // console.log("weathermapStore->startDate #44", {
-    //   startDate: new Date(this._dateStart).toISOString(),
-    //   usedDate: usedDate.toISOString()
-    // });
+  get startTime() {
+    const startTime = new Date(this.startDate);
+    startTime.setUTCHours(startTime.getUTCHours() + +this.timeRange[0]);
+    return startTime;
+  }
 
-    return this._dateStart
-      ? this._dateStart.setDate(usedDate.getDate())
-      : usedDate;
+  get endTime() {
+    const endTime = new Date(this.agl);
+
+    // fix startdate hours after possible timespan change
+    const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
+    if (timeSpan === 12 && [6, 18].includes(endTime.getUTCHours())) {
+      endTime.setUTCHours(endTime.getUTCHours() - 6);
+    }
+    if (timeSpan % 24 === 0 && [12].includes(endTime.getUTCHours())) {
+      endTime.setUTCHours(endTime.getUTCHours() - 12);
+    }
+    if (this.timeSpan.includes("+")) {
+      endTime.setUTCHours(endTime.getUTCHours() + +this.timeRange[1]);
+    }
+    return endTime;
+  }
+
+  get initialDate() {
+    const currentTime = new Date(this.currentTime);
+    const endTime = new Date(this.endTime);
+    const initialDate =
+      currentTime.getTime() > endTime.getTime() ? endTime : currentTime;
+
+    // fix initdate hours after possible timespan change
+    const timeSpan = Number(this.timeSpan.replace(/\D/g, ""), 10);
+    if (timeSpan === 12 && [6, 18].includes(initialDate.getUTCHours())) {
+      initialDate.setUTCHours(initialDate.getUTCHours() - 6);
+    }
+    if (
+      timeSpan % 24 === 0 &&
+      [6, 12, 18].includes(initialDate.getUTCHours())
+    ) {
+      initialDate.setUTCHours(
+        initialDate.getUTCHours() - initialDate.getUTCHours()
+      );
+    }
+    return initialDate;
+  }
+
+  /*
+    returns timeRange
+  */
+  get timeRange() {
+    const range =
+      this.domainConfig?.timeRange || this.config.settings?.timeRange;
+    return toJS(range);
   }
 
   /*
@@ -320,32 +738,41 @@ export default class WeatherMapStore_new {
     return Math.abs(parseInt(tempTimeSpan, 10));
   }
 
-  /*
-    returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
-  */
-  get overlayFileName() {
-    // console.log(
-    //   "weatherMapStore_new overlayFileName: ",
-    //   this._domainId.get(),
-    //   this._timeSpan.get()
-    // );
+  getOverlayFileName(filePostFix, overrideDomainId) {
+    // console.log("weatherMapStore_new overlayFileName: #1 ", {
+    //   self: this,
+    //   filePostFix,
+    //   domainId: this?._domainId.get(),
+    //   timespan: this?._timeSpan.get(),
+    //   currentTime: this?._currentTime.get()
+    // });
 
-    if (this._currentTime.get()) {
+    if (this?._currentTime.get()) {
       // console.log("weatherMapStore_new overlayFileName:#1 ", {
       //   currentTime: this._currentTime.get()
       // });
 
-      return (
+      let domainVar = overrideDomainId || this._domainId.get();
+      if (this._absTimeSpan !== 1) domainVar += "_" + this._absTimeSpan + "h";
+
+      // console.log("weatherMapStore_new overlayFileName: #2 ", {
+      //   domainId: this._domainId.get(),
+      //   domainVar,
+      //   fileVar
+      // });
+      const res =
         config.apis.weather.overlays +
-        this._domainId.get() +
+        (overrideDomainId || this._domainId.get()) +
         "/" +
         dateFormat(this._currentTime.get(), "%Y-%m-%d_%H-%M", true) +
         "_" +
-        this._domainId.get() +
-        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
-      );
+        String(filePostFix).replaceAll("%%DOMAIN%%", domainVar);
+      // console.log("weatherMapStore_new overlayFileName: #3 ", {
+      //   res
+      // });
+      return res;
     }
-    return false;
+    return "";
   }
 
   /*
@@ -570,7 +997,7 @@ export default class WeatherMapStore_new {
     //   this.domainConfig
     // );
     if (
-      timeSpan != this._timeSpan.get() &&
+      timeSpan !== this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
       //this._timeIndex.set(null);
@@ -591,7 +1018,8 @@ export default class WeatherMapStore_new {
     //   oldDate: new Date(this._currentTime.get())
     // });
     if (
-      new Date(newTime).getTime() != new Date(this._currentTime.get()).getTime()
+      new Date(newTime).getTime() !==
+      new Date(this._currentTime.get()).getTime()
     ) {
       this._currentTime.set(newTime);
     }

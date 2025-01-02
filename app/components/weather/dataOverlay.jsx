@@ -15,30 +15,14 @@ const css = `
       filter: contrast(20);
     }
 `;
-const DataOverlay = ({
-  overlay,
-  dataOverlays,
-  item,
-  rgbToValue,
-  debug,
-  dataOverlaysEnabled,
-  playerCB,
-  currentTime,
-  dataOverlayFilePostFix
-}) => {
+
+/**
+ * @param store {WeatherMapStore}
+ */
+const DataOverlay = ({ store, playerCB }) => {
   const intl = useIntl();
 
-  // console.log('dataOverlay->start xxx1', {
-  //   overlay,
-  //   dataOverlays,
-  //   item,
-  //   rgbToValue,
-  //   debug,
-  //   dataOverlaysEnabled,
-  //   playerCB,
-  //   currentTime,
-  //   dataOverlayFilePostFix
-  // });
+  //console.log("dataOverlay->start xxx1", overlay);
 
   const parentMap = useMap();
 
@@ -49,9 +33,21 @@ const DataOverlay = ({
   const [oCanvases, setOCanvases] = useState({});
   const [lastUpdateOverlays, setLastUpdateOverlays] = useState({});
 
+  const domainId = store.domainId;
+  const currentTime = store.currentTime;
+  const dataOverlayFilePostFix = store.domainConfig?.dataOverlayFilePostFix;
+  const dataOverlays = store.domainConfig?.dataOverlays;
+  const dataOverlaysEnabled =
+    !store.domainConfig.layer.stations || store.currentTime > store.agl;
+  const rgbToValue = store.valueForPixel;
+  const item = store.item;
+  const debug = store.config.settings.debugModus;
+  const grid = store.grid;
+  const stations = store.stations;
+
   useEffect(() => {
     setOCanvases({});
-  }, [overlay]);
+  }, [domainId, currentTime]);
 
   useEffect(() => {
     if (directionOverlay) addDirectionIndicators();
@@ -161,7 +157,7 @@ const DataOverlay = ({
   };
 
   const showDataMarker = e => {
-    //console.log('dataOverlay->showDataMarker', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
+    //console.log('dataOverlay->showDataMarker #i011', {debug, ctrlKey: e.originalEvent.ctrlKey, overlays: document.getElementsByClassName("map-data-layer")} );
 
     if (debug && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
@@ -206,13 +202,36 @@ const DataOverlay = ({
     setDirectionOverlay(null);
     if (dataOverlaysEnabled) {
       dataOverlays.forEach(anOverlay => {
-        //console.log("setupDataLayer#2 yyy2", {overlay: overlay, filepaht: anOverlay.filePostfix});
+        // console.log("setupDataLayer#2 #i011", {
+        //   overlay: overlay,
+        //   filepaht: anOverlay.filePostfix
+        // });
         if (!overlayCanvases[anOverlay.type]) {
           overlayCanvases[anOverlay.type] = {
             canvas: document.createElement("canvas"),
             loaded: false
           };
           //console.log("setupDataLayer#3 jjj1", anOverlay.type, overlayCanvases[anOverlay.type].loaded);
+          // let overlayFile = overlay
+          //   .replaceAll("%%DOMAIN%%", anOverlay?.domain || domainId)
+          //   .replaceAll(
+          //     "%%FILE%%",
+          //     anOverlay.filePostfix.replaceAll(
+          //       "%%DOMAIN%%",
+          //       anOverlay?.domain || domainId
+          //     )
+          //   );
+
+          let overlayFile = store.getOverlayFileName(
+            anOverlay.filePostfix,
+            anOverlay?.domain
+          );
+          // console.log("setupDataLayer xxxx", {
+          //   overlayFile,
+          //   filepaht: anOverlay.filePostfix,
+          //   domainId
+          // });
+
           let img = new Image();
           img.crossOrigin = "anonymous";
           overlayCanvases[anOverlay.type].canvas.ctx =
@@ -245,15 +264,14 @@ const DataOverlay = ({
             //console.log("dataOverlay->setupDataLayer xxx2", overlayCanvases);
 
             if (allCanvasesLoaded()) {
-              //console.log("setupDataLayer #4 ALL LOADED S06", {overlayCanvaseswind: overlayCanvases["windDirection"]});
+              //console.log("setupDataLayer #4 ALL LOADED S06", playerCB);
               if (overlayCanvases["windDirection"]) {
                 setDirectionOverlay(e.target);
               }
               playerCB("background", "load");
             }
           };
-          //console.log("setupDataLayer xxxx", {overlayFile, filepaht: anOverlay.filePostfix});
-          let overlayFile = overlay + anOverlay.filePostfix;
+
           if (anOverlay.fixPath)
             overlayFile = overlayFile.replace(
               RegExp(anOverlay.fixPath.find, "g"),
@@ -274,8 +292,13 @@ const DataOverlay = ({
     const map = parentMap;
     const curZoom = map.getZoom();
     let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    //console.log("addDirectionIndicators jjj", curZoom, map._layersMinZoom, grids);
-    const bounds = config.weathermaps.settings.bbox;
+    // console.log(
+    //   "addDirectionIndicators #i011",
+    //   curZoom,
+    //   map._layersMinZoom,
+    //   grids
+    // );
+    const bounds = store.config.settings.bbox;
     let markers = [];
 
     if (dataOverlaysEnabled) {
@@ -338,85 +361,89 @@ const DataOverlay = ({
   //console.log('dataOverlay->render #1 xxx1');
 
   const overlays = useMemo(() => {
-    //console.log("dataOverlay->useMemo t02", dataMarker);
+    //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName });
     let overlays = [];
-    if (overlay) {
+    if (domainId) {
       //console.log("dataOverlay->render s06", props);
       //const mapMinZoom = config.map.initOptions.minZoom;
       //const mapMaxZoom = config.map.initOptions.maxZoom;
 
       //console.log("overlay->render xxx1:", debug);
-      if (overlay) {
-        if (debug)
-          overlays.push(
-            <ImageOverlay
-              key="data-image"
-              className={["leaflet-image-layer", "map-data-layer", "hide"].join(
-                " "
-              )}
-              url={overlay + dataOverlayFilePostFix.debug}
-              opacity={1}
-              bounds={config.weathermaps.settings.bbox}
-              attribution={intl.formatMessage({
-                id: "weathermap:attribution"
-              })}
-              eventHandlers={{
-                click: showDataMarker.bind(this)
-              }}
-              interactive={true}
-            />
-          );
-        overlays.push(
-          <ImageOverlay
-            key="background-map"
-            className={["leaflet-image-layer", "map-info-layer"].join(" ")}
-            style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-            url={overlay + dataOverlayFilePostFix.main}
-            opacity={1}
-            bounds={config.weathermaps.settings.bbox}
-            interactive={true}
-            attribution={
-              debug
-                ? intl.formatMessage({ id: "weathermap:attribution" })
-                : null
+
+      // console.log("dataOverlay->render #1 xxx33", {
+      //   overlay,
+      //   usedDataOverlayFilePostFix
+      // });
+      let usedDataOverlayFilePostFix = debug
+        ? dataOverlayFilePostFix?.debug
+        : dataOverlayFilePostFix.main;
+      //console.log("dataOverlay->useMemo t02", { domainId, getOverlayFileName, url: getOverlayFileName(usedDataOverlayFilePostFix) });
+      overlays.push(
+        <ImageOverlay
+          key="data-image"
+          className={["leaflet-image-layer", "map-data-layer", "hide"].join(
+            " "
+          )}
+          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          opacity={1}
+          bounds={store.config.settings.bbox}
+          attribution={intl.formatMessage({
+            id: "weathermap:attribution"
+          })}
+          eventHandlers={{
+            click: showDataMarker.bind(this)
+          }}
+          interactive={true}
+        />
+      );
+
+      overlays.push(
+        <ImageOverlay
+          key="background-map"
+          className={["leaflet-image-layer", "map-info-layer"].join(" ")}
+          style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+          url={store.getOverlayFileName(usedDataOverlayFilePostFix)}
+          opacity={1}
+          bounds={store.config.settings.bbox}
+          interactive={true}
+          attribution={
+            debug ? intl.formatMessage({ id: "weathermap:attribution" }) : null
+          }
+          //onClick={()=>console.log('dataOverlay->click')}
+          eventHandlers={{
+            click: showDataMarker,
+            load: e => {
+              //console.log("background jjj", "load", e.target._map);
+              setDataMarker(null);
+              setDirectionMarkers(null);
+              //console.log("background yyy2", "load");
+              setupDataLayer(e);
+              e.target._map.on("zoomend", e => {
+                //console.log("onZoomed eee", e);
+                addDirectionIndicators(e);
+              });
+              //console.log("dataOverlay background LOADED s07");
+              if (!dataMarker && !directionMarkers)
+                playerCB("background", "load");
+            },
+            error: err => {
+              //console.log("dataOverlay background ERROR s06");
+              if (!dataMarker && !directionMarkers) playerCB("background", err);
             }
-            //onClick={()=>console.log('dataOverlay->click')}
-            eventHandlers={{
-              click: showDataMarker,
-              load: e => {
-                //console.log("background jjj", "load", e.target._map);
-                setDataMarker(null);
-                setDirectionMarkers(null);
-                //console.log("background yyy2", "load");
-                setupDataLayer(e);
-                e.target._map.on("zoomend", e => {
-                  //console.log("onZoomed eee", e);
-                  addDirectionIndicators(e);
-                });
-                //console.log("dataOverlay background LOADED s07");
-                if (!dataMarker && !directionMarkers)
-                  playerCB("background", "load");
-              },
-              error: err => {
-                //console.log("dataOverlay background ERROR s06");
-                if (!dataMarker && !directionMarkers)
-                  playerCB("background", err);
-              }
-            }}
-            bindPopup
-          />
-        );
-        // console.log(
-        //   "dataOverlay background s071",
-        //   "loading",
-        //   dataMarker
-        // );
-        playerCB("background", "loading");
-      }
+          }}
+          bindPopup
+        />
+      );
+      // console.log(
+      //   "dataOverlay background s071",
+      //   "loading",
+      //   dataMarker
+      // );
+      playerCB("background", "loading");
     }
 
     return overlays;
-  }, [overlay, oCanvases]);
+  }, [domainId, oCanvases]);
 
   //console.log('dataOverlay->render xxx1', overlays );
 

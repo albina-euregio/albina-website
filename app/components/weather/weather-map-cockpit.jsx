@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -13,9 +13,9 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
-  wind: "icon-wind"
-  //windgust: "icon-wind-gust"
-  //wind700hpa: "icon-wind-high"
+  wind: "icon-wind",
+  gust: "icon-wind-gust",
+  wind700hpa: "icon-wind-high"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -24,9 +24,9 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
-  wind: "cp-legend-wind"
-  //windgust: "cp-legend-windgust"
-  //wind700hpa: "cp-legend-windhigh"
+  wind: "cp-legend-wind",
+  gust: "cp-legend-windgust",
+  wind700hpa: "cp-legend-windhigh"
 };
 
 const DOMAIN_UNITS = {
@@ -35,25 +35,24 @@ const DOMAIN_UNITS = {
   "diff-snow": "cm",
   "snow-line": "m",
   temp: "°C",
-  wind: "km/h"
-  //windgust: "km/h"
-  //windhigh: "km/h"
+  wind: "km/h",
+  gust: "km/h",
+  wind700hpa: "km/h"
 };
 
 const LOOP = false;
 
-const WeatherMapCockpit = ({
-  timeSpan,
-  startDate,
-  currentTime,
-  domainId,
-  eventCallback,
-  changeCurrentTime,
-  storeConfig,
-  nextUpdateTime,
-  lastUpdateTime
-}) => {
+/**
+ * @param store {WeatherMapStore}
+ */
+const WeatherMapCockpit = ({ store }) => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+  const storeConfig = store.config;
+  const domainId = store.domainId;
+  const timeSpan = store.timeSpan;
+  const changeCurrentTime = store.changeCurrentTime.bind(store);
+  const nextUpdateTime = store.nextUpdateTime;
+  const lastUpdateTime = store.lastUpdateTime;
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -80,11 +79,20 @@ const WeatherMapCockpit = ({
   };
 
   const handleEvent = (type, value) => {
-    if (typeof eventCallback === "function") {
-      const body = document?.querySelector("body");
-      if (body?.classList?.contains("layer-selector-open"))
-        body.classList.remove("layer-selector-open");
-      eventCallback(type, value);
+    const body = document?.querySelector("body");
+    body.classList.remove("layer-selector-open");
+    switch (type) {
+      case "domain":
+        store.changeDomain(value);
+        break;
+      case "timeSpan":
+        store.changeTimeSpan(value);
+        break;
+      case "time":
+        store.changeCurrentTime(value);
+        break;
+      default:
+        break;
     }
   };
 
@@ -134,33 +142,27 @@ const WeatherMapCockpit = ({
   };
 
   const getTimeSpanOptions = () => {
-    let buttons = [];
     let allButtons;
     //console.log("getTimeSpanOptions 777", props);
     if (storeConfig?.domains?.[domainId]) {
       let domainConfig = storeConfig.domains[domainId].item;
 
-      let firstNrOnlyTimespan = domainConfig.timeSpans[0].replace(/\D/g, "");
-
-      domainConfig.timeSpans.forEach(aItem => {
+      const buttons = domainConfig.timeSpans.map(aItem => {
         let nrOnlyTimespan = aItem.replace(/\D/g, "");
-        let linkClasses = ["cp-range-" + nrOnlyTimespan];
-        if (timeSpan === aItem) linkClasses.push("js-active");
-
-        buttons.push(
+        return (
           <a
             role="button"
             tabIndex="0"
             key={aItem}
             onClick={() => handleEvent("timeSpan", aItem)}
-            className={linkClasses.join(" ")}
+            className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
           >
             {nrOnlyTimespan}h
           </a>
         );
       });
 
-      if (firstNrOnlyTimespan != "1")
+      if (buttons.length > 1)
         allButtons = (
           <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
             {buttons}
@@ -188,7 +190,7 @@ const WeatherMapCockpit = ({
                 .classList.toggle("layer-selector-open");
             }}
           >
-            <div className="layer-select icon-snow">
+            <div className={"layer-select " + DOMAIN_ICON_CLASSES[domainId]}>
               <span className="layer-select-text">
                 <span className="layer-select-name">
                   {
@@ -288,53 +290,13 @@ const WeatherMapCockpit = ({
     );
   };
 
-  //console.log("weather-map-cockpit->render hhhh", currentTime);
+  //console.log("weather-map-cockpit->render hhhh", {currentTime, timeRange, startDate, timeSpan, lastRedraw});
   let classes = [
     "map-cockpit",
     "weather-map-cockpit",
     "lastRedraw-" + lastRedraw
   ];
 
-  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
-  // const firstHour = new Date(startDate);
-  // firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
-
-  const imgRoot = `${window.config.projectRoot}images/pro/`;
-
-  let fixedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-
-  // fix startdate hours after possible timespan change
-  const currentHoursFixedStartTime = fixedStartTime.getUTCHours();
-  if (absSpan === 12 && [6, 18].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 6);
-  }
-  if (absSpan % 24 === 0 && [12].includes(currentHoursFixedStartTime)) {
-    fixedStartTime.setUTCHours(fixedStartTime.getUTCHours() - 12);
-  }
-  let usedStartTime = new Date(fixedStartTime) || null;
-  usedStartTime.setDate(usedStartTime.getDate() - 730);
-  let usedEndTime = new Date(fixedStartTime) || null;
-  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
-
-  let analysesEndTs = new Date(startDate);
-
-  // fix initdate hours after possible timespan change
-  let usedInitialDate = new Date(currentTime);
-  if (
-    usedEndTime &&
-    new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
-  )
-    usedInitialDate = new Date(usedEndTime);
-
-  const initialDateHours = usedInitialDate.getUTCHours();
-  if (absSpan === 12 && [6, 18].includes(initialDateHours)) {
-    usedInitialDate.setUTCHours(usedInitialDate.getUTCHours() - 6);
-  }
-  if (absSpan % 24 === 0 && [6, 12, 18].includes(initialDateHours)) {
-    usedInitialDate.setUTCHours(
-      usedInitialDate.getUTCHours() - initialDateHours
-    );
-  }
   // console.log("weather-map-cockpit->render #j01", {
   //   //absSpan,
   //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
@@ -360,22 +322,11 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          {startDate && (
-            <Timeline
-              key="cp-timeline"
-              domainId={domainId}
-              timeSpan={absSpan}
-              barDuration={absSpan}
-              markerPosition={absSpan > 24 ? "75%" : "50%"}
-              showBar={absSpan > 1}
-              analysesEndTs={analysesEndTs?.toISOString()}
-              initialDateTs={usedInitialDate.toISOString()}
-              startTimeTs={usedStartTime.toISOString()}
-              endTimeTs={usedEndTime.toISOString()}
-              //firstHour={firstHour?.getUTCHours()}
-              updateCB={onTimelineUpdate}
-            />
-          )}
+          <Timeline
+            key="cp-timeline"
+            store={store}
+            updateCB={onTimelineUpdate}
+          />
         </div>
 
         {getTimeSpanOptions()}

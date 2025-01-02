@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
+import $, { data } from "jquery";
 
 import { observer } from "mobx-react";
 import { useIntl } from "../i18n";
@@ -57,25 +57,14 @@ const Weather = () => {
     store.changeDomain(params.domain);
   }, [params.domain]);
 
-  const handleClickCockpitEvent = (type, value) => {
-    //console.log("handleClickCockpitEvent 777", type, value);
+  // console.log("weather->render #i011", {
+  //   domainId: store.domainId,
+  //   dataOverlays: store.domainConfig.dataOverlays,
+  //   overlaysEnabled: !store.domainConfig.layer.stations || store.currentTime > store.agl,
+  //   agl: store.agl,
+  //   currentTime: store.currentTime
 
-    switch (type) {
-      case "domain":
-        store.changeDomain(value);
-        break;
-      case "timeSpan":
-        store.changeTimeSpan(value);
-        break;
-      case "time":
-        store.changeCurrentTime(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  //console.log("weather->render #i011", {currentTime: store.currentTime, agl: store.agl, dateStart: store.startDate});
+  // });
   return (
     <>
       <WeatherStationDialog
@@ -93,63 +82,21 @@ const Weather = () => {
         id="section-weather-map"
         className="section section-weather-map section-weather-map-cockpit"
       >
-        {
-          /*store.domainId*/ true && (
-            <div className="section-map">
-              <WeatherMap
-                domainId={store.domainId}
-                domain={store.domain}
-                timeArray={store.availableTimes}
-                currentTime={store.currentTime}
-                startDate={store.startDate}
-                overlay={store.overlayFileName}
-                dataOverlayFilePostFix={
-                  store.config.settings.dataOverlayFilePostFix
-                }
-                dataOverlays={store.domainConfig.dataOverlays}
-                stationDataId={
-                  store.domainConfig.timeSpanToDataId[store.timeSpan]
-                }
-                dataOverlaysEnabled={
-                  !store.domainConfig.layer.stations ||
-                  store.currentTime > store.agl
-                }
-                rgbToValue={store.valueForPixel}
-                item={store.item}
-                debug={store.config.settings.debugModus}
-                grid={store.grid}
-                stations={!playing && store.stations}
-                playerCB={player.onLayerEvent}
-                isPlaying={playing}
-                selectedFeature={store.selectedFeature}
-                onMarkerSelected={feature => setStationId(feature?.id)}
-                onViewportChanged={() => {}}
-              />
-              {store.selectedFeature && (
-                <FeatureInfo feature={store.selectedFeature} />
-              )}
-              <WeatherMapCockpit
-                key="cockpit"
-                startDate={store.startDate}
-                agl={store.agl}
-                storeConfig={store.config}
-                domainId={store.domainId}
-                timeSpan={store.timeSpan}
-                changeCurrentTime={store.changeCurrentTime.bind(store)}
-                currentTime={store.currentTime}
-                nextUpdateTime={store.nextUpdateTime}
-                lastUpdateTime={store.lastUpdateTime}
-                eventCallback={handleClickCockpitEvent.bind(this)}
-                nextTime={() => {
-                  store.changeCurrentTime(store.nextTime);
-                }}
-                previousTime={() => {
-                  store.changeCurrentTime(store.previousTime);
-                }}
-              />
-            </div>
-          )
-        }
+        {store.domainId && (
+          <div className="section-map">
+            <WeatherMap
+              store={store}
+              playerCB={player.onLayerEvent}
+              isPlaying={playing}
+              onMarkerSelected={feature => setStationId(feature?.id)}
+              onViewportChanged={() => {}}
+            />
+            {store.selectedFeature && (
+              <FeatureInfo feature={store.selectedFeature} />
+            )}
+            <WeatherMapCockpit key="cockpit" store={store} />
+          </div>
+        )}
       </section>
       <SmShare />
     </>

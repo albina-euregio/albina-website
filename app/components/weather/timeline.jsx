@@ -1,41 +1,32 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
-import { FormattedDate } from "../../i18n";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import { FormattedMessage, useIntl } from "../../i18n";
-import { init } from "@sentry/browser";
+import { dateFormat } from "../../util/date";
+import { observer } from "mobx-react";
 
-function useChangedProps(props) {
-  const prev = useRef(props);
+// function useChangedProps(props) {
+//   const prev = useRef(props);
+//
+//   useEffect(() => {
+//     Object.entries(props).forEach(([key, value]) => {
+//       if (prev.current[key] !== value) {
+//         // console.log(
+//         //   `#j012 Prop '${key}' changed from:`,
+//         //   prev.current[key],
+//         //   "to:",
+//         //   value
+//         // );
+//       }
+//     });
+//
+//     prev.current = { ...props }; // Important: create a new object to store previous values
+//   }, [props]);
+// }
 
-  useEffect(() => {
-    Object.entries(props).forEach(([key, value]) => {
-      if (prev.current[key] !== value) {
-        // console.log(
-        //   `#j012 Prop '${key}' changed from:`,
-        //   prev.current[key],
-        //   "to:",
-        //   value
-        // );
-      }
-    });
-
-    prev.current = { ...props }; // Important: create a new object to store previous values
-  }, [props]);
-}
-
-const Timeline = ({
-  initialDateTs,
-  firstHour = 0,
-  domainId,
-  timeSpan = 6,
-  startTimeTs,
-  endTimeTs,
-  analysesEndTs,
-  markerPosition = "50%",
-  showBar = true, // Toggle the bar visibility
-  barDuration = 24, // Bar duration in hours
-  updateCB
-}) => {
+/**
+ * @param store {WeatherMapStore}
+ */
+const Timeline = ({ store, updateCB }) => {
   const now = new Date();
   const nowFullHour = new Date(
     Date.UTC(
@@ -48,6 +39,14 @@ const Timeline = ({
     )
   );
 
+  const domainId = store.domainId;
+  const timeSpan = Number(store.timeSpan.replace(/\D/g, ""), 10);
+  const startTime = store.startTime;
+  const endTime = store.endTime;
+  const initialDate = store.initialDate;
+  const barDuration = timeSpan;
+  const markerPosition = timeSpan > 24 ? "75%" : "50%";
+  const showBar = timeSpan > 1;
   // useChangedProps({
   //   initialDateTs,
   //   firstHour,
@@ -76,9 +75,6 @@ const Timeline = ({
   const rulerRef = useRef(null);
   const indicatorRef = useRef(null);
   const [markerRenewed, setMarkerRenewed] = useState(null);
-  const initialDate = useMemo(() => new Date(initialDateTs), [initialDateTs]);
-  const startTime = useMemo(() => new Date(startTimeTs), [startTimeTs]);
-  const endTime = useMemo(() => new Date(endTimeTs), [endTimeTs]);
   const [targetDate, setTargetDate] = useState();
   const [currentDate, setCurrentDate] = useState();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
@@ -257,7 +253,7 @@ const Timeline = ({
 
   const calcIndicatorOffset = () => {
     //console.log("calcIndicatorOffset #k01", {showBar});
-    let newIndicatorOffset =
+    const newIndicatorOffset =
       (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
     if (showBar) {
       setBarOffset(newIndicatorOffset - barDuration * pixelsPerHour);
@@ -363,10 +359,6 @@ const Timeline = ({
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];
-    let usedEndTime = new Date(endTime);
-    let endAnalysisTime = new Date(analysesEndTs);
-    //if (timeSpan > 1)usedEndTime.setUTCHours(usedEndTime.getUTCHours() + barDuration);
-
     //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
@@ -376,10 +368,9 @@ const Timeline = ({
 
         const localDate = new Date(markDate);
         const localHour = localDate.getHours();
-        let markClass = [localHour === 0 ? "day-mark" : ""];
+        const markClass = [localHour === 0 ? "day-mark" : ""];
 
-        const isSelectable =
-          (hour - firstHour) % selectableHoursOffset === 0 && hour >= firstHour;
+        const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
 
         if (
           isSelectable &&
@@ -394,13 +385,13 @@ const Timeline = ({
             nextSelectableDate.getUTCHours() + selectableHoursOffset
           );
           if (
-            usedEndTime?.getTime() >= markDate.getTime() &&
-            nextSelectableDate.getTime() > usedEndTime?.getTime()
+            endTime.getTime() >= markDate.getTime() &&
+            nextSelectableDate.getTime() > endTime.getTime()
           ) {
             // console.log("rulerMarkings #k0111", {
             //   markDate: markDate.toISOString(),
             //   nextSelectableDate: nextSelectableDate.toISOString(),
-            //   usedEndTime: usedEndTime?.toISOString()
+            //   endTime: endTime?.toISOString()
             // });
             markClass.push("selectable-hours-end");
           }
@@ -439,10 +430,10 @@ const Timeline = ({
               </span>
             )}
             {/* {isSelectable && (
-              <span className="hour-name">
-                {formatHour(markDate)}
-              </span>
-            )} */}
+            <span className="hour-name">
+              {formatHour(markDate)}
+            </span>
+          )} */}
             <div
               className="ruler-mark-bg"
               style={{
@@ -451,7 +442,7 @@ const Timeline = ({
             ></div>
           </div>
         );
-        if (markDate.getTime() < endAnalysisTime.getTime())
+        if (markDate.getTime() < new Date(store.startDate).getTime())
           markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
@@ -511,9 +502,7 @@ const Timeline = ({
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = newTargetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / selectableHoursOffset) *
-        selectableHoursOffset +
-      firstHour;
+      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
     //console.log("snapToDate #k011", { newTargetDate });
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
@@ -531,7 +520,7 @@ const Timeline = ({
   const getNearestMarker = () => {
     const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
     const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    let targetCenterX = indicatorRect.right;
+    const targetCenterX = indicatorRect.right;
 
     let nearestMarker = null;
     let minDistance = Infinity;
@@ -576,9 +565,7 @@ const Timeline = ({
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = newTargetDate.getUTCHours();
     const adjustedHours =
-      Math.round((hours - firstHour) / selectableHoursOffset) *
-        selectableHoursOffset +
-      firstHour;
+      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
 
     //rulerRef.current.style.transition = "transform 0.5s ease";
@@ -596,7 +583,7 @@ const Timeline = ({
   };
 
   const formatDateToLocalDateTime = date => {
-    return date.toLocaleString("sv").replace(" ", "T");
+    return dateFormat(date, "%Y-%m-%dT%H:%M:%S");
   };
 
   const handleSelectDateClick = e => {
@@ -623,9 +610,9 @@ const Timeline = ({
     // const label =
     //   "weathermap:player:" + (player.playing ? "stop" : "play");
 
-    let linkClassesPlay = ["cp-movie-play", "icon-play"];
-    let linkClassesStop = ["cp-movie-stop", "icon-pause"];
-    let divClasses = ["cp-movie"];
+    const linkClassesPlay = ["cp-movie-play", "icon-play"];
+    const linkClassesStop = ["cp-movie-stop", "icon-pause"];
+    const divClasses = ["cp-movie"];
     if (playerIsActive) divClasses.push("js-playing");
     return (
       <div key="cp-movie" className={divClasses.join(" ")}>
@@ -826,4 +813,4 @@ const Timeline = ({
   );
 };
 
-export default Timeline;
+export default observer(Timeline);

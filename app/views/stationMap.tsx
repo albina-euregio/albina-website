@@ -87,10 +87,6 @@ function StationMap(props) {
           <LeafletMap
             loaded={props.domainId !== false}
             onViewportChanged={() => {}}
-            mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
-            tileLayerConfigOverride={
-              config.weathermaps.settings.mapOptionsOverride
-            }
             overlays={overlays}
           />
         </div>
