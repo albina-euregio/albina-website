@@ -10,7 +10,7 @@ export const CustomLeafletControl = ({
   onClick,
   enabled
 }) => {
-  const [control, setControl] = useState(null);
+  const [control, setControl] = useState<L.Control | null>(null);
   const parentMap = useMap();
   const classNamesRef = useRef(classNames);
 
@@ -41,12 +41,12 @@ export const CustomLeafletControl = ({
     return () => {
       removeControl();
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (enabled) createControl();
     else removeControl();
-  }, [enabled]);
+  }, [enabled]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     classNamesRef.current = classNames;
@@ -54,21 +54,21 @@ export const CustomLeafletControl = ({
 
   useEffect(() => {
     createControl();
-  }, [config?.position, classNames, parentMap]);
+  }, [config?.position, classNames, parentMap]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (control) {
       const container = control.getContainer();
       container.className = classNamesRef.current;
     }
-  }, [classNames]);
+  }, [classNames]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (control) {
       const container = control.getContainer();
       container.innerHTML = innerHTML;
     }
-  }, [innerHTML]);
+  }, [innerHTML]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return null;
 };

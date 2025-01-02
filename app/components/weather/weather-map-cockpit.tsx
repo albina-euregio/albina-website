@@ -55,7 +55,7 @@ const WeatherMapCockpit = () => {
     return () => {
       window.removeEventListener("resize", redraw);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const redraw = () => {
     setLastRedraw(new Date().getTime());
