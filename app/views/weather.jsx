@@ -23,6 +23,8 @@ const Weather = () => {
   const [playing, setPlaying] = useState(false);
 
   const domainId = useStore(store.domainId);
+  const stations = useStore(store.stations);
+  const selectedFeature = useStore(store.selectedFeature);
 
   const [player] = useState(() => {
     //console.log("player->new Player s05");
@@ -57,7 +59,7 @@ const Weather = () => {
   return (
     <>
       <WeatherStationDialog
-        stationData={store.stations?.features ?? []}
+        stationData={stations?.features ?? []}
         stationId={stationId}
         setStationId={setStationId}
       />
@@ -79,9 +81,7 @@ const Weather = () => {
               onMarkerSelected={feature => setStationId(feature?.id)}
               onViewportChanged={() => {}}
             />
-            {store.selectedFeature && (
-              <FeatureInfo feature={store.selectedFeature} />
-            )}
+            {selectedFeature && <FeatureInfo feature={selectedFeature} />}
             <WeatherMapCockpit key="cockpit" />
           </div>
         )}
