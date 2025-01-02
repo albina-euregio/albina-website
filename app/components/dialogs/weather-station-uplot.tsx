@@ -176,8 +176,8 @@ function parseData(
     // uPlot uses epoch seconds (instead of milliseconds)
     timestamps.push(date / 1000);
     index.forEach((i, k) => {
-      if (i < 0 || cells[i] === nodata) return;
-      const value = +cells[i].replace(",", ".");
+      if (i < 0) return;
+      const value = cells[i] === nodata ? NaN : +cells[i].replace(",", ".");
       values[k].push(UNIT_MAPPING[units[i]]?.convert(value) ?? value);
     });
   });
