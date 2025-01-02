@@ -30,6 +30,7 @@ const DataOverlay = ({ playerCB }) => {
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
   const domainConfig = useStore(store.domainConfig);
+  const absTimeSpan = useStore(store.absTimeSpan);
   const dataOverlays = domainConfig?.dataOverlays;
   const dataOverlaysEnabled =
     !domainConfig.layer.stations || currentTime > store.agl;
@@ -305,7 +306,7 @@ const DataOverlay = ({ playerCB }) => {
     }
 
     return overlays;
-  }, [domainId, oCanvases]);
+  }, [domainId, oCanvases, absTimeSpan]);
 
   return (
     <>
