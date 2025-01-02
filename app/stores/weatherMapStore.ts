@@ -3,7 +3,6 @@ import { loadStationData } from "./stationDataStore";
 import { dateFormat } from "../util/date";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
-const SIMULATE_NOW = null; //"2023-11-28T23:18Z"
 
 export const config = {
   settings: {
