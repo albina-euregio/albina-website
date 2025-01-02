@@ -44,11 +44,11 @@ const DataOverlay = ({ playerCB }) => {
 
   const getLayerPixelAtLatLng = (overlay, latlng) => {
     const map = overlay._map;
-    let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
-    let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
-    let dx =
+    const xY = overlay.getElement().naturalWidth / overlay.getElement().width;
+    const yY = overlay.getElement().naturalHeight / overlay.getElement().height;
+    const dx =
       map.project(latlng).x - map.project(overlay.getBounds()["_southWest"]).x;
-    let dy =
+    const dy =
       map.project(latlng).y - map.project(overlay.getBounds()["_northEast"]).y;
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
@@ -68,10 +68,10 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const getPixelData = coordinates => {
-    let values = {};
+    const values = {};
     dataOverlays.forEach(anOverlay => {
       if (oCanvases[anOverlay.type]?.["loaded"]) {
-        let p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
+        const p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
           coordinates.x,
           coordinates.y,
           1,
@@ -147,13 +147,10 @@ const DataOverlay = ({ playerCB }) => {
             anOverlay?.domain
           );
 
-          let img = new Image();
+          const img = new Image();
           img.crossOrigin = "anonymous";
           overlayCanvases[anOverlay.type].canvas.ctx =
             overlayCanvases[anOverlay.type]["canvas"].getContext("2d");
-          var domPoint = document.getElementsByClassName(
-            "leaflet-overlay-pane"
-          );
 
           img.onload = function () {
             overlayCanvases[anOverlay.type].canvas.width =
@@ -197,9 +194,9 @@ const DataOverlay = ({ playerCB }) => {
     if (!directionOverlay) return;
     const map = parentMap;
     const curZoom = map.getZoom();
-    let grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
+    const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
-    let markers = [];
+    const markers = [];
 
     if (dataOverlaysEnabled) {
       const foundOverlays = dataOverlays.filter(element => {
@@ -250,7 +247,7 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const overlays = useMemo(() => {
-    let overlays = [];
+    const overlays = [];
     if (domainId) {
       overlays.push(
         <ImageOverlay

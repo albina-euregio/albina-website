@@ -36,7 +36,7 @@ const WeatherMap = ({
       );
     }
 
-    if (domainConfig.layer.grid && grid && grid.features) {
+    if (domainConfig.layer.grid && grid?.features) {
       overlays.push(
         <GridOverlay
           key={"grid"}
@@ -55,12 +55,7 @@ const WeatherMap = ({
       );
     }
 
-    if (
-      domainConfig.layer.stations &&
-      stations &&
-      stations.features &&
-      !isPlaying
-    ) {
+    if (domainConfig.layer.stations && stations?.features && !isPlaying) {
       if (showStations)
         overlays.push(
           <StationOverlay
@@ -85,12 +80,12 @@ const WeatherMap = ({
     }
   }
 
-  let showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
+  const showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
     {
       id: showStations ? "weathermap:hidePins" : "weathermap:showPins"
     }
   )}"></a>`;
-  let showHideStationsCtrl = (
+  const showHideStationsCtrl = (
     <CustomLeafletControl
       key="showHideControler"
       config={config.map.showHideOptions}

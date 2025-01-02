@@ -36,9 +36,9 @@ const Dragger = ({
     const parent$ = $(parent);
     if (onDrag) onDrag(event);
 
-    let shiftX =
+    const shiftX =
       getXInit(event) - draggableRef.current.getBoundingClientRect().left;
-    let shiftY =
+    const shiftY =
       getYInit(event) - draggableRef.current.getBoundingClientRect().top;
 
     draggableRef.current.style.zIndex = 1000;
@@ -48,8 +48,8 @@ const Dragger = ({
     // moves the draggable at (pageX, pageY) coordinates
     // taking initial shifts into account
     function moveAt(pageX, pageY) {
-      let parentOffset = parent$.offset();
-      let left = pageX - shiftX - parentOffset.left;
+      const parentOffset = parent$.offset();
+      const left = pageX - shiftX - parentOffset.left;
       setCurrentX(Math.min(parent$.width(), Math.max(left)));
       setCurrentY(pageY - shiftY - parentOffset.top);
       //console.log("moveAt s02" , {currentX, currentY});

@@ -139,7 +139,7 @@ const Timeline = ({ updateCB }) => {
   }, [initialDate]);
 
   useEffect(() => {
-    let intervalId;
+    let intervalId: number;
 
     if (playerIsActive) {
       // Start the interval when isActive is true
@@ -297,20 +297,7 @@ const Timeline = ({ updateCB }) => {
       });
   };
 
-  const formatHour = date => {
-    return date.getHours().toString().padStart(2, "0");
-  };
-
-  const formatTime = date => {
-    //console.log("formatTime #i01", { date: new Date(date).toISOString() });
-    return date.toLocaleTimeString();
-  };
-
-  const formatDateTime = date => {
-    return date.toLocaleString();
-  };
-
-  const handleKeyDown = event => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
     //console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
     switch (event.keyCode) {
@@ -331,7 +318,7 @@ const Timeline = ({ updateCB }) => {
     }
   };
 
-  const jumpStep = direction => {
+  const jumpStep = (direction: 1 | -1 | number) => {
     const newDate = new Date(currentDateRef.current);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
     // console.log("jumpStep #i01", {
@@ -494,8 +481,6 @@ const Timeline = ({ updateCB }) => {
       Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
     //console.log("snapToDate #k011", { newTargetDate });
-    const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    const indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
     const { targetMarker } = getMarkerCenterX(newTargetDate);
     //const distanceToMove = markerCenterX - indicatorCenterX;
     const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
@@ -548,23 +533,6 @@ const Timeline = ({ updateCB }) => {
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect?.left;
     return { markerCenterX, targetMarker: targetMarker?.[0] };
-  };
-
-  const jumpToDate = newTargetDate => {
-    // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
-    const hours = newTargetDate.getUTCHours();
-    const adjustedHours =
-      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
-    newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
-
-    //rulerRef.current.style.transition = "transform 0.5s ease";
-    // console.log("jumpToDate #i031", {
-    //   newTargetDate: new Date(newTargetDate).toISOString(),
-    //   maxStartDay,
-    //   maxEndDay
-    // });
-
-    setTargetDate(newTargetDate);
   };
 
   const handleOpenDateDialogClick = () => {

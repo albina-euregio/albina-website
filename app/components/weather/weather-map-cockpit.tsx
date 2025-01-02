@@ -41,8 +41,6 @@ const DOMAIN_UNITS = {
   wind700hpa: "km/h"
 };
 
-const LOOP = false;
-
 const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
   const domainId = useStore(store.domainId);
@@ -65,7 +63,7 @@ const WeatherMapCockpit = () => {
   };
 
   const adaptVH = () => {
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
@@ -111,10 +109,10 @@ const WeatherMapCockpit = () => {
         })
       : [];
 
-    let buttons = [];
+    const buttons = [];
     domainButtons.forEach(aButton => {
-      let linkClasses = ["cp-layer-selector-item"];
-      let spanClasses = ["layer-select"];
+      const linkClasses = ["cp-layer-selector-item"];
+      const spanClasses = ["layer-select"];
       spanClasses.push(DOMAIN_ICON_CLASSES[aButton.id]);
       if (aButton.id === domainId) linkClasses.push("js-active");
       buttons.push(
@@ -141,10 +139,10 @@ const WeatherMapCockpit = () => {
     let allButtons;
     //console.log("getTimeSpanOptions 777", props);
     if (store.config?.domains?.[domainId]) {
-      let domainConfig = store.config.domains[domainId].item;
+      const domainConfig = store.config.domains[domainId].item;
 
       const buttons = domainConfig.timeSpans.map(aItem => {
-        let nrOnlyTimespan = aItem.replace(/\D/g, "");
+        const nrOnlyTimespan = aItem.replace(/\D/g, "");
         return (
           <a
             role="button"
@@ -216,7 +214,7 @@ const WeatherMapCockpit = () => {
   };
 
   const legendItems = amount => {
-    let items = [];
+    const items = [];
     for (let i = 1; i <= amount; i++) {
       items.push(
         <span
@@ -229,7 +227,7 @@ const WeatherMapCockpit = () => {
   };
 
   const getLegend = () => {
-    let divClasses = ["cp-legend-items"];
+    const divClasses = ["cp-legend-items"];
     if (DOMAIN_LEGEND_CLASSES[domainId])
       divClasses.push(DOMAIN_LEGEND_CLASSES[domainId]);
     return (
@@ -287,7 +285,7 @@ const WeatherMapCockpit = () => {
   };
 
   //console.log("weather-map-cockpit->render hhhh", {currentTime, timeRange, startDate, timeSpan, lastRedraw});
-  let classes = [
+  const classes = [
     "map-cockpit",
     "weather-map-cockpit",
     "lastRedraw-" + lastRedraw
