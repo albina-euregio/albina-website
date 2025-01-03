@@ -56,14 +56,17 @@ const DataOverlay = ({ playerCB }) => {
     if (directionOverlay) addDirectionIndicators();
   }, [directionOverlay]);
 
-  const getLayerPixelAtLatLng = (overlay, latlng) => {
-    const map = overlay._map;
-    const xY = overlay.getElement().naturalWidth / overlay.getElement().width;
-    const yY = overlay.getElement().naturalHeight / overlay.getElement().height;
-    const dx =
-      map.project(latlng).x - map.project(overlay.getBounds()._southWest).x;
-    const dy =
-      map.project(latlng).y - map.project(overlay.getBounds()._northEast).y;
+  const getLayerPixelAtLatLng = (
+    overlay: L.ImageOverlay,
+    latlng: L.LatLngLiteral
+  ) => {
+    const map = overlay._map as L.Map;
+    const element = overlay.getElement()!;
+    const bounds = overlay.getBounds();
+    const xY = element.naturalWidth / element.width;
+    const yY = element.naturalHeight / element.height;
+    const dx = map.project(latlng).x - map.project(bounds.getSouthWest()).x;
+    const dy = map.project(latlng).y - map.project(bounds.getNorthEast()).y;
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
@@ -81,7 +84,7 @@ const DataOverlay = ({ playerCB }) => {
     return color;
   };
 
-  const getPixelData = coordinates => {
+  const getPixelData = (coordinates: { x: number; y: number }) => {
     const values = {} as Record<OverlayType, number | null | undefined>;
     dataOverlays.forEach(anOverlay => {
       const type = anOverlay.type as OverlayType;
@@ -113,7 +116,7 @@ const DataOverlay = ({ playerCB }) => {
     return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
   };
 
-  const showDataMarker = e => {
+  const showDataMarker = (e: L.LeafletMouseEvent) => {
     if (store.config.settings.debugModus && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
@@ -253,7 +256,7 @@ const DataOverlay = ({ playerCB }) => {
             id: "weathermap:attribution"
           })}
           eventHandlers={{
-            click: showDataMarker.bind(this)
+            click: e => showDataMarker(e)
           }}
           interactive={true}
         />
@@ -279,9 +282,9 @@ const DataOverlay = ({ playerCB }) => {
               setDataMarker(null);
               setDirectionMarkers(null);
               setupDataLayer(e);
-              e.target._map.on("zoomend", e => {
-                addDirectionIndicators(e);
-              });
+              (e.target._map as L.Map).on("zoomend", () =>
+                addDirectionIndicators()
+              );
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
