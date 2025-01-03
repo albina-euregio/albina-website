@@ -45,8 +45,8 @@ const DataOverlay = ({ playerCB }) => {
   const absTimeSpan = useStore(store.absTimeSpan);
   const overlayFileName = useStore(store.overlayFileName);
   const dataOverlays = useStore(store.dataOverlays);
-  const dataOverlaysEnabled =
-    !domainConfig.layer.stations || currentTime > store.agl;
+  const agl = useStore(store.agl);
+  const dataOverlaysEnabled = !domainConfig.layer.stations || currentTime > agl;
 
   useEffect(() => {
     setOCanvases({});
