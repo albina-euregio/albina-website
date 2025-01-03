@@ -32,7 +32,7 @@ const DataOverlay = ({ playerCB }) => {
   const domainConfig = useStore(store.domainConfig);
   const absTimeSpan = useStore(store.absTimeSpan);
   const overlayFileName = useStore(store.overlayFileName);
-  const dataOverlays = domainConfig?.dataOverlays;
+  const dataOverlays = useStore(store.dataOverlays);
   const dataOverlaysEnabled =
     !domainConfig.layer.stations || currentTime > store.agl;
 
@@ -133,64 +133,40 @@ const DataOverlay = ({ playerCB }) => {
     }
   };
 
-  const setupDataLayer = e => {
-    const overlayCanvases = oCanvases;
+  const setupDataLayer = (e: L.LeafletEvent) => {
     setDirectionOverlay(null);
-    if (dataOverlaysEnabled) {
-      dataOverlays.forEach(anOverlay => {
-        if (!overlayCanvases[anOverlay.type]) {
-          overlayCanvases[anOverlay.type] = {
-            canvas: document.createElement("canvas"),
-            loaded: false
-          };
+    if (!dataOverlaysEnabled) {
+      playerCB("background", "load");
+      return;
+    }
+    const overlayCanvases = oCanvases;
+    dataOverlays.forEach(anOverlay => {
+      const canvas = document.createElement("canvas");
+      canvas.ctx = canvas.getContext("2d");
+      overlayCanvases[anOverlay.type] = {
+        currentTime,
+        absTimeSpan,
+        canvas,
+        loaded: false
+      };
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        canvas.width = this.naturalWidth * 2;
+        canvas.height = this.naturalHeight * 2;
+        canvas.ctx.drawImage(this, 0, 0);
+        canvas.ctx.drawImage(this, 0, 0, this.width * 2, this.height * 2);
+        overlayCanvases[anOverlay.type]["loaded"] = true;
 
-          let overlayFile = store.getOverlayFileName(
-            currentTime,
-            anOverlay?.domain || domainId,
-            anOverlay.filePostfix,
-            absTimeSpan
-          );
-
-          const img = new Image();
-          img.crossOrigin = "anonymous";
-          overlayCanvases[anOverlay.type].canvas.ctx =
-            overlayCanvases[anOverlay.type]["canvas"].getContext("2d");
-
-          img.onload = function () {
-            overlayCanvases[anOverlay.type].canvas.width =
-              this.naturalWidth * 2;
-            overlayCanvases[anOverlay.type].canvas.height =
-              this.naturalHeight * 2;
-
-            overlayCanvases[anOverlay.type].canvas.ctx.drawImage(this, 0, 0);
-            overlayCanvases[anOverlay.type].canvas.ctx.drawImage(
-              this,
-              0,
-              0,
-              this.width * 2,
-              this.height * 2
-            );
-            overlayCanvases[anOverlay.type]["loaded"] = true;
-
-            if (allCanvasesLoaded()) {
-              if (overlayCanvases["windDirection"]) {
-                setDirectionOverlay(e.target);
-              }
-              playerCB("background", "load");
-            }
-          };
-
-          if (anOverlay.fixPath)
-            overlayFile = overlayFile.replace(
-              RegExp(anOverlay.fixPath.find, "g"),
-              anOverlay.fixPath.replace
-            );
-
-          img.src = overlayFile;
+        if (allCanvasesLoaded()) {
+          if (overlayCanvases["windDirection"]) {
+            setDirectionOverlay(e.target);
+          }
+          playerCB("background", "load");
         }
-      });
-    } else playerCB("background", "load");
-
+      };
+      img.src = anOverlay.overlayFilename;
+    });
     setOCanvases(overlayCanvases);
   };
 
@@ -201,51 +177,50 @@ const DataOverlay = ({ playerCB }) => {
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
     const markers = [];
+    if (!dataOverlaysEnabled) {
+      return;
+    }
+    const foundOverlays = dataOverlays.filter(element => {
+      return ["windDirection"].includes(element.type);
+    });
+    if (!foundOverlays) {
+      return;
+    }
+    const WEST = bounds[0][1];
+    const SOUTH = bounds[0][0];
+    const EAST = bounds[1][1];
+    const NORTH = bounds[1][0];
+    const DIST_H = (EAST - WEST) / grids;
+    const DIST_V = (NORTH - SOUTH) / grids;
+    let curH = WEST + DIST_H;
 
-    if (dataOverlaysEnabled) {
-      const foundOverlays = dataOverlays.filter(element => {
-        return ["windDirection"].includes(element.type);
-      });
-      if (foundOverlays) {
-        const WEST = bounds[0][1];
-        const SOUTH = bounds[0][0];
-        const EAST = bounds[1][1];
-        const NORTH = bounds[1][0];
-        const DIST_H = (EAST - WEST) / grids;
-        const DIST_V = (NORTH - SOUTH) / grids;
-        let curH = WEST + DIST_H;
-
-        while (curH < EAST - 0.001) {
-          let curV = SOUTH + DIST_V;
-          while (curV < NORTH - 0.001) {
-            const pixelPos = getLayerPixelAtLatLng(directionOverlay, {
-              lat: curV,
-              lng: curH
-            });
-            const pixelData = getPixelData(pixelPos);
-            markers.push(
-              <StationMarker
-                type="grid"
-                dataType="noCircle"
-                key={
-                  "pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom
-                }
-                itemId="directionMarker"
-                iconAnchor={[12, 12]}
-                data={{}}
-                stationId="directionMarker"
-                stationName="directionMarker"
-                coordinates={[curV, curH]}
-                color={[255, 0, 0]}
-                value={null}
-                direction={pixelData.direction}
-              />
-            );
-            curV += DIST_V;
-          }
-          curH += DIST_H;
-        }
+    while (curH < EAST - 0.001) {
+      let curV = SOUTH + DIST_V;
+      while (curV < NORTH - 0.001) {
+        const pixelPos = getLayerPixelAtLatLng(directionOverlay, {
+          lat: curV,
+          lng: curH
+        });
+        const pixelData = getPixelData(pixelPos);
+        markers.push(
+          <StationMarker
+            type="grid"
+            dataType="noCircle"
+            key={"pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom}
+            itemId="directionMarker"
+            iconAnchor={[12, 12]}
+            data={{}}
+            stationId="directionMarker"
+            stationName="directionMarker"
+            coordinates={[curV, curH]}
+            color={[255, 0, 0]}
+            value={null}
+            direction={pixelData.direction}
+          />
+        );
+        curV += DIST_V;
       }
+      curH += DIST_H;
     }
     setDirectionMarkers(markers);
   };
@@ -309,7 +284,7 @@ const DataOverlay = ({ playerCB }) => {
     }
 
     return overlays;
-  }, [domainId, overlayFileName]);
+  }, [domainId, dataOverlays, overlayFileName]);
 
   return (
     <>

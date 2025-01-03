@@ -390,6 +390,12 @@ export const config = {
 
 type DomainId = keyof typeof config.domains;
 type Domain = (typeof config.domains)[DomainId];
+export type OverlayType =
+  | "snowHeight"
+  | "snowLine"
+  | "temperature"
+  | "windSpeed"
+  | "windDirection";
 type TimeSpans = Domain["item"]["timeSpans"];
 type TimeSpan = TimeSpans[number];
 
@@ -439,6 +445,19 @@ export const domain = computed(
  * returns domain
  */
 export const domainConfig = computed([domain], domain => domain?.item);
+export const dataOverlays = computed(
+  [domainConfig, domainId, currentTime, absTimeSpan],
+  (domainConfig, domainId, currentTime, absTimeSpan) =>
+    domainConfig.dataOverlays.map(o => ({
+      ...o,
+      overlayFilename: getOverlayFileName(
+        currentTime,
+        o?.domain || domainId,
+        o.filePostfix,
+        absTimeSpan
+      )
+    }))
+);
 
 /*
  * returns timeRange
@@ -597,7 +616,7 @@ export const overlayFileName = computed(
   }
 );
 
-export function getOverlayFileName(
+function getOverlayFileName(
   currentTime: Date | null,
   domainId: DomainId,
   filePostFix: string | undefined,
