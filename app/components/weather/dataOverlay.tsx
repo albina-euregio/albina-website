@@ -60,7 +60,7 @@ const DataOverlay = ({ playerCB }) => {
     overlay: L.ImageOverlay,
     latlng: L.LatLngLiteral
   ): { x: number; y: number } => {
-    const map = overlay._map as L.Map;
+    const map = parentMap;
     const element = overlay.getElement()!;
     const bounds = overlay.getBounds();
     const xY = element.naturalWidth / element.width;
@@ -120,7 +120,7 @@ const DataOverlay = ({ playerCB }) => {
       });
     }
 
-    if (dataOverlaysEnabled && e.target._map && allCanvasesLoaded()) {
+    if (dataOverlaysEnabled && parentMap && allCanvasesLoaded()) {
       const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
       setDataMarker(
         <StationMarker
@@ -136,7 +136,7 @@ const DataOverlay = ({ playerCB }) => {
           color={getColor(pixelData.value)}
           value={pixelData.value}
           direction={pixelData.direction}
-          layerContainer={e.target._map}
+          layerContainer={parentMap}
         />
       );
     }
@@ -278,9 +278,7 @@ const DataOverlay = ({ playerCB }) => {
               setDataMarker(null);
               setDirectionMarkers(null);
               setupDataLayer(e);
-              (e.target._map as L.Map).on("zoomend", () =>
-                addDirectionIndicators()
-              );
+              parentMap.on("zoomend", () => addDirectionIndicators());
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
