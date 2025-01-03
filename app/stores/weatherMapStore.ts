@@ -663,10 +663,10 @@ export const nextUpdateTime = computed(
 export function valueForPixel(
   overlayType: OverlayType,
   pixelRGB: { r: number; g: number; b: number }
-) {
+): number | null {
   switch (overlayType) {
     case "temperature":
-      if (pixelRGB.r <= 0) return "<59,5";
+      if (pixelRGB.r <= 0) return null;
       if (pixelRGB.r >= 255) return null;
       return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
     case "windDirection":
@@ -686,6 +686,7 @@ export function valueForPixel(
       if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
         return pixelRGB.r;
   }
+  return null;
 }
 
 /*

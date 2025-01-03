@@ -59,7 +59,7 @@ const DataOverlay = ({ playerCB }) => {
   const getLayerPixelAtLatLng = (
     overlay: L.ImageOverlay,
     latlng: L.LatLngLiteral
-  ) => {
+  ): { x: number; y: number } => {
     const map = overlay._map as L.Map;
     const element = overlay.getElement()!;
     const bounds = overlay.getBounds();
@@ -70,29 +70,32 @@ const DataOverlay = ({ playerCB }) => {
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
-  const getColor = (value: number | null | undefined) => {
+  const getColor = (value: number | null): number[] => {
     const v = parseFloat(value);
     const colors = Object.values(domainConfig.colors);
     const idx = domainConfig.thresholds.findLastIndex(tr => v > tr);
     return colors[idx >= 0 ? idx + 1 : 0];
   };
 
-  const getPixelData = (coordinates: { x: number; y: number }) => {
-    const values = {} as Record<OverlayType, number | null | undefined>;
+  const getPixelData = (coordinates: {
+    x: number;
+    y: number;
+  }): { value: number | null; direction: number | null } => {
+    const values = {} as Record<OverlayType, number | null>;
     dataOverlays.forEach(anOverlay => {
       const type = anOverlay.type as OverlayType;
       const oCanvas = oCanvases[type];
-      if (oCanvas.loaded) {
-        const p = oCanvas.ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
-          willReadFrequently: true
-        });
-
-        values[type] = store.valueForPixel(type, {
-          r: p.data[0],
-          g: p.data[1],
-          b: p.data[2]
-        });
+      if (!oCanvas.loaded) {
+        return;
       }
+      const p = oCanvas.ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
+        willReadFrequently: true
+      });
+      values[type] = store.valueForPixel(type, {
+        r: p.data[0],
+        g: p.data[1],
+        b: p.data[2]
+      });
     });
 
     return {
@@ -105,7 +108,7 @@ const DataOverlay = ({ playerCB }) => {
     };
   };
 
-  const allCanvasesLoaded = () => {
+  const allCanvasesLoaded = (): boolean => {
     return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
   };
 
