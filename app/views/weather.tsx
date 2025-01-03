@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -44,10 +43,11 @@ const Weather = () => {
   });
 
   useEffect(() => {
-    $("#page-footer").css({ display: "none" });
-
+    const footer = document.getElementById("page-footer");
+    if (!footer) return;
+    footer.style.display = "none";
     return () => {
-      $("#page-footer").css({ display: "" });
+      footer.style.display = "";
     };
   }, []);
 
