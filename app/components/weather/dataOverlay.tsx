@@ -70,18 +70,11 @@ const DataOverlay = ({ playerCB }) => {
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
-  const getColor = value => {
+  const getColor = (value: number | null | undefined) => {
     const v = parseFloat(value);
     const colors = Object.values(domainConfig.colors);
-
-    let color = colors[0];
-    domainConfig.thresholds.forEach((tr, i) => {
-      if (v > tr) {
-        color = colors[i + 1];
-      }
-    });
-
-    return color;
+    const idx = domainConfig.thresholds.findLastIndex(tr => v > tr);
+    return colors[idx >= 0 ? idx + 1 : 0];
   };
 
   const getPixelData = (coordinates: { x: number; y: number }) => {
