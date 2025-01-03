@@ -660,38 +660,32 @@ export const nextUpdateTime = computed(
 /*
  * returns value for pixel color
  */
-export function valueForPixel(overlayType, pixelRGB) {
-  let res;
+export function valueForPixel(
+  overlayType: OverlayType,
+  pixelRGB: { r: number; g: number; b: number }
+) {
   switch (overlayType) {
     case "temperature":
-      if (pixelRGB.r <= 0) res = "<59,5";
-      else if (pixelRGB.r >= 255) res = null;
-      else res = Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
-      break;
+      if (pixelRGB.r <= 0) return "<59,5";
+      if (pixelRGB.r >= 255) return null;
+      return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
     case "windDirection":
-      if (pixelRGB.r < 0 || pixelRGB.r > 180) res = null;
-      else res = pixelRGB.r * 2;
-      break;
+      if (pixelRGB.r < 0 || pixelRGB.r > 180) return null;
+      return pixelRGB.r * 2;
     case "windSpeed":
-      if (pixelRGB.r < 0 || pixelRGB.r >= 255) res = null;
-      else res = pixelRGB.r;
-      break;
+      if (pixelRGB.r < 0 || pixelRGB.r >= 255) return null;
+      return pixelRGB.r;
     case "snowLine":
-      if (pixelRGB.r < 0 || pixelRGB.r >= 100) res = null;
-      else res = pixelRGB.r * 50;
-      break;
+      if (pixelRGB.r < 0 || pixelRGB.r >= 100) return null;
+      return pixelRGB.r * 50;
     case "snowHeight":
-      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) res = 0;
-      else if (pixelRGB.g + pixelRGB.b === 0) res = -251 + pixelRGB.r;
-      else if (pixelRGB.r + pixelRGB.g === 0) res = 249 + pixelRGB.b;
-      else if (pixelRGB.r + pixelRGB.b === 0) res = 2019 + pixelRGB.g;
-      else if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
-        res = pixelRGB.r;
-      break;
-    default:
-      break;
+      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) return 0;
+      if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
+      if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
+      if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
+      if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
+        return pixelRGB.r;
   }
-  return res;
 }
 
 /*
