@@ -4,6 +4,7 @@ import StationMarker from "../leaflet/station-marker";
 import { useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
+import { OverlayType } from "../../stores/weatherMapStore";
 
 const css = `
     .debug-almost-invisible {
@@ -25,7 +26,18 @@ const DataOverlay = ({ playerCB }) => {
   const [dataMarker, setDataMarker] = useState(null);
   const [directionMarkers, setDirectionMarkers] = useState([]);
   const [directionOverlay, setDirectionOverlay] = useState(null);
-  const [oCanvases, setOCanvases] = useState({});
+  const [oCanvases, setOCanvases] = useState(
+    {} as Record<
+      OverlayType,
+      {
+        currentTime: Date | null;
+        absTimeSpan: number;
+        canvas: HTMLCanvasElement;
+        ctx: CanvasRenderingContext2D;
+        loaded: boolean;
+      }
+    >
+  );
 
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
@@ -49,9 +61,9 @@ const DataOverlay = ({ playerCB }) => {
     const xY = overlay.getElement().naturalWidth / overlay.getElement().width;
     const yY = overlay.getElement().naturalHeight / overlay.getElement().height;
     const dx =
-      map.project(latlng).x - map.project(overlay.getBounds()["_southWest"]).x;
+      map.project(latlng).x - map.project(overlay.getBounds()._southWest).x;
     const dy =
-      map.project(latlng).y - map.project(overlay.getBounds()["_northEast"]).y;
+      map.project(latlng).y - map.project(overlay.getBounds()._northEast).y;
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   };
 
@@ -70,18 +82,16 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const getPixelData = coordinates => {
-    const values = {};
+    const values = {} as Record<OverlayType, number | null | undefined>;
     dataOverlays.forEach(anOverlay => {
-      if (oCanvases[anOverlay.type]?.["loaded"]) {
-        const p = oCanvases[anOverlay.type].canvas.ctx.getImageData(
-          coordinates.x,
-          coordinates.y,
-          1,
-          1,
-          { willReadFrequently: true }
-        );
+      const type = anOverlay.type as OverlayType;
+      const oCanvas = oCanvases[type];
+      if (oCanvas.loaded) {
+        const p = oCanvas.ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
+          willReadFrequently: true
+        });
 
-        values[anOverlay.type] = store.valueForPixel(anOverlay.type, {
+        values[type] = store.valueForPixel(type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
@@ -141,25 +151,27 @@ const DataOverlay = ({ playerCB }) => {
     }
     const overlayCanvases = oCanvases;
     dataOverlays.forEach(anOverlay => {
+      const type = anOverlay.type as OverlayType;
       const canvas = document.createElement("canvas");
-      canvas.ctx = canvas.getContext("2d");
-      overlayCanvases[anOverlay.type] = {
+      const ctx = canvas.getContext("2d");
+      overlayCanvases[type] = {
         currentTime,
         absTimeSpan,
         canvas,
+        ctx,
         loaded: false
       };
       const img = new Image();
       img.crossOrigin = "anonymous";
-      img.onload = function () {
-        canvas.width = this.naturalWidth * 2;
-        canvas.height = this.naturalHeight * 2;
-        canvas.ctx.drawImage(this, 0, 0);
-        canvas.ctx.drawImage(this, 0, 0, this.width * 2, this.height * 2);
-        overlayCanvases[anOverlay.type]["loaded"] = true;
+      img.onload = () => {
+        canvas.width = img.naturalWidth * 2;
+        canvas.height = img.naturalHeight * 2;
+        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
+        overlayCanvases[type].loaded = true;
 
         if (allCanvasesLoaded()) {
-          if (overlayCanvases["windDirection"]) {
+          if (overlayCanvases.windDirection) {
             setDirectionOverlay(e.target);
           }
           playerCB("background", "load");
