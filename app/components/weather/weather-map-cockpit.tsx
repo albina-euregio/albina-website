@@ -243,6 +243,7 @@ const WeatherMapCockpit = () => {
       <div key="cp-release" className="cp-release">
         <Tooltip
           key="cp-release-released"
+          placement="right-end"
           label={
             <FormattedMessage id="weathermap:cockpit:maps-creation-date:title" />
           }
@@ -256,6 +257,7 @@ const WeatherMapCockpit = () => {
         </Tooltip>
         <Tooltip
           key="cp-realse-date"
+          placement="left-end"
           label={
             <FormattedMessage id="weathermap:cockpit:maps-update-date:title" />
           }
@@ -269,6 +271,7 @@ const WeatherMapCockpit = () => {
         </Tooltip>
         <Tooltip
           key="cockpit-title-tp"
+          placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
           <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
