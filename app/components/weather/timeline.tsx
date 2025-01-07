@@ -28,14 +28,14 @@ const Timeline = ({ updateCB }) => {
   const now = new Date();
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
-  const timeSpan = Number(timeSpan0.replace(/\D/g, ""), 10);
+  const timeSpanInt = useStore(store.timeSpanInt);
   const startDate = useStore(store.startDate);
   const startTime = useStore(store.startTime);
   const endTime = useStore(store.endTime);
   const initialDate = useStore(store.initialDate);
-  const barDuration = timeSpan;
-  const markerPosition = timeSpan > 24 ? "75%" : "50%";
-  const showBar = timeSpan > 1;
+  const barDuration = timeSpanInt;
+  const markerPosition = timeSpanInt > 24 ? "75%" : "50%";
+  const showBar = timeSpanInt > 1;
 
   // console.log("Timeline->init #j01", {
   //   initialDateTs,
@@ -69,7 +69,8 @@ const Timeline = ({ updateCB }) => {
   const [barOffset, setBarOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
-  const [selectableHoursOffset, setSelectableHoursOffset] = useState(timeSpan);
+  const [selectableHoursOffset, setSelectableHoursOffset] =
+    useState(timeSpanInt);
   const currentDateRef = useRef(currentDate);
 
   const hoursPerDay = 24;
@@ -173,7 +174,7 @@ const Timeline = ({ updateCB }) => {
     //   containerWidth: containerRef?.current?.clientWidth,
     // });
     if (targetDate && containerRef?.current?.clientWidth) {
-      setSelectableHoursOffset(timeSpan >= 24 ? 24 : timeSpan);
+      setSelectableHoursOffset(timeSpanInt >= 24 ? 24 : timeSpanInt);
 
       calcIndicatorOffset();
 
@@ -185,7 +186,7 @@ const Timeline = ({ updateCB }) => {
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
-  }, [timeSpan, targetDate, showBar]);
+  }, [timeSpanInt, targetDate, showBar]);
 
   useEffect(() => {
     if (markerRenewed) {
@@ -203,7 +204,7 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     setPlayerIsActive(false);
-  }, [timeSpan, domainId]);
+  }, [timeSpanInt, domainId]);
 
   useEffect(() => {
     if (indicatorOffset) {
@@ -291,7 +292,11 @@ const Timeline = ({ updateCB }) => {
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    const factor = event.ctrlKey ? (timeSpan > 24 ? 24 : 24 / timeSpan) : 1;
+    const factor = event.ctrlKey
+      ? timeSpanInt > 24
+        ? 24
+        : 24 / timeSpanInt
+      : 1;
     //console.log("handleKeyDown", { key: event.key, timeSpan, factor });
     switch (event.key) {
       case "ArrowLeft":
@@ -544,7 +549,7 @@ const Timeline = ({ updateCB }) => {
   const handleSelectDateClick = e => {
     let newTargetDate = new Date(e.target.value);
     //console.log("handleSelectDateClick #k011 #1", {newTargetDate: newTargetDate, timeSpan});
-    newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpan);
+    newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
     //console.log("handleSelectDateClick #k011 #2", {newTargetDate: newTargetDate});
     newTargetDate = new Date(
       Date.UTC(
@@ -695,20 +700,20 @@ const Timeline = ({ updateCB }) => {
 
         {
           <div className="cp-scale-stamp">
-            {timeSpan > 1 && (
+            {timeSpanInt > 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
                   left: barOffset,
-                  width: timeSpan * pixelsPerHour
+                  width: timeSpanInt * pixelsPerHour
                 }}
               >
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
                     date={new Date(currentDate)?.setHours(
-                      currentDate?.getHours() - timeSpan
+                      currentDate?.getHours() - timeSpanInt
                     )}
                     options={{ timeStyle: "short" }}
                   />
@@ -722,7 +727,7 @@ const Timeline = ({ updateCB }) => {
               </div>
             )}
 
-            {timeSpan === 1 && (
+            {timeSpanInt === 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-point js-active"
