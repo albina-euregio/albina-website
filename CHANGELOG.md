@@ -2,6 +2,26 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.0] - 2025-01-07
+
+### Weather Maps
+
+- Use weather maps produced by C-LAEF model
+- Provide 10 m wind, 10 m wind gust and high altitude wind as parameters
+
+### 🚀 Features
+
+- Enable interactive weather station diagrams for for South Tyrol
+
+### 📚 Documentation
+
+- Workflow for generating changelog
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to eslint 9.17.0
+- Remove mobx and mobx-react (use nanostores instead)
+
 ## [7.1.1] - 2024-12-30
 
 ### 🐛 Bug Fixes
