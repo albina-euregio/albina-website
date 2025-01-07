@@ -60,9 +60,10 @@ const Timeline = ({ updateCB }) => {
   //   updateCB
   // });
 
-  const containerRef = useRef(null);
-  const rulerRef = useRef(null);
-  const indicatorRef = useRef(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rulerRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
   const [markerRenewed, setMarkerRenewed] = useState(null);
   const [targetDate, setTargetDate] = useState();
   const [currentDate, setCurrentDate] = useState();
@@ -86,7 +87,7 @@ const Timeline = ({ updateCB }) => {
   const playDelay = 1000;
 
   const intl = useIntl();
-  const datePickerRef = useRef(null);
+  const datePickerRef = useRef<HTMLInputElement>(null);
 
   const startOfDay = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
@@ -97,6 +98,8 @@ const Timeline = ({ updateCB }) => {
   //   startOfDay: startOfDay.toISOString(),
   //   day: now.getUTCDate()
   // });
+
+  useEffect(() => scaleRef.current?.focus?.(), []);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -635,7 +638,6 @@ const Timeline = ({ updateCB }) => {
   //   //   domainId
   //   // }
   // });
-  if (!currentDate) return <div></div>;
   return (
     <>
       <div className="cp-calendar">
@@ -650,23 +652,30 @@ const Timeline = ({ updateCB }) => {
             title="Select Date"
           ></a>
         </Tooltip>
-        <input
-          type="datetime-local"
-          ref={datePickerRef}
-          onChange={handleSelectDateClick}
-          defaultValue={formatDateToLocalDateTime(currentDate)}
-          style={{
-            position: "absolute",
-            opacity: 0,
-            //zIndex: 1000,
-            width: 0,
-            height: 0
-          }}
-          min={formatDateToLocalDateTime(startTime)}
-          max={formatDateToLocalDateTime(endTime)}
-        />
+        {currentDate && (
+          <input
+            type="datetime-local"
+            ref={datePickerRef}
+            onChange={handleSelectDateClick}
+            defaultValue={formatDateToLocalDateTime(currentDate)}
+            style={{
+              position: "absolute",
+              opacity: 0,
+              //zIndex: 1000,
+              width: 0,
+              height: 0
+            }}
+            min={formatDateToLocalDateTime(startTime)}
+            max={formatDateToLocalDateTime(endTime)}
+          />
+        )}
       </div>
-      <div className="cp-scale" tabIndex="0" onKeyDown={handleKeyDown}>
+      <div
+        className="cp-scale"
+        tabIndex="0"
+        onKeyDown={handleKeyDown}
+        ref={scaleRef}
+      >
         <div
           ref={containerRef}
           onMouseDown={handleDragStart}
