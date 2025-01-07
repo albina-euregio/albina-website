@@ -36,17 +36,7 @@ const Timeline = ({ updateCB }) => {
   const barDuration = timeSpan;
   const markerPosition = timeSpan > 24 ? "75%" : "50%";
   const showBar = timeSpan > 1;
-  // useChangedProps({
-  //   initialDateTs,
-  //   firstHour,
-  //   domainId,
-  //   timeSpan,
-  //   startTimeTs,
-  //   endTimeTs,
-  //   markerPosition,
-  //   showBar, // Toggle the bar visibility
-  //   barDuration // Bar duration in hours
-  // });
+
   // console.log("Timeline->init #j01", {
   //   initialDateTs,
   //   firstHour,
