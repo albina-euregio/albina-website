@@ -319,11 +319,7 @@ const WeatherMapCockpit = () => {
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline
-            key="cp-timeline"
-            store={store}
-            updateCB={onTimelineUpdate}
-          />
+          <Timeline key="cp-timeline" updateCB={onTimelineUpdate} />
         </div>
 
         {getTimeSpanOptions()}
