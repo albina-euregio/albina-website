@@ -503,6 +503,7 @@ function _loadDomainData() {
         "/" +
         domainConfig.get().metaFiles?.startDate
     ).then(retrievedDate => {
+      console.log("startDate", { retrievedDate });
       startDate.set(retrievedDate);
     }),
     fetchDate(
@@ -601,6 +602,16 @@ export const initialDate = computed(
       initialDate.setUTCHours(
         initialDate.getUTCHours() - initialDate.getUTCHours()
       );
+    }
+    const now = new Date();
+    // if current time is in the future, set it to the next available time
+    if (
+      initialDate.getTime() < now.getTime() &&
+      now.getTime() < endTime.getTime()
+    ) {
+      while (initialDate.getTime() < now.getTime()) {
+        initialDate.setUTCHours(initialDate.getUTCHours() + timeSpanInt);
+      }
     }
     return initialDate;
   }
