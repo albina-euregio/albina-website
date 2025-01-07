@@ -299,18 +299,23 @@ const Timeline = ({ updateCB }) => {
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const factor = timeSpan > 24 ? 24 : 24 / timeSpan;
-    //console.log("handleKeyDown", { key: event.ctrlKey, timeSpan, factor });
-    switch (event.keyCode) {
-      case 37:
-        if (event.ctrlKey) jumpStep(-1 * factor);
-        else jumpStep(-1);
+    //console.log("handleKeyDown", { key: event.key, timeSpan, factor });
+    switch (event.key) {
+      case "ArrowLeft":
+        if (event.ctrlKey) {
+          jumpStep(-1 * factor);
+        } else {
+          jumpStep(-1);
+        }
         break;
-      case 39:
+      case "ArrowRight":
         if (event.ctrlKey) {
           jumpStep(1 * factor);
-        } else jumpStep(1);
+        } else {
+          jumpStep(1);
+        }
         break;
-      case 32:
+      case " ":
         //player.toggle();
         break;
       default:
