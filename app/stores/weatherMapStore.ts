@@ -19,7 +19,6 @@ export const config = {
   },
   domains: {
     "snow-height": {
-      domainIdStart: "-1",
       item: {
         timeSpans: ["-1"],
         defaultTimeSpan: null,
@@ -59,7 +58,6 @@ export const config = {
       }
     },
     "new-snow": {
-      domainIdStart: "+6",
       item: {
         timeSpans: ["+6", "+12", "+24", "+48", "+72"],
         defaultTimeSpan: "+12",
@@ -100,7 +98,6 @@ export const config = {
       }
     },
     "diff-snow": {
-      domainIdStart: "+6",
       item: {
         timeSpans: ["-6", "-12", "-24", "-48", "-72"],
         defaultTimeSpan: null,
@@ -147,7 +144,6 @@ export const config = {
       }
     },
     "snow-line": {
-      domainIdStart: "+-1",
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
@@ -217,7 +213,6 @@ export const config = {
       }
     },
     temp: {
-      domainIdStart: "+-1",
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
@@ -262,7 +257,6 @@ export const config = {
       }
     },
     wind: {
-      domainIdStart: "+-1",
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
@@ -302,7 +296,6 @@ export const config = {
       }
     },
     gust: {
-      domainIdStart: "+-1",
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
@@ -346,7 +339,6 @@ export const config = {
       }
     },
     wind700hpa: {
-      domainIdStart: "+-1",
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
@@ -741,11 +733,7 @@ function _getStartTimeForSpan() {
  * control method to check if the domain does exist in the config
  */
 function checkDomainId(domainId: DomainId) {
-  return Boolean(
-    domainId &&
-      config?.domains[domainId]?.item &&
-      config?.domains[domainId]?.domainIdStart
-  );
+  return Boolean(domainId && config?.domains[domainId]?.item);
 }
 
 /*
