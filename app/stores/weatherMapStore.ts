@@ -478,7 +478,7 @@ function _loadDomainData() {
 
     const lastModified = response.headers.get("last-modified");
     if (lastModified) {
-      const date = new Date(lastModified).getTime();
+      const date = Date.parse(lastModified);
       if (date < lastDataUpdate.get() || lastDataUpdate.get() === 0) {
         lastDataUpdate.set(date);
       }
@@ -580,8 +580,7 @@ export const initialDate = computed(
   (currentTime, endTime, timeSpanInt) => {
     currentTime = new Date(currentTime);
     endTime = new Date(endTime);
-    const initialDate =
-      currentTime.getTime() > endTime.getTime() ? endTime : currentTime;
+    const initialDate = +currentTime > +endTime ? endTime : currentTime;
 
     if (timeSpanInt === 12 && [6, 18].includes(initialDate.getUTCHours())) {
       initialDate.setUTCHours(initialDate.getUTCHours() - 6);
@@ -596,11 +595,8 @@ export const initialDate = computed(
     }
     const now = new Date();
     // if current time is in the future, set it to the next available time
-    if (
-      initialDate.getTime() < now.getTime() &&
-      now.getTime() < endTime.getTime()
-    ) {
-      while (initialDate.getTime() < now.getTime()) {
+    if (+initialDate < +now && +now < +endTime) {
+      while (+initialDate < +now) {
         initialDate.setUTCHours(initialDate.getUTCHours() + timeSpanInt);
       }
     }
@@ -794,7 +790,7 @@ export function changeTimeSpan(timeSpan0: TimeSpan) {
  */
 export function changeCurrentTime(newTime: Date | string) {
   const date = new Date(newTime);
-  if (date.getTime() !== currentTime.get()?.getTime()) {
+  if (+date !== +currentTime.get()) {
     currentTime.set(date);
   }
   _loadIndexData();

@@ -42,7 +42,7 @@ const DOMAIN_UNITS = {
 };
 
 const WeatherMapCockpit = () => {
-  const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+  const [lastRedraw, setLastRedraw] = useState(+new Date());
   const domainId = useStore(store.domainId);
   const timeSpan = useStore(store.timeSpan);
   const nextUpdateTime = useStore(store.nextUpdateTime);
@@ -58,7 +58,7 @@ const WeatherMapCockpit = () => {
   }, []);
 
   const redraw = () => {
-    setLastRedraw(new Date().getTime());
+    setLastRedraw(+new Date());
     adaptVH();
   };
 

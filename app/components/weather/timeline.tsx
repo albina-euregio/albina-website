@@ -109,7 +109,7 @@ const Timeline = ({ updateCB }) => {
   }, []);
 
   useEffect(() => {
-    if (initialDate && initialDate?.getTime() > 0) {
+    if (initialDate && +initialDate > 0) {
       //console.log("Timeline->useEffect->initialDate #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
 
       const newInitialDate = new Date(initialDate);
@@ -219,7 +219,7 @@ const Timeline = ({ updateCB }) => {
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
-    if (currentDate?.getTime() > 0) {
+    if (+currentDate > 0) {
       // console.log("Timeline->useEffect-> #k011", {
       //   currentDate: currentDate.toISOString(),
       //   currentDateTime: currentDate.getTime()
@@ -251,7 +251,7 @@ const Timeline = ({ updateCB }) => {
   };
 
   const addHours = (date, hours) => {
-    return new Date(date.getTime() + Math.round(hours) * 60 * 60 * 1000);
+    return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
   };
 
   // const getDisplayDate = () => {
@@ -355,11 +355,7 @@ const Timeline = ({ updateCB }) => {
 
         const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
 
-        if (
-          isSelectable &&
-          markDate.getTime() >= startTime.getTime() &&
-          markDate.getTime() <= endTime.getTime()
-        )
+        if (isSelectable && +markDate >= +startTime && +markDate <= +endTime)
           markClass.push("selectable-hour-mark");
         else markClass.push("hour-mark");
         if (isSelectable) {
@@ -367,10 +363,7 @@ const Timeline = ({ updateCB }) => {
           nextSelectableDate.setUTCHours(
             nextSelectableDate.getUTCHours() + selectableHoursOffset
           );
-          if (
-            endTime.getTime() >= markDate.getTime() &&
-            nextSelectableDate.getTime() > endTime.getTime()
-          ) {
+          if (+endTime >= +markDate && +nextSelectableDate > +endTime) {
             // console.log("rulerMarkings #k0111", {
             //   markDate: markDate.toISOString(),
             //   nextSelectableDate: nextSelectableDate.toISOString(),
@@ -379,8 +372,7 @@ const Timeline = ({ updateCB }) => {
             markClass.push("selectable-hours-end");
           }
         }
-        if (markDate.getTime() === startTime?.getTime())
-          markClass.push("selectable-hours-start");
+        if (+markDate === +startTime) markClass.push("selectable-hours-start");
         // console.log("rulerMarkingsi0111", {
         //   markDate: markDate.toISOString(),
         //   endTime: endTime.toISOString(),
@@ -425,8 +417,7 @@ const Timeline = ({ updateCB }) => {
             ></div>
           </div>
         );
-        if (markDate.getTime() < startDate.getTime())
-          markingsAnalysis.push(marking);
+        if (+markDate < +startDate) markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
     }
