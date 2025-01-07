@@ -593,13 +593,6 @@ export const initialDate = computed(
         initialDate.getUTCHours() - initialDate.getUTCHours()
       );
     }
-    const now = new Date();
-    // if current time is in the future, set it to the next available time
-    if (+initialDate < +now && +now < +endTime) {
-      while (+initialDate < +now) {
-        initialDate.setUTCHours(initialDate.getUTCHours() + timeSpanInt);
-      }
-    }
     return initialDate;
   }
 );

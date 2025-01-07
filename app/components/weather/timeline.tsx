@@ -114,6 +114,15 @@ const Timeline = ({ updateCB }) => {
       //console.log("Timeline->useEffect->initialDate #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
 
       const newInitialDate = new Date(initialDate);
+      const now = new Date();
+      // if current time is in the future, set it to the next available time
+      if (+newInitialDate < +now && +now < +endTime) {
+        while (+newInitialDate < +now) {
+          newInitialDate.setUTCHours(
+            newInitialDate.getUTCHours() + timeSpanInt
+          );
+        }
+      }
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
