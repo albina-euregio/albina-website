@@ -310,6 +310,12 @@ const Timeline = ({ updateCB }) => {
       case "ArrowRight":
         jumpStep(1 * factor);
         break;
+      case "ArrowUp":
+        jumpTimeSpan(1);
+        break;
+      case "ArrowDown":
+        jumpTimeSpan(-1);
+        break;
       case " ":
         //player.toggle();
         break;
@@ -329,6 +335,17 @@ const Timeline = ({ updateCB }) => {
     //   endTime: endTime.toISOString()
     // });
     if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
+  };
+
+  const jumpTimeSpan = (direction: 1 | -1 | number) => {
+    if (!timeSpan0) return;
+    const timeSpans = store.domainConfig.get().timeSpans;
+    if (timeSpans.length < 2) return;
+    let index = timeSpans.indexOf(timeSpan0);
+    if (index < 0) return;
+    index = (index + direction + timeSpans.length) % timeSpans.length;
+    const timeSpan = timeSpans[index];
+    store.timeSpan.set(timeSpan);
   };
 
   const rulerMarkings = useMemo(() => {
