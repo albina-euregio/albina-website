@@ -503,7 +503,6 @@ function _loadDomainData() {
         "/" +
         domainConfig.get().metaFiles?.startDate
     ).then(retrievedDate => {
-      console.log("startDate", { retrievedDate });
       startDate.set(retrievedDate);
     }),
     fetchDate(
