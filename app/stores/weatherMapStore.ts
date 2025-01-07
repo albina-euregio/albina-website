@@ -440,15 +440,32 @@ export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = computed(
   [domainConfig, domainId, currentTime, absTimeSpan],
   (domainConfig, domainId, currentTime, absTimeSpan) =>
-    domainConfig.dataOverlays.map(o => ({
-      ...o,
-      overlayFilename: getOverlayFileName(
+    domainConfig.dataOverlays.map(o => {
+      const overlayFilename = getOverlayFileName(
         currentTime,
         o?.domain || domainId,
         o.filePostfix,
         absTimeSpan
-      )
-    }))
+      );
+
+      const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
+        const canvas = document.createElement("canvas");
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          canvas.width = img.naturalWidth * 2;
+          canvas.height = img.naturalHeight * 2;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
+          resolve(ctx);
+        };
+        img.onerror = e => reject(overlayFilename, e);
+        img.src = overlayFilename;
+      });
+
+      return { ...o, overlayFilename, ctx };
+    })
 );
 
 /*
