@@ -1,5 +1,5 @@
 import { atom, computed } from "nanostores";
-import { loadStationData } from "./stationDataStore";
+import { loadStationData, type StationData } from "./stationDataStore";
 import { dateFormat } from "../util/date";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
@@ -391,7 +391,7 @@ export type OverlayType =
 type TimeSpans = Domain["item"]["timeSpans"];
 type TimeSpan = TimeSpans[number];
 
-export const stations = atom([]);
+export const stations = atom<StationData[]>([]);
 export const grid = atom([]);
 /*
  * returns the active domain id
@@ -480,7 +480,7 @@ export const timeRange = computed(
 /*
  * get data
  */
-function _loadDomainData() {
+async function _loadDomainData() {
   lastDataUpdate.set(0);
 
   const fetchDate = async (url: string) => {
@@ -505,64 +505,54 @@ function _loadDomainData() {
     return date.includes("T") ? new Date(date.trim()) : null;
   };
 
-  const loads = [
-    fetchDate(
+  try {
+    const startDate0 = fetchDate(
       window.config.apis.weather.overlays +
         domainId.get() +
         "/" +
         domainConfig.get().metaFiles?.startDate
-    ).then(retrievedDate => {
-      startDate.set(retrievedDate);
-    }),
-    fetchDate(
+    );
+    const agl0 = fetchDate(
       window.config.apis.weather.overlays +
         domainId.get() +
         "/" +
         domainConfig
           .get()
           .metaFiles?.agl.replace("{timespan}", absTimeSpan.get())
-    ).then(retrievedDate => {
-      agl.set(retrievedDate);
-    })
-  ];
+    );
 
-  Promise.all(loads)
-    .then(() => {
-      if (!currentTime.get()) {
-        currentTime.set(_getStartTimeForSpan());
-      }
-      _loadIndexData();
-    })
-    .catch(err => {
-      // TODO fail with error dialog
-      console.error("Weather data API is not available aaa", err);
-    });
+    startDate.set(await startDate0);
+    agl.set(await agl0);
+
+    if (!currentTime.get()) {
+      currentTime.set(_getStartTimeForSpan());
+    }
+    await _loadIndexData();
+  } catch (err) {
+    // TODO fail with error dialog
+    console.error("Weather data API is not available aaa", err);
+  }
 }
 
 /*
  * get data for currentTime
  */
-function _loadIndexData() {
+async function _loadIndexData() {
   stations.set([]);
   grid.set([]);
-  const loads = [];
 
-  if (domainConfig.get()?.layer.stations && currentTime.get() <= agl.get()) {
-    loads.push(
-      loadStationData({
-        dateTime: currentTime.get() ? new Date(currentTime.get()) : undefined
-      }).then(features => stations.set({ features }))
-    );
-  } else {
-    stations.set([]);
+  if (!(domainConfig.get()?.layer.stations && currentTime.get() <= agl.get())) {
+    return;
   }
-
-  Promise.all(loads)
-    .then(() => {})
-    .catch(err => {
-      // TODO fail with error dialog
-      console.error("Data for timeindex not available", err);
+  try {
+    const features = await loadStationData({
+      dateTime: currentTime.get() ? new Date(currentTime.get()) : undefined
     });
+    stations.set(features);
+  } catch (err) {
+    // TODO fail with error dialog
+    console.error("Data for timeindex not available", err);
+  }
 }
 
 export const startTime = computed(

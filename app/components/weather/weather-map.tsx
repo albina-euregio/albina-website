@@ -55,7 +55,7 @@ const WeatherMap = ({
       );
     }
 
-    if (domainConfig.layer.stations && stations?.features && !isPlaying) {
+    if (domainConfig.layer.stations && stations?.length && !isPlaying) {
       if (showStations)
         overlays.push(
           <StationOverlay
@@ -64,7 +64,7 @@ const WeatherMap = ({
             selectedFeature={selectedFeature}
             item={domainConfig}
             itemId={itemId}
-            features={stations.features}
+            features={stations}
             onLoading={() => {
               playerCB("stations", "loading");
             }}

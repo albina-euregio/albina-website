@@ -59,7 +59,7 @@ const Weather = () => {
   return (
     <>
       <WeatherStationDialog
-        stationData={stations?.features ?? []}
+        stationData={stations ?? []}
         stationId={stationId}
         setStationId={setStationId}
       />
