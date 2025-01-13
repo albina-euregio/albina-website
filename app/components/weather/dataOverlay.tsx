@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ImageOverlay, useMap } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
 import { useIntl } from "../../i18n";
@@ -23,38 +23,17 @@ const DataOverlay = ({ playerCB }) => {
 
   const parentMap = useMap();
 
-  const [dataMarker, setDataMarker] = useState(null);
-  const [directionMarkers, setDirectionMarkers] = useState([]);
-  const [directionOverlay, setDirectionOverlay] = useState(null);
-  const [oCanvases, setOCanvases] = useState(
-    {} as Record<
-      OverlayType,
-      {
-        currentTime: Date | null;
-        absTimeSpan: number;
-        canvas: HTMLCanvasElement;
-        ctx: CanvasRenderingContext2D;
-        loaded: boolean;
-      }
-    >
-  );
+  const [dataMarker, setDataMarker] = useState<typeof StationMarker | null>();
+  const [directionMarkers, setDirectionMarkers] =
+    useState<(typeof StationMarker)[]>();
 
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
   const domainConfig = useStore(store.domainConfig);
-  const absTimeSpan = useStore(store.absTimeSpan);
   const overlayFileName = useStore(store.overlayFileName);
   const dataOverlays = useStore(store.dataOverlays);
   const agl = useStore(store.agl);
   const dataOverlaysEnabled = !domainConfig.layer.stations || currentTime > agl;
-
-  useEffect(() => {
-    setOCanvases({});
-  }, [domainId, currentTime]);
-
-  useEffect(() => {
-    if (directionOverlay) addDirectionIndicators();
-  }, [directionOverlay]);
 
   const getLayerPixelAtLatLng = (
     overlay: L.ImageOverlay,
@@ -77,18 +56,15 @@ const DataOverlay = ({ playerCB }) => {
     return colors[idx >= 0 ? idx + 1 : 0];
   };
 
-  const getPixelData = (coordinates: {
+  const getPixelData = async (coordinates: {
     x: number;
     y: number;
-  }): { value: number | null; direction: number | null } => {
+  }): Promise<{ value: number | null; direction: number | null }> => {
     const values = {} as Record<OverlayType, number | null>;
-    dataOverlays.forEach(anOverlay => {
-      const type = anOverlay.type as OverlayType;
-      const oCanvas = oCanvases[type];
-      if (!oCanvas.loaded) {
-        return;
-      }
-      const p = oCanvas.ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
+    for (const dataOverlay of dataOverlays) {
+      const type = dataOverlay.type;
+      const ctx = await dataOverlay.ctx;
+      const p = ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
         willReadFrequently: true
       });
       values[type] = store.valueForPixel(type, {
@@ -96,7 +72,7 @@ const DataOverlay = ({ playerCB }) => {
         g: p.data[1],
         b: p.data[2]
       });
-    });
+    }
 
     return {
       value:
@@ -108,11 +84,7 @@ const DataOverlay = ({ playerCB }) => {
     };
   };
 
-  const allCanvasesLoaded = (): boolean => {
-    return Object.keys(oCanvases).every(key => oCanvases[key].loaded);
-  };
-
-  const showDataMarker = (e: L.LeafletMouseEvent) => {
+  const showDataMarker = async (e: L.LeafletMouseEvent) => {
     if (store.config.settings.debugModus && e.originalEvent.ctrlKey) {
       [...document.getElementsByClassName("map-data-layer")].forEach(e => {
         e.classList.toggle("hide");
@@ -120,8 +92,9 @@ const DataOverlay = ({ playerCB }) => {
       });
     }
 
-    if (dataOverlaysEnabled && parentMap && allCanvasesLoaded()) {
-      const pixelData = getPixelData(getLayerPixelAtLatLng(e.target, e.latlng));
+    if (dataOverlaysEnabled && parentMap) {
+      const coordinates = getLayerPixelAtLatLng(e.target, e.latlng);
+      const pixelData = await getPixelData(coordinates);
       setDataMarker(
         <StationMarker
           type="station"
@@ -142,59 +115,13 @@ const DataOverlay = ({ playerCB }) => {
     }
   };
 
-  const setupDataLayer = (e: L.LeafletEvent) => {
-    setDirectionOverlay(null);
-    if (!dataOverlaysEnabled) {
-      playerCB("background", "load");
-      return;
-    }
-    const overlayCanvases = oCanvases;
-    dataOverlays.forEach(anOverlay => {
-      const type = anOverlay.type as OverlayType;
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      overlayCanvases[type] = {
-        currentTime,
-        absTimeSpan,
-        canvas,
-        ctx,
-        loaded: false
-      };
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => {
-        canvas.width = img.naturalWidth * 2;
-        canvas.height = img.naturalHeight * 2;
-        ctx.drawImage(img, 0, 0);
-        ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
-        overlayCanvases[type].loaded = true;
-
-        if (allCanvasesLoaded()) {
-          if (overlayCanvases.windDirection) {
-            setDirectionOverlay(e.target);
-          }
-          playerCB("background", "load");
-        }
-      };
-      img.src = anOverlay.overlayFilename;
-    });
-    setOCanvases(overlayCanvases);
-  };
-
-  const addDirectionIndicators = () => {
-    if (!directionOverlay) return;
+  const addDirectionIndicators = async (directionOverlay: L.ImageOverlay) => {
     const map = parentMap;
     const curZoom = map.getZoom();
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
-    const markers = [];
+    const markers: (typeof StationMarker)[] = [];
     if (!dataOverlaysEnabled) {
-      return;
-    }
-    const foundOverlays = dataOverlays.filter(element => {
-      return ["windDirection"].includes(element.type);
-    });
-    if (!foundOverlays) {
       return;
     }
     const WEST = bounds[0][1];
@@ -212,7 +139,7 @@ const DataOverlay = ({ playerCB }) => {
           lat: curV,
           lng: curH
         });
-        const pixelData = getPixelData(pixelPos);
+        const pixelData = await getPixelData(pixelPos);
         markers.push(
           <StationMarker
             type="grid"
@@ -276,9 +203,10 @@ const DataOverlay = ({ playerCB }) => {
             click: showDataMarker,
             load: e => {
               setDataMarker(null);
-              setDirectionMarkers(null);
-              setupDataLayer(e);
-              parentMap.on("zoomend", () => addDirectionIndicators());
+              setDirectionMarkers([]);
+              const overlay = e.target as L.ImageOverlay;
+              addDirectionIndicators(overlay);
+              parentMap.on("zoomend", () => addDirectionIndicators(overlay));
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
