@@ -64,9 +64,7 @@ const DataOverlay = ({ playerCB }) => {
     for (const dataOverlay of dataOverlays) {
       const type = dataOverlay.type;
       const ctx = await dataOverlay.ctx;
-      const p = ctx.getImageData(coordinates.x, coordinates.y, 1, 1, {
-        willReadFrequently: true
-      });
+      const p = ctx.getImageData(coordinates.x, coordinates.y, 1, 1);
       values[type] = store.valueForPixel(type, {
         r: p.data[0],
         g: p.data[1],

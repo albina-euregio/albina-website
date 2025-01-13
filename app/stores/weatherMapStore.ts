@@ -455,7 +455,7 @@ export const dataOverlays = computed(
         img.onload = () => {
           canvas.width = img.naturalWidth * 2;
           canvas.height = img.naturalHeight * 2;
-          const ctx = canvas.getContext("2d");
+          const ctx = canvas.getContext("2d", { willReadFrequently: true });
           ctx.drawImage(img, 0, 0);
           ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
           resolve(ctx);
