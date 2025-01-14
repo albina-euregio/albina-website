@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { Marker, Tooltip } from "react-leaflet";
+import { Tooltip } from "react-leaflet";
 import L from "leaflet";
-import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
+import { Marker } from "@adamscybot/react-leaflet-component-marker";
 
 interface Props<T = unknown> {
   coordinates: L.LatLngExpression;
@@ -23,7 +23,7 @@ interface Props<T = unknown> {
 
 const StationMarker = (props: Props<unknown>): React.ReactNode => {
   const stationIcon = useMemo(() => {
-    const icon = (
+    return (
       <StationIcon
         itemId={props.itemId}
         type={props.type}
@@ -32,14 +32,10 @@ const StationMarker = (props: Props<unknown>): React.ReactNode => {
         selected={props.selected}
         value={isFinite(props.value) ? props.value : ""}
         direction={props.direction}
+        iconAnchor={props.iconAnchor || [12.5, 12.5]}
+        className={props.className}
       />
     );
-    const divIcon = L.divIcon({
-      iconAnchor: props.iconAnchor || [12.5, 12.5],
-      html: ReactDOMServer.renderToStaticMarkup(icon),
-      className: props.className
-    });
-    return divIcon;
   }, [
     props.className,
     props.color,
