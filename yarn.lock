@@ -12,23 +12,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adamscybot/react-leaflet-component-marker@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@adamscybot/react-leaflet-component-marker@npm:2.0.2"
-  dependencies:
-    react-is: "npm:^18.3.1"
-    react-reverse-portal: "npm:^2.1.2"
-    type-fest: "npm:^4.30.2"
-  peerDependencies:
-    "@react-leaflet/core": ">=2.0.0"
-    leaflet: ">=1.9.0"
-    react: ">=18.0.0"
-    react-dom: ">=18.0.0"
-    react-leaflet: ">=4.0.0"
-  checksum: 10c0/8010c9237fca654ebe28e1dab6ea5d50fd9262a8b0e4f76212704ccaad494127cc32ddb6e22069f0ffae87d37173560cf7e6941b63499b2ea5f0384e82a1fd6f
-  languageName: node
-  linkType: hard
-
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.3.0
   resolution: "@ampproject/remapping@npm:2.3.0"
@@ -1441,7 +1424,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "albina-website@workspace:."
   dependencies:
-    "@adamscybot/react-leaflet-component-marker": "npm:^2.0.2"
     "@eaws/micro-regions_elevation_properties": "npm:^7.0.5"
     "@eaws/micro-regions_properties": "npm:^7.0.5"
     "@eaws/outline_properties": "npm:^7.0.5"
@@ -4469,13 +4451,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react-is@npm:18.3.1"
-  checksum: 10c0/f2f1e60010c683479e74c63f96b09fb41603527cd131a9959e2aee1e5a8b0caf270b365e5ca77d4a6b18aae659b60a86150bb3979073528877029b35aecd2072
-  languageName: node
-  linkType: hard
-
 "react-leaflet@npm:^5.0.0":
   version: 5.0.0
   resolution: "react-leaflet@npm:5.0.0"
@@ -4493,16 +4468,6 @@ __metadata:
   version: 0.14.2
   resolution: "react-refresh@npm:0.14.2"
   checksum: 10c0/875b72ef56b147a131e33f2abd6ec059d1989854b3ff438898e4f9310bfcc73acff709445b7ba843318a953cb9424bcc2c05af2b3d80011cee28f25aef3e2ebb
-  languageName: node
-  linkType: hard
-
-"react-reverse-portal@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "react-reverse-portal@npm:2.1.2"
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/187202a91d773d396e97209bec00b3ff9bc2ba48d713f139c3c144d35ff4df19ce2b29fe3de85fe9dbe0aba0f37a4ea21f04aefdcdbe1f86951c5561607e3ba9
   languageName: node
   linkType: hard
 
@@ -5251,13 +5216,6 @@ __metadata:
   dependencies:
     prelude-ls: "npm:^1.2.1"
   checksum: 10c0/7b3fd0ed43891e2080bf0c5c504b418fbb3e5c7b9708d3d015037ba2e6323a28152ec163bcb65212741fa5d2022e3075ac3c76440dbd344c9035f818e8ecee58
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^4.30.2":
-  version: 4.32.0
-  resolution: "type-fest@npm:4.32.0"
-  checksum: 10c0/e2e877055487d109eba99afc58211db4a480837ff7b243c7de0b3e2ac29fdce55ab55e201c64cb1a8b2aeffce7e8f60ae3ce3a2f7e6fb68261d62743e54288ba
   languageName: node
   linkType: hard
 

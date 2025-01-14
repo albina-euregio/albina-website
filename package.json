@@ -20,7 +20,6 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
-    "@adamscybot/react-leaflet-component-marker": "^2.0.2",
     "@eaws/micro-regions_elevation_properties": "^7.0.5",
     "@eaws/micro-regions_properties": "^7.0.5",
     "@eaws/outline_properties": "^7.0.5",
