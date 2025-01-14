@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
+import { createPortal } from "react-dom";
 import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
-import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
 
 interface Props<T = unknown> {
@@ -23,7 +23,7 @@ interface Props<T = unknown> {
 
 const StationMarker = (props: Props<unknown>): React.ReactNode => {
   const stationIcon = useMemo(() => {
-    const icon = (
+    return (
       <StationIcon
         itemId={props.itemId}
         type={props.type}
@@ -34,29 +34,32 @@ const StationMarker = (props: Props<unknown>): React.ReactNode => {
         direction={props.direction}
       />
     );
-    const divIcon = L.divIcon({
-      iconAnchor: props.iconAnchor || [12.5, 12.5],
-      html: ReactDOMServer.renderToStaticMarkup(icon),
-      className: props.className
-    });
-    return divIcon;
   }, [
-    props.className,
     props.color,
     props.dataType,
     props.direction,
-    props.iconAnchor,
     props.itemId,
     props.selected,
     props.type,
     props.value
   ]);
 
+  const icon = useMemo(
+    () =>
+      L.divIcon({
+        iconAnchor: props.iconAnchor || [12.5, 12.5],
+        className: props.className
+      }),
+    [props.className, props.iconAnchor]
+  );
+  const element = icon.createIcon();
+  icon.createIcon = () => element;
+
   return (
     <Marker
       position={props.coordinates}
       title={props.stationName}
-      icon={stationIcon}
+      icon={icon}
       eventHandlers={
         props.onClick && {
           click: e => {
@@ -67,6 +70,7 @@ const StationMarker = (props: Props<unknown>): React.ReactNode => {
       }
     >
       {props.tooltip && <Tooltip>{props.tooltip}</Tooltip>}
+      {createPortal(stationIcon, element)}
     </Marker>
   );
 };
