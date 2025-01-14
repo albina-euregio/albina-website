@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useLeafletContext } from "@react-leaflet/core";
+import React, { useMemo } from "react";
+import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
@@ -22,43 +22,7 @@ interface Props<T = unknown> {
 }
 
 const StationMarker = (props: Props<unknown>): React.ReactNode => {
-  const context = useLeafletContext();
-
-  useEffect(() => {
-    const marker = L.marker(props.coordinates, {
-      data: props.data,
-      title: props.stationName,
-      icon: createStationIcon(),
-      bubblingMouseEvents: false
-    });
-
-    if (props.tooltip) {
-      marker.bindTooltip(props.tooltip);
-    }
-
-    if (props.onClick)
-      marker.on("click", e => {
-        // console.log(
-        //   "marker.on(click) ggg",
-        //   props.onClick,
-        //   e.target.options.data
-        // );
-        L.DomEvent.stopPropagation(e);
-
-        props.onClick(e.target.options.data);
-      });
-
-    const container = context.layerContainer || context.map;
-
-    container.addLayer(marker);
-
-    return () => {
-      container.removeLayer(marker);
-    };
-  });
-
-  const createStationIcon = () => {
-    //console.log("StationMarker->createStationIcon jjj", props);
+  const stationIcon = useMemo(() => {
     const icon = (
       <StationIcon
         itemId={props.itemId}
@@ -75,11 +39,36 @@ const StationMarker = (props: Props<unknown>): React.ReactNode => {
       html: ReactDOMServer.renderToStaticMarkup(icon),
       className: props.className
     });
-    //console.log("StationMarker->createStationIcon eee", divIcon);
     return divIcon;
-  };
+  }, [
+    props.className,
+    props.color,
+    props.dataType,
+    props.direction,
+    props.iconAnchor,
+    props.itemId,
+    props.selected,
+    props.type,
+    props.value
+  ]);
 
-  return null;
+  return (
+    <Marker
+      position={props.coordinates}
+      title={props.stationName}
+      icon={stationIcon}
+      eventHandlers={
+        props.onClick && {
+          click: e => {
+            L.DomEvent.stopPropagation(e);
+            props.onClick(e.target.options.data);
+          }
+        }
+      }
+    >
+      {props.tooltip && <Tooltip>{props.tooltip}</Tooltip>}
+    </Marker>
+  );
 };
 
 export default StationMarker;
