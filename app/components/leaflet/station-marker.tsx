@@ -57,6 +57,7 @@ const StationMarker = (props: Props<unknown>): React.ReactNode => {
 
   return (
     <Marker
+      data={props.data}
       position={props.coordinates}
       title={props.stationName}
       icon={icon}
