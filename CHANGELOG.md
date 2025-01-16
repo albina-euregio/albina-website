@@ -2,6 +2,16 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.1] - 2025-01-16
+
+### Weather Maps
+
+- Change timespan using ↑/↓
+- Focus scale for key handling
+- Use async-await for weather map overlays
+- Improve performance of station markers
+- Improve tooltips position
+
 ## [7.2.0] - 2025-01-07
 
 ### Weather Maps
