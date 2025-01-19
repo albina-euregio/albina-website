@@ -306,25 +306,19 @@ const Timeline = ({ updateCB }) => {
         ? 24
         : 24 / timeSpanInt
       : 1;
-    //console.log("handleKeyDown", { key: event.key, timeSpan, factor });
     switch (event.key) {
       case "ArrowLeft":
-        jumpStep(-1 * factor);
-        break;
+        return jumpStep(-1 * factor);
       case "ArrowRight":
-        jumpStep(1 * factor);
-        break;
+        return jumpStep(1 * factor);
       case "ArrowUp":
-        jumpTimeSpan(1);
-        break;
+        return jumpTimeSpan(1);
       case "ArrowDown":
-        jumpTimeSpan(-1);
-        break;
-      case " ":
-        //player.toggle();
-        break;
-      default:
-        break;
+        return jumpTimeSpan(-1);
+      case "n": // next domain
+        return jumpDomain(1);
+      case "p": // previous domain
+        return jumpDomain(-1);
     }
   };
 
@@ -350,6 +344,15 @@ const Timeline = ({ updateCB }) => {
     index = (index + direction + timeSpans.length) % timeSpans.length;
     const timeSpan = timeSpans[index];
     store.timeSpan.set(timeSpan);
+  };
+
+  const jumpDomain = (direction: 1 | -1 | number) => {
+    if (!domainId) return;
+    const domains = Object.keys(store.config.domains);
+    let index = domains.indexOf(domainId);
+    if (index < 0) return;
+    index = (index + direction + domains.length) % domains.length;
+    store.changeDomain(domains[index]);
   };
 
   const rulerMarkings = useMemo(() => {
