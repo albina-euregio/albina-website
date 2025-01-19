@@ -18,6 +18,17 @@ const css = `
     }
 `;
 
+function debounce<T extends (...args: unknown[]) => void>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout>;
+  return (...args: Parameters<T>): void => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.call(args), wait);
+  };
+}
+
 const DataOverlay = ({ playerCB }) => {
   const intl = useIntl();
 
@@ -203,7 +214,10 @@ const DataOverlay = ({ playerCB }) => {
               setDirectionMarkers([]);
               const overlay = e.target as L.ImageOverlay;
               addDirectionIndicators(overlay);
-              parentMap.on("zoomend", () => addDirectionIndicators(overlay));
+              parentMap.on(
+                "zoomend",
+                debounce(() => addDirectionIndicators(overlay), 500)
+              );
               if (!dataMarker && !directionMarkers)
                 playerCB("background", "load");
             },
