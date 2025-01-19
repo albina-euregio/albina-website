@@ -32,8 +32,7 @@ const DataOverlay = ({ playerCB }) => {
   const domainConfig = useStore(store.domainConfig);
   const overlayFileName = useStore(store.overlayFileName);
   const dataOverlays = useStore(store.dataOverlays);
-  const agl = useStore(store.agl);
-  const dataOverlaysEnabled = !domainConfig.layer.stations || currentTime > agl;
+  const dataOverlaysEnabled = true;
 
   const getLayerPixelAtLatLng = (
     overlay: L.ImageOverlay,
