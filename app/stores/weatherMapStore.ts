@@ -299,7 +299,7 @@ export const config = {
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
-        timeSpanToDataId: { "+-1": "gust" },
+        timeSpanToDataId: { "+-1": "wgus" },
         updateTimesOffset: { "*": 1 },
         units: "km/h",
         thresholds: [5, 10, 20, 40, 60, 80],
@@ -541,9 +541,9 @@ async function _loadIndexData() {
   stations.set([]);
   grid.set([]);
 
-  if (!(domainConfig.get()?.layer.stations && currentTime.get() <= agl.get())) {
-    return;
-  }
+  if (!domainConfig.get()?.layer.stations) return;
+  if (currentTime.get() > startDate.get()) return;
+
   try {
     const features = await loadStationData({
       dateTime: currentTime.get() ? new Date(currentTime.get()) : undefined
