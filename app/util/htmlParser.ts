@@ -2,6 +2,7 @@ import React, { type AllHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
 import { RegionsTables } from "../components/stationTable/regionTable";
+import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
 
@@ -32,6 +33,9 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (type === "a" && props.target === "_blank") {
           // no opener for external links
           props.rel = "noopener";
+        } else if (blogMode && type === "figure") {
+          children = React.createElement(type, props, children);
+          return React.createElement(ModalImage, undefined, children);
         } else if (blogMode && type === "img") {
           // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           ["sizes"].forEach(prop => delete props[prop]);
