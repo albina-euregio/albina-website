@@ -11,7 +11,11 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
-import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import {
+  isOneDangerRating,
+  toAmPm,
+  ValidTimePeriod
+} from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -54,8 +58,12 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(properties) {
-          if (!filterFeature({ properties }, props.date))
+          if (!filterFeature({ properties }, props.date)) {
             return config.map.regionStyling.hidden;
+          }
+          if (isOneDangerRating()) {
+            return style(properties.id);
+          }
           return properties.elevation === "low_high"
             ? style(properties.id)
             : style(properties.id + ":" + properties.elevation);

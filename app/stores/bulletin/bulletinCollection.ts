@@ -4,6 +4,7 @@ import {
   Bulletins,
   ColonAmPm,
   DangerRating,
+  DangerRatingValue,
   matchesValidTimePeriod,
   toAmPm,
   ValidTimePeriod
@@ -60,6 +61,21 @@ const eawsRegions = Object.freeze([
   "SI",
   "SK"
 ]);
+
+export function isOneDangerRating(): boolean {
+  const { searchParams } = new URL(document.location.href);
+  return searchParams.get("one-danger-rating") === "1";
+}
+
+export function getMaxMainValue(
+  dangerRatings: DangerRating[] = []
+): DangerRatingValue {
+  return dangerRatings.reduce(
+    (a, b): DangerRatingValue =>
+      getWarnlevelNumber(a) > getWarnlevelNumber(b.mainValue) ? a : b.mainValue,
+    DangerRatingValue.Low as DangerRatingValue
+  );
+}
 
 /**
  * Class storing one Caaml.Bulletins object with additional state.
@@ -228,6 +244,9 @@ class BulletinCollection {
   }
 
   private upgradeLegacyCAAML(b: Bulletin) {
+    if (isOneDangerRating()) {
+      b.dangerRatings?.forEach(b => (b.elevation = undefined));
+    }
     if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
       b.tendency = [b.tendency];
     }
@@ -251,11 +270,20 @@ class BulletinCollection {
       this.dataRaw?.bulletins.flatMap(b =>
         b.regions.flatMap(({ regionID }) =>
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
-            validTimePeriod =>
-              (["low", "high"] as const).map(elevation => [
+            validTimePeriod => [
+              ...[
+                isOneDangerRating()
+                  ? [
+                      `${regionID}${toAmPm[validTimePeriod]}`,
+                      this.getWarnLevel(regionID, validTimePeriod, b, undefined)
+                    ]
+                  : []
+              ],
+              ...(["low", "high"] as const).map(elevation => [
                 `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
                 this.getWarnLevel(regionID, validTimePeriod, b, elevation)
               ])
+            ]
           )
         )
       ) || []
@@ -266,7 +294,7 @@ class BulletinCollection {
     regionID: string,
     validTimePeriod: ValidTimePeriod,
     b: Bulletin,
-    elevation: LowHigh
+    elevation: LowHigh | undefined
   ): WarnLevelNumber {
     const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
     const warnlevel = dangerRatings
@@ -293,7 +321,7 @@ class BulletinCollection {
   private dangerRatings(
     validTimePeriod: ValidTimePeriod,
     bulletin: Bulletin,
-    elevation: LowHigh
+    elevation: LowHigh | undefined
   ): DangerRating[] {
     return bulletin?.dangerRatings
       .filter(danger =>

@@ -1,6 +1,7 @@
 import React from "react";
 import WarnLevelIcon from "../icons/warn-level-icon";
 import type * as Caaml from "../../stores/bulletin";
+import { getMaxMainValue } from "../../stores/bulletin";
 
 interface Props {
   dangerRatings: Caaml.DangerRating[];
@@ -9,12 +10,12 @@ interface Props {
 function BulletinDangerRating({ dangerRatings }: Props) {
   if (!dangerRatings?.length) return null;
 
-  const dangerRatingBelow = dangerRatings.find(
-    r => r?.elevation?.lowerBound === undefined
-  )?.mainValue;
-  const dangerRatingAbove = dangerRatings.find(
-    r => r?.elevation?.upperBound === undefined
-  )?.mainValue;
+  const dangerRatingBelow = getMaxMainValue(
+    dangerRatings.filter(r => r?.elevation?.lowerBound === undefined)
+  );
+  const dangerRatingAbove = getMaxMainValue(
+    dangerRatings.filter(r => r?.elevation?.upperBound === undefined)
+  );
   const dangerRatingBounds = dangerRatings.flatMap(r => [
     r?.elevation?.lowerBound,
     r?.elevation?.upperBound
