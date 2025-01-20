@@ -2,6 +2,18 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.2] - 2025-01-20
+
+### Weather Maps
+
+- Change parameter using keyboard shortcuts (p/n)
+- Always show wind arrows for high elevation wind
+- Show weather stations for wind gust
+
+### 🚀 Features
+
+- Introduce URL parameter one-danger-rating=1 to not show elevation dependent danger ratings
+
 ## [7.2.1] - 2025-01-16
 
 ### Weather Maps
