@@ -2,6 +2,13 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.3] - 2025-01-21
+
+### 🚀 Features
+
+- Set maxZoom to 12 for station map
+- Click to enlarge images in blog posts
+
 ## [7.2.2] - 2025-01-20
 
 ### Weather Maps
