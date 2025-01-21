@@ -6,7 +6,6 @@ import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 
 const Timeline = ({ updateCB }) => {
-  const now = new Date();
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpanInt = useStore(store.timeSpanInt);
@@ -23,8 +22,8 @@ const Timeline = ({ updateCB }) => {
   const rulerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const [markerRenewed, setMarkerRenewed] = useState(null);
-  const [targetDate, setTargetDate] = useState();
-  const [currentDate, setCurrentDate] = useState();
+  const [targetDate, setTargetDate] = useState<Date>();
+  const [currentDate, setCurrentDate] = useState<Date>();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -48,8 +47,13 @@ const Timeline = ({ updateCB }) => {
   const intl = useIntl();
   const datePickerRef = useRef<HTMLInputElement>(null);
 
-  const startOfDay = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+  const now = useMemo(() => new Date(), []);
+  const startOfDay = useMemo(
+    () =>
+      new Date(
+        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+      ),
+    [now]
   );
 
   useEffect(() => scaleRef.current?.focus?.(), []);
