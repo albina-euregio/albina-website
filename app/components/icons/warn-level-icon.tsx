@@ -39,7 +39,7 @@ const WarnLevelIcon = (props: Props) => {
   const imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
   const img = isOneDangerRating()
     ? `${imgRoot}../danger-levels/level_${numberAbove}.svg`
-    : `${imgRoot}levels_${numberBelow}_${numberAbove}.webp`;
+    : undefined;
 
   let title;
   let elevationText;
@@ -161,11 +161,7 @@ const WarnLevelIcon = (props: Props) => {
   return (
     <Tooltip label={title}>
       <Link to={"/education/danger-scale?"} tabIndex="-1" aria-label={title}>
-        {isOneDangerRating() || numberAbove === 5 || numberBelow === 5 ? (
-          <img src={img} alt={title} />
-        ) : (
-          svg
-        )}
+        {isOneDangerRating() ? <img src={img} alt={title} /> : svg}
         {props.above != props.below && <span>{elevationText}</span>}
       </Link>
     </Tooltip>
