@@ -68,11 +68,10 @@ const BulletinMap = (props: Props) => {
 
   const getMapOverlays = () => {
     const overlays = [<RegionClickHandler key="region-click-handler" />];
-    const date = props.date;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
-        date={date}
+        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}`}
+        date={props.date}
         handleSelectRegion={props.handleSelectRegion}
         validTimePeriod={props.validTimePeriod}
       >
@@ -92,7 +91,9 @@ const BulletinMap = (props: Props) => {
     );
     overlays.push(
       <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
+        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}-overlay`}
+        date={props.date}
+        validTimePeriod={props.validTimePeriod}
         eventHandlers={{
           click(e) {
             DomEvent.stop(e);
