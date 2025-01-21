@@ -656,6 +656,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mapbox/point-geometry@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@mapbox/point-geometry@npm:1.1.0"
+  checksum: 10c0/fe43d00a92592a28835090722df771be50182ff5fc40705cbd571534e2397beef884a97f701869b4a99a61289700cf709f588883f4b085c034bbe722cf17155d
+  languageName: node
+  linkType: hard
+
 "@nanostores/react@npm:^0.8.0":
   version: 0.8.0
   resolution: "@nanostores/react@npm:0.8.0"
@@ -1430,6 +1437,7 @@ __metadata:
     "@eslint/js": "npm:^9.17.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
+    "@mapbox/point-geometry": "npm:^1.1.0"
     "@nanostores/react": "npm:^0.8.0"
     "@playwright/test": "npm:^1.44.1"
     "@sentry/react": "npm:^8.7.0"
@@ -1459,6 +1467,7 @@ __metadata:
     lint-staged: "npm:^15.2.5"
     nanostores: "npm:^0.11.3"
     normalize.css: "npm:^8.0.1"
+    pmtiles: "npm:^4.2.1"
     prettier: "npm:3.3.1"
     purecss-sass: "npm:3.0.1"
     react: "npm:19.0.0"
@@ -2645,6 +2654,13 @@ __metadata:
   dependencies:
     reusify: "npm:^1.0.4"
   checksum: 10c0/1095f16cea45fb3beff558bb3afa74ca7a9250f5a670b65db7ed585f92b4b48381445cd328b3d87323da81e43232b5d5978a8201bde84e0cd514310f1ea6da34
+  languageName: node
+  linkType: hard
+
+"fflate@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "fflate@npm:0.8.2"
+  checksum: 10c0/03448d630c0a583abea594835a9fdb2aaf7d67787055a761515bf4ed862913cfd693b4c4ffd5c3f3b355a70cf1e19033e9ae5aedcca103188aaff91b8bd6e293
   languageName: node
   linkType: hard
 
@@ -4315,6 +4331,15 @@ __metadata:
   bin:
     playwright: cli.js
   checksum: 10c0/de827d17746b18ae2ec67d510a640d8ceebf8ee8e3d8399bccffa83b76a967498ca377777e4e6a1daaef4b3c86cb2c44c7468de53d2d915acc61b3b89c032738
+  languageName: node
+  linkType: hard
+
+"pmtiles@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "pmtiles@npm:4.2.1"
+  dependencies:
+    fflate: "npm:^0.8.2"
+  checksum: 10c0/2f950170aa6c15eb7ed972249cf6575bcce28ee75b921e30c6a0af35102fc87d5c2387f86d7b59f9f174195e87c30b838c35124e94723564cb91ae6867f355ee
   languageName: node
   linkType: hard
 
