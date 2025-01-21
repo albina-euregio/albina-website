@@ -13,6 +13,7 @@ import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 import { dateToISODateString, parseDate } from "../../util/date";
+import { atom } from "nanostores";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -62,10 +63,9 @@ const eawsRegions = Object.freeze([
   "SK"
 ]);
 
-export function isOneDangerRating(): boolean {
-  const { searchParams } = new URL(document.location.href);
-  return searchParams.get("one-danger-rating") === "1";
-}
+export const isOneDangerRating = atom(
+  new URL(document.location.href).searchParams.get("one-danger-rating") === "1"
+);
 
 export function getMaxMainValue(
   dangerRatings: DangerRating[] = []
@@ -244,7 +244,7 @@ class BulletinCollection {
   }
 
   private upgradeLegacyCAAML(b: Bulletin) {
-    if (isOneDangerRating()) {
+    if (isOneDangerRating.get()) {
       b.dangerRatings?.forEach(b => (b.elevation = undefined));
     }
     if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
@@ -272,7 +272,7 @@ class BulletinCollection {
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
             validTimePeriod => [
               ...[
-                isOneDangerRating()
+                isOneDangerRating.get()
                   ? [
                       `${regionID}${toAmPm[validTimePeriod]}`,
                       this.getWarnLevel(regionID, validTimePeriod, b, undefined)

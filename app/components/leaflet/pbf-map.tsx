@@ -11,11 +11,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
-import {
-  isOneDangerRating,
-  toAmPm,
-  ValidTimePeriod
-} from "../../stores/bulletin";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -35,6 +31,7 @@ interface PbfStyleFunction {
 }
 
 interface PbfProps {
+  isOneDangerRating: boolean;
   validTimePeriod: ValidTimePeriod;
   date: string;
 }
@@ -61,7 +58,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
           if (!filterFeature({ properties }, props.date)) {
             return config.map.regionStyling.hidden;
           }
-          if (isOneDangerRating()) {
+          if (props.isOneDangerRating) {
             return style(properties.id);
           }
           return properties.elevation === "low_high"

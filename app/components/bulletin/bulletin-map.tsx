@@ -16,9 +16,13 @@ import type {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
 import { PbfRegionState } from "../leaflet/pbf-region-state";
-import { ValidTimePeriod } from "../../stores/bulletin";
+import {
+  isOneDangerRating as isOneDangerRating0,
+  ValidTimePeriod
+} from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 import { useMapEvent } from "react-leaflet";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -33,6 +37,7 @@ interface Props {
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
+  const isOneDangerRating = useStore(isOneDangerRating0);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
@@ -72,6 +77,7 @@ const BulletinMap = (props: Props) => {
       <PbfLayer
         key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}`}
         date={props.date}
+        isOneDangerRating={isOneDangerRating}
         handleSelectRegion={props.handleSelectRegion}
         validTimePeriod={props.validTimePeriod}
       >

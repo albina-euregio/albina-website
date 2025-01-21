@@ -3,7 +3,11 @@ import { useIntl } from "../../i18n";
 import { Link } from "react-router-dom";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { Tooltip } from "../../components/tooltips/tooltip";
-import { DangerRatingValue, isOneDangerRating } from "../../stores/bulletin";
+import {
+  DangerRatingValue,
+  isOneDangerRating as isOneDangerRating0
+} from "../../stores/bulletin";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   above: DangerRatingValue;
@@ -36,8 +40,9 @@ const WarnLevelIcon = (props: Props) => {
   const colorBelowText = numberBelow >= 4 ? "#FFF" : "#222";
   const colorAboveText = numberAbove >= 4 ? "#FFF" : "#222";
 
+  const isOneDangerRating = useStore(isOneDangerRating0);
   const imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
-  const img = isOneDangerRating()
+  const img = isOneDangerRating
     ? `${imgRoot}../danger-levels/level_${numberAbove}.svg`
     : `${imgRoot}levels_${numberBelow}_${numberAbove}.webp`;
 
@@ -161,7 +166,7 @@ const WarnLevelIcon = (props: Props) => {
   return (
     <Tooltip label={title}>
       <Link to={"/education/danger-scale?"} tabIndex="-1" aria-label={title}>
-        {isOneDangerRating() || numberAbove === 5 || numberBelow === 5 ? (
+        {isOneDangerRating || numberAbove === 5 || numberBelow === 5 ? (
           <img src={img} alt={title} />
         ) : (
           svg
