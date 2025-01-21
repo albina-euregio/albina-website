@@ -87,6 +87,7 @@ function StationMap(props) {
           <LeafletMap
             loaded={props.domainId !== false}
             onViewportChanged={() => {}}
+            mapConfigOverride={{ maxZoom: 12 }}
             tileLayerConfigOverride={{ maxZoom: 12 }}
             overlays={overlays}
           />
