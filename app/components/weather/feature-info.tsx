@@ -25,7 +25,6 @@ const FeatureInfo = ({ feature }) => {
           <a
             role="button"
             tabIndex="0"
-            // onClick={this.triggerStationDiagrams}
             className="pure-button weather-map-details-button"
           >
             {intl.formatMessage({

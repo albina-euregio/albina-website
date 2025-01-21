@@ -16,13 +16,11 @@ const Dragger = ({
   const draggableRef = useRef(null);
 
   useEffect(() => {
-    //console.log("Dragger->useEffect s01 x : ", {dragging, coordinates, ref: draggableRef.createElement});
     if (!dragging && coordinates.x && draggableRef.current)
       setCurrentX(coordinates.x);
   }, [coordinates]);
 
   useEffect(() => {
-    //console.log("Dragger->useEffect-> s04", { currentX, dragging });
     if (!dragging && dragging != null) {
       if (onDragEnd) onDragEnd(currentX, currentY);
     }
@@ -30,7 +28,6 @@ const Dragger = ({
 
   const onDragStart = (event, getXInit, getYInit, getXOnMove, getYOnMove) => {
     event.stopPropagation();
-    //console.log("onTouchStart", event);
 
     setDragging(true);
     const parent$ = $(parent);
@@ -52,12 +49,11 @@ const Dragger = ({
       const left = pageX - shiftX - parentOffset.left;
       setCurrentX(Math.min(parent$.width(), Math.max(left)));
       setCurrentY(pageY - shiftY - parentOffset.top);
-      //console.log("moveAt s02" , {currentX, currentY});
+
       if (onDrag) onDrag();
     }
 
     function onMouseMove(event) {
-      //console.log("onMouseMove", event);
       moveAt(getXOnMove(event), getYOnMove(event));
     }
 

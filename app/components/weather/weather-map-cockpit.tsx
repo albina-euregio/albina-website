@@ -68,7 +68,6 @@ const WeatherMapCockpit = () => {
   };
 
   const onTimelineUpdate = newTime => {
-    //console.log("weather-map-cockpit->onTimelineUpdate #k0113", newTime);
     store.changeCurrentTime(newTime);
   };
 
@@ -137,7 +136,7 @@ const WeatherMapCockpit = () => {
 
   const getTimeSpanOptions = () => {
     let allButtons;
-    //console.log("getTimeSpanOptions 777", props);
+
     if (store.config?.domains?.[domainId]) {
       const domainConfig = store.config.domains[domainId].item;
 
@@ -287,24 +286,11 @@ const WeatherMapCockpit = () => {
     );
   };
 
-  //console.log("weather-map-cockpit->render hhhh", {currentTime, timeRange, startDate, timeSpan, lastRedraw});
   const classes = [
     "map-cockpit",
     "weather-map-cockpit",
     "lastRedraw-" + lastRedraw
   ];
-
-  // console.log("weather-map-cockpit->render #j01", {
-  //   //absSpan,
-  //   //timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   //startDate: new Date(startDate).toUTCString(),
-  //   currentTime: currentTime?.toUTCString(),
-  //   //fixedStartTime: fixedStartTime?.toUTCString(),
-  //   usedStartTime: usedStartTime?.toUTCString(),
-  //   usedInitialDate: usedInitialDate?.toUTCString(),
-  //   usedEndTime: usedEndTime?.toUTCString()
-  //   // firstHour
-  // });
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>

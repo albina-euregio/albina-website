@@ -5,25 +5,6 @@ import { dateFormat } from "../../util/date";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 
-// function useChangedProps(props) {
-//   const prev = useRef(props);
-//
-//   useEffect(() => {
-//     Object.entries(props).forEach(([key, value]) => {
-//       if (prev.current[key] !== value) {
-//         // console.log(
-//         //   `#j012 Prop '${key}' changed from:`,
-//         //   prev.current[key],
-//         //   "to:",
-//         //   value
-//         // );
-//       }
-//     });
-//
-//     prev.current = { ...props }; // Important: create a new object to store previous values
-//   }, [props]);
-// }
-
 const Timeline = ({ updateCB }) => {
   const now = new Date();
   const domainId = useStore(store.domainId);
@@ -36,19 +17,6 @@ const Timeline = ({ updateCB }) => {
   const barDuration = timeSpanInt;
   const markerPosition = timeSpanInt > 24 ? "75%" : "50%";
   const showBar = timeSpanInt > 1;
-
-  // console.log("Timeline->init #j01", {
-  //   initialDateTs,
-  //   firstHour,
-  //   domainId,
-  //   timeSpan,
-  //   startTimeTs,
-  //   endTimeTs,
-  //   markerPosition,
-  //   showBar, // Toggle the bar visibility
-  //   barDuration, // Bar duration in hours
-  //   updateCB
-  // });
 
   const scaleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,12 +52,6 @@ const Timeline = ({ updateCB }) => {
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   );
 
-  // console.log("Timeline->calc start of day #i011", {
-  //   now: now.toISOString(),
-  //   startOfDay: startOfDay.toISOString(),
-  //   day: now.getUTCDate()
-  // });
-
   useEffect(() => scaleRef.current?.focus?.(), []);
 
   useEffect(() => {
@@ -105,17 +67,15 @@ const Timeline = ({ updateCB }) => {
     // Add event listener
     window.addEventListener("resize", handleWindowResize);
     handleWindowResize();
-    // Clean up
+
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
-      //console.log("Timeline->useEffect->initialDate #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
-
       const newInitialDate = new Date(initialDate);
       const now = new Date();
-      // if current time is in the future, set it to the next available time
+
       if (+newInitialDate < +now && +now < +endTime) {
         while (+newInitialDate < +now) {
           newInitialDate.setUTCHours(
@@ -129,15 +89,9 @@ const Timeline = ({ updateCB }) => {
       ) {
         setTargetDate(new Date(initialDate));
         if (!currentDate) {
-          //console.log("Timeline->useEffect->initialDate #2 #k0113", {initialDate: new Date(initialDate)?.toISOString(), currentDate});
           setCurrentDate(new Date(initialDate));
         }
       }
-      // console.log("Timeline->useEffect->initialDate #k01", {
-      //   initialDate,
-      //   targetDate,
-      //   currentDate
-      // });
     }
   }, [initialDate]);
 
@@ -147,14 +101,12 @@ const Timeline = ({ updateCB }) => {
     if (playerIsActive) {
       // Start the interval when isActive is true
       intervalId = setInterval(() => {
-        //console.log('Function called at: #i02', {currentDate: currentDate.toISOString(), endTime: endTime.toISOString()});
         if (currentDateRef.current >= endTime) setPlayerIsActive(false);
         else jumpStep(1);
       }, playDelay); // Runs every 2 seconds
     }
 
     // Cleanup function to clear interval when component unmounts
-    // or when isActive changes to false
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
@@ -178,10 +130,6 @@ const Timeline = ({ updateCB }) => {
   }, [startTime, endTime, now]);
 
   useEffect(() => {
-    // console.log("Timeline->useEffect->targetDate #k01", {
-    //   targetDate,
-    //   containerWidth: containerRef?.current?.clientWidth,
-    // });
     if (targetDate && containerRef?.current?.clientWidth) {
       setSelectableHoursOffset(timeSpanInt >= 24 ? 24 : timeSpanInt);
 
@@ -204,10 +152,6 @@ const Timeline = ({ updateCB }) => {
   }, [markerPosition]);
 
   useEffect(() => {
-    // console.log("Timeline->useEffect->markerRenewed #k011", {
-    //   markerRenewed,
-    //   targetDate
-    // });
     if (markerRenewed && targetDate) snapToDate(targetDate);
   }, [markerRenewed]);
 
@@ -219,32 +163,18 @@ const Timeline = ({ updateCB }) => {
     if (indicatorOffset) {
       const newOffset = indicatorOffset - currentTranslateX;
       rulerRef.current.style.transform = `translateX(${newOffset}px)`;
-
-      // console.log("Timeline->useEffect->currentTranslateX #k0112", {
-      //   newOffset,
-      //   currentTranslateX,
-      //   indicatorOffset,
-      // });
     }
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
     if (+currentDate > 0) {
-      // console.log("Timeline->useEffect-> #k011", {
-      //   currentDate: currentDate.toISOString(),
-      //   currentDateTime: currentDate.getTime()
-      // });
       if (updateCB) {
-        //console.log("Timeline->useEffect->currentDate #k0113", {currentDate: currentDate.toISOString()});
         updateCB(currentDate);
       }
     }
   }, [currentDate]);
 
-  // ###### functions ######
-
   const calcIndicatorOffset = () => {
-    //console.log("calcIndicatorOffset #k01", {showBar});
     const newIndicatorOffset =
       (containerRef.current.clientWidth * parseFloat(markerPosition)) / 100;
     if (showBar) {
@@ -264,25 +194,9 @@ const Timeline = ({ updateCB }) => {
     return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
   };
 
-  // const getDisplayDate = () => {
-  //   return currentDate ? formatDateTime(currentDate) : "";
-  // };
-
-  // const getSelectedTime = () => {
-  //   return currentDate ? formatTime(currentDate) : "";
-  // };
-
-  // const getCurrentTime = () => {
-  //   const offsetHours = differenceInHours(currentDate, now);
-  //   const offsetDays = Math.floor(Math.abs(offsetHours) / 24);
-  //   const remainingHours = Math.abs(offsetHours) % 24;
-  //   const timeDirection = offsetHours <= 0 ? "Past" : "Future";
-  //   return `${timeDirection}: ${offsetDays}d ${Math.floor(remainingHours)}h`;
-  // };
-
   const differenceInHours = (dateLeft, dateRight) => {
     const res = (dateLeft - dateRight) / (1000 * 60 * 60);
-    //console.log("differenceInHours #i01", { res, dateLeft: new Date(dateLeft).toISOString(), dateRight: new Date(dateRight).toISOString() });
+
     return res;
   };
 
@@ -325,13 +239,7 @@ const Timeline = ({ updateCB }) => {
   const jumpStep = (direction: 1 | -1 | number) => {
     const newDate = new Date(currentDateRef.current);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
-    // console.log("jumpStep #i01", {
-    //   direction,
-    //   selectableHoursOffset,
-    //   targetDate: targetDate.toISOString(),
-    //   newDate: newDate.toISOString(),
-    //   endTime: endTime.toISOString()
-    // });
+
     if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
   };
 
@@ -359,7 +267,6 @@ const Timeline = ({ updateCB }) => {
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];
-    //console.log("rulerMarkings #k011", {rulerStartDay, rulerEndDay, targetDate: targetDate.toISOString(), endTime, selectableHoursOffset});
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
@@ -381,20 +288,10 @@ const Timeline = ({ updateCB }) => {
             nextSelectableDate.getUTCHours() + selectableHoursOffset
           );
           if (+endTime >= +markDate && +nextSelectableDate > +endTime) {
-            // console.log("rulerMarkings #k0111", {
-            //   markDate: markDate.toISOString(),
-            //   nextSelectableDate: nextSelectableDate.toISOString(),
-            //   endTime: endTime?.toISOString()
-            // });
             markClass.push("selectable-hours-end");
           }
         }
         if (+markDate === +startTime) markClass.push("selectable-hours-start");
-        // console.log("rulerMarkingsi0111", {
-        //   markDate: markDate.toISOString(),
-        //   endTime: endTime.toISOString(),
-        //   markClass
-        // });
 
         const marking = (
           <div
@@ -402,11 +299,6 @@ const Timeline = ({ updateCB }) => {
             className={`ruler-mark ${markClass.join(" ")}`}
             style={{
               left: `${totalHours * pixelsPerHour}px`
-              // position: "absolute",
-              // height: hour === 0 ? "100%" : isSelectable ? "75%" : "50%",
-              // width: hour === 0 ? "2px" : "1px",
-              // backgroundColor:
-              //   hour === 0 ? "#333" : isSelectable ? "#666" : "#888"
             }}
             data-date={markDate.toISOString()}
             data-hours={totalHours}
@@ -453,12 +345,6 @@ const Timeline = ({ updateCB }) => {
       const snapToHours = selectableHoursOffset * pixelsPerHour;
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
-    // console.log("updateTimelinePosition #k0112", {
-    //   newTranslateX,
-    //   snap,
-    //   currentTranslateX,
-    //   rulerWidth: rulerRef.current.clientWidth
-    // });
 
     setCurrentTranslateX(usedTranslateX);
   };
@@ -495,14 +381,14 @@ const Timeline = ({ updateCB }) => {
     const adjustedHours =
       Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
     newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
-    //console.log("snapToDate #k011", { newTargetDate });
+
     const { targetMarker } = getMarkerCenterX(newTargetDate);
-    //const distanceToMove = markerCenterX - indicatorCenterX;
+
     const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
 
     const newTranslateX = distanceToMove;
     updateTimelinePosition(newTranslateX, true);
-    //console.log("snapToDate #k0112 #k0113", {selectableHoursOffset, newTargetDate: newTargetDate.toISOString(), initialDate: initialDate.toISOString(), currentDate: currentDate.toISOString()});
+
     setCurrentDate(newTargetDate);
   };
 
@@ -520,28 +406,15 @@ const Timeline = ({ updateCB }) => {
       const distance = Math.abs(markerCenterX - targetCenterX);
 
       if (distance < minDistance) {
-        // console.log("getNearestMarker #k0111", {
-        //   date: marker?.dataset?.date,
-        //   distance,
-        //   minDistance
-        // });
         minDistance = distance;
         nearestMarker = marker;
       }
     });
-    // console.log("getNearestMarker #k011", {
-    //   markers,
-    //   targetCenterX,
-    //   nearestMarkerDate: nearestMarker?.dataset?.date,
-    //   minDistance
-    // });
+
     return nearestMarker;
   };
 
   const getMarkerCenterX = newTargetDate => {
-    // console.log("getMarkerCenterX #k011", {
-    //   newTargetDate: newTargetDate?.toISOString()
-    // });
     const targetMarker = document.querySelectorAll(
       `[data-date*="${newTargetDate.toISOString()}"]`
     );
@@ -560,9 +433,9 @@ const Timeline = ({ updateCB }) => {
 
   const handleSelectDateClick = e => {
     let newTargetDate = new Date(e.target.value);
-    //console.log("handleSelectDateClick #k011 #1", {newTargetDate: newTargetDate, timeSpan});
+
     newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
-    //console.log("handleSelectDateClick #k011 #2", {newTargetDate: newTargetDate});
+
     newTargetDate = new Date(
       Date.UTC(
         newTargetDate.getUTCFullYear(),
@@ -578,10 +451,6 @@ const Timeline = ({ updateCB }) => {
   };
 
   const getPlayerButtons = () => {
-    //console.log("getPlayerButtons", player.playing);
-    // const label =
-    //   "weathermap:player:" + (player.playing ? "stop" : "play");
-
     const linkClassesPlay = ["cp-movie-play", "icon-play"];
     const linkClassesStop = ["cp-movie-stop", "icon-pause"];
     const divClasses = ["cp-movie"];
@@ -628,31 +497,6 @@ const Timeline = ({ updateCB }) => {
     );
   };
 
-  // console.info("Timeline->render #k0112", {
-  //   targetDate: targetDate?.toISOString(),
-  //   currentDate: currentDate?.toISOString(),
-  //   currentDateRef: currentDateRef.current?.toISOString(),
-  //   //startTime: startTime?.toISOString(),
-  //   endTime: endTime?.toISOString(),
-  //   initialDate: initialDate?.toISOString(),
-  //   // currentTranslateX,
-  //   //indicatorOffset,
-  //   //showBar
-  //   // markerPosition
-  //   // params: {
-  //   //   initialDate,
-  //   //   indicatorOffset,
-  //   //   firstHour,
-  //   //   timeSpan,
-  //   //   startTime,
-  //   //   endTime,
-  //   //   markerPosition,
-  //   //   showBar,
-  //   //   barDuration,
-  //   //   updateCB,
-  //   //   domainId
-  //   // }
-  // });
   return (
     <>
       <div className="cp-calendar">
@@ -676,7 +520,7 @@ const Timeline = ({ updateCB }) => {
             style={{
               position: "absolute",
               opacity: 0,
-              //zIndex: 1000,
+
               width: 0,
               height: 0
             }}

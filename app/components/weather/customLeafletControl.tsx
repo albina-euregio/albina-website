@@ -18,7 +18,6 @@ export const CustomLeafletControl = ({
     if (!control && enabled && parentMap && config?.position) {
       const ctrl = L.control({ ...config });
       ctrl.onAdd = function () {
-        //console.log("CustomLeafletControl->onAdd",map);
         const domElement = L.DomUtil.create(containerElement, classNames);
         domElement.innerHTML = innerHTML;
         if (onClick) domElement.addEventListener("click", () => onClick());
