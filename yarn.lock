@@ -219,24 +219,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_elevation_properties@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.5::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.5.tgz"
-  checksum: 10c0/e9eb6dab502b879006fe38284ebbfad06fccdcc3a1197e05e74c1c32c73f446dd4d4aba245a7d50945788f33f0b73bc8ef1b725e383488d5f8bdcda72cd3811a
+"@eaws/micro-regions_elevation_properties@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "@eaws/micro-regions_elevation_properties@npm:7.0.6::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-7.0.6.tgz"
+  checksum: 10c0/940d7bfb2f0e3cd6bd12e80f7191abf1966208df36e0f9d6655a780ef8f3905bfcd610673dc2a11d3fd177116f5462723bc5ceb88421a28df07c2233207d6262
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_properties@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "@eaws/micro-regions_properties@npm:7.0.5::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.5.tgz"
-  checksum: 10c0/83f4458b61244355b6c9040a179c554694fbdcfde862838ed325df3922943fc564ce721f2049ff939c5b0dcb400ffd48ad69248a61db37bcf8dca37a0867c05f
+"@eaws/micro-regions_properties@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "@eaws/micro-regions_properties@npm:7.0.6::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.6.tgz"
+  checksum: 10c0/5540609cda46a9f4bc1d3ff507d37dccf26ce1510d67455d71a964d42ed6bb539a84671a48cfe9cf194c6ddf3ee559d470720333bde2afd4256baf29059ca0dc
   languageName: node
   linkType: hard
 
-"@eaws/outline_properties@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "@eaws/outline_properties@npm:7.0.5::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.5.tgz"
-  checksum: 10c0/b50bbb7a75318364c216df89d86d7a9647e256370a9845023c2147ff8fbc4aa6b1d7eb79295755d76120ce8bdf7571045fef013164a6749a9f8faf6831124ffe
+"@eaws/outline_properties@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "@eaws/outline_properties@npm:7.0.6::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.6.tgz"
+  checksum: 10c0/281a0e6595f706dbd325cde4ac05cd1b59877ca7acc990ce42277f2e1c834190d276f00c0b4c742b8d47a16e807ef1e64a1177f2cee83378cc551c63b34ed6a9
   languageName: node
   linkType: hard
 
@@ -1424,9 +1424,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "albina-website@workspace:."
   dependencies:
-    "@eaws/micro-regions_elevation_properties": "npm:^7.0.5"
-    "@eaws/micro-regions_properties": "npm:^7.0.5"
-    "@eaws/outline_properties": "npm:^7.0.5"
+    "@eaws/micro-regions_elevation_properties": "npm:^7.0.6"
+    "@eaws/micro-regions_properties": "npm:^7.0.6"
+    "@eaws/outline_properties": "npm:^7.0.6"
     "@eslint/js": "npm:^9.17.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
@@ -5298,11 +5298,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>":
   version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
+  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
+  checksum: 10c0/c891ccf04008bc1305ba34053db951f8a4584b4a1bf2f68fd972c4a354df3dc5e62c8bfed4f6ac2d12e5b3b1c49af312c83a651048f818cd5b4949d17baacd79
   languageName: node
   linkType: hard
 

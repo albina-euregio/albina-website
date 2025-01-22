@@ -20,9 +20,9 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
-    "@eaws/micro-regions_elevation_properties": "^7.0.5",
-    "@eaws/micro-regions_properties": "^7.0.5",
-    "@eaws/outline_properties": "^7.0.5",
+    "@eaws/micro-regions_elevation_properties": "^7.0.6",
+    "@eaws/micro-regions_properties": "^7.0.6",
+    "@eaws/outline_properties": "^7.0.6",
     "@floating-ui/react": "^0.26.23",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@nanostores/react": "^0.8.0",
