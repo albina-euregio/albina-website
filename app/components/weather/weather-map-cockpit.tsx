@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { FormattedDate, FormattedMessage } from "../../i18n";
-import { Link } from "react-router-dom";
-import Timeline from "./timeline.jsx";
-import { Tooltip } from "../tooltips/tooltip";
-import { DATE_TIME_FORMAT } from "../../util/date";
-import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FormattedDate, FormattedMessage } from "../../i18n";
+import * as store from "../../stores/weatherMapStore";
+import { DATE_TIME_FORMAT } from "../../util/date";
+import { Tooltip } from "../tooltips/tooltip";
+import Timeline from "./timeline.jsx";
 //import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {

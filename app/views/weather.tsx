@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useIntl } from "../i18n";
+import { useStore } from "@nanostores/react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import HTMLHeader from "../components/organisms/html-header";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
-import HTMLHeader from "../components/organisms/html-header";
-import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
-import * as store from "../stores/weatherMapStore";
-import { useStore } from "@nanostores/react";
+import WeatherMap from "../components/weather/weather-map";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
-import { useParams } from "react-router-dom";
+import { useIntl } from "../i18n";
 import Player from "../js/player";
-import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import * as store from "../stores/weatherMapStore";
 
 const Weather = () => {
   const intl = useIntl();
@@ -52,7 +52,7 @@ const Weather = () => {
   }, []);
 
   useEffect(() => {
-    //console.log("weather->useeffect[params.domain]");
+    //console.log("weather->useeffect[params.domain]", {params});
     store.changeDomain(params.domain);
   }, [params.domain]);
 

@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
-import { Tooltip } from "../tooltips/tooltip";
-import { dateFormat } from "../../util/date";
-import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
+import * as store from "../../stores/weatherMapStore";
+import { dateFormat } from "../../util/date";
+import { Tooltip } from "../tooltips/tooltip";
 
 const Timeline = ({ updateCB }) => {
+  const params = useParams();
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpanInt = useStore(store.timeSpanInt);
@@ -77,23 +79,32 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
-      const newInitialDate = new Date(initialDate);
-      const now = new Date();
+      const newInitialDate = new Date(params?.timestamp || initialDate);
 
-      if (+newInitialDate < +now && +now < +endTime) {
-        while (+newInitialDate < +now) {
-          newInitialDate.setUTCHours(
-            newInitialDate.getUTCHours() + timeSpanInt
-          );
+      const now = new Date();
+      console.log("initialDate #1", { newInitialDate, now, endTime });
+      if (params?.timestamp) {
+      } else {
+        if (+newInitialDate < +now && +now < +endTime) {
+          while (+newInitialDate < +now) {
+            newInitialDate.setUTCHours(
+              newInitialDate.getUTCHours() + timeSpanInt
+            );
+          }
         }
       }
+      console.log("initialDate #2", {
+        newInitialDate,
+        initialDate,
+        timestamp: params?.timestamp
+      });
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
-        setTargetDate(new Date(initialDate));
+        setTargetDate(new Date(newInitialDate));
         if (!currentDate) {
-          setCurrentDate(new Date(initialDate));
+          setCurrentDate(new Date(newInitialDate));
         }
       }
     }
