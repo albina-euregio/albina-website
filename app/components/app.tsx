@@ -78,6 +78,10 @@ const App = () => {
               path="/weather/map/:domain/:timestamp"
               element={<Weather />}
             />
+            <Route
+              path="/weather/map/:domain/:timestamp/:timeSpan"
+              element={<Weather />}
+            />
             <Route path="/weather/map/" element={<Weather />} />
             <Route
               path="/weather/measurements"
