@@ -80,24 +80,16 @@ const Timeline = ({ updateCB }) => {
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
       const newInitialDate = new Date(params?.timestamp || initialDate);
-
       const now = new Date();
-      console.log("initialDate #1", { newInitialDate, now, endTime });
-      if (params?.timestamp) {
-      } else {
-        if (+newInitialDate < +now && +now < +endTime) {
-          while (+newInitialDate < +now) {
-            newInitialDate.setUTCHours(
-              newInitialDate.getUTCHours() + timeSpanInt
-            );
-          }
+
+      if (+newInitialDate < +now && +now < +endTime) {
+        while (+newInitialDate < +now) {
+          newInitialDate.setUTCHours(
+            newInitialDate.getUTCHours() + timeSpanInt
+          );
         }
       }
-      console.log("initialDate #2", {
-        newInitialDate,
-        initialDate,
-        timestamp: params?.timestamp
-      });
+
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
