@@ -90,6 +90,11 @@ const Timeline = ({ updateCB }) => {
   }, []);
 
   useEffect(() => {
+    console.log("useEffect->initialDate #1", {
+      timestamp: params?.timestamp,
+      currentDate: currentDate?.toISOString(),
+      params
+    });
     if (initialDate && +initialDate > 0) {
       const newInitialDate = new Date(params?.timestamp || initialDate);
       const now = new Date();
@@ -106,9 +111,9 @@ const Timeline = ({ updateCB }) => {
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
         setTargetDate(new Date(newInitialDate));
-        console.log("useEffect->initialDate", {
+        console.log("useEffect->initialDate #2", {
           timestamp: params?.timestamp,
-          targetDate: newInitialDate
+          newInitialDate
         });
         if (!currentDate) {
           setCurrentDate(new Date(newInitialDate));
