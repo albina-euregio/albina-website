@@ -63,10 +63,10 @@ const Timeline = ({ updateCB }) => {
     // Preserve the domain parameter while updating timestamp
 
     const newUrl =
-      `../weather/map/${params?.domain}` +
+      `../weather/map/${params?.domain || "new-snow"}` +
       (timestamp ? `/${timestamp}` : "") +
       (timeSpan ? `/${timeSpan}` : "");
-    console.log("navigateToWeatermapUrlWithTimestamp", { newUrl, timeSpan });
+    //console.log("navigateToWeatermapUrlWithTimestamp", { newUrl, timeSpan });
     navigate(newUrl, { replace: true, state: { preventNav: true } });
   };
 
@@ -91,7 +91,6 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
-      console.log("initialDate", params);
       const newInitialDate = new Date(params?.timestamp || initialDate);
       const now = new Date();
       if (!params?.timestamp && +newInitialDate < +now && +now < +endTime) {
@@ -107,6 +106,10 @@ const Timeline = ({ updateCB }) => {
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
         setTargetDate(new Date(newInitialDate));
+        console.log("useEffect->initialDate", {
+          timestamp: params?.timestamp,
+          targetDate: newInitialDate
+        });
         if (!currentDate) {
           setCurrentDate(new Date(newInitialDate));
         }
@@ -162,7 +165,7 @@ const Timeline = ({ updateCB }) => {
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
-  }, [timeSpanInt, targetDate, showBar]);
+  }, [timeSpanInt, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
     if (markerRenewed) {
@@ -201,14 +204,6 @@ const Timeline = ({ updateCB }) => {
       }
     }
   }, [params.timestamp]);
-
-  useEffect(() => {
-    if (params.timeSpan) {
-      if (updateCB) {
-        updateCB("timeSpan", params.timeSpan);
-      }
-    }
-  }, [params.timeSpan]);
 
   const calcIndicatorOffset = () => {
     const newIndicatorOffset =
@@ -300,6 +295,11 @@ const Timeline = ({ updateCB }) => {
   };
 
   const rulerMarkings = useMemo(() => {
+    console.log("rulerMarkings->useMemo", {
+      rulerStartDay,
+      rulerEndDay,
+      targetDate
+    });
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];
