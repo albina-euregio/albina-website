@@ -68,7 +68,6 @@ const WeatherMapCockpit = () => {
   };
 
   const handleEvent = (type, value) => {
-    console.log("handleEvent", type, value);
     const body = document?.querySelector("body");
     body.classList.remove("layer-selector-open");
     switch (type) {

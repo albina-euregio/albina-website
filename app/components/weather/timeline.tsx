@@ -90,13 +90,9 @@ const Timeline = ({ updateCB }) => {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect->initialDate #1", {
-      timestamp: params?.timestamp,
-      currentDate: currentDate?.toISOString(),
-      params
-    });
     if (initialDate && +initialDate > 0) {
-      const newInitialDate = new Date(params?.timestamp || initialDate);
+      const usedInitialDate = new Date(params?.timestamp || initialDate);
+      const newInitialDate = new Date(usedInitialDate);
       const now = new Date();
       if (!params?.timestamp && +newInitialDate < +now && +now < +endTime) {
         while (+newInitialDate < +now) {
@@ -110,13 +106,9 @@ const Timeline = ({ updateCB }) => {
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
-        setTargetDate(new Date(newInitialDate));
-        console.log("useEffect->initialDate #2", {
-          timestamp: params?.timestamp,
-          newInitialDate
-        });
+        setTargetDate(new Date(usedInitialDate));
         if (!currentDate) {
-          setCurrentDate(new Date(newInitialDate));
+          setCurrentDate(new Date(usedInitialDate));
         }
       }
     }
@@ -300,11 +292,6 @@ const Timeline = ({ updateCB }) => {
   };
 
   const rulerMarkings = useMemo(() => {
-    console.log("rulerMarkings->useMemo", {
-      rulerStartDay,
-      rulerEndDay,
-      targetDate
-    });
     if (!targetDate) return [];
     const markingsAnalysis = [];
     const markingsForecast = [];

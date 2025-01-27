@@ -757,7 +757,7 @@ export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
   if (newTimeSpan && checkTimeSpan(domainId0, newTimeSpan)) {
     usedTimeSpan = newTimeSpan;
   }
-  console.log("changeDomain", { domainId: domainId.get(), usedTimeSpan });
+
   changeTimeSpan(usedTimeSpan);
   _loadDomainData();
   selectedFeature.set(null);
@@ -777,7 +777,6 @@ function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
  * setting a new active timeSpan
  */
 export function changeTimeSpan(timeSpan0: TimeSpan) {
-  console.log("changeTimeSpan", { old: timeSpan.get(), new: timeSpan0 });
   if (timeSpan0 == timeSpan.get()) return;
   if (checkTimeSpan(domainId.get(), timeSpan0)) {
     timeSpan.set(timeSpan0);
