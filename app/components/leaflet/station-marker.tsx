@@ -66,25 +66,30 @@ const StationMarker = ({
     return element;
   }, [icon]);
 
-  return (
-    <Marker
-      data={data}
-      position={coordinates}
-      title={stationName}
-      icon={icon}
-      eventHandlers={
-        onClick && {
-          click: e => {
-            L.DomEvent.stopPropagation(e);
-            onClick(e.target.options.data);
+  const marker = useMemo(
+    () => (
+      <Marker
+        data={data}
+        position={coordinates}
+        title={stationName}
+        icon={icon}
+        eventHandlers={
+          onClick && {
+            click: e => {
+              L.DomEvent.stopPropagation(e);
+              onClick(e.target.options.data);
+            }
           }
         }
-      }
-    >
-      {tooltip && <Tooltip>{tooltip}</Tooltip>}
-      {createPortal(stationIcon, element)}
-    </Marker>
+      >
+        {tooltip && <Tooltip>{tooltip}</Tooltip>}
+        {createPortal(stationIcon, element)}
+      </Marker>
+    ),
+    [coordinates, data, element, icon, stationIcon, stationName, tooltip]
   );
+
+  return marker;
 };
 
 export default StationMarker;
