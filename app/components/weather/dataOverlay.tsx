@@ -124,6 +124,10 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const addDirectionIndicators = async (directionOverlay: L.ImageOverlay) => {
+    if (!dataOverlays.some(o => o.type === "windDirection")) {
+      setDirectionMarkers([]);
+      return;
+    }
     const map = parentMap;
     const curZoom = map.getZoom();
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
