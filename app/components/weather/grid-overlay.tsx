@@ -47,7 +47,6 @@ class GridOverlay extends React.Component {
             ? data.properties[this.props.item.direction]
             : false
         }
-        onClick={() => {}}
       />
     );
   }
