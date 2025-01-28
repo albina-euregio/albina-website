@@ -61,9 +61,13 @@ const Timeline = ({ updateCB }) => {
 
   const navigateToWeatermapWithParams = (timestamp, timeSpan) => {
     // Preserve the domain parameter while updating timestamp
-
+    console.log("navigateToWeatermapWithParams", {
+      domain: store.domainId.get(),
+      timestamp,
+      timeSpan
+    });
     const newUrl =
-      `../weather/map/${params?.domain || "new-snow"}` +
+      `../weather/map/${store.domainId.get() || "new-snow"}` +
       (timestamp ? `/${timestamp}` : "") +
       (timeSpan ? `/${timeSpan}` : "");
     //console.log("navigateToWeatermapUrlWithTimestamp", { newUrl, timeSpan });
@@ -193,6 +197,15 @@ const Timeline = ({ updateCB }) => {
       );
     }
   }, [currentDate]);
+
+  useEffect(() => {
+    if (+currentDate > 0) {
+      navigateToWeatermapWithParams(
+        new Date(currentDate).toISOString(),
+        store.timeSpan.get()
+      );
+    }
+  }, [store.timeSpan.get()]);
 
   useEffect(() => {
     if (+new Date(params.timestamp) > 0) {
