@@ -72,14 +72,8 @@ const DataOverlay = ({ playerCB }) => {
   }): Promise<{ value: number | null; direction: number | null }> => {
     const values = {} as Record<OverlayType, number | null>;
     for (const dataOverlay of dataOverlays) {
-      const type = dataOverlay.type;
-      const ctx = await dataOverlay.ctx;
-      const p = ctx.getImageData(coordinates.x, coordinates.y, 1, 1);
-      values[type] = store.valueForPixel(type, {
-        r: p.data[0],
-        g: p.data[1],
-        b: p.data[2]
-      });
+      const type = dataOverlay.type as OverlayType;
+      values[type] = await dataOverlay.valueForPixel(coordinates);
     }
 
     return {
@@ -124,7 +118,8 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const addDirectionIndicators = async (directionOverlay: L.ImageOverlay) => {
-    if (!dataOverlays.some(o => o.type === "windDirection")) {
+    const windDirection = dataOverlays.find(o => o.type === "windDirection");
+    if (!windDirection) {
       setDirectionMarkers([]);
       return;
     }
@@ -151,7 +146,7 @@ const DataOverlay = ({ playerCB }) => {
           lat: curV,
           lng: curH
         });
-        const pixelData = await getPixelData(pixelPos);
+        const direction = await windDirection.valueForPixel(pixelPos);
         markers.push(
           <StationMarker
             type="grid"
@@ -165,7 +160,7 @@ const DataOverlay = ({ playerCB }) => {
             coordinates={[curV, curH]}
             color={[255, 0, 0]}
             value={null}
-            direction={pixelData.direction}
+            direction={direction}
           />
         );
         curV += DIST_V;

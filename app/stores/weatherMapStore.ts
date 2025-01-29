@@ -465,7 +465,27 @@ export const dataOverlays = computed(
         img.src = overlayFilename;
       });
 
-      return { ...o, overlayFilename, ctx };
+      return {
+        ...o,
+        overlayFilename,
+        ctx,
+        async valueForPixel(coordinates: {
+          x: number;
+          y: number;
+        }): Promise<number | null> {
+          const p = (await ctx).getImageData(
+            coordinates.x,
+            coordinates.y,
+            1,
+            1
+          );
+          return valueForPixel(o.type as OverlayType, {
+            r: p.data[0],
+            g: p.data[1],
+            b: p.data[2]
+          });
+        }
+      };
     })
 );
 
