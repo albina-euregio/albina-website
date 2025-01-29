@@ -74,6 +74,14 @@ const App = () => {
             <Route path="/bulletin/:date" element={<Bulletin />} />
             <Route path="/bulletin/latest" element={<Bulletin />} />
             <Route path="/weather/map/:domain" element={<Weather />} />
+            <Route
+              path="/weather/map/:domain/:timestamp"
+              element={<Weather />}
+            />
+            <Route
+              path="/weather/map/:domain/:timestamp/:timeSpan"
+              element={<Weather />}
+            />
             <Route path="/weather/map/" element={<Weather />} />
             <Route
               path="/weather/measurements"

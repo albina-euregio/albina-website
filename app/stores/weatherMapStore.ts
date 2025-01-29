@@ -745,16 +745,20 @@ function checkDomainId(domainId: DomainId) {
 /*
  * setting a new active domain
  */
-export function changeDomain(domainId0: DomainId) {
+export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
   domainId0 ||= "new-snow";
   if (!checkDomainId(domainId0) || domainId0 === domainId.get()) {
     return;
   }
   domainId.set(domainId0);
   timeSpan.set(null);
-  changeTimeSpan(
-    domainConfig.get().defaultTimeSpan || domainConfig.get().timeSpans[0]
-  );
+  let usedTimeSpan =
+    domainConfig.get().defaultTimeSpan || domainConfig.get().timeSpans[0];
+  if (newTimeSpan && checkTimeSpan(domainId0, newTimeSpan)) {
+    usedTimeSpan = newTimeSpan;
+  }
+
+  changeTimeSpan(usedTimeSpan);
   _loadDomainData();
   selectedFeature.set(null);
 }
@@ -773,15 +777,13 @@ function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
  * setting a new active timeSpan
  */
 export function changeTimeSpan(timeSpan0: TimeSpan) {
-  if (
-    timeSpan0 !== timeSpan.get() &&
-    checkTimeSpan(domainId.get(), timeSpan0)
-  ) {
+  if (timeSpan0 == timeSpan.get()) return;
+  if (checkTimeSpan(domainId.get(), timeSpan0)) {
     timeSpan.set(timeSpan0);
     _loadDomainData();
     selectedFeature.set(null);
   } else {
-    console.error("Timespan does not exist!", timeSpan0);
+    console.error("Timespan does not exist!");
   }
 }
 

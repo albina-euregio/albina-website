@@ -52,9 +52,9 @@ const Weather = () => {
   }, []);
 
   useEffect(() => {
-    //console.log("weather->useeffect[params.domain]");
-    store.changeDomain(params.domain);
-  }, [params.domain]);
+    //console.log("weather->useeffect[params.domain]", {params});
+    store.changeDomain(params.domain, params.timeSpan);
+  }, [params.domain, params.timeSpan]);
 
   return (
     <>

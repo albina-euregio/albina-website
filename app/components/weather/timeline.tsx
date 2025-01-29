@@ -1,11 +1,14 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
-import { Tooltip } from "../tooltips/tooltip";
-import { dateFormat } from "../../util/date";
-import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
+import * as store from "../../stores/weatherMapStore";
+import { dateFormat } from "../../util/date";
+import { Tooltip } from "../tooltips/tooltip";
 
 const Timeline = ({ updateCB }) => {
+  const params = useParams();
+  const navigate = useNavigate();
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpanInt = useStore(store.timeSpanInt);
@@ -56,6 +59,21 @@ const Timeline = ({ updateCB }) => {
     [now]
   );
 
+  const navigateToWeatermapWithParams = (timestamp, timeSpan) => {
+    // Preserve the domain parameter while updating timestamp
+    console.log("navigateToWeatermapWithParams", {
+      domain: store.domainId.get(),
+      timestamp,
+      timeSpan
+    });
+    const newUrl =
+      `../weather/map/${store.domainId.get() || "new-snow"}` +
+      (timestamp ? `/${timestamp}` : "") +
+      (timeSpan ? `/${timeSpan}` : "");
+    //console.log("navigateToWeatermapUrlWithTimestamp", { newUrl, timeSpan });
+    navigate(newUrl, { replace: true, state: { preventNav: true } });
+  };
+
   useEffect(() => scaleRef.current?.focus?.(), []);
 
   useEffect(() => {
@@ -77,27 +95,28 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
-      const newInitialDate = new Date(initialDate);
+      const usedInitialDate = new Date(params?.timestamp || initialDate);
+      const newInitialDate = new Date(usedInitialDate);
       const now = new Date();
-
-      if (+newInitialDate < +now && +now < +endTime) {
+      if (!params?.timestamp && +newInitialDate < +now && +now < +endTime) {
         while (+newInitialDate < +now) {
           newInitialDate.setUTCHours(
             newInitialDate.getUTCHours() + timeSpanInt
           );
         }
       }
+
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
-        setTargetDate(new Date(initialDate));
+        setTargetDate(new Date(usedInitialDate));
         if (!currentDate) {
-          setCurrentDate(new Date(initialDate));
+          setCurrentDate(new Date(usedInitialDate));
         }
       }
     }
-  }, [initialDate]);
+  }, [initialDate, params.timestamp]);
 
   useEffect(() => {
     let intervalId: number;
@@ -147,7 +166,7 @@ const Timeline = ({ updateCB }) => {
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
-  }, [timeSpanInt, targetDate, showBar]);
+  }, [timeSpanInt, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
     if (markerRenewed) {
@@ -172,11 +191,29 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (+currentDate > 0) {
-      if (updateCB) {
-        updateCB(currentDate);
-      }
+      navigateToWeatermapWithParams(
+        new Date(currentDate).toISOString(),
+        store.timeSpan.get()
+      );
     }
   }, [currentDate]);
+
+  useEffect(() => {
+    if (+currentDate > 0) {
+      navigateToWeatermapWithParams(
+        new Date(currentDate).toISOString(),
+        store.timeSpan.get()
+      );
+    }
+  }, [store.timeSpan.get()]);
+
+  useEffect(() => {
+    if (+new Date(params.timestamp) > 0) {
+      if (updateCB) {
+        updateCB("time", params.timestamp);
+      }
+    }
+  }, [params.timestamp]);
 
   const calcIndicatorOffset = () => {
     const newIndicatorOffset =

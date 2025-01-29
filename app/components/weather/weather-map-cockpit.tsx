@@ -67,10 +67,6 @@ const WeatherMapCockpit = () => {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
-  const onTimelineUpdate = newTime => {
-    store.changeCurrentTime(newTime);
-  };
-
   const handleEvent = (type, value) => {
     const body = document?.querySelector("body");
     body.classList.remove("layer-selector-open");
@@ -305,7 +301,7 @@ const WeatherMapCockpit = () => {
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline key="cp-timeline" updateCB={onTimelineUpdate} />
+          <Timeline key="cp-timeline" updateCB={handleEvent} />
         </div>
 
         {getTimeSpanOptions()}
