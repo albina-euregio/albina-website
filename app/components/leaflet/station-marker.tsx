@@ -86,6 +86,7 @@ const StationMarker = ({
         {createPortal(stationIcon, element)}
       </Marker>
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [coordinates, data, element, icon, stationIcon, stationName, tooltip]
   );
 
