@@ -9,7 +9,7 @@ interface Props<T = unknown> {
   data: T;
   stationName: string;
   tooltip?: string;
-  onClick: (data: T) => void;
+  onClick?: (data: T) => void;
   itemId: "any" | string;
   type: string;
   color: string;
@@ -21,59 +21,76 @@ interface Props<T = unknown> {
   className: string;
 }
 
-const StationMarker = (props: Props<unknown>): React.ReactNode => {
+const StationMarker = ({
+  className,
+  color,
+  coordinates,
+  data,
+  dataType,
+  direction,
+  iconAnchor,
+  itemId,
+  onClick,
+  selected,
+  stationName,
+  tooltip,
+  type,
+  value
+}: Props<unknown>): React.ReactNode => {
   const stationIcon = useMemo(() => {
     return (
       <StationIcon
-        itemId={props.itemId}
-        type={props.type}
-        color={props.color}
-        dataType={props.dataType || "analyse"}
-        selected={props.selected}
-        value={isFinite(props.value) ? props.value : ""}
-        direction={props.direction}
+        itemId={itemId}
+        type={type}
+        color={color}
+        dataType={dataType || "analyse"}
+        selected={selected}
+        value={isFinite(value) ? value : ""}
+        direction={direction}
       />
     );
-  }, [
-    props.color,
-    props.dataType,
-    props.direction,
-    props.itemId,
-    props.selected,
-    props.type,
-    props.value
-  ]);
+  }, [color, dataType, direction, itemId, selected, type, value]);
 
   const icon = useMemo(
     () =>
       L.divIcon({
-        iconAnchor: props.iconAnchor || [12.5, 12.5],
-        className: props.className
+        iconAnchor: iconAnchor || [12.5, 12.5],
+        className: className
       }),
-    [props.className, props.iconAnchor]
+    [className, iconAnchor]
   );
-  const element = icon.createIcon();
-  icon.createIcon = () => element;
 
-  return (
-    <Marker
-      data={props.data}
-      position={props.coordinates}
-      title={props.stationName}
-      icon={icon}
-      eventHandlers={
-        props.onClick && {
-          click: e => {
-            L.DomEvent.stopPropagation(e);
-            props.onClick(e.target.options.data);
+  const element = useMemo(() => {
+    const element = icon.createIcon();
+    icon.createIcon = () => element;
+    return element;
+  }, [icon]);
+
+  const marker = useMemo(
+    () => (
+      <Marker
+        data={data}
+        position={coordinates}
+        title={stationName}
+        icon={icon}
+        eventHandlers={
+          onClick && {
+            click: e => {
+              L.DomEvent.stopPropagation(e);
+              onClick(e.target.options.data);
+            }
           }
         }
-      }
-    >
-      {props.tooltip && <Tooltip>{props.tooltip}</Tooltip>}
-      {createPortal(stationIcon, element)}
-    </Marker>
+      >
+        {tooltip && <Tooltip>{tooltip}</Tooltip>}
+        {createPortal(stationIcon, element)}
+      </Marker>
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [coordinates, data, element, icon, stationIcon, stationName, tooltip]
   );
+
+  return marker;
 };
 
 export default StationMarker;

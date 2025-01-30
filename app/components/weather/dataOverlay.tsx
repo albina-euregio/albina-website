@@ -34,9 +34,11 @@ const DataOverlay = ({ playerCB }) => {
 
   const parentMap = useMap();
 
-  const [dataMarker, setDataMarker] = useState<typeof StationMarker | null>();
+  const [dataMarker, setDataMarker] = useState<React.ReactElement<
+    typeof StationMarker
+  > | null>();
   const [directionMarkers, setDirectionMarkers] =
-    useState<(typeof StationMarker)[]>();
+    useState<React.ReactElement<typeof StationMarker>[]>();
 
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
@@ -72,14 +74,8 @@ const DataOverlay = ({ playerCB }) => {
   }): Promise<{ value: number | null; direction: number | null }> => {
     const values = {} as Record<OverlayType, number | null>;
     for (const dataOverlay of dataOverlays) {
-      const type = dataOverlay.type;
-      const ctx = await dataOverlay.ctx;
-      const p = ctx.getImageData(coordinates.x, coordinates.y, 1, 1);
-      values[type] = store.valueForPixel(type, {
-        r: p.data[0],
-        g: p.data[1],
-        b: p.data[2]
-      });
+      const type = dataOverlay.type as OverlayType;
+      values[type] = await dataOverlay.valueForPixel(coordinates);
     }
 
     return {
@@ -124,11 +120,16 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const addDirectionIndicators = async (directionOverlay: L.ImageOverlay) => {
+    const windDirection = dataOverlays.find(o => o.type === "windDirection");
+    if (!windDirection) {
+      setDirectionMarkers([]);
+      return;
+    }
     const map = parentMap;
     const curZoom = map.getZoom();
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
-    const markers: (typeof StationMarker)[] = [];
+    const markers: React.ReactElement<typeof StationMarker>[] = [];
     if (!dataOverlaysEnabled) {
       return;
     }
@@ -147,7 +148,7 @@ const DataOverlay = ({ playerCB }) => {
           lat: curV,
           lng: curH
         });
-        const pixelData = await getPixelData(pixelPos);
+        const direction = await windDirection.valueForPixel(pixelPos);
         markers.push(
           <StationMarker
             type="grid"
@@ -161,7 +162,7 @@ const DataOverlay = ({ playerCB }) => {
             coordinates={[curV, curH]}
             color={[255, 0, 0]}
             value={null}
-            direction={pixelData.direction}
+            direction={direction}
           />
         );
         curV += DIST_V;

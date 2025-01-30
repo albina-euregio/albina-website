@@ -22,9 +22,9 @@ class GridOverlay extends React.Component {
     return color;
   }
 
-  renderMarker(data) {
+  renderMarker(data: GeoJSON.Feature<GeoJSON.Point>) {
     const value = Math.round(data.properties[this.props.item.id]);
-    const coordinates = [
+    const coordinates: [number, number] = [
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
     ];
@@ -47,7 +47,6 @@ class GridOverlay extends React.Component {
             ? data.properties[this.props.item.direction]
             : false
         }
-        onClick={() => {}}
       />
     );
   }

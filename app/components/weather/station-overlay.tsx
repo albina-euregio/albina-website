@@ -40,7 +40,11 @@ const StationOverlay = props => {
     }
   };
 
-  const renderMarker = (data, features, pos = null) => {
+  const renderMarker = (
+    data,
+    features,
+    pos = null
+  ): React.ReactElement<typeof StationMarker> => {
     if (
       (data.date === undefined || data[props.itemId] === undefined) &&
       props.itemId !== "any"

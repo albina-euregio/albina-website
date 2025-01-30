@@ -449,12 +449,13 @@ export const dataOverlays = computed(
       );
 
       const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
-        const canvas = document.createElement("canvas");
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => {
-          canvas.width = img.naturalWidth * 2;
-          canvas.height = img.naturalHeight * 2;
+          const canvas = new OffscreenCanvas(
+            img.naturalWidth * 2,
+            img.naturalHeight * 2
+          );
           const ctx = canvas.getContext("2d", { willReadFrequently: true });
           ctx.drawImage(img, 0, 0);
           ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
@@ -464,7 +465,27 @@ export const dataOverlays = computed(
         img.src = overlayFilename;
       });
 
-      return { ...o, overlayFilename, ctx };
+      return {
+        ...o,
+        overlayFilename,
+        ctx,
+        async valueForPixel(coordinates: {
+          x: number;
+          y: number;
+        }): Promise<number | null> {
+          const p = (await ctx).getImageData(
+            coordinates.x,
+            coordinates.y,
+            1,
+            1
+          );
+          return valueForPixel(o.type as OverlayType, {
+            r: p.data[0],
+            g: p.data[1],
+            b: p.data[2]
+          });
+        }
+      };
     })
 );
 
