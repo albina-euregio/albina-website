@@ -34,9 +34,11 @@ const DataOverlay = ({ playerCB }) => {
 
   const parentMap = useMap();
 
-  const [dataMarker, setDataMarker] = useState<typeof StationMarker | null>();
+  const [dataMarker, setDataMarker] = useState<React.ReactElement<
+    typeof StationMarker
+  > | null>();
   const [directionMarkers, setDirectionMarkers] =
-    useState<(typeof StationMarker)[]>();
+    useState<React.ReactElement<typeof StationMarker>[]>();
 
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
@@ -127,7 +129,7 @@ const DataOverlay = ({ playerCB }) => {
     const curZoom = map.getZoom();
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
     const bounds = store.config.settings.bbox;
-    const markers: (typeof StationMarker)[] = [];
+    const markers: React.ReactElement<typeof StationMarker>[] = [];
     if (!dataOverlaysEnabled) {
       return;
     }
