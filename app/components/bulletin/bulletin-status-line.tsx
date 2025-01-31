@@ -1,131 +1,95 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useIntl } from "../../i18n";
 import type { Bulletin, Status } from "../../stores/bulletin";
-import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 
 interface Props {
-  bulletin: Bulletin;
-  allBulletins: Bulletin[];
+  bulletins: [Bulletin, Bulletin?][];
   status: Status;
 }
 
-const BulletinStatusLine = (props: Props) => {
+const BulletinStatusLine = ({ bulletins, status }: Props) => {
   const intl = useIntl();
-  const status = props.status;
-  let publishText = "";
-  let updateText = "";
-  let validityText = "";
-  let publicationTime: string | undefined;
-  let updateTime: string | undefined;
-  let updateTimeEl: JSX.Element | undefined;
 
-  const isReport = props?.allBulletins?.length >= 1;
-  const unscheduled = useMemo(
-    () =>
-      props.bulletin?.unscheduled ??
-      (publicationTime &&
-        !new Date(publicationTime)
-          .toLocaleTimeString("de", { timeZone: "Europe/Vienna" })
-          .includes("17:00")),
-    [props.bulletin?.unscheduled, publicationTime]
-  );
-  //console.log("BulletinStatusLine", { unscheduled: props?.bulletin?.unscheduled, currBulletin: props.bulletin, allBulletins: props.allBulletins?.[0]});
   if (status == "pending") {
-    publishText =
-      intl.formatMessage({ id: "bulletin:header:loading" }) + "\u2026";
-  }
-
-  if (status == "ok") {
-    // There must be a status entry for each downloaded bulletin. Query its
-    // original status message.
-
-    publicationTime = props.bulletin?.publicationTime;
-    if (unscheduled) {
-      updateTime = props.bulletin?.publicationTime;
-
-      const firstRelease = props.allBulletins?.[0].reduce((b1, b2) =>
-        b1?.publicationTime < b2?.publicationTime ? b1 : b2
-      );
-      publicationTime = firstRelease?.publicationTime;
-    }
-  }
-
-  validityText = intl.formatMessage(
-    { id: "bulletin:header:validity-time" },
-    {
-      start: intl.formatDate(
-        props?.bulletin?.validTime?.startTime,
-        DATE_TIME_FORMAT_SHORT
-      ),
-      end: intl.formatDate(
-        props?.bulletin?.validTime?.endTime,
-        DATE_TIME_FORMAT_SHORT
-      )
-    }
-  );
-
-  publishText = intl.formatMessage(
-    { id: "bulletin:header:published-at" },
-    {
-      date: intl.formatDate(publicationTime),
-      time: intl.formatDate(publicationTime, { timeStyle: "short" })
-    }
-  );
-
-  if (updateTime) {
-    updateText = intl.formatMessage(
-      { id: "bulletin:header:updated-at" },
-      {
-        date: intl.formatDate(updateTime),
-        time: intl.formatDate(updateTime, { timeStyle: "short" })
-      }
-    );
-    updateTimeEl = (
-      <span className="text-icon bulletin-datetime-update">
-        <span className="icon icon-update"></span>
-        <span className="text">{updateText}</span>
-      </span>
-    );
-  }
-  // console.log("BulletinStatusLine->render", {
-  //   publishText,
-  //   updateText,
-  //   validityText,
-  //   unscheduled,
-  //   publicationTime,
-  //   updateTime
-  // });
-  return (
-    <>
+    return (
       <p className="marginal">
-        {publicationTime && (
-          <span className="text-icon bulletin-datetime-release">
-            <span className="icon icon-release"></span>
-            <span className="text">{publishText}</span>
-          </span>
-        )}
-        {updateTimeEl && !isReport && (
-          <Tooltip
-            label={intl.formatMessage({
-              id: "bulletin:header:updated-at:tooltip"
-            })}
-          >
-            {updateTimeEl}
-          </Tooltip>
-        )}
-        {updateTime && isReport && <>{updateTimeEl}</>}
-
-        {isReport &&
-          props?.bulletin?.validTime?.startTime &&
-          props?.bulletin?.validTime?.endTime && (
-            <span className="text-icon bulletin-datetime-validity">
-              <span className="icon icon-validity"></span>
-              <span className="text">{validityText}</span>
-            </span>
-          )}
+        {intl.formatMessage({ id: "bulletin:header:loading" }) + "\u2026"}
       </p>
-    </>
+    );
+  }
+
+  const bulletin = bulletins?.[0]?.[0];
+  const publicationTimes = bulletins
+    ?.flatMap(([b1, b2]) =>
+      b2 ? [b1.publicationTime, b2.publicationTime] : [b1.publicationTime]
+    )
+    .filter((time, index, self) => self.indexOf(time) === index)
+    .sort();
+
+  const publicationTimes0 = publicationTimes?.[0];
+  const publicationTimes1 =
+    publicationTimes?.length > 1
+      ? publicationTimes[publicationTimes.length - 1]
+      : undefined;
+
+  return (
+    <p className="marginal">
+      {publicationTimes0 && (
+        <span className="text-icon bulletin-datetime-release">
+          <span className="icon icon-release"></span>
+          <span className="text">
+            {intl.formatMessage(
+              { id: "bulletin:header:published-at" },
+              {
+                date: intl.formatDate(publicationTimes0),
+                time: intl.formatDate(publicationTimes0, {
+                  timeStyle: "short"
+                })
+              }
+            )}
+          </span>
+        </span>
+      )}
+
+      {publicationTimes1 && (
+        <span className="text-icon bulletin-datetime-update">
+          <span className="icon icon-update"></span>
+          <span className="text">
+            {intl.formatMessage(
+              { id: "bulletin:header:updated-at" },
+              {
+                date: intl.formatDate(publicationTimes1),
+                time: intl.formatDate(publicationTimes1, {
+                  timeStyle: "short"
+                })
+              }
+            )}
+          </span>
+        </span>
+      )}
+
+      {bulletin?.validTime?.startTime && bulletin?.validTime?.endTime && (
+        <span className="text-icon bulletin-datetime-validity">
+          <span className="icon icon-validity"></span>
+          <span className="text">
+            {intl.formatMessage(
+              { id: "bulletin:header:validity-time" },
+              {
+                start: intl.formatDate(
+                  bulletin?.validTime?.startTime,
+                  DATE_TIME_FORMAT_SHORT
+                ),
+                end: intl.formatDate(
+                  bulletin?.validTime?.endTime,
+                  DATE_TIME_FORMAT_SHORT
+                )
+              }
+            )}
+          </span>
+        </span>
+      )}
+    </p>
   );
 };
 
