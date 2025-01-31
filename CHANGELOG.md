@@ -2,6 +2,21 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.4] - 2025-01-31
+
+### Weather Maps
+
+- Introduce deep links to weather maps
+
+### 🐛 Bug Fixes
+
+- Correct highlighting of warning regions for old bulletins
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+- Upgrade EAWS regions to v7.0.6
+
 ## [7.2.3] - 2025-01-21
 
 ### 🚀 Features
