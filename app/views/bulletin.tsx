@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
 
@@ -13,12 +14,7 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import {
-  parseDate,
-  LONG_DATE_FORMAT,
-  dateToISODateString,
-  getSuccDate
-} from "../util/date";
+import { LONG_DATE_FORMAT } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
@@ -64,16 +60,15 @@ const Bulletin = ({ headless }: Props) => {
   const [slowLoading, setLoadingStart] = useSlowLoading();
   const { problems, toggleProblem } = useProblems();
   const [region, setRegion] = useState("");
-  const [latest, setLatest] = useState("");
+  const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
 
   useEffect(() => {
     _latestBulletinChecker();
     async function _latestBulletinChecker() {
-      const now = new Date();
-      const today = dateToISODateString(now);
-      const tomorrow = dateToISODateString(getSuccDate(now));
+      const today = Temporal.Now.plainDateISO();
+      const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
       const status = await new BulletinCollection(tomorrow, lang).loadStatus();
       setLatest(status === "ok" ? tomorrow : today);
       window.setTimeout(
@@ -84,8 +79,12 @@ const Bulletin = ({ headless }: Props) => {
   }, [lang]);
 
   useEffect(() => {
-    const date = params.date && parseDate(params.date) ? params.date : latest;
-    if (date === collection?.date && lang === collection?.lang) {
+    const date = params.date ? Temporal.PlainDate.from(params.date) : latest;
+    if (!date) return;
+    if (
+      date?.toString() === collection?.date?.toString() &&
+      lang === collection?.lang
+    ) {
       return;
     }
     (async () => {
@@ -101,7 +100,7 @@ const Bulletin = ({ headless }: Props) => {
         setStatus(collection.status);
         setCollection(collection);
       } catch (error) {
-        console.error("Cannot load bulletin for date " + date, error);
+        console.error(`Cannot load bulletin for date ${date}`, error);
         collection.status = "n/a";
       }
       setStatus(collection.status);
@@ -181,9 +180,8 @@ const Bulletin = ({ headless }: Props) => {
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
       <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
-        //
-        date={collection?.dateDate}
-        latestDate={latest ? parseDate(latest) : undefined}
+        date={collection?.date}
+        latestDate={latest}
         status={status}
         activeBulletinCollection={collection}
       />
@@ -263,7 +261,7 @@ const Bulletin = ({ headless }: Props) => {
       {collection && (
         <BulletinList
           bulletins={collection.bulletinsWith170000}
-          date={collection?.dateDate}
+          date={collection?.date}
           region={region}
         />
       )}

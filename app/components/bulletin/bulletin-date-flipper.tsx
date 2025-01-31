@@ -1,38 +1,33 @@
 import React from "react";
+import { Temporal } from "temporal-polyfill";
 import { Link, useNavigate } from "react-router-dom";
 import { useIntl } from "../../i18n";
-import {
-  getPredDate,
-  getSuccDate,
-  dateToISODateString,
-  isSameDay,
-  isAfter
-} from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
-import { dateFormat } from "../../util/date";
 
 interface Props {
-  date: Date;
-  latest: Date;
+  date?: Temporal.PlainDate;
+  latest?: Temporal.PlainDate;
 }
 
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();
   const navigate = useNavigate();
-  const date$: Date | null = date && +date ? date : null;
-  let nextDate$: Date | null = null;
-  if (date$ && latest) {
-    const next = getSuccDate(date$);
+
+  let nextDate$: Temporal.PlainDate | null = null;
+  if (date && latest) {
+    const next = date.add({ days: 1 });
     /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
-    nextDate$ = isSameDay(latest, next) || isAfter(latest, next) ? next : null;
+    nextDate$ = Temporal.PlainDate.compare(latest, next) >= 0 ? next : null;
   }
 
-  const prevDate$: Date | null = date$ ? getPredDate(date$) : null;
+  const prevDate$: Temporal.PlainDate | null = date
+    ? date.subtract({ days: 1 })
+    : null;
   const prevDate = prevDate$ ? intl.formatDate(prevDate$) : "";
   const nextDate = nextDate$ ? intl.formatDate(nextDate$) : "";
 
-  function bulletinURL(newDate?: Date) {
-    return `../bulletin/${newDate ? dateToISODateString(newDate) : "latest"}`;
+  function bulletinURL(newDate?: Temporal.PlainDate | null) {
+    return `../bulletin/${newDate ? newDate.toString() : "latest"}`;
   }
 
   return (
@@ -58,13 +53,15 @@ function BulletinDateFlipper({ date, latest }: Props) {
             })}
           >
             <div className="calendar-trigger icon-calendar">
-              {date$ && latest && (
+              {date && latest && (
                 <input
                   type="date"
-                  max={dateFormat(latest, "%Y-%m-%d", false)}
-                  value={dateFormat(date$, "%Y-%m-%d", false)}
+                  max={latest.toString()}
+                  value={date.toString()}
                   onChange={e =>
-                    navigate(bulletinURL(new Date(e.target.value)))
+                    navigate(
+                      bulletinURL(Temporal.PlainDate.from(e.target.value))
+                    )
                   }
                 />
               )}

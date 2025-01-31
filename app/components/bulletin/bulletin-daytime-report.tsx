@@ -1,14 +1,11 @@
 import React from "react";
+import type { Temporal } from "temporal-polyfill";
 import { FormattedMessage, useIntl } from "../../i18n";
 import TendencyIcon from "../icons/tendency-icon";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
 import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
-import {
-  dateToISODateString,
-  getSuccDate,
-  LONG_DATE_FORMAT
-} from "../../util/date";
+import { LONG_DATE_FORMAT } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,
@@ -25,7 +22,7 @@ interface Props {
   bulletin: Bulletin;
   bulletin170000: Bulletin;
   showDiff: 0 | 1 | 2;
-  date: Date;
+  date: Temporal.PlainDate;
 }
 
 function BulletinDaytimeReport({
@@ -111,7 +108,7 @@ function BulletinDaytimeReport({
             >
               <BulletinAWMapStatic
                 bulletin={bulletin}
-                date={dateToISODateString(date)}
+                date={date}
                 region={bulletin.bulletinID}
                 validTimePeriod={validTimePeriod}
               />
@@ -203,7 +200,7 @@ function TendencyReport({
   tendency: Tendency;
   tendency170000: Tendency;
   showDiff: 0 | 1 | 2;
-  date: Date;
+  date: Temporal.PlainDate;
 }) {
   const intl = useIntl();
   return (
@@ -251,7 +248,7 @@ function TendencyReport({
                       Date.parse(tendency.validTime?.startTime) / 2 +
                         Date.parse(tendency.validTime?.endTime) / 2
                     )
-                  : getSuccDate(date),
+                  : date.add({ days: 1 }),
                 LONG_DATE_FORMAT
               )
             }}

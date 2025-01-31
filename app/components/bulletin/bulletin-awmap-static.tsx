@@ -1,10 +1,11 @@
 import React, { type ReactEventHandler } from "react";
+import type { Temporal } from "temporal-polyfill";
 import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
 interface Props {
   validTimePeriod?: ValidTimePeriod;
   bulletin?: Bulletin;
-  date: string;
+  date: Temporal.PlainDate;
   region: string;
   onError?: ReactEventHandler<HTMLImageElement>;
   imgFormat?: string;
@@ -29,11 +30,11 @@ function BulletinAWMapStatic({
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
   let url = config.template(config.apis.bulletin.map, {
-    date: date,
+    date,
     publication: publicationDirectory,
-    file: file
+    file
   });
-  if (imgFormat || date <= "2022-05-06") {
+  if (imgFormat || date.toString() <= "2022-05-06") {
     url = url.replace(/.webp$/, imgFormat || ".jpg");
   }
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");

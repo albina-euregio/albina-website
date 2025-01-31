@@ -1,11 +1,11 @@
 import React from "react";
+import type { Temporal } from "temporal-polyfill";
 import { useState, useEffect } from "react";
-import { dateToISODateString } from "../../util/date";
 import { Bulletin } from "../../stores/bulletin";
 import type { Language } from "../../appStore";
 
 interface Props {
-  date: Date;
+  date: Temporal.PlainDate;
   bulletin: Bulletin;
 }
 
@@ -22,7 +22,7 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
 
     setAudioFileUrl(
       config.template(config.apis.bulletin.mp3, {
-        date: dateToISODateString(date),
+        date,
         region: bulletin.bulletinID,
         lang: bulletin.lang
       })

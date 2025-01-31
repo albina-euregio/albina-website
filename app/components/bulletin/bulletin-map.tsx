@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import type { Temporal } from "temporal-polyfill";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -30,7 +31,7 @@ interface Props {
   status: Status;
   region: string;
   validTimePeriod: ValidTimePeriod;
-  date: string;
+  date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
 }

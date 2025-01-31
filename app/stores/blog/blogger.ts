@@ -1,7 +1,6 @@
 import { BlogProcessor, BlogConfig, BlogPostPreviewItem } from ".";
 import type { BlogStore } from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
-import { parseDate } from "../../util/date";
 
 interface BloggerItem {
   kind: string;
@@ -94,7 +93,7 @@ export class BloggerProcessor implements BlogProcessor {
       item.id,
       item.url,
       item.author.displayName,
-      parseDate(item.published),
+      new Date(item.published),
       item.title,
       item.content,
       config.lang,
