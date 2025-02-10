@@ -1,4 +1,3 @@
-import { getDaysOfMonth } from "../util/date";
 import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
@@ -70,9 +69,9 @@ export const startDate = computed([year, month], (year, month) => {
 export const endDate = computed([year, month], (year, month) => {
   if (year) {
     if (month) {
-      return new Date(year, month - 1, getDaysOfMonth(year, month), 23, 59);
+      return new Date(year, month, 1);
     }
-    return new Date(year, 11, 31, 23, 59);
+    return new Date(year + 1, 0, 1);
   }
   return null;
 });

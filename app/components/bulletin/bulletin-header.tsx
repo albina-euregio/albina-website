@@ -1,4 +1,5 @@
 import React from "react";
+import type { Temporal } from "temporal-polyfill";
 import { useIntl } from "../../i18n";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
@@ -7,8 +8,8 @@ import { LONG_DATE_FORMAT } from "../../util/date";
 import type { BulletinCollection, Status } from "../../stores/bulletin";
 
 interface Props {
-  date: Date;
-  latestDate: Date;
+  date?: Temporal.PlainDate;
+  latestDate?: Temporal.PlainDate;
   status: Status;
   activeBulletinCollection: BulletinCollection;
 }

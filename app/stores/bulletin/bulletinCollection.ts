@@ -1,3 +1,4 @@
+import { Temporal } from "temporal-polyfill";
 import {
   AvalancheProblemType,
   Bulletin,
@@ -12,7 +13,6 @@ import {
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
-import { dateToISODateString, parseDate } from "../../util/date";
 import { atom } from "nanostores";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
@@ -89,15 +89,11 @@ class BulletinCollection {
   eawsAvalancheProblems: EawsAvalancheProblems;
 
   constructor(
-    public readonly date: string,
+    public readonly date: Temporal.PlainDate,
     public readonly lang: string
   ) {
     this.status = "pending";
     this.dataRaw = null;
-  }
-
-  get dateDate() {
-    return parseDate(this.date);
   }
 
   private _getBulletinUrl(publicationDate = ""): string {
@@ -126,29 +122,24 @@ class BulletinCollection {
 
   async load(): Promise<this> {
     const url = this._getBulletinUrl();
-    if (!url) return;
+    if (!url) return this;
     try {
       const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
       this.setData(response);
     } catch (error) {
-      console.error("Cannot load bulletin for date " + this.date, error);
+      console.error(`Cannot load bulletin for date ${this.date}`, error);
       this.setData(null);
       this.status = "n/a";
     }
     try {
       this.dataRaw170000 = undefined;
       if (this.dataRaw.bulletins.some(b => b.unscheduled)) {
-        const date = new Date(this.dateDate);
-        date.setDate(date.getDate() - 1);
-        const isSummertime = date
-          .toLocaleDateString("en", {
-            timeZone: "Europe/Vienna",
-            timeZoneName: "longOffset"
-          })
-          .includes("GMT+02:00");
-        const publicationDate = isSummertime
-          ? `${dateToISODateString(date)}_15-00-00`
-          : `${dateToISODateString(date)}_16-00-00`;
+        const date = this.date.subtract({ days: 1 });
+        const hour = date
+          .toPlainDateTime({ hour: 17 })
+          .toZonedDateTime("Europe/Vienna")
+          .withTimeZone("UTC").hour;
+        const publicationDate = `${date}_${hour}-00-00`;
         const url2 = this._getBulletinUrl(publicationDate);
         const response = await fetchJSON<Bulletins>(url2, {
           cache: "no-cache"
@@ -158,14 +149,14 @@ class BulletinCollection {
         }
       }
     } catch (error) {
-      console.error("Cannot load 17:00 bulletin for date " + this.date, error);
+      console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
     }
     return this;
   }
 
   async loadEawsBulletins() {
     this.eawsMaxDangerRatings = {};
-    if (this.date < "2021-01-25") {
+    if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
     const regex = new RegExp("^(" + eawsRegions.join("|") + ")");
@@ -183,13 +174,13 @@ class BulletinCollection {
         Object.entries(maxDangerRatings).filter(([r]) => regex.test(r))
       );
     } catch (error) {
-      console.warn("Cannot load EAWS bulletins for date " + this.date, error);
+      console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);
     }
   }
 
   async loadEawsProblems() {
     this.eawsAvalancheProblems = {};
-    if (this.date < "2024-01-01") {
+    if (!this.date || this.date.toString() < "2024-01-01") {
       return;
     }
     try {
@@ -201,7 +192,7 @@ class BulletinCollection {
       });
       this.eawsAvalancheProblems = avalancheProblems;
     } catch (error) {
-      console.warn("Cannot load EAWS  problems for date " + this.date, error);
+      console.warn(`Cannot load EAWS problems for date ${this.date}`, error);
     }
   }
 

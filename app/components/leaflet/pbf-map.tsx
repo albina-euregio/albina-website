@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
@@ -33,7 +34,7 @@ interface PbfStyleFunction {
 interface PbfProps {
   isOneDangerRating: boolean;
   validTimePeriod: ValidTimePeriod;
-  date: string;
+  date: Temporal.PlainDate;
 }
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {

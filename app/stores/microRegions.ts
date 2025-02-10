@@ -1,3 +1,4 @@
+import type { Temporal } from "temporal-polyfill";
 import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
 import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
 import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
@@ -52,26 +53,23 @@ export interface RegionOutlineProperties {
  */
 export function filterFeature(
   { properties }: { properties: MicroRegionProperties },
-  today: string = new Date().toISOString().slice(0, "2006-01-02".length)
+  today: Temporal.PlainDate
 ): boolean {
+  if (!today) return false;
   return (
-    (!properties.start_date || properties.start_date <= today) &&
-    (!properties.end_date || properties.end_date > today)
+    (!properties.start_date || properties.start_date <= today.toString()) &&
+    (!properties.end_date || properties.end_date > today.toString())
   );
 }
 
-export function eawsRegionIds(
-  today = new Date().toISOString().slice(0, "2006-01-02".length)
-): string[] {
+export function eawsRegionIds(today: Temporal.PlainDate): string[] {
   return eawsRegions
     .filter(properties => filterFeature({ properties }, today))
     .map(properties => properties.id)
     .filter(id => !regionsRegex.test(id));
 }
 
-export function microRegionIds(
-  today = new Date().toISOString().slice(0, "2006-01-02".length)
-): string[] {
+export function microRegionIds(today: Temporal.PlainDate): string[] {
   return microRegions
     .filter(properties => filterFeature({ properties }, today))
     .map(f => String(f.id))
