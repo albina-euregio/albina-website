@@ -11,7 +11,7 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
-import { dateFormat } from "../util/date";
+import { Temporal } from "temporal-polyfill";
 
 const StationMeasurements = () => {
   const intl = useIntl();
@@ -98,13 +98,19 @@ const StationMeasurements = () => {
             <input
               type="datetime-local"
               step={3600}
-              max={dateFormat(dateTimeMax, "%Y-%m-%dT%H:00", false)}
+              max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
               value={
-                dateTime instanceof Date
-                  ? dateFormat(dateTime, "%Y-%m-%dT%H:00", false)
+                dateTime instanceof Temporal.ZonedDateTime
+                  ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
                   : ""
               }
-              onChange={e => load({ dateTime: new Date(e.target.value) })}
+              onChange={e =>
+                load({
+                  dateTime: Temporal.PlainDateTime.from(
+                    e.target.value
+                  ).toZonedDateTime("Europe/Vienna")
+                })
+              }
             />
           </div>
         </div>
