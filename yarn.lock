@@ -1459,7 +1459,7 @@ __metadata:
     lint-staged: "npm:^15.2.5"
     nanostores: "npm:^0.11.3"
     normalize.css: "npm:^8.0.1"
-    prettier: "npm:3.3.1"
+    prettier: "npm:3.5.0"
     purecss-sass: "npm:3.0.1"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -4360,12 +4360,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.3.1":
-  version: 3.3.1
-  resolution: "prettier@npm:3.3.1"
+"prettier@npm:3.5.0":
+  version: 3.5.0
+  resolution: "prettier@npm:3.5.0"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/c25a709c9f0be670dc6bcb190b622347e1dbeb6c3e7df8b0711724cb64d8647c60b839937a4df4df18e9cfb556c2b08ca9d24d9645eb5488a7fc032a2c4d5cb3
+  checksum: 10c0/6c355d74c377f5622953229d92477e8b9779162e848db90fd7e06c431deb73585d31fafc4516cf5868917825b97b9ec7c87c8d8b8e03ccd9fc9c0b7699d1a650
   languageName: node
   linkType: hard
 

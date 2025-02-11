@@ -67,7 +67,7 @@
     "eslint-plugin-react-hooks": "5.1.0-rc-91061073-20241121",
     "git-cliff": "^2.7.0",
     "lint-staged": "^15.2.5",
-    "prettier": "3.3.1",
+    "prettier": "3.5.0",
     "sass": "^1.83.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.19.0",
