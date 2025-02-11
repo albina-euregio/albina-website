@@ -225,23 +225,23 @@ const Timeline = ({ updateCB }) => {
     setIndicatorOffset(newIndicatorOffset);
   };
 
-  const addDays = (date, days) => {
+  const addDays = (date: Date, days: number) => {
     const result = new Date(date);
     result.setUTCDate(result.getUTCDate() + days);
     return result;
   };
 
-  const addHours = (date, hours) => {
+  const addHours = (date: Date, hours: number) => {
     return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
   };
 
-  const differenceInHours = (dateLeft, dateRight) => {
-    const res = (dateLeft - dateRight) / (1000 * 60 * 60);
+  const differenceInHours = (dateLeft: Date, dateRight: Date) => {
+    const res = (+dateLeft - +dateRight) / (1000 * 60 * 60);
 
     return res;
   };
 
-  const formatDate = date => {
+  const formatDate = (date: Date) => {
     if (pixelsPerHour < 3)
       return intl.formatDate(date, {
         day: "numeric",
