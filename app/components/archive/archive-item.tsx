@@ -1,7 +1,8 @@
 import React from "react";
+import type { Temporal } from "temporal-polyfill";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { dateToISODateString, LONG_DATE_FORMAT } from "../../util/date";
+import { LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin } from "../../stores/bulletin";
@@ -25,16 +26,16 @@ export type BulletinStatus =
   | LegacyBulletinStatus;
 
 interface Props {
-  date: Date;
+  date: Temporal.PlainDate;
   status: BulletinStatus;
 }
 
 function ArchiveItem({ date, status }: Props) {
   const intl = useIntl();
 
-  function getLanguage(dateString: string) {
+  function getLanguage() {
     const lang = intl.locale.slice(0, 2);
-    if (dateString < "2020-12-01") {
+    if (date.toString() < "2020-12-01") {
       switch (lang) {
         case "fr":
         case "es":
@@ -49,8 +50,7 @@ function ArchiveItem({ date, status }: Props) {
     }
   }
 
-  const dateString = dateToISODateString(date);
-  const lang = getLanguage(dateString);
+  const lang = getLanguage();
 
   if (typeof status === "object" && status.$type === "LegacyBulletinStatus") {
     return (
@@ -97,22 +97,22 @@ function ArchiveItem({ date, status }: Props) {
             <li>
               <DownloadLink
                 format="pdf"
-                dateString={dateString}
+                date={date}
                 lang={lang}
                 bulletin={bulletin?.bulletinID}
               />
             </li>
           )}
           <li>
-            <DownloadLink format="xml" dateString={dateString} lang={lang} />
+            <DownloadLink format="xml" date={date} lang={lang} />
           </li>
           <li>
-            <DownloadLink format="json" dateString={dateString} lang={lang} />
+            <DownloadLink format="json" date={date} lang={lang} />
           </li>
         </ul>
       </td>
       <td>
-        <BulletinMap dateString={dateString} bulletin={bulletin} />
+        <BulletinMap date={date} bulletin={bulletin} />
       </td>
       {bulletin && (
         <td>
@@ -154,20 +154,20 @@ function ArchiveItem({ date, status }: Props) {
 function DownloadLink({
   bulletin,
   format,
-  dateString,
+  date,
   lang
 }: {
   bulletin?: string;
   format: "pdf" | "xml" | "json";
-  dateString: string;
+  date: Temporal.PlainDate;
   lang: string;
 }) {
   return (
     <a
       href={config.template(config.apis.bulletin[format], {
         bulletin: bulletin || "",
-        date: dateString,
-        region: dateString > "2022-05-06" ? "EUREGIO_" : "",
+        date,
+        region: "EUREGIO_",
         lang,
         bw: ""
       })}
@@ -181,44 +181,32 @@ function DownloadLink({
 }
 
 function BulletinMap({
-  dateString,
+  date,
   bulletin
 }: {
-  dateString: string;
+  date: Temporal.PlainDate;
   bulletin: Bulletin;
 }): React.ReactNode {
   const intl = useIntl();
-  if (!showMap(dateString)) return <></>;
-  const region =
-    bulletin && dateString > "2022-05-06"
-      ? `EUREGIO_${bulletin.bulletinID}`
-      : bulletin
-        ? bulletin.bulletinID
-        : dateString < "2022-05-06"
-          ? "fd_albina_thumbnail"
-          : "fd_EUREGIO_thumbnail";
+  if (!showMap(date)) return <></>;
+  const region = bulletin
+    ? `EUREGIO_${bulletin.bulletinID}`
+    : "fd_EUREGIO_thumbnail";
   return (
     <Tooltip
       label={intl.formatMessage({
         id: "archive:show-forecast:hover"
       })}
     >
-      <Link
-        to={"/bulletin/" + dateString}
-        className={"map-preview img tooltip"}
-      >
-        <ArchiveAwmapStatic
-          date={dateString}
-          imgFormat=".jpg"
-          region={region}
-        />
+      <Link to={`/bulletin/${date}`} className={"map-preview img tooltip"}>
+        <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
       </Link>
     </Tooltip>
   );
 
-  function showMap(dateString: string) {
+  function showMap(date: Temporal.PlainDate) {
     const lang = intl.locale.slice(0, 2);
-    if (dateString < "2020-12-01") {
+    if (date.toString() < "2020-12-01") {
       switch (lang) {
         case "fr":
         case "es":

@@ -1,7 +1,5 @@
 import type { LatLngExpression } from "leaflet";
-import { makeAutoObservable } from "mobx";
-import { dateToISODateString } from "../util/date";
-import { currentSeasonDate } from "../util/date-season";
+import { currentSeasonYear } from "../util/date-season";
 import { fetchJSON } from "../util/fetch";
 
 export interface Incident {
@@ -52,12 +50,9 @@ export interface Country {
 
 export default class IncidentStore {
   incidents: Incident[] = [];
-  constructor() {
-    makeAutoObservable(this);
-  }
 
   async load() {
-    const startDate = dateToISODateString(currentSeasonDate());
+    const startDate = new Date(currentSeasonYear(), 9, 1);
     const url =
       "https://admin.avalanche.report/lawis/public/incident?startDate=" +
       startDate;
@@ -73,7 +68,7 @@ export default class IncidentStore {
         $color,
         $url: `https://lawis.at/incident/#${incident.id}`,
         $latlng: [incident.location.latitude, incident.location.longitude],
-        $tooltip: `${dateToISODateString($date)}: ${incident.location.name}`
+        $tooltip: `${$date}: ${incident.location.name}`
       });
     });
   }

@@ -43,6 +43,10 @@ export default ts.config(
   {
     rules: {
       "no-console": ["error", { allow: ["info", "warn", "error", "assert"] }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { varsIgnorePattern: "React" }
+      ],
       "require-await": "error",
       "@typescript-eslint/no-empty-function": "off",
       "@typescript-eslint/no-this-alias": "warn",

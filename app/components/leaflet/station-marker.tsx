@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useLeafletContext } from "@react-leaflet/core";
+import React, { useMemo } from "react";
+import { createPortal } from "react-dom";
+import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
-import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
 
 interface Props<T = unknown> {
@@ -9,7 +9,7 @@ interface Props<T = unknown> {
   data: T;
   stationName: string;
   tooltip?: string;
-  onClick: (data: T) => void;
+  onClick?: (data: T) => void;
   itemId: "any" | string;
   type: string;
   color: string;
@@ -21,65 +21,76 @@ interface Props<T = unknown> {
   className: string;
 }
 
-const StationMarker = (props: Props<unknown>): React.ReactNode => {
-  const context = useLeafletContext();
-
-  useEffect(() => {
-    const marker = L.marker(props.coordinates, {
-      data: props.data,
-      title: props.stationName,
-      icon: createStationIcon(),
-      bubblingMouseEvents: false
-    });
-
-    if (props.tooltip) {
-      marker.bindTooltip(props.tooltip);
-    }
-
-    if (props.onClick)
-      marker.on("click", e => {
-        // console.log(
-        //   "marker.on(click) ggg",
-        //   props.onClick,
-        //   e.target.options.data
-        // );
-        L.DomEvent.stopPropagation(e);
-
-        props.onClick(e.target.options.data);
-      });
-
-    const container = context.layerContainer || context.map;
-
-    container.addLayer(marker);
-
-    return () => {
-      container.removeLayer(marker);
-    };
-  });
-
-  const createStationIcon = () => {
-    //console.log("StationMarker->createStationIcon jjj", props);
-    const icon = (
+const StationMarker = ({
+  className,
+  color,
+  coordinates,
+  data,
+  dataType,
+  direction,
+  iconAnchor,
+  itemId,
+  onClick,
+  selected,
+  stationName,
+  tooltip,
+  type,
+  value
+}: Props<unknown>): React.ReactNode => {
+  const stationIcon = useMemo(() => {
+    return (
       <StationIcon
-        itemId={props.itemId}
-        type={props.type}
-        color={props.color}
-        dataType={props.dataType || "analyse"}
-        selected={props.selected}
-        value={isFinite(props.value) ? props.value : ""}
-        direction={props.direction}
+        itemId={itemId}
+        type={type}
+        color={color}
+        dataType={dataType || "analyse"}
+        selected={selected}
+        value={isFinite(value) ? value : ""}
+        direction={direction}
       />
     );
-    const divIcon = L.divIcon({
-      iconAnchor: props.iconAnchor || [12.5, 12.5],
-      html: ReactDOMServer.renderToStaticMarkup(icon),
-      className: props.className
-    });
-    //console.log("StationMarker->createStationIcon eee", divIcon);
-    return divIcon;
-  };
+  }, [color, dataType, direction, itemId, selected, type, value]);
 
-  return null;
+  const icon = useMemo(
+    () =>
+      L.divIcon({
+        iconAnchor: iconAnchor || [12.5, 12.5],
+        className: className
+      }),
+    [className, iconAnchor]
+  );
+
+  const element = useMemo(() => {
+    const element = icon.createIcon();
+    icon.createIcon = () => element;
+    return element;
+  }, [icon]);
+
+  const marker = useMemo(
+    () => (
+      <Marker
+        data={data}
+        position={coordinates}
+        title={stationName}
+        icon={icon}
+        eventHandlers={
+          onClick && {
+            click: e => {
+              L.DomEvent.stopPropagation(e);
+              onClick(e.target.options.data);
+            }
+          }
+        }
+      >
+        {tooltip && <Tooltip>{tooltip}</Tooltip>}
+        {createPortal(stationIcon, element)}
+      </Marker>
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [coordinates, data, element, icon, stationIcon, stationName, tooltip]
+  );
+
+  return marker;
 };
 
 export default StationMarker;

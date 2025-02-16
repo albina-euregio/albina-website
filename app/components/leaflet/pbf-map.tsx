@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
@@ -31,8 +32,9 @@ interface PbfStyleFunction {
 }
 
 interface PbfProps {
+  isOneDangerRating: boolean;
   validTimePeriod: ValidTimePeriod;
-  date: string;
+  date: Temporal.PlainDate;
 }
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
@@ -54,8 +56,12 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(properties) {
-          if (!filterFeature({ properties }, props.date))
+          if (!filterFeature({ properties }, props.date)) {
             return config.map.regionStyling.hidden;
+          }
+          if (props.isOneDangerRating) {
+            return style(properties.id);
+          }
           return properties.elevation === "low_high"
             ? style(properties.id)
             : style(properties.id + ":" + properties.elevation);

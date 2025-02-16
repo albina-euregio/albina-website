@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedDate, FormattedMessage } from "../../i18n";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import * as store from "../../stores/weatherMapStore";
+import { useStore } from "@nanostores/react";
 //import { tooltip_init } from "../tooltips/tooltip-dom";
 
 const DOMAIN_ICON_CLASSES = {
@@ -13,9 +14,9 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
-  wind: "icon-wind"
-  //windgust: "icon-wind-gust"
-  //wind700hpa: "icon-wind-high"
+  wind: "icon-wind",
+  gust: "icon-wind-gust",
+  wind700hpa: "icon-wind-high"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -24,9 +25,9 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
-  wind: "cp-legend-wind"
-  //windgust: "cp-legend-windgust"
-  //wind700hpa: "cp-legend-windhigh"
+  wind: "cp-legend-wind",
+  gust: "cp-legend-windgust",
+  wind700hpa: "cp-legend-windhigh"
 };
 
 const DOMAIN_UNITS = {
@@ -35,25 +36,17 @@ const DOMAIN_UNITS = {
   "diff-snow": "cm",
   "snow-line": "m",
   temp: "°C",
-  wind: "km/h"
-  //windgust: "km/h"
-  //windhigh: "km/h"
+  wind: "km/h",
+  gust: "km/h",
+  wind700hpa: "km/h"
 };
 
-const LOOP = false;
-
-const WeatherMapCockpit = ({
-  timeSpan,
-  startDate,
-  currentTime,
-  domainId,
-  eventCallback,
-  changeCurrentTime,
-  storeConfig,
-  nextUpdateTime,
-  lastUpdateTime
-}) => {
-  const [lastRedraw, setLastRedraw] = useState(new Date().getTime());
+const WeatherMapCockpit = () => {
+  const [lastRedraw, setLastRedraw] = useState(+new Date());
+  const domainId = useStore(store.domainId);
+  const timeSpan = useStore(store.timeSpan);
+  const nextUpdateTime = useStore(store.nextUpdateTime);
+  const lastUpdateTime = useStore(store.lastDataUpdate);
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -65,31 +58,36 @@ const WeatherMapCockpit = ({
   }, []);
 
   const redraw = () => {
-    setLastRedraw(new Date().getTime());
+    setLastRedraw(+new Date());
     adaptVH();
   };
 
   const adaptVH = () => {
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
-  const onTimelineUpdate = newTime => {
-    changeCurrentTime(newTime);
-  };
-
   const handleEvent = (type, value) => {
-    if (typeof eventCallback === "function") {
-      const body = document?.querySelector("body");
-      if (body?.classList?.contains("layer-selector-open"))
-        body.classList.remove("layer-selector-open");
-      eventCallback(type, value);
+    const body = document?.querySelector("body");
+    body.classList.remove("layer-selector-open");
+    switch (type) {
+      case "domain":
+        store.changeDomain(value);
+        break;
+      case "timeSpan":
+        store.changeTimeSpan(value);
+        break;
+      case "time":
+        store.changeCurrentTime(value);
+        break;
+      default:
+        break;
     }
   };
 
   const getDomainButtons = () => {
-    const domainButtons = storeConfig
-      ? Object.keys(storeConfig.domains).map(domainId => {
+    const domainButtons = store.config
+      ? Object.keys(store.config.domains).map(domainId => {
           return {
             id: domainId,
             title: (
@@ -106,10 +104,10 @@ const WeatherMapCockpit = ({
         })
       : [];
 
-    let buttons = [];
+    const buttons = [];
     domainButtons.forEach(aButton => {
-      let linkClasses = ["cp-layer-selector-item"];
-      let spanClasses = ["layer-select"];
+      const linkClasses = ["cp-layer-selector-item"];
+      const spanClasses = ["layer-select"];
       spanClasses.push(DOMAIN_ICON_CLASSES[aButton.id]);
       if (aButton.id === domainId) linkClasses.push("js-active");
       buttons.push(
@@ -133,33 +131,27 @@ const WeatherMapCockpit = ({
   };
 
   const getTimeSpanOptions = () => {
-    let buttons = [];
     let allButtons;
-    //console.log("getTimeSpanOptions 777", props);
-    if (storeConfig?.domains?.[domainId]) {
-      let domainConfig = storeConfig.domains[domainId].item;
 
-      let firstNrOnlyTimespan = domainConfig.timeSpans[0].replace(/\D/g, "");
+    if (store.config?.domains?.[domainId]) {
+      const domainConfig = store.config.domains[domainId].item;
 
-      domainConfig.timeSpans.forEach(aItem => {
-        let nrOnlyTimespan = aItem.replace(/\D/g, "");
-        let linkClasses = ["cp-range-" + nrOnlyTimespan];
-        if (timeSpan === aItem) linkClasses.push("js-active");
-
-        buttons.push(
+      const buttons = domainConfig.timeSpans.map(aItem => {
+        const nrOnlyTimespan = aItem.replace(/\D/g, "");
+        return (
           <a
             role="button"
             tabIndex="0"
             key={aItem}
             onClick={() => handleEvent("timeSpan", aItem)}
-            className={linkClasses.join(" ")}
+            className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
           >
             {nrOnlyTimespan}h
           </a>
         );
       });
 
-      if (firstNrOnlyTimespan != "1")
+      if (buttons.length > 1)
         allButtons = (
           <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
             {buttons}
@@ -187,16 +179,16 @@ const WeatherMapCockpit = ({
                 .classList.toggle("layer-selector-open");
             }}
           >
-            <div className="layer-select icon-snow">
-              <span class="layer-select-text">
-                <span class="layer-select-name">
+            <div className={"layer-select " + DOMAIN_ICON_CLASSES[domainId]}>
+              <span className="layer-select-text">
+                <span className="layer-select-name">
                   {
                     <FormattedMessage
                       id={"weathermap:domain:title:" + domainId}
                     />
                   }
                 </span>
-                <span class="layer-select-info">
+                <span className="layer-select-info">
                   {
                     <FormattedMessage
                       id={"weathermap:domain:description:" + domainId}
@@ -217,7 +209,7 @@ const WeatherMapCockpit = ({
   };
 
   const legendItems = amount => {
-    let items = [];
+    const items = [];
     for (let i = 1; i <= amount; i++) {
       items.push(
         <span
@@ -230,7 +222,7 @@ const WeatherMapCockpit = ({
   };
 
   const getLegend = () => {
-    let divClasses = ["cp-legend-items"];
+    const divClasses = ["cp-legend-items"];
     if (DOMAIN_LEGEND_CLASSES[domainId])
       divClasses.push(DOMAIN_LEGEND_CLASSES[domainId]);
     return (
@@ -246,6 +238,7 @@ const WeatherMapCockpit = ({
       <div key="cp-release" className="cp-release">
         <Tooltip
           key="cp-release-released"
+          placement="right-end"
           label={
             <FormattedMessage id="weathermap:cockpit:maps-creation-date:title" />
           }
@@ -259,6 +252,7 @@ const WeatherMapCockpit = ({
         </Tooltip>
         <Tooltip
           key="cp-realse-date"
+          placement="left-end"
           label={
             <FormattedMessage id="weathermap:cockpit:maps-update-date:title" />
           }
@@ -272,6 +266,7 @@ const WeatherMapCockpit = ({
         </Tooltip>
         <Tooltip
           key="cockpit-title-tp"
+          placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
           <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
@@ -287,43 +282,11 @@ const WeatherMapCockpit = ({
     );
   };
 
-  //console.log("weather-map-cockpit->render hhhh", currentTime);
-  let classes = [
+  const classes = [
     "map-cockpit",
     "weather-map-cockpit",
     "lastRedraw-" + lastRedraw
   ];
-
-  const firstHour = new Date(startDate);
-  firstHour.setUTCHours(firstHour.getUTCHours() - 24 * 365);
-
-  const imgRoot = `${window.config.projectRoot}images/pro/`;
-
-  let usedStartTime = new Date(startDate); // usedStartDate - 730 days from startDate
-  usedStartTime.setDate(usedStartTime.getDate() - 730);
-  let usedEndTime = new Date(startDate) || null;
-  usedEndTime.setDate(usedEndTime.getDate() + (timeSpan.includes("+") ? 3 : 0));
-
-  let analysesEndTs = new Date(startDate);
-
-  let usedInitialDate = new Date(currentTime);
-  if (
-    usedEndTime &&
-    new Date(currentTime).getTime() > new Date(usedEndTime).getTime()
-  )
-    usedInitialDate = new Date(usedEndTime);
-
-  // console.log("weather-map-cockpit->render #j01", {
-  //   timeSpan: Number(timeSpan.replace(/\D/g, ""), 10),
-  //   startDate,
-  //   currentTime: currentTime?.toUTCString(),
-  //   usedStartTime: usedStartTime?.toUTCString(),
-  //   usedInitialDate: usedInitialDate?.toUTCString(),
-  //   usedEndTime: usedEndTime?.toUTCString()
-  //   // firstHour
-  // });
-
-  const absSpan = Number(timeSpan.replace(/\D/g, ""), 10);
 
   return (
     <div role="button" key="map-cockpit" className={classes.join(" ")}>
@@ -338,22 +301,7 @@ const WeatherMapCockpit = ({
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          {startDate && (
-            <Timeline
-              key="cp-timeline"
-              domainId={domainId}
-              timeSpan={absSpan}
-              barDuration={absSpan}
-              markerPosition={absSpan > 24 ? "75%" : "50%"}
-              showBar={absSpan > 1}
-              analysesEndTs={analysesEndTs?.toISOString()}
-              initialDateTs={usedInitialDate.toISOString()}
-              startTimeTs={usedStartTime.toISOString()}
-              endTimeTs={usedEndTime.toISOString()}
-              //firstHour={firstHour?.getUTCHours()}
-              updateCB={onTimelineUpdate}
-            />
-          )}
+          <Timeline key="cp-timeline" updateCB={handleEvent} />
         </div>
 
         {getTimeSpanOptions()}
@@ -385,4 +333,4 @@ const WeatherMapCockpit = ({
     </div>
   );
 };
-export default observer(WeatherMapCockpit);
+export default WeatherMapCockpit;

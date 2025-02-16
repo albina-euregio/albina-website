@@ -63,3 +63,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
 };
 
 export default Modal;
+
+export const ModalImage: React.FC<{ children: React.ReactNode }> = props => {
+  const [isOpen, setOpen] = useState(false);
+  return (
+    <>
+      <div onClick={() => setOpen(true)} style={{ cursor: "zoom-in" }}>
+        {props.children}
+      </div>
+      <Modal isOpen={isOpen} onClose={() => setOpen(false)} width="90vw">
+        {props.children}
+      </Modal>
+    </>
+  );
+};

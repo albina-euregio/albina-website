@@ -3,36 +3,33 @@ import { atom, computed } from "nanostores";
 export type Language = "ca" | "en" | "de" | "es" | "fr" | "it" | "oc";
 
 // i18n
-const ca = () => import("./i18n/ca.json");
-const de = () => import("./i18n/de.json");
-const en = () => import("./i18n/en.json");
-const es = () => import("./i18n/es.json");
-const fr = () => import("./i18n/fr.json");
-const it = () => import("./i18n/it.json");
-const oc = () => import("./i18n/oc.json");
-const translationImports = Object.freeze({ ca, en, de, es, fr, it, oc });
-const regionTranslationImports = Object.freeze({
-  ca: () => import("@eaws/micro-regions_names/ca.json"),
-  de: () => import("@eaws/micro-regions_names/de.json"),
-  en: () => import("@eaws/micro-regions_names/en.json"),
-  es: () => import("@eaws/micro-regions_names/es.json"),
-  fr: () => import("@eaws/micro-regions_names/fr.json"),
-  it: () => import("@eaws/micro-regions_names/it.json"),
-  oc: () => import("@eaws/micro-regions_names/oc.json")
+const translationImports = import.meta.glob("./i18n/*.json", {
+  import: "default",
+  eager: true
 });
 
-export const languages = ["ca", "en", "de", "es", "fr", "it", "oc"];
+// Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
+const regionTranslationImports = import.meta.glob(
+  "./i18n/micro-regions_names/*.json",
+  {
+    import: "default",
+    eager: true
+  }
+);
 
-export const mainLanguages = ["en", "de", "it"];
+export const languages: Language[] = ["ca", "en", "de", "es", "fr", "it", "oc"];
+
+export const mainLanguages: Language[] = ["en", "de", "it"];
 
 export const $language = atom("" as Language);
 export const $messages = atom(
   {} as Record<FormatjsIntl.Message["ids"], string>
 );
 
-async function loadMessages(newLanguage: string) {
-  const messages = (await translationImports[newLanguage]()).default;
-  const regions = (await regionTranslationImports[newLanguage]()).default;
+function loadMessages(newLanguage: Language) {
+  const messages = translationImports[`./i18n/${newLanguage}.json`];
+  const regions =
+    regionTranslationImports[`./i18n/micro-regions_names/${newLanguage}.json`];
   const allMessages = Object.freeze(
     Object.assign(
       { ...messages },
@@ -45,12 +42,12 @@ async function loadMessages(newLanguage: string) {
   );
   return allMessages;
 }
-export async function setLanguage(newLanguage: Language) {
+export function setLanguage(newLanguage: Language) {
   const oldLanguage = $language.get();
   if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
     return Promise.resolve();
   }
-  $messages.set(await loadMessages(newLanguage));
+  $messages.set(loadMessages(newLanguage));
   $language.set(newLanguage);
   requestAnimationFrame(() => {
     // replace language-dependent body classes on language change.

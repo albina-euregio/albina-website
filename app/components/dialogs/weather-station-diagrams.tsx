@@ -12,6 +12,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import WeatherStationUplot from "./weather-station-uplot";
+import { Temporal } from "temporal-polyfill";
 
 const ENABLE_UPLOT =
   import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
@@ -20,7 +21,7 @@ function hasInteractivePlot(station: StationData | ObserverData) {
   return (
     ENABLE_UPLOT &&
     station instanceof StationData &&
-    station.operator?.startsWith?.("LWD Tirol")
+    /LWD Tirol|Südtirol - Alto Adige/.test(station.operator)
   );
 }
 
@@ -386,9 +387,13 @@ const StationDiagramImage: React.FC<{
   } else if (timeRange === "interactive") {
     timeRange = "week";
   }
-  const currentTS = new Date();
-  currentTS.setMinutes(Math.round(currentTS.getMinutes() / 5) * 5, 0, 0);
-  const cacheHash = currentTS.valueOf();
+
+  let t = Temporal.Now.plainDateTimeISO();
+  t = t.with({
+    minute: Math.round(t.minute / 5) * 5,
+    second: 0,
+    millisecond: 0
+  });
   const isStation = station instanceof StationData;
   const template = isStation
     ? window.config.apis.weather.plots
@@ -399,7 +404,7 @@ const StationDiagramImage: React.FC<{
     interval: timeRanges[timeRange],
     name: station.plot,
     year: selectedYear ? "_" + selectedYear : "",
-    t: cacheHash
+    t
   });
   return (
     <img

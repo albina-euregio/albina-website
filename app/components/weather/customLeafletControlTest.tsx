@@ -12,7 +12,6 @@ export const CustomLeafletControl = ({
   const map = useMap();
 
   useEffect(() => {
-    //console.log("CustomLeafletControl->useEffect", map?.controls);
     // Called after the component has been added to the DOM
     const container = L.DomUtil.create(containerElement, classNames);
     container.innerHTML = innerHTML;

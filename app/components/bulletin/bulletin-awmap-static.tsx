@@ -1,10 +1,11 @@
 import React, { type ReactEventHandler } from "react";
+import type { Temporal } from "temporal-polyfill";
 import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
 interface Props {
   validTimePeriod?: ValidTimePeriod;
   bulletin?: Bulletin;
-  date: string;
+  date: Temporal.PlainDate;
   region: string;
   onError?: ReactEventHandler<HTMLImageElement>;
   imgFormat?: string;
@@ -19,22 +20,21 @@ function BulletinAWMapStatic({
   imgFormat
 }: Props) {
   const publicationTime = bulletin?.publicationTime;
-  const publicationDirectory =
-    publicationTime && date > "2019-05-06"
-      ? publicationTime
-          .replace(/T/, "_")
-          .replace(/:/g, "-")
-          .slice(0, "2021-12-04_16-00-00".length)
-      : "";
-  const filePrefix = publicationTime && date > "2022-05-06" ? "EUREGIO_" : "";
+  const publicationDirectory = publicationTime
+    ? publicationTime
+        .replace(/T/, "_")
+        .replace(/:/g, "-")
+        .slice(0, "2021-12-04_16-00-00".length)
+    : "";
+  const filePrefix = publicationTime ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
   let url = config.template(config.apis.bulletin.map, {
-    date: date,
+    date,
     publication: publicationDirectory,
-    file: file
+    file
   });
-  if (imgFormat || date <= "2022-05-06") {
+  if (imgFormat || date.toString() <= "2022-05-06") {
     url = url.replace(/.webp$/, imgFormat || ".jpg");
   }
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");

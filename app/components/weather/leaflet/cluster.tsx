@@ -1,16 +1,13 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-//import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
 import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 
 const Cluster = props => {
-  //const context = useLeafletContext();
   let activeCluster = null;
 
   const onClick = e => {
-    //console.log("ClusterItem->onclick", e);
     if (e.layer.options?.data?.id) {
       const markerId = e.layer.options.data.id;
       if (activeCluster) {
@@ -20,7 +17,6 @@ const Cluster = props => {
 
         if (activeClusterMarker) {
           setPositionForActiveMarker(activeClusterMarker);
-          // props.onMarkerSelected(activeClusterMarker.options.data);
         } else {
           activeCluster.unspiderfy();
         }
@@ -46,7 +42,7 @@ const Cluster = props => {
 
   const createClusterIcon = cluster => {
     const activeMarker = getActiveMarker(cluster);
-    // reuse the marker's icon
+
     if (props.tooltip) {
       cluster.bindTooltip(
         cluster
@@ -83,7 +79,6 @@ const Cluster = props => {
     }
   };
 
-  //console.log("cluster->render");
   return (
     <MarkerClusterGroup
       maxClusterRadius="11"

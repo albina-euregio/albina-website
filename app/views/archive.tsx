@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
-import { getSuccDate, dateToISODateString } from "../util/date";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
 import ArchiveItem, {
@@ -26,36 +26,35 @@ function Archive() {
   const [buttongroup] = useState(searchParams.get("buttongroup"));
   const minMonth = 11;
   const [month, setMonth] = useState(
-    +(searchParams.get("month") || new Date().getMonth() + 1)
+    +(searchParams.get("month") || Temporal.Now.plainDateISO().month)
   );
   if (month < minMonth) setMonth(m => m + 12);
   const [year, setYear] = useState(
     +searchParams.get("year") || currentSeasonYear()
   );
   const [bulletinStatus, setBulletinStatus] = useState(
-    {} as Record<number, BulletinStatus>
+    {} as Record<ReturnType<Temporal.PlainDate["toString"]>, BulletinStatus>
   );
-  const [dates, setDates] = useState([] as Date[]);
+  const [dates, setDates] = useState([] as Temporal.PlainDate[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
   const [microRegions] = useState(() => microRegionIds());
 
   useEffect(() => {
     const dates = getDatesInMonth(year, month);
     dates.forEach(date => {
-      const dateString = dateToISODateString(date);
-      if (dateString >= "2018-12-01" && region) {
-        getRegionBulletinStatus(dateString, region).then(status =>
-          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+      if (date.toString() >= "2018-12-01" && region) {
+        getRegionBulletinStatus(date, region).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.toString()]: status }))
         );
-      } else if (dateString >= "2018-12-01") {
-        new BulletinCollection(dateString, lang)
+      } else if (date.toString() >= "2018-12-01") {
+        new BulletinCollection(date, lang)
           .loadStatus()
           .then(status =>
-            setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+            setBulletinStatus(s => ({ ...s, [date.toString()]: status }))
           );
       } else {
-        getArchiveBulletinStatus(dateString).then(status =>
-          setBulletinStatus(s => ({ ...s, [date.getTime()]: status }))
+        getArchiveBulletinStatus(date).then(status =>
+          setBulletinStatus(s => ({ ...s, [date.toString()]: status }))
         );
       }
     });
@@ -78,8 +77,8 @@ function Archive() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month, year, setDates, setSearchParams, buttongroup, region, lang]);
 
-  function isDateShown(d: Date): boolean {
-    const status = bulletinStatus[d.getTime()];
+  function isDateShown(d: Temporal.PlainDate): boolean {
+    const status = bulletinStatus[d.toString()];
     return (
       status === "ok" ||
       (typeof status === "object" &&
@@ -160,9 +159,9 @@ function Archive() {
                   .filter(d => isDateShown(d))
                   .map(d => (
                     <ArchiveItem
-                      key={d.getTime()}
+                      key={d.toString()}
                       date={d}
-                      status={bulletinStatus[d.getTime()]}
+                      status={bulletinStatus[d.toString()]}
                     />
                   ))}
               </tbody>
@@ -223,10 +222,10 @@ function Archive() {
   );
 
   async function getRegionBulletinStatus(
-    dateString: string,
+    date: Temporal.PlainDate,
     region: string
   ): Promise<RegionBulletinStatus> {
-    const collection = await new BulletinCollection(dateString, lang).load();
+    const collection = await new BulletinCollection(date, lang).load();
     return {
       $type: "RegionBulletinStatus",
       status: collection.status,
@@ -235,19 +234,19 @@ function Archive() {
   }
 
   async function getArchiveBulletinStatus(
-    dateString: string
+    date: Temporal.PlainDate
   ): Promise<LegacyBulletinStatus> {
     const [at07, it32bz, it32tn] = await Promise.all([
       fetchExists(
-        `${config.apis.bulletin.archive}tyrol/pdf/${dateString}_0730_lwdtirol_lagebericht.pdf`
+        `${config.apis.bulletin.archive}tyrol/pdf/${date}_0730_lwdtirol_lagebericht.pdf`
       ),
       fetchExists(
-        `${config.apis.bulletin.archive}south_tyrol/pdf/${dateString}.${
+        `${config.apis.bulletin.archive}south_tyrol/pdf/${date}.${
           lang === "it" ? "it" : "de"
         }.pdf`
       ),
       fetchExists(
-        `${config.apis.bulletin.archive}trentino/pdf/${dateString}_valanghe_it.pdf`
+        `${config.apis.bulletin.archive}trentino/pdf/${date}_valanghe_it.pdf`
       )
     ]);
     return {
@@ -263,15 +262,12 @@ function Archive() {
 
 export default Archive;
 
-function getDatesInMonth(year: number, month: number): Date[] {
-  const dates: Date[] = [];
-  const startDate = new Date(year, month - 1, 1);
-  for (
-    let date = startDate;
-    date.getMonth() === startDate.getMonth();
-    date = getSuccDate(date)
-  ) {
-    dates.push(date);
-  }
-  return dates;
+function getDatesInMonth(year: number, month: number): Temporal.PlainDate[] {
+  const startDate =
+    month > 12
+      ? new Temporal.PlainDate(year + 1, month - 12, 1)
+      : new Temporal.PlainDate(year, month, 1);
+  return new Array(startDate.daysInMonth)
+    .fill(0)
+    .map((_, i) => startDate.with({ day: i + 1 }));
 }

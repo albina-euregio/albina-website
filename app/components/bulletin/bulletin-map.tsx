@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import type { Temporal } from "temporal-polyfill";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -16,9 +17,13 @@ import type {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
 import { PbfRegionState } from "../leaflet/pbf-region-state";
-import { ValidTimePeriod } from "../../stores/bulletin";
+import {
+  isOneDangerRating as isOneDangerRating0,
+  ValidTimePeriod
+} from "../../stores/bulletin";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 import { useMapEvent } from "react-leaflet";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -26,13 +31,14 @@ interface Props {
   status: Status;
   region: string;
   validTimePeriod: ValidTimePeriod;
-  date: string;
+  date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
 }
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
+  const isOneDangerRating = useStore(isOneDangerRating0);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
@@ -68,11 +74,11 @@ const BulletinMap = (props: Props) => {
 
   const getMapOverlays = () => {
     const overlays = [<RegionClickHandler key="region-click-handler" />];
-    const date = props.date;
     overlays.push(
       <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}`}
-        date={date}
+        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}`}
+        date={props.date}
+        isOneDangerRating={isOneDangerRating}
         handleSelectRegion={props.handleSelectRegion}
         validTimePeriod={props.validTimePeriod}
       >
@@ -92,7 +98,9 @@ const BulletinMap = (props: Props) => {
     );
     overlays.push(
       <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${date}-${props.status}-overlay`}
+        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}-overlay`}
+        date={props.date}
+        validTimePeriod={props.validTimePeriod}
         eventHandlers={{
           click(e) {
             DomEvent.stop(e);

@@ -1,11 +1,10 @@
 import React from "react";
-import { observer } from "mobx-react";
+import { Temporal } from "temporal-polyfill";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
-import { dateToISODateString } from "../util/date";
 import * as BLOG_STORE from "../stores/blogStore";
 
 /*
@@ -42,23 +41,6 @@ class LinkTree extends React.Component {
     if (region !== this.state.region) this.setState({ region });
   }
 
-  getLanguage(dateString) {
-    var lang = document.body.parentElement.lang;
-    if (dateString < "2020-12-01") {
-      switch (lang) {
-        case "fr":
-        case "es":
-        case "ca":
-        case "oc":
-          return "en";
-        default:
-          return lang;
-      }
-    } else {
-      return lang;
-    }
-  }
-
   onBulletinImageError() {
     if (this.state.fd === null) return;
     let fd = null;
@@ -68,8 +50,8 @@ class LinkTree extends React.Component {
   }
 
   render() {
-    const dateString = dateToISODateString(new Date());
-    const lang = this.getLanguage(dateString);
+    const date = Temporal.Now.plainDateISO();
+    const lang = document.body.parentElement.lang;
 
     if (lang !== this.lastLang) {
       this.lastLang = lang;
@@ -83,7 +65,7 @@ class LinkTree extends React.Component {
 
     if (this.state.fd != null) {
       bulletinImageUrl = config.template(config.apis.bulletin.map, {
-        date: dateString,
+        date,
         publication: ".",
         file: this.state.fd ? "fd_EUREGIO_thumbnail" : "am_EUREGIO_thumbnail"
       });
@@ -153,4 +135,4 @@ class LinkTree extends React.Component {
     );
   }
 }
-export default observer(LinkTree);
+export default LinkTree;

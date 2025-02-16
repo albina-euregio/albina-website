@@ -1,6 +1,106 @@
 # Changelog
 
-<!-- To update, run `yarn changelog`. -->
+<!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
+
+## [7.2.4] - 2025-01-31
+
+### Weather Maps
+
+- Introduce deep links to weather maps
+
+### 🐛 Bug Fixes
+
+- Correct highlighting of warning regions for old bulletins
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+- Upgrade EAWS regions to v7.0.6
+
+## [7.2.3] - 2025-01-21
+
+### 🚀 Features
+
+- Set maxZoom to 12 for station map
+- Click to enlarge images in blog posts
+
+## [7.2.2] - 2025-01-20
+
+### Weather Maps
+
+- Change parameter using keyboard shortcuts (p/n)
+- Always show wind arrows for high elevation wind
+- Show weather stations for wind gust
+
+### 🚀 Features
+
+- Introduce URL parameter one-danger-rating=1 to not show elevation dependent danger ratings
+
+## [7.2.1] - 2025-01-16
+
+### Weather Maps
+
+- Change timespan using ↑/↓
+- Focus scale for key handling
+- Use async-await for weather map overlays
+- Improve performance of station markers
+- Improve tooltips position
+
+## [7.2.0] - 2025-01-07
+
+### Weather Maps
+
+- Use weather maps produced by C-LAEF model
+- Provide 10 m wind, 10 m wind gust and high altitude wind as parameters
+
+### 🚀 Features
+
+- Enable interactive weather station diagrams for for South Tyrol
+
+### 📚 Documentation
+
+- Workflow for generating changelog
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to eslint 9.17.0
+- Remove mobx and mobx-react (use nanostores instead)
+
+## [7.1.1] - 2024-12-30
+
+### 🐛 Bug Fixes
+
+- Fix 12h snow-diff in weather maps
+- Fix CAAMLv5 links
+
+## [7.1.0] - 2024-12-19
+
+### Weather Maps
+
+- Implement draggable datetime bar
+- Add descriptive text to weather parameters
+- Allow more parameters in weather cockpit
+- Add calendar icon to select dates in the past
+
+### Documentation
+
+- Workflow for CHANGELOG
+
+### Miscellaneous Tasks
+
+- Upgrade EAWS regions to v7.0.5
+- Various package upgrades
+
+## [7.0.5] - 2024-12-09
+
+### Documentation
+
+- Comprehensive CHANGELOG
+
+### Miscellaneous Tasks
+
+- Minor bugfixes
+- Various package upgrades
 
 ## [7.0.4] - 2024-11-28
 

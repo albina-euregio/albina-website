@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
+import React, { useEffect, useState } from "react";
 import Cluster from "./leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
-import ClusterSelectedMarker from "./leaflet/cluster-selected-marker";
 
 const StationOverlay = props => {
   const [activeMarkerPos, setActiveMarkerPos] = useState(null);
-  // eslint-disable-next-line no-unused-vars
+
   const [spiderfiedMarkers, setSpiderfiedMarkers] = useState(null);
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const StationOverlay = props => {
   const getColor = value => {
     const v = parseFloat(value);
     const colors = Object.values(props.item.colors);
-    //console.log("StationOverlay->getColor#1", value, props.item.colors);
+
     let color = colors[0];
     props.item.thresholds.forEach((tr, i) => {
       if (v > tr) {
@@ -29,12 +28,10 @@ const StationOverlay = props => {
   };
 
   const handleActiveMarkerPositionUpdate = pos => {
-    //console.log("handleActiveMarkerPositionUpdate qqq3", pos);
     setActiveMarkerPos(pos);
   };
 
   const handleSpiderfiedMarkers = list => {
-    //console.log("handleSpiderfiedMarkers ggg3", list);
     if (Array.isArray(list) && list.length > 0) {
       setSpiderfiedMarkers(list);
     } else {
@@ -43,30 +40,16 @@ const StationOverlay = props => {
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const renderPositionMarker = data => {
-    const coordinates = [
-      data.geometry.coordinates[1],
-      data.geometry.coordinates[0]
-    ];
-    return <ClusterSelectedMarker coordinates={coordinates} />;
-  };
-
-  const renderMarker = (data, features, pos = null) => {
+  const renderMarker = (
+    data,
+    features,
+    pos = null
+  ): React.ReactElement<typeof StationMarker> => {
     if (
       (data.date === undefined || data[props.itemId] === undefined) &&
       props.itemId !== "any"
     )
       return;
-
-    // console.log(
-    //   "station-overlay->renderMarker aaa",
-    //   props.itemId
-    //   props.item.colors ||
-    //     getColor(Math.round(data[props.itemId])),
-    //   data,
-    //   data[props.itemId]
-    // );
 
     const value = Math.round(data[props.itemId]);
     const coordinates = pos
@@ -86,10 +69,7 @@ const StationOverlay = props => {
       value: value,
       plot: data.plot
     };
-    // console.log(
-    //   "station-overlay->renderMarker qqq",
-    //   props.itemId + "-" + data.id
-    // );
+
     return (
       <StationMarker
         type="station"
@@ -109,37 +89,15 @@ const StationOverlay = props => {
             : false
         }
         onClick={data => {
-          //console.log("onClick ggg2 #1", data.id, state.spiderfiedMarkers);
-          // if (data && data.id) {
-          //   if (
-          //     !state.spiderfiedMarkers ||
-          //     state.spiderfiedMarkers.indexOf(data.id) < 0
-          //   ) {
-          //     // only handle click events for markers outside of cluster -
-          //     // other markers will be handled by cluster's click-event-handler
-          //     //console.log("onClick ggg2 #2", state.spiderfiedMarkers);
-          //     //handleSpiderfiedMarkers(null);
-          //     //props.onMarkerSelected(data);
-          //   }
-          // }
           if (data.id) props.onMarkerSelected(data);
         }}
       />
     );
   };
 
-  //let sPl = props.features ? props.features.find(feature => feature?.name == "Tannheim") : null;
-  //console.log("station-overlay->render qq", props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
-  //console.log("station-overlay->render aaa", props.selectedFeature, props.features);
   const points = props.features.filter(
     point => props.itemId === "any" || point[props.itemId] !== false
   );
-
-  // const selectedFeature = props.selectedFeature
-  //   ? points.find(point => point.id == props.selectedFeature.id)
-  //   : null;
-
-  //console.log("render qqq3", props, points);
 
   return (
     <div>
@@ -148,7 +106,6 @@ const StationOverlay = props => {
         tooltip={true}
         spiderfiedMarkers={handleSpiderfiedMarkers}
         onActiveMarkerPositionUpdate={handleActiveMarkerPositionUpdate}
-        // onMarkerSelected={props.onMarkerSelected}
       >
         {points.map(point => renderMarker(point, props.features))}
       </Cluster>
