@@ -761,8 +761,8 @@ $cp-breakpoint-3: 1024px;
     }
     @media screen and (max-width: $cp-breakpoint-2) {
       bottom: calc(
-        #{$cp-timeline-height} + #{$cp-layer-range-height} + #{$cp-legend-release-height} +
-          (2 * #{$padding})
+        #{$cp-timeline-height} + #{$cp-layer-range-height} +
+          #{$cp-legend-release-height} + (2 * #{$padding})
       );
     }
   }

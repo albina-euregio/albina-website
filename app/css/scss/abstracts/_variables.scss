@@ -227,9 +227,10 @@ $rem-base: 16;
 $base-line-height: 1.5em;
 $font-smoothing: antialiased; //Values: none, antialiased (default), subpixel-antialiased
 
-$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-  Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
-  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$body-font-family:
+  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+  Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 $body-font-weight: 400; //normal
 $body-font-style: normal;
@@ -248,8 +249,9 @@ $body-font-weight-heavy: 900; //heavy
 $body-font-family-italic: $body-font-family;
 $body-font-weight-italic: $body-font-weight;
 
-$body-font-family-monospace: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",
-  "Droid Sans Mono", "Source Code Pro", monospace;
+$body-font-family-monospace:
+  "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono",
+  "Source Code Pro", monospace;
 $body-font-weight-monospace: $body-font-weight;
 
 $nano-font-size: 0.6rem;

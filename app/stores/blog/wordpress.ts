@@ -1,7 +1,6 @@
 import { BlogConfig, BlogPostPreviewItem, BlogProcessor } from ".";
 import type { BlogStore } from "../blogStore";
 import { fetchJSON } from "../../util/fetch";
-import { parseDate } from "../../util/date";
 
 export class WordpressProcessor implements BlogProcessor {
   async loadCategories(config: BlogConfig): Promise<Category[]> {
@@ -98,7 +97,7 @@ export class WordpressProcessor implements BlogProcessor {
       String(post.id),
       post.link,
       "",
-      parseDate(post.date),
+      new Date(post.date),
       WordpressProcessor.decodeHtmlEntities(post.title?.rendered),
       post.content?.rendered,
       config.lang,

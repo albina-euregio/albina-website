@@ -82,15 +82,15 @@ const BlogPostList = ({ isTechBlog }: Props) => {
     BLOG_STORE.load();
   };
 
-  const handleChangeYear = (val: number | "") => {
+  const handleChangeYear = (val: number | "" | string) => {
     BLOG_STORE.searchText.set("");
-    BLOG_STORE.year.set(val);
+    BLOG_STORE.year.set(val ? +val : "");
     BLOG_STORE.load();
   };
 
-  const handleChangeMonth = (val: number | "") => {
+  const handleChangeMonth = (val: number | "" | string) => {
     BLOG_STORE.searchText.set("");
-    BLOG_STORE.month.set(val);
+    BLOG_STORE.month.set(val ? +val : "");
     BLOG_STORE.load();
   };
 

@@ -1,5 +1,5 @@
 import { RegionCodes, regionCodes } from "../util/regions";
-import { dateFormat } from "../util/date";
+import { Temporal } from "temporal-polyfill";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 
@@ -189,8 +189,8 @@ export function useStationData(
   activeYear0: number | "" = currentSeasonYear(),
   filterObservationStart0 = false
 ) {
-  const [dateTime, setDateTime] = useState<Date>();
-  const dateTimeMax = new Date();
+  const [dateTime, setDateTime] = useState<Temporal.ZonedDateTime>();
+  const dateTimeMax = Temporal.Now.zonedDateTimeISO("Europe/Vienna");
   const [data, setData] = useState<StationData[]>([]);
   const [activeYear, setActiveYear] = useState<number | "">(activeYear0);
   const [searchText, setSearchText] = useState<string>("");
@@ -397,7 +397,7 @@ export function useStationData(
 }
 
 interface LoadOptions {
-  dateTime?: Date;
+  dateTime?: Temporal.ZonedDateTime;
   ogd?: boolean;
 }
 
@@ -406,8 +406,8 @@ export async function loadStationData({
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
   const timePrefix =
-    dateTime instanceof Date && +dateTime
-      ? dateFormat(new Date(dateTime), "%Y-%m-%d_%H-00", true) + "_"
+    dateTime instanceof Temporal.ZonedDateTime
+      ? `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
       : "";
   const stationsFile = !dateTime
     ? window.config.apis.weather.stations

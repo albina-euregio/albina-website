@@ -1,5 +1,14 @@
 import { useStore } from "@nanostores/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
@@ -59,7 +68,10 @@ const Timeline = ({ updateCB }) => {
     [now]
   );
 
-  const navigateToWeatermapWithParams = (timestamp, timeSpan) => {
+  const navigateToWeatermapWithParams = (
+    timestamp: string,
+    timeSpan: string | null
+  ) => {
     // Preserve the domain parameter while updating timestamp
     console.log("navigateToWeatermapWithParams", {
       domain: store.domainId.get(),
@@ -225,23 +237,23 @@ const Timeline = ({ updateCB }) => {
     setIndicatorOffset(newIndicatorOffset);
   };
 
-  const addDays = (date, days) => {
+  const addDays = (date: Date, days: number) => {
     const result = new Date(date);
     result.setUTCDate(result.getUTCDate() + days);
     return result;
   };
 
-  const addHours = (date, hours) => {
+  const addHours = (date: Date, hours: number) => {
     return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
   };
 
-  const differenceInHours = (dateLeft, dateRight) => {
-    const res = (dateLeft - dateRight) / (1000 * 60 * 60);
+  const differenceInHours = (dateLeft: Date, dateRight: Date) => {
+    const res = (+dateLeft - +dateRight) / (1000 * 60 * 60);
 
     return res;
   };
 
-  const formatDate = date => {
+  const formatDate = (date: Date) => {
     if (pixelsPerHour < 3)
       return intl.formatDate(date, {
         day: "numeric",
@@ -255,7 +267,7 @@ const Timeline = ({ updateCB }) => {
       });
   };
 
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = event => {
     const factor = event.ctrlKey
       ? timeSpanInt > 24
         ? 24
@@ -380,7 +392,7 @@ const Timeline = ({ updateCB }) => {
     );
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
-  const updateTimelinePosition = (newTranslateX, snap) => {
+  const updateTimelinePosition = (newTranslateX: number, snap: boolean) => {
     let usedTranslateX = newTranslateX;
     if (snap) {
       const snapToHours = selectableHoursOffset * pixelsPerHour;
@@ -390,7 +402,7 @@ const Timeline = ({ updateCB }) => {
     setCurrentTranslateX(usedTranslateX);
   };
 
-  const handleDragStart = e => {
+  const handleDragStart: MouseEventHandler<HTMLDivElement> = e => {
     setIsDragging(true);
     const clientX = e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
     setStartX(clientX);
@@ -398,7 +410,7 @@ const Timeline = ({ updateCB }) => {
     rulerRef.current.style.transition = "none";
   };
 
-  const handleDragMove = e => {
+  const handleDragMove: MouseEventHandler<HTMLDivElement> = e => {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
@@ -407,7 +419,7 @@ const Timeline = ({ updateCB }) => {
     updateTimelinePosition(newTranslateX, false);
   };
 
-  const handleDragEnd = () => {
+  const handleDragEnd: MouseEventHandler<HTMLDivElement> = () => {
     if (isDragging) {
       setIsDragging(false);
       rulerRef.current.style.transition = "transform 0.3s ease";
@@ -416,7 +428,7 @@ const Timeline = ({ updateCB }) => {
     }
   };
 
-  const snapToDate = newTargetDate => {
+  const snapToDate = (newTargetDate: SetStateAction<Date | undefined>) => {
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
     const hours = newTargetDate.getUTCHours();
     const adjustedHours =
@@ -455,7 +467,7 @@ const Timeline = ({ updateCB }) => {
     return nearestMarker;
   };
 
-  const getMarkerCenterX = newTargetDate => {
+  const getMarkerCenterX = (newTargetDate: { toISOString: () => any }) => {
     const targetMarker = document.querySelectorAll(
       `[data-date*="${newTargetDate.toISOString()}"]`
     );
@@ -468,11 +480,11 @@ const Timeline = ({ updateCB }) => {
     datePickerRef.current.showPicker();
   };
 
-  const formatDateToLocalDateTime = date => {
+  const formatDateToLocalDateTime = (date: Date) => {
     return dateFormat(date, "%Y-%m-%dT%H:%M:%S");
   };
 
-  const handleSelectDateClick = e => {
+  const handleSelectDateClick: ChangeEventHandler<HTMLInputElement> = e => {
     let newTargetDate = new Date(e.target.value);
 
     newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);

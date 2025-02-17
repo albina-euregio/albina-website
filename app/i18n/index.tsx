@@ -1,4 +1,5 @@
 import React from "react";
+import { Temporal } from "temporal-polyfill";
 import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
 import { computed, StoreValue } from "nanostores";
@@ -19,7 +20,16 @@ const format = computed($locale, code => ({
   ) {
     return new Intl.RelativeTimeFormat(code, opts).format(num, unit);
   },
-  time(date: Date | number | string, opts: Intl.DateTimeFormatOptions) {
+  time(
+    date: Date | number | string | Temporal.PlainDate | Temporal.ZonedDateTime,
+    opts?: Intl.DateTimeFormatOptions
+  ) {
+    if (
+      date instanceof Temporal.PlainDate ||
+      date instanceof Temporal.ZonedDateTime
+    ) {
+      return date.toLocaleString(code, opts);
+    }
     if (typeof date === "string") date = Date.parse(date);
     if (!isFinite(+date)) return "";
     return new Intl.DateTimeFormat(code, opts).format(date);
@@ -99,7 +109,7 @@ export const FormattedDate = ({
   date,
   options
 }: {
-  date: string | number | Date;
+  date: Date | number | string | Temporal.PlainDate | Temporal.ZonedDateTime;
   options: Intl.DateTimeFormatOptions;
 }) => {
   const formatter = useStore(format);

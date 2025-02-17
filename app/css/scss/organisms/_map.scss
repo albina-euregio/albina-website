@@ -24,7 +24,8 @@ $map-height-bulletin: 50vh;
 
 $map-height-weather: calc((var(--vh, 1vh) * 100) - #{variables.$bar-width});
 $map-height-weather-when-menu: calc(
-  (var(--vh, 1vh) * 100) - #{variables.$bar-width} - #{navigation.$page-header-height}
+  (var(--vh, 1vh) * 100) - #{variables.$bar-width} -
+    #{navigation.$page-header-height}
 );
 
 $map-height-min: 400px;

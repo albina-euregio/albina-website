@@ -1,10 +1,11 @@
 import React from "react";
+import type { Temporal } from "temporal-polyfill";
 import BulletinReport from "./bulletin-report";
 import type { Bulletin } from "../../stores/bulletin";
 
 interface Props {
   bulletins: [Bulletin, Bulletin][];
-  date: Date;
+  date: Temporal.PlainDate;
   region: string;
 }
 

@@ -516,8 +516,8 @@ $page-header-logo-width: 3.25em;
 .page-header-logo-secondary {
   align-items: center;
   margin-right: calc(
-    -#{logo.$logo-header-footer-secondary-width} * 0.2857142857 - #{navigation.$page-header-padding-h} *
-      2 - #{variables.$border-width} * 2
+    -#{logo.$logo-header-footer-secondary-width} * 0.2857142857 -
+      #{navigation.$page-header-padding-h} * 2 - #{variables.$border-width} * 2
   );
 
   .header-footer-logo-secondary {
