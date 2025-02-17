@@ -68,11 +68,12 @@ $cp-breakpoint-3: 1024px;
 
   position: absolute;
   bottom: calc(
-    #{$cp-legend-release-height} + #{$cp-layer-range-height} + #{variables.$border-width}
+    #{$cp-legend-release-height} + #{$cp-layer-range-height} +
+      #{variables.$border-width}
   );
   left: 0;
 
-  width: calc(100% - #{$cp-range-width});
+  width: 100%; //calc(100% - #{$cp-range-width});
 
   @media screen and (min-width: $cp-breakpoint-2) {
     bottom: calc(#{$cp-layer-range-height} + #{variables.$border-width});
@@ -814,8 +815,8 @@ $cp-breakpoint-3: 1024px;
     }
     @media screen and (max-width: $cp-breakpoint-2) {
       bottom: calc(
-        #{$cp-timeline-height} + #{$cp-layer-range-height} + #{$cp-legend-release-height} +
-          (2 * #{variables.$padding})
+        #{$cp-timeline-height} + #{$cp-layer-range-height} +
+          #{$cp-legend-release-height} + (2 * #{variables.$padding})
       );
     }
   }
