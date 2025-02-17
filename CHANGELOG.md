@@ -2,6 +2,25 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.5] - 2025-02-17
+
+### Weather Maps
+
+- Use full width on mobile for weather parameters
+
+### Bulletin
+
+- Add glossary links for slope discontinuity in DE and IT
+
+### 🚜 Refactor
+
+- Use Temporal
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to prettier 3.5.0
+- Upgrade to vite 6.1.0
+
 ## [7.2.4] - 2025-01-31
 
 ### Weather Maps
