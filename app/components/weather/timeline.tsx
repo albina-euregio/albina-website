@@ -1,9 +1,7 @@
 import { useStore } from "@nanostores/react";
-import {
-  ChangeEventHandler,
+import React, {
   KeyboardEventHandler,
   MouseEventHandler,
-  SetStateAction,
   useEffect,
   useMemo,
   useRef,
@@ -12,8 +10,8 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
-import { dateFormat } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
+import { Temporal } from "temporal-polyfill";
 
 const Timeline = ({ updateCB }) => {
   const params = useParams();
@@ -33,9 +31,9 @@ const Timeline = ({ updateCB }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
-  const [markerRenewed, setMarkerRenewed] = useState(null);
-  const [targetDate, setTargetDate] = useState<Date>();
-  const [currentDate, setCurrentDate] = useState<Date>();
+  const [markerRenewed, setMarkerRenewed] = useState(0);
+  const [targetDate, setTargetDate] = useState<Temporal.Instant>();
+  const [currentDate, setCurrentDate] = useState<Temporal.Instant>();
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -59,12 +57,10 @@ const Timeline = ({ updateCB }) => {
   const intl = useIntl();
   const datePickerRef = useRef<HTMLInputElement>(null);
 
-  const now = useMemo(() => new Date(), []);
+  const now = useMemo(() => Temporal.Now.instant(), []);
   const startOfDay = useMemo(
     () =>
-      new Date(
-        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-      ),
+      now.toZonedDateTimeISO("UTC").round({ smallestUnit: "day" }).toInstant(),
     [now]
   );
 
@@ -73,11 +69,6 @@ const Timeline = ({ updateCB }) => {
     timeSpan: string | null
   ) => {
     // Preserve the domain parameter while updating timestamp
-    console.log("navigateToWeatermapWithParams", {
-      domain: store.domainId.get(),
-      timestamp,
-      timeSpan
-    });
     const newUrl =
       `../weather/map/${store.domainId.get() || "new-snow"}` +
       (timestamp ? `/${timestamp}` : "") +
@@ -106,25 +97,29 @@ const Timeline = ({ updateCB }) => {
   }, []);
 
   useEffect(() => {
-    if (initialDate && +initialDate > 0) {
-      const usedInitialDate = new Date(params?.timestamp || initialDate);
-      const newInitialDate = new Date(usedInitialDate);
-      const now = new Date();
-      if (!params?.timestamp && +newInitialDate < +now && +now < +endTime) {
-        while (+newInitialDate < +now) {
-          newInitialDate.setUTCHours(
-            newInitialDate.getUTCHours() + timeSpanInt
-          );
+    if (initialDate?.epochMilliseconds > 0) {
+      const usedInitialDate = Temporal.Instant.from(
+        params?.timestamp || initialDate
+      );
+      let newInitialDate = usedInitialDate;
+      const now = Temporal.Now.instant();
+      if (
+        !params?.timestamp &&
+        newInitialDate.epochMilliseconds < now.epochMilliseconds &&
+        now.epochMilliseconds < endTime?.epochMilliseconds
+      ) {
+        while (newInitialDate.epochMilliseconds < now.epochMilliseconds) {
+          newInitialDate = newInitialDate.add({ hours: timeSpanInt });
         }
       }
 
       if (
         !targetDate ||
-        newInitialDate?.toISOString() != currentDate?.toISOString()
+        newInitialDate?.epochMilliseconds != currentDate?.epochMilliseconds
       ) {
-        setTargetDate(new Date(usedInitialDate));
+        setTargetDate(usedInitialDate);
         if (!currentDate) {
-          setCurrentDate(new Date(usedInitialDate));
+          setCurrentDate(usedInitialDate);
         }
       }
     }
@@ -155,13 +150,9 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     setMaxStartDay(
-      startTime
-        ? Math.floor(differenceInHours(startTime, now) / hoursPerDay)
-        : -30
+      startTime ? Math.floor(startTime.until(now).total("days")) : -30
     );
-    setMaxEndDay(
-      endTime ? Math.floor(differenceInHours(endTime, now) / hoursPerDay) : 30
-    );
+    setMaxEndDay(endTime ? Math.floor(endTime.until(now).total("days")) : 30);
   }, [startTime, endTime, now]);
 
   useEffect(() => {
@@ -170,8 +161,7 @@ const Timeline = ({ updateCB }) => {
 
       calcIndicatorOffset();
 
-      const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
-      const targetDay = Math.floor(timeDifferenceInHours / 24);
+      const targetDay = Math.floor(targetDate.until(startOfDay).total("days"));
       const rulerPadding = Math.ceil(barDuration / 24) + 2;
       setRulerStartDay(
         Math.max(maxStartDay - rulerPadding, targetDay - daysBuild)
@@ -202,26 +192,26 @@ const Timeline = ({ updateCB }) => {
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
-    if (+currentDate > 0) {
+    if (currentDate?.epochMilliseconds > 0) {
       navigateToWeatermapWithParams(
-        new Date(currentDate).toISOString(),
+        currentDate?.toString(),
         store.timeSpan.get()
       );
     }
   }, [currentDate]);
 
   useEffect(() => {
-    if (+currentDate > 0) {
+    if (currentDate?.epochMilliseconds > 0) {
       navigateToWeatermapWithParams(
-        new Date(currentDate).toISOString(),
+        currentDate?.toString(),
         store.timeSpan.get()
       );
     }
   }, [store.timeSpan.get()]);
 
   useEffect(() => {
-    if (+new Date(params.timestamp) > 0) {
-      if (updateCB) {
+    if (params.timestamp && +new Date(params.timestamp) > 0) {
+      if (typeof updateCB === "function") {
         updateCB("time", params.timestamp);
       }
     }
@@ -237,23 +227,7 @@ const Timeline = ({ updateCB }) => {
     setIndicatorOffset(newIndicatorOffset);
   };
 
-  const addDays = (date: Date, days: number) => {
-    const result = new Date(date);
-    result.setUTCDate(result.getUTCDate() + days);
-    return result;
-  };
-
-  const addHours = (date: Date, hours: number) => {
-    return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
-  };
-
-  const differenceInHours = (dateLeft: Date, dateRight: Date) => {
-    const res = (+dateLeft - +dateRight) / (1000 * 60 * 60);
-
-    return res;
-  };
-
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Temporal.ZonedDateTime) => {
     if (pixelsPerHour < 3)
       return intl.formatDate(date, {
         day: "numeric",
@@ -290,10 +264,15 @@ const Timeline = ({ updateCB }) => {
   };
 
   const jumpStep = (direction: 1 | -1 | number) => {
-    const newDate = new Date(currentDateRef.current);
-    newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
-
-    if (newDate <= endTime && newDate >= startTime) setTargetDate(newDate);
+    const newDate = currentDateRef.current
+      ?.toZonedDateTimeISO("UTC")
+      .add({ hours: direction * selectableHoursOffset })
+      .toInstant();
+    if (
+      newDate?.epochMilliseconds <= endTime?.epochMilliseconds &&
+      newDate?.epochMilliseconds >= startTime?.epochMilliseconds
+    )
+      setTargetDate(newDate);
   };
 
   const jumpTimeSpan = (direction: 1 | -1 | number) => {
@@ -323,28 +302,35 @@ const Timeline = ({ updateCB }) => {
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
-        const markDate = addHours(addDays(startOfDay, day), hour);
         const totalHours = day * hoursPerDay + hour;
 
-        const localDate = new Date(markDate);
-        const localHour = localDate.getHours();
-        const markClass = [localHour === 0 ? "day-mark" : ""];
+        const markDate = startOfDay.add({ hours: 24 * day + hour });
+        const markClass = [
+          markDate.toZonedDateTimeISO("UTC").hour === 0 ? "day-mark" : ""
+        ];
 
         const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
-
-        if (isSelectable && +markDate >= +startTime && +markDate <= +endTime)
+        if (
+          isSelectable &&
+          markDate.epochMilliseconds >= startTime?.epochMilliseconds &&
+          markDate.epochMilliseconds <= endTime?.epochMilliseconds
+        )
           markClass.push("selectable-hour-mark");
         else markClass.push("hour-mark");
         if (isSelectable) {
-          const nextSelectableDate = new Date(markDate);
-          nextSelectableDate.setUTCHours(
-            nextSelectableDate.getUTCHours() + selectableHoursOffset
-          );
-          if (+endTime >= +markDate && +nextSelectableDate > +endTime) {
+          const nextSelectableDate = markDate.add({
+            hours: selectableHoursOffset
+          });
+          if (
+            endTime?.epochMilliseconds >= markDate.epochMilliseconds &&
+            nextSelectableDate.epochMilliseconds > endTime?.epochMilliseconds
+          ) {
             markClass.push("selectable-hours-end");
           }
         }
-        if (+markDate === +startTime) markClass.push("selectable-hours-start");
+        if (markDate.epochMilliseconds === startTime?.epochMilliseconds) {
+          markClass.push("selectable-hours-start");
+        }
 
         const marking = (
           <div
@@ -353,17 +339,17 @@ const Timeline = ({ updateCB }) => {
             style={{
               left: `${totalHours * pixelsPerHour}px`
             }}
-            data-date={markDate.toISOString()}
+            data-date={markDate.toString()}
             data-hours={totalHours}
           >
-            {localHour === 0 && (
+            {markDate.toZonedDateTimeISO("UTC").hour === 0 && (
               <span
                 className="day-name"
                 style={{
                   left: `${12 * pixelsPerHour}px`
                 }}
               >
-                {formatDate(markDate)}
+                {formatDate(markDate.toZonedDateTimeISO("UTC"))}
               </span>
             )}
             {/* {isSelectable && (
@@ -379,11 +365,12 @@ const Timeline = ({ updateCB }) => {
             ></div>
           </div>
         );
-        if (+markDate < +startDate) markingsAnalysis.push(marking);
+        if (markDate.epochMilliseconds < startDate?.epochMilliseconds)
+          markingsAnalysis.push(marking);
         else markingsForecast.push(marking);
       }
     }
-    setMarkerRenewed(new Date());
+    setMarkerRenewed(Date.now());
     return (
       <div>
         <span className="cp-scale-analyse">{markingsAnalysis}</span>
@@ -424,23 +411,26 @@ const Timeline = ({ updateCB }) => {
       setIsDragging(false);
       rulerRef.current.style.transition = "transform 0.3s ease";
       const nearestMarker = getNearestMarker();
-      if (nearestMarker) setTargetDate(new Date(nearestMarker?.dataset?.date));
+      if (nearestMarker)
+        setTargetDate(Temporal.Instant.from(nearestMarker?.dataset?.date));
     }
   };
 
-  const snapToDate = (newTargetDate: SetStateAction<Date | undefined>) => {
+  const snapToDate = (newTargetDate: Temporal.Instant) => {
     // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
-    const hours = newTargetDate.getUTCHours();
-    const adjustedHours =
-      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
-    newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
+    const newTargetDateUTC = newTargetDate.toZonedDateTimeISO("UTC");
+    newTargetDate = newTargetDateUTC
+      .with({
+        hour:
+          Math.round(newTargetDateUTC.hour / selectableHoursOffset) *
+          selectableHoursOffset
+      })
+      .toInstant();
 
     const { targetMarker } = getMarkerCenterX(newTargetDate);
 
     const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
-
-    const newTranslateX = distanceToMove;
-    updateTimelinePosition(newTranslateX, true);
+    updateTimelinePosition(distanceToMove, true);
 
     setCurrentDate(newTargetDate);
   };
@@ -467,40 +457,13 @@ const Timeline = ({ updateCB }) => {
     return nearestMarker;
   };
 
-  const getMarkerCenterX = (newTargetDate: { toISOString: () => any }) => {
+  const getMarkerCenterX = (newTargetDate: Temporal.Instant) => {
     const targetMarker = document.querySelectorAll(
-      `[data-date*="${newTargetDate.toISOString()}"]`
+      `[data-date*="${newTargetDate}"]`
     );
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect?.left;
     return { markerCenterX, targetMarker: targetMarker?.[0] };
-  };
-
-  const handleOpenDateDialogClick = () => {
-    datePickerRef.current.showPicker();
-  };
-
-  const formatDateToLocalDateTime = (date: Date) => {
-    return dateFormat(date, "%Y-%m-%dT%H:%M:%S");
-  };
-
-  const handleSelectDateClick: ChangeEventHandler<HTMLInputElement> = e => {
-    let newTargetDate = new Date(e.target.value);
-
-    newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
-
-    newTargetDate = new Date(
-      Date.UTC(
-        newTargetDate.getUTCFullYear(),
-        newTargetDate.getUTCMonth(),
-        newTargetDate.getUTCDate(),
-        newTargetDate.getUTCHours(),
-        0,
-        0
-      )
-    );
-
-    setTargetDate(newTargetDate);
   };
 
   const getPlayerButtons = () => {
@@ -559,7 +522,7 @@ const Timeline = ({ updateCB }) => {
           placement="right"
         >
           <a
-            onClick={() => handleOpenDateDialogClick()}
+            onClick={() => datePickerRef.current.showPicker()}
             className="cp-calendar-select icon-calendar-big tooltip"
             title="Select Date"
           ></a>
@@ -568,8 +531,17 @@ const Timeline = ({ updateCB }) => {
           <input
             type="datetime-local"
             ref={datePickerRef}
-            onChange={handleSelectDateClick}
-            defaultValue={formatDateToLocalDateTime(currentDate)}
+            onChange={e => {
+              setTargetDate(
+                Temporal.PlainDateTime.from(e.target.value)
+                  .toZonedDateTime("Europe/Vienna")
+                  .add({ hours: timeSpanInt })
+                  .toInstant()
+              );
+            }}
+            defaultValue={currentDate
+              .toZonedDateTimeISO("Europe/Vienna")
+              .toString()}
             style={{
               position: "absolute",
               opacity: 0,
@@ -577,8 +549,8 @@ const Timeline = ({ updateCB }) => {
               width: 0,
               height: 0
             }}
-            min={formatDateToLocalDateTime(startTime)}
-            max={formatDateToLocalDateTime(endTime)}
+            min={startTime.toZonedDateTimeISO("Europe/Vienna").toString()}
+            max={endTime.toZonedDateTimeISO("Europe/Vienna").toString()}
           />
         )}
       </div>
@@ -621,15 +593,15 @@ const Timeline = ({ updateCB }) => {
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={new Date(currentDate)?.setHours(
-                      currentDate?.getHours() - timeSpanInt
-                    )}
+                    date={currentDate
+                      ?.subtract({ hours: timeSpanInt })
+                      .toZonedDateTimeISO("UTC")}
                     options={{ timeStyle: "short" }}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">
                   <FormattedDate
-                    date={currentDate}
+                    date={currentDate?.toZonedDateTimeISO("UTC")}
                     options={{ timeStyle: "short" }}
                   />
                 </span>
@@ -647,7 +619,7 @@ const Timeline = ({ updateCB }) => {
                 <span className="cp-scale-stamp-point-arrow"></span>
                 <span className="cp-scale-stamp-point-exact">
                   <FormattedDate
-                    date={currentDate}
+                    date={currentDate?.toZonedDateTimeISO("UTC")}
                     options={{ timeStyle: "short" }}
                   />
                 </span>

@@ -44,6 +44,7 @@ const DOMAIN_UNITS = {
 const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(+new Date());
   const domainId = useStore(store.domainId);
+  const domainConfig = useStore(store.domainConfig);
   const timeSpan = useStore(store.timeSpan);
   const nextUpdateTime = useStore(store.nextUpdateTime);
   const lastUpdateTime = useStore(store.lastDataUpdate);
@@ -68,8 +69,7 @@ const WeatherMapCockpit = () => {
   };
 
   const handleEvent = (type, value) => {
-    const body = document?.querySelector("body");
-    body.classList.remove("layer-selector-open");
+    document.body.classList.remove("layer-selector-open");
     switch (type) {
       case "domain":
         store.changeDomain(value);
@@ -114,7 +114,10 @@ const WeatherMapCockpit = () => {
         <Link
           key={aButton.id}
           to={aButton.url}
-          onClick={() => handleEvent("domain", aButton.id)}
+          onClick={() => {
+            document.body.classList.remove("layer-selector-open");
+            handleEvent("domain", aButton.id);
+          }}
           className={linkClasses.join(" ")}
         >
           {/* <span className={spanClasses.join(" ")}>{aButton.title}</span> */}
@@ -133,9 +136,7 @@ const WeatherMapCockpit = () => {
   const getTimeSpanOptions = () => {
     let allButtons;
 
-    if (store.config?.domains?.[domainId]) {
-      const domainConfig = store.config.domains[domainId].item;
-
+    if (domainConfig) {
       const buttons = domainConfig.timeSpans.map(aItem => {
         const nrOnlyTimespan = aItem.replace(/\D/g, "");
         return (
@@ -143,7 +144,10 @@ const WeatherMapCockpit = () => {
             role="button"
             tabIndex="0"
             key={aItem}
-            onClick={() => handleEvent("timeSpan", aItem)}
+            onClick={() => {
+              document.body.classList.remove("layer-selector-open");
+              handleEvent("timeSpan", aItem);
+            }}
             className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
           >
             {nrOnlyTimespan}h
@@ -261,7 +265,10 @@ const WeatherMapCockpit = () => {
             <span>
               <FormattedMessage id="weathermap:cockpit:maps-update-date:prefix" />
             </span>{" "}
-            <FormattedDate date={nextUpdateTime} options={DATE_TIME_FORMAT} />
+            <FormattedDate
+              date={nextUpdateTime?.toZonedDateTimeISO("Europe/Vienna")}
+              options={DATE_TIME_FORMAT}
+            />
           </span>
         </Tooltip>
         <Tooltip

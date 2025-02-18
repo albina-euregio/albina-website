@@ -1,7 +1,6 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
-import { dateFormat } from "../util/date";
-import { toTemporalInstant } from "temporal-polyfill";
+import { Temporal } from "temporal-polyfill";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -415,15 +414,15 @@ export const lastDataUpdate = atom(0);
 /*
  * returns the start date for history information
  */
-export const startDate = atom<Date | null>(null);
+export const startDate = atom<Temporal.Instant | null>(null);
 /*
  * returns the agl (ausgangslage) date for all calculations
  */
-export const agl = atom<Date | null>(null);
+export const agl = atom<Temporal.Instant | null>(null);
 /*
  * returns current time of interest
  */
-export const currentTime = atom<Date | null>(null);
+export const currentTime = atom<Temporal.Instant | null>(null);
 export const selectedFeature = atom(null);
 
 /*
@@ -507,12 +506,12 @@ async function _loadDomainData() {
 
   const fetchDate = async (url: string) => {
     if (SIMULATE_START) {
-      return new Date(SIMULATE_START);
+      return Temporal.Instant.from(SIMULATE_START);
     }
 
     const response = await fetch(url);
     if (!response.ok) {
-      return new Date();
+      return null;
     }
 
     const lastModified = response.headers.get("last-modified");
@@ -524,7 +523,10 @@ async function _loadDomainData() {
     }
 
     const date = await response.text();
-    return date.includes("T") ? new Date(date.trim()) : null;
+    if (!date.includes("T")) {
+      return null;
+    }
+    return Temporal.Instant.from(date.trim());
   };
 
   try {
@@ -564,12 +566,13 @@ async function _loadIndexData() {
   grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
-  if (currentTime.get() > startDate.get()) return;
+  if (currentTime.get()?.epochMilliseconds > startDate.get()?.epochMilliseconds)
+    return;
 
   try {
     const features = await loadStationData({
       dateTime: currentTime.get()
-        ? toTemporalInstant.call(currentTime.get()).toZonedDateTimeISO("UTC")
+        ? currentTime.get().toZonedDateTimeISO("UTC")
         : undefined
     });
     stations.set(features);
@@ -581,50 +584,48 @@ async function _loadIndexData() {
 
 export const startTime = computed(
   [startDate, timeRange],
-  (startDate, timeRange) => {
-    const startTime = new Date(startDate);
-    startTime.setUTCHours(startTime.getUTCHours() + +timeRange[0]);
-    return startTime;
-  }
+  (startDate, timeRange) => startDate?.add({ hours: +timeRange[0] })
 );
 
 export const endTime = computed(
   [agl, timeSpan, timeSpanInt, timeRange],
-  (agl, timeSpan, timeSpanInt, timeRange) => {
-    const endTime = new Date(agl);
-
-    if (timeSpanInt === 12 && [6, 18].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 6);
+  (agl, timeSpan, timeSpanInt, timeRange): Temporal.Instant | null => {
+    if (!agl) {
+      return agl;
     }
-    if (timeSpanInt % 24 === 0 && [12].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 12);
+    let endTime = agl.toZonedDateTimeISO("UTC");
+    if (timeSpanInt === 12 && [6, 18].includes(endTime.hour)) {
+      endTime = endTime.subtract({ hours: 6 });
+    }
+    if (timeSpanInt % 24 === 0 && [12].includes(endTime.hour)) {
+      endTime = endTime.subtract({ hours: 12 });
     }
     if (timeSpan?.includes("+")) {
-      endTime.setUTCHours(endTime.getUTCHours() + +timeRange[1]);
+      endTime = endTime.add({ hours: +timeRange[1] });
     }
-    return endTime;
+    return endTime.toInstant();
   }
 );
 
 export const initialDate = computed(
   [currentTime, endTime, timeSpanInt],
-  (currentTime, endTime, timeSpanInt) => {
-    currentTime = new Date(currentTime);
-    endTime = new Date(endTime);
-    const initialDate = +currentTime > +endTime ? endTime : currentTime;
+  (currentTime, endTime, timeSpanInt): Temporal.Instant | null => {
+    if (!currentTime || !endTime) {
+      return null;
+    }
 
-    if (timeSpanInt === 12 && [6, 18].includes(initialDate.getUTCHours())) {
-      initialDate.setUTCHours(initialDate.getUTCHours() - 6);
+    let initialDate =
+      currentTime?.epochMilliseconds > endTime?.epochMilliseconds
+        ? endTime.toZonedDateTimeISO("UTC")
+        : currentTime.toZonedDateTimeISO("UTC");
+
+    if (timeSpanInt === 12 && [6, 18].includes(initialDate.hour)) {
+      initialDate = initialDate.subtract({ hours: 6 });
     }
-    if (
-      timeSpanInt % 24 === 0 &&
-      [6, 12, 18].includes(initialDate.getUTCHours())
-    ) {
-      initialDate.setUTCHours(
-        initialDate.getUTCHours() - initialDate.getUTCHours()
-      );
+    if (timeSpanInt % 24 === 0 && [6, 12, 18].includes(initialDate.hour)) {
+      initialDate = initialDate.subtract({ hours: initialDate.hour });
     }
-    return initialDate;
+    return initialDate.toInstant();
   }
 );
 
@@ -639,7 +640,7 @@ export const overlayFileName = computed(
 );
 
 function getOverlayFileName(
-  currentTime: Date | null,
+  currentTime: Temporal.Instant | null,
   domainId: DomainId,
   filePostFix: string | undefined,
   absTimeSpan: number
@@ -649,7 +650,11 @@ function getOverlayFileName(
     window.config.apis.weather.overlays +
     domainId +
     "/" +
-    dateFormat(currentTime, "%Y-%m-%d_%H-%M", true) +
+    currentTime
+      .toString()
+      .slice(0, "2006-01-02T15:04".length)
+      .replace("T", "_")
+      .replace(":", "-") +
     "_" +
     String(filePostFix).replaceAll(
       "%%DOMAIN%%",
@@ -665,17 +670,10 @@ export const nextUpdateTime = computed(
   [domainConfig, lastDataUpdate, timeSpan],
   (domainConfig, lastDataUpdate, timeSpan) => {
     if (!domainConfig.updateTimesOffset || lastDataUpdate === 0) return null;
-    let res = null;
     const timesConfig = domainConfig.updateTimesOffset;
-    const lastUpdate = new Date(lastDataUpdate);
-
-    const addHours = timesConfig[timeSpan] || timesConfig["*"];
-    if (addHours)
-      res = new Date(lastUpdate).setUTCHours(
-        lastUpdate.getUTCHours() + addHours
-      );
-
-    return res;
+    return Temporal.Instant.fromEpochMilliseconds(lastDataUpdate).add({
+      hours: timesConfig[timeSpan] || timesConfig["*"] || 0
+    });
   }
 );
 
@@ -769,7 +767,7 @@ function checkDomainId(domainId: DomainId) {
 /*
  * setting a new active domain
  */
-export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
+export function changeDomain(domainId0: DomainId, newTimeSpan?: TimeSpan) {
   domainId0 ||= "new-snow";
   if (!checkDomainId(domainId0) || domainId0 === domainId.get()) {
     return;
@@ -814,9 +812,9 @@ export function changeTimeSpan(timeSpan0: TimeSpan) {
 /*
  * setting a new timeIndex
  */
-export function changeCurrentTime(newTime: Date | string) {
-  const date = new Date(newTime);
-  if (+date !== +currentTime.get()) {
+export function changeCurrentTime(newTime: Temporal.Instant | string) {
+  const date = Temporal.Instant.from(newTime);
+  if (date !== currentTime.get()) {
     currentTime.set(date);
   }
   _loadIndexData();
