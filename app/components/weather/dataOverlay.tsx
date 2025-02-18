@@ -184,9 +184,11 @@ const DataOverlay = ({ playerCB }) => {
           url={overlayFileName}
           opacity={1}
           bounds={store.config.settings.bbox}
-          attribution={intl.formatMessage({
-            id: "weathermap:attribution"
-          })}
+          attribution={
+            store.config.settings.debugModus
+              ? intl.formatMessage({ id: "weathermap:attribution" })
+              : null
+          }
           eventHandlers={{
             click: e => showDataMarker(e)
           }}
