@@ -2,6 +2,14 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.6] - 2025-02-19
+
+### Weather Maps
+
+- Change EUREGIO bounds to center EUREGIO on init
+- Show data layer info in attribution only in debug mode
+- Bugfix: load correct station measurements (regression in 7.2.5)
+
 ## [7.2.5] - 2025-02-17
 
 ### Weather Maps
