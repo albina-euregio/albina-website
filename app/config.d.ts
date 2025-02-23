@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
-declare let config: typeof import("./config.json");
-
 declare global {
+  declare let config: typeof import("./config.json");
+
   interface Window {
     config: typeof import("./config.json") & {
       projectRoot: string;
