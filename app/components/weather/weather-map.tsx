@@ -104,12 +104,14 @@ const WeatherMap = ({
   return (
     <>
       <LeafletMap
-        loaded={domainId !== false}
-        identifier={domainId + "_" + itemId}
+        loaded={!!domainId}
         onViewportChanged={onViewportChanged}
         overlays={overlays}
         controls={[showHideStationsCtrl]}
-        mapConfigOverride={store.config.settings.mapOptionsOverride}
+        mapConfigOverride={{
+          ...store.config.settings.mapOptionsOverride,
+          keyboard: false
+        }}
         tileLayerConfigOverride={store.config.settings.mapOptionsOverride}
         gestureHandling={false}
         onInit={map => {

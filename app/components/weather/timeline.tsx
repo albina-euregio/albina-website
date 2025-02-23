@@ -29,7 +29,6 @@ const Timeline = ({ updateCB }) => {
   const markerPosition = timeSpanInt > 24 ? "75%" : "50%";
   const showBar = timeSpanInt > 1;
 
-  const scaleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -86,7 +85,10 @@ const Timeline = ({ updateCB }) => {
     navigate(newUrl, { replace: true, state: { preventNav: true } });
   };
 
-  useEffect(() => scaleRef.current?.focus?.(), []);
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown, false);
+    return () => document.removeEventListener("keydown", handleKeyDown, false);
+  });
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -267,7 +269,7 @@ const Timeline = ({ updateCB }) => {
       });
   };
 
-  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = event => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const factor = event.ctrlKey
       ? timeSpanInt > 24
         ? 24
@@ -582,12 +584,7 @@ const Timeline = ({ updateCB }) => {
           />
         )}
       </div>
-      <div
-        className="cp-scale"
-        tabIndex="0"
-        onKeyDown={handleKeyDown}
-        ref={scaleRef}
-      >
+      <div className="cp-scale" tabIndex="0">
         <div
           ref={containerRef}
           onMouseDown={handleDragStart}
