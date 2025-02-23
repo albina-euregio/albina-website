@@ -105,14 +105,16 @@ const WeatherStationUplot: React.FC<{
           {
             label: "Time",
             // uPlot uses epoch seconds (instead of milliseconds)
-            value: (_, v) =>
-              intl.formatDate(new Date(v * 1000), {
+            value: (_, v) => {
+              if (!v) return "–";
+              return intl.formatDate(new Date(v * 1000), {
                 day: "2-digit",
                 month: "2-digit",
                 year: "2-digit",
                 hour: "2-digit",
                 minute: "2-digit"
-              })
+              });
+            }
           },
           ...parameters.map(
             (p): uPlot.Series => ({
