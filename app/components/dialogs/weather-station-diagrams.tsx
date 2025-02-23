@@ -65,8 +65,8 @@ export interface Props {
 }
 
 const YearFlipper: React.FC<{
-  selectedYear: number;
-  setSelectedYear: (selectedYear: number) => void;
+  selectedYear: number | null;
+  setSelectedYear: (selectedYear: number | null) => void;
 }> = ({ selectedYear, setSelectedYear }) => {
   const intl = useIntl();
   const curYear = currentSeasonYear();
@@ -250,7 +250,7 @@ const TimeRangeButtons: React.FC<{
 const StationDiagramImage: React.FC<{
   station: StationData | ObserverData;
   clientWidth: number;
-  selectedYear: number;
+  selectedYear: number | null;
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
@@ -434,6 +434,7 @@ const StationOperator: React.FC<{
         {
           operator: (
             <a
+              key={stationData.operatorLink}
               href={stationData.operatorLink}
               rel="noopener noreferrer"
               target="_blank"
