@@ -392,6 +392,8 @@
   "dialog:feedback:button": "No, thanks!",
   "dialog:weather-station-diagram:header": "Weather Station",
   "dialog:weather-station-diagram:timerange:interactive": "Interactive",
+  "dialog:weather-station-diagram:timerange:interactive_month": "Interactive Month",
+  "dialog:weather-station-diagram:timerange:interactive_winter": "Interactive Winter",
   "dialog:weather-station-diagram:timerange:day": "Day",
   "dialog:weather-station-diagram:timerange:threedays": "Three days",
   "dialog:weather-station-diagram:timerange:week": "Week",

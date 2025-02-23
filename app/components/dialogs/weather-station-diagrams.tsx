@@ -36,6 +36,8 @@ export interface ObserverData {
 
 const timeRanges = {
   interactive: "interactive",
+  interactive_month: "interactive_month",
+  interactive_winter: "interactive_winter",
   day: "tag",
   threedays: "dreitage",
   week: "woche",
@@ -47,6 +49,8 @@ type TimeRange = keyof typeof timeRanges;
 
 const timeRangesMilli: Record<TimeRange, number> = {
   interactive: 7 * 24 * 3600e3,
+  interactive_month: 31 * 24 * 3600e3,
+  interactive_winter: 183 * 24 * 3600e3,
   day: 24 * 3600e3,
   threedays: 3 * 24 * 3600e3,
   week: 7 * 24 * 3600e3,
@@ -219,9 +223,8 @@ const TimeRangeButtons: React.FC<{
   return (
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[]).map(key => {
-        if (key === "interactive" && !hasInteractivePlot(station)) return <></>;
-        const classes = ["label"];
-        if (key == timeRange) classes.push("js-active");
+        if (key.startsWith("interactive") && !hasInteractivePlot(station))
+          return <></>;
         return (
           <li key={key}>
             <a
@@ -231,7 +234,7 @@ const TimeRangeButtons: React.FC<{
                 event.stopPropagation();
                 setTimeRange(key !== "none" ? (key as TimeRange) : "threedays");
               }}
-              className={classes.join(" ")}
+              className={key === timeRange ? "label js-active" : "label"}
             >
               {intl.formatMessage({
                 id: `dialog:weather-station-diagram:timerange:${key}`
@@ -251,7 +254,7 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
-  if (timeRange === "interactive" && hasInteractivePlot(station)) {
+  if (timeRange.startsWith("interactive") && hasInteractivePlot(station)) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const width = document.body.clientWidth * 0.85;
@@ -386,6 +389,10 @@ const StationDiagramImage: React.FC<{
     );
   } else if (timeRange === "interactive") {
     timeRange = "week";
+  } else if (timeRange === "interactive_month") {
+    timeRange = "month";
+  } else if (timeRange === "interactive_winter") {
+    timeRange = "winter";
   }
 
   let t = Temporal.Now.plainDateTimeISO();
