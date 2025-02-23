@@ -15,10 +15,10 @@ import {
 interface Props {
   loaded: boolean;
   gestureHandling: boolean;
-  controls: boolean;
+  controls: React.ReactNode;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
-  overlays: React.ReactElement;
+  overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
 }
 
