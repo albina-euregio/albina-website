@@ -249,11 +249,13 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               showDiff={showDiff}
             />
           </h2>
-          <LocalizedText
-            text={bulletin.avalancheActivity?.comment}
-            text170000={bulletin170000?.avalancheActivity?.comment}
-            showDiff={showDiff}
-          />
+          <p>
+            <LocalizedText
+              text={bulletin.avalancheActivity?.comment}
+              text170000={bulletin170000?.avalancheActivity?.comment}
+              showDiff={showDiff}
+            />
+          </p>
         </div>
       </section>
       {(hasTendencyHighlights || bulletin.snowpackStructure?.comment) && (
@@ -287,11 +289,13 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                     ))}
                   </ul>
                 )}
-                <LocalizedText
-                  text={bulletin.snowpackStructure?.comment}
-                  text170000={bulletin170000?.snowpackStructure?.comment}
-                  showDiff={showDiff}
-                />
+                <p>
+                  <LocalizedText
+                    text={bulletin.snowpackStructure?.comment}
+                    text170000={bulletin170000?.snowpackStructure?.comment}
+                    showDiff={showDiff}
+                  />
+                </p>
               </div>
             )}
             {hasTendencyHighlights && (
@@ -300,12 +304,13 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                   <FormattedMessage id="bulletin:report:tendency:headline" />
                 </h2>
                 {bulletin.tendency.map((tendency, index) => (
-                  <LocalizedText
-                    key={index}
-                    text={tendency?.highlights}
-                    text170000={bulletin170000?.tendency?.[index]?.highlights}
-                    showDiff={showDiff}
-                  />
+                  <p key={index}>
+                    <LocalizedText
+                      text={tendency?.highlights}
+                      text170000={bulletin170000?.tendency?.[index]?.highlights}
+                      showDiff={showDiff}
+                    />
+                  </p>
                 ))}
               </div>
             )}
