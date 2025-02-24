@@ -59,7 +59,7 @@ const LocalizedText: FunctionComponent<{
       .join("");
   }
   return (
-    <Suspense fallback={<div dangerouslySetInnerHTML={{ __html: text }} />}>
+    <Suspense fallback={<span dangerouslySetInnerHTML={{ __html: text }} />}>
       <BulletinGlossaryText text={text} locale={lang} />
     </Suspense>
   );
