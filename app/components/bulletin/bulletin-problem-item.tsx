@@ -6,7 +6,7 @@ import ElevationIcon from "../icons/elevation-icon";
 // import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
-import { AvalancheProblem, AvalancheProblemType } from "../../stores/bulletin";
+import type { AvalancheProblem } from "../../stores/bulletin";
 
 interface Props {
   problem: AvalancheProblem;
@@ -255,7 +255,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
         problem?.avalancheSize) && (
         <div className="bulletin-report-picto matrix-information">
           {problem?.snowpackStability &&
-            problem?.problemType !== AvalancheProblemType.GlidingSnow && (
+            problem?.problemType !== "gliding_snow" && (
               <div
                 className={
                   `matrix-info matrix-info-value-${

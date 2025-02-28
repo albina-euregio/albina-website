@@ -3,6 +3,7 @@ import {
   AvalancheProblemType,
   Bulletin,
   Bulletins,
+  BulletinsSchema,
   ColonAmPm,
   DangerRating,
   DangerRatingValue,
@@ -73,7 +74,7 @@ export function getMaxMainValue(
   return dangerRatings.reduce(
     (a, b): DangerRatingValue =>
       getWarnlevelNumber(a) > getWarnlevelNumber(b.mainValue) ? a : b.mainValue,
-    DangerRatingValue.Low as DangerRatingValue
+    "low" as DangerRatingValue
   );
 }
 
@@ -124,8 +125,9 @@ class BulletinCollection {
     const url = this._getBulletinUrl();
     if (!url) return this;
     try {
-      const response = await fetchJSON<Bulletins>(url, { cache: "no-cache" });
-      this.setData(response);
+      const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
+      const data = await BulletinsSchema.parseAsync(response);
+      this.setData(data);
     } catch (error) {
       console.error(`Cannot load bulletin for date ${this.date}`, error);
       this.setData(null);
@@ -141,11 +143,12 @@ class BulletinCollection {
           .withTimeZone("UTC").hour;
         const publicationDate = `${date}_${hour}-00-00`;
         const url2 = this._getBulletinUrl(publicationDate);
-        const response = await fetchJSON<Bulletins>(url2, {
+        const response = await fetchJSON<unknown>(url2, {
           cache: "no-cache"
         });
-        if (response?.bulletins?.length) {
-          this.dataRaw170000 = response;
+        const data = await BulletinsSchema.parseAsync(response);
+        if (data?.bulletins?.length) {
+          this.dataRaw170000 = data;
         }
       }
     } catch (error) {

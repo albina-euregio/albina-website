@@ -26,9 +26,9 @@ export function matchesValidTimePeriod(
 export type ColonAmPm = "" | ":am" | ":pm";
 
 export const toAmPm: Record<ValidTimePeriod, ColonAmPm> = Object.freeze({
-  [ValidTimePeriod.AllDay]: "",
-  [ValidTimePeriod.Earlier]: ":am",
-  [ValidTimePeriod.Later]: ":pm"
+  all_day: "",
+  earlier: ":am",
+  later: ":pm"
 });
 
 export type DangerPattern =

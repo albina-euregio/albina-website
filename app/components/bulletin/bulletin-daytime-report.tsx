@@ -245,8 +245,8 @@ function TendencyReport({
               date: intl.formatDate(
                 tendency.validTime?.startTime && tendency.validTime?.endTime
                   ? new Date(
-                      Date.parse(tendency.validTime?.startTime) / 2 +
-                        Date.parse(tendency.validTime?.endTime) / 2
+                      +tendency.validTime?.startTime / 2 +
+                        +tendency.validTime?.endTime / 2
                     )
                   : date.add({ days: 1 }),
                 LONG_DATE_FORMAT
