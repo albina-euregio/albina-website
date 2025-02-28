@@ -22,12 +22,6 @@ $map-height-bulletin: 50vh;
   --vh: 1vh;
 }
 
-$map-height-weather: calc((var(--vh, 1vh) * 100) - #{variables.$bar-width});
-$map-height-weather-when-menu: calc(
-  (var(--vh, 1vh) * 100) - #{variables.$bar-width} -
-    #{navigation.$page-header-height}
-);
-
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
@@ -69,14 +63,8 @@ $search-width-wide: 300px;
   left: 0;
   right: 0;
   bottom: 0;
-  height: $map-height-weather-when-menu;
   width: 100vw;
   overflow: hidden;
-  //transition: none !important;
-  // .scrolling-down.s-weathermap-2020 & {
-  //   top: 0;
-  //   height: $map-height-weather;
-  // }
 }
 
 //the maps themselves
@@ -95,11 +83,8 @@ $search-width-wide: 300px;
   }
 
   .section-weather-map & {
-    height: $map-height-weather-when-menu;
+    height: 100%;
     @include mixins.rollout;
-    // .scrolling-down.s-weathermap-2020 & {
-    //   height: $map-height-weather;
-    // }
   }
 }
 
