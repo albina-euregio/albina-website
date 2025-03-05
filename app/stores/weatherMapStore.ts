@@ -1,6 +1,5 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
-import { dateFormat } from "../util/date";
 import { toTemporalInstant } from "temporal-polyfill";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
@@ -442,14 +441,13 @@ export const dataOverlays = computed(
   [domainConfig, domainId, currentTime, absTimeSpan],
   (domainConfig, domainId, currentTime, absTimeSpan) =>
     domainConfig.dataOverlays.map(o => {
-      const overlayFilename = getOverlayFileName(
-        currentTime,
-        o?.domain || domainId,
-        o.filePostfix,
-        absTimeSpan
-      );
-
       const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
+        const overlayURLs = getOverlayURLs(
+          currentTime,
+          o?.domain || domainId,
+          o.filePostfix,
+          absTimeSpan
+        );
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => {
@@ -462,13 +460,20 @@ export const dataOverlays = computed(
           ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
           resolve(ctx);
         };
-        img.onerror = e => reject(overlayFilename, e);
-        img.src = overlayFilename;
+        img.onerror = e => {
+          if (overlayURLs.length) {
+            img.src = overlayURLs.shift();
+          } else {
+            reject(
+              new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`)
+            );
+          }
+        };
+        img.src = overlayURLs.shift();
       });
 
       return {
         ...o,
-        overlayFilename,
         ctx,
         async valueForPixel(coordinates: {
           x: number;
@@ -628,34 +633,39 @@ export const initialDate = computed(
   }
 );
 
-export const overlayFileName = computed(
+export const overlayURLs = computed(
   [currentTime, domainConfig, domainId, absTimeSpan],
   (currentTime, domainConfig, domainId, absTimeSpan) => {
     const filePostFix = config.settings.debugModus
       ? domainConfig?.dataOverlayFilePostFix.debug
       : domainConfig?.dataOverlayFilePostFix.main;
-    return getOverlayFileName(currentTime, domainId, filePostFix, absTimeSpan);
+    return getOverlayURLs(currentTime, domainId, filePostFix, absTimeSpan);
   }
 );
 
-function getOverlayFileName(
+function getOverlayURLs(
   currentTime: Date | null,
   domainId: DomainId,
   filePostFix: string | undefined,
   absTimeSpan: number
-) {
-  if (!currentTime) return "";
-  return (
-    window.config.apis.weather.overlays +
-    domainId +
-    "/" +
-    dateFormat(currentTime, "%Y-%m-%d_%H-%M", true) +
+): [string, string] {
+  if (!currentTime) return ["", ""];
+  const utc = currentTime.toISOString();
+  const file =
+    utc
+      .slice(0, "2025-03-14T12:00".length)
+      .replace("T", "_")
+      .replace(":", "-") +
     "_" +
-    String(filePostFix).replaceAll(
+    String(filePostFix).replace(
       "%%DOMAIN%%",
       absTimeSpan !== 1 ? `${domainId}_${absTimeSpan}h` : domainId
-    )
-  );
+    );
+  const url = window.config.apis.weather.overlays + domainId;
+  return [
+    `${url}/${file}`,
+    `${url}/${utc.slice(0, "2025".length)}/${utc.slice(0, "2025-03-14".length)}/${file}`
+  ];
 }
 
 /*

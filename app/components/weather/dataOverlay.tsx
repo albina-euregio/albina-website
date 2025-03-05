@@ -43,7 +43,7 @@ const DataOverlay = ({ playerCB }) => {
   const domainId = useStore(store.domainId);
   const currentTime = useStore(store.currentTime);
   const domainConfig = useStore(store.domainConfig);
-  const overlayFileName = useStore(store.overlayFileName);
+  const overlayURLs = useStore(store.overlayURLs);
   const dataOverlays = useStore(store.dataOverlays);
   const dataOverlaysEnabled = true;
 
@@ -177,11 +177,10 @@ const DataOverlay = ({ playerCB }) => {
     if (domainId) {
       overlays.push(
         <ImageOverlay
-          key="data-image"
-          className={["leaflet-image-layer", "map-data-layer", "hide"].join(
-            " "
-          )}
-          url={overlayFileName}
+          key={"data-image-" + overlayURLs[0]}
+          className="leaflet-image-layer map-data-layer hide"
+          url={overlayURLs[0]}
+          errorOverlayUrl={overlayURLs[1]}
           opacity={1}
           bounds={store.config.settings.bbox}
           attribution={
@@ -198,10 +197,11 @@ const DataOverlay = ({ playerCB }) => {
 
       overlays.push(
         <ImageOverlay
-          key="background-map"
-          className={["leaflet-image-layer", "map-info-layer"].join(" ")}
+          key={"background-map-" + overlayURLs[0]}
+          className="leaflet-image-layer map-info-layer"
           style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={overlayFileName}
+          url={overlayURLs[0]}
+          errorOverlayUrl={overlayURLs[1]}
           opacity={1}
           bounds={store.config.settings.bbox}
           interactive={true}
@@ -235,7 +235,7 @@ const DataOverlay = ({ playerCB }) => {
     }
 
     return overlays;
-  }, [domainId, dataOverlays, overlayFileName]);
+  }, [domainId, dataOverlays, overlayURLs]);
 
   return (
     <>
