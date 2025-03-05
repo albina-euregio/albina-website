@@ -25,7 +25,6 @@ import {
   getDangerPatterns
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import BulletinStatusLine from "./bulletin-status-line";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 
@@ -138,13 +137,32 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
         <div className={classes}>
           <header className="bulletin-report-header">
             <div>
-              {isInserted && (
+              {isInserted && bulletin.publicationTime && (
                 <button
                   type="button"
                   className="bulletin-report-header-diff"
                   onClick={() => setShowDiff(d => (d + 1) % 3)}
                 >
-                  <BulletinStatusLine status="ok" bulletin={bulletin} />
+                  <Tooltip
+                    label={intl.formatMessage({
+                      id: "bulletin:header:updated-at:tooltip"
+                    })}
+                  >
+                    <span className="text-icon bulletin-datetime-update">
+                      <span className="icon icon-update"></span>
+                      <span className="text">
+                        {intl.formatMessage(
+                          { id: "bulletin:header:updated-at" },
+                          {
+                            date: intl.formatDate(bulletin.publicationTime),
+                            time: intl.formatDate(bulletin.publicationTime, {
+                              timeStyle: "short"
+                            })
+                          }
+                        )}
+                      </span>
+                    </span>
+                  </Tooltip>
                   {showDiff == 2 && <span className="icon icon-update"></span>}
                   {showDiff == 1 && <span className="icon icon-release"></span>}
                 </button>
