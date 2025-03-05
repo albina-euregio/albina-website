@@ -72,16 +72,10 @@ const Timeline = ({ updateCB }) => {
     timeSpan: string | null
   ) => {
     // Preserve the domain parameter while updating timestamp
-    console.log("navigateToWeatermapWithParams", {
-      domain: store.domainId.get(),
-      timestamp,
-      timeSpan
-    });
     const newUrl =
       `../weather/map/${store.domainId.get() || "new-snow"}` +
       (timestamp ? `/${timestamp}` : "") +
       (timeSpan ? `/${timeSpan}` : "");
-    //console.log("navigateToWeatermapUrlWithTimestamp", { newUrl, timeSpan });
     navigate(newUrl, { replace: true, state: { preventNav: true } });
   };
 
