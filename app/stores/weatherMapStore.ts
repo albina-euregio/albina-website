@@ -5,6 +5,10 @@ import { toTemporalInstant } from "temporal-polyfill";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
 export const config = {
+  overlayURLs: [
+    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
+    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
+  ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
     mapOptionsOverride: {
@@ -46,12 +50,9 @@ export const config = {
           agl: "agl.ok",
           startDate: "startDate.ok"
         },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V2.gif",
-          debug: "%%DOMAIN%%_V2.png"
-        },
+        imageOverlay: { file: "{date}_{time}_{domain}_V2.gif" },
         dataOverlays: [
-          { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+          { file: "{date}_{time}_{domain}_V2.png", type: "snowHeight" }
         ],
         direction: false,
         clusterOperation: "max"
@@ -85,12 +86,12 @@ export const config = {
           agl: "agl.ok",
           startDate: "startDate.ok"
         },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V2.gif",
-          debug: "%%DOMAIN%%_V2.png"
-        },
+        imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
         dataOverlays: [
-          { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+          {
+            file: "{date}_{time}_{domain}_{timespan}h_V2.png",
+            type: "snowHeight"
+          }
         ],
         displayedItems: ["snow6f"],
         direction: false,
@@ -132,12 +133,12 @@ export const config = {
           stations: true,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V2.gif",
-          debug: "%%DOMAIN%%_V2.png"
-        },
+        imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
         dataOverlays: [
-          { filePostfix: "%%DOMAIN%%_V2.png", type: "snowHeight" }
+          {
+            file: "{date}_{time}_{domain}_{timespan}h_V2.png",
+            type: "snowHeight"
+          }
         ],
         direction: false,
         clusterOperation: "max"
@@ -198,11 +199,10 @@ export const config = {
           stations: false,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V3.gif",
-          debug: "%%DOMAIN%%_V3.png"
-        },
-        dataOverlays: [{ filePostfix: "%%DOMAIN%%_V3.png", type: "snowLine" }],
+        imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
+        dataOverlays: [
+          { file: "{date}_{time}_{domain}_V3.png", type: "snowLine" }
+        ],
         direction: false,
         clusterOperation: "max",
         metaFiles: {
@@ -240,12 +240,9 @@ export const config = {
           stations: true,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "%%DOMAIN%%_V3.gif",
-          debug: "%%DOMAIN%%_V3.png"
-        },
+        imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
-          { filePostfix: "%%DOMAIN%%_V3.png", type: "temperature" }
+          { file: "{date}_{time}_{domain}_V3.png", type: "temperature" }
         ],
         direction: false,
         clusterOperation: "min",
@@ -278,13 +275,13 @@ export const config = {
           stations: true,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "wind_V3.gif",
-          debug: "wind_V3.png"
-        },
+        imageOverlay: { file: "{date}_{time}_wind_V3.gif" },
         dataOverlays: [
-          { filePostfix: "wind_V3.png", type: "windSpeed" },
-          { filePostfix: "wind-dir_V3.png", type: "windDirection" }
+          { file: "{date}_{time}_wind_V3.png", type: "windSpeed" },
+          {
+            file: "{date}_{time}_wind-dir_V3.png",
+            type: "windDirection"
+          }
         ],
         direction: "wdir",
         clusterOperation: "max",
@@ -317,14 +314,11 @@ export const config = {
           stations: true,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "gust_V3.gif",
-          debug: "gust_V3.png"
-        },
+        imageOverlay: { file: "{date}_{time}_gust_V3.gif" },
         dataOverlays: [
-          { filePostfix: "gust_V3.png", type: "windSpeed" },
+          { file: "{date}_{time}_gust_V3.png", type: "windSpeed" },
           {
-            filePostfix: "wind-dir_V3.png",
+            file: "{date}_{time}_wind-dir_V3.png",
             domain: "wind",
             type: "windDirection"
           }
@@ -360,13 +354,13 @@ export const config = {
           stations: true,
           grid: false
         },
-        dataOverlayFilePostFix: {
-          main: "wind700hpa.gif",
-          debug: "wind700hpa.png"
-        },
+        imageOverlay: { file: "{date}_{time}_wind700hpa.gif" },
         dataOverlays: [
-          { filePostfix: "wind700hpa.png", type: "windSpeed" },
-          { filePostfix: "wind-dir700hpa.png", type: "windDirection" }
+          { file: "{date}_{time}_wind700hpa.png", type: "windSpeed" },
+          {
+            file: "{date}_{time}_wind-dir700hpa.png",
+            type: "windDirection"
+          }
         ],
         direction: "wdir",
         clusterOperation: "max",
@@ -445,7 +439,7 @@ export const dataOverlays = computed(
         const overlayURLs = getOverlayURLs(
           currentTime,
           o?.domain || domainId,
-          o.filePostfix,
+          o.file,
           absTimeSpan
         );
         const img = new Image();
@@ -533,19 +527,17 @@ async function _loadDomainData() {
   };
 
   try {
+    const url = config.overlayURLs[0];
     const startDate0 = fetchDate(
-      window.config.apis.weather.overlays +
-        domainId.get() +
-        "/" +
-        domainConfig.get().metaFiles?.startDate
+      window.config.template(url + domainConfig.get().metaFiles?.startDate, {
+        domain: domainId.get()
+      })
     );
     const agl0 = fetchDate(
-      window.config.apis.weather.overlays +
-        domainId.get() +
-        "/" +
-        domainConfig
-          .get()
-          .metaFiles?.agl.replace("{timespan}", absTimeSpan.get())
+      window.config.template(url + domainConfig.get().metaFiles?.agl, {
+        domain: domainId.get(),
+        timespan: absTimeSpan.get()
+      })
     );
 
     startDate.set(await startDate0);
@@ -636,35 +628,33 @@ export const initialDate = computed(
 export const overlayURLs = computed(
   [currentTime, domainConfig, domainId, absTimeSpan],
   (currentTime, domainConfig, domainId, absTimeSpan) => {
-    const filePostFix = config.settings.debugModus
-      ? domainConfig?.dataOverlayFilePostFix.debug
-      : domainConfig?.dataOverlayFilePostFix.main;
-    return getOverlayURLs(currentTime, domainId, filePostFix, absTimeSpan);
+    return getOverlayURLs(
+      currentTime,
+      domainId,
+      domainConfig.imageOverlay.file,
+      absTimeSpan
+    );
   }
 );
 
 function getOverlayURLs(
   currentTime: Date | null,
-  domainId: DomainId,
-  filePostFix: string | undefined,
-  absTimeSpan: number
+  domain: DomainId,
+  file: string | undefined,
+  timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
   const utc = currentTime.toISOString();
-  const file =
-    utc
-      .slice(0, "2025-03-14T12:00".length)
-      .replace("T", "_")
-      .replace(":", "-") +
-    "_" +
-    String(filePostFix).replace(
-      "%%DOMAIN%%",
-      absTimeSpan !== 1 ? `${domainId}_${absTimeSpan}h` : domainId
-    );
-  const url = window.config.apis.weather.overlays + domainId;
+  const data = {
+    year: utc.slice(0, "2025".length),
+    date: utc.slice(0, "2025-03-14".length),
+    time: currentTime.getUTCHours().toString().padStart(2, "0") + "-00",
+    domain,
+    timespan
+  };
   return [
-    `${url}/${file}`,
-    `${url}/${utc.slice(0, "2025".length)}/${utc.slice(0, "2025-03-14".length)}/${file}`
+    window.config.template(config.overlayURLs[0] + file, data),
+    window.config.template(config.overlayURLs[1] + file, data)
   ];
 }
 
