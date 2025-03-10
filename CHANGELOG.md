@@ -2,6 +2,15 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.7] - 2025-03-10
+
+### Weather Maps
+
+- Register timeline shortcuts globally
+- Fix dubious scrollbars on odd zoom levels
+- Weather station dialog: enable month and winter time ranges in addition to week time range
+- Weather station measurements table: clarify aggregation of wind parameters
+
 ## [7.2.6] - 2025-02-19
 
 ### Weather Maps
