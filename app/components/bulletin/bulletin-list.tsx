@@ -17,22 +17,39 @@ function BulletinList({ bulletins, date, region }: Props) {
     >
       <ul className="list-plain bulletin-list">
         {bulletins.map(([bulletin, bulletin170000]) => (
-          <li
-            id={bulletin.bulletinID}
-            key={bulletin.bulletinID}
-            className={
-              "bulletin-list-item" +
-              (bulletin.bulletinID === region ? " selected" : "")
-            }
-          >
-            {
-              <BulletinReport
-                bulletin={bulletin}
-                bulletin170000={bulletin170000}
-                date={date}
-              />
-            }
-          </li>
+          <React.Fragment key={bulletin.bulletinID}>
+            {!config.bulletin.showAllBulletins &&
+              bulletin.regions?.some(r => r.regionID === region) && (
+                <li
+                  id={bulletin.bulletinID}
+                  className={
+                    "bulletin-list-item" +
+                    (bulletin.bulletinID === region ? " selected" : "")
+                  }
+                >
+                  <BulletinReport
+                    bulletin={bulletin}
+                    bulletin170000={bulletin170000}
+                    date={date}
+                  />
+                </li>
+              )}
+            {config.bulletin.showAllBulletins && (
+              <li
+                id={bulletin.bulletinID}
+                className={
+                  "bulletin-list-item" +
+                  (bulletin.bulletinID === region ? " selected" : "")
+                }
+              >
+                <BulletinReport
+                  bulletin={bulletin}
+                  bulletin170000={bulletin170000}
+                  date={date}
+                />
+              </li>
+            )}
+          </React.Fragment>
         ))}
       </ul>
     </section>
