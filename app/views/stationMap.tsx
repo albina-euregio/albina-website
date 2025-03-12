@@ -35,6 +35,15 @@ function StationMap(props) {
   const { load, data } = useStationData("microRegion");
 
   useEffect(() => {
+    const footer = document.getElementById("page-footer");
+    if (!footer) return;
+    footer.style.display = "none";
+    return () => {
+      footer.style.display = "";
+    };
+  }, []);
+
+  useEffect(() => {
     load();
   }, [load]);
 
@@ -87,6 +96,9 @@ function StationMap(props) {
           <LeafletMap
             loaded={props.domainId !== false}
             onViewportChanged={() => {}}
+            onInit={e => {
+              e.invalidateSize();
+            }}
             mapConfigOverride={{ maxZoom: 12 }}
             tileLayerConfigOverride={{ maxZoom: 12 }}
             overlays={overlays}
