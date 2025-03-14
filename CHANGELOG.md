@@ -2,6 +2,17 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.8] - 2025-03-14
+
+### Weather Maps
+
+- Fix cockpit position on Safari
+- Fix size on mobile
+
+### Bulletin
+
+- Development instance: show selected bulletin only
+
 ## [7.2.7] - 2025-03-10
 
 ### Weather Maps
