@@ -43,8 +43,9 @@ $cp-breakpoint-3: 1024px;
 
 .weather-map-cockpit {
   z-index: 2;
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100vw;
 
   font-size: $cp-font-size-medium;
