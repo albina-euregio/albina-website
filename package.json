@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@eaws/micro-regions_elevation_properties": "^7.0.6",
+    "@eaws/micro-regions_names": "^7.0.0",
     "@eaws/micro-regions_properties": "^7.0.6",
     "@eaws/outline_properties": "^7.0.6",
     "@floating-ui/react": "^0.26.23",
