@@ -10,7 +10,7 @@ const translationImports = import.meta.glob("./i18n/*.json", {
 
 // Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
 const regionTranslationImports = import.meta.glob(
-  "@eaws/micro-regions_names/*.json",
+  "../node_modules/@eaws/micro-regions_names/*.json",
   {
     import: "default",
     eager: true
@@ -29,7 +29,9 @@ export const $messages = atom(
 function loadMessages(newLanguage: Language) {
   const messages = translationImports[`./i18n/${newLanguage}.json`];
   const regions =
-    regionTranslationImports[`./i18n/micro-regions_names/${newLanguage}.json`];
+    regionTranslationImports[
+      `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
+    ];
   const allMessages = Object.freeze(
     Object.assign(
       { ...messages },
