@@ -115,6 +115,7 @@ const WeatherMap = ({
         tileLayerConfigOverride={store.config.settings.mapOptionsOverride}
         gestureHandling={false}
         onInit={map => {
+          map.invalidateSize();
           map.on("click", () => {
             onMarkerSelected(null);
           });
