@@ -52,7 +52,7 @@ export default function YearFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={props.handleChange} {...props}>
+      <Selectric onChange={year => props.handleChange(+year)} {...props}>
         {props.all && <option value="">{props.all}</option>}
         {years.map(({ year, name }) => (
           <option key={year} value={year}>
