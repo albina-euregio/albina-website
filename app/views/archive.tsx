@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
@@ -37,7 +37,10 @@ function Archive() {
   );
   const [dates, setDates] = useState([] as Temporal.PlainDate[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
-  const [microRegions] = useState(() => microRegionIds());
+  const microRegions = useMemo(
+    () => microRegionIds(getDatesInMonth(year, month)[0]),
+    [month, year]
+  );
 
   useEffect(() => {
     const dates = getDatesInMonth(year, month);
