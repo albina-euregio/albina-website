@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { regionCodes, RegionCodes } from "../../util/regions";
 import { microRegionIds } from "../../stores/microRegions";
 import { FormattedMessage } from "../../i18n";
+import { Temporal } from "temporal-polyfill";
 
 function RegionTable({ region }: { region: RegionCodes }) {
-  const [microRegions] = useState(() => microRegionIds());
+  const [microRegions] = useState(() =>
+    microRegionIds(Temporal.Now.plainDateISO())
+  );
   const regions = microRegions.filter(id => id.startsWith(region));
   const length2 = Math.ceil(regions.length / 2);
   const regionPairs = regions
