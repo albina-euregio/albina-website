@@ -1,6 +1,6 @@
 import React, { type ReactEventHandler } from "react";
 import type { Temporal } from "temporal-polyfill";
-import { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
+import type { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 
 interface Props {
   validTimePeriod?: ValidTimePeriod;
@@ -22,6 +22,7 @@ function BulletinAWMapStatic({
   const publicationTime = bulletin?.publicationTime;
   const publicationDirectory = publicationTime
     ? publicationTime
+        .toISOString()
         .replace(/T/, "_")
         .replace(/:/g, "-")
         .slice(0, "2021-12-04_16-00-00".length)

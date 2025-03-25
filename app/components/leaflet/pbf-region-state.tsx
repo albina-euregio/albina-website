@@ -94,7 +94,7 @@ export function PbfRegionState({
           )
           ?.map(p => p.problemType) ??
         activeBulletinCollection?.eawsAvalancheProblems?.[
-          `${regionId}${toAmPm[validTimePeriod || ValidTimePeriod.AllDay]}`
+          `${regionId}${toAmPm[validTimePeriod || "all_day"]}`
         ] ??
         [];
       if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
