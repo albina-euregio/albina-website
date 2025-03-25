@@ -98,12 +98,12 @@ export type ValidTime = z.infer<typeof ValidTimeSchema>;
 
 export const MetaDataSchema = z.object({
   comment: z.string().optional(),
-  extFiles: z.array(ExternalFileSchema).optional()
+  extFiles: ExternalFileSchema.array().optional()
 });
 export type MetaData = z.infer<typeof MetaDataSchema>;
 
 export const DangerRatingSchema = z.object({
-  aspects: z.array(AspectSchema).optional(),
+  aspects: AspectSchema.array().optional(),
   customData: CustomDataSchema,
   elevation: ElevationBoundaryOrBandSchema.optional(),
   mainValue: DangerRatingValueSchema,
@@ -150,7 +150,7 @@ export const TendencySchema = z.object({
 export type Tendency = z.infer<typeof TendencySchema>;
 
 export const AvalancheProblemSchema = z.object({
-  aspects: z.array(AspectSchema).optional(),
+  aspects: AspectSchema.array().optional(),
   avalancheSize: z.number().optional(),
   comment: z.string().optional(),
   customData: CustomDataSchema,
@@ -174,19 +174,22 @@ export type AvalancheBulletinSource = z.infer<
 
 export const BulletinSchema = z.object({
   avalancheActivity: TextsSchema.optional(),
-  avalancheProblems: z.array(AvalancheProblemSchema).optional(),
+  avalancheProblems: AvalancheProblemSchema.array().optional(),
   bulletinID: z.string().optional(),
   customData: CustomDataSchema,
-  dangerRatings: z.array(DangerRatingSchema).optional(),
+  dangerRatings: DangerRatingSchema.array().optional(),
   highlights: z.string().optional(),
   lang: z.string().optional(),
   metaData: MetaDataSchema.optional(),
   nextUpdate: z.coerce.date().optional(),
   publicationTime: z.coerce.date(),
-  regions: z.array(RegionSchema).optional(),
+  regions: RegionSchema.array().optional(),
   snowpackStructure: TextsSchema.optional(),
   source: AvalancheBulletinSourceSchema.optional(),
-  tendency: z.array(TendencySchema).optional(),
+  tendency: z
+    .union([TendencySchema, TendencySchema.array()])
+    .optional()
+    .transform(t => (Array.isArray(t) ? t : [t])),
   travelAdvisory: TextsSchema.optional(),
   unscheduled: z.boolean().optional(),
   validTime: ValidTimeSchema.optional(),
@@ -196,7 +199,7 @@ export const BulletinSchema = z.object({
 export type Bulletin = z.infer<typeof BulletinSchema>;
 
 export const BulletinsSchema = z.object({
-  bulletins: z.array(BulletinSchema),
+  bulletins: BulletinSchema.array(),
   customData: CustomDataSchema,
   metaData: MetaDataSchema.optional()
 });

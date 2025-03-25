@@ -241,9 +241,6 @@ class BulletinCollection {
     if (isOneDangerRating.get()) {
       b.dangerRatings?.forEach(b => (b.elevation = undefined));
     }
-    if (!Array.isArray(b.tendency) && typeof b.tendency === "object") {
-      b.tendency = [b.tendency];
-    }
     b.avalancheProblems?.forEach(p => {
       if (p.problemType === ("wind_drifted_snow" as string)) {
         p.problemType = "wind_slab" as AvalancheProblemType;
