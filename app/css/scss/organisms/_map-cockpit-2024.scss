@@ -439,24 +439,24 @@ $cp-breakpoint-3: 1024px;
   }
 }
 .selectable-hours-start {
-  background-color: variables.$red;
+  background-color: variables.$grey-dark;
   &:before {
     left: 0;
     background: linear-gradient(
       to left,
-      rgba(variables.$red, 0),
-      rgba(variables.$red, 0.25)
+      rgba(variables.$grey-dark, 0),
+      rgba(variables.$grey-dark, 0.25)
     );
   }
 }
 .selectable-hours-end {
-  background-color: variables.$red;
+  background-color: variables.$grey-dark;
   &:before {
     left: -50px;
     background: linear-gradient(
       to right,
-      rgba(variables.$red, 0),
-      rgba(variables.$red, 0.25)
+      rgba(variables.$grey-dark, 0),
+      rgba(variables.$grey-dark, 0.25)
     );
   }
 }
@@ -465,12 +465,12 @@ $cp-breakpoint-3: 1024px;
 
 .cp-scale-analyse {
   .ruler-mark-bg {
-    // background-color: variables.$grey-very-very-light;
+    background-color: variables.$grey-very-very-light;
   }
 }
 .cp-scale-forecast {
   .ruler-mark-bg {
-    background-color: variables.$grey-very-very-light;
+    // background-color: variables.$grey-very-very-light;
   }
 }
 
