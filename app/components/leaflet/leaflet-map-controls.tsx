@@ -61,10 +61,6 @@ const LeafletMapControls = (props: Props) => {
   }, [parentMap]);
 
   useEffect(() => {
-    parentMap.fitBounds(config.map.euregioBounds);
-  }, [parentMap]);
-
-  useEffect(() => {
     L.control
       .zoom({
         position: "topleft",

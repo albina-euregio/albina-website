@@ -1,6 +1,6 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
@@ -11,6 +11,7 @@ import {
   MapContainerProps,
   TileLayerProps
 } from "react-leaflet";
+import L from "leaflet";
 
 interface Props {
   loaded: boolean;
@@ -23,7 +24,12 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const params = useParams();
+  const [searchParams] = useSearchParams();
+  const province = searchParams.get("province") as
+    | "AT-7"
+    | "IT-32-BZ"
+    | "IT-32-TN"
+    | undefined;
 
   return (
     <MapContainer
@@ -47,9 +53,17 @@ const LeafletMap = (props: Props) => {
         ...props.mapConfigOverride
       }}
       bounds={
-        config.map[
-          `${params.province as "AT-7" | "IT-32-BZ" | "IT-32-TN"}.bounds`
-        ] ?? config.map.euregioBounds
+        province
+          ? L.latLngBounds(
+              config.map[`${province}.bounds`].map((coords: number[]) =>
+                L.latLng(coords[0], coords[1])
+              )
+            )
+          : L.latLngBounds(
+              config.map.euregioBounds.map((coords: number[]) =>
+                L.latLng(coords[0], coords[1])
+              )
+            )
       }
       attributionControl={false}
     >
