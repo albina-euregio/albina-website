@@ -2,6 +2,26 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.9] - 2025-04-10
+
+### 🐛 Bug Fixes
+
+- Focus on province with query parameter, e.g. _?province=IT-32-TN_
+
+### 🚜 Refactor
+
+- Use zod
+- Bulletin status line: Deduplicate publicationTime Date objects
+- @eaws/micro-regions_names glob
+
+### ⚙️ Miscellaneous Tasks
+
+- Update eaws-regions dependency to v7.0.7
+
+### Weather Maps
+
+- Weather cockpit: Change color of selectable-hours borders from red to grey, use light grey background for the past
+
 ## [7.2.8] - 2025-03-14
 
 ### Weather Maps
