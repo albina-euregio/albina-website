@@ -1388,6 +1388,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zod/core@npm:0.3.3":
+  version: 0.3.3
+  resolution: "@zod/core@npm:0.3.3"
+  checksum: 10c0/4aa3205ff673907b171fe36f8eea6762f654232527b21f0121f9eece2b61ba1a7bba59b86c5f1fb5e69344d9884919bd986daf5131e8b70063a985a6f65d3fb8
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -1499,7 +1506,7 @@ __metadata:
     uplot: "npm:^1.6.31"
     uplot-react: "npm:^1.2.2"
     vite: "npm:^6.1.0"
-    zod: "npm:^3.24.2"
+    zod: "npm:^4.0.0-beta.20250411T005215"
   languageName: unknown
   linkType: soft
 
@@ -5640,9 +5647,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.24.2":
-  version: 3.24.2
-  resolution: "zod@npm:3.24.2"
-  checksum: 10c0/c638c7220150847f13ad90635b3e7d0321b36cce36f3fc6050ed960689594c949c326dfe2c6fa87c14b126ee5d370ccdebd6efb304f41ef5557a4aaca2824565
+"zod@npm:^4.0.0-beta.20250411T005215":
+  version: 4.0.0-beta.20250411T005215
+  resolution: "zod@npm:4.0.0-beta.20250411T005215"
+  dependencies:
+    "@zod/core": "npm:0.3.3"
+  checksum: 10c0/b08662c142f1c69150e4bfcfb6f54b638b8dc652ea1829e711f81d8d411ca2c6e53c0e84b2ac3a20706351d8391ede6a0074d13864dfd0b383650d5517b1dcf0
   languageName: node
   linkType: hard
