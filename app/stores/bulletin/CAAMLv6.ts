@@ -1,6 +1,6 @@
-import * as z from "zod";
+import * as z from "@zod/mini";
 
-export const CustomDataSchema = z.any().optional();
+export const CustomDataSchema = z.optional(z.any());
 export type CustomData = z.infer<typeof CustomDataSchema>;
 
 export const AspectSchema = z.enum([
@@ -70,137 +70,137 @@ export const TendencyTypeSchema = z.enum([
 export type TendencyType = z.infer<typeof TendencyTypeSchema>;
 
 export const TextsSchema = z.object({
-  comment: z.string().optional(),
-  highlights: z.string().optional()
+  comment: z.optional(z.string()),
+  highlights: z.optional(z.string())
 });
 export type Texts = z.infer<typeof TextsSchema>;
 
 export const ElevationBoundaryOrBandSchema = z.object({
-  lowerBound: z.string().optional(),
-  upperBound: z.string().optional()
+  lowerBound: z.optional(z.string()),
+  upperBound: z.optional(z.string())
 });
 export type ElevationBoundaryOrBand = z.infer<
   typeof ElevationBoundaryOrBandSchema
 >;
 
 export const ExternalFileSchema = z.object({
-  description: z.string().optional(),
-  fileReferenceURI: z.string().optional(),
-  fileType: z.string().optional()
+  description: z.optional(z.string()),
+  fileReferenceURI: z.optional(z.string()),
+  fileType: z.optional(z.string())
 });
 export type ExternalFile = z.infer<typeof ExternalFileSchema>;
 
 export const ValidTimeSchema = z.object({
-  endTime: z.coerce.date().optional(),
-  startTime: z.coerce.date().optional()
+  endTime: z.optional(z.coerce.date()),
+  startTime: z.optional(z.coerce.date())
 });
 export type ValidTime = z.infer<typeof ValidTimeSchema>;
 
 export const MetaDataSchema = z.object({
-  comment: z.string().optional(),
-  extFiles: ExternalFileSchema.array().optional()
+  comment: z.optional(z.string()),
+  extFiles: z.optional(z.array(ExternalFileSchema))
 });
 export type MetaData = z.infer<typeof MetaDataSchema>;
 
 export const DangerRatingSchema = z.object({
-  aspects: AspectSchema.array().optional(),
+  aspects: z.optional(z.array(AspectSchema)),
   customData: CustomDataSchema,
-  elevation: ElevationBoundaryOrBandSchema.optional(),
+  elevation: z.optional(ElevationBoundaryOrBandSchema),
   mainValue: DangerRatingValueSchema,
-  metaData: MetaDataSchema.optional(),
-  validTimePeriod: ValidTimePeriodSchema.optional()
+  metaData: z.optional(MetaDataSchema),
+  validTimePeriod: z.optional(ValidTimePeriodSchema)
 });
 export type DangerRating = z.infer<typeof DangerRatingSchema>;
 
 export const RegionSchema = z.object({
   customData: CustomDataSchema,
-  metaData: MetaDataSchema.optional(),
-  name: z.string().optional(),
+  metaData: z.optional(MetaDataSchema),
+  name: z.optional(z.string()),
   regionID: z.string()
 });
 export type Region = z.infer<typeof RegionSchema>;
 
 export const PersonSchema = z.object({
   customData: CustomDataSchema,
-  metaData: MetaDataSchema.optional(),
-  name: z.string().optional(),
-  website: z.string().optional()
+  metaData: z.optional(MetaDataSchema),
+  name: z.optional(z.string()),
+  website: z.optional(z.string())
 });
 export type Person = z.infer<typeof PersonSchema>;
 
 export const AvalancheBulletinProviderSchema = z.object({
-  contactPerson: PersonSchema.optional(),
+  contactPerson: z.optional(PersonSchema),
   customData: CustomDataSchema,
-  metaData: MetaDataSchema.optional(),
-  name: z.string().optional(),
-  website: z.string().optional()
+  metaData: z.optional(MetaDataSchema),
+  name: z.optional(z.string()),
+  website: z.optional(z.string())
 });
 export type AvalancheBulletinProvider = z.infer<
   typeof AvalancheBulletinProviderSchema
 >;
 
 export const TendencySchema = z.object({
-  comment: z.string().optional(),
-  highlights: z.string().optional(),
+  comment: z.optional(z.string()),
+  highlights: z.optional(z.string()),
   customData: CustomDataSchema,
-  metaData: MetaDataSchema.optional(),
-  tendencyType: TendencyTypeSchema.optional(),
-  validTime: ValidTimeSchema.optional()
+  metaData: z.optional(MetaDataSchema),
+  tendencyType: z.optional(TendencyTypeSchema),
+  validTime: z.optional(ValidTimeSchema)
 });
 export type Tendency = z.infer<typeof TendencySchema>;
 
 export const AvalancheProblemSchema = z.object({
-  aspects: AspectSchema.array().optional(),
-  avalancheSize: z.number().optional(),
-  comment: z.string().optional(),
+  aspects: z.optional(z.array(AspectSchema)),
+  avalancheSize: z.optional(z.number()),
+  comment: z.optional(z.string()),
   customData: CustomDataSchema,
-  dangerRatingValue: DangerRatingValueSchema.optional(),
-  elevation: ElevationBoundaryOrBandSchema.optional(),
-  frequency: ExpectedAvalancheFrequencySchema.optional(),
-  metaData: MetaDataSchema.optional(),
+  dangerRatingValue: z.optional(DangerRatingValueSchema),
+  elevation: z.optional(ElevationBoundaryOrBandSchema),
+  frequency: z.optional(ExpectedAvalancheFrequencySchema),
+  metaData: z.optional(MetaDataSchema),
   problemType: AvalancheProblemTypeSchema,
-  snowpackStability: ExpectedSnowpackStabilitySchema.optional(),
-  validTimePeriod: ValidTimePeriodSchema.optional()
+  snowpackStability: z.optional(ExpectedSnowpackStabilitySchema),
+  validTimePeriod: z.optional(ValidTimePeriodSchema)
 });
 export type AvalancheProblem = z.infer<typeof AvalancheProblemSchema>;
 
 export const AvalancheBulletinSourceSchema = z.object({
-  person: PersonSchema.optional(),
-  provider: AvalancheBulletinProviderSchema.optional()
+  person: z.optional(PersonSchema),
+  provider: z.optional(AvalancheBulletinProviderSchema)
 });
 export type AvalancheBulletinSource = z.infer<
   typeof AvalancheBulletinSourceSchema
 >;
 
 export const BulletinSchema = z.object({
-  avalancheActivity: TextsSchema.optional(),
-  avalancheProblems: AvalancheProblemSchema.array().optional(),
-  bulletinID: z.string().optional(),
+  avalancheActivity: z.optional(TextsSchema),
+  avalancheProblems: z.optional(z.array(AvalancheProblemSchema)),
+  bulletinID: z.optional(z.string()),
   customData: CustomDataSchema,
-  dangerRatings: DangerRatingSchema.array().optional(),
-  highlights: z.string().optional(),
-  lang: z.string().optional(),
-  metaData: MetaDataSchema.optional(),
-  nextUpdate: z.coerce.date().optional(),
+  dangerRatings: z.optional(z.array(DangerRatingSchema)),
+  highlights: z.optional(z.string()),
+  lang: z.optional(z.string()),
+  metaData: z.optional(MetaDataSchema),
+  nextUpdate: z.optional(z.coerce.date()),
   publicationTime: z.coerce.date(),
-  regions: RegionSchema.array().optional(),
-  snowpackStructure: TextsSchema.optional(),
-  source: AvalancheBulletinSourceSchema.optional(),
-  tendency: z
-    .union([TendencySchema, TendencySchema.array()])
-    .optional()
-    .transform(t => (Array.isArray(t) ? t : [t])),
-  travelAdvisory: TextsSchema.optional(),
-  unscheduled: z.boolean().optional(),
-  validTime: ValidTimeSchema.optional(),
-  weatherForecast: TextsSchema.optional(),
-  weatherReview: TextsSchema.optional()
+  regions: z.optional(z.array(RegionSchema)),
+  snowpackStructure: z.optional(TextsSchema),
+  source: z.optional(AvalancheBulletinSourceSchema),
+  tendency: z.pipe(
+    z.optional(z.union([TendencySchema, z.array(TendencySchema)])),
+    z.transform(t => (Array.isArray(t) ? t : [t]))
+  ),
+  travelAdvisory: z.optional(TextsSchema),
+  unscheduled: z.optional(z.boolean()),
+  validTime: z.optional(ValidTimeSchema),
+  weatherForecast: z.optional(TextsSchema),
+  weatherReview: z.optional(TextsSchema)
 });
 export type Bulletin = z.infer<typeof BulletinSchema>;
 
 export const BulletinsSchema = z.object({
-  bulletins: BulletinSchema.array(),
+  bulletins: z.array(BulletinSchema),
   customData: CustomDataSchema,
-  metaData: MetaDataSchema.optional()
+  metaData: z.optional(MetaDataSchema)
 });
 export type Bulletins = z.infer<typeof BulletinsSchema>;

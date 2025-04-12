@@ -28,6 +28,7 @@
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@nanostores/react": "^0.8.0",
     "@sentry/react": "^8.7.0",
+    "@zod/mini": "^4.0.0-beta.20250412T085909",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
@@ -49,8 +50,7 @@
     "react-string-replace": "^1.1.1",
     "temporal-polyfill": "^0.2.5",
     "uplot": "^1.6.31",
-    "uplot-react": "^1.2.2",
-    "zod": "^4.0.0-beta.20250411T005215"
+    "uplot-react": "^1.2.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
