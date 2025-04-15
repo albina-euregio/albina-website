@@ -297,7 +297,7 @@ export const config = {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "wgus" },
-        updateTimesOffset: { "*": 1 },
+        updateTimesOffset: { "*": 12 },
         units: "km/h",
         thresholds: [5, 10, 20, 40, 60, 80],
         colors: {
@@ -326,7 +326,7 @@ export const config = {
         direction: "wdir",
         clusterOperation: "max",
         metaFiles: {
-          startDate: "../wind/startDate.ok",
+          startDate: "startDate.ok",
           agl: "c-laef_agl.ok"
         },
         timeRange: ["-17520", "+60"]
@@ -337,7 +337,7 @@ export const config = {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "wind700hpa" },
-        updateTimesOffset: { "*": 1 },
+        updateTimesOffset: { "*": 12 },
         units: "km/h",
         thresholds: [5, 10, 20, 40, 60, 80],
         colors: {
@@ -365,7 +365,7 @@ export const config = {
         direction: "wdir",
         clusterOperation: "max",
         metaFiles: {
-          startDate: "../wind/startDate.ok",
+          startDate: "startDate.ok",
           agl: "c-laef_agl.ok"
         },
         timeRange: ["-17520", "+60"]
@@ -517,7 +517,7 @@ async function _loadDomainData() {
     const lastModified = response.headers.get("last-modified");
     if (lastModified) {
       const date = Date.parse(lastModified);
-      if (date < lastDataUpdate.get() || lastDataUpdate.get() === 0) {
+      if (date > lastDataUpdate.get() || lastDataUpdate.get() === 0) {
         lastDataUpdate.set(date);
       }
     }
