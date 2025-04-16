@@ -26,7 +26,7 @@ interface Props {
 const LeafletMap = (props: Props) => {
   const [searchParams] = useSearchParams();
   const province = searchParams.get("province") as
-    | "AT-7"
+    | "AT-07"
     | "IT-32-BZ"
     | "IT-32-TN"
     | undefined;
