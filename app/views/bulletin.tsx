@@ -24,7 +24,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { setLanguage } from "../appStore";
+import { type Language, setLanguage } from "../appStore";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -65,7 +65,7 @@ const Bulletin = ({ headless }: Props) => {
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
   if (["de", "en"].includes(searchParams.get("language") || "")) {
-    setLanguage(searchParams.get("language"));
+    setLanguage(searchParams.get("language") as Language);
   }
 
   useEffect(() => {
@@ -179,9 +179,12 @@ const Bulletin = ({ headless }: Props) => {
       lang
     });
 
-  headless && document.getElementById("page-all").classList.add("headless");
-  searchParams.get("map-ratio") !== "" &&
+  if (headless) {
+    document.getElementById("page-all").classList.add("headless");
+  }
+  if (searchParams.get("map-ratio")) {
     document.body.classList.add("with-custom-ratio");
+  }
 
   return (
     <>
