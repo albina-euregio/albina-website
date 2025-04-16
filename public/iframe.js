@@ -1,6 +1,6 @@
-(function () {
+(() => {
   function loadJS(FILE_URL, callback, async = true) {
-    let scriptEle = document.createElement("script");
+    const scriptEle = document.createElement("script");
 
     scriptEle.setAttribute("src", FILE_URL);
     scriptEle.setAttribute("type", "text/javascript");
@@ -20,50 +20,40 @@
   }
 
   function initializeIFrame() {
-    var element;
-    if ((element = document.querySelector("[data-av-region]"))) {
-      var region = element.dataset.avRegion;
-      var ratio = element.dataset.avRatio;
-      var date = element.dataset.avDate || "latest";
-      var lang = element.dataset.avLang || "de";
-      var id = element.dataset.avId || "eu-lawinen-warnung-iframe";
+    const element = document.querySelector("[data-av-region]");
+    if (!element) return;
+    const region = element.dataset.avRegion;
+    const ratio = element.dataset.avRatio;
+    const date = element.dataset.avDate || "latest";
+    const lang = element.dataset.avLang || "de";
+    const id = element.dataset.avId || "eu-lawinen-warnung-iframe";
 
-      var iframe = document.createElement("iframe");
-      iframe.style.width = "100%";
-      iframe.style.height = "80vh";
-      iframe.style.border = "0";
-      iframe.allow = "geolocation";
-      iframe.id = id;
-      iframe.src =
-        "https://lawinen-warnung.eu/bulletin/" +
-        region +
-        "/" +
-        date +
-        "?language=" +
-        lang +
-        "&map-ratio=" +
-        encodeURIComponent(ratio);
-      // iframe.src = 'https://preview-albina.avalanche-warnings.eu/bulletin/' + region + '/' + date + '?language=' + lang + '&map-ratio=' + encodeURIComponent(ratio);
-      element.appendChild(iframe);
+    const iframe = document.createElement("iframe");
+    iframe.style.width = "100%";
+    iframe.style.height = "80vh";
+    iframe.style.border = "0";
+    iframe.allow = "geolocation";
+    iframe.id = id;
+    iframe.src = `https://lawinen-warnung.eu/bulletin/${region}/${date}?language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
+    element.appendChild(iframe);
 
-      iframeResize(
-        {
-          license: "GPLv3",
-          waitForLoad: true,
-          onScroll: function ({ top, left }) {
-            console.log("onScroll", top, left);
-            window.scrollTo({
-              top,
-              left,
-              behavior: "smooth"
-            });
+    iframeResize(
+      {
+        license: "GPLv3",
+        waitForLoad: true,
+        onScroll: function ({ top, left }) {
+          console.log("onScroll", top, left);
+          window.scrollTo({
+            top,
+            left,
+            behavior: "smooth"
+          });
 
-            return false; // Stop iframe-resizer scrolling the page
-          }
-        },
-        "#" + id
-      );
-    }
+          return false; // Stop iframe-resizer scrolling the page
+        }
+      },
+      "#" + id
+    );
   }
 
   loadJS(
