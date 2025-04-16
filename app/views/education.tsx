@@ -4,9 +4,17 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { Link } from "react-router-dom";
+import { setLanguage } from "../appStore.ts";
+import { useSearchParams } from "react-router-dom";
 
 const Education = () => {
   const intl = useIntl();
+  const [searchParams] = useSearchParams();
+
+  if (["de", "en"].includes(searchParams.get("language") || "")) {
+    setLanguage(searchParams.get("language"));
+  }
+
   return (
     <>
       <HTMLHeader

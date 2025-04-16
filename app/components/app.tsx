@@ -1,4 +1,9 @@
 import React, { Suspense, useEffect } from "react";
+import "@iframe-resizer/child";
+
+window.iFrameResizer = {
+  sizeSelector: "#page-all"
+};
 
 import {
   BrowserRouter,

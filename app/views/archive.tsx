@@ -18,6 +18,7 @@ import ProvinceFilter from "../components/filters/province-filter.js";
 import { useSearchParams } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
+import { setLanguage } from "../appStore.ts";
 
 function Archive() {
   const intl = useIntl();
@@ -41,6 +42,10 @@ function Archive() {
     () => microRegionIds(getDatesInMonth(year, month)[0]),
     [month, year]
   );
+
+  if (["de", "en"].includes(searchParams.get("language") || "")) {
+    setLanguage(searchParams.get("language"));
+  }
 
   useEffect(() => {
     const dates = getDatesInMonth(year, month);

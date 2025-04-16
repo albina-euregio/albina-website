@@ -24,6 +24,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
+import { type Language, setLanguage } from "../appStore";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -63,6 +64,9 @@ const Bulletin = ({ headless }: Props) => {
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
+  if (["de", "en"].includes(searchParams.get("language") || "")) {
+    setLanguage(searchParams.get("language") as Language);
+  }
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -174,6 +178,13 @@ const Bulletin = ({ headless }: Props) => {
       date: collection?.date || "latest",
       lang
     });
+
+  if (headless) {
+    document.getElementById("page-all").classList.add("headless");
+  }
+  if (searchParams.get("map-ratio")) {
+    document.body.classList.add("with-custom-ratio");
+  }
 
   return (
     <>
