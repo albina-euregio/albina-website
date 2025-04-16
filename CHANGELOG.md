@@ -2,6 +2,26 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.10] - 2025-04-16
+
+### 🐛 Bug Fixes
+
+- Weather maps: Calculation of UpdateTime
+
+### Bulletin
+
+- Enable iFrame resizing
+- Add script to load avalanche warning iframe
+- Add iframe-demo.html
+
+### ⚙️ Miscellaneous Tasks
+
+- Use @zod/mini
+- Upgrade to zod 4.0.0-beta
+- Update to nanostores 1.0.1
+- Upgrade to vite 6.2.6
+- Update to temporal-polyfill 0.3.0
+
 ## [7.2.9] - 2025-04-10
 
 ### 🐛 Bug Fixes
