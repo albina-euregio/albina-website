@@ -28,8 +28,7 @@ const LeafletMap = (props: Props) => {
   const province = searchParams.get("province") as
     | "AT-07"
     | "IT-32-BZ"
-    | "IT-32-TN"
-    | undefined;
+    | "IT-32-TN";
 
   return (
     <MapContainer
@@ -52,19 +51,7 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={
-        province
-          ? L.latLngBounds(
-              config.map[`${province}.bounds`].map((coords: number[]) =>
-                L.latLng(coords[0], coords[1])
-              )
-            )
-          : L.latLngBounds(
-              config.map.euregioBounds.map((coords: number[]) =>
-                L.latLng(coords[0], coords[1])
-              )
-            )
-      }
+      bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
       attributionControl={false}
     >
       <AttributionControl prefix={config.map.attribution} />
