@@ -617,10 +617,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/child@npm:^5.3.2":
-  version: 5.3.2
-  resolution: "@iframe-resizer/child@npm:5.3.2"
-  checksum: 10c0/00fa7be9f7fe5e86be74dfa119a66f8b8cf5aff3ede36a2fcad6265a785beb3bbdefe57d0b1ab61d59576136d789875a29bb0c5e45bbcb561a39d94bcfba5d19
+"@iframe-resizer/child@npm:^5.4.4":
+  version: 5.4.4
+  resolution: "@iframe-resizer/child@npm:5.4.4"
+  dependencies:
+    auto-console-group: "npm:1.2.5"
+  checksum: 10c0/a84cd6b50a488c2f208fb376e07387351723f5d9d5203e61bc32821b8313228eaa420c89ecc92599db117b1662664f799f5ccb3bc5b6fc1a6de97b4f12f11ac4
   languageName: node
   linkType: hard
 
@@ -1478,7 +1480,7 @@ __metadata:
     "@eslint/js": "npm:^9.21.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
-    "@iframe-resizer/child": "npm:^5.3.2"
+    "@iframe-resizer/child": "npm:^5.4.4"
     "@nanostores/react": "npm:^1.0.0"
     "@playwright/test": "npm:^1.44.1"
     "@sentry/react": "npm:^8.7.0"
@@ -1683,6 +1685,13 @@ __metadata:
   version: 0.0.8
   resolution: "ast-types-flow@npm:0.0.8"
   checksum: 10c0/f2a0ba8055353b743c41431974521e5e852a9824870cd6fce2db0e538ac7bf4da406bbd018d109af29ff3f8f0993f6a730c9eddbd0abd031fbcb29ca75c1014e
+  languageName: node
+  linkType: hard
+
+"auto-console-group@npm:1.2.5":
+  version: 1.2.5
+  resolution: "auto-console-group@npm:1.2.5"
+  checksum: 10c0/6830bca922337503e2f63c997e40338016811e9c76d696113b947f2af2dd8a5660104d8c4721f9577c8d80d638121cb2db79ab7ad4348339c57eace954fa1734
   languageName: node
   linkType: hard
 

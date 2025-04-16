@@ -79,7 +79,7 @@
   }
 
   loadJS(
-    "https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.3.2",
+    "https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.4.4",
     initializeIFrame,
     true
   );
