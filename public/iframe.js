@@ -26,7 +26,7 @@
     const ratio = element.dataset.avRatio;
     const date = element.dataset.avDate || "latest";
     const lang = element.dataset.avLang || "de";
-    const id = element.dataset.avId || "eu-lawinen-warnung-iframe";
+    const id = element.dataset.avId || "albina-website-iframe";
 
     const iframe = document.createElement("iframe");
     iframe.style.width = "100%";
@@ -34,7 +34,21 @@
     iframe.style.border = "0";
     iframe.allow = "geolocation";
     iframe.id = id;
-    iframe.src = `https://lawinen-warnung.eu/bulletin/${region}/${date}?language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
+    if (String(region).match(/EUREGIO|AT-07|IT-32-BZ|IT-32-TN/)) {
+      const host = {
+        en: "avalanche.report",
+        ca: "ca.avalanche.report",
+        de: "lawinen.report",
+        es: "es.avalanche.report",
+        fr: "fr.avalanche.report",
+        oc: "oc.avalanche.report",
+        it: "valanghe.report"
+      };
+      iframe.src = `https://${host[lang]}/headless/bulletin/${date}?province=${region}&map-ratio=${encodeURIComponent(ratio)}`;
+      // iframe.src = `/headless/bulletin/${date}?province=${region}&map-ratio=${encodeURIComponent(ratio)}`;
+    } else {
+      iframe.src = `https://lawinen-warnung.eu/bulletin/${region}/${date}?language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
+    }
     element.appendChild(iframe);
 
     iframeResize(
