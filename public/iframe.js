@@ -22,16 +22,17 @@
   function initializeIFrame() {
     var element;
     if ((element = document.querySelector("[data-av-region]"))) {
-      id = "unique-id";
-
       var region = element.dataset.avRegion;
       var ratio = element.dataset.avRatio;
       var date = element.dataset.avDate || "latest";
       var lang = element.dataset.avLang || "de";
+      var id = element.dataset.avId || "eu-lawinen-warnung-iframe";
 
       var iframe = document.createElement("iframe");
       iframe.style.width = "100%";
-      iframe.style.height = "80%";
+      iframe.style.height = "80vh";
+      iframe.style.border = "0";
+      iframe.allow = "geolocation";
       iframe.id = id;
       iframe.src =
         "https://lawinen-warnung.eu/bulletin/" +
@@ -42,12 +43,23 @@
         lang +
         "&map-ratio=" +
         encodeURIComponent(ratio);
+      // iframe.src = 'https://preview-albina.avalanche-warnings.eu/bulletin/' + region + '/' + date + '?language=' + lang + '&map-ratio=' + encodeURIComponent(ratio);
       element.appendChild(iframe);
 
       iframeResize(
         {
           license: "GPLv3",
-          waitForLoad: true
+          waitForLoad: true,
+          onScroll: function ({ top, left }) {
+            console.log("onScroll", top, left);
+            window.scrollTo({
+              top,
+              left,
+              behavior: "smooth"
+            });
+
+            return false; // Stop iframe-resizer scrolling the page
+          }
         },
         "#" + id
       );
