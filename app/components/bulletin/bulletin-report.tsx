@@ -78,6 +78,7 @@ interface Props {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
+  const headless = useContext(HeadlessContext);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
@@ -129,8 +130,6 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const hasTendencyHighlights =
     Array.isArray(bulletin.tendency) &&
     bulletin.tendency.some(tendency => tendency.highlights);
-
-  const headless = useContext(HeadlessContext);
 
   return (
     <div>
