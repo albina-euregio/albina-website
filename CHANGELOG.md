@@ -2,6 +2,21 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.11] - 2025-04-19
+
+### 🐛 Bug Fixes
+
+- Fix back to map buttons in bulletin
+
+### Bulletin
+
+- Update weather link for Tyrol
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 6.3.1
+- Update to iframe-resizer 5.4.4
+
 ## [7.2.10] - 2025-04-16
 
 ### 🐛 Bug Fixes
