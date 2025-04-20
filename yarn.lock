@@ -1284,7 +1284,7 @@ __metadata:
     jquery: "npm:^3.7.1"
     leaflet: "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch"
     leaflet-geonames: "npm:^0.4.9"
-    leaflet-gesture-handling: "npm:^1.2.2"
+    leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch"
     leaflet.markercluster: "npm:^1.5.3"
     leaflet.sync: "npm:^0.2.4"
@@ -3433,10 +3433,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-gesture-handling@npm:^1.2.2":
+"leaflet-gesture-handling@npm:1.2.2":
   version: 1.2.2
   resolution: "leaflet-gesture-handling@npm:1.2.2"
   checksum: 10c0/cf1175c8cdc7ac9446e82716a46cca0e017506a4dc0b2103f0bb94b852000e1ee4e04698caedc40c400e9d07ac677c7636b6d0bc6a5b04c8fd527040ada7e7fa
+  languageName: node
+  linkType: hard
+
+"leaflet-gesture-handling@patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch":
+  version: 1.2.2
+  resolution: "leaflet-gesture-handling@patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch::version=1.2.2&hash=537e42"
+  checksum: 10c0/cc6cb112249c33f387c98d5f2f81c7d3bba30bbf1af3ac8bc24ea5418605e40be67b45a73a5e99fd4839102bdc6e59e895cd75b115facf9b659a1303604e9686
   languageName: node
   linkType: hard
 

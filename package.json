@@ -34,7 +34,7 @@
     "jquery": "^3.7.1",
     "leaflet": "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch",
     "leaflet-geonames": "^0.4.9",
-    "leaflet-gesture-handling": "^1.2.2",
+    "leaflet-gesture-handling": "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch",
     "leaflet.locatecontrol": "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch",
     "leaflet.markercluster": "^1.5.3",
     "leaflet.sync": "^0.2.4",

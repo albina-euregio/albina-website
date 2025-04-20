@@ -8,8 +8,8 @@ import { tooltip_init } from "../tooltips/tooltip-dom";
 
 import "leaflet-geonames";
 import { LocateControl } from "leaflet.locatecontrol";
-import "leaflet-gesture-handling";
-import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.js";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import "../../css/geonames.css";
 
 interface Props {
