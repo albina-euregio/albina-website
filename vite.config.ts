@@ -37,6 +37,8 @@ Object.assign(process.env, {
 export default defineConfig({
   resolve: {
     alias: {
+      "leaflet.vectorgrid":
+        "leaflet.vectorgrid/dist/Leaflet.VectorGrid.bundled.js",
       "leaflet/dist/leaflet.css": "leaflet/dist/leaflet.css",
       leaflet: "leaflet/src/LeafletWithGlobals.js"
     }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
-import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
+import "leaflet.vectorgrid";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
