@@ -6,7 +6,7 @@ import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
 import { tooltip_init } from "../tooltips/tooltip-dom";
 
-import "leaflet-geonames";
+import "leaflet-geonames/L.Control.Geonames.js";
 import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.js";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";

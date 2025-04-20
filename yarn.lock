@@ -1283,7 +1283,7 @@ __metadata:
     husky: "npm:^9.1.7"
     jquery: "npm:^3.7.1"
     leaflet: "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch"
-    leaflet-geonames: "npm:^0.4.9"
+    leaflet-geonames: "patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch"
     leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch"
     leaflet.markercluster: "patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch"
@@ -3426,10 +3426,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-geonames@npm:^0.4.9":
+"leaflet-geonames@npm:0.4.9":
   version: 0.4.9
   resolution: "leaflet-geonames@npm:0.4.9"
   checksum: 10c0/c71054a7fa24cb568ea9676a64c9ac55bf9d98d262375e0bb8ea633c14395c2d8526d5655b3451b4a366706eff563a3e57fc38a2e0b84d631f74a9f622b2c7fd
+  languageName: node
+  linkType: hard
+
+"leaflet-geonames@patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch":
+  version: 0.4.9
+  resolution: "leaflet-geonames@patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch::version=0.4.9&hash=4ede4a"
+  checksum: 10c0/a46a35654849fa9ed516305ad288d9a14ca4930c244458afa69ab91c60580f90eab4671d38805a82ef6222f6366bd0cdf977b4f97e1351d95e26b67881ec59cf
   languageName: node
   linkType: hard
 

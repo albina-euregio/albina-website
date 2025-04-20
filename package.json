@@ -33,7 +33,7 @@
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
     "leaflet": "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch",
-    "leaflet-geonames": "^0.4.9",
+    "leaflet-geonames": "patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch",
     "leaflet-gesture-handling": "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch",
     "leaflet.locatecontrol": "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch",
     "leaflet.markercluster": "patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch",
