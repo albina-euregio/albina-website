@@ -32,7 +32,7 @@
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
-    "leaflet": "^1.9.4",
+    "leaflet": "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch",
     "leaflet-geonames": "^0.4.9",
     "leaflet-gesture-handling": "^1.2.2",
     "leaflet.locatecontrol": "^0.79.0",

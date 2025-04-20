@@ -35,6 +35,12 @@ Object.assign(process.env, {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "leaflet/dist/leaflet.css": "leaflet/dist/leaflet.css",
+      leaflet: "leaflet/src/LeafletWithGlobals.js"
+    }
+  },
   build: {
     rollupOptions: {
       output: {
