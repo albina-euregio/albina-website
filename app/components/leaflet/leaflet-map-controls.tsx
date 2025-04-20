@@ -7,7 +7,7 @@ import { useIntl } from "../../i18n";
 import { tooltip_init } from "../tooltips/tooltip-dom";
 
 import "leaflet-geonames";
-import "leaflet.locatecontrol";
+import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
@@ -85,34 +85,32 @@ const LeafletMapControls = (props: Props) => {
         ...config.map.geonames
       })
       .addTo(parentMap);
-    L.control
-      .locate({
-        ...config.map.locateOptions,
-        icon: "icon-geolocate",
-        iconLoading: "icon-geolocate",
-        strings: {
-          title: intl.formatMessage({
-            id: "bulletin:map:locate:title"
-          }),
-          metersUnit: intl.formatMessage({
-            id: "bulletin:map:locate:metersUnit"
-          }),
-          popup: intl.formatMessage(
-            {
-              id: "bulletin:map:locate:popup"
-            },
-            {
-              // keep placeholders for L.control.locate
-              distance: "{distance}",
-              unit: "{unit}"
-            }
-          ),
-          outsideMapBoundsMsg: intl.formatMessage({
-            id: "bulletin:map:locate:outside"
-          })
-        }
-      })
-      .addTo(parentMap);
+    new LocateControl({
+      ...config.map.locateOptions,
+      icon: "icon-geolocate",
+      iconLoading: "icon-geolocate",
+      strings: {
+        title: intl.formatMessage({
+          id: "bulletin:map:locate:title"
+        }),
+        metersUnit: intl.formatMessage({
+          id: "bulletin:map:locate:metersUnit"
+        }),
+        popup: intl.formatMessage(
+          {
+            id: "bulletin:map:locate:popup"
+          },
+          {
+            // keep placeholders for L.control.locate
+            distance: "{distance}",
+            unit: "{unit}"
+          }
+        ),
+        outsideMapBoundsMsg: intl.formatMessage({
+          id: "bulletin:map:locate:outside"
+        })
+      }
+    }).addTo(parentMap);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

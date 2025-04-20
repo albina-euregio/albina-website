@@ -1285,7 +1285,7 @@ __metadata:
     leaflet: "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch"
     leaflet-geonames: "npm:^0.4.9"
     leaflet-gesture-handling: "npm:^1.2.2"
-    leaflet.locatecontrol: "npm:^0.84.1"
+    leaflet.locatecontrol: "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch"
     leaflet.markercluster: "npm:^1.5.3"
     leaflet.sync: "npm:^0.2.4"
     leaflet.vectorgrid: "npm:^1.3.0"
@@ -3440,10 +3440,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@npm:^0.84.1":
+"leaflet.locatecontrol@npm:0.84.1":
   version: 0.84.1
   resolution: "leaflet.locatecontrol@npm:0.84.1"
   checksum: 10c0/53196d1ad9c4219c4693f0a7faa869af7e36295b0e7555d567326100a2f4decfc8b6f5f019a03cf82896a09d2a35bb05c828a64ab56291419535f535e5fb352f
+  languageName: node
+  linkType: hard
+
+"leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch":
+  version: 0.84.1
+  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=a107af"
+  checksum: 10c0/ffc8775b05baccaaaecc80b566e6f33c1ba60a4f759db0736530da8f260bda9b036b8e621b73ba02d3c2650ca5638cf385015a3a552baac34f4dbe8327464ed7
   languageName: node
   linkType: hard
 
