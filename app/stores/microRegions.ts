@@ -8,34 +8,37 @@ import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-region
 import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
 import { regionsRegex } from "../util/regions";
+import { z } from "@zod/mini";
 
 export enum EawsRegionDataLayer {
   micro_regions_elevation = "micro-regions_elevation",
   micro_regions = "micro-regions",
   outline = "outline"
 }
-export interface MicroRegionProperties {
-  id: string;
-  start_date?: string;
-  end_date?: string;
-}
 
-export const microRegions: MicroRegionProperties[] = [..._p1, ..._p2, ..._p3];
+export const MicroRegionPropertiesSchema = z.object({
+  id: z.string(),
+  start_date: z.optional(z.nullable(z.string())),
+  end_date: z.optional(z.nullable(z.string()))
+});
+export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
+export const microRegions: MicroRegionProperties[] = z
+  .array(MicroRegionPropertiesSchema)
+  .parse([..._p1, ..._p2, ..._p3]);
 
-export interface MicroRegionElevationProperties {
-  id: string;
-  elevation: "high" | "low" | "low_high";
-  "elevation line_visualization"?: number;
-  threshold?: number;
-  start_date?: string;
-  end_date?: string;
-}
-
-export const microRegionsElevation: MicroRegionElevationProperties[] = [
-  ..._pe1,
-  ..._pe2,
-  ..._pe3
-];
+export const MicroRegionElevationPropertiesSchema = z.extend(
+  MicroRegionPropertiesSchema,
+  z.object({
+    elevation: z.enum(["high", "low", "low_high"]),
+    threshold: z.number()
+  })
+);
+export type MicroRegionElevationProperties = z.infer<
+  typeof MicroRegionElevationPropertiesSchema
+>;
+export const microRegionsElevation: MicroRegionElevationProperties[] = z
+  .array(MicroRegionElevationPropertiesSchema)
+  .parse([..._pe1, ..._pe2, ..._pe3]);
 
 export interface RegionOutlineProperties {
   id: string;
