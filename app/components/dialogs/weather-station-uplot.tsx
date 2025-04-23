@@ -42,6 +42,7 @@ type ParameterType =
 type Parameter = {
   id: ParameterType;
   label: string;
+  unit: string;
   digits?: 0 | 1 | 2;
 } & uPlot.Series;
 
@@ -163,8 +164,7 @@ const WeatherStationUplot: React.FC<{
           ...parameters.map(
             (p): uPlot.Series => ({
               ...p,
-              value: (_, v) =>
-                intl.formatNumberUnit(v, undefined, p.digits ?? 0)
+              value: (_, v) => intl.formatNumberUnit(v, p.unit, p.digits ?? 0)
             })
           )
         ]

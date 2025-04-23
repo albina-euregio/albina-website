@@ -299,14 +299,16 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "HS",
-              label: "Schneehöhe [cm]",
+              label: "Schneehöhe",
+              unit: "cm",
               stroke: "#08519C",
               scale: "y",
               width: 2
             },
             {
               id: "PSUM",
-              label: "Niederschlag 24h [mm]",
+              label: "Niederschlag 24h",
+              unit: "mm",
               digits: 1,
               stroke: "#6aafd5",
               fill: "rgba(106, 175, 213, 0.3)",
@@ -336,7 +338,8 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "TA",
-              label: "Luft-Temperatur [°C]",
+              label: "Luft-Temperatur",
+              unit: "°C",
               digits: 1,
               stroke: "#DE2D26",
               scale: "y",
@@ -344,7 +347,8 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "TD",
-              label: "Taupunkt [°C]",
+              label: "Taupunkt",
+              unit: "°C",
               digits: 1,
               stroke: "#6aafd5",
               scale: "y",
@@ -352,7 +356,8 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "TSS",
-              label: "Temperatur der Schneeoberfläche [°C]",
+              label: "Temperatur der Schneeoberfläche",
+              unit: "°C",
               digits: 1,
               stroke: "#FC9272",
               scale: "y",
@@ -467,14 +472,16 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "RH",
-              label: "Relative Luftfeuchtigkeit [%]",
+              label: "Relative Luftfeuchtigkeit",
+              unit: "%",
               stroke: "#6aafd5",
               scale: "y",
               width: 2
             },
             {
               id: "ISWR",
-              label: "Globalstrahlung [W/m²]",
+              label: "Globalstrahlung",
+              unit: "W/m²",
               stroke: "#DE2D26",
               fill: "rgba(255,0,0,0.1)",
               scale: "y2",
@@ -562,21 +569,24 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "VW",
-              label: "Wind [km/h]",
+              label: "Wind",
+              unit: "km/h",
               stroke: "#00E2B6",
               scale: "y",
               width: 2
             },
             {
               id: "VW_MAX",
-              label: "Böen [km/h]",
+              label: "Böen",
+              unit: "km/h",
               stroke: "#00A484",
               scale: "y",
               width: 2
             },
             {
               id: "DW",
-              label: "Richtung [°]",
+              label: "Richtung",
+              unit: "°",
               stroke: "#084D40",
               paths: () => null,
               points: {
