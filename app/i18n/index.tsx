@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Temporal } from "temporal-polyfill";
 import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
@@ -41,27 +41,49 @@ export function useIntl() {
   const t = useStore($messages);
   const formatter = useStore(format);
 
+  function formatNumberUnit(
+    value: number | undefined,
+    unit?: string,
+    digits?: number
+  ): string {
+    return typeof value === "number"
+      ? formatter.number(value, {
+          useGrouping: false,
+          minimumFractionDigits: digits ?? 0,
+          maximumFractionDigits: digits ?? 0
+        }) + (unit ? "\u202F" + unit : "")
+      : "–";
+  }
+
+  function formatMessage({ id }: { id: MessageId }): string;
+  function formatMessage(
+    { id }: { id: MessageId },
+    values: Record<string, string>
+  ): string;
+  function formatMessage(
+    { id }: { id: MessageId },
+    values: Record<string, React.ReactElement>
+  ): ReactNode[];
+  function formatMessage(
+    { id }: { id: MessageId },
+    values:
+      | Record<string, string>
+      | Record<string, React.ReactElement>
+      | undefined = undefined
+  ): string | ReactNode[] {
+    return typeof values !== "object"
+      ? t[id]
+      : Object.values(values).some(v => typeof v === "object")
+        ? reactStringReplace(t[id], templateRe, match => values[match])
+        : t[id].replace(templateRe, (_, match) => values[match]);
+  }
+
   return {
     locale,
     formatDate: formatter.time,
     formatNumber: formatter.number,
-    formatNumberUnit: (value: number, unit?: string, digits?: number) =>
-      typeof value === "number"
-        ? formatter.number(value, {
-            useGrouping: false,
-            minimumFractionDigits: digits ?? 0,
-            maximumFractionDigits: digits ?? 0
-          }) + (unit ? "\u202F" + unit : "")
-        : "–",
-    formatMessage: (
-      { id }: { id: MessageId },
-      values: Record<string, string | React.ReactElement> = undefined
-    ) =>
-      typeof values !== "object"
-        ? t[id]
-        : Object.values(values).some(v => typeof v === "object")
-          ? reactStringReplace(t[id], templateRe, match => values[match])
-          : t[id].replace(templateRe, (str, match) => values[match])
+    formatNumberUnit,
+    formatMessage
   };
 }
 
