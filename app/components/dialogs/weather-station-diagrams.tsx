@@ -192,7 +192,7 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
         <li key={aInfo.type} className={aInfo.type}>
           <span className="weatherstation-info-caption">
             {intl.formatMessage({
-              id: "measurements:table:header:" + aInfo.type
+              id: `measurements:table:header:${aInfo.type}`
             })}
             :{" "}
           </span>
@@ -254,138 +254,344 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   const intl = useIntl();
-  if (timeRange.startsWith("interactive") && hasInteractivePlot(station)) {
+  if (
+    timeRange.startsWith("interactive") &&
+    hasInteractivePlot(station) &&
+    station instanceof StationData
+  ) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
-    const width = document.body.clientWidth * 0.85;
-    const height = 240;
+    const width = document.body.clientWidth * 0.85; // 1000
+    const height = 300;
     // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
     return (
-      <>
+      <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
         <WeatherStationUplot
+          title={`Schneehöhe [cm] & Niederschlag 24h [mm] – ${station.name}`}
           stationData={station}
-          parameters={[
-            {
-              id: "HS",
-              stroke: "#984ea3",
-              label: intl.formatMessage({
-                id: "measurements:table:header:snow"
-              }) as string
+          scales={{
+            y: {
+              range: (_u, _dataMin, dataMax) => {
+                const max = dataMax > 250 ? Math.ceil(dataMax / 10) * 10 : 250;
+                return [0, max];
+              }
+            },
+            y2: {
+              range: [0, 100]
             }
-          ]}
-          timeRangeMilli={timeRangeMilli}
-          width={width}
-          height={height}
-        />
-        <WeatherStationUplot
-          stationData={station}
-          parameters={[
+          }}
+          axes={[
             {
-              id: "TA",
-              stroke: "#e41a1c",
-              label: intl.formatMessage({
-                id: "measurements:table:header:temp"
-              }) as string
+              label: "Schneehöhe [cm]",
+              scale: "y",
+              splits: [0, 50, 100, 150, 200, 250]
             },
             {
-              id: "TD",
-              stroke: "#6464FF",
-              label: "TD"
-            },
-            {
-              id: "TSS",
-              stroke: "#999999",
-              label: "TSS"
-            }
-          ]}
-          timeRangeMilli={timeRangeMilli}
-          width={width}
-          height={height}
-        />
-        <WeatherStationUplot
-          stationData={station}
-          parameters={[
-            {
-              id: "ISWR",
-              stroke: "#00CC00",
-              label: "ISWR"
-            }
-          ]}
-          timeRangeMilli={timeRangeMilli}
-          width={width}
-          height={height}
-        />
-        <WeatherStationUplot
-          stationData={station}
-          parameters={[
-            {
-              id: "VW",
-              stroke: "#4daf4a",
-              label: intl.formatMessage({
-                id: "measurements:table:header:wspd"
-              }) as string
-            },
-            {
-              id: "VW_MAX",
-              stroke: "#C80064",
-              label: intl.formatMessage({
-                id: "measurements:table:header:wgus"
-              }) as string
-            }
-          ]}
-          timeRangeMilli={timeRangeMilli}
-          width={width}
-          height={height}
-        />
-        <WeatherStationUplot
-          stationData={station}
-          parameters={[
-            {
-              id: "DW",
-              stroke: "#064464",
-              label: intl.formatMessage({
-                id: "measurements:table:header:wdir"
-              }) as string,
-              axis: {
-                label: intl.formatMessage({
-                  id: "measurements:table:header:wdir"
-                }) as string,
-                splits: [0, 45, 90, 135, 180, 225, 270, 315, 360],
-                values: [
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:n"
-                  }) + " ↑",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:e"
-                  }) + " ←",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:s"
-                  }) + " ↑",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:w"
-                  }) + " →",
-                  "",
-                  intl.formatMessage({
-                    id: "bulletin:report:problem:aspect:n"
-                  }) + " ↑"
-                ],
-                scale: "DW"
-              },
-              scales: {
-                DW: {
-                  range: [0, 360]
-                }
+              scale: "y2",
+              label: "Niederschlag 24h [mm]",
+              splits: [0, 20, 40, 60, 80, 100],
+              side: 1,
+              grid: {
+                show: false
               }
             }
           ]}
+          parameters={[
+            {
+              id: "HS",
+              label: "Schneehöhe [cm]",
+              stroke: "#08519C",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "PSUM",
+              label: "Niederschlag 24h [mm]",
+              digits: 1,
+              stroke: "#6aafd5",
+              fill: "rgba(106, 175, 213, 0.3)",
+              scale: "y2",
+              width: 1
+            }
+          ]}
           timeRangeMilli={timeRangeMilli}
           width={width}
           height={height}
         />
-      </>
+        <WeatherStationUplot
+          title={`Luft-Temperatur, Taupunkt & Temperatur der Schneeoberfläche [˚C] – ${station.name}`}
+          stationData={station}
+          axes={[
+            {
+              label: "Temperatur [°C]",
+              scale: "y",
+              splits: [-30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
+            }
+          ]}
+          scales={{
+            y: {
+              range: [-30, 30]
+            }
+          }}
+          parameters={[
+            {
+              id: "TA",
+              label: "Luft-Temperatur [°C]",
+              digits: 1,
+              stroke: "#DE2D26",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "TD",
+              label: "Taupunkt [°C]",
+              digits: 1,
+              stroke: "#6aafd5",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "TSS",
+              label: "Temperatur der Schneeoberfläche [°C]",
+              digits: 1,
+              stroke: "#FC9272",
+              scale: "y",
+              width: 2
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+          hooks={{
+            drawAxes: [
+              u => {
+                const ctx = u.ctx;
+                const width = 1;
+                const offset = (width % 2) / 2;
+                const x0 = u.bbox.left;
+                const y0 = u.valToPos(0, "y", true);
+                const x1 = u.bbox.left + u.bbox.width;
+                const y1 = u.valToPos(0, "y", true);
+
+                // draw reference line at 0
+
+                ctx.save();
+                ctx.translate(offset, offset);
+                ctx.beginPath();
+                ctx.strokeStyle = "#000";
+                ctx.setLineDash([5, 5]);
+                ctx.lineWidth = width;
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.stroke();
+                ctx.translate(-offset, -offset);
+                ctx.restore();
+
+                // draw regions where TD < 0 && TSS < TD
+                ctx.save();
+                ctx.rect(u.bbox.left, u.bbox.top, u.bbox.width, u.bbox.height);
+                ctx.clip();
+
+                // current region
+                let from = 0;
+                let to = 0;
+
+                for (let i = 0; i < u.data[0].length; i++) {
+                  const td = u.data[2][i] ?? NaN;
+                  const tss = u.data[3][i] ?? NaN;
+
+                  if (td < 0 && tss < td) {
+                    const xVal = u.data[0][i];
+
+                    if (from === 0) {
+                      from = xVal;
+                    }
+
+                    to = xVal;
+                  } else {
+                    if (from !== 0) {
+                      const x0 = u.valToPos(from, "x", true);
+                      const x1 = u.valToPos(to, "x", true);
+
+                      ctx.fillRect(x0, u.bbox.top, x1 - x0, u.bbox.height);
+
+                      from = 0;
+                      to = 0;
+                    }
+                  }
+                }
+
+                // if region extends to end of data
+                if (from !== 0) {
+                  const x0 = u.valToPos(from, "x", true);
+                  const x1 = u.valToPos(to, "x", true);
+
+                  ctx.fillRect(x0, u.bbox.top, x1 - x0, u.bbox.height);
+                }
+
+                ctx.restore();
+              }
+            ]
+          }}
+        />
+        <WeatherStationUplot
+          title={`Relative Luftfeuchtigkeit [%] & Globalstrahlung [W/m²] – ${station.name}`}
+          stationData={station}
+          scales={{
+            y: {
+              range: [0, 100]
+            },
+            y2: {
+              range: [0, 1200]
+            }
+          }}
+          axes={[
+            {
+              label: "Relative Luftfeuchtigkeit [%]",
+              scale: "y",
+              splits: [0, 25, 50, 75, 100],
+              grid: {
+                show: false
+              }
+            },
+            {
+              scale: "y2",
+              label: "Globalstrahlung [W/m²]",
+              splits: [0, 300, 600, 900, 1200],
+              side: 1,
+              grid: {
+                show: true
+              }
+            }
+          ]}
+          parameters={[
+            {
+              id: "RH",
+              label: "Relative Luftfeuchtigkeit [%]",
+              stroke: "#6aafd5",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "ISWR",
+              label: "Globalstrahlung [W/m²]",
+              stroke: "#DE2D26",
+              fill: "rgba(255,0,0,0.1)",
+              scale: "y2",
+              width: 1
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+        <WeatherStationUplot
+          title={`Windgeschwindigkeit [km/h] & Windrichtung [˚] – ${station.name}`}
+          stationData={station}
+          hooks={{
+            drawAxes: [
+              u => {
+                const ctx = u.ctx;
+                const width = 1;
+                const offset = (width % 2) / 2;
+                const x0 = u.bbox.left;
+                const y0 = u.valToPos(25, "y", true);
+                const x1 = u.bbox.left + u.bbox.width;
+                const y1 = u.valToPos(25, "y", true);
+
+                //draw reference line at 25 km/h (working group decision)
+
+                ctx.save();
+                ctx.translate(offset, offset);
+                ctx.beginPath();
+                ctx.strokeStyle = "#000";
+                ctx.setLineDash([5, 5]);
+                ctx.lineWidth = width;
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.stroke();
+                ctx.translate(-offset, -offset);
+                ctx.restore();
+              }
+            ]
+          }}
+          scales={{
+            y: {
+              range: (_u, _dataMin, dataMax) => {
+                const max = dataMax > 100 ? Math.ceil(dataMax / 10) * 10 : 100;
+                return [0, max];
+              }
+            },
+            y2: {
+              range: [0, 360]
+            }
+          }}
+          axes={[
+            {
+              label: "Geschwindigkeit [km/h]",
+              splits: [0, 25, 50, 75, 100],
+              scale: "y"
+            },
+            {
+              label: "Richtung [°]",
+              splits: [0, 90, 180, 270, 360],
+              values: [
+                intl.formatMessage({
+                  id: "bulletin:report:problem:aspect:n"
+                }) + " ↑",
+                intl.formatMessage({
+                  id: "bulletin:report:problem:aspect:e"
+                }) + " ←",
+                intl.formatMessage({
+                  id: "bulletin:report:problem:aspect:s"
+                }) + " ↑",
+                intl.formatMessage({
+                  id: "bulletin:report:problem:aspect:w"
+                }) + " →",
+                intl.formatMessage({
+                  id: "bulletin:report:problem:aspect:n"
+                }) + " ↑"
+              ],
+              scale: "y2",
+              side: 1,
+              grid: {
+                show: false
+              }
+            }
+          ]}
+          parameters={[
+            {
+              id: "VW",
+              label: "Wind [km/h]",
+              stroke: "#00E2B6",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "VW_MAX",
+              label: "Böen [km/h]",
+              stroke: "#00A484",
+              scale: "y",
+              width: 2
+            },
+            {
+              id: "DW",
+              label: "Richtung [°]",
+              stroke: "#084D40",
+              paths: () => null,
+              points: {
+                space: 0,
+                fill: "#084D40",
+                size: 4
+              },
+              scale: "y2"
+            }
+          ]}
+          timeRangeMilli={timeRangeMilli}
+          width={width}
+          height={height}
+        />
+      </div>
     );
   } else if (timeRange === "interactive") {
     timeRange = "week";
@@ -454,7 +660,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   setStationId
 }) => {
   const intl = useIntl();
-  const myRef = useRef();
+  const myRef = useRef<HTMLDivElement>();
   const [timeRange, setTimeRange] = useState<TimeRange>(
     ENABLE_UPLOT ? "interactive" : "threedays"
   );

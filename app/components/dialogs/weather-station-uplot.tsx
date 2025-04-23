@@ -39,24 +39,35 @@ type ParameterType =
   | "PSUM"
   | "HS";
 
-interface Parameter {
+type Parameter = {
   id: ParameterType;
-  stroke: string;
   label: string;
-  axis?: uPlot.Axis;
-  scales?: uPlot.Scales;
-}
+  digits?: 0 | 1 | 2;
+} & uPlot.Series;
 
 const WeatherStationUplot: React.FC<{
+  title: string;
+  axes: uPlot.Axis[];
+  scales: uPlot.Scales;
+  hooks?: uPlot.Hooks.Arrays;
   stationData: StationData;
   parameters: Parameter[];
   timeRangeMilli: number;
   height: number;
   width: number;
-}> = ({ stationData, parameters, timeRangeMilli, height, width }) => {
+}> = ({
+  title,
+  axes,
+  scales,
+  hooks,
+  stationData,
+  parameters,
+  timeRangeMilli,
+  height,
+  width
+}) => {
   const intl = useIntl();
   const [data, setData] = useState<uPlot.AlignedData>([[], []]);
-  const [unit, setUnit] = useState("");
   const id = stationData.properties?.["LWD-Nummer"] || stationData.id;
   const timeRange = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
   const url = `https://api.avalanche.report/lawine/grafiken/smet/${timeRange}/${id}.smet.gz`;
@@ -64,7 +75,7 @@ const WeatherStationUplot: React.FC<{
   useEffect(() => {
     fetch(url)
       .then(res => res.text())
-      .then(smet => parseData(smet, parameters, timeRangeMilli, setUnit))
+      .then(smet => parseData(smet, parameters, timeRangeMilli, () => {}))
       .then(data => setData(data));
   }, [parameters, timeRangeMilli, url]);
 
@@ -74,33 +85,66 @@ const WeatherStationUplot: React.FC<{
     <UplotReact
       data={data}
       options={{
+        title,
+        hooks,
         width,
         height,
         cursor: { sync: { key: "shieshaesh7loo6sho2Daghah0Agohzu" } },
+        legend: {
+          show: true,
+          live: true,
+          fill: (u, seriesIdx) => u.series[seriesIdx].stroke(u, seriesIdx),
+          markers: {
+            fill: (u, seriesIdx) => u.series[seriesIdx].stroke(u, seriesIdx)
+          }
+        },
         axes: [
           {
-            values: (_, vs) =>
-              vs.map(v => {
-                const date = new Date(v * 1000);
-                return date.getHours() == 0
-                  ? intl.formatDate(date, {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "2-digit"
-                    })
-                  : intl.formatDate(date, {
-                      hour: "2-digit",
-                      minute: "2-digit"
-                    });
-              })
+            values: [
+              [31536000, "{YYYY}", null, null, null, null, null, null, 1],
+              [2419200, "{MMM}", "\n{YYYY}", null, null, null, null, null, 1],
+              [86400, "{DD}.{MM}", "\n{YYYY}", null, null, null, null, null, 1],
+              [
+                3600,
+                "{HH}:{mm}",
+                "\n{DD}.{MM} {YY}",
+                null,
+                "\n{DD}.{MM}",
+                null,
+                null,
+                null,
+                1
+              ],
+              [
+                60,
+                "{HH}:{mm}",
+                "\n{DD}.{MM} {YY}",
+                null,
+                "\n{DD}.{MM}",
+                null,
+                null,
+                null,
+                1
+              ],
+              [
+                1,
+                ":{ss}",
+                "\n{DD}.{MM} {YY} {HH}:{mm}",
+                null,
+                "\n{DD}.{MM} {HH}:{mm}",
+                null,
+                "\n{HHh}:{mm}",
+                null,
+                1
+              ]
+            ],
+            grid: {
+              show: false
+            }
           },
-          parameters[0]?.axis ?? {
-            label: `${parameters[0].label} [${unit}]`,
-            labelGap: 10,
-            values: (_, vs) => vs.map(v => intl.formatNumber(v, {}))
-          }
+          ...axes
         ],
-        scales: parameters[0]?.scales,
+        scales: scales,
         series: [
           {
             label: "Time",
@@ -118,14 +162,9 @@ const WeatherStationUplot: React.FC<{
           },
           ...parameters.map(
             (p): uPlot.Series => ({
-              label: p.label,
-              value: (_, v) => intl.formatNumberUnit(v, unit, 1),
-              stroke: p.stroke,
-              points:
-                p.id === "DW"
-                  ? { size: 3, stroke: p.stroke, show: true }
-                  : undefined,
-              width: p.id === "DW" ? 0 : undefined
+              ...p,
+              value: (_, v) =>
+                intl.formatNumberUnit(v, undefined, p.digits ?? 0)
             })
           )
         ]
@@ -142,6 +181,7 @@ const UNIT_MAPPING: Record<
 > = {
   K: { to: "°C", convert: v => v - 273.15 },
   m: { to: "cm", convert: v => v * 100 },
+  "1": { to: "%", convert: v => v * 100 },
   "m/s": { to: "km/h", convert: v => v * 3.6 }
 };
 
