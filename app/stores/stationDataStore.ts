@@ -163,7 +163,7 @@ export class StationData {
       { type: "rhum", digits: 0, unit: "%" },
       { type: "wspd", digits: 0, unit: "km/h" },
       { type: "wgus", digits: 0, unit: "km/h" }
-    ];
+    ] as const;
     return types
       .filter(t => this[t.type] !== undefined)
       .map(t => ({
