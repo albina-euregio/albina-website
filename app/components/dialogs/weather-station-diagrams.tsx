@@ -351,10 +351,24 @@ const StationDiagramImage: React.FC<{
                 }) + " [°C]",
               scale: "y",
               splits: [-30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
+            },
+            {
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:unit:temperature"
+                }) + " [°C]",
+              scale: "y2",
+              side: 1,
+              grid: {
+                show: false
+              }
             }
           ]}
           scales={{
             y: {
+              range: [-30, 30]
+            },
+            y2: {
               range: [-30, 30]
             }
           }}
