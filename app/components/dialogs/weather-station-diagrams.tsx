@@ -267,7 +267,11 @@ const StationDiagramImage: React.FC<{
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
         <WeatherStationUplot
-          title={`Schneehöhe [cm] & Niederschlag 24h [mm] – ${station.name}`}
+          title={`${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:HS"
+          })} & ${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:PSUM"
+          })} – ${station.name}`}
           stationData={station}
           scales={{
             y: {
@@ -282,13 +286,19 @@ const StationDiagramImage: React.FC<{
           }}
           axes={[
             {
-              label: "Schneehöhe [cm]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:HS"
+                }) + " [cm]",
               scale: "y",
               splits: [0, 50, 100, 150, 200, 250]
             },
             {
               scale: "y2",
-              label: "Niederschlag 24h [mm]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:PSUM"
+                }) + " [mm]",
               splits: [0, 20, 40, 60, 80, 100],
               side: 1,
               grid: {
@@ -299,7 +309,9 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "HS",
-              label: "Schneehöhe",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:HS"
+              }),
               unit: "cm",
               stroke: "#08519C",
               scale: "y",
@@ -307,7 +319,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "PSUM",
-              label: "Niederschlag 24h",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:PSUM"
+              }),
               unit: "mm",
               digits: 1,
               stroke: "#6aafd5",
@@ -321,11 +335,20 @@ const StationDiagramImage: React.FC<{
           height={height}
         />
         <WeatherStationUplot
-          title={`Luft-Temperatur, Taupunkt & Temperatur der Schneeoberfläche [˚C] – ${station.name}`}
+          title={`${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:TA"
+          })}, ${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:TD"
+          })} & ${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:TSS"
+          })} – ${station.name}`}
           stationData={station}
           axes={[
             {
-              label: "Temperatur [°C]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:unit:temperature"
+                }) + " [°C]",
               scale: "y",
               splits: [-30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
             }
@@ -338,7 +361,9 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "TA",
-              label: "Luft-Temperatur",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:TA"
+              }),
               unit: "°C",
               digits: 1,
               stroke: "#DE2D26",
@@ -347,7 +372,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "TD",
-              label: "Taupunkt",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:TD"
+              }),
               unit: "°C",
               digits: 1,
               stroke: "#6aafd5",
@@ -356,7 +383,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "TSS",
-              label: "Temperatur der Schneeoberfläche",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:TSS"
+              }),
               unit: "°C",
               digits: 1,
               stroke: "#FC9272",
@@ -440,7 +469,11 @@ const StationDiagramImage: React.FC<{
           }}
         />
         <WeatherStationUplot
-          title={`Relative Luftfeuchtigkeit [%] & Globalstrahlung [W/m²] – ${station.name}`}
+          title={`${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:RH"
+          })} & ${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:ISWR"
+          })} – ${station.name}`}
           stationData={station}
           scales={{
             y: {
@@ -452,7 +485,10 @@ const StationDiagramImage: React.FC<{
           }}
           axes={[
             {
-              label: "Relative Luftfeuchtigkeit [%]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:RH"
+                }) + "[%]",
               scale: "y",
               splits: [0, 25, 50, 75, 100],
               grid: {
@@ -461,7 +497,10 @@ const StationDiagramImage: React.FC<{
             },
             {
               scale: "y2",
-              label: "Globalstrahlung [W/m²]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:ISWR"
+                }) + " [W/m²]",
               splits: [0, 300, 600, 900, 1200],
               side: 1,
               grid: {
@@ -472,7 +511,9 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "RH",
-              label: "Relative Luftfeuchtigkeit",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:RH"
+              }),
               unit: "%",
               stroke: "#6aafd5",
               scale: "y",
@@ -480,7 +521,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "ISWR",
-              label: "Globalstrahlung",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:ISWR"
+              }),
               unit: "W/m²",
               stroke: "#DE2D26",
               fill: "rgba(255,0,0,0.1)",
@@ -493,7 +536,11 @@ const StationDiagramImage: React.FC<{
           height={height}
         />
         <WeatherStationUplot
-          title={`Windgeschwindigkeit [km/h] & Windrichtung [˚] – ${station.name}`}
+          title={`${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:VW"
+          })} & ${intl.formatMessage({
+            id: "dialog:weather-station-diagram:parameter:DW"
+          })} – ${station.name}`}
           stationData={station}
           hooks={{
             drawAxes: [
@@ -535,12 +582,18 @@ const StationDiagramImage: React.FC<{
           }}
           axes={[
             {
-              label: "Geschwindigkeit [km/h]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:VW"
+                }) + " [km/h]",
               splits: [0, 25, 50, 75, 100],
               scale: "y"
             },
             {
-              label: "Richtung [°]",
+              label:
+                intl.formatMessage({
+                  id: "dialog:weather-station-diagram:parameter:DW"
+                }) + " [°]",
               splits: [0, 90, 180, 270, 360],
               values: [
                 intl.formatMessage({
@@ -569,7 +622,9 @@ const StationDiagramImage: React.FC<{
           parameters={[
             {
               id: "VW",
-              label: "Wind",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:VW"
+              }),
               unit: "km/h",
               stroke: "#00E2B6",
               scale: "y",
@@ -577,7 +632,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "VW_MAX",
-              label: "Böen",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:VW_MAX"
+              }),
               unit: "km/h",
               stroke: "#00A484",
               scale: "y",
@@ -585,7 +642,9 @@ const StationDiagramImage: React.FC<{
             },
             {
               id: "DW",
-              label: "Richtung",
+              label: intl.formatMessage({
+                id: "dialog:weather-station-diagram:parameter:DW"
+              }),
               unit: "°",
               stroke: "#084D40",
               paths: () => null,
