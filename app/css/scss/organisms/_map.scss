@@ -70,12 +70,13 @@ $search-width-wide: 300px;
 //the maps themselves
 .section-map {
   position: relative;
-  max-height: $map-height-bulletin;
   width: $map-width;
   overflow: hidden;
-  aspect-ratio: var(--mobile-map-ratio);
-  @media #{variables.$normal-up} {
-    aspect-ratio: var(--desktop-map-ratio);
+  .section-bulletin-map & {
+    aspect-ratio: var(--mobile-map-ratio);
+    @media #{variables.$normal-up} {
+      aspect-ratio: var(--desktop-map-ratio);
+    }
   }
 
   .section-bulletin-map & {
