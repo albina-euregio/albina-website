@@ -407,4 +407,16 @@ button.mfp-arrow {
     margin: 0;
     font-size: variables.$small-font-size;
   }
+
+  .uplots {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .uplot {
+    box-shadow: 0 0 2px 2px variables.$grey-very-light;
+  }
 }

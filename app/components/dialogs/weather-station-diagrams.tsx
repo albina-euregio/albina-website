@@ -265,7 +265,7 @@ const StationDiagramImage: React.FC<{
     const height = 300;
     // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7#type=qualitative&scheme=Set1&n=7
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
+      <div className="uplots">
         <WeatherStationUplot
           stationData={station}
           scales={{
