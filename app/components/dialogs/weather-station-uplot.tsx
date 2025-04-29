@@ -47,7 +47,7 @@ type Parameter = {
 } & uPlot.Series;
 
 const WeatherStationUplot: React.FC<{
-  title: string;
+  title?: string;
   axes: uPlot.Axis[];
   scales: uPlot.Scales;
   hooks?: uPlot.Hooks.Arrays;

@@ -267,11 +267,6 @@ const StationDiagramImage: React.FC<{
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
         <WeatherStationUplot
-          title={`${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:HS"
-          })} & ${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:PSUM"
-          })} – ${station.name}`}
           stationData={station}
           scales={{
             y: {
@@ -335,13 +330,6 @@ const StationDiagramImage: React.FC<{
           height={height}
         />
         <WeatherStationUplot
-          title={`${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:TA"
-          })}, ${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:TD"
-          })} & ${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:TSS"
-          })} – ${station.name}`}
           stationData={station}
           axes={[
             {
@@ -483,11 +471,6 @@ const StationDiagramImage: React.FC<{
           }}
         />
         <WeatherStationUplot
-          title={`${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:RH"
-          })} & ${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:ISWR"
-          })} – ${station.name}`}
           stationData={station}
           scales={{
             y: {
@@ -550,11 +533,6 @@ const StationDiagramImage: React.FC<{
           height={height}
         />
         <WeatherStationUplot
-          title={`${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:VW"
-          })} & ${intl.formatMessage({
-            id: "dialog:weather-station-diagram:parameter:DW"
-          })} – ${station.name}`}
           stationData={station}
           hooks={{
             drawAxes: [
@@ -702,14 +680,7 @@ const StationDiagramImage: React.FC<{
     year: selectedYear ? "_" + selectedYear : "",
     t
   });
-  return (
-    <img
-      alt={station.name}
-      title={station.name}
-      src={src}
-      className="weatherstation-img"
-    />
-  );
+  return <img alt={station.name} src={src} className="weatherstation-img" />;
 };
 
 const StationOperator: React.FC<{
