@@ -550,7 +550,17 @@ const StationDiagramImage: React.FC<{
           }}
           axes={[
             {
-              splits: [0, 25, 50, 75, 100],
+              splits: (_u, _idx, _scaleMin, scaleMax) => {
+                if (scaleMax <= 100) {
+                  return [0, 25, 50, 75, 100];
+                } else if (scaleMax <= 120) {
+                  return [0, 30, 60, 90, 120];
+                } else if (scaleMax <= 160) {
+                  return [0, 40, 80, 120, 160];
+                } else {
+                  return [0, 60, 120, 180, 240];
+                }
+              },
               scale: "y"
             },
             {
