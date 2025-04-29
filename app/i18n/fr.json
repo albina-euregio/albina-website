@@ -412,6 +412,7 @@
   "dialog:weather-station-diagram:parameter:VW_MAX": "Gust",
   "dialog:weather-station-diagram:parameter:DW": "Direction du vent",
   "dialog:weather-station-diagram:unit:temperature": "Température",
+  "dialog:weather-station-diagram:unit:time": "Heure",
   "more:subpages:subtitle": "Plus",
   "more:title": "Contact & Services",
   "more:headline": "Contact & Services",

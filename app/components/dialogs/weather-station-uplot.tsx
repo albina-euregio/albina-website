@@ -148,7 +148,9 @@ const WeatherStationUplot: React.FC<{
         scales: scales,
         series: [
           {
-            label: "Time",
+            label: intl.formatMessage({
+              id: "dialog:weather-station-diagram:unit:time"
+            }),
             // uPlot uses epoch seconds (instead of milliseconds)
             value: (_, v) => {
               if (!v) return "–";
