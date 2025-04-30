@@ -282,10 +282,12 @@ const StationDiagramImage: React.FC<{
           axes={[
             {
               scale: "y",
+              stroke: "#08519C",
               splits: [0, 50, 100, 150, 200, 250]
             },
             {
               scale: "y2",
+              stroke: "#6aafd5",
               splits: [0, 20, 40, 60, 80, 100],
               side: 1,
               grid: {
@@ -326,10 +328,12 @@ const StationDiagramImage: React.FC<{
           axes={[
             {
               scale: "y",
+              stroke: "#DE2D26",
               splits: [-30, -20, -10, 0, 10, 20, 30]
             },
             {
               scale: "y2",
+              stroke: "#DE2D26",
               splits: [-30, -20, -10, 0, 10, 20, 30],
               side: 1,
               grid: {
@@ -468,6 +472,7 @@ const StationDiagramImage: React.FC<{
           axes={[
             {
               scale: "y",
+              stroke: "#6aafd5",
               splits: [0, 25, 50, 75, 100],
               grid: {
                 show: false
@@ -475,6 +480,7 @@ const StationDiagramImage: React.FC<{
             },
             {
               scale: "y2",
+              stroke: "#DE2D26",
               splits: [0, 300, 600, 900, 1200],
               side: 1,
               grid: {
@@ -562,6 +568,7 @@ const StationDiagramImage: React.FC<{
                   return [0, 60, 120, 180, 240];
                 }
               },
+              stroke: "#00E2B6",
               scale: "y"
             },
             {
@@ -583,6 +590,7 @@ const StationDiagramImage: React.FC<{
                   id: "bulletin:report:problem:aspect:n"
                 }) + " ↑"
               ],
+              stroke: "#084D40",
               scale: "y2",
               side: 1,
               grid: {
