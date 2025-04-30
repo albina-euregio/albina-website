@@ -326,10 +326,11 @@ const StationDiagramImage: React.FC<{
           axes={[
             {
               scale: "y",
-              splits: [-30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
+              splits: [-30, -20, -10, 0, 10, 20, 30]
             },
             {
               scale: "y2",
+              splits: [-30, -20, -10, 0, 10, 20, 30],
               side: 1,
               grid: {
                 show: false
