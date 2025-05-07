@@ -249,8 +249,8 @@ class BulletinCollection {
   }
 
   private computeStatus(): Status {
-    return typeof this.dataRaw === "object" && this.dataRaw.bulletins
-      ? this.dataRaw.bulletins.length > 0
+    return typeof this.dataRaw === "object" && this.dataRaw?.bulletins
+      ? this.dataRaw?.bulletins.length > 0
         ? "ok"
         : "empty"
       : "n/a";
