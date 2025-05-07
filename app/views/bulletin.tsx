@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
@@ -114,8 +114,6 @@ const Bulletin = ({ headless }: Props) => {
   }, [
     collection?.date,
     collection?.lang,
-    collection?.eawsMaxDangerRatings,
-    collection?.maxDangerRatings,
     lang,
     latest,
     params.date,
@@ -189,25 +187,6 @@ const Bulletin = ({ headless }: Props) => {
     document.body.classList.add("with-custom-ratio");
   }
 
-  const memoizedMapProps = useMemo(() => {
-    const dangerRatingsKey = collection
-      ? JSON.stringify({
-          maxDangerRatings: collection.maxDangerRatings,
-          eawsMaxDangerRatings: collection.eawsMaxDangerRatings
-        })
-      : "";
-
-    return {
-      key: `map-${dangerRatingsKey}`,
-      handleSelectRegion,
-      region,
-      status,
-      date: collection?.date,
-      activeBulletinCollection: collection,
-      problems
-    };
-  }, [collection, region, status, problems, handleSelectRegion]);
-
   return (
     <>
       <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
@@ -261,19 +240,28 @@ const Bulletin = ({ headless }: Props) => {
             <div className="bulletin-parallel-view">
               {["earlier", "later"].map((validTimePeriod, index) => (
                 <BulletinMap
-                  {...memoizedMapProps}
-                  key={`${validTimePeriod}-${memoizedMapProps.key}`}
+                  key={validTimePeriod}
                   administrateLoadingBar={index === 0}
+                  handleSelectRegion={handleSelectRegion}
+                  region={region}
+                  status={status}
+                  date={collection?.date}
                   onMapInit={handleMapInit}
                   validTimePeriod={validTimePeriod}
+                  activeBulletinCollection={collection}
+                  problems={problems}
                 />
               ))}
             </div>
           ) : (
             <BulletinMap
-              {...memoizedMapProps}
               administrateLoadingBar={true}
-              onMapInit={handleMapInit}
+              handleSelectRegion={handleSelectRegion}
+              region={region}
+              status={status}
+              date={collection?.date}
+              activeBulletinCollection={collection}
+              problems={problems}
             />
           )}
           <BulletinLegend
