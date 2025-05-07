@@ -2,6 +2,22 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [7.2.12] - 2025-05-07
+
+### 🐛 Bug Fixes
+
+- Bulletin: Show neighbor danger ratings if not own bulletin exists
+- Bulletin: Fix aspect ratio for earlier/later maps
+- Weather maps: Fix aspect ratio for weather maps
+
+### Weather Stations
+
+- Add new interactive plots
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to react 19.1.0
+
 ## [7.2.11] - 2025-04-19
 
 ### 🐛 Bug Fixes
