@@ -1,0 +1,76 @@
+diff --git a/dist/L.Control.Locate.esm.js b/dist/L.Control.Locate.esm.js
+index bb5a896e3a98e0b63a8444bd02e0150d4d8fe498..25fc0c4fc6385387115aaac1afceb584da90e28a 100644
+--- a/dist/L.Control.Locate.esm.js
++++ b/dist/L.Control.Locate.esm.js
+@@ -1,4 +1,4 @@
+-import { Marker, setOptions, divIcon, Control, DomUtil, extend, LayerGroup, DomEvent, Util, circle } from 'leaflet';
++import { Marker, DivIcon, Control, DomUtil, LayerGroup, DomEvent, Util, Circle } from 'leaflet';
+ 
+ /*!
+ Copyright (c) 2016 Dominik Moritz
+@@ -23,7 +23,7 @@ const removeClasses = (el, names) => {
+  */
+ const LocationMarker = Marker.extend({
+   initialize(latlng, options) {
+-    setOptions(this, options);
++    Util.setOptions(this, options);
+     this._latlng = latlng;
+     this.createIcon();
+   },
+@@ -47,7 +47,7 @@ const LocationMarker = Marker.extend({
+ 
+     const icon = this._getIconSVG(opt, style);
+ 
+-    this._locationIcon = divIcon({
++    this._locationIcon = new DivIcon({
+       className: icon.className,
+       html: icon.svg,
+       iconSize: [icon.w, icon.h]
+@@ -78,14 +78,14 @@ const LocationMarker = Marker.extend({
+   },
+ 
+   setStyle(style) {
+-    setOptions(this, style);
++    Util.setOptions(this, style);
+     this.createIcon();
+   }
+ });
+ 
+ const CompassMarker = LocationMarker.extend({
+   initialize(latlng, heading, options) {
+-    setOptions(this, options);
++    Util.setOptions(this, options);
+     this._latlng = latlng;
+     this._heading = heading;
+     this.createIcon();
+@@ -305,16 +305,16 @@ const LocateControl = Control.extend({
+     // set default options if nothing is set (merge one step deep)
+     for (const i in options) {
+       if (typeof this.options[i] === "object") {
+-        extend(this.options[i], options[i]);
++        Object.assign(this.options[i], options[i]);
+       } else {
+         this.options[i] = options[i];
+       }
+     }
+ 
+-    // extend the follow marker style and circle from the normal style
+-    this.options.followMarkerStyle = extend({}, this.options.markerStyle, this.options.followMarkerStyle);
+-    this.options.followCircleStyle = extend({}, this.options.circleStyle, this.options.followCircleStyle);
+-    this.options.followCompassStyle = extend({}, this.options.compassStyle, this.options.followCompassStyle);
++    // Object.assign the follow marker style and circle from the normal style
++    this.options.followMarkerStyle = Object.assign({}, this.options.markerStyle, this.options.followMarkerStyle);
++    this.options.followCircleStyle = Object.assign({}, this.options.circleStyle, this.options.followCircleStyle);
++    this.options.followCompassStyle = Object.assign({}, this.options.compassStyle, this.options.followCompassStyle);
+   },
+ 
+   /**
+@@ -598,7 +598,7 @@ const LocateControl = Control.extend({
+       const style = this._isFollowing() ? this.options.followCircleStyle : this.options.circleStyle;
+ 
+       if (!this._circle) {
+-        this._circle = circle(latlng, radius, style).addTo(this._layer);
++        this._circle = new Circle(latlng, radius, style).addTo(this._layer);
+       } else {
+         this._circle.setLatLng(latlng).setRadius(radius).setStyle(style);
+       }

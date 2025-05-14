@@ -52,7 +52,8 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       dangerRatings: {},
       pane: "overlayPane",
       interactive: false,
-      rendererFactory: L.canvas.tile,
+      rendererFactory: (tileCoord, tileSize, options) =>
+        new L.Canvas.Tile(tileCoord, tileSize, options),
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(properties) {
@@ -107,7 +108,8 @@ export const PbfLayerOverlay = createLayerComponent(
       {
         pane: "markerPane",
         interactive: true,
-        rendererFactory: L.svg.tile,
+        rendererFactory: (tileCoord, tileSize, options) =>
+          new L.SVG.Tile(tileCoord, tileSize, options),
         maxNativeZoom: 10,
         getFeatureId({
           properties

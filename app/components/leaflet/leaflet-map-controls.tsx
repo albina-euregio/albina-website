@@ -61,45 +61,29 @@ const LeafletMapControls = (props: Props) => {
   }, [parentMap]);
 
   useEffect(() => {
-    L.control
-      .zoom({
-        position: "topleft",
-        zoomInTitle: intl.formatMessage({
-          id: "bulletin:map:zoom-in:hover"
-        }),
-        zoomOutTitle: intl.formatMessage({
-          id: "bulletin:map:zoom-out:hover"
-        })
-      })
-      .addTo(parentMap);
+    new L.Control.Zoom({
+      position: "topleft",
+      zoomInTitle: intl.formatMessage({ id: "bulletin:map:zoom-in:hover" }),
+      zoomOutTitle: intl.formatMessage({ id: "bulletin:map:zoom-out:hover" })
+    }).addTo(parentMap);
 
-    L.control
-      .geonames({
-        lang: intl.locale.slice(0, 2),
-        title: intl.formatMessage({
-          id: "bulletin:map:search"
-        }),
-        placeholder: intl.formatMessage({
-          id: "bulletin:map:search:hover"
-        }),
-        ...config.map.geonames
-      })
-      .addTo(parentMap);
+    new L.Control.Geonames({
+      lang: intl.locale.slice(0, 2),
+      title: intl.formatMessage({ id: "bulletin:map:search" }),
+      placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+      ...config.map.geonames
+    }).addTo(parentMap);
     new LocateControl({
       ...config.map.locateOptions,
       icon: "icon-geolocate",
       iconLoading: "icon-geolocate",
       strings: {
-        title: intl.formatMessage({
-          id: "bulletin:map:locate:title"
-        }),
+        title: intl.formatMessage({ id: "bulletin:map:locate:title" }),
         metersUnit: intl.formatMessage({
           id: "bulletin:map:locate:metersUnit"
         }),
         popup: intl.formatMessage(
-          {
-            id: "bulletin:map:locate:popup"
-          },
+          { id: "bulletin:map:locate:popup" },
           {
             // keep placeholders for L.control.locate
             distance: "{distance}",

@@ -1282,13 +1282,13 @@ __metadata:
     htmr: "npm:^1.0.2"
     husky: "npm:^9.1.7"
     jquery: "npm:^3.7.1"
-    leaflet: "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch"
-    leaflet-geonames: "patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch"
+    leaflet: "Falke-Design/leaflet#feat/remove_factories"
+    leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch"
     leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
-    leaflet.locatecontrol: "patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch"
+    leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
     leaflet.markercluster: "patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch"
-    leaflet.sync: "npm:^0.2.4"
-    leaflet.vectorgrid: "patch:leaflet.vectorgrid@npm%3A1.3.0#~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch"
+    leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
+    leaflet.vectorgrid: "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch"
     lint-staged: "npm:^15.4.3"
     nanostores: "npm:^1.0.1"
     normalize.css: "npm:^8.0.1"
@@ -3433,10 +3433,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-geonames@patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch":
+"leaflet-geonames@patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch::version=0.4.9&hash=4ede4a":
   version: 0.4.9
   resolution: "leaflet-geonames@patch:leaflet-geonames@npm%3A0.4.9#~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch::version=0.4.9&hash=4ede4a"
   checksum: 10c0/a46a35654849fa9ed516305ad288d9a14ca4930c244458afa69ab91c60580f90eab4671d38805a82ef6222f6366bd0cdf977b4f97e1351d95e26b67881ec59cf
+  languageName: node
+  linkType: hard
+
+"leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch":
+  version: 0.4.9
+  resolution: "leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch::version=0.4.9&hash=32cf7a"
+  checksum: 10c0/897f689501c1cf724d4e895cd1a26270e31ffc6487b69741cc660f3299515e16dba4947efbfb092af95bf9e52b41534931f86d7b1357199488cdb80ce7954280
   languageName: node
   linkType: hard
 
@@ -3461,10 +3468,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch":
+"leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=6665d9":
   version: 0.84.1
   resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=a107af"
   checksum: 10c0/ffc8775b05baccaaaecc80b566e6f33c1ba60a4f759db0736530da8f260bda9b036b8e621b73ba02d3c2650ca5638cf385015a3a552baac34f4dbe8327464ed7
+  languageName: node
+  linkType: hard
+
+"leaflet.locatecontrol@patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch":
+  version: 0.84.1
+  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=a107af#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch::version=0.84.1&hash=2e9992"
+  checksum: 10c0/cf1b4a8fceac90979b8e2473a97475abe3b2fed7b306156a51fd41c9e91bef4022c961a53bf9277fd4e834430323b131d32528acbfd88ee228336f83509bfd18
   languageName: node
   linkType: hard
 
@@ -3486,10 +3500,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.sync@npm:^0.2.4":
+"leaflet.sync@npm:0.2.4":
   version: 0.2.4
   resolution: "leaflet.sync@npm:0.2.4"
   checksum: 10c0/8e756f82cd3d826202359149935a6e223ff22c9b90750630de5b9530c056ba33573b062e6c727c1ee25891addc6aca99ead89a63a00708bb2c0cc410c294bcd2
+  languageName: node
+  linkType: hard
+
+"leaflet.sync@patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch":
+  version: 0.2.4
+  resolution: "leaflet.sync@patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch::version=0.2.4&hash=95bc63"
+  checksum: 10c0/f993063605d2df40f6cdf7bec7f3c6e36a48efe9dd6dbae7b34d47494435d0cfd4eb25ed3492ce4c21a4372a56eaace56b4471d5aab9328d21e75e50c8a7f1ef
   languageName: node
   linkType: hard
 
@@ -3507,7 +3528,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.vectorgrid@patch:leaflet.vectorgrid@npm%3A1.3.0#~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch":
+"leaflet.vectorgrid@patch:leaflet.vectorgrid@npm%3A1.3.0#~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch::version=1.3.0&hash=f5396d":
   version: 1.3.0
   resolution: "leaflet.vectorgrid@patch:leaflet.vectorgrid@npm%3A1.3.0#~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch::version=1.3.0&hash=f5396d"
   dependencies:
@@ -3521,17 +3542,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@https://github.com/leaflet/leaflet.git#commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112":
-  version: 1.9.2
-  resolution: "leaflet@https://github.com/leaflet/leaflet.git#commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112"
-  checksum: 10c0/15c8da7080530473dd366e993da228b7923b825b6cc8cad8cf556ec39d1ca3e55335c935b6a4f8ea80c127c635f62d7a08c538e012305aec5e0aa03e7b90551e
+"leaflet.vectorgrid@patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch":
+  version: 1.3.0
+  resolution: "leaflet.vectorgrid@patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch::version=1.3.0&hash=32cae6"
+  dependencies:
+    pbf: "npm:^3.0.2"
+    topojson-client: "npm:^2.1.0"
+    vector-tile: "npm:^1.3.0"
+    whatwg-fetch: "npm:^2.0.3"
+  peerDependencies:
+    leaflet: ^1.0.2
+  checksum: 10c0/a898cea12295c644ff548ad5e86150089d2738e4bc93bd719c5cfb1c37e9abc1402b199ea5350efd7e823b2eac8c6480f3b937619a5932106c72b616a01f4af9
   languageName: node
   linkType: hard
 
-"leaflet@patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch":
+"leaflet@Falke-Design/leaflet#feat/remove_factories":
   version: 1.9.2
-  resolution: "leaflet@patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=c2946c429eb2ec6683a514cbb9bc97494e4a4112#~/.yarn/patches/leaflet-https-546db146e4.patch::version=1.9.2&hash=5b09b2"
-  checksum: 10c0/4dbc6e65118835b7b237f4d01784fedcf101fad663640d295bc0d0a26678ca0d3c5d076aea279c0d2a4d95a2ca8d9a2901d19f8e12f857d4197c02247beff711
+  resolution: "leaflet@https://github.com/Falke-Design/leaflet.git#commit=64aaa028165e87dc883888a55b6588aec5d75d8e"
+  checksum: 10c0/c75f14bae1758c8944a848d0f5a56731025aef0073a6ccb5954b4bff0d5057557e89210f8aedfd2d2996ba83e75ce79ff8e1ee4e3e2765f2b605e3b309b2d0d7
   languageName: node
   linkType: hard
 

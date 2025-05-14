@@ -1,0 +1,42 @@
+diff --git a/L.Map.Sync.js b/L.Map.Sync.js
+index a4795da85847b413d75b43436d76de35666e7ae9..23fb762ab5f415e3726052166c2931b9572cfaf0 100644
+--- a/L.Map.Sync.js
++++ b/L.Map.Sync.js
+@@ -19,8 +19,8 @@
+      * The values can be less than 0 or greater than 1. It will sync points out of the map.
+      */
+     L.Sync.offsetHelper = function (ratioRef, ratioTarget) {
+-        var or = L.Util.isArray(ratioRef) ? ratioRef : [0.5, 0.5];
+-        var ot = L.Util.isArray(ratioTarget) ? ratioTarget : [0.5, 0.5];
++        var or = Array.isArray(ratioRef) ? ratioRef : [0.5, 0.5];
++        var ot = Array.isArray(ratioTarget) ? ratioTarget : [0.5, 0.5];
+         return function (center, zoom, refMap, targetMap) {
+             var rs = refMap.getSize();
+             var ts = targetMap.getSize();
+@@ -35,7 +35,7 @@
+     L.Map.include({
+         sync: function (map, options) {
+             this._initSync();
+-            options = L.extend({
++            options = Object.assign({
+                 noInitialSync: false,
+                 syncCursor: false,
+                 syncCursorMarkerOptions: {
+@@ -63,7 +63,7 @@
+             }
+             if (options.syncCursor) {
+                 if (typeof map.cursor === 'undefined') {
+-                    map.cursor = L.circleMarker([0, 0], options.syncCursorMarkerOptions).addTo(map);
++                    map.cursor = new L.CircleMarker([0, 0], options.syncCursorMarkerOptions).addTo(map);
+                 }
+ 
+                 this._cursors.push(map.cursor);
+@@ -180,7 +180,7 @@
+             this._cursors = [];
+             this._syncOffsetFns = {};
+ 
+-            L.extend(originalMap, {
++            Object.assign(originalMap, {
+                 setView: function (center, zoom, options, sync) {
+                     // Use this sandwich to disable and enable viewprereset
+                     // around setView call
