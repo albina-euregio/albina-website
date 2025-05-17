@@ -39,7 +39,7 @@ export default defineConfig({
     alias: {
       "leaflet.vectorgrid":
         "leaflet.vectorgrid/dist/Leaflet.VectorGrid.bundled.js",
-      "leaflet/dist/leaflet.css": "leaflet/dist/leaflet.css",
+      "leaflet/dist/leaflet.css": "leaflet/src/leaflet.css",
       leaflet: "leaflet/src/LeafletWithGlobals.js"
     }
   },

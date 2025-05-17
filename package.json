@@ -32,7 +32,7 @@
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
-    "leaflet": "Falke-Design/leaflet#feat/remove_factories",
+    "leaflet": "leaflet/leaflet#main",
     "leaflet-geonames": "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch",
     "leaflet-gesture-handling": "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch",
     "leaflet.locatecontrol": "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch",

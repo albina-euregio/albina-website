@@ -1282,7 +1282,7 @@ __metadata:
     htmr: "npm:^1.0.2"
     husky: "npm:^9.1.7"
     jquery: "npm:^3.7.1"
-    leaflet: "Falke-Design/leaflet#feat/remove_factories"
+    leaflet: "leaflet/leaflet#main"
     leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch"
     leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
@@ -3556,10 +3556,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@Falke-Design/leaflet#feat/remove_factories":
-  version: 1.9.2
-  resolution: "leaflet@https://github.com/Falke-Design/leaflet.git#commit=64aaa028165e87dc883888a55b6588aec5d75d8e"
-  checksum: 10c0/c75f14bae1758c8944a848d0f5a56731025aef0073a6ccb5954b4bff0d5057557e89210f8aedfd2d2996ba83e75ce79ff8e1ee4e3e2765f2b605e3b309b2d0d7
+"leaflet@leaflet/leaflet#main":
+  version: 1.9.4
+  resolution: "leaflet@https://github.com/leaflet/leaflet.git#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
+  checksum: 10c0/bd446dc0fbc4cf7f969672ece29efa75a4819d7e345e89eff74a19cd2834eaa5e7d87e5560e9b829ab049c341b39eaac6e5eebbbb2806075faf4350de56b2adb
   languageName: node
   linkType: hard
 
