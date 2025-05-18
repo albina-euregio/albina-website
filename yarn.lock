@@ -1282,7 +1282,7 @@ __metadata:
     htmr: "npm:^1.0.2"
     husky: "npm:^9.1.7"
     jquery: "npm:^3.7.1"
-    leaflet: "leaflet/leaflet#main"
+    leaflet: "npm:2.0.0-alpha"
     leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch"
     leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
@@ -3556,10 +3556,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@leaflet/leaflet#main":
-  version: 1.9.4
-  resolution: "leaflet@https://github.com/leaflet/leaflet.git#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
-  checksum: 10c0/bd446dc0fbc4cf7f969672ece29efa75a4819d7e345e89eff74a19cd2834eaa5e7d87e5560e9b829ab049c341b39eaac6e5eebbbb2806075faf4350de56b2adb
+"leaflet@npm:2.0.0-alpha":
+  version: 2.0.0-alpha
+  resolution: "leaflet@npm:2.0.0-alpha"
+  checksum: 10c0/38c1c39a3ee919a3392df067b55bab45b5e66cdac6d49d142ac4c04f8fbc8730228fa0408cc4ffe48128f5a2366c4a69d9713d2b5cfcbcc9ea4d2ac5593fb36c
   languageName: node
   linkType: hard
 
