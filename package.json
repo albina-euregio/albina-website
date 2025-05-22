@@ -29,7 +29,6 @@
     "@iframe-resizer/child": "^5.4.4",
     "@nanostores/react": "^1.0.0",
     "@sentry/react": "^8.7.0",
-    "@zod/mini": "^4.0.0-beta.20250412T085909",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
@@ -51,7 +50,8 @@
     "react-string-replace": "^1.1.1",
     "temporal-polyfill": "^0.3.0",
     "uplot": "^1.6.31",
-    "uplot-react": "^1.2.2"
+    "uplot-react": "^1.2.2",
+    "zod": "^3.25.20"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

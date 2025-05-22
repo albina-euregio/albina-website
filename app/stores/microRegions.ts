@@ -8,7 +8,7 @@ import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-region
 import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
 import { regionsRegex } from "../util/regions";
-import { z } from "@zod/mini";
+import { z } from "zod/v4-mini";
 
 export enum EawsRegionDataLayer {
   micro_regions_elevation = "micro-regions_elevation",
