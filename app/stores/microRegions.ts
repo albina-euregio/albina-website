@@ -28,10 +28,10 @@ export const microRegions: MicroRegionProperties[] = z
 
 export const MicroRegionElevationPropertiesSchema = z.extend(
   MicroRegionPropertiesSchema,
-  z.object({
+  {
     elevation: z.enum(["high", "low", "low_high"]),
     threshold: z.number()
-  })
+  }
 );
 export type MicroRegionElevationProperties = z.infer<
   typeof MicroRegionElevationPropertiesSchema
