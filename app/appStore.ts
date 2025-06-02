@@ -4,16 +4,14 @@ export type Language = "ca" | "en" | "de" | "es" | "fr" | "it" | "oc";
 
 // i18n
 const translationImports = import.meta.glob("./i18n/*.json", {
-  import: "default",
-  eager: true
+  import: "default"
 });
 
 // Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
 const regionTranslationImports = import.meta.glob(
   "../node_modules/@eaws/micro-regions_names/*.json",
   {
-    import: "default",
-    eager: true
+    import: "default"
   }
 );
 
@@ -26,12 +24,13 @@ export const $messages = atom(
   {} as Record<FormatjsIntl.Message["ids"], string>
 );
 
-function loadMessages(newLanguage: Language) {
-  const messages = translationImports[`./i18n/${newLanguage}.json`];
-  const regions =
+async function loadMessages(newLanguage: Language) {
+  const [messages, regions] = await Promise.all([
+    translationImports[`./i18n/${newLanguage}.json`](),
     regionTranslationImports[
       `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
-    ];
+    ]()
+  ]);
   const allMessages = Object.freeze(
     Object.assign(
       { ...messages },
@@ -44,12 +43,12 @@ function loadMessages(newLanguage: Language) {
   );
   return allMessages;
 }
-export function setLanguage(newLanguage: Language) {
+export async function setLanguage(newLanguage: Language): Promise<void> {
   const oldLanguage = $language.get();
   if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
-    return Promise.resolve();
+    return;
   }
-  $messages.set(loadMessages(newLanguage));
+  $messages.set(await loadMessages(newLanguage));
   $language.set(newLanguage);
   requestAnimationFrame(() => {
     // replace language-dependent body classes on language change.

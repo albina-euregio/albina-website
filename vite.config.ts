@@ -43,6 +43,11 @@ export default defineConfig({
     },
     sourcemap: true
   },
+  css: {
+    lightningcss: {
+      errorRecovery: true
+    }
+  },
   envPrefix: ["APP_", "VITE_"],
   plugins: [react()],
   server: {
