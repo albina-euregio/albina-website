@@ -1,11 +1,10 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import type { RegionCodes } from "../../util/regions";
 import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 interface Props {
-  region: RegionCodes;
+  region: string;
 }
 
 export default function SmFollow({ region }: Props) {

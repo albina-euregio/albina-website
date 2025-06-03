@@ -1,4 +1,5 @@
 {
+  "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
   "blogs": [
     {

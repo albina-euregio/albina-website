@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { RegionCodes, regionCodes } from "../../util/regions";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -60,7 +59,7 @@ export default function StationTable(props: Props) {
       render: row => (
         <span className="region" title={row.microRegion}>
           <FormattedMessage id={`region:${row.microRegion}`} />
-          {row.region && regionCodes.includes(row.region as RegionCodes) && (
+          {row.region && config.regionCodes.includes(row.region as string) && (
             <span className={`region region-${row.region}`}>
               <FormattedMessage id={`region:${row.region}`} />
             </span>

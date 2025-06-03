@@ -1,11 +1,10 @@
-import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 
 export const isTechBlog = atom<boolean>(false);
-export const region = atom<RegionCodes | "all">("all");
+export const region = atom<string | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
@@ -130,7 +129,7 @@ export function validateYear(valueToValidate: string): number | "" {
 }
 
 export function validateRegion(valueToValidate: string): string {
-  return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
+  return config.regionCodes.includes(valueToValidate) ? valueToValidate : "all";
 }
 
 export function validateLanguage(

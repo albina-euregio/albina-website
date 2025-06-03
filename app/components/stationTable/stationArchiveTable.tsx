@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { RegionCodes, regionCodes } from "../../util/regions";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -61,7 +60,7 @@ export default function StationArchiveTable(props: Props) {
       render: (_value, row) => (
         <span className="region" title={row.microRegion}>
           {intl.formatMessage({ id: `region:${row.microRegion}` })}
-          {row.region && regionCodes.includes(row.region as RegionCodes) && (
+          {row.region && config.regionCodes.includes(row.region as string) && (
             <span className={`region region-${row.region}`}>
               ({intl.formatMessage({ id: `region:${row.region}` })})
             </span>

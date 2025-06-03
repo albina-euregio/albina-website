@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { regionCodes, RegionCodes } from "../../util/regions";
 import { microRegionIds } from "../../stores/microRegions";
 import { FormattedMessage } from "../../i18n";
 import { Temporal } from "temporal-polyfill";
 
-function RegionTable({ region }: { region: RegionCodes }) {
+function RegionTable({ region }: { region: string }) {
   const [microRegions] = useState(() =>
     microRegionIds(Temporal.Now.plainDateISO())
   );
@@ -53,7 +52,7 @@ export default RegionTable;
 export function RegionsTables() {
   return (
     <>
-      {regionCodes.map(region => (
+      {config.regionCodes.map(region => (
         <div key={region}>
           <h3 style={{ textAlign: "center" }}>
             <FormattedMessage id={"region:" + region} />
