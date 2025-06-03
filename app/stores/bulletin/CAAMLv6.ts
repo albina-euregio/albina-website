@@ -186,9 +186,14 @@ export const BulletinSchema = z.object({
   regions: z.optional(z.array(RegionSchema)),
   snowpackStructure: z.optional(TextsSchema),
   source: z.optional(AvalancheBulletinSourceSchema),
-  tendency: z.pipe(
-    z.optional(z.union([TendencySchema, z.array(TendencySchema)])),
-    z.transform(t => (Array.isArray(t) ? t : [t]))
+  tendency: z.optional(
+    z.union([
+      z.pipe(
+        TendencySchema,
+        z.transform(t => [t])
+      ),
+      z.array(TendencySchema)
+    ])
   ),
   travelAdvisory: z.optional(TextsSchema),
   unscheduled: z.optional(z.boolean()),
