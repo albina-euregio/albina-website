@@ -121,9 +121,9 @@ class BulletinCollection {
     return ok ? "ok" : "n/a";
   }
 
-  async load(): Promise<this> {
+  async load(): Promise<void> {
     const url = this._getBulletinUrl();
-    if (!url) return this;
+    if (!url) return;
     try {
       const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
       this.dataRaw = await BulletinsSchema.parseAsync(response);
@@ -136,28 +136,29 @@ class BulletinCollection {
       this.status = "n/a";
       this.maxDangerRatings = {};
     }
+  }
+
+  async load170000(): Promise<void> {
+    this.dataRaw170000 = null;
     try {
-      this.dataRaw170000 = undefined;
-      if (this.dataRaw.bulletins.some(b => b.unscheduled)) {
-        const date = this.date.subtract({ days: 1 });
-        const hour = date
-          .toPlainDateTime({ hour: 17 })
-          .toZonedDateTime("Europe/Vienna")
-          .withTimeZone("UTC").hour;
-        const publicationDate = `${date}_${hour}-00-00`;
-        const url2 = this._getBulletinUrl(publicationDate);
-        const response = await fetchJSON<unknown>(url2, {
-          cache: "no-cache"
-        });
-        const data = await BulletinsSchema.parseAsync(response);
-        if (data?.bulletins?.length) {
-          this.dataRaw170000 = data;
-        }
+      if (!(this.dataRaw?.bulletins ?? []).some(b => b.unscheduled)) {
+        return;
+      }
+      const date = this.date.subtract({ days: 1 });
+      const hour = date
+        .toPlainDateTime({ hour: 17 })
+        .toZonedDateTime("Europe/Vienna")
+        .withTimeZone("UTC").hour;
+      const publicationDate = `${date}_${hour}-00-00`;
+      const url = this._getBulletinUrl(publicationDate);
+      const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
+      const data = await BulletinsSchema.parseAsync(response);
+      if (data?.bulletins?.length) {
+        this.dataRaw170000 = data;
       }
     } catch (error) {
       console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
     }
-    return this;
   }
 
   async loadEawsBulletins() {

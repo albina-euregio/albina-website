@@ -233,7 +233,8 @@ function Archive() {
     date: Temporal.PlainDate,
     region: string
   ): Promise<RegionBulletinStatus> {
-    const collection = await new BulletinCollection(date, lang).load();
+    const collection = new BulletinCollection(date, lang);
+    await collection.load();
     return {
       $type: "RegionBulletinStatus",
       status: collection.status,

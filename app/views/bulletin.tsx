@@ -98,7 +98,7 @@ const Bulletin = ({ headless }: Props) => {
       setStatus(collection.status);
       try {
         await Promise.all([
-          collection.load(),
+          collection.load().then(() => collection.load170000()),
           collection.loadEawsBulletins()
           // collection.loadEawsProblems()
         ]);
