@@ -70,7 +70,7 @@ export class StationData {
     if (typeof region !== "string") {
       return "";
     }
-    const match = region.match(window.config.regionsRegex);
+    const match = region.match(config.regionsRegex);
     return match ? match[0] : "";
   }
   get region() {

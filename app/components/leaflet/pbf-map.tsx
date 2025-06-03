@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid";
-import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
+import { WARNLEVEL_STYLES, WarnLevelNumber } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import { regionsRegex } from "../../util/regions";
 import {
   filterFeature,
   MicroRegionElevationProperties,
@@ -42,7 +41,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return config.map.regionStyling.hidden;
-    return regionsRegex.test(id)
+    return new RegExp(config.regionsRegex).test(id)
       ? WARNLEVEL_STYLES.albina[warnlevel]
       : WARNLEVEL_STYLES.eaws[warnlevel];
   };
@@ -134,13 +133,13 @@ export const PbfLayerOverlay = createLayerComponent(
           },
           "micro-regions"(properties) {
             return filterFeature({ properties }, props.date) &&
-              regionsRegex.test(properties.id)
+              new RegExp(config.regionsRegex).test(properties.id)
               ? config.map.regionStyling.clickable
               : config.map.regionStyling.hidden;
           },
           outline(properties) {
             return filterFeature({ properties }, props.date) &&
-              !regionsRegex.test(properties.id)
+              !new RegExp(config.regionsRegex).test(properties.id)
               ? config.map.regionStyling.clickable
               : config.map.regionStyling.hidden;
           }

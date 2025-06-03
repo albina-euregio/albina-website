@@ -5,5 +5,3 @@ export const regionCodes: readonly RegionCodes[] = Object.freeze([
   "IT-32-BZ",
   "IT-32-TN"
 ]);
-
-export const regionsRegex = /^(AT-07|IT-32-BZ|IT-32-TN)/;

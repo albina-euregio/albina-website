@@ -7,7 +7,6 @@ import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-region
 import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
 import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
-import { regionsRegex } from "../util/regions";
 import { z } from "zod/v4-mini";
 
 export enum EawsRegionDataLayer {
@@ -69,7 +68,7 @@ export function eawsRegionIds(today: Temporal.PlainDate): string[] {
   return eawsRegions
     .filter(properties => filterFeature({ properties }, today))
     .map(properties => properties.id)
-    .filter(id => !regionsRegex.test(id));
+    .filter(id => !new RegExp(config.regionsRegex).test(id));
 }
 
 export function microRegionIds(today: Temporal.PlainDate): string[] {
