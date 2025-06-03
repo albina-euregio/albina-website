@@ -8,7 +8,8 @@ import {
   toAmPm
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
-import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
+import { eawsRegionIds } from "../../stores/eawsRegions";
+import { microRegionIds } from "../../stores/microRegions";
 
 export type RegionState =
   | "mouseOver"

@@ -7,8 +7,6 @@ const regions_elevation_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
   { import: "default", eager: true }
 );
-import eawsRegions from "@eaws/outline_properties/index.json";
-import type { Language } from "../appStore";
 import { z } from "zod/v4-mini";
 
 export enum EawsRegionDataLayer {
@@ -45,14 +43,6 @@ export const microRegionsElevation: MicroRegionElevationProperties[] = z
     )
   );
 
-export interface RegionOutlineProperties {
-  id: string;
-  aws: {
-    name: string;
-    url: Record<Language, string>;
-  }[];
-}
-
 /**
  * Determines whether the GeoJSON feature's start_date/end_date is valid today
  * @param {GeoJSON.Feature} feature the GeoJSON feature
@@ -68,12 +58,6 @@ export function filterFeature(
     (!properties.start_date || properties.start_date <= today.toString()) &&
     (!properties.end_date || properties.end_date > today.toString())
   );
-}
-
-export function eawsRegionIds(): string[] {
-  return eawsRegions
-    .map(properties => properties.id)
-    .filter(id => !new RegExp(config.regionsRegex).test(id));
 }
 
 export function microRegionIds(

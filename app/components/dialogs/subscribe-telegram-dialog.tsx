@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
-import eawsRegionOutlines from "@eaws/outline_properties/index.json";
+import { eawsRegions } from "../../stores/eawsRegions";
 
 export default function SubscribeTelegramDialog() {
   const intl = useIntl();
@@ -14,7 +14,7 @@ export default function SubscribeTelegramDialog() {
 
   function openTelegram() {
     if (!region || !language) return;
-    const urls = eawsRegionOutlines.find(r => r.id === region)?.aws[0].url;
+    const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
     if (!urls) return;
     window.open(urls[`telegram:${language}`]);
   }

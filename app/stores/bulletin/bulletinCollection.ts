@@ -11,11 +11,11 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
+import { eawsRegions } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 import { atom } from "nanostores";
-import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -49,7 +49,7 @@ export const extraRegions = Object.freeze([
   "IT-57"
 ]);
 
-const eawsRegions = Object.freeze([
+const eawsRegionIDs = Object.freeze([
   "AD",
   "CH",
   "CZ",
@@ -169,14 +169,19 @@ class BulletinCollection {
   async loadExtraBulletins() {
     const data = await Promise.all(
       extraRegions
-        .flatMap<{ name: String; url: { "api:date"?: string } }>(
-          id => eawsRegionOutlines.find(o => o.id === id)?.aws ?? []
-        )
+        .flatMap(id => eawsRegions.find(o => o.id === id)?.aws ?? [])
         .map(async (aws): Promise<Bulletins | undefined> => {
           let url = aws.url["api:date"];
           if (!url?.endsWith("CAAMLv6.json")) return;
           url = config.template(url, { date: this.date, lang: this.lang });
-          return await this.fetchFromURL(url);
+          const data = await this.fetchFromURL(url);
+          // (data.bulletins ?? []).forEach(
+          //   b =>
+          //     (b.source = {
+          //       provider: { name: aws.name, website: aws.url[] }
+          //     })
+          // );
+          return data;
         })
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
@@ -188,11 +193,11 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
-    const regex = new RegExp("^(" + eawsRegions.join("|") + ")");
+    const regex = new RegExp("^(" + eawsRegionIDs.join("|") + ")");
     try {
       const url =
-        eawsRegions.length === 1 // this.date < "2023-11-01"
-          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${eawsRegions[0]}.ratings.json`
+        eawsRegionIDs.length === 1 // this.date < "2023-11-01"
+          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${eawsRegionIDs[0]}.ratings.json`
           : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
       const { maxDangerRatings } = await fetchJSON<{
         maxDangerRatings: MaxDangerRatings;

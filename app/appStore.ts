@@ -1,6 +1,16 @@
 import { atom, computed } from "nanostores";
+import { z } from "zod/v4-mini";
 
-export type Language = "ca" | "en" | "de" | "es" | "fr" | "it" | "oc";
+export const LanguageSchema = z.enum([
+  "ca",
+  "en",
+  "de",
+  "es",
+  "fr",
+  "it",
+  "oc"
+]);
+export type Language = z.infer<typeof LanguageSchema>;
 
 // i18n
 const translationImports = import.meta.glob("./i18n/*.json", {
@@ -15,7 +25,7 @@ const regionTranslationImports = import.meta.glob(
   }
 );
 
-export const languages: Language[] = ["ca", "en", "de", "es", "fr", "it", "oc"];
+export const languages: Language[] = Object.values(LanguageSchema.def.entries);
 
 export const mainLanguages: Language[] = ["en", "de", "it"];
 

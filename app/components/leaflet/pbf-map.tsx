@@ -8,9 +8,9 @@ import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
 import {
   filterFeature,
   MicroRegionElevationProperties,
-  MicroRegionProperties,
-  RegionOutlineProperties
+  MicroRegionProperties
 } from "../../stores/microRegions";
+import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { extraRegions, toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
