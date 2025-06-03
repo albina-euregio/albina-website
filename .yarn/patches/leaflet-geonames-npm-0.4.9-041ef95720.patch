@@ -1,0 +1,85 @@
+diff --git a/L.Control.Geonames.js b/L.Control.Geonames.js
+index 050e342cf66897145c9632109d7e9f59b203143f..ffc270208aa84f3f7fcced96091b0a44bd0ddab0 100644
+--- a/L.Control.Geonames.js
++++ b/L.Control.Geonames.js
+@@ -66,8 +66,8 @@ L.Control.Geonames = L.Control.extend({
+         L.DomEvent.on(input, 'keyup change search', function (e) {
+             if (e.type === 'search') {
+                 // When input changes, clear out the results
+-                L.DomUtil.removeClass(this._resultsList, 'hasResults');
+-                L.DomUtil.removeClass(this._resultsList, 'noResults');
++                this._resultsList.classList.remove('hasResults');
++                this._resultsList.classList.remove('noResults');
+                 this._hasResults = false;
+                 this._resultsList.innerHTML = '';
+                 this.removeMarker();
+@@ -83,7 +83,7 @@ L.Control.Geonames = L.Control.extend({
+ 
+         if (this.options.alwaysOpen) {
+             this._active = true;
+-            L.DomUtil.addClass(this._container, 'active');
++            this._container.classList.add('active');
+             L.DomEvent.on(link, 'click', this.show, this);
+         } else {
+             // Control button toggles visibility of the search field
+@@ -151,21 +151,21 @@ L.Control.Geonames = L.Control.extend({
+     },
+     show: function () {
+         this._active = true;
+-        L.DomUtil.addClass(this._container, 'active');
++        this._container.classList.add('active');
+         if (this._hasResults) {
+-            L.DomUtil.addClass(this._resultsList, 'hasResults');
++            this._resultsList.classList.add('hasResults');
+         } else {
+-            L.DomUtil.addClass(this._resultsList, 'noResults');
++            this._resultsList.classList.add('noResults');
+         }
+     },
+     hide: function () {
+         this._active = false;
+-        L.DomUtil.removeClass(this._container, 'active');
++        this._container.classList.remove('active');
+         this.hideResults();
+     },
+     hideResults: function () {
+-        L.DomUtil.removeClass(this._resultsList, 'hasResults');
+-        L.DomUtil.removeClass(this._resultsList, 'noResults');
++        this._resultsList.classList.remove('hasResults');
++        this._resultsList.classList.remove('noResults');
+     },
+     focus: function () {
+         this.show();
+@@ -199,8 +199,8 @@ L.Control.Geonames = L.Control.extend({
+     _search: function (event) {
+         L.DomEvent.preventDefault(event);
+ 
+-        L.DomUtil.addClass(this._link, this.options.workingClass);
+-        L.DomUtil.removeClass(this._resultsList, 'noResults');
++        this._link.classList.add(this.options.workingClass);
++        this._resultsList.classList.remove('noResults');
+ 
+         //clear results
+         this._hasResults = false;
+@@ -310,10 +310,10 @@ L.Control.Geonames = L.Control.extend({
+         } else if (typeof response.postalCodes != 'undefined') {
+             jsonResponse = response.postalCodes;
+         }
+-        L.DomUtil.removeClass(this._link, this.options.workingClass);
++        this._link.classList.remove(this.options.workingClass);
+ 
+         if (jsonResponse.length > 0) {
+-            L.DomUtil.addClass(this._resultsList, 'hasResults');
++            this._resultsList.classList.add('hasResults');
+             this._hasResults = true;
+             var li;
+             jsonResponse.forEach(function (geoname) {
+@@ -340,7 +340,7 @@ L.Control.Geonames = L.Control.extend({
+                 }, this);
+             }, this);
+         } else {
+-            L.DomUtil.addClass(this._resultsList, 'noResults');
++            this._resultsList.classList.add('noResults');
+             li = L.DomUtil.create('li', '', this._resultsList);
+             li.innerText = 'No results found';
+         }

@@ -1,0 +1,156 @@
+diff --git a/dist/Leaflet.VectorGrid.bundled.js b/dist/Leaflet.VectorGrid.bundled.js
+index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a3aad710c 100644
+--- a/dist/Leaflet.VectorGrid.bundled.js
++++ b/dist/Leaflet.VectorGrid.bundled.js
+@@ -1666,7 +1666,7 @@ L.SVG.Tile = L.SVG.extend({
+ 				var layer = this._layers[i];
+ 				// By default, Leaflet tiles do not have pointer events.
+ 				layer._path.style.pointerEvents = 'auto';
+-				this._map._targets[L.stamp(layer._path)] = layer;
++				this._map._targets[L.Util.stamp(layer._path)] = layer;
+ 			}
+ 		}
+ 	},
+@@ -1675,7 +1675,7 @@ L.SVG.Tile = L.SVG.extend({
+ 		if (this.options.interactive) {
+ 			for (var i in this._layers) {
+ 				var layer = this._layers[i];
+-				delete this._map._targets[L.stamp(layer._path)];
++				delete this._map._targets[L.Util.stamp(layer._path)];
+ 			}
+ 		}
+ 		delete this._map;
+@@ -1691,14 +1691,14 @@ L.SVG.Tile = L.SVG.extend({
+ 
+ 	_addPath: function (layer) {
+ 		this._rootGroup.appendChild(layer._path);
+-		this._layers[L.stamp(layer)] = layer;
++		this._layers[L.Util.stamp(layer)] = layer;
+ 	},
+ 
+ 	_updateIcon: function (layer) {
+ 		var path = layer._path = L.SVG.create('image'),
+ 		    icon = layer.options.icon,
+ 		    options = icon.options,
+-		    size = L.point(options.iconSize),
++		    size = new L.Point(options.iconSize),
+ 		    anchor = options.iconAnchor ||
+ 		        	 size && size.divideBy(2, true),
+ 		    p = layer._point.subtract(anchor);
+@@ -1711,10 +1711,6 @@ L.SVG.Tile = L.SVG.extend({
+ });
+ 
+ 
+-L.svg.tile = function(tileCoord, tileSize, opts){
+-	return new L.SVG.Tile(tileCoord, tileSize, opts);
+-};
+-
+ // 🍂class Symbolizer
+ // 🍂inherits Class
+ // The abstract Symbolizer class is mostly equivalent in concept to a `L.Path` - it's an interface for
+@@ -1750,7 +1746,7 @@ var Symbolizer = L.Class.extend({
+ 
+ 	_getPixelBounds: function() {
+ 		var parts = this._parts;
+-		var bounds = L.bounds([]);
++		var bounds = new L.Bounds([]);
+ 		for (var i = 0; i < parts.length; i++) {
+ 			var part = parts[i];
+ 			for (var j = 0; j < part.length; j++) {
+@@ -1784,7 +1780,7 @@ var PolyBase = {
+ 				coord = ring[j];
+ 				// Protobuf vector tiles return {x: , y:}
+ 				// Geojson-vt returns [,]
+-				part.push(L.point(coord).scaleBy(pxPerExtent));
++				part.push(new L.Point(coord).scaleBy(pxPerExtent));
+ 			}
+ 			this._parts.push(part);
+ 		}
+@@ -1821,11 +1817,11 @@ var PointSymbolizer = L.CircleMarker.extend({
+ 		var coord = feat.geometry[0];
+ 		if (typeof coord[0] === 'object' && 'x' in coord[0]) {
+ 			// Protobuf vector tiles return [{x: , y:}]
+-			this._point = L.point(coord[0]).scaleBy(pxPerExtent);
++			this._point = new L.Point(coord[0]).scaleBy(pxPerExtent);
+ 			this._empty = L.Util.falseFn;
+ 		} else {
+ 			// Geojson-vt returns [,]
+-			this._point = L.point(coord).scaleBy(pxPerExtent);
++			this._point = new L.Point(coord).scaleBy(pxPerExtent);
+ 			this._empty = L.Util.falseFn;
+ 		}
+ 	},
+@@ -1843,7 +1839,7 @@ var PointSymbolizer = L.CircleMarker.extend({
+ 	_updateBounds: function() {
+ 		var icon = this.options.icon;
+ 		if (icon) {
+-			var size = L.point(icon.options.iconSize),
++			var size = new L.Point(icon.options.iconSize),
+ 			    anchor = icon.options.iconAnchor ||
+ 			             size && size.divideBy(2, true),
+ 			    p = this._point.subtract(anchor);
+@@ -1944,7 +1940,7 @@ L.VectorGrid = L.GridLayer.extend({
+ 	options: {
+ 		// 🍂option rendererFactory = L.svg.tile
+ 		// A factory method which will be used to instantiate the per-tile renderers.
+-		rendererFactory: L.svg.tile,
++		rendererFactory: (tileCoord, tileSize, options) => new L.SVG.Tile(tileCoord, tileSize, options),
+ 
+ 		// 🍂option vectorTileLayerStyles: Object = {}
+ 		// A data structure holding initial symbolizer definitions for the vector features.
+@@ -1961,7 +1957,7 @@ L.VectorGrid = L.GridLayer.extend({
+ 	},
+ 
+ 	initialize: function(options) {
+-		L.setOptions(this, options);
++		L.Util.setOptions(this, options);
+ 		L.GridLayer.prototype.initialize.apply(this, arguments);
+ 		if (this.options.getFeatureId) {
+ 			this._vectorTiles = {};
+@@ -2034,7 +2030,7 @@ L.VectorGrid = L.GridLayer.extend({
+ 					var featureLayer = this._createLayer(feat, pxPerExtent);
+ 
+ 					for (var j = 0; j < styleOptions.length; j++) {
+-						var style = L.extend({}, L.Path.prototype.options, styleOptions[j]);
++						var style = Object.assign({}, L.Path.prototype.options, styleOptions[j]);
+ 						featureLayer.render(renderer, style);
+ 						renderer._addPath(featureLayer);
+ 					}
+@@ -2121,7 +2117,7 @@ L.VectorGrid = L.GridLayer.extend({
+ 		}
+ 
+ 		for (var j = 0; j < styleOptions.length; j++) {
+-			var style = L.extend({}, L.Path.prototype.options, styleOptions[j]);
++			var style = Object.assign({}, L.Path.prototype.options, styleOptions[j]);
+ 			feat.updateStyle(renderer, style);
+ 		}
+ 	},
+@@ -2262,7 +2258,7 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
+ 			data['-y'] = invertedY;
+ 		}
+ 
+-		var tileUrl = L.Util.template(this._url, L.extend(data, this.options));
++		var tileUrl = L.Util.template(this._url, Object.assign(data, this.options));
+ 
+ 		return fetch(tileUrl, this.options.fetchOptions).then(function(response){
+ 
+@@ -2499,7 +2495,7 @@ L.Canvas.Tile = L.Canvas.extend({
+ 
+ 		var icon = layer.options.icon,
+ 		    options = icon.options,
+-		    size = L.point(options.iconSize),
++		    size = new L.Point(options.iconSize),
+ 		    anchor = options.iconAnchor ||
+ 		        	 size && size.divideBy(2, true),
+ 		    p = layer._point.subtract(anchor),
+@@ -2519,10 +2515,6 @@ L.Canvas.Tile = L.Canvas.extend({
+ });
+ 
+ 
+-L.canvas.tile = function(tileCoord, tileSize, opts){
+-	return new L.Canvas.Tile(tileCoord, tileSize, opts);
+-};
+-
+ // Aux file to bundle everything together, including the optional dependencies
+ // for protobuf tiles
+ 

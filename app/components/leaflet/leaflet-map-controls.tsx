@@ -6,10 +6,10 @@ import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";
 import { tooltip_init } from "../tooltips/tooltip-dom";
 
-import "leaflet-geonames";
-import "leaflet.locatecontrol";
-import "leaflet-gesture-handling";
-import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
+import "leaflet-geonames/L.Control.Geonames.js";
+import { LocateControl } from "leaflet.locatecontrol";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.js";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import "../../css/geonames.css";
 
 interface Props {
@@ -61,58 +61,40 @@ const LeafletMapControls = (props: Props) => {
   }, [parentMap]);
 
   useEffect(() => {
-    L.control
-      .zoom({
-        position: "topleft",
-        zoomInTitle: intl.formatMessage({
-          id: "bulletin:map:zoom-in:hover"
-        }),
-        zoomOutTitle: intl.formatMessage({
-          id: "bulletin:map:zoom-out:hover"
-        })
-      })
-      .addTo(parentMap);
+    new L.Control.Zoom({
+      position: "topleft",
+      zoomInTitle: intl.formatMessage({ id: "bulletin:map:zoom-in:hover" }),
+      zoomOutTitle: intl.formatMessage({ id: "bulletin:map:zoom-out:hover" })
+    }).addTo(parentMap);
 
-    L.control
-      .geonames({
-        lang: intl.locale.slice(0, 2),
-        title: intl.formatMessage({
-          id: "bulletin:map:search"
+    new L.Control.Geonames({
+      lang: intl.locale.slice(0, 2),
+      title: intl.formatMessage({ id: "bulletin:map:search" }),
+      placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+      ...config.map.geonames
+    }).addTo(parentMap);
+    new LocateControl({
+      ...config.map.locateOptions,
+      icon: "icon-geolocate",
+      iconLoading: "icon-geolocate",
+      strings: {
+        title: intl.formatMessage({ id: "bulletin:map:locate:title" }),
+        metersUnit: intl.formatMessage({
+          id: "bulletin:map:locate:metersUnit"
         }),
-        placeholder: intl.formatMessage({
-          id: "bulletin:map:search:hover"
-        }),
-        ...config.map.geonames
-      })
-      .addTo(parentMap);
-    L.control
-      .locate({
-        ...config.map.locateOptions,
-        icon: "icon-geolocate",
-        iconLoading: "icon-geolocate",
-        strings: {
-          title: intl.formatMessage({
-            id: "bulletin:map:locate:title"
-          }),
-          metersUnit: intl.formatMessage({
-            id: "bulletin:map:locate:metersUnit"
-          }),
-          popup: intl.formatMessage(
-            {
-              id: "bulletin:map:locate:popup"
-            },
-            {
-              // keep placeholders for L.control.locate
-              distance: "{distance}",
-              unit: "{unit}"
-            }
-          ),
-          outsideMapBoundsMsg: intl.formatMessage({
-            id: "bulletin:map:locate:outside"
-          })
-        }
-      })
-      .addTo(parentMap);
+        popup: intl.formatMessage(
+          { id: "bulletin:map:locate:popup" },
+          {
+            // keep placeholders for L.control.locate
+            distance: "{distance}",
+            unit: "{unit}"
+          }
+        ),
+        outsideMapBoundsMsg: intl.formatMessage({
+          id: "bulletin:map:locate:outside"
+        })
+      }
+    }).addTo(parentMap);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

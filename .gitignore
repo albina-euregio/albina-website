@@ -73,4 +73,5 @@ package-lock.json
 /playwright-report/
 /playwright/.cache/
 
-.yarn/
+.yarn/*
+!.yarn/patches

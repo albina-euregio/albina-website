@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
-import "leaflet.vectorgrid/dist/Leaflet.VectorGrid";
+import "leaflet.vectorgrid";
 import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
@@ -52,7 +52,8 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       dangerRatings: {},
       pane: "overlayPane",
       interactive: false,
-      rendererFactory: L.canvas.tile,
+      rendererFactory: (tileCoord, tileSize, options) =>
+        new L.Canvas.Tile(tileCoord, tileSize, options),
       maxNativeZoom: 10,
       vectorTileLayerStyles: {
         "micro-regions_elevation"(properties) {
@@ -107,7 +108,8 @@ export const PbfLayerOverlay = createLayerComponent(
       {
         pane: "markerPane",
         interactive: true,
-        rendererFactory: L.svg.tile,
+        rendererFactory: (tileCoord, tileSize, options) =>
+          new L.SVG.Tile(tileCoord, tileSize, options),
         maxNativeZoom: 10,
         getFeatureId({
           properties
