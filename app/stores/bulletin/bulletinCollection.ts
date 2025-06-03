@@ -169,15 +169,17 @@ class BulletinCollection {
   async loadExtraBulletins() {
     const data = await Promise.all(
       extraRegions
-        .flatMap(id => eawsRegionOutlines.find(o => o.id === id)?.aws ?? [])
-        .map(async (aws): Promise<Bulletins> => {
-          let url: string = aws.url["api:date"];
-          if (!url?.endsWith("CAAMLv6.json")) return [];
+        .flatMap<{ name: String; url: { "api:date"?: string } }>(
+          id => eawsRegionOutlines.find(o => o.id === id)?.aws ?? []
+        )
+        .map(async (aws): Promise<Bulletins | undefined> => {
+          let url = aws.url["api:date"];
+          if (!url?.endsWith("CAAMLv6.json")) return;
           url = config.template(url, { date: this.date, lang: this.lang });
           return await this.fetchFromURL(url);
         })
     );
-    this.extraBulletins = data.flatMap(b => b.bulletins ?? []);
+    this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
     console.log(this.extraBulletins);
     this.maxDangerRatings = this.computeMaxDangerRatings();
     // this.extraBulletins.flatMap(b =>b.)

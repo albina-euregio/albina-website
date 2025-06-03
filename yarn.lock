@@ -233,17 +233,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_properties@npm:^7.0.7":
-  version: 7.0.7
-  resolution: "@eaws/micro-regions_properties@npm:7.0.7::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.7.tgz"
-  checksum: 10c0/d70c4bb48c0683ee19b03023248bf8f887af6af6ad6591a76bb123ba6a8fc581718edf68a3f5a9ba77236859f53dcbdfec904b860cbfeb92a2af237fe7cbb3c3
+"@eaws/micro-regions_properties@npm:^7.0.8":
+  version: 7.0.8
+  resolution: "@eaws/micro-regions_properties@npm:7.0.8::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-7.0.8.tgz"
+  checksum: 10c0/eeac79ff748cf2461a7fcb3251df4aa0a7678475a7ac44673e952d1c905ecd80fad5a18809ddd00004d4a91a215f85ceccc5ca9286f7501ae1c4fa9db7615542
   languageName: node
   linkType: hard
 
-"@eaws/outline_properties@npm:^7.0.7":
-  version: 7.0.7
-  resolution: "@eaws/outline_properties@npm:7.0.7::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.7.tgz"
-  checksum: 10c0/7b850ab75db31b86040fd0708eccbc496900702a8d36cb9d1b6eced67b2271e9e6872cf72646f2381dde90e803d2e29be77a2e640152cdad549c0a22681582f5
+"@eaws/outline_properties@npm:^7.0.8":
+  version: 7.0.8
+  resolution: "@eaws/outline_properties@npm:7.0.8::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-7.0.8.tgz"
+  checksum: 10c0/e16d455ad30c71655e495aca6755a3aa728cf930f71d3be1c83b9a05df1259748c6dadd1bc180a5c10eebe272817376328a3b24b9eb059de9f2adca49533fb2c
   languageName: node
   linkType: hard
 
@@ -1257,8 +1257,8 @@ __metadata:
   dependencies:
     "@eaws/micro-regions_elevation_properties": "npm:^7.0.8"
     "@eaws/micro-regions_names": "npm:^7.0.8"
-    "@eaws/micro-regions_properties": "npm:^7.0.7"
-    "@eaws/outline_properties": "npm:^7.0.7"
+    "@eaws/micro-regions_properties": "npm:^7.0.8"
+    "@eaws/outline_properties": "npm:^7.0.8"
     "@eslint/js": "npm:^9.21.0"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
