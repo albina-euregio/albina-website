@@ -180,9 +180,7 @@ class BulletinCollection {
         })
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
-    console.log(this.extraBulletins);
     this.maxDangerRatings = this.computeMaxDangerRatings();
-    // this.extraBulletins.flatMap(b =>b.)
   }
 
   async loadEawsBulletins() {
