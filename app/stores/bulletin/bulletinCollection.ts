@@ -121,12 +121,16 @@ class BulletinCollection {
     return ok ? "ok" : "n/a";
   }
 
+  private async fetchFromURL(url: string) {
+    const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
+    return await BulletinsSchema.parseAsync(response);
+  }
+
   async load(): Promise<void> {
     const url = this._getBulletinUrl();
     if (!url) return;
     try {
-      const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-      this.dataRaw = await BulletinsSchema.parseAsync(response);
+      this.dataRaw = await this.fetchFromURL(url);
       this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
       this.status = this.computeStatus();
       this.maxDangerRatings = this.computeMaxDangerRatings();
@@ -151,8 +155,7 @@ class BulletinCollection {
         .withTimeZone("UTC").hour;
       const publicationDate = `${date}_${hour}-00-00`;
       const url = this._getBulletinUrl(publicationDate);
-      const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-      const data = await BulletinsSchema.parseAsync(response);
+      const data = await this.fetchFromURL(url);
       if (data?.bulletins?.length) {
         this.dataRaw170000 = data;
       }
