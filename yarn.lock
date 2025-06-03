@@ -3470,15 +3470,15 @@ __metadata:
 
 "leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=6665d9":
   version: 0.84.1
-  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=a107af"
-  checksum: 10c0/ffc8775b05baccaaaecc80b566e6f33c1ba60a4f759db0736530da8f260bda9b036b8e621b73ba02d3c2650ca5638cf385015a3a552baac34f4dbe8327464ed7
+  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@npm%3A0.84.1#~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch::version=0.84.1&hash=8623f7"
+  checksum: 10c0/49f2e58ff72c28b9a912495797733e2acff72f770873aa35b4924f92c2b21d2d41a20e86ab537764fda641d2b3c9dfe33ec935bdafeecf1d75fdfb775430b12c
   languageName: node
   linkType: hard
 
 "leaflet.locatecontrol@patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch":
   version: 0.84.1
-  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=a107af#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch::version=0.84.1&hash=2e9992"
-  checksum: 10c0/cf1b4a8fceac90979b8e2473a97475abe3b2fed7b306156a51fd41c9e91bef4022c961a53bf9277fd4e834430323b131d32528acbfd88ee228336f83509bfd18
+  resolution: "leaflet.locatecontrol@patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=8623f7#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch::version=0.84.1&hash=2e9992"
+  checksum: 10c0/ea3ce7816848516e53a92f186b4b4ae9c51c7c765e4ef871dfa4deeee3043ea3f2acef516ceda7795230257703795b3bdc682d10b19afa501c6df42ba8ebc8dd
   languageName: node
   linkType: hard
 

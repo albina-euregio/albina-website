@@ -2,6 +2,29 @@ diff --git a/dist/L.Control.Locate.esm.js b/dist/L.Control.Locate.esm.js
 index bb5a896e3a98e0b63a8444bd02e0150d4d8fe498..ddfb125a78fdbb644af9ccd10586ad195e5353f4 100644
 --- a/dist/L.Control.Locate.esm.js
 +++ b/dist/L.Control.Locate.esm.js
+@@ -334,16 +334,12 @@ const LocateControl = Control.extend({
+     this._link = linkAndIcon.link;
+     this._icon = linkAndIcon.icon;
+ 
+-    DomEvent.on(
+-      this._link,
+-      "click",
+-      function (ev) {
+-        DomEvent.stopPropagation(ev);
+-        DomEvent.preventDefault(ev);
+-        this._onClick();
+-      },
+-      this
+-    ).on(this._link, "dblclick", DomEvent.stopPropagation);
++    DomEvent.on(this._link, "click", (ev) => {
++      DomEvent.stopPropagation(ev);
++      DomEvent.preventDefault(ev);
++      this._onClick();
++    });
++    DomEvent.on(this._link, "dblclick", DomEvent.stopPropagation);
+ 
+     this._resetVariables();
+ 
 @@ -542,10 +542,10 @@ const LocateControl = Control.extend({
            padding: this.options.circlePadding,
            maxZoom: this.options.initialZoomLevel || this.options.locateOptions.maxZoom
