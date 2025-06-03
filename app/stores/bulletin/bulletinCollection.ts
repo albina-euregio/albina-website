@@ -15,6 +15,7 @@ import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 import { atom } from "nanostores";
+import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -32,17 +33,26 @@ export type EawsAvalancheProblems = Record<
   AvalancheProblemType[]
 >;
 
-const eawsRegions = Object.freeze([
-  "AD",
+export const extraRegions = Object.freeze([
   "AT-02",
   "AT-03",
   "AT-04",
   "AT-05",
   "AT-06",
   "AT-08",
+  "DE-BY",
+  "IT-21",
+  "IT-23",
+  "IT-25",
+  "IT-34",
+  "IT-36",
+  "IT-57"
+]);
+
+const eawsRegions = Object.freeze([
+  "AD",
   "CH",
   "CZ",
-  "DE-BY",
   "ES-CT-L",
   "ES-CT",
   "ES",
@@ -50,12 +60,6 @@ const eawsRegions = Object.freeze([
   "FR",
   "GB",
   "IS",
-  "IT-21",
-  "IT-23",
-  "IT-25",
-  "IT-34",
-  "IT-36",
-  "IT-57",
   "NO",
   "PL",
   "PL-12",
@@ -82,9 +86,10 @@ export function getMaxMainValue(
  * Class storing one Caaml.Bulletins object with additional state.
  */
 class BulletinCollection {
-  status: Status;
-  dataRaw: Bulletins | null;
-  dataRaw170000: Bulletins | null;
+  status: Status = "pending";
+  private dataRaw: Bulletins | null = null;
+  private dataRaw170000: Bulletins | null = null;
+  private extraBulletins: Bulletin[] = [];
   maxDangerRatings: MaxDangerRatings;
   eawsMaxDangerRatings: MaxDangerRatings;
   eawsAvalancheProblems: EawsAvalancheProblems;
@@ -92,10 +97,7 @@ class BulletinCollection {
   constructor(
     public readonly date: Temporal.PlainDate,
     public readonly lang: string
-  ) {
-    this.status = "pending";
-    this.dataRaw = null;
-  }
+  ) {}
 
   private _getBulletinUrl(publicationDate = ""): string {
     if (!this.date || !this.lang) {
@@ -132,7 +134,7 @@ class BulletinCollection {
     try {
       this.dataRaw = await this.fetchFromURL(url);
       this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
-      this.status = this.computeStatus();
+      this.status = this.bulletins.length > 0 ? "ok" : "empty";
       this.maxDangerRatings = this.computeMaxDangerRatings();
     } catch (error) {
       console.error(`Cannot load bulletin for date ${this.date}`, error);
@@ -162,6 +164,23 @@ class BulletinCollection {
     } catch (error) {
       console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
     }
+  }
+
+  async loadExtraBulletins() {
+    const data = await Promise.all(
+      extraRegions
+        .flatMap(id => eawsRegionOutlines.find(o => o.id === id)?.aws ?? [])
+        .map(async (aws): Promise<Bulletins> => {
+          let url: string = aws.url["api:date"];
+          if (!url?.endsWith("CAAMLv6.json")) return [];
+          url = config.template(url, { date: this.date, lang: this.lang });
+          return await this.fetchFromURL(url);
+        })
+    );
+    this.extraBulletins = data.flatMap(b => b.bulletins ?? []);
+    console.log(this.extraBulletins);
+    this.maxDangerRatings = this.computeMaxDangerRatings();
+    // this.extraBulletins.flatMap(b =>b.)
   }
 
   async loadEawsBulletins() {
@@ -207,11 +226,11 @@ class BulletinCollection {
   }
 
   get bulletins(): Bulletin[] {
-    return this.dataRaw?.bulletins || [];
+    return [...(this.dataRaw?.bulletins ?? []), ...this.extraBulletins];
   }
 
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
-    return (this.dataRaw?.bulletins || []).map(b => [
+    return this.bulletins.map(b => [
       b,
       this.dataRaw170000?.bulletins?.find(
         b2 => b.bulletinID === b2.bulletinID
@@ -222,10 +241,6 @@ class BulletinCollection {
     ]);
   }
 
-  get length(): number {
-    return this.dataRaw.bulletins.length;
-  }
-
   getBulletinForBulletinOrRegion(id: string): Bulletin {
     return (
       this.bulletins.find(el => el.bulletinID == id) ??
@@ -233,9 +248,6 @@ class BulletinCollection {
     );
   }
 
-  getData(): Bulletins {
-    return this.dataRaw;
-  }
   private upgradeLegacyCAAML(b: Bulletin) {
     if (isOneDangerRating.get()) {
       b.dangerRatings?.forEach(b => (b.elevation = undefined));
@@ -247,18 +259,10 @@ class BulletinCollection {
     });
   }
 
-  private computeStatus(): Status {
-    return typeof this.dataRaw === "object" && this.dataRaw?.bulletins
-      ? this.dataRaw?.bulletins.length > 0
-        ? "ok"
-        : "empty"
-      : "n/a";
-  }
-
   private computeMaxDangerRatings(): MaxDangerRatings {
     return Object.fromEntries(
-      this.dataRaw?.bulletins.flatMap(b =>
-        b.regions.flatMap(({ regionID }) =>
+      this.bulletins.flatMap(b =>
+        (b.regions ?? []).flatMap(({ regionID }) =>
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
             validTimePeriod => [
               ...[

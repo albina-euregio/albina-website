@@ -11,7 +11,7 @@ import {
   MicroRegionProperties,
   RegionOutlineProperties
 } from "../../stores/microRegions";
-import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { extraRegions, toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -102,6 +102,9 @@ type PbfLayerOverlayProps = PbfProps & {
 
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
+    const regionsRegex = new RegExp(
+      "^(" + [...config.regionCodes, ...extraRegions].join("|") + ")"
+    );
     const instance = L.vectorGrid.protobuf(
       "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
       {
@@ -133,13 +136,13 @@ export const PbfLayerOverlay = createLayerComponent(
           },
           "micro-regions"(properties) {
             return filterFeature({ properties }, props.date) &&
-              new RegExp(config.regionsRegex).test(properties.id)
+              regionsRegex.test(properties.id)
               ? config.map.regionStyling.clickable
               : config.map.regionStyling.hidden;
           },
           outline(properties) {
             return filterFeature({ properties }, props.date) &&
-              !new RegExp(config.regionsRegex).test(properties.id)
+              !regionsRegex.test(properties.id)
               ? config.map.regionStyling.clickable
               : config.map.regionStyling.hidden;
           }
