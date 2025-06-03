@@ -1286,7 +1286,7 @@ __metadata:
     leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch"
     leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
-    leaflet.markercluster: "patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch"
+    leaflet.markercluster: "patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch"
     leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
     leaflet.vectorgrid: "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch"
     lint-staged: "npm:^15.4.3"
@@ -3491,12 +3491,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.markercluster@patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch":
+"leaflet.markercluster@patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch::version=1.5.3&hash=1651d5":
   version: 1.5.3
   resolution: "leaflet.markercluster@patch:leaflet.markercluster@npm%3A1.5.3#~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch::version=1.5.3&hash=1651d5"
   peerDependencies:
     leaflet: ^1.3.1
   checksum: 10c0/8ff85ce55a2ed25874d8878dcce64974b91bf7ed6c39ab7613292224d1e55c6d15ba0b54dcc33592e20c4fac4b867574210bdb4d7c913344afc22dcd67ac08aa
+  languageName: node
+  linkType: hard
+
+"leaflet.markercluster@patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch":
+  version: 1.5.3
+  resolution: "leaflet.markercluster@patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch::version=1.5.3&hash=802f2f"
+  peerDependencies:
+    leaflet: ^1.3.1
+  checksum: 10c0/fe6358c58ed94db866c0c0c04566eb10ce14b04995d2c6158f66529426f97edc316b4b816d04ba9923ef11e6cb8dae3d37015f18c135153e099374914c0959ef
   languageName: node
   linkType: hard
 

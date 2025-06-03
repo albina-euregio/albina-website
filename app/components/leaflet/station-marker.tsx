@@ -53,7 +53,7 @@ const StationMarker = ({
 
   const icon = useMemo(
     () =>
-      L.divIcon({
+      new L.DivIcon({
         iconAnchor: iconAnchor || [12.5, 12.5],
         className: className
       }),

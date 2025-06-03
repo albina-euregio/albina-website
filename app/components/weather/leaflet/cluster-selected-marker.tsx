@@ -9,7 +9,7 @@ const ClusterSelectedMarker = props => {
   const context = useLeafletContext();
 
   useEffect(() => {
-    const icon = L.divIcon({
+    const icon = new L.DivIcon({
       iconAnchor: [12.5, 12.5],
       html: ReactDOMServer.renderToStaticMarkup(
         <CircleIcon className="station-selected-clustered" />

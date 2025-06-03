@@ -51,7 +51,7 @@ const Cluster = props => {
           .join("<br>")
       );
     }
-    return L.divIcon({
+    return new L.DivIcon({
       ...activeMarker.options.icon.options,
       className: "leaflet-cluster-marker"
     });
