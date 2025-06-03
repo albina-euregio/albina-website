@@ -106,12 +106,12 @@ const BulletinMap = (props: Props) => {
             DomEvent.stop(e);
             props.handleSelectRegion(e.sourceTarget.properties.id);
           },
-          mouseover(e) {
+          pointerover(e) {
             requestAnimationFrame(() =>
               setRegionMouseover(e.sourceTarget.properties.id)
             );
           },
-          mouseout(e) {
+          pointerout(e) {
             requestAnimationFrame(() =>
               setRegionMouseover(id =>
                 id === e.sourceTarget.properties.id ? "" : id
