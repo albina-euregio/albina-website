@@ -1,11 +1,11 @@
 import type { Temporal } from "temporal-polyfill";
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
-  { import: "default" }
+  { import: "default", eager: true }
 );
 const regions_elevation_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
-  { import: "default" }
+  { import: "default", eager: true }
 );
 import eawsRegions from "@eaws/outline_properties/index.json";
 import type { Language } from "../appStore";
@@ -23,18 +23,18 @@ export const MicroRegionPropertiesSchema = z.object({
   end_date: z.optional(z.nullable(z.string()))
 });
 export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
-const microRegions0 = await Promise.all(
-  config.regionCodes.map(id =>
-    regions_properties[
-      `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
-    ]()
-  )
-);
 export const microRegions: MicroRegionProperties[] = z
   .array(MicroRegionPropertiesSchema)
-  .parse(microRegions0.flat());
+  .parse(
+    config.regionCodes.flatMap(
+      id =>
+        regions_properties[
+          `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+        ]
+    )
+  );
 
-export const MicroRegionElevationPropertiesSchema = z.extend(
+const MicroRegionElevationPropertiesSchema = z.extend(
   MicroRegionPropertiesSchema,
   {
     elevation: z.enum(["high", "low", "low_high"]),
@@ -44,16 +44,16 @@ export const MicroRegionElevationPropertiesSchema = z.extend(
 export type MicroRegionElevationProperties = z.infer<
   typeof MicroRegionElevationPropertiesSchema
 >;
-const microRegionsElevation0 = await Promise.all(
-  config.regionCodes.map(id =>
-    regions_elevation_properties[
-      `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
-    ]()
-  )
-);
 export const microRegionsElevation: MicroRegionElevationProperties[] = z
   .array(MicroRegionElevationPropertiesSchema)
-  .parse(microRegionsElevation0.flat());
+  .parse(
+    config.regionCodes.flatMap(
+      id =>
+        regions_elevation_properties[
+          `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
+        ]
+    )
+  );
 
 export interface RegionOutlineProperties {
   id: string;
