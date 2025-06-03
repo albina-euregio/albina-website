@@ -3,6 +3,7 @@ import {
   AvalancheProblemType,
   BulletinCollection,
   ValidTimePeriod,
+  extraRegions,
   matchesValidTimePeriod,
   toAmPm
 } from "../../stores/bulletin";
@@ -42,12 +43,16 @@ export function PbfRegionState({
   validTimePeriod
 }: PbfRegionStateProps) {
   const microRegions = useMemo(
-    () => microRegionIds(activeBulletinCollection?.date),
+    () =>
+      microRegionIds(activeBulletinCollection?.date, [
+        ...config.regionCodes,
+        ...extraRegions
+      ]),
     [activeBulletinCollection?.date]
   );
   const eawsRegions = useMemo(
-    () => eawsRegionIds(activeBulletinCollection?.date),
-    [activeBulletinCollection?.date]
+    () => eawsRegionIds().filter(r => !extraRegions.includes(r)),
+    []
   );
   const eawsMicroRegions = useMemo(
     () =>

@@ -23,16 +23,6 @@ export const MicroRegionPropertiesSchema = z.object({
   end_date: z.optional(z.nullable(z.string()))
 });
 export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
-export const microRegions: MicroRegionProperties[] = z
-  .array(MicroRegionPropertiesSchema)
-  .parse(
-    config.regionCodes.flatMap(
-      id =>
-        regions_properties[
-          `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
-        ]
-    )
-  );
 
 const MicroRegionElevationPropertiesSchema = z.extend(
   MicroRegionPropertiesSchema,
@@ -80,15 +70,26 @@ export function filterFeature(
   );
 }
 
-export function eawsRegionIds(today: Temporal.PlainDate): string[] {
+export function eawsRegionIds(): string[] {
   return eawsRegions
-    .filter(properties => filterFeature({ properties }, today))
     .map(properties => properties.id)
     .filter(id => !new RegExp(config.regionsRegex).test(id));
 }
 
-export function microRegionIds(today: Temporal.PlainDate): string[] {
-  return microRegions
+export function microRegionIds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): string[] {
+  return z
+    .array(MicroRegionPropertiesSchema)
+    .parse(
+      regionCodes.flatMap(
+        id =>
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ]
+      )
+    )
     .filter(properties => filterFeature({ properties }, today))
     .map(f => String(f.id))
     .sort();
