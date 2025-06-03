@@ -10,7 +10,7 @@ stages:
 #   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
-  image: node:20
+  image: node:22
   stage: build
   variables:
     YARN_CACHE_FOLDER: .yarn-cache/
