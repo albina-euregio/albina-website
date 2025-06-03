@@ -126,12 +126,15 @@ class BulletinCollection {
     if (!url) return this;
     try {
       const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-      const data = await BulletinsSchema.parseAsync(response);
-      this.setData(data);
+      this.dataRaw = await BulletinsSchema.parseAsync(response);
+      this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
+      this.status = this.computeStatus();
+      this.maxDangerRatings = this.computeMaxDangerRatings();
     } catch (error) {
       console.error(`Cannot load bulletin for date ${this.date}`, error);
-      this.setData(null);
+      this.dataRaw = null;
       this.status = "n/a";
+      this.maxDangerRatings = {};
     }
     try {
       this.dataRaw170000 = undefined;
@@ -229,14 +232,6 @@ class BulletinCollection {
   getData(): Bulletins {
     return this.dataRaw;
   }
-
-  setData(caaml: Bulletins | null) {
-    this.dataRaw = caaml;
-    this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
-    this.status = this.computeStatus();
-    this.maxDangerRatings = this.computeMaxDangerRatings();
-  }
-
   private upgradeLegacyCAAML(b: Bulletin) {
     if (isOneDangerRating.get()) {
       b.dangerRatings?.forEach(b => (b.elevation = undefined));
