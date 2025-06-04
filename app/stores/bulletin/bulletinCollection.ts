@@ -170,9 +170,9 @@ class BulletinCollection {
   async loadExtraBulletins() {
     this.extraBulletins = [];
     const data = await Promise.all(
-      extraRegions
-        .flatMap(id => eawsRegions.find(o => o.id === id)?.aws ?? [])
-        .map(async (aws): Promise<Bulletins | undefined> => {
+      extraRegions.flatMap(id => {
+        const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
+        return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           let url = aws.url["api:date"];
           if (!url?.endsWith("CAAMLv6.json")) return;
           url = config.template(url, { date: this.date, lang: this.lang });
@@ -180,13 +180,15 @@ class BulletinCollection {
           (data.bulletins ?? []).forEach(b => {
             b.source = {
               provider: {
+                customData: { regionID: id, url },
                 name: aws.name,
                 website: aws.url[this.lang] || Object.values(aws.url)[0]
               }
             };
           });
           return data;
-        })
+        });
+      })
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
     this.maxDangerRatings = this.computeMaxDangerRatings();

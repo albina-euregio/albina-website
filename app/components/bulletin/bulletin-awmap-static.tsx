@@ -27,7 +27,7 @@ function BulletinAWMapStatic({
         .replace(/:/g, "-")
         .slice(0, "2021-12-04_16-00-00".length)
     : "";
-  const filePrefix = publicationTime ? "EUREGIO_" : "";
+  let filePrefix = publicationTime ? "EUREGIO_" : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
   let url = config.template(config.apis.bulletin.map, {
@@ -35,7 +35,13 @@ function BulletinAWMapStatic({
     publication: publicationDirectory,
     file
   });
-  if (imgFormat || date.toString() <= "2022-05-06") {
+  if (!bulletin?.regions?.some(r => r.regionID.match(config.regionsRegex))) {
+    filePrefix = bulletin?.source?.provider?.customData.regionID;
+    url = new URL(
+      `${filePrefix}_${region}${fileSuffix}.jpg`,
+      bulletin?.source?.provider?.customData.url
+    ).toString();
+  } else if (imgFormat || date.toString() <= "2022-05-06") {
     url = url.replace(/.webp$/, imgFormat || ".jpg");
   }
   const regions = bulletin?.regions?.map(elem => elem.name)?.join(", ");
