@@ -38,5 +38,5 @@ export type RegionOutlineProperties = z.infer<typeof RegionOutlineSchema>;
 export function eawsRegionIds(): string[] {
   return eawsRegions
     .map(properties => properties.id)
-    .filter(id => !new RegExp(config.regionsRegex).test(id));
+    .filter(id => !config.regionsRegex.test(id));
 }

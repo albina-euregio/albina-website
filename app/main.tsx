@@ -4,6 +4,7 @@ import App from "./components/app.jsx";
 import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
+import { newRegionRegex } from "./util/newRegionRegex";
 
 (() => import("./sentry"))();
 
@@ -20,11 +21,15 @@ const configRequest =
     ? import("./config-dev.json")
     : import("./config.json");
 configRequest.then(async configParsed => {
-  configParsed = { ...configParsed };
-  configParsed["projectRoot"] = import.meta.env.BASE_URL;
-  configParsed["template"] = template;
+  configParsed = {
+    ...configParsed,
+    projectRoot: import.meta.env.BASE_URL,
+    template,
+    regionsRegex: newRegionRegex(configParsed.regionCodes),
+    eawsRegionsRegex: newRegionRegex(configParsed.eawsRegions)
+  } satisfies Config;
 
-  const language = configParsed["hostLanguageSettings"][location.host];
+  const language = configParsed.hostLanguageSettings[location.host];
   if (!language && location.host.startsWith("www.")) {
     location.host = location.host.substring("www.".length);
   }

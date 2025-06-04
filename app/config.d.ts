@@ -5,6 +5,8 @@ declare global {
     projectRoot: string;
     webp: boolean;
     template(str: string, data: Record<string, string>): string;
+    regionsRegex: RegExp;
+    eawsRegionsRegex: RegExp;
   };
 
   declare let config: Config;

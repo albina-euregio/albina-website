@@ -164,7 +164,6 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
-    const regex = new RegExp("^(" + config.eawsRegions.join("|") + ")");
     try {
       const url =
         config.eawsRegions.length === 1 // this.date < "2023-11-01"
@@ -176,7 +175,9 @@ class BulletinCollection {
         cache: "no-cache"
       });
       this.eawsMaxDangerRatings = Object.fromEntries(
-        Object.entries(maxDangerRatings).filter(([r]) => regex.test(r))
+        Object.entries(maxDangerRatings).filter(([r]) =>
+          config.eawsRegionsRegex.test(r)
+        )
       );
     } catch (error) {
       console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);

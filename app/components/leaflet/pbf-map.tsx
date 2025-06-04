@@ -12,6 +12,7 @@ import {
 } from "../../stores/microRegions";
 import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { newRegionRegex } from "../../util/newRegionRegex";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -41,7 +42,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return config.map.regionStyling.hidden;
-    return new RegExp(config.regionsRegex).test(id)
+    return config.regionsRegex.test(id)
       ? WARNLEVEL_STYLES.albina[warnlevel]
       : WARNLEVEL_STYLES.eaws[warnlevel];
   };
@@ -102,9 +103,10 @@ type PbfLayerOverlayProps = PbfProps & {
 
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
-    const regionsRegex = new RegExp(
-      "^(" + [...config.regionCodes, ...config.extraRegions].join("|") + ")"
-    );
+    const regionsRegex = newRegionRegex([
+      ...config.regionCodes,
+      ...config.extraRegions
+    ]);
     const instance = L.vectorGrid.protobuf(
       "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
       {
