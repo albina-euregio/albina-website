@@ -206,28 +206,32 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               ></SynthesizedBulletin>
             </div>
 
-            <div>
-              <ul className="list-inline list-buttongroup bulletin-report-header-download">
-                <li>
-                  <Tooltip
-                    label={intl.formatMessage({
-                      id: "bulletin:linkbar:pdf:hover"
-                    })}
-                  >
-                    <a
-                      rel="noopener noreferrer nofollow"
-                      target="_blank"
-                      href={config.template(config.apis.bulletin.pdf, {
-                        bulletin: bulletin.bulletinID,
-                        lang: intl.locale.slice(0, 2)
+            {bulletin.regions?.some(r =>
+              r.regionID.match(config.regionsRegex)
+            ) && (
+              <div>
+                <ul className="list-inline list-buttongroup bulletin-report-header-download">
+                  <li>
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:linkbar:pdf:hover"
                       })}
                     >
-                      PDF
-                    </a>
-                  </Tooltip>
-                </li>
-              </ul>
-            </div>
+                      <a
+                        rel="noopener noreferrer nofollow"
+                        target="_blank"
+                        href={config.template(config.apis.bulletin.pdf, {
+                          bulletin: bulletin.bulletinID,
+                          lang: intl.locale.slice(0, 2)
+                        })}
+                      >
+                        PDF
+                      </a>
+                    </Tooltip>
+                  </li>
+                </ul>
+              </div>
+            )}
           </header>
 
           {hasDaytimeDependency(bulletin) ? (
