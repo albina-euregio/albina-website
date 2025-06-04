@@ -20,8 +20,11 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
   }
 
   const bulletin = bulletins?.[0]?.[0];
-  const publicationTimes = bulletins
-    ?.flatMap(([b1, b2]) =>
+  const publicationTimes = (bulletins ?? [])
+    .filter(([b1]) =>
+      b1.regions?.some(r => r.regionID.match(config.regionsRegex))
+    )
+    .flatMap(([b1, b2]) =>
       b2 ? [+b1.publicationTime, +b2.publicationTime] : [+b1.publicationTime]
     )
     .filter((time, index, self) => self.indexOf(time) === index)
