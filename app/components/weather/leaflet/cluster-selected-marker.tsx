@@ -16,7 +16,7 @@ const ClusterSelectedMarker = props => {
       )
     });
 
-    const marker = L.marker(this.props.coordinates, {
+    const marker = new L.Marker(this.props.coordinates, {
       icon: icon
     });
     const container = context.layerContainer || context.map;
