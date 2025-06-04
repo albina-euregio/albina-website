@@ -175,7 +175,7 @@ export type AvalancheBulletinSource = z.infer<
 export const BulletinSchema = z.object({
   avalancheActivity: z.optional(TextsSchema),
   avalancheProblems: z.optional(z.array(AvalancheProblemSchema)),
-  bulletinID: z.optional(z.string()),
+  bulletinID: z.string(),
   customData: CustomDataSchema,
   dangerRatings: z.optional(z.array(DangerRatingSchema)),
   highlights: z.optional(z.string()),

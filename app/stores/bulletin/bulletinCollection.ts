@@ -90,16 +90,16 @@ class BulletinCollection {
   private dataRaw: Bulletins | null = null;
   private dataRaw170000: Bulletins | null = null;
   private extraBulletins: Bulletin[] = [];
-  maxDangerRatings: MaxDangerRatings;
-  eawsMaxDangerRatings: MaxDangerRatings;
-  eawsAvalancheProblems: EawsAvalancheProblems;
+  maxDangerRatings: MaxDangerRatings = {};
+  eawsMaxDangerRatings: MaxDangerRatings = {};
+  eawsAvalancheProblems: EawsAvalancheProblems = {};
 
   constructor(
     public readonly date: Temporal.PlainDate,
     public readonly lang: string
   ) {}
 
-  private _getBulletinUrl(publicationDate = ""): string {
+  private _getBulletinUrl(publicationDate = ""): string | undefined {
     if (!this.date || !this.lang) {
       return;
     }
@@ -157,6 +157,7 @@ class BulletinCollection {
         .withTimeZone("UTC").hour;
       const publicationDate = `${date}_${hour}-00-00`;
       const url = this._getBulletinUrl(publicationDate);
+      if (!url) return;
       const data = await this.fetchFromURL(url);
       if (data?.bulletins?.length) {
         this.dataRaw170000 = data;
@@ -167,6 +168,7 @@ class BulletinCollection {
   }
 
   async loadExtraBulletins() {
+    this.extraBulletins = [];
     const data = await Promise.all(
       extraRegions
         .flatMap(id => eawsRegions.find(o => o.id === id)?.aws ?? [])
@@ -324,7 +326,7 @@ class BulletinCollection {
     bulletin: Bulletin,
     elevation: LowHigh | undefined
   ): DangerRating[] {
-    return bulletin?.dangerRatings
+    return (bulletin?.dangerRatings ?? [])
       .filter(danger =>
         matchesValidTimePeriod(validTimePeriod, danger.validTimePeriod)
       )
