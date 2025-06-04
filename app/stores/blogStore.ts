@@ -2,6 +2,7 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
+import { Temporal } from "temporal-polyfill";
 
 export const isTechBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");
@@ -58,9 +59,9 @@ export const maxPages = computed(
 export const startDate = computed([year, month], (year, month) => {
   if (year) {
     if (month) {
-      return new Date(year, month - 1, 1);
+      return new Temporal.PlainDate(year, month, 1);
     }
-    return new Date(year, 0, 1);
+    return new Temporal.PlainDate(year, 1, 1);
   }
   return null;
 });
@@ -68,9 +69,9 @@ export const startDate = computed([year, month], (year, month) => {
 export const endDate = computed([year, month], (year, month) => {
   if (year) {
     if (month) {
-      return new Date(year, month, 1);
+      return new Temporal.PlainDate(year, month + 1, 1);
     }
-    return new Date(year + 1, 0, 1);
+    return new Temporal.PlainDate(year + 1, 1, 1);
   }
   return null;
 });
@@ -122,7 +123,7 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(parsed, minYear, new Date().getFullYear());
+    return clamp(parsed, minYear, Temporal.Now.plainDateISO().year);
   } else {
     return "";
   }

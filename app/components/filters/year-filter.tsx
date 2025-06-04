@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
 import Selectric from "../selectric";
+import { Temporal } from "temporal-polyfill";
 
 interface Props {
   buttongroup?: boolean;
@@ -18,10 +19,10 @@ export default function YearFilter(props: Props) {
   const intl = useIntl();
   const years = useMemo(() => {
     const years = [];
-    const maxYear = props.maxYear ?? new Date().getFullYear();
+    const maxYear = props.maxYear ?? Temporal.Now.plainDateISO().year;
 
     for (let year = maxYear; year >= props.minYear; year--) {
-      const date = new Date(year, 0, 15);
+      const date = new Temporal.PlainDate(year, 1, 15);
       const name = props.formatter
         ? props.formatter(year)
         : intl.formatDate(date, props.dateFormat ?? { year: "numeric" });
