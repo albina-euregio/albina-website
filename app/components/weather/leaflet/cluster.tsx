@@ -1,4 +1,4 @@
-import React from "react"; // eslint-disable-line no-unused-vars
+import React from "react";
 import L from "leaflet";
 import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";

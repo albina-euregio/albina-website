@@ -52,7 +52,7 @@ const DataOverlay = ({ playerCB }) => {
     latlng: L.LatLngLiteral
   ): { x: number; y: number } => {
     const map = parentMap;
-    const element = overlay.getElement()!;
+    const element = overlay.getElement() as HTMLImageElement;
     const bounds = overlay.getBounds();
     const xY = element.naturalWidth / element.width;
     const yY = element.naturalHeight / element.height;

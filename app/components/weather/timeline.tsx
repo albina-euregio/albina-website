@@ -1,7 +1,6 @@
 import { useStore } from "@nanostores/react";
-import {
+import React, {
   ChangeEventHandler,
-  KeyboardEventHandler,
   MouseEventHandler,
   SetStateAction,
   useEffect,
@@ -463,7 +462,7 @@ const Timeline = ({ updateCB }) => {
     return nearestMarker;
   };
 
-  const getMarkerCenterX = (newTargetDate: { toISOString: () => any }) => {
+  const getMarkerCenterX = (newTargetDate: { toISOString: () => unknown }) => {
     const targetMarker = document.querySelectorAll(
       `[data-date*="${newTargetDate.toISOString()}"]`
     );
