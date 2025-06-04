@@ -1,7 +1,7 @@
 import { clamp } from "../util/clamp";
-import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
+import { AvalancheProblemTypeSchema } from "./bulletin";
 
 export const isTechBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");
@@ -146,7 +146,9 @@ export function validateLanguage(
 }
 
 export function validateProblem(valueToValidate: string): string {
-  return avalancheProblems.includes(valueToValidate) ? valueToValidate : "all";
+  return AvalancheProblemTypeSchema.safeParse(valueToValidate).success
+    ? valueToValidate
+    : "all";
 }
 
 export function init() {
