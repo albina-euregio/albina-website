@@ -2,10 +2,9 @@ import React, { useEffect, useMemo } from "react";
 import {
   AvalancheProblemType,
   BulletinCollection,
-  ValidTimePeriod,
-  extraRegions,
   matchesValidTimePeriod,
-  toAmPm
+  toAmPm,
+  ValidTimePeriod
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds } from "../../stores/eawsRegions";
@@ -47,12 +46,12 @@ export function PbfRegionState({
     () =>
       microRegionIds(activeBulletinCollection?.date, [
         ...config.regionCodes,
-        ...extraRegions
+        ...config.extraRegions
       ]),
     [activeBulletinCollection?.date]
   );
   const eawsRegions = useMemo(
-    () => eawsRegionIds().filter(r => !extraRegions.includes(r)),
+    () => eawsRegionIds().filter(r => !config.extraRegions.includes(r)),
     []
   );
   const eawsMicroRegions = useMemo(

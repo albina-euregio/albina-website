@@ -33,41 +33,6 @@ export type EawsAvalancheProblems = Record<
   AvalancheProblemType[]
 >;
 
-export const extraRegions = Object.freeze([
-  "AT-02",
-  "AT-03",
-  "AT-04",
-  "AT-05",
-  "AT-06",
-  "AT-08",
-  "DE-BY",
-  "IT-21",
-  "IT-23",
-  "IT-25",
-  "IT-34",
-  "IT-36",
-  "IT-57"
-]);
-
-const eawsRegionIDs = Object.freeze([
-  "AD",
-  "CH",
-  "CZ",
-  "ES-CT-L",
-  "ES-CT",
-  "ES",
-  "FI",
-  "FR",
-  "GB",
-  "IS",
-  "NO",
-  "PL",
-  "PL-12",
-  "SE",
-  "SI",
-  "SK"
-]);
-
 export const isOneDangerRating = atom(
   new URL(document.location.href).searchParams.get("one-danger-rating") === "1"
 );
@@ -170,7 +135,7 @@ class BulletinCollection {
   async loadExtraBulletins() {
     this.extraBulletins = [];
     const data = await Promise.all(
-      extraRegions.flatMap(id => {
+      config.extraRegions.flatMap(id => {
         const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           let url = aws.url["api:date"];
@@ -199,11 +164,11 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
-    const regex = new RegExp("^(" + eawsRegionIDs.join("|") + ")");
+    const regex = new RegExp("^(" + config.eawsRegions.join("|") + ")");
     try {
       const url =
-        eawsRegionIDs.length === 1 // this.date < "2023-11-01"
-          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${eawsRegionIDs[0]}.ratings.json`
+        config.eawsRegions.length === 1 // this.date < "2023-11-01"
+          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${config.eawsRegions[0]}.ratings.json`
           : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
       const { maxDangerRatings } = await fetchJSON<{
         maxDangerRatings: MaxDangerRatings;

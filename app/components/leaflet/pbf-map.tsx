@@ -11,7 +11,7 @@ import {
   MicroRegionProperties
 } from "../../stores/microRegions";
 import { RegionOutlineProperties } from "../../stores/eawsRegions";
-import { extraRegions, toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -103,7 +103,7 @@ type PbfLayerOverlayProps = PbfProps & {
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
     const regionsRegex = new RegExp(
-      "^(" + [...config.regionCodes, ...extraRegions].join("|") + ")"
+      "^(" + [...config.regionCodes, ...config.extraRegions].join("|") + ")"
     );
     const instance = L.vectorGrid.protobuf(
       "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
