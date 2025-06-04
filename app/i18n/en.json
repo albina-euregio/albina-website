@@ -186,6 +186,7 @@
   "bulletin:report:snowpack-structure:headline": "Snowpack",
   "bulletin:report:tendency:headline": "Tendency",
   "bulletin:report:danger-patterns": "Danger Patterns",
+  "bulletin:report:provider": "Provider",
   "bulletin:report:author": "Author",
   "bulletin:report:audio:feedback": "Send feedback",
   "bulletin:treeline": "Treeline",

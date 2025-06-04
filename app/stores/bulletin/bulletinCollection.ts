@@ -175,12 +175,14 @@ class BulletinCollection {
           if (!url?.endsWith("CAAMLv6.json")) return;
           url = config.template(url, { date: this.date, lang: this.lang });
           const data = await this.fetchFromURL(url);
-          // (data.bulletins ?? []).forEach(
-          //   b =>
-          //     (b.source = {
-          //       provider: { name: aws.name, website: aws.url[] }
-          //     })
-          // );
+          (data.bulletins ?? []).forEach(b => {
+            b.source = {
+              provider: {
+                name: aws.name,
+                website: aws.url[this.lang] || Object.values(aws.url)[0]
+              }
+            };
+          });
           return data;
         })
     );

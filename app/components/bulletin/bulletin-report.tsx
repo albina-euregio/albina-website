@@ -335,16 +335,19 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                 ))}
               </div>
             )}
-            {/*
-            <p className="bulletin-author">
-              <FormattedMessage id="bulletin:report:author" />
-              :&nbsp;
-              {bulletin.author &&
-                bulletin.author.name && (
-                  <span>{bulletin.author.name}</span>
-                )}
-            </p>
-              */}
+            {bulletin.source?.provider?.name && (
+              <p className="bulletin-author">
+                <FormattedMessage id="bulletin:report:provider" />
+                {": "}
+                <a
+                  href={bulletin.source?.provider?.website}
+                  rel="noopener noreferrer nofollow"
+                  target="_blank"
+                >
+                  {bulletin.source?.provider?.name}
+                </a>
+              </p>
+            )}
           </div>
         </section>
       )}
