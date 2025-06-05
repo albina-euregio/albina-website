@@ -138,20 +138,27 @@ class BulletinCollection {
       config.extraRegions.flatMap(id => {
         const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
-          let url = aws.url["api:date"];
-          if (!url?.endsWith("CAAMLv6.json")) return;
-          url = config.template(url, { date: this.date, lang: this.lang });
-          const data = await this.fetchFromURL(url);
-          (data.bulletins ?? []).forEach(b => {
-            b.source = {
-              provider: {
-                customData: { regionID: id, url },
-                name: aws.name,
-                website: aws.url[this.lang] || Object.values(aws.url)[0]
-              }
-            };
-          });
-          return data;
+          try {
+            let url = aws.url["api:date"];
+            if (!url?.endsWith("CAAMLv6.json")) return;
+            url = config.template(url, { date: this.date, lang: this.lang });
+            const data = await this.fetchFromURL(url);
+            (data.bulletins ?? []).forEach(b => {
+              b.source = {
+                provider: {
+                  customData: { regionID: id, url },
+                  name: aws.name,
+                  website: aws.url[this.lang] || Object.values(aws.url)[0]
+                }
+              };
+            });
+            return data;
+          } catch (error) {
+            console.error(
+              `Cannot load ${id} bulletin for date ${this.date}`,
+              error
+            );
+          }
         });
       })
     );
