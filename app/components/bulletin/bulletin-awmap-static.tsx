@@ -35,7 +35,10 @@ function BulletinAWMapStatic({
     publication: publicationDirectory,
     file
   });
-  if (!bulletin?.regions?.some(r => r.regionID.match(config.regionsRegex))) {
+  if (
+    bulletin?.source?.provider?.customData.url &&
+    !bulletin?.regions?.some(r => r.regionID.match(config.extraRegions))
+  ) {
     filePrefix = bulletin?.source?.provider?.customData.regionID;
     url = new URL(
       `${filePrefix}_${region}${fileSuffix}.jpg`,
