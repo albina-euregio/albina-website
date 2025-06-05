@@ -83,7 +83,7 @@ const PageFooter = () => {
                 })}
               >
                 <a
-                  href="https://www.avalanches.org/"
+                  href={config.links.eaws}
                   className="footer-logo-tertiary"
                   rel="noopener noreferrer"
                   target="_blank"
