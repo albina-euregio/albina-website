@@ -24,7 +24,7 @@ function initializeIFrame() {
   if (location.hostname === "localhost") {
     iframe.src = `/headless/bulletin/${date}?province=${region}&language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
     console.log(location.pathname);
-  } else if (String(region).match(/EUREGIO|AT-07|IT-32-BZ|IT-32-TN/)) {
+  } else if (/EUREGIO|AT-07|IT-32-BZ|IT-32-TN/.exec(String(region))) {
     const host = {
       en: "avalanche.report",
       ca: "ca.avalanche.report",
