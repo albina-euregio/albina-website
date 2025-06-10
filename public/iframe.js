@@ -24,7 +24,10 @@
     if (!element) return;
     const region = element.dataset.avRegion;
     const ratio = element.dataset.avRatio;
-    const date = element.dataset.avDate || "latest";
+    const date =
+      element.dataset.avDate ||
+      new URLSearchParams(location.search).get("date") ||
+      "latest";
     const lang = element.dataset.avLang || "de";
     const id = element.dataset.avId || "albina-website-iframe";
 
