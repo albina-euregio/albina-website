@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 (() => {
   function loadJS(FILE_URL, callback, async = true) {
     const scriptEle = document.createElement("script");

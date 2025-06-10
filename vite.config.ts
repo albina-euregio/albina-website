@@ -50,7 +50,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        iframe: resolve(__dirname, "app/iframe.js"),
+        iframe: resolve(__dirname, "app/iframe.ts"),
         "iframe-demo": resolve(__dirname, "iframe-demo.html")
       },
       output: {
