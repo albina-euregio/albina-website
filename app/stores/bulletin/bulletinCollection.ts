@@ -13,7 +13,7 @@ import {
 } from ".";
 import { eawsRegions } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
-import { fetchExists, fetchJSON } from "../../util/fetch.js";
+import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 import { atom } from "nanostores";
 
@@ -88,7 +88,7 @@ class BulletinCollection {
     return ok ? "ok" : "n/a";
   }
 
-  private async fetchFromURL(url: string) {
+  private async fetchFromURL(url: string): Promise<Bulletins> {
     const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
     return await BulletinsSchema.parseAsync(response);
   }
@@ -139,10 +139,28 @@ class BulletinCollection {
         const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           try {
-            let url = aws.url["api:date"];
-            if (!url?.endsWith("CAAMLv6.json")) return;
-            url = config.template(url, { date: this.date, lang: this.lang });
-            const data = await this.fetchFromURL(url);
+            const url0 = aws.url["api:date"];
+            if (!url0?.endsWith("CAAMLv6.json")) return;
+            if (!aws.url["api:date"]?.endsWith("CAAMLv6.json")) return;
+            let data: Bulletins;
+            let url: string;
+            try {
+              url = config.template(url0, {
+                date: this.date,
+                lang: this.lang
+              });
+              data = await this.fetchFromURL(url);
+            } catch (e) {
+              if (e instanceof NotFoundError) {
+                url = config.template(url0, {
+                  date: this.date,
+                  lang: "en" // fallback lang
+                });
+                data = await this.fetchFromURL(url);
+              } else {
+                throw e;
+              }
+            }
             (data.bulletins ?? []).forEach(b => {
               b.source = {
                 provider: {
