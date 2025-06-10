@@ -28,6 +28,7 @@
     "@floating-ui/react": "^0.26.23",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@iframe-resizer/child": "^5.4.4",
+    "@iframe-resizer/parent": "^5.4.4",
     "@nanostores/react": "^1.0.0",
     "@sentry/react": "^8.7.0",
     "diff-match-patch": "^1.0.5",
