@@ -2,12 +2,13 @@ import React, { useEffect, useMemo } from "react";
 import {
   AvalancheProblemType,
   BulletinCollection,
-  ValidTimePeriod,
   matchesValidTimePeriod,
-  toAmPm
+  toAmPm,
+  ValidTimePeriod
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
-import { eawsRegionIds, microRegionIds } from "../../stores/microRegions";
+import { eawsRegionIds } from "../../stores/eawsRegions";
+import { microRegionIds } from "../../stores/microRegions";
 
 export type RegionState =
   | "mouseOver"
@@ -42,12 +43,16 @@ export function PbfRegionState({
   validTimePeriod
 }: PbfRegionStateProps) {
   const microRegions = useMemo(
-    () => microRegionIds(activeBulletinCollection?.date),
+    () =>
+      microRegionIds(activeBulletinCollection?.date, [
+        ...config.regionCodes,
+        ...config.extraRegions
+      ]),
     [activeBulletinCollection?.date]
   );
   const eawsRegions = useMemo(
-    () => eawsRegionIds(activeBulletinCollection?.date),
-    [activeBulletinCollection?.date]
+    () => eawsRegionIds().filter(r => !config.extraRegions.includes(r)),
+    []
   );
   const eawsMicroRegions = useMemo(
     () =>

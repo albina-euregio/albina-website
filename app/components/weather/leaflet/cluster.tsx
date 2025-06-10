@@ -1,4 +1,4 @@
-import React from "react"; // eslint-disable-line no-unused-vars
+import React from "react";
 import L from "leaflet";
 import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";
@@ -51,7 +51,7 @@ const Cluster = props => {
           .join("<br>")
       );
     }
-    return L.divIcon({
+    return new L.DivIcon({
       ...activeMarker.options.icon.options,
       className: "leaflet-cluster-marker"
     });

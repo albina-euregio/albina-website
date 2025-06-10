@@ -1,4 +1,3 @@
-import { RegionCodes, regionCodes } from "../util/regions";
 import { Temporal } from "temporal-polyfill";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
@@ -70,7 +69,7 @@ export class StationData {
     if (typeof region !== "string") {
       return "";
     }
-    const match = region.match(window.config.regionsRegex);
+    const match = region.match(config.regionsRegex);
     return match ? match[0] : "";
   }
   get region() {
@@ -185,7 +184,7 @@ export class StationData {
 
 export function useStationData(
   sortValue0: keyof StationData = "name",
-  activeRegionPredicate: (r: RegionCodes) => boolean = () => true,
+  activeRegionPredicate: (r: string) => boolean = () => true,
   activeYear0: number | "" = currentSeasonYear(),
   filterObservationStart0 = false
 ) {
@@ -200,7 +199,7 @@ export function useStationData(
     "AT-07": activeRegionPredicate("AT-07"),
     "IT-32-BZ": activeRegionPredicate("IT-32-BZ"),
     "IT-32-TN": activeRegionPredicate("IT-32-TN")
-  } as Record<RegionCodes, boolean>);
+  } as Record<string, boolean>);
   const [activeData, setActiveData] = useState({
     snow: true,
     temp: true,
@@ -211,7 +210,7 @@ export function useStationData(
     filterObservationStart0
   );
 
-  const activeRegion = useMemo<RegionCodes | "all">(() => {
+  const activeRegion = useMemo<string | "all">(() => {
     const actives = Object.keys(activeRegions).filter(e => activeRegions[e]);
     return actives.length > 0 &&
       actives.length < Object.keys(activeRegions).length
@@ -321,7 +320,7 @@ export function useStationData(
 
   const sortedFilteredData = useMemo(() => {
     const pattern = searchText ? new RegExp(searchText, "i") : undefined;
-    const region = regionCodes.includes(activeRegion)
+    const region = config.regionCodes.includes(activeRegion)
       ? activeRegion
       : undefined;
     return data

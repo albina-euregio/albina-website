@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { regionCodes } from "../../util/regions";
 import Selectric from "../selectric";
 
 interface Props {
@@ -19,7 +18,7 @@ export default function ProvinceFilter(props: Props) {
   if (props.buttongroup) {
     return (
       <ul className="list-inline list-buttongroup-dense">
-        {(props.regionCodes ?? regionCodes).map(region => (
+        {(props.regionCodes ?? config.regionCodes).map(region => (
           <li key={region}>
             <button
               className={
@@ -47,7 +46,7 @@ export default function ProvinceFilter(props: Props) {
       >
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
-        {(props.regionCodes ?? regionCodes).map(r => (
+        {(props.regionCodes ?? config.regionCodes).map(r => (
           <option key={r} value={r}>
             {intl.formatMessage({ id: `region:${r}` })}
           </option>

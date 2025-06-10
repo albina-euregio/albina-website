@@ -11,8 +11,9 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
+import { eawsRegions } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
-import { fetchExists, fetchJSON } from "../../util/fetch.js";
+import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
 import { atom } from "nanostores";
 
@@ -32,38 +33,6 @@ export type EawsAvalancheProblems = Record<
   AvalancheProblemType[]
 >;
 
-const eawsRegions = Object.freeze([
-  "AD",
-  "AT-02",
-  "AT-03",
-  "AT-04",
-  "AT-05",
-  "AT-06",
-  "AT-08",
-  "CH",
-  "CZ",
-  "DE-BY",
-  "ES-CT-L",
-  "ES-CT",
-  "ES",
-  "FI",
-  "FR",
-  "GB",
-  "IS",
-  "IT-21",
-  "IT-23",
-  "IT-25",
-  "IT-34",
-  "IT-36",
-  "IT-57",
-  "NO",
-  "PL",
-  "PL-12",
-  "SE",
-  "SI",
-  "SK"
-]);
-
 export const isOneDangerRating = atom(
   new URL(document.location.href).searchParams.get("one-danger-rating") === "1"
 );
@@ -82,22 +51,20 @@ export function getMaxMainValue(
  * Class storing one Caaml.Bulletins object with additional state.
  */
 class BulletinCollection {
-  status: Status;
-  dataRaw: Bulletins | null;
-  dataRaw170000: Bulletins | null;
-  maxDangerRatings: MaxDangerRatings;
-  eawsMaxDangerRatings: MaxDangerRatings;
-  eawsAvalancheProblems: EawsAvalancheProblems;
+  status: Status = "pending";
+  private dataRaw: Bulletins | null = null;
+  private dataRaw170000: Bulletins | null = null;
+  private extraBulletins: Bulletin[] = [];
+  maxDangerRatings: MaxDangerRatings = {};
+  eawsMaxDangerRatings: MaxDangerRatings = {};
+  eawsAvalancheProblems: EawsAvalancheProblems = {};
 
   constructor(
     public readonly date: Temporal.PlainDate,
     public readonly lang: string
-  ) {
-    this.status = "pending";
-    this.dataRaw = null;
-  }
+  ) {}
 
-  private _getBulletinUrl(publicationDate = ""): string {
+  private _getBulletinUrl(publicationDate = ""): string | undefined {
     if (!this.date || !this.lang) {
       return;
     }
@@ -121,40 +88,100 @@ class BulletinCollection {
     return ok ? "ok" : "n/a";
   }
 
-  async load(): Promise<this> {
+  private async fetchFromURL(url: string): Promise<Bulletins> {
+    const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
+    return await BulletinsSchema.parseAsync(response);
+  }
+
+  async load(): Promise<void> {
     const url = this._getBulletinUrl();
-    if (!url) return this;
+    if (!url) return;
     try {
-      const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-      const data = await BulletinsSchema.parseAsync(response);
-      this.setData(data);
+      this.dataRaw = await this.fetchFromURL(url);
+      this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
+      this.status = this.bulletins.length > 0 ? "ok" : "empty";
+      this.maxDangerRatings = this.computeMaxDangerRatings();
     } catch (error) {
       console.error(`Cannot load bulletin for date ${this.date}`, error);
-      this.setData(null);
+      this.dataRaw = null;
       this.status = "n/a";
+      this.maxDangerRatings = {};
     }
+  }
+
+  async load170000(): Promise<void> {
+    this.dataRaw170000 = null;
     try {
-      this.dataRaw170000 = undefined;
-      if (this.dataRaw.bulletins.some(b => b.unscheduled)) {
-        const date = this.date.subtract({ days: 1 });
-        const hour = date
-          .toPlainDateTime({ hour: 17 })
-          .toZonedDateTime("Europe/Vienna")
-          .withTimeZone("UTC").hour;
-        const publicationDate = `${date}_${hour}-00-00`;
-        const url2 = this._getBulletinUrl(publicationDate);
-        const response = await fetchJSON<unknown>(url2, {
-          cache: "no-cache"
-        });
-        const data = await BulletinsSchema.parseAsync(response);
-        if (data?.bulletins?.length) {
-          this.dataRaw170000 = data;
-        }
+      if (!(this.dataRaw?.bulletins ?? []).some(b => b.unscheduled)) {
+        return;
+      }
+      const date = this.date.subtract({ days: 1 });
+      const hour = date
+        .toPlainDateTime({ hour: 17 })
+        .toZonedDateTime("Europe/Vienna")
+        .withTimeZone("UTC").hour;
+      const publicationDate = `${date}_${hour}-00-00`;
+      const url = this._getBulletinUrl(publicationDate);
+      if (!url) return;
+      const data = await this.fetchFromURL(url);
+      if (data?.bulletins?.length) {
+        this.dataRaw170000 = data;
       }
     } catch (error) {
       console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
     }
-    return this;
+  }
+
+  async loadExtraBulletins() {
+    this.extraBulletins = [];
+    const data = await Promise.all(
+      config.extraRegions.flatMap(id => {
+        const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
+        return awsList.map(async (aws): Promise<Bulletins | undefined> => {
+          try {
+            const url0 = aws.url["api:date"];
+            if (!url0?.endsWith("CAAMLv6.json")) return;
+            if (!aws.url["api:date"]?.endsWith("CAAMLv6.json")) return;
+            let data: Bulletins;
+            let url: string;
+            try {
+              url = config.template(url0, {
+                date: this.date,
+                lang: this.lang
+              });
+              data = await this.fetchFromURL(url);
+            } catch (e) {
+              if (e instanceof NotFoundError) {
+                url = config.template(url0, {
+                  date: this.date,
+                  lang: "en" // fallback lang
+                });
+                data = await this.fetchFromURL(url);
+              } else {
+                throw e;
+              }
+            }
+            (data.bulletins ?? []).forEach(b => {
+              b.source = {
+                provider: {
+                  customData: { regionID: id, url },
+                  name: aws.name,
+                  website: aws.url[this.lang] || Object.values(aws.url)[0]
+                }
+              };
+            });
+            return data;
+          } catch (error) {
+            console.error(
+              `Cannot load ${id} bulletin for date ${this.date}`,
+              error
+            );
+          }
+        });
+      })
+    );
+    this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
+    this.maxDangerRatings = this.computeMaxDangerRatings();
   }
 
   async loadEawsBulletins() {
@@ -162,11 +189,10 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
-    const regex = new RegExp("^(" + eawsRegions.join("|") + ")");
     try {
       const url =
-        eawsRegions.length === 1 // this.date < "2023-11-01"
-          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${eawsRegions[0]}.ratings.json`
+        config.eawsRegions.length === 1 // this.date < "2023-11-01"
+          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${config.eawsRegions[0]}.ratings.json`
           : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
       const { maxDangerRatings } = await fetchJSON<{
         maxDangerRatings: MaxDangerRatings;
@@ -174,7 +200,9 @@ class BulletinCollection {
         cache: "no-cache"
       });
       this.eawsMaxDangerRatings = Object.fromEntries(
-        Object.entries(maxDangerRatings).filter(([r]) => regex.test(r))
+        Object.entries(maxDangerRatings).filter(([r]) =>
+          config.eawsRegionsRegex.test(r)
+        )
       );
     } catch (error) {
       console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);
@@ -200,11 +228,11 @@ class BulletinCollection {
   }
 
   get bulletins(): Bulletin[] {
-    return this.dataRaw?.bulletins || [];
+    return [...(this.dataRaw?.bulletins ?? []), ...this.extraBulletins];
   }
 
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
-    return (this.dataRaw?.bulletins || []).map(b => [
+    return this.bulletins.map(b => [
       b,
       this.dataRaw170000?.bulletins?.find(
         b2 => b.bulletinID === b2.bulletinID
@@ -215,26 +243,11 @@ class BulletinCollection {
     ]);
   }
 
-  get length(): number {
-    return this.dataRaw.bulletins.length;
-  }
-
   getBulletinForBulletinOrRegion(id: string): Bulletin {
     return (
       this.bulletins.find(el => el.bulletinID == id) ??
       this.bulletins.find(el => el.regions.some(r => r.regionID === id))
     );
-  }
-
-  getData(): Bulletins {
-    return this.dataRaw;
-  }
-
-  setData(caaml: Bulletins | null) {
-    this.dataRaw = caaml;
-    this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
-    this.status = this.computeStatus();
-    this.maxDangerRatings = this.computeMaxDangerRatings();
   }
 
   private upgradeLegacyCAAML(b: Bulletin) {
@@ -248,18 +261,10 @@ class BulletinCollection {
     });
   }
 
-  private computeStatus(): Status {
-    return typeof this.dataRaw === "object" && this.dataRaw?.bulletins
-      ? this.dataRaw?.bulletins.length > 0
-        ? "ok"
-        : "empty"
-      : "n/a";
-  }
-
   private computeMaxDangerRatings(): MaxDangerRatings {
     return Object.fromEntries(
-      this.dataRaw?.bulletins.flatMap(b =>
-        b.regions.flatMap(({ regionID }) =>
+      this.bulletins.flatMap(b =>
+        (b.regions ?? []).flatMap(({ regionID }) =>
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
             validTimePeriod => [
               ...[
@@ -314,7 +319,7 @@ class BulletinCollection {
     bulletin: Bulletin,
     elevation: LowHigh | undefined
   ): DangerRating[] {
-    return bulletin?.dangerRatings
+    return (bulletin?.dangerRatings ?? [])
       .filter(danger =>
         matchesValidTimePeriod(validTimePeriod, danger.validTimePeriod)
       )

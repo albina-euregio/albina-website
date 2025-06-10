@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import type { Temporal } from "temporal-polyfill";
 import type { PathOptions, VectorGrid } from "leaflet";
 import "leaflet.vectorgrid";
-import { WarnLevelNumber, WARNLEVEL_STYLES } from "../../util/warn-levels";
+import { WARNLEVEL_STYLES, WarnLevelNumber } from "../../util/warn-levels";
 
 import { createLayerComponent, useLeafletContext } from "@react-leaflet/core";
-import { regionsRegex } from "../../util/regions";
 import {
   filterFeature,
   MicroRegionElevationProperties,
-  MicroRegionProperties,
-  RegionOutlineProperties
+  MicroRegionProperties
 } from "../../stores/microRegions";
+import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
+import { newRegionRegex } from "../../util/newRegionRegex";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -42,7 +42,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return config.map.regionStyling.hidden;
-    return regionsRegex.test(id)
+    return config.regionsRegex.test(id)
       ? WARNLEVEL_STYLES.albina[warnlevel]
       : WARNLEVEL_STYLES.eaws[warnlevel];
   };
@@ -103,6 +103,10 @@ type PbfLayerOverlayProps = PbfProps & {
 
 export const PbfLayerOverlay = createLayerComponent(
   (props: PbfLayerOverlayProps, ctx) => {
+    const regionsRegex = newRegionRegex([
+      ...config.regionCodes,
+      ...config.extraRegions
+    ]);
     const instance = L.vectorGrid.protobuf(
       "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
       {

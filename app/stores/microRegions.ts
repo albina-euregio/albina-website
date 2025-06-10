@@ -1,13 +1,12 @@
 import type { Temporal } from "temporal-polyfill";
-import _p1 from "@eaws/micro-regions_properties/AT-07_micro-regions.json";
-import _p2 from "@eaws/micro-regions_properties/IT-32-BZ_micro-regions.json";
-import _p3 from "@eaws/micro-regions_properties/IT-32-TN_micro-regions.json";
-import _pe1 from "@eaws/micro-regions_elevation_properties/AT-07_micro-regions_elevation.json";
-import _pe2 from "@eaws/micro-regions_elevation_properties/IT-32-BZ_micro-regions_elevation.json";
-import _pe3 from "@eaws/micro-regions_elevation_properties/IT-32-TN_micro-regions_elevation.json";
-import eawsRegions from "@eaws/outline_properties/index.json";
-import type { Language } from "../appStore";
-import { regionsRegex } from "../util/regions";
+const regions_properties = import.meta.glob(
+  "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
+  { import: "default", eager: true }
+);
+const regions_elevation_properties = import.meta.glob(
+  "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
+  { import: "default", eager: true }
+);
 import { z } from "zod/v4-mini";
 
 export enum EawsRegionDataLayer {
@@ -22,11 +21,8 @@ export const MicroRegionPropertiesSchema = z.object({
   end_date: z.optional(z.nullable(z.string()))
 });
 export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
-export const microRegions: MicroRegionProperties[] = z
-  .array(MicroRegionPropertiesSchema)
-  .parse([..._p1, ..._p2, ..._p3]);
 
-export const MicroRegionElevationPropertiesSchema = z.extend(
+const MicroRegionElevationPropertiesSchema = z.extend(
   MicroRegionPropertiesSchema,
   {
     elevation: z.enum(["high", "low", "low_high"]),
@@ -38,15 +34,14 @@ export type MicroRegionElevationProperties = z.infer<
 >;
 export const microRegionsElevation: MicroRegionElevationProperties[] = z
   .array(MicroRegionElevationPropertiesSchema)
-  .parse([..._pe1, ..._pe2, ..._pe3]);
-
-export interface RegionOutlineProperties {
-  id: string;
-  aws: {
-    name: string;
-    url: Record<Language, string>;
-  }[];
-}
+  .parse(
+    config.regionCodes.flatMap(
+      id =>
+        regions_elevation_properties[
+          `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
+        ]
+    )
+  );
 
 /**
  * Determines whether the GeoJSON feature's start_date/end_date is valid today
@@ -65,15 +60,20 @@ export function filterFeature(
   );
 }
 
-export function eawsRegionIds(today: Temporal.PlainDate): string[] {
-  return eawsRegions
-    .filter(properties => filterFeature({ properties }, today))
-    .map(properties => properties.id)
-    .filter(id => !regionsRegex.test(id));
-}
-
-export function microRegionIds(today: Temporal.PlainDate): string[] {
-  return microRegions
+export function microRegionIds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): string[] {
+  return z
+    .array(MicroRegionPropertiesSchema)
+    .parse(
+      regionCodes.flatMap(
+        id =>
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ]
+      )
+    )
     .filter(properties => filterFeature({ properties }, today))
     .map(f => String(f.id))
     .sort();

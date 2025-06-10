@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import Selectric from "../selectric";
 import { useIntl } from "../../i18n";
+import { Temporal } from "temporal-polyfill";
 
 interface Props {
   handleChange(month: number): unknown;
@@ -24,7 +25,9 @@ export default function MonthFilter(props: Props) {
       month < (props.minMonth ?? 1) + (props.length ?? 12);
       month++
     ) {
-      const date = new Date(props.year ?? 2000, month - 1, 15);
+      const date = new Temporal.PlainDate(props.year ?? 2000, 1, 15).add({
+        months: month - 1
+      });
       const name = intl.formatDate(date, props.dateFormat ?? { month: "long" });
       months.push({ month, date, name });
     }

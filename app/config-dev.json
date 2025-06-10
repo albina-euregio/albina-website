@@ -1,5 +1,39 @@
 {
+  "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
+  "extraRegions": [
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-08",
+    "DE-BY",
+    "IT-21",
+    "IT-23",
+    "IT-25",
+    "IT-34",
+    "IT-36",
+    "IT-57"
+  ],
+  "eawsRegions": [
+    "AD",
+    "CH",
+    "CZ",
+    "ES-CT-L",
+    "ES-CT",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "IS",
+    "NO",
+    "PL",
+    "PL-12",
+    "SE",
+    "SI",
+    "SK"
+  ],
   "blogs": [
     {
       "lang": "de",
@@ -68,6 +102,7 @@
     "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
   },
   "links": {
+    "eaws": "https://www.avalanches.org/",
     "euregio": "http://www.europaregion.info/",
     "feedback": {
       "en": "https://docs.google.com/forms/d/e/1FAIpQLSe-sumwrNqze-TrwIH0AoD54xGNlwcbJ4Wn6AdopDMqZFiDuw/viewform?vc=0&c=0&w=1",

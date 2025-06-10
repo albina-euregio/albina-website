@@ -1,8 +1,11 @@
+export class NotFoundError extends Error {}
+
 export async function fetchJSON<T>(
   request: RequestInfo | URL,
   init?: RequestInit
 ): Promise<T> {
   const res = await fetch(request, init);
+  if (res.status === 404) throw new NotFoundError();
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
 }

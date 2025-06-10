@@ -1,11 +1,10 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import type { RegionCodes } from "../../util/regions";
-import eawsRegionOutlines from "@eaws/outline_properties/index.json";
+import { eawsRegions } from "../../stores/eawsRegions";
 
 interface Props {
-  region: RegionCodes;
+  region: string;
 }
 
 export default function SmFollow({ region }: Props) {
@@ -15,13 +14,9 @@ export default function SmFollow({ region }: Props) {
     instagram: "Instagram",
     youtube: "YouTube"
   };
-  const urls = eawsRegionOutlines.find(r => r.id === region)?.aws[0].url;
+  const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
   const accounts = Object.entries(names)
-    .map(([id, name]) => ({
-      id,
-      name,
-      url: urls[id]
-    }))
+    .map(([id, name]) => ({ id, name, url: urls?.[id] }))
     .filter(({ url }) => !!url);
   return (
     <section className="footer-logo-share-follow">

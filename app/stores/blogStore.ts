@@ -1,11 +1,11 @@
-import { RegionCodes, regionCodes } from "../util/regions";
 import { clamp } from "../util/clamp";
-import { avalancheProblems } from "../util/avalancheProblems";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
+import { AvalancheProblemTypeSchema } from "./bulletin";
+import { Temporal } from "temporal-polyfill";
 
 export const isTechBlog = atom<boolean>(false);
-export const region = atom<RegionCodes | "all">("all");
+export const region = atom<string | "all">("all");
 export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
@@ -59,9 +59,9 @@ export const maxPages = computed(
 export const startDate = computed([year, month], (year, month) => {
   if (year) {
     if (month) {
-      return new Date(year, month - 1, 1);
+      return new Temporal.PlainDate(year, month, 1);
     }
-    return new Date(year, 0, 1);
+    return new Temporal.PlainDate(year, 1, 1);
   }
   return null;
 });
@@ -69,9 +69,9 @@ export const startDate = computed([year, month], (year, month) => {
 export const endDate = computed([year, month], (year, month) => {
   if (year) {
     if (month) {
-      return new Date(year, month, 1);
+      return new Temporal.PlainDate(year, month + 1, 1);
     }
-    return new Date(year + 1, 0, 1);
+    return new Temporal.PlainDate(year + 1, 1, 1);
   }
   return null;
 });
@@ -123,14 +123,14 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(parsed, minYear, new Date().getFullYear());
+    return clamp(parsed, minYear, Temporal.Now.plainDateISO().year);
   } else {
     return "";
   }
 }
 
 export function validateRegion(valueToValidate: string): string {
-  return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
+  return config.regionCodes.includes(valueToValidate) ? valueToValidate : "all";
 }
 
 export function validateLanguage(
@@ -147,7 +147,9 @@ export function validateLanguage(
 }
 
 export function validateProblem(valueToValidate: string): string {
-  return avalancheProblems.includes(valueToValidate) ? valueToValidate : "all";
+  return AvalancheProblemTypeSchema.safeParse(valueToValidate).success
+    ? valueToValidate
+    : "all";
 }
 
 export function init() {

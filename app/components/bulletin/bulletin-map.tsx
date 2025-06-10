@@ -21,9 +21,9 @@ import {
   isOneDangerRating as isOneDangerRating0,
   ValidTimePeriod
 } from "../../stores/bulletin";
-import eawsRegionOutlines from "@eaws/outline_properties/index.json";
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
+import { eawsRegions } from "../../stores/eawsRegions";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -106,12 +106,12 @@ const BulletinMap = (props: Props) => {
             DomEvent.stop(e);
             props.handleSelectRegion(e.sourceTarget.properties.id);
           },
-          mouseover(e) {
+          pointerover(e) {
             requestAnimationFrame(() =>
               setRegionMouseover(e.sourceTarget.properties.id)
             );
           },
-          mouseout(e) {
+          pointerout(e) {
             requestAnimationFrame(() =>
               setRegionMouseover(id =>
                 id === e.sourceTarget.properties.id ? "" : id
@@ -133,7 +133,7 @@ const BulletinMap = (props: Props) => {
       props.activeBulletinCollection?.getBulletinForBulletinOrRegion(
         props.region
       );
-    const activeEaws = eawsRegionOutlines.find(r => r.id === props.region);
+    const activeEaws = eawsRegions.find(r => r.id === props.region);
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(

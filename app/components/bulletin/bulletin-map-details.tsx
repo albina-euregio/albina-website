@@ -22,14 +22,12 @@ function BulletinMapDetails({
   unselectRegion
 }: Props) {
   const intl = useIntl();
-  const problems =
-    bulletin.avalancheProblems.filter(p =>
-      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-    ) || [];
-  const dangerRatings =
-    bulletin.dangerRatings.filter(p =>
-      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-    ) || [];
+  const problems = (bulletin.avalancheProblems ?? []).filter(p =>
+    matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+  );
+  const dangerRatings = (bulletin.dangerRatings ?? []).filter(p =>
+    matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+  );
   let key = 0;
   let count = 0;
 

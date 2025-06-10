@@ -5,9 +5,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
 import { Tooltip } from "../tooltips/tooltip";
-import { type Bulletin } from "../../stores/bulletin";
-import { type Status } from "../../stores/bulletin";
-import { RegionCodes } from "../../util/regions";
+import { type Bulletin, type Status } from "../../stores/bulletin";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
 
@@ -18,7 +16,7 @@ export interface RegionBulletinStatus {
 }
 export interface LegacyBulletinStatus {
   $type: "LegacyBulletinStatus";
-  status: Record<RegionCodes, string | undefined>;
+  status: Record<string, string | undefined>;
 }
 export type BulletinStatus =
   | Status
