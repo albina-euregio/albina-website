@@ -1,8 +1,11 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-oxc";
+import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { defineConfig } from "vite";
 
-import { execSync } from "child_process";
-import { readFileSync } from "fs";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const { license, repository } = JSON.parse(
   readFileSync("./package.json", { encoding: "utf8" })
@@ -45,8 +48,18 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+        iframe: resolve(__dirname, "app/iframe.js"),
+        "iframe-demo": resolve(__dirname, "iframe-demo.html")
+      },
       output: {
-        chunkFileNames: "assets/[hash:19].js"
+        chunkFileNames(chunkInfo) {
+          if (chunkInfo.name.includes("iframe")) {
+            return "[name].js";
+          }
+          return "assets/[hash:19].js";
+        }
       }
     },
     sourcemap: true
