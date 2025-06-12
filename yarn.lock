@@ -256,6 +256,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emnapi/core@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@emnapi/core@npm:1.4.3"
+  dependencies:
+    "@emnapi/wasi-threads": "npm:1.0.2"
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/e30101d16d37ef3283538a35cad60e22095aff2403fb9226a35330b932eb6740b81364d525537a94eb4fb51355e48ae9b10d779c0dd1cdcd55d71461fe4b45c7
+  languageName: node
+  linkType: hard
+
+"@emnapi/runtime@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@emnapi/runtime@npm:1.4.3"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/3b7ab72d21cb4e034f07df80165265f85f445ef3f581d1bc87b67e5239428baa00200b68a7d5e37a0425c3a78320b541b07f76c5530f6f6f95336a6294ebf30b
+  languageName: node
+  linkType: hard
+
+"@emnapi/wasi-threads@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@emnapi/wasi-threads@npm:1.0.2"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/f0621b1fc715221bd2d8332c0ca922617bcd77cdb3050eae50a124eb8923c54fa425d23982dc8f29d505c8798a62d1049bace8b0686098ff9dd82270e06d772e
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.7.0":
   version: 4.7.0
   resolution: "@eslint-community/eslint-utils@npm:4.7.0"
@@ -533,6 +561,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@napi-rs/wasm-runtime@npm:^0.2.10":
+  version: 0.2.11
+  resolution: "@napi-rs/wasm-runtime@npm:0.2.11"
+  dependencies:
+    "@emnapi/core": "npm:^1.4.3"
+    "@emnapi/runtime": "npm:^1.4.3"
+    "@tybys/wasm-util": "npm:^0.9.0"
+  checksum: 10c0/049bd14c58b99fbe0967b95e9921c5503df196b59be22948d2155f17652eb305cff6728efd8685338b855da7e476dd2551fbe3a313fc2d810938f0717478441e
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -582,17 +621,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-project/runtime@npm:0.72.1":
-  version: 0.72.1
-  resolution: "@oxc-project/runtime@npm:0.72.1"
-  checksum: 10c0/d9fc8dc1e448f665e578676a389dba1f62045a437df387e94341e6fab24a5cd8377b7a4ef851762f7f4f9a8c5cf60187f71df77515e693d3c31d59d801f5638f
+"@oxc-project/runtime@npm:0.72.3, @oxc-project/runtime@npm:=0.72.3":
+  version: 0.72.3
+  resolution: "@oxc-project/runtime@npm:0.72.3"
+  checksum: 10c0/35d3be02bbb12252529585483c8fa64bb0e44fb55cf20d0763eb9cc9fe1b9033777125ba768fb7bce8e4776a48f5a175e9ef324575f0932048482c0477799ac8
   languageName: node
   linkType: hard
 
-"@oxc-project/types@npm:0.72.1":
-  version: 0.72.1
-  resolution: "@oxc-project/types@npm:0.72.1"
-  checksum: 10c0/0575c697978f0089b6b746623d78ac83dc547a8b928c2b939839ace1e39a192e3c0afa770ae1c6b4d5d57a4e628e15a324a0f74cfd8c927dd563592fa95dd031
+"@oxc-project/types@npm:=0.72.3":
+  version: 0.72.3
+  resolution: "@oxc-project/types@npm:0.72.3"
+  checksum: 10c0/8c1379671895b3ad3215d13a8194fc19150b16b35ad47b753c25963650055da9f11dade0225d6c522771f038451aff687e9fb9efdea5486ede5880631316c9f7
   languageName: node
   linkType: hard
 
@@ -776,94 +815,96 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rolldown/binding-darwin-arm64@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-darwin-arm64@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-darwin-arm64@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-darwin-arm64@npm:1.0.0-beta.15"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rolldown/binding-darwin-x64@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-darwin-x64@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-darwin-x64@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-darwin-x64@npm:1.0.0-beta.15"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rolldown/binding-freebsd-x64@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-freebsd-x64@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-freebsd-x64@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-freebsd-x64@npm:1.0.0-beta.15"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rolldown/binding-linux-arm-gnueabihf@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-linux-arm-gnueabihf@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-linux-arm-gnueabihf@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-linux-arm-gnueabihf@npm:1.0.0-beta.15"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@rolldown/binding-linux-arm64-gnu@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-linux-arm64-gnu@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-linux-arm64-gnu@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-linux-arm64-gnu@npm:1.0.0-beta.15"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rolldown/binding-linux-arm64-musl@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-linux-arm64-musl@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-linux-arm64-musl@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-linux-arm64-musl@npm:1.0.0-beta.15"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rolldown/binding-linux-x64-gnu@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-linux-x64-gnu@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-linux-x64-gnu@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-linux-x64-gnu@npm:1.0.0-beta.15"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rolldown/binding-linux-x64-musl@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-linux-x64-musl@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-linux-x64-musl@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-linux-x64-musl@npm:1.0.0-beta.15"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rolldown/binding-wasm32-wasi@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-wasm32-wasi@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-wasm32-wasi@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-wasm32-wasi@npm:1.0.0-beta.15"
+  dependencies:
+    "@napi-rs/wasm-runtime": "npm:^0.2.10"
   conditions: cpu=wasm32
   languageName: node
   linkType: hard
 
-"@rolldown/binding-win32-arm64-msvc@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-win32-arm64-msvc@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-win32-arm64-msvc@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-win32-arm64-msvc@npm:1.0.0-beta.15"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rolldown/binding-win32-ia32-msvc@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-win32-ia32-msvc@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-win32-ia32-msvc@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-win32-ia32-msvc@npm:1.0.0-beta.15"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@rolldown/binding-win32-x64-msvc@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/binding-win32-x64-msvc@npm:1.0.0-beta.10-commit.2c4c2a8"
+"@rolldown/binding-win32-x64-msvc@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/binding-win32-x64-msvc@npm:1.0.0-beta.15"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@rolldown/pluginutils@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.10-commit.2c4c2a8"
-  checksum: 10c0/6604c969514ed401352623aa59c4187512338a623742c7b7256f813456b11a8da935da2c9db5aba022143b6a0f76fd3b043895426c45e54e17cb531c19757d70
+"@rolldown/pluginutils@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "@rolldown/pluginutils@npm:1.0.0-beta.15"
+  checksum: 10c0/9e6dad8d82a34db600ef78f8da243e9f00f2b873afef9e071fd2bc1a26d9eb5cb9da474f211c42caabb8f6fcaf9bfbecc7e69af113aa84419967f012eb3228f3
   languageName: node
   linkType: hard
 
@@ -973,6 +1014,15 @@ __metadata:
   dependencies:
     "@sentry/types": "npm:8.7.0"
   checksum: 10c0/504597f38a51a734cacdb5ea9c8fb6b095f5cbe161725dc74a09338e443ce89c0f33d8f5c6411cab8edd7600fc045e0421dd23441b0e8fb24e498912c7139a36
+  languageName: node
+  linkType: hard
+
+"@tybys/wasm-util@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@tybys/wasm-util@npm:0.9.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/f9fde5c554455019f33af6c8215f1a1435028803dc2a2825b077d812bed4209a1a64444a4ca0ce2ea7e1175c8d88e2f9173a36a33c199e8a5c671aa31de8242d
   languageName: node
   linkType: hard
 
@@ -1345,7 +1395,7 @@ __metadata:
     temporal-polyfill: "npm:^0.3.0"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.33.1"
-    vite: "npm:rolldown-vite@6.3.15"
+    vite: "npm:rolldown-vite@^6.3.19"
     zod: "npm:^3.25.57"
   languageName: unknown
   linkType: soft
@@ -4669,25 +4719,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rolldown@npm:1.0.0-beta.10-commit.2c4c2a8":
-  version: 1.0.0-beta.10-commit.2c4c2a8
-  resolution: "rolldown@npm:1.0.0-beta.10-commit.2c4c2a8"
+"rolldown@npm:1.0.0-beta.15":
+  version: 1.0.0-beta.15
+  resolution: "rolldown@npm:1.0.0-beta.15"
   dependencies:
-    "@oxc-project/runtime": "npm:0.72.1"
-    "@oxc-project/types": "npm:0.72.1"
-    "@rolldown/binding-darwin-arm64": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-darwin-x64": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-freebsd-x64": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-linux-arm-gnueabihf": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-linux-arm64-gnu": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-linux-arm64-musl": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-linux-x64-gnu": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-linux-x64-musl": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-wasm32-wasi": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-win32-arm64-msvc": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-win32-ia32-msvc": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/binding-win32-x64-msvc": "npm:1.0.0-beta.10-commit.2c4c2a8"
-    "@rolldown/pluginutils": "npm:1.0.0-beta.10-commit.2c4c2a8"
+    "@oxc-project/runtime": "npm:=0.72.3"
+    "@oxc-project/types": "npm:=0.72.3"
+    "@rolldown/binding-darwin-arm64": "npm:1.0.0-beta.15"
+    "@rolldown/binding-darwin-x64": "npm:1.0.0-beta.15"
+    "@rolldown/binding-freebsd-x64": "npm:1.0.0-beta.15"
+    "@rolldown/binding-linux-arm-gnueabihf": "npm:1.0.0-beta.15"
+    "@rolldown/binding-linux-arm64-gnu": "npm:1.0.0-beta.15"
+    "@rolldown/binding-linux-arm64-musl": "npm:1.0.0-beta.15"
+    "@rolldown/binding-linux-x64-gnu": "npm:1.0.0-beta.15"
+    "@rolldown/binding-linux-x64-musl": "npm:1.0.0-beta.15"
+    "@rolldown/binding-wasm32-wasi": "npm:1.0.0-beta.15"
+    "@rolldown/binding-win32-arm64-msvc": "npm:1.0.0-beta.15"
+    "@rolldown/binding-win32-ia32-msvc": "npm:1.0.0-beta.15"
+    "@rolldown/binding-win32-x64-msvc": "npm:1.0.0-beta.15"
+    "@rolldown/pluginutils": "npm:1.0.0-beta.15"
     ansis: "npm:^4.0.0"
   dependenciesMeta:
     "@rolldown/binding-darwin-arm64":
@@ -4716,7 +4766,7 @@ __metadata:
       optional: true
   bin:
     rolldown: bin/cli.mjs
-  checksum: 10c0/0eb45efc15aa9700eaccb0bd022e13667c9e2d7d2938cb078d63355a3c46818b0f57d69176fbb5ef376bcad306ac3915d0908473309b4d4083468cadfb24832e
+  checksum: 10c0/de2ea888c85ce458232707b75c9e8982ee128c497d0e5c992b4085c57bdd36bcc73d04f3fba3186ab70274288d6914c94f280ab380ce0b4347610b51b82e25e8
   languageName: node
   linkType: hard
 
@@ -5242,10 +5292,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0":
-  version: 2.6.2
-  resolution: "tslib@npm:2.6.2"
-  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
+"tslib@npm:^2.0.0, tslib@npm:^2.4.0":
+  version: 2.8.1
+  resolution: "tslib@npm:2.8.1"
+  checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
   languageName: node
   linkType: hard
 
@@ -5421,17 +5471,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:rolldown-vite@6.3.15":
-  version: 6.3.15
-  resolution: "rolldown-vite@npm:6.3.15"
+"vite@npm:rolldown-vite@^6.3.19":
+  version: 6.3.19
+  resolution: "rolldown-vite@npm:6.3.19"
   dependencies:
-    "@oxc-project/runtime": "npm:0.72.1"
+    "@oxc-project/runtime": "npm:0.72.3"
     fdir: "npm:^6.4.4"
     fsevents: "npm:~2.3.3"
     lightningcss: "npm:^1.30.0"
     picomatch: "npm:^4.0.2"
     postcss: "npm:^8.5.3"
-    rolldown: "npm:1.0.0-beta.10-commit.2c4c2a8"
+    rolldown: "npm:1.0.0-beta.15"
     tinyglobby: "npm:^0.2.13"
   peerDependencies:
     "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
@@ -5473,7 +5523,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/b6fc13bc1f7adf3384dc91bb1d1ac82e63be5f453330e90022ecc654fb3afe531cd9dc951e3e9d0fd731ff36ce75f54d14cd2a17bc4f55919af57093ad827155
+  checksum: 10c0/fd7cc03a7277597e4dfaed12911750bc1434501003da0574f794bff56c8cfa7d087f34d2222fe133556b04ea0feb2cf2bfabd7cdcdb17c25e22cf976a1c5b664
   languageName: node
   linkType: hard
 
