@@ -12,7 +12,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import { Temporal } from "temporal-polyfill";
-import "linea/src/linea-plot";
+import "@albina-euregio/linea/src/linea-plot";
 
 const ENABLE_UPLOT =
   import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
