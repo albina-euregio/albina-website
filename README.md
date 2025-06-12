@@ -108,15 +108,15 @@ server {
 
 ## Translation
 
-This project uses Transifex for its translations: https://www.transifex.com/albina-euregio/albina-website/dashboard/
+This project uses Transifex for its translations: https://explore.transifex.com/albina-euregio/albina-website/
 
-To interact with Transifex, install the official [transifex-client](https://github.com/transifex/transifex-client/).
+To interact with Transifex, install the official [transifex-client](https://github.com/transifex/cli).
 
 ```sh
 # push updated en.json to Transifex
 $ tx push --source albina-website.website
 # show status
-$ tx statuxs albina-website.website
+$ tx status albina-website.website
 # fetch updated translations from Transifex
 $ tx pull --use-git-timestamps
 ```
@@ -135,6 +135,6 @@ If you forgot to update the changelog before creating a new tag in git, use
 the CHANGELOG. The downside compared to the workflow above is, that the
 changes to CHANGELOG itself are not included in the release.
 
-If there have been several new releases since the last update to CHANGELOG, 
-use e.g. `yarn git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that 
-happened *after* version v7.0.6 was released.
+If there have been several new releases since the last update to CHANGELOG,
+use e.g. `yarn git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that
+happened _after_ version v7.0.6 was released.
