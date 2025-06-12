@@ -39,6 +39,7 @@
     "leaflet.markercluster": "patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch",
     "leaflet.sync": "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch",
     "leaflet.vectorgrid": "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch",
+    "linea": "https://gitlab.com/albina-euregio/linea.git",
     "nanostores": "^1.0.1",
     "normalize.css": "^8.0.1",
     "purecss-sass": "3.0.1",
@@ -49,8 +50,6 @@
     "react-router-dom": "^7.5.1",
     "react-string-replace": "^1.1.1",
     "temporal-polyfill": "^0.3.0",
-    "uplot": "^1.6.31",
-    "uplot-react": "^1.2.2",
     "zod": "^3.25.57"
   },
   "devDependencies": {
