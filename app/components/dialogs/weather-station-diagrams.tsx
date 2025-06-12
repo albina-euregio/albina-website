@@ -14,8 +14,7 @@ import { currentSeasonYear } from "../../util/date-season";
 import { Temporal } from "temporal-polyfill";
 import "@albina-euregio/linea/src/linea-plot";
 
-const ENABLE_UPLOT =
-  import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/";
+const ENABLE_UPLOT = true;
 
 function hasInteractivePlot(station: StationData | ObserverData) {
   return (
