@@ -20,6 +20,7 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
+    "@albina-euregio/linea": "^8.0.0",
     "@eaws/micro-regions_elevation_properties": "^7.0.8",
     "@eaws/micro-regions_names": "^7.0.8",
     "@eaws/micro-regions_properties": "^7.0.8",
@@ -49,8 +50,6 @@
     "react-router-dom": "^7.5.1",
     "react-string-replace": "^1.1.1",
     "temporal-polyfill": "^0.3.0",
-    "uplot": "^1.6.31",
-    "uplot-react": "^1.2.2",
     "zod": "^3.25.57"
   },
   "devDependencies": {

@@ -408,15 +408,45 @@ button.mfp-arrow {
     font-size: variables.$small-font-size;
   }
 
-  .uplots {
+  linea-plot {
     display: flex;
     flex-direction: column;
     gap: 40px;
     margin-top: 20px;
     margin-bottom: 20px;
-  }
 
-  .uplot {
-    box-shadow: 0 0 2px 2px variables.$grey-very-light;
+    > div {
+      box-shadow: 0 0 2px 2px variables.$grey-very-light;
+    }
+
+    > div:empty {
+      display: none;
+    }
+
+    .controls {
+      box-shadow: none;
+      text-align: center;
+    }
+    .toggle-btn {
+      padding: 10px 20px;
+      background-color: #ffffff;
+      color: #555555;
+      border: 2px solid #19aaff;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 300;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: #19aaff;
+      color: white;
+    }
+    .toggle-btn:active {
+      transform: translateY(1px);
+    }
   }
 }
