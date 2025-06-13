@@ -1,0 +1,22 @@
+diff --git a/lib/dom.js b/lib/dom.js
+index 2a29092213eb4832425bdd794dcb2f5cf6cce1dd..0f43e30c40da7c54eb5413d05e3ee6739d1fe5c8 100644
+--- a/lib/dom.js
++++ b/lib/dom.js
+@@ -1,15 +1,14 @@
+-import { DomUtil } from 'leaflet';
+ function splitClassName(className) {
+     return className.split(' ').filter(Boolean);
+ }
+ export function addClassName(element, className) {
+     for (const cls of splitClassName(className)){
+-        DomUtil.addClass(element, cls);
++        element.classList.add(element, cls);
+     }
+ }
+ export function removeClassName(element, className) {
+     for (const cls of splitClassName(className)){
+-        DomUtil.removeClass(element, cls);
++        element.classList.remove(element, cls);
+     }
+ }
+ export function updateClassName(element, prevClassName, nextClassName) {
