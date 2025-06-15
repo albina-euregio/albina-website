@@ -194,7 +194,7 @@ function Archive() {
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:tyrol"
+                  id: "region:AT-07"
                 })}
               </a>
             </li>
@@ -206,7 +206,7 @@ function Archive() {
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:south-tyrol"
+                  id: "region:IT-32-BZ"
                 })}
               </a>
             </li>
@@ -218,7 +218,7 @@ function Archive() {
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:trentino"
+                  id: "region:IT-32-TN"
                 })}
               </a>
             </li>
