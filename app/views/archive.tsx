@@ -189,7 +189,7 @@ function Archive() {
             <li>
               <a
                 className="secondary pure-button"
-                href={config.apis.bulletin.archiveTyrol}
+                href={`${config.apis.bulletin.archive}tyrol/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -201,7 +201,7 @@ function Archive() {
             <li>
               <a
                 className="secondary pure-button"
-                href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
+                href={`${config.apis.bulletin.archive}south_tyrol/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -213,7 +213,7 @@ function Archive() {
             <li>
               <a
                 className="secondary pure-button"
-                href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
+                href={`${config.apis.bulletin.archive}trentino/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
