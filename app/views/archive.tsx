@@ -189,36 +189,36 @@ function Archive() {
             <li>
               <a
                 className="secondary pure-button"
-                href={config.apis.bulletin.archiveTyrol}
+                href={`${config.apis.bulletin.archive}tyrol/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:tyrol"
+                  id: "region:AT-07"
                 })}
               </a>
             </li>
             <li>
               <a
                 className="secondary pure-button"
-                href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
+                href={`${config.apis.bulletin.archive}south_tyrol/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:south-tyrol"
+                  id: "region:IT-32-BZ"
                 })}
               </a>
             </li>
             <li>
               <a
                 className="secondary pure-button"
-                href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
+                href={`${config.apis.bulletin.archive}trentino/`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 {intl.formatMessage({
-                  id: "archive:former-archives:trentino"
+                  id: "region:IT-32-TN"
                 })}
               </a>
             </li>
