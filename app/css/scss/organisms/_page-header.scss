@@ -29,7 +29,7 @@
     left: -99999px;
     top: -99999px;
     content: "";
-    background: transparent url("../images/pro/logos/logo_en_print.png")
+    background: transparent url("../../../images/pro/logos/logo_en_print.png")
       no-repeat 0 0;
     background-size: 1px 1px;
     opacity: 0;
@@ -200,36 +200,36 @@ $page-header-logo-width: 3.25em;
     }
 
     .mark-de {
-      background-image: url("../images/pro/logos/logo_mark_de.svg");
+      background-image: url("../../../images/pro/logos/logo_mark_de.svg");
       background-size: logo.$logo-mark-de-width logo.$logo-mark-de-height;
       transform: rotate(90deg); //rotate: 90deg;
       &[data-base-url="/beta/"] {
-        background-image: url("../images/pro/logos/beta/logo_mark_de.svg");
+        background-image: url("../../../images/pro/logos/beta/logo_mark_de.svg");
       }
       &[data-base-url="/dev/"] {
-        background-image: url("../images/pro/logos/dev/logo_mark_de.svg");
+        background-image: url("../../../images/pro/logos/dev/logo_mark_de.svg");
       }
     }
     .mark-it {
-      background-image: url("../images/pro/logos/logo_mark_it.svg");
+      background-image: url("../../../images/pro/logos/logo_mark_it.svg");
       background-size: logo.$logo-mark-it-width logo.$logo-mark-it-height;
       transform: rotate(180deg); //rotate: 180deg;
       &[data-base-url="/beta/"] {
-        background-image: url("../images/pro/logos/beta/logo_mark_it.svg");
+        background-image: url("../../../images/pro/logos/beta/logo_mark_it.svg");
       }
       &[data-base-url="/dev/"] {
-        background-image: url("../images/pro/logos/dev/logo_mark_it.svg");
+        background-image: url("../../../images/pro/logos/dev/logo_mark_it.svg");
       }
     }
     .mark-en {
       opacity: 1;
-      background-image: url("../images/pro/logos/logo_mark_en.svg");
+      background-image: url("../../../images/pro/logos/logo_mark_en.svg");
       background-size: logo.$logo-mark-en-width logo.$logo-mark-en-height;
       &[data-base-url="/beta/"] {
-        background-image: url("../images/pro/logos/beta/logo_mark_en.svg");
+        background-image: url("../../../images/pro/logos/beta/logo_mark_en.svg");
       }
       &[data-base-url="/dev/"] {
-        background-image: url("../images/pro/logos/dev/logo_mark_en.svg");
+        background-image: url("../../../images/pro/logos/dev/logo_mark_en.svg");
       }
     }
   }
@@ -304,25 +304,25 @@ $page-header-logo-width: 3.25em;
   .url-de {
     height: logo.$logo-url-de-height;
     width: logo.$logo-url-de-width;
-    background-image: url("../images/pro/logos/logo_url_de.svg");
+    background-image: url("../../../images/pro/logos/logo_url_de.svg");
     background-size: logo.$logo-url-de-width logo.$logo-url-de-height;
     &[data-base-url="/beta/"] {
-      background-image: url("../images/pro/logos/beta/logo_url_de.svg");
+      background-image: url("../../../images/pro/logos/beta/logo_url_de.svg");
     }
     &[data-base-url="/dev/"] {
-      background-image: url("../images/pro/logos/dev/logo_url_de.svg");
+      background-image: url("../../../images/pro/logos/dev/logo_url_de.svg");
     }
   }
   .url-it {
     height: logo.$logo-url-it-height;
     width: logo.$logo-url-it-width;
-    background-image: url("../images/pro/logos/logo_url_it.svg");
+    background-image: url("../../../images/pro/logos/logo_url_it.svg");
     background-size: logo.$logo-url-it-width logo.$logo-url-it-height;
     &[data-base-url="/beta/"] {
-      background-image: url("../images/pro/logos/beta/logo_url_it.svg");
+      background-image: url("../../../images/pro/logos/beta/logo_url_it.svg");
     }
     &[data-base-url="/dev/"] {
-      background-image: url("../images/pro/logos/dev/logo_url_it.svg");
+      background-image: url("../../../images/pro/logos/dev/logo_url_it.svg");
     }
   }
   .url-en,
@@ -332,13 +332,13 @@ $page-header-logo-width: 3.25em;
   .url-fr {
     height: logo.$logo-url-en-height;
     width: logo.$logo-url-en-width;
-    background-image: url("../images/pro/logos/logo_url_en.svg");
+    background-image: url("../../../images/pro/logos/logo_url_en.svg");
     background-size: logo.$logo-url-en-width logo.$logo-url-en-height;
     &[data-base-url="/beta/"] {
-      background-image: url("../images/pro/logos/beta/logo_url_en.svg");
+      background-image: url("../../../images/pro/logos/beta/logo_url_en.svg");
     }
     &[data-base-url="/dev/"] {
-      background-image: url("../images/pro/logos/dev/logo_url_en.svg");
+      background-image: url("../../../images/pro/logos/dev/logo_url_en.svg");
     }
   }
 
@@ -503,7 +503,7 @@ $page-header-logo-width: 3.25em;
   height: logo.$logo-header-footer-secondary-height * 0.5;
   width: logo.$logo-header-footer-secondary-width * 0.5;
   background: transparent
-    url("../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
+    url("../../../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
   background-size: (logo.$logo-header-footer-secondary-width * 0.5)
     (logo.$logo-header-footer-secondary-height * 0.5);
   filter: grayscale(100%);

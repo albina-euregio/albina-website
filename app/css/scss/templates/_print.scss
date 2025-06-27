@@ -146,8 +146,9 @@
   #page-header {
     @include print-reset;
     min-height: $page-header-height;
-    background: variables.$white url("../images/pro/logos/logo_en_print.png")
-      no-repeat 0 calc((#{$page-header-height} - #{$logo-height}) / 2);
+    background: variables.$white
+      url("../../../images/pro/logos/logo_en_print.png") no-repeat 0
+      calc((#{$page-header-height} - #{$logo-height}) / 2);
     background-size: $logo-width $logo-height;
     @include print-bg;
     > div {

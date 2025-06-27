@@ -103,7 +103,7 @@ $search-width-wide: 300px;
     border: none !important;
     //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, but who knows ...
     .legend .legend-toggle {
-      background-image: url("../images/pro/meteoviewer/legend.png");
+      background-image: url("../../../images/pro/meteoviewer/legend.png");
     }
   }
 }
@@ -115,13 +115,13 @@ $search-width-wide: 300px;
   .patternlab .section-bulletin-map & {
     width: 100%;
     height: 100%;
-    background: transparent url(../images/dev/bulletin-report-map.jpg);
+    background: transparent url(../../../images/dev/bulletin-report-map.jpg);
     background-size: cover;
   }
   .patternlab .section-weather-map & {
     width: 100%;
     height: 100%;
-    background: transparent url(../images/dev/weather-map.png);
+    background: transparent url(../../../images/dev/weather-map.png);
     background-size: cover;
   }
 }

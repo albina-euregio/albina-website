@@ -53,7 +53,7 @@
 }
 .bg-warning-level-5 {
   background: variables.$warning-level-5-color
-    url("../images/pro/global/bg_checkered.png") repeat 0 0;
+    url("../../../images/pro/global/bg_checkered.png") repeat 0 0;
 }
 
 .bg-brand,
@@ -73,7 +73,7 @@
 
 .bg-colorbar {
   height: variables.$bar-width;
-  background: variables.$brand url("../images/pro/global/colorbar.gif")
+  background: variables.$brand url("../../../images/pro/global/colorbar.gif")
     no-repeat 0 0;
   background-size: 100% variables.$bar-width;
 }
