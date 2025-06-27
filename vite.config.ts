@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-oxc";
 
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
