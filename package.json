@@ -35,7 +35,7 @@
     "jquery": "^3.7.1",
     "leaflet": "2.0.0-alpha",
     "leaflet-geonames": "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch",
-    "leaflet-gesture-handling": "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch",
+    "leaflet-gesture-handling": "patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch",
     "leaflet.locatecontrol": "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch",
     "leaflet.markercluster": "patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch",
     "leaflet.sync": "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch",
