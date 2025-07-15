@@ -223,6 +223,7 @@ const TimeRangeButtons: React.FC<{
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[]).map(key => {
         if (key.startsWith("interactive") && !hasInteractivePlot(station))
+          // eslint-disable-next-line react/jsx-key
           return <></>;
         return (
           <li key={key}>
