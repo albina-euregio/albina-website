@@ -61,7 +61,7 @@ export default function SubscribeDialog() {
                             : type === "Telegram"
                               ? "dialog:subscribe:telegram"
                               : type === "Whatsapp"
-                                ? "dialog:subscribe:telegram"
+                                ? "dialog:subscribe:whatsapp"
                                 : type === "Email"
                                   ? "dialog:subscribe:email"
                                   : type === "App"

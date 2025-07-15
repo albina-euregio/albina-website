@@ -23,7 +23,7 @@ export default function SubscribeWhatsappDialog() {
     <div className="modal-subscribe-whatsapp">
       <div className="modal-header">
         <h2>
-          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
+          <FormattedMessage id="dialog:subscribe-whatsapp:subheader" />
         </h2>
       </div>
 
@@ -39,7 +39,7 @@ export default function SubscribeWhatsappDialog() {
           {}
           <label htmlFor="province">
             <FormattedMessage
-              id="dialog:subscribe-email:region"
+              id="dialog:subscribe-whatsapp:region"
               html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
@@ -59,7 +59,7 @@ export default function SubscribeWhatsappDialog() {
           />
           {}
           <label htmlFor="language">
-            <FormattedMessage id="dialog:subscribe-email:language" />
+            <FormattedMessage id="dialog:subscribe-whatsapp:language" />
           </label>
           <LanguageFilter
             buttongroup={true}
@@ -75,7 +75,7 @@ export default function SubscribeWhatsappDialog() {
             disabled={!(region && language)}
           >
             {intl.formatMessage({
-              id: "dialog:subscribe-telegram:subscribe:button"
+              id: "dialog:subscribe-whatsapp:subscribe:button"
             })}
           </button>
         </form>
@@ -85,7 +85,7 @@ export default function SubscribeWhatsappDialog() {
           <p className="status-message">
             <strong className="error">
               {intl.formatMessage({
-                id: "dialog:subscribe-web-push:error"
+                id: "dialog:subscribe-whatsapp:error"
               })}
             </strong>
             &nbsp;{errorMessage}
