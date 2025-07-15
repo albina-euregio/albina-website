@@ -3,13 +3,14 @@ import { FormattedMessage } from "../../i18n";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
+import SubscribeWhatsappDialog from "./subscribe-whatsapp-dialog";
 import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
 
 export default function SubscribeDialog() {
   const dialogTypes = isWebPushSupported()
-    ? (["WebPush", "Telegram", "Email", "App"] as const)
-    : (["Telegram", "Email", "App"] as const);
+    ? (["WebPush", "Telegram", "Whatsapp", "Email", "App"] as const)
+    : (["Telegram", "Whatsapp", "Email", "App"] as const);
   const [selectedDialog, selectDialog] =
     useState<(typeof dialogTypes)[number]>(null);
   return (
@@ -59,11 +60,13 @@ export default function SubscribeDialog() {
                             ? "dialog:subscribe:web-push"
                             : type === "Telegram"
                               ? "dialog:subscribe:telegram"
-                              : type === "Email"
-                                ? "dialog:subscribe:email"
-                                : type === "App"
-                                  ? "dialog:subscribe:app"
-                                  : undefined
+                              : type === "Whatsapp"
+                                ? "dialog:subscribe:whatsapp"
+                                : type === "Email"
+                                  ? "dialog:subscribe:email"
+                                  : type === "App"
+                                    ? "dialog:subscribe:app"
+                                    : undefined
                         }
                       />
                     </a>
@@ -75,6 +78,7 @@ export default function SubscribeDialog() {
 
           {selectedDialog === "WebPush" && <SubscribeWebPushDialog />}
           {selectedDialog === "Telegram" && <SubscribeTelegramDialog />}
+          {selectedDialog === "Whatsapp" && <SubscribeWhatsappDialog />}
           {selectedDialog === "Email" && <SubscribeEmailDialog />}
           {selectedDialog === "App" && <SubscribeAppDialog />}
         </div>

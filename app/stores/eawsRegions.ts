@@ -19,6 +19,7 @@ export const RegionOutlineSchema = z.object({
             "linkedin",
             "mail",
             "telegram",
+            "whatsapp",
             "twitter",
             "youtube"
           ]),
