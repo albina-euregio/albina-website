@@ -122,7 +122,7 @@ export default function SubscribeWebPushDialog() {
     <div className="modal-subscribe-telegram">
       <div className="modal-header">
         <h2>
-          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
+          <FormattedMessage id="dialog:subscribe-web-push:subheader" />
         </h2>
       </div>
 
@@ -150,7 +150,7 @@ export default function SubscribeWebPushDialog() {
           {}
           <label htmlFor="province">
             <FormattedMessage
-              id="dialog:subscribe-telegram:region"
+              id="dialog:subscribe-web-push:region"
               html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
@@ -171,7 +171,7 @@ export default function SubscribeWebPushDialog() {
           />
           {}
           <label htmlFor="language">
-            <FormattedMessage id="dialog:subscribe-telegram:language" />
+            <FormattedMessage id="dialog:subscribe-web-push:language" />
             <span className="normal" />
           </label>
           <LanguageFilter

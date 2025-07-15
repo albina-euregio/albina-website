@@ -39,7 +39,7 @@ export default function SubscribeTelegramDialog() {
           {}
           <label htmlFor="province">
             <FormattedMessage
-              id="dialog:subscribe-email:region"
+              id="dialog:subscribe-telegram:region"
               html={true}
               values={{
                 strong: (...msg) => <strong>{msg}</strong>
@@ -59,7 +59,7 @@ export default function SubscribeTelegramDialog() {
           />
           {}
           <label htmlFor="language">
-            <FormattedMessage id="dialog:subscribe-email:language" />
+            <FormattedMessage id="dialog:subscribe-telegram:language" />
           </label>
           <LanguageFilter
             buttongroup={true}
@@ -85,7 +85,7 @@ export default function SubscribeTelegramDialog() {
           <p className="status-message">
             <strong className="error">
               {intl.formatMessage({
-                id: "dialog:subscribe-web-push:error"
+                id: "dialog:subscribe-telegram:error"
               })}
             </strong>
             &nbsp;{errorMessage}
