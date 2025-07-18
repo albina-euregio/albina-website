@@ -265,7 +265,12 @@ const StationDiagramImage: React.FC<{
     const url = `https://api.avalanche.report/lawine/grafiken/smet/${timeRangePath}/${id}.smet.gz`;
     return (
       <div className="uplots">
-        <linea-plot src={url} showSurfaceHoarButton></linea-plot>
+        <linea-plot
+          key={url + timeRangeMilli}
+          src={url}
+          showSurfaceHoarButton
+          timeRangeMilli={timeRangeMilli}
+        />
       </div>
     );
   } else if (timeRange === "interactive") {
