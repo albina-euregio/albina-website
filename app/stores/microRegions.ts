@@ -7,7 +7,7 @@ const regions_elevation_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
   { import: "default", eager: true }
 );
-import { z } from "zod/v4-mini";
+import { z } from "zod/mini";
 
 export enum EawsRegionDataLayer {
   micro_regions_elevation = "micro-regions_elevation",

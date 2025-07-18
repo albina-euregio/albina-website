@@ -1,5 +1,5 @@
 import { atom, computed } from "nanostores";
-import { z } from "zod/v4-mini";
+import { z } from "zod/mini";
 
 export const LanguageSchema = z.enum([
   "ca",

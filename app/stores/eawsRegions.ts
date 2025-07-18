@@ -1,6 +1,6 @@
 import outline_properties from "@eaws/outline_properties/index.json";
 import { LanguageSchema } from "../appStore";
-import { z } from "zod/v4-mini";
+import { z } from "zod/mini";
 
 export const RegionOutlineSchema = z.object({
   id: z.string(),
