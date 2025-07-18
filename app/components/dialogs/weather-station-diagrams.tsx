@@ -224,7 +224,7 @@ const TimeRangeButtons: React.FC<{
       {(Object.keys(timeRanges) as TimeRange[]).map(key => {
         if (key.startsWith("interactive") && !hasInteractivePlot(station))
           // eslint-disable-next-line react/jsx-key
-          return <></>;
+          return;
         return (
           <li key={key}>
             <a
