@@ -243,6 +243,12 @@ class BulletinCollection {
     ]);
   }
 
+  get generalHeadline(): string {
+    return config.bulletin.showGeneralHeadline && this.dataRaw?.customData?.generalHeadline
+      ? this.dataRaw.customData.generalHeadline
+      : '';
+  }
+
   getBulletinForBulletinOrRegion(id: string): Bulletin {
     return (
       this.bulletins.find(el => el.bulletinID == id) ??
