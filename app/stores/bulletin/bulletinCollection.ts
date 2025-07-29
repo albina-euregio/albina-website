@@ -244,9 +244,9 @@ class BulletinCollection {
   }
 
   get generalHeadline(): string {
-    return config.bulletin.showGeneralHeadline && this.dataRaw?.customData?.generalHeadline
-      ? this.dataRaw.customData.generalHeadline
-      : '';
+    return config.bulletin.showGeneralHeadline && this.dataRaw?.customData?.ALBINA?.generalHeadline
+      ? this.dataRaw.customData.ALBINA.generalHeadline
+      : null;
   }
 
   getBulletinForBulletinOrRegion(id: string): Bulletin {
