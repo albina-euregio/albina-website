@@ -283,7 +283,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
           </p>
         </div>
       </section>
-      {(hasTendencyHighlights || bulletin.snowpackStructure?.comment) && (
+      {(hasTendencyHighlights || bulletin.snowpackStructure?.comment || bulletin.weatherForecast?.comment) && (
         <section
           id={bulletin.bulletinID + "-bulletin-additional"}
           className="section-centered section-bulletin section-bulletin-additional"
@@ -319,6 +319,19 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                     text={bulletin.snowpackStructure?.comment}
                     text170000={bulletin170000?.snowpackStructure?.comment}
                     showDiff={showDiff}
+                  />
+                </p>
+              </div>
+            )}
+            {bulletin.weatherForecast?.comment && (
+              <div>
+                <h2 className="subheader">
+                  <FormattedMessage id="bulletin:report:weather:headline" />
+                </h2>
+                <p>
+                  <LocalizedText
+                    text={bulletin.weatherForecast?.comment}
+                    text170000={bulletin170000?.weatherForecast?.comment}
                   />
                 </p>
               </div>
