@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -6,6 +6,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "../i18n";
 import { fetchText } from "../util/fetch";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
@@ -14,6 +15,7 @@ const StaticPage = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
+  const headless = useContext(HeadlessContext);
 
   const [title, setTitle] = useState("");
   const [chapter, setChapter] = useState("");
@@ -76,11 +78,12 @@ const StaticPage = () => {
               })
             : ""
         }
+        backLink={headless && "/headless/bulletin/latest"}
       />
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
-      {isShareable ? <SmShare /> : <div className="section-padding" />}
+      {isShareable && !headless ? <SmShare /> : <div className="section-padding" />}
     </>
   );
 };
