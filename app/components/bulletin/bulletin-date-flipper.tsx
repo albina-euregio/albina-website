@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Temporal } from "temporal-polyfill";
 import { Link, useNavigate } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
+import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 interface Props {
   date?: Temporal.PlainDate;
@@ -12,6 +13,7 @@ interface Props {
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();
   const navigate = useNavigate();
+  const headless = useContext(HeadlessContext);
 
   let nextDate$: Temporal.PlainDate | null = null;
   if (date && latest) {
@@ -104,7 +106,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:archive:hover"
             })}
           >
-            <Link to="/more/archive">
+            <Link to={headless ? '/headless/archive' : '/more/archive'}>
               {intl.formatMessage({
                 id: "bulletin:header:archive"
               })}

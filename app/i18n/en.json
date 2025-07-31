@@ -529,5 +529,6 @@
   "button:education:avalanche-problems:text": "Avalanche Problems",
   "button:education:danger-patterns:text": "Danger Patterns",
   "button:education:handbook:text": "Handbook",
+  "link:backToBulletin": "back to bulletin",
   "date-picker:close-button:caption": "Close"
 }

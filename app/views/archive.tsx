@@ -108,6 +108,7 @@ function Archive() {
         subtitle={intl.formatMessage({
           id: "more:subpages:subtitle"
         })}
+        backLink={headless && "/headless/bulletin/latest"}
       />
       <FilterBar search={false}>
         <YearFilter
