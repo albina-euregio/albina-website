@@ -83,6 +83,21 @@ const App = () => {
                   <Archive />
                 </HeadlessContext.Provider>
               } />
+              <Route path="education/*" element={
+                <HeadlessContext.Provider value={true}>
+                  <StaticPage />
+                </HeadlessContext.Provider>
+              } />
+              <Route path=":name" element={
+                <HeadlessContext.Provider value={true}>
+                  <RouteStaticPage />
+                </HeadlessContext.Provider>
+              } />
+              <Route path=":segment/:name" element={
+                <HeadlessContext.Provider value={true}>
+                  <RouteStaticPage />
+                </HeadlessContext.Provider>
+              } />
           </Route>
           <Route path="/" element={<Page />}>
             <Route index element={<Navigate replace to="/bulletin/latest" />} />
