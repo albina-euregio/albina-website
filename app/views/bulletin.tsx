@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
@@ -49,11 +49,7 @@ function useProblems() {
   return { problems, toggleProblem };
 }
 
-interface Props {
-  headless?: boolean;
-}
-
-const Bulletin = ({ headless }: Props) => {
+const Bulletin = () => {
   const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -68,6 +64,7 @@ const Bulletin = ({ headless }: Props) => {
   if (["de", "en"].includes(searchParams.get("language") || "")) {
     setLanguage(searchParams.get("language") as Language);
   }
+  const headless = useContext(HeadlessContext);
 
   useEffect(() => {
     _latestBulletinChecker();
