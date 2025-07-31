@@ -86,3 +86,8 @@ export const $locale = computed($language, language => {
     return language;
   }
 });
+
+
+let province: string | null = null;
+export const setProvince = (region: string | null) => province = region;
+export const getProvince = () => province;
