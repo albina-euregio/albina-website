@@ -27,7 +27,7 @@ const StaticPage = () => {
     (async () => {
       let url = location.pathname
         .substring(config.projectRoot)
-        .replace(/^\//, "");
+        .replace(/^\/(headless)?/, "");
       if (!url) return;
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
@@ -52,10 +52,10 @@ const StaticPage = () => {
       // extract title from first <h1>...</h1>
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
       setTitle(titlePattern.exec(text)?.[1]);
-      setContent(preprocessContent(text.replace(titlePattern, "")));
+      setContent(preprocessContent(text.replace(titlePattern, ""), false, headless));
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
-      setIsShareable(true);
+      setIsShareable(!headless);
     })();
   }, [lang, location.pathname]);
 
@@ -83,7 +83,7 @@ const StaticPage = () => {
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
-      {isShareable && !headless ? <SmShare /> : <div className="section-padding" />}
+      {isShareable ? <SmShare /> : <div className="section-padding" />}
     </>
   );
 };
