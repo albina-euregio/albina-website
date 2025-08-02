@@ -1,20 +1,9 @@
-stages:
-  - build
-  - test
-  - deploy
-  - performance
-
 workflow:
   # https://docs.gitlab.com/ee/ci/yaml/#workflowrules
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH
-
-# include:
-#   - template: Jobs/License-Scanning.gitlab-ci.yml
-#   - template: Security/Dependency-Scanning.gitlab-ci.yml
-#   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
   image: node:22
@@ -93,14 +82,6 @@ deploy:beta:manual:
   needs:
     - build:beta
   when: manual
-# browser_performance:
-#   needs:
-#     - deploy:beta
-#   variables:
-#     URL: https://avalanche.report/beta/
-#   only:
-#     - master
-#     - ci
 
 build:prod:
   extends: .build
