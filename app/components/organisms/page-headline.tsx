@@ -8,7 +8,7 @@ interface Props {
   title: string;
   children: React.ReactNode;
   backLink: string;
-};
+}
 
 export default function PageHeadline(props: Props) {
   const intl = useIntl();
@@ -26,13 +26,9 @@ export default function PageHeadline(props: Props) {
         {props.children}
 
         {props.backLink && (
-          <Link
-            to={props.backLink}
-            className="back-link"
-            href="#"
-          >
+          <Link to={props.backLink} className="back-link" href="#">
             {intl.formatMessage({
-              id: "link:backToBulletin"
+              id: "bulletin:linkbar:back-to-bulletin"
             })}
           </Link>
         )}
