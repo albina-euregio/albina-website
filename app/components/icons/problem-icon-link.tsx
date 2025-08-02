@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
 import { AvalancheProblem } from "../../stores/bulletin";
+import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 interface Props {
   problem: AvalancheProblem;
@@ -12,6 +13,7 @@ interface Props {
 
 export default function ProblemIconLink({ problem, wrapper }: Props) {
   const intl = useIntl();
+  const headless = useContext(HeadlessContext);
   const problemType = problem.problemType;
   const title = intl.formatMessage({
     id: "problem:" + problemType
@@ -23,7 +25,7 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
   const icon = (
     <Tooltip label={title}>
       <Link
-        to={"/education/avalanche-problems#" + problemType}
+        to={`${headless ? "/headless" : ""}/education/avalanche-problems#${problemType}`}
         className="img"
         href="#"
       >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -6,6 +6,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "../i18n";
 import { fetchText } from "../util/fetch";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
@@ -14,6 +15,7 @@ const StaticPage = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
+  const headless = useContext(HeadlessContext);
 
   const [title, setTitle] = useState("");
   const [chapter, setChapter] = useState("");
@@ -25,7 +27,7 @@ const StaticPage = () => {
     (async () => {
       let url = location.pathname
         .substring(config.projectRoot)
-        .replace(/^\//, "");
+        .replace(/^\/(headless)?/, "");
       if (!url) return;
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
@@ -50,12 +52,14 @@ const StaticPage = () => {
       // extract title from first <h1>...</h1>
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
       setTitle(titlePattern.exec(text)?.[1]);
-      setContent(preprocessContent(text.replace(titlePattern, "")));
+      setContent(
+        preprocessContent(text.replace(titlePattern, ""), false, headless)
+      );
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
-      setIsShareable(true);
+      setIsShareable(!headless);
     })();
-  }, [lang, location.pathname]);
+  }, [headless, lang, location.pathname]);
 
   useEffect(() => {
     document
@@ -76,6 +80,7 @@ const StaticPage = () => {
               })
             : ""
         }
+        backLink={headless && "/headless/bulletin/latest"}
       />
       {/* <section className="section-centered">{content}</section> */}
       {content}

@@ -123,6 +123,7 @@
   "bulletin:legend:highlight:hover": "Highlight regions with {problem}",
   "bulletin:legend:dehighlight:hover": "Dim regions with {problem}",
   "bulletin:legend:danger-levels": "<strong>Danger Levels</strong>",
+  "bulletin:linkbar:back-to-bulletin": "Back to Avalanche Forecast",
   "bulletin:linkbar:back-to-map": "Back to map",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Download Avalanche Forecast as PDF",

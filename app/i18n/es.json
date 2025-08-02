@@ -123,6 +123,7 @@
   "bulletin:legend:highlight:hover": "Regiones destacadas con {problem}",
   "bulletin:legend:dehighlight:hover": "Regiones oscuras con {problem}",
   "bulletin:legend:danger-levels": "<strong>Grados de Peligro</strong>",
+  "bulletin:linkbar:back-to-bulletin": "Back to Avalanche Forecast",
   "bulletin:linkbar:back-to-map": "Volver al mapa",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Descargar la Predicción de Aludes en PDF",

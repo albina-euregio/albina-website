@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
@@ -19,11 +19,13 @@ import { useSearchParams } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
 import { setLanguage } from "../appStore.ts";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 
 function Archive() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [searchParams, setSearchParams] = useSearchParams();
+  const headless = useContext(HeadlessContext);
   const [buttongroup] = useState(searchParams.get("buttongroup"));
   const minMonth = 11;
   const [month, setMonth] = useState(
@@ -106,6 +108,7 @@ function Archive() {
         subtitle={intl.formatMessage({
           id: "more:subpages:subtitle"
         })}
+        backLink={headless && "/headless/bulletin/latest"}
       />
       <FilterBar search={false}>
         <YearFilter
