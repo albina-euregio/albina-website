@@ -52,12 +52,14 @@ const StaticPage = () => {
       // extract title from first <h1>...</h1>
       const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
       setTitle(titlePattern.exec(text)?.[1]);
-      setContent(preprocessContent(text.replace(titlePattern, ""), false, headless));
+      setContent(
+        preprocessContent(text.replace(titlePattern, ""), false, headless)
+      );
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
       setIsShareable(!headless);
     })();
-  }, [lang, location.pathname]);
+  }, [headless, lang, location.pathname]);
 
   useEffect(() => {
     document
