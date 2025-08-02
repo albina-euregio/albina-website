@@ -123,6 +123,7 @@
   "bulletin:legend:highlight:hover": "Regionen mit {problem} hervorheben",
   "bulletin:legend:dehighlight:hover": "Regionen mit {problem} dimmen",
   "bulletin:legend:danger-levels": "<strong>Gefahrenstufen</strong>",
+  "bulletin:linkbar:back-to-bulletin": "Zurück zur Lawinenvorhersage",
   "bulletin:linkbar:back-to-map": "Zurück zur Karte",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Die Lawinenvorhersage als PDF herunterladen",
