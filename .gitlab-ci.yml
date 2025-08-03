@@ -1,20 +1,9 @@
-stages:
-  - build
-  - test
-  - deploy
-  - performance
-
 workflow:
   # https://docs.gitlab.com/ee/ci/yaml/#workflowrules
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH
-
-# include:
-#   - template: Jobs/License-Scanning.gitlab-ci.yml
-#   - template: Security/Dependency-Scanning.gitlab-ci.yml
-#   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 .build:
   image: node:22
@@ -62,16 +51,10 @@ deploy:dev:
     name: dev
   needs:
     - build:dev
-  only:
-    - master
-    - ci
-deploy:dev:manual:
-  extends: .deploy
-  environment:
-    name: dev
-  needs:
-    - build:dev
-  when: manual
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
+      allow_failure: true
 
 build:beta:
   extends: .build
@@ -83,24 +66,10 @@ deploy:beta:
     name: beta
   needs:
     - build:beta
-  only:
-    - master
-    - ci
-deploy:beta:manual:
-  extends: .deploy
-  environment:
-    name: beta
-  needs:
-    - build:beta
-  when: manual
-# browser_performance:
-#   needs:
-#     - deploy:beta
-#   variables:
-#     URL: https://avalanche.report/beta/
-#   only:
-#     - master
-#     - ci
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
+      allow_failure: true
 
 build:prod:
   extends: .build
@@ -112,9 +81,10 @@ deploy:prod:
     name: prod
   needs:
     - build:prod
-  only:
-    - tags
-  when: manual
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+      allow_failure: true
 
 playwright:
   extends: .build
@@ -126,4 +96,6 @@ playwright:
       - test-results/
   script:
     - yarn playwright test
-  when: manual
+  rules:
+    - when: manual
+      allow_failure: true

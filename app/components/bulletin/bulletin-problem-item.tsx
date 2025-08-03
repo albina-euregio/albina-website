@@ -1,12 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { useIntl } from "../../i18n";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
+import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 // import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
+import { Link } from "react-router-dom";
 
 interface Props {
   problem: AvalancheProblem;
@@ -36,6 +38,7 @@ const textInfoToClass = {
 
 function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const intl = useIntl();
+  const headless = useContext(HeadlessContext);
   function getElevationIcon() {
     const lowerBound = problem?.elevation?.lowerBound;
     const upperBound = problem?.elevation?.upperBound;
@@ -277,11 +280,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   {snowpackStabilityText}:
                 </span>
                 <span className="matrix-info-value">
-                  <a href={"/education/snowpack-stability"}>
+                  <Link
+                    to={
+                      `${headless ? "/headless" : ""}/education/snowpack-stability`
+                    }
+                  >
                     {intl.formatMessage({
                       id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
                     })}
-                  </a>
+                  </Link>
                 </span>
               </div>
             )}
@@ -303,11 +310,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
             >
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
-                <a href={"/education/frequency"}>
+                <Link
+                  to={
+                    `${headless ? "/headless" : ""}/education/frequency`
+                  }
+                >
                   {intl.formatMessage({
                     id: `bulletin:report:problem:frequency:${problem?.frequency}`
                   })}
-                </a>
+                </Link>
               </span>
             </div>
           )}
@@ -329,16 +340,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
             >
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">
-                <a
-                  href={
-                    "/education/avalanche-sizes#anchor-" +
-                    problem?.avalancheSize
+                <Link
+                  to={
+                    `${headless ? "/headless" : ""}/education/avalanche-sizes#anchor-${problem?.avalancheSize}`
                   }
                 >
                   {intl.formatMessage({
                     id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
                   })}
-                </a>
+                </Link>
               </span>
             </div>
           )}

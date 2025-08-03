@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
 import { setLanguage, setProvince } from "../appStore";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -70,9 +71,37 @@ const App = () => {
         <Routes>
           {/* prettier-ignore */}
           <Route path="/headless">
-            <Route index element={<Navigate replace to="bulletin/latest" />} />
-            <Route path="bulletin/:date" element={<Bulletin headless={true} />} />
-            <Route path="bulletin/latest" element={<Bulletin headless={true} />} />
+              <Route index element={<Navigate replace to="bulletin/latest" />} />
+              <Route path="bulletin/:date" element={
+                <HeadlessContext.Provider value={true}>
+                  <Bulletin />
+                </HeadlessContext.Provider>
+              } />
+              <Route path="bulletin/latest" element={
+                <HeadlessContext.Provider value={true}>
+                  <Bulletin />
+                </HeadlessContext.Provider>
+              } />
+              <Route path="archive" element={
+                <HeadlessContext.Provider value={true}>
+                  <Archive />
+                </HeadlessContext.Provider>
+              } />
+              <Route path="education/*" element={
+                <HeadlessContext.Provider value={true}>
+                  <StaticPage />
+                </HeadlessContext.Provider>
+              } />
+              <Route path=":name" element={
+                <HeadlessContext.Provider value={true}>
+                  <RouteStaticPage />
+                </HeadlessContext.Provider>
+              } />
+              <Route path=":segment/:name" element={
+                <HeadlessContext.Provider value={true}>
+                  <RouteStaticPage />
+                </HeadlessContext.Provider>
+              } />
           </Route>
           <Route path="/" element={<Page />}>
             <Route index element={<Navigate replace to="/bulletin/latest" />} />

@@ -123,6 +123,7 @@
   "bulletin:legend:highlight:hover": "Senhalar es regions damb {problem}",
   "bulletin:legend:dehighlight:hover": "Enfosquir regions damb {problem}",
   "bulletin:legend:danger-levels": "<strong>Grads de perilh</strong>",
+  "bulletin:linkbar:back-to-bulletin": "Back to Avalanche Forecast",
   "bulletin:linkbar:back-to-map": "Entà darrèr tath mapa",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Descargar prediccion de lauegi coma PDF",
