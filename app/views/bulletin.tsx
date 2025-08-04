@@ -272,6 +272,13 @@ const Bulletin = () => {
           />
         </Suspense>
         <BulletinButtonbar />
+        {collection?.generalHeadline && (
+          <section id="section-general-headline" className="section-padding">
+            <div className="section-centered">
+              <h2 className="h1">{collection?.generalHeadline}</h2>
+            </div>
+          </section>
+        )}
         {collection && (
           <BulletinList
             bulletins={collection.bulletinsWith170000}
