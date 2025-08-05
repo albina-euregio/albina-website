@@ -244,6 +244,10 @@ class BulletinCollection {
     ]);
   }
 
+  get generalHeadline(): string {
+    return this.dataRaw?.customData?.ALBINA?.generalHeadline?.trim() ?? null;
+  }
+
   getBulletinForBulletinOrRegion(id: string): Bulletin {
     return (
       this.bulletins.find(el => el.bulletinID == id) ??
