@@ -61,6 +61,7 @@ const Bulletin = () => {
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>("earlier");
   if (["de", "en"].includes(searchParams.get("language") || "")) {
     setLanguage(searchParams.get("language") as Language);
   }
@@ -240,18 +241,22 @@ const Bulletin = () => {
           {daytimeDependency ? (
             <div className="bulletin-parallel-view">
               {["earlier", "later"].map((validTimePeriod, index) => (
-                <BulletinMap
-                  key={validTimePeriod}
-                  administrateLoadingBar={index === 0}
-                  handleSelectRegion={handleSelectRegion}
-                  region={region}
-                  status={status}
-                  date={collection?.date}
-                  onMapInit={handleMapInit}
-                  validTimePeriod={validTimePeriod}
-                  activeBulletinCollection={collection}
-                  problems={problems}
-                />
+                (!config.bulletin.switchBetweenTimePeriods || validTimePeriod === selectedTimePeriod) && (
+                  <BulletinMap
+                    key={validTimePeriod}
+                    administrateLoadingBar={index === 0}
+                    handleSelectRegion={handleSelectRegion}
+                    region={region}
+                    status={status}
+                    date={collection?.date}
+                    onMapInit={handleMapInit}
+                    validTimePeriod={validTimePeriod}
+                    activeBulletinCollection={collection}
+                    problems={problems}
+                    onSelectTimePeriod={timePeriod => setSelectedTimePeriod(timePeriod)}
+                    className="daytime-dependent"
+                  />
+                )
               ))}
             </div>
           ) : (
