@@ -11,7 +11,7 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
-import { getProvince } from "../../appStore";
+import { $province } from "../../appStore";
 import { eawsRegions } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
@@ -76,7 +76,7 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region: getProvince() ? `${getProvince()}_`: "EUREGIO_",
+        region: $province.get() ? `${$province.get()}_`: "EUREGIO_",
         lang: this.lang
       }
     );

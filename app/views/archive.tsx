@@ -4,7 +4,7 @@ import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
-import { getProvince } from "../appStore";
+import { $province } from "../appStore";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,
@@ -42,7 +42,7 @@ function Archive() {
   const [dates, setDates] = useState([] as Temporal.PlainDate[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
   const microRegions = useMemo(
-    () => microRegionIds(getDatesInMonth(year, month)[0], getProvince() ? config.regionCodes.filter(r => r === getProvince()) : config.regionCodes),
+    () => microRegionIds(getDatesInMonth(year, month)[0], $province.get() ? config.regionCodes.filter(r => r === $province.get()) : config.regionCodes),
     [month, year]
   );
 

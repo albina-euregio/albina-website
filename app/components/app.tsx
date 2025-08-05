@@ -13,7 +13,7 @@ import {
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
-import { setLanguage, setProvince } from "../appStore";
+import { setLanguage, $province } from "../appStore";
 import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 import Page from "./page";
 
@@ -63,7 +63,7 @@ const App = () => {
 
   const province = new URLSearchParams(document.location.search)
     .get("province")
-  useEffect(() => setProvince(province), [province]);
+  useEffect(() => $province.set(province), [province]);
 
   return (
     <BrowserRouter basename={config.projectRoot}>

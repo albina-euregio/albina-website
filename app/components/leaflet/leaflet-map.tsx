@@ -1,6 +1,5 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { useSearchParams } from "react-router-dom";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
@@ -12,7 +11,7 @@ import {
   TileLayerProps
 } from "react-leaflet";
 import L from "leaflet";
-import { getProvince } from "../../appStore.ts";
+import { $province } from "../../appStore.ts";
 
 interface Props {
   loaded: boolean;
@@ -25,17 +24,7 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const province = getProvince() as
-    | "AT-02"
-    | "AT-03"
-    | "AT-04"
-    | "AT-05"
-    | "AT-06"
-    | "AT-07"
-    | "AT-08"
-    | "DE-BY"
-    | "IT-32-BZ"
-    | "IT-32-TN";
+  const province = $province.get();
 
   return (
     <MapContainer

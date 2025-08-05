@@ -87,7 +87,14 @@ export const $locale = computed($language, language => {
   }
 });
 
-
-let province: string | null = null;
-export const setProvince = (region: string | null) => province = region;
-export const getProvince = () => province;
+export const $province = atom("" as
+  | "AT-02"
+  | "AT-03"
+  | "AT-04"
+  | "AT-05"
+  | "AT-06"
+  | "AT-07"
+  | "AT-08"
+  | "DE-BY"
+  | "IT-32-BZ"
+  | "IT-32-TN");
