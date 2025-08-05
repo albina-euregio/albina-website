@@ -1,6 +1,5 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { useSearchParams } from "react-router-dom";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {
@@ -12,6 +11,7 @@ import {
   TileLayerProps
 } from "react-leaflet";
 import L from "leaflet";
+import { $province } from "../../appStore.ts";
 
 interface Props {
   loaded: boolean;
@@ -24,11 +24,7 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const [searchParams] = useSearchParams();
-  const province = searchParams.get("province") as
-    | "AT-07"
-    | "IT-32-BZ"
-    | "IT-32-TN";
+  const province = $province.get();
 
   return (
     <MapContainer

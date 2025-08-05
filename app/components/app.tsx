@@ -13,8 +13,8 @@ import {
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
+import { setLanguage, $province } from "../appStore";
 import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
-import { setLanguage } from "../appStore";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -60,6 +60,10 @@ const App = () => {
       );
     });
   });
+
+  const province = new URLSearchParams(document.location.search)
+    .get("province")
+  useEffect(() => $province.set(province), [province]);
 
   return (
     <BrowserRouter basename={config.projectRoot}>
