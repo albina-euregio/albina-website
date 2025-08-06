@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -18,6 +18,8 @@ import HTMLPageLoadingScreen, {
 import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 import Selectric from "../components/selectric.tsx";
+import { $province } from "../appStore.ts";
+import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
 
 interface Props {
   isTechBlog: boolean;
@@ -37,13 +39,16 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   const searchCategory = useStore(BLOG_STORE.searchCategory);
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
+  const headless = useContext(HeadlessContext);
   const [headerText] = useState("");
+  const province = useStore($province);
 
-  const [, setSearchParams] = useSearchParams();
-  const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
-  useEffect(() => {
-    setSearchParams(searchParamsBlogStore);
-  }, [setSearchParams, searchParamsBlogStore]);
+  // const [, setSearchParams] = useSearchParams();
+  // const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
+  // useEffect(() => {
+  //   setSearchParams(searchParamsBlogStore);
+  // }, [setSearchParams, searchParamsBlogStore]);
+  useEffect(() => handleChangeRegion(province ?? "all"), [province]);
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
     index > 0 ? ", " : undefined,
@@ -72,7 +77,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
     BLOG_STORE.load();
   };
 
-  const handleChangeRegion = (val: string) => {
+  const handleChangeRegion = (val: string | "all") => {
     BLOG_STORE.region.set(val);
     BLOG_STORE.load();
   };
@@ -124,7 +129,13 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             : intl.formatMessage({ id: "blog:headline" })
         }
         marginal={headerText}
-      />
+      >
+        {headless && (
+          <Link to="/headless/bulletin/latest" className="back-link">
+            {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
+          </Link>
+        )}
+      </PageHeadline>
       <FilterBar
         search
         searchTitle={intl.formatMessage({

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import TagList from "./tag-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
 
 import type { BlogPostPreviewItem } from "../../stores/blog";
+import { HeadlessContext } from "../../contexts/HeadlessContext";
 
 interface Props {
   posts: BlogPostPreviewItem[];
@@ -13,6 +14,8 @@ interface Props {
 
 export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
   const intl = useIntl();
+  const headless = useContext(HeadlessContext);
+  console.log({ headless });
   const havePictures = posts.some(i => i.image);
   return (
     <div>
@@ -20,7 +23,7 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
         return (
           <Link
             key={i}
-            to={"/blog/" + item.blogName + "/" + item.postId}
+            to={`${headless ? "/headless" : ""}/blog/${item.blogName}/${item.postId}`}
             className="linkbox linkbox-blog-feature"
           >
             {havePictures && (

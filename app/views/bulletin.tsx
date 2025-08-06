@@ -216,7 +216,10 @@ const Bulletin = () => {
                     id: "bulletin:map:blog:button:title"
                   })}
                 >
-                  <Link to="/blog" className="secondary pure-button">
+                  <Link
+                    to={`${headless ? "/headless" : ""}/blog`}
+                    className="secondary pure-button"
+                  >
                     {intl.formatMessage({ id: "blog:title" })}
                   </Link>
                 </Tooltip>

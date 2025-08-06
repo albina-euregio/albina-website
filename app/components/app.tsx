@@ -97,6 +97,30 @@ const App = () => {
               }
             />
             <Route
+              path="blog/:blogName/:postId"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPost />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
+              path="blog/tech"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPostList isTechBlog={true} />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
+              path="blog"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPostList isTechBlog={false} />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
               path="education/*"
               element={
                 <HeadlessContext.Provider value={true}>
