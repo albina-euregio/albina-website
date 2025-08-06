@@ -87,14 +87,16 @@ export const $locale = computed($language, language => {
   }
 });
 
-export const $province = atom("" as
-  | "AT-02"
-  | "AT-03"
-  | "AT-04"
-  | "AT-05"
-  | "AT-06"
-  | "AT-07"
-  | "AT-08"
-  | "DE-BY"
-  | "IT-32-BZ"
-  | "IT-32-TN");
+export const $province = atom(
+  "" as
+    | "AT-02"
+    | "AT-03"
+    | "AT-04"
+    | "AT-05"
+    | "AT-06"
+    | "AT-07"
+    | "AT-08"
+    | "DE-BY"
+    | "IT-32-BZ"
+    | "IT-32-TN"
+);

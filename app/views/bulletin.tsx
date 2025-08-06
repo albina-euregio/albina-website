@@ -185,7 +185,10 @@ const Bulletin = () => {
   }
   if (searchParams.get("map-ratio")) {
     document.body.classList.add("with-custom-ratio");
-    document.documentElement.style.setProperty('--desktop-map-ratio', searchParams.get('map-ratio') ?? "1/1");
+    document.documentElement.style.setProperty(
+      "--desktop-map-ratio",
+      searchParams.get("map-ratio") ?? "1/1"
+    );
   }
 
   return (

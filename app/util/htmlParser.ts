@@ -6,7 +6,11 @@ import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
 
-export function preprocessContent(content: string, blogMode = false, headless = false) {
+export function preprocessContent(
+  content: string,
+  blogMode = false,
+  headless = false
+) {
   return htmr(content, {
     transform: {
       _(type, props: AllHTMLAttributes<HTMLLinkElement>, children) {
@@ -25,7 +29,11 @@ export function preprocessContent(content: string, blogMode = false, headless = 
           // replace internal links
           return React.createElement(
             Link,
-            { ...props, href: undefined, to: (headless ? "/headless" : "") +  props.href },
+            {
+              ...props,
+              href: undefined,
+              to: (headless ? "/headless" : "") + props.href
+            },
             children
           );
         } else if (type === "a" && props.href?.startsWith("#")) {

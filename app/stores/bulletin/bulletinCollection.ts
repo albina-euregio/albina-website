@@ -76,7 +76,7 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region: $province.get() ? `${$province.get()}_`: "EUREGIO_",
+        region: $province.get() ? `${$province.get()}_` : "EUREGIO_",
         lang: this.lang
       }
     );

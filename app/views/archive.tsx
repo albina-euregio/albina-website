@@ -42,7 +42,13 @@ function Archive() {
   const [dates, setDates] = useState([] as Temporal.PlainDate[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
   const microRegions = useMemo(
-    () => microRegionIds(getDatesInMonth(year, month)[0], $province.get() ? config.regionCodes.filter(r => r === $province.get()) : config.regionCodes),
+    () =>
+      microRegionIds(
+        getDatesInMonth(year, month)[0],
+        $province.get()
+          ? config.regionCodes.filter(r => r === $province.get())
+          : config.regionCodes
+      ),
     [month, year]
   );
 
