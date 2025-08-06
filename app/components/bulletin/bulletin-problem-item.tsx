@@ -281,9 +281,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 </span>
                 <span className="matrix-info-value">
                   <Link
-                    to={
-                      `${headless ? "/headless" : ""}/education/snowpack-stability`
-                    }
+                    to={`${headless ? "/headless" : ""}/education/snowpack-stability`}
                   >
                     {intl.formatMessage({
                       id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
@@ -310,11 +308,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
             >
               <span className="matrix-info-name">{frequencyText}:</span>
               <span className="matrix-info-value">
-                <Link
-                  to={
-                    `${headless ? "/headless" : ""}/education/frequency`
-                  }
-                >
+                <Link to={`${headless ? "/headless" : ""}/education/frequency`}>
                   {intl.formatMessage({
                     id: `bulletin:report:problem:frequency:${problem?.frequency}`
                   })}
@@ -341,9 +335,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               <span className="matrix-info-name">{avalancheSizeText}:</span>
               <span className="matrix-info-value">
                 <Link
-                  to={
-                    `${headless ? "/headless" : ""}/education/avalanche-sizes#anchor-${problem?.avalancheSize}`
-                  }
+                  to={`${headless ? "/headless" : ""}/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
                 >
                   {intl.formatMessage({
                     id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`

@@ -16,7 +16,7 @@ import FilterBar from "../components/organisms/filter-bar";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
 import { setLanguage } from "../appStore.ts";
@@ -42,7 +42,13 @@ function Archive() {
   const [dates, setDates] = useState([] as Temporal.PlainDate[]);
   const [region, setRegion] = useState(searchParams.get("region") || "");
   const microRegions = useMemo(
-    () => microRegionIds(getDatesInMonth(year, month)[0], $province.get() ? config.regionCodes.filter(r => r === $province.get()) : config.regionCodes),
+    () =>
+      microRegionIds(
+        getDatesInMonth(year, month)[0],
+        $province.get()
+          ? config.regionCodes.filter(r => r === $province.get())
+          : config.regionCodes
+      ),
     [month, year]
   );
 
@@ -109,8 +115,13 @@ function Archive() {
         subtitle={intl.formatMessage({
           id: "more:subpages:subtitle"
         })}
-        backLink={headless && "/headless/bulletin/latest"}
-      />
+      >
+        {headless && (
+          <Link to="/headless/bulletin/latest" className="back-link">
+            {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
+          </Link>
+        )}
+      </PageHeadline>
       <FilterBar search={false}>
         <YearFilter
           buttongroup={buttongroup}

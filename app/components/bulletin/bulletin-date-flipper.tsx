@@ -106,7 +106,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:archive:hover"
             })}
           >
-            <Link to={headless ? '/headless/archive' : '/more/archive'}>
+            <Link to={headless ? "/headless/archive" : "/more/archive"}>
               {intl.formatMessage({
                 id: "bulletin:header:archive"
               })}

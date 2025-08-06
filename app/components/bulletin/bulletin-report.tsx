@@ -283,7 +283,9 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
           </p>
         </div>
       </section>
-      {(hasTendencyHighlights || bulletin.snowpackStructure?.comment || bulletin.weatherForecast?.comment) && (
+      {(hasTendencyHighlights ||
+        bulletin.snowpackStructure?.comment ||
+        bulletin.weatherForecast?.comment) && (
         <section
           id={bulletin.bulletinID + "-bulletin-additional"}
           className="section-centered section-bulletin section-bulletin-additional"

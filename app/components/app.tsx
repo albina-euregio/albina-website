@@ -61,47 +61,89 @@ const App = () => {
     });
   });
 
-  const province = new URLSearchParams(document.location.search)
-    .get("province")
+  const province = new URLSearchParams(document.location.search).get(
+    "province"
+  );
   useEffect(() => $province.set(province), [province]);
 
   return (
     <BrowserRouter basename={config.projectRoot}>
       <Suspense fallback={"..."}>
         <Routes>
-          {/* prettier-ignore */}
           <Route path="/headless">
-              <Route index element={<Navigate replace to="bulletin/latest" />} />
-              <Route path="bulletin/:date" element={
+            <Route index element={<Navigate replace to="bulletin/latest" />} />
+            <Route
+              path="bulletin/:date"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <Bulletin />
                 </HeadlessContext.Provider>
-              } />
-              <Route path="bulletin/latest" element={
+              }
+            />
+            <Route
+              path="bulletin/latest"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <Bulletin />
                 </HeadlessContext.Provider>
-              } />
-              <Route path="archive" element={
+              }
+            />
+            <Route
+              path="archive"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <Archive />
                 </HeadlessContext.Provider>
-              } />
-              <Route path="education/*" element={
+              }
+            />
+            <Route
+              path="blog/:blogName/:postId"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPost />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
+              path="blog/tech"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPostList isTechBlog={true} />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
+              path="blog"
+              element={
+                <HeadlessContext.Provider value={true}>
+                  <BlogPostList isTechBlog={false} />
+                </HeadlessContext.Provider>
+              }
+            />
+            <Route
+              path="education/*"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <StaticPage />
                 </HeadlessContext.Provider>
-              } />
-              <Route path=":name" element={
+              }
+            />
+            <Route
+              path=":name"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <RouteStaticPage />
                 </HeadlessContext.Provider>
-              } />
-              <Route path=":segment/:name" element={
+              }
+            />
+            <Route
+              path=":segment/:name"
+              element={
                 <HeadlessContext.Provider value={true}>
                   <RouteStaticPage />
                 </HeadlessContext.Provider>
-              } />
+              }
+            />
           </Route>
           <Route path="/" element={<Page />}>
             <Route index element={<Navigate replace to="/bulletin/latest" />} />
