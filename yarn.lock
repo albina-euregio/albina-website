@@ -148,31 +148,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/child@npm:^5.4.4":
-  version: 5.4.4
-  resolution: "@iframe-resizer/child@npm:5.4.4"
+"@iframe-resizer/child@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "@iframe-resizer/child@npm:5.5.1"
   dependencies:
-    auto-console-group: "npm:1.2.5"
-  checksum: 10c0/a84cd6b50a488c2f208fb376e07387351723f5d9d5203e61bc32821b8313228eaa420c89ecc92599db117b1662664f799f5ccb3bc5b6fc1a6de97b4f12f11ac4
+    auto-console-group: "npm:1.2.10"
+  checksum: 10c0/769e0d938a8a715d6a29553f64558129a633e70c8e152f764c7902e0eb0276a25c474d56640066dc0eabb50a8cc1ec0d089f44a80a9216945ff846af64708d8b
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.4.4":
-  version: 5.4.4
-  resolution: "@iframe-resizer/core@npm:5.4.4"
+"@iframe-resizer/core@npm:5.5.1":
+  version: 5.5.1
+  resolution: "@iframe-resizer/core@npm:5.5.1"
   dependencies:
-    auto-console-group: "npm:1.2.5"
-  checksum: 10c0/35a3d777949618ce42da8923fd0f2bcf76b9189d50c86a2af03e2f0a3877552fcb37cf60183ceaf1a3124efc57a22fa625f7186c4a6e96f2a62f79ed6790f950
+    auto-console-group: "npm:1.2.10"
+  checksum: 10c0/299a2924c585fcbaaa902e93cbab50ef364202bd2f79891b09295f5b185bce800ca91b5f7afb3f6aa0bc0863edb0eb59ad73398566db745fd21117d79fbe1622
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.4.4":
-  version: 5.4.4
-  resolution: "@iframe-resizer/parent@npm:5.4.4"
+"@iframe-resizer/parent@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "@iframe-resizer/parent@npm:5.5.1"
   dependencies:
-    "@iframe-resizer/core": "npm:5.4.4"
-    auto-console-group: "npm:1.2.5"
-  checksum: 10c0/b7a212ea91fe8247c3968b00f0ee3df95fb8c4344cd7dbe7373c04b2257acc466876b77b1c22b579f307a5e1b15560b2da0652727cc9f23e2705186a723b6193
+    "@iframe-resizer/core": "npm:5.5.1"
+    auto-console-group: "npm:1.2.10"
+  checksum: 10c0/0235aff87b7901cd5492ce646ddf69e9882657f61463a32d030b32d933ba62a43f39bdc7e5153645a12244776ec2bfb66f3868e891cb46e010e22d9d46e82b56
   languageName: node
   linkType: hard
 
@@ -812,8 +812,8 @@ __metadata:
     "@eaws/outline_properties": "npm:^7.0.9"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
-    "@iframe-resizer/child": "npm:^5.4.4"
-    "@iframe-resizer/parent": "npm:^5.4.4"
+    "@iframe-resizer/child": "npm:^5.5.1"
+    "@iframe-resizer/parent": "npm:^5.5.1"
     "@nanostores/react": "npm:^1.0.0"
     "@playwright/test": "npm:^1.44.1"
     "@sentry/react": "npm:^8.7.0"
@@ -908,10 +908,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auto-console-group@npm:1.2.5":
-  version: 1.2.5
-  resolution: "auto-console-group@npm:1.2.5"
-  checksum: 10c0/6830bca922337503e2f63c997e40338016811e9c76d696113b947f2af2dd8a5660104d8c4721f9577c8d80d638121cb2db79ab7ad4348339c57eace954fa1734
+"auto-console-group@npm:1.2.10":
+  version: 1.2.10
+  resolution: "auto-console-group@npm:1.2.10"
+  checksum: 10c0/02d05a91747a832bcfa5cf502df13ec026cd393b8cafed359bf9d24d78f549a7ebb55a0c3310405e238cf832be1e64abae44c15b26a99e66325615ca5111ef77
   languageName: node
   linkType: hard
 
