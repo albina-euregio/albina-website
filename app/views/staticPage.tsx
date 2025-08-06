@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -80,8 +80,13 @@ const StaticPage = () => {
               })
             : ""
         }
-        backLink={headless && "/headless/bulletin/latest"}
-      />
+      >
+        {headless && (
+          <Link to="/headless/bulletin/latest" className="back-link">
+            {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
+          </Link>
+        )}
+      </PageHeadline>
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
