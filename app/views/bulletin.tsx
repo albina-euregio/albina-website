@@ -241,70 +241,68 @@ const Bulletin = () => {
         />
       )}
 
-      <HeadlessContext.Provider value={headless || false}>
-        <Suspense fallback={<div>...</div>}>
-          {daytimeDependency ? (
-            <div className="bulletin-parallel-view">
-              {["earlier", "later"].map((validTimePeriod, index) => (
-                <BulletinMap
-                  key={validTimePeriod}
-                  administrateLoadingBar={index === 0}
-                  handleSelectRegion={handleSelectRegion}
-                  region={region}
-                  status={status}
-                  date={collection?.date}
-                  onMapInit={handleMapInit}
-                  validTimePeriod={validTimePeriod}
-                  activeBulletinCollection={collection}
-                  problems={problems}
-                />
-              ))}
-            </div>
-          ) : (
-            <BulletinMap
-              administrateLoadingBar={true}
-              handleSelectRegion={handleSelectRegion}
-              region={region}
-              status={status}
-              date={collection?.date}
-              activeBulletinCollection={collection}
-              problems={problems}
-            />
-          )}
-          <BulletinLegend
-            handleSelectRegion={handleSelectRegion}
-            problems={problems}
-            toggleProblem={toggleProblem}
-          />
-        </Suspense>
-        <BulletinButtonbar />
-        {collection?.generalHeadline && (
-          <section id="section-general-headline" className="section-padding">
-            <div className="section-centered">
-              <h2 className="h1">{collection?.generalHeadline}</h2>
-            </div>
-          </section>
-        )}
-        {collection && (
-          <BulletinList
-            bulletins={collection.bulletinsWith170000}
-            date={collection?.date}
-            region={region}
-          />
-        )}
-        {headless ? (
-          <></>
+      <Suspense fallback={<div>...</div>}>
+        {daytimeDependency ? (
+          <div className="bulletin-parallel-view">
+            {["earlier", "later"].map((validTimePeriod, index) => (
+              <BulletinMap
+                key={validTimePeriod}
+                administrateLoadingBar={index === 0}
+                handleSelectRegion={handleSelectRegion}
+                region={region}
+                status={status}
+                date={collection?.date}
+                onMapInit={handleMapInit}
+                validTimePeriod={validTimePeriod}
+                activeBulletinCollection={collection}
+                problems={problems}
+              />
+            ))}
+          </div>
         ) : (
-          <>
-            <SmShare
-              image={shareImage}
-              title={title}
-              description={shareDescription}
-            />
-            <BulletinFooter />
-          </>
+          <BulletinMap
+            administrateLoadingBar={true}
+            handleSelectRegion={handleSelectRegion}
+            region={region}
+            status={status}
+            date={collection?.date}
+            activeBulletinCollection={collection}
+            problems={problems}
+          />
         )}
-      </HeadlessContext.Provider>
+        <BulletinLegend
+          handleSelectRegion={handleSelectRegion}
+          problems={problems}
+          toggleProblem={toggleProblem}
+        />
+      </Suspense>
+      <BulletinButtonbar />
+      {collection?.generalHeadline && (
+        <section id="section-general-headline" className="section-padding">
+          <div className="section-centered">
+            <h2 className="h1">{collection?.generalHeadline}</h2>
+          </div>
+        </section>
+      )}
+      {collection && (
+        <BulletinList
+          bulletins={collection.bulletinsWith170000}
+          date={collection?.date}
+          region={region}
+        />
+      )}
+      {headless ? (
+        <></>
+      ) : (
+        <>
+          <SmShare
+            image={shareImage}
+            title={title}
+            description={shareDescription}
+          />
+          <BulletinFooter />
+        </>
+      )}
     </>
   );
 };
