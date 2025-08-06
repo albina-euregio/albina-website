@@ -246,7 +246,7 @@ const BulletinMap = (props: Props) => {
   return (
     <section
       id="section-bulletin-map"
-      className={"section section-bulletin-map" + (config.bulletin.switchBetweenTimePeriods ? " toggleable-map-view" : "")}
+      className="section section-bulletin-map"
       aria-hidden
     >
       <div
@@ -267,22 +267,21 @@ const BulletinMap = (props: Props) => {
         {props.validTimePeriod && (
           <p className="bulletin-map-daytime">
             <span className="primary label">
-              <a href="#"
-                 className={"toggle-link" + (props.validTimePeriod === "earlier" ? " active" : "")}
-                 onClick={() => props.onSelectTimePeriod("earlier")}
-              >
-                {intl.formatMessage({
-                  id: `bulletin:header:earlier`
-                })}
-              </a>
-              <a href="#"
-                 className={"toggle-link" + (props.validTimePeriod === "later" ? " active" : "")}
-                 onClick={() => props.onSelectTimePeriod("later")}
-              >
-                {intl.formatMessage({
-                  id: `bulletin:header:later`
-                })}
-              </a>
+              {!config.bulletin.switchBetweenTimePeriods
+                ? intl.formatMessage({
+                    id: `bulletin:header:${props.validTimePeriod}`
+                  })
+                : ["earlier", "later"].map((timePeriod) => (
+                    <a href="#"
+                       className={"toggle-link" + (props.validTimePeriod === timePeriod ? " active" : "")}
+                       onClick={() => props.onSelectTimePeriod(timePeriod)}
+                    >
+                      {intl.formatMessage({
+                        id: `bulletin:header:${timePeriod}`
+                      })}
+                    </a>
+                  ))
+              }
             </span>
           </p>
         )}

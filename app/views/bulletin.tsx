@@ -245,7 +245,7 @@ const Bulletin = () => {
       <HeadlessContext.Provider value={headless || false}>
         <Suspense fallback={<div>...</div>}>
           {daytimeDependency ? (
-            <div className="bulletin-parallel-view">
+            <div className={!config.bulletin.switchBetweenTimePeriods ? "bulletin-parallel-view" : "bulletin-switchable-view"}>
               {["earlier", "later"].map((validTimePeriod, index) => (
                 (!config.bulletin.switchBetweenTimePeriods || validTimePeriod === selectedTimePeriod) && (
                   <BulletinMap
@@ -260,7 +260,6 @@ const Bulletin = () => {
                     activeBulletinCollection={collection}
                     problems={problems}
                     onSelectTimePeriod={timePeriod => setSelectedTimePeriod(timePeriod)}
-                    className="daytime-dependent"
                   />
                 )
               ))}
