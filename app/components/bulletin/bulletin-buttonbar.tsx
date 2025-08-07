@@ -5,8 +5,14 @@ import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
+import { $province } from "../../appStore";
+import type { Temporal } from "temporal-polyfill";
 
-function BulletinButtonbar() {
+interface Props {
+  date: Temporal.PlainDate;
+}
+
+function BulletinButtonbar({ date }: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
@@ -61,6 +67,54 @@ function BulletinButtonbar() {
                     </a>
                   </Tooltip>
                 </li>
+              )}
+              {date && (
+                <>
+                  <li>
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:linkbar:caaml:hover"
+                      })}
+                    >
+                      <a
+                        target="_blank"
+                        href={config.template(config.apis.bulletin.caamlv5, {
+                          date: date,
+                          region: `${$province.get()}_` || "EUREGIO_",
+                          lang: intl.locale.slice(0, 2)
+                        })}
+                        download="caamlv5.xml"
+                        className="pure-button"
+                      >
+                        {intl.formatMessage({
+                          id: "bulletin:linkbar:caaml:v5"
+                        })}
+                      </a>
+                    </Tooltip>
+                  </li>
+                  <li>
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:linkbar:caaml:hover"
+                      })}
+                    >
+                      <a
+                        target="_blank"
+                        href={config.template(config.apis.bulletin.xml, {
+                          date: date,
+                          region: `${$province.get()}_` || "EUREGIO_",
+                          lang: intl.locale.slice(0, 2)
+                        })}
+                        download="caaml.xml"
+                        className="pure-button"
+                      >
+                        {intl.formatMessage({
+                          id: "bulletin:linkbar:caaml:v6"
+                        })}
+                      </a>
+                    </Tooltip>
+                  </li>
+                </>
               )}
               {config.dialogs.feedback && (
                 <li>

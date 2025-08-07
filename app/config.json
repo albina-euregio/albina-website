@@ -108,7 +108,8 @@
       "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
       "mp3": "https://static.avalanche.report/bulletins/{date}/EUREGIO_{region}_{lang}.mp3",
-      "archive": "https://static.avalanche.report/bulletins/archive/"
+      "archive": "https://static.avalanche.report/bulletins/archive/",
+      "caamlv5": "http://localhost/bulletins/{date}/{date}_{region}{lang}.xml"
     },
     "push": "https://api.avalanche.report/albina/api/push",
     "subscribe": "https://api.avalanche.report/albina/api/email",
