@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegions } from "../../stores/eawsRegions";
+import { $province } from "../../appStore";
 
 export default function SubscribeTelegramDialog() {
   const intl = useIntl();
@@ -11,6 +12,12 @@ export default function SubscribeTelegramDialog() {
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
+
+  useEffect(() => {
+    if ($province.get()) {
+      setRegion($province.get())
+    }
+  }, [$province]);
 
   function openTelegram() {
     if (!region || !language) return;
@@ -36,28 +43,30 @@ export default function SubscribeTelegramDialog() {
             openTelegram();
           }}
         >
-          {}
-          <label htmlFor="province">
-            <FormattedMessage
-              id="dialog:subscribe-telegram:region"
-              html={true}
-              values={{
-                strong: (...msg) => <strong>{msg}</strong>
-              }}
-            />
-          </label>
-          <ProvinceFilter
-            buttongroup={true}
-            title={intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            handleChange={r => setRegion(r !== "none" ? r : false)}
-            value={region}
-            none={intl.formatMessage({
-              id: "blog:filter:province:nothing-selected"
-            })}
-          />
-          {}
+          {!$province.get() && (
+            <>
+              <label htmlFor="province">
+                <FormattedMessage
+                  id="dialog:subscribe-telegram:region"
+                  html={true}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </label>
+              <ProvinceFilter
+                buttongroup={true}
+                title={intl.formatMessage({
+                  id: "measurements:filter:province"
+                })}
+                handleChange={r => setRegion(r !== "none" ? r : false)}
+                value={region}
+                none={intl.formatMessage({
+                  id: "blog:filter:province:nothing-selected"
+                })}
+              />
+            </>
+          )}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-telegram:language" />
           </label>
