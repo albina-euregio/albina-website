@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -18,8 +18,7 @@ import HTMLPageLoadingScreen, {
 import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 import Selectric from "../components/selectric.tsx";
-import { $province } from "../appStore.ts";
-import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
+import { $headless, $province } from "../appStore.ts";
 
 interface Props {
   isTechBlog: boolean;
@@ -39,7 +38,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   const searchCategory = useStore(BLOG_STORE.searchCategory);
   const [slowLoading] = useSlowLoading();
   const intl = useIntl();
-  const headless = useContext(HeadlessContext);
+  const headless = useStore($headless);
   const [headerText] = useState("");
   const province = useStore($province);
 
@@ -131,7 +130,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
         marginal={headerText}
       >
         {headless && (
-          <Link to="/headless/bulletin/latest" className="back-link">
+          <Link to="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
           </Link>
         )}

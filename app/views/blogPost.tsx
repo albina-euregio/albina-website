@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
@@ -9,12 +9,13 @@ import TagList from "../components/blog/tag-list";
 import { DATE_TIME_FORMAT } from "../util/date";
 import { preprocessContent } from "../util/htmlParser";
 import { BlogPostPreviewItem } from "../stores/blog";
-import { HeadlessContext } from "../contexts/HeadlessContext";
+import { useStore } from "@nanostores/react";
+import { $headless } from "../appStore";
 
 const BlogPost = () => {
   const params = useParams();
   const intl = useIntl();
-  const headless = useContext(HeadlessContext);
+  const headless = useStore($headless);
 
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
@@ -51,7 +52,7 @@ const BlogPost = () => {
             <div className="normal-4 grid-item">
               <Link
                 key="toBlog"
-                to={`${headless ? "/headless" : ""}/blog${params.blogName === "tech" ? "/tech" : ""}`}
+                to={`/blog${params.blogName === "tech" ? "/tech" : ""}`}
                 className="icon-link icon-arrow-left"
               >
                 {intl.formatMessage({ id: "blog:all-blog-posts" })}

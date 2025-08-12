@@ -1,17 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 function BulletinButtonbar() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
-
-  const headless = useContext(HeadlessContext);
 
   return (
     <section
@@ -31,7 +28,7 @@ function BulletinButtonbar() {
         <div className="grid linkbar">
           <div className="normal-4 grid-item">
             <a
-              href={headless ? "#page-all" : "#page-main"}
+              href="#page-all"
               onClick={e => scrollIntoView(e)}
               className="icon-link icon-arrow-up"
             >
