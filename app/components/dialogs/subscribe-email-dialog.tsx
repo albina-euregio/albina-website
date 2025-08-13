@@ -6,6 +6,7 @@ import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { fetchText } from "../../util/fetch";
 import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 export default function SubscribeEmailDialog() {
   const intl = useIntl();
@@ -17,11 +18,12 @@ export default function SubscribeEmailDialog() {
   const [agree, setAgree] = useState(false);
   const [status, setStatus] = useState("");
 
+  const province = useStore($province);
   useEffect(() => {
-    if ($province.get()) {
-      setRegion($province.get())
+    if (province) {
+      setRegion(province);
     }
-  }, [$province]);
+  }, [province]);
 
   const handleSubmit = useCallback(async () => {
     const data = {
@@ -68,7 +70,7 @@ export default function SubscribeEmailDialog() {
             handleSubmit();
           }}
         >
-          {!$province.get() && (
+          {!province && (
             <>
               <label htmlFor="province">
                 <FormattedMessage

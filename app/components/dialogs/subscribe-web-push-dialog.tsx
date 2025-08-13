@@ -4,6 +4,7 @@ import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
 import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 function updatePushSubscription(
   subscription: PushSubscription,
@@ -50,11 +51,12 @@ export default function SubscribeWebPushDialog() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  const province = useStore($province);
   useEffect(() => {
-    if ($province.get()) {
-      setRegion($province.get())
+    if (province) {
+      setRegion(province);
     }
-  }, [$province]);
+  }, [province]);
 
   const handleEnable = useCallback(async () => {
     setErrorMessage(undefined);
@@ -154,7 +156,7 @@ export default function SubscribeWebPushDialog() {
             handleEnable();
           }}
         >
-          {!$province.get() && (
+          {!province && (
             <>
               <label htmlFor="province">
                 <FormattedMessage

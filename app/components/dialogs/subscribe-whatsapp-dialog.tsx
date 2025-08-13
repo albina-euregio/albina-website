@@ -4,6 +4,7 @@ import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegions } from "../../stores/eawsRegions";
 import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 export default function SubscribeWhatsappDialog() {
   const intl = useIntl();
@@ -13,11 +14,12 @@ export default function SubscribeWhatsappDialog() {
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
 
+  const province = useStore($province);
   useEffect(() => {
-    if ($province.get()) {
-      setRegion($province.get())
+    if (province) {
+      setRegion(province);
     }
-  }, [$province]);
+  }, [province]);
 
   function openWhatsapp() {
     if (!region || !language) return;
@@ -43,7 +45,7 @@ export default function SubscribeWhatsappDialog() {
             openWhatsapp();
           }}
         >
-          {!$province.get() && (
+          {!province && (
             <>
               <label htmlFor="province">
                 <FormattedMessage
