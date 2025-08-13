@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import type { Temporal } from "temporal-polyfill";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
@@ -8,7 +8,6 @@ import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin, type Status } from "../../stores/bulletin";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
-import { HeadlessContext } from "../../contexts/HeadlessContext.js";
 
 export interface RegionBulletinStatus {
   $type: "RegionBulletinStatus";
@@ -187,7 +186,6 @@ function BulletinMap({
   bulletin: Bulletin;
 }): React.ReactNode {
   const intl = useIntl();
-  const headless = useContext(HeadlessContext);
 
   if (!showMap(date)) return <></>;
   const region = bulletin
@@ -199,10 +197,7 @@ function BulletinMap({
         id: "archive:show-forecast:hover"
       })}
     >
-      <Link
-        to={`${headless ? "/headless" : ""}/bulletin/${date}`}
-        className={"map-preview img tooltip"}
-      >
+      <Link to={`/bulletin/${date}`} className={"map-preview img tooltip"}>
         <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
       </Link>
     </Tooltip>

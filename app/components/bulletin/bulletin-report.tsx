@@ -2,8 +2,7 @@ import React, {
   type FunctionComponent,
   Suspense,
   useState,
-  useMemo,
-  useContext
+  useMemo
 } from "react";
 import type { Temporal } from "temporal-polyfill";
 import DiffMatchPatch from "diff-match-patch";
@@ -28,7 +27,6 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
-import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -78,7 +76,6 @@ interface Props {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
-  const headless = useContext(HeadlessContext);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
@@ -376,7 +373,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
       >
         <div className="panel brand">
           <a
-            href={headless ? "#page-all" : "#page-main"}
+            href="#page-all"
             onClick={e => scrollIntoView(e)}
             className="icon-link icon-arrow-up"
           >

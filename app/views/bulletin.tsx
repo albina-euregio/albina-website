@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
@@ -24,8 +24,8 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { type Language, setLanguage } from "../appStore";
-import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
+import { $headless, type Language, setLanguage } from "../appStore";
+import { useStore } from "@nanostores/react";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -64,7 +64,7 @@ const Bulletin = () => {
   if (["de", "en"].includes(searchParams.get("language") || "")) {
     setLanguage(searchParams.get("language") as Language);
   }
-  const headless = useContext(HeadlessContext);
+  const headless = useStore($headless);
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -216,10 +216,7 @@ const Bulletin = () => {
                     id: "bulletin:map:blog:button:title"
                   })}
                 >
-                  <Link
-                    to={`${headless ? "/headless" : ""}/blog`}
-                    className="secondary pure-button"
-                  >
+                  <Link to={`/blog`} className="secondary pure-button">
                     {intl.formatMessage({ id: "blog:title" })}
                   </Link>
                 </Tooltip>
