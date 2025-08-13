@@ -271,17 +271,21 @@ const BulletinMap = (props: Props) => {
                 ? intl.formatMessage({
                     id: `bulletin:header:${props.validTimePeriod}`
                   })
-                : ["earlier", "later"].map((timePeriod) => (
-                    <a href="#"
-                       className={"toggle-link" + (props.validTimePeriod === timePeriod ? " active" : "")}
-                       onClick={() => props.onSelectTimePeriod(timePeriod)}
+                : ["earlier", "later"].map(timePeriod => (
+                    <a
+                      key={timePeriod}
+                      href="#"
+                      className={
+                        "toggle-link" +
+                        (props.validTimePeriod === timePeriod ? " active" : "")
+                      }
+                      onClick={() => props.onSelectTimePeriod(timePeriod)}
                     >
                       {intl.formatMessage({
                         id: `bulletin:header:${timePeriod}`
                       })}
                     </a>
-                  ))
-              }
+                  ))}
             </span>
           </p>
         )}
