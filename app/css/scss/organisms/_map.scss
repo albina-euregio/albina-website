@@ -151,7 +151,7 @@ $search-width-wide: 300px;
   position: absolute;
   top: variables.$padding;
   left: variables.$padding;
-  .bulletin-parallel-view & {
+  .bulletin-parallel-view &, .bulletin-switchable-view & {
     top: variables.$padding * 5.25;
   }
 
@@ -554,6 +554,22 @@ $search-width-wide: 300px;
   .label {
     font-size: variables.$body-font-size-normal;
     @include mixins.font-bold;
+  }
+}
+.bulletin-switchable-view .bulletin-map-daytime .label {
+  display: flex;
+  padding: 0;
+  border-radius: 1.5em;
+  overflow: hidden;
+  .toggle-link {
+    padding: 0.25em 0.66667em;
+    display: block;
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    &.active {
+      color: variables.$white;
+      background-color: variables.$brand-dark;
+    }
   }
 }
 
