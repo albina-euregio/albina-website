@@ -21,10 +21,17 @@ function initializeIFrame() {
   iframe.style.border = "0";
   iframe.allow = "geolocation";
   iframe.id = id;
+  const params = new URLSearchParams({
+    headless: "1",
+    province: region,
+    language: lang,
+    "map-ratio": ratio
+  });
   if (location.hostname === "localhost") {
-    iframe.src = `/bulletin/${date}?headless=1&province=${region}&language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
+    iframe.src = `/bulletin/${date}?${params}`;
     console.log(location.pathname);
   } else if (/EUREGIO|AT-07|IT-32-BZ|IT-32-TN/.exec(String(region))) {
+    params.delete("language");
     const host = {
       en: "avalanche.report",
       ca: "ca.avalanche.report",
@@ -35,14 +42,14 @@ function initializeIFrame() {
       it: "valanghe.report"
     };
     if (location.pathname.startsWith("/beta")) {
-      iframe.src = `https://${host[lang]}/beta/bulletin/${date}?headless=1&province=${region}&map-ratio=${encodeURIComponent(ratio)}`;
+      iframe.src = `https://${host[lang]}/beta/bulletin/${date}?${params}`;
     } else if (location.pathname.startsWith("/dev")) {
-      iframe.src = `https://${host[lang]}/dev/bulletin/${date}?headless=1&province=${region}&map-ratio=${encodeURIComponent(ratio)}`;
+      iframe.src = `https://${host[lang]}/dev/bulletin/${date}?${params}`;
     } else {
-      iframe.src = `https://${host[lang]}/bulletin/${date}?headless=1&province=${region}&map-ratio=${encodeURIComponent(ratio)}`;
+      iframe.src = `https://${host[lang]}/bulletin/${date}?${params}`;
     }
   } else {
-    iframe.src = `https://lawinen-warnung.eu/bulletin/${date}?headless=1&province=${region}&language=${lang}&map-ratio=${encodeURIComponent(ratio)}`;
+    iframe.src = `https://lawinen-warnung.eu/bulletin/${date}?${params}`;
   }
   element.appendChild(iframe);
 
