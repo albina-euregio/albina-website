@@ -24,7 +24,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { $headless, type Language, setLanguage } from "../appStore";
+import { $headless, $province, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 
 function useProblems() {
@@ -65,6 +65,7 @@ const Bulletin = () => {
     setLanguage(searchParams.get("language") as Language);
   }
   const headless = useStore($headless);
+  const province = useStore($province);
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -169,7 +170,7 @@ const Bulletin = () => {
     ? config.template(config.apis.bulletin.map, {
         date: collection?.date,
         publication: ".",
-        file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
+        file: `${daytimeDependency ? "am" : "fd"}_${province || "EUREGIO"}_map`,
         format: ".jpg"
       })
     : "";

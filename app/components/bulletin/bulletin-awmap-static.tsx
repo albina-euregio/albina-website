@@ -1,6 +1,8 @@
 import React, { type ReactEventHandler } from "react";
 import type { Temporal } from "temporal-polyfill";
 import type { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore";
 
 interface Props {
   validTimePeriod?: ValidTimePeriod;
@@ -19,6 +21,7 @@ function BulletinAWMapStatic({
   onError,
   imgFormat
 }: Props) {
+  const province = useStore($province);
   const publicationTime = bulletin?.publicationTime;
   const publicationDirectory = publicationTime
     ? publicationTime
@@ -27,7 +30,7 @@ function BulletinAWMapStatic({
         .replace(/:/g, "-")
         .slice(0, "2021-12-04_16-00-00".length)
     : "";
-  let filePrefix = publicationTime ? "EUREGIO_" : "";
+  let filePrefix = publicationTime ? `${province || "EUREGIO"}_` : "";
   const fileSuffix = validTimePeriod === "later" ? "_PM" : "";
   const file = filePrefix + region + fileSuffix;
   let url = config.template(config.apis.bulletin.map, {

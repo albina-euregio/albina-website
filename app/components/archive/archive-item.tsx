@@ -8,6 +8,8 @@ import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin, type Status } from "../../stores/bulletin";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore.js";
 
 export interface RegionBulletinStatus {
   $type: "RegionBulletinStatus";
@@ -160,12 +162,13 @@ function DownloadLink({
   date: Temporal.PlainDate;
   lang: string;
 }) {
+  const province = useStore($province);
   return (
     <a
       href={config.template(config.apis.bulletin[format], {
         bulletin: bulletin || "",
         date,
-        region: "EUREGIO_",
+        region: `${province || "EUREGIO"}_`,
         lang,
         bw: ""
       })}
@@ -186,11 +189,12 @@ function BulletinMap({
   bulletin: Bulletin;
 }): React.ReactNode {
   const intl = useIntl();
+  const province = useStore($province);
 
   if (!showMap(date)) return <></>;
   const region = bulletin
-    ? `EUREGIO_${bulletin.bulletinID}`
-    : "fd_EUREGIO_thumbnail";
+    ? `${province || "EUREGIO"}_${bulletin.bulletinID}`
+    : `fd_${province || "EUREGIO"}_thumbnail`;
   return (
     <Tooltip
       label={intl.formatMessage({

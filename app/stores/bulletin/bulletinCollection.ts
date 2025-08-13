@@ -76,7 +76,7 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region: $province.get() ? `${$province.get()}_` : "EUREGIO_",
+        region: `${$province.get() || "EUREGIO"}_`,
         lang: this.lang
       }
     );
@@ -135,8 +135,13 @@ class BulletinCollection {
 
   async loadExtraBulletins() {
     this.extraBulletins = [];
+    const extraRegions = $province.get()
+      ? [...config.regionCodes, ...config.extraRegions].filter(
+          r => r !== $province.get()
+        )
+      : config.extraRegions;
     const data = await Promise.all(
-      config.extraRegions.flatMap(id => {
+      extraRegions.flatMap(id => {
         const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           try {
