@@ -869,9 +869,9 @@ __metadata:
     htmr: "npm:^1.0.2"
     husky: "npm:^9.1.7"
     jquery: "npm:^3.7.1"
-    leaflet: "npm:2.0.0-alpha"
-    leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch"
-    leaflet-gesture-handling: "patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch"
+    leaflet: "npm:^2.0.0-alpha.1"
+    leaflet-geonames: "patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch"
+    leaflet-gesture-handling: "patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch"
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
     leaflet.markercluster: "patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch"
     leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
@@ -1729,10 +1729,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch":
+"leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch::version=0.4.9&hash=32cf7a":
   version: 0.4.9
   resolution: "leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@npm%253A0.4.9%23~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%3A%3Aversion=0.4.9&hash=4ede4a#~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch::version=0.4.9&hash=32cf7a"
   checksum: 10c0/897f689501c1cf724d4e895cd1a26270e31ffc6487b69741cc660f3299515e16dba4947efbfb092af95bf9e52b41534931f86d7b1357199488cdb80ce7954280
+  languageName: node
+  linkType: hard
+
+"leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch":
+  version: 0.4.9
+  resolution: "leaflet-geonames@patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch::version=0.4.9&hash=28a88e"
+  checksum: 10c0/1b9ec22375565f00f1e0a6d189a41cc58951d068af5d741e4f55f87b914d1c626c5674dbae5d3c946058322edd574ad8ba67b3f0e7a445b1d8b74d61c073cb18
   languageName: node
   linkType: hard
 
@@ -1743,10 +1750,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-gesture-handling@patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch":
+"leaflet-gesture-handling@patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch::version=1.2.2&hash=537e42":
   version: 1.2.2
   resolution: "leaflet-gesture-handling@patch:leaflet-gesture-handling@npm%3A1.2.2#~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch::version=1.2.2&hash=537e42"
   checksum: 10c0/cc6cb112249c33f387c98d5f2f81c7d3bba30bbf1af3ac8bc24ea5418605e40be67b45a73a5e99fd4839102bdc6e59e895cd75b115facf9b659a1303604e9686
+  languageName: node
+  linkType: hard
+
+"leaflet-gesture-handling@patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch":
+  version: 1.2.2
+  resolution: "leaflet-gesture-handling@patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch::version=1.2.2&hash=b04581"
+  checksum: 10c0/c19ba42b37cc22da8615fe4ee7f82334b27b941750693713ac4971d51652bd2c407f171aa32934cc3a3ce352ac8a0bbdd76a3134249470bd10bd9fad9c5c1139
   languageName: node
   linkType: hard
 
@@ -1854,10 +1868,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@npm:2.0.0-alpha":
-  version: 2.0.0-alpha
-  resolution: "leaflet@npm:2.0.0-alpha"
-  checksum: 10c0/38c1c39a3ee919a3392df067b55bab45b5e66cdac6d49d142ac4c04f8fbc8730228fa0408cc4ffe48128f5a2366c4a69d9713d2b5cfcbcc9ea4d2ac5593fb36c
+"leaflet@npm:^2.0.0-alpha.1":
+  version: 2.0.0-alpha.1
+  resolution: "leaflet@npm:2.0.0-alpha.1"
+  checksum: 10c0/df7a6640aa90c6509c9cfb534fbaf6c024e9fc73df350ccb3c3369e3d6d37f03b16b96f78e92c96d89b49bee725c1566b21566f18af3bebc9c48d758b7b1cce5
   languageName: node
   linkType: hard
 
