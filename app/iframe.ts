@@ -30,7 +30,7 @@ function initializeIFrame() {
   if (location.hostname === "localhost") {
     iframe.src = `/bulletin/${date}?${params}`;
     console.log(location.pathname);
-  } else if (/EUREGIO|AT-07|IT-32-BZ|IT-32-TN/.exec(String(region))) {
+  } else if (/EUREGIO|AT-02|AT-07|IT-32-BZ|IT-32-TN/.exec(String(region))) {
     params.delete("language");
     const host = {
       en: "avalanche.report",
