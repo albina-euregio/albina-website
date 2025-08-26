@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Cluster from "./leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
+import { StationData } from "../../stores/stationDataStore";
+import { Domain, DomainId } from "../../stores/weatherMapStore";
 
-const StationOverlay = props => {
+interface Props {
+  onLoad: () => void;
+  onLoading: () => void;
+  item: Domain["item"];
+  itemId: "any" | DomainId;
+  selectedFeature: { id: string };
+  onMarkerSelected: (arg0: unknown) => void;
+  features: StationData[];
+}
+
+const StationOverlay = (props: Props) => {
   const [activeMarkerPos, setActiveMarkerPos] = useState(null);
 
   const [, setSpiderfiedMarkers] = useState(null);
@@ -41,9 +53,9 @@ const StationOverlay = props => {
   };
 
   const renderMarker = (
-    data,
-    features,
-    pos = null
+    data: StationData,
+    features: StationData[],
+    pos: L.LatLng | L.LatLngLiteral | null = null
   ): React.ReactElement<typeof StationMarker> => {
     if (
       (data.date === undefined || data[props.itemId] === undefined) &&
