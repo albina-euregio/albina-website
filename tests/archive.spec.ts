@@ -15,6 +15,6 @@ test("archive", async ({ page }) => {
   await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
-    "https://static.avalanche.report/bulletins/2021-03-16//fd_albina_thumbnail.jpg"
+    "https://static.avalanche.report/bulletins/2021-03-16//fd_EUREGIO_thumbnail.jpg"
   );
 });
