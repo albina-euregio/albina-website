@@ -278,7 +278,7 @@ const Bulletin = () => {
           toggleProblem={toggleProblem}
         />
       </Suspense>
-      <BulletinButtonbar date={collection?.date} />
+      <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
           <div className="section-centered">

@@ -4,20 +4,17 @@ import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
-import { $province } from "../../appStore";
-import type { Temporal } from "temporal-polyfill";
+import { $province, $headless } from "../../appStore";
+import { BulletinCollection } from "../../stores/bulletin";
 
 interface Props {
-  date: Temporal.PlainDate;
+  activeBulletinCollection: BulletinCollection;
 }
 
-function BulletinButtonbar({ date }: Props) {
+function BulletinButtonbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
-
-  const headless = useContext(HeadlessContext);
 
   return (
     <section
@@ -37,7 +34,7 @@ function BulletinButtonbar({ date }: Props) {
         <div className="grid linkbar">
           <div className="normal-4 grid-item">
             <a
-              href={headless ? "#page-all" : "#page-main"}
+              href="#page-all"
               onClick={e => scrollIntoView(e)}
               className="icon-link icon-arrow-up"
             >
@@ -68,7 +65,7 @@ function BulletinButtonbar({ date }: Props) {
                   </Tooltip>
                 </li>
               )}
-              {date && (
+              {activeBulletinCollection?.status === "ok" && (
                 <>
                   <li>
                     <Tooltip
@@ -78,17 +75,15 @@ function BulletinButtonbar({ date }: Props) {
                     >
                       <a
                         target="_blank"
-                        href={config.template(config.apis.bulletin.caamlv5, {
-                          date: date,
-                          region: `${$province.get()}_` || "EUREGIO_",
+                        href={config.template(config.apis.bulletin.xml, {
+                          date: activeBulletinCollection.date.toString(),
+                          region: `${$province.get() || "EUREGIO"}_`,
                           lang: intl.locale.slice(0, 2)
                         })}
-                        download="caamlv5.xml"
+                        download="caaml.xml"
                         className="pure-button"
                       >
-                        {intl.formatMessage({
-                          id: "bulletin:linkbar:caaml:v5"
-                        })}
+                        XML
                       </a>
                     </Tooltip>
                   </li>
@@ -100,17 +95,15 @@ function BulletinButtonbar({ date }: Props) {
                     >
                       <a
                         target="_blank"
-                        href={config.template(config.apis.bulletin.xml, {
-                          date: date,
-                          region: `${$province.get()}_` || "EUREGIO_",
+                        href={config.template(config.apis.bulletin.json, {
+                          date: activeBulletinCollection.date.toString(),
+                          region: `${$province.get() || "EUREGIO"}_`,
                           lang: intl.locale.slice(0, 2)
                         })}
-                        download="caaml.xml"
+                        download="caaml.json"
                         className="pure-button"
                       >
-                        {intl.formatMessage({
-                          id: "bulletin:linkbar:caaml:v6"
-                        })}
+                        JSON
                       </a>
                     </Tooltip>
                   </li>
