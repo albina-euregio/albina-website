@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import type { Temporal } from "temporal-polyfill";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
@@ -8,7 +8,8 @@ import { Tooltip } from "../tooltips/tooltip";
 import { type Bulletin, type Status } from "../../stores/bulletin";
 import BulletinDangerRating from "../bulletin/bulletin-danger-rating.js";
 import ProblemIconLink from "../icons/problem-icon-link.js";
-import { HeadlessContext } from "../../contexts/HeadlessContext.js";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore.js";
 
 export interface RegionBulletinStatus {
   $type: "RegionBulletinStatus";
@@ -161,12 +162,13 @@ function DownloadLink({
   date: Temporal.PlainDate;
   lang: string;
 }) {
+  const province = useStore($province);
   return (
     <a
       href={config.template(config.apis.bulletin[format], {
         bulletin: bulletin || "",
         date,
-        region: "EUREGIO_",
+        region: `${province || "EUREGIO"}_`,
         lang,
         bw: ""
       })}
@@ -187,22 +189,19 @@ function BulletinMap({
   bulletin: Bulletin;
 }): React.ReactNode {
   const intl = useIntl();
-  const headless = useContext(HeadlessContext);
+  const province = useStore($province);
 
   if (!showMap(date)) return <></>;
   const region = bulletin
-    ? `EUREGIO_${bulletin.bulletinID}`
-    : "fd_EUREGIO_thumbnail";
+    ? `${province || "EUREGIO"}_${bulletin.bulletinID}`
+    : `fd_${province || "EUREGIO"}_thumbnail`;
   return (
     <Tooltip
       label={intl.formatMessage({
         id: "archive:show-forecast:hover"
       })}
     >
-      <Link
-        to={`${headless ? "/headless" : ""}/bulletin/${date}`}
-        className={"map-preview img tooltip"}
-      >
+      <Link to={`/bulletin/${date}`} className={"map-preview img tooltip"}>
         <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
       </Link>
     </Tooltip>

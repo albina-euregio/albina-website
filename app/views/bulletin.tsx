@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
@@ -24,8 +24,8 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { type Language, setLanguage } from "../appStore";
-import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
+import { $headless, $province, type Language, setLanguage } from "../appStore";
+import { useStore } from "@nanostores/react";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -61,10 +61,12 @@ const Bulletin = () => {
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>("earlier");
   if (["de", "en"].includes(searchParams.get("language") || "")) {
     setLanguage(searchParams.get("language") as Language);
   }
-  const headless = useContext(HeadlessContext);
+  const headless = useStore($headless);
+  const province = useStore($province);
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -169,7 +171,7 @@ const Bulletin = () => {
     ? config.template(config.apis.bulletin.map, {
         date: collection?.date,
         publication: ".",
-        file: (daytimeDependency ? "am" : "fd") + "_EUREGIO_map",
+        file: `${daytimeDependency ? "am" : "fd"}_${province || "EUREGIO"}_map`,
         format: ".jpg"
       })
     : "";
@@ -216,10 +218,7 @@ const Bulletin = () => {
                     id: "bulletin:map:blog:button:title"
                   })}
                 >
-                  <Link
-                    to={`${headless ? "/headless" : ""}/blog`}
-                    className="secondary pure-button"
-                  >
+                  <Link to={`/blog`} className="secondary pure-button">
                     {intl.formatMessage({ id: "blog:title" })}
                   </Link>
                 </Tooltip>
@@ -243,20 +242,23 @@ const Bulletin = () => {
 
       <Suspense fallback={<div>...</div>}>
         {daytimeDependency ? (
-          <div className="bulletin-parallel-view">
+          <div className={!config.bulletin.switchBetweenTimePeriods ? "bulletin-parallel-view" : "bulletin-switchable-view"}>
             {["earlier", "later"].map((validTimePeriod, index) => (
-              <BulletinMap
-                key={validTimePeriod}
-                administrateLoadingBar={index === 0}
-                handleSelectRegion={handleSelectRegion}
-                region={region}
-                status={status}
-                date={collection?.date}
-                onMapInit={handleMapInit}
-                validTimePeriod={validTimePeriod}
-                activeBulletinCollection={collection}
-                problems={problems}
-              />
+              (!config.bulletin.switchBetweenTimePeriods || validTimePeriod === selectedTimePeriod) && (
+                <BulletinMap
+                  key={validTimePeriod}
+                  administrateLoadingBar={index === 0}
+                  handleSelectRegion={handleSelectRegion}
+                  region={region}
+                  status={status}
+                  date={collection?.date}
+                  onMapInit={handleMapInit}
+                  validTimePeriod={validTimePeriod}
+                  activeBulletinCollection={collection}
+                  problems={problems}
+                  onSelectTimePeriod={timePeriod => setSelectedTimePeriod(timePeriod)}
+                />
+              )
             ))}
           </div>
         ) : (

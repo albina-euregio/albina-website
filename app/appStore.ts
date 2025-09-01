@@ -87,6 +87,8 @@ export const $locale = computed($language, language => {
   }
 });
 
+export const $headless = atom(false);
+
 export const $province = atom(
   "" as
     | "AT-02"

@@ -13,8 +13,7 @@ import {
   useParams
 } from "react-router-dom";
 //import { ScrollContext } from "react-router-scroll";
-import { setLanguage, $province } from "../appStore";
-import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
+import { setLanguage, $province, $headless } from "../appStore";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -61,90 +60,16 @@ const App = () => {
     });
   });
 
-  const province = new URLSearchParams(document.location.search).get(
-    "province"
-  );
+  const search = new URLSearchParams(document.location.search);
+  const province = search.get("province");
   useEffect(() => $province.set(province), [province]);
+  const headless = search.get("headless");
+  useEffect(() => $headless.set(!!headless), [headless]);
 
   return (
     <BrowserRouter basename={config.projectRoot}>
       <Suspense fallback={"..."}>
         <Routes>
-          <Route path="/headless">
-            <Route index element={<Navigate replace to="bulletin/latest" />} />
-            <Route
-              path="bulletin/:date"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <Bulletin />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="bulletin/latest"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <Bulletin />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="archive"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <Archive />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="blog/:blogName/:postId"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <BlogPost />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="blog/tech"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <BlogPostList isTechBlog={true} />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="blog"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <BlogPostList isTechBlog={false} />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path="education/*"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <StaticPage />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path=":name"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <RouteStaticPage />
-                </HeadlessContext.Provider>
-              }
-            />
-            <Route
-              path=":segment/:name"
-              element={
-                <HeadlessContext.Provider value={true}>
-                  <RouteStaticPage />
-                </HeadlessContext.Provider>
-              }
-            />
-          </Route>
           <Route path="/" element={<Page />}>
             <Route index element={<Navigate replace to="/bulletin/latest" />} />
             <Route

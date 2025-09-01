@@ -6,11 +6,7 @@ import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
 
-export function preprocessContent(
-  content: string,
-  blogMode = false,
-  headless = false
-) {
+export function preprocessContent(content: string, blogMode = false) {
   return htmr(content, {
     transform: {
       _(type, props: AllHTMLAttributes<HTMLLinkElement>, children) {
@@ -32,7 +28,7 @@ export function preprocessContent(
             {
               ...props,
               href: undefined,
-              to: (headless ? "/headless" : "") + props.href
+              to: props.href
             },
             children
           );

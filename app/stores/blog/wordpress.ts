@@ -61,8 +61,8 @@ export class WordpressProcessor implements BlogProcessor {
       params.set("categories", state.searchCategory);
     }
     if (state?.year) {
-      params.set("after", state.startDate.toISOString());
-      params.set("before", state.endDate.toISOString());
+      params.set("after", state.startDate.toString());
+      params.set("before", state.endDate.toString());
     }
     const posts: Post[] = await fetchJSON(
       `https://${config.params.id}/wp-json/wp/v2/posts?${params}`,

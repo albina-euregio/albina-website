@@ -1,0 +1,31 @@
+diff --git a/L.Control.Geonames.js b/L.Control.Geonames.js
+index f36a5381fcbf11de0bc637a75a597e17d19012e7..e45b869128b93e879dc917d0f5a251f55eaffb69 100644
+--- a/L.Control.Geonames.js
++++ b/L.Control.Geonames.js
+@@ -54,7 +54,7 @@ L.Control.Geonames = L.Control.extend({
+         link.title = this.options.title;
+ 
+         var form = L.DomUtil.create('form', '', this._container);
+-        L.DomEvent.addListener(form, 'submit', this._search, this);
++        L.DomEvent.on(form, 'submit', this._search, this);
+ 
+         var input = this._input = L.DomUtil.create('input', '', form);
+         input.type = 'search';
+@@ -180,7 +180,7 @@ L.Control.Geonames = L.Control.extend({
+     },
+     removeMarker: function () {
+         if (this._marker != null) {
+-            this._map.removeLayer(this._marker);
++            this._map.off(this._marker);
+             this._marker = null;
+         }
+     },
+@@ -323,7 +323,7 @@ L.Control.Geonames = L.Control.extend({
+                 var countryName = (nameParts.length > 2) ? '<br/><em>' + nameParts[2] + '</em>' : '';
+                 li.innerHTML = primaryName + countryName;
+ 
+-                L.DomEvent.addListener(li, 'click', function () {
++                L.DomEvent.on(li, 'click', function () {
+                     //The user picks a location and it changes the search text to be that location
+                     this._input.value = primaryName;
+ 

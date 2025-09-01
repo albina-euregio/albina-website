@@ -34,6 +34,7 @@ interface Props {
   date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
   onMapInit: (map: L.Map) => void;
+  onSelectTimePeriod: (timePeriod: string) => void;
 }
 
 const BulletinMap = (props: Props) => {
@@ -266,9 +267,25 @@ const BulletinMap = (props: Props) => {
         {props.validTimePeriod && (
           <p className="bulletin-map-daytime">
             <span className="primary label">
-              {intl.formatMessage({
-                id: `bulletin:header:${props.validTimePeriod}`
-              })}
+              {!config.bulletin.switchBetweenTimePeriods
+                ? intl.formatMessage({
+                    id: `bulletin:header:${props.validTimePeriod}`
+                  })
+                : ["earlier", "later"].map(timePeriod => (
+                    <a
+                      key={timePeriod}
+                      href="#"
+                      className={
+                        "toggle-link" +
+                        (props.validTimePeriod === timePeriod ? " active" : "")
+                      }
+                      onClick={() => props.onSelectTimePeriod(timePeriod)}
+                    >
+                      {intl.formatMessage({
+                        id: `bulletin:header:${timePeriod}`
+                      })}
+                    </a>
+                  ))}
             </span>
           </p>
         )}

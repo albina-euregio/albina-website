@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
-import { $province } from "../appStore";
+import { $headless, $province } from "../appStore";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,
@@ -20,13 +20,13 @@ import { useSearchParams, Link } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
 import { setLanguage } from "../appStore.ts";
-import { HeadlessContext } from "../contexts/HeadlessContext.tsx";
+import { useStore } from "@nanostores/react";
 
 function Archive() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const [searchParams, setSearchParams] = useSearchParams();
-  const headless = useContext(HeadlessContext);
+  const headless = useStore($headless);
   const [buttongroup] = useState(searchParams.get("buttongroup"));
   const minMonth = 11;
   const [month, setMonth] = useState(
@@ -117,7 +117,7 @@ function Archive() {
         })}
       >
         {headless && (
-          <Link to="/headless/bulletin/latest" className="back-link">
+          <Link to="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
           </Link>
         )}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import type { Temporal } from "temporal-polyfill";
 import { FormattedMessage, useIntl } from "../../i18n";
 import TendencyIcon from "../icons/tendency-icon";
@@ -16,7 +16,6 @@ import {
   type ValidTimePeriod
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { HeadlessContext } from "../../contexts/HeadlessContext.tsx";
 
 interface Props {
   validTimePeriod: ValidTimePeriod;
@@ -74,8 +73,6 @@ function BulletinDaytimeReport({
     });
   }
 
-  const headless = useContext(HeadlessContext);
-
   //console.log("BulletinDaytimeReport #2 #juhu", {tendencyReportItemsAllNew});
 
   return (
@@ -93,7 +90,7 @@ function BulletinDaytimeReport({
             })}
           >
             <a
-              href={headless ? "#page-all" : "#page-main"}
+              href="#page-all"
               onClick={e => scrollIntoView(e)}
               // className="img icon-arrow-up"
               // style={

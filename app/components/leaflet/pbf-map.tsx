@@ -13,6 +13,7 @@ import {
 import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 import { newRegionRegex } from "../../util/newRegionRegex";
+import { version } from "@eaws/micro-regions_elevation_properties/package.json";
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -47,7 +48,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       : WARNLEVEL_STYLES.eaws[warnlevel];
   };
   const instance = L.vectorGrid.protobuf(
-    "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+    `https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf?${version}`,
     {
       dangerRatings: {},
       pane: "overlayPane",
@@ -108,7 +109,7 @@ export const PbfLayerOverlay = createLayerComponent(
       ...config.extraRegions
     ]);
     const instance = L.vectorGrid.protobuf(
-      "https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf",
+      `https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf?${version}`,
       {
         pane: "markerPane",
         interactive: true,
