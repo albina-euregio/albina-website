@@ -4,10 +4,18 @@ import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
+import { $province } from "../../appStore";
+import { BulletinCollection } from "../../stores/bulletin";
+import { useStore } from "@nanostores/react";
 
-function BulletinButtonbar() {
+interface Props {
+  activeBulletinCollection: BulletinCollection;
+}
+
+function BulletinButtonbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const province = useStore($province);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
 
   return (
@@ -58,6 +66,50 @@ function BulletinButtonbar() {
                     </a>
                   </Tooltip>
                 </li>
+              )}
+              {activeBulletinCollection?.status === "ok" && (
+                <>
+                  <li>
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:linkbar:caaml:hover"
+                      })}
+                    >
+                      <a
+                        target="_blank"
+                        href={config.template(config.apis.bulletin.xml, {
+                          date: activeBulletinCollection.date.toString(),
+                          region: `${province || "EUREGIO"}_`,
+                          lang: intl.locale.slice(0, 2)
+                        })}
+                        download="caaml.xml"
+                        className="pure-button"
+                      >
+                        XML
+                      </a>
+                    </Tooltip>
+                  </li>
+                  <li>
+                    <Tooltip
+                      label={intl.formatMessage({
+                        id: "bulletin:linkbar:caaml:hover"
+                      })}
+                    >
+                      <a
+                        target="_blank"
+                        href={config.template(config.apis.bulletin.json, {
+                          date: activeBulletinCollection.date.toString(),
+                          region: `${province || "EUREGIO"}_`,
+                          lang: intl.locale.slice(0, 2)
+                        })}
+                        download="caaml.json"
+                        className="pure-button"
+                      >
+                        JSON
+                      </a>
+                    </Tooltip>
+                  </li>
+                </>
               )}
               {config.dialogs.feedback && (
                 <li>

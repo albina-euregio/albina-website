@@ -12,6 +12,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import { $province } from "../../appStore.ts";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   loaded: boolean;
@@ -24,7 +25,7 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const province = $province.get();
+  const province = useStore($province);
 
   return (
     <MapContainer

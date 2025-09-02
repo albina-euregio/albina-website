@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { fetchText } from "../../util/fetch";
+import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 export default function SubscribeEmailDialog() {
   const intl = useIntl();
@@ -15,6 +17,13 @@ export default function SubscribeEmailDialog() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [agree, setAgree] = useState(false);
   const [status, setStatus] = useState("");
+
+  const province = useStore($province);
+  useEffect(() => {
+    if (province) {
+      setRegion(province);
+    }
+  }, [province]);
 
   const handleSubmit = useCallback(async () => {
     const data = {
@@ -61,27 +70,30 @@ export default function SubscribeEmailDialog() {
             handleSubmit();
           }}
         >
-          {}
-          <label htmlFor="province">
-            <FormattedMessage
-              id="dialog:subscribe-email:region"
-              html={true}
-              values={{
-                strong: (...msg) => <strong>{msg}</strong>
-              }}
-            />
-          </label>
-          <ProvinceFilter
-            buttongroup={true}
-            title={intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            handleChange={r => setRegion(r !== "none" ? r : false)}
-            value={region}
-            none={intl.formatMessage({
-              id: "blog:filter:province:nothing-selected"
-            })}
-          />
+          {!province && (
+            <>
+              <label htmlFor="province">
+                <FormattedMessage
+                  id="dialog:subscribe-email:region"
+                  html={true}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </label>
+              <ProvinceFilter
+                buttongroup={true}
+                title={intl.formatMessage({
+                  id: "measurements:filter:province"
+                })}
+                handleChange={r => setRegion(r !== "none" ? r : false)}
+                value={region}
+                none={intl.formatMessage({
+                  id: "blog:filter:province:nothing-selected"
+                })}
+              />
+            </>
+          )}
 
           {}
           <label htmlFor="language">

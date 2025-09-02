@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegions } from "../../stores/eawsRegions";
+import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 export default function SubscribeWhatsappDialog() {
   const intl = useIntl();
@@ -11,6 +13,13 @@ export default function SubscribeWhatsappDialog() {
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
+
+  const province = useStore($province);
+  useEffect(() => {
+    if (province) {
+      setRegion(province);
+    }
+  }, [province]);
 
   function openWhatsapp() {
     if (!region || !language) return;
@@ -36,28 +45,30 @@ export default function SubscribeWhatsappDialog() {
             openWhatsapp();
           }}
         >
-          {}
-          <label htmlFor="province">
-            <FormattedMessage
-              id="dialog:subscribe-whatsapp:region"
-              html={true}
-              values={{
-                strong: (...msg) => <strong>{msg}</strong>
-              }}
-            />
-          </label>
-          <ProvinceFilter
-            buttongroup={true}
-            title={intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            handleChange={r => setRegion(r !== "none" ? r : false)}
-            value={region}
-            none={intl.formatMessage({
-              id: "blog:filter:province:nothing-selected"
-            })}
-          />
-          {}
+          {!province && (
+            <>
+              <label htmlFor="province">
+                <FormattedMessage
+                  id="dialog:subscribe-whatsapp:region"
+                  html={true}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </label>
+              <ProvinceFilter
+                buttongroup={true}
+                title={intl.formatMessage({
+                  id: "measurements:filter:province"
+                })}
+                handleChange={r => setRegion(r !== "none" ? r : false)}
+                value={region}
+                none={intl.formatMessage({
+                  id: "blog:filter:province:nothing-selected"
+                })}
+              />
+            </>
+          )}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-whatsapp:language" />
           </label>
