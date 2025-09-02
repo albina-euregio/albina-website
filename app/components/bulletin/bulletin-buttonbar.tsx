@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { $province, $headless } from "../../appStore";
+import { $province } from "../../appStore";
 import { BulletinCollection } from "../../stores/bulletin";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -14,6 +15,7 @@ interface Props {
 function BulletinButtonbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const province = useStore($province);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
 
   return (
@@ -77,7 +79,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
                         target="_blank"
                         href={config.template(config.apis.bulletin.xml, {
                           date: activeBulletinCollection.date.toString(),
-                          region: `${$province.get() || "EUREGIO"}_`,
+                          region: `${province || "EUREGIO"}_`,
                           lang: intl.locale.slice(0, 2)
                         })}
                         download="caaml.xml"
@@ -97,7 +99,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
                         target="_blank"
                         href={config.template(config.apis.bulletin.json, {
                           date: activeBulletinCollection.date.toString(),
-                          region: `${$province.get() || "EUREGIO"}_`,
+                          region: `${province || "EUREGIO"}_`,
                           lang: intl.locale.slice(0, 2)
                         })}
                         download="caaml.json"
