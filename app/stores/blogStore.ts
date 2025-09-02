@@ -22,12 +22,14 @@ export const minYear = 2011;
 
 onMount(language, () => init());
 
+const timeZone = Temporal.Now.timeZoneId();
+
 export interface BlogStore {
   searchCategory: string;
   searchText: string;
   year: number | "";
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: Temporal.Instant | undefined;
+  endDate: Temporal.Instant | undefined;
 }
 
 export const blogConfigs = computed(
@@ -192,8 +194,8 @@ export async function load() {
             .join(),
           searchText: searchText.get(),
           year: year.get(),
-          startDate: startDate.get(),
-          endDate: endDate.get()
+          startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
+          endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
         } satisfies BlogStore)
       )
     );

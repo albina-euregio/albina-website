@@ -374,8 +374,8 @@ export const config = {
   }
 };
 
-type DomainId = keyof typeof config.domains;
-type Domain = (typeof config.domains)[DomainId];
+export type DomainId = keyof typeof config.domains;
+export type Domain = (typeof config.domains)[DomainId];
 export type OverlayType =
   | "snowHeight"
   | "snowLine"
