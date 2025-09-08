@@ -25,6 +25,7 @@ import { useStore } from "@nanostores/react";
 function Archive() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const province = useStore($province);
   const [searchParams, setSearchParams] = useSearchParams();
   const headless = useStore($headless);
   const [buttongroup] = useState(searchParams.get("buttongroup"));
@@ -45,11 +46,11 @@ function Archive() {
     () =>
       microRegionIds(
         getDatesInMonth(year, month)[0],
-        $province.get()
-          ? config.regionCodes.filter(r => r === $province.get())
+        province
+          ? config.regionCodes.filter(r => r === province)
           : config.regionCodes
       ),
-    [month, year]
+    [month, year, province]
   );
 
   if (["de", "en"].includes(searchParams.get("language") || "")) {

@@ -10,6 +10,7 @@ import {
   MicroRegionElevationProperties,
   MicroRegionProperties
 } from "../../stores/microRegions";
+import { $province } from "../../appStore";
 import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 import { newRegionRegex } from "../../util/newRegionRegex";
@@ -43,9 +44,14 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     id += toAmPm[props.validTimePeriod] ?? "";
     const warnlevel = instance.options.dangerRatings[id];
     if (!warnlevel) return config.map.regionStyling.hidden;
-    return config.regionsRegex.test(id)
-      ? WARNLEVEL_STYLES.albina[warnlevel]
-      : WARNLEVEL_STYLES.eaws[warnlevel];
+
+    const province = $province.get();
+    const internRegex = province
+      ? new RegExp(`^(${province})`)
+      : new RegExp("^(AT-07|IT-32-BZ|IT-32-TN)");
+    return internRegex.test(id)
+      ? WARNLEVEL_STYLES.intern[warnlevel]
+      : WARNLEVEL_STYLES.extern[warnlevel];
   };
   const instance = L.vectorGrid.protobuf(
     `https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf?${version}`,

@@ -28,7 +28,7 @@ export const WARNLEVEL_COLORS = Object.freeze([
 export const WARNLEVEL_OPACITY = Object.freeze([0.0, 1.0, 1.0, 1.0, 1.0, 0.8]);
 
 export const WARNLEVEL_STYLES = Object.freeze({
-  albina: WARNLEVEL_COLORS.map((fillColor, warnlevel) =>
+  intern: WARNLEVEL_COLORS.map((fillColor, warnlevel) =>
     Object.freeze({
       stroke: false,
       fill: true,
@@ -36,7 +36,7 @@ export const WARNLEVEL_STYLES = Object.freeze({
       fillOpacity: WARNLEVEL_OPACITY[warnlevel]
     })
   ),
-  eaws: WARNLEVEL_COLORS.map(fillColor =>
+  extern: WARNLEVEL_COLORS.map(fillColor =>
     Object.freeze({
       stroke: false,
       fill: true,

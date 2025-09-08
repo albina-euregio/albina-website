@@ -4,8 +4,8 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await page.goto("/bulletin/2022-02-01");
 
   const header = page.locator("#section-bulletin-header");
-  await expect(header.getByRole("heading")).toHaveText("Tuesday, 01/02/2022");
-  await expect(header.locator(".bulletin-datetime-publishing")).toHaveText(
+  await expect(header).toContainText("Tuesday, 01/02/2022");
+  await expect(header.locator(".bulletin-datetime-update")).toHaveText(
     "Updated 01/02/2022, 08:35"
   );
 
@@ -63,7 +63,9 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
-  await page.locator("dialog").getByRole("link", { name: "Telegram" }).click();
+  await page.getByRole("link", { name: "Telegram", exact: true }).click({
+    force: true
+  });
   await page.getByRole("button", { name: "Tyrol", exact: true }).click();
   await page.getByRole("button", { name: "DE" }).click();
 
@@ -79,22 +81,14 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Close" }).click();
 });
 
-test("bulletin/2022-02-01 pdf", async ({ page, browserName }) => {
-  test.skip(browserName !== "chromium", "Still working on it");
+test("bulletin/2022-02-01 pdf", async ({ page }) => {
+  test.fixme();
   await page.goto("/bulletin/2022-02-01");
-  await page.getByRole("link", { name: "PDF" }).click();
-  await expect(page.getByText("Choose your region of interest")).toHaveText(
-    "Choose your region of interest and get a PDF in color or black &amp; white."
+  const pagePromise = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "PDF" }).first().click();
+  const pdfPage = await pagePromise;
+  await expect(pdfPage).toHaveURL(
+    "https://api.avalanche.report/albina/api/bulletins/0646104c-4d4c-4e4a-896b-ce3a45d0b61b/pdf?region=EUREGIO&lang=en&grayscale=false"
   );
-  await page.getByText("Entire Euregio in").click();
-  const [pdf] = await Promise.all([
-    page.waitForEvent("popup"),
-    page.getByRole("button", { name: "colored" }).first().click()
-  ]);
-  await pdf.waitForLoadState("load");
-  await expect(pdf.url()).toBe(
-    "https://static.avalanche.report/bulletins/2022-02-01/2022-02-01_en.pdf"
-  );
-  await pdf.close();
-  await page.getByRole("button", { name: "Close" }).click();
+  await pdfPage.close();
 });

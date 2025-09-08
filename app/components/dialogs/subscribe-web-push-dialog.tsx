@@ -3,6 +3,8 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
+import { $province } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 function updatePushSubscription(
   subscription: PushSubscription,
@@ -48,6 +50,13 @@ export default function SubscribeWebPushDialog() {
   const [region, setRegion] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const province = useStore($province);
+  useEffect(() => {
+    if (province) {
+      setRegion(province);
+    }
+  }, [province]);
 
   const handleEnable = useCallback(async () => {
     setErrorMessage(undefined);
@@ -147,29 +156,31 @@ export default function SubscribeWebPushDialog() {
             handleEnable();
           }}
         >
-          {}
-          <label htmlFor="province">
-            <FormattedMessage
-              id="dialog:subscribe-web-push:region"
-              html={true}
-              values={{
-                strong: (...msg) => <strong>{msg}</strong>
-              }}
-            />
-          </label>
-          <ProvinceFilter
-            buttongroup={true}
-            title={intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            className={region && "selectric-changed"}
-            handleChange={r => setRegion(r)}
-            value={region}
-            none={intl.formatMessage({
-              id: "blog:filter:province:nothing-selected"
-            })}
-          />
-          {}
+          {!province && (
+            <>
+              <label htmlFor="province">
+                <FormattedMessage
+                  id="dialog:subscribe-web-push:region"
+                  html={true}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </label>
+              <ProvinceFilter
+                buttongroup={true}
+                title={intl.formatMessage({
+                  id: "measurements:filter:province"
+                })}
+                className={region && "selectric-changed"}
+                handleChange={r => setRegion(r)}
+                value={region}
+                none={intl.formatMessage({
+                  id: "blog:filter:province:nothing-selected"
+                })}
+              />
+            </>
+          )}
           <label htmlFor="language">
             <FormattedMessage id="dialog:subscribe-web-push:language" />
             <span className="normal" />
