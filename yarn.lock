@@ -14,31 +14,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_elevation_properties@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@eaws/micro-regions_elevation_properties@npm:8.0.0::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-8.0.0.tgz"
-  checksum: 10c0/7417c1fcd5caacc488b896eaccb374e447918d11233e7a5cb66cfccf29c6681866862c12eb5a24df123f6c1e6c9f6e78c90f780dea96c725e2e649a850ca54d9
+"@eaws/micro-regions_elevation_properties@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "@eaws/micro-regions_elevation_properties@npm:8.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_elevation_properties%2F-%2F%40eaws%2Fmicro-regions_elevation_properties-8.0.2.tgz"
+  checksum: 10c0/b2d18ab0b2ebd79d9007e4d6e69c097a0fed2660cfcd3be42653076dce4efdc5dd06423e6d2ebea4431c1722f0fb9913d443486afd4de75956bb8f7e02ac93ec
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_names@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@eaws/micro-regions_names@npm:8.0.0::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_names%2F-%2F%40eaws%2Fmicro-regions_names-8.0.0.tgz"
-  checksum: 10c0/50a741ad8a5e4f755b74a68ead9501a878b6a1b3fc7c0dc14d7967897f2923637b2faa906f6c783a17a5087a7ffba8d54154ded55962e96c9378f44b2b16c161
+"@eaws/micro-regions_names@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "@eaws/micro-regions_names@npm:8.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_names%2F-%2F%40eaws%2Fmicro-regions_names-8.0.2.tgz"
+  checksum: 10c0/66951f803b2cf5c90009531aba4f44da8d3918332451f241bc3b6ab85bd446a6603d78a8c19f0892bdbf47991c5acc528bda601ee909a3f8b6853d7ca179536a
   languageName: node
   linkType: hard
 
-"@eaws/micro-regions_properties@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@eaws/micro-regions_properties@npm:8.0.0::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-8.0.0.tgz"
-  checksum: 10c0/0dd8ea226fab6adfa4556b3d0fc7e19dc347c0c34210e9a8f8bfa86f649afbbd3aeeb4158ef0f1b5526e07f3d9b428b58348bcf6431450f97cd64e243e254dea
+"@eaws/micro-regions_properties@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "@eaws/micro-regions_properties@npm:8.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Fmicro-regions_properties%2F-%2F%40eaws%2Fmicro-regions_properties-8.0.2.tgz"
+  checksum: 10c0/641e3f1b8474f4e9e3ada15ee6efa81c86ce15e48ea318a00267035275f0ece0ded7f5d7a4f06e21f2ec2e89a817e5dd62dc4d4a2ca79a9bcc676dbeedc3b95f
   languageName: node
   linkType: hard
 
-"@eaws/outline_properties@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@eaws/outline_properties@npm:8.0.0::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-8.0.0.tgz"
-  checksum: 10c0/dcadd91d6bba8dba01dd4d8af07903a687f8b6dd7472f4d839fe5b08f17fc300f10d11db49ef86cd738fb7c827974e498527692c59a4e69a58ff7b9eacb4931a
+"@eaws/outline_properties@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "@eaws/outline_properties@npm:8.0.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F25330421%2Fpackages%2Fnpm%2F%40eaws%2Foutline_properties%2F-%2F%40eaws%2Foutline_properties-8.0.2.tgz"
+  checksum: 10c0/9b44e6819de58cb4fe59b29ca08d90a83c7ae1169eff3be320f962e7b79347690a1372b426ee1b18c4808c41fdd12528c60789d02978d9069912526fe48f0e16
   languageName: node
   linkType: hard
 
@@ -857,10 +857,10 @@ __metadata:
   resolution: "albina-website@workspace:."
   dependencies:
     "@albina-euregio/linea": "npm:^8.1.0"
-    "@eaws/micro-regions_elevation_properties": "npm:^8.0.0"
-    "@eaws/micro-regions_names": "npm:^8.0.0"
-    "@eaws/micro-regions_properties": "npm:^8.0.0"
-    "@eaws/outline_properties": "npm:^8.0.0"
+    "@eaws/micro-regions_elevation_properties": "npm:^8.0.2"
+    "@eaws/micro-regions_names": "npm:^8.0.2"
+    "@eaws/micro-regions_properties": "npm:^8.0.2"
+    "@eaws/outline_properties": "npm:^8.0.2"
     "@floating-ui/react": "npm:^0.26.23"
     "@floating-ui/react-dom-interactions": "npm:^0.13.3"
     "@iframe-resizer/child": "npm:^5.5.1"
