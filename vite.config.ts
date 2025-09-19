@@ -1,4 +1,4 @@
-import react from "@vitejs/plugin-react-oxc";
+import react from "@vitejs/plugin-react";
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
