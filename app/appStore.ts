@@ -44,6 +44,7 @@ async function loadMessages(newLanguage: Language) {
   const allMessages = Object.freeze(
     Object.assign(
       { ...messages },
+      { "region:Kärnten": regions["AT-02"] }, // for StationTable
       { "region:Salzburg": regions["AT-05"] }, // for StationTable
       { "region:Vorarlberg": regions["AT-08"] }, // for StationTable
       ...Object.entries(regions).map(([id, name]) => ({
