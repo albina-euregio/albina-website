@@ -36,7 +36,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_danger-scale.jpg"
+                  src="/content_files/feature_danger-scale.webp"
                   title={intl.formatMessage({
                     id: "education:overview:danger-scale:image:title"
                   })}
@@ -68,7 +68,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_avalanche-problem.jpg"
+                  src="/content_files/feature_avalanche-problem.webp"
                   title={intl.formatMessage({
                     id: "education:overview:avalanche-problems:image:title"
                   })}
@@ -97,7 +97,7 @@ const Education = () => {
             <Link to="/education/workflow" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
-                  src="/content_files/feature_workflow.jpg"
+                  src="/content_files/feature_workflow.webp"
                   title={intl.formatMessage({
                     id: "education:overview:workflow:image:title"
                   })}
@@ -126,7 +126,7 @@ const Education = () => {
             <Link to="/education/matrix" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
-                  src="/content_files/feature_matrix.jpg"
+                  src="/content_files/feature_matrix.webp"
                   title={intl.formatMessage({
                     id: "education:overview:eaws-matrix:image:title"
                   })}
@@ -158,7 +158,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_snowpack-stability.jpg"
+                  src="/content_files/feature_snowpack-stability.webp"
                   title={intl.formatMessage({
                     id: "education:overview:snowpack-stability:image:title"
                   })}
@@ -187,7 +187,7 @@ const Education = () => {
             <Link to="/education/frequency" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
-                  src="/content_files/feature_frequency.jpg"
+                  src="/content_files/feature_frequency.webp"
                   title={intl.formatMessage({
                     id: "education:overview:frequency:image:title"
                   })}
@@ -219,7 +219,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_avalanche-size.jpg"
+                  src="/content_files/feature_avalanche-size.webp"
                   title={intl.formatMessage({
                     id: "education:overview:avalanche-sizes:image:title"
                   })}
@@ -251,7 +251,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_spatio-temporal-scale.jpg"
+                  src="/content_files/feature_spatio-temporal-scale.webp"
                   title={intl.formatMessage({
                     id: "education:overview:spatio-temporal-scale:image:title"
                   })}
@@ -283,7 +283,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_danger-pattern.jpg"
+                  src="/content_files/feature_danger-pattern.webp"
                   title={intl.formatMessage({
                     id: "education:overview:danger-patterns:image:title"
                   })}
@@ -312,7 +312,7 @@ const Education = () => {
             <Link to="/education/community" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
-                  src="/content_files/feature_community.jpg"
+                  src="/content_files/feature_community.webp"
                   title={intl.formatMessage({
                     id: "education:overview:community:image:title"
                   })}
@@ -349,7 +349,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_glossary.jpg"
+                  src="/content_files/feature_glossary.webp"
                   title={intl.formatMessage({
                     id: "education:overview:glossary:image:title"
                   })}
@@ -382,7 +382,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_handbook.jpg"
+                  src="/content_files/feature_handbook.webp"
                   title={intl.formatMessage({
                     id: "education:overview:handbook:image:title"
                   })}
@@ -415,7 +415,7 @@ const Education = () => {
             >
               <div className="content-image">
                 <img
-                  src="/content_files/feature_vr.jpg"
+                  src="/content_files/feature_vr.webp"
                   title={intl.formatMessage({
                     id: "education:overview:virtual-reality-project:image:title"
                   })}

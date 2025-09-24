@@ -117,7 +117,7 @@ class LinkTree extends React.Component {
               external={true}
               url={<FormattedMessage id="more:linktree:survey:link" />}
               image={{
-                url: "https://lawinen.report/content_files/feature_community.jpg",
+                url: "https://lawinen.report/content_files/feature_community.webp",
                 title: "Survey",
                 alt: "Survey Image"
               }}

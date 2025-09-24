@@ -30,7 +30,7 @@ const More = () => {
               <Link to="/more/archive" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_archive.jpg"
+                    src="/content_files/feature_archive.webp"
                     title={intl.formatMessage({
                       id: "more:archive:image:title"
                     })}
@@ -64,7 +64,7 @@ const More = () => {
               <Link to="/more/about" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_about.jpg"
+                    src="/content_files/feature_about.webp"
                     alt={intl.formatMessage({
                       id: "more:about:image:alt"
                     })}
@@ -91,7 +91,7 @@ const More = () => {
               <Link to="/more/contact" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_contact.jpg"
+                    src="/content_files/feature_contact.webp"
                     title={intl.formatMessage({
                       id: "more:contact:image:title"
                     })}
@@ -125,7 +125,7 @@ const More = () => {
               <Link to="/more/imprint" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_imprint.jpg"
+                    src="/content_files/feature_imprint.webp"
                     title={intl.formatMessage({
                       id: "more:imprint:image:title"
                     })}
@@ -159,7 +159,7 @@ const More = () => {
               <Link to="/more/privacy" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_privacy.jpg"
+                    src="/content_files/feature_privacy.webp"
                     title={intl.formatMessage({
                       id: "more:privacy:image:title"
                     })}
@@ -196,7 +196,7 @@ const More = () => {
               >
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_accessibility.jpg"
+                    src="/content_files/feature_accessibility.webp"
                     title={intl.formatMessage({
                       id: "more:accessibility:image:title"
                     })}
@@ -230,7 +230,7 @@ const More = () => {
               <Link to="/more/open-data" className="linkbox linkbox-feature ">
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_open_data.jpg"
+                    src="/content_files/feature_open_data.webp"
                     title={intl.formatMessage({
                       id: "more:open-data:image:title"
                     })}
@@ -267,7 +267,7 @@ const More = () => {
               >
                 <div className="content-image">
                   <img
-                    src="/content_files/feature_season_reports.jpg"
+                    src="/content_files/feature_season_reports.webp"
                     title={intl.formatMessage({
                       id: "more:season-reports:image:title"
                     })}
