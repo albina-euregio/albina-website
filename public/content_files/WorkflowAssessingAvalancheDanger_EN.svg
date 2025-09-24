@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380.86 1140">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-4, .cls-5 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .cls-5, .cls-6, .cls-7 {
+        font-size: 12px;
+      }
+
+      .cls-6, .cls-8 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-9 {
+        letter-spacing: -.04em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-2" x="22.86" y="22" width="179.5" height="40" rx="7.91" ry="7.91"/>
+  <rect class="cls-2" x="22.45" y="160.04" width="179.5" height="59.46" rx="7.91" ry="7.91"/>
+  <rect class="cls-2" x="22.45" y="261.83" width="179.5" height="59.46" rx="7.91" ry="7.91"/>
+  <rect class="cls-2" x="23.11" y="363.43" width="179.5" height="59.46" rx="7.91" ry="7.91"/>
+  <path class="cls-2" d="m194.7,525.43H31.01c-4.37,0-7.91-3.54-7.91-7.91v-43.65c0-4.37,3.54-7.91,7.91-7.91h163.68c4.37,0,7.91,3.54,7.91,7.91v43.65c0,4.37-3.54,7.91-7.91,7.91Z"/>
+  <path class="cls-2" d="m193.7,627.43H30.01c-4.37,0-7.91-3.54-7.91-7.91v-43.65c0-4.37,3.54-7.91,7.91-7.91h163.68c4.37,0,7.91,3.54,7.91,7.91v43.65c0,4.37-3.54,7.91-7.91,7.91Z"/>
+  <rect class="cls-2" x="23.11" y="729.03" width="179.5" height="59.46" rx="7.91" ry="7.91"/>
+  <rect class="cls-2" x="22.11" y="913.23" width="179.5" height="59.46" rx="7.91" ry="7.91"/>
+  <rect class="cls-2" x="244.36" y="333.46" width="86" height="115.04" rx="7.91" ry="7.91"/>
+  <circle class="cls-2" cx="340.36" cy="40.5" r="40"/>
+  <ellipse class="cls-2" cx="111.86" cy="851.5" rx="39.5" ry="40"/>
+  <rect class="cls-2" x="94.69" y="91.82" width="35.36" height="35.36" transform="translate(110.34 -47.38) rotate(45)"/>
+  <rect class="cls-2" x="233.81" y="23.88" width="35.36" height="35.02" transform="translate(102.93 -165.71) rotate(45)"/>
+  <rect class="cls-2" x="94.57" y="665.2" width="35.36" height="34.95" transform="translate(515.6 120.58) rotate(45)"/>
+  <rect class="cls-2" x="269.18" y="578.03" width="35.36" height="36.06" transform="translate(505.5 -28.26) rotate(45)"/>
+  <g>
+    <line class="cls-2" x1="112.36" y1="525.5" x2="112.36" y2="560.44"/>
+    <polygon class="cls-3" points="112.36 567.5 108.3 557.55 112.36 559.91 116.43 557.55 112.36 567.5"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.11" y1="626.95" x2="112.11" y2="649.89"/>
+    <polygon class="cls-3" points="112.11 656.95 108.05 647 112.11 649.36 116.18 647 112.11 656.95"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.36" y1="707.5" x2="112.47" y2="721.44"/>
+    <polygon class="cls-3" points="112.52 728.5 108.38 718.58 112.46 720.91 116.51 718.52 112.52 728.5"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.36" y1="788.5" x2="112.22" y2="804.2"/>
+    <polygon class="cls-3" points="112.15 811.26 108.18 801.27 112.22 803.67 116.31 801.34 112.15 811.26"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.36" y1="892" x2="112.47" y2="905.94"/>
+    <polygon class="cls-3" points="112.52 913 108.38 903.08 112.46 905.41 116.51 903.02 112.52 913"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="111.46" y1="972.85" x2="111.33" y2="987.09"/>
+    <polygon class="cls-3" points="111.26 994.15 107.29 984.16 111.33 986.56 115.42 984.24 111.26 994.15"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.36" y1="422.75" x2="112.36" y2="458.19"/>
+    <polygon class="cls-3" points="112.36 465.25 108.3 455.3 112.36 457.66 116.43 455.3 112.36 465.25"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="111.92" y1="321.45" x2="111.92" y2="355.89"/>
+    <polygon class="cls-3" points="111.92 362.95 107.86 353 111.92 355.36 115.99 353 111.92 362.95"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="111.92" y1="219.55" x2="111.92" y2="254.39"/>
+    <polygon class="cls-3" points="111.92 261.45 107.86 251.5 111.92 253.86 115.99 251.5 111.92 261.45"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.36" y1="134.5" x2="112.05" y2="152.54"/>
+    <polygon class="cls-3" points="111.92 159.6 108.03 149.58 112.05 152.01 116.16 149.72 111.92 159.6"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="112.59" y1="62.37" x2="112.42" y2="76.81"/>
+    <polygon class="cls-3" points="112.33 83.87 108.39 73.88 112.43 76.29 116.52 73.97 112.33 83.87"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="202.65" y1="41.3" x2="218.83" y2="41.3"/>
+    <polygon class="cls-3" points="225.89 41.3 215.95 45.37 218.31 41.3 215.95 37.24 225.89 41.3"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="275.81" y1="41.5" x2="292.75" y2="41.5"/>
+    <polygon class="cls-3" points="299.81 41.5 289.86 45.57 292.22 41.5 289.86 37.44 299.81 41.5"/>
+  </g>
+  <rect class="cls-2" x="93.99" y="1001.79" width="34.65" height="34.51" transform="translate(753.18 219.76) rotate(45)"/>
+  <circle class="cls-2" cx="111.36" cy="1099.5" r="40"/>
+  <g>
+    <line class="cls-2" x1="111.36" y1="1043.03" x2="111.36" y2="1051.91"/>
+    <polygon class="cls-3" points="111.36 1058.97 107.3 1049.03 111.36 1051.39 115.43 1049.03 111.36 1058.97"/>
+  </g>
+  <rect class="cls-2" x="338.08" y="924.12" width="34.65" height="34.51" transform="translate(769.75 24.41) rotate(45)"/>
+  <g>
+    <line class="cls-2" x1="202.32" y1="941.3" x2="323.3" y2="941.3"/>
+    <polygon class="cls-3" points="330.36 941.3 320.41 945.37 322.78 941.3 320.41 937.24 330.36 941.3"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="201.73" y1="596.5" x2="254.3" y2="596.32"/>
+    <polygon class="cls-3" points="261.36 596.3 251.43 600.4 253.78 596.33 251.4 592.27 261.36 596.3"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="208.17" y1="189.5" x2="355.36" y2="189.5"/>
+    <polygon class="cls-3" points="201.11 189.5 211.06 193.57 208.7 189.5 211.06 185.44 201.11 189.5"/>
+  </g>
+  <line class="cls-2" x1="355.36" y1="189.5" x2="355.36" y2="916.93"/>
+  <g>
+    <line class="cls-2" x1="287.09" y1="571" x2="286.85" y2="456.06"/>
+    <polygon class="cls-3" points="286.83 449 290.92 458.94 286.85 456.58 282.79 458.95 286.83 449"/>
+  </g>
+  <text class="cls-5" transform="translate(48.67 37.59)"><tspan class="cls-9" x="0" y="0">A</tspan><tspan x="8.22" y="0">valanche problem(s)</tspan><tspan x="37.12" y="14.4">present?</tspan></text>
+  <text class="cls-7" transform="translate(79.86 183.35)"><tspan class="cls-4"><tspan x="0" y="0">Locations?</tspan></tspan><tspan class="cls-8"><tspan x="-48.38" y="14.4">E.g. elevations and/or aspects</tspan></tspan></text>
+  <text class="cls-7" transform="translate(58.13 287.65)"><tspan class="cls-4"><tspan x="0" y="0">Snowpack stability</tspan></tspan><tspan class="cls-8"><tspan x="4.32" y="14.4">in these locations?</tspan></tspan></text>
+  <text class="cls-7" transform="translate(44.31 381.47)"><tspan class="cls-4"><tspan x="0" y="0">Frequency of snowpack</tspan></tspan><tspan class="cls-4"><tspan x="45.68" y="14.4">stability</tspan></tspan><tspan class="cls-8"><tspan x="18.65" y="28.8">in these locations?</tspan></tspan></text>
+  <text class="cls-7" transform="translate(69.86 484.46)"><tspan class="cls-4"><tspan class="cls-9" x="0" y="0">A</tspan><tspan x="8.22" y="0">valanche size</tspan></tspan><tspan class="cls-8"><tspan x="-41.58" y="14.4">How large are avalanches likely</tspan></tspan><tspan class="cls-8"><tspan x="11.45" y="28.8">to become?</tspan></tspan></text>
+  <text class="cls-7" transform="translate(52.09 593.65)"><tspan class="cls-4"><tspan x="0" y="0">Substantial variation</tspan></tspan><tspan class="cls-8"><tspan x="-19.25" y="14.4">in stabilit</tspan><tspan class="cls-1" x="27.44" y="14.4">y</tspan><tspan x="32.55" y="14.4">, frequency or size?</tspan></tspan></text>
+  <text class="cls-6" transform="translate(102.86 687.59)"><tspan x="0" y="0">NO</tspan></text>
+  <text class="cls-6" transform="translate(241.82 45.04)"><tspan x="0" y="0">NO</tspan></text>
+  <text class="cls-6" transform="translate(99.82 114.06)"><tspan x="0" y="0">YES</tspan></text>
+  <text class="cls-6" transform="translate(273.81 599.49)"><tspan x="0" y="0">YES</tspan></text>
+  <text class="cls-6" transform="translate(343.54 945)"><tspan x="0" y="0">YES</tspan></text>
+  <text class="cls-6" transform="translate(102.06 1023.07)"><tspan x="0" y="0">NO</tspan></text>
+  <text class="cls-7" transform="translate(250.01 364.98)"><tspan class="cls-4"><tspan x="0" y="0">Reassess for</tspan></tspan><tspan class="cls-4"><tspan x="8.69" y="14.4">sub-units.</tspan></tspan><tspan class="cls-8"><tspan x="2.68" y="28.8">Lower limit is</tspan></tspan><tspan class="cls-8"><tspan x="-1.33" y="43.2">your reference</tspan></tspan><tspan class="cls-8"><tspan x="26.02" y="57.6">unit!</tspan></tspan></text>
+  <text class="cls-7" transform="translate(89.31 747.26)"><tspan class="cls-4"><tspan x="0" y="0">M</tspan><tspan class="cls-1" x="10" y="0">A</tspan><tspan x="17.77" y="0">TRIX</tspan></tspan><tspan class="cls-8"><tspan x="-62.49" y="14.4">Frequency of snowpack stability</tspan></tspan><tspan class="cls-8"><tspan x="-30.48" y="28.8">and avalanche sitze</tspan></tspan></text>
+  <text class="cls-5" transform="translate(38.48 939.1)"><tspan x="0" y="0">Other relevant avalanche </tspan><tspan x="40.7" y="14.4">problems?</tspan></text>
+  <text class="cls-5" transform="translate(89.38 1089.51)"><tspan x="0" y="0">Highest </tspan><tspan x="1.33" y="14.4">Danger </tspan><tspan x="6.66" y="28.8">Level</tspan></text>
+  <text class="cls-5" transform="translate(112 833.59)"><tspan x="0" y="0"> </tspan><tspan x="-20.67" y="14.4">Danger </tspan><tspan x="-15.34" y="28.8">Level</tspan></text>
+  <text class="cls-5" transform="translate(319.95 32.3)"><tspan x="0" y="0">Danger </tspan><tspan x="3.33" y="14.4">Level:</tspan><tspan x="3.34" y="28.8">1-Low</tspan></text>
+  <line class="cls-2" x1="286.36" y1="189.5" x2="286.36" y2="333.5"/>
+</svg>
