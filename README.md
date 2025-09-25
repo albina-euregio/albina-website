@@ -108,7 +108,7 @@ server {
 
 ## Translation
 
-This project uses Transifex for its translations: https://explore.transifex.com/albina-euregio/albina-website/
+This project uses Transifex for its translations: https://app.transifex.com/albina-euregio/albina-website/
 
 To interact with Transifex, install the official [transifex-client](https://github.com/transifex/cli).
 
