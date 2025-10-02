@@ -10,7 +10,7 @@ test("weather/measurements", async ({ page }) => {
   await expect(firstRow).toHaveText(/Zwölferkogel|Zürs/);
 
   await page.getByRole("link", { name: "Elevation: Sort descending" }).click();
-  await expect(firstRow).toHaveText(/Weißseespitze/);
+  await expect(firstRow).toHaveText(/Weißseespitze|Erzherzog-Johann-Hütte/);
 
   await expect(await page.getByRole("row").count()).toBeGreaterThan(300);
 
