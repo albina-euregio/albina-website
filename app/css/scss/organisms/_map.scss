@@ -103,7 +103,7 @@ $search-width-wide: 300px;
     border: none !important;
     //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, but who knows ...
     .legend .legend-toggle {
-      background-image: url("../../../images/pro/meteoviewer/legend.png");
+      background-image: url("../../../images/pro/meteoviewer/legend.webp");
     }
   }
 }
@@ -151,7 +151,8 @@ $search-width-wide: 300px;
   position: absolute;
   top: variables.$padding;
   left: variables.$padding;
-  .bulletin-parallel-view &, .bulletin-switchable-view & {
+  .bulletin-parallel-view &,
+  .bulletin-switchable-view & {
     top: variables.$padding * 5.25;
   }
 
