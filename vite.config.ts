@@ -73,11 +73,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    proxy: {
-      "/content_files": {
-        target: "https://avalanche.report/",
-        changeOrigin: true
-      }
-    }
+    proxy: {}
   }
 });

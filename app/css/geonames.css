@@ -113,7 +113,7 @@
 
 .leaflet-geonames-icon-working {
   /*src: https://design.google.com/icons/#ic_autorenew*/
-  background-image: url(./../images/pro/geonames/waiting.png);
+  background-image: url(./../images/pro/geonames/waiting.webp);
   animation: spin 2s infinite linear;
 }
 

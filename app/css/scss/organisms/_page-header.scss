@@ -29,7 +29,7 @@
     left: -99999px;
     top: -99999px;
     content: "";
-    background: transparent url("../../../images/pro/logos/logo_en_print.png")
+    background: transparent url("../../../images/pro/logos/logo_en_print.webp")
       no-repeat 0 0;
     background-size: 1px 1px;
     opacity: 0;
@@ -503,7 +503,7 @@ $page-header-logo-width: 3.25em;
   height: logo.$logo-header-footer-secondary-height * 0.5;
   width: logo.$logo-header-footer-secondary-width * 0.5;
   background: transparent
-    url("../../../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
+    url("../../../images/pro/logos/logo_euregio_transparent.webp") no-repeat 0 0;
   background-size: (logo.$logo-header-footer-secondary-width * 0.5)
     (logo.$logo-header-footer-secondary-height * 0.5);
   filter: grayscale(100%);
