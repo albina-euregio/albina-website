@@ -40,6 +40,8 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (blogMode && type === "figure") {
           children = React.createElement(type, props, children);
           return React.createElement(ModalImage, undefined, children);
+        } else if (type === "img" && props.src?.startsWith("/content_files")) {
+          props.src = window.config.projectRoot + props.src.slice(1);
         } else if (blogMode && type === "img") {
           // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           ["sizes"].forEach(prop => delete props[prop]);
