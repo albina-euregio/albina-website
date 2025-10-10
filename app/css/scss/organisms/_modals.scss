@@ -409,12 +409,26 @@ button.mfp-arrow {
     font-size: variables.$small-font-size;
   }
 
+  .uplots {
+    overflow-x: scroll;
+    margin-left: -$modal-padding;
+    margin-right: -$modal-padding;
+    padding-left: variables.$padding;
+    padding-right: variables.$padding;
+    @media #{variables.$normal-up} {
+      margin-left: unset;
+      margin-right: unset;
+      padding-left: unset;
+      padding-right: unset;
+    }
+  }
+
   linea-plot {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    gap: (variables.$padding * 2);
+    margin-bottom: variables.$margin-bottom;
+    min-width: 32em;
 
     > div {
       box-shadow: 0 0 2px 2px variables.$grey-very-light;
