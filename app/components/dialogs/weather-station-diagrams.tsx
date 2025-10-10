@@ -395,9 +395,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     station instanceof StationData ? station.microRegion.split(" ") : "";
 
   return (
-    <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
-      <div className="modal-container">
-        <div className="modal-weatherstation" ref={myRef}>
+    <div className="modal-container">
+      <div className="modal-weatherstation" ref={myRef}>
+        <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
           <div className="modal-header">
             {isStation && (
               <p className="caption">
@@ -420,39 +420,39 @@ const WeatherStationDiagrams: React.FC<Props> = ({
               )}
             </h2>
           </div>
-          <StationFlipper
-            next={next}
-            nextStation={nextStation}
-            previous={previous}
-            previousStation={previousStation}
-          >
-            {!isStation && (
-              <YearFlipper
-                selectedYear={selectedYear}
-                setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
-              />
-            )}
-          </StationFlipper>
-          <div className="modal-content">
-            {isStation && <MeasurementValues stationData={station} />}
-            {isStation && (
-              <TimeRangeButtons
-                station={station}
-                timeRange={timeRange}
-                setTimeRange={timeRange => setTimeRange(timeRange)}
-              />
-            )}
-            <StationDiagramImage
-              clientWidth={myRef?.current?.clientWidth ?? 1}
+        </Swipe>
+        <StationFlipper
+          next={next}
+          nextStation={nextStation}
+          previous={previous}
+          previousStation={previousStation}
+        >
+          {!isStation && (
+            <YearFlipper
               selectedYear={selectedYear}
+              setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
+            />
+          )}
+        </StationFlipper>
+        <div className="modal-content">
+          {isStation && <MeasurementValues stationData={station} />}
+          {isStation && (
+            <TimeRangeButtons
               station={station}
               timeRange={timeRange}
+              setTimeRange={timeRange => setTimeRange(timeRange)}
             />
-            {isStation && <StationOperator stationData={station} />}
-          </div>
+          )}
+          <StationDiagramImage
+            clientWidth={myRef?.current?.clientWidth ?? 1}
+            selectedYear={selectedYear}
+            station={station}
+            timeRange={timeRange}
+          />
+          {isStation && <StationOperator stationData={station} />}
         </div>
       </div>
-    </Swipe>
+    </div>
   );
 };
 
