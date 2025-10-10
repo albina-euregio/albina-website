@@ -2,6 +2,7 @@
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../atoms/bgs";
+@use "../atoms/labels";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -428,25 +429,14 @@ button.mfp-arrow {
       text-align: center;
     }
     .toggle-btn {
-      padding: 10px 20px;
-      background-color: #ffffff;
-      color: #555555;
-      border: 2px solid #19aaff;
-      border-radius: 40px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 300;
-      transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
-    }
-
-    .toggle-btn:hover {
-      background-color: #19aaff;
-      color: white;
-    }
-    .toggle-btn:active {
-      transform: translateY(1px);
+      @extend .label;
+      color: variables.$text-color;
+      border-color: variables.$grey-light;
+      &:hover {
+        color: variables.$white;
+        border-color: variables.$anchor-font-color;
+        background-color: variables.$anchor-font-color;
+      }
     }
   }
 }
