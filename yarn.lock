@@ -1036,12 +1036,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/leaflet@file:./local-types/leaflet/::locator=albina-website%40workspace%3A., @types/leaflet@npm:*":
+"@types/leaflet@file:./local-types/leaflet/::locator=albina-website%40workspace%3A.":
   version: 2.0.9999
   resolution: "@types/leaflet@file:./local-types/leaflet/#./local-types/leaflet/::hash=deb8fc&locator=albina-website%40workspace%3A."
   dependencies:
     "@types/geojson": "npm:*"
-  checksum: 10c0/81d4bef1d58aa76f67850152069bcb107c5bf8e2ce70efceb8006dad3d99fe01937851e5dc6b728cef447f8495fa0491f90f8557e8846d44f41c1e4a45e64992
+  checksum: 10c0/6c8df85dbaf8731545a80338d7e8d777a3a4b8032619a30a9145c8936d86cc4b5d74fbcc4a163fba2ef3b43d2a47da8d52550d8253bdfc5cdcb18f443610e0aa
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:*":
+  version: 1.9.21
+  resolution: "@types/leaflet@npm:1.9.21"
+  dependencies:
+    "@types/geojson": "npm:*"
+  checksum: 10c0/96a86bdeff7bf56104242e97536f39005a53dd857853aa0c5de127ce2c72f3f36638f2a5b8d23e2e825a2bfe32113be731ab26634a3143413b891299c29621ce
   languageName: node
   linkType: hard
 
