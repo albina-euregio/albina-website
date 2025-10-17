@@ -1038,10 +1038,10 @@ __metadata:
 
 "@types/leaflet@file:./local-types/leaflet/::locator=albina-website%40workspace%3A.":
   version: 2.0.9999
-  resolution: "@types/leaflet@file:./local-types/leaflet/#./local-types/leaflet/::hash=09fc15&locator=albina-website%40workspace%3A."
+  resolution: "@types/leaflet@file:./local-types/leaflet/#./local-types/leaflet/::hash=b7e935&locator=albina-website%40workspace%3A."
   dependencies:
     "@types/geojson": "npm:*"
-  checksum: 10c0/1845bf504614869142cf2439b3b8562bf017b23c43a753315be0503ab0d016195802e60f81b1341c3f76efc2b31df88020e35fd9afb44b80afe9d78bdfec8170
+  checksum: 10c0/81d4bef1d58aa76f67850152069bcb107c5bf8e2ce70efceb8006dad3d99fe01937851e5dc6b728cef447f8495fa0491f90f8557e8846d44f41c1e4a45e64992
   languageName: node
   linkType: hard
 
