@@ -1038,7 +1038,7 @@ __metadata:
 
 "@types/leaflet@file:./local-types/leaflet/::locator=albina-website%40workspace%3A.":
   version: 2.0.9999
-  resolution: "@types/leaflet@file:./local-types/leaflet/#./local-types/leaflet/::hash=b7e935&locator=albina-website%40workspace%3A."
+  resolution: "@types/leaflet@file:./local-types/leaflet/#./local-types/leaflet/::hash=deb8fc&locator=albina-website%40workspace%3A."
   dependencies:
     "@types/geojson": "npm:*"
   checksum: 10c0/81d4bef1d58aa76f67850152069bcb107c5bf8e2ce70efceb8006dad3d99fe01937851e5dc6b728cef447f8495fa0491f90f8557e8846d44f41c1e4a45e64992
