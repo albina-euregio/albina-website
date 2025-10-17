@@ -40,7 +40,7 @@ const LeafletMap = (props: Props) => {
       zoomControl={false}
       {...{
         dragging: true,
-        touchZoom: true,
+        pinchZoom: true,
         doubleClickZoom: true,
         scrollWheelZoom: true,
         boxZoom: true,
