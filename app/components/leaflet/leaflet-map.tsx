@@ -1,5 +1,5 @@
 import React from "react";
-import "leaflet/dist/leaflet.css";
+import "leaflet/styles.css";
 import LeafletMapControls from "./leaflet-map-controls";
 
 import {

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import * as L from "leaflet";
+import "leaflet/styles.css";
 
 import { useMap } from "react-leaflet";
 import { useIntl } from "../../i18n";

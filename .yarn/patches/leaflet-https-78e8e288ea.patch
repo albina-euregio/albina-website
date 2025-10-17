@@ -1,0 +1,25 @@
+diff --git a/package.json b/package.json
+index cce6d231a171e00b9cb582d0d814b32848138237..9cba255052107909bd79034626e572f4e7c64bac 100644
+--- a/package.json
++++ b/package.json
+@@ -35,7 +35,7 @@
+   },
+   "type": "module",
+   "exports": {
+-    ".": "./dist/leaflet-src.js",
+-    "./styles.css": "./dist/leaflet.css"
++    ".": "./src/LeafletWithGlobals.js",
++    "./styles.css": "./src/leaflet.css"
+   },
+   "style": "dist/leaflet.css",
+diff --git a/src/Leaflet.js b/src/Leaflet.js
+index 8c62db23911d48cea48f2be65e3721faf81536f8..acd6ea12a4f3ba06b8c26075a555b5c49c7a2f32 100644
+--- a/src/Leaflet.js
++++ b/src/Leaflet.js
+@@ -1,5 +1,5 @@
+ // !!! NEXT LINE IS AUTO-GENERATED VIA `NPM VERSION` !!!
+-export const version = '2.0.0-alpha.1';
++export const version = '2.0.0-alpha.1-51-gf8fef451';
+ 
+ // control
+ export * from './control/index.js';
