@@ -48,7 +48,7 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
     const province = $province.get();
     const internRegex = province
       ? new RegExp(`^(${province})`)
-      : new RegExp("^(AT-07|IT-32-BZ|IT-32-TN)");
+      : new RegExp(config.regionsRegex);
     return internRegex.test(id)
       ? WARNLEVEL_STYLES.intern[warnlevel]
       : WARNLEVEL_STYLES.extern[warnlevel];
