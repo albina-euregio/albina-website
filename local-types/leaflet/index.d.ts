@@ -1,3 +1,4 @@
+// eslint-disable
 export as namespace L;
 
 import * as geojson from "geojson";
