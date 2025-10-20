@@ -70,6 +70,8 @@ const StationMarker = ({
     () => (
       <Marker
         data={data}
+        $tooltip={tooltip}
+        $stationIcon={stationIcon}
         position={coordinates}
         title={stationName}
         icon={icon}

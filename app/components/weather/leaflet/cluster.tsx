@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import L from "leaflet";
 import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import { Domain } from "../../../stores/weatherMapStore";
+import { createPortal } from "react-dom";
+import StationIcon from "../../leaflet/station-icon";
 
 type Props = {
   spiderfiedMarkers: (markers: L.Marker[] | null) => void;
@@ -14,6 +16,9 @@ type Props = {
 
 const Cluster = (props: Props) => {
   let activeCluster: L.MarkerCluster | null = null;
+  const [markerPortals, setMarkerPortals] = useState<
+    [React.ReactElement<unknown, typeof StationIcon>, HTMLElement][]
+  >([]);
 
   const onClick = (e: L.LeafletMouseEvent) => {
     if (e.layer.options?.data?.id) {
@@ -56,14 +61,21 @@ const Cluster = (props: Props) => {
         cluster.bindTooltip(
           cluster
             .getAllChildMarkers()
-            .map(marker => marker?.getTooltip?.()?.getContent?.())
+            .map(marker => marker?.options.$tooltip)
             .join("<br>")
         );
       }
-      return new L.DivIcon({
+      const icon = new L.DivIcon({
         ...activeMarker.options.icon.options,
         className: "leaflet-cluster-marker"
       });
+      const element = icon.createIcon();
+      icon.createIcon = () => element;
+      setMarkerPortals(p => [
+        ...p,
+        [activeMarker.options.$stationIcon, element]
+      ]);
+      return icon;
     };
 
   const getActiveMarker = (cluster: L.MarkerCluster) => {
@@ -97,6 +109,7 @@ const Cluster = (props: Props) => {
       onSpiderfied={onSpiderfied}
       onUnspiderfied={onUnspiderfied}
     >
+      {markerPortals.map(([icon, element]) => createPortal(icon, element))}
       {props.children}
     </MarkerClusterGroup>
   );
