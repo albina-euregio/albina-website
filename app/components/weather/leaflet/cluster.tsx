@@ -3,11 +3,19 @@ import L from "leaflet";
 import MarkerClusterGroup from "./react-leaflet-markercluster";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
+import { Domain } from "../../../stores/weatherMapStore";
 
-const Cluster = props => {
-  let activeCluster = null;
+type Props = {
+  spiderfiedMarkers: (markers: L.Marker[] | null) => void;
+  tooltip?: boolean;
+  item: Domain["item"];
+  children: React.ReactNode;
+};
 
-  const onClick = e => {
+const Cluster = (props: Props) => {
+  let activeCluster: L.MarkerCluster | null = null;
+
+  const onClick = (e: L.LeafletMouseEvent) => {
     if (e.layer.options?.data?.id) {
       const markerId = e.layer.options.data.id;
       if (activeCluster) {
@@ -24,7 +32,7 @@ const Cluster = props => {
     }
   };
 
-  const onSpiderfied = a => {
+  const onSpiderfied: L.SpiderfyEventHandlerFn = a => {
     const activeMarker = getActiveMarker(a.cluster);
     if (activeMarker) {
       setPositionForActiveMarker(activeMarker);
@@ -35,29 +43,30 @@ const Cluster = props => {
     );
   };
 
-  const onUnspiderfied = () => {
+  const onUnspiderfied: L.SpiderfyEventHandlerFn = () => {
     activeCluster = null;
     props.spiderfiedMarkers(null);
   };
 
-  const createClusterIcon = cluster => {
-    const activeMarker = getActiveMarker(cluster);
+  const createClusterIcon: L.MarkerClusterGroupOptions["iconCreateFunction"] =
+    cluster => {
+      const activeMarker = getActiveMarker(cluster);
 
-    if (props.tooltip) {
-      cluster.bindTooltip(
-        cluster
-          .getAllChildMarkers()
-          .map(marker => marker?.getTooltip?.()?.getContent?.())
-          .join("<br>")
-      );
-    }
-    return new L.DivIcon({
-      ...activeMarker.options.icon.options,
-      className: "leaflet-cluster-marker"
-    });
-  };
+      if (props.tooltip) {
+        cluster.bindTooltip(
+          cluster
+            .getAllChildMarkers()
+            .map(marker => marker?.getTooltip?.()?.getContent?.())
+            .join("<br>")
+        );
+      }
+      return new L.DivIcon({
+        ...activeMarker.options.icon.options,
+        className: "leaflet-cluster-marker"
+      });
+    };
 
-  const getActiveMarker = cluster => {
+  const getActiveMarker = (cluster: L.MarkerCluster) => {
     const markers = cluster.getAllChildMarkers();
     if (props.item.clusterOperation === "none") {
       return markers[0];
@@ -72,7 +81,7 @@ const Cluster = props => {
     return markers[values.indexOf(derivedValue)];
   };
 
-  const setPositionForActiveMarker = marker => {
+  const setPositionForActiveMarker = (marker: L.Marker) => {
     const activePos = this.leafletElement.getVisibleParent(marker);
     if (activePos) {
       this.props.onActiveMarkerPositionUpdate(activePos.getLatLng());
