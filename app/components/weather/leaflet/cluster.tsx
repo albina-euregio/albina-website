@@ -21,19 +21,17 @@ const Cluster = (props: Props) => {
   >([]);
 
   const onClick = (e: L.LeafletMouseEvent) => {
-    if (e.layer.options?.data?.id) {
-      const markerId = e.layer.options.data.id;
-      if (activeCluster) {
-        const activeClusterMarker = activeCluster
-          .getAllChildMarkers()
-          .find(m => m.options.data.id == markerId);
+    const markerId = e.propagatedFrom.options.data?.id;
+    if (!markerId) return;
+    if (!activeCluster) return;
+    const activeClusterMarker = activeCluster
+      .getAllChildMarkers()
+      .find(m => m.options.data.id == markerId);
 
-        if (activeClusterMarker) {
-          setPositionForActiveMarker(activeClusterMarker);
-        } else {
-          activeCluster.unspiderfy();
-        }
-      }
+    if (activeClusterMarker) {
+      setPositionForActiveMarker(activeClusterMarker);
+    } else {
+      activeCluster.unspiderfy();
     }
   };
 
