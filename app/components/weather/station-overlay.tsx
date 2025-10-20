@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Cluster from "./leaflet/cluster";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker, {
+  type StationMarkerData
+} from "../leaflet/station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 
@@ -64,10 +66,10 @@ const StationOverlay = (props: Props) => {
       return;
 
     const value = Math.round(data[props.itemId]);
-    const coordinates = pos
+    const coordinates: L.LatLngExpression = pos
       ? [pos.lat, pos.lng]
       : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
-    const markerData = {
+    const markerData: StationMarkerData = {
       id: data.id,
       name:
         data.name +

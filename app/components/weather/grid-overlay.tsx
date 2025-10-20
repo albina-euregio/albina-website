@@ -1,6 +1,8 @@
 import React from "react";
 import { FeatureGroup } from "react-leaflet";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker, {
+  type StationMarkerData
+} from "../leaflet/station-marker";
 
 class GridOverlay extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ class GridOverlay extends React.Component {
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
     ];
-    const markerData = {
+    const markerData: StationMarkerData = {
       id: data.properties.id,
       name: data.properties.name,
       detail: value + " " + this.props.item.units

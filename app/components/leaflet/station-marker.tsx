@@ -4,12 +4,33 @@ import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import StationIcon from "./station-icon";
 
-interface Props<T = unknown> {
+export type StationMarkerData = {
+  id: string;
+  name: string;
+  detail: string;
+  operator?: string;
+  plainName?: string;
+  value?: number;
+  plot?: string;
+};
+
+declare module "leaflet" {
+  interface DivIconOptions {
+    data: StationMarkerData;
+  }
+  interface MarkerOptions {
+    data: StationMarkerData;
+    $tooltip: string | undefined;
+    $stationIcon: React.ReactElement<unknown, typeof StationIcon>;
+  }
+}
+
+interface Props {
   coordinates: L.LatLngExpression;
-  data: T;
+  data: StationMarkerData;
   stationName: string;
   tooltip?: string;
-  onClick?: (data: T) => void;
+  onClick?: (data: StationMarkerData) => void;
   itemId: "any" | string;
   type: string;
   color: string;
@@ -36,7 +57,7 @@ const StationMarker = ({
   tooltip,
   type,
   value
-}: Props<unknown>): React.ReactNode => {
+}: Props): React.ReactNode => {
   const stationIcon = useMemo(() => {
     return (
       <StationIcon
@@ -54,6 +75,7 @@ const StationMarker = ({
   const icon = useMemo(
     () =>
       new L.DivIcon({
+        data,
         iconAnchor: iconAnchor || [12.5, 12.5],
         className: className
       }),
