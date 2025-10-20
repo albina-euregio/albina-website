@@ -105,9 +105,11 @@ const Cluster = (props: Props) => {
       maxClusterRadius={11}
       showCoverageOnHover={true}
       iconCreateFunction={createClusterIcon}
-      onClick={onClick}
-      onSpiderfied={onSpiderfied}
-      onUnspiderfied={onUnspiderfied}
+      eventHandlers={{
+        click: onClick,
+        spiderfied: onSpiderfied,
+        unspiderfied: onUnspiderfied
+      }}
     >
       {markerPortals.map(([icon, element]) => createPortal(icon, element))}
       {props.children}
