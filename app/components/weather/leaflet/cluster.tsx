@@ -102,7 +102,7 @@ const Cluster = (props: Props) => {
 
   return (
     <MarkerClusterGroup
-      maxClusterRadius="11"
+      maxClusterRadius={11}
       showCoverageOnHover={true}
       iconCreateFunction={createClusterIcon}
       onClick={onClick}

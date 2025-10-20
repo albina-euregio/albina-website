@@ -4,12 +4,22 @@
 // https://github.com/yuzhva/react-leaflet-markercluster/blob/3c0c77fa5af123b2c8014c5f26ba49b34dd26cf0/LICENSE
 // MIT License
 // Copyright (c) 2017 Yevhen Uzhva
+import type React from "react";
 import L from "leaflet";
-import { createPathComponent } from "@react-leaflet/core";
+import {
+  createPathComponent,
+  type LeafletContextInterface
+} from "@react-leaflet/core";
 import "leaflet.markercluster";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function createMarkerCluster({ children: _c, ...props }, context) {
+function createMarkerCluster(
+  {
+    children: _c,
+    ...props
+  }: L.MarkerClusterGroupOptions & { children: React.ReactNode },
+  context: LeafletContextInterface
+) {
   const clusterProps = {};
   const clusterEvents = {};
   // Splitting props and events to different objects
