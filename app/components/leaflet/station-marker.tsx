@@ -79,6 +79,7 @@ const StationMarker = ({
         iconAnchor: iconAnchor || [12.5, 12.5],
         className: className
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [className, iconAnchor]
   );
 
