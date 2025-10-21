@@ -49,6 +49,33 @@ you can copy over the contents of the `dist` directory to the server.
 | beta        | `yarn run build-beta` | `yarn run deploy-beta` | https://avalanche.report/beta/ |
 | development | `yarn run build-dev`  | `yarn run deploy-dev`  | https://avalanche.report/dev/  |
 
+## Server configuration (Caddy)
+
+```
+www.avalanche.report, avalanche.report {
+	import avalanche_report
+
+	handle_path /beta/* {
+		root * /var/www/avalanche.report/beta/
+		try_files {path} /index.html
+		file_server
+	}
+
+	handle_path /dev/* {
+		root * /var/www/avalanche.report/dev/
+		try_files {path} /index.html
+		file_server
+	}
+
+	handle {
+		root * /var/www/avalanche.report/ROOT/
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+```
+
 ## Server configuration (Apache)
 
 You will need to setup an URL rewrite module. For Apache you have to enable it
