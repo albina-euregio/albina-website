@@ -4,7 +4,7 @@ import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import StationIcon from "./station-icon";
 
-export type StationMarkerData = {
+export interface StationMarkerData {
   id: string;
   name: string;
   detail: string;
@@ -12,7 +12,7 @@ export type StationMarkerData = {
   plainName?: string;
   value?: number;
   plot?: string;
-};
+}
 
 declare module "leaflet" {
   interface DivIconOptions {

@@ -496,58 +496,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxlint/darwin-arm64@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/darwin-arm64@npm:1.19.0"
+"@oxlint/darwin-arm64@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/darwin-arm64@npm:1.23.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@oxlint/darwin-x64@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/darwin-x64@npm:1.19.0"
+"@oxlint/darwin-x64@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/darwin-x64@npm:1.23.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@oxlint/linux-arm64-gnu@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/linux-arm64-gnu@npm:1.19.0"
+"@oxlint/linux-arm64-gnu@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/linux-arm64-gnu@npm:1.23.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@oxlint/linux-arm64-musl@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/linux-arm64-musl@npm:1.19.0"
+"@oxlint/linux-arm64-musl@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/linux-arm64-musl@npm:1.23.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@oxlint/linux-x64-gnu@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/linux-x64-gnu@npm:1.19.0"
+"@oxlint/linux-x64-gnu@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/linux-x64-gnu@npm:1.23.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@oxlint/linux-x64-musl@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/linux-x64-musl@npm:1.19.0"
+"@oxlint/linux-x64-musl@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/linux-x64-musl@npm:1.23.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@oxlint/win32-arm64@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/win32-arm64@npm:1.19.0"
+"@oxlint/win32-arm64@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/win32-arm64@npm:1.23.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@oxlint/win32-x64@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@oxlint/win32-x64@npm:1.19.0"
+"@oxlint/win32-x64@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@oxlint/win32-x64@npm:1.23.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1159,10 +1159,10 @@ __metadata:
     leaflet.markercluster: "patch:leaflet.markercluster@patch%3Aleaflet.markercluster@npm%253A1.5.3%23~/.yarn/patches/leaflet.markercluster-npm-1.5.3-a17883ef0b.patch%3A%3Aversion=1.5.3&hash=1651d5#~/.yarn/patches/leaflet.markercluster-patch-c813042bbd.patch"
     leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
     leaflet.vectorgrid: "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch"
-    lint-staged: "npm:^15.4.3"
+    lint-staged: "npm:^15.5.2"
     nanostores: "npm:^1.0.1"
     normalize.css: "npm:^8.0.1"
-    oxlint: "npm:^1.19.0"
+    oxlint: "npm:^1.23.0"
     prettier: "npm:^3.6.2"
     purecss-sass: "npm:3.0.1"
     react: "npm:19.2.0"
@@ -2359,9 +2359,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.4.3":
-  version: 15.4.3
-  resolution: "lint-staged@npm:15.4.3"
+"lint-staged@npm:^15.5.2":
+  version: 15.5.2
+  resolution: "lint-staged@npm:15.5.2"
   dependencies:
     chalk: "npm:^5.4.1"
     commander: "npm:^13.1.0"
@@ -2375,7 +2375,7 @@ __metadata:
     yaml: "npm:^2.7.0"
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 10c0/c1f71f2273bcbd992af929620f5acc6b9f6899da4b395e780e0b3ab33a0d725c239eb961873067c8c842e057c585c71dd4d44c0dc8b25539d3c2e97a3bdd6f30
+  checksum: 10c0/618386254600ada3af3672486a9d082250108245e7c0863d9dfe0a21e7764e3b2eb6416b0f8970e548f4e9d368637331598b27df5a1306925feabbaf16a667e1
   languageName: node
   linkType: hard
 
@@ -2703,18 +2703,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint@npm:^1.19.0":
-  version: 1.19.0
-  resolution: "oxlint@npm:1.19.0"
+"oxlint@npm:^1.23.0":
+  version: 1.23.0
+  resolution: "oxlint@npm:1.23.0"
   dependencies:
-    "@oxlint/darwin-arm64": "npm:1.19.0"
-    "@oxlint/darwin-x64": "npm:1.19.0"
-    "@oxlint/linux-arm64-gnu": "npm:1.19.0"
-    "@oxlint/linux-arm64-musl": "npm:1.19.0"
-    "@oxlint/linux-x64-gnu": "npm:1.19.0"
-    "@oxlint/linux-x64-musl": "npm:1.19.0"
-    "@oxlint/win32-arm64": "npm:1.19.0"
-    "@oxlint/win32-x64": "npm:1.19.0"
+    "@oxlint/darwin-arm64": "npm:1.23.0"
+    "@oxlint/darwin-x64": "npm:1.23.0"
+    "@oxlint/linux-arm64-gnu": "npm:1.23.0"
+    "@oxlint/linux-arm64-musl": "npm:1.23.0"
+    "@oxlint/linux-x64-gnu": "npm:1.23.0"
+    "@oxlint/linux-x64-musl": "npm:1.23.0"
+    "@oxlint/win32-arm64": "npm:1.23.0"
+    "@oxlint/win32-x64": "npm:1.23.0"
   peerDependencies:
     oxlint-tsgolint: ">=0.2.0"
   dependenciesMeta:
@@ -2740,7 +2740,7 @@ __metadata:
   bin:
     oxc_language_server: bin/oxc_language_server
     oxlint: bin/oxlint
-  checksum: 10c0/3be4f4826ae182727104cdb8ee57f3dd5944db42227097e0fef2f04d437af73c8b23b71a86c7f2afb888f1bf95a04d96dfe1b2391bdb162c8cc470da25ae9b98
+  checksum: 10c0/007fb465a1d9077e0b3259f7b70fd88815afa7c251af8c4da82a6c7f2b55f2ecf51ff4f7641c07c637fb73ad9a93f64be5f43d04bab9ac1916baa6eaaed35660
   languageName: node
   linkType: hard
 
