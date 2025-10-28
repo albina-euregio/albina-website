@@ -30,18 +30,13 @@ in order to test IOS Devices in local mode, server.host in vite.config.ts has to
 
 ## Deployment
 
+Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly.
+
 Use `yarn run build` to create a (minified) production build.
 
 After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
-please adjust the `--output-public-path` option in the `scripts.build` settings
-of `package.json` before running the deploy target.
-
-Note that `package.json` contains deploy scripts.
-Use `yarn run deploy` to copy the built files over to the live server.
-Both scripts make use of the `rsync` command https://rsync.samba.org/
-that is available for Linux, Windows and MacOS. If you do not want to use rsync
-you can copy over the contents of the `dist` directory to the server.
+run `yarn run build --base=/.../` instead.
 
 | environment | build                 | deploy                 | link                           |
 | ----------- | --------------------- | ---------------------- | ------------------------------ |
@@ -53,8 +48,6 @@ you can copy over the contents of the `dist` directory to the server.
 
 ```
 www.avalanche.report, avalanche.report {
-	import avalanche_report
-
 	handle_path /beta/* {
 		root * /var/www/avalanche.report/beta/
 		try_files {path} /index.html
