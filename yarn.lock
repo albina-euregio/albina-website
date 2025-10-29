@@ -1173,7 +1173,7 @@ __metadata:
     react-string-replace: "npm:^1.1.1"
     sass: "npm:^1.83.0"
     temporal-polyfill: "npm:^0.3.0"
-    vite: "npm:rolldown-vite@7.1.20"
+    vite: "npm:rolldown-vite@7.2.0-beta.0"
     zod: "npm:^4.1.12"
   languageName: unknown
   linkType: soft
@@ -3445,9 +3445,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:rolldown-vite@7.1.20":
-  version: 7.1.20
-  resolution: "rolldown-vite@npm:7.1.20"
+"vite@npm:rolldown-vite@7.2.0-beta.0":
+  version: 7.2.0-beta.0
+  resolution: "rolldown-vite@npm:7.2.0-beta.0"
   dependencies:
     "@oxc-project/runtime": "npm:0.95.0"
     fdir: "npm:^6.5.0"
@@ -3497,7 +3497,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/4361f76d87dadac43bb6609eb048599a8ae9ea939a3a62b5a0ea348b3bed31a5d8e2bbefaf1f110fa36fbfe942d5af14b6df4be5f4f7a02b045ca5bd21d60bb8
+  checksum: 10c0/d7f514a57122b45eb82bda81f35e33b3b566245768f7ad6691db1b0491a4d651fab9ebc143a809e34efdca8e899c096be47e0c8001adccfd77d44346d755e619
   languageName: node
   linkType: hard
 
