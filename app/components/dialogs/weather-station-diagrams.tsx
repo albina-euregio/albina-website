@@ -6,7 +6,6 @@ import React, {
   useState
 } from "react";
 import { useIntl } from "../../i18n";
-import Swipe from "react-easy-swipe";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
@@ -397,30 +396,30 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   return (
     <div className="modal-container">
       <div className="modal-weatherstation" ref={myRef}>
-        <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}>
-          <div className="modal-header">
-            {isStation && (
-              <p className="caption">
-                {intl.formatMessage({
-                  id: "dialog:weather-station-diagram:header"
-                })}{" "}
-                ({microRegionId}{" "}
-                {intl.formatMessage({
-                  id: "region:" + microRegionId
-                })}
-                )
-              </p>
+        {/* <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}> */}
+        <div className="modal-header">
+          {isStation && (
+            <p className="caption">
+              {intl.formatMessage({
+                id: "dialog:weather-station-diagram:header"
+              })}{" "}
+              ({microRegionId}{" "}
+              {intl.formatMessage({
+                id: "region:" + microRegionId
+              })}
+              )
+            </p>
+          )}
+          <h2 className="">
+            <span className="weatherstation-name">{station.name} </span>
+            {isStation && station.elev && (
+              <span className="weatherstation-altitude">
+                {intl.formatNumberUnit(station.elev, "m")}
+              </span>
             )}
-            <h2 className="">
-              <span className="weatherstation-name">{station.name} </span>
-              {isStation && station.elev && (
-                <span className="weatherstation-altitude">
-                  {intl.formatNumberUnit(station.elev, "m")}
-                </span>
-              )}
-            </h2>
-          </div>
-        </Swipe>
+          </h2>
+        </div>
+        {/* </Swipe> */}
         <StationFlipper
           next={next}
           nextStation={nextStation}
