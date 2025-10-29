@@ -12,6 +12,7 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import { Temporal } from "temporal-polyfill";
 import "@albina-euregio/linea/src/linea-plot";
+import { useSwipeable } from "react-swipeable";
 
 const ENABLE_UPLOT = true;
 
@@ -370,6 +371,12 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     [previousStation.id, setStationId]
   );
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => next(),
+    onSwipedRight: () => previous(),
+    delta: 100
+  });
+
   useEffect(() => {
     document.addEventListener("keydown", keyFunction, false);
     return () => document.removeEventListener("keydown", keyFunction, false);
@@ -396,8 +403,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   return (
     <div className="modal-container">
       <div className="modal-weatherstation" ref={myRef}>
-        {/* <Swipe onSwipeLeft={next} onSwipeRight={previous} tolerance={100}> */}
-        <div className="modal-header">
+        <div className="modal-header" {...handlers}>
           {isStation && (
             <p className="caption">
               {intl.formatMessage({
@@ -419,7 +425,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             )}
           </h2>
         </div>
-        {/* </Swipe> */}
         <StationFlipper
           next={next}
           nextStation={nextStation}
