@@ -6,11 +6,21 @@ import { isWebPushSupported } from "../../util/isWebPushSupported";
 import { $province } from "../../appStore";
 import { useStore } from "@nanostores/react";
 
+import { z } from "zod/mini";
+
+const PushSubscriptionSchema = z.object({
+  endpoint: z.string(),
+  auth: z.string(),
+  p256dh: z.string(),
+  language: z.nullish(z.string().check(z.minLength(2))),
+  region: z.nullish(z.string().check(z.minLength(2)))
+});
+
 function updatePushSubscription(
   subscription: PushSubscription,
   url: string,
-  language = "",
-  region = ""
+  language: string | undefined = undefined,
+  region: string | undefined = undefined
 ) {
   const { endpoint, keys } = subscription.toJSON();
   return fetch(url, {
@@ -18,13 +28,15 @@ function updatePushSubscription(
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      endpoint: endpoint,
-      auth: keys.auth,
-      p256dh: keys.p256dh,
-      language,
-      region
-    })
+    body: JSON.stringify(
+      PushSubscriptionSchema.parse({
+        endpoint: endpoint,
+        auth: keys.auth,
+        p256dh: keys.p256dh,
+        language,
+        region
+      })
+    )
   });
 }
 
