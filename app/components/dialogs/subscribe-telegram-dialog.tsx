@@ -29,13 +29,7 @@ export default function SubscribeTelegramDialog() {
   }
 
   return (
-    <div className="modal-subscribe-telegram">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
-        </h2>
-      </div>
-
+    <>
       {!status && (
         <form
           className="pure-form pure-form-stacked"
@@ -103,6 +97,6 @@ export default function SubscribeTelegramDialog() {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }

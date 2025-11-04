@@ -29,13 +29,7 @@ export default function SubscribeWhatsappDialog() {
   }
 
   return (
-    <div className="modal-subscribe-whatsapp">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-whatsapp:subheader" />
-        </h2>
-      </div>
-
+    <>
       {!status && (
         <form
           className="pure-form pure-form-stacked"
@@ -103,6 +97,6 @@ export default function SubscribeWhatsappDialog() {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }

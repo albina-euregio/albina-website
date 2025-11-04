@@ -17,7 +17,7 @@ export default function SubscribeDialog() {
     <>
       <div className="modal-container">
         <div className=" modal-subscribe">
-          <div className="modal-subscribe-overview">
+          <>
             <div className="modal-header">
               <h2 className="subheader">
                 <FormattedMessage id="dialog:subscribe:header" />
@@ -28,8 +28,7 @@ export default function SubscribeDialog() {
               <FormattedMessage id="dialog:subscribe:description" />
             </div>
 
-            <form className="pure-form pure-form-stacked">
-              {}
+            <div className="pure-form pure-form-stacked">
               <label htmlFor="input">
                 <FormattedMessage
                   id="dialog:subscribe:select-subscription"
@@ -77,8 +76,8 @@ export default function SubscribeDialog() {
                   </li>
                 ))}
               </ul>
-            </form>
-          </div>
+            </div>
+          </>
 
           {selectedDialog === "WebPush" && <SubscribeWebPushDialog />}
           {selectedDialog === "Telegram" && <SubscribeTelegramDialog />}

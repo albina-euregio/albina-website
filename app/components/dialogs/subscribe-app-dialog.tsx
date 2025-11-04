@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 export default function SubscribeAppDialog() {
@@ -9,13 +9,7 @@ export default function SubscribeAppDialog() {
   const apps = config.subscribe.apps;
 
   return (
-    <div className="modal-subscribe-apps">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-app:subheader" />
-        </h2>
-      </div>
-
+    <>
       {apps.map(a => (
         <div className="app-dl" key={a.name}>
           <img
@@ -62,6 +56,6 @@ export default function SubscribeAppDialog() {
           </ul>
         </div>
       ))}
-    </div>
+    </>
   );
 }
