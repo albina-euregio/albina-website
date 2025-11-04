@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
-import { eawsRegions } from "../../stores/eawsRegions";
+import { eawsRegion } from "../../stores/eawsRegions";
 import { $province } from "../../appStore";
 import { useStore } from "@nanostores/react";
 
@@ -23,7 +23,7 @@ export default function SubscribeWhatsappDialog() {
 
   function openWhatsapp() {
     if (!region || !language) return;
-    const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
+    const urls = eawsRegion(region)?.aws[0].url;
     if (!urls) return;
     window.open(urls[`whatsapp:${language}`]);
   }

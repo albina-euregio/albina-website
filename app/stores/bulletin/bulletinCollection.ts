@@ -12,7 +12,7 @@ import {
   ValidTimePeriod
 } from ".";
 import { $province } from "../../appStore";
-import { eawsRegions } from "../eawsRegions";
+import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
@@ -142,7 +142,7 @@ class BulletinCollection {
       : config.extraRegions;
     const data = await Promise.all(
       extraRegions.flatMap(id => {
-        const awsList = eawsRegions.find(o => o.id === id)?.aws ?? [];
+        const awsList = eawsRegion(id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           try {
             const url0 = aws.url["api:date"];

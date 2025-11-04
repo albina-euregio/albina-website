@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import { eawsRegions } from "../../stores/eawsRegions";
+import { eawsRegion } from "../../stores/eawsRegions";
 
 interface Props {
   region: string;
@@ -14,7 +14,7 @@ export default function SmFollow({ region }: Props) {
     instagram: "Instagram",
     youtube: "YouTube"
   };
-  const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
+  const urls = eawsRegion(region)?.aws[0].url;
   const accounts = Object.entries(names)
     .map(([id, name]) => ({ id, name, url: urls?.[id] }))
     .filter(({ url }) => !!url);
