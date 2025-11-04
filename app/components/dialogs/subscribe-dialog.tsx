@@ -35,7 +35,11 @@ export default function SubscribeDialog() {
                   id="dialog:subscribe:select-subscription"
                   html={true}
                   values={{
-                    span: (...msg) => <span className="normal">{msg}</span>
+                    span: (...msg) => (
+                      <span className="normal" key={msg}>
+                        {msg}
+                      </span>
+                    )
                   }}
                 />
               </label>

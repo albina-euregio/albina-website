@@ -52,7 +52,7 @@ export default function SubscribeTelegramDialog() {
                   id="dialog:subscribe-telegram:region"
                   html={true}
                   values={{
-                    strong: (...msg) => <strong>{msg}</strong>
+                    strong: (...msg) => <strong key={msg}>{msg}</strong>
                   }}
                 />
               </label>
