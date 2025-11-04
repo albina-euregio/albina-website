@@ -45,17 +45,13 @@ export default function SubscribeDialog() {
               <ul className="list-inline list-buttongroup-dense">
                 {dialogTypes.map(type => (
                   <li key={type}>
-                    <a
-                      href="#"
+                    <button
                       className={
                         selectedDialog === type
                           ? "pure-button"
                           : "inverse pure-button"
                       }
-                      onClick={e => {
-                        e.preventDefault();
-                        selectDialog(type);
-                      }}
+                      onClick={() => selectDialog(type)}
                     >
                       <FormattedMessage
                         id={
@@ -72,7 +68,7 @@ export default function SubscribeDialog() {
                                     : undefined
                         }
                       />
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
