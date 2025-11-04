@@ -2,6 +2,139 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.0] - 2025-11-04
+
+### Breaking Changes
+
+- This project is now licensed under the GNU Affero General Public License v3.0
+
+### 🚀 Features
+
+- _(archive)_ South Tyrol and Trentino
+- _(archive)_ Use $province
+- _(blog)_ Support headless
+- _(bulletin)_ Use $province
+- _(enable-weather-text-input)_ Add weather section to bulletin report
+- _(general-headline)_ Add support for general headline in bulletin view
+- _(general-headline)_ Render general headline if configured and present in CAAML
+- _(iframe-headless-website)_ Add new headless routes with HeadlessContext for static pages
+- _(iframe-headless-website)_ Link to headless archive and back to headless bulletin
+- _(iframe-headless-website)_ Removed headlesscontext from bulletin and archive and placed it within the headless routes
+- _(iframe-headless-website)_ Set back link on static pages if in headless context
+- _(iframe-headless-website)_ Set map ratio in desktop CSS variable
+- _(iframe-headless-website)_ Stay in headless mode on static pages
+- _(persist-province)_ Allow unlimited map height in maps using custom aspect ratio
+- _(persist-province)_ Extended app store to persist province code. Apply province in leaflet map.
+- _(persist-province)_ Filter microRegions in archive based on the persisted province code
+- _(persist-province)_ Use persisted province code to build bulletin URL
+- _(subscribe-dialogs)_ Use optional province for default region selection in dialogs
+- _(time-period-switch)_ Add toggling between time periods (earlier/later) for daytime-dependent map view
+- _(time-period-switch)_ Styles for daytime period switch
+- _(weather-station-diagrams)_ Use linea
+- _(weather-station-uplot)_ Enable for GeoSphere Austria
+- _(weather-station-uplot)_ Enable for HD Tirol
+- _(weather-station-uplot)_ Enable for LWD Kärnten
+- _(weather-station-uplot)_ Enable for Trentino
+- _(xml-download-buttons)_ Added buttons to download CAAML XMLs
+- _(xml-download-buttons)_ Harmonised CAAML v6 download button labels and showing buttons only if active bulletins are available.
+- Load bulletins from extra regions AT/DE/IT
+
+### ⚙️ Miscellaneous Tasks
+
+- "Back to Avalanche Forecast"
+- _(about)_ Change name of institution in IT-32-BZ
+- _(apps)_ Use webp everywhere
+- _(archive)_ Support headless
+- _(AT-02)_ Add bounds
+- _(build)_ Yarn 4.10.2
+- _(build)_ Yarn 4.9.2
+- _(config)_ Show bulletins after click, deactivate general headline om prod
+- _(content-files)_ Use webp everywhere
+- _(eaws-regions)_ Upgrade to v7.0.9
+- _(eaws-regions)_ Upgrade to v8.0.0
+- _(eaws-regions)_ Upgrade to v8.0.2
+- _(eaws-regions)_ Upgrade to v8.0.3
+- _(eaws-regions)_ Upgrade to v8.0.6
+- _(eaws-regions)_ Upgrade to v8.0.7
+- _(eaws-regions)_ Upgrade to v8.0.8
+- _(education)_ Replace srcset with single img, update translations
+- _(handbook)_ Update micro-regions
+- _(handbook)_ Update number of micro regions
+- _(handbook)_ Use generic dangerscale map image for all languages
+- _(i18n)_ Update translations
+- _(i18n)_ Update translations for about page
+- _(iframe-demo)_ AT-02
+- _(iframe-headless-website)_ Include `language` parameter in iframe URLs for localhost and lawinen-warnung.eu
+- _(license)_ Define AGPLv3 license in package.json
+- _(map)_ Highlight current province on map, fall back to EUREGIO
+- _(open-data)_ Update license text
+- _(pbf-map)_ Pbf?version to fix caching issue
+- _(playwright)_ Automatically trigger tests
+- _(playwright)_ Update tests
+- _(problems)_ Use webp everywhere
+- _(README)_ Document caddy
+- _(README)_ Document deployment
+- _(scss)_ Remove obsolete png files
+- _(scss)_ Use webp everywhere
+- _(subscribe)_ Add WhatsApp subscribe dialog
+- _(vr)_ Change available languages to de and en
+- _(weather-station-diagrams)_ Mobile style
+- _(weather-station-diagrams)_ Style toggle-btn
+- _(weather-station-diagrams)_ Swipe only on header
+- _(weather-station-uplot)_ ENABLE_UPLOT
+- _(weather-station)_ TimeRangeMilli
+- Apply config.projectRoot for content_files
+- \*(bulletin): move provider below headline
+- Iframe script (?date=2025-03-14)
+- Iframe script (AT-02)
+- Iframe script (build using vite)
+- Iframe script (import @iframe-resizer/parent)
+- Iframe script (typescript)
+- Iframe script (URLSearchParams)
+- Update config.json
+- Update to iframe-resizer 5.5.1
+- Update to react 19.2.0
+- Update to zod 3.25.57
+- Update to zod 4.0.5
+- Update to zod 4.1.12
+- Update transifex docs
+- Upgrade to @albina-euregio/linea 8.0.1
+- Upgrade to @albina-euregio/linea 8.0.3
+- Upgrade to @albina-euregio/linea 8.0.4
+- Upgrade to @albina-euregio/linea 8.0.5
+- Upgrade to @albina-euregio/linea 8.0.6
+- Upgrade to @albina-euregio/linea 8.0.7
+- Upgrade to @albina-euregio/linea 8.0.8
+- Upgrade to @albina-euregio/linea 8.1.0
+- Upgrade to @albina-euregio/linea 8.1.1
+- Upgrade to eslint 9.28.0
+- Upgrade to leaflet 2.0.0-alpha
+- Upgrade to leaflet 2.0.0-alpha.1-51-gf8fef451
+- Upgrade to leaflet 2.0.0-alpha1
+- Upgrade to leaflet pre-2.0.0
+- Upgrade to leaflet pre-2.0.0 (remove_factories)
+- Upgrade to leaflet.locatecontrol 0.84.1
+- Upgrade to prettier 3.6.3
+- Use HTTPS for avalanches.org and europaregion.info
+- Upgrade to rolldown-vite 6.3.15
+- Upgrade to rolldown-vite 6.3.19
+- Upgrade to rolldown-vite 7.0.10
+- Upgrade to rolldown-vite 7.0.12
+- Upgrade to rolldown-vite 7.0.3
+- Upgrade to rolldown-vite 7.0.9
+- Upgrade to rolldown-vite 7.1.0
+- Upgrade to rolldown-vite 7.1.11
+- Upgrade to rolldown-vite 7.1.14
+- Upgrade to rolldown-vite 7.1.15
+- Upgrade to rolldown-vite 7.1.16
+- Upgrade to rolldown-vite 7.1.17
+- Upgrade to rolldown-vite 7.1.18
+- Upgrade to rolldown-vite 7.1.19
+- Upgrade to rolldown-vite 7.1.20
+- Upgrade to rolldown-vite 7.2.0-beta.0
+- Use @vitejs/plugin-react-oxc
+- Migrate to osxlint
+
 ## [7.2.12] - 2025-05-07
 
 ### 🐛 Bug Fixes
