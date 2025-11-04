@@ -17,20 +17,14 @@ export default function SubscribeAppDialog() {
       </div>
 
       {apps.map(a => (
-        <div className="app-dl" key={a.id}>
+        <div className="app-dl" key={a.name}>
           <img
             className="app-logo"
             src={imgRoot + a.logo}
-            title={intl.formatMessage({
-              id: "dialog:subscribe-app:" + a.id + ":title"
-            })}
-            alt={intl.formatMessage({
-              id: "dialog:subscribe-app:" + a.id + ":title"
-            })}
+            title={a.name}
+            alt={a.name}
           />
-          <h2 className="subheader">
-            <FormattedMessage id={"dialog:subscribe-app:" + a.id + ":title"} />
-          </h2>
+          <h2 className="subheader">{a.name}</h2>
 
           <ul className="list-inline list-buttongroup">
             {Object.keys(a.url)

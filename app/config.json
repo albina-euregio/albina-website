@@ -144,7 +144,7 @@
     "buttonHidden": false,
     "apps": [
       {
-        "id": "lawine-tirol",
+        "name": "Lawine Tirol App",
         "regions": ["AT-07"],
         "logo": "App_Lawine_Tirol_Logo.webp",
         "url": {
@@ -153,7 +153,7 @@
         }
       },
       {
-        "id": "snowsafe",
+        "name": "Snow Safe App",
         "logo": "App_SnowSafe_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",

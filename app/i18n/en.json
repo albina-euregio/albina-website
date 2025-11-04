@@ -355,8 +355,6 @@
   "dialog:subscribe-app:android:button": "Google Play",
   "dialog:subscribe-app:ios:hover": "App Store",
   "dialog:subscribe-app:ios:button": "App Store",
-  "dialog:subscribe-app:lawine-tirol:title": "Lawine Tirol App",
-  "dialog:subscribe-app:snowsafe:title": "Snow Safe App",
   "dialog:subscribe-email:subheader": "Avalanche Forecast",
   "dialog:subscribe-email:region": "<strong>Select</strong> State / Province of interest",
   "dialog:subscribe-email:region-all:button": "Entire Euregio",
