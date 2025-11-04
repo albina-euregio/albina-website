@@ -118,6 +118,7 @@
     "apps": [
       {
         "id": "lawine-tirol",
+        "regions": ["AT-07"],
         "logo": "App_Lawine_Tirol_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=com.m_pulso.android.lawine",
