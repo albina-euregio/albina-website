@@ -4,7 +4,7 @@ import { Tooltip } from "../tooltips/tooltip";
 
 export default function SubscribeAppDialog() {
   const intl = useIntl();
-  const imgRoot = window.config.projectRoot + "images/pro/apps/";
+  const imgRoot = `${window.config.projectRoot}images/pro/apps/`;
 
   const apps = config.subscribe.apps;
 
@@ -27,12 +27,12 @@ export default function SubscribeAppDialog() {
           <h2 className="subheader">{a.name}</h2>
 
           <ul className="list-inline list-buttongroup">
-            {Object.keys(a.url)
+            {(Object.keys(a.url) as ("android" | "ios")[])
               .map(t => (
                 <li key={t}>
                   <Tooltip
                     label={intl.formatMessage({
-                      id: "dialog:subscribe-app:" + t + ":hover"
+                      id: `dialog:subscribe-app:${t}:hover`
                     })}
                   >
                     <a
@@ -42,7 +42,7 @@ export default function SubscribeAppDialog() {
                       target="_blank"
                     >
                       {intl.formatMessage({
-                        id: "dialog:subscribe-app:" + t + ":button"
+                        id: `dialog:subscribe-app:${t}:button`
                       })}
                     </a>
                   </Tooltip>
