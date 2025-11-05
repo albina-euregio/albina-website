@@ -9,10 +9,11 @@ import { isWebPushSupported } from "../../util/isWebPushSupported";
 
 export default function SubscribeDialog() {
   const dialogTypes = isWebPushSupported()
-    ? (["WebPush", "Telegram", "Whatsapp", "Email", "App"] as const)
-    : (["Telegram", "Whatsapp", "Email", "App"] as const);
-  const [selectedDialog, selectDialog] =
-    useState<(typeof dialogTypes)[number]>(null);
+    ? (["WebPush", "Telegram", "WhatsApp", "Email", "App"] as const)
+    : (["Telegram", "WhatsApp", "Email", "App"] as const);
+  const [selectedDialog, selectDialog] = useState<
+    (typeof dialogTypes)[number] | null
+  >(null);
   return (
     <>
       <div className="modal-container">
@@ -59,7 +60,7 @@ export default function SubscribeDialog() {
                             ? "dialog:subscribe:web-push"
                             : type === "Telegram"
                               ? "dialog:subscribe:telegram"
-                              : type === "Whatsapp"
+                              : type === "WhatsApp"
                                 ? "dialog:subscribe:whatsapp"
                                 : type === "Email"
                                   ? "dialog:subscribe:email"
@@ -77,7 +78,7 @@ export default function SubscribeDialog() {
 
           {selectedDialog === "WebPush" && <SubscribeWebPushDialog />}
           {selectedDialog === "Telegram" && <SubscribeTelegramDialog />}
-          {selectedDialog === "Whatsapp" && <SubscribeWhatsappDialog />}
+          {selectedDialog === "WhatsApp" && <SubscribeWhatsappDialog />}
           {selectedDialog === "Email" && <SubscribeEmailDialog />}
           {selectedDialog === "App" && <SubscribeAppDialog />}
         </div>
