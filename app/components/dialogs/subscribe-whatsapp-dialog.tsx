@@ -3,13 +3,19 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegion } from "../../stores/eawsRegions";
-import { $province } from "../../appStore";
+import { $province, Language, mainLanguages } from "../../appStore";
 import { useStore } from "@nanostores/react";
+
+export function getWhatsAppUrl(region: string, language: Language) {
+  const urls = eawsRegion(region)?.aws[0].url;
+  if (!urls) return;
+  return urls[`whatsapp:${language}`];
+}
 
 export default function SubscribeWhatsappDialog() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const [language, setLanguage] = useState(lang);
+  const [language, setLanguage] = useState<Language>(lang as Language);
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
@@ -23,9 +29,9 @@ export default function SubscribeWhatsappDialog() {
 
   function openWhatsapp() {
     if (!region || !language) return;
-    const urls = eawsRegion(region)?.aws[0].url;
-    if (!urls) return;
-    window.open(urls[`whatsapp:${language}`]);
+    const url = getWhatsAppUrl(region, language);
+    if (!url) return;
+    window.open(url);
   }
 
   return (
@@ -51,6 +57,9 @@ export default function SubscribeWhatsappDialog() {
                 />
               </label>
               <ProvinceFilter
+                regionCodes={config.regionCodes.filter(r =>
+                  mainLanguages.some(language => getWhatsAppUrl(r, language))
+                )}
                 buttongroup={true}
                 title={intl.formatMessage({
                   id: "measurements:filter:province"

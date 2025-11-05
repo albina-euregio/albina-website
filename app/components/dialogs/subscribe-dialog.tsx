@@ -2,18 +2,39 @@ import React, { useState } from "react";
 import { FormattedMessage } from "../../i18n";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
-import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
-import SubscribeWhatsappDialog from "./subscribe-whatsapp-dialog";
+import SubscribeTelegramDialog, {
+  getTelegramUrl
+} from "./subscribe-telegram-dialog";
+import SubscribeWhatsappDialog, {
+  getWhatsAppUrl
+} from "./subscribe-whatsapp-dialog";
 import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
+import { useStore } from "@nanostores/react";
+import { $province, mainLanguages } from "../../appStore.ts";
 
 export default function SubscribeDialog() {
-  const dialogTypes = isWebPushSupported()
-    ? (["WebPush", "Telegram", "WhatsApp", "Email", "App"] as const)
-    : (["Telegram", "WhatsApp", "Email", "App"] as const);
+  const province = useStore($province);
+  let dialogTypes = [
+    "WebPush" as const,
+    "Telegram" as const,
+    "WhatsApp" as const,
+    "Email" as const,
+    "App" as const
+  ];
   const [selectedDialog, selectDialog] = useState<
     (typeof dialogTypes)[number] | null
   >(null);
+  if (!isWebPushSupported()) {
+    dialogTypes = dialogTypes.filter(t => t !== "WebPush");
+  }
+  if (province && !mainLanguages.some(l => getTelegramUrl(province, l))) {
+    dialogTypes = dialogTypes.filter(t => t !== "Telegram");
+  }
+  if (province && !mainLanguages.some(l => getWhatsAppUrl(province, l))) {
+    dialogTypes = dialogTypes.filter(t => t !== "WhatsApp");
+  }
+
   return (
     <>
       <div className="modal-container">
