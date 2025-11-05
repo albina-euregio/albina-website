@@ -2,6 +2,35 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.0] - 2025-11-04
+
+### Breaking Changes
+
+- This project is now licensed under the GNU Affero General Public License v3.0
+
+### 🚀 Features
+
+- Display bulletins from additional warning services directly on the website
+- Add an optional weather section to bulletins
+- Add an optional general headline to bulletins
+- Display only the selected bulletin below the map
+- Support province selection via query parameter (e.g. avalanche.report?province=AT07)
+- Provide a headless version of the website (e.g. avalanche.report?headless=1)
+- Allow switching between dual-map view (earlier/later) and daytime-dependent map mode via toggle button
+- Integrate interactive diagrams for weather stations
+- Add download options for XML and JSON bulletin data in CAAMLv6 format
+- Integrate updated micro-regions
+- Enable subscription via WhatsApp channel
+
+### ⚙️ Miscellaneous Tasks
+
+- Add automated Playwright tests
+- Add documentation for web server configuration and deployment
+- Use WebP as the standard format for all images
+- Improve integration options for embedding the website via IFrame
+- Migrate to the Micronaut framework (no Tomcat needed anymore)
+- Upgrade all dependencies to the latest versions
+
 ## [7.2.12] - 2025-05-07
 
 ### 🐛 Bug Fixes
