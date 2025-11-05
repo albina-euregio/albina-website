@@ -76,6 +76,9 @@ export default function SubscribeTelegramDialog() {
             <FormattedMessage id="dialog:subscribe-telegram:language" />
           </label>
           <LanguageFilter
+            languages={mainLanguages.filter(
+              l => !region || getTelegramUrl(region, l)
+            )}
             buttongroup={true}
             title={intl.formatMessage({
               id: "measurements:filter:province"

@@ -76,6 +76,9 @@ export default function SubscribeWhatsappDialog() {
             <FormattedMessage id="dialog:subscribe-whatsapp:language" />
           </label>
           <LanguageFilter
+            languages={mainLanguages.filter(
+              l => !region || getWhatsAppUrl(region, l)
+            )}
             buttongroup={true}
             title={intl.formatMessage({
               id: "measurements:filter:province"

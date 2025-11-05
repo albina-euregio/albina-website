@@ -1,5 +1,5 @@
 import React from "react";
-import { mainLanguages } from "../../appStore";
+import { Language, mainLanguages } from "../../appStore";
 import Selectric from "../selectric";
 
 interface Props {
@@ -8,13 +8,15 @@ interface Props {
   title: JSX.Element;
   handleChange(str: string): unknown;
   buttongroup: boolean;
+  languages?: Language[];
 }
 
 export default function LanguageFilter(props: Props) {
+  const languages = props.languages ?? mainLanguages;
   if (props.buttongroup) {
     return (
       <ul className="list-inline list-buttongroup-dense">
-        {mainLanguages.map(l => (
+        {languages.map(l => (
           <li key={l}>
             <button
               className={
@@ -37,7 +39,7 @@ export default function LanguageFilter(props: Props) {
       {props.title && <p className="info">{props.title}</p>}
       <Selectric onChange={props.handleChange} {...props}>
         {props.all && <option value="all">{props.all}</option>}
-        {mainLanguages.map(l => (
+        {languages.map(l => (
           <option key={l} value={l}>
             {l.toUpperCase()}
           </option>
