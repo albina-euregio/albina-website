@@ -64,6 +64,12 @@ www.avalanche.report, avalanche.report {
 		root * /var/www/avalanche.report/ROOT/
 		try_files {path} /index.html
 		file_server
+		handle /assets/* {
+			header +Access-Control-Allow-Origin "*"
+		}
+		handle /iframe.js {
+			header +Access-Control-Allow-Origin "*"
+		}
 	}
 }
 
