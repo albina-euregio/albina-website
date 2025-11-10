@@ -3,9 +3,14 @@ import iframeResize from "@iframe-resizer/parent";
 
 initializeIFrame();
 
-function initializeIFrame() {
-  const element = document.querySelector("[data-av-region]");
-  if (!(element instanceof HTMLElement)) return;
+function initializeIFrame(element?: HTMLElement) {
+  if (!(element instanceof HTMLElement)) {
+    document
+      .querySelectorAll("[data-av-region]")
+      .forEach(e => initializeIFrame(e as HTMLElement));
+    return;
+  }
+
   const province = element.dataset.avRegion || "";
   const ratio = element.dataset.avRatio || "1/1";
   const date =
@@ -13,7 +18,7 @@ function initializeIFrame() {
     new URLSearchParams(location.search).get("date") ||
     "latest";
   const language = element.dataset.avLang || "de";
-  const id = element.dataset.avId || "albina-website-iframe";
+  const id = element.dataset.avId || "";
 
   const iframe = document.createElement("iframe");
   iframe.style.width = "100%";
@@ -30,7 +35,7 @@ function initializeIFrame() {
 
   let base = location.href;
   if (location.hostname === "localhost") {
-    base = new URL('/', location.href).toString();
+    base = new URL("/", location.href).toString();
   } else if (/EUREGIO|AT-02|AT-07|IT-32-BZ|IT-32-TN/.exec(String(province))) {
     params.delete("language");
     const host = {
@@ -70,6 +75,6 @@ function initializeIFrame() {
         return false; // Stop iframe-resizer scrolling the page
       }
     },
-    "#" + id
+    iframe
   );
 }
