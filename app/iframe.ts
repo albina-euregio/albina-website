@@ -19,6 +19,7 @@ function initializeIFrame(element?: HTMLElement) {
     "latest";
   const language = element.dataset.avLang || "de";
   const id = element.dataset.avId || "";
+  const path = element.dataset.avPath || `bulletin/${date}`;
 
   const iframe = document.createElement("iframe");
   iframe.style.width = "100%";
@@ -57,7 +58,7 @@ function initializeIFrame(element?: HTMLElement) {
   } else {
     base = `https://lawinen-warnung.eu/`;
   }
-  iframe.src = new URL(`bulletin/${date}?${params}`, base).toString();
+  iframe.src = new URL(`${path}?${params}`, base).toString();
   element.appendChild(iframe);
 
   iframeResize(
