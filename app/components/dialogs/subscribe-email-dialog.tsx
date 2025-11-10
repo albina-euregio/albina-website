@@ -54,13 +54,7 @@ export default function SubscribeEmailDialog() {
   }
 
   return (
-    <div className="modal-subscribe-email">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-email:subheader" />
-        </h2>
-      </div>
-
+    <>
       {!status && (
         <form
           className="pure-form pure-form-stacked"
@@ -77,7 +71,7 @@ export default function SubscribeEmailDialog() {
                   id="dialog:subscribe-email:region"
                   html={true}
                   values={{
-                    strong: (...msg) => <strong>{msg}</strong>
+                    strong: (...msg) => <strong key={msg}>{msg}</strong>
                   }}
                 />
               </label>
@@ -108,8 +102,6 @@ export default function SubscribeEmailDialog() {
             value={language}
           />
 
-          <hr />
-
           <p>
             {}
             <label htmlFor="email">
@@ -134,8 +126,6 @@ export default function SubscribeEmailDialog() {
               })}
             />
           </p>
-
-          <hr />
 
           <p className="">
             <label htmlFor="agree">
@@ -186,7 +176,7 @@ export default function SubscribeEmailDialog() {
                 id={"dialog:subscribe-email:status:" + status}
                 html={true}
                 values={{
-                  strong: (...msg) => <strong>{msg}</strong>
+                  strong: (...msg) => <strong key={msg}>{msg}</strong>
                 }}
               />
             </p>
@@ -203,6 +193,6 @@ export default function SubscribeEmailDialog() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }

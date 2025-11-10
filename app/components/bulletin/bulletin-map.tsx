@@ -23,7 +23,7 @@ import {
 } from "../../stores/bulletin";
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
-import { eawsRegions } from "../../stores/eawsRegions";
+import { eawsRegion } from "../../stores/eawsRegions";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -134,7 +134,7 @@ const BulletinMap = (props: Props) => {
       props.activeBulletinCollection?.getBulletinForBulletinOrRegion(
         props.region
       );
-    const activeEaws = eawsRegions.find(r => r.id === props.region);
+    const activeEaws = eawsRegion(props.region);
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(

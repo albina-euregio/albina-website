@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
-import { eawsRegions } from "../../stores/eawsRegions";
-import { $province } from "../../appStore";
+import { eawsRegion } from "../../stores/eawsRegions";
+import { $province, Language, mainLanguages } from "../../appStore";
 import { useStore } from "@nanostores/react";
+
+export function getWhatsAppUrl(region: string, language: Language) {
+  const urls = eawsRegion(region)?.aws[0].url;
+  if (!urls) return;
+  return urls[`whatsapp:${language}`];
+}
 
 export default function SubscribeWhatsappDialog() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const [language, setLanguage] = useState(lang);
+  const [language, setLanguage] = useState<Language>(lang as Language);
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
@@ -23,19 +29,13 @@ export default function SubscribeWhatsappDialog() {
 
   function openWhatsapp() {
     if (!region || !language) return;
-    const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
-    if (!urls) return;
-    window.open(urls[`whatsapp:${language}`]);
+    const url = getWhatsAppUrl(region, language);
+    if (!url) return;
+    window.open(url);
   }
 
   return (
-    <div className="modal-subscribe-whatsapp">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-whatsapp:subheader" />
-        </h2>
-      </div>
-
+    <>
       {!status && (
         <form
           className="pure-form pure-form-stacked"
@@ -52,11 +52,14 @@ export default function SubscribeWhatsappDialog() {
                   id="dialog:subscribe-whatsapp:region"
                   html={true}
                   values={{
-                    strong: (...msg) => <strong>{msg}</strong>
+                    strong: (...msg) => <strong key={msg}>{msg}</strong>
                   }}
                 />
               </label>
               <ProvinceFilter
+                regionCodes={config.regionCodes.filter(r =>
+                  mainLanguages.some(language => getWhatsAppUrl(r, language))
+                )}
                 buttongroup={true}
                 title={intl.formatMessage({
                   id: "measurements:filter:province"
@@ -73,6 +76,9 @@ export default function SubscribeWhatsappDialog() {
             <FormattedMessage id="dialog:subscribe-whatsapp:language" />
           </label>
           <LanguageFilter
+            languages={mainLanguages.filter(
+              l => !region || getWhatsAppUrl(region, l)
+            )}
             buttongroup={true}
             title={intl.formatMessage({
               id: "measurements:filter:province"
@@ -103,6 +109,6 @@ export default function SubscribeWhatsappDialog() {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }

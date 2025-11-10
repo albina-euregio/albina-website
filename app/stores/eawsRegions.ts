@@ -31,10 +31,14 @@ export const RegionOutlineSchema = z.object({
   )
 });
 
-export const eawsRegions = z
+const eawsRegions = z
   .array(RegionOutlineSchema)
   .parse(outline_properties, { reportInput: true });
 export type RegionOutlineProperties = z.infer<typeof RegionOutlineSchema>;
+
+export function eawsRegion(id: string) {
+  return eawsRegions.find(r => r.id === id);
+}
 
 export function eawsRegionIds(): string[] {
   return eawsRegions

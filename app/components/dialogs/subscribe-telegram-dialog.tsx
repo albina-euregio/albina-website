@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
-import { eawsRegions } from "../../stores/eawsRegions";
-import { $province } from "../../appStore";
+import { eawsRegion } from "../../stores/eawsRegions";
+import { $province, Language, mainLanguages } from "../../appStore";
 import { useStore } from "@nanostores/react";
+
+export function getTelegramUrl(region: string, language: Language) {
+  const urls = eawsRegion(region)?.aws[0].url;
+  if (!urls) return;
+  return urls[`telegram:${language}`];
+}
 
 export default function SubscribeTelegramDialog() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const [language, setLanguage] = useState(lang);
+  const [language, setLanguage] = useState<Language>(lang as Language);
   const [region, setRegion] = useState("");
   const [status] = useState(undefined);
   const [errorMessage] = useState(undefined);
@@ -23,19 +29,13 @@ export default function SubscribeTelegramDialog() {
 
   function openTelegram() {
     if (!region || !language) return;
-    const urls = eawsRegions.find(r => r.id === region)?.aws[0].url;
-    if (!urls) return;
-    window.open(urls[`telegram:${language}`]);
+    const url = getTelegramUrl(region, language);
+    if (!url) return;
+    window.open(url);
   }
 
   return (
-    <div className="modal-subscribe-telegram">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
-        </h2>
-      </div>
-
+    <>
       {!status && (
         <form
           className="pure-form pure-form-stacked"
@@ -52,11 +52,14 @@ export default function SubscribeTelegramDialog() {
                   id="dialog:subscribe-telegram:region"
                   html={true}
                   values={{
-                    strong: (...msg) => <strong>{msg}</strong>
+                    strong: (...msg) => <strong key={msg}>{msg}</strong>
                   }}
                 />
               </label>
               <ProvinceFilter
+                regionCodes={config.regionCodes.filter(r =>
+                  mainLanguages.some(language => getTelegramUrl(r, language))
+                )}
                 buttongroup={true}
                 title={intl.formatMessage({
                   id: "measurements:filter:province"
@@ -73,6 +76,9 @@ export default function SubscribeTelegramDialog() {
             <FormattedMessage id="dialog:subscribe-telegram:language" />
           </label>
           <LanguageFilter
+            languages={mainLanguages.filter(
+              l => !region || getTelegramUrl(region, l)
+            )}
             buttongroup={true}
             title={intl.formatMessage({
               id: "measurements:filter:province"
@@ -103,6 +109,6 @@ export default function SubscribeTelegramDialog() {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }

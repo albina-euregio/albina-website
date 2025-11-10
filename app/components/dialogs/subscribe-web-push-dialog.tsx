@@ -140,13 +140,7 @@ export default function SubscribeWebPushDialog() {
   }
 
   return (
-    <div className="modal-subscribe-telegram">
-      <div className="modal-header">
-        <h2>
-          <FormattedMessage id="dialog:subscribe-web-push:subheader" />
-        </h2>
-      </div>
-
+    <>
       {isSubscribed && (
         <button
           type="submit"
@@ -175,7 +169,7 @@ export default function SubscribeWebPushDialog() {
                   id="dialog:subscribe-web-push:region"
                   html={true}
                   values={{
-                    strong: (...msg) => <strong>{msg}</strong>
+                    strong: (...msg) => <strong key={msg}>{msg}</strong>
                   }}
                 />
               </label>
@@ -228,6 +222,6 @@ export default function SubscribeWebPushDialog() {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }
