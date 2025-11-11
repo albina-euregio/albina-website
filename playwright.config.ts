@@ -39,7 +39,7 @@ const config: PlaywrightTestConfig = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: "https://avalanche.report/beta",
+    // baseURL: "https://avalanche.report/beta/",
     baseURL: process.env.CI_ENVIRONMENT_URL || "http://localhost:3000",
 
     timezoneId: "Europe/Vienna",

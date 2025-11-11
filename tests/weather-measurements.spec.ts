@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("weather/measurements", async ({ page }) => {
-  await page.goto("/weather/measurements");
+  await page.goto("weather/measurements");
 
   const firstRow = page.getByRole("row").nth(1);
   await expect(firstRow).toHaveText(/Achenkirch/);

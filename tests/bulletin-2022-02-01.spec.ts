@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("bulletin/2022-02-01", async ({ page }) => {
-  await page.goto("/bulletin/2022-02-01?region=AT-07-04");
+  await page.goto("bulletin/2022-02-01?region=AT-07-04");
 
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText("Tuesday, 01/02/2022");
@@ -58,7 +58,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
 // });
 
 test("bulletin/2022-02-01 subscribe", async ({ page }) => {
-  await page.goto("/bulletin/2022-02-01");
+  await page.goto("bulletin/2022-02-01");
   await page
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
@@ -83,7 +83,7 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
 
 test("bulletin/2022-02-01 pdf", async ({ page }) => {
   test.fixme();
-  await page.goto("/bulletin/2022-02-01");
+  await page.goto("bulletin/2022-02-01");
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("link", { name: "PDF" }).first().click();
   const pdfPage = await pagePromise;
