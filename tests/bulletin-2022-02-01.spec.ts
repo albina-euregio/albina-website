@@ -63,7 +63,9 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
-  await page.getByRole("button", { name: "Telegram", exact: true }).click();
+  await page.getByRole("button", { name: "Telegram", exact: true }).click({
+    force: true
+  });
   await page.getByRole("button", { name: "Tyrol", exact: true }).click();
   await page.getByRole("button", { name: "DE" }).click();
 
