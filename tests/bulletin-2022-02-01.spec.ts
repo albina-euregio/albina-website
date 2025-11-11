@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("bulletin/2022-02-01", async ({ page }) => {
-  await page.goto("/bulletin/2022-02-01");
+  await page.goto("/bulletin/2022-02-01?region=AT-07-04");
 
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText("Tuesday, 01/02/2022");
@@ -63,9 +63,7 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
-  await page.getByRole("link", { name: "Telegram", exact: true }).click({
-    force: true
-  });
+  await page.getByRole("button", { name: "Telegram", exact: true }).click();
   await page.getByRole("button", { name: "Tyrol", exact: true }).click();
   await page.getByRole("button", { name: "DE" }).click();
 
