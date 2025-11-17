@@ -13,9 +13,12 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationArchiveTable from "../components/stationTable/stationArchiveTable";
+import { useStore } from "@nanostores/react";
+import { $headless } from "../appStore";
 
 const StationArchive = () => {
   const intl = useIntl();
+  const headless = useStore($headless);
   const [state] = useState({
     title: "",
     headerText: "",
@@ -177,31 +180,38 @@ const StationArchive = () => {
           />
         </div>
       </section>
-      <section className="section-centered section-context">
-        <div className="panel">
-          <h2 className="subheader">
-            {intl.formatMessage({ id: "button:stations:headline" })}
-          </h2>
 
-          <ul className="list-inline list-buttongroup-dense">
-            <li>
-              <a className="secondary pure-button" href="/weather/measurements">
-                {intl.formatMessage({
-                  id: "button:stations:measurements:text"
-                })}
-              </a>
-            </li>
-            <li>
-              <a className="secondary pure-button" href="/weather/stations">
-                {intl.formatMessage({
-                  id: "button:stations:stations:text"
-                })}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-      <SmShare />
+      {!headless && (
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {intl.formatMessage({ id: "button:stations:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/measurements"
+                >
+                  {intl.formatMessage({
+                    id: "button:stations:measurements:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a className="secondary pure-button" href="/weather/stations">
+                  {intl.formatMessage({
+                    id: "button:stations:stations:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {!headless && <SmShare />}
     </>
   );
 };
