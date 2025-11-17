@@ -69,8 +69,8 @@ export class StationData {
     if (typeof region !== "string") {
       return "";
     }
-    const match = region.match(config.regionsRegex);
-    return match ? match[0] : "";
+    const regions = [...config.regionCodes, ...config.extraRegions];
+    return regions.find(r => region.startsWith(r)) ?? "";
   }
   get region() {
     return this.state;
@@ -206,7 +206,7 @@ export function useStationData(
     filterObservationStart0
   );
 
-  function setActiveRegion(el: string) {
+  function setActiveRegion(el: string | "" | "all" | null | undefined) {
     // activate all if undefined or null is given
     setActiveRegion0(el ?? "all");
   }
@@ -216,7 +216,9 @@ export function useStationData(
       setSearchText(params.get("searchText"));
     }
     if (params.has("activeRegion")) {
-      setActiveRegion(params.get("activeRegion")!);
+      setActiveRegion(params.get("activeRegion"));
+    } else if (params.has("province")) {
+      setActiveRegion(params.get("province"));
     }
     if (params.has("activeYear")) {
       const year = params.get("activeYear");
@@ -303,9 +305,8 @@ export function useStationData(
 
   const sortedFilteredData = useMemo(() => {
     const pattern = searchText ? new RegExp(searchText, "i") : undefined;
-    const region = config.regionCodes.includes(activeRegion)
-      ? activeRegion
-      : undefined;
+    const regions = [...config.regionCodes, ...config.extraRegions];
+    const region = regions.includes(activeRegion) ? activeRegion : undefined;
     return data
       .filter(
         row =>
