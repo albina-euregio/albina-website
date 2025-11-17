@@ -12,9 +12,12 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
 import { Temporal } from "temporal-polyfill";
+import { useStore } from "@nanostores/react";
+import { $headless } from "../appStore";
 
 const StationMeasurements = () => {
   const intl = useIntl();
+  const headless = useStore($headless);
   const [state] = useState({
     title: "",
     headerText: "",
@@ -158,59 +161,63 @@ const StationMeasurements = () => {
           />
         </div>
       </section>
-      <section className="section-centered section-context">
-        <div className="panel">
-          <h2 className="subheader">
-            {intl.formatMessage({ id: "button:snow:headline" })}
-          </h2>
 
-          <ul className="list-inline list-buttongroup-dense">
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/new-snow"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hn:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/snow-height"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:hs:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/map/wind"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({ id: "button:snow:ff:text" })}
-              </a>
-            </li>
-            <li>
-              <a
-                className="secondary pure-button"
-                href="/weather/stations"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({
-                  id: "button:stations:stations:text"
-                })}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-      <SmShare />
+      {!headless && (
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {intl.formatMessage({ id: "button:snow:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/new-snow"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:hn:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/snow-height"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:hs:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/wind"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:ff:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/stations"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({
+                    id: "button:stations:stations:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {!headless && <SmShare />}
     </>
   );
 };
