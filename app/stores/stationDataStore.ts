@@ -195,11 +195,7 @@ export function useStationData(
   const [searchText, setSearchText] = useState<string>("");
   const [sortValue, setSortValue] = useState<keyof StationData>(sortValue0);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [activeRegions, setActiveRegions] = useState({
-    "AT-07": activeRegionPredicate("AT-07"),
-    "IT-32-BZ": activeRegionPredicate("IT-32-BZ"),
-    "IT-32-TN": activeRegionPredicate("IT-32-TN")
-  } as Record<string, boolean>);
+  const [activeRegion, setActiveRegion0] = useState<string | "all">("all");
   const [activeData, setActiveData] = useState({
     snow: true,
     temp: true,
@@ -210,22 +206,9 @@ export function useStationData(
     filterObservationStart0
   );
 
-  const activeRegion = useMemo<string | "all">(() => {
-    const actives = Object.keys(activeRegions).filter(e => activeRegions[e]);
-    return actives.length > 0 &&
-      actives.length < Object.keys(activeRegions).length
-      ? actives[0]
-      : "all";
-  }, [activeRegions]);
-
   function setActiveRegion(el: string) {
     // activate all if undefined or null is given
-    const newActive = el ? [el] : Object.keys(activeRegions);
-    setActiveRegions(
-      Object.fromEntries(
-        Object.keys(activeRegions).map(key => [key, newActive.includes(key)])
-      )
-    );
+    setActiveRegion0(el ?? "all");
   }
 
   function fromURLSearchParams(params: URLSearchParams) {
@@ -233,7 +216,7 @@ export function useStationData(
       setSearchText(params.get("searchText"));
     }
     if (params.has("activeRegion")) {
-      setActiveRegion(params.get("activeRegion"));
+      setActiveRegion(params.get("activeRegion")!);
     }
     if (params.has("activeYear")) {
       const year = params.get("activeYear");
@@ -365,7 +348,6 @@ export function useStationData(
   return {
     activeData,
     activeRegion,
-    activeRegions,
     activeYear,
     compareStationData,
     data,
@@ -378,7 +360,6 @@ export function useStationData(
     searchText,
     setActiveData,
     setActiveRegion,
-    setActiveRegions,
     setActiveYear,
     setData,
     setDateTime,
