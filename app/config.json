@@ -155,7 +155,6 @@
   },
   "bulletin": {
     "checkForLatestInterval": 5,
-    "noBulletinBanner": true,
     "showAllBulletins": false,
     "showGeneralHeadline": false
   },
