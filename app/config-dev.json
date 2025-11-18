@@ -171,9 +171,6 @@
     "showHideOptions": {
       "position": "topleft"
     },
-    "vectorOptions": {
-      "smoothFactor": 0.8
-    },
     "tileLayer": {
       "id": "ALBINA",
       "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.webp",
