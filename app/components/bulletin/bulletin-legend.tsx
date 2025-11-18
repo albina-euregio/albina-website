@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
@@ -34,9 +33,9 @@ function BulletinLegend(props: Props) {
                 values={{
                   strong: msg => <strong key={"strong"}>{msg}</strong>,
                   a: msg => (
-                    <Link key={"a"} to="/education/avalanche-problems">
+                    <a key={"a"} href="/education/avalanche-problems">
                       <strong>{msg}</strong>
-                    </Link>
+                    </a>
                   )
                 }}
               />
@@ -49,7 +48,7 @@ function BulletinLegend(props: Props) {
           </div>
           <div className="normal-6 grid-item">
             <p>
-              <Link to="/education/danger-scale">
+              <a href="/education/danger-scale">
                 <FormattedMessage
                   id="bulletin:legend:danger-levels"
                   html={true}
@@ -57,7 +56,7 @@ function BulletinLegend(props: Props) {
                     strong: (...msg) => <strong>{msg}</strong>
                   }}
                 />
-              </Link>
+              </a>
             </p>
             <ul className="list-inline list-legend">
               {Object.entries(warnlevelNumbers).map(

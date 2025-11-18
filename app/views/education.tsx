@@ -3,16 +3,16 @@ import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { Link } from "react-router-dom";
 import { setLanguage } from "../appStore.ts";
-import { useSearchParams } from "react-router-dom";
+import { useStore } from "@nanostores/react";
+import { $router } from "../components/router.ts";
 
 const Education = () => {
   const intl = useIntl();
-  const [searchParams] = useSearchParams();
+  const router = useStore($router);
 
-  if (["de", "en"].includes(searchParams.get("language") || "")) {
-    setLanguage(searchParams.get("language"));
+  if (["de", "en"].includes(router?.search?.language || "")) {
+    setLanguage(router?.search?.language);
   }
 
   return (
@@ -30,8 +30,8 @@ const Education = () => {
       <section className="section section-features">
         <ul className="list-plain features">
           <li className="feature-item">
-            <Link
-              to="/education/danger-scale"
+            <a
+              href="/education/danger-scale"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -58,12 +58,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/avalanche-problems"
+            <a
+              href="/education/avalanche-problems"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -90,11 +90,11 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link to="/education/workflow" className="linkbox linkbox-feature">
+            <a href="/education/workflow" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
                   src="/content_files/feature_workflow.webp"
@@ -119,11 +119,11 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link to="/education/matrix" className="linkbox linkbox-feature">
+            <a href="/education/matrix" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
                   src="/content_files/feature_matrix.webp"
@@ -148,12 +148,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/snowpack-stability"
+            <a
+              href="/education/snowpack-stability"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -180,11 +180,11 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link to="/education/frequency" className="linkbox linkbox-feature">
+            <a href="/education/frequency" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
                   src="/content_files/feature_frequency.webp"
@@ -209,12 +209,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/avalanche-sizes"
+            <a
+              href="/education/avalanche-sizes"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -241,12 +241,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/spatio-temporal-scale"
+            <a
+              href="/education/spatio-temporal-scale"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -273,12 +273,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/danger-patterns"
+            <a
+              href="/education/danger-patterns"
               className="linkbox linkbox-feature"
             >
               <div className="content-image">
@@ -305,11 +305,11 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link to="/education/community" className="linkbox linkbox-feature">
+            <a href="/education/community" className="linkbox linkbox-feature">
               <div className="content-image">
                 <img
                   src="/content_files/feature_community.webp"
@@ -334,7 +334,7 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
@@ -375,8 +375,8 @@ const Education = () => {
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/handbook"
+            <a
+              href="/education/handbook"
               title="Handbook"
               className="linkbox linkbox-feature"
             >
@@ -404,12 +404,12 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
 
           <li className="feature-item">
-            <Link
-              to="/education/virtual-reality-project"
+            <a
+              href="/education/virtual-reality-project"
               title="Virtual Reality Project"
               className="linkbox linkbox-feature"
             >
@@ -437,7 +437,7 @@ const Education = () => {
                   })}
                 </p>
               </div>
-            </Link>
+            </a>
           </li>
         </ul>
       </section>

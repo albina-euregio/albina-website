@@ -7,7 +7,6 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { Link } from "react-router-dom";
 
 interface Props {
   problem: AvalancheProblem;
@@ -280,11 +279,11 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                     {snowpackStabilityText}:
                   </span>
                   <span className="matrix-info-value">
-                    <Link to={`/education/snowpack-stability`}>
+                    <a href={`/education/snowpack-stability`}>
                       {intl.formatMessage({
                         id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
                       })}
-                    </Link>
+                    </a>
                   </span>
                 </div>
               )}
@@ -304,11 +303,11 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               >
                 <span className="matrix-info-name">{frequencyText}:</span>
                 <span className="matrix-info-value">
-                  <Link to={`/education/frequency`}>
+                  <a href={`/education/frequency`}>
                     {intl.formatMessage({
                       id: `bulletin:report:problem:frequency:${problem?.frequency}`
                     })}
-                  </Link>
+                  </a>
                 </span>
               </div>
             )}
@@ -330,13 +329,13 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
               >
                 <span className="matrix-info-name">{avalancheSizeText}:</span>
                 <span className="matrix-info-value">
-                  <Link
-                    to={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
+                  <a
+                    href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
                   >
                     {intl.formatMessage({
                       id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
                     })}
-                  </Link>
+                  </a>
                 </span>
               </div>
             )}

@@ -1,5 +1,4 @@
 import React, { type AllHTMLAttributes } from "react";
-import { Link } from "react-router-dom";
 import htmr from "htmr";
 import { RegionsTables } from "../components/stationTable/regionTable";
 import { ModalImage } from "../components/dialogs/albina-modal";
@@ -23,15 +22,7 @@ export function preprocessContent(content: string, blogMode = false) {
           !props.href.includes("#")
         ) {
           // replace internal links
-          return React.createElement(
-            Link,
-            {
-              ...props,
-              href: undefined,
-              to: props.href
-            },
-            children
-          );
+          return React.createElement(type, props, children);
         } else if (type === "a" && props.href?.startsWith("#")) {
           props.onClick = e => scrollIntoView(e);
         } else if (type === "a" && props.target === "_blank") {

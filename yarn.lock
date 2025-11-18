@@ -449,6 +449,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nanostores/router@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@nanostores/router@npm:1.0.0"
+  peerDependencies:
+    nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
+  checksum: 10c0/2981b660c4d6035d6c65901f8fab989f7947c9e04a23826cb3aea928f1865e5fcc92393d7896ed55d8ac7df558dd7eed22fb62c1230860776044b65bef337ba9
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.0":
   version: 1.1.0
   resolution: "@napi-rs/wasm-runtime@npm:1.1.0"
@@ -1089,6 +1098,7 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.5.1"
     "@iframe-resizer/parent": "npm:^5.5.1"
     "@nanostores/react": "npm:^1.0.0"
+    "@nanostores/router": "npm:^1.0.0"
     "@playwright/test": "npm:^1.55.0"
     "@types/diff-match-patch": "npm:^1.0.36"
     "@types/leaflet": "npm:^1.9.21"

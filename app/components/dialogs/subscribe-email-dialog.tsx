@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
@@ -139,17 +138,17 @@ export default function SubscribeEmailDialog() {
               {intl.formatMessage({
                 id: "dialog:subscribe-email:subscribe:agree-before-link"
               })}
-              <Link
+              <a
                 title={intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-link"
                 })}
-                to="/more/privacy/"
+                href="/more/privacy/"
                 target="_blank"
               >
                 {intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-link"
                 })}
-              </Link>
+              </a>
               {intl.formatMessage({
                 id: "dialog:subscribe-email:subscribe:agree-after-link"
               })}
