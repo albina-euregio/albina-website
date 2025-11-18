@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
@@ -22,16 +21,15 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
 
   const icon = (
     <Tooltip label={title}>
-      <Link
-        to={`/education/avalanche-problems#${problemType}`}
+      <a
+        href={`/education/avalanche-problems#${problemType}`}
         className="img"
-        href="#"
       >
         <div className="picto-img">
           <ProblemIcon problem={problemType} alt={title} active={true} />
         </div>
         <div className="picto-caption">{problemTextShort}</div>
-      </Link>
+      </a>
     </Tooltip>
   );
   return wrapper !== false ? (

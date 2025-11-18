@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Tooltip } from "../tooltips/tooltip";
 
 export default function SnowpackStabilityIcon({ title, snowpackStability }) {
@@ -10,16 +9,15 @@ export default function SnowpackStabilityIcon({ title, snowpackStability }) {
   return (
     <div className={classes.join(" ")}>
       <Tooltip label={title}>
-        <Link
-          to={"/education/avalanche-problems#snowpackStability"}
+        <a
+          href={"/education/avalanche-problems#snowpackStability"}
           className="img"
-          href="#"
         >
           <img
             src={imgRoot + "snowpack-stability_" + snowpackStability + ".png"}
             alt={title}
           />
-        </Link>
+        </a>
       </Tooltip>
     </div>
   );

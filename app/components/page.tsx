@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
 import ControlBar from "./organisms/control-bar";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
+import { $router } from "./router";
 
-const Page = () => {
-  const location = useLocation();
+interface Props {
+  children: React.ReactNode;
+}
+
+const Page = ({ children }: Props) => {
+  const page = useStore($router);
   const headlesss = useStore($headless);
 
   useEffect(() => {
-    if (!location.pathname.split("/").includes("bulletin")) {
-      if (!location.hash) {
+    if (!page?.path.split("/").includes("bulletin")) {
+      if (!page?.hash) {
         window.scrollTo(0, 0);
       }
     }
-  }, [location.hash, location.pathname]);
+  }, [page]);
 
   const dev = import.meta.env.BASE_URL === "/dev/" && (
     <ControlBar
@@ -35,7 +39,7 @@ const Page = () => {
     return (
       <>
         {dev}
-        <Outlet />
+        {children}
       </>
     );
   }
@@ -47,7 +51,7 @@ const Page = () => {
       <PageHeader />
       <main id="page-main" className="page-main">
         {dev}
-        <Outlet />
+        {children}
       </main>
       <PageFooter />
       <div

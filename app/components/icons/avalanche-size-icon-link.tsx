@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Tooltip } from "../tooltips/tooltip";
 import type * as Caaml from "../../stores/bulletin/CaamlBulletin";
 
@@ -16,16 +15,12 @@ export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
       title={title}
     >
       <Tooltip label={title}>
-        <Link
-          to={"/education/avalanche-problems#avalancheSize"}
-          className="img"
-          href="#"
-        >
+        <a href={"/education/avalanche-problems#avalancheSize"} className="img">
           <img
             src={`${imgRoot}avalanche-size_${avalancheSize}.png`}
             alt={title}
           />
-        </Link>
+        </a>
       </Tooltip>
     </div>
   );

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FormattedDate, FormattedMessage } from "../../i18n";
-import { Link } from "react-router-dom";
 import Timeline from "./timeline.jsx";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
@@ -111,9 +110,9 @@ const WeatherMapCockpit = () => {
       spanClasses.push(DOMAIN_ICON_CLASSES[aButton.id]);
       if (aButton.id === domainId) linkClasses.push("js-active");
       buttons.push(
-        <Link
+        <a
           key={aButton.id}
-          to={aButton.url}
+          href={aButton.url}
           onClick={() => handleEvent("domain", aButton.id)}
           className={linkClasses.join(" ")}
         >
@@ -124,7 +123,7 @@ const WeatherMapCockpit = () => {
               <span className="layer-select-info">{aButton.description}</span>
             </span>
           </div>
-        </Link>
+        </a>
       );
     });
     return buttons;
