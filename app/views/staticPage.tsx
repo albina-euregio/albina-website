@@ -8,6 +8,7 @@ import { useIntl } from "../i18n";
 import { fetchText } from "../util/fetch";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore.ts";
+import { $router } from "../components/router.ts";
 
 /*
  * Component to be used for pages with content delivered by CMS API.
@@ -17,6 +18,10 @@ const StaticPage = () => {
   const lang = intl.locale.slice(0, 2);
   const location = useLocation();
   const headless = useStore($headless);
+  const router = useStore($router);
+  if (router?.route !== "staticName" && router?.route !== "staticSegmentName") {
+    throw new Error();
+  }
 
   const [title, setTitle] = useState("");
   const [chapter, setChapter] = useState("");
@@ -26,9 +31,7 @@ const StaticPage = () => {
 
   useEffect(() => {
     (async () => {
-      let url = location.pathname
-        .substring(config.projectRoot)
-        .replace(/^\/(headless)?/, "");
+      let url = router.path.replace(/^\/(headless)?/, "");
       if (!url) return;
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
@@ -58,7 +61,7 @@ const StaticPage = () => {
       setHeaderText("");
       setIsShareable(!headless);
     })();
-  }, [headless, lang, location.pathname]);
+  }, [headless, lang, router.path]);
 
   useEffect(() => {
     document
