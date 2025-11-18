@@ -137,7 +137,6 @@
     }
   },
   "dialogs": {
-    "cookieConsent": false,
     "feedback": false
   },
   "subscribe": {
