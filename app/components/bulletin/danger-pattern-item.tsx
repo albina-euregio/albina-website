@@ -1,6 +1,5 @@
 import React from "react";
 import { FormattedMessage } from "../../i18n";
-import { Link } from "react-router-dom";
 import type * as Caaml from "../../stores/bulletin";
 
 interface Props {
@@ -10,8 +9,8 @@ interface Props {
 
 function DangerPatternItem({ dangerPattern, isInserted }: Props) {
   return (
-    <Link
-      to={`/education/danger-patterns#${dangerPattern.toLowerCase()}`}
+    <a
+      href={`/education/danger-patterns#${dangerPattern.toLowerCase()}`}
       className="label"
     >
       {isInserted ? (
@@ -27,7 +26,7 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
           id={`danger-patterns:${dangerPattern.toLowerCase()}`}
         />
       )}
-    </Link>
+    </a>
   );
 }
 export default DangerPatternItem;

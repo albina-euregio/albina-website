@@ -1,6 +1,5 @@
 import React from "react";
 import type { Temporal } from "temporal-polyfill";
-import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
@@ -201,9 +200,9 @@ function BulletinMap({
         id: "archive:show-forecast:hover"
       })}
     >
-      <Link to={`/bulletin/${date}`} className={"map-preview img tooltip"}>
+      <a href={`/bulletin/${date}`} className={"map-preview img tooltip"}>
         <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
-      </Link>
+      </a>
     </Tooltip>
   );
 
