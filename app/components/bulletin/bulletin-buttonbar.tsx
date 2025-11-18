@@ -14,7 +14,6 @@ interface Props {
 
 function BulletinButtonbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
-  const lang = intl.locale.slice(0, 2);
   const province = useStore($province);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
 
@@ -110,26 +109,6 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
                     </Tooltip>
                   </li>
                 </>
-              )}
-              {config.dialogs.feedback && (
-                <li>
-                  <Tooltip
-                    label={intl.formatMessage({
-                      id: "bulletin:feedback:hover"
-                    })}
-                  >
-                    <a
-                      href={config.links.feedback[lang]}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="success pure-button"
-                    >
-                      {intl.formatMessage({
-                        id: "bulletin:feedback"
-                      })}
-                    </a>
-                  </Tooltip>
-                </li>
               )}
             </ul>
           </div>
