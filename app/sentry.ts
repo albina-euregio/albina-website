@@ -21,6 +21,7 @@ if (import.meta.env.PROD) {
       ) {
         return null;
       }
+      return event;
     },
     release: "albina-website@" + import.meta.env.APP_VERSION,
     environment: import.meta.env.MODE,
