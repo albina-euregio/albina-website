@@ -152,6 +152,7 @@ class BulletinCollection {
             let url: string;
             try {
               url = config.template(url0, {
+                region: id,
                 date: this.date,
                 lang: this.lang
               });
@@ -159,6 +160,7 @@ class BulletinCollection {
             } catch (e) {
               if (e instanceof NotFoundError) {
                 url = config.template(url0, {
+                  region: id,
                   date: this.date,
                   lang: "en" // fallback lang
                 });
