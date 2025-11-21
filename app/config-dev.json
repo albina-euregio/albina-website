@@ -102,16 +102,7 @@
   },
   "links": {
     "eaws": "https://www.avalanches.org/",
-    "euregio": "http://www.europaregion.info/",
-    "feedback": {
-      "en": "https://docs.google.com/forms/d/e/1FAIpQLSe-sumwrNqze-TrwIH0AoD54xGNlwcbJ4Wn6AdopDMqZFiDuw/viewform?vc=0&c=0&w=1",
-      "de": "https://docs.google.com/forms/d/e/1FAIpQLSdROxxgmGxSVVqgr75nwI2weHQY8Da-xsUwQuxOO9NFvevuJw/viewform?vc=0&c=0&w=1",
-      "it": "https://docs.google.com/forms/d/e/1FAIpQLSeWSxJNtIvk6ReUPDkAfXpZ4XPAkNIC7LPojv2fXa32PVcQeQ/viewform?vc=0&c=0&w=1"
-    }
-  },
-  "dialogs": {
-    "cookieConsent": false,
-    "feedback": false
+    "euregio": "http://www.europaregion.info/"
   },
   "subscribe": {
     "buttonHidden": false,
@@ -137,7 +128,6 @@
   },
   "bulletin": {
     "checkForLatestInterval": 5,
-    "noBulletinBanner": true,
     "showAllBulletins": false
   },
   "map": {
@@ -163,13 +153,6 @@
       [45.0, 9.9],
       [47.8, 13.1]
     ],
-    "overlay": {
-      "bounds": [
-        [45.60608, 9.9174],
-        [47.83039, 13.15173]
-      ],
-      "opacity": 1.0
-    },
     "initOptions": {
       "maxBounds": [
         [33, -16.86],
@@ -187,9 +170,6 @@
     },
     "showHideOptions": {
       "position": "topleft"
-    },
-    "vectorOptions": {
-      "smoothFactor": 0.8
     },
     "tileLayer": {
       "id": "ALBINA",
