@@ -14,22 +14,12 @@ import "../../css/geonames.css";
 
 interface Props {
   loaded: boolean;
-  gestureHandling: boolean;
   onInit: (map: L.Map) => void;
 }
 
 const LeafletMapControls = (props: Props) => {
   const intl = useIntl();
   const parentMap = useMap();
-
-  useEffect(() => {
-    if (props.loaded) {
-      L.Util.setOptions(parentMap, { gestureHandling: false });
-    }
-
-    if (props.gestureHandling)
-      L.Util.setOptions(parentMap, { gestureHandling: true });
-  });
 
   const _init_tooltip = useCallback(() => {
     parentMap
