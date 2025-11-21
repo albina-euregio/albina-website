@@ -251,9 +251,10 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
         {getElevationIcon()}
       </div>
 
-      {(problem?.snowpackStability ||
+      {(problem?.customData?.ALBINA?.avalancheType == "slab" &&
+        (problem?.snowpackStability ||
         problem?.frequency ||
-        problem?.avalancheSize) && (
+        problem?.avalancheSize)) && (
         <div className="bulletin-report-picto matrix-information">
           {problem?.snowpackStability &&
             problem?.problemType !== "gliding_snow" && (
