@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Cluster from "./leaflet/cluster";
+import React, { useEffect } from "react";
 import StationMarker, {
   type StationMarkerData
 } from "../leaflet/station-marker";
@@ -17,10 +16,6 @@ interface Props {
 }
 
 const StationOverlay = (props: Props) => {
-  const [activeMarkerPos, setActiveMarkerPos] = useState(null);
-
-  const [, setSpiderfiedMarkers] = useState(null);
-
   useEffect(() => {
     if (props.onLoad) props.onLoad();
     else if (props.onLoading) props.onLoading();
@@ -41,34 +36,20 @@ const StationOverlay = (props: Props) => {
     return color;
   };
 
-  const handleActiveMarkerPositionUpdate = pos => {
-    setActiveMarkerPos(pos);
-  };
-
-  const handleSpiderfiedMarkers = list => {
-    if (Array.isArray(list) && list.length > 0) {
-      setSpiderfiedMarkers(list);
-    } else {
-      setSpiderfiedMarkers(null);
-      activeMarkerPos(null);
-    }
-  };
-
   const renderMarker = (
-    data: StationData,
-    features: StationData[],
-    pos: L.LatLng | L.LatLngLiteral | null = null
+    data: StationData
   ): React.ReactElement<typeof StationMarker> => {
     if (
       (data.date === undefined || data[props.itemId] === undefined) &&
       props.itemId !== "any"
     )
-      return;
+      return <></>;
 
     const value = Math.round(data[props.itemId]);
-    const coordinates: L.LatLngExpression = pos
-      ? [pos.lat, pos.lng]
-      : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const coordinates: L.LatLngExpression = [
+      data.geometry.coordinates[1],
+      data.geometry.coordinates[0]
+    ];
     const markerData: StationMarkerData = {
       id: data.id,
       name:
@@ -109,27 +90,9 @@ const StationOverlay = (props: Props) => {
     );
   };
 
-  const points = props.features.filter(
-    point => props.itemId === "any" || point[props.itemId] !== false
-  );
-
-  return (
-    <div>
-      <Cluster
-        item={props.item}
-        tooltip={true}
-        spiderfiedMarkers={handleSpiderfiedMarkers}
-        onActiveMarkerPositionUpdate={handleActiveMarkerPositionUpdate}
-      >
-        {points.map(point => renderMarker(point, props.features))}
-      </Cluster>
-      {/* {selectedFeature &&
-        renderMarker(selectedFeature, state.activeMarkerPos)} */}
-      {/* {selectedFeature &&
-        state.spiderfiedMarkers &&
-        renderPositionMarker(selectedFeature)} */}
-    </div>
-  );
+  return props.features
+    .filter(point => props.itemId === "any" || point[props.itemId] !== false)
+    .map(point => renderMarker(point));
 };
 
 export default StationOverlay;
