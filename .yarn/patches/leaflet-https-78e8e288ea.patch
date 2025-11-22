@@ -23,3 +23,25 @@ index 8c62db23911d48cea48f2be65e3721faf81536f8..acd6ea12a4f3ba06b8c26075a555b5c4
  
  // control
  export * from './control/index.js';
+diff --git a/src/layer/tile/TileLayer.js b/src/layer/tile/TileLayer.js
+index 3b086eebc632dd9dbcb4192513a9181aa3b8b4eb..d02c9711b68f307652252bf6c7737b6b2561ce97 100644
+--- a/src/layer/tile/TileLayer.js
++++ b/src/layer/tile/TileLayer.js
+@@ -94,17 +94,6 @@ export class TileLayer extends GridLayer {
+ 
+ 		options = Util.setOptions(this, options);
+ 
+-		// in case the attribution hasn't been specified, check for known hosts that require attribution
+-		if (options.attribution === null && URL.canParse(url)) {
+-			const urlHostname = new URL(url).hostname;
+-
+-			// check for Open Street Map hosts
+-			const osmHosts = ['tile.openstreetmap.org', 'tile.osm.org'];
+-			if (osmHosts.some(host => urlHostname.endsWith(host))) {
+-				options.attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+-			}
+-		}
+-
+ 		// detecting retina displays, adjusting tileSize and zoom levels
+ 		if (options.detectRetina && Browser.retina && options.maxZoom > 0) {
+ 

@@ -2242,8 +2242,8 @@ __metadata:
 
 "leaflet@patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch":
   version: 2.0.0-alpha.1
-  resolution: "leaflet@patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch::version=2.0.0-alpha.1&hash=dc8338"
-  checksum: 10c0/80508be449538f1c98575872825f69b13d2a1652dab0f187c52e6feab050307a41c856e3648c45ffb33935267959564d981976be98107c9fde0e1c75082647c3
+  resolution: "leaflet@patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch::version=2.0.0-alpha.1&hash=8a6e13"
+  checksum: 10c0/b4721bdac4e5b1d4eb00c1019acbd213f38be2c31d02c753f42fdbb762681985ac86dc6e75e337a6eec5e5b6c139aac9c7392954f63621fc8fc6093da95d0fb4
   languageName: node
   linkType: hard
 
