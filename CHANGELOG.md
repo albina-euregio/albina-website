@@ -2,6 +2,50 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.2] - 2025-11-24
+
+### 🚀 Features
+
+- Visualize bulletins of Slovenia
+- Add season report 24/25 for Austria
+- Show matrix parameters only for avalanche type slab
+
+### 🐛 Bug Fixes
+
+- Remove broken marker cluster on weather station map
+- Fix Safari 16.5 compatibility of leaflet
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to sentry 10.26.0
+- Upgrade to eaws-regions v8.1.0
+
+## [8.0.1] - 2025-11-04
+
+### 🚀 Features
+
+- Adopt subscribe options to active province
+- Improve IFrame script
+- Provide weather archive and weather station measurements headless
+
+### 🚜 Refactor
+
+- Include content_files in project
+
+
+### 📚 Documentation
+
+- Document caddy
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to LINEA 8.1.3
+- Upgrade to sass 1.94.0
+- Upgrade to rolldown-vite 7.2.2
+- Upgrade to rolldown-vite 7.2.0
+- Upgrade to git-cliff 2.10.1
+
 ## [8.0.0] - 2025-11-04
 
 ### Breaking Changes
