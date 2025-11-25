@@ -20,7 +20,7 @@ function hasInteractivePlot(station: StationData | ObserverData) {
   return (
     ENABLE_UPLOT &&
     station instanceof StationData &&
-    /LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Kärnten|Verbund|GeoSphere Austria/.test(
+    /LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Kärnten|Tiroler Wasserkraft|Verbund|GeoSphere Austria/.test(
       station.operator
     )
   );
