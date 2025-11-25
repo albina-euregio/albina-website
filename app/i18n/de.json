@@ -509,6 +509,7 @@
   "education:overview:virtual-reality-project:text": "Trainiere für den Ernstfall!",
   "glossary:source": "Quelle",
   "button:weather:headline": "Wettervorhersage",
+  "button:weather:AT-02:link": "https://www.geosphere.at/de/karten/wetterprognose#cut=7",
   "button:weather:AT-07:link": "https://www.geosphere.at/de/karten/wetterprognose#cut=8",
   "button:weather:IT-32-BZ:link": "http://wetter.provinz.bz.it/bergwetter.asp",
   "button:weather:IT-32-TN:link": "https://www.meteotrentino.it/?id=9#!/home",
