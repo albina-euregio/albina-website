@@ -18,7 +18,7 @@ patchedDependencies:
     hash: 3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381
     path: patches/leaflet-gesture-handling.patch
   leaflet.locatecontrol:
-    hash: b0040246ac836c34871bb4acdb7ef659446ed6f0d791c09d2a2d93ec8d3f1f5a
+    hash: d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8
     path: patches/leaflet.locatecontrol.patch
   leaflet.sync:
     hash: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
@@ -83,7 +83,7 @@ importers:
         version: 1.2.2(patch_hash=3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381)
       leaflet.locatecontrol:
         specifier: ^0.85.1
-        version: 0.85.1(patch_hash=b0040246ac836c34871bb4acdb7ef659446ed6f0d791c09d2a2d93ec8d3f1f5a)
+        version: 0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8)
       leaflet.sync:
         specifier: ^0.2.4
         version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
@@ -3038,7 +3038,7 @@ snapshots:
   leaflet-gesture-handling@1.2.2(patch_hash=3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381):
     {}
 
-  leaflet.locatecontrol@0.85.1(patch_hash=b0040246ac836c34871bb4acdb7ef659446ed6f0d791c09d2a2d93ec8d3f1f5a):
+  leaflet.locatecontrol@0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8):
     {}
 
   leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4):
