@@ -111,7 +111,7 @@ const config: PlaywrightTestConfig = {
   webServer: process.env.CI_ENVIRONMENT_URL
     ? undefined
     : {
-        command: "yarn dev",
+        command: "pnpm dev",
         reuseExistingServer: !process.env.CI,
         timeout: 60 * 1000,
         url: "http://localhost:3000/"
