@@ -45,6 +45,9 @@ importers:
       "@eaws/outline_properties":
         specifier: ^8.1.0
         version: 8.1.0
+      "@floating-ui/dom":
+        specifier: ^1.7.4
+        version: 1.7.4
       "@floating-ui/react":
         specifier: ^0.26.23
         version: 0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -60,6 +63,9 @@ importers:
       "@nanostores/react":
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.1.0)(react@19.2.0)
+      "@react-leaflet/core":
+        specifier: ^3.0.0
+        version: 3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       "@sentry/react":
         specifier: ^10.26.0
         version: 10.27.0(react@19.2.0)
