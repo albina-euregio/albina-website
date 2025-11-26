@@ -4,8 +4,28 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  "@react-leaflet/core@npm:^3.0.0": patch:@react-leaflet/core@npm%3A3.0.0#~/.yarn/patches/@react-leaflet-core-npm-3.0.0-4e3f2d62b5.patch
+patchedDependencies:
+  "@react-leaflet/core":
+    hash: 9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e
+    path: patches/react-leaflet-core.patch
+  leaflet:
+    hash: 947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df
+    path: patches/leaflet.patch
+  leaflet-geonames:
+    hash: 3f2a49c862dc2eae792f3b95926ab6c94d556556568615cb44ea4c4deaedec0d
+    path: patches/leaflet-geonames.patch
+  leaflet-gesture-handling:
+    hash: 3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381
+    path: patches/leaflet-gesture-handling.patch
+  leaflet.locatecontrol:
+    hash: d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8
+    path: patches/leaflet.locatecontrol.patch
+  leaflet.sync:
+    hash: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
+    path: patches/leaflet.sync.patch
+  leaflet.vectorgrid:
+    hash: 17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19
+    path: patches/leaflet.vectorgrid.patch
 
 importers:
   .:
@@ -53,23 +73,23 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       leaflet:
-        specifier: patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch
-        version: link:patch:leaflet@https%3A/github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch
+        specifier: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c
+        version: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       leaflet-geonames:
-        specifier: patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch
-        version: link:patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch
+        specifier: ^0.4.9
+        version: 0.4.9(patch_hash=3f2a49c862dc2eae792f3b95926ab6c94d556556568615cb44ea4c4deaedec0d)
       leaflet-gesture-handling:
-        specifier: patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch
-        version: link:patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch
+        specifier: ^1.2.2
+        version: 1.2.2(patch_hash=3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381)
       leaflet.locatecontrol:
-        specifier: patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch
-        version: link:patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch
+        specifier: ^0.85.1
+        version: 0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8)
       leaflet.sync:
-        specifier: patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch
-        version: link:patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch
+        specifier: ^0.2.4
+        version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
       leaflet.vectorgrid:
-        specifier: patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch
-        version: link:patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch
+        specifier: ^1.3.0
+        version: 1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
       nanostores:
         specifier: ^1.0.1
         version: 1.1.0
@@ -87,7 +107,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-leaflet:
         specifier: ^5.0.0
-        version: 5.0.0(leaflet@patch+leaflet@https%3A+github.com+leaflet+leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 5.0.0(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-router-dom:
         specifier: ^7.9.3
         version: 7.9.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -678,6 +698,7 @@ packages:
       {
         integrity: sha512-3EWmekh4Nz+pGcr+xjf0KNyYfC3U2JjnkWsh0zcqaexYqmmB5ZhH37kz41JXGmKzpaMZCnPofBBm64i+YrEvGQ==
       }
+    version: 3.0.0
     peerDependencies:
       leaflet: ^1.9.0
       react: ^19.0.0
@@ -1070,6 +1091,12 @@ packages:
       }
     engines: { node: ">=18" }
 
+  commander@2.20.3:
+    resolution:
+      {
+        integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+      }
+
   convert-source-map@2.0.0:
     resolution:
       {
@@ -1380,6 +1407,12 @@ packages:
     engines: { node: ">=18" }
     hasBin: true
 
+  ieee754@1.2.1:
+    resolution:
+      {
+        integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
+      }
+
   immutable@5.1.4:
     resolution:
       {
@@ -1482,6 +1515,46 @@ packages:
       }
     engines: { node: ">=6" }
     hasBin: true
+
+  leaflet-geonames@0.4.9:
+    resolution:
+      {
+        integrity: sha512-iWluuA3b+aAfcBXSPYP6HYDnSuCwfCmevVQb6+3VfbclHAFB6IL7/2g5KzYxs1dSAm0xj1q7UkLKaPb0jxcI8g==
+      }
+
+  leaflet-gesture-handling@1.2.2:
+    resolution:
+      {
+        integrity: sha512-Blf5V4PoNphWkzL7Y1qge+Spkd4OCQ2atjwUNhMhLIcjKzPcBH++x/lwOinaR9jSqLWqJ6oKYO8d0XdTffy4hQ==
+      }
+
+  leaflet.locatecontrol@0.85.1:
+    resolution:
+      {
+        integrity: sha512-aB2qrwZO7Vs4EbWja6pyGy6Y1Mr2yeOqH3PN+Ocnjb4pgpiwYsX1AOI0mppVYzUTO2zwjafxVTOffiwEE32udA==
+      }
+
+  leaflet.sync@0.2.4:
+    resolution:
+      {
+        integrity: sha512-e59CcQNMFFZJWCAGzyFxcsVldWd0cU7G71q2Zh5a5Pbe7ua4G7CNQcKz51IALf0NzOyRF7ws6gjnndiVWkYN+w==
+      }
+
+  leaflet.vectorgrid@1.3.0:
+    resolution:
+      {
+        integrity: sha512-kWmj1pKM+MVdo/7Mg5zsB3YrGZvo/uIuiANV9MvWUFOG+Y2xAJzrteDhoIcCgTjHSSRJ36xdeGdIQVhuWjnCZw==
+      }
+    version: 1.3.0
+    peerDependencies:
+      leaflet: ^1.0.2
+
+  leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c:
+    resolution:
+      {
+        tarball: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c
+      }
+    version: 2.0.0-alpha.1
 
   lightningcss-android-arm64@1.30.2:
     resolution:
@@ -1752,6 +1825,13 @@ packages:
       }
     engines: { node: ">=12" }
 
+  pbf@3.3.0:
+    resolution:
+      {
+        integrity: sha512-XDF38WCH3z5OV/OVa8GKUNtLAyneuzbCisx7QUCF8Q6Nutx0WnJrQe5O+kOtBlLfRNUws98Y58Lblp+NJG5T4Q==
+      }
+    hasBin: true
+
   picocolors@1.1.1:
     resolution:
       {
@@ -1796,6 +1876,13 @@ packages:
     engines: { node: ">=18" }
     hasBin: true
 
+  point-geometry@0.0.0:
+    resolution:
+      {
+        integrity: sha512-tXK8bY2l3/CPkyO7+UbOWbVjCpKoYY4t6uY3AYYy4Bagd4Z942gLeQOgtHICwBwgPf8dI6fw4VqKwzSNgvlw4A==
+      }
+    deprecated: "This module has moved: please install @mapbox/point-geometry instead"
+
   postcss@8.5.6:
     resolution:
       {
@@ -1817,6 +1904,12 @@ packages:
         integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==
       }
     engines: { node: ">=18" }
+
+  protocol-buffers-schema@3.6.0:
+    resolution:
+      {
+        integrity: sha512-TdDRD+/QNdrCGCE7v8340QyuXd4kIWIgapsE2+n/SaGiSSbomYl4TjHlvIoCWRpE7wFt02EpB35VVA2ImcBVqw==
+      }
 
   purecss-sass@3.0.1:
     resolution:
@@ -1843,6 +1936,7 @@ packages:
       {
         integrity: sha512-CWbTpr5vcHw5bt9i4zSlPEVQdTVcML390TjeDG0cK59z1ylexpqC6M1PJFjV8jD7CF+ACBFsLIDs6DRMoLEofw==
       }
+    version: 5.0.0
     peerDependencies:
       leaflet: ^1.9.0
       react: ^19.0.0
@@ -1906,6 +2000,12 @@ packages:
         integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==
       }
     engines: { node: ">= 14.18.0" }
+
+  resolve-protobuf-schema@2.1.0:
+    resolution:
+      {
+        integrity: sha512-kI5ffTiZWmJaS/huM8wZfEMer1eRd7oJQhDuxeCLe3t7N7mX3z94CN0xPxBQxFYQTSNz9T0i+v6inKqSdK8xrQ==
+      }
 
   restore-cursor@5.1.0:
     resolution:
@@ -2107,6 +2207,13 @@ packages:
       }
     engines: { node: ">=8.0" }
 
+  topojson-client@2.1.0:
+    resolution:
+      {
+        integrity: sha512-mxXNa6imbsrWXqUKF7iwGl2TkrshZ7dwQF+KuAB4hX9wTmfecNzqSjMmQZNhP2Ztvfwx8rKt0BfQfHF+ki6hQw==
+      }
+    hasBin: true
+
   tslib@2.8.1:
     resolution:
       {
@@ -2139,6 +2246,19 @@ packages:
     resolution:
       {
         integrity: sha512-KIMVnG68zvu5XXUbC4LQEPnhwOxBuLyW1AHtpm6IKTXImkbLgkMy+jabjLgSLMasNuGGzQm/ep3tOkyTxpiQIw==
+      }
+
+  vector-tile@1.3.0:
+    resolution:
+      {
+        integrity: sha512-ECpYpDhbgTSGIRwaf4bLbiDHcUHDM+LGrBOmV1tdG+Lde8vajJtywP5vGFmMj0Z3cApTV0+9sLWgBCVsRuoAKQ==
+      }
+    deprecated: "This module has moved: please install @mapbox/vector-tile instead"
+
+  whatwg-fetch@2.0.4:
+    resolution:
+      {
+        integrity: sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
       }
 
   which@2.0.2:
@@ -2501,9 +2621,9 @@ snapshots:
     dependencies:
       playwright: 1.57.0
 
-  "@react-leaflet/core@3.0.0(leaflet@patch+leaflet@https%3A+github.com+leaflet+leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)":
+  "@react-leaflet/core@3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)":
     dependencies:
-      leaflet: link:patch:leaflet@https%3A/github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch
+      leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
@@ -2709,6 +2829,8 @@ snapshots:
 
   commander@13.1.0: {}
 
+  commander@2.20.3: {}
+
   convert-source-map@2.0.0: {}
 
   cookie@1.1.1: {}
@@ -2872,6 +2994,8 @@ snapshots:
 
   husky@9.1.7: {}
 
+  ieee754@1.2.1: {}
+
   immutable@5.1.4: {}
 
   is-extglob@2.1.1:
@@ -2907,6 +3031,29 @@ snapshots:
   jsesc@3.1.0: {}
 
   json5@2.2.3: {}
+
+  leaflet-geonames@0.4.9(patch_hash=3f2a49c862dc2eae792f3b95926ab6c94d556556568615cb44ea4c4deaedec0d):
+    {}
+
+  leaflet-gesture-handling@1.2.2(patch_hash=3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381):
+    {}
+
+  leaflet.locatecontrol@0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8):
+    {}
+
+  leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4):
+    {}
+
+  leaflet.vectorgrid@1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
+    dependencies:
+      leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
+      pbf: 3.3.0
+      topojson-client: 2.1.0
+      vector-tile: 1.3.0
+      whatwg-fetch: 2.0.4
+
+  leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df):
+    {}
 
   lightningcss-android-arm64@1.30.2:
     optional: true
@@ -3053,6 +3200,11 @@ snapshots:
 
   path-key@4.0.0: {}
 
+  pbf@3.3.0:
+    dependencies:
+      ieee754: 1.2.1
+      resolve-protobuf-schema: 2.1.0
+
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
@@ -3069,6 +3221,8 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
+  point-geometry@0.0.0: {}
+
   postcss@8.5.6:
     dependencies:
       nanoid: 3.3.11
@@ -3081,6 +3235,8 @@ snapshots:
     dependencies:
       parse-ms: 4.0.0
 
+  protocol-buffers-schema@3.6.0: {}
+
   purecss-sass@3.0.1: {}
 
   react-dom@19.2.0(react@19.2.0):
@@ -3090,10 +3246,10 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-leaflet@5.0.0(leaflet@patch+leaflet@https%3A+github.com+leaflet+leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-leaflet@5.0.0(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      "@react-leaflet/core": 3.0.0(leaflet@patch+leaflet@https%3A+github.com+leaflet+leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      leaflet: link:patch:leaflet@https%3A/github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch
+      "@react-leaflet/core": 3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
@@ -3122,6 +3278,10 @@ snapshots:
   react@19.2.0: {}
 
   readdirp@4.1.2: {}
+
+  resolve-protobuf-schema@2.1.0:
+    dependencies:
+      protocol-buffers-schema: 3.6.0
 
   restore-cursor@5.1.0:
     dependencies:
@@ -3232,6 +3392,10 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
+  topojson-client@2.1.0:
+    dependencies:
+      commander: 2.20.3
+
   tslib@2.8.1: {}
 
   undici-types@7.16.0: {}
@@ -3245,6 +3409,12 @@ snapshots:
       picocolors: 1.1.1
 
   uplot@1.6.32: {}
+
+  vector-tile@1.3.0:
+    dependencies:
+      point-geometry: 0.0.0
+
+  whatwg-fetch@2.0.4: {}
 
   which@2.0.2:
     dependencies:
