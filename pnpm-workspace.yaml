@@ -1,4 +1,5 @@
 patchedDependencies:
+  "@react-leaflet/core": patches/react-leaflet-core.patch
   leaflet: patches/leaflet.patch
   leaflet-geonames: patches/leaflet-geonames.patch
   leaflet-gesture-handling: patches/leaflet-gesture-handling.patch

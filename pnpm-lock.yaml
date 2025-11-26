@@ -4,10 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  "@react-leaflet/core@npm:^3.0.0": patch:@react-leaflet/core@npm%3A3.0.0#~/.yarn/patches/@react-leaflet-core-npm-3.0.0-4e3f2d62b5.patch
-
 patchedDependencies:
+  "@react-leaflet/core":
+    hash: 9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e
+    path: patches/react-leaflet-core.patch
   leaflet:
     hash: 947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df
     path: patches/leaflet.patch
@@ -2621,7 +2621,7 @@ snapshots:
     dependencies:
       playwright: 1.57.0
 
-  "@react-leaflet/core@3.0.0(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)":
+  "@react-leaflet/core@3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)":
     dependencies:
       leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       react: 19.2.0
@@ -3248,7 +3248,7 @@ snapshots:
 
   react-leaflet@5.0.0(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      "@react-leaflet/core": 3.0.0(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      "@react-leaflet/core": 3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
