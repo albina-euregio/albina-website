@@ -16,7 +16,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH
 
 .build:
-  image: node:22
+  image: node:24
   stage: build
   variables:
     YARN_CACHE_FOLDER: .yarn-cache/
