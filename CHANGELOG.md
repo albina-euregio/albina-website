@@ -1,6 +1,6 @@
 # Changelog
 
-<!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
+<!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
 ## [8.0.4] - 2025-12-02
 
@@ -73,11 +73,9 @@
 
 - Include content_files in project
 
-
 ### 📚 Documentation
 
 - Document caddy
-
 
 ### ⚙️ Miscellaneous Tasks
 

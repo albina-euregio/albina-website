@@ -12,15 +12,15 @@
 
 Install [Node.js](https://nodejs.org/en).
 
-Use `corepack enable` to install [Yarn](https://yarnpkg.com/).
+Use `corepack enable` to install [pnpm](https://pnpm.io/).
 
-Use `yarn install` to download necessary packages.
+Use `pnpm install` to download necessary packages.
 
-Use `yarn start` and browse to http://localhost:3000/ to use dev server.
+Use `pnpm start` and browse to http://localhost:3000/ to use dev server.
 
 ### Run with sample data
 
-Use `yarn run start-dev` and browse to http://localhost:3000/ to use dev server.
+Use `pnpm run start-dev` and browse to http://localhost:3000/ to use dev server.
 
 Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
 
@@ -32,17 +32,17 @@ in order to test IOS Devices in local mode, server.host in vite.config.ts has to
 
 Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly.
 
-Use `yarn run build` to create a (minified) production build.
+Use `pnpm run build` to create a (minified) production build.
 
 After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
-run `yarn run build --base=/.../` instead.
+run `pnpm run build --base=/.../` instead.
 
 | environment | build                 | deploy                 | link                           |
 | ----------- | --------------------- | ---------------------- | ------------------------------ |
-| production  | `yarn run build-prod` | `yarn run deploy-prod` | https://avalanche.report/      |
-| beta        | `yarn run build-beta` | `yarn run deploy-beta` | https://avalanche.report/beta/ |
-| development | `yarn run build-dev`  | `yarn run deploy-dev`  | https://avalanche.report/dev/  |
+| production  | `pnpm run build-prod` | `pnpm run deploy-prod` | https://avalanche.report/      |
+| beta        | `pnpm run build-beta` | `pnpm run deploy-beta` | https://avalanche.report/beta/ |
+| development | `pnpm run build-dev`  | `pnpm run deploy-dev`  | https://avalanche.report/dev/  |
 
 ## Server configuration (Caddy)
 
@@ -152,15 +152,15 @@ $ tx pull --use-git-timestamps
 Please use the following workflow when releasing new versions:
 
 1. determine new version number `<TAG>` and
-   run `yarn changelog <TAG>`
+   run `pnpm changelog <TAG>`
 2. edit `CHANGELOG.md` by hand if necessary and commit
 3. create `<TAG>` with git
 
 If you forgot to update the changelog before creating a new tag in git, use
-`yarn changelog-latest`. This will add all commits for the newest tag to
+`pnpm changelog-latest`. This will add all commits for the newest tag to
 the CHANGELOG. The downside compared to the workflow above is, that the
 changes to CHANGELOG itself are not included in the release.
 
 If there have been several new releases since the last update to CHANGELOG,
-use e.g. `yarn git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that
+use e.g. `pnpm git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that
 happened _after_ version v7.0.6 was released.
