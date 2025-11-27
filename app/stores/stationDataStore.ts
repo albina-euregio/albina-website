@@ -3,6 +3,7 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 
 interface FeatureProperties {
+  $smet: string;
   "LWD-Nummer"?: string;
   "LWD-Region"?: string;
   Beobachtungsbeginn: string;
@@ -408,5 +409,8 @@ export async function loadStationData({
     .filter(el => ogd || el.properties.date)
     .filter(el => !ogd || stationsArchiveOperators.exec(el.properties.operator))
     .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-    .map(feature => new StationData(feature));
+    .map(feature => {
+      feature.properties.$smet = window.config.apis.weather.smet;
+      return new StationData(feature);
+    });
 }
