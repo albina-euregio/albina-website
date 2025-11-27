@@ -73,7 +73,13 @@
 
 .bg-colorbar {
   height: variables.$bar-width;
-  background: variables.$brand url("../../../images/pro/global/colorbar.svg")
-    no-repeat 0 0;
+  background: linear-gradient(
+    to right,
+    #cf6 0% 20%,
+    #ff0 20% 40%,
+    #f90 40% 60%,
+    #f00 60% 80%,
+    variables.$brand 80% 100%
+  );
   background-size: 100% variables.$bar-width;
 }
