@@ -45,7 +45,7 @@ export default class ExpositionIcon extends React.Component {
               {this.props.expositions.map(e => (
                 <path
                   d={this.paths[e.toLowerCase()]}
-                  fill="#19ABFF"
+                  fill="#00607a"
                   fillRule="evenodd"
                   key={e}
                 />
