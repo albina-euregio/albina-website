@@ -10,7 +10,7 @@ import "leaflet-geonames/L.Control.Geonames.js";
 import { LocateControl } from "leaflet.locatecontrol";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.js";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
-import "../../css/geonames.css";
+import "../../css/geonames.scss";
 
 interface Props {
   loaded: boolean;
