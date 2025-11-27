@@ -395,30 +395,8 @@ export async function loadStationData({
     : window.config.template(window.config.apis.weather.stationsDateTime, {
         dateTime: timePrefix
       });
-  let response: Response;
-  try {
-    response = await fetch(stationsFile, { cache: "no-cache" });
-    if (!response.ok) throw new Error(response.statusText);
-    if (
-      !dateTime &&
-      window.config.apis.weatherFallback &&
-      Date.now() - Date.parse(response.headers.get("last-modified")) >
-        3 * 3600 * 1000
-    ) {
-      throw new Error("Too old!");
-    }
-  } catch (err) {
-    if (window.config.apis.weatherFallback) {
-      Object.assign(
-        window.config.apis.weather,
-        window.config.apis.weatherFallback
-      );
-      delete window.config.apis.weatherFallback;
-      console.warn("Using fallback weather data!");
-      return loadStationData({ dateTime, ogd });
-    }
-    throw err;
-  }
+  const response = await fetch(stationsFile, { cache: "no-cache" });
+  if (!response.ok) throw new Error(response.statusText);
   if (response.status === 404) return [];
   const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
     await response.json();
