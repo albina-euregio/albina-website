@@ -16,8 +16,6 @@ import {
 import { setLanguage, $province, $headless } from "../appStore";
 import Page from "./page";
 
-import "../css/style.scss"; // CSS overrides
-
 const Bulletin = React.lazy(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));

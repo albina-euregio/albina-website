@@ -10,14 +10,20 @@ import { newRegionRegex } from "./util/newRegionRegex";
 
 window["scroll_duration"] = 1000;
 
+if (import.meta.env.APP_REGION === "ES-AR") {
+  import("./css/style.ES-AR.scss");
+} else {
+  import("./css/style.scss");
+}
+
 /*
  * Request config.json before starting the app (do not cache config!).
  * Also, append date to force reloading at least once a day.
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configRequest = import.meta.env.VITE_APP_REGION
-  ? import(`./config.${import.meta.env.VITE_APP_REGION}.json`)
+const configRequest = import.meta.env.APP_REGION
+  ? import(`./config.${import.meta.env.APP_REGION}.json`)
   : import.meta.env.BASE_URL === "/dev/"
     ? import("./config-dev.json")
     : import("./config.json");

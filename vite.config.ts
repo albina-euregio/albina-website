@@ -63,12 +63,60 @@ export default defineConfig({
     sourcemap: true
   },
   css: {
+    // preprocessorOptions: {
+    //   scss: {
+    //     api: "modern-compiler",
+    //     // additionalData: `@use "${__dirname}/app/css/scss/abstracts/_brand.ES-AR" as brand;\n`
+
+    //     // importers: [
+    //     //   {
+    //     //     canonicalize(url, context) {
+    //     //       if (url.toString().includes("brand"))
+    //     //         throw new Error(url.toString());
+    //     //       console.log(url);
+    //     //       return null;
+    //     //     },
+    //     //     load(canonicalUrl) {
+    //     //       console.log(canonicalUrl);
+    //     //       if (canonicalUrl.toString().includes("brand"))
+    //     //         throw new Error(canonicalUrl.toString());
+    //     //       return null;
+    //     //     }
+    //     //   }
+    //     // ],
+
+    //     // additionalData: `@use "${__dirname}/app/css/scss/abstracts/_brand.ES-AR" as brand;\n`
+
+    //     additionalData: {
+    //       "ES-AR": `
+    //     $brand: #00607a;
+    //     $brand-very-very-dark: #002630;
+    //     $brand-very-dark: #003949;
+    //     $brand-dark: #004c61;
+    //     $brand-light: #327f94;
+    //     $brand-very-light: #669faf;
+    //     $brand-very-very-light: #99bfc9;
+    //     $primary-color: $brand;
+    //     `
+    //     }[process.env.APP_REGION ?? ""]
+    //   }
+    // },
     lightningcss: {
       errorRecovery: true
     }
   },
   envPrefix: ["APP_", "VITE_"],
-  plugins: [react()],
+  plugins: [
+    react()
+    // {
+    //   name: "css-transform",
+    //   transform(src, id) {
+    //     if (/\.css$/.test(id)) {
+    //       return src.replace(/%(.*?)%/g, (match, p1) => env[p1]);
+    //     }
+    //   }
+    // }
+  ],
   server: {
     port: 3000,
     proxy: {}

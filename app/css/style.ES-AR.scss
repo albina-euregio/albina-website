@@ -1,0 +1,9 @@
+@use "./style" with (
+  $brand: #00607a,
+  $brand-very-very-dark: #002630,
+  $brand-very-dark: #003949,
+  $brand-dark: #004c61,
+  $brand-light: #327f94,
+  $brand-very-light: #669faf,
+  $brand-very-very-light: #99bfc9
+);

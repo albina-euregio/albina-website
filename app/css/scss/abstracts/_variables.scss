@@ -4,6 +4,7 @@
 @use "sass:map";
 
 @use "bounds";
+@use "brand";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -32,13 +33,13 @@ $grey-very-very-light: #f2f7fa;
 $white: #fff;
 
 //brand
-$brand: #00607a;
-$brand-very-very-dark: #002630;
-$brand-very-dark: #003949;
-$brand-dark: #004c61;
-$brand-light: #327f94;
-$brand-very-light: #669faf;
-$brand-very-very-light: #99bfc9;
+$brand: #19abff !default;
+$brand-very-very-dark: #062a3f !default;
+$brand-very-dark: #0f6799 !default;
+$brand-dark: #1489cc !default;
+$brand-light: #66c7ff !default;
+$brand-very-light: #99daff !default;
+$brand-very-very-light: #ccecff !default;
 
 $brand-2: $grey;
 
