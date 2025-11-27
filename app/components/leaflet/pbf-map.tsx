@@ -132,6 +132,7 @@ export const PbfLayerOverlay = createLayerComponent(
         }) {
           if (
             (properties as MicroRegionElevationProperties).elevation ||
+            ["ES", "FR"].includes(properties.id) ||
             !filterFeature({ properties }, props.date)
           ) {
             return undefined;
@@ -151,6 +152,7 @@ export const PbfLayerOverlay = createLayerComponent(
           },
           outline(properties) {
             return filterFeature({ properties }, props.date) &&
+              !["ES", "FR"].includes(properties.id) &&
               !regionsRegex.test(properties.id)
               ? config.map.regionStyling.clickable
               : config.map.regionStyling.hidden;
