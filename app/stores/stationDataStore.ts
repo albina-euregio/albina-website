@@ -386,15 +386,16 @@ export async function loadStationData({
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
-  const timePrefix =
-    dateTime instanceof Temporal.ZonedDateTime
-      ? `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
-      : "";
-  const stationsFile = !dateTime
-    ? window.config.apis.weather.stations
-    : window.config.template(window.config.apis.weather.stationsDateTime, {
-        dateTime: timePrefix
-      });
+  let stationsFile = window.config.apis.weather.stations;
+
+  if (dateTime instanceof Temporal.ZonedDateTime) {
+    const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+    stationsFile = window.config.template(
+      window.config.apis.weather.stationsDateTime,
+      { dateTime: timePrefix }
+    );
+  }
+
   const response = await fetch(stationsFile, { cache: "no-cache" });
   if (!response.ok) throw new Error(response.statusText);
   if (response.status === 404) return [];
