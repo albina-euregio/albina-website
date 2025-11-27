@@ -264,7 +264,7 @@ const StationDiagramImage: React.FC<{
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
     const id = station.properties?.["LWD-Nummer"] || station.id;
-    const url = window.config.template(window.config.apis.weather.smet, {
+    const url = window.config.template(station.properties.$smet, {
       timeRangePath,
       id
     });
