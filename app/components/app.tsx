@@ -61,9 +61,9 @@ const App = () => {
   });
 
   const search = new URLSearchParams(document.location.search);
-  const province = search.get("province");
+  const province = search.get("province") ?? config.province;
   useEffect(() => $province.set(province), [province]);
-  const headless = search.get("headless");
+  const headless = search.get("headless") ?? config.headless;
   useEffect(() => $headless.set(!!headless), [headless]);
 
   return (
