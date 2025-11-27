@@ -17,8 +17,8 @@ export enum EawsRegionDataLayer {
 
 export const MicroRegionPropertiesSchema = z.object({
   id: z.string(),
-  start_date: z.optional(z.nullable(z.string())),
-  end_date: z.optional(z.nullable(z.string()))
+  start_date: z.nullish(z.string()),
+  end_date: z.nullish(z.string())
 });
 export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
 
@@ -26,7 +26,7 @@ const MicroRegionElevationPropertiesSchema = z.extend(
   MicroRegionPropertiesSchema,
   {
     elevation: z.enum(["high", "low", "low_high"]),
-    threshold: z.number()
+    threshold: z.nullish(z.number())
   }
 );
 export type MicroRegionElevationProperties = z.infer<
