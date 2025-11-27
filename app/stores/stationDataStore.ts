@@ -4,8 +4,10 @@ import { useCallback, useMemo, useState } from "react";
 
 interface FeatureProperties {
   $smet: string;
+  $stationsArchiveFile: string;
   "LWD-Nummer"?: string;
   "LWD-Region"?: string;
+  altitude?: number;
   Beobachtungsbeginn: string;
   date?: Date;
   GS_O?: number;
@@ -51,7 +53,7 @@ export class StationData {
     return this.geometry.coordinates[1];
   }
   get elev() {
-    return this.geometry.coordinates[2];
+    return this.geometry.coordinates[2] ?? this.properties.altitude;
   }
   get name() {
     return this.properties.name;
@@ -387,30 +389,43 @@ export async function loadStationData({
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
-  let stationsFile = window.config.apis.weather.stations;
+  const all = window.config.apis.stations.map(
+    async ({
+      smet,
+      stations,
+      stationsDateTime,
+      stationsArchiveFile,
+      stationsArchiveOperators
+    }) => {
+      if (dateTime instanceof Temporal.ZonedDateTime) {
+        const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+        stations = window.config.template(stationsDateTime, {
+          dateTime: timePrefix
+        });
+      }
 
-  if (dateTime instanceof Temporal.ZonedDateTime) {
-    const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
-    stationsFile = window.config.template(
-      window.config.apis.weather.stationsDateTime,
-      { dateTime: timePrefix }
-    );
-  }
+      const response = await fetch(stations, { cache: "no-cache" });
+      if (!response.ok) throw new Error(response.statusText);
+      if (response.status === 404) return [];
+      const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
+        await response.json();
+      return json.features
+        .filter(el => ogd || el.properties.date)
+        .filter(
+          el =>
+            !ogd ||
+            new RegExp(stationsArchiveOperators).exec(el.properties.operator)
+        )
+        .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+        .map(feature => {
+          feature.properties.$smet = smet;
+          feature.properties.$stationsArchiveFile = stationsArchiveFile;
 
-  const response = await fetch(stationsFile, { cache: "no-cache" });
-  if (!response.ok) throw new Error(response.statusText);
-  if (response.status === 404) return [];
-  const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
-    await response.json();
-  const stationsArchiveOperators = new RegExp(
-    window.config.apis.weather.stationsArchiveOperators
+          return new StationData(feature);
+        });
+    }
   );
-  return json.features
-    .filter(el => ogd || el.properties.date)
-    .filter(el => !ogd || stationsArchiveOperators.exec(el.properties.operator))
-    .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-    .map(feature => {
-      feature.properties.$smet = window.config.apis.weather.smet;
-      return new StationData(feature);
-    });
+
+  const data = await Promise.all(all);
+  return data.flat();
 }
