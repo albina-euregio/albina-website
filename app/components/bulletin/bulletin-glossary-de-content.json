@@ -12,6 +12,7 @@
       "no": "likevektsomvandling",
       "ro": "rotunjirea-cristalelor-de-zapada",
       "sk": "zaokruhlovanie-snehovych-zrn",
+      "sl": "zrnjenje",
       "de": "abbauende-schneeumwandlung-isotherme-metamorphose"
     },
     "heading": "Abbauende Schneeumwandlung, isotherme Metamorphose",
@@ -31,6 +32,7 @@
       "no": "flakbredde",
       "ro": "latimea-placii",
       "sk": "sirka-dosky",
+      "sl": "sirina-napoke",
       "de": "abrissbreite-breite-des-anrisses-bei-schneebrettlawinen"
     },
     "heading": "Abrissbreite, Breite des Anrisses (bei Schneebrettlawinen)",
@@ -50,6 +52,7 @@
       "no": "utstraling",
       "ro": "radiatie-emisa-de-unda-lunga",
       "sk": "dlhovlnne-vyzarovanie",
+      "sl": "dolgovalovno-sevanje-povrsine-snezne-odeje",
       "de": "abstrahlung-ausstrahlung-strahlungsnacht"
     },
     "heading": "Abstrahlung, Ausstrahlung, Strahlungsnacht",
@@ -69,6 +72,7 @@
       "no": "gammel-snooverflate-gammelt-snodekke",
       "ro": "zapada-veche-strat-vechi-de-zapada",
       "sk": "stara-snehova-pokryvka-stare-snehove-vrstvy",
+      "sl": "stara-snezna-odeja",
       "de": "altschneedecke"
     },
     "heading": "Altschneedecke",
@@ -84,6 +88,7 @@
       "fr": "neige-ancienne-sous-couche-fragile-persistante-situation-avalancheuse-typique",
       "is": "vidvarandi-veikt-lag",
       "it": "strati-deboli-persistenti-problema-tipico-valanghivo",
+      "sl": "problem-trdozivih-sibkih-plasti",
       "de": "altschneeproblem"
     },
     "heading": "Altschneeproblem",
@@ -102,6 +107,7 @@
       "no": "rimoppbygging",
       "ro": "inghetul",
       "sk": "vytvaranie-namrazy",
+      "sl": "trdo-ivje",
       "de": "anraum"
     },
     "heading": "Anraum",
@@ -121,6 +127,7 @@
       "no": "losneomradet",
       "ro": "zona-de-plecare-declansare",
       "sk": "odtrhova-zona",
+      "sl": "obmocje-splazitve",
       "de": "anrissgebiet-anrisszone"
     },
     "heading": "Anrissgebiet, Anrisszone",
@@ -140,6 +147,7 @@
       "no": "bruddkanthoyde",
       "ro": "grosimea-stratului-de-ruptura",
       "sk": "hrubka-vyska-odtrhu",
+      "sl": "visina-napoke",
       "de": "anrisshohe"
     },
     "heading": "Anrissh\u00f6he",
@@ -159,6 +167,7 @@
       "no": "flaklengde-lengde-pa-losneomrade-ved-flakskred",
       "ro": "lungimea-zonei-de-ruptura-in-cazul-avalanselor-de-placa",
       "sk": "velkost-odtrhovej-zony-pri-doskovych-lavinach",
+      "sl": "dolzina-splazitve-plazu-sprijetega-snega",
       "de": "anrisslange-lange-des-anrisses-bei-schneebrettlawinen"
     },
     "heading": "Anrissl\u00e4nge, L\u00e4nge des Anrisses (bei Schneebrettlawinen)",
@@ -178,6 +187,7 @@
       "no": "flaktykkelse",
       "ro": "grosimea-placii",
       "sk": "hrubka-dosky",
+      "sl": "debelina-napoke",
       "de": "anrissmachtigkeit-dicke-bei-schneebrettlawinen"
     },
     "heading": "Anrissm\u00e4chtigkeit, Dicke (bei Schneebrettlawinen)",
@@ -197,6 +207,7 @@
       "no": "oppbyggende-omvandling-kinetisk-omvandling",
       "ro": "metamorfism-cinetic-fatetare",
       "sk": "konstruktivna-premena-snehu",
+      "sl": "srezenje",
       "de": "aufbauende-umwandlung-facettenbildung"
     },
     "heading": "Aufbauende Umwandlung, Facettenbildung",
@@ -216,6 +227,7 @@
       "no": "begerkrystaller",
       "ro": "chiciura-de-profunzime-cristale-tip-cupa",
       "sk": "dutinova-inovat-poharikovite-krystaly",
+      "sl": "casasti-kristali-sreza",
       "de": "becherkristalle-tiefenreif-schwimmschnee"
     },
     "heading": "Becherkristalle, Tiefenreif, Schwimmschnee",
@@ -235,6 +247,7 @@
       "no": "svakt-lag-svakt-bundet-lag",
       "ro": "strat-de-zapada-cu-coeziune-slaba",
       "sk": "vrstva-so-slabymi-vzajomnymi-vazbami",
+      "sl": "slabo-sprijeta-snezna-plast",
       "de": "bindungsarme-schneeschicht"
     },
     "heading": "Bindungsarme Schneeschicht",
@@ -254,6 +267,7 @@
       "no": "flakskred-som-gar-ned-til-bakken",
       "ro": "avalansa-de-profunzime-de-adancime-de-fund",
       "sk": "zakladova-lavina",
+      "sl": "talni-plaz-sprijetega-snega",
       "de": "bodenlawine"
     },
     "heading": "Bodenlawine",
@@ -273,6 +287,7 @@
       "no": "gjennomslagsskare-bruddskare",
       "ro": "crusta-neportanta",
       "sk": "lamava-kora",
+      "sl": "lomljiva-skorja",
       "de": "bruchharsch"
     },
     "heading": "Bruchharsch",
@@ -292,6 +307,7 @@
       "no": "renne-gjel",
       "ro": "culoar",
       "sk": "kuloar",
+      "sl": "zleb",
       "de": "couloir"
     },
     "heading": "Couloir",
@@ -311,6 +327,7 @@
       "no": "ustabilt",
       "ro": "unstable",
       "sk": "nestabilny",
+      "sl": "nestabilen",
       "de": "destabilisiert"
     },
     "heading": "Destabilisiert",
@@ -330,6 +347,7 @@
       "no": "fuktig-sno",
       "ro": "zapada-umezita",
       "sk": "velmi-vlhky-sneh",
+      "sl": "izrazito-vlazen-sneg",
       "de": "durchfeuchteter-schnee-schwach-feucht"
     },
     "heading": "Durchfeuchteter Schnee, schwach feucht",
@@ -349,6 +367,7 @@
       "no": "vat-sno",
       "ro": "zapada-uda",
       "sk": "velmi-mokry-sneh",
+      "sl": "izrazito-moker-sneg",
       "de": "durchnasster-schnee"
     },
     "heading": "Durchn\u00e4sster Schnee",
@@ -368,6 +387,7 @@
       "no": "leheng",
       "ro": "portiune-a-pantei-unde-sunt-acumulari-de-zapada",
       "sk": "naviaty-svah",
+      "sl": "obmocje-nastajanja-zametov",
       "de": "eingewehte-hangzone"
     },
     "heading": "Eingewehte Hangzone",
@@ -387,6 +407,7 @@
       "no": "innstraling",
       "ro": "radiatie-incidenta",
       "sk": "prichadzajuce-ziarenie",
+      "sl": "prejeto-sevanje",
       "de": "einstrahlung"
     },
     "heading": "Einstrahlung",
@@ -406,6 +427,7 @@
       "no": "flere-losneomrader",
       "ro": "zona-de-alimentare-declansare-a-avalanselor",
       "sk": "viacpocetne-odtrhove-zony",
+      "sl": "redisce-plazu",
       "de": "einzugsgebiet-von-lawinen"
     },
     "heading": "Einzugsgebiet (von Lawinen)",
@@ -425,6 +447,7 @@
       "no": "islinse-islag",
       "ro": "crusta-interna-de-gheata",
       "sk": "ladova-lamela",
+      "sl": "ledena-lamela",
       "de": "eislamelle"
     },
     "heading": "Eislamelle",
@@ -444,6 +467,7 @@
       "no": "isskred",
       "ro": "ice-avalanche",
       "sk": "ladova-lavina",
+      "sl": "ledeni-plaz",
       "de": "eislawine"
     },
     "heading": "Eislawine",
@@ -463,6 +487,7 @@
       "no": "avlastningsavstand",
       "ro": "spatierea-sau-pastrarea-distantelor",
       "sk": "rozstupy",
+      "sl": "varnostna-razdalja",
       "de": "entlastungsabstande"
     },
     "heading": "Entlastungsabst\u00e4nde",
@@ -482,6 +507,7 @@
       "no": "eksponert",
       "ro": "expunere",
       "sk": "exponovany",
+      "sl": "izpostavljen",
       "de": "exponiert"
     },
     "heading": "Exponiert",
@@ -501,6 +527,7 @@
       "no": "eksponert-strekning",
       "ro": "cale-de-transport-expusa",
       "sk": "exponovany-dopravny-koridor",
+      "sl": "izpostavljena-prometnica",
       "de": "exponierter-verkehrsweg"
     },
     "heading": "Exponierter Verkehrsweg",
@@ -520,6 +547,7 @@
       "no": "eksposisjon-hengretning",
       "ro": "orientare",
       "sk": "orientacia",
+      "sl": "lega-pobocja",
       "de": "exposition-hangrichtung"
     },
     "heading": "Exposition, Hangrichtung",
@@ -539,6 +567,7 @@
       "no": "veldig-bratt-ekstremt-terreng",
       "ro": "teren-extrem",
       "sk": "velmi-strmy-extremny-teren",
+      "sl": "zelo-strm-teren",
       "de": "extremes-steilgelande"
     },
     "heading": "Extremes Steilgel\u00e4nde",
@@ -558,6 +587,7 @@
       "no": "nedre-del-av-klippe",
       "ro": "piciorul-unui-perete-stancos",
       "sk": "upatie-skalnej-steny",
+      "sl": "vznozje-skalne-stene",
       "de": "felswandfus"
     },
     "heading": "Felswandfu\u00df",
@@ -577,6 +607,7 @@
       "no": "fjernutlosning",
       "ro": "declansare-de-la-distanta",
       "sk": "dialkove-uvolnenie",
+      "sl": "daljinska-sprozitev",
       "de": "fernauslosung"
     },
     "heading": "Fernausl\u00f6sung",
@@ -596,6 +627,7 @@
       "no": "styrke-i-snoen",
       "ro": "rezistenta-zapezii",
       "sk": "pevnost-snehu",
+      "sl": "trdnost-snezne-plasti",
       "de": "festigkeit-im-schnee"
     },
     "heading": "Festigkeit (im Schnee)",
@@ -615,6 +647,7 @@
       "no": "avtakende-styrke-i-et-snolag",
       "ro": "scaderea-pierderea-rezistentei-in-interiorul-unui-strat-de-zapada",
       "sk": "znizujuca-sa-pevnost-vrstvy-snehu",
+      "sl": "zmanjsanje-trdnosti-snezne-plasti",
       "de": "festigkeitsabnahme-verlust-in-einer-schneeschicht"
     },
     "heading": "Festigkeitsabnahme, -verlust (in einer Schneeschicht)",
@@ -634,6 +667,7 @@
       "no": "okende-styrke-i-et-snolag",
       "ro": "cresterea-rezistentei-intr-un-strat-de-zapada",
       "sk": "zvysujuca-sa-pevnost-vrstvy-snehu",
+      "sl": "povecevanje-trdnosti-snezne-odeje",
       "de": "festigkeitszunahme-in-einer-schneeschicht"
     },
     "heading": "Festigkeitszunahme (in einer Schneeschicht)",
@@ -653,6 +687,7 @@
       "no": "nedbrytende-omvandling",
       "ro": "cristale-identificabile",
       "sk": "plstnaty-sneh",
+      "sl": "polsteni-sneg",
       "de": "filziger-schnee"
     },
     "heading": "Filziger Schnee",
@@ -672,6 +707,7 @@
       "no": "firn",
       "ro": "firn",
       "sk": "firn",
+      "sl": "firn",
       "de": "firn"
     },
     "heading": "Firn",
@@ -691,6 +727,7 @@
       "no": "solskare",
       "ro": "oglinda-de-firn",
       "sk": "firnove-zrkadlo",
+      "sl": "skorjasti-pozled",
       "de": "firnspiegel"
     },
     "heading": "Firnspiegel",
@@ -710,6 +747,7 @@
       "no": "glidesprekker",
       "ro": "crapatura-in-stratul-de-zapada",
       "sk": "trhlina-natrz",
+      "sl": "zdrsno-ustje",
       "de": "fischmaul-gleitschneemaul-gleitschneeriss"
     },
     "heading": "Fischmaul, Gleitschneemaul, Gleitschneeriss",
@@ -729,6 +767,7 @@
       "no": "flytelag",
       "ro": "avalansa-curgatoare",
       "sk": "tecuca-lavina",
+      "sl": "tekoci-plaz",
       "de": "flieslawine"
     },
     "heading": "Flie\u00dflawine",
@@ -748,6 +787,7 @@
       "no": "bundet-sno",
       "ro": "zapada-legata-consolidata",
       "sk": "zviazany-sneh",
+      "sl": "sprijet-sneg",
       "de": "gebundener-schnee"
     },
     "heading": "Gebundener Schnee",
@@ -767,6 +807,7 @@
       "no": "fare",
       "ro": "pericol",
       "sk": "nebezpecenstvo",
+      "sl": "nevarnost",
       "de": "gefahr"
     },
     "heading": "Gefahr",
@@ -775,11 +816,13 @@
   },
   "danger-patterns": {
     "ids": {
+      "ar": "patrons-de-perilh",
       "cs": "modely-lavinoveho-nebezpeci",
       "en": "danger-patterns",
       "es": "situaciones-de-peligro",
       "fr": "modeles-de-danger",
       "it": "situazioni-tipo",
+      "sl": "vzorci-nevarnosti",
       "de": "gefahrenmuster"
     },
     "heading": "Gefahrenmuster",
@@ -799,6 +842,7 @@
       "no": "skredutsatt-terreng",
       "ro": "zona-periculoasa-in-caz-de-avalansa",
       "sk": "lavinove-uzemie-ohrozena-zona",
+      "sl": "plazovito-obmocje",
       "de": "gefahrenstellen-bei-lawinen"
     },
     "heading": "Gefahrenstellen (bei Lawinen)",
@@ -818,6 +862,7 @@
       "no": "sikrede-omrader",
       "ro": "zone-sigure",
       "sk": "zabezpecene-uzemie",
+      "sl": "zavarovana-obmocja",
       "de": "gesicherte-gebiete"
     },
     "heading": "Gesicherte Gebiete",
@@ -837,6 +882,7 @@
       "no": "glidning-snoglidning",
       "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
       "sk": "klzuci-sneh",
+      "sl": "drseci-sneg",
       "de": "gleiten-schneegleiten"
     },
     "heading": "Gleiten, Schneegleiten",
@@ -856,6 +902,7 @@
       "no": "glidelag",
       "ro": "plan-de-alunecare",
       "sk": "klzna-plocha",
+      "sl": "drsna-ploskev",
       "de": "gleitflache"
     },
     "heading": "Gleitfl\u00e4che",
@@ -871,6 +918,7 @@
       "fr": "neige-glissante-situation-avalancheuse-typique",
       "is": "snjoskrid-sem-snjoflodavandi",
       "it": "valanghe-di-slittamento-problema-tipico-valanghivo",
+      "sl": "problem-drsecega-snega",
       "de": "gleitschneeproblem"
     },
     "heading": "Gleitschneeproblem",
@@ -890,6 +938,7 @@
       "no": "glideskred",
       "ro": "curgere-sau-avalansa-de-alunecare",
       "sk": "klzavy-splaz-klzava-lavina",
+      "sl": "zdrsni-plaz",
       "de": "gleitschneerutsch-gleitschneelawine"
     },
     "heading": "Gleitschneerutsch, Gleitschneelawine",
@@ -908,6 +957,7 @@
       "no": "rygg",
       "ro": "creasta",
       "sk": "hreben",
+      "sl": "sleme",
       "de": "grat"
     },
     "heading": "Grat",
@@ -927,6 +977,7 @@
       "no": "sprohagl",
       "ro": "mazariche",
       "sk": "krupky",
+      "sl": "babje-pseno",
       "de": "graupel"
     },
     "heading": "Graupel",
@@ -946,6 +997,7 @@
       "no": "grunnskred-snoskred-som-losner-ved-bakken",
       "ro": "avalansa-de-profunzime-de-adancime-de-fund",
       "sk": "zakladova-lavina",
+      "sl": "talni-plaz",
       "de": "grundlawine"
     },
     "heading": "Grundlawine",
@@ -961,6 +1013,7 @@
       "fr": "ecoulement-des-eaux-souterraines",
       "is": "utstreymi-grunnvatns",
       "it": "deflusso-di-acqua-di-falda",
+      "sl": "podtalni-iztok",
       "de": "grundwasseraustritt"
     },
     "heading": "Grundwasseraustritt",
@@ -980,6 +1033,7 @@
       "no": "skraningskant",
       "ro": "discontinuitate-a-pantei",
       "sk": "hrana-svahu-lom-terenu",
+      "sl": "prelomnica",
       "de": "hangkante"
     },
     "heading": "Hangkante",
@@ -999,6 +1053,7 @@
       "no": "skredutsatt-transportlinje",
       "ro": "cale-de-transport-aflata-in-pericol",
       "sk": "ohrozena-dopravna-cesta",
+      "sl": "ogrozena-prometnica",
       "de": "hangnaher-verkehrsweg"
     },
     "heading": "Hangnaher Verkehrsweg",
@@ -1018,6 +1073,7 @@
       "no": "helningsvinkel-bratthet",
       "ro": "declivitatea-inclinatia-unei-pante",
       "sk": "sklon-svahu",
+      "sl": "naklon-pobocja",
       "de": "hangneigung"
     },
     "heading": "Hangneigung",
@@ -1037,6 +1093,7 @@
       "no": "overflateskare",
       "ro": "crusta",
       "sk": "kora",
+      "sl": "skorja",
       "de": "harsch"
     },
     "heading": "Harsch",
@@ -1056,6 +1113,7 @@
       "no": "overflateskare",
       "ro": "crusta-superficiala",
       "sk": "povrchova-kora",
+      "sl": "povrsinska-skorja",
       "de": "harschdeckel"
     },
     "heading": "Harschdeckel",
@@ -1075,6 +1133,7 @@
       "no": "hoyalpine-omrader",
       "ro": "zona-alpina-inalta",
       "sk": "vysokohorske-oblasti",
+      "sl": "visokogorje",
       "de": "hochgebirge"
     },
     "heading": "Hochgebirge",
@@ -1088,6 +1147,7 @@
       "en": "hardness-of-a-snowlayer",
       "es": "dureza-de-un-estrato-de-nieve",
       "is": "harka-snjolags",
+      "sl": "trdota-snezne-plasti",
       "de": "harte-einer-schneeschicht"
     },
     "heading": "H\u00e4rte (einer Schneeschicht)",
@@ -1106,6 +1166,7 @@
       "no": "hoydeniva",
       "ro": "etaje-altitudinale",
       "sk": "nadmorska-vyska",
+      "sl": "visinski-pas",
       "de": "hohenlage"
     },
     "heading": "H\u00f6henlage",
@@ -1124,6 +1185,7 @@
       "no": "interalpine-omrader",
       "ro": "regiuni-intra-alpine",
       "sk": "vnutrohorske-regiony",
+      "sl": "notranje-alpske-regije",
       "de": "inneralpin"
     },
     "heading": "Inneralpin",
@@ -1142,6 +1204,7 @@
       "no": "saerlig-ved-stor-tilleggsbelastning",
       "ro": "in-special-cu-o-suprasarcina-ridicata",
       "sk": "najma-s-vysokym-dodatocnym-zatazenim",
+      "sl": "se-posebej-ob-veliki-dodatni-obremenitvi",
       "de": "insbesondere-bei-groser-zusatzbelastung"
     },
     "heading": "Insbesondere (bei gro\u00dfer Zusatzbelastung)",
@@ -1161,6 +1224,7 @@
       "no": "isotermt-snodekke",
       "ro": "izotermia-stratului-de-zapada",
       "sk": "izotermicka-snehova-pokryvka",
+      "sl": "izotermna-snezna-odeja",
       "de": "isotherme-schneedecke"
     },
     "heading": "Isotherme Schneedecke",
@@ -1180,6 +1244,7 @@
       "no": "hoydedrag",
       "ro": "linie-de-creasta",
       "sk": "chrbat-linia-hrebena",
+      "sl": "grebenska-linija",
       "de": "kamm"
     },
     "heading": "Kamm",
@@ -1199,6 +1264,7 @@
       "no": "apen-fjellside-skraning-omrade-et-stykke-fra-hoydedrag",
       "ro": "prelungire-a-crestelor-panta-degajata",
       "sk": "uzemie-vzdialene-od-hrebena-otvorene-svahy",
+      "sl": "odprto-pobocje-dalec-od-grebena",
       "de": "kammfern-freie-hanglage"
     },
     "heading": "Kammfern, freie Hanglage",
@@ -1218,6 +1284,7 @@
       "no": "vindutsatte-terrengformasjoner",
       "ro": "in-apropierea-crestelor-liniei-de-creasta-sau-varfului",
       "sk": "uzemie-v-blizkosti-hrebena-piliera-alebo-vrcholu",
+      "sl": "obmocje-grebenov",
       "de": "kammlage-kammnah-gratnah-gipfelnah"
     },
     "heading": "Kammlage, kammnah, gratnah, gipfelnah",
@@ -1234,6 +1301,7 @@
       "is": "kantadir-kristallar-sem-eru-ad-runnast",
       "it": "cristalli-a-forme-miste",
       "no": "avrundet-kantkornet-sno",
+      "sl": "zaobljena-osrezena-zrna",
       "de": "kantig-abgerundete-schneekristalle"
     },
     "heading": "Kantig abgerundete Schneekristalle",
@@ -1253,6 +1321,7 @@
       "no": "kantkornet-sno",
       "ro": "cristale-plane-fatetate",
       "sk": "hranatorznne-snehove-krystaly-zrna",
+      "sl": "srez",
       "de": "kantigkorniger-schnee"
     },
     "heading": "Kantigk\u00f6rniger Schnee",
@@ -1272,6 +1341,7 @@
       "no": "sma-skala",
       "ro": "scara-mica",
       "sk": "mala-mierka",
+      "sl": "majhno-merilo",
       "de": "kleinraumig"
     },
     "heading": "Kleinr\u00e4umig",
@@ -1291,6 +1361,7 @@
       "no": "kiritisk-nysnomengde",
       "ro": "grosime-critica-a-zapezii-proaspete",
       "sk": "kriticka-hlbka-noveho-snehu",
+      "sl": "kriticna-visina-novozapadlega-snega",
       "de": "kritische-neuschneemenge"
     },
     "heading": "Kritische Neuschneemenge",
@@ -1310,6 +1381,7 @@
       "no": "kunstig-skredutlosning",
       "ro": "avalansa-declansata-artificial",
       "sk": "umele-uvolnenie-laviny",
+      "sl": "namerna-sprozitev-sneznega-plazu",
       "de": "kunstliche-lawinenauslosung"
     },
     "heading": "K\u00fcnstliche Lawinenausl\u00f6sung",
@@ -1329,6 +1401,7 @@
       "no": "snoskred",
       "ro": "avalansa-de-zapada",
       "sk": "lavina",
+      "sl": "snezni-plaz",
       "de": "lawine-schneelawine"
     },
     "heading": "Lawine (Schneelawine)",
@@ -1345,6 +1418,7 @@
       "is": "tegundir-snjofloda-gerdir-snjofloda",
       "it": "tipi-di-valanghe",
       "ro": "tipuri-de-avalanse",
+      "sl": "vrste-sneznih-plazov",
       "de": "lawinenarten"
     },
     "heading": "Lawinenarten",
@@ -1360,6 +1434,7 @@
       "fr": "degres-de-danger",
       "is": "haettuskali",
       "it": "scala-del-pericolo",
+      "sl": "lestvica-nevarnosti",
       "de": "lawinengefahrenstufe"
     },
     "heading": "Lawinengefahrenstufe",
@@ -1379,6 +1454,7 @@
       "no": "skredstorrelse",
       "ro": "marimea-avalansei",
       "sk": "velkost-laviny",
+      "sl": "velikost-sneznega-plazu",
       "de": "lawinengrose"
     },
     "heading": "Lawinengr\u00f6\u00dfe",
@@ -1398,6 +1474,7 @@
       "no": "utlopsomrade",
       "ro": "depozit-de-avalansa",
       "sk": "lavinovy-nanos",
+      "sl": "plazovina",
       "de": "lawinenkegel"
     },
     "heading": "Lawinenkegel",
@@ -1417,6 +1494,7 @@
       "no": "snoskredvarsel",
       "ro": "buletinul-de-avalansa",
       "sk": "lavinove-spravy-informacia-o-lavinovej-situacii",
+      "sl": "lavinski-bilten",
       "de": "lawinenlagebericht-lawinenbulletin"
     },
     "heading": "Lawinenlagebericht, Lawinenbulletin",
@@ -1432,6 +1510,7 @@
       "fr": "situations-avalancheuses-typiques",
       "is": "daemigerdur-snjoflodavandi",
       "it": "problemi-tipici-valanghivi",
+      "sl": "plazovni-problemi",
       "de": "lawinenprobleme"
     },
     "heading": "Lawinenprobleme",
@@ -1451,6 +1530,7 @@
       "no": "le-side-le-heng",
       "ro": "panta-de-sub-vant-aflata-la-adapost-de-vant",
       "sk": "zaveterny-svah-svah-vo-veternom-tieni",
+      "sl": "zavetrno-pobocje",
       "de": "lee-hang-windschattenhang"
     },
     "heading": "Lee-Hang, Windschattenhang",
@@ -1470,6 +1550,7 @@
       "no": "lossnoskred",
       "ro": "avalansa-de-zapada-fara-coeziune-cu-declansare-punctuala",
       "sk": "lavina-z-volneho-snehu-lavina-s-bodovym-odtrhom",
+      "sl": "plaz-nesprijetega-snega",
       "de": "lockerschneelawine"
     },
     "heading": "Lockerschneelawine",
@@ -1489,6 +1570,7 @@
       "no": "lokalt",
       "ro": "local-specific-unui-loc",
       "sk": "lokalny",
+      "sl": "krajevno",
       "de": "lokal-ortlich"
     },
     "heading": "Lokal, \u00f6rtlich",
@@ -1507,6 +1589,7 @@
       "no": "loside",
       "ro": "panta-expusa-vantului",
       "sk": "naveterny-svah",
+      "sl": "privetrno-pobocje",
       "de": "luv-hang-windexponierter-hang"
     },
     "heading": "Luv-Hang, windexponierter Hang",
@@ -1526,6 +1609,7 @@
       "no": "utlopslengde",
       "ro": "lungimea-avalansei",
       "sk": "dlzka-laviny",
+      "sl": "dolzina-sneznega-plazu",
       "de": "lange-der-lawine"
     },
     "heading": "L\u00e4nge der Lawine",
@@ -1545,6 +1629,7 @@
       "no": "mekanisk-nedbrytning-vind",
       "ro": "metamorfoza-datorata-vantului-transformarea-mecanica-a-cristalelor",
       "sk": "metamorfoza-vetrom-mechanicka-premena-snehovych-krystalov",
+      "sl": "vetrna-preobrazba-snega",
       "de": "mechanische-umwandlung"
     },
     "heading": "Mechanische Umwandlung",
@@ -1564,6 +1649,7 @@
       "no": "forsenkning-skal",
       "ro": "bowl",
       "sk": "mulda",
+      "sl": "krnica",
       "de": "mulde"
     },
     "heading": "Mulde",
@@ -1583,6 +1669,7 @@
       "no": "mulig",
       "ro": "posibil-ceva-care-este-posibil",
       "sk": "mozny-potencialny",
+      "sl": "mogoc-mogoce",
       "de": "moglich-etwas-ist-moglich"
     },
     "heading": "M\u00f6glich (etwas ist m\u00f6glich)",
@@ -1602,6 +1689,7 @@
       "no": "vatt-snoskred",
       "ro": "avalansa-de-zapada-umeda",
       "sk": "lavina-z-mokreho-snehu",
+      "sl": "plaz-mokrega-snega",
       "de": "nassschneelawine"
     },
     "heading": "Nassschneelawine",
@@ -1620,6 +1708,7 @@
       "no": "sorpeskred",
       "ro": "avalansa-de-zapada-saturata-cu-apa",
       "sk": "snehotok-tecuca-lavina",
+      "sl": "plundrasti-tok",
       "de": "nassschneemure-sulzstrom"
     },
     "heading": "Nassschneemure, Sulzstrom",
@@ -1635,6 +1724,7 @@
       "fr": "neige-humide-situation-avalancheuse-typique",
       "is": "votur-snjor-sem-snjoflodavandi",
       "it": "neve-bagnata-problema-tipico-valanghivo",
+      "sl": "problem-mokrega-snega",
       "de": "nassschneeproblem"
     },
     "heading": "Nassschneeproblem",
@@ -1654,6 +1744,7 @@
       "no": "naturlig-utlost-skred",
       "ro": "declansare-naturala-spontana",
       "sk": "samovolne-uvolnena-lavina",
+      "sl": "naravno-sprozen-snezni-plaz",
       "de": "naturliche-lawinenauslosung-selbstauslosung-von-lawinen-spontane-lawinen"
     },
     "heading": "Nat\u00fcrliche Lawinenausl\u00f6sung, Selbstausl\u00f6sung von Lawinen, spontane Lawinen",
@@ -1673,6 +1764,7 @@
       "no": "nysno",
       "ro": "zapada-proaspata",
       "sk": "novy-sneh",
+      "sl": "novozapadli-sneg",
       "de": "neuschnee"
     },
     "heading": "Neuschnee",
@@ -1692,6 +1784,7 @@
       "no": "nysnomengde",
       "ro": "cumulul-zapezii-proaspete",
       "sk": "mnozstvo-noveho-snehu",
+      "sl": "skupna-visina-novega-snega",
       "de": "neuschneemenge"
     },
     "heading": "Neuschneemenge",
@@ -1711,6 +1804,7 @@
       "no": "nysnodybde",
       "ro": "grosimea-zapezii-proaspete",
       "sk": "vyska-noveho-cerstveho-snehu",
+      "sl": "visina-novozapadlega-snega",
       "de": "neuschneemenge"
     },
     "heading": "Neuschneemenge",
@@ -1726,6 +1820,7 @@
       "fr": "neige-fraiche-situation-avalancheuse-typique",
       "is": "nysnaevi-sem-snjoflodavandi",
       "it": "neve-fresca-problema-tipico-valanghivo",
+      "sl": "problem-novega-snega",
       "de": "neuschneeproblem"
     },
     "heading": "Neuschneeproblem",
@@ -1745,6 +1840,7 @@
       "no": "nullisoterm",
       "ro": "inaltimea-izotermei-de-0-grade",
       "sk": "nulova-izoterma",
+      "sl": "visina-nicte-izoterme",
       "de": "nullgradgrenze"
     },
     "heading": "Nullgradgrenze",
@@ -1764,6 +1860,7 @@
       "no": "overflaterim-rimkrystaller",
       "ro": "chiciura-givraj-de-suprafata",
       "sk": "povrchova-inovat",
+      "sl": "povrsinski-srez",
       "de": "oberflachenreif"
     },
     "heading": "Oberfl\u00e4chenreif",
@@ -1783,6 +1880,7 @@
       "no": "flakskred",
       "ro": "avalansa-de-placa-de-suprafata",
       "sk": "povrchova-doskova-lavina",
+      "sl": "vrhnji-plaz",
       "de": "oberlawine"
     },
     "heading": "Oberlawine",
@@ -1802,6 +1900,7 @@
       "no": "skar-pass",
       "ro": "trecatoare",
       "sk": "sedlo-uzemie-okolo-sedla",
+      "sl": "obmocje-prevala",
       "de": "passlage"
     },
     "heading": "Passlage",
@@ -1821,6 +1920,7 @@
       "no": "region",
       "ro": "regiune-regional",
       "sk": "region-regionalny",
+      "sl": "regionalno",
       "de": "region-regional"
     },
     "heading": "Region, regional",
@@ -1840,6 +1940,7 @@
       "no": "renne-gjel",
       "ro": "vaioaga",
       "sk": "zlab",
+      "sl": "grapa",
       "de": "rinne-runse"
     },
     "heading": "Rinne, Runse",
@@ -1858,6 +1959,7 @@
       "no": "smal-rygg",
       "ro": "coasta",
       "sk": "rebro",
+      "sl": "rebro",
       "de": "rippe"
     },
     "heading": "Rippe",
@@ -1877,6 +1979,7 @@
       "no": "risiko",
       "ro": "risc",
       "sk": "riziko",
+      "sl": "tveganje",
       "de": "risiko"
     },
     "heading": "Risiko",
@@ -1896,6 +1999,7 @@
       "no": "skytende-sprekker",
       "ro": "formarea-rapida-a-fisurilor-in-strat",
       "sk": "praskajuce-trhliny",
+      "sl": "napredovanje-napoke",
       "de": "rissbildung"
     },
     "heading": "Rissbildung",
@@ -1915,6 +2019,7 @@
       "no": "avrundede-korn",
       "ro": "cristale-fine",
       "sk": "okruhlozrnne-snehove-krystaly",
+      "sl": "drobnozrnati-sneg",
       "de": "rundkorniger-schnee-feinkorniger-schnee"
     },
     "heading": "Rundk\u00f6rniger Schnee, feink\u00f6rniger Schnee",
@@ -1934,6 +2039,7 @@
       "no": "bred-rygg",
       "ro": "muchie-larga-spinare",
       "sk": "siroky-hreben-chrbat",
+      "sl": "rama",
       "de": "rucken"
     },
     "heading": "R\u00fccken",
@@ -1953,6 +2059,7 @@
       "no": "skyggeside",
       "ro": "panta-umbrita-aflata-in-umbra",
       "sk": "tienisty-svah",
+      "sl": "osoje",
       "de": "schattenhang-schattenseitig-schattseitig"
     },
     "heading": "Schattenhang, schattenseitig, schattseitig",
@@ -1972,6 +2079,7 @@
       "no": "smelteomvandling",
       "ro": "metamorfoza-de-topire",
       "sk": "premena-topenim-a-zamrzanim",
+      "sl": "srenjenje",
       "de": "schmelz-umwandlung"
     },
     "heading": "Schmelz-Umwandlung",
@@ -1991,6 +2099,7 @@
       "no": "smelteformer",
       "ro": "granule-rotunde-de-zapada-umeda",
       "sk": "topiaci-sa-sneh",
+      "sl": "zrna-srenca",
       "de": "schmelzform"
     },
     "heading": "Schmelzform",
@@ -2010,6 +2119,7 @@
       "no": "skare-smelte-fryse-skare",
       "ro": "crusta-de-inghet-dezghet",
       "sk": "ladova-kora",
+      "sl": "sren-osrenica",
       "de": "schmelzharsch-schmelzharschdeckel-schmelzkruste"
     },
     "heading": "Schmelzharsch, Schmelzharschdeckel, Schmelzkruste",
@@ -2029,6 +2139,7 @@
       "no": "flakskred-langs-bakken",
       "ro": "avalansa-de-placa",
       "sk": "doskova-lavina",
+      "sl": "plaz-sprijetega-snega",
       "de": "schneebrettlawine"
     },
     "heading": "Schneebrettlawine",
@@ -2048,6 +2159,7 @@
       "no": "snodekke-snopakke",
       "ro": "strat-de-zapada",
       "sk": "snehova-pokryvka",
+      "sl": "snezna-odeja",
       "de": "schneedecke"
     },
     "heading": "Schneedecke",
@@ -2067,6 +2179,7 @@
       "no": "lagdelt-snodekke",
       "ro": "structura-stratului-de-zapada",
       "sk": "vrstvenie-snehu",
+      "sl": "plastovitost-snezne-odeje",
       "de": "schneedeckenaufbau"
     },
     "heading": "Schneedeckenaufbau",
@@ -2086,6 +2199,7 @@
       "no": "snodekke",
       "ro": "baza-stratului-de-zapada-strat-de-baza",
       "sk": "zaklad-snehovej-pokryvky",
+      "sl": "prizemne-plasti-snezne-odeje",
       "de": "schneedeckenfundament-basisschicht"
     },
     "heading": "Schneedeckenfundament, Basisschicht",
@@ -2105,6 +2219,7 @@
       "no": "stabilitet-snodekkets-stabilitet",
       "ro": "stabilitate-stabilitatea-stratului-de-zapada",
       "sk": "stabilita-stabilita-snehovej-pokryvky",
+      "sl": "stabilnost-snezne-odeje",
       "de": "schneedeckenstabilitat"
     },
     "heading": "Schneedeckenstabilit\u00e4t",
@@ -2124,6 +2239,7 @@
       "no": "snotetthet",
       "ro": "densitatea-zapezii",
       "sk": "hustota-snehu",
+      "sl": "gostota-snega",
       "de": "schneedichte"
     },
     "heading": "Schneedichte",
@@ -2143,6 +2259,7 @@
       "no": "snotykkelse",
       "ro": "grosimea-stratului-zapada",
       "sk": "hrubka-snehu",
+      "sl": "debelina-snezne-odeje",
       "de": "schneedicke"
     },
     "heading": "Schneedicke",
@@ -2162,6 +2279,7 @@
       "no": "fokksnoansamling-snofokk",
       "ro": "dune-de-zapada-sastrugi",
       "sk": "snehove-duny",
+      "sl": "snezne-grbine-in-sipine",
       "de": "schneedunen-dunen"
     },
     "heading": "Schneed\u00fcnen, D\u00fcnen",
@@ -2180,6 +2298,7 @@
       "no": "snosky",
       "ro": "transport-de-zapada-in-altitudine",
       "sk": "oblak-snehu",
+      "sl": "snezna-zastava",
       "de": "schneefahne"
     },
     "heading": "Schneefahne",
@@ -2199,6 +2318,7 @@
       "no": "nysnogrense",
       "ro": "limita-ninsorilor-ploaie-zapada",
       "sk": "hranica-snezenia",
+      "sl": "meja-snezenja",
       "de": "schneefallgrenze"
     },
     "heading": "Schneefallgrenze",
@@ -2218,6 +2338,7 @@
       "no": "snodriv",
       "ro": "transport-de-zapada-la-sol",
       "sk": "unasany-previevany-sneh",
+      "sl": "nizki-zivi-sneg",
       "de": "schneefegen"
     },
     "heading": "Schneefegen",
@@ -2237,6 +2358,7 @@
       "no": "snogrense",
       "ro": "limita-zapezii-permanente",
       "sk": "snezna-ciara",
+      "sl": "snezna-meja",
       "de": "schneegrenze"
     },
     "heading": "Schneegrenze",
@@ -2256,6 +2378,7 @@
       "no": "snodybde-snohoyde",
       "ro": "inaltimea-stratului-de-zapada",
       "sk": "vyska-snehu",
+      "sl": "visina-snega",
       "de": "schneehohe"
     },
     "heading": "Schneeh\u00f6he",
@@ -2275,6 +2398,7 @@
       "no": "snohoydetilvekst",
       "ro": "cresterea-stratului-de-zapada",
       "sk": "narast-vysky-snehovej-pokryvky",
+      "sl": "povecanje-visine-snezne-odeje",
       "de": "schneehohenzuwachs"
     },
     "heading": "Schneeh\u00f6henzuwachs",
@@ -2293,6 +2417,7 @@
       "no": "sorpe",
       "ro": "zloata-zapada-flescaita-saturata-cu-apa",
       "sk": "kasa",
+      "sl": "snezna-brozga",
       "de": "schneematsch-faulschnee-gatsch"
     },
     "heading": "Schneematsch, Faulschnee, Gatsch",
@@ -2306,6 +2431,7 @@
       "en": "snow-profile",
       "es": "perfil-estratigrafico",
       "is": "snjogryfja-snjosnid",
+      "sl": "prerez-snezne-odeje",
       "de": "schneeprofil"
     },
     "heading": "Schneeprofil",
@@ -2325,6 +2451,7 @@
       "no": "snofokk-snodrift",
       "ro": "transport-de-zapada-la-inaltime",
       "sk": "previevany-sneh-vysoko-zvireny-sneh",
+      "sl": "visok-zivi-sneg",
       "de": "schneetreiben"
     },
     "heading": "Schneetreiben",
@@ -2344,6 +2471,7 @@
       "no": "snoomvandling",
       "ro": "metamorfoza-zapezii",
       "sk": "premena-snehu-metamorfoza-snehu",
+      "sl": "preobrazba-snega",
       "de": "schneeumwandlung-metamorphose"
     },
     "heading": "Schneeumwandlung (Metamorphose)",
@@ -2363,6 +2491,7 @@
       "no": "vindtransportert-sno",
       "ro": "transport-de-zapada",
       "sk": "prenasany-sneh",
+      "sl": "zivi-sneg",
       "de": "schneeverfrachtung"
     },
     "heading": "Schneeverfrachtung",
@@ -2382,6 +2511,7 @@
       "no": "svakt-lag",
       "ro": "portiune-a-pantei-unde-sunt-acumulari-de-zapada",
       "sk": "kriticka-vrstva",
+      "sl": "sibka-plast",
       "de": "schwachschicht-schwache-schicht"
     },
     "heading": "Schwachschicht, schwache Schicht",
@@ -2401,6 +2531,7 @@
       "no": "setning",
       "ro": "settlement",
       "sk": "sadanie",
+      "sl": "sesedanje",
       "de": "setzung"
     },
     "heading": "Setzung",
@@ -2420,6 +2551,7 @@
       "no": "dronn",
       "ro": "whumpf-sunet-de-prabusire",
       "sk": "whoom-zvuk-zvuk-kolabujucej-vrstvy-snehu",
+      "sl": "vuuuf-zvok-rusenja",
       "de": "setzungsgerausche"
     },
     "heading": "Setzungsger\u00e4usche",
@@ -2439,6 +2571,7 @@
       "no": "sikkerhetsavstand",
       "ro": "distanta-de-siguranta",
       "sk": "bezpecnostny-rozstup",
+      "sl": "posamicno-gibanje",
       "de": "sicherheitsabstand"
     },
     "heading": "Sicherheitsabstand",
@@ -2458,6 +2591,7 @@
       "no": "sintring",
       "ro": "sinterizare",
       "sk": "spajanie",
+      "sl": "sintranje",
       "de": "sintern"
     },
     "heading": "Sintern",
@@ -2477,6 +2611,7 @@
       "no": "solside",
       "ro": "panta-insorita-expusa-actiunii-razelor-solare",
       "sk": "osvieteny-svah",
+      "sl": "prisoja",
       "de": "sonnenhang-sonnenseitig-sonnseitig"
     },
     "heading": "Sonnenhang, Sonnenseitig, Sonnseitig",
@@ -2496,6 +2631,7 @@
       "no": "spenning-i-snodekket",
       "ro": "forte-interne-in-interiorul-stratului-de-zapada",
       "sk": "napatia-v-snehovej-pokryvke",
+      "sl": "napetost-v-snezni-odeji",
       "de": "spannungen-in-der-schneedecke"
     },
     "heading": "Spannungen (in der Schneedecke)",
@@ -2514,6 +2650,7 @@
       "no": "stabilisert-konsolidert",
       "ro": "stabilizat-consolidat-cresterea-rezistentei",
       "sk": "stabilizovany",
+      "sl": "stabiliziran",
       "de": "stabilisiert-verfestigt"
     },
     "heading": "Stabilisiert, verfestigt",
@@ -2533,6 +2670,7 @@
       "no": "snoskyskred",
       "ro": "avalansa-de-aerosol-avalansa-prafoasa-pudroasa-pulver",
       "sk": "prachova-lavina",
+      "sl": "prsni-plaz",
       "de": "staublawine"
     },
     "heading": "Staublawine",
@@ -2552,6 +2690,7 @@
       "no": "bratt-terreng",
       "ro": "teren-inclinat",
       "sk": "strmy-teren",
+      "sl": "strm-teren",
       "de": "steilgelande"
     },
     "heading": "Steilgel\u00e4nde",
@@ -2571,6 +2710,7 @@
       "no": "straling",
       "ro": "radiatie",
       "sk": "ziarenie",
+      "sl": "sevanje",
       "de": "strahlung"
     },
     "heading": "Strahlung",
@@ -2590,6 +2730,7 @@
       "no": "ustabilt-snodekke",
       "ro": "predispus-la-declansare",
       "sk": "nachylne-na-uvolnenie",
+      "sl": "podvrzen-sprozitvi",
       "de": "storanfallig"
     },
     "heading": "St\u00f6ranf\u00e4llig",
@@ -2598,6 +2739,7 @@
   },
   "corn-snow": {
     "ids": {
+      "ar": "nheu-primauera",
       "ca": "neu-primavera",
       "cs": "jarni-snih-firn",
       "en": "corn-snow",
@@ -2608,6 +2750,7 @@
       "no": "varsno",
       "ro": "zapada-grauntoasa",
       "sk": "jarny-sneh-firn",
+      "sl": "veselec",
       "de": "sulzschnee"
     },
     "heading": "Sulzschnee",
@@ -2627,6 +2770,7 @@
       "no": "dognvariasjoner-snoskredfare",
       "ro": "modificari-diurne",
       "sk": "denne-zmeny-zmeny-v-priebehu-dna",
+      "sl": "spreminjanje-nevarnosti-cez-dan",
       "de": "tagesgang-tagesverlauf"
     },
     "heading": "Tagesgang, Tagesverlauf",
@@ -2646,6 +2790,7 @@
       "no": "dalside",
       "ro": "flancul-vaii",
       "sk": "steny-doliny",
+      "sl": "pobocje-doline",
       "de": "talflanke"
     },
     "heading": "Talflanke",
@@ -2664,6 +2809,7 @@
       "no": "dalbotnskred",
       "ro": "avalansa-de-vale",
       "sk": "udolna-lavina",
+      "sl": "dolinski-plaz",
       "de": "tallawine"
     },
     "heading": "Tallawine",
@@ -2683,6 +2829,7 @@
       "no": "temperaturgradient",
       "ro": "gradient-de-temperatura",
       "sk": "teplotny-gradient",
+      "sl": "gradient-temperature",
       "de": "temperaturgradient"
     },
     "heading": "Temperaturgradient",
@@ -2702,6 +2849,7 @@
       "no": "baerende-snodekke",
       "ro": "strat-de-zapada-portant",
       "sk": "snehova-pokryvka-schopna-niest-zatazenie",
+      "sl": "nosilna-snezna-odeja",
       "de": "tragfahige-schneedecke"
     },
     "heading": "Tragf\u00e4hige Schneedecke",
@@ -2721,6 +2869,7 @@
       "no": "fokksnoansamling-drivsnoansamling",
       "ro": "depozit-de-zapada-troian",
       "sk": "ukladanie-snehu-vytvaranie-zavejov",
+      "sl": "snezni-zamet",
       "de": "triebschneeansammlungen-triebschneeablagerung-triebschneelinse"
     },
     "heading": "Triebschneeansammlungen, Triebschneeablagerung, Triebschneelinse",
@@ -2736,6 +2885,7 @@
       "fr": "neige-ventee-situation-avalancheuse-typique",
       "is": "skafsnjor-sem-snjoflodavandi",
       "it": "neve-ventata-problema-tipico-valanghivo",
+      "sl": "problem-napihanega-snega",
       "de": "triebschneeproblem"
     },
     "heading": "Triebschneeproblem",
@@ -2755,6 +2905,7 @@
       "no": "ubunden-sno",
       "ro": "zapada-fara-coeziune",
       "sk": "volny-sneh",
+      "sl": "nesprijet-sneg",
       "de": "ungebundener-schnee"
     },
     "heading": "Ungebundener Schnee",
@@ -2774,6 +2925,7 @@
       "no": "konsolidering",
       "ro": "consolidare",
       "sk": "konsolidacia",
+      "sl": "sprijemanje",
       "de": "verfestigung"
     },
     "heading": "Verfestigung",
@@ -2793,6 +2945,7 @@
       "no": "sannsynlig-noe-er-sannsynlig",
       "ro": "probabil-ceva-care-este-probabil",
       "sk": "pravdepodobne-nieco-je-pravdepodobne",
+      "sl": "verjeten-nekaj-je-verjetno",
       "de": "wahrscheinlich-etwas-ist-wahrscheinlich"
     },
     "heading": "Wahrscheinlich (etwas ist wahrscheinlich)",
@@ -2812,6 +2965,7 @@
       "no": "tregrensa",
       "ro": "limita-de-impadurire",
       "sk": "hranica-lesa",
+      "sl": "drevesna-meja",
       "de": "waldgrenze"
     },
     "heading": "Waldgrenze",
@@ -2831,6 +2985,7 @@
       "no": "snoens-vannekvivalent",
       "ro": "echivalent-in-apa-al-zapezii",
       "sk": "vodna-hodnota-snehu",
+      "sl": "vodnatost-snega",
       "de": "wasserwert"
     },
     "heading": "Wasserwert",
@@ -2850,6 +3005,7 @@
       "no": "skavl",
       "ro": "cornisa",
       "sk": "prevej",
+      "sl": "opast",
       "de": "wechte"
     },
     "heading": "Wechte",
@@ -2869,6 +3025,7 @@
       "no": "svaert-luftig-lossno",
       "ro": "zapada-proaspata-foarte-usoara",
       "sk": "velmi-lahky-novy-sneh",
+      "sl": "novozapadli-sneg-z-zelo-majhno-gostoto",
       "de": "wildschnee"
     },
     "heading": "Wildschnee",
@@ -2888,6 +3045,7 @@
       "no": "le",
       "ro": "leeward",
       "sk": "zaveterny",
+      "sl": "zavetrje",
       "de": "windabgewandt"
     },
     "heading": "Windabgewandt",
@@ -2907,6 +3065,7 @@
       "no": "loside",
       "ro": "expus-vantului",
       "sk": "naveterny",
+      "sl": "privetrje",
       "de": "windexponiert"
     },
     "heading": "Windexponiert",
@@ -2926,6 +3085,7 @@
       "no": "sastrugi-vinderodert-snoflate",
       "ro": "zapada-valurita-incretita",
       "sk": "vlnky",
+      "sl": "zastrugi",
       "de": "windgangeln"
     },
     "heading": "Windgangeln",
@@ -2945,6 +3105,7 @@
       "no": "vindskare",
       "ro": "crusta-de-vant",
       "sk": "veterna-kora",
+      "sl": "vetrna-skorja",
       "de": "windharsch-windharschdeckel"
     },
     "heading": "Windharsch, Windharschdeckel",
@@ -2964,6 +3125,7 @@
       "no": "vindhastighet",
       "ro": "viteza-vantului",
       "sk": "rychlost-vetra",
+      "sl": "hitrost-vetra",
       "de": "windstarke"
     },
     "heading": "Windst\u00e4rke",
@@ -2983,6 +3145,7 @@
       "no": "tilleggsbelastning",
       "ro": "supraincarcare-slaba-usoara",
       "sk": "dodatocne-zatazenie",
+      "sl": "dodatna-obremenitev",
       "de": "zusatzbelastung"
     },
     "heading": "Zusatzbelastung",
