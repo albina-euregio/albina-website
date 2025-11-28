@@ -236,7 +236,12 @@ class BulletinCollection {
   }
 
   get bulletins(): Bulletin[] {
-    return [...(this.dataRaw?.bulletins ?? []), ...this.extraBulletins];
+    const bulletins = this.dataRaw?.bulletins ?? [];
+    const bulletinIDs = new Set(bulletins.map(b => b.bulletinID));
+    return [
+      ...bulletins,
+      ...this.extraBulletins.filter(b => !bulletinIDs.has(b.bulletinID))
+    ];
   }
 
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
