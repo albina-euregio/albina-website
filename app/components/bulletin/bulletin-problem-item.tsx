@@ -368,7 +368,9 @@ function compareAspects(
   problem: AvalancheProblem,
   problem170000: AvalancheProblem
 ): boolean {
-  return problem?.aspects.join() === problem170000?.aspects.join();
+  const a1 = problem?.aspects ?? [];
+  const a2 = problem170000?.aspects ?? [];
+  return a1.slice().sort().join() === a2.slice().sort().join();
 }
 
 function compareElevation(
