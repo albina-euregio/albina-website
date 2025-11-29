@@ -119,8 +119,7 @@ function MenuItem(
 
   return (
     <li
-      onClick={event => {
-        event.stopPropagation();
+      onClick={() => {
         if (typeof props.onSelect === "function") {
           props.onSelect(e);
         }
