@@ -857,77 +857,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/browser-utils@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry-internal/browser-utils@npm:10.26.0"
-  dependencies:
-    "@sentry/core": "npm:10.26.0"
-  checksum: 10c0/b2d2ffef601ea76a481dbb4886bd89d642c2eec6f47f53f9fcae127c978ffcd4649dc7fbf6888a198453cfc773504a93a60a42477bce7a064738a0814dbff194
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/feedback@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry-internal/feedback@npm:10.26.0"
-  dependencies:
-    "@sentry/core": "npm:10.26.0"
-  checksum: 10c0/3497aceaad2df1e824b040c2cd602832ac2de9ce7a686c126b05f0a4ff2458e2d5d67f25c3542b53f84d853ab51c038fd61b881c77b413f4049b244a74a53c89
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/replay-canvas@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry-internal/replay-canvas@npm:10.26.0"
-  dependencies:
-    "@sentry-internal/replay": "npm:10.26.0"
-    "@sentry/core": "npm:10.26.0"
-  checksum: 10c0/4af74826e37e52857b731fbc96705987a20006b40cd976a351706c96c47e404d235e60730c2b701820301d01a771c0023764484662b1bc01ed20cc132de53603
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/replay@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry-internal/replay@npm:10.26.0"
-  dependencies:
-    "@sentry-internal/browser-utils": "npm:10.26.0"
-    "@sentry/core": "npm:10.26.0"
-  checksum: 10c0/3565617fb26f552119bf9f0e55df4a3995385ce97175f3e5980ddec80f78cfdb37ca998a7c349613344016275ab6db6ef6d5be53048f1693736fb0d2f46ef4ac
-  languageName: node
-  linkType: hard
-
-"@sentry/browser@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry/browser@npm:10.26.0"
-  dependencies:
-    "@sentry-internal/browser-utils": "npm:10.26.0"
-    "@sentry-internal/feedback": "npm:10.26.0"
-    "@sentry-internal/replay": "npm:10.26.0"
-    "@sentry-internal/replay-canvas": "npm:10.26.0"
-    "@sentry/core": "npm:10.26.0"
-  checksum: 10c0/c86291ec76d09491260b8394423851cfd7a9a645c2e3b2d6ce8b16704aaf266762a1b0cf58c56f7f09b849990792d07b397c6f096fac866f01e4b3068fec7748
-  languageName: node
-  linkType: hard
-
-"@sentry/core@npm:10.26.0":
-  version: 10.26.0
-  resolution: "@sentry/core@npm:10.26.0"
-  checksum: 10c0/629c991a2373228483f7ca804f0a13b8df0d5f672874c88b370e085e4e03b0330c64354ad502ead105e81c139cd8d1013b39fbc44ee879eb4b49c55aae62462c
-  languageName: node
-  linkType: hard
-
-"@sentry/react@npm:^10.26.0":
-  version: 10.26.0
-  resolution: "@sentry/react@npm:10.26.0"
-  dependencies:
-    "@sentry/browser": "npm:10.26.0"
-    "@sentry/core": "npm:10.26.0"
-    hoist-non-react-statics: "npm:^3.3.2"
-  peerDependencies:
-    react: ^16.14.0 || 17.x || 18.x || 19.x
-  checksum: 10c0/fedd1cf6fe4335cd1afa6e1b972b16638b68a295a2974de60021a3597ff8b3ed8e2fa4b38bc9bac1776ae36b5be25f3f3f7bb9fe159b543b5b8e3e43c3c52ffd
-  languageName: node
-  linkType: hard
-
 "@sindresorhus/merge-streams@npm:^4.0.0":
   version: 4.0.0
   resolution: "@sindresorhus/merge-streams@npm:4.0.0"
@@ -1112,7 +1041,6 @@ __metadata:
     "@iframe-resizer/parent": "npm:^5.5.1"
     "@nanostores/react": "npm:^1.0.0"
     "@playwright/test": "npm:^1.55.0"
-    "@sentry/react": "npm:^10.26.0"
     "@types/diff-match-patch": "npm:^1.0.36"
     "@types/leaflet": "npm:^1.9.21"
     "@types/leaflet.vectorgrid": "npm:^1.3.5"
@@ -1820,15 +1748,6 @@ __metadata:
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: 10c0/386d011a553e02bc594ac2ca0bd6d9e4c22d7fa8cfbfc448a6d148c59ea881b092db9dbe3547ae4b88e55f1b01f7c4a2ecc53b310c042793e63aa44cf6c257f2
-  languageName: node
-  linkType: hard
-
-"hoist-non-react-statics@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "hoist-non-react-statics@npm:3.3.2"
-  dependencies:
-    react-is: "npm:^16.7.0"
-  checksum: 10c0/fe0889169e845d738b59b64badf5e55fa3cf20454f9203d1eb088df322d49d4318df774828e789898dcb280e8a5521bb59b3203385662ca5e9218a6ca5820e74
   languageName: node
   linkType: hard
 
@@ -2932,13 +2851,6 @@ __metadata:
   peerDependencies:
     react: ^19.2.0
   checksum: 10c0/fa2cae05248d01288e91523b590ce4e7635b1e13f1344e225f850d722a8da037bf0782f63b1c1d46353334e0c696909b82e582f8cad607948fde6f7646cc18d9
-  languageName: node
-  linkType: hard
-
-"react-is@npm:^16.7.0":
-  version: 16.13.1
-  resolution: "react-is@npm:16.13.1"
-  checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
   languageName: node
   linkType: hard
 

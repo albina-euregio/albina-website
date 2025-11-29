@@ -6,8 +6,6 @@ import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
 import { newRegionRegex } from "./util/newRegionRegex";
 
-(() => import("./sentry"))();
-
 window["scroll_duration"] = 1000;
 
 /*

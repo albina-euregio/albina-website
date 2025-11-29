@@ -30,7 +30,6 @@
     "@iframe-resizer/child": "^5.5.1",
     "@iframe-resizer/parent": "^5.5.1",
     "@nanostores/react": "^1.0.0",
-    "@sentry/react": "^10.26.0",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
