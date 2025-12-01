@@ -8,7 +8,6 @@ interface Props {
   all: JSX.Element;
   none: JSX.Element;
   handleChange(str: string): unknown;
-  regionCode?: string;
   regionCodes?: string[];
   buttongroup: boolean;
 }
@@ -39,11 +38,7 @@ export default function ProvinceFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric
-        onChange={props.handleChange}
-        value={props.regionCode}
-        {...props}
-      >
+      <Selectric onChange={props.handleChange} value={props.value} {...props}>
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
         {(props.regionCodes ?? config.regionCodes).map(r => (

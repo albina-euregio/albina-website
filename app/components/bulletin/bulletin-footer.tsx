@@ -19,7 +19,7 @@ function BulletinFooter() {
 
         <ul className="list-inline list-buttongroup-dense">
           {weatherRegions.map(region => (
-            <li>
+            <li key={region}>
               <a
                 key={region}
                 className="secondary pure-button"
