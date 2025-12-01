@@ -89,6 +89,7 @@ const StationMeasurements = () => {
             setActiveRegion(val);
             updateURL();
           }}
+          regionCodes={config.stationRegions}
           value={activeRegion}
           className={activeRegion !== "all" ? classChanged : ""}
         />
