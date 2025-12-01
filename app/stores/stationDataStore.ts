@@ -1,40 +1,43 @@
 import { Temporal } from "temporal-polyfill";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
+import { z } from "zod/mini";
 
-interface FeatureProperties {
-  $smet: string;
-  $stationsArchiveFile: string;
-  "LWD-Nummer"?: string;
-  "LWD-Region"?: string;
-  altitude?: number;
-  Beobachtungsbeginn: string;
-  date?: Date;
-  GS_O?: number;
-  GS_U?: number;
-  HS?: number;
-  HSD24?: number;
-  HSD48?: number;
-  HSD72?: number;
-  N6?: number;
-  N24?: number;
-  N48?: number;
-  N72?: number;
-  LD?: number;
-  LT_MAX?: number;
-  LT_MIN?: number;
-  LT?: number;
-  name: string;
-  OFT?: number;
-  operator: string;
-  operatorLink?: string;
-  plot: string;
-  RH?: number;
-  TD?: number;
-  WG_BOE?: number;
-  WG?: number;
-  WR?: number;
-}
+const FeaturePropertiesSchema = z.object({
+  $smet: z.nullish(z.string()),
+  $stationsArchiveFile: z.nullish(z.string()),
+  "LWD-Nummer": z.nullish(z.string()),
+  "LWD-Region": z.nullish(z.string()),
+  altitude: z.nullish(z.number()),
+  Beobachtungsbeginn: z.nullish(z.string()),
+  date: z.nullish(z.date()),
+  GS_O: z.nullish(z.number()),
+  GS_U: z.nullish(z.number()),
+  HS: z.nullish(z.number()),
+  HSD24: z.nullish(z.number()),
+  HSD48: z.nullish(z.number()),
+  HSD72: z.nullish(z.number()),
+  LD: z.nullish(z.number()),
+  LT_MAX: z.nullish(z.number()),
+  LT_MIN: z.nullish(z.number()),
+  LT: z.nullish(z.number()),
+  N24: z.nullish(z.number()),
+  N48: z.nullish(z.number()),
+  N6: z.nullish(z.number()),
+  N72: z.nullish(z.number()),
+  name: z.nullish(z.string()),
+  OFT: z.nullish(z.number()),
+  operator: z.nullish(z.string()),
+  operatorLink: z.nullish(z.string()),
+  plot: z.nullish(z.string()),
+  RH: z.nullish(z.number()),
+  TD: z.nullish(z.number()),
+  WG_BOE: z.nullish(z.number()),
+  WG: z.nullish(z.number()),
+  WR: z.nullish(z.number())
+});
+
+type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
 
 export class StationData {
   id: string;
