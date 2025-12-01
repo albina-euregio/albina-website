@@ -1,8 +1,15 @@
 import React from "react";
 import { useIntl } from "../../i18n";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore";
 
 function BulletinFooter() {
   const intl = useIntl();
+  const province = useStore($province);
+  const weatherRegions = province
+    ? [province]
+    : (config.regionCodes as (typeof province)[]);
+
   return (
     <section className="section-centered section-context">
       <div className="panel">
@@ -11,48 +18,23 @@ function BulletinFooter() {
         </h2>
 
         <ul className="list-inline list-buttongroup-dense">
-          <li>
-            <a
-              className="secondary pure-button"
-              href={intl.formatMessage({
-                id: "button:weather:AT-07:link"
-              })}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {intl.formatMessage({
-                id: "region:AT-07"
-              })}
-            </a>
-          </li>
-          <li>
-            <a
-              className="secondary pure-button"
-              href={intl.formatMessage({
-                id: "button:weather:IT-32-BZ:link"
-              })}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {intl.formatMessage({
-                id: "region:IT-32-BZ"
-              })}
-            </a>
-          </li>
-          <li>
-            <a
-              className="secondary pure-button"
-              href={intl.formatMessage({
-                id: "button:weather:IT-32-TN:link"
-              })}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {intl.formatMessage({
-                id: "region:IT-32-TN"
-              })}
-            </a>
-          </li>
+          {weatherRegions.map(region => (
+            <li>
+              <a
+                key={region}
+                className="secondary pure-button"
+                href={intl.formatMessage({
+                  id: `button:weather:${region}:link`
+                })}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({
+                  id: `region:${region}`
+                })}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <h2 className="subheader">
