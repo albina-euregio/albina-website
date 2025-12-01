@@ -152,7 +152,7 @@ function Archive() {
         <ProvinceFilter
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={setRegion}
-          regionCode={region}
+          value={region}
           regionCodes={microRegions}
           title={intl.formatMessage({
             id: "measurements:table:header:microRegion"
