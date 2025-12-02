@@ -2,6 +2,47 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.4] - 2025-12-02
+
+### 🚀 Features
+
+- Add parameters for province and headless in config file
+- Use brand color in geonames
+- Use brand color in colorbar
+- Add weather button for selected provinces in footer
+
+### 🐛 Bug Fixes
+
+- Fix comparision of aspects
+- Do not require threshold in micro-regions
+
+### 🚜 Refactor
+
+- Remove @sentry/react
+
+### ⚙️ Miscellaneous Tasks
+
+- Update glossary content
+- Omit region ID in filename
+
+## [8.0.3] - 2025-11-28
+
+### 🚀 Features
+
+- Add season report 24/25 for Austria
+- Show matrix parameters only for avalanche type slab
+- Load bulletins from extra regions SI
+
+### 🐛 Bug Fixes
+
+- Safari 16.5 compatibility for leaflet
+- Remove broken marker cluster in station overlay
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade eaws-regions to v8.1.0
+- Update sentry to 10.26.0
+
 ## [8.0.2] - 2025-11-24
 
 ### 🚀 Features
