@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav";
 import PageHeader from "./organisms/page-header";
 import PageFooter from "./organisms/page-footer";
@@ -9,7 +9,7 @@ import { $headless } from "../appStore";
 
 const Page = () => {
   const location = useLocation();
-  const headlesss = useStore($headless);
+  const headless = useStore($headless);
 
   useEffect(() => {
     if (!location.pathname.split("/").includes("bulletin")) {
@@ -31,7 +31,23 @@ const Page = () => {
     />
   );
 
-  if (headlesss) {
+  if (headless && config.headlessLogo) {
+    return (
+      <>
+        <div id="page-header" className="page-header">
+          <div className="page-header-logo">
+            <Link to="/">
+              <img src={config.headlessLogo} style={{ margin: 0 }} />
+            </Link>
+          </div>
+        </div>
+        <main id="page-main" className="page-main">
+          {dev}
+          <Outlet />
+        </main>
+      </>
+    );
+  } else if (headless) {
     return (
       <>
         {dev}

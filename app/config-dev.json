@@ -1,5 +1,6 @@
 {
   "headless": false,
+  "headlessLogo": "",
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "stationRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
