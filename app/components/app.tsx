@@ -66,6 +66,15 @@ const App = () => {
   const headless = search.get("headless") ?? config.headless;
   useEffect(() => $headless.set(!!headless), [headless]);
 
+  useEffect(
+    () =>
+      document.body.parentElement?.setAttribute(
+        "data-province",
+        province ?? ""
+      ),
+    [province]
+  );
+
   return (
     <BrowserRouter basename={config.projectRoot}>
       <Suspense fallback={"..."}>
