@@ -4,6 +4,7 @@
   "printWidth": 80,
   "trailingComma": "none",
   "ignorePatterns": [
+    "pnpm-lock.yaml",
     "public/content/**/ca.html",
     "public/content/**/de.html",
     "public/content/**/en.html",
