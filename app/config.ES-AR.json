@@ -6,6 +6,7 @@
   "regionsRegex": "^(ES-AR)",
   "extraRegions": [],
   "eawsRegions": [],
+  "eawsRegionsExclude": ["ES", "FR"],
   "blogs": [],
   "techBlog": {
     "lang": "",
