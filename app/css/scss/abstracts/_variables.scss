@@ -31,26 +31,6 @@ $grey-very-light: #e6eef2;
 $grey-very-very-light: #f2f7fa;
 $white: #fff;
 
-html {
-  --brand: #19abff;
-  --brand-very-very-dark: #062a3f;
-  --brand-very-dark: #0f6799;
-  --brand-dark: #1489cc;
-  --brand-light: #66c7ff;
-  --brand-very-light: #99daff;
-  --brand-very-very-light: #ccecff;
-}
-
-html[data-province="ES-AR"] {
-  --brand: #00607a;
-  --brand-very-very-dark: #002630;
-  --brand-very-dark: #003949;
-  --brand-dark: #004c61;
-  --brand-light: #327f94;
-  --brand-very-light: #669faf;
-  --brand-very-very-light: #99bfc9;
-}
-
 //brand
 $brand: var(--brand, #19abff);
 $brand-very-very-dark: var(--brand-very-very-dark, #062a3f);
