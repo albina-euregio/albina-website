@@ -197,6 +197,9 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
+    if (!config.eawsRegions.length) {
+      return;
+    }
     try {
       const url =
         config.eawsRegions.length === 1 // this.date < "2023-11-01"
