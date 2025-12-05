@@ -32,6 +32,10 @@ export default class ExpositionIcon extends React.Component {
   }
 
   render() {
+    /// For now keep the ALBINA color for consistency with the levels_above and levels_below pictograms
+    // const style = window.getComputedStyle(document.body);
+    // const brand = style.getPropertyValue("--brand");
+
     return (
       <Tooltip label={this.props.title}>
         <div className="bulletin-report-picto bulletin-report-expositions">

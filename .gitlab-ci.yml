@@ -51,6 +51,14 @@ workflow:
     - sed 's#<title>Avalanche Bulletin Home</title>#{{placeholder "http.vars.meta"}}#' -i dist/index.html
     - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
 
+build:ES-AR:
+  extends: .build
+  variables:
+    APP_REGION: ES-AR
+  script:
+    - yarn test
+    - yarn build
+
 build:dev:
   extends: .build
   environment:
