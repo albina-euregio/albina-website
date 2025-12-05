@@ -399,7 +399,7 @@
   "dialog:weather-station-diagram:timerange:week": "Week",
   "dialog:weather-station-diagram:timerange:month": "Month",
   "dialog:weather-station-diagram:timerange:winter": "Winter",
-  "dialog:weather-station-diagram:operator:caption": "This weather station is operated by {operator}.",
+  "dialog:weather-station-diagram:provider": "Provided by",
   "dialog:weather-station-diagram:yearFlipper:latest": "Latest",
   "more:subpages:subtitle": "More",
   "more:title": "Contact & Services",

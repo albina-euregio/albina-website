@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { useIntl } from "../../i18n";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
@@ -313,21 +313,16 @@ const StationOperator: React.FC<{
   const intl = useIntl();
   return (
     <p className="weatherstation-provider">
-      {intl.formatMessage(
-        { id: "dialog:weather-station-diagram:operator:caption" },
-        {
-          operator: (
-            <a
-              key={stationData.operatorLink}
-              href={stationData.operatorLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {stationData.operator}
-            </a>
-          )
-        }
-      )}
+      <FormattedMessage id="dialog:weather-station-diagram:provider" />
+      {": "}
+      <a
+        key={stationData.operatorLink}
+        href={stationData.operatorLink}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {stationData.operator}
+      </a>
     </p>
   );
 };
@@ -442,6 +437,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
         </StationFlipper>
         <div className="modal-content">
+          {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && (
             <TimeRangeButtons
@@ -456,7 +452,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             station={station}
             timeRange={timeRange}
           />
-          {isStation && <StationOperator stationData={station} />}
         </div>
       </div>
     </div>
