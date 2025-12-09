@@ -419,25 +419,32 @@ export async function loadStationData({
         smet = smet.slice("https:/".length);
       }
 
-      const response = await fetch(stations, { cache: "no-cache" });
-      if (!response.ok) throw new Error(response.statusText);
-      if (response.status === 404) return [];
-      const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
-        await response.json();
-      return json.features
-        .filter(el => ogd || el.properties.date)
-        .filter(
-          el =>
-            !ogd ||
-            new RegExp(stationsArchiveOperators).exec(el.properties.operator)
-        )
-        .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-        .map(feature => {
-          feature.properties.$smet = smet;
-          feature.properties.$stationsArchiveFile = stationsArchiveFile;
+      try {
+        const response = await fetch(stations, { cache: "no-cache" });
+        if (!response.ok) throw new Error(response.statusText);
+        if (response.status === 404) return [];
+        const json: GeoJSON.FeatureCollection<
+          GeoJSON.Point,
+          FeatureProperties
+        > = await response.json();
+        return json.features
+          .filter(el => ogd || el.properties.date)
+          .filter(
+            el =>
+              !ogd ||
+              new RegExp(stationsArchiveOperators).exec(el.properties.operator)
+          )
+          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+          .map(feature => {
+            feature.properties.$smet = smet;
+            feature.properties.$stationsArchiveFile = stationsArchiveFile;
 
-          return new StationData(feature);
-        });
+            return new StationData(feature);
+          });
+      } catch (e) {
+        console.error("Failed fetching station data from " + stations, e);
+        return [];
+      }
     }
   );
 
