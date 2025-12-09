@@ -326,7 +326,7 @@ export const config = {
         direction: "wdir",
         clusterOperation: "max",
         metaFiles: {
-          startDate: "startDate.ok",
+          startDate: "../wind/startDate.ok",
           agl: "c-laef_agl.ok"
         },
         timeRange: ["-17520", "+60"]
