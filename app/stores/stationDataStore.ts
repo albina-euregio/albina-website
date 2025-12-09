@@ -411,6 +411,14 @@ export async function loadStationData({
         });
       }
 
+      if (
+        import.meta.env.DEV &&
+        stations.startsWith("https://smet.hydrographie.info/")
+      ) {
+        stations = stations.slice("https:/".length);
+        smet = smet.slice("https:/".length);
+      }
+
       const response = await fetch(stations, { cache: "no-cache" });
       if (!response.ok) throw new Error(response.statusText);
       if (response.status === 404) return [];
