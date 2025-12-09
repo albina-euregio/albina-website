@@ -310,7 +310,6 @@ const StationDiagramImage: React.FC<{
 const StationOperator: React.FC<{
   stationData: StationData;
 }> = ({ stationData }) => {
-  const intl = useIntl();
   return (
     <p className="weatherstation-provider">
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
