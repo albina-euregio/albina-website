@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState
 } from "react";
-import { useIntl } from "../../i18n";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
@@ -264,7 +264,10 @@ const StationDiagramImage: React.FC<{
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
     const id = station.properties?.["LWD-Nummer"] || station.id;
-    const url = `https://api.avalanche.report/lawine/grafiken/smet/${timeRangePath}/${id}.smet.gz`;
+    const url = window.config.template(station.properties.$smet, {
+      timeRangePath,
+      id
+    });
     return (
       <div className="uplots">
         <linea-plot
@@ -307,24 +310,18 @@ const StationDiagramImage: React.FC<{
 const StationOperator: React.FC<{
   stationData: StationData;
 }> = ({ stationData }) => {
-  const intl = useIntl();
   return (
     <p className="weatherstation-provider">
-      {intl.formatMessage(
-        { id: "dialog:weather-station-diagram:operator:caption" },
-        {
-          operator: (
-            <a
-              key={stationData.operatorLink}
-              href={stationData.operatorLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {stationData.operator}
-            </a>
-          )
-        }
-      )}
+      <FormattedMessage id="dialog:weather-station-diagram:provider" />
+      {": "}
+      <a
+        key={stationData.operatorLink}
+        href={stationData.operatorLink}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {stationData.operator}
+      </a>
     </p>
   );
 };
@@ -439,6 +436,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
         </StationFlipper>
         <div className="modal-content">
+          {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && (
             <TimeRangeButtons
@@ -453,7 +451,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             station={station}
             timeRange={timeRange}
           />
-          {isStation && <StationOperator stationData={station} />}
         </div>
       </div>
     </div>

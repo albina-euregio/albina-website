@@ -404,7 +404,7 @@
   "dialog:weather-station-diagram:timerange:week": "Setmana",
   "dialog:weather-station-diagram:timerange:month": "Mes",
   "dialog:weather-station-diagram:timerange:winter": "Iuèrn",
-  "dialog:weather-station-diagram:operator:caption": "Aguesta estacion meteorologica ei operada per {operator}.",
+  "dialog:weather-station-diagram:provider": "Proporcionat per",
   "dialog:weather-station-diagram:yearFlipper:latest": "Mès recent",
   "more:subpages:subtitle": "Mès",
   "more:title": "Contacte e Servicis",

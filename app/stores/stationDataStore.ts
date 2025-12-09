@@ -1,37 +1,47 @@
 import { Temporal } from "temporal-polyfill";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
+import { z } from "zod/mini";
 
-interface FeatureProperties {
-  "LWD-Nummer"?: string;
-  "LWD-Region"?: string;
-  Beobachtungsbeginn: string;
-  date?: Date;
-  GS_O?: number;
-  GS_U?: number;
-  HS?: number;
-  HSD24?: number;
-  HSD48?: number;
-  HSD72?: number;
-  N6?: number;
-  N24?: number;
-  N48?: number;
-  N72?: number;
-  LD?: number;
-  LT_MAX?: number;
-  LT_MIN?: number;
-  LT?: number;
-  name: string;
-  OFT?: number;
-  operator: string;
-  operatorLink?: string;
-  plot: string;
-  RH?: number;
-  TD?: number;
-  WG_BOE?: number;
-  WG?: number;
-  WR?: number;
-}
+const number = z
+  .nullish(z.number())
+  .check(z.overwrite(v => (v === -777 ? undefined : v)));
+const string = z.nullish(z.string());
+const FeaturePropertiesSchema = z.object({
+  $smet: string,
+  $stationsArchiveFile: string,
+  "LWD-Nummer": string,
+  "LWD-Region": string,
+  altitude: number,
+  Beobachtungsbeginn: string,
+  date: string,
+  GS_O: number,
+  GS_U: number,
+  HS: number,
+  HSD24: number,
+  HSD48: number,
+  HSD72: number,
+  LD: number,
+  LT_MAX: number,
+  LT_MIN: number,
+  LT: number,
+  N24: number,
+  N48: number,
+  N6: number,
+  N72: number,
+  name: string,
+  OFT: number,
+  operator: string,
+  operatorLink: string,
+  plot: string,
+  RH: number,
+  TD: number,
+  WG_BOE: number,
+  WG: number,
+  WR: number
+});
+
+type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
 
 export class StationData {
   id: string;
@@ -41,7 +51,7 @@ export class StationData {
   constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
     this.id = object.id as string;
     this.geometry = object.geometry;
-    this.properties = object.properties;
+    this.properties = FeaturePropertiesSchema.parse(object.properties);
   }
   get lon() {
     return this.geometry.coordinates[0];
@@ -50,7 +60,7 @@ export class StationData {
     return this.geometry.coordinates[1];
   }
   get elev() {
-    return this.geometry.coordinates[2];
+    return this.geometry.coordinates[2] ?? this.properties.altitude;
   }
   get name() {
     return this.properties.name;
@@ -386,48 +396,58 @@ export async function loadStationData({
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
-  const timePrefix =
-    dateTime instanceof Temporal.ZonedDateTime
-      ? `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
-      : "";
-  const stationsFile = !dateTime
-    ? window.config.apis.weather.stations
-    : window.config.template(window.config.apis.weather.stationsDateTime, {
-        dateTime: timePrefix
-      });
-  let response: Response;
-  try {
-    response = await fetch(stationsFile, { cache: "no-cache" });
-    if (!response.ok) throw new Error(response.statusText);
-    if (
-      !dateTime &&
-      window.config.apis.weatherFallback &&
-      Date.now() - Date.parse(response.headers.get("last-modified")) >
-        3 * 3600 * 1000
-    ) {
-      throw new Error("Too old!");
+  const all = window.config.apis.stations.map(
+    async ({
+      smet,
+      stations,
+      stationsDateTime,
+      stationsArchiveFile,
+      stationsArchiveOperators
+    }) => {
+      if (dateTime instanceof Temporal.ZonedDateTime) {
+        const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+        stations = window.config.template(stationsDateTime, {
+          dateTime: timePrefix
+        });
+      }
+
+      if (
+        import.meta.env.DEV &&
+        stations.startsWith("https://smet.hydrographie.info/")
+      ) {
+        stations = stations.slice("https:/".length);
+        smet = smet.slice("https:/".length);
+      }
+
+      try {
+        const response = await fetch(stations, { cache: "no-cache" });
+        if (!response.ok) throw new Error(response.statusText);
+        if (response.status === 404) return [];
+        const json: GeoJSON.FeatureCollection<
+          GeoJSON.Point,
+          FeatureProperties
+        > = await response.json();
+        return json.features
+          .filter(el => ogd || el.properties.date)
+          .filter(
+            el =>
+              !ogd ||
+              new RegExp(stationsArchiveOperators).exec(el.properties.operator)
+          )
+          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+          .map(feature => {
+            feature.properties.$smet = smet;
+            feature.properties.$stationsArchiveFile = stationsArchiveFile;
+
+            return new StationData(feature);
+          });
+      } catch (e) {
+        console.error("Failed fetching station data from " + stations, e);
+        return [];
+      }
     }
-  } catch (err) {
-    if (window.config.apis.weatherFallback) {
-      Object.assign(
-        window.config.apis.weather,
-        window.config.apis.weatherFallback
-      );
-      delete window.config.apis.weatherFallback;
-      console.warn("Using fallback weather data!");
-      return loadStationData({ dateTime, ogd });
-    }
-    throw err;
-  }
-  if (response.status === 404) return [];
-  const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
-    await response.json();
-  const stationsArchiveOperators = new RegExp(
-    window.config.apis.weather.stationsArchiveOperators
   );
-  return json.features
-    .filter(el => ogd || el.properties.date)
-    .filter(el => !ogd || stationsArchiveOperators.exec(el.properties.operator))
-    .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-    .map(feature => new StationData(feature));
+
+  const data = await Promise.all(all);
+  return data.flat();
 }

@@ -404,7 +404,7 @@
   "dialog:weather-station-diagram:timerange:week": "Setmana",
   "dialog:weather-station-diagram:timerange:month": "Mes",
   "dialog:weather-station-diagram:timerange:winter": "Hivern",
-  "dialog:weather-station-diagram:operator:caption": "Aquesta estació és operada per {operator}.",
+  "dialog:weather-station-diagram:provider": "Proporcionat per",
   "dialog:weather-station-diagram:yearFlipper:latest": "Darrer",
   "more:subpages:subtitle": "Més",
   "more:title": "Contacte i Serveis",

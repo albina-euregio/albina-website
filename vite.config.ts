@@ -71,6 +71,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    proxy: {}
+    proxy: {
+      "/smet.hydrographie.info": {
+        target: "https://smet.hydrographie.info/",
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/smet.hydrographie.info/, "")
+      }
+    }
   }
 });
