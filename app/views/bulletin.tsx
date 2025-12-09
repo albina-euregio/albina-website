@@ -156,7 +156,7 @@ const Bulletin = () => {
     mapRefs.push(map);
   };
 
-  const daytimeDependency = collection?.bulletins?.some(b =>
+  const daytimeDependency = collection?.ownBulletins?.some(b =>
     hasDaytimeDependency(b)
   );
 

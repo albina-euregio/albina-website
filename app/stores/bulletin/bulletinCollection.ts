@@ -247,6 +247,10 @@ class BulletinCollection {
     ];
   }
 
+  get ownBulletins(): Bulletin[] {
+    return this.dataRaw?.bulletins ?? [];
+  }
+
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {
     return this.bulletins.map(b => [
       b,
