@@ -2,6 +2,26 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.6] - 2025-12-09
+
+### 🚀 Features
+
+- Support logo in headless
+- Configure ES-AR
+
+### 🐛 Bug Fixes
+
+- Handle empty config.eawsRegions in bulletinCollection
+- Show AM/PM map only if own bulletins have daytime dependency
+
+### 💼 Other
+
+- Upgrade to vite 8.0.0-beta.0
+
+### ⚙️ Miscellaneous Tasks
+
+- Show markers for gust in weather maps
+
 ## [8.0.4] - 2025-12-02
 
 ### 🚀 Features
