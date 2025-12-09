@@ -404,7 +404,7 @@
   "dialog:weather-station-diagram:timerange:week": "Semaine",
   "dialog:weather-station-diagram:timerange:month": "Mois",
   "dialog:weather-station-diagram:timerange:winter": "Hiver",
-  "dialog:weather-station-diagram:operator:caption": "Cette station météorologique est opérée par {operator}.",
+  "dialog:weather-station-diagram:provider": "Provided by",
   "dialog:weather-station-diagram:yearFlipper:latest": "Dernière mise à jour",
   "more:subpages:subtitle": "Plus",
   "more:title": "Contact & Services",
