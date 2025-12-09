@@ -127,14 +127,6 @@
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-      },
-      {
-        "smet": "https://smet.hydrographie.info/{id}.smet",
-        "stations": "https://smet.hydrographie.info/stations_ktn.geojson",
-        "stationsDateTime": "https://smet.hydrographie.info/stations_ktn.geojson",
-        "stationsArchive": "",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "LWD Kärnten"
       }
     ],
     "weather": {
