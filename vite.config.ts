@@ -52,12 +52,7 @@ export default defineConfig({
         "iframe-demo": resolve(__dirname, "iframe-demo.html")
       },
       output: {
-        chunkFileNames(chunkInfo) {
-          if (chunkInfo.name.includes("iframe")) {
-            return "[name].js";
-          }
-          return "assets/[hash:19].js";
-        }
+        chunkFileNames: "assets/[hash:19].js"
       }
     },
     sourcemap: true
