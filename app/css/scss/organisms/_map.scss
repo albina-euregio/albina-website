@@ -59,12 +59,16 @@ $search-width-wide: 300px;
 //the outer container for weather-map
 .section-weather-map {
   position: absolute !important;
-  top: navigation.$page-header-height;
+  top: navigation.$page-header-height; // 48px
   left: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
   overflow: hidden;
+
+  html[data-headless] & {
+    top: 0;
+  }
 }
 
 //the maps themselves

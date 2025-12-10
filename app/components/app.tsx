@@ -66,14 +66,21 @@ const App = () => {
   const headless = search.get("headless") ?? config.headless;
   useEffect(() => $headless.set(!!headless), [headless]);
 
-  useEffect(
-    () =>
-      document.body.parentElement?.setAttribute(
-        "data-province",
-        province ?? ""
-      ),
-    [province]
-  );
+  useEffect(() => {
+    if (province) {
+      document.body.parentElement?.setAttribute("data-province", province);
+    } else {
+      document.body.parentElement?.removeAttribute("data-province");
+    }
+  }, [province]);
+
+  useEffect(() => {
+    if (headless) {
+      document.body.parentElement?.setAttribute("data-headless", "");
+    } else {
+      document.body.parentElement?.removeAttribute("data-headless");
+    }
+  }, [headless]);
 
   return (
     <BrowserRouter basename={config.projectRoot}>
