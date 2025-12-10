@@ -16,6 +16,7 @@
     "build-prod": "vite build",
     "build-beta": "vite build --base=/beta/",
     "build-dev": "vite build --base=/dev/",
+    "build-iframe": "rolldown -d dist app/iframe.ts",
     "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
