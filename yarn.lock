@@ -1064,6 +1064,7 @@ __metadata:
     react-router-dom: "npm:^7.9.3"
     react-string-replace: "npm:^1.1.1"
     react-swipeable: "npm:^7.0.2"
+    rolldown: "npm:1.0.0-beta.53"
     sass: "npm:^1.94.0"
     temporal-polyfill: "npm:^0.3.0"
     vite: "npm:^8.0.0-beta.1"
