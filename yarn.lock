@@ -1066,7 +1066,7 @@ __metadata:
     react-swipeable: "npm:^7.0.2"
     sass: "npm:^1.94.0"
     temporal-polyfill: "npm:^0.3.0"
-    vite: "npm:^8.0.0-beta.0"
+    vite: "npm:^8.0.0-beta.1"
     zod: "npm:^4.1.12"
   languageName: unknown
   linkType: soft
@@ -3370,9 +3370,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^8.0.0-beta.0":
-  version: 8.0.0-beta.0
-  resolution: "vite@npm:8.0.0-beta.0"
+"vite@npm:^8.0.0-beta.1":
+  version: 8.0.0-beta.1
+  resolution: "vite@npm:8.0.0-beta.1"
   dependencies:
     "@oxc-project/runtime": "npm:0.101.0"
     fdir: "npm:^6.5.0"
@@ -3422,7 +3422,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/cf41c574d7d8b70958b0efef059581dfad76ab00fb0daabed7c411a14bb8a6386c53cd3bd0ded6d85298fed893855c9d43eaf36a46ec21d25e80c652c1eea820
+  checksum: 10c0/a56365a67b8418fdb429c411ded7bdf7f105c087a70f3a95c5ab43ffb29a9f639287696da34dc7e86d8f374863f20299db161e392f1d90ee4f6776995f387635
   languageName: node
   linkType: hard
 
