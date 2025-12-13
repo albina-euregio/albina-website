@@ -75,16 +75,13 @@ export class StationData {
   get observationStart() {
     return this.properties.Beobachtungsbeginn;
   }
-  get state() {
+  get province() {
     const region = this.properties["LWD-Region"];
     if (typeof region !== "string") {
       return "";
     }
     const regions = [...config.regionCodes, ...config.extraRegions];
     return regions.find(r => region.startsWith(r)) ?? "";
-  }
-  get region() {
-    return this.state;
   }
   get microRegion() {
     const region = this.properties["LWD-Region"];
@@ -334,7 +331,7 @@ export function useStationData(
           row.microRegion.match(pattern) ||
           row.operator.match(pattern)
       )
-      .filter(row => !region || row.region == region)
+      .filter(row => !region || row.province == region)
       .filter(
         row =>
           !filterObservationStart ||

@@ -55,7 +55,7 @@ const StationOverlay = (props: Props) => {
       name:
         data.name +
         " " +
-        (data.region ? `(${data.region}) ` : "") +
+        (data.province ? `(${data.province}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
       detail: value + " " + props.item.units,

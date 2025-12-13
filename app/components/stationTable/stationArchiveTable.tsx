@@ -60,11 +60,12 @@ export default function StationArchiveTable(props: Props) {
       render: (_value, row) => (
         <span className="region" title={row.microRegion}>
           {intl.formatMessage({ id: `region:${row.microRegion}` })}
-          {row.region && config.regionCodes.includes(row.region as string) && (
-            <span className={`region region-${row.region}`}>
-              ({intl.formatMessage({ id: `region:${row.region}` })})
-            </span>
-          )}
+          {row.province &&
+            config.regionCodes.includes(row.province as string) && (
+              <span className={`region region-${row.province}`}>
+                ({intl.formatMessage({ id: `region:${row.province}` })})
+              </span>
+            )}
         </span>
       ),
       className: "mb-station m-name"
