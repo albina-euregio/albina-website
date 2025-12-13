@@ -95,6 +95,9 @@
     "stations": [
       {
         "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|GeoSphere Austria",
+        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+        "pngOperators": "^(?!LWD Kärnten)",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
@@ -103,17 +106,16 @@
       },
       {
         "smet": "https://smet.hydrographie.info/{id}.smet",
+        "smetOperators": "LWD Kärnten",
+        "png": "",
+        "pngOperators": "---",
         "stations": "https://smet.hydrographie.info/stations_ktn.geojson",
         "stationsDateTime": "https://smet.hydrographie.info/stations_ktn.geojson",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
       }
-    ],
-    "weather": {
-      "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}"
-    }
+    ]
   },
   "apiKeys": {
     "vapidPublicKey": "BKDMsBa2HtFUhtinNzF4fkdNX8pISXCnZziHY-2G-PHubcHzItez6j-vUVp9Wrsp7Rs454zXw6QawfzbYfzaq58",

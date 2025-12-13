@@ -22,6 +22,7 @@ export const observers = [...BeobachterAT, ...BeobachterIT].map(
     },
     name: observer.name,
     id: "observer-" + observer["plot.id"],
+    $png: "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
     plot: observer["plot.id"]
   })
 );

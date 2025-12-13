@@ -14,16 +14,8 @@ import { Temporal } from "temporal-polyfill";
 import "@albina-euregio/linea/src/linea-plot";
 import { useSwipeable } from "react-swipeable";
 
-const ENABLE_UPLOT = true;
-
 function hasInteractivePlot(station: StationData | ObserverData) {
-  return (
-    ENABLE_UPLOT &&
-    station instanceof StationData &&
-    /LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Kärnten|Tiroler Wasserkraft|Verbund|GeoSphere Austria/.test(
-      station.operator
-    )
-  );
+  return station instanceof StationData && station.$smet;
 }
 
 export interface ObserverData {
@@ -33,6 +25,7 @@ export interface ObserverData {
   name: string;
   id: string;
   plot: string;
+  $png: string;
 }
 
 const timeRanges = {
@@ -224,9 +217,11 @@ const TimeRangeButtons: React.FC<{
   return (
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[]).map(key => {
-        if (key.startsWith("interactive") && !hasInteractivePlot(station))
-          // eslint-disable-next-line react/jsx-key
-          return;
+        if (key.startsWith("interactive") && !hasInteractivePlot(station)) {
+          return <></>;
+        } else if (!key.startsWith("interactive") && !station.$png) {
+          return <></>;
+        }
         return (
           <li key={key}>
             <a
@@ -264,7 +259,7 @@ const StationDiagramImage: React.FC<{
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
     const id = station.properties?.["LWD-Nummer"] || station.id;
-    const url = window.config.template(station.properties.$smet, {
+    const url = window.config.template(station.$smet ?? "", {
       timeRangePath,
       id
     });
@@ -292,12 +287,8 @@ const StationDiagramImage: React.FC<{
     second: 0,
     millisecond: 0
   });
-  const isStation = station instanceof StationData;
-  const template = isStation
-    ? window.config.apis.weather.plots
-    : window.config.apis.weather.observers;
   const width = clientWidth >= 1100 ? 1100 : 800;
-  const src = window.config.template(template, {
+  const src = window.config.template(station.$png ?? "", {
     width,
     interval: timeRanges[timeRange],
     name: station.plot,
@@ -333,9 +324,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const myRef = useRef<HTMLDivElement>();
-  const [timeRange, setTimeRange] = useState<TimeRange>(
-    ENABLE_UPLOT ? "interactive" : "threedays"
-  );
+  const [timeRange, setTimeRange] = useState<TimeRange>("interactive");
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const stationIndex = useMemo((): number => {

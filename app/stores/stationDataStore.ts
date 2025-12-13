@@ -9,12 +9,13 @@ const number = z
 const string = z.nullish(z.string());
 const FeaturePropertiesSchema = z.object({
   $smet: string,
+  $png: string,
   $stationsArchiveFile: string,
   "LWD-Nummer": string,
   "LWD-Region": string,
   altitude: number,
   Beobachtungsbeginn: string,
-  date: string,
+  date: z.nullish(z.coerce.date()),
   GS_O: number,
   GS_U: number,
   HS: number,
@@ -29,7 +30,7 @@ const FeaturePropertiesSchema = z.object({
   N48: number,
   N6: number,
   N72: number,
-  name: string,
+  name: z.string(),
   OFT: number,
   operator: string,
   operatorLink: string,
@@ -93,7 +94,7 @@ export class StationData {
     return region.split(/ /)?.[0];
   }
   get date() {
-    return new Date(this.properties.date);
+    return this.properties.date;
   }
   get temp() {
     return this.properties.LT;
@@ -163,6 +164,13 @@ export class StationData {
 
   get plot() {
     return this.properties.plot;
+  }
+
+  get $smet() {
+    return this.properties.$smet;
+  }
+  get $png() {
+    return this.properties.$png;
   }
 
   get parametersForDialog() {
@@ -399,6 +407,9 @@ export async function loadStationData({
   const all = window.config.apis.stations.map(
     async ({
       smet,
+      smetOperators,
+      png,
+      pngOperators,
       stations,
       stationsDateTime,
       stationsArchiveFile,
@@ -429,18 +440,28 @@ export async function loadStationData({
         > = await response.json();
         return json.features
           .filter(el => ogd || el.properties.date)
-          .filter(
-            el =>
-              !ogd ||
-              new RegExp(stationsArchiveOperators).exec(el.properties.operator)
-          )
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
-            feature.properties.$smet = smet;
+            const operator = feature.properties.operator ?? "";
+            feature.properties.$smet = new RegExp(smetOperators).test(operator)
+              ? smet
+              : "";
+            feature.properties.$png = new RegExp(pngOperators).test(operator)
+              ? png
+              : "";
             feature.properties.$stationsArchiveFile = stationsArchiveFile;
 
+            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
+              return;
+            }
+
+            if (!feature.properties.$smet && !feature.properties.$png) {
+              return;
+            }
+
             return new StationData(feature);
-          });
+          })
+          .filter(d => !!d);
       } catch (e) {
         console.error("Failed fetching station data from " + stations, e);
         return [];
