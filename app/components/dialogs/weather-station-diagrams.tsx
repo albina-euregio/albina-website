@@ -216,13 +216,15 @@ const TimeRangeButtons: React.FC<{
   const intl = useIntl();
   return (
     <ul className="list-inline filter primary">
-      {(Object.keys(timeRanges) as TimeRange[]).map(key => {
-        if (key.startsWith("interactive") && !hasInteractivePlot(station)) {
-          return <></>;
-        } else if (!key.startsWith("interactive") && !station.$png) {
-          return <></>;
-        }
-        return (
+      {(Object.keys(timeRanges) as TimeRange[])
+        .filter(key => {
+          if (key.startsWith("interactive")) {
+            return hasInteractivePlot(station);
+          } else {
+            return station.$png;
+          }
+        })
+        .map(key => (
           <li key={key}>
             <a
               href="#"
@@ -238,8 +240,7 @@ const TimeRangeButtons: React.FC<{
               })}
             </a>
           </li>
-        );
-      })}
+        ))}
     </ul>
   );
 };
