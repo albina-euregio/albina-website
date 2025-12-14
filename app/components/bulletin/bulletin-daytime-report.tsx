@@ -1,5 +1,4 @@
 import React from "react";
-import type { Temporal } from "temporal-polyfill";
 import { FormattedMessage, useIntl } from "../../i18n";
 import TendencyIcon from "../icons/tendency-icon";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";

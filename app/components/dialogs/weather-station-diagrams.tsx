@@ -10,7 +10,6 @@ import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
-import { Temporal } from "temporal-polyfill";
 import "@albina-euregio/linea/dist/linea";
 import { useSwipeable } from "react-swipeable";
 

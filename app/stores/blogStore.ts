@@ -2,7 +2,6 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
-import { Temporal } from "temporal-polyfill";
 
 export const isTechBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");

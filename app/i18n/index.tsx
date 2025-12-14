@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Temporal } from "temporal-polyfill";
 import htmr from "htmr";
 import { $locale, $messages } from "../appStore";
 import { computed, StoreValue } from "nanostores";

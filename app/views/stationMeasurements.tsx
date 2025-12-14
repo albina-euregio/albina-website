@@ -11,7 +11,6 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
-import { Temporal } from "temporal-polyfill";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 

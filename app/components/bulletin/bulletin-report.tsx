@@ -4,7 +4,6 @@ import React, {
   useState,
   useMemo
 } from "react";
-import type { Temporal } from "temporal-polyfill";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";

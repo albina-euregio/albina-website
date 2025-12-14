@@ -1,4 +1,3 @@
-import type { Temporal } from "temporal-polyfill";
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
   { import: "default", eager: true }

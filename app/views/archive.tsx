@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";

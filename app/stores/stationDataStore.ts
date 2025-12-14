@@ -1,4 +1,3 @@
-import { Temporal } from "temporal-polyfill";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";

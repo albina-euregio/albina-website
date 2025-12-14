@@ -36,6 +36,10 @@ configRequest.then(async configParsed => {
 
   window.config = configParsed;
 
+  if (!globalThis.Temporal) {
+    await import("temporal-polyfill/global");
+  }
+
   const root = document.body.appendChild(document.getElementById("page-all"));
   createRoot(root).render(<App />);
 });

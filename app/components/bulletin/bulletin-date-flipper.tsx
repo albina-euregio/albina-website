@@ -1,5 +1,4 @@
 import React from "react";
-import { Temporal } from "temporal-polyfill";
 import { Link, useNavigate } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";

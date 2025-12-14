@@ -1,6 +1,5 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
-import { toTemporalInstant } from "temporal-polyfill";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -565,9 +564,10 @@ async function _loadIndexData() {
 
   try {
     const features = await loadStationData({
-      dateTime: currentTime.get()
-        ? toTemporalInstant.call(currentTime.get()).toZonedDateTimeISO("UTC")
-        : undefined
+      dateTime: currentTime
+        .get()
+        ?.toTemporalInstant()
+        ?.toZonedDateTimeISO("UTC")
     });
     stations.set(features);
   } catch (err) {

@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import Selectric from "../selectric";
 import { useIntl } from "../../i18n";
-import { Temporal } from "temporal-polyfill";
 
 interface Props {
   handleChange(month: number): unknown;

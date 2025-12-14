@@ -1,5 +1,4 @@
 import React from "react";
-import type { Temporal } from "temporal-polyfill";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { LONG_DATE_FORMAT } from "../../util/date";
