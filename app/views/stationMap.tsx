@@ -22,6 +22,9 @@ export const observers = [...BeobachterAT, ...BeobachterIT].map(
     },
     name: observer.name,
     id: "observer-" + observer["plot.id"],
+    $smet: BeobachterAT.includes(observer)
+      ? `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+      : "",
     $png: "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
     plot: observer["plot.id"]
   })

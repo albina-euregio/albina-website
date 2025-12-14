@@ -25,6 +25,7 @@ export interface ObserverData {
   name: string;
   id: string;
   plot: string;
+  $smet: string;
   $png: string;
 }
 
@@ -280,6 +281,29 @@ const StationDiagramImage: React.FC<{
     timeRange = "month";
   } else if (timeRange === "interactive_winter") {
     timeRange = "winter";
+  }
+
+  if (
+    !(station instanceof StationData) &&
+    station.$smet &&
+    import.meta.env.BASE_URL === "/dev/"
+  ) {
+    const url = station.$smet;
+    const today = Temporal.Now.plainDateISO();
+    const startDate = selectedYear
+      ? new Temporal.PlainDate(selectedYear, 9, 1)
+      : today.month >= 9
+        ? new Temporal.PlainDate(today.year, 9, 1)
+        : new Temporal.PlainDate(today.year - 1, 9, 1);
+    const endDate = startDate.add({ months: 10 });
+    return (
+      <linea-plot-year
+        key={url + startDate.toString()}
+        src={url}
+        startDate={startDate.toString()}
+        endDate={endDate.toString()}
+      />
+    );
   }
 
   let t = Temporal.Now.plainDateTimeISO();
