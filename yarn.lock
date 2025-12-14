@@ -5,13 +5,13 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@albina-euregio/linea@npm:^8.2.1":
-  version: 8.2.1
-  resolution: "@albina-euregio/linea@npm:8.2.1::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F70517866%2Fpackages%2Fnpm%2F%40albina-euregio%2Flinea%2F-%2F%40albina-euregio%2Flinea-8.2.1.tgz"
+"@albina-euregio/linea@npm:^8.2.2":
+  version: 8.2.2
+  resolution: "@albina-euregio/linea@npm:8.2.2::__archiveUrl=https%3A%2F%2Fgitlab.com%2Fapi%2Fv4%2Fprojects%2F70517866%2Fpackages%2Fnpm%2F%40albina-euregio%2Flinea%2F-%2F%40albina-euregio%2Flinea-8.2.2.tgz"
   dependencies:
     temporal-polyfill: "npm:^0.3.0"
     uplot: "npm:^1.6.32"
-  checksum: 10c0/1c353f3f196e26f6bff7160e057925c554ddaae3b13950069c8f64c6f88b7a7abc5f710c5becfc1e1a52df214fab62efb9d2a81853ec6ec2a94069f71dc239c3
+  checksum: 10c0/2da2a69db87875f8966fe847dcc176f3dfc61e7f4c1ea48dac673b0fe4145ba2b9ece5e6b23a53037ee2f86a957409b2f1551b2114419d58baf80e1f2af12d35
   languageName: node
   linkType: hard
 
@@ -1023,7 +1023,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "albina-website@workspace:."
   dependencies:
-    "@albina-euregio/linea": "npm:^8.2.1"
+    "@albina-euregio/linea": "npm:^8.2.2"
     "@eaws/micro-regions_elevation_properties": "npm:^8.1.1"
     "@eaws/micro-regions_names": "npm:^8.1.1"
     "@eaws/micro-regions_properties": "npm:^8.1.1"
