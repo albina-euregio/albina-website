@@ -160,6 +160,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             })}
             all={intl.formatMessage({ id: "filter:all" })}
             handleChange={handleChangeRegion}
+            regionCodes={config.blogRegions}
             value={region}
             className={region !== "all" ? classChanged : ""}
           />
