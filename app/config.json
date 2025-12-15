@@ -44,6 +44,15 @@
   "blogs": [
     {
       "lang": "de",
+      "name": "at-02-de",
+      "apiType": "wordpress",
+      "regions": ["AT-02"],
+      "params": {
+        "id": "blog.avalanche.report/at-02"
+      }
+    },
+    {
+      "lang": "de",
       "name": "at-07-de",
       "apiType": "wordpress",
       "regions": ["AT-07"],
