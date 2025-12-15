@@ -26,6 +26,8 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore.ts";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -75,6 +77,7 @@ interface Props {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
+  const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
@@ -230,6 +233,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                         rel="noopener noreferrer nofollow"
                         target="_blank"
                         href={config.template(config.apis.bulletin.pdf, {
+                          region: province ?? "EUREGIO",
                           bulletin: bulletin.bulletinID,
                           lang: intl.locale.slice(0, 2)
                         })}
