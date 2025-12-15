@@ -218,8 +218,10 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               ></SynthesizedBulletin>
             </div>
 
-            {bulletin.regions?.some(r =>
-              r.regionID.match(config.regionsRegex)
+            {bulletin.regions?.some(
+              r =>
+                r.regionID.match(config.regionsRegex) ||
+                r.regionID.startsWith(province || "???")
             ) && (
               <div>
                 <ul className="list-inline list-buttongroup bulletin-report-header-download">
