@@ -2,6 +2,11 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.8] - 2025-12-17
+
+### 🚀 Features
+
+- Integrate ÖBB INFRA weather stations
 
 ## [8.0.7] - 2025-12-15
 
@@ -26,7 +31,6 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Use zod in stationDataStore
-
 
 ## [8.0.6] - 2025-12-09
 
@@ -119,11 +123,9 @@
 
 - Include content_files in project
 
-
 ### 📚 Documentation
 
 - Document caddy
-
 
 ### ⚙️ Miscellaneous Tasks
 
