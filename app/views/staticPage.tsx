@@ -31,7 +31,11 @@ const StaticPage = () => {
 
   useEffect(() => {
     (async () => {
-      let url = router.path.replace(/^\/(headless)?/, "");
+      let url = router.path;
+      url = url.replace(/^\/(headless)?/, "");
+      if (`/${url}`.startsWith(import.meta.env.BASE_URL)) {
+        url = `/${url}`.slice(import.meta.env.BASE_URL.length);
+      }
       if (!url) return;
       url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
