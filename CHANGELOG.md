@@ -2,6 +2,32 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+
+## [8.0.7] - 2025-12-15
+
+### 🚀 Features
+
+- StationDataStore: fetch from multiple sources
+- Blog: add AT-02
+- WeatherStationDiagrams: use linea for observer diagrams
+
+### 🐛 Bug Fixes
+
+- Fix PDF link by using province
+- Use province placeholder in PDF URL configuration
+- Fix IFrame: build iframe.ts using rolldown, verify dist/iframe.js exists, simplify chunkFileNames
+- Fix header in headless section-weather-map
+
+### 💼 Other
+
+- Upgrade to @albina-euregio/linea 8.2.3
+- Upgrade to vite 8.0.0-beta.1
+
+### ⚙️ Miscellaneous Tasks
+
+- Use zod in stationDataStore
+
+
 ## [8.0.6] - 2025-12-09
 
 ### 🚀 Features
