@@ -793,7 +793,7 @@ export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
 function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
   return Boolean(
     checkDomainId(domainId) &&
-      config.domains[domainId].item.timeSpans.includes(timeSpan)
+    config.domains[domainId].item.timeSpans.includes(timeSpan)
   );
 }
 

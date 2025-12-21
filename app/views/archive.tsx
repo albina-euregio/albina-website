@@ -265,9 +265,7 @@ function Archive() {
         `${config.apis.bulletin.archive}tyrol/pdf/${date}_0730_lwdtirol_lagebericht.pdf`
       ),
       fetchExists(
-        `${config.apis.bulletin.archive}south_tyrol/pdf/${date}.${
-          lang === "it" ? "it" : "de"
-        }.pdf`
+        `${config.apis.bulletin.archive}south_tyrol/pdf/${date}.${lang === "it" ? "it" : "de"}.pdf`
       ),
       fetchExists(
         `${config.apis.bulletin.archive}trentino/pdf/${date}_valanghe_it.pdf`

@@ -1,10 +1,18 @@
 {
   "name": "albina-website",
-  "description": "Avalanche. report - Avalanche Warning Services Tirol - South Tyrol - Trentino",
-  "homepage": "https://avalanche.report/",
   "version": "0.2.0",
+  "description": "Avalanche. report - Avalanche Warning Services Tirol - South Tyrol - Trentino",
+  "keywords": [],
+  "homepage": "https://avalanche.report/",
+  "bugs": {
+    "url": "https://gitlab.com/albina-euregio/albina-website/issues"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "",
+  "repository": {
+    "url": "https://gitlab.com/albina-euregio/albina-website"
+  },
   "type": "module",
-  "packageManager": "yarn@4.12.0",
   "scripts": {
     "prepare": "husky",
     "dev": "vite",
@@ -63,9 +71,8 @@
     "@vitejs/plugin-react": "^5.1.0",
     "git-cliff": "^2.10.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "oxfmt": "^0.19.0",
     "oxlint": "^1.28.0",
-    "prettier": "^3.6.2",
     "rolldown": "1.0.0-beta.53",
     "sass": "^1.94.0",
     "vite": "^8.0.0-beta.1"
@@ -73,21 +80,5 @@
   "resolutions": {
     "@react-leaflet/core@npm:^3.0.0": "patch:@react-leaflet/core@npm%3A3.0.0#~/.yarn/patches/@react-leaflet-core-npm-3.0.0-4e3f2d62b5.patch"
   },
-  "keywords": [],
-  "author": "",
-  "repository": {
-    "url": "https://gitlab.com/albina-euregio/albina-website"
-  },
-  "bugs": {
-    "url": "https://gitlab.com/albina-euregio/albina-website/issues"
-  },
-  "license": "AGPL-3.0-or-later",
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
+  "packageManager": "yarn@4.12.0"
 }

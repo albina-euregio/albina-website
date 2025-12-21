@@ -43,16 +43,10 @@ const LocalizedText: FunctionComponent<{
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
-          ? `<ins>${value.replace(
-              /(<br\/>)+/g,
-              br => `</ins>${br}<ins>`
-            )}</ins>`
+          ? `<ins>${value.replace(/(<br\/>)+/g, br => `</ins>${br}<ins>`)}</ins>`
           : diff === DiffMatchPatch.DIFF_DELETE
             ? showDiff === 2
-              ? `<del>${value.replace(
-                  /(<br\/>)+/g,
-                  br => `</del>${br}<del>`
-                )}</del>`
+              ? `<del>${value.replace(/(<br\/>)+/g, br => `</del>${br}<del>`)}</del>`
               : ""
             : value
       )
