@@ -84,7 +84,12 @@ const BlogPost = () => {
       >
         <ul className="list-inline blog-feature-meta">
           <li className="blog-date">
-            {date && intl.formatDate(date, DATE_TIME_FORMAT)}
+            {date && (
+              <time dateTime={new Date(date).toISOString()}>
+                {intl.formatDate(date, DATE_TIME_FORMAT)} (
+                {intl.formatRelativeTime(new Date(date))})
+              </time>
+            )}
           </li>
 
           <li className="blog-province">

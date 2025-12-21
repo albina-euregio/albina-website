@@ -35,7 +35,10 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
                 {/*<li className="blog-author">{item.author}</li>
                  */}
                 <li className="blog-date">
-                  {intl.formatDate(item.date, DATE_TIME_FORMAT)}
+                  <time dateTime={new Date(item.date).toISOString()}>
+                    {intl.formatDate(item.date, DATE_TIME_FORMAT)} (
+                    {intl.formatRelativeTime(new Date(item.date))})
+                  </time>
                 </li>
                 <li className="blog-province">
                   {item.regions

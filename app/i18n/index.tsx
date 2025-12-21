@@ -12,12 +12,15 @@ const format = computed($locale, code => ({
   number(num: number, opts: Intl.NumberFormatOptions) {
     return new Intl.NumberFormat(code, opts).format(num);
   },
-  relativeTime(
-    num: number,
-    unit: Intl.RelativeTimeFormatUnit,
-    opts: Intl.RelativeTimeFormatOptions
-  ) {
-    return new Intl.RelativeTimeFormat(code, opts).format(num, unit);
+  relativeTime(date: Date, opts: Intl.RelativeTimeFormatOptions = {}) {
+    const format = new Intl.RelativeTimeFormat(code, opts);
+    const delta = +date - Date.now();
+    const hour = 3600e3;
+    if (delta > -48 * hour) {
+      return format.format(Math.round(delta / hour), "hours");
+    } else {
+      return format.format(Math.round(delta / hour / 24), "days");
+    }
   },
   time(
     date: Date | number | string | Temporal.PlainDate | Temporal.ZonedDateTime,
@@ -80,6 +83,7 @@ export function useIntl() {
   return {
     locale,
     formatDate: formatter.time,
+    formatRelativeTime: formatter.relativeTime,
     formatNumber: formatter.number,
     formatNumberUnit,
     formatMessage
