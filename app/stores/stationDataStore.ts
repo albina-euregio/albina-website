@@ -33,6 +33,8 @@ const FeaturePropertiesSchema = z.object({
   OFT: number,
   operator: string,
   operatorLink: string,
+  operatorLicense: string,
+  operatorLicenseLink: string,
   plot: string,
   RH: number,
   TD: number,
@@ -48,7 +50,9 @@ export class StationData {
   geometry: GeoJSON.Point;
   properties: FeatureProperties;
 
-  constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
+  constructor(
+    object: GeoJSON.Feature<GeoJSON.Point, Partial<FeatureProperties>>
+  ) {
     this.id = object.id as string;
     this.geometry = object.geometry;
     this.properties = FeaturePropertiesSchema.parse(object.properties);
@@ -392,11 +396,13 @@ export function useStationData(
 }
 
 interface LoadOptions {
+  consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
   ogd?: boolean;
 }
 
 export async function loadStationData({
+  consumer,
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
@@ -406,35 +412,49 @@ export async function loadStationData({
       smetOperators,
       png,
       pngOperators,
-      stations,
+      stations: url,
       stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
       if (dateTime instanceof Temporal.ZonedDateTime) {
         const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
-        stations = window.config.template(stationsDateTime, {
+        url = window.config.template(stationsDateTime, {
           dateTime: timePrefix
         });
       }
 
       if (
         import.meta.env.DEV &&
-        stations.startsWith("https://smet.hydrographie.info/")
+        url.startsWith("https://smet.hydrographie.info/")
       ) {
-        stations = stations.slice("https:/".length);
+        url = url.slice("https:/".length);
         smet = smet.slice("https:/".length);
       }
 
       try {
-        const response = await fetch(stations, { cache: "no-cache" });
+        const response = await fetch(url, { cache: "no-cache" });
         if (!response.ok) throw new Error(response.statusText);
         if (response.status === 404) return [];
+
+        if (
+          url ===
+          "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
+        ) {
+          if (ogd) return [];
+          const metadata: GeoSphereMetadata = await response.json();
+          const stations = metadata.stations.map(station =>
+            mapGeoSphere(station, smet)
+          );
+          consumer?.(stations);
+          return stations;
+        }
+
         const json: GeoJSON.FeatureCollection<
           GeoJSON.Point,
           FeatureProperties
         > = await response.json();
-        return json.features
+        const stations = json.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
@@ -458,8 +478,10 @@ export async function loadStationData({
             return new StationData(feature);
           })
           .filter(d => !!d);
+        consumer?.(stations);
+        return stations;
       } catch (e) {
-        console.error("Failed fetching station data from " + stations, e);
+        console.error("Failed fetching station data from " + url, e);
         return [];
       }
     }
@@ -467,4 +489,63 @@ export async function loadStationData({
 
   const data = await Promise.all(all);
   return data.flat();
+}
+
+interface GeoSphereMetadata {
+  title: string;
+  parameters: GeoSphereParameter[];
+  frequency: string;
+  type: string;
+  mode: string;
+  response_formats: string[];
+  start_time: string;
+  end_time: string;
+  stations: GeoSphereStation[];
+  id_type: string;
+}
+
+interface GeoSphereParameter {
+  name: string;
+  long_name: string;
+  desc: string;
+  unit: string;
+}
+
+interface GeoSphereStation {
+  type: string;
+  id: string;
+  group_id: null;
+  name: string;
+  state: string;
+  lat: number;
+  lon: number;
+  altitude: number;
+  valid_from: string;
+  valid_to: string;
+  has_sunshine: boolean;
+  has_global_radiation: boolean;
+  is_active: boolean;
+}
+
+function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
+  return new StationData({
+    type: "Feature",
+    id: station.id,
+    geometry: {
+      type: "Point",
+      coordinates: [station.lon, station.lat, station.altitude]
+    },
+    properties: {
+      name: station.name
+        .toLocaleLowerCase("de")
+        // capitalize "ACHENKIRCH CAMPINGPLATZ"
+        .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
+      $smet: smet,
+      operator: "GeoSphere Austria",
+      operatorLink: "https://www.geosphere.at/",
+      operatorLicense: "CC BY 4.0",
+      operatorLicenseLink:
+        "https://creativecommons.org/licenses/by/4.0/legalcode"
+    }
+  });
 }

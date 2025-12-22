@@ -95,9 +95,9 @@
     "stations": [
       {
         "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|GeoSphere Austria",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "^(?!LWD Kärnten)(?!ÖBB INFRA)",
+        "pngOperators": "^(?!GeoSphere Austria)(?!LWD Kärnten)(?!ÖBB INFRA)",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
@@ -121,6 +121,17 @@
         "png": "",
         "pngOperators": "---",
         "stations": "https://oebb.infra.tbbm.at/smet/oebb.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "smet": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids={id}&parameters=TL%2CFF%2CFFX%2CDD%2CP%2CRF%2CSCHNEE%2CTP&output_format=geojson&start={start}&end={end}",
+        "smetOperators": "GeoSphere Austria",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
