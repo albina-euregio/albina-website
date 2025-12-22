@@ -392,11 +392,13 @@ export function useStationData(
 }
 
 interface LoadOptions {
+  consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
   ogd?: boolean;
 }
 
 export async function loadStationData({
+  consumer,
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
@@ -406,35 +408,35 @@ export async function loadStationData({
       smetOperators,
       png,
       pngOperators,
-      stations,
+      stations: url,
       stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
       if (dateTime instanceof Temporal.ZonedDateTime) {
         const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
-        stations = window.config.template(stationsDateTime, {
+        url = window.config.template(stationsDateTime, {
           dateTime: timePrefix
         });
       }
 
       if (
         import.meta.env.DEV &&
-        stations.startsWith("https://smet.hydrographie.info/")
+        url.startsWith("https://smet.hydrographie.info/")
       ) {
-        stations = stations.slice("https:/".length);
+        url = url.slice("https:/".length);
         smet = smet.slice("https:/".length);
       }
 
       try {
-        const response = await fetch(stations, { cache: "no-cache" });
+        const response = await fetch(url, { cache: "no-cache" });
         if (!response.ok) throw new Error(response.statusText);
         if (response.status === 404) return [];
         const json: GeoJSON.FeatureCollection<
           GeoJSON.Point,
           FeatureProperties
         > = await response.json();
-        return json.features
+        const stations = json.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
@@ -458,8 +460,10 @@ export async function loadStationData({
             return new StationData(feature);
           })
           .filter(d => !!d);
+        consumer?.(stations);
+        return stations;
       } catch (e) {
-        console.error("Failed fetching station data from " + stations, e);
+        console.error("Failed fetching station data from " + url, e);
         return [];
       }
     }

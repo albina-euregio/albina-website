@@ -563,13 +563,13 @@ async function _loadIndexData() {
   if (currentTime.get() > startDate.get()) return;
 
   try {
-    const features = await loadStationData({
+    await loadStationData({
+      consumer: s => stations.set([...stations.get(), ...s]),
       dateTime: currentTime
         .get()
         ?.toTemporalInstant()
         ?.toZonedDateTimeISO("UTC")
     });
-    stations.set(features);
   } catch (err) {
     // TODO fail with error dialog
     console.error("Data for timeindex not available", err);
