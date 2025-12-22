@@ -2,16 +2,24 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.9] - 2025-12-22
+
+### 🚀 Features
+
+- Integrate [GeoSphere Austria](https://www.geosphere.at/) weather stations
+- Blog: add relative time
+
 ## [8.0.8] - 2025-12-17
 
 ### 🚀 Features
 
-- Integrate ÖBB INFRA weather stations
+- Integrate [ÖBB INFRA](https://infrastruktur.oebb.at/) weather stations
 
 ## [8.0.7] - 2025-12-15
 
 ### 🚀 Features
 
+- Integrate [AT-02](https://lawinenwarndienst.ktn.gv.at/) weather stations
 - StationDataStore: fetch from multiple sources
 - Blog: add AT-02
 - WeatherStationDiagrams: use linea for observer diagrams
