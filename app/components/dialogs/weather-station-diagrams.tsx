@@ -180,6 +180,9 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
   stationData
 }) => {
   const intl = useIntl();
+  if (!stationData.parametersForDialog.length) {
+    return <></>;
+  }
   return (
     <ul className="list-inline weatherstation-info">
       {stationData.parametersForDialog.map(aInfo => (
@@ -259,11 +262,16 @@ const StationDiagramImage: React.FC<{
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
+    const end = new Date().toISOString();
+    const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
     const id = station.properties?.["LWD-Nummer"] || station.id;
     const url = window.config.template(station.$smet ?? "", {
+      start,
+      end,
       timeRangePath,
       id
     });
+    /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
@@ -337,6 +345,19 @@ const StationOperator: React.FC<{
       >
         {stationData.operator}
       </a>
+      {stationData.properties.operatorLicense && (
+        <>
+          {" ("}
+          <a
+            href={stationData.properties.operatorLicenseLink ?? ""}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {stationData.properties.operatorLicense}
+          </a>
+          {")"}
+        </>
+      )}
     </p>
   );
 };
@@ -419,11 +440,16 @@ const WeatherStationDiagrams: React.FC<Props> = ({
               {intl.formatMessage({
                 id: "dialog:weather-station-diagram:header"
               })}{" "}
-              ({microRegionId}{" "}
-              {intl.formatMessage({
-                id: "region:" + microRegionId
-              })}
-              )
+              {microRegionId && (
+                <>
+                  {" "}
+                  ({microRegionId}{" "}
+                  {intl.formatMessage({
+                    id: "region:" + microRegionId
+                  })}
+                  )
+                </>
+              )}
             </p>
           )}
           <h2 className="">

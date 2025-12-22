@@ -4,7 +4,7 @@ test("weather/measurements", async ({ page }) => {
   await page.goto("weather/measurements");
 
   const firstRow = page.getByRole("row").nth(1);
-  await expect(firstRow).toHaveText(/Achenkirch/);
+  await expect(firstRow).toHaveText(/Achenkirch|Abtenau/);
 
   await page.getByRole("link", { name: "Station: Invert sort" }).click();
   await expect(firstRow).toHaveText(/Zwölferkogel|Zürs/);

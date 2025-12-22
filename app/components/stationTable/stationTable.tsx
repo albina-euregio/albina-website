@@ -56,17 +56,20 @@ export default function StationTable(props: Props) {
     {
       // Regionsname <br> (Tirol)
       data: "microRegion",
-      render: row => (
-        <span className="region" title={row.microRegion}>
-          <FormattedMessage id={`region:${row.microRegion}`} />
-          {row.province &&
-            config.regionCodes.includes(row.province as string) && (
-              <span className={`region region-${row.province}`}>
-                <FormattedMessage id={`region:${row.province}`} />
-              </span>
-            )}
-        </span>
-      ),
+      render: row =>
+        row.microRegion ? (
+          <span className="region" title={row.microRegion}>
+            <FormattedMessage id={`region:${row.microRegion}`} />
+            {row.province &&
+              config.regionCodes.includes(row.province as string) && (
+                <span className={`region region-${row.province}`}>
+                  <FormattedMessage id={`region:${row.province}`} />
+                </span>
+              )}
+          </span>
+        ) : (
+          <></>
+        ),
       className: "mb-snow m-name"
     },
     {
