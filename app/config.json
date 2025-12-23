@@ -161,17 +161,6 @@
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
-      },
-      {
-        "smet": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids={id}&parameters=TL%2CFF%2CFFX%2CDD%2CP%2CRF%2CSCHNEE%2CTP&output_format=geojson&start={start}&end={end}",
-        "smetOperators": "GeoSphere Austria",
-        "png": "",
-        "pngOperators": "---",
-        "stations": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata",
-        "stationsDateTime": "",
-        "stationsArchive": "",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
       }
     ]
   },
