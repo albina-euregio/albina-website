@@ -65,6 +65,7 @@ function initializeIFrame(element?: HTMLElement) {
     {
       license: "GPLv3",
       waitForLoad: true,
+      inPageLinks: true,
       onScroll({ top, left }) {
         console.log("onScroll", top, left);
         window.scrollTo({
