@@ -2,6 +2,18 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.11] - 2025-12-25
+
+### ⚙️ Miscellaneous Tasks
+
+- Allow anchor links in IFrame
+
+## [8.0.10] - 2025-12-23
+
+### ⚙️ Miscellaneous Tasks
+
+- Update config file
+
 ## [8.0.9] - 2025-12-22
 
 ### 🚀 Features
