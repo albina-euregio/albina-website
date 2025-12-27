@@ -12,7 +12,7 @@ export const $router = createRouter(
     weather: `${projectRoot}weather`,
     weatherMap: `${projectRoot}weather/map/`,
     weatherMapDomain: `${projectRoot}weather/map/:domain`,
-    weatherMapDomainTimestamp: `${projectRoot}weather/map/:domain/:timestamp`,
+    weatherMapDomainTimestamp: `${projectRoot}weather/map/:domain/:timestamp/:timeSpan?`,
     weatherArchive: `${projectRoot}weather/archive`,
     weatherMeasurements: `${projectRoot}weather/measurements`,
     weatherStations: `${projectRoot}weather/stations`,
