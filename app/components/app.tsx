@@ -8,7 +8,6 @@ window.iFrameResizer = {
   sizeSelector: "#page-all"
 };
 
-import { BrowserRouter } from "react-router-dom";
 import { setLanguage, $province, $headless } from "../appStore";
 import Page from "./page";
 
@@ -62,10 +61,10 @@ const App = () => {
     });
   });
 
-  const search = new URLSearchParams(document.location.search);
-  const province = search.get("province") ?? config.province;
+  const router = useStore($router);
+  const province = router?.search?.province ?? config.province;
   useEffect(() => $province.set(province), [province]);
-  const headless = search.get("headless") ?? config.headless;
+  const headless = router?.search?.headless ?? config.headless;
   useEffect(() => $headless.set(!!headless), [headless]);
 
   useEffect(() => {
@@ -135,12 +134,9 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter basename={config.projectRoot}>
-      {/* FIXME */}
-      <Suspense fallback={"..."}>
-        <Page>{component()}</Page>
-      </Suspense>
-    </BrowserRouter>
+    <Suspense fallback={"..."}>
+      <Page>{component()}</Page>
+    </Suspense>
   );
 };
 
