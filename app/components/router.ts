@@ -1,4 +1,4 @@
-import { createRouter } from "@nanostores/router";
+import { createRouter, redirectPage } from "@nanostores/router";
 import { onMount } from "nanostores";
 
 const projectRoot = import.meta.env.BASE_URL as "/" | "/beta/" | "/dev/";
@@ -69,3 +69,11 @@ onMount($router, () => {
   document.body.addEventListener("click", click);
   return () => document.body.removeEventListener("click", click);
 });
+
+export function redirectPageQuery(search: Record<string, string>) {
+  const router = $router.get();
+  redirectPage($router, router!.route, router!.params, {
+    ...router!.search,
+    ...search
+  });
+}
