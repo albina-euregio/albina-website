@@ -70,7 +70,7 @@ onMount($router, () => {
   return () => document.body.removeEventListener("click", click);
 });
 
-export function redirectPageQuery(search: Record<string, string>) {
+export function redirectPageQuery(search: Record<string, string | number>) {
   const router = $router.get();
   redirectPage($router, router!.route, router!.params, {
     ...router!.search,
