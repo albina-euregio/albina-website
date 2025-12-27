@@ -1,18 +1,19 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { Tooltip } from "../components/tooltips/tooltip";
 import { setLanguage } from "../appStore";
+import { useStore } from "@nanostores/react";
+import { $router } from "../components/router";
 
 const More = () => {
   const intl = useIntl();
-  const [searchParams] = useSearchParams();
+  const router = useStore($router);
 
-  if (["de", "en"].includes(searchParams.get("language") || "")) {
-    setLanguage(searchParams.get("language") as "de" | "en");
+  if (["de", "en"].includes(router?.search?.language || "")) {
+    setLanguage(router?.search?.language as "de" | "en");
   }
 
   return (
@@ -27,7 +28,7 @@ const More = () => {
                 id: "more:archive:headline"
               })}
             >
-              <Link to="/more/archive" className="linkbox linkbox-feature">
+              <a href="/more/archive" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_archive.webp"
@@ -52,7 +53,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -61,7 +62,7 @@ const More = () => {
                 id: "more:about:headline"
               })}
             >
-              <Link to="/more/about" className="linkbox linkbox-feature">
+              <a href="/more/about" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_about.webp"
@@ -79,7 +80,7 @@ const More = () => {
                   </p>
                   <p>{intl.formatMessage({ id: "more:about:text" })}</p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -88,7 +89,7 @@ const More = () => {
                 id: "more:contact:headline"
               })}
             >
-              <Link to="/more/contact" className="linkbox linkbox-feature">
+              <a href="/more/contact" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_contact.webp"
@@ -113,7 +114,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -122,7 +123,7 @@ const More = () => {
                 id: "more:imprint:headline"
               })}
             >
-              <Link to="/more/imprint" className="linkbox linkbox-feature">
+              <a href="/more/imprint" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_imprint.webp"
@@ -147,7 +148,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -156,7 +157,7 @@ const More = () => {
                 id: "more:privacy:headline"
               })}
             >
-              <Link to="/more/privacy" className="linkbox linkbox-feature">
+              <a href="/more/privacy" className="linkbox linkbox-feature">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_privacy.webp"
@@ -181,7 +182,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -190,8 +191,8 @@ const More = () => {
                 id: "more:accessibility:headline"
               })}
             >
-              <Link
-                to="/more/accessibility"
+              <a
+                href="/more/accessibility"
                 className="linkbox linkbox-feature "
               >
                 <div className="content-image">
@@ -218,7 +219,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -227,7 +228,7 @@ const More = () => {
                 id: "more:open-data:headline"
               })}
             >
-              <Link to="/more/open-data" className="linkbox linkbox-feature ">
+              <a href="/more/open-data" className="linkbox linkbox-feature ">
                 <div className="content-image">
                   <img
                     src="/content_files/feature_open_data.webp"
@@ -252,7 +253,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
           <li className="feature-item">
@@ -261,8 +262,8 @@ const More = () => {
                 id: "more:season-reports:headline"
               })}
             >
-              <Link
-                to="/more/season-reports"
+              <a
+                href="/more/season-reports"
                 className="linkbox linkbox-feature "
               >
                 <div className="content-image">
@@ -289,7 +290,7 @@ const More = () => {
                     })}
                   </p>
                 </div>
-              </Link>
+              </a>
             </Tooltip>
           </li>
         </ul>
