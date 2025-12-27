@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -16,7 +15,6 @@ import { $router } from "../components/router.ts";
 const StaticPage = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const location = useLocation();
   const headless = useStore($headless);
   const router = useStore($router);
   if (router?.route !== "staticName" && router?.route !== "staticSegmentName") {
@@ -69,9 +67,9 @@ const StaticPage = () => {
 
   useEffect(() => {
     document
-      .getElementById(location.hash.slice(1))
+      .getElementById(router.hash.slice(1))
       ?.scrollIntoView({ behavior: "smooth" });
-  }, [location.hash, content]);
+  }, [router.hash, content]);
 
   return (
     <>
@@ -88,9 +86,9 @@ const StaticPage = () => {
         }
       >
         {headless && (
-          <Link to="/bulletin/latest" className="back-link">
+          <a href="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
-          </Link>
+          </a>
         )}
       </PageHeadline>
       {/* <section className="section-centered">{content}</section> */}
