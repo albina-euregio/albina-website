@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";
@@ -25,12 +24,10 @@ const StationArchive = () => {
     content: "",
     sharable: false
   });
-  const [searchParams, setSearchParams] = useSearchParams();
   const {
     activeData,
     activeRegion,
     activeYear,
-    fromURLSearchParams,
     load,
     searchText,
     setActiveRegion,
@@ -41,23 +38,12 @@ const StationArchive = () => {
     sortDir,
     sortedFilteredData,
     sortValue,
-    toggleActiveData,
-    toURLSearchParams
+    toggleActiveData
   } = useStationData("name", r => r.startsWith("AT-07"), "", true);
-
-  useEffect(() => {
-    fromURLSearchParams(searchParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     load({ ogd: true });
   }, [load]);
-
-  const updateURL = () => {
-    const search = toURLSearchParams();
-    setSearchParams(search);
-  };
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = [
@@ -103,7 +89,6 @@ const StationArchive = () => {
         })}
         searchOnChange={val => {
           setSearchText(val);
-          updateURL();
         }}
         searchValue={searchText}
       >
@@ -114,7 +99,6 @@ const StationArchive = () => {
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={val => {
             setActiveRegion(val);
-            updateURL();
           }}
           regionCodes={config.stationRegions}
           value={activeRegion}
@@ -130,7 +114,6 @@ const StationArchive = () => {
           maxYear={currentSeasonYear()}
           handleChange={val => {
             setActiveYear(+val || "");
-            updateURL();
           }}
           formatter={y => `${y}/${y + 1}`}
           value={activeYear}
@@ -158,7 +141,6 @@ const StationArchive = () => {
               active={activeData[e]}
               onToggle={val => {
                 toggleActiveData(val);
-                updateURL();
               }}
             />
           ))}
@@ -176,7 +158,6 @@ const StationArchive = () => {
             searchText={searchText}
             handleSort={(id, dir) => {
               sortBy(id, dir);
-              updateURL();
             }}
           />
         </div>
