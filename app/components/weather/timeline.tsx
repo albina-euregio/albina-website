@@ -8,15 +8,15 @@ import React, {
   useRef,
   useState
 } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { dateFormat } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
+import { $router } from "../router";
+import { redirectPage } from "@nanostores/router";
 
 const Timeline = ({ updateCB }) => {
-  const params = useParams();
-  const navigate = useNavigate();
+  const router = useStore($router);
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpanInt = useStore(store.timeSpanInt);
@@ -71,11 +71,12 @@ const Timeline = ({ updateCB }) => {
     timeSpan: string | null
   ) => {
     // Preserve the domain parameter while updating timestamp
-    const newUrl =
-      `../weather/map/${store.domainId.get() || "new-snow"}` +
-      (timestamp ? `/${timestamp}` : "") +
-      (timeSpan ? `/${timeSpan}` : "");
-    navigate(newUrl, { replace: true, state: { preventNav: true } });
+    const domain = store.domainId.get();
+    redirectPage(
+      $router,
+      "weatherMapDomainTimestamp",
+      timeSpan ? { domain, timestamp, timeSpan } : { domain, timestamp }
+    );
   };
 
   useEffect(() => {
@@ -102,10 +103,16 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
-      const usedInitialDate = new Date(params?.timestamp || initialDate);
+      const usedInitialDate = new Date(
+        router?.params?.timestamp || initialDate
+      );
       const newInitialDate = new Date(usedInitialDate);
       const now = new Date();
-      if (!params?.timestamp && +newInitialDate < +now && +now < +endTime) {
+      if (
+        !router?.params?.timestamp &&
+        +newInitialDate < +now &&
+        +now < +endTime
+      ) {
         while (+newInitialDate < +now) {
           newInitialDate.setUTCHours(
             newInitialDate.getUTCHours() + timeSpanInt
@@ -123,7 +130,7 @@ const Timeline = ({ updateCB }) => {
         }
       }
     }
-  }, [initialDate, params.timestamp]);
+  }, [initialDate, router?.params.timestamp]);
 
   useEffect(() => {
     let intervalId: number;
@@ -215,12 +222,12 @@ const Timeline = ({ updateCB }) => {
   }, [store.timeSpan.get()]);
 
   useEffect(() => {
-    if (+new Date(params.timestamp) > 0) {
+    if (+new Date(router?.params.timestamp) > 0) {
       if (updateCB) {
-        updateCB("time", params.timestamp);
+        updateCB("time", router?.params.timestamp);
       }
     }
-  }, [params.timestamp]);
+  }, [router?.params.timestamp]);
 
   const calcIndicatorOffset = () => {
     const newIndicatorOffset =
