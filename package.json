@@ -55,7 +55,6 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.9.3",
     "react-string-replace": "^1.1.1",
     "react-swipeable": "^7.0.2",
     "temporal-polyfill": "^0.3.0",
