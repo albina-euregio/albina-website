@@ -133,7 +133,7 @@
         "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
         "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "^(?!GeoSphere Austria)(?!LWD Kärnten)(?!ÖBB INFRA)",
+        "pngOperators": "^(?!LWD Kärnten)(?!ÖBB INFRA)",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
