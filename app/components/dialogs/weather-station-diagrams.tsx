@@ -53,7 +53,7 @@ const timeRangesMilli: Record<TimeRange, number> = {
 };
 
 export interface Props {
-  stationData: StationData[] | ObserverData[];
+  stationData: (StationData | ObserverData)[];
   stationId: string;
   setStationId: (rowId: string) => void;
 }

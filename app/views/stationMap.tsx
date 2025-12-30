@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "../i18n";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
-import { StationData, useStationData } from "../stores/stationDataStore";
+import { useStationData } from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
-import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import WeatherStationDialog, {
+  useStationId
+} from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
@@ -32,10 +34,7 @@ export const observers = [...BeobachterAT, ...BeobachterIT].map(
 
 function StationMap(props) {
   const intl = useIntl();
-  const [stationData, setStationData] = useState<
-    StationData[] | ObserverData[]
-  >();
-  const [stationId, setStationId] = useState<string>();
+  const [stationId, setStationId] = useStationId();
   const { load, data } = useStationData("microRegion");
 
   useEffect(() => {
@@ -55,7 +54,6 @@ function StationMap(props) {
     <StationOverlay
       key={"stations"}
       onMarkerSelected={feature => {
-        setStationData(data);
         setStationId(feature.id);
       }}
       itemId="any"
@@ -73,7 +71,6 @@ function StationMap(props) {
     <StationOverlay
       key={"observers"}
       onMarkerSelected={feature => {
-        setStationData(observers);
         setStationId(feature.id);
       }}
       itemId="any"
@@ -89,11 +86,13 @@ function StationMap(props) {
   const overlays = [stationOverlay, observerOverlay];
   return (
     <>
-      <WeatherStationDialog
-        stationData={stationData}
-        stationId={stationId}
-        setStationId={setStationId}
-      />
+      {!!data.length && (
+        <WeatherStationDialog
+          stationData={[...data, ...observers]}
+          stationId={stationId}
+          setStationId={setStationId}
+        />
+      )}
       <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
       <section id="section-weather-map" className="section section-weather-map">
         <div className="section-map">

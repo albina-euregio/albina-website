@@ -72,8 +72,11 @@ onMount($router, () => {
 
 export function redirectPageQuery(search: Record<string, string | number>) {
   const router = $router.get();
-  redirectPage($router, router!.route, router!.params, {
-    ...router!.search,
+  search = {
+    ...router?.search,
     ...search
-  });
+  };
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  Object.entries(search).forEach(([k, v]) => v || delete search[k]);
+  redirectPage($router, router?.route, router?.params, search);
 }

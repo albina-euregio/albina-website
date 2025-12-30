@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import WeatherStationDialog from "../dialogs/weather-station-dialog";
+import WeatherStationDialog, {
+  useStationId
+} from "../dialogs/weather-station-dialog";
 
 type SortDir = "desc" | "asc";
 
@@ -32,7 +34,7 @@ interface Column {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
-  const [stationId, setStationId] = useState("");
+  const [stationId, setStationId] = useStationId();
 
   const columns: Column[] = [
     {
@@ -238,11 +240,13 @@ export default function StationTable(props: Props) {
 
   return (
     <>
-      <WeatherStationDialog
-        stationData={props.sortedFilteredData}
-        stationId={stationId}
-        setStationId={setStationId}
-      />
+      {!!props.sortedFilteredData.length && (
+        <WeatherStationDialog
+          stationData={props.sortedFilteredData}
+          stationId={stationId}
+          setStationId={setStationId}
+        />
+      )}
       <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <thead>
           <StationTableHeaderRow
