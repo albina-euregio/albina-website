@@ -2,6 +2,18 @@
 
 <!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.0.13] - 2025-12-30
+
+### 🚀 Features
+
+- Integrate LWD Salzburg weather stations
+
+## [8.0.12] - 2025-12-30
+
+### ⚙️ Miscellaneous Tasks
+
+- Update config file
+
 ## [8.0.11] - 2025-12-25
 
 ### ⚙️ Miscellaneous Tasks
