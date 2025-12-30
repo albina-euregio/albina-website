@@ -1118,7 +1118,7 @@ __metadata:
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
     leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
     leaflet.vectorgrid: "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch"
-    nanostores: "npm:^1.0.1"
+    nanostores: "npm:^1.1.0"
     normalize.css: "npm:^8.0.1"
     oxfmt: "npm:^0.19.0"
     oxlint: "npm:^1.28.0"
@@ -2369,10 +2369,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanostores@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "nanostores@npm:1.0.1"
-  checksum: 10c0/9fa5bd9f4beb1ac7cd83c935357057e4217e2eb0e36ef93ce87ed8a6814590c44e7aa843e9337089222cfb5231fdf0474d207debd12787b4582519393253fe22
+"nanostores@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "nanostores@npm:1.1.0"
+  checksum: 10c0/c604a4afd4adc882637e2e44004924208bd40a95af9699ec8672eda1abd510d2a75688a0284cd5fbbf90af3311e59c77973df5d003ac3ffe98feb248777fbef7
   languageName: node
   linkType: hard
 
