@@ -133,7 +133,7 @@
         "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
         "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "^(?!LWD Kärnten)(?!ÖBB INFRA)",
+        "pngOperators": "^(?!LWD Kärnten)(?!LWD Salzburg)(?!ÖBB INFRA)",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
@@ -150,6 +150,17 @@
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
+      },
+      {
+        "smet": "https://www.salzburg.gv.at/lawine/smet/{timeRangePath}/{id}.smet.gz",
+        "smetOperators": "LWD Salzburg.*",
+        "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
+        "pngOperators": "LWD Salzburg.*",
+        "stations": "https://www.salzburg.gv.at/lawine/smet/salzburg.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
       },
       {
         "smet": "https://oebb.infra.tbbm.at/smet/{timeRangePath}/{id}.smet.gz",
