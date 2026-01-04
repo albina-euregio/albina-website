@@ -1,3 +1,7 @@
+ignoredOptionalDependencies:
+  - "@parcel/watcher"
+  - fsevents
+
 patchedDependencies:
   "@react-leaflet/core": patches/react-leaflet-core.patch
   leaflet: patches/leaflet.patch
