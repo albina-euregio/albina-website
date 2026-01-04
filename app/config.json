@@ -146,7 +146,7 @@
         "png": "",
         "pngOperators": "---",
         "stations": "https://smet.hydrographie.info/stations_ktn.geojson",
-        "stationsDateTime": "https://smet.hydrographie.info/stations_ktn.geojson",
+        "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"

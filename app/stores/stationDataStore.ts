@@ -392,6 +392,9 @@ export async function loadStationData({
     }) => {
       if (dateTime instanceof Temporal.ZonedDateTime) {
         const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+        if (!stationsDateTime) {
+          return [];
+        }
         url = window.config.template(stationsDateTime, {
           dateTime: timePrefix
         });
