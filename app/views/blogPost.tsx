@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import "@albina-euregio/linea/dist/linea";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";
@@ -11,9 +11,12 @@ import { preprocessContent } from "../util/htmlParser";
 import { BlogPostPreviewItem } from "../stores/blog";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
+import { $router } from "../components/router";
 
 const BlogPost = () => {
-  const params = useParams();
+  const router = useStore($router);
+  if (router?.route !== "blogNamePost") throw new Error();
+  const params = router?.params;
   const intl = useIntl();
   const headless = useStore($headless);
 
@@ -50,21 +53,21 @@ const BlogPost = () => {
         <div className="section-centered">
           <div className="grid linkbar">
             <div className="normal-4 grid-item">
-              <Link
+              <a
                 key="toBlog"
-                to={`/blog${params.blogName === "tech" ? "/tech" : ""}`}
+                href={`/blog${params.blogName === "tech" ? "/tech" : ""}`}
                 className="icon-link icon-arrow-left"
               >
                 {intl.formatMessage({ id: "blog:all-blog-posts" })}
-              </Link>
+              </a>
             </div>
             {headless && (
               <div className="normal-8 grid-item">
-                <Link to="/headless/bulletin/latest" className="back-link">
+                <a href="/headless/bulletin/latest" className="back-link">
                   {intl.formatMessage({
                     id: "bulletin:linkbar:back-to-bulletin"
                   })}
-                </Link>
+                </a>
               </div>
             )}
           </div>
@@ -94,12 +97,12 @@ const BlogPost = () => {
 
           <li className="blog-province">
             {regions.map(region => (
-              <Link
+              <a
                 key={region}
-                to={`${headless ? "/headless" : ""}/blog?searchLang=${lang}&region=${region}`}
+                href={`${headless ? "/headless" : ""}/blog?searchLang=${lang}&region=${region}`}
               >
                 {intl.formatMessage({ id: `region:${region}` })}&nbsp;&nbsp;
-              </Link>
+              </a>
             ))}
           </li>
 
@@ -107,7 +110,7 @@ const BlogPost = () => {
             <ul className="list-inline blog-feature-meta-languages">
               {languageLinks.map(({ lang, link }) => (
                 <li className="blog-language" key={lang}>
-                  <Link to={link}>{lang.toUpperCase()}</Link>
+                  <a href={link}>{lang.toUpperCase()}</a>
                 </li>
               ))}
             </ul>

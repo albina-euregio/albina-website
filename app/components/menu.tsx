@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, matchPath, useLocation } from "react-router-dom";
 import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
+import { useStore } from "@nanostores/react";
+import { $router } from "./router";
 
 interface Entry {
   key: string;
@@ -27,7 +28,7 @@ interface Props {
 function Menu(props: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const location = useLocation();
+  const router = useStore($router);
   const [numberNewPosts, setNumberNewPosts] = useState(0);
 
   useEffect(() => {
@@ -45,14 +46,14 @@ function Menu(props: Props) {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
     const doTest = (loc: string, element: Entry): boolean => {
-      return (
-        matchPath(loc, element.url.split("?")[0]) != null ||
+      return !!(
+        element.url.split("?")[0].startsWith(loc) ||
         (recursive && element.children?.some(el => doTest(loc, el)))
       );
     };
 
-    if (location?.pathname) {
-      return doTest(location.pathname, e);
+    if (router?.path) {
+      return doTest(router.path, e);
     }
     return false;
   };
@@ -118,8 +119,7 @@ function MenuItem(
 
   return (
     <li
-      onClick={event => {
-        event.stopPropagation();
+      onClick={() => {
         if (typeof props.onSelect === "function") {
           props.onSelect(e);
         }
@@ -130,21 +130,21 @@ function MenuItem(
           {title}
         </a>
       ) : (
-        <Link
+        <a
           onTouchStart={() => {
             if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
           }}
           onClick={e => {
             props.onLinkClick(e, classes.includes("has-sub"));
           }}
-          to={url}
+          href={url}
           className={classes.join(" ")}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (
             <small className="label blog-new">{props.numberNewPosts}</small>
           )}
-        </Link>
+        </a>
       )}
       {e.children && e.children.length > 0 && (
         <Menu

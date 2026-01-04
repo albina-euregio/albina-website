@@ -1,6 +1,8 @@
+import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
+import { $router, redirectPageQuery } from "../components/router";
 
 const number = z
   .nullish(z.number())
@@ -206,14 +208,41 @@ export function useStationData(
   activeYear0: number | "" = currentSeasonYear(),
   filterObservationStart0 = false
 ) {
+  const router = useStore($router);
+
   const [dateTime, setDateTime] = useState<Temporal.ZonedDateTime>();
   const dateTimeMax = Temporal.Now.zonedDateTimeISO("Europe/Vienna");
   const [data, setData] = useState<StationData[]>([]);
-  const [activeYear, setActiveYear] = useState<number | "">(activeYear0);
-  const [searchText, setSearchText] = useState<string>("");
-  const [sortValue, setSortValue] = useState<keyof StationData>(sortValue0);
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [activeRegion, setActiveRegion0] = useState<string | "all">("all");
+
+  const [activeYear, setActiveYear] = [
+    router?.search.activeYear
+      ? parseInt(router?.search.activeYear)
+      : activeYear0,
+    (activeYear: string) => redirectPageQuery({ activeYear })
+  ];
+
+  const [searchText, setSearchText] = [
+    router?.search?.searchText,
+    (searchText: string) => redirectPageQuery({ searchText })
+  ];
+
+  const [sortValue, setSortValue] = [
+    (router?.search.sortValue as keyof StationData) || sortValue0,
+    (sortValue: keyof StationData) => redirectPageQuery({ sortValue })
+  ];
+
+  const [sortDir, setSortDir] = [
+    (router?.search.sortDir ?? "asc") as "asc" | "desc",
+    (sortDir: "asc" | "desc") => redirectPageQuery({ sortDir })
+  ];
+
+  const [activeRegion, setActiveRegion] = [
+    router?.search.activeRegion || router?.search.province || "all",
+    (activeRegion: string | "" | "all" | null | undefined) =>
+      // activate all if undefined or null is given
+      redirectPageQuery({ activeRegion: activeRegion ?? "all" })
+  ];
+
   const [activeData, setActiveData] = useState({
     snow: true,
     temp: true,
@@ -223,60 +252,6 @@ export function useStationData(
   const [filterObservationStart, setFilterObservationStart] = useState<boolean>(
     filterObservationStart0
   );
-
-  function setActiveRegion(el: string | "" | "all" | null | undefined) {
-    // activate all if undefined or null is given
-    setActiveRegion0(el ?? "all");
-  }
-
-  function fromURLSearchParams(params: URLSearchParams) {
-    if (params.has("searchText")) {
-      setSearchText(params.get("searchText"));
-    }
-    if (params.has("activeRegion")) {
-      setActiveRegion(params.get("activeRegion"));
-    } else if (params.has("province")) {
-      setActiveRegion(params.get("province"));
-    }
-    if (params.has("activeYear")) {
-      const year = params.get("activeYear");
-      setActiveYear(year === "" ? year : +year);
-    }
-    if (params.has("sortValue")) {
-      setSortValue(params.get("sortValue") as keyof StationData);
-    }
-    if (params.has("sortDir")) {
-      setSortDir(params.get("sortDir") as "asc" | "desc");
-    }
-    setActiveData(
-      Object.fromEntries(
-        Object.keys(activeData).map(key => [key, params.get(key) !== "false"])
-      )
-    );
-  }
-
-  function toURLSearchParams(): URLSearchParams {
-    const params = new URLSearchParams();
-    if (searchText) {
-      params.set("searchText", searchText);
-    }
-    if (activeRegion !== "all") {
-      params.set("activeRegion", activeRegion);
-    }
-    if (activeYear !== undefined) {
-      params.set("activeYear", activeYear.toString());
-    }
-    if (sortValue) {
-      params.set("sortValue", sortValue);
-    }
-    if (sortDir && sortDir !== "asc") {
-      params.set("sortDir", sortDir);
-    }
-    Object.entries(activeData).forEach(
-      ([key, value]) => value === false && params.set(key, String(value))
-    );
-    return params;
-  }
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -373,7 +348,6 @@ export function useStationData(
     dateTime,
     dateTimeMax,
     filterObservationStart,
-    fromURLSearchParams,
     load,
     minYear,
     searchText,
@@ -390,8 +364,7 @@ export function useStationData(
     sortDir,
     sortedFilteredData,
     sortValue,
-    toggleActiveData,
-    toURLSearchParams
+    toggleActiveData
   };
 }
 

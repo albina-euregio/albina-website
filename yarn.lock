@@ -449,6 +449,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nanostores/router@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@nanostores/router@npm:1.0.0"
+  peerDependencies:
+    nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
+  checksum: 10c0/2981b660c4d6035d6c65901f8fab989f7947c9e04a23826cb3aea928f1865e5fcc92393d7896ed55d8ac7df558dd7eed22fb62c1230860776044b65bef337ba9
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.0":
   version: 1.1.0
   resolution: "@napi-rs/wasm-runtime@npm:1.1.0"
@@ -1089,6 +1098,7 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.5.1"
     "@iframe-resizer/parent": "npm:^5.5.1"
     "@nanostores/react": "npm:^1.0.0"
+    "@nanostores/router": "npm:^1.0.0"
     "@playwright/test": "npm:^1.55.0"
     "@types/diff-match-patch": "npm:^1.0.36"
     "@types/leaflet": "npm:^1.9.21"
@@ -1108,7 +1118,7 @@ __metadata:
     leaflet.locatecontrol: "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch"
     leaflet.sync: "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch"
     leaflet.vectorgrid: "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch"
-    nanostores: "npm:^1.0.1"
+    nanostores: "npm:^1.1.0"
     normalize.css: "npm:^8.0.1"
     oxfmt: "npm:^0.19.0"
     oxlint: "npm:^1.28.0"
@@ -1116,7 +1126,6 @@ __metadata:
     react: "npm:19.2.0"
     react-dom: "npm:19.2.0"
     react-leaflet: "npm:^5.0.0"
-    react-router-dom: "npm:^7.9.3"
     react-string-replace: "npm:^1.1.1"
     react-swipeable: "npm:^7.0.2"
     rolldown: "npm:1.0.0-beta.53"
@@ -1299,13 +1308,6 @@ __metadata:
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
   checksum: 10c0/8f2f7a27a1a011cc6cc88cc4da2d7d0cfa5ee0369508baae3d98c260bb3ac520691464e5bbe4ae7cdf09860c1d69ecc6f70c63c6e7c7f7e3f18ec08484dc7d9b
-  languageName: node
-  linkType: hard
-
-"cookie@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "cookie@npm:1.0.2"
-  checksum: 10c0/fd25fe79e8fbcfcaf6aa61cd081c55d144eeeba755206c058682257cb38c4bd6795c6620de3f064c740695bb65b7949ebb1db7a95e4636efb8357a335ad3f54b
   languageName: node
   linkType: hard
 
@@ -2367,10 +2369,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanostores@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "nanostores@npm:1.0.1"
-  checksum: 10c0/9fa5bd9f4beb1ac7cd83c935357057e4217e2eb0e36ef93ce87ed8a6814590c44e7aa843e9337089222cfb5231fdf0474d207debd12787b4582519393253fe22
+"nanostores@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "nanostores@npm:1.1.0"
+  checksum: 10c0/c604a4afd4adc882637e2e44004924208bd40a95af9699ec8672eda1abd510d2a75688a0284cd5fbbf90af3311e59c77973df5d003ac3ffe98feb248777fbef7
   languageName: node
   linkType: hard
 
@@ -2708,34 +2710,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^7.9.3":
-  version: 7.9.3
-  resolution: "react-router-dom@npm:7.9.3"
-  dependencies:
-    react-router: "npm:7.9.3"
-  peerDependencies:
-    react: ">=18"
-    react-dom: ">=18"
-  checksum: 10c0/85ab89f5ef517299ef4dd534db656f8b04ccd0c9f80121d8ddeadc5bf192fefa89f77be06d81ee38694a6a56354539521b7cf941088b696ca79785378aa5615b
-  languageName: node
-  linkType: hard
-
-"react-router@npm:7.9.3":
-  version: 7.9.3
-  resolution: "react-router@npm:7.9.3"
-  dependencies:
-    cookie: "npm:^1.0.1"
-    set-cookie-parser: "npm:^2.6.0"
-  peerDependencies:
-    react: ">=18"
-    react-dom: ">=18"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-  checksum: 10c0/ad77654d53df38b66415d158dfeb42d589e732691da6cb3ce77e8e31cb295a809f2a280e2ea203119d2b9e944992ca87f309db5c6524649cba6fa6539f6c4a83
-  languageName: node
-  linkType: hard
-
 "react-string-replace@npm:^1.1.1":
   version: 1.1.1
   resolution: "react-string-replace@npm:1.1.1"
@@ -2880,13 +2854,6 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/88f33e148b210c153873cb08cfe1e281d518aaa9a666d4d148add6560db5cd3c582f3a08ccb91f38d5f379ead256da9931234ed122057f40bb5766e65e58adaf
-  languageName: node
-  linkType: hard
-
-"set-cookie-parser@npm:^2.6.0":
-  version: 2.7.1
-  resolution: "set-cookie-parser@npm:2.7.1"
-  checksum: 10c0/060c198c4c92547ac15988256f445eae523f57f2ceefeccf52d30d75dedf6bff22b9c26f756bd44e8e560d44ff4ab2130b178bd2e52ef5571bf7be3bd7632d9a
   languageName: node
   linkType: hard
 

@@ -8,13 +8,14 @@ import FeatureInfo from "../components/weather/feature-info";
 import * as store from "../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
-import { useParams } from "react-router-dom";
+import { $router } from "../components/router";
 import Player from "../js/player";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
 const Weather = () => {
   const intl = useIntl();
-  const params = useParams();
+  const router = useStore($router);
+  const params = router?.params;
   const [stationId, setStationId] = useState("");
 
   const [headerText] = useState("");
