@@ -66,13 +66,14 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Telegram", exact: true }).click({
     force: true
   });
-  await page.getByRole("button", { name: "Tyrol", exact: true }).click();
+  await page.getByRole("button", { name: "Tyrol", exact: true }).click({
+    force: true
+  });
   await page.getByRole("button", { name: "DE" }).click();
 
-  const [telegram] = await Promise.all([
-    page.waitForEvent("popup"),
-    page.getByRole("button", { name: "Subscribe" }).click()
-  ]);
+  const pagePromise = page.waitForEvent("popup");
+  await page.getByRole("button", { name: "Subscribe" }).click();
+  const telegram = await pagePromise;
   await expect(await telegram.evaluate("location.href")).toBe(
     "https://t.me/lawinenwarndienst_tirol"
   );
