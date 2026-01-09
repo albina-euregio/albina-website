@@ -32,8 +32,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.4.1
+        version: 8.4.1
       '@eaws/micro-regions_elevation_properties':
         specifier: ^8.1.1
         version: 8.1.1
@@ -176,8 +176,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.4.0':
-    resolution: {integrity: sha1-O4P4b9RwUGZ0KZr1Ezt+fw+S+3Y=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.4.0.tgz}
+  '@albina-euregio/linea@8.4.1':
+    resolution: {integrity: sha1-njA4Sfkko2VCTRWgoCN8tsIQ6Tk=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.4.1.tgz}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -1248,7 +1248,7 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.4.0':
+  '@albina-euregio/linea@8.4.1':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 0.3.0
