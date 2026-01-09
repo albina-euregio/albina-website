@@ -4,7 +4,7 @@
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
-  "stationRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
+  "stationRegions": ["AT-02", "AT-07", "DE-BY", "IT-32-BZ", "IT-32-TN"],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "extraRegions": [
     "AT-02",
@@ -131,7 +131,7 @@
     "stations": [
       {
         "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Bayern|Tiroler Wasserkraft|Verbund",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
         "pngOperators": "^(?!LWD Kärnten)(?!LWD Salzburg)(?!ÖBB INFRA)",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
