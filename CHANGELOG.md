@@ -1,6 +1,6 @@
 # Changelog
 
-<!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
+<!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
 ## [8.0.13] - 2025-12-30
 

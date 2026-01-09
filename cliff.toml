@@ -9,7 +9,7 @@
 # template for the changelog header
 header = """
 # Changelog\n
-<!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->\n
+<!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->\n
 """
 # template for the changelog body
 # https://keats.github.io/tera/docs/#introduction

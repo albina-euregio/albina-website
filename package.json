@@ -34,21 +34,23 @@
     "@eaws/micro-regions_names": "^8.1.1",
     "@eaws/micro-regions_properties": "^8.1.1",
     "@eaws/outline_properties": "^8.1.1",
+    "@floating-ui/dom": "^1.7.4",
     "@floating-ui/react": "^0.26.23",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@iframe-resizer/child": "^5.5.1",
     "@iframe-resizer/parent": "^5.5.1",
     "@nanostores/react": "^1.0.0",
     "@nanostores/router": "^1.0.0",
+    "@react-leaflet/core": "^3.0.0",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
     "jquery": "^3.7.1",
-    "leaflet": "patch:leaflet@https%3A//github.com/leaflet/leaflet.git%23commit=f8fef4514092f0abab703db145df2c1800a23a6c#~/.yarn/patches/leaflet-https-78e8e288ea.patch",
-    "leaflet-geonames": "patch:leaflet-geonames@patch%3Aleaflet-geonames@patch%253Aleaflet-geonames@npm%25253A0.4.9%2523~/.yarn/patches/leaflet-geonames-npm-0.4.9-041ef95720.patch%253A%253Aversion=0.4.9&hash=4ede4a%23~/.yarn/patches/leaflet-geonames-patch-d9a71af101.patch%3A%3Aversion=0.4.9&hash=32cf7a#~/.yarn/patches/leaflet-geonames-patch-0546ba4db4.patch",
-    "leaflet-gesture-handling": "patch:leaflet-gesture-handling@patch%3Aleaflet-gesture-handling@npm%253A1.2.2%23~/.yarn/patches/leaflet-gesture-handling-npm-1.2.2-257d998918.patch%3A%3Aversion=1.2.2&hash=537e42#~/.yarn/patches/leaflet-gesture-handling-patch-2915c8ee24.patch",
-    "leaflet.locatecontrol": "patch:leaflet.locatecontrol@patch%3Aleaflet.locatecontrol@npm%253A0.84.1%23~/.yarn/patches/leaflet.locatecontrol-npm-0.84.1-1a4ee98766.patch%3A%3Aversion=0.84.1&hash=6665d9#~/.yarn/patches/leaflet.locatecontrol-patch-a49e91f700.patch",
-    "leaflet.sync": "patch:leaflet.sync@npm%3A0.2.4#~/.yarn/patches/leaflet.sync-npm-0.2.4-fe6b3a2e7a.patch",
-    "leaflet.vectorgrid": "patch:leaflet.vectorgrid@patch%3Aleaflet.vectorgrid@npm%253A1.3.0%23~/.yarn/patches/leaflet.vectorgrid-npm-1.3.0-be6cacaac3.patch%3A%3Aversion=1.3.0&hash=f5396d#~/.yarn/patches/leaflet.vectorgrid-patch-109fa533b3.patch",
+    "leaflet": "https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c",
+    "leaflet-geonames": "^0.4.9",
+    "leaflet-gesture-handling": "^1.2.2",
+    "leaflet.locatecontrol": "^0.85.1",
+    "leaflet.sync": "^0.2.4",
+    "leaflet.vectorgrid": "^1.3.0",
     "nanostores": "^1.1.0",
     "normalize.css": "^8.0.1",
     "purecss-sass": "3.0.1",
@@ -61,7 +63,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
+    "@playwright/test": "1.57.0",
     "@types/diff-match-patch": "^1.0.36",
     "@types/leaflet": "^1.9.21",
     "@types/leaflet.vectorgrid": "^1.3.5",
@@ -73,12 +75,9 @@
     "husky": "^9.1.7",
     "oxfmt": "^0.19.0",
     "oxlint": "^1.28.0",
-    "rolldown": "1.0.0-beta.53",
+    "rolldown": "^1.0.0-beta.58",
     "sass": "^1.94.0",
     "vite": "^8.0.0-beta.1"
   },
-  "resolutions": {
-    "@react-leaflet/core@npm:^3.0.0": "patch:@react-leaflet/core@npm%3A3.0.0#~/.yarn/patches/@react-leaflet-core-npm-3.0.0-4e3f2d62b5.patch"
-  },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
 }
