@@ -161,12 +161,17 @@ function DownloadLink({
   lang: string;
 }) {
   const province = useStore($province);
+  // The following keys are used here:
+  // config.apis.bulletin.pdf
+  // config.apis.bulletin.xml
+  // config.apis.bulletin.json
+  const url = config.apis.bulletin[format];
   return (
     <a
-      href={config.template(config.apis.bulletin[format], {
+      href={config.template(url, {
         bulletin: bulletin || "",
         date,
-        region: `${province || "EUREGIO"}_`,
+        region: `${province || "EUREGIO"}${format === "pdf" && url.includes("/api/bulletins") ? "" : "_"}`,
         lang,
         bw: ""
       })}
