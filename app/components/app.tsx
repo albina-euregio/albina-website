@@ -1,14 +1,14 @@
 import React, { Suspense, useEffect } from "react";
 import "@iframe-resizer/child";
 import { useStore } from "@nanostores/react";
-import { $router } from "./router";
 import { redirectPage } from "@nanostores/router";
+import { $router } from "./router";
 
 window.iFrameResizer = {
   sizeSelector: "#page-all"
 };
 
-import { setLanguage, $province, $headless } from "../appStore";
+import { $headless, $province, setLanguage } from "../appStore";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -111,14 +111,16 @@ const App = () => {
         return <StationMap />;
       case "weatherSnowProfiles":
         return <SnowProfileMap />;
+      case "conditionsProfiles":
+        return <BlogPostList isTechBlog={false} isProfileBlog={true} />;
       case "education":
         return <Education />;
       case "blogNamePost":
         return <BlogPost />;
       case "blogTech":
-        return <BlogPostList isTechBlog={true} />;
+        return <BlogPostList isTechBlog={true} isProfileBlog={false} />;
       case "blog":
-        return <BlogPostList isTechBlog={false} />;
+        return <BlogPostList isTechBlog={false} isProfileBlog={false} />;
       case "more":
         return <More />;
       case "moreArchive":
