@@ -50,9 +50,17 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (/OpenSourceLicenses/i.exec(type)) {
           return React.createElement(OpenSourceLicenses, props, children);
         }
-        // Remove deprecated html attributes
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        ["align", "border"].forEach(prop => delete props[prop]);
+        // Remove deprecated or invalid html attributes
+        if (props) {
+          Object.keys(props).forEach(prop => {
+            if (prop.startsWith("#")) {
+              // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+              delete props[prop];
+            }
+          });
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+          ["align", "border"].forEach(prop => delete props[prop]);
+        }
         return React.createElement(type, props, children);
       }
     }
