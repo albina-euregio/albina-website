@@ -1,8 +1,9 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { FormattedMessage, useIntl, MessageId } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
+import { Tooltip } from "../tooltips/tooltip";
 
 interface Props {
   handleSelectRegion: (id?: string) => void;
@@ -63,12 +64,26 @@ function BulletinLegend(props: Props) {
                 ([id, num]) =>
                   num > 0 && (
                     <li key={id} className={`warning-level-${num}`}>
-                      <span>
-                        <strong>{num}</strong>{" "}
-                        {intl.formatMessage({
-                          id: `danger-level:${id}`
-                        })}
-                      </span>
+                      <Tooltip
+                        label={intl.formatMessage(
+                          {
+                            id: "bulletin:legend:danger-level:hover"
+                          },
+                          {
+                            level: num.toString(),
+                            text: intl.formatMessage({
+                              id: `danger-level:${id}` as MessageId
+                            })
+                          }
+                        )}
+                      >
+                        <span>
+                          <strong>{num}</strong>{" "}
+                          {intl.formatMessage({
+                            id: `danger-level:${id}` as MessageId
+                          })}
+                        </span>
+                      </Tooltip>
                     </li>
                   )
               )}

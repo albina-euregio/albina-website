@@ -6,7 +6,14 @@ import { useStore } from "@nanostores/react";
 import reactStringReplace from "react-string-replace";
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
-type MessageId = keyof StoreValue<typeof $messages>;
+export type MessageId =
+  | keyof StoreValue<typeof $messages>
+  | "danger-level:low"
+  | "danger-level:moderate"
+  | "danger-level:considerable"
+  | "danger-level:high"
+  | "danger-level:very-high"
+  | "bulletin:legend:danger-level:hover";
 
 const format = computed($locale, code => ({
   number(num: number, opts: Intl.NumberFormatOptions) {
