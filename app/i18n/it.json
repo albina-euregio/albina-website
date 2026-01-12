@@ -123,6 +123,8 @@
   "bulletin:legend:highlight:hover": "Evidenzia regioni con {problem}",
   "bulletin:legend:dehighlight:hover": "Termina evidenziazione delle regioni con {problem}",
   "bulletin:legend:danger-levels": "<strong>Gradi di pericolo</strong>",
+  "bulletin:legend:danger-level:hover": "Livelli di pericolo {level}: {text}",
+  "bulletin:legend:danger-scale-link": "Scopri di più sulla scala di pericolo.",
   "bulletin:linkbar:back-to-bulletin": "Back to Avalanche Forecast",
   "bulletin:linkbar:back-to-map": "Torna alla mappa",
   "bulletin:linkbar:pdf": "PDF",
