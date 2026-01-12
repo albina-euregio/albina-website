@@ -1,24 +1,24 @@
+import { useStore } from "@nanostores/react";
+import { redirectPage } from "@nanostores/router";
 import React, { useEffect, useState } from "react";
-import * as BLOG_STORE from "../stores/blogStore";
-import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
+import { $headless, $province } from "../appStore.ts";
+import BlogPostsList from "../components/blog/blog-posts-list";
 import PageFlipper from "../components/blog/page-flipper";
+import LanguageFilter from "../components/filters/language-filter";
+import MonthFilter from "../components/filters/month-filter";
+import ProvinceFilter from "../components/filters/province-filter";
+import YearFilter from "../components/filters/year-filter";
+import ControlBar from "../components/organisms/control-bar";
 import FilterBar from "../components/organisms/filter-bar";
 import HTMLHeader from "../components/organisms/html-header";
-import BlogPostsList from "../components/blog/blog-posts-list";
-import ProvinceFilter from "../components/filters/province-filter";
-import LanguageFilter from "../components/filters/language-filter";
-import YearFilter from "../components/filters/year-filter";
-import MonthFilter from "../components/filters/month-filter";
-import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { FormattedMessage, useIntl } from "../i18n";
-import { useStore } from "@nanostores/react";
-import { $headless, $province } from "../appStore.ts";
+import PageHeadline from "../components/organisms/page-headline";
+import SmShare from "../components/organisms/sm-share";
 import { $router } from "../components/router.ts";
-import { redirectPage } from "@nanostores/router";
+import { FormattedMessage, useIntl } from "../i18n";
+import * as BLOG_STORE from "../stores/blogStore";
 
 interface Props {
   isTechBlog: boolean;
@@ -43,7 +43,11 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   const province = useStore($province);
 
   const router = useStore($router);
-  if (router?.route !== "blog" && router?.route !== "blogTech")
+  if (
+    router?.route !== "blog" &&
+    router?.route !== "blogTech" &&
+    router?.route !== "conditionsProfiles"
+  )
     throw new Error();
   const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
   useEffect(() => {

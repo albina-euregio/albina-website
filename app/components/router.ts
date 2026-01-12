@@ -17,6 +17,7 @@ export const $router = createRouter(
     weatherMeasurements: `${projectRoot}weather/measurements`,
     weatherStations: `${projectRoot}weather/stations`,
     weatherSnowProfiles: `${projectRoot}weather/snow-profiles`,
+    conditionsProfiles: `${projectRoot}conditions/profiles`,
     education: `${projectRoot}education`,
     blogNamePost: `${projectRoot}blog/:blogName/:postId`,
     blogTech: `${projectRoot}blog/tech`,
