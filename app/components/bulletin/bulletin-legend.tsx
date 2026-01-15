@@ -2,7 +2,11 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
-import { Tooltip } from "../tooltips/tooltip";
+import React from "react";
+import { EnabledLanguages } from "./bulletin-glossary.js";
+const BulletinGlossaryText = React.lazy(
+  () => import("./bulletin-glossary-text")
+);
 
 interface Props {
   handleSelectRegion: (id?: string) => void;
@@ -63,36 +67,15 @@ function BulletinLegend(props: Props) {
                 ([id, num]) =>
                   num > 0 && (
                     <li key={id} className={`warning-level-${num}`}>
-                      <Tooltip
-                        label={
-                          <span>
-                            {intl.formatMessage(
-                              {
-                                id: "bulletin:legend:danger-level:hover"
-                              },
-                              {
-                                level: num.toString(),
-                                text: intl.formatMessage({
-                                  id: `danger-level:${id}`
-                                })
-                              }
-                            )}
-                            <br />
-                            <a href="/education/danger-scale">
-                              {intl.formatMessage({
-                                id: "bulletin:legend:danger-scale-link"
-                              })}
-                            </a>
-                          </span>
-                        }
-                      >
-                        <span>
-                          <strong>{num}</strong>{" "}
-                          {intl.formatMessage({
+                      <span>
+                        <strong>{num}</strong>{" "}
+                        <BulletinGlossaryText
+                          text={intl.formatMessage({
                             id: `danger-level:${id}`
                           })}
-                        </span>
-                      </Tooltip>
+                          locale={intl.locale.slice(0, 2) as EnabledLanguages}
+                        />
+                      </span>
                     </li>
                   )
               )}

@@ -29,7 +29,7 @@
   "critical-depth-of-new-fallen-snow": "critical-depth-of-new-fallen-snow",
   "crust": "crust",
   "danger-patterns": "danger-patterns",
-  "danger-scale": "danger-scale",
+  "danger-scale": "danger-scale\nniedrig\nmäßig\nerheblich\ngroß\nsehr groß\n",
   "danger": "danger",
   "daytime-changes-during-the-course-of-the-day": "tageszeitlichen Erwärmung\n",
   "decomposed-snow": "decomposed-snow",
