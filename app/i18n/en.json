@@ -178,7 +178,6 @@
   "bulletin:report:problem:snowpack-stability:poor": "poor",
   "bulletin:report:problem:snowpack-stability:very_poor": "very poor",
   "bulletin:report:problem:frequency": "Frequency",
-  "bulletin:report:problem:frequency:hover": "Frequency HOVER TEXt",
   "bulletin:report:problem:frequency:none": "none",
   "bulletin:report:problem:frequency:few": "few",
   "bulletin:report:problem:frequency:some": "some",

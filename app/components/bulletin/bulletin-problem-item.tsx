@@ -343,13 +343,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 <span className="matrix-info-name">{avalancheSizeText}:</span>
                 <span className="matrix-info-value">
                   <a
-                    href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}>
-                      <BulletinGlossaryText
-                        text={intl.formatMessage({
-                          id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
-                        })}
-                        locale={lang as EnabledLanguages}
-                      />
+                    href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
+                  >
+                    <BulletinGlossaryText
+                      text={intl.formatMessage({
+                        id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
+                      })}
+                      locale={lang as EnabledLanguages}
+                    />
                   </a>
                 </span>
               </div>

@@ -11,12 +11,12 @@ interface Props {
 }
 
 function DangerPatternItem({ dangerPattern, isInserted }: Props) {
-    const intl = useIntl(); // Get the intl object for formatting messages
+  const intl = useIntl(); // Get the intl object for formatting messages
 
   const dangerPatternText = intl.formatMessage({
     id: `danger-patterns:${dangerPattern.toLowerCase()}`
   });
-return (
+  return (
     <a
       href={`/education/danger-patterns#${dangerPattern.toLowerCase()}`}
       className="label"
