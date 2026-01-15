@@ -123,8 +123,6 @@
   "bulletin:legend:highlight:hover": "Senhalar es regions damb {problem}",
   "bulletin:legend:dehighlight:hover": "Enfosquir regions damb {problem}",
   "bulletin:legend:danger-levels": "<strong>Grads de perilh</strong>",
-  "bulletin:legend:danger-level:hover": "Nivèls de risc {level}: {text}",
-  "bulletin:legend:danger-scale-link": "Aprene mai sus l'escala del dangier.",
   "bulletin:linkbar:back-to-bulletin": "Tornar tath bulletin de lauegi",
   "bulletin:linkbar:back-to-map": "Entà darrèr tath mapa",
   "bulletin:linkbar:pdf": "PDF",

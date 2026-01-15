@@ -123,8 +123,6 @@
   "bulletin:legend:highlight:hover": "Mettre en évidence tous les régions présentant {problem}",
   "bulletin:legend:dehighlight:hover": "Masquer tous les régions présentant {problem}",
   "bulletin:legend:danger-levels": "<strong>Degrés de danger</strong>",
-  "bulletin:legend:danger-level:hover": "niveaux de danger {level}: {text}",
-  "bulletin:legend:danger-scale-link": "En savoir plus sur l'échelle de dangerosité.",
   "bulletin:linkbar:back-to-bulletin": "Back to Avalanche Forecast",
   "bulletin:linkbar:back-to-map": "Retourner à la carte",
   "bulletin:linkbar:pdf": "PDF",

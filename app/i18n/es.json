@@ -124,8 +124,6 @@
   "bulletin:legend:dehighlight:hover": "Regiones oscuras con {problem}",
   "bulletin:legend:danger-levels": "<strong>Grados de Peligro</strong>",
   "bulletin:linkbar:back-to-bulletin": "Volver a la predicción de aludes",
-  "bulletin:legend:danger-level:hover": "niveles de peligro {level}: {text}",
-  "bulletin:legend:danger-scale-link": "Más información sobre la escala de peligro.",
   "bulletin:linkbar:back-to-map": "Volver al mapa",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Descargar la Predicción de Aludes en PDF",

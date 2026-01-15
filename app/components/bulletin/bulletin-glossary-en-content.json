@@ -2523,26 +2523,6 @@
     "text": "<p>Snow surface layer strong enough to support a person walking on it.</p>",
     "img": "<img alt=\"Snowpack capable of bearing loads\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "Snowpack-stability-definition": {
-    "ids": {
-      "ar": "estabilitat-deth-manteth-nivau-definicion",
-      "ca": "estabilitat-del-mantell-nival-definicio",
-      "cs": "stabilita-snehove-pokryvky-definice",
-      "de": "definition-schneedeckenstabilitat",
-      "es": "definicion-estabilidad-del-manto-de-nieve",
-      "fr": "definition-stabilite-du-manteau-neigeux",
-      "is": "skilgreining-stodugleika-snaevar",
-      "it": "definizione-stabilita-del-manto-nevoso",
-      "no": "definisjon-stabilitet-snodekkets-stabilitet",
-      "ro": "definitie-stabilitatea-stratului-de-zapada",
-      "sk": "definicia-stability-snehovej-pokryvky",
-      "sl": "definicija-stabilnosti-snezne-odeje",
-      "en": "Snowpack-stability-definition"
-    },
-    "heading": "Snowpack stability definition11",
-    "text": "<p>Snowpack stability 111is a local property of the snowpack describing the propensity of a snow-covered slope to avalanche.</p>",
-    "img": ""
-  },
   "spacing-distances-maintaining-distances": {
     "ids": {
       "ar": "separar-era-distancia-mantier-era-distancia",

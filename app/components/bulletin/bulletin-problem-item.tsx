@@ -1,4 +1,6 @@
 import React, { useMemo } from "react";
+import { wordDiff } from "../../util/wordDiff";
+import DiffMatchPatch from "diff-match-patch";
 import { useIntl } from "../../i18n";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";
@@ -7,7 +9,10 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { Tooltip } from "../tooltips/tooltip";
+import { EnabledLanguages } from "./bulletin-glossary";
+const BulletinGlossaryText = React.lazy(
+  () => import("./bulletin-glossary-text")
+);
 
 interface Props {
   problem: AvalancheProblem;
@@ -37,6 +42,7 @@ const textInfoToClass = {
 
 function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   function getElevationIcon() {
     const lowerBound = problem?.elevation?.lowerBound;
     const upperBound = problem?.elevation?.upperBound;
@@ -278,20 +284,17 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 >
                   <span className="matrix-info-name">
                     {snowpackStabilityText}:
-                  </span>
-                  <Tooltip
-                    label={intl.formatMessage({
-                      id: "bulletin:report:problem:snowpack-stability:hover"
-                    })}
-                  >
+                    </span>
                     <span className="matrix-info-value">
                       <a href={`/education/snowpack-stability`}>
-                        {intl.formatMessage({
-                          id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
-                        })}
+                        <BulletinGlossaryText
+                          text={intl.formatMessage({
+                            id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                          })}
+                          locale={lang as EnabledLanguages}
+                        />
                       </a>
                     </span>
-                  </Tooltip>
                 </div>
               )}
             {problem?.frequency && (
@@ -309,11 +312,6 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 // }
               >
                 <span className="matrix-info-name">{frequencyText}:</span>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: "bulletin:report:problem:frequency:hover"
-                  })}
-                >
                   <span className="matrix-info-value">
                     <a href={`/education/frequency`}>
                       {intl.formatMessage({
@@ -321,7 +319,6 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                       })}
                     </a>
                   </span>
-                </Tooltip>
               </div>
             )}
             {problem?.avalancheSize && (
@@ -341,11 +338,6 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 // }
               >
                 <span className="matrix-info-name">{avalancheSizeText}:</span>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: "bulletin:report:problem:avalanche-size:hover"
-                  })}
-                >
                   <span className="matrix-info-value">
                     <a
                       href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
@@ -355,7 +347,6 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                       })}
                     </a>
                   </span>
-                </Tooltip>
               </div>
             )}
           </div>

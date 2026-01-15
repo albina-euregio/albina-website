@@ -124,8 +124,6 @@
   "bulletin:legend:dehighlight:hover": "Regions escasses amb {problem}",
   "bulletin:legend:danger-levels": "<strong>Graus de Perill</strong>",
   "bulletin:linkbar:back-to-bulletin": "Tornar al Butlletí d'Allaus",
-  "bulletin:legend:danger-level:hover": "nivells de risc {level}: {text}",
-  "bulletin:legend:danger-scale-link": "Aprèn-ne més sobre l'escala de perill.",
   "bulletin:linkbar:back-to-map": "Torna al mapa",
   "bulletin:linkbar:pdf": "PDF",
   "bulletin:linkbar:pdf:hover": "Descarrega la previsió d'allaus en PDF",
