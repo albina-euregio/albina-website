@@ -284,17 +284,17 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 >
                   <span className="matrix-info-name">
                     {snowpackStabilityText}:
-                    </span>
-                    <span className="matrix-info-value">
-                      <a href={`/education/snowpack-stability`}>
-                        <BulletinGlossaryText
-                          text={intl.formatMessage({
-                            id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
-                          })}
-                          locale={lang as EnabledLanguages}
-                        />
-                      </a>
-                    </span>
+                  </span>
+                  <span className="matrix-info-value">
+                    <a href={`/education/snowpack-stability`}>
+                      <BulletinGlossaryText
+                        text={intl.formatMessage({
+                          id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                        })}
+                        locale={lang as EnabledLanguages}
+                      />
+                    </a>
+                  </span>
                 </div>
               )}
             {problem?.frequency && (
@@ -312,13 +312,16 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 // }
               >
                 <span className="matrix-info-name">{frequencyText}:</span>
-                  <span className="matrix-info-value">
-                    <a href={`/education/frequency`}>
-                      {intl.formatMessage({
+                <span className="matrix-info-value">
+                  <a href={`/education/frequency`}>
+                    <BulletinGlossaryText
+                      text={intl.formatMessage({
                         id: `bulletin:report:problem:frequency:${problem?.frequency}`
                       })}
-                    </a>
-                  </span>
+                      locale={lang as EnabledLanguages}
+                    />
+                  </a>
+                </span>
               </div>
             )}
             {problem?.avalancheSize && (
@@ -338,15 +341,17 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 // }
               >
                 <span className="matrix-info-name">{avalancheSizeText}:</span>
-                  <span className="matrix-info-value">
-                    <a
-                      href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
-                    >
-                      {intl.formatMessage({
-                        id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
-                      })}
-                    </a>
-                  </span>
+                <span className="matrix-info-value">
+                  <a
+                    href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}>
+                      <BulletinGlossaryText
+                        text={intl.formatMessage({
+                          id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
+                        })}
+                        locale={lang as EnabledLanguages}
+                      />
+                  </a>
+                </span>
               </div>
             )}
           </div>

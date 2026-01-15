@@ -606,6 +606,156 @@
     "text": "<p>Typical avalanche problems and danger patterns commonly indicate typical, repetitive and usually obvious danger situations that highlight an avalanche hazard situation.<br/>However it should be noted that while <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-problems\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#avalanche-problems\">avalanche problems </a>give an initial indication of possible \u00a0danger \u00a0factors (e.g. new snow), danger patterns provide deeper explanation into the processes within the snowpack and the causes of the problem (e.g. problem due to excessive new snow load on a weak layer). Therefore, danger patterns help to describe different scenarios or processes that signal the development of a particular avalanche problem. \u00a0By recognising avalanche problems and danger patterns recreations can be forewarned about the development of dangerous situations and \u00a0change their plans accordingly.</p>",
     "img": ""
   },
+  "danger-pattern-1": {
+    "ids": {
+      "ar": "patrons-de-perilh-1",
+      "cs": "modely-lavinoveho-nebezpeci-1",
+      "de": "gefahrenmuster-1",
+      "es": "situaciones-de-peligro-1",
+      "fr": "modeles-de-danger-1",
+      "it": "situazioni-tipo-1",
+      "sl": "vzorci-nevarnosti-1",
+      "en": "danger-pattern-1"
+    },
+    "heading": "Danger pattern 1",
+    "text": "<p>At the onset of winter, slab avalanches are often observed following the second heavy snowfall, usually at high altitudes (>2000&nbsp;m) and high alpine altitudes (>3000&nbsp;m) on shady, very steep slopes. This is because in autumn after the first big snowfalls, a lengthy period of stable, highpressure weather or at least precipitation-free weather frequently follows. That is when ideal conditions prevail for the partial metamorphism of snow into loose crystals, which then form a deep persistent weak layer for subsequent snowfall to be deposited on. During the course of early winter, this can occur in a wide range of altitudes and aspects. In general, deep persistent weak layers formed in early winter are triggered by skiers and freeriders at the beginning of the season, but it is also possible later on in winters with little snowfall. This occurs especially in spring when deep persistent weak layers are weakened further by water.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>"
+    },
+    "danger-pattern-2": {
+    "ids": {
+      "ar": "patrons-de-perilh-2",
+      "cs": "modely-lavinoveho-nebezpeci-2",
+      "de": "gefahrenmuster-2",
+      "es": "situaciones-de-peligro-2",
+      "fr": "modeles-de-danger-2",
+      "it": "situazioni-tipo-2",
+      "sl": "vzorci-nevarnosti-2",
+      "en": "danger-pattern-2"
+    },
+    "heading": "Danger pattern 2",
+    "text": "<p>Snow glides most easily towards the valley across steep, smooth surfaces. While this process is taking place, glide cracks – easily visible, sometimes several-meters deep cracks in the snowpack surface – are formed. Such fissures are now considered to be not the favourable signs which ancient folk knowledge once posited (such traditions are hard to overcome) but instead, utterly unfavourable indicators of potential, sometimes imminent avalanches. A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>"
+  },
+    "danger-pattern-3": {
+    "ids": {
+      "ar": "patrons-de-perilh-3",
+      "cs": "modely-lavinoveho-nebezpeci-3",
+      "de": "gefahrenmuster-3",
+      "es": "situaciones-de-peligro-3",
+      "fr": "modeles-de-danger-3",
+      "it": "situazioni-tipo-3",
+      "sl": "vzorci-nevarnosti-3",
+      "en": "danger-pattern-3"
+    },
+    "heading": "Danger pattern 3",
+    "text": "<p>Rain-on-snow is considered the classic alarm signal in snow and avalanche science because, on the one hand, its additional weight burdens the entire snowpack; and on the other, because the firmness of the snowpack is immediately lost. For those reasons, avalanches are predestined. Rain can occur at any time during the winter. The big advantage is that no danger sign could be simpler to recognize.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>"
+    },
+    "danger-pattern-4": {
+    "ids": {
+      "ar": "patrons-de-perilh-4",
+      "cs": "modely-lavinoveho-nebezpeci-4",
+      "de": "gefahrenmuster-4",
+      "es": "situaciones-de-peligro-4",
+      "fr": "modeles-de-danger-4",
+      "it": "situazioni-tipo-4",
+      "sl": "vzorci-nevarnosti-4",
+      "en": "danger-pattern-4"
+    },
+    "heading": "Danger pattern 4",
+    "text":"<p>A theory purporting that huge temperature disparities during snowfall (regardless whether cold on warm or warm on cold) exercise a positive effect on the avalanche situation held sway for much too long in avalanche science. In fact, this is the case only under certain very specific prior conditions. For the most part, such temperature differences have a negative effect, since they reinforce snow metamorphism inside the snowpack. As a rule, a thin, weak layer forms which is highly prone to triggering. This layer is often found on south-facing slopes. It is highly treacherous for the additional reason that the weak layer does not yet exist immediately after the new snow is deposited, it forms only over the course of the following days.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>"
+  },
+    "danger-pattern-5": {
+    "ids": {
+      "ar": "patrons-de-perilh-5",
+      "cs": "modely-lavinoveho-nebezpeci-5",
+      "de": "gefahrenmuster-5",
+      "es": "situaciones-de-peligro-5",
+      "fr": "modeles-de-danger-5",
+      "it": "situazioni-tipo-5",
+      "sl": "vzorci-nevarnosti-5",
+      "en": "danger-pattern-5"
+    },
+    "heading": "Danger pattern 5",
+    "text":  "<p> Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. In addition, strong winds prevail which transport the new snow accordingly. Within the shortest imaginable time, a treacherous situation arises for backcountry skiers. This is also the case if, following a lengthy period of cold, “only” strong winds are blowing without snowfall. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>"
+  },
+    "danger-pattern-6": {
+    "ids": {
+      "ar": "patrons-de-perilh-6",
+      "cs": "modely-lavinoveho-nebezpeci-6",
+      "de": "gefahrenmuster-6",
+      "es": "situaciones-de-peligro-6",
+      "fr": "modeles-de-danger-6",
+      "it": "situazioni-tipo-6",
+      "sl": "vzorci-nevarnosti-6",
+      "en": "danger-pattern-6"
+    },
+    "heading": "Danger pattern 6",
+    "text":  "<p>Wind is the architect of avalanches.” This classic proverb from the 1930s by Wilhelm Paulcke remains unchanged even today. Wind influences both snow which is falling and snow which has already been deposited. It is a major factor in the formation of avalanches. When the snow is loose and dry, wind transports it, thereby increasing avalanche danger. The colder the transported snow, the more sensitively it reacts to additional loading, because it is so brittle. It is characteristic of this danger pattern that the weak layer usually consists of new snow and is buried by snowdrifts. Thus, there must have been snowfall at low temperatures without wind impact either just before or in a previous period when the drifting began; or else the snowfall set in without wind influence, but winds arose during the snowfall. This is a pattern which ordinarily can be recognized with ease and lasts only for a short time. The exception is a situation in which the old snowpack surface consisting of loose, faceted crystals is itself transported by wind. When that happens, hard, brittle slabs form which remain prone to triggering for a lengthy period.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",  
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>"
+  },
+  "danger-pattern-7": {
+    "ids": {
+      "ar": "patrons-de-perilh-7",
+      "cs": "modely-lavinoveho-nebezpeci-7",
+      "de": "gefahrenmuster-7",
+      "es": "situaciones-de-peligro-7",
+      "fr": "modeles-de-danger-7",
+      "it": "situazioni-tipo-7",
+      "sl": "vzorci-nevarnosti-7",
+      "en": "danger-pattern-7"
+    },
+    "heading": "Danger pattern 7",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow. This occurs frequently near terrain edges, and repeatedly on broad ridges.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>"
+  },
+  "danger-pattern-8": {
+    "ids": {
+      "ar": "patrons-de-perilh-8",
+      "cs": "modely-lavinoveho-nebezpeci-8",
+      "de": "gefahrenmuster-8",
+      "es": "situaciones-de-peligro-8",
+      "fr": "modeles-de-danger-8",
+      "it": "situazioni-tipo-8",
+      "sl": "vzorci-nevarnosti-8",
+      "en": "danger-pattern-8"
+    },
+    "heading": "Danger pattern 8",
+    "text": "<p>Surface hoar numbers among the most beautiful types of snow in existence. In and of itself, it bears no danger potential. That potential unfolds only when it is buried by fresh, bonded layers of snow. Then it becomes hazardous. In fact, it is considered one of the most critical weak layers in all of snow and avalanche science.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>"
+  },
+  "danger-pattern-9": {
+    "ids": {
+      "ar": "patrons-de-perilh-9",
+      "cs": "modely-lavinoveho-nebezpeci-9",
+      "de": "gefahrenmuster-9",
+      "es": "situaciones-de-peligro-9",
+      "fr": "modeles-de-danger-9",
+      "it": "situazioni-tipo-9",
+      "sl": "vzorci-nevarnosti-9",
+      "en": "danger-pattern-9"
+    },
+    "heading": "Danger pattern 9",
+    "text": "<p>A weak layer inside a snowpack is often compared with ball bearings. This image is actually suitable only for graupel: a spherical, granular form of precipitation which is often deposited during showers such as thunderstorms during springtime. It is easy to grasp that snowdrifts accumulating atop of a layer of graupel can only be poorly bonded with it, so that the danger of avalanches increases. Graupel is frequently spread over very small surface areas. Without examining the snowpack itself it is difficult to spot, even for professionals. This is an extremely treacherous phenomenon. Fortunately, the problems it creates are short-lived.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>"  
+  },
+  "danger-pattern-10": {
+       "ids": {
+      "ar": "patrons-de-perilh-10",
+      "cs": "modely-lavinoveho-nebezpeci-10",
+      "de": "gefahrenmuster-10",
+      "es": "situaciones-de-peligro-10",
+      "fr": "modeles-de-danger-10",
+      "it": "situazioni-tipo-10",
+      "sl": "vzorci-nevarnosti-10",
+      "en": "danger-pattern-10"
+    },
+    "heading": "Danger pattern 10",
+    "text": "<p>Springtime presents a particularly delicate challenge to backcountry skiers and boarders, as well as to members of avalanche commissions. Rarely do states of “safe” and “unsafe” lie quite so near in time to each other. Thus, the span of danger levels, which occur within the course of one single day is wide ranging. On the one hand, avalanche danger is never easier to evaluate than in stable corn-snow conditions; on the other, avalanches of such magnitude as in springtime are rarely registered in deep winter. Apart from the snowpack layering, the complex interaction of air temperature, air moisture, solar radiation and wind play a major role. For backcountry skiers and boarders, high discipline in timing and flexibility of route planning are more essential than ever.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>"
+  },
   "danger-scale": {
     "ids": {
       "ar": "escala-de-perilh",

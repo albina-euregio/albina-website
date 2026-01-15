@@ -1,6 +1,9 @@
 import React from "react";
+import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import { FormattedMessage } from "../../i18n";
 import type * as Caaml from "../../stores/bulletin";
+import BulletinGlossaryText from "./bulletin-glossary-text"; // Import BulletinGlossaryText
+import { EnabledLanguages } from "./bulletin-glossary";
 
 interface Props {
   dangerPattern: Caaml.DangerPattern;
@@ -8,7 +11,12 @@ interface Props {
 }
 
 function DangerPatternItem({ dangerPattern, isInserted }: Props) {
-  return (
+    const intl = useIntl(); // Get the intl object for formatting messages
+
+  const dangerPatternText = intl.formatMessage({
+    id: `danger-patterns:${dangerPattern.toLowerCase()}`
+  });
+return (
     <a
       href={`/education/danger-patterns#${dangerPattern.toLowerCase()}`}
       className="label"
@@ -17,16 +25,19 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
         <ins
         // style={{ color: "#28a745" }}
         >
-          <FormattedMessage
-            id={`danger-patterns:${dangerPattern.toLowerCase()}`}
+          <BulletinGlossaryText
+            text={dangerPatternText}
+            locale={intl.locale.slice(0, 2) as EnabledLanguages}
           />
         </ins>
       ) : (
-        <FormattedMessage
-          id={`danger-patterns:${dangerPattern.toLowerCase()}`}
+        <BulletinGlossaryText
+          text={dangerPatternText}
+          locale={intl.locale.slice(0, 2) as EnabledLanguages}
         />
       )}
     </a>
   );
 }
+
 export default DangerPatternItem;
