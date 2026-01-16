@@ -1,6 +1,4 @@
 import React, { useMemo } from "react";
-import { wordDiff } from "../../util/wordDiff";
-import DiffMatchPatch from "diff-match-patch";
 import { useIntl } from "../../i18n";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";

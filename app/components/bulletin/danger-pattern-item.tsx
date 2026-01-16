@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import { FormattedMessage } from "../../i18n";
 import type * as Caaml from "../../stores/bulletin";
-import BulletinGlossaryText from "./bulletin-glossary-text"; // Import BulletinGlossaryText
+import BulletinGlossaryText from "./bulletin-glossary-text";
 import { EnabledLanguages } from "./bulletin-glossary";
 
 interface Props {
