@@ -211,43 +211,6 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
   );
 };
 
-const TimeRangeButtons: React.FC<{
-  station: StationData | ObserverData;
-  timeRange: TimeRange;
-  setTimeRange: (timeRange: TimeRange) => void;
-}> = ({ station, timeRange, setTimeRange }) => {
-  const intl = useIntl();
-  return (
-    <ul className="list-inline filter primary">
-      {(Object.keys(timeRanges) as TimeRange[])
-        .filter(key => {
-          if (key.startsWith("interactive")) {
-            return hasInteractivePlot(station);
-          } else {
-            return station.$png;
-          }
-        })
-        .map(key => (
-          <li key={key}>
-            <a
-              href="#"
-              onClick={event => {
-                event.preventDefault();
-                event.stopPropagation();
-                setTimeRange(key !== "none" ? (key as TimeRange) : "threedays");
-              }}
-              className={key === timeRange ? "label js-active" : "label"}
-            >
-              {intl.formatMessage({
-                id: `dialog:weather-station-diagram:timerange:${key}`
-              })}
-            </a>
-          </li>
-        ))}
-    </ul>
-  );
-};
-
 const StationDiagramImage: React.FC<{
   station: StationData | ObserverData;
   clientWidth: number;
@@ -261,11 +224,18 @@ const StationDiagramImage: React.FC<{
   ) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
-    const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
+    let timeRangePath = "woche";
     const end = new Date().toISOString();
     const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
     const id = station.properties?.["LWD-Nummer"] || station.id;
     const url = window.config.template(station.$smet ?? "", {
+      start,
+      end,
+      timeRangePath,
+      id
+    });
+    timeRangePath = "winter";
+    const lazyurl = window.config.template(station.$smet ?? "", {
       start,
       end,
       timeRangePath,
@@ -277,7 +247,7 @@ const StationDiagramImage: React.FC<{
         <linea-plot
           key={url + timeRangeMilli}
           src={url}
-          lazysrc={url.replace("woche", "winter")}
+          lazysrc={lazyurl}
           showSurfaceHoarButton
           showexport
           showdatepicker
