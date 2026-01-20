@@ -5,8 +5,9 @@ import {
 } from "../../../stores/bulletin";
 
 export enum internalGlossaryEnum {
-  avalancheStability,
-  avalancheSize
+    avalancheStability,
+    avalancheSize,
+    dangleLevel,
 }
 
 export enum avalancheSizeEnum {
@@ -26,6 +27,8 @@ export function getContentIdentifier(
       return avalancheStabilityToContentId(value);
     case internalGlossaryEnum.avalancheSize:
       return value;
+    case internalGlossaryEnum.dangleLevel:
+        return dangerLevelToContentId(value);
     default:
       return "";
   }
@@ -41,6 +44,24 @@ function avalancheStabilityToContentId<T extends string>(value: T): string {
       return "snowpack-stability-fair";
     case "good":
       return "snowpack-stability-good";
+    default:
+      return "";
+  }
+}
+
+function dangerLevelToContentId<T extends string>(value: T): string {
+    var level = parseInt(value);
+  switch (level) {
+    case 1:
+      return "danger-scale-low";
+    case 2:
+      return "danger-scale-moderate";
+    case 3:
+      return "danger-scale-considerable";
+    case 4:
+      return "danger-scale-high";
+    case 5:
+      return "danger-scale-very-high";
     default:
       return "";
   }

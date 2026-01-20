@@ -4,8 +4,12 @@ import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 import React from "react";
 import { EnabledLanguages } from "./bulletin-glossary.js";
-const BulletinGlossaryText = React.lazy(
-  () => import("./bulletin-glossary-text")
+import {
+  internalGlossaryEnum,
+  getContentIdentifier
+} from "./InternalGlossary/internal-glossary-enums";
+const BulletinInternalGlossaryText = React.lazy(
+  () => import("./internal-glossary-text")
 );
 
 interface Props {
@@ -69,11 +73,12 @@ function BulletinLegend(props: Props) {
                     <li key={id} className={`warning-level-${num}`}>
                       <span>
                         <strong>{num}</strong>{" "}
-                        <BulletinGlossaryText
+                        <BulletinInternalGlossaryText
                           text={intl.formatMessage({
                             id: `danger-level:${id}`
                           })}
                           locale={intl.locale.slice(0, 2) as EnabledLanguages}
+                          textKey={getContentIdentifier(internalGlossaryEnum.dangleLevel, num.toString())}
                         />
                       </span>
                     </li>

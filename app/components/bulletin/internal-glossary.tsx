@@ -15,30 +15,12 @@ const INTERNAL_GLOSSARY_LINKS = Object.freeze({
 });
 
 const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
-  ca: () =>
-    import("./InternalGlossary/Internal-Glossary-ca-content.json").then(
-      d => d.default
-    ), // as GlossaryItme),
-  de: () =>
-    import("./InternalGlossary/Internal-Glossary-de-content.json").then(
-      d => d.default
-    ),
-  en: () =>
-    import("./InternalGlossary/Internal-Glossary-en-content.json").then(
-      d => d.default
-    ),
-  es: () =>
-    import("./InternalGlossary/Internal-Glossary-es-content.json").then(
-      d => d.default
-    ),
-  it: () =>
-    import("./InternalGlossary/Internal-Glossary-it-content.json").then(
-      d => d.default
-    ),
-  oc: () =>
-    import("./InternalGlossary/Internal-Glossary-oc-content.json").then(
-      d => d.default
-    )
+  ca: () => import("./InternalGlossary/Internal-Glossary-ca-content.json").then(d => d.default), // as GlossaryItme),
+  de: () => import("./InternalGlossary/Internal-Glossary-de-content.json").then(d => d.default),
+  en: () => import("./InternalGlossary/Internal-Glossary-en-content.json").then(d => d.default),
+  es: () => import("./InternalGlossary/Internal-Glossary-es-content.json").then(d => d.default),
+  it: () => import("./InternalGlossary/Internal-Glossary-it-content.json").then(d => d.default),
+  oc: () => import("./InternalGlossary/Internal-Glossary-oc-content.json").then(d => d.default)
 });
 
 export type EnabledLanguages = keyof typeof INTERNAL_GLOSSARY_LINKS &
@@ -170,50 +152,21 @@ class InternalGlossaryReplacer {
   }
 
   async findGlossaryStrings(text: string, textKey: string) {
-    return reactStringReplace(
-      textKey,
-      this.regex,
-      (substring, index, offset) => {
-        if (substring.startsWith("<br")) {
-          return <br key={index} />;
-        } else if (substring.startsWith("<ins")) {
-          const match = substring.slice("<ins>".length, -"</ins>".length);
-          return (
-            <ins
-              key={`ins-${match}-${index}-${offset}`}
-              // style={{ color: "#28a745" }}
-            >
-              {this.findGlossaryStrings(match, textKey)}
-            </ins>
-          );
-        } else if (substring.startsWith("<del")) {
-          const match = substring.slice("<del>".length, -"</del>".length);
-          return (
-            <del
-              key={`del-${match}-${index}-${offset}`}
-              // style={{ color: "#dc3545" }}
-            >
-              {this.findGlossaryStrings(match, textKey)}
-            </del>
-          );
-        }
 
-        // Check if the text matches any glossary content
-        console.log("Looking up glossary item for textKey:", textKey);
-        const glossaryItem = this.content[textKey];
-        console.log(
-          "Found glossary item:",
-          glossaryItem,
-          "for textKey:",
-          textKey
-        );
-        if (!glossaryItem) {
-          return <>{substring}</>;
-        }
-        return this.getTooltipContent(glossaryItem, textKey, text);
-      }
+    // Check if the text matches any glossary content
+    console.log("Looking up glossary item for textKey:", textKey, "text:", text);
+    const glossaryItem = this.content[textKey];
+    console.log(
+        "Found glossary item:",
+        glossaryItem,
+        "for textKey:",
+        textKey, "and substring:",
     );
-  }
+    if (!glossaryItem) {
+        return <>{textKey}</>;
+    }
+    return this.getTooltipContent(glossaryItem, textKey, text);
+    }
 }
 
 const GLOSSARY_REPLACER_INTERNAL = {} as Record<
@@ -234,14 +187,6 @@ export async function findGlossaryStrings(
     // unsupported language
     return InternalGlossaryReplacer.findBreaks(text);
   }
-  console.log(
-    "Finding glossary strings for textKey:",
-    textKey,
-    "t ",
-    text,
-    "in locale:",
-    locale
-  );
   return glossaryReplacerInternal.findGlossaryStrings(text, textKey);
 }
 
