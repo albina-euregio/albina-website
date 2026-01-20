@@ -432,8 +432,9 @@ export const domain = computed(
 export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = computed(
   [domainConfig, domainId, currentTime, absTimeSpan],
-  (domainConfig, domainId, currentTime, absTimeSpan) =>
-    domainConfig.dataOverlays.map(o => {
+  (domainConfig, domainId, currentTime, absTimeSpan) => {
+    if (!domainConfig?.dataOverlays) return [];
+    return domainConfig.dataOverlays.map(o => {
       const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
         const overlayURLs = getOverlayURLs(
           currentTime,
@@ -485,7 +486,8 @@ export const dataOverlays = computed(
           });
         }
       };
-    })
+    });
+  }
 );
 
 /*
@@ -736,6 +738,11 @@ function _getStartTimeForSpan() {
   const currentTimeSpan = timeSpan.get();
   const span = absTimeSpan.get();
   const timesForSpan = _getPossibleTimesForSpan();
+
+  // Guard: if timeSpan is not set or span is invalid, return data availability time
+  if (!currentTimeSpan || !Number.isFinite(span) || timesForSpan.length === 0) {
+    return dataAvailableTime;
+  }
 
   // Determine timespan direction
   const isForecast = currentTimeSpan?.startsWith("+");
