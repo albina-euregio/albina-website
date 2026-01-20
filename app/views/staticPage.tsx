@@ -67,7 +67,7 @@ const StaticPage = () => {
       setHeaderText("");
       setIsShareable(!headless);
     })();
-  }, [headless, lang, router]);
+  }, [headless, province, lang, router]);
 
   useEffect(() => {
     document
