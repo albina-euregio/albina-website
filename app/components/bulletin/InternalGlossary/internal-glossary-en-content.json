@@ -157,7 +157,7 @@
     },
     "heading": "Avalanche frequency Class: some",
     "text": "<p>Points with this stability class are neither many nor a few, but these points typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
-    "img": ""
+    "img": "__SIMPLE_SLIDER__|none,few,some,many|2|false"
   },
   "avalanche-frequency-many": {
     "ids": {

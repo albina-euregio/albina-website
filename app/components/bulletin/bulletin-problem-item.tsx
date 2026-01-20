@@ -7,14 +7,11 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { EnabledLanguages } from "./bulletin-glossary";
+import { EnabledLanguages } from "./internal-glossary";
 import {
   internalGlossaryEnum,
   getContentIdentifier
 } from "./InternalGlossary/internal-glossary-enums";
-const BulletinGlossaryText = React.lazy(
-  () => import("./bulletin-glossary-text")
-);
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary-text")
 );
@@ -323,11 +320,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 <span className="matrix-info-name">{frequencyText}:</span>
                 <span className="matrix-info-value">
                   <a href={`/education/frequency`}>
-                    <BulletinGlossaryText
+                    <BulletinInternalGlossaryText
                       text={intl.formatMessage({
                         id: `bulletin:report:problem:frequency:${problem?.frequency}`
                       })}
                       locale={lang as EnabledLanguages}
+                      textKey={getContentIdentifier(
+                        internalGlossaryEnum.avalancheFrequency,
+                        problem?.frequency
+                      )}
                     />
                   </a>
                 </span>
@@ -354,11 +355,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   <a
                     href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
                   >
-                    <BulletinGlossaryText
+                    <BulletinInternalGlossaryText
                       text={intl.formatMessage({
                         id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
                       })}
                       locale={lang as EnabledLanguages}
+                      textKey={getContentIdentifier(
+                        internalGlossaryEnum.avalancheSize,
+                        problem?.avalancheSize.toString()
+                      )}
                     />
                   </a>
                 </span>

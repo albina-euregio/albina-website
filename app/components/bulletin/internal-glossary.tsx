@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useRef, useEffect }  from "react";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../util/htmlParser";
-import { id, tr } from "zod/locales";
+import { LabeledSlider } from "../../util/simple-slider";
+
+export const LabeledSliderReact = ({ labels, initialIndex, interactive = false }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      new LabeledSlider(containerRef.current, { labels, initialIndex, interactive });
+    }
+  }, [labels, initialIndex, interactive]);
+
+  return <div ref={containerRef} />;
+};
 
 const INTERNAL_GLOSSARY_LINKS = Object.freeze({
   ca: () => import("./bulletin-glossary-ca-links.json").then(d => d.default),
@@ -122,21 +134,42 @@ class InternalGlossaryReplacer {
     return nodes;
   }
 
+  renderGlossaryImg(img: string): React.ReactNode {
+    if (img && img.startsWith("__SIMPLE_SLIDER__")) {
+      // Example: __SIMPLE_SLIDER__|none,few,some,many|2
+      const parts = img.split("|");
+      const labels = parts[1]?.split(",") ?? [];
+      const initialIndex = parts[2] ? parseInt(parts[2], 10) : 0;
+      const isInteractive = parts[3] ? parts[3].toLowerCase() === "true" : false;
+      console.log("Simple slider labels:", labels);
+        console.log("Simple slider initialIndex:", initialIndex);
+        console.log("Simple slider isInteractive:", isInteractive);
+      return (
+        <div style={{ margin: "1em 0" }}>
+          {/* @ts-ignore: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
+          <LabeledSliderReact labels={labels} initialIndex={initialIndex} interactive={isInteractive} />
+        </div>
+      );
+    }
+    // Default: treat as HTML string
+    return preprocessContent(img ?? "");
+  }
+
   async getTooltipContent(
     glossaryItem: GlossaryEntry,
     textKey: string,
     idText: string
-  ){
+  ) {
     const { heading, text, ids, img } = glossaryItem;
     const anchor = ids?.[this.locale];
-    console.log("tooltip", idText, "key " + textKey, "anchor " + anchor);
     const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
     const content = () => (
       <>
         {heading !== idText && <h3>{heading}</h3>}
-        {preprocessContent(text + (img ?? ""))}
+        {preprocessContent(text)}
+        {img ? this.renderGlossaryImg(img) : null}
         <p className="tooltip-source">
-          (<FormattedMessage id={"glossary:source"} />:{" "}
+          (<FormattedMessage id={"glossary:source"} />: {" "}
           <a href={href} target="_blank" rel="external noreferrer">
             EAWS
           </a>
@@ -152,21 +185,13 @@ class InternalGlossaryReplacer {
   }
 
   async findGlossaryStrings(text: string, textKey: string) {
-
     // Check if the text matches any glossary content
-    console.log("Looking up glossary item for textKey:", textKey, "text:", text);
     const glossaryItem = this.content[textKey];
-    console.log(
-        "Found glossary item:",
-        glossaryItem,
-        "for textKey:",
-        textKey, "and substring:",
-    );
     if (!glossaryItem) {
-        return <>{textKey}</>;
+      return <>{textKey}</>;
     }
     return this.getTooltipContent(glossaryItem, textKey, text);
-    }
+  }
 }
 
 const GLOSSARY_REPLACER_INTERNAL = {} as Record<

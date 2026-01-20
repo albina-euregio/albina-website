@@ -1,16 +1,16 @@
 import {
-  type AvalancheProblem,
   type ExpectedSnowpackStability,
-  ExpectedSnowpackStabilitySchema
+  type ExpectedAvalancheFrequency,
 } from "../../../stores/bulletin";
 
 export enum internalGlossaryEnum {
   avalancheStability,
   avalancheSize,
+  avalancheFrequency,
   dangerLevel
 }
 
-export enum avalancheSizeEnum {
+ enum avalancheSizeEnum {
   SMALL = "avalanche-size-small",
   MEDIUM = "avalanche-size-medium",
   LARGE = "avalanche-size-large",
@@ -26,7 +26,9 @@ export function getContentIdentifier(
     case internalGlossaryEnum.avalancheStability:
       return avalancheStabilityToContentId(value);
     case internalGlossaryEnum.avalancheSize:
-      return value;
+      return avalancheSizeToContentId(value);
+    case internalGlossaryEnum.avalancheFrequency:
+      return avalancheFrequencyToContentId(value);
     case internalGlossaryEnum.dangerLevel:
       return dangerLevelToContentId(value);
     default:
@@ -49,6 +51,21 @@ function avalancheStabilityToContentId<T extends string>(value: T): string {
   }
 }
 
+function avalancheFrequencyToContentId<T extends string>(value: T): string {
+  switch (value as ExpectedAvalancheFrequency) {
+    case "few":
+      return "avalanche-frequency-few";
+      case "many":
+      return "avalanche-frequency-many";
+      case "none":
+      return "avalanche-frequency-none";
+      case "some":
+      return "avalanche-frequency-some";
+    default:
+      return "";
+  }
+}
+
 function dangerLevelToContentId<T extends string>(value: T): string {
   var level = parseInt(value);
   switch (level) {
@@ -62,6 +79,24 @@ function dangerLevelToContentId<T extends string>(value: T): string {
       return "danger-scale-high";
     case 5:
       return "danger-scale-very-high";
+    default:
+      return "";
+  }
+}
+
+function avalancheSizeToContentId<T extends string>(value: T): string {
+  var size = parseInt(value);
+  switch (size) {
+    case 1:
+      return avalancheSizeEnum.SMALL;
+    case 2:
+      return avalancheSizeEnum.MEDIUM;
+    case 3:
+      return avalancheSizeEnum.LARGE;
+    case 4:
+      return avalancheSizeEnum.VERYLARGE;
+    case 5:
+      return avalancheSizeEnum.EXTREMELYLARGE;
     default:
       return "";
   }
