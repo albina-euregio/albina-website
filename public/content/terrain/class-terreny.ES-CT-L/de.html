@@ -1,0 +1,197 @@
+<div>
+    <h1>Lawinengeländeklassifizierung</h1>
+    <section class="section-centered">
+        <header class="section-centered">
+            <ul class="list-inline list-buttongroup-dense">
+                <li><a href="#terreny-simple" title="Einfaches Gelände" class="secondary pure-button"
+                        data-scroll>Einfaches Gelände</a></li>
+                <li><a href="#terreny-exigent" title="Anspruchsvolles Gelände" class="secondary pure-button"
+                        data-scroll>Anspruchsvolles Gelände</a></li>
+                <li><a href="#terreny-complex" title="Large avalanche" class="secondary pure-button"
+                        data-scroll>Komplexes Land</a></li>
+            </ul>
+
+            <ul class="list-inline list-buttongroup-dense">
+                <li><a href="#element-mapa" title="Einfaches Gelände" class="secondary pure-button" data-scroll>Elemente
+                        der Karte</a></li>
+                <li><a href="#altres" title="Anspruchsvolles Gelände" class="secondary pure-button" data-scroll>Andere
+                        KML-Daten</a></li>
+            </ul>
+        </header>
+    </section>
+
+    <section class="section-centered">
+        <div class="panel" style="height: 75vh; width: 100%;">
+            <iframe style="height: 100%; width: 100%;"
+                src="https://www.instamaps.cat/instavisor/2a3e379fb674bf3ff4b4f0bc64754cba/ATES_Aran_2023.html&embed=1"></iframe>
+        </div>
+        <p><a class="pure-button" href="https://static.lauegi.report/files/ATES_Aran_2022.kmz">Laden Sie KML
+                herunter</a><br></p>
+        <p>Zum Anzeigen der Datei empfehlen wir, das Programm herunterzuladen <a
+                href="https://www.google.com/intl/es/earth/">Google Earth</a></p>
+        <br>
+
+        <p>Nach einem schweren Lawinenunfall in Rogers Pass, Glaciers National Park, BC (Kanada) im Februar 2003 haben
+            Parks Canada und Avalanche Canada die Avalanche Terrain Exposure Scale (ATES) erstellt und entwickelt.Das
+            ATES ist eine Kartografie, die allen Nutzern des Winterberges helfen soll, <strong> den Schweregrad des
+                Lawinengeländes in der Planungsphase des Ausflugs zu beurteilen. </strong> Die drei Geländetypen -
+            <strong> Einfach, anspruchsvoll und komplex </strong> - beschreiben den Grad der Lawinenexposition und ihre
+            Folgen.
+        </p>
+        <p>Die ATES-Zonierung ergibt sich aus der Analyse eines Satzes von Geländeparametern mit einer bestimmten
+            Auflösung, bei der die Eigenschaften des Geländes auf einer Steigungsskala nicht bewertet werden können.Aus
+            diesem Grund, <strong>Das ATES ist während der Abfahrt kein Navigationswerkzeug.</strong></p>
+    </section>
+
+    <section class="section-centered section-dangerscale">
+        <div id="terreny-simple" class="panel field border classificacio-simple">
+            <div class="grid">
+                <div class="grid-item small-6">
+                    <picture>
+                        <img src="/images/pro/class-terreny/simple_Beret.jpg" alt="Einfaches Gelände">
+                    </picture>
+                </div>
+                <div class="grid-item small-6">
+                    <div class="panel-header">
+                        <h2>Einfaches Gelände</h2>
+                    </div>
+                    <p>Exposition gegenüber unebenen Hängen und Waldflächen.Einige Lichtungen im Wald können seltene
+                        Lawinenankunftsgebiete betreffen.Viele Optionen zur Reduzierung oder Beseitigung der Exposition.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="terreny-exigent" class="panel field border classificacio-exigent">
+            <div class="grid">
+                <div class="grid-item small-6">
+                    <picture>
+                        <img src="/images/pro/class-terreny/Challenging_Sendrosa.jpg" alt="Anspruchsvolles Gelände">
+                    </picture>
+                </div>
+                <div class="grid-item small-6">
+                    <div class="panel-header">
+                        <h2>Anspruchsvolles Gelände</h2>
+                    </div>
+                    <p>Exposition gegenüber genau definierten Lawinengebieten, Ausgangsgebieten oder Fallen.Es gibt
+                        Optionen zum Reduzieren oder Eliminieren der Exposition, indem Routen sorgfältig gefunden
+                        werden.</p>
+                </div>
+            </div>
+        </div>
+        <div id="terreny-complex" class="panel field border classificacio-complex">
+            <div class="grid">
+                <div class="grid-item small-6">
+                    <picture>
+                        <img src="/images/pro/class-terreny/complex_Molieres1.jpg" alt="Komplexes Land">
+                    </picture>
+                </div>
+                <div class="grid-item small-6">
+                    <div class="panel-header">
+                        <h2>Komplexes Land</h2>
+                    </div>
+                    <p>Exposition gegenüber mehreren und überlappenden Lawinengebieten oder großen Flächen offenen und
+                        abfallenden Geländes.Mehrere Lawinenstartgebiete mit niedrigen Fallen.Minimale Optionen zur
+                        Reduzierung der Belichtung.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="element-mapa">Elemente der Karte</h2>
+    <div class="grid">
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/simple.png" alt="Simple">
+            </picture>
+            <div class="panel-header">
+                <h2>Simple</h2>
+            </div>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/complex.png" alt="Complex">
+            </picture>
+            <div class="panel-header">
+                <h2>Complex</h2>
+            </div>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/exigent.png" alt="Exigent">
+            </picture>
+            <div class="panel-header">
+                <h2>Exigent</h2>
+            </div>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/transicio.jpg" alt="Transicions">
+            </picture>
+            <div class="panel-header">
+                <h2>Übergänge</h2>
+            </div>
+            <p>Die Grenzen zwischen den verschiedenen Geländekategorien sind keine exakte Linie, aber es gibt
+                Übergangsstreifen.Dies spiegelt sich in den Karten als Bereich wider, in dem sich die Farben in
+                einer Breite von 20 m überlappen.</p>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/allau.jpg" alt="Trajectòria habitual">
+            </picture>
+            <div class="panel-header">
+                <h2>Flugbahn der üblichen Lawinen</h2>
+            </div>
+            <p>Bereiche, in denen natürliche Lawinen relativ häufig auftreten, insbesondere in Situationen mit
+                neuem Schnee, Schmelzen aufgrund von Regen oder Schmelzen aufgrund hoher Temperaturen.</p>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/itinerari.jpg" alt="Itinerari suggerit">
+            </picture>
+            <div class="panel-header">
+                <h2>Vorgeschlagene Reiseroute</h2>
+            </div>
+            <p>Einige der vielen Möglichkeiten, die die Gegend bietet.</p>
+        </div>
+    </div>
+
+    <h2 id="altres">Andere KML-Daten</h2>
+    <div class="grid">
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/caution.jpg" alt="Consells">
+            </picture>
+            <div class="panel-header">
+                <h2>Tipps zum Entscheidungspunkt</h2>
+            </div>
+            <p>Geben Sie auf der Reiseroute an, wo Sie je nach den Bedingungen und der Gruppe entscheiden
+                müssen, welche Option Sie wählen möchten.Durch Klicken erhalten Sie spezifische Tipps für den
+                betreffenden Punkt.</p>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/triangle.jpg" alt="Cims">
+            </picture>
+            <div class="panel-header">
+                <h2>Hauptgipfel in den kartierten Bereichen</h2>
+            </div>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/refu.jpg" alt="Refugis">
+            </picture>
+            <div class="panel-header">
+                <h2>Unterstände und Hütten</h2>
+            </div>
+        </div>
+        <div class="panel field border grid-item small-6">
+            <picture>
+                <img src="/images/pro/class-terreny/parking_lot.jpg" alt="Aparcaments">
+            </picture>
+            <div class="panel-header">
+                <h2>Parkplätze</h2>
+            </div>
+            <p>Die häufigsten Parkplätze für die vorgeschlagenen Reiserouten</p>
+        </div>
+    </div>
+</div>
