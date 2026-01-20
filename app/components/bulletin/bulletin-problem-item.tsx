@@ -8,8 +8,15 @@ import ElevationIcon from "../icons/elevation-icon";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
 import { EnabledLanguages } from "./bulletin-glossary";
+import {
+  internalGlossaryEnum,
+  getContentIdentifier
+} from "./InternalGlossary/internal-glossary-enums";
 const BulletinGlossaryText = React.lazy(
   () => import("./bulletin-glossary-text")
+);
+const BulletinInternalGlossaryText = React.lazy(
+  () => import("./internal-glossary-text")
 );
 
 interface Props {
@@ -285,11 +292,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   </span>
                   <span className="matrix-info-value">
                     <a href={`/education/snowpack-stability`}>
-                      <BulletinGlossaryText
+                      <BulletinInternalGlossaryText
                         text={intl.formatMessage({
                           id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
                         })}
                         locale={lang as EnabledLanguages}
+                        textKey={getContentIdentifier(
+                          internalGlossaryEnum.avalancheStability,
+                          problem?.snowpackStability
+                        )}
                       />
                     </a>
                   </span>

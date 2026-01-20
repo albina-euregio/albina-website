@@ -1,0 +1,332 @@
+{
+  "avalanche-size-small": {
+    "ids": {
+      "ar": "mida-deth-laueg-petit",
+      "ca": "mida-de-lallau-petit",
+      "cs": "velikost-laviny-malý",
+      "de": "lawinengrose-klein",
+      "es": "tamano-del-alud-pequeño",
+      "fr": "taille-davalanche-petit",
+      "is": "staerd-snjofloda-lítill",
+      "it": "dimensioni-delle-valanghe-piccolo",
+      "no": "skredstorrelse-liten",
+      "ro": "marimea-avalansei-mic",
+      "sk": "velkost-laviny-malý",
+      "sl": "velikost-sneznega-plazu-majhen",
+      "en": "avalanche-size-small"
+    },
+    "heading": "Size 1: Small avalanche (sluff)",
+    "text": "<p>Size 1:</span> small avalanche (sluff)</p><ul>\n<li>minimal danger of burying (danger of people being carried/falling)</li>\n<li>snow relocation typically stops before the end of a slope</li>\n</ul><p>Small avalanche (sluff) \u2013 size 1</p><p><span class=\"wis-ce-fw-bld\"></p>",
+    "img": "<img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "avalanche-size-medium": {
+    "ids": {
+      "ar": "mida-deth-laueg-mitjà",
+      "ca": "mida-de-lallau-mitjà",
+      "cs": "velikost-laviny-střední",
+      "de": "lawinengrose-mittel",
+      "es": "tamano-del-alud-medio",
+      "fr": "taille-davalanche-moyan",
+      "is": "staerd-snjofloda-miðlungs",
+      "it": "dimensioni-delle-valanghe-medio",
+      "no": "skredstorrelse-medium",
+      "ro": "marimea-avalansei-mediu",
+      "sk": "velkost-laviny-stredný",
+      "sl": "velikost-sneznega-plazu-srednje",
+      "en": "avalanche-size-medium"
+    },
+    "heading": "Size 2: Medium avalanche",
+    "text": "<p><span class=\"wis-ce-fw-bld\">Size 2:</span> medium avalanche</p><ul>\n<li>could bury, injure or kill a person</li>\n<li>snow avalanche stops typically at the end of a slope</li>\n</ul><p>Medium avalanche \u2013 size 2</p>",
+    "img": "<img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "avalanche-size-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-gran",
+      "ca": "mida-de-lallau-gran",
+      "cs": "velikost-laviny-velký",
+      "de": "lawinengrose-grose",
+      "es": "tamano-del-alud-grande",
+      "fr": "taille-davalanche-grand",
+      "is": "staerd-snjofloda-stórt",
+      "it": "dimensioni-delle-valanghe-grande",
+      "no": "skredstorrelse-stor",
+      "ro": "marimea-avalansei-mare",
+      "sk": "velkost-laviny-veľký",
+      "sl": "velikost-sneznega-plazu-velik",
+      "en": "avalanche-size-large"
+    },
+    "heading": "Size 3: Large avalanche",
+    "text": "<p><span class=\"wis-ce-fw-bld\">Size 3:</span> large avalanche</p><ul>\n<li>could bury and destroy a car, damage a truck; destroy a small building or break a few trees</li>\n<li>snow avalanche could traverse flat terrain (considerably below 30\u00b0) over distances of less than 50 m</li>\n</ul><p>Large avalanche \u2013 size 3</p>",
+    "img": "<img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
+  },
+  "avalanche-size-very-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-muy-gran",
+      "ca": "mida-de-lallau-muy-gran",
+      "cs": "velikost-laviny-velmi-velký",
+      "de": "lawinengrose-sehr-grose",
+      "es": "tamano-del-alud-muy-grande",
+      "fr": "taille-davalanche-très-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-molto-grande",
+      "no": "skredstorrelse-svært-stor",
+      "ro": "marimea-avalansei-foarte-mare",
+      "sk": "velkost-laviny-veľmi-veľký",
+      "sl": "velikost-sneznega-plazu-zelo-velik",
+      "en": "avalanche-size-very-large"
+    },
+    "heading": "Size 4: Very large avalanche",
+    "text": "<p><span class=\"wis-ce-fw-bld\">Size 4:</span> very large avalanche</p><ul>\n<li>could bury and destroy a railway car, large truck, several buildings or a piece of forest</li>\n<li>snow avalanche traverses flat terrain (considerably below 30\u00b0) over distances more than 50 m and can reach valley ground</li>\n</ul><p>Very large avalanche \u2013 size 4</p>",
+    "img": "<img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\"/>"
+  },
+  "avalanche-size-extremely-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-extremadament-gran",
+      "ca": "mida-de-lallau-extremadament-gran",
+      "cs": "velikost-laviny-extremne-velký",
+      "de": "lawinengrose-extrem-grose",
+      "es": "tamano-del-alud-extremadamente-grande",
+      "fr": "taille-davalanche-extremement-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-estremamente-grande",
+      "no": "skredstorrelse-ekstremt-stor",
+      "ro": "marimea-avalansei-extrem-de-mare",
+      "sk": "velkost-laviny-extremne-velký",
+      "sl": "velikost-sneznega-plazu-izjemno-velik",
+      "en": "avalanche-size-extremely-large"
+    },
+    "heading": "Size 5: Extremely large avalanche",
+    "text": "<p><span class=\"wis-ce-fw-bld\">Size 5:</span> extremely large avalanche</p><ul>\n<li>could gouge the landscape; disastrous damage potential</li>\n<li>snow avalanche reaches valley ground; largest runout distance known</li>\n</ul><p>Extremely large avalanche \u2013 size 5</p>",
+    "img": "<img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\"/>"
+  },
+  "danger-pattern-1": {
+    "ids": {
+      "ar": "patrons-de-perilh-1",
+      "cs": "modely-lavinoveho-nebezpeci-1",
+      "de": "gefahrenmuster-1",
+      "es": "situaciones-de-peligro-1",
+      "fr": "modeles-de-danger-1",
+      "it": "situazioni-tipo-1",
+      "sl": "vzorci-nevarnosti-1",
+      "en": "danger-pattern-1"
+    },
+    "heading": "Gefahrenmuster 1",
+    "text": "<p>Zu Winterbeginn beobachtet man Schneebrettlawinen vermehrt nach dem&#13; zweiten bedeutsamen Schneefall, und zwar in hohen (&gt;2000&nbsp;m) und&#13; hochalpinen (&gt;3000&nbsp;m) Lagen im schattigen, sehr steilen Gelände. Dies hat&#13; damit zu tun, dass sich im Herbst nach den ersten großen Schneefällen&#13; meist eine längere, stabile Hochdruckwetterlage bzw. niederschlagsfreie&#13; Zeit einstellt. Dann herrschen ideale Bedingungen für die zumindest&#13; teilweise Umwandlung dieses Schnees zu lockeren Kristallen, die wiederum&#13; eine bodennahe Schwachschicht für die nachfolgenden Schneefälle bilden&#13; können. Im Verlaufe des Frühwinters sind davon mitunter auch andere&#13; Höhenlagen und Hangausrichtungen betroffen. Generell gilt, dass bodennahe&#13; Schwachschichten vom Frühwinter von Wintersportlern vermehrt zu&#13; Winterbeginn – während schneearmer Winter häufig auch noch später – zu&#13; stören sind. Dies gilt generell auch für das Frühjahr, wenn bodennahe&#13; Schwachschichten durch Wassereintrag neuerlich geschwächt werden können.</p> <p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>"
+  },
+  "danger-pattern-2": {
+    "ids": {
+      "ar": "patrons-de-perilh-2",
+      "cs": "modely-lavinoveho-nebezpeci-2",
+      "de": "gefahrenmuster-2",
+      "es": "situaciones-de-peligro-2",
+      "fr": "modeles-de-danger-2",
+      "it": "situazioni-tipo-2",
+      "sl": "vzorci-nevarnosti-2",
+      "en": "danger-pattern-2"
+    },
+    "heading": "Gefahrenmuster 2",
+    "text": "<p>Snow glides most easily towards the valley across steep, smooth surfaces. While this process is taking place, glide cracks – easily visible, sometimes several-meters deep cracks in the snowpack surface – are formed. Such fissures are now considered to be not the favourable signs which ancient folk knowledge once posited (such traditions are hard to overcome) but instead, utterly unfavourable indicators of potential, sometimes imminent avalanches. A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>"
+  },
+  "danger-pattern-3": {
+    "ids": {
+      "ar": "patrons-de-perilh-3",
+      "cs": "modely-lavinoveho-nebezpeci-3",
+      "de": "gefahrenmuster-3",
+      "es": "situaciones-de-peligro-3",
+      "fr": "modeles-de-danger-3",
+      "it": "situazioni-tipo-3",
+      "sl": "vzorci-nevarnosti-3",
+      "en": "danger-pattern-3"
+    },
+    "heading": "Gefahrenmuster 3",
+    "text": "<p>Regen gilt als ein klassisches Alarmzeichen in der Schnee- und Lawinenkunde, weil er einerseits zusätzliches Gewicht in die Schneedecke bringt und andererseits zu einem raschen Festigkeitsverlust führt. Lawinen sind deshalb vorprogrammiert. Regen kann in jedem Abschnitt eines Winters auftreten. Der große Vorteil: Kein Gefahrenmuster kann leichter erkannt werden als Regen.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>"
+  },
+  "danger-pattern-4": {
+    "ids": {
+      "ar": "patrons-de-perilh-4",
+      "cs": "modely-lavinoveho-nebezpeci-4",
+      "de": "gefahrenmuster-4",
+      "es": "situaciones-de-peligro-4",
+      "fr": "modeles-de-danger-4",
+      "it": "situazioni-tipo-4",
+      "sl": "vzorci-nevarnosti-4",
+      "en": "danger-pattern-4"
+    },
+    "heading": "Gefahrenmuster 4",
+    "text": "<p>Zu lange wurde in der Lawinenkunde die Lehrmeinung vertreten, dass sich ein großer Temperaturunterschied während des Einschneiens (egal ob kalt auf warm oder umgekehrt) günstig auf die Lawinensituation auswirke. Dies trifft jedoch nur unter bestimmten Voraussetzungen zu. Mehrheitlich wirkt sich ein solcher Temperaturunterschied jedoch negativ aus, weil er die aufbauende Umwandlung innerhalb der Schneedecke begünstigt: In der Regel bildet sich dadurch eine dünne, durchwegs störanfällige Schwachschicht. Diese findet man oft auch im südseitigen Gelände. Eine heimtückische Angelegenheit, auch deshalb, weil die Schwachschicht unmittelbar nach dem Einschneien noch nicht vorhanden ist und sich erst im Laufe der folgenden Tage bildet.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>"
+  },
+  "danger-pattern-5": {
+    "ids": {
+      "ar": "patrons-de-perilh-5",
+      "cs": "modely-lavinoveho-nebezpeci-5",
+      "de": "gefahrenmuster-5",
+      "es": "situaciones-de-peligro-5",
+      "fr": "modeles-de-danger-5",
+      "it": "situazioni-tipo-5",
+      "sl": "vzorci-nevarnosti-5",
+      "en": "danger-pattern-5"
+    },
+    "heading": "Gefahrenmuster 5",
+    "text": "<p> Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. In addition, strong winds prevail which transport the new snow accordingly. Within the shortest imaginable time, a treacherous situation arises for backcountry skiers. This is also the case if, following a lengthy period of cold, “only” strong winds are blowing without snowfall. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>"
+  },
+  "danger-pattern-6": {
+    "ids": {
+      "ar": "patrons-de-perilh-6",
+      "cs": "modely-lavinoveho-nebezpeci-6",
+      "de": "gefahrenmuster-6",
+      "es": "situaciones-de-peligro-6",
+      "fr": "modeles-de-danger-6",
+      "it": "situazioni-tipo-6",
+      "sl": "vzorci-nevarnosti-6",
+      "en": "danger-pattern-6"
+    },
+    "heading": "Gefahrenmuster 6",
+    "text": "<p>„Der Wind ist der Baumeister der Lawinen“: Dieser klassische Spruch von Wilhelm Paulcke aus den dreißiger Jahren des vorigen Jahrhunderts gilt auch heute noch unverändert. Wind beeinflusst sowohl den fallenden als auch den bereits abgelagerten Schnee und ist einer der wesentlichsten Lawinen bildenden Faktoren. Bei lockerem, trockenen Schnee führt Wind immer zu Verfrachtungen und damit zu einer Zunahme der Lawinengefahr! Je kälter der verfrachtete Schnee, desto empfindlicher reagiert er auf Belastung, weil die Sprödigkeit zunimmt. Charakteristisch für dieses gm ist, dass die Schwachschicht meist aus lockerem Neuschnee besteht und von Triebschnee überlagert ist. Es hat also entweder kurz zuvor bei kalten Temperaturen ohne Wind geschneit und dann zu wehen begonnen oder aber es beginnt ohne Windeinfluss zu schneien, wobei der Wind während des Schneefalls an Stärke zunimmt. Ein Muster, das sich in der Regel recht gut erkennen lässt und nur von kurzer Dauer ist. Eine Ausnahme bilden nur jene (seltenen) Situationen, bei denen die aus lockeren, aufbauend umgewandelten Kristallen bestehende Altschneeoberfläche vom Wind verfrachtet wird. In der Regel bilden sich dann harte, spröde und über längere Zeit störanfällige Schneebretter.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>"
+  },
+  "danger-pattern-7": {
+    "ids": {
+      "ar": "patrons-de-perilh-7",
+      "cs": "modely-lavinoveho-nebezpeci-7",
+      "de": "gefahrenmuster-7",
+      "es": "situaciones-de-peligro-7",
+      "fr": "modeles-de-danger-7",
+      "it": "situazioni-tipo-7",
+      "sl": "vzorci-nevarnosti-7",
+      "en": "danger-pattern-7"
+    },
+    "heading": "Gefahrenmuster 7",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow. This occurs frequently near terrain edges, and repeatedly on broad ridges.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>"
+  },
+  "danger-pattern-8": {
+    "ids": {
+      "ar": "patrons-de-perilh-8",
+      "cs": "modely-lavinoveho-nebezpeci-8",
+      "de": "gefahrenmuster-8",
+      "es": "situaciones-de-peligro-8",
+      "fr": "modeles-de-danger-8",
+      "it": "situazioni-tipo-8",
+      "sl": "vzorci-nevarnosti-8",
+      "en": "danger-pattern-8"
+    },
+    "heading": "Gefahrenmuster 8",
+    "text": "<p>Oberflächenreif zählt zu den schönsten Schneearten überhaupt und birgt für sich allein gesehen noch kein Gefahrenpotenzial: Erst wenn er von neuen, gebundenen Schneeschichten überdeckt wird, wird er gefährlich und gilt deshalb zu Recht als eine der kritischsten Schwachschichten der Schnee- und Lawinenkunde.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>"
+  },
+  "danger-pattern-9": {
+    "ids": {
+      "ar": "patrons-de-perilh-9",
+      "cs": "modely-lavinoveho-nebezpeci-9",
+      "de": "gefahrenmuster-9",
+      "es": "situaciones-de-peligro-9",
+      "fr": "modeles-de-danger-9",
+      "it": "situazioni-tipo-9",
+      "sl": "vzorci-nevarnosti-9",
+      "en": "danger-pattern-9"
+    },
+    "heading": "Gefahrenmuster 9",
+    "text": "<p>Schwachschichten innerhalb der Schneedecke werden bei Lawinenkursen häufig mit Kugellagern verglichen. Wirklich passend ist dieses Bild nur für den Graupel: eine kugelförmige Niederschlagsform, die sich bevorzugt im Frühjahr bei gewitterartigen Schauern ablagert. Leicht vorzustellen, dass Triebschnee, der sich darüber ansammelt, meist nur schlecht mit dieser Schwachschicht verbunden ist und damit die Gefahr von Lawinenabgängen steigt. Graupel ist häufig kleinräumig verteilt und lässt sich ohne Blick in die Schneedecke selbst von Experten meist nur schwer erkennen. Eine durchwegs heimtückische Angelegenheit, die zum Glück nur kurzfristig zu Problemen führt.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>"
+  },
+  "danger-pattern-10": {
+    "ids": {
+      "ar": "patrons-de-perilh-10",
+      "cs": "modely-lavinoveho-nebezpeci-10",
+      "de": "gefahrenmuster-10",
+      "es": "situaciones-de-peligro-10",
+      "fr": "modeles-de-danger-10",
+      "it": "situazioni-tipo-10",
+      "sl": "vzorci-nevarnosti-10",
+      "en": "danger-pattern-10"
+    },
+    "heading": "Gefahrenmuster 10",
+    "text": "<p>Eine besondere Herausforderung für den Wintersportler, aber auch für Lawinenprognostiker sowie Lawinenkommissionsmitglieder stellt das Frühjahr dar. Selten liegen „sicher“ und „gefährlich“ zeitlich so eng beieinander und somit ist auch die Bandbreite der während eines Tages ausgegebenen Gefahrenstufen so weit gefächert. Einerseits ist die Lawinengefahr kaum einmal leichter einzuschätzen als bei stabilen Firnverhältnissen, andererseits werden aber auch kaum jemals während eines Winters so große Lawinenabgänge verzeichnet wie während kritischer Frühjahrssituationen. Dabei spielt neben dem Schneedeckenaufbau das zum Teil komplexe Wechselspiel aus Lufttemperatur, Luftfeuchte, Strahlungseinfluss und Wind eine entscheidende Rolle. Für den Wintersportler sind zeitliche Disziplin sowie Flexibilität bei der Tourenplanung gefragter denn je.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>"
+  },
+  "danger-scale-low": {
+    "ids": {
+      "ar": "perilh-bass",
+      "cs": "nebezpeci-nizkeho-stupne",
+      "de": "geringes-gefahrenniveau",
+      "es": "peligro-bajo",
+      "fr": "danger-faible",
+      "is": "laegt-haettustig",
+      "it": "pericolo-basso",
+      "sl": "nizka-nevarnost",
+      "en": "danger-scale-low"
+    },
+    "heading": "Gefahrenstufe: Gering",
+    "text": "<div id=\"level1\" class=\"panel field border warning-level-1\"> <div class=\"grid\"> <div class=\"grid-item small-3\"><img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\"></div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Gefahrenstufe</p> <h2>1&nbsp;–&nbsp;Gering</h2> </div> <h6>Allgemein günstige Lawinensituation</h6> <p>Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.</p> <h6>Empfehlungen für Personen im ungesicherten Gelände</h6> <p>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p> <h6>Für etwa 20&nbsp;% des Winters prognostiziert.<br>Rund 5&nbsp;% aller Todesopfer.</h6> </div> </div> </div>",
+    "img": ""
+  },
+  "danger-scale-moderate": {
+    "ids": {
+      "ar": "perilh-moderat",
+      "cs": "nebezpeci-stredniho-stupne",
+      "de": "mäßiges-gefahrenniveau",
+      "es": "peligro-moderado",
+      "fr": "danger-modere",
+      "is": "midlungs-haettustig",
+      "it": "pericolo-moderato",
+      "sl": "zmerna-nevarnost",
+      "en": "danger-scale-moderate"
+    },
+    "heading": "Gefahrenstufe: Mäßig",
+    "text": "<div id=\"level2\" class=\"panel field border warning-level-2\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" /> </div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Gefahrenstufe</p> <h2>2&nbsp;–&nbsp;Moderate</h2> </div><h6>Überwiegend günstige Lawinensituation</h6> <p> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.</p> <h6>Empfehlungen für Personen im ungesicherten Gelände</h6> <p> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p> <h6> Für etwa 50&nbsp;% des Winters prognostiziert.<br />Rund 30&nbsp;% aller Todesopfer. </h6> </div> </div> </div>",
+    "img": ""
+  },
+  "danger-scale-considerable": {
+    "ids": {
+      "ar": "perilh-considerable",
+      "cs": "nebezpeci-podstatneho-stupne",
+      "de": "erhebliches-gefahrenniveau",
+      "es": "peligro-considerable",
+      "fr": "danger-considerable",
+      "is": "talsvert-haettustig",
+      "it": "pericolo-considerabile",
+      "sl": "znatna-nevarnost",
+      "en": "danger-scale-considerable"
+    },
+    "heading": "Gefahrenstufe: Erheblich",
+    "text": "<div id=\"level3\" class=\"panel field border warning-level-3\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" /> </div><div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Gefahrenstufe</p> <h2>3&nbsp;–&nbsp;Erheblich</h2> </div><h6>Kritische Lawinensituation</h6> <p> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.</p> <h6>Empfehlungen für Personen im ungesicherten Gelände</h6> <p> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p> <h6> Für etwa 30&nbsp;% des Winters prognostiziert.<br>Rund 50&nbsp;% aller Todesopfer. </h6> </div> </div> </div>",
+    "img": ""
+  },
+  "danger-scale-high": {
+    "ids": {
+      "ar": "perilh-aute",
+      "cs": "nebezpeci-vysokeho-stupne",
+      "de": "hohes-gefahrenniveau",
+      "es": "peligro-alto",
+      "fr": "danger-eleve",
+      "is": "haettustig",
+      "it": "pericolo-alto",
+      "sl": "visoka-nevarnost",
+      "en": "danger-scale-high"
+    },
+    "heading": "Gefahrenstufe: Groß",
+    "text": "<div id=\"level4\" class=\"panel field border warning-level-4\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" /> </div><div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Gefahrenstufe</p> <h2>4&nbsp;–&nbsp;Groß</h2> </div> <h6>Sehr kritische Lawinensituation</h6> <p> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.</p> <h6>Empfehlungen für Personen im ungesicherten Gelände</h6> <p> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p> <h6>Run 10&nbsp;% allerTodesopfer.</h6> </div> </div> </div>",
+    "img": ""
+  },
+  "danger-scale-very-high": {
+    "ids": {
+      "ar": "perilh-molt-aute",
+      "cs": "nebezpeci-velmi-vysokeho-stupne",
+      "de": "sehr-hohes-gefahrenniveau",
+      "es": "peligro-muy-alto",
+      "fr": "danger-tres-eleve",
+      "is": "mjog-haettustig",
+      "it": "pericolo-molto-alto",
+      "sl": "zelo-visoka-nevarnost",
+      "en": "danger-scale-very-high"
+    },
+    "heading": "Gefahrenstufe: Sehr groß",
+    "text": "<div id=\"level5\" class=\"panel field border warning-level-5\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" /> </div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Gefahrenstufe</p> <h2>5&nbsp;–&nbsp;Sehr&nbsp;Groß</h2> </div> <h6>Außerordentliche Lawinensituation</h6> <p>Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.</p> <h6>Empfehlungen für Personen im ungesicherten Gelände</h6> <p>Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <h6>Wird sehr selten prognostiziert.</h6> </div> </div> </div>",
+    "img": ""
+  }
+}
