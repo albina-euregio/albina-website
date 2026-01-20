@@ -408,19 +408,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     delta: 100
   });
 
-  useEffect(() => {
-    document.addEventListener("keydown", keyFunction, false);
-    return () => document.removeEventListener("keydown", keyFunction, false);
-
-    function keyFunction(event: KeyboardEvent) {
-      if (event.key === "ArrowLeft") {
-        previous();
-      } else if (event.key === "ArrowRight") {
-        next();
-      }
-    }
-  }, [next, previous]);
-
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
   if (timeRange === "interactive" && !hasInteractivePlot(station)) {
