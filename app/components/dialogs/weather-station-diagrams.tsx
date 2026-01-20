@@ -477,13 +477,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
         <div className="modal-content">
           {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
-          {isStation && (
-            <TimeRangeButtons
-              station={station}
-              timeRange={timeRange}
-              setTimeRange={timeRange => setTimeRange(timeRange)}
-            />
-          )}
           <StationDiagramImage
             clientWidth={myRef?.current?.clientWidth ?? 1}
             selectedYear={selectedYear}
