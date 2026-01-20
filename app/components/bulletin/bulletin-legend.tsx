@@ -78,7 +78,10 @@ function BulletinLegend(props: Props) {
                             id: `danger-level:${id}`
                           })}
                           locale={intl.locale.slice(0, 2) as EnabledLanguages}
-                          textKey={getContentIdentifier(internalGlossaryEnum.dangleLevel, num.toString())}
+                          textKey={getContentIdentifier(
+                            internalGlossaryEnum.dangerLevel,
+                            num.toString()
+                          )}
                         />
                       </span>
                     </li>
