@@ -1,0 +1,760 @@
+{
+  "headless": false,
+  "headlessLogo": "",
+  "province": "ES-CT-L",
+  "regionCodes": ["ES-CT-L"],
+  "blogRegions": ["ES-CT-L"],
+  "stationRegions": ["ES-CT-L"],
+  "weatherRegions": ["ES-CT-L"],
+  "regionsRegex": "^(ES-CT-L)",
+  "extraRegions": [],
+  "eawsRegions": [
+    "AD",
+    "CH",
+    "CZ",
+    "ES-CT-L",
+    "ES-CT",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "IS",
+    "NO",
+    "PL",
+    "PL-12",
+    "SE",
+    "SK"
+  ],
+  "eawsRegionsExclude": [],
+  "blogs": [
+    {
+      "lang": "es",
+      "name": "es",
+      "apiType": "blogger",
+      "regions": ["ES-CT-L"],
+      "params": {
+        "id": "5267718003722031964"
+      }
+    },
+    {
+      "lang": "ca",
+      "name": "cat",
+      "apiType": "blogger",
+      "regions": ["ES-CT-L"],
+      "params": {
+        "id": "2431173900797901952"
+      }
+    },
+    {
+      "lang": "oc",
+      "name": "oc",
+      "apiType": "blogger",
+      "regions": ["ES-CT-L"],
+      "params": {
+        "id": "9005939998807946728"
+      }
+    }
+  ],
+  "profilesBlog": {
+    "lang": "",
+    "name": "perfils",
+    "apiType": "blogger",
+    "regions": ["ES-CT-L"],
+    "params": {
+      "id": "2732728956818318201"
+    }
+  },
+  "techBlog": {
+    "lang": "",
+    "name": "tech",
+    "apiType": "wordpress",
+    "regions": [],
+    "params": {
+      "id": "blog.lauegi.report/tech"
+    }
+  },
+  "apis": {
+    "bulletin": {
+      "simple": "https://static.lauegi.report/simple/{date}/ES-CT-L_{lang}.html",
+      "eaws": "https://static.lauegi.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
+      "map": "https://static.lauegi.report/albina_files_local/{date}/{publication}/{file}.webp",
+      "pdf": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}{bw}.pdf",
+      "xml": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "https://static.lauegi.report/bulletins/{date}/ES-CT-L_{region}_{lang}.mp3",
+      "archive": "https://static.lauegi.report/bulletins/archive/",
+      "archiveAran": "https://static.lauegi.report/archive/"
+    },
+    "push": "https://api.lauegi.report/albina/api/push",
+    "subscribe": "https://api.lauegi.report/albina/api/email",
+    "blogger": "https://www.googleapis.com/blogger/v3/blogs/",
+    "weather": {
+      "domains": "https://lauegi.report/transfer/data/albina_domains.json",
+      "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
+      "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
+      "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
+      "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+    },
+    "stations": [
+      {
+        "smet": "",
+        "smetOperators": "$^",
+        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+        "pngOperators": ".*",
+        "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
+        "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
+        "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
+        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+      }
+    ]
+  },
+  "apiKeys": {
+    "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
+    "google": "AIzaSyCFRRKGXXxLMk4Iup6NPxQDFwudAw973dE"
+  },
+  "links": {
+    "eaws": "https://www.avalanches.org/",
+    "aran": "https://www.conselharan.org/",
+    "euregio": "http://www.europaregion.info/",
+    "interreg": "http://www.europaregion.info/splash.html",
+    "simple": "https://lauegi.report/simple/{date}/{lang}.html",
+    "downloads": {
+      "base": "https://lauegi.report/albina_files/",
+      "pdf": "{date}/{date}_{lang}.pdf",
+      "pdf-bw": "{date}/{date}_{lang}_bw.pdf",
+      "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
+      "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
+      "xml": "{date}/{date}_{lang}_CAAMLv6.xml"
+    },
+    "feedback": {
+      "en": "https://docs.google.com/forms/d/e/1FAIpQLSe-sumwrNqze-TrwIH0AoD54xGNlwcbJ4Wn6AdopDMqZFiDuw/viewform?vc=0&c=0&w=1",
+      "de": "https://docs.google.com/forms/d/e/1FAIpQLSdROxxgmGxSVVqgr75nwI2weHQY8Da-xsUwQuxOO9NFvevuJw/viewform?vc=0&c=0&w=1",
+      "it": "https://docs.google.com/forms/d/e/1FAIpQLSeWSxJNtIvk6ReUPDkAfXpZ4XPAkNIC7LPojv2fXa32PVcQeQ/viewform?vc=0&c=0&w=1"
+    }
+  },
+  "dialogs": {
+    "cookieConsent": false,
+    "feedback": false
+  },
+  "subscribe": {
+    "buttonHidden": false,
+    "telegram": {
+      "AT-07-de": "https://t.me/lawinenwarndienst_tirol",
+      "AT-07-it": "https://t.me/servizio_valanghe_tirolo",
+      "AT-07-en": "https://t.me/avalanche_warning_service_tirol",
+      "IT-32-BZ-de": "https://t.me/lawinenwarndienst_suedtirol",
+      "IT-32-BZ-it": "https://t.me/servizio_valanghe_alto_adige",
+      "IT-32-BZ-en": "https://t.me/aws_south_tyrol",
+      "IT-32-TN-de": "https://t.me/lawinenwarndienst_trentino",
+      "IT-32-TN-it": "https://t.me/servizio_valanghe_trento",
+      "IT-32-TN-en": "https://t.me/avalanche_warning_service_trento"
+    },
+    "socialMedia": [
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "url": {
+          "ES-CT-L": "https://www.facebook.com/centrelauegiaran"
+        }
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter",
+        "url": {
+          "ES-CT-L": "https://twitter.com/lauegi"
+        }
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "url": {
+          "ES-CT-L": "https://www.instagram.com/centredelauegi/"
+        }
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": {
+          "ES-CT-L": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ"
+        }
+      },
+      {
+        "id": "whatsapp",
+        "name": "WhatsApp",
+        "url": {
+          "ES-CT-L": false
+        }
+      }
+    ],
+    "apps": [
+      {
+        "id": "guidaran",
+        "logo": "App_GuidAran.png",
+        "url": {
+          "ios": "https://apps.apple.com/es/app/guidaran/id1510742827",
+          "android": "https://play.google.com/store/apps/details?id=com.alvaroarinocabau.guidaran"
+        }
+      }
+    ]
+  },
+  "bulletin": {
+    "checkForLatestInterval": 5,
+    "showAllBulletins": false
+  },
+  "map": {
+    "attribution": "Centre de Lauegi d'Aran",
+    "useWindowWidth": true,
+    "AT-07.bounds": [
+      [46.6514108, 12.9634187],
+      [47.7432323, 10.0978554]
+    ],
+    "IT-32-BZ.bounds": [
+      [46.2187042, 12.4799311],
+      [47.0924247, 10.3846548]
+    ],
+    "IT-32-TN.bounds": [
+      [45.6733012, 11.9621987],
+      [46.5318856, 10.4518838]
+    ],
+    "AT-02.bounds": [
+      [46.3007693, 12.4733073],
+      [47.1813456, 15.0830446]
+    ],
+    "euregioBounds": [
+      [45.6, 9.9],
+      [47.8, 13.1]
+    ],
+    "aranBounds": [
+      [42.556, 0.461],
+      [42.904, 1.371]
+    ],
+    "ES-CT-L.bounds": [
+      [42.556, 0.461],
+      [42.904, 1.371]
+    ],
+    "initOptions": {
+      "maxBounds": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "maxBoundsViscosity": 1,
+      "zoomSnap": 0.25,
+      "zoomDelta": 0.5,
+      "maxZoom": 10,
+      "minZoom": 5
+    },
+    "maxBounds": {
+      "5": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "6": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "7": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "8": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "9": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "10": [
+        [33, -16.86],
+        [71.6, 45]
+      ]
+    },
+    "locateOptions": {
+      "position": "topleft",
+      "flyTo": true
+    },
+    "showHideOptions": {
+      "position": "topleft"
+    },
+    "tileLayer": {
+      "id": "OSM",
+      "url": "https://{s}tilemaps.icgc.cat/mapfactory/wmts/gris_osm_suau/CAT3857_15/{z}/{x}/{y}.png",
+      "maxZoom": 10,
+      "minZoom": 5,
+      "detectRetina": false,
+      "tms": false,
+      "maxBounds": [
+        [45.150876, 7.932124],
+        [48.240084, 15.118646]
+      ]
+    },
+    "tileLayers": [
+      {
+        "id": "OSM",
+        "url": "https://{s}tilemaps.icgc.cat/mapfactory/wmts/gris_osm_suau/CAT3857_15/{z}/{x}/{y}.png",
+        "maxZoom": 18,
+        "minZoom": 7,
+        "detectRetina": true,
+        "tms": false,
+        "maxBounds": [
+          [42.556, 0.461],
+          [42.904, 1.371]
+        ],
+        "zIndex": -2
+      },
+      {
+        "id": "ICGC Gris topo suau",
+        "url": "https://tilemaps.icgc.cat/mapfactory/wmts/gris_topo_suau/CAT3857/{z}/{x}/{y}.png",
+        "continuousWorld": true,
+        "maxZoom": 18,
+        "minZoom": 7,
+        "detectRetina": true,
+        "tms": false,
+        "maxBounds": [
+          [42.556, 0.461],
+          [42.904, 1.371]
+        ],
+        "zIndex": -1,
+        "worldCopyJump": false,
+        "attribution": ["Institut Cartogràfic i Geològic de Catalunya"],
+        "scope": "SCOPE_CATALUNYA"
+      }
+    ],
+    "geonames": {
+      "geonamesURL": "//api.geonames.org/searchJSON",
+      "username": "lauegi.report",
+      "zoomLevel": null,
+      "maxresults": 5,
+      "bbox": {
+        "east": 13.2,
+        "west": 9.5,
+        "north": 48,
+        "south": 45
+      },
+      "className": "tooltip leaflet-geonames-icon",
+      "workingClass": "leaflet-geonames-icon-working",
+      "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
+      "baseQuery": "isNameRequired=true",
+      "position": "topleft",
+      "showMarker": false,
+      "showPopup": true,
+      "alwaysOpen": false,
+      "clearOnPopupClose": true,
+      "enablePostalCodes": false
+    },
+    "regionStyling": {
+      "all": {
+        "color": "#aaaaaa",
+        "opacity": 1.0,
+        "weight": 1
+      },
+      "hidden": {
+        "stroke": false,
+        "fill": false,
+        "fillOpacity": 0.0
+      },
+      "clickable": {
+        "stroke": false,
+        "fill": true,
+        "fillColor": "black",
+        "fillOpacity": 0.0
+      },
+      "default": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      },
+      "dehighlighted": {
+        "fillColor": "white",
+        "fillOpacity": 0.75
+      },
+      "mouseOver": {
+        "stroke": true,
+        "weight": 2.0,
+        "color": "#555555"
+      },
+      "dimmed": {
+        "fillColor": "white",
+        "fillOpacity": 0.5
+      },
+      "selected": {
+        "stroke": true,
+        "weight": 2.0,
+        "color": "#555555",
+        "fillColor": "none"
+      },
+      "highlighted": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      }
+    }
+  },
+  "archive": {
+    "minYear": 2020,
+    "maxResults": 31
+  },
+  "footer": {
+    "icons": [
+      {
+        "img": "logo_atomic.png",
+        "title": "Atomic",
+        "url": "https://www.atomic.com/"
+      },
+      {
+        "img": "logo_pieps.png",
+        "title": "PIEPS",
+        "url": "https://www.pieps.com/"
+      }
+    ],
+    "iconsHidden": false,
+    "business": [
+      {
+        "img": "logo_agents.png",
+        "title": "Agents de Miei Ambient",
+        "url": "https://www.conselharan.org/"
+      },
+      {
+        "img": "logo_baqueira.png",
+        "title": "Baqueira-Beret",
+        "url": "https://www.baqueira.es/"
+      },
+      {
+        "img": "logo_maladeta.png",
+        "title": "Maladeta Studio",
+        "url": "https://maladetastudio.com"
+      }
+    ]
+  },
+  "hostLanguageSettings": {
+    "lauegi.report": "oc",
+    "ca.lauegi.report": "ca",
+    "de.lauegi.report": "de",
+    "es.lauegi.report": "es",
+    "fr.lauegi.report": "fr",
+    "it.lauegi.report": "it",
+    "oc.lauegi.report": "oc"
+  },
+  "languageHostSettings": {
+    "en": "en.lauegi.report",
+    "ca": "ca.lauegi.report",
+    "de": "de.lauegi.report",
+    "es": "es.lauegi.report",
+    "fr": "fr.lauegi.report",
+    "oc": "lauegi.report",
+    "it": "it.lauegi.report"
+  },
+  "weathermaps": {
+    "settings": {
+      "timeRange": ["-72", "+72"],
+      "mapOptionsOverride": {
+        "maxZoom": 12,
+        "minZoom": 7
+      },
+      "bbox": [
+        [45.6167, 9.4],
+        [47.8167, 13.0333]
+      ],
+      "debugModus": false,
+      "metaFiles": {
+        "agl": "agl.ok",
+        "startDate": "startDate.ok"
+      },
+      "dataOverlayFilePostFix": {
+        "main": "_V2.gif",
+        "debug": "_V2.png"
+      }
+    },
+    "domains": {
+      "snow-height": {
+        "domainDefault": false,
+        "domainIdStart": "-1",
+        "item": {
+          "timeSpans": ["-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {
+            "-1": "snow"
+          },
+          "updateTimesOffset": {
+            "-1": 1
+          },
+          "units": "cm",
+          "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "snowHeight"
+            }
+          ],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "new-snow": {
+        "domainDefault": true,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
+          "defaultTimeSpan": "+12",
+          "timeSpanToDataId": {},
+          "updateTimesOffset": {
+            "*": 12
+          },
+          "units": "cm",
+          "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "snowHeight"
+            }
+          ],
+          "displayedItems": ["snow6f"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "diff-snow": {
+        "domainDefault": false,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {
+            "-24": "snow24",
+            "-48": "snow48",
+            "-72": "snow72"
+          },
+          "updateTimesOffset": {
+            "*": 24,
+            "-6": 6,
+            "-12": 12
+          },
+          "metaFiles": {
+            "agl": "agl_{timespan}h.ok"
+          },
+          "units": "cm",
+          "thresholds": [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 100, 100],
+            "2": [255, 160, 160],
+            "3": [255, 210, 210],
+            "4": [255, 255, 254],
+            "5": [255, 255, 179],
+            "6": [176, 255, 188],
+            "7": [140, 255, 255],
+            "8": [3, 205, 255],
+            "9": [4, 129, 255],
+            "10": [3, 91, 190],
+            "11": [120, 75, 255],
+            "12": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "snowHeight"
+            }
+          ],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "snow-line": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {},
+          "updateTimesOffset": {
+            "*": 1
+          },
+          "metaFiles": {
+            "agl": "agl.ok"
+          },
+          "units": "m",
+          "thresholds": [
+            100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
+            1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
+            2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500
+          ],
+          "colors": {
+            "1": [192, 96, 255],
+            "2": [155, 0, 224],
+            "3": [128, 0, 255],
+            "4": [102, 0, 192],
+            "5": [51, 0, 128],
+            "6": [0, 0, 192],
+            "7": [0, 0, 255],
+            "8": [51, 153, 255],
+            "9": [128, 204, 255],
+            "10": [128, 255, 255],
+            "11": [0, 255, 192],
+            "12": [0, 255, 128],
+            "13": [0, 228, 0],
+            "14": [0, 192, 0],
+            "15": [0, 155, 0],
+            "16": [0, 128, 0],
+            "17": [96, 155, 0],
+            "18": [155, 155, 0],
+            "19": [192, 155, 0],
+            "20": [192, 192, 0],
+            "21": [192, 224, 0],
+            "22": [192, 255, 0],
+            "23": [255, 255, 0],
+            "24": [255, 192, 0],
+            "25": [255, 155, 0],
+            "26": [255, 128, 0],
+            "27": [255, 0, 0],
+            "28": [224, 0, 0],
+            "29": [192, 0, 0],
+            "30": [176, 0, 0],
+            "31": [128, 0, 0],
+            "32": [153, 0, 102],
+            "33": [192, 0, 102],
+            "34": [204, 0, 102],
+            "35": [204, 0, 92]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "snowLine"
+            }
+          ],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "temp": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {
+            "+-1": "temp"
+          },
+          "updateTimesOffset": {
+            "*": 1
+          },
+          "units": "°C",
+          "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+          "colors": {
+            "1": [159, 128, 255],
+            "2": [120, 75, 255],
+            "3": [3, 91, 190],
+            "4": [4, 129, 255],
+            "5": [3, 205, 255],
+            "6": [140, 255, 255],
+            "7": [176, 255, 188],
+            "8": [255, 255, 103],
+            "9": [255, 190, 130],
+            "10": [255, 154, 53],
+            "11": [255, 85, 54],
+            "12": [255, 5, 5],
+            "13": [250, 55, 150]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "temperature"
+            }
+          ],
+          "direction": false,
+          "clusterOperation": "min"
+        }
+      },
+      "wind": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {
+            "+-1": "wspd"
+          },
+          "updateTimesOffset": {
+            "*": 1
+          },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            {
+              "filePostfix": "_V2.png",
+              "type": "windSpeed"
+            },
+            {
+              "filePostfix": "-dir_V2.png",
+              "type": "windDirection"
+            }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      }
+    }
+  }
+}
