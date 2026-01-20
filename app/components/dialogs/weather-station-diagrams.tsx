@@ -277,8 +277,10 @@ const StationDiagramImage: React.FC<{
         <linea-plot
           key={url + timeRangeMilli}
           src={url}
+          lazysrc={url.replace("woche", "winter")}
           showSurfaceHoarButton
-          timeRangeMilli={timeRangeMilli}
+          showexport
+          showdatepicker
         />
       </div>
     );
