@@ -3,7 +3,6 @@ import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
 
-import menuItems from "../../menu.json";
 import { setLanguage } from "../../appStore";
 
 function PageHeader() {
@@ -87,7 +86,7 @@ function PageHeader() {
       <div id="navigation" className="page-header-navigation">
         <Menu
           className="list-plain navigation"
-          entries={menuItems}
+          entries={config.menu}
           childClassName="list-plain subnavigation"
           onSelect={() => {
             // close mobile menu on selection
