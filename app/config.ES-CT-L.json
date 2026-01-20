@@ -26,6 +26,97 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
+  "menu": [
+    { "url": "/bulletin" },
+    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/conditions",
+      "children": [
+        { "url": "/conditions/mapa" },
+        { "url": "/conditions/estacions" },
+        {
+          "key": "weather",
+          "url": "https://www.conselharan.org/meteo",
+          "url:ca": "https://www.conselharan.org/ca/meteo",
+          "url:es": "https://www.conselharan.org/es/meteo"
+        },
+        { "url": "/conditions/pistes" },
+        { "url": "/conditions/profiles" }
+      ]
+    },
+    {
+      "url": "/terrain",
+      "children": [{ "url": "/terrain/class-terreny" }]
+    },
+    {
+      "url": "/education",
+      "children": [
+        { "url": "/education/danger-scale" },
+        { "url": "/education/avalanche-problems" },
+        { "url": "" },
+        { "url": "/education/matrix" },
+        { "url": "/education/snowpack-stability" },
+        { "url": "/education/frequency" },
+        { "url": "/education/avalanche-sizes" },
+        { "url": "/education/workflow" },
+        { "url": "" },
+        { "url": "/education/handbook" },
+        { "url": "/education/spatio-temporal-scale" },
+        { "url": "" },
+        { "url": "/education/xarxa-observacions" },
+        { "url": "/education/bons-habits" },
+        {
+          "key": "glossary",
+          "url": "https://www.avalanches.org/glossary/?lang=ar",
+          "url:en": "https://www.avalanches.org/glossary/?lang=en",
+          "url:es": "https://www.avalanches.org/glossary/?lang=es",
+          "url:ca": "https://www.avalanches.org/glossary/?lang=ca",
+          "url:de": "https://www.avalanches.org/glossary/?lang=de",
+          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "url:fr": "https://www.avalanches.org/glossary/?lang=fr"
+        },
+        { "url": "/education/articles" }
+      ]
+    },
+    {
+      "url": "/more",
+      "children": [
+        { "url": "/more/archive" },
+        { "url": "/more/about" },
+        { "url": "/more/albina-project" },
+        { "url": "/more/contact" },
+        { "url": "/more/legal" },
+        { "url": "/more/open-data" }
+      ]
+    }
+  ],
+  "menuFooter": [
+    {
+      "url": "/more/archive"
+    },
+    {
+      "url": "/more/about"
+    },
+    {
+      "url": "/more/contact"
+    },
+    {
+      "url": "/more/accessibility"
+    }
+  ],
+  "menuFooterMain": [
+    { "url": "/bulletin" },
+    { "url": "/blog" },
+    {
+      "key": "weather",
+      "url": "https://www.conselharan.org/meteo",
+      "url:ca": "https://www.conselharan.org/ca/meteo",
+      "url:es": "https://www.conselharan.org/es/meteo",
+      "showSub": true
+    },
+    { "url": "/education", "showSub": true },
+    { "url": "/more", "showSub": true }
+  ],
   "blogs": [
     {
       "lang": "es",
