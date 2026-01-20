@@ -27,6 +27,7 @@
   ],
   "eawsRegionsExclude": [],
   "staticContentNamespace": [
+    "/education/xarxa-observacions",
     "/more/albina-project",
     "/more/legal",
     "/terrain/class-terreny"
