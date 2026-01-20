@@ -1,3 +1,5 @@
+import "./simple-slider.css";
+
 type SliderOptions = {
   labels: string[]; //list of labels. ie low, medium...
   initialIndex?: number; //selected index. ie. 0 = low

@@ -53,8 +53,6 @@ export interface GlossaryEntry {
   img: string;
 }
 
-export type GlossaryItem = Record<string, GlossaryEntry>;
-
 class InternalGlossaryReplacer {
   glossaryLinks: Record<string, string>;
   regex: RegExp;
