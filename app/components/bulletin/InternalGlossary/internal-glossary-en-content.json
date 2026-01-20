@@ -341,9 +341,9 @@
       "sl": "nizka-nevarnost",
       "en": "danger-scale-low"
     },
-    "heading": "Danger scale: Low",
-    "text": "<div id=\"level1\" class=\"panel field border warning-level-1\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" /> </div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Danger level</p> <h2>1&nbsp;–&nbsp;Low</h2> </div> <h6>Generally favourable avalanche situation</h6> <p> No alarm signs present. Avalanches can only be triggered in isolated cases, in particular on extremely steep slopes. </p> <h6>Recommendations for backcountry recreationists</h6> <p> Travel extremely steep slopes one person at a time and mind the danger of falling. </p> <h6> Forecast for around 20&nbsp;% of the winter season.<br />Around 5&nbsp;% of avalanche fatalities. </h6> </div> </div> </div>",
-    "img": ""
+    "heading": "Danger level: Low",
+    "text": "<p><b>Generally favourable avalanche situation.</b><br /> No alarm signs present. Avalanches can only be triggered in isolated cases, in particular on extremely steep slopes.<br /> <b>Recommendations for backcountry recreationists:</b><br /> Travel extremely steep slopes one person at a time and mind the danger of falling.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -357,9 +357,9 @@
       "sl": "zmerna-nevarnost",
       "en": "danger-scale-moderate"
     },
-    "heading": "Danger scale: Moderate",
-    "text": "<div id=\"level2\" class=\"panel field border warning-level-2\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" /> </div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Danger level</p> <h2>2&nbsp;–&nbsp;Moderate</h2> </div><h6>Mostly favourable avalanche situation</h6> <p> Alarm signs can occur in isolated cases. Avalanches can be triggered in particular on very steep slopes with the aspect and elevation indicated on avalanche.report. Large natural avalanches are unlikely. </p> <h6>Recommendations for backcountry recreationists</h6> <p> Backcountry activities should be selected carefully, especially on slopes with the aspect and elevation indicated on avalanche.report. Travel very steep slopes one person at a time. Pay attention to unfavourable snowpack structure (<a href=\"/education/avalanche-problems#persistent_weak_layers\" >persistent weak layers</a >). </p> <h6> Forecast for around 50&nbsp;% of the winter season.<br />Around 30&nbsp;% of avalanche fatalities. </h6> </div> </div> </div>",
-    "img": ""
+    "heading": "Danger level: Moderate",
+    "text": "<b>Mostly favourable avalanche situation.</b><br />Alarm signs can occur in isolated cases. Avalanches can be triggered in particular on very steep slopes with the aspect and elevation indicated on avalanche.report. Large natural avalanches are unlikely.<br /><b>Recommendations for backcountry recreationists:</b><br />Backcountry activities should be selected carefully, especially on slopes with the aspect and elevation indicated on avalanche.report. Travel very steep slopes one person at a time. Pay attention to unfavourable snowpack structure (persistent weak layers).<br />",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -373,9 +373,9 @@
       "sl": "znatna-nevarnost",
       "en": "danger-scale-considerable"
     },
-    "heading": "Danger scale: Considerable",
-    "text": "<div id=\"level3\" class=\"panel field border warning-level-3\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" /> </div><div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Danger level</p> <h2>3&nbsp;–&nbsp;Considerable</h2> </div><h6>Critical avalanche situation</h6> <p> Whumpf sounds and shooting cracks are typical. Avalanches can easily be triggered, particularly on steep slopes with the aspect and elevation indicated on avalanche.report. Natural avalanches and remote triggering may occur. </p> <h6>Recommendations for backcountry recreationists</h6> <p> The most critical situation for backcountry recreationists. Use terrain effecently and select best possible route and with minimal exposure. Avoid very steep slopes with the aspect and elevation indicated on avalanche.report. Inexperienced persons are advised to remain on open ski runs and trails. </p> <h6> Forecast for around 30&nbsp;% of the winter season.<br />Around 50&nbsp;% of avalanche fatalities. </h6> </div> </div> </div>",
-    "img": ""
+    "heading": "Danger level: Considerable",
+    "text": "<b>Critical avalanche situation.</b><br />Whumpf sounds and shooting cracks are typical. Avalanches can easily be triggered, particularly on steep slopes with the aspect and elevation indicated on avalanche.report. Natural avalanches and remote triggering may occur.<br /><b>Recommendations for backcountry recreationists:</b><br />The most critical situation for backcountry recreationists. Use terrain efficiently and select best possible route with minimal exposure. Avoid very steep slopes with the aspect and elevation indicated on avalanche.report. Inexperienced persons are advised to remain on open ski runs and trails.<br />",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
   },
   "danger-scale-high": {
     "ids": {
@@ -389,9 +389,9 @@
       "sl": "visoka-nevarnost",
       "en": "danger-scale-high"
     },
-    "heading": "Danger scale: High",
-    "text": "<div id=\"level4\" class=\"panel field border warning-level-4\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" /> </div><div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Danger level</p> <h2>4&nbsp;–&nbsp;High</h2> </div> <h6>Very critical avalanche situation</h6> <p> Natural and often very large avalanches are likely. Avalanches can easily be triggered on many steep slopes. Remote triggering is typical. Whumpf sounds and shooting cracks occur frequently. </p> <h6>Recommendations for backcountry recreationists</h6> <p> Stay on moderately steep terrain. Watch out below run out zones of large avalanches. Inexperienced persons should remain on open ski runs and trails. Forecast only on a few days throughout the winter. </p> <h6>Around 10&nbsp;% of avalanche fatalities.</h6> </div> </div> </div>",
-    "img": ""
+    "heading": "Danger level: High",
+    "text": "<b>Very critical avalanche situation.</b><br />Natural and often very large avalanches are likely. Avalanches can easily be triggered on many steep slopes. Remote triggering is typical. Whumpf sounds and shooting cracks occur frequently.<br /><b>Recommendations for backcountry recreationists:</b><br />Stay on moderately steep terrain. Watch out below run out zones of large avalanches. Inexperienced persons should remain on open ski runs and trails.<br />",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -405,9 +405,9 @@
       "sl": "zelo-visoka-nevarnost",
       "en": "danger-scale-very-high"
     },
-    "heading": "Danger scale: Very high",
-    "text": "<div id=\"level5\" class=\"panel field border warning-level-5\"> <div class=\"grid\"> <div class=\"grid-item small-3\"> <img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" /> </div> <div class=\"grid-item small-9\"> <div class=\"panel-header\"> <p>Danger level</p> <h2>5&nbsp;–&nbsp;Very&nbsp;high</h2> </div> <h6>Extraordinary avalanche situation</h6> <p> Numerous very large and extreme natural avalanches can be expected. These can reach roads and settlements in the valley. </p> <h6>Recommendations for backcountry recreationists</h6> <p> You are advised not to engage in winter sports beyond open ski runs and trails. </p> <h6>Very rarely forecast.</h6> </div> </div> </div>",
-    "img": ""
+    "heading": "Danger level: Very high",
+    "text": "<b>Extraordinary avalanche situation.</b><br />Numerous very large and extreme natural avalanches can be expected. These can reach roads and settlements in the valley.<br /><b>Recommendations for backcountry recreationists:</b><br />You are advised not to engage in winter sports beyond open ski runs and trails.<br />",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
   },
   "snowpack-stability-very-poor": {
     "ids": {

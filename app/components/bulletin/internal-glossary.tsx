@@ -15,7 +15,7 @@ const INTERNAL_GLOSSARY_LINKS = Object.freeze({
 });
 
 const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
-  ca: () => import("./InternalGlossary/Internal-Glossary-ca-content.json").then(d => d.default), // as GlossaryItme),
+  ca: () => import("./InternalGlossary/Internal-Glossary-ca-content.json").then(d => d.default),
   de: () => import("./InternalGlossary/Internal-Glossary-de-content.json").then(d => d.default),
   en: () => import("./InternalGlossary/Internal-Glossary-en-content.json").then(d => d.default),
   es: () => import("./InternalGlossary/Internal-Glossary-es-content.json").then(d => d.default),
@@ -126,7 +126,7 @@ class InternalGlossaryReplacer {
     glossaryItem: GlossaryEntry,
     textKey: string,
     idText: string
-  ) {
+  ){
     const { heading, text, ids, img } = glossaryItem;
     const anchor = ids?.[this.locale];
     console.log("tooltip", idText, "key " + textKey, "anchor " + anchor);
