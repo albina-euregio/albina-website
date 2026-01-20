@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import $ from "jquery";
 
 const Dragger = ({
   parent,
@@ -30,7 +29,6 @@ const Dragger = ({
     event.stopPropagation();
 
     setDragging(true);
-    const parent$ = $(parent);
     if (onDrag) onDrag(event);
 
     const shiftX =
@@ -45,9 +43,11 @@ const Dragger = ({
     // moves the draggable at (pageX, pageY) coordinates
     // taking initial shifts into account
     function moveAt(pageX, pageY) {
-      const parentOffset = parent$.offset();
+      const parentOffset = getOffset(parent);
       const left = pageX - shiftX - parentOffset.left;
-      setCurrentX(Math.min(parent$.width(), Math.max(left)));
+      setCurrentX(
+        Math.min(parent.getBoundingClientRect().width, Math.max(left))
+      );
       setCurrentY(pageY - shiftY - parentOffset.top);
 
       if (onDrag) onDrag();
@@ -55,6 +55,14 @@ const Dragger = ({
 
     function onMouseMove(event) {
       moveAt(getXOnMove(event), getYOnMove(event));
+    }
+
+    function getOffset(element: HTMLElement) {
+      const rect = element.getBoundingClientRect();
+      return {
+        top: rect.top + window.scrollY,
+        left: rect.left + window.scrollX
+      };
     }
 
     // move the draggable on mousemove

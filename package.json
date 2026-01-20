@@ -44,7 +44,6 @@
     "@react-leaflet/core": "^3.0.0",
     "diff-match-patch": "^1.0.5",
     "htmr": "^1.0.2",
-    "jquery": "^3.7.1",
     "leaflet": "https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c",
     "leaflet-geonames": "^0.4.9",
     "leaflet-gesture-handling": "^1.2.2",

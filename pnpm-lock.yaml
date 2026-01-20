@@ -76,9 +76,6 @@ importers:
       htmr:
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.0)
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
       leaflet:
         specifier: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c
         version: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
@@ -773,9 +770,6 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-
-  jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -1725,8 +1719,6 @@ snapshots:
   is-unicode-supported@2.1.0: {}
 
   isexe@2.0.0: {}
-
-  jquery@3.7.1: {}
 
   js-tokens@4.0.0: {}
 

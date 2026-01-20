@@ -8,11 +8,6 @@ interface Props {
   children: React.ReactNode;
 }
 
-/**
- * Component to be used for selectric select boxes.
- * Implementation is inspired by
- * https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-jquery-chosen-plugin
- */
 export default function Selectric(props: Props) {
   return (
     <select
