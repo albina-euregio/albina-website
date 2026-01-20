@@ -111,10 +111,7 @@ const Timeline = ({ updateCB }) => {
 
       // Only advance if there's no URL timestamp and the period has fully passed
       // The timestamp represents the END of the period for forecasts
-      if (
-        !router?.params?.timestamp &&
-        +now < +endTime
-      ) {
+      if (!router?.params?.timestamp && +now < +endTime) {
         // newInitialDate IS the period end, so advance if it's <= now
         while (+newInitialDate <= +now) {
           newInitialDate.setUTCHours(
