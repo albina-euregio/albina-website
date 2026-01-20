@@ -26,7 +26,11 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
-  "staticContentNamespace": ["/more/legal", "/terrain/class-terreny"],
+  "staticContentNamespace": [
+    "/more/albina-project",
+    "/more/legal",
+    "/terrain/class-terreny"
+  ],
   "menu": [
     { "url": "/bulletin" },
     { "url": "/blog", "showNumberNewPosts": true },
