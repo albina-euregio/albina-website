@@ -770,34 +770,22 @@ function _getStartTimeForSpan() {
   }
 
   // For forecast overlays (+6, +12, +24, etc.)
+  // The timestamp represents the END of the forecast period
   // Show the current forecast period (if we're in it) or the next one
   if (isForecast) {
     const candidate = new Date(now);
     const nowHour = now.getUTCHours();
     const sortedSlots = [...timesForSpan].sort((a, b) => a - b);
 
-    // Find the most recent period start that is <= now
-    // Then check if we're still within that period (start to start+span)
-    const earlierOrEqualToday = sortedSlots.filter(h => h <= nowHour);
+    // Find the next period END time that is > now
+    // Period ends at slot hours, so we need to find the next slot after now
+    const laterSlots = sortedSlots.filter(h => h > nowHour);
 
-    if (earlierOrEqualToday.length > 0) {
-      const mostRecentStart = Math.max(...earlierOrEqualToday);
-      const periodEnd = mostRecentStart + span;
-
-      // Check if we're still in this period
-      if (nowHour < periodEnd || periodEnd >= 24) {
-        // We're in the current period, use it
-        candidate.setUTCHours(mostRecentStart, 0, 0, 0);
-        return candidate;
-      }
-    }
-
-    // Not in any current period, find the next one
-    const laterToday = sortedSlots.filter(h => h > nowHour);
-    if (laterToday.length > 0) {
-      candidate.setUTCHours(laterToday[0], 0, 0, 0);
+    if (laterSlots.length > 0) {
+      // There's a slot later today - that's our period end
+      candidate.setUTCHours(laterSlots[0], 0, 0, 0);
     } else {
-      // Next period is tomorrow
+      // Next period end is tomorrow at the first slot
       candidate.setUTCDate(candidate.getUTCDate() + 1);
       candidate.setUTCHours(sortedSlots[0], 0, 0, 0);
     }
@@ -858,6 +846,8 @@ export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
   }
   domainId.set(domainId0);
   timeSpan.set(null);
+  // Reset currentTime so _getStartTimeForSpan() recalculates based on new domain
+  currentTime.set(null);
   let usedTimeSpan =
     domainConfig.get().defaultTimeSpan || domainConfig.get().timeSpans[0];
   if (newTimeSpan && checkTimeSpan(domainId0, newTimeSpan)) {

@@ -108,12 +108,15 @@ const Timeline = ({ updateCB }) => {
       );
       const newInitialDate = new Date(usedInitialDate);
       const now = new Date();
+
+      // Only advance if there's no URL timestamp and the period has fully passed
+      // The timestamp represents the END of the period for forecasts
       if (
         !router?.params?.timestamp &&
-        +newInitialDate < +now &&
         +now < +endTime
       ) {
-        while (+newInitialDate < +now) {
+        // newInitialDate IS the period end, so advance if it's <= now
+        while (+newInitialDate <= +now) {
           newInitialDate.setUTCHours(
             newInitialDate.getUTCHours() + timeSpanInt
           );
@@ -124,9 +127,9 @@ const Timeline = ({ updateCB }) => {
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
-        setTargetDate(new Date(usedInitialDate));
+        setTargetDate(new Date(newInitialDate));
         if (!currentDate) {
-          setCurrentDate(new Date(usedInitialDate));
+          setCurrentDate(new Date(newInitialDate));
         }
       }
     }
