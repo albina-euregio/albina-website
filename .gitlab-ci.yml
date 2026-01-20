@@ -61,6 +61,14 @@ build:ES-AR:
     - pnpm test
     - pnpm build
 
+build:ES-CT-L:
+  extends: .build
+  variables:
+    APP_REGION: ES-CT-L
+  script:
+    - pnpm test
+    - pnpm build
+
 build:dev:
   extends: .build
   environment:
