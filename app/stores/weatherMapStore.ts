@@ -726,29 +726,111 @@ function _getPossibleTimesForSpan() {
 
 /*
     Calculate startdate for current timespan
+    - For forecast overlays (+N): show next period from now
+    - For historical overlays (-N): show most recent past period
+    - For instantaneous overlays (+-1): show closest time to now
   */
 function _getStartTimeForSpan() {
-  const currentTime = new Date(startDate.get());
+  const now = SIMULATE_START ? new Date(SIMULATE_START) : new Date();
+  const dataAvailableTime = new Date(startDate.get());
+  const currentTimeSpan = timeSpan.get();
+  const span = absTimeSpan.get();
+  const timesForSpan = _getPossibleTimesForSpan();
 
-  if (
-    [
-      "-6",
-      "-12",
-      "-24",
-      "-48",
-      "-72",
-      "+6",
-      "+12",
-      "+24",
-      "+48",
-      "+72"
-    ].includes(timeSpan.get()) &&
-    currentTime.getUTCHours() !== 0
-  ) {
-    let foundStartHour;
+  // Determine timespan direction
+  const isForecast = currentTimeSpan?.startsWith("+");
+  const isHistorical = currentTimeSpan?.startsWith("-");
+  const isInstantaneous = currentTimeSpan === "+-1";
+
+  // For instantaneous overlays (snow-height, temp, wind, etc.)
+  // Find the closest valid hour to now that has available data
+  if (isInstantaneous) {
+    const candidate = new Date(dataAvailableTime);
+    const nowHour = now.getUTCHours();
+
+    // Find the closest valid hour to now
+    let closestHour = timesForSpan[0];
+    let minDiff = 24;
+    for (const h of timesForSpan) {
+      const diff = Math.min(Math.abs(h - nowHour), 24 - Math.abs(h - nowHour));
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestHour = h;
+      }
+    }
+
+    candidate.setUTCHours(closestHour, 0, 0, 0);
+
+    // If candidate is in the future relative to data availability, go back
+    while (+candidate > +dataAvailableTime) {
+      candidate.setUTCHours(candidate.getUTCHours() - span);
+    }
+
+    return candidate;
+  }
+
+  // For forecast overlays (+6, +12, +24, etc.)
+  // Show the current forecast period (if we're in it) or the next one
+  if (isForecast) {
+    const candidate = new Date(now);
+    const nowHour = now.getUTCHours();
+    const sortedSlots = [...timesForSpan].sort((a, b) => a - b);
+
+    // Find the most recent period start that is <= now
+    // Then check if we're still within that period (start to start+span)
+    const earlierOrEqualToday = sortedSlots.filter(h => h <= nowHour);
+
+    if (earlierOrEqualToday.length > 0) {
+      const mostRecentStart = Math.max(...earlierOrEqualToday);
+      const periodEnd = mostRecentStart + span;
+
+      // Check if we're still in this period
+      if (nowHour < periodEnd || periodEnd >= 24) {
+        // We're in the current period, use it
+        candidate.setUTCHours(mostRecentStart, 0, 0, 0);
+        return candidate;
+      }
+    }
+
+    // Not in any current period, find the next one
+    const laterToday = sortedSlots.filter(h => h > nowHour);
+    if (laterToday.length > 0) {
+      candidate.setUTCHours(laterToday[0], 0, 0, 0);
+    } else {
+      // Next period is tomorrow
+      candidate.setUTCDate(candidate.getUTCDate() + 1);
+      candidate.setUTCHours(sortedSlots[0], 0, 0, 0);
+    }
+
+    return candidate;
+  }
+
+  // For historical overlays (-6, -12, -24, etc.)
+  // Show the most recent past period
+  if (isHistorical) {
+    const candidate = new Date(dataAvailableTime);
+    const dataHour = dataAvailableTime.getUTCHours();
+
+    // Find the most recent valid hour slot <= data availability time
+    const soonerToday = timesForSpan.filter(h => h <= dataHour);
+
+    if (soonerToday.length > 0) {
+      candidate.setUTCHours(Math.max(...soonerToday), 0, 0, 0);
+    } else {
+      // Use the last slot from yesterday
+      candidate.setUTCDate(candidate.getUTCDate() - 1);
+      candidate.setUTCHours(Math.max(...timesForSpan), 0, 0, 0);
+    }
+
+    return candidate;
+  }
+
+  // Fallback to original behavior for any other cases
+  const currentTime = new Date(dataAvailableTime);
+  if (currentTime.getUTCHours() !== 0) {
     const currHours = currentTime.getUTCHours();
-    const timesForSpan = _getPossibleTimesForSpan();
     const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
+    let foundStartHour;
     if (soonerTimesToday.length) foundStartHour = Math.max(...soonerTimesToday);
     else foundStartHour = Math.max(...timesForSpan);
 
