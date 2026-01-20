@@ -134,18 +134,18 @@ class InternalGlossaryReplacer {
 
   renderGlossaryImg(img: string): React.ReactNode {
     if (img && img.startsWith("__SIMPLE_SLIDER__")) {
-      // Example: __SIMPLE_SLIDER__|none,few,some,many|2
-      const parts = img.split("|");
+      // Example: __SIMPLE_SLIDER__|none,few,some,many|2|true| __END_SLIDER__
+      //const imgParts = img.split("__END_SLIDER__");
+      const [sliderPart, ...rest] = img.split("__END_SLIDER__");
+      const parts = sliderPart.split("|");
       const labels = parts[1]?.split(",") ?? [];
       const initialIndex = parts[2] ? parseInt(parts[2], 10) : 0;
       const isInteractive = parts[3] ? parts[3].toLowerCase() === "true" : false;
-      console.log("Simple slider labels:", labels);
-        console.log("Simple slider initialIndex:", initialIndex);
-        console.log("Simple slider isInteractive:", isInteractive);
       return (
         <div style={{ margin: "1em 0" }}>
           {/* @ts-ignore: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
           <LabeledSliderReact labels={labels} initialIndex={initialIndex} interactive={isInteractive} />
+          {rest.length > 0 ? preprocessContent(rest.join(" ")) : null}
         </div>
       );
     }
