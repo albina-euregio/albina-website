@@ -26,6 +26,7 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
+  "staticContentNamespace": ["/terrain/class-terreny"],
   "menu": [
     { "url": "/bulletin" },
     { "url": "/blog", "showNumberNewPosts": true },

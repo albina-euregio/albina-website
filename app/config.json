@@ -40,6 +40,7 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
+  "staticContentNamespace": [],
   "menu": [
     { "url": "/bulletin" },
     { "url": "/blog", "showNumberNewPosts": true },
