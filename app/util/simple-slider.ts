@@ -4,6 +4,7 @@ type SliderOptions = {
   labels: string[]; //list of labels. ie low, medium...
   initialIndex?: number; //selected index. ie. 0 = low
   interactive?: boolean; //user can change slider
+  rotateLabelsAngle?: number; // if set, rotate label text by this angle (deg)
   onChange?: (index: number) => void;
 };
 
@@ -47,9 +48,14 @@ export class LabeledSlider {
       const dot = document.createElement("div");
       dot.className = "slider-dot";
 
+
       const text = document.createElement("div");
       text.className = "slider-label";
       text.textContent = label;
+      if (typeof this.options.rotateLabelsAngle === 'number') {
+        text.classList.add("slider-label-rotated");
+        text.style.transform = `rotate(${this.options.rotateLabelsAngle}deg)`;
+      }
 
       tick.appendChild(dot);
       tick.appendChild(text);

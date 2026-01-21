@@ -5,14 +5,14 @@ import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../util/htmlParser";
 import { LabeledSlider } from "../../util/simple-slider";
 
-export const LabeledSliderReact = ({ labels, initialIndex, interactive = false }) => {
+export const LabeledSliderReact = ({ labels, initialIndex, interactive = false, rotateLabelsAngle = 0 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      new LabeledSlider(containerRef.current, { labels, initialIndex, interactive });
+      new LabeledSlider(containerRef.current, { labels, initialIndex, interactive, rotateLabelsAngle });
     }
-  }, [labels, initialIndex, interactive]);
+  }, [labels, initialIndex, interactive, rotateLabelsAngle]);
 
   return <div ref={containerRef} />;
 };
@@ -141,10 +141,12 @@ class InternalGlossaryReplacer {
       const labels = parts[1]?.split(",") ?? [];
       const initialIndex = parts[2] ? parseInt(parts[2], 10) : 0;
       const isInteractive = parts[3] ? parts[3].toLowerCase() === "true" : false;
+      const rotateLabelsAngle = parts[4] ? parseInt(parts[4], 10) : 0;
+      console.log("Rendering slider with angle:", rotateLabelsAngle);
       return (
         <div style={{ margin: "1em 0" }}>
           {/* @ts-ignore: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
-          <LabeledSliderReact labels={labels} initialIndex={initialIndex} interactive={isInteractive} />
+          <LabeledSliderReact labels={labels} initialIndex={initialIndex} interactive={isInteractive} rotateLabelsAngle={rotateLabelsAngle} />
           {rest.length > 0 ? preprocessContent(rest.join(" ")) : null}
         </div>
       );
