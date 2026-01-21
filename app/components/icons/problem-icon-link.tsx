@@ -3,8 +3,12 @@ import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { Tooltip } from "../tooltips/tooltip";
 import { AvalancheProblem } from "../../stores/bulletin";
-import BulletinGlossaryText from "../bulletin/bulletin-glossary-text";
-import { EnabledLanguages } from "../bulletin/bulletin-glossary";
+import BulletinInternalGlossaryText from "../bulletin/internal-glossary-text";
+import { EnabledLanguages } from "../bulletin/internal-glossary";
+import {
+  internalGlossaryEnum,
+  getContentIdentifier
+} from "../bulletin/InternalGlossary/internal-glossary-enums";
 
 interface Props {
   problem: AvalancheProblem;
@@ -28,9 +32,10 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
         <ProblemIcon problem={problemType} alt={title} active={true} />
       </div>
       <div className="picto-caption">
-        <BulletinGlossaryText
+        <BulletinInternalGlossaryText
           text={problemTextShort} // Process the short text for glossary terms
           locale={intl.locale.slice(0, 2) as EnabledLanguages} // Use dynamic locale
+          textKey={getContentIdentifier(internalGlossaryEnum.problemType, problemType)}
         />
       </div>
     </a>

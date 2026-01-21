@@ -2,8 +2,12 @@ import React from "react";
 import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import { FormattedMessage } from "../../i18n";
 import type * as Caaml from "../../stores/bulletin";
-import BulletinGlossaryText from "./bulletin-glossary-text";
-import { EnabledLanguages } from "./bulletin-glossary";
+import BulletinInternalGlossaryText from "./internal-glossary-text";
+import { EnabledLanguages } from "./internal-glossary";
+import {
+  internalGlossaryEnum,
+  getContentIdentifier
+} from "./InternalGlossary/internal-glossary-enums";
 
 interface Props {
   dangerPattern: Caaml.DangerPattern;
@@ -25,15 +29,17 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
         <ins
         // style={{ color: "#28a745" }}
         >
-          <BulletinGlossaryText
+          <BulletinInternalGlossaryText
             text={dangerPatternText}
             locale={intl.locale.slice(0, 2) as EnabledLanguages}
+            textKey={getContentIdentifier(internalGlossaryEnum.dangerPattern, dangerPattern)}
           />
         </ins>
       ) : (
-        <BulletinGlossaryText
+        <BulletinInternalGlossaryText
           text={dangerPatternText}
           locale={intl.locale.slice(0, 2) as EnabledLanguages}
+          textKey={getContentIdentifier(internalGlossaryEnum.dangerPattern, dangerPattern)}
         />
       )}
     </a>
