@@ -73,16 +73,18 @@ function BulletinLegend(props: Props) {
                     <li key={id} className={`warning-level-${num}`}>
                       <span>
                         <strong>{num}</strong>{" "}
-                        <BulletinInternalGlossaryText
-                          text={intl.formatMessage({
-                            id: `danger-level:${id}`
-                          })}
-                          locale={intl.locale.slice(0, 2) as EnabledLanguages}
-                          textKey={getContentIdentifier(
-                            internalGlossaryEnum.dangerLevel,
-                            num.toString()
-                          )}
-                        />
+                        <a href={`/education/danger-scale/#level${num}`}>
+                          <BulletinInternalGlossaryText
+                            text={intl.formatMessage({
+                              id: `danger-level:${id}`
+                            })}
+                            locale={intl.locale.slice(0, 2) as EnabledLanguages}
+                            textKey={getContentIdentifier(
+                              internalGlossaryEnum.dangerLevel,
+                              num.toString()
+                            )}
+                          />
+                        </a>
                       </span>
                     </li>
                   )
