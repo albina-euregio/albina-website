@@ -293,6 +293,21 @@ const Bulletin = () => {
         />
       </Suspense>
       <BulletinButtonbar activeBulletinCollection={collection} />
+
+      {/* <section id="section-bulletin-controlbar" className="section-padding-height section-bulletin-controlbar">
+        <div className="controlbar 0controlbar-big">
+          <div className="section-centered">
+            <section className="section-header align-center">
+              <p className="controlbar-top">
+                <a href="#page-all" title="Top" className="icon-link icon-arrow-up" data-scroll><span>Back to Map</span></a>
+              </p>
+              <h2 className="subheader">Region in Karte wählen</h2>
+              <p className="subheader">für den detaillierten Lawinenlagebericht</p>
+            </section>
+          </div>
+        </div>
+      </section> */}
+
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
           <div className="section-centered">

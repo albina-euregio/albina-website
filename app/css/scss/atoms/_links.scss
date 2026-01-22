@@ -116,8 +116,6 @@ a.img {
 
   &:hover {
     cursor: hand;
-    img {
-    }
 
     &:after {
       background-color: rgba(variables.$brand, 0.05);
@@ -179,16 +177,12 @@ a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not(
     [class*="sm-button"]
   ):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
     [class*="avoid-external-icon"]
-  ):not([class*="pp"])::after {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  content: " ";
-  background-color: variables.$brand;
-  mask-image: url("../../../images/pro/global/icon_external-link.svg");
-  mask-repeat: no-repeat;
-  mask-size: 0.75em 0.75em;
-  mask-position: 0.25em 0;
+  ):not([class*="pp"]) {
+  position: relative;
+  padding-right: 1em;
+  background: url("../../../images/pro/global/icon_external-link.svg") no-repeat
+    100% 0;
+  background-size: 0.75em 0.75em;
 }
 
 //from app.scss, until 202202
