@@ -14,7 +14,7 @@
 
 //http://bourbon.io
 
-@use "../../node_modules/normalize.css/normalize";
+@use "../../publ../../node_modules/normalize.css/normalize";
 
 @use "scss/abstracts/bounds";
 @use "scss/abstracts/variables";
@@ -68,6 +68,7 @@
 @use "scss/organisms/header";
 @use "scss/organisms/map" as map2;
 @use "scss/organisms/map-cockpit-legend-items";
+// @import "scss/organisms/map-cockpit";
 @use "scss/organisms/map-cockpit-2024";
 @use "scss/organisms/bulletin";
 @use "scss/organisms/features";

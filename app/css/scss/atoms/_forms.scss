@@ -20,7 +20,7 @@ form {
 //http://purecss.io/forms
 
 @include meta.load-css(
-  "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_forms.scss"
+  "../../../../publ../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_forms.scss"
 );
 
 .pure-form {
