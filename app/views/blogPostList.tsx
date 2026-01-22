@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
 import * as BLOG_STORE from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -19,6 +18,8 @@ import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
 import Selectric from "../components/selectric.tsx";
 import { $headless, $province } from "../appStore.ts";
+import { $router } from "../components/router.ts";
+import { redirectPage } from "@nanostores/router";
 
 interface Props {
   isTechBlog: boolean;
@@ -42,11 +43,13 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   const [headerText] = useState("");
   const province = useStore($province);
 
-  const [, setSearchParams] = useSearchParams();
+  const router = useStore($router);
+  if (router?.route !== "blog" && router?.route !== "blogTech")
+    throw new Error();
   const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
   useEffect(() => {
-    setSearchParams(searchParamsBlogStore);
-  }, [setSearchParams, searchParamsBlogStore]);
+    redirectPage($router, router.route, undefined, searchParamsBlogStore);
+  }, [router.route, searchParamsBlogStore]);
   useEffect(() => handleChangeRegion(province ?? "all"), [province]);
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
@@ -130,9 +133,9 @@ const BlogPostList = ({ isTechBlog }: Props) => {
         marginal={headerText}
       >
         {headless && (
-          <Link to="/bulletin/latest" className="back-link">
+          <a to="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
-          </Link>
+          </a>
         )}
       </PageHeadline>
       <FilterBar
@@ -160,6 +163,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             })}
             all={intl.formatMessage({ id: "filter:all" })}
             handleChange={handleChangeRegion}
+            regionCodes={config.blogRegions}
             value={region}
             className={region !== "all" ? classChanged : ""}
           />

@@ -1,18 +1,13 @@
 import React, { Suspense, useEffect } from "react";
 import "@iframe-resizer/child";
+import { useStore } from "@nanostores/react";
+import { $router } from "./router";
+import { redirectPage } from "@nanostores/router";
 
 window.iFrameResizer = {
   sizeSelector: "#page-all"
 };
 
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useParams
-} from "react-router-dom";
-//import { ScrollContext } from "react-router-scroll";
 import { setLanguage, $province, $headless } from "../appStore";
 import Page from "./page";
 
@@ -35,17 +30,23 @@ const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("../views/staticPage"));
 
 const RouteStaticPage = () => {
-  const params = useParams();
+  const page = useStore($router);
   //console.log("SwtichLang", params);
 
-  if (params?.name && /^([a-z]{2})$/.test(params?.name)) {
-    setLanguage(params.name);
-    return <Navigate replace to="/" />;
+  if (
+    (page?.route === "staticName" || page?.route === "staticSegmentName") &&
+    page?.params?.name &&
+    /^([a-z]{2})$/.test(page?.params?.name)
+  ) {
+    setLanguage(page.params.name);
+    redirectPage($router, "home");
+    return;
   }
   return <StaticPage />;
 };
 
 const App = () => {
+  const page = useStore($router);
   useEffect(() => {
     window.addEventListener("orientationchange", () => {
       document.body.animate(
@@ -60,66 +61,82 @@ const App = () => {
     });
   });
 
-  const search = new URLSearchParams(document.location.search);
-  const province = search.get("province") ?? config.province;
+  const router = useStore($router);
+  const province = router?.search?.province ?? config.province;
   useEffect(() => $province.set(province), [province]);
-  const headless = search.get("headless") ?? config.headless;
+  const headless = router?.search?.headless ?? config.headless;
   useEffect(() => $headless.set(!!headless), [headless]);
 
+  useEffect(() => {
+    if (province) {
+      document.body.parentElement?.setAttribute("data-province", province);
+    } else {
+      document.body.parentElement?.removeAttribute("data-province");
+    }
+  }, [province]);
+
+  useEffect(() => {
+    if (headless) {
+      document.body.parentElement?.setAttribute("data-headless", "");
+    } else {
+      document.body.parentElement?.removeAttribute("data-headless");
+    }
+  }, [headless]);
+
+  function component(): React.ReactNode {
+    switch (page?.route) {
+      case "home":
+        redirectPage($router, "bulletinLatest");
+        break;
+      case "bulletin":
+        redirectPage($router, "bulletinLatest");
+        break;
+      case "bulletinDate":
+      case "bulletinLatest":
+        return <Bulletin />;
+      case "weather":
+        redirectPage($router, "weatherMap");
+        break;
+      case "weatherMap":
+      case "weatherMapDomain":
+      case "weatherMapDomainTimestamp":
+        return <Weather />;
+      case "weatherMeasurements":
+        return <StationMeasurements />;
+      case "weatherArchive":
+        return <StationArchive />;
+      case "weatherStations":
+        return <StationMap />;
+      case "weatherSnowProfiles":
+        return <SnowProfileMap />;
+      case "education":
+        return <Education />;
+      case "blogNamePost":
+        return <BlogPost />;
+      case "blogTech":
+        return <BlogPostList isTechBlog={true} />;
+      case "blog":
+        return <BlogPostList isTechBlog={false} />;
+      case "more":
+        return <More />;
+      case "moreArchive":
+        return <Archive />;
+      case "moreLinkTree":
+        return <Linktree />;
+      case "archive":
+        redirectPage($router, "moreArchive");
+        break;
+      case "educationStar":
+      case "staticName":
+      case "staticSegmentName":
+        return <RouteStaticPage />;
+    }
+  }
+
   return (
-    <BrowserRouter basename={config.projectRoot}>
-      <Suspense fallback={"..."}>
-        <Routes>
-          <Route path="/" element={<Page />}>
-            <Route index element={<Navigate replace to="/bulletin/latest" />} />
-            <Route
-              path="/bulletin"
-              element={<Navigate replace to="/bulletin/latest" />}
-            />
-            <Route path="/bulletin/:date" element={<Bulletin />} />
-            <Route path="/bulletin/latest" element={<Bulletin />} />
-            <Route path="/weather/map/:domain" element={<Weather />} />
-            <Route
-              path="/weather/map/:domain/:timestamp"
-              element={<Weather />}
-            />
-            <Route
-              path="/weather/map/:domain/:timestamp/:timeSpan"
-              element={<Weather />}
-            />
-            <Route path="/weather/map/" element={<Weather />} />
-            <Route
-              path="/weather/measurements"
-              element={<StationMeasurements />}
-            />
-            <Route path="/weather/archive" element={<StationArchive />} />
-            <Route path="/weather/stations" element={<StationMap />} />
-            <Route path="/weather/snow-profiles" element={<SnowProfileMap />} />
-            <Route
-              path="/weather"
-              element={<Navigate replace to="/weather/map" />}
-            />
-            <Route path="/education" element={<Education />} />
-            <Route path="/blog/:blogName/:postId" element={<BlogPost />} />
-            <Route
-              path="/blog/tech"
-              element={<BlogPostList isTechBlog={true} />}
-            />
-            <Route path="/blog" element={<BlogPostList isTechBlog={false} />} />
-            <Route path="/more" element={<More />} />
-            <Route path="/more/archive" element={<Archive />} />
-            <Route path="/more/linktree" element={<Linktree />} />
-            <Route
-              path="/archive"
-              element={<Navigate replace to="/more/archive" />}
-            />
-            <Route path="/education/*" element={<StaticPage />} />
-            <Route path="/:name" element={<RouteStaticPage />} />
-            <Route path="/:segment/:name" element={<RouteStaticPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <Suspense fallback={"..."}>
+      <Page>{component()}</Page>
+    </Suspense>
   );
 };
 

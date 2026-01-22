@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Temporal } from "temporal-polyfill";
 import { useIntl } from "../i18n";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";
@@ -16,32 +15,41 @@ import FilterBar from "../components/organisms/filter-bar";
 import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import ProvinceFilter from "../components/filters/province-filter.js";
-import { useSearchParams, Link } from "react-router-dom";
 import { fetchExists } from "../util/fetch";
 import { microRegionIds } from "../stores/microRegions.js";
 import { setLanguage } from "../appStore.ts";
 import { useStore } from "@nanostores/react";
+import { $router, redirectPageQuery } from "../components/router.ts";
 
 function Archive() {
+  const router = useStore($router);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const province = useStore($province);
-  const [searchParams, setSearchParams] = useSearchParams();
   const headless = useStore($headless);
-  const [buttongroup] = useState(searchParams.get("buttongroup"));
+  const [buttongroup] = useState(router?.search?.buttongroup);
+
   const minMonth = 11;
-  const [month, setMonth] = useState(
-    +(searchParams.get("month") || Temporal.Now.plainDateISO().month)
-  );
-  if (month < minMonth) setMonth(m => m + 12);
-  const [year, setYear] = useState(
-    +searchParams.get("year") || currentSeasonYear()
-  );
+  const [month, setMonth] = [
+    +(router?.search?.month || Temporal.Now.plainDateISO().month),
+    (month: number) => redirectPageQuery({ month })
+  ];
+  if (month < minMonth) setMonth(month + 12);
+
+  const [year, setYear] = [
+    +(router?.search?.year || currentSeasonYear()),
+    (year: number) => redirectPageQuery({ year })
+  ];
+
   const [bulletinStatus, setBulletinStatus] = useState(
     {} as Record<ReturnType<Temporal.PlainDate["toString"]>, BulletinStatus>
   );
   const [dates, setDates] = useState([] as Temporal.PlainDate[]);
-  const [region, setRegion] = useState(searchParams.get("region") || "");
+  const [region, setRegion] = [
+    router?.search?.region || "",
+    (region: string) => redirectPageQuery({ region })
+  ];
+
   const microRegions = useMemo(
     () =>
       microRegionIds(
@@ -53,8 +61,8 @@ function Archive() {
     [month, year, province]
   );
 
-  if (["de", "en"].includes(searchParams.get("language") || "")) {
-    setLanguage(searchParams.get("language"));
+  if (["de", "en"].includes(router?.search?.language || "")) {
+    setLanguage(router?.search?.language);
   }
 
   useEffect(() => {
@@ -77,23 +85,8 @@ function Archive() {
       }
     });
     setDates(dates);
-    setSearchParams(
-      buttongroup
-        ? {
-            year: String(year),
-            month: String(month),
-            region,
-            buttongroup
-          }
-        : {
-            year: String(year),
-            month: String(month),
-            region
-          },
-      { replace: true }
-    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month, year, setDates, setSearchParams, buttongroup, region, lang]);
+  }, [month, year, setDates, region, lang]);
 
   function isDateShown(d: Temporal.PlainDate): boolean {
     const status = bulletinStatus[d.toString()];
@@ -118,9 +111,9 @@ function Archive() {
         })}
       >
         {headless && (
-          <Link to="/bulletin/latest" className="back-link">
+          <a href="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
-          </Link>
+          </a>
         )}
       </PageHeadline>
       <FilterBar search={false}>
@@ -266,9 +259,7 @@ function Archive() {
         `${config.apis.bulletin.archive}tyrol/pdf/${date}_0730_lwdtirol_lagebericht.pdf`
       ),
       fetchExists(
-        `${config.apis.bulletin.archive}south_tyrol/pdf/${date}.${
-          lang === "it" ? "it" : "de"
-        }.pdf`
+        `${config.apis.bulletin.archive}south_tyrol/pdf/${date}.${lang === "it" ? "it" : "de"}.pdf`
       ),
       fetchExists(
         `${config.apis.bulletin.archive}trentino/pdf/${date}_valanghe_it.pdf`

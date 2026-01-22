@@ -1,0 +1,12 @@
+ignoredOptionalDependencies:
+  - "@parcel/watcher"
+  - fsevents
+
+patchedDependencies:
+  "@react-leaflet/core": patches/react-leaflet-core.patch
+  leaflet: patches/leaflet.patch
+  leaflet-geonames: patches/leaflet-geonames.patch
+  leaflet-gesture-handling: patches/leaflet-gesture-handling.patch
+  leaflet.locatecontrol: patches/leaflet.locatecontrol.patch
+  leaflet.sync: patches/leaflet.sync.patch
+  leaflet.vectorgrid: patches/leaflet.vectorgrid.patch

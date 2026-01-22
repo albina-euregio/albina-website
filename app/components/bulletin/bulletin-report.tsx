@@ -4,7 +4,6 @@ import React, {
   useState,
   useMemo
 } from "react";
-import type { Temporal } from "temporal-polyfill";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
@@ -27,6 +26,8 @@ import {
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
+import { useStore } from "@nanostores/react";
+import { $province } from "../../appStore.ts";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -42,16 +43,10 @@ const LocalizedText: FunctionComponent<{
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
-          ? `<ins>${value.replace(
-              /(<br\/>)+/g,
-              br => `</ins>${br}<ins>`
-            )}</ins>`
+          ? `<ins>${value.replace(/(<br\/>)+/g, br => `</ins>${br}<ins>`)}</ins>`
           : diff === DiffMatchPatch.DIFF_DELETE
             ? showDiff === 2
-              ? `<del>${value.replace(
-                  /(<br\/>)+/g,
-                  br => `</del>${br}<del>`
-                )}</del>`
+              ? `<del>${value.replace(/(<br\/>)+/g, br => `</del>${br}<del>`)}</del>`
               : ""
             : value
       )
@@ -76,6 +71,7 @@ interface Props {
  */
 function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
+  const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
@@ -216,8 +212,10 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
               ></SynthesizedBulletin>
             </div>
 
-            {bulletin.regions?.some(r =>
-              r.regionID.match(config.regionsRegex)
+            {bulletin.regions?.some(
+              r =>
+                r.regionID.match(config.regionsRegex) ||
+                r.regionID.startsWith(province || "???")
             ) && (
               <div>
                 <ul className="list-inline list-buttongroup bulletin-report-header-download">
@@ -231,6 +229,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                         rel="noopener noreferrer nofollow"
                         target="_blank"
                         href={config.template(config.apis.bulletin.pdf, {
+                          region: province ?? "EUREGIO",
                           bulletin: bulletin.bulletinID,
                           lang: intl.locale.slice(0, 2)
                         })}

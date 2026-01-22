@@ -1,5 +1,4 @@
 import React from "react";
-import type { Temporal } from "temporal-polyfill";
 import { useIntl } from "../../i18n";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";

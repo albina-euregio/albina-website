@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function LinktreeFeature(props) {
   //console.log("LinktreeFeature->render xx101", props);
@@ -26,9 +25,9 @@ export default function LinktreeFeature(props) {
   return (
     <>
       {!props.external && (
-        <Link to={props.url} className="linkbox linkbox-linktree-feature">
+        <a href={props.url} className="linkbox linkbox-linktree-feature">
           {getContent()}
-        </Link>
+        </a>
       )}
       {props.external && (
         <a href={props.url} className="linkbox linkbox-linktree-feature">

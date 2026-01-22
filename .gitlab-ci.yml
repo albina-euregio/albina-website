@@ -18,20 +18,22 @@ workflow:
 .build:
   image: node:24
   stage: build
-  variables:
-    YARN_CACHE_FOLDER: .yarn-cache/
   cache:
     key:
       files:
-        - yarn.lock
+        - pnpm-lock.yaml
     paths:
-      - .yarn-cache/
+      - .pnpm-store
   before_script:
     - corepack enable
-    - yarn install --immutable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
   script:
-    - yarn test
-    - yarn build-$CI_ENVIRONMENT_NAME
+    - pnpm test
+    - pnpm build-$CI_ENVIRONMENT_NAME
+    - pnpm build-iframe
+    - stat dist/iframe.js
     - du --bytes --total dist/assets/*js | tail -n1 | awk "{print \"size_${CI_ENVIRONMENT_NAME}_js \" \$1}" >> metrics.txt
   artifacts:
     paths:
@@ -50,6 +52,14 @@ workflow:
     - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - sed 's#<title>Avalanche Bulletin Home</title>#{{placeholder "http.vars.meta"}}#' -i dist/index.html
     - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
+
+build:ES-AR:
+  extends: .build
+  variables:
+    APP_REGION: ES-AR
+  script:
+    - pnpm test
+    - pnpm build
 
 build:dev:
   extends: .build
@@ -98,7 +108,7 @@ deploy:prod:
 
 .playwright:
   stage: playwright
-  image: mcr.microsoft.com/playwright:v1.55.0
+  image: mcr.microsoft.com/playwright:v1.57.0
   artifacts:
     when: always
     paths:
@@ -108,9 +118,11 @@ deploy:prod:
       junit: test-results/junit-results.xml
   before_script:
     - corepack enable
-    - yarn install --immutable
+    - corepack prepare pnpm@latest-10 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
   script:
-    - yarn playwright test
+    - pnpm playwright test
 
 playwright:beta:
   extends: .playwright

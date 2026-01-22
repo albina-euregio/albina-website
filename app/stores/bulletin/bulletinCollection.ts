@@ -1,4 +1,3 @@
-import { Temporal } from "temporal-polyfill";
 import {
   AvalancheProblemType,
   Bulletin,
@@ -197,6 +196,9 @@ class BulletinCollection {
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
+    if (!config.eawsRegions.length) {
+      return;
+    }
     try {
       const url =
         config.eawsRegions.length === 1 // this.date < "2023-11-01"
@@ -242,6 +244,10 @@ class BulletinCollection {
       ...bulletins,
       ...this.extraBulletins.filter(b => !bulletinIDs.has(b.bulletinID))
     ];
+  }
+
+  get ownBulletins(): Bulletin[] {
+    return this.dataRaw?.bulletins ?? [];
   }
 
   get bulletinsWith170000(): [Bulletin, Bulletin | undefined][] {

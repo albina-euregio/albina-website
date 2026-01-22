@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="temporal-polyfill/global" />
 
 declare global {
   type Config = typeof import("./config.json") & {

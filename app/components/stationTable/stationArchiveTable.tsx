@@ -60,11 +60,12 @@ export default function StationArchiveTable(props: Props) {
       render: (_value, row) => (
         <span className="region" title={row.microRegion}>
           {intl.formatMessage({ id: `region:${row.microRegion}` })}
-          {row.region && config.regionCodes.includes(row.region as string) && (
-            <span className={`region region-${row.region}`}>
-              ({intl.formatMessage({ id: `region:${row.region}` })})
-            </span>
-          )}
+          {row.province &&
+            config.regionCodes.includes(row.province as string) && (
+              <span className={`region region-${row.province}`}>
+                ({intl.formatMessage({ id: `region:${row.province}` })})
+              </span>
+            )}
         </span>
       ),
       className: "mb-station m-name"
@@ -236,39 +237,41 @@ export default function StationArchiveTable(props: Props) {
             {displayColumns.map(col => (
               <td key={row.id + "-" + col.data} className={col.className}>
                 {col.render?.(row[col.data], row, col.unit)}
-                {!col.render && typeof row[col.data] === "number" && (
-                  <span title={title(col.data)}>
-                    <Tooltip
-                      label={intl.formatMessage(
-                        { id: "measurements-archive:table:button:tooltip" },
-                        {
-                          parameter: title(col.data),
-                          station: row.name,
-                          season: season(props.activeYear, "/")
-                        }
-                      )}
-                    >
-                      <a
-                        href={config.template(
-                          window.config.apis.weather.stationsArchiveFile,
+                {!col.render &&
+                  typeof row[col.data] === "number" &&
+                  row.properties.$stationsArchiveFile && (
+                    <span title={title(col.data)}>
+                      <Tooltip
+                        label={intl.formatMessage(
+                          { id: "measurements-archive:table:button:tooltip" },
                           {
-                            "LWD-Nummer":
-                              row.properties["LWD-Nummer"] || row.id,
-                            parameter: col.parameter,
-                            file: season(props.activeYear, "_")
+                            parameter: title(col.data),
+                            station: row.name,
+                            season: season(props.activeYear, "/")
                           }
                         )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="pure-button secondary small"
                       >
-                        {intl.formatMessage({
-                          id: "measurements-archive:table:button:title"
-                        })}
-                      </a>
-                    </Tooltip>
-                  </span>
-                )}
+                        <a
+                          href={config.template(
+                            row.properties.$stationsArchiveFile,
+                            {
+                              "LWD-Nummer":
+                                row.properties["LWD-Nummer"] || row.id,
+                              parameter: col.parameter,
+                              file: season(props.activeYear, "_")
+                            }
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="pure-button secondary small"
+                        >
+                          {intl.formatMessage({
+                            id: "measurements-archive:table:button:title"
+                          })}
+                        </a>
+                      </Tooltip>
+                    </span>
+                  )}
               </td>
             ))}
           </tr>

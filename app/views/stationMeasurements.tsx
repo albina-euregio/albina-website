@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
@@ -11,7 +10,6 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
-import { Temporal } from "temporal-polyfill";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 
@@ -24,13 +22,11 @@ const StationMeasurements = () => {
     content: "",
     sharable: false
   });
-  const [searchParams, setSearchParams] = useSearchParams();
   const {
     activeData,
     activeRegion,
     dateTime,
     dateTimeMax,
-    fromURLSearchParams,
     load,
     searchText,
     setActiveRegion,
@@ -39,23 +35,12 @@ const StationMeasurements = () => {
     sortDir,
     sortedFilteredData,
     sortValue,
-    toggleActiveData,
-    toURLSearchParams
+    toggleActiveData
   } = useStationData();
-
-  useEffect(() => {
-    fromURLSearchParams(searchParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     load();
   }, [load]);
-
-  const updateURL = () => {
-    const search = toURLSearchParams();
-    setSearchParams(search);
-  };
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = ["snow", "temp", "wind"];
@@ -76,7 +61,6 @@ const StationMeasurements = () => {
         })}
         searchOnChange={val => {
           setSearchText(val);
-          updateURL();
         }}
         searchValue={searchText}
       >
@@ -87,7 +71,6 @@ const StationMeasurements = () => {
           all={intl.formatMessage({ id: "filter:all" })}
           handleChange={val => {
             setActiveRegion(val);
-            updateURL();
           }}
           regionCodes={config.stationRegions}
           value={activeRegion}
@@ -140,7 +123,6 @@ const StationMeasurements = () => {
               active={activeData[e]}
               onToggle={val => {
                 toggleActiveData(val);
-                updateURL();
               }}
             />
           ))}
@@ -157,7 +139,6 @@ const StationMeasurements = () => {
             searchText={searchText}
             handleSort={(id, dir) => {
               sortBy(id, dir);
-              updateURL();
             }}
           />
         </div>

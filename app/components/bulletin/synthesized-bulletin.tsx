@@ -1,5 +1,4 @@
 import React from "react";
-import type { Temporal } from "temporal-polyfill";
 import { useState, useEffect } from "react";
 import { Bulletin } from "../../stores/bulletin";
 import type { Language } from "../../appStore";

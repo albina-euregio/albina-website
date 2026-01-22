@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import WeatherStationDialog from "../dialogs/weather-station-dialog";
+import WeatherStationDialog, {
+  useStationId
+} from "../dialogs/weather-station-dialog";
 
 type SortDir = "desc" | "asc";
 
@@ -32,7 +34,7 @@ interface Column {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
-  const [stationId, setStationId] = useState("");
+  const [stationId, setStationId] = useStationId();
 
   const columns: Column[] = [
     {
@@ -56,16 +58,20 @@ export default function StationTable(props: Props) {
     {
       // Regionsname <br> (Tirol)
       data: "microRegion",
-      render: row => (
-        <span className="region" title={row.microRegion}>
-          <FormattedMessage id={`region:${row.microRegion}`} />
-          {row.region && config.regionCodes.includes(row.region as string) && (
-            <span className={`region region-${row.region}`}>
-              <FormattedMessage id={`region:${row.region}`} />
-            </span>
-          )}
-        </span>
-      ),
+      render: row =>
+        row.microRegion ? (
+          <span className="region" title={row.microRegion}>
+            <FormattedMessage id={`region:${row.microRegion}`} />
+            {row.province &&
+              config.regionCodes.includes(row.province as string) && (
+                <span className={`region region-${row.province}`}>
+                  <FormattedMessage id={`region:${row.province}`} />
+                </span>
+              )}
+          </span>
+        ) : (
+          <></>
+        ),
       className: "mb-snow m-name"
     },
     {
@@ -234,11 +240,13 @@ export default function StationTable(props: Props) {
 
   return (
     <>
-      <WeatherStationDialog
-        stationData={props.sortedFilteredData}
-        stationId={stationId}
-        setStationId={setStationId}
-      />
+      {!!props.sortedFilteredData.length && (
+        <WeatherStationDialog
+          stationData={props.sortedFilteredData}
+          stationId={stationId}
+          setStationId={setStationId}
+        />
+      )}
       <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <thead>
           <StationTableHeaderRow

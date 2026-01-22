@@ -7,7 +7,6 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { Link } from "react-router-dom";
 
 interface Props {
   problem: AvalancheProblem;
@@ -251,98 +250,97 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
         {getElevationIcon()}
       </div>
 
-      {(problem?.customData?.ALBINA?.avalancheType == "slab" &&
+      {problem?.customData?.ALBINA?.avalancheType == "slab" &&
         (problem?.snowpackStability ||
-        problem?.frequency ||
-        problem?.avalancheSize)) && (
-        <div className="bulletin-report-picto matrix-information">
-          {problem?.snowpackStability &&
-            problem?.problemType !== "gliding_snow" && (
+          problem?.frequency ||
+          problem?.avalancheSize) && (
+          <div className="bulletin-report-picto matrix-information">
+            {problem?.snowpackStability &&
+              problem?.problemType !== "gliding_snow" && (
+                <div
+                  className={
+                    `matrix-info matrix-info-value-${
+                      textInfoToClass.snowpackStability[
+                        problem?.snowpackStability
+                      ]
+                    }` +
+                    (showDiff &&
+                    !compareSnowpackStability(problem, problem170000)
+                      ? " bulletin-update-diff"
+                      : "")
+                  }
+                  // style={
+                  //   showDiff && !compareSnowpackStability(problem, problem170000)
+                  //     ? { backgroundColor: "#e6eef2" }
+                  //     : {}
+                  // }
+                >
+                  <span className="matrix-info-name">
+                    {snowpackStabilityText}:
+                  </span>
+                  <span className="matrix-info-value">
+                    <a href={`/education/snowpack-stability`}>
+                      {intl.formatMessage({
+                        id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                      })}
+                    </a>
+                  </span>
+                </div>
+              )}
+            {problem?.frequency && (
               <div
                 className={
-                  `matrix-info matrix-info-value-${
-                    textInfoToClass.snowpackStability[
-                      problem?.snowpackStability
-                    ]
-                  }` +
-                  (showDiff && !compareSnowpackStability(problem, problem170000)
+                  `matrix-info matrix-info-value-${textInfoToClass.frequency[problem?.frequency]}` +
+                  (showDiff && !compareFrequency(problem, problem170000)
                     ? " bulletin-update-diff"
                     : "")
                 }
                 // style={
-                //   showDiff && !compareSnowpackStability(problem, problem170000)
+                //   showDiff && !compareFrequency(problem, problem170000)
                 //     ? { backgroundColor: "#e6eef2" }
                 //     : {}
                 // }
               >
-                <span className="matrix-info-name">
-                  {snowpackStabilityText}:
-                </span>
+                <span className="matrix-info-name">{frequencyText}:</span>
                 <span className="matrix-info-value">
-                  <Link to={`/education/snowpack-stability`}>
+                  <a href={`/education/frequency`}>
                     {intl.formatMessage({
-                      id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                      id: `bulletin:report:problem:frequency:${problem?.frequency}`
                     })}
-                  </Link>
+                  </a>
                 </span>
               </div>
             )}
-          {problem?.frequency && (
-            <div
-              className={
-                `matrix-info matrix-info-value-${
-                  textInfoToClass.frequency[problem?.frequency]
-                }` +
-                (showDiff && !compareFrequency(problem, problem170000)
-                  ? " bulletin-update-diff"
-                  : "")
-              }
-              // style={
-              //   showDiff && !compareFrequency(problem, problem170000)
-              //     ? { backgroundColor: "#e6eef2" }
-              //     : {}
-              // }
-            >
-              <span className="matrix-info-name">{frequencyText}:</span>
-              <span className="matrix-info-value">
-                <Link to={`/education/frequency`}>
-                  {intl.formatMessage({
-                    id: `bulletin:report:problem:frequency:${problem?.frequency}`
-                  })}
-                </Link>
-              </span>
-            </div>
-          )}
-          {problem?.avalancheSize && (
-            <div
-              className={
-                `matrix-info matrix-info-value-${
-                  textInfoToClass.avalancheSize[problem?.avalancheSize]
-                }` +
-                (showDiff && !compareAvalancheSize(problem, problem170000)
-                  ? " bulletin-update-diff"
-                  : "")
-              }
-              // style={
-              //   showDiff && !compareAvalancheSize(problem, problem170000)
-              //     ? { backgroundColor: "#e6eef2" }
-              //     : {}
-              // }
-            >
-              <span className="matrix-info-name">{avalancheSizeText}:</span>
-              <span className="matrix-info-value">
-                <Link
-                  to={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
-                >
-                  {intl.formatMessage({
-                    id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
-                  })}
-                </Link>
-              </span>
-            </div>
-          )}
-        </div>
-      )}
+            {problem?.avalancheSize && (
+              <div
+                className={
+                  `matrix-info matrix-info-value-${
+                    textInfoToClass.avalancheSize[problem?.avalancheSize]
+                  }` +
+                  (showDiff && !compareAvalancheSize(problem, problem170000)
+                    ? " bulletin-update-diff"
+                    : "")
+                }
+                // style={
+                //   showDiff && !compareAvalancheSize(problem, problem170000)
+                //     ? { backgroundColor: "#e6eef2" }
+                //     : {}
+                // }
+              >
+                <span className="matrix-info-name">{avalancheSizeText}:</span>
+                <span className="matrix-info-value">
+                  <a
+                    href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
+                  >
+                    {intl.formatMessage({
+                      id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
+                    })}
+                  </a>
+                </span>
+              </div>
+            )}
+          </div>
+        )}
     </li>
   );
 }

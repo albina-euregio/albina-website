@@ -1,6 +1,88 @@
 # Changelog
 
-<!-- Update using `yarn changelog <TAG>` before creating new tag <TAG> with git. -->
+<!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
+
+## [8.0.13] - 2025-12-30
+
+### 🚀 Features
+
+- Integrate LWD Salzburg weather stations
+
+## [8.0.12] - 2025-12-30
+
+### ⚙️ Miscellaneous Tasks
+
+- Update config file
+
+## [8.0.11] - 2025-12-25
+
+### ⚙️ Miscellaneous Tasks
+
+- Allow anchor links in IFrame
+
+## [8.0.10] - 2025-12-23
+
+### ⚙️ Miscellaneous Tasks
+
+- Update config file
+
+## [8.0.9] - 2025-12-22
+
+### 🚀 Features
+
+- Integrate [GeoSphere Austria](https://www.geosphere.at/) weather stations
+- Blog: add relative time
+
+## [8.0.8] - 2025-12-17
+
+### 🚀 Features
+
+- Integrate [ÖBB INFRA](https://infrastruktur.oebb.at/) weather stations
+
+## [8.0.7] - 2025-12-15
+
+### 🚀 Features
+
+- Integrate [AT-02](https://lawinenwarndienst.ktn.gv.at/) weather stations
+- StationDataStore: fetch from multiple sources
+- Blog: add AT-02
+- WeatherStationDiagrams: use linea for observer diagrams
+
+### 🐛 Bug Fixes
+
+- Fix PDF link by using province
+- Use province placeholder in PDF URL configuration
+- Fix IFrame: build iframe.ts using rolldown, verify dist/iframe.js exists, simplify chunkFileNames
+- Fix header in headless section-weather-map
+
+### 💼 Other
+
+- Upgrade to @albina-euregio/linea 8.2.3
+- Upgrade to vite 8.0.0-beta.1
+
+### ⚙️ Miscellaneous Tasks
+
+- Use zod in stationDataStore
+
+## [8.0.6] - 2025-12-09
+
+### 🚀 Features
+
+- Support logo in headless
+- Configure ES-AR
+
+### 🐛 Bug Fixes
+
+- Handle empty config.eawsRegions in bulletinCollection
+- Show AM/PM map only if own bulletins have daytime dependency
+
+### 💼 Other
+
+- Upgrade to vite 8.0.0-beta.0
+
+### ⚙️ Miscellaneous Tasks
+
+- Show markers for gust in weather maps
 
 ## [8.0.4] - 2025-12-02
 
@@ -73,11 +155,9 @@
 
 - Include content_files in project
 
-
 ### 📚 Documentation
 
 - Document caddy
-
 
 ### ⚙️ Miscellaneous Tasks
 

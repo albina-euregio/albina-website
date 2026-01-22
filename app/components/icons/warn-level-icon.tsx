@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { Link } from "react-router-dom";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
 import { Tooltip } from "../../components/tooltips/tooltip";
 import {
@@ -165,14 +164,14 @@ const WarnLevelIcon = (props: Props) => {
 
   return (
     <Tooltip label={title}>
-      <Link to={"/education/danger-scale?"} tabIndex="-1" aria-label={title}>
+      <a href={"/education/danger-scale?"} tabIndex="-1" aria-label={title}>
         {isOneDangerRating || numberAbove === 5 || numberBelow === 5 ? (
           <img src={img} alt={title} />
         ) : (
           svg
         )}
         {props.above != props.below && <span>{elevationText}</span>}
-      </Link>
+      </a>
     </Tooltip>
   );
 };

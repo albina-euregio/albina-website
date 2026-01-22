@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import TagList from "./tag-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
@@ -18,9 +17,9 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
     <div>
       {posts.map((item, i) => {
         return (
-          <Link
+          <a
             key={i}
-            to={`/blog/${item.blogName}/${item.postId}`}
+            href={`/blog/${item.blogName}/${item.postId}`}
             className="linkbox linkbox-blog-feature"
           >
             {havePictures && (
@@ -35,7 +34,10 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
                 {/*<li className="blog-author">{item.author}</li>
                  */}
                 <li className="blog-date">
-                  {intl.formatDate(item.date, DATE_TIME_FORMAT)}
+                  <time dateTime={new Date(item.date).toISOString()}>
+                    {intl.formatDate(item.date, DATE_TIME_FORMAT)} (
+                    {intl.formatRelativeTime(new Date(item.date))})
+                  </time>
                 </li>
                 <li className="blog-province">
                   {item.regions
@@ -52,7 +54,7 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
                 handleChangeCategory={handleChangeCategory}
               />
             </div>
-          </Link>
+          </a>
         );
       })}
     </div>

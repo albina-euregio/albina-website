@@ -1,6 +1,4 @@
 import React from "react";
-import type { Temporal } from "temporal-polyfill";
-import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static";
@@ -163,12 +161,17 @@ function DownloadLink({
   lang: string;
 }) {
   const province = useStore($province);
+  // The following keys are used here:
+  // config.apis.bulletin.pdf
+  // config.apis.bulletin.xml
+  // config.apis.bulletin.json
+  const url = config.apis.bulletin[format];
   return (
     <a
-      href={config.template(config.apis.bulletin[format], {
+      href={config.template(url, {
         bulletin: bulletin || "",
         date,
-        region: `${province || "EUREGIO"}_`,
+        region: `${province || "EUREGIO"}${format === "pdf" && url.includes("/api/bulletins") ? "" : "_"}`,
         lang,
         bw: ""
       })}
@@ -201,9 +204,9 @@ function BulletinMap({
         id: "archive:show-forecast:hover"
       })}
     >
-      <Link to={`/bulletin/${date}`} className={"map-preview img tooltip"}>
+      <a href={`/bulletin/${date}`} className={"map-preview img tooltip"}>
         <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
-      </Link>
+      </a>
     </Tooltip>
   );
 

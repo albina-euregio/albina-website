@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
 import Selectric from "../selectric";
-import { Temporal } from "temporal-polyfill";
 
 interface Props {
   buttongroup?: boolean;

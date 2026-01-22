@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import type { Temporal } from "temporal-polyfill";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 

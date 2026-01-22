@@ -45,19 +45,14 @@ export default defineConfig({
     }
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
         iframe: resolve(__dirname, "app/iframe.ts"),
         "iframe-demo": resolve(__dirname, "iframe-demo.html")
       },
       output: {
-        chunkFileNames(chunkInfo) {
-          if (chunkInfo.name.includes("iframe")) {
-            return "[name].js";
-          }
-          return "assets/[hash:19].js";
-        }
+        chunkFileNames: "assets/[hash:19].js"
       }
     },
     sourcemap: true
@@ -71,6 +66,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    proxy: {}
+    proxy: {
+      "/smet.hydrographie.info": {
+        target: "https://smet.hydrographie.info/",
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/smet.hydrographie.info/, "")
+      }
+    }
   }
 });

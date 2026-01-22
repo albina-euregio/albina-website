@@ -1,10 +1,11 @@
 {
   "headless": false,
+  "headlessLogo": "",
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-  "stationRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
+  "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
+  "stationRegions": ["AT-02", "AT-07", "DE-BY", "IT-32-BZ", "IT-32-TN"],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-  "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
   "extraRegions": [
     "AT-02",
     "AT-03",
@@ -38,7 +39,17 @@
     "SE",
     "SK"
   ],
+  "eawsRegionsExclude": [],
   "blogs": [
+    {
+      "lang": "de",
+      "name": "at-02-de",
+      "apiType": "wordpress",
+      "regions": ["AT-02"],
+      "params": {
+        "id": "blog.avalanche.report/at-02"
+      }
+    },
     {
       "lang": "de",
       "name": "at-07-de",
@@ -107,7 +118,7 @@
       "simple": "https://static.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina/api/bulletins/{bulletin}/pdf?region=EUREGIO&lang={lang}&grayscale=false",
+      "pdf": "https://api.avalanche.report/albina/api/bulletins/{bulletin}/pdf?region={region}&lang={lang}&grayscale=false",
       "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
@@ -117,15 +128,52 @@
     "push": "https://api.avalanche.report/albina/api/push",
     "subscribe": "https://api.avalanche.report/albina/api/email",
     "blogger": "https://api.avalanche.report/blog/",
-    "weather": {
-      "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
-      "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
-      "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
-      "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
-      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
-      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-    }
+    "stations": [
+      {
+        "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Bayern|Tiroler Wasserkraft|Verbund",
+        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+        "pngOperators": "^(?!LWD Kärnten)(?!LWD Salzburg)(?!ÖBB INFRA)",
+        "stations": "https://static.avalanche.report/weather_stations/stations.geojson",
+        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
+        "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson",
+        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+      },
+      {
+        "smet": "https://smet.hydrographie.info/{id}.smet",
+        "smetOperators": "LWD Kärnten",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://smet.hydrographie.info/stations_ktn.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "LWD Kärnten"
+      },
+      {
+        "smet": "https://www.salzburg.gv.at/lawine/smet/{timeRangePath}/{id}.smet.gz",
+        "smetOperators": "LWD Salzburg.*",
+        "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
+        "pngOperators": "LWD Salzburg.*",
+        "stations": "https://www.salzburg.gv.at/lawine/smet/salzburg.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "smet": "https://oebb.infra.tbbm.at/smet/{timeRangePath}/{id}.smet.gz",
+        "smetOperators": "ÖBB INFRA-SAE",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://oebb.infra.tbbm.at/smet/oebb.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      }
+    ]
   },
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",

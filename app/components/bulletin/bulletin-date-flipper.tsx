@@ -1,8 +1,8 @@
 import React from "react";
-import { Temporal } from "temporal-polyfill";
-import { Link, useNavigate } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
+import { getPagePath, redirectPage } from "@nanostores/router";
+import { $router } from "../router";
 
 interface Props {
   date?: Temporal.PlainDate;
@@ -11,7 +11,6 @@ interface Props {
 
 function BulletinDateFlipper({ date, latest }: Props) {
   const intl = useIntl();
-  const navigate = useNavigate();
 
   let nextDate$: Temporal.PlainDate | null = null;
   if (date && latest) {
@@ -26,10 +25,6 @@ function BulletinDateFlipper({ date, latest }: Props) {
   const prevDate = prevDate$ ? intl.formatDate(prevDate$) : "";
   const nextDate = nextDate$ ? intl.formatDate(nextDate$) : "";
 
-  function bulletinURL(newDate?: Temporal.PlainDate | null) {
-    return `../bulletin/${newDate ? newDate.toString() : "latest"}`;
-  }
-
   return (
     <>
       <ul className="list-inline bulletin-flipper">
@@ -39,10 +34,14 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:back"
             })}
           >
-            <Link to={bulletinURL(prevDate$)}>
+            <a
+              href={getPagePath($router, "bulletinDate", {
+                date: prevDate$?.toString() ?? ""
+              })}
+            >
               <span className="icon-arrow-left" />
               {prevDate}
-            </Link>
+            </a>
           </Tooltip>
         </li>
         <li className="bulletin-flipper-calendar">
@@ -59,9 +58,9 @@ function BulletinDateFlipper({ date, latest }: Props) {
                   max={latest.toString()}
                   value={date.toString()}
                   onChange={e =>
-                    navigate(
-                      bulletinURL(Temporal.PlainDate.from(e.target.value))
-                    )
+                    redirectPage($router, "bulletinDate", {
+                      date: Temporal.PlainDate.from(e.target.value).toString()
+                    })
                   }
                 />
               )}
@@ -76,10 +75,14 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:forward"
               })}
             >
-              <Link to={bulletinURL(nextDate$)}>
+              <a
+                href={getPagePath($router, "bulletinDate", {
+                  date: nextDate$.toString()
+                })}
+              >
                 {nextDate + " "}
                 <span className="icon-arrow-right" />
-              </Link>
+              </a>
             </Tooltip>
           </li>
         )}
@@ -90,11 +93,11 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
             >
-              <Link to={bulletinURL()}>
+              <a href={getPagePath($router, "bulletinLatest")}>
                 {intl.formatMessage({
                   id: "bulletin:header:dateflipper:latest"
                 })}
-              </Link>
+              </a>
             </Tooltip>
           </li>
         )}
@@ -104,11 +107,11 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:archive:hover"
             })}
           >
-            <Link to={"/more/archive"}>
+            <a href={"/more/archive"}>
               {intl.formatMessage({
                 id: "bulletin:header:archive"
               })}
-            </Link>
+            </a>
           </Tooltip>
         </li>
       </ul>

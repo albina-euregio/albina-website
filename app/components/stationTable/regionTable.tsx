@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { microRegionIds } from "../../stores/microRegions";
 import { FormattedMessage } from "../../i18n";
-import { Temporal } from "temporal-polyfill";
 
 function RegionTable({ region }: { region: string }) {
   const [microRegions] = useState(() =>

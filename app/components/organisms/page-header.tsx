@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
@@ -60,11 +59,11 @@ function PageHeader() {
             id: "header:logo:hover"
           })}
         >
-          <Link
+          <a
             aria-label={intl.formatMessage({
               id: "header:logo:hover"
             })}
-            to="/"
+            href="/"
           >
             <span className="mark">
               <span
@@ -82,7 +81,7 @@ function PageHeader() {
                 data-base-url={import.meta.env.BASE_URL}
               />
             </span>
-          </Link>
+          </a>
         </Tooltip>
       </div>
       <div id="navigation" className="page-header-navigation">

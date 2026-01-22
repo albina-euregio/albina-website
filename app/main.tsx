@@ -14,8 +14,9 @@ window["scroll_duration"] = 1000;
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configRequest =
-  import.meta.env.BASE_URL === "/dev/"
+const configRequest = import.meta.env.APP_REGION
+  ? import(`./config.${import.meta.env.APP_REGION}.json`)
+  : import.meta.env.BASE_URL === "/dev/"
     ? import("./config-dev.json")
     : import("./config.json");
 configRequest.then(async configParsed => {
@@ -34,6 +35,10 @@ configRequest.then(async configParsed => {
   await setLanguage(language || "en");
 
   window.config = configParsed;
+
+  if (!globalThis.Temporal) {
+    await import("temporal-polyfill/global");
+  }
 
   const root = document.body.appendChild(document.getElementById("page-all"));
   createRoot(root).render(<App />);

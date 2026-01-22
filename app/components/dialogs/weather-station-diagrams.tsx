@@ -5,25 +5,16 @@ import React, {
   useRef,
   useState
 } from "react";
-import { useIntl } from "../../i18n";
+import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
-import { Temporal } from "temporal-polyfill";
-import "@albina-euregio/linea/src/linea-plot";
+import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
 
-const ENABLE_UPLOT = true;
-
 function hasInteractivePlot(station: StationData | ObserverData) {
-  return (
-    ENABLE_UPLOT &&
-    station instanceof StationData &&
-    /LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Kärnten|Tiroler Wasserkraft|Verbund|GeoSphere Austria/.test(
-      station.operator
-    )
-  );
+  return station instanceof StationData && station.$smet;
 }
 
 export interface ObserverData {
@@ -33,6 +24,8 @@ export interface ObserverData {
   name: string;
   id: string;
   plot: string;
+  $smet: string;
+  $png: string;
 }
 
 const timeRanges = {
@@ -60,7 +53,7 @@ const timeRangesMilli: Record<TimeRange, number> = {
 };
 
 export interface Props {
-  stationData: StationData[] | ObserverData[];
+  stationData: (StationData | ObserverData)[];
   stationId: string;
   setStationId: (rowId: string) => void;
 }
@@ -187,6 +180,9 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
   stationData
 }) => {
   const intl = useIntl();
+  if (!stationData.parametersForDialog.length) {
+    return <></>;
+  }
   return (
     <ul className="list-inline weatherstation-info">
       {stationData.parametersForDialog.map(aInfo => (
@@ -223,11 +219,15 @@ const TimeRangeButtons: React.FC<{
   const intl = useIntl();
   return (
     <ul className="list-inline filter primary">
-      {(Object.keys(timeRanges) as TimeRange[]).map(key => {
-        if (key.startsWith("interactive") && !hasInteractivePlot(station))
-          // eslint-disable-next-line react/jsx-key
-          return;
-        return (
+      {(Object.keys(timeRanges) as TimeRange[])
+        .filter(key => {
+          if (key.startsWith("interactive")) {
+            return hasInteractivePlot(station);
+          } else {
+            return station.$png;
+          }
+        })
+        .map(key => (
           <li key={key}>
             <a
               href="#"
@@ -243,8 +243,7 @@ const TimeRangeButtons: React.FC<{
               })}
             </a>
           </li>
-        );
-      })}
+        ))}
     </ul>
   );
 };
@@ -263,8 +262,16 @@ const StationDiagramImage: React.FC<{
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
+    const end = new Date().toISOString();
+    const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
     const id = station.properties?.["LWD-Nummer"] || station.id;
-    const url = `https://api.avalanche.report/lawine/grafiken/smet/${timeRangePath}/${id}.smet.gz`;
+    const url = window.config.template(station.$smet ?? "", {
+      start,
+      end,
+      timeRangePath,
+      id
+    });
+    /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
@@ -283,18 +290,37 @@ const StationDiagramImage: React.FC<{
     timeRange = "winter";
   }
 
+  if (
+    !(station instanceof StationData) &&
+    station.$smet &&
+    import.meta.env.BASE_URL === "/dev/"
+  ) {
+    const url = station.$smet;
+    const today = Temporal.Now.plainDateISO();
+    const startDate = selectedYear
+      ? new Temporal.PlainDate(selectedYear, 9, 1)
+      : today.month >= 9
+        ? new Temporal.PlainDate(today.year, 9, 1)
+        : new Temporal.PlainDate(today.year - 1, 9, 1);
+    const endDate = startDate.add({ months: 10 });
+    return (
+      <linea-plot-year
+        key={url + startDate.toString()}
+        src={url}
+        startDate={startDate.toString()}
+        endDate={endDate.toString()}
+      />
+    );
+  }
+
   let t = Temporal.Now.plainDateTimeISO();
   t = t.with({
     minute: Math.round(t.minute / 5) * 5,
     second: 0,
     millisecond: 0
   });
-  const isStation = station instanceof StationData;
-  const template = isStation
-    ? window.config.apis.weather.plots
-    : window.config.apis.weather.observers;
   const width = clientWidth >= 1100 ? 1100 : 800;
-  const src = window.config.template(template, {
+  const src = window.config.template(station.$png ?? "", {
     width,
     interval: timeRanges[timeRange],
     name: station.plot,
@@ -307,23 +333,30 @@ const StationDiagramImage: React.FC<{
 const StationOperator: React.FC<{
   stationData: StationData;
 }> = ({ stationData }) => {
-  const intl = useIntl();
   return (
     <p className="weatherstation-provider">
-      {intl.formatMessage(
-        { id: "dialog:weather-station-diagram:operator:caption" },
-        {
-          operator: (
-            <a
-              key={stationData.operatorLink}
-              href={stationData.operatorLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {stationData.operator}
-            </a>
-          )
-        }
+      <FormattedMessage id="dialog:weather-station-diagram:provider" />
+      {": "}
+      <a
+        key={stationData.operatorLink}
+        href={stationData.operatorLink}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {stationData.operator}
+      </a>
+      {stationData.properties.operatorLicense && (
+        <>
+          {" ("}
+          <a
+            href={stationData.properties.operatorLicenseLink ?? ""}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {stationData.properties.operatorLicense}
+          </a>
+          {")"}
+        </>
       )}
     </p>
   );
@@ -336,9 +369,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const myRef = useRef<HTMLDivElement>();
-  const [timeRange, setTimeRange] = useState<TimeRange>(
-    ENABLE_UPLOT ? "interactive" : "threedays"
-  );
+  const [timeRange, setTimeRange] = useState<TimeRange>("interactive");
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const stationIndex = useMemo((): number => {
@@ -409,11 +440,16 @@ const WeatherStationDiagrams: React.FC<Props> = ({
               {intl.formatMessage({
                 id: "dialog:weather-station-diagram:header"
               })}{" "}
-              ({microRegionId}{" "}
-              {intl.formatMessage({
-                id: "region:" + microRegionId
-              })}
-              )
+              {microRegionId && (
+                <>
+                  {" "}
+                  ({microRegionId}{" "}
+                  {intl.formatMessage({
+                    id: "region:" + microRegionId
+                  })}
+                  )
+                </>
+              )}
             </p>
           )}
           <h2 className="">
@@ -439,6 +475,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
         </StationFlipper>
         <div className="modal-content">
+          {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && (
             <TimeRangeButtons
@@ -453,7 +490,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
             station={station}
             timeRange={timeRange}
           />
-          {isStation && <StationOperator stationData={station} />}
         </div>
       </div>
     </div>

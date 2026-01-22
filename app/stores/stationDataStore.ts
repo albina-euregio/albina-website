@@ -1,47 +1,63 @@
-import { Temporal } from "temporal-polyfill";
+import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
+import { z } from "zod/mini";
+import { $router, redirectPageQuery } from "../components/router";
 
-interface FeatureProperties {
-  "LWD-Nummer"?: string;
-  "LWD-Region"?: string;
-  Beobachtungsbeginn: string;
-  date?: Date;
-  GS_O?: number;
-  GS_U?: number;
-  HS?: number;
-  HSD24?: number;
-  HSD48?: number;
-  HSD72?: number;
-  N6?: number;
-  N24?: number;
-  N48?: number;
-  N72?: number;
-  LD?: number;
-  LT_MAX?: number;
-  LT_MIN?: number;
-  LT?: number;
-  name: string;
-  OFT?: number;
-  operator: string;
-  operatorLink?: string;
-  plot: string;
-  RH?: number;
-  TD?: number;
-  WG_BOE?: number;
-  WG?: number;
-  WR?: number;
-}
+const number = z
+  .nullish(z.number())
+  .check(z.overwrite(v => (v === -777 ? undefined : v)));
+const string = z.nullish(z.string());
+const FeaturePropertiesSchema = z.object({
+  $smet: string,
+  $png: string,
+  $stationsArchiveFile: string,
+  "LWD-Nummer": string,
+  "LWD-Region": string,
+  altitude: number,
+  Beobachtungsbeginn: string,
+  date: z.nullish(z.coerce.date()),
+  GS_O: number,
+  GS_U: number,
+  HS: number,
+  HSD24: number,
+  HSD48: number,
+  HSD72: number,
+  LD: number,
+  LT_MAX: number,
+  LT_MIN: number,
+  LT: number,
+  N24: number,
+  N48: number,
+  N6: number,
+  N72: number,
+  name: z.string(),
+  OFT: number,
+  operator: string,
+  operatorLink: string,
+  operatorLicense: string,
+  operatorLicenseLink: string,
+  plot: string,
+  RH: number,
+  TD: number,
+  WG_BOE: number,
+  WG: number,
+  WR: number
+});
+
+type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
 
 export class StationData {
   id: string;
   geometry: GeoJSON.Point;
   properties: FeatureProperties;
 
-  constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
+  constructor(
+    object: GeoJSON.Feature<GeoJSON.Point, Partial<FeatureProperties>>
+  ) {
     this.id = object.id as string;
     this.geometry = object.geometry;
-    this.properties = object.properties;
+    this.properties = FeaturePropertiesSchema.parse(object.properties);
   }
   get lon() {
     return this.geometry.coordinates[0];
@@ -50,7 +66,7 @@ export class StationData {
     return this.geometry.coordinates[1];
   }
   get elev() {
-    return this.geometry.coordinates[2];
+    return this.geometry.coordinates[2] ?? this.properties.altitude;
   }
   get name() {
     return this.properties.name;
@@ -64,16 +80,13 @@ export class StationData {
   get observationStart() {
     return this.properties.Beobachtungsbeginn;
   }
-  get state() {
+  get province() {
     const region = this.properties["LWD-Region"];
     if (typeof region !== "string") {
       return "";
     }
     const regions = [...config.regionCodes, ...config.extraRegions];
     return regions.find(r => region.startsWith(r)) ?? "";
-  }
-  get region() {
-    return this.state;
   }
   get microRegion() {
     const region = this.properties["LWD-Region"];
@@ -83,7 +96,7 @@ export class StationData {
     return region.split(/ /)?.[0];
   }
   get date() {
-    return new Date(this.properties.date);
+    return this.properties.date;
   }
   get temp() {
     return this.properties.LT;
@@ -155,6 +168,13 @@ export class StationData {
     return this.properties.plot;
   }
 
+  get $smet() {
+    return this.properties.$smet;
+  }
+  get $png() {
+    return this.properties.$png;
+  }
+
   get parametersForDialog() {
     const types = [
       { type: "snow", digits: 0, unit: "cm" },
@@ -188,14 +208,41 @@ export function useStationData(
   activeYear0: number | "" = currentSeasonYear(),
   filterObservationStart0 = false
 ) {
+  const router = useStore($router);
+
   const [dateTime, setDateTime] = useState<Temporal.ZonedDateTime>();
   const dateTimeMax = Temporal.Now.zonedDateTimeISO("Europe/Vienna");
   const [data, setData] = useState<StationData[]>([]);
-  const [activeYear, setActiveYear] = useState<number | "">(activeYear0);
-  const [searchText, setSearchText] = useState<string>("");
-  const [sortValue, setSortValue] = useState<keyof StationData>(sortValue0);
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [activeRegion, setActiveRegion0] = useState<string | "all">("all");
+
+  const [activeYear, setActiveYear] = [
+    router?.search.activeYear
+      ? parseInt(router?.search.activeYear)
+      : activeYear0,
+    (activeYear: string) => redirectPageQuery({ activeYear })
+  ];
+
+  const [searchText, setSearchText] = [
+    router?.search?.searchText,
+    (searchText: string) => redirectPageQuery({ searchText })
+  ];
+
+  const [sortValue, setSortValue] = [
+    (router?.search.sortValue as keyof StationData) || sortValue0,
+    (sortValue: keyof StationData) => redirectPageQuery({ sortValue })
+  ];
+
+  const [sortDir, setSortDir] = [
+    (router?.search.sortDir ?? "asc") as "asc" | "desc",
+    (sortDir: "asc" | "desc") => redirectPageQuery({ sortDir })
+  ];
+
+  const [activeRegion, setActiveRegion] = [
+    router?.search.activeRegion || router?.search.province || "all",
+    (activeRegion: string | "" | "all" | null | undefined) =>
+      // activate all if undefined or null is given
+      redirectPageQuery({ activeRegion: activeRegion ?? "all" })
+  ];
+
   const [activeData, setActiveData] = useState({
     snow: true,
     temp: true,
@@ -205,60 +252,6 @@ export function useStationData(
   const [filterObservationStart, setFilterObservationStart] = useState<boolean>(
     filterObservationStart0
   );
-
-  function setActiveRegion(el: string | "" | "all" | null | undefined) {
-    // activate all if undefined or null is given
-    setActiveRegion0(el ?? "all");
-  }
-
-  function fromURLSearchParams(params: URLSearchParams) {
-    if (params.has("searchText")) {
-      setSearchText(params.get("searchText"));
-    }
-    if (params.has("activeRegion")) {
-      setActiveRegion(params.get("activeRegion"));
-    } else if (params.has("province")) {
-      setActiveRegion(params.get("province"));
-    }
-    if (params.has("activeYear")) {
-      const year = params.get("activeYear");
-      setActiveYear(year === "" ? year : +year);
-    }
-    if (params.has("sortValue")) {
-      setSortValue(params.get("sortValue") as keyof StationData);
-    }
-    if (params.has("sortDir")) {
-      setSortDir(params.get("sortDir") as "asc" | "desc");
-    }
-    setActiveData(
-      Object.fromEntries(
-        Object.keys(activeData).map(key => [key, params.get(key) !== "false"])
-      )
-    );
-  }
-
-  function toURLSearchParams(): URLSearchParams {
-    const params = new URLSearchParams();
-    if (searchText) {
-      params.set("searchText", searchText);
-    }
-    if (activeRegion !== "all") {
-      params.set("activeRegion", activeRegion);
-    }
-    if (activeYear !== undefined) {
-      params.set("activeYear", activeYear.toString());
-    }
-    if (sortValue) {
-      params.set("sortValue", sortValue);
-    }
-    if (sortDir && sortDir !== "asc") {
-      params.set("sortDir", sortDir);
-    }
-    Object.entries(activeData).forEach(
-      ([key, value]) => value === false && params.set(key, String(value))
-    );
-    return params;
-  }
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -316,7 +309,7 @@ export function useStationData(
           row.microRegion.match(pattern) ||
           row.operator.match(pattern)
       )
-      .filter(row => !region || row.region == region)
+      .filter(row => !region || row.province == region)
       .filter(
         row =>
           !filterObservationStart ||
@@ -355,7 +348,6 @@ export function useStationData(
     dateTime,
     dateTimeMax,
     filterObservationStart,
-    fromURLSearchParams,
     load,
     minYear,
     searchText,
@@ -372,62 +364,164 @@ export function useStationData(
     sortDir,
     sortedFilteredData,
     sortValue,
-    toggleActiveData,
-    toURLSearchParams
+    toggleActiveData
   };
 }
 
 interface LoadOptions {
+  consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
   ogd?: boolean;
 }
 
 export async function loadStationData({
+  consumer,
   dateTime,
   ogd
 }: LoadOptions = {}): Promise<StationData[]> {
-  const timePrefix =
-    dateTime instanceof Temporal.ZonedDateTime
-      ? `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
-      : "";
-  const stationsFile = !dateTime
-    ? window.config.apis.weather.stations
-    : window.config.template(window.config.apis.weather.stationsDateTime, {
-        dateTime: timePrefix
-      });
-  let response: Response;
-  try {
-    response = await fetch(stationsFile, { cache: "no-cache" });
-    if (!response.ok) throw new Error(response.statusText);
-    if (
-      !dateTime &&
-      window.config.apis.weatherFallback &&
-      Date.now() - Date.parse(response.headers.get("last-modified")) >
-        3 * 3600 * 1000
-    ) {
-      throw new Error("Too old!");
+  const all = window.config.apis.stations.map(
+    async ({
+      smet,
+      smetOperators,
+      png,
+      pngOperators,
+      stations: url,
+      stationsDateTime,
+      stationsArchiveFile,
+      stationsArchiveOperators
+    }) => {
+      if (dateTime instanceof Temporal.ZonedDateTime) {
+        const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+        if (!stationsDateTime) {
+          return [];
+        }
+        url = window.config.template(stationsDateTime, {
+          dateTime: timePrefix
+        });
+      }
+
+      if (
+        import.meta.env.DEV &&
+        url.startsWith("https://smet.hydrographie.info/")
+      ) {
+        url = url.slice("https:/".length);
+        smet = smet.slice("https:/".length);
+      }
+
+      try {
+        const response = await fetch(url, { cache: "no-cache" });
+        if (!response.ok) throw new Error(response.statusText);
+        if (response.status === 404) return [];
+
+        if (
+          url ===
+          "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
+        ) {
+          if (ogd) return [];
+          const metadata: GeoSphereMetadata = await response.json();
+          const stations = metadata.stations.map(station =>
+            mapGeoSphere(station, smet)
+          );
+          consumer?.(stations);
+          return stations;
+        }
+
+        const json: GeoJSON.FeatureCollection<
+          GeoJSON.Point,
+          FeatureProperties
+        > = await response.json();
+        const stations = json.features
+          .filter(el => ogd || el.properties.date)
+          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+          .map(feature => {
+            const operator = feature.properties.operator ?? "";
+            feature.properties.$smet = new RegExp(smetOperators).test(operator)
+              ? smet
+              : "";
+            feature.properties.$png = new RegExp(pngOperators).test(operator)
+              ? png
+              : "";
+            feature.properties.$stationsArchiveFile = stationsArchiveFile;
+
+            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
+              return;
+            }
+
+            if (!feature.properties.$smet && !feature.properties.$png) {
+              return;
+            }
+
+            return new StationData(feature);
+          })
+          .filter(d => !!d);
+        consumer?.(stations);
+        return stations;
+      } catch (e) {
+        console.error("Failed fetching station data from " + url, e);
+        return [];
+      }
     }
-  } catch (err) {
-    if (window.config.apis.weatherFallback) {
-      Object.assign(
-        window.config.apis.weather,
-        window.config.apis.weatherFallback
-      );
-      delete window.config.apis.weatherFallback;
-      console.warn("Using fallback weather data!");
-      return loadStationData({ dateTime, ogd });
-    }
-    throw err;
-  }
-  if (response.status === 404) return [];
-  const json: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties> =
-    await response.json();
-  const stationsArchiveOperators = new RegExp(
-    window.config.apis.weather.stationsArchiveOperators
   );
-  return json.features
-    .filter(el => ogd || el.properties.date)
-    .filter(el => !ogd || stationsArchiveOperators.exec(el.properties.operator))
-    .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
-    .map(feature => new StationData(feature));
+
+  const data = await Promise.all(all);
+  return data.flat();
+}
+
+interface GeoSphereMetadata {
+  title: string;
+  parameters: GeoSphereParameter[];
+  frequency: string;
+  type: string;
+  mode: string;
+  response_formats: string[];
+  start_time: string;
+  end_time: string;
+  stations: GeoSphereStation[];
+  id_type: string;
+}
+
+interface GeoSphereParameter {
+  name: string;
+  long_name: string;
+  desc: string;
+  unit: string;
+}
+
+interface GeoSphereStation {
+  type: string;
+  id: string;
+  group_id: null;
+  name: string;
+  state: string;
+  lat: number;
+  lon: number;
+  altitude: number;
+  valid_from: string;
+  valid_to: string;
+  has_sunshine: boolean;
+  has_global_radiation: boolean;
+  is_active: boolean;
+}
+
+function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
+  return new StationData({
+    type: "Feature",
+    id: station.id,
+    geometry: {
+      type: "Point",
+      coordinates: [station.lon, station.lat, station.altitude]
+    },
+    properties: {
+      name: station.name
+        .toLocaleLowerCase("de")
+        // capitalize "ACHENKIRCH CAMPINGPLATZ"
+        .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
+      $smet: smet,
+      operator: "GeoSphere Austria",
+      operatorLink: "https://www.geosphere.at/",
+      operatorLicense: "CC BY 4.0",
+      operatorLicenseLink:
+        "https://creativecommons.org/licenses/by/4.0/legalcode"
+    }
+  });
 }

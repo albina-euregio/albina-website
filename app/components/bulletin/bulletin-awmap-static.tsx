@@ -1,5 +1,4 @@
 import React, { type ReactEventHandler } from "react";
-import type { Temporal } from "temporal-polyfill";
 import type { Bulletin, ValidTimePeriod } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
 import { $province } from "../../appStore";

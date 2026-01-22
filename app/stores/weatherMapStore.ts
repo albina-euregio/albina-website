@@ -1,6 +1,5 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
-import { toTemporalInstant } from "temporal-polyfill";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -326,7 +325,7 @@ export const config = {
         direction: "wdir",
         clusterOperation: "max",
         metaFiles: {
-          startDate: "startDate.ok",
+          startDate: "../wind/startDate.ok",
           agl: "c-laef_agl.ok"
         },
         timeRange: ["-17520", "+60"]
@@ -564,12 +563,13 @@ async function _loadIndexData() {
   if (currentTime.get() > startDate.get()) return;
 
   try {
-    const features = await loadStationData({
-      dateTime: currentTime.get()
-        ? toTemporalInstant.call(currentTime.get()).toZonedDateTimeISO("UTC")
-        : undefined
+    await loadStationData({
+      consumer: s => stations.set([...stations.get(), ...s]),
+      dateTime: currentTime
+        .get()
+        ?.toTemporalInstant()
+        ?.toZonedDateTimeISO("UTC")
     });
-    stations.set(features);
   } catch (err) {
     // TODO fail with error dialog
     console.error("Data for timeindex not available", err);
@@ -793,7 +793,7 @@ export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
 function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
   return Boolean(
     checkDomainId(domainId) &&
-      config.domains[domainId].item.timeSpans.includes(timeSpan)
+    config.domains[domainId].item.timeSpans.includes(timeSpan)
   );
 }
 

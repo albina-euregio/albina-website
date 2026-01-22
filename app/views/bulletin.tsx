@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Temporal } from "temporal-polyfill";
 import { BulletinCollection, Status } from "../stores/bulletin";
 import { AvalancheProblemType, hasDaytimeDependency } from "../stores/bulletin";
 
@@ -17,7 +16,6 @@ import HTMLHeader from "../components/organisms/html-header";
 import { LONG_DATE_FORMAT } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
-import { useParams, useSearchParams, Link } from "react-router-dom";
 
 import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
@@ -26,6 +24,8 @@ import HTMLPageLoadingScreen, {
 } from "../components/organisms/html-page-loading-screen";
 import { $headless, $province, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
+import { $router } from "../components/router";
+import { openPage, redirectPage } from "@nanostores/router";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -53,17 +53,19 @@ const Bulletin = () => {
   const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const params = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useStore($router);
+  if (router?.route !== "bulletinDate") throw new Error();
+  const params = router.params;
   const [slowLoading, setLoadingStart] = useSlowLoading();
   const { problems, toggleProblem } = useProblems();
   const [region, setRegion] = useState("");
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
   const [collection, setCollection] = useState<BulletinCollection>();
-  const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>("earlier");
-  if (["de", "en"].includes(searchParams.get("language") || "")) {
-    setLanguage(searchParams.get("language") as Language);
+  const [selectedTimePeriod, setSelectedTimePeriod] =
+    useState<string>("earlier");
+  if (["de", "en"].includes(router.search.language || "")) {
+    setLanguage(router.search.language as Language);
   }
   const headless = useStore($headless);
   const province = useStore($province);
@@ -83,7 +85,9 @@ const Bulletin = () => {
   }, [lang]);
 
   useEffect(() => {
-    const date = params.date ? Temporal.PlainDate.from(params.date) : latest;
+    const date = /^\d\d\d\d-\d\d-\d\d$/.test(params.date ?? "")
+      ? Temporal.PlainDate.from(params.date)
+      : latest;
     if (!date) return;
     if (
       date?.toString() === collection?.date?.toString() &&
@@ -122,20 +126,20 @@ const Bulletin = () => {
     setLoadingStart
   ]);
 
-  useEffect(() => setRegion(searchParams.get("region")), [searchParams]);
+  useEffect(() => setRegion(router.search.region), [router.search]);
 
-  const handleSelectRegion = id => {
+  const handleSelectRegion = (id: string) => {
     if (id) {
-      const oldRegion = searchParams.get("region");
+      const oldRegion = router.search.region;
       if (oldRegion !== id) {
         if (oldRegion) {
-          setSearchParams({ region: id }, true);
+          redirectPage($router, router.route, router.params, { region: id });
         } else {
-          setSearchParams({ region: id });
+          openPage($router, router.route, router.params, { region: id });
         }
       }
     } else {
-      setSearchParams({});
+      openPage($router, router.route, router.params, {});
     }
   };
 
@@ -156,7 +160,7 @@ const Bulletin = () => {
     mapRefs.push(map);
   };
 
-  const daytimeDependency = collection?.bulletins?.some(b =>
+  const daytimeDependency = collection?.ownBulletins?.some(b =>
     hasDaytimeDependency(b)
   );
 
@@ -185,11 +189,11 @@ const Bulletin = () => {
   if (headless) {
     document.getElementById("page-all").classList.add("headless");
   }
-  if (searchParams.get("map-ratio")) {
+  if (router.search["map-ratio"]) {
     document.body.classList.add("with-custom-ratio");
     document.documentElement.style.setProperty(
       "--desktop-map-ratio",
-      searchParams.get("map-ratio") ?? "1/1"
+      router.search["map-ratio"] ?? "1/1"
     );
   }
 
@@ -218,9 +222,9 @@ const Bulletin = () => {
                     id: "bulletin:map:blog:button:title"
                   })}
                 >
-                  <Link to={`/blog`} className="secondary pure-button">
+                  <a href={`/blog`} className="secondary pure-button">
                     {intl.formatMessage({ id: "blog:title" })}
-                  </Link>
+                  </a>
                 </Tooltip>
               </p>
             </>
@@ -242,24 +246,34 @@ const Bulletin = () => {
 
       <Suspense fallback={<div>...</div>}>
         {daytimeDependency ? (
-          <div className={!config.bulletin.switchBetweenTimePeriods ? "bulletin-parallel-view" : "bulletin-switchable-view"}>
-            {["earlier", "later"].map((validTimePeriod, index) => (
-              (!config.bulletin.switchBetweenTimePeriods || validTimePeriod === selectedTimePeriod) && (
-                <BulletinMap
-                  key={validTimePeriod}
-                  administrateLoadingBar={index === 0}
-                  handleSelectRegion={handleSelectRegion}
-                  region={region}
-                  status={status}
-                  date={collection?.date}
-                  onMapInit={handleMapInit}
-                  validTimePeriod={validTimePeriod}
-                  activeBulletinCollection={collection}
-                  problems={problems}
-                  onSelectTimePeriod={timePeriod => setSelectedTimePeriod(timePeriod)}
-                />
-              )
-            ))}
+          <div
+            className={
+              !config.bulletin.switchBetweenTimePeriods
+                ? "bulletin-parallel-view"
+                : "bulletin-switchable-view"
+            }
+          >
+            {["earlier", "later"].map(
+              (validTimePeriod, index) =>
+                (!config.bulletin.switchBetweenTimePeriods ||
+                  validTimePeriod === selectedTimePeriod) && (
+                  <BulletinMap
+                    key={validTimePeriod}
+                    administrateLoadingBar={index === 0}
+                    handleSelectRegion={handleSelectRegion}
+                    region={region}
+                    status={status}
+                    date={collection?.date}
+                    onMapInit={handleMapInit}
+                    validTimePeriod={validTimePeriod}
+                    activeBulletinCollection={collection}
+                    problems={problems}
+                    onSelectTimePeriod={timePeriod =>
+                      setSelectedTimePeriod(timePeriod)
+                    }
+                  />
+                )
+            )}
           </div>
         ) : (
           <BulletinMap
