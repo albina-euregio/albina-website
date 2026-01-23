@@ -35,12 +35,6 @@ export class StationData {
   get name() {
     return this.properties.name;
   }
-  get operator() {
-    return this.properties.operator;
-  }
-  get operatorLink() {
-    return this.properties.operatorLink || "";
-  }
   get startYear() {
     return this.properties.startYear;
   }
@@ -263,7 +257,7 @@ export function useStationData(
           row.name.match(pattern) ||
           row.properties.shortName?.match(pattern) ||
           row.microRegion.match(pattern) ||
-          row.operator.match(pattern)
+          row.properties.operator?.match(pattern)
       )
       .filter(row => !region || row.province == region)
       .filter(

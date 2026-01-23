@@ -43,7 +43,9 @@ export default function StationTable(props: Props) {
       render: row => (
         <span>
           <strong>{row.name}</strong>{" "}
-          <span className="operator operator-st">({row.operator})</span>{" "}
+          <span className="operator operator-st">
+            ({row.properties.operator})
+          </span>{" "}
           <span className="datetime">
             {intl.formatDate(row.date, {
               ...DATE_TIME_FORMAT,

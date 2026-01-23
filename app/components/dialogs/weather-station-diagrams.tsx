@@ -338,12 +338,12 @@ const StationOperator: React.FC<{
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
       {": "}
       <a
-        key={stationData.operatorLink}
-        href={stationData.operatorLink}
+        key={stationData.properties.operatorLink}
+        href={stationData.properties.operatorLink}
         rel="noopener noreferrer"
         target="_blank"
       >
-        {stationData.operator}
+        {stationData.properties.operator}
       </a>
       {stationData.properties.operatorLicense && (
         <>
