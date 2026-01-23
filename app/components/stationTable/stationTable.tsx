@@ -90,7 +90,7 @@ export default function StationTable(props: Props) {
     {
       // Schneehöhe [cm]
       group: "snow",
-      data: "snow",
+      data: "HS",
       render(row) {
         return (
           <span className={this.data} title={title(this.data)}>
@@ -107,21 +107,18 @@ export default function StationTable(props: Props) {
         // 48h Differenz Schneehöhe <br> (48h Niederschlag)
         // 72h Differenz Schneehöhe <br> (72h Niederschlag)
         group: "snow",
-        data: `snow${hour}`,
-        subtitle: "(" + title(`precipitation${hour}`) + ")",
+        data: `HSD${hour}`,
+        subtitle: "(" + title(`PSUM_${hour}`) + ")",
         render(row) {
           return (
             <>
-              <span className={`snow${hour}`} title={title(`snow${hour}`)}>
-                {intl.formatNumberUnit(row[`snow${hour}`], this.unit)}
+              <span className={`HSD${hour}`} title={title(`HSD${hour}`)}>
+                {intl.formatNumberUnit(row[`HSD${hour}`], this.unit)}
               </span>
-              {isFinite(row[`precipitation${hour}`]) && (
-                <span
-                  className={`precipitation${hour}`}
-                  title={title(`precipitation${hour}`)}
-                >
+              {isFinite(row[`PSUM_${hour}`]) && (
+                <span className={`PSUM_${hour}`} title={title(`PSUM_${hour}`)}>
                   {"("}
-                  {intl.formatNumberUnit(row[`precipitation${hour}`], "mm")}
+                  {intl.formatNumberUnit(row[`PSUM_${hour}`], "mm")}
                   {")"}
                 </span>
               )}
@@ -135,25 +132,25 @@ export default function StationTable(props: Props) {
     {
       // <b>Temperatur jetzt</b> <br> (Temperatur min / Temperatur max)
       group: "temp",
-      data: "temp",
-      subtitle: "(" + title("temp_min") + " / " + title("temp_max") + ")",
+      data: "TA",
+      subtitle: "(" + title("TA_MIN") + " / " + title("TA_MAX") + ")",
       render(row) {
         return (
           <>
-            <span className="temp" title={title("temp")}>
-              {intl.formatNumberUnit(row.temp, this.unit, 1)}
+            <span className="temp" title={title(this.data)}>
+              {intl.formatNumberUnit(row.TA, this.unit, 1)}
             </span>
-            {isFinite(row.temp_min) && (
+            {isFinite(row.TA_MIN) && (
               <span
-                className="temp_min_max"
-                title={title("temp_min") + " / " + title("temp_max")}
+                className="TA_MIN_max"
+                title={title("TA_MIN") + " / " + title("TA_MAX")}
               >
                 {"("}
-                <span className="temp_min">
-                  {intl.formatNumberUnit(row.temp_min, undefined, 1)}
+                <span className="TA_MIN">
+                  {intl.formatNumberUnit(row.TA_MIN, undefined, 1)}
                 </span>
-                <span className="temp_max">
-                  {intl.formatNumberUnit(row.temp_max, undefined, 1)}
+                <span className="TA_MAX">
+                  {intl.formatNumberUnit(row.TA_MAX, undefined, 1)}
                 </span>
                 {")"}
               </span>
@@ -168,24 +165,25 @@ export default function StationTable(props: Props) {
     {
       // Wind Geschw. / Wind Böe <br> (i18n Wind Richtung)
       group: "wind",
-      data: "wspd",
-      subtitle: "(" + title("wdir") + ")",
+      data: "VW",
+      subtitle: "(" + title("DW") + ")",
       render(row) {
         return (
           <>
-            <span className="wspd" title={title("wspd")}>
-              {intl.formatNumberUnit(row.wspd, row.wgus ? "" : this.unit)}
+            <span className="VW" title={title("VW")}>
+              {intl.formatNumberUnit(row.VW, row.VW_MAX ? "" : this.unit)}
             </span>
-            {row.wgus && (
-              <span className="wgus" title={title("wgus")}>
-                {intl.formatNumberUnit(row.wgus, this.unit)}
+            {row.VW_MAX && (
+              <span className="VW_MAX" title={title("VW_MAX")}>
+                {intl.formatNumberUnit(row.VW_MAX, this.unit)}
               </span>
             )}
-            {row.x_wdir && (
-              <span className="wdir" title={title("wdir")}>
+            {row.aspectDW && (
+              <span className="DW" title={title("DW")}>
                 <FormattedMessage
                   id={
-                    "bulletin:report:problem:aspect:" + row.x_wdir.toLowerCase()
+                    "bulletin:report:problem:aspect:" +
+                    row.aspectDW.toLowerCase()
                   }
                 />
               </span>

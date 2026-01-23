@@ -25,7 +25,7 @@ export const config = {
       item: {
         timeSpans: ["-1"],
         defaultTimeSpan: null,
-        timeSpanToDataId: { "-1": "snow" },
+        timeSpanToDataId: { "-1": "HS" },
         updateTimesOffset: { "-1": 1 },
         units: "cm",
         thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
@@ -102,9 +102,9 @@ export const config = {
         timeSpans: ["-6", "-12", "-24", "-48", "-72"],
         defaultTimeSpan: null,
         timeSpanToDataId: {
-          "-24": "snow24",
-          "-48": "snow48",
-          "-72": "snow72"
+          "-24": "HSD24",
+          "-48": "HSD48",
+          "-72": "HSD72"
         },
         updateTimesOffset: { "*": 24, "-6": 6, "-12": 12 },
         metaFiles: {
@@ -215,7 +215,7 @@ export const config = {
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
-        timeSpanToDataId: { "+-1": "temp" },
+        timeSpanToDataId: { "+-1": "TA" },
         updateTimesOffset: { "*": 1 },
         units: "\u00b0C",
         thresholds: [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
@@ -256,7 +256,7 @@ export const config = {
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
-        timeSpanToDataId: { "+-1": "wspd" },
+        timeSpanToDataId: { "+-1": "VW" },
         updateTimesOffset: { "*": 1 },
         units: "km/h",
         thresholds: [5, 10, 20, 40, 60, 80],
@@ -282,7 +282,7 @@ export const config = {
             type: "windDirection"
           }
         ],
-        direction: "wdir",
+        direction: "DW",
         clusterOperation: "max",
         metaFiles: {
           startDate: "startDate.ok",
@@ -295,7 +295,7 @@ export const config = {
       item: {
         timeSpans: ["+-1"],
         defaultTimeSpan: null,
-        timeSpanToDataId: { "+-1": "wgus" },
+        timeSpanToDataId: { "+-1": "VW_MAX" },
         updateTimesOffset: { "*": 12 },
         units: "km/h",
         thresholds: [5, 10, 20, 40, 60, 80],
@@ -322,7 +322,7 @@ export const config = {
             type: "windDirection"
           }
         ],
-        direction: "wdir",
+        direction: "DW",
         clusterOperation: "max",
         metaFiles: {
           startDate: "../wind/startDate.ok",
@@ -361,7 +361,7 @@ export const config = {
             type: "windDirection"
           }
         ],
-        direction: "wdir",
+        direction: "DW",
         clusterOperation: "max",
         metaFiles: {
           startDate: "startDate.ok",

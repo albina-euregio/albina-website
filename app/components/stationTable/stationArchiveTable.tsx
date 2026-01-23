@@ -80,70 +80,70 @@ export default function StationArchiveTable(props: Props) {
     {
       // Snow height
       group: "snow",
-      data: "snow",
+      data: "HS",
       parameter: "HS",
       sortable: false
     },
     {
       // Temperature
       group: "temp",
-      data: "temp",
+      data: "TA",
       parameter: "LT",
       sortable: false
     },
     {
       // Surface temperature
       group: "temp",
-      data: "temp_srf",
+      data: "TSS",
       parameter: "T0",
       sortable: false
     },
     {
       // Dew point temperature
       group: "temp",
-      data: "dewp",
+      data: "TD",
       parameter: "TP",
       sortable: false
     },
     {
       // Relative humidity
       group: "temp",
-      data: "rhum",
+      data: "RH",
       parameter: "LF",
       sortable: false
     },
     {
       // Wind speed
       group: "wind",
-      data: "wspd",
+      data: "VW",
       parameter: "WG",
       sortable: false
     },
     {
       // Wind direction
       group: "wind",
-      data: "wdir",
+      data: "DW",
       parameter: "WR",
       sortable: false
     },
     {
       // Wind gust
       group: "wind",
-      data: "wgus",
+      data: "VW_MAX",
       parameter: "WG.Boe",
       sortable: false
     },
     {
       // Global radiation above
       group: "radiation",
-      data: "gr_a",
+      data: "ISWR",
       parameter: "GS",
       sortable: false
     },
     {
       // Global radiation below
       group: "radiation",
-      data: "gr_b",
+      data: "RSWR",
       parameter: "GS.unten",
       sortable: false
     }

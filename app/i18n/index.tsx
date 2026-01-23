@@ -44,7 +44,7 @@ export function useIntl() {
   const formatter = useStore(format);
 
   function formatNumberUnit(
-    value: number | undefined,
+    value: number | undefined | null,
     unit?: string,
     digits?: number
   ): string {

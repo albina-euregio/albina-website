@@ -75,69 +75,69 @@ export class StationData {
   get date() {
     return this.properties.date;
   }
-  get temp() {
+  get TA() {
     return this.properties.TA.convertTo("°C");
   }
-  get temp_srf() {
+  get TSS() {
     return this.properties.TSS.convertTo("°C");
   }
-  get dewp() {
+  get TD() {
     return this.properties.TD.convertTo("°C");
   }
-  get temp_max() {
+  get TA_MAX() {
     return this.properties.TA_MAX.convertTo("°C");
   }
-  get temp_min() {
+  get TA_MIN() {
     return this.properties.TA_MIN.convertTo("°C");
   }
-  get snow() {
+  get HS() {
     return this.properties.HS.convertTo("cm");
   }
-  get snow24() {
+  get HSD24() {
     return this.properties.HSD24.convertTo("cm");
   }
-  get snow48() {
+  get HSD48() {
     return this.properties.HSD48.convertTo("cm");
   }
-  get snow72() {
+  get HSD72() {
     return this.properties.HSD72.convertTo("cm");
   }
-  get precipitation6() {
+  get PSUM_6() {
     return this.properties.PSUM_6.convertTo("mm");
   }
-  get precipitation24() {
+  get PSUM_24() {
     return this.properties.PSUM_24.convertTo("mm");
   }
-  get precipitation48() {
+  get PSUM_48() {
     return this.properties.PSUM_48.convertTo("mm");
   }
-  get precipitation72() {
+  get PSUM_72() {
     return this.properties.PSUM_72.convertTo("mm");
   }
-  get rhum() {
+  get RH() {
     return this.properties.RH.convertTo("%");
   }
-  get wdir() {
+  get DW() {
     return this.properties.DW.convertTo("°");
   }
-  get x_wdir() {
-    if (typeof this.wdir !== "number") {
+  get aspectDW() {
+    if (typeof this.DW !== "number") {
       return false;
     }
-    const index = Math.round(((this.wdir + 360 - 22.5) % 360) / 45);
+    const index = Math.round(((this.DW + 360 - 22.5) % 360) / 45);
     const classes = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
     return classes[index];
   }
-  get wspd() {
+  get VW() {
     return this.properties.VW.convertTo("km/h");
   }
-  get wgus() {
+  get VW_MAX() {
     return this.properties.VW_MAX.convertTo("km/h");
   }
-  get gr_a() {
+  get ISWR() {
     return this.properties.ISWR.convertTo("W/m²");
   }
-  get gr_b() {
+  get RSWR() {
     return this.properties.RSWR.convertTo("W/m²");
   }
 
@@ -154,11 +154,11 @@ export class StationData {
 
   get parametersForDialog() {
     const types = [
-      { type: "snow", digits: 0, unit: "cm" },
-      { type: "temp", digits: 1, unit: "°C" },
-      { type: "rhum", digits: 0, unit: "%" },
-      { type: "wspd", digits: 0, unit: "km/h" },
-      { type: "wgus", digits: 0, unit: "km/h" }
+      { type: "HS", digits: 0, unit: "cm" },
+      { type: "TA", digits: 1, unit: "°C" },
+      { type: "RH", digits: 0, unit: "%" },
+      { type: "VW", digits: 0, unit: "km/h" },
+      { type: "VW_MAX", digits: 0, unit: "km/h" }
     ] as const;
     return types
       .filter(t => this[t.type] !== undefined)
