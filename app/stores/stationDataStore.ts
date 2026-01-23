@@ -467,10 +467,10 @@ function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
         // capitalize "ACHENKIRCH CAMPINGPLATZ"
         .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
       operator: "GeoSphere Austria",
-      operatorLink: "https://www.geosphere.at/"
-      // operatorLicense: "CC BY 4.0",
-      // operatorLicenseLink:
-      //   "https://creativecommons.org/licenses/by/4.0/legalcode"
+      operatorLink: "https://www.geosphere.at/",
+      operatorLicense: "CC BY 4.0",
+      operatorLicenseLink:
+        "https://creativecommons.org/licenses/by/4.0/legalcode"
     }
   });
   data.$smet = smet;
