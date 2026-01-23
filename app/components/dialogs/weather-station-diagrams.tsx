@@ -264,7 +264,7 @@ const StationDiagramImage: React.FC<{
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
     const end = new Date().toISOString();
     const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
-    const id = station.properties?.["LWD-Nummer"] || station.id;
+    const id = station.properties?.shortName || station.id;
     const url = window.config.template(station.$smet ?? "", {
       start,
       end,
