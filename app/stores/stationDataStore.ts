@@ -261,7 +261,7 @@ export function useStationData(
         row =>
           !pattern ||
           row.name.match(pattern) ||
-          row.properties["LWD-Nummer"]?.match(pattern) ||
+          row.properties.shortName?.match(pattern) ||
           row.microRegion.match(pattern) ||
           row.operator.match(pattern)
       )

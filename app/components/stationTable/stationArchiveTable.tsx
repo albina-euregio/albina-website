@@ -253,8 +253,7 @@ export default function StationArchiveTable(props: Props) {
                       >
                         <a
                           href={config.template(row.$stationsArchiveFile, {
-                            "LWD-Nummer":
-                              row.properties["LWD-Nummer"] || row.id,
+                            shortName: row.properties.shortName || row.id,
                             parameter: col.parameter,
                             file: season(props.activeYear, "_")
                           })}
