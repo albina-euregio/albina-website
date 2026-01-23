@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Invertís er orde",
   "measurements:table:header:name": "Estacion",
   "measurements:table:header:microRegion": "Region",
-  "measurements:table:header:elev": "Nautada",
+  "measurements:table:header:altitude": "Nautada",
   "measurements:table:header:HS": "Nautada dera nhèu",
   "measurements:table:header:HSD24": "24or Dif Celh Nhèu",
   "measurements:table:header:HSD48": "48or Dif Celh Nhèu",

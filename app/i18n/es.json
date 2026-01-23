@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Invierte orden",
   "measurements:table:header:name": "Estación",
   "measurements:table:header:microRegion": "Región",
-  "measurements:table:header:elev": "Altitud",
+  "measurements:table:header:altitude": "Altitud",
   "measurements:table:header:HS": "Espesor de nieve",
   "measurements:table:header:HSD24": "Diferencia de espesor de nieve en 24h",
   "measurements:table:header:HSD48": "Diferencia de espesor de nieve en 48h",

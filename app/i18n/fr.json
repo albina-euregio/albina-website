@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Invertir le tri",
   "measurements:table:header:name": "Station",
   "measurements:table:header:microRegion": "Région",
-  "measurements:table:header:elev": "Altitude",
+  "measurements:table:header:altitude": "Altitude",
   "measurements:table:header:HS": "Hauteur de neige",
   "measurements:table:header:HSD24": "24h Snow Height Diff",
   "measurements:table:header:HSD48": "48h Snow Height Diff",

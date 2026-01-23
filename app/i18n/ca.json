@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Inverteix ordre",
   "measurements:table:header:name": "Estació",
   "measurements:table:header:microRegion": "Regió",
-  "measurements:table:header:elev": "Altitud",
+  "measurements:table:header:altitude": "Altitud",
   "measurements:table:header:HS": "Gruix de Neu",
   "measurements:table:header:HSD24": "24h Dif. Gruix Neu",
   "measurements:table:header:HSD48": "48h Dif. Gruix Neu",

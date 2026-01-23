@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Invertire l'ordine ",
   "measurements:table:header:name": "Stazioni",
   "measurements:table:header:microRegion": "Regione",
-  "measurements:table:header:elev": "Quota",
+  "measurements:table:header:altitude": "Quota",
   "measurements:table:header:HS": "Altezza neve",
   "measurements:table:header:HSD24": "Diff. altezza neve 24h",
   "measurements:table:header:HSD48": "Diff. altezza neve 48h",

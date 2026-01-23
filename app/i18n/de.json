@@ -286,7 +286,7 @@
   "measurements:table:sort-toggle": "Sortierung ändern",
   "measurements:table:header:name": "Station",
   "measurements:table:header:microRegion": "Region",
-  "measurements:table:header:elev": "Seehöhe",
+  "measurements:table:header:altitude": "Seehöhe",
   "measurements:table:header:HS": "Schneehöhe",
   "measurements:table:header:HSD24": "24h Differenz Schneehöhe",
   "measurements:table:header:HSD48": "48h Differenz Schneehöhe",

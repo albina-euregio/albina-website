@@ -29,7 +29,7 @@ export class StationData {
   get lat() {
     return this.geometry.coordinates[1];
   }
-  get elev() {
+  get altitude() {
     return this.geometry.coordinates[2] ?? this.properties.altitude;
   }
   get name() {

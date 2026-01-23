@@ -284,7 +284,7 @@
   "measurements:table:sort-toggle": "Invert sort",
   "measurements:table:header:name": "Station",
   "measurements:table:header:microRegion": "Region",
-  "measurements:table:header:elev": "Elevation",
+  "measurements:table:header:altitude": "Elevation",
   "measurements:table:header:HS": "Snow Height",
   "measurements:table:header:HSD24": "24h Snow Height Diff",
   "measurements:table:header:HSD48": "48h Snow Height Diff",

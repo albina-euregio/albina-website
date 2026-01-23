@@ -76,7 +76,7 @@ export default function StationTable(props: Props) {
     },
     {
       // Seehöhe [m]
-      data: "elev",
+      data: "altitude",
       render(row) {
         return (
           <span className={this.data} title={title(this.data)}>

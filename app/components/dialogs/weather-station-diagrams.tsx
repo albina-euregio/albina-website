@@ -454,9 +454,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
           <h2 className="">
             <span className="weatherstation-name">{station.name} </span>
-            {isStation && station.elev && (
+            {isStation && station.altitude && (
               <span className="weatherstation-altitude">
-                {intl.formatNumberUnit(station.elev, "m")}
+                {intl.formatNumberUnit(station.altitude, "m")}
               </span>
             )}
           </h2>
