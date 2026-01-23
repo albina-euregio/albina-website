@@ -3,61 +3,35 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
+import {
+  FeatureSchema as FeatureSchema0,
+  FeaturePropertiesSchema as FeaturePropertiesSchema0
+} from "@albina-euregio/linea/src/schema/listing-legacy";
 
-const number = z
-  .nullish(z.number())
-  .check(z.overwrite(v => (v === -777 ? undefined : v)));
 const string = z.nullish(z.string());
-const FeaturePropertiesSchema = z.object({
+const FeaturePropertiesSchema = FeaturePropertiesSchema0.extend({
   $smet: string,
   $png: string,
-  $stationsArchiveFile: string,
-  "LWD-Nummer": string,
-  "LWD-Region": string,
-  altitude: number,
-  Beobachtungsbeginn: string,
-  date: z.nullish(z.coerce.date()),
-  GS_O: number,
-  GS_U: number,
-  HS: number,
-  HSD24: number,
-  HSD48: number,
-  HSD72: number,
-  LD: number,
-  LT_MAX: number,
-  LT_MIN: number,
-  LT: number,
-  N24: number,
-  N48: number,
-  N6: number,
-  N72: number,
-  name: z.string(),
-  OFT: number,
-  operator: string,
-  operatorLink: string,
-  operatorLicense: string,
-  operatorLicenseLink: string,
-  plot: string,
-  RH: number,
-  TD: number,
-  WG_BOE: number,
-  WG: number,
-  WR: number
+  $stationsArchiveFile: string
 });
-
 type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
 
-export class StationData {
-  id: string;
-  geometry: GeoJSON.Point;
-  properties: FeatureProperties;
+const FeatureSchema = FeatureSchema0.extend({
+  type: FeatureSchema0.shape.type.nullish(),
+  properties: FeaturePropertiesSchema
+});
+type Feature = z.infer<typeof FeatureSchema>;
 
-  constructor(
-    object: GeoJSON.Feature<GeoJSON.Point, Partial<FeatureProperties>>
-  ) {
-    this.id = object.id as string;
+export class StationData {
+  id: Feature["id"];
+  geometry: Feature["geometry"];
+  properties: Feature["properties"];
+
+  constructor(object: Feature) {
+    object = FeatureSchema.parse(object, { reportInput: true });
+    this.id = object.id;
     this.geometry = object.geometry;
-    this.properties = FeaturePropertiesSchema.parse(object.properties);
+    this.properties = object.properties;
   }
   get lon() {
     return this.geometry.coordinates[0];
