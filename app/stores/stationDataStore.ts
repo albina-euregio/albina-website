@@ -9,11 +9,14 @@ import {
 } from "@albina-euregio/linea/src/schema/listing-legacy";
 
 const string = z.nullish(z.string());
-const FeaturePropertiesSchema = FeaturePropertiesSchema0.extend({
-  $smet: string,
-  $png: string,
-  $stationsArchiveFile: string
-});
+const FeaturePropertiesSchema = z.intersection(
+  FeaturePropertiesSchema0,
+  z.object({
+    $smet: string,
+    $png: string,
+    $stationsArchiveFile: string
+  })
+);
 type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
 
 const FeatureSchema = FeatureSchema0.extend({
@@ -52,10 +55,10 @@ export class StationData {
     return this.properties.operatorLink || "";
   }
   get observationStart() {
-    return this.properties.Beobachtungsbeginn;
+    return this.properties.startYear;
   }
   get province() {
-    const region = this.properties["LWD-Region"];
+    const region = this.properties.microRegionID;
     if (typeof region !== "string") {
       return "";
     }
@@ -63,7 +66,7 @@ export class StationData {
     return regions.find(r => region.startsWith(r)) ?? "";
   }
   get microRegion() {
-    const region = this.properties["LWD-Region"];
+    const region = this.properties.microRegionID;
     if (typeof region !== "string") {
       return "";
     }
@@ -73,69 +76,69 @@ export class StationData {
     return this.properties.date;
   }
   get temp() {
-    return this.properties.LT;
+    return this.properties.TA.convertTo("°C");
   }
   get temp_srf() {
-    return this.properties.OFT;
+    return this.properties.TSS.convertTo("°C");
   }
   get dewp() {
-    return this.properties.TD;
+    return this.properties.TD.convertTo("°C");
   }
   get temp_max() {
-    return this.properties.LT_MAX;
+    return this.properties.TA_MAX.convertTo("°C");
   }
   get temp_min() {
-    return this.properties.LT_MIN;
+    return this.properties.TA_MIN.convertTo("°C");
   }
   get snow() {
-    return this.properties.HS;
+    return this.properties.HS.convertTo("cm");
   }
   get snow24() {
-    return this.properties.HSD24;
+    return this.properties.HSD24.convertTo("cm");
   }
   get snow48() {
-    return this.properties.HSD48;
+    return this.properties.HSD48.convertTo("cm");
   }
   get snow72() {
-    return this.properties.HSD72;
+    return this.properties.HSD72.convertTo("cm");
   }
   get precipitation6() {
-    return this.properties.N6;
+    return this.properties.PSUM_6.convertTo("mm");
   }
   get precipitation24() {
-    return this.properties.N24;
+    return this.properties.PSUM_24.convertTo("mm");
   }
   get precipitation48() {
-    return this.properties.N48;
+    return this.properties.PSUM_48.convertTo("mm");
   }
   get precipitation72() {
-    return this.properties.N72;
+    return this.properties.PSUM_72.convertTo("mm");
   }
   get rhum() {
-    return this.properties.RH;
+    return this.properties.RH.convertTo("%");
   }
   get wdir() {
-    return this.properties.WR;
+    return this.properties.DW.convertTo("°");
   }
   get x_wdir() {
-    if (typeof this.properties.WR !== "number") {
+    if (typeof this.wdir !== "number") {
       return false;
     }
-    const index = Math.round(((this.properties.WR + 360 - 22.5) % 360) / 45);
+    const index = Math.round(((this.wdir + 360 - 22.5) % 360) / 45);
     const classes = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
     return classes[index];
   }
   get wspd() {
-    return this.properties.WG;
+    return this.properties.VW.convertTo("km/h");
   }
   get wgus() {
-    return this.properties.WG_BOE;
+    return this.properties.VW_MAX.convertTo("km/h");
   }
   get gr_a() {
-    return this.properties.GS_O;
+    return this.properties.ISWR.convertTo("W/m²");
   }
   get gr_b() {
-    return this.properties.GS_U;
+    return this.properties.RSWR.convertTo("W/m²");
   }
 
   get plot() {
