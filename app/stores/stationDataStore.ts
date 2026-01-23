@@ -4,34 +4,21 @@ import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
 import {
-  FeatureSchema as FeatureSchema0,
-  FeaturePropertiesSchema as FeaturePropertiesSchema0
+  FeatureCollectionSchema,
+  FeatureSchema
 } from "@albina-euregio/linea/src/schema/listing-legacy";
 
-const string = z.nullish(z.string());
-const FeaturePropertiesSchema = z.intersection(
-  FeaturePropertiesSchema0,
-  z.object({
-    $smet: string,
-    $png: string,
-    $stationsArchiveFile: string
-  })
-);
-type FeatureProperties = z.infer<typeof FeaturePropertiesSchema>;
-
-const FeatureSchema = FeatureSchema0.extend({
-  type: FeatureSchema0.shape.type.nullish(),
-  properties: FeaturePropertiesSchema
-});
 type Feature = z.infer<typeof FeatureSchema>;
 
 export class StationData {
   id: Feature["id"];
   geometry: Feature["geometry"];
   properties: Feature["properties"];
+  $smet: string | undefined;
+  $png: string | undefined;
+  $stationsArchiveFile: string | undefined;
 
   constructor(object: Feature) {
-    object = FeatureSchema.parse(object, { reportInput: true });
     this.id = object.id;
     this.geometry = object.geometry;
     this.properties = object.properties;
@@ -143,13 +130,6 @@ export class StationData {
 
   get plot() {
     return this.properties.plot;
-  }
-
-  get $smet() {
-    return this.properties.$smet;
-  }
-  get $png() {
-    return this.properties.$png;
   }
 
   get parametersForDialog() {
@@ -403,32 +383,29 @@ export async function loadStationData({
           return stations;
         }
 
-        const json: GeoJSON.FeatureCollection<
-          GeoJSON.Point,
-          FeatureProperties
-        > = await response.json();
-        const stations = json.features
+        const json = await response.json();
+        const collection = FeatureCollectionSchema.parse(json, {
+          reportInput: true
+        });
+        const stations = collection.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
+            const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            feature.properties.$smet = new RegExp(smetOperators).test(operator)
-              ? smet
-              : "";
-            feature.properties.$png = new RegExp(pngOperators).test(operator)
-              ? png
-              : "";
-            feature.properties.$stationsArchiveFile = stationsArchiveFile;
+            data.$smet = new RegExp(smetOperators).test(operator) ? smet : "";
+            data.$png = new RegExp(pngOperators).test(operator) ? png : "";
+            data.$stationsArchiveFile = stationsArchiveFile;
 
             if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
               return;
             }
 
-            if (!feature.properties.$smet && !feature.properties.$png) {
+            if (!data.$smet && !data.$png) {
               return;
             }
 
-            return new StationData(feature);
+            return data;
           })
           .filter(d => !!d);
         consumer?.(stations);
@@ -481,7 +458,7 @@ interface GeoSphereStation {
 }
 
 function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
-  return new StationData({
+  const data = new StationData({
     type: "Feature",
     id: station.id,
     geometry: {
@@ -493,12 +470,13 @@ function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
         .toLocaleLowerCase("de")
         // capitalize "ACHENKIRCH CAMPINGPLATZ"
         .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
-      $smet: smet,
       operator: "GeoSphere Austria",
       operatorLink: "https://www.geosphere.at/",
-      operatorLicense: "CC BY 4.0",
-      operatorLicenseLink:
-        "https://creativecommons.org/licenses/by/4.0/legalcode"
+      // operatorLicense: "CC BY 4.0",
+      // operatorLicenseLink:
+      //   "https://creativecommons.org/licenses/by/4.0/legalcode"
     }
   });
+  data.$smet = smet;
+  return data;
 }

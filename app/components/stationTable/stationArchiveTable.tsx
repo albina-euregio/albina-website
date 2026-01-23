@@ -239,7 +239,7 @@ export default function StationArchiveTable(props: Props) {
                 {col.render?.(row[col.data], row, col.unit)}
                 {!col.render &&
                   typeof row[col.data] === "number" &&
-                  row.properties.$stationsArchiveFile && (
+                  row.$stationsArchiveFile && (
                     <span title={title(col.data)}>
                       <Tooltip
                         label={intl.formatMessage(
@@ -252,15 +252,12 @@ export default function StationArchiveTable(props: Props) {
                         )}
                       >
                         <a
-                          href={config.template(
-                            row.properties.$stationsArchiveFile,
-                            {
-                              "LWD-Nummer":
-                                row.properties["LWD-Nummer"] || row.id,
-                              parameter: col.parameter,
-                              file: season(props.activeYear, "_")
-                            }
-                          )}
+                          href={config.template(row.$stationsArchiveFile, {
+                            "LWD-Nummer":
+                              row.properties["LWD-Nummer"] || row.id,
+                            parameter: col.parameter,
+                            file: season(props.activeYear, "_")
+                          })}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="pure-button secondary small"
