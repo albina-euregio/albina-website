@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "@albina-euregio/linea";
+import "@albina-euregio/linea/src/linea-plot";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";
