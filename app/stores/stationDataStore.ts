@@ -448,7 +448,7 @@ interface GeoSphereStation {
 }
 
 function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
-  const data = new StationData({
+  const feature = FeatureSchema.parse({
     type: "Feature",
     id: station.id,
     geometry: {
@@ -467,6 +467,7 @@ function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
         "https://creativecommons.org/licenses/by/4.0/legalcode"
     }
   });
+  const data = new StationData(feature);
   data.$smet = smet;
   return data;
 }
