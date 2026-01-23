@@ -320,7 +320,7 @@
   "measurements-archive:table:sort-toggle": "Invert sort",
   "measurements-archive:table:header:name": "Station",
   "measurements-archive:table:header:microRegion": "Region",
-  "measurements-archive:table:header:observationStart": "Observation Start",
+  "measurements-archive:table:header:startYear": "Observation Start",
   "measurements-archive:table:header:HS": "Snow Height",
   "measurements-archive:table:header:TA": "Temperature",
   "measurements-archive:table:header:TSS": "Surface Temperature",

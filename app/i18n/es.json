@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Invierte orden",
   "measurements-archive:table:header:name": "Estación",
   "measurements-archive:table:header:microRegion": "Región",
-  "measurements-archive:table:header:observationStart": "Inicio de observación",
+  "measurements-archive:table:header:startYear": "Inicio de observación",
   "measurements-archive:table:header:HS": "Espesor de nieve",
   "measurements-archive:table:header:TA": "Temperatura",
   "measurements-archive:table:header:TSS": "Temperatura de supeficie",

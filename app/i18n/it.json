@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Invertire l'ordine ",
   "measurements-archive:table:header:name": "Stazioni",
   "measurements-archive:table:header:microRegion": "Regione",
-  "measurements-archive:table:header:observationStart": "Inizio osservazione",
+  "measurements-archive:table:header:startYear": "Inizio osservazione",
   "measurements-archive:table:header:HS": "Altezza Neve",
   "measurements-archive:table:header:TA": "Temperatura",
   "measurements-archive:table:header:TSS": "Temperatura superficiale",

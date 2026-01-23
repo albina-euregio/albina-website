@@ -41,7 +41,7 @@ export class StationData {
   get operatorLink() {
     return this.properties.operatorLink || "";
   }
-  get observationStart() {
+  get startYear() {
     return this.properties.startYear;
   }
   get province() {
@@ -163,7 +163,7 @@ export function useStationData(
   sortValue0: keyof StationData = "name",
   activeRegionPredicate: (r: string) => boolean = () => true,
   activeYear0: number | "" = currentSeasonYear(),
-  filterObservationStart0 = false
+  filterStartYear0 = false
 ) {
   const router = useStore($router);
 
@@ -206,9 +206,8 @@ export function useStationData(
     wind: true,
     radiation: true
   });
-  const [filterObservationStart, setFilterObservationStart] = useState<boolean>(
-    filterObservationStart0
-  );
+  const [filterStartYear, setfilterStartYear] =
+    useState<boolean>(filterStartYear0);
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -219,7 +218,7 @@ export function useStationData(
     () =>
       data.length
         ? Math.min(
-            ...data.map(d => +d.observationStart).filter(year => isFinite(year))
+            ...data.map(d => +d.startYear).filter(year => isFinite(year))
           )
         : 2000,
     [data]
@@ -268,10 +267,7 @@ export function useStationData(
       )
       .filter(row => !region || row.province == region)
       .filter(
-        row =>
-          !filterObservationStart ||
-          !activeYear ||
-          +row.observationStart <= activeYear
+        row => !filterStartYear || !activeYear || +row.startYear <= activeYear
       )
       .sort((val1, val2) => compareStationData(val1, val2));
   }, [
@@ -279,7 +275,7 @@ export function useStationData(
     activeYear,
     compareStationData,
     data,
-    filterObservationStart,
+    filterStartYear,
     searchText
   ]);
 
@@ -304,7 +300,7 @@ export function useStationData(
     data,
     dateTime,
     dateTimeMax,
-    filterObservationStart,
+    filterStartYear,
     load,
     minYear,
     searchText,
@@ -313,7 +309,7 @@ export function useStationData(
     setActiveYear,
     setData,
     setDateTime,
-    setFilterObservationStart,
+    setfilterStartYear,
     setSearchText,
     setSortDir,
     setSortValue,
@@ -471,7 +467,7 @@ function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
         // capitalize "ACHENKIRCH CAMPINGPLATZ"
         .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
       operator: "GeoSphere Austria",
-      operatorLink: "https://www.geosphere.at/",
+      operatorLink: "https://www.geosphere.at/"
       // operatorLicense: "CC BY 4.0",
       // operatorLicenseLink:
       //   "https://creativecommons.org/licenses/by/4.0/legalcode"

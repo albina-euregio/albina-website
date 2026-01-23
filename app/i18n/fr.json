@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Invertir le tri",
   "measurements-archive:table:header:name": "Station",
   "measurements-archive:table:header:microRegion": "Région",
-  "measurements-archive:table:header:observationStart": "Observation Start",
+  "measurements-archive:table:header:startYear": "Observation Start",
   "measurements-archive:table:header:HS": "Hauteur de neige",
   "measurements-archive:table:header:TA": "Température",
   "measurements-archive:table:header:TSS": "Surface Temperature",

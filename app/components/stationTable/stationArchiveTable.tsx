@@ -72,8 +72,8 @@ export default function StationArchiveTable(props: Props) {
     },
     {
       // Observation start
-      data: "observationStart",
-      render: (_value, row) => <span>{row.observationStart}</span>,
+      data: "startYear",
+      render: (_value, row) => <span>{row.startYear}</span>,
       sortable: true,
       className: "mb-station m-name"
     },

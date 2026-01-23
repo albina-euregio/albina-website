@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Inverteix ordre",
   "measurements-archive:table:header:name": "Estació",
   "measurements-archive:table:header:microRegion": "Regió",
-  "measurements-archive:table:header:observationStart": "Inici d'observació",
+  "measurements-archive:table:header:startYear": "Inici d'observació",
   "measurements-archive:table:header:HS": "Gruix de Neu",
   "measurements-archive:table:header:TA": "Temperatura",
   "measurements-archive:table:header:TSS": "Temperatura de superfície",

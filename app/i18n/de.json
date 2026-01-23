@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Sortierung ändern",
   "measurements-archive:table:header:name": "Station",
   "measurements-archive:table:header:microRegion": "Region",
-  "measurements-archive:table:header:observationStart": "Beobachtungsbeginn",
+  "measurements-archive:table:header:startYear": "Beobachtungsbeginn",
   "measurements-archive:table:header:HS": "Schneehöhe",
   "measurements-archive:table:header:TA": "Temperatur",
   "measurements-archive:table:header:TSS": "Oberflächentemperatur",

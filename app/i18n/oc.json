@@ -322,7 +322,7 @@
   "measurements-archive:table:sort-toggle": "Invertís er orde",
   "measurements-archive:table:header:name": "Estacion",
   "measurements-archive:table:header:microRegion": "Region",
-  "measurements-archive:table:header:observationStart": "Inici d'observació",
+  "measurements-archive:table:header:startYear": "Inici d'observació",
   "measurements-archive:table:header:HS": "Nautada dera nhèu",
   "measurements-archive:table:header:TA": "Temperatura",
   "measurements-archive:table:header:TSS": "Temperatura de superfície",
