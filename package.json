@@ -29,7 +29,7 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
-    "@albina-euregio/linea": "^8.4.1",
+    "@albina-euregio/linea": "^8.6.0",
     "@eaws/micro-regions_elevation_properties": "^8.1.2",
     "@eaws/micro-regions_names": "^8.1.2",
     "@eaws/micro-regions_properties": "^8.1.2",
@@ -59,7 +59,7 @@
     "react-string-replace": "^1.1.1",
     "react-swipeable": "^7.0.2",
     "temporal-polyfill": "^0.3.0",
-    "zod": "^4.1.12"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",

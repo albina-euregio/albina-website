@@ -92,15 +92,15 @@
     }
 
     .temp,
-    .wdir {
+    .DW {
       display: block;
     }
 
-    .precipitation24,
-    .precipitation48,
-    .precipitation72,
-    .temp_min_max,
-    .wdir,
+    .PSUM_24,
+    .PSUM_48,
+    .PSUM_72,
+    .TA_MIN_max,
+    .DW,
     .datetime {
       display: block;
       font-size: variables.$micro-font-size;
@@ -108,8 +108,8 @@
       @include mixins.letter-spacing;
     }
 
-    .temp_max,
-    .wgus {
+    .TA_MAX,
+    .VW_MAX {
       &:before {
         content: "\202F/\202F";
       }
