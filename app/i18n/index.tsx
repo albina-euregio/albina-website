@@ -67,7 +67,7 @@ const format = computed($locale, code => ({
       date instanceof Temporal.PlainDate ||
       date instanceof Temporal.ZonedDateTime
     ) {
-      return date.toLocaleString(code, opts);
+      return this.intlCache.dateTimeFormat(opts).format(date);
     }
     if (typeof date === "string") date = Date.parse(date);
     if (!isFinite(+date)) return "";
