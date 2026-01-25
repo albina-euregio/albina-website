@@ -103,24 +103,30 @@ export default function StationTable(props: Props) {
       unit: "cm",
       className: "mb-snow m-snowheight"
     },
-    ...(["24", "48", "72"] as const).map(
-      (hour): Column => ({
+    ...(
+      [
+        ["HSD_24", "PSUM_24"],
+        ["HSD_48", "PSUM_48"],
+        ["HSD_72", "PSUM_72"]
+      ] as const
+    ).map(
+      ([hsd, psum]): Column => ({
         // 24h Differenz Schneehöhe <br> (24h Niederschlag)
         // 48h Differenz Schneehöhe <br> (48h Niederschlag)
         // 72h Differenz Schneehöhe <br> (72h Niederschlag)
         group: "snow",
-        data: `HSD${hour}`,
-        subtitle: "(" + title(`PSUM_${hour}`) + ")",
+        data: hsd,
+        subtitle: "(" + title(psum) + ")",
         render(row) {
           return (
             <>
-              <span className={`HSD${hour}`} title={title(`HSD${hour}`)}>
-                {intl.formatNumberUnit(row[`HSD${hour}`], this.unit)}
+              <span className={hsd} title={title(hsd)}>
+                {intl.formatNumberUnit(row[hsd], this.unit)}
               </span>
-              {isFinite(row[`PSUM_${hour}`]) && (
-                <span className={`PSUM_${hour}`} title={title(`PSUM_${hour}`)}>
+              {isFinite(row[psum]) && (
+                <span className={psum} title={title(psum)}>
                   {"("}
-                  {intl.formatNumberUnit(row[`PSUM_${hour}`], "mm")}
+                  {intl.formatNumberUnit(row[psum], "mm")}
                   {")"}
                 </span>
               )}
@@ -128,7 +134,7 @@ export default function StationTable(props: Props) {
           );
         },
         unit: "cm",
-        className: `mb-snow m-${hour}`
+        className: `mb-snow m-${hsd}`
       })
     ),
     {

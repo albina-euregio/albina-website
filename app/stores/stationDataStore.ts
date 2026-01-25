@@ -74,14 +74,17 @@ export class StationData {
   get HS() {
     return this.properties.HS.convertTo("cm");
   }
-  get HSD24() {
-    return this.properties.HSD24.convertTo("cm");
+  get HSD_6() {
+    return this.properties.HSD_6.convertTo("cm");
   }
-  get HSD48() {
-    return this.properties.HSD48.convertTo("cm");
+  get HSD_24() {
+    return this.properties.HSD_24.convertTo("cm");
   }
-  get HSD72() {
-    return this.properties.HSD72.convertTo("cm");
+  get HSD_48() {
+    return this.properties.HSD_48.convertTo("cm");
+  }
+  get HSD_72() {
+    return this.properties.HSD_72.convertTo("cm");
   }
   get PSUM_6() {
     return this.properties.PSUM_6.convertTo("mm");

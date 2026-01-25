@@ -102,9 +102,9 @@ export const config = {
         timeSpans: ["-6", "-12", "-24", "-48", "-72"],
         defaultTimeSpan: null,
         timeSpanToDataId: {
-          "-24": "HSD24",
-          "-48": "HSD48",
-          "-72": "HSD72"
+          "-24": "HSD_24",
+          "-48": "HSD_48",
+          "-72": "HSD_72"
         },
         updateTimesOffset: { "*": 24, "-6": 6, "-12": 12 },
         metaFiles: {
