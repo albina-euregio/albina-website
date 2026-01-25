@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { DATE_TIME_FORMAT } from "../../util/date";
+import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import WeatherStationDialog, {
@@ -47,10 +47,7 @@ export default function StationTable(props: Props) {
             ({row.properties.operator})
           </span>{" "}
           <span className="datetime">
-            {intl.formatDate(row.date, {
-              ...DATE_TIME_FORMAT,
-              weekday: undefined
-            })}
+            {intl.formatDate(row.date, DATE_TIME_FORMAT_SHORT)}
           </span>
         </span>
       ),
