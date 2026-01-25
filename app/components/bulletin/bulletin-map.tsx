@@ -270,7 +270,7 @@ const BulletinMap = (props: Props) => {
                 ? intl.formatMessage({
                     id: `bulletin:header:${props.validTimePeriod}`
                   })
-                : ["earlier", "later"].map(timePeriod => (
+                : (["earlier", "later"] as const).map(timePeriod => (
                     <a
                       key={timePeriod}
                       href="#"
