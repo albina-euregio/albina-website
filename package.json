@@ -76,7 +76,16 @@
     "oxlint": "^1.41.0",
     "rolldown": "1.0.0-beta.60",
     "sass": "^1.94.0",
-    "vite": "8.0.0-beta.8"
+    "vite": "8.0.0-beta.10"
   },
-  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
+  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
+  "patchedDependencies": {
+    "@react-leaflet/core@3.0.0": "patches/react-leaflet-core.patch",
+    "leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c": "patches/leaflet.patch",
+    "leaflet-geonames@0.4.9": "patches/leaflet-geonames.patch",
+    "leaflet-gesture-handling@1.2.2": "patches/leaflet-gesture-handling.patch",
+    "leaflet.locatecontrol@0.85.1": "patches/leaflet.locatecontrol.patch",
+    "leaflet.sync@0.2.4": "patches/leaflet.sync.patch",
+    "leaflet.vectorgrid@1.3.0": "patches/leaflet.vectorgrid.patch"
+  }
 }
