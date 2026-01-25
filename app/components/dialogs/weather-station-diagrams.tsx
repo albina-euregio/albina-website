@@ -10,7 +10,7 @@ import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
-import "@albina-euregio/linea/src/linea-plot";
+import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
 
 function hasInteractivePlot(station: StationData | ObserverData) {
