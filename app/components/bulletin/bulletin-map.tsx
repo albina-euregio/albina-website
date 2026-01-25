@@ -252,6 +252,7 @@ const BulletinMap = (props: Props) => {
         className={
           "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
         }
+        data-iframe-ignore
       >
         <LeafletMap
           loaded={true}
