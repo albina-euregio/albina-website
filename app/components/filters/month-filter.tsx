@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import Selectric from "../selectric";
 import { useIntl } from "../../i18n";
 
 interface Props {
@@ -55,14 +54,18 @@ export default function MonthFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={props.handleChange} {...props}>
+      <select
+        className="dropdown selectric"
+        onChange={e => props.handleChange(e.target.value)}
+        value={props.value}
+      >
         {props.all && <option value="">{props.all}</option>}
         {months.map(({ month, name }) => (
           <option key={month} value={month}>
             {name}
           </option>
         ))}
-      </Selectric>
+      </select>
     </div>
   );
 }

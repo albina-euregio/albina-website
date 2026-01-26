@@ -252,6 +252,7 @@ const BulletinMap = (props: Props) => {
         className={
           "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
         }
+        data-iframe-ignore
       >
         <LeafletMap
           loaded={true}
@@ -270,7 +271,7 @@ const BulletinMap = (props: Props) => {
                 ? intl.formatMessage({
                     id: `bulletin:header:${props.validTimePeriod}`
                   })
-                : ["earlier", "later"].map(timePeriod => (
+                : (["earlier", "later"] as const).map(timePeriod => (
                     <a
                       key={timePeriod}
                       href="#"

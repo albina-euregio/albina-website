@@ -1,6 +1,5 @@
 import React from "react";
 import { Language, mainLanguages } from "../../appStore";
-import Selectric from "../selectric";
 
 interface Props {
   value: string;
@@ -37,14 +36,18 @@ export default function LanguageFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={props.handleChange} {...props}>
+      <select
+        className="dropdown selectric"
+        onChange={e => props.handleChange(e.target.value)}
+        value={props.value}
+      >
         {props.all && <option value="all">{props.all}</option>}
         {languages.map(l => (
           <option key={l} value={l}>
             {l.toUpperCase()}
           </option>
         ))}
-      </Selectric>
+      </select>
     </div>
   );
 }

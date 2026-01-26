@@ -48,7 +48,9 @@ export default function StationArchiveTable(props: Props) {
       render: (_value, row) => (
         <span>
           <strong>{row.name}</strong>{" "}
-          <span className="operator operator-st">({row.operator})</span>{" "}
+          <span className="operator operator-st">
+            ({row.properties.operator})
+          </span>{" "}
         </span>
       ),
       sortable: true,
@@ -72,78 +74,78 @@ export default function StationArchiveTable(props: Props) {
     },
     {
       // Observation start
-      data: "observationStart",
-      render: (_value, row) => <span>{row.observationStart}</span>,
+      data: "startYear",
+      render: (_value, row) => <span>{row.startYear}</span>,
       sortable: true,
       className: "mb-station m-name"
     },
     {
       // Snow height
       group: "snow",
-      data: "snow",
+      data: "HS",
       parameter: "HS",
       sortable: false
     },
     {
       // Temperature
       group: "temp",
-      data: "temp",
+      data: "TA",
       parameter: "LT",
       sortable: false
     },
     {
       // Surface temperature
       group: "temp",
-      data: "temp_srf",
+      data: "TSS",
       parameter: "T0",
       sortable: false
     },
     {
       // Dew point temperature
       group: "temp",
-      data: "dewp",
+      data: "TD",
       parameter: "TP",
       sortable: false
     },
     {
       // Relative humidity
       group: "temp",
-      data: "rhum",
+      data: "RH",
       parameter: "LF",
       sortable: false
     },
     {
       // Wind speed
       group: "wind",
-      data: "wspd",
+      data: "VW",
       parameter: "WG",
       sortable: false
     },
     {
       // Wind direction
       group: "wind",
-      data: "wdir",
+      data: "DW",
       parameter: "WR",
       sortable: false
     },
     {
       // Wind gust
       group: "wind",
-      data: "wgus",
+      data: "VW_MAX",
       parameter: "WG.Boe",
       sortable: false
     },
     {
       // Global radiation above
       group: "radiation",
-      data: "gr_a",
+      data: "ISWR",
       parameter: "GS",
       sortable: false
     },
     {
       // Global radiation below
       group: "radiation",
-      data: "gr_b",
+      data: "RSWR",
       parameter: "GS.unten",
       sortable: false
     }
@@ -239,7 +241,7 @@ export default function StationArchiveTable(props: Props) {
                 {col.render?.(row[col.data], row, col.unit)}
                 {!col.render &&
                   typeof row[col.data] === "number" &&
-                  row.properties.$stationsArchiveFile && (
+                  row.$stationsArchiveFile && (
                     <span title={title(col.data)}>
                       <Tooltip
                         label={intl.formatMessage(
@@ -252,15 +254,11 @@ export default function StationArchiveTable(props: Props) {
                         )}
                       >
                         <a
-                          href={config.template(
-                            row.properties.$stationsArchiveFile,
-                            {
-                              "LWD-Nummer":
-                                row.properties["LWD-Nummer"] || row.id,
-                              parameter: col.parameter,
-                              file: season(props.activeYear, "_")
-                            }
-                          )}
+                          href={config.template(row.$stationsArchiveFile, {
+                            shortName: row.properties.shortName || row.id,
+                            parameter: col.parameter,
+                            file: season(props.activeYear, "_")
+                          })}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="pure-button secondary small"

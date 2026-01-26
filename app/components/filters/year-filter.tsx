@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { useIntl } from "../../i18n";
-import Selectric from "../selectric";
 
 interface Props {
   buttongroup?: boolean;
@@ -52,14 +51,18 @@ export default function YearFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={year => props.handleChange(+year)} {...props}>
+      <select
+        className="dropdown selectric"
+        onChange={e => props.handleChange(+e.target.value)}
+        value={props.value}
+      >
         {props.all && <option value="">{props.all}</option>}
         {years.map(({ year, name }) => (
           <option key={year} value={year}>
             {name}
           </option>
         ))}
-      </Selectric>
+      </select>
     </div>
   );
 }
