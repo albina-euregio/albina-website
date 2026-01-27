@@ -101,13 +101,37 @@ const Timeline = ({ updateCB }) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  // Helper to snap a date to the nearest valid time slot for current domain
+  const snapToValidSlot = (date: Date, slotInterval: number): Date => {
+    const snapped = new Date(date);
+    const hour = snapped.getUTCHours();
+    // Find the closest slot hour
+    const lowerSlot = Math.floor(hour / slotInterval) * slotInterval;
+    const upperSlot = lowerSlot + slotInterval;
+    // Choose whichever is closer
+    const useLower = hour - lowerSlot <= upperSlot - hour;
+    snapped.setUTCHours(useLower ? lowerSlot : upperSlot % 24, 0, 0, 0);
+    // If we wrapped to next day's hour 0, advance the date
+    if (!useLower && upperSlot >= 24) {
+      snapped.setUTCDate(snapped.getUTCDate() + 1);
+    }
+    return snapped;
+  };
+
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
       const usedInitialDate = new Date(
         router?.params?.timestamp || initialDate
       );
-      const newInitialDate = new Date(usedInitialDate);
+      let newInitialDate = new Date(usedInitialDate);
       const now = new Date();
+
+      // If there's a URL timestamp, snap it to the nearest valid slot for this domain
+      // This handles domain switching where the old timestamp may not be valid
+      if (router?.params?.timestamp && timeSpanInt > 0) {
+        const slotInterval = timeSpanInt >= 24 ? 24 : timeSpanInt;
+        newInitialDate = snapToValidSlot(newInitialDate, slotInterval);
+      }
 
       // Only advance if there's no URL timestamp and the period has fully passed
       // The timestamp represents the END of the period for forecasts
@@ -120,17 +144,26 @@ const Timeline = ({ updateCB }) => {
         }
       }
 
+      // Clamp to valid range
+      if (+newInitialDate < +startTime) {
+        newInitialDate = new Date(startTime);
+      } else if (+newInitialDate > +endTime) {
+        newInitialDate = new Date(endTime);
+      }
+
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
         setTargetDate(new Date(newInitialDate));
-        if (!currentDate) {
+        // Set currentDate when domain changes (even with URL timestamp)
+        // This ensures the snapped time is used
+        if (!currentDate || router?.params?.timestamp) {
           setCurrentDate(new Date(newInitialDate));
         }
       }
     }
-  }, [initialDate, router?.params.timestamp]);
+  }, [initialDate, router?.params.timestamp, domainId]);
 
   useEffect(() => {
     let intervalId: number;
@@ -204,7 +237,9 @@ const Timeline = ({ updateCB }) => {
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
-    if (+currentDate > 0) {
+    // Only update URL if there's already a timestamp in the URL
+    // (user explicitly set a time, not a fresh domain navigation)
+    if (+currentDate > 0 && router?.params?.timestamp) {
       navigateToWeatermapWithParams(
         new Date(currentDate).toISOString(),
         store.timeSpan.get()
@@ -213,7 +248,8 @@ const Timeline = ({ updateCB }) => {
   }, [currentDate]);
 
   useEffect(() => {
-    if (+currentDate > 0) {
+    // Only update URL if there's already a timestamp in the URL
+    if (+currentDate > 0 && router?.params?.timestamp) {
       navigateToWeatermapWithParams(
         new Date(currentDate).toISOString(),
         store.timeSpan.get()
@@ -315,7 +351,17 @@ const Timeline = ({ updateCB }) => {
     let index = domains.indexOf(domainId);
     if (index < 0) return;
     index = (index + direction + domains.length) % domains.length;
-    store.changeDomain(domains[index]);
+    const newDomain = domains[index];
+    // Navigate to new domain, preserving current time selection
+    // The store will validate/clamp the time to valid range for the new domain
+    if (currentDate && +currentDate > 0) {
+      redirectPage($router, "weatherMapDomainTimestamp", {
+        domain: newDomain,
+        timestamp: currentDate.toISOString()
+      });
+    } else {
+      redirectPage($router, "weatherMapDomain", { domain: newDomain });
+    }
   };
 
   const rulerMarkings = useMemo(() => {
