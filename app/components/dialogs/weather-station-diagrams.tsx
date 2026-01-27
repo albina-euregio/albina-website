@@ -211,6 +211,43 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
   );
 };
 
+const TimeRangeButtons: React.FC<{
+  station: StationData | ObserverData;
+  timeRange: TimeRange;
+  setTimeRange: (timeRange: TimeRange) => void;
+}> = ({ station, timeRange, setTimeRange }) => {
+  const intl = useIntl();
+  return (
+    <ul className="list-inline filter primary">
+      {(Object.keys(timeRanges) as TimeRange[])
+        .filter(key => {
+          if (key.startsWith("interactive")) {
+            return hasInteractivePlot(station);
+          } else {
+            return station.$png;
+          }
+        })
+        .map(key => (
+          <li key={key}>
+            <a
+              href="#"
+              onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                setTimeRange(key !== "none" ? (key as TimeRange) : "threedays");
+              }}
+              className={key === timeRange ? "label js-active" : "label"}
+            >
+              {intl.formatMessage({
+                id: `dialog:weather-station-diagram:timerange:${key}`
+              })}
+            </a>
+          </li>
+        ))}
+    </ul>
+  );
+};
+
 const StationDiagramImage: React.FC<{
   station: StationData | ObserverData;
   clientWidth: number;
@@ -436,6 +473,13 @@ const WeatherStationDiagrams: React.FC<Props> = ({
         <div className="modal-content">
           {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
+          {isStation && !hasInteractivePlot(station) && (
+            <TimeRangeButtons
+              station={station}
+              timeRange={timeRange}
+              setTimeRange={timeRange => setTimeRange(timeRange)}
+            />
+          )}
           <StationDiagramImage
             clientWidth={myRef?.current?.clientWidth ?? 1}
             selectedYear={selectedYear}
