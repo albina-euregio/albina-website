@@ -16,7 +16,6 @@ import HTMLPageLoadingScreen, {
 } from "../components/organisms/html-page-loading-screen";
 import { FormattedMessage, useIntl } from "../i18n";
 import { useStore } from "@nanostores/react";
-import Selectric from "../components/selectric.tsx";
 import { $headless, $province } from "../appStore.ts";
 import { $router } from "../components/router.ts";
 import { redirectPage } from "@nanostores/router";
@@ -174,7 +173,11 @@ const BlogPostList = ({ isTechBlog }: Props) => {
               id: "archive:filter:categories"
             })}
           </p>
-          <Selectric onChange={handleChangeCategory} value={searchCategory}>
+          <select
+            className="dropdown selectric"
+            onChange={e => handleChangeCategory(e.target.value)}
+            value={searchCategory}
+          >
             <option value="">{intl.formatMessage({ id: "filter:all" })}</option>
             {categories
               .filter(
@@ -185,7 +188,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
                   {c.name}
                 </option>
               ))}
-          </Selectric>
+          </select>
         </div>
         <YearFilter
           title={intl.formatMessage({

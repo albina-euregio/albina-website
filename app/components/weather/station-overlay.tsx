@@ -59,7 +59,7 @@ const StationOverlay = (props: Props) => {
         data.geometry.coordinates[2] +
         "m",
       detail: value + " " + props.item.units,
-      operator: data.operator,
+      operator: data.properties?.operator,
       plainName: data.name,
       value: value,
       plot: data.plot

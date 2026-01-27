@@ -4,11 +4,21 @@ test("blog", async ({ page }) => {
   await page.goto("/blog");
   await expect(page.locator("header")).toContainText("Blog Posts");
 
-  await page.getByRole("combobox", { name: "Language" }).selectOption("de");
   await page
-    .getByRole("combobox", { name: "State / Province" })
+    .getByRole("listitem")
+    .filter({ hasText: "Language" })
+    .getByRole("combobox")
+    .selectOption("de");
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: "State / Province" })
+    .getByRole("combobox")
     .selectOption("AT-07");
-  await page.getByRole("combobox", { name: "Year" }).selectOption("2018");
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: "Year" })
+    .getByRole("combobox")
+    .selectOption("2018");
 
   await expect(page.locator("#page-main")).toContainText(
     "Monday, 31/12/2018, 19:10"

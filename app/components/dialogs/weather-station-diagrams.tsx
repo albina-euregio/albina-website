@@ -264,7 +264,7 @@ const StationDiagramImage: React.FC<{
     const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
     const end = new Date().toISOString();
     const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
-    const id = station.properties?.["LWD-Nummer"] || station.id;
+    const id = station.properties?.shortName || station.id;
     const url = window.config.template(station.$smet ?? "", {
       start,
       end,
@@ -338,12 +338,12 @@ const StationOperator: React.FC<{
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
       {": "}
       <a
-        key={stationData.operatorLink}
-        href={stationData.operatorLink}
+        key={stationData.properties.operatorLink}
+        href={stationData.properties.operatorLink}
         rel="noopener noreferrer"
         target="_blank"
       >
-        {stationData.operator}
+        {stationData.properties.operator}
       </a>
       {stationData.properties.operatorLicense && (
         <>
@@ -454,9 +454,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
           <h2 className="">
             <span className="weatherstation-name">{station.name} </span>
-            {isStation && station.elev && (
+            {isStation && station.altitude && (
               <span className="weatherstation-altitude">
-                {intl.formatNumberUnit(station.elev, "m")}
+                {intl.formatNumberUnit(station.altitude, "m")}
               </span>
             )}
           </h2>
