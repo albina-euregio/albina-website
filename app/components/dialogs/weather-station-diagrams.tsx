@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
