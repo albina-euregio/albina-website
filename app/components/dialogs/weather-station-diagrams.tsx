@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -261,11 +255,18 @@ const StationDiagramImage: React.FC<{
   ) {
     const timeRangeMilli =
       timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
-    const timeRangePath = timeRangeMilli > 7 * 24 * 3600e3 ? "winter" : "woche";
+    let timeRangePath = "woche";
     const end = new Date().toISOString();
     const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
-    const id = station.properties?.["LWD-Nummer"] || station.id;
+    const id = station.properties?.shortName || station.id;
     const url = window.config.template(station.$smet ?? "", {
+      start,
+      end,
+      timeRangePath,
+      id
+    });
+    timeRangePath = "winter";
+    const lazyurl = window.config.template(station.$smet ?? "", {
       start,
       end,
       timeRangePath,
@@ -277,8 +278,10 @@ const StationDiagramImage: React.FC<{
         <linea-plot
           key={url + timeRangeMilli}
           src={url}
+          lazysrc={lazyurl}
           showSurfaceHoarButton
-          timeRangeMilli={timeRangeMilli}
+          showexport
+          showdatepicker
         />
       </div>
     );
@@ -338,12 +341,12 @@ const StationOperator: React.FC<{
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
       {": "}
       <a
-        key={stationData.operatorLink}
-        href={stationData.operatorLink}
+        key={stationData.properties.operatorLink}
+        href={stationData.properties.operatorLink}
         rel="noopener noreferrer"
         target="_blank"
       >
-        {stationData.operator}
+        {stationData.properties.operator}
       </a>
       {stationData.properties.operatorLicense && (
         <>
@@ -408,19 +411,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     delta: 100
   });
 
-  useEffect(() => {
-    document.addEventListener("keydown", keyFunction, false);
-    return () => document.removeEventListener("keydown", keyFunction, false);
-
-    function keyFunction(event: KeyboardEvent) {
-      if (event.key === "ArrowLeft") {
-        previous();
-      } else if (event.key === "ArrowRight") {
-        next();
-      }
-    }
-  }, [next, previous]);
-
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
   if (timeRange === "interactive" && !hasInteractivePlot(station)) {
@@ -454,9 +444,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
           <h2 className="">
             <span className="weatherstation-name">{station.name} </span>
-            {isStation && station.elev && (
+            {isStation && station.altitude && (
               <span className="weatherstation-altitude">
-                {intl.formatNumberUnit(station.elev, "m")}
+                {intl.formatNumberUnit(station.altitude, "m")}
               </span>
             )}
           </h2>
@@ -477,7 +467,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
         <div className="modal-content">
           {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
-          {isStation && (
+          {isStation && !hasInteractivePlot(station) && (
             <TimeRangeButtons
               station={station}
               timeRange={timeRange}

@@ -2,6 +2,40 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.1.0] - 2026-01-26
+
+### 🚀 Features
+
+- Deep link to weather station dialog
+- Support LINEA in blog directly
+- Add AWS Bavaria to stationDataStore
+
+### 🐛 Bug Fixes
+
+- Fix PDF download link
+- Try to fix iframe-resizer warning
+- Ignore pnpm store to prevent ELOOP errors in playwright
+- Fix external URL on community page
+
+### 🚜 Refactor
+
+- Use FeaturePropertiesSchema from LINEA
+- Migrate from Yarn to pnpm (https://pnpm.io/)
+- Use @nanostores/router
+- Remove jquery dependency
+- Inline selectric component
+- Cache DateTimeFormat for performance
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to nanostores 1.1.0
+- Upgrade to playwright 1.57
+- Upgrade to eaws-regions v8.1.2
+- Upgrade to @albina-euregio/linea 8.6.0
+- Update to rolldown1.0.0-beta.58
+- Upgrade to vite 8.0.0-beta.10
+- Upgrade to rolldown 1.0.0-rc.1
+
 ## [8.0.13] - 2025-12-30
 
 ### 🚀 Features

@@ -65,6 +65,10 @@ export default defineConfig({
   envPrefix: ["APP_", "VITE_"],
   plugins: [react()],
   server: {
+    watch: {
+      // Ignore pnpm store to prevent ELOOP errors in CI where store is inside project
+      ignored: ["**/.pnpm-store/**"]
+    },
     port: 3000,
     proxy: {
       "/smet.hydrographie.info": {

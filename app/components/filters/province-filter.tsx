@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import Selectric from "../selectric";
 
 interface Props {
   value: string;
@@ -38,7 +37,11 @@ export default function ProvinceFilter(props: Props) {
   return (
     <div>
       {props.title && <p className="info">{props.title}</p>}
-      <Selectric onChange={props.handleChange} value={props.value} {...props}>
+      <select
+        className="dropdown selectric"
+        onChange={e => props.handleChange(e.target.value)}
+        value={props.value}
+      >
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
         {(props.regionCodes ?? config.regionCodes).map(r => (
@@ -46,7 +49,7 @@ export default function ProvinceFilter(props: Props) {
             {intl.formatMessage({ id: `region:${r}` })}
           </option>
         ))}
-      </Selectric>
+      </select>
     </div>
   );
 }
