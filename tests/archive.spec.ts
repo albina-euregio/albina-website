@@ -18,3 +18,15 @@ test("archive", async ({ page }) => {
     "https://static.avalanche.report/bulletins/2021-03-16//fd_EUREGIO_thumbnail.jpg"
   );
 });
+
+test("archive headless ", async ({ page }) => {
+  await page.goto("/more/archive?headless=1");
+
+  await expect(page.locator("header")).toContainText("Archive");
+  await expect(page.locator(".page-header")).toHaveCount(0);
+
+  await page.getByRole("link", { name: "Back to Avalanche Forecast" }).click();
+
+  await expect(page).toHaveURL("/bulletin/latest");
+  await expect(page.locator(".page-header")).toHaveCount(0);
+});
