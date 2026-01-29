@@ -53,35 +53,41 @@ function PageHeader() {
   return (
     <div id="page-header" className="page-header">
       <div className="page-header-logo">
-        <Tooltip
-          label={intl.formatMessage({
-            id: "header:logo:hover"
-          })}
-        >
-          <a
-            aria-label={intl.formatMessage({
+        {config.headlessLogo ? (
+          <a href="/">
+            <img src={config.headlessLogo} style={{ margin: 0 }} />
+          </a>
+        ) : (
+          <Tooltip
+            label={intl.formatMessage({
               id: "header:logo:hover"
             })}
-            href="/"
           >
-            <span className="mark">
-              <span
-                className={`mark-${lang}`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-              <span
-                className={`mark-en`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-            </span>
-            <span className="url">
-              <span
-                className={`url-${lang}`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-            </span>
-          </a>
-        </Tooltip>
+            <a
+              aria-label={intl.formatMessage({
+                id: "header:logo:hover"
+              })}
+              href="/"
+            >
+              <span className="mark">
+                <span
+                  className={`mark-${lang}`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+                <span
+                  className={`mark-en`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+              </span>
+              <span className="url">
+                <span
+                  className={`url-${lang}`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+              </span>
+            </a>
+          </Tooltip>
+        )}
       </div>
       <div id="navigation" className="page-header-navigation">
         <Menu
@@ -214,24 +220,26 @@ function PageHeader() {
           </button>
         </Tooltip>
       </div>
-      <div className="page-header-logo-secondary">
-        <Tooltip
-          label={intl.formatMessage({
-            id: "header:euregio:hover"
-          })}
-        >
-          <a
-            href={config.template(config.links.euregio, {
-              lang: lang
+      {config.links.euregio && (
+        <div className="page-header-logo-secondary">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "header:euregio:hover"
             })}
-            className="header-footer-logo-secondary"
-            rel="noopener noreferrer"
-            target="_blank"
           >
-            <span>Euregio</span>
-          </a>
-        </Tooltip>
-      </div>
+            <a
+              href={config.template(config.links.euregio, {
+                lang: lang
+              })}
+              className="header-footer-logo-secondary"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>Euregio</span>
+            </a>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 }
