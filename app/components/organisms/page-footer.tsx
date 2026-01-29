@@ -91,22 +91,24 @@ const PageFooter = () => {
               </Tooltip>
             </p>
 
-            <p className="page-footer-logo-secondary">
-              <Tooltip
-                label={intl.formatMessage({
-                  id: "footer:euregio:hover"
-                })}
-              >
-                <a
-                  href={config.template(config.links.euregio, { lang })}
-                  className="header-footer-logo-secondary"
-                  rel="noopener noreferrer"
-                  target="_blank"
+            {config.links.euregio && (
+              <p className="page-footer-logo-secondary">
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: "footer:euregio:hover"
+                  })}
                 >
-                  <span>Euregio</span>
-                </a>
-              </Tooltip>
-            </p>
+                  <a
+                    href={config.template(config.links.euregio, { lang })}
+                    className="header-footer-logo-secondary"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>Euregio</span>
+                  </a>
+                </Tooltip>
+              </p>
+            )}
           </div>
           <div className="grid-item all-12">
             <p className="page-footer-top">
