@@ -18,7 +18,6 @@ export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
 export const categories = atom([] as Category[]);
 export const searchCategory = atom("");
 export const perPage = atom(20);
-export const minYear = 2011;
 
 onMount(language, () => init());
 
@@ -136,7 +135,7 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(parsed, minYear, Temporal.Now.plainDateISO().year);
+    return clamp(parsed, config.blogsMinYear, Temporal.Now.plainDateISO().year);
   } else {
     return "";
   }
