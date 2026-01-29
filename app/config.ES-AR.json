@@ -17,6 +17,15 @@
       }
     }
   ],
+  "profilesBlog": {
+    "lang": "",
+    "name": "perfils",
+    "apiType": "blogger",
+    "regions": ["ES-AR"],
+    "params": {
+      "id": "408681982977766037"
+    }
+  },
   "techBlog": {
     "lang": "",
     "name": "tech",
