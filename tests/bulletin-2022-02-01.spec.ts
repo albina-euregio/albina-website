@@ -93,3 +93,16 @@ test("bulletin/2022-02-01 pdf", async ({ page }) => {
   );
   await pdfPage.close();
 });
+
+test("bulletin/2022-02-01 headless", async ({ page }) => {
+  await page.goto("bulletin/2022-02-01?headless=1&region=AT-07-04");
+
+  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator(".page-header")).toHaveCount(0);
+
+  await page.getByRole("link", { name: "31/01" }).click();
+
+  await expect(page).toHaveURL("/bulletin/2022-01-31");
+  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator(".page-header")).toHaveCount(0);
+});
