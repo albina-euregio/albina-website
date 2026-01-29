@@ -26,14 +26,12 @@ test.describe("weather map", () => {
     await expect(page.locator(".cp-layer-trigger")).toBeVisible();
 
     // Default timespan 12h is active
-    await expect(
-      page.locator(".cp-range-buttons .js-active")
-    ).toHaveText("12h");
+    await expect(page.locator(".cp-range-buttons .js-active")).toHaveText(
+      "12h"
+    );
 
     // Timeline range indicator is visible
-    await expect(
-      page.locator(".cp-scale-stamp-range.js-active")
-    ).toBeVisible();
+    await expect(page.locator(".cp-scale-stamp-range.js-active")).toBeVisible();
 
     // URL contains the weather map path with a timestamp
     await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
@@ -72,7 +70,9 @@ test.describe("weather map", () => {
     // Timeline switches from range to point indicator
     // (.cp-scale-stamp-point has width:0 by design, so check the text child)
     await expect(
-      page.locator(".cp-scale-stamp-point.js-active .cp-scale-stamp-point-exact")
+      page.locator(
+        ".cp-scale-stamp-point.js-active .cp-scale-stamp-point-exact"
+      )
     ).toBeVisible();
 
     // Overlay image switches to temp domain
@@ -91,9 +91,9 @@ test.describe("weather map", () => {
     await page.locator(".cp-range-24").click();
 
     // Active timespan updates to 24h
-    await expect(
-      page.locator(".cp-range-buttons .js-active")
-    ).toHaveText("24h");
+    await expect(page.locator(".cp-range-buttons .js-active")).toHaveText(
+      "24h"
+    );
 
     // URL contains +24 timespan (+ may be encoded as %2B)
     await expect(page).toHaveURL(/\/(\+|%2B)24$/);
@@ -113,9 +113,7 @@ test.describe("weather map", () => {
     // Read current time indicator text and overlay src
     const rangeEnd = page.locator(".cp-scale-stamp-range-end");
     const originalText = await rangeEnd.textContent();
-    const originalSrc = await page
-      .locator(overlayImg)
-      .getAttribute("src");
+    const originalSrc = await page.locator(overlayImg).getAttribute("src");
 
     // Click next-step button
     await page.locator(".cp-scale-flipper-right").click();
@@ -134,10 +132,7 @@ test.describe("weather map", () => {
     await expect(rangeEnd).toHaveText(originalText!);
 
     // Overlay returns to original and loads
-    await expect(page.locator(overlayImg)).toHaveAttribute(
-      "src",
-      originalSrc!
-    );
+    await expect(page.locator(overlayImg)).toHaveAttribute("src", originalSrc!);
     await expectOverlayLoaded(page);
 
     // Verify we actually moved (advanced text was different)
@@ -189,14 +184,10 @@ test.describe("weather map", () => {
     });
 
     // Navigate to a specific timestamp (ISO format as used by the router)
-    await page.goto(
-      "/weather/map/new-snow/2025-01-15T12:00:00.000Z/%2B12"
-    );
+    await page.goto("/weather/map/new-snow/2025-01-15T12:00:00.000Z/%2B12");
 
     // Timeline indicator should be visible
-    await expect(
-      page.locator(".cp-scale-stamp-range.js-active")
-    ).toBeVisible();
+    await expect(page.locator(".cp-scale-stamp-range.js-active")).toBeVisible();
 
     // Check for obvious date errors (1970 = epoch fallback)
     const rangeText = await page
@@ -247,9 +238,9 @@ test.describe("overlay availability", () => {
       // +12 is the default; click to switch for others
       if (hours !== 12) {
         await page.locator(`.cp-range-${hours}`).click();
-        await expect(
-          page.locator(".cp-range-buttons .js-active")
-        ).toHaveText(`${hours}h`);
+        await expect(page.locator(".cp-range-buttons .js-active")).toHaveText(
+          `${hours}h`
+        );
       }
 
       await expect(page.locator(overlayImg)).toHaveAttribute(
@@ -269,9 +260,9 @@ test.describe("overlay availability", () => {
       // -6 is the default (first in list); click to switch for others
       if (hours !== 6) {
         await page.locator(`.cp-range-${hours}`).click();
-        await expect(
-          page.locator(".cp-range-buttons .js-active")
-        ).toHaveText(`${hours}h`);
+        await expect(page.locator(".cp-range-buttons .js-active")).toHaveText(
+          `${hours}h`
+        );
       }
 
       await expect(page.locator(overlayImg)).toHaveAttribute(
