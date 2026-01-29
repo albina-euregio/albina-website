@@ -72,11 +72,16 @@
     "@vitejs/plugin-react": "^5.1.2",
     "git-cliff": "^2.10.1",
     "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "oxfmt": "^0.26.0",
     "oxlint": "^1.41.0",
     "rolldown": "1.0.0-rc.3",
     "sass": "^1.94.0",
     "vite": "8.0.0-beta.13"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run test",
+    "*": "oxfmt --no-error-on-unmatched-pattern"
   },
   "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
   "patchedDependencies": {
