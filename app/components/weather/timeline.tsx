@@ -237,9 +237,7 @@ const Timeline = ({ updateCB }) => {
   }, [currentTranslateX, indicatorOffset]);
 
   useEffect(() => {
-    // Only update URL if there's already a timestamp in the URL
-    // (user explicitly set a time, not a fresh domain navigation)
-    if (+currentDate > 0 && router?.params?.timestamp) {
+    if (+currentDate > 0) {
       navigateToWeatermapWithParams(
         new Date(currentDate).toISOString(),
         store.timeSpan.get()
@@ -248,8 +246,7 @@ const Timeline = ({ updateCB }) => {
   }, [currentDate]);
 
   useEffect(() => {
-    // Only update URL if there's already a timestamp in the URL
-    if (+currentDate > 0 && router?.params?.timestamp) {
+    if (+currentDate > 0) {
       navigateToWeatermapWithParams(
         new Date(currentDate).toISOString(),
         store.timeSpan.get()
