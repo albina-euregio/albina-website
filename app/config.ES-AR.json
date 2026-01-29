@@ -6,7 +6,17 @@
   "extraRegions": [],
   "eawsRegions": [],
   "eawsRegionsExclude": ["ES", "FR"],
-  "blogs": [],
+  "blogs": [
+    {
+      "lang": "es",
+      "name": "es",
+      "apiType": "blogger",
+      "regions": ["ES-AR"],
+      "params": {
+        "id": "3413694358149639098"
+      }
+    }
+  ],
   "techBlog": {
     "lang": "",
     "name": "tech",
@@ -29,7 +39,7 @@
     },
     "push": "https://api.avalanche.report/albina/api/push",
     "subscribe": "https://api.avalanche.report/albina/api/email",
-    "blogger": "https://api.avalanche.report/blog/",
+    "blogger": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "plots": "https://stations.invalid/",
       "observers": "https://stations.invalid/",
@@ -42,7 +52,7 @@
   },
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
-    "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
+    "google": "AIzaSyCFRRKGXXxLMk4Iup6NPxQDFwudAw973dE"
   },
   "links": {
     "eaws": "https://www.avalanches.org/",

@@ -122,6 +122,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   };
 
   const classChanged = "selectric-changed";
+  const supportedLanguages = useStore(BLOG_STORE.supportedLanguages);
 
   return (
     <>
@@ -156,6 +157,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             })}
             handleChange={handleChangeLanguage}
             value={language}
+            languages={supportedLanguages}
             className={language !== "all" ? classChanged : ""}
           />
         )}

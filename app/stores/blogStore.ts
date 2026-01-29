@@ -2,11 +2,11 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
+import { Language } from "../appStore";
 
 export const isTechBlog = atom<boolean>(false);
 export const isProfileBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");
-export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
@@ -45,6 +45,12 @@ export const blogConfigs = computed(
       .filter(cfg => [cfg.lang, "all", ""].includes(language))
       .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)));
   }
+);
+
+export const supportedLanguages = computed([], () =>
+  window.config.blogs
+    .map(cfg => cfg.lang as Language)
+    .filter((lang, index, array) => array.indexOf(lang) === index)
 );
 
 export const postItems = computed(posts, posts =>
@@ -150,7 +156,9 @@ export function validateLanguage(
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
-  return "en";
+  return supportedLanguages.get().includes("en")
+    ? "en"
+    : supportedLanguages.get()[0];
 }
 
 export function validateProblem(valueToValidate: string): string {
