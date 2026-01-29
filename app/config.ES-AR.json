@@ -105,6 +105,7 @@
     { "url": "/education", "showSub": true },
     { "url": "/more", "showSub": true }
   ],
+  "blogsMinYear": 2025,
   "blogs": [
     {
       "lang": "es",

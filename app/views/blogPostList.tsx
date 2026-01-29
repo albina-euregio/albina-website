@@ -203,7 +203,7 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
             id: "blog:filter:year"
           })}
           all={intl.formatMessage({ id: "filter:all" })}
-          minYear={BLOG_STORE.minYear}
+          minYear={config.blogsMinYear}
           handleChange={handleChangeYear}
           value={year}
           className={year !== "" ? classChanged : ""}
