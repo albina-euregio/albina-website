@@ -128,6 +128,7 @@
     { "url": "/education", "showSub": true },
     { "url": "/more", "showSub": true }
   ],
+  "blogsMinYear": 2013,
   "blogs": [
     {
       "lang": "es",
