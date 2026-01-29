@@ -3,10 +3,11 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
+import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/src/schema/listing-legacy";
 import {
   FeatureCollectionSchema,
   FeatureSchema
-} from "@albina-euregio/linea/src/schema/listing-legacy";
+} from "@albina-euregio/linea/src/schema/listing";
 
 type Feature = z.infer<typeof FeatureSchema>;
 
@@ -18,7 +19,11 @@ export class StationData {
   $png: string | undefined;
   $stationsArchiveFile: string | undefined;
 
-  constructor(object: Feature) {
+  constructor(object: {
+    id: Feature["id"];
+    geometry: Feature["geometry"];
+    properties: Feature["properties"];
+  }) {
     this.id = object.id;
     this.geometry = object.geometry;
     this.properties = object.properties;
@@ -377,9 +382,12 @@ export async function loadStationData({
         }
 
         const json = await response.json();
-        const collection = FeatureCollectionSchema.parse(json, {
-          reportInput: true
-        });
+        const searchParams = new URL(url, location.href).searchParams;
+        const isLegacy = searchParams.get("v") === "legacy";
+        const schema = isLegacy
+          ? LegacyFeatureCollectionSchema
+          : FeatureCollectionSchema;
+        const collection = schema.parse(json, { reportInput: true });
         const stations = collection.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
