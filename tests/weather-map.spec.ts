@@ -114,25 +114,30 @@ test.describe("weather map", () => {
     const rangeEnd = page.locator(".cp-scale-stamp-range-end");
     const originalText = await rangeEnd.textContent();
     const originalSrc = await page.locator(overlayImg).getAttribute("src");
+    expect(originalText).toBeTruthy();
+    expect(originalSrc).toBeTruthy();
 
     // Click next-step button
     await page.locator(".cp-scale-flipper-right").click();
-    await expect(rangeEnd).not.toHaveText(originalText!);
+    await expect(rangeEnd).not.toHaveText(originalText ?? "");
     const advancedText = await rangeEnd.textContent();
 
     // Overlay image src should change (different time slot) and load
     await expect(page.locator(overlayImg)).not.toHaveAttribute(
       "src",
-      originalSrc!
+      originalSrc ?? ""
     );
     await expectOverlayLoaded(page);
 
     // Click previous-step button to return
     await page.locator(".cp-scale-flipper-left").click();
-    await expect(rangeEnd).toHaveText(originalText!);
+    await expect(rangeEnd).toHaveText(originalText ?? "");
 
     // Overlay returns to original and loads
-    await expect(page.locator(overlayImg)).toHaveAttribute("src", originalSrc!);
+    await expect(page.locator(overlayImg)).toHaveAttribute(
+      "src",
+      originalSrc ?? ""
+    );
     await expectOverlayLoaded(page);
 
     // Verify we actually moved (advanced text was different)
