@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("blog", async ({ page }) => {
-  await page.goto("/blog");
+  await page.goto("blog");
   await expect(page.locator("header")).toContainText("Blog Posts");
 
   await page
@@ -44,14 +44,14 @@ test("blog", async ({ page }) => {
 });
 
 test("blog headless", async ({ page }) => {
-  await page.goto("/blog/?headless=1&province=AT-02&searchLang=de");
+  await page.goto("blog/?headless=1&province=AT-02&searchLang=de");
 
   await expect(page.locator("header")).toContainText("Blog Posts");
   await expect(page.locator(".page-header")).toHaveCount(0);
 
   await page.getByRole("link", { name: "Back to Avalanche Forecast" }).click();
 
-  await expect(page).toHaveURL("/bulletin/latest");
+  await expect(page).toHaveURL("bulletin/latest");
   await expect(page.locator(".page-header")).toHaveCount(0);
 
   await page.goBack();

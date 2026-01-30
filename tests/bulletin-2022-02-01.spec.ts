@@ -102,7 +102,7 @@ test("bulletin/2022-02-01 headless", async ({ page }) => {
 
   await page.getByRole("link", { name: "31/01" }).click();
 
-  await expect(page).toHaveURL("/bulletin/2022-01-31");
+  await expect(page).toHaveURL("bulletin/2022-01-31");
   await expect(page.locator("header")).toContainText("Avalanche Forecast");
   await expect(page.locator(".page-header")).toHaveCount(0);
 });
