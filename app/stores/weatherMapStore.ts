@@ -581,6 +581,7 @@ async function _loadIndexData() {
 export const startTime = computed(
   [startDate, timeRange],
   (startDate, timeRange) => {
+    if (!startDate) return null;
     const startTime = new Date(startDate);
     startTime.setUTCHours(startTime.getUTCHours() + +timeRange[0]);
     return startTime;
@@ -590,6 +591,7 @@ export const startTime = computed(
 export const endTime = computed(
   [agl, timeSpan, timeSpanInt, timeRange],
   (agl, timeSpan, timeSpanInt, timeRange) => {
+    if (!agl) return null;
     const endTime = new Date(agl);
 
     if (timeSpanInt === 12 && [6, 18].includes(endTime.getUTCHours())) {
@@ -608,6 +610,7 @@ export const endTime = computed(
 export const initialDate = computed(
   [currentTime, endTime, timeSpanInt],
   (currentTime, endTime, timeSpanInt) => {
+    if (!currentTime || !endTime) return null;
     currentTime = new Date(currentTime);
     endTime = new Date(endTime);
     const initialDate = +currentTime > +endTime ? endTime : currentTime;
