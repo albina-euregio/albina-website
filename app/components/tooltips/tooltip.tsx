@@ -49,7 +49,7 @@ export const Tooltip = ({
       delay: { open: 200 },
       restMs: 40,
       mouseOnly: true,
-      handleClose: safePolygon()
+      handleClose: safePolygon({ blockPointerEvents: false })
     }),
     useClick(context, {
       enabled: enableClick

@@ -72,8 +72,8 @@ const WeatherMapCockpit = () => {
     body.classList.remove("layer-selector-open");
     switch (type) {
       case "domain": {
-        // Navigate with preserved timestamp, like keyboard jumpDomain.
-        // weather.tsx's useEffect handles calling changeDomain.
+        // Navigate with preserved timestamp.
+        // weather.tsx's useEffect handles calling initDomain.
         const ct = store.currentTime.get();
         if (ct && +ct > 0) {
           redirectPage($router, "weatherMapDomainTimestamp", {
@@ -85,12 +85,17 @@ const WeatherMapCockpit = () => {
         }
         break;
       }
-      case "timeSpan":
-        store.changeTimeSpan(value);
+      case "timeSpan": {
+        // Route through URL — weather.tsx calls initDomain with new timeSpan
+        const ct = store.currentTime.get();
+        const domain = store.domainId.get();
+        redirectPage($router, "weatherMapDomainTimestamp", {
+          domain,
+          timestamp: ct ? ct.toISOString() : "",
+          timeSpan: value
+        });
         break;
-      case "time":
-        store.changeCurrentTime(value);
-        break;
+      }
       default:
         break;
     }
@@ -315,7 +320,7 @@ const WeatherMapCockpit = () => {
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline key="cp-timeline" updateCB={handleEvent} />
+          <Timeline key="cp-timeline" />
         </div>
 
         {getTimeSpanOptions()}

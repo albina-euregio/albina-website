@@ -9,6 +9,7 @@ import * as store from "../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { $router } from "../components/router";
+import { redirectPage } from "@nanostores/router";
 import Player from "../js/player";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
 
@@ -20,28 +21,16 @@ const Weather = () => {
 
   const [headerText] = useState("");
 
-  const [playing, setPlaying] = useState(false);
-
   const domainId = useStore(store.domainId);
+  const currentTime = useStore(store.currentTime);
   const stations = useStore(store.stations);
   const selectedFeature = useStore(store.selectedFeature);
 
-  const [player] = useState(() => {
-    //console.log("player->new Player s05");
-    return Player({
-      transitionTime: 1000,
-      onTick: () => {
-        //console.log("player->onTick s05");
-        store.changeCurrentTime(store.nextTime);
-      },
-      onStop: () => {
-        setPlaying(false);
-      },
-      onStart: () => {
-        setPlaying(true);
-      }
-    });
-  });
+  // Player tracks overlay load events (loading/load/error) for layer coordination.
+  // The onTick animation is handled by timeline.tsx's internal player instead.
+  const [player] = useState(() =>
+    Player({ transitionTime: 1000, onTick: () => {} })
+  );
 
   useEffect(() => {
     const footer = document.getElementById("page-footer");
@@ -53,9 +42,20 @@ const Weather = () => {
   }, []);
 
   useEffect(() => {
-    //console.log("weather->useeffect[params.domain]", {params});
-    store.changeDomain(params.domain, params.timeSpan);
-  }, [params.domain, params.timeSpan]);
+    store.initDomain(params.domain, params.timeSpan, params.timestamp);
+  }, [params.domain, params.timeSpan, params.timestamp]);
+
+  // Sync resolved timestamp to URL when navigating without one (e.g., /weather/map/new-snow/)
+  // This ensures the URL always reflects the current state for bookmarking and reload.
+  useEffect(() => {
+    if (currentTime && domainId && !params.timestamp) {
+      redirectPage($router, "weatherMapDomainTimestamp", {
+        domain: domainId,
+        timestamp: currentTime.toISOString(),
+        timeSpan: store.timeSpan.get()
+      });
+    }
+  }, [currentTime, domainId, params.timestamp]);
 
   return (
     <>
@@ -78,7 +78,7 @@ const Weather = () => {
           <div className="section-map">
             <WeatherMap
               playerCB={player.onLayerEvent}
-              isPlaying={playing}
+              isPlaying={false}
               onMarkerSelected={feature => setStationId(feature?.id)}
               onViewportChanged={() => {}}
             />
