@@ -189,13 +189,12 @@ const Timeline = ({ updateCB }) => {
   }, [currentDate]);
 
   useEffect(() => {
+    if (!startTime || !endTime) return;
     setMaxStartDay(
-      startTime
-        ? Math.floor(differenceInHours(startTime, now) / hoursPerDay)
-        : -30
+      Math.floor(differenceInHours(startTime, now) / hoursPerDay)
     );
     setMaxEndDay(
-      endTime ? Math.floor(differenceInHours(endTime, now) / hoursPerDay) : 30
+      Math.floor(differenceInHours(endTime, now) / hoursPerDay)
     );
   }, [startTime, endTime, now]);
 
@@ -325,6 +324,7 @@ const Timeline = ({ updateCB }) => {
   };
 
   const jumpStep = (direction: 1 | -1 | number) => {
+    if (!endTime || !startTime) return;
     const newDate = new Date(currentDateRef.current);
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
 
@@ -377,10 +377,10 @@ const Timeline = ({ updateCB }) => {
 
         const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
 
-        if (isSelectable && +markDate >= +startTime && +markDate <= +endTime)
+        if (isSelectable && startTime && endTime && +markDate >= +startTime && +markDate <= +endTime)
           markClass.push("selectable-hour-mark");
         else markClass.push("hour-mark");
-        if (isSelectable) {
+        if (isSelectable && endTime) {
           const nextSelectableDate = new Date(markDate);
           nextSelectableDate.setUTCHours(
             nextSelectableDate.getUTCHours() + selectableHoursOffset
@@ -389,7 +389,7 @@ const Timeline = ({ updateCB }) => {
             markClass.push("selectable-hours-end");
           }
         }
-        if (+markDate === +startTime) markClass.push("selectable-hours-start");
+        if (startTime && +markDate === +startTime) markClass.push("selectable-hours-start");
 
         const marking = (
           <div
@@ -622,8 +622,8 @@ const Timeline = ({ updateCB }) => {
               width: 0,
               height: 0
             }}
-            min={formatDateToLocalDateTime(startTime)}
-            max={formatDateToLocalDateTime(endTime)}
+            min={startTime ? formatDateToLocalDateTime(startTime) : undefined}
+            max={endTime ? formatDateToLocalDateTime(endTime) : undefined}
           />
         )}
       </div>
