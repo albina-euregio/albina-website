@@ -5,7 +5,8 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
-//import { tooltip_init } from "../tooltips/tooltip-dom";
+import { $router } from "../router";
+import { redirectPage } from "@nanostores/router";
 
 const DOMAIN_ICON_CLASSES = {
   temp: "icon-temperature",
@@ -70,9 +71,20 @@ const WeatherMapCockpit = () => {
     const body = document?.querySelector("body");
     body.classList.remove("layer-selector-open");
     switch (type) {
-      case "domain":
-        store.changeDomain(value);
+      case "domain": {
+        // Navigate with preserved timestamp, like keyboard jumpDomain.
+        // weather.tsx's useEffect handles calling changeDomain.
+        const ct = store.currentTime.get();
+        if (ct && +ct > 0) {
+          redirectPage($router, "weatherMapDomainTimestamp", {
+            domain: value,
+            timestamp: ct.toISOString()
+          });
+        } else {
+          redirectPage($router, "weatherMapDomain", { domain: value });
+        }
         break;
+      }
       case "timeSpan":
         store.changeTimeSpan(value);
         break;
@@ -113,7 +125,10 @@ const WeatherMapCockpit = () => {
         <a
           key={aButton.id}
           href={aButton.url}
-          onClick={() => handleEvent("domain", aButton.id)}
+          onClick={e => {
+            e.preventDefault();
+            handleEvent("domain", aButton.id);
+          }}
           className={linkClasses.join(" ")}
         >
           {/* <span className={spanClasses.join(" ")}>{aButton.title}</span> */}
