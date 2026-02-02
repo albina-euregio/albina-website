@@ -557,7 +557,9 @@ async function _loadDomainData() {
 /*
  * get data for currentTime
  */
+let _loadIndexGeneration = 0;
 async function _loadIndexData() {
+  const generation = ++_loadIndexGeneration;
   stations.set([]);
   grid.set([]);
 
@@ -566,7 +568,10 @@ async function _loadIndexData() {
 
   try {
     await loadStationData({
-      consumer: s => stations.set([...stations.get(), ...s]),
+      consumer: s => {
+        if (generation !== _loadIndexGeneration) return;
+        stations.set([...stations.get(), ...s]);
+      },
       dateTime: currentTime
         .get()
         ?.toTemporalInstant()
