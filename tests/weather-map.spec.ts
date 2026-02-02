@@ -382,8 +382,7 @@ test.describe("regression: mouse domain switch preserves time", () => {
     const dateAfter = new Date(tsAfter!);
     expect(dateAfter.getFullYear()).toBeGreaterThan(2020);
 
-    const diffHours =
-      Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
+    const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
     expect(diffHours).toBeLessThan(12);
 
     // Overlay for the new domain must load
