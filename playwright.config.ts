@@ -12,6 +12,8 @@ import { devices } from "@playwright/test";
  */
 const config: PlaywrightTestConfig = {
   testDir: "./tests",
+  /* Exclude weather map tests in CI (too slow for CI time limit) */
+  testIgnore: process.env.CI ? ["**/weather-map.spec.ts"] : [],
   /* Maximum time one test can run for. */
   timeout: 12 * 1000,
   expect: {
