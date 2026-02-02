@@ -255,7 +255,7 @@ const Timeline = ({ updateCB }) => {
         updateCB("time", router?.params.timestamp);
       }
     }
-  }, [router?.params.timestamp]);
+  }, [router?.params.timestamp, domainId]);
 
   const calcIndicatorOffset = () => {
     const newIndicatorOffset =

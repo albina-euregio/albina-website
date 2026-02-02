@@ -431,6 +431,60 @@ test.describe("regression: mouse domain switch preserves time", () => {
   });
 });
 
+test.describe("regression: domain switch in future preserves time", () => {
+  test("switching domain at future time keeps timestamp and hides stations", async ({
+    page
+  }) => {
+    const stationMarkers = page.locator(
+      ".leaflet-marker-pane .leaflet-marker-icon"
+    );
+
+    // Start on temp (instantaneous, hourly slots, shows stations for past)
+    await page.goto("/weather/map/temp/");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    // Step forward into the future (past data availability boundary)
+    for (let i = 0; i < 6; i++) {
+      await page.keyboard.press("ArrowRight");
+      await page.waitForTimeout(300);
+    }
+
+    // Record the future timestamp
+    const tsBefore = extractTimestamp(page.url());
+    expect(tsBefore).toBeTruthy();
+    const dateBefore = new Date(tsBefore ?? "");
+    expect(dateBefore.getFullYear()).toBeGreaterThan(2020);
+
+    // Switch to wind domain via click
+    await page.locator(".cp-layer-trigger").click();
+    await page
+      .locator(".cp-layer-selector .cp-layer-selector-item", {
+        hasText: "Wind"
+      })
+      .click();
+
+    // Wait for new domain to load
+    await expect(page.locator(".cp-layer-trigger")).toContainText("Wind");
+    await expect(page).toHaveURL(/\/weather\/map\/wind\/\d/);
+
+    // Timestamp must not be epoch
+    const tsAfter = extractTimestamp(page.url());
+    expect(tsAfter).toBeTruthy();
+    const dateAfter = new Date(tsAfter ?? "");
+    expect(dateAfter.getFullYear()).toBeGreaterThan(2020);
+
+    // Timestamp should be close to original (within 1h — both are hourly domains)
+    const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
+    expect(diffHours).toBeLessThan(1);
+
+    // Wait for any async station loading to settle
+    await page.waitForTimeout(2000);
+
+    // Station markers must NOT appear — we are in the future
+    await expect(stationMarkers).toHaveCount(0);
+  });
+});
+
 test.describe("regression: station markers clear on future time", () => {
   // Use a generous timeout — this test navigates many timeline steps
   test.setTimeout(30_000);
