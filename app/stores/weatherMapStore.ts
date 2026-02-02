@@ -683,7 +683,7 @@ export const endTime = computed(
     if (timeSpanInt % 24 === 0 && [12].includes(endTime.getUTCHours())) {
       endTime.setUTCHours(endTime.getUTCHours() - 12);
     }
-    if (timeSpan?.includes("+")) {
+    if (timeSpan && /^\+\d/.test(timeSpan)) {
       endTime.setUTCHours(endTime.getUTCHours() + +timeRange[1]);
     }
     return endTime;

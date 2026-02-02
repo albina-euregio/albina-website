@@ -1,22 +1,11 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import {
+  SEL,
+  expectOverlayLoaded,
+  extractTimestamp
+} from "./weather-map-helpers";
 
-// Visible overlay image rendered by Leaflet
-const overlayImg = ".leaflet-image-layer.map-info-layer";
-
-/** Assert the overlay image has fully loaded (not a broken/missing image). */
-async function expectOverlayLoaded(page: Page) {
-  await expect
-    .poll(
-      () =>
-        page
-          .locator(overlayImg)
-          .evaluate(
-            (img: HTMLImageElement) => img.complete && img.naturalWidth > 0
-          ),
-      { message: "overlay image should load successfully", timeout: 10_000 }
-    )
-    .toBe(true);
-}
+const overlayImg = SEL.overlayImg;
 
 test.describe("weather map", () => {
   test("page load & default state", async ({ page }) => {
@@ -283,12 +272,6 @@ test.describe("overlay availability", () => {
 // Regression tests for specific bug fixes
 // ---------------------------------------------------------------------------
 
-/** Extract the ISO timestamp segment from a weather-map URL. */
-function extractTimestamp(url: string): string | null {
-  const m = url.match(/\/weather\/map\/[^/]+\/([^/]+)/);
-  return m ? decodeURIComponent(m[1]) : null;
-}
-
 test.describe("regression: epoch date on reload", () => {
   test("reload preserves timestamp, no 1970 fallback", async ({ page }) => {
     await page.goto("/weather/map/new-snow/");
@@ -392,32 +375,44 @@ test.describe("regression: mouse domain switch preserves time", () => {
   test("mouse and keyboard domain switch produce same behaviour", async ({
     page
   }) => {
-    await page.goto("/weather/map/new-snow/");
-    await page.locator(".cp-scale-stamp-range.js-active").waitFor();
-    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
+    // Use temp domain — its neighbor (wind) shares the same +-1 hourly slots,
+    // so round-trip navigation doesn't shift the timestamp.
+    await page.goto("/weather/map/temp/");
+    // The point indicator has width:0 in CSS (it's a positioning anchor for the
+    // arrow child), so Playwright considers it hidden. Wait for DOM attachment only.
+    await page
+      .locator(".cp-scale-stamp-point.js-active")
+      .waitFor({ state: "attached" });
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
 
     const tsStart = extractTimestamp(page.url());
     expect(tsStart).toBeTruthy();
 
     // Keyboard: switch to next domain (n) then back (p)
     await page.keyboard.press("n");
-    await expect(page).not.toHaveURL(/\/weather\/map\/new-snow\//);
-    const tsKeyboard = extractTimestamp(page.url());
+    await expect(page).not.toHaveURL(/\/weather\/map\/temp\//);
+    const keyboardUrl = page.url();
+    const tsKeyboard = extractTimestamp(keyboardUrl);
     expect(tsKeyboard).toBeTruthy();
     expect(new Date(tsKeyboard ?? "").getFullYear()).toBeGreaterThan(2020);
 
-    await page.keyboard.press("p");
-    await expect(page).toHaveURL(/\/weather\/map\/new-snow\//);
+    // Extract the domain we navigated to via keyboard
+    const keyboardDomain =
+      keyboardUrl.match(/\/weather\/map\/([^/]+)\//)?.[1] ?? "";
+    expect(keyboardDomain).toBeTruthy();
 
-    // Mouse: switch to the same next domain via click
+    await page.keyboard.press("p");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\//);
+
+    // Mouse: switch to the same domain via click
     await page.locator(".cp-layer-trigger").click();
 
-    // Get the next domain name from the selector (2nd item = next domain)
-    const nextDomainItem = page
-      .locator(".cp-layer-selector .cp-layer-selector-item")
-      .nth(1);
+    // Click the domain item that matches the keyboard-navigated domain
+    const nextDomainItem = page.locator(
+      `.cp-layer-selector .cp-layer-selector-item[href="/weather/map/${keyboardDomain}"]`
+    );
     await nextDomainItem.click();
-    await expect(page).not.toHaveURL(/\/weather\/map\/new-snow\//);
+    await expect(page).not.toHaveURL(/\/weather\/map\/temp\//);
 
     const tsMouse = extractTimestamp(page.url());
     expect(tsMouse).toBeTruthy();
@@ -435,8 +430,10 @@ test.describe("regression: domain switch in future preserves time", () => {
   test("switching domain at future time keeps timestamp and hides stations", async ({
     page
   }) => {
+    // Exclude wind direction arrow markers (title="directionMarker") which are
+    // part of the overlay visualization and appear regardless of time.
     const stationMarkers = page.locator(
-      ".leaflet-marker-pane .leaflet-marker-icon"
+      '.leaflet-marker-pane .leaflet-marker-icon:not([title="directionMarker"])'
     );
 
     // Start on temp (instantaneous, hourly slots, shows stations for past)
@@ -459,7 +456,7 @@ test.describe("regression: domain switch in future preserves time", () => {
     await page.locator(".cp-layer-trigger").click();
     await page
       .locator(".cp-layer-selector .cp-layer-selector-item", {
-        hasText: "Wind"
+        hasText: "Average wind"
       })
       .click();
 

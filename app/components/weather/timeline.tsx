@@ -29,7 +29,7 @@ const Timeline = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
-  const [markerRenewed, setMarkerRenewed] = useState(null);
+  const markersReady = useRef(false);
   const [targetDate, setTargetDate] = useState<Date>();
   // currentDate is derived from the store — single source of truth
   const currentDate = initialDate;
@@ -48,6 +48,7 @@ const Timeline = () => {
   const [selectableHoursOffset, setSelectableHoursOffset] =
     useState(timeSpanInt);
   const currentDateRef = useRef(initialDate);
+  const pendingNav = useRef<number | null>(null);
 
   const hoursPerDay = 24;
   const daysBuild = 10;
@@ -101,17 +102,16 @@ const Timeline = () => {
   }, []);
 
   // Sync targetDate (for visual ruler positioning) from store's initialDate.
-  // All snapping, clamping and default time logic is handled by initDomain() in the store.
+  // Depend on the timestamp number (not the Date reference) so this only fires
+  // when the actual time value changes, preventing cascading re-renders.
+  const initialDateMs = initialDate ? +initialDate : 0;
   useEffect(() => {
-    if (initialDate && +initialDate > 0) {
-      if (
-        !targetDate ||
-        initialDate?.toISOString() !== targetDate?.toISOString()
-      ) {
-        setTargetDate(new Date(initialDate));
+    if (initialDateMs > 0) {
+      if (!targetDate || initialDateMs !== +targetDate) {
+        setTargetDate(new Date(initialDateMs));
       }
     }
-  }, [initialDate]);
+  }, [initialDateMs]);
 
   useEffect(() => {
     let intervalId: number;
@@ -134,7 +134,7 @@ const Timeline = () => {
 
   useEffect(() => {
     currentDateRef.current = initialDate;
-  }, [initialDate]);
+  }, [initialDateMs]);
 
   useEffect(() => {
     if (!startTime || !endTime) return;
@@ -159,14 +159,19 @@ const Timeline = () => {
   }, [timeSpanInt, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
-    if (markerRenewed) {
+    if (markersReady.current) {
       calcIndicatorOffset();
     }
   }, [markerPosition]);
 
+  // After ruler markers are (re-)rendered, snap the ruler to the current date.
+  // Deps mirror rulerMarkings useMemo so this fires after each marker regeneration.
   useEffect(() => {
-    if (markerRenewed && targetDate) snapToDate(targetDate);
-  }, [markerRenewed]);
+    if (targetDate) {
+      markersReady.current = true;
+      snapToDate(targetDate);
+    }
+  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   useEffect(() => {
     setPlayerIsActive(false);
@@ -247,10 +252,17 @@ const Timeline = () => {
     newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
 
     if (newDate <= endTime && newDate >= startTime) {
-      navigateToWeatermapWithParams(
-        newDate.toISOString(),
-        store.timeSpan.get()
-      );
+      // Update the ref eagerly so rapid keypresses accumulate steps
+      currentDateRef.current = newDate;
+      // Throttle navigation to one per animation frame to avoid cascading re-renders
+      if (pendingNav.current) cancelAnimationFrame(pendingNav.current);
+      pendingNav.current = requestAnimationFrame(() => {
+        pendingNav.current = null;
+        navigateToWeatermapWithParams(
+          newDate.toISOString(),
+          store.timeSpan.get()
+        );
+      });
     }
   };
 
@@ -359,7 +371,6 @@ const Timeline = () => {
         else markingsForecast.push(marking);
       }
     }
-    setMarkerRenewed(new Date());
     return (
       <div>
         <span className="cp-scale-analyse">{markingsAnalysis}</span>
@@ -373,6 +384,13 @@ const Timeline = () => {
     if (snap) {
       const snapToHours = selectableHoursOffset * pixelsPerHour;
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
+    }
+
+    // Clamp to valid selectable range so the user can't drag past startTime/endTime
+    if (startTime && endTime) {
+      const minTranslateX = differenceInHours(startTime, startOfDay) * pixelsPerHour;
+      const maxTranslateX = differenceInHours(endTime, startOfDay) * pixelsPerHour;
+      usedTranslateX = Math.max(minTranslateX, Math.min(maxTranslateX, usedTranslateX));
     }
 
     setCurrentTranslateX(usedTranslateX);
@@ -411,13 +429,15 @@ const Timeline = () => {
   };
 
   const snapToDate = (newTargetDate: Date) => {
-    // Adjust newTargetDate to the nearest valid hour based on firstHour and timeSpan
-    const hours = newTargetDate.getUTCHours();
+    // Adjust to the nearest valid hour based on firstHour and timeSpan.
+    // Work on a copy so we never mutate the caller's Date (e.g. targetDate state).
+    const snapped = new Date(newTargetDate);
+    const hours = snapped.getUTCHours();
     const adjustedHours =
       Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
-    newTargetDate.setUTCHours(adjustedHours, 0, 0, 0);
+    snapped.setUTCHours(adjustedHours, 0, 0, 0);
 
-    const { targetMarker } = getMarkerCenterX(newTargetDate);
+    const { targetMarker } = getMarkerCenterX(snapped);
 
     const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
 
