@@ -190,12 +190,8 @@ const Timeline = ({ updateCB }) => {
 
   useEffect(() => {
     if (!startTime || !endTime) return;
-    setMaxStartDay(
-      Math.floor(differenceInHours(startTime, now) / hoursPerDay)
-    );
-    setMaxEndDay(
-      Math.floor(differenceInHours(endTime, now) / hoursPerDay)
-    );
+    setMaxStartDay(Math.floor(differenceInHours(startTime, now) / hoursPerDay));
+    setMaxEndDay(Math.floor(differenceInHours(endTime, now) / hoursPerDay));
   }, [startTime, endTime, now]);
 
   useEffect(() => {
@@ -377,7 +373,13 @@ const Timeline = ({ updateCB }) => {
 
         const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
 
-        if (isSelectable && startTime && endTime && +markDate >= +startTime && +markDate <= +endTime)
+        if (
+          isSelectable &&
+          startTime &&
+          endTime &&
+          +markDate >= +startTime &&
+          +markDate <= +endTime
+        )
           markClass.push("selectable-hour-mark");
         else markClass.push("hour-mark");
         if (isSelectable && endTime) {
@@ -389,7 +391,8 @@ const Timeline = ({ updateCB }) => {
             markClass.push("selectable-hours-end");
           }
         }
-        if (startTime && +markDate === +startTime) markClass.push("selectable-hours-start");
+        if (startTime && +markDate === +startTime)
+          markClass.push("selectable-hours-start");
 
         const marking = (
           <div
