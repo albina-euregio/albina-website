@@ -292,22 +292,28 @@ const Bulletin = () => {
           toggleProblem={toggleProblem}
         />
       </Suspense>
-      <BulletinButtonbar activeBulletinCollection={collection} />
-
-      {/* <section id="section-bulletin-controlbar" className="section-padding-height section-bulletin-controlbar">
-        <div className="controlbar 0controlbar-big">
-          <div className="section-centered">
+      {!config.bulletin.showAllBulletins && !region && status === "ok" && (
+        <ControlBar
+          message={
             <section className="section-header align-center">
               <p className="controlbar-top">
-                <a href="#page-all" title="Top" className="icon-link icon-arrow-up" data-scroll><span>Back to Map</span></a>
+                <a href="#page-all" className="icon-link icon-arrow-up">
+                  <span>
+                    <FormattedMessage id="bulletin:linkbar:back-to-map" />
+                  </span>
+                </a>
               </p>
-              <h2 className="subheader">Region in Karte wählen</h2>
-              <p className="subheader">für den detaillierten Lawinenlagebericht</p>
+              <h2 className="subheader">
+                <FormattedMessage id="bulletin:select-region:title" />
+              </h2>
+              <p className="subheader">
+                <FormattedMessage id="bulletin:select-region:subtitle" />
+              </p>
             </section>
-          </div>
-        </div>
-      </section> */}
-
+          }
+        />
+      )}
+      <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
           <div className="section-centered">
