@@ -101,36 +101,69 @@ const Timeline = ({ updateCB }) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  // Helper to snap a date to the nearest valid time slot for current domain
+  const snapToValidSlot = (date: Date, slotInterval: number): Date => {
+    const snapped = new Date(date);
+    const hour = snapped.getUTCHours();
+    // Find the closest slot hour
+    const lowerSlot = Math.floor(hour / slotInterval) * slotInterval;
+    const upperSlot = lowerSlot + slotInterval;
+    // Choose whichever is closer
+    const useLower = hour - lowerSlot <= upperSlot - hour;
+    snapped.setUTCHours(useLower ? lowerSlot : upperSlot % 24, 0, 0, 0);
+    // If we wrapped to next day's hour 0, advance the date
+    if (!useLower && upperSlot >= 24) {
+      snapped.setUTCDate(snapped.getUTCDate() + 1);
+    }
+    return snapped;
+  };
+
   useEffect(() => {
     if (initialDate && +initialDate > 0) {
       const usedInitialDate = new Date(
         router?.params?.timestamp || initialDate
       );
-      const newInitialDate = new Date(usedInitialDate);
+      let newInitialDate = new Date(usedInitialDate);
       const now = new Date();
-      if (
-        !router?.params?.timestamp &&
-        +newInitialDate < +now &&
-        +now < +endTime
-      ) {
-        while (+newInitialDate < +now) {
+
+      // If there's a URL timestamp, snap it to the nearest valid slot for this domain
+      // This handles domain switching where the old timestamp may not be valid
+      if (router?.params?.timestamp && timeSpanInt > 0) {
+        const slotInterval = timeSpanInt >= 24 ? 24 : timeSpanInt;
+        newInitialDate = snapToValidSlot(newInitialDate, slotInterval);
+      }
+
+      // Only advance if there's no URL timestamp and the period has fully passed
+      // The timestamp represents the END of the period for forecasts
+      if (!router?.params?.timestamp && +now < +endTime) {
+        // newInitialDate IS the period end, so advance if it's <= now
+        while (+newInitialDate <= +now) {
           newInitialDate.setUTCHours(
             newInitialDate.getUTCHours() + timeSpanInt
           );
         }
       }
 
+      // Clamp to valid range
+      if (+newInitialDate < +startTime) {
+        newInitialDate = new Date(startTime);
+      } else if (+newInitialDate > +endTime) {
+        newInitialDate = new Date(endTime);
+      }
+
       if (
         !targetDate ||
         newInitialDate?.toISOString() != currentDate?.toISOString()
       ) {
-        setTargetDate(new Date(usedInitialDate));
-        if (!currentDate) {
-          setCurrentDate(new Date(usedInitialDate));
+        setTargetDate(new Date(newInitialDate));
+        // Set currentDate when domain changes (even with URL timestamp)
+        // This ensures the snapped time is used
+        if (!currentDate || router?.params?.timestamp) {
+          setCurrentDate(new Date(newInitialDate));
         }
       }
     }
-  }, [initialDate, router?.params.timestamp]);
+  }, [initialDate, router?.params.timestamp, domainId]);
 
   useEffect(() => {
     let intervalId: number;
@@ -315,7 +348,17 @@ const Timeline = ({ updateCB }) => {
     let index = domains.indexOf(domainId);
     if (index < 0) return;
     index = (index + direction + domains.length) % domains.length;
-    store.changeDomain(domains[index]);
+    const newDomain = domains[index];
+    // Navigate to new domain, preserving current time selection
+    // The store will validate/clamp the time to valid range for the new domain
+    if (currentDate && +currentDate > 0) {
+      redirectPage($router, "weatherMapDomainTimestamp", {
+        domain: newDomain,
+        timestamp: currentDate.toISOString()
+      });
+    } else {
+      redirectPage($router, "weatherMapDomain", { domain: newDomain });
+    }
   };
 
   const rulerMarkings = useMemo(() => {

@@ -63,9 +63,11 @@ const App = () => {
 
   const router = useStore($router);
   const province = router?.search?.province ?? config.province;
-  useEffect(() => $province.set(province), [province]);
+  // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (run once)
+  useEffect(() => $province.set(province), []);
   const headless = router?.search?.headless ?? config.headless;
-  useEffect(() => $headless.set(!!headless), [headless]);
+  // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (run once)
+  useEffect(() => $headless.set(!!headless), []);
 
   useEffect(() => {
     if (province) {

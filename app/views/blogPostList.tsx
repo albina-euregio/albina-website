@@ -132,7 +132,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
         marginal={headerText}
       >
         {headless && (
-          <a to="/bulletin/latest" className="back-link">
+          <a href="/bulletin/latest" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
           </a>
         )}
