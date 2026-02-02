@@ -298,7 +298,7 @@ test.describe("regression: epoch date on reload", () => {
     // Capture URL timestamp before reload
     const tsBefore = extractTimestamp(page.url());
     expect(tsBefore).toBeTruthy();
-    expect(new Date(tsBefore!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsBefore ?? "").getFullYear()).toBeGreaterThan(2020);
 
     // Reload the page
     await page.reload();
@@ -310,7 +310,7 @@ test.describe("regression: epoch date on reload", () => {
     // No epoch date in URL
     const tsAfter = extractTimestamp(page.url());
     expect(tsAfter).toBeTruthy();
-    expect(new Date(tsAfter!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsAfter ?? "").getFullYear()).toBeGreaterThan(2020);
 
     // No 1970 in the visible timeline text
     const rangeText = await page
@@ -330,14 +330,14 @@ test.describe("regression: epoch date on reload", () => {
 
     const tsBefore = extractTimestamp(page.url());
     expect(tsBefore).toBeTruthy();
-    expect(new Date(tsBefore!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsBefore ?? "").getFullYear()).toBeGreaterThan(2020);
 
     await page.reload();
     await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
 
     const tsAfter = extractTimestamp(page.url());
     expect(tsAfter).toBeTruthy();
-    expect(new Date(tsAfter!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsAfter ?? "").getFullYear()).toBeGreaterThan(2020);
 
     await expectOverlayLoaded(page);
   });
@@ -358,7 +358,7 @@ test.describe("regression: mouse domain switch preserves time", () => {
     // Record the timestamp before switching domain
     const tsBefore = extractTimestamp(page.url());
     expect(tsBefore).toBeTruthy();
-    const dateBefore = new Date(tsBefore!);
+    const dateBefore = new Date(tsBefore ?? "");
     expect(dateBefore.getFullYear()).toBeGreaterThan(2020);
 
     // Switch to temp domain via mouse click
@@ -379,7 +379,7 @@ test.describe("regression: mouse domain switch preserves time", () => {
     // (within 12 hours, accounting for slot-snapping between domains)
     const tsAfter = extractTimestamp(page.url());
     expect(tsAfter).toBeTruthy();
-    const dateAfter = new Date(tsAfter!);
+    const dateAfter = new Date(tsAfter ?? "");
     expect(dateAfter.getFullYear()).toBeGreaterThan(2020);
 
     const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
@@ -404,7 +404,7 @@ test.describe("regression: mouse domain switch preserves time", () => {
     await expect(page).not.toHaveURL(/\/weather\/map\/new-snow\//);
     const tsKeyboard = extractTimestamp(page.url());
     expect(tsKeyboard).toBeTruthy();
-    expect(new Date(tsKeyboard!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsKeyboard ?? "").getFullYear()).toBeGreaterThan(2020);
 
     await page.keyboard.press("p");
     await expect(page).toHaveURL(/\/weather\/map\/new-snow\//);
@@ -421,10 +421,12 @@ test.describe("regression: mouse domain switch preserves time", () => {
 
     const tsMouse = extractTimestamp(page.url());
     expect(tsMouse).toBeTruthy();
-    expect(new Date(tsMouse!).getFullYear()).toBeGreaterThan(2020);
+    expect(new Date(tsMouse ?? "").getFullYear()).toBeGreaterThan(2020);
 
     // Both switches should produce timestamps within 1 hour of each other
-    const diffMs = Math.abs(+new Date(tsKeyboard!) - +new Date(tsMouse!));
+    const diffMs = Math.abs(
+      +new Date(tsKeyboard ?? "") - +new Date(tsMouse ?? "")
+    );
     expect(diffMs / (1000 * 60 * 60)).toBeLessThan(1);
   });
 });
