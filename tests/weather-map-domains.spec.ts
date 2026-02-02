@@ -256,6 +256,41 @@ test.describe("domain switching preserves time context", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Instantaneous domains have forecast data available
+// ---------------------------------------------------------------------------
+
+test.describe("instantaneous domains have forecast data", () => {
+  const domainsToTest: DomainId[] = ["temp", "wind", "gust"];
+
+  for (const domain of domainsToTest) {
+    test(`${domain} can step into the future and load overlay`, async ({
+      page
+    }) => {
+      test.setTimeout(30_000);
+      await navigateAndWait(page, domain);
+
+      const tsStart = extractTimestamp(page.url());
+      expectValidTimestamp(tsStart);
+
+      // Step forward several times into the future
+      for (let i = 0; i < 6; i++) {
+        await page.locator(SEL.flipperRight).click();
+        await page.waitForTimeout(400);
+      }
+
+      const tsFuture = extractTimestamp(page.url());
+      expectValidTimestamp(tsFuture);
+
+      // Should have moved forward in time
+      expect(+new Date(tsFuture!)).toBeGreaterThan(+new Date(tsStart!));
+
+      // Overlay should load at the future time
+      await expectOverlayLoaded(page);
+    });
+  }
+});
+
+// ---------------------------------------------------------------------------
 // Domain switching at future time
 // ---------------------------------------------------------------------------
 
@@ -326,11 +361,11 @@ test.describe("domain switching at future time", () => {
     });
     await waitForTimelineReady(page, "snow-height");
 
-    // Timestamp should be valid and within actual data range (not 72h in the future)
+    // Timestamp should be valid and within data range
     const ts = extractTimestamp(page.url());
     expectValidTimestamp(ts);
 
-    // Overlay should load (this was broken before the fix)
+    // Overlay should load after domain switch
     await expectOverlayLoaded(page);
   });
 
@@ -471,9 +506,7 @@ test.describe("domain switching — mouse vs keyboard consistency", () => {
 
       // Go back
       await page.keyboard.press("p");
-      await expect(page).toHaveURL(
-        new RegExp(`/weather/map/${startDomain}/`)
-      );
+      await expect(page).toHaveURL(new RegExp(`/weather/map/${startDomain}/`));
 
       // Mouse: switch to the same domain via click
       await page.locator(SEL.layerTrigger).click();

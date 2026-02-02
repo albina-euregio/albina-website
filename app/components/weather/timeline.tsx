@@ -388,9 +388,14 @@ const Timeline = () => {
 
     // Clamp to valid selectable range so the user can't drag past startTime/endTime
     if (startTime && endTime) {
-      const minTranslateX = differenceInHours(startTime, startOfDay) * pixelsPerHour;
-      const maxTranslateX = differenceInHours(endTime, startOfDay) * pixelsPerHour;
-      usedTranslateX = Math.max(minTranslateX, Math.min(maxTranslateX, usedTranslateX));
+      const minTranslateX =
+        differenceInHours(startTime, startOfDay) * pixelsPerHour;
+      const maxTranslateX =
+        differenceInHours(endTime, startOfDay) * pixelsPerHour;
+      usedTranslateX = Math.max(
+        minTranslateX,
+        Math.min(maxTranslateX, usedTranslateX)
+      );
     }
 
     setCurrentTranslateX(usedTranslateX);

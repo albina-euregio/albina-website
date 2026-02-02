@@ -97,10 +97,9 @@ test.describe("timespan switching — keyboard Up/Down", () => {
     const expectedSequence = ["24h", "48h", "72h", "6h", "12h"];
     for (const expected of expectedSequence) {
       await page.keyboard.press("ArrowUp");
-      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(
-        expected,
-        { timeout: 10_000 }
-      );
+      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(expected, {
+        timeout: 10_000
+      });
     }
   });
 
@@ -114,10 +113,9 @@ test.describe("timespan switching — keyboard Up/Down", () => {
     const expectedSequence = ["6h", "72h", "48h", "24h", "12h"];
     for (const expected of expectedSequence) {
       await page.keyboard.press("ArrowDown");
-      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(
-        expected,
-        { timeout: 10_000 }
-      );
+      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(expected, {
+        timeout: 10_000
+      });
     }
   });
 
@@ -134,10 +132,9 @@ test.describe("timespan switching — keyboard Up/Down", () => {
     const expectedSequence = ["12h", "24h", "48h", "72h", "6h"];
     for (const expected of expectedSequence) {
       await page.keyboard.press("ArrowUp");
-      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(
-        expected,
-        { timeout: 10_000 }
-      );
+      await expect(page.locator(SEL.rangeButtonActive)).toHaveText(expected, {
+        timeout: 10_000
+      });
     }
   });
 
@@ -503,9 +500,7 @@ test.describe("play button animation", () => {
 
     // Player should be in playing state (container may not be "visible"
     // per Playwright's definition due to CSS layout — check attachment)
-    await page
-      .locator(SEL.playerPlaying)
-      .waitFor({ state: "attached" });
+    await page.locator(SEL.playerPlaying).waitFor({ state: "attached" });
 
     // Wait for at least one step to occur (interval is 1000ms)
     await page.waitForTimeout(2500);
@@ -525,18 +520,14 @@ test.describe("play button animation", () => {
 
     // Click play
     await page.locator(SEL.playerPlay).click();
-    await page
-      .locator(SEL.playerPlaying)
-      .waitFor({ state: "attached" });
+    await page.locator(SEL.playerPlaying).waitFor({ state: "attached" });
 
     // Wait for at least one step
     await page.waitForTimeout(1500);
     await page.locator(SEL.playerStop).click();
 
     // Player should no longer be playing (js-playing removed)
-    await page
-      .locator(SEL.playerPlaying)
-      .waitFor({ state: "detached" });
+    await page.locator(SEL.playerPlaying).waitFor({ state: "detached" });
 
     // Record timestamp after stopping
     const tsStopped = extractTimestamp(page.url());
@@ -560,9 +551,7 @@ test.describe("play button animation", () => {
 
     // Click play
     await page.locator(SEL.playerPlay).click();
-    await page
-      .locator(SEL.playerPlaying)
-      .waitFor({ state: "attached" });
+    await page.locator(SEL.playerPlaying).waitFor({ state: "attached" });
 
     // Wait for the animation to reach the end and auto-stop
     await page
