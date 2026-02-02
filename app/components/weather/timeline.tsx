@@ -266,7 +266,15 @@ const Timeline = () => {
     }
   };
 
+  const cancelPendingNav = () => {
+    if (pendingNav.current) {
+      cancelAnimationFrame(pendingNav.current);
+      pendingNav.current = null;
+    }
+  };
+
   const jumpTimeSpan = (direction: 1 | -1 | number) => {
+    cancelPendingNav();
     if (!timeSpan0) return;
     const timeSpans = store.domainConfig.get().timeSpans;
     if (timeSpans.length < 2) return;
@@ -279,6 +287,7 @@ const Timeline = () => {
   };
 
   const jumpDomain = (direction: 1 | -1 | number) => {
+    cancelPendingNav();
     if (!domainId) return;
     const domains = Object.keys(store.config.domains);
     let index = domains.indexOf(domainId);
@@ -443,11 +452,12 @@ const Timeline = () => {
     snapped.setUTCHours(adjustedHours, 0, 0, 0);
 
     const { targetMarker } = getMarkerCenterX(snapped);
+    if (!targetMarker) return;
 
-    const distanceToMove = Number(targetMarker?.style.left?.replace("px", ""));
+    const distanceToMove = Number(targetMarker.style.left?.replace("px", ""));
+    if (!Number.isFinite(distanceToMove)) return;
 
-    const newTranslateX = distanceToMove;
-    updateTimelinePosition(newTranslateX, true);
+    updateTimelinePosition(distanceToMove, true);
   };
 
   const getNearestMarker = () => {
