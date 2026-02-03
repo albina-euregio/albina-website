@@ -479,6 +479,56 @@ test.describe("calendar date picker", () => {
     expectValidTimestamp(tsAfter);
     await expectOverlayLoaded(page);
   });
+
+  test("temp: picked time matches timeline indicator", async ({ page }) => {
+    test.setTimeout(30_000);
+    await navigateAndWait(page, "temp");
+
+    // Pick a specific hour (yesterday 14:00 local — safely in the past for data availability)
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - 1);
+    targetDate.setHours(14, 0, 0, 0);
+    const inputValue = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}T14:00`;
+
+    const calendarInput = page.locator(SEL.calendarInput);
+    await calendarInput.fill(inputValue);
+    await calendarInput.dispatchEvent("change");
+
+    // Wait for the URL to update with a timestamp
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/, {
+      timeout: 10_000
+    });
+
+    // The point indicator should display the picked local time
+    const pointText = await page.locator(SEL.pointExact).textContent();
+    expect(pointText).toContain("2:00");
+  });
+
+  test("new-snow: picked time matches range indicator", async ({ page }) => {
+    test.setTimeout(30_000);
+    await navigateAndWait(page, "new-snow");
+
+    // Pick yesterday 00:00 local (start of a 12h period → range end = 12:00)
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - 1);
+    const inputValue = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}T00:00`;
+
+    const calendarInput = page.locator(SEL.calendarInput);
+    await calendarInput.fill(inputValue);
+    await calendarInput.dispatchEvent("change");
+
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/, {
+      timeout: 10_000
+    });
+
+    // Default timespan is +12, so picking 00:00 start → 12:00 end
+    const rangeBegin = await page.locator(SEL.rangeBegin).textContent();
+    const rangeEnd = await page.locator(SEL.rangeEnd).textContent();
+
+    // Range should show 12:00 AM – 12:00 PM (or locale equivalent for midnight to noon)
+    expect(rangeBegin).toContain("12:00");
+    expect(rangeEnd).toContain("12:00");
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -561,5 +611,71 @@ test.describe("play button animation", () => {
     // After auto-stop, timestamp should still be valid
     const ts = extractTimestamp(page.url());
     expectValidTimestamp(ts);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// UTC-safe time stepping (DST regression)
+// ---------------------------------------------------------------------------
+// Playwright config uses timezoneId: "Europe/Vienna" (CET/CEST).
+// With local-time arithmetic (setHours/getHours), steps that cross a DST
+// boundary would gain or lose an hour. These tests verify every step
+// advances by exactly the expected UTC delta.
+
+test.describe("UTC-safe time stepping", () => {
+  test("instantaneous domain: every step is exactly 1 UTC hour", async ({
+    page
+  }) => {
+    test.setTimeout(30_000);
+    await navigateAndWait(page, "temp");
+
+    const timestamps: number[] = [];
+    const ts0 = extractTimestamp(page.url());
+    expectValidTimestamp(ts0);
+    timestamps.push(+new Date(ts0!));
+
+    // Step forward 8 times (covers enough hours for the test)
+    for (let i = 0; i < 8; i++) {
+      await page.locator(SEL.flipperRight).click();
+      await page.waitForTimeout(400);
+      const ts = extractTimestamp(page.url());
+      expectValidTimestamp(ts);
+      timestamps.push(+new Date(ts!));
+    }
+
+    // Every consecutive pair must differ by exactly 1 hour (3 600 000 ms)
+    for (let i = 1; i < timestamps.length; i++) {
+      const diffMs = timestamps[i] - timestamps[i - 1];
+      expect(diffMs).toBe(3_600_000);
+    }
+  });
+
+  test("6h forecast domain: every step is exactly 6 UTC hours", async ({
+    page
+  }) => {
+    test.setTimeout(30_000);
+    // Switch new-snow to +6 timespan
+    await page.goto("/weather/map/new-snow/");
+    await waitForTimelineReady(page, "new-snow");
+    await page.locator(timespanSelector(6)).click();
+    await page.waitForTimeout(500);
+
+    const timestamps: number[] = [];
+    const ts0 = extractTimestamp(page.url());
+    expectValidTimestamp(ts0);
+    timestamps.push(+new Date(ts0!));
+
+    for (let i = 0; i < 6; i++) {
+      await page.locator(SEL.flipperRight).click();
+      await page.waitForTimeout(400);
+      const ts = extractTimestamp(page.url());
+      expectValidTimestamp(ts);
+      timestamps.push(+new Date(ts!));
+    }
+
+    for (let i = 1; i < timestamps.length; i++) {
+      const diffMs = timestamps[i] - timestamps[i - 1];
+      expect(diffMs).toBe(6 * 3_600_000);
+    }
   });
 });

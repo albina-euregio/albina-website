@@ -249,7 +249,9 @@ const Timeline = () => {
   const jumpStep = (direction: 1 | -1 | number) => {
     if (!endTime || !startTime) return;
     const newDate = new Date(currentDateRef.current);
-    newDate.setUTCHours(newDate.getUTCHours() + direction * selectableHoursOffset);
+    newDate.setUTCHours(
+      newDate.getUTCHours() + direction * selectableHoursOffset
+    );
 
     if (newDate <= endTime && newDate >= startTime) {
       // Update the ref eagerly so rapid keypresses accumulate steps
@@ -639,9 +641,7 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={new Date(
-                      +currentDate - timeSpanInt * 3600_000
-                    )}
+                    date={new Date(+currentDate - timeSpanInt * 3600_000)}
                     options={{ timeStyle: "short" }}
                   />
                 </span>
