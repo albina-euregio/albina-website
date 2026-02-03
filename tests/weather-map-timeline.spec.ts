@@ -462,10 +462,11 @@ test.describe("calendar date picker", () => {
     const tsBefore = extractTimestamp(urlBefore);
     expectValidTimestamp(tsBefore);
 
-    // Pick today at a specific hour
+    // Pick yesterday at 14:00 local time.
+    // datetime-local inputs use browser local time (CET = UTC+1 in Feb).
     const targetDate = new Date();
-    targetDate.setUTCHours(6, 0, 0, 0);
-    const inputValue = targetDate.toISOString().slice(0, 16);
+    targetDate.setDate(targetDate.getDate() - 1);
+    const inputValue = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}T14:00`;
 
     const calendarInput = page.locator(SEL.calendarInput);
     await calendarInput.fill(inputValue);
@@ -499,19 +500,21 @@ test.describe("calendar date picker", () => {
       timeout: 10_000
     });
 
-    // The point indicator should display the picked local time
+    // The point indicator should display the picked local time (en-GB = 24h format)
     const pointText = await page.locator(SEL.pointExact).textContent();
-    expect(pointText).toContain("2:00");
+    expect(pointText).toContain("14:00");
   });
 
   test("new-snow: picked time matches range indicator", async ({ page }) => {
     test.setTimeout(30_000);
     await navigateAndWait(page, "new-snow");
 
-    // Pick yesterday 00:00 local (start of a 12h period → range end = 12:00)
+    // Pick yesterday 01:00 local (CET).
+    // 01:00 CET = 00:00 UTC. Handler adds +12h → 12:00 UTC (valid slot).
+    // Range end = 12:00 UTC = 13:00 CET, Range begin = 00:00 UTC = 01:00 CET.
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() - 1);
-    const inputValue = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}T00:00`;
+    const inputValue = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, "0")}-${String(targetDate.getDate()).padStart(2, "0")}T01:00`;
 
     const calendarInput = page.locator(SEL.calendarInput);
     await calendarInput.fill(inputValue);
@@ -521,13 +524,12 @@ test.describe("calendar date picker", () => {
       timeout: 10_000
     });
 
-    // Default timespan is +12, so picking 00:00 start → 12:00 end
+    // en-GB locale uses 24h format. Display in CET (UTC+1).
     const rangeBegin = await page.locator(SEL.rangeBegin).textContent();
     const rangeEnd = await page.locator(SEL.rangeEnd).textContent();
 
-    // Range should show 12:00 AM – 12:00 PM (or locale equivalent for midnight to noon)
-    expect(rangeBegin).toContain("12:00");
-    expect(rangeEnd).toContain("12:00");
+    expect(rangeBegin).toContain("01:00");
+    expect(rangeEnd).toContain("13:00");
   });
 });
 
@@ -623,24 +625,30 @@ test.describe("play button animation", () => {
 // advances by exactly the expected UTC delta.
 
 test.describe("UTC-safe time stepping", () => {
+  /** Extract URL timestamp as epoch ms; fails the test if missing. */
+  function getTimestampMs(url: string): number {
+    const ts = extractTimestamp(url);
+    expectValidTimestamp(ts);
+    return +new Date(ts as string);
+  }
+
   test("instantaneous domain: every step is exactly 1 UTC hour", async ({
     page
   }) => {
     test.setTimeout(30_000);
     await navigateAndWait(page, "temp");
+    // Wait for URL to include a timestamp (redirect from /temp/ to /temp/{ts}/...)
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/, {
+      timeout: 10_000
+    });
 
-    const timestamps: number[] = [];
-    const ts0 = extractTimestamp(page.url());
-    expectValidTimestamp(ts0);
-    timestamps.push(+new Date(ts0!));
+    const timestamps: number[] = [getTimestampMs(page.url())];
 
     // Step forward 8 times (covers enough hours for the test)
     for (let i = 0; i < 8; i++) {
       await page.locator(SEL.flipperRight).click();
       await page.waitForTimeout(400);
-      const ts = extractTimestamp(page.url());
-      expectValidTimestamp(ts);
-      timestamps.push(+new Date(ts!));
+      timestamps.push(getTimestampMs(page.url()));
     }
 
     // Every consecutive pair must differ by exactly 1 hour (3 600 000 ms)
@@ -657,20 +665,18 @@ test.describe("UTC-safe time stepping", () => {
     // Switch new-snow to +6 timespan
     await page.goto("/weather/map/new-snow/");
     await waitForTimelineReady(page, "new-snow");
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/, {
+      timeout: 10_000
+    });
     await page.locator(timespanSelector(6)).click();
     await page.waitForTimeout(500);
 
-    const timestamps: number[] = [];
-    const ts0 = extractTimestamp(page.url());
-    expectValidTimestamp(ts0);
-    timestamps.push(+new Date(ts0!));
+    const timestamps: number[] = [getTimestampMs(page.url())];
 
     for (let i = 0; i < 6; i++) {
       await page.locator(SEL.flipperRight).click();
       await page.waitForTimeout(400);
-      const ts = extractTimestamp(page.url());
-      expectValidTimestamp(ts);
-      timestamps.push(+new Date(ts!));
+      timestamps.push(getTimestampMs(page.url()));
     }
 
     for (let i = 1; i < timestamps.length; i++) {

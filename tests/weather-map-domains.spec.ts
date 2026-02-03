@@ -282,7 +282,9 @@ test.describe("instantaneous domains have forecast data", () => {
       expectValidTimestamp(tsFuture);
 
       // Should have moved forward in time
-      expect(+new Date(tsFuture!)).toBeGreaterThan(+new Date(tsStart!));
+      expect(+new Date(tsFuture as string)).toBeGreaterThan(
+        +new Date(tsStart as string)
+      );
 
       // Overlay should load at the future time
       await expectOverlayLoaded(page);
