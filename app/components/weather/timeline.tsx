@@ -249,7 +249,7 @@ const Timeline = () => {
   const jumpStep = (direction: 1 | -1 | number) => {
     if (!endTime || !startTime) return;
     const newDate = new Date(currentDateRef.current);
-    newDate.setHours(newDate.getHours() + direction * selectableHoursOffset);
+    newDate.setUTCHours(newDate.getUTCHours() + direction * selectableHoursOffset);
 
     if (newDate <= endTime && newDate >= startTime) {
       // Update the ref eagerly so rapid keypresses accumulate steps
@@ -502,7 +502,12 @@ const Timeline = () => {
   const handleSelectDateClick: ChangeEventHandler<HTMLInputElement> = e => {
     let newTargetDate = new Date(e.target.value);
 
-    newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
+    // For range timespans (>1h), the URL timestamp is the period END,
+    // so add the timespan to convert from the user-picked start time.
+    // For instantaneous (1h), the user picks the exact time — no offset.
+    if (showBar) {
+      newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
+    }
 
     newTargetDate = new Date(
       Date.UTC(
@@ -634,8 +639,8 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={new Date(currentDate)?.setHours(
-                      currentDate?.getHours() - timeSpanInt
+                    date={new Date(
+                      +currentDate - timeSpanInt * 3600_000
                     )}
                     options={{ timeStyle: "short" }}
                   />
