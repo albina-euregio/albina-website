@@ -12,6 +12,7 @@
     "/education/bons-habits",
     "/education/xarxa-observacions",
     "/more/about",
+    "/more/accessibility",
     "/more/albina-project",
     "/more/contact",
     "/more/open-data",
@@ -90,9 +91,6 @@
     },
     {
       "url": "/more/contact"
-    },
-    {
-      "url": "/more/accessibility"
     }
   ],
   "menuFooterMain": [
