@@ -8,7 +8,6 @@
   "eawsRegionsExclude": ["ES", "FR"],
   "staticContentNamespace": [
     "/conditions/estacions",
-    "/conditions/mapa",
     "/conditions/pistes",
     "/education/articles",
     "/education/bons-habits",
@@ -25,7 +24,6 @@
     {
       "url": "/conditions",
       "children": [
-        { "url": "/conditions/mapa" },
         { "url": "/conditions/estacions" },
         {
           "key": "weather",
