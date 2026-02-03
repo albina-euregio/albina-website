@@ -32,13 +32,13 @@ $grey-very-very-light: #f2f7fa;
 $white: #fff;
 
 //brand
-$brand: #19abff;
-$brand-very-very-dark: #062a3f;
-$brand-very-dark: #0f6799;
-$brand-dark: #1489cc;
-$brand-light: #66c7ff;
-$brand-very-light: #99daff;
-$brand-very-very-light: #ccecff;
+$brand: var(--brand, #19abff);
+$brand-very-very-dark: var(--brand-very-very-dark, #062a3f);
+$brand-very-dark: var(--brand-very-dark, #0f6799);
+$brand-dark: var(--brand-dark, #1489cc);
+$brand-light: var(--brand-light, #66c7ff);
+$brand-very-light: var(--brand-very-light, #99daff);
+$brand-very-very-light: var(--brand-very-very-light, #ccecff);
 
 $brand-2: $grey;
 
@@ -234,7 +234,7 @@ $body-font-family:
 
 $body-font-weight: 400; //normal
 $body-font-style: normal;
-$body-font-size: $rem-base + 0 + px;
+$body-font-size: $rem-base + 0 + px; // 16px
 $body-line-height: $base-line-height;
 
 $body-font-family-light: $body-font-family;
