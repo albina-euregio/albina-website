@@ -1,3 +1,232 @@
 {
-    
+    "danger-pattern-1": {
+    "ids": {
+      "ar": "patrons-de-perilh-1",
+      "cs": "modely-lavinoveho-nebezpeci-1",
+      "de": "gefahrenmuster-1",
+      "es": "situaciones-de-peligro-1",
+      "fr": "modeles-de-danger-1",
+      "it": "situazioni-tipo-1",
+      "sl": "vzorci-nevarnosti-1",
+      "en": "danger-pattern-1"
+    },
+    "heading": "mr.1 : Sous-couche fragile persistante",
+    "text": "<p>Au début de l'hiver, des avalanches de plaque sont souvent observées après la deuxième chute de neige significative, à savoir dans les endroits élevés (&gt;2000&nbsp;m) et en haute montagne (&gt;3000&nbsp;m), sur des pentes ombragés et très raides. Cela tient au fait qu'en automne, après les premières grosses chutes de neige, une situation anticyclonique stable et prolongée ou une période sans précipitations s'installe généralement. À ce moment là, les conditions sont idéales pour la transformation de la neige en cristaux libres, qui forment alors une couche fragile profonde et persistante sur laquelle les chutes de neige ultérieures se déposent. Au cours du début de l'hiver, cela peut se produire à des altitudes et sous des aspects très divers. En général, les couches faibles proches du sol sont plus souvent déclenchées par les skieurs et les freeriders au début de la saison, mais cela est également possible en plein hiver, si les chutes de neige sont faibles. Cela s'applique également au printemps, lorsque les couches faibles proches du sol peuvent être à nouveau affaiblies par l'infiltration d'eau.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>"
+  },
+    "danger-pattern-2": {
+    "ids": {
+      "ar": "patrons-de-perilh-2",
+      "cs": "modely-lavinoveho-nebezpeci-2",
+      "de": "gefahrenmuster-2",
+      "es": "situaciones-de-peligro-2",
+      "fr": "modeles-de-danger-2",
+      "it": "situazioni-tipo-2",
+      "sl": "vzorci-nevarnosti-2",
+      "en": "danger-pattern-2"
+    },
+    "heading": "mr.2 : Neige glissante",
+    "text": "<p>Snow glides most easily towards the valley across steep, smooth surfaces. While this process is taking place, glide cracks – easily visible, sometimes several-meters deep cracks in the snowpack surface – are formed. Such fissures are now considered to be not the favourable signs which ancient folk knowledge once posited (such traditions are hard to overcome) but instead, utterly unfavourable indicators of potential, sometimes imminent avalanches. A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>"
+  },
+    "danger-pattern-3": {
+    "ids": {
+      "ar": "patrons-de-perilh-3",
+      "cs": "modely-lavinoveho-nebezpeci-3",
+      "de": "gefahrenmuster-3",
+      "es": "situaciones-de-peligro-3",
+      "fr": "modeles-de-danger-3",
+      "it": "situazioni-tipo-3",
+      "sl": "vzorci-nevarnosti-3",
+      "en": "danger-pattern-3"
+    },
+    "heading": "mr.3 : Pluie",
+    "text": "<p>La pluie sur la neige est considérée comme un signal d'alarme dans la science de la neige et des avalanches car d'une part, elle ajoute du poids au manteau neigeux et d'autre part, elle entraîne une perte rapide de force. C'est pour ces raisons que les avalanches sont prédestinées. La pluie peut se produire à tout moment pendant l'hiver. Le grand avantageest qu'aucun modèle de danger n'est plus facilement reconnaissable que la pluie.</p></p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>"
+  },
+    "danger-pattern-4": {
+    "ids": {
+      "ar": "patrons-de-perilh-4",
+      "cs": "modely-lavinoveho-nebezpeci-4",
+      "de": "gefahrenmuster-4",
+      "es": "situaciones-de-peligro-4",
+      "fr": "modeles-de-danger-4",
+      "it": "situazioni-tipo-4",
+      "sl": "vzorci-nevarnosti-4",
+      "en": "danger-pattern-4"
+    },
+    "heading": "mr.4 : Froid suivant chaud/ chaud suivant froid",
+    "text": "<p>Une théorie selon laquelle les énormes disparités de température lors des chutes de neige (que ce soit froid sur chaud ou chaud sur froid) ont un effet positif sur la situation des avalanches a trop longtemps prévalu dans la science des avalanches. En fait, ce n'est le cas que dans certaines conditions préalables très spécifiques. Dans la plupart des cas, ces différences de température ont un effet négatif, car elles renforcent le métamorphisme de la neige à l'intérieur du manteau neigeux. En générale, il se forme une couche mince et faible qui est très susceptible de se déclencher. Cette couche se trouve souvent sur les pentes orientées au sud. Elle est très dangereuse car la couche faible n'est pas encore présente immédiatement après la chute de neige, elle ne se forme qu'au cours des jours suivants.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>"
+  },
+    "danger-pattern-5": {
+    "ids": {
+      "ar": "patrons-de-perilh-5",
+      "cs": "modely-lavinoveho-nebezpeci-5",
+      "de": "gefahrenmuster-5",
+      "es": "situaciones-de-peligro-5",
+      "fr": "modeles-de-danger-5",
+      "it": "situazioni-tipo-5",
+      "sl": "vzorci-nevarnosti-5",
+      "en": "danger-pattern-5"
+    },
+    "heading": "mr.5 : Chute de neige après une longue période de froid",
+    "text": "<p> Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. In addition, strong winds prevail which transport the new snow accordingly. Within the shortest imaginable time, a treacherous situation arises for backcountry skiers. This is also the case if, following a lengthy period of cold, “only” strong winds are blowing without snowfall. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>"
+  },
+    "danger-pattern-6": {
+    "ids": {
+      "ar": "patrons-de-perilh-6",
+      "cs": "modely-lavinoveho-nebezpeci-6",
+      "de": "gefahrenmuster-6",
+      "es": "situaciones-de-peligro-6",
+      "fr": "modeles-de-danger-6",
+      "it": "situazioni-tipo-6",
+      "sl": "vzorci-nevarnosti-6",
+      "en": "danger-pattern-6"
+    },
+    "heading": "mr.6 : Neige meuble et vent",
+    "text": "<p>\"Le vent est l’architecte des avalanches.\" Ce proverbe classique des années 1930 de Wilhelm Paulcke est toujours valable aujourd'hui. Le vent influence à la fois la neige qui tombe et la neige déjà déposée. Il est un des facteurs les plus importants dans la formation des avalanches. Lorsque la neige est meuble et sèche, le vent la transporte, augmentant ainsi le danger d'avalanche. Plus la neige transportée est froide, plus elle est sensible à une charge supplémentaire,car sa fragilité augmente.  Ce type de danger se caractérise par une couche faible, généralement constituée de neige fraîche, recouverte de neige soufflée. Soit il y a eu des chutes de neige à basse température sans influence du vent et s'est ensuite mis à souffler, soit il se met à neiger sans l'influence du vent, mais les vents se sont levés pendant la chute de neige. Il s'agit là d'un schéma qui est généralement facile à reconnaître et qui ne dure que peu de temps. L'exception est une situation dans laquelle l'ancien manteau neigeux, constitué de cristaux facettés et non fixés, est lui-même emportée par le vent. Dans ce cas, il se forme des plaques dures et fragiles qui restent fragile sur une longue période.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>"
+  },
+    "danger-pattern-7": {
+    "ids": {
+      "ar": "patrons-de-perilh-7",
+      "cs": "modely-lavinoveho-nebezpeci-7",
+      "de": "gefahrenmuster-7",
+      "es": "situaciones-de-peligro-7",
+      "fr": "modeles-de-danger-7",
+      "it": "situazioni-tipo-7",
+      "sl": "vzorci-nevarnosti-7",
+      "en": "danger-pattern-7"
+    },
+    "heading": "mr.7 : Enneigement faible à coté d'enneigement abondant",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow. This occurs frequently near terrain edges, and repeatedly on broad ridges.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>"
+  },
+    "danger-pattern-8": {
+    "ids": {
+      "ar": "patrons-de-perilh-8",
+      "cs": "modely-lavinoveho-nebezpeci-8",
+      "de": "gefahrenmuster-8",
+      "es": "situaciones-de-peligro-8",
+      "fr": "modeles-de-danger-8",
+      "it": "situazioni-tipo-8",
+      "sl": "vzorci-nevarnosti-8",
+      "en": "danger-pattern-8"
+    },
+    "heading": "mr.8 : Givre de surface recouvert de neige",
+    "text": "<p>Le givre de surface compte parmi les plus beaux types de neige qui existent. En soi, il ne présente aucun danger potentiel. Ce potentiel ne se développe que lorsqu'il est enterré par des couches de neige fraîche et collée. Donc il est considérée comme  l'une des couches faibles les plus critiques dans la science de la neige et des avalanches.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>"
+  },
+    "danger-pattern-9": {
+    "ids": {
+      "ar": "patrons-de-perilh-9",
+      "cs": "modely-lavinoveho-nebezpeci-9",
+      "de": "gefahrenmuster-9",
+      "es": "situaciones-de-peligro-9",
+      "fr": "modeles-de-danger-9",
+      "it": "situazioni-tipo-9",
+      "sl": "vzorci-nevarnosti-9",
+      "en": "danger-pattern-9"
+    },
+    "heading": "mr.9 : Neige roulée recouverte de neige",
+    "text": "<p>Une couche fragile à l'intérieur du manteau neigeux est souvent comparée à des roulements à billes. Cette image ne convient en fait qu'au graupel: une forme sphérique et granulaire de précipitation qui se dépose souvent lors d'averses comme les orages au printemps. Il est facile d'imaginer que la neige qui s'accumule au-dessus d'une couche de graupel est généralement mal reliée à cette couche, ce qui augmente le risque d'avalanches. Le graupel est souvent deposé localement et est, sans examiner le manteau neigeux lui-même, difficile à détecter, même par les experts. C'est un phénomène extrêmement traître. Heureusement, il est de courte durée.</p> <p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>"
+  },
+    "danger-pattern-10": {
+    "ids": {
+      "ar": "patrons-de-perilh-10",
+      "cs": "modely-lavinoveho-nebezpeci-10",
+      "de": "gefahrenmuster-10",
+      "es": "situaciones-de-peligro-10",
+      "fr": "modeles-de-danger-10",
+      "it": "situazioni-tipo-10",
+      "sl": "vzorci-nevarnosti-10",
+      "en": "danger-pattern-10"
+    },
+    "heading": "mr.10 : Situation de printemps",
+    "text": "<p>Le printemps est un défi particulier pour les amateurs de sports d'hiver, mais aussi pour les prévisionnistes et les membres des commissions des avalanches. Il est rare que les états \"en sécurité\" et \"dangereux\" soient aussi proches l'un de l'autre dans le temps. Ainsi, l'étendue de degrés de danger pronostiqués au cours d'une seule journée est très large. D'une part, le danger d'avalanche n'est jamais plus facile à évaluer que dans des conditions stables de névé, d'autre part, des avalanches d'une telle ampleur comme au printemps sont rarement enregistrées en plein hiver. Outre la structure du manteau neigeux, l'interaction complexe de la température de l'air, de l'humidité de l'air, du rayonnement solaire et du vent joue un rôle décisif. Pour les amateurs de sports d'hiver, une grande discipline temporelle et de flexibilité des plans sont plus essentielle que jamais.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>"
+  },
+     "danger-scale-low": {
+    "ids": {
+      "ar": "perilh-bass",
+      "cs": "nebezpeci-nizkeho-stupne",
+      "de": "geringes-gefahrenniveau",
+      "es": "peligro-bajo",
+      "fr": "danger-faible",
+      "is": "laegt-haettustig",
+      "it": "pericolo-basso",
+      "sl": "nizka-nevarnost",
+      "en": "danger-scale-low"
+    },
+    "heading": "Degré de danger: Faible",
+    "text": "<p><b>Situation avalancheuse favorable en général</b><br /> Aucun signe d’alarme n’est détectable. Les avalanches ne peuvent être déclenchées que de manière isolée, surtout sur les pentes extrêmement raides.<br /> <b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br /> Descendre les pentes extrêmement raides un par un et tenir compte du danger de chute.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+  },
+  "danger-scale-moderate": {
+    "ids": {
+      "ar": "perilh-moderat",
+      "cs": "nebezpeci-stredniho-stupne",
+      "de": "mäßiges-gefahrenniveau",
+      "es": "peligro-moderado",
+      "fr": "danger-modere",
+      "is": "midlungs-haettustig",
+      "it": "pericolo-moderato",
+      "sl": "zmerna-nevarnost",
+      "en": "danger-scale-moderate"
+    },
+    "heading": "Degré de danger: Limité",
+    "text": "<p><b>Mostly favourable avalanche situation.</b><br />Des signes d’alarme peuvent survenir de manière isolée. Des avalanches peuvent être déclenchées surtout sur les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Il ne faut pas s’attendre à des avalanches spontanées relativement grandes.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Choix prudent de l’itinéraire, surtout sur les pentes aux expositions et altitudes indiquées dans le bulletin d’avalanches. Descendre les pentes très raides un par un. Prudence particulière en cas de structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">situation de neige ancienne</a>).</p>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+  },
+  "danger-scale-considerable": {
+    "ids": {
+      "ar": "perilh-considerable",
+      "cs": "nebezpeci-podstatneho-stupne",
+      "de": "erhebliches-gefahrenniveau",
+      "es": "peligro-considerable",
+      "fr": "danger-considerable",
+      "is": "talsvert-haettustig",
+      "it": "pericolo-considerabile",
+      "sl": "znatna-nevarnost",
+      "en": "danger-scale-considerable"
+    },
+    "heading": "Degré de danger: Marqué",
+    "text": "<p><b>Situation avalancheuse critique</b><br />Des „woum“ et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Des avalanches spontanées et des déclenchements à distance sont possibles.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />La situation la plus critique pour les adeptes des sports d’hiver ! Un choix optimal de l’itinéraire et la mise en place de mesures pour réduire le risque sont nécessaires. Éviter les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Les personnes peu expérimentées doivent rester sur les descentes et itinéraires ouverts.<br /></p>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+  },
+  "danger-scale-high": {
+    "ids": {
+      "ar": "perilh-aute",
+      "cs": "nebezpeci-vysokeho-stupne",
+      "de": "hohes-gefahrenniveau",
+      "es": "peligro-alto",
+      "fr": "danger-eleve",
+      "is": "haettustig",
+      "it": "pericolo-alto",
+      "sl": "visoka-nevarnost",
+      "en": "danger-scale-high"
+    },
+    "heading": "Degré de danger: Fort",
+    "text": "<p><b>Situation avalancheuse très critique</b><br />Des avalanches spontanées et souvent très grandes sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreux pentes raides. Les déclenchements à distance sont typiques. Des „woum“ et des fissures sont fréquents.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Se limiter aux terrains modérément raides. Tenir compte de la zone de dépôt de très grandes avalanches. Les personnes peu expérimentées restent sur les descentes et itinéraires ouverts. Pronostiqué seulement quelques jours par hiver.<br /></p>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+  },
+  "danger-scale-very-high": {
+    "ids": {
+      "ar": "perilh-molt-aute",
+      "cs": "nebezpeci-velmi-vysokeho-stupne",
+      "de": "sehr-hohes-gefahrenniveau",
+      "es": "peligro-muy-alto",
+      "fr": "danger-tres-eleve",
+      "is": "mjog-haettustig",
+      "it": "pericolo-molto-alto",
+      "sl": "zelo-visoka-nevarnost",
+      "en": "danger-scale-very-high"
+    },
+    "heading": "Degré de danger: Très fort",
+    "text": "<p><b>Situation avalancheuse exceptionnelle</b><br />De nombreux départs spontanés de très grandes avalanches et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées</b>Renoncement aux sports de neige recommandé en dehors des descentes et itinéraires ouverts.<br /></p>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+  }
 }

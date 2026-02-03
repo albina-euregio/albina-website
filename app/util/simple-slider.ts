@@ -77,8 +77,9 @@ export class LabeledSlider {
       ".slider-progress"
     ) as HTMLElement;
 
-    const percentage = (this.selectedIndex / (labels.length - 1)) * 100;
+    const percentage = ((this.selectedIndex+0.5) / (labels.length )) * 100;
     progress.style.width = `${percentage}%`;
+    console.log("Updating UI: ", percentage, "idx:", this.selectedIndex, " kjj",labels.length);
 
     this.container.querySelectorAll(".slider-tick").forEach(tick => {
       const idx = Number(tick.getAttribute("data-index"));

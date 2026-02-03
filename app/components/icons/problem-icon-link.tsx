@@ -8,7 +8,7 @@ import { EnabledLanguages } from "../bulletin/internal-glossary";
 import {
   internalGlossaryEnum,
   getContentIdentifier
-} from "../bulletin/InternalGlossary/internal-glossary-enums";
+} from "../bulletin/InternalGlossary/internal-glossary-lookupId.js";
 
 interface Props {
   problem: AvalancheProblem;

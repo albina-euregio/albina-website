@@ -7,7 +7,7 @@ import { EnabledLanguages } from "./bulletin-glossary.js";
 import {
   internalGlossaryEnum,
   getContentIdentifier
-} from "./InternalGlossary/internal-glossary-enums";
+} from "./InternalGlossary/internal-glossary-lookupId.js";
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary-text")
 );

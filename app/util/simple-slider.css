@@ -27,14 +27,16 @@
   justify-content: space-between;
   position: relative;
   top: -18px;
+  width: 100%;
 }
 .slider-tick {
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  flex: 1 1 0;
   z-index: 2;
+  min-width: 0;
 }
 .slider-tick .slider-dot {
   width: 16px;
@@ -55,6 +57,11 @@
   font-size: 0.95em;
   margin-top: 2px;
   white-space: nowrap;
+  min-width: 32px;
+  max-width: 80px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .slider-label-rotated {

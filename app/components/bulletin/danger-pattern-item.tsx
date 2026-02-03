@@ -7,7 +7,7 @@ import { EnabledLanguages } from "./internal-glossary";
 import {
   internalGlossaryEnum,
   getContentIdentifier
-} from "./InternalGlossary/internal-glossary-enums";
+} from "./InternalGlossary/internal-glossary-lookupId";
 
 interface Props {
   dangerPattern: Caaml.DangerPattern;
