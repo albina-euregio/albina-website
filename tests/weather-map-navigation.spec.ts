@@ -1,17 +1,11 @@
 import { test, expect } from "@playwright/test";
 import {
-  STATION_DOMAINS,
-  NO_STATION_DOMAINS,
-  DIRECTION_DOMAINS,
   SEL,
   expectOverlayLoaded,
   extractTimestamp,
-  extractDomain,
   expectValidTimestamp,
   waitForTimelineReady,
-  navigateAndWait,
-  switchDomainByClick,
-  type DomainId
+  navigateAndWait
 } from "./weather-map-helpers";
 
 // ---------------------------------------------------------------------------
@@ -356,7 +350,9 @@ test.describe("URL consistency", () => {
     const reloadedTs = extractTimestamp(page.url());
     expectValidTimestamp(reloadedTs);
 
-    const diffMs = Math.abs(+new Date(currentTs!) - +new Date(reloadedTs!));
+    const diffMs = Math.abs(
+      +new Date(currentTs as string) - +new Date(reloadedTs as string)
+    );
     // Should be within one slot (12h for new-snow default)
     expect(diffMs / (1000 * 60 * 60)).toBeLessThan(12);
 

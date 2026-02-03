@@ -174,9 +174,9 @@ export function extractDomain(url: string): string | null {
 }
 
 /** Assert a timestamp string represents a valid date (year 2020–2030). */
-export function expectValidTimestamp(ts: string | null) {
+export function expectValidTimestamp(ts: string | null): asserts ts is string {
   expect(ts).toBeTruthy();
-  const year = new Date(ts!).getFullYear();
+  const year = new Date(ts as string).getFullYear();
   expect(year).toBeGreaterThan(2020);
   expect(year).toBeLessThan(2030);
 }

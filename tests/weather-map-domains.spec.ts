@@ -236,14 +236,14 @@ test.describe("domain switching preserves time context", () => {
 
       const tsBefore = extractTimestamp(page.url());
       expectValidTimestamp(tsBefore);
-      const dateBefore = new Date(tsBefore!);
+      const dateBefore = new Date(tsBefore as string);
 
       // Switch domain via click
       await switchDomainByClick(page, to);
 
       const tsAfter = extractTimestamp(page.url());
       expectValidTimestamp(tsAfter);
-      const dateAfter = new Date(tsAfter!);
+      const dateAfter = new Date(tsAfter as string);
 
       // Timestamp should be within expected range
       const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
@@ -338,7 +338,8 @@ test.describe("domain switching at future time", () => {
 
     // Both are hourly — should be reasonably close
     const diffHours =
-      Math.abs(+new Date(tsBefore!) - +new Date(tsAfter!)) / (1000 * 60 * 60);
+      Math.abs(+new Date(tsBefore as string) - +new Date(tsAfter as string)) /
+      (1000 * 60 * 60);
     expect(diffHours).toBeLessThan(12);
 
     await expectOverlayLoaded(page);
@@ -530,7 +531,9 @@ test.describe("domain switching — mouse vs keyboard consistency", () => {
 
       // Both should produce timestamps within 12 hours
       // (cross-domain transitions may snap to different slot grids)
-      const diffMs = Math.abs(+new Date(tsKeyboard!) - +new Date(tsMouse!));
+      const diffMs = Math.abs(
+        +new Date(tsKeyboard as string) - +new Date(tsMouse as string)
+      );
       expect(diffMs / (1000 * 60 * 60)).toBeLessThan(12);
     });
 
@@ -577,7 +580,9 @@ test.describe("domain switching — mouse vs keyboard consistency", () => {
 
       // Timestamps within 12 hours
       // (cross-domain transitions may snap to different slot grids)
-      const diffMs = Math.abs(+new Date(tsKeyboard!) - +new Date(tsMouse!));
+      const diffMs = Math.abs(
+        +new Date(tsKeyboard as string) - +new Date(tsMouse as string)
+      );
       expect(diffMs / (1000 * 60 * 60)).toBeLessThan(12);
     });
   }

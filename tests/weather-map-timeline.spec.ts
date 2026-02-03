@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import {
   ALL_DOMAINS,
   MULTI_TIMESPAN,
-  INSTANTANEOUS_DOMAINS,
   SEL,
   expectOverlayLoaded,
   extractTimestamp,
@@ -10,8 +9,7 @@ import {
   waitForTimelineReady,
   navigateAndWait,
   timespanSelector,
-  overlayPatternForTimespan,
-  type DomainId
+  overlayPatternForTimespan
 } from "./weather-map-helpers";
 
 // ---------------------------------------------------------------------------
@@ -145,8 +143,6 @@ test.describe("timespan switching — keyboard Up/Down", () => {
     await navigateAndWait(page, "temp");
     await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
 
-    const urlBefore = page.url();
-
     // ArrowUp should not change the domain or produce errors
     await page.keyboard.press("ArrowUp");
     await page.waitForTimeout(500);
@@ -226,7 +222,8 @@ test.describe("keyboard timeline navigation", () => {
 
     // Difference should be 12 hours (within tolerance for slot snapping)
     const diffHours =
-      Math.abs(+new Date(tsAfter!) - +new Date(tsBefore!)) / (1000 * 60 * 60);
+      Math.abs(+new Date(tsAfter as string) - +new Date(tsBefore as string)) /
+      (1000 * 60 * 60);
     expect(diffHours).toBeGreaterThanOrEqual(6);
     expect(diffHours).toBeLessThanOrEqual(24);
   });
@@ -251,7 +248,8 @@ test.describe("keyboard timeline navigation", () => {
     expectValidTimestamp(tsAfter);
 
     const diffHours =
-      Math.abs(+new Date(tsAfter!) - +new Date(tsBefore!)) / (1000 * 60 * 60);
+      Math.abs(+new Date(tsAfter as string) - +new Date(tsBefore as string)) /
+      (1000 * 60 * 60);
     // Should be approximately 24h
     expect(diffHours).toBeGreaterThanOrEqual(18);
     expect(diffHours).toBeLessThanOrEqual(30);
@@ -282,7 +280,8 @@ test.describe("keyboard timeline navigation", () => {
     // Ctrl+Arrow on +6h should jump by 24h (4 steps × 6h offset)
     expect(tsAfter).not.toBe(tsBefore);
     const diffHours =
-      Math.abs(+new Date(tsAfter!) - +new Date(tsBefore!)) / (1000 * 60 * 60);
+      Math.abs(+new Date(tsAfter as string) - +new Date(tsBefore as string)) /
+      (1000 * 60 * 60);
     expect(diffHours).toBeCloseTo(24, 0);
   });
 
@@ -307,7 +306,9 @@ test.describe("keyboard timeline navigation", () => {
     expectValidTimestamp(tsAfterEnd);
 
     // Should be the same or very close (already at boundary)
-    const diffMs = Math.abs(+new Date(tsAtEnd!) - +new Date(tsAfterEnd!));
+    const diffMs = Math.abs(
+      +new Date(tsAtEnd as string) - +new Date(tsAfterEnd as string)
+    );
     // Allow up to one step difference in case we weren't quite at the boundary
     expect(diffMs / (1000 * 60 * 60)).toBeLessThanOrEqual(12);
 
@@ -380,7 +381,7 @@ test.describe("timeline drag", () => {
     // For new-snow +12, valid hours are 0 and 12
     const ts = extractTimestamp(page.url());
     expectValidTimestamp(ts);
-    const date = new Date(ts!);
+    const date = new Date(ts as string);
     const hour = date.getUTCHours();
     expect([0, 12]).toContain(hour);
   });
