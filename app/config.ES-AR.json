@@ -7,7 +7,6 @@
   "eawsRegions": [],
   "eawsRegionsExclude": ["ES", "FR"],
   "staticContentNamespace": [
-    "/conditions/estacions",
     "/conditions/pistes",
     "/education/articles",
     "/education/bons-habits",
@@ -24,7 +23,10 @@
     {
       "url": "/conditions",
       "children": [
-        { "url": "/conditions/estacions" },
+        {
+          "key": "conditions:estacions",
+          "url": "https://iot.arantec.com/app/dashboards/public/dashboard/7_S1yG7MxDUBqGUeKHa_OuK1SNVmads4?navbar=false&contextbar=true&layersBar=true&datePicker=true&devicePicker=true&displayTitle=true&filters=true"
+        },
         {
           "key": "weather",
           "url": "https://www.aemet.es/es/eltiempo/prediccion/montana"
