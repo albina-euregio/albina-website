@@ -182,7 +182,6 @@ function avalancheSizeToContentId<T extends string>(value: T): string {
 }
 
 function dangerPatternToContentId<T extends string>(value: T): string {
-  console.log("Danger Pattern Value:", value);
   switch (value as DangerPattern) {
     case "DP1":
       return glossaryDangerPatternId.DangerPattern1;

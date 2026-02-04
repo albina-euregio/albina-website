@@ -5,7 +5,7 @@ import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../util/htmlParser";
 import { LabeledSlider } from "../../util/simple-slider";
 
-export const LabeledSliderReact = ({ labels, initialIndex, interactive = false, rotateLabelsAngle = 0 }) => {
+export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = false, rotateLabelsAngle = 0 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,13 +44,16 @@ type InternalGlossaryLinks = Awaited<
 
 type InternalGlossaryContent = Awaited<
   ReturnType<(typeof GLOSSARY_INTERNAL_CONTENT)[EnabledLanguages]>
->;
+> & {
+  [key: string]: GlossaryEntry;
+};
 
 export interface GlossaryEntry {
   ids: Record<string, string>;
   heading: string;
   text: string;
   img: string;
+  source?: string;
 }
 
 class InternalGlossaryReplacer {
@@ -142,7 +145,6 @@ class InternalGlossaryReplacer {
       const initialIndex = parts[2] ? parseInt(parts[2], 10) : 0;
       const isInteractive = parts[3] ? parts[3].toLowerCase() === "true" : false;
       const rotateLabelsAngle = parts[4] ? parseInt(parts[4], 10) : 0;
-      console.log("Rendering slider with angle:", rotateLabelsAngle);
       return (
         <div style={{ margin: "1em 0" }}>
           {/* @ts-ignore: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
@@ -160,7 +162,9 @@ class InternalGlossaryReplacer {
     textKey: string,
     idText: string
   ) {
-    const { heading, text, ids, img } = glossaryItem;
+    const { heading, text, ids, img, source } = glossaryItem;
+    console.log("glossaryItem", glossaryItem);
+    const hasSource = source && source.toLowerCase() === "false" ? false : true;
     const anchor = ids?.[this.locale];
     const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
     const content = () => (
@@ -168,13 +172,15 @@ class InternalGlossaryReplacer {
         {heading !== idText && <h3>{heading}</h3>}
         {preprocessContent(text)}
         {img ? this.renderGlossaryImg(img) : null}
-        <p className="tooltip-source">
-          (<FormattedMessage id={"glossary:source"} />: {" "}
-          <a href={href} target="_blank" rel="external noreferrer">
-            EAWS
-          </a>
-          )
-        </p>
+        {hasSource && (
+          <p className="tooltip-source">
+            (<FormattedMessage id={"glossary:source"} />: {" "}
+            <a href={href} target="_blank" rel="external noreferrer">
+              EAWS
+            </a>
+            )
+          </p>
+        )}
       </>
     );
     return (
@@ -203,7 +209,7 @@ export async function findGlossaryStrings(
   text: string,
   locale: EnabledLanguages,
   textKey: string
-): Promise<string | React.ReactNode[]> {
+): Promise<string | React.ReactNode | React.ReactNode[]> {
   GLOSSARY_REPLACER_INTERNAL[locale] ??= InternalGlossaryReplacer.init(
     locale
   ) as Promise<InternalGlossaryReplacer>;

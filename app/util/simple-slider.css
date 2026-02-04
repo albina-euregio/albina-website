@@ -37,6 +37,7 @@
   cursor: pointer;
   z-index: 2;
   min-width: 0;
+  position: relative;
 }
 .slider-tick .slider-dot {
   width: 16px;
@@ -69,5 +70,20 @@
   white-space: nowrap;
   margin-top: 8px;
   margin-bottom: 4px;
+}
+
+.slider-label-rotated-left {
+  display: inline-block;
+  white-space: nowrap;
+  margin-top: 8px;
+  margin-bottom: 0;
+  transform-origin: left center;
+  text-align: left;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  min-width: unset;
+  max-width: unset;
+  /* The transform will be set inline by JS, e.g. transform: translateX(0) rotate(90deg); */
 }
 /* End of LabeledSlider styles */

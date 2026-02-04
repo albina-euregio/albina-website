@@ -53,8 +53,13 @@ export class LabeledSlider {
       text.className = "slider-label";
       text.textContent = label;
       if (typeof this.options.rotateLabelsAngle === 'number') {
-        text.classList.add("slider-label-rotated");
-        text.style.transform = `rotate(${this.options.rotateLabelsAngle}deg)`;
+        if (this.options.rotateLabelsAngle === 0) {
+          text.classList.add("slider-label-rotated");
+          text.style.transform = `rotate(0deg)`;
+        } else {
+          text.classList.add("slider-label-rotated-left");
+          text.style.transform = `rotate(${this.options.rotateLabelsAngle}deg)`;
+        }
       }
 
       tick.appendChild(dot);
@@ -79,7 +84,6 @@ export class LabeledSlider {
 
     const percentage = ((this.selectedIndex+0.5) / (labels.length )) * 100;
     progress.style.width = `${percentage}%`;
-    console.log("Updating UI: ", percentage, "idx:", this.selectedIndex, " kjj",labels.length);
 
     this.container.querySelectorAll(".slider-tick").forEach(tick => {
       const idx = Number(tick.getAttribute("data-index"));
