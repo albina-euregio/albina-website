@@ -17,15 +17,6 @@ export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = f
   return <div ref={containerRef} />;
 };
 
-const INTERNAL_GLOSSARY_LINKS = Object.freeze({
-  ca: () => import("./bulletin-glossary-ca-links.json").then(d => d.default),
-  de: () => import("./bulletin-glossary-de-links.json").then(d => d.default),
-  en: () => import("./bulletin-glossary-en-links.json").then(d => d.default),
-  es: () => import("./bulletin-glossary-es-links.json").then(d => d.default),
-  it: () => import("./bulletin-glossary-it-links.json").then(d => d.default),
-  oc: () => import("./bulletin-glossary-oc-links.json").then(d => d.default)
-});
-
 const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
   ca: () => import("./InternalGlossary/Internal-Glossary-ca-content.json").then(d => d.default),
   de: () => import("./InternalGlossary/Internal-Glossary-de-content.json").then(d => d.default),
@@ -35,12 +26,7 @@ const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
   oc: () => import("./InternalGlossary/Internal-Glossary-oc-content.json").then(d => d.default)
 });
 
-export type EnabledLanguages = keyof typeof INTERNAL_GLOSSARY_LINKS &
-  keyof typeof GLOSSARY_INTERNAL_CONTENT;
-
-type InternalGlossaryLinks = Awaited<
-  ReturnType<(typeof INTERNAL_GLOSSARY_LINKS)[EnabledLanguages]>
->;
+export type EnabledLanguages = keyof typeof GLOSSARY_INTERNAL_CONTENT;
 
 type InternalGlossaryContent = Awaited<
   ReturnType<(typeof GLOSSARY_INTERNAL_CONTENT)[EnabledLanguages]>
@@ -57,52 +43,21 @@ export interface GlossaryEntry {
 }
 
 class InternalGlossaryReplacer {
-  glossaryLinks: Record<string, string>;
-  regex: RegExp;
-
   private constructor(
     public readonly locale: EnabledLanguages,
-    public readonly links: InternalGlossaryLinks,
     public readonly content: InternalGlossaryContent
   ) {
-    this.glossaryLinks = Object.fromEntries(
-      Object.entries(links).flatMap(([id, phrases]) =>
-        phrases
-          .trim()
-          .split(/\n/g)
-          .filter(phrase => !!phrase)
-          .map(phrase => [escapeRegExp(phrase), id])
-      )
-    );
-    this.regex = InternalGlossaryReplacer.createRegexFromLinks(links);
   }
 
   static async init(locale: EnabledLanguages) {
     if (
-      !GLOSSARY_INTERNAL_CONTENT[locale] ||
-      !INTERNAL_GLOSSARY_LINKS[locale]
+      !GLOSSARY_INTERNAL_CONTENT[locale]
     ) {
       return undefined;
     }
     return new InternalGlossaryReplacer(
       locale,
-      await INTERNAL_GLOSSARY_LINKS[locale](),
       await GLOSSARY_INTERNAL_CONTENT[locale]()
-    );
-  }
-
-  static createRegexFromLinks(links: InternalGlossaryLinks): RegExp {
-    const triggerWords = Object.keys(links);
-    return new RegExp(
-      "(" +
-        [
-          ...triggerWords,
-          /<br\/>/.source,
-          /<ins>[^<]*<\/ins>/.source,
-          /<del>[^<]*<\/del>/.source
-        ].join("|") +
-        ")",
-      "g"
     );
   }
 
@@ -219,9 +174,4 @@ export async function findGlossaryStrings(
     return InternalGlossaryReplacer.findBreaks(text);
   }
   return glossaryReplacerInternal.findGlossaryStrings(text, textKey);
-}
-
-function escapeRegExp(string: string) {
-  // https://stackoverflow.com/a/6969486
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
