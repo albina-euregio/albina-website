@@ -16,6 +16,9 @@
 
 @use "../../node_modules/normalize.css/normalize";
 
+@use "scss/app/brand";
+@use "scss/app/layout-vars";
+
 @use "scss/abstracts/bounds";
 @use "scss/abstracts/variables";
 @use "scss/abstracts/mixins";
@@ -47,6 +50,8 @@
 @use "scss/atoms/labels";
 @use "scss/atoms/tooltips";
 
+@use "scss/app/body-app";
+
 /*------------------------------------*\
     $MOLECULES
 \*------------------------------------*/
@@ -66,9 +71,9 @@
 \*------------------------------------*/
 
 @use "scss/organisms/header";
-@use "scss/organisms/map" as map2;
-@use "scss/organisms/map-cockpit-legend-items";
-@use "scss/organisms/map-cockpit-2024";
+@use "scss/app/map" as map2;
+@use "scss/app/map-cockpit-legend-items";
+@use "scss/app/map-cockpit-2024";
 @use "scss/organisms/bulletin";
 @use "scss/organisms/features";
 @use "scss/organisms/controlbars";

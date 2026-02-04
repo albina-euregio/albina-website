@@ -1,0 +1,16 @@
+body {
+  &.with-custom-ratio {
+    min-height: 0;
+    .section-bulletin-map .section-map {
+      max-height: none;
+    }
+  }
+
+  &.s-weathermap-2020 {
+    height: 100vh;
+    width: 100vw;
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+}

@@ -14,26 +14,6 @@
 
 $min-height-adjustment: (4 * (variables.$rem-base + 2) + px); //4em;
 
-html {
-  --brand: #19abff;
-  --brand-very-very-dark: #062a3f;
-  --brand-very-dark: #0f6799;
-  --brand-dark: #1489cc;
-  --brand-light: #66c7ff;
-  --brand-very-light: #99daff;
-  --brand-very-very-light: #ccecff;
-}
-
-html[data-province="ES-AR"] {
-  --brand: #00607a;
-  --brand-very-very-dark: #002630;
-  --brand-very-dark: #003949;
-  --brand-dark: #004c61;
-  --brand-light: #327f94;
-  --brand-very-light: #669faf;
-  --brand-very-very-light: #99bfc9;
-}
-
 html,
 body {
   //height: 100%;//ioS 12 Pro Safari //https://www.freecodecamp.org/news/html-page-width-height/
@@ -57,13 +37,6 @@ body {
   display: flex;
   flex-direction: column;
 
-  &.with-custom-ratio {
-    min-height: 0;
-    .section-bulletin-map .section-map {
-      max-height: none;
-    }
-  }
-
   @include mixins.rollout;
 }
 
@@ -77,14 +50,6 @@ body {
     width: 100vw;
     height: 100vh;
     @extend .bg-gradient-snow;
-  }
-
-  &.s-weathermap-2020 {
-    height: 100vh;
-    width: 100vw;
-    max-height: 100vh;
-    max-width: 100vw;
-    overflow: hidden;
   }
 }
 
