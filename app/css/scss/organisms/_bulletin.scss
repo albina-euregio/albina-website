@@ -12,9 +12,13 @@
 	www.transporter.at
 */
 
+
+
 /*------------------------------------*\
     #BULLETIN
 \*------------------------------------*/
+
+
 
 .section-bulletin {
   .list-labels {
@@ -22,7 +26,10 @@
   }
 }
 
+
+
 .section-bulletin-legend {
+
   &.section-padding {
     padding-top: variables.$all-v-padding * 0.5;
     padding-bottom: 0;
@@ -183,11 +190,15 @@
   }
 }
 
+
+
 .section-bulletin-controlbar {
   .controlbar {
     @include mixins.link-color(variables.$white, variables.$white);
   }
 }
+
+
 
 .bulletin-list {
   margin: 0;
@@ -209,6 +220,8 @@
 //     }
 //   }
 // }
+
+
 
 .bulletin-report-header {
   display: flex;
@@ -572,6 +585,8 @@
     }
   }
 
+
+  
   &.matrix-information {
     flex-direction: column;
     gap: (variables.$padding * 0.25) 0;
@@ -632,6 +647,8 @@
     // @include mixins.font-bold;
   }
 }
+
+
 
 .bulletin-report-expositions {
   display: block;
