@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState
 } from "react";
+import { createPortal } from "react-dom";
 
 import {
   //placement,
@@ -27,7 +28,8 @@ export const Tooltip = ({
   placement = "bottom",
   html = false,
   enableClick = false,
-  width
+  width,
+  zIndex
 }: {
   children: React.ReactNode;
   label: React.ReactNode | (() => React.ReactNode) | string;
@@ -35,9 +37,9 @@ export const Tooltip = ({
   html?: boolean;
   enableClick?: boolean;
   width?: string | number;
+  zIndex?: number;
 }) => {
   const [open, setOpen] = useState(false);
-
   const { x, y, reference, floating, strategy, context, refs, update } =
     useFloating({
       placement,
@@ -71,7 +73,7 @@ export const Tooltip = ({
     <>
       {isValidElement(children) &&
         cloneElement(children, getReferenceProps({ ref: reference }))}
-      {open && (
+      {open && createPortal(
         <div
           {...getFloatingProps({
             ref: floating,
@@ -80,6 +82,7 @@ export const Tooltip = ({
               position: strategy,
               top: y ?? "",
               left: x ?? "",
+              ...(typeof zIndex !== 'undefined' ? { zIndex } : {}),
               ...(width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : {})
             }
           })}
@@ -101,7 +104,8 @@ export const Tooltip = ({
               <div className="tooltip-content">{label}</div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

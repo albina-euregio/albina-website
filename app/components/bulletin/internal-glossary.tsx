@@ -142,7 +142,8 @@ class InternalGlossaryReplacer {
       key: textKey,
       label: content,
       html: true,
-      enableClick: true
+      enableClick: true,
+      zIndex: 2000000 // ensure glossary tooltip is above others
     };
     if (typeof width !== 'undefined') {
       tooltipProps.width = width;
