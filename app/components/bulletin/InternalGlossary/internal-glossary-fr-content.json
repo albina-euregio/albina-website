@@ -17,7 +17,7 @@
     },
     "heading": "Taille 1 : Petite avalanche (coulée)",
     "text": "<p>L’ensevelissement est peu probable, sauf dans une zone de dépôt défavorable (p.ex. un piège de terrain).<br/>En terrain extrêmement raide, il est plus probable d'être emporté que d'être enseveli.<br/>S’arrête dans une pente raide.<br/>Longueur : &lt; 50 m<br/>Volume : 100 m³</p>",
-    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|0|false|90|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|0|false|45|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "width": 480
     },
     "avalanche-size-medium": {

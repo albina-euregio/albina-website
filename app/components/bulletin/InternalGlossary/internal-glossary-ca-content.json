@@ -1,242 +1,608 @@
 {
- "danger-pattern-1": {
+  "avalanche-size-small": {
     "ids": {
-      "ar": "patrons-de-perilh-1",
-      "cs": "modely-lavinoveho-nebezpeci-1",
-      "de": "gefahrenmuster-1",
-      "es": "situaciones-de-peligro-1",
-      "fr": "modeles-de-danger-1",
-      "it": "situazioni-tipo-1",
-      "sl": "vzorci-nevarnosti-1",
-      "en": "danger-pattern-1"
+      "ar": "mida-deth-laueg-petit",
+      "ca": "mida-de-lallau-petit",
+      "cs": "velikost-laviny-malý",
+      "de": "lawinengrose-klein",
+      "es": "tamano-del-alud-pequeño",
+      "fr": "taille-davalanche-petit",
+      "is": "staerd-snjofloda-lítill",
+      "it": "dimensioni-delle-valanghe-piccolo",
+      "no": "skredstorrelse-liten",
+      "ro": "marimea-avalansei-mic",
+      "sk": "velkost-laviny-malý",
+      "sl": "velikost-sneznega-plazu-majhen",
+      "en": "avalanche-size-small"
+      },
+      "heading": "Mida 1: Allau petita (sluff)",
+      "text": "<p>És improbable que enterri una persona, excepte en zones d'arribada desfavorables (trampes del terreny).<br/>En terreny extremadament inclinat, el perill de caigudes profundes preval sobre el perill de sepultaments.<br/>La neu desplaçada normalment s'atura abans del final d'un pendent.</p>",
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|0|false|45|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "width": 480
     },
-    "heading": "pp.1: capa feble persistent profunda",
-    "text": "<p>A l’inici de l’hivern, sovint s’observen allaus de placa després de la segona forta nevada, normalment a cotes altes (>2000&nbsp;m) i molt altes (>3000&nbsp;m) en pendents ombrívols i molt inclinats. Això es deu al fet que a la tardor després de les primeres grans nevades, segueix amb freqüència un llarg període de temps estable, de altes pressions o almenys sense precipitacions. És aleshores quan prevalen les condicions idònies per al metamorfisme de la neu en cristalls solts, que després formen una capa feble i persistent profunda per a la posterior deposició de nevades. Durant el començament de l’hivern, això es pot produir en una gran varietat d’altituds i aspectes. En general, les allaus per capes febles i profundes i persistents profundes són desencadenades per esquiadors i muntanyencs al començament de l'hivern, però també és possible més tard en hiverns amb mantells prims. Això es produeix sobretot a la primavera quan les capes febles i persistents profundes es debiliten encara més per filtració d'aigua.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
-    "source": "false"
+  "avalanche-size-medium": {
+    "ids": {
+      "ar": "mida-deth-laueg-mitjà",
+      "ca": "mida-de-lallau-mitjà",
+      "cs": "velikost-laviny-střední",
+      "de": "lawinengrose-mittel",
+      "es": "tamano-del-alud-medio",
+      "fr": "taille-davalanche-moyan",
+      "is": "staerd-snjofloda-miðlungs",
+      "it": "dimensioni-delle-valanghe-medio",
+      "no": "skredstorrelse-medium",
+      "ro": "marimea-avalansei-mediu",
+      "sk": "velkost-laviny-stredný",
+      "sl": "velikost-sneznega-plazu-srednje",
+      "en": "avalanche-size-medium"
+      },
+      "heading": "Mida 2: Allau mitjana",
+      "text": "<p>Pot sepultar, lesionar o matar una persona.<br/>La mida 2 correspon a l'allau típic desencadenat per un esquiador.<br/>L'allau de neu normalment s'atura al final d'un pendent.</p>",
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|1|false|45|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+      "width": 480
+    },
+  "avalanche-size-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-gran",
+      "ca": "mida-de-lallau-gran",
+      "cs": "velikost-laviny-velký",
+      "de": "lawinengrose-grose",
+      "es": "tamano-del-alud-grande",
+      "fr": "taille-davalanche-grand",
+      "is": "staerd-snjofloda-stórt",
+      "it": "dimensioni-delle-valanghe-grande",
+      "no": "skredstorrelse-stor",
+      "ro": "marimea-avalansei-mare",
+      "sk": "velkost-laviny-veľký",
+      "sl": "velikost-sneznega-plazu-velik",
+      "en": "avalanche-size-large"
+      },
+      "heading": "Mida 3: Allau gran",
+      "text": "<p>Pot sepultar i destruir un cotxe, danyar un camió; destruir un edifici petit o trencar alguns arbres.<br/>Quan els esquiadors són atrapats per allaus d'aquesta mida, la probabilitat de conseqüències greus és molt alta.<br/>L'allau de neu pot travessar terreny pla (considerablement per sota de 30°) en distàncies de menys de 50 m.</p>",
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|2|false|45|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "width": 480
+    },
+  "avalanche-size-very-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-muy-gran",
+      "ca": "mida-de-lallau-muy-gran",
+      "cs": "velikost-laviny-velmi-velký",
+      "de": "lawinengrose-sehr-grose",
+      "es": "tamano-del-alud-muy-grande",
+      "fr": "taille-davalanche-très-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-molto-grande",
+      "no": "skredstorrelse-svært-stor",
+      "ro": "marimea-avalansei-foarte-mare",
+      "sk": "velkost-laviny-veľmi-veľký",
+      "sl": "velikost-sneznega-plazu-zelo-velik",
+      "en": "avalanche-size-very-large"
+      },
+      "heading": "Mida 4: Allau molt gran",
+      "text": "<p>Pot sepultar i destruir un vagó de tren, un camió gran, diversos edificis o una part d'un bosc.<br/>Pot destruir edificis força grans i petites zones de bosc.<br/>L'allau de neu travessa terreny pla (considerablement per sota de 30°) en distàncies de més de 50 m i pot arribar al fons de la vall.</p>",
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|3|false|45|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "width": 480
   },
-  "danger-pattern-2": {
+  "avalanche-size-extremely-large": {
     "ids": {
-      "ar": "patrons-de-perilh-2",
-      "cs": "modely-lavinoveho-nebezpeci-2",
-      "de": "gefahrenmuster-2",
-      "es": "situaciones-de-peligro-2",
-      "fr": "modeles-de-danger-2",
-      "it": "situazioni-tipo-2",
-      "sl": "vzorci-nevarnosti-2",
-      "en": "danger-pattern-2"
-    },
-    "heading": "pp.2: allaus de lliscament",
-    "text": "<p>La neu llisca amb més facilitat cap a la vall sobre superfícies pendents i llises. Mentre aquest procés es desenvolupa, es formen esquerdes de lliscament - fàcilment visibles, de vegades, esquerdes de diversos metres de profunditat a la superfície del mantell de neu-. Actualment, es considera que aquestes fissures no són signes favorables com els coneixements populars antics plantejaven (aquestes tradicions són difícils de superar...), sinó que són indicadors absolutament desfavorables de possibles allaus, de vegades imminents. Una esquerda de lliscament apunta a la possibilitat d’una allau sense donar cap indicació de si o quan es produirà l'allau de neu lliscant. Pel que fa al seu horari, elslliscaments estan entre les allaus més difícils de predir, ja que poden desencadenar-se literalment a qualsevol hora del dia o de la nit, fins i tot quan la situació de neu és força estable. Això inclou el dia més fred i el dia més càlid de l’hivern. A més, no es desencadenen allaus de lliscament per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
-    "source": "false"
+      "ar": "mida-deth-laueg-extremadament-gran",
+      "ca": "mida-de-lallau-extremadament-gran",
+      "cs": "velikost-laviny-extremne-velký",
+      "de": "lawinengrose-extrem-grose",
+      "es": "tamano-del-alud-extremadamente-grande",
+      "fr": "taille-davalanche-extremement-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-estremamente-grande",
+      "no": "skredstorrelse-ekstremt-stor",
+      "ro": "marimea-avalansei-extrem-de-mare",
+      "sk": "velkost-laviny-extremne-velký",
+      "sl": "velikost-sneznega-plazu-izjemno-velik",
+      "en": "avalanche-size-extremely-large"
+      },
+      "heading": "Mida 5: Allau extremadament gran",
+      "text": "<p>Pot esculpir el paisatge; potencial de danys desastrosos.<br/>L'allau de neu arriba al fons de la vall.<br/>La distància de recorregut més gran coneguda.</p>",
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|4|false|45|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "width": 480
   },
-  "danger-pattern-3": {
+  "avalanche-frequency-none": {
     "ids": {
-      "ar": "patrons-de-perilh-3",
-      "cs": "modely-lavinoveho-nebezpeci-3",
-      "de": "gefahrenmuster-3",
-      "es": "situaciones-de-peligro-3",
-      "fr": "modeles-de-danger-3",
-      "it": "situazioni-tipo-3",
-      "sl": "vzorci-nevarnosti-3",
-      "en": "danger-pattern-3"
-    },
-    "heading": "pp.3: pluja a sobre la neu",
-    "text": "<p>La pluja sobre neu es considera el senyal d’alarma clàssic en la ciència de la neu i les allaus perquè, d’una banda, el seu pes addicional carrega el mantell de neu; i de l’altra, perquè es perd immediatament la fermesa del mantell. Per aquestes raons, les allaus estan assegurades. La pluja es pot produir en qualsevol moment de l’hivern. El gran avantatge és que cap senyal de perill podria ser més senzill de reconèixer.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
-    "source": "false"
+      "ar": "frequencia-deth-laueg-nul",
+      "ca": "frequencia-de-lallau-nul",
+      "cs": "frekvence-lavin-nie",
+      "de": "lawinenhaeufigkeit-null",
+      "es": "frecuencia-de-aludes-nula",
+      "fr": "frequence-davalanche-nulle",
+      "is": "tíðni-snjofloda-null",
+      "it": "frequenza-delle-valanghe-nulla",
+      "no": "skredfrekvens-null",
+      "ro": "frecventa-avalansei-nula",
+      "sk": "frekvencia-lavin-nie",
+      "sl": "pogostost-sneznih-plazov-ni",
+      "en": "avalanche-frequency-none"
+      },
+      "heading": "Classe de freqüència d'allaus: Cap o gairebé cap",
+      "text": "<p>Els punts amb aquesta classe d'estabilitat no existeixen, o són tan rars que no es consideren rellevants per a l'avaluació de l'estabilitat.</p>",
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER___"
   },
-  "danger-pattern-4": {
+  "avalanche-frequency-few": {
     "ids": {
-      "ar": "patrons-de-perilh-4",
-      "cs": "modely-lavinoveho-nebezpeci-4",
-      "de": "gefahrenmuster-4",
-      "es": "situaciones-de-peligro-4",
-      "fr": "modeles-de-danger-4",
-      "it": "situazioni-tipo-4",
-      "sl": "vzorci-nevarnosti-4",
-      "en": "danger-pattern-4"
-    },
-    "heading": "pp.4: fred a sobre de temperat / temperat a sobre de fred",
-    "text": "<p>Una teoria que es va mantenir durant massa temps en la ciència de les allaus afirma que grans variacions de temperatura durant les nevades (independentment de si són escalfaments o refredaments) exerceixen un efecte positiu sobre la situació d'allaus. De fet, aquest és el cas només en determinades condicions anteriors molt específiques. Majoritàriament, aquestes diferències de temperatura tenen un efecte negatiu, ja que reforcen el metamorfisme de la neu dins del mantell. Per regla general, es forma una capa fina i feble que és molt propensa a desencadenar. Aquesta capa es troba sovint als vessants orientats al sud. És molt traïdor per la raó addicional que la capa feble encara no existeix immediatament després de dipositar-se la neu nova, si no que es forma al llarg dels dies següents.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
-    "source": "false"
+      "ar": "frequencia-deth-laueg-poc",
+      "ca": "frequencia-de-lallau-pocs",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-wenige",
+      "es": "frecuencia-de-aludes-pocos",
+      "fr": "frequence-davalanche-peu",
+      "is": "tíðni-snjofloda-fá",
+      "it": "frequenza-delle-valanghe-poche",
+      "no": "skredfrekvens-få",
+      "ro": "frecventa-avalansei-putini",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekaj",
+      "en": "avalanche-frequency-few"
+      },
+      "heading": "Classe de freqüència d'allaus: Poques",
+      "text": "<p>Els punts amb aquesta classe d'estabilitat són rars. Tot i que són rars, el seu número es considera rellevant per a l'avaluació de l'estabilitat.</p><p>És difícil trobar evidència de la inestabilitat.</p>",
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER___"
   },
-  "danger-pattern-5": {
+  "avalanche-frequency-some": {
     "ids": {
-      "ar": "patrons-de-perilh-5",
-      "cs": "modely-lavinoveho-nebezpeci-5",
-      "de": "gefahrenmuster-5",
-      "es": "situaciones-de-peligro-5",
-      "fr": "modeles-de-danger-5",
-      "it": "situazioni-tipo-5",
-      "sl": "vzorci-nevarnosti-5",
-      "en": "danger-pattern-5"
-    },
-    "heading": "pp.5: nevada després d'un llarg període fred",
-    "text": "<p>Entre les allaus ocorregudes, aquest és un clàssic: després d'un llarg període de fred, comença a nevar. A més, predominen els forts vents que transporten la neu nova en conseqüència. En el menor temps imaginable, sorgeix una situació traïdora per als esquiadors de muntanya. Aquest també és el cas si després d'un llarg període de fred, \"només\" bufen vents forts sense nevades. El problema és que es dipositen acumulacions de neu fresques als vessants de sotavent protegits del vent sobre una superfície de coberta de neu vella solta que acostuma a contenir gobelets. La placa de vent i les capes febles persistents estan molt mal lligades entre elles. El mantell de neu està esperant ser activat per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
-    "source": "false"
+      "ar": "frequencia-deth-laueg-quelcom",
+      "ca": "frequencia-de-lallau-alguns",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-einige",
+      "es": "frecuencia-de-aludes-algunos",
+      "fr": "frequence-davalanche-quelques",
+      "is": "tíðni-snjofloda-nokkrir",
+      "it": "frequenza-delle-valanghe-alcuni",
+      "no": "skredfrekvens-noen",
+      "ro": "frecventa-avalansei-cativa",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekateri",
+      "en": "avalanche-frequency-some"
+      },
+      "heading": "Classe de freqüència d'allaus: Algunes",
+      "text": "<p>Els punts amb aquesta classe d'estabilitat no són ni molts ni pocs, però aquests punts normalment existeixen en característiques del terreny comunes (és a dir, prop de les carenes, en barrancs).</p>",
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER___"
   },
-  "danger-pattern-6": {
+  "avalanche-frequency-many": {
     "ids": {
-      "ar": "patrons-de-perilh-6",
-      "cs": "modely-lavinoveho-nebezpeci-6",
-      "de": "gefahrenmuster-6",
-      "es": "situaciones-de-peligro-6",
-      "fr": "modeles-de-danger-6",
-      "it": "situazioni-tipo-6",
-      "sl": "vzorci-nevarnosti-6",
-      "en": "danger-pattern-6"
+      "ar": "frequencia-deth-laueg-molt",
+      "ca": "frequencia-de-lallau-molts",
+      "cs": "frekvence-lavin-mnoho",
+      "de": "lawinenhaeufigkeit-viele",
+      "es": "frecuencia-de-aludes-muchos",
+      "fr": "frequence-davalanche-beaucoup",
+      "is": "tíðni-snjofloda-margir",
+      "it": "frequenza-delle-valanghe-molti",
+      "no": "skredfrekvens-mange",
+      "ro": "frecventa-avalansei-multi",
+      "sk": "frekvencia-lavin-mnoho",
+      "sl": "pogostost-sneznih-plazov-veliko",
+      "en": "avalanche-frequency-many"
+      },
+      "heading": "Classe de freqüència d'allaus: Moltes",
+      "text": "<p>Els punts amb aquesta classe d'estabilitat són abundants.</p><p>Sovint és fàcil trobar evidències de la inestabilitat.</p>",
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER___"
     },
-    "heading": "pp.6: neu freda i solta i vent",
-    "text": "<p>\"El vent és l'arquitecte de les allaus.\" Aquest refrany clàssic de la dècada de 1930 de Wilhelm Paulcke continua sent inalterat encara avui. El vent influeix tant en la neu que cau com en la neu que ja s'ha dipositat. És un factor important en la formació d'allaus. Quan la neu està solta i seca, el vent la transporta i augmenta el perill d'allaus. Com més freda sigui la neu transportada, més fàcilment reaccionarà a la càrrega addicional, perquè és més fràgil. És característic d’aquest patró de perill que la capa feble la sol constituir neu recent que queda enterrada per diposits de neu ventada. Així, hi ha d'haver hagut nevades a temperatures baixes sense vent o just abans o en un període anterior a quan va començar el transport o bé, la nevada es va iniciar sense vent, però van aparèixer vents durant la nevada. Aquest és un patró que normalment es pot reconèixer amb facilitat i que dura poc temps. L’excepció és la situació en què l’antiga superfície del mantell de neu que consisteix en cristalls solts i facetats és transportada pel vent. Quan això succeeix, es formen plaques dures i fràgils que poden ser propenses a desencadenar-se durant un llarg període.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
-    "source": "false"
+  "danger-pattern-1": {
+      "ids": {
+        "ar": "patrons-de-perilh-1",
+        "cs": "modely-lavinoveho-nebezpeci-1",
+        "de": "gefahrenmuster-1",
+        "es": "situaciones-de-peligro-1",
+        "fr": "modeles-de-danger-1",
+        "it": "situazioni-tipo-1",
+        "sl": "vzorci-nevarnosti-1",
+        "en": "danger-pattern-1"
+      },
+      "heading": "pp.1: capa feble persistent profunda",
+      "text": "<p>A l’inici de l’hivern, sovint s’observen allaus de placa després de la segona forta nevada, normalment a cotes altes (>2000&nbsp;m) i molt altes (>3000&nbsp;m) en pendents ombrívols i molt inclinats. Això es deu al fet que a la tardor després de les primeres grans nevades, segueix amb freqüència un llarg període de temps estable, de altes pressions o almenys sense precipitacions. És aleshores quan prevalen les condicions idònies per al metamorfisme de la neu en cristalls solts, que després formen una capa feble i persistent profunda per a la posterior deposició de nevades. Durant el començament de l’hivern, això es pot produir en una gran varietat d’altituds i aspectes. En general, les allaus per capes febles i profundes i persistents profundes són desencadenades per esquiadors i muntanyencs al començament de l'hivern, però també és possible més tard en hiverns amb mantells prims. Això es produeix sobretot a la primavera quan les capes febles i persistents profundes es debiliten encara més per filtració d'aigua.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-2": {
+      "ids": {
+        "ar": "patrons-de-perilh-2",
+        "cs": "modely-lavinoveho-nebezpeci-2",
+        "de": "gefahrenmuster-2",
+        "es": "situaciones-de-peligro-2",
+        "fr": "modeles-de-danger-2",
+        "it": "situazioni-tipo-2",
+        "sl": "vzorci-nevarnosti-2",
+        "en": "danger-pattern-2"
+      },
+      "heading": "pp.2: allaus de lliscament",
+      "text": "<p>La neu llisca amb més facilitat cap a la vall sobre superfícies pendents i llises. Mentre aquest procés es desenvolupa, es formen esquerdes de lliscament - fàcilment visibles, de vegades, esquerdes de diversos metres de profunditat a la superfície del mantell de neu-. Actualment, es considera que aquestes fissures no són signes favorables com els coneixements populars antics plantejaven (aquestes tradicions són difícils de superar...), sinó que són indicadors absolutament desfavorables de possibles allaus, de vegades imminents. Una esquerda de lliscament apunta a la possibilitat d’una allau sense donar cap indicació de si o quan es produirà l'allau de neu lliscant. Pel que fa al seu horari, elslliscaments estan entre les allaus més difícils de predir, ja que poden desencadenar-se literalment a qualsevol hora del dia o de la nit, fins i tot quan la situació de neu és força estable. Això inclou el dia més fred i el dia més càlid de l’hivern. A més, no es desencadenen allaus de lliscament per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-3": {
+      "ids": {
+        "ar": "patrons-de-perilh-3",
+        "cs": "modely-lavinoveho-nebezpeci-3",
+        "de": "gefahrenmuster-3",
+        "es": "situaciones-de-peligro-3",
+        "fr": "modeles-de-danger-3",
+        "it": "situazioni-tipo-3",
+        "sl": "vzorci-nevarnosti-3",
+        "en": "danger-pattern-3"
+      },
+      "heading": "pp.3: pluja a sobre la neu",
+      "text": "<p>La pluja sobre neu es considera el senyal d’alarma clàssic en la ciència de la neu i les allaus perquè, d’una banda, el seu pes addicional carrega el mantell de neu; i de l’altra, perquè es perd immediatament la fermesa del mantell. Per aquestes raons, les allaus estan assegurades. La pluja es pot produir en qualsevol moment de l’hivern. El gran avantatge és que cap senyal de perill podria ser més senzill de reconèixer.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-4": {
+      "ids": {
+        "ar": "patrons-de-perilh-4",
+        "cs": "modely-lavinoveho-nebezpeci-4",
+        "de": "gefahrenmuster-4",
+        "es": "situaciones-de-peligro-4",
+        "fr": "modeles-de-danger-4",
+        "it": "situazioni-tipo-4",
+        "sl": "vzorci-nevarnosti-4",
+        "en": "danger-pattern-4"
+      },
+      "heading": "pp.4: fred a sobre de temperat / temperat a sobre de fred",
+      "text": "<p>Una teoria que es va mantenir durant massa temps en la ciència de les allaus afirma que grans variacions de temperatura durant les nevades (independentment de si són escalfaments o refredaments) exerceixen un efecte positiu sobre la situació d'allaus. De fet, aquest és el cas només en determinades condicions anteriors molt específiques. Majoritàriament, aquestes diferències de temperatura tenen un efecte negatiu, ja que reforcen el metamorfisme de la neu dins del mantell. Per regla general, es forma una capa fina i feble que és molt propensa a desencadenar. Aquesta capa es troba sovint als vessants orientats al sud. És molt traïdor per la raó addicional que la capa feble encara no existeix immediatament després de dipositar-se la neu nova, si no que es forma al llarg dels dies següents.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-5": {
+      "ids": {
+        "ar": "patrons-de-perilh-5",
+        "cs": "modely-lavinoveho-nebezpeci-5",
+        "de": "gefahrenmuster-5",
+        "es": "situaciones-de-peligro-5",
+        "fr": "modeles-de-danger-5",
+        "it": "situazioni-tipo-5",
+        "sl": "vzorci-nevarnosti-5",
+        "en": "danger-pattern-5"
+      },
+      "heading": "pp.5: nevada després d'un llarg període fred",
+      "text": "<p>Entre les allaus ocorregudes, aquest és un clàssic: després d'un llarg període de fred, comença a nevar. A més, predominen els forts vents que transporten la neu nova en conseqüència. En el menor temps imaginable, sorgeix una situació traïdora per als esquiadors de muntanya. Aquest també és el cas si després d'un llarg període de fred, \"només\" bufen vents forts sense nevades. El problema és que es dipositen acumulacions de neu fresques als vessants de sotavent protegits del vent sobre una superfície de coberta de neu vella solta que acostuma a contenir gobelets. La placa de vent i les capes febles persistents estan molt mal lligades entre elles. El mantell de neu està esperant ser activat per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-6": {
+      "ids": {
+        "ar": "patrons-de-perilh-6",
+        "cs": "modely-lavinoveho-nebezpeci-6",
+        "de": "gefahrenmuster-6",
+        "es": "situaciones-de-peligro-6",
+        "fr": "modeles-de-danger-6",
+        "it": "situazioni-tipo-6",
+        "sl": "vzorci-nevarnosti-6",
+        "en": "danger-pattern-6"
+      },
+      "heading": "pp.6: neu freda i solta i vent",
+      "text": "<p>\"El vent és l'arquitecte de les allaus.\" Aquest refrany clàssic de la dècada de 1930 de Wilhelm Paulcke continua sent inalterat encara avui. El vent influeix tant en la neu que cau com en la neu que ja s'ha dipositat. És un factor important en la formació d'allaus. Quan la neu està solta i seca, el vent la transporta i augmenta el perill d'allaus. Com més freda sigui la neu transportada, més fàcilment reaccionarà a la càrrega addicional, perquè és més fràgil. És característic d’aquest patró de perill que la capa feble la sol constituir neu recent que queda enterrada per diposits de neu ventada. Així, hi ha d'haver hagut nevades a temperatures baixes sense vent o just abans o en un període anterior a quan va començar el transport o bé, la nevada es va iniciar sense vent, però van aparèixer vents durant la nevada. Aquest és un patró que normalment es pot reconèixer amb facilitat i que dura poc temps. L’excepció és la situació en què l’antiga superfície del mantell de neu que consisteix en cristalls solts i facetats és transportada pel vent. Quan això succeeix, es formen plaques dures i fràgils que poden ser propenses a desencadenar-se durant un llarg període.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-7": {
+      "ids": {
+        "ar": "patrons-de-perilh-7",
+        "cs": "modely-lavinoveho-nebezpeci-7",
+        "de": "gefahrenmuster-7",
+        "es": "situaciones-de-peligro-7",
+        "fr": "modeles-de-danger-7",
+        "it": "situazioni-tipo-7",
+        "sl": "vzorci-nevarnosti-7",
+        "en": "danger-pattern-7"
+      },
+      "heading": "pp.7: mantell prim vora mantell gruixut",
+      "text": "<p>Les zones en què la neu és poc profunda solen tenir una estratificació menys favorable que les que presenten un mantell profund. Això es deu a l'amplificació dels processos que es produeixen a l'interior d'un mantell de neu poc profund. A més, les allaus de placa són més fàcils de desencadenar on la neu és poc profunda, ja que les capes febles no estan tan profundament enterrades i són més fàcils de desencadenar amb càrregues addicionals. Per això, sovint s’observen desencadenaments d’allaus en zones de transició des de la neu poc profunda cap a la neu profunda. Es produeixen freqüentment a prop dels límits del terreny i, repetidament, en carenes amples.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-8": {
+      "ids": {
+        "ar": "patrons-de-perilh-8",
+        "cs": "modely-lavinoveho-nebezpeci-8",
+        "de": "gefahrenmuster-8",
+        "es": "situaciones-de-peligro-8",
+        "fr": "modeles-de-danger-8",
+        "it": "situazioni-tipo-8",
+        "sl": "vzorci-nevarnosti-8",
+        "en": "danger-pattern-8"
+      },
+      "heading": "pp.8: gebre enterrat",
+      "text": "<p>El gebre de superfície és un dels tipus ne neu més bells. En si mateix, no presenta cap potencial de perill. Aquest potencial només es desplega quan està enterrat per capes de neu fresques i cohesives. Llavors es torna perillós. De fet, es considera una de les capes febles més crítiques en tota la ciència de neu i allaus.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-9": {
+      "ids": {
+        "ar": "patrons-de-perilh-9",
+        "cs": "modely-lavinoveho-nebezpeci-9",
+        "de": "gefahrenmuster-9",
+        "es": "situaciones-de-peligro-9",
+        "fr": "modeles-de-danger-9",
+        "it": "situazioni-tipo-9",
+        "sl": "vzorci-nevarnosti-9",
+        "en": "danger-pattern-9"
+      },
+      "heading": "pp.9: Neu rodona enterrada",
+      "text": "<p>Sovint es compara una capa feble dins d’un mantell de neu amb els coixinets. Aquesta imatge és realment adequada només per a la neu granulada: una forma esfèrica i granular de precipitació que es diposita sovint durant els xàfecs com les tempestes de trons a la primavera. És fàcil comprendre que les acumulacions de neu que es dipositen a sobre d’una capa de neu granulada segur que no s'hi uniran bé, de manera que augmenta el perill d’allaus. La neu granulada està freqüentment distribuïda per zones molt petites. Sense examinar el mantell en si és difícil de detectar, fins i tot per a professionals. Es tracta d’un fenomen extremadament traïdor. Afortunadament, els problemes que crea són de curta durada.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+      "source": "false"
+    },
+    "danger-pattern-10": {
+      "ids": {
+        "ar": "patrons-de-perilh-10",
+        "cs": "modely-lavinoveho-nebezpeci-10",
+        "de": "gefahrenmuster-10",
+        "es": "situaciones-de-peligro-10",
+        "fr": "modeles-de-danger-10",
+        "it": "situazioni-tipo-10",
+        "sl": "vzorci-nevarnosti-10",
+        "en": "danger-pattern-10"
+      },
+      "heading": "pp.10: escenari de primavera",
+      "text": "<p>La primavera presenta un repte especialment delicat per als esquiadors i els surfers de muntanya, així com per als membres de les comissions d’allaus. Rarament hi ha estats de “segur” i “insegur” tan a prop en el temps. Així, la franja de graus de perill que es produeixen en el transcurs d'un sol dia és molt àmplia. D'una banda, el perill d'allaus no és mai tan fàcil d'avaluar com en condicions de fusió regel; de l’altra, allaus de tanta magnitud com a la primavera rarament es registren a l’hivern profund. A més de l'estratificació de la neu, la complexa interacció de la temperatura de l’aire, la humitat de l’aire, la radiació solar i el vent tenen un paper principal. Per als esquiadors i els surfers de muntanya, la disciplina en l'horari i la flexibilitat en la planificació de rutes són més essencials que mai.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
+      "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+      "source": "false"
+    },
+    "danger-scale-low": {
+      "ids": {
+        "ar": "perilh-bass",
+        "cs": "nebezpeci-nizkeho-stupne",
+        "de": "geringes-gefahrenniveau",
+        "es": "peligro-bajo",
+        "fr": "danger-faible",
+        "is": "laegt-haettustig",
+        "it": "pericolo-basso",
+        "sl": "nizka-nevarnost",
+        "en": "danger-scale-low"
+      },
+      "heading": "Grau de perill: Feble",
+      "text": "<p><b>Situació d’allaus generalment favorable.</b><br />No hi ha signes d'alarma. Les allaus només es poden desencadenar en casos aïllats, en particular en pendents extremadament inclinades.<br /> <b>Recomanacions per muntanyencs i esquiadors</b><br /> Circuleu en pendents extremadament escarpades d’un en un i tingueu en compte el perill de caure.</p>",
+      "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    },
+    "danger-scale-moderate": {
+      "ids": {
+        "ar": "perilh-moderat",
+        "cs": "nebezpeci-stredniho-stupne",
+        "de": "mäßiges-gefahrenniveau",
+        "es": "peligro-moderado",
+        "fr": "danger-modere",
+        "is": "midlungs-haettustig",
+        "it": "pericolo-moderato",
+        "sl": "zmerna-nevarnost",
+        "en": "danger-scale-moderate"
+      },
+      "heading": "Grau de perill: Moderat",
+      "text": "<p><b>Situació d’allaus majoritàriament favorable.</b><br />Es poden produir signes d’alarma en casos aïllats. Les allaus es poden desencadenar, en particular, en pendents molt inclinats, amb l'orientació i l'elevació indicades al butlletí. Les allaus naturals grans són poc probables.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Les activitats en terreny de muntanya s’han de seleccionar acuradament, sobretot en els vessants d'orientació i altitud indicats al lauegi.report Circular per vessants inclinats d'un en un. Atenció a l'estructura desfavorable del mantell de neu (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capes febles persistents</a>).</p>",
+      "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    },
+    "danger-scale-considerable": {
+      "ids": {
+        "ar": "perilh-considerable",
+        "cs": "nebezpeci-podstatneho-stupne",
+        "de": "erhebliches-gefahrenniveau",
+        "es": "peligro-considerable",
+        "fr": "danger-considerable",
+        "is": "talsvert-haettustig",
+        "it": "pericolo-considerabile",
+        "sl": "znatna-nevarnost",
+        "en": "danger-scale-considerable"
+      },
+      "heading": "Grau de perill: Marcat",
+      "text": "<p><b>Situació d'allaus crítica.</b><br />Són típics els whumpfs i les fissures que propaguen. Es poden desencadenar allaus fàcilment, particularment en pendents molt inclinats, amb l'orientació i l'elevació indicats al butlletí. Es poden produir allaus naturals i desencadenaments remots.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />La situació més crítica per als muntanyencs. Utilitzeu el terreny de manera eficient i seleccioneu la millor ruta possible amb una exposició mínima. Eviteu pendents molt inclinats amb l'orientació i l'elevació indicats al butlletí. Es recomana que les persones inexpertes es mantinguin en pistes i senders oberts.<br /></p>",
+      "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    },
+    "danger-scale-high": {
+      "ids": {
+        "ar": "perilh-aute",
+        "cs": "nebezpeci-vysokeho-stupne",
+        "de": "hohes-gefahrenniveau",
+        "es": "peligro-alto",
+        "fr": "danger-eleve",
+        "is": "haettustig",
+        "it": "pericolo-alto",
+        "sl": "visoka-nevarnost",
+        "en": "danger-scale-high"
+      },
+      "heading": "Grau de perill: Fort",
+      "text": "<p><b>Situació d'allaus molt crítica.</b><br />És probable que hi hagi allaus naturals i sovint molt grans. Es poden desencadenar allaus fàcilment en molts pendents. El desencadenament remot és típic. Sovint es produeixen whumpfs i esquerdes que propaguen.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Mantingueu-vos en terrenys moderadament inclinats. Vigileu amb les zones d'arribada de grans allaus. Les persones sense experiència han de romandre en pistes d’esquí obertes. Aquesta previsió es dona només en uns dies durant tot l’hivern.<br /></p>",
+      "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    },
+    "danger-scale-very-high": {
+      "ids": {
+        "ar": "perilh-molt-aute",
+        "cs": "nebezpeci-velmi-vysokeho-stupne",
+        "de": "sehr-hohes-gefahrenniveau",
+        "es": "peligro-muy-alto",
+        "fr": "danger-tres-eleve",
+        "is": "mjog-haettustig",
+        "it": "pericolo-molto-alto",
+        "sl": "zelo-visoka-nevarnost",
+        "en": "danger-scale-very-high"
+      },
+      "heading": "Grau de perill: Molt fort",
+      "text": "<p><b>Situació d'allaus extraordinària.</b><br />S'esperen nombroses allaus naturals molt grans i extremes. Aquestes poden arribar a carreteres i assentaments a la vall.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Es recomana no sortir a la muntanya fora de les pistes d’esquí obertes.<br /></p>",
+      "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    },
+    "snowpack-stability-very-poor": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
+      "ca": "estabilitat-del-paquet-de-neu-molt-mala",
+      "cs": "stabilita-snehoveho-obalu-velmi-slabá",
+      "de": "schneedeckenstabilitaet-sehr-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-muy-mala",
+      "fr": "stabilite-du-pacquet-de-neige-tres-faible",
+      "is": "stöðugleiki-snjópakka-mjög-lélegur",
+      "it": "stabilità-del-manto-nevoso-molto-scarso",
+      "no": "snøpakke-stabilitet-svært-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-foarte-slabă",
+      "sk": "stabilita-snehoveho-obalu-velmi-slaba",
+      "sl": "stabilnost-sneznega-plosca-zelo-slaba",
+      "en": "snowpack-stability-very-poor"
+    },
+    "heading": "Estabilitat del mantell de neu: Molt pobre",
+    "text": "<p>Naturals / molt fàcil de desencadenar</p>",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER___"
   },
-  "danger-pattern-7": {
+  "snowpack-stability-poor": {
     "ids": {
-      "ar": "patrons-de-perilh-7",
-      "cs": "modely-lavinoveho-nebezpeci-7",
-      "de": "gefahrenmuster-7",
-      "es": "situaciones-de-peligro-7",
-      "fr": "modeles-de-danger-7",
-      "it": "situazioni-tipo-7",
-      "sl": "vzorci-nevarnosti-7",
-      "en": "danger-pattern-7"
+      "ar": "estabilitat-deth-paquet-de-neu-mala",
+      "ca": "estabilitat-del-paquet-de-neu-mala",
+      "cs": "stabilita-snehoveho-obalu-slaba",
+      "de": "schneedeckenstabilitaet-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-mala",
+      "fr": "stabilite-du-pacquet-de-neige-faible",
+      "is": "stöðugleiki-snjópakka-lélegur",
+      "it": "stabilità-del-manto-nevoso-scarso",
+      "no": "snøpakke-stabilitet-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-slabă",
+      "sk": "stabilita-snehoveho-obalu-slaba",
+      "sl": "stabilnost-sneznega-plosca-slaba",
+      "en": "snowpack-stability-poor"
     },
-    "heading": "pp.7: mantell prim vora mantell gruixut",
-    "text": "<p>Les zones en què la neu és poc profunda solen tenir una estratificació menys favorable que les que presenten un mantell profund. Això es deu a l'amplificació dels processos que es produeixen a l'interior d'un mantell de neu poc profund. A més, les allaus de placa són més fàcils de desencadenar on la neu és poc profunda, ja que les capes febles no estan tan profundament enterrades i són més fàcils de desencadenar amb càrregues addicionals. Per això, sovint s’observen desencadenaments d’allaus en zones de transició des de la neu poc profunda cap a la neu profunda. Es produeixen freqüentment a prop dels límits del terreny i, repetidament, en carenes amples.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
-    "source": "false"
+    "heading": "Estabilitat del mantell de neu: Pobre",
+    "text": "<p>Fàcil de desencadenar (per exemple, un sol esquiador/a)</p>",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER___"
   },
-  "danger-pattern-8": {
+  "snowpack-stability-fair": {
     "ids": {
-      "ar": "patrons-de-perilh-8",
-      "cs": "modely-lavinoveho-nebezpeci-8",
-      "de": "gefahrenmuster-8",
-      "es": "situaciones-de-peligro-8",
-      "fr": "modeles-de-danger-8",
-      "it": "situazioni-tipo-8",
-      "sl": "vzorci-nevarnosti-8",
-      "en": "danger-pattern-8"
+      "ar": "estabilitat-deth-paquet-de-neu-acceptable",
+      "ca": "estabilitat-del-paquet-de-neu-acceptable",
+      "cs": "stabilita-snehoveho-obalu-prijatelna",
+      "de": "schneedeckenstabilitaet-akzeptabel",
+      "es": "estabilidad-del-paquete-de-nieve-aceptable",
+      "fr": "stabilite-du-pacquet-de-neige-moyenne",
+      "is": "stöðugleiki-snjópakka-sæmilegur",
+      "it": "stabilità-del-manto-nevoso-accettabile",
+      "no": "snøpakke-stabilitet-akseptabel",
+      "ro": "stabilitatea-stratului-de-zapada-acceptabilă",
+      "sk": "stabilita-snehoveho-obalu-prijatelna",
+      "sl": "stabilnost-sneznega-plosca-spodobna",
+      "en": "snowpack-stability-fair"
     },
-    "heading": "pp.8: gebre enterrat",
-    "text": "<p>El gebre de superfície és un dels tipus ne neu més bells. En si mateix, no presenta cap potencial de perill. Aquest potencial només es desplega quan està enterrat per capes de neu fresques i cohesives. Llavors es torna perillós. De fet, es considera una de les capes febles més crítiques en tota la ciència de neu i allaus.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
-    "source": "false"
+    "heading": "Estabilitat del mantell de neu: Regular",
+    "text": "<p>Difícil de desencadenar (p. ex. explosius)</p>",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER___"
   },
-  "danger-pattern-9": {
+  "snowpack-stability-good": {
     "ids": {
-      "ar": "patrons-de-perilh-9",
-      "cs": "modely-lavinoveho-nebezpeci-9",
-      "de": "gefahrenmuster-9",
-      "es": "situaciones-de-peligro-9",
-      "fr": "modeles-de-danger-9",
-      "it": "situazioni-tipo-9",
-      "sl": "vzorci-nevarnosti-9",
-      "en": "danger-pattern-9"
+      "ar": "estabilitat-deth-paquet-de-neu-bona",
+      "ca": "estabilitat-del-paquet-de-neu-bona",
+      "cs": "stabilita-snehoveho-obalu-dobra",
+      "de": "schneedeckenstabilitaet-gut",
+      "es": "estabilidad-del-paquete-de-nieve-buena",
+      "fr": "stabilite-du-pacquet-de-neige-bonne",
+      "is": "stöðugleiki-snjópakka-góður",
+      "it": "stabilità-del-manto-nevoso-buona",
+      "no": "snøpakke-stabilitet-god",
+      "ro": "stabilitatea-stratului-de-zapada-bună",
+      "sk": "stabilita-snehoveho-obalu-dobra",
+      "sl": "stabilnost-sneznega-plosca-dobra",
+      "en": "snowpack-stability-good"
     },
-    "heading": "pp.9: Neu rodona enterrada",
-    "text": "<p>Sovint es compara una capa feble dins d’un mantell de neu amb els coixinets. Aquesta imatge és realment adequada només per a la neu granulada: una forma esfèrica i granular de precipitació que es diposita sovint durant els xàfecs com les tempestes de trons a la primavera. És fàcil comprendre que les acumulacions de neu que es dipositen a sobre d’una capa de neu granulada segur que no s'hi uniran bé, de manera que augmenta el perill d’allaus. La neu granulada està freqüentment distribuïda per zones molt petites. Sense examinar el mantell en si és difícil de detectar, fins i tot per a professionals. Es tracta d’un fenomen extremadament traïdor. Afortunadament, els problemes que crea són de curta durada.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
-    "source": "false"
+    "heading": "Estabilitat del mantell de neu: Bona",
+    "text": "<p>Condicions estables</p>",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER___"
   },
-  "danger-pattern-10": {
+    "problem-glide": {
     "ids": {
-      "ar": "patrons-de-perilh-10",
-      "cs": "modely-lavinoveho-nebezpeci-10",
-      "de": "gefahrenmuster-10",
-      "es": "situaciones-de-peligro-10",
-      "fr": "modeles-de-danger-10",
-      "it": "situazioni-tipo-10",
-      "sl": "vzorci-nevarnosti-10",
-      "en": "danger-pattern-10"
+      "ar": "problem-deth-laueg-fanga",
+      "ca": "problema-de-lallau-fanga",
+      "cs": "problem-laviny-snehova-lavina",
+      "de": "lawinenproblem-gleitschnee",
+      "es": "problema-de-aludes-nieve-deslizante",
+      "fr": "probleme-davalanche-neige-glissante",
+      "is": "vandamál-snjofloda-snjógall",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-slidende-snø",
+      "ro": "problema-avalansei-zapada-alunecoasa",
+      "sk": "problem-laviny-snehova-lavina",
+      "sl": "problem-sneznih-plazov-snezni-plaz",
+      "en": "problem-glide"
     },
-    "heading": "pp.10: escenari de primavera",
-    "text": "<p>La primavera presenta un repte especialment delicat per als esquiadors i els surfers de muntanya, així com per als membres de les comissions d’allaus. Rarament hi ha estats de “segur” i “insegur” tan a prop en el temps. Així, la franja de graus de perill que es produeixen en el transcurs d'un sol dia és molt àmplia. D'una banda, el perill d'allaus no és mai tan fàcil d'avaluar com en condicions de fusió regel; de l’altra, allaus de tanta magnitud com a la primavera rarament es registren a l’hivern profund. A més de l'estratificació de la neu, la complexa interacció de la temperatura de l’aire, la humitat de l’aire, la radiació solar i el vent tenen un paper principal. Per als esquiadors i els surfers de muntanya, la disciplina en l'horari i la flexibilitat en la planificació de rutes són més essencials que mai.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
-    "source": "false"
+    "heading": "Problema: lliscament",
+    "text": "Tot el mantell de neu llisca sobre el terreny, normalment en terrenys llisos com ara pendents herboses o zones de roques llises. L’elevada activitat d’allaus de lliscament basal està relacionada normalment amb un mantell de neu gruixut amb cap o només poques capes. Es poden produir allaus de lliscament tant amb un mantell de neu seca i freda com amb un mantell càlid. És difícil predir el desencadenament d’una allau de  lliscament, tot i que les esquerdes s’obren generalment abans d’un desencadenament.</p><b>Consells de circulació</b> <br/> <p>Evitar zones properes a esquerdes de lliscament.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
   },
-  "danger-scale-low": {
+  "problem-new-snow": {
     "ids": {
-      "ar": "perilh-bass",
-      "cs": "nebezpeci-nizkeho-stupne",
-      "de": "geringes-gefahrenniveau",
-      "es": "peligro-bajo",
-      "fr": "danger-faible",
-      "is": "laegt-haettustig",
-      "it": "pericolo-basso",
-      "sl": "nizka-nevarnost",
-      "en": "danger-scale-low"
+      "ar": "problem-deth-laueg-nou",
+      "ca": "problema-de-lallau-nova",
+      "cs": "problem-laviny-novy-snih",
+      "de": "lawinenproblem-neuschnee",
+      "es": "problema-de-aludes-nieve-nueva",
+      "fr": "probleme-davalanche-neige-fraiche",
+      "is": "vandamál-snjofloda-nysnjór",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-snø",
+      "ro": "problema-avalansei-zapada-proaspata",
+      "sk": "problem-laviny-novy-sneh",
+      "sl": "problem-sneznih-plazov-nov-sneg",
+      "en": "problem-new-snow"
     },
-    "heading": "Grau de perill: Feble",
-    "text": "<p><b>Situació d’allaus generalment favorable.</b><br />No hi ha signes d'alarma. Les allaus només es poden desencadenar en casos aïllats, en particular en pendents extremadament inclinades.<br /> <b>Recomanacions per muntanyencs i esquiadors</b><br /> Circuleu en pendents extremadament escarpades d’un en un i tingueu en compte el perill de caure.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    "heading": "Problema: Neu recent",
+    "text": "<p>El problema d'allaus està relacionat amb les nevades actuals o més recents. La quantitat de càrrega addicional per neu nova al mantell de neu existent és el factor crucial del nou problema d'estabilitat. La importància de la càrrega crítica depèn de diversos factors, com ara la temperatura o les característiques de la superfície de la neu antiga.</p><b>Consells de circulació</b> <br/> <p>Plaques seques:<br>Espera fins que el mantell s'estabilitzi.<br>Allaus puntuals de neu seca:<br>El perill de caiguda és més important que el d'enterrament. Considera les conseqüències en terreny molt inclinat. </p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
   },
-  "danger-scale-moderate": {
+  "problem-persistent-weak-layer": {
     "ids": {
-      "ar": "perilh-moderat",
-      "cs": "nebezpeci-stredniho-stupne",
-      "de": "mäßiges-gefahrenniveau",
-      "es": "peligro-moderado",
-      "fr": "danger-modere",
-      "is": "midlungs-haettustig",
-      "it": "pericolo-moderato",
-      "sl": "zmerna-nevarnost",
-      "en": "danger-scale-moderate"
+      "ar": "problem-deth-laueg-peristent",
+      "ca": "problema-de-lallau-persistent",
+      "cs": "problem-laviny-trvale-slabe-vrstvy",
+      "de": "lawinenproblem-andauernde-schwache-schicht",
+      "es": "problema-de-aludes-capa-debil-persistente",
+      "fr": "probleme-davalanche-couche-faible-persistante",
+      "is": "vandamál-snjofloda-varanlegur-veikur-lag",
+      "it": "problema-delle-valanghe-strato-debole-persistente",
+      "no": "skredproblem-persistente-svake-lag",
+      "ro": "problema-avalansei-strat-slab-persistent",
+      "sk": "problem-laviny-trvale-slabe-vrstvy",
+      "sl": "problem-sneznih-plazov-trajno-slab-sloj",
+      "en": "problem-persistent-weak-layer"
     },
-    "heading": "Grau de perill: Moderat",
-    "text": "<p><b>Situació d’allaus majoritàriament favorable.</b><br />Es poden produir signes d’alarma en casos aïllats. Les allaus es poden desencadenar, en particular, en pendents molt inclinats, amb l'orientació i l'elevació indicades al butlletí. Les allaus naturals grans són poc probables.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Les activitats en terreny de muntanya s’han de seleccionar acuradament, sobretot en els vessants d'orientació i altitud indicats al lauegi.report Circular per vessants inclinats d'un en un. Atenció a l'estructura desfavorable del mantell de neu (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capes febles persistents</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    "heading": "Problema: Capes febles persistents",
+    "text": "<p>El problema d'allaus està relacionat amb la presència de capes febles persistents a l’antic mantell de neu. Aquestes capes febles inclouen típicament gebre de superfície enterrat, gobelets o cristalls amb facetes.</p><b>Consells de circulació</b> <br/> <p>Tipus d'allaus previstes</p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
   },
-  "danger-scale-considerable": {
+  "problem-wet-snow": {
     "ids": {
-      "ar": "perilh-considerable",
-      "cs": "nebezpeci-podstatneho-stupne",
-      "de": "erhebliches-gefahrenniveau",
-      "es": "peligro-considerable",
-      "fr": "danger-considerable",
-      "is": "talsvert-haettustig",
-      "it": "pericolo-considerabile",
-      "sl": "znatna-nevarnost",
-      "en": "danger-scale-considerable"
+      "ar":"problem-deth-laueg-nou-humida",
+      "ca": "problema-de-lallau-neu-humida",
+      "cs": "problem-laviny-mokry-snih",
+      "de": "lawinenproblem-nassschnee",
+      "es": "problema-de-aludes-nieve-humeda",
+      "fr": "probleme-davalanche-neige-mouillée",
+      "is": "vandamál-snjofloda-votur-snjór",
+      "it": "problema-delle-valanghe-neve-bagnata",
+      "no": "skredproblem-våt-snø",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-mokry-sneh",
+      "sl": "problem-sneznih-plazov-vlažen-sneg",
+      "en": "problem-wet-snow"
     },
-    "heading": "Grau de perill: Marcat",
-    "text": "<p><b>Situació d'allaus crítica.</b><br />Són típics els whumpfs i les fissures que propaguen. Es poden desencadenar allaus fàcilment, particularment en pendents molt inclinats, amb l'orientació i l'elevació indicats al butlletí. Es poden produir allaus naturals i desencadenaments remots.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />La situació més crítica per als muntanyencs. Utilitzeu el terreny de manera eficient i seleccioneu la millor ruta possible amb una exposició mínima. Eviteu pendents molt inclinats amb l'orientació i l'elevació indicats al butlletí. Es recomana que les persones inexpertes es mantinguin en pistes i senders oberts.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    "heading": "Problema: Neu humida",
+    "text": "<p>El problema de les allaus està relacionat amb el debilitament del mantell de neu degut a la presència d’aigua líquida. L’aigua s’infiltra al mantell de neu a causa de la fusió o la pluja.</p><b>Consells de circulació</b> <br/> <p>En presència de crosta de regel, les condicions després de nits fredes amb cels clars solen ser favorables al matí pel regel. Després de nits càlides amb cels ennuvolats, el problema sovint ja existeix al matí. Normalment la pluja sobre neu fresca crea aquest problema gairebé immediatament. El bon horari i la planificació de la sortida són importants. Penseu en les zones d'arribada d’allaus.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
   },
-  "danger-scale-high": {
+      "problem-wind-slab": {
     "ids": {
-      "ar": "perilh-aute",
-      "cs": "nebezpeci-vysokeho-stupne",
-      "de": "hohes-gefahrenniveau",
-      "es": "peligro-alto",
-      "fr": "danger-eleve",
-      "is": "haettustig",
-      "it": "pericolo-alto",
-      "sl": "visoka-nevarnost",
-      "en": "danger-scale-high"
+      "ar": "problem-deth-laueg-vent",
+      "ca": "problema-de-lallau-vent",
+      "cs": "problem-laviny-vetrna-nadraha",
+      "de": "lawinenproblem-winddecke",
+      "es": "problema-de-aludes-placa-de-viento",
+      "fr": "probleme-davalanche-couche-de-vent",
+      "is": "vandamál-snjofloda-vindskafl",
+      "it": "problema-delle-valanghe-lastre-da-vento",
+      "no": "skredproblem-vindskavl",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-vetrna-nadraha",
+      "sl": "problem-sneznih-plazov-vetrna-ploscad",
+      "en": "problem-wind-slab"
     },
-    "heading": "Grau de perill: Fort",
-    "text": "<p><b>Situació d'allaus molt crítica.</b><br />És probable que hi hagi allaus naturals i sovint molt grans. Es poden desencadenar allaus fàcilment en molts pendents. El desencadenament remot és típic. Sovint es produeixen whumpfs i esquerdes que propaguen.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Mantingueu-vos en terrenys moderadament inclinats. Vigileu amb les zones d'arribada de grans allaus. Les persones sense experiència han de romandre en pistes d’esquí obertes. Aquesta previsió es dona només en uns dies durant tot l’hivern.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
-  },
-  "danger-scale-very-high": {
-    "ids": {
-      "ar": "perilh-molt-aute",
-      "cs": "nebezpeci-velmi-vysokeho-stupne",
-      "de": "sehr-hohes-gefahrenniveau",
-      "es": "peligro-muy-alto",
-      "fr": "danger-tres-eleve",
-      "is": "mjog-haettustig",
-      "it": "pericolo-molto-alto",
-      "sl": "zelo-visoka-nevarnost",
-      "en": "danger-scale-very-high"
-    },
-    "heading": "Grau de perill: Molt fort",
-    "text": "<p><b>Situació d'allaus extraordinària.</b><br />S'esperen nombroses allaus naturals molt grans i extremes. Aquestes poden arribar a carreteres i assentaments a la vall.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Es recomana no sortir a la muntanya fora de les pistes d’esquí obertes.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    "heading": "Avalanche problem: Wind slab",
+    "text": "<p>El problema d'allaus està relacionat amb les Plaques de vent. La neu es pot transportarpel vent amb o sense nevada simultània.</p> <b>Consells de circulació</b> <br/> <p> Eviteu les acumulacions de neu en terrenys molt inclinats, especialment en zones on el mantell de neu canvia de prim a gruixut o de dur a tou.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
   }   
 }
+
