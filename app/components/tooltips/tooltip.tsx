@@ -26,13 +26,15 @@ export const Tooltip = ({
   label,
   placement = "bottom",
   html = false,
-  enableClick = false
+  enableClick = false,
+  width
 }: {
   children: React.ReactNode;
   label: React.ReactNode | (() => React.ReactNode) | string;
   placement?: "bottom";
   html?: boolean;
   enableClick?: boolean;
+  width?: string | number;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -77,11 +79,15 @@ export const Tooltip = ({
             style: {
               position: strategy,
               top: y ?? "",
-              left: x ?? ""
+              left: x ?? "",
+              ...(width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : {})
             }
           })}
         >
-          <div className={html ? "tooltip-inner-html" : "tooltip-inner"}>
+          <div
+            className={html ? "tooltip-inner-html" : "tooltip-inner"}
+            style={width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : undefined}
+          >
             {typeof label === "string" ? (
               <div
                 className="tooltip-content"

@@ -40,6 +40,7 @@ export interface GlossaryEntry {
   text: string;
   img: string;
   source?: string;
+  width?: number;
 }
 
 class InternalGlossaryReplacer {
@@ -117,7 +118,7 @@ class InternalGlossaryReplacer {
     textKey: string,
     idText: string
   ) {
-    const { heading, text, ids, img, source } = glossaryItem;
+    const { heading, text, ids, img, source, width } = glossaryItem;
     console.log("glossaryItem", glossaryItem);
     const hasSource = source && source.toLowerCase() === "false" ? false : true;
     const anchor = ids?.[this.locale];
@@ -138,8 +139,17 @@ class InternalGlossaryReplacer {
         )}
       </>
     );
+    const tooltipProps: any = {
+      key: textKey,
+      label: content,
+      html: true,
+      enableClick: true
+    };
+    if (typeof width !== 'undefined') {
+      tooltipProps.width = width;
+    }
     return (
-      <Tooltip key={textKey} label={content} html={true} enableClick={true}>
+      <Tooltip {...tooltipProps}>
         <a className="glossary">{idText}</a>
       </Tooltip>
     );
