@@ -1,5 +1,189 @@
-{
-    "danger-pattern-1": {
+{ "avalanche-size-small": {
+    "ids": {
+      "ar": "mida-deth-laueg-petit",
+      "ca": "mida-de-lallau-petit",
+      "cs": "velikost-laviny-malý",
+      "de": "lawinengrose-klein",
+      "es": "tamano-del-alud-pequeño",
+      "fr": "taille-davalanche-petit",
+      "is": "staerd-snjofloda-lítill",
+      "it": "dimensioni-delle-valanghe-piccolo",
+      "no": "skredstorrelse-liten",
+      "ro": "marimea-avalansei-mic",
+      "sk": "velkost-laviny-malý",
+      "sl": "velikost-sneznega-plazu-majhen",
+      "en": "avalanche-size-small"
+    },
+    "heading": "Mida 1: petit laueg (purga)",
+    "text": "<p>Ei pòc probable qu'entèrre a ua persona, a excepcion de zònes d'arribada damb caracteristiques deth terren desfavorables (p.ex. trampes deth terren)<br/>Es terren extrèmaments arribent, predomine eth perilh de casudes prigondes deth perilh d’enterraments.<br/> S'arture enes pales pendentes. </p>",
+    "img": "__SIMPLE_SLIDER__|petit,mejan,gran,fòrça gran,extremadament gran|0|false|45|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-size-medium": {
+    "ids": {
+      "ar": "mida-deth-laueg-mitjà",
+      "ca": "mida-de-lallau-mitjà",
+      "cs": "velikost-laviny-střední",
+      "de": "lawinengrose-mittel",
+      "es": "tamano-del-alud-medio",
+      "fr": "taille-davalanche-moyan",
+      "is": "staerd-snjofloda-miðlungs",
+      "it": "dimensioni-delle-valanghe-medio",
+      "no": "skredstorrelse-medium",
+      "ro": "marimea-avalansei-mediu",
+      "sk": "velkost-laviny-stredný",
+      "sl": "velikost-sneznega-plazu-srednje",
+      "en": "avalanche-size-medium"
+    },
+    "heading": "Mida 2: mejan laueg",
+    "text": "<p>Pòt enterrar, herir o aucir a ua persona<br/> Era mida 2 correspon ath tipic lauet desencadenat per un esquiaire<br/> Pòt arribar ara fin der arribent prononciat </p>",
+    "img": "__SIMPLE_SLIDER__|petit,mejan,gran,fòrça gran,extremadament gran|1|false|45|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "width": 480
+  },
+  "avalanche-size-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-gran",
+      "ca": "mida-de-lallau-gran",
+      "cs": "velikost-laviny-velký",
+      "de": "lawinengrose-grose",
+      "es": "tamano-del-alud-grande",
+      "fr": "taille-davalanche-grand",
+      "is": "staerd-snjofloda-stórt",
+      "it": "dimensioni-delle-valanghe-grande",
+      "no": "skredstorrelse-stor",
+      "ro": "marimea-avalansei-mare",
+      "sk": "velkost-laviny-veľký",
+      "sl": "velikost-sneznega-plazu-velik",
+      "en": "avalanche-size-large"
+    },
+    "heading": "Mida 3: Laueg gran",
+    "text": "<p>Pòt enterrar e destruïr coches, espatracar camions, destruïr petites bastisses e trincar quauqui arbes.<br/> Quan es esquiaires son atrapadi per lauegi d’aguesta mida, era probabilitat de conseqüéncies severes ei fòrça elevada. <br/> Pòt crotzar terren plan (fòrça per jos es 30\u00b0) a ua distància inferiora a 50 m </p>",
+    "img": "__SIMPLE_SLIDER__|petit,mejan,gran,fòrça gran,extremadament gran|2|false|45|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-size-very-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-muy-gran",
+      "ca": "mida-de-lallau-muy-gran",
+      "cs": "velikost-laviny-velmi-velký",
+      "de": "lawinengrose-sehr-grose",
+      "es": "tamano-del-alud-muy-grande",
+      "fr": "taille-davalanche-très-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-molto-grande",
+      "no": "skredstorrelse-svært-stor",
+      "ro": "marimea-avalansei-foarte-mare",
+      "sk": "velkost-laviny-veľmi-veľký",
+      "sl": "velikost-sneznega-plazu-zelo-velik",
+      "en": "avalanche-size-very-large"
+    },
+    "heading": "Mida 4: Laueg fòrça gran",
+    "text": "<p>Pòt enterrar e destruïr camions e trens<br/> Pòt destruïr bastisses fòrça granes e petites zònes de bòsc.<br/> Crotze terren plan (fòrça per jos es 30\u00b0) a ua distància de mès de 50 m </p>",
+    "img": "__SIMPLE_SLIDER__|petit,mejan,gran,fòrça gran,extremadament gran|3|false|45|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-size-extremely-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-extremadament-gran",
+      "ca": "mida-de-lallau-extremadament-gran",
+      "cs": "velikost-laviny-extremne-velký",
+      "de": "lawinengrose-extrem-grose",
+      "es": "tamano-del-alud-extremadamente-grande",
+      "fr": "taille-davalanche-extremement-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-estremamente-grande",
+      "no": "skredstorrelse-ekstremt-stor",
+      "ro": "marimea-avalansei-extrem-de-mare",
+      "sk": "velkost-laviny-extremne-velký",
+      "sl": "velikost-sneznega-plazu-izjemno-velik",
+      "en": "avalanche-size-extremely-large"
+    },
+    "heading": "Mida 5: Laueg extremadament gran",
+    "text": "<p>Pòt arrasar eth païsatge e a potenciau destructiu catastròfic<br/> Artenh eth hons dera val <br/> Lauet mès gran coneishut </p>",
+    "img": "__SIMPLE_SLIDER__|petit,mejan,gran,fòrça gran,extremadament gran|4|false|45|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-frequency-none": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-nul",
+      "ca": "frequencia-de-lallau-nul",
+      "cs": "frekvence-lavin-nie",
+      "de": "lawinenhaeufigkeit-null",
+      "es": "frecuencia-de-aludes-nula",
+      "fr": "frequence-davalanche-nulle",
+      "is": "tíðni-snjofloda-null",
+      "it": "frequenza-delle-valanghe-nulla",
+      "no": "skredfrekvens-null",
+      "ro": "frecventa-avalansei-nula",
+      "sk": "frekvencia-lavin-nie",
+      "sl": "pogostost-sneznih-plazov-ni",
+      "en": "avalanche-frequency-none"
+    },
+    "heading": "Classa de frequéncia: Cap o lèu cap",
+    "text": "<p>Es punts damb aguesta classa d'estabilitat non existissen, o son tan rars que non se considèren entara avaloracion dera estabilitat.</p>",
+    "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|0|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-few": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-poc",
+      "ca": "frequencia-de-lallau-pocs",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-wenige",
+      "es": "frecuencia-de-aludes-pocos",
+      "fr": "frequence-davalanche-peu",
+      "is": "tíðni-snjofloda-fá",
+      "it": "frequenza-delle-valanghe-poche",
+      "no": "skredfrekvens-få",
+      "ro": "frecventa-avalansei-putini",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekaj",
+      "en": "avalanche-frequency-few"
+    },
+    "heading": "Classa de frequéncia: Pògui",
+    "text": "<p>Es punts damb aguesta classa d'estabilitat son rars. Maugrat que rars, eth sòn numerò ei considerable entara avaloracion dera estabilitat.</p> <p>Evidéncies dera inestabilitat son dificiles de trobar.</p>",
+    "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|1|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-some": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-quelcom",
+      "ca": "frequencia-de-lallau-alguns",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-einige",
+      "es": "frecuencia-de-aludes-algunos",
+      "fr": "frequence-davalanche-quelques",
+      "is": "tíðni-snjofloda-nokkrir",
+      "it": "frequenza-delle-valanghe-alcuni",
+      "no": "skredfrekvens-noen",
+      "ro": "frecventa-avalansei-cativa",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekateri",
+      "en": "avalanche-frequency-some"
+    },
+    "heading": "Classa de frequéncia: Qualques",
+    "text": "<p>Es punts damb aguesta classa d'estabilitat non son ne molti ne pòqui, mès aguesti punts normauments existissen en caracteristiques deth terren comunes (ei a díder, apròp des grinches, en canaus).</p>",
+    "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|2|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-many": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-molt",
+      "ca": "frequencia-de-lallau-molts",
+      "cs": "frekvence-lavin-mnoho",
+      "de": "lawinenhaeufigkeit-viele",
+      "es": "frecuencia-de-aludes-muchos",
+      "fr": "frequence-davalanche-beaucoup",
+      "is": "tíðni-snjofloda-margir",
+      "it": "frequenza-delle-valanghe-molti",
+      "no": "skredfrekvens-mange",
+      "ro": "frecventa-avalansei-multi",
+      "sk": "frekvencia-lavin-mnoho",
+      "sl": "pogostost-sneznih-plazov-veliko",
+      "en": "avalanche-frequency-many"
+    },
+    "heading": "Classa de frequéncia: Molts",
+    "text": "<p>Punts damb aguesta classa d'estabilitat son abondius.</p><p>Soent ei facil trobar evidéncies dera inestabilitat.</p>",
+    "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|3|false|__END_SLIDER___"
+  },
+  "danger-pattern-1": {
     "ids": {
       "ar": "patrons-de-perilh-1",
       "cs": "modely-lavinoveho-nebezpeci-1",
@@ -15,7 +199,7 @@
     "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
-    "danger-pattern-2": {
+  "danger-pattern-2": {
     "ids": {
       "ar": "patrons-de-perilh-2",
       "cs": "modely-lavinoveho-nebezpeci-2",
@@ -171,7 +355,7 @@
       "sl": "nizka-nevarnost",
       "en": "danger-scale-low"
     },
-    "heading": "Degré de danger: Faible",
+    "heading": "Degré de danger: Féble",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse favorable en général</b><br /> Aucun signe d’alarme n’est détectable. Les avalanches ne peuvent être déclenchées que de manière isolée, surtout sur les pentes extrêmement raides.<br /> <b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br /> Descendre les pentes extrêmement raides un par un et tenir compte du danger de chute.</p></div>",
     "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
@@ -238,5 +422,185 @@
     "heading": "Degré de danger: Très fort",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse exceptionnelle</b><br />De nombreux départs spontanés de très grandes avalanches et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées</b>Renoncement aux sports de neige recommandé en dehors des descentes et itinéraires ouverts.<br /></p></div>",
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+  },
+  "snowpack-stability-very-poor": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
+      "ca": "estabilitat-del-paquet-de-neu-molt-mala",
+      "cs": "stabilita-snehoveho-obalu-velmi-slabá",
+      "de": "schneedeckenstabilitaet-sehr-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-muy-mala",
+      "fr": "stabilite-du-pacquet-de-neige-tres-faible",
+      "is": "stöðugleiki-snjópakka-mjög-lélegur",
+      "it": "stabilità-del-manto-nevoso-molto-scarso",
+      "no": "snøpakke-stabilitet-svært-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-foarte-slabă",
+      "sk": "stabilita-snehoveho-obalu-velmi-slaba",
+      "sl": "stabilnost-sneznega-plosca-zelo-slaba",
+      "en": "snowpack-stability-very-poor"
+    },
+    "heading": "Classe d'estabilitat: Molt praube",
+    "text": "<p>Naturaus / molt fàcil de desencadenar</p>",
+    "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|0|false|__END_SLIDER___"
+  },
+  "snowpack-stability-poor": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-mala",
+      "ca": "estabilitat-del-paquet-de-neu-mala",
+      "cs": "stabilita-snehoveho-obalu-slaba",
+      "de": "schneedeckenstabilitaet-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-mala",
+      "fr": "stabilite-du-pacquet-de-neige-faible",
+      "is": "stöðugleiki-snjópakka-lélegur",
+      "it": "stabilità-del-manto-nevoso-scarso",
+      "no": "snøpakke-stabilitet-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-slabă",
+      "sk": "stabilita-snehoveho-obalu-slaba",
+      "sl": "stabilnost-sneznega-plosca-slaba",
+      "en": "snowpack-stability-poor"
+    },
+    "heading": "Classe d'estabilitat: Praube",
+    "text": "<p>Facils de desencadenar (e.g. un esquiaire individuau)</p>",
+    "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|1|false|__END_SLIDER___"
+  },
+  "snowpack-stability-fair": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-acceptable",
+      "ca": "estabilitat-del-paquet-de-neu-acceptable",
+      "cs": "stabilita-snehoveho-obalu-prijatelna",
+      "de": "schneedeckenstabilitaet-akzeptabel",
+      "es": "estabilidad-del-paquete-de-nieve-aceptable",
+      "fr": "stabilite-du-pacquet-de-neige-moyenne",
+      "is": "stöðugleiki-snjópakka-sæmilegur",
+      "it": "stabilità-del-manto-nevoso-accettabile",
+      "no": "snøpakke-stabilitet-akseptabel",
+      "ro": "stabilitatea-stratului-de-zapada-acceptabilă",
+      "sk": "stabilita-snehoveho-obalu-prijatelna",
+      "sl": "stabilnost-sneznega-plosca-spodobna",
+      "en": "snowpack-stability-fair"
+    },
+    "heading": "Classe d'estabilitat: Regular",
+    "text": "<p>Dificils de desencadenar (e.g. explosius)</p>",
+    "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|2|false|__END_SLIDER___"
+  },
+  "snowpack-stability-good": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-bona",
+      "ca": "estabilitat-del-paquet-de-neu-bona",
+      "cs": "stabilita-snehoveho-obalu-dobra",
+      "de": "schneedeckenstabilitaet-gut",
+      "es": "estabilidad-del-paquete-de-nieve-buena",
+      "fr": "stabilite-du-pacquet-de-neige-bonne",
+      "is": "stöðugleiki-snjópakka-góður",
+      "it": "stabilità-del-manto-nevoso-buona",
+      "no": "snøpakke-stabilitet-god",
+      "ro": "stabilitatea-stratului-de-zapada-bună",
+      "sk": "stabilita-snehoveho-obalu-dobra",
+      "sl": "stabilnost-sneznega-plosca-dobra",
+      "en": "snowpack-stability-good"
+    },
+    "heading": "Classe d'estabilitat: Bona",
+    "text": "<p>Condicions estables</p>",
+    "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|3|false|__END_SLIDER___"
+  },
+  "problem-glide": {
+    "ids": {
+      "ar": "problem-deth-laueg-fanga",
+      "ca": "problema-de-lallau-fanga",
+      "cs": "problem-laviny-snehova-lavina",
+      "de": "lawinenproblem-gleitschnee",
+      "es": "problema-de-aludes-nieve-deslizante",
+      "fr": "probleme-davalanche-neige-glissante",
+      "is": "vandamál-snjofloda-snjógall",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-slidende-snø",
+      "ro": "problema-avalansei-zapada-alunecoasa",
+      "sk": "problem-laviny-snehova-lavina",
+      "sl": "problem-sneznih-plazov-snezni-plaz",
+      "en": "problem-glide"
+    },
+    "heading": "Problèmes de lauegi: Esguitlament basau",
+    "text": "<p> The entire snowpack is gliding on the ground, typically on smooth ground such as grassy slopes or smooth rock zones. High activity of glide-snow avalanches are typically related to a thick snowpack with no or only few weak layers. Glide snow avalanches can occur both with a cold dry snowpack and with a warm wet snowpack. The release of a glide-snow avalanche is difficult to predict, although glide cracks open usually before a release. </p> </p> <b>Travel advice</b> <br/> <p>Avoid areas close to glide cracks.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+  "problem-new-snow": {
+    "ids": {
+      "ar": "problem-deth-laueg-nou",
+      "ca": "problema-de-lallau-nova",
+      "cs": "problem-laviny-novy-snih",
+      "de": "lawinenproblem-neuschnee",
+      "es": "problema-de-aludes-nieve-nueva",
+      "fr": "probleme-davalanche-neige-fraiche",
+      "is": "vandamál-snjofloda-nysnjór",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-snø",
+      "ro": "problema-avalansei-zapada-proaspata",
+      "sk": "problem-laviny-novy-sneh",
+      "sl": "problem-sneznih-plazov-nov-sneg",
+      "en": "problem-new-snow"
+    },
+    "heading": "Problèmes de lauegi: Nhèu recenta",
+    "text": "<p>Eth problèma de lauegi ei relacionat damb es nheuades actuaus o mès recentes. Era quantitat de carga addicionau per nhèu naua ath celh de nhèu existent ei eth factor cruciau deth nau problèma de nhèu. Com de critica ei era carga depen de diuèrsi factors coma era temperatura o es caracteristiques dera superfícia de nhèu anciana.</p> <b>Conselhs de circulacion</b> <br/> <p>Lauegi de placa seca:Demore enquia eth celh de nhèu estabilize. <br/>Lauegi de nhèu seca sense coesion:Eth perilh de casuda ei mès important qu'eth perilh d’enterrament. Considere es conseqüéncies en terrens escarpatsAvalanches de neige sèche sans cohésion : Le danger de chute est plus important que le danger d'ensevelissement. Considérez les conséquences dans un terrain escarpé.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+  },
+  "problem-persistent-weak-layer": {
+    "ids": {
+      "ar": "problem-deth-laueg-peristent",
+      "ca": "problema-de-lallau-persistent",
+      "cs": "problem-laviny-trvale-slabe-vrstvy",
+      "de": "lawinenproblem-andauernde-schwache-schicht",
+      "es": "problema-de-aludes-capa-debil-persistente",
+      "fr": "probleme-davalanche-couche-faible-persistante",
+      "is": "vandamál-snjofloda-varanlegur-veikur-lag",
+      "it": "problema-delle-valanghe-strato-debole-persistente",
+      "no": "skredproblem-persistente-svake-lag",
+      "ro": "problema-avalansei-strat-slab-persistent",
+      "sk": "problem-laviny-trvale-slabe-vrstvy",
+      "sl": "problem-sneznih-plazov-trajno-slab-sloj",
+      "en": "problem-persistent-weak-layer"
+    },
+    "heading": "Problèmes de lauegi: Coches febles persistentes",
+    "text": "<p> Eth problèma de lauegi ei relacionat damb era preséncia de coches febles persistentes en celh de nhèu vielh. Aguestes coches febles includissen normauments geladiua de superfícia enterrada, gobelets o cristalhs facetats. </p> <b>Conselhs de circulacion</b> <br/> <p> Circule damb prudéncia e evite pales granes e arribentes. Considere era istòria des procèssi meteorologics e deth celh de nhèu ena zòna. Sigues fòrça prudent enes zònes damb un celh de nhèu prim e ena transicion de un celh de nhèu prim a prigond. Aguest problèma ei era principau causa de victimes mortaus recreatiues per lauegi. </p> </div> <br />",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+  "problem-wet-snow": {
+    "ids": {
+      "ar":"problem-deth-laueg-nou-humida",
+      "ca": "problema-de-lallau-neu-humida",
+      "cs": "problem-laviny-mokry-snih",
+      "de": "lawinenproblem-nassschnee",
+      "es": "problema-de-aludes-nieve-humeda",
+      "fr": "probleme-davalanche-neige-mouillée",
+      "is": "vandamál-snjofloda-votur-snjór",
+      "it": "problema-delle-valanghe-neve-bagnata",
+      "no": "skredproblem-våt-snø",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-mokry-sneh",
+      "sl": "problem-sneznih-plazov-vlažen-sneg",
+      "en": "problem-wet-snow"
+    },
+    "heading": "Problèmes de lauegi: Nhèu umida",
+    "text": "<p> Eth problèma de lauegi ei relacionat damb eth debilitament deth celh de nhèu a causa dera preséncia d’aigua liquida. Era aigua s’infiltre laguens deth celh de nhèu a causa dera fusion o era ploja. </p>  <b>Conselhs de circulacion</b> <br/> <p> En preséncia de crospa de solei, es condicions dempús de nets heiredes damb eth cèu clar acostumen a èster favorables peth maitin a causa dera congelacion. Dempús de nets caudes damb cèus embromadi eth problèma existís soent dejà peth maitin. Normauments era ploja ath dessús de nhèu recenta cree aguest problèma quasi immediataments. Eth bon orari e era planificacion dera rota son importants. Compde damb es zònes d’arribada de lauegi. </p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+    "problem-wind-slab": {
+    "ids": {
+      "ar": "problem-deth-laueg-vent",
+      "ca": "problema-de-lallau-vent",
+      "cs": "problem-laviny-vetrna-nadraha",
+      "de": "lawinenproblem-winddecke",
+      "es": "problema-de-aludes-placa-de-viento",
+      "fr": "probleme-davalanche-couche-de-vent",
+      "is": "vandamál-snjofloda-vindskafl",
+      "it": "problema-delle-valanghe-lastre-da-vento",
+      "no": "skredproblem-vindskavl",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-vetrna-nadraha",
+      "sl": "problem-sneznih-plazov-vetrna-ploscad",
+      "en": "problem-wind-slab"
+    },
+    "heading": "Problèmes de lauegi: Plaques de vent",
+    "text": "<p>Eth problèma de lauegi ei relacionat damb es plaques de vent. Era nhèu pòt èster transportada per vent damb o sense ua nheuada concurrent.</p> <b>Conselhs de circulacion</b> <br/> <p> Evite es depausi de nhèu ventada en terren arribent, mès que mès en zònes a on eth celh de nhèu càmbie de prim a prigond o de dur a tou.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
   }
 }

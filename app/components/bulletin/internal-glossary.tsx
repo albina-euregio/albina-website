@@ -4,6 +4,7 @@ import { FormattedMessage } from "../../i18n";
 import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../util/htmlParser";
 import { LabeledSlider } from "../../util/simple-slider";
+import { fr } from "zod/locales";
 
 export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = false, rotateLabelsAngle = 0 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,7 +24,8 @@ const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
   en: () => import("./InternalGlossary/Internal-Glossary-en-content.json").then(d => d.default),
   es: () => import("./InternalGlossary/Internal-Glossary-es-content.json").then(d => d.default),
   it: () => import("./InternalGlossary/Internal-Glossary-it-content.json").then(d => d.default),
-  oc: () => import("./InternalGlossary/Internal-Glossary-oc-content.json").then(d => d.default)
+  oc: () => import("./InternalGlossary/Internal-Glossary-oc-content.json").then(d => d.default),
+  fr: () => import("./InternalGlossary/Internal-Glossary-fr-content.json").then(d => d.default)
 });
 
 export type EnabledLanguages = keyof typeof GLOSSARY_INTERNAL_CONTENT;
