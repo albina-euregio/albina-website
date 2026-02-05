@@ -39,6 +39,11 @@ export class LabeledSlider {
 
     const ticks = document.createElement("div");
     ticks.className = "slider-ticks";
+    if (typeof this.options.rotateLabelsAngle === 'number') {
+      const angle = Math.abs(this.options.rotateLabelsAngle);
+      const padding = 16 + angle * 0.5;
+      ticks.style.paddingBottom = `${padding}px`;
+    }
 
     labels.forEach((label, index) => {
       const tick = document.createElement("div");

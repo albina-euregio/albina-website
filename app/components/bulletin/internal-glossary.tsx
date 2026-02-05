@@ -119,7 +119,6 @@ class InternalGlossaryReplacer {
     idText: string
   ) {
     const { heading, text, ids, img, source, width } = glossaryItem;
-    console.log("glossaryItem", glossaryItem);
     const hasSource = source && source.toLowerCase() === "false" ? false : true;
     const anchor = ids?.[this.locale];
     const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
