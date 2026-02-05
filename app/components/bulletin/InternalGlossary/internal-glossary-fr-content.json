@@ -1,3 +1,527 @@
 {
-    
+    "avalanche-size-small": {
+    "ids": {
+        "ar": "mida-deth-laueg-petit",
+        "ca": "mida-de-lallau-petit",
+        "cs": "velikost-laviny-malý",
+        "de": "lawinengrose-klein",
+        "es": "tamano-del-alud-pequeño",
+        "fr": "taille-davalanche-petit",
+        "is": "staerd-snjofloda-lítill",
+        "it": "dimensioni-delle-valanghe-piccolo",
+        "no": "skredstorrelse-liten",
+        "ro": "marimea-avalansei-mic",
+        "sk": "velkost-laviny-malý",
+        "sl": "velikost-sneznega-plazu-majhen",
+        "en": "avalanche-size-small"
+    },
+    "heading": "Taille 1 : Petite avalanche (coulée)",
+    "text": "<p>L’ensevelissement est peu probable, sauf dans une zone de dépôt défavorable (p.ex. un piège de terrain).<br/>En terrain extrêmement raide, il est plus probable d'être emporté que d'être enseveli.<br/>S’arrête dans une pente raide.<br/>Longueur : &lt; 50 m<br/>Volume : 100 m³</p>",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|0|false|90|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+    },
+    "avalanche-size-medium": {
+    "ids": {
+        "ar": "mida-deth-laueg-mitjà",
+        "ca": "mida-de-lallau-mitjà",
+        "cs": "velikost-laviny-střední",
+        "de": "lawinengrose-mittel",
+        "es": "tamano-del-alud-medio",
+        "fr": "taille-davalanche-moyan",
+        "is": "staerd-snjofloda-miðlungs",
+        "it": "dimensioni-delle-valanghe-medio",
+        "no": "skredstorrelse-medium",
+        "ro": "marimea-avalansei-mediu",
+        "sk": "velkost-laviny-stredný",
+        "sl": "velikost-sneznega-plazu-srednje",
+        "en": "avalanche-size-medium"
+    },
+    "heading": "Taille 2 : Avalanche moyenne",
+    "text": "<p>Peut ensevelir, blesser ou tuer des personnes.<br/>C'est la taille typique des avalanches déclenchées par des skieurs.<br/>Peut atteindre le pied de la pente.<br/>Longueur : 50-200 m<br/>Volume : 1'000 m³</p>",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|1|false|45|__END_SLIDER___ <img alt=\"Avalanche size 2\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size2-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+    },
+    "avalanche-size-large": {
+    "ids": {
+        "ar": "mida-deth-laueg-gran",
+        "ca": "mida-de-lallau-gran",
+        "cs": "velikost-laviny-velký",
+        "de": "lawinengrose-grose",
+        "es": "tamano-del-alud-grande",
+        "fr": "taille-davalanche-grand",
+        "is": "staerd-snjofloda-stórt",
+        "it": "dimensioni-delle-valanghe-grande",
+        "no": "skredstorrelse-stor",
+        "ro": "marimea-avalansei-mare",
+        "sk": "velkost-laviny-veľký",
+        "sl": "velikost-sneznega-plazu-velik",
+        "en": "avalanche-size-large"
+    },
+    "heading": "Taille 3 : Grande avalanche",
+    "text": "<p>Peut ensevelir et détruire des véhicules, endommager de gros poids lourds, détruire de petits bâtiments, et casser des arbres.<br/>Pour un skieur emporté par une avalanche de cette taille, le risque mortel est élevé.<br/>Peut s’avancer en terrain plat (bien en dessous de 30°) sur une distance inférieure à 50 m.<br/>Longueur : plusieurs centaines de mètres<br/>Volume : 10’000 m³</p>",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|2|false|45|__END_SLIDER___ <img alt=\"Avalanche size 3\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size3-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+    },
+    "avalanche-size-very-large": {
+    "ids": {
+        "ar": "mida-deth-laueg-muy-gran",
+        "ca": "mida-de-lallau-muy-gran",
+        "cs": "velikost-laviny-velmi-velký",
+        "de": "lawinengrose-sehr-grose",
+        "es": "tamano-del-alud-muy-grande",
+        "fr": "taille-davalanche-très-grand",
+        "is": "staerd-snjofloda-mjög-stórt",
+        "it": "dimensioni-delle-valanghe-molto-grande",
+        "no": "skredstorrelse-svært-stor",
+        "ro": "marimea-avalansei-foarte-mare",
+        "sk": "velkost-laviny-veľmi-veľký",
+        "sl": "velikost-sneznega-plazu-zelo-velik",
+        "en": "avalanche-size-very-large"
+    },
+    "heading": "Taille 4 : Très grande avalanche",
+    "text": "<p>Peut ensevelir et détruire de gros poids lourds et trains.<br/>Peut détruire des bâtiments importants et de petites surfaces boisées.<br/>De très grandes avalanches sont possibles avec un indice de risque 3 – Marqué. Elles sont typiques des indices de risque 4 – Fort et 5 – Très fort.<br/>Traverse les terrains en pente peu raide (nettement moins de 30°) sur une distance de plus de 50 m.<br/>Peut atteindre le fond de la vallée.<br/>Longueur : 1-2 km<br/>Volume : 100’000 m³</p>",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|3|false|45|__END_SLIDER___ <img alt=\"Avalanche size 4\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size4-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+    },
+    "avalanche-size-extremely-large": {
+    "ids": {
+        "ar": "mida-deth-laueg-extremadament-gran",
+        "ca": "mida-de-lallau-extremadament-gran",
+        "cs": "velikost-laviny-extremne-velký",
+        "de": "lawinengrose-extrem-grose",
+        "es": "tamano-del-alud-extremadamente-grande",
+        "fr": "taille-davalanche-extremement-grand",
+        "is": "staerd-snjofloda-mjög-stórt",
+        "it": "dimensioni-delle-valanghe-estremamente-grande",
+        "no": "skredstorrelse-ekstremt-stor",
+        "ro": "marimea-avalansei-extrem-de-mare",
+        "sk": "velkost-laviny-extremne-velký",
+        "sl": "velikost-sneznega-plazu-izjemno-velik",
+        "en": "avalanche-size-extremely-large"
+    },
+    "heading": "Taille 5 : Avalanche extrêmement grande",
+    "text": "<p>Peut dévaster le paysage, potentiel destructeur catastrophique.<br/>Typique de l'indice de risque 5 – Très Fort.<br/>Atteint le fond de la vallée.<br/>C'est la plus grande ampleur d'avalanche connue.<br/>Longueur : > 2 km<br/>Volume : > 100’000 m³</p>",
+    "img": "__SIMPLE_SLIDER__|small,medium,large,very large,extremely large|4|false|45|__END_SLIDER___ <img alt=\"Avalanche size 5\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size5-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+    },
+    "avalanche-frequency-none": {
+        "ids": {
+            "ar": "frequencia-deth-laueg-nul",
+            "ca": "frequencia-de-lallau-nul",
+            "cs": "frekvence-lavin-nie",
+            "de": "lawinenhaeufigkeit-null",
+            "es": "frecuencia-de-aludes-nula",
+            "fr": "frequence-davalanche-nulle",
+            "is": "tíðni-snjofloda-null",
+            "it": "frequenza-delle-valanghe-nulla",
+            "no": "skredfrekvens-null",
+            "ro": "frecventa-avalansei-nula",
+            "sk": "frekvencia-lavin-nie",
+            "sl": "pogostost-sneznih-plazov-ni",
+            "en": "avalanche-frequency-none"
+        },
+        "heading": "Classe de fréquence d’avalanche : aucune",
+        "text": "<p>Les points avec cette classe de stabilité n’existent pas, ou ils sont si rares qu’ils ne sont pas considérés comme pertinents pour l’évaluation de la stabilité.</p>",
+        "img": "__SIMPLE_SLIDER__|none,few,some,many|0|false|__END_SLIDER___"
+    },
+    "avalanche-frequency-few": {
+        "ids": {
+            "ar": "frequencia-deth-laueg-poc",
+            "ca": "frequencia-de-lallau-pocs",
+            "cs": "frekvence-lavin-nekolik",
+            "de": "lawinenhaeufigkeit-wenige",
+            "es": "frecuencia-de-aludes-pocos",
+            "fr": "frequence-davalanche-peu",
+            "is": "tíðni-snjofloda-fá",
+            "it": "frequenza-delle-valanghe-poche",
+            "no": "skredfrekvens-få",
+            "ro": "frecventa-avalansei-putini",
+            "sk": "frekvencia-lavin-niekoľko",
+            "sl": "pogostost-sneznih-plazov-nekaj",
+            "en": "avalanche-frequency-few"
+        },
+        "heading": "Classe de fréquence d’avalanche : peu",
+        "text": "<p>Les points avec cette classe de stabilité sont rares. Bien que rares, leur nombre est considéré comme pertinent pour l’évaluation de la stabilité.</p><p>Les indices d’instabilité sont difficiles à trouver.</p>",
+        "img": "__SIMPLE_SLIDER__|none,few,some,many|1|false|__END_SLIDER___"
+    },
+    "avalanche-frequency-some": {
+        "ids": {
+            "ar": "frequencia-deth-laueg-quelcom",
+            "ca": "frequencia-de-lallau-alguns",
+            "cs": "frekvence-lavin-nekolik",
+            "de": "lawinenhaeufigkeit-einige",
+            "es": "frecuencia-de-aludes-algunos",
+            "fr": "frequence-davalanche-quelques",
+            "is": "tíðni-snjofloda-nokkrir",
+            "it": "frequenza-delle-valanghe-alcuni",
+            "no": "skredfrekvens-noen",
+            "ro": "frecventa-avalansei-cativa",
+            "sk": "frekvencia-lavin-niekoľko",
+            "sl": "pogostost-sneznih-plazov-nekateri",
+            "en": "avalanche-frequency-some"
+        },
+        "heading": "Classe de fréquence d’avalanche : quelques",
+        "text": "<p>Les points avec cette classe de stabilité ne sont ni nombreux ni rares, mais ils existent généralement dans des caractéristiques de terrain communes (par exemple, près des crêtes, dans des ravines).</p>",
+        "img": "__SIMPLE_SLIDER__|none,few,some,many|2|false|__END_SLIDER___"
+    },
+    "avalanche-frequency-many": {
+        "ids": {
+            "ar": "frequencia-deth-laueg-molt",
+            "ca": "frequencia-de-lallau-molts",
+            "cs": "frekvence-lavin-mnoho",
+            "de": "lawinenhaeufigkeit-viele",
+            "es": "frecuencia-de-aludes-muchos",
+            "fr": "frequence-davalanche-beaucoup",
+            "is": "tíðni-snjofloda-margir",
+            "it": "frequenza-delle-valanghe-molti",
+            "no": "skredfrekvens-mange",
+            "ro": "frecventa-avalansei-multi",
+            "sk": "frekvencia-lavin-mnoho",
+            "sl": "pogostost-sneznih-plazov-veliko",
+            "en": "avalanche-frequency-many"
+        },
+        "heading": "Classe de fréquence d’avalanche : beaucoup",
+        "text": "<p>Les points avec cette classe de stabilité sont abondants.</p><p>Les indices d’instabilité sont souvent faciles à trouver.</p>",
+        "img": "__SIMPLE_SLIDER__|none,few,some,many|3|false|__END_SLIDER___"
+    },
+    "danger-pattern-1": {
+    "ids": {
+        "ar": "patrons-de-perilh-1",
+        "cs": "modely-lavinoveho-nebezpeci-1",
+        "de": "gefahrenmuster-1",
+        "es": "situaciones-de-peligro-1",
+        "fr": "modeles-de-danger-1",
+        "it": "situazioni-tipo-1",
+        "sl": "vzorci-nevarnosti-1",
+        "en": "danger-pattern-1"
+    },
+    "heading": "mr.1 : Sous-couche fragile persistante",
+    "text": "<p>Au début de l'hiver, des avalanches de plaque sont souvent observées après la deuxième chute de neige significative, à savoir dans les endroits élevés (&gt;2000&nbsp;m) et en haute montagne (&gt;3000&nbsp;m), sur des pentes ombragés et très raides. Cela tient au fait qu'en automne, après les premières grosses chutes de neige, une situation anticyclonique stable et prolongée ou une période sans précipitations s'installe généralement. À ce moment là, les conditions sont idéales pour la transformation de la neige en cristaux libres, qui forment alors une couche fragile profonde et persistante sur laquelle les chutes de neige ultérieures se déposent. Au cours du début de l'hiver, cela peut se produire à des altitudes et sous des aspects très divers. En général, les couches faibles proches du sol sont plus souvent déclenchées par les skieurs et les freeriders au début de la saison, mais cela est également possible en plein hiver, si les chutes de neige sont faibles. Cela s'applique également au printemps, lorsque les couches faibles proches du sol peuvent être à nouveau affaiblies par l'infiltration d'eau.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-2": {
+    "ids": {
+        "ar": "patrons-de-perilh-2",
+        "cs": "modely-lavinoveho-nebezpeci-2",
+        "de": "gefahrenmuster-2",
+        "es": "situaciones-de-peligro-2",
+        "fr": "modeles-de-danger-2",
+        "it": "situazioni-tipo-2",
+        "sl": "vzorci-nevarnosti-2",
+        "en": "danger-pattern-2"
+    },
+    "heading": "mr.2 : Neige glissante",
+    "text": "<p>Snow glides most easily towards the valley across steep, smooth surfaces. While this process is taking place, glide cracks – easily visible, sometimes several-meters deep cracks in the snowpack surface – are formed. Such fissures are now considered to be not the favourable signs which ancient folk knowledge once posited (such traditions are hard to overcome) but instead, utterly unfavourable indicators of potential, sometimes imminent avalanches. A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-3": {
+    "ids": {
+        "ar": "patrons-de-perilh-3",
+        "cs": "modely-lavinoveho-nebezpeci-3",
+        "de": "gefahrenmuster-3",
+        "es": "situaciones-de-peligro-3",
+        "fr": "modeles-de-danger-3",
+        "it": "situazioni-tipo-3",
+        "sl": "vzorci-nevarnosti-3",
+        "en": "danger-pattern-3"
+    },
+    "heading": "mr.3 : Pluie",
+    "text": "<p>La pluie sur la neige est considérée comme un signal d'alarme dans la science de la neige et des avalanches car d'une part, elle ajoute du poids au manteau neigeux et d'autre part, elle entraîne une perte rapide de force. C'est pour ces raisons que les avalanches sont prédestinées. La pluie peut se produire à tout moment pendant l'hiver. Le grand avantageest qu'aucun modèle de danger n'est plus facilement reconnaissable que la pluie.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-4": {
+    "ids": {
+        "ar": "patrons-de-perilh-4",
+        "cs": "modely-lavinoveho-nebezpeci-4",
+        "de": "gefahrenmuster-4",
+        "es": "situaciones-de-peligro-4",
+        "fr": "modeles-de-danger-4",
+        "it": "situazioni-tipo-4",
+        "sl": "vzorci-nevarnosti-4",
+        "en": "danger-pattern-4"
+    },
+    "heading": "mr.4 : Froid suivant chaud/ chaud suivant froid",
+    "text": "<p>Une théorie selon laquelle les énormes disparités de température lors des chutes de neige (que ce soit froid sur chaud ou chaud sur froid) ont un effet positif sur la situation des avalanches a trop longtemps prévalu dans la science des avalanches. En fait, ce n'est le cas que dans certaines conditions préalables très spécifiques. Dans la plupart des cas, ces différences de température ont un effet négatif, car elles renforcent le métamorphisme de la neige à l'intérieur du manteau neigeux. En générale, il se forme une couche mince et faible qui est très susceptible de se déclencher. Cette couche se trouve souvent sur les pentes orientées au sud. Elle est très dangereuse car la couche faible n'est pas encore présente immédiatement après la chute de neige, elle ne se forme qu'au cours des jours suivants.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-5": {
+    "ids": {
+        "ar": "patrons-de-perilh-5",
+        "cs": "modely-lavinoveho-nebezpeci-5",
+        "de": "gefahrenmuster-5",
+        "es": "situaciones-de-peligro-5",
+        "fr": "modeles-de-danger-5",
+        "it": "situazioni-tipo-5",
+        "sl": "vzorci-nevarnosti-5",
+        "en": "danger-pattern-5"
+    },
+    "heading": "mr.5 : Chute de neige après une longue période de froid",
+    "text": "<p>Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. In addition, strong winds prevail which transport the new snow accordingly. Within the shortest imaginable time, a treacherous situation arises for backcountry skiers. This is also the case if, following a lengthy period of cold, “only” strong winds are blowing without snowfall. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-6": {
+    "ids": {
+        "ar": "patrons-de-perilh-6",
+        "cs": "modely-lavinoveho-nebezpeci-6",
+        "de": "gefahrenmuster-6",
+        "es": "situaciones-de-peligro-6",
+        "fr": "modeles-de-danger-6",
+        "it": "situazioni-tipo-6",
+        "sl": "vzorci-nevarnosti-6",
+        "en": "danger-pattern-6"
+    },
+    "heading": "mr.6 : Neige meuble et vent",
+    "text": "<p>\"Le vent est l’architecte des avalanches.\" Ce proverbe classique des années 1930 de Wilhelm Paulcke est toujours valable aujourd'hui. Le vent influence à la fois la neige qui tombe et la neige déjà déposée. Il est un des facteurs les plus importants dans la formation des avalanches. Lorsque la neige est meuble et sèche, le vent la transporte, augmentant ainsi le danger d'avalanche. Plus la neige transportée est froide, plus elle est sensible à une charge supplémentaire,car sa fragilité augmente.  Ce type de danger se caractérise par une couche faible, généralement constituée de neige fraîche, recouverte de neige soufflée. Soit il y a eu des chutes de neige à basse température sans influence du vent et s'est ensuite mis à souffler, soit il se met à neiger sans l'influence du vent, mais les vents se sont levés pendant la chute de neige. Il s'agit là d'un schéma qui est généralement facile à reconnaître et qui ne dure que peu de temps. L'exception est une situation dans laquelle l'ancien manteau neigeux, constitué de cristaux facettés et non fixés, est lui-même emportée par le vent. Dans ce cas, il se forme des plaques dures et fragiles qui restent fragile sur une longue période.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-7": {
+    "ids": {
+        "ar": "patrons-de-perilh-7",
+        "cs": "modely-lavinoveho-nebezpeci-7",
+        "de": "gefahrenmuster-7",
+        "es": "situaciones-de-peligro-7",
+        "fr": "modeles-de-danger-7",
+        "it": "situazioni-tipo-7",
+        "sl": "vzorci-nevarnosti-7",
+        "en": "danger-pattern-7"
+    },
+    "heading": "mr.7 : Enneigement faible à coté d'enneigement abondant",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow. This occurs frequently near terrain edges, and repeatedly on broad ridges.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-8": {
+    "ids": {
+        "ar": "patrons-de-perilh-8",
+        "cs": "modely-lavinoveho-nebezpeci-8",
+        "de": "gefahrenmuster-8",
+        "es": "situaciones-de-peligro-8",
+        "fr": "modeles-de-danger-8",
+        "it": "situazioni-tipo-8",
+        "sl": "vzorci-nevarnosti-8",
+        "en": "danger-pattern-8"
+    },
+    "heading": "mr.8 : Givre de surface recouvert de neige",
+    "text": "<p>Le givre de surface compte parmi les plus beaux types de neige qui existent. En soi, il ne présente aucun danger potentiel. Ce potentiel ne se développe que lorsqu'il est enterré par des couches de neige fraîche et collée. Donc il est considérée comme  l'une des couches faibles les plus critiques dans la science de la neige et des avalanches.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-9": {
+    "ids": {
+        "ar": "patrons-de-perilh-9",
+        "cs": "modely-lavinoveho-nebezpeci-9",
+        "de": "gefahrenmuster-9",
+        "es": "situaciones-de-peligro-9",
+        "fr": "modeles-de-danger-9",
+        "it": "situazioni-tipo-9",
+        "sl": "vzorci-nevarnosti-9",
+        "en": "danger-pattern-9"
+    },
+    "heading": "mr.9 : Neige roulée recouverte de neige",
+    "text": "<p>Une couche fragile à l'intérieur du manteau neigeux est souvent comparée à des roulements à billes. Cette image ne convient en fait qu'au graupel: une forme sphérique et granulaire de précipitation qui se dépose souvent lors d'averses comme les orages au printemps. Il est facile d'imaginer que la neige qui s'accumule au-dessus d'une couche de graupel est généralement mal reliée à cette couche, ce qui augmente le risque d'avalanches. Le graupel est souvent deposé localement et est, sans examiner le manteau neigeux lui-même, difficile à détecter, même par les experts. C'est un phénomène extrêmement traître. Heureusement, il est de courte durée.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+    "source": "false"
+    },
+    "danger-pattern-10": {
+    "ids": {
+        "ar": "patrons-de-perilh-10",
+        "cs": "modely-lavinoveho-nebezpeci-10",
+        "de": "gefahrenmuster-10",
+        "es": "situaciones-de-peligro-10",
+        "fr": "modeles-de-danger-10",
+        "it": "situazioni-tipo-10",
+        "sl": "vzorci-nevarnosti-10",
+        "en": "danger-pattern-10"
+    },
+    "heading": "mr.10 : Situation de printemps",
+    "text": "<p>Le printemps est un défi particulier pour les amateurs de sports d'hiver, mais aussi pour les prévisionnistes et les membres des commissions des avalanches. Il est rare que les états \"en sécurité\" et \"dangereux\" soient aussi proches l'un de l'autre dans le temps. Ainsi, l'étendue de degrés de danger pronostiqués au cours d'une seule journée est très large. D'une part, le danger d'avalanche n'est jamais plus facile à évaluer que dans des conditions stables de névé, d'autre part, des avalanches d'une telle ampleur comme au printemps sont rarement enregistrées en plein hiver. Outre la structure du manteau neigeux, l'interaction complexe de la température de l'air, de l'humidité de l'air, du rayonnement solaire et du vent joue un rôle décisif. Pour les amateurs de sports d'hiver, une grande discipline temporelle et de flexibilité des plans sont plus essentielle que jamais.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regardez la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+    "source": "false"
+    },
+    "snowpack-stability-very-poor": {
+    "ids": {
+        "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
+        "ca": "estabilitat-del-paquet-de-neu-molt-mala",
+        "cs": "stabilita-snehoveho-obalu-velmi-slabá",
+        "de": "schneedeckenstabilitaet-sehr-schlecht",
+        "es": "estabilidad-del-paquete-de-nieve-muy-mala",
+        "fr": "stabilite-du-pacquet-de-neige-tres-faible",
+        "is": "stöðugleiki-snjópakka-mjög-lélegur",
+        "it": "stabilità-del-manto-nevoso-molto-scarso",
+        "no": "snøpakke-stabilitet-svært-dårlig",
+        "ro": "stabilitatea-stratului-de-zapada-foarte-slabă",
+        "sk": "stabilita-snehoveho-obalu-velmi-slaba",
+        "sl": "stabilnost-sneznega-plosca-zelo-slaba",
+        "en": "snowpack-stability-very-poor"
+    },
+    "heading": "Stabilité du manteau neigeux : très faible",
+    "text": "<p>Déclenchement naturel / très facile à déclencher</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|false|__END_SLIDER___"
+    },
+    "snowpack-stability-poor": {
+    "ids": {
+        "ar": "estabilitat-deth-paquet-de-neu-mala",
+        "ca": "estabilitat-del-paquet-de-neu-mala",
+        "cs": "stabilita-snehoveho-obalu-slaba",
+        "de": "schneedeckenstabilitaet-schlecht",
+        "es": "estabilidad-del-paquete-de-nieve-mala",
+        "fr": "stabilite-du-pacquet-de-neige-faible",
+        "is": "stöðugleiki-snjópakka-lélegur",
+        "it": "stabilità-del-manto-nevoso-scarso",
+        "no": "snøpakke-stabilitet-dårlig",
+        "ro": "stabilitatea-stratului-de-zapada-slabă",
+        "sk": "stabilita-snehoveho-obalu-slaba",
+        "sl": "stabilnost-sneznega-plosca-slaba",
+        "en": "snowpack-stability-poor"
+    },
+    "heading": "Stabilité du manteau neigeux : faible",
+    "text": "<p>Facile à déclencher (p.ex. un seul skieur)</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|false|__END_SLIDER___"
+    },
+    "snowpack-stability-fair": {
+    "ids": {
+        "ar": "estabilitat-deth-paquet-de-neu-acceptable",
+        "ca": "estabilitat-del-paquet-de-neu-acceptable",
+        "cs": "stabilita-snehoveho-obalu-prijatelna",
+        "de": "schneedeckenstabilitaet-akzeptabel",
+        "es": "estabilidad-del-paquete-de-nieve-aceptable",
+        "fr": "stabilite-du-pacquet-de-neige-moyenne",
+        "is": "stöðugleiki-snjópakka-sæmilegur",
+        "it": "stabilità-del-manto-nevoso-accettabile",
+        "no": "snøpakke-stabilitet-akseptabel",
+        "ro": "stabilitatea-stratului-de-zapada-acceptabilă",
+        "sk": "stabilita-snehoveho-obalu-prijatelna",
+        "sl": "stabilnost-sneznega-plosca-spodobna",
+        "en": "snowpack-stability-fair"
+    },
+    "heading": "Stabilité du manteau neigeux : moyenne",
+    "text": "<p>Difficile à déclencher (p.ex. explosifs)</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|false|__END_SLIDER___"
+    },
+    "snowpack-stability-good": {
+    "ids": {
+        "ar": "estabilitat-deth-paquet-de-neu-bona",
+        "ca": "estabilitat-del-paquet-de-neu-bona",
+        "cs": "stabilita-snehoveho-obalu-dobra",
+        "de": "schneedeckenstabilitaet-gut",
+        "es": "estabilidad-del-paquete-de-nieve-buena",
+        "fr": "stabilite-du-pacquet-de-neige-bonne",
+        "is": "stöðugleiki-snjópakka-góður",
+        "it": "stabilità-del-manto-nevoso-buona",
+        "no": "snøpakke-stabilitet-god",
+        "ro": "stabilitatea-stratului-de-zapada-bună",
+        "sk": "stabilita-snehoveho-obalu-dobra",
+        "sl": "stabilnost-sneznega-plosca-dobra",
+        "en": "snowpack-stability-good"
+    },
+    "heading": "Stabilité du manteau neigeux : bonne",
+    "text": "<p>Conditions stables</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|false|__END_SLIDER___"
+    },
+    "problem-glide": {
+    "ids": {
+        "ar": "problem-deth-laueg-fanga",
+        "ca": "problema-de-lallau-fanga",
+        "cs": "problem-laviny-snehova-lavina",
+        "de": "lawinenproblem-gleitschnee",
+        "es": "problema-de-aludes-nieve-deslizante",
+        "fr": "probleme-davalanche-neige-glissante",
+        "is": "vandamál-snjofloda-snjógall",
+        "it": "problema-delle-valanghe-neve-fresca",
+        "no": "skredproblem-ny-slidende-snø",
+        "ro": "problema-avalansei-zapada-alunecoasa",
+        "sk": "problem-laviny-snehova-lavina",
+        "sl": "problem-sneznih-plazov-snezni-plaz",
+        "en": "problem-glide"
+    },
+    "heading": "Problème d’avalanche : Avalanche de fond",
+    "text": "<p>Le manteau neigeux entier glisse sur le sol, généralement sur des surfaces lisses comme des pentes herbeuses ou des zones rocheuses. L’activité des avalanches de fond est généralement liée à un manteau neigeux épais avec peu ou pas de couches fragiles. Les avalanches de fond peuvent se produire aussi bien avec un manteau neigeux froid et sec qu’avec un manteau neigeux chaud et humide. Le déclenchement d’une avalanche de fond est difficile à prévoir, bien que des fissures s’ouvrent généralement avant le départ.</p><p><b>Conseils de comportement</b><br/>Éviter les zones à proximité des fissures.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    },
+    "problem-new-snow": {
+    "ids": {
+        "ar": "problem-deth-laueg-nou",
+        "ca": "problema-de-lallau-nova",
+        "cs": "problem-laviny-novy-snih",
+        "de": "lawinenproblem-neuschnee",
+        "es": "problema-de-aludes-nieve-nueva",
+        "fr": "probleme-davalanche-neige-fraiche",
+        "is": "vandamál-snjofloda-nysnjór",
+        "it": "problema-delle-valanghe-neve-fresca",
+        "no": "skredproblem-ny-snø",
+        "ro": "problema-avalansei-zapada-proaspata",
+        "sk": "problem-laviny-novy-sneh",
+        "sl": "problem-sneznih-plazov-nov-sneg",
+        "en": "problem-new-snow"
+    },
+    "heading": "Problème d’avalanche : Neige fraîche",
+    "text": "<p>Cette situation est liée aux chutes de neige en cours ou récentes. La quantité de neige récente occasionnant la surcharge en est le principal facteur. L’impact de cette surcharge dépend de facteurs variés tels que la température ou les caractéristiques du manteau neigeux préexistant.</p><p><b>Conseils de comportement</b><br/>Avalanches de plaque sèche : Attendre la stabilisation des couches fragiles constituées de neige récente.<br/>Avalanches de neige sans cohésion : Le risque de chute est plus élevé que le risque d’ensevelissement, notamment dans les pentes raides.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    },
+    "problem-persistent-weak-layer": {
+    "ids": {
+        "ar": "problem-deth-laueg-peristent",
+        "ca": "problema-de-lallau-persistent",
+        "cs": "problem-laviny-trvale-slabe-vrstvy",
+        "de": "lawinenproblem-andauernde-schwache-schicht",
+        "es": "problema-de-aludes-capa-debil-persistente",
+        "fr": "probleme-davalanche-couche-faible-persistante",
+        "is": "vandamál-snjofloda-varanlegur-veikur-lag",
+        "it": "problema-delle-valanghe-strato-debole-persistente",
+        "no": "skredproblem-persistente-svake-lag",
+        "ro": "problema-avalansei-strat-slab-persistent",
+        "sk": "problem-laviny-trvale-slabe-vrstvy",
+        "sl": "problem-sneznih-plazov-trajno-slab-sloj",
+        "en": "problem-persistent-weak-layer"
+    },
+    "heading": "Problème d’avalanche : Couche fragile persistante",
+    "text": "<p>Ce problème est lié à la présence de couches fragiles persistantes dans le manteau neigeux ancien. Ces couches faibles incluent généralement le givre de surface enfoui, la neige à grains anguleux ou les faces planes.</p><p><b>Conseils de comportement</b><br/>Déplacements prudents et éviter les grandes pentes raides. Tenir compte de l’historique des conditions nivométéorologiques dans les pentes. Faire particulièrement attention dans les zones avec des manteaux neigeux peu épais et notamment les zones de transition avec un manteau neigeux plus épais. Ce problème est une cause majeure de décès accidentels par avalanche.</p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    },
+    "problem-wet-snow": {
+    "ids": {
+        "ar": "problem-deth-laueg-nou-humida",
+        "ca": "problema-de-lallau-neu-humida",
+        "cs": "problem-laviny-mokry-snih",
+        "de": "lawinenproblem-nassschnee",
+        "es": "problema-de-aludes-nieve-humeda",
+        "fr": "probleme-davalanche-neige-mouillée",
+        "is": "vandamál-snjofloda-votur-snjór",
+        "it": "problema-delle-valanghe-neve-bagnata",
+        "no": "skredproblem-våt-snø",
+        "ro": "problema-avalansei-strat-de-vant",
+        "sk": "problem-laviny-mokry-sneh",
+        "sl": "problem-sneznih-plazov-vlažen-sneg",
+        "en": "problem-wet-snow"
+    },
+    "heading": "Problème d’avalanche : Neige humide",
+    "text": "<p>Le problème de neige humide est lié à l’affaiblissement du manteau neigeux dû à la présence d’eau liquide. L’eau s’infiltre dans le manteau neigeux à cause de la fonte ou de la pluie.</p><p><b>Conseils de comportement</b><br/>Dans ces situations, les conditions sont plutôt favorables le matin qui suit une nuit claire, du fait du regel nocturne. Au contraire, en cas de nuit très douce avec un ciel couvert, le problème existe souvent déjà le matin. L’occurrence de pluie peut conduire à des déclenchements d’avalanche quasi immédiats. Dans ces situations, le choix de l’itinéraire et de l’horaire de passage sont particulièrement importants. Attention aux zones de départ, de propagation et de dépôt des avalanches.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    },
+    "problem-wind-slab": {
+    "ids": {
+        "ar": "problem-deth-laueg-vent",
+        "ca": "problema-de-lallau-vent",
+        "cs": "problem-laviny-vetrna-nadraha",
+        "de": "lawinenproblem-winddecke",
+        "es": "problema-de-aludes-placa-de-viento",
+        "fr": "probleme-davalanche-couche-de-vent",
+        "is": "vandamál-snjofloda-vindskafl",
+        "it": "problema-delle-valanghe-lastre-da-vento",
+        "no": "skredproblem-vindskavl",
+        "ro": "problema-avalansei-strat-de-vant",
+        "sk": "problem-laviny-vetrna-nadraha",
+        "sl": "problem-sneznih-plazov-vetrna-ploscad",
+        "en": "problem-wind-slab"
+    },
+    "heading": "Problème d’avalanche : Plaques de vent",
+    "text": "<p>Le problème de plaque de vent est lié à la neige transportée par le vent, avec ou sans chute de neige simultanée. Les plaques de vent constituent une surcharge supplémentaire sur une couche fragile et forment une plaque qui peut se rompre.</p><p><b>Conseils de comportement</b><br/>Éviter les zones d’accumulation en terrain raide, en particulier dans les zones d’épaisseur ou de dureté variables.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    }
 }

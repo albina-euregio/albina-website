@@ -12,7 +12,8 @@
     },
     "heading": "pp.1: capa feble persistent profunda",
     "text": "<p>A l’inici de l’hivern, sovint s’observen allaus de placa després de la segona forta nevada, normalment a cotes altes (>2000&nbsp;m) i molt altes (>3000&nbsp;m) en pendents ombrívols i molt inclinats. Això es deu al fet que a la tardor després de les primeres grans nevades, segueix amb freqüència un llarg període de temps estable, de altes pressions o almenys sense precipitacions. És aleshores quan prevalen les condicions idònies per al metamorfisme de la neu en cristalls solts, que després formen una capa feble i persistent profunda per a la posterior deposició de nevades. Durant el començament de l’hivern, això es pot produir en una gran varietat d’altituds i aspectes. En general, les allaus per capes febles i profundes i persistents profundes són desencadenades per esquiadors i muntanyencs al començament de l'hivern, però també és possible més tard en hiverns amb mantells prims. Això es produeix sobretot a la primavera quan les capes febles i persistents profundes es debiliten encara més per filtració d'aigua.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>"
+    "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-2": {
     "ids": {
@@ -27,7 +28,8 @@
     },
     "heading": "pp.2: allaus de lliscament",
     "text": "<p>La neu llisca amb més facilitat cap a la vall sobre superfícies pendents i llises. Mentre aquest procés es desenvolupa, es formen esquerdes de lliscament - fàcilment visibles, de vegades, esquerdes de diversos metres de profunditat a la superfície del mantell de neu-. Actualment, es considera que aquestes fissures no són signes favorables com els coneixements populars antics plantejaven (aquestes tradicions són difícils de superar...), sinó que són indicadors absolutament desfavorables de possibles allaus, de vegades imminents. Una esquerda de lliscament apunta a la possibilitat d’una allau sense donar cap indicació de si o quan es produirà l'allau de neu lliscant. Pel que fa al seu horari, elslliscaments estan entre les allaus més difícils de predir, ja que poden desencadenar-se literalment a qualsevol hora del dia o de la nit, fins i tot quan la situació de neu és força estable. Això inclou el dia més fred i el dia més càlid de l’hivern. A més, no es desencadenen allaus de lliscament per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>"
+    "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-3": {
     "ids": {
@@ -42,7 +44,8 @@
     },
     "heading": "pp.3: pluja a sobre la neu",
     "text": "<p>La pluja sobre neu es considera el senyal d’alarma clàssic en la ciència de la neu i les allaus perquè, d’una banda, el seu pes addicional carrega el mantell de neu; i de l’altra, perquè es perd immediatament la fermesa del mantell. Per aquestes raons, les allaus estan assegurades. La pluja es pot produir en qualsevol moment de l’hivern. El gran avantatge és que cap senyal de perill podria ser més senzill de reconèixer.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>"
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-4": {
     "ids": {
@@ -57,7 +60,8 @@
     },
     "heading": "pp.4: fred a sobre de temperat / temperat a sobre de fred",
     "text": "<p>Una teoria que es va mantenir durant massa temps en la ciència de les allaus afirma que grans variacions de temperatura durant les nevades (independentment de si són escalfaments o refredaments) exerceixen un efecte positiu sobre la situació d'allaus. De fet, aquest és el cas només en determinades condicions anteriors molt específiques. Majoritàriament, aquestes diferències de temperatura tenen un efecte negatiu, ja que reforcen el metamorfisme de la neu dins del mantell. Per regla general, es forma una capa fina i feble que és molt propensa a desencadenar. Aquesta capa es troba sovint als vessants orientats al sud. És molt traïdor per la raó addicional que la capa feble encara no existeix immediatament després de dipositar-se la neu nova, si no que es forma al llarg dels dies següents.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>"
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-5": {
     "ids": {
@@ -72,7 +76,8 @@
     },
     "heading": "pp.5: nevada després d'un llarg període fred",
     "text": "<p>Entre les allaus ocorregudes, aquest és un clàssic: després d'un llarg període de fred, comença a nevar. A més, predominen els forts vents que transporten la neu nova en conseqüència. En el menor temps imaginable, sorgeix una situació traïdora per als esquiadors de muntanya. Aquest també és el cas si després d'un llarg període de fred, \"només\" bufen vents forts sense nevades. El problema és que es dipositen acumulacions de neu fresques als vessants de sotavent protegits del vent sobre una superfície de coberta de neu vella solta que acostuma a contenir gobelets. La placa de vent i les capes febles persistents estan molt mal lligades entre elles. El mantell de neu està esperant ser activat per una càrrega addicional.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>"
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-6": {
     "ids": {
@@ -87,7 +92,8 @@
     },
     "heading": "pp.6: neu freda i solta i vent",
     "text": "<p>\"El vent és l'arquitecte de les allaus.\" Aquest refrany clàssic de la dècada de 1930 de Wilhelm Paulcke continua sent inalterat encara avui. El vent influeix tant en la neu que cau com en la neu que ja s'ha dipositat. És un factor important en la formació d'allaus. Quan la neu està solta i seca, el vent la transporta i augmenta el perill d'allaus. Com més freda sigui la neu transportada, més fàcilment reaccionarà a la càrrega addicional, perquè és més fràgil. És característic d’aquest patró de perill que la capa feble la sol constituir neu recent que queda enterrada per diposits de neu ventada. Així, hi ha d'haver hagut nevades a temperatures baixes sense vent o just abans o en un període anterior a quan va començar el transport o bé, la nevada es va iniciar sense vent, però van aparèixer vents durant la nevada. Aquest és un patró que normalment es pot reconèixer amb facilitat i que dura poc temps. L’excepció és la situació en què l’antiga superfície del mantell de neu que consisteix en cristalls solts i facetats és transportada pel vent. Quan això succeeix, es formen plaques dures i fràgils que poden ser propenses a desencadenar-se durant un llarg període.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>"
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-7": {
     "ids": {
@@ -102,7 +108,8 @@
     },
     "heading": "pp.7: mantell prim vora mantell gruixut",
     "text": "<p>Les zones en què la neu és poc profunda solen tenir una estratificació menys favorable que les que presenten un mantell profund. Això es deu a l'amplificació dels processos que es produeixen a l'interior d'un mantell de neu poc profund. A més, les allaus de placa són més fàcils de desencadenar on la neu és poc profunda, ja que les capes febles no estan tan profundament enterrades i són més fàcils de desencadenar amb càrregues addicionals. Per això, sovint s’observen desencadenaments d’allaus en zones de transició des de la neu poc profunda cap a la neu profunda. Es produeixen freqüentment a prop dels límits del terreny i, repetidament, en carenes amples.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>"
+    "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-8": {
     "ids": {
@@ -117,7 +124,8 @@
     },
     "heading": "pp.8: gebre enterrat",
     "text": "<p>El gebre de superfície és un dels tipus ne neu més bells. En si mateix, no presenta cap potencial de perill. Aquest potencial només es desplega quan està enterrat per capes de neu fresques i cohesives. Llavors es torna perillós. De fet, es considera una de les capes febles més crítiques en tota la ciència de neu i allaus.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>"
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-9": {
     "ids": {
@@ -132,7 +140,8 @@
     },
     "heading": "pp.9: Neu rodona enterrada",
     "text": "<p>Sovint es compara una capa feble dins d’un mantell de neu amb els coixinets. Aquesta imatge és realment adequada només per a la neu granulada: una forma esfèrica i granular de precipitació que es diposita sovint durant els xàfecs com les tempestes de trons a la primavera. És fàcil comprendre que les acumulacions de neu que es dipositen a sobre d’una capa de neu granulada segur que no s'hi uniran bé, de manera que augmenta el perill d’allaus. La neu granulada està freqüentment distribuïda per zones molt petites. Sense examinar el mantell en si és difícil de detectar, fins i tot per a professionals. Es tracta d’un fenomen extremadament traïdor. Afortunadament, els problemes que crea són de curta durada.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>"
+    "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+    "source": "false"
   },
   "danger-pattern-10": {
     "ids": {
@@ -147,7 +156,8 @@
     },
     "heading": "pp.10: escenari de primavera",
     "text": "<p>La primavera presenta un repte especialment delicat per als esquiadors i els surfers de muntanya, així com per als membres de les comissions d’allaus. Rarament hi ha estats de “segur” i “insegur” tan a prop en el temps. Així, la franja de graus de perill que es produeixen en el transcurs d'un sol dia és molt àmplia. D'una banda, el perill d'allaus no és mai tan fàcil d'avaluar com en condicions de fusió regel; de l’altra, allaus de tanta magnitud com a la primavera rarament es registren a l’hivern profund. A més de l'estratificació de la neu, la complexa interacció de la temperatura de l’aire, la humitat de l’aire, la radiació solar i el vent tenen un paper principal. Per als esquiadors i els surfers de muntanya, la disciplina en l'horari i la flexibilitat en la planificació de rutes són més essencials que mai.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video a YouTube</a></p>",
-    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>"
+    "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+    "source": "false"
   },
   "danger-scale-low": {
     "ids": {
