@@ -1,4 +1,189 @@
-{
+{ 
+  "avalanche-size-small": {
+    "ids": {
+      "ar": "mida-deth-laueg-petit",
+      "ca": "mida-de-lallau-petit",
+      "cs": "velikost-laviny-malý",
+      "de": "lawinengrose-klein",
+      "es": "tamano-del-alud-pequeño",
+      "fr": "taille-davalanche-petit",
+      "is": "staerd-snjofloda-lítill",
+      "it": "dimensioni-delle-valanghe-piccolo",
+      "no": "skredstorrelse-liten",
+      "ro": "marimea-avalansei-mic",
+      "sk": "velkost-laviny-malý",
+      "sl": "velikost-sneznega-plazu-majhen",
+      "en": "avalanche-size-small"
+    },
+    "heading": "Dimensione 1: Valanga di piccole dimensioni (scaricamento)",
+    "text": "<p>Relativamente innocua per le persone, seppellimento improbabile, eccetto quando la zona di deposito è sfavorevole (p. es. trappole di terreno))<br/>Il pericolo di caduta sui pendii estremi è più marcato del pericolo di seppellimento.<br/> Si ferma su un pendio ripido. </p>",
+    "img": "__SIMPLE_SLIDER__|piccola,media,grandi,molto grandi,estreme|0|false|45|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-size-medium": {
+    "ids": {
+      "ar": "mida-deth-laueg-mitjà",
+      "ca": "mida-de-lallau-mitjà",
+      "cs": "velikost-laviny-střední",
+      "de": "lawinengrose-mittel",
+      "es": "tamano-del-alud-medio",
+      "fr": "taille-davalanche-moyan",
+      "is": "staerd-snjofloda-miðlungs",
+      "it": "dimensioni-delle-valanghe-medio",
+      "no": "skredstorrelse-medium",
+      "ro": "marimea-avalansei-mediu",
+      "sk": "velkost-laviny-stredný",
+      "sl": "velikost-sneznega-plazu-srednje",
+      "en": "avalanche-size-medium"
+    },
+    "heading": "Dimensione 2: Valanga di medie dimensioni",
+    "text": "<p>could bury, injure or kill a person<br/> Size 2 corresponds to the typical skier-triggered avalanche <br/> snow avalanche stops typically at the end of a slope </p>",
+    "img": "__SIMPLE_SLIDER__|piccola,media,grandi,molto grandi,estreme|1|false|45|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "width": 480
+  },
+  "avalanche-size-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-gran",
+      "ca": "mida-de-lallau-gran",
+      "cs": "velikost-laviny-velký",
+      "de": "lawinengrose-grose",
+      "es": "tamano-del-alud-grande",
+      "fr": "taille-davalanche-grand",
+      "is": "staerd-snjofloda-stórt",
+      "it": "dimensioni-delle-valanghe-grande",
+      "no": "skredstorrelse-stor",
+      "ro": "marimea-avalansei-mare",
+      "sk": "velkost-laviny-veľký",
+      "sl": "velikost-sneznega-plazu-velik",
+      "en": "avalanche-size-large"
+    },
+    "heading": "Dimensione 3: Valanga di grandi dimensioni",
+    "text": "<p>could bury and destroy a car, damage a truck; destroy a small building or break a few trees<br/> When skiers are caught by avalanches of this size, probability for severe consequences are very high. <br/> snow avalanche could traverse flat terrain (considerably below 30\u00b0) over distances of less than 50 m </p>",
+    "img": "__SIMPLE_SLIDER__|piccola,media,grandi,molto grandi,estreme|2|false|45|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+  "avalanche-size-very-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-muy-gran",
+      "ca": "mida-de-lallau-muy-gran",
+      "cs": "velikost-laviny-velmi-velký",
+      "de": "lawinengrose-sehr-grose",
+      "es": "tamano-del-alud-muy-grande",
+      "fr": "taille-davalanche-très-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-molto-grande",
+      "no": "skredstorrelse-svært-stor",
+      "ro": "marimea-avalansei-foarte-mare",
+      "sk": "velkost-laviny-veľmi-veľký",
+      "sl": "velikost-sneznega-plazu-zelo-velik",
+      "en": "avalanche-size-very-large"
+    },
+    "heading": "Dimensione 4: Valanga molto grande",
+    "text": "<p>could bury and destroy a railway car, large truck, several buildings or a piece of forest<br/> May destroy fairly large buildings and small areas of forest.<br/> snow avalanche traverses flat terrain (considerably below 30\u00b0) over distances more than 50 m and can reach valley ground </p>",
+    "img": "__SIMPLE_SLIDER__|piccola,media,grandi,molto grandi,estreme|3|false|45|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+    "avalanche-size-extremely-large": {
+    "ids": {
+      "ar": "mida-deth-laueg-extremadament-gran",
+      "ca": "mida-de-lallau-extremadament-gran",
+      "cs": "velikost-laviny-extremne-velký",
+      "de": "lawinengrose-extrem-grose",
+      "es": "tamano-del-alud-extremadamente-grande",
+      "fr": "taille-davalanche-extremement-grand",
+      "is": "staerd-snjofloda-mjög-stórt",
+      "it": "dimensioni-delle-valanghe-estremamente-grande",
+      "no": "skredstorrelse-ekstremt-stor",
+      "ro": "marimea-avalansei-extrem-de-mare",
+      "sk": "velkost-laviny-extremne-velký",
+      "sl": "velikost-sneznega-plazu-izjemno-velik",
+      "en": "avalanche-size-extremely-large"
+    },
+    "heading": "Dimensione 5: Valanga estremamente grande",
+    "text": "<p>could gouge the landscape; disastrous damage potential<br/> snow avalanche reaches valley ground <br/> largest runout distance known </p>",
+    "img": "__SIMPLE_SLIDER__|piccola,media,grandi,molto grandi,estreme|4|false|45|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "width": 480
+  },
+    "avalanche-frequency-none": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-nul",
+      "ca": "frequencia-de-lallau-nul",
+      "cs": "frekvence-lavin-nie",
+      "de": "lawinenhaeufigkeit-null",
+      "es": "frecuencia-de-aludes-nula",
+      "fr": "frequence-davalanche-nulle",
+      "is": "tíðni-snjofloda-null",
+      "it": "frequenza-delle-valanghe-nulla",
+      "no": "skredfrekvens-null",
+      "ro": "frecventa-avalansei-nula",
+      "sk": "frekvencia-lavin-nie",
+      "sl": "pogostost-sneznih-plazov-ni",
+      "en": "avalanche-frequency-none"
+    },
+    "heading": "Classe di frequenza: pochissimi",
+    "text": "<p>I punti con questa classe di stabilità non esistono, o sono così rari da non essere considerati rilevanti per la valutazione della stabilità.</p>",
+    "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|0|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-few": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-poc",
+      "ca": "frequencia-de-lallau-pocs",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-wenige",
+      "es": "frecuencia-de-aludes-pocos",
+      "fr": "frequence-davalanche-peu",
+      "is": "tíðni-snjofloda-fá",
+      "it": "frequenza-delle-valanghe-poche",
+      "no": "skredfrekvens-få",
+      "ro": "frecventa-avalansei-putini",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekaj",
+      "en": "avalanche-frequency-few"
+    },
+    "heading": "Classe di frequenza: pochi",
+    "text": "<p>I punti con questa classe di stabilità sono rari. Sebbene rari, il loro numero è considerato rilevante per la valutazione della stabilità.</p> <p>Le evidenze di instabilità sono difficili da trovare.</p>",
+    "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|1|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-some": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-quelcom",
+      "ca": "frequencia-de-lallau-alguns",
+      "cs": "frekvence-lavin-nekolik",
+      "de": "lawinenhaeufigkeit-einige",
+      "es": "frecuencia-de-aludes-algunos",
+      "fr": "frequence-davalanche-quelques",
+      "is": "tíðni-snjofloda-nokkrir",
+      "it": "frequenza-delle-valanghe-alcuni",
+      "no": "skredfrekvens-noen",
+      "ro": "frecventa-avalansei-cativa",
+      "sk": "frekvencia-lavin-niekoľko",
+      "sl": "pogostost-sneznih-plazov-nekateri",
+      "en": "avalanche-frequency-some"
+    },
+    "heading": "Classe di frequenza: alcuni",
+    "text": "<p>I punti con questa classe di stabilità non sono né molti né pochi, ma questi punti tipicamente esistono in caratteristiche del terreno con caratteristiche comuni (ad esempio, vicino a creste, in canaloni).</p>",
+    "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|2|false|__END_SLIDER___"
+  },
+  "avalanche-frequency-many": {
+    "ids": {
+      "ar": "frequencia-deth-laueg-molt",
+      "ca": "frequencia-de-lallau-molts",
+      "cs": "frekvence-lavin-mnoho",
+      "de": "lawinenhaeufigkeit-viele",
+      "es": "frecuencia-de-aludes-muchos",
+      "fr": "frequence-davalanche-beaucoup",
+      "is": "tíðni-snjofloda-margir",
+      "it": "frequenza-delle-valanghe-molti",
+      "no": "skredfrekvens-mange",
+      "ro": "frecventa-avalansei-multi",
+      "sk": "frekvencia-lavin-mnoho",
+      "sl": "pogostost-sneznih-plazov-veliko",
+      "en": "avalanche-frequency-many"
+    },
+    "heading": "Classe di frequenza: molti",
+    "text": "<p>I punti con questa classe di stabilità sono abbondanti.</p><p>Le evidenze di instabilità sono spesso facili da trovare.</p>",
+    "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|3|false|__END_SLIDER___"
+  },
 "danger-pattern-1": {
     "ids": {
       "ar": "patrons-de-perilh-1",
@@ -238,5 +423,185 @@
     "heading": "Grado di pericolo: Molto forte",
     "text": "<div style='text-align:center;'><p><b>Situazione valanghiva straordinaria.</b><br />Si prevedono numerose valanghe spontanee di dimensioni molto grandi e estremi che possono raggiungere le strade e i centri abitati situati a fondovalle.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Si consiglia di non praticare sport invernali al di fuori delle piste e dei sentieri aperti.<br /></p></div>",
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+  },
+  "snowpack-stability-very-poor": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
+      "ca": "estabilitat-del-paquet-de-neu-molt-mala",
+      "cs": "stabilita-snehoveho-obalu-velmi-slabá",
+      "de": "schneedeckenstabilitaet-sehr-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-muy-mala",
+      "fr": "stabilite-du-pacquet-de-neige-tres-faible",
+      "is": "stöðugleiki-snjópakka-mjög-lélegur",
+      "it": "stabilità-del-manto-nevoso-molto-scarso",
+      "no": "snøpakke-stabilitet-svært-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-foarte-slabă",
+      "sk": "stabilita-snehoveho-obalu-velmi-slaba",
+      "sl": "stabilnost-sneznega-plosca-zelo-slaba",
+      "en": "snowpack-stability-very-poor"
+    },
+    "heading": "Stabilità del manto nevoso: Molto scarsa",
+    "text": "<p>Spontanee o innescate con estrema facilità</p>",
+    "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|0|false|__END_SLIDER___"
+  },
+  "snowpack-stability-poor": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-mala",
+      "ca": "estabilitat-del-paquet-de-neu-mala",
+      "cs": "stabilita-snehoveho-obalu-slaba",
+      "de": "schneedeckenstabilitaet-schlecht",
+      "es": "estabilidad-del-paquete-de-nieve-mala",
+      "fr": "stabilite-du-pacquet-de-neige-faible",
+      "is": "stöðugleiki-snjópakka-lélegur",
+      "it": "stabilità-del-manto-nevoso-scarso",
+      "no": "snøpakke-stabilitet-dårlig",
+      "ro": "stabilitatea-stratului-de-zapada-slabă",
+      "sk": "stabilita-snehoveho-obalu-slaba",
+      "sl": "stabilnost-sneznega-plosca-slaba",
+      "en": "snowpack-stability-poor"
+    },
+    "heading": "Stabilità del manto nevoso: Scarsa",
+    "text": "<p>Facile da innescare (p.es., un singolo sciatore)</p>",
+    "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|1|false|__END_SLIDER___"
+  },
+  "snowpack-stability-fair": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-acceptable",
+      "ca": "estabilitat-del-paquet-de-neu-acceptable",
+      "cs": "stabilita-snehoveho-obalu-prijatelna",
+      "de": "schneedeckenstabilitaet-akzeptabel",
+      "es": "estabilidad-del-paquete-de-nieve-aceptable",
+      "fr": "stabilite-du-pacquet-de-neige-moyenne",
+      "is": "stöðugleiki-snjópakka-sæmilegur",
+      "it": "stabilità-del-manto-nevoso-accettabile",
+      "no": "snøpakke-stabilitet-akseptabel",
+      "ro": "stabilitatea-stratului-de-zapada-acceptabilă",
+      "sk": "stabilita-snehoveho-obalu-prijatelna",
+      "sl": "stabilnost-sneznega-plosca-spodobna",
+      "en": "snowpack-stability-fair"
+    },
+    "heading": "Stabilità del manto nevoso: Discreta",
+    "text": "<p>Difficili da innescare (p.es., tramite esplosivo)</p>",
+    "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|2|false|__END_SLIDER___"
+  },
+  "snowpack-stability-good": {
+    "ids": {
+      "ar": "estabilitat-deth-paquet-de-neu-bona",
+      "ca": "estabilitat-del-paquet-de-neu-bona",
+      "cs": "stabilita-snehoveho-obalu-dobra",
+      "de": "schneedeckenstabilitaet-gut",
+      "es": "estabilidad-del-paquete-de-nieve-buena",
+      "fr": "stabilite-du-pacquet-de-neige-bonne",
+      "is": "stöðugleiki-snjópakka-góður",
+      "it": "stabilità-del-manto-nevoso-buona",
+      "no": "snøpakke-stabilitet-god",
+      "ro": "stabilitatea-stratului-de-zapada-bună",
+      "sk": "stabilita-snehoveho-obalu-dobra",
+      "sl": "stabilnost-sneznega-plosca-dobra",
+      "en": "snowpack-stability-good"
+    },
+    "heading": "Stabilità del manto nevoso: Buona",
+    "text": "<p>Condizioni di stabilità</p>",
+    "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|3|false|__END_SLIDER___"
+  },
+  "problem-glide": {
+    "ids": {
+      "ar": "problem-deth-laueg-fanga",
+      "ca": "problema-de-lallau-fanga",
+      "cs": "problem-laviny-snehova-lavina",
+      "de": "lawinenproblem-gleitschnee",
+      "es": "problema-de-aludes-nieve-deslizante",
+      "fr": "probleme-davalanche-neige-glissante",
+      "is": "vandamál-snjofloda-snjógall",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-slidende-snø",
+      "ro": "problema-avalansei-zapada-alunecoasa",
+      "sk": "problem-laviny-snehova-lavina",
+      "sl": "problem-sneznih-plazov-snezni-plaz",
+      "en": "problem-glide"
+    },
+    "heading": "Problemi valanghivi: Valanghe di slittamento",
+    "text": "<p> L’intero manto nevoso slitta sul terreno, tipicamente su un terreno liscio come pendii erbosi o con aree di rocce lisce. Una forte attività di valanghe di slittamento è tipicamente connessa ad un manto nevoso spesso con pochi strati oppure senza. Le valanghe di slittamento possono avvenire sia con un manto nevoso freddo ed asciutto sia con un manto nevoso caldo e bagnato, isotermico. Il distacco di una valanga di slittamento è difficile da prevedere, anche se le crepe si aprono, di solito, prima del distacco.</p> </p> <b>Indicazioni per l’utenza</b> <br/> <p>Evitate le aree in prossimità delle crepe da slittamento.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+  "problem-new-snow": {
+    "ids": {
+      "ar": "problem-deth-laueg-nou",
+      "ca": "problema-de-lallau-nova",
+      "cs": "problem-laviny-novy-snih",
+      "de": "lawinenproblem-neuschnee",
+      "es": "problema-de-aludes-nieve-nueva",
+      "fr": "probleme-davalanche-neige-fraiche",
+      "is": "vandamál-snjofloda-nysnjór",
+      "it": "problema-delle-valanghe-neve-fresca",
+      "no": "skredproblem-ny-snø",
+      "ro": "problema-avalansei-zapada-proaspata",
+      "sk": "problem-laviny-novy-sneh",
+      "sl": "problem-sneznih-plazov-nov-sneg",
+      "en": "problem-new-snow"
+    },
+    "heading": "Problemi valanghivi: Neve Fresca",
+    "text": "<p>Il problema è legato alle nevicate in atto o più recenti. Il sovraccarico prodotto dalla neve fresca sul manto nevoso esistente è il fattore cruciale del problema neve fresca. Quanto sarà critico il sovraccarico dipenderà da diversi fattori quali la temperatura o le caratteristiche della vecchia superficie del manto nevoso.</p><b>Indicazioni per l’utenza</b> <br/> <p>Valanghe a lastroni asciutti: Attendete che il manto nevoso si stabilizzi <br/> Valanghe di neve a debole coesione asciutta:<br/>Il pericolo di caduta è più importante del pericolo di seppellimento. Valutate le conseguenze sui pendii ripidi.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+  },
+  "problem-persistent-weak-layer": {
+    "ids": {
+      "ar": "problem-deth-laueg-peristent",
+      "ca": "problema-de-lallau-persistent",
+      "cs": "problem-laviny-trvale-slabe-vrstvy",
+      "de": "lawinenproblem-andauernde-schwache-schicht",
+      "es": "problema-de-aludes-capa-debil-persistente",
+      "fr": "probleme-davalanche-couche-faible-persistante",
+      "is": "vandamál-snjofloda-varanlegur-veikur-lag",
+      "it": "problema-delle-valanghe-strato-debole-persistente",
+      "no": "skredproblem-persistente-svake-lag",
+      "ro": "problema-avalansei-strat-slab-persistent",
+      "sk": "problem-laviny-trvale-slabe-vrstvy",
+      "sl": "problem-sneznih-plazov-trajno-slab-sloj",
+      "en": "problem-persistent-weak-layer"
+    },
+    "heading": "Problemi valanghivi: Strato debole persistente",
+    "text": "<p> Il problema è legato alla presenza di strati deboli entro il manto nevoso vecchio. Questi strati deboli persistenti comprendono, tipicamente, la brina di superficie sepolta, la brina di profondità o i cristalli sfaccettati.</p></p> <b>Indicazioni per l’utenza</b> <br/> <p>Muovetevi in maniera conservativa ed evitate i pendii più ampi e ripidi. Valutate nell’area l’evoluzione meteorologica e dei processi nel manto nevoso. Siate particolarmente cauti in aree con un manto nevoso sottile o nelle transizioni da manto nevoso sottile a spesso. Questa situazione tipica è responsabile della maggior parte degli incidenti in valanga per l’utenza sportiva-ricreativa.</p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+  "problem-wet-snow": {
+    "ids": {
+      "ar":"problem-deth-laueg-nou-humida",
+      "ca": "problema-de-lallau-neu-humida",
+      "cs": "problem-laviny-mokry-snih",
+      "de": "lawinenproblem-nassschnee",
+      "es": "problema-de-aludes-nieve-humeda",
+      "fr": "probleme-davalanche-neige-mouillée",
+      "is": "vandamál-snjofloda-votur-snjór",
+      "it": "problema-delle-valanghe-neve-bagnata",
+      "no": "skredproblem-våt-snø",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-mokry-sneh",
+      "sl": "problem-sneznih-plazov-vlažen-sneg",
+      "en": "problem-wet-snow"
+    },
+    "heading": "Problemi valanghivi: Neve bagnata",
+    "text": "<p> Il problema è legato all’indebolimento del manto nevoso per la presenza di acqua liquida. L’acqua s’infiltra nel manto nevoso per fusione o per pioggia.</p><b>Indicazioni per l’utenza</b> <br/> <p> In presenza di croste da sole, le condizioni dopo una notte fredda con cielo sereno sono di norma favorevoli al mattino per rigelo. Dopo una notte calda con cielo coperto il problema spesso esiste sin dal mattino. Normalmente la pioggia su neve fresca crea questo tipo di problema quasi immediatamente. Sono importanti una buona tempistica e pianificazione del percorso. Valutate le zone di scorrimento delle valanghe.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+  },
+    "problem-wind-slab": {
+    "ids": {
+      "ar": "problem-deth-laueg-vent",
+      "ca": "problema-de-lallau-vent",
+      "cs": "problem-laviny-vetrna-nadraha",
+      "de": "lawinenproblem-winddecke",
+      "es": "problema-de-aludes-placa-de-viento",
+      "fr": "probleme-davalanche-couche-de-vent",
+      "is": "vandamál-snjofloda-vindskafl",
+      "it": "problema-delle-valanghe-lastre-da-vento",
+      "no": "skredproblem-vindskavl",
+      "ro": "problema-avalansei-strat-de-vant",
+      "sk": "problem-laviny-vetrna-nadraha",
+      "sl": "problem-sneznih-plazov-vetrna-ploscad",
+      "en": "problem-wind-slab"
+    },
+    "heading": "Problemi valanghivi: Lastre da vento",
+    "text": "<p>The avalanche problem is related to Wind slab. Snow can be transported by wind with or without a concurrent snowfall.</p> <b> Indicazioni per l’utenza</b> <br/> <p> Evitate gli accumuli da vento su terreno ripido, in particolare nelle aree ove il manto nevoso cambia spessore da sottile a spesso o da duro a soffice.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
   }
 }
