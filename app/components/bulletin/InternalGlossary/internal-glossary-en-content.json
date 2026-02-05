@@ -357,8 +357,8 @@
       "en": "danger-scale-low"
     },
     "heading": "Danger level: Low",
-    "text": "<p><b>Generally favourable avalanche situation.</b><br /> No alarm signs present. Avalanches can only be triggered in isolated cases, in particular on extremely steep slopes.<br /> <b>Recommendations for backcountry recreationists:</b><br /> Travel extremely steep slopes one person at a time and mind the danger of falling.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Generally favourable avalanche situation.</b><br /> No alarm signs present. Avalanches can only be triggered in isolated cases, in particular on extremely steep slopes.<br /> <b>Recommendations for backcountry recreationists:</b><br /> Travel extremely steep slopes one person at a time and mind the danger of falling.</p></div>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -373,8 +373,8 @@
       "en": "danger-scale-moderate"
     },
     "heading": "Danger level: Moderate",
-    "text": "<p><b>Mostly favourable avalanche situation.</b><br />Alarm signs can occur in isolated cases. Avalanches can be triggered in particular on very steep slopes with the aspect and elevation indicated on avalanche.report. Large natural avalanches are unlikely.<br /><b>Recommendations for backcountry recreationists:</b><br />Backcountry activities should be selected carefully, especially on slopes with the aspect and elevation indicated on avalanche.report. Travel very steep slopes one person at a time. Pay attention to unfavourable snowpack structure (<a href=\"/education/avalanche-problems#persistent_weak_layers\">persistent weak layers</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Mostly favourable avalanche situation.</b><br />Alarm signs can occur in isolated cases. Avalanches can be triggered in particular on very steep slopes with the aspect and elevation indicated on avalanche.report. Large natural avalanches are unlikely.<br /><b>Recommendations for backcountry recreationists:</b><br />Backcountry activities should be selected carefully, especially on slopes with the aspect and elevation indicated on avalanche.report. Travel very steep slopes one person at a time. Pay attention to unfavourable snowpack structure (<a href=\"/education/avalanche-problems#persistent_weak_layers\">persistent weak layers</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -389,8 +389,8 @@
       "en": "danger-scale-considerable"
     },
     "heading": "Danger level: Considerable",
-    "text": "<p><b>Critical avalanche situation.</b><br />Whumpf sounds and shooting cracks are typical. Avalanches can easily be triggered, particularly on steep slopes with the aspect and elevation indicated on avalanche.report. Natural avalanches and remote triggering may occur.<br /><b>Recommendations for backcountry recreationists:</b><br />The most critical situation for backcountry recreationists. Use terrain efficiently and select best possible route with minimal exposure. Avoid very steep slopes with the aspect and elevation indicated on avalanche.report. Inexperienced persons are advised to remain on open ski runs and trails.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Critical avalanche situation.</b><br />Whumpf sounds and shooting cracks are typical. Avalanches can easily be triggered, particularly on steep slopes with the aspect and elevation indicated on avalanche.report. Natural avalanches and remote triggering may occur.<br /><b>Recommendations for backcountry recreationists:</b><br />The most critical situation for backcountry recreationists. Use terrain efficiently and select best possible route with minimal exposure. Avoid very steep slopes with the aspect and elevation indicated on avalanche.report. Inexperienced persons are advised to remain on open ski runs and trails.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-high": {
     "ids": {
@@ -405,8 +405,8 @@
       "en": "danger-scale-high"
     },
     "heading": "Danger level: High",
-    "text": "<p><b>Very critical avalanche situation.</b><br />Natural and often very large avalanches are likely. Avalanches can easily be triggered on many steep slopes. Remote triggering is typical. Whumpf sounds and shooting cracks occur frequently.<br /><b>Recommendations for backcountry recreationists:</b><br />Stay on moderately steep terrain. Watch out below run out zones of large avalanches. Inexperienced persons should remain on open ski runs and trails.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Very critical avalanche situation.</b><br />Natural and often very large avalanches are likely. Avalanches can easily be triggered on many steep slopes. Remote triggering is typical. Whumpf sounds and shooting cracks occur frequently.<br /><b>Recommendations for backcountry recreationists:</b><br />Stay on moderately steep terrain. Watch out below run out zones of large avalanches. Inexperienced persons should remain on open ski runs and trails.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -421,8 +421,8 @@
       "en": "danger-scale-very-high"
     },
     "heading": "Danger level: Very high",
-    "text": "<p><b>Extraordinary avalanche situation.</b><br />Numerous very large and extreme natural avalanches can be expected. These can reach roads and settlements in the valley.<br /><b>Recommendations for backcountry recreationists:</b><br />You are advised not to engage in winter sports beyond open ski runs and trails.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Extraordinary avalanche situation.</b><br />Numerous very large and extreme natural avalanches can be expected. These can reach roads and settlements in the valley.<br /><b>Recommendations for backcountry recreationists:</b><br />You are advised not to engage in winter sports beyond open ski runs and trails.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "snowpack-stability-very-poor": {
     "ids": {

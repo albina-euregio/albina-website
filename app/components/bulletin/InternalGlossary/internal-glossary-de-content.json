@@ -357,8 +357,8 @@
       "en": "danger-scale-low"
     },
     "heading": "Gefahrenstufe: Gering",
-    "text": "<p><b>Allgemein günstige Lawinensituation</b><br/> Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Allgemein günstige Lawinensituation</b><br/> Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -373,8 +373,8 @@
       "en": "danger-scale-moderate"
     },
     "heading": "Gefahrenstufe: Mäßig",
-    "text": "<p><b>Überwiegend günstige Lawinensituation</b><br/> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Überwiegend günstige Lawinensituation</b><br/> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -389,8 +389,8 @@
       "en": "danger-scale-considerable"
     },
     "heading": "Gefahrenstufe: Erheblich",
-    "text": "<p><b>Kritische Lawinensituation</b><br/> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Kritische Lawinensituation</b><br/> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-high": {
     "ids": {
@@ -405,8 +405,8 @@
       "en": "danger-scale-high"
     },
     "heading": "Gefahrenstufe: Groß",
-    "text": "<p><b>Sehr kritische Lawinensituation</b><br/> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Sehr kritische Lawinensituation</b><br/> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -421,8 +421,8 @@
       "en": "danger-scale-very-high"
     },
     "heading": "Gefahrenstufe: Sehr groß",
-    "text": "<p><b>Außerordentliche Lawinensituation</b><br/> Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <p>Wird sehr selten prognostiziert.</p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Außerordentliche Lawinensituation</b><br/> Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <p>Wird sehr selten prognostiziert.</p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
   },
   "snowpack-stability-very-poor": {
     "ids": {

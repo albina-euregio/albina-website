@@ -172,8 +172,8 @@
       "en": "danger-scale-low"
     },
     "heading": "Degré de danger: Faible",
-    "text": "<p><b>Situation avalancheuse favorable en général</b><br /> Aucun signe d’alarme n’est détectable. Les avalanches ne peuvent être déclenchées que de manière isolée, surtout sur les pentes extrêmement raides.<br /> <b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br /> Descendre les pentes extrêmement raides un par un et tenir compte du danger de chute.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse favorable en général</b><br /> Aucun signe d’alarme n’est détectable. Les avalanches ne peuvent être déclenchées que de manière isolée, surtout sur les pentes extrêmement raides.<br /> <b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br /> Descendre les pentes extrêmement raides un par un et tenir compte du danger de chute.</p></div>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -188,8 +188,8 @@
       "en": "danger-scale-moderate"
     },
     "heading": "Degré de danger: Limité",
-    "text": "<p><b>Mostly favourable avalanche situation.</b><br />Des signes d’alarme peuvent survenir de manière isolée. Des avalanches peuvent être déclenchées surtout sur les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Il ne faut pas s’attendre à des avalanches spontanées relativement grandes.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Choix prudent de l’itinéraire, surtout sur les pentes aux expositions et altitudes indiquées dans le bulletin d’avalanches. Descendre les pentes très raides un par un. Prudence particulière en cas de structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">situation de neige ancienne</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Mostly favourable avalanche situation.</b><br />Des signes d’alarme peuvent survenir de manière isolée. Des avalanches peuvent être déclenchées surtout sur les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Il ne faut pas s’attendre à des avalanches spontanées relativement grandes.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Choix prudent de l’itinéraire, surtout sur les pentes aux expositions et altitudes indiquées dans le bulletin d’avalanches. Descendre les pentes très raides un par un. Prudence particulière en cas de structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">situation de neige ancienne</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -204,8 +204,8 @@
       "en": "danger-scale-considerable"
     },
     "heading": "Degré de danger: Marqué",
-    "text": "<p><b>Situation avalancheuse critique</b><br />Des „woum“ et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Des avalanches spontanées et des déclenchements à distance sont possibles.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />La situation la plus critique pour les adeptes des sports d’hiver ! Un choix optimal de l’itinéraire et la mise en place de mesures pour réduire le risque sont nécessaires. Éviter les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Les personnes peu expérimentées doivent rester sur les descentes et itinéraires ouverts.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse critique</b><br />Des „woum“ et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Des avalanches spontanées et des déclenchements à distance sont possibles.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />La situation la plus critique pour les adeptes des sports d’hiver ! Un choix optimal de l’itinéraire et la mise en place de mesures pour réduire le risque sont nécessaires. Éviter les pentes très raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Les personnes peu expérimentées doivent rester sur les descentes et itinéraires ouverts.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-high": {
     "ids": {
@@ -220,8 +220,8 @@
       "en": "danger-scale-high"
     },
     "heading": "Degré de danger: Fort",
-    "text": "<p><b>Situation avalancheuse très critique</b><br />Des avalanches spontanées et souvent très grandes sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreux pentes raides. Les déclenchements à distance sont typiques. Des „woum“ et des fissures sont fréquents.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Se limiter aux terrains modérément raides. Tenir compte de la zone de dépôt de très grandes avalanches. Les personnes peu expérimentées restent sur les descentes et itinéraires ouverts. Pronostiqué seulement quelques jours par hiver.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse très critique</b><br />Des avalanches spontanées et souvent très grandes sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreux pentes raides. Les déclenchements à distance sont typiques. Des „woum“ et des fissures sont fréquents.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées:</b><br />Se limiter aux terrains modérément raides. Tenir compte de la zone de dépôt de très grandes avalanches. Les personnes peu expérimentées restent sur les descentes et itinéraires ouverts. Pronostiqué seulement quelques jours par hiver.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -236,7 +236,7 @@
       "en": "danger-scale-very-high"
     },
     "heading": "Degré de danger: Très fort",
-    "text": "<p><b>Situation avalancheuse exceptionnelle</b><br />De nombreux départs spontanés de très grandes avalanches et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées</b>Renoncement aux sports de neige recommandé en dehors des descentes et itinéraires ouverts.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse exceptionnelle</b><br />De nombreux départs spontanés de très grandes avalanches et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.<br /><b>Recommandations pour les personnes en dehors des zones sécurisées</b>Renoncement aux sports de neige recommandé en dehors des descentes et itinéraires ouverts.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   }
 }

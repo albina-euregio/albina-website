@@ -172,8 +172,8 @@
       "en": "danger-scale-low"
     },
     "heading": "Grado de Peligro: Débil",
-    "text": "<p><b>En general, situación de aludes favorable</b><br /> No hay signos de alarma. Los aludes solo se pueden desencadenar en casos aislados, en particular en pendientes extremadamente inclinadas.<br /> <b>Recomendaciones para montañeros y esquiadores</b><br />Esquiar en pendientes extremadamente inclinadas de uno en uno i valorar el peligro de caídas.<br /></p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>En general, situación de aludes favorable</b><br /> No hay signos de alarma. Los aludes solo se pueden desencadenar en casos aislados, en particular en pendientes extremadamente inclinadas.<br /> <b>Recomendaciones para montañeros y esquiadores</b><br />Esquiar en pendientes extremadamente inclinadas de uno en uno i valorar el peligro de caídas.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -188,8 +188,8 @@
       "en": "danger-scale-moderate"
     },
     "heading": "Grado de Peligro: Limitado",
-    "text": "<p><b>Situación de aludes mayoritariamente favorable</b><br />Se pueden producir signos de alarma en casos aislados. Los aludes se pueden desencadenar, en particular, en pendientes muy inclinadas, con la orientación y la elevación indicadas en el boletín. Los aludes naturales grandes son poco probables.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Las actividades de montaña deben seleccionarse cuidadosamente, especialmente en laderas de orientación y altitud indicadas en avalanche.report. Esquiar por laderas muy empinadas una persona a la vez. Prestar atención a una posible estructura desfavorable del manto de nieve(<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).<br /></p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situación de aludes mayoritariamente favorable</b><br />Se pueden producir signos de alarma en casos aislados. Los aludes se pueden desencadenar, en particular, en pendientes muy inclinadas, con la orientación y la elevación indicadas en el boletín. Los aludes naturales grandes son poco probables.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Las actividades de montaña deben seleccionarse cuidadosamente, especialmente en laderas de orientación y altitud indicadas en avalanche.report. Esquiar por laderas muy empinadas una persona a la vez. Prestar atención a una posible estructura desfavorable del manto de nieve(<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).<br /></p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -204,8 +204,8 @@
       "en": "danger-scale-considerable"
     },
     "heading": "Grado de Peligro: Notable",
-    "text": "<p><b>Situación de aludes crítica</b><br />Son típicos los whumpfs y las fisuras que se propagan. Se pueden desencadenar aludes fácilmente, particularmente en pendientes muy inclinadas, con la orientación y la elevación indicados en el boletín. Se pueden producir aludes naturales y desencadenamientos remotos.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />La situación más crítica para los montañeros. Utilizar el terreno de manera sensata y seleccionar la mejor ruta posible y con una exposición mínima. Evitar pendientes muy inclinadas con la orientación y la elevación indicados en el boletín. Se recomienda a personas sin experiencia mantenerse en pistas de esquí abiertas.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situación de aludes crítica</b><br />Son típicos los whumpfs y las fisuras que se propagan. Se pueden desencadenar aludes fácilmente, particularmente en pendientes muy inclinadas, con la orientación y la elevación indicados en el boletín. Se pueden producir aludes naturales y desencadenamientos remotos.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />La situación más crítica para los montañeros. Utilizar el terreno de manera sensata y seleccionar la mejor ruta posible y con una exposición mínima. Evitar pendientes muy inclinadas con la orientación y la elevación indicados en el boletín. Se recomienda a personas sin experiencia mantenerse en pistas de esquí abiertas.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-high": {
     "ids": {
@@ -220,8 +220,8 @@
       "en": "danger-scale-high"
     },
     "heading": "Grado de Peligro: Fuerte",
-    "text": "<p><b>Situación de aludes muy crítica</b><br />Es probable que haya aludes naturales y a menudo muy grandes. Se pueden desencadenar aludes fácilmente en muchas pendientes escarpadas. El desencadenamiento remoto es típico. A menudo se producen whumpfs y grietas que se propagan.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Mantenerse en terrenos moderadamente inclinados. Cuidado con las zonas de llegada de grandes aludes. Las personas sin experiencia deben permanecer en pistas de esquí abiertas. Esta previsión se da sólo en pocos días durante todo el invierno.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situación de aludes muy crítica</b><br />Es probable que haya aludes naturales y a menudo muy grandes. Se pueden desencadenar aludes fácilmente en muchas pendientes escarpadas. El desencadenamiento remoto es típico. A menudo se producen whumpfs y grietas que se propagan.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Mantenerse en terrenos moderadamente inclinados. Cuidado con las zonas de llegada de grandes aludes. Las personas sin experiencia deben permanecer en pistas de esquí abiertas. Esta previsión se da sólo en pocos días durante todo el invierno.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -236,7 +236,7 @@
       "en": "danger-scale-very-high"
     },
     "heading": "Grado de Peligro: Muy fuerte",
-    "text": "<p><b>Situación de aludes extraordinaria</b><br />Se esperan numerosos aludes naturales muy grandes y extremos. Estos pueden llegar a carreteras y asentamientos en los valles.<br /><b>Recomendaciones para montañeros y esquiadores:</b><br />Se recomienda no salir a la montaña fuera de pistas de esquí abiertas.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situación de aludes extraordinaria</b><br />Se esperan numerosos aludes naturales muy grandes y extremos. Estos pueden llegar a carreteras y asentamientos en los valles.<br /><b>Recomendaciones para montañeros y esquiadores:</b><br />Se recomienda no salir a la montaña fuera de pistas de esquí abiertas.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   }
 }

@@ -172,8 +172,8 @@
       "en": "danger-scale-low"
     },
     "heading": "Grado di pericolo: Debole",
-    "text": "<p><b>Situazione valanghiva generalmente favorevole</b><br /> Non si manifestano segnali di allarme. Possibile solo il distacco di valanghe isolate, soprattutto sui pendii estremamente ripidi.<br /> <b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br /> Scendere da pendii estremamente ripidi solo una persona alla volta e prestare attenzione al rischio di scivolamento.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situazione valanghiva generalmente favorevole</b><br /> Non si manifestano segnali di allarme. Possibile solo il distacco di valanghe isolate, soprattutto sui pendii estremamente ripidi.<br /> <b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br /> Scendere da pendii estremamente ripidi solo una persona alla volta e prestare attenzione al rischio di scivolamento.</p></div>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -188,8 +188,8 @@
       "en": "danger-scale-moderate"
     },
     "heading": "Grado di pericolo: Moderato",
-    "text": "<p><b>Mostly favourable avalanche situation.</b><br />È possibile la presenza di singoli segnali di allarme. Le valanghe possono essere staccate specialmente sui pendii molto ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Non sono previste valanghe spontanee di grandi dimensioni.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Prudente scelta dell’itinerario, soprattutto sui pendii alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Percorrere i pendii molto ripidi una persona alla volta. Attenzione particolare è richiesta quando la struttura del manto nevoso è sfavorevole (<a href=\"/education/avalanche-problems#persistent_weak_layers\">strati deboli persistenti</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Mostly favourable avalanche situation.</b><br />È possibile la presenza di singoli segnali di allarme. Le valanghe possono essere staccate specialmente sui pendii molto ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Non sono previste valanghe spontanee di grandi dimensioni.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Prudente scelta dell’itinerario, soprattutto sui pendii alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Percorrere i pendii molto ripidi una persona alla volta. Attenzione particolare è richiesta quando la struttura del manto nevoso è sfavorevole (<a href=\"/education/avalanche-problems#persistent_weak_layers\">strati deboli persistenti</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -204,8 +204,8 @@
       "en": "danger-scale-considerable"
     },
     "heading": "Grado di pericolo: Marcato",
-    "text": "<p><b>Situazione valanghiva critica</b><br />I rumori di “whum” e le fessure sono tipici. Le valanghe possono facilmente essere staccate, soprattutto sui pendii ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Possibili valanghe spontanee e distacchi a distanza.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Questa è la situazione più critica per gli appassionati di sport invernali! Sono necessarie una scelta ottimale dell’itinerario e l’adozione di misure atte a ridurre il rischio. Evitare i pendii molto ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. È meglio che le persone inesperte rimangano sulle discese e sugli itinerari aperti.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situazione valanghiva critica</b><br />I rumori di “whum” e le fessure sono tipici. Le valanghe possono facilmente essere staccate, soprattutto sui pendii ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. Possibili valanghe spontanee e distacchi a distanza.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Questa è la situazione più critica per gli appassionati di sport invernali! Sono necessarie una scelta ottimale dell’itinerario e l’adozione di misure atte a ridurre il rischio. Evitare i pendii molto ripidi alle esposizioni e alle quote indicate nel bollettino valanghe su valanghe.report. È meglio che le persone inesperte rimangano sulle discese e sugli itinerari aperti.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-high": {
     "ids": {
@@ -220,8 +220,8 @@
       "en": "danger-scale-high"
     },
     "heading": "Grado di pericolo: Forte",
-    "text": "<p><b>Situazione valanghiva molto critica.</b><br />Probabili valanghe spontanee, spesso anche di grandi dimensioni. Su molti pendii ripidi è facile provocare il distacco di valanghe. I distacchi a distanza sono tipici di questo grado di pericolo. I rumori di “whum” e le fessure sono frequenti.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Limitarsi ai pendii poco ripidi. Attenzione alla zona di deposito di valanghe di grandi dimensioni. Le persone inesperte rimangano sulle piste e sugli itinerari controllati. Pronosticato per pochi giorni dell’inverno.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situazione valanghiva molto critica.</b><br />Probabili valanghe spontanee, spesso anche di grandi dimensioni. Su molti pendii ripidi è facile provocare il distacco di valanghe. I distacchi a distanza sono tipici di questo grado di pericolo. I rumori di “whum” e le fessure sono frequenti.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Limitarsi ai pendii poco ripidi. Attenzione alla zona di deposito di valanghe di grandi dimensioni. Le persone inesperte rimangano sulle piste e sugli itinerari controllati. Pronosticato per pochi giorni dell’inverno.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -236,7 +236,7 @@
       "en": "danger-scale-very-high"
     },
     "heading": "Grado di pericolo: Molto forte",
-    "text": "<p><b>Situazione valanghiva straordinaria.</b><br />Si prevedono numerose valanghe spontanee di dimensioni molto grandi e estremi che possono raggiungere le strade e i centri abitati situati a fondovalle.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Si consiglia di non praticare sport invernali al di fuori delle piste e dei sentieri aperti.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "text": "<div style='text-align:center;'><p><b>Situazione valanghiva straordinaria.</b><br />Si prevedono numerose valanghe spontanee di dimensioni molto grandi e estremi che possono raggiungere le strade e i centri abitati situati a fondovalle.<br /><b>Raccomandazioni per le persone che praticano attività fuoripista:</b><br />Si consiglia di non praticare sport invernali al di fuori delle piste e dei sentieri aperti.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   }
 }

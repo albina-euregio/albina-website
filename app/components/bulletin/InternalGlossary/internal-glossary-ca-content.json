@@ -173,7 +173,7 @@
     },
     "heading": "Grau de perill: Feble",
     "text": "<p><b>Situació d’allaus generalment favorable.</b><br />No hi ha signes d'alarma. Les allaus només es poden desencadenar en casos aïllats, en particular en pendents extremadament inclinades.<br /> <b>Recomanacions per muntanyencs i esquiadors</b><br /> Circuleu en pendents extremadament escarpades d’un en un i tingueu en compte el perill de caure.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" />"
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -189,7 +189,7 @@
     },
     "heading": "Grau de perill: Moderat",
     "text": "<p><b>Situació d’allaus majoritàriament favorable.</b><br />Es poden produir signes d’alarma en casos aïllats. Les allaus es poden desencadenar, en particular, en pendents molt inclinats, amb l'orientació i l'elevació indicades al butlletí. Les allaus naturals grans són poc probables.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Les activitats en terreny de muntanya s’han de seleccionar acuradament, sobretot en els vessants d'orientació i altitud indicats al lauegi.report Circular per vessants inclinats d'un en un. Atenció a l'estructura desfavorable del mantell de neu (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capes febles persistents</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" />"
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -205,7 +205,7 @@
     },
     "heading": "Grau de perill: Marcat",
     "text": "<p><b>Situació d'allaus crítica.</b><br />Són típics els whumpfs i les fissures que propaguen. Es poden desencadenar allaus fàcilment, particularment en pendents molt inclinats, amb l'orientació i l'elevació indicats al butlletí. Es poden produir allaus naturals i desencadenaments remots.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />La situació més crítica per als muntanyencs. Utilitzeu el terreny de manera eficient i seleccioneu la millor ruta possible amb una exposició mínima. Eviteu pendents molt inclinats amb l'orientació i l'elevació indicats al butlletí. Es recomana que les persones inexpertes es mantinguin en pistes i senders oberts.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" />"
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-high": {
     "ids": {
@@ -221,7 +221,7 @@
     },
     "heading": "Grau de perill: Fort",
     "text": "<p><b>Situació d'allaus molt crítica.</b><br />És probable que hi hagi allaus naturals i sovint molt grans. Es poden desencadenar allaus fàcilment en molts pendents. El desencadenament remot és típic. Sovint es produeixen whumpfs i esquerdes que propaguen.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Mantingueu-vos en terrenys moderadament inclinats. Vigileu amb les zones d'arribada de grans allaus. Les persones sense experiència han de romandre en pistes d’esquí obertes. Aquesta previsió es dona només en uns dies durant tot l’hivern.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" />"
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -237,6 +237,6 @@
     },
     "heading": "Grau de perill: Molt fort",
     "text": "<p><b>Situació d'allaus extraordinària.</b><br />S'esperen nombroses allaus naturals molt grans i extremes. Aquestes poden arribar a carreteres i assentaments a la vall.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Es recomana no sortir a la muntanya fora de les pistes d’esquí obertes.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" />"
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
   }   
 }

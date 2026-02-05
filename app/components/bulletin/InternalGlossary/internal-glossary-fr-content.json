@@ -344,6 +344,86 @@
     "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"
     },
+  "danger-scale-low": {
+    "ids": {
+      "ar": "perilh-bass",
+      "cs": "nebezpeci-nizkeho-stupne",
+      "de": "geringes-gefahrenniveau",
+      "es": "peligro-bajo",
+      "fr": "danger-faible",
+      "is": "laegt-haettustig",
+      "it": "pericolo-basso",
+      "sl": "nizka-nevarnost",
+      "en": "danger-scale-low"
+    },
+    "heading": "Degré de danger: Faible",
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse favorable en général.</b><br /> Aucun signe d'alarme présent. Les avalanches ne peuvent être déclenchées que dans des cas isolés, en particulier sur des pentes extrêmement raides.<br /> <b>Recommandations pour les amateurs de plein air en montagne :</b><br /> Parcourez les pentes extrêmement raides une personne à la fois et faites attention au danger de chute.</p></div>",
+"img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+  },
+  "danger-scale-moderate": {
+    "ids": {
+      "ar": "perilh-moderat",
+      "cs": "nebezpeci-stredniho-stupne",
+      "de": "mäßiges-gefahrenniveau",
+      "es": "peligro-moderado",
+      "fr": "danger-modere",
+      "is": "midlungs-haettustig",
+      "it": "pericolo-moderato",
+      "sl": "zmerna-nevarnost",
+      "en": "danger-scale-moderate"
+    },
+    "heading": "Degré de danger: Limité",
+    "text": "<div style='text-align:center;'><p><b>Mostly favourable avalanche situation</b><br /> Des signes d'alarme peuvent apparaître dans des cas isolés. Les avalanches peuvent être déclenchées en particulier sur des pentes très raides avec l'exposition et l'altitude indiquées sur avalanche.report. Les grandes avalanches naturelles sont peu probables.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Les activités en montagne doivent être choisies avec soin, en particulier sur les pentes avec l'exposition et l'altitude indiquées sur avalanche.report. Parcourez les pentes très raides une personne à la fois. Faites attention à la structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">couches faibles persistantes</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+  },
+  "danger-scale-considerable": {
+    "ids": {
+      "ar": "perilh-considerable",
+      "cs": "nebezpeci-podstatneho-stupne",
+      "de": "erhebliches-gefahrenniveau",
+      "es": "peligro-considerable",
+      "fr": "danger-considerable",
+      "is": "talsvert-haettustig",
+      "it": "pericolo-considerabile",
+      "sl": "znatna-nevarnost",
+      "en": "danger-scale-considerable"
+    },
+    "heading": "Degré de danger: Marqué",
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse critique.</b><br />Des „woum“ et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Des avalanches spontanées et des déclenchements à distance sont possibles.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />La situation la plus critique pour les amateurs de plein air en montagne. Utilisez le terrain de manière efficace et choisissez le meilleur itinéraire possible avec une exposition minimale. Évitez les pentes très raides avec l'exposition et l'altitude indiquées dans le bulletin d’avalanches. Les personnes inexpérimentées sont invitées à rester sur les pistes de ski et les sentiers ouverts.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+  },
+  "danger-scale-high": {
+    "ids": {
+      "ar": "perilh-aute",
+      "cs": "nebezpeci-vysokeho-stupne",
+      "de": "hohes-gefahrenniveau",
+      "es": "peligro-alto",
+      "fr": "danger-eleve",
+      "is": "haettustig",
+      "it": "pericolo-alto",
+      "sl": "visoka-nevarnost",
+      "en": "danger-scale-high"
+    },
+    "heading": "Degré de danger: Fort",
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse très critique.</b><br />Des avalanches naturelles, souvent très grandes, sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreuses pentes raides. Le déclenchement à distance est typique. Des „woum“ et des fissures se produisent fréquemment.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Restez sur un terrain modérément raide. Faites attention en dessous des zones d'arrêt des grandes avalanches. Les personnes inexpérimentées devraient rester sur les pistes de ski et les sentiers ouverts.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+  },
+  "danger-scale-very-high": {
+    "ids": {
+      "ar": "perilh-molt-aute",
+      "cs": "nebezpeci-velmi-vysokeho-stupne",
+      "de": "sehr-hohes-gefahrenniveau",
+      "es": "peligro-muy-alto",
+      "fr": "danger-tres-eleve",
+      "is": "mjog-haettustig",
+      "it": "pericolo-molto-alto",
+      "sl": "zelo-visoka-nevarnost",
+      "en": "danger-scale-very-high"
+    },
+    "heading": "Degré de danger: Très Fort",
+    "text": "<div style='text-align:center;'><p><b>Situation avalancheuse extraordinaire.</b><br />De nombreuses avalanches naturelles très grandes et extrêmes peuvent être attendues. Celles-ci peuvent atteindre les routes et les habitations dans la vallée.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Il est conseillé de ne pas pratiquer de sports d'hiver au-delà des pistes de ski et des sentiers ouverts.<br /></p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+  },
     "snowpack-stability-very-poor": {
     "ids": {
         "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
