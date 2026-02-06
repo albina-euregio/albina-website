@@ -41,7 +41,12 @@ export class LabeledSlider {
     ticks.className = "slider-ticks";
     if (typeof this.options.rotateLabelsAngle === 'number') {
       const angle = Math.abs(this.options.rotateLabelsAngle);
-      const padding = 16 + angle * 0.5;
+      // Calculate max label length (in characters)
+      const maxLabelLength = labels.reduce((max, label) => Math.max(max, label.length), 0);
+      // Estimate px per character (approximate, can be tuned)
+      const pxPerChar = 2;
+      // Padding is proportional to label length and angle
+      const padding = 8 + (maxLabelLength * pxPerChar * Math.sin(angle * Math.PI / 180)) + angle * 0.5;
       ticks.style.paddingBottom = `${padding}px`;
     }
 
