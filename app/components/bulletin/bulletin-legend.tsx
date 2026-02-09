@@ -9,7 +9,7 @@ import {
   getContentIdentifier
 } from "./InternalGlossary/internal-glossary-lookupId.js";
 const BulletinInternalGlossaryText = React.lazy(
-  () => import("./internal-glossary-text")
+  () => import("./InternalGlossary/internal-glossary-text.js")
 );
 
 interface Props {

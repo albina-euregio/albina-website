@@ -1,9 +1,9 @@
 import React, { useRef, useEffect }  from "react";
-import { Tooltip } from "../tooltips/tooltip";
-import { FormattedMessage } from "../../i18n";
+import { Tooltip } from "../../tooltips/tooltip";
+import { FormattedMessage } from "../../../i18n";
 import reactStringReplace from "react-string-replace";
-import { preprocessContent } from "../../util/htmlParser";
-import { LabeledSlider } from "../../util/simple-slider";
+import { preprocessContent } from "../../../util/htmlParser";
+import { LabeledSlider } from "../../../util/simple-slider";
 import { fr } from "zod/locales";
 
 export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = false, rotateLabelsAngle = 0 }) => {
@@ -19,13 +19,13 @@ export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = f
 };
 
 const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
-  ca: () => import("./InternalGlossary/Internal-Glossary-ca-content.json").then(d => d.default),
-  de: () => import("./InternalGlossary/Internal-Glossary-de-content.json").then(d => d.default),
-  en: () => import("./InternalGlossary/Internal-Glossary-en-content.json").then(d => d.default),
-  es: () => import("./InternalGlossary/Internal-Glossary-es-content.json").then(d => d.default),
-  it: () => import("./InternalGlossary/Internal-Glossary-it-content.json").then(d => d.default),
-  oc: () => import("./InternalGlossary/Internal-Glossary-oc-content.json").then(d => d.default),
-  fr: () => import("./InternalGlossary/Internal-Glossary-fr-content.json").then(d => d.default)
+  ca: () => import("./Internal-Glossary-ca-content.json").then(d => d.default),
+  de: () => import("./Internal-Glossary-de-content.json").then(d => d.default),
+  en: () => import("./Internal-Glossary-en-content.json").then(d => d.default),
+  es: () => import("./Internal-Glossary-es-content.json").then(d => d.default),
+  it: () => import("./Internal-Glossary-it-content.json").then(d => d.default),
+  oc: () => import("./Internal-Glossary-oc-content.json").then(d => d.default),
+  fr: () => import("./Internal-Glossary-fr-content.json").then(d => d.default)
 });
 
 export type EnabledLanguages = keyof typeof GLOSSARY_INTERNAL_CONTENT;

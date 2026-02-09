@@ -7,13 +7,13 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { EnabledLanguages } from "./internal-glossary";
+import { EnabledLanguages } from "./InternalGlossary/internal-glossary";
 import {
   internalGlossaryEnum,
   getContentIdentifier
 } from "./InternalGlossary/internal-glossary-lookupId";
 const BulletinInternalGlossaryText = React.lazy(
-  () => import("./internal-glossary-text")
+  () => import("./InternalGlossary/internal-glossary-text")
 );
 
 interface Props {
