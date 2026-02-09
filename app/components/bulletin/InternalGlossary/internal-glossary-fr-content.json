@@ -17,8 +17,7 @@
     },
     "heading": "Taille 1 : Petite avalanche (coulée)",
     "text": "<p>L’ensevelissement est peu probable, sauf dans une zone de dépôt défavorable (p.ex. un piège de terrain).<br/>En terrain extrêmement raide, il est plus probable d'être emporté que d'être enseveli.<br/>S’arrête dans une pente raide.<br/>Longueur : &lt; 50 m<br/>Volume : 100 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|0|false|45|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-    "width": 480
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|0|false|90|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
     },
     "avalanche-size-medium": {
     "ids": {
@@ -38,8 +37,7 @@
     },
     "heading": "Taille 2 : Avalanche moyenne",
     "text": "<p>Peut ensevelir, blesser ou tuer des personnes.<br/>C'est la taille typique des avalanches déclenchées par des skieurs.<br/>Peut atteindre le pied de la pente.<br/>Longueur : 50-200 m<br/>Volume : 1'000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|1|false|45|__END_SLIDER___ <img alt=\"Avalanche size 2\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size2-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-    "width": 480
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|1|false|90|__END_SLIDER___ <img alt=\"Avalanche size 2\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size2-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
     },
     "avalanche-size-large": {
     "ids": {
@@ -59,8 +57,7 @@
     },
     "heading": "Taille 3 : Grande avalanche",
     "text": "<p>Peut ensevelir et détruire des véhicules, endommager de gros poids lourds, détruire de petits bâtiments, et casser des arbres.<br/>Pour un skieur emporté par une avalanche de cette taille, le risque mortel est élevé.<br/>Peut s’avancer en terrain plat (bien en dessous de 30°) sur une distance inférieure à 50 m.<br/>Longueur : plusieurs centaines de mètres<br/>Volume : 10’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|2|false|45|__END_SLIDER___ <img alt=\"Avalanche size 3\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size3-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-    "width": 480
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|2|false|90|__END_SLIDER___ <img alt=\"Avalanche size 3\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size3-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
     },
     "avalanche-size-very-large": {
     "ids": {
@@ -80,8 +77,7 @@
     },
     "heading": "Taille 4 : Très grande avalanche",
     "text": "<p>Peut ensevelir et détruire de gros poids lourds et trains.<br/>Peut détruire des bâtiments importants et de petites surfaces boisées.<br/>De très grandes avalanches sont possibles avec un indice de risque 3 – Marqué. Elles sont typiques des indices de risque 4 – Fort et 5 – Très fort.<br/>Traverse les terrains en pente peu raide (nettement moins de 30°) sur une distance de plus de 50 m.<br/>Peut atteindre le fond de la vallée.<br/>Longueur : 1-2 km<br/>Volume : 100’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|3|false|45|__END_SLIDER___ <img alt=\"Avalanche size 4\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size4-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-    "width": 480
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|3|false|90|__END_SLIDER___ <img alt=\"Avalanche size 4\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size4-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
     },
     "avalanche-size-extremely-large": {
     "ids": {
@@ -101,8 +97,7 @@
     },
     "heading": "Taille 5 : Avalanche extrêmement grande",
     "text": "<p>Peut dévaster le paysage, potentiel destructeur catastrophique.<br/>Typique de l'indice de risque 5 – Très Fort.<br/>Atteint le fond de la vallée.<br/>C'est la plus grande ampleur d'avalanche connue.<br/>Longueur : > 2 km<br/>Volume : > 100’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|4|false|45|__END_SLIDER___ <img alt=\"Avalanche size 5\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size5-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-    "width": 480
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|4|false|90|__END_SLIDER___ <img alt=\"Avalanche size 5\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size5-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
     },
     "avalanche-frequency-none": {
         "ids": {

@@ -28,7 +28,7 @@ export const Tooltip = ({
   placement = "bottom",
   html = false,
   enableClick = false,
-  width,
+  width,  //note if you change the width of the tooltip. check with mobile view to make sure it is not too wide.
   zIndex
 }: {
   children: React.ReactNode;
