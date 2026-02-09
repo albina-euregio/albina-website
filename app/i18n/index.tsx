@@ -4,13 +4,50 @@ import { $locale, $messages } from "../appStore";
 import { computed, StoreValue } from "nanostores";
 import { useStore } from "@nanostores/react";
 import reactStringReplace from "react-string-replace";
+import {
+  DATE_TIME_FORMAT,
+  DATE_TIME_FORMAT_SHORT,
+  DATE_TIME_ZONE_FORMAT,
+  LONG_DATE_FORMAT
+} from "../util/date";
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
 type MessageId = keyof StoreValue<typeof $messages>;
 
 const format = computed($locale, code => ({
-  number(num: number, opts: Intl.NumberFormatOptions) {
-    return new Intl.NumberFormat(code, opts).format(num);
+  intlCache: new (class IntlCache {
+    #numberFormatCache: Intl.NumberFormat[] = [];
+    numberFormat(digits: number): Intl.NumberFormat {
+      return (this.#numberFormatCache[digits] ??= new Intl.NumberFormat(code, {
+        useGrouping: false,
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      }));
+    }
+    #default: Intl.DateTimeFormat | undefined;
+    #longDate: Intl.DateTimeFormat | undefined;
+    #dateTime: Intl.DateTimeFormat | undefined;
+    #dateTimeShort: Intl.DateTimeFormat | undefined;
+    #dateTimeZone: Intl.DateTimeFormat | undefined;
+    dateTimeFormat(opts?: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {
+      switch (opts) {
+        case undefined:
+          return (this.#default ??= new Intl.DateTimeFormat(code, opts));
+        case LONG_DATE_FORMAT:
+          return (this.#longDate ??= new Intl.DateTimeFormat(code, opts));
+        case DATE_TIME_FORMAT:
+          return (this.#dateTime ??= new Intl.DateTimeFormat(code, opts));
+        case DATE_TIME_FORMAT_SHORT:
+          return (this.#dateTimeShort ??= new Intl.DateTimeFormat(code, opts));
+        case DATE_TIME_ZONE_FORMAT:
+          return (this.#dateTimeZone ??= new Intl.DateTimeFormat(code, opts));
+        default:
+          return new Intl.DateTimeFormat(code, opts);
+      }
+    }
+  })(),
+  number(num: number, digits?: number) {
+    return this.intlCache.numberFormat(digits ?? 0).format(num);
   },
   relativeTime(date: Date, opts: Intl.RelativeTimeFormatOptions = {}) {
     const format = new Intl.RelativeTimeFormat(code, opts);
@@ -30,11 +67,11 @@ const format = computed($locale, code => ({
       date instanceof Temporal.PlainDate ||
       date instanceof Temporal.ZonedDateTime
     ) {
-      return date.toLocaleString(code, opts);
+      return this.intlCache.dateTimeFormat(opts).format(date);
     }
     if (typeof date === "string") date = Date.parse(date);
     if (!isFinite(+date)) return "";
-    return new Intl.DateTimeFormat(code, opts).format(date);
+    return this.intlCache.dateTimeFormat(opts).format(date);
   }
 }));
 
@@ -44,16 +81,12 @@ export function useIntl() {
   const formatter = useStore(format);
 
   function formatNumberUnit(
-    value: number | undefined,
+    value: number | undefined | null,
     unit?: string,
     digits?: number
   ): string {
     return typeof value === "number"
-      ? formatter.number(value, {
-          useGrouping: false,
-          minimumFractionDigits: digits ?? 0,
-          maximumFractionDigits: digits ?? 0
-        }) + (unit ? "\u202F" + unit : "")
+      ? formatter.number(value, digits) + (unit ? "\u202F" + unit : "")
       : "–";
   }
 
@@ -82,9 +115,9 @@ export function useIntl() {
 
   return {
     locale,
-    formatDate: formatter.time,
-    formatRelativeTime: formatter.relativeTime,
-    formatNumber: formatter.number,
+    formatDate: formatter.time.bind(formatter),
+    formatRelativeTime: formatter.relativeTime.bind(formatter),
+    formatNumber: formatter.number.bind(formatter),
     formatNumberUnit,
     formatMessage
   };

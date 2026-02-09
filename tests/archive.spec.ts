@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("archive", async ({ page }) => {
-  await page.goto("/more/archive");
+  await page.goto("more/archive");
 
   const year = page.locator("text=Year").locator("..");
   await year.locator(".selectric").selectOption("2020");
@@ -17,4 +17,16 @@ test("archive", async ({ page }) => {
     "src",
     "https://static.avalanche.report/bulletins/2021-03-16//fd_EUREGIO_thumbnail.jpg"
   );
+});
+
+test("archive headless ", async ({ page }) => {
+  await page.goto("more/archive?headless=1");
+
+  await expect(page.locator("header")).toContainText("Archive");
+  await expect(page.locator(".page-header")).toHaveCount(0);
+
+  await page.getByRole("link", { name: "Back to Avalanche Forecast" }).click();
+
+  await expect(page).toHaveURL("bulletin/latest");
+  await expect(page.locator(".page-header")).toHaveCount(0);
 });
