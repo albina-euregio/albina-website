@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
@@ -7,9 +7,29 @@ import menuItems from "../../menu.json";
 import { setLanguage } from "../../appStore";
 
 function PageHeader() {
+  const langButtonRef = useRef<HTMLAnchorElement>(null);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   // changing language on header language button click
+    // Keyboard shortcut: Alt+L to focus/open language selector
+    useEffect(() => {
+      function handleKeyDown(e: KeyboardEvent) {
+        if ((e.altKey || e.metaKey) && (e.key === 'l' || e.key === 'L')) {
+          e.preventDefault();
+        setLangDropdownOpen(true);
+        setTimeout(() => {
+          langButtonRef.current?.focus();
+        }, 0);
+      }
+      // Escape closes dropdown
+      if (langDropdownOpen && e.key === 'Escape') {
+        setLangDropdownOpen(false);
+        }
+      }
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [langDropdownOpen]);
   const handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
@@ -103,12 +123,15 @@ function PageHeader() {
         <ul className="list-plain language-trigger">
           <li>
             <a
+              ref={langButtonRef}
               role="button"
-              tabIndex="0"
+              tabIndex={0}
               onClick={e => {
                 e.preventDefault();
+                setLangDropdownOpen(v => !v);
               }}
-              className="has-sub"
+              className={`has-sub${langDropdownOpen ? ' open' : ''}`}
+              aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
                 id: "header:languages:title"
               })}
@@ -119,7 +142,7 @@ function PageHeader() {
             >
               <span></span>
             </a>
-            <ul className="list-plain subnavigation">
+            <ul className="list-plain subnavigation" style={{ display: langDropdownOpen ? 'block' : undefined }}>
               {/* languages in alphabetical order */}
               <li>
                 <a
