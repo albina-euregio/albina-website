@@ -279,7 +279,7 @@ const StationDiagramImage: React.FC<{
           key={url + timeRangeMilli}
           src={url}
           lazysrc={lazyurl}
-          showSurfaceHoarButton
+          showsurfacehoarseries
           showexport
           showdatepicker
         />
