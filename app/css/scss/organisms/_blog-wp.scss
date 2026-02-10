@@ -144,3 +144,7 @@ img {
 .blocks-gallery-caption {
   margin-top: -(variables.$margin-bottom);
 }
+
+[data-lineaplot-wrapper]:has(> linea-plot:not(:empty)) > img {
+  display: none;
+}
