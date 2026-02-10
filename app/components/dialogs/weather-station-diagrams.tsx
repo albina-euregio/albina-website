@@ -253,32 +253,28 @@ const StationDiagramImage: React.FC<{
     hasInteractivePlot(station) &&
     station instanceof StationData
   ) {
-    const timeRangeMilli =
-      timeRangesMilli[timeRange] ?? timeRangesMilli["week"];
-    let timeRangePath = "woche";
     const end = new Date().toISOString();
-    const start = new Date(Date.parse(end) - timeRangeMilli).toISOString();
+    const start = new Date(
+      Date.parse(end) - (timeRangesMilli[timeRange] ?? timeRangesMilli["week"])
+    ).toISOString();
     const id = station.properties?.shortName || station.id;
-    const url = window.config.template(station.$smet ?? "", {
-      start,
-      end,
-      timeRangePath,
-      id
-    });
-    timeRangePath = "winter";
-    const lazyurl = window.config.template(station.$smet ?? "", {
-      start,
-      end,
-      timeRangePath,
-      id
-    });
+    const url = (timeRangePath: string) =>
+      window.config.template(station.$smet ?? "", {
+        start,
+        end,
+        timeRangePath,
+        id
+      });
     /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
-          key={url + timeRangeMilli}
-          src={url}
-          lazysrc={lazyurl}
+          key={id}
+          src={url("woche")}
+          lazysrc={url("winter")}
+          wintersrc={
+            import.meta.env.BASE_URL === "/dev/" ? url("all") : undefined
+          }
           showsurfacehoarseries
           showexport
           showdatepicker
