@@ -21,7 +21,6 @@ declare module "leaflet" {
   interface MarkerOptions {
     data: StationMarkerData;
     $tooltip: string | undefined;
-    $stationIcon: React.ReactElement<unknown, typeof StationIcon>;
   }
 }
 
@@ -102,7 +101,6 @@ const StationMarker = ({
       <Marker
         data={data}
         $tooltip={tooltip}
-        $stationIcon={stationIcon}
         position={coordinates}
         title={stationName}
         icon={icon}
