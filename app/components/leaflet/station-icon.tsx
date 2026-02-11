@@ -3,12 +3,14 @@ const iconSVGS = {
   "directionArrow-centered":
     "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z",
   "directionArrow-combined":
-    "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
+    "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z",
+  windArrow:
+    "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z"
 };
 
 interface Props {
   type: string;
-  value: number | "";
+  value: number | "" | "-";
   itemId: "any" | string;
   dataType?: "forcast" | "analyse" | string;
   color: string | [number, number, number];
@@ -82,43 +84,32 @@ export default class StationIcon extends React.Component<Props> {
       );
   }
 
-  getDirection(type: "combined" | "only", direction: Props["direction"]) {
-    let style = {
+  getWindArrow(direction: Props["direction"], color: string) {
+    const style = {
       position: "absolute",
-      left: "6px",
-      top: "6",
       transform: "rotate(" + direction + "deg)"
     };
-    let svg = iconSVGS["directionArrow-centered"];
-    let height = "12";
-    let viewBox = "0 0 9 12";
-
-    if (type === "combined") {
-      style = {
-        position: "absolute",
-        left: "6.5px",
-        top: "-11px",
-        transform: "rotate(" + direction + "deg)"
-      };
-      svg = iconSVGS["directionArrow-combined"];
-      height = "42";
-      viewBox = "0 0 9 42";
-    }
 
     return (
       <svg
         style={style}
-        height={height}
-        viewBox={viewBox}
-        width="9"
+        height="28"
+        viewBox="0 0 28 28"
+        width="28"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={svg} fillRule="evenodd" />
+        <path
+          d={iconSVGS["windArrow"]}
+          fill={color}
+          stroke="#000"
+          strokeWidth="1.0"
+          strokeLinejoin="round"
+        />
       </svg>
     );
   }
 
-  getText(text: string) {
+  getText(text: string, showCircle: boolean) {
     return (
       <svg
         style={{ position: "absolute", left: "0px", top: "0px" }}
@@ -127,33 +118,31 @@ export default class StationIcon extends React.Component<Props> {
         viewBox="0 0 22 22"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle">
+        <text
+          x={!showCircle ? "60%" : "50%"}
+          y={!showCircle ? "62%" : "52%"}
+          dominantBaseline="middle"
+          textAnchor="middle"
+        >
           {text}
         </text>
       </svg>
     );
   }
 
-  get hasValue() {
-    return typeof this.props.value === "number" && isFinite(this.props.value);
-  }
-
-  showCircle() {
-    return (
-      ["any"].includes(this.props.itemId) ||
-      (["forcast", "analyse"].includes(this.props.dataType) && this.hasValue)
-    );
-  }
-
   render() {
-    const s = 12;
-
     const fill =
       typeof this.props.color === "string"
         ? this.props.color
         : Array.isArray(this.props.color)
           ? this.RGBToHex(this.props.color)
           : "black";
+
+    const isWindParameter = ["VW", "VW_MAX"].includes(this.props.itemId);
+    const shouldShowWindArrow =
+      isWindParameter && typeof this.props.direction === "number";
+    const shouldShowCircle = !shouldShowWindArrow;
+
     //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
       <div
@@ -162,13 +151,12 @@ export default class StationIcon extends React.Component<Props> {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {this.showCircle() && this.getCircle(this.props.dataType, fill)}
-        {typeof this.props.direction == "number" &&
-          this.getDirection(
-            this.hasValue ? "combined" : "only",
-            this.props.direction + 180
-          )}
-        {this.hasValue && this.getText(this.props.value, s)}
+        {shouldShowCircle && this.getCircle(this.props.dataType, fill)}
+
+        {shouldShowWindArrow &&
+          this.getWindArrow(this.props.direction + 180, fill)}
+
+        {this.getText(this.props.value.toString(), shouldShowCircle)}
       </div>
     );
   }

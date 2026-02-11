@@ -76,6 +76,7 @@ function StationMap(props: any) {
         } as any
       }
       features={data}
+      showMarkersWithoutValue={true}
     />
   );
 

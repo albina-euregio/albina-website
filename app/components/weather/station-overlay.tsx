@@ -13,6 +13,7 @@ interface Props {
   selectedFeature?: { id: string };
   onMarkerSelected: (arg0: any) => void;
   features: StationData[] | any[];
+  showMarkersWithoutValue?: boolean;
 }
 
 const StationOverlay = (props: Props) => {
@@ -38,16 +39,17 @@ const StationOverlay = (props: Props) => {
 
   const renderMarker = (
     data: StationData | any
-  ): React.ReactElement<typeof StationMarker> => {
-    if (
-      (data.date === undefined || data[props.itemId as any] === undefined) &&
-      props.itemId !== "any"
-    )
-      return <></>;
-
+  ): React.ReactElement<typeof StationMarker> | null => {
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
     const rawValue = isAnyMode ? 0 : data[props.itemId as any];
+    const hasValue =
+      rawValue !== undefined && rawValue !== null && rawValue !== false;
+
+    // If showMarkersWithoutValue is false (weather-maps), skip markers without values
+    if (!props.showMarkersWithoutValue && !isAnyMode && !hasValue) {
+      return null;
+    }
 
     // Round temperature to 1 decimal, others to 0 decimals
     const shouldRound =
@@ -57,9 +59,11 @@ const StationOverlay = (props: Props) => {
         props.itemId === "TSS");
     const value = isAnyMode
       ? ""
-      : shouldRound
-        ? Math.round(rawValue * 10) / 10
-        : Math.round(rawValue);
+      : !hasValue
+        ? ""
+        : shouldRound
+          ? Math.round(rawValue * 10) / 10
+          : Math.round(rawValue);
 
     const coordinates: L.LatLngExpression = [
       data.geometry.coordinates[1],
@@ -73,7 +77,7 @@ const StationOverlay = (props: Props) => {
         (data.province ? `(${data.province}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
-      detail: isAnyMode ? "" : value + " " + props.item.units,
+      detail: isAnyMode ? "" : hasValue ? value + " " + props.item.units : "-",
       operator: data.properties?.operator || undefined,
       plainName: data.name,
       value: value,
@@ -97,7 +101,9 @@ const StationOverlay = (props: Props) => {
         color={
           isAnyMode
             ? (Object.values(props.item.colors)[0] as any)
-            : getColor(value)
+            : hasValue
+              ? getColor(value)
+              : [200, 200, 200]
         }
         dataType="analyse"
         className="station-marker"

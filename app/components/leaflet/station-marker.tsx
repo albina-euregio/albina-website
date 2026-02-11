@@ -36,7 +36,7 @@ interface Props {
   color: string;
   dataType: "forcast" | "analyse" | string;
   selected: boolean;
-  value: number | "";
+  value: number | "" | "-";
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
@@ -66,7 +66,7 @@ const StationMarker = ({
         color={color}
         dataType={dataType || "analyse"}
         selected={selected}
-        value={isFinite(value) ? value : ""}
+        value={value}
         direction={direction}
       />
     );
@@ -91,7 +91,7 @@ const StationMarker = ({
 
   // Markers with values should render above markers without values
   const zIndexOffset = useMemo(() => {
-    if (value === "") {
+    if (value === "" || value === "-") {
       return 0; // Markers without values at base level
     }
     return 1000; // Markers with values on top
