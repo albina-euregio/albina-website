@@ -116,7 +116,7 @@ function StationMap(props: any) {
         <div className="section-map">
           <LeafletMap
             loaded={props.domainId !== false}
-            gestureHandling={true}
+            gestureHandling={false}
             controls={null}
             onInit={e => {
               e.invalidateSize();
