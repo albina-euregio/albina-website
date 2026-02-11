@@ -20,7 +20,6 @@ declare module "leaflet" {
   }
   interface MarkerOptions {
     data: StationMarkerData;
-    $tooltip: string | undefined;
   }
 }
 
@@ -100,7 +99,6 @@ const StationMarker = ({
     () => (
       <Marker
         data={data}
-        $tooltip={tooltip}
         position={coordinates}
         title={stationName}
         icon={icon}
