@@ -6,6 +6,27 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
+
+declare module "react/jsx-runtime" {
+  // oxlint-disable-next-line typescript/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "linea-plot": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & {
+          src?: string;
+          lazysrc?: string;
+          wintersrc?: string;
+          showsurfacehoarseries?: boolean;
+          showexport?: boolean;
+          showdatepicker?: boolean;
+          showonlywinter?: boolean;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 function hasInteractivePlot(station: StationData | ObserverData) {
   return station instanceof StationData && station.$smet;
@@ -301,13 +322,12 @@ const StationDiagramImage: React.FC<{
       : today.month >= 9
         ? new Temporal.PlainDate(today.year, 9, 1)
         : new Temporal.PlainDate(today.year - 1, 9, 1);
-    const endDate = startDate.add({ months: 10 });
     return (
-      <linea-plot-year
+      <linea-plot
         key={url + startDate.toString()}
-        src={url}
-        startDate={startDate.toString()}
-        endDate={endDate.toString()}
+        wintersrc={url}
+        showdatepicker
+        showonlywinter
       />
     );
   }
