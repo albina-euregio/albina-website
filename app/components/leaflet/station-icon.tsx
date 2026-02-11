@@ -12,7 +12,7 @@ interface Props {
   type: string;
   value: string | "" | "-";
   itemId: "any" | string;
-  dataType?: "forcast" | "analyse" | string;
+  dataType?: "forecast" | "analyse" | string;
   color: string | [number, number, number];
   selected?: boolean;
   direction?: number;
@@ -24,8 +24,8 @@ export default class StationIcon extends React.Component<Props> {
   }
 
   getCircle(type: Props["dataType"], color: string) {
-    const analyseStrokeColor = type === "forcast" ? color : "#000";
-    if (["forcast", "analyse"].includes(type))
+    const analyseStrokeColor = type === "forecast" ? color : "#000";
+    if (["forecast", "analyse"].includes(type))
       return (
         <svg
           style={{ position: "absolute", left: "0px", top: "0px" }}
@@ -54,7 +54,7 @@ export default class StationIcon extends React.Component<Props> {
               fill={color || "#fff"}
             />
           )}
-          {type === "forcast" && (
+          {type === "forecast" && (
             <circle
               cx={11}
               cy={11}

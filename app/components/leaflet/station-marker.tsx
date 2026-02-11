@@ -34,7 +34,7 @@ interface Props {
   itemId: "any" | string;
   type: string;
   color: string;
-  dataType: "forcast" | "analyse" | string;
+  dataType: "forecast" | "analyse" | string;
   selected: boolean;
   value: string | "" | "-";
   direction?: number;
