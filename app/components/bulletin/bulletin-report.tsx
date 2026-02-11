@@ -3,26 +3,26 @@ import React, {
   Suspense,
   useState,
   useMemo,
-  useEffect,
+  useEffect
 } from "react";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport, {
   compareDangerRatings,
-  compareRegions,
+  compareRegions
 } from "./bulletin-daytime-report";
 import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 const BulletinGlossaryText = React.lazy(
-  () => import("./bulletin-glossary-text"),
+  () => import("./bulletin-glossary-text")
 );
 import {
   Bulletin,
   hasDaytimeDependency,
-  getDangerPatterns,
+  getDangerPatterns
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
@@ -34,7 +34,7 @@ import StationOverlay from "../weather/station-overlay";
 import { useStationData } from "../../stores/stationDataStore";
 import { AVAILABLE_PARAMETERS } from "../weather/station-parameter-control";
 import WeatherStationDialog, {
-  useStationId,
+  useStationId
 } from "../dialogs/weather-station-dialog";
 
 const LocalizedText: FunctionComponent<{
@@ -51,12 +51,12 @@ const LocalizedText: FunctionComponent<{
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
-          ? `<ins>${value.replace(/(<br\/>)+/g, (br) => `</ins>${br}<ins>`)}</ins>`
+          ? `<ins>${value.replace(/(<br\/>)+/g, br => `</ins>${br}<ins>`)}</ins>`
           : diff === DiffMatchPatch.DIFF_DELETE
             ? showDiff === 2
-              ? `<del>${value.replace(/(<br\/>)+/g, (br) => `</del>${br}<del>`)}</del>`
+              ? `<del>${value.replace(/(<br\/>)+/g, br => `</del>${br}<del>`)}</del>`
               : ""
-            : value,
+            : value
       )
       .join("");
   }
@@ -85,7 +85,7 @@ interface Props {
  */
 function calculateRegionBounds(
   bulletinRegions: Array<{ regionID: string }> | undefined,
-  config: any,
+  config: any
 ): [[number, number], [number, number]] {
   if (!bulletinRegions || bulletinRegions.length === 0) {
     return config.map.euregioBounds;
@@ -97,7 +97,7 @@ function calculateRegionBounds(
     maxLng = -180;
 
   // Calculate bounds by examining each region's polygon boundary from config
-  const hasValidBounds = bulletinRegions.some((bulletinRegion) => {
+  const hasValidBounds = bulletinRegions.some(bulletinRegion => {
     const regionId = bulletinRegion.regionID;
     const regionPolygonBounds = config.map[`${regionId}.bounds`];
 
@@ -117,7 +117,7 @@ function calculateRegionBounds(
   if (hasValidBounds && minLat <= maxLat && minLng <= maxLng) {
     return [
       [minLat, minLng],
-      [maxLat, maxLng],
+      [maxLat, maxLng]
     ] as [[number, number], [number, number]];
   }
 
@@ -134,7 +134,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
   const { data: stationData, load: loadStationData } =
     useStationData("microRegion");
   const parameterConfig =
-    AVAILABLE_PARAMETERS.find((p) => p.id === "HS") || AVAILABLE_PARAMETERS[0];
+    AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
   const regionBounds = useMemo(
     () => calculateRegionBounds(bulletin?.regions, config),
     [bulletin?.regions]
@@ -149,29 +149,29 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
       return false;
     }
     const checks: ((b: Bulletin) => string | number)[] = [
-      (b) => b.avalancheActivity?.highlights,
-      (b) => b.avalancheActivity?.comment,
-      (b) => b.snowpackStructure?.comment,
-      (b) => b.tendency?.[0]?.highlights,
-      (b) => b.tendency?.[0]?.tendencyType,
-      (b) => getDangerPatterns(b.customData).join(),
+      b => b.avalancheActivity?.highlights,
+      b => b.avalancheActivity?.comment,
+      b => b.snowpackStructure?.comment,
+      b => b.tendency?.[0]?.highlights,
+      b => b.tendency?.[0]?.tendencyType,
+      b => getDangerPatterns(b.customData).join()
     ];
     return !(
-      checks.every((c) => c(bulletin) === c(bulletin170000)) &&
+      checks.every(c => c(bulletin) === c(bulletin170000)) &&
       compareRegions(bulletin.regions, bulletin170000?.regions) &&
       compareDangerRatings(
         bulletin.dangerRatings,
-        bulletin170000?.dangerRatings,
+        bulletin170000?.dangerRatings
       ) &&
-      bulletin.avalancheProblems.every((problem) =>
+      bulletin.avalancheProblems.every(problem =>
         compareAvalancheProblem(
           problem,
           bulletin170000?.avalancheProblems.find(
-            (p) =>
+            p =>
               p.problemType === problem.problemType &&
-              p.validTimePeriod === problem.validTimePeriod,
-          ),
-        ),
+              p.validTimePeriod === problem.validTimePeriod
+          )
+        )
       )
     );
   }, [bulletin, bulletin170000]);
@@ -181,16 +181,16 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
   }
 
   const maxWarnlevel = bulletin.dangerRatings
-    .map((r) => r.mainValue)
+    .map(r => r.mainValue)
     .reduce((v1, v2) =>
-      getWarnlevelNumber(v1) > getWarnlevelNumber(v2) ? v1 : v2,
+      getWarnlevelNumber(v1) > getWarnlevelNumber(v2) ? v1 : v2
     );
   const classes =
     "panel field callout warning-level-" + getWarnlevelNumber(maxWarnlevel);
 
   const hasTendencyHighlights =
     Array.isArray(bulletin.tendency) &&
-    bulletin.tendency.some((tendency) => tendency.highlights);
+    bulletin.tendency.some(tendency => tendency.highlights);
 
   return (
     <>
@@ -213,11 +213,11 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   <button
                     type="button"
                     className="bulletin-report-header-diff"
-                    onClick={() => setShowDiff((d) => (d + 1) % 3)}
+                    onClick={() => setShowDiff(d => (d + 1) % 3)}
                   >
                     <Tooltip
                       label={intl.formatMessage({
-                        id: "bulletin:header:updated-at:tooltip",
+                        id: "bulletin:header:updated-at:tooltip"
                       })}
                     >
                       <span className="text-icon bulletin-datetime-update">
@@ -228,9 +228,9 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                             {
                               date: intl.formatDate(bulletin.publicationTime),
                               time: intl.formatDate(bulletin.publicationTime, {
-                                timeStyle: "short",
-                              }),
-                            },
+                                timeStyle: "short"
+                              })
+                            }
                           )}
                         </span>
                       </span>
@@ -251,7 +251,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                       values={{
                         strong: (...msg) => <strong>{msg}</strong>,
                         date: intl.formatDate(date, LONG_DATE_FORMAT),
-                        daytime: "",
+                        daytime: ""
                       }}
                     />
                   </span>
@@ -267,8 +267,8 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                       values={{
                         number: getWarnlevelNumber(maxWarnlevel),
                         text: intl.formatMessage({
-                          id: "danger-level:" + maxWarnlevel,
-                        }),
+                          id: "danger-level:" + maxWarnlevel
+                        })
                       }}
                     />
                   </span>
@@ -293,16 +293,16 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
               </div>
 
               {bulletin.regions?.some(
-                (r) =>
+                r =>
                   r.regionID.match(config.regionsRegex) ||
-                  r.regionID.startsWith(province || "???"),
+                  r.regionID.startsWith(province || "???")
               ) && (
                 <div>
                   <ul className="list-inline list-buttongroup bulletin-report-header-download">
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
-                          id: "bulletin:linkbar:pdf:hover",
+                          id: "bulletin:linkbar:pdf:hover"
                         })}
                       >
                         <a
@@ -311,7 +311,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                           href={config.template(config.apis.bulletin.pdf, {
                             region: province ?? "EUREGIO",
                             bulletin: bulletin.bulletinID,
-                            lang: intl.locale.slice(0, 2),
+                            lang: intl.locale.slice(0, 2)
                           })}
                         >
                           PDF
@@ -340,7 +340,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   showDiff={showDiff}
                   date={date}
                   validTimePeriod={"later"}
-                />,
+                />
               ]
             ) : (
               <BulletinDaytimeReport
@@ -462,7 +462,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   marginTop: "2rem",
                   height: "300px",
                   borderRadius: "4px",
-                  overflow: "hidden",
+                  overflow: "hidden"
                 }}
               >
                 <LeafletMap
@@ -471,13 +471,13 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   controls={null}
                   onInit={() => {}}
                   mapConfigOverride={{
-                    bounds: regionBounds,
+                    bounds: regionBounds
                   }}
                   tileLayerConfigOverride={{}}
                   overlays={[
                     <StationOverlay
                       key="stations"
-                      onMarkerSelected={(feature) => {
+                      onMarkerSelected={feature => {
                         setStationId(feature.id);
                       }}
                       itemId=""
@@ -487,12 +487,12 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                         thresholds: parameterConfig.thresholds,
                         units: parameterConfig.unit,
                         direction: parameterConfig.direction || false,
-                        clusterOperation: "none",
+                        clusterOperation: "none"
                       }}
                       features={stationData}
                       showMarkersWithoutValue={true}
                       useWeatherStationIcon={true}
-                    />,
+                    />
                   ]}
                 />
               </div>
@@ -506,7 +506,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
           <div className="panel brand">
             <a
               href="#page-all"
-              onClick={(e) => scrollIntoView(e)}
+              onClick={e => scrollIntoView(e)}
               className="icon-link icon-arrow-up"
             >
               <FormattedMessage id="bulletin:linkbar:back-to-map" />

@@ -73,7 +73,16 @@ const StationMarker = ({
         useWeatherStationIcon={useWeatherStationIcon}
       />
     );
-  }, [color, dataType, direction, itemId, selected, type, value, useWeatherStationIcon]);
+  }, [
+    color,
+    dataType,
+    direction,
+    itemId,
+    selected,
+    type,
+    value,
+    useWeatherStationIcon
+  ]);
 
   const icon = useMemo(
     () =>

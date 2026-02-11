@@ -96,7 +96,14 @@ export default class StationIcon extends React.Component<Props> {
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="12" cy="12" r="6" fill={color} stroke="#000000" strokeWidth="1" />
+        <circle
+          cx="12"
+          cy="12"
+          r="6"
+          fill={color}
+          stroke="#000000"
+          strokeWidth="1"
+        />
       </svg>
     );
   }
@@ -158,9 +165,12 @@ export default class StationIcon extends React.Component<Props> {
     const isWindParameter = ["VW", "VW_MAX"].includes(this.props.itemId);
     const shouldShowWindArrow =
       isWindParameter && typeof this.props.direction === "number";
-    
+
     // Use weather station icon only when explicitly requested
-    const shouldShowWeatherStationIcon = this.props.useWeatherStationIcon && this.props.type === "station" && !shouldShowWindArrow;
+    const shouldShowWeatherStationIcon =
+      this.props.useWeatherStationIcon &&
+      this.props.type === "station" &&
+      !shouldShowWindArrow;
 
     //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
@@ -170,14 +180,19 @@ export default class StationIcon extends React.Component<Props> {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {!shouldShowWeatherStationIcon && !shouldShowWindArrow && this.getCircle(this.props.dataType, fill)}
+        {!shouldShowWeatherStationIcon &&
+          !shouldShowWindArrow &&
+          this.getCircle(this.props.dataType, fill)}
 
         {shouldShowWeatherStationIcon && this.getWeatherStationIcon(fill)}
 
         {shouldShowWindArrow &&
           this.getWindArrow(this.props.direction + 180, fill)}
 
-        {this.getText((this.props.value ?? "").toString(), !shouldShowWeatherStationIcon)}
+        {this.getText(
+          (this.props.value ?? "").toString(),
+          !shouldShowWeatherStationIcon
+        )}
       </div>
     );
   }
