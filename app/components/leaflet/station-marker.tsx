@@ -10,7 +10,7 @@ export interface StationMarkerData {
   detail: string;
   operator?: string;
   plainName?: string;
-  value?: number;
+  value: string | "" | "-";
   plot?: string;
 }
 
@@ -36,7 +36,7 @@ interface Props {
   color: string;
   dataType: "forcast" | "analyse" | string;
   selected: boolean;
-  value: number | "" | "-";
+  value: string | "" | "-";
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;

@@ -10,7 +10,7 @@ const iconSVGS = {
 
 interface Props {
   type: string;
-  value: number | "" | "-";
+  value: string | "" | "-";
   itemId: "any" | string;
   dataType?: "forcast" | "analyse" | string;
   color: string | [number, number, number];
@@ -156,7 +156,7 @@ export default class StationIcon extends React.Component<Props> {
         {shouldShowWindArrow &&
           this.getWindArrow(this.props.direction + 180, fill)}
 
-        {this.getText(this.props.value.toString(), shouldShowCircle)}
+        {this.getText(this.props.value, shouldShowCircle)}
       </div>
     );
   }
