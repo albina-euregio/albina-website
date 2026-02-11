@@ -18,12 +18,12 @@ interface Props {
   direction?: number;
 }
 
-export default class StationIcon extends React.Component<Props> {
-  RGBToHex(color: [number, number, number]) {
+export default function StationIcon(props: Props) {
+  function RGBToHex(color: [number, number, number]) {
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }
 
-  getCircle(type: Props["dataType"], color: string) {
+  function getCircle(type: Props["dataType"], color: string) {
     const analyseStrokeColor = type === "forecast" ? color : "#000";
     if (["forecast", "analyse"].includes(type))
       return (
@@ -42,7 +42,7 @@ export default class StationIcon extends React.Component<Props> {
             strokeWidth={1}
             fill={color || "#fff"}
           />
-          {this.props.type === "station" && (
+          {props.type === "station" && (
             <circle
               className="station-icon-cluster-circle"
               cx={11}
@@ -69,7 +69,7 @@ export default class StationIcon extends React.Component<Props> {
       );
   }
 
-  getWindArrow(direction: Props["direction"], color: string) {
+  function getWindArrow(direction: Props["direction"], color: string) {
     return (
       <svg
         style={{
@@ -92,7 +92,7 @@ export default class StationIcon extends React.Component<Props> {
     );
   }
 
-  getText(text: string, showCircle: boolean) {
+  function getText(text: string, showCircle: boolean) {
     return (
       <svg
         style={{ position: "absolute", left: "0px", top: "0px" }}
@@ -113,34 +113,30 @@ export default class StationIcon extends React.Component<Props> {
     );
   }
 
-  render() {
-    const fill =
-      typeof this.props.color === "string"
-        ? this.props.color
-        : Array.isArray(this.props.color)
-          ? this.RGBToHex(this.props.color)
-          : "black";
+  const fill =
+    typeof props.color === "string"
+      ? props.color
+      : Array.isArray(props.color)
+        ? RGBToHex(props.color)
+        : "black";
 
-    const isWindParameter = ["VW", "VW_MAX"].includes(this.props.itemId);
-    const shouldShowWindArrow =
-      isWindParameter && typeof this.props.direction === "number";
-    const shouldShowCircle = !shouldShowWindArrow;
+  const isWindParameter = ["VW", "VW_MAX"].includes(props.itemId);
+  const shouldShowWindArrow =
+    isWindParameter && typeof props.direction === "number";
+  const shouldShowCircle = !shouldShowWindArrow;
 
-    //console.log("StationIcon->render kkk", this.showCircle(), this.props);
-    return (
-      <div
-        className={
-          this.props.type +
-          (this.props.selected ? " " + this.props.type + "-selected" : "")
-        }
-      >
-        {shouldShowCircle && this.getCircle(this.props.dataType, fill)}
+  //console.log("StationIcon->render kkk", showCircle(), props);
+  return (
+    <div
+      className={
+        props.type + (props.selected ? " " + props.type + "-selected" : "")
+      }
+    >
+      {shouldShowCircle && getCircle(props.dataType, fill)}
 
-        {shouldShowWindArrow &&
-          this.getWindArrow(this.props.direction + 180, fill)}
+      {shouldShowWindArrow && getWindArrow(props.direction + 180, fill)}
 
-        {this.getText(this.props.value, shouldShowCircle)}
-      </div>
-    );
-  }
+      {getText(props.value, shouldShowCircle)}
+    </div>
+  );
 }
