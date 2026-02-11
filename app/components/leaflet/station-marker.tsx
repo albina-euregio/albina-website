@@ -36,7 +36,7 @@ interface Props {
   color: string;
   dataType: "forcast" | "analyse" | string;
   selected: boolean;
-  value: number | "";
+  value: number | "" | "-";
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
@@ -66,7 +66,7 @@ const StationMarker = ({
         color={color}
         dataType={dataType || "analyse"}
         selected={selected}
-        value={isFinite(value) ? value : ""}
+        value={value}
         direction={direction}
       />
     );
@@ -89,6 +89,14 @@ const StationMarker = ({
     return element;
   }, [icon]);
 
+  // Markers with values should render above markers without values
+  const zIndexOffset = useMemo(() => {
+    if (value === "" || value === "-") {
+      return 0; // Markers without values at base level
+    }
+    return 1000; // Markers with values on top
+  }, [value]);
+
   const marker = useMemo(
     () => (
       <Marker
@@ -98,6 +106,7 @@ const StationMarker = ({
         position={coordinates}
         title={stationName}
         icon={icon}
+        zIndexOffset={zIndexOffset}
         eventHandlers={
           onClick && {
             click: e => {
@@ -112,7 +121,16 @@ const StationMarker = ({
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [coordinates, data, element, icon, stationIcon, stationName, tooltip]
+    [
+      coordinates,
+      data,
+      element,
+      icon,
+      stationIcon,
+      stationName,
+      tooltip,
+      zIndexOffset
+    ]
   );
 
   return marker;
