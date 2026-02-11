@@ -90,7 +90,7 @@ function StationMap(props: any) {
       item={
         {
           id: "name",
-          colors: { 1: [200, 200, 200] } as any,
+          colors: { 1: [100, 100, 100] } as any,
           thresholds: [],
           clusterOperation: "none"
         } as any
