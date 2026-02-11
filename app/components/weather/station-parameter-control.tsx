@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "../../i18n";
 import "./station-parameter-control.css";
 
 export interface ParameterOption {
@@ -12,44 +13,8 @@ export interface ParameterOption {
 
 export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   {
-    id: "TA",
-    label: "Temperature",
-    unit: "°C",
-    thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
-    colors: {
-      1: [0, 0, 255],
-      2: [100, 150, 255],
-      3: [150, 200, 255],
-      4: [200, 230, 255],
-      5: [255, 255, 200],
-      6: [255, 200, 100],
-      7: [255, 150, 50],
-      8: [255, 100, 0],
-      9: [200, 0, 0]
-    },
-    direction: false
-  },
-  {
-    id: "TSS",
-    label: "Snow Surface Temperature",
-    unit: "°C",
-    thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
-    colors: {
-      1: [0, 0, 255],
-      2: [100, 150, 255],
-      3: [150, 200, 255],
-      4: [200, 230, 255],
-      5: [255, 255, 200],
-      6: [255, 200, 100],
-      7: [255, 150, 50],
-      8: [255, 100, 0],
-      9: [200, 0, 0]
-    },
-    direction: false
-  },
-  {
     id: "HS",
-    label: "Snow Height",
+    label: "weathermap:domain:title:snow-height",
     unit: "cm",
     thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
     colors: {
@@ -67,7 +32,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "HSD_24",
-    label: "Snow Height Diff (24h)",
+    label: "weathermap:domain:title:diff-snow24h",
     unit: "cm",
     thresholds: [-20, -10, -5, 1, 5, 10, 20, 30, 50],
     colors: {
@@ -86,7 +51,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "HSD_48",
-    label: "Snow Height Diff (48h)",
+    label: "weathermap:domain:title:diff-snow48h",
     unit: "cm",
     thresholds: [-20, -10, -5, 1, 5, 10, 20, 30, 50],
     colors: {
@@ -105,7 +70,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "HSD_72",
-    label: "Snow Height Diff (72h)",
+    label: "weathermap:domain:title:diff-snow72h",
     unit: "cm",
     thresholds: [-20, -10, -5, 1, 5, 10, 20, 30, 50],
     colors: {
@@ -123,8 +88,44 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
     direction: false
   },
   {
+    id: "TA",
+    label: "weathermap:domain:title:temp",
+    unit: "°C",
+    thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
+    colors: {
+      1: [0, 0, 255],
+      2: [100, 150, 255],
+      3: [150, 200, 255],
+      4: [200, 230, 255],
+      5: [255, 255, 200],
+      6: [255, 200, 100],
+      7: [255, 150, 50],
+      8: [255, 100, 0],
+      9: [200, 0, 0]
+    },
+    direction: false
+  },
+  {
+    id: "TSS",
+    label: "weathermap:domain:title:snowSurfaceTemp",
+    unit: "°C",
+    thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
+    colors: {
+      1: [0, 0, 255],
+      2: [100, 150, 255],
+      3: [150, 200, 255],
+      4: [200, 230, 255],
+      5: [255, 255, 200],
+      6: [255, 200, 100],
+      7: [255, 150, 50],
+      8: [255, 100, 0],
+      9: [200, 0, 0]
+    },
+    direction: false
+  },
+  {
     id: "PSUM_24",
-    label: "Precipitation (24h)",
+    label: "weathermap:domain:title:precipitation24h",
     unit: "mm",
     thresholds: [1, 5, 10, 15, 20, 30, 50, 75],
     colors: {
@@ -142,7 +143,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "RH",
-    label: "Relative Humidity",
+    label: "weathermap:domain:title:relative-humidity",
     unit: "%",
     thresholds: [20, 30, 40, 50, 60, 70, 80, 90],
     colors: {
@@ -160,7 +161,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "VW",
-    label: "Wind Speed",
+    label: "weathermap:domain:title:wind",
     unit: "km/h",
     thresholds: [5, 10, 20, 30, 40, 50, 60, 70],
     colors: {
@@ -178,7 +179,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   },
   {
     id: "VW_MAX",
-    label: "Max Wind Speed",
+    label: "weathermap:domain:title:gust",
     unit: "km/h",
     thresholds: [5, 10, 20, 30, 40, 50, 60, 70],
     colors: {
@@ -205,9 +206,13 @@ const StationParameterControl: React.FC<StationParameterControlProps> = ({
   selectedParameter,
   onParameterChange
 }) => {
+  const intl = useIntl();
+
   return (
     <div className="station-parameter-control">
-      <label htmlFor="parameter-select">Parameter: </label>
+      <label htmlFor="parameter-select">
+        {intl.formatMessage({ id: "weathermap:parameter:label" as any })}:{" "}
+      </label>
       <select
         id="parameter-select"
         value={selectedParameter}
@@ -216,7 +221,7 @@ const StationParameterControl: React.FC<StationParameterControlProps> = ({
       >
         {AVAILABLE_PARAMETERS.map(param => (
           <option key={param.id} value={param.id}>
-            {param.label} ({param.unit})
+            {intl.formatMessage({ id: param.label as any })} [{param.unit}]
           </option>
         ))}
       </select>
