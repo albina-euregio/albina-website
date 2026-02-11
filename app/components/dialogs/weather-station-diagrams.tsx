@@ -216,6 +216,11 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
           )
         </small>
       </li>
+      <li>
+        {stationData instanceof StationData && (
+          <StationOperator stationData={stationData} />
+        )}
+      </li>
     </ul>
   );
 };
@@ -331,7 +336,7 @@ const StationOperator: React.FC<{
   stationData: StationData;
 }> = ({ stationData }) => {
   return (
-    <p className="weatherstation-provider">
+    <>
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
       {": "}
       <a
@@ -355,7 +360,7 @@ const StationOperator: React.FC<{
           {")"}
         </>
       )}
-    </p>
+    </>
   );
 };
 
@@ -409,8 +414,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   const station = stationData[stationIndex];
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
-  const [microRegionId] =
-    station instanceof StationData ? station.microRegion.split(" ") : "";
+  const [microRegionId] = isStation ? station.microRegion.split(" ") : "";
 
   return (
     <div className="modal-container">
@@ -456,7 +460,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
         </StationFlipper>
         <div className="modal-content">
-          {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && !hasInteractivePlot(station) && (
             <TimeRangeButtons
