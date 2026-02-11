@@ -156,7 +156,7 @@ export default class StationIcon extends React.Component<Props> {
         {shouldShowWindArrow &&
           this.getWindArrow(this.props.direction + 180, fill)}
 
-        {this.getText(this.props.value.toString(), shouldShowCircle)}
+        {this.getText((this.props.value ?? "").toString(), shouldShowCircle)}
       </div>
     );
   }
