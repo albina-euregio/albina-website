@@ -35,40 +35,34 @@ export default class StationIcon extends React.Component<Props> {
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
-            cx="11"
-            cy="11"
-            r="10.5"
-            style={{
-              stroke: analyseStrokeColor,
-              strokeWidth: 1,
-              fill: color || "#fff"
-            }}
+            cx={11}
+            cy={11}
+            r={10.5}
+            stroke={analyseStrokeColor}
+            strokeWidth={1}
+            fill={color || "#fff"}
           />
           {this.props.type === "station" && (
             <circle
               className="station-icon-cluster-circle"
-              cx="11"
-              cy="11"
-              r="8"
-              style={{
-                stroke: analyseStrokeColor,
-                strokeWidth: 1,
-                strokeDasharray: 1.3675,
-                fill: color || "#fff"
-              }}
+              cx={11}
+              cy={11}
+              r={8}
+              stroke={analyseStrokeColor}
+              strokeWidth={1}
+              strokeDasharray={1.3675}
+              fill={color || "#fff"}
             />
           )}
           {type === "forcast" && (
             <circle
-              cx="11"
-              cy="11"
-              r="10.5"
-              style={{
-                stroke: "#000000",
-                strokeWidth: 1,
-                strokeDasharray: 1.3675,
-                fill: "none"
-              }}
+              cx={11}
+              cy={11}
+              r={10.5}
+              stroke={"#000000"}
+              strokeWidth={1}
+              strokeDasharray={1.3675}
+              fill="none"
             />
           )}
         </svg>
@@ -76,14 +70,12 @@ export default class StationIcon extends React.Component<Props> {
   }
 
   getWindArrow(direction: Props["direction"], color: string) {
-    const style = {
-      position: "absolute",
-      transform: "rotate(" + direction + "deg)"
-    };
-
     return (
       <svg
-        style={style}
+        style={{
+          position: "absolute",
+          transform: `rotate(${direction}deg)`
+        }}
         height="28"
         viewBox="0 0 28 28"
         width="28"
