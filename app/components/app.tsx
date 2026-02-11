@@ -17,11 +17,8 @@ const Bulletin = React.lazy(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
-const StationMeasurements = React.lazy(
-  () => import("../views/stationMeasurements")
-);
+const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
-const StationMap = React.lazy(() => import("../views/stationMap"));
 const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
 const Education = React.lazy(() => import("../views/education"));
 const More = React.lazy(() => import("../views/more"));
@@ -104,11 +101,10 @@ const App = () => {
       case "weatherMapDomainTimestamp":
         return <Weather />;
       case "weatherMeasurements":
-        return <StationMeasurements />;
+      case "weatherStations":
+        return <StationDashboard />;
       case "weatherArchive":
         return <StationArchive />;
-      case "weatherStations":
-        return <StationMap />;
       case "weatherSnowProfiles":
         return <SnowProfileMap />;
       case "education":

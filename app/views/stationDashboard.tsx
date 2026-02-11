@@ -1,33 +1,62 @@
 import React, { useEffect, useState } from "react";
-
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import PageHeadline from "../components/organisms/page-headline";
+import StationOverlay from "../components/weather/station-overlay";
+import LeafletMap from "../components/leaflet/leaflet-map";
+import HTMLHeader from "../components/organisms/html-header";
+import WeatherStationDialog, {
+  useStationId
+} from "../components/dialogs/weather-station-dialog";
+import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
+import StationParameterControl, {
+  AVAILABLE_PARAMETERS
+} from "../components/weather/station-parameter-control";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
-import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 
-const StationMeasurements = () => {
+import BeobachterAT from "../stores/Beobachter-AT.json";
+import BeobachterIT from "../stores/Beobachter-IT.json";
+
+const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
+
+export const observers = [...BeobachterAT, ...BeobachterIT].map(
+  (observer): ObserverData => ({
+    geometry: {
+      coordinates: [
+        +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
+        +observer.latitude
+      ]
+    },
+    name: observer.name,
+    id: "observer-" + observer["plot.id"],
+    $smet: BeobachterAT.includes(observer)
+      ? `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+      : "",
+    $png: "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
+    plot: observer["plot.id"]
+  })
+);
+
+function StationDashboard(props) {
   const intl = useIntl();
   const headless = useStore($headless);
-  const [state] = useState({
-    title: "",
-    headerText: "",
-    content: "",
-    sharable: false
-  });
+  const [stationId, setStationId] = useStationId();
+  const [selectedParameter, setSelectedParameter] = useState("HS");
+  const [viewMode, setViewMode] = useState<"map" | "table">("map");
+
   const {
     activeData,
     activeRegion,
     dateTime,
     dateTimeMax,
     load,
+    data,
     searchText,
     setActiveRegion,
     setSearchText,
@@ -39,21 +68,86 @@ const StationMeasurements = () => {
   } = useStationData();
 
   useEffect(() => {
+    const footer = document.getElementById("page-footer");
+    if (!footer) return;
+    footer.style.display = "none";
+    return () => {
+      footer.style.display = "";
+    };
+  }, []);
+
+  useEffect(() => {
     load();
   }, [load]);
 
-  const classChanged = "selectric-changed";
+  const currentParameterConfig =
+    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
+    AVAILABLE_PARAMETERS[0];
+
+  const stationOverlay = (
+    <StationOverlay
+      key={"stations"}
+      onMarkerSelected={feature => {
+        setStationId(feature.id);
+      }}
+      itemId={selectedParameter}
+      item={{
+        id: selectedParameter,
+        colors: currentParameterConfig.colors,
+        thresholds: currentParameterConfig.thresholds,
+        units: currentParameterConfig.unit,
+        direction: currentParameterConfig.direction || false,
+        clusterOperation: "none"
+      }}
+      features={data}
+      showMarkersWithoutValue={true}
+    />
+  );
+
+  const observerOverlay = (
+    <StationOverlay
+      key={"observers"}
+      onMarkerSelected={feature => {
+        setStationId(feature.id);
+      }}
+      itemId="any"
+      item={{
+        id: "name",
+        colors: { 1: [100, 100, 100] },
+        thresholds: [],
+        clusterOperation: "none"
+      }}
+      features={observers}
+    />
+  );
+
+  const overlays = [stationOverlay, observerOverlay];
   const hideFilters: (keyof typeof activeData)[] = ["snow", "temp", "wind"];
-  return (
-    <>
-      <HTMLHeader title={intl.formatMessage({ id: "measurements:title" })} />
-      <PageHeadline
-        title={intl.formatMessage({ id: "measurements:headline" })}
-        marginal={state.headerText}
-        subtitle={intl.formatMessage({
-          id: "weather:subpages:subtitle"
-        })}
+
+  const mapView = (
+    <section id="section-weather-map" className="section section-weather-map">
+      <StationParameterControl
+        selectedParameter={selectedParameter}
+        onParameterChange={setSelectedParameter}
       />
+      <div className="section-map">
+        <LeafletMap
+          loaded={props.domainId !== false}
+          gestureHandling={false}
+          controls={null}
+          onInit={e => {
+            e.invalidateSize();
+          }}
+          mapConfigOverride={{ maxZoom: 12 }}
+          tileLayerConfigOverride={{ maxZoom: 12 }}
+          overlays={overlays}
+        />
+      </div>
+    </section>
+  );
+
+  const tableView = (
+    <>
       <FilterBar
         search={true}
         searchTitle={intl.formatMessage({
@@ -62,7 +156,7 @@ const StationMeasurements = () => {
         searchOnChange={val => {
           setSearchText(val);
         }}
-        searchValue={searchText}
+        searchValue={searchText || ""}
       >
         <ProvinceFilter
           title={intl.formatMessage({
@@ -74,7 +168,6 @@ const StationMeasurements = () => {
           }}
           regionCodes={config.stationRegions}
           value={activeRegion}
-          className={activeRegion !== "all" ? classChanged : ""}
         />
 
         <div>
@@ -202,5 +295,64 @@ const StationMeasurements = () => {
       {!headless && <SmShare />}
     </>
   );
-};
-export default StationMeasurements;
+
+  return (
+    <>
+      {!!data.length && (
+        <WeatherStationDialog
+          stationData={[...data, ...observers]}
+          stationId={stationId}
+          setStationId={setStationId}
+        />
+      )}
+      <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
+
+      {viewMode === "map" && mapView}
+      {viewMode === "table" && tableView}
+
+      <div
+        className="station-view-toggle"
+        style={{
+          position: "fixed",
+          bottom: "1rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          padding: "0.4rem 0.6rem",
+          backgroundColor: "#ffffff",
+          borderRadius: "2rem",
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
+          display: "flex",
+          gap: "0.3rem"
+        }}
+      >
+        <button
+          className={viewMode === "map" ? "pure-button inverse" : "pure-button"}
+          onClick={() => setViewMode("map")}
+          style={{
+            borderRadius: "1.5rem",
+            fontSize: "0.85rem",
+            padding: "0.4rem 1rem"
+          }}
+        >
+          {intl.formatMessage({ id: "stations:view:map" })}
+        </button>
+        <button
+          className={
+            viewMode === "table" ? "pure-button inverse" : "pure-button"
+          }
+          onClick={() => setViewMode("table")}
+          style={{
+            borderRadius: "1.5rem",
+            fontSize: "0.85rem",
+            padding: "0.4rem 1rem"
+          }}
+        >
+          {intl.formatMessage({ id: "stations:view:table" })}
+        </button>
+      </div>
+    </>
+  );
+}
+
+export default StationDashboard;
