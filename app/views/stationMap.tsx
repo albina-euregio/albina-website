@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
@@ -35,7 +35,7 @@ export const observers = [...BeobachterAT, ...BeobachterIT].map(
   })
 );
 
-function StationMap(props: any) {
+function StationMap(props) {
   const intl = useIntl();
   const [stationId, setStationId] = useStationId();
   const { load, data } = useStationData("microRegion");
@@ -61,20 +61,18 @@ function StationMap(props: any) {
   const stationOverlay = (
     <StationOverlay
       key={"stations"}
-      onMarkerSelected={(feature: any) => {
+      onMarkerSelected={feature => {
         setStationId(feature.id);
       }}
       itemId={selectedParameter}
-      item={
-        {
-          id: selectedParameter,
-          colors: currentParameterConfig.colors as any,
-          thresholds: currentParameterConfig.thresholds,
-          units: currentParameterConfig.unit,
-          direction: currentParameterConfig.direction || false,
-          clusterOperation: "none"
-        } as any
-      }
+      item={{
+        id: selectedParameter,
+        colors: currentParameterConfig.colors,
+        thresholds: currentParameterConfig.thresholds,
+        units: currentParameterConfig.unit,
+        direction: currentParameterConfig.direction || false,
+        clusterOperation: "none"
+      }}
       features={data}
       showMarkersWithoutValue={true}
     />
@@ -83,19 +81,17 @@ function StationMap(props: any) {
   const observerOverlay = (
     <StationOverlay
       key={"observers"}
-      onMarkerSelected={(feature: any) => {
+      onMarkerSelected={feature => {
         setStationId(feature.id);
       }}
       itemId="any"
-      item={
-        {
-          id: "name",
-          colors: { 1: [100, 100, 100] } as any,
-          thresholds: [],
-          clusterOperation: "none"
-        } as any
-      }
-      features={observers as any}
+      item={{
+        id: "name",
+        colors: { 1: [100, 100, 100] },
+        thresholds: [],
+        clusterOperation: "none"
+      }}
+      features={observers}
     />
   );
   const overlays = [stationOverlay, observerOverlay];
