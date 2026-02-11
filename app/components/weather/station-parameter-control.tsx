@@ -1,10 +1,13 @@
 import React from "react";
-import { useIntl } from "../../i18n";
+import { type MessageId, useIntl } from "../../i18n";
 import "./station-parameter-control.css";
+import type { FeatureSchema } from "@albina-euregio/linea/src/schema/listing";
+
+export type ParameterType = keyof typeof FeatureSchema.shape.properties.shape;
 
 export interface ParameterOption {
-  id: string;
-  label: string;
+  id: ParameterType;
+  label: MessageId;
   unit: string;
   thresholds: number[];
   colors: Record<number, [number, number, number]>;
@@ -198,8 +201,8 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
 ];
 
 interface StationParameterControlProps {
-  selectedParameter: string;
-  onParameterChange: (parameterId: string) => void;
+  selectedParameter: ParameterType;
+  onParameterChange: (parameterId: ParameterType) => void;
 }
 
 const StationParameterControl: React.FC<StationParameterControlProps> = ({
@@ -211,17 +214,17 @@ const StationParameterControl: React.FC<StationParameterControlProps> = ({
   return (
     <div className="station-parameter-control">
       <label htmlFor="parameter-select">
-        {intl.formatMessage({ id: "weathermap:parameter:label" as any })}:{" "}
+        {intl.formatMessage({ id: "weathermap:parameter:label" })}:{" "}
       </label>
       <select
         id="parameter-select"
         value={selectedParameter}
-        onChange={e => onParameterChange(e.target.value)}
+        onChange={e => onParameterChange(e.target.value as ParameterType)}
         className="parameter-select"
       >
         {AVAILABLE_PARAMETERS.map(param => (
           <option key={param.id} value={param.id}>
-            {intl.formatMessage({ id: param.label as any })} [{param.unit}]
+            {intl.formatMessage({ id: param.label })} [{param.unit}]
           </option>
         ))}
       </select>

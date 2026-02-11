@@ -12,7 +12,8 @@ import WeatherStationDialog, {
 } from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
 import StationParameterControl, {
-  AVAILABLE_PARAMETERS
+  AVAILABLE_PARAMETERS,
+  ParameterType
 } from "../components/weather/station-parameter-control";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
@@ -39,7 +40,8 @@ function StationMap(props) {
   const intl = useIntl();
   const [stationId, setStationId] = useStationId();
   const { load, data } = useStationData("microRegion");
-  const [selectedParameter, setSelectedParameter] = useState("HS");
+  const [selectedParameter, setSelectedParameter] =
+    useState<ParameterType>("HS");
 
   useEffect(() => {
     const footer = document.getElementById("page-footer");

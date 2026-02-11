@@ -5,12 +5,13 @@ import StationMarker, {
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
+import type { ParameterType } from "./station-parameter-control";
 
 interface Props {
   onLoad?: () => void;
   onLoading?: () => void;
   item: Domain["item"];
-  itemId: "any" | DomainId | string;
+  itemId: "any" | DomainId | ParameterType;
   selectedFeature?: { id: string };
   onMarkerSelected: (arg0: any) => void;
   features: StationData[] | any[];
@@ -40,11 +41,11 @@ const StationOverlay = (props: Props) => {
   };
 
   const renderMarker = (
-    data: StationData | any
+    data: StationData
   ): React.ReactElement<typeof StationMarker> | null => {
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
-    const value = isAnyMode ? 0 : data[props.itemId as any];
+    const value = isAnyMode ? 0 : data[props.itemId];
     const hasValue = value !== undefined && value !== null && value !== false;
 
     // If showMarkersWithoutValue is false (weather-maps), skip markers without values
@@ -94,7 +95,7 @@ const StationOverlay = (props: Props) => {
         }
         color={
           isAnyMode
-            ? (Object.values(props.item.colors)[0] as any)
+            ? (Object.values(props.item.colors)[0] as number[])
             : hasValue
               ? getColor(value)
               : [200, 200, 200]
@@ -102,8 +103,8 @@ const StationOverlay = (props: Props) => {
         dataType="analyse"
         className="station-marker"
         direction={
-          !isAnyMode && props.item.direction && value >= 3.5
-            ? data[props.item.direction as any]
+          !isAnyMode && props.item.direction === "DW" && value >= 3.5
+            ? data[props.item.direction]
             : false
         }
         onClick={data => {
@@ -114,9 +115,7 @@ const StationOverlay = (props: Props) => {
   };
 
   return props.features
-    .filter(
-      point => props.itemId === "any" || point[props.itemId as any] !== false
-    )
+    .filter(point => props.itemId === "any" || point[props.itemId] !== false)
     .map(point => renderMarker(point));
 };
 

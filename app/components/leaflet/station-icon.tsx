@@ -32,7 +32,7 @@ export default class StationIcon extends React.Component<Props> {
     return "#" + r + g + b;
   }
 
-  getCircle(type: Props["dataType"], color: "string") {
+  getCircle(type: Props["dataType"], color: string) {
     const analyseStrokeColor = type === "forcast" ? color : "#000";
     if (["forcast", "analyse"].includes(type))
       return (
