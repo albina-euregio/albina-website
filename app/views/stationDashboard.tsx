@@ -203,7 +203,7 @@ function StationDashboard(props) {
           {hideFilters.map(e => (
             <HideFilter
               key={e}
-              id={e}
+              id={e as any}
               title={intl.formatMessage({
                 id: "measurements:filter:hide:" + e
               })}
@@ -214,7 +214,7 @@ function StationDashboard(props) {
                   ":hover"
               })}
               active={activeData[e]}
-              onToggle={val => {
+              onToggle={(val: any) => {
                 toggleActiveData(val);
               }}
             />
