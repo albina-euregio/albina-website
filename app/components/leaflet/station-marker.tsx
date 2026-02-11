@@ -40,6 +40,7 @@ interface Props {
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
+  useWeatherStationIcon?: boolean;
 }
 
 const StationMarker = ({
@@ -56,7 +57,8 @@ const StationMarker = ({
   stationName,
   tooltip,
   type,
-  value
+  value,
+  useWeatherStationIcon
 }: Props): React.ReactNode => {
   const stationIcon = useMemo(() => {
     return (
@@ -68,9 +70,10 @@ const StationMarker = ({
         selected={selected}
         value={value}
         direction={direction}
+        useWeatherStationIcon={useWeatherStationIcon}
       />
     );
-  }, [color, dataType, direction, itemId, selected, type, value]);
+  }, [color, dataType, direction, itemId, selected, type, value, useWeatherStationIcon]);
 
   const icon = useMemo(
     () =>

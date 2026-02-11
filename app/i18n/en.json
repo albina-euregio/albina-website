@@ -188,6 +188,7 @@
   "bulletin:report:problem:avalanche-size:5": "extreme",
   "bulletin:report:snowpack-structure:headline": "Snowpack",
   "bulletin:report:tendency:headline": "Tendency",
+  "bulletin:report:additional:headline": "Additional Information",
   "bulletin:report:weather:headline": "Weather",
   "bulletin:report:danger-patterns": "Danger Patterns",
   "bulletin:report:provider": "Provided by",

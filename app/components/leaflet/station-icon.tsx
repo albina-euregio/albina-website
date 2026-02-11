@@ -5,7 +5,9 @@ const iconSVGS = {
   "directionArrow-combined":
     "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z",
   windArrow:
-    "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z"
+    "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z",
+  weatherStation:
+    "M12 1.5 Q12.5 1 13 1.5 Q13 2 12.5 2.5 Q12 2.5 12 2 Q12 1.5 12 1.5 M12 2 v14 M6 7 q0-2 6-2 q6 0 6 2 M6 8 q0 3 -1.5 3 a1.5 1.5 0 0 1 0 -3 a1.5 1.5 0 0 0 1.5 0 M18 8 q0 3 1.5 3 a1.5 1.5 0 0 0 0 -3 a1.5 1.5 0 0 1 -1.5 0 M10 19 h4 v3.5 h-4 z"
 };
 
 interface Props {
@@ -16,6 +18,7 @@ interface Props {
   color: string | [number, number, number];
   selected?: boolean;
   direction?: number;
+  useWeatherStationIcon?: boolean;
 }
 
 export default class StationIcon extends React.Component<Props> {
@@ -84,6 +87,20 @@ export default class StationIcon extends React.Component<Props> {
       );
   }
 
+  getWeatherStationIcon(color: string) {
+    return (
+      <svg
+        style={{ position: "absolute", left: "0px", top: "0px" }}
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="12" cy="12" r="6" fill={color} stroke="#000000" strokeWidth="1" />
+      </svg>
+    );
+  }
+
   getWindArrow(direction: Props["direction"], color: string) {
     const style = {
       position: "absolute",
@@ -141,7 +158,9 @@ export default class StationIcon extends React.Component<Props> {
     const isWindParameter = ["VW", "VW_MAX"].includes(this.props.itemId);
     const shouldShowWindArrow =
       isWindParameter && typeof this.props.direction === "number";
-    const shouldShowCircle = !shouldShowWindArrow;
+    
+    // Use weather station icon only when explicitly requested
+    const shouldShowWeatherStationIcon = this.props.useWeatherStationIcon && this.props.type === "station" && !shouldShowWindArrow;
 
     //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
@@ -151,12 +170,14 @@ export default class StationIcon extends React.Component<Props> {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {shouldShowCircle && this.getCircle(this.props.dataType, fill)}
+        {!shouldShowWeatherStationIcon && !shouldShowWindArrow && this.getCircle(this.props.dataType, fill)}
+
+        {shouldShowWeatherStationIcon && this.getWeatherStationIcon(fill)}
 
         {shouldShowWindArrow &&
           this.getWindArrow(this.props.direction + 180, fill)}
 
-        {this.getText((this.props.value ?? "").toString(), shouldShowCircle)}
+        {this.getText((this.props.value ?? "").toString(), !shouldShowWeatherStationIcon)}
       </div>
     );
   }

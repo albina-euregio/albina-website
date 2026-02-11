@@ -14,6 +14,7 @@ interface Props {
   onMarkerSelected: (arg0: any) => void;
   features: StationData[] | any[];
   showMarkersWithoutValue?: boolean;
+  useWeatherStationIcon?: boolean;
 }
 
 const StationOverlay = (props: Props) => {
@@ -115,6 +116,7 @@ const StationOverlay = (props: Props) => {
         onClick={data => {
           if (data.id) props.onMarkerSelected(data);
         }}
+        useWeatherStationIcon={props.useWeatherStationIcon}
       />
     );
   };
