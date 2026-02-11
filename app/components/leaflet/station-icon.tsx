@@ -20,16 +20,7 @@ interface Props {
 
 export default class StationIcon extends React.Component<Props> {
   RGBToHex(color: [number, number, number]) {
-    //console.log("RGBToHex", color);
-    let r = color[0].toString(16);
-    let g = color[1].toString(16);
-    let b = color[2].toString(16);
-
-    if (r.length == 1) r = "0" + r;
-    if (g.length == 1) g = "0" + g;
-    if (b.length == 1) b = "0" + b;
-
-    return "#" + r + g + b;
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }
 
   getCircle(type: Props["dataType"], color: string) {
