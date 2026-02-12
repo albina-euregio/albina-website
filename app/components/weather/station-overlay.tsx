@@ -4,12 +4,14 @@ import StationMarker, {
 } from "../leaflet/station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
+import { useIntl } from "../../i18n";
+import type { ParameterType } from "./station-parameter-control";
 
 interface Props {
   onLoad?: () => void;
   onLoading?: () => void;
   item: Domain["item"];
-  itemId: "any" | DomainId | string;
+  itemId: "any" | DomainId | ParameterType;
   selectedFeature?: { id: string };
   onMarkerSelected: (arg0: any) => void;
   features: StationData[] | any[];
@@ -17,6 +19,7 @@ interface Props {
 }
 
 const StationOverlay = (props: Props) => {
+  const intl = useIntl();
   useEffect(() => {
     if (props.onLoad) props.onLoad();
     else if (props.onLoading) props.onLoading();
@@ -38,13 +41,12 @@ const StationOverlay = (props: Props) => {
   };
 
   const renderMarker = (
-    data: StationData | any
+    data: StationData
   ): React.ReactElement<typeof StationMarker> | null => {
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
-    const rawValue = isAnyMode ? 0 : data[props.itemId as any];
-    const hasValue =
-      rawValue !== undefined && rawValue !== null && rawValue !== false;
+    const value = isAnyMode ? 0 : data[props.itemId];
+    const hasValue = value !== undefined && value !== null && value !== false;
 
     // If showMarkersWithoutValue is false (weather-maps), skip markers without values
     if (!props.showMarkersWithoutValue && !isAnyMode && !hasValue) {
@@ -52,18 +54,7 @@ const StationOverlay = (props: Props) => {
     }
 
     // Round temperature to 1 decimal, others to 0 decimals
-    const shouldRound =
-      props.itemId &&
-      (props.itemId.includes("TA") ||
-        props.itemId === "TD" ||
-        props.itemId === "TSS");
-    const value = isAnyMode
-      ? ""
-      : !hasValue
-        ? ""
-        : shouldRound
-          ? Math.round(rawValue * 10) / 10
-          : Math.round(rawValue);
+    const digits = /TA|TD|TSS/.test(props.itemId) ? 1 : 0;
 
     const coordinates: L.LatLngExpression = [
       data.geometry.coordinates[1],
@@ -77,10 +68,14 @@ const StationOverlay = (props: Props) => {
         (data.province ? `(${data.province}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
-      detail: isAnyMode ? "" : hasValue ? value + " " + props.item.units : "-",
+      detail: isAnyMode
+        ? ""
+        : !hasValue
+          ? "-"
+          : intl.formatNumberUnit(value, props.item.units, digits),
       operator: data.properties?.operator || undefined,
       plainName: data.name,
-      value: value,
+      value: isAnyMode ? "" : !hasValue ? "" : intl.formatNumber(value, digits),
       plot: data.plot || undefined
     };
 
@@ -94,13 +89,13 @@ const StationOverlay = (props: Props) => {
         tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
-        value={value}
+        value={markerData.value}
         selected={
           props.selectedFeature ? data.id == props.selectedFeature.id : false
         }
         color={
           isAnyMode
-            ? (Object.values(props.item.colors)[0] as any)
+            ? (Object.values(props.item.colors)[0] as number[])
             : hasValue
               ? getColor(value)
               : [200, 200, 200]
@@ -108,8 +103,8 @@ const StationOverlay = (props: Props) => {
         dataType="analyse"
         className="station-marker"
         direction={
-          !isAnyMode && props.item.direction && value >= 3.5
-            ? data[props.item.direction as any]
+          !isAnyMode && props.item.direction === "DW" && value >= 3.5
+            ? data[props.item.direction]
             : false
         }
         onClick={data => {
@@ -120,9 +115,7 @@ const StationOverlay = (props: Props) => {
   };
 
   return props.features
-    .filter(
-      point => props.itemId === "any" || point[props.itemId as any] !== false
-    )
+    .filter(point => props.itemId === "any" || point[props.itemId] !== false)
     .map(point => renderMarker(point));
 };
 

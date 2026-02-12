@@ -8,8 +8,10 @@ import WeatherStationDialog, {
   useStationId
 } from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
-import StationParameterControl, {
-  AVAILABLE_PARAMETERS
+import StationMapCockpit from "../components/weather/station-map-cockpit";
+import {
+  AVAILABLE_PARAMETERS,
+  ParameterType
 } from "../components/weather/station-parameter-control";
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
@@ -47,7 +49,8 @@ function StationDashboard(props) {
   const intl = useIntl();
   const headless = useStore($headless);
   const [stationId, setStationId] = useStationId();
-  const [selectedParameter, setSelectedParameter] = useState("HS");
+  const [selectedParameter, setSelectedParameter] =
+    useState<ParameterType>("HS");
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
 
   const {
@@ -126,7 +129,7 @@ function StationDashboard(props) {
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
-      <StationParameterControl
+      <StationMapCockpit
         selectedParameter={selectedParameter}
         onParameterChange={setSelectedParameter}
       />
@@ -311,29 +314,11 @@ function StationDashboard(props) {
       {viewMode === "table" && tableView}
 
       <div
-        className="station-view-toggle"
-        style={{
-          position: "fixed",
-          bottom: "1rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-          padding: "0.4rem 0.6rem",
-          backgroundColor: "#ffffff",
-          borderRadius: "2rem",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
-          display: "flex",
-          gap: "0.3rem"
-        }}
+        className={`station-view-toggle${viewMode === "table" ? " is-table" : ""}`}
       >
         <button
           className={viewMode === "map" ? "pure-button inverse" : "pure-button"}
           onClick={() => setViewMode("map")}
-          style={{
-            borderRadius: "1.5rem",
-            fontSize: "0.85rem",
-            padding: "0.4rem 1rem"
-          }}
         >
           {intl.formatMessage({ id: "stations:view:map" })}
         </button>
@@ -342,11 +327,6 @@ function StationDashboard(props) {
             viewMode === "table" ? "pure-button inverse" : "pure-button"
           }
           onClick={() => setViewMode("table")}
-          style={{
-            borderRadius: "1.5rem",
-            fontSize: "0.85rem",
-            padding: "0.4rem 1rem"
-          }}
         >
           {intl.formatMessage({ id: "stations:view:table" })}
         </button>

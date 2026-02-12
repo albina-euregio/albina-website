@@ -3,6 +3,7 @@
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../molecules/navigation";
+@use "../organisms/map-cockpit-2024" as cockpit;
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -590,6 +591,39 @@ $search-width-wide: 300px;
 
 //weather-map pane styles
 //.weather-map-container,
+.station-view-toggle {
+  position: fixed;
+  top: auto;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(#{cockpit.$cp-layer-range-height} + #{variables.$padding});
+  z-index: 1000;
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  background-color: variables.$white;
+  border-radius: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+
+  html[data-headless] & {
+    bottom: calc(
+      #{cockpit.$cp-legend-release-height} + #{cockpit.$cp-layer-range-height} +
+        #{variables.$padding}
+    );
+  }
+}
+
+.station-view-toggle.is-table {
+  bottom: variables.$padding;
+}
+
+.station-view-toggle .pure-button {
+  border-radius: 1.5rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+}
+
 .section-weather-map {
   //single stations
   .station circle.inner {

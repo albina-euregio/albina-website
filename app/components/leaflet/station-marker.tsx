@@ -10,19 +10,8 @@ export interface StationMarkerData {
   detail: string;
   operator?: string;
   plainName?: string;
-  value?: number;
+  value: string | "" | "-";
   plot?: string;
-}
-
-declare module "leaflet" {
-  interface DivIconOptions {
-    data: StationMarkerData;
-  }
-  interface MarkerOptions {
-    data: StationMarkerData;
-    $tooltip: string | undefined;
-    $stationIcon: React.ReactElement<unknown, typeof StationIcon>;
-  }
 }
 
 interface Props {
@@ -34,9 +23,9 @@ interface Props {
   itemId: "any" | string;
   type: string;
   color: string;
-  dataType: "forcast" | "analyse" | string;
+  dataType: "forecast" | "analyse" | string;
   selected: boolean;
-  value: number | "" | "-";
+  value: string | "" | "-";
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
@@ -75,11 +64,9 @@ const StationMarker = ({
   const icon = useMemo(
     () =>
       new L.DivIcon({
-        data,
         iconAnchor: iconAnchor || [12.5, 12.5],
         className: className
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [className, iconAnchor]
   );
 
@@ -100,9 +87,6 @@ const StationMarker = ({
   const marker = useMemo(
     () => (
       <Marker
-        data={data}
-        $tooltip={tooltip}
-        $stationIcon={stationIcon}
         position={coordinates}
         title={stationName}
         icon={icon}
@@ -111,7 +95,7 @@ const StationMarker = ({
           onClick && {
             click: e => {
               L.DomEvent.stopPropagation(e);
-              onClick(e.target.options.data);
+              onClick(data);
             }
           }
         }
