@@ -11,7 +11,8 @@ import WeatherStationDialog, {
   useStationId
 } from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
-import StationParameterControl, {
+import StationMapCockpit from "../components/weather/station-map-cockpit";
+import {
   AVAILABLE_PARAMETERS,
   ParameterType
 } from "../components/weather/station-parameter-control";
@@ -108,7 +109,7 @@ function StationMap(props) {
       )}
       <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
       <section id="section-weather-map" className="section section-weather-map">
-        <StationParameterControl
+        <StationMapCockpit
           selectedParameter={selectedParameter}
           onParameterChange={setSelectedParameter}
         />
