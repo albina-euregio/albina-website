@@ -102,7 +102,7 @@ const DataOverlay = ({ playerCB }) => {
       setDataMarker(
         <StationMarker
           type="station"
-          dataType="forcast"
+          dataType="forecast"
           key={"dataMarker" + e.latlng}
           itemId="dataMarker"
           iconAnchor={[12.5, 12.5]}
