@@ -43,6 +43,7 @@ function StationMap(props) {
   const { load, data } = useStationData("microRegion");
   const [selectedParameter, setSelectedParameter] =
     useState<ParameterType>("HS");
+  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
 
   useEffect(() => {
     const footer = document.getElementById("page-footer");
@@ -77,7 +78,7 @@ function StationMap(props) {
         clusterOperation: "none"
       }}
       features={data}
-      showMarkersWithoutValue={true}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
@@ -95,6 +96,7 @@ function StationMap(props) {
         clusterOperation: "none"
       }}
       features={observers}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
   const overlays = [stationOverlay, observerOverlay];
@@ -118,6 +120,11 @@ function StationMap(props) {
             loaded={props.domainId !== false}
             gestureHandling={false}
             controls={null}
+            enableStationPinsToggle={true}
+            showMarkersWithoutValue={showMarkersWithoutValue}
+            onToggleMarkersWithoutValue={nextValue => {
+              setShowMarkersWithoutValue(nextValue);
+            }}
             onInit={e => {
               e.invalidateSize();
             }}

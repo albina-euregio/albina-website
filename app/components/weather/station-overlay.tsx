@@ -45,11 +45,11 @@ const StationOverlay = (props: Props) => {
   ): React.ReactElement<typeof StationMarker> | null => {
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
-    const value = isAnyMode ? 0 : data[props.itemId];
+    const value = data[props.itemId];
     const hasValue = value !== undefined && value !== null && value !== false;
 
     // If showMarkersWithoutValue is false (weather-maps), skip markers without values
-    if (!props.showMarkersWithoutValue && !isAnyMode && !hasValue) {
+    if (!props.showMarkersWithoutValue && !hasValue) {
       return null;
     }
 
@@ -68,14 +68,12 @@ const StationOverlay = (props: Props) => {
         (data.province ? `(${data.province}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
-      detail: isAnyMode
-        ? ""
-        : !hasValue
-          ? "-"
-          : intl.formatNumberUnit(value, props.item.units, digits),
+      detail: !hasValue
+        ? "-"
+        : intl.formatNumberUnit(value, props.item.units, digits),
       operator: data.properties?.operator || undefined,
       plainName: data.name,
-      value: isAnyMode ? "" : !hasValue ? "" : intl.formatNumber(value, digits),
+      value: !hasValue ? "" : intl.formatNumber(value, digits),
       plot: data.plot || undefined
     };
 
@@ -103,7 +101,7 @@ const StationOverlay = (props: Props) => {
         dataType="analyse"
         className="station-marker"
         direction={
-          !isAnyMode && props.item.direction === "DW" && value >= 3.5
+          props.item.direction === "DW" && value >= 3.5
             ? data[props.item.direction]
             : false
         }
@@ -115,7 +113,7 @@ const StationOverlay = (props: Props) => {
   };
 
   return props.features
-    .filter(point => props.itemId === "any" || point[props.itemId] !== false)
+    .filter(point => point[props.itemId] !== false)
     .map(point => renderMarker(point));
 };
 
