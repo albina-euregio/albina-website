@@ -42,7 +42,7 @@ $cp-breakpoint-2: 720px;
 $cp-breakpoint-3: 1024px;
 
 .weather-map-cockpit {
-  z-index: 2;
+  z-index: 1200;
   position: fixed;
   bottom: 0;
   bottom: env(safe-area-inset-bottom);
@@ -65,7 +65,7 @@ $cp-breakpoint-3: 1024px;
 
 //layer-selector in dropup or left
 .cp-container-1 {
-  z-index: 1000;
+  z-index: 1101;
 
   position: absolute;
   bottom: calc(
