@@ -416,12 +416,35 @@ button.mfp-arrow {
     padding-left: variables.$padding;
     padding-right: variables.$padding;
   }
-}
 
-linea-plot-year,
-linea-plot {
-  display: flex;
-  flex-direction: column;
-  // gap: (variables.$padding * 2);
-  margin-bottom: variables.$margin-bottom;
+  linea-plot {
+    display: flex;
+    flex-direction: column;
+    gap: (variables.$padding * 2);
+    margin-bottom: variables.$margin-bottom;
+    min-width: 32em;
+
+    > div {
+      box-shadow: 0 0 2px 2px variables.$grey-very-light;
+    }
+
+    > div:empty {
+      display: none;
+    }
+
+    .controls {
+      box-shadow: none;
+      text-align: center;
+    }
+    .toggle-btn {
+      @extend .label;
+      color: variables.$text-color;
+      border-color: variables.$grey-light;
+      &:hover {
+        color: variables.$white;
+        border-color: variables.$anchor-font-color;
+        background-color: variables.$anchor-font-color;
+      }
+    }
+  }
 }

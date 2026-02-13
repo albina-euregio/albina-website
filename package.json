@@ -29,11 +29,11 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
-    "@albina-euregio/linea": "^8.7.1",
-    "@eaws/micro-regions_elevation_properties": "^8.1.2",
-    "@eaws/micro-regions_names": "^8.1.2",
-    "@eaws/micro-regions_properties": "^8.1.2",
-    "@eaws/outline_properties": "^8.1.2",
+    "@albina-euregio/linea": "^8.7.4",
+    "@eaws/micro-regions_elevation_properties": "^8.2.0",
+    "@eaws/micro-regions_names": "^8.2.0",
+    "@eaws/micro-regions_properties": "^8.2.0",
+    "@eaws/outline_properties": "^8.2.0",
     "@floating-ui/dom": "^1.7.4",
     "@floating-ui/react": "^0.26.23",
     "@floating-ui/react-dom-interactions": "^0.13.3",

@@ -32,20 +32,20 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.7.1
-        version: 8.7.1
+        specifier: ^8.7.4
+        version: 8.7.4
       '@eaws/micro-regions_elevation_properties':
-        specifier: ^8.1.2
-        version: 8.1.2
+        specifier: ^8.2.0
+        version: 8.2.0
       '@eaws/micro-regions_names':
-        specifier: ^8.1.2
-        version: 8.1.2
+        specifier: ^8.2.0
+        version: 8.2.0
       '@eaws/micro-regions_properties':
-        specifier: ^8.1.2
-        version: 8.1.2
+        specifier: ^8.2.0
+        version: 8.2.0
       '@eaws/outline_properties':
-        specifier: ^8.1.2
-        version: 8.1.2
+        specifier: ^8.2.0
+        version: 8.2.0
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
@@ -173,8 +173,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.7.1':
-    resolution: {integrity: sha1-6Q2MmjPG5J1uFFirKDc91c9a/NM=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.7.1.tgz}
+  '@albina-euregio/linea@8.7.4':
+    resolution: {integrity: sha1-YjvwxxRhCXQIr0tUmkYARCI4+iY=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.7.4.tgz}
 
   '@babel/code-frame@7.28.6':
     resolution: {integrity: sha512-JYgintcMjRiCvS8mMECzaEn+m3PfoQiyqukOMCCVQtoJGYJw8j/8LBJEiqkHLkfwCcs74E3pbAUFNg7d9VNJ+Q==}
@@ -259,17 +259,17 @@ packages:
     resolution: {integrity: sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg==}
     engines: {node: '>=6.9.0'}
 
-  '@eaws/micro-regions_elevation_properties@8.1.2':
-    resolution: {integrity: sha1-CEWWRwh5TFVugC2lG/QjboKbl2I=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.1.2.tgz}
+  '@eaws/micro-regions_elevation_properties@8.2.0':
+    resolution: {integrity: sha1-/2/vgG34pN7+aHpKFEYRoWQAlxo=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.2.0.tgz}
 
-  '@eaws/micro-regions_names@8.1.2':
-    resolution: {integrity: sha1-wCWdu9RUbj5oWaXDW7TMwXxBcRI=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.1.2.tgz}
+  '@eaws/micro-regions_names@8.2.0':
+    resolution: {integrity: sha1-8sfRAtmdJWT052MNMzasReiHmwg=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.2.0.tgz}
 
-  '@eaws/micro-regions_properties@8.1.2':
-    resolution: {integrity: sha1-z79iyIZqocyRtHrWJu95nbet6bQ=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.1.2.tgz}
+  '@eaws/micro-regions_properties@8.2.0':
+    resolution: {integrity: sha1-zeE4YhweeBWlgPjFX1SxZVfIzsc=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.2.0.tgz}
 
-  '@eaws/outline_properties@8.1.2':
-    resolution: {integrity: sha1-+oSwnRvRN/iRFbPlXx07DHbaRR8=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.1.2.tgz}
+  '@eaws/outline_properties@8.2.0':
+    resolution: {integrity: sha1-a/4SjfHl+nY28pVHpRo+CJLsO/g=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.2.0.tgz}
 
   '@emnapi/core@1.8.1':
     resolution: {integrity: sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg==}
@@ -1157,7 +1157,7 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.7.1':
+  '@albina-euregio/linea@8.7.4':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 0.3.0
@@ -1276,13 +1276,13 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@eaws/micro-regions_elevation_properties@8.1.2': {}
+  '@eaws/micro-regions_elevation_properties@8.2.0': {}
 
-  '@eaws/micro-regions_names@8.1.2': {}
+  '@eaws/micro-regions_names@8.2.0': {}
 
-  '@eaws/micro-regions_properties@8.1.2': {}
+  '@eaws/micro-regions_properties@8.2.0': {}
 
-  '@eaws/outline_properties@8.1.2': {}
+  '@eaws/outline_properties@8.2.0': {}
 
   '@emnapi/core@1.8.1':
     dependencies:

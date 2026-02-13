@@ -39,7 +39,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
     .first()
     .hover();
   const tooltip = page.getByRole("tooltip", { name: "Wind speed" });
-  await tooltip.isVisible();
+  await expect(tooltip).toBeVisible();
   await expect(tooltip).toContainText("Wind speed");
   await expect(tooltip).toContainText("low: 0 – 20 km/h");
   await expect(tooltip).toContainText("moderate: 20 – 40 km/h");
@@ -97,12 +97,16 @@ test("bulletin/2022-02-01 pdf", async ({ page }) => {
 test("bulletin/2022-02-01 headless", async ({ page }) => {
   await page.goto("bulletin/2022-02-01?headless=1&region=AT-07-04");
 
-  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator("header.section-centered")).toContainText(
+    "Avalanche Forecast"
+  );
   await expect(page.locator(".page-header")).toHaveCount(0);
 
   await page.getByRole("link", { name: "31/01" }).click();
 
   await expect(page).toHaveURL("bulletin/2022-01-31");
-  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator("header.section-centered")).toContainText(
+    "Avalanche Forecast"
+  );
   await expect(page.locator(".page-header")).toHaveCount(0);
 });
