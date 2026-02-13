@@ -3,6 +3,12 @@ import { test, expect } from "@playwright/test";
 test("weather/measurements", async ({ page }) => {
   await page.goto("weather/measurements");
 
+  // Wait for table data to load (more than just header row)
+  await expect(page.getByRole("row")).toHaveCount(
+    { min: 10 },
+    { timeout: 10000 }
+  );
+
   const firstRow = page.getByRole("row").nth(1);
   await expect(firstRow).toHaveText(/^A/);
 
