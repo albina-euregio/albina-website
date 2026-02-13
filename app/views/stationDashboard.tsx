@@ -324,14 +324,18 @@ function StationDashboard(props) {
         className={`station-view-toggle${viewMode === "table" ? " is-table" : ""}`}
       >
         <button
-          className={viewMode === "map" ? "pure-button secondary" : "pure-button inverse"}
+          className={
+            viewMode === "map" ? "pure-button secondary" : "pure-button inverse"
+          }
           onClick={() => setViewMode("map")}
         >
           {intl.formatMessage({ id: "stations:view:map" })}
         </button>
         <button
           className={
-            viewMode === "table" ? "pure-button secondary" : "pure-button inverse"
+            viewMode === "table"
+              ? "pure-button secondary"
+              : "pure-button inverse"
           }
           onClick={() => setViewMode("table")}
         >
