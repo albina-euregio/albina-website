@@ -51,6 +51,7 @@ function StationDashboard(props) {
   const [stationId, setStationId] = useStationId();
   const [selectedParameter, setSelectedParameter] =
     useState<ParameterType>("HS");
+  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
 
   const {
@@ -103,7 +104,7 @@ function StationDashboard(props) {
         clusterOperation: "none"
       }}
       features={data}
-      showMarkersWithoutValue={true}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
@@ -121,6 +122,7 @@ function StationDashboard(props) {
         clusterOperation: "none"
       }}
       features={observers}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
@@ -138,6 +140,11 @@ function StationDashboard(props) {
           loaded={props.domainId !== false}
           gestureHandling={false}
           controls={null}
+          enableStationPinsToggle={true}
+          showMarkersWithoutValue={showMarkersWithoutValue}
+          onToggleMarkersWithoutValue={nextValue => {
+            setShowMarkersWithoutValue(nextValue);
+          }}
           onInit={e => {
             e.invalidateSize();
           }}
