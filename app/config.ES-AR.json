@@ -137,14 +137,14 @@
   },
   "apis": {
     "bulletin": {
-      "simple": "https://static-aludes.aragon.es/simple/{date}/EUREGIO_{lang}.html",
+      "simple": "https://static-aludes.aragon.es/simple/{date}/ES-AR_{lang}.html",
       "eaws": "https://static-aludes.aragon.es/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static-aludes.aragon.es/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina/api/bulletins/{bulletin}/pdf?region=EUREGIO&lang={lang}&grayscale=false",
+      "pdf": "https://api.avalanche.report/albina/api/bulletins/{bulletin}/pdf?region=ES-AR&lang={lang}&grayscale=false",
       "xml": "https://static-aludes.aragon.es/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static-aludes.aragon.es/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static-aludes.aragon.es/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://static-aludes.aragon.es/bulletins/{date}/EUREGIO_{region}_{lang}.mp3",
+      "mp3": "https://static-aludes.aragon.es/bulletins/{date}/ES-AR_{region}_{lang}.mp3",
       "archive": "https://static-aludes.aragon.es/bulletins/archive/"
     },
     "push": "https://api.avalanche.report/albina/api/push",
