@@ -140,15 +140,15 @@
       "simple": "https://static-aludes.aragon.es/simple/{date}/ES-AR_{lang}.html",
       "eaws": "https://static-aludes.aragon.es/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static-aludes.aragon.es/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina/api/bulletins/{bulletin}/pdf?region=ES-AR&lang={lang}&grayscale=false",
+      "pdf": "https://api-aludes.aragon.es/albina/api/bulletins/{bulletin}/pdf?region=ES-AR&lang={lang}&grayscale=false",
       "xml": "https://static-aludes.aragon.es/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static-aludes.aragon.es/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static-aludes.aragon.es/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
       "mp3": "https://static-aludes.aragon.es/bulletins/{date}/ES-AR_{region}_{lang}.mp3",
       "archive": "https://static-aludes.aragon.es/bulletins/archive/"
     },
-    "push": "https://api.avalanche.report/albina/api/push",
-    "subscribe": "https://api.avalanche.report/albina/api/email",
+    "push": "https://api-aludes.aragon.es/albina/api/push",
+    "subscribe": "https://api-aludes.aragon.es/albina/api/email",
     "blogger": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "plots": "https://stations.invalid/",
