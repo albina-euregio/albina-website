@@ -75,6 +75,18 @@
   + .blog-page-flipper {
     padding: 1em;
   }
+
+
+  .controlbar-top {
+    text-align: center;
+    a {
+      display: inline-block;
+      color: variables.$white;
+      span {
+        display: none;
+      }
+    }
+  }
 }
 
 //from alien app.scss

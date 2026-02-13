@@ -724,24 +724,6 @@ $cp-breakpoint-3: 1024px;
     13
   );
 }
-.cp-legend-snow-surface-temperature {
-  @include map-cockpit-legend-items.legend-generator(
-    map-cockpit-legend-items.$cp-legend-snow-surface-temperature-items,
-    13
-  );
-}
-.cp-legend-relative-humidity {
-  @include map-cockpit-legend-items.legend-generator(
-    map-cockpit-legend-items.$cp-legend-relative-humidity-items,
-    9
-  );
-}
-.cp-legend-precipitation {
-  @include map-cockpit-legend-items.legend-generator(
-    map-cockpit-legend-items.$cp-legend-precipitation-items,
-    9
-  );
-}
 .cp-legend-wind {
   @include map-cockpit-legend-items.legend-generator(
     map-cockpit-legend-items.$cp-legend-wind-items,
