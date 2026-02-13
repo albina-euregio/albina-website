@@ -1,22 +1,11 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import {
+  SEL,
+  expectOverlayLoaded,
+  extractTimestamp
+} from "./weather-map-helpers";
 
-// Visible overlay image rendered by Leaflet
-const overlayImg = ".leaflet-image-layer.map-info-layer";
-
-/** Assert the overlay image has fully loaded (not a broken/missing image). */
-async function expectOverlayLoaded(page: Page) {
-  await expect
-    .poll(
-      () =>
-        page
-          .locator(overlayImg)
-          .evaluate(
-            (img: HTMLImageElement) => img.complete && img.naturalWidth > 0
-          ),
-      { message: "overlay image should load successfully", timeout: 10_000 }
-    )
-    .toBe(true);
-}
+const overlayImg = SEL.overlayImg;
 
 test.describe("weather map", () => {
   test("page load & default state", async ({ page }) => {
@@ -277,4 +266,259 @@ test.describe("overlay availability", () => {
       await expectOverlayLoaded(page);
     });
   }
+});
+
+// ---------------------------------------------------------------------------
+// Regression tests for specific bug fixes
+// ---------------------------------------------------------------------------
+
+test.describe("regression: epoch date on reload", () => {
+  test("reload preserves timestamp, no 1970 fallback", async ({ page }) => {
+    await page.goto("/weather/map/new-snow/");
+    await page.locator(".cp-scale-stamp-range.js-active").waitFor();
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
+
+    // Capture URL timestamp before reload
+    const tsBefore = extractTimestamp(page.url());
+    expect(tsBefore).toBeTruthy();
+    expect(new Date(tsBefore ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    // Reload the page
+    await page.reload();
+
+    // Page should re-initialise with a valid timestamp
+    await page.locator(".cp-scale-stamp-range.js-active").waitFor();
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
+
+    // No epoch date in URL
+    const tsAfter = extractTimestamp(page.url());
+    expect(tsAfter).toBeTruthy();
+    expect(new Date(tsAfter ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    // No 1970 in the visible timeline text
+    const rangeText = await page
+      .locator(".cp-scale-stamp-range.js-active")
+      .textContent();
+    expect(rangeText).not.toContain("1970");
+
+    // Overlay image must load (epoch URLs cause 404s)
+    await expectOverlayLoaded(page);
+  });
+
+  test("reload on instantaneous domain preserves timestamp", async ({
+    page
+  }) => {
+    await page.goto("/weather/map/temp/");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    const tsBefore = extractTimestamp(page.url());
+    expect(tsBefore).toBeTruthy();
+    expect(new Date(tsBefore ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    await page.reload();
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    const tsAfter = extractTimestamp(page.url());
+    expect(tsAfter).toBeTruthy();
+    expect(new Date(tsAfter ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    await expectOverlayLoaded(page);
+  });
+});
+
+test.describe("regression: mouse domain switch preserves time", () => {
+  test("click domain button keeps timestamp close to original", async ({
+    page
+  }) => {
+    await page.goto("/weather/map/new-snow/");
+    await page.locator(".cp-scale-stamp-range.js-active").waitFor();
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
+
+    // Move one step so we are not at the default position
+    await page.locator(".cp-scale-flipper-right").click();
+    await expect(page).toHaveURL(/\/weather\/map\/new-snow\/\d/);
+
+    // Record the timestamp before switching domain
+    const tsBefore = extractTimestamp(page.url());
+    expect(tsBefore).toBeTruthy();
+    const dateBefore = new Date(tsBefore ?? "");
+    expect(dateBefore.getFullYear()).toBeGreaterThan(2020);
+
+    // Switch to temp domain via mouse click
+    await page.locator(".cp-layer-trigger").click();
+    await page
+      .locator(".cp-layer-selector .cp-layer-selector-item", {
+        hasText: "Temperature"
+      })
+      .click();
+
+    // Wait for new domain to load
+    await expect(page.locator(".cp-layer-trigger")).toContainText(
+      "Temperature"
+    );
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    // Timestamp must not be epoch and should be close to original
+    // (within 12 hours, accounting for slot-snapping between domains)
+    const tsAfter = extractTimestamp(page.url());
+    expect(tsAfter).toBeTruthy();
+    const dateAfter = new Date(tsAfter ?? "");
+    expect(dateAfter.getFullYear()).toBeGreaterThan(2020);
+
+    const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
+    expect(diffHours).toBeLessThan(12);
+
+    // Overlay for the new domain must load
+    await expectOverlayLoaded(page);
+  });
+
+  test("mouse and keyboard domain switch produce same behaviour", async ({
+    page
+  }) => {
+    // Use temp domain — its neighbor (wind) shares the same +-1 hourly slots,
+    // so round-trip navigation doesn't shift the timestamp.
+    await page.goto("/weather/map/temp/");
+    // The point indicator has width:0 in CSS (it's a positioning anchor for the
+    // arrow child), so Playwright considers it hidden. Wait for DOM attachment only.
+    await page
+      .locator(".cp-scale-stamp-point.js-active")
+      .waitFor({ state: "attached" });
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    const tsStart = extractTimestamp(page.url());
+    expect(tsStart).toBeTruthy();
+
+    // Keyboard: switch to next domain (n) then back (p)
+    await page.keyboard.press("n");
+    await expect(page).not.toHaveURL(/\/weather\/map\/temp\//);
+    const keyboardUrl = page.url();
+    const tsKeyboard = extractTimestamp(keyboardUrl);
+    expect(tsKeyboard).toBeTruthy();
+    expect(new Date(tsKeyboard ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    // Extract the domain we navigated to via keyboard
+    const keyboardDomain =
+      keyboardUrl.match(/\/weather\/map\/([^/]+)\//)?.[1] ?? "";
+    expect(keyboardDomain).toBeTruthy();
+
+    await page.keyboard.press("p");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\//);
+
+    // Mouse: switch to the same domain via click
+    await page.locator(".cp-layer-trigger").click();
+
+    // Click the domain item that matches the keyboard-navigated domain
+    const nextDomainItem = page.locator(
+      `.cp-layer-selector .cp-layer-selector-item[href="/weather/map/${keyboardDomain}"]`
+    );
+    await nextDomainItem.click();
+    await expect(page).not.toHaveURL(/\/weather\/map\/temp\//);
+
+    const tsMouse = extractTimestamp(page.url());
+    expect(tsMouse).toBeTruthy();
+    expect(new Date(tsMouse ?? "").getFullYear()).toBeGreaterThan(2020);
+
+    // Both switches should produce timestamps within 1 hour of each other
+    const diffMs = Math.abs(
+      +new Date(tsKeyboard ?? "") - +new Date(tsMouse ?? "")
+    );
+    expect(diffMs / (1000 * 60 * 60)).toBeLessThan(1);
+  });
+});
+
+test.describe("regression: domain switch in future preserves time", () => {
+  test("switching domain at future time keeps timestamp and hides stations", async ({
+    page
+  }) => {
+    // Exclude wind direction arrow markers (title="directionMarker") which are
+    // part of the overlay visualization and appear regardless of time.
+    const stationMarkers = page.locator(
+      '.leaflet-marker-pane .leaflet-marker-icon:not([title="directionMarker"])'
+    );
+
+    // Start on temp (instantaneous, hourly slots, shows stations for past)
+    await page.goto("/weather/map/temp/");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    // Step forward into the future (past data availability boundary)
+    for (let i = 0; i < 6; i++) {
+      await page.keyboard.press("ArrowRight");
+      await page.waitForTimeout(300);
+    }
+
+    // Record the future timestamp
+    const tsBefore = extractTimestamp(page.url());
+    expect(tsBefore).toBeTruthy();
+    const dateBefore = new Date(tsBefore ?? "");
+    expect(dateBefore.getFullYear()).toBeGreaterThan(2020);
+
+    // Switch to wind domain via click
+    await page.locator(".cp-layer-trigger").click();
+    await page
+      .locator(".cp-layer-selector .cp-layer-selector-item", {
+        hasText: "Average wind"
+      })
+      .click();
+
+    // Wait for new domain to load
+    await expect(page.locator(".cp-layer-trigger")).toContainText("Wind");
+    await expect(page).toHaveURL(/\/weather\/map\/wind\/\d/);
+
+    // Timestamp must not be epoch
+    const tsAfter = extractTimestamp(page.url());
+    expect(tsAfter).toBeTruthy();
+    const dateAfter = new Date(tsAfter ?? "");
+    expect(dateAfter.getFullYear()).toBeGreaterThan(2020);
+
+    // Timestamp should be close to original (within 1h — both are hourly domains)
+    const diffHours = Math.abs(+dateBefore - +dateAfter) / (1000 * 60 * 60);
+    expect(diffHours).toBeLessThan(1);
+
+    // Wait for any async station loading to settle
+    await page.waitForTimeout(2000);
+
+    // Station markers must NOT appear — we are in the future
+    await expect(stationMarkers).toHaveCount(0);
+  });
+});
+
+test.describe("regression: station markers clear on future time", () => {
+  // Use a generous timeout — this test navigates many timeline steps
+  test.setTimeout(30_000);
+
+  test("stations disappear when moving from past to future", async ({
+    page
+  }) => {
+    const stationMarkers = page.locator(
+      ".leaflet-marker-pane .leaflet-marker-icon"
+    );
+
+    // Navigate to instantaneous domain (stations are shown for past times)
+    await page.goto("/weather/map/temp/");
+    await expect(page).toHaveURL(/\/weather\/map\/temp\/\d/);
+
+    // Move backward into the past to reach times with station data
+    for (let i = 0; i < 6; i++) {
+      await page.locator(".cp-scale-flipper-left").click();
+      await page.waitForTimeout(400);
+    }
+
+    // Wait for station markers to appear
+    // If none appear (server data unavailable), skip the rest
+    await page.waitForTimeout(2000);
+    const count = await stationMarkers.count();
+    test.skip(count === 0, "No station data available for past times");
+
+    // Move forward well past the data availability boundary
+    for (let i = 0; i < 18; i++) {
+      await page.locator(".cp-scale-flipper-right").click();
+      await page.waitForTimeout(300);
+    }
+
+    // Allow time for any in-flight async loadStationData callbacks to land
+    await page.waitForTimeout(3000);
+
+    // Station markers must be gone — stale data should not reappear
+    await expect(stationMarkers).toHaveCount(0);
+  });
 });

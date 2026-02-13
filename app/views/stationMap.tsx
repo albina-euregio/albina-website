@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
@@ -11,6 +11,11 @@ import WeatherStationDialog, {
   useStationId
 } from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
+import StationMapCockpit from "../components/weather/station-map-cockpit";
+import {
+  AVAILABLE_PARAMETERS,
+  ParameterType
+} from "../components/weather/station-parameter-control";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 
@@ -36,6 +41,9 @@ function StationMap(props) {
   const intl = useIntl();
   const [stationId, setStationId] = useStationId();
   const { load, data } = useStationData("microRegion");
+  const [selectedParameter, setSelectedParameter] =
+    useState<ParameterType>("HS");
+  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
 
   useEffect(() => {
     const footer = document.getElementById("page-footer");
@@ -50,20 +58,27 @@ function StationMap(props) {
     load();
   }, [load]);
 
+  const currentParameterConfig =
+    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
+    AVAILABLE_PARAMETERS[0];
+
   const stationOverlay = (
     <StationOverlay
       key={"stations"}
       onMarkerSelected={feature => {
         setStationId(feature.id);
       }}
-      itemId="any"
+      itemId={selectedParameter}
       item={{
-        id: "name",
-        colors: [[25, 171, 255]],
-        thresholds: [],
+        id: selectedParameter,
+        colors: currentParameterConfig.colors,
+        thresholds: currentParameterConfig.thresholds,
+        units: currentParameterConfig.unit,
+        direction: currentParameterConfig.direction || false,
         clusterOperation: "none"
       }}
       features={data}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
@@ -76,11 +91,12 @@ function StationMap(props) {
       itemId="any"
       item={{
         id: "name",
-        colors: [[202, 0, 32]],
+        colors: { 1: [100, 100, 100] },
         thresholds: [],
         clusterOperation: "none"
       }}
       features={observers}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
   const overlays = [stationOverlay, observerOverlay];
@@ -95,10 +111,20 @@ function StationMap(props) {
       )}
       <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
       <section id="section-weather-map" className="section section-weather-map">
+        <StationMapCockpit
+          selectedParameter={selectedParameter}
+          onParameterChange={setSelectedParameter}
+        />
         <div className="section-map">
           <LeafletMap
             loaded={props.domainId !== false}
-            onViewportChanged={() => {}}
+            gestureHandling={false}
+            controls={null}
+            enableStationPinsToggle={true}
+            showMarkersWithoutValue={showMarkersWithoutValue}
+            onToggleMarkersWithoutValue={nextValue => {
+              setShowMarkersWithoutValue(nextValue);
+            }}
             onInit={e => {
               e.invalidateSize();
             }}

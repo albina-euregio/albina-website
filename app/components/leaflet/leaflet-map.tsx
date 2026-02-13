@@ -22,6 +22,9 @@ interface Props {
   tileLayerConfigOverride: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
+  enableStationPinsToggle?: boolean;
+  showMarkersWithoutValue?: boolean;
+  onToggleMarkersWithoutValue?: (nextValue: boolean) => void;
 }
 
 const LeafletMap = (props: Props) => {

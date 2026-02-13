@@ -167,7 +167,7 @@
         "smetOperators": "ÖBB INFRA-SAE",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://oebb.infra.tbbm.at/smet/oebb.geojson?v=legacy",
+        "stations": "https://oebb.infra.tbbm.at/smet/linea.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",

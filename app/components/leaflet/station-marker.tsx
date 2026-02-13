@@ -10,19 +10,8 @@ export interface StationMarkerData {
   detail: string;
   operator?: string;
   plainName?: string;
-  value?: number;
+  value: string | "" | "-";
   plot?: string;
-}
-
-declare module "leaflet" {
-  interface DivIconOptions {
-    data: StationMarkerData;
-  }
-  interface MarkerOptions {
-    data: StationMarkerData;
-    $tooltip: string | undefined;
-    $stationIcon: React.ReactElement<unknown, typeof StationIcon>;
-  }
 }
 
 interface Props {
@@ -34,9 +23,9 @@ interface Props {
   itemId: "any" | string;
   type: string;
   color: string;
-  dataType: "forcast" | "analyse" | string;
+  dataType: "forecast" | "analyse" | string;
   selected: boolean;
-  value: number | "";
+  value: string | "" | "-";
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
@@ -66,7 +55,7 @@ const StationMarker = ({
         color={color}
         dataType={dataType || "analyse"}
         selected={selected}
-        value={isFinite(value) ? value : ""}
+        value={value}
         direction={direction}
       />
     );
@@ -75,11 +64,9 @@ const StationMarker = ({
   const icon = useMemo(
     () =>
       new L.DivIcon({
-        data,
         iconAnchor: iconAnchor || [12.5, 12.5],
         className: className
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [className, iconAnchor]
   );
 
@@ -89,20 +76,26 @@ const StationMarker = ({
     return element;
   }, [icon]);
 
+  // Markers with values should render above markers without values
+  const zIndexOffset = useMemo(() => {
+    if (value === "" || value === "-") {
+      return 0; // Markers without values at base level
+    }
+    return 1000; // Markers with values on top
+  }, [value]);
+
   const marker = useMemo(
     () => (
       <Marker
-        data={data}
-        $tooltip={tooltip}
-        $stationIcon={stationIcon}
         position={coordinates}
         title={stationName}
         icon={icon}
+        zIndexOffset={zIndexOffset}
         eventHandlers={
           onClick && {
             click: e => {
               L.DomEvent.stopPropagation(e);
-              onClick(e.target.options.data);
+              onClick(data);
             }
           }
         }
@@ -112,7 +105,16 @@ const StationMarker = ({
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [coordinates, data, element, icon, stationIcon, stationName, tooltip]
+    [
+      coordinates,
+      data,
+      element,
+      icon,
+      stationIcon,
+      stationName,
+      tooltip,
+      zIndexOffset
+    ]
   );
 
   return marker;

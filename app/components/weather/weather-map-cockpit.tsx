@@ -5,7 +5,8 @@ import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_FORMAT } from "../../util/date";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
-//import { tooltip_init } from "../tooltips/tooltip-dom";
+import { $router } from "../router";
+import { redirectPage } from "@nanostores/router";
 
 const DOMAIN_ICON_CLASSES = {
   temp: "icon-temperature",
@@ -70,15 +71,31 @@ const WeatherMapCockpit = () => {
     const body = document?.querySelector("body");
     body.classList.remove("layer-selector-open");
     switch (type) {
-      case "domain":
-        store.changeDomain(value);
+      case "domain": {
+        // Navigate with preserved timestamp.
+        // weather.tsx's useEffect handles calling initDomain.
+        const ct = store.currentTime.get();
+        if (ct && +ct > 0) {
+          redirectPage($router, "weatherMapDomainTimestamp", {
+            domain: value,
+            timestamp: ct.toISOString()
+          });
+        } else {
+          redirectPage($router, "weatherMapDomain", { domain: value });
+        }
         break;
-      case "timeSpan":
-        store.changeTimeSpan(value);
+      }
+      case "timeSpan": {
+        // Route through URL — weather.tsx calls initDomain with new timeSpan
+        const ct = store.currentTime.get();
+        const domain = store.domainId.get();
+        redirectPage($router, "weatherMapDomainTimestamp", {
+          domain,
+          timestamp: ct ? ct.toISOString() : "",
+          timeSpan: value
+        });
         break;
-      case "time":
-        store.changeCurrentTime(value);
-        break;
+      }
       default:
         break;
     }
@@ -113,7 +130,10 @@ const WeatherMapCockpit = () => {
         <a
           key={aButton.id}
           href={aButton.url}
-          onClick={() => handleEvent("domain", aButton.id)}
+          onClick={e => {
+            e.preventDefault();
+            handleEvent("domain", aButton.id);
+          }}
           className={linkClasses.join(" ")}
         >
           {/* <span className={spanClasses.join(" ")}>{aButton.title}</span> */}
@@ -300,7 +320,7 @@ const WeatherMapCockpit = () => {
          */}
 
         <div key="cp-container-timeline" className="cp-container-timeline">
-          <Timeline key="cp-timeline" updateCB={handleEvent} />
+          <Timeline key="cp-timeline" />
         </div>
 
         {getTimeSpanOptions()}

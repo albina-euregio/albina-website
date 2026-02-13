@@ -1,5 +1,6 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
+import { getDefaultTime, snapToSlot, clampToRange } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -430,65 +431,67 @@ export const domain = computed(
  * returns domain
  */
 export const domainConfig = computed([domain], domain => domain?.item);
-export const dataOverlays = computed(
-  [domainConfig, domainId, currentTime, absTimeSpan],
-  (domainConfig, domainId, currentTime, absTimeSpan) => {
-    if (!domainConfig?.dataOverlays) return [];
-    return domainConfig.dataOverlays.map(o => {
-      const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
-        const overlayURLs = getOverlayURLs(
-          currentTime,
-          o?.domain || domainId,
-          o.file,
-          absTimeSpan
-        );
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => {
-          const canvas = new OffscreenCanvas(
-            img.naturalWidth * 2,
-            img.naturalHeight * 2
-          );
-          const ctx = canvas.getContext("2d", { willReadFrequently: true });
-          ctx.drawImage(img, 0, 0);
-          ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
-          resolve(ctx);
-        };
-        img.onerror = e => {
-          if (overlayURLs.length) {
-            img.src = overlayURLs.shift();
-          } else {
-            reject(
-              new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`)
-            );
-          }
-        };
-        img.src = overlayURLs.shift();
-      });
+export const dataOverlays = atom([]);
 
-      return {
-        ...o,
-        ctx,
-        async valueForPixel(coordinates: {
-          x: number;
-          y: number;
-        }): Promise<number | null> {
-          const p = (await ctx).getImageData(
-            coordinates.x,
-            coordinates.y,
-            1,
-            1
-          );
-          return valueForPixel(o.type as OverlayType, {
-            r: p.data[0],
-            g: p.data[1],
-            b: p.data[2]
-          });
+/**
+ * Load data overlay images for pixel-value reading.
+ * Separated from computed to avoid side effects (Image creation) in pure derivations.
+ */
+function _updateDataOverlays() {
+  const dc = domainConfig.get();
+  const di = domainId.get();
+  const ct = currentTime.get();
+  const ats = absTimeSpan.get();
+
+  if (!dc?.dataOverlays) {
+    dataOverlays.set([]);
+    return;
+  }
+
+  const overlays = dc.dataOverlays.map(o => {
+    const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
+      const urls = getOverlayURLs(ct, o?.domain || di, o.file, ats);
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        const canvas = new OffscreenCanvas(
+          img.naturalWidth * 2,
+          img.naturalHeight * 2
+        );
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
+        resolve(ctx);
+      };
+      img.onerror = e => {
+        if (urls.length) {
+          img.src = urls.shift();
+        } else {
+          reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
         }
       };
+      img.src = urls.shift();
     });
-  }
-);
+
+    return {
+      ...o,
+      ctx,
+      async valueForPixel(coordinates: {
+        x: number;
+        y: number;
+      }): Promise<number | null> {
+        const p = (await ctx).getImageData(coordinates.x, coordinates.y, 1, 1);
+        return valueForPixel(o.type as OverlayType, {
+          r: p.data[0],
+          g: p.data[1],
+          b: p.data[2]
+        });
+      }
+    };
+  });
+
+  dataOverlays.set(overlays);
+}
 
 /*
  * returns timeRange
@@ -500,64 +503,11 @@ export const timeRange = computed(
 );
 
 /*
- * get data
- */
-async function _loadDomainData() {
-  lastDataUpdate.set(0);
-
-  const fetchDate = async (url: string) => {
-    if (SIMULATE_START) {
-      return new Date(SIMULATE_START);
-    }
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      return new Date();
-    }
-
-    const lastModified = response.headers.get("last-modified");
-    if (lastModified) {
-      const date = Date.parse(lastModified);
-      if (date > lastDataUpdate.get() || lastDataUpdate.get() === 0) {
-        lastDataUpdate.set(date);
-      }
-    }
-
-    const date = await response.text();
-    return date.includes("T") ? new Date(date.trim()) : null;
-  };
-
-  try {
-    const url = config.overlayURLs[0];
-    const startDate0 = fetchDate(
-      window.config.template(url + domainConfig.get().metaFiles?.startDate, {
-        domain: domainId.get()
-      })
-    );
-    const agl0 = fetchDate(
-      window.config.template(url + domainConfig.get().metaFiles?.agl, {
-        domain: domainId.get(),
-        timespan: absTimeSpan.get()
-      })
-    );
-
-    startDate.set(await startDate0);
-    agl.set(await agl0);
-
-    if (!currentTime.get()) {
-      currentTime.set(_getStartTimeForSpan());
-    }
-    await _loadIndexData();
-  } catch (err) {
-    // TODO fail with error dialog
-    console.error("Weather data API is not available aaa", err);
-  }
-}
-
-/*
  * get data for currentTime
  */
+let _loadIndexGeneration = 0;
 async function _loadIndexData() {
+  const generation = ++_loadIndexGeneration;
   stations.set([]);
   grid.set([]);
 
@@ -566,7 +516,10 @@ async function _loadIndexData() {
 
   try {
     await loadStationData({
-      consumer: s => stations.set([...stations.get(), ...s]),
+      consumer: s => {
+        if (generation !== _loadIndexGeneration) return;
+        stations.set([...stations.get(), ...s]);
+      },
       dateTime: currentTime
         .get()
         ?.toTemporalInstant()
@@ -578,9 +531,140 @@ async function _loadIndexData() {
   }
 }
 
+/*
+ * Fetch a metadata date file (startDate.ok or agl.ok)
+ */
+async function fetchMetaDate(url: string): Promise<Date | null> {
+  if (SIMULATE_START) return new Date(SIMULATE_START);
+  const response = await fetch(url);
+  if (!response.ok) return new Date();
+
+  const lastModified = response.headers.get("last-modified");
+  if (lastModified) {
+    const date = Date.parse(lastModified);
+    if (date > lastDataUpdate.get() || lastDataUpdate.get() === 0) {
+      lastDataUpdate.set(date);
+    }
+  }
+
+  const text = await response.text();
+  return text.includes("T") ? new Date(text.trim()) : null;
+}
+
+/*
+ * Single entry point for all weather map state changes.
+ * Called from weather.tsx when URL params change.
+ * - Skips metadata fetch if domain+timeSpan unchanged
+ * - Resolves time from URL timestamp or calculates default
+ * - Generation counter cancels stale responses
+ */
+let _generation = 0;
+export async function initDomain(
+  newDomain: DomainId,
+  newTimeSpan?: string,
+  timestamp?: string
+) {
+  const gen = ++_generation;
+
+  // 1. Validate and resolve domain
+  newDomain ||= "new-snow";
+  if (!checkDomainId(newDomain)) return;
+
+  // 2. Resolve timespan
+  const domainConf = config.domains[newDomain].item;
+  const resolvedTimeSpan =
+    newTimeSpan && checkTimeSpan(newDomain, newTimeSpan as TimeSpan)
+      ? (newTimeSpan as TimeSpan)
+      : domainConf.defaultTimeSpan || domainConf.timeSpans[0];
+
+  // 3. Detect what changed
+  const domainChanged = newDomain !== domainId.get();
+  const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
+  const needsMetadata = domainChanged || timeSpanChanged;
+
+  // 4. Set domain and timespan atoms
+  if (domainChanged) {
+    domainId.set(newDomain);
+    selectedFeature.set(null);
+  }
+  if (timeSpanChanged) {
+    timeSpan.set(resolvedTimeSpan);
+  }
+
+  // 5. Fetch metadata only when domain or timeSpan actually changed
+  if (needsMetadata) {
+    lastDataUpdate.set(0);
+    const baseUrl = config.overlayURLs[0];
+    const startDateUrl = window.config.template(
+      baseUrl + domainConf.metaFiles?.startDate,
+      { domain: newDomain }
+    );
+    const absSpan = Math.abs(
+      parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
+    );
+    const aglUrl = window.config.template(baseUrl + domainConf.metaFiles?.agl, {
+      domain: newDomain,
+      timespan: absSpan
+    });
+
+    try {
+      const [start, aglDate] = await Promise.all([
+        fetchMetaDate(startDateUrl),
+        fetchMetaDate(aglUrl)
+      ]);
+      if (gen !== _generation) return; // stale — newer call superseded this one
+      startDate.set(start);
+      agl.set(aglDate);
+    } catch (err) {
+      console.error("Weather data API is not available", err);
+      return;
+    }
+  }
+
+  if (gen !== _generation) return;
+
+  // 6. Resolve time — URL timestamp if provided and valid, else calculate default
+  const absSpan = absTimeSpan.get();
+  const now = SIMULATE_START ? new Date(SIMULATE_START) : new Date();
+  let resolvedTime: Date;
+
+  if (timestamp && +new Date(timestamp) > 0) {
+    const parsed = new Date(timestamp);
+    const snapped = snapToSlot(parsed, absSpan);
+    const st = startTime.get();
+    const et = endTime.get();
+    if (st && et) {
+      resolvedTime = clampToRange(snapped, st, et);
+    } else {
+      resolvedTime = snapped;
+    }
+  } else {
+    resolvedTime = getDefaultTime(
+      now,
+      new Date(startDate.get()),
+      timeSpan.get(),
+      absSpan
+    );
+  }
+
+  const timeChanged = +resolvedTime !== +currentTime.get();
+  if (timeChanged) {
+    currentTime.set(resolvedTime);
+  }
+
+  // 7. Load overlay images and station data only if something actually changed
+  if (needsMetadata || timeChanged) {
+    _updateDataOverlays();
+    if (gen === _generation) {
+      await _loadIndexData();
+    }
+  }
+}
+
 export const startTime = computed(
   [startDate, timeRange],
   (startDate, timeRange) => {
+    if (!startDate) return null;
     const startTime = new Date(startDate);
     startTime.setUTCHours(startTime.getUTCHours() + +timeRange[0]);
     return startTime;
@@ -590,6 +674,7 @@ export const startTime = computed(
 export const endTime = computed(
   [agl, timeSpan, timeSpanInt, timeRange],
   (agl, timeSpan, timeSpanInt, timeRange) => {
+    if (!agl) return null;
     const endTime = new Date(agl);
 
     if (timeSpanInt === 12 && [6, 18].includes(endTime.getUTCHours())) {
@@ -608,6 +693,7 @@ export const endTime = computed(
 export const initialDate = computed(
   [currentTime, endTime, timeSpanInt],
   (currentTime, endTime, timeSpanInt) => {
+    if (!currentTime || !endTime) return null;
     currentTime = new Date(currentTime);
     endTime = new Date(endTime);
     const initialDate = +currentTime > +endTime ? endTime : currentTime;
@@ -714,156 +800,10 @@ export function valueForPixel(
 }
 
 /*
-    Get hours of day for current timespan settings
-  */
-function _getPossibleTimesForSpan() {
-  const posTimes = [];
-  let temp = 0;
-  while (temp < 24) {
-    posTimes.push(temp < 24 ? temp : temp - 24);
-    temp = temp + absTimeSpan.get();
-  }
-  return posTimes;
-}
-
-/*
-    Calculate startdate for current timespan
-    - For forecast overlays (+N): show next period from now
-    - For historical overlays (-N): show most recent past period
-    - For instantaneous overlays (+-1): show closest time to now
-  */
-function _getStartTimeForSpan() {
-  const now = SIMULATE_START ? new Date(SIMULATE_START) : new Date();
-  const dataAvailableTime = new Date(startDate.get());
-  const currentTimeSpan = timeSpan.get();
-  const span = absTimeSpan.get();
-  const timesForSpan = _getPossibleTimesForSpan();
-
-  // Guard: if timeSpan is not set or span is invalid, return data availability time
-  if (!currentTimeSpan || !Number.isFinite(span) || timesForSpan.length === 0) {
-    return dataAvailableTime;
-  }
-
-  // Determine timespan direction
-  const isForecast = currentTimeSpan?.startsWith("+");
-  const isHistorical = currentTimeSpan?.startsWith("-");
-  const isInstantaneous = currentTimeSpan === "+-1";
-
-  // For instantaneous overlays (snow-height, temp, wind, etc.)
-  // Find the closest valid hour to now that has available data
-  if (isInstantaneous) {
-    const candidate = new Date(dataAvailableTime);
-    const nowHour = now.getUTCHours();
-
-    // Find the closest valid hour to now
-    let closestHour = timesForSpan[0];
-    let minDiff = 24;
-    for (const h of timesForSpan) {
-      const diff = Math.min(Math.abs(h - nowHour), 24 - Math.abs(h - nowHour));
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestHour = h;
-      }
-    }
-
-    candidate.setUTCHours(closestHour, 0, 0, 0);
-
-    // If candidate is in the future relative to data availability, go back
-    while (+candidate > +dataAvailableTime) {
-      candidate.setUTCHours(candidate.getUTCHours() - span);
-    }
-
-    return candidate;
-  }
-
-  // For forecast overlays (+6, +12, +24, etc.)
-  // The timestamp represents the END of the forecast period
-  // Show the current forecast period (if we're in it) or the next one
-  if (isForecast) {
-    const candidate = new Date(now);
-    const nowHour = now.getUTCHours();
-    const sortedSlots = [...timesForSpan].sort((a, b) => a - b);
-
-    // Find the next period END time that is > now
-    // Period ends at slot hours, so we need to find the next slot after now
-    const laterSlots = sortedSlots.filter(h => h > nowHour);
-
-    if (laterSlots.length > 0) {
-      // There's a slot later today - that's our period end
-      candidate.setUTCHours(laterSlots[0], 0, 0, 0);
-    } else {
-      // Next period end is tomorrow at the first slot
-      candidate.setUTCDate(candidate.getUTCDate() + 1);
-      candidate.setUTCHours(sortedSlots[0], 0, 0, 0);
-    }
-
-    return candidate;
-  }
-
-  // For historical overlays (-6, -12, -24, etc.)
-  // Show the most recent past period
-  if (isHistorical) {
-    const candidate = new Date(dataAvailableTime);
-    const dataHour = dataAvailableTime.getUTCHours();
-
-    // Find the most recent valid hour slot <= data availability time
-    const soonerToday = timesForSpan.filter(h => h <= dataHour);
-
-    if (soonerToday.length > 0) {
-      candidate.setUTCHours(Math.max(...soonerToday), 0, 0, 0);
-    } else {
-      // Use the last slot from yesterday
-      candidate.setUTCDate(candidate.getUTCDate() - 1);
-      candidate.setUTCHours(Math.max(...timesForSpan), 0, 0, 0);
-    }
-
-    return candidate;
-  }
-
-  // Fallback to original behavior for any other cases
-  const currentTime = new Date(dataAvailableTime);
-  if (currentTime.getUTCHours() !== 0) {
-    const currHours = currentTime.getUTCHours();
-    const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
-    let foundStartHour;
-    if (soonerTimesToday.length) foundStartHour = Math.max(...soonerTimesToday);
-    else foundStartHour = Math.max(...timesForSpan);
-
-    if (soonerTimesToday.length === 0)
-      currentTime.setUTCHours(currentTime.getUTCHours() - 24);
-    currentTime.setUTCHours(foundStartHour);
-  }
-  return currentTime;
-}
-
-/*
  * control method to check if the domain does exist in the config
  */
 function checkDomainId(domainId: DomainId) {
   return Boolean(domainId && config?.domains[domainId]?.item);
-}
-
-/*
- * setting a new active domain
- */
-export function changeDomain(domainId0: DomainId, newTimeSpan: TimeSpan) {
-  domainId0 ||= "new-snow";
-  if (!checkDomainId(domainId0) || domainId0 === domainId.get()) {
-    return;
-  }
-  domainId.set(domainId0);
-  timeSpan.set(null);
-  // Reset currentTime so _getStartTimeForSpan() recalculates based on new domain
-  currentTime.set(null);
-  let usedTimeSpan =
-    domainConfig.get().defaultTimeSpan || domainConfig.get().timeSpans[0];
-  if (newTimeSpan && checkTimeSpan(domainId0, newTimeSpan)) {
-    usedTimeSpan = newTimeSpan;
-  }
-
-  changeTimeSpan(usedTimeSpan);
-  _loadDomainData();
-  selectedFeature.set(null);
 }
 
 /*
@@ -874,29 +814,4 @@ function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
     checkDomainId(domainId) &&
     config.domains[domainId].item.timeSpans.includes(timeSpan)
   );
-}
-
-/*
- * setting a new active timeSpan
- */
-export function changeTimeSpan(timeSpan0: TimeSpan) {
-  if (timeSpan0 == timeSpan.get()) return;
-  if (checkTimeSpan(domainId.get(), timeSpan0)) {
-    timeSpan.set(timeSpan0);
-    _loadDomainData();
-    selectedFeature.set(null);
-  } else {
-    console.error("Timespan does not exist!");
-  }
-}
-
-/*
- * setting a new timeIndex
- */
-export function changeCurrentTime(newTime: Date | string) {
-  const date = new Date(newTime);
-  if (+date !== +currentTime.get()) {
-    currentTime.set(date);
-  }
-  _loadIndexData();
 }
