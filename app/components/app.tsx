@@ -23,8 +23,9 @@ const StationMeasurements = React.lazy(
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
 const StationMap = React.lazy(() => import("../views/stationMap"));
 const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
-const Education = React.lazy(() => import("../views/staticPageLinkbox"));
-const More = React.lazy(() => import("../views/staticPageLinkbox"));
+const StaticPageLinkbox = React.lazy(
+  () => import("../views/staticPageLinkbox")
+);
 const Archive = React.lazy(() => import("../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("../views/staticPage"));
@@ -113,16 +114,17 @@ const App = () => {
         return <SnowProfileMap />;
       case "conditionsProfiles":
         return <BlogPostList isTechBlog={false} isProfileBlog={true} />;
+      case "conditions":
+      case "terrain":
       case "education":
-        return <Education />;
+      case "more":
+        return <StaticPageLinkbox />;
       case "blogNamePost":
         return <BlogPost />;
       case "blogTech":
         return <BlogPostList isTechBlog={true} isProfileBlog={false} />;
       case "blog":
         return <BlogPostList isTechBlog={false} isProfileBlog={false} />;
-      case "more":
-        return <More />;
       case "moreArchive":
         return <Archive />;
       case "moreLinkTree":
