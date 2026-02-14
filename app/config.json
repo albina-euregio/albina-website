@@ -75,41 +75,102 @@
     },
     {
       "url": "/education",
+      "indexKey": "education:overview",
       "children": [
-        { "url": "/education/danger-scale" },
-        { "url": "/education/avalanche-problems" },
-        { "url": "/education/danger-patterns" },
+        {
+          "url": "/education/danger-scale",
+          "img": "/content_files/feature_danger-scale.webp"
+        },
+        {
+          "url": "/education/avalanche-problems",
+          "img": "/content_files/feature_avalanche-problem.webp"
+        },
+        {
+          "url": "/education/danger-patterns",
+          "img": "/content_files/feature_danger-pattern.webp"
+        },
         { "url": "" },
-        { "url": "/education/matrix" },
-        { "url": "/education/snowpack-stability" },
-        { "url": "/education/frequency" },
-        { "url": "/education/avalanche-sizes" },
-        { "url": "/education/workflow" },
+        {
+          "key": "eaws-matrix",
+          "url": "/education/matrix",
+          "img": "/content_files/feature_matrix.webp"
+        },
+        {
+          "url": "/education/snowpack-stability",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/education/frequency",
+          "img": "/content_files/feature_frequency.webp"
+        },
+        {
+          "url": "/education/avalanche-sizes",
+          "img": "/content_files/feature_avalanche-size.webp"
+        },
+        {
+          "url": "/education/workflow",
+          "img": "/content_files/feature_workflow.webp"
+        },
         { "url": "" },
-        { "url": "/education/handbook" },
-        { "url": "/education/spatio-temporal-scale" },
+        {
+          "url": "/education/handbook",
+          "img": "/content_files/feature_handbook.webp"
+        },
+        {
+          "url": "/education/spatio-temporal-scale",
+          "img": "/content_files/feature_spatio-temporal-scale.webp"
+        },
         { "url": "" },
         {
           "key": "glossary",
+          "indexKey": "education:overview:glossary",
           "url": "https://www.avalanches.org/glossary/?lang=en",
           "url:de": "https://www.avalanches.org/glossary/?lang=de",
-          "url:it": "https://www.avalanches.org/glossary/?lang=it"
+          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "img": "/content_files/feature_glossary.webp"
         },
         { "url": "" },
-        { "url": "/education/virtual-reality-project" }
+        {
+          "url": "/education/virtual-reality-project",
+          "img": "/content_files/feature_vr.webp"
+        }
       ]
     },
     {
       "url": "/more",
+      "indexKey": "more",
       "children": [
-        { "url": "/more/archive" },
-        { "url": "/more/season-reports" },
-        { "url": "/education/community" },
-        { "url": "/more/open-data" },
+        {
+          "url": "/more/archive",
+          "img": "/content_files/feature_archive.webp"
+        },
+        {
+          "url": "/more/season-reports",
+          "img": "/content_files/feature_season_reports.webp"
+        },
+        {
+          "url": "/education/community",
+          "indexKey": "education:overview:community",
+          "img": "/content_files/feature_community.webp"
+        },
+        {
+          "url": "/more/open-data",
+          "img": "/content_files/feature_open_data.webp"
+        },
         { "url": "" },
-        { "url": "/more/about" },
-        { "url": "/blog/tech" },
-        { "url": "/more/contact" }
+        {
+          "url": "/more/about",
+          "img": "/content_files/feature_about.webp"
+        },
+        {
+          "url": "/blog/tech",
+          "indexKey": "more:blog:tech",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/more/contact",
+          "img": "/content_files/feature_contact.webp"
+        }
       ]
     }
   ],
