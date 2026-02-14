@@ -24,41 +24,87 @@
     { "url": "/blog", "showNumberNewPosts": true },
     {
       "url": "/conditions",
+      "indexKey": "conditions",
       "children": [
         {
           "key": "conditions:estacions",
+          "indexKey": "conditions:estacions",
+          "img": "/content_files/feature_open_data.webp",
           "url": "https://iot.arantec.com/app/dashboards/public/dashboard/7_S1yG7MxDUBqGUeKHa_OuK1SNVmads4?navbar=false&contextbar=true&layersBar=true&datePicker=true&devicePicker=true&displayTitle=true&filters=true"
         },
         {
           "key": "weather",
+          "indexKey": "conditions:weather",
+          "img": "/content_files/feature_danger-pattern.webp",
           "url": "https://www.aemet.es/es/eltiempo/prediccion/montana"
         },
-        { "url": "/conditions/profiles" }
+        {
+          "url": "/conditions/profiles",
+          "indexKey": "conditions:profiles",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        }
       ]
     },
     {
       "url": "/terrain",
-      "children": [{ "url": "/terrain/class-terreny" }]
+      "indexKey": "terrain",
+      "children": [
+        {
+          "url": "/terrain/class-terreny",
+          "indexKey": "terrain:classification",
+          "img": "/content_files/feature_accessibility.webp"
+        }
+      ]
     },
     {
       "url": "/education",
+      "indexKey": "education:overview",
       "children": [
-        { "url": "/education/danger-scale" },
-        { "url": "/education/avalanche-problems" },
+        {
+          "url": "/education/danger-scale",
+          "img": "/content_files/feature_danger-scale.webp"
+        },
+        {
+          "url": "/education/avalanche-problems",
+          "img": "/content_files/feature_avalanche-problem.webp"
+        },
         { "url": "" },
-        { "url": "/education/matrix" },
-        { "url": "/education/snowpack-stability" },
-        { "url": "/education/frequency" },
-        { "url": "/education/avalanche-sizes" },
-        { "url": "/education/workflow" },
+        {
+          "key": "eaws-matrix",
+          "url": "/education/matrix",
+          "img": "/content_files/feature_matrix.webp"
+        },
+        {
+          "url": "/education/snowpack-stability",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/education/frequency",
+          "img": "/content_files/feature_frequency.webp"
+        },
+        {
+          "url": "/education/avalanche-sizes",
+          "img": "/content_files/feature_avalanche-size.webp"
+        },
+        {
+          "url": "/education/workflow",
+          "img": "/content_files/feature_workflow.webp"
+        },
         { "url": "" },
-        { "url": "/education/handbook" },
-        { "url": "/education/spatio-temporal-scale" },
+        {
+          "url": "/education/handbook",
+          "img": "/content_files/feature_handbook.webp"
+        },
+        {
+          "url": "/education/spatio-temporal-scale",
+          "img": "/content_files/feature_spatio-temporal-scale.webp"
+        },
         { "url": "" },
         { "url": "/education/xarxa-observacions" },
         { "url": "/education/bons-habits" },
         {
           "key": "glossary",
+          "indexKey": "education:overview:glossary",
           "url": "https://www.avalanches.org/glossary/?lang=ar",
           "url:en": "https://www.avalanches.org/glossary/?lang=en",
           "url:es": "https://www.avalanches.org/glossary/?lang=es",
@@ -72,13 +118,23 @@
     },
     {
       "url": "/more",
+      "indexKey": "more",
       "children": [
-        { "url": "/more/archive" },
+        {
+          "url": "/more/archive",
+          "img": "/content_files/feature_archive.webp"
+        },
         { "url": "/more/about" },
         { "url": "/more/albina-project" },
-        { "url": "/more/contact" },
+        {
+          "url": "/more/contact",
+          "img": "/content_files/feature_contact.webp"
+        },
         { "url": "/more/legal" },
-        { "url": "/more/open-data" }
+        {
+          "url": "/more/open-data",
+          "img": "/content_files/feature_open_data.webp"
+        }
       ]
     }
   ],
