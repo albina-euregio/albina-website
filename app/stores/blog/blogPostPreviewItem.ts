@@ -46,7 +46,7 @@ export class BlogPostPreviewItem {
       ...window.config.blogs,
       window.config.profilesBlog,
       window.config.techBlog
-    ].find(e => e.name === blogName);
+    ].find(e => e?.name === blogName);
     const processor: BlogProcessor = blogProcessors[config.apiType];
     const item = await processor.loadBlogPost(config, postId);
     return item;
