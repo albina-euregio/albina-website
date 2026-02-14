@@ -3,6 +3,7 @@
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../molecules/navigation";
+@use "../organisms/map-cockpit-2024" as cockpit;
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -59,16 +60,12 @@ $search-width-wide: 300px;
 //the outer container for weather-map
 .section-weather-map {
   position: absolute !important;
-  top: navigation.$page-header-height; // 48px
+  top: navigation.$page-header-height;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
   overflow: hidden;
-
-  html[data-headless] & {
-    top: 0;
-  }
 }
 
 //the maps themselves
@@ -581,15 +578,34 @@ $search-width-wide: 300px;
 //
 // weather-map
 //
+.station-view-toggle {
+  position: fixed;
+  top: auto;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(#{cockpit.$cp-layer-range-height} + #{variables.$padding});
+  z-index: 1000;
+  display: flex;
+  gap: 0;
+  @include mixins.box-shadow;
 
-//202009
-//used .section-weather-map instead of .weather-map-container
-//changed this in SCSS and jsx:
-//  <section id="section-weather-map" class="section section-weather-map">
-//    <div class="section-map">
+  html[data-headless] & {
+    bottom: calc(
+      #{cockpit.$cp-legend-release-height} + #{cockpit.$cp-layer-range-height} +
+        #{variables.$padding}
+    );
+  }
 
-//weather-map pane styles
-//.weather-map-container,
+  .pure-button {
+    margin: 0 (-(variables.$border-width)) (-(variables.$border-width)) 0;
+  }
+
+  &.is-table {
+    bottom: variables.$padding;
+  }
+}
+
 .section-weather-map {
   //single stations
   .station circle.inner {
@@ -724,11 +740,3 @@ a.weather-map-details-button {
   }
 }
 //...to here
-
-//from alien app.scss
-//202009: cannot be found in app/components therefore executed
-// .weather-map-icon {
-//   position: absolute;
-//   right: 10px;
-//   width: 150px;
-//}
