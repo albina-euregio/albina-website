@@ -17,7 +17,6 @@ export interface StationMarkerData {
 interface Props {
   coordinates: L.LatLngExpression;
   data: StationMarkerData;
-  stationName: string;
   tooltip?: string;
   onClick?: (data: StationMarkerData) => void;
   itemId: "any" | string;
@@ -42,7 +41,6 @@ const StationMarker = ({
   itemId,
   onClick,
   selected,
-  stationName,
   tooltip,
   type,
   value
@@ -88,7 +86,6 @@ const StationMarker = ({
     () => (
       <Marker
         position={coordinates}
-        title={stationName}
         icon={icon}
         zIndexOffset={zIndexOffset}
         eventHandlers={
@@ -111,7 +108,6 @@ const StationMarker = ({
       element,
       icon,
       stationIcon,
-      stationName,
       tooltip,
       zIndexOffset
     ]

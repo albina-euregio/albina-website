@@ -108,7 +108,6 @@ const DataOverlay = ({ playerCB }) => {
           iconAnchor={[12.5, 12.5]}
           data={{}}
           stationId="dataMarker"
-          stationName="dataMarker"
           coordinates={e.latlng}
           color={getColor(pixelData.value)}
           value={pixelData.value}
@@ -158,7 +157,6 @@ const DataOverlay = ({ playerCB }) => {
             iconAnchor={[12, 12]}
             data={{}}
             stationId="directionMarker"
-            stationName="directionMarker"
             coordinates={[curV, curH]}
             color={[255, 0, 0]}
             value={null}
