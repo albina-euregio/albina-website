@@ -1,12 +1,12 @@
 import "./simple-slider.css";
 
-type SliderOptions = {
+interface SliderOptions {
   labels: string[]; //list of labels. ie low, medium...
   initialIndex?: number; //selected index. ie. 0 = low
   interactive?: boolean; //user can change slider
   rotateLabelsAngle?: number; // if set, rotate label text by this angle (deg)
   onChange?: (index: number) => void;
-};
+}
 
 /**
  * class for a simple slider. user can pass in options such as lable
@@ -39,14 +39,20 @@ export class LabeledSlider {
 
     const ticks = document.createElement("div");
     ticks.className = "slider-ticks";
-    if (typeof this.options.rotateLabelsAngle === 'number') {
+    if (typeof this.options.rotateLabelsAngle === "number") {
       const angle = Math.abs(this.options.rotateLabelsAngle);
       // Calculate max label length (in characters)
-      const maxLabelLength = labels.reduce((max, label) => Math.max(max, label.length), 0);
+      const maxLabelLength = labels.reduce(
+        (max, label) => Math.max(max, label.length),
+        0
+      );
       // Estimate px per character (approximate, can be tuned)
       const pxPerChar = 2;
       // Padding is proportional to label length and angle
-      const padding = 8 + (maxLabelLength * pxPerChar * Math.sin(angle * Math.PI / 180)) + angle * 0.5;
+      const padding =
+        8 +
+        maxLabelLength * pxPerChar * Math.sin((angle * Math.PI) / 180) +
+        angle * 0.5;
       ticks.style.paddingBottom = `${padding}px`;
     }
 
@@ -58,11 +64,10 @@ export class LabeledSlider {
       const dot = document.createElement("div");
       dot.className = "slider-dot";
 
-
       const text = document.createElement("div");
       text.className = "slider-label";
       text.textContent = label;
-      if (typeof this.options.rotateLabelsAngle === 'number') {
+      if (typeof this.options.rotateLabelsAngle === "number") {
         if (this.options.rotateLabelsAngle === 0) {
           text.classList.add("slider-label-rotated");
           text.style.transform = `rotate(0deg)`;
@@ -92,12 +97,12 @@ export class LabeledSlider {
       ".slider-progress"
     ) as HTMLElement;
 
-    const percentage = ((this.selectedIndex+0.5) / (labels.length )) * 100;
+    const percentage = ((this.selectedIndex + 0.5) / labels.length) * 100;
     progress.style.width = `${percentage}%`;
 
     this.container.querySelectorAll(".slider-tick").forEach(tick => {
       const idx = Number(tick.getAttribute("data-index"));
-      tick.classList.toggle("active", idx === this.selectedIndex);
+      tick.classList.toggle("active", idx <= this.selectedIndex);
     });
   }
 
