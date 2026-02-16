@@ -17,7 +17,8 @@
     },
     "heading": "Taille 1 : Petite avalanche (coulée)",
     "text": "<p>L’ensevelissement est peu probable, sauf dans une zone de dépôt défavorable (p.ex. un piège de terrain).<br/>En terrain extrêmement raide, il est plus probable d'être emporté que d'être enseveli.<br/>S’arrête dans une pente raide.<br/>Longueur : &lt; 50 m<br/>Volume : 100 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|0|false|90|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|0|false|90|__END_SLIDER___ <img alt=\"Avalanche size 1\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size1-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
     },
     "avalanche-size-medium": {
     "ids": {
@@ -37,7 +38,8 @@
     },
     "heading": "Taille 2 : Avalanche moyenne",
     "text": "<p>Peut ensevelir, blesser ou tuer des personnes.<br/>C'est la taille typique des avalanches déclenchées par des skieurs.<br/>Peut atteindre le pied de la pente.<br/>Longueur : 50-200 m<br/>Volume : 1'000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|1|false|90|__END_SLIDER___ <img alt=\"Avalanche size 2\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size2-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|1|false|90|__END_SLIDER___ <img alt=\"Avalanche size 2\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size2-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
     },
     "avalanche-size-large": {
     "ids": {
@@ -57,7 +59,8 @@
     },
     "heading": "Taille 3 : Grande avalanche",
     "text": "<p>Peut ensevelir et détruire des véhicules, endommager de gros poids lourds, détruire de petits bâtiments, et casser des arbres.<br/>Pour un skieur emporté par une avalanche de cette taille, le risque mortel est élevé.<br/>Peut s’avancer en terrain plat (bien en dessous de 30°) sur une distance inférieure à 50 m.<br/>Longueur : plusieurs centaines de mètres<br/>Volume : 10’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|2|false|90|__END_SLIDER___ <img alt=\"Avalanche size 3\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size3-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|2|false|90|__END_SLIDER___ <img alt=\"Avalanche size 3\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size3-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
     },
     "avalanche-size-very-large": {
     "ids": {
@@ -77,7 +80,8 @@
     },
     "heading": "Taille 4 : Très grande avalanche",
     "text": "<p>Peut ensevelir et détruire de gros poids lourds et trains.<br/>Peut détruire des bâtiments importants et de petites surfaces boisées.<br/>De très grandes avalanches sont possibles avec un indice de risque 3 – Marqué. Elles sont typiques des indices de risque 4 – Fort et 5 – Très fort.<br/>Traverse les terrains en pente peu raide (nettement moins de 30°) sur une distance de plus de 50 m.<br/>Peut atteindre le fond de la vallée.<br/>Longueur : 1-2 km<br/>Volume : 100’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|3|false|90|__END_SLIDER___ <img alt=\"Avalanche size 4\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size4-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|3|false|90|__END_SLIDER___ <img alt=\"Avalanche size 4\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size4-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
     },
     "avalanche-size-extremely-large": {
     "ids": {
@@ -97,7 +101,8 @@
     },
     "heading": "Taille 5 : Avalanche extrêmement grande",
     "text": "<p>Peut dévaster le paysage, potentiel destructeur catastrophique.<br/>Typique de l'indice de risque 5 – Très Fort.<br/>Atteint le fond de la vallée.<br/>C'est la plus grande ampleur d'avalanche connue.<br/>Longueur : > 2 km<br/>Volume : > 100’000 m³</p>",
-    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|4|false|90|__END_SLIDER___ <img alt=\"Avalanche size 5\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size5-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|petite,moyenne,grande,très grande,extrêmement grande|4|false|90|__END_SLIDER___ <img alt=\"Avalanche size 5\" class=\"wis-lzload-img\" srcset=\"/content_files/ava_size5-1920.webp\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
     },
     "avalanche-frequency-none": {
         "ids": {
@@ -117,7 +122,8 @@
         },
         "heading": "Classe de fréquence d’avalanche : aucune",
         "text": "<p>Les points avec cette classe de stabilité n’existent pas, ou ils sont si rares qu’ils ne sont pas considérés comme pertinents pour l’évaluation de la stabilité.</p>",
-        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|0|false|__END_SLIDER___"
+        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|0|false|__END_SLIDER___",
+        "source": "false"
     },
     "avalanche-frequency-few": {
         "ids": {
@@ -137,7 +143,8 @@
         },
         "heading": "Classe de fréquence d’avalanche : peu",
         "text": "<p>Les points avec cette classe de stabilité sont rares. Bien que rares, leur nombre est considéré comme pertinent pour l’évaluation de la stabilité.</p><p>Les indices d’instabilité sont difficiles à trouver.</p>",
-        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|1|false|__END_SLIDER___"
+        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|1|false|__END_SLIDER___",
+        "source": "false"
     },
     "avalanche-frequency-some": {
         "ids": {
@@ -157,7 +164,8 @@
         },
         "heading": "Classe de fréquence d’avalanche : quelques",
         "text": "<p>Les points avec cette classe de stabilité ne sont ni nombreux ni rares, mais ils existent généralement dans des caractéristiques de terrain communes (par exemple, près des crêtes, dans des ravines).</p>",
-        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|2|false|__END_SLIDER___"
+        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|2|false|__END_SLIDER___",
+        "source": "false"
     },
     "avalanche-frequency-many": {
         "ids": {
@@ -177,7 +185,8 @@
         },
         "heading": "Classe de fréquence d’avalanche : beaucoup",
         "text": "<p>Les points avec cette classe de stabilité sont abondants.</p><p>Les indices d’instabilité sont souvent faciles à trouver.</p>",
-        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|3|false|__END_SLIDER___"
+        "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|3|false|__END_SLIDER___",
+        "source": "false"
     },
     "danger-pattern-1": {
     "ids": {
@@ -353,7 +362,8 @@
     },
     "heading": "Degré de danger: Faible",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse favorable en général.</b><br /> Aucun signe d'alarme présent. Les avalanches ne peuvent être déclenchées que dans des cas isolés, en particulier sur des pentes extrêmement raides.<br /> <b>Recommandations pour les amateurs de plein air en montagne :</b><br /> Parcourez les pentes extrêmement raides une personne à la fois et faites attention au danger de chute.</p></div>",
-"img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+"img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -369,7 +379,8 @@
     },
     "heading": "Degré de danger: Limité",
     "text": "<div style='text-align:center;'><p><b>Mostly favourable avalanche situation</b><br /> Des signes d'alarme peuvent apparaître dans des cas isolés. Les avalanches peuvent être déclenchées en particulier sur des pentes très raides avec l'exposition et l'altitude indiquées sur avalanche.report. Les grandes avalanches naturelles sont peu probables.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Les activités en montagne doivent être choisies avec soin, en particulier sur les pentes avec l'exposition et l'altitude indiquées sur avalanche.report. Parcourez les pentes très raides une personne à la fois. Faites attention à la structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">couches faibles persistantes</a>).</p></div>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -385,7 +396,8 @@
     },
     "heading": "Degré de danger: Marqué",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse critique.</b><br />Des „woum“ et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées dans le bulletin d’avalanches. Des avalanches spontanées et des déclenchements à distance sont possibles.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />La situation la plus critique pour les amateurs de plein air en montagne. Utilisez le terrain de manière efficace et choisissez le meilleur itinéraire possible avec une exposition minimale. Évitez les pentes très raides avec l'exposition et l'altitude indiquées dans le bulletin d’avalanches. Les personnes inexpérimentées sont invitées à rester sur les pistes de ski et les sentiers ouverts.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-high": {
     "ids": {
@@ -401,7 +413,8 @@
     },
     "heading": "Degré de danger: Fort",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse très critique.</b><br />Des avalanches naturelles, souvent très grandes, sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreuses pentes raides. Le déclenchement à distance est typique. Des „woum“ et des fissures se produisent fréquemment.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Restez sur un terrain modérément raide. Faites attention en dessous des zones d'arrêt des grandes avalanches. Les personnes inexpérimentées devraient rester sur les pistes de ski et les sentiers ouverts.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -417,7 +430,8 @@
     },
     "heading": "Degré de danger: Très Fort",
     "text": "<div style='text-align:center;'><p><b>Situation avalancheuse extraordinaire.</b><br />De nombreuses avalanches naturelles très grandes et extrêmes peuvent être attendues. Celles-ci peuvent atteindre les routes et les habitations dans la vallée.<br /><b>Recommandations pour les amateurs de plein air en montagne :</b><br />Il est conseillé de ne pas pratiquer de sports d'hiver au-delà des pistes de ski et des sentiers ouverts.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
     "snowpack-stability-very-poor": {
     "ids": {
@@ -437,7 +451,8 @@
     },
     "heading": "Stabilité du manteau neigeux : très faible",
     "text": "<p>Déclenchement naturel / très facile à déclencher</p>",
-    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|0|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|0|false|__END_SLIDER___",
+    "source": "false"
     },
     "snowpack-stability-poor": {
     "ids": {
@@ -457,7 +472,8 @@
     },
     "heading": "Stabilité du manteau neigeux : faible",
     "text": "<p>Facile à déclencher (p.ex. un seul skieur)</p>",
-    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|1|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|1|false|__END_SLIDER___",
+    "source": "false"
     },
     "snowpack-stability-fair": {
     "ids": {
@@ -477,7 +493,8 @@
     },
     "heading": "Stabilité du manteau neigeux : moyenne",
     "text": "<p>Difficile à déclencher (p.ex. explosifs)</p>",
-    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|2|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|2|false|__END_SLIDER___",
+    "source": "false"
     },
     "snowpack-stability-good": {
     "ids": {
@@ -497,7 +514,8 @@
     },
     "heading": "Stabilité du manteau neigeux : bonne",
     "text": "<p>Conditions stables</p>",
-    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|3|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|3|false|__END_SLIDER___",
+    "source": "false"
     },
     "problem-glide": {
     "ids": {
@@ -517,7 +535,8 @@
     },
     "heading": "Problème d’avalanche : Avalanche de fond",
     "text": "<p>Le manteau neigeux entier glisse sur le sol, généralement sur des surfaces lisses comme des pentes herbeuses ou des zones rocheuses. L’activité des avalanches de fond est généralement liée à un manteau neigeux épais avec peu ou pas de couches fragiles. Les avalanches de fond peuvent se produire aussi bien avec un manteau neigeux froid et sec qu’avec un manteau neigeux chaud et humide. Le déclenchement d’une avalanche de fond est difficile à prévoir, bien que des fissures s’ouvrent généralement avant le départ.</p><p><b>Conseils de comportement</b><br/>Éviter les zones à proximité des fissures.</p>",
-    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
     },
     "problem-new-snow": {
     "ids": {
@@ -537,7 +556,8 @@
     },
     "heading": "Problème d’avalanche : Neige fraîche",
     "text": "<p>Cette situation est liée aux chutes de neige en cours ou récentes. La quantité de neige récente occasionnant la surcharge en est le principal facteur. L’impact de cette surcharge dépend de facteurs variés tels que la température ou les caractéristiques du manteau neigeux préexistant.</p><p><b>Conseils de comportement</b><br/>Avalanches de plaque sèche : Attendre la stabilisation des couches fragiles constituées de neige récente.<br/>Avalanches de neige sans cohésion : Le risque de chute est plus élevé que le risque d’ensevelissement, notamment dans les pentes raides.</p>",
-    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
     },
     "problem-persistent-weak-layer": {
     "ids": {
@@ -557,7 +577,8 @@
     },
     "heading": "Problème d’avalanche : Couche fragile persistante",
     "text": "<p>Ce problème est lié à la présence de couches fragiles persistantes dans le manteau neigeux ancien. Ces couches faibles incluent généralement le givre de surface enfoui, la neige à grains anguleux ou les faces planes.</p><p><b>Conseils de comportement</b><br/>Déplacements prudents et éviter les grandes pentes raides. Tenir compte de l’historique des conditions nivométéorologiques dans les pentes. Faire particulièrement attention dans les zones avec des manteaux neigeux peu épais et notamment les zones de transition avec un manteau neigeux plus épais. Ce problème est une cause majeure de décès accidentels par avalanche.</p>",
-    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
     },
     "problem-wet-snow": {
     "ids": {
@@ -577,7 +598,8 @@
     },
     "heading": "Problème d’avalanche : Neige humide",
     "text": "<p>Le problème de neige humide est lié à l’affaiblissement du manteau neigeux dû à la présence d’eau liquide. L’eau s’infiltre dans le manteau neigeux à cause de la fonte ou de la pluie.</p><p><b>Conseils de comportement</b><br/>Dans ces situations, les conditions sont plutôt favorables le matin qui suit une nuit claire, du fait du regel nocturne. Au contraire, en cas de nuit très douce avec un ciel couvert, le problème existe souvent déjà le matin. L’occurrence de pluie peut conduire à des déclenchements d’avalanche quasi immédiats. Dans ces situations, le choix de l’itinéraire et de l’horaire de passage sont particulièrement importants. Attention aux zones de départ, de propagation et de dépôt des avalanches.</p>",
-    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
     },
     "problem-wind-slab": {
     "ids": {
@@ -597,6 +619,7 @@
     },
     "heading": "Problème d’avalanche : Plaques de vent",
     "text": "<p>Le problème de plaque de vent est lié à la neige transportée par le vent, avec ou sans chute de neige simultanée. Les plaques de vent constituent une surcharge supplémentaire sur une couche fragile et forment une plaque qui peut se rompre.</p><p><b>Conseils de comportement</b><br/>Éviter les zones d’accumulation en terrain raide, en particulier dans les zones d’épaisseur ou de dureté variables.</p>",
-    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
     }
 }

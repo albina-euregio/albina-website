@@ -17,7 +17,8 @@
     },
     "heading": "Größe 1: Kleine Lawine (Rutsch)",
     "text": "<p>Eine Verschüttung ist unwahrscheinlich, außer es existieren im Auslaufbereich ungünstige Geländeformen (z.B. Geländefallen). <br/>Kommt im Bereich des Steilhanges zum Stillstand</p>",
-    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
   "avalanche-size-medium": {
     "ids": {
@@ -37,7 +38,8 @@
     },
     "heading": "Größe 2: Mittlere Lawine",
     "text": "<p>Kann eine Person verschütten, verletzen oder töten <br/>Diese Größe entspricht der \"Skifahrerlawine\". <br/>Kann den Hangfuß erreichen </p>",
-    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
   },
   "avalanche-size-large": {
     "ids": {
@@ -57,7 +59,8 @@
     },
     "heading": "Größe 3: Große Lawine",
     "text": "<p>Kann PKWs verschütten und zerstören, schwere Lastwagen beschädigen, kleine Gebäude zerstören und einzelne Bäume brechen. <br/>Gelangen Skifahrer in Lawinen dieser Größe, ist die Wahrscheinlichkeit für schwerwiegende Konsequenzen sehr groß. <br/> Kann flache Geländeteile (deutlich unter 30°) über eine Distanz von bis zu 50 m überwinden.</p>",
-    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
   "avalanche-size-very-large": {
     "ids": {
@@ -77,7 +80,8 @@
     },
     "heading": "Größe 4: Sehr große Lawine",
     "text": "<p>Kann schwere LKWs und Züge verschütten und zerstören.<br/>Kann größere Gebäude und kleine Waldflächen zerstören <br/> Sehr große Lawinen sind bei Gefahrenstufe 3 – Erheblich möglich, bei Gefahrenstufe 4 – Groß und 5 – Sehr Groß typisch <br/> Überwindet flachere Geländeteile (deutlich unter 30°) über eine Distanz von mehr als 50 m. <br/>Kann den Talboden erreichen</p>",
-    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
   "avalanche-size-extremely-large": {
     "ids": {
@@ -97,7 +101,8 @@
     },
     "heading": "Größe 5: Extrem große Lawine",
     "text": "<p>Kann die Landschaft verwüsten, katastrophales Zerstörungspotenzial möglich.<br/>Typisch für Gefahrenstufe 5 – Sehr Groß<br/>Erreicht den Talboden </p>",
-    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\"/>"
+    "img": "__SIMPLE_SLIDER__|klein,mittel,groß,sehr groß,extrem groß|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\"/>",
+    "source": "false"
   },
     "avalanche-frequency-none": {
     "ids": {
@@ -117,7 +122,8 @@
     },
     "heading": "Häufigkeitsklasse: Keine",
     "text": "<p>Stellen mit dieser Stabilitätsklasse gibt es nicht oder sie sind so selten, dass sie für die Stabilitätsbeurteilung nicht relevant sind.</p>",
-    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|0|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|0|false|__END_SLIDER___",
+    "source": "false"
   },
     "avalanche-frequency-few": {
     "ids": {
@@ -137,7 +143,8 @@
     },
     "heading": "Häufigkeitsklasse: Wenige",
     "text": "<p>Stellen mit dieser Stabilitätsklasse gibt es selten. Trotzt ihrer geringen Anzahl sind sie relevant für die Stabilitätsbeurteilung.</p> <p>Evidence for instability is hard to find.</p><p>Beweise für die Instabilität sind schwer zu finden.</p>",
-    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|1|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|1|false|__END_SLIDER___",
+    "source": "false"
   },
     "avalanche-frequency-some": {
     "ids": {
@@ -157,7 +164,8 @@
     },
     "heading": "Häufigkeitsklasse: Einige",
     "text": "<p>Stellen mit dieser Stabilitätsklasse sind weder viele noch wenige. Sie sind typischerweise im Gelände mit gemeinsamen Merkmalen zu finden (z.B. in Kammnähe, in Rinnen und Mulden) </p>",
-    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|2|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|2|false|__END_SLIDER___",
+    "source": "false"
   },
     "avalanche-frequency-many": {
     "ids": {
@@ -177,7 +185,8 @@
     },
     "heading": "Häufigkeitsklasse: Viele",
     "text": "<p>Es gibt eine Vielzahl von Stellen mit dieser Stabilitätsklasse.</p><p>Anzeichen für die Instabilität sind oft einfach zu finden.</p>",
-    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|3|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Keine,Wenige,Einige,Viele|3|false|__END_SLIDER___",
+    "source": "false"
   },
   "danger-pattern-1": {
     "ids": {
@@ -353,7 +362,8 @@
     },
     "heading": "Gefahrenstufe: Gering",
     "text": "<div style='text-align:center;'><p><b>Allgemein günstige Lawinensituation</b><br/> Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "source": "false"
   },
   "danger-scale-moderate": {
     "ids": {
@@ -369,7 +379,8 @@
     },
     "heading": "Gefahrenstufe: Mäßig",
     "text": "<div style='text-align:center;'><p><b>Überwiegend günstige Lawinensituation</b><br/> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-considerable": {
     "ids": {
@@ -385,7 +396,8 @@
     },
     "heading": "Gefahrenstufe: Erheblich",
     "text": "<div style='text-align:center;'><p><b>Kritische Lawinensituation</b><br/> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-high": {
     "ids": {
@@ -401,7 +413,8 @@
     },
     "heading": "Gefahrenstufe: Groß",
     "text": "<div style='text-align:center;'><p><b>Sehr kritische Lawinensituation</b><br/> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "danger-scale-very-high": {
     "ids": {
@@ -417,7 +430,8 @@
     },
     "heading": "Gefahrenstufe: Sehr groß",
     "text": "<div style='text-align:center;'><p><b>Außerordentliche Lawinensituation</b><br/> Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <p>Wird sehr selten prognostiziert.</p></div>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />"
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "source": "false"
   },
   "snowpack-stability-very-poor": {
     "ids": {
@@ -437,7 +451,8 @@
     },
     "heading": "Schneedeckenstabilität: Sehr schlecht",
     "text": "<p>Spontan / sehr leichte Auslösung </p>",
-    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|0|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|0|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-poor": {
     "ids": {
@@ -457,7 +472,8 @@
     },
     "heading": "Schneedeckenstabilität: Schlecht",
     "text": "<p>Leicht (z.B. einzelner Skifahrer:in)</p>",
-    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|1|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|1|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-fair": {
     "ids": {
@@ -477,7 +493,8 @@
     },
     "heading": "Schneedeckenstabilität: Mittel",
     "text": "<p>Schwer (z.B. künstliche Auslösung)</p>",
-    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|2|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|2|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-good": {
     "ids": {
@@ -497,7 +514,8 @@
     },
     "heading": "Schneedeckenstabilität: Gut",
     "text": "<p>Stabile Verhältnisse</p>",
-    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|3|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|Sehr schlecht,schlecht,Mittel,Gut|3|false|__END_SLIDER___",
+    "source": "false"
   },
   "problem-glide": {
     "ids": {
@@ -517,7 +535,8 @@
     },
     "heading": "Lawinenproblem: Gleitschnee",
     "text": "<p> Die gesamte Schneedecke gleitet auf glattem Untergrund wie zum Beispiel Grashängen oder glatten Felsenzonen ab. Hohe Aktivität von Gleitschneelawinen ist typischerweise verbunden mit einer mächtigen Schneedecke mit wenigen oder keinen Schwachschichten. Gleitschneelawinen können sowohl bei einer trockenen, kalten als auch bei einer nassen, 0°C-isothermen Schneedecke auftreten. Den Abgangszeitpunkt von Gleitschneelawinen vorherzusagen ist kaum möglich, obwohl sie sich meist durch Gleitschneerisse (sogenannte Fischmäuler) ankündigen.</p> <b>Verhaltensempfehlung</b> <br/> <p>Halte dich nicht in der Nähe von Gleitschneerissen auf.</p>",
-    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
   "problem-new-snow": {
     "ids": {
@@ -537,7 +556,8 @@
     },
     "heading": "Lawinenproblem: Neuschnee",
     "text": "<p>Das Problem entsteht durch aktuelle Schneefälle oder kurz zuvor gefallenen Neuschnee. Der Haupteinflussfaktor ist die kritische Neuschneemenge, die von mehreren Faktoren, wie zum Beispiel Temperatur oder Eigenschaften der alten Schneeoberfläche abhängt.</p> <b>Verhaltensempfehlung</b> <br/> <p>Trockene Schneebrettlawinen: <br/> Warte, bis sich die Schneedecke stabilisiert hat. <br/>Trockene Lockerschneelawinen:<br/> Beachte v.a. die Mitreiß- und Absturzgefahr im extremen Steilgelände </p>",
-    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
   },
   "problem-persistent-weak-layer": {
     "ids": {
@@ -557,7 +577,8 @@
     },
     "heading": "Lawinenproblem: Altschnee",
     "text": "<p> Das Problem entsteht durch vorhandene Schwachschichten innerhalb der Altschneedecke. Typische Schwachschichten sind eingeschneiter Oberflächenreif, Tiefenreif (auch Becherkristalle oder „Schwimmschnee“ genannt) oder kantige Kristalle.</p> <b>Verhaltensempfehlung</b> <br/> <p> Meiden von grossen Steilhängen und Zurückhaltung. Beachte den Witterungsverlauf und die Schneedeckenentwicklung in einem Gebiet. Besondere Vorsicht in schneearmen Bereichen und Übergängen von schneearm zu schneereich. Das Altschneeproblem ist eine Hauptursache von tödlichen Lawinenunfällen bei Wintersportlern. </p> </div> <br />",
-    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
       "problem-wet-snow": {
     "ids": {
@@ -577,7 +598,8 @@
     },
     "heading": "Lawinenproblem: Nassschnee",
     "text": "<p> Das Problem entsteht durch eine zunehmende Schwächung der Schneedecke durch Wassereintrag, entweder durch Schmelze oder Regen. </p>  <b>Verhaltensempfehlung</b> <br/> <p> Nach einer kalten, klaren Nacht sind die Bedingungen am Morgen meist günstig. Nach warmen, bedeckten Nächten tritt das Problem oft bereits am Morgen auf. Bei Regen auf eine trockene Schneedecke tritt das Problem meist unmittelbar auf. Gutes Timing und eine gute Tourenplanung sind entscheidend. Beachte Lawinenauslaufbereiche.</p>",
-    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
   "problem-wind-slab": {
     "ids": {
@@ -597,6 +619,7 @@
     },
     "heading": "Lawinenproblem: Triebschnee",
     "text": "<p>Das Problem entsteht durch windverfrachteten Schnee. Triebschnee kann sowohl mit, als auch ohne gleichzeitigen Schneefall entstehen.</p> <b>Verhaltensempfehlung</b> <br/> <p> Vermeide Triebschneeablagerungen in steilem Gelände, insbesondere an Übergängen von wenig zu viel Schnee und von weichem zu hartem Schnee.</p>",
-    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
   }
 }

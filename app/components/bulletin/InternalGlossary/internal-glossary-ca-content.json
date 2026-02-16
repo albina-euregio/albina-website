@@ -17,7 +17,8 @@
       },
       "heading": "Mida 1: Allau petita (sluff)",
       "text": "<p>És improbable que enterri una persona, excepte en zones d'arribada desfavorables (trampes del terreny).<br/>En terreny extremadament inclinat, el perill de caigudes profundes preval sobre el perill de sepultaments.<br/>La neu desplaçada normalment s'atura abans del final d'un pendent.</p>",
-      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "source": "false"
     },
   "avalanche-size-medium": {
     "ids": {
@@ -37,7 +38,8 @@
       },
       "heading": "Mida 2: Allau mitjana",
       "text": "<p>Pot sepultar, lesionar o matar una persona.<br/>La mida 2 correspon a l'allau típic desencadenat per un esquiador.<br/>L'allau de neu normalment s'atura al final d'un pendent.</p>",
-      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+      "source": "false"
     },
   "avalanche-size-large": {
     "ids": {
@@ -57,7 +59,8 @@
       },
       "heading": "Mida 3: Allau gran",
       "text": "<p>Pot sepultar i destruir un cotxe, danyar un camió; destruir un edifici petit o trencar alguns arbres.<br/>Quan els esquiadors són atrapats per allaus d'aquesta mida, la probabilitat de conseqüències greus és molt alta.<br/>L'allau de neu pot travessar terreny pla (considerablement per sota de 30°) en distàncies de menys de 50 m.</p>",
-      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "source": "false"
     },
   "avalanche-size-very-large": {
     "ids": {
@@ -77,7 +80,8 @@
       },
       "heading": "Mida 4: Allau molt gran",
       "text": "<p>Pot sepultar i destruir un vagó de tren, un camió gran, diversos edificis o una part d'un bosc.<br/>Pot destruir edificis força grans i petites zones de bosc.<br/>L'allau de neu travessa terreny pla (considerablement per sota de 30°) en distàncies de més de 50 m i pot arribar al fons de la vall.</p>",
-      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "source": "false"
   },
   "avalanche-size-extremely-large": {
     "ids": {
@@ -97,7 +101,8 @@
       },
       "heading": "Mida 5: Allau extremadament gran",
       "text": "<p>Pot esculpir el paisatge; potencial de danys desastrosos.<br/>L'allau de neu arriba al fons de la vall.<br/>La distància de recorregut més gran coneguda.</p>",
-      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
+      "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+      "source": "false"
   },
   "avalanche-frequency-none": {
     "ids": {
@@ -117,7 +122,8 @@
       },
       "heading": "Classe de freqüència d'allaus: Cap o gairebé cap",
       "text": "<p>Els punts amb aquesta classe d'estabilitat no existeixen, o són tan rars que no es consideren rellevants per a l'avaluació de l'estabilitat.</p>",
-      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER___"
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER___",
+      "source": "false"
   },
   "avalanche-frequency-few": {
     "ids": {
@@ -137,7 +143,8 @@
       },
       "heading": "Classe de freqüència d'allaus: Poques",
       "text": "<p>Els punts amb aquesta classe d'estabilitat són rars. Tot i que són rars, el seu número es considera rellevant per a l'avaluació de l'estabilitat.</p><p>És difícil trobar evidència de la inestabilitat.</p>",
-      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER___"
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER___",
+      "source": "false"
   },
   "avalanche-frequency-some": {
     "ids": {
@@ -157,7 +164,8 @@
       },
       "heading": "Classe de freqüència d'allaus: Algunes",
       "text": "<p>Els punts amb aquesta classe d'estabilitat no són ni molts ni pocs, però aquests punts normalment existeixen en característiques del terreny comunes (és a dir, prop de les carenes, en barrancs).</p>",
-      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER___"
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER___",
+      "source": "false"
   },
   "avalanche-frequency-many": {
     "ids": {
@@ -177,7 +185,8 @@
       },
       "heading": "Classe de freqüència d'allaus: Moltes",
       "text": "<p>Els punts amb aquesta classe d'estabilitat són abundants.</p><p>Sovint és fàcil trobar evidències de la inestabilitat.</p>",
-      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER___"
+      "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER___",
+      "source": "false"
     },
   "danger-pattern-1": {
       "ids": {
@@ -353,7 +362,8 @@
       },
       "heading": "Grau de perill: Feble",
       "text": "<p><b>Situació d’allaus generalment favorable.</b><br />No hi ha signes d'alarma. Les allaus només es poden desencadenar en casos aïllats, en particular en pendents extremadament inclinades.<br /> <b>Recomanacions per muntanyencs i esquiadors</b><br /> Circuleu en pendents extremadament escarpades d’un en un i tingueu en compte el perill de caure.</p>",
-      "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+      "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+      "source": "false"
     },
     "danger-scale-moderate": {
       "ids": {
@@ -369,7 +379,8 @@
       },
       "heading": "Grau de perill: Moderat",
       "text": "<p><b>Situació d’allaus majoritàriament favorable.</b><br />Es poden produir signes d’alarma en casos aïllats. Les allaus es poden desencadenar, en particular, en pendents molt inclinats, amb l'orientació i l'elevació indicades al butlletí. Les allaus naturals grans són poc probables.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Les activitats en terreny de muntanya s’han de seleccionar acuradament, sobretot en els vessants d'orientació i altitud indicats al lauegi.report Circular per vessants inclinats d'un en un. Atenció a l'estructura desfavorable del mantell de neu (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capes febles persistents</a>).</p>",
-      "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+      "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+      "source": "false"
     },
     "danger-scale-considerable": {
       "ids": {
@@ -385,7 +396,8 @@
       },
       "heading": "Grau de perill: Marcat",
       "text": "<p><b>Situació d'allaus crítica.</b><br />Són típics els whumpfs i les fissures que propaguen. Es poden desencadenar allaus fàcilment, particularment en pendents molt inclinats, amb l'orientació i l'elevació indicats al butlletí. Es poden produir allaus naturals i desencadenaments remots.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />La situació més crítica per als muntanyencs. Utilitzeu el terreny de manera eficient i seleccioneu la millor ruta possible amb una exposició mínima. Eviteu pendents molt inclinats amb l'orientació i l'elevació indicats al butlletí. Es recomana que les persones inexpertes es mantinguin en pistes i senders oberts.<br /></p>",
-      "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+      "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+      "source": "false"
     },
     "danger-scale-high": {
       "ids": {
@@ -401,7 +413,8 @@
       },
       "heading": "Grau de perill: Fort",
       "text": "<p><b>Situació d'allaus molt crítica.</b><br />És probable que hi hagi allaus naturals i sovint molt grans. Es poden desencadenar allaus fàcilment en molts pendents. El desencadenament remot és típic. Sovint es produeixen whumpfs i esquerdes que propaguen.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Mantingueu-vos en terrenys moderadament inclinats. Vigileu amb les zones d'arribada de grans allaus. Les persones sense experiència han de romandre en pistes d’esquí obertes. Aquesta previsió es dona només en uns dies durant tot l’hivern.<br /></p>",
-      "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+      "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+      "source": "false"
     },
     "danger-scale-very-high": {
       "ids": {
@@ -417,7 +430,8 @@
       },
       "heading": "Grau de perill: Molt fort",
       "text": "<p><b>Situació d'allaus extraordinària.</b><br />S'esperen nombroses allaus naturals molt grans i extremes. Aquestes poden arribar a carreteres i assentaments a la vall.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Es recomana no sortir a la muntanya fora de les pistes d’esquí obertes.<br /></p>",
-      "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>"
+      "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+      "source": "false"
     },
     "snowpack-stability-very-poor": {
     "ids": {
@@ -437,7 +451,8 @@
     },
     "heading": "Estabilitat del mantell de neu: Molt pobre",
     "text": "<p>Naturals / molt fàcil de desencadenar</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-poor": {
     "ids": {
@@ -457,7 +472,8 @@
     },
     "heading": "Estabilitat del mantell de neu: Pobre",
     "text": "<p>Fàcil de desencadenar (per exemple, un sol esquiador/a)</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-fair": {
     "ids": {
@@ -477,7 +493,8 @@
     },
     "heading": "Estabilitat del mantell de neu: Regular",
     "text": "<p>Difícil de desencadenar (p. ex. explosius)</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER___",
+    "source": "false"
   },
   "snowpack-stability-good": {
     "ids": {
@@ -497,7 +514,8 @@
     },
     "heading": "Estabilitat del mantell de neu: Bona",
     "text": "<p>Condicions estables</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER___"
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER___",
+    "source": "false"
   },
     "problem-glide": {
     "ids": {
@@ -517,7 +535,8 @@
     },
     "heading": "Problema: lliscament",
     "text": "Tot el mantell de neu llisca sobre el terreny, normalment en terrenys llisos com ara pendents herboses o zones de roques llises. L’elevada activitat d’allaus de lliscament basal està relacionada normalment amb un mantell de neu gruixut amb cap o només poques capes. Es poden produir allaus de lliscament tant amb un mantell de neu seca i freda com amb un mantell càlid. És difícil predir el desencadenament d’una allau de  lliscament, tot i que les esquerdes s’obren generalment abans d’un desencadenament.</p><b>Consells de circulació</b> <br/> <p>Evitar zones properes a esquerdes de lliscament.</p>",
-    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
   "problem-new-snow": {
     "ids": {
@@ -537,7 +556,8 @@
     },
     "heading": "Problema: Neu recent",
     "text": "<p>El problema d'allaus està relacionat amb les nevades actuals o més recents. La quantitat de càrrega addicional per neu nova al mantell de neu existent és el factor crucial del nou problema d'estabilitat. La importància de la càrrega crítica depèn de diversos factors, com ara la temperatura o les característiques de la superfície de la neu antiga.</p><b>Consells de circulació</b> <br/> <p>Plaques seques:<br>Espera fins que el mantell s'estabilitzi.<br>Allaus puntuals de neu seca:<br>El perill de caiguda és més important que el d'enterrament. Considera les conseqüències en terreny molt inclinat. </p>",
-    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
   },
   "problem-persistent-weak-layer": {
     "ids": {
@@ -557,7 +577,8 @@
     },
     "heading": "Problema: Capes febles persistents",
     "text": "<p>El problema d'allaus està relacionat amb la presència de capes febles persistents a l’antic mantell de neu. Aquestes capes febles inclouen típicament gebre de superfície enterrat, gobelets o cristalls amb facetes.</p><b>Consells de circulació</b> <br/> <p>Tipus d'allaus previstes</p>",
-    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
   "problem-wet-snow": {
     "ids": {
@@ -577,7 +598,8 @@
     },
     "heading": "Problema: Neu humida",
     "text": "<p>El problema de les allaus està relacionat amb el debilitament del mantell de neu degut a la presència d’aigua líquida. L’aigua s’infiltra al mantell de neu a causa de la fusió o la pluja.</p><b>Consells de circulació</b> <br/> <p>En presència de crosta de regel, les condicions després de nits fredes amb cels clars solen ser favorables al matí pel regel. Després de nits càlides amb cels ennuvolats, el problema sovint ja existeix al matí. Normalment la pluja sobre neu fresca crea aquest problema gairebé immediatament. El bon horari i la planificació de la sortida són importants. Penseu en les zones d'arribada d’allaus.</p>",
-    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />"
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
   },
       "problem-wind-slab": {
     "ids": {
@@ -597,7 +619,8 @@
     },
     "heading": "Avalanche problem: Wind slab",
     "text": "<p>El problema d'allaus està relacionat amb les Plaques de vent. La neu es pot transportarpel vent amb o sense nevada simultània.</p> <b>Consells de circulació</b> <br/> <p> Eviteu les acumulacions de neu en terrenys molt inclinats, especialment en zones on el mantell de neu canvia de prim a gruixut o de dur a tou.</p>",
-    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
-  }   
+      "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+      "source": "false"
+  }
 }
 
