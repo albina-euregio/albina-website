@@ -16,7 +16,7 @@
       "en": "avalanche-size-small"
     },
     "heading": "Size 1: Small avalanche (sluff)",
-    "text": "<p>Unlikely to bury a person, except in run out zones with unfavourable terrain features (e.g. terrain traps)<br/>In extremely steep terrain, the danger of deep falls prevails the danger of burials.<br/> snow relocation typically stop before the end of a slope </p>",
+    "text": "<p>Unlikely to bury a person, except in run out zones with unfavourable terrain features (e.g. terrain traps)</p><p>In extremely steep terrain, the danger of deep falls prevails the danger of burials.</p><p>Snow relocation typically stops before the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
   },
   "avalanche-size-medium": {
@@ -36,7 +36,7 @@
       "en": "avalanche-size-medium"
     },
     "heading": "Size 2: Medium avalanche",
-    "text": "<p>could bury, injure or kill a person<br/> Size 2 corresponds to the typical skier-triggered avalanche <br/> snow avalanche stops typically at the end of a slope </p>",
+    "text": "<p>Could bury, injure or kill a person</p><p>Size 2 corresponds to the typical skier-triggered avalanche.</p><p>Snow avalanche stops typically at the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>"
   },
   "avalanche-size-large": {
@@ -56,7 +56,7 @@
       "en": "avalanche-size-large"
     },
     "heading": "Size 3: Large avalanche",
-    "text": "<p>could bury and destroy a car, damage a truck; destroy a small building or break a few trees<br/> When skiers are caught by avalanches of this size, probability for severe consequences are very high. <br/> snow avalanche could traverse flat terrain (considerably below 30\u00b0) over distances of less than 50 m </p>",
+    "text": "<p>Could bury and destroy a car, damage a truck; destroy a small building or break a few trees</p><p>When skiers are caught by avalanches of this size, probability for severe consequences are very high.</p><p>Snow avalanche could traverse flat terrain (considerably below 30\u00b0) over distances of up to 50 m.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
   },
   "avalanche-size-very-large": {
@@ -76,7 +76,7 @@
       "en": "avalanche-size-very-large"
     },
     "heading": "Size 4: Very large avalanche",
-    "text": "<p>could bury and destroy a railway car, large truck, several buildings or a piece of forest<br/> May destroy fairly large buildings and small areas of forest.<br/> snow avalanche traverses flat terrain (considerably below 30\u00b0) over distances more than 50 m and can reach valley ground </p>",
+    "text": "<p>Could bury and destroy a railway car, large truck, several buildings or a piece of forest</p><p>May destroy fairly large buildings and small areas of forest.</p><p>Snow avalanche traverses flat terrain (considerably below 30\u00b0) over distances more than 50 m and can reach valley ground.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
   },
   "avalanche-size-extremely-large": {
@@ -96,7 +96,7 @@
       "en": "avalanche-size-extremely-large"
     },
     "heading": "Size 5: Extremely large avalanche",
-    "text": "<p>could gouge the landscape; disastrous damage potential<br/> snow avalanche reaches valley ground <br/> largest runout distance known </p>",
+    "text": "<p>Could gouge the landscape; disastrous damage potential</p><p>Snow avalanche reaches valley ground.</p><p>Largest runout distance known.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">"
   },
   "avalanche-frequency-none": {
@@ -136,7 +136,7 @@
       "en": "avalanche-frequency-few"
     },
     "heading": "Frequency: Few",
-    "text": "<p>Points with this stability class are rare. While rare, their number is considered relevant for stability assessment.</p> <p>Evidence for instability is hard to find.</p>",
+    "text": "<p>Points with this stability class are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
     "img": "__SIMPLE_SLIDER__|none,few,some,many|1|__END_SLIDER__"
   },
   "avalanche-frequency-some": {
@@ -176,7 +176,7 @@
       "en": "avalanche-frequency-many"
     },
     "heading": "Frequency: Many",
-    "text": "<p>Points with this stability class are abundant.</p><p>Evidence for instability is often easy to find.</p>",
+    "text": "<p>Points with this stability class are abundant. Evidence for instability is often easy to find.</p>",
     "img": "__SIMPLE_SLIDER__|none,few,some,many|3|__END_SLIDER__"
   },
   "danger-pattern-1": {
