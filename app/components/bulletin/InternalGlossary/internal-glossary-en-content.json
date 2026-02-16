@@ -117,7 +117,7 @@
     },
     "heading": "Frequency: None",
     "text": "<p>Points with this stability class do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
-    "img": "__SIMPLE_SLIDER__|none,few,some,many|__END_SLIDER__"
+    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__"
   },
   "avalanche-frequency-few": {
     "ids": {
@@ -137,7 +137,7 @@
     },
     "heading": "Frequency: Few",
     "text": "<p>Points with this stability class are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
-    "img": "__SIMPLE_SLIDER__|none,few,some,many|1|__END_SLIDER__"
+    "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__"
   },
   "avalanche-frequency-some": {
     "ids": {
@@ -157,7 +157,7 @@
     },
     "heading": "Frequency: Some",
     "text": "<p>Points with this stability class are neither many nor a few, but these points typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
-    "img": "__SIMPLE_SLIDER__|none,few,some,many|2|__END_SLIDER__"
+    "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__"
   },
   "avalanche-frequency-many": {
     "ids": {
@@ -177,7 +177,7 @@
     },
     "heading": "Frequency: Many",
     "text": "<p>Points with this stability class are abundant. Evidence for instability is often easy to find.</p>",
-    "img": "__SIMPLE_SLIDER__|none,few,some,many|3|__END_SLIDER__"
+    "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__"
   },
   "danger-pattern-1": {
     "ids": {
