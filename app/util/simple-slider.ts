@@ -77,7 +77,7 @@ export class LabeledSlider {
         }
       }
 
-      tick.appendChild(dot);
+      //tick.appendChild(dot);
       tick.appendChild(text);
       if (this.options.interactive !== false) {
         tick.addEventListener("click", () => this.setIndex(index));
