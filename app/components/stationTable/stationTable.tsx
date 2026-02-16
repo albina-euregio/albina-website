@@ -168,6 +168,38 @@ export default function StationTable(props: Props) {
       className: "mb-temp m-ltnow"
     },
     {
+      // Surface Temp.
+      group: "temp",
+      data: "TSS",
+      render(row) {
+        return (
+          <>
+            <span className="TSS" title={title("TSS")}>
+              {intl.formatNumberUnit(row.TSS, this.unit)}
+            </span>
+          </>
+        );
+      },
+      unit: "°C",
+      className: "mb-temp"
+    },
+    {
+      // Rel. humidity [%]
+      group: "temp",
+      data: "RH",
+      render(row) {
+        return (
+          <>
+            <span className="RH" title={title("RH")}>
+              {intl.formatNumberUnit(row.RH, this.unit)}
+            </span>
+          </>
+        );
+      },
+      unit: "%",
+      className: "mb-temp"
+    },
+    {
       // Wind Geschw. / Wind Böe <br> (i18n Wind Richtung)
       group: "wind",
       data: "VW",

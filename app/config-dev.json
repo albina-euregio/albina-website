@@ -131,11 +131,77 @@
         "smetOperators": "ÖBB INFRA-SAE",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://oebb.infra.tbbm.at/smet/oebb.geojson?v=legacy",
+        "stations": "https://oebb.infra.tbbm.at/smet/linea.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
+      },
+      {
+        "smet": "https://lawinen.at/smet/stm/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "",
+        "stations": "https://lawinen.at/smet/stm/stations_stm.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "smet": "https://lawinen.at/smet/noe/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://lawinen.at/smet/noe/stations_noe.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "smet": "https://lawinen.at/smet/ooe/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://lawinen.at/smet/ooe/stations_ooe.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "smet": "https://lawinen.at/smet/vor/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://lawinen.at/smet/vor/stations_vor.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "smet": "https://lawinen.at/smet/bay/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://lawinen.at/smet/bay/stations_bay.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "smet": "https://lawinen.at/smet/slo/woche/{id}.smet.gz",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://lawinen.at/smet/slo/stations_slo.geojson?v=legacy",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
       },
       {
         "smet": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids={id}&parameters=TL%2CFF%2CFFX%2CDD%2CP%2CRF%2CSCHNEE%2CTP&output_format=geojson&start={start}&end={end}",

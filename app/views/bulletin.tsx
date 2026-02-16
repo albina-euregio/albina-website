@@ -26,6 +26,7 @@ import { $headless, $province, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
 import { openPage, redirectPage } from "@nanostores/router";
+import { scrollIntoView } from "../util/scrollIntoView";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -292,6 +293,36 @@ const Bulletin = () => {
           toggleProblem={toggleProblem}
         />
       </Suspense>
+      {!config.bulletin.showAllBulletins && !region && status === "ok" && (
+        <div
+          className="section-padding"
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        >
+          <ControlBar
+            message={
+              <section className="section-header align-center">
+                <p className="controlbar-top">
+                  <a
+                    href="#page-all"
+                    onClick={e => scrollIntoView(e)}
+                    className="icon-link icon-arrow-up"
+                  >
+                    <span>
+                      <FormattedMessage id="bulletin:linkbar:back-to-map" />
+                    </span>
+                  </a>
+                </p>
+                <h2 className="subheader">
+                  <FormattedMessage id="bulletin:select-region:title" />
+                </h2>
+                <p className="subheader">
+                  <FormattedMessage id="bulletin:select-region:subtitle" />
+                </p>
+              </section>
+            }
+          />
+        </div>
+      )}
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
