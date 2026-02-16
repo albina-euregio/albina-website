@@ -1,17 +1,26 @@
-import React, { useRef, useEffect }  from "react";
+import React, { useRef, useEffect } from "react";
 import { Tooltip } from "../../tooltips/tooltip";
 import { FormattedMessage } from "../../../i18n";
 import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../../util/htmlParser";
 import { LabeledSlider } from "../../../util/simple-slider";
-import { fr } from "zod/locales";
 
-export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = false, rotateLabelsAngle = 0 }) => {
+export const LabeledSliderReact = ({
+  labels = [],
+  initialIndex = 0,
+  interactive = false,
+  rotateLabelsAngle = 0
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      new LabeledSlider(containerRef.current, { labels, initialIndex, interactive, rotateLabelsAngle });
+      new LabeledSlider(containerRef.current, {
+        labels,
+        initialIndex,
+        interactive,
+        rotateLabelsAngle
+      });
     }
   }, [labels, initialIndex, interactive, rotateLabelsAngle]);
 
@@ -19,22 +28,21 @@ export const LabeledSliderReact = ({ labels =[], initialIndex=0, interactive = f
 };
 
 const GLOSSARY_INTERNAL_CONTENT = Object.freeze({
-  ca: () => import("./Internal-Glossary-ca-content.json").then(d => d.default),
-  de: () => import("./Internal-Glossary-de-content.json").then(d => d.default),
-  en: () => import("./Internal-Glossary-en-content.json").then(d => d.default),
-  es: () => import("./Internal-Glossary-es-content.json").then(d => d.default),
-  it: () => import("./Internal-Glossary-it-content.json").then(d => d.default),
-  oc: () => import("./Internal-Glossary-oc-content.json").then(d => d.default),
-  fr: () => import("./Internal-Glossary-fr-content.json").then(d => d.default)
+  ca: () => import("./internal-glossary-ca-content.json").then(d => d.default),
+  de: () => import("./internal-glossary-de-content.json").then(d => d.default),
+  en: () => import("./internal-glossary-en-content.json").then(d => d.default),
+  es: () => import("./internal-glossary-es-content.json").then(d => d.default),
+  it: () => import("./internal-glossary-it-content.json").then(d => d.default),
+  oc: () => import("./internal-glossary-oc-content.json").then(d => d.default),
+  fr: () => import("./internal-glossary-fr-content.json").then(d => d.default)
 });
 
 export type EnabledLanguages = keyof typeof GLOSSARY_INTERNAL_CONTENT;
 
 type InternalGlossaryContent = Awaited<
   ReturnType<(typeof GLOSSARY_INTERNAL_CONTENT)[EnabledLanguages]>
-> & {
-  [key: string]: GlossaryEntry;
-};
+> &
+  Record<string, GlossaryEntry>;
 
 export interface GlossaryEntry {
   ids: Record<string, string>;
@@ -49,13 +57,10 @@ class InternalGlossaryReplacer {
   private constructor(
     public readonly locale: EnabledLanguages,
     public readonly content: InternalGlossaryContent
-  ) {
-  }
+  ) {}
 
   static async init(locale: EnabledLanguages) {
-    if (
-      !GLOSSARY_INTERNAL_CONTENT[locale]
-    ) {
+    if (!GLOSSARY_INTERNAL_CONTENT[locale]) {
       return undefined;
     }
     return new InternalGlossaryReplacer(
@@ -95,18 +100,21 @@ class InternalGlossaryReplacer {
 
   renderGlossaryImg(img: string): React.ReactNode {
     if (img && img.startsWith("__SIMPLE_SLIDER__")) {
-      // Example: __SIMPLE_SLIDER__|none,few,some,many|2|true| __END_SLIDER__
+      // Example: __SIMPLE_SLIDER__|none,few,some,many|2|__END_SLIDER__
       //const imgParts = img.split("__END_SLIDER__");
       const [sliderPart, ...rest] = img.split("__END_SLIDER__");
       const parts = sliderPart.split("|");
       const labels = parts[1]?.split(",") ?? [];
       const initialIndex = parts[2] ? parseInt(parts[2], 10) : 0;
-      const isInteractive = parts[3] ? parts[3].toLowerCase() === "true" : false;
-      const rotateLabelsAngle = parts[4] ? parseInt(parts[4], 10) : 0;
+      const rotateLabelsAngle = parts[3] ? parseInt(parts[3], 10) : 0;
       return (
-        <div style={{ margin: "1em 0" }}>
-          {/* @ts-ignore: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
-          <LabeledSliderReact labels={labels} initialIndex={initialIndex} interactive={isInteractive} rotateLabelsAngle={rotateLabelsAngle} />
+        <div style={{ margin: "1em" }}>
+          {/* @ts-expect-error: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
+          <LabeledSliderReact
+            labels={labels}
+            initialIndex={initialIndex}
+            rotateLabelsAngle={rotateLabelsAngle}
+          />
           {rest.length > 0 ? preprocessContent(rest.join(" ")) : null}
         </div>
       );
@@ -115,7 +123,7 @@ class InternalGlossaryReplacer {
     return preprocessContent(img ?? "");
   }
 
-  async getTooltipContent(
+  getTooltipContent(
     glossaryItem: GlossaryEntry,
     textKey: string,
     idText: string
@@ -131,7 +139,7 @@ class InternalGlossaryReplacer {
         {img ? this.renderGlossaryImg(img) : null}
         {hasSource && (
           <p className="tooltip-source">
-            (<FormattedMessage id={"glossary:source"} />: {" "}
+            (<FormattedMessage id={"glossary:source"} />:{" "}
             <a href={href} target="_blank" rel="external noreferrer">
               EAWS
             </a>
@@ -140,14 +148,14 @@ class InternalGlossaryReplacer {
         )}
       </>
     );
-    const tooltipProps: any = {
+    const tooltipProps: Record<string, unknown> = {
       key: textKey,
       label: content,
       html: true,
       enableClick: true,
-      zIndex: 2000000, // ensure glossary tooltip is above others
+      zIndex: 2000000 // ensure glossary tooltip is above others
     };
-    if (typeof width !== 'undefined') {
+    if (typeof width !== "undefined") {
       tooltipProps.width = width;
     }
     return (
@@ -157,7 +165,7 @@ class InternalGlossaryReplacer {
     );
   }
 
-  async findGlossaryStrings(text: string, textKey: string) {
+  findGlossaryStrings(text: string, textKey: string) {
     // Check if the text matches any glossary content
     const glossaryItem = this.content[textKey];
     if (!glossaryItem) {
