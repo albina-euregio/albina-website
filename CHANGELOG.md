@@ -2,6 +2,52 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.2.0] - 2026-02-16
+
+### 🚀 Features
+
+- Allow to show/select parameters on weather-station map
+- Add surface temperature and relative humidity to weather-station measurements table
+- Add CTA to hint users to select region in map first
+
+### 🐛 Bug Fixes
+
+- Fix PDF link
+- Fix initial time/timespan of weather-maps for different parameters
+- Parameter and timespan from URL are single point of truth for weather-maps
+
+### 🚜 Refactor
+
+- Use new linea schema for ÖBB INFRA weather stations
+
+### ⚙️ Miscellaneous Tasks
+
+- Update eaws-regions to v8.2.0
+- Update LINEA to v8.7.5
+- Upgrade vite to 8.0.0-beta.13
+
+## [8.1.2] - 2026-01-29
+
+### 🚀 Features
+
+- Use new linea schema for LWD Kärnten
+
+### 🐛 Bug Fixes
+
+- Fix href in back-link on blog page
+
+### ⚙️ Miscellaneous Tasks
+
+- Update privacy page
+- Update accessability page
+- Update open data page
+
+## [8.1.1] - 2026-01-27
+
+### 🐛 Bug Fixes
+
+- Persist headless mode
+
 ## [8.1.0] - 2026-01-26
 
 ### 🚀 Features
