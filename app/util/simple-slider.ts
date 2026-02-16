@@ -97,7 +97,11 @@ export class LabeledSlider {
       ".slider-progress"
     ) as HTMLElement;
 
-    const percentage = ((this.selectedIndex + 0.5) / labels.length) * 100;
+    // Fill to 100% if last index is selected, otherwise use proportional calculation
+    const percentage =
+      this.selectedIndex === labels.length - 1
+        ? 100
+        : ((this.selectedIndex + 0.5) / labels.length) * 100;
     progress.style.width = `${percentage}%`;
 
     this.container.querySelectorAll(".slider-tick").forEach(tick => {
