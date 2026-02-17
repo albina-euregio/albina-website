@@ -199,8 +199,8 @@
       "sl": "vzorci-nevarnosti-1",
       "en": "danger-pattern-1"
     },
-    "heading": "Gefahrenmuster 1: bodennahe Schwachschicht",
-    "text": "<p>Zu Winterbeginn beobachtet man Schneebrettlawinen vermehrt nach dem&#13; zweiten bedeutsamen Schneefall, und zwar in hohen (&gt;2000&nbsp;m) und&#13; hochalpinen (&gt;3000&nbsp;m) Lagen im schattigen, sehr steilen Gelände. Dies hat&#13; damit zu tun, dass sich im Herbst nach den ersten großen Schneefällen&#13; meist eine längere, stabile Hochdruckwetterlage bzw. niederschlagsfreie&#13; Zeit einstellt. Dann herrschen ideale Bedingungen für die zumindest&#13; teilweise Umwandlung dieses Schnees zu lockeren Kristallen, die wiederum&#13; eine bodennahe Schwachschicht für die nachfolgenden Schneefälle bilden&#13; können. Im Verlaufe des Frühwinters sind davon mitunter auch andere&#13; Höhenlagen und Hangausrichtungen betroffen. Generell gilt, dass bodennahe&#13; Schwachschichten vom Frühwinter von Wintersportlern vermehrt zu&#13; Winterbeginn – während schneearmer Winter häufig auch noch später – zu&#13; stören sind. Dies gilt generell auch für das Frühjahr, wenn bodennahe&#13; Schwachschichten durch Wassereintrag neuerlich geschwächt werden können.</p> <p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.1: bodennahe Schwachschicht",
+    "text": "<p>Zu Winterbeginn beobachtet man Schneebrettlawinen vermehrt nach dem&#13; zweiten bedeutsamen Schneefall, und zwar in hohen (&gt;2000&nbsp;m) und&#13; hochalpinen (&gt;3000&nbsp;m) Lagen im schattigen, sehr steilen Gelände. Dies hat&#13; damit zu tun, dass sich im Herbst nach den ersten großen Schneefällen&#13; meist eine längere, stabile Hochdruckwetterlage bzw. niederschlagsfreie&#13; Zeit einstellt. Dann herrschen ideale Bedingungen für die zumindest&#13; teilweise Umwandlung dieses Schnees zu lockeren Kristallen, die wiederum&#13; eine bodennahe Schwachschicht für die nachfolgenden Schneefälle bilden&#13; können.</p> <p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
@@ -215,8 +215,8 @@
       "sl": "vzorci-nevarnosti-2",
       "en": "danger-pattern-2"
     },
-    "heading": "Gefahrenmuster 2: gleitschnee",
-    "text": "<p>Snow glides most easily towards the valley across steep, smooth surfaces. While this process is taking place, glide cracks – easily visible, sometimes several-meters deep cracks in the snowpack surface – are formed. Such fissures are now considered to be not the favourable signs which ancient folk knowledge once posited (such traditions are hard to overcome) but instead, utterly unfavourable indicators of potential, sometimes imminent avalanches. A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.2: gleitschnee ",
+    "text": "<p>A glide crack points to the possibility of a glide-snow avalanche without giving any indication if or when such a glide-snow avalanche will actually release. Regarding their timing, glide-snow avalanches number among the most difficult avalanches of all to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
     "source": "false"
   },
@@ -231,7 +231,7 @@
       "sl": "vzorci-nevarnosti-3",
       "en": "danger-pattern-3"
     },
-    "heading": "Gefahrenmuster 3: regen",
+    "heading": "gm.3: regen ",
     "text": "<p>Regen gilt als ein klassisches Alarmzeichen in der Schnee- und Lawinenkunde, weil er einerseits zusätzliches Gewicht in die Schneedecke bringt und andererseits zu einem raschen Festigkeitsverlust führt. Lawinen sind deshalb vorprogrammiert. Regen kann in jedem Abschnitt eines Winters auftreten. Der große Vorteil: Kein Gefahrenmuster kann leichter erkannt werden als Regen.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
@@ -247,8 +247,8 @@
       "sl": "vzorci-nevarnosti-4",
       "en": "danger-pattern-4"
     },
-    "heading": "Gefahrenmuster 4: kalt auf warm / warm auf kalt",
-    "text": "<p>Zu lange wurde in der Lawinenkunde die Lehrmeinung vertreten, dass sich ein großer Temperaturunterschied während des Einschneiens (egal ob kalt auf warm oder umgekehrt) günstig auf die Lawinensituation auswirke. Dies trifft jedoch nur unter bestimmten Voraussetzungen zu. Mehrheitlich wirkt sich ein solcher Temperaturunterschied jedoch negativ aus, weil er die aufbauende Umwandlung innerhalb der Schneedecke begünstigt: In der Regel bildet sich dadurch eine dünne, durchwegs störanfällige Schwachschicht. Diese findet man oft auch im südseitigen Gelände. Eine heimtückische Angelegenheit, auch deshalb, weil die Schwachschicht unmittelbar nach dem Einschneien noch nicht vorhanden ist und sich erst im Laufe der folgenden Tage bildet.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.4: kalt auf warm / warm auf kalt ",
+    "text": "<p>großer Temperaturunterschied während der Beschneiung wirken sich negativ aus, weil er die aufbauende Umwandlung innerhalb der Schneedecke begünstigt: In der Regel bildet sich dadurch eine dünne, durchwegs störanfällige Schwachschicht. Diese findet man oft auch im südseitigen Gelände. Eine heimtückische Angelegenheit, auch deshalb, weil die Schwachschicht unmittelbar nach dem Einschneien noch nicht vorhanden ist und sich erst im Laufe der folgenden Tage bildet.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
@@ -263,8 +263,8 @@
       "sl": "vzorci-nevarnosti-5",
       "en": "danger-pattern-5"
     },
-    "heading": "Gefahrenmuster 5: schnee nach langer kälteperiode",
-    "text": "<p> Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. In addition, strong winds prevail which transport the new snow accordingly. Within the shortest imaginable time, a treacherous situation arises for backcountry skiers. This is also the case if, following a lengthy period of cold, “only” strong winds are blowing without snowfall. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.5: schnee nach langer kälteperiode ",
+    "text": "<p> Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
@@ -279,8 +279,8 @@
       "sl": "vzorci-nevarnosti-6",
       "en": "danger-pattern-6"
     },
-    "heading": "Gefahrenmuster 6: lockerer schnee und wind",
-    "text": "<p>„Der Wind ist der Baumeister der Lawinen“: Dieser klassische Spruch von Wilhelm Paulcke aus den dreißiger Jahren des vorigen Jahrhunderts gilt auch heute noch unverändert. Wind beeinflusst sowohl den fallenden als auch den bereits abgelagerten Schnee und ist einer der wesentlichsten Lawinen bildenden Faktoren. Bei lockerem, trockenen Schnee führt Wind immer zu Verfrachtungen und damit zu einer Zunahme der Lawinengefahr! Je kälter der verfrachtete Schnee, desto empfindlicher reagiert er auf Belastung, weil die Sprödigkeit zunimmt. Charakteristisch für dieses gm ist, dass die Schwachschicht meist aus lockerem Neuschnee besteht und von Triebschnee überlagert ist. Es hat also entweder kurz zuvor bei kalten Temperaturen ohne Wind geschneit und dann zu wehen begonnen oder aber es beginnt ohne Windeinfluss zu schneien, wobei der Wind während des Schneefalls an Stärke zunimmt. Ein Muster, das sich in der Regel recht gut erkennen lässt und nur von kurzer Dauer ist. Eine Ausnahme bilden nur jene (seltenen) Situationen, bei denen die aus lockeren, aufbauend umgewandelten Kristallen bestehende Altschneeoberfläche vom Wind verfrachtet wird. In der Regel bilden sich dann harte, spröde und über längere Zeit störanfällige Schneebretter.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.6: lockerer schnee und wind ",
+    "text": "<p>„Der Wind ist der Baumeister der Lawinen“: Dieser klassische Spruch von Wilhelm Paulcke aus den dreißiger Jahren des vorigen Jahrhunderts gilt auch heute noch unverändert. Wind beeinflusst sowohl den fallenden als auch den bereits abgelagerten Schnee und ist einer der wesentlichsten Lawinen bildenden Faktoren. Bei lockerem, trockenen Schnee führt Wind immer zu Verfrachtungen und damit zu einer Zunahme der Lawinengefahr! Je kälter der verfrachtete Schnee, desto empfindlicher reagiert er auf Belastung, weil die Sprödigkeit zunimmt.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
@@ -295,8 +295,8 @@
       "sl": "vzorci-nevarnosti-7",
       "en": "danger-pattern-7"
     },
-    "heading": "Gefahrenmuster 7: schneearm neben schneereich",
-    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow. This occurs frequently near terrain edges, and repeatedly on broad ridges.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.7: schneearm neben schneereich ",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
@@ -311,7 +311,7 @@
       "sl": "vzorci-nevarnosti-8",
       "en": "danger-pattern-8"
     },
-    "heading": "Gefahrenmuster 8: eingeschneiter oberflächenreif",
+    "heading": "gm.8: eingeschneiter oberflächenreif ",
     "text": "<p>Oberflächenreif zählt zu den schönsten Schneearten überhaupt und birgt für sich allein gesehen noch kein Gefahrenpotenzial: Erst wenn er von neuen, gebundenen Schneeschichten überdeckt wird, wird er gefährlich und gilt deshalb zu Recht als eine der kritischsten Schwachschichten der Schnee- und Lawinenkunde.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
@@ -327,7 +327,7 @@
       "sl": "vzorci-nevarnosti-9",
       "en": "danger-pattern-9"
     },
-    "heading": "Gefahrenmuster 9: eingeschneelter graupel",
+    "heading": "gm.9: eingeschneelter graupel ",
     "text": "<p>Schwachschichten innerhalb der Schneedecke werden bei Lawinenkursen häufig mit Kugellagern verglichen. Wirklich passend ist dieses Bild nur für den Graupel: eine kugelförmige Niederschlagsform, die sich bevorzugt im Frühjahr bei gewitterartigen Schauern ablagert. Leicht vorzustellen, dass Triebschnee, der sich darüber ansammelt, meist nur schlecht mit dieser Schwachschicht verbunden ist und damit die Gefahr von Lawinenabgängen steigt. Graupel ist häufig kleinräumig verteilt und lässt sich ohne Blick in die Schneedecke selbst von Experten meist nur schwer erkennen. Eine durchwegs heimtückische Angelegenheit, die zum Glück nur kurzfristig zu Problemen führt.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
@@ -343,8 +343,8 @@
       "sl": "vzorci-nevarnosti-10",
       "en": "danger-pattern-10"
     },
-    "heading": "Gefahrenmuster 10: frühjahrsituation",
-    "text": "<p>Eine besondere Herausforderung für den Wintersportler, aber auch für Lawinenprognostiker sowie Lawinenkommissionsmitglieder stellt das Frühjahr dar. Selten liegen „sicher“ und „gefährlich“ zeitlich so eng beieinander und somit ist auch die Bandbreite der während eines Tages ausgegebenen Gefahrenstufen so weit gefächert. Einerseits ist die Lawinengefahr kaum einmal leichter einzuschätzen als bei stabilen Firnverhältnissen, andererseits werden aber auch kaum jemals während eines Winters so große Lawinenabgänge verzeichnet wie während kritischer Frühjahrssituationen. Dabei spielt neben dem Schneedeckenaufbau das zum Teil komplexe Wechselspiel aus Lufttemperatur, Luftfeuchte, Strahlungseinfluss und Wind eine entscheidende Rolle. Für den Wintersportler sind zeitliche Disziplin sowie Flexibilität bei der Tourenplanung gefragter denn je.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
+    "heading": "gm.10: frühjahrsituation ",
+    "text": "<p>Einerseits ist die Lawinengefahr kaum einmal leichter einzuschätzen als bei stabilen Firnverhältnissen, andererseits werden aber auch kaum jemals während eines Winters so große Lawinenabgänge verzeichnet wie während kritischer Frühjahrssituationen. Dabei spielt neben dem Schneedeckenaufbau das zum Teil komplexe Wechselspiel aus Lufttemperatur, Luftfeuchte, Strahlungseinfluss und Wind eine entscheidende Rolle. Für den Wintersportler sind zeitliche Disziplin sowie Flexibilität bei der Tourenplanung gefragter denn je.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Sieh dir das Video auf YouTube an</a></p>",
     "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"
   },
