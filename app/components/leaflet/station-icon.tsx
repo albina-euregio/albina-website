@@ -1,4 +1,5 @@
 import React from "react";
+
 const iconSVGS = {
   "directionArrow-centered":
     "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z",
@@ -14,129 +15,84 @@ interface Props {
   itemId: "any" | string;
   dataType?: "forecast" | "analyse" | string;
   color: string | [number, number, number];
-  selected?: boolean;
   direction?: number;
 }
 
 export default function StationIcon(props: Props) {
-  function RGBToHex(color: [number, number, number]) {
-    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-  }
+  const fill =
+    typeof props.color === "string"
+      ? props.color
+      : Array.isArray(props.color)
+        ? `rgb(${props.color[0]}, ${props.color[1]}, ${props.color[2]})`
+        : "black";
 
-  function getCircle(type: Props["dataType"], color: string) {
-    const analyseStrokeColor = type === "forecast" ? color : "#000";
-    if (["forecast", "analyse"].includes(type))
-      return (
+  if (
+    ["VW", "VW_MAX"].includes(props.itemId) &&
+    typeof props.direction === "number"
+  ) {
+    // shouldShowWindArrow
+    return (
+      <div className={props.type}>
         <svg
-          style={{ position: "absolute", left: "0px", top: "0px" }}
+          style={{
+            position: "absolute",
+            transform: `rotate(${props.direction + 180}deg)`
+          }}
+          height="28"
+          viewBox="0 0 28 28"
+          width="28"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d={iconSVGS["windArrow"]}
+            fill={fill}
+            stroke="#000"
+            strokeWidth="1.0"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <svg
+          style={{ position: "absolute" }}
           width="22"
           height="22"
           viewBox="0 0 22 22"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx={11}
-            cy={11}
-            r={10.5}
-            stroke={analyseStrokeColor}
-            strokeWidth={1}
-            fill={color || "#fff"}
-          />
-          {props.type === "station" && (
-            <circle
-              className="station-icon-cluster-circle"
-              cx={11}
-              cy={11}
-              r={8}
-              stroke={analyseStrokeColor}
-              strokeWidth={1}
-              strokeDasharray={1.3675}
-              fill={color || "#fff"}
-            />
-          )}
-          {type === "forecast" && (
-            <circle
-              cx={11}
-              cy={11}
-              r={10.5}
-              stroke={"#000000"}
-              strokeWidth={1}
-              strokeDasharray={1.3675}
-              fill="none"
-            />
-          )}
+          <text
+            x={"60%"}
+            y={"62%"}
+            dominantBaseline="middle"
+            textAnchor="middle"
+          >
+            {props.value}
+          </text>
         </svg>
-      );
-  }
-
-  function getWindArrow(direction: Props["direction"], color: string) {
-    return (
-      <svg
-        style={{
-          position: "absolute",
-          transform: `rotate(${direction}deg)`
-        }}
-        height="28"
-        viewBox="0 0 28 28"
-        width="28"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d={iconSVGS["windArrow"]}
-          fill={color}
-          stroke="#000"
-          strokeWidth="1.0"
-          strokeLinejoin="round"
-        />
-      </svg>
+      </div>
     );
   }
 
-  function getText(text: string, showCircle: boolean) {
-    return (
+  return (
+    <div className={props.type}>
       <svg
-        style={{ position: "absolute", left: "0px", top: "0px" }}
+        style={{ position: "absolute" }}
         width="22"
         height="22"
         viewBox="0 0 22 22"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <text
-          x={!showCircle ? "60%" : "50%"}
-          y={!showCircle ? "62%" : "52%"}
-          dominantBaseline="middle"
-          textAnchor="middle"
-        >
-          {text}
+        <circle
+          cx={11}
+          cy={11}
+          r={10.5}
+          stroke={"#000"}
+          strokeWidth={1}
+          strokeDasharray={props.dataType === "forecast" ? 1.3675 : undefined}
+          fill={fill || "#fff"}
+        />
+        <text x={"50%"} y={"52%"} dominantBaseline="middle" textAnchor="middle">
+          {props.value}
         </text>
       </svg>
-    );
-  }
-
-  const fill =
-    typeof props.color === "string"
-      ? props.color
-      : Array.isArray(props.color)
-        ? RGBToHex(props.color)
-        : "black";
-
-  const isWindParameter = ["VW", "VW_MAX"].includes(props.itemId);
-  const shouldShowWindArrow =
-    isWindParameter && typeof props.direction === "number";
-  const shouldShowCircle = !shouldShowWindArrow;
-
-  //console.log("StationIcon->render kkk", showCircle(), props);
-  return (
-    <div
-      className={
-        props.type + (props.selected ? " " + props.type + "-selected" : "")
-      }
-    >
-      {shouldShowCircle && getCircle(props.dataType, fill)}
-
-      {shouldShowWindArrow && getWindArrow(props.direction + 180, fill)}
-
-      {getText(props.value, shouldShowCircle)}
     </div>
   );
 }

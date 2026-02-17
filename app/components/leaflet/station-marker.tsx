@@ -40,7 +40,6 @@ const StationMarker = ({
   iconAnchor,
   itemId,
   onClick,
-  selected,
   tooltip,
   type,
   value
@@ -52,12 +51,11 @@ const StationMarker = ({
         type={type}
         color={color}
         dataType={dataType || "analyse"}
-        selected={selected}
         value={value}
         direction={direction}
       />
     );
-  }, [color, dataType, direction, itemId, selected, type, value]);
+  }, [color, dataType, direction, itemId, type, value]);
 
   const icon = useMemo(
     () =>
@@ -102,15 +100,7 @@ const StationMarker = ({
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      coordinates,
-      data,
-      element,
-      icon,
-      stationIcon,
-      tooltip,
-      zIndexOffset
-    ]
+    [coordinates, data, element, icon, stationIcon, tooltip, zIndexOffset]
   );
 
   return marker;
