@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { createPortal } from "react-dom";
 import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 
@@ -52,7 +51,7 @@ const StationMarker = ({
   type,
   value
 }: Props): React.ReactNode => {
-  const stationIcon = useMemo(() => {
+  const icon = useMemo(() => {
     const fill =
       typeof color === "string"
         ? color
@@ -61,92 +60,81 @@ const StationMarker = ({
           : "black";
 
     if (["VW", "VW_MAX"].includes(itemId) && typeof direction === "number") {
-      // shouldShowWindArrow
-      return (
-        <div className={type}>
+      return new L.DivIcon({
+        iconAnchor: iconAnchor || [12.5, 12.5],
+        className: className,
+        html: `
+        <div class="${type}">
           <svg
-            style={{
-              position: "absolute",
-              transform: `rotate(${direction + 180}deg)`
-            }}
+            style="position: absolute; transform: rotate(${direction + 180}deg)"
             height="28"
             viewBox="0 0 28 28"
             width="28"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d={iconSVGS["windArrow"]}
-              fill={fill}
+              d="${iconSVGS["windArrow"]}"
+              fill="${fill}"
               stroke="#000"
-              strokeWidth="1.0"
-              strokeLinejoin="round"
+              stroke-width="1.0"
+              stroke-linejoin="round"
             />
           </svg>
           <svg
-            style={{ position: "absolute" }}
+            style="position: absolute"
             width="22"
             height="22"
             viewBox="0 0 22 22"
             xmlns="http://www.w3.org/2000/svg"
           >
             <text
-              x={"60%"}
-              y={"62%"}
-              dominantBaseline="middle"
-              textAnchor="middle"
+              x="60%"
+              y="62%"
+              dominant-baseline="middle"
+              text-anchor="middle"
             >
-              {value}
+              ${value}
             </text>
           </svg>
         </div>
-      );
+       
+        `
+      });
     }
 
-    return (
-      <div className={type}>
+    return new L.DivIcon({
+      iconAnchor: iconAnchor || [12.5, 12.5],
+      className: className,
+      html: `
+      <div class=${type}>
         <svg
-          style={{ position: "absolute" }}
+          style="position: absolute"
           width="22"
           height="22"
           viewBox="0 0 22 22"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
-            cx={11}
-            cy={11}
-            r={10.5}
-            stroke={"#000"}
-            strokeWidth={1}
-            strokeDasharray={dataType === "forecast" ? 1.3675 : undefined}
-            fill={fill || "#fff"}
+            cx="11"
+            cy="11"
+            r="10.5"
+            stroke="#000"
+            stroke-width="1"
+            stroke-dasharray="${dataType === "forecast" ? 1.3675 : undefined}"
+            fill="${fill || "#fff"}"
           />
           <text
-            x={"50%"}
-            y={"52%"}
-            dominantBaseline="middle"
-            textAnchor="middle"
+            x="50%"
+            y="52%"
+            dominant-baseline="middle"
+            text-anchor="middle"
           >
-            {value}
+            ${value}
           </text>
         </svg>
-      </div>
-    );
-  }, [color, dataType, direction, itemId, type, value]);
-
-  const icon = useMemo(
-    () =>
-      new L.DivIcon({
-        iconAnchor: iconAnchor || [12.5, 12.5],
-        className: className
-      }),
-    [className, iconAnchor]
-  );
-
-  const element = useMemo(() => {
-    const element = icon.createIcon();
-    icon.createIcon = () => element;
-    return element;
-  }, [icon]);
+      </div>`
+    });
+  }, [className, iconAnchor, color, dataType, direction, itemId, type, value]);
 
   // Markers with values should render above markers without values
   const zIndexOffset = useMemo(() => {
@@ -172,11 +160,10 @@ const StationMarker = ({
         }
       >
         {tooltip && <Tooltip>{tooltip}</Tooltip>}
-        {createPortal(stationIcon, element)}
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [coordinates, data, element, icon, stationIcon, tooltip, zIndexOffset]
+    [coordinates, data, icon, tooltip, zIndexOffset]
   );
 
   return marker;
