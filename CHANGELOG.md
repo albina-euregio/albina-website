@@ -2,6 +2,16 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.2.1] - 2026-02-18
+
+### 🐛 Bug Fixes
+
+- Allow to scroll horizontal in weather station diagrams
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+
 ## [8.2.0] - 2026-02-16
 
 ### 🚀 Features
