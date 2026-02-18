@@ -37,6 +37,42 @@ interface Props {
   className: string;
 }
 
+function getContrastTextColor(
+  color: string | [number, number, number] | unknown
+): string {
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  if (typeof color === "string") {
+    // Parse hex color
+    if (color.startsWith("#")) {
+      const hex = color.slice(1);
+      r = parseInt(hex.slice(0, 2), 16);
+      g = parseInt(hex.slice(2, 4), 16);
+      b = parseInt(hex.slice(4, 6), 16);
+    } else if (color.startsWith("rgb")) {
+      // Parse rgb color
+      const match = color.match(/\d+/g);
+      if (match) {
+        r = parseInt(match[0]);
+        g = parseInt(match[1]);
+        b = parseInt(match[2]);
+      }
+    }
+  } else if (Array.isArray(color)) {
+    r = color[0];
+    g = color[1];
+    b = color[2];
+  }
+
+  // Calculate relative luminance using sRGB
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+  // Use white text on dark backgrounds, black text on light backgrounds
+  return luminance > 0.435 ? "#000" : "#fff";
+}
+
 const StationMarker = ({
   className,
   color,
@@ -58,6 +94,9 @@ const StationMarker = ({
         : Array.isArray(color)
           ? `rgb(${color[0]}, ${color[1]}, ${color[2]})`
           : "black";
+
+    // Calculate text color based on background brightness
+    const textColor = getContrastTextColor(color);
 
     if (["VW", "VW_MAX"].includes(itemId) && typeof direction === "number") {
       return new L.DivIcon({
@@ -92,6 +131,7 @@ const StationMarker = ({
               y="62%"
               dominant-baseline="middle"
               text-anchor="middle"
+              fill="${textColor}"
             >
               ${value}
             </text>
@@ -128,6 +168,7 @@ const StationMarker = ({
             y="52%"
             dominant-baseline="middle"
             text-anchor="middle"
+            fill="${textColor}"
           >
             ${value}
           </text>
