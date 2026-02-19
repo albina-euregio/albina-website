@@ -2,6 +2,18 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.2.2] - 2026-02-19
+
+### 🐛 Bug Fixes
+
+- Fix arrows for wind direction in forecast of weather maps
+
+### ⚙️ Miscellaneous Tasks
+
+- Use high contrast text color in markers (weather map, station map)
+- Update LINEA to v8.7.6
+- Update translations
+
 ## [8.2.1] - 2026-02-18
 
 ### 🐛 Bug Fixes
