@@ -98,6 +98,40 @@ const StationMarker = ({
     // Calculate text color based on background brightness
     const textColor = getContrastTextColor(color);
 
+    if (type === "grid") {
+      if (direction === null || direction === undefined) {
+        return new L.DivIcon({
+          iconAnchor: iconAnchor || [12, 12],
+          className: className,
+          html: ``
+        });
+      }
+      return new L.DivIcon({
+        iconAnchor: iconAnchor || [12, 12],
+        className: className,
+        html: `
+        <div class="${type}">
+          <svg
+            style="position: absolute; left: 6px; top: 6; transform: rotate(${direction + 180}deg)"
+            height="12"
+            viewBox="0 0 9 12"
+            width="9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="${iconSVGS["directionArrow-centered"]}"
+              fill-rule="evenodd"
+              stroke="#000"
+              stroke-width="0.6"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        `
+      });
+    }
+
     if (["VW", "VW_MAX"].includes(itemId) && typeof direction === "number") {
       return new L.DivIcon({
         iconAnchor: iconAnchor || [12.5, 12.5],
