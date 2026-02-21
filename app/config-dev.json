@@ -2,12 +2,11 @@
   "headless": false,
   "headlessLogo": "",
   "province": null,
-  "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+  "regionCodes": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
   "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
   "stationRegions": ["AT-02", "AT-07", "DE-BY", "IT-32-BZ", "IT-32-TN"],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "extraRegions": [
-    "AT-02",
     "AT-03",
     "AT-04",
     "AT-05",
