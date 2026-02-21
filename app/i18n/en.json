@@ -135,7 +135,7 @@
   "bulletin:select-region:title": "Select region on map",
   "bulletin:select-region:subtitle": "for the detailed avalanche forecast",
   "bulletin:report:headline": "Danger level for <strong>{date} {daytime}</strong>",
-  "bulletin:report:headline2": "Danger Level {number} – {text}",
+  "bulletin:report:headline2": "Danger Level {number} — {text}",
   "bulletin:report:headline2:level0": "{text}",
   "bulletin:report:daytime:all_day": "All Day",
   "bulletin:report:daytime:earlier": "Earlier",
