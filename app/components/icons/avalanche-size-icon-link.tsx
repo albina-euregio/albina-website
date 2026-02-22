@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
-  const imgRoot = `${window.config.projectRoot}images/pro/avalanche-sizes/`;
   return (
     <div
       className="bulletin-report-picto bulletin-situation-frequency"
@@ -17,7 +16,7 @@ export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
       <Tooltip label={title}>
         <a href={"/education/avalanche-problems#avalancheSize"} className="img">
           <img
-            src={`${imgRoot}avalanche-size_${avalancheSize}.png`}
+            src={`${window.config.projectRoot}images/pro/avalanche-sizes/avalanche-size_${avalancheSize}.png`}
             alt={title}
           />
         </a>

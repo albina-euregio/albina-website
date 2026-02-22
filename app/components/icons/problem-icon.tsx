@@ -8,9 +8,11 @@ interface Props {
 }
 
 export default function ProblemIcon({ problem, active, alt }: Props) {
-  const imgRoot = window.config.projectRoot + "images/pro/avalanche-problems/";
-  const path = imgRoot + problem + ".webp";
-  const style = active ? {} : { filter: "grayscale(100%)" };
-
-  return <img src={path} alt={alt} style={style} />;
+  return (
+    <img
+      src={`${window.config.projectRoot}images/pro/avalanche-problems/${problem}.webp`}
+      alt={alt}
+      style={active ? {} : { filter: "grayscale(100%)" }}
+    />
+  );
 }

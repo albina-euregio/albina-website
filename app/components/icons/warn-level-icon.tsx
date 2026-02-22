@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../../util/warn-levels";
-import { Tooltip } from "../../components/tooltips/tooltip";
+import { Tooltip } from "../tooltips/tooltip.tsx";
 import {
   DangerRatingValue,
   isOneDangerRating as isOneDangerRating0
@@ -23,7 +23,7 @@ const WarnLevelIcon = (props: Props) => {
       return (
         (number ? number + "–" : "") +
         intl.formatMessage({
-          id: "danger-level:" + warnLevel
+          id: `danger-level:${warnLevel}`
         })
       );
     }
@@ -40,10 +40,9 @@ const WarnLevelIcon = (props: Props) => {
   const colorAboveText = numberAbove >= 4 ? "#FFF" : "#222";
 
   const isOneDangerRating = useStore(isOneDangerRating0);
-  const imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
   const img = isOneDangerRating
-    ? `${imgRoot}../danger-levels/level_${numberAbove}.svg`
-    : `${imgRoot}levels_${numberBelow}_${numberAbove}.webp`;
+    ? `${window.config.projectRoot}images/pro/danger-levels/level_${numberAbove}.svg`
+    : `${window.config.projectRoot}images/pro/warning-pictos/levels_${numberBelow}_${numberAbove}.webp`;
 
   let title;
   let elevationText;
