@@ -9,6 +9,7 @@ function BulletinFooter() {
   const weatherRegions = province
     ? [province]
     : (config.regionCodes as (typeof province)[]);
+  const blogRegions = weatherRegions;
 
   return (
     <section className="section-centered section-context">
@@ -42,27 +43,18 @@ function BulletinFooter() {
         </h2>
 
         <ul className="list-inline list-buttongroup-dense">
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=AT-07"}>
-              {intl.formatMessage({
-                id: "region:AT-07"
-              })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=IT-32-BZ"}>
-              {intl.formatMessage({
-                id: "region:IT-32-BZ"
-              })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=IT-32-TN"}>
-              {intl.formatMessage({
-                id: "region:IT-32-TN"
-              })}
-            </a>
-          </li>
+          {blogRegions.map(region => (
+            <li key={region}>
+              <a
+                className="secondary pure-button"
+                href={`/blog?region=${region}`}
+              >
+                {intl.formatMessage({
+                  id: `region:${region}`
+                })}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <h2 className="subheader">
