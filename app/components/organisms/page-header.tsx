@@ -50,6 +50,16 @@ function PageHeader() {
     navOpen = true;
   }
 
+  const languageNameInNativeLanguage = {
+    oc: "Aranés",
+    ca: "Català",
+    de: "Deutsch",
+    en: "English",
+    es: "Español",
+    fr: "Français",
+    it: "Italiano"
+  };
+
   return (
     <div id="page-header" className="page-header">
       <div className="page-header-logo">
@@ -125,77 +135,19 @@ function PageHeader() {
               <span></span>
             </a>
             <ul className="list-plain subnavigation">
-              {/* languages in alphabetical order */}
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-oc"
-                  onClick={() => handleChangeLanguage("oc")}
-                >
-                  Aranés
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-ca"
-                  onClick={() => handleChangeLanguage("ca")}
-                >
-                  Català
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-de"
-                  onClick={() => handleChangeLanguage("de")}
-                >
-                  Deutsch
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-en"
-                  onClick={() => handleChangeLanguage("en")}
-                >
-                  English
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-es"
-                  onClick={() => handleChangeLanguage("es")}
-                >
-                  Español
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-fr"
-                  onClick={() => handleChangeLanguage("fr")}
-                >
-                  Français
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-it"
-                  onClick={() => handleChangeLanguage("it")}
-                >
-                  Italiano
-                </a>
-              </li>
+              {config.languages.map(l => (
+                <li key={l}>
+                  <a
+                    role="button"
+                    tabIndex="0"
+                    // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
+                    className={`language-trigger-${l}`}
+                    onClick={() => handleChangeLanguage(l)}
+                  >
+                    {languageNameInNativeLanguage[l]}
+                  </a>
+                </li>
+              ))}
             </ul>
           </li>
         </ul>

@@ -25,8 +25,6 @@ const regionTranslationImports = import.meta.glob(
   }
 );
 
-export const languages: Language[] = Object.values(LanguageSchema.def.entries);
-
 export const $language = atom("" as Language);
 export const $messages = atom(
   {} as Record<FormatjsIntl.Message["ids"], string>
@@ -54,7 +52,7 @@ async function loadMessages(newLanguage: Language) {
 }
 export async function setLanguage(newLanguage: Language): Promise<void> {
   const oldLanguage = $language.get();
-  if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
+  if (!config.languages.includes(newLanguage) || oldLanguage === newLanguage) {
     return;
   }
   $messages.set(await loadMessages(newLanguage));
