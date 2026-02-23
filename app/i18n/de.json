@@ -135,7 +135,7 @@
   "bulletin:select-region:title": "Region auf der Karte auswählen",
   "bulletin:select-region:subtitle": "für die detaillierte Lawinenvorhersage",
   "bulletin:report:headline": "Gefahrenstufe für <strong>{date} {daytime}</strong>",
-  "bulletin:report:headline2": "Gefahrenstufe {number} – {text}",
+  "bulletin:report:headline2": "Gefahrenstufe {number} — {text}",
   "bulletin:report:headline2:level0": "{text}",
   "bulletin:report:daytime:all_day": "Ganzer Tag",
   "bulletin:report:daytime:earlier": "Früher",
