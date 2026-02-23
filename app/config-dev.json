@@ -1,4 +1,5 @@
 {
+  "mainLanguages": ["en", "de", "it"],
   "headless": false,
   "headlessLogo": "",
   "province": null,

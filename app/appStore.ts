@@ -27,8 +27,6 @@ const regionTranslationImports = import.meta.glob(
 
 export const languages: Language[] = Object.values(LanguageSchema.def.entries);
 
-export const mainLanguages: Language[] = ["en", "de", "it"];
-
 export const $language = atom("" as Language);
 export const $messages = atom(
   {} as Record<FormatjsIntl.Message["ids"], string>
