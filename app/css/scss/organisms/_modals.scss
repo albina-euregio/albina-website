@@ -297,7 +297,7 @@ button.mfp-arrow {
   }
 
   ul.weatherstation-flipper {
-    //overflow: auto;
+    overflow: hidden;
     margin-bottom: variables.$padding;
     line-height: 1;
     font-size: variables.$tiny-font-size;
@@ -410,7 +410,7 @@ button.mfp-arrow {
   }
 
   .uplots {
-    overflow: hidden;
+    //overflow: hidden;
     margin-left: -$modal-padding;
     margin-right: -$modal-padding;
     padding-left: variables.$padding;

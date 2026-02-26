@@ -12,7 +12,6 @@ interface Props {
   onLoading?: () => void;
   item: Domain["item"];
   itemId: "any" | DomainId | ParameterType;
-  selectedFeature?: { id: string };
   onMarkerSelected: (arg0: any) => void;
   features: StationData[] | any[];
   showMarkersWithoutValue?: boolean;
@@ -83,14 +82,10 @@ const StationOverlay = (props: Props) => {
         key={props.itemId + "-" + data.id}
         itemId={props.itemId}
         data={markerData}
-        stationName={data.name}
         tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={markerData.value}
-        selected={
-          props.selectedFeature ? data.id == props.selectedFeature.id : false
-        }
         color={
           isAnyMode
             ? (Object.values(props.item.colors)[0] as number[])

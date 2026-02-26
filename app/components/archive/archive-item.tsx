@@ -97,7 +97,7 @@ function ArchiveItem({ date, status }: Props) {
                 format="pdf"
                 date={date}
                 lang={lang}
-                bulletin={bulletin?.bulletinID}
+                bulletin={bulletin}
               />
             </li>
           )}
@@ -155,7 +155,7 @@ function DownloadLink({
   date,
   lang
 }: {
-  bulletin?: string;
+  bulletin?: Bulletin;
   format: "pdf" | "xml" | "json";
   date: Temporal.PlainDate;
   lang: string;
@@ -168,13 +168,24 @@ function DownloadLink({
   const url = config.apis.bulletin[format];
   return (
     <a
-      href={config.template(url, {
-        bulletin: bulletin || "",
-        date,
-        region: `${province || "EUREGIO"}${format === "pdf" && url.includes("/api/bulletins") ? "" : "_"}`,
-        lang,
-        bw: ""
-      })}
+      href={config.template(
+        url,
+        url.includes("/api/bulletins/pdf")
+          ? {
+              date: bulletin.validTime?.startTime?.toISOString(),
+              region: province ?? "EUREGIO",
+              bulletinId: bulletin.bulletinID,
+              lang,
+              bw: ""
+            }
+          : {
+              bulletinId: "",
+              date,
+              region: `${province || "EUREGIO"}${"_"}`,
+              lang,
+              bw: ""
+            }
+      )}
       rel="noopener noreferrer"
       target="_blank"
       className="small secondary pure-button tooltip"

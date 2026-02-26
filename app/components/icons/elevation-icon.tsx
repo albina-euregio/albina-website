@@ -8,15 +8,15 @@ interface Props {
 }
 
 export default function ElevationIcon({ where, text, title }: Props) {
-  const imgRoot = `${window.config.projectRoot}images/pro/warning-pictos/`;
-  const src = `${imgRoot}levels_${where}.webp`;
-
   return (
     <Tooltip label={title}>
       <div
         className={`bulletin-report-picto problem-altitude problem-${where}`}
       >
-        <img src={src} alt={title} />
+        <img
+          src={`${window.config.projectRoot}images/pro/warning-pictos/levels_${where}.webp`}
+          alt={title}
+        />
         {where != "all" && (
           <span>
             {text}
