@@ -30,6 +30,7 @@ function BulletinList({ bulletins, date, region }: Props) {
                     bulletin={bulletin}
                     bulletin170000={bulletin170000}
                     date={date}
+                    region={region}
                   />
                 </li>
               )}
@@ -45,6 +46,7 @@ function BulletinList({ bulletins, date, region }: Props) {
                   bulletin={bulletin}
                   bulletin170000={bulletin170000}
                   date={date}
+                  region={region}
                 />
               </li>
             )}
