@@ -1,6 +1,8 @@
 {
+  "languages": ["ca", "en", "de", "es", "fr", "it", "oc"],
+  "mainLanguages": ["en", "de", "it"],
   "headless": false,
-  "headlessLogo": "",
+  "headlessLogo": [],
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
@@ -40,6 +42,154 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
+  "staticContentNamespace": [],
+  "menu": [
+    { "url": "/bulletin" },
+    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/weather",
+      "children": [
+        { "url": "/weather/map/" },
+        { "url": "" },
+        { "url": "/weather/stations" },
+        { "url": "/weather/measurements" },
+        { "url": "/weather/archive" },
+        { "url": "" },
+        {
+          "key": "lawis:incident",
+          "url": "https://www.lawis.at/incident?lang=en",
+          "url:de": "https://www.lawis.at/incident?lang=de"
+        },
+        {
+          "key": "lawis:profile",
+          "url": "https://www.lawis.at/profile?lang=en",
+          "url:de": "https://www.lawis.at/profile?lang=de"
+        },
+        { "key": "webcam", "url": "https://www.foto-webcam.eu" },
+        { "url": "" },
+        {
+          "key": "meteo-report",
+          "url": "https://meteo.report/mountains/",
+          "url:de": "https://meteo.report/de/mountains/",
+          "url:it": "https://meteo.report/it/mountains/"
+        }
+      ]
+    },
+    {
+      "url": "/education",
+      "indexKey": "education:overview",
+      "children": [
+        {
+          "url": "/education/danger-scale",
+          "img": "/content_files/feature_danger-scale.webp"
+        },
+        {
+          "url": "/education/avalanche-problems",
+          "img": "/content_files/feature_avalanche-problem.webp"
+        },
+        {
+          "url": "/education/danger-patterns",
+          "img": "/content_files/feature_danger-pattern.webp"
+        },
+        { "url": "" },
+        {
+          "key": "eaws-matrix",
+          "url": "/education/matrix",
+          "img": "/content_files/feature_matrix.webp"
+        },
+        {
+          "url": "/education/snowpack-stability",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/education/frequency",
+          "img": "/content_files/feature_frequency.webp"
+        },
+        {
+          "url": "/education/avalanche-sizes",
+          "img": "/content_files/feature_avalanche-size.webp"
+        },
+        {
+          "url": "/education/workflow",
+          "img": "/content_files/feature_workflow.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/education/handbook",
+          "img": "/content_files/feature_handbook.webp"
+        },
+        {
+          "url": "/education/spatio-temporal-scale",
+          "img": "/content_files/feature_spatio-temporal-scale.webp"
+        },
+        { "url": "" },
+        {
+          "key": "glossary",
+          "indexKey": "education:overview:glossary",
+          "url": "https://www.avalanches.org/glossary/?lang=en",
+          "url:de": "https://www.avalanches.org/glossary/?lang=de",
+          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "img": "/content_files/feature_glossary.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/education/virtual-reality-project",
+          "img": "/content_files/feature_vr.webp"
+        }
+      ]
+    },
+    {
+      "url": "/more",
+      "indexKey": "more",
+      "children": [
+        {
+          "url": "/more/archive",
+          "img": "/content_files/feature_archive.webp"
+        },
+        {
+          "url": "/more/season-reports",
+          "img": "/content_files/feature_season_reports.webp"
+        },
+        {
+          "url": "/education/community",
+          "indexKey": "education:overview:community",
+          "img": "/content_files/feature_community.webp"
+        },
+        {
+          "url": "/more/open-data",
+          "img": "/content_files/feature_open_data.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/more/about",
+          "img": "/content_files/feature_about.webp"
+        },
+        {
+          "url": "/blog/tech",
+          "indexKey": "more:blog:tech",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/more/contact",
+          "img": "/content_files/feature_contact.webp"
+        }
+      ]
+    }
+  ],
+  "menuFooter": [
+    { "url": "/more/imprint" },
+    { "url": "/more/privacy" },
+    { "url": "/more/accessibility" },
+    { "url": "/more/contact" }
+  ],
+  "menuFooterMain": [
+    { "url": "/bulletin" },
+    { "url": "/blog" },
+    { "url": "/weather", "showSub": true },
+    { "url": "/education", "showSub": true },
+    { "url": "/more", "showSub": true }
+  ],
+  "blogsMinYear": 2011,
   "blogs": [
     {
       "lang": "de",

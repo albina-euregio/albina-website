@@ -2,10 +2,11 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
+import { Language } from "../appStore";
 
 export const isTechBlog = atom<boolean>(false);
+export const isProfileBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");
-export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
@@ -17,7 +18,6 @@ export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
 export const categories = atom([] as Category[]);
 export const searchCategory = atom("");
 export const perPage = atom(20);
-export const minYear = 2011;
 
 onMount(language, () => init());
 
@@ -32,13 +32,24 @@ export interface BlogStore {
 }
 
 export const blogConfigs = computed(
-  [language, region, isTechBlog],
-  (language, region, isTechBlog): BlogConfig[] =>
-    isTechBlog
-      ? [window.config.techBlog]
-      : window.config.blogs
-          .filter(cfg => [cfg.lang, "all", ""].includes(language))
-          .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)))
+  [language, region, isTechBlog, isProfileBlog],
+  (language, region, isTechBlog, isProfileBlog): BlogConfig[] => {
+    if (isTechBlog) {
+      return [window.config.techBlog];
+    }
+    if (isProfileBlog) {
+      return [window.config.profilesBlog];
+    }
+    return window.config.blogs
+      .filter(cfg => [cfg.lang, "all", ""].includes(language))
+      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)));
+  }
+);
+
+export const supportedLanguages = computed([], () =>
+  window.config.blogs
+    .map(cfg => cfg.lang as Language)
+    .filter((lang, index, array) => array.indexOf(lang) === index)
 );
 
 export const postItems = computed(posts, posts =>
@@ -124,7 +135,7 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(parsed, minYear, Temporal.Now.plainDateISO().year);
+    return clamp(parsed, config.blogsMinYear, Temporal.Now.plainDateISO().year);
   } else {
     return "";
   }
@@ -144,7 +155,9 @@ export function validateLanguage(
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
-  return "en";
+  return supportedLanguages.get().includes("en")
+    ? "en"
+    : supportedLanguages.get()[0];
 }
 
 export function validateProblem(valueToValidate: string): string {

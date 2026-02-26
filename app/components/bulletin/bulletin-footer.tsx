@@ -9,6 +9,10 @@ function BulletinFooter() {
   const weatherRegions = province
     ? [province]
     : (config.regionCodes as (typeof province)[]);
+  const blogRegions = weatherRegions;
+  const weatherMap = config.menu.some(item =>
+    item.children?.some(i => i.url.startsWith("/weather/map"))
+  );
 
   return (
     <section className="section-centered section-context">
@@ -42,60 +46,55 @@ function BulletinFooter() {
         </h2>
 
         <ul className="list-inline list-buttongroup-dense">
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=AT-07"}>
-              {intl.formatMessage({
-                id: "region:AT-07"
-              })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=IT-32-BZ"}>
-              {intl.formatMessage({
-                id: "region:IT-32-BZ"
-              })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href={"/blog?region=IT-32-TN"}>
-              {intl.formatMessage({
-                id: "region:IT-32-TN"
-              })}
-            </a>
-          </li>
+          {blogRegions.map(region => (
+            <li key={region}>
+              <a
+                className="secondary pure-button"
+                href={`/blog?region=${region}`}
+              >
+                {intl.formatMessage({
+                  id: `region:${region}`
+                })}
+              </a>
+            </li>
+          ))}
         </ul>
 
-        <h2 className="subheader">
-          {intl.formatMessage({ id: "button:snow:headline" })}
-        </h2>
+        {weatherMap && (
+          <h2 className="subheader">
+            {intl.formatMessage({ id: "button:snow:headline" })}
+          </h2>
+        )}
 
-        <ul className="list-inline list-buttongroup-dense">
-          <li>
-            <a className="secondary pure-button" href="/weather/map/new-snow">
-              {intl.formatMessage({ id: "button:snow:hn:text" })}
-            </a>
-          </li>
-          <li>
-            <a
-              className="secondary pure-button"
-              href="/weather/map/snow-height"
-            >
-              {intl.formatMessage({ id: "button:snow:hs:text" })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href="/weather/map/wind">
-              {intl.formatMessage({ id: "button:snow:ff:text" })}
-            </a>
-          </li>
-          <li>
-            <a className="secondary pure-button" href="/weather/stations">
-              {intl.formatMessage({
-                id: "button:stations:stations:text"
-              })}
-            </a>
-          </li>
-        </ul>
+        {weatherMap && (
+          <ul className="list-inline list-buttongroup-dense">
+            <li>
+              <a className="secondary pure-button" href="/weather/map/new-snow">
+                {intl.formatMessage({ id: "button:snow:hn:text" })}
+              </a>
+            </li>
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/weather/map/snow-height"
+              >
+                {intl.formatMessage({ id: "button:snow:hs:text" })}
+              </a>
+            </li>
+            <li>
+              <a className="secondary pure-button" href="/weather/map/wind">
+                {intl.formatMessage({ id: "button:snow:ff:text" })}
+              </a>
+            </li>
+            <li>
+              <a className="secondary pure-button" href="/weather/stations">
+                {intl.formatMessage({
+                  id: "button:stations:stations:text"
+                })}
+              </a>
+            </li>
+          </ul>
+        )}
 
         <h2 className="subheader">
           {intl.formatMessage({
