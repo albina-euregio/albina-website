@@ -55,6 +55,8 @@ workflow:
 
 build:ES-AR:
   extends: .build
+  environment:
+    name: ES-AR
   variables:
     APP_REGION: ES-AR
   script:
@@ -63,6 +65,8 @@ build:ES-AR:
 
 build:ES-CT-L:
   extends: .build
+  environment:
+    name: ES-CT-L
   variables:
     APP_REGION: ES-CT-L
   script:
