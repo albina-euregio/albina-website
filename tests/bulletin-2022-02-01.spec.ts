@@ -23,7 +23,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   );
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
-  ).toContainText("Danger Level 4 – high");
+  ).toContainText("Danger Level 4 — high");
   await expect(bulletin.locator("p").nth(1)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
