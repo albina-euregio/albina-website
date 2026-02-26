@@ -15,7 +15,8 @@ const Education = () => {
     setLanguage(router?.search?.language);
   }
 
-  const menu = config.menu.find(item => item.url === router?.path);
+  const path = String(router?.path).replace(import.meta.env.BASE_URL, "/");
+  const menu = config.menu.find(item => item.url === path);
   const indexKey = menu.indexKey as "education:overview" | "more";
 
   return (
@@ -42,7 +43,11 @@ const Education = () => {
                 <a href={item.url} className="linkbox linkbox-feature">
                   <div className="content-image">
                     <img
-                      src={item.img}
+                      src={
+                        item.img.startsWith("/")
+                          ? import.meta.env.BASE_URL + item.img.slice(1)
+                          : item.img
+                      }
                       title={intl.formatMessage({
                         id: `${key}:headline`
                       })}
