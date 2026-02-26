@@ -12,6 +12,7 @@
   "eawsRegions": [],
   "eawsRegionsExclude": ["ES", "FR"],
   "staticContentNamespace": [
+    "/conditions/estacions",
     "/conditions/pistes",
     "/education/bons-habits",
     "/education/xarxa-observacions",
@@ -34,7 +35,7 @@
           "key": "conditions:estacions",
           "indexKey": "conditions:estacions",
           "img": "/content_files/feature_open_data.webp",
-          "url": "https://iot.arantec.com/app/dashboards/public/dashboard/7_S1yG7MxDUBqGUeKHa_OuK1SNVmads4?navbar=false&contextbar=true&layersBar=true&datePicker=true&devicePicker=true&displayTitle=true&filters=true"
+          "url": "/conditions/estacions"
         },
         {
           "key": "weather",
