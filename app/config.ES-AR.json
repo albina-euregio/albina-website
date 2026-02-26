@@ -10,7 +10,6 @@
   "eawsRegionsExclude": ["ES", "FR"],
   "staticContentNamespace": [
     "/conditions/pistes",
-    "/education/articles",
     "/education/bons-habits",
     "/education/xarxa-observacions",
     "/more/about",
@@ -114,8 +113,7 @@
           "url:de": "https://www.avalanches.org/glossary/?lang=de",
           "url:it": "https://www.avalanches.org/glossary/?lang=it",
           "url:fr": "https://www.avalanches.org/glossary/?lang=fr"
-        },
-        { "url": "/education/articles" }
+        }
       ]
     },
     {
