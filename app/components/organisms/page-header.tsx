@@ -63,10 +63,12 @@ function PageHeader() {
   return (
     <div id="page-header" className="page-header">
       <div className="page-header-logo">
-        {config.headlessLogo ? (
-          <a href="/">
-            <img src={config.headlessLogo} style={{ margin: 0 }} />
-          </a>
+        {config.headlessLogo?.length ? (
+          config.headlessLogo.map((logo, i) => (
+            <a href="/" key={i}>
+              <img src={logo} style={{ margin: 0 }} />
+            </a>
+          ))
         ) : (
           <Tooltip
             label={intl.formatMessage({

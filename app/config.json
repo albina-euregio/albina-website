@@ -2,7 +2,7 @@
   "languages": ["ca", "en", "de", "es", "fr", "it", "oc"],
   "mainLanguages": ["en", "de", "it"],
   "headless": false,
-  "headlessLogo": "",
+  "headlessLogo": [],
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
