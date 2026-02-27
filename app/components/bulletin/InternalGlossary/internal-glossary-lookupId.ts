@@ -9,12 +9,12 @@ import {
 } from "../../../stores/bulletin";
 
 export enum internalGlossaryEnum {
-  avalancheStability,
-  avalancheSize,
-  avalancheFrequency,
-  dangerLevel,
-  dangerPattern,
-  problemType
+  avalancheStability = 0,
+  avalancheSize = 1,
+  avalancheFrequency = 2,
+  dangerLevel = 3,
+  dangerPattern = 4,
+  problemType = 5
 }
 
 //#region glossary content identifiers
@@ -145,7 +145,7 @@ function avalancheFrequencyToContentId(
 
 
 function dangerLevelToContentId<T extends string>(value: T): string {
-  var level = parseInt(value);
+  const level = parseInt(value);
   switch (level) {
     case 1:
       return glossaryDangerLevelId.Low;
@@ -163,7 +163,7 @@ function dangerLevelToContentId<T extends string>(value: T): string {
 }
 
 function avalancheSizeToContentId<T extends string>(value: T): string {
-  var size = parseInt(value);
+  const size = parseInt(value);
   switch (size) {
     case 1:
       return glossaryAvalancheSizeId.SMALL;

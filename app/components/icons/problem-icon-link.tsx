@@ -1,7 +1,5 @@
-import React from "react";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
-import { Tooltip } from "../tooltips/tooltip";
 import { AvalancheProblem } from "../../stores/bulletin";
 import BulletinInternalGlossaryText from "../bulletin/InternalGlossary/internal-glossary-text.js";
 import { EnabledLanguages } from "../bulletin/InternalGlossary/internal-glossary.js";
