@@ -1,3 +1,4 @@
+import React from "react";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { AvalancheProblem } from "../../stores/bulletin";

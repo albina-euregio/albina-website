@@ -1,3 +1,4 @@
+import React from "react";
 import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import type * as Caaml from "../../stores/bulletin";
 import BulletinInternalGlossaryText from "./InternalGlossary/internal-glossary-text";
