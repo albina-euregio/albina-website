@@ -10,9 +10,10 @@ import {
   MapContainerProps,
   TileLayerProps
 } from "react-leaflet";
-import L from "leaflet";
+import L, { LatLngBounds, LatLngBoundsExpression } from "leaflet";
 import { $province } from "../../appStore.ts";
 import { useStore } from "@nanostores/react";
+import { eawsRegion } from "../../stores/eawsRegions.ts";
 
 interface Props {
   loaded: boolean;
@@ -29,6 +30,20 @@ interface Props {
 
 const LeafletMap = (props: Props) => {
   const province = useStore($province);
+  let bounds: LatLngBoundsExpression = [
+    [45.0, 9.9],
+    [47.8, 13.1]
+  ];
+
+  if (province) {
+    const region = eawsRegion(province);
+    if (region?.bbox) {
+      bounds = new LatLngBounds([
+        [region.bbox[1], region.bbox[0]],
+        [region.bbox[3], region.bbox[2]]
+      ]).pad(0.3);
+    }
+  }
 
   return (
     <MapContainer
@@ -51,7 +66,7 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
+      bounds={bounds}
       attributionControl={false}
     >
       <AttributionControl prefix={config.map.attribution} />

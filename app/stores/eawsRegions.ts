@@ -4,6 +4,7 @@ import { z } from "zod/mini";
 
 export const RegionOutlineSchema = z.object({
   id: z.string(),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
   aws: z.array(
     z.object({
       name: z.string(),
