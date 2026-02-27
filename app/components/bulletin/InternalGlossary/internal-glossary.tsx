@@ -5,6 +5,11 @@ import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../../util/htmlParser";
 import { LabeledSlider } from "../../../util/simple-slider";
 
+/**
+ * A React component that wraps the LabeledSlider utility.
+ * @param param0 
+ * @returns 
+ */
 export const LabeledSliderReact = ({
   labels = [],
   initialIndex = 0,
