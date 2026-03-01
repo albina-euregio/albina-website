@@ -23,13 +23,9 @@ test("archive", async ({ page }) => {
     .filter({ hasText: "Region" })
     .getByRole("combobox")
     .selectOption("AT-07-22");
-  await page.goto(
-    "http://localhost:3000/more/archive?month=15&year=2020&region=AT-07-22"
-  );
+  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
 
-  await page.goto(
-    "http://localhost:3000/more/archive?month=15&year=2020&region=AT-07-22"
-  );
+  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
   await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
