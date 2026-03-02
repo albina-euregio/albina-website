@@ -29,7 +29,7 @@ declare module "react/jsx-runtime" {
 }
 
 function hasInteractivePlot(station: StationData | ObserverData) {
-  return station instanceof StationData && station.$smet;
+  return station instanceof StationData && station.$smet?.length;
 }
 
 export interface ObserverData {
@@ -268,23 +268,17 @@ const StationDiagramImage: React.FC<{
       Date.parse(end) - (timeRangesMilli[timeRange] ?? timeRangesMilli["week"])
     ).toISOString();
     const id = station.properties?.shortName || station.id;
-    const url = (timeRangePath: string) =>
-      window.config.template(station.$smet ?? "", {
-        start,
-        end,
-        timeRangePath,
-        id
-      });
+    const smet = station.$smet?.map(smet =>
+      window.config.template(smet, { start, end, id })
+    );
     /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
           key={id}
-          src={url("woche")}
-          lazysrc={url("winter")}
-          wintersrc={
-            import.meta.env.BASE_URL === "/dev/" ? url("all") : undefined
-          }
+          src={smet?.[0]}
+          lazysrc={smet?.[1]}
+          wintersrc={smet?.[2]}
           showsurfacehoarseries
           showexport
           showdatepicker
