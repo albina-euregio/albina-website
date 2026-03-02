@@ -258,7 +258,10 @@
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
       },
       {
-        "smet": ["https://smet.hydrographie.info/{id}.smet"],
+        "smet": [
+          "https://smet.hydrographie.info/{id}.smet",
+          "https://smet.hydrographie.info/{id}_6m.smet"
+        ],
         "smetOperators": "LWD Kärnten",
         "png": "",
         "pngOperators": "---",
