@@ -40,15 +40,23 @@ interface PbfProps {
 
 export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
   const style = (id: string): PathOptions => {
-    id += toAmPm[props.validTimePeriod] ?? "";
-    const warnlevel = instance.options.dangerRatings[id];
+    const amPm = toAmPm[props.validTimePeriod] ?? "";
+    const dangerRatings = instance.options.dangerRatings;
+    const key = `${id}${amPm}`;
+    let warnlevel = dangerRatings[key];
+    if (!warnlevel && props.isOneDangerRating) {
+      warnlevel = Math.max(
+        dangerRatings[`${id}:low${amPm}`] ?? 0,
+        dangerRatings[`${id}:high${amPm}`] ?? 0
+      ) as WarnLevelNumber;
+    }
     if (!warnlevel) return config.map.regionStyling.hidden;
 
     const province = $province.get();
     const internRegex = province
       ? new RegExp(`^(${province})`)
       : new RegExp(config.regionsRegex);
-    return internRegex.test(id)
+    return internRegex.test(key)
       ? WARNLEVEL_STYLES.intern[warnlevel]
       : WARNLEVEL_STYLES.extern[warnlevel];
   };
