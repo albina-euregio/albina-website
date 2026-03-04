@@ -4,10 +4,6 @@ import ProblemIcon from "./problem-icon.js";
 import { AvalancheProblem } from "../../stores/bulletin";
 import BulletinInternalGlossaryText from "../bulletin/InternalGlossary/internal-glossary-text.js";
 import { EnabledLanguages } from "../bulletin/InternalGlossary/internal-glossary.js";
-import {
-  internalGlossaryEnum,
-  getContentIdentifier
-} from "../bulletin/InternalGlossary/internal-glossary-lookupId.js";
 
 interface Props {
   problem: AvalancheProblem;
@@ -34,7 +30,7 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
         <BulletinInternalGlossaryText
           text={problemTextShort} // Process the short text for glossary terms
           locale={intl.locale.slice(0, 2) as EnabledLanguages} // Use dynamic locale
-          textKey={getContentIdentifier(internalGlossaryEnum.problemType, problemType)}
+          textKey={"problem-" + problemType}
         />
       </div>
     </a>

@@ -1,622 +1,197 @@
 {
-"avalanche-size-small": {
-  "ids": {
-    "ar": "mida-deth-laueg-petit",
-    "ca": "mida-de-lallau-petit",
-    "cs": "velikost-laviny-malý",
-    "de": "lawinengrose-klein",
-    "es": "tamano-del-alud-pequeño",
-    "fr": "taille-davalanche-petit",
-    "is": "staerd-snjofloda-lítill",
-    "it": "dimensioni-delle-valanghe-piccolo",
-    "no": "skredstorrelse-liten",
-    "ro": "marimea-avalansei-mic",
-    "sk": "velkost-laviny-malý",
-    "sl": "velikost-sneznega-plazu-majhen",
-    "en": "avalanche-size-small"
+  "avalanche-size-1": {
+    "heading": "Tamaño 1: Alud pequeño (purga)",
+    "text": "<ul><li>Es improbable que entierre a una persona, excepto en zonas de llegada desfavorables (por ejemplo trampas del terreno)</li><li>En terreno extremadamente inclinado, el peligro de caídas prevalece sobre el de enterramientos.</li></ul><ul><li>Se detiene dentro de la ladera.</li></ul><ul><li>Longitud: &lt;&nbsp;50&nbsp;m</li><li>Volumen: 100&nbsp;m&sup3;</li></ul>",
+    "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
-  "heading": "Tamaño 1: Alud pequeño (purga)",
-  "text": "<ul><li>Es improbable que entierre a una persona, excepto en zonas de llegada desfavorables (por ejemplo trampas del terreno)</li><li>En terreno extremadamente inclinado, el peligro de caídas prevalece sobre el de enterramientos.</li></ul><ul><li>Se detiene dentro de la ladera.</li></ul><ul><li>Longitud: &lt;&nbsp;50&nbsp;m</li><li>Volumen: 100&nbsp;m&sup3;</li></ul>",
-  "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-  "source": "false"
-},
-"avalanche-size-medium": {
-  "ids": {
-    "ar": "mida-deth-laueg-mitjà",
-    "ca": "mida-de-lallau-mitjà",
-    "cs": "velikost-laviny-střední",
-    "de": "lawinengrose-mittel",
-    "es": "tamano-del-alud-medio",
-    "fr": "taille-davalanche-moyan",
-    "is": "staerd-snjofloda-miðlungs",
-    "it": "dimensioni-delle-valanghe-medio",
-    "no": "skredstorrelse-medium",
-    "ro": "marimea-avalansei-mediu",
-    "sk": "velkost-laviny-stredný",
-    "sl": "velikost-sneznega-plazu-srednje",
-    "en": "avalanche-size-medium"
+  "avalanche-size-2": {
+    "heading": "Tamaño 2: Alud mediano",
+    "text": "<ul><li>Puede enterrar, herir o matar a una persona</li><li>El tamaño&nbsp;2 corresponde al típico alud desencadenado por un esquiador</li></ul><ul><li>Puede alcanzar la base de la ladera </li></ul><ul><li>Longitud: 50-200&nbsp;m</li><li>Volumen: 1'000&nbsp;m&sup3;</li></ul>",
+    "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
   },
-  "heading": "Tamaño 2: Alud mediano",
-  "text": "<ul><li>Puede enterrar, herir o matar a una persona</li><li>El tamaño&nbsp;2 corresponde al típico alud desencadenado por un esquiador</li></ul><ul><li>Puede alcanzar la base de la ladera </li></ul><ul><li>Longitud: 50-200&nbsp;m</li><li>Volumen: 1'000&nbsp;m&sup3;</li></ul>",
-  "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
-  "source": "false"
-},
-"avalanche-size-large": {
-  "ids": {
-    "ar": "mida-deth-laueg-gran",
-    "ca": "mida-de-lallau-gran",
-    "cs": "velikost-laviny-velký",
-    "de": "lawinengrose-grose",
-    "es": "tamano-del-alud-grande",
-    "fr": "taille-davalanche-grand",
-    "is": "staerd-snjofloda-stórt",
-    "it": "dimensioni-delle-valanghe-grande",
-    "no": "skredstorrelse-stor",
-    "ro": "marimea-avalansei-mare",
-    "sk": "velkost-laviny-veľký",
-    "sl": "velikost-sneznega-plazu-velik",
-    "en": "avalanche-size-large"
+  "avalanche-size-3": {
+    "heading": "Tamaño 3: Alud grande",
+    "text": "<ul><li>Puede enterrar y destruir coches, dañar camiones, destruir pequeños edificios y romper algunos árboles.</li><li>Cuando los esquiadores son atrapados por aludes de este tamaño, las probabilidades de consecuencias graves son muy grandes. </li></ul><ul><li>Puede alcanzar terreno plano (por debajo de 30º) en una distancia de menos de 50&nbsp;m</li></ul><ul><li>Longitud: varios 1000&nbsp;m</li><li>Volumen: 10’000&nbsp;m&sup3;</li></ul>",
+    "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
-  "heading": "Tamaño 3: Alud grande",
-  "text": "<ul><li>Puede enterrar y destruir coches, dañar camiones, destruir pequeños edificios y romper algunos árboles.</li><li>Cuando los esquiadores son atrapados por aludes de este tamaño, las probabilidades de consecuencias graves son muy grandes. </li></ul><ul><li>Puede alcanzar terreno plano (por debajo de 30º) en una distancia de menos de 50&nbsp;m</li></ul><ul><li>Longitud: varios 1000&nbsp;m</li><li>Volumen: 10’000&nbsp;m&sup3;</li></ul>",
-  "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-  "source": "false"
-},
-"avalanche-size-very-large": {
-  "ids": {
-    "ar": "mida-deth-laueg-muy-gran",
-    "ca": "mida-de-lallau-muy-gran",
-    "cs": "velikost-laviny-velmi-velký",
-    "de": "lawinengrose-sehr-grose",
-    "es": "tamano-del-alud-muy-grande",
-    "fr": "taille-davalanche-très-grand",
-    "is": "staerd-snjofloda-mjög-stórt",
-    "it": "dimensioni-delle-valanghe-molto-grande",
-    "no": "skredstorrelse-svært-stor",
-    "ro": "marimea-avalansei-foarte-mare",
-    "sk": "velkost-laviny-veľmi-veľký",
-    "sl": "velikost-sneznega-plazu-zelo-velik",
-    "en": "avalanche-size-very-large"
+  "avalanche-size-4": {
+    "heading": "Tamaño 4: Alud muy grande",
+    "text": "<ul><li>Puede enterrar y destruir camiones y trenes</li><li>Puede destruir edificios realmente grandes y pequeñas áreas de bosque.</li><li>Los aludes muy grandes pueden suceder con grado de peligro 3&nbsp;–&nbsp;Notable y son típicos de períodos con grados de peligro 4&nbsp;–&nbsp;Fuerte y 5&nbsp;–&nbsp;Muy&nbsp;fuerte</li></ul><ul><li>Atraviesan terreno llano (ampliamente por debajo de 30º) en distancias mayores de 50&nbsp;m</li><li>Pueden alcanzar el fondo de valle</li></ul><ul><li>Longitud: 1-2&nbsp;km</li><li>Volumen: 100’000&nbsp;m&sup3;</li></ul>",
+    "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
-  "heading": "Tamaño 4: Alud muy grande",
-  "text": "<ul><li>Puede enterrar y destruir camiones y trenes</li><li>Puede destruir edificios realmente grandes y pequeñas áreas de bosque.</li><li>Los aludes muy grandes pueden suceder con grado de peligro 3&nbsp;–&nbsp;Notable y son típicos de períodos con grados de peligro 4&nbsp;–&nbsp;Fuerte y 5&nbsp;–&nbsp;Muy&nbsp;fuerte</li></ul><ul><li>Atraviesan terreno llano (ampliamente por debajo de 30º) en distancias mayores de 50&nbsp;m</li><li>Pueden alcanzar el fondo de valle</li></ul><ul><li>Longitud: 1-2&nbsp;km</li><li>Volumen: 100’000&nbsp;m&sup3;</li></ul>",
-  "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-  "source": "false"
-},
-"avalanche-size-extremely-large": {
-  "ids": {
-    "ar": "mida-deth-laueg-extremadament-gran",
-    "ca": "mida-de-lallau-extremadament-gran",
-    "cs": "velikost-laviny-extremne-velký",
-    "de": "lawinengrose-extrem-grose",
-    "es": "tamano-del-alud-extremadamente-grande",
-    "fr": "taille-davalanche-extremement-grand",
-    "is": "staerd-snjofloda-mjög-stórt",
-    "it": "dimensioni-delle-valanghe-estremamente-grande",
-    "no": "skredstorrelse-ekstremt-stor",
-    "ro": "marimea-avalansei-extrem-de-mare",
-    "sk": "velkost-laviny-extremne-velký",
-    "sl": "velikost-sneznega-plazu-izjemno-velik",
-    "en": "avalanche-size-extremely-large"
+  "avalanche-size-5": {
+    "heading": "Tamaño 5: Alud extremadamente grande",
+    "text": "<ul><li>Puede devastar el paisaje y tiene un potencial destructivo catastrófico</li><li>Típicos en peligro de aludes 5&nbsp;–&nbsp;Muy&nbsp;Fuerte</li></ul><ul><li>Alcanza el fondo de valle</li><li>Los aludes más grandes conocidos</li></ul><ul><li>Longitud: &gt;&nbsp;2&nbsp;km</li><li>Volumen: &gt;&nbsp;100’000&nbsp;m&sup3;</li></ul>",
+    "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
   },
-  "heading": "Tamaño 5: Alud extremadamente grande",
-  "text": "<ul><li>Puede devastar el paisaje y tiene un potencial destructivo catastrófico</li><li>Típicos en peligro de aludes 5&nbsp;–&nbsp;Muy&nbsp;Fuerte</li></ul><ul><li>Alcanza el fondo de valle</li><li>Los aludes más grandes conocidos</li></ul><ul><li>Longitud: &gt;&nbsp;2&nbsp;km</li><li>Volumen: &gt;&nbsp;100’000&nbsp;m&sup3;</li></ul>",
-  "img": "__SIMPLE_SLIDER__|pequeño,mediano,grande,muy grande,extremadamente grande|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
-  "source": "false"
-},
-"avalanche-frequency-none": {
-  "ids": {
-    "ar": "frequencia-deth-laueg-nul",
-    "ca": "frequencia-de-lallau-nul",
-    "cs": "frekvence-lavin-nie",
-    "de": "lawinenhaeufigkeit-null",
-    "es": "frecuencia-de-aludes-nula",
-    "fr": "frequence-davalanche-nulle",
-    "is": "tíðni-snjofloda-null",
-    "it": "frequenza-delle-valanghe-nulla",
-    "no": "skredfrekvens-null",
-    "ro": "frecventa-avalansei-nula",
-    "sk": "frekvencia-lavin-nie",
-    "sl": "pogostost-sneznih-plazov-ni",
-    "en": "avalanche-frequency-none"
+  "avalanche-frequency-none": {
+    "heading": "Clase de frecuencia de avalancha: ninguno o casi ninguno",
+    "text": "<p>Los puntos con esta clase de estabilidad no existen, o son tan raros que no se consideran relevantes para la evaluación de la estabilidad.</p>",
+    "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|0|false|__END_SLIDER___",
+    "source": "false"
   },
-  "heading": "Clase de frecuencia de avalancha: ninguno o casi ninguno",
-  "text": "<p>Los puntos con esta clase de estabilidad no existen, o son tan raros que no se consideran relevantes para la evaluación de la estabilidad.</p>",
-  "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|0|false|__END_SLIDER___",
-  "source": "false"
-},
-"avalanche-frequency-few": {
-  "ids": {
-    "ar": "frequencia-deth-laueg-poc",
-    "ca": "frequencia-de-lallau-pocs",
-    "cs": "frekvence-lavin-nekolik",
-    "de": "lawinenhaeufigkeit-wenige",
-    "es": "frecuencia-de-aludes-pocos",
-    "fr": "frequence-davalanche-peu",
-    "is": "tíðni-snjofloda-fá",
-    "it": "frequenza-delle-valanghe-poche",
-    "no": "skredfrekvens-få",
-    "ro": "frecventa-avalansei-putini",
-    "sk": "frekvencia-lavin-niekoľko",
-    "sl": "pogostost-sneznih-plazov-nekaj",
-    "en": "avalanche-frequency-few"
+  "avalanche-frequency-few": {
+    "heading": "Clase de frecuencia de avalancha: pocos",
+    "text": "<p>Los puntos con esta clase de estabilidad son raros. Aunque raros, su número se considera relevante para la evaluación de la estabilidad.</p><p>Es difícil encontrar evidencias de la inestabilidad.</p>",
+    "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|1|false|__END_SLIDER___",
+    "source": "false"
   },
-  "heading": "Clase de frecuencia de avalancha: pocos",
-  "text": "<p>Los puntos con esta clase de estabilidad son raros. Aunque raros, su número se considera relevante para la evaluación de la estabilidad.</p><p>Es difícil encontrar evidencias de la inestabilidad.</p>",
-  "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|1|false|__END_SLIDER___",
-  "source": "false"
-},
-"avalanche-frequency-some": {
-  "ids": {
-    "ar": "frequencia-deth-laueg-quelcom",
-    "ca": "frequencia-de-lallau-alguns",
-    "cs": "frekvence-lavin-nekolik",
-    "de": "lawinenhaeufigkeit-einige",
-    "es": "frecuencia-de-aludes-algunos",
-    "fr": "frequence-davalanche-quelques",
-    "is": "tíðni-snjofloda-nokkrir",
-    "it": "frequenza-delle-valanghe-alcuni",
-    "no": "skredfrekvens-noen",
-    "ro": "frecventa-avalansei-cativa",
-    "sk": "frekvencia-lavin-niekoľko",
-    "sl": "pogostost-sneznih-plazov-nekateri",
-    "en": "avalanche-frequency-some"
+  "avalanche-frequency-some": {
+    "heading": "Clase de frecuencia de avalancha: algunas",
+    "text": "<p>Los puntos con esta clase de estabilidad no son ni muchos ni pocos, pero suelen encontrarse en terrenos con características comunes (por ejemplo, cerca de crestas, en barrancos).</p>",
+    "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|2|false|__END_SLIDER___",
+    "source": "false"
   },
-  "heading": "Clase de frecuencia de avalancha: algunas",
-  "text": "<p>Los puntos con esta clase de estabilidad no son ni muchos ni pocos, pero suelen encontrarse en terrenos con características comunes (por ejemplo, cerca de crestas, en barrancos).</p>",
-  "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|2|false|__END_SLIDER___",
-  "source": "false"
-},
-"avalanche-frequency-many": {
-  "ids": {
-    "ar": "frequencia-deth-laueg-molt",
-    "ca": "frequencia-de-lallau-molts",
-    "cs": "frekvence-lavin-mnoho",
-    "de": "lawinenhaeufigkeit-viele",
-    "es": "frecuencia-de-aludes-muchos",
-    "fr": "frequence-davalanche-beaucoup",
-    "is": "tíðni-snjofloda-margir",
-    "it": "frequenza-delle-valanghe-molti",
-    "no": "skredfrekvens-mange",
-    "ro": "frecventa-avalansei-multi",
-    "sk": "frekvencia-lavin-mnoho",
-    "sl": "pogostost-sneznih-plazov-veliko",
-    "en": "avalanche-frequency-many"
+  "avalanche-frequency-many": {
+    "heading": "Clase de frecuencia de avalancha: muchos",
+    "text": "<p>Los puntos con esta clase de estabilidad son abundantes.</p><p>Las evidencias de la inestabilidad suelen ser fáciles de encontrar.</p>",
+    "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|3|false|__END_SLIDER___",
+    "source": "false"
   },
-  "heading": "Clase de frecuencia de avalancha: muchos",
-  "text": "<p>Los puntos con esta clase de estabilidad son abundantes.</p><p>Las evidencias de la inestabilidad suelen ser fáciles de encontrar.</p>",
-  "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|3|false|__END_SLIDER___",
-  "source": "false"
-},
-"danger-pattern-1": {
-    "ids": {
-      "ar": "patrons-de-perilh-1",
-      "cs": "modely-lavinoveho-nebezpeci-1",
-      "de": "gefahrenmuster-1",
-      "es": "situaciones-de-peligro-1",
-      "fr": "modeles-de-danger-1",
-      "it": "situazioni-tipo-1",
-      "sl": "vzorci-nevarnosti-1",
-      "en": "danger-pattern-1"
-    },
+  "danger-pattern-DP1": {
     "heading": "pp.1: capas débiles persistentes ",
     "text": "<p>Al inicio del invierno, a menudo se observan aludes de placa después de la segunda fuerte nevada, normalmente en cotas altas (>2000 m) y muy altas (>3000 m) en pendientes sombrías y muy inclinadas. Esto se debe a que en otoño después de las primeras grandes nevadas, sigue con frecuencia un largo período de tiempo estable, de altas presiones o al menos sin precipitaciones. Es entonces cuando prevalecen las condiciones idóneas para el metamorfismo de la nieve en cristales sueltos, que después forman una capa débil y persistente profunda para la posterior deposición de nevadas.</p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.1 early winter persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-2": {
-    "ids": {
-      "ar": "patrons-de-perilh-2",
-      "cs": "modely-lavinoveho-nebezpeci-2",
-      "de": "gefahrenmuster-2",
-      "es": "situaciones-de-peligro-2",
-      "fr": "modeles-de-danger-2",
-      "it": "situazioni-tipo-2",
-      "sl": "vzorci-nevarnosti-2",
-      "en": "danger-pattern-2"
-    },
+  "danger-pattern-DP2": {
     "heading": "pp.2: aludes de deslizamiento basal ",
     "text": "<p>Una grieta de deslizamiento apunta a la posibilidad de una avalancha sin dar ninguna indicación de si o cuando se producirá la avalancha de nieve deslizante. En cuanto a su momento de desencadenamiento, los aludes de deslizamiento están entre los aludes más difíciles de predecir, ya que pueden desencadenarse literalmente a cualquier hora del día o de la noche, incluso cuando la situación de nieve es bastante estable. Esto incluye el día más frío y el día más cálido del invierno. Además, no se desencadenan aludes de deslizamiento por una carga adicional.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.2 snow glide\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-3": {
-    "ids": {
-      "ar": "patrons-de-perilh-3",
-      "cs": "modely-lavinoveho-nebezpeci-3",
-      "de": "gefahrenmuster-3",
-      "es": "situaciones-de-peligro-3",
-      "fr": "modeles-de-danger-3",
-      "it": "situazioni-tipo-3",
-      "sl": "vzorci-nevarnosti-3",
-      "en": "danger-pattern-3"
-    },
+  "danger-pattern-DP3": {
     "heading": "pp.3: lluvia sobre nieve ",
     "text": "<p>La lluvia sobre nieve se considera la señal de alarma clásico en la ciencia de la nieve y los aludes porque, por un lado, su peso adicional carga el manto de nieve; y por otro, porque se pierde inmediatamente la firmeza del manto. Por estas razones, las avalanchas están aseguradas. La lluvia se puede producir en cualquier momento del invierno. La gran ventaja es que ninguna señal de peligro podría ser más sencillo de reconocer.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-4": {
-    "ids": {
-      "ar": "patrons-de-perilh-4",
-      "cs": "modely-lavinoveho-nebezpeci-4",
-      "de": "gefahrenmuster-4",
-      "es": "situaciones-de-peligro-4",
-      "fr": "modeles-de-danger-4",
-      "it": "situazioni-tipo-4",
-      "sl": "vzorci-nevarnosti-4",
-      "en": "danger-pattern-4"
-    },
+  "danger-pattern-DP4": {
     "heading": "pp.4: frío sobre cálido / cálido sobre frío ",
     "text": "<p>De hecho, este es el caso sólo en determinadas condiciones muy específicas. La mayoría de estas diferencias de temperatura tienen un efecto negativo, ya que refuerzan el metamorfismo de la nieve dentro del manto. Por regla general, se forma una capa fina y débil que es muy propensa a desencadenar. Esta capa se encuentra a menudo en las vertientes orientadas al sur. Es muy traidor por la razón adicional que la capa débil aún no existe inmediatamente después de depositarse la nieve nueva, sino que se forma a lo largo de los días siguientes.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-5": {
-    "ids": {
-      "ar": "patrons-de-perilh-5",
-      "cs": "modely-lavinoveho-nebezpeci-5",
-      "de": "gefahrenmuster-5",
-      "es": "situaciones-de-peligro-5",
-      "fr": "modeles-de-danger-5",
-      "it": "situazioni-tipo-5",
-      "sl": "vzorci-nevarnosti-5",
-      "en": "danger-pattern-5"
-    },
+  "danger-pattern-DP5": {
     "heading": "pp.5: nevada después de un largo periodo frío ",
     "text": "<p>Entre los aludes ocurridos, este es un clásico: después de un largo período de frío, comienza a nevar. El problema es que se depositan acumulaciones de nieve frescas en las laderas de sotavento protegidas del viento sobre una superficie de cubierta de nieve vieja suelta que suele contener cubiletes. La placa de viento y las capas débiles persistentes están muy mal ligadas entre ellas. El manto de nieve está esperando ser activado por una carga adicional.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-6": {
-    "ids": {
-      "ar": "patrons-de-perilh-6",
-      "cs": "modely-lavinoveho-nebezpeci-6",
-      "de": "gefahrenmuster-6",
-      "es": "situaciones-de-peligro-6",
-      "fr": "modeles-de-danger-6",
-      "it": "situazioni-tipo-6",
-      "sl": "vzorci-nevarnosti-6",
-      "en": "danger-pattern-6"
-    },
+  "danger-pattern-DP6": {
     "heading": "pp.6: nieve suelta y viento ",
     "text": "<p>\"El viento es el arquitecto de los aludes.\" Este refrán clásico de la década de 1930 de Wilhelm Paulcke sigue siendo vigente aún hoy. El viento influye tanto en la nieve que cae como en la nieve que ya se ha depositado. Es un factor importante en la formación de aludes. Cuando la nieve está suelta y seca, el viento la transporta y aumenta el peligro de aludes. Cuanto más fría sea la nieve transportada, más fácilmente reaccionará a la carga adicional, porque es más frágil.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-7": {
-    "ids": {
-      "ar": "patrons-de-perilh-7",
-      "cs": "modely-lavinoveho-nebezpeci-7",
-      "de": "gefahrenmuster-7",
-      "es": "situaciones-de-peligro-7",
-      "fr": "modeles-de-danger-7",
-      "it": "situazioni-tipo-7",
-      "sl": "vzorci-nevarnosti-7",
-      "en": "danger-pattern-7"
-    },
+  "danger-pattern-DP7": {
     "heading": "pp.7 manto delgado al lado de manto profundo ",
     "text": "<p>Las zonas en las que la nieve es poco profunda suelen tener una estratificación menos favorable que las que presentan un manto profundo. Esto se debe a la amplificación de los procesos de transformación que se producen en el interior de un manto de nieve poco profundo. Además, los aludes de placa son más fáciles de desencadenar donde la nieve es poco profunda, ya que las capas débiles no están tan profundamente enterradas y son más fáciles de desencadenar con cargas adicionales. Por ello, a menudo se observan aludes en zonas de transición desde la nieve poco profunda hacia la nieve profunda.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.7 persistent weak layer from prolonged stable weather\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-8": {
-    "ids": {
-      "ar": "patrons-de-perilh-8",
-      "cs": "modely-lavinoveho-nebezpeci-8",
-      "de": "gefahrenmuster-8",
-      "es": "situaciones-de-peligro-8",
-      "fr": "modeles-de-danger-8",
-      "it": "situazioni-tipo-8",
-      "sl": "vzorci-nevarnosti-8",
-      "en": "danger-pattern-8"
-    },
+  "danger-pattern-DP8": {
     "heading": "pp.8: escarcha de superficie enterrada ",
     "text": "<p>La escarcha de superficie es uno de los tipos de nieve más bellos. En sí mismo, no presenta ningún potencial de peligro. Este potencial sólo se despliega cuando está enterrado por capas de nieve frescas y cohesivas. Entonces se vuelve peligroso. De hecho, se considera una de las capas débiles más críticas en toda la ciencia de nieve y aludes.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-9": {
-    "ids": {
-      "ar": "patrons-de-perilh-9",
-      "cs": "modely-lavinoveho-nebezpeci-9",
-      "de": "gefahrenmuster-9",
-      "es": "situaciones-de-peligro-9",
-      "fr": "modeles-de-danger-9",
-      "it": "situazioni-tipo-9",
-      "sl": "vzorci-nevarnosti-9",
-      "en": "danger-pattern-9"
-    },
+  "danger-pattern-DP9": {
     "heading": "pp.9: nieve granulada enterrada ",
     "text": "<p>A menudo se compara una capa débil dentro de un manto de nieve con los cojinetes de bolas. Esta imagen es realmente adecuada sólo para la nieve granulada: una forma esférica y granular de precipitación que se deposita a menudo durante los chubascos como las tormentas de truenos en primavera. Es fácil comprender que las acumulaciones de nieve que se depositan sobre una capa de nieve granulada seguro que no se unirán bien, por lo que aumenta el peligro de aludes. La nieve granulada está frecuentemente distribuida por zonas muy pequeñas. Sin examinar el manto en sí es difícil de detectar, incluso para profesionales. Se trata de un fenómeno extremadamente traidor. Afortunadamente, los problemas que crea son de corta duración.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.9 graupel layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
   },
-  "danger-pattern-10": {
-    "ids": {
-      "ar": "patrons-de-perilh-10",
-      "cs": "modely-lavinoveho-nebezpeci-10",
-      "de": "gefahrenmuster-10",
-      "es": "situaciones-de-peligro-10",
-      "fr": "modeles-de-danger-10",
-      "it": "situazioni-tipo-10",
-      "sl": "vzorci-nevarnosti-10",
-      "en": "danger-pattern-10"
-    },
+  "danger-pattern-DP10": {
     "heading": "pp.10: escenario de primavera ",
     "text": "<p>El peligro de aludes no es tan fácil de evaluar como en condiciones de fusión rehielo; por otro, aludes de tanta magnitud como la primavera raramente se registran en pleno invierno. Además de la estratificación de la nieve, la compleja interacción de la temperatura del aire, la humedad del aire, la radiación solar y el viento tienen un papel principal. Para los esquiadores y surfers de montaña, la disciplina en el horario y la flexibilidad en la planificación de rutas son más esenciales que nunca.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Mira el video en YouTube</a></p>",
     "img": "<img alt=\"dp.10 wet-snow avalanche\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"
   },
-   "danger-scale-low": {
-    "ids": {
-      "ar": "perilh-bass",
-      "cs": "nebezpeci-nizkeho-stupne",
-      "de": "geringes-gefahrenniveau",
-      "es": "peligro-bajo",
-      "fr": "danger-faible",
-      "is": "laegt-haettustig",
-      "it": "pericolo-basso",
-      "sl": "nizka-nevarnost",
-      "en": "danger-scale-low"
-    },
+  "danger-scale-1": {
     "heading": "Grado de Peligro: Débil",
     "text": "<div style='text-align:center;'><p><b>En general, situación de aludes favorable</b><br /> No hay signos de alarma. Los aludes solo se pueden desencadenar en casos aislados, en particular en pendientes extremadamente inclinadas.<br /> <b>Recomendaciones para montañeros y esquiadores</b><br />Esquiar en pendientes extremadamente inclinadas de uno en uno i valorar el peligro de caídas.<br /></p></div>",
     "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
     "source": "false"
   },
-  "danger-scale-moderate": {
-    "ids": {
-      "ar": "perilh-moderat",
-      "cs": "nebezpeci-stredniho-stupne",
-      "de": "mäßiges-gefahrenniveau",
-      "es": "peligro-moderado",
-      "fr": "danger-modere",
-      "is": "midlungs-haettustig",
-      "it": "pericolo-moderato",
-      "sl": "zmerna-nevarnost",
-      "en": "danger-scale-moderate"
-    },
+  "danger-scale-2": {
     "heading": "Grado de Peligro: Limitado",
     "text": "<div style='text-align:center;'><p><b>Situación de aludes mayoritariamente favorable</b><br />Se pueden producir signos de alarma en casos aislados. Los aludes se pueden desencadenar, en particular, en pendientes muy inclinadas, con la orientación y la elevación indicadas en el boletín. Los aludes naturales grandes son poco probables.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Las actividades de montaña deben seleccionarse cuidadosamente, especialmente en laderas de orientación y altitud indicadas en avalanche.report. Esquiar por laderas muy empinadas una persona a la vez. Prestar atención a una posible estructura desfavorable del manto de nieve(<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).<br /></p></div>",
     "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
     "source": "false"
   },
-  "danger-scale-considerable": {
-    "ids": {
-      "ar": "perilh-considerable",
-      "cs": "nebezpeci-podstatneho-stupne",
-      "de": "erhebliches-gefahrenniveau",
-      "es": "peligro-considerable",
-      "fr": "danger-considerable",
-      "is": "talsvert-haettustig",
-      "it": "pericolo-considerabile",
-      "sl": "znatna-nevarnost",
-      "en": "danger-scale-considerable"
-    },
+  "danger-scale-3": {
     "heading": "Grado de Peligro: Notable",
     "text": "<div style='text-align:center;'><p><b>Situación de aludes crítica</b><br />Son típicos los whumpfs y las fisuras que se propagan. Se pueden desencadenar aludes fácilmente, particularmente en pendientes muy inclinadas, con la orientación y la elevación indicados en el boletín. Se pueden producir aludes naturales y desencadenamientos remotos.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />La situación más crítica para los montañeros. Utilizar el terreno de manera sensata y seleccionar la mejor ruta posible y con una exposición mínima. Evitar pendientes muy inclinadas con la orientación y la elevación indicados en el boletín. Se recomienda a personas sin experiencia mantenerse en pistas de esquí abiertas.<br /></p></div>",
     "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
     "source": "false"
   },
-  "danger-scale-high": {
-    "ids": {
-      "ar": "perilh-aute",
-      "cs": "nebezpeci-vysokeho-stupne",
-      "de": "hohes-gefahrenniveau",
-      "es": "peligro-alto",
-      "fr": "danger-eleve",
-      "is": "haettustig",
-      "it": "pericolo-alto",
-      "sl": "visoka-nevarnost",
-      "en": "danger-scale-high"
-    },
+  "danger-scale-4": {
     "heading": "Grado de Peligro: Fuerte",
     "text": "<div style='text-align:center;'><p><b>Situación de aludes muy crítica</b><br />Es probable que haya aludes naturales y a menudo muy grandes. Se pueden desencadenar aludes fácilmente en muchas pendientes escarpadas. El desencadenamiento remoto es típico. A menudo se producen whumpfs y grietas que se propagan.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Mantenerse en terrenos moderadamente inclinados. Cuidado con las zonas de llegada de grandes aludes. Las personas sin experiencia deben permanecer en pistas de esquí abiertas. Esta previsión se da sólo en pocos días durante todo el invierno.<br /></p></div>",
     "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
     "source": "false"
   },
-  "danger-scale-very-high": {
-    "ids": {
-      "ar": "perilh-molt-aute",
-      "cs": "nebezpeci-velmi-vysokeho-stupne",
-      "de": "sehr-hohes-gefahrenniveau",
-      "es": "peligro-muy-alto",
-      "fr": "danger-tres-eleve",
-      "is": "mjog-haettustig",
-      "it": "pericolo-molto-alto",
-      "sl": "zelo-visoka-nevarnost",
-      "en": "danger-scale-very-high"
-    },
+  "danger-scale-5": {
     "heading": "Grado de Peligro: Muy fuerte",
     "text": "<div style='text-align:center;'><p><b>Situación de aludes extraordinaria</b><br />Se esperan numerosos aludes naturales muy grandes y extremos. Estos pueden llegar a carreteras y asentamientos en los valles.<br /><b>Recomendaciones para montañeros y esquiadores:</b><br />Se recomienda no salir a la montaña fuera de pistas de esquí abiertas.<br /></p></div>",
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
     "source": "false"
   },
   "snowpack-stability-very-poor": {
-    "ids": {
-      "ar": "estabilitat-deth-paquet-de-neu-molt-mala",
-      "ca": "estabilitat-del-paquet-de-neu-molt-mala",
-      "cs": "stabilita-snehoveho-obalu-velmi-slabá",
-      "de": "schneedeckenstabilitaet-sehr-schlecht",
-      "es": "estabilidad-del-paquete-de-nieve-muy-mala",
-      "fr": "stabilite-du-pacquet-de-neige-tres-faible",
-      "is": "stöðugleiki-snjópakka-mjög-lélegur",
-      "it": "stabilità-del-manto-nevoso-molto-scarso",
-      "no": "snøpakke-stabilitet-svært-dårlig",
-      "ro": "stabilitatea-stratului-de-zapada-foarte-slabă",
-      "sk": "stabilita-snehoveho-obalu-velmi-slaba",
-      "sl": "stabilnost-sneznega-plosca-zelo-slaba",
-      "en": "snowpack-stability-very-poor"
-    },
     "heading": "Clase de estabilidad del manto nivoso: muy pobre",
     "text": "<p>Naturales / muy fáciles de desencadenar</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|0|false|__END_SLIDER___",
     "source": "false"
   },
   "snowpack-stability-poor": {
-    "ids": {
-      "ar": "estabilitat-deth-paquet-de-neu-mala",
-      "ca": "estabilitat-del-paquet-de-neu-mala",
-      "cs": "stabilita-snehoveho-obalu-slaba",
-      "de": "schneedeckenstabilitaet-schlecht",
-      "es": "estabilidad-del-paquete-de-nieve-mala",
-      "fr": "stabilite-du-pacquet-de-neige-faible",
-      "is": "stöðugleiki-snjópakka-lélegur",
-      "it": "stabilità-del-manto-nevoso-scarso",
-      "no": "snøpakke-stabilitet-dårlig",
-      "ro": "stabilitatea-stratului-de-zapada-slabă",
-      "sk": "stabilita-snehoveho-obalu-slaba",
-      "sl": "stabilnost-sneznega-plosca-slaba",
-      "en": "snowpack-stability-poor"
-    },
     "heading": "Clase de estabilidad del manto nivoso: pobre",
     "text": "<p>Fácil desencadenamiento (por ejemplo, un solo esquiador)</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|1|false|__END_SLIDER___",
     "source": "false"
   },
   "snowpack-stability-fair": {
-    "ids": {
-      "ar": "estabilitat-deth-paquet-de-neu-acceptable",
-      "ca": "estabilitat-del-paquet-de-neu-acceptable",
-      "cs": "stabilita-snehoveho-obalu-prijatelna",
-      "de": "schneedeckenstabilitaet-akzeptabel",
-      "es": "estabilidad-del-paquete-de-nieve-aceptable",
-      "fr": "stabilite-du-pacquet-de-neige-moyenne",
-      "is": "stöðugleiki-snjópakka-sæmilegur",
-      "it": "stabilità-del-manto-nevoso-accettabile",
-      "no": "snøpakke-stabilitet-akseptabel",
-      "ro": "stabilitatea-stratului-de-zapada-acceptabilă",
-      "sk": "stabilita-snehoveho-obalu-prijatelna",
-      "sl": "stabilnost-sneznega-plosca-spodobna",
-      "en": "snowpack-stability-fair"
-    },
     "heading": "Clase de estabilidad del manto nivoso: regular",
     "text": "<p>Difícil desencadenamiento (por ejemplo, explosivos)</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|2|false|__END_SLIDER___",
     "source": "false"
   },
   "snowpack-stability-good": {
-    "ids": {
-        "ar": "estabilitat-deth-paquet-de-neu-bona",
-      "ca": "estabilitat-del-paquet-de-neu-bona",
-      "cs": "stabilita-snehoveho-obalu-dobra",
-      "de": "schneedeckenstabilitaet-gut",
-      "es": "estabilidad-del-paquete-de-nieve-buena",
-      "fr": "stabilite-du-pacquet-de-neige-bonne",
-      "is": "stöðugleiki-snjópakka-góður",
-      "it": "stabilità-del-manto-nevoso-buona",
-      "no": "snøpakke-stabilitet-god",
-      "ro": "stabilitatea-stratului-de-zapada-bună",
-      "sk": "stabilita-snehoveho-obalu-dobra",
-      "sl": "stabilnost-sneznega-plosca-dobra",
-      "en": "snowpack-stability-good"
-    },
     "heading": "Clase de estabilidad del manto nivoso: buena",
     "text": "<p>Condiciones estables</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|3|false|__END_SLIDER___",
     "source": "false"
   },
-    "problem-glide": {
-    "ids": {
-      "ar": "problem-deth-laueg-fanga",
-      "ca": "problema-de-lallau-fanga",
-      "cs": "problem-laviny-snehova-lavina",
-      "de": "lawinenproblem-gleitschnee",
-      "es": "problema-de-aludes-nieve-deslizante",
-      "fr": "probleme-davalanche-neige-glissante",
-      "is": "vandamál-snjofloda-snjógall",
-      "it": "problema-delle-valanghe-neve-fresca",
-      "no": "skredproblem-ny-slidende-snø",
-      "ro": "problema-avalansei-zapada-alunecoasa",
-      "sk": "problem-laviny-snehova-lavina",
-      "sl": "problem-sneznih-plazov-snezni-plaz",
-      "en": "problem-glide"
-    },
+  "problem-glide": {
     "heading": "Problema: Deslizamientos basales",
     "text": "<p> Todo el manto nivoso desliza sobre el suelo, normalmente sobre terreno resbaladizo como p. ej. pendientes herbosas o laderas de roca lisa. La actividad de deslizamientos basales está típicamente relacionada con un manto grueso homogéneo o con pocas capas. Los deslizamientos basales se pueden dar con manto frío y seco y con un manto cálido y húmedo. El desencadenamiento de los deslizamientos basales es difícil de predecir aunque las caídas frecuentemente son anunciadas por la apertura de grietas. </p> </p> <b>Consejos de circulación</b> <br/> <p>Evitar zonas próximas a grietas de deslizamiento.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
-  "problem-new-snow": {
-    "ids": {
-      "ar": "problem-deth-laueg-nou",
-      "ca": "problema-de-lallau-nova",
-      "cs": "problem-laviny-novy-snih",
-      "de": "lawinenproblem-neuschnee",
-      "es": "problema-de-aludes-nieve-nueva",
-      "fr": "probleme-davalanche-neige-fraiche",
-      "is": "vandamál-snjofloda-nysnjór",
-      "it": "problema-delle-valanghe-neve-fresca",
-      "no": "skredproblem-ny-snø",
-      "ro": "problema-avalansei-zapada-proaspata",
-      "sk": "problem-laviny-novy-sneh",
-      "sl": "problem-sneznih-plazov-nov-sneg",
-      "en": "problem-new-snow"
-    },
+  "problem-new_snow": {
     "heading": "Problema: Nieve reciente",
     "text": "<p>El problema de aludes está relacionado con la nevada actual o más recientes. La candidad de carga adicional por nieve nueva en el manto existente es el factor crucial del problema de nieve reciente. La importancia de la carga crítica depende de varios factores tales como la temperatura o las características de la superficie de nieve previa.</p> <b>Consejos de circulación</b> <br/> <p>Placas de nieve seca: Espere hasta que el manto nivoso se estabilice. <br/>Aludes de nieve suelta seca: El peligro de caída es más importante que el de enterramiento. Considera las consecuencias en terreno muy inclinado.</p>",
     "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
-  "problem-persistent-weak-layer": {
-    "ids": {
-      "ar": "problem-deth-laueg-peristent",
-      "ca": "problema-de-lallau-persistent",
-      "cs": "problem-laviny-trvale-slabe-vrstvy",
-      "de": "lawinenproblem-andauernde-schwache-schicht",
-      "es": "problema-de-aludes-capa-debil-persistente",
-      "fr": "probleme-davalanche-couche-faible-persistante",
-      "is": "vandamál-snjofloda-varanlegur-veikur-lag",
-      "it": "problema-delle-valanghe-strato-debole-persistente",
-      "no": "skredproblem-persistente-svake-lag",
-      "ro": "problema-avalansei-strat-slab-persistent",
-      "sk": "problem-laviny-trvale-slabe-vrstvy",
-      "sl": "problem-sneznih-plazov-trajno-slab-sloj",
-      "en": "problem-persistent-weak-layer"
-    },
+  "problem-persistent_weak_layers": {
     "heading": "Problema: Capa débil persistente",
     "text": "<p> El problema de aludes está relacionado con la presencia de capas débiles en el manto antiguo. Estas capas débiles típicamente incluyen capas enterradas de escarcha de superficie, cubiletes o cristales con facetas. </p> <b>Consejos de circulación</b> <br/> <p> Circulad de forma conservadora y evitad las laderas grandes y muy empinadas. Tened en consideración el tiempo y los procesos en el manto nivoso de la zona. Sed extremadamente cautos con un manto delgado y en la transición de un manto delgado a grueso. Este problema es el que causa la mayoría de muertes a excursionistas en terreno de aludes. </p> </div> <br />",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
-  "problem-wet-snow": {
-    "ids": {
-      "ar":"problem-deth-laueg-nou-humida",
-      "ca": "problema-de-lallau-neu-humida",
-      "cs": "problem-laviny-mokry-snih",
-      "de": "lawinenproblem-nassschnee",
-      "es": "problema-de-aludes-nieve-humeda",
-      "fr": "probleme-davalanche-neige-mouillée",
-      "is": "vandamál-snjofloda-votur-snjór",
-      "it": "problema-delle-valanghe-neve-bagnata",
-      "no": "skredproblem-våt-snø",
-      "ro": "problema-avalansei-strat-de-vant",
-      "sk": "problem-laviny-mokry-sneh",
-      "sl": "problem-sneznih-plazov-vlažen-sneg",
-      "en": "problem-wet-snow"
-    },
+  "problem-wet_snow": {
     "heading": "Problema: Nieve húmeda",
     "text": "<p> El problema de alud está relacionado con el debilitamiento del manto debido a la presencia de agua líquida en su interior. El agua se infiltra dentro del manto debido a la fusión o a la lluvia</p>  <b>Consejos de circulación</b> <br/> <p> Cuando hay rehielo nocturno, en general tras noches frías con cielo despejado, las condiciones son favorables por la mañana. Después de noches cálidas con cielo cubierto el problema está a menudo presente ya desde la mañana. Normalmente la lluvia sobre nieve nueva produce este problema de forma casi inmediata. Planificar y gestionar bien el horario de la ruta es muy importante. Ten en cuenta las zonas de llegada de los aludes. </p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
-    "problem-wind-slab": {
-    "ids": {
-      "ar": "problem-deth-laueg-vent",
-      "ca": "problema-de-lallau-vent",
-      "cs": "problem-laviny-vetrna-nadraha",
-      "de": "lawinenproblem-winddecke",
-      "es": "problema-de-aludes-placa-de-viento",
-      "fr": "probleme-davalanche-couche-de-vent",
-      "is": "vandamál-snjofloda-vindskafl",
-      "it": "problema-delle-valanghe-lastre-da-vento",
-      "no": "skredproblem-vindskavl",
-      "ro": "problema-avalansei-strat-de-vant",
-      "sk": "problem-laviny-vetrna-nadraha",
-      "sl": "problem-sneznih-plazov-vetrna-ploscad",
-      "en": "problem-wind-slab"
-    },
+  "problem-wind_slab": {
     "heading": "Problema: Placas de viento",
     "text": "<p> El problema de aludes está relacionado con las placas de viento. La nieve puede ser transportada por el viento con o sin una nevada simultánea.</p> <b>Consejos de circulación</b> <br/> <p> Evitar depósitos de nieve venteada en terrenos muy inclinados, en particular en áreas donde la cobertura de nieve cambia de fino a grueso o de duro a blando.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",

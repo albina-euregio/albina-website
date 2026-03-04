@@ -3,10 +3,6 @@ import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import type * as Caaml from "../../stores/bulletin";
 import BulletinInternalGlossaryText from "./InternalGlossary/internal-glossary-text";
 import { EnabledLanguages } from "./InternalGlossary/internal-glossary";
-import {
-  internalGlossaryEnum,
-  getContentIdentifier
-} from "./InternalGlossary/internal-glossary-lookupId";
 
 interface Props {
   dangerPattern: Caaml.DangerPattern;
@@ -31,14 +27,14 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
           <BulletinInternalGlossaryText
             text={dangerPatternText}
             locale={intl.locale.slice(0, 2) as EnabledLanguages}
-            textKey={getContentIdentifier(internalGlossaryEnum.dangerPattern, dangerPattern)}
+            textKey={"danger-pattern-" + dangerPattern}
           />
         </ins>
       ) : (
         <BulletinInternalGlossaryText
           text={dangerPatternText}
           locale={intl.locale.slice(0, 2) as EnabledLanguages}
-          textKey={getContentIdentifier(internalGlossaryEnum.dangerPattern, dangerPattern)}
+          textKey={"danger-pattern-" + dangerPattern}
         />
       )}
     </a>

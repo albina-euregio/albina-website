@@ -8,10 +8,6 @@ import ElevationIcon from "../icons/elevation-icon";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
 import { EnabledLanguages } from "./InternalGlossary/internal-glossary";
-import {
-  internalGlossaryEnum,
-  getContentIdentifier
-} from "./InternalGlossary/internal-glossary-lookupId";
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./InternalGlossary/internal-glossary-text")
 );
@@ -294,10 +290,9 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                           id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
                         })}
                         locale={lang as EnabledLanguages}
-                        textKey={getContentIdentifier(
-                          internalGlossaryEnum.avalancheStability,
-                          problem?.snowpackStability
-                        )}
+                        textKey={
+                          "snowpack-stability-" + problem?.snowpackStability
+                        }
                       />
                     </a>
                   </span>
@@ -325,10 +320,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                         id: `bulletin:report:problem:frequency:${problem?.frequency}`
                       })}
                       locale={lang as EnabledLanguages}
-                      textKey={getContentIdentifier(
-                        internalGlossaryEnum.avalancheFrequency,
-                        problem?.frequency
-                      )}
+                      textKey={"avalanche-frequency-" + problem?.frequency}
                     />
                   </a>
                 </span>
@@ -360,10 +352,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                         id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
                       })}
                       locale={lang as EnabledLanguages}
-                      textKey={getContentIdentifier(
-                        internalGlossaryEnum.avalancheSize,
-                        problem?.avalancheSize.toString()
-                      )}
+                      textKey={"avalanche-size-" + problem?.avalancheSize}
                     />
                   </a>
                 </span>
