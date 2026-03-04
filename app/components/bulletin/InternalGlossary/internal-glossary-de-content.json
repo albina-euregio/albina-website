@@ -115,32 +115,32 @@
   },
   "danger-scale-1": {
     "heading": "Gefahrenstufe: Gering",
-    "text": "<div style='text-align:center;'><p><b>Allgemein günstige Lawinensituation</b><br/> Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>Allgemein günstige Lawinensituation</b><br/> Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
     "heading": "Gefahrenstufe: Mäßig",
-    "text": "<div style='text-align:center;'><p><b>Überwiegend günstige Lawinensituation</b><br/> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "text": "<p><b>Überwiegend günstige Lawinensituation</b><br/> Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände:</b> <br/> Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem</a>).</p>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\"  style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-3": {
     "heading": "Gefahrenstufe: Erheblich",
-    "text": "<div style='text-align:center;'><p><b>Kritische Lawinensituation</b><br/> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "text": "<p><b>Kritische Lawinensituation</b><br/> Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\"  style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-4": {
     "heading": "Gefahrenstufe: Groß",
-    "text": "<div style='text-align:center;'><p><b>Sehr kritische Lawinensituation</b><br/> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "text": "<p><b>Sehr kritische Lawinensituation</b><br/> Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen. Für wenige Tage des Winters prognostiziert.</p>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\"  style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-5": {
     "heading": "Gefahrenstufe: Sehr groß",
-    "text": "<div style='text-align:center;'><p><b>Außerordentliche Lawinensituation</b><br/> Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <p>Wird sehr selten prognostiziert.</p></div>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\" />",
+    "text": "<p><b>Außerordentliche Lawinensituation</b><br/> Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.<br/> <b>Empfehlungen für Personen im ungesicherten Gelände</b> <br/> Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p> <p>Wird sehr selten prognostiziert.</p>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\"  style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "snowpack-stability-very-poor": {
@@ -169,31 +169,31 @@
   },
   "problem-glide": {
     "heading": "Lawinenproblem: Gleitschnee",
-    "text": "<p> Die gesamte Schneedecke gleitet auf glattem Untergrund wie zum Beispiel Grashängen oder glatten Felsenzonen ab. Hohe Aktivität von Gleitschneelawinen ist typischerweise verbunden mit einer mächtigen Schneedecke mit wenigen oder keinen Schwachschichten. Gleitschneelawinen können sowohl bei einer trockenen, kalten als auch bei einer nassen, 0°C-isothermen Schneedecke auftreten. Den Abgangszeitpunkt von Gleitschneelawinen vorherzusagen ist kaum möglich, obwohl sie sich meist durch Gleitschneerisse (sogenannte Fischmäuler) ankündigen.</p> <b>Verhaltensempfehlung</b> <br/> <p>Halte dich nicht in der Nähe von Gleitschneerissen auf.</p>",
+    "text": "<p> Die gesamte Schneedecke gleitet auf glattem Untergrund wie zum Beispiel Grashängen oder glatten Felsenzonen ab. Hohe Aktivität von Gleitschneelawinen ist typischerweise verbunden mit einer mächtigen Schneedecke mit wenigen oder keinen Schwachschichten. Gleitschneelawinen können sowohl bei einer trockenen, kalten als auch bei einer nassen, 0°C-isothermen Schneedecke auftreten. Den Abgangszeitpunkt von Gleitschneelawinen vorherzusagen ist kaum möglich, obwohl sie sich meist durch Gleitschneerisse (sogenannte Fischmäuler) ankündigen.</p> <p><b>Verhaltensempfehlung</b> <br/> <p>Halte dich nicht in der Nähe von Gleitschneerissen auf.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-new_snow": {
     "heading": "Lawinenproblem: Neuschnee",
-    "text": "<p>Das Problem entsteht durch aktuelle Schneefälle oder kurz zuvor gefallenen Neuschnee. Der Haupteinflussfaktor ist die kritische Neuschneemenge, die von mehreren Faktoren, wie zum Beispiel Temperatur oder Eigenschaften der alten Schneeoberfläche abhängt.</p> <b>Verhaltensempfehlung</b> <br/> <p>Trockene Schneebrettlawinen: <br/> Warte, bis sich die Schneedecke stabilisiert hat. <br/>Trockene Lockerschneelawinen:<br/> Beachte v.a. die Mitreiß- und Absturzgefahr im extremen Steilgelände </p>",
+    "text": "<p>Das Problem entsteht durch aktuelle Schneefälle oder kurz zuvor gefallenen Neuschnee. Der Haupteinflussfaktor ist die kritische Neuschneemenge, die von mehreren Faktoren, wie zum Beispiel Temperatur oder Eigenschaften der alten Schneeoberfläche abhängt.</p> <p><b>Verhaltensempfehlung</b> <br/> <p>Trockene Schneebrettlawinen: <br/> Warte, bis sich die Schneedecke stabilisiert hat. <br/>Trockene Lockerschneelawinen:<br/> Beachte v.a. die Mitreiß- und Absturzgefahr im extremen Steilgelände </p>",
     "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
     "heading": "Lawinenproblem: Altschnee",
-    "text": "<p> Das Problem entsteht durch vorhandene Schwachschichten innerhalb der Altschneedecke. Typische Schwachschichten sind eingeschneiter Oberflächenreif, Tiefenreif (auch Becherkristalle oder „Schwimmschnee“ genannt) oder kantige Kristalle.</p> <b>Verhaltensempfehlung</b> <br/> <p> Meiden von grossen Steilhängen und Zurückhaltung. Beachte den Witterungsverlauf und die Schneedeckenentwicklung in einem Gebiet. Besondere Vorsicht in schneearmen Bereichen und Übergängen von schneearm zu schneereich. Das Altschneeproblem ist eine Hauptursache von tödlichen Lawinenunfällen bei Wintersportlern. </p> </div> <br />",
+    "text": "<p> Das Problem entsteht durch vorhandene Schwachschichten innerhalb der Altschneedecke. Typische Schwachschichten sind eingeschneiter Oberflächenreif, Tiefenreif (auch Becherkristalle oder „Schwimmschnee“ genannt) oder kantige Kristalle.</p> <p><b>Verhaltensempfehlung</b> <br/> <p> Meiden von grossen Steilhängen und Zurückhaltung. Beachte den Witterungsverlauf und die Schneedeckenentwicklung in einem Gebiet. Besondere Vorsicht in schneearmen Bereichen und Übergängen von schneearm zu schneereich. Das Altschneeproblem ist eine Hauptursache von tödlichen Lawinenunfällen bei Wintersportlern. </p> </div> <br />",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
     "heading": "Lawinenproblem: Nassschnee",
-    "text": "<p> Das Problem entsteht durch eine zunehmende Schwächung der Schneedecke durch Wassereintrag, entweder durch Schmelze oder Regen. </p>  <b>Verhaltensempfehlung</b> <br/> <p> Nach einer kalten, klaren Nacht sind die Bedingungen am Morgen meist günstig. Nach warmen, bedeckten Nächten tritt das Problem oft bereits am Morgen auf. Bei Regen auf eine trockene Schneedecke tritt das Problem meist unmittelbar auf. Gutes Timing und eine gute Tourenplanung sind entscheidend. Beachte Lawinenauslaufbereiche.</p>",
+    "text": "<p> Das Problem entsteht durch eine zunehmende Schwächung der Schneedecke durch Wassereintrag, entweder durch Schmelze oder Regen. </p> <p><b>Verhaltensempfehlung</b> <br/> <p> Nach einer kalten, klaren Nacht sind die Bedingungen am Morgen meist günstig. Nach warmen, bedeckten Nächten tritt das Problem oft bereits am Morgen auf. Bei Regen auf eine trockene Schneedecke tritt das Problem meist unmittelbar auf. Gutes Timing und eine gute Tourenplanung sind entscheidend. Beachte Lawinenauslaufbereiche.</p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wind_slab": {
     "heading": "Lawinenproblem: Triebschnee",
-    "text": "<p>Das Problem entsteht durch windverfrachteten Schnee. Triebschnee kann sowohl mit, als auch ohne gleichzeitigen Schneefall entstehen.</p> <b>Verhaltensempfehlung</b> <br/> <p> Vermeide Triebschneeablagerungen in steilem Gelände, insbesondere an Übergängen von wenig zu viel Schnee und von weichem zu hartem Schnee.</p>",
+    "text": "<p>Das Problem entsteht durch windverfrachteten Schnee. Triebschnee kann sowohl mit, als auch ohne gleichzeitigen Schneefall entstehen.</p> <p><b>Verhaltensempfehlung</b> <br/> <p> Vermeide Triebschneeablagerungen in steilem Gelände, insbesondere an Übergängen von wenig zu viel Schnee und von weichem zu hartem Schnee.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   }

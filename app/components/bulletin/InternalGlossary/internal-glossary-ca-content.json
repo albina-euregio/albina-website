@@ -116,31 +116,31 @@
   "danger-scale-1": {
     "heading": "Grau de perill: Feble",
     "text": "<p><b>Situació d’allaus generalment favorable.</b><br />No hi ha signes d'alarma. Les allaus només es poden desencadenar en casos aïllats, en particular en pendents extremadament inclinades.<br /> <b>Recomanacions per muntanyencs i esquiadors</b><br /> Circuleu en pendents extremadament escarpades d’un en un i tingueu en compte el perill de caure.</p>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
     "heading": "Grau de perill: Moderat",
     "text": "<p><b>Situació d’allaus majoritàriament favorable.</b><br />Es poden produir signes d’alarma en casos aïllats. Les allaus es poden desencadenar, en particular, en pendents molt inclinats, amb l'orientació i l'elevació indicades al butlletí. Les allaus naturals grans són poc probables.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Les activitats en terreny de muntanya s’han de seleccionar acuradament, sobretot en els vessants d'orientació i altitud indicats al lauegi.report Circular per vessants inclinats d'un en un. Atenció a l'estructura desfavorable del mantell de neu (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capes febles persistents</a>).</p>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-3": {
     "heading": "Grau de perill: Marcat",
     "text": "<p><b>Situació d'allaus crítica.</b><br />Són típics els whumpfs i les fissures que propaguen. Es poden desencadenar allaus fàcilment, particularment en pendents molt inclinats, amb l'orientació i l'elevació indicats al butlletí. Es poden produir allaus naturals i desencadenaments remots.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />La situació més crítica per als muntanyencs. Utilitzeu el terreny de manera eficient i seleccioneu la millor ruta possible amb una exposició mínima. Eviteu pendents molt inclinats amb l'orientació i l'elevació indicats al butlletí. Es recomana que les persones inexpertes es mantinguin en pistes i senders oberts.<br /></p>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-4": {
     "heading": "Grau de perill: Fort",
     "text": "<p><b>Situació d'allaus molt crítica.</b><br />És probable que hi hagi allaus naturals i sovint molt grans. Es poden desencadenar allaus fàcilment en molts pendents. El desencadenament remot és típic. Sovint es produeixen whumpfs i esquerdes que propaguen.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Mantingueu-vos en terrenys moderadament inclinats. Vigileu amb les zones d'arribada de grans allaus. Les persones sense experiència han de romandre en pistes d’esquí obertes. Aquesta previsió es dona només en uns dies durant tot l’hivern.<br /></p>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-5": {
     "heading": "Grau de perill: Molt fort",
     "text": "<p><b>Situació d'allaus extraordinària.</b><br />S'esperen nombroses allaus naturals molt grans i extremes. Aquestes poden arribar a carreteres i assentaments a la vall.<br /><b>Recomanacions per muntanyencs i esquiadors:</b><br />Es recomana no sortir a la muntanya fora de les pistes d’esquí obertes.<br /></p>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "snowpack-stability-very-poor": {
@@ -169,31 +169,31 @@
   },
   "problem-glide": {
     "heading": "Problema: lliscament",
-    "text": "Tot el mantell de neu llisca sobre el terreny, normalment en terrenys llisos com ara pendents herboses o zones de roques llises. L’elevada activitat d’allaus de lliscament basal està relacionada normalment amb un mantell de neu gruixut amb cap o només poques capes. Es poden produir allaus de lliscament tant amb un mantell de neu seca i freda com amb un mantell càlid. És difícil predir el desencadenament d’una allau de  lliscament, tot i que les esquerdes s’obren generalment abans d’un desencadenament.</p><b>Consells de circulació</b> <br/> <p>Evitar zones properes a esquerdes de lliscament.</p>",
+    "text": "Tot el mantell de neu llisca sobre el terreny, normalment en terrenys llisos com ara pendents herboses o zones de roques llises. L’elevada activitat d’allaus de lliscament basal està relacionada normalment amb un mantell de neu gruixut amb cap o només poques capes. Es poden produir allaus de lliscament tant amb un mantell de neu seca i freda com amb un mantell càlid. És difícil predir el desencadenament d’una allau de  lliscament, tot i que les esquerdes s’obren generalment abans d’un desencadenament.</p> <p><b>Consells de circulació</b> <br/> <p>Evitar zones properes a esquerdes de lliscament.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-new_snow": {
     "heading": "Problema: Neu recent",
-    "text": "<p>El problema d'allaus està relacionat amb les nevades actuals o més recents. La quantitat de càrrega addicional per neu nova al mantell de neu existent és el factor crucial del nou problema d'estabilitat. La importància de la càrrega crítica depèn de diversos factors, com ara la temperatura o les característiques de la superfície de la neu antiga.</p><b>Consells de circulació</b> <br/> <p>Plaques seques:<br>Espera fins que el mantell s'estabilitzi.<br>Allaus puntuals de neu seca:<br>El perill de caiguda és més important que el d'enterrament. Considera les conseqüències en terreny molt inclinat. </p>",
+    "text": "<p>El problema d'allaus està relacionat amb les nevades actuals o més recents. La quantitat de càrrega addicional per neu nova al mantell de neu existent és el factor crucial del nou problema d'estabilitat. La importància de la càrrega crítica depèn de diversos factors, com ara la temperatura o les característiques de la superfície de la neu antiga.</p> <p><b>Consells de circulació</b> <br/> <p>Plaques seques:<br>Espera fins que el mantell s'estabilitzi.<br>Allaus puntuals de neu seca:<br>El perill de caiguda és més important que el d'enterrament. Considera les conseqüències en terreny molt inclinat. </p>",
     "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
     "heading": "Problema: Capes febles persistents",
-    "text": "<p>El problema d'allaus està relacionat amb la presència de capes febles persistents a l’antic mantell de neu. Aquestes capes febles inclouen típicament gebre de superfície enterrat, gobelets o cristalls amb facetes.</p><b>Consells de circulació</b> <br/> <p>Tipus d'allaus previstes</p>",
+    "text": "<p>El problema d'allaus està relacionat amb la presència de capes febles persistents a l’antic mantell de neu. Aquestes capes febles inclouen típicament gebre de superfície enterrat, gobelets o cristalls amb facetes.</p> <p><b>Consells de circulació</b> <br/> <p>Tipus d'allaus previstes</p>",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
     "heading": "Problema: Neu humida",
-    "text": "<p>El problema de les allaus està relacionat amb el debilitament del mantell de neu degut a la presència d’aigua líquida. L’aigua s’infiltra al mantell de neu a causa de la fusió o la pluja.</p><b>Consells de circulació</b> <br/> <p>En presència de crosta de regel, les condicions després de nits fredes amb cels clars solen ser favorables al matí pel regel. Després de nits càlides amb cels ennuvolats, el problema sovint ja existeix al matí. Normalment la pluja sobre neu fresca crea aquest problema gairebé immediatament. El bon horari i la planificació de la sortida són importants. Penseu en les zones d'arribada d’allaus.</p>",
+    "text": "<p>El problema de les allaus està relacionat amb el debilitament del mantell de neu degut a la presència d’aigua líquida. L’aigua s’infiltra al mantell de neu a causa de la fusió o la pluja.</p> <p><b>Consells de circulació</b> <br/> <p>En presència de crosta de regel, les condicions després de nits fredes amb cels clars solen ser favorables al matí pel regel. Després de nits càlides amb cels ennuvolats, el problema sovint ja existeix al matí. Normalment la pluja sobre neu fresca crea aquest problema gairebé immediatament. El bon horari i la planificació de la sortida són importants. Penseu en les zones d'arribada d’allaus.</p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wind_slab": {
     "heading": "Avalanche problem: Wind slab",
-    "text": "<p>El problema d'allaus està relacionat amb les Plaques de vent. La neu es pot transportarpel vent amb o sense nevada simultània.</p> <b>Consells de circulació</b> <br/> <p> Eviteu les acumulacions de neu en terrenys molt inclinats, especialment en zones on el mantell de neu canvia de prim a gruixut o de dur a tou.</p>",
+    "text": "<p>El problema d'allaus està relacionat amb les Plaques de vent. La neu es pot transportarpel vent amb o sense nevada simultània.</p> <p><b>Consells de circulació</b> <br/> <p> Eviteu les acumulacions de neu en terrenys molt inclinats, especialment en zones on el mantell de neu canvia de prim a gruixut o de dur a tou.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   }

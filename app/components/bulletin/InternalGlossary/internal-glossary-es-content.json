@@ -115,32 +115,32 @@
   },
   "danger-scale-1": {
     "heading": "Grado de Peligro: Débil",
-    "text": "<div style='text-align:center;'><p><b>En general, situación de aludes favorable</b><br /> No hay signos de alarma. Los aludes solo se pueden desencadenar en casos aislados, en particular en pendientes extremadamente inclinadas.<br /> <b>Recomendaciones para montañeros y esquiadores</b><br />Esquiar en pendientes extremadamente inclinadas de uno en uno i valorar el peligro de caídas.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>En general, situación de aludes favorable</b><br /> No hay signos de alarma. Los aludes solo se pueden desencadenar en casos aislados, en particular en pendientes extremadamente inclinadas.<br /> <b>Recomendaciones para montañeros y esquiadores</b><br />Esquiar en pendientes extremadamente inclinadas de uno en uno i valorar el peligro de caídas.<br /></p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
     "heading": "Grado de Peligro: Limitado",
-    "text": "<div style='text-align:center;'><p><b>Situación de aludes mayoritariamente favorable</b><br />Se pueden producir signos de alarma en casos aislados. Los aludes se pueden desencadenar, en particular, en pendientes muy inclinadas, con la orientación y la elevación indicadas en el boletín. Los aludes naturales grandes son poco probables.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Las actividades de montaña deben seleccionarse cuidadosamente, especialmente en laderas de orientación y altitud indicadas en avalanche.report. Esquiar por laderas muy empinadas una persona a la vez. Prestar atención a una posible estructura desfavorable del manto de nieve(<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).<br /></p></div>",
-    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>Situación de aludes mayoritariamente favorable</b><br />Se pueden producir signos de alarma en casos aislados. Los aludes se pueden desencadenar, en particular, en pendientes muy inclinadas, con la orientación y la elevación indicadas en el boletín. Los aludes naturales grandes son poco probables.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Las actividades de montaña deben seleccionarse cuidadosamente, especialmente en laderas de orientación y altitud indicadas en avalanche.report. Esquiar por laderas muy empinadas una persona a la vez. Prestar atención a una posible estructura desfavorable del manto de nieve(<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).<br /></p>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-3": {
     "heading": "Grado de Peligro: Notable",
-    "text": "<div style='text-align:center;'><p><b>Situación de aludes crítica</b><br />Son típicos los whumpfs y las fisuras que se propagan. Se pueden desencadenar aludes fácilmente, particularmente en pendientes muy inclinadas, con la orientación y la elevación indicados en el boletín. Se pueden producir aludes naturales y desencadenamientos remotos.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />La situación más crítica para los montañeros. Utilizar el terreno de manera sensata y seleccionar la mejor ruta posible y con una exposición mínima. Evitar pendientes muy inclinadas con la orientación y la elevación indicados en el boletín. Se recomienda a personas sin experiencia mantenerse en pistas de esquí abiertas.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>Situación de aludes crítica</b><br />Son típicos los whumpfs y las fisuras que se propagan. Se pueden desencadenar aludes fácilmente, particularmente en pendientes muy inclinadas, con la orientación y la elevación indicados en el boletín. Se pueden producir aludes naturales y desencadenamientos remotos.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />La situación más crítica para los montañeros. Utilizar el terreno de manera sensata y seleccionar la mejor ruta posible y con una exposición mínima. Evitar pendientes muy inclinadas con la orientación y la elevación indicados en el boletín. Se recomienda a personas sin experiencia mantenerse en pistas de esquí abiertas.<br /></p>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-4": {
     "heading": "Grado de Peligro: Fuerte",
-    "text": "<div style='text-align:center;'><p><b>Situación de aludes muy crítica</b><br />Es probable que haya aludes naturales y a menudo muy grandes. Se pueden desencadenar aludes fácilmente en muchas pendientes escarpadas. El desencadenamiento remoto es típico. A menudo se producen whumpfs y grietas que se propagan.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Mantenerse en terrenos moderadamente inclinados. Cuidado con las zonas de llegada de grandes aludes. Las personas sin experiencia deben permanecer en pistas de esquí abiertas. Esta previsión se da sólo en pocos días durante todo el invierno.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>Situación de aludes muy crítica</b><br />Es probable que haya aludes naturales y a menudo muy grandes. Se pueden desencadenar aludes fácilmente en muchas pendientes escarpadas. El desencadenamiento remoto es típico. A menudo se producen whumpfs y grietas que se propagan.<br /><b>Recomendaciones para montañeros y esquiadores</b><br />Mantenerse en terrenos moderadamente inclinados. Cuidado con las zonas de llegada de grandes aludes. Las personas sin experiencia deben permanecer en pistas de esquí abiertas. Esta previsión se da sólo en pocos días durante todo el invierno.<br /></p>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-5": {
     "heading": "Grado de Peligro: Muy fuerte",
-    "text": "<div style='text-align:center;'><p><b>Situación de aludes extraordinaria</b><br />Se esperan numerosos aludes naturales muy grandes y extremos. Estos pueden llegar a carreteras y asentamientos en los valles.<br /><b>Recomendaciones para montañeros y esquiadores:</b><br />Se recomienda no salir a la montaña fuera de pistas de esquí abiertas.<br /></p></div>",
-    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-width:25%;height:auto;\"/>",
+    "text": "<p><b>Situación de aludes extraordinaria</b><br />Se esperan numerosos aludes naturales muy grandes y extremos. Estos pueden llegar a carreteras y asentamientos en los valles.<br /><b>Recomendaciones para montañeros y esquiadores:</b><br />Se recomienda no salir a la montaña fuera de pistas de esquí abiertas.<br /></p>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "snowpack-stability-very-poor": {
@@ -169,31 +169,31 @@
   },
   "problem-glide": {
     "heading": "Problema: Deslizamientos basales",
-    "text": "<p> Todo el manto nivoso desliza sobre el suelo, normalmente sobre terreno resbaladizo como p. ej. pendientes herbosas o laderas de roca lisa. La actividad de deslizamientos basales está típicamente relacionada con un manto grueso homogéneo o con pocas capas. Los deslizamientos basales se pueden dar con manto frío y seco y con un manto cálido y húmedo. El desencadenamiento de los deslizamientos basales es difícil de predecir aunque las caídas frecuentemente son anunciadas por la apertura de grietas. </p> </p> <b>Consejos de circulación</b> <br/> <p>Evitar zonas próximas a grietas de deslizamiento.</p>",
+    "text": "<p> Todo el manto nivoso desliza sobre el suelo, normalmente sobre terreno resbaladizo como p. ej. pendientes herbosas o laderas de roca lisa. La actividad de deslizamientos basales está típicamente relacionada con un manto grueso homogéneo o con pocas capas. Los deslizamientos basales se pueden dar con manto frío y seco y con un manto cálido y húmedo. El desencadenamiento de los deslizamientos basales es difícil de predecir aunque las caídas frecuentemente son anunciadas por la apertura de grietas. </p> </p> <p><b>Consejos de circulación</b> <br/> <p>Evitar zonas próximas a grietas de deslizamiento.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-new_snow": {
     "heading": "Problema: Nieve reciente",
-    "text": "<p>El problema de aludes está relacionado con la nevada actual o más recientes. La candidad de carga adicional por nieve nueva en el manto existente es el factor crucial del problema de nieve reciente. La importancia de la carga crítica depende de varios factores tales como la temperatura o las características de la superficie de nieve previa.</p> <b>Consejos de circulación</b> <br/> <p>Placas de nieve seca: Espere hasta que el manto nivoso se estabilice. <br/>Aludes de nieve suelta seca: El peligro de caída es más importante que el de enterramiento. Considera las consecuencias en terreno muy inclinado.</p>",
+    "text": "<p>El problema de aludes está relacionado con la nevada actual o más recientes. La candidad de carga adicional por nieve nueva en el manto existente es el factor crucial del problema de nieve reciente. La importancia de la carga crítica depende de varios factores tales como la temperatura o las características de la superficie de nieve previa.</p> <p><b>Consejos de circulación</b> <br/> <p>Placas de nieve seca: Espere hasta que el manto nivoso se estabilice. <br/>Aludes de nieve suelta seca: El peligro de caída es más importante que el de enterramiento. Considera las consecuencias en terreno muy inclinado.</p>",
     "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
     "heading": "Problema: Capa débil persistente",
-    "text": "<p> El problema de aludes está relacionado con la presencia de capas débiles en el manto antiguo. Estas capas débiles típicamente incluyen capas enterradas de escarcha de superficie, cubiletes o cristales con facetas. </p> <b>Consejos de circulación</b> <br/> <p> Circulad de forma conservadora y evitad las laderas grandes y muy empinadas. Tened en consideración el tiempo y los procesos en el manto nivoso de la zona. Sed extremadamente cautos con un manto delgado y en la transición de un manto delgado a grueso. Este problema es el que causa la mayoría de muertes a excursionistas en terreno de aludes. </p> </div> <br />",
+    "text": "<p> El problema de aludes está relacionado con la presencia de capas débiles en el manto antiguo. Estas capas débiles típicamente incluyen capas enterradas de escarcha de superficie, cubiletes o cristales con facetas. </p> <p><b>Consejos de circulación</b> <br/> <p> Circulad de forma conservadora y evitad las laderas grandes y muy empinadas. Tened en consideración el tiempo y los procesos en el manto nivoso de la zona. Sed extremadamente cautos con un manto delgado y en la transición de un manto delgado a grueso. Este problema es el que causa la mayoría de muertes a excursionistas en terreno de aludes. </p> </div> <br />",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
     "heading": "Problema: Nieve húmeda",
-    "text": "<p> El problema de alud está relacionado con el debilitamiento del manto debido a la presencia de agua líquida en su interior. El agua se infiltra dentro del manto debido a la fusión o a la lluvia</p>  <b>Consejos de circulación</b> <br/> <p> Cuando hay rehielo nocturno, en general tras noches frías con cielo despejado, las condiciones son favorables por la mañana. Después de noches cálidas con cielo cubierto el problema está a menudo presente ya desde la mañana. Normalmente la lluvia sobre nieve nueva produce este problema de forma casi inmediata. Planificar y gestionar bien el horario de la ruta es muy importante. Ten en cuenta las zonas de llegada de los aludes. </p>",
+    "text": "<p> El problema de alud está relacionado con el debilitamiento del manto debido a la presencia de agua líquida en su interior. El agua se infiltra dentro del manto debido a la fusión o a la lluvia</p> <p><b>Consejos de circulación</b> <br/> <p> Cuando hay rehielo nocturno, en general tras noches frías con cielo despejado, las condiciones son favorables por la mañana. Después de noches cálidas con cielo cubierto el problema está a menudo presente ya desde la mañana. Normalmente la lluvia sobre nieve nueva produce este problema de forma casi inmediata. Planificar y gestionar bien el horario de la ruta es muy importante. Ten en cuenta las zonas de llegada de los aludes. </p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wind_slab": {
     "heading": "Problema: Placas de viento",
-    "text": "<p> El problema de aludes está relacionado con las placas de viento. La nieve puede ser transportada por el viento con o sin una nevada simultánea.</p> <b>Consejos de circulación</b> <br/> <p> Evitar depósitos de nieve venteada en terrenos muy inclinados, en particular en áreas donde la cobertura de nieve cambia de fino a grueso o de duro a blando.</p>",
+    "text": "<p> El problema de aludes está relacionado con las placas de viento. La nieve puede ser transportada por el viento con o sin una nevada simultánea.</p> <p><b>Consejos de circulación</b> <br/> <p> Evitar depósitos de nieve venteada en terrenos muy inclinados, en particular en áreas donde la cobertura de nieve cambia de fino a grueso o de duro a blando.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   }
