@@ -2,55 +2,55 @@
   "avalanche-size-1": {
     "heading": "Mida 1: Allau petita (sluff)",
     "text": "<p>És improbable que enterri una persona, excepte en zones d'arribada desfavorables (trampes del terreny).<br/>En terreny extremadament inclinat, el perill de caigudes profundes preval sobre el perill de sepultaments.<br/>La neu desplaçada normalment s'atura abans del final d'un pendent.</p>",
-    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|0|false|90|__END_SLIDER___ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|0|false|90|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
     "heading": "Mida 2: Allau mitjana",
     "text": "<p>Pot sepultar, lesionar o matar una persona.<br/>La mida 2 correspon a l'allau típic desencadenat per un esquiador.<br/>L'allau de neu normalment s'atura al final d'un pendent.</p>",
-    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|1|false|90|__END_SLIDER___ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|1|false|90|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
     "heading": "Mida 3: Allau gran",
     "text": "<p>Pot sepultar i destruir un cotxe, danyar un camió; destruir un edifici petit o trencar alguns arbres.<br/>Quan els esquiadors són atrapats per allaus d'aquesta mida, la probabilitat de conseqüències greus és molt alta.<br/>L'allau de neu pot travessar terreny pla (considerablement per sota de 30°) en distàncies de menys de 50 m.</p>",
-    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|2|false|90|__END_SLIDER___ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|2|false|90|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
     "heading": "Mida 4: Allau molt gran",
     "text": "<p>Pot sepultar i destruir un vagó de tren, un camió gran, diversos edificis o una part d'un bosc.<br/>Pot destruir edificis força grans i petites zones de bosc.<br/>L'allau de neu travessa terreny pla (considerablement per sota de 30°) en distàncies de més de 50 m i pot arribar al fons de la vall.</p>",
-    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|3|false|90|__END_SLIDER___ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|3|false|90|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
     "heading": "Mida 5: Allau extremadament gran",
     "text": "<p>Pot esculpir el paisatge; potencial de danys desastrosos.<br/>L'allau de neu arriba al fons de la vall.<br/>La distància de recorregut més gran coneguda.</p>",
-    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|4|false|90|__END_SLIDER___ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "img": "__SIMPLE_SLIDER__|petita,mitjana,gran,molt gran,extremadament gran|4|false|90|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-frequency-none": {
     "heading": "Classe de freqüència d'allaus: Cap o gairebé cap",
     "text": "<p>Els punts amb aquesta classe d'estabilitat no existeixen, o són tan rars que no es consideren rellevants per a l'avaluació de l'estabilitat.</p>",
-    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classe de freqüència d'allaus: Poques",
     "text": "<p>Els punts amb aquesta classe d'estabilitat són rars. Tot i que són rars, el seu número es considera rellevant per a l'avaluació de l'estabilitat.</p><p>És difícil trobar evidència de la inestabilitat.</p>",
-    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classe de freqüència d'allaus: Algunes",
     "text": "<p>Els punts amb aquesta classe d'estabilitat no són ni molts ni pocs, però aquests punts normalment existeixen en característiques del terreny comunes (és a dir, prop de les carenes, en barrancs).</p>",
-    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classe de freqüència d'allaus: Moltes",
     "text": "<p>Els punts amb aquesta classe d'estabilitat són abundants.</p><p>Sovint és fàcil trobar evidències de la inestabilitat.</p>",
-    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER__",
     "source": "false"
   },
   "danger-pattern-DP1": {
@@ -146,25 +146,25 @@
   "snowpack-stability-very-poor": {
     "heading": "Estabilitat del mantell de neu: Molt pobre",
     "text": "<p>Naturals / molt fàcil de desencadenar</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Estabilitat del mantell de neu: Pobre",
     "text": "<p>Fàcil de desencadenar (per exemple, un sol esquiador/a)</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Estabilitat del mantell de neu: Regular",
     "text": "<p>Difícil de desencadenar (p. ex. explosius)</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Estabilitat del mantell de neu: Bona",
     "text": "<p>Condicions estables</p>",
-    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER___",
+    "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER__",
     "source": "false"
   },
   "problem-glide": {
