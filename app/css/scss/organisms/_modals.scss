@@ -143,7 +143,8 @@ dialog[open]::backdrop {
   position: relative;
   min-height: 100vh;
   margin: 0 !important;
-  padding: ($modal-padding * 2) $modal-padding $modal-padding $modal-padding;
+  padding: ($modal-padding * 2) ($modal-padding * 0.5) $modal-padding
+    ($modal-padding * 0.5);
   @include mixins.last-child;
   @media #{variables.$medium-up} {
     min-height: 0;
@@ -410,11 +411,10 @@ button.mfp-arrow {
   }
 
   .uplots {
-    //overflow: hidden;
-    margin-left: -$modal-padding;
-    margin-right: -$modal-padding;
-    padding-left: variables.$padding;
-    padding-right: variables.$padding;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: -(variables.$padding);
+    margin-right: -(variables.$padding);
   }
 
   linea-plot {
@@ -422,7 +422,6 @@ button.mfp-arrow {
     flex-direction: column;
     gap: (variables.$padding * 2);
     margin-bottom: variables.$margin-bottom;
-    min-width: 32em;
 
     > div {
       box-shadow: 0 0 2px 2px variables.$grey-very-light;
