@@ -4,8 +4,6 @@ import SmFollow from "./sm-follow";
 
 export default function FooterLogos() {
   const icons = config.footer.icons;
-  const imgRoot = window.config.projectRoot + "images/pro/footer/";
-
   return (
     <section className="section section-padding page-footer-logos">
       {icons.map((icon, i) => (
@@ -20,7 +18,7 @@ export default function FooterLogos() {
               <img
                 className="footer-logo-img"
                 alt={icon.title}
-                src={imgRoot + icon.img}
+                src={`${window.config.projectRoot}images/pro/footer/${icon.img}`}
               />
             </a>
           </Tooltip>

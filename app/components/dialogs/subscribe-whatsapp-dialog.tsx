@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegion } from "../../stores/eawsRegions";
-import { $province, Language, mainLanguages } from "../../appStore";
+import { $province, Language } from "../../appStore";
 import { useStore } from "@nanostores/react";
 
 export function getWhatsAppUrl(region: string, language: Language) {
@@ -58,7 +58,9 @@ export default function SubscribeWhatsappDialog() {
               </label>
               <ProvinceFilter
                 regionCodes={config.regionCodes.filter(r =>
-                  mainLanguages.some(language => getWhatsAppUrl(r, language))
+                  config.mainLanguages.some(language =>
+                    getWhatsAppUrl(r, language)
+                  )
                 )}
                 buttongroup={true}
                 title={intl.formatMessage({
@@ -76,7 +78,7 @@ export default function SubscribeWhatsappDialog() {
             <FormattedMessage id="dialog:subscribe-whatsapp:language" />
           </label>
           <LanguageFilter
-            languages={mainLanguages.filter(
+            languages={config.mainLanguages.filter(
               l => !region || getWhatsAppUrl(region, l)
             )}
             buttongroup={true}

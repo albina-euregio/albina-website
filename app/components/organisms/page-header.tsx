@@ -3,7 +3,6 @@ import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
 
-import menuItems from "../../menu.json";
 import { setLanguage } from "../../appStore";
 
 function PageHeader() {
@@ -51,43 +50,61 @@ function PageHeader() {
     navOpen = true;
   }
 
+  const languageNameInNativeLanguage = {
+    oc: "Aranés",
+    ca: "Català",
+    de: "Deutsch",
+    en: "English",
+    es: "Español",
+    fr: "Français",
+    it: "Italiano"
+  };
+
   return (
     <div id="page-header" className="page-header">
       <div className="page-header-logo">
-        <Tooltip
-          label={intl.formatMessage({
-            id: "header:logo:hover"
-          })}
-        >
-          <a
-            aria-label={intl.formatMessage({
+        {config.headlessLogo?.length ? (
+          config.headlessLogo.map((logo, i) => (
+            <a href="/" key={i}>
+              <img src={logo} style={{ margin: 0 }} />
+            </a>
+          ))
+        ) : (
+          <Tooltip
+            label={intl.formatMessage({
               id: "header:logo:hover"
             })}
-            href="/"
           >
-            <span className="mark">
-              <span
-                className={`mark-${lang}`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-              <span
-                className={`mark-en`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-            </span>
-            <span className="url">
-              <span
-                className={`url-${lang}`}
-                data-base-url={import.meta.env.BASE_URL}
-              />
-            </span>
-          </a>
-        </Tooltip>
+            <a
+              aria-label={intl.formatMessage({
+                id: "header:logo:hover"
+              })}
+              href="/"
+            >
+              <span className="mark">
+                <span
+                  className={`mark-${lang}`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+                <span
+                  className={`mark-en`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+              </span>
+              <span className="url">
+                <span
+                  className={`url-${lang}`}
+                  data-base-url={import.meta.env.BASE_URL}
+                />
+              </span>
+            </a>
+          </Tooltip>
+        )}
       </div>
       <div id="navigation" className="page-header-navigation">
         <Menu
           className="list-plain navigation"
-          entries={menuItems}
+          entries={config.menu}
           childClassName="list-plain subnavigation"
           onSelect={() => {
             // close mobile menu on selection
@@ -120,77 +137,19 @@ function PageHeader() {
               <span></span>
             </a>
             <ul className="list-plain subnavigation">
-              {/* languages in alphabetical order */}
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-oc"
-                  onClick={() => handleChangeLanguage("oc")}
-                >
-                  Aranés
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-ca"
-                  onClick={() => handleChangeLanguage("ca")}
-                >
-                  Català
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-de"
-                  onClick={() => handleChangeLanguage("de")}
-                >
-                  Deutsch
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-en"
-                  onClick={() => handleChangeLanguage("en")}
-                >
-                  English
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-es"
-                  onClick={() => handleChangeLanguage("es")}
-                >
-                  Español
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-fr"
-                  onClick={() => handleChangeLanguage("fr")}
-                >
-                  Français
-                </a>
-              </li>
-              <li>
-                <a
-                  role="button"
-                  tabIndex="0"
-                  className="language-trigger-it"
-                  onClick={() => handleChangeLanguage("it")}
-                >
-                  Italiano
-                </a>
-              </li>
+              {config.languages.map(l => (
+                <li key={l}>
+                  <a
+                    role="button"
+                    tabIndex="0"
+                    // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
+                    className={`language-trigger-${l}`}
+                    onClick={() => handleChangeLanguage(l)}
+                  >
+                    {languageNameInNativeLanguage[l]}
+                  </a>
+                </li>
+              ))}
             </ul>
           </li>
         </ul>
@@ -215,24 +174,26 @@ function PageHeader() {
           </button>
         </Tooltip>
       </div>
-      <div className="page-header-logo-secondary">
-        <Tooltip
-          label={intl.formatMessage({
-            id: "header:euregio:hover"
-          })}
-        >
-          <a
-            href={config.template(config.links.euregio, {
-              lang: lang
+      {config.links.euregio && (
+        <div className="page-header-logo-secondary">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "header:euregio:hover"
             })}
-            className="header-footer-logo-secondary"
-            rel="noopener noreferrer"
-            target="_blank"
           >
-            <span>Euregio</span>
-          </a>
-        </Tooltip>
-      </div>
+            <a
+              href={config.template(config.links.euregio, {
+                lang: lang
+              })}
+              className="header-footer-logo-secondary"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>Euregio</span>
+            </a>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 }
