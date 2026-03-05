@@ -143,7 +143,7 @@
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
-  "snowpack-stability-very-poor": {
+  "snowpack-stability-very_poor": {
     "heading": "Snowpack stability: Very poor",
     "text": "<p>Naturals / very easy to trigger</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|__END_SLIDER__",

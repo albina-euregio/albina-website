@@ -143,7 +143,7 @@
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\"  style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
-  "snowpack-stability-very-poor": {
+  "snowpack-stability-very_poor": {
     "heading": "Schneedeckenstabilität: Sehr schlecht",
     "text": "<p>Eine Lawine kann sehr leicht ausgelöst werden oder spontan abgehen</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|0|__END_SLIDER__",

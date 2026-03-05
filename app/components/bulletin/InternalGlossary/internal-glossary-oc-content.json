@@ -141,7 +141,7 @@
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
-  "snowpack-stability-very-poor": {
+  "snowpack-stability-very_poor": {
     "heading": "Classe d'estabilitat: Molt praube",
     "text": "<p>Naturaus / molt fàcil de desencadenar</p>",
     "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|0|false|__END_SLIDER__",

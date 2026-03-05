@@ -143,7 +143,7 @@
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
-  "snowpack-stability-very-poor": {
+  "snowpack-stability-very_poor": {
     "heading": "Clase de estabilidad del manto nivoso: muy pobre",
     "text": "<p>Naturales / muy fáciles de desencadenar</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|0|false|__END_SLIDER__",
