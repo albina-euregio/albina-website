@@ -259,7 +259,7 @@
           "https://api.avalanche.report/lawine/grafiken/smet/winter/{id}.smet.gz",
           "https://api.avalanche.report/lawine/grafiken/smet/all/{id}.smet.gz"
         ],
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Bayern|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
         "pngOperators": "BOKU|Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
         "stations": "https://static.avalanche.report/weather_stations/linea.geojson",
