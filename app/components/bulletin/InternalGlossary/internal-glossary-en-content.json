@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Frequency: None",
-    "text": "<p>Points with this stability class do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>The frequency class <b>none</b> Locations with the current stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Frequency: Few",
-    "text": "<p>Points with this stability class are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>for the frequency class <b>few</b> Locations with the stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Frequency: Some",
-    "text": "<p>Points with this stability class are neither many nor a few, but these points typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the frequency class <b>some</b>, Locations with the current stability class <b>{stabilityClass}</b>, typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Frequency: Many",
-    "text": "<p>Points with this stability class are abundant. Evidence for instability is often easy to find.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>The frequency class <b>many</b> Locations with the current stability class <b>{stabilityClass}</b> are abundant. Evidence for instability is often easy to find.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Snowpack stability: Very poor",
-    "text": "<p>Naturals / very easy to trigger</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>very poor</b>, natural releases are observable, avalanches are very easy to trigger by skiers or in snow stability tests. Shooting cracks and long-running whumpf are common. </p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Snowpack stability: Poor",
-    "text": "<p>Easy to trigger (e.g. a single skier)</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>poor</b> Avalanches are easy to trigger by a single skier or in snow stability tests. Shooting cracks and long-running whumpf sounds may be heard, while short-running whumpf sounds are common. </p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Snowpack stability: Fair",
-    "text": "<p>Difficult to trigger (e.g. explosives)</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>fair</b>,  Avalanches are Difficult to trigger, high laods such as explosives or cornice falls are typically required. Short.running whumpf may be heard.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Snowpack stability: Good",
-    "text": "<p>Stable conditions</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>A snowpack stability of class <b>good</b> has generally stable conditions and  no signs of instability are observable.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|__END_SLIDER__",
     "source": "false"
   },

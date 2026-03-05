@@ -15,6 +15,11 @@ export const LabeledSliderReact = ({
   initialIndex = 0,
   interactive = false,
   rotateLabelsAngle = 0
+}: {
+  labels?: string[];
+  initialIndex?: number;
+  interactive?: boolean;
+  rotateLabelsAngle?: number;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +55,6 @@ type InternalGlossaryContent = Awaited<
   Record<string, GlossaryEntry>;
 
 export interface GlossaryEntry {
-  ids: Record<string, string>;
   heading: string;
   text: string;
   img: string;
@@ -114,7 +118,7 @@ class InternalGlossaryReplacer {
       const rotateLabelsAngle = parts[3] ? parseInt(parts[3], 10) : 0;
       return (
         <div style={{ margin: "1em" }}>
-          {/* @ts-expect-error: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
+          {/* ts-expect-error: LabeledSlider expects a container, so we use a ref to mount it imperatively if needed */}
           <LabeledSliderReact
             labels={labels}
             initialIndex={initialIndex}
@@ -133,10 +137,9 @@ class InternalGlossaryReplacer {
     textKey: string,
     idText: string
   ) {
-    const { heading, text, ids, img, source, width } = glossaryItem;
+    const { heading, text, img, source, width } = glossaryItem;
     const hasSource = source && source.toLowerCase() === "false" ? false : true;
-    const anchor = ids?.[this.locale];
-    const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
+    const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${idText}`;
     const content = () => (
       <>
         {heading !== idText && <h3>{heading}</h3>}
@@ -155,7 +158,6 @@ class InternalGlossaryReplacer {
     );
     const tooltipProps: Record<string, unknown> = {
       key: textKey,
-      label: content,
       html: true,
       enableClick: true,
       zIndex: 2000000 // ensure glossary tooltip is above others
@@ -164,17 +166,24 @@ class InternalGlossaryReplacer {
       tooltipProps.width = width;
     }
     return (
-      <Tooltip {...tooltipProps}>
+      <Tooltip {...tooltipProps} label={content()}>
         <a className="glossary">{idText}</a>
       </Tooltip>
     );
   }
 
-  findGlossaryStrings(text: string, textKey: string) {
+  findGlossaryStrings(text: string, textKey: string, glossaryParams?: Record<string, string>) {
     // Check if the text matches any glossary content
     const glossaryItem = this.content[textKey];
     if (!glossaryItem) {
       return <>{textKey}</>;
+    }
+    if (glossaryParams) {
+      let replacedText = glossaryItem.text;
+          Object.entries(glossaryParams).forEach(([key, value]) => {
+      replacedText = replacedText.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
+    });
+    glossaryItem.text = replacedText;
     }
     return this.getTooltipContent(glossaryItem, textKey, text);
   }
@@ -188,7 +197,8 @@ const GLOSSARY_REPLACER_INTERNAL = {} as Record<
 export async function findGlossaryStrings(
   text: string,
   locale: EnabledLanguages,
-  textKey: string
+  textKey: string,
+  glossaryParams?: Record<string, string>
 ): Promise<string | React.ReactNode | React.ReactNode[]> {
   GLOSSARY_REPLACER_INTERNAL[locale] ??= InternalGlossaryReplacer.init(
     locale
@@ -198,5 +208,5 @@ export async function findGlossaryStrings(
     // unsupported language
     return InternalGlossaryReplacer.findBreaks(text);
   }
-  return glossaryReplacerInternal.findGlossaryStrings(text, textKey);
+  return glossaryReplacerInternal.findGlossaryStrings(text, textKey, glossaryParams);
 }

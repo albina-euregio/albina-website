@@ -212,6 +212,9 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const avalancheSizeText = intl.formatMessage({
     id: "bulletin:report:problem:avalanche-size"
   });
+  const glossaryParams = {
+    stabilityClass: problem?.snowpackStability || ""
+  };
   return (
     <li
       // style={
@@ -321,6 +324,7 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                       })}
                       locale={lang as EnabledLanguages}
                       textKey={"avalanche-frequency-" + problem?.frequency}
+                      glossaryParams={glossaryParams}
                     />
                   </a>
                 </span>
