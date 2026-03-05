@@ -2,6 +2,53 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.2.5] - 2026-03-05
+
+### 🚀 Features
+
+- Enable winterstats for weather stations
+
+### 🐛 Bug Fixes
+
+- Color map with max danger rating if elevation dependency exists and only one danger rating should be shown (?one-danger-rating=1)
+- Load EN bulletins from Italy if selected language is not available
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.7.9
+
+## [8.2.4] - 2026-03-03
+
+### 🚀 Features
+
+- Include weather stations from AT, BY and SI
+
+### 🐛 Bug Fixes
+
+- Add EAWS matrix in main menu again
+- Fix title and description for EAWS matrix on education page
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+
+## [8.2.3] - 2026-03-02
+
+### 🚀 Features
+
+- Obtain bbox from @eaws/outline_properties
+
+### 🐛 Bug Fixes
+
+- Fix PDF links
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 8.0.0-beta.15
+- Update translations
+- Update to LINEA v8.7.7
+- Update to eaws-regions v8.3.1
+
 ## [8.2.2] - 2026-02-19
 
 ### 🐛 Bug Fixes
