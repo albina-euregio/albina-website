@@ -165,7 +165,7 @@ class BulletinCollection {
               });
               data = await this.fetchFromURL(url);
             } catch (e) {
-              if (e instanceof NotFoundError) {
+              if (e instanceof NotFoundError || e instanceof TypeError) {
                 url = config.template(url0, {
                   region: id,
                   date: this.date,
