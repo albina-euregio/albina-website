@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Gefahrenstellen: Keine",
-    "text": "<p>Stellen mit dieser Stabilitätsklasse gibt es nicht oder sie sind so selten, dass sie für die Stabilitätsbeurteilung nicht relevant sind.</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p> Für die Frequenzklasse <b>Keine</b> und die aktuelle Stabilitätsklasse <b>{stabilityClass}</b>, gibt es keine Stellen oder sie sind so selten, dass sie für die Stabilitätsbeurteilung nicht relevant sind.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Gefahrenstellen: Wenige",
-    "text": "<p>Stellen mit dieser Stabilitätsklasse gibt es selten. Trotzt ihrer geringen Anzahl sind sie relevant für die Stabilitätsbeurteilung.</p> <p>Evidence for instability is hard to find.</p><p>Beweise für die Instabilität sind schwer zu finden.</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p> Für die Frequenzklasse <b>Wenige</b> und die aktuellen Stabilitätsklasse <b>{stabilityClass}</b>, gibt es selten Stellen. Trotzt ihrer geringen Anzahl sind sie relevant für die Stabilitätsbeurteilung.</p> <p>Beweise für die Instabilität sind schwer zu finden.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Gefahrenstellen: Einige",
-    "text": "<p>Stellen mit dieser Stabilitätsklasse sind weder viele noch wenige. Sie sind typischerweise im Gelände mit gemeinsamen Merkmalen zu finden (z.B. in Kammnähe, in Rinnen und Mulden) </p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Frequenzklasse <b>Einige</b> und die Stabilitätsklasse <b>{stabilityClass}</b>, sind weder viele noch wenige Stellen. Sie sind typischerweise im Gelände mit gemeinsamen Merkmalen zu finden (z.B. in Kammnähe, in Rinnen und Mulden) </p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Gefahrenstellen: Viele",
-    "text": "<p>Es gibt eine Vielzahl von Stellen mit dieser Stabilitätsklasse.</p><p>Anzeichen für die Instabilität sind oft einfach zu finden.</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Frequenzklasse <b>Viele</b> und die Stabilitätsklasse <b>{stabilityClass}</b>, gibt es viele Stellen. Anzeichen für die Instabilität sind oft einfach zu finden.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|2|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Schneedeckenstabilität: Sehr schlecht",
-    "text": "<p>Eine Lawine kann sehr leicht ausgelöst werden oder spontan abgehen</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Schneedeckenstabilität der Klasse <b>sehr schlecht</b> kann eine Lawine sehr leicht ausgelöst werden oder spontan abgehen.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|0|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Schneedeckenstabilität: Schlecht",
-    "text": "<p>Eine Lawine kann leicht ausgelöst werden (z.B. durch einzelne:n Skifahrer:in)</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Schneedeckenstabilität der Klasse <b>schlecht</b> kann eine Lawine leicht ausgelöst werden (z.B. durch einzelne:n Skifahrer:in)</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|1|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Schneedeckenstabilität: Mittel",
-    "text": "<p>Eine Lawine kann schwer ausgelöst werden (z.B. durch künstliche Auslösung)</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Schneedeckenstabilität der Klasse <b>mittel</b> kann eine Lawine schwer ausgelöst werden (z.B. durch künstliche Auslösung)</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Schneedeckenstabilität: Gut",
-    "text": "<p>Stabile Verhältnisse</p>",
+    "text": "<p>Die Lawinenhäufigkeit und die Stabilität der Schneedecke stehen in engem Zusammenhang. Die Stabilität der Schneedecke gibt Auskunft darüber, wie leicht eine Lawine an einem bestimmten Hang ausgelöst werden kann, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese schwache Stabilität in der Region auftritt.</p><p>Für die Schneedeckenstabilität der Klasse <b>gut</b> gelten stabile Verhältnisse</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|3|__END_SLIDER__",
     "source": "false"
   },

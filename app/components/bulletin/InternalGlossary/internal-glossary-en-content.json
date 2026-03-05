@@ -31,13 +31,13 @@
   },
   "avalanche-frequency-none": {
     "heading": "Frequency: None",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>The frequency class <b>none</b> Locations with the current stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the frequency class <b>none</b>, Locations with the current stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Frequency: Few",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>for the frequency class <b>few</b> Locations with the stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the frequency class <b>few</b>, Locations with the stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
     "source": "false"
   },
