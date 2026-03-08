@@ -81,7 +81,7 @@ $search-width-wide: 300px;
   }
 
   .section-bulletin-map & {
-    max-height: $map-height-bulletin;
+    height: $map-height-bulletin;
     min-height: $map-height-min;
     @include mixins.box-border(variables.$brand-very-light);
     border-left: none;
