@@ -17,7 +17,7 @@ function PageHeader() {
       function handleKeyDown(e: KeyboardEvent) {
         if ((e.altKey || e.metaKey) && (e.key === 'l' || e.key === 'L')) {
           e.preventDefault();
-        setLangDropdownOpen(true);
+        (true);
         setTimeout(() => {
           langButtonRef.current?.focus();
         }, 0);
@@ -130,6 +130,12 @@ function PageHeader() {
                 e.preventDefault();
                 setLangDropdownOpen(v => !v);
               }}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  setLangDropdownOpen(true);
+                }
+              }}
               className={`has-sub${langDropdownOpen ? ' open' : ''}`}
               aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
@@ -150,6 +156,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-oc"
                   onClick={() => handleChangeLanguage("oc")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("oc");
+                    }
+                  }}
                 >
                   Aranés
                 </a>
@@ -160,6 +172,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-ca"
                   onClick={() => handleChangeLanguage("ca")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("ca");
+                    }
+                  }}
                 >
                   Català
                 </a>
@@ -170,6 +188,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-de"
                   onClick={() => handleChangeLanguage("de")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("de");
+                    }
+                  }}
                 >
                   Deutsch
                 </a>
@@ -180,6 +204,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-en"
                   onClick={() => handleChangeLanguage("en")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("en");
+                    }
+                  }}
                 >
                   English
                 </a>
@@ -190,6 +220,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-es"
                   onClick={() => handleChangeLanguage("es")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("es");
+                    }
+                  }}
                 >
                   Español
                 </a>
@@ -200,6 +236,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-fr"
                   onClick={() => handleChangeLanguage("fr")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("fr");
+                    }
+                  }}
                 >
                   Français
                 </a>
@@ -210,6 +252,12 @@ function PageHeader() {
                   tabIndex="0"
                   className="language-trigger-it"
                   onClick={() => handleChangeLanguage("it")}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage("it");
+                    }
+                  }}
                 >
                   Italiano
                 </a>
