@@ -28,6 +28,16 @@ function PageHeader() {
 
   let navOpen = false;
 
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 1024);
+
+  React.useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 1024);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   function toggleNavigation() {
     if (navOpen) {
       document.body.classList.remove("navigation-open");
@@ -166,7 +176,7 @@ function PageHeader() {
               id: "header:hamburger:hover"
             })}
             className="pure-button pure-button-icon navigation-trigger"
-            tabIndex={window.innerWidth <= 1024 ? 0 : -1}
+            tabIndex={isMobile ? 0 : -1}
           >
             <span className="icon-hamburger">
               <span className="icon-close" />
