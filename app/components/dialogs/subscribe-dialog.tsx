@@ -11,7 +11,7 @@ import SubscribeWhatsappDialog, {
 import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
 import { useStore } from "@nanostores/react";
-import { $province, mainLanguages } from "../../appStore.ts";
+import { $province } from "../../appStore.ts";
 
 export default function SubscribeDialog() {
   const province = useStore($province);
@@ -28,10 +28,16 @@ export default function SubscribeDialog() {
   if (!isWebPushSupported()) {
     dialogTypes = dialogTypes.filter(t => t !== "WebPush");
   }
-  if (province && !mainLanguages.some(l => getTelegramUrl(province, l))) {
+  if (
+    province &&
+    !config.mainLanguages.some(l => getTelegramUrl(province, l))
+  ) {
     dialogTypes = dialogTypes.filter(t => t !== "Telegram");
   }
-  if (province && !mainLanguages.some(l => getWhatsAppUrl(province, l))) {
+  if (
+    province &&
+    !config.mainLanguages.some(l => getWhatsAppUrl(province, l))
+  ) {
     dialogTypes = dialogTypes.filter(t => t !== "WhatsApp");
   }
 

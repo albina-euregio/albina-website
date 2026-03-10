@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import * as L from "leaflet";
 import "leaflet/styles.css";
 
@@ -15,16 +15,25 @@ import "../../css/geonames.scss";
 interface Props {
   loaded: boolean;
   onInit: (map: L.Map) => void;
+  enableStationPinsToggle?: boolean;
+  showMarkersWithoutValue?: boolean;
+  onToggleMarkersWithoutValue?: (nextValue: boolean) => void;
 }
 
 const LeafletMapControls = (props: Props) => {
   const intl = useIntl();
   const parentMap = useMap();
+  const stationPinsControlRef = useRef<L.Control | null>(null);
+  const enableStationPinsToggle = props.enableStationPinsToggle;
+  const showMarkersWithoutValue = props.showMarkersWithoutValue;
+  const onToggleMarkersWithoutValue = props.onToggleMarkersWithoutValue;
 
   const _init_tooltip = useCallback(() => {
     parentMap
       .getContainer()
-      .querySelectorAll(".leaflet-control-zoom a, .leaflet-control-locate a")
+      .querySelectorAll(
+        ".leaflet-control-zoom a, .leaflet-control-locate a, .leaflet-control-showhide a"
+      )
       .forEach(e => e.classList.add("tooltip"));
     tooltip_init();
   }, [parentMap]);
@@ -33,10 +42,29 @@ const LeafletMapControls = (props: Props) => {
     parentMap
       .getContainer()
       .querySelectorAll(
-        ".leaflet-control-zoom a, .leaflet-control-locate a, .leaflet-geonames-search a, .leaflet-touch-zoom"
+        ".leaflet-control-zoom a, .leaflet-control-locate a, .leaflet-geonames-search a, .leaflet-touch-zoom, .leaflet-control-showhide a"
       )
       .forEach(e => e.setAttribute("tabIndex", "-1"));
   }, [parentMap]);
+
+  const updateStationPinsControl = useCallback(() => {
+    const control = stationPinsControlRef.current;
+    if (!control) return;
+
+    const container = control.getContainer();
+    const showMarkersWithoutValueValue = showMarkersWithoutValue ?? true;
+    const title = intl.formatMessage({
+      id: showMarkersWithoutValueValue
+        ? "weathermap:hidePins"
+        : "weathermap:showPins"
+    });
+    container.className = showMarkersWithoutValueValue
+      ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
+      : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control";
+    container.innerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${title}"></a>`;
+    _init_tooltip();
+    _init_aria();
+  }, [intl, showMarkersWithoutValue, _init_tooltip, _init_aria]);
 
   useEffect(() => {
     if (props.onInit) {
@@ -89,9 +117,66 @@ const LeafletMapControls = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    if (!enableStationPinsToggle || !onToggleMarkersWithoutValue) {
+      stationPinsControlRef.current?.remove();
+      stationPinsControlRef.current = null;
+      return undefined;
+    }
+
+    if (!stationPinsControlRef.current) {
+      const stationPinsControl = new L.Control({ position: "topleft" });
+      stationPinsControl.onAdd = () => {
+        const showMarkersWithoutValueValue = showMarkersWithoutValue ?? true;
+        const title = intl.formatMessage({
+          id: showMarkersWithoutValueValue
+            ? "weathermap:hidePins"
+            : "weathermap:showPins"
+        });
+        const container = L.DomUtil.create(
+          "div",
+          showMarkersWithoutValueValue
+            ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
+            : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
+        );
+        container.innerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${title}"></a>`;
+        L.DomEvent.disableClickPropagation(container);
+        L.DomEvent.disableScrollPropagation(container);
+        container.addEventListener("click", event => {
+          event.preventDefault();
+          const nextValue = !(showMarkersWithoutValue ?? true);
+          onToggleMarkersWithoutValue?.(nextValue);
+        });
+        return container;
+      };
+      stationPinsControl.addTo(parentMap);
+      stationPinsControlRef.current = stationPinsControl;
+    }
+
+    updateStationPinsControl();
+
+    return () => {
+      stationPinsControlRef.current?.remove();
+      stationPinsControlRef.current = null;
+    };
+  }, [
+    parentMap,
+    enableStationPinsToggle,
+    onToggleMarkersWithoutValue,
+    showMarkersWithoutValue,
+    intl,
+    updateStationPinsControl
+  ]);
+
+  useEffect(() => {
     _init_tooltip();
     _init_aria();
   }, [_init_aria, _init_tooltip]);
+
+  useEffect(() => {
+    if (stationPinsControlRef.current) {
+      updateStationPinsControl();
+    }
+  }, [updateStationPinsControl]);
 
   return <></>;
 };

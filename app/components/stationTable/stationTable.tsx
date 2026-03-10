@@ -62,7 +62,7 @@ export default function StationTable(props: Props) {
           <span className="region" title={row.microRegion}>
             <FormattedMessage id={`region:${row.microRegion}`} />
             {row.province &&
-              config.regionCodes.includes(row.province as string) && (
+              config.stationRegions.includes(row.province as string) && (
                 <span className={`region region-${row.province}`}>
                   <FormattedMessage id={`region:${row.province}`} />
                 </span>
@@ -166,6 +166,38 @@ export default function StationTable(props: Props) {
       digits: 1,
       unit: "°C",
       className: "mb-temp m-ltnow"
+    },
+    {
+      // Surface Temp.
+      group: "temp",
+      data: "TSS",
+      render(row) {
+        return (
+          <>
+            <span className="TSS" title={title("TSS")}>
+              {intl.formatNumberUnit(row.TSS, this.unit)}
+            </span>
+          </>
+        );
+      },
+      unit: "°C",
+      className: "mb-temp"
+    },
+    {
+      // Rel. humidity [%]
+      group: "temp",
+      data: "RH",
+      render(row) {
+        return (
+          <>
+            <span className="RH" title={title("RH")}>
+              {intl.formatNumberUnit(row.RH, this.unit)}
+            </span>
+          </>
+        );
+      },
+      unit: "%",
+      className: "mb-temp"
     },
     {
       // Wind Geschw. / Wind Böe <br> (i18n Wind Richtung)

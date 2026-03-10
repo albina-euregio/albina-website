@@ -42,7 +42,7 @@ $cp-breakpoint-2: 720px;
 $cp-breakpoint-3: 1024px;
 
 .weather-map-cockpit {
-  z-index: 2;
+  z-index: 1200;
   position: fixed;
   bottom: 0;
   bottom: env(safe-area-inset-bottom);
@@ -65,7 +65,7 @@ $cp-breakpoint-3: 1024px;
 
 //layer-selector in dropup or left
 .cp-container-1 {
-  z-index: 1000;
+  z-index: 1101;
 
   position: absolute;
   bottom: calc(
@@ -722,6 +722,24 @@ $cp-breakpoint-3: 1024px;
   @include map-cockpit-legend-items.legend-generator(
     map-cockpit-legend-items.$cp-legend-temperature-items,
     13
+  );
+}
+.cp-legend-snow-surface-temperature {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snow-surface-temperature-items,
+    13
+  );
+}
+.cp-legend-relative-humidity {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-relative-humidity-items,
+    9
+  );
+}
+.cp-legend-precipitation {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-precipitation-items,
+    9
   );
 }
 .cp-legend-wind {

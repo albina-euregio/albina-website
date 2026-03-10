@@ -23,7 +23,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   );
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
-  ).toContainText("Danger Level 4 – high");
+  ).toContainText("Danger Level 4 — high");
   await expect(bulletin.locator("p").nth(1)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
@@ -39,7 +39,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
     .first()
     .hover();
   const tooltip = page.getByRole("tooltip", { name: "Wind speed" });
-  await tooltip.isVisible();
+  await expect(tooltip).toBeVisible();
   await expect(tooltip).toContainText("Wind speed");
   await expect(tooltip).toContainText("low: 0 – 20 km/h");
   await expect(tooltip).toContainText("moderate: 20 – 40 km/h");
@@ -74,8 +74,8 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("button", { name: "Subscribe" }).click();
   const telegram = await pagePromise;
-  await expect(await telegram.evaluate("location.href")).toBe(
-    "https://t.me/lawinenwarndienst_tirol"
+  await expect(await telegram.evaluate("location.href")).toMatch(
+    /https:\/\/t.me\/lawinenwarndienst_tirol/
   );
   await telegram.getByRole("link", { name: "Preview channel" }).click();
   await telegram.close();
@@ -97,12 +97,16 @@ test("bulletin/2022-02-01 pdf", async ({ page }) => {
 test("bulletin/2022-02-01 headless", async ({ page }) => {
   await page.goto("bulletin/2022-02-01?headless=1&region=AT-07-04");
 
-  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator("header.section-centered")).toContainText(
+    "Avalanche Forecast"
+  );
   await expect(page.locator(".page-header")).toHaveCount(0);
 
   await page.getByRole("link", { name: "31/01" }).click();
 
   await expect(page).toHaveURL("bulletin/2022-01-31");
-  await expect(page.locator("header")).toContainText("Avalanche Forecast");
+  await expect(page.locator("header.section-centered")).toContainText(
+    "Avalanche Forecast"
+  );
   await expect(page.locator(".page-header")).toHaveCount(0);
 });

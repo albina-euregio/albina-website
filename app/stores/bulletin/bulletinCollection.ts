@@ -144,9 +144,17 @@ class BulletinCollection {
         const awsList = eawsRegion(id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           try {
-            const url0 = aws.url["api:date"];
+            let url0 = aws.url["api:date"];
             if (!url0?.endsWith("CAAMLv6.json")) return;
-            if (!aws.url["api:date"]?.endsWith("CAAMLv6.json")) return;
+            if (
+              import.meta.env.BASE_URL === "/dev/" &&
+              url0.startsWith("https://static.avalanche.report/bulletins/")
+            ) {
+              url0 = url0.replace(
+                "https://static.avalanche.report/bulletins/",
+                "https://static.avalanche.report/bulletins_dev/"
+              );
+            }
             let data: Bulletins;
             let url: string;
             try {
@@ -157,7 +165,7 @@ class BulletinCollection {
               });
               data = await this.fetchFromURL(url);
             } catch (e) {
-              if (e instanceof NotFoundError) {
+              if (e instanceof NotFoundError || e instanceof TypeError) {
                 url = config.template(url0, {
                   region: id,
                   date: this.date,
