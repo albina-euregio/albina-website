@@ -166,6 +166,7 @@ function PageHeader() {
               id: "header:hamburger:hover"
             })}
             className="pure-button pure-button-icon navigation-trigger"
+            tabIndex={window.innerWidth <= 1024 ? 0 : -1}
           >
             <span className="icon-hamburger">
               <span className="icon-close" />
