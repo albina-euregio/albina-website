@@ -11,23 +11,23 @@ function PageHeader() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   // changing language on header language button click
-  useEffect(() => {
+    useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      // Escape closes dropdown
-      if (langDropdownOpen && e.key === 'Escape') {
-        setLangDropdownOpen(false);
+    // Escape closes dropdown
+    if (langDropdownOpen && e.key === 'Escape') {
+      setLangDropdownOpen(false);
       }
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [langDropdownOpen]);
   const handleChangeLanguage = newLanguage => {
-    console.info("Changing language to " + newLanguage);
-    if (import.meta.env.DEV) {
-      // since website is served from localhost, just change language in appStore
-      setLanguage(newLanguage);
-      return;
-    }
+  console.info("Changing language to " + newLanguage);
+  if (import.meta.env.DEV) {
+    // since website is served from localhost, just change language in appStore
+    setLanguage(newLanguage);
+    return;
+  }
 
     const newHost = config.languageHostSettings[newLanguage];
     if (newHost && document.location.hostname !== newHost) {
@@ -151,13 +151,13 @@ function PageHeader() {
                 id: "header:languages:title"
               })}
               name={intl.formatMessage({
-                id: "header:languages:title"
+                id: "header:languages:title"    
               })}
               id="languages"
             >
               <span></span>
             </a>
-            <ul className="list-plain subnavigation">
+            <ul className="list-plain subnavigation" style={{ display: langDropdownOpen ? 'block' : undefined }}>
               {config.languages.map(l => (
                 <li key={l}>
                   <a
@@ -166,6 +166,12 @@ function PageHeader() {
                     // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
                     className={`language-trigger-${l}`}
                     onClick={() => handleChangeLanguage(l)}
+                    onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleChangeLanguage(l);
+                    }
+                  }}
                   >
                     {languageNameInNativeLanguage[l]}
                   </a>
