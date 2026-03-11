@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Classe de freqüència d'allaus: Cap o gairebé cap",
-    "text": "<p>Els punts amb aquesta classe d'estabilitat no existeixen, o són tan rars que no es consideren rellevants per a l'avaluació de l'estabilitat.</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüència indica com d'habitual és aquesta mateixa estabilitat feble a tota la regió. Per a la classe de freqüència <b>cap</b>, no existeixen ubicacions amb la classe d'estabilitat actual <b>{stabilityClass}</b>, o bé són tan rares que no es consideren rellevants per a l'avaluació de l'estabilitat.</p><p>És difícil trobar evidència de la inestabilitat.</p>",
     "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classe de freqüència d'allaus: Poques",
-    "text": "<p>Els punts amb aquesta classe d'estabilitat són rars. Tot i que són rars, el seu número es considera rellevant per a l'avaluació de l'estabilitat.</p><p>És difícil trobar evidència de la inestabilitat.</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüències indica com d'estesa és aquesta mateixa estabilitat feble a tota la regió. Per a la classe de freqüència poques, les ubicacions amb la classe d'estabilitat {stabilityClass} són rares. Tot i ser rares, el seu nombre es considera rellevant per a l'avaluació de l'estabilitat. És difícil trobar proves d'inestabilitat.</p>",
     "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classe de freqüència d'allaus: Algunes",
-    "text": "<p>Els punts amb aquesta classe d'estabilitat no són ni molts ni pocs, però aquests punts normalment existeixen en característiques del terreny comunes (és a dir, prop de les carenes, en barrancs).</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüències indica com d'estesa és aquesta mateixa estabilitat feble a tota la regió. Per a la classe de freqüència algunes, les ubicacions amb la classe d'estabilitat actual {stabilityClass}, normalment existeixen en elements del terreny amb característiques comunes (és a dir, a prop de carenes, en barrancs).</p>",
     "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classe de freqüència d'allaus: Moltes",
-    "text": "<p>Els punts amb aquesta classe d'estabilitat són abundants.</p><p>Sovint és fàcil trobar evidències de la inestabilitat.</p>",
+    "text": "<p>La frequéncia de las avalanchas e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu indica quant es aisit de desencadenar una avalanca sus una penda donada, mentre que la distribucion de frequéncia indica quant es comuna aquela meteissa estabilitat febla dins la region. La classa de frequéncia moltas Localizacions amb la classa d'estabilitat actuala {stabilityClass} son abondantas. De pròvas d'inestabilitat son sovent aisidas de trobar.</p>",
     "img": "__SIMPLE_SLIDER__|Cap o gairebé cap,Poques,algunes,moltes|3|false|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Estabilitat del mantell de neu: Molt pobre",
-    "text": "<p>Naturals / molt fàcil de desencadenar</p>",
+    "text": "<p>La frequéncia de las avalanchas e l'estabilitat del mantèl de nèu son estretament ligadas. L'estabilitat del mantèl de nèu vos indica quant es aisit de desencadenar una avalancha sus una penda donada, mentre que la distribucion de frequéncia vos indica quant es comuna aquela meteissa estabilitat febla dins la region. Per la classa d'estabilitat del mantèl de nèu plan marrida, se pòdon observar de desblocatges naturals, las avalanças son fòrça aisidas de desencadenar pels esquiaires o dins los tèsts d'estabilitat de la nèu. De cròcs de rompedura e de bruches \"whumpf\" de longa durada son corrents.</p>",
     "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Estabilitat del mantell de neu: Pobre",
-    "text": "<p>Fàcil de desencadenar (per exemple, un sol esquiador/a)</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüència indica com d'habitual és aquesta mateixa estabilitat feble a tota la regió. Per a la classe d'estabilitat del mantell nival <b>pobre</b>, les allaus són fàcils de desencadenar per un sol esquiador o en proves d'estabilitat de la neu. Es poden sentir esquerdes que s'escampen i sorolls de \"whumpf\" de llarga durada, mentre que els sorolls de \"whumpf\" de curta durada són comuns.</p>",
     "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Estabilitat del mantell de neu: Regular",
-    "text": "<p>Difícil de desencadenar (p. ex. explosius)</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüència indica com d'habitual és aquesta mateixa estabilitat feble a tota la regió. Per a la classe d'estabilitat del mantell nival regular, les allaus són difícils de desencadenar; normalment es requereixen càrregues elevades, com ara explosius o la caiguda de cornises. Es poden sentir sorolls de \"whumpf\" de curta durada.</p>",
     "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Estabilitat del mantell de neu: Bona",
-    "text": "<p>Condicions estables</p>",
+    "text": "<p>La freqüència de les allaus i l'estabilitat del mantell nival estan estretament relacionades. L'estabilitat del mantell nival indica com de fàcil és desencadenar una allau en una determinada pendent, mentre que la distribució de freqüència indica com d'habitual és aquesta mateixa estabilitat feble a tota la regió. Una estabilitat del mantell nival de classe bona té condicions generalment estables i no s'observen signes d'inestabilitat.</p>",
     "img": "__SIMPLE_SLIDER__|molt pobre,pobre,regular,bona|3|false|__END_SLIDER__",
     "source": "false"
   },

@@ -30,25 +30,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Classa de frequéncia: Cap o lèu cap",
-    "text": "<p>Es punts damb aguesta classa d'estabilitat non existissen, o son tan rars que non se considèren entara avaloracion dera estabilitat.</p>",
+    "text": "<p>La frequéncia de las avalanças e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu vos indica a quin punt es aisit de desencadenar una avalança sus una penda donada, mentre que la distribucion de frequéncia vos indica a quin punt aquela meteissa estabilitat febla es comuna dins la region. Per la classa de frequéncia cap, las localizacions amb la classa d'estabilitat actuala {stabilityClass} existisson pas, o son talament raras que son pas consideradas coma pertinentas per l'evaluacion de l'estabilitat.</p>",
     "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classa de frequéncia: Pògui",
-    "text": "<p>Es punts damb aguesta classa d'estabilitat son rars. Maugrat que rars, eth sòn numerò ei considerable entara avaloracion dera estabilitat.</p> <p>Evidéncies dera inestabilitat son dificiles de trobar.</p>",
+    "text": "<p>La frequéncia de las avalanças e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu vos indica a quin punt es aisit de desencadenar una avalança sus una penda donada, mentre que la distribucion de frequéncia vos indica a quin punt aquela meteissa estabilitat febla es comuna dins la region. Per la classa de frequéncia pauc, los endreches amb la classa d'estabilitat {stabilityClass} son rars. E mai que sián rars, lor nombre es considerat pertinent per l'evaluacion de l'estabilitat. Las pròvas d'inestabilitat son de mal trobar. </p>",
     "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classa de frequéncia: Qualques",
-    "text": "<p>Es punts damb aguesta classa d'estabilitat non son ne molti ne pòqui, mès aguesti punts normauments existissen en caracteristiques deth terren comunes (ei a díder, apròp des grinches, en canaus).</p>",
+    "text": "<p>La frequéncia de las avalanças e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu vos indica a quin punt es aisit de desencadenar una avalança sus una penda donada, mentre que la distribucion de frequéncia vos indica a quin punt aquela meteissa estabilitat febla es comuna dins la region. Per la classa de frequéncia some, los endreches amb la classa d'estabilitat actuala {stabilityClass}, existisson generalament dins de terrenhs amb de caracteristicas comunas (es a dire, prèp de las crestas, dins los barrancs).</p>",
     "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classa de frequéncia: Molts",
-    "text": "<p>Punts damb aguesta classa d'estabilitat son abondius.</p><p>Soent ei facil trobar evidéncies dera inestabilitat.</p>",
+    "text": "<p>La frequéncia de las avalanchas e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu indica quant es aisit de desencadenar una avalanca sus una penda donada, mentre que la distribucion de frequéncia indica quant es comuna aquela meteissa estabilitat febla dins la region. La classa de frequéncia molts Localizacions amb la classa d'estabilitat actuala {stabilityClass} son abondantas. Las pròvas d'inestabilitat son sovent aisidas de trobar. </p>",
     "img": "__SIMPLE_SLIDER__|cap o lèu cap,pògui,qualques,molts|3|false|__END_SLIDER__",
     "source": "false"
   },
@@ -143,25 +143,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Classe d'estabilitat: Molt praube",
-    "text": "<p>Naturaus / molt fàcil de desencadenar</p>",
+    "text": "<p>La frequéncia de las avalanchas e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu indica quant es aisit de desencadenar una avalanca sus una penda donada, mentre que la distribucion de frequéncia indica quant es comuna aquela meteissa estabilitat febla dins la region. La classa de frequéncia moltas Localizacions amb la classa d'estabilitat actuala {stabilityClass} son abondantas. Las pròvas d'inestabilitat son sovent aisidas de trobar.</p>",
     "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Classe d'estabilitat: Praube",
-    "text": "<p>Facils de desencadenar (e.g. un esquiaire individuau)</p>",
+    "text": "<p>La frequéncia de las avalanças e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu vos indica a quin punt es aisit de desencadenar una avalança sus una penda donada, mentre que la distribucion de frequéncia vos indica a quin punt aquela meteissa estabilitat febla es comuna dins la region. Per la classa d'estabilitat de la capa de nèu pèssima, las avalanças son aisidas de desencadenar per un sol esquiaire o dins los tèsts d'estabilitat de la nèu. Se pòdon ausir de cròcs que se propagon e de bruches \"whumpf\" de longa durada, mentre que los bruches \"whumpf\" de corta durada son frequents.</p>",
     "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Classe d'estabilitat: Regular",
-    "text": "<p>Dificils de desencadenar (e.g. explosius)</p>",
+    "text": "<p>La frequéncia de las avalanças e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu vos ditz a quin punt es aisit de desencadenar una avalança sus una penda donada, mentre que la distribucion de frequéncia vos ditz a quin punt aquela meteissa estabilitat febla es comuna dins la region. Per la classa d'estabilitat de la capa de nèu mediocra, las avalanças son de mal desencadenar, cal generalament de cargas nautas coma d'explosius o la casuda de cornisas. Se pòt ausir un grondament de curta durada.</p>",
     "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Classe d'estabilitat: Bona",
-    "text": "<p>Condicions estables</p>",
+    "text": "<p>La frequéncia de las avalanchas e l'estabilitat del jaç de nèu son estretament ligadas. L'estabilitat del jaç de nèu indica quant es aisit de desencadenar una avalanca sus una penda donada, mentre que la distribucion de frequéncia indica quant es comuna aquela meteissa estabilitat febla dins la region. Un jaç de nèu de classa bon a de condicions generalament establas e cap de signe d'inestabilitat es pas observable.</p>",
     "img": "__SIMPLE_SLIDER__|Molt praube,praube,regular,bona|3|false|__END_SLIDER__",
     "source": "false"
   },

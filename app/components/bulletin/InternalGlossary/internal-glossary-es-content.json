@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Clase de frecuencia de avalancha: ninguno o casi ninguno",
-    "text": "<p>Los puntos con esta clase de estabilidad no existen, o son tan raros que no se consideran relevantes para la evaluación de la estabilidad.</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. </p><p>Para la clase de frecuencia <b>ninguna</b>, no existen ubicaciones con la clase de estabilidad actual <b>{stabilityClass}</b>, o son tan poco frecuentes que no se consideran relevantes para la evaluación de la estabilidad. </p><p>Es difícil encontrar evidencias de la inestabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Clase de frecuencia de avalancha: pocos",
-    "text": "<p>Los puntos con esta clase de estabilidad son raros. Aunque raros, su número se considera relevante para la evaluación de la estabilidad.</p><p>Es difícil encontrar evidencias de la inestabilidad.</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. </p><p>Para la clase de frecuencia <b>poca</b>, las ubicaciones con la clase de estabilidad <b>{stabilityClass}</b> son poco frecuentes. Aunque son poco frecuentes, su número se considera relevante para la evaluación de la estabilidad. Es difícil encontrar pruebas de inestabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Clase de frecuencia de avalancha: algunas",
-    "text": "<p>Los puntos con esta clase de estabilidad no son ni muchos ni pocos, pero suelen encontrarse en terrenos con características comunes (por ejemplo, cerca de crestas, en barrancos).</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. </p><p>Para la clase de frecuencia <b>muchos</b>, las ubicaciones con la clase de estabilidad actual <b>{stabilityClass}</b> suelen encontrarse en terrenos con características comunes (es decir, cerca de crestas, en barrancos).</p>",
     "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Clase de frecuencia de avalancha: muchos",
-    "text": "<p>Los puntos con esta clase de estabilidad son abundantes.</p><p>Las evidencias de la inestabilidad suelen ser fáciles de encontrar.</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. La clase de frecuencia <b>muchas</b> Hay numerosas ubicaciones con la clase de estabilidad actual <b>{stabilityClass}</b>. A menudo es fácil encontrar indicios de inestabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|ninguno,pocos,algunas,muchos|3|false|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Clase de estabilidad del manto nivoso: muy pobre",
-    "text": "<p>Naturales / muy fáciles de desencadenar</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. La clase de frecuencia <b>muchas</b> Hay numerosas ubicaciones con la clase de estabilidad actual <b>{stabilityClass}</b>. A menudo es fácil encontrar indicios de inestabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Clase de estabilidad del manto nivoso: pobre",
-    "text": "<p>Fácil desencadenamiento (por ejemplo, un solo esquiador)</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. </p><p>Para la clase de estabilidad de la capa de nieve <b>deficiente</b>, las avalanchas son fáciles de provocar por un solo esquiador o en pruebas de estabilidad de la nieve. Se pueden oír grietas y sonidos de whumpf largos, mientras que los sonidos de whumpf cortos son comunes.</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Clase de estabilidad del manto nivoso: regular",
-    "text": "<p>Difícil desencadenamiento (por ejemplo, explosivos)</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. </p><p>Para la clase de estabilidad de la capa de nieve <b>aceptable</b>,  las avalanchas son difíciles de provocar, normalmente se requieren cargas elevadas, como explosivos o caídas de cornisas. Se puede oír un breve ruido sordo.</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Clase de estabilidad del manto nivoso: buena",
-    "text": "<p>Condiciones estables</p>",
+    "text": "<p>La frecuencia de avalanchas y la estabilidad de la capa de nieve están estrechamente relacionadas. La estabilidad de la capa de nieve indica la facilidad con la que se puede provocar una avalancha en una pendiente determinada, mientras que la distribución de la frecuencia indica la frecuencia con la que se da esa misma estabilidad débil en toda la región. Una estabilidad de la capa de nieve de clase «buena» presenta condiciones generalmente estables y no se observan signos de inestabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|muy pobre,pobre,regular,buena|3|false|__END_SLIDER__",
     "source": "false"
   },

@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Classe di frequenza: pochissimi",
-    "text": "<p>I punti con questa classe di stabilità non esistono, o sono così rari da non essere considerati rilevanti per la valutazione della stabilità.</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di frequenza <b>nessuna</b>, i luoghi con l'attuale classe di stabilità <b>{stabilityClass}</b> non esistono o sono così rari da non essere considerati rilevanti ai fini della valutazione della stabilità.</p><p>È difficile trovare indizi di instabilità.</p>",
     "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classe di frequenza: pochi",
-    "text": "<p>I punti con questa classe di stabilità sono rari. Sebbene rari, il loro numero è considerato rilevante per la valutazione della stabilità.</p> <p>Le evidenze di instabilità sono difficili da trovare.</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di frequenza <b>poca</b>, le località con classe di stabilità <b>{stabilityClass}</b> sono rare. Sebbene rare, il loro numero è considerato rilevante per la valutazione della stabilità. È difficile trovare prove di instabilità.</p>",
     "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classe di frequenza: alcuni",
-    "text": "<p>I punti con questa classe di stabilità non sono né molti né pochi, ma questi punti tipicamente esistono in caratteristiche del terreno con caratteristiche comuni (ad esempio, vicino a creste, in canaloni).</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di frequenza <b>alcuni</b>, le località con l'attuale classe di stabilità <b>{stabilityClass}</b> si trovano in genere in terreni con caratteristiche comuni (ad esempio, vicino alle creste, nei canaloni).</p>",
     "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classe di frequenza: molti",
-    "text": "<p>I punti con questa classe di stabilità sono abbondanti.</p><p>Le evidenze di instabilità sono spesso facili da trovare.</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. La classe di frequenza <b>molte</b> Le località con l'attuale classe di stabilità <b>{stabilityClass}</b> sono numerose. Spesso è facile trovare prove di instabilità.</p>",
     "img": "__SIMPLE_SLIDER__|pochissimi,pochi,alcuni,molti|3|false|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Stabilità del manto nevoso: Molto scarsa",
-    "text": "<p>Spontanee o innescate con estrema facilità</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di stabilità del manto nevoso <b>molto scarsa</b>, si osservano distacchi naturali e le valanghe sono molto facili da provocare da parte degli sciatori o durante i test di stabilità della neve. Sono comuni le crepe e i lunghi rumori sordi. </p>",
     "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Stabilità del manto nevoso: Scarsa",
-    "text": "<p>Facile da innescare (p.es., un singolo sciatore)</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di stabilità del manto nevoso <b>scarsa</b> Le valanghe sono facili da provocare da un singolo sciatore o nei test di stabilità della neve. Si possono udire crepe e rumori sordi prolungati, mentre sono comuni rumori sordi brevi. </p>",
     "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Stabilità del manto nevoso: Discreta",
-    "text": "<p>Difficili da innescare (p.es., tramite esplosivo)</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. </p><p>Per la classe di stabilità del manto nevoso <b>discreta</b>,  le valanghe sono difficili da provocare e in genere sono necessari carichi elevati come esplosivi o cadute di cornici. È possibile udire un breve rumore sordo.</p>",
     "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Stabilità del manto nevoso: Buona",
-    "text": "<p>Condizioni di stabilità</p>",
+    "text": "<p>La frequenza delle valanghe e la stabilità del manto nevoso sono strettamente correlate. La stabilità del manto nevoso indica quanto sia facile provocare una valanga su un determinato pendio, mentre la distribuzione della frequenza indica quanto sia comune quella stessa stabilità debole in tutta la regione. Una stabilità del manto nevoso di classe <b>buona</b> presenta condizioni generalmente stabili e  non sono osservabili segni di instabilità.</p>",
     "img": "__SIMPLE_SLIDER__|molto scarsa,scarsa,discreta,buona|3|false|__END_SLIDER__",
     "source": "false"
   },

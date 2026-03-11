@@ -31,25 +31,25 @@
   },
   "avalanche-frequency-none": {
     "heading": "Classe de fréquence d’avalanche : aucune",
-    "text": "<p>Les points avec cette classe de stabilité n’existent pas, ou ils sont si rares qu’ils ne sont pas considérés comme pertinents pour l’évaluation de la stabilité.</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même stabilité faible dans la région. </p><p>Pour la classe de fréquence <b>aucune</b>, les emplacements présentant la classe de stabilité actuelle <b>{stabilityClass}</b> n'existent pas ou sont si rares qu'ils ne sont pas considérés comme pertinents pour l'évaluation de la stabilité.</p><p>Il est difficile de trouver des indices d'instabilité.</p>",
     "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|0|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classe de fréquence d’avalanche : peu",
-    "text": "<p>Les points avec cette classe de stabilité sont rares. Bien que rares, leur nombre est considéré comme pertinent pour l’évaluation de la stabilité.</p><p>Les indices d’instabilité sont difficiles à trouver.</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même instabilité dans la région. </p><p>Pour la classe de fréquence <b>faible</b>, les emplacements présentant la classe de stabilité <b>{stabilityClass}</b> sont rares. Bien que rares, leur nombre est considéré comme pertinent pour l'évaluation de la stabilité. Il est difficile de trouver des preuves d'instabilité.</p>",
     "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|1|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classe de fréquence d’avalanche : quelques",
-    "text": "<p>Les points avec cette classe de stabilité ne sont ni nombreux ni rares, mais ils existent généralement dans des caractéristiques de terrain communes (par exemple, près des crêtes, dans des ravines).</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même stabilité faible dans la région. </p><p>Pour la classe de fréquence <b>some</b>, les emplacements présentant la classe de stabilité actuelle <b>{stabilityClass}</b> se trouvent généralement dans des terrains présentant des caractéristiques communes (c'est-à-dire à proximité des crêtes, dans les ravins).</p>",
     "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|2|false|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classe de fréquence d’avalanche : beaucoup",
-    "text": "<p>Les points avec cette classe de stabilité sont abondants.</p><p>Les indices d’instabilité sont souvent faciles à trouver.</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même instabilité dans la région. La classe de fréquence <b>nombreuse</b> Les endroits présentant la classe de stabilité actuelle <b>{stabilityClass}</b> sont nombreux. Les signes d'instabilité sont souvent faciles à repérer.</p>",
     "img": "__SIMPLE_SLIDER__|aucune,peu,quelques,beaucoup|3|false|__END_SLIDER__",
     "source": "false"
   },
@@ -145,25 +145,25 @@
   },
   "snowpack-stability-very_poor": {
     "heading": "Stabilité du manteau neigeux : très faible",
-    "text": "<p>Déclenchement naturel / très facile à déclencher</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même instabilité dans la région. La classe de fréquence <b>nombreuse</b> Les endroits présentant la classe de stabilité actuelle <b>{stabilityClass}</b> sont nombreux. Les signes d'instabilité sont souvent faciles à repérer.</p>",
     "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|0|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Stabilité du manteau neigeux : faible",
-    "text": "<p>Facile à déclencher (p.ex. un seul skieur)</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même instabilité dans la région. </p><p>Pour la classe de stabilité du manteau neigeux <b>mauvaise</b>, les avalanches sont faciles à déclencher par un seul skieur ou lors de tests de stabilité de la neige. Des fissures et des bruits sourds prolongés peuvent être entendus, tandis que des bruits sourds courts sont fréquents. </p>",
     "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|1|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Stabilité du manteau neigeux : moyenne",
-    "text": "<p>Difficile à déclencher (p.ex. explosifs)</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux vous indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence vous indique la fréquence de cette même instabilité dans la région. </p><p>Pour la classe de stabilité du manteau neigeux <b>moyenne</b>,  les avalanches sont difficiles à déclencher, des charges importantes telles que des explosifs ou des chutes de corniches sont généralement nécessaires. Un bruit sourd et bref peut être entendu.</p>",
     "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|2|false|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Stabilité du manteau neigeux : bonne",
-    "text": "<p>Conditions stables</p>",
+    "text": "<p>La fréquence des avalanches et la stabilité du manteau neigeux sont étroitement liées. La stabilité du manteau neigeux indique la facilité avec laquelle une avalanche peut se déclencher sur une pente donnée, tandis que la distribution de fréquence indique la fréquence de cette même instabilité dans la région. Une stabilité du manteau neigeux de classe « bonne » correspond à des conditions généralement stables et aucun signe d'instabilité n'est observable.</p>",
     "img": "__SIMPLE_SLIDER__|très faible,faible,moyenne,bonne|3|false|__END_SLIDER__",
     "source": "false"
   },

@@ -157,7 +157,7 @@
   },
   "snowpack-stability-fair": {
     "heading": "Snowpack stability: Fair",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>fair</b>,  Avalanches are Difficult to trigger, high laods such as explosives or cornice falls are typically required. Short.running whumpf may be heard.</p>",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche on a given slope, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>fair</b>,  Avalanches are Difficult to trigger, high loads such as explosives or cornice falls are typically required. Short.running whumpf may be heard.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|__END_SLIDER__",
     "source": "false"
   },
