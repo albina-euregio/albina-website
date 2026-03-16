@@ -63,6 +63,7 @@ function Menu(props: Props) {
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   };
 
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
   if (props.entries && props.entries.length > 0) {
     const activeItem = props.entries.find(e => testActive(e));
 
@@ -76,6 +77,9 @@ function Menu(props: Props) {
             isActive={e === activeItem}
             onLinkClick={onLinkClick}
             numberNewPosts={numberNewPosts}
+            dropdownOpen={openDropdownIndex === index}
+            setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
+            menuIndex={index}
           />
         ))}
       </ul>
@@ -84,19 +88,22 @@ function Menu(props: Props) {
   return null;
 }
 
-function MenuItem(
-  props: Props & {
-    entry: Entry;
-    isActive: boolean;
-    onLinkClick: (e: Event, hasSubs: boolean) => void;
-    numberNewPosts: number;
-  }
-) {
+type MenuItemProps = Props & {
+  entry: Entry;
+  isActive: boolean;
+  onLinkClick: (e: Event, hasSubs: boolean) => void;
+  numberNewPosts: number;
+  dropdownOpen: boolean;
+  setDropdownOpen: (open: boolean) => void;
+  menuIndex: number;
+};
+
+function MenuItem(props: MenuItemProps) {
   const e = props.entry;
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
 
-  const classes = props.menuItemClassName
+  let classes = props.menuItemClassName
     ? props.menuItemClassName.split(" ")
     : [];
 
@@ -104,11 +111,13 @@ function MenuItem(
     if (props.onActiveMenuItem) {
       props.onActiveMenuItem(e);
     }
-
     classes.push(props.activeClassName ? props.activeClassName : "active");
   }
   if (e.showSub || (e.children && e.children.length > 0)) {
     classes.push("has-sub");
+    if (props.dropdownOpen) {
+      classes.push("open");
+    }
   }
   const title =
     e.title ||
@@ -126,7 +135,7 @@ function MenuItem(
       }}
     >
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank">
+      <a href={url} rel="noopener noreferrer" target="_blank">
           {title}
         </a>
       ) : (
@@ -134,11 +143,33 @@ function MenuItem(
           onTouchStart={() => {
             if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
           }}
-          onClick={e => {
-            props.onLinkClick(e, classes.includes("has-sub"));
+          onClick={ev => {
+            console.log("MenuItem onClick", { hasSub: classes.includes("has-sub"), dropdownOpen: props.dropdownOpen, url });
+            props.onLinkClick(ev, classes.includes("has-sub"));
+            if (classes.includes("has-sub")) {
+              props.setDropdownOpen(!props.dropdownOpen);
+              console.log("Dropdown toggled via click", { newDropdownOpen: !props.dropdownOpen });
+            }
+          }}
+          onKeyDown={ev => {
+            console.log("MenuItem onKeyDown", { key: ev.key, hasSub: classes.includes("has-sub"), dropdownOpen: props.dropdownOpen, url });
+            if (classes.includes("has-sub") && ev.key === " ") {
+              ev.preventDefault();
+              props.setDropdownOpen(true);
+
+              console.log("Dropdown opened via space", { url, children: e.children, e});
+              }
+            if (classes.includes("has-sub") && ev.key === "Escape") {
+              ev.preventDefault();
+              props.setDropdownOpen(false);
+              console.log("Dropdown closed via escape", { url });
+            }
           }}
           href={url}
           className={classes.join(" ")}
+          tabIndex={0}
+          aria-haspopup={classes.includes("has-sub")}
+          aria-expanded={props.dropdownOpen}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (
@@ -146,10 +177,12 @@ function MenuItem(
           )}
         </a>
       )}
-      {e.children && e.children.length > 0 && (
+      {e.children && e.children.length > 0 && props.dropdownOpen && (
         <Menu
           className={props.childClassName}
           entries={e.children}
+          menuItemClassName={props.menuItemClassName}
+          activeClassName={props.activeClassName}
           onSelect={props.onSelect}
           onActiveMenuItem={props.onActiveChildMenuItem}
         />
