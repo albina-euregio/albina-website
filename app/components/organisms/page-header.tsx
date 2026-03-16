@@ -26,7 +26,9 @@ function PageHeader() {
     }
   };
 
-  let navOpen = false;
+
+  // Use state for navOpen to trigger re-render and accessibility updates
+  const [navOpen, setNavOpen] = React.useState(false);
 
   const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 1024);
 
@@ -38,26 +40,39 @@ function PageHeader() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  function toggleNavigation() {
+  // Ref for navigation menu
+  const navRef = React.useRef(null);
+
+  function toggleNavigation(focusMenu = false) {
     if (navOpen) {
       document.body.classList.remove("navigation-open");
-      navOpen = false;
+      setNavOpen(false);
       return;
     }
     document.body.classList.add("navigation-open");
-    document.querySelectorAll(".navigation li").forEach(li => {
-      li.animate(
-        [
-          { opacity: "0", marginTop: "-100px" },
-          { opacity: "1", marginTop: "0", visibility: "visible" }
-        ],
-        {
-          duration: window["scroll_duration"] / 2,
-          easing: "ease-out"
+    setNavOpen(true);
+    // Animate menu items
+    setTimeout(() => {
+      document.querySelectorAll(".navigation li").forEach(li => {
+        li.animate(
+          [
+            { opacity: "0", marginTop: "-100px" },
+            { opacity: "1", marginTop: "0", visibility: "visible" }
+          ],
+          {
+            duration: window["scroll_duration"] / 2,
+            easing: "ease-out"
+          }
+        );
+      });
+      // Focus first menu item if requested
+      if (focusMenu && navRef.current) {
+        const firstItem = navRef.current.querySelector('li a,li button,li [tabindex="0"]');
+        if (firstItem) {
+          firstItem.focus();
         }
-      );
-    });
-    navOpen = true;
+      }
+    }, 0);
   }
 
   const languageNameInNativeLanguage = {
@@ -111,7 +126,12 @@ function PageHeader() {
           </Tooltip>
         )}
       </div>
-      <div id="navigation" className="page-header-navigation">
+      <div
+        id="navigation"
+        className="page-header-navigation"
+        ref={navRef}
+        aria-hidden={!navOpen}
+      >
         <Menu
           className="list-plain navigation"
           entries={config.menu}
@@ -124,6 +144,7 @@ function PageHeader() {
           }}
           onActiveMenuItem={() => {}}
           onActiveChildMenuItem={() => {}}
+          // Pass navOpen to Menu if you want to control tabIndex of items
         />
       </div>
       <div className="page-header-language">
@@ -171,12 +192,20 @@ function PageHeader() {
           })}
         >
           <button
-            onClick={() => toggleNavigation()}
+            onClick={() => toggleNavigation(true)}
+            onKeyDown={e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleNavigation(true);
+              }
+            }}
             aria-label={intl.formatMessage({
               id: "header:hamburger:hover"
             })}
             className="pure-button pure-button-icon navigation-trigger"
             tabIndex={isMobile ? 0 : -1}
+            aria-expanded={navOpen}
+            aria-controls="navigation"
           >
             <span className="icon-hamburger">
               <span className="icon-close" />
