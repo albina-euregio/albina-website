@@ -10,6 +10,8 @@ function PageHeader() {
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const openDropdownMenu = " ";
+  const enterMenuItem = "Enter";
   // changing language on header language button click
     useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -140,7 +142,7 @@ function PageHeader() {
                 setLangDropdownOpen(v => !v);
               }}
               onKeyDown={e => {
-                if (e.key === "Enter") {
+                if (e.key === openDropdownMenu) {
                   e.preventDefault();
                   setLangDropdownOpen(true);
                 }
@@ -149,7 +151,7 @@ function PageHeader() {
               aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
                 id: "header:languages:title"
-              })}
+            })}   
               name={intl.formatMessage({
                 id: "header:languages:title"    
               })}
@@ -167,7 +169,7 @@ function PageHeader() {
                     className={`language-trigger-${l}`}
                     onClick={() => handleChangeLanguage(l)}
                     onKeyDown={e => {
-                    if (e.key === "Enter") {
+                    if (e.key === enterMenuItem) {
                       e.preventDefault();
                       handleChangeLanguage(l);
                     }
