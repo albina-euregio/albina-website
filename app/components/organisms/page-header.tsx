@@ -12,11 +12,12 @@ function PageHeader() {
   const lang = intl.locale.slice(0, 2);
   const openDropdownMenu = " ";
   const enterMenuItem = "Enter";
+  const escapeMenu = "Escape";
   // changing language on header language button click
     useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
     // Escape closes dropdown
-    if (langDropdownOpen && e.key === 'Escape') {
+    if (langDropdownOpen && e.key === escapeMenu) {
       setLangDropdownOpen(false);
       }
     }
@@ -24,7 +25,6 @@ function PageHeader() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [langDropdownOpen]);
   const handleChangeLanguage = newLanguage => {
-  console.info("Changing language to " + newLanguage);
   if (import.meta.env.DEV) {
     // since website is served from localhost, just change language in appStore
     setLanguage(newLanguage);
