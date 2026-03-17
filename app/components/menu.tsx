@@ -84,6 +84,11 @@ function Menu(props: Props) {
   return null;
 }
 
+function getMenuItemTabIndex(title: string) {
+  // Skip focus for empty or whitespace-only menu items
+  return title && title.trim().length > 0 ? 0 : -1;
+}
+
 function MenuItem(
   props: Props & {
     entry: Entry;
@@ -117,6 +122,9 @@ function MenuItem(
     });
   const url = e["url:" + lang] || e["url"];
 
+  // Only focusable if title is not empty/whitespace
+  const tabIndex = getMenuItemTabIndex(title);
+
   return (
     <li
       onClick={() => {
@@ -126,7 +134,7 @@ function MenuItem(
       }}
     >
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank">
+        <a href={url} rel="noopener noreferrer" target="_blank" tabIndex={tabIndex}>
           {title}
         </a>
       ) : (
@@ -139,6 +147,7 @@ function MenuItem(
           }}
           href={url}
           className={classes.join(" ")}
+          tabIndex={tabIndex}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (
