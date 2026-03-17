@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
@@ -45,7 +45,10 @@ function PageHeader() {
   }, []);
 
   // Ref for navigation menu
-  const navRef = React.useRef(null);
+  const navRef = useRef(null);
+  // Focus trap refs
+  const firstTrapRef = useRef(null);
+  const lastTrapRef = useRef(null);
 
   function toggleNavigation(focusMenu = false) {
     if (navOpen) {
@@ -78,6 +81,37 @@ function PageHeader() {
       }
     }, 0);
   }
+
+  // Focus trap effect for mobile nav
+  useEffect(() => {
+    if (!navOpen || !isMobile) return;
+    function handleKeyDown(e) {
+      if (e.key !== "Tab") return;
+      const focusable = navRef.current
+        ? Array.from(navRef.current.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex="0"]'
+          )).filter(
+            el => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
+          )
+        : [];
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown, true);
+    return () => document.removeEventListener("keydown", handleKeyDown, true);
+  }, [navOpen, isMobile]);
 
   const languageNameInNativeLanguage = {
     oc: "Aranés",
@@ -135,7 +169,43 @@ function PageHeader() {
         className="page-header-navigation"
         ref={navRef}
         aria-hidden={!navOpen}
+        role={isMobile ? "dialog" : undefined}
+        aria-modal={isMobile ? "true" : undefined}
       >
+        {/* Focus trap start */}
+        {isMobile && navOpen && <span tabIndex={0} ref={firstTrapRef} aria-hidden="true" style={{position:'absolute',width:1,height:1,overflow:'hidden',padding:0,margin:0,border:0}} />}
+        {/* Hamburger/close button inside menu for focus trap */}
+        {isMobile && navOpen && (
+          <div className="page-header-hamburger" style={{position:'absolute',top:0,right:0,zIndex:1000}}>
+            <Tooltip
+              label={intl.formatMessage({
+                id: "header:hamburger:hover"
+              })}
+            >
+              <button
+                onClick={() => toggleNavigation(true)}
+                onKeyDown={e => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleNavigation(true);
+                  }
+                }}
+                aria-label={intl.formatMessage({
+                  id: "header:hamburger:hover"
+                })}
+                className="pure-button pure-button-icon navigation-trigger"
+                tabIndex={0}
+                aria-expanded={navOpen}
+                aria-controls="navigation"
+              >
+                <span className="icon-hamburger">
+                  <span className="icon-close" />
+                  &nbsp;
+                </span>
+              </button>
+            </Tooltip>
+          </div>
+        )}
         <Menu
           className="list-plain navigation"
           entries={config.menu}
@@ -152,6 +222,8 @@ function PageHeader() {
           navOpen={navOpen}
           isMobile={isMobile}
         />
+        {/* Focus trap end */}
+        {isMobile && navOpen && <span tabIndex={0} ref={lastTrapRef} aria-hidden="true" style={{position:'absolute',width:1,height:1,overflow:'hidden',padding:0,margin:0,border:0}} />}
       </div>
       <div className="page-header-language">
         <ul className="list-plain language-trigger">
@@ -191,17 +263,20 @@ function PageHeader() {
           </li>
         </ul>
       </div>
-      <div className="page-header-hamburger">
-        <Tooltip
-          label={intl.formatMessage({
-            id: "header:hamburger:hover"
-          })}
-        >
-          <button
+      {/* Hamburger button outside menu for desktop or when menu is closed */}
+      {(!isMobile || !navOpen) && (
+        <div className="page-header-hamburger">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "header:hamburger:hover"
+            })}
+          >
+            <button
               onClick={() => toggleNavigation(true)}
               onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
+                  console.log("config", config);
                   toggleNavigation(true);
                 }
               }}
@@ -212,14 +287,15 @@ function PageHeader() {
               tabIndex={getTabIndex(isMobile)}
               aria-expanded={navOpen}
               aria-controls="navigation"
-          >
-            <span className="icon-hamburger">
-              <span className="icon-close" />
-              &nbsp;
-            </span>
-          </button>
-        </Tooltip>
-      </div>
+            >
+              <span className="icon-hamburger">
+                <span className="icon-close" />
+                &nbsp;
+              </span>
+            </button>
+          </Tooltip>
+        </div>
+      )}
       {config.links.euregio && (
         <div className="page-header-logo-secondary">
           <Tooltip
