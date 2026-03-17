@@ -8,8 +8,12 @@ import { setLanguage } from "../../appStore";
 function PageHeader() {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  // Utility to determine tabIndex for focusable elements
+  function getTabIndex(visible: boolean) {
+    return visible ? 0 : -1;
+  }
   // changing language on header language button click
-  const handleChangeLanguage = newLanguage => {
+  const handleChangeLanguage = (newLanguage: keyof typeof languageNameInNativeLanguage) => {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
       // since website is served from localhost, just change language in appStore
@@ -144,7 +148,9 @@ function PageHeader() {
           }}
           onActiveMenuItem={() => {}}
           onActiveChildMenuItem={() => {}}
-          // Pass navOpen to Menu if you want to control tabIndex of items
+          // Pass navOpen and isMobile to Menu for tabIndex control
+          navOpen={navOpen}
+          isMobile={isMobile}
         />
       </div>
       <div className="page-header-language">
@@ -152,7 +158,7 @@ function PageHeader() {
           <li>
             <a
               role="button"
-              tabIndex="0"
+              tabIndex={0}
               onClick={e => {
                 e.preventDefault();
               }}
@@ -172,12 +178,12 @@ function PageHeader() {
                 <li key={l}>
                   <a
                     role="button"
-                    tabIndex="0"
+                    tabIndex={0}
                     // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
                     className={`language-trigger-${l}`}
-                    onClick={() => handleChangeLanguage(l)}
+                    onClick={() => handleChangeLanguage(l as keyof typeof languageNameInNativeLanguage)}
                   >
-                    {languageNameInNativeLanguage[l]}
+                    {languageNameInNativeLanguage[l as keyof typeof languageNameInNativeLanguage]}
                   </a>
                 </li>
               ))}
@@ -192,20 +198,20 @@ function PageHeader() {
           })}
         >
           <button
-            onClick={() => toggleNavigation(true)}
-            onKeyDown={e => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleNavigation(true);
-              }
-            }}
-            aria-label={intl.formatMessage({
-              id: "header:hamburger:hover"
-            })}
-            className="pure-button pure-button-icon navigation-trigger"
-            tabIndex={isMobile ? 0 : -1}
-            aria-expanded={navOpen}
-            aria-controls="navigation"
+              onClick={() => toggleNavigation(true)}
+              onKeyDown={e => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleNavigation(true);
+                }
+              }}
+              aria-label={intl.formatMessage({
+                id: "header:hamburger:hover"
+              })}
+              className="pure-button pure-button-icon navigation-trigger"
+              tabIndex={getTabIndex(isMobile)}
+              aria-expanded={navOpen}
+              aria-controls="navigation"
           >
             <span className="icon-hamburger">
               <span className="icon-close" />
@@ -228,6 +234,7 @@ function PageHeader() {
               className="header-footer-logo-secondary"
               rel="noopener noreferrer"
               target="_blank"
+              tabIndex={getTabIndex(!isMobile)}
             >
               <span>Euregio</span>
             </a>
