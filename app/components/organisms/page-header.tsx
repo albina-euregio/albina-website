@@ -276,7 +276,6 @@ function PageHeader() {
               onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  console.log("config", config);
                   toggleNavigation(true);
                 }
               }}
