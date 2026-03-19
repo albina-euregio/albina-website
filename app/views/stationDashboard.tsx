@@ -110,6 +110,14 @@ function StationDashboard(props) {
     AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
     AVAILABLE_PARAMETERS[0];
 
+  const normalizedSearch = (searchText || "").trim().toLowerCase();
+  const filteredObservers =
+    normalizedSearch.length > 0
+      ? observers.filter(observer =>
+          observer.name.toLowerCase().includes(normalizedSearch)
+        )
+      : observers;
+
   const stationOverlay = (
     <StationOverlay
       key={"stations"}
@@ -143,7 +151,7 @@ function StationDashboard(props) {
         thresholds: [],
         clusterOperation: "none"
       }}
-      features={observers}
+      features={filteredObservers}
       showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
