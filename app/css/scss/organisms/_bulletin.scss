@@ -744,6 +744,10 @@
 
   .bulletin-report-mini-map-legend__label {
     line-height: 1;
+
+    a {
+      color: inherit;
+    }
   }
 }
 

@@ -548,7 +548,9 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
               >
                 <span className="bulletin-report-mini-map-legend__swatch" />
                 <span className="bulletin-report-mini-map-legend__label">
-                  <FormattedMessage id="menu:weather:stations" />
+                  <a href="/weather/stations">
+                    <FormattedMessage id="menu:weather:stations" />
+                  </a>
                 </span>
               </div>
             </div>
