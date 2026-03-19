@@ -510,7 +510,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                     attribution:
                       "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
                     maxNativeZoom: 17,
-                    minZoom: 10,
+                    minZoom: 10.25,
                     maxZoom: 14
                   }}
                   overlays={[
