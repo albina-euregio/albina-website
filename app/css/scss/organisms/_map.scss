@@ -3,7 +3,6 @@
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../molecules/navigation";
-@use "../organisms/map-cockpit-2024" as cockpit;
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -579,30 +578,161 @@ $search-width-wide: 300px;
 // weather-map
 //
 .station-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.2rem;
+  list-style: none;
+  background: rgba(variables.$white, 0.96);
+  @include mixins.box-shadow(0.08);
+
+  li {
+    padding-right: 0;
+  }
+
+  .station-view-toggle__button {
+    min-width: 6.25rem;
+    margin: 0;
+    padding: 0.35rem 0.7rem;
+    color: variables.$brand;
+    font-size: variables.$tiny-font-size;
+    line-height: 1.2;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+
+    &:hover {
+      color: variables.$brand-dark;
+      background: rgba(variables.$brand, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(variables.$brand, 0.6);
+      outline-offset: -2px;
+    }
+
+    &.is-active {
+      color: variables.$white;
+      background: variables.$brand;
+    }
+  }
+
+  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
+    width: 100%;
+
+    li {
+      flex: 1 1 50%;
+    }
+
+    .station-view-toggle__button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+}
+
+.station-view-toggle-panel {
+  display: inline-flex;
+  padding: variables.$padding * 0.25;
+  background: rgba(variables.$white, 0.88);
+  border: 1px solid rgba(variables.$brand, 0.18);
+}
+
+.station-dashboard-filter {
+  .station-view-toggle-panel {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
+    .station-view-toggle-panel {
+      width: 100%;
+    }
+  }
+}
+
+.station-view-toggle {
+  margin-bottom: 0;
+}
+
+.station-dashboard-filter {
   position: fixed;
   top: auto;
-  right: auto;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(#{cockpit.$cp-layer-range-height} + #{variables.$padding});
-  z-index: 1000;
-  display: flex;
-  gap: 0;
-  @include mixins.box-shadow;
+  left: 0;
+  right: 0;
+  z-index: 1301;
+  padding-bottom: variables.$all-v-padding * 0.25;
+  @include mixins.box-shadow(0.08);
 
   html[data-headless] & {
-    bottom: calc(
-      #{cockpit.$cp-legend-release-height} + #{cockpit.$cp-layer-range-height} +
-        #{variables.$padding}
+    top: env(safe-area-inset-top);
+  }
+
+  .station-dashboard-filter__inner {
+    position: relative;
+  }
+
+  .list-inline {
+    margin-bottom: 0;
+  }
+
+  .station-dashboard-filter__topline {
+    display: flex;
+    align-items: flex-end;
+    gap: variables.$padding * 0.5;
+  }
+
+  .station-dashboard-filter__mainline {
+    display: grid;
+    grid-template-columns: auto minmax(12rem, 1fr);
+    align-items: flex-end;
+    gap: variables.$padding * 0.5;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .station-dashboard-filter__search {
+    min-width: 0;
+    justify-self: end;
+    text-align: right;
+
+    .pure-form-search {
+      justify-content: flex-end;
+    }
+  }
+
+  .station-dashboard-filter__extra {
+    display: block;
+    padding-top: variables.$padding * 0.5;
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
+    .station-dashboard-filter__topline {
+      flex-wrap: wrap;
+    }
+
+    .station-dashboard-filter__mainline {
+      width: 100%;
+    }
+  }
+}
+
+.station-dashboard-filter--table {
+  top: auto;
+  z-index: auto;
+  box-shadow: none;
+}
+
+.station-dashboard-content--map {
+  .leaflet-top.leaflet-left,
+  .leaflet-top.leaflet-right {
+    top: calc(
+      var(--station-dashboard-filter-offset, 0px) + #{variables.$padding}
     );
-  }
-
-  .pure-button {
-    margin: 0 (-(variables.$border-width)) (-(variables.$border-width)) 0;
-  }
-
-  &.is-table {
-    bottom: variables.$padding;
   }
 }
 
