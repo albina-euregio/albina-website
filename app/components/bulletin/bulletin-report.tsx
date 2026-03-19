@@ -148,6 +148,8 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
     useStationData("microRegion");
   const parameterConfig =
     AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
+  const weatherStationMarkerColor = [200, 200, 200] as [number, number, number];
+  const weatherStationMarkerColorCss = `rgb(${weatherStationMarkerColor.join(",")})`;
   const regionBounds = useMemo(
     () => calculateRegionBounds(bulletin?.regions, config),
     [bulletin?.regions]
@@ -496,25 +498,36 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   controls={null}
                   onInit={() => {}}
                   mapConfigOverride={{
-                    bounds: selectedMicroRegionBounds
+                    bounds: selectedMicroRegionBounds,
+                    maxZoom: 14
                   }}
-                  tileLayerConfigOverride={{}}
+                  tileLayerConfigOverride={{
+                    maxNativeZoom: 10,
+                    maxZoom: 10
+                  }}
+                  secondaryTileLayerConfigOverride={{
+                    url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+                    attribution:
+                      "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
+                    maxNativeZoom: 17,
+                    minZoom: 10,
+                    maxZoom: 14
+                  }}
                   overlays={[
                     <StationOverlay
                       key="stations"
                       onMarkerSelected={feature => {
                         setStationId(feature.id);
                       }}
-                      itemId=""
+                      itemId="any"
                       item={{
-                        id: "HS",
-                        colors: parameterConfig.colors as unknown as Record<
-                          number,
-                          number[]
-                        >,
-                        thresholds: parameterConfig.thresholds,
+                        id: "name",
+                        colors: {
+                          1: weatherStationMarkerColor
+                        } as unknown as Record<number, number[]>,
+                        thresholds: [],
                         units: parameterConfig.unit,
-                        direction: parameterConfig.direction || false,
+                        direction: false,
                         clusterOperation: "none"
                       }}
                       features={stationData}
@@ -523,6 +536,20 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                     />
                   ]}
                 />
+              </div>
+
+              <div
+                className="bulletin-report-mini-map-legend"
+                aria-label="Map legend"
+                style={{
+                  ["--bulletin-mini-map-marker-color" as string]:
+                    weatherStationMarkerColorCss
+                }}
+              >
+                <span className="bulletin-report-mini-map-legend__swatch" />
+                <span className="bulletin-report-mini-map-legend__label">
+                  <FormattedMessage id="menu:weather:stations" />
+                </span>
               </div>
             </div>
           </div>

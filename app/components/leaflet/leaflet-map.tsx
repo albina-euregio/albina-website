@@ -22,6 +22,7 @@ interface Props {
   showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
+  secondaryTileLayerConfigOverride?: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
   enableStationPinsToggle?: boolean;
@@ -89,6 +90,14 @@ const LeafletMap = (props: Props) => {
           ...props.tileLayerConfigOverride
         }}
       />
+      {props.secondaryTileLayerConfigOverride && (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.secondaryTileLayerConfigOverride
+          }}
+        />
+      )}
       {props.overlays}
       {showDefaultControls && <LeafletMapControls {...props} />}
     </MapContainer>
