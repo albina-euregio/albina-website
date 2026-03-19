@@ -1,12 +1,26 @@
 {
+  "languages": ["ca", "en", "de", "es", "fr", "it", "oc"],
+  "mainLanguages": ["en", "de", "it"],
   "headless": false,
-  "headlessLogo": "",
+  "headlessLogo": [],
   "province": null,
-  "regionCodes": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
+  "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
-  "stationRegions": ["AT-02", "AT-07", "DE-BY", "IT-32-BZ", "IT-32-TN"],
+  "stationRegions": [
+    "DE-BY",
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-07",
+    "IT-32-BZ",
+    "IT-32-TN",
+    "AT-08"
+  ],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
   "extraRegions": [
+    "AT-02",
     "AT-03",
     "AT-04",
     "AT-05",
@@ -39,6 +53,152 @@
     "SK"
   ],
   "eawsRegionsExclude": [],
+  "staticContentNamespace": [],
+  "menu": [
+    { "url": "/bulletin" },
+    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/weather",
+      "children": [
+        { "url": "/weather/map/" },
+        { "url": "" },
+        { "url": "/weather/stations" },
+        { "url": "/weather/archive" },
+        { "url": "" },
+        {
+          "key": "lawis:incident",
+          "url": "https://www.lawis.at/incident?lang=en",
+          "url:de": "https://www.lawis.at/incident?lang=de"
+        },
+        {
+          "key": "lawis:profile",
+          "url": "https://www.lawis.at/profile?lang=en",
+          "url:de": "https://www.lawis.at/profile?lang=de"
+        },
+        { "key": "webcam", "url": "https://www.foto-webcam.eu" },
+        { "url": "" },
+        {
+          "key": "meteo-report",
+          "url": "https://meteo.report/mountains/",
+          "url:de": "https://meteo.report/de/mountains/",
+          "url:it": "https://meteo.report/it/mountains/"
+        }
+      ]
+    },
+    {
+      "url": "/education",
+      "indexKey": "education:overview",
+      "children": [
+        {
+          "url": "/education/danger-scale",
+          "img": "/content_files/feature_danger-scale.webp"
+        },
+        {
+          "url": "/education/avalanche-problems",
+          "img": "/content_files/feature_avalanche-problem.webp"
+        },
+        {
+          "url": "/education/danger-patterns",
+          "img": "/content_files/feature_danger-pattern.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/education/matrix",
+          "img": "/content_files/feature_matrix.webp"
+        },
+        {
+          "url": "/education/snowpack-stability",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/education/frequency",
+          "img": "/content_files/feature_frequency.webp"
+        },
+        {
+          "url": "/education/avalanche-sizes",
+          "img": "/content_files/feature_avalanche-size.webp"
+        },
+        {
+          "url": "/education/workflow",
+          "img": "/content_files/feature_workflow.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/education/handbook",
+          "img": "/content_files/feature_handbook.webp"
+        },
+        {
+          "url": "/education/spatio-temporal-scale",
+          "img": "/content_files/feature_spatio-temporal-scale.webp"
+        },
+        { "url": "" },
+        {
+          "key": "glossary",
+          "indexKey": "education:overview:glossary",
+          "url": "https://www.avalanches.org/glossary/?lang=en",
+          "url:de": "https://www.avalanches.org/glossary/?lang=de",
+          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "img": "/content_files/feature_glossary.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/education/virtual-reality-project",
+          "img": "/content_files/feature_vr.webp"
+        }
+      ]
+    },
+    {
+      "url": "/more",
+      "indexKey": "more",
+      "children": [
+        {
+          "url": "/more/archive",
+          "img": "/content_files/feature_archive.webp"
+        },
+        {
+          "url": "/more/season-reports",
+          "img": "/content_files/feature_season_reports.webp"
+        },
+        {
+          "url": "/education/community",
+          "indexKey": "education:overview:community",
+          "img": "/content_files/feature_community.webp"
+        },
+        {
+          "url": "/more/open-data",
+          "img": "/content_files/feature_open_data.webp"
+        },
+        { "url": "" },
+        {
+          "url": "/more/about",
+          "img": "/content_files/feature_about.webp"
+        },
+        {
+          "url": "/blog/tech",
+          "indexKey": "more:blog:tech",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/more/contact",
+          "img": "/content_files/feature_contact.webp"
+        }
+      ]
+    }
+  ],
+  "menuFooter": [
+    { "url": "/more/imprint" },
+    { "url": "/more/privacy" },
+    { "url": "/more/accessibility" },
+    { "url": "/more/contact" }
+  ],
+  "menuFooterMain": [
+    { "url": "/bulletin" },
+    { "url": "/blog" },
+    { "url": "/weather", "showSub": true },
+    { "url": "/education", "showSub": true },
+    { "url": "/more", "showSub": true }
+  ],
+  "blogsMinYear": 2011,
   "blogs": [
     {
       "lang": "de",
@@ -81,7 +241,7 @@
       "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina_dev/api/bulletins/pdf?date={date}&region={region}&bulletinId={bulletinId}&lang={lang}&grayscale=false",
+      "pdf": "https://api.avalanche.report/albina_dev/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
       "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "https://static.avalanche.report/bulletins_dev/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
@@ -93,10 +253,14 @@
     "blogger": "https://api.avalanche.report/blog/",
     "stations": [
       {
-        "smet": "https://api.avalanche.report/lawine/grafiken/smet/{timeRangePath}/{id}.smet.gz",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Bayern|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol",
+        "smet": [
+          "https://api.avalanche.report/lawine/grafiken/smet/woche/{id}.smet.gz",
+          "https://api.avalanche.report/lawine/grafiken/smet/winter/{id}.smet.gz",
+          "https://api.avalanche.report/lawine/grafiken/smet/all/{id}.smet.gz"
+        ],
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|LWD Bayern|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "^(?!GeoSphere Austria)(?!LWD Kärnten)(?!LWD Salzburg)(?!LWD Vorarlberg)(?!ÖBB INFRA)(?!HD Salzburg)",
+        "pngOperators": "BOKU|Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
         "stations": "https://static.avalanche.report/weather_stations/stations.geojson?v=legacy",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson?v=legacy",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson?v=legacy",
@@ -104,7 +268,10 @@
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
       },
       {
-        "smet": "https://smet.hydrographie.info/{id}.smet",
+        "smet": [
+          "https://smet.hydrographie.info/{id}.smet",
+          "https://smet.hydrographie.info/{id}_6m.smet"
+        ],
         "smetOperators": "LWD Kärnten",
         "png": "",
         "pngOperators": "---",
@@ -115,7 +282,10 @@
         "stationsArchiveOperators": "LWD Kärnten"
       },
       {
-        "smet": "https://www.salzburg.gv.at/lawine/smet/{timeRangePath}/{id}.smet.gz",
+        "smet": [
+          "https://www.salzburg.gv.at/lawine/smet/woche/{id}.smet.gz",
+          "https://www.salzburg.gv.at/lawine/smet/winter/{id}.smet.gz"
+        ],
         "smetOperators": "LWD Salzburg.*",
         "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
         "pngOperators": "LWD Salzburg.*",
@@ -126,7 +296,10 @@
         "stationsArchiveOperators": "---"
       },
       {
-        "smet": "https://oebb.infra.tbbm.at/smet/{timeRangePath}/{id}.smet.gz",
+        "smet": [
+          "https://oebb.infra.tbbm.at/smet/woche/{id}.smet.gz",
+          "https://oebb.infra.tbbm.at/smet/winter/{id}.smet.gz"
+        ],
         "smetOperators": "ÖBB INFRA-SAE",
         "png": "",
         "pngOperators": "---",
@@ -137,73 +310,75 @@
         "stationsArchiveOperators": "---"
       },
       {
-        "smet": "https://lawinen.at/smet/stm/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/stm/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "",
-        "stations": "https://lawinen.at/smet/stm/stations_stm.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/stm/stations_stm.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://lawinen.at/smet/noe/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/noe/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/noe/stations_noe.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/noe/stations_noe.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://lawinen.at/smet/ooe/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/ooe/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/ooe/stations_ooe.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/ooe/stations_ooe.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://lawinen.at/smet/vor/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/vor/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/vor/stations_vor.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/vor/stations_vor.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://lawinen.at/smet/bay/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/bay/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/bay/stations_bay.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/bay/stations_bay.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://lawinen.at/smet/slo/woche/{id}.smet.gz",
+        "smet": ["https://lawinen.at/smet/slo/woche/{id}.smet.gz"],
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/slo/stations_slo.geojson?v=legacy",
+        "stations": "https://lawinen.at/smet/slo/stations_slo.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids={id}&parameters=TL%2CFF%2CFFX%2CDD%2CP%2CRF%2CSCHNEE%2CTP&output_format=geojson&start={start}&end={end}",
+        "smet": [
+          "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids={id}&parameters=TL%2CFF%2CFFX%2CDD%2CP%2CRF%2CSCHNEE%2CTP&output_format=geojson&start={start}&end={end}"
+        ],
         "smetOperators": "GeoSphere Austria",
         "png": "",
         "pngOperators": "---",
@@ -221,13 +396,13 @@
   },
   "links": {
     "eaws": "https://www.avalanches.org/",
-    "euregio": "http://www.europaregion.info/"
+    "euregio": "https://www.europaregion.info/"
   },
   "subscribe": {
     "buttonHidden": false,
     "apps": [
       {
-        "id": "lawine-tirol",
+        "name": "Lawine Tirol App",
         "regions": ["AT-07"],
         "logo": "App_Lawine_Tirol_Logo.webp",
         "url": {
@@ -236,7 +411,7 @@
         }
       },
       {
-        "id": "snowsafe",
+        "name": "Snow Safe App",
         "logo": "App_SnowSafe_Logo.webp",
         "url": {
           "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
@@ -252,26 +427,6 @@
   "map": {
     "attribution": "© <a href='https://sonny.4lima.de/'>Sonny</a>, CC BY 4.0 | © <a href='https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b'>EU-DEM</a>, CC BY 4.0 | © avalanche.report, CC BY 4.0",
     "useWindowWidth": true,
-    "AT-07.bounds": [
-      [46.6514108, 12.9634187],
-      [47.7432323, 10.0978554]
-    ],
-    "IT-32-BZ.bounds": [
-      [46.2187042, 12.4799311],
-      [47.0924247, 10.3846548]
-    ],
-    "IT-32-TN.bounds": [
-      [45.6733012, 11.9621987],
-      [46.5318856, 10.4518838]
-    ],
-    "AT-02.bounds": [
-      [46.3007693, 12.4733073],
-      [47.1813456, 15.0830446]
-    ],
-    "euregioBounds": [
-      [45.0, 9.9],
-      [47.8, 13.1]
-    ],
     "initOptions": {
       "maxBounds": [
         [33, -16.86],

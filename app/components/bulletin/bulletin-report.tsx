@@ -63,13 +63,14 @@ interface Props {
   date: Temporal.PlainDate;
   bulletin: Bulletin;
   bulletin170000: Bulletin;
+  region: string;
 }
 
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
  */
-function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
+function BulletinReport({ date, bulletin, bulletin170000, region }: Props) {
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
@@ -231,7 +232,7 @@ function BulletinReport({ date, bulletin, bulletin170000 }: Props) {
                         href={config.template(config.apis.bulletin.pdf, {
                           date: bulletin.validTime?.startTime?.toISOString(),
                           region: province ?? "EUREGIO",
-                          bulletinId: bulletin.bulletinID,
+                          microRegionId: region,
                           lang: intl.locale.slice(0, 2)
                         })}
                       >

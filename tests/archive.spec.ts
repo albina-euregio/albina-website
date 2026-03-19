@@ -23,13 +23,9 @@ test("archive", async ({ page }) => {
     .filter({ hasText: "Region" })
     .getByRole("combobox")
     .selectOption("AT-07-22");
-  await page.goto(
-    "http://localhost:3000/more/archive?month=15&year=2020&region=AT-07-22"
-  );
+  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
 
-  await page.goto(
-    "http://localhost:3000/more/archive?month=15&year=2020&region=AT-07-22"
-  );
+  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
   await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
@@ -41,7 +37,7 @@ test("archive", async ({ page }) => {
     .getByRole("link", { name: "PDF" });
   await expect(pdf).toHaveAttribute(
     "href",
-    "https://api.avalanche.report/albina/api/bulletins/pdf?date=2021-03-15T23:00:00.000Z&region=EUREGIO&bulletinId=29864acd-f3db-47e9-9416-3ae9ed4db3cd&lang=en&grayscale=false"
+    "https://api.avalanche.report/albina/api/bulletins/pdf?date=2021-03-15T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-22&lang=en&grayscale=false"
   );
 });
 

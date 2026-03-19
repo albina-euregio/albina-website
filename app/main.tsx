@@ -20,7 +20,7 @@ const configRequest = import.meta.env.APP_REGION
     ? import("./config-dev.json")
     : import("./config.json");
 configRequest.then(async configParsed => {
-  configParsed = {
+  window.config = {
     ...configParsed,
     projectRoot: import.meta.env.BASE_URL,
     template,
@@ -32,9 +32,8 @@ configRequest.then(async configParsed => {
   if (!language && location.host.startsWith("www.")) {
     location.host = location.host.substring("www.".length);
   }
-  await setLanguage(language || "en");
 
-  window.config = configParsed;
+  await setLanguage(language || configParsed.mainLanguages?.[0] || "en");
 
   if (!globalThis.Temporal) {
     await import("temporal-polyfill/global");

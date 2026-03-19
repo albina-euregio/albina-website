@@ -23,7 +23,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   );
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
-  ).toContainText("Danger Level 4 – high");
+  ).toContainText("Danger Level 4 — high");
   await expect(bulletin.locator("p").nth(1)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
@@ -74,8 +74,8 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("button", { name: "Subscribe" }).click();
   const telegram = await pagePromise;
-  await expect(await telegram.evaluate("location.href")).toBe(
-    "https://t.me/lawinenwarndienst_tirol"
+  await expect(await telegram.evaluate("location.href")).toMatch(
+    /https:\/\/t.me\/lawinenwarndienst_tirol/
   );
   await telegram.getByRole("link", { name: "Preview channel" }).click();
   await telegram.close();

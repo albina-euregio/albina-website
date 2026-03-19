@@ -26,9 +26,10 @@ export type BulletinStatus =
 interface Props {
   date: Temporal.PlainDate;
   status: BulletinStatus;
+  region: string;
 }
 
-function ArchiveItem({ date, status }: Props) {
+function ArchiveItem({ date, status, region }: Props) {
   const intl = useIntl();
 
   function getLanguage() {
@@ -98,6 +99,7 @@ function ArchiveItem({ date, status }: Props) {
                 date={date}
                 lang={lang}
                 bulletin={bulletin}
+                region={region}
               />
             </li>
           )}
@@ -153,11 +155,13 @@ function DownloadLink({
   bulletin,
   format,
   date,
+  region,
   lang
 }: {
   bulletin?: Bulletin;
   format: "pdf" | "xml" | "json";
   date: Temporal.PlainDate;
+  region: string;
   lang: string;
 }) {
   const province = useStore($province);
@@ -174,7 +178,7 @@ function DownloadLink({
           ? {
               date: bulletin.validTime?.startTime?.toISOString(),
               region: province ?? "EUREGIO",
-              bulletinId: bulletin.bulletinID,
+              microRegionId: region,
               lang,
               bw: ""
             }
