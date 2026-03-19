@@ -143,7 +143,8 @@ dialog[open]::backdrop {
   position: relative;
   min-height: 100vh;
   margin: 0 !important;
-  padding: ($modal-padding * 2) $modal-padding $modal-padding $modal-padding;
+  padding: ($modal-padding * 2) ($modal-padding * 0.5) $modal-padding
+    ($modal-padding * 0.5);
   @include mixins.last-child;
   @media #{variables.$medium-up} {
     min-height: 0;
@@ -297,7 +298,7 @@ button.mfp-arrow {
   }
 
   ul.weatherstation-flipper {
-    //overflow: auto;
+    overflow: hidden;
     margin-bottom: variables.$padding;
     line-height: 1;
     font-size: variables.$tiny-font-size;
@@ -405,22 +406,45 @@ button.mfp-arrow {
   }
 
   .weatherstation-provider {
+    margin: 0;
     font-size: variables.$small-font-size;
   }
 
   .uplots {
-    overflow: hidden;
-    margin-left: -$modal-padding;
-    margin-right: -$modal-padding;
-    padding-left: variables.$padding;
-    padding-right: variables.$padding;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: -(variables.$padding);
+    margin-right: -(variables.$padding);
   }
-}
 
-linea-plot-year,
-linea-plot {
-  display: flex;
-  flex-direction: column;
-  // gap: (variables.$padding * 2);
-  margin-bottom: variables.$margin-bottom;
+  linea-plot {
+    display: flex;
+    flex-direction: column;
+    gap: (variables.$padding * 2);
+    margin-bottom: variables.$margin-bottom;
+
+    > div {
+      box-shadow: 0 0 2px 2px variables.$grey-very-light;
+    }
+
+    > div:empty {
+      display: none;
+    }
+
+    .controls {
+      box-shadow: none;
+      text-align: center;
+    }
+    .toggle-btn {
+      @extend .label;
+      margin-right: 0px;
+      color: variables.$text-color;
+      border-color: variables.$grey-light;
+      &:hover {
+        color: variables.$white;
+        border-color: variables.$anchor-font-color;
+        background-color: variables.$anchor-font-color;
+      }
+    }
+  }
 }

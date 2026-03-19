@@ -34,6 +34,16 @@ html[data-province="ES-AR"] {
   --brand-very-very-light: #99bfc9;
 }
 
+html[data-province="ES-CT-L"] {
+  --brand: #9d0037;
+  --brand-very-very-dark: #062a3f;
+  --brand-very-dark: #410017;
+  --brand-dark: #600022;
+  --brand-light: #ef0054;
+  --brand-very-light: #ff1869;
+  --brand-very-very-light: #ff4184;
+}
+
 html,
 body {
   //height: 100%;//ioS 12 Pro Safari //https://www.freecodecamp.org/news/html-page-width-height/

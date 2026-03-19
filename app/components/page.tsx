@@ -35,14 +35,16 @@ const Page = ({ children }: Props) => {
     />
   );
 
-  if (headless && config.headlessLogo) {
+  if (headless && config.headlessLogo?.length) {
     return (
       <>
         <div id="page-header" className="page-header">
           <div className="page-header-logo">
-            <a href="/">
-              <img src={config.headlessLogo} style={{ margin: 0 }} />
-            </a>
+            {config.headlessLogo.map((logo, i) => (
+              <a href="/" key={i}>
+                <img src={logo} style={{ margin: 0 }} />
+              </a>
+            ))}
           </div>
         </div>
         <main id="page-main" className="page-main">

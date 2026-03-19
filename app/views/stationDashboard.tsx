@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
 import StationOverlay from "../components/weather/station-overlay";
@@ -8,14 +8,16 @@ import WeatherStationDialog, {
   useStationId
 } from "../components/dialogs/weather-station-dialog";
 import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
-import StationParameterControl, {
-  AVAILABLE_PARAMETERS
+import StationMapCockpit from "../components/weather/station-map-cockpit";
+import {
+  AVAILABLE_PARAMETERS,
+  ParameterType
 } from "../components/weather/station-parameter-control";
-import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
+import SearchField from "../components/search-field";
 import StationTable from "../components/stationTable/stationTable";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
@@ -47,8 +49,12 @@ function StationDashboard(props) {
   const intl = useIntl();
   const headless = useStore($headless);
   const [stationId, setStationId] = useStationId();
-  const [selectedParameter, setSelectedParameter] = useState("HS");
+  const [selectedParameter, setSelectedParameter] =
+    useState<ParameterType>("HS");
+  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
+  const [filterHeight, setFilterHeight] = useState(0);
+  const filterRef = useRef<HTMLElement | null>(null);
 
   const {
     activeData,
@@ -80,9 +86,37 @@ function StationDashboard(props) {
     load();
   }, [load]);
 
+  useEffect(() => {
+    const filterElement = filterRef.current;
+    if (!filterElement || typeof ResizeObserver === "undefined") return;
+
+    const updateFilterHeight = () => {
+      setFilterHeight(filterElement.getBoundingClientRect().height);
+    };
+
+    updateFilterHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateFilterHeight();
+    });
+
+    observer.observe(filterElement);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const currentParameterConfig =
     AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
     AVAILABLE_PARAMETERS[0];
+
+  const normalizedSearch = (searchText || "").trim().toLowerCase();
+  const filteredObservers =
+    normalizedSearch.length > 0
+      ? observers.filter(observer =>
+          observer.name.toLowerCase().includes(normalizedSearch)
+        )
+      : observers;
 
   const stationOverlay = (
     <StationOverlay
@@ -99,8 +133,8 @@ function StationDashboard(props) {
         direction: currentParameterConfig.direction || false,
         clusterOperation: "none"
       }}
-      features={data}
-      showMarkersWithoutValue={true}
+      features={sortedFilteredData}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
@@ -117,16 +151,18 @@ function StationDashboard(props) {
         thresholds: [],
         clusterOperation: "none"
       }}
-      features={observers}
+      features={filteredObservers}
+      showMarkersWithoutValue={showMarkersWithoutValue}
     />
   );
 
   const overlays = [stationOverlay, observerOverlay];
   const hideFilters: (keyof typeof activeData)[] = ["snow", "temp", "wind"];
+  const isMapView = viewMode === "map";
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
-      <StationParameterControl
+      <StationMapCockpit
         selectedParameter={selectedParameter}
         onParameterChange={setSelectedParameter}
       />
@@ -135,6 +171,11 @@ function StationDashboard(props) {
           loaded={props.domainId !== false}
           gestureHandling={false}
           controls={null}
+          enableStationPinsToggle={true}
+          showMarkersWithoutValue={showMarkersWithoutValue}
+          onToggleMarkersWithoutValue={nextValue => {
+            setShowMarkersWithoutValue(nextValue);
+          }}
           onInit={e => {
             e.invalidateSize();
           }}
@@ -146,82 +187,145 @@ function StationDashboard(props) {
     </section>
   );
 
-  const tableView = (
-    <>
-      <FilterBar
-        search={true}
-        searchTitle={intl.formatMessage({
-          id: "measurements:search"
-        })}
-        searchOnChange={val => {
-          setSearchText(val);
-        }}
-        searchValue={searchText || ""}
+  const viewModeToggle = (
+    <div className="station-view-toggle-panel">
+      <ul
+        className="station-view-toggle"
+        role="tablist"
+        aria-label={intl.formatMessage({ id: "menu:weather:stations" })}
       >
-        <ProvinceFilter
-          title={intl.formatMessage({
-            id: "measurements:filter:province"
-          })}
-          all={intl.formatMessage({ id: "filter:all" })}
-          handleChange={val => {
-            setActiveRegion(val);
-          }}
-          regionCodes={config.stationRegions}
-          value={activeRegion}
-        />
+        <li>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isMapView}
+            aria-controls="section-weather-map"
+            tabIndex={isMapView ? 0 : -1}
+            className={`station-view-toggle__button ${isMapView ? "is-active" : ""}`}
+            onClick={() => setViewMode("map")}
+          >
+            {intl.formatMessage({ id: "stations:view:map" })}
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={!isMapView}
+            aria-controls="section-weather-table"
+            tabIndex={isMapView ? -1 : 0}
+            className={`station-view-toggle__button ${!isMapView ? "is-active" : ""}`}
+            onClick={() => setViewMode("table")}
+          >
+            {intl.formatMessage({ id: "stations:view:table" })}
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
 
-        <div>
-          <p className="info">
-            {intl.formatMessage({ id: "archive:table-header:date" })}
-          </p>
-          <div className="pure-form">
-            <input
-              type="datetime-local"
-              step={3600}
-              max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
-              value={
-                dateTime instanceof Temporal.ZonedDateTime
-                  ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
-                  : ""
-              }
-              onChange={e =>
-                load({
-                  dateTime: Temporal.PlainDateTime.from(
-                    e.target.value
-                  ).toZonedDateTime("Europe/Vienna")
-                })
-              }
-            />
+  const sharedFilterBar = (
+    <section
+      ref={filterRef}
+      className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+    >
+      <div className="section-centered station-dashboard-filter__inner">
+        <div className="station-dashboard-filter__topline">
+          <div className="station-dashboard-filter__mainline">
+            {viewModeToggle}
+            <div className="station-dashboard-filter__search">
+              <SearchField
+                handleSearch={setSearchText}
+                value={searchText || ""}
+              />
+            </div>
           </div>
         </div>
 
-        <HideGroupFilter
-          title={intl.formatMessage({
-            id: "measurements:filter:hide"
-          })}
+        <div
+          id="station-dashboard-filter-extra"
+          className="station-dashboard-filter__extra"
         >
-          {hideFilters.map(e => (
-            <HideFilter
-              key={e}
-              id={e}
-              title={intl.formatMessage({
-                id: "measurements:filter:hide:" + e
-              })}
-              tooltip={intl.formatMessage({
-                id:
-                  "measurements:filter:hide:" +
-                  (activeData[e] ? "active" : "inactive") +
-                  ":hover"
-              })}
-              active={activeData[e]}
-              onToggle={val => {
-                toggleActiveData(val);
-              }}
-            />
-          ))}
-        </HideGroupFilter>
-      </FilterBar>
-      <section className="section">
+          <ul className="list-inline list-controlbar">
+            <li>
+              <ProvinceFilter
+                title={intl.formatMessage({
+                  id: "measurements:filter:province"
+                })}
+                all={intl.formatMessage({ id: "filter:all" })}
+                handleChange={val => {
+                  setActiveRegion(val);
+                }}
+                regionCodes={config.stationRegions}
+                value={activeRegion}
+              />
+            </li>
+
+            <li>
+              <div>
+                <p className="info">
+                  {intl.formatMessage({ id: "archive:table-header:date" })}
+                </p>
+                <div className="pure-form">
+                  <input
+                    type="datetime-local"
+                    step={3600}
+                    max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
+                    value={
+                      dateTime instanceof Temporal.ZonedDateTime
+                        ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
+                        : ""
+                    }
+                    onChange={e =>
+                      load({
+                        dateTime: Temporal.PlainDateTime.from(
+                          e.target.value
+                        ).toZonedDateTime("Europe/Vienna")
+                      })
+                    }
+                  />
+                </div>
+              </div>
+            </li>
+
+            {viewMode === "table" && (
+              <li>
+                <HideGroupFilter
+                  title={intl.formatMessage({
+                    id: "measurements:filter:hide"
+                  })}
+                >
+                  {hideFilters.map(e => (
+                    <HideFilter
+                      key={e}
+                      id={e}
+                      title={intl.formatMessage({
+                        id: "measurements:filter:hide:" + e
+                      })}
+                      tooltip={intl.formatMessage({
+                        id:
+                          "measurements:filter:hide:" +
+                          (activeData[e] ? "active" : "inactive") +
+                          ":hover"
+                      })}
+                      active={activeData[e]}
+                      onToggle={val => {
+                        toggleActiveData(val);
+                      }}
+                    />
+                  ))}
+                </HideGroupFilter>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+
+  const tableView = (
+    <>
+      <section id="section-weather-table" className="section">
         <div className="table-container">
           <StationTable
             sortedFilteredData={sortedFilteredData}
@@ -307,49 +411,20 @@ function StationDashboard(props) {
       )}
       <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
 
-      {viewMode === "map" && mapView}
-      {viewMode === "table" && tableView}
+      {sharedFilterBar}
 
       <div
-        className="station-view-toggle"
-        style={{
-          position: "fixed",
-          bottom: "1rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-          padding: "0.4rem 0.6rem",
-          backgroundColor: "#ffffff",
-          borderRadius: "2rem",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
-          display: "flex",
-          gap: "0.3rem"
-        }}
+        className={`station-dashboard-content station-dashboard-content--${viewMode}`}
+        style={
+          viewMode === "map"
+            ? ({
+                "--station-dashboard-filter-offset": `${filterHeight}px`
+              } as React.CSSProperties)
+            : undefined
+        }
       >
-        <button
-          className={viewMode === "map" ? "pure-button inverse" : "pure-button"}
-          onClick={() => setViewMode("map")}
-          style={{
-            borderRadius: "1.5rem",
-            fontSize: "0.85rem",
-            padding: "0.4rem 1rem"
-          }}
-        >
-          {intl.formatMessage({ id: "stations:view:map" })}
-        </button>
-        <button
-          className={
-            viewMode === "table" ? "pure-button inverse" : "pure-button"
-          }
-          onClick={() => setViewMode("table")}
-          style={{
-            borderRadius: "1.5rem",
-            fontSize: "0.85rem",
-            padding: "0.4rem 1rem"
-          }}
-        >
-          {intl.formatMessage({ id: "stations:view:table" })}
-        </button>
+        {viewMode === "map" && mapView}
+        {viewMode === "table" && tableView}
       </div>
     </>
   );

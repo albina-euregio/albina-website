@@ -62,7 +62,7 @@ export default function StationTable(props: Props) {
           <span className="region" title={row.microRegion}>
             <FormattedMessage id={`region:${row.microRegion}`} />
             {row.province &&
-              config.regionCodes.includes(row.province as string) && (
+              config.stationRegions.includes(row.province as string) && (
                 <span className={`region region-${row.province}`}>
                   <FormattedMessage id={`region:${row.province}`} />
                 </span>

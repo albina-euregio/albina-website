@@ -12,7 +12,7 @@ import {
 } from "../util/date";
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
-type MessageId = keyof StoreValue<typeof $messages>;
+export type MessageId = keyof StoreValue<typeof $messages>;
 
 const format = computed($locale, code => ({
   intlCache: new (class IntlCache {

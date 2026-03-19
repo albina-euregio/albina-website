@@ -6,9 +6,30 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
+
+declare module "react/jsx-runtime" {
+  // oxlint-disable-next-line typescript/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "linea-plot": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & {
+          src?: string;
+          lazysrc?: string;
+          wintersrc?: string;
+          showsurfacehoarseries?: boolean;
+          showexport?: boolean;
+          showdatepicker?: boolean;
+          showonlywinter?: boolean;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 function hasInteractivePlot(station: StationData | ObserverData) {
-  return station instanceof StationData && station.$smet;
+  return station instanceof StationData && station.$smet?.length;
 }
 
 export interface ObserverData {
@@ -23,9 +44,6 @@ export interface ObserverData {
 }
 
 const timeRanges = {
-  interactive: "interactive",
-  interactive_month: "interactive_month",
-  interactive_winter: "interactive_winter",
   day: "tag",
   threedays: "dreitage",
   week: "woche",
@@ -36,9 +54,6 @@ const timeRanges = {
 type TimeRange = keyof typeof timeRanges;
 
 const timeRangesMilli: Record<TimeRange, number> = {
-  interactive: 7 * 24 * 3600e3,
-  interactive_month: 31 * 24 * 3600e3,
-  interactive_winter: 183 * 24 * 3600e3,
   day: 24 * 3600e3,
   threedays: 3 * 24 * 3600e3,
   week: 7 * 24 * 3600e3,
@@ -201,6 +216,11 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
           )
         </small>
       </li>
+      <li>
+        {stationData instanceof StationData && (
+          <StationOperator stationData={stationData} />
+        )}
+      </li>
     </ul>
   );
 };
@@ -214,13 +234,7 @@ const TimeRangeButtons: React.FC<{
   return (
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[])
-        .filter(key => {
-          if (key.startsWith("interactive")) {
-            return hasInteractivePlot(station);
-          } else {
-            return station.$png;
-          }
-        })
+        .filter(() => station.$png)
         .map(key => (
           <li key={key}>
             <a
@@ -248,45 +262,29 @@ const StationDiagramImage: React.FC<{
   selectedYear: number | null;
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
-  if (
-    timeRange.startsWith("interactive") &&
-    hasInteractivePlot(station) &&
-    station instanceof StationData
-  ) {
+  if (hasInteractivePlot(station) && station instanceof StationData) {
     const end = new Date().toISOString();
     const start = new Date(
       Date.parse(end) - (timeRangesMilli[timeRange] ?? timeRangesMilli["week"])
     ).toISOString();
     const id = station.properties?.shortName || station.id;
-    const url = (timeRangePath: string) =>
-      window.config.template(station.$smet ?? "", {
-        start,
-        end,
-        timeRangePath,
-        id
-      });
+    const smet = station.$smet?.map(smet =>
+      window.config.template(smet, { start, end, id })
+    );
     /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
           key={id}
-          src={url("woche")}
-          lazysrc={url("winter")}
-          wintersrc={
-            import.meta.env.BASE_URL === "/dev/" ? url("all") : undefined
-          }
+          src={smet?.[0]}
+          lazysrc={smet?.[1]}
+          wintersrc={smet?.[2]}
           showsurfacehoarseries
           showexport
           showdatepicker
         />
       </div>
     );
-  } else if (timeRange === "interactive") {
-    timeRange = "week";
-  } else if (timeRange === "interactive_month") {
-    timeRange = "month";
-  } else if (timeRange === "interactive_winter") {
-    timeRange = "winter";
   }
 
   if (
@@ -301,13 +299,12 @@ const StationDiagramImage: React.FC<{
       : today.month >= 9
         ? new Temporal.PlainDate(today.year, 9, 1)
         : new Temporal.PlainDate(today.year - 1, 9, 1);
-    const endDate = startDate.add({ months: 10 });
     return (
-      <linea-plot-year
+      <linea-plot
         key={url + startDate.toString()}
-        src={url}
-        startDate={startDate.toString()}
-        endDate={endDate.toString()}
+        wintersrc={url}
+        showdatepicker
+        showonlywinter
       />
     );
   }
@@ -333,7 +330,7 @@ const StationOperator: React.FC<{
   stationData: StationData;
 }> = ({ stationData }) => {
   return (
-    <p className="weatherstation-provider">
+    <>
       <FormattedMessage id="dialog:weather-station-diagram:provider" />
       {": "}
       <a
@@ -357,7 +354,7 @@ const StationOperator: React.FC<{
           {")"}
         </>
       )}
-    </p>
+    </>
   );
 };
 
@@ -368,7 +365,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const myRef = useRef<HTMLDivElement>();
-  const [timeRange, setTimeRange] = useState<TimeRange>("interactive");
+  const [timeRange, setTimeRange] = useState<TimeRange>("week");
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const stationIndex = useMemo((): number => {
@@ -409,13 +406,9 @@ const WeatherStationDiagrams: React.FC<Props> = ({
 
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
-  if (timeRange === "interactive" && !hasInteractivePlot(station)) {
-    setTimeRange("threedays");
-  }
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
-  const [microRegionId] =
-    station instanceof StationData ? station.microRegion.split(" ") : "";
+  const [microRegionId] = isStation ? station.microRegion.split(" ") : "";
 
   return (
     <div className="modal-container">
@@ -461,7 +454,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
         </StationFlipper>
         <div className="modal-content">
-          {isStation && <StationOperator stationData={station} />}
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && !hasInteractivePlot(station) && (
             <TimeRangeButtons

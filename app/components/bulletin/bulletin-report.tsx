@@ -36,6 +36,7 @@ import { AVAILABLE_PARAMETERS } from "../weather/station-parameter-control";
 import WeatherStationDialog, {
   useStationId
 } from "../dialogs/weather-station-dialog";
+import { microRegionBbox } from "../../stores/microRegions";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -72,6 +73,7 @@ interface Props {
   region: string;
   bulletin: Bulletin;
   bulletin170000: Bulletin;
+  region: string;
 }
 
 /**
@@ -84,8 +86,13 @@ interface Props {
  * and calculates an encompassing bounding box for all regions in the bulletin
  */
 function calculateRegionBounds(
-  bulletinRegions: Array<{ regionID: string }> | undefined,
-  config: any
+  bulletinRegions: { regionID: string }[] | undefined,
+  config: {
+    map: {
+      euregioBounds: [[number, number], [number, number]];
+      [key: string]: unknown;
+    };
+  }
 ): [[number, number], [number, number]] {
   if (!bulletinRegions || bulletinRegions.length === 0) {
     return config.map.euregioBounds;
@@ -101,8 +108,14 @@ function calculateRegionBounds(
     const regionId = bulletinRegion.regionID;
     const regionPolygonBounds = config.map[`${regionId}.bounds`];
 
-    if (regionPolygonBounds && regionPolygonBounds.length === 2) {
-      const [minBound, maxBound] = regionPolygonBounds;
+    if (
+      Array.isArray(regionPolygonBounds) &&
+      regionPolygonBounds.length === 2
+    ) {
+      const [minBound, maxBound] = regionPolygonBounds as [
+        [number, number],
+        [number, number]
+      ];
       // bounds format: [[minLat, minLng], [maxLat, maxLng]]
       minLat = Math.min(minLat, minBound[0]);
       minLng = Math.min(minLng, minBound[1]);
@@ -139,6 +152,15 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
     () => calculateRegionBounds(bulletin?.regions, config),
     [bulletin?.regions]
   );
+  const selectedMicroRegionBounds = useMemo(() => {
+    const bbox = microRegionBbox(region, date);
+    return bbox
+      ? ([
+          [bbox[1], bbox[0]],
+          [bbox[3], bbox[2]]
+        ] as [[number, number], [number, number]])
+      : regionBounds;
+  }, [region, date, regionBounds]);
 
   useEffect(() => {
     loadStationData();
@@ -309,7 +331,9 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                           rel="noopener noreferrer nofollow"
                           target="_blank"
                           href={config.template(config.apis.bulletin.pdf, {
+                            date: date.toString(),
                             region: province ?? "EUREGIO",
+                            microRegionId: region,
                             bulletin: bulletin.bulletinID,
                             lang: intl.locale.slice(0, 2)
                           })}
@@ -466,12 +490,14 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                 }}
               >
                 <LeafletMap
+                  key={`${bulletin.bulletinID}-${region}`}
                   loaded={true}
                   gestureHandling={false}
                   controls={null}
+                  showDefaultControls={false}
                   onInit={() => {}}
                   mapConfigOverride={{
-                    bounds: regionBounds
+                    bounds: selectedMicroRegionBounds
                   }}
                   tileLayerConfigOverride={{}}
                   overlays={[
@@ -483,7 +509,10 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                       itemId=""
                       item={{
                         id: "HS",
-                        colors: parameterConfig.colors as any,
+                        colors: parameterConfig.colors as unknown as Record<
+                          number,
+                          number[]
+                        >,
                         thresholds: parameterConfig.thresholds,
                         units: parameterConfig.unit,
                         direction: parameterConfig.direction || false,

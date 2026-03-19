@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "leaflet/styles.css";
 import LeafletMapControls from "./leaflet-map-controls";
 
@@ -10,22 +10,47 @@ import {
   MapContainerProps,
   TileLayerProps
 } from "react-leaflet";
-import L from "leaflet";
+import L, { LatLngBounds } from "leaflet";
 import { $province } from "../../appStore.ts";
 import { useStore } from "@nanostores/react";
+import { eawsRegion } from "../../stores/eawsRegions.ts";
 
 interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   controls: React.ReactNode;
+  showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
+  enableStationPinsToggle?: boolean;
+  showMarkersWithoutValue?: boolean;
+  onToggleMarkersWithoutValue?: (nextValue: boolean) => void;
 }
 
 const LeafletMap = (props: Props) => {
   const province = useStore($province);
+  const showDefaultControls = props.showDefaultControls ?? true;
+
+  const bounds = useMemo(
+    () =>
+      (province ? [province] : config.regionCodes).reduce((b, r) => {
+        eawsRegion(province);
+        const region = eawsRegion(r);
+        if (region?.bbox) {
+          b.extend(
+            new LatLngBounds([
+              [region.bbox[1], region.bbox[0]],
+              [region.bbox[3], region.bbox[2]]
+            ])
+          );
+        }
+        return b;
+      }, new LatLngBounds([])),
+    [province]
+  );
+  const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
 
   return (
     <MapContainer
@@ -48,12 +73,16 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
+      bounds={effectiveBounds}
       attributionControl={false}
     >
-      <AttributionControl prefix={config.map.attribution} />
-      {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}
-      {props.loaded && props.controls}
+      {showDefaultControls && (
+        <AttributionControl prefix={config.map.attribution} />
+      )}
+      {showDefaultControls && props.loaded && (
+        <ScaleControl imperial={false} position="bottomleft" />
+      )}
+      {showDefaultControls && props.loaded && props.controls}
       <TileLayer
         {...{
           ...config.map.tileLayer,
@@ -61,7 +90,7 @@ const LeafletMap = (props: Props) => {
         }}
       />
       {props.overlays}
-      <LeafletMapControls {...props} />
+      {showDefaultControls && <LeafletMapControls {...props} />}
     </MapContainer>
   );
 };

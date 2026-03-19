@@ -3,7 +3,9 @@ import { test, expect } from "@playwright/test";
 test("weather/measurements", async ({ page }) => {
   await page.goto("weather/measurements");
 
+  // Wait for table data to load - first data row should be visible
   const firstRow = page.getByRole("row").nth(1);
+  await firstRow.waitFor({ state: "visible", timeout: 10000 });
   await expect(firstRow).toHaveText(/^A/);
 
   await page.getByRole("link", { name: "Station: Invert sort" }).click();

@@ -179,6 +179,7 @@ function Archive() {
                       key={d.toString()}
                       date={d}
                       status={bulletinStatus[d.toString()]}
+                      region={region}
                     />
                   ))}
               </tbody>

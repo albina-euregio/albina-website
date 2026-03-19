@@ -228,7 +228,90 @@ $cp-legend-snowline-items: (
   )
 );
 
+$cp-legend-precipitation-items: (
+  colors: (
+    color-1: #fffffe,
+    color-2: #c8e6ff,
+    color-3: #96c8ff,
+    color-4: #6496ff,
+    color-5: #3264ff,
+    color-6: #0032c8,
+    color-7: #000096,
+    color-8: #000064,
+    color-9: #000032
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "1",
+    unit-3: "5",
+    unit-4: "10",
+    unit-5: "15",
+    unit-6: "20",
+    unit-7: "30",
+    unit-8: "50",
+    unit-9: "75"
+  )
+);
+
 $cp-legend-temperature-items: (
+  colors: (
+    color-1: #9f80ff,
+    color-2: #784cff,
+    color-3: #0f5abe,
+    color-4: #1380ff,
+    color-5: #19cdff,
+    color-6: #8fffff,
+    color-7: #b0ffbc,
+    color-8: #ffff73,
+    color-9: #ffbe7d,
+    color-10: #ff9b41,
+    color-11: #ff5a41,
+    color-12: #ff1e23,
+    color-13: #fa3c96
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "<-25",
+    unit-3: "-20",
+    unit-4: "-15",
+    unit-5: "-10",
+    unit-6: "-5",
+    unit-7: "0",
+    unit-8: "5",
+    unit-9: "10",
+    unit-10: "15",
+    unit-11: "20",
+    unit-12: "25",
+    unit-13: ">30"
+  )
+);
+
+$cp-legend-relative-humidity-items: (
+  colors: (
+    color-1: #ffc864,
+    color-2: #ffe696,
+    color-3: #ffffc8,
+    color-4: #e6ffe6,
+    color-5: #c8ffff,
+    color-6: #96c8ff,
+    color-7: #6496ff,
+    color-8: #3264c8,
+    color-9: #003296
+  ),
+  units: (
+    unit-1: "10",
+    unit-2: "20",
+    unit-3: "30",
+    unit-4: "40",
+    unit-5: "50",
+    unit-6: "60",
+    unit-7: "70",
+    unit-8: "80",
+    unit-9: "90"
+  )
+);
+
+$cp-legend-snow-surface-temperature-items: (
   colors: (
     color-1: #9f80ff,
     color-2: #784cff,

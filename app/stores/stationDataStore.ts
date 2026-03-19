@@ -15,7 +15,7 @@ export class StationData {
   id: Feature["id"];
   geometry: Feature["geometry"];
   properties: Feature["properties"];
-  $smet: string | undefined;
+  $smet: string[] | undefined;
   $png: string | undefined;
   $stationsArchiveFile: string | undefined;
 
@@ -360,7 +360,7 @@ export async function loadStationData({
         url.startsWith("https://smet.hydrographie.info/")
       ) {
         url = url.slice("https:/".length);
-        smet = smet.slice("https:/".length);
+        smet = smet.map(s => s.slice("https:/".length));
       }
 
       try {
@@ -394,7 +394,7 @@ export async function loadStationData({
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            data.$smet = new RegExp(smetOperators).test(operator) ? smet : "";
+            data.$smet = new RegExp(smetOperators).test(operator) ? smet : [];
             data.$png = new RegExp(pngOperators).test(operator) ? png : "";
             data.$stationsArchiveFile = stationsArchiveFile;
 
@@ -402,7 +402,7 @@ export async function loadStationData({
               return;
             }
 
-            if (!data.$smet && !data.$png) {
+            if (!data.$smet?.length && !data.$png) {
               return;
             }
 
@@ -458,7 +458,7 @@ interface GeoSphereStation {
   is_active: boolean;
 }
 
-function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
+function mapGeoSphere(station: GeoSphereStation, smet: string[]): StationData {
   const feature = FeatureSchema.parse({
     type: "Feature",
     id: station.id,

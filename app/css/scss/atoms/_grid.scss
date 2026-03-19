@@ -54,9 +54,6 @@ $grid-activated: true;
 //generate default grid und grid-item
 .grid {
   @include grid();
-  //grid within grid
-  .grid {
-  }
 }
 .grid-item {
   @include grid-item();

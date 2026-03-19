@@ -1,30 +1,31 @@
+import { useStore } from "@nanostores/react";
+import { redirectPage } from "@nanostores/router";
 import React, { useEffect, useState } from "react";
-import * as BLOG_STORE from "../stores/blogStore";
-import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
+import { $headless, $province } from "../appStore.ts";
+import BlogPostsList from "../components/blog/blog-posts-list";
 import PageFlipper from "../components/blog/page-flipper";
+import LanguageFilter from "../components/filters/language-filter";
+import MonthFilter from "../components/filters/month-filter";
+import ProvinceFilter from "../components/filters/province-filter";
+import YearFilter from "../components/filters/year-filter";
+import ControlBar from "../components/organisms/control-bar";
 import FilterBar from "../components/organisms/filter-bar";
 import HTMLHeader from "../components/organisms/html-header";
-import BlogPostsList from "../components/blog/blog-posts-list";
-import ProvinceFilter from "../components/filters/province-filter";
-import LanguageFilter from "../components/filters/language-filter";
-import YearFilter from "../components/filters/year-filter";
-import MonthFilter from "../components/filters/month-filter";
-import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { FormattedMessage, useIntl } from "../i18n";
-import { useStore } from "@nanostores/react";
-import { $headless, $province } from "../appStore.ts";
+import PageHeadline from "../components/organisms/page-headline";
+import SmShare from "../components/organisms/sm-share";
 import { $router } from "../components/router.ts";
-import { redirectPage } from "@nanostores/router";
+import { FormattedMessage, useIntl } from "../i18n";
+import * as BLOG_STORE from "../stores/blogStore";
 
 interface Props {
   isTechBlog: boolean;
+  isProfileBlog: boolean;
 }
 
-const BlogPostList = ({ isTechBlog }: Props) => {
+const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
   const loading = useStore(BLOG_STORE.loading);
   const maxPages = useStore(BLOG_STORE.maxPages);
   const month = useStore(BLOG_STORE.month);
@@ -43,7 +44,11 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   const province = useStore($province);
 
   const router = useStore($router);
-  if (router?.route !== "blog" && router?.route !== "blogTech")
+  if (
+    router?.route !== "blog" &&
+    router?.route !== "blogTech" &&
+    router?.route !== "conditionsProfiles"
+  )
     throw new Error();
   const searchParamsBlogStore = useStore(BLOG_STORE.searchParams);
   useEffect(() => {
@@ -70,8 +75,9 @@ const BlogPostList = ({ isTechBlog }: Props) => {
 
   useEffect(() => {
     BLOG_STORE.isTechBlog.set(isTechBlog);
+    BLOG_STORE.isProfileBlog.set(isProfileBlog);
     BLOG_STORE.load();
-  }, [isTechBlog]);
+  }, [isTechBlog, isProfileBlog]);
 
   const handleChangeCategory = (val: string) => {
     BLOG_STORE.searchCategory.set(val);
@@ -118,6 +124,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
   };
 
   const classChanged = "selectric-changed";
+  const supportedLanguages = useStore(BLOG_STORE.supportedLanguages);
 
   return (
     <>
@@ -152,6 +159,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             })}
             handleChange={handleChangeLanguage}
             value={language}
+            languages={supportedLanguages}
             className={language !== "all" ? classChanged : ""}
           />
         )}
@@ -195,7 +203,7 @@ const BlogPostList = ({ isTechBlog }: Props) => {
             id: "blog:filter:year"
           })}
           all={intl.formatMessage({ id: "filter:all" })}
-          minYear={BLOG_STORE.minYear}
+          minYear={config.blogsMinYear}
           handleChange={handleChangeYear}
           value={year}
           className={year !== "" ? classChanged : ""}
