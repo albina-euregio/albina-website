@@ -494,7 +494,6 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   loaded={true}
                   gestureHandling={false}
                   controls={null}
-                  showDefaultControls={false}
                   onInit={() => {}}
                   mapConfigOverride={{
                     bounds: selectedMicroRegionBounds
