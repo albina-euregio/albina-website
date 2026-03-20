@@ -1,14 +1,17 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import WeatherStationDialog, {
   useStationId
 } from "../dialogs/weather-station-dialog.tsx";
 import { useStationData } from "../../stores/stationDataStore";
 import { AVAILABLE_PARAMETERS } from "../weather/station-parameter-data";
 import { microRegionBounds } from "../../stores/microRegions";
-import { FormattedMessage } from "../../i18n";
+import { FormattedMessage, useIntl } from "../../i18n";
 import LeafletMap from "../leaflet/leaflet-map.tsx";
 import StationOverlay from "../weather/station-overlay.tsx";
 import { Bulletin } from "../../stores/bulletin/CAAMLv6";
+import { fetchJSON } from "../../util/fetch.ts";
+import Modal from "../dialogs/albina-modal.tsx";
+import { CircleMarker, Tooltip } from "react-leaflet";
 
 interface Props {
   date: Temporal.PlainDate;
@@ -21,9 +24,41 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
+  const intl = useIntl();
   const [stationId, setStationId] = useStationId();
   const { data, load } = useStationData("microRegion");
   useEffect(() => void load(), [load]);
+
+  const [observations, setObservations] = useState<React.ReactElement[]>([]);
+  const [observation, setObservation] = useState<string>("");
+
+  useEffect(() => {
+    fetchJSON("https://static.avalanche.report/snobs.json").then(snobs => {
+      setObservations(
+        snobs.map(observation => (
+          <CircleMarker
+            key={observation.$id}
+            center={[observation.latitude, observation.longitude]}
+            radius={12}
+            color="rgb(200, 100, 100)"
+            fill={true}
+            fillColor="rgb(200, 100, 100)"
+            eventHandlers={{
+              click: () => setObservation(observation.$externalURL)
+            }}
+          >
+            <Tooltip>
+              {intl.formatDate(observation.eventDate)}
+              <br />
+              {observation.locationName}
+              <br />
+              {observation.authorName}
+            </Tooltip>
+          </CircleMarker>
+        ))
+      );
+    });
+  }, [intl]);
 
   const parameterConfig =
     AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
@@ -45,9 +80,24 @@ export function AdditionalBulletinInformation({
           setStationId={setStationId}
         />
       )}
+
+      {!!observation && (
+        <Modal
+          isOpen={!!observation}
+          onClose={() => setObservation("")}
+          width={"90vw"}
+        >
+          <iframe
+            src={observation}
+            style={{ width: "100%", height: "80vh", border: "none" }}
+          />
+        </Modal>
+      )}
+
       <h2 className="subheader">
         <FormattedMessage id="bulletin:report:additional:headline" />
       </h2>
+
       <div
         style={{
           marginTop: "2rem",
@@ -79,6 +129,7 @@ export function AdditionalBulletinInformation({
             maxZoom: 14
           }}
           overlays={[
+            ...observations,
             <StationOverlay
               key="stations"
               onMarkerSelected={feature => {
