@@ -48,9 +48,14 @@ export function eawsRegionIds(): string[] {
     .filter(id => !config.regionsRegex.test(id));
 }
 
-export function eawsRegionsBounds(regionCodes: string[]): LatLngBounds {
+export function eawsRegionsBounds(
+  regionCodes: string[],
+  f: (
+    regionCode: string
+  ) => undefined | { bbox: [number, number, number, number] } = eawsRegion
+): LatLngBounds {
   return regionCodes.reduce((b, r) => {
-    const region = eawsRegion(r);
+    const region = f(r);
     if (region?.bbox) {
       b.extend(
         new LatLngBounds([

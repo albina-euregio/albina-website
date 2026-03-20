@@ -16,6 +16,7 @@ import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+
 const BulletinGlossaryText = React.lazy(
   () => import("./bulletin-glossary-text")
 );
@@ -36,7 +37,7 @@ import { AVAILABLE_PARAMETERS } from "../weather/station-parameter-control";
 import WeatherStationDialog, {
   useStationId
 } from "../dialogs/weather-station-dialog";
-import { microRegionBbox } from "../../stores/microRegions";
+import { microRegionBounds } from "../../stores/microRegions";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -75,67 +76,6 @@ interface Props {
   region: string;
 }
 
-/**
- * This component shows the detailed bulletin report including all icons and
- * texts.
- */
-/**
- * Calculate bounds from bulletin regions using their polygon boundaries
- * Looks up each region's bounds (derived from EAWS region polygons) in config
- * and calculates an encompassing bounding box for all regions in the bulletin
- */
-function calculateRegionBounds(
-  bulletinRegions: { regionID: string }[] | undefined,
-  config: {
-    map: {
-      euregioBounds: [[number, number], [number, number]];
-      [key: string]: unknown;
-    };
-  }
-): [[number, number], [number, number]] {
-  if (!bulletinRegions || bulletinRegions.length === 0) {
-    return config.map.euregioBounds;
-  }
-
-  let minLat = 90,
-    maxLat = -90,
-    minLng = 180,
-    maxLng = -180;
-
-  // Calculate bounds by examining each region's polygon boundary from config
-  const hasValidBounds = bulletinRegions.some(bulletinRegion => {
-    const regionId = bulletinRegion.regionID;
-    const regionPolygonBounds = config.map[`${regionId}.bounds`];
-
-    if (
-      Array.isArray(regionPolygonBounds) &&
-      regionPolygonBounds.length === 2
-    ) {
-      const [minBound, maxBound] = regionPolygonBounds as [
-        [number, number],
-        [number, number]
-      ];
-      // bounds format: [[minLat, minLng], [maxLat, maxLng]]
-      minLat = Math.min(minLat, minBound[0]);
-      minLng = Math.min(minLng, minBound[1]);
-      maxLat = Math.max(maxLat, maxBound[0]);
-      maxLng = Math.max(maxLng, maxBound[1]);
-      return true;
-    }
-    return false;
-  });
-
-  // Return encompassing bounds or fallback to Euregio bounds if no valid regions found
-  if (hasValidBounds && minLat <= maxLat && minLng <= maxLng) {
-    return [
-      [minLat, minLng],
-      [maxLat, maxLng]
-    ] as [[number, number], [number, number]];
-  }
-
-  return config.map.euregioBounds;
-}
-
 function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
   const province = useStore($province);
@@ -149,19 +89,13 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
     AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
   const weatherStationMarkerColor = [200, 200, 200] as [number, number, number];
   const weatherStationMarkerColorCss = `rgb(${weatherStationMarkerColor.join(",")})`;
-  const regionBounds = useMemo(
-    () => calculateRegionBounds(bulletin?.regions, config),
-    [bulletin?.regions]
-  );
   const selectedMicroRegionBounds = useMemo(() => {
-    const bbox = microRegionBbox(region, date);
-    return bbox
-      ? ([
-          [bbox[1], bbox[0]],
-          [bbox[3], bbox[2]]
-        ] as [[number, number], [number, number]])
-      : regionBounds;
-  }, [region, date, regionBounds]);
+    const bounds = microRegionBounds(
+      date,
+      bulletin?.regions?.map(r => r.regionID)
+    );
+    return bounds.isValid() ? bounds : undefined;
+  }, [bulletin?.regions, date]);
 
   useEffect(() => {
     loadStationData();

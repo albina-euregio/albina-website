@@ -1,3 +1,5 @@
+import { eawsRegionsBounds } from "./eawsRegions.ts";
+
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
   { import: "default", eager: true }
@@ -60,10 +62,10 @@ export function filterFeature(
   );
 }
 
-export function microRegionIds(
+export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
-): string[] {
+) {
   return z
     .array(MicroRegionPropertiesSchema)
     .parse(
@@ -71,34 +73,37 @@ export function microRegionIds(
         id =>
           regions_properties[
             `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){1}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){2}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){3}$/, "")}_micro-regions.json`
           ]
       )
     )
-    .filter(properties => filterFeature({ properties }, today))
+    .filter(Boolean)
+    .filter(properties => filterFeature({ properties }, today));
+}
+
+export function microRegionIds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): string[] {
+  return microRegions(today, regionCodes)
     .map(f => String(f.id))
     .sort();
 }
 
-export function microRegionBbox(
-  microRegionId: string,
+export function microRegionBounds(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
-): [number, number, number, number] | undefined {
-  const region = z
-    .array(MicroRegionPropertiesSchema)
-    .parse(
-      regionCodes.flatMap(
-        id =>
-          regions_properties[
-            `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
-          ]
-      )
-    )
-    .find(
-      properties =>
-        String(properties.id) === String(microRegionId) &&
-        filterFeature({ properties }, today)
-    );
-
-  return region?.bbox;
+) {
+  return eawsRegionsBounds(
+    regionCodes,
+    regionCode => microRegions(today, [regionCode])?.[0]
+  );
 }
