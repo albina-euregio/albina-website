@@ -22,16 +22,13 @@ export function AdditionalBulletinInformation({
   region
 }: Props) {
   const [stationId, setStationId] = useStationId();
-  const { data: stationData, load: loadStationData } =
-    useStationData("microRegion");
-  useEffect(() => {
-    loadStationData();
-  }, [loadStationData]);
+  const { data, load } = useStationData("microRegion");
+  useEffect(() => void load(), [load]);
 
   const parameterConfig =
     AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
 
-  const selectedMicroRegionBounds = useMemo(() => {
+  const bounds = useMemo(() => {
     const bounds = microRegionBounds(
       date,
       bulletin?.regions?.map(r => r.regionID)
@@ -41,9 +38,9 @@ export function AdditionalBulletinInformation({
 
   return (
     <div>
-      {!!stationData.length && (
+      {!!data.length && (
         <WeatherStationDialog
-          stationData={stationData}
+          stationData={data}
           stationId={stationId}
           setStationId={setStationId}
         />
@@ -66,7 +63,7 @@ export function AdditionalBulletinInformation({
           controls={null}
           onInit={() => {}}
           mapConfigOverride={{
-            bounds: selectedMicroRegionBounds,
+            bounds,
             maxZoom: 14
           }}
           tileLayerConfigOverride={{
@@ -98,7 +95,7 @@ export function AdditionalBulletinInformation({
                 direction: false,
                 clusterOperation: "none"
               }}
-              features={stationData}
+              features={data}
               showMarkersWithoutValue={true}
               useWeatherStationIcon={true}
             />
