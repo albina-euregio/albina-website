@@ -374,19 +374,24 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
             </div>
           </section>
         )}
-        <section
-          id={bulletin.bulletinID + "-back-to-map"}
-          className="section-centered section-bulletin section-bulletin-additional"
-        >
-          <div className="panel brand">
-            <AdditionalBulletinInformation
-              bulletin={bulletin}
-              bulletin170000={bulletin170000}
-              date={date}
-              region={region}
-            />
-          </div>
-        </section>
+
+        {(import.meta.env.BASE_URL === "/beta/" ||
+          import.meta.env.BASE_URL === "/dev/" ||
+          import.meta.env.DEV) && (
+          <section
+            id={bulletin.bulletinID + "-back-to-map"}
+            className="section-centered section-bulletin section-bulletin-additional"
+          >
+            <div className="panel brand">
+              <AdditionalBulletinInformation
+                bulletin={bulletin}
+                date={date}
+                region={region}
+              />
+            </div>
+          </section>
+        )}
+
         <section
           id={bulletin.bulletinID + "-back-to-map"}
           className="section-centered section-bulletin section-bulletin-additional"
