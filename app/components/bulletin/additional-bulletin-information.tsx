@@ -19,46 +19,60 @@ interface Props {
   region: string;
 }
 
+function useObservations() {
+  const intl = useIntl();
+  const [observations, setObservations] = useState<
+    ReturnType<typeof CircleMarker>[]
+  >([]);
+  const [observation, setObservation] = useState<string>("");
+
+  async function loadObservations() {
+    const snobs = await fetchJSON("https://static.avalanche.report/snobs.json");
+    setObservations(
+      snobs.map(observation => (
+        <CircleMarker
+          key={observation.$id}
+          center={[observation.latitude, observation.longitude]}
+          radius={12}
+          color="rgb(200, 100, 100)"
+          fill={true}
+          fillColor="rgb(200, 100, 100)"
+          eventHandlers={{
+            click: () => setObservation(observation.$externalURL)
+          }}
+        >
+          <Tooltip>
+            {intl.formatDate(observation.eventDate)}
+            <br />
+            {observation.locationName}
+            <br />
+            {observation.authorName}
+          </Tooltip>
+        </CircleMarker>
+      ))
+    );
+  }
+
+  return { observations, observation, setObservation, loadObservations };
+}
+
 export function AdditionalBulletinInformation({
   date,
   bulletin,
   region
 }: Props) {
-  const intl = useIntl();
   const [stationId, setStationId] = useStationId();
   const { data, load } = useStationData("microRegion");
   useEffect(() => void load(), [load]);
 
-  const [observations, setObservations] = useState<React.ReactElement[]>([]);
-  const [observation, setObservation] = useState<string>("");
+  const { observations, observation, setObservation, loadObservations } =
+    useObservations();
 
-  useEffect(() => {
-    fetchJSON("https://static.avalanche.report/snobs.json").then(snobs => {
-      setObservations(
-        snobs.map(observation => (
-          <CircleMarker
-            key={observation.$id}
-            center={[observation.latitude, observation.longitude]}
-            radius={12}
-            color="rgb(200, 100, 100)"
-            fill={true}
-            fillColor="rgb(200, 100, 100)"
-            eventHandlers={{
-              click: () => setObservation(observation.$externalURL)
-            }}
-          >
-            <Tooltip>
-              {intl.formatDate(observation.eventDate)}
-              <br />
-              {observation.locationName}
-              <br />
-              {observation.authorName}
-            </Tooltip>
-          </CircleMarker>
-        ))
-      );
-    });
-  }, [intl]);
+  useEffect(
+    () => void loadObservations(),
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
+    []
+  );
 
   const parameterConfig =
     AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
