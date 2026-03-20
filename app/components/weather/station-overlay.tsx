@@ -12,9 +12,10 @@ interface Props {
   onLoading?: () => void;
   item: Domain["item"];
   itemId: "any" | DomainId | ParameterType;
-  onMarkerSelected: (arg0: any) => void;
-  features: StationData[] | any[];
+  onMarkerSelected: (arg0: { id?: string }) => void;
+  features: StationData[] | unknown[];
   showMarkersWithoutValue?: boolean;
+  useWeatherStationIcon?: boolean;
 }
 
 const StationOverlay = (props: Props) => {
@@ -103,12 +104,13 @@ const StationOverlay = (props: Props) => {
         onClick={data => {
           if (data.id) props.onMarkerSelected(data);
         }}
+        useWeatherStationIcon={props.useWeatherStationIcon}
       />
     );
   };
 
-  return props.features
-    .filter(point => point[props.itemId] !== false)
+  return (props.features as StationData[])
+    .filter(point => (point as Record<string, unknown>)[props.itemId] !== false)
     .map(point => renderMarker(point));
 };
 

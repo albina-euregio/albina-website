@@ -19,8 +19,10 @@ interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   controls: React.ReactNode;
+  showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
+  secondaryTileLayerConfigOverride?: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
   enableStationPinsToggle?: boolean;
@@ -30,6 +32,7 @@ interface Props {
 
 const LeafletMap = (props: Props) => {
   const province = useStore($province);
+  const showDefaultControls = props.showDefaultControls ?? true;
 
   const bounds = useMemo(
     () =>
@@ -48,6 +51,7 @@ const LeafletMap = (props: Props) => {
       }, new LatLngBounds([])),
     [province]
   );
+  const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
 
   return (
     <MapContainer
@@ -70,20 +74,32 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={bounds.pad(0.1)}
+      bounds={effectiveBounds}
       attributionControl={false}
     >
-      <AttributionControl prefix={config.map.attribution} />
-      {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}
-      {props.loaded && props.controls}
+      {showDefaultControls && (
+        <AttributionControl prefix={config.map.attribution} />
+      )}
+      {showDefaultControls && props.loaded && (
+        <ScaleControl imperial={false} position="bottomleft" />
+      )}
+      {showDefaultControls && props.loaded && props.controls}
       <TileLayer
         {...{
           ...config.map.tileLayer,
           ...props.tileLayerConfigOverride
         }}
       />
+      {props.secondaryTileLayerConfigOverride && (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.secondaryTileLayerConfigOverride
+          }}
+        />
+      )}
       {props.overlays}
-      <LeafletMapControls {...props} />
+      {showDefaultControls && <LeafletMapControls {...props} />}
     </MapContainer>
   );
 };

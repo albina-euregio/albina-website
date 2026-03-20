@@ -16,6 +16,7 @@ export enum EawsRegionDataLayer {
 
 export const MicroRegionPropertiesSchema = z.object({
   id: z.string(),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
   start_date: z.nullish(z.string()),
   end_date: z.nullish(z.string())
 });
@@ -76,4 +77,28 @@ export function microRegionIds(
     .filter(properties => filterFeature({ properties }, today))
     .map(f => String(f.id))
     .sort();
+}
+
+export function microRegionBbox(
+  microRegionId: string,
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): [number, number, number, number] | undefined {
+  const region = z
+    .array(MicroRegionPropertiesSchema)
+    .parse(
+      regionCodes.flatMap(
+        id =>
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ]
+      )
+    )
+    .find(
+      properties =>
+        String(properties.id) === String(microRegionId) &&
+        filterFeature({ properties }, today)
+    );
+
+  return region?.bbox;
 }

@@ -35,6 +35,7 @@ interface Props {
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
+  useWeatherStationIcon?: boolean;
 }
 
 function getContrastTextColor(

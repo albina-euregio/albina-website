@@ -134,7 +134,12 @@ function MenuItem(
       }}
     >
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank" tabIndex={tabIndex}>
+        <a
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+          tabIndex={tabIndex}
+        >
           {title}
         </a>
       ) : (
