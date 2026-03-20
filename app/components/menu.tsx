@@ -108,7 +108,10 @@ type MenuItemProps = Props & {
   menuIndex: number;
   onCloseAllDropdowns: () => void;
 };
-
+function getMenuItemTabIndex(title: string) {
+  // Skip focus for empty or whitespace-only menu items
+  return title && title.trim().length > 0 ? 0 : -1;
+}
 function MenuItem(props: MenuItemProps) {
   const e = props.entry;
   const intl = useIntl();
@@ -137,6 +140,9 @@ function MenuItem(props: MenuItemProps) {
     });
   const url = e["url:" + lang] || e["url"];
 
+  // Only focusable if title is not empty/whitespace
+  const tabIndex = getMenuItemTabIndex(title);
+
   return (
     <li
       onClick={() => {
@@ -146,7 +152,7 @@ function MenuItem(props: MenuItemProps) {
       }}
     >
       {url.match("^http(s)?://") ? (
-      <a href={url} rel="noopener noreferrer" target="_blank">
+        <a href={url} rel="noopener noreferrer" target="_blank" tabIndex={tabIndex}>
           {title}
         </a>
       ) : (
@@ -175,9 +181,7 @@ function MenuItem(props: MenuItemProps) {
           }}
           href={url}
           className={classes.join(" ")}
-          tabIndex={0}
-          aria-haspopup={classes.includes("has-sub")}
-          aria-expanded={props.dropdownOpen}
+          tabIndex={tabIndex}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (
