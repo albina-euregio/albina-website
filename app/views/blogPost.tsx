@@ -3,7 +3,6 @@ import "@albina-euregio/linea";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
 import { DATE_TIME_FORMAT } from "../util/date";
@@ -122,7 +121,6 @@ const BlogPost = () => {
         <section className="panel blog-post">{content}</section>
       </section>
       {renderLinkToBlogOverview()}
-      <SmShare />
     </>
   );
 };
