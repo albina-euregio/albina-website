@@ -1,3 +1,5 @@
+import { eawsRegionsBounds } from "./eawsRegions.ts";
+
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
   { import: "default", eager: true }
@@ -16,6 +18,7 @@ export enum EawsRegionDataLayer {
 
 export const MicroRegionPropertiesSchema = z.object({
   id: z.string(),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
   start_date: z.nullish(z.string()),
   end_date: z.nullish(z.string())
 });
@@ -59,10 +62,10 @@ export function filterFeature(
   );
 }
 
-export function microRegionIds(
+export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
-): string[] {
+) {
   return z
     .array(MicroRegionPropertiesSchema)
     .parse(
@@ -70,10 +73,37 @@ export function microRegionIds(
         id =>
           regions_properties[
             `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){1}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){2}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){3}$/, "")}_micro-regions.json`
           ]
       )
     )
-    .filter(properties => filterFeature({ properties }, today))
+    .filter(Boolean)
+    .filter(properties => filterFeature({ properties }, today));
+}
+
+export function microRegionIds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): string[] {
+  return microRegions(today, regionCodes)
     .map(f => String(f.id))
     .sort();
+}
+
+export function microRegionBounds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+) {
+  return eawsRegionsBounds(
+    regionCodes,
+    regionCode => microRegions(today, [regionCode])?.[0]
+  );
 }

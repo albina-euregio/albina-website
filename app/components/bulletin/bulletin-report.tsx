@@ -15,6 +15,7 @@ import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+
 const BulletinGlossaryText = React.lazy(
   () => import("./bulletin-glossary-text")
 );
@@ -28,6 +29,7 @@ import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
 import { $province } from "../../appStore.ts";
+import { AdditionalBulletinInformation } from "./additional-bulletin-information.tsx";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -66,11 +68,7 @@ interface Props {
   region: string;
 }
 
-/**
- * This component shows the detailed bulletin report including all icons and
- * texts.
- */
-function BulletinReport({ date, bulletin, bulletin170000, region }: Props) {
+function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
@@ -126,263 +124,290 @@ function BulletinReport({ date, bulletin, bulletin170000, region }: Props) {
     bulletin.tendency.some(tendency => tendency.highlights);
 
   return (
-    <div>
-      <section
-        id={bulletin.bulletinID + "-main"}
-        className="section-centered section-bulletin section-bulletin-report"
-      >
-        <div className={classes}>
-          <header className="bulletin-report-header">
-            <div>
-              {isInserted && bulletin.publicationTime && (
-                <button
-                  type="button"
-                  className="bulletin-report-header-diff"
-                  onClick={() => setShowDiff(d => (d + 1) % 3)}
-                >
-                  <Tooltip
-                    label={intl.formatMessage({
-                      id: "bulletin:header:updated-at:tooltip"
-                    })}
-                  >
-                    <span className="text-icon bulletin-datetime-update">
-                      <span className="icon icon-update"></span>
-                      <span className="text">
-                        {intl.formatMessage(
-                          { id: "bulletin:header:updated-at" },
-                          {
-                            date: intl.formatDate(bulletin.publicationTime),
-                            time: intl.formatDate(bulletin.publicationTime, {
-                              timeStyle: "short"
-                            })
-                          }
-                        )}
-                      </span>
-                    </span>
-                  </Tooltip>
-                  {showDiff == 2 && <span className="icon icon-update"></span>}
-                  {showDiff == 1 && <span className="icon icon-release"></span>}
-                </button>
-              )}
-              <p className="bulletin-report-header-meta">
-                <span>
-                  <FormattedMessage
-                    id="bulletin:report:headline"
-                    html={true}
-                    values={{
-                      strong: (...msg) => <strong>{msg}</strong>,
-                      date: intl.formatDate(date, LONG_DATE_FORMAT),
-                      daytime: ""
-                    }}
-                  />
-                </span>
-              </p>
-              <h1 className="bulletin-report-header-danger-level">
-                <span>
-                  <FormattedMessage
-                    id={
-                      getWarnlevelNumber(maxWarnlevel) == 0
-                        ? "bulletin:report:headline2:level0"
-                        : "bulletin:report:headline2"
-                    }
-                    values={{
-                      number: getWarnlevelNumber(maxWarnlevel),
-                      text: intl.formatMessage({
-                        id: "danger-level:" + maxWarnlevel
-                      })
-                    }}
-                  />
-                </span>
-              </h1>
-              {bulletin.source?.provider?.name && (
-                <p className="bulletin-author">
-                  <FormattedMessage id="bulletin:report:provider" />
-                  {": "}
-                  <a
-                    href={bulletin.source?.provider?.website}
-                    rel="noopener noreferrer nofollow"
-                    target="_blank"
-                  >
-                    {bulletin.source?.provider?.name}
-                  </a>
-                </p>
-              )}
-              <SynthesizedBulletin
-                date={date}
-                bulletin={bulletin}
-              ></SynthesizedBulletin>
-            </div>
-
-            {bulletin.regions?.some(
-              r =>
-                r.regionID.match(config.regionsRegex) ||
-                r.regionID.startsWith(province || "???")
-            ) && (
+    <>
+      <div>
+        <section
+          id={bulletin.bulletinID + "-main"}
+          className="section-centered section-bulletin section-bulletin-report"
+        >
+          <div className={classes}>
+            <header className="bulletin-report-header">
               <div>
-                <ul className="list-inline list-buttongroup bulletin-report-header-download">
-                  <li>
+                {isInserted && bulletin.publicationTime && (
+                  <button
+                    type="button"
+                    className="bulletin-report-header-diff"
+                    onClick={() => setShowDiff(d => (d + 1) % 3)}
+                  >
                     <Tooltip
                       label={intl.formatMessage({
-                        id: "bulletin:linkbar:pdf:hover"
+                        id: "bulletin:header:updated-at:tooltip"
                       })}
                     >
-                      <a
-                        rel="noopener noreferrer nofollow"
-                        target="_blank"
-                        href={config.template(config.apis.bulletin.pdf, {
-                          date: bulletin.validTime?.startTime?.toISOString(),
-                          region: province ?? "EUREGIO",
-                          microRegionId: region,
-                          lang: intl.locale.slice(0, 2)
+                      <span className="text-icon bulletin-datetime-update">
+                        <span className="icon icon-update"></span>
+                        <span className="text">
+                          {intl.formatMessage(
+                            { id: "bulletin:header:updated-at" },
+                            {
+                              date: intl.formatDate(bulletin.publicationTime),
+                              time: intl.formatDate(bulletin.publicationTime, {
+                                timeStyle: "short"
+                              })
+                            }
+                          )}
+                        </span>
+                      </span>
+                    </Tooltip>
+                    {showDiff == 2 && (
+                      <span className="icon icon-update"></span>
+                    )}
+                    {showDiff == 1 && (
+                      <span className="icon icon-release"></span>
+                    )}
+                  </button>
+                )}
+                <p className="bulletin-report-header-meta">
+                  <span>
+                    <FormattedMessage
+                      id="bulletin:report:headline"
+                      html={true}
+                      values={{
+                        strong: (...msg) => <strong>{msg}</strong>,
+                        date: intl.formatDate(date, LONG_DATE_FORMAT),
+                        daytime: ""
+                      }}
+                    />
+                  </span>
+                </p>
+                <h1 className="bulletin-report-header-danger-level">
+                  <span>
+                    <FormattedMessage
+                      id={
+                        getWarnlevelNumber(maxWarnlevel) == 0
+                          ? "bulletin:report:headline2:level0"
+                          : "bulletin:report:headline2"
+                      }
+                      values={{
+                        number: getWarnlevelNumber(maxWarnlevel),
+                        text: intl.formatMessage({
+                          id: "danger-level:" + maxWarnlevel
+                        })
+                      }}
+                    />
+                  </span>
+                </h1>
+                {bulletin.source?.provider?.name && (
+                  <p className="bulletin-author">
+                    <FormattedMessage id="bulletin:report:provider" />
+                    {": "}
+                    <a
+                      href={bulletin.source?.provider?.website}
+                      rel="noopener noreferrer nofollow"
+                      target="_blank"
+                    >
+                      {bulletin.source?.provider?.name}
+                    </a>
+                  </p>
+                )}
+                <SynthesizedBulletin
+                  date={date}
+                  bulletin={bulletin}
+                ></SynthesizedBulletin>
+              </div>
+
+              {bulletin.regions?.some(
+                r =>
+                  r.regionID.match(config.regionsRegex) ||
+                  r.regionID.startsWith(province || "???")
+              ) && (
+                <div>
+                  <ul className="list-inline list-buttongroup bulletin-report-header-download">
+                    <li>
+                      <Tooltip
+                        label={intl.formatMessage({
+                          id: "bulletin:linkbar:pdf:hover"
                         })}
                       >
-                        PDF
-                      </a>
-                    </Tooltip>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </header>
-
-          {hasDaytimeDependency(bulletin) ? (
-            [
-              <BulletinDaytimeReport
-                key={"earlier"}
-                bulletin={bulletin}
-                bulletin170000={bulletin170000}
-                showDiff={showDiff}
-                date={date}
-                validTimePeriod={"earlier"}
-              />,
-              <BulletinDaytimeReport
-                key={"later"}
-                bulletin={bulletin}
-                bulletin170000={bulletin170000}
-                showDiff={showDiff}
-                date={date}
-                validTimePeriod={"later"}
-              />
-            ]
-          ) : (
-            <BulletinDaytimeReport
-              bulletin={bulletin}
-              bulletin170000={bulletin170000}
-              showDiff={showDiff}
-              date={date}
-            />
-          )}
-          {bulletin.highlights && (
-            <p className="bulletin-report-public-alert">
-              <span className="icon-attention bulletin-report-public-alert-icon"></span>
-              {bulletin.highlights}
-            </p>
-          )}
-          <h2 className="subheader">
-            <LocalizedText
-              text={bulletin.avalancheActivity?.highlights}
-              text170000={bulletin170000?.avalancheActivity?.highlights}
-              showDiff={showDiff}
-            />
-          </h2>
-          <p>
-            <LocalizedText
-              text={bulletin.avalancheActivity?.comment}
-              text170000={bulletin170000?.avalancheActivity?.comment}
-              showDiff={showDiff}
-            />
-          </p>
-        </div>
-      </section>
-      {(hasTendencyHighlights ||
-        bulletin.snowpackStructure?.comment ||
-        bulletin.weatherForecast?.comment) && (
-        <section
-          id={bulletin.bulletinID + "-bulletin-additional"}
-          className="section-centered section-bulletin section-bulletin-additional"
-        >
-          <div className="panel brand">
-            {(dangerPatterns.length > 0 ||
-              bulletin.snowpackStructure?.comment) && (
-              <div>
-                <h2 className="subheader">
-                  <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
-                </h2>
-                {dangerPatterns.length > 0 && (
-                  <ul className="list-inline list-labels">
-                    <li>
-                      <span className="tiny heavy letterspace">
-                        <FormattedMessage id="bulletin:report:danger-patterns" />
-                      </span>
+                        <a
+                          rel="noopener noreferrer nofollow"
+                          target="_blank"
+                          href={config.template(config.apis.bulletin.pdf, {
+                            date: date.toString(),
+                            region: province ?? "EUREGIO",
+                            microRegionId: region,
+                            bulletin: bulletin.bulletinID,
+                            lang: intl.locale.slice(0, 2)
+                          })}
+                        >
+                          PDF
+                        </a>
+                      </Tooltip>
                     </li>
-                    {dangerPatterns.map((dp, index) => (
-                      <li key={index}>
-                        <DangerPatternItem
-                          dangerPattern={dp}
-                          isInserted={
-                            showDiff && !dangerPatterns170000.includes(dp)
-                          }
-                        />
-                      </li>
-                    ))}
                   </ul>
-                )}
-                <p>
-                  <LocalizedText
-                    text={bulletin.snowpackStructure?.comment}
-                    text170000={bulletin170000?.snowpackStructure?.comment}
-                    showDiff={showDiff}
-                  />
-                </p>
-              </div>
+                </div>
+              )}
+            </header>
+
+            {hasDaytimeDependency(bulletin) ? (
+              [
+                <BulletinDaytimeReport
+                  key={"earlier"}
+                  bulletin={bulletin}
+                  bulletin170000={bulletin170000}
+                  showDiff={showDiff}
+                  date={date}
+                  validTimePeriod={"earlier"}
+                />,
+                <BulletinDaytimeReport
+                  key={"later"}
+                  bulletin={bulletin}
+                  bulletin170000={bulletin170000}
+                  showDiff={showDiff}
+                  date={date}
+                  validTimePeriod={"later"}
+                />
+              ]
+            ) : (
+              <BulletinDaytimeReport
+                bulletin={bulletin}
+                bulletin170000={bulletin170000}
+                showDiff={showDiff}
+                date={date}
+              />
             )}
-            {bulletin.weatherForecast?.comment && (
-              <div>
-                <h2 className="subheader">
-                  <FormattedMessage id="bulletin:report:weather:headline" />
-                </h2>
-                <p>
-                  <LocalizedText
-                    text={bulletin.weatherForecast?.comment}
-                    text170000={bulletin170000?.weatherForecast?.comment}
-                  />
-                </p>
-              </div>
+            {bulletin.highlights && (
+              <p className="bulletin-report-public-alert">
+                <span className="icon-attention bulletin-report-public-alert-icon"></span>
+                {bulletin.highlights}
+              </p>
             )}
-            {hasTendencyHighlights && (
-              <div>
-                <h2 className="subheader">
-                  <FormattedMessage id="bulletin:report:tendency:headline" />
-                </h2>
-                {bulletin.tendency.map((tendency, index) => (
-                  <p key={index}>
+            <h2 className="subheader">
+              <LocalizedText
+                text={bulletin.avalancheActivity?.highlights}
+                text170000={bulletin170000?.avalancheActivity?.highlights}
+                showDiff={showDiff}
+              />
+            </h2>
+            <p>
+              <LocalizedText
+                text={bulletin.avalancheActivity?.comment}
+                text170000={bulletin170000?.avalancheActivity?.comment}
+                showDiff={showDiff}
+              />
+            </p>
+          </div>
+        </section>
+        {(hasTendencyHighlights ||
+          bulletin.snowpackStructure?.comment ||
+          bulletin.weatherForecast?.comment) && (
+          <section
+            id={bulletin.bulletinID + "-bulletin-additional"}
+            className="section-centered section-bulletin section-bulletin-additional"
+          >
+            <div className="panel brand">
+              {(dangerPatterns.length > 0 ||
+                bulletin.snowpackStructure?.comment) && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
+                  </h2>
+                  {dangerPatterns.length > 0 && (
+                    <ul className="list-inline list-labels">
+                      <li>
+                        <span className="tiny heavy letterspace">
+                          <FormattedMessage id="bulletin:report:danger-patterns" />
+                        </span>
+                      </li>
+                      {dangerPatterns.map((dp, index) => (
+                        <li key={index}>
+                          <DangerPatternItem
+                            dangerPattern={dp}
+                            isInserted={
+                              showDiff && !dangerPatterns170000.includes(dp)
+                            }
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <p>
                     <LocalizedText
-                      text={tendency?.highlights}
-                      text170000={bulletin170000?.tendency?.[index]?.highlights}
+                      text={bulletin.snowpackStructure?.comment}
+                      text170000={bulletin170000?.snowpackStructure?.comment}
                       showDiff={showDiff}
                     />
                   </p>
-                ))}
-              </div>
-            )}
+                </div>
+              )}
+              {bulletin.weatherForecast?.comment && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedMessage id="bulletin:report:weather:headline" />
+                  </h2>
+                  <p>
+                    <LocalizedText
+                      text={bulletin.weatherForecast?.comment}
+                      text170000={bulletin170000?.weatherForecast?.comment}
+                    />
+                  </p>
+                </div>
+              )}
+              {hasTendencyHighlights && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedMessage id="bulletin:report:tendency:headline" />
+                  </h2>
+                  {bulletin.tendency.map((tendency, index) => (
+                    <p key={index}>
+                      <LocalizedText
+                        text={tendency?.highlights}
+                        text170000={
+                          bulletin170000?.tendency?.[index]?.highlights
+                        }
+                        showDiff={showDiff}
+                      />
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {(import.meta.env.BASE_URL === "/beta/" ||
+          import.meta.env.BASE_URL === "/dev/" ||
+          import.meta.env.DEV) && (
+          <section
+            id={bulletin.bulletinID + "-back-to-map"}
+            className="section-centered section-bulletin section-bulletin-additional"
+          >
+            <div className="panel brand">
+              <AdditionalBulletinInformation
+                bulletin={bulletin}
+                date={date}
+                region={region}
+              />
+            </div>
+          </section>
+        )}
+
+        <section
+          id={bulletin.bulletinID + "-back-to-map"}
+          className="section-centered section-bulletin section-bulletin-additional"
+        >
+          <div className="panel brand">
+            <a
+              href="#page-all"
+              onClick={e => scrollIntoView(e)}
+              className="icon-link icon-arrow-up"
+            >
+              <FormattedMessage id="bulletin:linkbar:back-to-map" />
+            </a>
           </div>
         </section>
-      )}
-      <section
-        id={bulletin.bulletinID + "-back-to-map"}
-        className="section-centered section-bulletin section-bulletin-additional"
-      >
-        <div className="panel brand">
-          <a
-            href="#page-all"
-            onClick={e => scrollIntoView(e)}
-            className="icon-link icon-arrow-up"
-          >
-            <FormattedMessage id="bulletin:linkbar:back-to-map" />
-          </a>
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
 
