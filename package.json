@@ -73,11 +73,11 @@
     "git-cliff": "^2.10.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "oxfmt": "^0.40.0",
-    "oxlint": "^1.55.0",
-    "rolldown": "1.0.0-rc.9",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0",
+    "rolldown": "1.0.0-rc.10",
     "sass": "^1.98.0",
-    "vite": "8.0.0"
+    "vite": "8.0.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run test",
