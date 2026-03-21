@@ -17,6 +17,37 @@ interface Props {
   region: string;
 }
 
+function useWeatherStations() {
+  const [stationId, setStationId] = useStationId();
+  const { data, load } = useStationData("microRegion");
+  useEffect(() => void load(), [load]);
+
+  const stationMarkers = useMemo(
+    () =>
+      data.map(station => (
+        <CircleMarker
+          key={station.id}
+          center={[
+            station.geometry.coordinates[1],
+            station.geometry.coordinates[0]
+          ]}
+          radius={10}
+          weight={1}
+          color="rgb(100, 100, 100)"
+          fill={true}
+          fillColor="rgb(100, 100, 100)"
+          eventHandlers={{
+            click: () => setStationId(station.id)
+          }}
+        >
+          <Tooltip>{station.name}</Tooltip>
+        </CircleMarker>
+      )),
+    [data, setStationId]
+  );
+  return { data, stationId, setStationId, stationMarkers };
+}
+
 function useObservations() {
   const intl = useIntl();
   const [observations, setObservations] = useState<
@@ -59,34 +90,8 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
-  const [stationId, setStationId] = useStationId();
-  const { data, load } = useStationData("microRegion");
-  useEffect(() => void load(), [load]);
-
-  const stationMarkers = useMemo(
-    () =>
-      data.map(station => (
-        <CircleMarker
-          key={station.id}
-          center={[
-            station.geometry.coordinates[1],
-            station.geometry.coordinates[0]
-          ]}
-          radius={10}
-          weight={1}
-          color="rgb(100, 100, 100)"
-          fill={true}
-          fillColor="rgb(100, 100, 100)"
-          eventHandlers={{
-            click: () => setStationId(station.id)
-          }}
-        >
-          <Tooltip>{station.name}</Tooltip>
-        </CircleMarker>
-      )),
-    [data, setStationId]
-  );
-
+  const { data, stationId, setStationId, stationMarkers } =
+    useWeatherStations();
   const { observations, observation, setObservation, loadObservations } =
     useObservations();
 
