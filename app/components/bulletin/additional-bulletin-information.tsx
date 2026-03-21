@@ -3,11 +3,9 @@ import WeatherStationDialog, {
   useStationId
 } from "../dialogs/weather-station-dialog.tsx";
 import { useStationData } from "../../stores/stationDataStore";
-import { AVAILABLE_PARAMETERS } from "../weather/station-parameter-data";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import LeafletMap from "../leaflet/leaflet-map.tsx";
-import StationOverlay from "../weather/station-overlay.tsx";
 import { Bulletin } from "../../stores/bulletin/CAAMLv6";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
@@ -65,6 +63,30 @@ export function AdditionalBulletinInformation({
   const { data, load } = useStationData("microRegion");
   useEffect(() => void load(), [load]);
 
+  const stationMarkers = useMemo(
+    () =>
+      data.map(station => (
+        <CircleMarker
+          key={station.id}
+          center={[
+            station.geometry.coordinates[1],
+            station.geometry.coordinates[0]
+          ]}
+          radius={10}
+          weight={1}
+          color="rgb(100, 100, 100)"
+          fill={true}
+          fillColor="rgb(100, 100, 100)"
+          eventHandlers={{
+            click: () => setStationId(station.id)
+          }}
+        >
+          <Tooltip>{station.name}</Tooltip>
+        </CircleMarker>
+      )),
+    [data, setStationId]
+  );
+
   const { observations, observation, setObservation, loadObservations } =
     useObservations();
 
@@ -73,9 +95,6 @@ export function AdditionalBulletinInformation({
     // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
     []
   );
-
-  const parameterConfig =
-    AVAILABLE_PARAMETERS.find(p => p.id === "HS") || AVAILABLE_PARAMETERS[0];
 
   const bounds = useMemo(() => {
     const bounds = microRegionBounds(
@@ -142,29 +161,7 @@ export function AdditionalBulletinInformation({
             minZoom: 10.25,
             maxZoom: 14
           }}
-          overlays={[
-            ...observations,
-            <StationOverlay
-              key="stations"
-              onMarkerSelected={feature => {
-                setStationId(feature.id);
-              }}
-              itemId="any"
-              item={{
-                id: "name",
-                colors: {
-                  1: [200, 200, 200] as [number, number, number]
-                } as unknown as Record<number, number[]>,
-                thresholds: [],
-                units: parameterConfig.unit,
-                direction: false,
-                clusterOperation: "none"
-              }}
-              features={data}
-              showMarkersWithoutValue={true}
-              useWeatherStationIcon={true}
-            />
-          ]}
+          overlays={[...stationMarkers, ...observations]}
         />
       </div>
 
