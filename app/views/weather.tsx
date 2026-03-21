@@ -12,6 +12,7 @@ import { $router } from "../components/router";
 import { redirectPage } from "@nanostores/router";
 import Player from "../js/player";
 import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
 const Weather = () => {
   const intl = useIntl();
@@ -32,14 +33,7 @@ const Weather = () => {
     Player({ transitionTime: 1000, onTick: () => {} })
   );
 
-  useEffect(() => {
-    const footer = document.getElementById("page-footer");
-    if (!footer) return;
-    footer.style.display = "none";
-    return () => {
-      footer.style.display = "";
-    };
-  }, []);
+  useHiddenFooter();
 
   useEffect(() => {
     store.initDomain(params.domain, params.timeSpan, params.timestamp);

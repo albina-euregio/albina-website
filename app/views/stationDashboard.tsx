@@ -24,6 +24,7 @@ import { $headless } from "../appStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
+import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 
@@ -72,15 +73,7 @@ function StationDashboard(props) {
     sortValue,
     toggleActiveData
   } = useStationData();
-
-  useEffect(() => {
-    const footer = document.getElementById("page-footer");
-    if (!footer) return;
-    footer.style.display = "none";
-    return () => {
-      footer.style.display = "";
-    };
-  }, []);
+  useHiddenFooter();
 
   useEffect(() => {
     load();
