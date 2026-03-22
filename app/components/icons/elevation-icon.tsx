@@ -14,7 +14,7 @@ export default function ElevationIcon({ where, text, title }: Props) {
         className={`bulletin-report-picto problem-altitude problem-${where}`}
       >
         <img
-          src={`${window.config.projectRoot}images/pro/warning-pictos/levels_${where}.webp`}
+          src={`${window.config.projectRoot}images/pro/warning-pictos/levels_${where}.svg`}
           alt={title}
         />
         {where != "all" && (
