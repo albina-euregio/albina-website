@@ -204,6 +204,7 @@
   "bulletin:report:problem:avalanche-size:5": "extremadamente grande",
   "bulletin:report:snowpack-structure:headline": "Manto nivoso",
   "bulletin:report:tendency:headline": "Tendencia",
+  "bulletin:report:additional:headline": "Additional Information",
   "bulletin:report:weather:headline": "Mterorología",
   "bulletin:report:danger-patterns": "Patrones de Peligro",
   "bulletin:report:provider": "Proporcionado por",

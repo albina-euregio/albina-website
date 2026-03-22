@@ -204,6 +204,7 @@
   "bulletin:report:problem:avalanche-size:5": "extremadament gran",
   "bulletin:report:snowpack-structure:headline": "Mantell de neu",
   "bulletin:report:tendency:headline": "Tendència",
+  "bulletin:report:additional:headline": "Additional Information",
   "bulletin:report:weather:headline": "Meteo",
   "bulletin:report:danger-patterns": "Patrons de Perill",
   "bulletin:report:provider": "Proporcionat per",

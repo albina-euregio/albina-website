@@ -204,6 +204,7 @@
   "bulletin:report:problem:avalanche-size:5": "extrem",
   "bulletin:report:snowpack-structure:headline": "Schneedecke",
   "bulletin:report:tendency:headline": "Tendenz",
+  "bulletin:report:additional:headline": "Additional Information",
   "bulletin:report:weather:headline": "Wetter",
   "bulletin:report:danger-patterns": "Gefahrenmuster",
   "bulletin:report:provider": "Bereitgestellt von",
