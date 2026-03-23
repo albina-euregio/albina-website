@@ -62,11 +62,11 @@ importers:
         specifier: ^5.5.1
         version: 5.5.7
       '@nanostores/react':
-        specifier: ^1.0.0
-        version: 1.0.0(nanostores@1.1.0)(react@19.2.0)
+        specifier: ^1.1.0
+        version: 1.1.0(nanostores@1.2.0)(react@19.2.0)
       '@nanostores/router':
         specifier: ^1.0.0
-        version: 1.0.0(nanostores@1.1.0)
+        version: 1.0.0(nanostores@1.2.0)
       '@react-leaflet/core':
         specifier: ^3.0.0
         version: 3.0.0(patch_hash=9ea0b1cf72aef606e9756d7941a08f842aaf64c69b906eb06cf7a7ac5579853e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -95,8 +95,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
       nanostores:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.2.0
+        version: 1.2.0
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -243,11 +243,11 @@ packages:
   '@iframe-resizer/parent@5.5.7':
     resolution: {integrity: sha512-1dDlHFl7TOgu7odDcz/AQkJRcm9Ztpw2F8af/IU5ZAJhVlQkj8pjdnc5RfniGqY3AHOnryFATtrk7TDgZqPQFg==}
 
-  '@nanostores/react@1.0.0':
-    resolution: {integrity: sha512-eDduyNy+lbQJMg6XxZ/YssQqF6b4OXMFEZMYKPJCCmBevp1lg0g+4ZRi94qGHirMtsNfAWKNwsjOhC+q1gvC+A==}
+  '@nanostores/react@1.1.0':
+    resolution: {integrity: sha512-MbH35fjhcf7LAubYX5vhOChYUfTLzNLqH/mBGLVsHkcvjy0F8crO1WQwdmQ2xKbAmtpalDa2zBt3Hlg5kqr8iw==}
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
-      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
+      nanostores: ^1.2.0
       react: '>=18.0.0'
 
   '@nanostores/router@1.0.0':
@@ -950,8 +950,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanostores@1.1.0:
-    resolution: {integrity: sha512-yJBmDJr18xy47dbNVlHcgdPrulSn1nhSE6Ns9vTG+Nx9VPT6iV1MD6aQFp/t52zpf82FhLLTXAXr30NuCnxvwA==}
+  nanostores@1.2.0:
+    resolution: {integrity: sha512-F0wCzbsH80G7XXo0Jd9/AVQC7ouWY6idUCTnMwW5t/Rv9W8qmO6endavDwg7TNp5GbugwSukFMVZqzPSrSMndg==}
     engines: {node: ^20.0.0 || >=22.0.0}
 
   normalize.css@8.0.1:
@@ -1326,14 +1326,14 @@ snapshots:
       '@iframe-resizer/core': 5.5.7
       auto-console-group: 1.2.11
 
-  '@nanostores/react@1.0.0(nanostores@1.1.0)(react@19.2.0)':
+  '@nanostores/react@1.1.0(nanostores@1.2.0)(react@19.2.0)':
     dependencies:
-      nanostores: 1.1.0
+      nanostores: 1.2.0
       react: 19.2.0
 
-  '@nanostores/router@1.0.0(nanostores@1.1.0)':
+  '@nanostores/router@1.0.0(nanostores@1.2.0)':
     dependencies:
-      nanostores: 1.1.0
+      nanostores: 1.2.0
 
   '@napi-rs/wasm-runtime@1.1.1':
     dependencies:
@@ -1827,7 +1827,7 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanostores@1.1.0: {}
+  nanostores@1.2.0: {}
 
   normalize.css@8.0.1: {}
 
