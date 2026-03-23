@@ -202,6 +202,7 @@
   "bulletin:report:problem:avalanche-size:3": "large",
   "bulletin:report:problem:avalanche-size:4": "very large",
   "bulletin:report:problem:avalanche-size:5": "extreme",
+  "bulletin:report:travel-advisory:headline": "Travel Advisory",
   "bulletin:report:snowpack-structure:headline": "Snowpack",
   "bulletin:report:tendency:headline": "Tendency",
   "bulletin:report:additional:headline": "Additional Information",
