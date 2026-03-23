@@ -299,6 +299,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
           </div>
         </section>
         {(hasTendencyHighlights ||
+          bulletin.travelAdvisory?.comment ||
           bulletin.snowpackStructure?.comment ||
           bulletin.weatherForecast?.comment) && (
           <section
@@ -306,6 +307,19 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
             className="section-centered section-bulletin section-bulletin-additional"
           >
             <div className="panel brand">
+              {bulletin.travelAdvisory?.comment && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedMessage id="bulletin:report:travel-advisory:headline" />
+                  </h2>
+                  <p>
+                    <LocalizedText
+                      text={bulletin.travelAdvisory?.comment}
+                      text170000={bulletin170000?.travelAdvisory?.comment}
+                    />
+                  </p>
+                </div>
+              )}
               {(dangerPatterns.length > 0 ||
                 bulletin.snowpackStructure?.comment) && (
                 <div>
