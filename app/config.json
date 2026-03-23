@@ -326,7 +326,7 @@
         "smetOperators": "LWD Salzburg.*",
         "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
         "pngOperators": "LWD Salzburg.*",
-        "stations": "https://www.salzburg.gv.at/lawine/smet/salzburg.geojson?v=legacy",
+        "stations": "https://www.salzburg.gv.at/lawine/smet/linea.geojson",
         "stationsDateTime": "",
         "stationsArchive": "",
         "stationsArchiveFile": "",
