@@ -1,5 +1,5 @@
 import type { MessageId } from "../../i18n";
-import type { FeatureSchema } from "@albina-euregio/linea/src/schema/listing";
+import type { FeatureSchema } from "@albina-euregio/linea/listing";
 
 export type ParameterType = keyof typeof FeatureSchema.shape.properties.shape;
 

@@ -3,11 +3,11 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/src/schema/listing-legacy";
+import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/listing-legacy";
 import {
   FeatureCollectionSchema,
   FeatureSchema
-} from "@albina-euregio/linea/src/schema/listing";
+} from "@albina-euregio/linea/listing";
 
 type Feature = z.infer<typeof FeatureSchema>;
 
