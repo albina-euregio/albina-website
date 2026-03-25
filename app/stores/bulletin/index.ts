@@ -43,9 +43,17 @@ export type DangerPattern =
   | "DP9"
   | "DP10";
 
+export interface BulletinPhoto {
+  url: string;
+  copyright: string;
+  date: string;
+  microRegionId: string;
+}
+
 interface AlbinaCustomData extends CustomData {
   ALBINA: {
     mainDate: string;
+    bulletinPhotos: BulletinPhoto[];
   };
   LWD_Tyrol: {
     dangerPatterns: DangerPattern[];
@@ -54,4 +62,8 @@ interface AlbinaCustomData extends CustomData {
 
 export function getDangerPatterns(data: CustomData): DangerPattern[] {
   return (data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns || [];
+}
+
+export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
+  return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
 }

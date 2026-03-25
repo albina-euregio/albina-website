@@ -22,7 +22,8 @@ const BulletinGlossaryText = React.lazy(
 import {
   Bulletin,
   hasDaytimeDependency,
-  getDangerPatterns
+  getDangerPatterns,
+  getBulletinPhotos
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
@@ -74,6 +75,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
+  const bulletinPhotos = getBulletinPhotos(bulletin.customData);
 
   const isInserted = useMemo(() => {
     if (!bulletin || !bulletin170000) {
@@ -296,6 +298,54 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                 showDiff={showDiff}
               />
             </p>
+            {bulletinPhotos.length > 0 && (
+              <div>
+                <h2 className="subheader">
+                  <FormattedMessage id="bulletin:report:current-conditions:headline" />
+                </h2>
+                <ul className="list-inline list-photos">
+                  {bulletinPhotos.map((photo, index) => (
+                    <li key={photo.url + index}>
+                      <figure>
+                        <img src={photo.url} loading="lazy" decoding="async" />
+                        <figcaption>
+                          {photo.copyright && (
+                            <span className="text-icon">
+                              <span
+                                className="icon icon-copyright"
+                                aria-hidden="true"
+                              />
+                              {photo.copyright}
+                            </span>
+                          )}
+                          {photo.date && (
+                            <span className="text-icon">
+                              <span
+                                className="icon icon-calendar"
+                                aria-hidden="true"
+                              />
+                              {photo.date}
+                            </span>
+                          )}
+                          {photo.microRegionId && (
+                            <span className="text-icon">
+                              <span
+                                className="icon icon-location"
+                                aria-hidden="true"
+                              />
+
+                              <FormattedMessage
+                                id={`region:${photo.microRegionId}` as never}
+                              />
+                            </span>
+                          )}
+                        </figcaption>
+                      </figure>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </section>
         {(hasTendencyHighlights ||

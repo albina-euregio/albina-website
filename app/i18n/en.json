@@ -158,6 +158,7 @@
   "bulletin:report:dangerlevel-below": "Danger level below {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Danger level above treeline: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Danger level below treeline: {level}",
+  "bulletin:report:current-conditions:headline": "Current Conditions",
   "bulletin:report:selected-region:hover": "You see the forecast for the selected region.<br />Click to return to map",
   "bulletin:report:tendency": "<strong>Tendency: {tendency}</strong><br>on {date} {daytime}",
   "bulletin:report:tendency:none": "n/a",
