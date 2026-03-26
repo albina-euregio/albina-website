@@ -285,6 +285,36 @@
   }
 }
 
+.section-bulletin-report .list-photos {
+  figure {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+  }
+
+  figcaption {
+    display: grid;
+    line-height: 1.4;
+  }
+
+  .text-icon {
+    display: flex;
+    gap: 0.35em;
+    align-items: center;
+  }
+
+  .icon:before {
+    margin: 0;
+    font-size: 0.95em;
+  }
+}
+
 .bulletin-report-region {
   display: flex;
   margin: 0 variables.$grid-gutter (variables.$padding * 2) 0;
