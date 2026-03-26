@@ -48,6 +48,9 @@ export interface BulletinPhoto {
   copyright: string;
   date: string;
   microRegionId: string;
+  locationName: string;
+  latitude: number;
+  longitude: number;
 }
 
 interface AlbinaCustomData extends CustomData {

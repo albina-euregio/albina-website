@@ -5,7 +5,7 @@ import React, {
   useMemo
 } from "react";
 import DiffMatchPatch from "diff-match-patch";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport, {
   compareDangerRatings,
@@ -307,7 +307,12 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                   {bulletinPhotos.map((photo, index) => (
                     <li key={photo.url + index}>
                       <figure>
-                        <img src={photo.url} loading="lazy" decoding="async" />
+                        <img
+                          src={photo.url}
+                          loading="lazy"
+                          decoding="async"
+                          style={{ marginBottom: "1rem" }}
+                        />
                         <figcaption>
                           {photo.copyright && (
                             <span className="text-icon">
@@ -333,9 +338,14 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                                 className="icon icon-location"
                                 aria-hidden="true"
                               />
-
+                              {photo.locationName}
+                              {photo.locationName && photo.microRegionId
+                                ? ", "
+                                : ""}
                               <FormattedMessage
-                                id={`region:${photo.microRegionId}` as never}
+                                id={
+                                  `region:${photo.microRegionId}` as MessageId
+                                }
                               />
                             </span>
                           )}
