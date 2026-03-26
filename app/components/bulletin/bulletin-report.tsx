@@ -233,10 +233,9 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                           rel="noopener noreferrer nofollow"
                           target="_blank"
                           href={config.template(config.apis.bulletin.pdf, {
-                            date: date.toString(),
+                            date: bulletin.validTime?.startTime?.toISOString(),
                             region: province ?? "EUREGIO",
                             microRegionId: region,
-                            bulletin: bulletin.bulletinID,
                             lang: intl.locale.slice(0, 2)
                           })}
                         >
