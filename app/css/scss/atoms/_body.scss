@@ -32,6 +32,10 @@ html[data-province="ES-AR"] {
   --brand-light: #327f94;
   --brand-very-light: #669faf;
   --brand-very-very-light: #99bfc9;
+
+  & img.leaflet-tile {
+    filter: opacity(50%) grayscale(90%);
+  }
 }
 
 html[data-province="ES-CT-L"] {
