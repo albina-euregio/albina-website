@@ -8,9 +8,9 @@
   ],
   "province": "ES-AR",
   "regionCodes": ["ES-AR"],
-  "extraRegions": ["AD", "ES-CT", "ES-CT-L"],
-  "eawsRegions": [],
-  "eawsRegionsExclude": ["ES", "FR"],
+  "extraRegions": ["ES-CT-L"],
+  "eawsRegions": ["AD", "ES-CT", "FR"],
+  "eawsRegionsExclude": ["ES"],
   "staticContentNamespace": [
     "/conditions/estacions",
     "/conditions/pistes",
