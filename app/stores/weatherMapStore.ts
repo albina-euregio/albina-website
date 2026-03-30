@@ -1,6 +1,6 @@
 import { atom, computed } from "nanostores";
 import { loadStationData, type StationData } from "./stationDataStore";
-import { getDefaultTime, snapToSlot, clampToRange } from "./weatherMapSlots";
+import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -404,19 +404,19 @@ export const timeSpanInt = computed([timeSpan], timeSpan =>
 /*
   returns lastUpdateTime
 */
-export const lastDataUpdate = atom(0);
+export const lastDataUpdate = atom<Temporal.Instant | null>(null);
 /*
  * returns the start date for history information
  */
-export const startDate = atom<Date | null>(null);
+export const startDate = atom<Temporal.Instant | null>(null);
 /*
  * returns the agl (ausgangslage) date for all calculations
  */
-export const agl = atom<Date | null>(null);
+export const agl = atom<Temporal.Instant | null>(null);
 /*
  * returns current time of interest
  */
-export const currentTime = atom<Date | null>(null);
+export const currentTime = atom<Temporal.Instant | null>(null);
 export const selectedFeature = atom(null);
 
 /*
@@ -512,7 +512,12 @@ async function _loadIndexData() {
   grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
-  if (currentTime.get() > startDate.get()) return;
+  const currentTime0 = currentTime.get();
+  if (
+    !currentTime0 ||
+    Temporal.Instant.compare(currentTime0, startDate.get()) > 0
+  )
+    return;
 
   try {
     await loadStationData({
@@ -520,10 +525,7 @@ async function _loadIndexData() {
         if (generation !== _loadIndexGeneration) return;
         stations.set([...stations.get(), ...s]);
       },
-      dateTime: currentTime
-        .get()
-        ?.toTemporalInstant()
-        ?.toZonedDateTimeISO("UTC")
+      dateTime: currentTime0?.toZonedDateTimeISO("UTC")
     });
   } catch (err) {
     // TODO fail with error dialog
@@ -534,21 +536,28 @@ async function _loadIndexData() {
 /*
  * Fetch a metadata date file (startDate.ok or agl.ok)
  */
-async function fetchMetaDate(url: string): Promise<Date | null> {
-  if (SIMULATE_START) return new Date(SIMULATE_START);
+async function fetchMetaDate(url: string): Promise<Temporal.Instant | null> {
+  if (SIMULATE_START) {
+    return Temporal.Instant.from(SIMULATE_START);
+  }
   const response = await fetch(url);
-  if (!response.ok) return new Date();
+  if (!response.ok) {
+    return Temporal.Now.instant();
+  }
 
   const lastModified = response.headers.get("last-modified");
   if (lastModified) {
-    const date = Date.parse(lastModified);
-    if (date > lastDataUpdate.get() || lastDataUpdate.get() === 0) {
+    const date = Temporal.Instant.fromEpochMilliseconds(
+      Date.parse(lastModified)
+    );
+    const update = lastDataUpdate.get();
+    if (!update || Temporal.Instant.compare(date, update) > 0) {
       lastDataUpdate.set(date);
     }
   }
 
   const text = await response.text();
-  return text.includes("T") ? new Date(text.trim()) : null;
+  return text.includes("T") ? Temporal.Instant.from(text.trim()) : null;
 }
 
 /*
@@ -593,7 +602,6 @@ export async function initDomain(
 
   // 5. Fetch metadata only when domain or timeSpan actually changed
   if (needsMetadata) {
-    lastDataUpdate.set(0);
     const baseUrl = config.overlayURLs[0];
     const startDateUrl = window.config.template(
       baseUrl + domainConf.metaFiles?.startDate,
@@ -625,29 +633,42 @@ export async function initDomain(
 
   // 6. Resolve time — URL timestamp if provided and valid, else calculate default
   const absSpan = absTimeSpan.get();
-  const now = SIMULATE_START ? new Date(SIMULATE_START) : new Date();
-  let resolvedTime: Date;
+  const now = SIMULATE_START
+    ? Temporal.Instant.from(SIMULATE_START)
+    : Temporal.Now.zonedDateTimeISO()
+        .round({ smallestUnit: "hours", roundingMode: "trunc" })
+        .toInstant();
+  let resolvedTime: Temporal.Instant;
 
-  if (timestamp && +new Date(timestamp) > 0) {
-    const parsed = new Date(timestamp);
+  if (timestamp) {
+    const parsed = Temporal.Instant.from(timestamp);
     const snapped = snapToSlot(parsed, absSpan);
     const st = startTime.get();
     const et = endTime.get();
     if (st && et) {
-      resolvedTime = clampToRange(snapped, st, et);
+      resolvedTime =
+        Temporal.Instant.compare(snapped, st) < 0
+          ? st
+          : Temporal.Instant.compare(snapped, et) > 0
+            ? et
+            : snapped;
     } else {
       resolvedTime = snapped;
     }
   } else {
     resolvedTime = getDefaultTime(
       now,
-      new Date(startDate.get()),
+      startDate.get(),
       timeSpan.get(),
       absSpan
     );
   }
 
-  const timeChanged = +resolvedTime !== +currentTime.get();
+  const timeChanged =
+    Temporal.Instant.compare(
+      resolvedTime,
+      currentTime.get() || Temporal.Instant.fromEpochMilliseconds(0)
+    ) !== 0;
   if (timeChanged) {
     currentTime.set(resolvedTime);
   }
@@ -663,53 +684,52 @@ export async function initDomain(
 
 export const startTime = computed(
   [startDate, timeRange],
-  (startDate, timeRange) => {
+  (startDate, timeRange): Temporal.Instant | null => {
     if (!startDate) return null;
-    const startTime = new Date(startDate);
-    startTime.setUTCHours(startTime.getUTCHours() + +timeRange[0]);
-    return startTime;
+    return startDate.add({ hours: +timeRange[0] });
   }
 );
 
 export const endTime = computed(
   [agl, timeSpan, timeSpanInt, timeRange],
-  (agl, timeSpan, timeSpanInt, timeRange) => {
+  (agl, timeSpan, timeSpanInt, timeRange): Temporal.Instant | null => {
     if (!agl) return null;
-    const endTime = new Date(agl);
 
-    if (timeSpanInt === 12 && [6, 18].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 6);
+    if (
+      timeSpanInt === 12 &&
+      [6, 18].includes(agl.toZonedDateTimeISO("UTC").hour)
+    ) {
+      return agl.subtract({ hours: 6 });
     }
-    if (timeSpanInt % 24 === 0 && [12].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 12);
+    if (
+      timeSpanInt % 24 === 0 &&
+      [12].includes(agl.toZonedDateTimeISO("UTC").hour)
+    ) {
+      return agl.subtract({ hours: 12 });
     }
     if (timeSpan?.includes("+")) {
-      endTime.setUTCHours(endTime.getUTCHours() + +timeRange[1]);
+      return agl.add({ hours: +timeRange[1] });
     }
-    return endTime;
+    return agl;
   }
 );
 
 export const initialDate = computed(
   [currentTime, endTime, timeSpanInt],
-  (currentTime, endTime, timeSpanInt) => {
+  (currentTime, endTime, timeSpanInt): Temporal.Instant | null => {
     if (!currentTime || !endTime) return null;
-    currentTime = new Date(currentTime);
-    endTime = new Date(endTime);
-    const initialDate = +currentTime > +endTime ? endTime : currentTime;
+    let date =
+      Temporal.Instant.compare(currentTime, endTime) > 0
+        ? endTime.toZonedDateTimeISO("UTC")
+        : currentTime.toZonedDateTimeISO("UTC");
 
-    if (timeSpanInt === 12 && [6, 18].includes(initialDate.getUTCHours())) {
-      initialDate.setUTCHours(initialDate.getUTCHours() - 6);
+    if (timeSpanInt === 12 && [6, 18].includes(date.hour)) {
+      date = date.subtract({ hours: 6 });
     }
-    if (
-      timeSpanInt % 24 === 0 &&
-      [6, 12, 18].includes(initialDate.getUTCHours())
-    ) {
-      initialDate.setUTCHours(
-        initialDate.getUTCHours() - initialDate.getUTCHours()
-      );
+    if (timeSpanInt % 24 === 0 && [6, 12, 18].includes(date.hour)) {
+      date = date.subtract({ hours: date.hour });
     }
-    return initialDate;
+    return date.toInstant();
   }
 );
 
@@ -726,17 +746,18 @@ export const overlayURLs = computed(
 );
 
 function getOverlayURLs(
-  currentTime: Date | null,
+  currentTime: Temporal.Instant | null,
   domain: DomainId,
   file: string | undefined,
   timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
-  const utc = currentTime.toISOString();
   const data = {
-    year: utc.slice(0, "2025".length),
-    date: utc.slice(0, "2025-03-14".length),
-    time: currentTime.getUTCHours().toString().padStart(2, "0") + "-00",
+    year: currentTime.toString().slice(0, "2025".length),
+    date: currentTime.toString().slice(0, "2025-03-14".length),
+    time:
+      currentTime.toZonedDateTimeISO("UTC").hour.toString().padStart(2, "0") +
+      "-00",
     domain,
     timespan
   };
@@ -752,18 +773,15 @@ function getOverlayURLs(
 export const nextUpdateTime = computed(
   [domainConfig, lastDataUpdate, timeSpan],
   (domainConfig, lastDataUpdate, timeSpan) => {
-    if (!domainConfig.updateTimesOffset || lastDataUpdate === 0) return null;
-    let res = null;
+    if (!domainConfig.updateTimesOffset || !lastDataUpdate) return null;
     const timesConfig = domainConfig.updateTimesOffset;
-    const lastUpdate = new Date(lastDataUpdate);
 
     const addHours = timesConfig[timeSpan] || timesConfig["*"];
-    if (addHours)
-      res = new Date(lastUpdate).setUTCHours(
-        lastUpdate.getUTCHours() + addHours
-      );
+    if (addHours) {
+      return lastDataUpdate.add({ hours: addHours });
+    }
 
-    return res;
+    return lastDataUpdate;
   }
 );
 

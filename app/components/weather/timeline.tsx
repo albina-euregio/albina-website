@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
-import { dateFormat } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import { $router } from "../router";
 import { redirectPage } from "@nanostores/router";
@@ -30,7 +29,7 @@ const Timeline = () => {
   const rulerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const markersReady = useRef(false);
-  const [targetDate, setTargetDate] = useState<Date>();
+  const [targetDate, setTargetDate] = useState<Temporal.Instant>();
   // currentDate is derived from the store — single source of truth
   const currentDate = initialDate;
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
@@ -57,12 +56,11 @@ const Timeline = () => {
   const intl = useIntl();
   const datePickerRef = useRef<HTMLInputElement>(null);
 
-  const now = useMemo(() => new Date(), []);
+  const now = useMemo((): Temporal.Instant => Temporal.Now.instant(), []);
+
   const startOfDay = useMemo(
-    () =>
-      new Date(
-        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-      ),
+    (): Temporal.Instant =>
+      now.toZonedDateTimeISO("UTC").startOfDay().toInstant(),
     [now]
   );
 
@@ -104,23 +102,33 @@ const Timeline = () => {
   // Sync targetDate (for visual ruler positioning) from store's initialDate.
   // Depend on the timestamp number (not the Date reference) so this only fires
   // when the actual time value changes, preventing cascading re-renders.
-  const initialDateMs = initialDate ? +initialDate : 0;
   useEffect(() => {
-    if (initialDateMs > 0) {
-      if (!targetDate || initialDateMs !== +targetDate) {
-        setTargetDate(new Date(initialDateMs));
+    if (initialDate) {
+      if (
+        !targetDate ||
+        Temporal.Instant.compare(initialDate, targetDate) !== 0
+      ) {
+        setTargetDate(initialDate);
       }
     }
-  }, [initialDateMs]);
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
+  }, [initialDate]);
 
   useEffect(() => {
-    let intervalId: number;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     if (playerIsActive) {
       // Start the interval when isActive is true
       intervalId = setInterval(() => {
-        if (currentDateRef.current >= endTime) setPlayerIsActive(false);
-        else jumpStep(1);
+        if (
+          currentDateRef.current &&
+          endTime &&
+          Temporal.Instant.compare(currentDateRef.current, endTime) >= 0
+        ) {
+          setPlayerIsActive(false);
+        } else {
+          jumpStep(1);
+        }
       }, playDelay); // Runs every 2 seconds
     }
 
@@ -134,12 +142,12 @@ const Timeline = () => {
 
   useEffect(() => {
     currentDateRef.current = initialDate;
-  }, [initialDateMs]);
+  }, [initialDate]);
 
   useEffect(() => {
     if (!startTime || !endTime) return;
-    setMaxStartDay(Math.floor(differenceInHours(startTime, now) / hoursPerDay));
-    setMaxEndDay(Math.floor(differenceInHours(endTime, now) / hoursPerDay));
+    setMaxStartDay(Math.floor(now.until(startTime).total({ unit: "days" })));
+    setMaxEndDay(Math.floor(now.until(endTime).total({ unit: "days" })));
   }, [startTime, endTime, now]);
 
   useEffect(() => {
@@ -148,8 +156,9 @@ const Timeline = () => {
 
       calcIndicatorOffset();
 
-      const timeDifferenceInHours = differenceInHours(targetDate, startOfDay);
-      const targetDay = Math.floor(timeDifferenceInHours / 24);
+      const targetDay = Math.floor(
+        startOfDay.until(targetDate).total({ unit: "days" })
+      );
       const rulerPadding = Math.ceil(barDuration / 24) + 2;
       setRulerStartDay(
         Math.max(maxStartDay - rulerPadding, targetDay - daysBuild)
@@ -194,36 +203,6 @@ const Timeline = () => {
     setIndicatorOffset(newIndicatorOffset);
   };
 
-  const addDays = (date: Date, days: number) => {
-    const result = new Date(date);
-    result.setUTCDate(result.getUTCDate() + days);
-    return result;
-  };
-
-  const addHours = (date: Date, hours: number) => {
-    return new Date(+date + Math.round(hours) * 60 * 60 * 1000);
-  };
-
-  const differenceInHours = (dateLeft: Date, dateRight: Date) => {
-    const res = (+dateLeft - +dateRight) / (1000 * 60 * 60);
-
-    return res;
-  };
-
-  const formatDate = (date: Date) => {
-    if (pixelsPerHour < 3)
-      return intl.formatDate(date, {
-        day: "numeric",
-        month: "numeric"
-      });
-    else
-      return intl.formatDate(date, {
-        weekday: "short",
-        day: "numeric",
-        month: "numeric"
-      });
-  };
-
   const handleKeyDown = (event: KeyboardEvent) => {
     const factor = event.ctrlKey
       ? timeSpanInt > 24
@@ -248,22 +227,22 @@ const Timeline = () => {
 
   const jumpStep = (direction: 1 | -1 | number) => {
     if (!endTime || !startTime) return;
-    const newDate = new Date(currentDateRef.current);
-    newDate.setUTCHours(
-      newDate.getUTCHours() + direction * selectableHoursOffset
-    );
+    const newDate = currentDateRef.current?.add({
+      hours: direction * selectableHoursOffset
+    });
+    if (!newDate) return;
 
-    if (newDate <= endTime && newDate >= startTime) {
+    if (
+      Temporal.Instant.compare(newDate, endTime) <= 0 &&
+      Temporal.Instant.compare(newDate, startTime) >= 0
+    ) {
       // Update the ref eagerly so rapid keypresses accumulate steps
       currentDateRef.current = newDate;
       // Throttle navigation to one per animation frame to avoid cascading re-renders
       if (pendingNav.current) cancelAnimationFrame(pendingNav.current);
       pendingNav.current = requestAnimationFrame(() => {
         pendingNav.current = null;
-        navigateToWeatermapWithParams(
-          newDate.toISOString(),
-          store.timeSpan.get()
-        );
+        navigateToWeatermapWithParams(newDate.toString(), store.timeSpan.get());
       });
     }
   };
@@ -285,7 +264,7 @@ const Timeline = () => {
     index = (index + direction + timeSpans.length) % timeSpans.length;
     const newTimeSpan = timeSpans[index];
     const ct = currentDateRef.current;
-    navigateToWeatermapWithParams(ct ? ct.toISOString() : "", newTimeSpan);
+    navigateToWeatermapWithParams(ct ? ct.toString() : "", newTimeSpan);
   };
 
   const jumpDomain = (direction: 1 | -1 | number) => {
@@ -298,10 +277,10 @@ const Timeline = () => {
     const newDomain = domains[index];
     // Navigate to new domain, preserving current time selection
     // The store will validate/clamp the time to valid range for the new domain
-    if (currentDate && +currentDate > 0) {
+    if (currentDate) {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: newDomain,
-        timestamp: currentDate.toISOString()
+        timestamp: currentDate.toString()
       });
     } else {
       redirectPage($router, "weatherMapDomain", { domain: newDomain });
@@ -315,11 +294,15 @@ const Timeline = () => {
 
     for (let day = rulerStartDay; day <= rulerEndDay; day++) {
       for (let hour = 0; hour < hoursPerDay; hour++) {
-        const markDate = addHours(addDays(startOfDay, day), hour);
+        const markDate = startOfDay
+          .toZonedDateTimeISO("UTC")
+          .add({ days: day })
+          .add({ hours: hour })
+          .toInstant();
         const totalHours = day * hoursPerDay + hour;
 
-        const localDate = new Date(markDate);
-        const localHour = localDate.getHours();
+        const localDate = markDate.toZonedDateTimeISO("UTC");
+        const localHour = localDate.hour;
         const markClass = [localHour === 0 ? "day-mark" : ""];
 
         const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
@@ -328,22 +311,27 @@ const Timeline = () => {
           isSelectable &&
           startTime &&
           endTime &&
-          +markDate >= +startTime &&
-          +markDate <= +endTime
-        )
+          Temporal.Instant.compare(markDate, startTime) >= 0 &&
+          Temporal.Instant.compare(markDate, endTime) <= 0
+        ) {
           markClass.push("selectable-hour-mark");
-        else markClass.push("hour-mark");
+        } else {
+          markClass.push("hour-mark");
+        }
         if (isSelectable && endTime) {
-          const nextSelectableDate = new Date(markDate);
-          nextSelectableDate.setUTCHours(
-            nextSelectableDate.getUTCHours() + selectableHoursOffset
-          );
-          if (+endTime >= +markDate && +nextSelectableDate > +endTime) {
+          const nextSelectableDate = localDate
+            .add({ hours: selectableHoursOffset })
+            .toInstant();
+          if (
+            Temporal.Instant.compare(endTime, markDate) >= 0 &&
+            Temporal.Instant.compare(nextSelectableDate, endTime) > 0
+          ) {
             markClass.push("selectable-hours-end");
           }
         }
-        if (startTime && +markDate === +startTime)
+        if (startTime && Temporal.Instant.compare(markDate, startTime) === 0) {
           markClass.push("selectable-hours-start");
+        }
 
         const marking = (
           <div
@@ -352,7 +340,7 @@ const Timeline = () => {
             style={{
               left: `${totalHours * pixelsPerHour}px`
             }}
-            data-date={markDate.toISOString()}
+            data-date={markDate.toString()}
             data-hours={totalHours}
           >
             {localHour === 0 && (
@@ -362,7 +350,12 @@ const Timeline = () => {
                   left: `${12 * pixelsPerHour}px`
                 }}
               >
-                {formatDate(markDate)}
+                {intl.formatDate(
+                  markDate,
+                  pixelsPerHour < 3
+                    ? { day: "numeric", month: "numeric" }
+                    : { weekday: "short", day: "numeric", month: "numeric" }
+                )}
               </span>
             )}
             {/* {isSelectable && (
@@ -378,8 +371,11 @@ const Timeline = () => {
             ></div>
           </div>
         );
-        if (+markDate < +startDate) markingsAnalysis.push(marking);
-        else markingsForecast.push(marking);
+        if (startDate && Temporal.Instant.compare(markDate, startDate) < 0) {
+          markingsAnalysis.push(marking);
+        } else {
+          markingsForecast.push(marking);
+        }
       }
     }
     return (
@@ -400,9 +396,9 @@ const Timeline = () => {
     // Clamp to valid selectable range so the user can't drag past startTime/endTime
     if (startTime && endTime) {
       const minTranslateX =
-        differenceInHours(startTime, startOfDay) * pixelsPerHour;
+        startOfDay.until(startTime).total({ unit: "hours" }) * pixelsPerHour;
       const maxTranslateX =
-        differenceInHours(endTime, startOfDay) * pixelsPerHour;
+        startOfDay.until(endTime).total({ unit: "hours" }) * pixelsPerHour;
       usedTranslateX = Math.max(
         minTranslateX,
         Math.min(maxTranslateX, usedTranslateX)
@@ -435,25 +431,22 @@ const Timeline = () => {
       rulerRef.current.style.transition = "transform 0.3s ease";
       const nearestMarker = getNearestMarker();
       if (nearestMarker) {
-        const newDate = new Date(nearestMarker?.dataset?.date);
-        navigateToWeatermapWithParams(
-          newDate.toISOString(),
-          store.timeSpan.get()
-        );
+        const newDate = Temporal.Instant.from(nearestMarker?.dataset?.date);
+        navigateToWeatermapWithParams(newDate.toString(), store.timeSpan.get());
       }
     }
   };
 
-  const snapToDate = (newTargetDate: Date) => {
+  const snapToDate = (newTargetDate: Temporal.Instant) => {
     // Adjust to the nearest valid hour based on firstHour and timeSpan.
     // Work on a copy so we never mutate the caller's Date (e.g. targetDate state).
-    const snapped = new Date(newTargetDate);
-    const hours = snapped.getUTCHours();
-    const adjustedHours =
-      Math.round(hours / selectableHoursOffset) * selectableHoursOffset;
-    snapped.setUTCHours(adjustedHours, 0, 0, 0);
+    let snapped = newTargetDate.toZonedDateTimeISO("UTC");
+    snapped = snapped.with({
+      hour:
+        Math.round(snapped.hour / selectableHoursOffset) * selectableHoursOffset
+    });
 
-    const { targetMarker } = getMarkerCenterX(snapped);
+    const { targetMarker } = getMarkerCenterX(snapped.toInstant());
     if (!targetMarker) return;
 
     const distanceToMove = Number(targetMarker.style.left?.replace("px", ""));
@@ -484,9 +477,9 @@ const Timeline = () => {
     return nearestMarker;
   };
 
-  const getMarkerCenterX = (newTargetDate: { toISOString: () => unknown }) => {
+  const getMarkerCenterX = (newTargetDate: Temporal.Instant) => {
     const targetMarker = document.querySelectorAll(
-      `[data-date*="${newTargetDate.toISOString()}"]`
+      `[data-date*="${newTargetDate.toString()}"]`
     );
     const markerRect = targetMarker?.[0]?.getBoundingClientRect();
     const markerCenterX = markerRect?.left;
@@ -497,33 +490,20 @@ const Timeline = () => {
     datePickerRef.current.showPicker();
   };
 
-  const formatDateToLocalDateTime = (date: Date) => {
-    return dateFormat(date, "%Y-%m-%dT%H:%M:%S");
-  };
-
   const handleSelectDateClick: ChangeEventHandler<HTMLInputElement> = e => {
-    let newTargetDate = new Date(e.target.value);
+    let newTargetDate = Temporal.Instant.from(e.target.value + "Z");
 
     // For range timespans (>1h), the URL timestamp is the period END,
     // so add the timespan to convert from the user-picked start time.
     // For instantaneous (1h), the user picks the exact time — no offset.
     if (showBar) {
-      newTargetDate.setUTCHours(newTargetDate.getUTCHours() + timeSpanInt);
+      newTargetDate = newTargetDate.add({ hours: timeSpanInt });
     }
 
-    newTargetDate = new Date(
-      Date.UTC(
-        newTargetDate.getUTCFullYear(),
-        newTargetDate.getUTCMonth(),
-        newTargetDate.getUTCDate(),
-        newTargetDate.getUTCHours(),
-        0,
-        0
-      )
-    );
+    // FIXME with minutes=0 seconds=0
 
     navigateToWeatermapWithParams(
-      newTargetDate.toISOString(),
+      newTargetDate.toString(),
       store.timeSpan.get()
     );
   };
@@ -594,7 +574,10 @@ const Timeline = () => {
             type="datetime-local"
             ref={datePickerRef}
             onChange={handleSelectDateClick}
-            defaultValue={formatDateToLocalDateTime(currentDate)}
+            defaultValue={currentDate
+              ?.toZonedDateTimeISO("UTC")
+              .toPlainDateTime()
+              .toString()}
             style={{
               position: "absolute",
               opacity: 0,
@@ -602,8 +585,14 @@ const Timeline = () => {
               width: 0,
               height: 0
             }}
-            min={startTime ? formatDateToLocalDateTime(startTime) : undefined}
-            max={endTime ? formatDateToLocalDateTime(endTime) : undefined}
+            min={startTime
+              ?.toZonedDateTimeISO("UTC")
+              .toPlainDateTime()
+              .toString()}
+            max={endTime
+              ?.toZonedDateTimeISO("UTC")
+              .toPlainDateTime()
+              .toString()}
           />
         )}
       </div>
@@ -641,7 +630,7 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={new Date(+currentDate - timeSpanInt * 3600_000)}
+                    date={currentDate?.subtract({ hours: timeSpanInt }) ?? null}
                     options={{ timeStyle: "short" }}
                   />
                 </span>

@@ -51,7 +51,7 @@ const Weather = () => {
     if (currentTime && domainId && !params.timestamp) {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: domainId,
-        timestamp: currentTime.toISOString(),
+        timestamp: currentTime.toString(),
         timeSpan: store.timeSpan.get()
       });
     }
