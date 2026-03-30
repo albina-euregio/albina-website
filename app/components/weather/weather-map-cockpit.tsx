@@ -75,10 +75,10 @@ const WeatherMapCockpit = () => {
         // Navigate with preserved timestamp.
         // weather.tsx's useEffect handles calling initDomain.
         const ct = store.currentTime.get();
-        if (ct && +ct > 0) {
+        if (ct) {
           redirectPage($router, "weatherMapDomainTimestamp", {
             domain: value,
-            timestamp: ct.toISOString()
+            timestamp: ct.toString()
           });
         } else {
           redirectPage($router, "weatherMapDomain", { domain: value });
@@ -91,7 +91,7 @@ const WeatherMapCockpit = () => {
         const domain = store.domainId.get();
         redirectPage($router, "weatherMapDomainTimestamp", {
           domain,
-          timestamp: ct ? ct.toISOString() : "",
+          timestamp: ct ? ct.toString() : "",
           timeSpan: value
         });
         break;
