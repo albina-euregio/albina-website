@@ -1,6 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function HideGroupFilter({ title, children }) {
+interface Props {
+  title: string;
+  children: ReactNode;
+}
+
+export default function HideGroupFilter({ title, children }: Props) {
   return (
     <div>
       {title && <p className="info">{title}</p>}
