@@ -154,6 +154,7 @@ img {
   margin-top: -(variables.$margin-bottom);
 }
 
-[data-lineaplot-wrapper]:has(> linea-plot:not(:empty)) > img {
+/* ── LINEA Blog export overlay ──────────────────────────────────── */
+[data-lineaplot-wrapper]:has(.linea-custom-element) > img {
   display: none;
 }
