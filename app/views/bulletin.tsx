@@ -11,9 +11,7 @@ const BulletinMap = React.lazy(
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { LONG_DATE_FORMAT } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 
@@ -22,7 +20,7 @@ import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { $headless, $province, type Language, setLanguage } from "../appStore";
+import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
 import { openPage, redirectPage } from "@nanostores/router";
@@ -69,7 +67,6 @@ const Bulletin = () => {
     setLanguage(router.search.language as Language);
   }
   const headless = useStore($headless);
-  const province = useStore($province);
 
   useEffect(() => {
     _latestBulletinChecker();
@@ -164,22 +161,6 @@ const Bulletin = () => {
   const daytimeDependency = collection?.ownBulletins?.some(b =>
     hasDaytimeDependency(b)
   );
-
-  const title = intl.formatMessage({ id: "bulletin:title" });
-  const shareDescription = collection
-    ? title + " | " + intl.formatDate(collection.date, LONG_DATE_FORMAT)
-    : intl.formatMessage({
-        id: "bulletin:header:info-no-data"
-      });
-
-  const shareImage = collection?.date
-    ? config.template(config.apis.bulletin.map, {
-        date: collection?.date,
-        publication: ".",
-        file: `${daytimeDependency ? "am" : "fd"}_${province || "EUREGIO"}_map`,
-        format: ".jpg"
-      })
-    : "";
 
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
@@ -342,11 +323,6 @@ const Bulletin = () => {
         <></>
       ) : (
         <>
-          <SmShare
-            image={shareImage}
-            title={title}
-            description={shareDescription}
-          />
           <BulletinFooter />
         </>
       )}
