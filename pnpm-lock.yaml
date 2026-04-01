@@ -32,8 +32,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.13.0
-        version: 8.13.0(zod@4.3.6)
+        specifier: ^8.14.0
+        version: 8.14.0(zod@4.3.6)
       '@eaws/micro-regions_elevation_properties':
         specifier: ^8.3.2
         version: 8.3.2
