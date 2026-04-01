@@ -35,17 +35,17 @@ importers:
         specifier: ^8.14.0
         version: 8.14.0(zod@4.3.6)
       '@eaws/micro-regions_elevation_properties':
-        specifier: ^8.3.2
-        version: 8.3.2
+        specifier: ^8.3.4
+        version: 8.3.4
       '@eaws/micro-regions_names':
-        specifier: ^8.3.2
-        version: 8.3.2
+        specifier: ^8.3.4
+        version: 8.3.4
       '@eaws/micro-regions_properties':
-        specifier: ^8.3.2
-        version: 8.3.2
+        specifier: ^8.3.4
+        version: 8.3.4
       '@eaws/outline_properties':
-        specifier: ^8.3.2
-        version: 8.3.2
+        specifier: ^8.3.4
+        version: 8.3.4
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
@@ -181,17 +181,17 @@ packages:
     peerDependencies:
       zod: ^4.3.0
 
-  '@eaws/micro-regions_elevation_properties@8.3.2':
-    resolution: {integrity: sha1-oVaZGSmQpocDWkm71tFiw9j00D0=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.3.2.tgz}
+  '@eaws/micro-regions_elevation_properties@8.3.4':
+    resolution: {integrity: sha1-dpYt+ENIm1ShPMfGtHDBVQGaGUE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.3.4.tgz}
 
-  '@eaws/micro-regions_names@8.3.2':
-    resolution: {integrity: sha1-bbm/vbX8j0G/O4vOAV9BckClOk8=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.3.2.tgz}
+  '@eaws/micro-regions_names@8.3.4':
+    resolution: {integrity: sha1-ZWIsFbkYvK+msjcrFr4B7kGHPRU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.3.4.tgz}
 
-  '@eaws/micro-regions_properties@8.3.2':
-    resolution: {integrity: sha1-cxtpu/2BLhomdiJpnEsJIaFbSWE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.3.2.tgz}
+  '@eaws/micro-regions_properties@8.3.4':
+    resolution: {integrity: sha1-R1rJmWuXAPkFIJIV5iDPFWdtMUI=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.3.4.tgz}
 
-  '@eaws/outline_properties@8.3.2':
-    resolution: {integrity: sha1-+0Htd8twb9MeBpmQtBgaCFT+xsY=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.3.2.tgz}
+  '@eaws/outline_properties@8.3.4':
+    resolution: {integrity: sha1-pabIACEmwpqeFdlwyZ3EF9fuJsM=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.3.4.tgz}
 
   '@emnapi/core@1.9.1':
     resolution: {integrity: sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA==}
@@ -1252,13 +1252,13 @@ snapshots:
       uplot: 1.6.32
       zod: 4.3.6
 
-  '@eaws/micro-regions_elevation_properties@8.3.2': {}
+  '@eaws/micro-regions_elevation_properties@8.3.4': {}
 
-  '@eaws/micro-regions_names@8.3.2': {}
+  '@eaws/micro-regions_names@8.3.4': {}
 
-  '@eaws/micro-regions_properties@8.3.2': {}
+  '@eaws/micro-regions_properties@8.3.4': {}
 
-  '@eaws/outline_properties@8.3.2': {}
+  '@eaws/outline_properties@8.3.4': {}
 
   '@emnapi/core@1.9.1':
     dependencies:
