@@ -29,6 +29,33 @@ interface Props {
   region: string;
 }
 
+interface Observation {
+  $id: string;
+  $externalURL: string;
+  latitude: number;
+  longitude: number;
+  eventDate: string;
+  locationName: string;
+  authorName: string;
+}
+
+function isObservation(value: unknown): value is Observation {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const observation = value as Record<string, unknown>;
+  return (
+    typeof observation.$id === "string" &&
+    typeof observation.$externalURL === "string" &&
+    typeof observation.latitude === "number" &&
+    typeof observation.longitude === "number" &&
+    typeof observation.eventDate === "string" &&
+    typeof observation.locationName === "string" &&
+    typeof observation.authorName === "string"
+  );
+}
+
 function useWeatherStations() {
   const [stationId, setStationId] = useStationId();
   const { data, load } = useStationData("microRegion");
@@ -75,9 +102,14 @@ function useObservations() {
   const [observation, setObservation] = useState<string>("");
 
   async function loadObservations() {
-    const snobs = await fetchJSON("https://static.avalanche.report/snobs.json");
+    const snobs = await fetchJSON<unknown>(
+      "https://static.avalanche.report/snobs.json"
+    );
+    const observationsList = Array.isArray(snobs)
+      ? snobs.filter(isObservation)
+      : [];
     setObservations(
-      snobs
+      observationsList
         .filter(observation =>
           isValidCoordinates(observation.latitude, observation.longitude)
         )
@@ -113,6 +145,10 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
+  const stationMarkerColor = "rgb(100, 100, 100)";
+  const observationMarkerColor = "rgb(200, 100, 100)";
+  const [showStations, setShowStations] = useState(true);
+  const [showObservations, setShowObservations] = useState(true);
   const { data, stationId, setStationId, stationMarkers } =
     useWeatherStations();
   const { observations, observation, setObservation, loadObservations } =
@@ -131,6 +167,12 @@ export function AdditionalBulletinInformation({
     );
     return bounds.isValid() ? bounds : undefined;
   }, [bulletin?.regions, date]);
+
+  const overlays = useMemo(() => {
+    const visibleStationMarkers = showStations ? stationMarkers : [];
+    const visibleObservations = showObservations ? observations : [];
+    return [...visibleStationMarkers, ...visibleObservations];
+  }, [showStations, stationMarkers, showObservations, observations]);
 
   return (
     <div>
@@ -189,22 +231,57 @@ export function AdditionalBulletinInformation({
             minZoom: 10.25,
             maxZoom: 14
           }}
-          overlays={[...stationMarkers, ...observations]}
+          overlays={overlays}
         />
       </div>
 
       <div
         className="bulletin-report-mini-map-legend"
         aria-label="Map legend"
+        role="button"
+        tabIndex={0}
+        aria-pressed={showStations}
+        onClick={() => setShowStations(value => !value)}
+        onKeyDown={event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setShowStations(value => !value);
+          }
+        }}
         style={{
-          ["--bulletin-mini-map-marker-color" as string]: `rgb(200, 200, 200)`
+          ["--bulletin-mini-map-marker-color" as string]: stationMarkerColor,
+          opacity: showStations ? 1 : 0.55,
+          cursor: "pointer"
         }}
       >
         <span className="bulletin-report-mini-map-legend__swatch" />
         <span className="bulletin-report-mini-map-legend__label">
-          <a href="/weather/stations">
-            <FormattedMessage id="menu:weather:stations" />
-          </a>
+          <FormattedMessage id="bulletin:add-on:legend:weather-stations" />
+        </span>
+      </div>
+      <div
+        className="bulletin-report-mini-map-legend"
+        aria-label="Map legend"
+        role="button"
+        tabIndex={0}
+        aria-pressed={showObservations}
+        onClick={() => setShowObservations(value => !value)}
+        onKeyDown={event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setShowObservations(value => !value);
+          }
+        }}
+        style={{
+          ["--bulletin-mini-map-marker-color" as string]:
+            observationMarkerColor,
+          opacity: showObservations ? 1 : 0.55,
+          cursor: "pointer"
+        }}
+      >
+        <span className="bulletin-report-mini-map-legend__swatch" />
+        <span className="bulletin-report-mini-map-legend__label">
+          <FormattedMessage id="bulletin:add-on:legend:observations" />
         </span>
       </div>
     </div>

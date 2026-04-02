@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Fes click al mapa</strong> per rebre informació detallada del grau de perill de les diferents regions",
   "bulletin:control-bar:community:text": "<a>ENQUESTA ONLINE</a> del nou Euregio Avalanche.report",
   "bulletin:control-bar:community:link": " (<a>més info</a>)",
+  "bulletin:add-on:legend:weather-stations": "Estacions meteorològiques",
+  "bulletin:add-on:legend:observations": "Observacions",
   "archive:filter:year": "Any",
   "archive:filter:month": "Mes",
   "archive:filter:day": "Dia",

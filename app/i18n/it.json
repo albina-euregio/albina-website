@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Cliccate sulla carta</strong> per ottenere informazioni dettagliati sul pericolo valanghe nelle diverse zone di avviso.",
   "bulletin:control-bar:community:text": "<a>INDAGINE ONLINE</a> sul nuovo Euregio Valanghe.report",
   "bulletin:control-bar:community:link": " (<a>più info</a>)",
+  "bulletin:add-on:legend:weather-stations": "Stazioni nivometeorologiche automatiche",
+  "bulletin:add-on:legend:observations": "Osservazioni",
   "archive:filter:year": "Anno",
   "archive:filter:month": "Mese",
   "archive:filter:day": "Giorno",

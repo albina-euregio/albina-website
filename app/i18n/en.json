@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Click on the map</strong> for detailed information on the avalanche danger in the various warning regions.",
   "bulletin:control-bar:community:text": "<a>ONLINE SURVEY</a> on the Euregio Avalanche.report",
   "bulletin:control-bar:community:link": " (<a>more info</a>)",
+  "bulletin:add-on:legend:weather-stations": "Weather stations",
+  "bulletin:add-on:legend:observations": "Observations",
   "archive:filter:year": "Year",
   "archive:filter:month": "Month",
   "archive:filter:day": "Day",

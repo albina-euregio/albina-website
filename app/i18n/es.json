@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Click sobre el mapa</strong> para tener información detallada del grado de peligro de las diferentes regiones.",
   "bulletin:control-bar:community:text": "<a>ENCUESTA ONLIND</a> del nuevo Euregio Avalanche.report",
   "bulletin:control-bar:community:link": " (<a>más info</a>)",
+  "bulletin:add-on:legend:weather-stations": "Estaciones meteorológicas",
+  "bulletin:add-on:legend:observations": "Observaciones",
   "archive:filter:year": "Año",
   "archive:filter:month": "Mes",
   "archive:filter:day": "Día",

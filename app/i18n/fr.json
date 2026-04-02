@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Cliquez sur la carte</strong>pour obtenir plus des informations sur le danger d'avalanche dans les régions différentes. ",
   "bulletin:control-bar:community:text": "<a>ENQUÊTE</a> sur la nouvelle Euregio Avalanche.report",
   "bulletin:control-bar:community:link": " (<a>en savoir plus</a>)",
+  "bulletin:add-on:legend:weather-stations": "Stations météo ",
+  "bulletin:add-on:legend:observations": "Observations",
   "archive:filter:year": "Année",
   "archive:filter:month": "Mois",
   "archive:filter:day": "Jour",

@@ -216,6 +216,8 @@
   "bulletin:howto": "<strong>Klick auf die Karte</strong> für detaillierte Informationen zur Lawinengefahr in den verschiedenen Warnregionen.",
   "bulletin:control-bar:community:text": "<a>ONLINE UMFRAGE</a> zum neuen Euregio Lawinen.report",
   "bulletin:control-bar:community:link": " (<a>mehr dazu</a>)",
+  "bulletin:add-on:legend:weather-stations": "Wetterstationen",
+  "bulletin:add-on:legend:observations": "Beobachtungen",
   "archive:filter:year": "Jahr",
   "archive:filter:month": "Monat",
   "archive:filter:day": "Tag",
