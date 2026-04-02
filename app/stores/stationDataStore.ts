@@ -62,19 +62,19 @@ export class StationData {
     return this.properties.date;
   }
   get TA() {
-    return this.properties.TA.convertTo("°C");
+    return this.properties.TA.convertTo("℃");
   }
   get TSS() {
-    return this.properties.TSS.convertTo("°C");
+    return this.properties.TSS.convertTo("℃");
   }
   get TD() {
-    return this.properties.TD.convertTo("°C");
+    return this.properties.TD.convertTo("℃");
   }
   get TA_MAX() {
-    return this.properties.TA_MAX.convertTo("°C");
+    return this.properties.TA_MAX.convertTo("℃");
   }
   get TA_MIN() {
-    return this.properties.TA_MIN.convertTo("°C");
+    return this.properties.TA_MIN.convertTo("℃");
   }
   get HS() {
     return this.properties.HS.convertTo("cm");
@@ -137,7 +137,7 @@ export class StationData {
   get parametersForDialog() {
     const types = [
       { type: "HS", digits: 0, unit: "cm" },
-      { type: "TA", digits: 1, unit: "°C" },
+      { type: "TA", digits: 1, unit: "℃" },
       { type: "RH", digits: 0, unit: "%" },
       { type: "VW", digits: 0, unit: "km/h" },
       { type: "VW_MAX", digits: 0, unit: "km/h" }
