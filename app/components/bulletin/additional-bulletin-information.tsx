@@ -11,6 +11,18 @@ import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
 import { CircleMarker, Tooltip } from "react-leaflet";
 
+/**
+ * Validates that coordinates are valid numbers and not NaN
+ */
+function isValidCoordinates(lat: unknown, lng: unknown): boolean {
+  return (
+    typeof lat === "number" &&
+    typeof lng === "number" &&
+    isFinite(lat) &&
+    isFinite(lng)
+  );
+}
+
 interface Props {
   date: Temporal.PlainDate;
   bulletin: Bulletin;
@@ -24,25 +36,32 @@ function useWeatherStations() {
 
   const stationMarkers = useMemo(
     () =>
-      data.map(station => (
-        <CircleMarker
-          key={station.id}
-          center={[
+      data
+        .filter(station =>
+          isValidCoordinates(
             station.geometry.coordinates[1],
             station.geometry.coordinates[0]
-          ]}
-          radius={10}
-          weight={1}
-          color="rgb(100, 100, 100)"
-          fill={true}
-          fillColor="rgb(100, 100, 100)"
-          eventHandlers={{
-            click: () => setStationId(station.id)
-          }}
-        >
-          <Tooltip>{station.name}</Tooltip>
-        </CircleMarker>
-      )),
+          )
+        )
+        .map(station => (
+          <CircleMarker
+            key={station.id}
+            center={[
+              station.geometry.coordinates[1],
+              station.geometry.coordinates[0]
+            ]}
+            radius={10}
+            weight={1}
+            color="rgb(100, 100, 100)"
+            fill={true}
+            fillColor="rgb(100, 100, 100)"
+            eventHandlers={{
+              click: () => setStationId(station.id)
+            }}
+          >
+            <Tooltip>{station.name}</Tooltip>
+          </CircleMarker>
+        )),
     [data, setStationId]
   );
   return { data, stationId, setStationId, stationMarkers };
@@ -58,27 +77,31 @@ function useObservations() {
   async function loadObservations() {
     const snobs = await fetchJSON("https://static.avalanche.report/snobs.json");
     setObservations(
-      snobs.map(observation => (
-        <CircleMarker
-          key={observation.$id}
-          center={[observation.latitude, observation.longitude]}
-          radius={12}
-          color="rgb(200, 100, 100)"
-          fill={true}
-          fillColor="rgb(200, 100, 100)"
-          eventHandlers={{
-            click: () => setObservation(observation.$externalURL)
-          }}
-        >
-          <Tooltip>
-            {intl.formatDate(observation.eventDate)}
-            <br />
-            {observation.locationName}
-            <br />
-            {observation.authorName}
-          </Tooltip>
-        </CircleMarker>
-      ))
+      snobs
+        .filter(observation =>
+          isValidCoordinates(observation.latitude, observation.longitude)
+        )
+        .map(observation => (
+          <CircleMarker
+            key={observation.$id}
+            center={[observation.latitude, observation.longitude]}
+            radius={12}
+            color="rgb(200, 100, 100)"
+            fill={true}
+            fillColor="rgb(200, 100, 100)"
+            eventHandlers={{
+              click: () => setObservation(observation.$externalURL)
+            }}
+          >
+            <Tooltip>
+              {intl.formatDate(observation.eventDate)}
+              <br />
+              {observation.locationName}
+              <br />
+              {observation.authorName}
+            </Tooltip>
+          </CircleMarker>
+        ))
     );
   }
 
