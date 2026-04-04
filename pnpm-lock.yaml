@@ -34,7 +34,7 @@ patchedDependencies:
     hash: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
     path: patches/leaflet.sync.patch
   leaflet.vectorgrid:
-    hash: 17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19
+    hash: acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e
     path: patches/leaflet.vectorgrid.patch
 
 importers:
@@ -45,17 +45,20 @@ importers:
         specifier: ^8.17.0
         version: 8.17.0(zod@4.3.6)
       '@eaws/micro-regions_elevation_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/micro-regions_names':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/micro-regions_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/outline_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
+      '@eaws/pbf':
+        specifier: ^8.4.0
+        version: 8.4.0
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
@@ -103,7 +106,7 @@ importers:
         version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
       leaflet.vectorgrid:
         specifier: ^1.3.0
-        version: 1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
+        version: 1.3.0(patch_hash=acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
       nanostores:
         specifier: ^1.2.0
         version: 1.2.0
@@ -182,17 +185,20 @@ packages:
     peerDependencies:
       zod: ^4.3.0
 
-  '@eaws/micro-regions_elevation_properties@8.3.4':
-    resolution: {integrity: sha1-dpYt+ENIm1ShPMfGtHDBVQGaGUE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.3.4.tgz}
+  '@eaws/micro-regions_elevation_properties@8.4.0':
+    resolution: {integrity: sha1-4XO4RI0x1iBrGsKT2JfwMNcrDek=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.4.0.tgz}
 
-  '@eaws/micro-regions_names@8.3.4':
-    resolution: {integrity: sha1-ZWIsFbkYvK+msjcrFr4B7kGHPRU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.3.4.tgz}
+  '@eaws/micro-regions_names@8.4.0':
+    resolution: {integrity: sha1-L/yfFP/hFWxISP+Xmev/Jq9YGqA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.4.0.tgz}
 
-  '@eaws/micro-regions_properties@8.3.4':
-    resolution: {integrity: sha1-R1rJmWuXAPkFIJIV5iDPFWdtMUI=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.3.4.tgz}
+  '@eaws/micro-regions_properties@8.4.0':
+    resolution: {integrity: sha1-OZUSC86rzGJzFcX1Wtxl1MSD9Cs=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.4.0.tgz}
 
-  '@eaws/outline_properties@8.3.4':
-    resolution: {integrity: sha1-pabIACEmwpqeFdlwyZ3EF9fuJsM=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.3.4.tgz}
+  '@eaws/outline_properties@8.4.0':
+    resolution: {integrity: sha1-Qe01rrdaOcyI76wfGAuGdp2/d70=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.4.0.tgz}
+
+  '@eaws/pbf@8.4.0':
+    resolution: {integrity: sha1-elAS323Yw58szfhHC3s9uA77LsE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pbf/-/@eaws/pbf-8.4.0.tgz}
 
   '@emnapi/core@1.9.1':
     resolution: {integrity: sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA==}
@@ -1383,13 +1389,15 @@ snapshots:
       uplot: 1.6.32
       zod: 4.3.6
 
-  '@eaws/micro-regions_elevation_properties@8.3.4': {}
+  '@eaws/micro-regions_elevation_properties@8.4.0': {}
 
-  '@eaws/micro-regions_names@8.3.4': {}
+  '@eaws/micro-regions_names@8.4.0': {}
 
-  '@eaws/micro-regions_properties@8.3.4': {}
+  '@eaws/micro-regions_properties@8.4.0': {}
 
-  '@eaws/outline_properties@8.3.4': {}
+  '@eaws/outline_properties@8.4.0': {}
+
+  '@eaws/pbf@8.4.0': {}
 
   '@emnapi/core@1.9.1':
     dependencies:
@@ -1953,7 +1961,7 @@ snapshots:
 
   leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4): {}
 
-  leaflet.vectorgrid@1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
+  leaflet.vectorgrid@1.3.0(patch_hash=acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
     dependencies:
       leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       pbf: 3.3.0

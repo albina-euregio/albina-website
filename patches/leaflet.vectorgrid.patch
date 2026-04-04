@@ -1,18 +1,8 @@
+diff --git a/.npmignore b/.npmignore
+deleted file mode 100644
+index 69191e442477eaa113c4cd513cb30e77febf705f..0000000000000000000000000000000000000000
 diff --git a/dist/Leaflet.VectorGrid.bundled.js b/dist/Leaflet.VectorGrid.bundled.js
-index eaf6520be79a64eb1fe227be81b5699d0bb5e1f1..b3bed408d66bb9d266c99c72ceb718f34e065c58 100644
---- a/dist/Leaflet.VectorGrid.bundled.js
-+++ b/dist/Leaflet.VectorGrid.bundled.js
-@@ -2055,7 +2055,7 @@ L.VectorGrid = L.GridLayer.extend({
- 			if (this._map != null) {
- 				renderer.addTo(this._map);
- 			}
--			L.Util.requestAnimFrame(done.bind(coords, null, null));
-+			window.requestAnimationFrame(done.bind(coords, null, null));
- 		}.bind(this));
- 
- 		return renderer.getContainer();
-diff --git a/dist/Leaflet.VectorGrid.bundled.js b/dist/Leaflet.VectorGrid.bundled.js
-index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a3aad710c 100644
+index eaf6520be79a64eb1fe227be81b5699d0bb5e1f1..56fea469bcbead6c39de2970196a86c32ac19e60 100644
 --- a/dist/Leaflet.VectorGrid.bundled.js
 +++ b/dist/Leaflet.VectorGrid.bundled.js
 @@ -1666,7 +1666,7 @@ L.SVG.Tile = L.SVG.extend({
@@ -129,6 +119,15 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  						featureLayer.render(renderer, style);
  						renderer._addPath(featureLayer);
  					}
+@@ -2055,7 +2051,7 @@ L.VectorGrid = L.GridLayer.extend({
+ 			if (this._map != null) {
+ 				renderer.addTo(this._map);
+ 			}
+-			L.Util.requestAnimFrame(done.bind(coords, null, null));
++			window.requestAnimationFrame(done.bind(coords, null, null));
+ 		}.bind(this));
+ 
+ 		return renderer.getContainer();
 @@ -2121,7 +2117,7 @@ L.VectorGrid = L.GridLayer.extend({
  		}
  
@@ -138,16 +137,18 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  			feat.updateStyle(renderer, style);
  		}
  	},
-@@ -2262,7 +2258,7 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
+@@ -2262,7 +2258,9 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
  			data['-y'] = invertedY;
  		}
  
 -		var tileUrl = L.Util.template(this._url, L.extend(data, this.options));
-+		var tileUrl = L.Util.template(this._url, Object.assign(data, this.options));
++		Object.assign(data, this.options);
++		var tileUrl = typeof this._url === 'function' ? this._url(data) : L.Util.template(this._url, data);
++		if (!tileUrl) return Promise.resolve({layers:[]});
  
  		return fetch(tileUrl, this.options.fetchOptions).then(function(response){
  
-@@ -2499,7 +2495,7 @@ L.Canvas.Tile = L.Canvas.extend({
+@@ -2499,7 +2497,7 @@ L.Canvas.Tile = L.Canvas.extend({
  
  		var icon = layer.options.icon,
  		    options = icon.options,
@@ -156,7 +157,7 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  		    anchor = options.iconAnchor ||
  		        	 size && size.divideBy(2, true),
  		    p = layer._point.subtract(anchor),
-@@ -2519,10 +2515,6 @@ L.Canvas.Tile = L.Canvas.extend({
+@@ -2519,10 +2517,6 @@ L.Canvas.Tile = L.Canvas.extend({
  });
  
  
