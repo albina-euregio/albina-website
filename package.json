@@ -14,16 +14,16 @@
   },
   "type": "module",
   "scripts": {
-    "prepare": "husky",
-    "dev": "vite",
-    "start": "vite",
-    "start-beta": "vite --base=/beta/",
-    "start-dev": "vite --base=/dev/",
-    "test": "oxlint --max-warnings 0 --ignore-pattern app/components/weather/",
-    "build": "vite build",
-    "build-prod": "vite build",
-    "build-beta": "vite build --base=/beta/",
-    "build-dev": "vite build --base=/dev/",
+    "prepare": "vp config",
+    "dev": "vp dev",
+    "start": "vp dev",
+    "start-beta": "vp dev --base=/beta/",
+    "start-dev": "vp dev --base=/dev/",
+    "test": "vp lint --max-warnings 0 --ignore-pattern app/components/weather/",
+    "build": "vp build",
+    "build-prod": "vp build",
+    "build-beta": "vp build --base=/beta/",
+    "build-dev": "vp build --base=/dev/",
     "build-iframe": "rolldown -d dist app/iframe.ts",
     "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
@@ -71,17 +71,10 @@
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^6.0.1",
     "git-cliff": "^2.10.1",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "oxfmt": "^0.43.0",
-    "oxlint": "^1.58.0",
     "rolldown": "1.0.0-rc.13",
     "sass": "^1.99.0",
-    "vite": "8.0.3"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run test",
-    "*": "oxfmt --no-error-on-unmatched-pattern"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@10.33.0",
   "patchedDependencies": {
