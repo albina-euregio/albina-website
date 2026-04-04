@@ -237,7 +237,7 @@
     "showAllBulletins": false
   },
   "map": {
-    "attribution": "map data: © <a href='https://openstreetmap.org/copyright'>OpenStreetMap</a> contributors | DEM: <a href='http://viewfinderpanoramas.org'>SRTM</a>, <a href='https://sonny.4lima.de'>Sonny</a> | map style: © <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)",
+    "attribution": "Cartografía Ráster del <a href='https://www.ign.es/'>IGN</a>",
     "useWindowWidth": true,
     "initOptions": {
       "maxBounds": [
@@ -259,11 +259,12 @@
     },
     "tileLayer": {
       "id": "ALBINA",
-      "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+      "url": "http://www.ign.es/wms-inspire/mapa-raster",
+      "layers": "mtn_rasterizado",
       "maxZoom": 10,
       "minZoom": 5,
       "detectRetina": false,
-      "tms": false,
+      "wms": true,
       "maxBounds": [
         [45.150876, 7.932124],
         [48.240084, 15.118646]

@@ -452,7 +452,7 @@
       "maxZoom": 10,
       "minZoom": 5,
       "detectRetina": false,
-      "tms": false,
+      "wms": false,
       "maxBounds": [
         [45.150876, 7.932124],
         [48.240084, 15.118646]
