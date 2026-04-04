@@ -72,9 +72,16 @@ const Bulletin = () => {
     _latestBulletinChecker();
     async function _latestBulletinChecker() {
       const today = Temporal.Now.plainDateISO();
-      const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
-      const status = await new BulletinCollection(tomorrow, lang).loadStatus();
-      setLatest(status === "ok" ? tomorrow : today);
+      if (BulletinCollection.isAfter1700()) {
+        const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
+        const status = await new BulletinCollection(
+          tomorrow,
+          lang
+        ).loadStatus();
+        setLatest(status === "ok" ? tomorrow : today);
+      } else {
+        setLatest(today);
+      }
       window.setTimeout(
         () => _latestBulletinChecker(),
         config.bulletin.checkForLatestInterval * 60000
