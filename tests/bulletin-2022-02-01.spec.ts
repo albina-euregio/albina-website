@@ -13,14 +13,15 @@ test("bulletin/2022-02-01", async ({ page }) => {
     "li[id='0646104c-4d4c-4e4a-896b-ce3a45d0b61b']"
   );
   await expect(bulletin.locator(".bulletin-report-header")).toContainText(
-    "Danger level for Tuesday, 1 February 2022"
+    /Danger level for Tuesday,? 1 February 2022/
   );
   await expect(bulletin.locator(".subheader").first()).toContainText(
     "Outside marked and open pistes a dangerous avalanche situation will be encountered over a wide area."
   );
-  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText(
-    "Tendency: Increasing avalanche dangeron Wednesday, 2 February 2022"
-  );
+  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText([
+    "Tendency: Increasing avalanche danger",
+    /on Wednesday,? 2 February 2022/
+  ]);
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");

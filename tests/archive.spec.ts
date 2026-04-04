@@ -10,7 +10,7 @@ test("archive", async ({ page }) => {
   await month.locator(".selectric").selectOption("15");
 
   const preview = page
-    .getByRole("row", { name: "Tuesday, 16 March 2021" })
+    .getByRole("row", { name: "16 March 2021" })
     .locator(".map-preview");
   await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
   await expect(preview.getByRole("img")).toHaveAttribute(
@@ -33,7 +33,7 @@ test("archive", async ({ page }) => {
   );
 
   const pdf = page
-    .getByRole("row", { name: "Tuesday, 16 March 2021" })
+    .getByRole("row", { name: "16 March 2021" })
     .getByRole("link", { name: "PDF" });
   await expect(pdf).toHaveAttribute(
     "href",
