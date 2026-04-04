@@ -9,7 +9,7 @@ Object.freeze(LONG_DATE_FORMAT);
 export const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
-  month: "numeric",
+  month: "long",
   day: "numeric",
   hour: "numeric",
   minute: "numeric",

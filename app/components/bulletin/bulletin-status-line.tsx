@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import type { Bulletin, Status } from "../../stores/bulletin";
-import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { DATE_TIME_FORMAT } from "../../util/date";
 
 interface Props {
   bulletins: [Bulletin, Bulletin?][];
@@ -44,12 +44,7 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
           <span className="text">
             {intl.formatMessage(
               { id: "bulletin:header:published-at" },
-              {
-                date: intl.formatDate(publicationTimes0),
-                time: intl.formatDate(publicationTimes0, {
-                  timeStyle: "short"
-                })
-              }
+              { date: intl.formatDate(publicationTimes0, DATE_TIME_FORMAT) }
             )}
           </span>
         </span>
@@ -61,12 +56,7 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
           <span className="text">
             {intl.formatMessage(
               { id: "bulletin:header:updated-at" },
-              {
-                date: intl.formatDate(publicationTimes1),
-                time: intl.formatDate(publicationTimes1, {
-                  timeStyle: "short"
-                })
-              }
+              { date: intl.formatDate(publicationTimes1, DATE_TIME_FORMAT) }
             )}
           </span>
         </span>
@@ -79,14 +69,14 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
             {intl.formatMessage(
               { id: "bulletin:header:validity-time" },
               {
-                start: intl.formatDate(
-                  bulletin?.validTime?.startTime,
-                  DATE_TIME_FORMAT_SHORT
-                ),
-                end: intl.formatDate(
-                  bulletin?.validTime?.endTime,
-                  DATE_TIME_FORMAT_SHORT
-                )
+                start: intl.formatDate(bulletin?.validTime?.startTime, {
+                  ...DATE_TIME_FORMAT,
+                  weekday: undefined
+                }),
+                end: intl.formatDate(bulletin?.validTime?.endTime, {
+                  ...DATE_TIME_FORMAT,
+                  weekday: undefined
+                })
               }
             )}
           </span>
