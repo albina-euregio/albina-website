@@ -1,7 +1,7 @@
 export const LONG_DATE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
-  month: "numeric",
+  month: "long",
   day: "numeric"
 };
 Object.freeze(LONG_DATE_FORMAT);
