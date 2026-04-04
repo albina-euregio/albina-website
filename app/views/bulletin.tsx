@@ -194,7 +194,7 @@ const Bulletin = () => {
         date={collection?.date}
         latestDate={latest}
         status={status}
-        activeBulletinCollection={collection}
+        bulletins={collection?.bulletinsWith170000}
       />
 
       {status === "n/a" && (

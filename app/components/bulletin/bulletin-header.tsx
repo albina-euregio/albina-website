@@ -4,13 +4,13 @@ import { useIntl } from "../../i18n";
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { LONG_DATE_FORMAT } from "../../util/date";
-import type { BulletinCollection, Status } from "../../stores/bulletin";
+import type { Bulletin, Status } from "../../stores/bulletin";
 
 interface Props {
-  date?: Temporal.PlainDate;
+  date: Temporal.PlainDate;
   latestDate?: Temporal.PlainDate;
   status: Status;
-  activeBulletinCollection: BulletinCollection;
+  bulletins: [Bulletin, Bulletin?][];
 }
 
 function BulletinHeader(props: Props) {
@@ -36,10 +36,7 @@ function BulletinHeader(props: Props) {
       className={`section-padding section-header section-bulletin-header bulletin-updated ${statusClass}`}
     >
       <header className="section-centered">
-        <BulletinStatusLine
-          status={props.status}
-          bulletins={props.activeBulletinCollection?.bulletinsWith170000}
-        />
+        <BulletinStatusLine status={props.status} bulletins={props.bulletins} />
         <h2 className="subheader">
           {intl.formatMessage({ id: "bulletin:title" })}
         </h2>
