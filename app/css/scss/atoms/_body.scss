@@ -73,9 +73,6 @@ body {
 
   &.with-custom-ratio {
     min-height: 0;
-    .section-bulletin-map .section-map {
-      max-height: none;
-    }
   }
 
   @include mixins.rollout;
