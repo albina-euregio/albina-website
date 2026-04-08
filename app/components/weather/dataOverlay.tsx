@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { ImageOverlay, useMap } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
 import { useIntl } from "../../i18n";
@@ -152,7 +152,7 @@ const DataOverlay = ({ playerCB }) => {
           <StationMarker
             type="grid"
             dataType="noCircle"
-            key={"pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom}
+            key={`pos-${curV}_${curH}_${currentTime?.toString()}_${curZoom}`}
             itemId="directionMarker"
             iconAnchor={[12, 12]}
             data={{}}
@@ -170,70 +170,66 @@ const DataOverlay = ({ playerCB }) => {
     setDirectionMarkers(markers);
   };
 
-  const overlays = useMemo(() => {
-    const overlays = [];
-    if (domainId) {
-      overlays.push(
-        <ImageOverlay
-          key={"data-image-" + overlayURLs[0]}
-          className="leaflet-image-layer map-data-layer hide"
-          url={overlayURLs[0]}
-          errorOverlayUrl={overlayURLs[1]}
-          opacity={1}
-          bounds={store.config.settings.bbox}
-          attribution={
-            store.config.settings.debugModus
-              ? intl.formatMessage({ id: "weathermap:attribution" })
-              : null
-          }
-          eventHandlers={{
-            click: e => showDataMarker(e)
-          }}
-          interactive={true}
-        />
-      );
+  const overlays = [];
+  if (domainId) {
+    overlays.push(
+      <ImageOverlay
+        key={"data-image-" + overlayURLs[0]}
+        className="leaflet-image-layer map-data-layer hide"
+        url={overlayURLs[0]}
+        errorOverlayUrl={overlayURLs[1]}
+        opacity={1}
+        bounds={store.config.settings.bbox}
+        attribution={
+          store.config.settings.debugModus
+            ? intl.formatMessage({ id: "weathermap:attribution" })
+            : null
+        }
+        eventHandlers={{
+          click: e => showDataMarker(e)
+        }}
+        interactive={true}
+      />
+    );
 
-      overlays.push(
-        <ImageOverlay
-          key={"background-map-" + overlayURLs[0]}
-          className="leaflet-image-layer map-info-layer"
-          style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={overlayURLs[0]}
-          errorOverlayUrl={overlayURLs[1]}
-          opacity={1}
-          bounds={store.config.settings.bbox}
-          interactive={true}
-          attribution={
-            store.config.settings.debugModus
-              ? intl.formatMessage({ id: "weathermap:attribution" })
-              : null
+    overlays.push(
+      <ImageOverlay
+        key={"background-map-" + overlayURLs[0]}
+        className="leaflet-image-layer map-info-layer"
+        style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+        url={overlayURLs[0]}
+        errorOverlayUrl={overlayURLs[1]}
+        opacity={1}
+        bounds={store.config.settings.bbox}
+        interactive={true}
+        attribution={
+          store.config.settings.debugModus
+            ? intl.formatMessage({ id: "weathermap:attribution" })
+            : null
+        }
+        eventHandlers={{
+          click: showDataMarker,
+          load: e => {
+            setDataMarker(null);
+            setDirectionMarkers([]);
+            const overlay = e.target as L.ImageOverlay;
+            addDirectionIndicators(overlay);
+            parentMap.on(
+              "zoomend",
+              debounce(() => addDirectionIndicators(overlay), 500)
+            );
+            if (!dataMarker && !directionMarkers)
+              playerCB("background", "load");
+          },
+          error: err => {
+            if (!dataMarker && !directionMarkers) playerCB("background", err);
           }
-          eventHandlers={{
-            click: showDataMarker,
-            load: e => {
-              setDataMarker(null);
-              setDirectionMarkers([]);
-              const overlay = e.target as L.ImageOverlay;
-              addDirectionIndicators(overlay);
-              parentMap.on(
-                "zoomend",
-                debounce(() => addDirectionIndicators(overlay), 500)
-              );
-              if (!dataMarker && !directionMarkers)
-                playerCB("background", "load");
-            },
-            error: err => {
-              if (!dataMarker && !directionMarkers) playerCB("background", err);
-            }
-          }}
-          bindPopup
-        />
-      );
-      playerCB("background", "loading");
-    }
-
-    return overlays;
-  }, [domainId, dataOverlays, overlayURLs]);
+        }}
+        bindPopup
+      />
+    );
+    playerCB("background", "loading");
+  }
 
   return (
     <>

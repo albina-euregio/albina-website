@@ -9,7 +9,6 @@ import ProvinceFilter from "../components/filters/province-filter";
 import YearFilter from "../components/filters/year-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationArchiveTable from "../components/stationTable/stationArchiveTable";
 import { useStore } from "@nanostores/react";
@@ -192,8 +191,6 @@ const StationArchive = () => {
           </div>
         </section>
       )}
-
-      {!headless && <SmShare />}
     </>
   );
 };

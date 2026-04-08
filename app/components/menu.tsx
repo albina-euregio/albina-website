@@ -25,6 +25,8 @@ interface Props {
   onSelect?: (e: Entry) => void;
 }
 
+let isTouchingDevice = false;
+
 function Menu(props: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -59,8 +61,8 @@ function Menu(props: Props) {
   };
 
   const onLinkClick = (e: Event, hasSubs: boolean) => {
-    //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
-    if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
+    //console.log("onLinkClick jjj", isTouchingDevice, hasSubs);
+    if (hasSubs && isTouchingDevice) e.preventDefault();
   };
 
   if (props.entries && props.entries.length > 0) {
@@ -82,6 +84,11 @@ function Menu(props: Props) {
     );
   }
   return null;
+}
+
+function getMenuItemTabIndex(title: string) {
+  // Skip focus for empty or whitespace-only menu items
+  return title && title.trim().length > 0 ? 0 : -1;
 }
 
 function MenuItem(
@@ -117,6 +124,9 @@ function MenuItem(
     });
   const url = e["url:" + lang] || e["url"];
 
+  // Only focusable if title is not empty/whitespace
+  const tabIndex = getMenuItemTabIndex(title);
+
   return (
     <li
       onClick={() => {
@@ -126,19 +136,25 @@ function MenuItem(
       }}
     >
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank">
+        <a
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+          tabIndex={tabIndex}
+        >
           {title}
         </a>
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
+            if (window.innerWidth > 1024) isTouchingDevice = true;
           }}
           onClick={e => {
             props.onLinkClick(e, classes.includes("has-sub"));
           }}
           href={url}
           className={classes.join(" ")}
+          tabIndex={tabIndex}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (

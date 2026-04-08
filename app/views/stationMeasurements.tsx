@@ -7,7 +7,6 @@ import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
 import { useStore } from "@nanostores/react";
@@ -198,8 +197,6 @@ const StationMeasurements = () => {
           </div>
         </section>
       )}
-
-      {!headless && <SmShare />}
     </>
   );
 };

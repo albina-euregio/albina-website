@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "../i18n";
@@ -26,7 +25,6 @@ const StaticPage = () => {
   const [chapter, setChapter] = useState("");
   const [headerText, setHeaderText] = useState("");
   const [content, setContent] = useState("");
-  const [isShareable, setIsShareable] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -65,7 +63,6 @@ const StaticPage = () => {
       setContent(preprocessContent(text.replace(titlePattern, ""), false));
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
-      setIsShareable(!headless);
     })();
   }, [headless, province, lang, router]);
 
@@ -98,7 +95,6 @@ const StaticPage = () => {
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
-      {isShareable ? <SmShare /> : <div className="section-padding" />}
     </>
   );
 };

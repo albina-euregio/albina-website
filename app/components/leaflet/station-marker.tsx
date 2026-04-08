@@ -35,6 +35,7 @@ interface Props {
   direction?: number;
   iconAnchor?: L.PointExpression;
   className: string;
+  useWeatherStationIcon?: boolean;
 }
 
 function getContrastTextColor(
@@ -167,7 +168,7 @@ const StationMarker = ({
               text-anchor="middle"
               fill="${textColor}"
             >
-              ${value}
+              ${value ?? ""}
             </text>
           </svg>
         </div>
@@ -204,7 +205,7 @@ const StationMarker = ({
             text-anchor="middle"
             fill="${textColor}"
           >
-            ${value}
+            ${value ?? ""}
           </text>
         </svg>
       </div>`

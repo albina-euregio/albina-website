@@ -22,42 +22,21 @@ export function getValidSlots(absTimeSpan: number): number[] {
  * Snap a date to the nearest valid slot hour for this timespan.
  * Returns a new Date with minutes/seconds/ms zeroed.
  */
-export function snapToSlot(date: Date, absTimeSpan: number): Date {
-  const snapped = new Date(date);
-  if (!Number.isFinite(absTimeSpan) || absTimeSpan <= 0) return snapped;
-  const hour = snapped.getUTCHours();
+export function snapToSlot(
+  date: Temporal.Instant,
+  absTimeSpan: number
+): Temporal.Instant {
+  if (!Number.isFinite(absTimeSpan) || absTimeSpan <= 0) return date;
+  let snapped = date.toZonedDateTimeISO("UTC");
+  const hour = snapped.hour;
   const lowerSlot = Math.floor(hour / absTimeSpan) * absTimeSpan;
   const upperSlot = lowerSlot + absTimeSpan;
   const useLower = hour - lowerSlot <= upperSlot - hour;
-  snapped.setUTCHours(useLower ? lowerSlot : upperSlot % 24, 0, 0, 0);
+  snapped = snapped.with({ hour: useLower ? lowerSlot : upperSlot % 24 });
   if (!useLower && upperSlot >= 24) {
-    snapped.setUTCDate(snapped.getUTCDate() + 1);
+    snapped = snapped.add({ days: 1 });
   }
-  return snapped;
-}
-
-/**
- * Clamp a date to [start, end] range.
- * Returns a new Date — never mutates input.
- */
-export function clampToRange(date: Date, start: Date, end: Date): Date {
-  if (+date < +start) return new Date(start);
-  if (+date > +end) return new Date(end);
-  return new Date(date);
-}
-
-/**
- * Step forward or backward by one slot interval.
- * Returns a new Date.
- */
-export function stepTime(
-  date: Date,
-  absTimeSpan: number,
-  direction: 1 | -1
-): Date {
-  const stepped = new Date(date);
-  stepped.setUTCHours(stepped.getUTCHours() + direction * absTimeSpan);
-  return stepped;
+  return snapped.toInstant();
 }
 
 /**
@@ -71,16 +50,18 @@ export function stepTime(
  * - Instantaneous (+-1): closest hour to now with available data
  */
 export function getDefaultTime(
-  now: Date,
-  dataAvailableTime: Date,
+  now: Temporal.Instant,
+  dataAvailableTime: Temporal.Instant,
   timeSpan: string,
   absTimeSpan: number
-): Date {
+): Temporal.Instant {
   const timesForSpan = getValidSlots(absTimeSpan);
 
   if (!timeSpan || !Number.isFinite(absTimeSpan) || timesForSpan.length === 0) {
-    return new Date(dataAvailableTime);
+    return dataAvailableTime;
   }
+  const nowUTC = now.toZonedDateTimeISO("UTC");
+  const dataAvailableTimeUTC = dataAvailableTime.toZonedDateTimeISO("UTC");
 
   const isInstantaneous = timeSpan === "+-1";
   const isForecast = timeSpan.startsWith("+") && !isInstantaneous;
@@ -89,77 +70,76 @@ export function getDefaultTime(
   // Instantaneous overlays (snow-height, temp, wind, etc.)
   // Find the closest valid hour to now that has available data
   if (isInstantaneous) {
-    const candidate = new Date(dataAvailableTime);
-    const nowHour = now.getUTCHours();
-
     let closestHour = timesForSpan[0];
     let minDiff = 24;
     for (const h of timesForSpan) {
-      const diff = Math.min(Math.abs(h - nowHour), 24 - Math.abs(h - nowHour));
+      const diff = Math.min(
+        Math.abs(h - nowUTC.hour),
+        24 - Math.abs(h - nowUTC.hour)
+      );
       if (diff < minDiff) {
         minDiff = diff;
         closestHour = h;
       }
     }
 
-    candidate.setUTCHours(closestHour, 0, 0, 0);
+    let candidate = dataAvailableTimeUTC.with({ hour: closestHour });
 
-    while (+candidate > +dataAvailableTime) {
-      candidate.setUTCHours(candidate.getUTCHours() - absTimeSpan);
+    while (
+      Temporal.ZonedDateTime.compare(candidate, dataAvailableTimeUTC) > 0
+    ) {
+      candidate = candidate.subtract({ hours: absTimeSpan });
     }
 
-    return candidate;
+    return candidate.toInstant();
   }
 
   // Forecast overlays (+6, +12, +24, etc.)
   // Timestamp = period END. Show the next slot after now.
   if (isForecast) {
-    const candidate = new Date(now);
-    const nowHour = now.getUTCHours();
     const sortedSlots = [...timesForSpan].sort((a, b) => a - b);
+    const laterSlots = sortedSlots.filter(h => h > nowUTC.hour);
 
-    const laterSlots = sortedSlots.filter(h => h > nowHour);
-
+    let candidate = nowUTC;
     if (laterSlots.length > 0) {
-      candidate.setUTCHours(laterSlots[0], 0, 0, 0);
+      candidate = candidate.with({ hour: laterSlots[0] });
     } else {
-      candidate.setUTCDate(candidate.getUTCDate() + 1);
-      candidate.setUTCHours(sortedSlots[0], 0, 0, 0);
+      candidate = candidate.add({ days: 1 }).with({ hour: sortedSlots[0] });
     }
 
-    return candidate;
+    return candidate.toInstant();
   }
 
   // Historical overlays (-6, -12, -24, etc.)
   // Show the most recent past period
   if (isHistorical) {
-    const candidate = new Date(dataAvailableTime);
-    const dataHour = dataAvailableTime.getUTCHours();
-
+    const dataHour = dataAvailableTimeUTC.hour;
     const soonerToday = timesForSpan.filter(h => h <= dataHour);
 
+    let candidate = dataAvailableTimeUTC;
     if (soonerToday.length > 0) {
-      candidate.setUTCHours(Math.max(...soonerToday), 0, 0, 0);
+      candidate = candidate.with({ hour: Math.max(...soonerToday) });
     } else {
-      candidate.setUTCDate(candidate.getUTCDate() - 1);
-      candidate.setUTCHours(Math.max(...timesForSpan), 0, 0, 0);
+      candidate = candidate
+        .subtract({ days: 1 })
+        .with({ hour: Math.max(...timesForSpan) });
     }
 
-    return candidate;
+    return candidate.toInstant();
   }
 
   // Fallback — original behavior for unrecognized timespan patterns
-  const currentTime = new Date(dataAvailableTime);
-  if (currentTime.getUTCHours() !== 0) {
-    const currHours = currentTime.getUTCHours();
+  let currentTime = dataAvailableTimeUTC;
+  if (currentTime.hour !== 0) {
+    const currHours = currentTime.hour;
     const soonerTimesToday = timesForSpan.filter(aTime => aTime <= currHours);
     let foundStartHour;
     if (soonerTimesToday.length) foundStartHour = Math.max(...soonerTimesToday);
     else foundStartHour = Math.max(...timesForSpan);
 
     if (soonerTimesToday.length === 0)
-      currentTime.setUTCHours(currentTime.getUTCHours() - 24);
-    currentTime.setUTCHours(foundStartHour);
+      currentTime = currentTime.subtract({ hours: 24 });
+    currentTime = currentTime.with({ hour: foundStartHour });
   }
-  return currentTime;
+  return currentTime.toInstant();
 }

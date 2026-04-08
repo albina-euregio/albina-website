@@ -2,6 +2,107 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.3.1] - 2026-04-07
+
+### 🐛 Bug Fixes
+
+- Fix endless growing of iframe
+
+### 💼 Other
+
+- Migrate to vite-plus
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.15.0
+
+## [8.3.0] - 2026-04-02
+
+### 🚀 Features
+
+- Add additional information to bulletin (weather stations, observations)
+- Add SMET download to station archive
+- Add travel advisory to bulletin
+- Add photos to bulletin (prototyp)
+- Add interactive aws-stats to blog css
+- Remove sm-share completely
+
+### 🐛 Bug Fixes
+
+- Map height on Safari
+- Fix keyboard focus
+- PDF creation
+- No_distinct_avalanche_problem icon
+
+### 🚜 Refactor
+
+- Use Temporal for weather maps
+- Obtain bbox from @eaws/outline_properties (also EUREGIO)
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 8.0.1
+- Update to nanostores 1.2.0
+- Update to eaws-regions v8.3.4
+- Update to LINEA v8.14.0
+
+## [8.2.6] - 2026-03-21
+
+### 🚀 Features
+
+- Use new linea schema for tirol.gv.at weather stations
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.9.0
+
+## [8.2.5] - 2026-03-05
+
+### 🚀 Features
+
+- Enable winterstats for weather stations
+
+### 🐛 Bug Fixes
+
+- Color map with max danger rating if elevation dependency exists and only one danger rating should be shown (?one-danger-rating=1)
+- Load EN bulletins from Italy if selected language is not available
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.7.9
+
+## [8.2.4] - 2026-03-03
+
+### 🚀 Features
+
+- Include weather stations from AT, BY and SI
+
+### 🐛 Bug Fixes
+
+- Add EAWS matrix in main menu again
+- Fix title and description for EAWS matrix on education page
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+
+## [8.2.3] - 2026-03-02
+
+### 🚀 Features
+
+- Obtain bbox from @eaws/outline_properties
+
+### 🐛 Bug Fixes
+
+- Fix PDF links
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 8.0.0-beta.15
+- Update translations
+- Update to LINEA v8.7.7
+- Update to eaws-regions v8.3.1
+
 ## [8.2.2] - 2026-02-19
 
 ### 🐛 Bug Fixes
