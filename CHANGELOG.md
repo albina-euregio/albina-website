@@ -2,6 +2,20 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.3.1] - 2026-04-07
+
+### 🐛 Bug Fixes
+
+- Fix endless growing of iframe
+
+### 💼 Other
+
+- Migrate to vite-plus
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.15.0
+
 ## [8.3.0] - 2026-04-02
 
 ### 🚀 Features
