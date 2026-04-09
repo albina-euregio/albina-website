@@ -18,6 +18,7 @@ import SearchField from "../components/organisms/search-field";
 import StationTable from "../components/stationTable/stationTable";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
+import { $router, redirectPageQuery } from "../components/router";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
@@ -47,8 +48,12 @@ function StationDashboard() {
   const intl = useIntl();
   const headless = useStore($headless);
   const [stationId, setStationId] = useStationId();
-  const [selectedParameter, setSelectedParameter] =
-    useState<ParameterType>("HS");
+  const router = useStore($router);
+  const selectedParameter: ParameterType =
+    AVAILABLE_PARAMETERS.find(p => p.id === router?.search?.parameter)?.id ??
+    "HS";
+  const setSelectedParameter = (parameter: ParameterType) =>
+    redirectPageQuery({ parameter });
   const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
   const [filterHeight, setFilterHeight] = useState(0);
