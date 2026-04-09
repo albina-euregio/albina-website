@@ -78,21 +78,38 @@ function Menu(props: Props) {
       }
     };
 
+    // Handlers for mouse hover to open/close dropdowns (desktop only)
+    const handleMouseEnter = (index: number) => {
+      if (window.innerWidth > 1024) {
+        setOpenDropdownIndex(index);
+      }
+    };
+    const handleMouseLeave = (index: number) => {
+      if (window.innerWidth > 1024) {
+        setOpenDropdownIndex(null);
+      }
+    };
+
     return (
       <ul className={props.className}>
         {props.entries.map((e, index) => (
-          <MenuItem
+          <li
             key={e.url + index}
-            {...props}
-            entry={e}
-            isActive={e === activeItem}
-            onLinkClick={onLinkClick}
-            numberNewPosts={numberNewPosts}
-            dropdownOpen={openDropdownIndex === index}
-            setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
-            menuIndex={index}
-            onCloseAllDropdowns={handleCloseAllDropdowns}
-          />
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={() => handleMouseLeave(index)}
+          >
+            <MenuItem
+              {...props}
+              entry={e}
+              isActive={e === activeItem}
+              onLinkClick={onLinkClick}
+              numberNewPosts={numberNewPosts}
+              dropdownOpen={openDropdownIndex === index}
+              setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
+              menuIndex={index}
+              onCloseAllDropdowns={handleCloseAllDropdowns}
+            />
+          </li>
         ))}
       </ul>
     );
@@ -146,13 +163,7 @@ function MenuItem(props: MenuItemProps) {
   const tabIndex = getMenuItemTabIndex(title);
 
   return (
-    <li
-      onClick={() => {
-        if (typeof props.onSelect === "function") {
-          props.onSelect(e);
-        }
-      }}
-    >
+    <>
       {url.match("^http(s)?://") ? (
         <a
           href={url}
@@ -207,7 +218,7 @@ function MenuItem(props: MenuItemProps) {
           onCloseAllDropdowns={props.onCloseAllDropdowns}
         />
       )}
-    </li>
+    </>
   );
 }
 
