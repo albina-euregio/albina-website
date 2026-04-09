@@ -17,7 +17,6 @@ const translationImports = import.meta.glob("./i18n/*.json", {
   import: "default"
 });
 
-// Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
 const regionTranslationImports = import.meta.glob(
   "../node_modules/@eaws/micro-regions_names/*.json",
   {

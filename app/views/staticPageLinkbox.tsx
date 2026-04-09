@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "../i18n/index.tsx";
 import PageHeadline from "../components/organisms/page-headline.tsx";
-import SmShare from "../components/organisms/sm-share.tsx";
 import HTMLHeader from "../components/organisms/html-header.tsx";
 import { setLanguage } from "../appStore.ts";
 import { useStore } from "@nanostores/react";
@@ -75,7 +74,6 @@ const Education = () => {
           })}
         </ul>
       </section>
-      <SmShare />
     </>
   );
 };

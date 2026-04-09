@@ -3,11 +3,11 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/src/schema/listing-legacy";
+import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/listing-legacy";
 import {
   FeatureCollectionSchema,
   FeatureSchema
-} from "@albina-euregio/linea/src/schema/listing";
+} from "@albina-euregio/linea/listing";
 
 type Feature = z.infer<typeof FeatureSchema>;
 
@@ -62,19 +62,19 @@ export class StationData {
     return this.properties.date;
   }
   get TA() {
-    return this.properties.TA.convertTo("°C");
+    return this.properties.TA.convertTo("℃");
   }
   get TSS() {
-    return this.properties.TSS.convertTo("°C");
+    return this.properties.TSS.convertTo("℃");
   }
   get TD() {
-    return this.properties.TD.convertTo("°C");
+    return this.properties.TD.convertTo("℃");
   }
   get TA_MAX() {
-    return this.properties.TA_MAX.convertTo("°C");
+    return this.properties.TA_MAX.convertTo("℃");
   }
   get TA_MIN() {
-    return this.properties.TA_MIN.convertTo("°C");
+    return this.properties.TA_MIN.convertTo("℃");
   }
   get HS() {
     return this.properties.HS.convertTo("cm");
@@ -137,7 +137,7 @@ export class StationData {
   get parametersForDialog() {
     const types = [
       { type: "HS", digits: 0, unit: "cm" },
-      { type: "TA", digits: 1, unit: "°C" },
+      { type: "TA", digits: 1, unit: "℃" },
       { type: "RH", digits: 0, unit: "%" },
       { type: "VW", digits: 0, unit: "km/h" },
       { type: "VW_MAX", digits: 0, unit: "km/h" }

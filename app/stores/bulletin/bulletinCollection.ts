@@ -132,6 +132,10 @@ class BulletinCollection {
     }
   }
 
+  static isAfter1700(): boolean {
+    return Temporal.Now.plainTimeISO("Europe/Vienna").toString() >= "17:00";
+  }
+
   async loadExtraBulletins() {
     this.extraBulletins = [];
     const extraRegions = $province.get()

@@ -26,6 +26,8 @@ interface Props {
   onCloseAllDropdowns?: () => void;
 }
 
+let isTouchingDevice = false;
+
 function Menu(props: Props) {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -60,8 +62,8 @@ function Menu(props: Props) {
   };
 
   const onLinkClick = (e: Event, hasSubs: boolean) => {
-    //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
-    if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
+    //console.log("onLinkClick jjj", isTouchingDevice, hasSubs);
+    if (hasSubs && isTouchingDevice) e.preventDefault();
   };
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
@@ -152,13 +154,18 @@ function MenuItem(props: MenuItemProps) {
       }}
     >
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank" tabIndex={tabIndex}>
+        <a
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+          tabIndex={tabIndex}
+        >
           {title}
         </a>
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
+            if (window.innerWidth > 1024) isTouchingDevice = true;
           }}
           onClick={ev => {
             props.onLinkClick(ev, classes.includes("has-sub"));

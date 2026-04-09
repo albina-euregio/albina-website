@@ -1,5 +1,5 @@
 import type { MessageId } from "../../i18n";
-import type { FeatureSchema } from "@albina-euregio/linea/src/schema/listing";
+import type { FeatureSchema } from "@albina-euregio/linea/listing";
 
 export type ParameterType = keyof typeof FeatureSchema.shape.properties.shape;
 
@@ -91,7 +91,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   {
     id: "TA",
     label: "measurements:table:header:TA",
-    unit: "°C",
+    unit: "℃",
     thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
     colors: {
       1: [0, 0, 255],
@@ -109,7 +109,7 @@ export const AVAILABLE_PARAMETERS: ParameterOption[] = [
   {
     id: "TSS",
     label: "measurements:table:header:TSS",
-    unit: "°C",
+    unit: "℃",
     thresholds: [-20, -10, -5, 0, 5, 10, 15, 20],
     colors: {
       1: [0, 0, 255],

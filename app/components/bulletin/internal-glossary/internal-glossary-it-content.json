@@ -1,0 +1,200 @@
+{
+  "danger-scale-1": {
+    "heading": "Danger level 1 — Low",
+    "text": "<p><b>Generally favourable avalanche situation</b></p><p>No alarm signs present. Avalanches can only be triggered in isolated cases, in particular on extremely steep slopes.</p><p><b>Recommendations for backcountry recreationists</b></p><p>Travel extremely steep slopes one person at a time and mind the danger of falling.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-2": {
+    "heading": "Danger level 2 — Moderate",
+    "text": "<p><b>Mostly favourable avalanche situation</b></p><p>Alarm signs can occur in isolated cases. Avalanches can be triggered in particular on very steep slopes with the aspect and elevation indicated on avalanche.report. Large natural avalanches are unlikely.</p><p><b>Recommendations for backcountry recreationists</b></p><p>Backcountry activities should be selected carefully, especially on slopes with the aspect and elevation indicated on avalanche.report. Travel very steep slopes one person at a time. Pay attention to unfavourable snowpack structure (<a href=\"/education/avalanche-problems#persistent_weak_layers\">persistent weak layers</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-3": {
+    "heading": "Danger level 3 — Considerable",
+    "text": "<p><b>Critical avalanche situation</b></p><p>Whumpf sounds and shooting cracks are typical. Avalanches can easily be triggered, particularly on steep slopes with the aspect and elevation indicated on avalanche.report. Natural avalanches and remote triggering may occur.</p><p><b>Recommendations for backcountry recreationists</b></p><p>The most critical situation for backcountry recreationists. Use terrain efficiently and select best possible route with minimal exposure. Avoid very steep slopes with the aspect and elevation indicated on avalanche.report. Inexperienced persons are advised to remain on open ski runs and trails.</p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-4": {
+    "heading": "Danger level 4 — High",
+    "text": "<p><b>Very critical avalanche situation</b></p><p>Natural and often very large avalanches are likely. Avalanches can easily be triggered on many steep slopes. Remote triggering is typical. Whumpf sounds and shooting cracks occur frequently.</p><p><b>Recommendations for backcountry recreationists</b></p><p>Stay on moderately steep terrain. Watch out below run out zones of large avalanches. Inexperienced persons should remain on open ski runs and trails.</p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-5": {
+    "heading": "Danger level 5 — Very high",
+    "text": "<p><b>Extraordinary avalanche situation</b></p><p>Numerous very large and extremely large natural avalanches can be expected. These can reach roads and settlements in the valley.</p><p><b>Recommendations for backcountry recreationists</b></p><p>You are advised not to engage in winter sports beyond open ski runs and trails.</p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "avalanche-frequency-none": {
+    "heading": "Frequency: (Nearly) none",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>none</b>, locations with the stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-few": {
+    "heading": "Frequency: Few",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Few</b>, locations with the stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-some": {
+    "heading": "Frequency: Some",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Some</b>, locations with the stability class <b>{stabilityClass}</b>, typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-many": {
+    "heading": "Frequency: Many",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant. Evidence for instability is often easy to find.</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-very_poor": {
+    "heading": "Snowpack stability: Very poor",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>very poor</b>, natural releases are observable, avalanches are very easy to trigger by skiers. Shooting cracks and long-running whumpf are common. </p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-poor": {
+    "heading": "Snowpack stability: Poor",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>poor</b> avalanches are easy to trigger by a single skier. Shooting cracks and long-running whumpf sounds may be heard, while short-running whumpf sounds are common. </p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-fair": {
+    "heading": "Snowpack stability: Fair",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>fair</b>, avalanches are difficult to trigger, high loads such as multiple skiers or explosives or cornice falls are typically required. Short-running whumpf may be heard.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-good": {
+    "heading": "Snowpack stability: Good",
+    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>A snowpack stability of class <b>good</b> has generally stable conditions and no signs of instability are observable.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|90__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-size-1": {
+    "heading": "Dim 1: Valanga di piccole dimensioni (scaricamento)",
+    "text": "<p>Unlikely to bury a person, except in run out zones with unfavourable terrain features (e.g. terrain traps). In extremely steep terrain, the danger of deep falls prevails the danger of burials. Avalanche typically stops before the end of a slope.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-2": {
+    "heading": "Size 2: Medium avalanche",
+    "text": "<p>Could bury, injure or kill a person. Size 2 corresponds to the typical skier-triggered avalanche. Avalanche stops typically at the end of a slope.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "avalanche-size-3": {
+    "heading": "Dim 3: Valanga di grandi dimensioni",
+    "text": "<p>Could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-4": {
+    "heading": "Dim 4: Valanga di dimensioni molto grandi",
+    "text": "<p>Could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanche traverses flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-5": {
+    "heading": "Dim 5: Valanga di dimensioni estreme",
+    "text": "<p>Could gouge the landscape; disastrous damage potential. Avalanche reaches valley ground. Largest runout distance known.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "problem-new_snow": {
+    "heading": "Avalanche problem: New snow",
+    "text": "<p>The avalanche problem is related to current or most recent snowfall. The amount of additional loading by new snow onto the existing snowpack is the crucial factor of the new snow problem. How critical the loading is depends on various factors such as temperature or characteristics of the old snow surface.</p><p><b>Travel advice</b><br/>Dry-snow slab avalanches: Wait until the snowpack stabilizes.<br/>Dry loose snow avalanches: Danger of falling is more important than danger of burial. Consider consequences in steep terrain.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-wind_slab": {
+    "heading": "Avalanche problem: Wind slab",
+    "text": "<p>The avalanche problem is related to Wind slab. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-persistent_weak_layers": {
+    "heading": "Avalanche problem: Persistent weak layers",
+    "text": "<p>The avalanche problem is related to the presence of persistent weak layers in the old snowpack. These weak layers typically include buried surface hoar, depth hoar or faceted crystals.</p><p><b>Travel advice</b><br/>Travel conservatively and avoid large steep slopes. Consider the history of weather and snow cover processes in the area. Be extra cautious in areas with a thin snowpack and at the transition from thin to deep snowpack. This problem is a major cause of recreational avalanche fatalities.</p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "problem-wet_snow": {
+    "heading": "Avalanche problem: Wet snow",
+    "text": "<p>The avalanche problem is related to weakening of the snowpack due to the presence of liquid water. Water infiltrates the snowpack due to melt or rain.</p><p><b>Travel advice</b><br/>In the presence of a sun crust the conditions after cold nights with clear skies are usually favourable in the morning due to freezing. After warm nights with overcast skies the problem often exists already in the morning. Normally rain on fresh snow creates this problem almost immediately. Good timing and trip planning are important. Consider avalanche runout zones.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "problem-gliding_snow": {
+    "heading": "Avalanche problem: Gliding snow",
+    "text": "<p>The entire snowpack is gliding on the ground, typically on smooth ground such as grassy slopes or smooth rock zones. High activity of glide-snow avalanches are typically related to a thick snowpack with no or only few weak layers. Glide snow avalanches can occur both with a cold dry snowpack and with a warm wet snowpack. The release of a glide-snow avalanche is difficult to predict, although glide cracks open usually before a release.</p><p><b>Travel advice</b><br/>Avoid areas close to glide cracks.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "danger-pattern-DP1": {
+    "heading": "dp.1 deep persistent weak layer",
+    "text": "<p>At the onset of winter, slab avalanches are often observed following the second heavy snowfall, usually at high altitudes (>2000&nbsp;m) and high alpine altitudes (>3000&nbsp;m) on shady, very steep slopes. This is because in autumn after the first big snowfalls, a lengthy period of stable, highpressure weather follows. That is when ideal conditions prevail for the partial metamorphism of snow into loose crystals, which then form a deep persistent weak layer. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP2": {
+    "heading": "dp.2 gliding snow",
+    "text": "<p>Glide-snow avalanches are among the most difficult avalanches to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.2 gliding snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP3": {
+    "heading": "dp.3 rain on snow",
+    "text": "<p>Rain-on-snow is considered the classic alarm signal in snow and avalanche science because, on the one hand, its additional weight burdens the entire snowpack; and on the other, because the firmness of the snowpack is immediately lost. For those reasons, avalanches are predestined. Rain can occur at any time during the winter. The big advantage is that no danger sign could be simpler to recognize.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP4": {
+    "heading": "dp.4 cold on warm / warm on cold",
+    "text": "<p>For the most part, large temperature differences during snowfall have a negative effect, since they reinforce snow metamorphism inside the snowpack. As a rule, a thin, weak layer forms which is highly prone to triggering. This layer is often found on south-facing slopes. It is highly treacherous for the additional reason that the weak layer does not yet exist immediately after the new snow is deposited, it forms only over the course of the following days.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP5": {
+    "heading": "dp.5 snowfall after long period of cold",
+    "text": "<p>Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP6": {
+    "heading": "dp.6 loose snow and wind",
+    "text": "<p>'Wind is the architect of avalanches.' This classic proverb from the 1930s by Wilhelm Paulcke remains unchanged even today. Wind influences both snow which is falling and snow which has already been deposited. It is a major factor in the formation of avalanches. When the snow is loose and dry, wind transports it, thereby increasing avalanche danger. The colder the transported snow, the more sensitively it reacts to additional loading, because it is so brittle.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP7": {
+    "heading": "dp.7 shallow snow next to deep snow",
+    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP8": {
+    "heading": "dp.8 buried surface hoar",
+    "text": "<p>Surface hoar numbers among the most beautiful types of snow in existence. In and of itself, it bears no danger potential. That potential unfolds only when it is buried by fresh, bonded layers of snow. Then it becomes hazardous. In fact, it is considered one of the most critical weak layers in all of snow and avalanche science.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP9": {
+    "heading": "dp.9 buried graupel",
+    "text": "<p>A weak layer inside a snowpack is often compared with ball bearings. This image is actually suitable only for graupel: a spherical, granular form of precipitation which is often deposited during showers such as thunderstorms during springtime. It is easy to grasp that snowdrifts accumulating atop of a layer of graupel can only be poorly bonded with it, so that the danger of avalanches increases. Graupel is frequently spread over very small surface areas. Without examining the snowpack itself it is difficult to spot, even for professionals. This is an extremely treacherous phenomenon. Fortunately, the problems it creates are short-lived.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP10": {
+    "heading": "dp.10 springtime situation",
+    "text": "<p>Avalanche danger is never easier to evaluate than in stable corn-snow conditions; on the other, avalanches of such magnitude as in springtime are rarely registered in deep winter. Apart from the snowpack layering, the complex interaction of air temperature, air moisture, solar radiation and wind play a major role. For backcountry skiers and boarders, high discipline in timing and flexibility of route planning are more essential than ever.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+    "source": "false"
+  }
+}

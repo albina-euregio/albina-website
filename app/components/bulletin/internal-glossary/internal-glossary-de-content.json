@@ -1,0 +1,200 @@
+{
+  "danger-scale-1": {
+    "heading": "Gefahrenstufe 1 — Gering",
+    "text": "<p><b>Allgemein günstige Lawinensituation</b></p><p>Es sind keine Alarmzeichen feststellbar. Lawinen können nur vereinzelt, vor allem an extrem steilen Hängen ausgelöst werden.</p><p><b>Empfehlungen für Personen im ungesicherten Gelände</b></p><p>Extrem steile Hänge einzeln befahren und Absturzgefahr beachten.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Gefahrenstufe 1\" alt=\"Gefahrenstufe 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\"/>",
+    "source": "false"
+  },
+  "danger-scale-2": {
+    "heading": "Gefahrenstufe 2 — Mäßig",
+    "text": "<p><b>Mehrheitlich günstige Lawinensituation</b></p><p>Alarmzeichen können vereinzelt auftreten. Lawinen können vor allem an sehr steilen Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen ausgelöst werden. Größere spontane Lawinen sind nicht zu erwarten.</p><p><b>Empfehlungen für Personen im ungesicherten Gelände</b></p><p>Vorsichtige Routenwahl, vor allem an Hängen der im lawinen.report angegebenen Expositionen und Höhenlagen. Sehr steile Hänge einzeln befahren. Besondere Vorsicht bei ungünstigem Schneedeckenaufbau (<a href=\"/education/avalanche-problems#persistent_weak_layers\">Altschneeproblem).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Gefahrenstufe 2\" alt=\"Gefahrenstufe 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\"/>",
+    "source": "false"
+  },
+  "danger-scale-3": {
+    "heading": "Gefahrenstufe 3 — Erheblich",
+    "text": "<p><b>Kritische Lawinensituation</b></p><p>Wummgeräusche und Risse sind typisch. Lawinen können vor allem an Steilhängen der im lawinen.report angegebenen Expositionen und Höhenlagen leicht ausgelöst werden. Spontane Lawinen und Fernauslösungen sind möglich.</p><p><b>Empfehlungen für Personen im ungesicherten Gelände</b></p><p>Für Wintersportler kritischste Situation! Optimale Routenwahl und Anwendung von risikomindernden Maßnahmen sind nötig. Sehr steile Hänge der im lawinen.report angegebenen Expositionen und Höhenlagen meiden. Unerfahrene bleiben besser auf den geöffneten Abfahrten und Routen.</p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Gefahrenstufe 3\" alt=\"Gefahrenstufe 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\"/>",
+    "source": "false"
+  },
+  "danger-scale-4": {
+    "heading": "Gefahrenstufe 4 — Groß",
+    "text": "<p><b>Sehr kritische Lawinensituation</b></p><p>Spontane, oft auch sehr große Lawinen sind wahrscheinlich. An vielen Steilhängen können Lawinen leicht ausgelöst werden. Fernauslösungen sind typisch. Wummgeräusche und Risse sind häufig.</p><p><b>Empfehlungen für Personen im ungesicherten Gelände</b></p><p>Sich auf mäßig steiles Gelände beschränken. Auslaufbereiche großer Lawinen beachten. Unerfahrene bleiben auf den geöffneten Abfahrten und Routen.</p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Gefahrenstufe 4\" alt=\"Gefahrenstufe 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\"/>",
+    "source": "false"
+  },
+  "danger-scale-5": {
+    "heading": "Gefahrenstufe 5 — Sehr Groß",
+    "text": "<p><b>Außerordentliche Lawinensituation</b></p><p>Viele sehr große und extreme spontane Lawinen sind zu erwarten. Diese können Straßen und Siedlungen in Tallagen erreichen.</p><p><b>Empfehlungen für Personen im ungesicherten Gelände</b></p><p>Verzicht auf Schneesport abseits geöffneter Abfahrten und Routen empfohlen.</p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Gefahrenstufe 5\" alt=\"Gefahrenstufe 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\"/>",
+    "source": "false"
+  },
+  "avalanche-frequency-none": {
+    "heading": "Häufigkeit: (Fast) keine",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>(Fast) keine</b> existieren keine Punkte mit der Stabilitätsklasse <b>{stabilityClass}</b> oder sie sind so selten, dass sie als nicht relevant für die Einschätzung der Stabilität beurteilt werden.</p>",
+    "img": "__SIMPLE_SLIDER__|wenige,einige,viele|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-few": {
+    "heading": "Häufigkeit: Wenige",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>Wenige</b> finden sich nur selten Punkte mit der Stabilitätsklasse <b>{stabilityClass}</b>. Auch wenn sie selten vorkommen, wird ihre Anzahl für die Stabilitätsbewertung als relevant angesehen. Anzeichen für Instabilität sind schwer zu finden.</p>",
+    "img": "__SIMPLE_SLIDER__|wenige,einige,viele|0|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-some": {
+    "heading": "Häufigkeit: Einige",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.Bei der Häufigkeitsklasse <b>Einige</b> kommen Punkte der Stabilitätsklasse <b>{stabilityClass}</b> typischerweise in Geländestrukturen mit gemeinsamen Merkmalen vor (z.B. kammnah oder in Rinnen und Mulden).</p>",
+    "img": "__SIMPLE_SLIDER__|wenige,einige,viele|1|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-many": {
+    "heading": "Häufigkeit: Viele",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>Viele</b> gibt es zahlreiche Punkte der Stabilitätsklasse <b>{stabilityClass}</b>. Anzeichen für Instabilität sind oft leicht zu finden.</p>",
+    "img": "__SIMPLE_SLIDER__|wenige,einige,viele|2|__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-very_poor": {
+    "heading": "Schneedeckenstabilität: Sehr schlecht",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Sehr schlecht</b> gehen Lawinen spontan ab oder können von Personen sehr leicht ausgelöst werden. Rissbildungen und großflächige Setzungsgeräusche sind zu erwarten.</p>",
+    "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|0|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-poor": {
+    "heading": "Schneedeckenstabilität: Schlecht",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Schlecht</b> können Lawinen von einzelnen Personen leicht ausgelöst werden. Rissbildung und großflächige Setzungsgeräusche sind möglich, während kleinräumige Setzungsgeräusche zu erwarten sind.</p>",
+    "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|1|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-fair": {
+    "heading": "Schneedeckenstabilität: Mittel",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Mittel</b> ist zur Auslösung von Lawinen große Zusatzbelastung, wie mehrere Personen, Sprengungen oder Wechtenbrüche, notwendig. Kleinräumige Setzungsgeräusche können vorkommen.</p>",
+    "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|2|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-good": {
+    "heading": "Schneedeckenstabilität: Gut",
+    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt. Die Schneedeckenstabilität <b>Gut</b> beschreibt allgemein stabile Verhältnisse und es sind keine Anzeichen von Instabilität zu beobachten.</p>",
+    "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|3|90__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-size-1": {
+    "heading": "Größe 1: Kleine Lawine (Rutsch)",
+    "text": "<p>Eine Verschüttung ist unwahrscheinlich, außer es existieren im Auslaufbereich ungünstige Geländeformen (z.B. Geländefallen). Lawine kommt typischerweise im Bereich des Steilhanges zum Stillstand.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-2": {
+    "heading": "Größe 2: Mittlere Lawine",
+    "text": "<p>Kann eine Person verschütten, verletzen oder töten. Größe 2 entspricht der Skifahrerlawine. Lawine erreicht typischerweise den Hangfuß.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "avalanche-size-3": {
+    "heading": "Größe 3: Große Lawine",
+    "text": "<p>Kann PKWs verschütten und zerstören, schwere Lastwagen beschädigen, kleine Gebäude zerstören und einzelne Bäume brechen. Gelangen Skifahrer in Lawinen dieser Größe, ist die Wahrscheinlichkeit für schwerwiegende Konsequenzen sehr groß. Lawine kann flache Geländeteile (deutlich unter 30°) über eine Distanz von bis zu 50 m überwinden.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-4": {
+    "heading": "Größe 4: Sehr große Lawine",
+    "text": "<p>Kann Züge, schwere LKWs, größere Gebäude und kleine Waldflächen verschütten und zerstören. Lawine überwindet flachere Geländeteile (deutlich unter 30°) über eine Distanz von mehr als 50 m und kann den Talboden erreichen</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-5": {
+    "heading": "Größe 5: Extrem große Lawine",
+    "text": "<p>Kann die Landschaft verwüsten; katastrophales Zerstörungspotenzial möglich. Erreicht den Talboden. Größte bekannte Auslauflängen.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "problem-new_snow": {
+    "heading": "Lawinenproblem: Neuschnee",
+    "text": "<p>Das Problem entsteht durch aktuelle Schneefälle oder kurz zuvor gefallenen Neuschnee. Der Haupteinflussfaktor ist die kritische Neuschneemenge, die von mehreren Faktoren, wie zum Beispiel Temperatur oder Eigenschaften der alten Schneeoberfläche abhängt.</p> <p><b>Verhaltensempfehlung</b> <br/> <p>Trockene Schneebrettlawinen: Warte, bis sich der Neuschnee stabilisiert hat.<br/>Trockene Lockerschneelawinen: Beachte v.a. die Mitreiß- und Absturzgefahr im extremen Steilgelände</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"Neuschneeproblem\" alt=\"Neuschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-wind_slab": {
+    "heading": "Lawinenproblem: Triebschnee",
+    "text": "<p>Das Problem entsteht durch windverfrachteten Schnee. Triebschnee kann sowohl mit, als auch ohne gleichzeitigen Schneefall entstehen.</p> <p> <b>Verhaltensempfehlung</b><br/>Vermeide Triebschneeablagerungen in steilem Gelände, insbesondere an Übergängen von wenig zu viel Schnee und von weichem zu hartem Schnee.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Triebschneeproblem\" alt=\"Triebschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-persistent_weak_layers": {
+    "heading": "Lawinenproblem: Altschnee",
+    "text": "<p>Das Problem entsteht durch vorhandene Schwachschichten innerhalb der Altschneedecke. Typische Schwachschichten sind eingeschneiter Oberflächenreif, Tiefenreif (auch Becherkristalle oder 'Schwimmschnee' genannt) oder kantige Kristalle.</p> <p><b>Verhaltensempfehlung</b> <br/>Meiden von großen Steilhängen und Zurückhaltung. Beachte den Witterungsverlauf und die Schneedeckenentwicklung in einem Gebiet. Besondere Vorsicht in schneearmen Bereichen und Übergängen von schneearm zu schneereich. Das Altschneeproblem ist eine Hauptursache von tödlichen Lawinenunfällen bei Wintersportler:innen.</p> </div> <br />",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Altschneeproblem\" alt=\"Altschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-wet_snow": {
+    "heading": "Lawinenproblem: Nassschnee",
+    "text": "<p>Das Problem entsteht durch eine zunehmende Schwächung der Schneedecke durch Wassereintrag, entweder durch Schmelze oder Regen.</p><p><b>Verhaltensempfehlung</b><br/>Nach einer kalten, klaren Nacht sind die Bedingungen am Morgen meist günstig. Nach warmen, bedeckten Nächten tritt das Problem oft bereits am Morgen auf. Bei Regen auf eine trockene Schneedecke tritt das Problem meist unmittelbar auf. Gutes Timing und eine gute Tourenplanung sind entscheidend. Beachte Lawinenauslaufbereiche.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Nassschneeproblem\" alt=\"Nassschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-gliding_snow": {
+    "heading": "Lawinenproblem: Gleitschnee",
+    "text": "<p>Die gesamte Schneedecke gleitet auf glattem Untergrund wie zum Beispiel Grashängen oder glatten Felsenzonen ab. Hohe Aktivität von Gleitschneelawinen ist typischerweise verbunden mit einer mächtigen Schneedecke mit wenigen oder keinen Schwachschichten. Gleitschneelawinen können sowohl bei einer trockenen, kalten als auch bei einer nassen, 0°C-isothermen Schneedecke auftreten. Den Abgangszeitpunkt von Gleitschneelawinen vorherzusagen ist kaum möglich, obwohl sie sich meist durch Gleitschneerisse (sogenannte Fischmäuler) ankündigen.</p><p><b>Verhaltensempfehlung</b><br/>Halte dich nicht in der Nähe von Gleitschneerissen auf.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gleitschneeproblem\" alt=\"Gleitschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP1": {
+    "heading": "gm.1 bodennahe schwachschicht",
+    "text": "<p>Zu Winterbeginn beobachtet man Schneebrettlawinen vermehrt nach dem zweiten bedeutsamen Schneefall, und zwar in hohen (>2000&nbsp;m) und hochalpinen (>3000&nbsp;m) Lagen im schattigen, sehr steilen Gelände. Dies hat damit zu tun, dass sich im Herbst nach den ersten großen Schneefällen meist eine längere, stabile Hochdruckwetterlage bzw. niederschlagsfreie Zeit einstellt. Dann herrschen ideale Bedingungen für die zumindest teilweise Umwandlung dieses Schnees zu lockeren Kristallen, die wiederum eine bodennahe Schwachschicht für die nachfolgenden Schneefälle bilden können. </p><p><a href=\"https://www.youtube.com/watch?v=UKykE92vGmM\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.1 bodennahe schwachschicht\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP2": {
+    "heading": "gm.2 gleitschnee",
+    "text": "<p>Gleitschneelawinen zählen hinsichtlich des Abgangszeitpunktes zu den am schwierigsten vorhersagbaren Lawinen, weil diese auch bei allgemein stabilen Schneeverhältnissen zu jeder Tages- und Nachtzeit, sowohl am kältesten als auch am wärmsten Tag eines Winters abgehen können. Zudem sind Gleitschneelawinen nicht durch Zusatzbelastung auszulösen.</p><p><a href=\"https://www.youtube.com/watch?v=FRL8JKIeO0s\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.2 gleitschnee\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP3": {
+    "heading": "gm.3 regen",
+    "text": "<p>Regen gilt als ein klassisches Alarmzeichen in der Schnee- und Lawinenkunde, weil er einerseits zusätzliches Gewicht in die Schneedecke bringt und andererseits zu einem raschen Festigkeitsverlust führt. Lawinen sind deshalb vorprogrammiert. Regen kann in jedem Abschnitt eines Winters auftreten. Der große Vorteil: Kein Gefahrenmuster kann leichter erkannt werden als Regen.</p><p><a href=\"https://www.youtube.com/watch?v=HRjqiHcYc-I\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.3 regen\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP4": {
+    "heading": "gm.4 kalt auf warm / warm auf kalt",
+    "text": "<p>Zu lange wurde in der Lawinenkunde die Lehrmeinung vertreten, dass sich ein großer Temperaturunterschied während des Einschneiens (egal ob kalt auf warm oder umgekehrt) günstig auf die Lawinensituation auswirke. Dies trifft jedoch nur unter bestimmten Voraussetzungen zu. Mehrheitlich wirkt sich ein solcher Temperaturunterschied jedoch negativ aus, weil er die aufbauende Umwandlung innerhalb der Schneedecke begünstigt: In der Regel bildet sich dadurch eine dünne, durchwegs störanfällige Schwachschicht. Diese findet man oft auch im südseitigen Gelände. Eine heimtückische Angelegenheit, auch deshalb, weil die Schwachschicht unmittelbar nach dem Einschneien noch nicht vorhanden ist und sich erst im Laufe der folgenden Tage bildet.</p><p><a href=\"https://www.youtube.com/watch?v=dHU1h7aHp-4\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.4 kalt auf warm / warm auf kalt\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP5": {
+    "heading": "gm.5 schnee nach langer kälteperiode",
+    "text": "<p>Ein Klassiker unter den Lawinenereignissen: Nach einer langen Kälteperiode fängt es zu schneien an. Zusätzlich weht kräftiger Wind, der den Neuschnee entsprechend verfrachtet. In kürzester Zeit entsteht eine für den Wintersportler sehr heikle Lawinensituation. Dies trifft auch dann zu, wenn nach einer langen Kälteperiode „nur“ kräftiger Wind weht, ohne dass es schneit. Das Problem: In Windschattenhängen wird frischer Triebschnee abgelagert, der auf einer lockeren, meist aus Schwimmschnee bestehenden Altschneedecke zu liegen kommt. Triebschnee und Altschnee sind untereinander sehr schlecht verbunden. Die Schneedecke wartet dann nur noch darauf, durch Zusatzbelastung gestört zu werden.</p><p><a href=\"https://www.youtube.com/watch?v=zFbgNZcweqI\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.5 schnee nach langer kälteperiode\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP6": {
+    "heading": "gm.6 lockerer schnee und wind",
+    "text": "<p>'Der Wind ist der Baumeister der Lawinen': Dieser klassische Spruch von Wilhelm Paulcke aus den dreißiger Jahren des vorigen Jahrhunderts gilt auch heute noch unverändert. Wind beeinflusst sowohl den fallenden als auch den bereits abgelagerten Schnee und ist einer der wesentlichsten Lawinen bildenden Faktoren. Bei lockerem, trockenen Schnee führt Wind immer zu Verfrachtungen und damit zu einer Zunahme der Lawinengefahr! Je kälter der verfrachtete Schnee, desto empfindlicher reagiert er auf Belastung, weil die Sprödigkeit zunimmt.</p><p><a href=\"https://www.youtube.com/watch?v=1qa4xsyIK2s\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.6 lockerer schnee und wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP7": {
+    "heading": "gm.7 schneearm neben schneereich",
+    "text": "<p>Schneearme Bereiche weisen in der Regel einen ungünstigeren Schneedeckenaufbau auf als schneereiche. Dies hat mit vermehrten Umwandlungsprozessen innerhalb der Schneedecke zu tun. Zusätzlich lassen sich Schneebrettlawinen an schneearmen Stellen auch deshalb leichter auslösen, weil die Schwachschichten nicht allzu tief begraben liegen und somit eher durch Zusatzbelastung gestört werden können. Häufig beobachtet man Lawinenauslösungen deshalb auch an Übergangsbereichen von schneearmen zu schneereichen Stellen.</p><p><a href=\"https://www.youtube.com/watch?v=J4DW3Lv4YsU\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.7 schneearm neben schneereich\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP8": {
+    "heading": "gm.8 eingeschneiter oberflächenreif",
+    "text": "<p>Oberflächenreif zählt zu den schönsten Schneearten überhaupt und birgt für sich allein gesehen noch kein Gefahrenpotenzial: Erst wenn er von neuen, gebundenen Schneeschichten überdeckt wird, wird er gefährlich und gilt deshalb zu Recht als eine der kritischsten Schwachschichten der Schnee- und Lawinenkunde.</p><p><a href=\"https://www.youtube.com/watch?v=eEemlJ9N658\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.8 eingeschneiter oberflächenreif\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP9": {
+    "heading": "gm.9 eingeschneiter graupel",
+    "text": "<p>Schwachschichten innerhalb der Schneedecke werden bei Lawinenkursen häufig mit Kugellagern verglichen. Wirklich passend ist dieses Bild nur für den Graupel: eine kugelförmige Niederschlagsform, die sich bevorzugt im Frühjahr bei gewitterartigen Schauern ablagert. Leicht vorzustellen, dass Triebschnee, der sich darüber ansammelt, meist nur schlecht mit dieser Schwachschicht verbunden ist und damit die Gefahr von Lawinenabgängen steigt. Graupel ist häufig kleinräumig verteilt und lässt sich ohne Blick in die Schneedecke selbst von Experten meist nur schwer erkennen. Eine durchwegs heimtückische Angelegenheit, die zum Glück nur kurzfristig zu Problemen führt.</p><p><a href=\"https://www.youtube.com/watch?v=mZxSaaaRNCI\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.9 eingeschneiter graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP10": {
+    "heading": "gm.10 frühjahrssituation",
+    "text": "<p>Eine besondere Herausforderung für den Wintersportler, aber auch für Lawinenprognostiker sowie Lawinenkommissionsmitglieder stellt das Frühjahr dar. Selten liegen „sicher“ und „gefährlich“ zeitlich so eng beieinander und somit ist auch die Bandbreite der während eines Tages ausgegebenen Gefahrenstufen so weit gefächert. Einerseits ist die Lawinengefahr kaum einmal leichter einzuschätzen als bei stabilen Firnverhältnissen, andererseits werden aber auch kaum jemals während eines Winters so große Lawinenabgänge verzeichnet wie während kritischer Frühjahrssituationen. Dabei spielt neben dem Schneedeckenaufbau das zum Teil komplexe Wechselspiel aus Lufttemperatur, Luftfeuchte, Strahlungseinfluss und Wind eine entscheidende Rolle. Für den Wintersportler sind zeitliche Disziplin sowie Flexibilität bei der Tourenplanung gefragter denn je.</p><p><a href=\"https://www.youtube.com/watch?v=UmWH-7FbdiY\" target=\"_blank\" rel=\"noopener noreferrer\">Sieh dir das Video auf YouTube an</a></p>",
+    "img": "<img alt=\"gm.10 frühjahrssituation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+    "source": "false"
+  }
+}

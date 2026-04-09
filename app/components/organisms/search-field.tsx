@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useIntl } from "../i18n";
-import { Tooltip } from "./tooltips/tooltip";
+import { useIntl } from "../../i18n";
+import { Tooltip } from "../tooltips/tooltip.tsx";
 
 interface Props {
   value: string;

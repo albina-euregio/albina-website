@@ -164,7 +164,7 @@ export default function StationTable(props: Props) {
         );
       },
       digits: 1,
-      unit: "°C",
+      unit: "℃",
       className: "mb-temp m-ltnow"
     },
     {
@@ -180,7 +180,7 @@ export default function StationTable(props: Props) {
           </>
         );
       },
-      unit: "°C",
+      unit: "℃",
       className: "mb-temp"
     },
     {

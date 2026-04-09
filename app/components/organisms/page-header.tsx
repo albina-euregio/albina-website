@@ -44,7 +44,6 @@ function PageHeader() {
     }
   };
 
-
   // Use state for navOpen to trigger re-render and accessibility updates
   const [navOpen, setNavOpen] = React.useState(false);
 
@@ -88,7 +87,9 @@ function PageHeader() {
       });
       // Focus first menu item if requested
       if (focusMenu && navRef.current) {
-        const firstItem = navRef.current.querySelector('li a,li button,li [tabindex="0"]');
+        const firstItem = navRef.current.querySelector(
+          'li a,li button,li [tabindex="0"]'
+        );
         if (firstItem) {
           firstItem.focus();
         }
@@ -102,10 +103,13 @@ function PageHeader() {
     function handleKeyDown(e) {
       if (e.key !== "Tab") return;
       const focusable = navRef.current
-        ? Array.from(navRef.current.querySelectorAll(
-            'a[href], button:not([disabled]), [tabindex="0"]'
-          )).filter(
-            el => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
+        ? Array.from(
+            navRef.current.querySelectorAll(
+              'a[href], button:not([disabled]), [tabindex="0"]'
+            )
+          ).filter(
+            el =>
+              !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
           )
         : [];
       if (focusable.length === 0) return;
@@ -187,10 +191,28 @@ function PageHeader() {
         aria-modal={isMobile ? "true" : undefined}
       >
         {/* Focus trap start */}
-        {isMobile && navOpen && <span tabIndex={0} ref={firstTrapRef} aria-hidden="true" style={{position:'absolute',width:1,height:1,overflow:'hidden',padding:0,margin:0,border:0}} />}
+        {isMobile && navOpen && (
+          <span
+            tabIndex={0}
+            ref={firstTrapRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              overflow: "hidden",
+              padding: 0,
+              margin: 0,
+              border: 0
+            }}
+          />
+        )}
         {/* Hamburger/close button inside menu for focus trap */}
         {isMobile && navOpen && (
-          <div className="page-header-hamburger" style={{position:'absolute',top:0,right:0,zIndex:1000}}>
+          <div
+            className="page-header-hamburger"
+            style={{ position: "absolute", top: 0, right: 0, zIndex: 1000 }}
+          >
             <Tooltip
               label={intl.formatMessage({
                 id: "header:hamburger:hover"
@@ -237,7 +259,22 @@ function PageHeader() {
           isMobile={isMobile}
         />
         {/* Focus trap end */}
-        {isMobile && navOpen && <span tabIndex={0} ref={lastTrapRef} aria-hidden="true" style={{position:'absolute',width:1,height:1,overflow:'hidden',padding:0,margin:0,border:0}} />}
+        {isMobile && navOpen && (
+          <span
+            tabIndex={0}
+            ref={lastTrapRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              overflow: "hidden",
+              padding: 0,
+              margin: 0,
+              border: 0
+            }}
+          />
+        )}
       </div>
       <div className="page-header-language">
         <ul className="list-plain language-trigger">
@@ -284,7 +321,11 @@ function PageHeader() {
                     }
                   }}
                   >
-                    {languageNameInNativeLanguage[l as keyof typeof languageNameInNativeLanguage]}
+                    {
+                      languageNameInNativeLanguage[
+                        l as keyof typeof languageNameInNativeLanguage
+                      ]
+                    }
                   </a>
                 </li>
               ))}

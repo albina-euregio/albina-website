@@ -8,19 +8,22 @@ import {
   AttributionControl,
   ScaleControl,
   MapContainerProps,
-  TileLayerProps
+  TileLayerProps,
+  WMSTileLayer
 } from "react-leaflet";
-import L, { LatLngBounds } from "leaflet";
+import L from "leaflet";
 import { $province } from "../../appStore.ts";
 import { useStore } from "@nanostores/react";
-import { eawsRegion } from "../../stores/eawsRegions.ts";
+import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 
 interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   controls: React.ReactNode;
+  showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
+  secondaryTileLayerConfigOverride?: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
   enableStationPinsToggle?: boolean;
@@ -30,24 +33,13 @@ interface Props {
 
 const LeafletMap = (props: Props) => {
   const province = useStore($province);
+  const showDefaultControls = props.showDefaultControls ?? true;
 
   const bounds = useMemo(
-    () =>
-      (province ? [province] : config.regionCodes).reduce((b, r) => {
-        eawsRegion(province);
-        const region = eawsRegion(r);
-        if (region?.bbox) {
-          b.extend(
-            new LatLngBounds([
-              [region.bbox[1], region.bbox[0]],
-              [region.bbox[3], region.bbox[2]]
-            ])
-          );
-        }
-        return b;
-      }, new LatLngBounds([])),
+    () => eawsRegionsBounds(province ? [province] : config.regionCodes),
     [province]
   );
+  const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
 
   return (
     <MapContainer
@@ -70,20 +62,42 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={bounds.pad(0.1)}
+      bounds={effectiveBounds}
       attributionControl={false}
     >
-      <AttributionControl prefix={config.map.attribution} />
-      {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}
-      {props.loaded && props.controls}
-      <TileLayer
-        {...{
-          ...config.map.tileLayer,
-          ...props.tileLayerConfigOverride
-        }}
-      />
+      {showDefaultControls && (
+        <AttributionControl prefix={config.map.attribution} />
+      )}
+      {showDefaultControls && props.loaded && (
+        <ScaleControl imperial={false} position="bottomleft" />
+      )}
+      {showDefaultControls && props.loaded && props.controls}
+      {config.map.tileLayer.wms ? (
+        <WMSTileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      ) : (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      )}
+
+      {props.secondaryTileLayerConfigOverride && (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.secondaryTileLayerConfigOverride
+          }}
+        />
+      )}
       {props.overlays}
-      <LeafletMapControls {...props} />
+      {showDefaultControls && <LeafletMapControls {...props} />}
     </MapContainer>
   );
 };

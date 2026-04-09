@@ -2523,6 +2523,26 @@
     "text": "<p>Snow surface layer strong enough to support a person walking on it.</p>",
     "img": "<img alt=\"Snowpack capable of bearing loads\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
+  "snowpack-stability": {
+    "ids": {
+      "ar": "estabilitat-deth-manteth-nivau",
+      "ca": "estabilitat-del-mantell-nival",
+      "cs": "stabilita-snehove-pokryvky",
+      "de": "schneedeckenstabilitat",
+      "es": "estabilidad-del-manto-de-nieve",
+      "fr": "stabilite-du-manteau-neigeux",
+      "is": "stodugleiki-snaevar",
+      "it": "stabilita-del-manto-nevoso",
+      "no": "stabilitet-snodekket",
+      "ro": "stabilitatea-stratului-de-zapada",
+      "sk": "stabilita-snehovej-pokryvky",
+      "sl": "stabilnost-snezne-odeje",
+      "en": "snowpack-stability"
+    },
+    "heading": "Snowpack stability",
+    "text": "<h6>Definition</h6> <p> Snowpack stability is a local property of the snowpack describing the propensity of a snow-covered slope to avalanche <a href=\"https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018GL078069\" >(Reuter and Schweizer, 2018)</a >. Snowpack stability is described using four classes: <i>Very Poor</i>, <i>Poor</i>, <i>Fair</i>, and <i>Good</i>. </p><h6>Remarks</h6><p>Depending on the avalanche type, snowpack stability is described by:</p><p class=\"small\" style=\"text-align: center\"> Table 1: Stability classes, and the type of triggering typically associated with these classes. </p> <div class=\"table-container\"> <table class=\"pure-table pure-table-striped full-width\"> <thead> <tr> <th>Stability class</th> <th>How easy is it to trigger an avalanche?</th> </tr> </thead> <tbody> <tr> <td>Very Poor</td> <td>Naturals / very easy to trigger</td> </tr> <tr> <td>Poor</td> <td>Easy to trigger (e.g. a single skier)</td> </tr> <tr> <td>Fair</td> <td>Difficult to trigger (e.g. explosives)</td> </tr> <tr> <td>Good</td> <td>Stable conditions</td> </tr> </tbody> </table> </div>",
+    "img": ""
+  },
   "spacing-distances-maintaining-distances": {
     "ids": {
       "ar": "separar-era-distancia-mantier-era-distancia",
