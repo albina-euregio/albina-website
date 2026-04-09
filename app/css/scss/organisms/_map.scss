@@ -81,6 +81,9 @@ $search-width-wide: 300px;
 
   .section-bulletin-map & {
     height: $map-height-bulletin;
+    body.with-custom-ratio & {
+      height: auto;
+    }
     min-height: $map-height-min;
     @include mixins.box-border(variables.$brand-very-light);
     border-left: none;

@@ -230,6 +230,11 @@ export default function StationArchiveTable(props: Props) {
               )}
             </th>
           ))}
+          <th>
+            <Tooltip label="Download as SMET Weather Station Meteorological Data Format">
+              <span>SMET</span>
+            </Tooltip>
+          </th>
         </tr>
       </thead>
 
@@ -272,6 +277,20 @@ export default function StationArchiveTable(props: Props) {
                   )}
               </td>
             ))}
+            <td>
+              {row.$smet?.[0] && (
+                <a
+                  href={config.template(row.$smet?.[0], {
+                    id: row.properties.shortName || row.id
+                  })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pure-button secondary small"
+                >
+                  SMET
+                </a>
+              )}
+            </td>
           </tr>
         ))}
       </tbody>

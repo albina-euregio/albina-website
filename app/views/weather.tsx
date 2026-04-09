@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
@@ -45,7 +44,7 @@ const Weather = () => {
     if (currentTime && domainId && !params.timestamp) {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: domainId,
-        timestamp: currentTime.toISOString(),
+        timestamp: currentTime.toString(),
         timeSpan: store.timeSpan.get()
       });
     }
@@ -81,7 +80,6 @@ const Weather = () => {
           </div>
         )}
       </section>
-      <SmShare />
     </>
   );
 };

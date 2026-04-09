@@ -152,7 +152,7 @@ const DataOverlay = ({ playerCB }) => {
           <StationMarker
             type="grid"
             dataType="noCircle"
-            key={"pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom}
+            key={`pos-${curV}_${curH}_${currentTime?.toString()}_${curZoom}`}
             itemId="directionMarker"
             iconAnchor={[12, 12]}
             data={{}}

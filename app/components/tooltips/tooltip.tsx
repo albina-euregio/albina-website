@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState
 } from "react";
+import { createPortal } from "react-dom";
 
 import {
   //placement,
@@ -26,16 +27,19 @@ export const Tooltip = ({
   label,
   placement = "bottom",
   html = false,
-  enableClick = false
+  enableClick = false,
+  width,  //note if you change the width of the tooltip. check with mobile view to make sure it is not too wide.
+  zIndex
 }: {
   children: React.ReactNode;
   label: React.ReactNode | (() => React.ReactNode) | string;
   placement?: "bottom";
   html?: boolean;
   enableClick?: boolean;
+  width?: string | number;
+  zIndex?: number;
 }) => {
   const [open, setOpen] = useState(false);
-
   const { x, y, reference, floating, strategy, context, refs, update } =
     useFloating({
       placement,
@@ -69,7 +73,7 @@ export const Tooltip = ({
     <>
       {isValidElement(children) &&
         cloneElement(children, getReferenceProps({ ref: reference }))}
-      {open && (
+      {open && createPortal(
         <div
           {...getFloatingProps({
             ref: floating,
@@ -77,11 +81,16 @@ export const Tooltip = ({
             style: {
               position: strategy,
               top: y ?? "",
-              left: x ?? ""
+              left: x ?? "",
+              ...(typeof zIndex !== 'undefined' ? { zIndex } : {}),
+              ...(width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : {})
             }
           })}
         >
-          <div className={html ? "tooltip-inner-html" : "tooltip-inner"}>
+          <div
+            className={html ? "tooltip-inner-html" : "tooltip-inner"}
+            style={width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : undefined}
+          >
             {typeof label === "string" ? (
               <div
                 className="tooltip-content"
@@ -95,7 +104,8 @@ export const Tooltip = ({
               <div className="tooltip-content">{label}</div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

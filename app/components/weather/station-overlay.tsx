@@ -7,6 +7,17 @@ import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
 import type { ParameterType } from "./station-parameter-control";
 
+/**
+ * Validates that coordinates are valid numbers and not NaN
+ */
+function isValidCoordinates(lat: unknown, lng: unknown): boolean {
+  return (
+    typeof lat === "number" &&
+    typeof lng === "number" &&
+    isFinite(lat) &&
+    isFinite(lng)
+  );
+}
 interface Props {
   onLoad?: () => void;
   onLoading?: () => void;
@@ -43,6 +54,19 @@ const StationOverlay = (props: Props) => {
   const renderMarker = (
     data: StationData
   ): React.ReactElement<typeof StationMarker> | null => {
+    // Validate coordinates before rendering
+    if (
+      !isValidCoordinates(
+        data.geometry.coordinates[1],
+        data.geometry.coordinates[0]
+      )
+    ) {
+      console.warn(
+        `Invalid coordinates for station ${data.id}: [${data.geometry.coordinates[1]}, ${data.geometry.coordinates[0]}]`
+      );
+      return null;
+    }
+
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
     const value = data[props.itemId];

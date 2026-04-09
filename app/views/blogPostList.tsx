@@ -15,7 +15,6 @@ import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import { $router } from "../components/router.ts";
 import { FormattedMessage, useIntl } from "../i18n";
 import * as BLOG_STORE from "../stores/blogStore";
@@ -277,7 +276,6 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
           </div>
         )}
       </section>
-      <SmShare />
     </>
   );
 };

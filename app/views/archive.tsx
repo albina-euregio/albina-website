@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useIntl } from "../i18n";
-import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
 import { $headless, $province } from "../appStore";
@@ -235,7 +234,6 @@ function Archive() {
           </ul>
         </div>
       </section>
-      <SmShare />
     </>
   );
 

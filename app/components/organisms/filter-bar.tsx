@@ -1,5 +1,5 @@
 import React from "react";
-import SearchField from "../search-field";
+import SearchField from "./search-field";
 
 interface Props {
   children: React.ReactNode;

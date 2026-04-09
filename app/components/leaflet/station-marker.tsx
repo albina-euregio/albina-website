@@ -168,7 +168,7 @@ const StationMarker = ({
               text-anchor="middle"
               fill="${textColor}"
             >
-              ${value}
+              ${value ?? ""}
             </text>
           </svg>
         </div>
@@ -205,7 +205,7 @@ const StationMarker = ({
             text-anchor="middle"
             fill="${textColor}"
           >
-            ${value}
+            ${value ?? ""}
           </text>
         </svg>
       </div>`

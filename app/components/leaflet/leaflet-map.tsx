@@ -8,7 +8,8 @@ import {
   AttributionControl,
   ScaleControl,
   MapContainerProps,
-  TileLayerProps
+  TileLayerProps,
+  WMSTileLayer
 } from "react-leaflet";
 import L from "leaflet";
 import { $province } from "../../appStore.ts";
@@ -71,12 +72,22 @@ const LeafletMap = (props: Props) => {
         <ScaleControl imperial={false} position="bottomleft" />
       )}
       {showDefaultControls && props.loaded && props.controls}
-      <TileLayer
-        {...{
-          ...config.map.tileLayer,
-          ...props.tileLayerConfigOverride
-        }}
-      />
+      {config.map.tileLayer.wms ? (
+        <WMSTileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      ) : (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      )}
+
       {props.secondaryTileLayerConfigOverride && (
         <TileLayer
           {...{
