@@ -7,9 +7,9 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
-import { EnabledLanguages } from "./InternalGlossary/internal-glossary";
+import { EnabledLanguages } from "./internal-glossary/internal-glossary";
 const BulletinInternalGlossaryText = React.lazy(
-  () => import("./InternalGlossary/internal-glossary-text")
+  () => import("./internal-glossary/internal-glossary-text")
 );
 
 interface Props {
@@ -214,7 +214,9 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   });
 
   const glossaryParams = {
-    stabilityClass: intl.formatMessage({id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`})
+    stabilityClass: intl.formatMessage({
+      id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+    })
   };
   return (
     <li

@@ -7,8 +7,8 @@ import { LabeledSlider } from "../../../util/simple-slider";
 
 /**
  * A React component that wraps the LabeledSlider utility.
- * @param param0 
- * @returns 
+ * @param param0
+ * @returns
  */
 export const LabeledSliderReact = ({
   labels = [],
@@ -172,7 +172,11 @@ class InternalGlossaryReplacer {
     );
   }
 
-  findGlossaryStrings(text: string, textKey: string, glossaryParams?: Record<string, string>) {
+  findGlossaryStrings(
+    text: string,
+    textKey: string,
+    glossaryParams?: Record<string, string>
+  ) {
     // Check if the text matches any glossary content
     const glossaryItem = this.content[textKey];
     if (!glossaryItem) {
@@ -180,10 +184,13 @@ class InternalGlossaryReplacer {
     }
     if (glossaryParams) {
       let replacedText = glossaryItem.text;
-          Object.entries(glossaryParams).forEach(([key, value]) => {
-      replacedText = replacedText.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
-    });
-    glossaryItem.text = replacedText;
+      Object.entries(glossaryParams).forEach(([key, value]) => {
+        replacedText = replacedText.replace(
+          new RegExp(`\\{${key}\\}`, "g"),
+          value
+        );
+      });
+      glossaryItem.text = replacedText;
     }
     return this.getTooltipContent(glossaryItem, textKey, text);
   }
@@ -208,5 +215,9 @@ export async function findGlossaryStrings(
     // unsupported language
     return InternalGlossaryReplacer.findBreaks(text);
   }
-  return glossaryReplacerInternal.findGlossaryStrings(text, textKey, glossaryParams);
+  return glossaryReplacerInternal.findGlossaryStrings(
+    text,
+    textKey,
+    glossaryParams
+  );
 }

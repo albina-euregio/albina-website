@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "../../i18n"; // Import useIntl for formatMessage
 import type * as Caaml from "../../stores/bulletin";
-import BulletinInternalGlossaryText from "./InternalGlossary/internal-glossary-text";
-import { EnabledLanguages } from "./InternalGlossary/internal-glossary";
+import BulletinInternalGlossaryText from "./internal-glossary/internal-glossary-text";
+import { EnabledLanguages } from "./internal-glossary/internal-glossary";
 
 interface Props {
   dangerPattern: Caaml.DangerPattern;

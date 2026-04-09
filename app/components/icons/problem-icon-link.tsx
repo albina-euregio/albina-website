@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { AvalancheProblem } from "../../stores/bulletin";
-import BulletinInternalGlossaryText from "../bulletin/InternalGlossary/internal-glossary-text.js";
-import { EnabledLanguages } from "../bulletin/InternalGlossary/internal-glossary.js";
+import BulletinInternalGlossaryText from "../bulletin/internal-glossary/internal-glossary-text.js";
+import { EnabledLanguages } from "../bulletin/internal-glossary/internal-glossary.js";
 
 interface Props {
   problem: AvalancheProblem;

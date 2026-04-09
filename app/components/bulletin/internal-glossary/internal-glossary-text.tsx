@@ -15,7 +15,9 @@ export default function BulletinInternalGlossaryText({
   const [withGlossary, setWithGlossary] = useState<string | ReactNode[]>(text);
   useEffect(() => {
     try {
-      findGlossaryStrings(text, locale, textKey, glossaryParams).then(g => setWithGlossary(g));
+      findGlossaryStrings(text, locale, textKey, glossaryParams).then(g =>
+        setWithGlossary(g)
+      );
     } catch (e) {
       console.warn(e);
     }

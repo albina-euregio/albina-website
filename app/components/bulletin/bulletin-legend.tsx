@@ -5,7 +5,7 @@ import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
 import React from "react";
 import { EnabledLanguages } from "./bulletin-glossary.js";
 const BulletinInternalGlossaryText = React.lazy(
-  () => import("./InternalGlossary/internal-glossary-text.js")
+  () => import("./internal-glossary/internal-glossary-text.js")
 );
 
 interface Props {
