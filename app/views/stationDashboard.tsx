@@ -82,6 +82,20 @@ function StationDashboard() {
   }, [load]);
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const ps = AVAILABLE_PARAMETERS;
+      const index = ps.findIndex(p => p.id === selectedParameter);
+      if (e.key === "n") {
+        setSelectedParameter(ps[(index + 1) % ps.length].id);
+      } else if (e.key === "p") {
+        setSelectedParameter(ps[(index - 1 + ps.length) % ps.length].id);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  });
+
+  useEffect(() => {
     const filterElement = filterRef.current;
     if (!filterElement || typeof ResizeObserver === "undefined") return;
 
