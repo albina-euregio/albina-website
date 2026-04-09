@@ -30,11 +30,6 @@ export default function SearchField({ value, title, handleSearch }: Props) {
               handleSearch(text);
             }
           }}
-          onKeyPress={e => {
-            if (e.key == "Enter") {
-              handleSearch(text);
-            }
-          }}
           value={text}
         />
         <Tooltip label={placeholder}>
