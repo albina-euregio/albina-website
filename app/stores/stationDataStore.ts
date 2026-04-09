@@ -18,6 +18,7 @@ export class StationData {
   $smet: string[] | undefined;
   $png: string | undefined;
   $stationsArchiveFile: string | undefined;
+  $license: "CC-BY" | undefined;
 
   constructor(object: {
     id: Feature["id"];
@@ -163,7 +164,6 @@ export class StationData {
 
 export function useStationData(
   sortValue0: keyof StationData = "name",
-  activeRegionPredicate: (r: string) => boolean = () => true,
   activeYear0: number | "" = currentSeasonYear(),
   filterStartYear0 = false
 ) {
@@ -338,6 +338,7 @@ export async function loadStationData({
     async ({
       smet,
       smetOperators,
+      licenseCCBY,
       png,
       pngOperators,
       stations: url,
@@ -396,6 +397,9 @@ export async function loadStationData({
             const operator = feature.properties.operator ?? "";
             data.$smet = new RegExp(smetOperators).test(operator) ? smet : [];
             data.$png = new RegExp(pngOperators).test(operator) ? png : "";
+            data.$license = new RegExp(licenseCCBY ?? "---").test(operator)
+              ? "CC-BY"
+              : undefined;
             data.$stationsArchiveFile = stationsArchiveFile;
 
             if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
