@@ -63,7 +63,6 @@
         { "url": "/weather/map/" },
         { "url": "" },
         { "url": "/weather/stations" },
-        { "url": "/weather/measurements" },
         { "url": "/weather/archive" },
         { "url": "" },
         {

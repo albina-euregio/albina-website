@@ -1,0 +1,393 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useIntl } from "../i18n";
+import { useStationData } from "../stores/stationDataStore";
+import StationOverlay from "../components/weather/station-overlay";
+import LeafletMap from "../components/leaflet/leaflet-map";
+import HTMLHeader from "../components/organisms/html-header";
+import WeatherStationDialog, {
+  useStationId
+} from "../components/dialogs/weather-station-dialog";
+import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
+import StationMapCockpit from "../components/weather/station-map-cockpit";
+import {
+  AVAILABLE_PARAMETERS,
+  ParameterType
+} from "../components/weather/station-parameter-control";
+import ProvinceFilter from "../components/filters/province-filter";
+import SearchField from "../components/organisms/search-field";
+import StationTable from "../components/stationTable/stationTable";
+import { useStore } from "@nanostores/react";
+import { $headless } from "../appStore";
+
+import BeobachterAT from "../stores/Beobachter-AT.json";
+import BeobachterIT from "../stores/Beobachter-IT.json";
+import { useHiddenFooter } from "./useHiddenFooter.tsx";
+
+const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
+
+export const observers = [...BeobachterAT, ...BeobachterIT].map(
+  (observer): ObserverData => ({
+    geometry: {
+      coordinates: [
+        +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
+        +observer.latitude
+      ]
+    },
+    name: observer.name,
+    id: "observer-" + observer["plot.id"],
+    $smet: BeobachterAT.includes(observer)
+      ? `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+      : "",
+    $png: "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
+    plot: observer["plot.id"]
+  })
+);
+
+function StationDashboard(props) {
+  const intl = useIntl();
+  const headless = useStore($headless);
+  const [stationId, setStationId] = useStationId();
+  const [selectedParameter, setSelectedParameter] =
+    useState<ParameterType>("HS");
+  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
+  const [viewMode, setViewMode] = useState<"map" | "table">("map");
+  const [filterHeight, setFilterHeight] = useState(0);
+  const [filterTop, setFilterTop] = useState(0);
+  const filterRef = useRef<HTMLElement | null>(null);
+
+  const {
+    activeData,
+    activeRegion,
+    dateTime,
+    dateTimeMax,
+    load,
+    data,
+    searchText,
+    setActiveRegion,
+    setSearchText,
+    sortBy,
+    sortDir,
+    sortedFilteredData,
+    sortValue
+  } = useStationData();
+  useHiddenFooter();
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  useEffect(() => {
+    const filterElement = filterRef.current;
+    if (!filterElement || typeof ResizeObserver === "undefined") return;
+
+    const updateFilterHeight = () => {
+      const rect = filterElement.getBoundingClientRect();
+      setFilterHeight(rect.height);
+      // Measure actual position at scroll=0 so sticky threshold matches exactly
+      if (document.documentElement.scrollTop === 0) {
+        setFilterTop(rect.top);
+      }
+    };
+
+    updateFilterHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateFilterHeight();
+    });
+
+    observer.observe(filterElement);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const currentParameterConfig =
+    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
+    AVAILABLE_PARAMETERS[0];
+
+  const normalizedSearch = (searchText || "").trim().toLowerCase();
+  const filteredObservers =
+    normalizedSearch.length > 0
+      ? observers.filter(observer =>
+          observer.name.toLowerCase().includes(normalizedSearch)
+        )
+      : observers;
+
+  const stationOverlay = (
+    <StationOverlay
+      key={"stations"}
+      onMarkerSelected={feature => {
+        setStationId(feature.id);
+      }}
+      itemId={selectedParameter}
+      item={{
+        id: selectedParameter,
+        colors: currentParameterConfig.colors,
+        thresholds: currentParameterConfig.thresholds,
+        units: currentParameterConfig.unit,
+        direction: currentParameterConfig.direction || false,
+        clusterOperation: "none"
+      }}
+      features={sortedFilteredData}
+      showMarkersWithoutValue={showMarkersWithoutValue}
+    />
+  );
+
+  const observerOverlay = (
+    <StationOverlay
+      key={"observers"}
+      onMarkerSelected={feature => {
+        setStationId(feature.id);
+      }}
+      itemId="any"
+      item={{
+        id: "name",
+        colors: { 1: [100, 100, 100] },
+        thresholds: [],
+        clusterOperation: "none"
+      }}
+      features={filteredObservers}
+      showMarkersWithoutValue={showMarkersWithoutValue}
+    />
+  );
+
+  const overlays = [stationOverlay, observerOverlay];
+
+  const mapView = (
+    <section id="section-weather-map" className="section section-weather-map">
+      <StationMapCockpit
+        selectedParameter={selectedParameter}
+        onParameterChange={setSelectedParameter}
+      />
+      <div className="section-map">
+        <LeafletMap
+          loaded={props.domainId !== false}
+          gestureHandling={false}
+          controls={null}
+          enableStationPinsToggle={true}
+          showMarkersWithoutValue={showMarkersWithoutValue}
+          onToggleMarkersWithoutValue={nextValue => {
+            setShowMarkersWithoutValue(nextValue);
+          }}
+          onInit={e => {
+            e.invalidateSize();
+          }}
+          mapConfigOverride={{ maxZoom: 12 }}
+          tileLayerConfigOverride={{ maxZoom: 12 }}
+          overlays={overlays}
+        />
+      </div>
+    </section>
+  );
+
+  const sharedFilterBar = (
+    <section
+      ref={filterRef}
+      className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+      style={
+        {
+          "--station-dashboard-filter-top": `${filterTop}px`
+        } as React.CSSProperties
+      }
+    >
+      <div className="section-centered station-dashboard-filter__inner">
+        <div className="station-dashboard-filter__bar">
+          <ProvinceFilter
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            all={intl.formatMessage({ id: "filter:all" })}
+            handleChange={val => {
+              setActiveRegion(val);
+            }}
+            regionCodes={config.stationRegions}
+            value={activeRegion}
+          />
+          <div className="station-dashboard-filter__date">
+            <p className="info">
+              {intl.formatMessage({ id: "archive:table-header:date" })}
+            </p>
+            <div className="pure-form">
+              <input
+                type="datetime-local"
+                step={3600}
+                max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
+                value={
+                  dateTime instanceof Temporal.ZonedDateTime
+                    ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
+                    : ""
+                }
+                onChange={e =>
+                  load({
+                    dateTime: Temporal.PlainDateTime.from(
+                      e.target.value
+                    ).toZonedDateTime("Europe/Vienna")
+                  })
+                }
+              />
+            </div>
+          </div>
+          <div className="station-dashboard-filter__search">
+            <SearchField
+              handleSearch={setSearchText}
+              value={searchText || ""}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  const tableView = (
+    <>
+      <section id="section-weather-table" className="section">
+        <div className="table-container">
+          <StationTable
+            sortedFilteredData={sortedFilteredData}
+            activeData={activeData}
+            activeRegion={activeRegion}
+            sortValue={sortValue}
+            sortDir={sortDir}
+            searchText={searchText}
+            handleSort={(id, dir) => {
+              sortBy(id, dir);
+            }}
+          />
+        </div>
+      </section>
+
+      {!headless && (
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {intl.formatMessage({ id: "button:snow:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/new-snow"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:hn:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/snow-height"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:hs:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/map/wind"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({ id: "button:snow:ff:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="/weather/stations"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {intl.formatMessage({
+                    id: "button:stations:stations:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+    </>
+  );
+
+  return (
+    <>
+      {!!data.length && (
+        <WeatherStationDialog
+          stationData={[...data, ...observers]}
+          stationId={stationId}
+          setStationId={setStationId}
+        />
+      )}
+      <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
+
+      {sharedFilterBar}
+
+      <div
+        className={`station-dashboard-content station-dashboard-content--${viewMode}`}
+        style={
+          {
+            "--station-dashboard-filter-offset": `${filterHeight}px`,
+            "--station-dashboard-filter-top": `${filterTop}px`
+          } as React.CSSProperties
+        }
+      >
+        {viewMode === "map" && mapView}
+        {viewMode === "table" && tableView}
+      </div>
+      <button
+        type="button"
+        className="station-view-control"
+        style={
+          {
+            "--station-dashboard-filter-offset": `${filterHeight}px`,
+            "--station-dashboard-filter-top": `${filterTop}px`
+          } as React.CSSProperties
+        }
+        onClick={() => setViewMode(viewMode === "map" ? "table" : "map")}
+        title={intl.formatMessage({
+          id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
+        })}
+        aria-label={intl.formatMessage({
+          id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
+        })}
+      >
+        {viewMode === "map" ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 18 18"
+            width="18"
+            height="18"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <rect x="1" y="1" width="16" height="4" rx="1" />
+            <rect x="1" y="7" width="16" height="4" rx="1" />
+            <rect x="1" y="13" width="16" height="4" rx="1" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 18 18"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polygon points="1,3 6,1 12,3 17,1 17,15 12,17 6,15 1,17" />
+            <line x1="6" y1="1" x2="6" y2="15" />
+            <line x1="12" y1="3" x2="12" y2="17" />
+          </svg>
+        )}
+      </button>
+    </>
+  );
+}
+
+export default StationDashboard;
