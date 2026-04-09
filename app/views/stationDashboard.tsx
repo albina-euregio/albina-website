@@ -43,7 +43,7 @@ export const observers = [...BeobachterAT, ...BeobachterIT].map(
   })
 );
 
-function StationDashboard(props) {
+function StationDashboard() {
   const intl = useIntl();
   const headless = useStore($headless);
   const [stationId, setStationId] = useStationId();
@@ -161,7 +161,7 @@ function StationDashboard(props) {
       />
       <div className="section-map">
         <LeafletMap
-          loaded={props.domainId !== false}
+          loaded={true}
           gestureHandling={false}
           controls={null}
           enableStationPinsToggle={true}
