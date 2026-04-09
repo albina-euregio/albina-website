@@ -298,8 +298,8 @@
         "licenseCCBY": "LWD Tirol",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
         "pngOperators": "BOKU|Firma Hella|Diverse|GeoSphere Austria|Esercito-Meteomont|Eurac Research",
-        "stations": "https://static.avalanche.report/weather_stations/linea.geojson",
-        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson?v=legacy",
+        "stations": "https://static.avalanche.report/weather_stations/linea.geojson.gz",
+        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson.gz?v=legacy",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson?v=legacy",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"

@@ -365,9 +365,20 @@ export async function loadStationData({
       }
 
       try {
-        const response = await fetch(url, { cache: "no-cache" });
+        let response = await fetch(url, { cache: "no-cache" });
         if (!response.ok) throw new Error(response.statusText);
         if (response.status === 404) return [];
+        if (
+          response.headers.get("Content-Encoding") === "gzip" ||
+          response.headers.get("Content-Type") === "application/gzip" ||
+          response.headers.get("Content-Type") === "application/x-gzip"
+        ) {
+          const blob = await response.blob();
+          const stream = blob
+            .stream()
+            .pipeThrough(new DecompressionStream("gzip"));
+          response = new Response(stream);
+        }
 
         if (
           url ===
