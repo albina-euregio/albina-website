@@ -29,7 +29,7 @@
   "critical-depth-of-new-fallen-snow": "Umbral crítico del espesor de nieve reciente",
   "crust": "costra",
   "danger-patterns": "patrones de peligro",
-  "danger-scale": "grado de peligro\npeligro",
+  "danger-scale": "grado de peligro\npeligro\ndébil\nlimitado\nnotable\nfuerte\nmuy fuerte\n",
   "danger": "peligro",
   "daytime-changes-during-the-course-of-the-day": "durante el día\na lo largo del día\n ",
   "decomposed-snow": "Partículas reconocibles\npartículas descompuestas",
