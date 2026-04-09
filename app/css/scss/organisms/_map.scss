@@ -193,7 +193,8 @@ $search-width-wide: 300px;
   .leaflet-control-zoom,
   .leaflet-geonames-search,
   .leaflet-control-locate,
-  .leaflet-control-showhide {
+  .leaflet-control-showhide,
+  .leaflet-control-table {
     margin-bottom: variables.$padding;
     @include mixins.box-shadow(0.15);
     a:before {
@@ -203,6 +204,12 @@ $search-width-wide: 300px;
       font-size: $controls-width-height * 0.75 !important;
       line-height: $controls-width-height !important;
     }
+  }
+
+  .leaflet-control-table a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
   }
 
   //no zoom on touch devices
@@ -645,18 +652,6 @@ $search-width-wide: 300px;
   border: 1px solid rgba(variables.$brand, 0.18);
 }
 
-.station-dashboard-filter {
-  .station-view-toggle-panel {
-    margin-bottom: 0;
-  }
-
-  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
-    .station-view-toggle-panel {
-      width: 100%;
-    }
-  }
-}
-
 .station-view-toggle {
   margin-bottom: 0;
 }
@@ -667,6 +662,7 @@ $search-width-wide: 300px;
   left: 0;
   right: 0;
   z-index: 1301;
+  padding-top: variables.$all-v-padding * 0.25;
   padding-bottom: variables.$all-v-padding * 0.25;
   @include mixins.box-shadow(0.08);
 
@@ -678,56 +674,115 @@ $search-width-wide: 300px;
     position: relative;
   }
 
-  .list-inline {
-    margin-bottom: 0;
-  }
-
-  .station-dashboard-filter__topline {
+  .station-dashboard-filter__bar {
     display: flex;
+    align-items: center;
+    gap: variables.$padding * 0.75;
+    flex-wrap: nowrap;
     align-items: flex-end;
-    gap: variables.$padding * 0.5;
   }
 
-  .station-dashboard-filter__mainline {
-    display: grid;
-    grid-template-columns: auto minmax(12rem, 1fr);
-    align-items: flex-end;
-    gap: variables.$padding * 0.5;
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
+  // push search to the far right
   .station-dashboard-filter__search {
-    min-width: 0;
-    justify-self: end;
-    text-align: right;
-
+    margin-left: auto;
+    align-self: flex-end;
     .pure-form-search {
       justify-content: flex-end;
     }
   }
 
-  .station-dashboard-filter__extra {
-    display: block;
-    padding-top: variables.$padding * 0.5;
-    margin-bottom: 0;
-  }
-
-  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
-    .station-dashboard-filter__topline {
-      flex-wrap: wrap;
+  // small screens: show only the search icon; on interaction expand leftward
+  // over the other filters instead of pushing outside the visible area
+  @media screen and (max-width: #{bounds.upper-bound(variables.$tiny-range)}) {
+    .station-dashboard-filter__bar {
+      position: relative;
+      // reserve room for the collapsed icon button so flex items don't underlap it
+      padding-right: 2.25rem;
     }
 
-    .station-dashboard-filter__mainline {
-      width: 100%;
+    .station-dashboard-filter__search {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      background: inherit;
+      z-index: 1;
+      margin-left: 0;
+
+      .pure-form-search {
+        background: inherit;
+
+        input {
+          width: 0;
+          min-width: 0;
+          padding-left: 0;
+          padding-right: 0;
+          border-width: 0;
+          background: transparent;
+          overflow: hidden;
+          transition:
+            width 0.2s ease,
+            padding 0.2s ease,
+            border-width 0.2s ease;
+        }
+
+        &:hover input,
+        &:focus-within input {
+          // expand leftward to fill the full bar width (minus its padding)
+          width: calc(100vw - #{variables.$all-h-padding * 2} - 2.25rem);
+          padding-left: variables.$padding * 0.5;
+          padding-right: variables.$padding * 0.5;
+          border-width: 1px;
+          background: revert;
+        }
+      }
     }
   }
 }
 
-.station-dashboard-filter--table {
-  top: auto;
-  z-index: auto;
-  box-shadow: none;
+.station-dashboard-filter.station-dashboard-filter--table {
+  position: sticky;
+  top: var(--station-dashboard-filter-top, 0px);
+}
+
+.station-view-control {
+  position: fixed;
+  top: calc(
+    var(--station-dashboard-filter-top, 0px) +
+      var(--station-dashboard-filter-offset, 0px) + #{variables.$padding} + 10px
+  );
+  right: calc(#{variables.$padding} + 10px);
+  z-index: 1302;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $controls-width-height;
+  height: $controls-width-height;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.95);
+  @include mixins.box-shadow(0.15);
+  box-shadow:
+    0 0 15px 0 rgba(black, 0.15),
+    0 2px 8px 0 rgba(black, 0.35);
+  @include mixins.rollout;
+
+  svg {
+    display: block;
+  }
+
+  &:hover {
+    color: variables.$white;
+    background-color: variables.$anchor-font-color;
+    @include mixins.rollover;
+  }
 }
 
 .station-dashboard-content--map {
@@ -736,6 +791,13 @@ $search-width-wide: 300px;
     top: calc(
       var(--station-dashboard-filter-offset, 0px) + #{variables.$padding}
     );
+  }
+
+  // station map uses gestureHandling=false so touch zoom buttons are useful
+  @media (hover: none) and (pointer: coarse) {
+    .leaflet-top.leaflet-left .leaflet-control-zoom {
+      display: block;
+    }
   }
 }
 

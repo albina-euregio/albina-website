@@ -14,10 +14,7 @@ import {
   ParameterType
 } from "../components/weather/station-parameter-control";
 import ProvinceFilter from "../components/filters/province-filter";
-import HideGroupFilter from "../components/filters/hide-group-filter";
-import HideFilter from "../components/filters/hide-filter";
-import SmShare from "../components/organisms/sm-share";
-import SearchField from "../components/search-field";
+import SearchField from "../components/organisms/search-field";
 import StationTable from "../components/stationTable/stationTable";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
@@ -55,6 +52,7 @@ function StationDashboard(props) {
   const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
   const [filterHeight, setFilterHeight] = useState(0);
+  const [filterTop, setFilterTop] = useState(0);
   const filterRef = useRef<HTMLElement | null>(null);
 
   const {
@@ -70,8 +68,7 @@ function StationDashboard(props) {
     sortBy,
     sortDir,
     sortedFilteredData,
-    sortValue,
-    toggleActiveData
+    sortValue
   } = useStationData();
   useHiddenFooter();
 
@@ -84,7 +81,12 @@ function StationDashboard(props) {
     if (!filterElement || typeof ResizeObserver === "undefined") return;
 
     const updateFilterHeight = () => {
-      setFilterHeight(filterElement.getBoundingClientRect().height);
+      const rect = filterElement.getBoundingClientRect();
+      setFilterHeight(rect.height);
+      // Measure actual position at scroll=0 so sticky threshold matches exactly
+      if (document.documentElement.scrollTop === 0) {
+        setFilterTop(rect.top);
+      }
     };
 
     updateFilterHeight();
@@ -150,8 +152,6 @@ function StationDashboard(props) {
   );
 
   const overlays = [stationOverlay, observerOverlay];
-  const hideFilters: (keyof typeof activeData)[] = ["snow", "temp", "wind"];
-  const isMapView = viewMode === "map";
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
@@ -180,137 +180,59 @@ function StationDashboard(props) {
     </section>
   );
 
-  const viewModeToggle = (
-    <div className="station-view-toggle-panel">
-      <ul
-        className="station-view-toggle"
-        role="tablist"
-        aria-label={intl.formatMessage({ id: "menu:weather:stations" })}
-      >
-        <li>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={isMapView}
-            aria-controls="section-weather-map"
-            tabIndex={isMapView ? 0 : -1}
-            className={`station-view-toggle__button ${isMapView ? "is-active" : ""}`}
-            onClick={() => setViewMode("map")}
-          >
-            {intl.formatMessage({ id: "stations:view:map" })}
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={!isMapView}
-            aria-controls="section-weather-table"
-            tabIndex={isMapView ? -1 : 0}
-            className={`station-view-toggle__button ${!isMapView ? "is-active" : ""}`}
-            onClick={() => setViewMode("table")}
-          >
-            {intl.formatMessage({ id: "stations:view:table" })}
-          </button>
-        </li>
-      </ul>
-    </div>
-  );
-
   const sharedFilterBar = (
     <section
       ref={filterRef}
       className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+      style={
+        {
+          "--station-dashboard-filter-top": `${filterTop}px`
+        } as React.CSSProperties
+      }
     >
       <div className="section-centered station-dashboard-filter__inner">
-        <div className="station-dashboard-filter__topline">
-          <div className="station-dashboard-filter__mainline">
-            {viewModeToggle}
-            <div className="station-dashboard-filter__search">
-              <SearchField
-                handleSearch={setSearchText}
-                value={searchText || ""}
+        <div className="station-dashboard-filter__bar">
+          <ProvinceFilter
+            title={intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            all={intl.formatMessage({ id: "filter:all" })}
+            handleChange={val => {
+              setActiveRegion(val);
+            }}
+            regionCodes={config.stationRegions}
+            value={activeRegion}
+          />
+          <div className="station-dashboard-filter__date">
+            <p className="info">
+              {intl.formatMessage({ id: "archive:table-header:date" })}
+            </p>
+            <div className="pure-form">
+              <input
+                type="datetime-local"
+                step={3600}
+                max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
+                value={
+                  dateTime instanceof Temporal.ZonedDateTime
+                    ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
+                    : ""
+                }
+                onChange={e =>
+                  load({
+                    dateTime: Temporal.PlainDateTime.from(
+                      e.target.value
+                    ).toZonedDateTime("Europe/Vienna")
+                  })
+                }
               />
             </div>
           </div>
-        </div>
-
-        <div
-          id="station-dashboard-filter-extra"
-          className="station-dashboard-filter__extra"
-        >
-          <ul className="list-inline list-controlbar">
-            <li>
-              <ProvinceFilter
-                title={intl.formatMessage({
-                  id: "measurements:filter:province"
-                })}
-                all={intl.formatMessage({ id: "filter:all" })}
-                handleChange={val => {
-                  setActiveRegion(val);
-                }}
-                regionCodes={config.stationRegions}
-                value={activeRegion}
-              />
-            </li>
-
-            <li>
-              <div>
-                <p className="info">
-                  {intl.formatMessage({ id: "archive:table-header:date" })}
-                </p>
-                <div className="pure-form">
-                  <input
-                    type="datetime-local"
-                    step={3600}
-                    max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
-                    value={
-                      dateTime instanceof Temporal.ZonedDateTime
-                        ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
-                        : ""
-                    }
-                    onChange={e =>
-                      load({
-                        dateTime: Temporal.PlainDateTime.from(
-                          e.target.value
-                        ).toZonedDateTime("Europe/Vienna")
-                      })
-                    }
-                  />
-                </div>
-              </div>
-            </li>
-
-            {viewMode === "table" && (
-              <li>
-                <HideGroupFilter
-                  title={intl.formatMessage({
-                    id: "measurements:filter:hide"
-                  })}
-                >
-                  {hideFilters.map(e => (
-                    <HideFilter
-                      key={e}
-                      id={e}
-                      title={intl.formatMessage({
-                        id: "measurements:filter:hide:" + e
-                      })}
-                      tooltip={intl.formatMessage({
-                        id:
-                          "measurements:filter:hide:" +
-                          (activeData[e] ? "active" : "inactive") +
-                          ":hover"
-                      })}
-                      active={activeData[e]}
-                      onToggle={val => {
-                        toggleActiveData(val);
-                      }}
-                    />
-                  ))}
-                </HideGroupFilter>
-              </li>
-            )}
-          </ul>
+          <div className="station-dashboard-filter__search">
+            <SearchField
+              handleSearch={setSearchText}
+              value={searchText || ""}
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -388,8 +310,6 @@ function StationDashboard(props) {
           </div>
         </section>
       )}
-
-      {!headless && <SmShare />}
     </>
   );
 
@@ -409,16 +329,63 @@ function StationDashboard(props) {
       <div
         className={`station-dashboard-content station-dashboard-content--${viewMode}`}
         style={
-          viewMode === "map"
-            ? ({
-                "--station-dashboard-filter-offset": `${filterHeight}px`
-              } as React.CSSProperties)
-            : undefined
+          {
+            "--station-dashboard-filter-offset": `${filterHeight}px`,
+            "--station-dashboard-filter-top": `${filterTop}px`
+          } as React.CSSProperties
         }
       >
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
       </div>
+      <button
+        type="button"
+        className="station-view-control"
+        style={
+          {
+            "--station-dashboard-filter-offset": `${filterHeight}px`,
+            "--station-dashboard-filter-top": `${filterTop}px`
+          } as React.CSSProperties
+        }
+        onClick={() => setViewMode(viewMode === "map" ? "table" : "map")}
+        title={intl.formatMessage({
+          id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
+        })}
+        aria-label={intl.formatMessage({
+          id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
+        })}
+      >
+        {viewMode === "map" ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 18 18"
+            width="18"
+            height="18"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <rect x="1" y="1" width="16" height="4" rx="1" />
+            <rect x="1" y="7" width="16" height="4" rx="1" />
+            <rect x="1" y="13" width="16" height="4" rx="1" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 18 18"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polygon points="1,3 6,1 12,3 17,1 17,15 12,17 6,15 1,17" />
+            <line x1="6" y1="1" x2="6" y2="15" />
+            <line x1="12" y1="3" x2="12" y2="17" />
+          </svg>
+        )}
+      </button>
     </>
   );
 }
