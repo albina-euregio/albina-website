@@ -23,6 +23,7 @@ interface Props {
   onActiveChildMenuItem?: (e: Entry) => void;
   onActiveMenuItem?: (e: Entry) => void;
   onSelect?: (e: Entry) => void;
+  onCloseAllDropdowns?: () => void;
 }
 
 let isTouchingDevice = false;
@@ -65,8 +66,17 @@ function Menu(props: Props) {
     if (hasSubs && isTouchingDevice) e.preventDefault();
   };
 
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
   if (props.entries && props.entries.length > 0) {
     const activeItem = props.entries.find(e => testActive(e));
+
+    // Handler to close all dropdowns at this menu level and above
+    const handleCloseAllDropdowns = () => {
+      setOpenDropdownIndex(null);
+      if (props.onCloseAllDropdowns) {
+        props.onCloseAllDropdowns();
+      }
+    };
 
     return (
       <ul className={props.className}>
@@ -78,6 +88,10 @@ function Menu(props: Props) {
             isActive={e === activeItem}
             onLinkClick={onLinkClick}
             numberNewPosts={numberNewPosts}
+            dropdownOpen={openDropdownIndex === index}
+            setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
+            menuIndex={index}
+            onCloseAllDropdowns={handleCloseAllDropdowns}
           />
         ))}
       </ul>
@@ -86,24 +100,26 @@ function Menu(props: Props) {
   return null;
 }
 
+type MenuItemProps = Props & {
+  entry: Entry;
+  isActive: boolean;
+  onLinkClick: (e: Event, hasSubs: boolean) => void;
+  numberNewPosts: number;
+  dropdownOpen: boolean;
+  setDropdownOpen: (open: boolean) => void;
+  menuIndex: number;
+  onCloseAllDropdowns: () => void;
+};
 function getMenuItemTabIndex(title: string) {
   // Skip focus for empty or whitespace-only menu items
   return title && title.trim().length > 0 ? 0 : -1;
 }
-
-function MenuItem(
-  props: Props & {
-    entry: Entry;
-    isActive: boolean;
-    onLinkClick: (e: Event, hasSubs: boolean) => void;
-    numberNewPosts: number;
-  }
-) {
+function MenuItem(props: MenuItemProps) {
   const e = props.entry;
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
 
-  const classes = props.menuItemClassName
+  let classes = props.menuItemClassName
     ? props.menuItemClassName.split(" ")
     : [];
 
@@ -111,11 +127,13 @@ function MenuItem(
     if (props.onActiveMenuItem) {
       props.onActiveMenuItem(e);
     }
-
     classes.push(props.activeClassName ? props.activeClassName : "active");
   }
   if (e.showSub || (e.children && e.children.length > 0)) {
     classes.push("has-sub");
+    if (props.dropdownOpen) {
+      classes.push("open");
+    }
   }
   const title =
     e.title ||
@@ -149,8 +167,24 @@ function MenuItem(
           onTouchStart={() => {
             if (window.innerWidth > 1024) isTouchingDevice = true;
           }}
-          onClick={e => {
-            props.onLinkClick(e, classes.includes("has-sub"));
+          onClick={ev => {
+            props.onLinkClick(ev, classes.includes("has-sub"));
+            if (classes.includes("has-sub")) {
+              props.setDropdownOpen(!props.dropdownOpen);
+            }
+          }}
+          onKeyDown={ev => {
+            if (classes.includes("has-sub") && ev.key === " ") {
+              ev.preventDefault();
+              props.setDropdownOpen(true);
+            }
+            if (ev.key === "Escape") {
+              ev.preventDefault();
+              props.setDropdownOpen(false);
+              if (props.onCloseAllDropdowns) {
+                props.onCloseAllDropdowns();
+              }
+            }
           }}
           href={url}
           className={classes.join(" ")}
@@ -162,16 +196,21 @@ function MenuItem(
           )}
         </a>
       )}
-      {e.children && e.children.length > 0 && (
+      {e.children && e.children.length > 0 && props.dropdownOpen && (
         <Menu
           className={props.childClassName}
           entries={e.children}
+          menuItemClassName={props.menuItemClassName}
+          activeClassName={props.activeClassName}
           onSelect={props.onSelect}
           onActiveMenuItem={props.onActiveChildMenuItem}
+          onCloseAllDropdowns={props.onCloseAllDropdowns}
         />
       )}
     </li>
   );
 }
+
+// closeAllDropdowns is no longer needed with the new onCloseAllDropdowns prop pattern
 
 export default Menu;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useIntl } from "../../i18n";
 import Menu from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
@@ -6,22 +6,34 @@ import { Tooltip } from "../tooltips/tooltip";
 import { setLanguage } from "../../appStore";
 
 function PageHeader() {
+  const langButtonRef = useRef<HTMLAnchorElement>(null);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const openDropdownMenu = " ";
+  const enterMenuItem = "Enter";
+  const escapeMenu = "Escape";
   // Utility to determine tabIndex for focusable elements
   function getTabIndex(visible: boolean) {
     return visible ? 0 : -1;
   }
   // changing language on header language button click
-  const handleChangeLanguage = (
-    newLanguage: keyof typeof languageNameInNativeLanguage
-  ) => {
-    console.info("Changing language to " + newLanguage);
-    if (import.meta.env.DEV) {
-      // since website is served from localhost, just change language in appStore
-      setLanguage(newLanguage);
-      return;
-    }
+    useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+    // Escape closes dropdown
+    if (langDropdownOpen && e.key === escapeMenu) {
+      setLangDropdownOpen(false);
+      }
+  }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [langDropdownOpen]);
+  const handleChangeLanguage = (newLanguage: keyof typeof languageNameInNativeLanguage) => {
+  if (import.meta.env.DEV) {
+    // since website is served from localhost, just change language in appStore
+    setLanguage(newLanguage);
+    return;
+  }
 
     const newHost = config.languageHostSettings[newLanguage];
     if (newHost && document.location.hostname !== newHost) {
@@ -268,23 +280,32 @@ function PageHeader() {
         <ul className="list-plain language-trigger">
           <li>
             <a
+              ref={langButtonRef}
               role="button"
               tabIndex={0}
               onClick={e => {
                 e.preventDefault();
+                setLangDropdownOpen(v => !v);
               }}
-              className="has-sub"
+              onKeyDown={e => {
+                if (e.key === openDropdownMenu) {
+                  e.preventDefault();
+                  setLangDropdownOpen(true);
+                }
+              }}
+              className={`has-sub${langDropdownOpen ? ' open' : ''}`}
+              aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
                 id: "header:languages:title"
-              })}
+            })}   
               name={intl.formatMessage({
-                id: "header:languages:title"
+                id: "header:languages:title"    
               })}
               id="languages"
             >
               <span></span>
             </a>
-            <ul className="list-plain subnavigation">
+            <ul className="list-plain subnavigation" style={{ display: langDropdownOpen ? 'block' : undefined }}>
               {config.languages.map(l => (
                 <li key={l}>
                   <a
@@ -292,11 +313,13 @@ function PageHeader() {
                     tabIndex={0}
                     // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
                     className={`language-trigger-${l}`}
-                    onClick={() =>
-                      handleChangeLanguage(
-                        l as keyof typeof languageNameInNativeLanguage
-                      )
+                    onClick={() => handleChangeLanguage(l as keyof typeof languageNameInNativeLanguage)}
+                    onKeyDown={e => {
+                    if (e.key === enterMenuItem) {
+                      e.preventDefault();
+                      handleChangeLanguage(l as keyof typeof languageNameInNativeLanguage);
                     }
+                  }}
                   >
                     {
                       languageNameInNativeLanguage[
