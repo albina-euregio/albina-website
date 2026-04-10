@@ -178,6 +178,9 @@ function MenuItem(props: MenuItemProps) {
           rel="noopener noreferrer"
           target="_blank"
           tabIndex={tabIndex}
+          onClick={() => {
+            if (props.onSelect) props.onSelect(e);
+          }}
         >
           {title}
         </a>
@@ -190,6 +193,8 @@ function MenuItem(props: MenuItemProps) {
             props.onLinkClick(ev, classes.includes("has-sub"));
             if (classes.includes("has-sub")) {
               props.setDropdownOpen(!props.dropdownOpen);
+            } else {
+              if (props.onSelect) props.onSelect(e);
             }
           }}
           onKeyDown={ev => {
@@ -224,6 +229,8 @@ function MenuItem(props: MenuItemProps) {
           onSelect={props.onSelect}
           onActiveMenuItem={props.onActiveChildMenuItem}
           onCloseAllDropdowns={props.onCloseAllDropdowns}
+          isMobile={props.isMobile}
+          navOpen={props.navOpen}
         />
       )}
     </>
