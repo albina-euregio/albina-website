@@ -39,6 +39,7 @@ export interface ObserverData {
   name: string;
   id: string;
   plot: string;
+  province?: string;
   $smet: string;
   $png: string;
 }
