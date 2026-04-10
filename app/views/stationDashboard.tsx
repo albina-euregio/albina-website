@@ -54,8 +54,9 @@ function StationDashboard() {
     "HS";
   const setSelectedParameter = (parameter: ParameterType) =>
     redirectPageQuery({ parameter });
+  const viewMode = router?.search?.view === "table" ? "table" : "map";
+  const setViewMode = (view: "map" | "table") => redirectPageQuery({ view });
   const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
-  const [viewMode, setViewMode] = useState<"map" | "table">("map");
   const [filterHeight, setFilterHeight] = useState(0);
   const [filterTop, setFilterTop] = useState(0);
   const filterRef = useRef<HTMLElement | null>(null);
