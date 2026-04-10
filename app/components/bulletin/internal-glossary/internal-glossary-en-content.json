@@ -115,7 +115,7 @@
   },
   "problem-wind_slab": {
     "heading": "Avalanche problem: Wind slab",
-    "text": "<p>The avalanche problem is related to Wind slab. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
+    "text": "<p>The avalanche problem is related to wind slabs. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
