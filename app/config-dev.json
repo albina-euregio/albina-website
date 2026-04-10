@@ -63,7 +63,6 @@
         { "url": "/weather/map/" },
         { "url": "" },
         { "url": "/weather/stations" },
-        { "url": "/weather/measurements" },
         { "url": "/weather/archive" },
         { "url": "" },
         {
@@ -260,10 +259,11 @@
           "https://api.avalanche.report/lawine/grafiken/smet/all/{id}.smet.gz"
         ],
         "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
+        "licenseCCBY": "LWD Tirol",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
         "pngOperators": "BOKU|Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
-        "stations": "https://static.avalanche.report/weather_stations/linea.geojson",
-        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson?v=legacy",
+        "stations": "https://static.avalanche.report/weather_stations/linea.geojson.gz",
+        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson.gz?v=legacy",
         "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson?v=legacy",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
