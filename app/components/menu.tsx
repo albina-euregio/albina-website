@@ -90,7 +90,7 @@ function Menu(props: Props) {
         setOpenDropdownIndex(index);
       }
     };
-    const handleMouseLeave = (index: number) => {
+    const handleMouseLeave = () => {
       if (window.innerWidth > getDesktopBreakpoint()) {
         setOpenDropdownIndex(null);
       }
@@ -102,7 +102,7 @@ function Menu(props: Props) {
           <li
             key={e.url + index}
             onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
+            onMouseLeave={handleMouseLeave}
           >
             <MenuItem
               {...props}
