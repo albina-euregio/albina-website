@@ -254,7 +254,6 @@ function PageHeader() {
           }}
           onActiveMenuItem={() => {}}
           onActiveChildMenuItem={() => {}}
-          // Pass navOpen and isMobile to Menu for tabIndex control
           navOpen={navOpen}
           isMobile={isMobile}
         />

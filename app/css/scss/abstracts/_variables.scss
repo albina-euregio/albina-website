@@ -399,3 +399,8 @@ $transition-duration: 0.25s;
   --desktop-map-ratio: 1/1;
   --mobile-map-ratio: 1/1;
 }
+
+:root {
+  // Set --breakpoint-desktop to the lower bound of $medium-range in px (1em = 16px)
+  --breakpoint-desktop: #{math.div(list.nth($medium-range, 1), 1em) * $rem-base}px;
+}

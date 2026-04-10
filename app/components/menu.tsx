@@ -1,3 +1,9 @@
+// Utility to get the desktop breakpoint from CSS custom property
+function getDesktopBreakpoint() {
+  if (typeof window === 'undefined') return 1024;
+  const value = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-desktop');
+  return parseInt(value, 10) || 1024;
+}
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
@@ -24,6 +30,8 @@ interface Props {
   onActiveMenuItem?: (e: Entry) => void;
   onSelect?: (e: Entry) => void;
   onCloseAllDropdowns?: () => void;
+  isMobile?: boolean;
+  navOpen?: boolean;
 }
 
 let isTouchingDevice = false;
@@ -78,21 +86,38 @@ function Menu(props: Props) {
       }
     };
 
+    // Handlers for mouse hover to open/close dropdowns (desktop only)
+    const handleMouseEnter = (index: number) => {
+      if (window.innerWidth > getDesktopBreakpoint()) {
+        setOpenDropdownIndex(index);
+      }
+    };
+    const handleMouseLeave = () => {
+      if (window.innerWidth > getDesktopBreakpoint()) {
+        setOpenDropdownIndex(null);
+      }
+    };
+
     return (
       <ul className={props.className}>
         {props.entries.map((e, index) => (
-          <MenuItem
+          <li
             key={e.url + index}
-            {...props}
-            entry={e}
-            isActive={e === activeItem}
-            onLinkClick={onLinkClick}
-            numberNewPosts={numberNewPosts}
-            dropdownOpen={openDropdownIndex === index}
-            setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
-            menuIndex={index}
-            onCloseAllDropdowns={handleCloseAllDropdowns}
-          />
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <MenuItem
+              {...props}
+              entry={e}
+              isActive={e === activeItem}
+              onLinkClick={onLinkClick}
+              numberNewPosts={numberNewPosts}
+              dropdownOpen={props.isMobile ? (e.children && e.children.length > 0) : openDropdownIndex === index}
+              setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
+              menuIndex={index}
+              onCloseAllDropdowns={handleCloseAllDropdowns}
+            />
+          </li>
         ))}
       </ul>
     );
@@ -146,31 +171,30 @@ function MenuItem(props: MenuItemProps) {
   const tabIndex = getMenuItemTabIndex(title);
 
   return (
-    <li
-      onClick={() => {
-        if (typeof props.onSelect === "function") {
-          props.onSelect(e);
-        }
-      }}
-    >
+    <>
       {url.match("^http(s)?://") ? (
         <a
           href={url}
           rel="noopener noreferrer"
           target="_blank"
           tabIndex={tabIndex}
+          onClick={() => {
+            if (props.onSelect) props.onSelect(e);
+          }}
         >
           {title}
         </a>
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > 1024) isTouchingDevice = true;
+            if (window.innerWidth > getDesktopBreakpoint()) isTouchingDevice = true;
           }}
           onClick={ev => {
             props.onLinkClick(ev, classes.includes("has-sub"));
             if (classes.includes("has-sub")) {
               props.setDropdownOpen(!props.dropdownOpen);
+            } else {
+              if (props.onSelect) props.onSelect(e);
             }
           }}
           onKeyDown={ev => {
@@ -205,9 +229,11 @@ function MenuItem(props: MenuItemProps) {
           onSelect={props.onSelect}
           onActiveMenuItem={props.onActiveChildMenuItem}
           onCloseAllDropdowns={props.onCloseAllDropdowns}
+          isMobile={props.isMobile}
+          navOpen={props.navOpen}
         />
       )}
-    </li>
+    </>
   );
 }
 
