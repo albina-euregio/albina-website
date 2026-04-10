@@ -30,6 +30,8 @@ interface Props {
   onActiveMenuItem?: (e: Entry) => void;
   onSelect?: (e: Entry) => void;
   onCloseAllDropdowns?: () => void;
+  isMobile?: boolean;
+  navOpen?: boolean;
 }
 
 let isTouchingDevice = false;
@@ -110,7 +112,7 @@ function Menu(props: Props) {
               isActive={e === activeItem}
               onLinkClick={onLinkClick}
               numberNewPosts={numberNewPosts}
-              dropdownOpen={openDropdownIndex === index}
+              dropdownOpen={props.isMobile ? (e.children && e.children.length > 0) : openDropdownIndex === index}
               setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
               menuIndex={index}
               onCloseAllDropdowns={handleCloseAllDropdowns}
