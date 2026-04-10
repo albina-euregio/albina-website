@@ -25,6 +25,31 @@ import BeobachterIT from "../stores/Beobachter-IT.json";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
+const DATE_TIME_INPUT_LENGTH = "2006-01-02T12".length;
+const DEFAULT_VIEW_MODE = "map";
+const DEFAULT_STATION_PARAMETER: ParameterType = "HS";
+
+function parseDateTimeSearchParam(dateTime?: string) {
+  if (!dateTime) {
+    return;
+  }
+
+  try {
+    return Temporal.PlainDateTime.from(dateTime).toZonedDateTime(
+      "Europe/Vienna"
+    );
+  } catch {
+    return;
+  }
+}
+
+function formatDateTimeForInput(dateTime?: Temporal.ZonedDateTime) {
+  if (!(dateTime instanceof Temporal.ZonedDateTime)) {
+    return "";
+  }
+
+  return `${dateTime.toString().slice(0, DATE_TIME_INPUT_LENGTH)}:00`;
+}
 
 export const observers = [...BeobachterAT, ...BeobachterIT].map(
   (observer): ObserverData => ({
@@ -51,11 +76,19 @@ function StationDashboard() {
   const router = useStore($router);
   const selectedParameter: ParameterType =
     AVAILABLE_PARAMETERS.find(p => p.id === router?.search?.parameter)?.id ??
-    "HS";
+    DEFAULT_STATION_PARAMETER;
   const setSelectedParameter = (parameter: ParameterType) =>
-    redirectPageQuery({ parameter });
-  const viewMode = router?.search?.view === "table" ? "table" : "map";
-  const setViewMode = (view: "map" | "table") => redirectPageQuery({ view });
+    redirectPageQuery({
+      parameter: parameter === DEFAULT_STATION_PARAMETER ? "" : parameter
+    });
+  const viewMode =
+    router?.search?.view === "table" ? "table" : DEFAULT_VIEW_MODE;
+  const setViewMode = (view: "map" | "table") =>
+    redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
+  const dateTimeQuery = router?.search?.dateTime;
+  const selectedDateTime = parseDateTimeSearchParam(dateTimeQuery);
+  const setSelectedDateTime = (nextDateTime: string) =>
+    redirectPageQuery({ dateTime: nextDateTime });
   const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [filterHeight, setFilterHeight] = useState(0);
   const [filterTop, setFilterTop] = useState(0);
@@ -69,18 +102,25 @@ function StationDashboard() {
     load,
     data,
     searchText,
-    setActiveRegion,
+    setActiveRegion: setStoreActiveRegion,
     setSearchText,
     sortBy,
     sortDir,
     sortedFilteredData,
     sortValue
   } = useStationData();
+  const setActiveRegion = (region: string) =>
+    setStoreActiveRegion(region === "all" ? "" : region);
+  const loadRef = useRef(load);
   useHiddenFooter();
 
   useEffect(() => {
-    load();
+    loadRef.current = load;
   }, [load]);
+
+  useEffect(() => {
+    loadRef.current({ dateTime: parseDateTimeSearchParam(dateTimeQuery) });
+  }, [dateTimeQuery]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -231,19 +271,9 @@ function StationDashboard() {
               <input
                 type="datetime-local"
                 step={3600}
-                max={`${dateTimeMax.toString().slice(0, "2006-01-02T12".length)}:00`}
-                value={
-                  dateTime instanceof Temporal.ZonedDateTime
-                    ? `${dateTime.toString().slice(0, "2006-01-02T12".length)}:00`
-                    : ""
-                }
-                onChange={e =>
-                  load({
-                    dateTime: Temporal.PlainDateTime.from(
-                      e.target.value
-                    ).toZonedDateTime("Europe/Vienna")
-                  })
-                }
+                max={formatDateTimeForInput(dateTimeMax)}
+                value={formatDateTimeForInput(selectedDateTime ?? dateTime)}
+                onChange={e => setSelectedDateTime(e.target.value)}
               />
             </div>
           </div>
