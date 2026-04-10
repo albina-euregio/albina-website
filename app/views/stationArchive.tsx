@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";
@@ -38,7 +38,12 @@ const StationArchive = () => {
     sortedFilteredData,
     sortValue,
     toggleActiveData
-  } = useStationData("name", r => r.startsWith("AT-07"), "", true);
+  } = useStationData("name", "", true);
+
+  const sortedFilteredDataCCBY = useMemo(
+    () => sortedFilteredData.filter(d => d.$license === "CC-BY"),
+    [sortedFilteredData]
+  );
 
   useEffect(() => {
     load({ ogd: true });
@@ -148,7 +153,7 @@ const StationArchive = () => {
       <section className="section">
         <div className="table-container">
           <StationArchiveTable
-            sortedFilteredData={sortedFilteredData}
+            sortedFilteredData={sortedFilteredDataCCBY}
             activeData={activeData}
             activeRegion={activeRegion}
             activeYear={activeYear}
