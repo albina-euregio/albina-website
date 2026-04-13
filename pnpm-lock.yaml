@@ -34,7 +34,7 @@ patchedDependencies:
     hash: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
     path: patches/leaflet.sync.patch
   leaflet.vectorgrid:
-    hash: 17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19
+    hash: acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e
     path: patches/leaflet.vectorgrid.patch
 
 importers:
@@ -45,17 +45,20 @@ importers:
         specifier: ^8.17.0
         version: 8.17.0(zod@4.3.6)
       '@eaws/micro-regions_elevation_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/micro-regions_names':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/micro-regions_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
       '@eaws/outline_properties':
-        specifier: ^8.3.4
-        version: 8.3.4
+        specifier: ^8.4.0
+        version: 8.4.0
+      '@eaws/pbf':
+        specifier: ^8.4.0
+        version: 8.4.0
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
@@ -103,7 +106,7 @@ importers:
         version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
       leaflet.vectorgrid:
         specifier: ^1.3.0
-        version: 1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
+        version: 1.3.0(patch_hash=acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
       nanostores:
         specifier: ^1.2.0
         version: 1.2.0
@@ -171,6 +174,9 @@ importers:
       vite:
         specifier: npm:@voidzero-dev/vite-plus-core@latest
         version: '@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
+      vite-plugin-static-copy:
+        specifier: ^4.0.1
+        version: 4.0.1(@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))
       vite-plus:
         specifier: 'catalog:'
         version: 0.1.15(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
@@ -182,17 +188,20 @@ packages:
     peerDependencies:
       zod: ^4.3.0
 
-  '@eaws/micro-regions_elevation_properties@8.3.4':
-    resolution: {integrity: sha1-dpYt+ENIm1ShPMfGtHDBVQGaGUE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.3.4.tgz}
+  '@eaws/micro-regions_elevation_properties@8.4.0':
+    resolution: {integrity: sha1-4XO4RI0x1iBrGsKT2JfwMNcrDek=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.4.0.tgz}
 
-  '@eaws/micro-regions_names@8.3.4':
-    resolution: {integrity: sha1-ZWIsFbkYvK+msjcrFr4B7kGHPRU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.3.4.tgz}
+  '@eaws/micro-regions_names@8.4.0':
+    resolution: {integrity: sha1-L/yfFP/hFWxISP+Xmev/Jq9YGqA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.4.0.tgz}
 
-  '@eaws/micro-regions_properties@8.3.4':
-    resolution: {integrity: sha1-R1rJmWuXAPkFIJIV5iDPFWdtMUI=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.3.4.tgz}
+  '@eaws/micro-regions_properties@8.4.0':
+    resolution: {integrity: sha1-OZUSC86rzGJzFcX1Wtxl1MSD9Cs=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.4.0.tgz}
 
-  '@eaws/outline_properties@8.3.4':
-    resolution: {integrity: sha1-pabIACEmwpqeFdlwyZ3EF9fuJsM=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.3.4.tgz}
+  '@eaws/outline_properties@8.4.0':
+    resolution: {integrity: sha1-Qe01rrdaOcyI76wfGAuGdp2/d70=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.4.0.tgz}
+
+  '@eaws/pbf@8.4.0':
+    resolution: {integrity: sha1-elAS323Yw58szfhHC3s9uA77LsE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pbf/-/@eaws/pbf-8.4.0.tgz}
 
   '@emnapi/core@1.9.1':
     resolution: {integrity: sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA==}
@@ -864,6 +873,10 @@ packages:
   air-datepicker@3.6.0:
     resolution: {integrity: sha512-+txUkqa949rXBJDmkQAIb/GehZECJYF4rm9XJxVYtEX22C9WvBpE/XwCUQZBopKIkpg4ycAySJ9lH3JOg9qQTw==}
 
+  anymatch@3.1.3:
+    resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
+    engines: {node: '>= 8'}
+
   aria-hidden@1.2.6:
     resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
     engines: {node: '>=10'}
@@ -875,9 +888,21 @@ packages:
   auto-console-group@1.2.11:
     resolution: {integrity: sha512-/RFCswabfQZR4CDYser0V+AC+6+Q1ro2+RrP0AinOXDYnWsm3w14uc2MVdEaaSCDfpiTtETfahE9N7z9Yb1JiA==}
 
+  binary-extensions@2.3.0:
+    resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
+    engines: {node: '>=8'}
+
+  braces@3.0.3:
+    resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
+    engines: {node: '>=8'}
+
   cac@7.0.0:
     resolution: {integrity: sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ==}
     engines: {node: '>=20.19.0'}
+
+  chokidar@3.6.0:
+    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
+    engines: {node: '>= 8.10.0'}
 
   chokidar@4.0.3:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
@@ -936,6 +961,10 @@ packages:
     resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
     engines: {node: '>=18'}
 
+  fill-range@7.1.1:
+    resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
+    engines: {node: '>=8'}
+
   get-stream@9.0.1:
     resolution: {integrity: sha512-kVCxPF3vQM/N0B1PmoqVUqgHP+EeVjmZSQn+1oCRPxd2P21P2F19lIgbR3HBosbB1PUhOAoctJnfEn2GbN2eZA==}
     engines: {node: '>=18'}
@@ -975,6 +1004,10 @@ packages:
     engines: {node: '>=18.19 || >=20.6 || >=21'}
     hasBin: true
 
+  glob-parent@5.1.2:
+    resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
+    engines: {node: '>= 6'}
+
   html-entities@2.6.0:
     resolution: {integrity: sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ==}
 
@@ -995,6 +1028,22 @@ packages:
 
   immutable@5.1.5:
     resolution: {integrity: sha512-t7xcm2siw+hlUM68I+UEOK+z84RzmN59as9DZ7P1l0994DKUWV7UXBMQZVxaoMSRQ+PBZbHCOoBt7a2wxOMt+A==}
+
+  is-binary-path@2.1.0:
+    resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
+    engines: {node: '>=8'}
+
+  is-extglob@2.1.1:
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
+    engines: {node: '>=0.10.0'}
+
+  is-glob@4.0.3:
+    resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
+    engines: {node: '>=0.10.0'}
+
+  is-number@7.0.0:
+    resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
+    engines: {node: '>=0.12.0'}
 
   is-plain-obj@4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
@@ -1123,6 +1172,10 @@ packages:
     resolution: {integrity: sha512-F0wCzbsH80G7XXo0Jd9/AVQC7ouWY6idUCTnMwW5t/Rv9W8qmO6endavDwg7TNp5GbugwSukFMVZqzPSrSMndg==}
     engines: {node: ^20.0.0 || >=22.0.0}
 
+  normalize-path@3.0.0:
+    resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+
   normalize.css@8.0.1:
     resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
 
@@ -1152,6 +1205,10 @@ packages:
       oxlint-tsgolint:
         optional: true
 
+  p-map@7.0.4:
+    resolution: {integrity: sha512-tkAQEw8ysMzmkhgw8k+1U/iPhWNhykKnSk4Rd5zLoPJCuJaGRPo6YposrZgaxHKzDHdDWWZvE/Sk7hsL2X/CpQ==}
+    engines: {node: '>=18'}
+
   parse-ms@4.0.0:
     resolution: {integrity: sha512-TXfryirbmq34y8QBwgqCVLi+8oA3oWx2eAnSn62ITyEhEYaWRlVZ2DvMM9eZbMs/RfxPu/PK/aBLyGj4IrqMHw==}
     engines: {node: '>=18'}
@@ -1170,6 +1227,10 @@ packages:
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
+    engines: {node: '>=8.6'}
 
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
@@ -1236,6 +1297,10 @@ packages:
   react@19.2.0:
     resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
+
+  readdirp@3.6.0:
+    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
+    engines: {node: '>=8.10.0'}
 
   readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
@@ -1308,6 +1373,10 @@ packages:
     resolution: {integrity: sha512-Pugqs6M0m7Lv1I7FtxN4aoyToKg1C4tu+/381vH35y8oENM/Ai7f7C4StcoK4/+BSw9ebcS8jRiVrORFKCALLw==}
     engines: {node: ^20.0.0 || >=22.0.0}
 
+  to-regex-range@5.0.1:
+    resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
+    engines: {node: '>=8.0'}
+
   topojson-client@2.1.0:
     resolution: {integrity: sha512-mxXNa6imbsrWXqUKF7iwGl2TkrshZ7dwQF+KuAB4hX9wTmfecNzqSjMmQZNhP2Ztvfwx8rKt0BfQfHF+ki6hQw==}
     hasBin: true
@@ -1332,6 +1401,12 @@ packages:
   vector-tile@1.3.0:
     resolution: {integrity: sha512-ECpYpDhbgTSGIRwaf4bLbiDHcUHDM+LGrBOmV1tdG+Lde8vajJtywP5vGFmMj0Z3cApTV0+9sLWgBCVsRuoAKQ==}
     deprecated: 'This module has moved: please install @mapbox/vector-tile instead'
+
+  vite-plugin-static-copy@4.0.1:
+    resolution: {integrity: sha512-r3kQUrrimduikhyRm58ayemoxsgB8lZdn/JULLL4wpXHAZlYejtyZx7E/id7dwRtIOSYWu/tWvFjdEOTzso2MA==}
+    engines: {node: ^22.0.0 || >=24.0.0}
+    peerDependencies:
+      vite: ^6.0.0 || ^7.0.0 || ^8.0.0
 
   vite-plus@0.1.15:
     resolution: {integrity: sha512-PBUvTq4D4BJcuusCA3mrSQmXcGVdPX9CIPpS7Y6+T+LbDsrmAZ+ITl9FzuE6zXvpT6Nht9cpHtwOLJw7m3adog==}
@@ -1383,13 +1458,15 @@ snapshots:
       uplot: 1.6.32
       zod: 4.3.6
 
-  '@eaws/micro-regions_elevation_properties@8.3.4': {}
+  '@eaws/micro-regions_elevation_properties@8.4.0': {}
 
-  '@eaws/micro-regions_names@8.3.4': {}
+  '@eaws/micro-regions_names@8.4.0': {}
 
-  '@eaws/micro-regions_properties@8.3.4': {}
+  '@eaws/micro-regions_properties@8.4.0': {}
 
-  '@eaws/outline_properties@8.3.4': {}
+  '@eaws/outline_properties@8.4.0': {}
+
+  '@eaws/pbf@8.4.0': {}
 
   '@emnapi/core@1.9.1':
     dependencies:
@@ -1807,6 +1884,11 @@ snapshots:
 
   air-datepicker@3.6.0: {}
 
+  anymatch@3.1.3:
+    dependencies:
+      normalize-path: 3.0.0
+      picomatch: 2.3.2
+
   aria-hidden@1.2.6:
     dependencies:
       tslib: 2.8.1
@@ -1815,7 +1897,23 @@ snapshots:
 
   auto-console-group@1.2.11: {}
 
+  binary-extensions@2.3.0: {}
+
+  braces@3.0.3:
+    dependencies:
+      fill-range: 7.1.1
+
   cac@7.0.0: {}
+
+  chokidar@3.6.0:
+    dependencies:
+      anymatch: 3.1.3
+      braces: 3.0.3
+      glob-parent: 5.1.2
+      is-binary-path: 2.1.0
+      is-glob: 4.0.3
+      normalize-path: 3.0.0
+      readdirp: 3.6.0
 
   chokidar@4.0.3:
     dependencies:
@@ -1880,6 +1978,10 @@ snapshots:
     dependencies:
       is-unicode-supported: 2.1.0
 
+  fill-range@7.1.1:
+    dependencies:
+      to-regex-range: 5.0.1
+
   get-stream@9.0.1:
     dependencies:
       '@sec-ant/readable-stream': 0.4.1
@@ -1914,6 +2016,10 @@ snapshots:
       git-cliff-windows-arm64: 2.10.1
       git-cliff-windows-x64: 2.10.1
 
+  glob-parent@5.1.2:
+    dependencies:
+      is-glob: 4.0.3
+
   html-entities@2.6.0: {}
 
   htmlparser2@6.1.0:
@@ -1935,6 +2041,18 @@ snapshots:
 
   immutable@5.1.5: {}
 
+  is-binary-path@2.1.0:
+    dependencies:
+      binary-extensions: 2.3.0
+
+  is-extglob@2.1.1: {}
+
+  is-glob@4.0.3:
+    dependencies:
+      is-extglob: 2.1.1
+
+  is-number@7.0.0: {}
+
   is-plain-obj@4.1.0: {}
 
   is-stream@4.0.1: {}
@@ -1953,7 +2071,7 @@ snapshots:
 
   leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4): {}
 
-  leaflet.vectorgrid@1.3.0(patch_hash=17916d644623680841cb52716cac343e0d1feea2f42363bc7e52527a8c7b9c19)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
+  leaflet.vectorgrid@1.3.0(patch_hash=acf390836713ce80be5e95d5953d4fcbca3b42f6fd8c861b9bcb5c59fb5d162e)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
     dependencies:
       leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       pbf: 3.3.0
@@ -2017,6 +2135,8 @@ snapshots:
   nanoid@3.3.11: {}
 
   nanostores@1.2.0: {}
+
+  normalize-path@3.0.0: {}
 
   normalize.css@8.0.1: {}
 
@@ -2083,6 +2203,8 @@ snapshots:
       '@oxlint/binding-win32-x64-msvc': 1.58.0
       oxlint-tsgolint: 0.18.1
 
+  p-map@7.0.4: {}
+
   parse-ms@4.0.0: {}
 
   path-key@3.1.1: {}
@@ -2095,6 +2217,8 @@ snapshots:
       resolve-protobuf-schema: 2.1.0
 
   picocolors@1.1.1: {}
+
+  picomatch@2.3.2: {}
 
   picomatch@4.0.4: {}
 
@@ -2145,6 +2269,10 @@ snapshots:
       react: 19.2.0
 
   react@19.2.0: {}
+
+  readdirp@3.6.0:
+    dependencies:
+      picomatch: 2.3.2
 
   readdirp@4.1.2: {}
 
@@ -2220,6 +2348,10 @@ snapshots:
 
   tinypool@2.1.0: {}
 
+  to-regex-range@5.0.1:
+    dependencies:
+      is-number: 7.0.0
+
   topojson-client@2.1.0:
     dependencies:
       commander: 2.20.3
@@ -2237,6 +2369,14 @@ snapshots:
   vector-tile@1.3.0:
     dependencies:
       point-geometry: 0.0.0
+
+  vite-plugin-static-copy@4.0.1(@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)):
+    dependencies:
+      chokidar: 3.6.0
+      p-map: 7.0.4
+      picocolors: 1.1.1
+      tinyglobby: 0.2.15
+      vite: '@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
 
   vite-plus@0.1.15(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2):
     dependencies:

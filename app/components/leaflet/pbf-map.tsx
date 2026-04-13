@@ -13,7 +13,8 @@ import { $province } from "../../appStore";
 import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 import { newRegionRegex } from "../../util/newRegionRegex";
-import { version } from "@eaws/micro-regions_elevation_properties/package.json";
+
+const url = `${import.meta.env.BASE_URL}pbf/{z}/{x}/{y}.pbf`;
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {
@@ -60,36 +61,33 @@ export const PbfLayer = createLayerComponent((props: PbfProps, ctx) => {
       ? WARNLEVEL_STYLES.intern[warnlevel]
       : WARNLEVEL_STYLES.extern[warnlevel];
   };
-  const instance = L.vectorGrid.protobuf(
-    `https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf?${version}`,
-    {
-      dangerRatings: {},
-      pane: "overlayPane",
-      interactive: false,
-      rendererFactory: (tileCoord, tileSize, options) =>
-        new L.Canvas.Tile(tileCoord, tileSize, options),
-      maxNativeZoom: 10,
-      vectorTileLayerStyles: {
-        "micro-regions_elevation"(properties) {
-          if (!filterFeature({ properties }, props.date)) {
-            return config.map.regionStyling.hidden;
-          }
-          if (props.isOneDangerRating) {
-            return style(properties.id);
-          }
-          return properties.elevation === "low_high"
-            ? style(properties.id)
-            : style(properties.id + ":" + properties.elevation);
-        },
-        "micro-regions"() {
-          return config.map.regionStyling.hidden;
-        },
-        outline() {
+  const instance = L.vectorGrid.protobuf(url, {
+    dangerRatings: {},
+    pane: "overlayPane",
+    interactive: false,
+    rendererFactory: (tileCoord, tileSize, options) =>
+      new L.Canvas.Tile(tileCoord, tileSize, options),
+    maxNativeZoom: 10,
+    vectorTileLayerStyles: {
+      "micro-regions_elevation"(properties) {
+        if (!filterFeature({ properties }, props.date)) {
           return config.map.regionStyling.hidden;
         }
-      } as PbfStyleFunction
-    }
-  );
+        if (props.isOneDangerRating) {
+          return style(properties.id);
+        }
+        return properties.elevation === "low_high"
+          ? style(properties.id)
+          : style(properties.id + ":" + properties.elevation);
+      },
+      "micro-regions"() {
+        return config.map.regionStyling.hidden;
+      },
+      outline() {
+        return config.map.regionStyling.hidden;
+      }
+    } as PbfStyleFunction
+  });
   return {
     instance,
     context: { ...ctx, vectorGrid: instance }
@@ -122,52 +120,50 @@ export const PbfLayerOverlay = createLayerComponent(
       ...config.extraRegions
     ]);
     const eawsRegionsExclude: string[] = config.eawsRegionsExclude ?? [];
-    const instance = L.vectorGrid.protobuf(
-      `https://static.avalanche.report/eaws_pbf/{z}/{x}/{y}.pbf?${version}`,
-      {
-        pane: "markerPane",
-        interactive: true,
-        rendererFactory: (tileCoord, tileSize, options) =>
-          new L.SVG.Tile(tileCoord, tileSize, options),
-        maxNativeZoom: 10,
-        getFeatureId({
-          properties
-        }: {
-          properties:
-            | MicroRegionElevationProperties
-            | MicroRegionProperties
-            | RegionOutlineProperties;
-        }) {
-          if (
-            (properties as MicroRegionElevationProperties).elevation ||
-            eawsRegionsExclude.includes(properties.id) ||
-            !filterFeature({ properties }, props.date)
-          ) {
-            return undefined;
-          } else {
-            return properties.id;
-          }
+
+    const instance = L.vectorGrid.protobuf(url, {
+      pane: "markerPane",
+      interactive: true,
+      rendererFactory: (tileCoord, tileSize, options) =>
+        new L.SVG.Tile(tileCoord, tileSize, options),
+      maxNativeZoom: 10,
+      getFeatureId({
+        properties
+      }: {
+        properties:
+          | MicroRegionElevationProperties
+          | MicroRegionProperties
+          | RegionOutlineProperties;
+      }) {
+        if (
+          (properties as MicroRegionElevationProperties).elevation ||
+          eawsRegionsExclude.includes(properties.id) ||
+          !filterFeature({ properties }, props.date)
+        ) {
+          return undefined;
+        } else {
+          return properties.id;
+        }
+      },
+      vectorTileLayerStyles: {
+        "micro-regions_elevation"() {
+          return config.map.regionStyling.hidden;
         },
-        vectorTileLayerStyles: {
-          "micro-regions_elevation"() {
-            return config.map.regionStyling.hidden;
-          },
-          "micro-regions"(properties) {
-            return filterFeature({ properties }, props.date) &&
-              regionsRegex.test(properties.id)
-              ? config.map.regionStyling.clickable
-              : config.map.regionStyling.hidden;
-          },
-          outline(properties) {
-            return filterFeature({ properties }, props.date) &&
-              !eawsRegionsExclude.includes(properties.id) &&
-              !regionsRegex.test(properties.id)
-              ? config.map.regionStyling.clickable
-              : config.map.regionStyling.hidden;
-          }
-        } as PbfStyleFunction
-      }
-    );
+        "micro-regions"(properties) {
+          return filterFeature({ properties }, props.date) &&
+            regionsRegex.test(properties.id)
+            ? config.map.regionStyling.clickable
+            : config.map.regionStyling.hidden;
+        },
+        outline(properties) {
+          return filterFeature({ properties }, props.date) &&
+            !eawsRegionsExclude.includes(properties.id) &&
+            !regionsRegex.test(properties.id)
+            ? config.map.regionStyling.clickable
+            : config.map.regionStyling.hidden;
+        }
+      } as PbfStyleFunction
+    });
 
     return {
       instance,
