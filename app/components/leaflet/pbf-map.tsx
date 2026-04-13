@@ -14,15 +14,7 @@ import { RegionOutlineProperties } from "../../stores/eawsRegions";
 import { toAmPm, ValidTimePeriod } from "../../stores/bulletin";
 import { newRegionRegex } from "../../util/newRegionRegex";
 
-const pbfStar = import.meta.glob("./@eaws/pbf/*/*/*.pbf", {
-  base: "../../../node_modules",
-  eager: true,
-  import: "default",
-  query: "?url"
-});
-const url = ({ x, y, z }: { x: number; y: number; z: number }) => {
-  return pbfStar[`./@eaws/pbf/${z}/${x}/${y}.pbf`];
-};
+const url = `${import.meta.env.BASE_URL}pbf/{z}/{x}/{y}.pbf`;
 
 declare module "@react-leaflet/core" {
   interface LeafletContextInterface {

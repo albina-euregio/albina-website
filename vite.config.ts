@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite-plus";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -63,7 +64,19 @@ export default defineConfig({
     }
   },
   envPrefix: ["APP_", "VITE_"],
-  plugins: [react()],
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: "node_modules/@eaws/pbf/**",
+          dest: "pbf",
+          rename: { stripBase: 3 }
+        }
+      ]
+    }),
+
+    react()
+  ],
   server: {
     watch: {
       // Ignore pnpm store to prevent ELOOP errors in CI where store is inside project
