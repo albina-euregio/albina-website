@@ -30,80 +30,80 @@
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "Häufigkeit: (Fast) keine",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>(Fast) keine</b> existieren keine Punkte mit der Stabilitätsklasse <b>{stabilityClass}</b> oder sie sind so selten, dass sie als nicht relevant für die Einschätzung der Stabilität beurteilt werden.</p>",
+    "heading": "Frequency: None or nearly none",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>none or nearly none</b>, the locations with snowpack stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for the stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Häufigkeit: Wenige",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>Wenige</b> finden sich nur selten Punkte mit der Stabilitätsklasse <b>{stabilityClass}</b>. Auch wenn sie selten vorkommen, wird ihre Anzahl für die Stabilitätsbewertung als relevant angesehen. Anzeichen für Instabilität sind schwer zu finden.</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>few</b>, locations with the snowpack stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for the stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Häufigkeit: Einige",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.Bei der Häufigkeitsklasse <b>Einige</b> kommen Punkte der Stabilitätsklasse <b>{stabilityClass}</b> typischerweise in Geländestrukturen mit gemeinsamen Merkmalen vor (z.B. kammnah oder in Rinnen und Mulden).</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>some</b>, the locations with snowpack stability class <b>{stabilityClass}</b> typically exists in specific terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Häufigkeit: Viele",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Häufigkeitsklasse <b>Viele</b> gibt es zahlreiche Punkte der Stabilitätsklasse <b>{stabilityClass}</b>. Anzeichen für Instabilität sind oft leicht zu finden.</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
     "heading": "Schneedeckenstabilität: Sehr schlecht",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Sehr schlecht</b> gehen Lawinen spontan ab oder können von Personen sehr leicht ausgelöst werden. Rissbildungen und großflächige Setzungsgeräusche sind zu erwarten.</p>",
+    "text": "<p>The snowpack stability indicates how easy it is to trigger an avalanche. <b>Very poor</b> stability means that avalanches release spontaneously or are very easy to trigger (touchy). Natural avalanches, shooting cracks and Whumpf-sounds are clear signs for a <b>very poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>very poor</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Schneedeckenstabilität: Schlecht",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Schlecht</b> können Lawinen von einzelnen Personen leicht ausgelöst werden. Rissbildung und großflächige Setzungsgeräusche sind möglich, während kleinräumige Setzungsgeräusche zu erwarten sind.</p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Poor</b> snowpack stability means that avalanches are easy to trigger by e.g. a single skier. Whumpf-sounds and shooting cracks are clear signs for a <b>poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>poor</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|1|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Schneedeckenstabilität: Mittel",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt.</p><p>Bei der Schneedeckenstabilität <b>Mittel</b> ist zur Auslösung von Lawinen große Zusatzbelastung, wie mehrere Personen, Sprengungen oder Wechtenbrüche, notwendig. Kleinräumige Setzungsgeräusche können vorkommen.</p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Fair</b> stability means that avalanches are difficult to trigger. Large loads such as multiple skiers, explosives or cornice falls are typically required to trigger an avalanche with <b>fair</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>fair</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Schneedeckenstabilität: Gut",
-    "text": "<p>Lawinenhäufigkeit und Schneedeckenstabilität stehen in engem Zusammenhang. Die Schneedeckenstabilität gibt Aufschluss darüber, wie leicht sich eine Lawine auslösen lässt, während die Häufigkeitsverteilung Aufschluss darüber gibt, wie häufig diese Stabilität in der gesamten Warnregion auftritt. Die Schneedeckenstabilität <b>Gut</b> beschreibt allgemein stabile Verhältnisse und es sind keine Anzeichen von Instabilität zu beobachten.</p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Good</b> stability means stable conditions. There are no signs of instability under <b>good</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>good</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
     "heading": "Größe 1: Kleine Lawine (Rutsch)",
-    "text": "<p>Eine Verschüttung ist unwahrscheinlich, außer es existieren im Auslaufbereich ungünstige Geländeformen (z.B. Geländefallen). Lawine kommt typischerweise im Bereich des Steilhanges zum Stillstand.</p>",
+    "text": "<p>With avalanches of this size, it is unlikely that persons are buried, except in run out zones with adverse terrain features (i.e. terrain traps). In extremely steep terrain, the danger of falling prevails the danger of burials. Avalanches typically stop before the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
     "heading": "Größe 2: Mittlere Lawine",
-    "text": "<p>Kann eine Person verschütten, verletzen oder töten. Größe 2 entspricht der Skifahrerlawine. Lawine erreicht typischerweise den Hangfuß.</p>",
+    "text": "<p>It is likely that avalanches could bury, injure or kill a person. Avalanches of this size correspond to the typical skier-triggered avalanche. They stop typically at the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
     "heading": "Größe 3: Große Lawine",
-    "text": "<p>Kann PKWs verschütten und zerstören, schwere Lastwagen beschädigen, kleine Gebäude zerstören und einzelne Bäume brechen. Gelangen Skifahrer in Lawinen dieser Größe, ist die Wahrscheinlichkeit für schwerwiegende Konsequenzen sehr groß. Lawine kann flache Geländeteile (deutlich unter 30°) über eine Distanz von bis zu 50 m überwinden.</p>",
+    "text": "<p>It is likely that avalanches could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
     "heading": "Größe 4: Sehr große Lawine",
-    "text": "<p>Kann Züge, schwere LKWs, größere Gebäude und kleine Waldflächen verschütten und zerstören. Lawine überwindet flachere Geländeteile (deutlich unter 30°) über eine Distanz von mehr als 50 m und kann den Talboden erreichen</p>",
+    "text": "<p>It is likely that avalanches could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanches will traverse flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
     "heading": "Größe 5: Extrem große Lawine",
-    "text": "<p>Kann die Landschaft verwüsten; katastrophales Zerstörungspotenzial möglich. Erreicht den Talboden. Größte bekannte Auslauflängen.</p>",
+    "text": "<p>It is likely that avalanches could gouge the landscape and have disastrous damage potential. Avalanche will reach valley ground and might flow the largest runout distance known.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
@@ -115,7 +115,7 @@
   },
   "problem-wind_slab": {
     "heading": "Lawinenproblem: Triebschnee",
-    "text": "<p>Das Problem entsteht durch windverfrachteten Schnee. Triebschnee kann sowohl mit, als auch ohne gleichzeitigen Schneefall entstehen.</p> <p> <b>Verhaltensempfehlung</b><br/>Vermeide Triebschneeablagerungen in steilem Gelände, insbesondere an Übergängen von wenig zu viel Schnee und von weichem zu hartem Schnee.</p>",
+    "text": "<p>The avalanche problem is related to wind slabs. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Triebschneeproblem\" alt=\"Triebschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
