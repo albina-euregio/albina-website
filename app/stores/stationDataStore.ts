@@ -8,6 +8,7 @@ import {
   FeatureCollectionSchema,
   FeatureSchema
 } from "@albina-euregio/linea/listing";
+import { fetchAll } from "@albina-euregio/linea/fetch-listing";
 
 type Feature = z.infer<typeof FeatureSchema>;
 
@@ -24,10 +25,12 @@ export class StationData {
     id: Feature["id"];
     geometry: Feature["geometry"];
     properties: Feature["properties"];
+    $smet?: string[] | undefined;
   }) {
     this.id = object.id;
     this.geometry = object.geometry;
     this.properties = object.properties;
+    this.$smet = object.$smet;
   }
   get lon() {
     return this.geometry.coordinates[0];
@@ -385,10 +388,8 @@ export async function loadStationData({
           "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
         ) {
           if (ogd) return [];
-          const metadata: GeoSphereMetadata = await response.json();
-          const stations = metadata.stations.map(station =>
-            mapGeoSphere(station, smet)
-          );
+          const features = await fetchAll(c => c.geojson === url);
+          const stations = features.map(feature => new StationData(feature));
           consumer?.(stations);
           return stations;
         }
@@ -435,65 +436,4 @@ export async function loadStationData({
 
   const data = await Promise.all(all);
   return data.flat();
-}
-
-interface GeoSphereMetadata {
-  title: string;
-  parameters: GeoSphereParameter[];
-  frequency: string;
-  type: string;
-  mode: string;
-  response_formats: string[];
-  start_time: string;
-  end_time: string;
-  stations: GeoSphereStation[];
-  id_type: string;
-}
-
-interface GeoSphereParameter {
-  name: string;
-  long_name: string;
-  desc: string;
-  unit: string;
-}
-
-interface GeoSphereStation {
-  type: string;
-  id: string;
-  group_id: null;
-  name: string;
-  state: string;
-  lat: number;
-  lon: number;
-  altitude: number;
-  valid_from: string;
-  valid_to: string;
-  has_sunshine: boolean;
-  has_global_radiation: boolean;
-  is_active: boolean;
-}
-
-function mapGeoSphere(station: GeoSphereStation, smet: string[]): StationData {
-  const feature = FeatureSchema.parse({
-    type: "Feature",
-    id: station.id,
-    geometry: {
-      type: "Point",
-      coordinates: [station.lon, station.lat, station.altitude]
-    },
-    properties: {
-      name: station.name
-        .toLocaleLowerCase("de")
-        // capitalize "ACHENKIRCH CAMPINGPLATZ"
-        .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
-      operator: "GeoSphere Austria",
-      operatorLink: "https://www.geosphere.at/",
-      operatorLicense: "CC BY 4.0",
-      operatorLicenseLink:
-        "https://creativecommons.org/licenses/by/4.0/legalcode"
-    }
-  });
-  const data = new StationData(feature);
-  data.$smet = smet;
-  return data;
 }

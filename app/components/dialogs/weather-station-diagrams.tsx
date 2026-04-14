@@ -54,14 +54,6 @@ const timeRanges = {
 
 type TimeRange = keyof typeof timeRanges;
 
-const timeRangesMilli: Record<TimeRange, number> = {
-  day: 24 * 3600e3,
-  threedays: 3 * 24 * 3600e3,
-  week: 7 * 24 * 3600e3,
-  month: 31 * 24 * 3600e3,
-  winter: 183 * 24 * 3600e3
-};
-
 export interface Props {
   stationData: (StationData | ObserverData)[];
   stationId: string;
@@ -264,15 +256,10 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   if (hasInteractivePlot(station) && station instanceof StationData) {
-    const end = new Date().toISOString();
-    const start = new Date(
-      Date.parse(end) - (timeRangesMilli[timeRange] ?? timeRangesMilli["week"])
-    ).toISOString();
     const id = station.properties?.shortName || station.id;
     const smet = station.$smet?.map(smet =>
-      window.config.template(smet, { start, end, id })
+      window.config.template(smet, { id })
     );
-    /// https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata
     return (
       <div className="uplots">
         <linea-plot
