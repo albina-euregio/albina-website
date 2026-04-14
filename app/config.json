@@ -320,6 +320,20 @@
       },
       {
         "smet": [
+          "https://smet.hydrographie.info/{id}.smet",
+          "https://smet.hydrographie.info/{id}_6m.smet"
+        ],
+        "smetOperators": "ARPA FVG",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://smet.hydrographie.info/stations_fvg_destiny.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "ARPA FVG"
+      },
+      {
+        "smet": [
           "https://www.salzburg.gv.at/lawine/smet/woche/{id}.smet.gz",
           "https://www.salzburg.gv.at/lawine/smet/winter/{id}.smet.gz"
         ],
