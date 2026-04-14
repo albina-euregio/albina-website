@@ -16,6 +16,7 @@
     "AT-07",
     "IT-32-BZ",
     "IT-32-TN",
+    "IT-36",
     "AT-08"
   ],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
@@ -317,6 +318,20 @@
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
+      },
+      {
+        "smet": [
+          "https://smet.hydrographie.info/{id}.smet",
+          "https://smet.hydrographie.info/{id}_6m.smet"
+        ],
+        "smetOperators": "ARPA FVG",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://smet.hydrographie.info/stations_fvg_destiny.geojson",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "ARPA FVG"
       },
       {
         "smet": [
