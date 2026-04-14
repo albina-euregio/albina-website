@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
 import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/listing-legacy";
@@ -198,12 +198,20 @@ export function useStationData(
     (sortDir: "asc" | "desc") => redirectPageQuery({ sortDir })
   ];
 
-  const [activeRegion, setActiveRegion] = [
-    router?.search.activeRegion || router?.search.province || "all",
-    (activeRegion: string | "" | "all" | null | undefined) =>
-      // activate all if undefined or null is given
-      redirectPageQuery({ activeRegion: activeRegion ?? "all" })
-  ];
+  const activeRegionFromRouter =
+    router?.search.activeRegion || router?.search.province || "all";
+  const [activeRegion, setActiveRegionState] = useState(activeRegionFromRouter);
+  useEffect(() => {
+    setActiveRegionState(activeRegionFromRouter);
+  }, [activeRegionFromRouter]);
+  const setActiveRegion = (
+    activeRegion: string | "" | "all" | null | undefined
+  ) => {
+    const nextActiveRegion = activeRegion ?? "all";
+    setActiveRegionState(nextActiveRegion);
+    // Keep deep-link query in sync with the UI state.
+    redirectPageQuery({ activeRegion: nextActiveRegion });
+  };
 
   const [activeData, setActiveData] = useState({
     snow: true,

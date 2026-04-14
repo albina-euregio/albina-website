@@ -31,17 +31,17 @@ const DEFAULT_STATION_PARAMETER: ParameterType = "HS";
 type ObserverFeature = ObserverData & { province?: string };
 const AUSTRIAN_OBSERVER_PROVINCES: Record<string, string> = {
   Boden: "AT-07",
-  Dolomitenhuette: "AT-02",
-  FelbertauernNord: "AT-02",
-  FelbertauernSued: "AT-02",
+  Dolomitenhuette: "AT-07",
+  FelbertauernNord: "AT-07",
+  FelbertauernSued: "AT-07",
   Kaunertal: "AT-07",
   Kuehtai: "AT-07",
   Nauders: "AT-07",
   Nordkette: "AT-07",
   Obergurgl: "AT-07",
-  Obertilliach: "AT-02",
+  Obertilliach: "AT-07",
   Steeg: "AT-07",
-  StVeit: "AT-02"
+  StVeit: "AT-07"
 };
 
 function parseDateTimeSearchParam(dateTime?: string) {
@@ -214,7 +214,7 @@ function StationDashboard() {
 
   const stationOverlay = (
     <StationOverlay
-      key={"stations"}
+      key={`stations-${selectedParameter}-${activeRegion}-${normalizedSearch}`}
       onMarkerSelected={feature => {
         setStationId(feature.id);
       }}
@@ -234,7 +234,7 @@ function StationDashboard() {
 
   const observerOverlay = (
     <StationOverlay
-      key={"observers"}
+      key={`observers-${activeRegion}-${normalizedSearch}`}
       onMarkerSelected={feature => {
         setStationId(feature.id);
       }}
