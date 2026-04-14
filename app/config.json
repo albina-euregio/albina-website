@@ -426,6 +426,19 @@
         "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
+      },
+      {
+        "smet": [
+          "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/station/{id}/measurements?period_in_days=7"
+        ],
+        "smetOperators": "SLF",
+        "png": "",
+        "pngOperators": "---",
+        "stations": "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/stations",
+        "stationsDateTime": "",
+        "stationsArchive": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
       }
     ]
   },

@@ -376,8 +376,8 @@ export async function loadStationData({
       }
 
       if (
-        url ===
-        "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
+        url.includes("dataset.api.hub.geosphere.at") ||
+        url.includes("measurement-api.slf.ch")
       ) {
         if (ogd) return [];
         const features = await fetchAll(c => c.geojson === url);
