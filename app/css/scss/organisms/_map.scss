@@ -696,8 +696,18 @@ $search-width-wide: 300px;
   @media screen and (max-width: #{bounds.upper-bound(variables.$tiny-range)}) {
     .station-dashboard-filter__bar {
       position: relative;
-      // reserve room for the collapsed icon button so flex items don't underlap it
-      padding-right: 2.25rem;
+      // reserve room for the collapsed icon button plus the same gap used between flex items
+      padding-right: 2.25rem + variables.$padding * 0.75;
+    }
+
+    .station-dashboard-filter__date {
+      min-width: 0;
+      flex-shrink: 1;
+
+      .pure-form input {
+        min-width: 0;
+        width: 100%;
+      }
     }
 
     .station-dashboard-filter__search {
