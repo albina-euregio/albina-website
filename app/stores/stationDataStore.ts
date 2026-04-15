@@ -375,6 +375,17 @@ export async function loadStationData({
         smet = smet.map(s => s.slice("https:/".length));
       }
 
+      if (
+        url ===
+        "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
+      ) {
+        if (ogd) return [];
+        const features = await fetchAll(c => c.geojson === url);
+        const stations = features.map(feature => new StationData(feature));
+        consumer?.(stations);
+        return stations;
+      }
+
       try {
         let response = await fetch(url, { cache: "no-cache" });
         if (!response.ok) throw new Error(response.statusText);
@@ -389,17 +400,6 @@ export async function loadStationData({
             .stream()
             .pipeThrough(new DecompressionStream("gzip"));
           response = new Response(stream);
-        }
-
-        if (
-          url ===
-          "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
-        ) {
-          if (ogd) return [];
-          const features = await fetchAll(c => c.geojson === url);
-          const stations = features.map(feature => new StationData(feature));
-          consumer?.(stations);
-          return stations;
         }
 
         const json = await response.json();
