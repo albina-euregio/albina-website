@@ -41,7 +41,7 @@ const LocalizedText: FunctionComponent<{
   const lang = intl.locale.slice(0, 2);
   // bulletins are loaded in correct language
   if (!text) return <></>;
-  text = text.replace(/&lt;br\/&gt;/g, "<br/>");
+  text = text.replace(/&lt;br\/&gt;/g, "<br/>").replace(/\n/g, "<br/>");
   if (text !== text170000 && text170000 && showDiff > 0) {
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
