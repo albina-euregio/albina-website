@@ -157,6 +157,12 @@ function StationDashboard() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
       const ps = AVAILABLE_PARAMETERS;
       const index = ps.findIndex(p => p.id === selectedParameter);
       if (e.key === "n") {
