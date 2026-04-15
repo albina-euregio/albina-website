@@ -301,7 +301,6 @@
         "pngOperators": "BOKU|Firma Hella|Diverse|GeoSphere Austria|Esercito-Meteomont|Eurac Research",
         "stations": "https://static.avalanche.report/weather_stations/linea.geojson.gz",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson.gz?v=legacy",
-        "stationsArchive": "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson?v=legacy",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
       },
@@ -315,7 +314,6 @@
         "pngOperators": "---",
         "stations": "https://smet.hydrographie.info/stations_ktn_destiny.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
       },
@@ -329,7 +327,6 @@
         "pngOperators": "---",
         "stations": "https://smet.hydrographie.info/stations_fvg_destiny.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "ARPA FVG"
       },
@@ -343,7 +340,6 @@
         "pngOperators": "LWD Salzburg.*",
         "stations": "https://www.salzburg.gv.at/lawine/smet/linea.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
@@ -357,7 +353,6 @@
         "pngOperators": "---",
         "stations": "https://oebb.infra.tbbm.at/smet/linea.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
@@ -368,7 +363,6 @@
         "pngOperators": "",
         "stations": "https://lawinen.at/smet/stm/stations_stm.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -379,7 +373,6 @@
         "pngOperators": "---",
         "stations": "https://lawinen.at/smet/noe/stations_noe.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -390,7 +383,6 @@
         "pngOperators": "---",
         "stations": "https://lawinen.at/smet/ooe/stations_ooe.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -401,7 +393,6 @@
         "pngOperators": "---",
         "stations": "https://lawinen.at/smet/vor/stations_vor.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -412,7 +403,6 @@
         "pngOperators": "---",
         "stations": "https://lawinen.at/smet/bay/stations_bay.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -423,7 +413,6 @@
         "pngOperators": "---",
         "stations": "https://lawinen.at/smet/slo/stations_slo.geojson",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -436,7 +425,6 @@
         "pngOperators": "---",
         "stations": "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/stations",
         "stationsDateTime": "",
-        "stationsArchive": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       }

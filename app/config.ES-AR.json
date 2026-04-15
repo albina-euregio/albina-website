@@ -215,7 +215,6 @@
       "observers": "https://stations.invalid/",
       "stations": "https://static-aludes.aragon.es/weather_stations/stations.geojson",
       "stationsDateTime": "https://static-aludes.aragon.es/weather_stations/{dateTime}stations.geojson",
-      "stationsArchive": "https://stations.invalid/",
       "stationsArchiveFile": "https://stations.invalid/",
       "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
     }
