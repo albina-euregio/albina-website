@@ -29,7 +29,7 @@
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
   "dependencies": {
-    "@albina-euregio/linea": "^8.20.0",
+    "@albina-euregio/linea": "^8.21.0",
     "@eaws/micro-regions_elevation_properties": "^8.4.0",
     "@eaws/micro-regions_names": "^8.4.0",
     "@eaws/micro-regions_properties": "^8.4.0",

@@ -270,6 +270,7 @@ const StationDiagramImage: React.FC<{
           showsurfacehoarseries
           showexport
           showdatepicker
+          forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
         />
       </div>
     );
@@ -293,6 +294,7 @@ const StationDiagramImage: React.FC<{
         wintersrc={url}
         showdatepicker
         showonlywinter
+        forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
       />
     );
   }
