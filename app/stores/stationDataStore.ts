@@ -19,7 +19,6 @@ export class StationData {
   $smet: string[] | undefined;
   $png: string | undefined;
   $stationsArchiveFile: string | undefined;
-  $license: "CC-BY" | undefined;
 
   constructor(object: {
     id: Feature["id"];
@@ -417,8 +416,10 @@ export async function loadStationData({
             const operator = feature.properties.operator ?? "";
             data.$smet = new RegExp(smetOperators).test(operator) ? smet : [];
             data.$png = new RegExp(pngOperators).test(operator) ? png : "";
-            data.$license = new RegExp(licenseCCBY ?? "---").test(operator)
-              ? "CC-BY"
+            data.properties.operatorLicense ??= new RegExp(
+              licenseCCBY ?? "---"
+            ).test(operator)
+              ? "CC BY 4.0"
               : undefined;
             data.$stationsArchiveFile = stationsArchiveFile;
 

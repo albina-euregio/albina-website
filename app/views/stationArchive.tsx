@@ -41,7 +41,10 @@ const StationArchive = () => {
   } = useStationData("name", "", true);
 
   const sortedFilteredDataCCBY = useMemo(
-    () => sortedFilteredData.filter(d => d.$license === "CC-BY"),
+    () =>
+      sortedFilteredData.filter(
+        d => d.properties.operatorLicense === "CC BY 4.0"
+      ),
     [sortedFilteredData]
   );
 
