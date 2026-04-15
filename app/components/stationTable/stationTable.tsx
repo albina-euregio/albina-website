@@ -263,13 +263,14 @@ export default function StationTable(props: Props) {
   const sortTitle = (id: keyof StationData, dir: SortDir) =>
     intl.formatMessage({
       id:
-        "measurements:table:" +
-        (props.sortValue == id ? "sort-toggle" : "sort-" + dir)
+        props.sortValue == id
+          ? "measurements:table:sort-toggle"
+          : `measurements:table:sort-${dir}`
     });
 
   function title(id: keyof StationData) {
     return intl.formatMessage({
-      id: "measurements:table:header:" + id
+      id: `measurements:table:header:${id}`
     });
   }
 
