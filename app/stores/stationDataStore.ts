@@ -3,7 +3,6 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/listing-legacy";
 import {
   FeatureCollectionSchema,
   FeatureSchema
@@ -402,12 +401,9 @@ export async function loadStationData({
         }
 
         const json = await response.json();
-        const searchParams = new URL(url, location.href).searchParams;
-        const isLegacy = searchParams.get("v") === "legacy";
-        const schema = isLegacy
-          ? LegacyFeatureCollectionSchema
-          : FeatureCollectionSchema;
-        const collection = schema.parse(json, { reportInput: true });
+        const collection = FeatureCollectionSchema.parse(json, {
+          reportInput: true
+        });
         const stations = collection.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
