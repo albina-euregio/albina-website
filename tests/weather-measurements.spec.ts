@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test("weather/measurements", async ({ page }) => {
-  await page.goto("weather/measurements");
+test("weather/stations?view=table", async ({ page }) => {
+  await page.goto("weather/stations?view=table");
 
   // Wait for table data to load - first data row should be visible
   const firstRow = page.getByRole("row").nth(1);
