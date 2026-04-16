@@ -5,7 +5,7 @@ import WeatherStationDialog, {
 import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
-import LeafletMap from "../leaflet/leaflet-map.tsx";
+import { LeafletMapOpenTopo } from "../leaflet/leaflet-map.tsx";
 import { Bulletin } from "../../stores/bulletin/CAAMLv6";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
@@ -209,27 +209,14 @@ export function AdditionalBulletinInformation({
           overflow: "hidden"
         }}
       >
-        <LeafletMap
+        <LeafletMapOpenTopo
           key={`${bulletin.bulletinID}-${region}`}
           loaded={true}
           gestureHandling={false}
           controls={null}
           onInit={() => {}}
           mapConfigOverride={{
-            bounds,
-            maxZoom: 14
-          }}
-          tileLayerConfigOverride={{
-            maxNativeZoom: 10,
-            maxZoom: 10
-          }}
-          secondaryTileLayerConfigOverride={{
-            url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-            attribution:
-              "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
-            maxNativeZoom: 17,
-            minZoom: 10.25,
-            maxZoom: 14
+            bounds
           }}
           overlays={overlays}
         />

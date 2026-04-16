@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
 import StationOverlay from "../components/weather/station-overlay";
-import LeafletMap from "../components/leaflet/leaflet-map";
+import { LeafletMapOpenTopo } from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
@@ -265,7 +265,7 @@ function StationDashboard() {
         onParameterChange={setSelectedParameter}
       />
       <div className="section-map">
-        <LeafletMap
+        <LeafletMapOpenTopo
           loaded={true}
           gestureHandling={false}
           controls={null}
@@ -277,8 +277,6 @@ function StationDashboard() {
           onInit={e => {
             e.invalidateSize();
           }}
-          mapConfigOverride={{ maxZoom: 12 }}
-          tileLayerConfigOverride={{ maxZoom: 12 }}
           overlays={overlays}
         />
       </div>
