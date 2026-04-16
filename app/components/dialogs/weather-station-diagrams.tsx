@@ -7,6 +7,7 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
+import { Feature } from "@albina-euregio/linea/listing";
 
 declare module "react/jsx-runtime" {
   // oxlint-disable-next-line typescript/no-namespace
@@ -26,20 +27,8 @@ declare module "react/jsx-runtime" {
   }
 }
 
-function hasInteractivePlot(station: StationData | ObserverData) {
+function hasInteractivePlot(station: StationData | Feature) {
   return station instanceof StationData && station.properties.dataURLs?.length;
-}
-
-export interface ObserverData {
-  geometry: {
-    coordinates: number[];
-  };
-  name: string;
-  id: string;
-  plot: string;
-  province?: string;
-  $smet: string;
-  $png: string;
 }
 
 const timeRanges = {
@@ -53,7 +42,7 @@ const timeRanges = {
 type TimeRange = keyof typeof timeRanges;
 
 export interface Props {
-  stationData: (StationData | ObserverData)[];
+  stationData: (StationData | Feature)[];
   stationId: string;
   setStationId: (rowId: string) => void;
 }
@@ -134,9 +123,9 @@ const YearFlipper: React.FC<{
 
 const StationFlipper: React.FC<{
   previous: () => void;
-  previousStation: StationData | ObserverData;
+  previousStation: StationData | Feature;
   next: () => void;
-  nextStation: StationData | ObserverData;
+  nextStation: StationData | Feature;
   children: React.ReactNode;
 }> = ({ previous, previousStation, next, nextStation, children }) => {
   const intl = useIntl();
@@ -217,7 +206,7 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
 };
 
 const TimeRangeButtons: React.FC<{
-  station: StationData | ObserverData;
+  station: StationData | Feature;
   timeRange: TimeRange;
   setTimeRange: (timeRange: TimeRange) => void;
 }> = ({ station, timeRange, setTimeRange }) => {
@@ -225,7 +214,7 @@ const TimeRangeButtons: React.FC<{
   return (
     <ul className="list-inline filter primary">
       {(Object.keys(timeRanges) as TimeRange[])
-        .filter(() => station.$png)
+        .filter(() => station.properties.plot)
         .map(key => (
           <li key={key}>
             <a
@@ -248,7 +237,7 @@ const TimeRangeButtons: React.FC<{
 };
 
 const StationDiagramImage: React.FC<{
-  station: StationData | ObserverData;
+  station: StationData | Feature;
   clientWidth: number;
   selectedYear: number | null;
   timeRange: TimeRange;
@@ -270,10 +259,10 @@ const StationDiagramImage: React.FC<{
 
   if (
     !(station instanceof StationData) &&
-    station.$smet &&
-    import.meta.env.BASE_URL === "/dev/"
+    station.properties.plot &&
+    (import.meta.env.DEV || import.meta.env.BASE_URL === "/dev/")
   ) {
-    const url = station.$smet;
+    const url = station.properties.plot;
     const today = Temporal.Now.plainDateISO();
     const startDate = selectedYear
       ? new Temporal.PlainDate(selectedYear, 9, 1)
@@ -283,7 +272,7 @@ const StationDiagramImage: React.FC<{
     return (
       <linea-plot
         key={url + startDate.toString()}
-        wintersrc={url}
+        features={JSON.stringify([station])}
         showdatepicker
         showonlywinter
         forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
@@ -298,14 +287,19 @@ const StationDiagramImage: React.FC<{
     millisecond: 0
   });
   const width = clientWidth >= 1100 ? 1100 : 800;
-  const src = window.config.template(station.$png ?? "", {
+  const src = window.config.template(station.properties.plot ?? "", {
     width,
     interval: timeRanges[timeRange],
-    name: station.plot,
     year: selectedYear ? "_" + selectedYear : "",
     t
   });
-  return <img alt={station.name} src={src} className="weatherstation-img" />;
+  return (
+    <img
+      alt={station.properties.name}
+      src={src}
+      className="weatherstation-img"
+    />
+  );
 };
 
 const StationOperator: React.FC<{
@@ -354,7 +348,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData.findIndex(e => e.id == stationId);
   }, [stationData, stationId]);
 
-  const nextStation = useMemo((): StationData | ObserverData => {
+  const nextStation = useMemo((): StationData | Feature => {
     let index = stationIndex;
     if (index < stationData.length - 1) {
       index++;
@@ -362,7 +356,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData[index];
   }, [stationData, stationIndex]);
 
-  const previousStation = useMemo((): StationData | ObserverData => {
+  const previousStation = useMemo((): StationData | Feature => {
     let index = stationIndex;
     if (index > 0) {
       index--;

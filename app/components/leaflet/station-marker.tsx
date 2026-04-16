@@ -18,7 +18,6 @@ export interface StationMarkerData {
   operator?: string;
   plainName?: string;
   value: string | "" | "-";
-  plot?: string;
 }
 
 interface Props {

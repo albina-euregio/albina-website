@@ -18,7 +18,6 @@ export class StationData implements z.infer<typeof FeatureSchema> {
   id: Feature["id"];
   geometry: Feature["geometry"];
   properties: Feature["properties"];
-  $png: string | undefined;
   $stationsArchiveFile: string | undefined;
 
   constructor(object: {
@@ -130,10 +129,6 @@ export class StationData implements z.infer<typeof FeatureSchema> {
   }
   get RSWR() {
     return this.properties.RSWR.convertTo("W/m²");
-  }
-
-  get plot() {
-    return this.properties.plot;
   }
 
   get parametersForDialog() {
@@ -388,9 +383,14 @@ export async function loadStationData({
               data.properties.dataURLs = [];
             }
             if (new RegExp(pngOperators).test(operator)) {
-              data.$png = png;
+              data.properties.plot = png.replace(
+                "{name}",
+                data.properties.plot ?? ""
+              );
+            } else {
+              data.properties.plot = undefined;
             }
-            if (!data.properties.dataURLs?.length && !data.$png) {
+            if (!data.properties.dataURLs?.length && !data.properties.plot) {
               return;
             }
             if (new RegExp(licenseCCBY ?? "---").test(operator)) {

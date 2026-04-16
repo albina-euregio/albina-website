@@ -7,7 +7,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
 } from "../components/dialogs/weather-station-dialog";
-import type { ObserverData } from "../components/dialogs/weather-station-diagrams";
+import type { Feature } from "@albina-euregio/linea/listing";
 import StationMapCockpit from "../components/weather/station-map-cockpit";
 import {
   AVAILABLE_PARAMETERS,
@@ -28,7 +28,6 @@ const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 const DATE_TIME_INPUT_LENGTH = "2006-01-02T12".length;
 const DEFAULT_VIEW_MODE = "map";
 const DEFAULT_STATION_PARAMETER: ParameterType = "HS";
-type ObserverFeature = ObserverData & { province?: string };
 const AUSTRIAN_OBSERVER_PROVINCES: Record<string, string> = {
   Boden: "AT-07",
   Dolomitenhuette: "AT-07",
@@ -82,25 +81,32 @@ function getObserverProvince(
   }
 }
 
-export const observers: ObserverFeature[] = [
-  ...BeobachterAT,
-  ...BeobachterIT
-].map(observer => ({
-  geometry: {
-    coordinates: [
-      +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
-      +observer.latitude
-    ]
-  },
-  name: observer.name,
-  id: "observer-" + observer["plot.id"],
-  $smet: BeobachterAT.includes(observer)
-    ? `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
-    : "",
-  $png: "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
-  plot: observer["plot.id"],
-  province: getObserverProvince(observer)
-}));
+export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
+  (observer): Feature => ({
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: [
+        +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
+        +observer.latitude
+      ]
+    },
+    id: "observer-" + observer["plot.id"],
+    properties: {
+      name: observer.name,
+      dataProviderID: "ALBINA",
+      dataURLs: BeobachterAT.includes(observer)
+        ? [
+            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+          ]
+        : undefined,
+      plot: `https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/${observer["plot.id"]}{year}.png?{t}`,
+      microRegionID: getObserverProvince(observer)
+    }
+  })
+);
 
 function StationDashboard() {
   const intl = useIntl();
@@ -211,11 +217,12 @@ function StationDashboard() {
   const filteredObservers =
     normalizedSearch.length > 0
       ? observers.filter(observer =>
-          observer.name.toLowerCase().includes(normalizedSearch)
+          observer.properties.name.toLowerCase().includes(normalizedSearch)
         )
       : observers;
   const regionFilteredObservers = filteredObservers.filter(
-    observer => !selectedRegion || observer.province === selectedRegion
+    observer =>
+      !selectedRegion || observer.properties.microRegionID === selectedRegion
   );
 
   const stationOverlay = (
