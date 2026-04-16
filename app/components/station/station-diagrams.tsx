@@ -170,7 +170,13 @@ const MeasurementValues: React.FC<{ stationData: StationData }> = ({
 }) => {
   const intl = useIntl();
   if (!stationData.parametersForDialog.length) {
-    return <></>;
+    return (
+      <ul className="list-inline weatherstation-info">
+        <li>
+          <StationOperator stationData={stationData} />
+        </li>
+      </ul>
+    );
   }
   return (
     <ul className="list-inline weatherstation-info">
@@ -385,7 +391,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
   const [microRegionId] = isStation ? station.microRegion.split(" ") : "";
-
   return (
     <div className="modal-container">
       <div className="modal-weatherstation" ref={myRef}>
