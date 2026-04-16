@@ -3,7 +3,7 @@ import WeatherStationDialog, {
   useStationId
 } from "../dialogs/weather-station-dialog.tsx";
 import { useStationData } from "../../stores/stationDataStore";
-import { microRegionsBoundsFromBbox } from "../../stores/microRegions";
+import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { LeafletMapOpenTopo } from "../leaflet/leaflet-map.tsx";
 import { Bulletin } from "../../stores/bulletin/CAAMLv6";
@@ -161,7 +161,7 @@ export function AdditionalBulletinInformation({
   );
 
   const bounds = useMemo(() => {
-    const bounds = microRegionsBoundsFromBbox(date, region);
+    const bounds = microRegionBounds(date, region);
     return bounds.isValid() ? bounds : undefined;
   }, [region, date]);
 
