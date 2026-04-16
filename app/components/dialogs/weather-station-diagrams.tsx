@@ -1,3 +1,4 @@
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
@@ -6,7 +7,6 @@ import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
 import { currentSeasonYear } from "../../util/date-season";
 import "@albina-euregio/linea";
 import { useSwipeable } from "react-swipeable";
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 declare module "react/jsx-runtime" {
   // oxlint-disable-next-line typescript/no-namespace
@@ -14,9 +14,7 @@ declare module "react/jsx-runtime" {
     interface IntrinsicElements {
       "linea-plot": DetailedHTMLProps<
         HTMLAttributes<HTMLElement> & {
-          src?: string;
-          lazysrc?: string;
-          wintersrc?: string;
+          features?: string;
           showsurfacehoarseries?: boolean;
           showexport?: boolean;
           showdatepicker?: boolean;
@@ -29,7 +27,7 @@ declare module "react/jsx-runtime" {
 }
 
 function hasInteractivePlot(station: StationData | ObserverData) {
-  return station instanceof StationData && station.$smet?.length;
+  return station instanceof StationData && station.properties.dataURLs?.length;
 }
 
 export interface ObserverData {
@@ -256,17 +254,11 @@ const StationDiagramImage: React.FC<{
   timeRange: TimeRange;
 }> = ({ station, clientWidth, selectedYear, timeRange }) => {
   if (hasInteractivePlot(station) && station instanceof StationData) {
-    const id = station.properties?.shortName || station.id;
-    const smet = station.$smet?.map(smet =>
-      window.config.template(smet, { id })
-    );
     return (
       <div className="uplots">
         <linea-plot
-          key={id}
-          src={smet?.[0]}
-          lazysrc={smet?.[1]}
-          wintersrc={smet?.[2]}
+          key={station.id}
+          features={JSON.stringify([station])}
           showsurfacehoarseries
           showexport
           showdatepicker

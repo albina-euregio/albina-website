@@ -3,19 +3,21 @@ import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
+import { FeatureSchema } from "@albina-euregio/linea/listing";
 import {
-  FeatureCollectionSchema,
-  FeatureSchema
-} from "@albina-euregio/linea/listing";
-import { fetchAll } from "@albina-euregio/linea/fetch-listing";
+  ALBINA,
+  LineaDataProvider,
+  PROVIDERS,
+  SmetDataProvider
+} from "@albina-euregio/linea/providers";
 
 type Feature = z.infer<typeof FeatureSchema>;
 
-export class StationData {
+export class StationData implements z.infer<typeof FeatureSchema> {
+  readonly type = "Feature" as const;
   id: Feature["id"];
   geometry: Feature["geometry"];
   properties: Feature["properties"];
-  $smet: string[] | undefined;
   $png: string | undefined;
   $stationsArchiveFile: string | undefined;
 
@@ -23,12 +25,10 @@ export class StationData {
     id: Feature["id"];
     geometry: Feature["geometry"];
     properties: Feature["properties"];
-    $smet?: string[] | undefined;
   }) {
     this.id = object.id;
     this.geometry = object.geometry;
     this.properties = object.properties;
-    this.$smet = object.$smet;
   }
   get lon() {
     return this.geometry.coordinates[0];
@@ -345,85 +345,60 @@ export async function loadStationData({
 }: LoadOptions = {}): Promise<StationData[]> {
   const all = window.config.apis.stations.map(
     async ({
-      smet,
+      dataProviderID,
       smetOperators,
       licenseCCBY,
       png,
       pngOperators,
-      stations: url,
       stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
+      let provider: LineaDataProvider = PROVIDERS.filtered(
+        p => p.dataProviderID === dataProviderID
+      );
+
       if (dateTime instanceof Temporal.ZonedDateTime) {
-        const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
+        if (dataProviderID !== "ALBINA") {
+          throw new Error("Unsupported provider " + dataProviderID);
+        }
         if (!stationsDateTime) {
           return [];
         }
-        url = window.config.template(stationsDateTime, {
-          dateTime: timePrefix
+        const geojsonURL = window.config.template(stationsDateTime, {
+          dateTime: `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
         });
-      }
-
-      if (
-        import.meta.env.DEV &&
-        url.startsWith("https://smet.hydrographie.info/")
-      ) {
-        url = url.slice("https:/".length);
-        smet = smet.map(s => s.slice("https:/".length));
-      }
-
-      if (
-        url.includes("dataset.api.hub.geosphere.at") ||
-        url.includes("measurement-api.slf.ch")
-      ) {
-        if (ogd) return [];
-        const features = await fetchAll(c => c.geojson === url);
-        const stations = features.map(feature => new StationData(feature));
-        consumer?.(stations);
-        return stations;
+        provider = new SmetDataProvider(
+          ALBINA.dataProviderID,
+          ALBINA.regions,
+          geojsonURL,
+          ALBINA.smetURLs
+        );
       }
 
       try {
-        let response = await fetch(url, { cache: "no-cache" });
-        if (!response.ok) throw new Error(response.statusText);
-        if (response.status === 404) return [];
-        if (
-          response.headers.get("Content-Encoding") === "gzip" ||
-          response.headers.get("Content-Type") === "application/gzip" ||
-          response.headers.get("Content-Type") === "application/x-gzip"
-        ) {
-          const blob = await response.blob();
-          const stream = blob
-            .stream()
-            .pipeThrough(new DecompressionStream("gzip"));
-          response = new Response(stream);
-        }
-
-        const json = await response.json();
-        const collection = FeatureCollectionSchema.parse(json, {
-          reportInput: true
-        });
+        const collection = await provider.fetchStationListing();
         const stations = collection.features
           .filter(el => ogd || el.properties.date)
           .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            data.$smet = new RegExp(smetOperators).test(operator) ? smet : [];
-            data.$png = new RegExp(pngOperators).test(operator) ? png : "";
-            data.properties.operatorLicense ??= new RegExp(
-              licenseCCBY ?? "---"
-            ).test(operator)
-              ? "CC BY 4.0"
-              : undefined;
-            data.$stationsArchiveFile = stationsArchiveFile;
-
-            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
+            if (!new RegExp(smetOperators).test(operator)) {
+              data.properties.dataURLs = [];
+            }
+            if (new RegExp(pngOperators).test(operator)) {
+              data.$png = png;
+            }
+            if (!data.properties.dataURLs?.length && !data.$png) {
               return;
             }
+            if (new RegExp(licenseCCBY ?? "---").test(operator)) {
+              data.properties.operatorLicense ??= "CC BY 4.0";
+            }
 
-            if (!data.$smet?.length && !data.$png) {
+            data.$stationsArchiveFile = stationsArchiveFile;
+            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
               return;
             }
 
@@ -433,7 +408,7 @@ export async function loadStationData({
         consumer?.(stations);
         return stations;
       } catch (e) {
-        console.error("Failed fetching station data from " + url, e);
+        console.error("Failed fetching station data from " + dataProviderID, e);
         return [];
       }
     }
