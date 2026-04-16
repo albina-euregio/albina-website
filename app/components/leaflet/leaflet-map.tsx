@@ -102,3 +102,27 @@ const LeafletMap = (props: Props) => {
   );
 };
 export default LeafletMap;
+
+const LeafletMapOpenTopo = (props: Props) => {
+  return LeafletMap({
+    ...props,
+    mapConfigOverride: {
+      ...props.mapConfigOverride,
+      maxZoom: 14
+    },
+    tileLayerConfigOverride: {
+      ...props.tileLayerConfigOverride,
+      maxNativeZoom: 10,
+      maxZoom: 10
+    },
+    secondaryTileLayerConfigOverride: {
+      url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+      attribution:
+        "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
+      maxNativeZoom: 17,
+      minZoom: 10.25,
+      maxZoom: 14
+    }
+  });
+};
+export { LeafletMapOpenTopo };

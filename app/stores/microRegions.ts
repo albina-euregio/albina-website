@@ -1,4 +1,4 @@
-import { eawsRegionsBounds } from "./eawsRegions.ts";
+import { LatLngBounds } from "leaflet";
 
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
@@ -100,10 +100,17 @@ export function microRegionIds(
 
 export function microRegionBounds(
   today: Temporal.PlainDate,
+  microRegionId: string,
   regionCodes = config.regionCodes
-) {
-  return eawsRegionsBounds(
-    regionCodes,
-    regionCode => microRegions(today, [regionCode])?.[0]
+): LatLngBounds {
+  const region = microRegions(today, regionCodes)?.find(
+    r => r.id === microRegionId
   );
+  if (region?.bbox) {
+    return new LatLngBounds([
+      [region.bbox[1], region.bbox[0]],
+      [region.bbox[3], region.bbox[2]]
+    ]);
+  }
+  return new LatLngBounds([]);
 }
