@@ -67,8 +67,14 @@ const StationOverlay = (props: Props) => {
 
     // For "any" mode (used by observers), don't show parameter values
     const isAnyMode = props.itemId === "any";
-    const value = data[props.itemId];
-    const hasValue = value !== undefined && value !== null && value !== false;
+    const valueToTest = isAnyMode
+      ? undefined
+      : (data as unknown as Record<string, unknown>)[props.itemId as string];
+    const value =
+      typeof valueToTest === "number" && Number.isFinite(valueToTest)
+        ? valueToTest
+        : undefined;
+    const hasValue = value !== undefined;
 
     if (value === false) {
       return null;
