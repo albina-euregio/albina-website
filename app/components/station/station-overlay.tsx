@@ -93,6 +93,12 @@ const StationOverlay = (props: Props) => {
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={!hasValue ? "" : intl.formatNumber(value, digits)}
+        zIndexOffset={
+          // Markers with values should render above markers without values
+          !hasValue
+            ? 0 // Markers without values at base level
+            : 1000 + 1000 * Math.round(Math.abs(value)) // Markers with values on top
+        }
         color={
           isAnyMode
             ? (Object.values(props.item.colors)[0] as number[])

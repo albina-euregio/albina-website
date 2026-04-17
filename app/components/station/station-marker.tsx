@@ -30,6 +30,7 @@ interface Props {
   iconAnchor?: L.PointExpression;
   className: string;
   useWeatherStationIcon?: boolean;
+  zIndexOffset?: number;
 }
 
 function getContrastTextColor(
@@ -80,7 +81,8 @@ const StationMarker = ({
   onClick,
   tooltip,
   type,
-  value
+  value,
+  zIndexOffset
 }: Props): React.ReactNode => {
   const icon = useMemo(() => {
     const fill =
@@ -205,12 +207,6 @@ const StationMarker = ({
       </div>`
     });
   }, [className, iconAnchor, color, dataType, direction, itemId, type, value]);
-
-  // Markers with values should render above markers without values
-  const zIndexOffset =
-    value === "" || value === "-"
-      ? 0 // Markers without values at base level
-      : 1000; // Markers with values on top
 
   const marker = useMemo(
     () => (
