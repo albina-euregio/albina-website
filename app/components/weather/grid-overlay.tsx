@@ -31,8 +31,7 @@ class GridOverlay extends React.Component {
       data.geometry.coordinates[0]
     ];
     const markerData: StationMarkerData = {
-      id: data.properties.id,
-      name: data.properties.name
+      id: data.properties.id
     };
 
     return (

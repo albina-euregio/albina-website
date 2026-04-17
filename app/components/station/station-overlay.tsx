@@ -84,12 +84,6 @@ const StationOverlay = (props: Props) => {
     ];
     const markerData: StationMarkerData = {
       id: data.id,
-      name:
-        data.name +
-        " " +
-        (data.province ? `(${data.province}) ` : "") +
-        data.geometry.coordinates[2] +
-        "m",
       value: !hasValue ? "" : intl.formatNumber(value, digits)
     };
 
