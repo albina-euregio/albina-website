@@ -2,7 +2,7 @@ import React from "react";
 import { FeatureGroup } from "react-leaflet";
 import StationMarker, {
   type StationMarkerData
-} from "../leaflet/station-marker";
+} from "../station/station-marker";
 
 class GridOverlay extends React.Component {
   constructor(props) {

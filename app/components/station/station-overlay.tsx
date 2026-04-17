@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import StationMarker, {
-  type StationMarkerData
-} from "../leaflet/station-marker";
+import StationMarker, { type StationMarkerData } from "./station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
