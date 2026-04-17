@@ -83,8 +83,7 @@ const StationOverlay = (props: Props) => {
       data.geometry.coordinates[0]
     ];
     const markerData: StationMarkerData = {
-      id: data.id,
-      value: !hasValue ? "" : intl.formatNumber(value, digits)
+      id: data.id
     };
 
     return (
@@ -96,7 +95,7 @@ const StationOverlay = (props: Props) => {
         tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
-        value={markerData.value}
+        value={!hasValue ? "" : intl.formatNumber(value, digits)}
         color={
           isAnyMode
             ? (Object.values(props.item.colors)[0] as number[])
