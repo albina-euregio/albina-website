@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import StationOverlay from "../components/weather/station-overlay";
+import StationOverlay from "../components/station/station-overlay";
 import { LeafletMapOpenTopo } from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
-} from "../components/weather/station-dialog";
+} from "../components/station/station-dialog";
 import type { Feature } from "@albina-euregio/linea/listing";
-import StationMapCockpit from "../components/weather/station-map-cockpit";
+import StationMapCockpit from "../components/station/station-map-cockpit";
 import {
   AVAILABLE_PARAMETERS,
   ParameterType
-} from "../components/weather/station-parameter-control";
+} from "../components/station/station-parameter-control";
 import ProvinceFilter from "../components/filters/province-filter";
 import SearchField from "../components/organisms/search-field";
-import StationTable from "../components/weather/station-table";
+import StationTable from "../components/station/station-table";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 import { $router, redirectPageQuery } from "../components/router";
