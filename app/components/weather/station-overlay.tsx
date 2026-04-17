@@ -97,8 +97,7 @@ const StationOverlay = (props: Props) => {
         : intl.formatNumberUnit(value, props.item.units, digits),
       operator: data.properties?.operator || undefined,
       plainName: data.name,
-      value: !hasValue ? "" : intl.formatNumber(value, digits),
-      plot: data.plot || undefined
+      value: !hasValue ? "" : intl.formatNumber(value, digits)
     };
 
     return (

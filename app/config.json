@@ -290,140 +290,110 @@
     "blogger": "https://api.avalanche.report/blog/",
     "stations": [
       {
-        "smet": [
-          "https://api.avalanche.report/lawine/grafiken/smet/woche/{id}.smet.gz",
-          "https://api.avalanche.report/lawine/grafiken/smet/winter/{id}.smet.gz",
-          "https://api.avalanche.report/lawine/grafiken/smet/all/{id}.smet.gz"
-        ],
+        "dataProviderID": "ALBINA",
         "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
         "licenseCCBY": "LWD Tirol",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
         "pngOperators": "BOKU|Firma Hella|Diverse|GeoSphere Austria|Esercito-Meteomont|Eurac Research",
-        "stations": "https://static.avalanche.report/weather_stations/linea.geojson",
         "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}linea.geojson.gz",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
       },
       {
-        "smet": [
-          "https://smet.hydrographie.info/{id}.smet",
-          "https://smet.hydrographie.info/{id}_6m.smet"
-        ],
+        "dataProviderID": "AT-02",
         "smetOperators": "LWD Kärnten",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://smet.hydrographie.info/stations_ktn_destiny.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
       },
       {
-        "smet": [
-          "https://smet.hydrographie.info/{id}.smet",
-          "https://smet.hydrographie.info/{id}_6m.smet"
-        ],
+        "dataProviderID": "IT-36",
         "smetOperators": "ARPA FVG",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://smet.hydrographie.info/stations_fvg_destiny.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "ARPA FVG"
       },
       {
-        "smet": [
-          "https://www.salzburg.gv.at/lawine/smet/woche/{id}.smet.gz",
-          "https://www.salzburg.gv.at/lawine/smet/winter/{id}.smet.gz"
-        ],
+        "dataProviderID": "AT-05",
         "smetOperators": "LWD Salzburg.*",
         "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
         "pngOperators": "LWD Salzburg.*",
-        "stations": "https://www.salzburg.gv.at/lawine/smet/linea.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
       {
-        "smet": [
-          "https://oebb.infra.tbbm.at/smet/woche/{id}.smet.gz",
-          "https://oebb.infra.tbbm.at/smet/winter/{id}.smet.gz"
-        ],
+        "dataProviderID": "OEBB",
         "smetOperators": "ÖBB INFRA-SAE",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://oebb.infra.tbbm.at/smet/linea.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
       {
-        "smet": ["https://lawinen.at/smet/stm/woche/{id}.smet.gz"],
+        "dataProviderID": "AT-06",
         "smetOperators": "",
         "png": "",
         "pngOperators": "",
-        "stations": "https://lawinen.at/smet/stm/stations_stm.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": ["https://lawinen.at/smet/noe/woche/{id}.smet.gz"],
+        "dataProviderID": "AT-03",
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/noe/stations_noe.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": ["https://lawinen.at/smet/ooe/woche/{id}.smet.gz"],
+        "dataProviderID": "AT-04",
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/ooe/stations_ooe.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": ["https://lawinen.at/smet/vor/woche/{id}.smet.gz"],
+        "dataProviderID": "AT-08",
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/vor/stations_vor.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": ["https://lawinen.at/smet/bay/woche/{id}.smet.gz"],
+        "dataProviderID": "DE-BY",
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/bay/stations_bay.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": ["https://lawinen.at/smet/slo/woche/{id}.smet.gz"],
+        "dataProviderID": "SI",
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://lawinen.at/smet/slo/stations_slo.geojson",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
       {
-        "smet": [
-          "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/station/{id}/measurements?period_in_days=7"
-        ],
+        "dataProviderID": "SLF",
         "smetOperators": "SLF",
         "png": "",
         "pngOperators": "---",
-        "stations": "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/stations",
         "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"

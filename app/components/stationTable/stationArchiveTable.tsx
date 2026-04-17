@@ -279,9 +279,9 @@ export default function StationArchiveTable(props: Props) {
               </td>
             ))}
             <td>
-              {row.$smet?.[0] && (
+              {row.properties.dataURLs?.[0] && (
                 <a
-                  href={config.template(row.$smet?.[0], {
+                  href={config.template(row.properties.dataURLs?.[0], {
                     id: row.properties.shortName || row.id
                   })}
                   target="_blank"
