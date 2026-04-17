@@ -1,19 +1,14 @@
 import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureSchema } from "@albina-euregio/linea/listing";
 import {
-  ALBINA,
-  LineaDataProvider,
-  PROVIDERS,
-  SmetDataProvider
-} from "@albina-euregio/linea/providers";
+  Feature,
+  FeatureCollectionSchema
+} from "@albina-euregio/linea/listing";
+import { fetchJSON } from "../util/fetch";
 
-type Feature = z.infer<typeof FeatureSchema>;
-
-export class StationData implements z.infer<typeof FeatureSchema> {
+export class StationData implements Feature {
   readonly type = "Feature" as const;
   id: Feature["id"];
   geometry: Feature["geometry"];
@@ -348,42 +343,39 @@ export async function _loadStationData({
   consumer,
   dateTime
 }: LoadOptions = {}): Promise<StationData[]> {
+  let url = config.apis.linea.stations;
+
+  if (dateTime instanceof Temporal.ZonedDateTime) {
+    url = window.config.template(config.apis.linea.stationsDateTime, {
+      date: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02".length),
+      dateTime: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02T12:00".length)
+        .replace("T", "_")
+        .replace(":", "-")
+    });
+  }
+
+  const json = await fetchJSON(url);
+  const collection = await FeatureCollectionSchema.parseAsync(json);
+
   const all = window.config.apis.stations.map(
-    async ({
+    ({
       dataProviderID,
       smetOperators,
       licenseCCBY,
       png,
       pngOperators,
-      stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
-      let provider: LineaDataProvider = PROVIDERS.filtered(
-        p => p.dataProviderID === dataProviderID
-      );
-
-      if (dateTime instanceof Temporal.ZonedDateTime) {
-        if (dataProviderID !== "ALBINA") {
-          throw new Error("Unsupported provider " + dataProviderID);
-        }
-        if (!stationsDateTime) {
-          return [];
-        }
-        const geojsonURL = window.config.template(stationsDateTime, {
-          dateTime: `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
-        });
-        provider = new SmetDataProvider(
-          ALBINA.dataProviderID,
-          ALBINA.regions,
-          geojsonURL,
-          ALBINA.smetURLs
-        );
-      }
-
       try {
-        const collection = await provider.fetchStationListing();
         const stations = collection.features
+          .filter(f => f.properties.dataProviderID === dataProviderID)
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
@@ -398,9 +390,6 @@ export async function _loadStationData({
             } else {
               data.properties.plot = undefined;
             }
-            if (!data.properties.dataURLs?.length && !data.properties.plot) {
-              return;
-            }
             if (new RegExp(licenseCCBY ?? "---").test(operator)) {
               data.properties.operatorLicense ??= "CC BY 4.0";
             }
@@ -411,7 +400,7 @@ export async function _loadStationData({
 
             return data;
           })
-          .filter(d => !!d);
+          .filter(d => d.properties.dataURLs?.length || d.properties.plot);
         consumer?.(stations);
         return stations;
       } catch (e) {
