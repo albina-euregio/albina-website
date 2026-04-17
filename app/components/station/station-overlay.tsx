@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import StationMarker, { type StationMarkerData } from "./station-marker";
+import StationMarker from "./station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
@@ -21,7 +21,7 @@ interface Props {
   onLoading?: () => void;
   item: Domain["item"];
   itemId: "any" | DomainId | ParameterType;
-  onMarkerSelected: (arg0: { id?: string }) => void;
+  onMarkerSelected: (id: string) => void;
   features: StationData[] | unknown[];
   showMarkersWithoutValue?: boolean;
   useWeatherStationIcon?: boolean;
@@ -82,16 +82,13 @@ const StationOverlay = (props: Props) => {
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
     ];
-    const markerData: StationMarkerData = {
-      id: data.id
-    };
 
     return (
       <StationMarker
         type="station"
         key={props.itemId + "-" + data.id}
         itemId={props.itemId}
-        data={markerData}
+        id={data.id}
         tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
@@ -110,8 +107,8 @@ const StationOverlay = (props: Props) => {
             ? data[props.item.direction]
             : false
         }
-        onClick={data => {
-          if (data.id) props.onMarkerSelected(data);
+        onClick={id => {
+          if (id) props.onMarkerSelected(id);
         }}
         useWeatherStationIcon={props.useWeatherStationIcon}
       />

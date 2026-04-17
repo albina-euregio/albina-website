@@ -17,9 +17,9 @@ export interface StationMarkerData {
 
 interface Props {
   coordinates: L.LatLngExpression;
-  data: StationMarkerData;
   tooltip?: string;
-  onClick?: (data: StationMarkerData) => void;
+  id: string;
+  onClick?: (id: string) => void;
   itemId: "any" | string;
   type: string;
   color: string | [number, number, number] | unknown;
@@ -72,7 +72,7 @@ const StationMarker = ({
   className,
   color,
   coordinates,
-  data,
+  id,
   dataType,
   direction,
   iconAnchor,
@@ -222,7 +222,7 @@ const StationMarker = ({
           onClick && {
             click: e => {
               L.DomEvent.stopPropagation(e);
-              onClick(data);
+              onClick(id);
             }
           }
         }
@@ -231,7 +231,7 @@ const StationMarker = ({
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [coordinates, data, icon, tooltip, zIndexOffset]
+    [coordinates, id, icon, tooltip, zIndexOffset]
   );
 
   return marker;

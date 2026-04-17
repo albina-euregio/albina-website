@@ -228,9 +228,7 @@ function StationDashboard() {
   const stationOverlay = (
     <StationOverlay
       key={`stations-${selectedParameter}-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={feature => {
-        setStationId(feature.id);
-      }}
+      onMarkerSelected={id => void setStationId(id)}
       itemId={selectedParameter}
       item={{
         id: selectedParameter,
@@ -248,9 +246,7 @@ function StationDashboard() {
   const observerOverlay = (
     <StationOverlay
       key={`observers-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={feature => {
-        setStationId(feature.id);
-      }}
+      onMarkerSelected={id => void setStationId(id)}
       itemId="any"
       item={{
         id: "name",
