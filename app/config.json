@@ -389,6 +389,14 @@
         "pngOperators": "---",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
+      },
+      {
+        "dataProviderID": "IT-34",
+        "smetOperators": "ARPAV",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
       }
     ]
   },
