@@ -288,14 +288,17 @@
     "push": "https://api.avalanche.report/albina/api/push",
     "subscribe": "https://api.avalanche.report/albina/api/email",
     "blogger": "https://api.avalanche.report/blog/",
+    "linea": {
+      "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
+      "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
+    },
     "stations": [
       {
         "dataProviderID": "ALBINA",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|GeoSphere Austria",
         "licenseCCBY": "LWD Tirol",
         "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "BOKU|Firma Hella|Diverse|GeoSphere Austria|Esercito-Meteomont|Eurac Research",
-        "stationsDateTime": "https://static.avalanche.report/weather_stations/{dateTime}linea.geojson.gz",
+        "pngOperators": "BOKU|Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
         "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
         "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
       },
@@ -304,7 +307,6 @@
         "smetOperators": "LWD Kärnten",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "LWD Kärnten"
       },
@@ -313,7 +315,6 @@
         "smetOperators": "ARPA FVG",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "ARPA FVG"
       },
@@ -322,7 +323,6 @@
         "smetOperators": "LWD Salzburg.*",
         "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
         "pngOperators": "LWD Salzburg.*",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
@@ -331,7 +331,6 @@
         "smetOperators": "ÖBB INFRA-SAE",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       },
@@ -340,7 +339,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -349,7 +347,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -358,7 +355,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -367,7 +363,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -376,7 +371,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -385,7 +379,6 @@
         "smetOperators": "",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": ""
       },
@@ -394,7 +387,6 @@
         "smetOperators": "SLF",
         "png": "",
         "pngOperators": "---",
-        "stationsDateTime": "",
         "stationsArchiveFile": "",
         "stationsArchiveOperators": "---"
       }

@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import StationMarker, {
-  type StationMarkerData
-} from "../leaflet/station-marker";
+import StationMarker from "./station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
@@ -23,7 +21,7 @@ interface Props {
   onLoading?: () => void;
   item: Domain["item"];
   itemId: "any" | DomainId | ParameterType;
-  onMarkerSelected: (arg0: { id?: string }) => void;
+  onMarkerSelected: (id: string) => void;
   features: StationData[] | unknown[];
   showMarkersWithoutValue?: boolean;
   useWeatherStationIcon?: boolean;
@@ -72,6 +70,10 @@ const StationOverlay = (props: Props) => {
     const value = data[props.itemId];
     const hasValue = value !== undefined && value !== null && value !== false;
 
+    if (value === false) {
+      return null;
+    }
+
     // If showMarkersWithoutValue is false (weather-maps), skip markers without values
     if (!props.showMarkersWithoutValue && !hasValue) {
       return null;
@@ -84,32 +86,23 @@ const StationOverlay = (props: Props) => {
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
     ];
-    const markerData: StationMarkerData = {
-      id: data.id,
-      name:
-        data.name +
-        " " +
-        (data.province ? `(${data.province}) ` : "") +
-        data.geometry.coordinates[2] +
-        "m",
-      detail: !hasValue
-        ? "-"
-        : intl.formatNumberUnit(value, props.item.units, digits),
-      operator: data.properties?.operator || undefined,
-      plainName: data.name,
-      value: !hasValue ? "" : intl.formatNumber(value, digits)
-    };
 
     return (
       <StationMarker
         type="station"
         key={props.itemId + "-" + data.id}
         itemId={props.itemId}
-        data={markerData}
-        tooltip={data.name}
+        id={data.id}
+        tooltip={data.properties.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
-        value={markerData.value}
+        value={!hasValue ? "" : intl.formatNumber(value, digits)}
+        zIndexOffset={
+          // Markers with values should render above markers without values
+          !hasValue
+            ? 0 // Markers without values at base level
+            : 1000 + 1000 * Math.round(Math.abs(value)) // Markers with values on top
+        }
         color={
           isAnyMode
             ? (Object.values(props.item.colors)[0] as number[])
@@ -124,17 +117,15 @@ const StationOverlay = (props: Props) => {
             ? data[props.item.direction]
             : false
         }
-        onClick={data => {
-          if (data.id) props.onMarkerSelected(data);
+        onClick={id => {
+          if (id) props.onMarkerSelected(id);
         }}
         useWeatherStationIcon={props.useWeatherStationIcon}
       />
     );
   };
 
-  return (props.features as StationData[])
-    .filter(point => (point as Record<string, unknown>)[props.itemId] !== false)
-    .map(point => renderMarker(point));
+  return (props.features as StationData[]).map(point => renderMarker(point));
 };
 
 export default StationOverlay;

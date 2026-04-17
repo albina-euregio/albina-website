@@ -1,15 +1,14 @@
-import type { MessageId } from "../../i18n";
-import type { FeatureSchema } from "@albina-euregio/linea/listing";
+import type { ListingParameterType, Unit } from "@albina-euregio/linea/listing";
 
-export type ParameterType = keyof typeof FeatureSchema.shape.properties.shape;
+export type ParameterType = ListingParameterType;
 
 export interface ParameterOption {
   id: ParameterType;
-  label: MessageId;
-  unit: string;
+  label: `measurements:table:header:${ParameterType}`;
+  unit: Unit;
   thresholds: number[];
   colors: Record<number, [number, number, number]>;
-  direction?: string | false;
+  direction: "DW" | false;
 }
 
 export const AVAILABLE_PARAMETERS: ParameterOption[] = [

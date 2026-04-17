@@ -1,19 +1,14 @@
 import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { z } from "zod/mini";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureSchema } from "@albina-euregio/linea/listing";
 import {
-  ALBINA,
-  LineaDataProvider,
-  PROVIDERS,
-  SmetDataProvider
-} from "@albina-euregio/linea/providers";
+  Feature,
+  FeatureCollectionSchema
+} from "@albina-euregio/linea/listing";
+import { fetchJSON } from "../util/fetch";
 
-type Feature = z.infer<typeof FeatureSchema>;
-
-export class StationData implements z.infer<typeof FeatureSchema> {
+export class StationData implements Feature {
   readonly type = "Feature" as const;
   id: Feature["id"];
   geometry: Feature["geometry"];
@@ -40,6 +35,9 @@ export class StationData implements z.infer<typeof FeatureSchema> {
   }
   get name() {
     return this.properties.name;
+  }
+  get operator() {
+    return this.properties.operator;
   }
   get startYear() {
     return this.properties.startYear;
@@ -214,6 +212,9 @@ export function useStationData(
   });
   const [filterStartYear, setfilterStartYear] =
     useState<boolean>(filterStartYear0);
+  const [elevationRange, setElevationRange] = useState<[number, number]>([
+    0, 4000
+  ]);
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -275,21 +276,28 @@ export function useStationData(
       .filter(
         row => !filterStartYear || !activeYear || +row.startYear <= activeYear
       )
+      .filter(
+        row =>
+          typeof row.altitude !== "number" ||
+          (row.altitude >= elevationRange[0] &&
+            row.altitude <= elevationRange[1])
+      )
       .sort((val1, val2) => compareStationData(val1, val2));
   }, [
     activeRegion,
     activeYear,
     compareStationData,
     data,
+    elevationRange,
     filterStartYear,
     searchText
   ]);
 
-  const load = useCallback(
-    async function load({ dateTime, ogd }: LoadOptions = {}): Promise<
+  const loadStationData = useCallback(
+    async function loadStationData({ dateTime }: LoadOptions = {}): Promise<
       StationData[]
     > {
-      const data = await loadStationData({ dateTime, ogd });
+      const data = await _loadStationData({ dateTime });
       data.sort((val1, val2) => compareStationData(val1, val2));
       setData(data);
       setDateTime(dateTime);
@@ -306,8 +314,9 @@ export function useStationData(
     data,
     dateTime,
     dateTimeMax,
+    elevationRange,
     filterStartYear,
-    load,
+    loadStationData,
     minYear,
     searchText,
     setActiveData,
@@ -315,6 +324,7 @@ export function useStationData(
     setActiveYear,
     setData,
     setDateTime,
+    setElevationRange,
     setfilterStartYear,
     setSearchText,
     setSortDir,
@@ -330,52 +340,45 @@ export function useStationData(
 interface LoadOptions {
   consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
-  ogd?: boolean;
 }
 
-export async function loadStationData({
+export async function _loadStationData({
   consumer,
-  dateTime,
-  ogd
+  dateTime
 }: LoadOptions = {}): Promise<StationData[]> {
+  let url = config.apis.linea.stations;
+
+  if (dateTime instanceof Temporal.ZonedDateTime) {
+    url = window.config.template(config.apis.linea.stationsDateTime, {
+      date: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02".length),
+      dateTime: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02T12:00".length)
+        .replace("T", "_")
+        .replace(":", "-")
+    });
+  }
+
+  const json = await fetchJSON(url);
+  const collection = await FeatureCollectionSchema.parseAsync(json);
+
   const all = window.config.apis.stations.map(
-    async ({
+    ({
       dataProviderID,
       smetOperators,
       licenseCCBY,
       png,
       pngOperators,
-      stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
-      let provider: LineaDataProvider = PROVIDERS.filtered(
-        p => p.dataProviderID === dataProviderID
-      );
-
-      if (dateTime instanceof Temporal.ZonedDateTime) {
-        if (dataProviderID !== "ALBINA") {
-          throw new Error("Unsupported provider " + dataProviderID);
-        }
-        if (!stationsDateTime) {
-          return [];
-        }
-        const geojsonURL = window.config.template(stationsDateTime, {
-          dateTime: `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`
-        });
-        provider = new SmetDataProvider(
-          ALBINA.dataProviderID,
-          ALBINA.regions,
-          geojsonURL,
-          ALBINA.smetURLs
-        );
-      }
-
       try {
-        const collection = await provider.fetchStationListing();
         const stations = collection.features
-          .filter(el => ogd || el.properties.date)
-          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+          .filter(f => f.properties.dataProviderID === dataProviderID)
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
@@ -390,21 +393,23 @@ export async function loadStationData({
             } else {
               data.properties.plot = undefined;
             }
-            if (!data.properties.dataURLs?.length && !data.properties.plot) {
-              return;
-            }
             if (new RegExp(licenseCCBY ?? "---").test(operator)) {
               data.properties.operatorLicense ??= "CC BY 4.0";
             }
 
-            data.$stationsArchiveFile = stationsArchiveFile;
-            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
-              return;
+            if (new RegExp(stationsArchiveOperators).exec(operator)) {
+              data.$stationsArchiveFile = stationsArchiveFile;
             }
+            data.properties.dataURLs = data.properties.dataURLs.map(url =>
+              url.replace(
+                "https://measurement-api.slf.ch/public/api/imis/",
+                "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/"
+              )
+            );
 
             return data;
           })
-          .filter(d => !!d);
+          .filter(d => d.properties.dataURLs?.length || d.properties.plot);
         consumer?.(stations);
         return stations;
       } catch (e) {

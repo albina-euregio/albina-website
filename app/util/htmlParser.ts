@@ -1,6 +1,6 @@
 import React, { type AllHTMLAttributes } from "react";
 import htmr from "htmr";
-import { RegionsTables } from "../components/stationTable/regionTable";
+import { RegionsTables } from "../components/organisms/regionTable";
 import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";

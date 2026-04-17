@@ -5,7 +5,7 @@ import { useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import GridOverlay from "./grid-overlay";
-import StationOverlay from "./station-overlay";
+import StationOverlay from "../station/station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
 const WeatherMap = ({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ImageOverlay, useMap } from "react-leaflet";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker from "../station/station-marker";
 import { useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
@@ -106,7 +106,7 @@ const DataOverlay = ({ playerCB }) => {
           key={"dataMarker" + e.latlng}
           itemId="dataMarker"
           iconAnchor={[12.5, 12.5]}
-          data={{}}
+          id={""}
           stationId="dataMarker"
           coordinates={e.latlng}
           color={getColor(pixelData.value)}
@@ -155,7 +155,7 @@ const DataOverlay = ({ playerCB }) => {
             key={`pos-${curV}_${curH}_${currentTime?.toString()}_${curZoom}`}
             itemId="directionMarker"
             iconAnchor={[12, 12]}
-            data={{}}
+            id={{}}
             stationId="directionMarker"
             coordinates={[curV, curH]}
             color={[255, 0, 0]}

@@ -3,9 +3,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-import WeatherStationDialog, {
-  useStationId
-} from "../dialogs/weather-station-dialog";
+import WeatherStationDialog, { useStationId } from "./station-dialog";
 
 type SortDir = "desc" | "asc";
 
@@ -52,6 +50,19 @@ export default function StationTable(props: Props) {
         </span>
       ),
       sortable: true,
+      className: "mb-station m-name"
+    },
+    {
+      data: "operator",
+      render: row => (
+        <a
+          className="region"
+          target="_blank"
+          href={row.properties.operatorLink ?? ""}
+        >
+          {row.operator ?? ""}
+        </a>
+      ),
       className: "mb-station m-name"
     },
     {

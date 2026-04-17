@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import StationOverlay from "../components/weather/station-overlay";
+import StationOverlay from "../components/station/station-overlay";
 import { LeafletMapOpenTopo } from "../components/leaflet/leaflet-map";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
-} from "../components/dialogs/weather-station-dialog";
+} from "../components/station/station-dialog";
 import type { Feature } from "@albina-euregio/linea/listing";
-import StationMapCockpit from "../components/weather/station-map-cockpit";
+import StationMapCockpit from "../components/station/station-map-cockpit";
 import {
   AVAILABLE_PARAMETERS,
   ParameterType
-} from "../components/weather/station-parameter-control";
+} from "../components/station/station-parameter-control";
 import ProvinceFilter from "../components/filters/province-filter";
+import DualRangeSlider from "../components/filters/dual-range-slider";
 import SearchField from "../components/organisms/search-field";
-import StationTable from "../components/stationTable/stationTable";
+import StationTable from "../components/station/station-table";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 import { $router, redirectPageQuery } from "../components/router";
@@ -88,7 +89,8 @@ export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
       type: "Point",
       coordinates: [
         +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
-        +observer.latitude
+        +observer.latitude,
+        +observer.altitude
       ]
     },
     id: "observer-" + observer["plot.id"],
@@ -138,10 +140,12 @@ function StationDashboard() {
     activeRegion,
     dateTime,
     dateTimeMax,
-    load,
+    elevationRange,
+    loadStationData,
     data,
     searchText,
     setActiveRegion: setStoreActiveRegion,
+    setElevationRange,
     setSearchText,
     sortBy,
     sortDir,
@@ -150,12 +154,12 @@ function StationDashboard() {
   } = useStationData();
   const setActiveRegion = (region: string) =>
     setStoreActiveRegion(region === "all" ? "" : region);
-  const loadRef = useRef(load);
+  const loadRef = useRef(loadStationData);
   useHiddenFooter();
 
   useEffect(() => {
-    loadRef.current = load;
-  }, [load]);
+    loadRef.current = loadStationData;
+  }, [loadStationData]);
 
   useEffect(() => {
     loadRef.current({ dateTime: parseDateTimeSearchParam(dateTimeQuery) });
@@ -214,23 +218,27 @@ function StationDashboard() {
     : undefined;
 
   const normalizedSearch = (searchText || "").trim().toLowerCase();
-  const filteredObservers =
-    normalizedSearch.length > 0
-      ? observers.filter(observer =>
-          observer.properties.name.toLowerCase().includes(normalizedSearch)
-        )
-      : observers;
-  const regionFilteredObservers = filteredObservers.filter(
-    observer =>
-      !selectedRegion || observer.properties.microRegionID === selectedRegion
-  );
+  const regionFilteredObservers = observers
+    .filter(
+      observer =>
+        !normalizedSearch ||
+        observer.properties.name.toLowerCase().includes(normalizedSearch)
+    )
+    .filter(
+      observer =>
+        !selectedRegion || observer.properties.microRegionID === selectedRegion
+    )
+    .filter(
+      observer =>
+        typeof observer.geometry?.coordinates?.[2] !== "number" ||
+        (observer.geometry.coordinates[2] >= elevationRange[0] &&
+          observer.geometry.coordinates[2] <= elevationRange[1])
+    );
 
   const stationOverlay = (
     <StationOverlay
       key={`stations-${selectedParameter}-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={feature => {
-        setStationId(feature.id);
-      }}
+      onMarkerSelected={id => void setStationId(id)}
       itemId={selectedParameter}
       item={{
         id: selectedParameter,
@@ -248,9 +256,7 @@ function StationDashboard() {
   const observerOverlay = (
     <StationOverlay
       key={`observers-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={feature => {
-        setStationId(feature.id);
-      }}
+      onMarkerSelected={id => void setStationId(id)}
       itemId="any"
       item={{
         id: "name",
@@ -327,6 +333,21 @@ function StationDashboard() {
               />
             </div>
           </div>
+
+          <div className="station-dashboard-filter__elevation">
+            <DualRangeSlider
+              min={0}
+              max={4000}
+              step={50}
+              value={elevationRange}
+              formatValue={v => intl.formatNumberUnit(v, "m")}
+              label={intl.formatMessage({
+                id: "measurements:table:header:altitude"
+              })}
+              onChange={next => void setElevationRange(next)}
+            />
+          </div>
+
           <div className="station-dashboard-filter__search">
             <SearchField
               handleSearch={setSearchText}

@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import WeatherStationDialog, {
-  useStationId
-} from "../dialogs/weather-station-dialog.tsx";
+import WeatherStationDialog, { useStationId } from "../station/station-dialog";
 import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
@@ -58,8 +56,8 @@ function isObservation(value: unknown): value is Observation {
 
 function useWeatherStations() {
   const [stationId, setStationId] = useStationId();
-  const { data, load } = useStationData("microRegion");
-  useEffect(() => void load(), [load]);
+  const { data, loadStationData } = useStationData("microRegion");
+  useEffect(() => void loadStationData(), [loadStationData]);
 
   const stationMarkers = useMemo(
     () =>

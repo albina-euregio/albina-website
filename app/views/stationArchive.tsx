@@ -10,7 +10,7 @@ import YearFilter from "../components/filters/year-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import HTMLHeader from "../components/organisms/html-header";
-import StationArchiveTable from "../components/stationTable/stationArchiveTable";
+import StationArchiveTable from "../components/station/station-table-archive";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 
@@ -27,7 +27,7 @@ const StationArchive = () => {
     activeData,
     activeRegion,
     activeYear,
-    load,
+    loadStationData,
     searchText,
     setActiveRegion,
     setActiveYear,
@@ -42,15 +42,13 @@ const StationArchive = () => {
 
   const sortedFilteredDataCCBY = useMemo(
     () =>
-      sortedFilteredData.filter(
-        d => d.properties.operatorLicense === "CC BY 4.0"
-      ),
+      sortedFilteredData
+        .filter(d => d.properties.operatorLicense === "CC BY 4.0")
+        .filter(d => d.$stationsArchiveFile),
     [sortedFilteredData]
   );
 
-  useEffect(() => {
-    load({ ogd: true });
-  }, [load]);
+  useEffect(() => void loadStationData(), [loadStationData]);
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = [

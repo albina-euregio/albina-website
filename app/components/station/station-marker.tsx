@@ -13,18 +13,13 @@ const iconSVGS = {
 
 export interface StationMarkerData {
   id: string;
-  name: string;
-  detail: string;
-  operator?: string;
-  plainName?: string;
-  value: string | "" | "-";
 }
 
 interface Props {
   coordinates: L.LatLngExpression;
-  data: StationMarkerData;
   tooltip?: string;
-  onClick?: (data: StationMarkerData) => void;
+  id: string;
+  onClick?: (id: string) => void;
   itemId: "any" | string;
   type: string;
   color: string | [number, number, number] | unknown;
@@ -35,6 +30,7 @@ interface Props {
   iconAnchor?: L.PointExpression;
   className: string;
   useWeatherStationIcon?: boolean;
+  zIndexOffset?: number;
 }
 
 function getContrastTextColor(
@@ -77,7 +73,7 @@ const StationMarker = ({
   className,
   color,
   coordinates,
-  data,
+  id,
   dataType,
   direction,
   iconAnchor,
@@ -85,7 +81,8 @@ const StationMarker = ({
   onClick,
   tooltip,
   type,
-  value
+  value,
+  zIndexOffset
 }: Props): React.ReactNode => {
   const icon = useMemo(() => {
     const fill =
@@ -211,14 +208,6 @@ const StationMarker = ({
     });
   }, [className, iconAnchor, color, dataType, direction, itemId, type, value]);
 
-  // Markers with values should render above markers without values
-  const zIndexOffset = useMemo(() => {
-    if (value === "" || value === "-") {
-      return 0; // Markers without values at base level
-    }
-    return 1000; // Markers with values on top
-  }, [value]);
-
   const marker = useMemo(
     () => (
       <Marker
@@ -229,7 +218,7 @@ const StationMarker = ({
           onClick && {
             click: e => {
               L.DomEvent.stopPropagation(e);
-              onClick(data);
+              onClick(id);
             }
           }
         }
@@ -238,7 +227,7 @@ const StationMarker = ({
       </Marker>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [coordinates, data, icon, tooltip, zIndexOffset]
+    [coordinates, id, icon, tooltip, zIndexOffset]
   );
 
   return marker;
