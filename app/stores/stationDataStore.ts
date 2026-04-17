@@ -401,10 +401,15 @@ export async function _loadStationData({
               data.$stationsArchiveFile = stationsArchiveFile;
             }
             data.properties.dataURLs = data.properties.dataURLs.map(url =>
-              url.replace(
-                "https://measurement-api.slf.ch/public/api/imis/",
-                "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/"
-              )
+              url
+                .replace(
+                  "https://measurement-api.slf.ch/public/api/imis/",
+                  "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/"
+                )
+                .replace(
+                  "https://meteo.arpa.veneto.it/meteo/dati_meteo/",
+                  "https://api.avalanche.report/meteo.arpa.veneto.it/meteo/dati_meteo/"
+                )
             );
 
             return data;
