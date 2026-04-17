@@ -212,12 +212,10 @@ const StationMarker = ({
   }, [className, iconAnchor, color, dataType, direction, itemId, type, value]);
 
   // Markers with values should render above markers without values
-  const zIndexOffset = useMemo(() => {
-    if (value === "" || value === "-") {
-      return 0; // Markers without values at base level
-    }
-    return 1000; // Markers with values on top
-  }, [value]);
+  const zIndexOffset =
+    value === "" || value === "-"
+      ? 0 // Markers without values at base level
+      : 1000; // Markers with values on top
 
   const marker = useMemo(
     () => (
