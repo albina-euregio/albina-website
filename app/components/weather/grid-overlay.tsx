@@ -32,8 +32,7 @@ class GridOverlay extends React.Component {
     ];
     const markerData: StationMarkerData = {
       id: data.properties.id,
-      name: data.properties.name,
-      detail: value + " " + this.props.item.units
+      name: data.properties.name
     };
 
     return (

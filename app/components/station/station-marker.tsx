@@ -14,7 +14,6 @@ const iconSVGS = {
 export interface StationMarkerData {
   id: string;
   name: string;
-  detail: string;
   operator?: string;
   plainName?: string;
   value: string | "" | "-";
