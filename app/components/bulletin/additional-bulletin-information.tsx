@@ -56,8 +56,8 @@ function isObservation(value: unknown): value is Observation {
 
 function useWeatherStations() {
   const [stationId, setStationId] = useStationId();
-  const { data, load } = useStationData("microRegion");
-  useEffect(() => void load(), [load]);
+  const { data, loadStationData } = useStationData("microRegion");
+  useEffect(() => void loadStationData(), [loadStationData]);
 
   const stationMarkers = useMemo(
     () =>

@@ -141,7 +141,7 @@ function StationDashboard() {
     dateTime,
     dateTimeMax,
     elevationRange,
-    load,
+    loadStationData,
     data,
     searchText,
     setActiveRegion: setStoreActiveRegion,
@@ -154,12 +154,12 @@ function StationDashboard() {
   } = useStationData();
   const setActiveRegion = (region: string) =>
     setStoreActiveRegion(region === "all" ? "" : region);
-  const loadRef = useRef(load);
+  const loadRef = useRef(loadStationData);
   useHiddenFooter();
 
   useEffect(() => {
-    loadRef.current = load;
-  }, [load]);
+    loadRef.current = loadStationData;
+  }, [loadStationData]);
 
   useEffect(() => {
     loadRef.current({ dateTime: parseDateTimeSearchParam(dateTimeQuery) });

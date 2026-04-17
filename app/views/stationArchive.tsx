@@ -27,7 +27,7 @@ const StationArchive = () => {
     activeData,
     activeRegion,
     activeYear,
-    load,
+    loadStationData,
     searchText,
     setActiveRegion,
     setActiveYear,
@@ -49,8 +49,8 @@ const StationArchive = () => {
   );
 
   useEffect(() => {
-    load({ ogd: true });
-  }, [load]);
+    loadStationData({ ogd: true });
+  }, [loadStationData]);
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = [

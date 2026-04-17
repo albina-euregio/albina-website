@@ -295,10 +295,11 @@ export function useStationData(
     searchText
   ]);
 
-  const load = useCallback(
-    async function load({ dateTime, ogd }: LoadOptions = {}): Promise<
-      StationData[]
-    > {
+  const loadStationData = useCallback(
+    async function loadStationData({
+      dateTime,
+      ogd
+    }: LoadOptions = {}): Promise<StationData[]> {
       const data = await loadStationData({ dateTime, ogd });
       data.sort((val1, val2) => compareStationData(val1, val2));
       setData(data);
@@ -318,7 +319,7 @@ export function useStationData(
     dateTimeMax,
     elevationRange,
     filterStartYear,
-    load,
+    loadStationData,
     minYear,
     searchText,
     setActiveData,
