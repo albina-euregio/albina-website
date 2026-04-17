@@ -296,11 +296,10 @@ export function useStationData(
   ]);
 
   const loadStationData = useCallback(
-    async function loadStationData({
-      dateTime,
-      ogd
-    }: LoadOptions = {}): Promise<StationData[]> {
-      const data = await loadStationData({ dateTime, ogd });
+    async function loadStationData({ dateTime }: LoadOptions = {}): Promise<
+      StationData[]
+    > {
+      const data = await _loadStationData({ dateTime });
       data.sort((val1, val2) => compareStationData(val1, val2));
       setData(data);
       setDateTime(dateTime);
@@ -343,13 +342,11 @@ export function useStationData(
 interface LoadOptions {
   consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
-  ogd?: boolean;
 }
 
-export async function loadStationData({
+export async function _loadStationData({
   consumer,
-  dateTime,
-  ogd
+  dateTime
 }: LoadOptions = {}): Promise<StationData[]> {
   const all = window.config.apis.stations.map(
     async ({
@@ -387,8 +384,6 @@ export async function loadStationData({
       try {
         const collection = await provider.fetchStationListing();
         const stations = collection.features
-          .filter(el => ogd || el.properties.date)
-          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
@@ -410,9 +405,8 @@ export async function loadStationData({
               data.properties.operatorLicense ??= "CC BY 4.0";
             }
 
-            data.$stationsArchiveFile = stationsArchiveFile;
-            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
-              return;
+            if (new RegExp(stationsArchiveOperators).exec(operator)) {
+              data.$stationsArchiveFile = stationsArchiveFile;
             }
 
             return data;

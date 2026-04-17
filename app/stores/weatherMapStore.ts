@@ -1,5 +1,8 @@
 import { atom, computed } from "nanostores";
-import { loadStationData, type StationData } from "./stationDataStore";
+import {
+  _loadStationData as loadStationData,
+  type StationData
+} from "./stationDataStore";
 import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time

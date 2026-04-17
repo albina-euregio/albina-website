@@ -42,15 +42,13 @@ const StationArchive = () => {
 
   const sortedFilteredDataCCBY = useMemo(
     () =>
-      sortedFilteredData.filter(
-        d => d.properties.operatorLicense === "CC BY 4.0"
-      ),
+      sortedFilteredData
+        .filter(d => d.properties.operatorLicense === "CC BY 4.0")
+        .filter(d => d.$stationsArchiveFile),
     [sortedFilteredData]
   );
 
-  useEffect(() => {
-    loadStationData({ ogd: true });
-  }, [loadStationData]);
+  useEffect(() => void loadStationData(), [loadStationData]);
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = [
