@@ -89,7 +89,8 @@ export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
       type: "Point",
       coordinates: [
         +observer.longitude + (longitudeOffset.test(observer.name) ? 0.005 : 0),
-        +observer.latitude
+        +observer.latitude,
+        +observer.altitude
       ]
     },
     id: "observer-" + observer["plot.id"],
