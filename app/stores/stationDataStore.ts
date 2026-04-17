@@ -397,6 +397,12 @@ export async function _loadStationData({
             if (new RegExp(stationsArchiveOperators).exec(operator)) {
               data.$stationsArchiveFile = stationsArchiveFile;
             }
+            data.properties.dataURLs = data.properties.dataURLs.map(url =>
+              url.replace(
+                "https://measurement-api.slf.ch/public/api/imis/",
+                "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/"
+              )
+            );
 
             return data;
           })
