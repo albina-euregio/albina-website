@@ -53,6 +53,19 @@ export default function StationTable(props: Props) {
       className: "mb-station m-name"
     },
     {
+      data: "operator",
+      render: row => (
+        <a
+          className="region"
+          target="_blank"
+          href={row.properties.operatorLink ?? ""}
+        >
+          {row.operator ?? ""}
+        </a>
+      ),
+      className: "mb-station m-name"
+    },
+    {
       // Regionsname <br> (Tirol)
       data: "microRegion",
       render: row =>

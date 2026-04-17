@@ -57,6 +57,19 @@ export default function StationArchiveTable(props: Props) {
       className: "mb-station m-name"
     },
     {
+      data: "operator",
+      render: (_value, row) => (
+        <a
+          className="region"
+          target="_blank"
+          href={row.properties.operatorLink ?? ""}
+        >
+          {row.operator ?? ""}
+        </a>
+      ),
+      className: "mb-station m-name"
+    },
+    {
       // Region name <br> (Province)
       data: "microRegion",
       render: (_value, row) => (

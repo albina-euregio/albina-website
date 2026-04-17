@@ -36,6 +36,9 @@ export class StationData implements Feature {
   get name() {
     return this.properties.name;
   }
+  get operator() {
+    return this.properties.operator;
+  }
   get startYear() {
     return this.properties.startYear;
   }
