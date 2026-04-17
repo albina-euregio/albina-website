@@ -214,6 +214,9 @@ export function useStationData(
   });
   const [filterStartYear, setfilterStartYear] =
     useState<boolean>(filterStartYear0);
+  const [elevationRange, setElevationRange] = useState<[number, number]>([
+    0, 4000
+  ]);
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -275,12 +278,19 @@ export function useStationData(
       .filter(
         row => !filterStartYear || !activeYear || +row.startYear <= activeYear
       )
+      .filter(
+        row =>
+          typeof row.altitude !== "number" ||
+          (row.altitude >= elevationRange[0] &&
+            row.altitude <= elevationRange[1])
+      )
       .sort((val1, val2) => compareStationData(val1, val2));
   }, [
     activeRegion,
     activeYear,
     compareStationData,
     data,
+    elevationRange,
     filterStartYear,
     searchText
   ]);
@@ -306,6 +316,7 @@ export function useStationData(
     data,
     dateTime,
     dateTimeMax,
+    elevationRange,
     filterStartYear,
     load,
     minYear,
@@ -315,6 +326,7 @@ export function useStationData(
     setActiveYear,
     setData,
     setDateTime,
+    setElevationRange,
     setfilterStartYear,
     setSearchText,
     setSortDir,

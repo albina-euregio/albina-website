@@ -14,6 +14,7 @@ import {
   ParameterType
 } from "../components/station/station-parameter-control";
 import ProvinceFilter from "../components/filters/province-filter";
+import DualRangeSlider from "../components/filters/dual-range-slider";
 import SearchField from "../components/organisms/search-field";
 import StationTable from "../components/station/station-table";
 import { useStore } from "@nanostores/react";
@@ -138,10 +139,12 @@ function StationDashboard() {
     activeRegion,
     dateTime,
     dateTimeMax,
+    elevationRange,
     load,
     data,
     searchText,
     setActiveRegion: setStoreActiveRegion,
+    setElevationRange,
     setSearchText,
     sortBy,
     sortDir,
@@ -214,16 +217,22 @@ function StationDashboard() {
     : undefined;
 
   const normalizedSearch = (searchText || "").trim().toLowerCase();
-  const filteredObservers =
-    normalizedSearch.length > 0
-      ? observers.filter(observer =>
-          observer.properties.name.toLowerCase().includes(normalizedSearch)
-        )
-      : observers;
-  const regionFilteredObservers = filteredObservers.filter(
-    observer =>
-      !selectedRegion || observer.properties.microRegionID === selectedRegion
-  );
+  const regionFilteredObservers = observers
+    .filter(
+      observer =>
+        !normalizedSearch ||
+        observer.properties.name.toLowerCase().includes(normalizedSearch)
+    )
+    .filter(
+      observer =>
+        !selectedRegion || observer.properties.microRegionID === selectedRegion
+    )
+    .filter(
+      observer =>
+        typeof observer.geometry?.coordinates?.[2] !== "number" ||
+        (observer.geometry.coordinates[2] >= elevationRange[0] &&
+          observer.geometry.coordinates[2] <= elevationRange[1])
+    );
 
   const stationOverlay = (
     <StationOverlay
@@ -323,6 +332,21 @@ function StationDashboard() {
               />
             </div>
           </div>
+
+          <div className="station-dashboard-filter__elevation">
+            <DualRangeSlider
+              min={0}
+              max={4000}
+              step={50}
+              value={elevationRange}
+              formatValue={v => intl.formatNumberUnit(v, "m")}
+              label={intl.formatMessage({
+                id: "measurements:table:header:altitude"
+              })}
+              onChange={next => void setElevationRange(next)}
+            />
+          </div>
+
           <div className="station-dashboard-filter__search">
             <SearchField
               handleSearch={setSearchText}
