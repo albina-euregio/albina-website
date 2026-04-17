@@ -70,6 +70,10 @@ const StationOverlay = (props: Props) => {
     const value = data[props.itemId];
     const hasValue = value !== undefined && value !== null && value !== false;
 
+    if (value === false) {
+      return null;
+    }
+
     // If showMarkersWithoutValue is false (weather-maps), skip markers without values
     if (!props.showMarkersWithoutValue && !hasValue) {
       return null;
@@ -121,9 +125,7 @@ const StationOverlay = (props: Props) => {
     );
   };
 
-  return (props.features as StationData[])
-    .filter(point => (point as Record<string, unknown>)[props.itemId] !== false)
-    .map(point => renderMarker(point));
+  return (props.features as StationData[]).map(point => renderMarker(point));
 };
 
 export default StationOverlay;
