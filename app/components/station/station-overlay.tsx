@@ -90,7 +90,6 @@ const StationOverlay = (props: Props) => {
         (data.province ? `(${data.province}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
-      operator: data.properties?.operator || undefined,
       plainName: data.name,
       value: !hasValue ? "" : intl.formatNumber(value, digits)
     };
