@@ -10,7 +10,7 @@ import YearFilter from "../components/filters/year-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import HTMLHeader from "../components/organisms/html-header";
-import StationArchiveTable from "../components/stationTable/stationArchiveTable";
+import StationArchiveTable from "../components/weather/station-table-archive";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 

@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import WeatherStationDialog, {
-  useStationId
-} from "../dialogs/weather-station-dialog.tsx";
+import WeatherStationDialog, { useStationId } from "../weather/station-dialog";
 import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";

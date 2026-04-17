@@ -10,7 +10,7 @@ import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { $router } from "../components/router";
 import { redirectPage } from "@nanostores/router";
 import Player from "../js/player";
-import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import WeatherStationDialog from "../components/weather/station-dialog";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
 const Weather = () => {
