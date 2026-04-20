@@ -16,7 +16,10 @@
     "AT-07",
     "IT-32-BZ",
     "IT-32-TN",
+    "IT-34",
     "IT-36",
+    "CH",
+    "LI",
     "AT-08"
   ],
   "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
