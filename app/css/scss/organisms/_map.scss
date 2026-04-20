@@ -678,7 +678,7 @@ $search-width-wide: 300px;
     display: flex;
     align-items: center;
     gap: variables.$padding * 0.75;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: flex-end;
   }
 

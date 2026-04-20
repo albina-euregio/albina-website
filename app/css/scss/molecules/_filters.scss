@@ -54,7 +54,6 @@
   .dual-range-slider__box {
     display: flex;
     flex-direction: column;
-    gap: 2px;
     padding: variables.$padding * 0.5 variables.$padding;
     background: variables.$white;
     border: 1px solid variables.$grey-light;
@@ -63,8 +62,7 @@
   .dual-range-slider__values {
     display: flex;
     justify-content: space-between;
-    @include mixins.font-normal;
-    font-size: variables.$small-font-size;
+    font-size: variables.$tiny-font-size;
     font-variant-numeric: tabular-nums;
     color: variables.$text-color;
     white-space: nowrap;
