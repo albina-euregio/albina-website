@@ -48,9 +48,6 @@ export default function StationArchiveTable(props: Props) {
       render: (_value, row) => (
         <span>
           <strong>{row.name}</strong>{" "}
-          <span className="operator operator-st">
-            ({row.properties.operator})
-          </span>{" "}
         </span>
       ),
       sortable: true,
