@@ -307,7 +307,7 @@
       },
       {
         "dataProviderID": "AT-02",
-        "smetOperators": "LWD Kärnten",
+        "smetOperators": "",
         "png": "",
         "pngOperators": "---",
         "stationsArchiveFile": "",
@@ -315,7 +315,7 @@
       },
       {
         "dataProviderID": "IT-36",
-        "smetOperators": "ARPA FVG",
+        "smetOperators": "",
         "png": "",
         "pngOperators": "---",
         "stationsArchiveFile": "",
@@ -323,7 +323,7 @@
       },
       {
         "dataProviderID": "AT-05",
-        "smetOperators": "LWD Salzburg.*",
+        "smetOperators": "",
         "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
         "pngOperators": "LWD Salzburg.*",
         "stationsArchiveFile": "",
@@ -331,7 +331,7 @@
       },
       {
         "dataProviderID": "OEBB",
-        "smetOperators": "ÖBB INFRA-SAE",
+        "smetOperators": "",
         "png": "",
         "pngOperators": "---",
         "stationsArchiveFile": "",
@@ -387,7 +387,7 @@
       },
       {
         "dataProviderID": "SLF",
-        "smetOperators": "SLF",
+        "smetOperators": "",
         "png": "",
         "pngOperators": "---",
         "stationsArchiveFile": "",
@@ -395,7 +395,7 @@
       },
       {
         "dataProviderID": "IT-34",
-        "smetOperators": "ARPAV",
+        "smetOperators": "",
         "png": "",
         "pngOperators": "---",
         "stationsArchiveFile": "",

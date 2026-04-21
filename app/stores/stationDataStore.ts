@@ -382,7 +382,7 @@ export async function _loadStationData({
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            if (!new RegExp(smetOperators).test(operator)) {
+            if (smetOperators && !new RegExp(smetOperators).test(operator)) {
               data.properties.dataURLs = [];
             }
             if (new RegExp(pngOperators).test(operator)) {
