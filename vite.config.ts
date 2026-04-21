@@ -58,6 +58,13 @@ export default defineConfig({
     },
     sourcemap: true
   },
+  pack: {
+    entry: ["app/iframe.ts"],
+    deps: { alwaysBundle: /@iframe-resizer/, onlyBundle: false },
+    platform: "browser",
+    clean: false,
+    sourcemap: true
+  },
   css: {
     lightningcss: {
       errorRecovery: true

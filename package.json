@@ -24,7 +24,7 @@
     "build-prod": "vp build",
     "build-beta": "vp build --base=/beta/",
     "build-dev": "vp build --base=/dev/",
-    "build-iframe": "rolldown -d dist app/iframe.ts",
+    "build-iframe": "vp pack",
     "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
@@ -72,7 +72,6 @@
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^6.0.1",
     "git-cliff": "^2.10.1",
-    "rolldown": "1.0.0-rc.13",
     "sass": "^1.99.0",
     "vite": "catalog:",
     "vite-plugin-static-copy": "^4.0.1",
