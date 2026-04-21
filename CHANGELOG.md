@@ -2,6 +2,36 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.3.2] - 2026-04-21
+
+### 🚀 Features
+
+- _(bulletin)_ Add tooltips for danger rating, avalanche problems, matrix parameters and danger patterns
+- _(weather-stations)_ Add weather station dashboard (combining table and map)
+- _(weather-stations)_ Add elevation filter
+- _(weather-stations)_ Add Friaul weather stations
+- _(weather-stations)_ Add Swiss weather stations
+- _(weather-stations)_ Add Belluno weather stations
+- _(weather-stations)_ Add OpenTopoMap on higher zoom levels
+- _(weather-stations)_ Integrate LINEA AROME forcasting
+- _(weather-stations)_ Add deep links for search, datetime and province filter
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Use microRegionBboxes for additional information map
+- _(bulletin)_ Replace \n with <br/> in bulletin texts
+
+### 🚜 Refactor
+
+- _(stationDataStore)_ Use eaws_weather_stations/linea.geojson
+- _(eaws-regions)_ Use @eaws/pbf
+- _(bulletin)_ Only check for tomorrow after 17:00
+
+### ⚙️ Miscellaneous Tasks
+
+- _(linea)_ Update LINEA to v8.23.1
+- _(general)_ Improve accessibility (focus menu and language selector)
+
 ## [8.3.1] - 2026-04-07
 
 ### 🐛 Bug Fixes
