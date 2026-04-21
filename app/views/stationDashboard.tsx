@@ -131,6 +131,7 @@ function StationDashboard() {
   const setSelectedDateTime = (nextDateTime: string) =>
     redirectPageQuery({ dateTime: nextDateTime });
   const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
+  const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
   const [filterHeight, setFilterHeight] = useState(0);
   const [filterTop, setFilterTop] = useState(0);
   const filterRef = useRef<HTMLElement | null>(null);
@@ -299,7 +300,7 @@ function StationDashboard() {
   const sharedFilterBar = (
     <section
       ref={filterRef}
-      className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+      className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}${isFiltersExpanded ? " is-expanded" : ""}`}
       style={
         {
           "--station-dashboard-filter-top": `${filterTop}px`
@@ -308,44 +309,52 @@ function StationDashboard() {
     >
       <div className="section-centered station-dashboard-filter__inner">
         <div className="station-dashboard-filter__bar">
-          <ProvinceFilter
-            title={intl.formatMessage({
-              id: "measurements:filter:province"
-            })}
-            all={intl.formatMessage({ id: "filter:all" })}
-            handleChange={val => {
-              setActiveRegion(val);
-            }}
-            regionCodes={config.stationRegions}
-            value={activeRegion}
-          />
-          <div className="station-dashboard-filter__date">
-            <p className="info">
-              {intl.formatMessage({ id: "archive:table-header:date" })}
-            </p>
-            <div className="pure-form">
-              <input
-                type="datetime-local"
-                step={3600}
-                max={formatDateTimeForInput(dateTimeMax)}
-                value={formatDateTimeForInput(selectedDateTime ?? dateTime)}
-                onChange={e => setSelectedDateTime(e.target.value)}
-              />
-            </div>
+          <div className="station-dashboard-filter__province">
+            <ProvinceFilter
+              title={intl.formatMessage({
+                id: "measurements:filter:province"
+              })}
+              all={intl.formatMessage({ id: "filter:all" })}
+              handleChange={val => {
+                setActiveRegion(val);
+              }}
+              regionCodes={config.stationRegions}
+              value={activeRegion}
+            />
           </div>
 
-          <div className="station-dashboard-filter__elevation">
-            <DualRangeSlider
-              min={0}
-              max={4000}
-              step={50}
-              value={elevationRange}
-              formatValue={v => intl.formatNumberUnit(v, "m")}
-              label={intl.formatMessage({
-                id: "measurements:table:header:altitude"
-              })}
-              onChange={next => void setElevationRange(next)}
-            />
+          <div
+            id="station-dashboard-filter-extras"
+            className="station-dashboard-filter__extras"
+          >
+            <div className="station-dashboard-filter__date">
+              <p className="info">
+                {intl.formatMessage({ id: "archive:table-header:date" })}
+              </p>
+              <div className="pure-form">
+                <input
+                  type="datetime-local"
+                  step={3600}
+                  max={formatDateTimeForInput(dateTimeMax)}
+                  value={formatDateTimeForInput(selectedDateTime ?? dateTime)}
+                  onChange={e => setSelectedDateTime(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="station-dashboard-filter__elevation">
+              <DualRangeSlider
+                min={0}
+                max={4000}
+                step={50}
+                value={elevationRange}
+                formatValue={v => intl.formatNumberUnit(v, "m")}
+                label={intl.formatMessage({
+                  id: "measurements:table:header:altitude"
+                })}
+                onChange={next => void setElevationRange(next)}
+              />
+            </div>
           </div>
 
           <div className="station-dashboard-filter__search">
@@ -354,6 +363,22 @@ function StationDashboard() {
               value={searchText || ""}
             />
           </div>
+
+          <button
+            className="station-dashboard-filter__toggle"
+            type="button"
+            aria-expanded={isFiltersExpanded}
+            aria-controls="station-dashboard-filter-extras"
+            aria-label="Toggle additional filters"
+            onClick={() => {
+              setIsFiltersExpanded(prev => !prev);
+            }}
+          >
+            <span
+              className="station-dashboard-filter__toggle-chevron"
+              aria-hidden="true"
+            />
+          </button>
         </div>
       </div>
     </section>

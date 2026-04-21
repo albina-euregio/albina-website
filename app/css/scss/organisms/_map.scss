@@ -657,6 +657,12 @@ $search-width-wide: 300px;
 }
 
 .station-dashboard-filter {
+  $filter-control-width: 14rem;
+  $filter-control-height: calc(
+    #{variables.$tiny-font-size * variables.$header-line-height} +
+      #{variables.$padding * 2} + #{variables.$border-width * 2}
+  );
+
   position: fixed;
   top: auto;
   left: 0;
@@ -682,6 +688,162 @@ $search-width-wide: 300px;
     align-items: flex-end;
   }
 
+  .station-dashboard-filter__extras {
+    display: contents;
+  }
+
+  .station-dashboard-filter__toggle {
+    display: none;
+  }
+
+  .station-dashboard-filter__province,
+  .station-dashboard-filter__date,
+  .station-dashboard-filter__elevation {
+    width: $filter-control-width;
+    min-width: $filter-control-width;
+  }
+
+  .station-dashboard-filter__province {
+    .selectric-wrapper,
+    .selectric,
+    .dropdown.selectric {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .selectric,
+    .dropdown.selectric {
+      height: $filter-control-height;
+      padding-top: variables.$padding;
+      padding-bottom: variables.$padding;
+    }
+  }
+
+  .station-dashboard-filter__date {
+    .pure-form input[type="datetime-local"] {
+      width: 100%;
+      height: $filter-control-height;
+      box-sizing: border-box;
+    }
+  }
+
+  .station-dashboard-filter__elevation {
+    $compact-track-height: 4px;
+    $compact-thumb-size: 12px;
+    $compact-touch-track-height: 6px;
+    $compact-touch-thumb-size: 18px;
+
+    .dual-range-slider {
+      min-width: 0;
+    }
+
+    .dual-range-slider__box {
+      height: $filter-control-height;
+      box-sizing: border-box;
+      padding: variables.$padding * 0.35 variables.$padding;
+      background: variables.$brand;
+      border-color: rgba(variables.$white, 0.85);
+      border-radius: variables.$global-radius;
+    }
+
+    .dual-range-slider__values {
+      margin-bottom: variables.$padding * 0.15;
+      font-size: variables.$nano-font-size;
+      line-height: 1;
+      color: variables.$white;
+    }
+
+    .dual-range-slider__track {
+      position: relative;
+      height: $compact-thumb-size;
+    }
+
+    .dual-range-slider__rail,
+    .dual-range-slider__fill {
+      height: $compact-track-height;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .dual-range-slider__rail {
+      background: rgba(variables.$white, 0.35);
+    }
+
+    .dual-range-slider__fill {
+      background: variables.$white;
+    }
+
+    .dual-range-slider input[type="range"] {
+      top: 35%;
+      bottom: auto;
+      height: $compact-thumb-size;
+      transform: translateY(-50%);
+
+      &::-webkit-slider-runnable-track {
+        height: $compact-track-height;
+      }
+
+      &::-moz-range-track {
+        height: $compact-track-height;
+      }
+
+      &::-webkit-slider-thumb {
+        width: $compact-thumb-size;
+        height: $compact-thumb-size;
+        margin-top: calc(($compact-track-height - $compact-thumb-size) / 2);
+        background: variables.$anchor-font-color;
+        border-color: variables.$white;
+      }
+
+      &::-moz-range-thumb {
+        width: $compact-thumb-size;
+        height: $compact-thumb-size;
+        background: variables.$anchor-font-color;
+        border-color: variables.$white;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .dual-range-slider__track {
+        height: $compact-touch-thumb-size;
+      }
+
+      .dual-range-slider__rail,
+      .dual-range-slider__fill {
+        height: $compact-touch-track-height;
+      }
+
+      .dual-range-slider input[type="range"] {
+        top: 35%;
+        height: $compact-touch-thumb-size;
+        transform: translateY(-50%);
+
+        &::-webkit-slider-runnable-track {
+          height: $compact-touch-track-height;
+        }
+
+        &::-moz-range-track {
+          height: $compact-touch-track-height;
+        }
+
+        &::-webkit-slider-thumb {
+          width: $compact-touch-thumb-size;
+          height: $compact-touch-thumb-size;
+          margin-top: calc(
+            ($compact-touch-track-height - $compact-touch-thumb-size) / 2
+          );
+          border-width: 3px;
+        }
+
+        &::-moz-range-thumb {
+          width: $compact-touch-thumb-size;
+          height: $compact-touch-thumb-size;
+          border-width: 3px;
+        }
+      }
+    }
+  }
+
   // push search to the far right
   .station-dashboard-filter__search {
     margin-left: auto;
@@ -693,11 +855,28 @@ $search-width-wide: 300px;
 
   // small screens: show only the search icon; on interaction expand leftward
   // over the other filters instead of pushing outside the visible area
-  @media screen and (max-width: #{bounds.upper-bound(variables.$tiny-range)}) {
+  @media screen and (max-width: 53em) {
     .station-dashboard-filter__bar {
-      position: relative;
-      // reserve room for the collapsed icon button plus the same gap used between flex items
-      padding-right: 2.25rem + variables.$padding * 0.75;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: end;
+      column-gap: variables.$padding * 0.5;
+      row-gap: variables.$padding * 0.1;
+      grid-template-areas:
+        "province . search"
+        ". toggle ."
+        "extras extras extras";
+    }
+
+    &.is-expanded .station-dashboard-filter__bar {
+      grid-template-areas:
+        "province . search"
+        "extras extras extras"
+        ". toggle .";
+    }
+
+    &.is-expanded .station-dashboard-filter__toggle {
+      margin-top: variables.$padding;
     }
 
     .station-dashboard-filter__date {
@@ -711,43 +890,84 @@ $search-width-wide: 300px;
     }
 
     .station-dashboard-filter__search {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      background: inherit;
-      z-index: 1;
+      grid-area: search;
+      justify-self: end;
       margin-left: 0;
+      align-self: end;
+      position: static;
 
       .pure-form-search {
-        background: inherit;
+        justify-content: flex-end;
 
-        input {
-          width: 0;
-          min-width: 0;
-          padding-left: 0;
-          padding-right: 0;
-          border-width: 0;
-          background: transparent;
-          overflow: hidden;
-          transition:
-            width 0.2s ease,
-            padding 0.2s ease,
-            border-width 0.2s ease;
-        }
-
+        input,
         &:hover input,
         &:focus-within input {
-          // expand leftward to fill the full bar width (minus its padding)
-          width: calc(100vw - #{variables.$all-h-padding * 2} - 2.25rem);
-          padding-left: variables.$padding * 0.5;
-          padding-right: variables.$padding * 0.5;
-          border-width: 1px;
-          background: revert;
+          width: 7em;
         }
       }
+    }
+
+    .station-dashboard-filter__toggle {
+      display: inline-flex;
+      grid-area: toggle;
+      justify-self: center;
+      align-self: end;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 0.9rem;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .station-dashboard-filter__toggle-chevron {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid variables.$white;
+      border-bottom: 2px solid variables.$white;
+      transform: rotate(45deg);
+      transition: transform 0.15s ease;
+    }
+
+    &.is-expanded .station-dashboard-filter__toggle-chevron {
+      transform: rotate(-135deg);
+    }
+
+    .station-dashboard-filter__extras {
+      display: none;
+      grid-area: extras;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    &.is-expanded .station-dashboard-filter__extras {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: variables.$padding * 0.5;
+      padding: 0;
+      background: transparent;
+    }
+
+    .station-dashboard-filter__province {
+      grid-area: province;
+      min-width: 0;
+      width: 100%;
+      flex-shrink: 1;
+
+      .selectric-wrapper,
+      .selectric,
+      .dropdown.selectric {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    .station-dashboard-filter__elevation {
+      min-width: 0;
+      width: 100%;
     }
   }
 }

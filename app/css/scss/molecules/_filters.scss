@@ -62,6 +62,7 @@
   .dual-range-slider__values {
     display: flex;
     justify-content: space-between;
+    margin-bottom: variables.$padding * 0.35;
     font-size: variables.$tiny-font-size;
     font-variant-numeric: tabular-nums;
     color: variables.$text-color;
@@ -103,8 +104,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
+    top: 50%;
     width: 100%;
     height: $thumb-size;
     margin: 0;
@@ -114,16 +114,17 @@
     -webkit-appearance: none;
     pointer-events: none;
     outline: none;
+    transform: translateY(-50%);
 
     &::-webkit-slider-runnable-track {
       background: transparent;
       border: none;
-      height: $thumb-size;
+      height: $track-height;
     }
     &::-moz-range-track {
       background: transparent;
       border: none;
-      height: $thumb-size;
+      height: $track-height;
     }
 
     &::-webkit-slider-thumb {
@@ -137,7 +138,7 @@
       border: 2px solid variables.$anchor-font-color;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       cursor: pointer;
-      margin-top: 0;
+      margin-top: calc(($track-height - $thumb-size) / 2);
       transition: transform 0.1s ease;
     }
     &::-moz-range-thumb {
