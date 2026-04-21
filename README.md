@@ -38,11 +38,11 @@ After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
 run `pnpm run build --base=/.../` instead.
 
-| environment | build                 | deploy                 | link                           |
-| ----------- | --------------------- | ---------------------- | ------------------------------ |
-| production  | `pnpm run build-prod` | `pnpm run deploy-prod` | https://avalanche.report/      |
-| beta        | `pnpm run build-beta` | `pnpm run deploy-beta` | https://avalanche.report/beta/ |
-| development | `pnpm run build-dev`  | `pnpm run deploy-dev`  | https://avalanche.report/dev/  |
+| environment     | build                    | deploy                    | link                              |
+| --------------- | ------------------------ | ------------------------- | --------------------------------- |
+| production      | `pnpm run build-prod`    | `pnpm run deploy-prod`    | https://avalanche.report/         |
+| beta            | `pnpm run build-beta`    | `pnpm run deploy-beta`    | https://avalanche.report/beta/    |
+| ~~development~~ | ~~`pnpm run build-dev`~~ | ~~`pnpm run deploy-dev`~~ | ~~https://avalanche.report/dev/~~ |
 
 ## Server configuration (Caddy)
 
@@ -50,12 +50,6 @@ run `pnpm run build --base=/.../` instead.
 www.avalanche.report, avalanche.report {
 	handle_path /beta/* {
 		root * /var/www/avalanche.report/beta/
-		try_files {path} /index.html
-		file_server
-	}
-
-	handle_path /dev/* {
-		root * /var/www/avalanche.report/dev/
 		try_files {path} /index.html
 		file_server
 	}

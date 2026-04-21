@@ -59,16 +59,31 @@
   "eawsRegionsExclude": [],
   "staticContentNamespace": [],
   "menu": [
-    { "url": "/bulletin" },
-    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
     {
       "url": "/weather",
       "children": [
-        { "url": "/weather/map/" },
-        { "url": "" },
-        { "url": "/weather/stations" },
-        { "url": "/weather/archive" },
-        { "url": "" },
+        {
+          "url": "/weather/map/"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/weather/stations"
+        },
+        {
+          "url": "/weather/archive"
+        },
+        {
+          "url": ""
+        },
         {
           "key": "lawis:incident",
           "url": "https://www.lawis.at/incident?lang=en",
@@ -79,8 +94,13 @@
           "url": "https://www.lawis.at/profile?lang=en",
           "url:de": "https://www.lawis.at/profile?lang=de"
         },
-        { "key": "webcam", "url": "https://www.foto-webcam.eu" },
-        { "url": "" },
+        {
+          "key": "webcam",
+          "url": "https://www.foto-webcam.eu"
+        },
+        {
+          "url": ""
+        },
         {
           "key": "meteo-report",
           "url": "https://meteo.report/mountains/",
@@ -105,7 +125,9 @@
           "url": "/education/danger-patterns",
           "img": "/content_files/feature_danger-pattern.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/matrix",
           "img": "/content_files/feature_matrix.webp"
@@ -126,7 +148,9 @@
           "url": "/education/workflow",
           "img": "/content_files/feature_workflow.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/handbook",
           "img": "/content_files/feature_handbook.webp"
@@ -135,7 +159,9 @@
           "url": "/education/spatio-temporal-scale",
           "img": "/content_files/feature_spatio-temporal-scale.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
@@ -144,7 +170,9 @@
           "url:it": "https://www.avalanches.org/glossary/?lang=it",
           "img": "/content_files/feature_glossary.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/virtual-reality-project",
           "img": "/content_files/feature_vr.webp"
@@ -172,7 +200,9 @@
           "url": "/more/open-data",
           "img": "/content_files/feature_open_data.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/more/about",
           "img": "/content_files/feature_about.webp"
@@ -190,17 +220,38 @@
     }
   ],
   "menuFooter": [
-    { "url": "/more/imprint" },
-    { "url": "/more/privacy" },
-    { "url": "/more/accessibility" },
-    { "url": "/more/contact" }
+    {
+      "url": "/more/imprint"
+    },
+    {
+      "url": "/more/privacy"
+    },
+    {
+      "url": "/more/accessibility"
+    },
+    {
+      "url": "/more/contact"
+    }
   ],
   "menuFooterMain": [
-    { "url": "/bulletin" },
-    { "url": "/blog" },
-    { "url": "/weather", "showSub": true },
-    { "url": "/education", "showSub": true },
-    { "url": "/more", "showSub": true }
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
+    {
+      "url": "/weather",
+      "showSub": true
+    },
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
   ],
   "blogsMinYear": 2011,
   "blogs": [
@@ -242,18 +293,18 @@
   },
   "apis": {
     "bulletin": {
-      "simple": "https://static.avalanche.report/simple_dev/{date}/EUREGIO_{lang}.html",
+      "simple": "https://dev.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
-      "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina_dev/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
-      "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "json": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{region}{lang}_CAAMLv6.json",
-      "jsonPublicationDate": "https://static.avalanche.report/bulletins_dev/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://static.avalanche.report/bulletins_dev/{date}/{region}_{lang}.mp3",
-      "archive": "https://static.avalanche.report/bulletins/archive/"
+      "map": "https://dev.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
+      "pdf": "https://dev.avalanche.report/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "https://dev.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "https://dev.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "https://dev.avalanche.report/bulletins/archive/"
     },
-    "push": "https://api.avalanche.report/albina_dev/api/push",
-    "subscribe": "https://api.avalanche.report/albina_dev/api/email",
+    "push": "https://dev.avalanche.report/api/push",
+    "subscribe": "https://dev.avalanche.report/api/email",
     "blogger": "https://api.avalanche.report/blog/",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
@@ -447,7 +498,12 @@
       "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,
-      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 },
+      "bbox": {
+        "east": 13.2,
+        "west": 9.5,
+        "north": 48,
+        "south": 45
+      },
       "className": "tooltip leaflet-geonames-icon",
       "workingClass": "leaflet-geonames-icon-working",
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
@@ -505,7 +561,6 @@
       }
     }
   },
-
   "footer": {
     "icons": [
       {
@@ -529,7 +584,6 @@
     ],
     "iconsHidden": false
   },
-
   "archive": {
     "minYear": 1960,
     "maxResults": 31
