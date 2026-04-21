@@ -16,9 +16,7 @@ window["scroll_duration"] = 1000;
  */
 const configRequest = import.meta.env.APP_REGION
   ? import(`./config.${import.meta.env.APP_REGION}.json`)
-  : import.meta.env.BASE_URL === "/dev/"
-    ? import("./config-dev.json")
-    : import("./config.json");
+  : import("./config.json");
 configRequest.then(async configParsed => {
   window.config = {
     ...configParsed,

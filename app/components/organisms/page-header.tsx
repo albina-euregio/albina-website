@@ -18,22 +18,24 @@ function PageHeader() {
     return visible ? 0 : -1;
   }
   // changing language on header language button click
-    useEffect(() => {
+  useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-    // Escape closes dropdown
-    if (langDropdownOpen && e.key === escapeMenu) {
-      setLangDropdownOpen(false);
+      // Escape closes dropdown
+      if (langDropdownOpen && e.key === escapeMenu) {
+        setLangDropdownOpen(false);
       }
-  }
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [langDropdownOpen]);
-  const handleChangeLanguage = (newLanguage: keyof typeof languageNameInNativeLanguage) => {
-  if (import.meta.env.DEV) {
-    // since website is served from localhost, just change language in appStore
-    setLanguage(newLanguage);
-    return;
-  }
+  const handleChangeLanguage = (
+    newLanguage: keyof typeof languageNameInNativeLanguage
+  ) => {
+    if (import.meta.env.DEV) {
+      // since website is served from localhost, just change language in appStore
+      setLanguage(newLanguage);
+      return;
+    }
 
     const newHost = config.languageHostSettings[newLanguage];
     if (newHost && document.location.hostname !== newHost) {
@@ -165,17 +167,17 @@ function PageHeader() {
               <span className="mark">
                 <span
                   className={`mark-${lang}`}
-                  data-base-url={import.meta.env.BASE_URL}
+                  data-app-region={import.meta.env.APP_REGION}
                 />
                 <span
                   className={`mark-en`}
-                  data-base-url={import.meta.env.BASE_URL}
+                  data-app-region={import.meta.env.APP_REGION}
                 />
               </span>
               <span className="url">
                 <span
                   className={`url-${lang}`}
-                  data-base-url={import.meta.env.BASE_URL}
+                  data-app-region={import.meta.env.APP_REGION}
                 />
               </span>
             </a>
@@ -292,19 +294,22 @@ function PageHeader() {
                   setLangDropdownOpen(true);
                 }
               }}
-              className={`has-sub${langDropdownOpen ? ' open' : ''}`}
+              className={`has-sub${langDropdownOpen ? " open" : ""}`}
               aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
                 id: "header:languages:title"
-            })}   
+              })}
               name={intl.formatMessage({
-                id: "header:languages:title"    
+                id: "header:languages:title"
               })}
               id="languages"
             >
               <span></span>
             </a>
-            <ul className="list-plain subnavigation" style={{ display: langDropdownOpen ? 'block' : undefined }}>
+            <ul
+              className="list-plain subnavigation"
+              style={{ display: langDropdownOpen ? "block" : undefined }}
+            >
               {config.languages.map(l => (
                 <li key={l}>
                   <a
@@ -312,13 +317,19 @@ function PageHeader() {
                     tabIndex={0}
                     // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
                     className={`language-trigger-${l}`}
-                    onClick={() => handleChangeLanguage(l as keyof typeof languageNameInNativeLanguage)}
-                    onKeyDown={e => {
-                    if (e.key === enterMenuItem) {
-                      e.preventDefault();
-                      handleChangeLanguage(l as keyof typeof languageNameInNativeLanguage);
+                    onClick={() =>
+                      handleChangeLanguage(
+                        l as keyof typeof languageNameInNativeLanguage
+                      )
                     }
-                  }}
+                    onKeyDown={e => {
+                      if (e.key === enterMenuItem) {
+                        e.preventDefault();
+                        handleChangeLanguage(
+                          l as keyof typeof languageNameInNativeLanguage
+                        );
+                      }
+                    }}
                   >
                     {
                       languageNameInNativeLanguage[
