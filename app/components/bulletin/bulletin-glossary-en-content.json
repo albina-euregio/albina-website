@@ -118,7 +118,7 @@
     "text": "<p>Mountain terrain unconnected to a <a data-mce-href=\"https://www.avalanches.org/glossary/#ridgeline\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#ridgeline\">ridgeline</a>.</p><p><span class=\"wis-ce-fw-bld\">Further explanation:</span><br/>Often refers to transitions from extremely steep to less steep terrain. Steep terrain and rocky steps not connected to the main ridge belong in this category. There is no clear boundary line between areas adjacent to or distant from a ridge, it is a transitional zone.</p>",
     "img": "<img alt=\"Area distant from ridgelines\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
-  "artifical-avalanche-release": {
+  "artificial-avalanche-release": {
     "ids": {
       "ar": "desencadeament-provocat",
       "ca": "desencadenament-provocat",
@@ -132,10 +132,10 @@
       "ro": "avalansa-declansata-artificial",
       "sk": "umele-uvolnenie-laviny",
       "sl": "namerna-sprozitev-sneznega-plazu",
-      "en": "artifical-avalanche-release"
+      "en": "artificial-avalanche-release"
     },
-    "heading": "Artifical avalanche release",
-    "text": "<p>An avalanche triggered by artifically applied force (e.g. explosives, snow machines, people).</p>",
+    "heading": "Artificial avalanche release",
+    "text": "<p>An avalanche triggered by artificially applied force (e.g. explosives, snow machines, people).</p>",
     "img": ""
   },
   "aspect": {
