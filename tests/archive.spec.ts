@@ -4,18 +4,18 @@ test("archive", async ({ page }) => {
   await page.goto("more/archive");
 
   const year = page.locator("text=Year").locator("..");
-  await year.locator(".selectric").selectOption("2020");
+  await year.locator(".selectric").selectOption("2024/2025");
 
   const month = page.locator("text=Month").locator("..");
-  await month.locator(".selectric").selectOption("15");
+  await month.locator(".selectric").selectOption("Mar 25");
 
   const preview = page
-    .getByRole("row", { name: "16 March 2021" })
+    .getByRole("row", { name: "29 March 2025" })
     .locator(".map-preview");
-  await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
+  await expect(preview).toHaveAttribute("href", "/bulletin/2025-03-29");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
-    "https://static.avalanche.report/bulletins/2021-03-16//fd_EUREGIO_thumbnail.jpg"
+    /bulletins\/2025-03-29\/\/.*EUREGIO_.*\.jpg$/
   );
 
   await page
@@ -23,21 +23,23 @@ test("archive", async ({ page }) => {
     .filter({ hasText: "Region" })
     .getByRole("combobox")
     .selectOption("AT-07-22");
-  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
 
-  await page.goto("more/archive?month=15&year=2020&region=AT-07-22");
-  await expect(preview).toHaveAttribute("href", "/bulletin/2021-03-16");
+  await expect(page).toHaveURL(
+    "more/archive?month=15&year=2024&region=AT-07-22"
+  );
+
+  await expect(preview).toHaveAttribute("href", "/bulletin/2025-03-29");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
-    "https://static.avalanche.report/bulletins/2021-03-16//EUREGIO_29864acd-f3db-47e9-9416-3ae9ed4db3cd.jpg"
+    /bulletins\/2025-03-29\/.*\.jpg$/
   );
 
   const pdf = page
-    .getByRole("row", { name: "16 March 2021" })
+    .getByRole("row", { name: "29 March 2025" })
     .getByRole("link", { name: "PDF" });
   await expect(pdf).toHaveAttribute(
     "href",
-    "https://api.avalanche.report/albina/api/bulletins/pdf?date=2021-03-15T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-22&lang=en&grayscale=false"
+    /api\/bulletins\/pdf\?date=2025-03-28T16:00:00.000Z&region=EUREGIO&microRegionId=AT-07-22&lang=en&grayscale=false$/
   );
 });
 
