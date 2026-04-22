@@ -1368,12 +1368,12 @@
     "text": "<p><a data-mce-href=\"https://www.avalanches.org/glossary/?lang=de#neuschnee\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/?lang=de#neuschnee\">Neuschnee</a> stellt eine Belastung f\u00fcr die vorhandene Schneedecke dar und kann teilweise die Lawinengefahr erh\u00f6hen. Bei ung\u00fcnstigen Bedingungen (schlecht aufgebaute <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=de#altschneedecke\" href=\"https://www.avalanches.org/glossary/?lang=de#altschneedecke\">Altschneedecke</a>, tiefe Temperaturen, starker Wind) k\u00f6nnen bereits wenige cm kritisch sein. Bei g\u00fcnstigen Bedingungen (stabile Altschneedecke, schwacher Wind) k\u00f6nnen selbst 50 cm noch unproblematisch sein.</p>",
     "img": "<img alt=\"Critical depth of new fallen snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "artifical-avalanche-release": {
+  "artificial-avalanche-release": {
     "ids": {
       "ar": "desencadeament-provocat",
       "ca": "desencadenament-provocat",
       "cs": "umele-spustene-laviny",
-      "en": "artifical-avalanche-release",
+      "en": "artificial-avalanche-release",
       "es": "alud-provocado-desencadenamiento-artificial",
       "fr": "declenchement-artificiel-davalanche",
       "is": "snjoflod-sett-viljandi-af-stad",

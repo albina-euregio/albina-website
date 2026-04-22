@@ -772,12 +772,12 @@
     "text": "<p>Laueg provocat a dist\u00e0ncia per ua subercarga, per exemple, esquiadors o freerides.</p><p>En generau, eth desencadeament se h\u00e8 deh\u00f2ra dera traject\u00f2ria deth laueg. Maugrat a\u00e7\u00f2, p\u00f2t passar qu\u2019es persones p\u00f2den \u00e8ster atrapades e enterrades s\u2019eth laueg arribe a afectar eth l\u00f2c a on s\u2019a desencadeat.</p>",
     "img": "<img alt=\"Remote triggering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "artifical-avalanche-release": {
+  "artificial-avalanche-release": {
     "ids": {
       "ca": "desencadenament-provocat",
       "cs": "umele-spustene-laviny",
       "de": "kunstliche-lawinenauslosung",
-      "en": "artifical-avalanche-release",
+      "en": "artificial-avalanche-release",
       "es": "alud-provocado-desencadenamiento-artificial",
       "fr": "declenchement-artificiel-davalanche",
       "is": "snjoflod-sett-viljandi-af-stad",
