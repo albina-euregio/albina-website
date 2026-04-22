@@ -30,80 +30,80 @@
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "Frequency: (Nearly) none",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>none</b>, locations with the stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for stability assessment.</p>",
+    "heading": "Frequency: None or nearly none",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>none or nearly none</b>, the locations with snowpack stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for the stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Frequency: Few",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Few</b>, locations with the stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for stability assessment. Evidence for instability is hard to find.</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>few</b>, locations with the snowpack stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for the stability assessment.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Frequency: Some",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Some</b>, locations with the stability class <b>{stabilityClass}</b>, typically exist in terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>some</b>, the locations with snowpack stability class <b>{stabilityClass}</b> typically exists in specific terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Frequency: Many",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same stability is across the warning region.</p><p>For the frequency class <b>Many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant. Evidence for instability is often easy to find.</p>",
+    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
     "heading": "Snowpack stability: Very poor",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>very poor</b>, natural releases are observable, avalanches are very easy to trigger by skiers. Shooting cracks and long-running whumpf are common. </p>",
+    "text": "<p>The snowpack stability indicates how easy it is to trigger an avalanche. <b>Very poor</b> stability means that avalanches release spontaneously or are very easy to trigger (touchy). Natural avalanches, shooting cracks and Whumpf-sounds are clear signs for a <b>very poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>very poor</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Snowpack stability: Poor",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>poor</b> avalanches are easy to trigger by a single skier. Shooting cracks and long-running whumpf sounds may be heard, while short-running whumpf sounds are common. </p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Poor</b> snowpack stability means that avalanches are easy to trigger by e.g. a single skier. Whumpf-sounds and shooting cracks are clear signs for a <b>poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>poor</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
     "heading": "Snowpack stability: Fair",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>For the snowpack stability class <b>fair</b>, avalanches are difficult to trigger, high loads such as multiple skiers or explosives or cornice falls are typically required. Short-running whumpf may be heard.</p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Fair</b> stability means that avalanches are difficult to trigger. Large loads such as multiple skiers, explosives or cornice falls are typically required to trigger an avalanche with <b>fair</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>fair</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Snowpack stability: Good",
-    "text": "<p>Avalanche frequency and snowpack stability are closely related. Snowpack stability tells you how easy it is to trigger an avalanche, while Frequency distribution tells you how common that same weak stability is across the region.</p><p>A snowpack stability of class <b>good</b> has generally stable conditions and no signs of instability are observable.</p>",
+    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Good</b> stability means stable conditions. There are no signs of instability under <b>good</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>good</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
     "heading": "Size 1: Small avalanche (sluff)",
-    "text": "<p>Unlikely to bury a person, except in run out zones with unfavourable terrain features (e.g. terrain traps). In extremely steep terrain, the danger of deep falls prevails the danger of burials. Avalanche typically stops before the end of a slope.</p>",
+    "text": "<p>With avalanches of this size, it is unlikely that persons are buried, except in run out zones with adverse terrain features (i.e. terrain traps). In extremely steep terrain, the danger of falling prevails the danger of burials. Avalanches typically stop before the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
     "heading": "Size 2: Medium avalanche",
-    "text": "<p>Could bury, injure or kill a person. Size 2 corresponds to the typical skier-triggered avalanche. Avalanche stops typically at the end of a slope.</p>",
+    "text": "<p>It is likely that avalanches could bury, injure or kill a person. Avalanches of this size correspond to the typical skier-triggered avalanche. They stop typically at the end of a slope.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
     "heading": "Size 3: Large avalanche",
-    "text": "<p>Could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
+    "text": "<p>It is likely that avalanches could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
     "heading": "Size 4: Very large avalanche",
-    "text": "<p>Could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanche traverses flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
+    "text": "<p>It is likely that avalanches could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanches will traverse flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
     "heading": "Size 5: Extremely large avalanche",
-    "text": "<p>Could gouge the landscape; disastrous damage potential. Avalanche reaches valley ground. Largest runout distance known.</p>",
+    "text": "<p>It is likely that avalanches could gouge the landscape and have disastrous damage potential. Avalanche will reach valley ground and might flow the largest runout distance known.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
@@ -115,7 +115,7 @@
   },
   "problem-wind_slab": {
     "heading": "Avalanche problem: Wind slab",
-    "text": "<p>The avalanche problem is related to Wind slab. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
+    "text": "<p>The avalanche problem is related to wind slabs. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },

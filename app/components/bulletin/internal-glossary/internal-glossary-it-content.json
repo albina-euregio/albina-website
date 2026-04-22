@@ -30,26 +30,26 @@
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "Frequency: None or nearly none",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>none or nearly none</b>, the locations with snowpack stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for the stability assessment.</p>",
-    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
+    "heading": "Classe di frequenza: pochissimi",
+    "text": "<p>La frequenza indica il potenziale numero di punti pericolosi per una specifica classe di stabilità manto nevoso in una meteo-nivo zona. Per la classe <b>pochissimi</b> , luoghi con la classe di stabilità manto nevoso <b>{stabilityClass}</b>  praticamente non esistono o sono cosi rari che essi non sono considerati rilevanti per la valutazione della stabilità.</p>",
+    "img": "__SIMPLE_SLIDER__|pochi,alcuni,molti|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Classe di frequenza: pochi",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>few</b>, locations with the snowpack stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for the stability assessment.</p>",
+    "text": "<p>La frequenza indica il potenziale numero di punti pericolosi per una specifica classe di stabilità manto nevoso in una meteo-nivo zona. Per la classe <b>pochi</b>, luoghi con la classe di stabilità manto nevoso <b>{stabilityClass}</b> sono difficile a trovare. Anche se essi sono pochi, la loro quantità i considerata relevante per la valutazione della stabilità.",
     "img": "__SIMPLE_SLIDER__|pochi,alcuni,molti|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Classe di frequenza: alcuni",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>some</b>, the locations with snowpack stability class <b>{stabilityClass}</b> typically exists in specific terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
+    "text": "<p>La frequenza indica il potenziale numero di punti pericolosi per una specifica classe di stabilità manto nevoso in una meteo-nivo zona. Per la classe <b>alcuni</b>, luoghi con la classe di stabilità manto nevoso <b>{stabilityClass}</b> di solito si manifesta in specifiche caratteristiche del terreno con elementi comuni (ad es. vicino alle creste, nei canaloni). ",
     "img": "__SIMPLE_SLIDER__|pochi,alcuni,molti|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Classe di frequenza: molti",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant.</p>",
+    "text": "<p>La frequenza indica il potenziale numero di punti pericolosi per una specifica classe di stabilità manto nevoso in una meteo-nivo zona. Per la classe <b>molti</b>, luoghi con la classe di stabilità manto nevoso <b>{stabilityClass}</b> sono sono abbondanti.",
     "img": "__SIMPLE_SLIDER__|pochi,alcuni,molti|2|__END_SLIDER__",
     "source": "false"
   },
@@ -120,25 +120,25 @@
     "source": "false"
   },
   "problem-persistent_weak_layers": {
-    "heading": "Avalanche problem: Persistent weak layers",
+    "heading": "Problema valanghivo: strati deboli persistenti",
     "text": "<p>The avalanche problem is related to the presence of persistent weak layers in the old snowpack. These weak layers typically include buried surface hoar, depth hoar or faceted crystals.</p><p><b>Travel advice</b><br/>Travel conservatively and avoid large steep slopes. Consider the history of weather and snow cover processes in the area. Be extra cautious in areas with a thin snowpack and at the transition from thin to deep snowpack. This problem is a major cause of recreational avalanche fatalities.</p>",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
-    "heading": "Avalanche problem: Wet snow",
+    "heading": "Problema valanghivo: neve bagnata",
     "text": "<p>The avalanche problem is related to weakening of the snowpack due to the presence of liquid water. Water infiltrates the snowpack due to melt or rain.</p><p><b>Travel advice</b><br/>In the presence of a sun crust the conditions after cold nights with clear skies are usually favourable in the morning due to freezing. After warm nights with overcast skies the problem often exists already in the morning. Normally rain on fresh snow creates this problem almost immediately. Good timing and trip planning are important. Consider avalanche runout zones.</p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-gliding_snow": {
-    "heading": "Avalanche problem: Gliding snow",
+    "heading": "Problema valanghivo: valanghe di slittamento",
     "text": "<p>The entire snowpack is gliding on the ground, typically on smooth ground such as grassy slopes or smooth rock zones. High activity of glide-snow avalanches are typically related to a thick snowpack with no or only few weak layers. Glide snow avalanches can occur both with a cold dry snowpack and with a warm wet snowpack. The release of a glide-snow avalanche is difficult to predict, although glide cracks open usually before a release.</p><p><b>Travel advice</b><br/>Avoid areas close to glide cracks.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "danger-pattern-DP1": {
-    "heading": "dp.1 deep persistent weak layer",
+    "heading": "st.1 strato debole persistente basale",
     "text": "<p>At the onset of winter, slab avalanches are often observed following the second heavy snowfall, usually at high altitudes (>2000&nbsp;m) and high alpine altitudes (>3000&nbsp;m) on shady, very steep slopes. This is because in autumn after the first big snowfalls, a lengthy period of stable, highpressure weather follows. That is when ideal conditions prevail for the partial metamorphism of snow into loose crystals, which then form a deep persistent weak layer. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
@@ -150,49 +150,49 @@
     "source": "false"
   },
   "danger-pattern-DP3": {
-    "heading": "dp.3 rain on snow",
+    "heading": "st.3 pioggia",
     "text": "<p>Rain-on-snow is considered the classic alarm signal in snow and avalanche science because, on the one hand, its additional weight burdens the entire snowpack; and on the other, because the firmness of the snowpack is immediately lost. For those reasons, avalanches are predestined. Rain can occur at any time during the winter. The big advantage is that no danger sign could be simpler to recognize.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP4": {
-    "heading": "dp.4 cold on warm / warm on cold",
+    "heading": "st.4 freddo su caldo / caldo su freddo",
     "text": "<p>For the most part, large temperature differences during snowfall have a negative effect, since they reinforce snow metamorphism inside the snowpack. As a rule, a thin, weak layer forms which is highly prone to triggering. This layer is often found on south-facing slopes. It is highly treacherous for the additional reason that the weak layer does not yet exist immediately after the new snow is deposited, it forms only over the course of the following days.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP5": {
-    "heading": "dp.5 snowfall after long period of cold",
+    "heading": "st.5 neve dopo un lungo periodo di freddo",
     "text": "<p>Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP6": {
-    "heading": "dp.6 loose snow and wind",
+    "heading": "st.6 neve fresca fredda a debole coesione e vento",
     "text": "<p>'Wind is the architect of avalanches.' This classic proverb from the 1930s by Wilhelm Paulcke remains unchanged even today. Wind influences both snow which is falling and snow which has already been deposited. It is a major factor in the formation of avalanches. When the snow is loose and dry, wind transports it, thereby increasing avalanche danger. The colder the transported snow, the more sensitively it reacts to additional loading, because it is so brittle.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP7": {
-    "heading": "dp.7 shallow snow next to deep snow",
+    "heading": "st.7 passaggio da poca a molta neve",
     "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP8": {
-    "heading": "dp.8 buried surface hoar",
+    "heading": "st.8 brina di superficie sepolta",
     "text": "<p>Surface hoar numbers among the most beautiful types of snow in existence. In and of itself, it bears no danger potential. That potential unfolds only when it is buried by fresh, bonded layers of snow. Then it becomes hazardous. In fact, it is considered one of the most critical weak layers in all of snow and avalanche science.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP9": {
-    "heading": "dp.9 buried graupel",
+    "heading": "st.9: neve pallottolare sepolta",
     "text": "<p>A weak layer inside a snowpack is often compared with ball bearings. This image is actually suitable only for graupel: a spherical, granular form of precipitation which is often deposited during showers such as thunderstorms during springtime. It is easy to grasp that snowdrifts accumulating atop of a layer of graupel can only be poorly bonded with it, so that the danger of avalanches increases. Graupel is frequently spread over very small surface areas. Without examining the snowpack itself it is difficult to spot, even for professionals. This is an extremely treacherous phenomenon. Fortunately, the problems it creates are short-lived.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP10": {
-    "heading": "dp.10 springtime situation",
+    "heading": "st.10 situazione primaverile",
     "text": "<p>Avalanche danger is never easier to evaluate than in stable corn-snow conditions; on the other, avalanches of such magnitude as in springtime are rarely registered in deep winter. Apart from the snowpack layering, the complex interaction of air temperature, air moisture, solar radiation and wind play a major role. For backcountry skiers and boarders, high discipline in timing and flexibility of route planning are more essential than ever.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
     "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"

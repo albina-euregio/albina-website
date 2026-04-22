@@ -30,38 +30,38 @@
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "Frequency: None or nearly none",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>none or nearly none</b>, the locations with snowpack stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for the stability assessment.</p>",
+    "heading": "Häufigkeit: Keine oder fast keine",
+    "text": "<p>Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine Schneedeckenstabilitätsklasse innerhalb einer Warnregion ab. Die Häufigkeitsklasse <b>keine oder fast keine</b> bedeutet, dass Gefahrenstellen mit der Schneedeckenstabilitätsklasse <b>{stabilityClass}</b> nicht existieren oder so selten sind, dass sie für die Einschätzung der Stabilität nicht relevant sind.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
     "heading": "Häufigkeit: Wenige",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>few</b>, locations with the snowpack stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for the stability assessment.</p>",
+    "text": "<p>Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine Schneedeckenstabilitätsklasse innerhalb einer Warnregion ab. Die Häufigkeitsklasse <b>wenige</b> bedeutet, dass Gefahrenstellen mit der Schneedeckenstabilitätsklasse <b>{stabilityClass}</b> selten sind. Wenngleich selten, wird deren Anzahl für die Gefahreneinschätzung als relevant erachtet.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
     "heading": "Häufigkeit: Einige",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>some</b>, the locations with snowpack stability class <b>{stabilityClass}</b> typically exists in specific terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
+    "text": "<p>Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine Schneedeckenstabilitätsklasse innerhalb einer Warnregion ab. Die Häufigkeitsklasse <b>einige</b> bedeutet, dass Gefahrenstellen mit der Schneedeckenstabilitätsklasse <b>{stabilityClass}</b> in räumlich eingrenzbaren Geländeformen mit ähnlichen Eigenschaften (z.B. kammnah, in Rinnen und Mulden) vorkommen.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
     "heading": "Häufigkeit: Viele",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant.</p>",
+    "text": "<p>Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine Schneedeckenstabilitätsklasse innerhalb einer Warnregion ab. Die Häufigkeitsklasse <b>viele</b> bedeutet, dass Gefahrenstellen mit der Schneedeckenstabilitätsklasse <b>{stabilityClass}</b> reichlich vorhanden sind.</p>",
     "img": "__SIMPLE_SLIDER__|wenige,einige,viele|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
     "heading": "Schneedeckenstabilität: Sehr schlecht",
-    "text": "<p>The snowpack stability indicates how easy it is to trigger an avalanche. <b>Very poor</b> stability means that avalanches release spontaneously or are very easy to trigger (touchy). Natural avalanches, shooting cracks and Whumpf-sounds are clear signs for a <b>very poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>very poor</b>, within the warning region.</p>",
+    "text": "<p>Die Schneedeckenstabilität gibt an, wie leicht Lawinen ausgelöst werden können. <b>Sehr schlechte</b> Stabilität bedeutet, dass Lawinen spontan abgehen können oder sehr leicht auslösbar sind (touchy). Spontane Lawinen, Risse und Wummgeräusche sind klare Anzeichen für eine <b>sehr schlechte</b> Schneedeckenstabilität.</p><p>Häufigkeit und Schneedeckenstabilität sind eng miteinander verbunden. Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine bestimmte Schneedeckenstabilitätsklasse, in diesem Fall <b>sehr schlecht</b>, innerhalb einer Warnregion ab.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
     "heading": "Schneedeckenstabilität: Schlecht",
-    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Poor</b> snowpack stability means that avalanches are easy to trigger by e.g. a single skier. Whumpf-sounds and shooting cracks are clear signs for a <b>poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>poor</b>, within the warning region.</p>",
+    "text": "<p>Die Schneedeckenstabilität gibt an, wie leicht Lawinen ausgelöst werden können. <b>Schlechte</b> Stabilität bedeutet, dass Lawinen leicht auslösbar sind, z.B. durch einen einzelnen Skifahrer. Wummgeräusche und Risse sind klare Anzeichen für eine <b>schlechte</b> Schneedeckenstabilität.</p><p>Häufigkeit und Schneedeckenstabilität sind eng miteinander verbunden. Mit der Häufigkeit schätzen wir die zu erwartende Anzahl an Gefahrenstellen für eine bestimmte Schneedeckenstabilitätsklasse, in diesem Fall <b>schlecht</b>, innerhalb einer Warnregion ab.</p>",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|1|90__END_SLIDER__",
     "source": "false"
   },
