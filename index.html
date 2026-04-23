@@ -68,22 +68,43 @@
 
     <!-- !javascript -->
 
-    <!-- !web manifest -->
-    <link rel="manifest" href="./images/fav/en/%BASE_URL%manifest.json" />
+    <!-- !web manifest + favicons -->
+    <script>
+      const baseUrl = "%BASE_URL%";
+      const appRegion = "%APP_REGION%";
+      const variantPath =
+        appRegion === "DEV"
+          ? "dev/"
+          : baseUrl === "/"
+            ? ""
+            : `${baseUrl.replace(/^\//, "").replace(/\/$/, "")}/`;
+      const faviconRoot = `${baseUrl}images/fav/en/${variantPath}`;
 
-    <!-- !favicons %BASE_URL% -->
-    <link
-      rel="apple-touch-icon"
-      type="image/png"
-      sizes="180x180"
-      href="./images/fav/en/%BASE_URL%apple-touch-icon-180x180.png"
-      aria-label="favicon"
-    />
-    <link
-      rel="shortcut icon"
-      href="./images/fav/en/%BASE_URL%favicon.ico"
-      aria-label="shortcut icon"
-    />
+      function appendHeadLink(attributes) {
+        const link = document.createElement("link");
+        Object.entries(attributes).forEach(([key, value]) => {
+          link.setAttribute(key, value);
+        });
+        document.head.append(link);
+      }
+
+      appendHeadLink({
+        rel: "manifest",
+        href: `${faviconRoot}manifest.json`
+      });
+      appendHeadLink({
+        rel: "apple-touch-icon",
+        type: "image/png",
+        sizes: "180x180",
+        href: `${faviconRoot}apple-touch-icon-180x180.png`,
+        "aria-label": "favicon"
+      });
+      appendHeadLink({
+        rel: "shortcut icon",
+        href: `${faviconRoot}favicon.ico`,
+        "aria-label": "shortcut icon"
+      });
+    </script>
   </head>
 
   <body class="page-loaded">
