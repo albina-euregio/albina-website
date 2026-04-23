@@ -305,7 +305,7 @@
     },
     "push": "https://dev.avalanche.report/api/push",
     "subscribe": "https://dev.avalanche.report/api/email",
-    "blogger": "https://api.avalanche.report/blog/",
+    "blogger": "https://dev.avalanche.report/api/blog/",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
@@ -589,25 +589,17 @@
     "maxResults": 31
   },
   "languageHostSettings": {
-    "en": "avalanche.report",
+    "en": "dev.avalanche.report",
     "ca": "ca.avalanche.report",
-    "de": "lawinen.report",
+    "de": "dev.lawinen.report",
     "es": "es.avalanche.report",
     "fr": "fr.avalanche.report",
     "oc": "oc.avalanche.report",
-    "it": "valanghe.report"
+    "it": "dev.valanghe.report"
   },
   "hostLanguageSettings": {
-    "avalanche.report": "en",
-    "ca.avalanche.report": "ca",
-    "de.avalanche.report": "de",
-    "es.avalanche.report": "es",
-    "fr.avalanche.report": "fr",
-    "it.avalanche.report": "it",
-    "oc.avalanche.report": "oc",
-    "avalanches.report": "en",
-    "lawine.report": "de",
-    "lawinen.report": "de",
-    "valanghe.report": "it"
+    "dev.avalanche.report": "en",
+    "dev.lawinen.report": "de",
+    "dev.valanghe.report": "it"
   }
 }
