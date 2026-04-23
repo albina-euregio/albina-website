@@ -31,14 +31,15 @@ function PageHeader() {
   const handleChangeLanguage = (
     newLanguage: keyof typeof languageNameInNativeLanguage
   ) => {
-    if (import.meta.env.DEV) {
-      // since website is served from localhost, just change language in appStore
-      setLanguage(newLanguage);
-      return;
-    }
-
     const newHost = config.languageHostSettings[newLanguage];
-    if (newHost && document.location.hostname !== newHost) {
+    const shouldRedirect =
+      // on localhost, don't redirect
+      !import.meta.env.DEV &&
+      newHost &&
+      document.location.hostname !== newHost &&
+      // in dev, only redirect between dev.* hosts; don't leave the dev environment
+      (import.meta.env.APP_REGION !== "DEV" || newHost.startsWith("dev."));
+    if (shouldRedirect) {
       console.info("Changing hostname to " + newHost);
       document.location.hostname = newHost;
     } else {
