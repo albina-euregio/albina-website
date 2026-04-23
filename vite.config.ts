@@ -20,6 +20,8 @@ function json(file: string) {
   return JSON.parse(readFileSync(file, { encoding: "utf8" }));
 }
 
+process.env.APP_REGION ??= "";
+
 Object.assign(process.env, {
   APP_LICENSE: license,
   APP_REPOSITORY: repository.url,

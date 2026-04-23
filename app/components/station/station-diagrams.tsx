@@ -266,7 +266,7 @@ const StationDiagramImage: React.FC<{
   if (
     !(station instanceof StationData) &&
     station.properties.plot &&
-    (import.meta.env.DEV || import.meta.env.BASE_URL === "/dev/")
+    (import.meta.env.DEV || import.meta.env.APP_REGION === "DEV")
   ) {
     const url = station.properties.plot;
     const today = Temporal.Now.plainDateISO();

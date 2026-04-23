@@ -1,7 +1,7 @@
 import { createRouter, redirectPage } from "@nanostores/router";
 import { onMount } from "nanostores";
 
-const projectRoot = import.meta.env.BASE_URL as "/" | "/beta/" | "/dev/";
+const projectRoot = import.meta.env.BASE_URL as "/" | "/beta/";
 
 export const $router = createRouter(
   {

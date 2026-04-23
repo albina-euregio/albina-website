@@ -23,7 +23,7 @@ const Page = ({ children }: Props) => {
     }
   }, [page]);
 
-  const dev = import.meta.env.BASE_URL === "/dev/" && (
+  const dev = import.meta.env.APP_REGION === "DEV" && (
     <ControlBar
       style="yellow"
       message={
