@@ -25,42 +25,42 @@
   },
   "danger-scale-5": {
     "heading": "Degré de danger 5 — Très fort",
-    "text": "<p><b>Extraordinary avalanche situation</b></p><p>Numerous very large and extremely large natural avalanches can be expected. These can reach roads and settlements in the valley.</p><p><b>Recommendations for backcountry recreationists</b></p><p>You are advised not to engage in winter sports beyond open ski runs and trails.</p></div>",
+    "text": "<p><b>Situation avalancheuse exceptionnelle</b></p><p>De nombreux départs spontanés d'avalanches très grandes et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>Il est déconseillé de pratiquer des sports d'hiver en dehors des pistes de ski et des sentiers balisés.</p></div>",
     "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "Frequency: None or nearly none",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>none or nearly none</b>, the locations with snowpack stability class <b>{stabilityClass}</b> do not exist, or they are so rare that they are not considered relevant for the stability assessment.</p>",
-    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
+    "heading": "Fréquence : Aucune ou très rares",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>aucune ou très rares</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> n'existent pas ou sont si rares qu'ils ne sont pas jugés pertinents pour l'évaluation de la stabilité.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
-    "heading": "Frequency: Few",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>few</b>, locations with the snowpack stability class <b>{stabilityClass}</b> are rare. While rare, their number is considered relevant for the stability assessment.</p>",
-    "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
+    "heading": "Fréquence : Rares",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>rares</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> sont rares. Bien qu'ils soient rares, leur nombre est jugé pertinent pour l'évaluation de la stabilité.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
-    "heading": "Frequency: Some",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>some</b>, the locations with snowpack stability class <b>{stabilityClass}</b> typically exists in specific terrain features with common characteristics (i.e., close to ridgelines, in gullies).</p>",
-    "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
+    "heading": "Fréquence : Quelques",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>quelques</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> se trouvent généralement dans des formations topographiques spécifiques présentant des caractéristiques communes (par exemple, à proximité des crêtes, dans les combes).</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
-    "heading": "Frequency: Many",
-    "text": "<p>The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class within the warning region. For the class <b>many</b>, locations with the stability class <b>{stabilityClass}</b> are abundant.</p>",
-    "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
+    "heading": "Fréquence : Nombreuses",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>nombreuses</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> sont nombreux.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
-    "heading": "Snowpack stability: Very poor",
-    "text": "<p>The snowpack stability indicates how easy it is to trigger an avalanche. <b>Very poor</b> stability means that avalanches release spontaneously or are very easy to trigger (touchy). Natural avalanches, shooting cracks and Whumpf-sounds are clear signs for a <b>very poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>very poor</b>, within the warning region.</p>",
-    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|90__END_SLIDER__",
+    "heading": "Stabilité du manteau neigeux : Très instable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux<b>très instable</b> signifie que les avalanches se déclenchent spontanément ou sont très faciles à déclencher (sensibles). Les avalanches naturelles, les craquements et les « woumfs » sont des signes évidents d'un manteau neigeux<b>très instable</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>très instable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
-    "heading": "Snowpack stability: Poor",
+    "heading": "Stabilité du manteau neigeux : Instable",
     "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Poor</b> snowpack stability means that avalanches are easy to trigger by e.g. a single skier. Whumpf-sounds and shooting cracks are clear signs for a <b>poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>poor</b>, within the warning region.</p>",
     "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
     "source": "false"
