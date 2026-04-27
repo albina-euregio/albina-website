@@ -769,6 +769,10 @@ export async function initDomain(
     );
   }
 
+  if (newDomain === "relative-snow" && !hasMetaFiles) {
+    lastDataUpdate.set(resolvedTime.subtract({ hours: 24 }));
+  }
+
   const timeChanged =
     Temporal.Instant.compare(
       resolvedTime,
