@@ -44,10 +44,6 @@ const DataOverlay = ({ playerCB }) => {
   const currentTime = useStore(store.currentTime);
   const domainConfig = useStore(store.domainConfig);
   const overlayURLs = useStore(store.overlayURLs);
-  const mapBBox = useStore(store.mapBBox) as [
-    [number, number],
-    [number, number]
-  ];
   const dataOverlays = useStore(store.dataOverlays);
   const dataOverlaysEnabled = true;
 
@@ -131,7 +127,7 @@ const DataOverlay = ({ playerCB }) => {
     const map = parentMap;
     const curZoom = map.getZoom();
     const grids = Math.max(4, Math.round((curZoom - map._layersMinZoom) * 8));
-    const bounds = mapBBox;
+    const bounds = store.config.settings.bbox;
     const markers: React.ReactElement<typeof StationMarker>[] = [];
     if (!dataOverlaysEnabled) {
       return;
@@ -183,7 +179,7 @@ const DataOverlay = ({ playerCB }) => {
         url={overlayURLs[0]}
         errorOverlayUrl={overlayURLs[1]}
         opacity={1}
-        bounds={mapBBox}
+        bounds={store.config.settings.bbox}
         attribution={
           store.config.settings.debugModus
             ? intl.formatMessage({ id: "weathermap:attribution" })
@@ -204,7 +200,7 @@ const DataOverlay = ({ playerCB }) => {
         url={overlayURLs[0]}
         errorOverlayUrl={overlayURLs[1]}
         opacity={1}
-        bounds={mapBBox}
+        bounds={store.config.settings.bbox}
         interactive={true}
         attribution={
           store.config.settings.debugModus

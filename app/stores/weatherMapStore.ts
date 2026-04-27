@@ -6,7 +6,6 @@ import {
 import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
-type MapBBox = [[number, number], [number, number]];
 
 export const config = {
   overlayURLs: [
@@ -151,10 +150,6 @@ export const config = {
     "relative-snow": {
       item: {
         overlayURLs: ["/graphics/", "/graphics/"],
-        bbox: [
-          [45.8267, 9.3],
-          [47.87867, 13.0492]
-        ],
         timeSpans: ["+-24"],
         defaultTimeSpan: null,
         timeSpanToDataId: {},
@@ -477,14 +472,6 @@ export const domain = computed(
  */
 export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = atom([]);
-
-/*
- * returns map bbox with optional domain override
- */
-export const mapBBox = computed([domainConfig], domainConfig => {
-  const cfg = domainConfig as { bbox?: MapBBox } | undefined;
-  return (cfg?.bbox || config.settings.bbox) as MapBBox;
-});
 
 function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
   if (!domain) return config.overlayURLs;

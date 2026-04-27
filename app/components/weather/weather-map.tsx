@@ -22,7 +22,6 @@ const WeatherMap = ({
   const domainId = useStore(store.domainId);
   const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
-  const mapBBox = useStore(store.mapBBox);
   const itemId = domainConfig.timeSpanToDataId[timeSpan];
   const grid = useStore(store.grid);
   const stations = useStore(store.stations);
@@ -110,7 +109,6 @@ const WeatherMap = ({
         overlays={overlays}
         controls={[showHideStationsCtrl]}
         mapConfigOverride={{
-          bounds: mapBBox,
           ...store.config.settings.mapOptionsOverride,
           keyboard: false
         }}
