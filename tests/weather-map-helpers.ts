@@ -104,7 +104,7 @@ export const SEL = {
   // Cockpit — timespan buttons
   rangeButtons: ".cp-range-buttons",
   rangeButtonActive: ".cp-range-buttons .js-active",
-  rangeHourlyActive: ".cp-range-hourly.js-active",
+  rangeLabelActive: ".cp-range-label.js-active",
 
   // Timeline — range indicator (>1h timespans)
   rangeIndicator: ".cp-scale-stamp-range.js-active",

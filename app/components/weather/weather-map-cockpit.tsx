@@ -181,8 +181,14 @@ const WeatherMapCockpit = () => {
         );
       else
         allButtons = (
-          <span className="cp-range-hourly js-active">
-            <FormattedMessage id="weathermap:domain:timespan:description:1" />
+          <span className="cp-range-label js-active">
+            <FormattedMessage
+              id={
+                domainId == "relative-snow"
+                  ? "weathermap:domain:timespan:description:2"
+                  : "weathermap:domain:timespan:description:1"
+              }
+            />
           </span>
         );
     }
