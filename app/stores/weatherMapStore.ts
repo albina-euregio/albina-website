@@ -473,6 +473,11 @@ export const domain = computed(
 export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = atom([]);
 
+interface DataOverlayCoordinates {
+  x: number;
+  y: number;
+}
+
 function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
   if (!domain) return config.overlayURLs;
   const cfg = config.domains[domain]?.item as
@@ -523,14 +528,47 @@ function _updateDataOverlays() {
       img.src = urls.shift();
     });
 
+    const overlayDomain = ((o as { domain?: DomainId }).domain ||
+      di) as DomainId;
+    const sourceUrls = getOverlayURLs(ct, overlayDomain, o.file, ats);
+    const sourceImage = new Image();
+    const sourceSize = new Promise<{ width: number; height: number }>(
+      resolve => {
+        sourceImage.onload = () => {
+          resolve({
+            width: sourceImage.naturalWidth,
+            height: sourceImage.naturalHeight
+          });
+        };
+        sourceImage.onerror = () => {
+          resolve({ width: 0, height: 0 });
+        };
+        sourceImage.src = sourceUrls[0];
+      }
+    );
+
     return {
       ...o,
       ctx,
-      async valueForPixel(coordinates: {
-        x: number;
-        y: number;
-      }): Promise<number | null> {
-        const p = (await ctx).getImageData(coordinates.x, coordinates.y, 1, 1);
+      async valueForPixel(
+        coordinates: DataOverlayCoordinates
+      ): Promise<number | null> {
+        const [resolvedCtx, size] = await Promise.all([ctx, sourceSize]);
+        const scaleX = size.width ? resolvedCtx.canvas.width / size.width : 1;
+        const scaleY = size.height
+          ? resolvedCtx.canvas.height / size.height
+          : 1;
+        const pixelX = Math.round(
+          Math.max(0, Math.min(1, coordinates.x)) *
+            Math.max(size.width - 1, 0) *
+            scaleX
+        );
+        const pixelY = Math.round(
+          Math.max(0, Math.min(1, coordinates.y)) *
+            Math.max(size.height - 1, 0) *
+            scaleY
+        );
+        const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
         return valueForPixel(o.type as OverlayType, {
           r: p.data[0],
           g: p.data[1],
