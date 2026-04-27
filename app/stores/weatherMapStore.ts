@@ -156,7 +156,7 @@ export const config = {
         updateTimesOffset: { "*": 24 },
         metaFiles: {},
         units: "%",
-        thresholds: [0, 30, 60, 90, 110, 140, 170, 200],
+        thresholds: [-1, 30, 60, 90, 110, 140, 170, 200],
         colors: {
           0: [0, 255, 0],
           1: [255, 160, 160],
