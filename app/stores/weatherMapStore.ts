@@ -152,8 +152,8 @@ export const config = {
       item: {
         overlayURLs: ["/graphics/", "/graphics/"],
         bbox: [
-          [45.8567, 9.4],
-          [47.8167, 13.0333]
+          [45.8567, 9.3],
+          [47.88167, 13.0333]
         ],
         timeSpans: ["+-24"],
         defaultTimeSpan: null,
