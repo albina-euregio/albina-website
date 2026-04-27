@@ -66,6 +66,9 @@ const DataOverlay = ({ playerCB }) => {
   };
 
   const getColor = (value: number | null): number[] => {
+    if (value == null) {
+      return [255, 255, 255];
+    }
     const v = parseFloat(value);
     const colors = Object.values(domainConfig.colors);
     const idx = domainConfig.thresholds.findLastIndex(tr => v > tr);
@@ -114,7 +117,7 @@ const DataOverlay = ({ playerCB }) => {
           stationId="dataMarker"
           coordinates={e.latlng}
           color={getColor(pixelData.value)}
-          value={pixelData.value}
+          value={pixelData.value ?? "-"}
           direction={pixelData.direction}
           layerContainer={parentMap}
         />
