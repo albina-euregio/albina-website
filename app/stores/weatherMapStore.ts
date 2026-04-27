@@ -152,8 +152,8 @@ export const config = {
       item: {
         overlayURLs: ["/graphics/", "/graphics/"],
         bbox: [
-          [45.8567, 9.3],
-          [47.88167, 13.0333]
+          [45.8267, 9.3],
+          [47.87867, 13.0492]
         ],
         timeSpans: ["+-24"],
         defaultTimeSpan: null,
@@ -161,17 +161,16 @@ export const config = {
         updateTimesOffset: { "*": 24 },
         metaFiles: {},
         units: "%",
-        thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
+        thresholds: [0, 30, 60, 90, 110, 140, 170, 200, 230],
         colors: {
-          1: [255, 255, 254],
-          2: [255, 255, 179],
-          3: [176, 255, 188],
-          4: [140, 255, 255],
-          5: [3, 205, 255],
-          6: [4, 129, 255],
-          7: [3, 91, 190],
-          8: [120, 75, 255],
-          9: [204, 12, 232]
+          1: [255, 160, 160],
+          2: [255, 210, 210],
+          3: [255, 255, 179],
+          4: [176, 255, 188],
+          5: [140, 255, 255],
+          6: [120, 75, 255],
+          7: [204, 12, 232],
+          8: [204, 12, 232]
         },
         layer: {
           overlay: true,
@@ -186,7 +185,8 @@ export const config = {
           }
         ],
         direction: false,
-        clusterOperation: "max"
+        clusterOperation: "max",
+        timeRange: ["-17520", "+24"]
       }
     },
     "snow-line": {
@@ -892,6 +892,7 @@ export function valueForPixel(
       return pixelRGB.r * 50;
     case "snowHeight":
       if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) return 0;
+      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 255 * 3) return null;
       if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
       if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
       if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
