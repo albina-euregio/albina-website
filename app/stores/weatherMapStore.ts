@@ -832,9 +832,13 @@ function getOverlayURLs(
 ): [string, string] {
   if (!currentTime) return ["", ""];
   const baseUrls = getDomainOverlayBaseURLs(domain);
+  const effectiveTime =
+    domain === "relative-snow"
+      ? currentTime.subtract({ hours: 24 })
+      : currentTime;
   const data = {
-    year: currentTime.toString().slice(0, "2025".length),
-    date: currentTime.toString().slice(0, "2025-03-14".length),
+    year: effectiveTime.toString().slice(0, "2025".length),
+    date: effectiveTime.toString().slice(0, "2025-03-14".length),
     time:
       currentTime.toZonedDateTimeISO("UTC").hour.toString().padStart(2, "0") +
       "-00",
