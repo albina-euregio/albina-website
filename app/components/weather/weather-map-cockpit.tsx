@@ -14,6 +14,7 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
+  "relative-snow": "icon-snow-relative",
   wind: "icon-wind",
   gust: "icon-wind-gust",
   wind700hpa: "icon-wind-high"
@@ -25,6 +26,7 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
+  "relative-snow": "cp-legend-snowrelative",
   wind: "cp-legend-wind",
   gust: "cp-legend-windgust",
   wind700hpa: "cp-legend-windhigh"

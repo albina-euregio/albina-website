@@ -47,7 +47,7 @@ export function snapToSlot(
  * Three modes:
  * - Forecast (+N): next slot > now — shows current/upcoming forecast period
  * - Historical (-N): most recent slot ≤ data availability
- * - Instantaneous (+-1): closest hour to now with available data
+ * - Instantaneous (+-N): closest valid slot to now with available data
  */
 export function getDefaultTime(
   now: Temporal.Instant,
@@ -63,7 +63,7 @@ export function getDefaultTime(
   const nowUTC = now.toZonedDateTimeISO("UTC");
   const dataAvailableTimeUTC = dataAvailableTime.toZonedDateTimeISO("UTC");
 
-  const isInstantaneous = timeSpan === "+-1";
+  const isInstantaneous = timeSpan.startsWith("+-");
   const isForecast = timeSpan.startsWith("+") && !isInstantaneous;
   const isHistorical = timeSpan.startsWith("-");
 

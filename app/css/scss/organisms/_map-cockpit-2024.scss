@@ -712,6 +712,12 @@ $cp-breakpoint-3: 1024px;
     12
   );
 }
+.cp-legend-snowrelative {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snowrelative-items,
+    8
+  );
+}
 .cp-legend-snowline {
   @include map-cockpit-legend-items.legend-generator(
     map-cockpit-legend-items.$cp-legend-snowline-items,

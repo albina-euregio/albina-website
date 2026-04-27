@@ -115,6 +115,32 @@ $cp-legend-snowdiff-items: (
   )
 );
 
+$cp-legend-snowrelative-items: (
+  colors: (
+    color-1: #ffa0a0,
+    color-2: #ffd2d2,
+    color-3: #ffffb2,
+    color-4: #b0ffbc,
+    color-5: #8cffff,
+    color-6: #784bff,
+    color-7: #cd0feb,
+    color-8: #cd0feb
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "30",
+    unit-3: "60",
+    unit-4: "90",
+    unit-5: "110",
+    unit-6: "140",
+    unit-7: "170",
+    unit-8: "230",
+    // unit-10: "50",
+    // unit-11: "75",
+     // unit-12: ">100"
+  )
+);
+
 // 100 - 200: RGB 192 96 255       C060FF
 // 200 - 300: RGB 155 0 224        9B00E0
 // 300 - 400: RGB 128 0 255        8000FF

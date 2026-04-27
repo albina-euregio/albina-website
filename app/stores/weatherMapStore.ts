@@ -6,6 +6,7 @@ import {
 import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
+type MapBBox = [[number, number], [number, number]];
 
 export const config = {
   overlayURLs: [
@@ -140,6 +141,47 @@ export const config = {
         dataOverlays: [
           {
             file: "{date}_{time}_{domain}_{timespan}h_V2.png",
+            type: "snowHeight"
+          }
+        ],
+        direction: false,
+        clusterOperation: "max"
+      }
+    },
+    "relative-snow": {
+      item: {
+        overlayURLs: ["/graphics/", "/graphics/"],
+        bbox: [
+          [45.8567, 9.4],
+          [47.8167, 13.0333]
+        ],
+        timeSpans: ["+-24"],
+        defaultTimeSpan: null,
+        timeSpanToDataId: {},
+        updateTimesOffset: { "*": 24 },
+        metaFiles: {},
+        units: "%",
+        thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
+        colors: {
+          1: [255, 255, 254],
+          2: [255, 255, 179],
+          3: [176, 255, 188],
+          4: [140, 255, 255],
+          5: [3, 205, 255],
+          6: [4, 129, 255],
+          7: [3, 91, 190],
+          8: [120, 75, 255],
+          9: [204, 12, 232]
+        },
+        layer: {
+          overlay: true,
+          stations: false,
+          grid: false
+        },
+        imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
+        dataOverlays: [
+          {
+            file: "{date}/{date}_00-00_REL.png",
             type: "snowHeight"
           }
         ],
@@ -436,6 +478,22 @@ export const domain = computed(
 export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = atom([]);
 
+/*
+ * returns map bbox with optional domain override
+ */
+export const mapBBox = computed([domainConfig], domainConfig => {
+  const cfg = domainConfig as { bbox?: MapBBox } | undefined;
+  return (cfg?.bbox || config.settings.bbox) as MapBBox;
+});
+
+function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
+  if (!domain) return config.overlayURLs;
+  const cfg = config.domains[domain]?.item as
+    | { overlayURLs?: [string, string] }
+    | undefined;
+  return cfg?.overlayURLs || config.overlayURLs;
+}
+
 /**
  * Load data overlay images for pixel-value reading.
  * Separated from computed to avoid side effects (Image creation) in pure derivations.
@@ -453,7 +511,9 @@ function _updateDataOverlays() {
 
   const overlays = dc.dataOverlays.map(o => {
     const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
-      const urls = getOverlayURLs(ct, o?.domain || di, o.file, ats);
+      const overlayDomain = ((o as { domain?: DomainId }).domain ||
+        di) as DomainId;
+      const urls = getOverlayURLs(ct, overlayDomain, o.file, ats);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -593,6 +653,10 @@ export async function initDomain(
   const domainChanged = newDomain !== domainId.get();
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
   const needsMetadata = domainChanged || timeSpanChanged;
+  const metaFiles = domainConf.metaFiles as
+    | { startDate?: string; agl?: string }
+    | undefined;
+  const hasMetaFiles = Boolean(metaFiles?.startDate && metaFiles?.agl);
 
   // 4. Set domain and timespan atoms
   if (domainChanged) {
@@ -605,30 +669,42 @@ export async function initDomain(
 
   // 5. Fetch metadata only when domain or timeSpan actually changed
   if (needsMetadata) {
-    const baseUrl = config.overlayURLs[0];
-    const startDateUrl = window.config.template(
-      baseUrl + domainConf.metaFiles?.startDate,
-      { domain: newDomain }
-    );
+    const baseUrl = getDomainOverlayBaseURLs(newDomain)[0];
     const absSpan = Math.abs(
       parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
     );
-    const aglUrl = window.config.template(baseUrl + domainConf.metaFiles?.agl, {
-      domain: newDomain,
-      timespan: absSpan
-    });
 
-    try {
-      const [start, aglDate] = await Promise.all([
-        fetchMetaDate(startDateUrl),
-        fetchMetaDate(aglUrl)
-      ]);
-      if (gen !== _generation) return; // stale — newer call superseded this one
-      startDate.set(start);
-      agl.set(aglDate);
-    } catch (err) {
-      console.error("Weather data API is not available", err);
-      return;
+    if (!hasMetaFiles) {
+      const fallback = SIMULATE_START
+        ? Temporal.Instant.from(SIMULATE_START)
+        : Temporal.Now.zonedDateTimeISO()
+            .round({ smallestUnit: "hours", roundingMode: "trunc" })
+            .toInstant();
+      startDate.set(fallback);
+      agl.set(fallback);
+    } else {
+      const knownMeta = metaFiles as { startDate: string; agl: string };
+      const startDateUrl = window.config.template(
+        baseUrl + knownMeta.startDate,
+        { domain: newDomain }
+      );
+      const aglUrl = window.config.template(baseUrl + knownMeta.agl, {
+        domain: newDomain,
+        timespan: absSpan
+      });
+
+      try {
+        const [start, aglDate] = await Promise.all([
+          fetchMetaDate(startDateUrl),
+          fetchMetaDate(aglUrl)
+        ]);
+        if (gen !== _generation) return; // stale — newer call superseded this one
+        startDate.set(start);
+        agl.set(aglDate);
+      } catch (err) {
+        console.error("Weather data API is not available", err);
+        return;
+      }
     }
   }
 
@@ -755,6 +831,7 @@ function getOverlayURLs(
   timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
+  const baseUrls = getDomainOverlayBaseURLs(domain);
   const data = {
     year: currentTime.toString().slice(0, "2025".length),
     date: currentTime.toString().slice(0, "2025-03-14".length),
@@ -765,8 +842,8 @@ function getOverlayURLs(
     timespan
   };
   return [
-    window.config.template(config.overlayURLs[0] + file, data),
-    window.config.template(config.overlayURLs[1] + file, data)
+    window.config.template(baseUrls[0] + file, data),
+    window.config.template(baseUrls[1] + file, data)
   ];
 }
 
