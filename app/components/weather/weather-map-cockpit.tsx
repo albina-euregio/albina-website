@@ -36,6 +36,7 @@ const DOMAIN_UNITS = {
   "snow-height": "cm",
   "new-snow": "cm",
   "diff-snow": "cm",
+  "relative-snow": "%",
   "snow-line": "m",
   temp: "°C",
   wind: "km/h",
@@ -255,6 +256,7 @@ const WeatherMapCockpit = () => {
     );
   };
   const getReleaseInfo = () => {
+    const unit = (domainId && DOMAIN_UNITS[domainId]) || domainConfig?.units;
     return (
       <div key="cp-release" className="cp-release">
         <Tooltip
@@ -290,7 +292,7 @@ const WeatherMapCockpit = () => {
           placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
-          <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
+          <span className="cp-legend-unit">{unit}</span>
         </Tooltip>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a
