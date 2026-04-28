@@ -61,139 +61,139 @@
   },
   "snowpack-stability-poor": {
     "heading": "Stabilité du manteau neigeux : Instable",
-    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Poor</b> snowpack stability means that avalanches are easy to trigger by e.g. a single skier. Whumpf-sounds and shooting cracks are clear signs for a <b>poor</b> snowpack stability.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>poor</b>, within the warning region.</p>",
-    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux <b>instable</b> signifie que les avalanches peuvent être facilement déclenchées, par exemple par un seul skieur.  Les « woumfs » et les craquements sont des signes évidents d'un manteau neigeux <b>instable</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>instable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|1|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
-    "heading": "Snowpack stability: Fair",
-    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Stabilité <b>moyenne</b> signifie que les avalanches sont difficiles à déclencher. Large loads such as multiple skiers, explosives or cornice falls are typically required to trigger an avalanche with <b>fair</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>fair</b>, within the warning region.</p>",
-    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|90__END_SLIDER__",
+    "heading": "Stabilité du manteau neigeux : Moyennement stable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Stabilité <b>moyenne</b> signifie que les avalanches sont difficiles à déclencher. Il faut généralement des charges importantes, telles que plusieurs skieurs, des explosifs ou la chute d'une corniche, pour déclencher une avalanche lorsque la stabilité du manteau neigeux est jugée <b>moyenne</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>moyenne</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
-    "heading": "Snowpack stability: Good",
-    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Good</b> stability means stable conditions. There are no signs of instability under <b>good</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>good</b>, within the warning region.</p>",
-    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|90__END_SLIDER__",
+    "heading": "Stabilité du manteau neigeux : Stable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux <b>stable</b> est synonyme de conditions stables. Lorsque le manteau neigeux est <b>stable</b>, aucun signe d'instabilité n'est observé.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>stable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
-    "heading": "Size 1: Small avalanche (sluff)",
-    "text": "<p>With avalanches of this size, it is unlikely that persons are buried, except in run out zones with adverse terrain features (i.e. terrain traps). In extremely steep terrain, the danger of falling prevails the danger of burials. Avalanches typically stop before the end of a slope.</p>",
+    "heading": "Taille 1 : Petite avalanche (coulée)",
+    "text": "<p>Avec des avalanches de cette taille, il est peu probable que des personnes soient ensevelies, sauf dans les zones de dépôt présentant des reliefs défavorables (c'est-à-dire des pièges topographiques). Sur les terrains extrêmement raides, le risque de chute l'emporte sur celui d'ensevelissement. Ces avalanches s'arrêtent généralement avant le bas de la pente.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
-    "heading": "Size 2: Medium avalanche",
-    "text": "<p>It is likely that avalanches could bury, injure or kill a person. Avalanches of this size correspond to the typical skier-triggered avalanche. They stop typically at the end of a slope.</p>",
+    "heading": "Taille 2 : Avalanche moyenne",
+    "text": "<p>Une telle avalanche peut ensevelir, blesser ou tuer une personne. Les avalanches de cette taille correspondent généralement à celles déclenchées par des skieurs. Elles s'arrêtent souvent au bas d'une pente.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
-    "heading": "Size 3: Large avalanche",
-    "text": "<p>It is likely that avalanches could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
+    "heading": "Taille 3 : Grande avalanche",
+    "text": "<p>Une telle avalanche est susceptible d'ensevelir et de détruire une voiture, d'endommager un camion, de détruire un petit bâtiment ou d'arracher des arbres. Lorsque des skieurs sont pris dans une avalanche de cette taille, le risque de conséquences graves est très élevé. L'avalanche peut se déplacer sur un terrain plat (à une pente nettement inférieure à 30°) sur des distances pouvant atteindre 50 m.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
-    "heading": "Size 4: Very large avalanche",
-    "text": "<p>It is likely that avalanches could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanches will traverse flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
+    "heading": "Taille 4 : Très grande avalanche",
+    "text": "<p>Ces avalanches ont le potentiel d'ensevelir et détruire un wagon, un gros camion, plusieurs bâtiments ou une partie de la forêt. Ces avalanches peuvent parcourir des terrains plats (dont la pente est nettement inférieure à 30°) sur des distances de plus de 50 m et atteindre le fond de la vallée.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
-    "heading": "Size 5: Extremely large avalanche",
-    "text": "<p>It is likely that avalanches could gouge the landscape and have disastrous damage potential. Avalanche will reach valley ground and might flow the largest runout distance known.</p>",
+    "heading": "Taille 5 : Avalanche extrêmement grande ",
+    "text": "<p>Ces avalanches ont le potentiel de dévaster le paysage et causer des dégâts catastrophiques. L'avalanche atteindra le fond de la vallée et pourrait parcourir la plus grande distance d'écoulement connue.</p>",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "problem-new_snow": {
-    "heading": "Avalanche problem: New snow",
-    "text": "<p>The avalanche problem is related to current or most recent snowfall. The amount of additional loading by new snow onto the existing snowpack is the crucial factor of the new snow problem. How critical the loading is depends on various factors such as temperature or characteristics of the old snow surface.</p><p><b>Travel advice</b><br/>Dry-snow slab avalanches: Wait until the snowpack stabilizes.<br/>Dry loose snow avalanches: Danger of falling is more important than danger of burial. Consider consequences in steep terrain.</p>",
+    "heading": "Situation avalancheuse : Neige fraîche",
+    "text": "<p>Cette situation est liée aux chutes de neige en cours ou récentes. La quantité de neige récente occasionnant la surcharge en est le principal facteur. L’impact de cette surcharge dépend de facteurs variés tels que la température ou les caractéristiques du manteau neigeux préexistant.</p><p><b>Conseils de comportement</b><br/>Avalanches de plaque sèche : attendre que le manteau neigeux se soit stabilisé.<br/>Avalanche de neige sans cohésion : le risque d'être emporté ou de faire une chute est plus élevé que le risque d'être enseveli. Faire attention aux conséquences sur les pentes raides.</p>",
     "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-wind_slab": {
-    "heading": "Avalanche problem: Wind slab",
-    "text": "<p>The avalanche problem is related to wind slabs. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
+    "heading": "Situation avalancheuse : Neige ventée",
+    "text": "<p>Cette situation est liée au transport de neige par le vent, pendant ou après une chute de neige. </p><p><b>Conseil de comportement</b><br/>Éviter les accumulations de neige soufflée sur les pentes raides, en particulier dans les zones où l'épaisseur de la couche de neige varie ou quand la neige passe d'un état dur à un état mou.</p>",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
-    "heading": "Avalanche problem: Persistent weak layers",
-    "text": "<p>The avalanche problem is related to the presence of persistent weak layers in the old snowpack. These weak layers typically include buried surface hoar, depth hoar or faceted crystals.</p><p><b>Travel advice</b><br/>Travel conservatively and avoid large steep slopes. Consider the history of weather and snow cover processes in the area. Be extra cautious in areas with a thin snowpack and at the transition from thin to deep snowpack. This problem is a major cause of recreational avalanche fatalities.</p>",
+    "heading": "Situation avalancheuse : Neige ancienne",
+    "text": "<p>Cette situation est liée à la présence d'une ou plusieurs couches fragiles persistantes dans le manteau neigeux. Il s’agit typiquement de couches enfouies constituées de givre de surface, de faces planes et/ou de gobelets (givre de profondeur).</p><p><b>Conseils de comportement</b><br/>Faire preuve de prudence et éviter les grandes pentes raides. Surveiller l'évolution des conditions météorologiques et de la couverture neigeuse dans la région. Faire particulièrement attention dans les zones peu enneigées et aux limites entre les zones peu et fortement enneigées. Cette situation est l'une des principales causes d'accidents mortels liés aux avalanches chez les adeptes des sports d'hiver.</p>",
     "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
-    "heading": "Avalanche problem: Wet snow",
-    "text": "<p>The avalanche problem is related to weakening of the snowpack due to the presence of liquid water. Water infiltrates the snowpack due to melt or rain.</p><p><b>Travel advice</b><br/>In the presence of a sun crust the conditions after cold nights with clear skies are usually favourable in the morning due to freezing. After warm nights with overcast skies the problem often exists already in the morning. Normally rain on fresh snow creates this problem almost immediately. Good timing and trip planning are important. Consider avalanche runout zones.</p>",
+    "heading": "Situation avalancheuse : Neige mouillée",
+    "text": "<p>Cette situation est liée à la déstabilisation du manteau neigeux du fait de la présence d’eau liquide. Cette dernière provient de la fonte de la neige et/ou de la pluie.</p><p><b>Conseils de comportement</b><br/>Si la neige humide regèle durant la nuit en raison d'un ciel dégagé et de températures froides et forme une croûte solide à la surface du manteau neigeux, des conditions favorables seront généralement présentes le matin. À l’inverse, en cas de nuits chaudes et nuageuses, le problème se pose souvent dès le matin. Lorsque la pluie tombe sur une couche de neige sèche, le problème se pose généralement immédiatement. Un bon timing et une bonne planification de l'itinéraire sont essentiels. Il faut tenir compte des zones de dépôt des avalanches.</p>",
     "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-gliding_snow": {
-    "heading": "Avalanche problem: Gliding snow",
-    "text": "<p>The entire snowpack is gliding on the ground, typically on smooth ground such as grassy slopes or smooth rock zones. High activity of glide-snow avalanches are typically related to a thick snowpack with no or only few weak layers. Glide snow avalanches can occur both with a cold dry snowpack and with a warm wet snowpack. The release of a glide-snow avalanche is difficult to predict, although glide cracks open usually before a release.</p><p><b>Travel advice</b><br/>Avoid areas close to glide cracks.</p>",
+    "heading": "Situation avalancheuse : Neige de glissement",
+    "text": "<p>Le manteau neigeux glisse intégralement sur le sol, le plus souvent sur des surfaces lisses (pentes herbeuses ou zones rocheuses de faible rugosité). Les périodes d’activité importante correspondent à des manteaux neigeux épais, secs ou humides, sans ou avec peu de couches fragiles. La prévision du déclenchement d’une avalanche de fond est très difficile, bien que, dans de nombreux cas, une fissure de glissement se forme avant le déclenchement.</p><p><b>Conseil de comportement</b><br/>Éviter les zones à proximité des fissures.</p>",
     "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "danger-pattern-DP1": {
-    "heading": "dp.1 deep persistent weak layer",
-    "text": "<p>At the onset of winter, slab avalanches are often observed following the second heavy snowfall, usually at high altitudes (>2000&nbsp;m) and high alpine altitudes (>3000&nbsp;m) on shady, very steep slopes. This is because in autumn after the first big snowfalls, a lengthy period of stable, highpressure weather follows. That is when ideal conditions prevail for the partial metamorphism of snow into loose crystals, which then form a deep persistent weak layer. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "heading": "mr.1 : Sous-couche fragile persistante",
+    "text": "<p>Au début de l'hiver, des avalanches de plaque sont souvent observées après la deuxième chute de neige significative, et ce en haute altitude (>2000&nbsp;m) et en haute montagne (>3000&nbsp;m), sur des pentes ombragées et très raides. Cela tient au fait qu'en automne, après les premières grosses chutes de neige, une situation anticyclonique stable et prolongée ou une période sans précipitations s'installe généralement. À ce moment, les conditions sont idéales pour la transformation de la neige en cristaux libres, qui forment alors une couche fragile profonde et persistante sur laquelle les chutes de neige ultérieures se déposent. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP2": {
-    "heading": "dp.2 gliding snow",
-    "text": "<p>Glide-snow avalanches are among the most difficult avalanches to predict, since they can trigger literally at any time of day or night, even when the snow situation is at its most stable. That includes the coldest day and the warmest day of the winter. Furthermore, glide-snow avalanches are not triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "heading": "mr.2 : Neige glissante",
+    "text": "<p>Les avalanches de glissement comptent parmi les plus difficiles à prévoir, car elles peuvent se déclencher à tout moment du jour ou de la nuit, même lorsque les conditions d'enneigement sont les plus stables. Cela vaut aussi bien pour les journées les plus froides que pour les journées les plus chaudes de l'hiver. De plus, les avalanches de glissement ne sont pas déclenchées par une surcharge.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.2 gliding snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP3": {
-    "heading": "dp.3 rain on snow",
-    "text": "<p>Rain-on-snow is considered the classic alarm signal in snow and avalanche science because, on the one hand, its additional weight burdens the entire snowpack; and on the other, because the firmness of the snowpack is immediately lost. For those reasons, avalanches are predestined. Rain can occur at any time during the winter. The big advantage is that no danger sign could be simpler to recognize.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "heading": "mr.3 : Pluie sur neige",
+    "text": "<p>La pluie sur la neige est considérée comme un signal d'alarme en nivologie car d'une part, son poids supplémentaire alourdit l'ensemble du manteau neigeux et, d'autre part, la solidité de ce dernier s'en trouve immédiatement compromise. Pour ces raisons, les avalanches sont inévitables. La pluie peut survenir à tout moment pendant l'hiver. Le grand avantage, c'est qu'aucun facteur de risque n'est plus facile à reconnaître.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP4": {
-    "heading": "dp.4 cold on warm / warm on cold",
-    "text": "<p>For the most part, large temperature differences during snowfall have a negative effect, since they reinforce snow metamorphism inside the snowpack. As a rule, a thin, weak layer forms which is highly prone to triggering. This layer is often found on south-facing slopes. It is highly treacherous for the additional reason that the weak layer does not yet exist immediately after the new snow is deposited, it forms only over the course of the following days.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Watch the video on YouTube</a></p>",
+    "heading": "mr.4 : Froid suivant chaud / chaud suivant froid",
+    "text": "<p>En général, les fortes variations de température pendant les chutes de neige ont un effet négatif, car elles favorisent la métamorphose de la neige au sein du manteau neigeux. En règle générale, il se forme alors une couche mince et fragile, très susceptible de se rompre. Cette couche se trouve souvent sur les pentes exposées au sud. Elle est d'autant plus dangereuse que cette couche fragile n'existe pas immédiatement après la chute de neige fraîche ; elle ne se forme qu'au cours des jours suivants.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP5": {
-    "heading": "dp.5 snowfall after long period of cold",
-    "text": "<p>Among avalanche events, this is a classic: following a lengthy period of cold, it begins to snow. The problem is that fresh snowdrifts are deposited on wind-protected leeward slopes on top of a loose old snow cover surface which usually contains depth hoar. Wind slab and persistent weak layers are very poorly bonded with each other. The snowpack is just waiting to be triggered by additional loading.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.5 : Chute de neige après une longue période de froid",
+    "text": "<p>Pour les avalanches, il s'agit d'un cas classique : après une longue période de froid, la neige commence à tomber. Le problème est que des congères de neige fraîche se déposent sur les pentes sous le vent, à l'abri du vent, par-dessus une couche de neige ancienne meuble qui contient généralement du givre de profondeur. La plaque de vent et les couches fragiles persistantes sont très mal liées entre elles. Le manteau neigeux n'attend qu'une surcharge pour se décrocher.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP6": {
-    "heading": "dp.6 loose snow and wind",
-    "text": "<p>'Wind is the architect of avalanches.' This classic proverb from the 1930s by Wilhelm Paulcke remains unchanged even today. Wind influences both snow which is falling and snow which has already been deposited. It is a major factor in the formation of avalanches. When the snow is loose and dry, wind transports it, thereby increasing avalanche danger. The colder the transported snow, the more sensitively it reacts to additional loading, because it is so brittle.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.6 : Neige meuble et vent",
+    "text": "<p>« Le vent est l'architecte des avalanches. » Ce proverbe classique de Wilhelm Paulcke, datant des années 1930, reste d'actualité aujourd'hui encore. Le vent influence à la fois la neige qui tombe et celle qui s’est déjà déposée. C’est un facteur majeur dans la formation des avalanches. Lorsque la neige est meuble et sèche, le vent la transporte, augmentant ainsi le risque d’avalanche. Plus la neige transportée est froide, plus elle réagit de manière sensible à une surcharge, car elle est alors très fragile.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP7": {
-    "heading": "dp.7 shallow snow next to deep snow",
-    "text": "<p>Areas where the snow is shallow usually have less favourable snowpack layering than where the snow is deep. This is because of amplified transformation processes which go on inside a shallow snowpack. Furthermore, slab avalanches are easier to trigger where the snow is shallow because the weak layers are not as deeply embedded in the snowpack, thus are more liable to trigger through additional loading. For that reason, avalanche triggerings are often observed in transition zones from shallow snow to deep snow.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.7 : Enneigement faible à coté d'enneigement abondant",
+    "text": "<p>Les zones où la neige est peu profonde présentent généralement une stratification du manteau neigeux moins favorable que celles où la neige est profonde. Cela s'explique par l'amplification des processus de transformation qui se produisent à l'intérieur d'un manteau neigeux peu profond. De plus, les avalanches de plaque sont plus faciles à déclencher là où la neige est peu profonde, car les couches fragiles ne sont pas aussi profondément enfouies dans le manteau neigeux et sont donc plus susceptibles de se rompre sous l'effet d'une surcharge. C'est pourquoi on observe souvent des déclenchements d'avalanches dans les zones de transition entre la neige peu profonde et la neige profonde.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP8": {
-    "heading": "dp.8 buried surface hoar",
-    "text": "<p>Surface hoar numbers among the most beautiful types of snow in existence. In and of itself, it bears no danger potential. That potential unfolds only when it is buried by fresh, bonded layers of snow. Then it becomes hazardous. In fact, it is considered one of the most critical weak layers in all of snow and avalanche science.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.8 : Givre de surface recouvert de neige",
+    "text": "<p>Le givre de surface compte parmi les plus beaux types de neige qui existent. En soi, il ne présente aucun danger potentiel. Ce potentiel ne se développe que lorsqu'il est recouverte de couches de neige fraîche et compacte. C’est alors qu’il devient dangereux. En effet, il est considéré comme l’une des couches fragiles les plus critiques en nivologie. </p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP9": {
-    "heading": "dp.9 buried graupel",
-    "text": "<p>A weak layer inside a snowpack is often compared with ball bearings. This image is actually suitable only for graupel: a spherical, granular form of precipitation which is often deposited during showers such as thunderstorms during springtime. It is easy to grasp that snowdrifts accumulating atop of a layer of graupel can only be poorly bonded with it, so that the danger of avalanches increases. Graupel is frequently spread over very small surface areas. Without examining the snowpack itself it is difficult to spot, even for professionals. This is an extremely treacherous phenomenon. Fortunately, the problems it creates are short-lived.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.9 : Neige roulée recouverte de neige",
+    "text": "<p>Une couche fragile à l'intérieur d’un manteau neigeux est souvent comparée à des roulements à billes. Cette image ne s’applique en réalité qu’à la neige roulée : une forme de précipitation sphérique et granuleuse qui se dépose souvent lors d’averses, comme les orages printaniers. On comprend aisément que la neige ventée qui s’accumule au-dessus d’une couche de neige roulée ne peut que mal s’y lier, ce qui augmente le risque d’avalanches. La neige roulée est souvent réparti sur de très petites surfaces. Sans examiner le manteau neigeux lui-même, elle est difficile à repérer, même pour les professionnels. Il s'agit d'un phénomène extrêmement traître. Heureusement, les problèmes qu'il engendre sont de courte durée.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP10": {
-    "heading": "dp.10 springtime situation",
-    "text": "<p>Avalanche danger is never easier to evaluate than in stable corn-snow conditions; on the other, avalanches of such magnitude as in springtime are rarely registered in deep winter. Apart from the snowpack layering, the complex interaction of air temperature, air moisture, solar radiation and wind play a major role. For backcountry skiers and boarders, high discipline in timing and flexibility of route planning are more essential than ever.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Watch the video on YouTube</a></p>",
+    "heading": "mr.10 : Situation de printemps",
+    "text": "<p>C'est dans des conditions stables de neige de printemps qu'il est le plus facile d'évaluer le danger d'avalanche ; en revanche, on observe rarement en plein hiver des avalanches d'une telle ampleur que celles qui se produisent au printemps. Outre la stratification du manteau neigeux, l'interaction complexe entre la température de l'air, l'humidité atmosphérique, le rayonnement solaire et le vent joue un rôle majeur. Pour les amateurs de sports d'hiver hors-piste, il est plus essentiel que jamais de faire preuve d'une grande rigueur dans le choix du moment de la sortie et de flexibilité dans la planification de l'itinéraire.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
     "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"
   }
