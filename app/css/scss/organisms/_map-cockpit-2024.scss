@@ -715,7 +715,7 @@ $cp-breakpoint-3: 1024px;
 .cp-legend-snowrelative {
   @include map-cockpit-legend-items.legend-generator(
     map-cockpit-legend-items.$cp-legend-snowrelative-items,
-    8
+    10
   );
 }
 .cp-legend-snowline {
