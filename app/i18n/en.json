@@ -253,7 +253,7 @@
   "weathermap:domain:description:temp": "Temperature at 2m (INCA/C-LAEF)",
   "weathermap:domain:description:snow-height": "Total snow height (SNOWGRID)",
   "weathermap:domain:description:diff-snow": "Change in total snow height (SNOWGRID)",
-  "weathermap:domain:description:relative-snow": "Relative snow height (SNOWGRID) in reference to 2014 – 2025 average",
+  "weathermap:domain:description:relative-snow": "Compared to 2014 – 2025 average (SNOWGRID)",
   "weathermap:domain:description:new-snow": "Forecasted height of fresh snow (SNOWGRID)",
   "weathermap:domain:description:snow-line": "Precipitation of 50% water / 50% ice (C-LAEF)",
   "weathermap:domain:description:wind": "Average wind in 10m (INCA/C-LAEF)",
