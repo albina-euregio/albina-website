@@ -5,7 +5,17 @@
   "headlessLogo": [],
   "province": null,
   "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-  "blogRegions": ["AT-02", "AT-07", "IT-32-BZ", "IT-32-TN"],
+  "blogRegions": [
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "IT-32-BZ",
+    "AT-07",
+    "IT-32-TN",
+    "AT-08"
+  ],
   "stationRegions": [
     "DE-BY",
     "AT-02",
@@ -254,6 +264,13 @@
     }
   ],
   "blogsMinYear": 2011,
+  "categoryNameMap": {
+    "ALLGEMEIN": "Wissenswertes",
+    "LAWINEN": "Lawinenereignis",
+    "WISSEN": "Wissenswertes",
+    "UMFRAGE": "Neuerungen",
+    "WETTER, SCHNEEDECKE": "Aktuelle Situation"
+  },
   "blogs": [
     {
       "lang": "de",
@@ -280,6 +297,60 @@
       "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
       "params": {
         "id": "blog.avalanche.report/test"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "at-07-de",
+      "apiType": "wordpress",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "blog.avalanche.report/at-07"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "niederoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-03"],
+      "params": {
+        "id": "niederoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "oberoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-04"],
+      "params": {
+        "id": "oberoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "salzburg",
+      "apiType": "wordpress",
+      "regions": ["AT-05"],
+      "params": {
+        "id": "salzburg.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "steiermark",
+      "apiType": "wordpress",
+      "regions": ["AT-06"],
+      "params": {
+        "id": "steiermark.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "vorarlberg",
+      "apiType": "wordpress",
+      "regions": ["AT-08"],
+      "params": {
+        "id": "vorarlberg.blog.lawinen-warnung.eu"
       }
     }
   ],

@@ -180,6 +180,11 @@ export function init() {
   year.set(validateYear(search.get("year")));
 }
 
+function mappedCategoryName(name: string): string {
+  const categoryNameMap = window.config.categoryNameMap ?? {};
+  return categoryNameMap[name] || name;
+}
+
 export async function load() {
   loading.set(true);
   await loadCategories();
@@ -190,7 +195,8 @@ export async function load() {
     categories.set(
       (await BlogPostPreviewItem.loadCategories(blogConfigs.get()))
         .flatMap(([, c]) => c)
-        .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+        .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
+        .filter(c => !/Uncategorised|Uncategorized/i.test(c.name))
         .sort((c1, c2) => c1.name.localeCompare(c2.name))
     );
   }
