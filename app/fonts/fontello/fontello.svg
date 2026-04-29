@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2026 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -103,6 +103,8 @@
 <glyph glyph-name="calendar-big" unicode="&#xe892;" d="M333 750v-67h334v67h66v-67h134v-700h-734v700h134v67z m500-133h-666v-600h666z m-266-467h-134v-67h134z m200 0h-134v-67h134z m-400 0h-134v-67h134z m400 133h-134v-66h134z m-200 0h-134v-66h134z m-200 0h-134v-66h134z m400 134h-134v-67h134z m-200 0h-134v-67h134z m-200 0h-134v-67h134z m400 133h-134v-67h134z m-200 0h-134v-67h134z" horiz-adv-x="1000" />
 
 <glyph glyph-name="calendar" unicode="&#xe893;" d="M433 550v-33h134v33h66v-33h67v-367h-400v367h67v33z m234-100h-334v-267h334z m-234-67h-66v-66h66z m100 0h-66v-66h66z m-100-100h-66v-66h66z m100 0h-66v-66h66z m100 100h-66v-66h66z m0-100h-66v-66h66z" horiz-adv-x="1000" />
+
+<glyph glyph-name="percent" unicode="&#xf295;" d="M325 600c0 40 35 75 75 75 40 0 75-35 75-75 0-40-35-75-75-75-40 0-75 35-75 75z m30 0c0-25 20-45 45-45 25 0 45 20 45 45 0 25-20 45-45 45-25 0-45-20-45-45z m270-500c0 40 35 75 75 75 40 0 75-35 75-75 0-40-35-75-75-75-40 0-75 35-75 75z m30 0c0-25 20-45 45-45 25 0 45 20 45 45 0 25-20 45-45 45-25 0-45-20-45-45z m-275-40l240 580c8 12 28 12 36 0 8-12 8-28 0-40l-240-580c-8-12-28-12-36 0-8 12-8 28 0 40z" horiz-adv-x="1000" />
 </font>
 </defs>
 </svg>
