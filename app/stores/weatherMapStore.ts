@@ -158,17 +158,17 @@ export const config = {
         units: "%",
         thresholds: [-1, 30, 60, 90, 110, 140, 170, 200, 230, 260],
         colors: {
-          0: "#cd0feb",
+          0: "#08306b",
           1: "#ffa0a0",
           2: "#ffd2d2",
-          3: "#ffffb2",
+          3: "#ffe6ce",
           4: "#b0ffbc",
-          5: "#8cffff",
-          6: "#19cdff",
-          7: "#1982ff",
-          8: "#0f5abe",
-          9: "#784bff",
-          10: "#cd0feb"
+          5: "#9ecae1",
+          6: "#6baed6",
+          7: "#4292c6",
+          8: "#2171b5",
+          9: "#08519c",
+          10: "#08306b"
         },
         layer: {
           overlay: true,
