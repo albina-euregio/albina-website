@@ -238,4 +238,8 @@ export const postsList = computed(
     postItems
       .sort((p1, p2) => +p2.date - +p1.date)
       .slice((page - 1) * perPage, page * perPage)
+      .map(post => {
+        post.tags = post.tags.map(mappedCategoryName);
+        return post;
+      })
 );
