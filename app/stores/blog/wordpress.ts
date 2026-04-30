@@ -57,8 +57,9 @@ export class WordpressProcessor implements BlogProcessor {
     if (state?.searchText) {
       params.set("search", state.searchText);
     }
-    if (state?.searchCategory) {
-      params.set("categories", state.searchCategory);
+    const categoryIds = state?.searchCategory?.[config.name];
+    if (categoryIds) {
+      params.set("categories", categoryIds);
     }
     if (state?.year) {
       params.set("after", state.startDate.toString());
