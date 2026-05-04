@@ -402,5 +402,6 @@ $transition-duration: 0.25s;
 
 :root {
   // Set --breakpoint-desktop to the lower bound of $medium-range in px (1em = 16px)
-  --breakpoint-desktop: #{math.div(list.nth($medium-range, 1), 1em) * $rem-base}px;
+  --breakpoint-desktop: #{math.div(list.nth($medium-range, 1), 1em) *
+    $rem-base}px;
 }

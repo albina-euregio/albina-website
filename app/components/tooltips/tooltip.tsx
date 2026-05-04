@@ -28,7 +28,7 @@ export const Tooltip = ({
   placement = "bottom",
   html = false,
   enableClick = false,
-  width,  //note if you change the width of the tooltip. check with mobile view to make sure it is not too wide.
+  width, //note if you change the width of the tooltip. check with mobile view to make sure it is not too wide.
   zIndex
 }: {
   children: React.ReactNode;
@@ -73,40 +73,53 @@ export const Tooltip = ({
     <>
       {isValidElement(children) &&
         cloneElement(children, getReferenceProps({ ref: reference }))}
-      {open && createPortal(
-        <div
-          {...getFloatingProps({
-            ref: floating,
-            className: "tooltip-container",
-            style: {
-              position: strategy,
-              top: y ?? "",
-              left: x ?? "",
-              ...(typeof zIndex !== 'undefined' ? { zIndex } : {}),
-              ...(width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : {})
-            }
-          })}
-        >
+      {open &&
+        createPortal(
           <div
-            className={html ? "tooltip-inner-html" : "tooltip-inner"}
-            style={width ? { width: typeof width === "number" ? `${width}px` : width, maxWidth: typeof width === "number" ? `${width}px` : width } : undefined}
+            {...getFloatingProps({
+              ref: floating,
+              className: "tooltip-container",
+              style: {
+                position: strategy,
+                top: y ?? "",
+                left: x ?? "",
+                ...(typeof zIndex !== "undefined" ? { zIndex } : {}),
+                ...(width
+                  ? {
+                      width: typeof width === "number" ? `${width}px` : width,
+                      maxWidth: typeof width === "number" ? `${width}px` : width
+                    }
+                  : {})
+              }
+            })}
           >
-            {typeof label === "string" ? (
-              <div
-                className="tooltip-content"
-                dangerouslySetInnerHTML={{
-                  __html: label.replace("\n", "<br>")
-                }}
-              ></div>
-            ) : typeof label === "function" ? (
-              <div className="tooltip-content">{label()}</div>
-            ) : (
-              <div className="tooltip-content">{label}</div>
-            )}
-          </div>
-        </div>,
-        document.body
-      )}
+            <div
+              className={html ? "tooltip-inner-html" : "tooltip-inner"}
+              style={
+                width
+                  ? {
+                      width: typeof width === "number" ? `${width}px` : width,
+                      maxWidth: typeof width === "number" ? `${width}px` : width
+                    }
+                  : undefined
+              }
+            >
+              {typeof label === "string" ? (
+                <div
+                  className="tooltip-content"
+                  dangerouslySetInnerHTML={{
+                    __html: label.replace("\n", "<br>")
+                  }}
+                ></div>
+              ) : typeof label === "function" ? (
+                <div className="tooltip-content">{label()}</div>
+              ) : (
+                <div className="tooltip-content">{label}</div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 };
