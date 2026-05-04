@@ -1,6 +1,7 @@
 import type { BlogConfig, BlogProcessor, Category } from ".";
 import { blogProcessors } from ".";
-import type { BlogStore } from "../blogStore";
+import { type BlogStore } from "../blogStore";
+import { mappedCategoryName } from "./blogConfig";
 
 const VALID_HOURS_DEFAULT = 72;
 const VALID_HOURS = /valid_(?<hours>\d+)h/;
@@ -20,12 +21,15 @@ export class BlogPostPreviewItem {
     public langLinks: { lang: string; link: string }[] = [],
     public regions: string[] = [],
     public image: string = null,
+    public categories: string[] = [],
     public tags: string[] = []
   ) {
-    this.newUntil = BlogPostPreviewItem.getNewUntil(this.tags, this.date);
-    this.tags = this.tags.filter(
-      t => !VALID_HOURS.test(t) && !/Uncategorised|Uncategorized/.test(t)
-    );
+    this.newUntil = BlogPostPreviewItem.getNewUntil(this.categories, this.date);
+    this.categories = this.categories
+      .filter(
+        t => !VALID_HOURS.test(t) && !/Uncategorised|Uncategorized/.test(t)
+      )
+      .map(mappedCategoryName);
   }
 
   private static getNewUntil(

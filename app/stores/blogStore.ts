@@ -1,5 +1,6 @@
 import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
+import { mappedCategoryName } from "./blog/blogConfig";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
 import { Language } from "../appStore";
@@ -15,7 +16,7 @@ export const searchText = atom("");
 export const page = atom(1);
 export const loading = atom(false);
 export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
-export const categories = atom([] as Category[]);
+export const categories = atom({} as Record<string, Category[]>);
 export const searchCategory = atom("");
 export const perPage = atom(20);
 
@@ -24,7 +25,7 @@ onMount(language, () => init());
 const timeZone = Temporal.Now.timeZoneId();
 
 export interface BlogStore {
-  searchCategory: string;
+  searchCategory: Record<string, string>;
   searchText: string;
   year: number | "";
   startDate: Temporal.Instant | undefined;
@@ -180,11 +181,6 @@ export function init() {
   year.set(validateYear(search.get("year")));
 }
 
-function mappedCategoryName(name: string): string {
-  const categoryNameMap = window.config.categoryNameMap ?? {};
-  return categoryNameMap[name] || name;
-}
-
 export async function load() {
   loading.set(true);
   await loadCategories();
@@ -192,24 +188,45 @@ export async function load() {
   loading.set(false);
 
   async function loadCategories() {
+    const loaded = await BlogPostPreviewItem.loadCategories(blogConfigs.get());
     categories.set(
-      (await BlogPostPreviewItem.loadCategories(blogConfigs.get()))
-        .flatMap(([, c]) => c)
-        .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
-        .filter(c => !/Uncategorised|Uncategorized/i.test(c.name))
-        .sort((c1, c2) => c1.name.localeCompare(c2.name))
+      Object.fromEntries(
+        loaded.map(([blogName, cats]) => [
+          blogName,
+          cats
+            .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
+            .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+            .sort((c1, c2) => c1.name.localeCompare(c2.name))
+        ])
+      )
     );
   }
 
   async function loadPosts() {
+    const categoryName = searchCategory.get();
+    const categoriesByBlog = categories.get();
+    const searchCategoryIds: Record<string, string> = Object.fromEntries(
+      Object.entries(categoriesByBlog).map(([blogName, cats]) => [
+        blogName,
+        cats
+          .filter(c => c.name === categoryName)
+          .map(c => c.id)
+          .join()
+      ])
+    );
+    const configs = categoryName
+      ? blogConfigs // filter out providers that do not have the requested category
+          .get()
+          .filter(cfg =>
+            (categoriesByBlog[cfg.name] ?? []).some(
+              c => c.name === categoryName
+            )
+          )
+      : blogConfigs.get(); // get all providers if no specific category is selected ("ALL") in the dropdown menu
     posts.set(
       Object.fromEntries(
-        await BlogPostPreviewItem.loadBlogPosts(blogConfigs.get(), {
-          searchCategory: categories
-            .get()
-            .filter(c => c.name === searchCategory.get())
-            .map(c => c.id)
-            .join(),
+        await BlogPostPreviewItem.loadBlogPosts(configs, {
+          searchCategory: searchCategoryIds,
           searchText: searchText.get(),
           year: year.get(),
           startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
