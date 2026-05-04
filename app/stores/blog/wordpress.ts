@@ -113,7 +113,14 @@ export class WordpressProcessor implements BlogProcessor {
         .filter(({ lang }) => config.lang !== lang),
       config.regions,
       post.featured_image_url,
-      post._embedded["wp:term"].flat().map(t => t.name)
+      post._embedded["wp:term"]
+        .flat()
+        .filter(t => t.taxonomy === "category")
+        .map(t => t.name),
+      post._embedded["wp:term"]
+        .flat()
+        .filter(t => t.taxonomy === "post_tag")
+        .map(t => t.name)
     );
   }
 

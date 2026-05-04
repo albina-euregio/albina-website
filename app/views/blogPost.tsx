@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import "@albina-euregio/linea";
 import "@albina-euregio/linea/aws-stats";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLPageLoadingScreen from "../components/organisms/html-page-loading-screen";
 import HTMLHeader from "../components/organisms/html-header";
-import TagList from "../components/blog/tag-list";
+import CategoryList from "../components/blog/category-list";
 import { DATE_TIME_FORMAT } from "../util/date";
 import { preprocessContent } from "../util/htmlParser";
-import { BlogPostPreviewItem } from "../stores/blog";
+import { BlogPostPreviewItem, mappedCategoryName } from "../stores/blog";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 import { $router } from "../components/router";
@@ -22,12 +22,14 @@ const BlogPost = () => {
 
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [tags, setTags] = useState([]);
-  const [lang, setLanguage] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [languageLinks, setLanguageLinks] = useState([]);
-  const [content, setContent] = useState("");
+  const [date, setDate] = useState<Date | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [lang, setLanguage] = useState<string>("");
+  const [regions, setRegions] = useState<string[]>([]);
+  const [languageLinks, setLanguageLinks] = useState<
+    { lang: string; link: string }[]
+  >([]);
+  const [content, setContent] = useState<string | ReactNode>("");
 
   useEffect(() => {
     if (params.blogName && params.postId) {
@@ -37,7 +39,7 @@ const BlogPost = () => {
           setLoading(false);
           setTitle(b.title);
           setDate(b.date);
-          setTags(b.tags);
+          setCategories(b.categories.map(mappedCategoryName));
           setLanguage(b.lang);
           setRegions(b.regions);
           setLanguageLinks(b.langLinks);
@@ -116,7 +118,7 @@ const BlogPost = () => {
             </ul>
           </li>
         </ul>
-        <TagList tags={tags} />
+        <CategoryList categories={categories} />
       </PageHeadline>
       <section className="section-centered ">
         <section className="panel blog-post">{content}</section>

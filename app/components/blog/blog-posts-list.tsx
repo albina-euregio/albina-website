@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import TagList from "./tag-list";
+import CategoryList from "./category-list";
 import { DATE_TIME_FORMAT } from "../../util/date";
 
 import type { BlogPostPreviewItem } from "../../stores/blog";
@@ -49,8 +49,8 @@ export default function BlogPostsList({ posts, handleChangeCategory }: Props) {
               <h1 title={item.title} className="subheader blog-feature-title">
                 {item.title}
               </h1>
-              <TagList
-                tags={item.tags}
+              <CategoryList
+                categories={item.categories}
                 handleChangeCategory={handleChangeCategory}
               />
             </div>

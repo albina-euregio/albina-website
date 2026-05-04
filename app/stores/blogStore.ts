@@ -1,5 +1,6 @@
 import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
+import { mappedCategoryName } from "./blog/blogConfig";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
 import { Language } from "../appStore";
@@ -41,37 +42,31 @@ export const blogConfigs = computed(
       return [window.config.profilesBlog];
     }
     return window.config.blogs
-      .filter((cfg) => [cfg.lang, "all", ""].includes(language))
-      .filter((cfg) =>
-        cfg.regions.some((r) => [r, "all", ""].includes(region)),
-      );
-  },
+      .filter(cfg => [cfg.lang, "all", ""].includes(language))
+      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)));
+  }
 );
 
 export const supportedLanguages = computed([], () =>
   window.config.blogs
-    .map((cfg) => cfg.lang as Language)
-    .filter((lang, index, array) => array.indexOf(lang) === index),
+    .map(cfg => cfg.lang as Language)
+    .filter((lang, index, array) => array.indexOf(lang) === index)
 );
 
-export const postItems = computed(posts, (posts) =>
-  Object.values(posts ?? {}).flat(),
+export const postItems = computed(posts, posts =>
+  Object.values(posts ?? {}).flat()
 );
 
-export const numberOfPosts = computed(
-  postItems,
-  (postItems) => postItems.length,
-);
+export const numberOfPosts = computed(postItems, postItems => postItems.length);
 
 export const numberNewPosts = computed(
   postItems,
-  (postItems) =>
-    postItems.filter((aPost) => Date.now() < aPost.newUntil).length,
+  postItems => postItems.filter(aPost => Date.now() < aPost.newUntil).length
 );
 
 export const maxPages = computed(
   [perPage, numberOfPosts],
-  (perPage, numberOfPosts) => Math.ceil(numberOfPosts / perPage),
+  (perPage, numberOfPosts) => Math.ceil(numberOfPosts / perPage)
 );
 
 export const startDate = computed([year, month], (year, month) => {
@@ -104,7 +99,7 @@ export const searchParams = computed(
     searchCategory,
     searchText,
     language,
-    region,
+    region
   ) => {
     const params = new URLSearchParams();
     if (year) {
@@ -121,7 +116,7 @@ export const searchParams = computed(
     params.set("searchText", searchText || "");
     params.forEach((value, key) => value || params.delete(key));
     return params;
-  },
+  }
 );
 
 export function validatePage(page: string | number): number {
@@ -152,7 +147,7 @@ export function validateRegion(valueToValidate: string): string {
 }
 
 export function validateLanguage(
-  valueToValidate: string,
+  valueToValidate: string
 ): StoreValue<typeof language> {
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
@@ -186,11 +181,6 @@ export function init() {
   year.set(validateYear(search.get("year")));
 }
 
-function mappedCategoryName(name: string): string {
-  const categoryNameMap = window.config.categoryNameMap ?? {};
-  return categoryNameMap[name] || name;
-}
-
 export async function load() {
   loading.set(true);
   await loadCategories();
@@ -204,11 +194,11 @@ export async function load() {
         loaded.map(([blogName, cats]) => [
           blogName,
           cats
-            .map((c) => ({ ...c, name: mappedCategoryName(c.name) }))
-            .filter((c) => !/Uncategorised|Uncategorized/.test(c.name))
-            .sort((c1, c2) => c1.name.localeCompare(c2.name)),
-        ]),
-      ),
+            .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
+            .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+            .sort((c1, c2) => c1.name.localeCompare(c2.name))
+        ])
+      )
     );
   }
 
@@ -219,20 +209,20 @@ export async function load() {
       Object.entries(categoriesByBlog).map(([blogName, cats]) => [
         blogName,
         cats
-          .filter((c) => c.name === categoryName)
-          .map((c) => c.id)
-          .join(),
-      ]),
+          .filter(c => c.name === categoryName)
+          .map(c => c.id)
+          .join()
+      ])
     );
     const configs = categoryName
       ? blogConfigs // filter out providers that do not have the requested category
           .get()
-          .filter((cfg) =>
+          .filter(cfg =>
             (categoriesByBlog[cfg.name] ?? []).some(
-              (c) => c.name === categoryName,
-            ),
+              c => c.name === categoryName
+            )
           )
-      : blogConfigs.get(); // if no specific category is selected ("ALL") in the dropdown menu
+      : blogConfigs.get(); // get all providers if no specific category is selected ("ALL") in the dropdown menu
     posts.set(
       Object.fromEntries(
         await BlogPostPreviewItem.loadBlogPosts(configs, {
@@ -240,9 +230,9 @@ export async function load() {
           searchText: searchText.get(),
           year: year.get(),
           startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
-          endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant(),
-        } satisfies BlogStore),
-      ),
+          endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
+        } satisfies BlogStore)
+      )
     );
   }
 }
@@ -265,8 +255,4 @@ export const postsList = computed(
     postItems
       .sort((p1, p2) => +p2.date - +p1.date)
       .slice((page - 1) * perPage, page * perPage)
-      .map((post) => {
-        post.tags = post.tags.map(mappedCategoryName);
-        return post;
-      }),
 );
