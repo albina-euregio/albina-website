@@ -23,6 +23,7 @@ export const perPage = atom(20);
 onMount(language, () => init());
 
 const timeZone = Temporal.Now.timeZoneId();
+let activeLoadId = 0;
 
 export interface BlogStore {
   searchCategory: Record<string, string>;
@@ -182,29 +183,43 @@ export function init() {
 }
 
 export async function load() {
+  const loadId = ++activeLoadId;
   loading.set(true);
-  await loadCategories();
-  await loadPosts();
-  loading.set(false);
+  const categoriesPromise = loadCategories();
+  const postsPromise = loadPosts(categoriesPromise);
 
-  async function loadCategories() {
-    const loaded = await BlogPostPreviewItem.loadCategories(blogConfigs.get());
-    categories.set(
-      Object.fromEntries(
-        loaded.map(([blogName, cats]) => [
-          blogName,
-          cats
-            .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
-            .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
-            .sort((c1, c2) => c1.name.localeCompare(c2.name))
-        ])
-      )
-    );
+  await Promise.all([categoriesPromise, postsPromise]);
+  if (loadId === activeLoadId) {
+    loading.set(false);
   }
 
-  async function loadPosts() {
+  async function loadCategories(): Promise<Record<string, Category[]>> {
+    const loaded = await BlogPostPreviewItem.loadCategories(blogConfigs.get());
+    const mapped = Object.fromEntries(
+      loaded.map(([blogName, cats]) => [
+        blogName,
+        cats
+          .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
+          .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+          .sort((c1, c2) => c1.name.localeCompare(c2.name))
+      ])
+    );
+    if (loadId === activeLoadId) {
+      categories.set(mapped);
+    }
+    return mapped;
+  }
+
+  async function loadPosts(
+    categoriesPromise: Promise<Record<string, Category[]>>
+  ) {
     const categoryName = searchCategory.get();
-    const categoriesByBlog = categories.get();
+    const cachedCategoriesByBlog = categories.get();
+    const hasCachedCategories = Object.keys(cachedCategoriesByBlog).length > 0;
+    const categoriesByBlog =
+      categoryName && !hasCachedCategories
+        ? await categoriesPromise
+        : cachedCategoriesByBlog;
     const searchCategoryIds: Record<string, string> = Object.fromEntries(
       Object.entries(categoriesByBlog).map(([blogName, cats]) => [
         blogName,
@@ -223,17 +238,42 @@ export async function load() {
             )
           )
       : blogConfigs.get(); // get all providers if no specific category is selected ("ALL") in the dropdown menu
-    posts.set(
-      Object.fromEntries(
-        await BlogPostPreviewItem.loadBlogPosts(configs, {
-          searchCategory: searchCategoryIds,
-          searchText: searchText.get(),
-          year: year.get(),
-          startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
-          endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
-        } satisfies BlogStore)
-      )
+    const requestState = {
+      searchCategory: searchCategoryIds,
+      searchText: searchText.get(),
+      year: year.get(),
+      startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
+      endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
+    } satisfies BlogStore;
+
+    const resolvedPosts: Record<string, BlogPostPreviewItem[]> = {};
+    if (loadId === activeLoadId) {
+      posts.set({});
+    }
+
+    let receivedAnyProvider = false;
+    await Promise.all(
+      configs.map(async cfg => {
+        const loaded = await BlogPostPreviewItem.loadBlogPosts(
+          [cfg],
+          requestState
+        );
+        const [blogName, blogPosts] = loaded[0] ?? [cfg.name, []];
+        resolvedPosts[blogName] = blogPosts;
+        if (loadId !== activeLoadId) {
+          return;
+        }
+        posts.set({ ...resolvedPosts });
+        if (!receivedAnyProvider) {
+          receivedAnyProvider = true;
+          loading.set(false);
+        }
+      })
     );
+
+    if (loadId === activeLoadId && !receivedAnyProvider) {
+      loading.set(false);
+    }
   }
 }
 
