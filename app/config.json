@@ -266,6 +266,51 @@
       "params": {
         "id": "blog.avalanche.report/it-32-tn"
       }
+    },
+    {
+      "lang": "de",
+      "name": "niederoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-03"],
+      "params": {
+        "id": "niederoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "oberoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-04"],
+      "params": {
+        "id": "oberoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "salzburg",
+      "apiType": "wordpress",
+      "regions": ["AT-05"],
+      "params": {
+        "id": "salzburg.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "steiermark",
+      "apiType": "wordpress",
+      "regions": ["AT-06"],
+      "params": {
+        "id": "steiermark.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "vorarlberg",
+      "apiType": "wordpress",
+      "regions": ["AT-08"],
+      "params": {
+        "id": "vorarlberg.blog.lawinen-warnung.eu"
+      }
     }
   ],
   "techBlog": {
