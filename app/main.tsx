@@ -15,7 +15,10 @@ window["scroll_duration"] = 1000;
  * redeploying the whole app.
  */
 const configRequest = import.meta.env.APP_REGION
-  ? import(`./config.${import.meta.env.APP_REGION}.json`)
+  ? Promise.all([
+      import("./config.json"),
+      import(`./config.${import.meta.env.APP_REGION}.json`)
+    ]).then(([base, override]) => ({ ...base, ...override }))
   : import("./config.json");
 configRequest.then(async configParsed => {
   window.config = {
