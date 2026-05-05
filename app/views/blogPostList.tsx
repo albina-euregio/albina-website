@@ -90,6 +90,7 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
 
   const handleChangeLanguage = (val: string) => {
     BLOG_STORE.language.set(val);
+    BLOG_STORE.searchCategory.set("");
     BLOG_STORE.load();
   };
 
