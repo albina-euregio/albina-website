@@ -37,7 +37,8 @@ function PageHeader() {
       !import.meta.env.DEV &&
       newHost &&
       document.location.hostname !== newHost &&
-      // in dev, only redirect between dev.* hosts; don't leave the dev environment
+      // in beta/dev, only redirect between beta.*/dev.* hosts; don't leave the environment
+      (import.meta.env.APP_REGION !== "BETA" || newHost.startsWith("beta.")) &&
       (import.meta.env.APP_REGION !== "DEV" || newHost.startsWith("dev."));
     if (shouldRedirect) {
       console.info("Changing hostname to " + newHost);
