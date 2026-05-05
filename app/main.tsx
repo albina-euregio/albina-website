@@ -14,12 +14,15 @@ window["scroll_duration"] = 1000;
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configRequest = import.meta.env.APP_REGION
-  ? Promise.all([
-      import("./config.json"),
-      import(`./config.${import.meta.env.APP_REGION}.json`)
-    ]).then(([base, override]) => ({ ...base, ...override }))
-  : import("./config.json");
+const configRequest =
+  import.meta.env.APP_REGION === "BETA" || import.meta.env.APP_REGION === "DEV"
+    ? Promise.all([
+        import("./config.json"),
+        import(`./config.${import.meta.env.APP_REGION}.json`)
+      ]).then(([base, override]) => ({ ...base, ...override }))
+    : import.meta.env.APP_REGION
+      ? import(`./config.${import.meta.env.APP_REGION}.json`)
+      : import("./config.json");
 configRequest.then(async configParsed => {
   window.config = {
     ...configParsed,
