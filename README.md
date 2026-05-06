@@ -41,7 +41,7 @@ run `pnpm run build --base=/.../` instead.
 | environment | build                 | link                           |
 | ----------- | --------------------- | ------------------------------ |
 | production  | `pnpm run build-prod` | https://avalanche.report/      |
-| beta        | `pnpm run build-beta` | https://avalanche.report/beta/ |
+| beta        | `pnpm run build-beta` | https://beta.avalanche.report/ |
 | development | `pnpm run build-dev`  | https://dev.avalanche.report/  |
 
 ## Server configuration (Caddy)

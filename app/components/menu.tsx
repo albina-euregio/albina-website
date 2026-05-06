@@ -1,7 +1,9 @@
 // Utility to get the desktop breakpoint from CSS custom property
 function getDesktopBreakpoint() {
-  if (typeof window === 'undefined') return 1024;
-  const value = getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-desktop');
+  if (typeof window === "undefined") return 1024;
+  const value = getComputedStyle(document.documentElement).getPropertyValue(
+    "--breakpoint-desktop"
+  );
   return parseInt(value, 10) || 1024;
 }
 import React, { useEffect, useState } from "react";
@@ -74,7 +76,9 @@ function Menu(props: Props) {
     if (hasSubs && isTouchingDevice) e.preventDefault();
   };
 
-  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
+    null
+  );
   if (props.entries && props.entries.length > 0) {
     const activeItem = props.entries.find(e => testActive(e));
 
@@ -112,8 +116,14 @@ function Menu(props: Props) {
               isActive={e === activeItem}
               onLinkClick={onLinkClick}
               numberNewPosts={numberNewPosts}
-              dropdownOpen={props.isMobile ? (e.children && e.children.length > 0) : openDropdownIndex === index}
-              setDropdownOpen={open => setOpenDropdownIndex(open ? index : null)}
+              dropdownOpen={
+                props.isMobile
+                  ? e.children && e.children.length > 0
+                  : openDropdownIndex === index
+              }
+              setDropdownOpen={open =>
+                setOpenDropdownIndex(open ? index : null)
+              }
               menuIndex={index}
               onCloseAllDropdowns={handleCloseAllDropdowns}
             />
@@ -187,7 +197,8 @@ function MenuItem(props: MenuItemProps) {
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > getDesktopBreakpoint()) isTouchingDevice = true;
+            if (window.innerWidth > getDesktopBreakpoint())
+              isTouchingDevice = true;
           }}
           onClick={ev => {
             props.onLinkClick(ev, classes.includes("has-sub"));

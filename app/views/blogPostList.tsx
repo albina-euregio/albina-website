@@ -90,6 +90,7 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
 
   const handleChangeLanguage = (val: string) => {
     BLOG_STORE.language.set(val);
+    BLOG_STORE.searchCategory.set("");
     BLOG_STORE.load();
   };
 
@@ -186,7 +187,9 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
             value={searchCategory}
           >
             <option value="">{intl.formatMessage({ id: "filter:all" })}</option>
-            {categories
+            {Object.values(categories)
+              .flat()
+              .sort((c1, c2) => c1.name.localeCompare(c2.name))
               .filter(
                 (c, i, arr) => arr.findIndex(c2 => c.name === c2.name) === i
               )

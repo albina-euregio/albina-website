@@ -448,7 +448,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
           </section>
         )}
 
-        {(import.meta.env.BASE_URL === "/beta/" ||
+        {(import.meta.env.APP_REGION === "BETA" ||
           import.meta.env.APP_REGION === "DEV" ||
           import.meta.env.DEV) && (
           <section
