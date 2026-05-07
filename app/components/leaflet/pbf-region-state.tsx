@@ -8,7 +8,7 @@ import {
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds } from "../../stores/eawsRegions";
-import { microRegionIds } from "../../stores/microRegions";
+import { getMacroRegion, microRegionIds } from "../../stores/microRegions";
 
 export type RegionState =
   | "mouseOver"
@@ -16,6 +16,8 @@ export type RegionState =
   | "highlighted"
   | "dehighlighted"
   | "dimmed"
+  | "noData"
+  | "noDataMouseOver"
   | "default";
 
 export const regionStates: RegionState[] = [
@@ -24,6 +26,8 @@ export const regionStates: RegionState[] = [
   "highlighted",
   "dehighlighted",
   "dimmed",
+  "noData",
+  "noDataMouseOver",
   "default"
 ];
 
@@ -73,11 +77,33 @@ export function PbfRegionState({
     );
 
     function getRegionState(regionId: string): RegionState {
+      const macroRegion = getMacroRegion(regionId);
+      const isNoData =
+        !!macroRegion &&
+        activeBulletinCollection?.macroRegionStatuses?.[macroRegion] === "n/a";
+
+      // For n/a regions: highlight the whole macro-region on hover (no stroke)
+      const hoveredMacroRegion = getMacroRegion(regionMouseover);
+      const selectedMacroRegion = getMacroRegion(region);
+      const isSameHoveredMacro =
+        isNoData &&
+        hoveredMacroRegion !== undefined &&
+        hoveredMacroRegion === macroRegion;
+      const isSameSelectedMacro =
+        isNoData &&
+        selectedMacroRegion !== undefined &&
+        selectedMacroRegion === macroRegion;
+      if (isSameHoveredMacro || isSameSelectedMacro) {
+        return "noDataMouseOver";
+      }
+
       if (regionId === regionMouseover) {
         return "mouseOver";
       }
+
+      // For n/a regions: keep blue (increased opacity) when selected
       if (regionId === region) {
-        return "selected";
+        return isNoData ? "noDataMouseOver" : "selected";
       }
       if (
         activeBulletinCollection
@@ -87,8 +113,8 @@ export function PbfRegionState({
         return "highlighted";
       }
       if (region) {
-        // some other region is selected
-        return "dimmed";
+        // some other region is selected — keep n/a regions blue, dim the rest
+        return isNoData ? "noData" : "dimmed";
       }
 
       const bulletinProblemTypes =
@@ -108,8 +134,13 @@ export function PbfRegionState({
 
       // dehighligt if any filter is activated
       if (Object.values(problems).some(p => p.highlighted)) {
-        return "dehighlighted";
+        return isNoData ? "noData" : "dehighlighted";
       }
+
+      if (isNoData) {
+        return "noData";
+      }
+
       return "default";
     }
   }, [

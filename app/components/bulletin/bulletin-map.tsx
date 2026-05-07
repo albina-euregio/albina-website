@@ -23,6 +23,8 @@ import {
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
 import { eawsRegion } from "../../stores/eawsRegions";
+import { getMacroRegion } from "../../stores/microRegions";
+import { FormattedMessage } from "../../i18n";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -233,6 +235,65 @@ const BulletinMap = (props: Props) => {
           </Tooltip>
         );
       });
+    } else {
+      // Check if the clicked region belongs to a macro-region with no data
+      const macroRegion = getMacroRegion(props.region);
+      if (
+        macroRegion &&
+        props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
+          "n/a"
+      ) {
+        detailsClasses.push("js-active");
+        res.push(
+          <div key="no-data">
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                props.handleSelectRegion("");
+              }}
+              className="bulletin-map-details-close icon-close"
+            >
+              <span className="is-visually-hidden">
+                {intl.formatMessage({ id: "bulletin:map:details:close" })}
+              </span>
+            </a>
+            <p
+              className="bulletin-report-region-name"
+              style={{ textAlign: "center" }}
+            >
+              <img
+                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+                style={{
+                  height: "4em",
+                  display: "block",
+                  margin: "0 auto 0.25em"
+                }}
+              />
+              <FormattedMessage id="danger-level:no_rating" />
+            </p>
+            <Tooltip
+              key="tp-blog"
+              label={intl.formatMessage({
+                id: "bulletin:map:blog:button:title"
+              })}
+            >
+              <a
+                href="/blog"
+                className="pure-button"
+                style={{ cursor: "pointer", pointerEvents: "initial" }}
+              >
+                {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
+                <span
+                  className="icon-arrow-right"
+                  style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+                />
+              </a>
+            </Tooltip>
+          </div>
+        );
+      }
     }
 
     return (

@@ -52,6 +52,7 @@ export function getMaxMainValue(
  */
 class BulletinCollection {
   status: Status = "pending";
+  macroRegionStatuses: Record<string, Status> = {};
   private dataRaw: Bulletins | null = null;
   private dataRaw170000: Bulletins | null = null;
   private extraBulletins: Bulletin[] = [];
@@ -107,6 +108,9 @@ class BulletinCollection {
       this.status = "n/a";
       this.maxDangerRatings = {};
     }
+    config.regionCodes.forEach(id => {
+      this.macroRegionStatuses[id] = this.status;
+    });
   }
 
   async load170000(): Promise<void> {
@@ -201,6 +205,17 @@ class BulletinCollection {
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
     this.maxDangerRatings = this.computeMaxDangerRatings();
+
+    const loadedExtraRegionIds = new Set(
+      this.extraBulletins
+        .map(b => b.source?.provider?.customData?.regionID)
+        .filter(Boolean)
+    );
+    config.extraRegions.forEach(id => {
+      this.macroRegionStatuses[id] = loadedExtraRegionIds.has(id)
+        ? "ok"
+        : "n/a";
+    });
   }
 
   async loadEawsBulletins() {

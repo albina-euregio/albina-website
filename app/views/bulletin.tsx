@@ -15,7 +15,6 @@ import HTMLHeader from "../components/organisms/html-header";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 
-import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
@@ -197,29 +196,6 @@ const Bulletin = () => {
         bulletins={collection?.bulletinsWith170000}
       />
 
-      {status === "n/a" && (
-        <ControlBar
-          addClass="fade-in"
-          message={
-            <>
-              <p>
-                <FormattedMessage id="bulletin:header:info-no-data" />
-              </p>
-              <p>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: "bulletin:map:blog:button:title"
-                  })}
-                >
-                  <a href={`/blog`} className="secondary pure-button">
-                    {intl.formatMessage({ id: "blog:title" })}
-                  </a>
-                </Tooltip>
-              </p>
-            </>
-          }
-        />
-      )}
       {status === "pending" && slowLoading && (
         <ControlBar
           addClass="fade-in"
