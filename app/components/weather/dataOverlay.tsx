@@ -53,15 +53,22 @@ const DataOverlay = ({ playerCB }) => {
   ): { x: number; y: number } => {
     const map = parentMap;
     const element = overlay.getElement() as HTMLImageElement;
+    if (!element?.width || !element?.height) {
+      return { x: 0, y: 0 };
+    }
     const bounds = overlay.getBounds();
-    const xY = element.naturalWidth / element.width;
-    const yY = element.naturalHeight / element.height;
     const dx = map.project(latlng).x - map.project(bounds.getSouthWest()).x;
     const dy = map.project(latlng).y - map.project(bounds.getNorthEast()).y;
-    return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
+    return {
+      x: Math.max(0, Math.min(1, dx / element.width)),
+      y: Math.max(0, Math.min(1, dy / element.height))
+    };
   };
 
   const getColor = (value: number | null): number[] => {
+    if (value == null) {
+      return [255, 255, 255];
+    }
     const v = parseFloat(value);
     const colors = Object.values(domainConfig.colors);
     const idx = domainConfig.thresholds.findLastIndex(tr => v > tr);
@@ -110,7 +117,7 @@ const DataOverlay = ({ playerCB }) => {
           stationId="dataMarker"
           coordinates={e.latlng}
           color={getColor(pixelData.value)}
-          value={pixelData.value}
+          value={pixelData.value ?? "-"}
           direction={pixelData.direction}
           layerContainer={parentMap}
         />
