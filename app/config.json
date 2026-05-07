@@ -600,6 +600,14 @@
       "noDataMouseOver": {
         "fillColor": "#19abff",
         "fillOpacity": 0.75
+      },
+      "noDataGrey": {
+        "fillColor": "#888888",
+        "fillOpacity": 0.5
+      },
+      "noDataGreyMouseOver": {
+        "fillColor": "#888888",
+        "fillOpacity": 0.75
       }
     }
   },

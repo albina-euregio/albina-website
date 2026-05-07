@@ -18,6 +18,8 @@ export type RegionState =
   | "dimmed"
   | "noData"
   | "noDataMouseOver"
+  | "noDataGrey"
+  | "noDataGreyMouseOver"
   | "default";
 
 export const regionStates: RegionState[] = [
@@ -28,6 +30,8 @@ export const regionStates: RegionState[] = [
   "dimmed",
   "noData",
   "noDataMouseOver",
+  "noDataGrey",
+  "noDataGreyMouseOver",
   "default"
 ];
 
@@ -81,6 +85,12 @@ export function PbfRegionState({
       const isNoData =
         !!macroRegion &&
         activeBulletinCollection?.macroRegionStatuses?.[macroRegion] === "n/a";
+      const isEuregio =
+        !!macroRegion && config.regionCodes.includes(macroRegion);
+      const noDataState = isEuregio ? "noData" : "noDataGrey";
+      const noDataMouseOverState = isEuregio
+        ? "noDataMouseOver"
+        : "noDataGreyMouseOver";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
       const hoveredMacroRegion = getMacroRegion(regionMouseover);
@@ -94,16 +104,16 @@ export function PbfRegionState({
         selectedMacroRegion !== undefined &&
         selectedMacroRegion === macroRegion;
       if (isSameHoveredMacro || isSameSelectedMacro) {
-        return "noDataMouseOver";
+        return noDataMouseOverState;
       }
 
       if (regionId === regionMouseover) {
         return "mouseOver";
       }
 
-      // For n/a regions: keep blue (increased opacity) when selected
+      // For n/a regions: keep color (increased opacity) when selected
       if (regionId === region) {
-        return isNoData ? "noDataMouseOver" : "selected";
+        return isNoData ? noDataMouseOverState : "selected";
       }
       if (
         activeBulletinCollection
@@ -113,8 +123,8 @@ export function PbfRegionState({
         return "highlighted";
       }
       if (region) {
-        // some other region is selected — keep n/a regions blue, dim the rest
-        return isNoData ? "noData" : "dimmed";
+        // some other region is selected — keep n/a regions colored, dim the rest
+        return isNoData ? noDataState : "dimmed";
       }
 
       const bulletinProblemTypes =
@@ -134,11 +144,11 @@ export function PbfRegionState({
 
       // dehighligt if any filter is activated
       if (Object.values(problems).some(p => p.highlighted)) {
-        return isNoData ? "noData" : "dehighlighted";
+        return isNoData ? noDataState : "dehighlighted";
       }
 
       if (isNoData) {
-        return "noData";
+        return noDataState;
       }
 
       return "default";
