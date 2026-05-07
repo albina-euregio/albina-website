@@ -149,7 +149,10 @@ export const config = {
     },
     "relative-snow": {
       item: {
-        overlayURLs: ["/graphics/", "/graphics/"],
+        overlayURLs: [
+          "https://models.avalanche.report/relativesnowheight/",
+          "https://models.avalanche.report/relativesnowheight/"
+        ],
         timeSpans: ["+-24"],
         defaultTimeSpan: null,
         timeSpanToDataId: {},
