@@ -53,7 +53,11 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
   useEffect(() => {
     redirectPage($router, router.route, undefined, searchParamsBlogStore);
   }, [router.route, searchParamsBlogStore]);
-  useEffect(() => handleChangeRegion(province ?? "all"), [province]);
+  useEffect(() => {
+    if (province) {
+      handleChangeRegion(province);
+    }
+  }, [province]);
 
   const standaloneLinks = window.config.blogs.map((blog, index) => [
     index > 0 ? ", " : undefined,

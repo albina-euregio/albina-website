@@ -280,7 +280,7 @@ const BulletinMap = (props: Props) => {
               })}
             >
               <a
-                href="/blog"
+                href={`/blog?region=${macroRegion}`}
                 className="pure-button"
                 style={{ cursor: "pointer", pointerEvents: "initial" }}
               >
