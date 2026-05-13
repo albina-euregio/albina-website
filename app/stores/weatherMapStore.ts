@@ -698,6 +698,9 @@ export const endTime = computed(
   (agl, timeSpan, timeSpanInt, timeRange): Temporal.Instant | null => {
     if (!agl) return null;
 
+    if (timeSpan?.includes("+")) {
+      return agl.add({ hours: +timeRange[1] });
+    }
     if (
       timeSpanInt === 12 &&
       [6, 18].includes(agl.toZonedDateTimeISO("UTC").hour)
@@ -709,9 +712,6 @@ export const endTime = computed(
       [12].includes(agl.toZonedDateTimeISO("UTC").hour)
     ) {
       return agl.subtract({ hours: 12 });
-    }
-    if (timeSpan?.includes("+")) {
-      return agl.add({ hours: +timeRange[1] });
     }
     return agl;
   }
