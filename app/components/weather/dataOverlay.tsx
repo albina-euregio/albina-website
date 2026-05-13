@@ -57,11 +57,13 @@ const DataOverlay = ({ playerCB }) => {
       return { x: 0, y: 0 };
     }
     const bounds = overlay.getBounds();
-    const dx = map.project(latlng).x - map.project(bounds.getSouthWest()).x;
-    const dy = map.project(latlng).y - map.project(bounds.getNorthEast()).y;
+    const sw = map.project(bounds.getSouthWest());
+    const ne = map.project(bounds.getNorthEast());
+    const dx = map.project(latlng).x - sw.x;
+    const dy = map.project(latlng).y - ne.y;
     return {
-      x: Math.max(0, Math.min(1, dx / element.width)),
-      y: Math.max(0, Math.min(1, dy / element.height))
+      x: Math.max(0, Math.min(1, dx / (ne.x - sw.x))),
+      y: Math.max(0, Math.min(1, dy / (sw.y - ne.y)))
     };
   };
 

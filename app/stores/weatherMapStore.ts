@@ -537,45 +537,20 @@ function _updateDataOverlays() {
       img.src = urls.shift();
     });
 
-    const overlayDomain = ((o as { domain?: DomainId }).domain ||
-      di) as DomainId;
-    const sourceUrls = getOverlayURLs(ct, overlayDomain, o.file, ats);
-    const sourceImage = new Image();
-    const sourceSize = new Promise<{ width: number; height: number }>(
-      resolve => {
-        sourceImage.onload = () => {
-          resolve({
-            width: sourceImage.naturalWidth,
-            height: sourceImage.naturalHeight
-          });
-        };
-        sourceImage.onerror = () => {
-          resolve({ width: 0, height: 0 });
-        };
-        sourceImage.src = sourceUrls[0];
-      }
-    );
-
     return {
       ...o,
       ctx,
       async valueForPixel(
         coordinates: DataOverlayCoordinates
       ): Promise<number | null> {
-        const [resolvedCtx, size] = await Promise.all([ctx, sourceSize]);
-        const scaleX = size.width ? resolvedCtx.canvas.width / size.width : 1;
-        const scaleY = size.height
-          ? resolvedCtx.canvas.height / size.height
-          : 1;
+        const resolvedCtx = await ctx;
+        const w = resolvedCtx.canvas.width;
+        const h = resolvedCtx.canvas.height;
         const pixelX = Math.round(
-          Math.max(0, Math.min(1, coordinates.x)) *
-            Math.max(size.width - 1, 0) *
-            scaleX
+          Math.max(0, Math.min(1, coordinates.x)) * (w - 1)
         );
         const pixelY = Math.round(
-          Math.max(0, Math.min(1, coordinates.y)) *
-            Math.max(size.height - 1, 0) *
-            scaleY
+          Math.max(0, Math.min(1, coordinates.y)) * (h - 1)
         );
         const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
         return valueForPixel(o.type as OverlayType, {
