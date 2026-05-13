@@ -182,7 +182,8 @@ export const config = {
         dataOverlays: [
           {
             file: "{date}/{date}_00-00_REL.png",
-            type: "snowHeight"
+            type: "snowHeight",
+            smooth: false
           }
         ],
         direction: false,
@@ -520,8 +521,10 @@ function _updateDataOverlays() {
           img.naturalHeight * 2
         );
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(img, 0, 0);
-        ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
+        ctx.imageSmoothingEnabled =
+          (o as { smooth?: boolean }).smooth !== false;
+        if (ctx.imageSmoothingEnabled) ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, 0, 0, img.naturalWidth * 2, img.naturalHeight * 2);
         resolve(ctx);
       };
       img.onerror = e => {
@@ -931,6 +934,9 @@ export function valueForPixel(
       if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
       if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
       if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
+      // r=0, g>0, b>0: encodes gap range 505–2019 cm
+      // formula: 504 + (g - 1) * 255 + b
+      if (pixelRGB.r === 0) return 504 + (pixelRGB.g - 1) * 255 + pixelRGB.b;
       if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
         return pixelRGB.r;
   }
