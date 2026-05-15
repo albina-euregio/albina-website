@@ -24,6 +24,7 @@
     "build-prod": "vp build",
     "build-beta": "APP_REGION=BETA vp build",
     "build-dev": "APP_REGION=DEV vp build",
+    "build-www2": "APP_REGION=WWW2 vp build",
     "build-iframe": "vp pack",
     "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
