@@ -118,6 +118,21 @@ deploy:prod:
       when: manual
       allow_failure: true
 
+build:www2:
+  extends: .build
+  environment:
+    name: www2
+deploy:www2:
+  extends: .deploy
+  environment:
+    name: www2
+  needs:
+    - build:www2
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+      allow_failure: true
+
 .playwright:
   stage: playwright
   image: mcr.microsoft.com/playwright:v1.57.0
