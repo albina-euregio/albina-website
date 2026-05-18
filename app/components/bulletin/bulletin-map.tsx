@@ -293,6 +293,61 @@ const BulletinMap = (props: Props) => {
             </Tooltip>
           </div>
         );
+      } else if (
+        macroRegion &&
+        props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
+          "ok"
+      ) {
+        // Micro-region within a rated macro-region but itself without a rating
+        detailsClasses.push("js-active");
+        res.push(
+          <div key="no-rating-partial">
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                props.handleSelectRegion("");
+              }}
+              className="bulletin-map-details-close icon-close"
+            >
+              <span className="is-visually-hidden">
+                {intl.formatMessage({ id: "bulletin:map:details:close" })}
+              </span>
+            </a>
+            <p
+              className="bulletin-report-region-name"
+              style={{ textAlign: "center" }}
+            >
+              <img
+                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+                style={{
+                  height: "4em",
+                  display: "block",
+                  margin: "0 auto 0.25em"
+                }}
+              />
+              <FormattedMessage id="danger-level:no_rating" />
+            </p>
+          </div>
+        );
+        res.push(
+          <Tooltip
+            key="tp-education"
+            label={intl.formatMessage({
+              id: "bulletin:map:education:button:title"
+            })}
+          >
+            <a
+              href="/education"
+              className={"pure-button"}
+              style={{ cursor: "pointer", pointerEvents: "initial" }}
+            >
+              {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+              <span className="icon-arrow-right" />
+            </a>
+          </Tooltip>
+        );
       } else if (isNoDataMacro) {
         // Non-EUREGIO n/a macro-region: no-rating icon/text + external AWS link
         const greyEaws = eawsRegion(macroRegion);

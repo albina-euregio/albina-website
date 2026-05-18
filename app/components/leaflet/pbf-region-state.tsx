@@ -82,15 +82,26 @@ export function PbfRegionState({
 
     function getRegionState(regionId: string): RegionState {
       const macroRegion = getMacroRegion(regionId);
-      const isNoData =
-        !!macroRegion &&
-        activeBulletinCollection?.macroRegionStatuses?.[macroRegion] === "n/a";
+      const macroStatus =
+        macroRegion !== undefined
+          ? activeBulletinCollection?.macroRegionStatuses?.[macroRegion]
+          : undefined;
+      const isNoData = macroStatus === "n/a";
       const isEuregio =
         !!macroRegion && config.regionCodes.includes(macroRegion);
       const noDataState = isEuregio ? "noData" : "noDataGrey";
       const noDataMouseOverState = isEuregio
         ? "noDataMouseOver"
         : "noDataGreyMouseOver";
+
+      // Detect micro-regions with no rating inside an otherwise-rated macro-region
+      const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+      const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
+      const hasRating =
+        `${regionId}:low${amPm}` in maxDangerRatings ||
+        `${regionId}:high${amPm}` in maxDangerRatings ||
+        `${regionId}${amPm}` in maxDangerRatings;
+      const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
       const hoveredMacroRegion = getMacroRegion(regionMouseover);
@@ -108,12 +119,16 @@ export function PbfRegionState({
       }
 
       if (regionId === regionMouseover) {
-        return "mouseOver";
+        return isPartialNoData ? "noDataGreyMouseOver" : "mouseOver";
       }
 
-      // For n/a regions: keep color (increased opacity) when selected
+      // For n/a or partial no-data regions: keep color (increased opacity) when selected
       if (regionId === region) {
-        return isNoData ? noDataMouseOverState : "selected";
+        return isNoData
+          ? noDataMouseOverState
+          : isPartialNoData
+            ? "noDataGreyMouseOver"
+            : "selected";
       }
       if (
         activeBulletinCollection
@@ -123,8 +138,12 @@ export function PbfRegionState({
         return "highlighted";
       }
       if (region) {
-        // some other region is selected — keep n/a regions colored, dim the rest
-        return isNoData ? noDataState : "dimmed";
+        // some other region is selected — keep n/a / partial regions colored, dim the rest
+        return isNoData || isPartialNoData
+          ? isPartialNoData
+            ? "noDataGrey"
+            : noDataState
+          : "dimmed";
       }
 
       const bulletinProblemTypes =
@@ -149,6 +168,10 @@ export function PbfRegionState({
 
       if (isNoData) {
         return noDataState;
+      }
+
+      if (isPartialNoData) {
+        return "noDataGrey";
       }
 
       return "default";
