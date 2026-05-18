@@ -136,6 +136,21 @@ class BulletinCollection {
   async load(): Promise<void> {
     const regions = this._getLoadRegions();
     this.dataRaw = await this.fetchAndMergeRegions("", regions);
+    if (this.dataRaw.bulletins.length === 0 && regions.length > 1) {
+      // No individual CAAMLs found — fall back to the combined EUREGIO CAAML
+      try {
+        const url = this._getBulletinUrl("", "EUREGIO");
+        if (url) {
+          this.dataRaw = await this.fetchFromURL(url);
+          this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
+        }
+      } catch (error) {
+        console.error(
+          `Cannot load EUREGIO bulletin for date ${this.date}`,
+          error
+        );
+      }
+    }
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();
     // Derive per-region statuses from actual bulletin coverage
