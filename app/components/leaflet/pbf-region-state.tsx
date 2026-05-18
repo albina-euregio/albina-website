@@ -8,7 +8,7 @@ import {
 } from "../../stores/bulletin";
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds } from "../../stores/eawsRegions";
-import { microRegionIds } from "../../stores/microRegions";
+import { getMacroRegion, microRegionIds } from "../../stores/microRegions";
 
 export type RegionState =
   | "mouseOver"
@@ -16,6 +16,10 @@ export type RegionState =
   | "highlighted"
   | "dehighlighted"
   | "dimmed"
+  | "noData"
+  | "noDataMouseOver"
+  | "noDataGrey"
+  | "noDataGreyMouseOver"
   | "default";
 
 export const regionStates: RegionState[] = [
@@ -24,6 +28,10 @@ export const regionStates: RegionState[] = [
   "highlighted",
   "dehighlighted",
   "dimmed",
+  "noData",
+  "noDataMouseOver",
+  "noDataGrey",
+  "noDataGreyMouseOver",
   "default"
 ];
 
@@ -73,11 +81,39 @@ export function PbfRegionState({
     );
 
     function getRegionState(regionId: string): RegionState {
+      const macroRegion = getMacroRegion(regionId);
+      const isNoData =
+        !!macroRegion &&
+        activeBulletinCollection?.macroRegionStatuses?.[macroRegion] === "n/a";
+      const isEuregio =
+        !!macroRegion && config.regionCodes.includes(macroRegion);
+      const noDataState = isEuregio ? "noData" : "noDataGrey";
+      const noDataMouseOverState = isEuregio
+        ? "noDataMouseOver"
+        : "noDataGreyMouseOver";
+
+      // For n/a regions: highlight the whole macro-region on hover (no stroke)
+      const hoveredMacroRegion = getMacroRegion(regionMouseover);
+      const selectedMacroRegion = getMacroRegion(region);
+      const isSameHoveredMacro =
+        isNoData &&
+        hoveredMacroRegion !== undefined &&
+        hoveredMacroRegion === macroRegion;
+      const isSameSelectedMacro =
+        isNoData &&
+        selectedMacroRegion !== undefined &&
+        selectedMacroRegion === macroRegion;
+      if (isSameHoveredMacro || isSameSelectedMacro) {
+        return noDataMouseOverState;
+      }
+
       if (regionId === regionMouseover) {
         return "mouseOver";
       }
+
+      // For n/a regions: keep color (increased opacity) when selected
       if (regionId === region) {
-        return "selected";
+        return isNoData ? noDataMouseOverState : "selected";
       }
       if (
         activeBulletinCollection
@@ -87,8 +123,8 @@ export function PbfRegionState({
         return "highlighted";
       }
       if (region) {
-        // some other region is selected
-        return "dimmed";
+        // some other region is selected — keep n/a regions colored, dim the rest
+        return isNoData ? noDataState : "dimmed";
       }
 
       const bulletinProblemTypes =
@@ -108,8 +144,13 @@ export function PbfRegionState({
 
       // dehighligt if any filter is activated
       if (Object.values(problems).some(p => p.highlighted)) {
-        return "dehighlighted";
+        return isNoData ? noDataState : "dehighlighted";
       }
+
+      if (isNoData) {
+        return noDataState;
+      }
+
       return "default";
     }
   }, [

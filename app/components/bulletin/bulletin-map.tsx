@@ -23,6 +23,8 @@ import {
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
 import { eawsRegion } from "../../stores/eawsRegions";
+import { getMacroRegion } from "../../stores/microRegions";
+import { FormattedMessage } from "../../i18n";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -233,6 +235,124 @@ const BulletinMap = (props: Props) => {
           </Tooltip>
         );
       });
+    } else {
+      // Check if the clicked region belongs to a macro-region with no data
+      const macroRegion = getMacroRegion(props.region);
+      const isNoDataMacro =
+        macroRegion &&
+        props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
+          "n/a";
+      if (isNoDataMacro && config.regionCodes.includes(macroRegion)) {
+        detailsClasses.push("js-active");
+        res.push(
+          <div key="no-data">
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                props.handleSelectRegion("");
+              }}
+              className="bulletin-map-details-close icon-close"
+            >
+              <span className="is-visually-hidden">
+                {intl.formatMessage({ id: "bulletin:map:details:close" })}
+              </span>
+            </a>
+            <p
+              className="bulletin-report-region-name"
+              style={{ textAlign: "center" }}
+            >
+              <img
+                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+                style={{
+                  height: "4em",
+                  display: "block",
+                  margin: "0 auto 0.25em"
+                }}
+              />
+              <FormattedMessage id="danger-level:no_rating" />
+            </p>
+            <Tooltip
+              key="tp-blog"
+              label={intl.formatMessage({
+                id: "bulletin:map:blog:button:title"
+              })}
+            >
+              <a
+                href={`/blog?region=${macroRegion}`}
+                className="pure-button"
+                style={{ cursor: "pointer", pointerEvents: "initial" }}
+              >
+                {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
+                <span
+                  className="icon-arrow-right"
+                  style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+                />
+              </a>
+            </Tooltip>
+          </div>
+        );
+      } else if (isNoDataMacro) {
+        // Non-EUREGIO n/a macro-region: no-rating icon/text + external AWS link
+        const greyEaws = eawsRegion(macroRegion);
+        detailsClasses.push("js-active");
+        res.push(
+          <div key="no-data-grey">
+            <a
+              href="#"
+              onClick={() => props.handleSelectRegion("")}
+              className="bulletin-map-details-close icon-close"
+            >
+              <span className="is-visually-hidden">
+                {intl.formatMessage({ id: "bulletin:map:details:close" })}
+              </span>
+            </a>
+            <p
+              className="bulletin-report-region-name"
+              style={{ textAlign: "center" }}
+            >
+              <img
+                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+                style={{
+                  height: "4em",
+                  display: "block",
+                  margin: "0 auto 0.25em"
+                }}
+              />
+              <FormattedMessage id="danger-level:no_rating" />
+            </p>
+          </div>
+        );
+        (greyEaws?.aws || []).forEach((aws, index) => {
+          const href = aws.url[language] || Object.values(aws.url)[0];
+          res.push(
+            <Tooltip
+              key={`tp-grey-link-${index}`}
+              label={intl.formatMessage({
+                id: "bulletin:map:info:details:hover"
+              })}
+            >
+              <a
+                tabIndex="-1"
+                key={`grey-link-${index}`}
+                href={href}
+                rel="noopener noreferrer"
+                target="_blank"
+                className={
+                  /ALPSOLUT|METEOMONT/.test(aws.name)
+                    ? "pure-button is-de-highlighted"
+                    : "pure-button"
+                }
+                style={{ cursor: "pointer", pointerEvents: "initial" }}
+              >
+                {aws.name} <span className="icon-arrow-right" />
+              </a>
+            </Tooltip>
+          );
+        });
+      }
     }
 
     return (

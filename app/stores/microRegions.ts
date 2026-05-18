@@ -98,6 +98,17 @@ export function microRegionIds(
     .sort();
 }
 
+/**
+ * Given a micro-region or outline-region ID, returns the macro-region code
+ * (from config.regionCodes or config.extraRegions) that it belongs to.
+ */
+export function getMacroRegion(regionId: string): string | undefined {
+  if (!regionId) return undefined;
+  return [...config.regionCodes, ...config.extraRegions].find(
+    code => regionId === code || regionId.startsWith(code + "-")
+  );
+}
+
 export function microRegionBounds(
   today: Temporal.PlainDate,
   microRegionId: string,
