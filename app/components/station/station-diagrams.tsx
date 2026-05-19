@@ -1,5 +1,11 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -123,12 +129,15 @@ const YearFlipper: React.FC<{
 
 const StationFlipper: React.FC<{
   previous: () => void;
-  previousStation: StationData | Feature;
+  previousStation: StationData | Feature | undefined;
   next: () => void;
-  nextStation: StationData | Feature;
+  nextStation: StationData | Feature | undefined;
   children: React.ReactNode;
 }> = ({ previous, previousStation, next, nextStation, children }) => {
   const intl = useIntl();
+  if (!previousStation || !nextStation) {
+    return null;
+  }
   return (
     <ul className="list-inline weatherstation-flipper">
       <li></li>
@@ -354,7 +363,15 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData.findIndex(e => e.id == stationId);
   }, [stationData, stationId]);
 
-  const nextStation = useMemo((): StationData | Feature => {
+  useEffect(() => {
+    // Close the dialog if the selected station is not present in the current data snapshot.
+    if (stationId && stationData.length > 0 && stationIndex < 0) {
+      setStationId("");
+    }
+  }, [setStationId, stationData.length, stationId, stationIndex]);
+
+  const nextStation = useMemo((): StationData | Feature | undefined => {
+    if (stationIndex < 0) return undefined;
     let index = stationIndex;
     if (index < stationData.length - 1) {
       index++;
@@ -362,7 +379,8 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     return stationData[index];
   }, [stationData, stationIndex]);
 
-  const previousStation = useMemo((): StationData | Feature => {
+  const previousStation = useMemo((): StationData | Feature | undefined => {
+    if (stationIndex < 0) return undefined;
     let index = stationIndex;
     if (index > 0) {
       index--;
@@ -371,13 +389,13 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   }, [stationData, stationIndex]);
 
   const next = useCallback(
-    () => setStationId(nextStation.id),
-    [nextStation.id, setStationId]
+    () => nextStation && setStationId(nextStation.id),
+    [nextStation, setStationId]
   );
 
   const previous = useCallback(
-    () => setStationId(previousStation.id),
-    [previousStation.id, setStationId]
+    () => previousStation && setStationId(previousStation.id),
+    [previousStation, setStationId]
   );
 
   const handlers = useSwipeable({
