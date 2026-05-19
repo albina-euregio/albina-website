@@ -122,10 +122,12 @@ class BulletinCollection {
             bulletinMap.set(b.bulletinID, b);
           });
         } catch (error) {
-          console.error(
-            `Cannot load ${r} bulletin for date ${this.date}`,
-            error
-          );
+          if (!(error instanceof NotFoundError)) {
+            console.error(
+              `Cannot load ${r} bulletin for date ${this.date}`,
+              error
+            );
+          }
         }
       })
     );
@@ -144,10 +146,12 @@ class BulletinCollection {
           this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
         }
       } catch (error) {
-        console.error(
-          `Cannot load EUREGIO bulletin for date ${this.date}`,
-          error
-        );
+        if (!(error instanceof NotFoundError)) {
+          console.error(
+            `Cannot load EUREGIO bulletin for date ${this.date}`,
+            error
+          );
+        }
       }
     }
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
@@ -241,10 +245,12 @@ class BulletinCollection {
             });
             return data;
           } catch (error) {
-            console.error(
-              `Cannot load ${id} bulletin for date ${this.date}`,
-              error
-            );
+            if (!(error instanceof NotFoundError)) {
+              console.error(
+                `Cannot load ${id} bulletin for date ${this.date}`,
+                error
+              );
+            }
           }
         });
       })
