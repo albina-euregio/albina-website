@@ -18,7 +18,7 @@ function BulletinDangerRating({ dangerRatings }: Props) {
     return (
       <p
         className="bulletin-report-region-name"
-        style={{ marginBottom: 0, textAlign: "center" }}
+        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
       >
         <img
           src={`${window.config.projectRoot}images/pro/danger-levels/no_snow.svg`}
