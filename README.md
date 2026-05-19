@@ -22,7 +22,7 @@ Use `pnpm start` and browse to http://localhost:3000/ to use dev server.
 
 Use `pnpm run start-dev` and browse to http://localhost:3000/ to use dev server.
 
-Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
+Configuration for dev (environment) is defined in config.DEV.json, which overrides settings in config.json
 
 ### Browserstack debugging
 
@@ -30,7 +30,7 @@ in order to test IOS Devices in local mode, server.host in vite.config.ts has to
 
 ## Deployment
 
-Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly.
+Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly. See
 
 Use `pnpm run build` to create a (minified) production build.
 
@@ -43,6 +43,17 @@ run `pnpm run build --base=/.../` instead.
 | production  | `pnpm run build-prod` | https://avalanche.report/      |
 | beta        | `pnpm run build-beta` | https://beta.avalanche.report/ |
 | development | `pnpm run build-dev`  | https://dev.avalanche.report/  |
+
+### Configuring regions
+
+- `regionCodes` defines the list of main regions for this instance.
+  - The map is automatically adjusted to fit all these regions.
+  - If a region does not publish a report, it shows up blue in the map and links to the region blog.
+
+In addition there are `extraRegions` and `eawsRegions`.
+
+- For all `extraRegions` we load the full CAAML and display the bulletin when such a region is selected in the map. If no CAAML can be found for an `extraRegion`, we display the region as grey (no-rating) and link to the corresponding warning service.
+- For `eawsRegions` we only load the rating and link to the official site. If no rating is present in `ratings.json` we display the region as transparent (no color).
 
 ## Server configuration (Caddy)
 
