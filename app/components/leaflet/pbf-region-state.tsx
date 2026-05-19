@@ -96,6 +96,17 @@ export function PbfRegionState({
         ? "noDataMouseOver"
         : "noDataGreyMouseOver";
 
+      // EAWS regions not present in the ratings JSON → grey,
+      // but only if the whole EAWS provider area has no ratings
+      const parentPrefix =
+        regionId.lastIndexOf("-") > 0
+          ? regionId.substring(0, regionId.lastIndexOf("-"))
+          : regionId;
+      const effectivePrefix = regionId === "LI" ? "CH" : parentPrefix;
+      const isEawsWithNoData =
+        eawsRegions.includes(regionId) &&
+        !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
+
       // Detect micro-regions with no rating inside an otherwise-rated macro-region
       const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
       const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
@@ -121,14 +132,16 @@ export function PbfRegionState({
       }
 
       if (regionId === regionMouseover) {
-        return isPartialNoData ? "noDataGreyMouseOver" : "mouseOver";
+        return isPartialNoData || isEawsWithNoData
+          ? "noDataGreyMouseOver"
+          : "mouseOver";
       }
 
       // For n/a or partial no-data regions: keep color (increased opacity) when selected
       if (regionId === region) {
         return isNoData
           ? noDataMouseOverState
-          : isPartialNoData
+          : isPartialNoData || isEawsWithNoData
             ? "noDataGreyMouseOver"
             : "selected";
       }
@@ -141,8 +154,8 @@ export function PbfRegionState({
       }
       if (region) {
         // some other region is selected — keep n/a / partial regions colored, dim the rest
-        return isNoData || isPartialNoData
-          ? isPartialNoData
+        return isNoData || isPartialNoData || isEawsWithNoData
+          ? isPartialNoData || isEawsWithNoData
             ? "noDataGrey"
             : noDataState
           : "dimmed";
@@ -165,14 +178,18 @@ export function PbfRegionState({
 
       // dehighligt if any filter is activated
       if (Object.values(problems).some(p => p.highlighted)) {
-        return isNoData ? noDataState : "dehighlighted";
+        return isNoData
+          ? noDataState
+          : isEawsWithNoData
+            ? "noDataGrey"
+            : "dehighlighted";
       }
 
       if (isNoData) {
         return noDataState;
       }
 
-      if (isPartialNoData) {
+      if (isPartialNoData || isEawsWithNoData) {
         return "noDataGrey";
       }
 

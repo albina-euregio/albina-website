@@ -181,10 +181,7 @@ const BulletinMap = (props: Props) => {
     (aws || []).map((link, index) => {
       const href = link.url[language] || Object.values(link.url)[0];
       return (
-        <Tooltip
-          key={`tp-aws-link-${index}`}
-          label={intl.formatMessage({ id: "bulletin:map:info:details:hover" })}
-        >
+        <Tooltip key={`tp-aws-link-${index}`} label={href}>
           <a
             tabIndex="-1"
             href={href}
