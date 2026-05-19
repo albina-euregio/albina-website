@@ -157,7 +157,6 @@ class InternalGlossaryReplacer {
       </>
     );
     const tooltipProps: Record<string, unknown> = {
-      key: textKey,
       html: true,
       enableClick: true,
       zIndex: 2000000 // ensure glossary tooltip is above others
@@ -166,7 +165,7 @@ class InternalGlossaryReplacer {
       tooltipProps.width = width;
     }
     return (
-      <Tooltip {...tooltipProps} label={content()}>
+      <Tooltip key={textKey} {...tooltipProps} label={content()}>
         <span className="glossary">{idText}</span>
       </Tooltip>
     );
