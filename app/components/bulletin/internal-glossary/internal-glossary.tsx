@@ -167,7 +167,7 @@ class InternalGlossaryReplacer {
     }
     return (
       <Tooltip {...tooltipProps} label={content()}>
-        <a className="glossary">{idText}</a>
+        <span className="glossary">{idText}</span>
       </Tooltip>
     );
   }
