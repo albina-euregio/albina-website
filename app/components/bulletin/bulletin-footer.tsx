@@ -1,15 +1,12 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import { useStore } from "@nanostores/react";
-import { $province } from "../../appStore";
+import { $focusRegions } from "../../appStore";
 
 function BulletinFooter() {
   const intl = useIntl();
-  const province = useStore($province);
-  const weatherRegions = province
-    ? [province]
-    : (config.regionCodes as (typeof province)[]);
-  const blogRegions = weatherRegions;
+
+  const focusRegions = useStore($focusRegions);
   const weatherMap = config.menu.some(item =>
     item.children?.some(i => i.url.startsWith("/weather/map"))
   );
@@ -22,7 +19,7 @@ function BulletinFooter() {
         </h2>
 
         <ul className="list-inline list-buttongroup-dense">
-          {weatherRegions.map(region => (
+          {focusRegions.map(region => (
             <li key={region}>
               <a
                 key={region}
@@ -46,7 +43,7 @@ function BulletinFooter() {
         </h2>
 
         <ul className="list-inline list-buttongroup-dense">
-          {blogRegions.map(region => (
+          {focusRegions.map(region => (
             <li key={region}>
               <a
                 className="secondary pure-button"

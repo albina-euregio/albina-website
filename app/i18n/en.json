@@ -132,6 +132,8 @@
   "bulletin:map:info:details:hover": "See full Avalanche Forecast",
   "bulletin:map:blog:button": "Go to blog",
   "bulletin:map:blog:button:title": "See all blog entries",
+  "bulletin:map:education:button": "More info",
+  "bulletin:map:education:button:title": "Learn about the avalanche danger scale",
   "bulletin:legend:highlight-regions": "<strong>Highlight regions</strong> with particular <a>Avalanche Problem</a>",
   "bulletin:legend:highlight:hover": "Highlight regions with {problem}",
   "bulletin:legend:dehighlight:hover": "Dim regions with {problem}",
