@@ -119,14 +119,17 @@ index eaf6520be79a64eb1fe227be81b5699d0bb5e1f1..56fea469bcbead6c39de2970196a86c3
  						featureLayer.render(renderer, style);
  						renderer._addPath(featureLayer);
  					}
-@@ -2055,7 +2051,7 @@ L.VectorGrid = L.GridLayer.extend({
+@@ -2055,7 +2051,9 @@ L.VectorGrid = L.GridLayer.extend({
  			if (this._map != null) {
  				renderer.addTo(this._map);
  			}
 -			L.Util.requestAnimFrame(done.bind(coords, null, null));
+-		}.bind(this));
 +			window.requestAnimationFrame(done.bind(coords, null, null));
- 		}.bind(this));
- 
++		}.bind(this)).catch(function(e) {
++			done(e && /^Unimplemented type:/.test(e.message) ? null : e, null);
++		});
+
  		return renderer.getContainer();
 @@ -2121,7 +2117,7 @@ L.VectorGrid = L.GridLayer.extend({
  		}
