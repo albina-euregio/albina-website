@@ -24,6 +24,7 @@ import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
 import { eawsRegion } from "../../stores/eawsRegions";
 import { getMacroRegion } from "../../stores/microRegions";
+import { $focusRegions } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 
 interface Props {
@@ -41,6 +42,7 @@ interface Props {
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const isOneDangerRating = useStore(isOneDangerRating0);
+  const focusRegions = useStore($focusRegions);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
@@ -242,7 +244,7 @@ const BulletinMap = (props: Props) => {
         macroRegion &&
         props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
           "n/a";
-      if (isNoDataMacro && config.regionCodes.includes(macroRegion)) {
+      if (isNoDataMacro && focusRegions.includes(macroRegion)) {
         detailsClasses.push("js-active");
         res.push(
           <div key="no-data">

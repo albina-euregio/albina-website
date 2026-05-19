@@ -9,6 +9,8 @@ import {
 import { useLeafletContext } from "@react-leaflet/core";
 import { eawsRegionIds } from "../../stores/eawsRegions";
 import { getMacroRegion, microRegionIds } from "../../stores/microRegions";
+import { $focusRegions } from "../../appStore";
+import { useStore } from "@nanostores/react";
 
 export type RegionState =
   | "mouseOver"
@@ -50,6 +52,7 @@ export function PbfRegionState({
   regionMouseover,
   validTimePeriod
 }: PbfRegionStateProps) {
+  const focusRegions = useStore($focusRegions);
   const microRegions = useMemo(
     () =>
       microRegionIds(activeBulletinCollection?.date, [
@@ -87,10 +90,9 @@ export function PbfRegionState({
           ? activeBulletinCollection?.macroRegionStatuses?.[macroRegion]
           : undefined;
       const isNoData = macroStatus === "n/a";
-      const isEuregio =
-        !!macroRegion && config.regionCodes.includes(macroRegion);
-      const noDataState = isEuregio ? "noData" : "noDataGrey";
-      const noDataMouseOverState = isEuregio
+      const isFocusRegion = !!macroRegion && focusRegions.includes(macroRegion);
+      const noDataState = isFocusRegion ? "noData" : "noDataGrey";
+      const noDataMouseOverState = isFocusRegion
         ? "noDataMouseOver"
         : "noDataGreyMouseOver";
 
@@ -180,6 +182,7 @@ export function PbfRegionState({
     activeBulletinCollection,
     eawsMicroRegions,
     eawsRegions,
+    focusRegions,
     microRegions,
     problems,
     region,

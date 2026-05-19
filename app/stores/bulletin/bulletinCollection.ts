@@ -153,7 +153,7 @@ class BulletinCollection {
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();
     // Derive per-region statuses from actual bulletin coverage
-    config.regionCodes.forEach(regionCode => {
+    $focusRegions.get().forEach(regionCode => {
       const hasBulletins = this.bulletins.some(b =>
         b.regions?.some(
           r =>
@@ -257,7 +257,7 @@ class BulletinCollection {
         .map(b => b.source?.provider?.customData?.regionID)
         .filter(Boolean)
     );
-    config.extraRegions.forEach(id => {
+    extraRegions.forEach(id => {
       this.macroRegionStatuses[id] = loadedExtraRegionIds.has(id)
         ? "ok"
         : "n/a";
