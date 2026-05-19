@@ -34,7 +34,7 @@ patchedDependencies:
     hash: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
     path: patches/leaflet.sync.patch
   leaflet.vectorgrid:
-    hash: 6c95306e6bdb04696b8838d47c175fe2b36e8cfb7d9536dba4b33f228bd1cff9
+    hash: ba864c7796d8edf93adbbefeaa8b2c20e1f4b60287f70db34f6fc3854a2c5053
     path: patches/leaflet.vectorgrid.patch
 
 importers:
@@ -106,7 +106,7 @@ importers:
         version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
       leaflet.vectorgrid:
         specifier: ^1.3.0
-        version: 1.3.0(patch_hash=6c95306e6bdb04696b8838d47c175fe2b36e8cfb7d9536dba4b33f228bd1cff9)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
+        version: 1.3.0(patch_hash=ba864c7796d8edf93adbbefeaa8b2c20e1f4b60287f70db34f6fc3854a2c5053)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
       nanostores:
         specifier: ^1.2.0
         version: 1.2.0
@@ -1949,7 +1949,7 @@ snapshots:
 
   leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4): {}
 
-  leaflet.vectorgrid@1.3.0(patch_hash=6c95306e6bdb04696b8838d47c175fe2b36e8cfb7d9536dba4b33f228bd1cff9)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
+  leaflet.vectorgrid@1.3.0(patch_hash=ba864c7796d8edf93adbbefeaa8b2c20e1f4b60287f70db34f6fc3854a2c5053)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)):
     dependencies:
       leaflet: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df)
       pbf: 3.3.0
