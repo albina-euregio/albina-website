@@ -130,6 +130,113 @@ const BulletinMap = (props: Props) => {
     return overlays;
   };
 
+  const NoRatingPopup = ({
+    divKey,
+    regionName,
+    onClose,
+    children
+  }: {
+    divKey: string;
+    regionName: string;
+    onClose: () => void;
+    children?: React.ReactNode;
+  }) => (
+    <div key={divKey}>
+      <a
+        href="#"
+        onClick={e => {
+          e.preventDefault();
+          onClose();
+        }}
+        className="bulletin-map-details-close icon-close"
+      >
+        <span className="is-visually-hidden">
+          {intl.formatMessage({ id: "bulletin:map:details:close" })}
+        </span>
+      </a>
+      <p className="bulletin-report-region-name">
+        <span className="bulletin-report-region-name-region">{regionName}</span>
+      </p>
+      <p
+        className="bulletin-report-region-name"
+        style={{ textAlign: "center" }}
+      >
+        <img
+          src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+          alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+          style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
+        />
+        <FormattedMessage id="danger-level:no_rating" />
+      </p>
+      {children}
+    </div>
+  );
+
+  const AwsLinks = ({
+    aws
+  }: {
+    aws: { name: string; url: Partial<Record<string, string>> }[];
+  }) =>
+    (aws || []).map((link, index) => {
+      const href = link.url[language] || Object.values(link.url)[0];
+      return (
+        <Tooltip
+          key={`tp-aws-link-${index}`}
+          label={intl.formatMessage({ id: "bulletin:map:info:details:hover" })}
+        >
+          <a
+            tabIndex="-1"
+            href={href}
+            rel="noopener noreferrer"
+            target="_blank"
+            className={
+              /ALPSOLUT|METEOMONT/.test(link.name)
+                ? "pure-button is-de-highlighted"
+                : "pure-button"
+            }
+            style={{ cursor: "pointer", pointerEvents: "initial" }}
+          >
+            {link.name}{" "}
+            <span
+              className="icon-arrow-right"
+              style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+            />
+          </a>
+        </Tooltip>
+      );
+    });
+
+  const PopupButton = ({
+    href,
+    label,
+    target,
+    rel,
+    onClick,
+    className,
+    children
+  }: {
+    href: string;
+    label: string;
+    target?: string;
+    rel?: string;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+    className?: string;
+    children: React.ReactNode;
+  }) => (
+    <Tooltip label={label}>
+      <a
+        href={href}
+        target={target}
+        rel={rel}
+        onClick={onClick}
+        className={className ?? "pure-button"}
+        style={{ cursor: "pointer", pointerEvents: "initial" }}
+      >
+        {children}
+      </a>
+    </Tooltip>
+  );
+
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
@@ -153,27 +260,19 @@ const BulletinMap = (props: Props) => {
       );
       res.push(
         activeBulletin?.bulletinID && (
-          <Tooltip
+          <PopupButton
             key="tp-link"
+            href={"#" + activeBulletin.bulletinID}
             label={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
+            onClick={e => scrollIntoView(e)}
           >
-            <a
-              tabIndex="-1"
-              key="link"
-              href={"#" + activeBulletin?.bulletinID}
-              onClick={e => scrollIntoView(e)}
-              className="pure-button"
-            >
-              {preprocessContent(
-                intl.formatMessage({
-                  id: "bulletin:map:info:details"
-                })
-              )}
-              <span className="icon-arrow-down" />
-            </a>
-          </Tooltip>
+            {preprocessContent(
+              intl.formatMessage({ id: "bulletin:map:info:details" })
+            )}
+            <span className="icon-arrow-down" />
+          </PopupButton>
         )
       );
     } else if (activeEaws) {
@@ -206,37 +305,7 @@ const BulletinMap = (props: Props) => {
           </p>
         </div>
       );
-      (activeEaws.aws || []).forEach((aws, index) => {
-        const href = aws.url[language] || Object.values(aws.url)[0];
-        res.push(
-          <Tooltip
-            key={`tp-eaws-link-${index}`}
-            label={intl.formatMessage({
-              id: "bulletin:map:info:details:hover"
-            })}
-          >
-            <a
-              tabIndex="-1"
-              key={`eaws-link-${index}`}
-              href={href}
-              rel="noopener noreferrer"
-              target="_blank"
-              className={
-                /ALPSOLUT|METEOMONT/.test(aws.name)
-                  ? "pure-button is-de-highlighted"
-                  : "pure-button"
-              }
-              style={{
-                // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
-                cursor: "pointer",
-                pointerEvents: "initial"
-              }}
-            >
-              {aws.name} <span className="icon-arrow-right" />
-            </a>
-          </Tooltip>
-        );
-      });
+      res.push(<AwsLinks key="eaws-links" aws={activeEaws.aws ?? []} />);
     } else {
       // Check if the clicked region belongs to a macro-region with no data
       const macroRegion = getMacroRegion(props.region);
@@ -245,60 +314,28 @@ const BulletinMap = (props: Props) => {
         props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
           "n/a";
       if (isNoDataMacro && focusRegions.includes(macroRegion)) {
+        // primary region: focus macro-region with no data: show blog link
         detailsClasses.push("js-active");
         res.push(
-          <div key="no-data">
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                props.handleSelectRegion("");
-              }}
-              className="bulletin-map-details-close icon-close"
-            >
-              <span className="is-visually-hidden">
-                {intl.formatMessage({ id: "bulletin:map:details:close" })}
-              </span>
-            </a>
-            <p className="bulletin-report-region-name">
-              <span className="bulletin-report-region-name-region">
-                {intl.formatMessage({ id: "region:" + macroRegion })}
-              </span>
-            </p>
-            <p
-              className="bulletin-report-region-name"
-              style={{ textAlign: "center" }}
-            >
-              <img
-                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-                style={{
-                  height: "4em",
-                  display: "block",
-                  margin: "0 auto 0.25em"
-                }}
-              />
-              <FormattedMessage id="danger-level:no_rating" />
-            </p>
-            <Tooltip
-              key="tp-blog"
+          <NoRatingPopup
+            key="no-data"
+            divKey="no-data"
+            regionName={intl.formatMessage({ id: "region:" + macroRegion })}
+            onClose={() => props.handleSelectRegion("")}
+          >
+            <PopupButton
+              href={`/blog?region=${macroRegion}`}
               label={intl.formatMessage({
                 id: "bulletin:map:blog:button:title"
               })}
             >
-              <a
-                href={`/blog?region=${macroRegion}`}
-                className="pure-button"
-                style={{ cursor: "pointer", pointerEvents: "initial" }}
-              >
-                {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
-                <span
-                  className="icon-arrow-right"
-                  style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
-                />
-              </a>
-            </Tooltip>
-          </div>
+              {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
+              <span
+                className="icon-arrow-right"
+                style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+              />
+            </PopupButton>
+          </NoRatingPopup>
         );
       } else if (
         macroRegion &&
@@ -308,122 +345,38 @@ const BulletinMap = (props: Props) => {
         // Micro-region within a rated macro-region but itself without a rating
         detailsClasses.push("js-active");
         res.push(
-          <div key="no-rating-partial">
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                props.handleSelectRegion("");
-              }}
-              className="bulletin-map-details-close icon-close"
-            >
-              <span className="is-visually-hidden">
-                {intl.formatMessage({ id: "bulletin:map:details:close" })}
-              </span>
-            </a>
-            <p className="bulletin-report-region-name">
-              <span className="bulletin-report-region-name-region">
-                {intl.formatMessage({ id: "region:" + props.region })}
-              </span>
-            </p>
-            <p
-              className="bulletin-report-region-name"
-              style={{ textAlign: "center" }}
-            >
-              <img
-                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-                style={{
-                  height: "4em",
-                  display: "block",
-                  margin: "0 auto 0.25em"
-                }}
-              />
-              <FormattedMessage id="danger-level:no_rating" />
-            </p>
-          </div>
+          <NoRatingPopup
+            key="no-rating-partial"
+            divKey="no-rating-partial"
+            regionName={intl.formatMessage({ id: "region:" + props.region })}
+            onClose={() => props.handleSelectRegion("")}
+          />
         );
         res.push(
-          <Tooltip
+          <PopupButton
             key="tp-education"
+            href="/education"
             label={intl.formatMessage({
               id: "bulletin:map:education:button:title"
             })}
           >
-            <a
-              href="/education"
-              className={"pure-button"}
-              style={{ cursor: "pointer", pointerEvents: "initial" }}
-            >
-              {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
-              <span className="icon-arrow-right" />
-            </a>
-          </Tooltip>
+            {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+            <span className="icon-arrow-right" />
+          </PopupButton>
         );
       } else if (isNoDataMacro) {
-        // Non-EUREGIO n/a macro-region: no-rating icon/text + external AWS link
+        // extraRegion with no rating: no-rating icon/text + external AWS links
         const greyEaws = eawsRegion(macroRegion);
         detailsClasses.push("js-active");
         res.push(
-          <div key="no-data-grey">
-            <a
-              href="#"
-              onClick={() => props.handleSelectRegion("")}
-              className="bulletin-map-details-close icon-close"
-            >
-              <span className="is-visually-hidden">
-                {intl.formatMessage({ id: "bulletin:map:details:close" })}
-              </span>
-            </a>
-            <p className="bulletin-report-region-name">
-              <span className="bulletin-report-region-name-region">
-                {intl.formatMessage({ id: "region:" + macroRegion })}
-              </span>
-            </p>
-            <p
-              className="bulletin-report-region-name"
-              style={{ textAlign: "center" }}
-            >
-              <img
-                src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-                alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-                style={{
-                  height: "4em",
-                  display: "block",
-                  margin: "0 auto 0.25em"
-                }}
-              />
-              <FormattedMessage id="danger-level:no_rating" />
-            </p>
-          </div>
+          <NoRatingPopup
+            key="no-data-grey"
+            divKey="no-data-grey"
+            regionName={intl.formatMessage({ id: "region:" + macroRegion })}
+            onClose={() => props.handleSelectRegion("")}
+          />
         );
-        (greyEaws?.aws || []).forEach((aws, index) => {
-          const href = aws.url[language] || Object.values(aws.url)[0];
-          res.push(
-            <Tooltip
-              key={`tp-grey-link-${index}`}
-              label={intl.formatMessage({
-                id: "bulletin:map:info:details:hover"
-              })}
-            >
-              <a
-                tabIndex="-1"
-                key={`grey-link-${index}`}
-                href={href}
-                rel="noopener noreferrer"
-                target="_blank"
-                className={
-                  /ALPSOLUT|METEOMONT/.test(aws.name)
-                    ? "pure-button is-de-highlighted"
-                    : "pure-button"
-                }
-                style={{ cursor: "pointer", pointerEvents: "initial" }}
-              >
-                {aws.name} <span className="icon-arrow-right" />
-              </a>
-            </Tooltip>
-          );
-        });
+        res.push(<AwsLinks aws={greyEaws?.aws ?? []} />);
       }
     }
 
