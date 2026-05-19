@@ -85,16 +85,24 @@ export const $locale = computed($language, language => {
 
 export const $headless = atom(false);
 
-export const $province = atom(
-  "" as
-    | "AT-02"
-    | "AT-03"
-    | "AT-04"
-    | "AT-05"
-    | "AT-06"
-    | "AT-07"
-    | "AT-08"
-    | "DE-BY"
-    | "IT-32-BZ"
-    | "IT-32-TN"
+export const $province = atom("" as string);
+
+/**
+ * The "primary" region(s). Used for map focus and display of blue no-rating indicator.
+ */
+export const $focusRegions = computed($province, province =>
+  province ? [province] : config.regionCodes
+);
+
+/**
+ * Other regions for which we load the full CAAML. When province is active,
+ * regionCodes are demoted to this set (instead of being the focus regions).
+ */
+export const $extraRegions = computed($province, province =>
+  province
+    ? [
+        ...config.regionCodes.filter(r => r !== province),
+        ...config.extraRegions.filter(r => r !== province)
+      ]
+    : config.extraRegions
 );

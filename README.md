@@ -55,6 +55,8 @@ In addition there are `extraRegions` and `eawsRegions`.
 - For all `extraRegions` we load the full CAAML and display the bulletin when such a region is selected in the map. If no CAAML can be found for an `extraRegion`, we display the region as grey (no-rating) and link to the corresponding warning service.
 - For `eawsRegions` we only load the rating and link to the official site. If no rating is present in `ratings.json` we display the region as transparent (no color).
 
+The parameter `province=...` overrides `regionCodes`. The regions of `regionCodes` get demoted to `extraRegions` in that case.
+
 ## Server configuration (Caddy)
 
 ```

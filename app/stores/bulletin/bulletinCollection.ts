@@ -10,7 +10,7 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
-import { $province } from "../../appStore";
+import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
@@ -79,7 +79,7 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region: `${regionOverride ?? $province.get()}_`,
+        region: `${regionOverride ?? $focusRegions.get()[0]}_`,
         lang: this.lang
       }
     );
@@ -87,8 +87,7 @@ class BulletinCollection {
 
   /** Returns region codes to load: individual regionCodes when no province, or [province] when set. */
   private _getLoadRegions(): string[] {
-    const province = $province.get();
-    return province ? [province] : config.regionCodes;
+    return $focusRegions.get();
   }
 
   async loadStatus(): Promise<Status> {
@@ -193,11 +192,7 @@ class BulletinCollection {
 
   async loadExtraBulletins() {
     this.extraBulletins = [];
-    const extraRegions = $province.get()
-      ? [...config.regionCodes, ...config.extraRegions].filter(
-          r => r !== $province.get()
-        )
-      : config.extraRegions;
+    const extraRegions = $extraRegions.get();
     const data = await Promise.all(
       extraRegions.flatMap(id => {
         const awsList = eawsRegion(id)?.aws ?? [];

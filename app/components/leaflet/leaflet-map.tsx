@@ -12,7 +12,7 @@ import {
   WMSTileLayer
 } from "react-leaflet";
 import L from "leaflet";
-import { $province } from "../../appStore.ts";
+import { $focusRegions } from "../../appStore.ts";
 import { useStore } from "@nanostores/react";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 
@@ -32,13 +32,10 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const province = useStore($province);
+  const focusRegions = useStore($focusRegions);
   const showDefaultControls = props.showDefaultControls ?? true;
 
-  const bounds = useMemo(
-    () => eawsRegionsBounds(province ? [province] : config.regionCodes),
-    [province]
-  );
+  const bounds = useMemo(() => eawsRegionsBounds(focusRegions), [focusRegions]);
   const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
 
   return (
