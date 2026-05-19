@@ -76,12 +76,36 @@ export function PbfRegionState({
   const { vectorGrid } = useLeafletContext();
   useEffect(() => {
     [...microRegions, ...eawsRegions].forEach(region =>
-      vectorGrid.setFeatureStyle(region, {
+      vectorGrid.setFeatureStyle(region, getStyle(region))
+    );
+
+    function getStyle(regionId: string): object {
+      const state = getRegionState(regionId);
+      const base = {
         ...config.map.regionStyling.clickable,
         ...config.map.regionStyling.all,
-        ...config.map.regionStyling[getRegionState(region)]
-      })
-    );
+        ...config.map.regionStyling[state]
+      };
+      // show border for partial-no-data micro-regions
+      if (state === "noDataGreyMouseOver") {
+        const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+        const maxDangerRatings =
+          activeBulletinCollection?.maxDangerRatings ?? {};
+        const hasRating =
+          `${regionId}:low${amPm}` in maxDangerRatings ||
+          `${regionId}:high${amPm}` in maxDangerRatings ||
+          `${regionId}${amPm}` in maxDangerRatings;
+        const macroStatus =
+          activeBulletinCollection?.macroRegionStatuses?.[
+            getMacroRegion(regionId) ?? ""
+          ];
+        const isPartialNoData = !hasRating && macroStatus === "ok";
+        if (isPartialNoData) {
+          return { ...base, ...config.map.regionStyling.mouseOver };
+        }
+      }
+      return base;
+    }
 
     function getRegionState(regionId: string): RegionState {
       const macroRegion = getMacroRegion(regionId);
