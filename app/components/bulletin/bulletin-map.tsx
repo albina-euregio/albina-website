@@ -260,6 +260,11 @@ const BulletinMap = (props: Props) => {
                 {intl.formatMessage({ id: "bulletin:map:details:close" })}
               </span>
             </a>
+            <p className="bulletin-report-region-name">
+              <span className="bulletin-report-region-name-region">
+                {intl.formatMessage({ id: "region:" + macroRegion })}
+              </span>
+            </p>
             <p
               className="bulletin-report-region-name"
               style={{ textAlign: "center" }}
@@ -316,6 +321,11 @@ const BulletinMap = (props: Props) => {
                 {intl.formatMessage({ id: "bulletin:map:details:close" })}
               </span>
             </a>
+            <p className="bulletin-report-region-name">
+              <span className="bulletin-report-region-name-region">
+                {intl.formatMessage({ id: "region:" + props.region })}
+              </span>
+            </p>
             <p
               className="bulletin-report-region-name"
               style={{ textAlign: "center" }}
@@ -365,6 +375,11 @@ const BulletinMap = (props: Props) => {
                 {intl.formatMessage({ id: "bulletin:map:details:close" })}
               </span>
             </a>
+            <p className="bulletin-report-region-name">
+              <span className="bulletin-report-region-name-region">
+                {intl.formatMessage({ id: "region:" + macroRegion })}
+              </span>
+            </p>
             <p
               className="bulletin-report-region-name"
               style={{ textAlign: "center" }}
