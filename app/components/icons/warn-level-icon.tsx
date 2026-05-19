@@ -11,7 +11,7 @@ import { useStore } from "@nanostores/react";
 interface Props {
   above: DangerRatingValue;
   below: DangerRatingValue;
-  elevation: string;
+  elevation?: string;
   treeline: boolean;
 }
 

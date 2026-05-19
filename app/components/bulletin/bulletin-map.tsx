@@ -18,6 +18,7 @@ import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
 import { PbfRegionState } from "../leaflet/pbf-region-state";
 import {
   isOneDangerRating as isOneDangerRating0,
+  matchesValidTimePeriod,
   ValidTimePeriod
 } from "../../stores/bulletin";
 import { useMapEvent } from "react-leaflet";
@@ -258,22 +259,39 @@ const BulletinMap = (props: Props) => {
           unselectRegion={() => props.handleSelectRegion("")}
         />
       );
-      res.push(
-        activeBulletin?.bulletinID && (
-          <PopupButton
-            key="tp-link"
-            href={"#" + activeBulletin.bulletinID}
-            label={intl.formatMessage({
-              id: "bulletin:map:info:details:hover"
-            })}
-            onClick={e => scrollIntoView(e)}
-          >
-            {preprocessContent(
-              intl.formatMessage({ id: "bulletin:map:info:details" })
-            )}
-            <span className="icon-arrow-down" />
-          </PopupButton>
+      const isNoSnowBulletin = activeBulletin.dangerRatings
+        ?.filter(r =>
+          matchesValidTimePeriod(props.validTimePeriod, r.validTimePeriod)
         )
+        .some(r => r.mainValue === "no_snow");
+      res.push(
+        activeBulletin?.bulletinID &&
+          (isNoSnowBulletin ? (
+            <PopupButton
+              key="tp-education"
+              href="/education/danger-scale"
+              label={intl.formatMessage({
+                id: "bulletin:map:education:button:title"
+              })}
+            >
+              {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+              <span className="icon-arrow-right" />
+            </PopupButton>
+          ) : (
+            <PopupButton
+              key="tp-link"
+              href={"#" + activeBulletin.bulletinID}
+              label={intl.formatMessage({
+                id: "bulletin:map:info:details:hover"
+              })}
+              onClick={e => scrollIntoView(e)}
+            >
+              {preprocessContent(
+                intl.formatMessage({ id: "bulletin:map:info:details" })
+              )}
+              <span className="icon-arrow-down" />
+            </PopupButton>
+          ))
       );
     } else if (activeEaws) {
       detailsClasses.push("js-active");

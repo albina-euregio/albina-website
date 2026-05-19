@@ -15,10 +15,29 @@ function BulletinList({ bulletins, date, region }: Props) {
       className="section-centered section-bulletin-reports"
     >
       <ul className="list-plain bulletin-list">
-        {bulletins.map(([bulletin, bulletin170000]) => (
-          <React.Fragment key={bulletin.bulletinID}>
-            {!config.bulletin.showAllBulletins &&
-              bulletin.regions?.some(r => r.regionID === region) && (
+        {bulletins.map(([bulletin, bulletin170000]) => {
+          if (bulletin.dangerRatings?.some(r => r.mainValue === "no_snow"))
+            return null;
+          return (
+            <React.Fragment key={bulletin.bulletinID}>
+              {!config.bulletin.showAllBulletins &&
+                bulletin.regions?.some(r => r.regionID === region) && (
+                  <li
+                    id={bulletin.bulletinID}
+                    className={
+                      "bulletin-list-item" +
+                      (bulletin.bulletinID === region ? " selected" : "")
+                    }
+                  >
+                    <BulletinReport
+                      bulletin={bulletin}
+                      bulletin170000={bulletin170000}
+                      date={date}
+                      region={region}
+                    />
+                  </li>
+                )}
+              {config.bulletin.showAllBulletins && (
                 <li
                   id={bulletin.bulletinID}
                   className={
@@ -34,24 +53,9 @@ function BulletinList({ bulletins, date, region }: Props) {
                   />
                 </li>
               )}
-            {config.bulletin.showAllBulletins && (
-              <li
-                id={bulletin.bulletinID}
-                className={
-                  "bulletin-list-item" +
-                  (bulletin.bulletinID === region ? " selected" : "")
-                }
-              >
-                <BulletinReport
-                  bulletin={bulletin}
-                  bulletin170000={bulletin170000}
-                  date={date}
-                  region={region}
-                />
-              </li>
-            )}
-          </React.Fragment>
-        ))}
+            </React.Fragment>
+          );
+        })}
       </ul>
     </section>
   );
