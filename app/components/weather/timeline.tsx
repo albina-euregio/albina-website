@@ -631,13 +631,13 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
                     date={currentDate?.subtract({ hours: timeSpanInt }) ?? null}
-                    options={{ timeStyle: "short" }}
+                    options={{ timeStyle: "short", timeZone: "UTC" }}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">
                   <FormattedDate
                     date={currentDate}
-                    options={{ timeStyle: "short" }}
+                    options={{ timeStyle: "short", timeZone: "UTC" }}
                   />
                 </span>
               </div>
@@ -655,7 +655,7 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-point-exact">
                   <FormattedDate
                     date={currentDate}
-                    options={{ timeStyle: "short" }}
+                    options={{ timeStyle: "short", timeZone: "UTC" }}
                   />
                 </span>
               </div>
