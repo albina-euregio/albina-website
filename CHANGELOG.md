@@ -350,6 +350,12 @@
 
 - Show markers for gust in weather maps
 
+## [8.0.5] - 2025-12-03
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade eaws-regions to v8.1.1
+
 ## [8.0.4] - 2025-12-02
 
 ### 🚀 Features
