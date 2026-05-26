@@ -2,6 +2,39 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.4.0] - 2026-05-26
+
+### 🚀 Features
+
+- Add relative snow height map
+- Integrate all blogs of AT
+- Integrate no-snow in bulletin map (transparent with popup)
+- Integrate no-rating in bulletin map (grey with popup)
+- Highlight blog link in bulletin map if whole province has no rating (blue with popup)
+- Load individual CAAMLs for each province
+
+### 🐛 Bug Fixes
+
+- _(glossary)_ Fix typo in artificial-avalanche-release
+- _(weather-maps)_ Use correct timeZone for range
+- _(station-diagrams)_ Handle missing selected station after data reload to prevent undefined id errors
+
+### 🚜 Refactor
+
+- Format files with `vp fmt`
+- _(blog)_ Load blogs async
+- _(blog)_ Reset category filter if lanugage filter changes
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite-plus 0.1.19
+
+## [8.3.3] - 2026-04-21
+
+### 🐛 Bug Fixes
+
+- Fix 24h, 48h, 72h new snow maps
+
 ## [8.3.2] - 2026-04-21
 
 ### 🚀 Features
