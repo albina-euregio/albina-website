@@ -206,7 +206,7 @@ $page-header-logo-width: 3.25em;
       &[data-base-url="/beta/"] {
         background-image: url("../../../images/pro/logos/beta/logo_mark_de.svg");
       }
-      &[data-base-url="/dev/"] {
+      &[data-app-region="DEV"] {
         background-image: url("../../../images/pro/logos/dev/logo_mark_de.svg");
       }
     }
@@ -217,7 +217,7 @@ $page-header-logo-width: 3.25em;
       &[data-base-url="/beta/"] {
         background-image: url("../../../images/pro/logos/beta/logo_mark_it.svg");
       }
-      &[data-base-url="/dev/"] {
+      &[data-app-region="DEV"] {
         background-image: url("../../../images/pro/logos/dev/logo_mark_it.svg");
       }
     }
@@ -228,7 +228,7 @@ $page-header-logo-width: 3.25em;
       &[data-base-url="/beta/"] {
         background-image: url("../../../images/pro/logos/beta/logo_mark_en.svg");
       }
-      &[data-base-url="/dev/"] {
+      &[data-app-region="DEV"] {
         background-image: url("../../../images/pro/logos/dev/logo_mark_en.svg");
       }
     }
@@ -309,7 +309,7 @@ $page-header-logo-width: 3.25em;
     &[data-base-url="/beta/"] {
       background-image: url("../../../images/pro/logos/beta/logo_url_de.svg");
     }
-    &[data-base-url="/dev/"] {
+    &[data-app-region="DEV"] {
       background-image: url("../../../images/pro/logos/dev/logo_url_de.svg");
     }
   }
@@ -321,7 +321,7 @@ $page-header-logo-width: 3.25em;
     &[data-base-url="/beta/"] {
       background-image: url("../../../images/pro/logos/beta/logo_url_it.svg");
     }
-    &[data-base-url="/dev/"] {
+    &[data-app-region="DEV"] {
       background-image: url("../../../images/pro/logos/dev/logo_url_it.svg");
     }
   }
@@ -337,7 +337,7 @@ $page-header-logo-width: 3.25em;
     &[data-base-url="/beta/"] {
       background-image: url("../../../images/pro/logos/beta/logo_url_en.svg");
     }
-    &[data-base-url="/dev/"] {
+    &[data-app-region="DEV"] {
       background-image: url("../../../images/pro/logos/dev/logo_url_en.svg");
     }
   }

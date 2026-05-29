@@ -689,13 +689,13 @@
     "text": "<p>Distacco a distanza di una valanga di neve a lastroni</p><p>La persona che ne provoca il distacco non si trova nel perimetro del lastrone che si mette in movimento (tuttavia pu\u00f2 essere travolto e sepolto dalla neve che si \u00e8 staccata al di sopra di lui).</p>",
     "img": "<img alt=\"Remote triggering\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_031_remote-triggering-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "artifical-avalanche-release": {
+  "artificial-avalanche-release": {
     "ids": {
       "ar": "desencadeament-provocat",
       "ca": "desencadenament-provocat",
       "cs": "umele-spustene-laviny",
       "de": "kunstliche-lawinenauslosung",
-      "en": "artifical-avalanche-release",
+      "en": "artificial-avalanche-release",
       "es": "alud-provocado-desencadenamiento-artificial",
       "fr": "declenchement-artificiel-davalanche",
       "is": "snjoflod-sett-viljandi-af-stad",

@@ -57,8 +57,9 @@ export class WordpressProcessor implements BlogProcessor {
     if (state?.searchText) {
       params.set("search", state.searchText);
     }
-    if (state?.searchCategory) {
-      params.set("categories", state.searchCategory);
+    const categoryIds = state?.searchCategory?.[config.name];
+    if (categoryIds) {
+      params.set("categories", categoryIds);
     }
     if (state?.year) {
       params.set("after", state.startDate.toString());
@@ -112,7 +113,14 @@ export class WordpressProcessor implements BlogProcessor {
         .filter(({ lang }) => config.lang !== lang),
       config.regions,
       post.featured_image_url,
-      post._embedded["wp:term"].flat().map(t => t.name)
+      post._embedded["wp:term"]
+        .flat()
+        .filter(t => t.taxonomy === "category")
+        .map(t => t.name),
+      post._embedded["wp:term"]
+        .flat()
+        .filter(t => t.taxonomy === "post_tag")
+        .map(t => t.name)
     );
   }
 

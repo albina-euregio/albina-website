@@ -121,6 +121,12 @@ source_file = public/content/education/workflow/en.html
 source_lang = en
 type        = HTML
 
+[o:albina-euregio:p:albina-website:r:internal-glossary]
+file_filter = app/components/bulletin/internal-glossary/internal-glossary-<lang>-content.json
+source_file = app/components/bulletin/internal-glossary/internal-glossary-en-content.json
+source_lang = en
+type        = KEYVALUEJSON
+
 [o:albina-euregio:p:bulletin-glossary:r:bulletin-glossary]
 file_filter = app/components/bulletin/bulletin-glossary-<lang>-links.json
 source_file = app/components/bulletin/bulletin-glossary-qqq-links.json

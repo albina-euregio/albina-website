@@ -14,6 +14,7 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   "snow-line": "icon-snow-drop",
+  "relative-snow": "icon-snow-relative",
   wind: "icon-wind",
   gust: "icon-wind-gust",
   wind700hpa: "icon-wind-high"
@@ -25,6 +26,7 @@ const DOMAIN_LEGEND_CLASSES = {
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
   "snow-line": "cp-legend-snowline",
+  "relative-snow": "cp-legend-snowrelative",
   wind: "cp-legend-wind",
   gust: "cp-legend-windgust",
   wind700hpa: "cp-legend-windhigh"
@@ -34,6 +36,7 @@ const DOMAIN_UNITS = {
   "snow-height": "cm",
   "new-snow": "cm",
   "diff-snow": "cm",
+  "relative-snow": "%",
   "snow-line": "m",
   temp: "°C",
   wind: "km/h",
@@ -75,10 +78,10 @@ const WeatherMapCockpit = () => {
         // Navigate with preserved timestamp.
         // weather.tsx's useEffect handles calling initDomain.
         const ct = store.currentTime.get();
-        if (ct && +ct > 0) {
+        if (ct) {
           redirectPage($router, "weatherMapDomainTimestamp", {
             domain: value,
-            timestamp: ct.toISOString()
+            timestamp: ct.toString()
           });
         } else {
           redirectPage($router, "weatherMapDomain", { domain: value });
@@ -91,7 +94,7 @@ const WeatherMapCockpit = () => {
         const domain = store.domainId.get();
         redirectPage($router, "weatherMapDomainTimestamp", {
           domain,
-          timestamp: ct ? ct.toISOString() : "",
+          timestamp: ct ? ct.toString() : "",
           timeSpan: value
         });
         break;
@@ -178,8 +181,14 @@ const WeatherMapCockpit = () => {
         );
       else
         allButtons = (
-          <span className="cp-range-hourly js-active">
-            <FormattedMessage id="weathermap:domain:timespan:description:1" />
+          <span className="cp-range-label js-active">
+            <FormattedMessage
+              id={
+                domainId == "relative-snow"
+                  ? "weathermap:domain:timespan:description:2"
+                  : "weathermap:domain:timespan:description:1"
+              }
+            />
           </span>
         );
     }
@@ -253,6 +262,7 @@ const WeatherMapCockpit = () => {
     );
   };
   const getReleaseInfo = () => {
+    const unit = (domainId && DOMAIN_UNITS[domainId]) || domainConfig?.units;
     return (
       <div key="cp-release" className="cp-release">
         <Tooltip
@@ -288,7 +298,7 @@ const WeatherMapCockpit = () => {
           placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
-          <span className="cp-legend-unit">{DOMAIN_UNITS[domainId]}</span>
+          <span className="cp-legend-unit">{unit}</span>
         </Tooltip>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a

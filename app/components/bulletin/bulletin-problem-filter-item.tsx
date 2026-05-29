@@ -44,7 +44,7 @@ function BulletinProblemFilterItem({
   return (
     <li>
       <Tooltip label={title}>
-        <a href="#" className={classes} onClick={e => toggle(e)}>
+        <a href="#" className={classes} onClick={e => toggle(e)} tabIndex={-1}>
           <div className="picto-img">
             <ProblemIcon problem={problemId} active alt={problemText} />
           </div>

@@ -18,11 +18,15 @@ import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
 import { PbfRegionState } from "../leaflet/pbf-region-state";
 import {
   isOneDangerRating as isOneDangerRating0,
+  matchesValidTimePeriod,
   ValidTimePeriod
 } from "../../stores/bulletin";
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
 import { eawsRegion } from "../../stores/eawsRegions";
+import { getMacroRegion } from "../../stores/microRegions";
+import { $focusRegions } from "../../appStore";
+import { FormattedMessage } from "../../i18n";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -39,6 +43,7 @@ interface Props {
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const isOneDangerRating = useStore(isOneDangerRating0);
+  const focusRegions = useStore($focusRegions);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
 
@@ -126,6 +131,110 @@ const BulletinMap = (props: Props) => {
     return overlays;
   };
 
+  const NoRatingPopup = ({
+    divKey,
+    regionName,
+    onClose,
+    children
+  }: {
+    divKey: string;
+    regionName: string;
+    onClose: () => void;
+    children?: React.ReactNode;
+  }) => (
+    <div key={divKey}>
+      <a
+        href="#"
+        onClick={e => {
+          e.preventDefault();
+          onClose();
+        }}
+        className="bulletin-map-details-close icon-close"
+      >
+        <span className="is-visually-hidden">
+          {intl.formatMessage({ id: "bulletin:map:details:close" })}
+        </span>
+      </a>
+      <p className="bulletin-report-region-name">
+        <span className="bulletin-report-region-name-region">{regionName}</span>
+      </p>
+      <p
+        className="bulletin-report-region-name"
+        style={{ textAlign: "center" }}
+      >
+        <img
+          src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+          alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+          style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
+        />
+        <FormattedMessage id="danger-level:no_rating" />
+      </p>
+      {children}
+    </div>
+  );
+
+  const AwsLinks = ({
+    aws
+  }: {
+    aws: { name: string; url: Partial<Record<string, string>> }[];
+  }) =>
+    (aws || []).map((link, index) => {
+      const href = link.url[language] || Object.values(link.url)[0];
+      return (
+        <Tooltip key={`tp-aws-link-${index}`} label={href}>
+          <a
+            tabIndex="-1"
+            href={href}
+            rel="noopener noreferrer"
+            target="_blank"
+            className={
+              /ALPSOLUT|METEOMONT/.test(link.name)
+                ? "pure-button is-de-highlighted"
+                : "pure-button"
+            }
+            style={{ cursor: "pointer", pointerEvents: "initial" }}
+          >
+            {link.name}{" "}
+            <span
+              className="icon-arrow-right"
+              style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+            />
+          </a>
+        </Tooltip>
+      );
+    });
+
+  const PopupButton = ({
+    href,
+    label,
+    target,
+    rel,
+    onClick,
+    className,
+    children
+  }: {
+    href: string;
+    label: string;
+    target?: string;
+    rel?: string;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+    className?: string;
+    children: React.ReactNode;
+  }) => (
+    <Tooltip label={label}>
+      <a
+        href={href}
+        target={target}
+        rel={rel}
+        onClick={onClick}
+        className={className ?? "pure-button"}
+        style={{ cursor: "pointer", pointerEvents: "initial" }}
+      >
+        {children}
+      </a>
+    </Tooltip>
+  );
+
   const getBulletinMapDetails = () => {
     const res = [];
     const detailsClasses = ["bulletin-map-details", "top-right"];
@@ -147,30 +256,39 @@ const BulletinMap = (props: Props) => {
           unselectRegion={() => props.handleSelectRegion("")}
         />
       );
+      const isNoSnowBulletin = activeBulletin.dangerRatings
+        ?.filter(r =>
+          matchesValidTimePeriod(props.validTimePeriod, r.validTimePeriod)
+        )
+        .some(r => r.mainValue === "no_snow");
       res.push(
-        activeBulletin?.bulletinID && (
-          <Tooltip
-            key="tp-link"
-            label={intl.formatMessage({
-              id: "bulletin:map:info:details:hover"
-            })}
-          >
-            <a
-              tabIndex="-1"
-              key="link"
-              href={"#" + activeBulletin?.bulletinID}
+        activeBulletin?.bulletinID &&
+          (isNoSnowBulletin ? (
+            <PopupButton
+              key="tp-education"
+              href="/education/danger-scale"
+              label={intl.formatMessage({
+                id: "bulletin:map:education:button:title"
+              })}
+            >
+              {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+              <span className="icon-arrow-right" />
+            </PopupButton>
+          ) : (
+            <PopupButton
+              key="tp-link"
+              href={"#" + activeBulletin.bulletinID}
+              label={intl.formatMessage({
+                id: "bulletin:map:info:details:hover"
+              })}
               onClick={e => scrollIntoView(e)}
-              className="pure-button"
             >
               {preprocessContent(
-                intl.formatMessage({
-                  id: "bulletin:map:info:details"
-                })
+                intl.formatMessage({ id: "bulletin:map:info:details" })
               )}
               <span className="icon-arrow-down" />
-            </a>
-          </Tooltip>
-        )
+            </PopupButton>
+          ))
       );
     } else if (activeEaws) {
       detailsClasses.push("js-active");
@@ -202,37 +320,79 @@ const BulletinMap = (props: Props) => {
           </p>
         </div>
       );
-      (activeEaws.aws || []).forEach((aws, index) => {
-        const href = aws.url[language] || Object.values(aws.url)[0];
+      res.push(<AwsLinks key="eaws-links" aws={activeEaws.aws ?? []} />);
+    } else {
+      // Check if the clicked region belongs to a macro-region with no data
+      const macroRegion = getMacroRegion(props.region);
+      const isNoDataMacro =
+        macroRegion &&
+        props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
+          "n/a";
+      if (isNoDataMacro && focusRegions.includes(macroRegion)) {
+        // primary region: focus macro-region with no data: show blog link
+        detailsClasses.push("js-active");
         res.push(
-          <Tooltip
-            key={`tp-eaws-link-${index}`}
+          <NoRatingPopup
+            key="no-data"
+            divKey="no-data"
+            regionName={intl.formatMessage({ id: "region:" + macroRegion })}
+            onClose={() => props.handleSelectRegion("")}
+          >
+            <PopupButton
+              href={`/blog?region=${macroRegion}`}
+              label={intl.formatMessage({
+                id: "bulletin:map:blog:button:title"
+              })}
+            >
+              {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
+              <span
+                className="icon-arrow-right"
+                style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+              />
+            </PopupButton>
+          </NoRatingPopup>
+        );
+      } else if (
+        macroRegion &&
+        props.activeBulletinCollection?.macroRegionStatuses?.[macroRegion] ===
+          "ok"
+      ) {
+        // Micro-region within a rated macro-region but itself without a rating
+        detailsClasses.push("js-active");
+        res.push(
+          <NoRatingPopup
+            key="no-rating-partial"
+            divKey="no-rating-partial"
+            regionName={intl.formatMessage({ id: "region:" + props.region })}
+            onClose={() => props.handleSelectRegion("")}
+          />
+        );
+        res.push(
+          <PopupButton
+            key="tp-education"
+            href="/education"
             label={intl.formatMessage({
-              id: "bulletin:map:info:details:hover"
+              id: "bulletin:map:education:button:title"
             })}
           >
-            <a
-              tabIndex="-1"
-              key={`eaws-link-${index}`}
-              href={href}
-              rel="noopener noreferrer"
-              target="_blank"
-              className={
-                /ALPSOLUT|METEOMONT/.test(aws.name)
-                  ? "pure-button is-de-highlighted"
-                  : "pure-button"
-              }
-              style={{
-                // override rules from node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss
-                cursor: "pointer",
-                pointerEvents: "initial"
-              }}
-            >
-              {aws.name} <span className="icon-arrow-right" />
-            </a>
-          </Tooltip>
+            {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+            <span className="icon-arrow-right" />
+          </PopupButton>
         );
-      });
+      } else if (isNoDataMacro) {
+        // extraRegion with no rating: no-rating icon/text + external AWS links
+        const greyEaws = eawsRegion(macroRegion);
+        detailsClasses.push("js-active");
+        res.push(
+          <NoRatingPopup
+            key="no-data-grey"
+            divKey="no-data-grey"
+            regionName={intl.formatMessage({ id: "region:" + macroRegion })}
+            onClose={() => props.handleSelectRegion("")}
+          />
+        );
+        res.push(<AwsLinks aws={greyEaws?.aws ?? []} />);
+      }
     }
 
     return (

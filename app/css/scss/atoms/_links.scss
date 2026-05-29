@@ -46,19 +46,13 @@ a.textlink {
 }
 
 //glossary
-a.glossary {
+.glossary {
   color: inherit;
   //Safari wants it like that
   text-decoration-color: variables.$brand;
   text-decoration-style: dotted;
   text-decoration-line: underline;
-  &:link,
-  &:visited {
-    color: inherit;
-    text-decoration-color: variables.$brand;
-    text-decoration-style: dotted;
-    text-decoration-line: underline;
-  }
+  cursor: pointer;
   &:hover {
     text-decoration-color: variables.$brand;
     text-decoration-style: solid;

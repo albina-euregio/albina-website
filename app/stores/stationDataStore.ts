@@ -1,22 +1,18 @@
 import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
-import { useCallback, useMemo, useState } from "react";
-import { z } from "zod/mini";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { $router, redirectPageQuery } from "../components/router";
-import { FeatureCollectionSchema as LegacyFeatureCollectionSchema } from "@albina-euregio/linea/src/schema/listing-legacy";
 import {
-  FeatureCollectionSchema,
-  FeatureSchema
-} from "@albina-euregio/linea/src/schema/listing";
+  Feature,
+  FeatureCollectionSchema
+} from "@albina-euregio/linea/listing";
+import { fetchJSON } from "../util/fetch";
 
-type Feature = z.infer<typeof FeatureSchema>;
-
-export class StationData {
+export class StationData implements Feature {
+  readonly type = "Feature" as const;
   id: Feature["id"];
   geometry: Feature["geometry"];
   properties: Feature["properties"];
-  $smet: string | undefined;
-  $png: string | undefined;
   $stationsArchiveFile: string | undefined;
 
   constructor(object: {
@@ -40,6 +36,9 @@ export class StationData {
   get name() {
     return this.properties.name;
   }
+  get operator() {
+    return this.properties.operator;
+  }
   get startYear() {
     return this.properties.startYear;
   }
@@ -62,19 +61,19 @@ export class StationData {
     return this.properties.date;
   }
   get TA() {
-    return this.properties.TA.convertTo("°C");
+    return this.properties.TA.convertTo("℃");
   }
   get TSS() {
-    return this.properties.TSS.convertTo("°C");
+    return this.properties.TSS.convertTo("℃");
   }
   get TD() {
-    return this.properties.TD.convertTo("°C");
+    return this.properties.TD.convertTo("℃");
   }
   get TA_MAX() {
-    return this.properties.TA_MAX.convertTo("°C");
+    return this.properties.TA_MAX.convertTo("℃");
   }
   get TA_MIN() {
-    return this.properties.TA_MIN.convertTo("°C");
+    return this.properties.TA_MIN.convertTo("℃");
   }
   get HS() {
     return this.properties.HS.convertTo("cm");
@@ -130,14 +129,10 @@ export class StationData {
     return this.properties.RSWR.convertTo("W/m²");
   }
 
-  get plot() {
-    return this.properties.plot;
-  }
-
   get parametersForDialog() {
     const types = [
       { type: "HS", digits: 0, unit: "cm" },
-      { type: "TA", digits: 1, unit: "°C" },
+      { type: "TA", digits: 1, unit: "℃" },
       { type: "RH", digits: 0, unit: "%" },
       { type: "VW", digits: 0, unit: "km/h" },
       { type: "VW_MAX", digits: 0, unit: "km/h" }
@@ -163,7 +158,6 @@ export class StationData {
 
 export function useStationData(
   sortValue0: keyof StationData = "name",
-  activeRegionPredicate: (r: string) => boolean = () => true,
   activeYear0: number | "" = currentSeasonYear(),
   filterStartYear0 = false
 ) {
@@ -195,12 +189,20 @@ export function useStationData(
     (sortDir: "asc" | "desc") => redirectPageQuery({ sortDir })
   ];
 
-  const [activeRegion, setActiveRegion] = [
-    router?.search.activeRegion || router?.search.province || "all",
-    (activeRegion: string | "" | "all" | null | undefined) =>
-      // activate all if undefined or null is given
-      redirectPageQuery({ activeRegion: activeRegion ?? "all" })
-  ];
+  const activeRegionFromRouter =
+    router?.search.activeRegion || router?.search.province || "all";
+  const [activeRegion, setActiveRegionState] = useState(activeRegionFromRouter);
+  useEffect(() => {
+    setActiveRegionState(activeRegionFromRouter);
+  }, [activeRegionFromRouter]);
+  const setActiveRegion = (
+    activeRegion: string | "" | "all" | null | undefined
+  ) => {
+    const nextActiveRegion = activeRegion ?? "all";
+    setActiveRegionState(nextActiveRegion);
+    // Keep deep-link query in sync with the UI state.
+    redirectPageQuery({ activeRegion: nextActiveRegion });
+  };
 
   const [activeData, setActiveData] = useState({
     snow: true,
@@ -210,6 +212,9 @@ export function useStationData(
   });
   const [filterStartYear, setfilterStartYear] =
     useState<boolean>(filterStartYear0);
+  const [elevationRange, setElevationRange] = useState<[number, number]>([
+    0, 4000
+  ]);
 
   function sortBy(sortValue: keyof StationData, sortDir: "asc" | "desc") {
     setSortValue(sortValue);
@@ -271,21 +276,28 @@ export function useStationData(
       .filter(
         row => !filterStartYear || !activeYear || +row.startYear <= activeYear
       )
+      .filter(
+        row =>
+          typeof row.altitude !== "number" ||
+          (row.altitude >= elevationRange[0] &&
+            row.altitude <= elevationRange[1])
+      )
       .sort((val1, val2) => compareStationData(val1, val2));
   }, [
     activeRegion,
     activeYear,
     compareStationData,
     data,
+    elevationRange,
     filterStartYear,
     searchText
   ]);
 
-  const load = useCallback(
-    async function load({ dateTime, ogd }: LoadOptions = {}): Promise<
+  const loadStationData = useCallback(
+    async function loadStationData({ dateTime }: LoadOptions = {}): Promise<
       StationData[]
     > {
-      const data = await loadStationData({ dateTime, ogd });
+      const data = await _loadStationData({ dateTime });
       data.sort((val1, val2) => compareStationData(val1, val2));
       setData(data);
       setDateTime(dateTime);
@@ -302,8 +314,9 @@ export function useStationData(
     data,
     dateTime,
     dateTimeMax,
+    elevationRange,
     filterStartYear,
-    load,
+    loadStationData,
     minYear,
     searchText,
     setActiveData,
@@ -311,6 +324,7 @@ export function useStationData(
     setActiveYear,
     setData,
     setDateTime,
+    setElevationRange,
     setfilterStartYear,
     setSearchText,
     setSortDir,
@@ -326,93 +340,85 @@ export function useStationData(
 interface LoadOptions {
   consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
-  ogd?: boolean;
 }
 
-export async function loadStationData({
+export async function _loadStationData({
   consumer,
-  dateTime,
-  ogd
+  dateTime
 }: LoadOptions = {}): Promise<StationData[]> {
+  let url = config.apis.linea.stations;
+
+  if (dateTime instanceof Temporal.ZonedDateTime) {
+    url = window.config.template(config.apis.linea.stationsDateTime, {
+      date: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02".length),
+      dateTime: dateTime
+        .withTimeZone("UTC")
+        .toString()
+        .slice(0, "2006-01-02T12:00".length)
+        .replace("T", "_")
+        .replace(":", "-")
+    });
+  }
+
+  const json = await fetchJSON(url);
+  const collection = await FeatureCollectionSchema.parseAsync(json);
+
   const all = window.config.apis.stations.map(
-    async ({
-      smet,
+    ({
+      dataProviderID,
       smetOperators,
+      licenseCCBY,
       png,
       pngOperators,
-      stations: url,
-      stationsDateTime,
       stationsArchiveFile,
       stationsArchiveOperators
     }) => {
-      if (dateTime instanceof Temporal.ZonedDateTime) {
-        const timePrefix = `${dateTime.withTimeZone("UTC").toString().slice(0, "2006-01-02T12".length).replace("T", "_")}-00_`;
-        if (!stationsDateTime) {
-          return [];
-        }
-        url = window.config.template(stationsDateTime, {
-          dateTime: timePrefix
-        });
-      }
-
-      if (
-        import.meta.env.DEV &&
-        url.startsWith("https://smet.hydrographie.info/")
-      ) {
-        url = url.slice("https:/".length);
-        smet = smet.slice("https:/".length);
-      }
-
       try {
-        const response = await fetch(url, { cache: "no-cache" });
-        if (!response.ok) throw new Error(response.statusText);
-        if (response.status === 404) return [];
-
-        if (
-          url ===
-          "https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min/metadata"
-        ) {
-          if (ogd) return [];
-          const metadata: GeoSphereMetadata = await response.json();
-          const stations = metadata.stations.map(station =>
-            mapGeoSphere(station, smet)
-          );
-          consumer?.(stations);
-          return stations;
-        }
-
-        const json = await response.json();
-        const searchParams = new URL(url, location.href).searchParams;
-        const isLegacy = searchParams.get("v") === "legacy";
-        const schema = isLegacy
-          ? LegacyFeatureCollectionSchema
-          : FeatureCollectionSchema;
-        const collection = schema.parse(json, { reportInput: true });
         const stations = collection.features
-          .filter(el => ogd || el.properties.date)
-          .filter(el => !ogd || !el.properties.name.startsWith("Beobachter"))
+          .filter(f => f.properties.dataProviderID === dataProviderID)
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            data.$smet = new RegExp(smetOperators).test(operator) ? smet : "";
-            data.$png = new RegExp(pngOperators).test(operator) ? png : "";
-            data.$stationsArchiveFile = stationsArchiveFile;
-
-            if (ogd && !new RegExp(stationsArchiveOperators).exec(operator)) {
-              return;
+            if (smetOperators && !new RegExp(smetOperators).test(operator)) {
+              data.properties.dataURLs = [];
+            }
+            if (new RegExp(pngOperators).test(operator)) {
+              data.properties.plot = png.replace(
+                "{name}",
+                data.properties.plot ?? ""
+              );
+            } else {
+              data.properties.plot = undefined;
+            }
+            if (new RegExp(licenseCCBY ?? "---").test(operator)) {
+              data.properties.operatorLicense ??= "CC BY 4.0";
             }
 
-            if (!data.$smet && !data.$png) {
-              return;
+            if (new RegExp(stationsArchiveOperators).exec(operator)) {
+              data.$stationsArchiveFile = stationsArchiveFile;
             }
+            data.properties.dataURLs = data.properties.dataURLs.map(url =>
+              url
+                .replace(
+                  "https://measurement-api.slf.ch/public/api/imis/",
+                  "https://api.avalanche.report/measurement-api.slf.ch/public/api/imis/"
+                )
+                .replace(
+                  "https://meteo.arpa.veneto.it/meteo/dati_meteo/",
+                  "https://api.avalanche.report/meteo.arpa.veneto.it/meteo/dati_meteo/"
+                )
+            );
 
             return data;
           })
-          .filter(d => !!d);
+          .filter(d => d.properties.dataURLs?.length || d.properties.plot);
         consumer?.(stations);
         return stations;
       } catch (e) {
-        console.error("Failed fetching station data from " + url, e);
+        console.error("Failed fetching station data from " + dataProviderID, e);
         return [];
       }
     }
@@ -420,65 +426,4 @@ export async function loadStationData({
 
   const data = await Promise.all(all);
   return data.flat();
-}
-
-interface GeoSphereMetadata {
-  title: string;
-  parameters: GeoSphereParameter[];
-  frequency: string;
-  type: string;
-  mode: string;
-  response_formats: string[];
-  start_time: string;
-  end_time: string;
-  stations: GeoSphereStation[];
-  id_type: string;
-}
-
-interface GeoSphereParameter {
-  name: string;
-  long_name: string;
-  desc: string;
-  unit: string;
-}
-
-interface GeoSphereStation {
-  type: string;
-  id: string;
-  group_id: null;
-  name: string;
-  state: string;
-  lat: number;
-  lon: number;
-  altitude: number;
-  valid_from: string;
-  valid_to: string;
-  has_sunshine: boolean;
-  has_global_radiation: boolean;
-  is_active: boolean;
-}
-
-function mapGeoSphere(station: GeoSphereStation, smet: string): StationData {
-  const feature = FeatureSchema.parse({
-    type: "Feature",
-    id: station.id,
-    geometry: {
-      type: "Point",
-      coordinates: [station.lon, station.lat, station.altitude]
-    },
-    properties: {
-      name: station.name
-        .toLocaleLowerCase("de")
-        // capitalize "ACHENKIRCH CAMPINGPLATZ"
-        .replace(/(^|[-./()\s])\w/g, c => c.toLocaleUpperCase("de")),
-      operator: "GeoSphere Austria",
-      operatorLink: "https://www.geosphere.at/",
-      operatorLicense: "CC BY 4.0",
-      operatorLicenseLink:
-        "https://creativecommons.org/licenses/by/4.0/legalcode"
-    }
-  });
-  const data = new StationData(feature);
-  data.$smet = smet;
-  return data;
 }

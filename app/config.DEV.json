@@ -1,0 +1,692 @@
+{
+  "languages": ["ca", "en", "de", "es", "fr", "it", "oc"],
+  "mainLanguages": ["en", "de", "it"],
+  "headless": false,
+  "headlessLogo": [],
+  "province": null,
+  "regionCodes": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+  "blogRegions": [
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "IT-32-BZ",
+    "AT-07",
+    "IT-32-TN",
+    "AT-08"
+  ],
+  "stationRegions": [
+    "DE-BY",
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-07",
+    "IT-32-BZ",
+    "IT-32-TN",
+    "IT-34",
+    "IT-36",
+    "CH",
+    "LI",
+    "AT-08"
+  ],
+  "weatherRegions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+  "extraRegions": [
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-08",
+    "DE-BY",
+    "IT-21",
+    "IT-23",
+    "IT-25",
+    "IT-34",
+    "IT-36",
+    "IT-57",
+    "SI"
+  ],
+  "eawsRegions": [
+    "AD",
+    "CH",
+    "CZ",
+    "ES-CT-L",
+    "ES-CT",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "IS",
+    "NO",
+    "PL",
+    "PL-12",
+    "SE",
+    "SK"
+  ],
+  "eawsRegionsExclude": [],
+  "staticContentNamespace": [],
+  "menu": [
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
+    {
+      "url": "/weather",
+      "children": [
+        {
+          "url": "/weather/map/"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/weather/stations"
+        },
+        {
+          "url": "/weather/archive"
+        },
+        {
+          "url": ""
+        },
+        {
+          "key": "lawis:incident",
+          "url": "https://www.lawis.at/incident?lang=en",
+          "url:de": "https://www.lawis.at/incident?lang=de"
+        },
+        {
+          "key": "lawis:profile",
+          "url": "https://www.lawis.at/profile?lang=en",
+          "url:de": "https://www.lawis.at/profile?lang=de"
+        },
+        {
+          "key": "webcam",
+          "url": "https://www.foto-webcam.eu"
+        },
+        {
+          "url": ""
+        },
+        {
+          "key": "meteo-report",
+          "url": "https://meteo.report/mountains/",
+          "url:de": "https://meteo.report/de/mountains/",
+          "url:it": "https://meteo.report/it/mountains/"
+        }
+      ]
+    },
+    {
+      "url": "/education",
+      "indexKey": "education:overview",
+      "children": [
+        {
+          "url": "/education/danger-scale",
+          "img": "/content_files/feature_danger-scale.webp"
+        },
+        {
+          "url": "/education/avalanche-problems",
+          "img": "/content_files/feature_avalanche-problem.webp"
+        },
+        {
+          "url": "/education/danger-patterns",
+          "img": "/content_files/feature_danger-pattern.webp"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/matrix",
+          "img": "/content_files/feature_matrix.webp"
+        },
+        {
+          "url": "/education/snowpack-stability",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/education/frequency",
+          "img": "/content_files/feature_frequency.webp"
+        },
+        {
+          "url": "/education/avalanche-sizes",
+          "img": "/content_files/feature_avalanche-size.webp"
+        },
+        {
+          "url": "/education/workflow",
+          "img": "/content_files/feature_workflow.webp"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/handbook",
+          "img": "/content_files/feature_handbook.webp"
+        },
+        {
+          "url": "/education/spatio-temporal-scale",
+          "img": "/content_files/feature_spatio-temporal-scale.webp"
+        },
+        {
+          "url": ""
+        },
+        {
+          "key": "glossary",
+          "indexKey": "education:overview:glossary",
+          "url": "https://www.avalanches.org/glossary/?lang=en",
+          "url:de": "https://www.avalanches.org/glossary/?lang=de",
+          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "img": "/content_files/feature_glossary.webp"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/virtual-reality-project",
+          "img": "/content_files/feature_vr.webp"
+        }
+      ]
+    },
+    {
+      "url": "/more",
+      "indexKey": "more",
+      "children": [
+        {
+          "url": "/more/archive",
+          "img": "/content_files/feature_archive.webp"
+        },
+        {
+          "url": "/more/season-reports",
+          "img": "/content_files/feature_season_reports.webp"
+        },
+        {
+          "url": "/education/community",
+          "indexKey": "education:overview:community",
+          "img": "/content_files/feature_community.webp"
+        },
+        {
+          "url": "/more/open-data",
+          "img": "/content_files/feature_open_data.webp"
+        },
+        {
+          "url": ""
+        },
+        {
+          "url": "/more/about",
+          "img": "/content_files/feature_about.webp"
+        },
+        {
+          "url": "/blog/tech",
+          "indexKey": "more:blog:tech",
+          "img": "/content_files/feature_snowpack-stability.webp"
+        },
+        {
+          "url": "/more/contact",
+          "img": "/content_files/feature_contact.webp"
+        }
+      ]
+    }
+  ],
+  "menuFooter": [
+    {
+      "url": "/more/imprint"
+    },
+    {
+      "url": "/more/privacy"
+    },
+    {
+      "url": "/more/accessibility"
+    },
+    {
+      "url": "/more/contact"
+    }
+  ],
+  "menuFooterMain": [
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
+    {
+      "url": "/weather",
+      "showSub": true
+    },
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
+  ],
+  "blogsMinYear": 2011,
+  "categoryNameMap": {
+    "ALLGEMEIN": "Allgemein",
+    "LAWINEN": "Lawinenereignis",
+    "WISSEN": "Wissenswertes",
+    "UMFRAGE": "Neuerungen",
+    "WETTER, SCHNEEDECKE": "Aktuelle Situation"
+  },
+  "blogs": [
+    {
+      "lang": "de",
+      "name": "test-de",
+      "apiType": "wordpress",
+      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+      "params": {
+        "id": "blog.avalanche.report/test"
+      }
+    },
+    {
+      "lang": "en",
+      "name": "test-en",
+      "apiType": "wordpress",
+      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+      "params": {
+        "id": "blog.avalanche.report/test"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "test-it",
+      "apiType": "wordpress",
+      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
+      "params": {
+        "id": "blog.avalanche.report/test"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "at-07-de",
+      "apiType": "wordpress",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "blog.avalanche.report/at-07"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "niederoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-03"],
+      "params": {
+        "id": "niederoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "oberoesterreich",
+      "apiType": "wordpress",
+      "regions": ["AT-04"],
+      "params": {
+        "id": "oberoesterreich.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "salzburg",
+      "apiType": "wordpress",
+      "regions": ["AT-05"],
+      "params": {
+        "id": "salzburg.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "steiermark",
+      "apiType": "wordpress",
+      "regions": ["AT-06"],
+      "params": {
+        "id": "steiermark.blog.lawinen-warnung.eu"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "vorarlberg",
+      "apiType": "wordpress",
+      "regions": ["AT-08"],
+      "params": {
+        "id": "vorarlberg.blog.lawinen-warnung.eu"
+      }
+    }
+  ],
+  "techBlog": {
+    "lang": "",
+    "name": "tech",
+    "apiType": "wordpress",
+    "params": {
+      "id": "blog.avalanche.report/tech"
+    }
+  },
+  "apis": {
+    "bulletin": {
+      "simple": "https://dev.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
+      "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
+      "map": "https://dev.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
+      "pdf": "https://dev.avalanche.report/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "https://dev.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "https://dev.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "https://dev.avalanche.report/bulletins/archive/"
+    },
+    "push": "https://dev.avalanche.report/api/push",
+    "subscribe": "https://dev.avalanche.report/api/email",
+    "blogger": "https://dev.avalanche.report/api/blog/",
+    "linea": {
+      "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
+      "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
+    },
+    "stations": [
+      {
+        "dataProviderID": "ALBINA",
+        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU",
+        "licenseCCBY": "LWD Tirol",
+        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+        "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
+        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
+        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+      },
+      {
+        "dataProviderID": "AT-02",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "LWD Kärnten"
+      },
+      {
+        "dataProviderID": "IT-36",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "ARPA FVG"
+      },
+      {
+        "dataProviderID": "AT-05",
+        "smetOperators": "",
+        "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
+        "pngOperators": "LWD Salzburg.*",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "dataProviderID": "OEBB",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "dataProviderID": "AT-06",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "AT-03",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "AT-04",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "AT-08",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "DE-BY",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "SI",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": ""
+      },
+      {
+        "dataProviderID": "GEOSPHERE",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "dataProviderID": "SLF",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      },
+      {
+        "dataProviderID": "IT-34",
+        "smetOperators": "",
+        "png": "",
+        "pngOperators": "---",
+        "stationsArchiveFile": "",
+        "stationsArchiveOperators": "---"
+      }
+    ]
+  },
+  "apiKeys": {
+    "vapidPublicKey": "BKDMsBa2HtFUhtinNzF4fkdNX8pISXCnZziHY-2G-PHubcHzItez6j-vUVp9Wrsp7Rs454zXw6QawfzbYfzaq58",
+    "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
+  },
+  "links": {
+    "eaws": "https://www.avalanches.org/",
+    "euregio": "https://www.europaregion.info/"
+  },
+  "subscribe": {
+    "buttonHidden": false,
+    "apps": [
+      {
+        "name": "Lawine Tirol App",
+        "regions": ["AT-07"],
+        "logo": "App_Lawine_Tirol_Logo.webp",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=com.m_pulso.android.lawine",
+          "ios": "https://itunes.apple.com/at/app/lawine-tirol/id776081927"
+        }
+      },
+      {
+        "name": "Snow Safe App",
+        "logo": "App_SnowSafe_Logo.webp",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
+          "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
+        }
+      }
+    ]
+  },
+  "bulletin": {
+    "checkForLatestInterval": 5,
+    "showAllBulletins": false
+  },
+  "map": {
+    "attribution": "© <a href='https://sonny.4lima.de/'>Sonny</a>, CC BY 4.0 | © <a href='https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b'>EU-DEM</a>, CC BY 4.0 | © avalanche.report, CC BY 4.0",
+    "useWindowWidth": true,
+    "initOptions": {
+      "maxBounds": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "maxBoundsViscosity": 1,
+      "zoomSnap": 0.25,
+      "zoomDelta": 0.5,
+      "maxZoom": 10,
+      "minZoom": 5
+    },
+    "locateOptions": {
+      "position": "topleft",
+      "flyTo": true
+    },
+    "showHideOptions": {
+      "position": "topleft"
+    },
+    "tileLayer": {
+      "id": "ALBINA",
+      "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.webp",
+      "maxZoom": 10,
+      "minZoom": 5,
+      "detectRetina": false,
+      "wms": false,
+      "maxBounds": [
+        [45.150876, 7.932124],
+        [48.240084, 15.118646]
+      ]
+    },
+    "geonames": {
+      "geonamesURL": "//api.geonames.org/searchJSON",
+      "username": "avalanche.report",
+      "zoomLevel": null,
+      "maxresults": 5,
+      "bbox": {
+        "east": 13.2,
+        "west": 9.5,
+        "north": 48,
+        "south": 45
+      },
+      "className": "tooltip leaflet-geonames-icon",
+      "workingClass": "leaflet-geonames-icon-working",
+      "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
+      "baseQuery": "isNameRequired=true",
+      "position": "topleft",
+      "showMarker": false,
+      "showPopup": true,
+      "alwaysOpen": false,
+      "clearOnPopupClose": true,
+      "enablePostalCodes": false
+    },
+    "regionStyling": {
+      "all": {
+        "color": "#aaaaaa",
+        "opacity": 1.0,
+        "weight": 1
+      },
+      "hidden": {
+        "stroke": false,
+        "fill": false,
+        "fillOpacity": 0.0
+      },
+      "clickable": {
+        "stroke": false,
+        "fill": true,
+        "fillColor": "black",
+        "fillOpacity": 0.0
+      },
+      "default": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      },
+      "dehighlighted": {
+        "fillColor": "white",
+        "fillOpacity": 0.75
+      },
+      "mouseOver": {
+        "stroke": true,
+        "weight": 2.0,
+        "color": "#555555"
+      },
+      "dimmed": {
+        "fillColor": "white",
+        "fillOpacity": 0.5
+      },
+      "selected": {
+        "stroke": true,
+        "weight": 2.0,
+        "color": "#555555",
+        "fillColor": "none"
+      },
+      "highlighted": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      },
+      "noData": {
+        "fillColor": "#19abff",
+        "fillOpacity": 0.5
+      },
+      "noDataMouseOver": {
+        "fillColor": "#19abff",
+        "fillOpacity": 0.75
+      },
+      "noDataGrey": {
+        "fillColor": "#888888",
+        "fillOpacity": 0.5
+      },
+      "noDataGreyMouseOver": {
+        "fillColor": "#888888",
+        "fillOpacity": 0.75
+      }
+    }
+  },
+  "footer": {
+    "icons": [
+      {
+        "region": "AT-07",
+        "img": "Landeslogo_Regular_4c.webp",
+        "title": "Tirol",
+        "url": "https://www.tirol.gv.at/"
+      },
+      {
+        "region": "IT-32-BZ",
+        "img": "APBZ_Logo_Red_RGB.webp",
+        "title": "Südtirol",
+        "url": "http://wetter.provinz.bz.it/"
+      },
+      {
+        "region": "IT-32-TN",
+        "img": "Stemma_PAT_colore.webp",
+        "title": "Trentino",
+        "url": "https://www.meteotrentino.it/"
+      }
+    ],
+    "iconsHidden": false
+  },
+  "archive": {
+    "minYear": 1960,
+    "maxResults": 31
+  },
+  "languageHostSettings": {
+    "en": "dev.avalanche.report",
+    "ca": "ca.avalanche.report",
+    "de": "dev.lawinen.report",
+    "es": "es.avalanche.report",
+    "fr": "fr.avalanche.report",
+    "oc": "oc.avalanche.report",
+    "it": "dev.valanghe.report"
+  },
+  "hostLanguageSettings": {
+    "dev.avalanche.report": "en",
+    "dev.lawinen.report": "de",
+    "dev.valanghe.report": "it"
+  }
+}

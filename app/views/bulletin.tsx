@@ -11,21 +11,19 @@ const BulletinMap = React.lazy(
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { LONG_DATE_FORMAT } from "../util/date";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
 
-import { Tooltip } from "../components/tooltips/tooltip";
 import ControlBar from "../components/organisms/control-bar";
 import HTMLPageLoadingScreen, {
   useSlowLoading
 } from "../components/organisms/html-page-loading-screen";
-import { $headless, $province, type Language, setLanguage } from "../appStore";
+import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
 import { openPage, redirectPage } from "@nanostores/router";
+import { scrollIntoView } from "../util/scrollIntoView";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -68,15 +66,21 @@ const Bulletin = () => {
     setLanguage(router.search.language as Language);
   }
   const headless = useStore($headless);
-  const province = useStore($province);
 
   useEffect(() => {
     _latestBulletinChecker();
     async function _latestBulletinChecker() {
       const today = Temporal.Now.plainDateISO();
-      const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
-      const status = await new BulletinCollection(tomorrow, lang).loadStatus();
-      setLatest(status === "ok" ? tomorrow : today);
+      if (BulletinCollection.isAfter1700()) {
+        const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
+        const status = await new BulletinCollection(
+          tomorrow,
+          lang
+        ).loadStatus();
+        setLatest(status === "ok" ? tomorrow : today);
+      } else {
+        setLatest(today);
+      }
       window.setTimeout(
         () => _latestBulletinChecker(),
         config.bulletin.checkForLatestInterval * 60000
@@ -164,22 +168,6 @@ const Bulletin = () => {
     hasDaytimeDependency(b)
   );
 
-  const title = intl.formatMessage({ id: "bulletin:title" });
-  const shareDescription = collection
-    ? title + " | " + intl.formatDate(collection.date, LONG_DATE_FORMAT)
-    : intl.formatMessage({
-        id: "bulletin:header:info-no-data"
-      });
-
-  const shareImage = collection?.date
-    ? config.template(config.apis.bulletin.map, {
-        date: collection?.date,
-        publication: ".",
-        file: `${daytimeDependency ? "am" : "fd"}_${province || "EUREGIO"}_map`,
-        format: ".jpg"
-      })
-    : "";
-
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
       date: collection?.date || "latest",
@@ -205,32 +193,9 @@ const Bulletin = () => {
         date={collection?.date}
         latestDate={latest}
         status={status}
-        activeBulletinCollection={collection}
+        bulletins={collection?.bulletinsWith170000}
       />
 
-      {status === "n/a" && (
-        <ControlBar
-          addClass="fade-in"
-          message={
-            <>
-              <p>
-                <FormattedMessage id="bulletin:header:info-no-data" />
-              </p>
-              <p>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: "bulletin:map:blog:button:title"
-                  })}
-                >
-                  <a href={`/blog`} className="secondary pure-button">
-                    {intl.formatMessage({ id: "blog:title" })}
-                  </a>
-                </Tooltip>
-              </p>
-            </>
-          }
-        />
-      )}
       {status === "pending" && slowLoading && (
         <ControlBar
           addClass="fade-in"
@@ -293,25 +258,34 @@ const Bulletin = () => {
         />
       </Suspense>
       {!config.bulletin.showAllBulletins && !region && status === "ok" && (
-        <ControlBar
-          message={
-            <section className="section-header align-center">
-              <p className="controlbar-top">
-                <a href="#page-all" className="icon-link icon-arrow-up">
-                  <span>
-                    <FormattedMessage id="bulletin:linkbar:back-to-map" />
-                  </span>
-                </a>
-              </p>
-              <h2 className="subheader">
-                <FormattedMessage id="bulletin:select-region:title" />
-              </h2>
-              <p className="subheader">
-                <FormattedMessage id="bulletin:select-region:subtitle" />
-              </p>
-            </section>
-          }
-        />
+        <div
+          className="section-padding"
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        >
+          <ControlBar
+            message={
+              <section className="section-header align-center">
+                <p className="controlbar-top">
+                  <a
+                    href="#page-all"
+                    onClick={e => scrollIntoView(e)}
+                    className="icon-link icon-arrow-up"
+                  >
+                    <span>
+                      <FormattedMessage id="bulletin:linkbar:back-to-map" />
+                    </span>
+                  </a>
+                </p>
+                <h2 className="subheader">
+                  <FormattedMessage id="bulletin:select-region:title" />
+                </h2>
+                <p className="subheader">
+                  <FormattedMessage id="bulletin:select-region:subtitle" />
+                </p>
+              </section>
+            }
+          />
+        </div>
       )}
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
@@ -332,11 +306,6 @@ const Bulletin = () => {
         <></>
       ) : (
         <>
-          <SmShare
-            image={shareImage}
-            title={title}
-            description={shareDescription}
-          />
           <BulletinFooter />
         </>
       )}

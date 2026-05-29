@@ -17,17 +17,12 @@ const translationImports = import.meta.glob("./i18n/*.json", {
   import: "default"
 });
 
-// Using @eaws/micro-regions_names is blocked by https://github.com/yarnpkg/berry/issues/6631
 const regionTranslationImports = import.meta.glob(
   "../node_modules/@eaws/micro-regions_names/*.json",
   {
     import: "default"
   }
 );
-
-export const languages: Language[] = Object.values(LanguageSchema.def.entries);
-
-export const mainLanguages: Language[] = ["en", "de", "it"];
 
 export const $language = atom("" as Language);
 export const $messages = atom(
@@ -56,7 +51,7 @@ async function loadMessages(newLanguage: Language) {
 }
 export async function setLanguage(newLanguage: Language): Promise<void> {
   const oldLanguage = $language.get();
-  if (!languages.includes(newLanguage) || oldLanguage === newLanguage) {
+  if (!config.languages.includes(newLanguage) || oldLanguage === newLanguage) {
     return;
   }
   $messages.set(await loadMessages(newLanguage));
@@ -90,16 +85,24 @@ export const $locale = computed($language, language => {
 
 export const $headless = atom(false);
 
-export const $province = atom(
-  "" as
-    | "AT-02"
-    | "AT-03"
-    | "AT-04"
-    | "AT-05"
-    | "AT-06"
-    | "AT-07"
-    | "AT-08"
-    | "DE-BY"
-    | "IT-32-BZ"
-    | "IT-32-TN"
+export const $province = atom("" as string);
+
+/**
+ * The "primary" region(s). Used for map focus and display of blue no-rating indicator.
+ */
+export const $focusRegions = computed($province, province =>
+  province ? [province] : config.regionCodes
+);
+
+/**
+ * Other regions for which we load the full CAAML. When province is active,
+ * regionCodes are demoted to this set (instead of being the focus regions).
+ */
+export const $extraRegions = computed($province, province =>
+  province
+    ? [
+        ...config.regionCodes.filter(r => r !== province),
+        ...config.extraRegions.filter(r => r !== province)
+      ]
+    : config.extraRegions
 );

@@ -1,0 +1,200 @@
+{
+  "danger-scale-1": {
+    "heading": "Degré de danger 1 — Faible",
+    "text": "<p><b>Situation avalancheuse favorable en général</b></p><p>Aucun signe d’alarme n’est détectable. Les avalanches ne peuvent être déclenchées que de manière isolée, surtout sur les pentes extrêmement raides.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>Descendre les pentes extrêmement raides un par un et tenir compte du danger de chute.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-2": {
+    "heading": "Degré de danger 2 — Limité",
+    "text": "<p><b>Situation avalancheuse favorable en général</b></p><p>Des signes d’alarme peuvent survenir de manière isolée. Des avalanches peuvent être déclenchées surtout sur les pentes très raides aux expositions et altitudes indiquées sur avalanch.report. Il ne faut pas s’attendre à d'importantes avalanches spontanées.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>Choisir l’itinéraire avec prudence, surtout sur les pentes aux expositions et altitudes indiquées sur avalanche.report. Descendre les pentes très raides un par un. Prudence particulière en cas de structure défavorable du manteau neigeux (<a href=\"/education/avalanche-problems#persistent_weak_layers\">situation de neige ancienne</a>).</p></div>",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-3": {
+    "heading": "Degré de danger 3 — Marqué",
+    "text": "<p><b>Situation avalancheuse critique</b></p><p>Des « woumf » et des fissures sont typiques. Des avalanches peuvent être facilement déclenchées surtout sur les pentes raides aux expositions et altitudes indiquées sur avalanche.report. Des avalanches spontanées et des déclenchements à distance sont possibles.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>La situation la plus critique pour les adeptes des sports d’hiver ! Il est nécessaire de choisir l'itinéraire optimal et de mettre en œuvre des mesures visant à réduire les risques.  Éviter les pentes très raides aux expositions et altitudes indiquées sur avalanche.report. Les personnes peu expérimentées ont tout intérêt à rester sur les pistes et les itinéraires balisés.</p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-4": {
+    "heading": "Degré de danger 4 — Fort",
+    "text": "<p><b>Situation avalancheuse très critique</b></p><p>Des avalanches spontanées et souvent très grandes sont probables. Des avalanches peuvent être facilement déclenchées sur de nombreux pentes raides. Les déclenchements à distance sont typiques. Des « woumf » et des fissures sont fréquents.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>Se limiter aux terrains modérément raides. Faire attention aux zones de dépôt de très grandes avalanches. Les personnes peu expérimentées doivent rester sur les pistes et itinéraires balisés.</p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "danger-scale-5": {
+    "heading": "Degré de danger 5 — Très fort",
+    "text": "<p><b>Situation avalancheuse exceptionnelle</b></p><p>De nombreux départs spontanés d'avalanches très grandes et d’ampleur exceptionnelle sont attendus. Elles peuvent atteindre des routes et des localités en fond de vallées.</p><p><b>Recommandations pour les personnes en dehors des zones sécurisées</b></p><p>Il est déconseillé de pratiquer des sports d'hiver en dehors des pistes de ski et des sentiers balisés.</p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
+    "source": "false"
+  },
+  "avalanche-frequency-none": {
+    "heading": "Fréquence : Aucune ou très rares",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>aucune ou très rares</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> n'existent pas ou sont si rares qu'ils ne sont pas jugés pertinents pour l'évaluation de la stabilité.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-few": {
+    "heading": "Fréquence : Rares",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>rares</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> sont rares. Bien qu'ils soient rares, leur nombre est jugé pertinent pour l'évaluation de la stabilité.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|0|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-some": {
+    "heading": "Fréquence : Quelques",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>quelques</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> se trouvent généralement dans des formations topographiques spécifiques présentant des caractéristiques communes (par exemple, à proximité des crêtes, dans les combes).</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|1|__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-frequency-many": {
+    "heading": "Fréquence : Nombreuses",
+    "text": "<p>La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée dans la zone d'alerte. Pour la classe <b>nombreuses</b>, les sites classés selon la classe de stabilité du manteau neigeux <b>{stabilityClass}</b> sont nombreux.</p>",
+    "img": "__SIMPLE_SLIDER__|rares,quelques,nombreuses|2|__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-very_poor": {
+    "heading": "Stabilité du manteau neigeux : Très instable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux<b>très instable</b> signifie que les avalanches se déclenchent spontanément ou sont très faciles à déclencher (sensibles). Les avalanches naturelles, les craquements et les « woumfs » sont des signes évidents d'un manteau neigeux<b>très instable</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>très instable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|0|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-poor": {
+    "heading": "Stabilité du manteau neigeux : Instable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux <b>instable</b> signifie que les avalanches peuvent être facilement déclenchées, par exemple par un seul skieur.  Les « woumfs » et les craquements sont des signes évidents d'un manteau neigeux <b>instable</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>instable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|1|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-fair": {
+    "heading": "Stabilité du manteau neigeux : Moyennement stable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Stabilité <b>moyenne</b> signifie que les avalanches sont difficiles à déclencher. Il faut généralement des charges importantes, telles que plusieurs skieurs, des explosifs ou la chute d'une corniche, pour déclencher une avalanche lorsque la stabilité du manteau neigeux est jugée <b>moyenne</b>.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>moyenne</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|2|90__END_SLIDER__",
+    "source": "false"
+  },
+  "snowpack-stability-good": {
+    "heading": "Stabilité du manteau neigeux : Stable",
+    "text": "<p>La stabilité du manteau neigeux indique la facilité avec laquelle des avalanches peuvent se déclencher. Un manteau neigeux <b>stable</b> est synonyme de conditions stables. Lorsque le manteau neigeux est <b>stable</b>, aucun signe d'instabilité n'est observé.</p><p>La fréquence et la stabilité du manteau neigeux sont étroitement liées. La fréquence indique le nombre prévu de sites exposés aux avalanches pour une classe de stabilité du manteau neigeux donnée, ici <b>stable</b>, dans la zone d'alerte.</p>",
+    "img": "__SIMPLE_SLIDER__|très instable,instable,moyennement stable,stable|3|90__END_SLIDER__",
+    "source": "false"
+  },
+  "avalanche-size-1": {
+    "heading": "Taille 1 : Petite avalanche (coulée)",
+    "text": "<p>Avec des avalanches de cette taille, il est peu probable que des personnes soient ensevelies, sauf dans les zones de dépôt présentant des reliefs défavorables (c'est-à-dire des pièges topographiques). Sur les terrains extrêmement raides, le risque de chute l'emporte sur celui d'ensevelissement. Ces avalanches s'arrêtent généralement avant le bas de la pente.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-2": {
+    "heading": "Taille 2 : Avalanche moyenne",
+    "text": "<p>Une telle avalanche peut ensevelir, blesser ou tuer une personne. Les avalanches de cette taille correspondent généralement à celles déclenchées par des skieurs. Elles s'arrêtent souvent au bas d'une pente.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "avalanche-size-3": {
+    "heading": "Taille 3 : Grande avalanche",
+    "text": "<p>Une telle avalanche est susceptible d'ensevelir et de détruire une voiture, d'endommager un camion, de détruire un petit bâtiment ou d'arracher des arbres. Lorsque des skieurs sont pris dans une avalanche de cette taille, le risque de conséquences graves est très élevé. L'avalanche peut se déplacer sur un terrain plat (à une pente nettement inférieure à 30°) sur des distances pouvant atteindre 50 m.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-4": {
+    "heading": "Taille 4 : Très grande avalanche",
+    "text": "<p>Ces avalanches ont le potentiel d'ensevelir et détruire un wagon, un gros camion, plusieurs bâtiments ou une partie de la forêt. Ces avalanches peuvent parcourir des terrains plats (dont la pente est nettement inférieure à 30°) sur des distances de plus de 50 m et atteindre le fond de la vallée.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "avalanche-size-5": {
+    "heading": "Taille 5 : Avalanche extrêmement grande ",
+    "text": "<p>Ces avalanches ont le potentiel de dévaster le paysage et causer des dégâts catastrophiques. L'avalanche atteindra le fond de la vallée et pourrait parcourir la plus grande distance d'écoulement connue.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
+    "source": "false"
+  },
+  "problem-new_snow": {
+    "heading": "Situation avalancheuse : Neige fraîche",
+    "text": "<p>Cette situation est liée aux chutes de neige en cours ou récentes. La quantité de neige récente occasionnant la surcharge en est le principal facteur. L’impact de cette surcharge dépend de facteurs variés tels que la température ou les caractéristiques du manteau neigeux préexistant.</p><p><b>Conseils de comportement</b><br/>Avalanches de plaque sèche : attendre que le manteau neigeux se soit stabilisé.<br/>Avalanche de neige sans cohésion : le risque d'être emporté ou de faire une chute est plus élevé que le risque d'être enseveli. Faire attention aux conséquences sur les pentes raides.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-wind_slab": {
+    "heading": "Situation avalancheuse : Neige ventée",
+    "text": "<p>Cette situation est liée au transport de neige par le vent, pendant ou après une chute de neige. </p><p><b>Conseil de comportement</b><br/>Éviter les accumulations de neige soufflée sur les pentes raides, en particulier dans les zones où l'épaisseur de la couche de neige varie ou quand la neige passe d'un état dur à un état mou.</p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
+    "source": "false"
+  },
+  "problem-persistent_weak_layers": {
+    "heading": "Situation avalancheuse : Neige ancienne",
+    "text": "<p>Cette situation est liée à la présence d'une ou plusieurs couches fragiles persistantes dans le manteau neigeux. Il s’agit typiquement de couches enfouies constituées de givre de surface, de faces planes et/ou de gobelets (givre de profondeur).</p><p><b>Conseils de comportement</b><br/>Faire preuve de prudence et éviter les grandes pentes raides. Surveiller l'évolution des conditions météorologiques et de la couverture neigeuse dans la région. Faire particulièrement attention dans les zones peu enneigées et aux limites entre les zones peu et fortement enneigées. Cette situation est l'une des principales causes d'accidents mortels liés aux avalanches chez les adeptes des sports d'hiver.</p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "problem-wet_snow": {
+    "heading": "Situation avalancheuse : Neige mouillée",
+    "text": "<p>Cette situation est liée à la déstabilisation du manteau neigeux du fait de la présence d’eau liquide. Cette dernière provient de la fonte de la neige et/ou de la pluie.</p><p><b>Conseils de comportement</b><br/>Si la neige humide regèle durant la nuit en raison d'un ciel dégagé et de températures froides et forme une croûte solide à la surface du manteau neigeux, des conditions favorables seront généralement présentes le matin. À l’inverse, en cas de nuits chaudes et nuageuses, le problème se pose souvent dès le matin. Lorsque la pluie tombe sur une couche de neige sèche, le problème se pose généralement immédiatement. Un bon timing et une bonne planification de l'itinéraire sont essentiels. Il faut tenir compte des zones de dépôt des avalanches.</p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "problem-gliding_snow": {
+    "heading": "Situation avalancheuse : Neige de glissement",
+    "text": "<p>Le manteau neigeux glisse intégralement sur le sol, le plus souvent sur des surfaces lisses (pentes herbeuses ou zones rocheuses de faible rugosité). Les périodes d’activité importante correspondent à des manteaux neigeux épais, secs ou humides, sans ou avec peu de couches fragiles. La prévision du déclenchement d’une avalanche de fond est très difficile, bien que, dans de nombreux cas, une fissure de glissement se forme avant le déclenchement.</p><p><b>Conseil de comportement</b><br/>Éviter les zones à proximité des fissures.</p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
+    "source": "false"
+  },
+  "danger-pattern-DP1": {
+    "heading": "mr.1 : Sous-couche fragile persistante",
+    "text": "<p>Au début de l'hiver, des avalanches de plaque sont souvent observées après la deuxième chute de neige significative, et ce en haute altitude (>2000&nbsp;m) et en haute montagne (>3000&nbsp;m), sur des pentes ombragées et très raides. Cela tient au fait qu'en automne, après les premières grosses chutes de neige, une situation anticyclonique stable et prolongée ou une période sans précipitations s'installe généralement. À ce moment, les conditions sont idéales pour la transformation de la neige en cristaux libres, qui forment alors une couche fragile profonde et persistante sur laquelle les chutes de neige ultérieures se déposent. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP2": {
+    "heading": "mr.2 : Neige glissante",
+    "text": "<p>Les avalanches de glissement comptent parmi les plus difficiles à prévoir, car elles peuvent se déclencher à tout moment du jour ou de la nuit, même lorsque les conditions d'enneigement sont les plus stables. Cela vaut aussi bien pour les journées les plus froides que pour les journées les plus chaudes de l'hiver. De plus, les avalanches de glissement ne sont pas déclenchées par une surcharge.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.2 gliding snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP3": {
+    "heading": "mr.3 : Pluie sur neige",
+    "text": "<p>La pluie sur la neige est considérée comme un signal d'alarme en nivologie car d'une part, son poids supplémentaire alourdit l'ensemble du manteau neigeux et, d'autre part, la solidité de ce dernier s'en trouve immédiatement compromise. Pour ces raisons, les avalanches sont inévitables. La pluie peut survenir à tout moment pendant l'hiver. Le grand avantage, c'est qu'aucun facteur de risque n'est plus facile à reconnaître.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP4": {
+    "heading": "mr.4 : Froid suivant chaud / chaud suivant froid",
+    "text": "<p>En général, les fortes variations de température pendant les chutes de neige ont un effet négatif, car elles favorisent la métamorphose de la neige au sein du manteau neigeux. En règle générale, il se forme alors une couche mince et fragile, très susceptible de se rompre. Cette couche se trouve souvent sur les pentes exposées au sud. Elle est d'autant plus dangereuse que cette couche fragile n'existe pas immédiatement après la chute de neige fraîche ; elle ne se forme qu'au cours des jours suivants.</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP5": {
+    "heading": "mr.5 : Chute de neige après une longue période de froid",
+    "text": "<p>Pour les avalanches, il s'agit d'un cas classique : après une longue période de froid, la neige commence à tomber. Le problème est que des congères de neige fraîche se déposent sur les pentes sous le vent, à l'abri du vent, par-dessus une couche de neige ancienne meuble qui contient généralement du givre de profondeur. La plaque de vent et les couches fragiles persistantes sont très mal liées entre elles. Le manteau neigeux n'attend qu'une surcharge pour se décrocher.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP6": {
+    "heading": "mr.6 : Neige meuble et vent",
+    "text": "<p>« Le vent est l'architecte des avalanches. » Ce proverbe classique de Wilhelm Paulcke, datant des années 1930, reste d'actualité aujourd'hui encore. Le vent influence à la fois la neige qui tombe et celle qui s’est déjà déposée. C’est un facteur majeur dans la formation des avalanches. Lorsque la neige est meuble et sèche, le vent la transporte, augmentant ainsi le risque d’avalanche. Plus la neige transportée est froide, plus elle réagit de manière sensible à une surcharge, car elle est alors très fragile.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP7": {
+    "heading": "mr.7 : Enneigement faible à coté d'enneigement abondant",
+    "text": "<p>Les zones où la neige est peu profonde présentent généralement une stratification du manteau neigeux moins favorable que celles où la neige est profonde. Cela s'explique par l'amplification des processus de transformation qui se produisent à l'intérieur d'un manteau neigeux peu profond. De plus, les avalanches de plaque sont plus faciles à déclencher là où la neige est peu profonde, car les couches fragiles ne sont pas aussi profondément enfouies dans le manteau neigeux et sont donc plus susceptibles de se rompre sous l'effet d'une surcharge. C'est pourquoi on observe souvent des déclenchements d'avalanches dans les zones de transition entre la neige peu profonde et la neige profonde.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP8": {
+    "heading": "mr.8 : Givre de surface recouvert de neige",
+    "text": "<p>Le givre de surface compte parmi les plus beaux types de neige qui existent. En soi, il ne présente aucun danger potentiel. Ce potentiel ne se développe que lorsqu'il est recouverte de couches de neige fraîche et compacte. C’est alors qu’il devient dangereux. En effet, il est considéré comme l’une des couches fragiles les plus critiques en nivologie. </p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP9": {
+    "heading": "mr.9 : Neige roulée recouverte de neige",
+    "text": "<p>Une couche fragile à l'intérieur d’un manteau neigeux est souvent comparée à des roulements à billes. Cette image ne s’applique en réalité qu’à la neige roulée : une forme de précipitation sphérique et granuleuse qui se dépose souvent lors d’averses, comme les orages printaniers. On comprend aisément que la neige ventée qui s’accumule au-dessus d’une couche de neige roulée ne peut que mal s’y lier, ce qui augmente le risque d’avalanches. La neige roulée est souvent réparti sur de très petites surfaces. Sans examiner le manteau neigeux lui-même, elle est difficile à repérer, même pour les professionnels. Il s'agit d'un phénomène extrêmement traître. Heureusement, les problèmes qu'il engendre sont de courte durée.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
+    "source": "false"
+  },
+  "danger-pattern-DP10": {
+    "heading": "mr.10 : Situation de printemps",
+    "text": "<p>C'est dans des conditions stables de neige de printemps qu'il est le plus facile d'évaluer le danger d'avalanche ; en revanche, on observe rarement en plein hiver des avalanches d'une telle ampleur que celles qui se produisent au printemps. Outre la stratification du manteau neigeux, l'interaction complexe entre la température de l'air, l'humidité atmosphérique, le rayonnement solaire et le vent joue un rôle majeur. Pour les amateurs de sports d'hiver hors-piste, il est plus essentiel que jamais de faire preuve d'une grande rigueur dans le choix du moment de la sortie et de flexibilité dans la planification de l'itinéraire.</p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Regarder la vidéo sur YouTube</a></p>",
+    "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
+    "source": "false"
+  }
+}

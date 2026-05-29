@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useIntl } from "../i18n";
-import SmShare from "../components/organisms/sm-share.jsx";
 import { currentSeasonYear } from "../util/date-season";
 import { BulletinCollection } from "../stores/bulletin";
-import { $headless, $province } from "../appStore";
+import { $focusRegions, $headless } from "../appStore";
 import ArchiveItem, {
   type BulletinStatus,
   type RegionBulletinStatus,
@@ -25,8 +24,8 @@ function Archive() {
   const router = useStore($router);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  const province = useStore($province);
   const headless = useStore($headless);
+  const focusRegions = useStore($focusRegions);
   const [buttongroup] = useState(router?.search?.buttongroup);
 
   const minMonth = 11;
@@ -51,14 +50,8 @@ function Archive() {
   ];
 
   const microRegions = useMemo(
-    () =>
-      microRegionIds(
-        getDatesInMonth(year, month)[0],
-        province
-          ? config.regionCodes.filter(r => r === province)
-          : config.regionCodes
-      ),
-    [month, year, province]
+    () => microRegionIds(getDatesInMonth(year, month)[0], focusRegions),
+    [month, year, focusRegions]
   );
 
   if (["de", "en"].includes(router?.search?.language || "")) {
@@ -179,6 +172,7 @@ function Archive() {
                       key={d.toString()}
                       date={d}
                       status={bulletinStatus[d.toString()]}
+                      region={region}
                     />
                   ))}
               </tbody>
@@ -234,7 +228,6 @@ function Archive() {
           </ul>
         </div>
       </section>
-      <SmShare />
     </>
   );
 

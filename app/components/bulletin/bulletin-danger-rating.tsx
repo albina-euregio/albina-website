@@ -2,13 +2,33 @@ import React from "react";
 import WarnLevelIcon from "../icons/warn-level-icon";
 import type * as Caaml from "../../stores/bulletin";
 import { getMaxMainValue } from "../../stores/bulletin";
+import { useIntl, FormattedMessage } from "../../i18n";
 
 interface Props {
   dangerRatings: Caaml.DangerRating[];
 }
 
 function BulletinDangerRating({ dangerRatings }: Props) {
+  const intl = useIntl();
+
   if (!dangerRatings?.length) return null;
+
+  if (dangerRatings.some(r => r.mainValue === "no_snow")) {
+    const alt = intl.formatMessage({ id: "danger-level:no_snow" });
+    return (
+      <p
+        className="bulletin-report-region-name"
+        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
+      >
+        <img
+          src={`${window.config.projectRoot}images/pro/danger-levels/no_snow.svg`}
+          alt={alt}
+          style={{ display: "block", margin: "0 auto 0.25em" }}
+        />
+        <FormattedMessage id="danger-level:no_snow" />
+      </p>
+    );
+  }
 
   const dangerRatingBelow = getMaxMainValue(
     dangerRatings.filter(r => r?.elevation?.lowerBound === undefined)

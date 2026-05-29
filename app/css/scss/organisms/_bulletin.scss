@@ -285,6 +285,36 @@
   }
 }
 
+.section-bulletin-report .list-photos {
+  figure {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+  }
+
+  figcaption {
+    display: grid;
+    line-height: 1.4;
+  }
+
+  .text-icon {
+    display: flex;
+    gap: 0.35em;
+    align-items: center;
+  }
+
+  .icon:before {
+    margin: 0;
+    font-size: 0.95em;
+  }
+}
+
 .bulletin-report-region {
   display: flex;
   margin: 0 variables.$grid-gutter (variables.$padding * 2) 0;
@@ -720,6 +750,35 @@
     }
   }
   // .bulletin-report-public-alert-text {}
+}
+
+.bulletin-report-mini-map-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: variables.$padding * 0.5;
+  margin-top: variables.$padding;
+  padding: (variables.$padding * 0.4) (variables.$padding * 0.65);
+  font-size: variables.$tiny-font-size;
+  color: variables.$grey-dark;
+  background: rgba(variables.$white, 0.7);
+  border: variables.$border-width variables.$border-style
+    variables.$border-color;
+
+  .bulletin-report-mini-map-legend__swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--bulletin-mini-map-marker-color, #{variables.$grey});
+    border: 1px solid rgba(variables.$black, 0.5);
+  }
+
+  .bulletin-report-mini-map-legend__label {
+    line-height: 1;
+
+    a {
+      color: inherit;
+    }
+  }
 }
 
 .bulletin-author {

@@ -161,7 +161,7 @@ class GlossaryReplacer {
             html={true}
             enableClick={true}
           >
-            <a className="glossary">{substring}</a>
+            <span className="glossary">{substring}</span>
           </Tooltip>
         );
       }

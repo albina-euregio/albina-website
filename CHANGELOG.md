@@ -2,6 +2,238 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [8.4.0] - 2026-05-26
+
+### 🚀 Features
+
+- Add relative snow height map
+- Integrate all blogs of AT
+- Integrate no-snow in bulletin map (transparent with popup)
+- Integrate no-rating in bulletin map (grey with popup)
+- Highlight blog link in bulletin map if whole province has no rating (blue with popup)
+- Load individual CAAMLs for each province
+
+### 🐛 Bug Fixes
+
+- _(glossary)_ Fix typo in artificial-avalanche-release
+- _(weather-maps)_ Use correct timeZone for range
+- _(station-diagrams)_ Handle missing selected station after data reload to prevent undefined id errors
+
+### 🚜 Refactor
+
+- Format files with `vp fmt`
+- _(blog)_ Load blogs async
+- _(blog)_ Reset category filter if lanugage filter changes
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite-plus 0.1.19
+
+## [8.3.3] - 2026-04-21
+
+### 🐛 Bug Fixes
+
+- Fix 24h, 48h, 72h new snow maps
+
+## [8.3.2] - 2026-04-21
+
+### 🚀 Features
+
+- _(bulletin)_ Add tooltips for danger rating, avalanche problems, matrix parameters and danger patterns
+- _(weather-stations)_ Add weather station dashboard (combining table and map)
+- _(weather-stations)_ Add elevation filter
+- _(weather-stations)_ Add Friaul weather stations
+- _(weather-stations)_ Add Swiss weather stations
+- _(weather-stations)_ Add Belluno weather stations
+- _(weather-stations)_ Add OpenTopoMap on higher zoom levels
+- _(weather-stations)_ Integrate LINEA AROME forcasting
+- _(weather-stations)_ Add deep links for search, datetime and province filter
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Use microRegionBboxes for additional information map
+- _(bulletin)_ Replace \n with <br/> in bulletin texts
+
+### 🚜 Refactor
+
+- _(stationDataStore)_ Use eaws_weather_stations/linea.geojson
+- _(eaws-regions)_ Use @eaws/pbf
+- _(bulletin)_ Only check for tomorrow after 17:00
+
+### ⚙️ Miscellaneous Tasks
+
+- _(linea)_ Update LINEA to v8.23.1
+- _(general)_ Improve accessibility (focus menu and language selector)
+
+## [8.3.1] - 2026-04-07
+
+### 🐛 Bug Fixes
+
+- Fix endless growing of iframe
+
+### 💼 Other
+
+- Migrate to vite-plus
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.15.0
+
+## [8.3.0] - 2026-04-02
+
+### 🚀 Features
+
+- Add additional information to bulletin (weather stations, observations)
+- Add SMET download to station archive
+- Add travel advisory to bulletin
+- Add photos to bulletin (prototyp)
+- Add interactive aws-stats to blog css
+- Remove sm-share completely
+
+### 🐛 Bug Fixes
+
+- Map height on Safari
+- Fix keyboard focus
+- PDF creation
+- No_distinct_avalanche_problem icon
+
+### 🚜 Refactor
+
+- Use Temporal for weather maps
+- Obtain bbox from @eaws/outline_properties (also EUREGIO)
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 8.0.1
+- Update to nanostores 1.2.0
+- Update to eaws-regions v8.3.4
+- Update to LINEA v8.14.0
+
+## [8.2.6] - 2026-03-21
+
+### 🚀 Features
+
+- Use new linea schema for tirol.gv.at weather stations
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.9.0
+
+## [8.2.5] - 2026-03-05
+
+### 🚀 Features
+
+- Enable winterstats for weather stations
+
+### 🐛 Bug Fixes
+
+- Color map with max danger rating if elevation dependency exists and only one danger rating should be shown (?one-danger-rating=1)
+- Load EN bulletins from Italy if selected language is not available
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to LINEA v8.7.9
+
+## [8.2.4] - 2026-03-03
+
+### 🚀 Features
+
+- Include weather stations from AT, BY and SI
+
+### 🐛 Bug Fixes
+
+- Add EAWS matrix in main menu again
+- Fix title and description for EAWS matrix on education page
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+
+## [8.2.3] - 2026-03-02
+
+### 🚀 Features
+
+- Obtain bbox from @eaws/outline_properties
+
+### 🐛 Bug Fixes
+
+- Fix PDF links
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade to vite 8.0.0-beta.15
+- Update translations
+- Update to LINEA v8.7.7
+- Update to eaws-regions v8.3.1
+
+## [8.2.2] - 2026-02-19
+
+### 🐛 Bug Fixes
+
+- Fix arrows for wind direction in forecast of weather maps
+
+### ⚙️ Miscellaneous Tasks
+
+- Use high contrast text color in markers (weather map, station map)
+- Update LINEA to v8.7.6
+- Update translations
+
+## [8.2.1] - 2026-02-18
+
+### 🐛 Bug Fixes
+
+- Allow to scroll horizontal in weather station diagrams
+
+### ⚙️ Miscellaneous Tasks
+
+- Update translations
+
+## [8.2.0] - 2026-02-16
+
+### 🚀 Features
+
+- Allow to show/select parameters on weather-station map
+- Add surface temperature and relative humidity to weather-station measurements table
+- Add CTA to hint users to select region in map first
+
+### 🐛 Bug Fixes
+
+- Fix PDF link
+- Fix initial time/timespan of weather-maps for different parameters
+- Parameter and timespan from URL are single point of truth for weather-maps
+
+### 🚜 Refactor
+
+- Use new linea schema for ÖBB INFRA weather stations
+
+### ⚙️ Miscellaneous Tasks
+
+- Update eaws-regions to v8.2.0
+- Update LINEA to v8.7.5
+- Upgrade vite to 8.0.0-beta.13
+
+## [8.1.2] - 2026-01-29
+
+### 🚀 Features
+
+- Use new linea schema for LWD Kärnten
+
+### 🐛 Bug Fixes
+
+- Fix href in back-link on blog page
+
+### ⚙️ Miscellaneous Tasks
+
+- Update privacy page
+- Update accessability page
+- Update open data page
+
+## [8.1.1] - 2026-01-27
+
+### 🐛 Bug Fixes
+
+- Persist headless mode
+
 ## [8.1.0] - 2026-01-26
 
 ### 🚀 Features
@@ -117,6 +349,12 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Show markers for gust in weather maps
+
+## [8.0.5] - 2025-12-03
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade eaws-regions to v8.1.1
 
 ## [8.0.4] - 2025-12-02
 

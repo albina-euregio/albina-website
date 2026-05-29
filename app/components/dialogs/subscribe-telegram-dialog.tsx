@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import ProvinceFilter from "../filters/province-filter";
 import LanguageFilter from "../filters/language-filter";
 import { eawsRegion } from "../../stores/eawsRegions";
-import { $province, Language, mainLanguages } from "../../appStore";
+import { $province, Language } from "../../appStore";
 import { useStore } from "@nanostores/react";
 
 export function getTelegramUrl(region: string, language: Language) {
@@ -58,7 +58,9 @@ export default function SubscribeTelegramDialog() {
               </label>
               <ProvinceFilter
                 regionCodes={config.regionCodes.filter(r =>
-                  mainLanguages.some(language => getTelegramUrl(r, language))
+                  config.mainLanguages.some(language =>
+                    getTelegramUrl(r, language)
+                  )
                 )}
                 buttongroup={true}
                 title={intl.formatMessage({
@@ -76,7 +78,7 @@ export default function SubscribeTelegramDialog() {
             <FormattedMessage id="dialog:subscribe-telegram:language" />
           </label>
           <LanguageFilter
-            languages={mainLanguages.filter(
+            languages={config.mainLanguages.filter(
               l => !region || getTelegramUrl(region, l)
             )}
             buttongroup={true}

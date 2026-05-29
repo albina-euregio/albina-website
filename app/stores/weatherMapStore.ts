@@ -1,6 +1,9 @@
 import { atom, computed } from "nanostores";
-import { loadStationData, type StationData } from "./stationDataStore";
-import { getDefaultTime, snapToSlot, clampToRange } from "./weatherMapSlots";
+import {
+  _loadStationData as loadStationData,
+  type StationData
+} from "./stationDataStore";
+import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
@@ -142,6 +145,50 @@ export const config = {
         ],
         direction: false,
         clusterOperation: "max"
+      }
+    },
+    "relative-snow": {
+      item: {
+        overlayURLs: [
+          "https://models.avalanche.report/relativesnowheight/",
+          "https://models.avalanche.report/relativesnowheight/"
+        ],
+        timeSpans: ["+-24"],
+        defaultTimeSpan: null,
+        timeSpanToDataId: {},
+        updateTimesOffset: { "*": 24 },
+        metaFiles: {},
+        units: "%",
+        thresholds: [-1, 30, 60, 90, 110, 140, 170, 200, 230, 260],
+        colors: {
+          0: "#08306b",
+          1: "#ffa0a0",
+          2: "#ffd2d2",
+          3: "#ffe6ce",
+          4: "#b0ffbc",
+          5: "#9ecae1",
+          6: "#6baed6",
+          7: "#4292c6",
+          8: "#2171b5",
+          9: "#08519c",
+          10: "#08306b"
+        },
+        layer: {
+          overlay: true,
+          stations: false,
+          grid: false
+        },
+        imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
+        dataOverlays: [
+          {
+            file: "{date}/{date}_00-00_REL.png",
+            type: "snowHeight",
+            smooth: false
+          }
+        ],
+        direction: false,
+        clusterOperation: "max",
+        timeRange: ["-17520", "+24"]
       }
     },
     "snow-line": {
@@ -404,19 +451,19 @@ export const timeSpanInt = computed([timeSpan], timeSpan =>
 /*
   returns lastUpdateTime
 */
-export const lastDataUpdate = atom(0);
+export const lastDataUpdate = atom<Temporal.Instant | null>(null);
 /*
  * returns the start date for history information
  */
-export const startDate = atom<Date | null>(null);
+export const startDate = atom<Temporal.Instant | null>(null);
 /*
  * returns the agl (ausgangslage) date for all calculations
  */
-export const agl = atom<Date | null>(null);
+export const agl = atom<Temporal.Instant | null>(null);
 /*
  * returns current time of interest
  */
-export const currentTime = atom<Date | null>(null);
+export const currentTime = atom<Temporal.Instant | null>(null);
 export const selectedFeature = atom(null);
 
 /*
@@ -432,6 +479,19 @@ export const domain = computed(
  */
 export const domainConfig = computed([domain], domain => domain?.item);
 export const dataOverlays = atom([]);
+
+interface DataOverlayCoordinates {
+  x: number;
+  y: number;
+}
+
+function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
+  if (!domain) return config.overlayURLs;
+  const cfg = config.domains[domain]?.item as
+    | { overlayURLs?: [string, string] }
+    | undefined;
+  return cfg?.overlayURLs || config.overlayURLs;
+}
 
 /**
  * Load data overlay images for pixel-value reading.
@@ -450,7 +510,9 @@ function _updateDataOverlays() {
 
   const overlays = dc.dataOverlays.map(o => {
     const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
-      const urls = getOverlayURLs(ct, o?.domain || di, o.file, ats);
+      const overlayDomain = ((o as { domain?: DomainId }).domain ||
+        di) as DomainId;
+      const urls = getOverlayURLs(ct, overlayDomain, o.file, ats);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -459,8 +521,10 @@ function _updateDataOverlays() {
           img.naturalHeight * 2
         );
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(img, 0, 0);
-        ctx.drawImage(img, 0, 0, img.width * 2, img.height * 2);
+        ctx.imageSmoothingEnabled =
+          (o as { smooth?: boolean }).smooth !== false;
+        if (ctx.imageSmoothingEnabled) ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, 0, 0, img.naturalWidth * 2, img.naturalHeight * 2);
         resolve(ctx);
       };
       img.onerror = e => {
@@ -476,11 +540,19 @@ function _updateDataOverlays() {
     return {
       ...o,
       ctx,
-      async valueForPixel(coordinates: {
-        x: number;
-        y: number;
-      }): Promise<number | null> {
-        const p = (await ctx).getImageData(coordinates.x, coordinates.y, 1, 1);
+      async valueForPixel(
+        coordinates: DataOverlayCoordinates
+      ): Promise<number | null> {
+        const resolvedCtx = await ctx;
+        const w = resolvedCtx.canvas.width;
+        const h = resolvedCtx.canvas.height;
+        const pixelX = Math.round(
+          Math.max(0, Math.min(1, coordinates.x)) * (w - 1)
+        );
+        const pixelY = Math.round(
+          Math.max(0, Math.min(1, coordinates.y)) * (h - 1)
+        );
+        const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
         return valueForPixel(o.type as OverlayType, {
           r: p.data[0],
           g: p.data[1],
@@ -512,7 +584,12 @@ async function _loadIndexData() {
   grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
-  if (currentTime.get() > startDate.get()) return;
+  const currentTime0 = currentTime.get();
+  if (
+    !currentTime0 ||
+    Temporal.Instant.compare(currentTime0, startDate.get()) > 0
+  )
+    return;
 
   try {
     await loadStationData({
@@ -520,10 +597,7 @@ async function _loadIndexData() {
         if (generation !== _loadIndexGeneration) return;
         stations.set([...stations.get(), ...s]);
       },
-      dateTime: currentTime
-        .get()
-        ?.toTemporalInstant()
-        ?.toZonedDateTimeISO("UTC")
+      dateTime: currentTime0?.toZonedDateTimeISO("UTC")
     });
   } catch (err) {
     // TODO fail with error dialog
@@ -534,21 +608,28 @@ async function _loadIndexData() {
 /*
  * Fetch a metadata date file (startDate.ok or agl.ok)
  */
-async function fetchMetaDate(url: string): Promise<Date | null> {
-  if (SIMULATE_START) return new Date(SIMULATE_START);
+async function fetchMetaDate(url: string): Promise<Temporal.Instant | null> {
+  if (SIMULATE_START) {
+    return Temporal.Instant.from(SIMULATE_START);
+  }
   const response = await fetch(url);
-  if (!response.ok) return new Date();
+  if (!response.ok) {
+    return Temporal.Now.instant();
+  }
 
   const lastModified = response.headers.get("last-modified");
   if (lastModified) {
-    const date = Date.parse(lastModified);
-    if (date > lastDataUpdate.get() || lastDataUpdate.get() === 0) {
+    const date = Temporal.Instant.fromEpochMilliseconds(
+      Date.parse(lastModified)
+    );
+    const update = lastDataUpdate.get();
+    if (!update || Temporal.Instant.compare(date, update) > 0) {
       lastDataUpdate.set(date);
     }
   }
 
   const text = await response.text();
-  return text.includes("T") ? new Date(text.trim()) : null;
+  return text.includes("T") ? Temporal.Instant.from(text.trim()) : null;
 }
 
 /*
@@ -581,6 +662,10 @@ export async function initDomain(
   const domainChanged = newDomain !== domainId.get();
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
   const needsMetadata = domainChanged || timeSpanChanged;
+  const metaFiles = domainConf.metaFiles as
+    | { startDate?: string; agl?: string }
+    | undefined;
+  const hasMetaFiles = Boolean(metaFiles?.startDate && metaFiles?.agl);
 
   // 4. Set domain and timespan atoms
   if (domainChanged) {
@@ -593,31 +678,42 @@ export async function initDomain(
 
   // 5. Fetch metadata only when domain or timeSpan actually changed
   if (needsMetadata) {
-    lastDataUpdate.set(0);
-    const baseUrl = config.overlayURLs[0];
-    const startDateUrl = window.config.template(
-      baseUrl + domainConf.metaFiles?.startDate,
-      { domain: newDomain }
-    );
+    const baseUrl = getDomainOverlayBaseURLs(newDomain)[0];
     const absSpan = Math.abs(
       parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
     );
-    const aglUrl = window.config.template(baseUrl + domainConf.metaFiles?.agl, {
-      domain: newDomain,
-      timespan: absSpan
-    });
 
-    try {
-      const [start, aglDate] = await Promise.all([
-        fetchMetaDate(startDateUrl),
-        fetchMetaDate(aglUrl)
-      ]);
-      if (gen !== _generation) return; // stale — newer call superseded this one
-      startDate.set(start);
-      agl.set(aglDate);
-    } catch (err) {
-      console.error("Weather data API is not available", err);
-      return;
+    if (!hasMetaFiles) {
+      const fallback = SIMULATE_START
+        ? Temporal.Instant.from(SIMULATE_START)
+        : Temporal.Now.zonedDateTimeISO()
+            .round({ smallestUnit: "hours", roundingMode: "trunc" })
+            .toInstant();
+      startDate.set(fallback);
+      agl.set(fallback);
+    } else {
+      const knownMeta = metaFiles as { startDate: string; agl: string };
+      const startDateUrl = window.config.template(
+        baseUrl + knownMeta.startDate,
+        { domain: newDomain }
+      );
+      const aglUrl = window.config.template(baseUrl + knownMeta.agl, {
+        domain: newDomain,
+        timespan: absSpan
+      });
+
+      try {
+        const [start, aglDate] = await Promise.all([
+          fetchMetaDate(startDateUrl),
+          fetchMetaDate(aglUrl)
+        ]);
+        if (gen !== _generation) return; // stale — newer call superseded this one
+        startDate.set(start);
+        agl.set(aglDate);
+      } catch (err) {
+        console.error("Weather data API is not available", err);
+        return;
+      }
     }
   }
 
@@ -625,29 +721,46 @@ export async function initDomain(
 
   // 6. Resolve time — URL timestamp if provided and valid, else calculate default
   const absSpan = absTimeSpan.get();
-  const now = SIMULATE_START ? new Date(SIMULATE_START) : new Date();
-  let resolvedTime: Date;
+  const now = SIMULATE_START
+    ? Temporal.Instant.from(SIMULATE_START)
+    : Temporal.Now.zonedDateTimeISO()
+        .round({ smallestUnit: "hours", roundingMode: "trunc" })
+        .toInstant();
+  let resolvedTime: Temporal.Instant;
 
-  if (timestamp && +new Date(timestamp) > 0) {
-    const parsed = new Date(timestamp);
+  if (timestamp) {
+    const parsed = Temporal.Instant.from(timestamp);
     const snapped = snapToSlot(parsed, absSpan);
     const st = startTime.get();
     const et = endTime.get();
     if (st && et) {
-      resolvedTime = clampToRange(snapped, st, et);
+      resolvedTime =
+        Temporal.Instant.compare(snapped, st) < 0
+          ? st
+          : Temporal.Instant.compare(snapped, et) > 0
+            ? et
+            : snapped;
     } else {
       resolvedTime = snapped;
     }
   } else {
     resolvedTime = getDefaultTime(
       now,
-      new Date(startDate.get()),
+      startDate.get(),
       timeSpan.get(),
       absSpan
     );
   }
 
-  const timeChanged = +resolvedTime !== +currentTime.get();
+  if (newDomain === "relative-snow" && !hasMetaFiles) {
+    lastDataUpdate.set(resolvedTime.subtract({ hours: 24 }));
+  }
+
+  const timeChanged =
+    Temporal.Instant.compare(
+      resolvedTime,
+      currentTime.get() || Temporal.Instant.fromEpochMilliseconds(0)
+    ) !== 0;
   if (timeChanged) {
     currentTime.set(resolvedTime);
   }
@@ -663,53 +776,52 @@ export async function initDomain(
 
 export const startTime = computed(
   [startDate, timeRange],
-  (startDate, timeRange) => {
+  (startDate, timeRange): Temporal.Instant | null => {
     if (!startDate) return null;
-    const startTime = new Date(startDate);
-    startTime.setUTCHours(startTime.getUTCHours() + +timeRange[0]);
-    return startTime;
+    return startDate.add({ hours: +timeRange[0] });
   }
 );
 
 export const endTime = computed(
   [agl, timeSpan, timeSpanInt, timeRange],
-  (agl, timeSpan, timeSpanInt, timeRange) => {
+  (agl, timeSpan, timeSpanInt, timeRange): Temporal.Instant | null => {
     if (!agl) return null;
-    const endTime = new Date(agl);
 
-    if (timeSpanInt === 12 && [6, 18].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 6);
-    }
-    if (timeSpanInt % 24 === 0 && [12].includes(endTime.getUTCHours())) {
-      endTime.setUTCHours(endTime.getUTCHours() - 12);
-    }
     if (timeSpan?.includes("+")) {
-      endTime.setUTCHours(endTime.getUTCHours() + +timeRange[1]);
+      return agl.add({ hours: +timeRange[1] });
     }
-    return endTime;
+    if (
+      timeSpanInt === 12 &&
+      [6, 18].includes(agl.toZonedDateTimeISO("UTC").hour)
+    ) {
+      return agl.subtract({ hours: 6 });
+    }
+    if (
+      timeSpanInt % 24 === 0 &&
+      [12].includes(agl.toZonedDateTimeISO("UTC").hour)
+    ) {
+      return agl.subtract({ hours: 12 });
+    }
+    return agl;
   }
 );
 
 export const initialDate = computed(
   [currentTime, endTime, timeSpanInt],
-  (currentTime, endTime, timeSpanInt) => {
+  (currentTime, endTime, timeSpanInt): Temporal.Instant | null => {
     if (!currentTime || !endTime) return null;
-    currentTime = new Date(currentTime);
-    endTime = new Date(endTime);
-    const initialDate = +currentTime > +endTime ? endTime : currentTime;
+    let date =
+      Temporal.Instant.compare(currentTime, endTime) > 0
+        ? endTime.toZonedDateTimeISO("UTC")
+        : currentTime.toZonedDateTimeISO("UTC");
 
-    if (timeSpanInt === 12 && [6, 18].includes(initialDate.getUTCHours())) {
-      initialDate.setUTCHours(initialDate.getUTCHours() - 6);
+    if (timeSpanInt === 12 && [6, 18].includes(date.hour)) {
+      date = date.subtract({ hours: 6 });
     }
-    if (
-      timeSpanInt % 24 === 0 &&
-      [6, 12, 18].includes(initialDate.getUTCHours())
-    ) {
-      initialDate.setUTCHours(
-        initialDate.getUTCHours() - initialDate.getUTCHours()
-      );
+    if (timeSpanInt % 24 === 0 && [6, 12, 18].includes(date.hour)) {
+      date = date.subtract({ hours: date.hour });
     }
-    return initialDate;
+    return date.toInstant();
   }
 );
 
@@ -726,23 +838,29 @@ export const overlayURLs = computed(
 );
 
 function getOverlayURLs(
-  currentTime: Date | null,
+  currentTime: Temporal.Instant | null,
   domain: DomainId,
   file: string | undefined,
   timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
-  const utc = currentTime.toISOString();
+  const baseUrls = getDomainOverlayBaseURLs(domain);
+  const effectiveTime =
+    domain === "relative-snow"
+      ? currentTime.subtract({ hours: 24 })
+      : currentTime;
   const data = {
-    year: utc.slice(0, "2025".length),
-    date: utc.slice(0, "2025-03-14".length),
-    time: currentTime.getUTCHours().toString().padStart(2, "0") + "-00",
+    year: effectiveTime.toString().slice(0, "2025".length),
+    date: effectiveTime.toString().slice(0, "2025-03-14".length),
+    time:
+      currentTime.toZonedDateTimeISO("UTC").hour.toString().padStart(2, "0") +
+      "-00",
     domain,
     timespan
   };
   return [
-    window.config.template(config.overlayURLs[0] + file, data),
-    window.config.template(config.overlayURLs[1] + file, data)
+    window.config.template(baseUrls[0] + file, data),
+    window.config.template(baseUrls[1] + file, data)
   ];
 }
 
@@ -752,18 +870,15 @@ function getOverlayURLs(
 export const nextUpdateTime = computed(
   [domainConfig, lastDataUpdate, timeSpan],
   (domainConfig, lastDataUpdate, timeSpan) => {
-    if (!domainConfig.updateTimesOffset || lastDataUpdate === 0) return null;
-    let res = null;
+    if (!domainConfig.updateTimesOffset || !lastDataUpdate) return null;
     const timesConfig = domainConfig.updateTimesOffset;
-    const lastUpdate = new Date(lastDataUpdate);
 
     const addHours = timesConfig[timeSpan] || timesConfig["*"];
-    if (addHours)
-      res = new Date(lastUpdate).setUTCHours(
-        lastUpdate.getUTCHours() + addHours
-      );
+    if (addHours) {
+      return lastDataUpdate.add({ hours: addHours });
+    }
 
-    return res;
+    return lastDataUpdate;
   }
 );
 
@@ -790,9 +905,13 @@ export function valueForPixel(
       return pixelRGB.r * 50;
     case "snowHeight":
       if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) return 0;
+      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 255 * 3) return null;
       if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
       if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
       if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
+      // r=0, g>0, b>0: encodes gap range 505–2019 cm
+      // formula: 504 + (g - 1) * 255 + b
+      if (pixelRGB.r === 0) return 504 + (pixelRGB.g - 1) * 255 + pixelRGB.b;
       if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
         return pixelRGB.r;
   }

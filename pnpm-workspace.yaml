@@ -1,6 +1,13 @@
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vite-plus: ^0.1.19
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
 ignoredOptionalDependencies:
   - "@parcel/watcher"
   - fsevents
+overrides:
+  vite: 'catalog:'
+  vitest: 'catalog:'
 
 patchedDependencies:
   "@react-leaflet/core": patches/react-leaflet-core.patch
@@ -10,3 +17,10 @@ patchedDependencies:
   leaflet.locatecontrol: patches/leaflet.locatecontrol.patch
   leaflet.sync: patches/leaflet.sync.patch
   leaflet.vectorgrid: patches/leaflet.vectorgrid.patch
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'

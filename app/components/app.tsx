@@ -1,14 +1,14 @@
 import React, { Suspense, useEffect } from "react";
 import "@iframe-resizer/child";
 import { useStore } from "@nanostores/react";
-import { $router } from "./router";
 import { redirectPage } from "@nanostores/router";
+import { $router } from "./router";
 
 window.iFrameResizer = {
   sizeSelector: "#page-all"
 };
 
-import { setLanguage, $province, $headless } from "../appStore";
+import { $headless, $province, setLanguage } from "../appStore";
 import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
@@ -17,14 +17,12 @@ const Bulletin = React.lazy(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
-const StationMeasurements = React.lazy(
-  () => import("../views/stationMeasurements")
-);
+const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
-const StationMap = React.lazy(() => import("../views/stationMap"));
 const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
-const Education = React.lazy(() => import("../views/education"));
-const More = React.lazy(() => import("../views/more"));
+const StaticPageLinkbox = React.lazy(
+  () => import("../views/staticPageLinkbox")
+);
 const Archive = React.lazy(() => import("../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("../views/staticPage"));
@@ -104,23 +102,25 @@ const App = () => {
       case "weatherMapDomainTimestamp":
         return <Weather />;
       case "weatherMeasurements":
-        return <StationMeasurements />;
+      case "weatherStations":
+        return <StationDashboard />;
       case "weatherArchive":
         return <StationArchive />;
-      case "weatherStations":
-        return <StationMap />;
       case "weatherSnowProfiles":
         return <SnowProfileMap />;
+      case "conditionsProfiles":
+        return <BlogPostList isTechBlog={false} isProfileBlog={true} />;
+      case "conditions":
+      case "terrain":
       case "education":
-        return <Education />;
+      case "more":
+        return <StaticPageLinkbox />;
       case "blogNamePost":
         return <BlogPost />;
       case "blogTech":
-        return <BlogPostList isTechBlog={true} />;
+        return <BlogPostList isTechBlog={true} isProfileBlog={false} />;
       case "blog":
-        return <BlogPostList isTechBlog={false} />;
-      case "more":
-        return <More />;
+        return <BlogPostList isTechBlog={false} isProfileBlog={false} />;
       case "moreArchive":
         return <Archive />;
       case "moreLinkTree":

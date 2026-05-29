@@ -1,11 +1,13 @@
 import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
+import { mappedCategoryName } from "./blog/blogConfig";
 import { atom, computed, onMount, StoreValue } from "nanostores";
 import { AvalancheProblemTypeSchema } from "./bulletin";
+import { Language } from "../appStore";
 
 export const isTechBlog = atom<boolean>(false);
+export const isProfileBlog = atom<boolean>(false);
 export const region = atom<string | "all">("all");
-export const supportedLanguages = atom(["de", "it", "en"] as const);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
@@ -14,17 +16,17 @@ export const searchText = atom("");
 export const page = atom(1);
 export const loading = atom(false);
 export const posts = atom({} as Record<string, BlogPostPreviewItem[]>);
-export const categories = atom([] as Category[]);
+export const categories = atom({} as Record<string, Category[]>);
 export const searchCategory = atom("");
 export const perPage = atom(20);
-export const minYear = 2011;
 
 onMount(language, () => init());
 
 const timeZone = Temporal.Now.timeZoneId();
+let activeLoadId = 0;
 
 export interface BlogStore {
-  searchCategory: string;
+  searchCategory: Record<string, string>;
   searchText: string;
   year: number | "";
   startDate: Temporal.Instant | undefined;
@@ -32,13 +34,24 @@ export interface BlogStore {
 }
 
 export const blogConfigs = computed(
-  [language, region, isTechBlog],
-  (language, region, isTechBlog): BlogConfig[] =>
-    isTechBlog
-      ? [window.config.techBlog]
-      : window.config.blogs
-          .filter(cfg => [cfg.lang, "all", ""].includes(language))
-          .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)))
+  [language, region, isTechBlog, isProfileBlog],
+  (language, region, isTechBlog, isProfileBlog): BlogConfig[] => {
+    if (isTechBlog) {
+      return [window.config.techBlog];
+    }
+    if (isProfileBlog) {
+      return [window.config.profilesBlog];
+    }
+    return window.config.blogs
+      .filter(cfg => [cfg.lang, "all", ""].includes(language))
+      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)));
+  }
+);
+
+export const supportedLanguages = computed([], () =>
+  window.config.blogs
+    .map(cfg => cfg.lang as Language)
+    .filter((lang, index, array) => array.indexOf(lang) === index)
 );
 
 export const postItems = computed(posts, posts =>
@@ -124,7 +137,7 @@ export function validateMonth(valueToValidate: string): number | "" {
 export function validateYear(valueToValidate: string): number | "" {
   const parsed = parseInt(valueToValidate);
   if (parsed) {
-    return clamp(parsed, minYear, Temporal.Now.plainDateISO().year);
+    return clamp(parsed, config.blogsMinYear, Temporal.Now.plainDateISO().year);
   } else {
     return "";
   }
@@ -144,7 +157,9 @@ export function validateLanguage(
   if (supportedLanguages.get().includes(valueToValidate)) {
     return valueToValidate;
   }
-  return "en";
+  return supportedLanguages.get().includes("en")
+    ? "en"
+    : supportedLanguages.get()[0];
 }
 
 export function validateProblem(valueToValidate: string): string {
@@ -168,36 +183,97 @@ export function init() {
 }
 
 export async function load() {
+  const loadId = ++activeLoadId;
   loading.set(true);
-  await loadCategories();
-  await loadPosts();
-  loading.set(false);
+  const categoriesPromise = loadCategories();
+  const postsPromise = loadPosts(categoriesPromise);
 
-  async function loadCategories() {
-    categories.set(
-      (await BlogPostPreviewItem.loadCategories(blogConfigs.get()))
-        .flatMap(([, c]) => c)
-        .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
-        .sort((c1, c2) => c1.name.localeCompare(c2.name))
-    );
+  await Promise.all([categoriesPromise, postsPromise]);
+  if (loadId === activeLoadId) {
+    loading.set(false);
   }
 
-  async function loadPosts() {
-    posts.set(
-      Object.fromEntries(
-        await BlogPostPreviewItem.loadBlogPosts(blogConfigs.get(), {
-          searchCategory: categories
-            .get()
-            .filter(c => c.name === searchCategory.get())
-            .map(c => c.id)
-            .join(),
-          searchText: searchText.get(),
-          year: year.get(),
-          startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
-          endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
-        } satisfies BlogStore)
-      )
+  async function loadCategories(): Promise<Record<string, Category[]>> {
+    const loaded = await BlogPostPreviewItem.loadCategories(blogConfigs.get());
+    const mapped = Object.fromEntries(
+      loaded.map(([blogName, cats]) => [
+        blogName,
+        cats
+          .map(c => ({ ...c, name: mappedCategoryName(c.name) }))
+          .filter(c => !/Uncategorised|Uncategorized/.test(c.name))
+          .sort((c1, c2) => c1.name.localeCompare(c2.name))
+      ])
     );
+    if (loadId === activeLoadId) {
+      categories.set(mapped);
+    }
+    return mapped;
+  }
+
+  async function loadPosts(
+    categoriesPromise: Promise<Record<string, Category[]>>
+  ) {
+    const categoryName = searchCategory.get();
+    const cachedCategoriesByBlog = categories.get();
+    const hasCachedCategories = Object.keys(cachedCategoriesByBlog).length > 0;
+    const categoriesByBlog =
+      categoryName && !hasCachedCategories
+        ? await categoriesPromise
+        : cachedCategoriesByBlog;
+    const searchCategoryIds: Record<string, string> = Object.fromEntries(
+      Object.entries(categoriesByBlog).map(([blogName, cats]) => [
+        blogName,
+        cats
+          .filter(c => c.name === categoryName)
+          .map(c => c.id)
+          .join()
+      ])
+    );
+    const configs = categoryName
+      ? blogConfigs // filter out providers that do not have the requested category
+          .get()
+          .filter(cfg =>
+            (categoriesByBlog[cfg.name] ?? []).some(
+              c => c.name === categoryName
+            )
+          )
+      : blogConfigs.get(); // get all providers if no specific category is selected ("ALL") in the dropdown menu
+    const requestState = {
+      searchCategory: searchCategoryIds,
+      searchText: searchText.get(),
+      year: year.get(),
+      startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),
+      endDate: endDate.get()?.toZonedDateTime(timeZone).toInstant()
+    } satisfies BlogStore;
+
+    const resolvedPosts: Record<string, BlogPostPreviewItem[]> = {};
+    if (loadId === activeLoadId) {
+      posts.set({});
+    }
+
+    let receivedAnyProvider = false;
+    await Promise.all(
+      configs.map(async cfg => {
+        const loaded = await BlogPostPreviewItem.loadBlogPosts(
+          [cfg],
+          requestState
+        );
+        const [blogName, blogPosts] = loaded[0] ?? [cfg.name, []];
+        resolvedPosts[blogName] = blogPosts;
+        if (loadId !== activeLoadId) {
+          return;
+        }
+        posts.set({ ...resolvedPosts });
+        if (!receivedAnyProvider) {
+          receivedAnyProvider = true;
+          loading.set(false);
+        }
+      })
+    );
+
+    if (loadId === activeLoadId && !receivedAnyProvider) {
+      loading.set(false);
+    }
   }
 }
 

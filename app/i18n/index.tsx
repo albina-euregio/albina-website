@@ -60,17 +60,25 @@ const format = computed($locale, code => ({
     }
   },
   time(
-    date: Date | number | string | Temporal.PlainDate | Temporal.ZonedDateTime,
+    date:
+      | null
+      | Date
+      | number
+      | string
+      | Temporal.Instant
+      | Temporal.PlainDate
+      | Temporal.ZonedDateTime,
     opts?: Intl.DateTimeFormatOptions
   ) {
     if (
+      date instanceof Temporal.Instant ||
       date instanceof Temporal.PlainDate ||
       date instanceof Temporal.ZonedDateTime
     ) {
       return this.intlCache.dateTimeFormat(opts).format(date);
     }
     if (typeof date === "string") date = Date.parse(date);
-    if (!isFinite(+date)) return "";
+    if (date === null || !isFinite(+date)) return "";
     return this.intlCache.dateTimeFormat(opts).format(date);
   }
 }));
@@ -167,7 +175,14 @@ export const FormattedDate = ({
   date,
   options
 }: {
-  date: Date | number | string | Temporal.PlainDate | Temporal.ZonedDateTime;
+  date:
+    | null
+    | Date
+    | number
+    | string
+    | Temporal.Instant
+    | Temporal.PlainDate
+    | Temporal.ZonedDateTime;
   options: Intl.DateTimeFormatOptions;
 }) => {
   const formatter = useStore(format);

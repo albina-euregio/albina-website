@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { useIntl } from "../i18n";
 import { fetchText } from "../util/fetch";
 import { useStore } from "@nanostores/react";
-import { $headless } from "../appStore.ts";
+import { $headless, $province } from "../appStore.ts";
 import { $router } from "../components/router.ts";
 
 /*
@@ -15,6 +14,7 @@ import { $router } from "../components/router.ts";
 const StaticPage = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const province = useStore($province);
   const headless = useStore($headless);
   const router = useStore($router);
   if (router?.route !== "staticName" && router?.route !== "staticSegmentName") {
@@ -25,17 +25,19 @@ const StaticPage = () => {
   const [chapter, setChapter] = useState("");
   const [headerText, setHeaderText] = useState("");
   const [content, setContent] = useState("");
-  const [isShareable, setIsShareable] = useState(false);
 
   useEffect(() => {
     (async () => {
-      let url = router.path;
-      url = url.replace(/^\/(headless)?/, "");
-      if (`/${url}`.startsWith(import.meta.env.BASE_URL)) {
-        url = `/${url}`.slice(import.meta.env.BASE_URL.length);
+      let path = router.path;
+      path = path.replace(/^\/(headless)?/, "");
+      if (`/${path}`.startsWith(import.meta.env.BASE_URL)) {
+        path = `/${path}`.slice(import.meta.env.BASE_URL.length);
       }
-      if (!url) return;
-      url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
+      if (!path) return;
+
+      const url = config.staticContentNamespace?.includes(`/${path}`)
+        ? `${import.meta.env.BASE_URL}content/${path}.${province}/${lang}.html`
+        : `${import.meta.env.BASE_URL}content/${path}/${lang}.html`;
 
       const text = await fetchText(url);
       if (
@@ -61,9 +63,8 @@ const StaticPage = () => {
       setContent(preprocessContent(text.replace(titlePattern, ""), false));
       setChapter(url.split("/")[0] || "");
       setHeaderText("");
-      setIsShareable(!headless);
     })();
-  }, [headless, lang, router]);
+  }, [headless, province, lang, router]);
 
   useEffect(() => {
     document
@@ -94,7 +95,6 @@ const StaticPage = () => {
       {/* <section className="section-centered">{content}</section> */}
       {content}
       <div className="clearfix" />
-      {isShareable ? <SmShare /> : <div className="section-padding" />}
     </>
   );
 };

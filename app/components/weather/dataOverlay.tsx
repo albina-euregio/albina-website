@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { ImageOverlay, useMap } from "react-leaflet";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker from "../station/station-marker";
 import { useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
@@ -53,15 +53,24 @@ const DataOverlay = ({ playerCB }) => {
   ): { x: number; y: number } => {
     const map = parentMap;
     const element = overlay.getElement() as HTMLImageElement;
+    if (!element?.width || !element?.height) {
+      return { x: 0, y: 0 };
+    }
     const bounds = overlay.getBounds();
-    const xY = element.naturalWidth / element.width;
-    const yY = element.naturalHeight / element.height;
-    const dx = map.project(latlng).x - map.project(bounds.getSouthWest()).x;
-    const dy = map.project(latlng).y - map.project(bounds.getNorthEast()).y;
-    return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
+    const sw = map.project(bounds.getSouthWest());
+    const ne = map.project(bounds.getNorthEast());
+    const dx = map.project(latlng).x - sw.x;
+    const dy = map.project(latlng).y - ne.y;
+    return {
+      x: Math.max(0, Math.min(1, dx / (ne.x - sw.x))),
+      y: Math.max(0, Math.min(1, dy / (sw.y - ne.y)))
+    };
   };
 
   const getColor = (value: number | null): number[] => {
+    if (value == null) {
+      return [255, 255, 255];
+    }
     const v = parseFloat(value);
     const colors = Object.values(domainConfig.colors);
     const idx = domainConfig.thresholds.findLastIndex(tr => v > tr);
@@ -106,12 +115,11 @@ const DataOverlay = ({ playerCB }) => {
           key={"dataMarker" + e.latlng}
           itemId="dataMarker"
           iconAnchor={[12.5, 12.5]}
-          data={{}}
+          id={""}
           stationId="dataMarker"
-          stationName="dataMarker"
           coordinates={e.latlng}
           color={getColor(pixelData.value)}
-          value={pixelData.value}
+          value={pixelData.value ?? "-"}
           direction={pixelData.direction}
           layerContainer={parentMap}
         />
@@ -153,12 +161,11 @@ const DataOverlay = ({ playerCB }) => {
           <StationMarker
             type="grid"
             dataType="noCircle"
-            key={"pos-" + curV + "_" + curH + "_" + currentTime + "_" + curZoom}
+            key={`pos-${curV}_${curH}_${currentTime?.toString()}_${curZoom}`}
             itemId="directionMarker"
             iconAnchor={[12, 12]}
-            data={{}}
+            id={{}}
             stationId="directionMarker"
-            stationName="directionMarker"
             coordinates={[curV, curH]}
             color={[255, 0, 0]}
             value={null}
@@ -172,70 +179,66 @@ const DataOverlay = ({ playerCB }) => {
     setDirectionMarkers(markers);
   };
 
-  const overlays = useMemo(() => {
-    const overlays = [];
-    if (domainId) {
-      overlays.push(
-        <ImageOverlay
-          key={"data-image-" + overlayURLs[0]}
-          className="leaflet-image-layer map-data-layer hide"
-          url={overlayURLs[0]}
-          errorOverlayUrl={overlayURLs[1]}
-          opacity={1}
-          bounds={store.config.settings.bbox}
-          attribution={
-            store.config.settings.debugModus
-              ? intl.formatMessage({ id: "weathermap:attribution" })
-              : null
-          }
-          eventHandlers={{
-            click: e => showDataMarker(e)
-          }}
-          interactive={true}
-        />
-      );
+  const overlays = [];
+  if (domainId) {
+    overlays.push(
+      <ImageOverlay
+        key={"data-image-" + overlayURLs[0]}
+        className="leaflet-image-layer map-data-layer hide"
+        url={overlayURLs[0]}
+        errorOverlayUrl={overlayURLs[1]}
+        opacity={1}
+        bounds={store.config.settings.bbox}
+        attribution={
+          store.config.settings.debugModus
+            ? intl.formatMessage({ id: "weathermap:attribution" })
+            : null
+        }
+        eventHandlers={{
+          click: e => showDataMarker(e)
+        }}
+        interactive={true}
+      />
+    );
 
-      overlays.push(
-        <ImageOverlay
-          key={"background-map-" + overlayURLs[0]}
-          className="leaflet-image-layer map-info-layer"
-          style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
-          url={overlayURLs[0]}
-          errorOverlayUrl={overlayURLs[1]}
-          opacity={1}
-          bounds={store.config.settings.bbox}
-          interactive={true}
-          attribution={
-            store.config.settings.debugModus
-              ? intl.formatMessage({ id: "weathermap:attribution" })
-              : null
+    overlays.push(
+      <ImageOverlay
+        key={"background-map-" + overlayURLs[0]}
+        className="leaflet-image-layer map-info-layer"
+        style={dataOverlaysEnabled ? { cursor: "crosshair" } : {}}
+        url={overlayURLs[0]}
+        errorOverlayUrl={overlayURLs[1]}
+        opacity={1}
+        bounds={store.config.settings.bbox}
+        interactive={true}
+        attribution={
+          store.config.settings.debugModus
+            ? intl.formatMessage({ id: "weathermap:attribution" })
+            : null
+        }
+        eventHandlers={{
+          click: showDataMarker,
+          load: e => {
+            setDataMarker(null);
+            setDirectionMarkers([]);
+            const overlay = e.target as L.ImageOverlay;
+            addDirectionIndicators(overlay);
+            parentMap.on(
+              "zoomend",
+              debounce(() => addDirectionIndicators(overlay), 500)
+            );
+            if (!dataMarker && !directionMarkers)
+              playerCB("background", "load");
+          },
+          error: err => {
+            if (!dataMarker && !directionMarkers) playerCB("background", err);
           }
-          eventHandlers={{
-            click: showDataMarker,
-            load: e => {
-              setDataMarker(null);
-              setDirectionMarkers([]);
-              const overlay = e.target as L.ImageOverlay;
-              addDirectionIndicators(overlay);
-              parentMap.on(
-                "zoomend",
-                debounce(() => addDirectionIndicators(overlay), 500)
-              );
-              if (!dataMarker && !directionMarkers)
-                playerCB("background", "load");
-            },
-            error: err => {
-              if (!dataMarker && !directionMarkers) playerCB("background", err);
-            }
-          }}
-          bindPopup
-        />
-      );
-      playerCB("background", "loading");
-    }
-
-    return overlays;
-  }, [domainId, dataOverlays, overlayURLs]);
+        }}
+        bindPopup
+      />
+    );
+    playerCB("background", "loading");
+  }
 
   return (
     <>

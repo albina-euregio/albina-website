@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
-import { Tooltip } from "../tooltips/tooltip";
 import { AvalancheProblem } from "../../stores/bulletin";
+import BulletinInternalGlossaryText from "../bulletin/internal-glossary/internal-glossary-text.js";
+import { EnabledLanguages } from "../bulletin/internal-glossary/internal-glossary.js";
 
 interface Props {
   problem: AvalancheProblem;
@@ -20,15 +21,21 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
   });
 
   const icon = (
-    <Tooltip label={title}>
-      <a href={`/education/avalanche-problems#${problemType}`} className="img">
-        <div className="picto-img">
-          <ProblemIcon problem={problemType} alt={title} active={true} />
-        </div>
-        <div className="picto-caption">{problemTextShort}</div>
-      </a>
-    </Tooltip>
+    //<Tooltip label={title}>
+    <a href={`/education/avalanche-problems#${problemType}`} className="img">
+      <div className="picto-img">
+        <ProblemIcon problem={problemType} alt={title} active={true} />
+      </div>
+      <div className="picto-caption">
+        <BulletinInternalGlossaryText
+          text={problemTextShort} // Process the short text for glossary terms
+          locale={intl.locale.slice(0, 2) as EnabledLanguages} // Use dynamic locale
+          textKey={"problem-" + problemType}
+        />
+      </div>
+    </a>
   );
+  // </Tooltip>
   return wrapper !== false ? (
     <div className="bulletin-report-picto avalanche-situation">{icon}</div>
   ) : (

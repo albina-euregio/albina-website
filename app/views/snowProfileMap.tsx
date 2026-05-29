@@ -2,7 +2,7 @@ import React from "react";
 import SnowProfileStore, { SnowProfile } from "../stores/snowProfileStore";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import Modal from "../components/dialogs/albina-modal";
-import StationMarker from "../components/leaflet/station-marker";
+import StationMarker from "../components/station/station-marker";
 import { AttributionControl } from "react-leaflet";
 import IncidentStore, { Incident } from "../stores/incidentStore";
 

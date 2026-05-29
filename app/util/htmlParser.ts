@@ -1,6 +1,6 @@
 import React, { type AllHTMLAttributes } from "react";
 import htmr from "htmr";
-import { RegionsTables } from "../components/stationTable/regionTable";
+import { RegionsTables } from "../components/organisms/regionTable";
 import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
@@ -50,9 +50,17 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (/OpenSourceLicenses/i.exec(type)) {
           return React.createElement(OpenSourceLicenses, props, children);
         }
-        // Remove deprecated html attributes
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        ["align", "border"].forEach(prop => delete props[prop]);
+        // Remove deprecated or invalid html attributes
+        if (props) {
+          Object.keys(props).forEach(prop => {
+            if (prop.startsWith("#")) {
+              // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+              delete props[prop];
+            }
+          });
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+          ["align", "border"].forEach(prop => delete props[prop]);
+        }
         return React.createElement(type, props, children);
       }
     }

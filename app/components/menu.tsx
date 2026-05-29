@@ -1,3 +1,11 @@
+// Utility to get the desktop breakpoint from CSS custom property
+function getDesktopBreakpoint() {
+  if (typeof window === "undefined") return 1024;
+  const value = getComputedStyle(document.documentElement).getPropertyValue(
+    "--breakpoint-desktop"
+  );
+  return parseInt(value, 10) || 1024;
+}
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import { BlogPostPreviewItem } from "../stores/blog";
@@ -23,7 +31,12 @@ interface Props {
   onActiveChildMenuItem?: (e: Entry) => void;
   onActiveMenuItem?: (e: Entry) => void;
   onSelect?: (e: Entry) => void;
+  onCloseAllDropdowns?: () => void;
+  isMobile?: boolean;
+  navOpen?: boolean;
 }
+
+let isTouchingDevice = false;
 
 function Menu(props: Props) {
   const intl = useIntl();
@@ -59,24 +72,62 @@ function Menu(props: Props) {
   };
 
   const onLinkClick = (e: Event, hasSubs: boolean) => {
-    //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
-    if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
+    //console.log("onLinkClick jjj", isTouchingDevice, hasSubs);
+    if (hasSubs && isTouchingDevice) e.preventDefault();
   };
 
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
+    null
+  );
   if (props.entries && props.entries.length > 0) {
     const activeItem = props.entries.find(e => testActive(e));
+
+    // Handler to close all dropdowns at this menu level and above
+    const handleCloseAllDropdowns = () => {
+      setOpenDropdownIndex(null);
+      if (props.onCloseAllDropdowns) {
+        props.onCloseAllDropdowns();
+      }
+    };
+
+    // Handlers for mouse hover to open/close dropdowns (desktop only)
+    const handleMouseEnter = (index: number) => {
+      if (window.innerWidth > getDesktopBreakpoint()) {
+        setOpenDropdownIndex(index);
+      }
+    };
+    const handleMouseLeave = () => {
+      if (window.innerWidth > getDesktopBreakpoint()) {
+        setOpenDropdownIndex(null);
+      }
+    };
 
     return (
       <ul className={props.className}>
         {props.entries.map((e, index) => (
-          <MenuItem
+          <li
             key={e.url + index}
-            {...props}
-            entry={e}
-            isActive={e === activeItem}
-            onLinkClick={onLinkClick}
-            numberNewPosts={numberNewPosts}
-          />
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <MenuItem
+              {...props}
+              entry={e}
+              isActive={e === activeItem}
+              onLinkClick={onLinkClick}
+              numberNewPosts={numberNewPosts}
+              dropdownOpen={
+                props.isMobile
+                  ? e.children && e.children.length > 0
+                  : openDropdownIndex === index
+              }
+              setDropdownOpen={open =>
+                setOpenDropdownIndex(open ? index : null)
+              }
+              menuIndex={index}
+              onCloseAllDropdowns={handleCloseAllDropdowns}
+            />
+          </li>
         ))}
       </ul>
     );
@@ -84,19 +135,26 @@ function Menu(props: Props) {
   return null;
 }
 
-function MenuItem(
-  props: Props & {
-    entry: Entry;
-    isActive: boolean;
-    onLinkClick: (e: Event, hasSubs: boolean) => void;
-    numberNewPosts: number;
-  }
-) {
+type MenuItemProps = Props & {
+  entry: Entry;
+  isActive: boolean;
+  onLinkClick: (e: Event, hasSubs: boolean) => void;
+  numberNewPosts: number;
+  dropdownOpen: boolean;
+  setDropdownOpen: (open: boolean) => void;
+  menuIndex: number;
+  onCloseAllDropdowns: () => void;
+};
+function getMenuItemTabIndex(title: string) {
+  // Skip focus for empty or whitespace-only menu items
+  return title && title.trim().length > 0 ? 0 : -1;
+}
+function MenuItem(props: MenuItemProps) {
   const e = props.entry;
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
 
-  const classes = props.menuItemClassName
+  let classes = props.menuItemClassName
     ? props.menuItemClassName.split(" ")
     : [];
 
@@ -104,11 +162,13 @@ function MenuItem(
     if (props.onActiveMenuItem) {
       props.onActiveMenuItem(e);
     }
-
     classes.push(props.activeClassName ? props.activeClassName : "active");
   }
   if (e.showSub || (e.children && e.children.length > 0)) {
     classes.push("has-sub");
+    if (props.dropdownOpen) {
+      classes.push("open");
+    }
   }
   const title =
     e.title ||
@@ -117,28 +177,53 @@ function MenuItem(
     });
   const url = e["url:" + lang] || e["url"];
 
+  // Only focusable if title is not empty/whitespace
+  const tabIndex = getMenuItemTabIndex(title);
+
   return (
-    <li
-      onClick={() => {
-        if (typeof props.onSelect === "function") {
-          props.onSelect(e);
-        }
-      }}
-    >
+    <>
       {url.match("^http(s)?://") ? (
-        <a href={url} rel="noopener noreferrer" target="_blank">
+        <a
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+          tabIndex={tabIndex}
+          onClick={() => {
+            if (props.onSelect) props.onSelect(e);
+          }}
+        >
           {title}
         </a>
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
+            if (window.innerWidth > getDesktopBreakpoint())
+              isTouchingDevice = true;
           }}
-          onClick={e => {
-            props.onLinkClick(e, classes.includes("has-sub"));
+          onClick={ev => {
+            props.onLinkClick(ev, classes.includes("has-sub"));
+            if (classes.includes("has-sub")) {
+              props.setDropdownOpen(!props.dropdownOpen);
+            } else {
+              if (props.onSelect) props.onSelect(e);
+            }
+          }}
+          onKeyDown={ev => {
+            if (classes.includes("has-sub") && ev.key === " ") {
+              ev.preventDefault();
+              props.setDropdownOpen(true);
+            }
+            if (ev.key === "Escape") {
+              ev.preventDefault();
+              props.setDropdownOpen(false);
+              if (props.onCloseAllDropdowns) {
+                props.onCloseAllDropdowns();
+              }
+            }
           }}
           href={url}
           className={classes.join(" ")}
+          tabIndex={tabIndex}
         >
           {title}
           {e.showNumberNewPosts && props.numberNewPosts > 0 && (
@@ -146,16 +231,23 @@ function MenuItem(
           )}
         </a>
       )}
-      {e.children && e.children.length > 0 && (
+      {e.children && e.children.length > 0 && props.dropdownOpen && (
         <Menu
           className={props.childClassName}
           entries={e.children}
+          menuItemClassName={props.menuItemClassName}
+          activeClassName={props.activeClassName}
           onSelect={props.onSelect}
           onActiveMenuItem={props.onActiveChildMenuItem}
+          onCloseAllDropdowns={props.onCloseAllDropdowns}
+          isMobile={props.isMobile}
+          navOpen={props.navOpen}
         />
       )}
-    </li>
+    </>
   );
 }
+
+// closeAllDropdowns is no longer needed with the new onCloseAllDropdowns prop pattern
 
 export default Menu;

@@ -4,7 +4,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await page.goto("bulletin/2022-02-01?region=AT-07-04");
 
   const header = page.locator("#section-bulletin-header");
-  await expect(header).toContainText("Tuesday, 01/02/2022");
+  await expect(header).toContainText(/Tuesday,? 1 February 2022/);
   await expect(header.locator(".bulletin-datetime-update")).toHaveText(
     "Updated 01/02/2022, 08:35"
   );
@@ -13,17 +13,17 @@ test("bulletin/2022-02-01", async ({ page }) => {
     "li[id='0646104c-4d4c-4e4a-896b-ce3a45d0b61b']"
   );
   await expect(bulletin.locator(".bulletin-report-header")).toContainText(
-    "Danger level for Tuesday, 01/02/2022"
+    /Danger level for Tuesday,? 1 February 2022/
   );
   await expect(bulletin.locator(".subheader").first()).toContainText(
     "Outside marked and open pistes a dangerous avalanche situation will be encountered over a wide area."
   );
-  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText(
-    "Tendency: Increasing avalanche dangeron Wednesday, 02/02/2022"
-  );
+  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText([
+    /Tendency: Increasing avalanche dangeron Wednesday,? 2 February 2022/
+  ]);
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
-  ).toContainText("Danger Level 4 – high");
+  ).toContainText("Danger Level 4 — high");
   await expect(bulletin.locator("p").nth(1)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
@@ -74,8 +74,8 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("button", { name: "Subscribe" }).click();
   const telegram = await pagePromise;
-  await expect(await telegram.evaluate("location.href")).toBe(
-    "https://t.me/lawinenwarndienst_tirol"
+  await expect(await telegram.evaluate("location.href")).toMatch(
+    /https:\/\/t.me\/lawinenwarndienst_tirol/
   );
   await telegram.getByRole("link", { name: "Preview channel" }).click();
   await telegram.close();

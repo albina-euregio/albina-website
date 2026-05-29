@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { FormattedMessage, useIntl } from "../i18n";
 import { currentSeasonYear } from "../util/date-season";
@@ -9,9 +9,8 @@ import ProvinceFilter from "../components/filters/province-filter";
 import YearFilter from "../components/filters/year-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import StationArchiveTable from "../components/stationTable/stationArchiveTable";
+import StationArchiveTable from "../components/station/station-table-archive";
 import { useStore } from "@nanostores/react";
 import { $headless } from "../appStore";
 
@@ -28,7 +27,7 @@ const StationArchive = () => {
     activeData,
     activeRegion,
     activeYear,
-    load,
+    loadStationData,
     searchText,
     setActiveRegion,
     setActiveYear,
@@ -39,11 +38,17 @@ const StationArchive = () => {
     sortedFilteredData,
     sortValue,
     toggleActiveData
-  } = useStationData("name", r => r.startsWith("AT-07"), "", true);
+  } = useStationData("name", "", true);
 
-  useEffect(() => {
-    load({ ogd: true });
-  }, [load]);
+  const sortedFilteredDataCCBY = useMemo(
+    () =>
+      sortedFilteredData
+        .filter(d => d.properties.operatorLicense === "CC BY 4.0")
+        .filter(d => d.$stationsArchiveFile),
+    [sortedFilteredData]
+  );
+
+  useEffect(() => void loadStationData(), [loadStationData]);
 
   const classChanged = "selectric-changed";
   const hideFilters: (keyof typeof activeData)[] = [
@@ -149,7 +154,7 @@ const StationArchive = () => {
       <section className="section">
         <div className="table-container">
           <StationArchiveTable
-            sortedFilteredData={sortedFilteredData}
+            sortedFilteredData={sortedFilteredDataCCBY}
             activeData={activeData}
             activeRegion={activeRegion}
             activeYear={activeYear}
@@ -192,8 +197,6 @@ const StationArchive = () => {
           </div>
         </section>
       )}
-
-      {!headless && <SmShare />}
     </>
   );
 };

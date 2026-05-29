@@ -910,13 +910,13 @@
     "text": "<p>Mesure de pr\u00e9caution en terrain vierge</p><p>Maintien de distances entre les personnes pour r\u00e9duire la surcharge sur le manteau neigeux. En mont\u00e9e, il faut maintenir une distance d\u2018au moins 10 m, en descente nettement plus.</p>",
     "img": "<img alt=\"Spacing distance\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_025_spacing-distances-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "artifical-avalanche-release": {
+  "artificial-avalanche-release": {
     "ids": {
       "ar": "desencadeament-provocat",
       "ca": "desencadenament-provocat",
       "cs": "umele-spustene-laviny",
       "de": "kunstliche-lawinenauslosung",
-      "en": "artifical-avalanche-release",
+      "en": "artificial-avalanche-release",
       "es": "alud-provocado-desencadenamiento-artificial",
       "is": "snjoflod-sett-viljandi-af-stad",
       "it": "distacco-provocato-di-valanghe",

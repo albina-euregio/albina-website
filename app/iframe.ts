@@ -48,10 +48,10 @@ function initializeIFrame(element?: HTMLElement) {
       oc: "oc.avalanche.report",
       it: "valanghe.report"
     };
-    if (location.pathname.startsWith("/beta")) {
-      base = `https://${host[language]}/beta/`;
-    } else if (location.pathname.startsWith("/dev")) {
-      base = `https://${host[language]}/dev/`;
+    if (location.hostname.startsWith("beta.")) {
+      base = `https://beta.${host[language]}/`;
+    } else if (location.hostname.startsWith("dev.")) {
+      base = `https://dev.${host[language]}/`;
     } else {
       base = `https://${host[language]}/`;
     }

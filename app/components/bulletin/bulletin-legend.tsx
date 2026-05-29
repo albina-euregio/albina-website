@@ -1,8 +1,12 @@
-import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
 import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
+import React from "react";
+import { EnabledLanguages } from "./bulletin-glossary.js";
+const BulletinInternalGlossaryText = React.lazy(
+  () => import("./internal-glossary/internal-glossary-text.js")
+);
 
 interface Props {
   handleSelectRegion: (id?: string) => void;
@@ -65,9 +69,15 @@ function BulletinLegend(props: Props) {
                     <li key={id} className={`warning-level-${num}`}>
                       <span>
                         <strong>{num}</strong>{" "}
-                        {intl.formatMessage({
-                          id: `danger-level:${id}`
-                        })}
+                        <a href={`/education/danger-scale/#level${num}`}>
+                          <BulletinInternalGlossaryText
+                            text={intl.formatMessage({
+                              id: `danger-level:${id}`
+                            })}
+                            locale={intl.locale.slice(0, 2) as EnabledLanguages}
+                            textKey={"danger-scale-" + num}
+                          />
+                        </a>
                       </span>
                     </li>
                   )

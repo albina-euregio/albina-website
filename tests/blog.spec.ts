@@ -18,29 +18,42 @@ test("blog", async ({ page }) => {
     .getByRole("listitem")
     .filter({ hasText: "Year" })
     .getByRole("combobox")
-    .selectOption("2018");
+    .selectOption("2025");
 
-  await expect(page.locator("#page-main")).toContainText(
-    "Monday, 31/12/2018, 19:10"
-  );
-  await expect(page.locator("#page-main")).toContainText(
-    "Vom Waldgrenzbereich aufwärts zahlreiche, störanfällige Triebschneepakete. Wir raten zu Zurückhaltung im Steilgelände!"
-  );
-
+  await expect(
+    page.getByRole("link", {
+      name: /saisonrückblick \d+\/\d+/i
+    })
+  ).toMatchAriaSnapshot(`
+    - link /.*, \\d+\\/\\d+\\/\\d+, \\d+:\\d+ \\(\\d+ days ago\\) Tyrol.*DE/:
+      - list:
+        - listitem:
+          - time: /.*, \\d+\\/\\d+\\/\\d+, \\d+:\\d+ \\(\\d+ days ago\\)/
+        - listitem: /Tyrol/
+        - listitem: DE
+      - heading /(SAISONRÜCKBLICK|Saisonrückblick) \\d+\\/\\d+/ [level=1]
+  `);
   await page
     .getByRole("link", {
-      name: "Vom Waldgrenzbereich aufwärts zahlreiche, störanfällige Triebschneepakete. Wir raten zu Zurückhaltung im Steilgelände!"
+      name: /saisonrückblick \d+\/\d+/i
     })
     .click();
-
   await expect(page.getByRole("heading").first()).toContainText(
-    "Vom Waldgrenzbereich aufwärts zahlreiche, störanfällige Triebschneepakete. Wir raten zu Zurückhaltung im Steilgelände!"
+    /Saisonrückblick \d+\/\d+/i
   );
-  await expect(page.locator("#page-main")).toContainText(
-    "Ähnlich wie der 25.12.2018 stellt auch der 01.01.2019 als erster Schönwettertag nach einer stürmischen Schneefallperiode einen sehr unfallträchtigen Tag dar!"
-  );
-
-  await page.getByRole("link", { name: "All Blog Posts" }).first().click();
+  // in the prod environment there are some more features we can test
+  if (
+    (await page.getByRole("heading").first().textContent())?.includes("2024/25")
+  ) {
+    await expect(page.getByRole("blockquote").first()).toContainText(
+      "Alle Jahre wieder: pünktlich zum Winterstart wenden wir kurz den Kopf und blicken auf die vergangene Saison."
+    );
+    await expect(page.getByText("Winterrückblick")).toBeVisible();
+    await page.getByRole("link", { name: "EN", exact: true }).click();
+    await expect(page.getByRole("heading").first()).toContainText(
+      /Season Review 2024\/25/
+    );
+  }
 });
 
 test("blog headless", async ({ page }) => {

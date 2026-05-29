@@ -10,7 +10,7 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
-import { $province } from "../../appStore";
+import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
@@ -52,6 +52,7 @@ export function getMaxMainValue(
  */
 class BulletinCollection {
   status: Status = "pending";
+  macroRegionStatuses: Record<string, Status> = {};
   private dataRaw: Bulletins | null = null;
   private dataRaw170000: Bulletins | null = null;
   private extraBulletins: Bulletin[] = [];
@@ -64,7 +65,10 @@ class BulletinCollection {
     public readonly lang: string
   ) {}
 
-  private _getBulletinUrl(publicationDate = ""): string | undefined {
+  private _getBulletinUrl(
+    publicationDate = "",
+    regionOverride?: string
+  ): string | undefined {
     if (!this.date || !this.lang) {
       return;
     }
@@ -75,17 +79,26 @@ class BulletinCollection {
       {
         date: this.date,
         publicationDate,
-        region: `${$province.get() || "EUREGIO"}_`,
+        region: `${regionOverride ?? $focusRegions.get()[0]}_`,
         lang: this.lang
       }
     );
   }
 
+  /** Returns region codes to load: individual regionCodes when no province, or [province] when set. */
+  private _getLoadRegions(): string[] {
+    return $focusRegions.get();
+  }
+
   async loadStatus(): Promise<Status> {
-    const url = this._getBulletinUrl();
-    if (!url) return "empty";
-    const ok = await fetchExists(url);
-    return ok ? "ok" : "n/a";
+    const regions = this._getLoadRegions();
+    const results = await Promise.all(
+      regions
+        .map(r => this._getBulletinUrl("", r))
+        .filter((url): url is string => !!url)
+        .map(url => fetchExists(url))
+    );
+    return results.some(Boolean) ? "ok" : "n/a";
   }
 
   private async fetchFromURL(url: string): Promise<Bulletins> {
@@ -93,20 +106,66 @@ class BulletinCollection {
     return await BulletinsSchema.parseAsync(response);
   }
 
+  private async fetchAndMergeRegions(
+    publicationDate: string,
+    regions: string[]
+  ): Promise<Bulletins> {
+    const bulletinMap = new Map<string, Bulletin>();
+    await Promise.all(
+      regions.map(async r => {
+        const url = this._getBulletinUrl(publicationDate, r);
+        if (!url) return;
+        try {
+          const data = await this.fetchFromURL(url);
+          data?.bulletins.forEach(b => {
+            this.upgradeLegacyCAAML(b);
+            bulletinMap.set(b.bulletinID, b);
+          });
+        } catch (error) {
+          if (!(error instanceof NotFoundError)) {
+            console.error(
+              `Cannot load ${r} bulletin for date ${this.date}`,
+              error
+            );
+          }
+        }
+      })
+    );
+    return { bulletins: [...bulletinMap.values()] };
+  }
+
   async load(): Promise<void> {
-    const url = this._getBulletinUrl();
-    if (!url) return;
-    try {
-      this.dataRaw = await this.fetchFromURL(url);
-      this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
-      this.status = this.bulletins.length > 0 ? "ok" : "empty";
-      this.maxDangerRatings = this.computeMaxDangerRatings();
-    } catch (error) {
-      console.error(`Cannot load bulletin for date ${this.date}`, error);
-      this.dataRaw = null;
-      this.status = "n/a";
-      this.maxDangerRatings = {};
+    const regions = this._getLoadRegions();
+    this.dataRaw = await this.fetchAndMergeRegions("", regions);
+    if (this.dataRaw.bulletins.length === 0 && regions.length > 1) {
+      // No individual CAAMLs found — fall back to the combined EUREGIO CAAML
+      try {
+        const url = this._getBulletinUrl("", "EUREGIO");
+        if (url) {
+          this.dataRaw = await this.fetchFromURL(url);
+          this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
+        }
+      } catch (error) {
+        if (!(error instanceof NotFoundError)) {
+          console.error(
+            `Cannot load EUREGIO bulletin for date ${this.date}`,
+            error
+          );
+        }
+      }
     }
+    this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
+    this.maxDangerRatings = this.computeMaxDangerRatings();
+    // Derive per-region statuses from actual bulletin coverage
+    $focusRegions.get().forEach(regionCode => {
+      const hasBulletins = this.bulletins.some(b =>
+        b.regions?.some(
+          r =>
+            r.regionID === regionCode || r.regionID.startsWith(regionCode + "-")
+        )
+      );
+      this.macroRegionStatuses[regionCode] = hasBulletins ? "ok" : "n/a";
+    });
   }
 
   async load170000(): Promise<void> {
@@ -121,32 +180,39 @@ class BulletinCollection {
         .toZonedDateTime("Europe/Vienna")
         .withTimeZone("UTC").hour;
       const publicationDate = `${date}_${hour}-00-00`;
-      const url = this._getBulletinUrl(publicationDate);
-      if (!url) return;
-      const data = await this.fetchFromURL(url);
-      if (data?.bulletins?.length) {
-        this.dataRaw170000 = data;
+      const regions = this._getLoadRegions();
+      const merged = await this.fetchAndMergeRegions(publicationDate, regions);
+      if (merged.bulletins.length) {
+        this.dataRaw170000 = merged;
       }
     } catch (error) {
       console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
     }
   }
 
+  static isAfter1700(): boolean {
+    return Temporal.Now.plainTimeISO("Europe/Vienna").toString() >= "17:00";
+  }
+
   async loadExtraBulletins() {
     this.extraBulletins = [];
-    const extraRegions = $province.get()
-      ? [...config.regionCodes, ...config.extraRegions].filter(
-          r => r !== $province.get()
-        )
-      : config.extraRegions;
+    const extraRegions = $extraRegions.get();
     const data = await Promise.all(
       extraRegions.flatMap(id => {
         const awsList = eawsRegion(id)?.aws ?? [];
         return awsList.map(async (aws): Promise<Bulletins | undefined> => {
           try {
-            const url0 = aws.url["api:date"];
+            let url0 = aws.url["api:date"];
             if (!url0?.endsWith("CAAMLv6.json")) return;
-            if (!aws.url["api:date"]?.endsWith("CAAMLv6.json")) return;
+            if (
+              import.meta.env.APP_REGION === "DEV" &&
+              url0.startsWith("https://static.avalanche.report/bulletins/")
+            ) {
+              url0 = url0.replace(
+                "https://static.avalanche.report/bulletins/",
+                "https://dev.avalanche.report/bulletins/"
+              );
+            }
             let data: Bulletins;
             let url: string;
             try {
@@ -157,7 +223,7 @@ class BulletinCollection {
               });
               data = await this.fetchFromURL(url);
             } catch (e) {
-              if (e instanceof NotFoundError) {
+              if (e instanceof NotFoundError || e instanceof TypeError) {
                 url = config.template(url0, {
                   region: id,
                   date: this.date,
@@ -179,16 +245,29 @@ class BulletinCollection {
             });
             return data;
           } catch (error) {
-            console.error(
-              `Cannot load ${id} bulletin for date ${this.date}`,
-              error
-            );
+            if (!(error instanceof NotFoundError)) {
+              console.error(
+                `Cannot load ${id} bulletin for date ${this.date}`,
+                error
+              );
+            }
           }
         });
       })
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);
     this.maxDangerRatings = this.computeMaxDangerRatings();
+
+    const loadedExtraRegionIds = new Set(
+      this.extraBulletins
+        .map(b => b.source?.provider?.customData?.regionID)
+        .filter(Boolean)
+    );
+    extraRegions.forEach(id => {
+      this.macroRegionStatuses[id] = loadedExtraRegionIds.has(id)
+        ? "ok"
+        : "n/a";
+    });
   }
 
   async loadEawsBulletins() {

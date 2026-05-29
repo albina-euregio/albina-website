@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
@@ -11,7 +10,8 @@ import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { $router } from "../components/router";
 import { redirectPage } from "@nanostores/router";
 import Player from "../js/player";
-import WeatherStationDialog from "../components/dialogs/weather-station-dialog";
+import WeatherStationDialog from "../components/station/station-dialog";
+import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
 const Weather = () => {
   const intl = useIntl();
@@ -32,14 +32,7 @@ const Weather = () => {
     Player({ transitionTime: 1000, onTick: () => {} })
   );
 
-  useEffect(() => {
-    const footer = document.getElementById("page-footer");
-    if (!footer) return;
-    footer.style.display = "none";
-    return () => {
-      footer.style.display = "";
-    };
-  }, []);
+  useHiddenFooter();
 
   useEffect(() => {
     store.initDomain(params.domain, params.timeSpan, params.timestamp);
@@ -51,7 +44,7 @@ const Weather = () => {
     if (currentTime && domainId && !params.timestamp) {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: domainId,
-        timestamp: currentTime.toISOString(),
+        timestamp: currentTime.toString(),
         timeSpan: store.timeSpan.get()
       });
     }
@@ -87,7 +80,6 @@ const Weather = () => {
           </div>
         )}
       </section>
-      <SmShare />
     </>
   );
 };

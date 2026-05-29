@@ -26,9 +26,10 @@ export type BulletinStatus =
 interface Props {
   date: Temporal.PlainDate;
   status: BulletinStatus;
+  region: string;
 }
 
-function ArchiveItem({ date, status }: Props) {
+function ArchiveItem({ date, status, region }: Props) {
   const intl = useIntl();
 
   function getLanguage() {
@@ -97,7 +98,8 @@ function ArchiveItem({ date, status }: Props) {
                 format="pdf"
                 date={date}
                 lang={lang}
-                bulletin={bulletin?.bulletinID}
+                bulletin={bulletin}
+                region={region}
               />
             </li>
           )}
@@ -153,11 +155,13 @@ function DownloadLink({
   bulletin,
   format,
   date,
+  region,
   lang
 }: {
-  bulletin?: string;
+  bulletin?: Bulletin;
   format: "pdf" | "xml" | "json";
   date: Temporal.PlainDate;
+  region: string;
   lang: string;
 }) {
   const province = useStore($province);
@@ -168,13 +172,24 @@ function DownloadLink({
   const url = config.apis.bulletin[format];
   return (
     <a
-      href={config.template(url, {
-        bulletin: bulletin || "",
-        date,
-        region: `${province || "EUREGIO"}${format === "pdf" && url.includes("/api/bulletins") ? "" : "_"}`,
-        lang,
-        bw: ""
-      })}
+      href={config.template(
+        url,
+        url.includes("/api/bulletins/pdf")
+          ? {
+              date: bulletin.validTime?.startTime?.toISOString(),
+              region: province ?? "EUREGIO",
+              microRegionId: region,
+              lang,
+              bw: ""
+            }
+          : {
+              bulletinId: "",
+              date,
+              region: `${province || "EUREGIO"}${"_"}`,
+              lang,
+              bw: ""
+            }
+      )}
       rel="noopener noreferrer"
       target="_blank"
       className="small secondary pure-button tooltip"

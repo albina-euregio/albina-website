@@ -1,3 +1,5 @@
+import { LatLngBounds } from "leaflet";
+
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
   { import: "default", eager: true }
@@ -16,6 +18,7 @@ export enum EawsRegionDataLayer {
 
 export const MicroRegionPropertiesSchema = z.object({
   id: z.string(),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
   start_date: z.nullish(z.string()),
   end_date: z.nullish(z.string())
 });
@@ -59,10 +62,10 @@ export function filterFeature(
   );
 }
 
-export function microRegionIds(
+export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
-): string[] {
+) {
   return z
     .array(MicroRegionPropertiesSchema)
     .parse(
@@ -70,10 +73,55 @@ export function microRegionIds(
         id =>
           regions_properties[
             `../../node_modules/@eaws/micro-regions_properties/${id}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){1}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){2}$/, "")}_micro-regions.json`
+          ] ??
+          regions_properties[
+            `../../node_modules/@eaws/micro-regions_properties/${id.replace(/(-[^-]+){3}$/, "")}_micro-regions.json`
           ]
       )
     )
-    .filter(properties => filterFeature({ properties }, today))
+    .filter(Boolean)
+    .filter(properties => filterFeature({ properties }, today));
+}
+
+export function microRegionIds(
+  today: Temporal.PlainDate,
+  regionCodes = config.regionCodes
+): string[] {
+  return microRegions(today, regionCodes)
     .map(f => String(f.id))
     .sort();
+}
+
+/**
+ * Given a micro-region or outline-region ID, returns the macro-region code
+ * (from config.regionCodes or config.extraRegions) that it belongs to.
+ */
+export function getMacroRegion(regionId: string): string | undefined {
+  if (!regionId) return undefined;
+  return [...config.regionCodes, ...config.extraRegions].find(
+    code => regionId === code || regionId.startsWith(code + "-")
+  );
+}
+
+export function microRegionBounds(
+  today: Temporal.PlainDate,
+  microRegionId: string,
+  regionCodes = config.regionCodes
+): LatLngBounds {
+  const region = microRegions(today, regionCodes)?.find(
+    r => r.id === microRegionId
+  );
+  if (region?.bbox) {
+    return new LatLngBounds([
+      [region.bbox[1], region.bbox[0]],
+      [region.bbox[3], region.bbox[2]]
+    ]);
+  }
+  return new LatLngBounds([]);
 }

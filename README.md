@@ -22,7 +22,7 @@ Use `pnpm start` and browse to http://localhost:3000/ to use dev server.
 
 Use `pnpm run start-dev` and browse to http://localhost:3000/ to use dev server.
 
-Configuration for dev (environment) is defined in config-dev.json, which overrides settings in config.json
+Configuration for dev (environment) is defined in config.DEV.json, which overrides settings in config.json
 
 ### Browserstack debugging
 
@@ -30,7 +30,7 @@ in order to test IOS Devices in local mode, server.host in vite.config.ts has to
 
 ## Deployment
 
-Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly.
+Configure [config.json](https://gitlab.com/albina-euregio/albina-website/-/blob/master/app/config.json) accordingly. See
 
 Use `pnpm run build` to create a (minified) production build.
 
@@ -38,11 +38,24 @@ After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
 run `pnpm run build --base=/.../` instead.
 
-| environment | build                 | deploy                 | link                           |
-| ----------- | --------------------- | ---------------------- | ------------------------------ |
-| production  | `pnpm run build-prod` | `pnpm run deploy-prod` | https://avalanche.report/      |
-| beta        | `pnpm run build-beta` | `pnpm run deploy-beta` | https://avalanche.report/beta/ |
-| development | `pnpm run build-dev`  | `pnpm run deploy-dev`  | https://avalanche.report/dev/  |
+| environment | build                 | link                           |
+| ----------- | --------------------- | ------------------------------ |
+| production  | `pnpm run build-prod` | https://avalanche.report/      |
+| beta        | `pnpm run build-beta` | https://beta.avalanche.report/ |
+| development | `pnpm run build-dev`  | https://dev.avalanche.report/  |
+
+### Configuring regions
+
+- `regionCodes` defines the list of main regions for this instance.
+  - The map is automatically adjusted to fit all these regions.
+  - If a region does not publish a report, it shows up blue in the map and links to the region blog.
+
+In addition there are `extraRegions` and `eawsRegions`.
+
+- For all `extraRegions` we load the full CAAML and display the bulletin when such a region is selected in the map. If no CAAML can be found for an `extraRegion`, we display the region as grey (no-rating) and link to the corresponding warning service.
+- For `eawsRegions` we only load the rating and link to the official site. If no rating is present in `ratings.json` we display the region as transparent (no color).
+
+The parameter `province=...` overrides `regionCodes`. The regions of `regionCodes` get demoted to `extraRegions` in that case.
 
 ## Server configuration (Caddy)
 
@@ -50,12 +63,6 @@ run `pnpm run build --base=/.../` instead.
 www.avalanche.report, avalanche.report {
 	handle_path /beta/* {
 		root * /var/www/avalanche.report/beta/
-		try_files {path} /index.html
-		file_server
-	}
-
-	handle_path /dev/* {
-		root * /var/www/avalanche.report/dev/
 		try_files {path} /index.html
 		file_server
 	}

@@ -588,7 +588,7 @@ $cp-breakpoint-3: 1024px;
     border-left: none;
   }
 }
-.cp-range-hourly {
+.cp-range-label {
   display: block;
   height: $cp-layer-range-height;
   width: $cp-range-width;
@@ -710,6 +710,12 @@ $cp-breakpoint-3: 1024px;
   @include map-cockpit-legend-items.legend-generator(
     map-cockpit-legend-items.$cp-legend-snowdiff-items,
     12
+  );
+}
+.cp-legend-snowrelative {
+  @include map-cockpit-legend-items.legend-generator(
+    map-cockpit-legend-items.$cp-legend-snowrelative-items,
+    10
   );
 }
 .cp-legend-snowline {

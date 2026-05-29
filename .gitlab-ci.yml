@@ -55,8 +55,20 @@ workflow:
 
 build:ES-AR:
   extends: .build
+  environment:
+    name: ES-AR
   variables:
     APP_REGION: ES-AR
+  script:
+    - pnpm test
+    - pnpm build
+
+build:ES-CT-L:
+  extends: .build
+  environment:
+    name: ES-CT-L
+  variables:
+    APP_REGION: ES-CT-L
   script:
     - pnpm test
     - pnpm build
@@ -101,6 +113,21 @@ deploy:prod:
     name: prod
   needs:
     - build:prod
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+      allow_failure: true
+
+build:www2:
+  extends: .build
+  environment:
+    name: www2
+deploy:www2:
+  extends: .deploy
+  environment:
+    name: www2
+  needs:
+    - build:www2
   rules:
     - if: "$CI_COMMIT_TAG"
       when: manual

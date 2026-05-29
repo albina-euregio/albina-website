@@ -2,7 +2,6 @@ import React from "react";
 import { Tooltip } from "../tooltips/tooltip";
 
 export default function FrequencyIcon({ title, frequency }) {
-  const imgRoot = window.config.projectRoot + "images/pro//frequencies/";
   const classes = ["bulletin-report-picto", "bulletin-situation-frequency"];
 
   return (
@@ -10,7 +9,7 @@ export default function FrequencyIcon({ title, frequency }) {
       <Tooltip label={title}>
         <a href={"/education/avalanche-problems#frequency"} className="img">
           <img
-            src={imgRoot + "frequency_" + frequency + ".png"}
+            src={`${window.config.projectRoot}images/pro/frequencies/frequency_${frequency}.png`}
             alt={title}
             title={title}
           />

@@ -1,0 +1,476 @@
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
+import { FormattedMessage, useIntl } from "../../i18n";
+import { StationData } from "../../stores/stationDataStore";
+import { Tooltip } from "../tooltips/tooltip";
+import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
+import { currentSeasonYear } from "../../util/date-season";
+import "@albina-euregio/linea";
+import { useSwipeable } from "react-swipeable";
+import { Feature } from "@albina-euregio/linea/listing";
+
+declare module "react/jsx-runtime" {
+  // oxlint-disable-next-line typescript/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "linea-plot": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & {
+          features?: string;
+          showsurfacehoarseries?: boolean;
+          showexport?: boolean;
+          showdatepicker?: boolean;
+          showonlywinter?: boolean;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
+
+function hasInteractivePlot(station: StationData | Feature) {
+  return station instanceof StationData && station.properties.dataURLs?.length;
+}
+
+const timeRanges = {
+  day: "tag",
+  threedays: "dreitage",
+  week: "woche",
+  month: "monat",
+  winter: "winter"
+};
+
+type TimeRange = keyof typeof timeRanges;
+
+export interface Props {
+  stationData: (StationData | Feature)[];
+  stationId: string;
+  setStationId: (rowId: string) => void;
+}
+
+const YearFlipper: React.FC<{
+  selectedYear: number | null;
+  setSelectedYear: (selectedYear: number | null) => void;
+}> = ({ selectedYear, setSelectedYear }) => {
+  const intl = useIntl();
+  const curYear = currentSeasonYear();
+  let nextYear: null | number = null;
+  let lastYear: null | number = null;
+  if (selectedYear) {
+    if (selectedYear > 1960) lastYear = selectedYear - 1;
+    if (selectedYear < curYear) nextYear = selectedYear + 1;
+  } else {
+    selectedYear = curYear;
+    lastYear = curYear - 1;
+  }
+  return (
+    <>
+      {lastYear && (
+        <li className="weatherstation-flipper-back">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:back"
+            })}
+          >
+            <a href="#" onClick={() => setSelectedYear(lastYear)}>
+              <span className="icon-arrow-left"></span>
+              {lastYear}/{lastYear + 1}
+            </a>
+          </Tooltip>
+        </li>
+      )}
+      <li className="weatherstation-flipper-current">
+        {selectedYear}/{selectedYear + 1}
+      </li>
+      {nextYear && (
+        <li className="weatherstation-flipper-forward">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:forward"
+            })}
+          >
+            <a
+              href="#"
+              onClick={() =>
+                setSelectedYear(curYear === nextYear ? null : nextYear)
+              }
+            >
+              {nextYear}/{nextYear + 1}&nbsp;
+              <span className="icon-arrow-right"></span>
+            </a>
+          </Tooltip>
+        </li>
+      )}
+      {selectedYear && (
+        <li className="weatherstation-flipper-forward">
+          <Tooltip
+            label={intl.formatMessage({
+              id: "weatherstation-diagrams:latest"
+            })}
+          >
+            <a href="#" onClick={() => setSelectedYear(null)}>
+              <span>
+                {intl.formatMessage({
+                  id: "dialog:weather-station-diagram:yearFlipper:latest"
+                })}
+              </span>
+            </a>
+          </Tooltip>
+        </li>
+      )}
+    </>
+  );
+};
+
+const StationFlipper: React.FC<{
+  previous: () => void;
+  previousStation: StationData | Feature | undefined;
+  next: () => void;
+  nextStation: StationData | Feature | undefined;
+  children: React.ReactNode;
+}> = ({ previous, previousStation, next, nextStation, children }) => {
+  const intl = useIntl();
+  if (!previousStation || !nextStation) {
+    return null;
+  }
+  return (
+    <ul className="list-inline weatherstation-flipper">
+      <li></li>
+      {children}
+      <li className="weatherstation-flipper-station">
+        <ul className="list-inline weatherstation-flipper">
+          <li className="weatherstation-flipper-back">
+            <Tooltip
+              label={intl.formatMessage({
+                id: "weatherstation-diagrams:priorstation"
+              })}
+            >
+              <a href="#" onClick={previous}>
+                <span className="icon-arrow-left"></span>
+                {previousStation.name}
+              </a>
+            </Tooltip>
+          </li>
+          <li className="weatherstation-flipper-forward">
+            <Tooltip
+              label={intl.formatMessage({
+                id: "weatherstation-diagrams:nextstation"
+              })}
+            >
+              <a href="#" onClick={next}>
+                {nextStation.name}&nbsp;
+                <span className="icon-arrow-right"></span>
+              </a>
+            </Tooltip>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  );
+};
+
+const MeasurementValues: React.FC<{ stationData: StationData }> = ({
+  stationData
+}) => {
+  const intl = useIntl();
+  if (!stationData.parametersForDialog.length) {
+    return (
+      <ul className="list-inline weatherstation-info">
+        <li>
+          <StationOperator stationData={stationData} />
+        </li>
+      </ul>
+    );
+  }
+  return (
+    <ul className="list-inline weatherstation-info">
+      {stationData.parametersForDialog.map(aInfo => (
+        <li key={aInfo.type} className={aInfo.type}>
+          <span className="weatherstation-info-caption">
+            {intl.formatMessage({
+              id: `measurements:table:header:${aInfo.type}`
+            })}
+            :{" "}
+          </span>
+          <span className="weatherstation-info-value">
+            {intl.formatNumberUnit(aInfo.value, aInfo.unit, aInfo.digits)}
+          </span>
+        </li>
+      ))}
+      <li>
+        <small>
+          (
+          <time dateTime={stationData.date}>
+            {intl.formatDate(stationData.date, DATE_TIME_ZONE_FORMAT)}
+          </time>
+          )
+        </small>
+      </li>
+      <li>
+        {stationData instanceof StationData && (
+          <StationOperator stationData={stationData} />
+        )}
+      </li>
+    </ul>
+  );
+};
+
+const TimeRangeButtons: React.FC<{
+  station: StationData | Feature;
+  timeRange: TimeRange;
+  setTimeRange: (timeRange: TimeRange) => void;
+}> = ({ station, timeRange, setTimeRange }) => {
+  const intl = useIntl();
+  return (
+    <ul className="list-inline filter primary">
+      {(Object.keys(timeRanges) as TimeRange[])
+        .filter(() => station.properties.plot)
+        .map(key => (
+          <li key={key}>
+            <a
+              href="#"
+              onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                setTimeRange(key !== "none" ? (key as TimeRange) : "threedays");
+              }}
+              className={key === timeRange ? "label js-active" : "label"}
+            >
+              {intl.formatMessage({
+                id: `dialog:weather-station-diagram:timerange:${key}`
+              })}
+            </a>
+          </li>
+        ))}
+    </ul>
+  );
+};
+
+const StationDiagramImage: React.FC<{
+  station: StationData | Feature;
+  clientWidth: number;
+  selectedYear: number | null;
+  timeRange: TimeRange;
+}> = ({ station, clientWidth, selectedYear, timeRange }) => {
+  if (hasInteractivePlot(station) && station instanceof StationData) {
+    return (
+      <div className="uplots">
+        <linea-plot
+          key={station.id}
+          features={JSON.stringify([station])}
+          showsurfacehoarseries
+          showexport
+          showdatepicker
+          forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
+        />
+      </div>
+    );
+  }
+
+  if (
+    !(station instanceof StationData) &&
+    station.properties.plot &&
+    (import.meta.env.DEV || import.meta.env.APP_REGION === "DEV")
+  ) {
+    const url = station.properties.plot;
+    const today = Temporal.Now.plainDateISO();
+    const startDate = selectedYear
+      ? new Temporal.PlainDate(selectedYear, 9, 1)
+      : today.month >= 9
+        ? new Temporal.PlainDate(today.year, 9, 1)
+        : new Temporal.PlainDate(today.year - 1, 9, 1);
+    return (
+      <linea-plot
+        key={url + startDate.toString()}
+        features={JSON.stringify([station])}
+        showdatepicker
+        showonlywinter
+        forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
+      />
+    );
+  }
+
+  let t = Temporal.Now.plainDateTimeISO();
+  t = t.with({
+    minute: Math.round(t.minute / 5) * 5,
+    second: 0,
+    millisecond: 0
+  });
+  const width = clientWidth >= 1100 ? 1100 : 800;
+  const src = window.config.template(station.properties.plot ?? "", {
+    width,
+    interval: timeRanges[timeRange],
+    year: selectedYear ? "_" + selectedYear : "",
+    t
+  });
+  return (
+    <img
+      alt={station.properties.name}
+      src={src}
+      className="weatherstation-img"
+    />
+  );
+};
+
+const StationOperator: React.FC<{
+  stationData: StationData;
+}> = ({ stationData }) => {
+  return (
+    <>
+      <FormattedMessage id="dialog:weather-station-diagram:provider" />
+      {": "}
+      <a
+        key={stationData.properties.operatorLink}
+        href={stationData.properties.operatorLink}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {stationData.properties.operator}
+      </a>
+      {stationData.properties.operatorLicense && (
+        <>
+          {" ("}
+          <a
+            href={stationData.properties.operatorLicenseLink ?? ""}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {stationData.properties.operatorLicense}
+          </a>
+          {")"}
+        </>
+      )}
+    </>
+  );
+};
+
+const WeatherStationDiagrams: React.FC<Props> = ({
+  stationData,
+  stationId,
+  setStationId
+}) => {
+  const intl = useIntl();
+  const myRef = useRef<HTMLDivElement>();
+  const [timeRange, setTimeRange] = useState<TimeRange>("week");
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+
+  const stationIndex = useMemo((): number => {
+    return stationData.findIndex(e => e.id == stationId);
+  }, [stationData, stationId]);
+
+  useEffect(() => {
+    // Close the dialog if the selected station is not present in the current data snapshot.
+    if (stationId && stationData.length > 0 && stationIndex < 0) {
+      setStationId("");
+    }
+  }, [setStationId, stationData.length, stationId, stationIndex]);
+
+  const nextStation = useMemo((): StationData | Feature | undefined => {
+    if (stationIndex < 0) return undefined;
+    let index = stationIndex;
+    if (index < stationData.length - 1) {
+      index++;
+    }
+    return stationData[index];
+  }, [stationData, stationIndex]);
+
+  const previousStation = useMemo((): StationData | Feature | undefined => {
+    if (stationIndex < 0) return undefined;
+    let index = stationIndex;
+    if (index > 0) {
+      index--;
+    }
+    return stationData[index];
+  }, [stationData, stationIndex]);
+
+  const next = useCallback(
+    () => nextStation && setStationId(nextStation.id),
+    [nextStation, setStationId]
+  );
+
+  const previous = useCallback(
+    () => previousStation && setStationId(previousStation.id),
+    [previousStation, setStationId]
+  );
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => next(),
+    onSwipedRight: () => previous(),
+    delta: 100
+  });
+
+  if (!stationData) return <div></div>;
+  const station = stationData[stationIndex];
+  if (!station) return <div></div>;
+  const isStation = station instanceof StationData;
+  const [microRegionId] = isStation ? station.microRegion.split(" ") : "";
+  return (
+    <div className="modal-container">
+      <div className="modal-weatherstation" ref={myRef}>
+        <div className="modal-header" {...handlers}>
+          {isStation && (
+            <p className="caption">
+              {intl.formatMessage({
+                id: "dialog:weather-station-diagram:header"
+              })}{" "}
+              {microRegionId && (
+                <>
+                  {" "}
+                  ({microRegionId}{" "}
+                  {intl.formatMessage({
+                    id: "region:" + microRegionId
+                  })}
+                  )
+                </>
+              )}
+            </p>
+          )}
+          <h2 className="">
+            <span className="weatherstation-name">{station.name} </span>
+            {isStation && station.altitude && (
+              <span className="weatherstation-altitude">
+                {intl.formatNumberUnit(station.altitude, "m")}
+              </span>
+            )}
+          </h2>
+        </div>
+        <StationFlipper
+          next={next}
+          nextStation={nextStation}
+          previous={previous}
+          previousStation={previousStation}
+        >
+          {!isStation && (
+            <YearFlipper
+              selectedYear={selectedYear}
+              setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
+            />
+          )}
+        </StationFlipper>
+        <div className="modal-content">
+          {isStation && <MeasurementValues stationData={station} />}
+          {isStation && !hasInteractivePlot(station) && (
+            <TimeRangeButtons
+              station={station}
+              timeRange={timeRange}
+              setTimeRange={timeRange => setTimeRange(timeRange)}
+            />
+          )}
+          <StationDiagramImage
+            clientWidth={myRef?.current?.clientWidth ?? 1}
+            selectedYear={selectedYear}
+            station={station}
+            timeRange={timeRange}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WeatherStationDiagrams;

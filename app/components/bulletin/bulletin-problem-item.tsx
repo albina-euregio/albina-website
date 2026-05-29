@@ -7,6 +7,10 @@ import ElevationIcon from "../icons/elevation-icon";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
 import type { AvalancheProblem } from "../../stores/bulletin";
+import { EnabledLanguages } from "./internal-glossary/internal-glossary";
+const BulletinInternalGlossaryText = React.lazy(
+  () => import("./internal-glossary/internal-glossary-text")
+);
 
 interface Props {
   problem: AvalancheProblem;
@@ -36,6 +40,7 @@ const textInfoToClass = {
 
 function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const intl = useIntl();
+  const lang = intl.locale.slice(0, 2);
   function getElevationIcon() {
     const lowerBound = problem?.elevation?.lowerBound;
     const upperBound = problem?.elevation?.upperBound;
@@ -207,6 +212,12 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
   const avalancheSizeText = intl.formatMessage({
     id: "bulletin:report:problem:avalanche-size"
   });
+
+  const glossaryParams = {
+    stabilityClass: intl.formatMessage({
+      id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+    })
+  };
   return (
     <li
       // style={
@@ -280,9 +291,15 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   </span>
                   <span className="matrix-info-value">
                     <a href={`/education/snowpack-stability`}>
-                      {intl.formatMessage({
-                        id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
-                      })}
+                      <BulletinInternalGlossaryText
+                        text={intl.formatMessage({
+                          id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                        })}
+                        locale={lang as EnabledLanguages}
+                        textKey={
+                          "snowpack-stability-" + problem?.snowpackStability
+                        }
+                      />
                     </a>
                   </span>
                 </div>
@@ -304,9 +321,14 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                 <span className="matrix-info-name">{frequencyText}:</span>
                 <span className="matrix-info-value">
                   <a href={`/education/frequency`}>
-                    {intl.formatMessage({
-                      id: `bulletin:report:problem:frequency:${problem?.frequency}`
-                    })}
+                    <BulletinInternalGlossaryText
+                      text={intl.formatMessage({
+                        id: `bulletin:report:problem:frequency:${problem?.frequency}`
+                      })}
+                      locale={lang as EnabledLanguages}
+                      textKey={"avalanche-frequency-" + problem?.frequency}
+                      glossaryParams={glossaryParams}
+                    />
                   </a>
                 </span>
               </div>
@@ -332,9 +354,13 @@ function BulletinProblemItem({ problem, problem170000, showDiff }: Props) {
                   <a
                     href={`/education/avalanche-sizes#anchor-${problem?.avalancheSize}`}
                   >
-                    {intl.formatMessage({
-                      id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
-                    })}
+                    <BulletinInternalGlossaryText
+                      text={intl.formatMessage({
+                        id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
+                      })}
+                      locale={lang as EnabledLanguages}
+                      textKey={"avalanche-size-" + problem?.avalancheSize}
+                    />
                   </a>
                 </span>
               </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Language, mainLanguages } from "../../appStore";
+import { Language } from "../../appStore";
 
 interface Props {
   value: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function LanguageFilter(props: Props) {
-  const languages = props.languages ?? mainLanguages;
+  const languages = props.languages ?? config.mainLanguages;
   if (props.buttongroup) {
     return (
       <ul className="list-inline list-buttongroup-dense">

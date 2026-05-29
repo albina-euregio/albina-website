@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "leaflet/styles.css";
 import LeafletMapControls from "./leaflet-map-controls";
 
@@ -8,18 +8,22 @@ import {
   AttributionControl,
   ScaleControl,
   MapContainerProps,
-  TileLayerProps
+  TileLayerProps,
+  WMSTileLayer
 } from "react-leaflet";
 import L from "leaflet";
-import { $province } from "../../appStore.ts";
+import { $focusRegions } from "../../appStore.ts";
 import { useStore } from "@nanostores/react";
+import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 
 interface Props {
   loaded: boolean;
   gestureHandling: boolean;
   controls: React.ReactNode;
+  showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
   tileLayerConfigOverride: Partial<TileLayerProps>;
+  secondaryTileLayerConfigOverride?: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
   enableStationPinsToggle?: boolean;
@@ -28,7 +32,11 @@ interface Props {
 }
 
 const LeafletMap = (props: Props) => {
-  const province = useStore($province);
+  const focusRegions = useStore($focusRegions);
+  const showDefaultControls = props.showDefaultControls ?? true;
+
+  const bounds = useMemo(() => eawsRegionsBounds(focusRegions), [focusRegions]);
+  const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
 
   return (
     <MapContainer
@@ -51,21 +59,67 @@ const LeafletMap = (props: Props) => {
         ...config.map.initOptions,
         ...props.mapConfigOverride
       }}
-      bounds={config.map[`${province}.bounds`] ?? config.map.euregioBounds}
+      bounds={effectiveBounds}
       attributionControl={false}
     >
-      <AttributionControl prefix={config.map.attribution} />
-      {props.loaded && <ScaleControl imperial={false} position="bottomleft" />}
-      {props.loaded && props.controls}
-      <TileLayer
-        {...{
-          ...config.map.tileLayer,
-          ...props.tileLayerConfigOverride
-        }}
-      />
+      {showDefaultControls && (
+        <AttributionControl prefix={config.map.attribution} />
+      )}
+      {showDefaultControls && props.loaded && (
+        <ScaleControl imperial={false} position="bottomleft" />
+      )}
+      {showDefaultControls && props.loaded && props.controls}
+      {config.map.tileLayer.wms ? (
+        <WMSTileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      ) : (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.tileLayerConfigOverride
+          }}
+        />
+      )}
+
+      {props.secondaryTileLayerConfigOverride && (
+        <TileLayer
+          {...{
+            ...config.map.tileLayer,
+            ...props.secondaryTileLayerConfigOverride
+          }}
+        />
+      )}
       {props.overlays}
-      <LeafletMapControls {...props} />
+      {showDefaultControls && <LeafletMapControls {...props} />}
     </MapContainer>
   );
 };
 export default LeafletMap;
+
+const LeafletMapOpenTopo = (props: Props) => {
+  return LeafletMap({
+    ...props,
+    mapConfigOverride: {
+      ...props.mapConfigOverride,
+      maxZoom: 14
+    },
+    tileLayerConfigOverride: {
+      ...props.tileLayerConfigOverride,
+      maxNativeZoom: 10,
+      maxZoom: 10
+    },
+    secondaryTileLayerConfigOverride: {
+      url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+      attribution:
+        "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
+      maxNativeZoom: 17,
+      minZoom: 10.25,
+      maxZoom: 14
+    }
+  });
+};
+export { LeafletMapOpenTopo };

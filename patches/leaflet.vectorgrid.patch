@@ -1,18 +1,8 @@
+diff --git a/.npmignore b/.npmignore
+deleted file mode 100644
+index 69191e442477eaa113c4cd513cb30e77febf705f..0000000000000000000000000000000000000000
 diff --git a/dist/Leaflet.VectorGrid.bundled.js b/dist/Leaflet.VectorGrid.bundled.js
-index eaf6520be79a64eb1fe227be81b5699d0bb5e1f1..b3bed408d66bb9d266c99c72ceb718f34e065c58 100644
---- a/dist/Leaflet.VectorGrid.bundled.js
-+++ b/dist/Leaflet.VectorGrid.bundled.js
-@@ -2055,7 +2055,7 @@ L.VectorGrid = L.GridLayer.extend({
- 			if (this._map != null) {
- 				renderer.addTo(this._map);
- 			}
--			L.Util.requestAnimFrame(done.bind(coords, null, null));
-+			window.requestAnimationFrame(done.bind(coords, null, null));
- 		}.bind(this));
- 
- 		return renderer.getContainer();
-diff --git a/dist/Leaflet.VectorGrid.bundled.js b/dist/Leaflet.VectorGrid.bundled.js
-index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a3aad710c 100644
+index eaf6520be79a64eb1fe227be81b5699d0bb5e1f1..a6a7b2b392fe95d2431b5b0c08215d5092414819 100644
 --- a/dist/Leaflet.VectorGrid.bundled.js
 +++ b/dist/Leaflet.VectorGrid.bundled.js
 @@ -1666,7 +1666,7 @@ L.SVG.Tile = L.SVG.extend({
@@ -129,7 +119,20 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  						featureLayer.render(renderer, style);
  						renderer._addPath(featureLayer);
  					}
-@@ -2121,7 +2117,7 @@ L.VectorGrid = L.GridLayer.extend({
+@@ -2055,8 +2051,10 @@ L.VectorGrid = L.GridLayer.extend({
+ 			if (this._map != null) {
+ 				renderer.addTo(this._map);
+ 			}
+-			L.Util.requestAnimFrame(done.bind(coords, null, null));
+-		}.bind(this));
++			window.requestAnimationFrame(done.bind(coords, null, null));
++		}.bind(this)).catch(function(e) {
++			done(e && /^Unimplemented type:/.test(e.message) ? null : e, null);
++		});
+ 
+ 		return renderer.getContainer();
+ 	},
+@@ -2121,7 +2119,7 @@ L.VectorGrid = L.GridLayer.extend({
  		}
  
  		for (var j = 0; j < styleOptions.length; j++) {
@@ -138,16 +141,35 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  			feat.updateStyle(renderer, style);
  		}
  	},
-@@ -2262,7 +2258,7 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
+@@ -2262,7 +2260,9 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
  			data['-y'] = invertedY;
  		}
  
 -		var tileUrl = L.Util.template(this._url, L.extend(data, this.options));
-+		var tileUrl = L.Util.template(this._url, Object.assign(data, this.options));
++		Object.assign(data, this.options);
++		var tileUrl = typeof this._url === 'function' ? this._url(data) : L.Util.template(this._url, data);
++		if (!tileUrl) return Promise.resolve({layers:[]});
  
  		return fetch(tileUrl, this.options.fetchOptions).then(function(response){
  
-@@ -2499,7 +2495,7 @@ L.Canvas.Tile = L.Canvas.extend({
+@@ -2274,14 +2274,14 @@ L.VectorGrid.Protobuf = L.VectorGrid.extend({
+ // 				console.log(blob);
+ 
+ 				var reader = new FileReader();
+-				return new Promise(function(resolve){
++				return new Promise(function(resolve, reject){
+ 					reader.addEventListener("loadend", function() {
+ 						// reader.result contains the contents of blob as a typed array
+ 
+ 						// blob.type === 'application/x-protobuf'
+ 						var pbf = new index( reader.result );
+ // 						console.log(pbf);
+-						return resolve(new VectorTile( pbf ));
++						try { return resolve(new VectorTile( pbf )); } catch(e) { return reject(e); }
+ 
+ 					});
+ 					reader.readAsArrayBuffer(blob);
+@@ -2499,7 +2499,7 @@ L.Canvas.Tile = L.Canvas.extend({
  
  		var icon = layer.options.icon,
  		    options = icon.options,
@@ -156,7 +178,7 @@ index b3bed408d66bb9d266c99c72ceb718f34e065c58..f587bbcf147e55e3fbafebc9af46363a
  		    anchor = options.iconAnchor ||
  		        	 size && size.divideBy(2, true),
  		    p = layer._point.subtract(anchor),
-@@ -2519,10 +2515,6 @@ L.Canvas.Tile = L.Canvas.extend({
+@@ -2519,10 +2519,6 @@ L.Canvas.Tile = L.Canvas.extend({
  });
  
  

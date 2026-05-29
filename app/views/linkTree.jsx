@@ -1,6 +1,5 @@
 import React from "react";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { FormattedMessage } from "../i18n";
@@ -125,11 +124,6 @@ class LinkTree extends React.Component {
           </div>
         </section>
         <div className="clearfix" />
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
       </>
     );
   }

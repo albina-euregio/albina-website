@@ -5,8 +5,6 @@ import Menu from "../menu";
 import FooterLogos from "./footer-logos.jsx";
 
 import { Tooltip } from "../tooltips/tooltip";
-import footerMenuMore from "../../menu-footer.json";
-import footerMenuMain from "../../menu-footer-main.json";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
@@ -35,11 +33,11 @@ const PageFooter = () => {
           <div className="grid-item normal-6">
             <Menu
               className="list-inline footer-navigation footer-navigation-more"
-              entries={footerMenuMore}
+              entries={config.menuFooter}
             />
             <Menu
               className="list-plain footer-navigation footer-navigation-main"
-              entries={footerMenuMain}
+              entries={config.menuFooterMain}
             />
           </div>
           <div className="grid-item normal-6">
@@ -93,22 +91,24 @@ const PageFooter = () => {
               </Tooltip>
             </p>
 
-            <p className="page-footer-logo-secondary">
-              <Tooltip
-                label={intl.formatMessage({
-                  id: "footer:euregio:hover"
-                })}
-              >
-                <a
-                  href={config.template(config.links.euregio, { lang })}
-                  className="header-footer-logo-secondary"
-                  rel="noopener noreferrer"
-                  target="_blank"
+            {config.links.euregio && (
+              <p className="page-footer-logo-secondary">
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: "footer:euregio:hover"
+                  })}
                 >
-                  <span>Euregio</span>
-                </a>
-              </Tooltip>
-            </p>
+                  <a
+                    href={config.template(config.links.euregio, { lang })}
+                    className="header-footer-logo-secondary"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>Euregio</span>
+                  </a>
+                </Tooltip>
+              </p>
+            )}
           </div>
           <div className="grid-item all-12">
             <p className="page-footer-top">

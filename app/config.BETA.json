@@ -1,0 +1,16 @@
+{
+  "languageHostSettings": {
+    "en": "beta.avalanche.report",
+    "ca": "ca.avalanche.report",
+    "de": "beta.lawinen.report",
+    "es": "es.avalanche.report",
+    "fr": "fr.avalanche.report",
+    "oc": "oc.avalanche.report",
+    "it": "beta.valanghe.report"
+  },
+  "hostLanguageSettings": {
+    "beta.avalanche.report": "en",
+    "beta.lawinen.report": "de",
+    "beta.valanghe.report": "it"
+  }
+}
