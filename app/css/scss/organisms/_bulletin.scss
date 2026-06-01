@@ -488,6 +488,10 @@
       font-size: variables.$nano-font-size;
       line-height: 1.2;
       text-align: center;
+      .glossary {
+        margin: 0;
+        white-space: initial;
+      }
     }
 
     > a {

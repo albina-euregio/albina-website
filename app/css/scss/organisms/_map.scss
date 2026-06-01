@@ -206,12 +206,6 @@ $search-width-wide: 300px;
     }
   }
 
-  .leaflet-control-table a {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-
   //no zoom on touch devices
   @media (hover: none) and (pointer: coarse) {
     .leaflet-control-zoom {
@@ -338,6 +332,12 @@ $search-width-wide: 300px;
         }
       }
     }
+  }
+
+  .leaflet-control-table a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
   }
 }
 

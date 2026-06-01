@@ -154,7 +154,7 @@ img {
   margin-top: -(variables.$margin-bottom);
 }
 
-/* ── LINEA Blog export overlay ──────────────────────────────────── */
+// LINEA Blog export overlay
 [data-lineaplot-wrapper]:has(.linea-custom-element) > img {
   display: none;
 }
