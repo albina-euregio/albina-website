@@ -1,0 +1,23 @@
+@use "sass:color";
+
+@use "../abstracts/bounds";
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../atoms/bgs";
+@use "../atoms/media";
+
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #BULLETIN 2026
+\*------------------------------------*/
+
+[data-bulletin-version="2026"] {
+  .funky-example {
+    color: funky;
+  }
+}
