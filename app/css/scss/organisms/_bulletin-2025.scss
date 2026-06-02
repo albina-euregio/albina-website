@@ -16,6 +16,43 @@
     #BULLETIN
 \*------------------------------------*/
 
+// Bulletin component tokens: structure -> sizing -> behavior.
+$bulletin-space-2xs: variables.$padding * 0.25;
+$bulletin-space-xs: variables.$padding * 0.5;
+$bulletin-space-sm: variables.$padding;
+$bulletin-space-lg: variables.$padding * 2;
+
+$bulletin-picto-size: media.$picto-height;
+$bulletin-picto-size-minus: media.$picto-height-minus;
+$bulletin-picto-caption-margin: $bulletin-space-2xs
+  (-(variables.$padding) * 0.9) 0 (-(variables.$padding) * 0.9);
+$bulletin-picto-caption-line-height: 1.2;
+
+$bulletin-overlay-idle: rgba(variables.$brand, 0);
+$bulletin-overlay-hover: rgba(variables.$brand, 0.05);
+
+@mixin bulletin-picto-overlay-base {
+  &:after {
+    z-index: 5;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: $bulletin-overlay-idle;
+    @include mixins.rollout(all, variables.$transition-duration * 2);
+  }
+}
+
+@mixin bulletin-picto-overlay-hover {
+  @include mixins.rollover;
+  &:after {
+    background-color: $bulletin-overlay-hover;
+    @include mixins.rollover(all, variables.$transition-duration * 2);
+  }
+}
+
 .section-bulletin {
   .list-labels {
     margin-bottom: variables.$margin-bottom * 0.5;
@@ -31,7 +68,7 @@
     font-size: variables.$tiny-font-size; //$body-font-size-tiny;
   }
   p {
-    margin-bottom: variables.$padding * 0.5;
+    margin-bottom: $bulletin-space-xs;
     font-size: variables.$tiny-font-size; //$body-font-size-tiny;
     @include mixins.letter-spacing;
     strong {
@@ -39,24 +76,23 @@
     }
   }
   img {
-    height: media.$picto-height;
-    //max-width: none;//<- why?
+    height: $bulletin-picto-size;
     margin: 0;
     @include mixins.rollover;
   }
 
   .list-avalanche-problems-filter {
-    padding-top: variables.$padding;
+    padding-top: $bulletin-space-sm;
     display: flex;
     flex-wrap: nowrap;
-    gap: 0 (variables.$padding * 2);
+    gap: 0 $bulletin-space-lg;
 
     li {
       position: relative;
     }
 
     .picto-img {
-      transform: translateY(-(variables.$padding));
+      transform: translateY(-$bulletin-space-sm);
       border: variables.$border-width variables.$border-style
         variables.$border-color;
       @include mixins.rollout;
@@ -65,33 +101,21 @@
       svg {
         opacity: 1;
       }
-      &:after {
-        z-index: 5;
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: rgba(variables.$brand, 0);
-        @include mixins.rollout(all, variables.$transition-duration * 2);
-      }
+      @include bulletin-picto-overlay-base;
     }
 
     .picto-caption {
       position: relative;
-      margin: (variables.$padding * 0.25) (-(variables.$padding) * 0.9) 0
-        (-(variables.$padding) * 0.9);
+      margin: $bulletin-picto-caption-margin;
       font-size: variables.$nano-font-size;
-      line-height: 1.2;
+      line-height: $bulletin-picto-caption-line-height;
       text-align: center;
     }
 
     a {
       position: relative;
       display: block;
-      width: media.$picto-height;
-      // height: $picto-height-plus;
+      width: $bulletin-picto-size;
       background: none;
 
       &:after {
@@ -100,11 +124,7 @@
 
       &:hover {
         .picto-img {
-          @include mixins.rollover;
-          &:after {
-            background-color: rgba(variables.$brand, 0.05);
-            @include mixins.rollover(all, variables.$transition-duration * 2);
-          }
+          @include bulletin-picto-overlay-hover;
         }
       }
 
@@ -155,29 +175,11 @@
         display: block;
       }
     }
-    .warning-level-1 {
-      &:before {
-        @extend .bg-warning-level-1;
-      }
-    }
-    .warning-level-2 {
-      &:before {
-        @extend .bg-warning-level-2;
-      }
-    }
-    .warning-level-3 {
-      &:before {
-        @extend .bg-warning-level-3;
-      }
-    }
-    .warning-level-4 {
-      &:before {
-        @extend .bg-warning-level-4;
-      }
-    }
-    .warning-level-5 {
-      &:before {
-        @extend .bg-warning-level-5;
+    @for $level from 1 through 5 {
+      .warning-level-#{$level} {
+        &:before {
+          @extend .bg-warning-level-#{$level};
+        }
       }
     }
   }
@@ -199,16 +201,6 @@
     }
   }
 }
-
-//from alien app.scss
-// #section-bulletin-report {
-//   commented out 'cause it won't select anything anyway
-//   @media only screen and (max-width: 57.5em) {
-//     .page-main section.section-centered {
-//       padding: 0px !important;
-//     }
-//   }
-// }
 
 .bulletin-report-header {
   display: flex;
@@ -237,13 +229,6 @@
     background: variables.$tertiary-color;
     border: variables.$border-width variables.$border-style
       variables.$tertiary-color;
-    // @media (hover: hover) {
-    //   &:hover {
-    //     color: $primary-color;
-    //     background: $white;
-    //     border-color: $white;
-    //   }
-    // }
 
     .marginal {
       margin: inherit;
@@ -322,7 +307,6 @@
   @media #{variables.$normal-up} {
     display: flex;
     align-self: stretch;
-    //max-width: none;//<- why?
     margin-bottom: 0;
   }
 
@@ -442,8 +426,7 @@
   }
   img,
   svg {
-    height: media.$picto-height;
-    //max-width: none;//<- why?
+    height: $bulletin-picto-size;
     margin: 0;
   }
   span {
@@ -462,31 +445,20 @@
       img,
       svg {
         max-width: none;
-        height: media.$picto-height;
+        height: $bulletin-picto-size;
         margin: 0;
       }
-      &:after {
-        z-index: 5;
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: rgba(variables.$brand, 0);
-        @include mixins.rollout(all, variables.$transition-duration * 2);
-      }
+      @include bulletin-picto-overlay-base;
     }
 
     .picto-caption {
       position: relative;
-      max-width: media.$picto-height + variables.$padding * 1.8;
-      margin: (variables.$padding * 0.25) (-(variables.$padding) * 0.9) 0
-        (-(variables.$padding) * 0.9);
+      max-width: $bulletin-picto-size + variables.$padding * 1.8;
+      margin: $bulletin-picto-caption-margin;
       @include mixins.font-normal;
       @include mixins.letter-spacing(0);
       font-size: variables.$nano-font-size;
-      line-height: 1.2;
+      line-height: $bulletin-picto-caption-line-height;
       text-align: center;
       .glossary {
         margin: 0;
@@ -504,21 +476,16 @@
       }
       &:hover {
         .picto-img {
-          @include mixins.rollover;
-          &:after {
-            background-color: rgba(variables.$brand, 0.05);
-            @include mixins.rollover(all, variables.$transition-duration * 2);
-          }
+          @include bulletin-picto-overlay-hover;
         }
       }
     }
   }
 
   &.problem-altitude {
-    // flex-grow: 3;
     img,
     svg {
-      height: media.$picto-height-minus;
+      height: $bulletin-picto-size-minus;
     }
     span {
       position: relative;
@@ -608,62 +575,20 @@
 
   &.matrix-information {
     flex-direction: column;
-    gap: (variables.$padding * 0.25) 0;
+    gap: $bulletin-space-2xs 0;
     @include mixins.font-normal;
     @include mixins.letter-spacing(0);
     font-size: variables.$nano-font-size;
-    line-height: 1.2;
+    line-height: $bulletin-picto-caption-line-height;
   }
-  // .matrix-info-headline {
-  //   display: flex;
-  //   flex-wrap: nowrap;
-  //   span { margin: 0; }
-  // }
   .matrix-info {
     display: flex;
     flex-wrap: nowrap;
-    gap: 0 (variables.$padding * 0.25);
-
-    // padding-left: variables.$bar-width;
-    // border-left: (variables.$bar-width * 1) solid
-    //   variables.$grey-very-very-light;
+    gap: 0 $bulletin-space-2xs;
 
     span {
       margin: 0;
     }
-  }
-
-  // [class*="matrix-info-value-"] {
-  //   border-left: $bar-width solid $grey-very-very-light;
-  //   padding-left: $bar-width;
-  // }
-
-  // $matrix-info-value-opacity: 1;
-
-  // .matrix-info-value-1 {
-  //   border-color: rgba(variables.$white, $matrix-info-value-opacity);
-  // }
-  // .matrix-info-value-2 {
-  //   border-color: rgba(variables.$grey-very-light, $matrix-info-value-opacity);
-  // }
-  // .matrix-info-value-3 {
-  //   border-color: rgba(variables.$grey-light, $matrix-info-value-opacity);
-  // }
-  // .matrix-info-value-4 {
-  //   border-color: rgba(variables.$black, $matrix-info-value-opacity);
-  // }
-  // .matrix-info-value-5 {
-  //   border-color: rgba(variables.$black, $matrix-info-value-opacity);
-  // }
-
-  .matrix-info-name {
-    // @include mixins.font-normal;
-    // letter-spacing: 0;
-  }
-  .matrix-info-value {
-    // min-width: 3.5em;
-    // width: 50%;
-    // @include mixins.font-bold;
   }
 }
 
@@ -674,44 +599,6 @@
     display: block;
     z-index: 10;
   }
-
-  //until 202212
-  // div {
-  //   position: relative;
-  //   height: $picto-height;
-  //   width: $picto-height;
-  //   img, svg {
-  //     display: none;
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     right: 0;
-  //   }
-  // }
-  // &.expo_n .expo_n {
-  //   display: block;
-  // }
-  // &.expo_ne .expo_ne {
-  //   display: block;
-  // }
-  // &.expo_e .expo_e {
-  //   display: block;
-  // }
-  // &.expo_se .expo_se {
-  //   display: block;
-  // }
-  // &.expo_s .expo_s {
-  //   display: block;
-  // }
-  // &.expo_sw .expo_sw {
-  //   display: block;
-  // }
-  // &.expo_w .expo_w {
-  //   display: block;
-  // }
-  // &.expo_nw .expo_nw {
-  //   display: block;
-  // }
 }
 
 .bulletin-report-tendency {
@@ -753,7 +640,6 @@
       color: variables.$warning-color;
     }
   }
-  // .bulletin-report-public-alert-text {}
 }
 
 .bulletin-report-mini-map-legend {
@@ -786,7 +672,7 @@
 }
 
 .bulletin-author {
-  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+  font-size: variables.$tiny-font-size;
   @include mixins.letter-spacing;
   a {
     @include mixins.font-heavy;
@@ -794,30 +680,7 @@
 }
 
 .bulletin-update-diff {
-  // position: relative;
   background-color: color.adjust(variables.$green, $lightness: 55%);
-  // background-color: rgba($green, 0.1);
-  // outline: rgba($green, 0.1) $bar-width $border-style;
-  // background: radial-gradient($green, transparent 50%);
-  // outline: $green $border-width dashed;
-  // outline: $green $border-width dotted;
-  // > * {
-  //   background-color: lighten($green, 50%);
-  //   outline: $green $border-width dashed;
-  // }
-  // &:before {
-  //   z-index: 100;
-  //   content: "";
-  //   position: absolute;
-  //   display: block;
-  //   top: calc(50% - #{$bar-width});
-  //   left: calc(50% - #{$bar-width});
-  //   width: $bar-width * 2;
-  //   height: $bar-width * 2;
-  //   background-color: $green;
-  //   border-radius: $global-rounded;
-  //   filter: blur(5px);
-  // }
 }
 
 .bulletin-update-diff-border {

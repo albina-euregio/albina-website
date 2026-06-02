@@ -97,9 +97,9 @@
   -moz-column-count: $mycolumns;
   -webkit-column-count: $mycolumns;
   column-count: $mycolumns;
-  -moz-column-gap: variables.$grid_gutter;
-  -webkit-column-gap: variables.$grid_gutter;
-  column-gap: variables.$grid_gutter;
+  -moz-column-gap: variables.$grid-gutter;
+  -webkit-column-gap: variables.$grid-gutter;
+  column-gap: variables.$grid-gutter;
 }
 
 @mixin smooth-scroll() {

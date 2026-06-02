@@ -18,7 +18,7 @@
 $trans-color: #27a8e3; //2013
 // $trans-color-light: lighten($trans-color, 20%);
 $trans-color-light: color.adjust($trans-color, $lightness: 20%);
-$trans-color-dark: ($trans-color, 10%);
+$trans-color-dark: color.adjust($trans-color, $lightness: -10%);
 
 //neutral
 $black: #000;
@@ -49,6 +49,54 @@ $warning-level-3-color: #ff9900;
 $warning-level-4-color: #ff0000;
 $warning-level-5-color: #ff0000; //+ bg_checkered
 
+$warning-level-count: 5;
+$warning-level-config: (
+  1: (
+    color: $warning-level-1-color,
+    headline-bg: true,
+    headline-color: $grey-dark,
+    patterned: false,
+    surface-mode: none
+  ),
+  2: (
+    color: $warning-level-2-color,
+    headline-bg: true,
+    headline-color: $grey-dark,
+    patterned: false,
+    surface-mode: none
+  ),
+  3: (
+    color: $warning-level-3-color,
+    headline-bg: false,
+    headline-color: $warning-level-3-color,
+    patterned: false,
+    surface-mode: link-light
+  ),
+  4: (
+    color: $warning-level-4-color,
+    headline-bg: false,
+    headline-color: $warning-level-4-color,
+    patterned: false,
+    surface-mode: text-link-light
+  ),
+  5: (
+    color: $warning-level-5-color,
+    headline-bg: false,
+    headline-color: $warning-level-5-color,
+    patterned: true,
+    surface-mode: text-light
+  )
+);
+
+@function warning-level($level, $token) {
+  $config: map.get($warning-level-config, $level);
+  @return map.get($config, $token);
+}
+
+@function warning-level-color($level) {
+  @return warning-level($level, color);
+}
+
 //political
 $eu-blue: #245297;
 $eu-yellow: #ffe800;
@@ -65,14 +113,14 @@ $secondary-color: $brand-2;
 $tertiary-color: $grey-very-light;
 
 $success-color: #88cc00;
-$error-color: $warning-level-4-color;
-$warning-color: $warning-level-4-color;
-$code-color: $warning-level-3-color;
+$error-color: warning-level-color(4);
+$warning-color: warning-level-color(4);
+$code-color: warning-level-color(3);
 
 $green: $success-color;
-$yellow: $warning-level-2-color;
-$orange: $warning-level-3-color;
-$red: $warning-level-4-color;
+$yellow: warning-level-color(2);
+$orange: warning-level-color(3);
+$red: warning-level-color(4);
 
 $sm-facebook-color: #3b5998;
 $sm-twitter-color: #1da1f2;

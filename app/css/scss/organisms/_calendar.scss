@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /*	TRANSPORTER
 	Creating Your Web
 	www.transporter.at
@@ -71,7 +73,7 @@
 
     .react-calendar__tile--now,
     .react-calendar__tile--hasActive {
-      background-color: lighten($warning-level-2-color, 25%);
+      background-color: color.adjust($warning-level-2-color, $lightness: 25%);
     }
 
     .react-calendar__year-view,

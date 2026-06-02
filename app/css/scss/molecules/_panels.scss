@@ -1,6 +1,7 @@
 @use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
+@use "../abstracts/warning-levels";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -19,7 +20,6 @@
   + .panel {
     margin-top: -(variables.$margin-bottom);
   }
-  //overflow: auto;//why?
   @include mixins.last-child();
 
   &.border {
@@ -110,58 +110,8 @@
       }
     }
   }
-  &.warning-level-1 {
-    &:before {
-      background-color: variables.$warning-level-1-color;
-    }
-    .bulletin-report-header h1 {
-      span {
-        color: variables.$text-color;
-        background-color: variables.$warning-level-1-color;
-      }
-    }
-  }
-  &.warning-level-2 {
-    &:before {
-      background-color: variables.$warning-level-2-color;
-    }
-    .bulletin-report-header h1 {
-      span {
-        color: variables.$text-color;
-        background-color: variables.$warning-level-2-color;
-      }
-    }
-  }
-  &.warning-level-3 {
-    &:before {
-      background-color: variables.$warning-level-3-color;
-    }
-    .bulletin-report-header h1 {
-      span {
-        color: variables.$warning-level-3-color;
-      }
-    }
-  }
-  &.warning-level-4 {
-    &:before {
-      background-color: variables.$warning-level-4-color;
-    }
-    .bulletin-report-header h1 {
-      span {
-        color: variables.$warning-level-4-color;
-      }
-    }
-  }
-  &.warning-level-5 {
-    &:before {
-      background: variables.$warning-level-5-color
-        url("../../../images/pro/global/bg_checkered.webp") repeat 0 0;
-    }
-    .bulletin-report-header h1 {
-      span {
-        color: variables.$warning-level-5-color;
-      }
-    }
+  @for $level from 1 through variables.$warning-level-count {
+    @include warning-levels.apply-panel-variant($level);
   }
 }
 

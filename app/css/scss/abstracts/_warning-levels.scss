@@ -1,0 +1,68 @@
+@use "variables";
+@use "mixins";
+
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #WARNING LEVELS
+\*------------------------------------*/
+
+@mixin apply-surface-base($level) {
+  @if variables.warning-level($level, patterned) {
+    background: variables.warning-level-color($level)
+      url("../../../images/pro/global/bg_checkered.webp")
+      repeat
+      0
+      0;
+  } @else {
+    background-color: variables.warning-level-color($level);
+  }
+}
+
+@mixin apply-surface-mode($level) {
+  $mode: variables.warning-level($level, surface-mode);
+
+  @if $mode == link-light {
+    @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+  } @else if $mode == text-link-light {
+    @include mixins.text-color(rgba(variables.$white, 0.9));
+    @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+  } @else if $mode == text-light {
+    @include mixins.text-color(variables.$white);
+  }
+}
+
+@mixin apply-panel-variant($level) {
+  $color: variables.warning-level-color($level);
+  $with-headline-bg: variables.warning-level($level, headline-bg);
+  $headline-color: variables.warning-level($level, headline-color);
+  $with-pattern: variables.warning-level($level, patterned);
+
+  &.warning-level-#{$level} {
+    &:before {
+      @if $with-pattern {
+        background: $color
+          url("../../../images/pro/global/bg_checkered.webp")
+          repeat
+          0
+          0;
+      } @else {
+        background-color: $color;
+      }
+    }
+
+    .bulletin-report-header h1 {
+      span {
+        color: $headline-color;
+
+        @if $with-headline-bg {
+          color: variables.$text-color;
+          background-color: $color;
+        }
+      }
+    }
+  }
+}
