@@ -229,7 +229,7 @@
   }
 }
 .section-hiddenUntilSmall {
-  @media #{variables.breakpoint-below(tiny)} {
+  @media #{variables.breakpoint-below(small)} {
     display: none;
   }
 }

@@ -78,7 +78,7 @@
     }
   }
 
-  @media #{variables.breakpoint-below(normal)} {
+  @media #{variables.breakpoint-below(medium)} {
     .page-header-navigation {
       display: none;
       opacity: 0;

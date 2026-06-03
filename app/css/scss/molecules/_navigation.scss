@@ -167,7 +167,7 @@ $item-padding: 0.175em;
     }
   }
 
-  @media #{variables.breakpoint-below(normal)} {
+  @media #{variables.breakpoint-below(medium)} {
     .navigation-open & {
       display: block;
       position: relative;

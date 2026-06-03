@@ -104,7 +104,7 @@
   margin-bottom: variables.$padding * 2 !important;
   img {
     @include mixins.box-border;
-    @media #{variables.breakpoint-below(small)} {
+    @media #{variables.breakpoint-below(normal)} {
       border-left: none;
       border-right: none;
     }
