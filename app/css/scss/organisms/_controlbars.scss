@@ -29,7 +29,7 @@
 
   .grid-item:last-child {
     //.info {display: none;}
-    @media #{variables.$normal-up} {
+    @media #{variables.breakpoint-up(normal)} {
       //.info { display: block; }
       float: right;
       text-align: right;

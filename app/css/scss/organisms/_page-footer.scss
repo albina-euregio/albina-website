@@ -25,17 +25,17 @@
   text-align: center;
   border-bottom: variables.$border-width variables.$border-style
     variables.$brand-very-light;
-  @media #{variables.$normal-up} {
+  @media #{variables.breakpoint-up(normal)} {
     text-align: left;
   }
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     font-size: variables.$tiny-font-size;
   }
 }
 
 .page-footer-subscribe {
   margin-bottom: variables.$margin-bottom;
-  @media #{variables.$large-up} {
+  @media #{variables.breakpoint-up(large)} {
     float: right;
     margin-left: variables.$grid-gutter;
   }
@@ -43,12 +43,12 @@
 .page-footer-text {
   margin-bottom: variables.$margin-bottom;
   color: variables.$grey;
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     font-size: variables.$tiny-font-size;
   }
 }
 .page-footer-logo-secondary {
-  @media #{variables.$large-up} {
+  @media #{variables.breakpoint-up(large)} {
     display: none;
   }
 }
@@ -107,7 +107,7 @@
   justify-content: space-around;
   align-items: center;
   gap: (variables.$margin-bottom * 2) (variables.$padding * 4);
-  @media #{variables.$normal-up} {
+  @media #{variables.breakpoint-up(normal)} {
     flex-direction: row;
     align-items: start;
   }

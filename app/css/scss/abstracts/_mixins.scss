@@ -9,6 +9,24 @@
     #MIXINS
 \*------------------------------------*/
 
+@mixin bp-up($name) {
+  @media #{variables.breakpoint-up($name)} {
+    @content;
+  }
+}
+
+@mixin bp-only($name) {
+  @media #{variables.breakpoint-only($name)} {
+    @content;
+  }
+}
+
+@mixin bp-below($name) {
+  @media #{variables.breakpoint-below($name)} {
+    @content;
+  }
+}
+
 //animation
 @mixin rollout(
   $was: all,

@@ -16,7 +16,7 @@
       padding-bottom: 0;
     }
   }
-  @media #{variables.$normal-up} {
+  @media #{variables.breakpoint-up(normal)} {
     .grid-item + .grid-item:last-child {
       text-align: right;
     }

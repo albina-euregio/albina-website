@@ -179,71 +179,113 @@ $grid-columns: 12;
 $grid-gutter-small: $padding * 3; //$padding * 2;
 $grid-gutter: $padding * 3;
 
-$all-range: (0em, 29.9375em); /* 0, 479px */
-$tiny-range: (30em, 39.9375em); /* 480px, 639px */
-$small-range: (
-  40em,
-  47.9375em
-); /* 640px, 767px */ //$small-range: (0em, 40em); /* 0, 640px */
-$normal-range: (48em, 63.95em); //(48em, 63.9375em); /* 768px, 1023px */
-$medium-range: (
-  64em,
-  79.9375em
-); /* 1024px, 1279px */ //$medium-range: (40.063em, 64em); /* 641px, 1024px */
-$large-range: (80em, 89.9375em); /* 1280px, 1439px */
-$xlarge-range: (90em, 99.9375em); /* 1440px, 1599px */
-$xxlarge-range: (100em, 119.9375em); /* 1600px, 1919px */
-$xxxlarge-range: (120em); /* 1920px */
-$xxxxlarge-range: (150em);
-$xxxxxlarge-range: (180em);
+/*------------------------------------*\
+    #BREAKPOINTS
+\*------------------------------------*/
+
+$breakpoint-ranges: (
+  all: (
+    0em,
+    29.9375em
+  ),
+  // 0px, 479px
+  tiny: (
+      30em,
+      39.9375em
+    ),
+  // 480px, 639px
+  small: (
+      40em,
+      47.9375em
+    ),
+  // 640px, 767px
+  normal: (
+      48em,
+      63.95em
+    ),
+  // 768px, 1023px
+  medium: (
+      64em,
+      79.9375em
+    ),
+  // 1024px, 1279px
+  large: (
+      80em,
+      89.9375em
+    ),
+  // 1280px, 1439px
+  xlarge: (
+      90em,
+      99.9375em
+    ),
+  // 1440px, 1599px
+  xxlarge: (
+      100em,
+      119.9375em
+    ),
+  // 1600px, 1919px
+  xxxlarge: (
+      120em
+    ),
+  // 1920px+
+  xxxxlarge: (
+      150em
+    ),
+  xxxxxlarge: (
+    180em
+  )
+);
+
+@function breakpoint-range($name) {
+  @if not map.has-key($breakpoint-ranges, $name) {
+    @error "Unknown breakpoint `#{$name}` in breakpoint-range().";
+  }
+
+  @return map.get($breakpoint-ranges, $name);
+}
+
+@function breakpoint-min($name) {
+  $range: breakpoint-range($name);
+
+  @return bounds.lower-bound($range);
+}
+
+@function breakpoint-up($name) {
+  @return "#{$screen} and (min-width:#{breakpoint-min($name)})";
+}
+
+@function breakpoint-only($name) {
+  $range: breakpoint-range($name);
+
+  @return "#{$screen} and (min-width:#{bounds.lower-bound($range)}) and (max-width:#{bounds.upper-bound($range)})";
+}
+
+@function breakpoint-below($name) {
+  @if $name == all {
+    @error "breakpoint-below(all) is not valid because there is no lower breakpoint.";
+  }
+
+  $breakpoint-order: map.keys($breakpoint-ranges);
+  $index: list.index($breakpoint-order, $name);
+
+  @if $index == null {
+    @error "Unknown breakpoint `#{$name}` in breakpoint-below().";
+  }
+
+  @if $index <= 1 {
+    @error "breakpoint-below(#{$name}) is not valid because there is no lower breakpoint.";
+  }
+
+  $previous-name: list.nth($breakpoint-order, $index - 1);
+  $previous-range: breakpoint-range($previous-name);
+
+  @return "#{$screen} and (max-width:#{bounds.upper-bound($previous-range)})";
+}
 
 $screen: "only screen";
 
 $landscape: "#{$screen} and (orientation: landscape)";
 $portrait: "#{$screen} and (orientation: portrait)";
-
-$all-up: $screen;
-$all-only: "#{$screen} and (max-width:#{bounds.upper-bound($all-range)})";
-
-$tiny-up: "#{$screen} and (min-width:#{bounds.lower-bound($tiny-range)})";
-$tiny-only: "#{$screen} and (min-width:#{bounds.lower-bound($tiny-range)}) and (max-width:#{bounds.upper-bound($tiny-range)})";
-
-$small-up: "#{$screen} and (min-width:#{bounds.lower-bound($small-range)})";
-$small-only: "#{$screen} and (min-width:#{bounds.lower-bound($small-range)}) and (max-width:#{bounds.upper-bound($small-range)})";
-
-$normal-up: "#{$screen} and (min-width:#{bounds.lower-bound($normal-range)})";
-$normal-only: "#{$screen} and (min-width:#{bounds.lower-bound($normal-range)}) and (max-width:#{bounds.upper-bound($normal-range)})";
-
-$medium-up: "#{$screen} and (min-width:#{bounds.lower-bound($medium-range)})";
-$medium-only: "#{$screen} and (min-width:#{bounds.lower-bound($medium-range)}) and (max-width:#{bounds.upper-bound($medium-range)})";
-
-$large-up: "#{$screen} and (min-width:#{bounds.lower-bound($large-range)})";
-$large-only: "#{$screen} and (min-width:#{bounds.lower-bound($large-range)}) and (max-width:#{bounds.upper-bound($large-range)})";
-
-$xlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xlarge-range)})";
-$xlarge-only: "#{$screen} and (min-width:#{bounds.lower-bound($xlarge-range)}) and (max-width:#{bounds.upper-bound($xlarge-range)})";
-
-$xxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxlarge-range)})";
-$xxlarge-only: "#{$screen} and (min-width:#{bounds.lower-bound($xxlarge-range)}) and (max-width:#{bounds.upper-bound($xxlarge-range)})";
-
-$xxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxlarge-range)})";
-
-$xxxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxxlarge-range)})";
-
-$xxxxxlarge-up: "#{$screen} and (min-width:#{bounds.lower-bound($xxxxxlarge-range)})";
-
-//Legacy
-$all: $all-up;
-$tiny: $tiny-up;
-$small: $small-up;
-$normal: $normal-up;
-$medium: $medium-up;
-$large: $large-up;
-$xlarge: $xlarge-up;
-$xxlarge: $xxlarge-up;
-$xxxlarge: $xxxlarge-up;
-$xxxxlarge: $xxxxlarge-up;
-$xxxxxlarge: $xxxxxlarge-up;
 
 $retina: "#{$screen} and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)";
 
@@ -446,7 +488,6 @@ $transition-duration: 0.25s;
 :root {
   --desktop-map-ratio: 1/1;
   --mobile-map-ratio: 1/1;
-  // Set --breakpoint-desktop to the lower bound of $medium-range in px (1em = 16px)
-  --breakpoint-desktop: #{math.div(list.nth($medium-range, 1), 1em) *
-    $rem-base}px;
+  // Set --breakpoint-desktop to the lower bound of breakpoint medium in px (1em = 16px)
+  --breakpoint-desktop: #{math.div(breakpoint-min(medium), 1em) * $rem-base}px;
 }

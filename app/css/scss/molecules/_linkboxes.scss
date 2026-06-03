@@ -1,4 +1,3 @@
-@use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 
@@ -135,7 +134,7 @@ a.linkbox-feature {
     top: 0;
     bottom: 0;
     overflow: auto;
-    @media #{variables.$normal-up} {
+    @media #{variables.breakpoint-up(normal)} {
       padding: calc(#{variables.$all-v-padding} - 0.5em)
         variables.$all-h-padding;
     }
@@ -188,7 +187,7 @@ a.linkbox-blog-feature {
     background-color: variables.$white;
     border: variables.$border-width variables.$border-style
       variables.$border-color;
-    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
+    @media #{variables.breakpoint-below(normal)} {
       border-left: none;
       border-right: none;
     }
@@ -210,7 +209,7 @@ a.linkbox-blog-feature {
       min-height: 100%;
     }
 
-    @media #{variables.$small-up} {
+    @media #{variables.breakpoint-up(small)} {
       width: 25%;
       height: auto;
       padding-top: 25%;
@@ -232,7 +231,7 @@ a.linkbox-blog-feature {
     width: 100%;
     padding: 0.5em variables.$all-h-padding (variables.$all-v-padding * 2)
       variables.$all-h-padding; //0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    @media #{variables.$small-up} {
+    @media #{variables.breakpoint-up(small)} {
       width: 75%;
       padding: calc(#{variables.$all-v-padding} - 0.5em)
         variables.$all-h-padding;
@@ -293,7 +292,7 @@ a.linkbox-linktree-feature {
     background-color: variables.$white;
     border: variables.$border-width variables.$border-style
       variables.$border-color;
-    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
+    @media #{variables.breakpoint-below(normal)} {
       border-left: none;
       border-right: none;
     }

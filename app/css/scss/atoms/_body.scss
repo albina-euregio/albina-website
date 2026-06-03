@@ -1,4 +1,3 @@
-@use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 @use "../atoms/bgs";
@@ -102,56 +101,56 @@ body {
   }
 }
 
-@media #{variables.$normal-up} {
+@media #{variables.breakpoint-up(normal)} {
   html,
   body {
     font-size: variables.$body-font-size;
   }
 }
 
-@media #{variables.$medium-up} and (min-height:#{bounds.lower-bound(variables.$normal-range)}) {
+@media #{variables.breakpoint-up(medium)} and (min-height:#{variables.breakpoint-min(normal)}) {
   html,
   body {
     font-size: variables.$body-font-size-medium;
   }
 }
 
-@media #{variables.$large-up} and (min-height:#{bounds.lower-bound(variables.$medium-range) - $min-height-adjustment}) {
+@media #{variables.breakpoint-up(large)} and (min-height:#{variables.breakpoint-min(medium) - $min-height-adjustment}) {
   html,
   body {
     font-size: variables.$body-font-size-large;
   }
 }
 
-@media #{variables.$xlarge-up} and (min-height:#{bounds.lower-bound(variables.$medium-range)}) {
+@media #{variables.breakpoint-up(xlarge)} and (min-height:#{variables.breakpoint-min(medium)}) {
   html,
   body {
     font-size: variables.$body-font-size-xlarge;
   }
 }
 
-@media #{variables.$xxlarge-up} and (min-height:#{bounds.lower-bound(variables.$medium-range) + $min-height-adjustment}) {
+@media #{variables.breakpoint-up(xxlarge)} and (min-height:#{variables.breakpoint-min(medium) + $min-height-adjustment}) {
   html,
   body {
     font-size: variables.$body-font-size-xxlarge;
   }
 }
 
-@media #{variables.$xxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
+@media #{variables.breakpoint-up(xxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
   html,
   body {
     font-size: variables.$body-font-size-xxxlarge;
   }
 }
 
-@media #{variables.$xxxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
+@media #{variables.breakpoint-up(xxxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
   html,
   body {
     font-size: variables.$body-font-size-xxxxlarge;
   }
 }
 
-@media #{variables.$xxxxxlarge-up} and (min-height:#{bounds.lower-bound(variables.$large-range)}) {
+@media #{variables.breakpoint-up(xxxxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
   html,
   body {
     font-size: variables.$body-font-size-xxxxxlarge;

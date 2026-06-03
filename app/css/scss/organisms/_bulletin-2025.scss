@@ -488,7 +488,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
     }
     span {
       position: relative;
-      @media #{variables.breakpoint-below(tiny)} {
+      @include mixins.bp-below(tiny) {
         font-size: variables.$micro-font-size;
       }
       @include icons.icon(down-open, auto, 0, auto, 0, none);

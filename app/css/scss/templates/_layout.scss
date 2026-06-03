@@ -104,7 +104,7 @@
   opacity: 0;
   animation: (variables.$transition-duration * 2) ease-out
     variables.$transition-duration 1 fadeIn forwards;
-  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
+  @media #{variables.breakpoint-below(medium)} {
     .navigation-open & {
       overflow: auto; //probably needed for IE / Edge, but *fkn* big problems with scrolling
     }
@@ -150,7 +150,7 @@
   margin: 0 0 variables.$bar-width 0;
   padding-top: navigation.$page-header-height;
   @include mixins.rollout(all, variables.$transition-duration, $ease: ease-out);
-  @media screen and (max-width: #{bounds.upper-bound(variables.$normal-range)}) {
+  @media #{variables.breakpoint-below(medium)} {
     .navigation-open & {
       transform: translateY(navigation.$page-header-height);
       opacity: 0;
@@ -219,22 +219,22 @@
 }
 
 .section-hiddenSmallUp {
-  @media #{variables.$small-up} {
+  @media #{variables.breakpoint-up(small)} {
     display: none;
   }
 }
 .section-hiddenNormalUp {
-  @media #{variables.$normal-up} {
+  @media #{variables.breakpoint-up(normal)} {
     display: none;
   }
 }
 .section-hiddenUntilSmall {
-  @media #{variables.$screen} and (max-width:#{bounds.upper-bound(variables.$tiny-range)}) {
+  @media #{variables.breakpoint-below(tiny)} {
     display: none;
   }
 }
 .section-hiddenUntilNormal {
-  @media #{variables.$screen} and (max-width:#{bounds.upper-bound(variables.$small-range)}) {
+  @media #{variables.breakpoint-below(normal)} {
     display: none;
   }
 }

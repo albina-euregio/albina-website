@@ -1,4 +1,3 @@
-@use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 @use "../abstracts/warning-levels";
@@ -24,7 +23,7 @@
 
   &.border {
     @include mixins.box-border;
-    @media screen and (max-width: #{bounds.upper-bound(variables.$small-range)}) {
+    @media #{variables.breakpoint-below(normal)} {
       border-left: none;
       border-right: none;
     }
@@ -62,7 +61,7 @@
       left: 0;
       width: variables.$bar-width;
       height: 100%;
-      @media #{variables.$large-up} {
+      @media #{variables.breakpoint-up(large)} {
         left: -(variables.$bar-width) * 2;
         width: variables.$bar-width * 2;
       }

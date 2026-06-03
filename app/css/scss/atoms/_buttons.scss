@@ -216,7 +216,6 @@ a.pure-button {
     margin: 0;
     padding: variables.$padding;
     //font-size: $normal-font-size;//$body-font-size-tiny;
-    //@media #{$medium-up} { font-size: $tiny-font-size; }
     &:before {
       position: absolute;
       top: 50%;

@@ -395,7 +395,6 @@ $selectric-max-width: 20em;
   padding: variables.$padding (variables.$padding * 3) variables.$padding
     variables.$padding;
   font-size: variables.$tiny-font-size; //$body-font-size-tiny;
-  //@media #{$medium-up} { font-size: $tiny-font-size; }
   @include mixins.font-heavy;
   line-height: variables.$header-line-height;
   @include mixins.letter-spacing(0.1em);
@@ -435,7 +434,6 @@ $selectric-max-width: 20em;
     white-space: nowrap;
     overflow: hidden;
     font-size: variables.$tiny-font-size; //$body-font-size-tiny;
-    //@media #{$normal-up} { font-size: $tiny-font-size; }
     text-overflow: ellipsis;
     color: variables.$brand;
     background: none;
@@ -580,7 +578,7 @@ $selectric-max-width: 20em;
 
   @include mixins.box-shadow;
 
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     font-size: variables.$tiny-font-size;
   }
 

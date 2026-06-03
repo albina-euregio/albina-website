@@ -27,7 +27,7 @@ $grid-activated: true;
   grid-gap: variables.$grid-gutter-small;
   grid-auto-flow: row;
 
-  @media #{variables.$normal-up} {
+  @include mixins.bp-up(normal) {
     grid-gap: variables.$grid-gutter;
   }
 }
@@ -61,27 +61,27 @@ $grid-activated: true;
 
 //generate responsive grid-items
 @include grid-item-generator(all);
-@media #{variables.$tiny-up} {
+@include mixins.bp-up(tiny) {
   @include grid-item-generator(tiny);
 }
-@media #{variables.$small-up} {
+@media #{variables.breakpoint-up(small)} {
   @include grid-item-generator(small);
 }
-@media #{variables.$normal-up} {
+@include mixins.bp-up(normal) {
   @include grid-item-generator(normal);
 }
-@media #{variables.$medium-up} {
+@media #{variables.breakpoint-up(medium)} {
   @include grid-item-generator(medium);
 }
-@media #{variables.$large-up} {
+@include mixins.bp-up(large) {
   @include grid-item-generator(large);
 }
-@media #{variables.$xlarge-up} {
+@media #{variables.breakpoint-up(xlarge)} {
   @include grid-item-generator(xlarge);
 }
-@media #{variables.$xxlarge-up} {
+@media #{variables.breakpoint-up(xxlarge)} {
   @include grid-item-generator(xxlarge);
 }
-@media #{variables.$xxxlarge-up} {
+@media #{variables.breakpoint-up(xxxlarge)} {
   @include grid-item-generator(xxxlarge);
 }

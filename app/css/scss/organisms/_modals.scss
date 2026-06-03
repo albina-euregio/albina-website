@@ -117,14 +117,14 @@ dialog[open]::backdrop {
 
   @include mixins.last-child;
 
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     position: relative;
     min-height: 0;
     max-width: $modal-max-width;
     margin: auto !important;
     vertical-align: middle;
   }
-  @media #{variables.$xlarge-up} {
+  @media #{variables.breakpoint-up(xlarge)} {
     max-width: $modal-max-width-xlarge;
   }
 
@@ -146,7 +146,7 @@ dialog[open]::backdrop {
   padding: ($modal-padding * 2) ($modal-padding * 0.5) $modal-padding
     ($modal-padding * 0.5);
   @include mixins.last-child;
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     min-height: 0;
     padding: $modal-padding;
   }
