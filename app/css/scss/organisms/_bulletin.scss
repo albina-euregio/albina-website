@@ -2,6 +2,7 @@
 
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
+@use "../abstracts/warning-levels";
 @use "../atoms/icons";
 @use "../atoms/bgs";
 @use "../atoms/media";
@@ -177,7 +178,8 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
     @for $level from 1 through 5 {
       .warning-level-#{$level} {
         &:before {
-          @extend .bg-warning-level-#{$level};
+          @include warning-levels.apply-surface-base($level);
+          @include warning-levels.apply-surface-mode($level);
         }
       }
     }

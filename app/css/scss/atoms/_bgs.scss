@@ -39,12 +39,6 @@
   );
 }
 
-.bg-brand,
-.bg-gradient-brand {
-  @include mixins.text-color(rgba(variables.$white, 0.9));
-  @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
-}
-
 @for $level from 1 through variables.$warning-level-count {
   .bg-warning-level-#{$level} {
     @include warning-levels.apply-surface-base($level);
@@ -52,14 +46,20 @@
   }
 }
 
+.bg-brand,
+.bg-gradient-brand {
+  @include mixins.text-color(rgba(variables.$white, 0.9));
+  @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+}
+
 .bg-colorbar {
   height: variables.$bar-width;
   background: linear-gradient(
     to right,
-    variables.warning-level-color(1) 0% 20%,
-    variables.warning-level-color(2) 20% 40%,
-    variables.warning-level-color(3) 40% 60%,
-    variables.warning-level-color(4) 60% 80%,
+    variables.$warning-level-1-color 0% 20%,
+    variables.$warning-level-2-color 20% 40%,
+    variables.$warning-level-3-color 40% 60%,
+    variables.$warning-level-4-color 60% 80%,
     variables.$brand 80% 100%
   );
   background-size: 100% variables.$bar-width;
