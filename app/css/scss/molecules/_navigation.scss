@@ -135,7 +135,7 @@ $item-padding: 0.175em;
   min-width: 5em;
   margin: 0;
   padding: 0.5em 0 !important;
-  background-color: rgba(variables.$white, 0.95);
+  background-color: variables.$white;
 
   @include mixins.font-normal;
   @include mixins.box-shadow;

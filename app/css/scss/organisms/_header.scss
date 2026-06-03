@@ -119,16 +119,18 @@
 }
 
 ul.bulletin-flipper {
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  @media #{variables.breakpoint-up(small)} {
+    gap: 2em;
+  }
   @include mixins.letter-spacing;
   .section-bulletin-header & {
     font-size: variables.$tiny-font-size;
   }
   li {
-    padding: 0 (variables.$padding * 0.5) 0 0;
-    @media #{variables.breakpoint-up(tiny)} {
-      padding: 0 (variables.$padding * 2) 0 0;
-    }
+    padding: 0;
   }
   a {
     span {
@@ -156,19 +158,20 @@ ul.bulletin-flipper {
   }
 
   .bulletin-flipper-calendar {
-    // position: relative;
-    line-height: 1;
+    cursor: pointer;
+    position: relative;
+    height: 1.5em;
+    width: 1.5em;
 
     .calendar-trigger {
+      cursor: pointer;
       display: block;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
       height: 1.5em;
       width: 1.5em;
       line-height: 1;
-
-      input {
-        cursor: pointer;
-      }
 
       &:before {
         cursor: pointer;
@@ -184,34 +187,39 @@ ul.bulletin-flipper {
         color: variables.$anchor-font-color;
         @include mixins.rollout;
       }
-
-      &:hover {
-        input {
-          cursor: pointer;
-        }
-        &:before {
-          cursor: pointer;
-          color: variables.$anchor-font-color-hover;
-          @include mixins.rollover;
-        }
-      }
     }
 
     input {
-      z-index: 5;
-      // display: block;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      position: absolute;
+      top: 0;
+      left: 0;
       height: 1.5em;
       width: 1.5em;
+      z-index: 5;
+      display: block;
       padding: 0;
       font-size: variables.$tiny-font-size;
       line-height: 1;
       color: transparent;
-      border-width: 0px;
+      border-width: 0;
       border-color: transparent;
       background-color: transparent;
       //Chrome
       &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
         background: none;
+      }
+    }
+
+    &:hover {
+      .calendar-trigger {
+        &:before {
+          color: variables.$anchor-font-color-hover;
+          @include mixins.rollover;
+        }
       }
     }
   }
@@ -234,8 +242,8 @@ ul.bulletin-flipper {
       }
     }
   }
-  // .bulletin-flipper-latest {}
   .bulletin-flipper-archive {
+    margin-left: auto;
     a {
       &:hover,
       &:active {

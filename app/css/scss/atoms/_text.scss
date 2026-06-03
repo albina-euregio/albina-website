@@ -188,7 +188,7 @@ kbd {
   @include mixins.font-normal;
   background: variables.$white;
   @include mixins.box-border;
-  @include mixins.box-shadow();
+  @include mixins.box-shadow;
 }
 
 ins,

@@ -215,7 +215,13 @@ function PageHeader() {
         {isMobile && navOpen && (
           <div
             className="page-header-hamburger"
-            style={{ position: "absolute", top: 0, right: 0, zIndex: 1000 }}
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              zIndex: 1000,
+              padding: "0.5em 1em"
+            }}
           >
             <Tooltip
               label={intl.formatMessage({

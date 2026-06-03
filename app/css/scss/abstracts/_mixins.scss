@@ -222,7 +222,7 @@
 @mixin box-border($border-color: variables.$border-color) {
   border: variables.$border-width variables.$border-style $border-color;
 }
-@mixin box-shadow($box-shadow-alpha: 0.075) {
+@mixin box-shadow($box-shadow-alpha: 0.05) {
   box-shadow: 0 0 15px 0 rgba(variables.$box-shadow-color, $box-shadow-alpha);
 }
 
