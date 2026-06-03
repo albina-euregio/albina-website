@@ -6,12 +6,12 @@
 
 ### 🚀 Features
 
-- Add relative snow height map
-- Integrate all blogs of AT
-- Integrate no-snow in bulletin map (transparent with popup)
-- Integrate no-rating in bulletin map (grey with popup)
-- Highlight blog link in bulletin map if whole province has no rating (blue with popup)
-- Load individual CAAMLs for each province
+- _(weather)_ Add relative snow height map
+- _(blog)_ Integrate all blogs of AT
+- _(bulletin)_ Integrate no-snow in bulletin map (transparent with popup)
+- _(bulletin)_ Integrate no-rating in bulletin map (grey with popup)
+- _(bulletin)_ Highlight blog link in bulletin map if whole province has no rating (blue with popup)
+- _(bulletin)_ Load individual CAAMLs for each province
 
 ### 🐛 Bug Fixes
 
@@ -27,7 +27,8 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- Upgrade to vite-plus 0.1.19
+- _(vite-plus)_ Upgrade v0.1.19
+- _(pnpm)_ Upgrade to v11.4.0
 
 ## [8.3.3] - 2026-04-21
 
