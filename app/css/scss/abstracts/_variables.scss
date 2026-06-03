@@ -231,9 +231,10 @@ $breakpoint-ranges: (
   xxxxlarge: (
       150em
     ),
+  // 2400px+
   xxxxxlarge: (
-    180em
-  )
+      180em
+    ) // 2880px+
 );
 
 @function breakpoint-range($name) {
