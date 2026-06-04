@@ -264,13 +264,6 @@
     }
   ],
   "blogsMinYear": 2011,
-  "categoryNameMap": {
-    "ALLGEMEIN": "Allgemein",
-    "LAWINEN": "Lawinenereignis",
-    "WISSEN": "Wissenswertes",
-    "UMFRAGE": "Neuerungen",
-    "WETTER, SCHNEEDECKE": "Aktuelle Situation"
-  },
   "blogs": [
     {
       "lang": "de",
