@@ -25,8 +25,13 @@
     "/terrain/class-terreny"
   ],
   "menu": [
-    { "url": "/bulletin" },
-    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
     {
       "url": "/conditions",
       "indexKey": "conditions",
@@ -73,7 +78,9 @@
           "url": "/education/avalanche-problems",
           "img": "/content_files/feature_avalanche-problem.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "key": "eaws-matrix",
           "url": "/education/matrix",
@@ -95,7 +102,9 @@
           "url": "/education/workflow",
           "img": "/content_files/feature_workflow.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/handbook",
           "img": "/content_files/feature_handbook.webp"
@@ -104,9 +113,15 @@
           "url": "/education/spatio-temporal-scale",
           "img": "/content_files/feature_spatio-temporal-scale.webp"
         },
-        { "url": "" },
-        { "url": "/education/xarxa-observacions" },
-        { "url": "/education/bons-habits" },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/xarxa-observacions"
+        },
+        {
+          "url": "/education/bons-habits"
+        },
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
@@ -128,13 +143,19 @@
           "url": "/more/archive",
           "img": "/content_files/feature_archive.webp"
         },
-        { "url": "/more/about" },
-        { "url": "/more/albina-project" },
+        {
+          "url": "/more/about"
+        },
+        {
+          "url": "/more/albina-project"
+        },
         {
           "url": "/more/contact",
           "img": "/content_files/feature_contact.webp"
         },
-        { "url": "/more/legal" },
+        {
+          "url": "/more/legal"
+        },
         {
           "url": "/more/open-data",
           "img": "/content_files/feature_open_data.webp"
@@ -154,8 +175,12 @@
     }
   ],
   "menuFooterMain": [
-    { "url": "/bulletin" },
-    { "url": "/blog" },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
     {
       "key": "weather",
       "url": "https://www.conselharan.org/meteo",
@@ -163,8 +188,14 @@
       "url:es": "https://www.conselharan.org/es/meteo",
       "showSub": true
     },
-    { "url": "/education", "showSub": true },
-    { "url": "/more", "showSub": true }
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
   ],
   "blogsMinYear": 2025,
   "blogs": [
@@ -274,7 +305,12 @@
       "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,
-      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 },
+      "bbox": {
+        "east": 13.2,
+        "west": 9.5,
+        "north": 48,
+        "south": 45
+      },
       "className": "tooltip leaflet-geonames-icon",
       "workingClass": "leaflet-geonames-icon-working",
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
@@ -332,12 +368,10 @@
       }
     }
   },
-
   "footer": {
     "icons": [],
     "iconsHidden": false
   },
-
   "archive": {
     "minYear": 2025,
     "maxResults": 31

@@ -43,12 +43,19 @@
     "/terrain/class-terreny"
   ],
   "menu": [
-    { "url": "/bulletin" },
-    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
     {
       "url": "/conditions",
       "children": [
-        { "url": "/conditions/mapa" },
+        {
+          "url": "/conditions/mapa"
+        },
         {
           "key": "conditions:estacions",
           "indexKey": "conditions:estacions",
@@ -63,7 +70,9 @@
           "url:ca": "https://www.conselharan.org/ca/meteo",
           "url:es": "https://www.conselharan.org/es/meteo"
         },
-        { "url": "/conditions/pistes" },
+        {
+          "url": "/conditions/pistes"
+        },
         {
           "url": "/conditions/profiles",
           "indexKey": "conditions:profiles",
@@ -94,7 +103,9 @@
           "url": "/education/avalanche-problems",
           "img": "/content_files/feature_avalanche-problem.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "key": "eaws-matrix",
           "url": "/education/matrix",
@@ -116,7 +127,9 @@
           "url": "/education/workflow",
           "img": "/content_files/feature_workflow.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/handbook",
           "img": "/content_files/feature_handbook.webp"
@@ -125,9 +138,15 @@
           "url": "/education/spatio-temporal-scale",
           "img": "/content_files/feature_spatio-temporal-scale.webp"
         },
-        { "url": "" },
-        { "url": "/education/xarxa-observacions" },
-        { "url": "/education/bons-habits" },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/xarxa-observacions"
+        },
+        {
+          "url": "/education/bons-habits"
+        },
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
@@ -139,7 +158,9 @@
           "url:it": "https://www.avalanches.org/glossary/?lang=it",
           "url:fr": "https://www.avalanches.org/glossary/?lang=fr"
         },
-        { "url": "/education/articles" }
+        {
+          "url": "/education/articles"
+        }
       ]
     },
     {
@@ -150,13 +171,19 @@
           "url": "/more/archive",
           "img": "/content_files/feature_archive.webp"
         },
-        { "url": "/more/about" },
-        { "url": "/more/albina-project" },
+        {
+          "url": "/more/about"
+        },
+        {
+          "url": "/more/albina-project"
+        },
         {
           "url": "/more/contact",
           "img": "/content_files/feature_contact.webp"
         },
-        { "url": "/more/legal" },
+        {
+          "url": "/more/legal"
+        },
         {
           "url": "/more/open-data",
           "img": "/content_files/feature_open_data.webp"
@@ -179,8 +206,12 @@
     }
   ],
   "menuFooterMain": [
-    { "url": "/bulletin" },
-    { "url": "/blog" },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
     {
       "key": "weather",
       "url": "https://www.conselharan.org/meteo",
@@ -188,8 +219,14 @@
       "url:es": "https://www.conselharan.org/es/meteo",
       "showSub": true
     },
-    { "url": "/education", "showSub": true },
-    { "url": "/more", "showSub": true }
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
   ],
   "blogsMinYear": 2013,
   "blogs": [
