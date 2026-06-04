@@ -32,6 +32,18 @@ configRequest.then(async configParsed => {
     eawsRegionsRegex: newRegionRegex(configParsed.eawsRegions)
   } satisfies Config;
 
+  type Apis = Record<string, string | Record<string, string>>;
+  applyApiBaseUrl(window.config.apis as unknown as Apis);
+  function applyApiBaseUrl(obj: Apis, baseUrl = window.config.apis.baseUrl) {
+    for (const [key, value] of Object.entries(obj)) {
+      if (typeof value === "object") {
+        applyApiBaseUrl(obj[key] as Apis);
+      } else if (typeof value === "string" && !value.startsWith("http")) {
+        obj[key] = baseUrl + value;
+      }
+    }
+  }
+
   const language = configParsed.hostLanguageSettings[location.host];
   if (!language && location.host.startsWith("www.")) {
     location.host = location.host.substring("www.".length);

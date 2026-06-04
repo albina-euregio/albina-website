@@ -390,18 +390,19 @@
     }
   },
   "apis": {
+    "baseUrl": "https://www2.avalanche.report",
     "bulletin": {
-      "simple": "https://www2.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
+      "simple": "/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
-      "map": "https://www2.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://www2.avalanche.report/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
-      "xml": "https://www2.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "json": "https://www2.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
-      "jsonPublicationDate": "https://www2.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://www2.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "https://www2.avalanche.report/bulletins/archive/"
+      "map": "/bulletins/{date}/{publication}/{file}.webp",
+      "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "/bulletins/archive/"
     },
-    "blogger": "https://www2.avalanche.report/blog/"
+    "blogger": "/blog/"
   },
   "links": {
     "eaws": "https://www.avalanches.org/",

@@ -83,20 +83,21 @@
     }
   ],
   "apis": {
+    "baseUrl": "https://dev.avalanche.report",
     "bulletin": {
-      "simple": "https://dev.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
+      "simple": "/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
-      "map": "https://dev.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://dev.avalanche.report/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
-      "xml": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "json": "https://dev.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
-      "jsonPublicationDate": "https://dev.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://dev.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "https://dev.avalanche.report/bulletins/archive/"
+      "map": "/bulletins/{date}/{publication}/{file}.webp",
+      "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "/bulletins/archive/"
     },
-    "push": "https://dev.avalanche.report/api/push",
-    "subscribe": "https://dev.avalanche.report/api/email",
-    "blogger": "https://dev.avalanche.report/api/blog/",
+    "push": "/api/push",
+    "subscribe": "/api/email",
+    "blogger": "/api/blog/",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
