@@ -40,7 +40,7 @@ $item-padding: 0.175em;
   }
 
   .has-sub {
-    padding-right: 3em;
+    padding-right: 2.75em;
     @include icons.icon(down-open, auto, 0, variables.$text-color, 0, none);
     &:before {
       display: block;
