@@ -541,19 +541,15 @@ $search-width-wide: 300px;
   }
 
   .bulletin-report-public-alert {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 0;
-    position: relative;
-    left: -(variables.$padding);
     @include mixins.font-normal;
+    @include mixins.letter-spacing(0);
     font-size: variables.$tiny-font-size;
+
     [class*="icon"] {
+      margin: (-(variables.$padding * 0.25)) 0 0 (-(variables.$padding));
       font-size: variables.$tiny-font-size;
-      margin: (-(variables.$padding * 0.25)) 0 0 0;
       &:before {
-        margin: 0;
+        font-size: 2em;
       }
     }
   }

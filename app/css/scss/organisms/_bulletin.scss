@@ -625,20 +625,21 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
 }
 
 .bulletin-report-public-alert {
-  @include mixins.font-bold;
-  @include mixins.letter-spacing;
-
   display: flex;
-  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
 
-  .bulletin-report-public-alert-icon {
-    margin: 0;
-    font-size: 1.5em;
+  @include mixins.font-bold;
+  @include mixins.letter-spacing;
+
+  [class*="icon"] {
+    margin: (-(variables.$padding * 1.1)) (-(variables.$padding * 0.25)) 0
+      (-(variables.$padding * 1.5));
+    font-size: 1em;
     &:before {
       margin: 0;
       color: variables.$warning-color;
+      font-size: 3em;
     }
   }
 }
