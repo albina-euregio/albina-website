@@ -142,8 +142,7 @@ const BulletinMap = (props: Props) => {
     onClose: () => void;
     children?: React.ReactNode;
   }) => (
-    // <>
-    <div key={divKey}>
+    <>
       <a
         href="#"
         onClick={e => {
@@ -157,7 +156,7 @@ const BulletinMap = (props: Props) => {
         </span>
       </a>
 
-      <div className="bulletin-map-details-content">
+      <div key={divKey} className="bulletin-map-details-content">
         <p className="bulletin-report-region-name">
           <span className="bulletin-report-region-name-region">
             {regionName}
@@ -179,40 +178,42 @@ const BulletinMap = (props: Props) => {
       {children && (
         <div className="bulletin-map-details-buttons">{children}</div>
       )}
-    </div>
-    // </>
+    </>
   );
 
   const AwsLinks = ({
     aws
   }: {
     aws: { name: string; url: Partial<Record<string, string>> }[];
-  }) =>
-    (aws || []).map((link, index) => {
-      const href = link.url[language] || Object.values(link.url)[0];
-      return (
-        <Tooltip key={`tp-aws-link-${index}`} label={href}>
-          <a
-            tabIndex="-1"
-            href={href}
-            rel="noopener noreferrer"
-            target="_blank"
-            className={
-              /ALPSOLUT|METEOMONT/.test(link.name)
-                ? "pure-button is-de-highlighted"
-                : "pure-button"
-            }
-            // style={{ cursor: "pointer", pointerEvents: "initial" }}
-          >
-            {link.name}{" "}
-            <span
-              className="icon-arrow-right"
-              // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
-            />
-          </a>
-        </Tooltip>
-      );
-    });
+  }) => (
+    <div className="bulletin-map-details-buttons">
+      {(aws || []).map((link, index) => {
+        const href = link.url[language] || Object.values(link.url)[0];
+        return (
+          <Tooltip key={`tp-aws-link-${index}`} label={href}>
+            <a
+              tabIndex="-1"
+              href={href}
+              rel="noopener noreferrer"
+              target="_blank"
+              className={
+                /ALPSOLUT|METEOMONT/.test(link.name)
+                  ? "pure-button is-de-highlighted"
+                  : "pure-button"
+              }
+              // style={{ cursor: "pointer", pointerEvents: "initial" }}
+            >
+              {link.name}{" "}
+              <span
+                className="icon-arrow-right"
+                // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+              />
+            </a>
+          </Tooltip>
+        );
+      })}
+    </div>
+  );
 
   const PopupButton = ({
     href,
@@ -231,18 +232,20 @@ const BulletinMap = (props: Props) => {
     className?: string;
     children: React.ReactNode;
   }) => (
-    <Tooltip label={label}>
-      <a
-        href={href}
-        target={target}
-        rel={rel}
-        onClick={onClick}
-        className={className ?? "pure-button"}
-        // style={{ cursor: "pointer", pointerEvents: "initial" }}
-      >
-        {children}
-      </a>
-    </Tooltip>
+    <div className="bulletin-map-details-buttons">
+      <Tooltip label={label}>
+        <a
+          href={href}
+          target={target}
+          rel={rel}
+          onClick={onClick}
+          className={className ?? "pure-button"}
+          // style={{ cursor: "pointer", pointerEvents: "initial" }}
+        >
+          {children}
+        </a>
+      </Tooltip>
+    </div>
   );
 
   const getBulletinMapDetails = () => {
@@ -316,18 +319,20 @@ const BulletinMap = (props: Props) => {
             </span>
           </a>
 
-          <p
-            key={`eaws-name-${country}`}
-            className="bulletin-report-region-name"
-          >
-            <span className="bulletin-report-region-name-country">
-              {intl.formatMessage({ id: "region:" + country })}
-            </span>
-            <span>&nbsp;/ </span>
-            <span className="bulletin-report-region-name-region">
-              {intl.formatMessage({ id: "region:" + region })}
-            </span>
-          </p>
+          <div className="bulletin-map-details-content">
+            <p
+              key={`eaws-name-${country}`}
+              className="bulletin-report-region-name"
+            >
+              <span className="bulletin-report-region-name-country">
+                {intl.formatMessage({ id: "region:" + country })}
+              </span>
+              <span>&nbsp;/ </span>
+              <span className="bulletin-report-region-name-region">
+                {intl.formatMessage({ id: "region:" + region })}
+              </span>
+            </p>
+          </div>
         </div>
       );
       res.push(<AwsLinks key="eaws-links" aws={activeEaws.aws ?? []} />);
