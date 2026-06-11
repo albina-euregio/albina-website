@@ -17,13 +17,12 @@ function BulletinDangerRating({ dangerRatings }: Props) {
     const alt = intl.formatMessage({ id: "danger-level:no_snow" });
     return (
       <p
-        className="bulletin-report-region-name"
+        className="bulletin-report-no-bulletin"
         style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
       >
         <img
           src={`${window.config.projectRoot}images/pro/danger-levels/no_snow.svg`}
           alt={alt}
-          style={{ display: "block", margin: "0 auto 0.25em" }}
         />
         <FormattedMessage id="danger-level:no_snow" />
       </p>

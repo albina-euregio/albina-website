@@ -1,8 +1,8 @@
-@use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../molecules/navigation";
+@use "../atoms/media";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -555,6 +555,20 @@ $search-width-wide: 300px;
       &:before {
         margin: 0;
       }
+    }
+  }
+
+  .bulletin-report-no-bulletin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: variables.$padding * 0.5;
+    margin: 0;
+    font-size: variables.$tiny-font-size;
+    img {
+      height: media.$picto-height-plus;
+      margin: 0;
     }
   }
 

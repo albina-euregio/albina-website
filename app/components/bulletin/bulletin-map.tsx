@@ -164,13 +164,12 @@ const BulletinMap = (props: Props) => {
           </span>
         </p>
         <p
-          className="bulletin-report-region-name"
+          className="bulletin-report-no-bulletin"
           style={{ textAlign: "center" }}
         >
           <img
             src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
             alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-            style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
           />
           <FormattedMessage id="danger-level:no_rating" />
         </p>
