@@ -268,6 +268,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   @media #{variables.breakpoint-up(normal)} {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
   }
 }
 
@@ -307,7 +308,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   line-height: 0;
   @media #{variables.breakpoint-up(normal)} {
     display: flex;
-    align-self: stretch;
+    // align-self: stretch;
     margin-bottom: 0;
   }
 
@@ -337,7 +338,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
     max-width: 45vw;
     margin-bottom: 0;
     line-height: 1.4;
-    @include mixins.box-border;
+    // @include mixins.box-border;
   }
 
   @media #{variables.breakpoint-up(tiny)} {

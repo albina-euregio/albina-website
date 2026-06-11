@@ -541,6 +541,7 @@ $search-width-wide: 300px;
   }
 
   .bulletin-report-public-alert {
+    margin: 0;
     @include mixins.font-normal;
     @include mixins.letter-spacing(0);
     font-size: variables.$tiny-font-size;

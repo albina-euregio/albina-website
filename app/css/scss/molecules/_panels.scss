@@ -61,8 +61,12 @@
       left: 0;
       width: variables.$bar-width;
       height: 100%;
-      @media #{variables.breakpoint-up(large)} {
-        left: -(variables.$bar-width) * 2;
+      @media #{variables.breakpoint-up(normal)} {
+        left: -(variables.$bar-width);
+        width: variables.$bar-width * 2;
+      }
+      @media #{variables.breakpoint-up(medium)} {
+        left: -(variables.$bar-width * 2);
         width: variables.$bar-width * 2;
       }
     }
