@@ -128,7 +128,7 @@
   "bulletin:map:search:label": "Rechercher un lieu",
   "bulletin:map:zoom-in:hover": "Zoom +",
   "bulletin:map:zoom-out:hover": "Zoom -",
-  "bulletin:map:info:details": "<span>Cliquez</span>pour plus de détails",
+  "bulletin:map:info:details": "<span>Cliquez</span> pour plus de détails",
   "bulletin:map:info:details:hover": "Voir bulletin d'avalanche complet",
   "bulletin:map:blog:button:title": "Voir toutes les entrées de blog",
   "bulletin:legend:highlight-regions": "<strong>Mettre en évidence</strong> les régions présentant une <a>situation avalancheuse typique</a> particulière",

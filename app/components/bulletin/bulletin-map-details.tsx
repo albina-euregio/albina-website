@@ -45,6 +45,7 @@ function BulletinMapDetails({
 
       <div className="bulletin-map-details-content">
         <p className="bulletin-report-region-name">
+          <span className="icon-location-small"></span>
           <span className="bulletin-report-region-name-region">{region}</span>
         </p>
         <ul className="list-plain">

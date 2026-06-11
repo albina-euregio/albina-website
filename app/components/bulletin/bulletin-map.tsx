@@ -158,6 +158,7 @@ const BulletinMap = (props: Props) => {
 
       <div key={divKey} className="bulletin-map-details-content">
         <p className="bulletin-report-region-name">
+          <span className="icon-location-small"></span>
           <span className="bulletin-report-region-name-region">
             {regionName}
           </span>
@@ -324,6 +325,7 @@ const BulletinMap = (props: Props) => {
               key={`eaws-name-${country}`}
               className="bulletin-report-region-name"
             >
+              <span className="icon-location-small"></span>
               <span className="bulletin-report-region-name-country">
                 {intl.formatMessage({ id: "region:" + country })}
               </span>
