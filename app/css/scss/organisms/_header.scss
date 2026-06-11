@@ -133,25 +133,22 @@ ul.bulletin-flipper {
     padding: 0;
   }
   a {
-    span {
-      &:before {
-        top: 0.175em;
-        line-height: 0;
-        @include mixins.rollover;
-      }
+    span:before {
+      top: 0.175em;
+      line-height: 0;
+      @include mixins.rollover;
     }
   }
   .bulletin-flipper-back {
     span:before {
+      margin: 0 0.25em 0 0;
       transform: translateX(0);
     }
     a {
       &:hover,
       &:active {
-        span {
-          &:before {
-            transform: translateX(-(variables.$padding) * 0.5);
-          }
+        span:before {
+          transform: translateX(-(variables.$padding) * 0.5);
         }
       }
     }
@@ -225,23 +222,20 @@ ul.bulletin-flipper {
   }
 
   .bulletin-flipper-forward {
-    span {
-      &:before {
-        margin-right: 0;
-        transform: translateX(0);
-      }
+    span:before {
+      margin: 0 0 0 0.25em;
+      transform: translateX(0);
     }
     a {
       &:hover,
       &:active {
-        span {
-          &:before {
-            transform: translateX(variables.$padding * 0.5);
-          }
+        span:before {
+          transform: translateX(variables.$padding * 0.5);
         }
       }
     }
   }
+
   .bulletin-flipper-archive {
     margin-left: auto;
     a {

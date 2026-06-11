@@ -142,6 +142,7 @@ const BulletinMap = (props: Props) => {
     onClose: () => void;
     children?: React.ReactNode;
   }) => (
+    // <>
     <div key={divKey}>
       <a
         href="#"
@@ -155,22 +156,31 @@ const BulletinMap = (props: Props) => {
           {intl.formatMessage({ id: "bulletin:map:details:close" })}
         </span>
       </a>
-      <p className="bulletin-report-region-name">
-        <span className="bulletin-report-region-name-region">{regionName}</span>
-      </p>
-      <p
-        className="bulletin-report-region-name"
-        style={{ textAlign: "center" }}
-      >
-        <img
-          src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-          alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-          style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
-        />
-        <FormattedMessage id="danger-level:no_rating" />
-      </p>
-      {children}
+
+      <div className="bulletin-map-details-content">
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-region">
+            {regionName}
+          </span>
+        </p>
+        <p
+          className="bulletin-report-region-name"
+          style={{ textAlign: "center" }}
+        >
+          <img
+            src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+            alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+            style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
+          />
+          <FormattedMessage id="danger-level:no_rating" />
+        </p>
+      </div>
+
+      {children && (
+        <div className="bulletin-map-details-buttons">{children}</div>
+      )}
     </div>
+    // </>
   );
 
   const AwsLinks = ({
@@ -192,12 +202,12 @@ const BulletinMap = (props: Props) => {
                 ? "pure-button is-de-highlighted"
                 : "pure-button"
             }
-            style={{ cursor: "pointer", pointerEvents: "initial" }}
+            // style={{ cursor: "pointer", pointerEvents: "initial" }}
           >
             {link.name}{" "}
             <span
               className="icon-arrow-right"
-              style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+              // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
             />
           </a>
         </Tooltip>
@@ -228,7 +238,7 @@ const BulletinMap = (props: Props) => {
         rel={rel}
         onClick={onClick}
         className={className ?? "pure-button"}
-        style={{ cursor: "pointer", pointerEvents: "initial" }}
+        // style={{ cursor: "pointer", pointerEvents: "initial" }}
       >
         {children}
       </a>
@@ -347,7 +357,7 @@ const BulletinMap = (props: Props) => {
               {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
               <span
                 className="icon-arrow-right"
-                style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+                // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
               />
             </PopupButton>
           </NoRatingPopup>

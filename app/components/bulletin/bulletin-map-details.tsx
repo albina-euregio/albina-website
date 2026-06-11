@@ -42,37 +42,42 @@ function BulletinMapDetails({
           {intl.formatMessage({ id: "bulletin:map:details:close" })}
         </span>
       </a>
-      <p className="bulletin-report-region-name">
-        <span className="bulletin-report-region-name-region">{region}</span>
-      </p>
-      <ul className="list-plain">
-        <li className="bulletin-report-picto">
-          <BulletinDangerRating dangerRatings={dangerRatings} />
-        </li>{" "}
-        {problems.map(problem => {
-          if (count < 2) {
-            if (
-              !(key > 0 && problems[0].problemType == problems[key].problemType)
-            ) {
-              count++;
-              return (
-                <li key={key++}>
-                  <ProblemIconLink problem={problem} />
-                </li>
-              );
-            } else {
-              key++;
-            }
-          }
-        })}
-      </ul>
 
-      {bulletin.highlights && (
-        <p className="bulletin-report-public-alert">
-          <span className="icon-attention bulletin-report-public-alert-icon"></span>
-          {bulletin.highlights}
+      <div className="bulletin-map-details-content">
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-region">{region}</span>
         </p>
-      )}
+        <ul className="list-plain">
+          <li className="bulletin-report-picto">
+            <BulletinDangerRating dangerRatings={dangerRatings} />
+          </li>{" "}
+          {problems.map(problem => {
+            if (count < 2) {
+              if (
+                !(
+                  key > 0 &&
+                  problems[0].problemType == problems[key].problemType
+                )
+              ) {
+                count++;
+                return (
+                  <li key={key++}>
+                    <ProblemIconLink problem={problem} />
+                  </li>
+                );
+              } else {
+                key++;
+              }
+            }
+          })}
+        </ul>
+        {bulletin.highlights && (
+          <p className="bulletin-report-public-alert">
+            <span className="icon-attention bulletin-report-public-alert-icon"></span>
+            {bulletin.highlights}
+          </p>
+        )}
+      </div>
     </>
   );
 }

@@ -150,8 +150,12 @@ $search-width-wide: 300px;
 //zoom, search, locate
 .leaflet-top.leaflet-left {
   position: absolute;
-  top: variables.$padding;
-  left: variables.$padding;
+  top: variables.$padding * 0.5;
+  left: variables.$padding * 0.5;
+  @media #{variables.breakpoint-up(medium)} {
+    top: variables.$padding;
+    left: variables.$padding;
+  }
   .bulletin-parallel-view &,
   .bulletin-switchable-view & {
     top: variables.$padding * 5.25;
@@ -160,14 +164,15 @@ $search-width-wide: 300px;
   a {
     overflow: hidden;
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: $controls-width-height !important;
     height: $controls-width-height !important;
     margin: 0 !important;
     padding: 0 !important;
     text-indent: 0;
-    font-size: $controls-width-height * 0.75 !important;
-    line-height: $controls-width-height !important;
+    line-height: 0;
     color: variables.$brand !important;
     background-color: rgba(variables.$white, 0.95) !important;
     border: none !important;
@@ -193,14 +198,18 @@ $search-width-wide: 300px;
   .leaflet-control-locate,
   .leaflet-control-showhide,
   .leaflet-control-table {
-    margin-bottom: variables.$padding;
+    margin-bottom: variables.$padding * 0.5;
     @include mixins.box-shadow(0.15);
     a:before {
+      display: block;
       height: $controls-width-height !important;
       width: $controls-width-height !important;
       margin: 0 !important;
       font-size: $controls-width-height * 0.75 !important;
       line-height: $controls-width-height !important;
+    }
+    span[aria-hidden="true"] {
+      display: none;
     }
   }
 
@@ -213,12 +222,12 @@ $search-width-wide: 300px;
 
   .leaflet-control-zoom-in {
     &:before {
-      @include icons.icon(plus-big, 0.75em, 0.5em, none, 0, none);
+      @include icons.icon(plus-big, 0, 0, none, 0, none);
     }
   }
   .leaflet-control-zoom-out {
     &:before {
-      @include icons.icon(minus-big, 0.75em, 0.5em, none, 0, none);
+      @include icons.icon(minus-big, 0, 0, none, 0, none);
     }
   }
 
@@ -341,6 +350,7 @@ $search-width-wide: 300px;
 
 //scale
 .leaflet-bottom.leaflet-left {
+  user-select: none;
   position: absolute;
   bottom: variables.$padding;
   left: variables.$padding;
@@ -348,9 +358,12 @@ $search-width-wide: 300px;
     margin: 0 !important;
   }
   .leaflet-control-scale-line {
-    padding: 0.25em 0.5em;
+    padding: 0.125em 0.5em;
     font-size: variables.$micro-font-size;
-    border-color: variables.$grey;
+    border-width: variables.$border-width;
+    border-color: variables.$grey-dark;
+    background: rgba(variables.$white, 0.5);
+    text-shadow: none;
   }
 }
 
@@ -365,7 +378,7 @@ $search-width-wide: 300px;
   .leaflet-control-attribution {
     position: relative;
     font-size: variables.$nano-font-size;
-    background-color: rgba(variables.$white, 0.5) !important;
+    background-color: rgba(variables.$white, 0.5);
     transform-origin: bottom left;
     transform: translateX(100%) rotate(-90deg);
     .section-weather-map & {
@@ -376,9 +389,7 @@ $search-width-wide: 300px;
   }
 }
 
-//
 // bulletin-map
-//
 
 //in case of no bulletin
 .bulletin-map-bulletinbar {
@@ -410,13 +421,17 @@ $search-width-wide: 300px;
 
 //details in floating tooltipp box
 .bulletin-map-details {
-  display: table;
   position: absolute;
   top: variables.$padding * 8;
   left: 50%;
   transform: translateX(-50%);
   padding: 0;
-  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
+
+  display: flex;
+  flex-direction: column;
+  gap: variables.$padding;
+
+  font-size: variables.$tiny-font-size;
   background-color: rgba(variables.$white, 0.95);
   @include mixins.box-shadow(0.15);
   opacity: 0;
@@ -435,6 +450,10 @@ $search-width-wide: 300px;
     top: variables.$padding;
     left: calc(100% - #{variables.$padding});
     transform: translateX(-100%);
+    @media #{variables.breakpoint-up(medium)} {
+      top: variables.$padding * 2;
+      left: calc(100% - #{variables.$padding * 2});
+    }
   }
   &.bottom-right {
     top: calc(100% - #{variables.$padding});
@@ -446,7 +465,6 @@ $search-width-wide: 300px;
     transform: translateY(-100%);
     left: variables.$padding;
   }
-  //}
 
   strong {
     @include mixins.font-heavy;
@@ -481,17 +499,23 @@ $search-width-wide: 300px;
     }
   }
 
+  //content
+  .bulletin-map-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+    padding: (variables.$padding * 1.5) (variables.$padding * 2) 0
+      (variables.$padding * 2);
+  }
   .bulletin-report-region-name {
-    margin: (variables.$padding * 1.5) (variables.$padding * 2)
-      variables.$padding (variables.$padding * 2);
+    margin: 0;
     font-size: variables.$tiny-font-size;
   }
 
   ul {
     display: flex;
     flex-wrap: nowrap;
-    margin: 0 (variables.$padding * 2) (variables.$padding * 2)
-      (variables.$padding * 2);
+    margin: 0;
     li {
       display: flex;
       align-self: center;
@@ -513,41 +537,46 @@ $search-width-wide: 300px;
   }
 
   .bulletin-report-public-alert {
-    margin: (variables.$padding * 2) (variables.$padding * 2) 0
-      (variables.$padding * 2);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    position: relative;
+    left: -(variables.$padding);
     @include mixins.font-normal;
     font-size: variables.$tiny-font-size;
   }
 
-  //details link
-  > a {
-    display: block;
-    width: 100%;
-    padding: 0 (variables.$padding * 2) variables.$padding
-      (variables.$padding * 2);
-    font-size: variables.$tiny-font-size;
-    color: variables.$anchor-font-color;
-    background: transparent;
-    border-color: none;
-    span {
-      @include mixins.font-normal;
-      @include mixins.letter-spacing(0);
-      text-transform: none;
-      &:before {
-        position: relative;
-        top: 0.15em;
-        margin: 0;
+  //links
+  .bulletin-map-details-buttons {
+    a {
+      display: block;
+      padding: 0 (variables.$padding * 2) variables.$padding
+        (variables.$padding * 2);
+      font-size: variables.$tiny-font-size;
+      color: variables.$anchor-font-color;
+      background: transparent;
+      border: none;
+      span {
+        @include mixins.font-normal;
+        @include mixins.letter-spacing(0);
+        text-transform: none;
+        &:before {
+          position: relative;
+          top: 0.15em;
+          margin: 0;
+        }
       }
-    }
-    &:hover {
-      color: variables.$white;
-      background: variables.$anchor-font-color;
-      border-color: variables.$anchor-font-color;
-    }
-    &.is-de-highlighted {
-      color: variables.$grey;
       &:hover {
         color: variables.$white;
+        background: variables.$anchor-font-color;
+        border: none;
+      }
+      &.is-de-highlighted {
+        color: variables.$grey;
+        &:hover {
+          color: variables.$white;
+        }
       }
     }
   }
@@ -581,9 +610,8 @@ $search-width-wide: 300px;
   }
 }
 
-//
 // weather-map
-//
+
 .station-view-toggle {
   display: inline-flex;
   align-items: center;
@@ -1106,7 +1134,7 @@ $search-width-wide: 300px;
   }
 }
 
-//202009: is this still in use? existing in feature-info.jsx so better keep alive from here ...
+//202009: is this still in use? existing in feature-info.tsx so better keep alive from here ...
 .weather-map-details {
   z-index: 100;
   display: table;
