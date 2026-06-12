@@ -14,9 +14,7 @@
   .marginal {
     display: flex;
     flex-direction: column;
-
     margin: 0;
-    // @include font-heavy;
     font-size: variables.$micro-font-size;
     @include mixins.letter-spacing;
 
@@ -74,18 +72,19 @@
 
 //bulletin
 .section-bulletin-header {
+  padding-top: (variables.$medium-v-padding * 0.5) !important;
+  .marginal {
+    align-items: flex-end;
+  }
   @media #{variables.breakpoint-up(medium)} {
     padding-top: (variables.$medium-v-padding * 0.5) !important;
     padding-bottom: (variables.$medium-v-padding * 0.5) !important;
   }
 
-  // .bulletin-datetime-release {}
   .bulletin-datetime-update {
     color: variables.$warning-color;
   }
-  // .bulletin-datetime-validity {}
 
-  .subheadern,
   h1 {
     line-height: 1;
   }
@@ -98,30 +97,13 @@
       margin: 0;
     }
   }
-
-  //from alien app.scss
-  // &.loading {
-  //   .bulletin-datetime-validity {
-  //     opacity: 0.5;
-  //   }
-  // }
-
-  // &.bulletin-updated {
-  //   .bulletin-datetime-update {
-  //     color: $warning-color;
-  //   }
-  // }
-  // &.bulletin-archive {
-  //   .bulletin-datetime-validity {
-  //     color: $text-color;
-  //   }
-  // }
 }
 
 ul.bulletin-flipper {
   display: flex;
   align-items: center;
   gap: 1em;
+  margin-bottom: variables.$padding * 2;
   @media #{variables.breakpoint-up(small)} {
     gap: 2em;
   }
