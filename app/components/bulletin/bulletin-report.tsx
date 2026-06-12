@@ -302,7 +302,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:current-conditions:headline" />
                 </h2>
-                <ul className="list-inline list-photos">
+                <ul className="list-inline list-bulletin-report-photos">
                   {bulletinPhotos.map((photo, index) => (
                     <li key={photo.url + index}>
                       <figure>

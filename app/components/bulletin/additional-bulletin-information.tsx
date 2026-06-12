@@ -77,9 +77,9 @@ function useWeatherStations() {
             ]}
             radius={10}
             weight={1}
-            color="rgb(100, 100, 100)"
+            color="rgb(0, 0, 0)"
             fill={true}
-            fillColor="rgb(100, 100, 100)"
+            fillColor="rgb(0, 0, 0)"
             eventHandlers={{
               click: () => setStationId(station.id)
             }}
@@ -115,10 +115,11 @@ function useObservations() {
           <CircleMarker
             key={observation.$id}
             center={[observation.latitude, observation.longitude]}
-            radius={12}
-            color="rgb(200, 100, 100)"
+            radius={10}
+            weight={2}
+            color="rgb(132, 52, 79)"
             fill={true}
-            fillColor="rgb(200, 100, 100)"
+            fillColor="rgb(132, 52, 79)"
             eventHandlers={{
               click: () => setObservation(observation.$externalURL)
             }}
@@ -143,8 +144,8 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
-  const stationMarkerColor = "rgb(100, 100, 100)";
-  const observationMarkerColor = "rgb(200, 100, 100)";
+  const stationMarkerColor = "rgb(0, 0, 0)";
+  const observationMarkerColor = "rgb(132, 52, 79)";
   const [showStations, setShowStations] = useState(true);
   const [showObservations, setShowObservations] = useState(true);
   const { data, stationId, setStationId, stationMarkers } =
@@ -169,7 +170,7 @@ export function AdditionalBulletinInformation({
     return [...visibleStationMarkers, ...visibleObservations];
   }, [showStations, stationMarkers, showObservations, observations]);
   return (
-    <div>
+    <div className="bulletin-report-addmap">
       {!!data.length && (
         <WeatherStationDialog
           stationData={data}
@@ -195,14 +196,7 @@ export function AdditionalBulletinInformation({
         <FormattedMessage id="bulletin:report:additional:headline" />
       </h2>
 
-      <div
-        style={{
-          marginTop: "2rem",
-          height: "300px",
-          borderRadius: "4px",
-          overflow: "hidden"
-        }}
-      >
+      <div className="addmap">
         <LeafletMapOpenTopo
           key={`${bulletin.bulletinID}-${region}`}
           loaded={true}
@@ -216,54 +210,55 @@ export function AdditionalBulletinInformation({
         />
       </div>
 
-      <div
-        className="bulletin-report-mini-map-legend"
-        aria-label="Map legend"
-        role="button"
-        tabIndex={0}
-        aria-pressed={showStations}
-        onClick={() => setShowStations(value => !value)}
-        onKeyDown={event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setShowStations(value => !value);
-          }
-        }}
-        style={{
-          ["--bulletin-mini-map-marker-color" as string]: stationMarkerColor,
-          opacity: showStations ? 1 : 0.55,
-          cursor: "pointer"
-        }}
-      >
-        <span className="bulletin-report-mini-map-legend__swatch" />
-        <span className="bulletin-report-mini-map-legend__label">
-          <FormattedMessage id="bulletin:add-on:legend:weather-stations" />
-        </span>
-      </div>
-      <div
-        className="bulletin-report-mini-map-legend"
-        aria-label="Map legend"
-        role="button"
-        tabIndex={0}
-        aria-pressed={showObservations}
-        onClick={() => setShowObservations(value => !value)}
-        onKeyDown={event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setShowObservations(value => !value);
-          }
-        }}
-        style={{
-          ["--bulletin-mini-map-marker-color" as string]:
-            observationMarkerColor,
-          opacity: showObservations ? 1 : 0.55,
-          cursor: "pointer"
-        }}
-      >
-        <span className="bulletin-report-mini-map-legend__swatch" />
-        <span className="bulletin-report-mini-map-legend__label">
-          <FormattedMessage id="bulletin:add-on:legend:observations" />
-        </span>
+      <div className="addmap-legend">
+        <div
+          className="addmap-legend-item"
+          aria-label="Map legend"
+          role="button"
+          tabIndex={0}
+          aria-pressed={showStations}
+          onClick={() => setShowStations(value => !value)}
+          onKeyDown={event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setShowStations(value => !value);
+            }
+          }}
+          style={{
+            ["--bulletin-report-addmap-marker-color" as string]:
+              stationMarkerColor,
+            opacity: showStations ? 1 : 0.5
+          }}
+        >
+          <span className="addmap-legend-swatch" />
+          <span className="addmap-label">
+            <FormattedMessage id="bulletin:add-on:legend:weather-stations" />
+          </span>
+        </div>
+        <div
+          className="addmap-legend-item"
+          aria-label="Map legend"
+          role="button"
+          tabIndex={0}
+          aria-pressed={showObservations}
+          onClick={() => setShowObservations(value => !value)}
+          onKeyDown={event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setShowObservations(value => !value);
+            }
+          }}
+          style={{
+            ["--bulletin-report-addmap-marker-color" as string]:
+              observationMarkerColor,
+            opacity: showObservations ? 1 : 0.5
+          }}
+        >
+          <span className="addmap-legend-swatch" />
+          <span className="addmap-label">
+            <FormattedMessage id="bulletin:add-on:legend:observations" />
+          </span>
+        </div>
       </div>
     </div>
   );
