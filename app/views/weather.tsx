@@ -72,7 +72,7 @@ const Weather = () => {
             <WeatherMap
               playerCB={player.onLayerEvent}
               isPlaying={false}
-              onMarkerSelected={feature => setStationId(feature?.id)}
+              onMarkerSelected={feature => setStationId(feature)}
               onViewportChanged={() => {}}
             />
             {selectedFeature && <FeatureInfo feature={selectedFeature} />}
