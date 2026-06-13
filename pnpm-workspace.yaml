@@ -1,6 +1,6 @@
 catalog:
   vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: ^0.1.19
+  vite-plus: ^0.1.24
   vitest: npm:@voidzero-dev/vite-plus-test@latest
 ignoredOptionalDependencies:
   - "@parcel/watcher"
