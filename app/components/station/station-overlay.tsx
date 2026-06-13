@@ -85,9 +85,6 @@ const StationOverlay = (props: Props) => {
       return null;
     }
 
-    // Round temperature to 1 decimal, others to 0 decimals
-    const digits = /TA|TD|TSS/.test(props.itemId) ? 1 : 0;
-
     const coordinates: L.LatLngExpression = [
       data.geometry.coordinates[1],
       data.geometry.coordinates[0]
@@ -102,7 +99,7 @@ const StationOverlay = (props: Props) => {
         tooltip={data.properties.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
-        value={!hasValue ? "" : intl.formatNumber(value, digits)}
+        value={!hasValue ? "" : intl.formatNumber(value)}
         zIndexOffset={
           // Markers with values should render above markers without values
           !hasValue
