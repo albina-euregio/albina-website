@@ -8,12 +8,19 @@ import GridOverlay from "./grid-overlay";
 import StationOverlay from "../station/station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
+interface Props {
+  playerCB: (layerId: string, state: string) => void;
+  isPlaying: boolean;
+  onMarkerSelected: (id: string | null) => void;
+  onViewportChanged: () => void;
+}
+
 const WeatherMap = ({
   playerCB,
   isPlaying,
   onMarkerSelected,
   onViewportChanged
-}) => {
+}: Props) => {
   const intl = useIntl();
   const [showStations, setShowStations] = useState(
     !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
