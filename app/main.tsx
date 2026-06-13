@@ -36,7 +36,7 @@ configRequest.then(async configParsed => {
   applyApiBaseUrl(window.config.apis as unknown as Apis);
   function applyApiBaseUrl(obj: Apis, baseUrl = window.config.apis.baseUrl) {
     for (const [key, value] of Object.entries(obj)) {
-      if (typeof value === "object") {
+      if (typeof value === "object" && key !== "stations") {
         applyApiBaseUrl(obj[key] as Apis);
       } else if (typeof value === "string" && !value.startsWith("http")) {
         obj[key] = baseUrl + value;
