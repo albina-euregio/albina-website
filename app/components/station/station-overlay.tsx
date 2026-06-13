@@ -96,7 +96,7 @@ const StationOverlay = (props: Props) => {
         key={props.itemId + "-" + data.id}
         itemId={props.itemId}
         id={data.id}
-        tooltip={data.properties.name}
+        tooltip={`${data.properties.name} (${data.geometry.coordinates[2]}m)`}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={!hasValue ? "" : intl.formatNumber(value)}
