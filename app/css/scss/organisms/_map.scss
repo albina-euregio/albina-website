@@ -1165,3 +1165,7 @@ a.weather-map-details-button {
   }
 }
 //...to here
+
+.maplibre-station-tooltip .maplibregl-popup-content {
+  padding: 0.25em 0.5em;
+}

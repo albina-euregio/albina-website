@@ -105,15 +105,32 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
         }
       });
 
+      const tooltip = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+        offset: 10,
+        className: "maplibre-station-tooltip"
+      });
+
       map.on("click", STATIONS_LAYER_ID, e => {
         const id = e.features?.[0]?.properties?.id;
         if (typeof id === "string") onMarkerSelectedRef.current(id);
       });
-      map.on("mouseenter", STATIONS_LAYER_ID, () => {
+      map.on("mousemove", STATIONS_LAYER_ID, e => {
         map.getCanvas().style.cursor = "pointer";
+        const feature = e.features?.[0];
+        const name = feature?.properties?.name;
+        if (feature?.geometry.type !== "Point" || typeof name !== "string") {
+          return;
+        }
+        tooltip
+          .setLngLat(feature.geometry.coordinates as [number, number])
+          .setText(name)
+          .addTo(map);
       });
       map.on("mouseleave", STATIONS_LAYER_ID, () => {
         map.getCanvas().style.cursor = "";
+        tooltip.remove();
       });
 
       onInit?.(map);
