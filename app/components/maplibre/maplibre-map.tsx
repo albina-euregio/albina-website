@@ -143,7 +143,17 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
 
     mapRef.current = map;
 
+    // MapLibre's trackResize only listens to window resize, so it misses
+    // container size changes (e.g. the initial layout settling). Observe the
+    // container and resize the map accordingly.
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => map.resize())
+        : undefined;
+    resizeObserver?.observe(containerRef.current);
+
     return () => {
+      resizeObserver?.disconnect();
       map.remove();
       mapRef.current = null;
     };
