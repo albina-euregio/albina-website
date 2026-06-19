@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import StationOverlay from "../components/station/station-overlay";
-import { LeafletMapOpenTopo } from "../components/leaflet/leaflet-map";
+import MapLibreMap from "../components/maplibre/maplibre-map";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
@@ -130,7 +129,6 @@ function StationDashboard() {
   const selectedDateTime = parseDateTimeSearchParam(dateTimeQuery);
   const setSelectedDateTime = (nextDateTime: string) =>
     redirectPageQuery({ dateTime: nextDateTime });
-  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
   const [filterHeight, setFilterHeight] = useState(0);
   const [filterTop, setFilterTop] = useState(0);
@@ -211,9 +209,6 @@ function StationDashboard() {
     };
   }, []);
 
-  const currentParameterConfig =
-    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
-    AVAILABLE_PARAMETERS[0];
   const selectedRegion = config.stationRegions.includes(activeRegion)
     ? activeRegion
     : undefined;
@@ -236,41 +231,7 @@ function StationDashboard() {
           observer.geometry.coordinates[2] <= elevationRange[1])
     );
 
-  const stationOverlay = (
-    <StationOverlay
-      key={`stations-${selectedParameter}-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={id => void setStationId(id)}
-      itemId={selectedParameter}
-      item={{
-        id: selectedParameter,
-        colors: currentParameterConfig.colors,
-        thresholds: currentParameterConfig.thresholds,
-        units: currentParameterConfig.unit,
-        direction: currentParameterConfig.direction || false,
-        clusterOperation: "none"
-      }}
-      features={sortedFilteredData}
-      showMarkersWithoutValue={showMarkersWithoutValue}
-    />
-  );
-
-  const observerOverlay = (
-    <StationOverlay
-      key={`observers-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={id => void setStationId(id)}
-      itemId="any"
-      item={{
-        id: "name",
-        colors: { 1: [100, 100, 100] },
-        thresholds: [],
-        clusterOperation: "none"
-      }}
-      features={regionFilteredObservers}
-      showMarkersWithoutValue={showMarkersWithoutValue}
-    />
-  );
-
-  const overlays = [stationOverlay, observerOverlay];
+  const mapFeatures = [...sortedFilteredData, ...regionFilteredObservers];
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
@@ -279,19 +240,9 @@ function StationDashboard() {
         onParameterChange={setSelectedParameter}
       />
       <div className="section-map">
-        <LeafletMapOpenTopo
-          loaded={true}
-          gestureHandling={false}
-          controls={null}
-          enableStationPinsToggle={true}
-          showMarkersWithoutValue={showMarkersWithoutValue}
-          onToggleMarkersWithoutValue={nextValue => {
-            setShowMarkersWithoutValue(nextValue);
-          }}
-          onInit={e => {
-            e.invalidateSize();
-          }}
-          overlays={overlays}
+        <MapLibreMap
+          features={mapFeatures}
+          onMarkerSelected={id => void setStationId(id)}
         />
       </div>
     </section>

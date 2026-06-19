@@ -93,6 +93,9 @@ importers:
       leaflet.vectorgrid:
         specifier: ^1.3.0
         version: 1.3.0(patch_hash=ba864c7796d8edf93adbbefeaa8b2c20e1f4b60287f70db34f6fc3854a2c5053)(leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df))
+      maplibre-gl:
+        specifier: ^5.24.0
+        version: 5.24.0
       nanostores:
         specifier: ^1.2.0
         version: 1.2.0
@@ -147,7 +150,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react':
         specifier: ^6.0.2
-        version: 6.0.2(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))
+        version: 6.0.2(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))
       git-cliff:
         specifier: ^2.10.1
         version: 2.10.1
@@ -156,13 +159,13 @@ importers:
         version: 1.99.0
       vite:
         specifier: npm:@voidzero-dev/vite-plus-core@latest
-        version: '@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
+        version: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
       vite-plugin-static-copy:
         specifier: ^4.1.1
-        version: 4.1.1(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))
+        version: 4.1.1(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))
       vite-plus:
         specifier: 'catalog:'
-        version: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
+        version: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
 
 packages:
 
@@ -229,6 +232,42 @@ packages:
   '@iframe-resizer/parent@5.5.7':
     resolution: {integrity: sha512-1dDlHFl7TOgu7odDcz/AQkJRcm9Ztpw2F8af/IU5ZAJhVlQkj8pjdnc5RfniGqY3AHOnryFATtrk7TDgZqPQFg==}
 
+  '@mapbox/jsonlint-lines-primitives@2.0.2':
+    resolution: {integrity: sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==}
+    engines: {node: '>= 0.6'}
+
+  '@mapbox/point-geometry@1.1.0':
+    resolution: {integrity: sha512-YGcBz1cg4ATXDCM/71L9xveh4dynfGmcLDqufR+nQQy3fKwsAZsWd/x4621/6uJaeB9mwOHE6hPeDgXz9uViUQ==}
+
+  '@mapbox/tiny-sdf@2.2.0':
+    resolution: {integrity: sha512-LVL4wgI9YAum5V+LNVQO6QgFBPw7/MIIY4XJPNsPDMrjEwcE+JfKk1LuIl8GnF197ejVdC9QdPaxrx5gfgdGXg==}
+
+  '@mapbox/unitbezier@0.0.1':
+    resolution: {integrity: sha512-nMkuDXFv60aBr9soUG5q+GvZYL+2KZHVvsqFCzqnkGEf46U2fvmytHaEVc1/YZbiLn8X+eR3QzX1+dwDO1lxlw==}
+
+  '@mapbox/unitbezier@1.0.0':
+    resolution: {integrity: sha512-fqd515fjBmANKGGsQ286E2Wvj/XvDFpGzwJxq4CI6jMQue6Oy04uCKp+JWKF00xRTmk6cEu1jPJ9p3xqH8YWqQ==}
+
+  '@mapbox/vector-tile@2.0.5':
+    resolution: {integrity: sha512-pXj8m7KTsqZt+1jsE0xIpGvqTSbblfkuEJL/NJmNePMtEwxO8V3XMDo9WMSfDeqHvCtBI9Lmt4mGcGR10zecmw==}
+
+  '@mapbox/whoots-js@3.1.0':
+    resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
+    engines: {node: '>=6.0.0'}
+
+  '@maplibre/geojson-vt@6.1.0':
+    resolution: {integrity: sha512-2eIY4gZxeKIVOZVNkAMb+5NgXhgsMQpOveTQAvnp53LYqHGJZDidk7Ew0Tged9PThidpbS+NFTh0g4zivhPDzQ==}
+
+  '@maplibre/maplibre-gl-style-spec@24.10.0':
+    resolution: {integrity: sha512-lichxSiagMEBBrqHF0trtMQH9RKh+9jUlIJl0qW0QHvt2H/tbvUWdE+ZzI2Jd0/pT7j/iavLonlPu7EQ/ixTOw==}
+    hasBin: true
+
+  '@maplibre/mlt@1.1.11':
+    resolution: {integrity: sha512-dKvjKdITw9d0y3ndGkSqLUEpWCizMtdq8NB06cHohH/JZ2sJoM7dClR9wzJLUWykjbw9RXDFmhjjNBnNW27mzw==}
+
+  '@maplibre/vt-pbf@4.3.2':
+    resolution: {integrity: sha512-j6p0AdjvAR19Z3XaCysle7A4ZSo08tYOzxD0Y9NQylwPAkwJJeYub5b2eVucdeDh7erhv69DahoLOevDRERRUw==}
+
   '@nanostores/react@1.1.0':
     resolution: {integrity: sha512-MbH35fjhcf7LAubYX5vhOChYUfTLzNLqH/mBGLVsHkcvjy0F8crO1WQwdmQ2xKbAmtpalDa2zBt3Hlg5kqr8iw==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -246,8 +285,15 @@ packages:
     resolution: {integrity: sha512-PkvjA1Lq5++V5S1E6Patr92ZVcieE6EalDr1VJTqv4BnjZdOUC4W3p8k1wMXSd5/2aFP4b/A6N5sg2Bkzcr9vQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@oxc-project/runtime@0.136.0':
+    resolution: {integrity: sha512-u0EutjK5y6NHJkl5jNJCs8zbup1z6A/UEWgajrYzqcEU3UX05HjqybhMQOLhSM0eKGISyM6WfSMMuklYSmH2wA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@oxc-project/types@0.133.0':
     resolution: {integrity: sha512-KzkdCd6Uxqnf6l3HOw1xfatAlUURA0g14cvBYFyJ5SaNOQbOUvBr9PKArcPcrNIeRsBdgcUzOGrhKveVpvOIGA==}
+
+  '@oxc-project/types@0.136.0':
+    resolution: {integrity: sha512-39Al/B3v9esnHCX7S8l9Se2+s2tb9b2jcMd+bZ2L659VG73kNyGPpPrL5Zi/p0ty7p4pTTU2/Dd+g27hv94XCg==}
 
   '@oxfmt/binding-android-arm-eabi@0.52.0':
     resolution: {integrity: sha512-17EMSJnQ9g+upVHrAUYDMfH5lvRKQ9Nvg8WtEoH72oDr1VpWz+7/o3tD97U1EToen2YAQ/68JmtDYkQUi20dfQ==}
@@ -664,6 +710,69 @@ packages:
       yaml:
         optional: true
 
+  '@voidzero-dev/vite-plus-core@0.2.1':
+    resolution: {integrity: sha512-iWdtOlLezgYcDqIzxZx1yOUhY93vUB+ob+mRYBNr7/3Hf80uRyTQbqVD1WtsYaANbzeUi81SQ1ZoUraXHO+u8A==}
+    engines: {node: ^20.19.0 || ^22.18.0 || >=24.11.0}
+    peerDependencies:
+      '@arethetypeswrong/core': ^0.18.1
+      '@tsdown/css': 0.22.3
+      '@tsdown/exe': 0.22.3
+      '@types/node': ^20.19.0 || >=22.12.0
+      '@vitejs/devtools': ^0.1.18
+      esbuild: ^0.27.0 || ^0.28.0
+      jiti: '>=1.21.0'
+      less: ^4.0.0
+      publint: ^0.3.8
+      sass: ^1.70.0
+      sass-embedded: ^1.70.0
+      stylus: '>=0.54.8'
+      sugarss: ^5.0.0
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      typescript: ^5.0.0 || ^6.0.0
+      unplugin-unused: ^0.5.0
+      unrun: '*'
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@arethetypeswrong/core':
+        optional: true
+      '@tsdown/css':
+        optional: true
+      '@tsdown/exe':
+        optional: true
+      '@types/node':
+        optional: true
+      '@vitejs/devtools':
+        optional: true
+      esbuild:
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      publint:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      typescript:
+        optional: true
+      unplugin-unused:
+        optional: true
+      unrun:
+        optional: true
+      yaml:
+        optional: true
+
   '@voidzero-dev/vite-plus-darwin-arm64@0.1.24':
     resolution: {integrity: sha512-Hpo9W9piSFlEsJzGkwzfDXhJGrnYByxHXF7NVQZ7g+SLOprddtlfTeM8t+gq9dxcuq0RzM8ddMAhDQP/K3fZQA==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -811,6 +920,9 @@ packages:
   domutils@2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
 
+  earcut@3.0.2:
+    resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
+
   entities@2.2.0:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
 
@@ -877,6 +989,9 @@ packages:
     engines: {node: '>=18.19 || >=20.6 || >=21'}
     hasBin: true
 
+  gl-matrix@3.4.4:
+    resolution: {integrity: sha512-latSnyDNt/8zYUB6VIJ6PCh2jBjJX6gnDsoCZ7LyW7GkqrD51EWwa9qCoGixj8YqBtETQK/xY7OmpTF8xz1DdQ==}
+
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -932,6 +1047,12 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  json-stringify-pretty-compact@4.0.0:
+    resolution: {integrity: sha512-3CNZ2DnrpByG9Nqj6Xo8vqbjT4F6N+tb4Gb28ESAZjYZ5yqvmc56J+/kuIwkaAMOyblTQhUW7PxMkUb8Q36N3Q==}
+
+  kdbush@4.1.0:
+    resolution: {integrity: sha512-e9vurzrXJQrFX6ckpHP3bvj5l+9CnYzkxDNnNQ1h2QTqdWsUAJgXiKdGNcOa1EY85dU8KbQ+z/FdQdB7P+9yfQ==}
 
   leaflet-geonames@0.4.9:
     resolution: {integrity: sha512-iWluuA3b+aAfcBXSPYP6HYDnSuCwfCmevVQb6+3VfbclHAFB6IL7/2g5KzYxs1dSAm0xj1q7UkLKaPb0jxcI8g==}
@@ -1029,9 +1150,19 @@ packages:
     resolution: {integrity: sha512-NXYBzinNrblfraPGyrbPoD19C1h9lfI/1mzgWYvXUTe414Gz/X1FD2XBZSZM7rRTrMA8JL3OtAaGifrIKhQ5yQ==}
     engines: {node: '>= 12.0.0'}
 
+  maplibre-gl@5.24.0:
+    resolution: {integrity: sha512-ALyFxgtd5R+65UqZ/++lOqwWcC0SNho9c27fYSyLmG7AfnAul2o46F05aDJGPbFU57wos9dgcIySHs0Xe6ia3A==}
+    engines: {node: '>=16.14.0', npm: '>=8.1.0'}
+
+  minimist@1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+
   mrmime@2.0.1:
     resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
     engines: {node: '>=10'}
+
+  murmurhash-js@1.0.0:
+    resolution: {integrity: sha512-TvmkNhkv8yct0SVBSy+o8wYzXjE4Zz3PCesbfs8HiCXXdcTuocApFv11UWlNFWKYsP2okqrhb7JNlSm9InBhIw==}
 
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
@@ -1107,6 +1238,14 @@ packages:
     resolution: {integrity: sha512-XDF38WCH3z5OV/OVa8GKUNtLAyneuzbCisx7QUCF8Q6Nutx0WnJrQe5O+kOtBlLfRNUws98Y58Lblp+NJG5T4Q==}
     hasBin: true
 
+  pbf@4.0.2:
+    resolution: {integrity: sha512-J0ajxARhZfpUEebxYs1vhMGMuLSXtBe1e+fFPDrf2uA2hgo+UshKfNUWOz92HJNz6/NFEXseQPddnHkTreWRqg==}
+    hasBin: true
+
+  pbf@5.1.0:
+    resolution: {integrity: sha512-Wv0yo0+uZepnoNEKsquhar1F18LogB8oeEikIhUXG16udbiXG7JecHGySwoo6kuMgjmbQYzdrTZlO+/K9t8eZg==}
+    hasBin: true
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -1144,6 +1283,9 @@ packages:
     resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  potpack@2.1.0:
+    resolution: {integrity: sha512-pcaShQc1Shq0y+E7GqJqvZj8DTthWV1KeHGdi0Z6IAin2Oi3JnLCOfwnCo84qc+HAp52wT9nK9H7FAJp5a44GQ==}
+
   pretty-ms@9.3.0:
     resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
     engines: {node: '>=18'}
@@ -1153,6 +1295,9 @@ packages:
 
   purecss-sass@3.0.1:
     resolution: {integrity: sha512-uJPlefOtncdCFmAyPRYRYKk36EsMan/QKqW6Bg4MUUgREQsVl2V/nPO1sPhd0+9xNE8jQHtR86ALb335N9B8AQ==}
+
+  quickselect@3.0.0:
+    resolution: {integrity: sha512-XdjUArbK4Bm5fLLvlm5KpTFOiOThgfWWI4axAZDWg4E/0mKdZyI9tNEfds27qCi1ze/vwTR16kvmmGhRra3c2g==}
 
   react-dom@19.2.0:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
@@ -1249,6 +1394,9 @@ packages:
   tinypool@2.1.0:
     resolution: {integrity: sha512-Pugqs6M0m7Lv1I7FtxN4aoyToKg1C4tu+/381vH35y8oENM/Ai7f7C4StcoK4/+BSw9ebcS8jRiVrORFKCALLw==}
     engines: {node: ^20.0.0 || >=22.0.0}
+
+  tinyqueue@3.0.0:
+    resolution: {integrity: sha512-gRa9gwYU3ECmQYv3lslts5hxuIa90veaEcxDYuu3QGOIAEM2mOZkVHp48ANJuu1CURtRdHKUBY5Lm1tHV+sD4g==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -1397,6 +1545,47 @@ snapshots:
       '@iframe-resizer/core': 5.5.7
       auto-console-group: 1.2.11
 
+  '@mapbox/jsonlint-lines-primitives@2.0.2': {}
+
+  '@mapbox/point-geometry@1.1.0': {}
+
+  '@mapbox/tiny-sdf@2.2.0': {}
+
+  '@mapbox/unitbezier@0.0.1': {}
+
+  '@mapbox/unitbezier@1.0.0': {}
+
+  '@mapbox/vector-tile@2.0.5':
+    dependencies:
+      '@mapbox/point-geometry': 1.1.0
+      '@types/geojson': 7946.0.16
+      pbf: 4.0.2
+
+  '@mapbox/whoots-js@3.1.0': {}
+
+  '@maplibre/geojson-vt@6.1.0':
+    dependencies:
+      kdbush: 4.1.0
+
+  '@maplibre/maplibre-gl-style-spec@24.10.0':
+    dependencies:
+      '@mapbox/jsonlint-lines-primitives': 2.0.2
+      '@mapbox/unitbezier': 1.0.0
+      json-stringify-pretty-compact: 4.0.0
+      minimist: 1.2.8
+      quickselect: 3.0.0
+      tinyqueue: 3.0.0
+
+  '@maplibre/mlt@1.1.11':
+    dependencies:
+      '@mapbox/point-geometry': 1.1.0
+
+  '@maplibre/vt-pbf@4.3.2':
+    dependencies:
+      '@mapbox/point-geometry': 1.1.0
+      '@types/geojson': 7946.0.16
+      pbf: 5.1.0
+
   '@nanostores/react@1.1.0(nanostores@1.2.0)(react@19.2.0)':
     dependencies:
       nanostores: 1.2.0
@@ -1408,7 +1597,11 @@ snapshots:
 
   '@oxc-project/runtime@0.133.0': {}
 
+  '@oxc-project/runtime@0.136.0': {}
+
   '@oxc-project/types@0.133.0': {}
+
+  '@oxc-project/types@0.136.0': {}
 
   '@oxfmt/binding-android-arm-eabi@0.52.0':
     optional: true
@@ -1601,15 +1794,26 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@vitejs/plugin-react@6.0.2(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))':
+  '@vitejs/plugin-react@6.0.2(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: '@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
+      vite: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
 
   '@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)':
     dependencies:
       '@oxc-project/runtime': 0.133.0
       '@oxc-project/types': 0.133.0
+      lightningcss: 1.32.0
+      postcss: 8.5.8
+    optionalDependencies:
+      '@types/node': 24.10.1
+      sass: 1.99.0
+      yaml: 2.8.2
+
+  '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)':
+    dependencies:
+      '@oxc-project/runtime': 0.136.0
+      '@oxc-project/types': 0.136.0
       lightningcss: 1.32.0
       postcss: 8.5.8
     optionalDependencies:
@@ -1635,7 +1839,7 @@ snapshots:
   '@voidzero-dev/vite-plus-linux-x64-musl@0.1.24':
     optional: true
 
-  '@voidzero-dev/vite-plus-test@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)':
+  '@voidzero-dev/vite-plus-test@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)':
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@types/chai': 5.2.3
@@ -1649,7 +1853,7 @@ snapshots:
       tinybench: 2.9.0
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
-      vite: '@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
+      vite: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
       ws: 8.21.0
     optionalDependencies:
       '@types/node': 24.10.1
@@ -1748,6 +1952,8 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 4.3.1
 
+  earcut@3.0.2: {}
+
   entities@2.2.0: {}
 
   es-module-lexer@1.7.0: {}
@@ -1813,6 +2019,8 @@ snapshots:
       git-cliff-windows-arm64: 2.10.1
       git-cliff-windows-x64: 2.10.1
 
+  gl-matrix@3.4.4: {}
+
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -1857,6 +2065,10 @@ snapshots:
   is-unicode-supported@2.1.0: {}
 
   isexe@2.0.0: {}
+
+  json-stringify-pretty-compact@4.0.0: {}
+
+  kdbush@4.1.0: {}
 
   leaflet-geonames@0.4.9(patch_hash=3f2a49c862dc2eae792f3b95926ab6c94d556556568615cb44ea4c4deaedec0d): {}
 
@@ -1925,7 +2137,33 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.32.0
       lightningcss-win32-x64-msvc: 1.32.0
 
+  maplibre-gl@5.24.0:
+    dependencies:
+      '@mapbox/jsonlint-lines-primitives': 2.0.2
+      '@mapbox/point-geometry': 1.1.0
+      '@mapbox/tiny-sdf': 2.2.0
+      '@mapbox/unitbezier': 0.0.1
+      '@mapbox/vector-tile': 2.0.5
+      '@mapbox/whoots-js': 3.1.0
+      '@maplibre/geojson-vt': 6.1.0
+      '@maplibre/maplibre-gl-style-spec': 24.10.0
+      '@maplibre/mlt': 1.1.11
+      '@maplibre/vt-pbf': 4.3.2
+      '@types/geojson': 7946.0.16
+      earcut: 3.0.2
+      gl-matrix: 3.4.4
+      kdbush: 4.1.0
+      murmurhash-js: 1.0.0
+      pbf: 4.0.2
+      potpack: 2.1.0
+      quickselect: 3.0.0
+      tinyqueue: 3.0.0
+
+  minimist@1.2.8: {}
+
   mrmime@2.0.1: {}
+
+  murmurhash-js@1.0.0: {}
 
   nanoid@3.3.11: {}
 
@@ -1942,7 +2180,7 @@ snapshots:
 
   obug@2.1.3: {}
 
-  oxfmt@0.52.0(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)):
+  oxfmt@0.52.0(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)):
     dependencies:
       tinypool: 2.1.0
     optionalDependencies:
@@ -1965,7 +2203,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.52.0
       '@oxfmt/binding-win32-ia32-msvc': 0.52.0
       '@oxfmt/binding-win32-x64-msvc': 0.52.0
-      vite-plus: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
+      vite-plus: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
 
   oxlint-tsgolint@0.23.0:
     optionalDependencies:
@@ -1976,7 +2214,7 @@ snapshots:
       '@oxlint-tsgolint/win32-arm64': 0.23.0
       '@oxlint-tsgolint/win32-x64': 0.23.0
 
-  oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)):
+  oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.67.0
       '@oxlint/binding-android-arm64': 1.67.0
@@ -1998,7 +2236,7 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.67.0
       '@oxlint/binding-win32-x64-msvc': 1.67.0
       oxlint-tsgolint: 0.23.0
-      vite-plus: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
+      vite-plus: 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
 
   p-map@7.0.4: {}
 
@@ -2011,6 +2249,14 @@ snapshots:
   pbf@3.3.0:
     dependencies:
       ieee754: 1.2.1
+      resolve-protobuf-schema: 2.1.0
+
+  pbf@4.0.2:
+    dependencies:
+      resolve-protobuf-schema: 2.1.0
+
+  pbf@5.1.0:
+    dependencies:
       resolve-protobuf-schema: 2.1.0
 
   picocolors@1.1.1: {}
@@ -2039,6 +2285,8 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
+  potpack@2.1.0: {}
+
   pretty-ms@9.3.0:
     dependencies:
       parse-ms: 4.0.0
@@ -2046,6 +2294,8 @@ snapshots:
   protocol-buffers-schema@3.6.0: {}
 
   purecss-sass@3.0.1: {}
+
+  quickselect@3.0.0: {}
 
   react-dom@19.2.0(react@19.2.0):
     dependencies:
@@ -2124,6 +2374,8 @@ snapshots:
 
   tinypool@2.1.0: {}
 
+  tinyqueue@3.0.0: {}
+
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
@@ -2146,22 +2398,22 @@ snapshots:
     dependencies:
       point-geometry: 0.0.0
 
-  vite-plugin-static-copy@4.1.1(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)):
+  vite-plugin-static-copy@4.1.1(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)):
     dependencies:
       chokidar: 3.6.0
       p-map: 7.0.4
       picocolors: 1.1.1
       tinyglobby: 0.2.17
-      vite: '@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
+      vite: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)'
 
-  vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2):
+  vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2):
     dependencies:
       '@oxc-project/types': 0.133.0
       '@oxlint/plugins': 1.61.0
       '@voidzero-dev/vite-plus-core': 0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2)
-      '@voidzero-dev/vite-plus-test': 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
-      oxfmt: 0.52.0(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2))
-      oxlint: 1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.1.24(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2))
+      '@voidzero-dev/vite-plus-test': 0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2)
+      oxfmt: 0.52.0(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2))
+      oxlint: 1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.24(@types/node@24.10.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.10.1)(sass@1.99.0)(yaml@2.8.2))(sass@1.99.0)(yaml@2.8.2))
       oxlint-tsgolint: 0.23.0
     optionalDependencies:
       '@voidzero-dev/vite-plus-darwin-arm64': 0.1.24
