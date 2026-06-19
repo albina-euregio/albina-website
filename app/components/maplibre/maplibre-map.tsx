@@ -50,11 +50,16 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const onMarkerSelectedRef = useRef(onMarkerSelected);
+  const featuresRef = useRef(features);
   const focusRegions = useStore($focusRegions);
 
   useEffect(() => {
     onMarkerSelectedRef.current = onMarkerSelected;
   }, [onMarkerSelected]);
+
+  useEffect(() => {
+    featuresRef.current = features;
+  }, [features]);
 
   // Initialize the map once.
   useEffect(() => {
@@ -91,7 +96,7 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
     map.on("load", () => {
       map.addSource(STATIONS_SOURCE_ID, {
         type: "geojson",
-        data: toFeatureCollection(features)
+        data: toFeatureCollection(featuresRef.current)
       });
       map.addLayer({
         id: STATIONS_LAYER_ID,
