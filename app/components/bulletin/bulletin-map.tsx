@@ -454,6 +454,7 @@ function MapLibreMap({
   regionMouseover: string;
   setRegionMouseover: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const intl = useIntl();
   const baseRef = useRef<HTMLDivElement | null>(null);
   const baseMapRef = useRef<maplibregl.Map | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -782,6 +783,17 @@ function MapLibreMap({
     // map; the base map is view-synced to it.
     const overlay = new maplibregl.Map({
       cooperativeGestures: true,
+      locale: {
+        "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:windows"
+        }),
+        "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mac"
+        }),
+        "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mobile"
+        })
+      },
       container: overlayRef.current,
       style: OVERLAY_STYLE,
       minZoom: 5,
