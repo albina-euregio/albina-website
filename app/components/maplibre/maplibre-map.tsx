@@ -153,9 +153,9 @@ class WindUtil {
   static properties(
     feature: Feature,
     speed: number | undefined,
-    markerItem: MarkerItem,
-    color: string
+    markerItem: MarkerItem
   ): { isWind: boolean; icon: string | null; direction: number } {
+    const { color } = fillStyleForValue(speed, markerItem);
     const direction = WindUtil.direction(feature, speed, markerItem);
     const isWind = direction !== undefined;
     return {
@@ -260,7 +260,7 @@ function toFeatureCollection(
         color,
         textColor,
         value: hasValue ? formatNumber(value) : "",
-        ...WindUtil.properties(feature, value, item, color),
+        ...WindUtil.properties(feature, value, item),
         // Markers with values stack above markers without, ordered by value.
         sortKey: hasValue ? Math.round(Math.abs(value)) : -1
       }
