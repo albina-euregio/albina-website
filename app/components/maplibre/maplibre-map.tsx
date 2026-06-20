@@ -62,10 +62,7 @@ const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
 const LABEL_FONT = ["Noto Sans Regular"];
 
 const NO_VALUE_COLOR: RGB = [200, 200, 200];
-const OBSERVER_ITEM: MarkerItem = {
-  colors: { 1: [100, 100, 100] },
-  thresholds: []
-};
+const OBSERVER_COLOR: RGB = [100, 100, 100];
 
 /**
  * Pick the marker fill for `value` by walking the parameter's thresholds:
@@ -125,11 +122,9 @@ class WindUtil {
   static direction(
     feature: Feature,
     speed: number | undefined,
-    markerItem: MarkerItem,
-    isObserver: boolean
+    markerItem: MarkerItem
   ): number | undefined {
     if (
-      isObserver ||
       markerItem.direction !== "DW" ||
       speed === undefined ||
       speed < WindUtil.MIN_SPEED
@@ -148,15 +143,9 @@ class WindUtil {
     feature: Feature,
     speed: number | undefined,
     markerItem: MarkerItem,
-    isObserver: boolean,
     color: string
   ): { isWind: boolean; icon: string | null; direction: number } {
-    const direction = WindUtil.direction(
-      feature,
-      speed,
-      markerItem,
-      isObserver
-    );
+    const direction = WindUtil.direction(feature, speed, markerItem);
     const isWind = direction !== undefined;
     return {
       isWind,
@@ -242,46 +231,51 @@ function toFeatureCollection(
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
   const out: GeoJSON.Feature<GeoJSON.Point>[] = [];
 
-  const add = (
-    list: Feature[],
-    markerItem: MarkerItem,
-    isObserver: boolean
-  ) => {
-    for (const feature of list) {
-      // Observers never carry a value; stations read the selected parameter.
-      const value = isObserver ? undefined : getParamValue(feature, itemId);
-      const hasValue = value !== undefined;
-      if (!hasValue && !showMarkersWithoutValue) continue;
+  // Stations: colored by the selected parameter, with a wind arrow once the
+  // wind speed is meaningful.
+  for (const feature of features) {
+    const value = getParamValue(feature, itemId);
+    const hasValue = value !== undefined;
+    if (!hasValue && !showMarkersWithoutValue) continue;
 
-      // Fill: parameter color by threshold, else gray (observer vs. no-value).
-      const fill = hasValue
-        ? getColor(value, markerItem)
-        : isObserver
-          ? Object.values(markerItem.colors)[0]
-          : NO_VALUE_COLOR;
+    // Fill: parameter color by threshold, else gray for a missing value.
+    const fill = hasValue ? getColor(value, item) : NO_VALUE_COLOR;
+    const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
+    out.push({
+      ...feature,
+      properties: {
+        id: String(feature.id),
+        name: feature.properties.name,
+        altitude: feature.geometry?.coordinates?.[2],
+        color,
+        textColor: getContrastTextColor(fill),
+        value: hasValue ? formatNumber(value) : "",
+        ...WindUtil.properties(feature, value, item, color),
+        // Markers with values stack above markers without, ordered by value.
+        sortKey: hasValue ? Math.round(Math.abs(value)) : -1
+      }
+    });
+  }
 
-      const altitude = feature.geometry?.coordinates?.[2];
-      const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
-      out.push({
-        ...feature,
-        properties: {
-          id: String(feature.id),
-          name: feature.properties.name,
-          altitude: typeof altitude === "number" ? altitude : null,
-          color,
-          textColor: getContrastTextColor(fill),
-          value: hasValue ? formatNumber(value) : "",
-          // Wind parameters draw a direction arrow once the speed is meaningful.
-          ...WindUtil.properties(feature, value, markerItem, isObserver, color),
-          // Markers with values stack above markers without, ordered by value.
-          sortKey: hasValue ? Math.round(Math.abs(value)) : -1
-        }
-      });
-    }
-  };
-
-  add(features, item, false);
-  if (observers) add(observers, OBSERVER_ITEM, true);
+  // Observers: fixed gray pins, no value and never a wind arrow. They only
+  // carry a no-value marker, so they appear only when those are shown.
+  for (const feature of observers && showMarkersWithoutValue ? observers : []) {
+    const fill = OBSERVER_COLOR;
+    const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
+    out.push({
+      ...feature,
+      properties: {
+        id: String(feature.id),
+        name: feature.properties.name,
+        altitude: feature.geometry?.coordinates?.[2],
+        color,
+        textColor: getContrastTextColor(fill),
+        value: "",
+        isWind: false,
+        sortKey: -1
+      }
+    });
+  }
 
   return { type: "FeatureCollection", features: out };
 }
