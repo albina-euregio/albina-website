@@ -32,7 +32,11 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
-import { WARNLEVEL_STYLES, WarnLevelNumber } from "../../util/warn-levels";
+import {
+  WARNLEVEL_COLORS,
+  WARNLEVEL_OPACITY,
+  WarnLevelNumber
+} from "../../util/warn-levels";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -458,6 +462,57 @@ const BulletinMap = (props: Props) => {
 
 export default BulletinMap;
 
+// Build the data-driven paint for the eaws-regions fill layer: each region is
+// coloured by its max danger rating, expressed as MapLibre expressions that look
+// up the feature `id` in per-region colour/opacity tables (see below).
+function eawsRegionsFillPaint(
+  activeBulletinCollection: BulletinCollection | undefined,
+  validTimePeriod: ValidTimePeriod
+): maplibregl.FillLayerSpecification["paint"] {
+  const dangerRatings = {
+    ...(activeBulletinCollection?.maxDangerRatings ?? {}),
+    ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
+  };
+  const amPm = toAmPm[validTimePeriod] ?? "";
+  const province = $province.get();
+  const internRegex = province
+    ? new RegExp(`^(${province})`)
+    : new RegExp(config.regionsRegex);
+
+  const ids = new Set(
+    Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
+  );
+
+  // Per-region lookup tables, consumed below via `["get", id, ["literal", …]]`.
+  // Using object lookups keeps the expressions fixed-shape (no dynamic tuple),
+  // so they type as ExpressionSpecification without a cast.
+  const colorById: Record<string, string> = {};
+  const opacityById: Record<string, number> = {};
+  for (const id of ids) {
+    const warnlevel = (dangerRatings[`${id}${amPm}`] ??
+      Math.max(
+        dangerRatings[`${id}:low${amPm}`] ?? 0,
+        dangerRatings[`${id}:high${amPm}`] ?? 0
+      )) as WarnLevelNumber;
+    if (!warnlevel) continue;
+    colorById[id] = WARNLEVEL_COLORS[warnlevel];
+    opacityById[id] = internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5;
+  }
+
+  return {
+    "fill-color": [
+      "coalesce",
+      ["get", ["get", "id"], ["literal", colorById]],
+      WARNLEVEL_COLORS[0]
+    ],
+    "fill-opacity": [
+      "coalesce",
+      ["get", ["get", "id"], ["literal", opacityById]],
+      WARNLEVEL_OPACITY[0]
+    ]
+  };
+}
+
 function MapLibreMap({
   activeBulletinCollection,
   validTimePeriod
@@ -465,6 +520,11 @@ function MapLibreMap({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const focusRegions = useStore($focusRegions);
+
+  const fillPaint = useMemo(
+    () => eawsRegionsFillPaint(activeBulletinCollection, validTimePeriod),
+    [activeBulletinCollection, validTimePeriod]
+  );
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -493,6 +553,13 @@ function MapLibreMap({
         attribution: "© <a href='https://www.avalanches.org/'>EAWS</a>"
       });
       map.addLayer({
+        id: "eaws-regions-fill",
+        type: "fill",
+        source: "eaws-regions",
+        "source-layer": "micro-regions",
+        paint: fillPaint
+      });
+      map.addLayer({
         id: "eaws-regions",
         type: "line",
         source: "eaws-regions",
@@ -517,6 +584,15 @@ function MapLibreMap({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Re-style the region fills whenever the danger ratings or time period change.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map?.getLayer("eaws-regions-fill")) return;
+    for (const [property, value] of Object.entries(fillPaint ?? {})) {
+      map.setPaintProperty("eaws-regions-fill", property, value);
+    }
+  }, [fillPaint]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }
