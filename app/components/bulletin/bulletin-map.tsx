@@ -485,245 +485,6 @@ const BulletinMap = (props: Props) => {
 
 export default BulletinMap;
 
-interface RegionStyleContext {
-  activeBulletinCollection: BulletinCollection | undefined;
-  problems: Record<AvalancheProblemType, { highlighted: boolean }>;
-  region: string;
-  regionMouseover: string;
-  validTimePeriod: ValidTimePeriod;
-  focusRegions: string[];
-  microRegions: string[];
-  eawsRegions: string[];
-  eawsMicroRegions: string[];
-}
-
-// Region-state styling, ported from the former Leaflet PbfRegionState overlay.
-// Produces data-driven paint for two layers stacked above the danger-rating
-// fill: a state overlay fill (dimming / no-data / problem-filter colours) and
-// the region borders (shown on hover / selection).
-function eawsRegionsStatePaint({
-  activeBulletinCollection,
-  problems,
-  region,
-  regionMouseover,
-  validTimePeriod,
-  focusRegions,
-  microRegions,
-  eawsRegions,
-  eawsMicroRegions
-}: RegionStyleContext): {
-  state: maplibregl.FillLayerSpecification["paint"];
-  line: maplibregl.LineLayerSpecification["paint"];
-} {
-  const styling = config.map.regionStyling;
-
-  function getRegionState(regionId: string): RegionState {
-    const macroRegion = getMacroRegion(regionId);
-    const macroStatus =
-      macroRegion !== undefined
-        ? activeBulletinCollection?.macroRegionStatuses?.[macroRegion]
-        : undefined;
-    const isNoData = macroStatus === "n/a";
-    const isFocusRegion = !!macroRegion && focusRegions.includes(macroRegion);
-    const noDataState = isFocusRegion ? "noData" : "noDataGrey";
-    const noDataMouseOverState = isFocusRegion
-      ? "noDataMouseOver"
-      : "noDataGreyMouseOver";
-
-    // EAWS regions not present in the ratings JSON → grey,
-    // but only if the whole EAWS provider area has no ratings
-    const parentPrefix =
-      regionId.lastIndexOf("-") > 0
-        ? regionId.substring(0, regionId.lastIndexOf("-"))
-        : regionId;
-    const effectivePrefix = regionId === "LI" ? "CH" : parentPrefix;
-    const isEawsWithNoData =
-      eawsRegions.includes(regionId) &&
-      !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
-
-    // Detect micro-regions with no rating inside an otherwise-rated macro-region
-    const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-    const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
-    const hasRating =
-      `${regionId}:low${amPm}` in maxDangerRatings ||
-      `${regionId}:high${amPm}` in maxDangerRatings ||
-      `${regionId}${amPm}` in maxDangerRatings;
-    const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
-
-    // For n/a regions: highlight the whole macro-region on hover (no stroke)
-    const hoveredMacroRegion = getMacroRegion(regionMouseover);
-    const selectedMacroRegion = getMacroRegion(region);
-    const isSameHoveredMacro =
-      isNoData &&
-      hoveredMacroRegion !== undefined &&
-      hoveredMacroRegion === macroRegion;
-    const isSameSelectedMacro =
-      isNoData &&
-      selectedMacroRegion !== undefined &&
-      selectedMacroRegion === macroRegion;
-    if (isSameHoveredMacro || isSameSelectedMacro) {
-      return noDataMouseOverState;
-    }
-
-    if (regionId === regionMouseover) {
-      return isPartialNoData || isEawsWithNoData
-        ? "noDataGreyMouseOver"
-        : "mouseOver";
-    }
-
-    // For n/a or partial no-data regions: keep color (increased opacity) when selected
-    if (regionId === region) {
-      return isNoData
-        ? noDataMouseOverState
-        : isPartialNoData || isEawsWithNoData
-          ? "noDataGreyMouseOver"
-          : "selected";
-    }
-    if (
-      activeBulletinCollection
-        ?.getBulletinForBulletinOrRegion(region)
-        ?.regions?.some(r => r.regionID === regionId)
-    ) {
-      return "highlighted";
-    }
-    if (region) {
-      // some other region is selected — keep n/a / partial regions colored, dim the rest
-      return isNoData || isPartialNoData || isEawsWithNoData
-        ? isPartialNoData || isEawsWithNoData
-          ? "noDataGrey"
-          : noDataState
-        : "dimmed";
-    }
-
-    const bulletinProblemTypes =
-      activeBulletinCollection
-        ?.getBulletinForBulletinOrRegion(regionId)
-        ?.avalancheProblems?.filter(p =>
-          matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-        )
-        ?.map(p => p.problemType) ??
-      activeBulletinCollection?.eawsAvalancheProblems?.[
-        `${regionId}${toAmPm[validTimePeriod || "all_day"]}`
-      ] ??
-      [];
-    if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
-      return "highlighted";
-    }
-
-    // dehighligt if any filter is activated
-    if (Object.values(problems).some(p => p.highlighted)) {
-      return isNoData
-        ? noDataState
-        : isEawsWithNoData
-          ? "noDataGrey"
-          : "dehighlighted";
-    }
-
-    if (isNoData) {
-      return noDataState;
-    }
-
-    if (isPartialNoData || isEawsWithNoData) {
-      return "noDataGrey";
-    }
-
-    return "default";
-  }
-
-  function getStyle(regionId: string) {
-    const state = getRegionState(regionId);
-    const base = {
-      ...styling.clickable,
-      ...styling.all,
-      ...styling[state]
-    };
-    // show border for partial-no-data micro-regions
-    if (state === "noDataGreyMouseOver") {
-      const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-      const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
-      const hasRating =
-        `${regionId}:low${amPm}` in maxDangerRatings ||
-        `${regionId}:high${amPm}` in maxDangerRatings ||
-        `${regionId}${amPm}` in maxDangerRatings;
-      const macroStatus =
-        activeBulletinCollection?.macroRegionStatuses?.[
-          getMacroRegion(regionId) ?? ""
-        ];
-      const isPartialNoData = !hasRating && macroStatus === "ok";
-      if (isPartialNoData) {
-        return { ...base, ...styling.mouseOver };
-      }
-    }
-    return base;
-  }
-
-  // Translate the merged Leaflet path options into per-region lookup tables,
-  // consumed below as MapLibre `["get", id, ["literal", …]]` expressions.
-  const fillColorById: Record<string, string> = {};
-  const fillOpacityById: Record<string, number> = {};
-  const lineColorById: Record<string, string> = {};
-  const lineWidthById: Record<string, number> = {};
-  const lineOpacityById: Record<string, number> = {};
-
-  for (const regionId of new Set([...microRegions, ...eawsRegions])) {
-    const style = getStyle(regionId) as {
-      stroke?: boolean;
-      color?: string;
-      opacity?: number;
-      weight?: number;
-      fill?: boolean;
-      fillColor?: string;
-      fillOpacity?: number;
-    };
-    const hasFill =
-      style.fill !== false &&
-      !!style.fillColor &&
-      style.fillColor !== "none" &&
-      (style.fillOpacity ?? 0) > 0;
-    if (hasFill) {
-      fillColorById[regionId] = style.fillColor!;
-      fillOpacityById[regionId] = style.fillOpacity!;
-    }
-    if (style.stroke) {
-      lineColorById[regionId] = style.color ?? "#aaaaaa";
-      lineWidthById[regionId] = style.weight ?? 1;
-      lineOpacityById[regionId] = style.opacity ?? 1;
-    }
-  }
-
-  return {
-    state: {
-      "fill-color": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", fillColorById]],
-        "#000000"
-      ],
-      "fill-opacity": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", fillOpacityById]],
-        0
-      ]
-    },
-    line: {
-      "line-color": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", lineColorById]],
-        "#aaaaaa"
-      ],
-      "line-width": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", lineWidthById]],
-        1
-      ],
-      "line-opacity": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", lineOpacityById]],
-        0
-      ]
-    }
-  };
-}
-
 function MapLibreMap({
   activeBulletinCollection,
   problems,
@@ -774,31 +535,234 @@ function MapLibreMap({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
-  const statePaint = useMemo(
-    () =>
-      eawsRegionsStatePaint({
-        activeBulletinCollection,
-        problems,
-        region,
-        regionMouseover,
-        validTimePeriod,
-        focusRegions,
-        microRegions,
-        eawsRegions,
-        eawsMicroRegions
-      }),
-    [
-      activeBulletinCollection,
-      problems,
-      region,
-      regionMouseover,
-      validTimePeriod,
-      focusRegions,
-      microRegions,
-      eawsRegions,
-      eawsMicroRegions
-    ]
-  );
+  const statePaint = useMemo((): {
+    state: maplibregl.FillLayerSpecification["paint"];
+    line: maplibregl.LineLayerSpecification["paint"];
+  } => {
+    // Region-state styling, ported from the former Leaflet PbfRegionState overlay.
+    // Produces data-driven paint for two layers stacked above the danger-rating
+    // fill: a state overlay fill (dimming / no-data / problem-filter colours) and
+    // the region borders (shown on hover / selection).
+    const styling = config.map.regionStyling;
+
+    function getRegionState(regionId: string): RegionState {
+      const macroRegion = getMacroRegion(regionId);
+      const macroStatus =
+        macroRegion !== undefined
+          ? activeBulletinCollection?.macroRegionStatuses?.[macroRegion]
+          : undefined;
+      const isNoData = macroStatus === "n/a";
+      const isFocusRegion = !!macroRegion && focusRegions.includes(macroRegion);
+      const noDataState = isFocusRegion ? "noData" : "noDataGrey";
+      const noDataMouseOverState = isFocusRegion
+        ? "noDataMouseOver"
+        : "noDataGreyMouseOver";
+
+      // EAWS regions not present in the ratings JSON → grey,
+      // but only if the whole EAWS provider area has no ratings
+      const parentPrefix =
+        regionId.lastIndexOf("-") > 0
+          ? regionId.substring(0, regionId.lastIndexOf("-"))
+          : regionId;
+      const effectivePrefix = regionId === "LI" ? "CH" : parentPrefix;
+      const isEawsWithNoData =
+        eawsRegions.includes(regionId) &&
+        !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
+
+      // Detect micro-regions with no rating inside an otherwise-rated macro-region
+      const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+      const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
+      const hasRating =
+        `${regionId}:low${amPm}` in maxDangerRatings ||
+        `${regionId}:high${amPm}` in maxDangerRatings ||
+        `${regionId}${amPm}` in maxDangerRatings;
+      const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
+
+      // For n/a regions: highlight the whole macro-region on hover (no stroke)
+      const hoveredMacroRegion = getMacroRegion(regionMouseover);
+      const selectedMacroRegion = getMacroRegion(region);
+      const isSameHoveredMacro =
+        isNoData &&
+        hoveredMacroRegion !== undefined &&
+        hoveredMacroRegion === macroRegion;
+      const isSameSelectedMacro =
+        isNoData &&
+        selectedMacroRegion !== undefined &&
+        selectedMacroRegion === macroRegion;
+      if (isSameHoveredMacro || isSameSelectedMacro) {
+        return noDataMouseOverState;
+      }
+
+      if (regionId === regionMouseover) {
+        return isPartialNoData || isEawsWithNoData
+          ? "noDataGreyMouseOver"
+          : "mouseOver";
+      }
+
+      // For n/a or partial no-data regions: keep color (increased opacity) when selected
+      if (regionId === region) {
+        return isNoData
+          ? noDataMouseOverState
+          : isPartialNoData || isEawsWithNoData
+            ? "noDataGreyMouseOver"
+            : "selected";
+      }
+      if (
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(region)
+          ?.regions?.some(r => r.regionID === regionId)
+      ) {
+        return "highlighted";
+      }
+      if (region) {
+        // some other region is selected — keep n/a / partial regions colored, dim the rest
+        return isNoData || isPartialNoData || isEawsWithNoData
+          ? isPartialNoData || isEawsWithNoData
+            ? "noDataGrey"
+            : noDataState
+          : "dimmed";
+      }
+
+      const bulletinProblemTypes =
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(regionId)
+          ?.avalancheProblems?.filter(p =>
+            matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+          )
+          ?.map(p => p.problemType) ??
+        activeBulletinCollection?.eawsAvalancheProblems?.[
+          `${regionId}${toAmPm[validTimePeriod || "all_day"]}`
+        ] ??
+        [];
+      if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
+        return "highlighted";
+      }
+
+      // dehighligt if any filter is activated
+      if (Object.values(problems).some(p => p.highlighted)) {
+        return isNoData
+          ? noDataState
+          : isEawsWithNoData
+            ? "noDataGrey"
+            : "dehighlighted";
+      }
+
+      if (isNoData) {
+        return noDataState;
+      }
+
+      if (isPartialNoData || isEawsWithNoData) {
+        return "noDataGrey";
+      }
+
+      return "default";
+    }
+
+    function getStyle(regionId: string) {
+      const state = getRegionState(regionId);
+      const base = {
+        ...styling.clickable,
+        ...styling.all,
+        ...styling[state]
+      };
+      // show border for partial-no-data micro-regions
+      if (state === "noDataGreyMouseOver") {
+        const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+        const maxDangerRatings =
+          activeBulletinCollection?.maxDangerRatings ?? {};
+        const hasRating =
+          `${regionId}:low${amPm}` in maxDangerRatings ||
+          `${regionId}:high${amPm}` in maxDangerRatings ||
+          `${regionId}${amPm}` in maxDangerRatings;
+        const macroStatus =
+          activeBulletinCollection?.macroRegionStatuses?.[
+            getMacroRegion(regionId) ?? ""
+          ];
+        const isPartialNoData = !hasRating && macroStatus === "ok";
+        if (isPartialNoData) {
+          return { ...base, ...styling.mouseOver };
+        }
+      }
+      return base;
+    }
+
+    // Translate the merged Leaflet path options into per-region lookup tables,
+    // consumed below as MapLibre `["get", id, ["literal", …]]` expressions.
+    const fillColorById: Record<string, string> = {};
+    const fillOpacityById: Record<string, number> = {};
+    const lineColorById: Record<string, string> = {};
+    const lineWidthById: Record<string, number> = {};
+    const lineOpacityById: Record<string, number> = {};
+
+    for (const regionId of new Set([...microRegions, ...eawsRegions])) {
+      const style = getStyle(regionId) as {
+        stroke?: boolean;
+        color?: string;
+        opacity?: number;
+        weight?: number;
+        fill?: boolean;
+        fillColor?: string;
+        fillOpacity?: number;
+      };
+      const fillOpacity = style.fillOpacity ?? 0;
+      if (
+        style.fill !== false &&
+        style.fillColor &&
+        style.fillColor !== "none" &&
+        fillOpacity > 0
+      ) {
+        fillColorById[regionId] = style.fillColor;
+        fillOpacityById[regionId] = fillOpacity;
+      }
+      if (style.stroke) {
+        lineColorById[regionId] = style.color ?? "#aaaaaa";
+        lineWidthById[regionId] = style.weight ?? 1;
+        lineOpacityById[regionId] = style.opacity ?? 1;
+      }
+    }
+
+    return {
+      state: {
+        "fill-color": [
+          "coalesce",
+          ["get", ["get", "id"], ["literal", fillColorById]],
+          "#000000"
+        ],
+        "fill-opacity": [
+          "coalesce",
+          ["get", ["get", "id"], ["literal", fillOpacityById]],
+          0
+        ]
+      },
+      line: {
+        "line-color": [
+          "coalesce",
+          ["get", ["get", "id"], ["literal", lineColorById]],
+          "#aaaaaa"
+        ],
+        "line-width": [
+          "coalesce",
+          ["get", ["get", "id"], ["literal", lineWidthById]],
+          1
+        ],
+        "line-opacity": [
+          "coalesce",
+          ["get", ["get", "id"], ["literal", lineOpacityById]],
+          0
+        ]
+      }
+    };
+  }, [
+    activeBulletinCollection,
+    problems,
+    region,
+    regionMouseover,
+    validTimePeriod,
+    focusRegions,
+    microRegions,
+    eawsRegions,
+    eawsMicroRegions
+  ]);
 
   const fillPaint = useMemo((): maplibregl.FillLayerSpecification["paint"] => {
     // Build the data-driven paint for the eaws-regions fill layer: each region is
