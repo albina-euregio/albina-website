@@ -48,7 +48,6 @@ function useProblems() {
 }
 
 const Bulletin = () => {
-  const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const router = useStore($router);
@@ -147,21 +146,29 @@ const Bulletin = () => {
     }
   };
 
-  const handleMapInit = (map: L.Map) => {
-    if (mapRefs.length > 0) {
-      [map, ...mapRefs].forEach(otherMap => {
-        // patch out the slow parts of L.Map.Sync
-        otherMap._selfSetView = () => {};
-        otherMap._syncOnMoveend = () => {};
-        otherMap._syncOnDragend = () => {};
-      });
-      mapRefs.forEach(otherMap => {
-        map.sync(otherMap);
-        otherMap.sync(map);
-      });
-    }
-
+  // Guard shared across the synced maps' `move` handlers to break the feedback
+  // loop, since jumpTo() on a target map itself fires a `move` event.
+  let syncingMaps = false;
+  const mapRefs = [] as maplibregl.Map[];
+  const handleMapInit = (map: maplibregl.Map) => {
     mapRefs.push(map);
+
+    // Keep the earlier/later maps view-synced: mirror this map's view onto the
+    // others on every move (see the `syncingMaps` guard above).
+    map.on("move", () => {
+      if (syncingMaps) return;
+      syncingMaps = true;
+      const view = {
+        center: map.getCenter(),
+        zoom: map.getZoom(),
+        bearing: map.getBearing(),
+        pitch: map.getPitch()
+      };
+      for (const otherMap of mapRefs) {
+        if (otherMap !== map) otherMap.jumpTo(view);
+      }
+      syncingMaps = false;
+    });
   };
 
   const daytimeDependency = collection?.ownBulletins?.some(b =>

@@ -20,7 +20,6 @@ patchedDependencies:
   leaflet-geonames: 3f2a49c862dc2eae792f3b95926ab6c94d556556568615cb44ea4c4deaedec0d
   leaflet-gesture-handling: 3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381
   leaflet.locatecontrol: d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8
-  leaflet.sync: 158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4
 
 importers:
 
@@ -86,9 +85,6 @@ importers:
       leaflet.locatecontrol:
         specifier: ^0.85.1
         version: 0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8)
-      leaflet.sync:
-        specifier: ^0.2.4
-        version: 0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4)
       maplibre-gl:
         specifier: ^5.24.0
         version: 5.24.0
@@ -1007,9 +1003,6 @@ packages:
   leaflet.locatecontrol@0.85.1:
     resolution: {integrity: sha512-aB2qrwZO7Vs4EbWja6pyGy6Y1Mr2yeOqH3PN+Ocnjb4pgpiwYsX1AOI0mppVYzUTO2zwjafxVTOffiwEE32udA==}
 
-  leaflet.sync@0.2.4:
-    resolution: {integrity: sha512-e59CcQNMFFZJWCAGzyFxcsVldWd0cU7G71q2Zh5a5Pbe7ua4G7CNQcKz51IALf0NzOyRF7ws6gjnndiVWkYN+w==}
-
   leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c:
     resolution: {integrity: sha512-Klwd5ixyEeY5UWyACjFFE70M/HM19BDfdjQD/EZsxDP3OBXtIjRGYbHg0LAKzwrYUAxsXF4ePVelCUW/YBYhJw==, tarball: https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c}
     version: 2.0.0-alpha.1
@@ -1918,8 +1911,6 @@ snapshots:
   leaflet-gesture-handling@1.2.2(patch_hash=3b31702f801b52ed2acc7316d839db872171927837932c29ca5e1b562fd49381): {}
 
   leaflet.locatecontrol@0.85.1(patch_hash=d07b3111e4def6d6a4e8be3a68450530b96d76379703d4b85ad3fa6639710be8): {}
-
-  leaflet.sync@0.2.4(patch_hash=158ff9ae71e32021ec99517efa7696e1903f67ff3a58d04ae3cf2bcfb187efc4): {}
 
   leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c(patch_hash=947aebcae028dbb878b0127d9f20ed4359a433f848badbd83c7e3b4e2404d7df): {}
 

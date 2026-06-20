@@ -3,7 +3,6 @@ import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 import "leaflet";
-import "leaflet.sync";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
@@ -87,7 +86,7 @@ interface Props {
   validTimePeriod: ValidTimePeriod;
   date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
-  onMapInit: (map: L.Map) => void;
+  onMapInit: (map: maplibregl.Map) => void;
   onSelectTimePeriod: (timePeriod: string) => void;
 }
 
@@ -388,6 +387,7 @@ const BulletinMap = (props: Props) => {
       >
         <MapLibreMap
           activeBulletinCollection={props.activeBulletinCollection}
+          onMapInit={props.onMapInit}
           problems={props.problems}
           region={props.region}
           validTimePeriod={props.validTimePeriod}
@@ -431,6 +431,7 @@ export default BulletinMap;
 
 function MapLibreMap({
   activeBulletinCollection,
+  onMapInit,
   problems,
   region,
   validTimePeriod,
@@ -440,6 +441,7 @@ function MapLibreMap({
 }: Pick<
   Props,
   | "activeBulletinCollection"
+  | "onMapInit"
   | "problems"
   | "region"
   | "validTimePeriod"
@@ -783,6 +785,7 @@ function MapLibreMap({
     });
 
     overlay.on("load", () => {
+      onMapInit(overlay);
       overlay.addSource("eaws-regions", {
         type: "vector",
         url: `pmtiles://${eawsPmtimes}`

@@ -51,7 +51,6 @@
     "leaflet-geonames": "^0.4.9",
     "leaflet-gesture-handling": "^1.2.2",
     "leaflet.locatecontrol": "^0.85.1",
-    "leaflet.sync": "^0.2.4",
     "maplibre-gl": "^5.24.0",
     "nanostores": "^1.2.0",
     "normalize.css": "^8.0.1",
@@ -84,7 +83,6 @@
     "leaflet@https://github.com/Leaflet/Leaflet/tarball/f8fef4514092f0abab703db145df2c1800a23a6c": "patches/leaflet.patch",
     "leaflet-geonames@0.4.9": "patches/leaflet-geonames.patch",
     "leaflet-gesture-handling@1.2.2": "patches/leaflet-gesture-handling.patch",
-    "leaflet.locatecontrol@0.85.1": "patches/leaflet.locatecontrol.patch",
-    "leaflet.sync@0.2.4": "patches/leaflet.sync.patch"
+    "leaflet.locatecontrol@0.85.1": "patches/leaflet.locatecontrol.patch"
   }
 }
