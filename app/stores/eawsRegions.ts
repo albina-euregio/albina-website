@@ -47,13 +47,22 @@ export function eawsRegionIds(): string[] {
     .filter(id => !config.regionsRegex.test(id));
 }
 
-class LatLngBounds {
+export class LatLngBounds {
   constructor(
     public west: number,
     public south: number,
     public east: number,
     public north: number
   ) {}
+
+  isValid() {
+    return (
+      isFinite(this.west) &&
+      isFinite(this.south) &&
+      isFinite(this.east) &&
+      isFinite(this.north)
+    );
+  }
 
   extend(other: LatLngBounds) {
     this.west = isFinite(this.west)

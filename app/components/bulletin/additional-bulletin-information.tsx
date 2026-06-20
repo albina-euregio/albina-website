@@ -8,6 +8,7 @@ import { Bulletin } from "../../stores/bulletin/CAAMLv6";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
 import { CircleMarker, Tooltip } from "react-leaflet";
+import type L from "leaflet";
 
 /**
  * Validates that coordinates are valid numbers and not NaN
@@ -158,9 +159,13 @@ export function AdditionalBulletinInformation({
     []
   );
 
-  const bounds = useMemo(() => {
-    const bounds = microRegionBounds(date, region);
-    return bounds.isValid() ? bounds : undefined;
+  const bounds = useMemo((): L.LatLngBoundsExpression | undefined => {
+    const b = microRegionBounds(date, region);
+    if (!b.isValid()) return undefined;
+    return [
+      [b.south, b.west],
+      [b.north, b.east]
+    ];
   }, [region, date]);
 
   const overlays = useMemo(() => {
