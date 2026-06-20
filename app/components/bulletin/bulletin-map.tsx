@@ -657,10 +657,7 @@ function MapLibreMap({
       };
 
       const danger = dangerById[regionId];
-      if (
-        danger?.fillOpacity > 0 &&
-        (state === "dehighlighted" || state === "dimmed")
-      ) {
+      if (danger && (state === "dehighlighted" || state === "dimmed")) {
         // White veil (fillColor "white", fillOpacity 0.5 / 0.75) over the danger
         // fill: lighten the danger colour toward white and combine the alphas
         // (source-over with a white top).
@@ -671,7 +668,7 @@ function MapLibreMap({
         const mix = (d: number) => 255 * k + d * (1 - k);
         fillColorById[regionId] = rgbToHex(mix(r), mix(g), mix(b));
         fillOpacityById[regionId] = opacity;
-      } else if (danger?.fillOpacity > 0) {
+      } else if (danger) {
         fillColorById[regionId] = danger.fillColor;
         fillOpacityById[regionId] = danger.fillOpacity;
       } else {
