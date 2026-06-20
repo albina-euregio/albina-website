@@ -500,7 +500,10 @@ function MapLibreMap({
     const internRegex = province
       ? new RegExp(`^(${province})`)
       : new RegExp(config.regionsRegex);
-    const dangerById: Record<string, { color: string; opacity: number }> = {};
+    const dangerById: Record<
+      string,
+      { fillColor: string; fillOpacity: number }
+    > = {};
     for (const id of new Set(
       Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
     )) {
@@ -511,8 +514,8 @@ function MapLibreMap({
         )) as WarnLevelNumber;
       if (!warnlevel) continue;
       dangerById[id] = {
-        color: WARNLEVEL_COLORS[warnlevel],
-        opacity: internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5
+        fillColor: WARNLEVEL_COLORS[warnlevel],
+        fillOpacity: internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5
       };
     }
 
@@ -655,22 +658,22 @@ function MapLibreMap({
 
       const danger = dangerById[regionId];
       if (
-        danger?.opacity > 0 &&
+        danger?.fillOpacity > 0 &&
         (state === "dehighlighted" || state === "dimmed")
       ) {
         // White veil (fillColor "white", fillOpacity 0.5 / 0.75) over the danger
         // fill: lighten the danger colour toward white and combine the alphas
         // (source-over with a white top).
         const veil = style.fillOpacity ?? 0;
-        const opacity = veil + danger.opacity * (1 - veil);
+        const opacity = veil + danger.fillOpacity * (1 - veil);
         const k = veil / opacity; // weight of the white veil in the blend
-        const [r, g, b] = parseColor(danger.color);
+        const [r, g, b] = parseColor(danger.fillColor);
         const mix = (d: number) => 255 * k + d * (1 - k);
         fillColorById[regionId] = rgbToHex(mix(r), mix(g), mix(b));
         fillOpacityById[regionId] = opacity;
-      } else if (danger?.opacity > 0) {
-        fillColorById[regionId] = danger.color;
-        fillOpacityById[regionId] = danger.opacity;
+      } else if (danger?.fillOpacity > 0) {
+        fillColorById[regionId] = danger.fillColor;
+        fillOpacityById[regionId] = danger.fillOpacity;
       } else {
         fillColorById[regionId] = style.fillColor;
         fillOpacityById[regionId] = style.fillOpacity;
