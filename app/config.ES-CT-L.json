@@ -519,51 +519,6 @@
       "alwaysOpen": false,
       "clearOnPopupClose": true,
       "enablePostalCodes": false
-    },
-    "regionStyling": {
-      "all": {
-        "color": "#aaaaaa",
-        "opacity": 1.0,
-        "weight": 1
-      },
-      "hidden": {
-        "stroke": false,
-        "fill": false,
-        "fillOpacity": 0.0
-      },
-      "clickable": {
-        "stroke": false,
-        "fill": true,
-        "fillColor": "black",
-        "fillOpacity": 0.0
-      },
-      "default": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      },
-      "dehighlighted": {
-        "fillColor": "white",
-        "fillOpacity": 0.75
-      },
-      "mouseOver": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555"
-      },
-      "dimmed": {
-        "fillColor": "white",
-        "fillOpacity": 0.5
-      },
-      "selected": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555",
-        "fillColor": "none"
-      },
-      "highlighted": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      }
     }
   },
   "archive": {

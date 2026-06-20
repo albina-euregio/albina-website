@@ -29,12 +29,9 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
-import {
-  WARNLEVEL_COLORS,
-  WARNLEVEL_OPACITY,
-  WarnLevelNumber
-} from "../../util/warn-levels";
+import { WarnLevelNumber } from "../../util/warn-levels";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
+import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 
 // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
 // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
@@ -71,149 +68,6 @@ type RegionState =
   // hovered/selected: noDataGrey fill plus the mouseOver border.
   | "noDataPartialMouseOver"
   | "default";
-
-const ALL_REGION_STATES: RegionState[] = [
-  "mouseOver",
-  "selected",
-  "highlighted",
-  "dehighlighted",
-  "dimmed",
-  "noData",
-  "noDataMouseOver",
-  "noDataGrey",
-  "noDataGreyMouseOver",
-  "noDataPartialMouseOver",
-  "default"
-];
-
-// Synthetic states composed from several config keys (the former per-region
-// `isPartialNoDataHover` override that layered `mouseOver` over `noDataGrey…`).
-const STATE_CONFIG_KEYS: Partial<Record<RegionState, string[]>> = {
-  noDataPartialMouseOver: ["noDataGreyMouseOver", "mouseOver"]
-};
-
-function parseColor(color: string): [number, number, number] {
-  if (color === "white") return [255, 255, 255];
-  if (color === "black") return [0, 0, 0];
-  let hex = color.replace("#", "");
-  if (hex.length === 3) hex = hex.replace(/(.)/g, "$1$1");
-  return [
-    parseInt(hex.slice(0, 2), 16),
-    parseInt(hex.slice(2, 4), 16),
-    parseInt(hex.slice(4, 6), 16)
-  ];
-}
-
-function rgbToHex(r: number, g: number, b: number): string {
-  const h = (n: number) => Math.round(n).toString(16).padStart(2, "0");
-  return `#${h(r)}${h(g)}${h(b)}`;
-}
-
-// Composited fill (danger colour + state overlay) and optional border for a
-// given (state, warnlevel, intern) triple — the styling that is keyed by the
-// `state` / `warnlevel` / `intern` feature-states. Pure function of those three
-// (plus static config), so the whole paint expression is built once.
-function styleFor(
-  state: RegionState,
-  warnlevel: WarnLevelNumber,
-  intern: boolean
-) {
-  const regionStyling = config.map.regionStyling as Record<
-    string,
-    Record<string, string | number | boolean>
-  >;
-  const keys = STATE_CONFIG_KEYS[state] ?? [state];
-  const style = Object.assign(
-    {},
-    regionStyling.clickable,
-    regionStyling.all,
-    ...keys.map(k => regionStyling[k])
-  ) as Record<string, string | number | boolean | undefined>;
-
-  let fillColor: string;
-  let fillOpacity: number;
-  if (warnlevel) {
-    const dangerColor = WARNLEVEL_COLORS[warnlevel];
-    const dangerOpacity = intern ? WARNLEVEL_OPACITY[warnlevel] : 0.5;
-    if (state === "dehighlighted" || state === "dimmed") {
-      // White veil (the state's fillOpacity) over the danger fill: lighten the
-      // danger colour toward white and combine the alphas (source-over).
-      const veil = (style.fillOpacity as number) ?? 0;
-      const opacity = veil + dangerOpacity * (1 - veil);
-      const k = veil / opacity; // weight of the white veil in the blend
-      const [r, g, b] = parseColor(dangerColor);
-      const mix = (d: number) => 255 * k + d * (1 - k);
-      fillColor = rgbToHex(mix(r), mix(g), mix(b));
-      fillOpacity = opacity;
-    } else {
-      fillColor = dangerColor;
-      fillOpacity = dangerOpacity;
-    }
-  } else {
-    fillColor = (style.fillColor as string) ?? "#ffffff";
-    fillOpacity = (style.fillOpacity as number) ?? 0;
-  }
-  // `none` is not a valid paint colour; it only occurs at fillOpacity 0 anyway.
-  if (fillColor === "none") fillColor = "rgba(0,0,0,0)";
-
-  const line = style.stroke
-    ? {
-        color: (style.color as string) ?? "#aaaaaa",
-        width: (style.weight as number) ?? 1,
-        opacity: (style.opacity as number) ?? 1
-      }
-    : undefined;
-  return { fillColor, fillOpacity, line };
-}
-
-// Build the static fill/line paint. Fill colour/opacity are keyed by the
-// `${state}/${warnlevel}/${intern}` feature-state triple (concatenated at
-// runtime); the border depends on the `state` alone.
-function buildRegionPaint(): {
-  fill: maplibregl.FillLayerSpecification["paint"];
-  line: maplibregl.LineLayerSpecification["paint"];
-} {
-  const fillColor: Record<string, string> = {};
-  const fillOpacity: Record<string, number> = {};
-  const lineColor: Record<string, string> = {};
-  const lineWidth: Record<string, number> = {};
-  const lineOpacity: Record<string, number> = {};
-  for (const state of ALL_REGION_STATES) {
-    const { line } = styleFor(state, 0, false);
-    lineColor[state] = line?.color ?? "#aaaaaa";
-    lineWidth[state] = line?.width ?? 1;
-    lineOpacity[state] = line?.opacity ?? 0;
-    for (const intern of [true, false]) {
-      for (let warnlevel = 0; warnlevel <= 5; warnlevel++) {
-        const style = styleFor(state, warnlevel as WarnLevelNumber, intern);
-        const key = `${state}/${warnlevel}/${intern}`;
-        fillColor[key] = style.fillColor;
-        fillOpacity[key] = style.fillOpacity;
-      }
-    }
-  }
-  const arms = (o: Record<string, string | number>) => Object.entries(o).flat();
-  const stateExpr = ["coalesce", ["feature-state", "state"], "default"];
-  const fillKey = [
-    "concat",
-    stateExpr,
-    "/",
-    ["to-string", ["coalesce", ["feature-state", "warnlevel"], 0]],
-    "/",
-    ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-  ];
-  return {
-    fill: {
-      "fill-color": ["match", fillKey, ...arms(fillColor), "#ffffff"],
-      "fill-opacity": ["match", fillKey, ...arms(fillOpacity), 0]
-    } as maplibregl.FillLayerSpecification["paint"],
-    line: {
-      "line-color": ["match", stateExpr, ...arms(lineColor), "#aaaaaa"],
-      "line-width": ["match", stateExpr, ...arms(lineWidth), 1],
-      "line-opacity": ["match", stateExpr, ...arms(lineOpacity), 0]
-    } as maplibregl.LineLayerSpecification["paint"]
-  };
-}
 
 interface RegionFeatureStates {
   stateById: Record<string, RegionState>;
@@ -654,13 +508,6 @@ function MapLibreMap({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
-  // The fill/line paint is a pure function of the static config + warn-level
-  // tables, so it is built once. It reads three feature-states per region —
-  // `state` (cf. getRegionState), `warnlevel`, `intern` — set by the effect
-  // below; selection / hover / filter changes only update those feature-states,
-  // never the paint expression.
-  const regionPaint = useMemo(buildRegionPaint, []);
-
   // Per-region feature-state values that drive `regionPaint`, recomputed when the
   // bulletin data or selection changes and pushed onto the source via
   // setFeatureState (cf. applyFeatureStates).
@@ -950,7 +797,7 @@ function MapLibreMap({
         source: "eaws-regions",
         "source-layer": "micro-regions",
         filter: featureFilter,
-        paint: regionPaint.fill
+        paint: REGION_FILL_PAINT
       });
       overlay.addLayer({
         id: "eaws-regions-line",
@@ -958,7 +805,7 @@ function MapLibreMap({
         source: "eaws-regions",
         "source-layer": "micro-regions",
         filter: featureFilter,
-        paint: regionPaint.line
+        paint: REGION_LINE_PAINT
       });
 
       // Push the initial feature-states now that the source exists (subsequent
