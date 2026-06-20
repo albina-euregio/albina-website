@@ -817,7 +817,13 @@ function MapLibreMap({
         const [feature] = overlay.queryRenderedFeatures(e.point, {
           layers: ["eaws-regions-fill"]
         });
-        handleSelectRegionRef.current(feature?.properties?.id ?? "");
+        const id = feature?.properties?.id ?? "";
+        if (!id || microRegions.includes(id)) {
+          handleSelectRegionRef.current(id);
+        } else {
+          const eawsRegion = eawsRegions.find(r => id.startsWith(r)) ?? "";
+          handleSelectRegionRef.current(eawsRegion);
+        }
       });
       // Swap the hovered region (or its whole macro-region group) onto its hover
       // `state` feature-state instead of re-rendering: restore the previous group
