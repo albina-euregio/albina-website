@@ -92,6 +92,9 @@ $search-width-wide: 300px;
 
   .section-weather-map & {
     height: 100%;
+    // Establish a stacking context so the station markers and their tooltip
+    // (which raise their own z-index by value) stay below the fixed filter bar.
+    z-index: 0;
     @include mixins.rollout;
   }
 }
