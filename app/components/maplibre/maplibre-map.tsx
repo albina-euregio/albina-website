@@ -21,9 +21,10 @@ import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
  * stacking key) is precomputed into the GeoJSON `properties` and consumed by
  * data-driven style expressions, so updating the data is just `setData`.
  *
- * Text needs a `glyphs` endpoint; the project hosts none, so we use the public
- * OpenMapTiles font CDN. Self-host by changing GLYPHS_URL. The wind arrow is an
- * SDF image added at runtime so it can be tinted per wind-speed color.
+ * Text needs a `glyphs` endpoint; we self-host a single font range under
+ * public/fonts/ (see public/fonts/README.md) — labels are only digits, which
+ * fit in the 0-255 range. The wind arrow is an SDF image added at runtime so it
+ * can be tinted per wind-speed color.
  *
  * Stacking: the whole map is its own stacking context
  * (`.section-map { z-index: 0 }` in _map.scss) so the canvas and the hover
@@ -58,8 +59,9 @@ const CIRCLE_LAYER_ID = "stations-circles";
 const WIND_LAYER_ID = "stations-wind";
 const LABEL_LAYER_ID = "stations-labels";
 const WIND_ARROW_IMAGE = "wind-arrow";
-const GLYPHS_URL = "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf";
-const LABEL_FONT = ["Noto Sans"];
+// Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
+const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
+const LABEL_FONT = ["Noto Sans Regular"];
 
 const NO_VALUE_COLOR: RGB = [200, 200, 200];
 const OBSERVER_ITEM: MarkerItem = {
