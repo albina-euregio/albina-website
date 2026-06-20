@@ -38,6 +38,19 @@ import {
   WarnLevelNumber
 } from "../../util/warn-levels";
 
+// Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
+// https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
+maplibregl.addProtocol("pmtiles", new Protocol().tile);
+
+// Transparent style for the overlay map that carries the danger-rating fills.
+// It is stacked over the base map with `mix-blend-mode: multiply` (MapLibre has
+// no per-layer blend mode, so the multiply happens between the two canvases).
+const OVERLAY_STYLE: maplibregl.StyleSpecification = {
+  version: 8,
+  sources: {},
+  layers: []
+};
+
 interface Props {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
@@ -517,8 +530,10 @@ function MapLibreMap({
   activeBulletinCollection,
   validTimePeriod
 }: Pick<Props, "activeBulletinCollection" | "validTimePeriod">) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
+  const baseRef = useRef<HTMLDivElement | null>(null);
+  const baseMapRef = useRef<maplibregl.Map | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const overlayMapRef = useRef<maplibregl.Map | null>(null);
   const focusRegions = useStore($focusRegions);
 
   const fillPaint = useMemo(
@@ -527,39 +542,50 @@ function MapLibreMap({
   );
 
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
+    if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
     const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
+    const initialBounds: maplibregl.LngLatBoundsLike = [
+      [bounds.getWest(), bounds.getSouth()],
+      [bounds.getEast(), bounds.getNorth()]
+    ];
 
-    const map = new maplibregl.Map({
-      container: containerRef.current,
+    // Base map: the shared raster style (basemap + opentopomap). It sits behind
+    // the overlay (pointer-events: none) and is non-interactive — it just
+    // follows the overlay's view.
+    const base = new maplibregl.Map({
+      container: baseRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: 5,
       maxZoom: 10,
-      bounds: [
-        [bounds.getWest(), bounds.getSouth()],
-        [bounds.getEast(), bounds.getNorth()]
-      ]
+      bounds: initialBounds,
+      interactive: false
     });
 
-    map.on("load", () => {
-      // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
-      // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
-      maplibregl.addProtocol("pmtiles", new Protocol().tile);
+    // Overlay map: only the danger-rating fills + region borders, stacked on top
+    // with `mix-blend-mode: multiply` (see the JSX below). It is the interactive
+    // map; the base map is view-synced to it.
+    const overlay = new maplibregl.Map({
+      container: overlayRef.current,
+      style: OVERLAY_STYLE,
+      minZoom: 5,
+      maxZoom: 10,
+      bounds: initialBounds
+    });
 
-      map.addSource("eaws-regions", {
+    overlay.on("load", () => {
+      overlay.addSource("eaws-regions", {
         type: "vector",
-        url: `pmtiles://https://static.avalanche.report/eaws-regions.pmtiles`,
-        attribution: "© <a href='https://www.avalanches.org/'>EAWS</a>"
+        url: `pmtiles://https://static.avalanche.report/eaws-regions.pmtiles`
       });
-      map.addLayer({
+      overlay.addLayer({
         id: "eaws-regions-fill",
         type: "fill",
         source: "eaws-regions",
         "source-layer": "micro-regions",
         paint: fillPaint
       });
-      map.addLayer({
+      overlay.addLayer({
         id: "eaws-regions",
         type: "line",
         source: "eaws-regions",
@@ -572,27 +598,54 @@ function MapLibreMap({
       });
     });
 
-    mapRef.current = map;
+    // Keep the base map glued to the overlay's view on every interaction.
+    overlay.on("move", () => {
+      base.jumpTo({
+        center: overlay.getCenter(),
+        zoom: overlay.getZoom(),
+        bearing: overlay.getBearing(),
+        pitch: overlay.getPitch()
+      });
+    });
 
-    const resizeObserver = new ResizeObserver(() => map.resize());
-    resizeObserver.observe(containerRef.current);
+    baseMapRef.current = base;
+    overlayMapRef.current = overlay;
+
+    const resizeObserver = new ResizeObserver(() => {
+      base.resize();
+      overlay.resize();
+    });
+    resizeObserver.observe(baseRef.current);
 
     return () => {
       resizeObserver?.disconnect();
-      map.remove();
-      mapRef.current = null;
+      base.remove();
+      baseMapRef.current = null;
+      overlay.remove();
+      overlayMapRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Re-style the region fills whenever the danger ratings or time period change.
   useEffect(() => {
-    const map = mapRef.current;
+    const map = overlayMapRef.current;
     if (!map?.getLayer("eaws-regions-fill")) return;
     for (const [property, value] of Object.entries(fillPaint ?? {})) {
       map.setPaintProperty("eaws-regions-fill", property, value);
     }
   }, [fillPaint]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        ref={baseRef}
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      />
+      <div
+        ref={overlayRef}
+        style={{ position: "absolute", inset: 0, mixBlendMode: "multiply" }}
+      />
+    </div>
+  );
 }
