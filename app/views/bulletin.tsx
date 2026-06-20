@@ -146,31 +146,6 @@ const Bulletin = () => {
     }
   };
 
-  // Guard shared across the synced maps' `move` handlers to break the feedback
-  // loop, since jumpTo() on a target map itself fires a `move` event.
-  let syncingMaps = false;
-  const mapRefs = [] as maplibregl.Map[];
-  const handleMapInit = (map: maplibregl.Map) => {
-    mapRefs.push(map);
-
-    // Keep the earlier/later maps view-synced: mirror this map's view onto the
-    // others on every move (see the `syncingMaps` guard above).
-    map.on("move", () => {
-      if (syncingMaps) return;
-      syncingMaps = true;
-      const view = {
-        center: map.getCenter(),
-        zoom: map.getZoom(),
-        bearing: map.getBearing(),
-        pitch: map.getPitch()
-      };
-      for (const otherMap of mapRefs) {
-        if (otherMap !== map) otherMap.jumpTo(view);
-      }
-      syncingMaps = false;
-    });
-  };
-
   const daytimeDependency = collection?.ownBulletins?.some(b =>
     hasDaytimeDependency(b)
   );
@@ -236,7 +211,6 @@ const Bulletin = () => {
                     region={region}
                     status={status}
                     date={collection?.date}
-                    onMapInit={handleMapInit}
                     validTimePeriod={validTimePeriod}
                     activeBulletinCollection={collection}
                     problems={problems}

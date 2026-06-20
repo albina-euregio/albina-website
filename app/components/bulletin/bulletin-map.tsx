@@ -49,6 +49,14 @@ const OVERLAY_STYLE: maplibregl.StyleSpecification = {
   layers: []
 };
 
+// Registry of the interactive overlay maps currently mounted (e.g. the
+// earlier/later bulletin maps), kept view-synced so they share one view. Each
+// map registers itself on creation and removes itself on destroy. The
+// `syncingMaps` guard breaks the feedback loop, since jumpTo() on a target map
+// itself fires a `move` event.
+const syncedMaps: maplibregl.Map[] = [];
+let syncingMaps = false;
+
 type RegionState =
   | "mouseOver"
   | "selected"
@@ -86,7 +94,6 @@ interface Props {
   validTimePeriod: ValidTimePeriod;
   date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
-  onMapInit: (map: maplibregl.Map) => void;
   onSelectTimePeriod: (timePeriod: string) => void;
 }
 
@@ -387,7 +394,6 @@ const BulletinMap = (props: Props) => {
       >
         <MapLibreMap
           activeBulletinCollection={props.activeBulletinCollection}
-          onMapInit={props.onMapInit}
           problems={props.problems}
           region={props.region}
           validTimePeriod={props.validTimePeriod}
@@ -431,7 +437,6 @@ export default BulletinMap;
 
 function MapLibreMap({
   activeBulletinCollection,
-  onMapInit,
   problems,
   region,
   validTimePeriod,
@@ -441,7 +446,6 @@ function MapLibreMap({
 }: Pick<
   Props,
   | "activeBulletinCollection"
-  | "onMapInit"
   | "problems"
   | "region"
   | "validTimePeriod"
@@ -785,7 +789,6 @@ function MapLibreMap({
     });
 
     overlay.on("load", () => {
-      onMapInit(overlay);
       overlay.addSource("eaws-regions", {
         type: "vector",
         url: `pmtiles://${eawsPmtimes}`
@@ -826,14 +829,23 @@ function MapLibreMap({
       });
     });
 
-    // Keep the base map glued to the overlay's view on every interaction.
+    // Keep the base map glued to its overlay's view, and mirror the view onto
+    // any other mounted overlay maps (earlier/later) so they stay in sync.
+    syncedMaps.push(overlay);
     overlay.on("move", () => {
-      base.jumpTo({
+      const view: maplibregl.JumpToOptions = {
         center: overlay.getCenter(),
         zoom: overlay.getZoom(),
         bearing: overlay.getBearing(),
         pitch: overlay.getPitch()
-      });
+      };
+      base.jumpTo(view);
+      if (syncingMaps) return;
+      syncingMaps = true;
+      for (const otherMap of syncedMaps) {
+        if (otherMap !== overlay) otherMap.jumpTo(view);
+      }
+      syncingMaps = false;
     });
 
     baseMapRef.current = base;
@@ -847,6 +859,8 @@ function MapLibreMap({
 
     return () => {
       resizeObserver?.disconnect();
+      const index = syncedMaps.indexOf(overlay);
+      if (index >= 0) syncedMaps.splice(index, 1);
       base.remove();
       baseMapRef.current = null;
       overlay.remove();
