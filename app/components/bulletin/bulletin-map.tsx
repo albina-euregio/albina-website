@@ -61,11 +61,6 @@ type RegionState =
   | "noDataGreyMouseOver"
   | "default";
 
-interface Rgba {
-  color: string;
-  opacity: number;
-}
-
 function parseColor(color: string): [number, number, number] {
   if (color === "white") return [255, 255, 255];
   if (color === "black") return [0, 0, 0];
@@ -81,19 +76,6 @@ function parseColor(color: string): [number, number, number] {
 function rgbToHex(r: number, g: number, b: number): string {
   const h = (n: number) => Math.round(n).toString(16).padStart(2, "0");
   return `#${h(r)}${h(g)}${h(b)}`;
-}
-
-// Alpha-composite `top` over `bottom` (source-over), both over a transparent
-// background — equivalent to stacking two translucent fill layers.
-function compositeOver(top: Rgba, bottom: Rgba): Rgba {
-  const ta = top.opacity;
-  const ba = bottom.opacity;
-  const oa = ta + ba * (1 - ta);
-  if (oa <= 0) return { color: "#000000", opacity: 0 };
-  const [tr, tg, tb] = parseColor(top.color);
-  const [br, bg, bb] = parseColor(bottom.color);
-  const ch = (t: number, b: number) => (t * ta + b * ba * (1 - ta)) / oa;
-  return { color: rgbToHex(ch(tr, br), ch(tg, bg), ch(tb, bb)), opacity: oa };
 }
 
 interface Props {
@@ -518,7 +500,7 @@ function MapLibreMap({
     const internRegex = province
       ? new RegExp(`^(${province})`)
       : new RegExp(config.regionsRegex);
-    const dangerById: Record<string, Rgba> = {};
+    const dangerById: Record<string, { color: string; opacity: number }> = {};
     for (const id of new Set(
       Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
     )) {
@@ -671,22 +653,27 @@ function MapLibreMap({
         ...(isPartialNoDataHover ? config.map.regionStyling.mouseOver : {})
       };
 
-      const danger = dangerById[regionId] ?? { color: "#ffffff", opacity: 0 };
+      const danger = dangerById[regionId];
       if (
-        style.fill !== false &&
-        style.fillColor &&
-        style.fillColor !== "none" &&
-        style.fillOpacity
+        danger?.opacity > 0 &&
+        (state === "dehighlighted" || state === "dimmed")
       ) {
-        const { color, opacity } = compositeOver(
-          { color: style.fillColor, opacity: style.fillOpacity },
-          danger
-        );
-        fillColorById[regionId] = color;
+        // White veil (fillColor "white", fillOpacity 0.5 / 0.75) over the danger
+        // fill: lighten the danger colour toward white and combine the alphas
+        // (source-over with a white top).
+        const veil = style.fillOpacity ?? 0;
+        const opacity = veil + danger.opacity * (1 - veil);
+        const k = veil / opacity; // weight of the white veil in the blend
+        const [r, g, b] = parseColor(danger.color);
+        const mix = (d: number) => 255 * k + d * (1 - k);
+        fillColorById[regionId] = rgbToHex(mix(r), mix(g), mix(b));
         fillOpacityById[regionId] = opacity;
-      } else if (danger.opacity > 0) {
+      } else if (danger?.opacity > 0) {
         fillColorById[regionId] = danger.color;
         fillOpacityById[regionId] = danger.opacity;
+      } else {
+        fillColorById[regionId] = style.fillColor;
+        fillOpacityById[regionId] = style.fillOpacity;
       }
 
       if (style.stroke) {
