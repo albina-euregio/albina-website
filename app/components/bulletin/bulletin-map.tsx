@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -101,7 +101,6 @@ const BulletinMap = (props: Props) => {
   const intl = useIntl();
   const focusRegions = useStore($focusRegions);
   const language = intl.locale.slice(0, 2);
-  const [regionMouseover, setRegionMouseover] = useState("");
 
   const styleOverMap = () => {
     return {
@@ -397,9 +396,7 @@ const BulletinMap = (props: Props) => {
           problems={props.problems}
           region={props.region}
           validTimePeriod={props.validTimePeriod}
-          regionMouseover={regionMouseover}
           handleSelectRegion={props.handleSelectRegion}
-          setRegionMouseover={setRegionMouseover}
         />
         {getBulletinMapDetails()}
 
@@ -440,9 +437,7 @@ function MapLibreMap({
   problems,
   region,
   validTimePeriod,
-  regionMouseover,
-  handleSelectRegion,
-  setRegionMouseover
+  handleSelectRegion
 }: Pick<
   Props,
   | "activeBulletinCollection"
@@ -450,16 +445,19 @@ function MapLibreMap({
   | "region"
   | "validTimePeriod"
   | "handleSelectRegion"
-> & {
-  regionMouseover: string;
-  setRegionMouseover: React.Dispatch<React.SetStateAction<string>>;
-}) {
+>) {
   const intl = useIntl();
   const baseRef = useRef<HTMLDivElement | null>(null);
   const baseMapRef = useRef<maplibregl.Map | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const overlayMapRef = useRef<maplibregl.Map | null>(null);
   const focusRegions = useStore($focusRegions);
+
+  // Hover is driven through the `hover` feature-state (not React state) so it
+  // stays off the paint-recompute path. These refs keep the once-mounted map
+  // handlers in sync with the latest hover grouping and currently-hovered ids.
+  const hoverGroupRef = useRef<Record<string, string[]>>({});
+  const hoverAnchorRef = useRef<string>("");
 
   // Latest select handler, so the once-mounted map listeners never go stale.
   const handleSelectRegionRef = useRef(handleSelectRegion);
@@ -489,6 +487,7 @@ function MapLibreMap({
   const regionPaint = useMemo((): {
     fill: maplibregl.FillLayerSpecification["paint"];
     line: maplibregl.LineLayerSpecification["paint"];
+    hoverGroup: Record<string, string[]>;
   } => {
     // Region styling for a single fill layer: each region's danger-rating colour
     // (cf. maxDangerRatings) with the state overlay (dimming / no-data /
@@ -526,7 +525,7 @@ function MapLibreMap({
       };
     }
 
-    function getRegionState(regionId: string): RegionState {
+    function getRegionState(regionId: string, hovered: string): RegionState {
       const macroRegion = getMacroRegion(regionId);
       const macroStatus =
         macroRegion !== undefined
@@ -555,7 +554,7 @@ function MapLibreMap({
       const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
-      const hoveredMacroRegion = getMacroRegion(regionMouseover);
+      const hoveredMacroRegion = getMacroRegion(hovered);
       const selectedMacroRegion = getMacroRegion(region);
       const isSameHoveredMacro =
         isNoData &&
@@ -569,7 +568,7 @@ function MapLibreMap({
         return noDataMouseOverState;
       }
 
-      if (regionId === regionMouseover) {
+      if (regionId === hovered) {
         return isPartialNoData || isEawsWithNoData
           ? "noDataGreyMouseOver"
           : "mouseOver";
@@ -634,21 +633,9 @@ function MapLibreMap({
       return "default";
     }
 
-    // Composite the state overlay over the danger fill into a single fill, and
-    // collect the borders. Lookups consumed below as MapLibre
-    // `["get", id, ["literal", …]]` expressions (fixed-shape → no cast).
-    const fillColorById: Record<string, string> = {};
-    const fillOpacityById: Record<string, number> = {};
-    const lineColorById: Record<string, string> = {};
-    const lineWidthById: Record<string, number> = {};
-    const lineOpacityById: Record<string, number> = {};
-
-    for (const regionId of new Set([
-      ...microRegions,
-      ...eawsRegions,
-      ...Object.keys(dangerById)
-    ])) {
-      const state = getRegionState(regionId);
+    // Resolve a region's composited fill (danger colour + state overlay) and
+    // optional border for a given state, ported from the former per-region loop.
+    function styleFor(regionId: string, state: RegionState) {
       // show border for partial-no-data micro-regions on hover
       const isPartialNoDataHover =
         state === "noDataGreyMouseOver" &&
@@ -663,6 +650,8 @@ function MapLibreMap({
         ...(isPartialNoDataHover ? config.map.regionStyling.mouseOver : {})
       };
 
+      let fillColor: string;
+      let fillOpacity: number;
       const danger = dangerById[regionId];
       if (danger && (state === "dehighlighted" || state === "dimmed")) {
         // White veil (fillColor "white", fillOpacity 0.5 / 0.75) over the danger
@@ -673,59 +662,160 @@ function MapLibreMap({
         const k = veil / opacity; // weight of the white veil in the blend
         const [r, g, b] = parseColor(danger.fillColor);
         const mix = (d: number) => 255 * k + d * (1 - k);
-        fillColorById[regionId] = rgbToHex(mix(r), mix(g), mix(b));
-        fillOpacityById[regionId] = opacity;
+        fillColor = rgbToHex(mix(r), mix(g), mix(b));
+        fillOpacity = opacity;
       } else if (danger) {
-        fillColorById[regionId] = danger.fillColor;
-        fillOpacityById[regionId] = danger.fillOpacity;
+        fillColor = danger.fillColor;
+        fillOpacity = danger.fillOpacity;
       } else {
-        fillColorById[regionId] = style.fillColor;
-        fillOpacityById[regionId] = style.fillOpacity;
+        fillColor = style.fillColor;
+        fillOpacity = style.fillOpacity;
       }
 
-      if (style.stroke) {
-        lineColorById[regionId] = style.color ?? "#aaaaaa";
-        lineWidthById[regionId] = style.weight ?? 1;
-        lineOpacityById[regionId] = style.opacity ?? 1;
+      const line = style.stroke
+        ? {
+            color: style.color ?? "#aaaaaa",
+            width: style.weight ?? 1,
+            opacity: style.opacity ?? 1
+          }
+        : undefined;
+      return { fillColor, fillOpacity, line };
+    }
+
+    // Per-region lookups consumed below as MapLibre
+    // `["get", id, ["literal", …]]` expressions (fixed-shape → no cast). The
+    // `hover*` maps hold only the regions whose styling changes on hover; the
+    // paint expression switches to them via the `hover` feature-state, so
+    // mouseover never re-runs this memo or re-uploads paint (cf. handlers below).
+    const fillColorById: Record<string, string> = {};
+    const fillOpacityById: Record<string, number> = {};
+    const lineColorById: Record<string, string> = {};
+    const lineWidthById: Record<string, number> = {};
+    const lineOpacityById: Record<string, number> = {};
+    const hoverFillColorById: Record<string, string> = {};
+    const hoverFillOpacityById: Record<string, number> = {};
+    const hoverLineColorById: Record<string, string> = {};
+    const hoverLineWidthById: Record<string, number> = {};
+    const hoverLineOpacityById: Record<string, number> = {};
+
+    const allRegionIds = new Set([
+      ...microRegions,
+      ...eawsRegions,
+      ...Object.keys(dangerById)
+    ]);
+
+    // Micro-regions grouped by macro-region, to highlight the whole macro-region
+    // when any of its (no-data) micro-regions is hovered.
+    const macroMembers: Record<string, string[]> = {};
+    for (const regionId of allRegionIds) {
+      const macro = getMacroRegion(regionId);
+      if (macro) (macroMembers[macro] ??= []).push(regionId);
+    }
+
+    // Feature ids to mark hovered when a given region is hovered (just itself,
+    // or the whole macro-region for n/a regions which highlight as a group).
+    const hoverGroup: Record<string, string[]> = {};
+
+    for (const regionId of allRegionIds) {
+      const baseState = getRegionState(regionId, "");
+      const base = styleFor(regionId, baseState);
+      fillColorById[regionId] = base.fillColor;
+      fillOpacityById[regionId] = base.fillOpacity;
+      if (base.line) {
+        lineColorById[regionId] = base.line.color;
+        lineWidthById[regionId] = base.line.width;
+        lineOpacityById[regionId] = base.line.opacity;
       }
+
+      // Hovering a region reproduces both individual and macro-group hover by
+      // passing the region as its own hovered id.
+      const hoverState = getRegionState(regionId, regionId);
+      if (hoverState === baseState) continue;
+      const hover = styleFor(regionId, hoverState);
+      hoverFillColorById[regionId] = hover.fillColor;
+      hoverFillOpacityById[regionId] = hover.fillOpacity;
+      if (hover.line) {
+        hoverLineColorById[regionId] = hover.line.color;
+        hoverLineWidthById[regionId] = hover.line.width;
+        hoverLineOpacityById[regionId] = hover.line.opacity;
+      }
+      const macro = getMacroRegion(regionId);
+      const isNoData =
+        !!macro &&
+        activeBulletinCollection?.macroRegionStatuses?.[macro] === "n/a";
+      hoverGroup[regionId] =
+        isNoData && macro ? macroMembers[macro] : [regionId];
     }
 
     return {
       fill: {
         "fill-color": [
-          "coalesce",
-          ["get", ["get", "id"], ["literal", fillColorById]],
-          "#ffffff"
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", hoverFillColorById]],
+            "#ffffff"
+          ],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", fillColorById]],
+            "#ffffff"
+          ]
         ],
         "fill-opacity": [
-          "coalesce",
-          ["get", ["get", "id"], ["literal", fillOpacityById]],
-          0
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", hoverFillOpacityById]],
+            0
+          ],
+          ["coalesce", ["get", ["get", "id"], ["literal", fillOpacityById]], 0]
         ]
       },
       line: {
         "line-color": [
-          "coalesce",
-          ["get", ["get", "id"], ["literal", lineColorById]],
-          "#aaaaaa"
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", hoverLineColorById]],
+            "#aaaaaa"
+          ],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", lineColorById]],
+            "#aaaaaa"
+          ]
         ],
         "line-width": [
-          "coalesce",
-          ["get", ["get", "id"], ["literal", lineWidthById]],
-          1
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", hoverLineWidthById]],
+            1
+          ],
+          ["coalesce", ["get", ["get", "id"], ["literal", lineWidthById]], 1]
         ],
         "line-opacity": [
-          "coalesce",
-          ["get", ["get", "id"], ["literal", lineOpacityById]],
-          0
+          "case",
+          ["boolean", ["feature-state", "hover"], false],
+          [
+            "coalesce",
+            ["get", ["get", "id"], ["literal", hoverLineOpacityById]],
+            0
+          ],
+          ["coalesce", ["get", ["get", "id"], ["literal", lineOpacityById]], 0]
         ]
-      }
+      },
+      hoverGroup
     };
   }, [
     activeBulletinCollection,
     problems,
     region,
-    regionMouseover,
     validTimePeriod,
     focusRegions,
     microRegions,
@@ -815,7 +905,9 @@ function MapLibreMap({
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {
         type: "vector",
-        url: `pmtiles://${eawsPmtimes}`
+        url: `pmtiles://${eawsPmtimes}`,
+        // Promote `id` to the feature id so hover feature-state can be keyed by it.
+        promoteId: "id"
       });
       overlay.addLayer({
         id: "eaws-regions-fill",
@@ -842,14 +934,32 @@ function MapLibreMap({
         });
         handleSelectRegionRef.current(feature?.properties?.id ?? "");
       });
+      // Toggle the `hover` feature-state on the hovered region (or its whole
+      // macro-region group) instead of re-rendering — see hoverGroupRef above.
+      const setHover = (ids: string[]) => {
+        // Clear all features' state in one call, then mark the new group.
+        overlay.removeFeatureState({
+          source: "eaws-regions",
+          sourceLayer: "micro-regions"
+        });
+        for (const id of ids) {
+          overlay.setFeatureState(
+            { source: "eaws-regions", sourceLayer: "micro-regions", id },
+            { hover: true }
+          );
+        }
+      };
       overlay.on("mousemove", "eaws-regions-fill", e => {
         overlay.getCanvas().style.cursor = "pointer";
-        const id = e.features?.[0]?.properties?.id;
-        if (id) requestAnimationFrame(() => setRegionMouseover(id));
+        const id = e.features?.[0]?.id;
+        if (id == null || String(id) === hoverAnchorRef.current) return;
+        hoverAnchorRef.current = String(id);
+        setHover(hoverGroupRef.current[String(id)] ?? [String(id)]);
       });
       overlay.on("mouseleave", "eaws-regions-fill", () => {
         overlay.getCanvas().style.cursor = "";
-        requestAnimationFrame(() => setRegionMouseover(""));
+        hoverAnchorRef.current = "";
+        setHover([]);
       });
     });
 
@@ -893,9 +1003,10 @@ function MapLibreMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-style the region fill + borders on danger / selection / hover / filter
-  // changes.
+  // Re-style the region fill + borders on danger / selection / filter changes
+  // (hover is handled separately via feature-state, see the map handlers).
   useEffect(() => {
+    hoverGroupRef.current = regionPaint.hoverGroup;
     const map = overlayMapRef.current;
     for (const [property, value] of Object.entries(regionPaint.fill ?? {})) {
       if (!map?.getLayer("eaws-regions-fill")) break;
