@@ -62,6 +62,27 @@ export function filterFeature(
   );
 }
 
+export function filterFeatureSpecification(
+  today: ReturnType<Temporal.PlainDate["toString"]>
+): maplibregl.FilterSpecification {
+  if (!today) return ["literal", false];
+  return [
+    "all",
+    [
+      "case",
+      ["==", ["coalesce", ["get", "start_date"], ""], ""],
+      true,
+      ["<=", ["get", "start_date"], today]
+    ],
+    [
+      "case",
+      ["==", ["coalesce", ["get", "end_date"], ""], ""],
+      true,
+      [">", ["get", "end_date"], today]
+    ]
+  ];
+}
+
 export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes

@@ -22,7 +22,11 @@ import {
   eawsRegionIds,
   eawsRegionsBounds
 } from "../../stores/eawsRegions";
-import { getMacroRegion, microRegionIds } from "../../stores/microRegions";
+import {
+  filterFeatureSpecification,
+  getMacroRegion,
+  microRegionIds
+} from "../../stores/microRegions";
 import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 import maplibregl from "maplibre-gl";
@@ -710,22 +714,7 @@ function MapLibreMap({
   // (empty/absent bounds are open-ended; no date → show nothing).
   const featureFilter = useMemo((): maplibregl.FilterSpecification => {
     const today = activeBulletinCollection?.date?.toString();
-    if (!today) return ["literal", false];
-    return [
-      "all",
-      [
-        "case",
-        ["==", ["coalesce", ["get", "start_date"], ""], ""],
-        true,
-        ["<=", ["get", "start_date"], today]
-      ],
-      [
-        "case",
-        ["==", ["coalesce", ["get", "end_date"], ""], ""],
-        true,
-        [">", ["get", "end_date"], today]
-      ]
-    ];
+    return filterFeatureSpecification(today);
   }, [activeBulletinCollection?.date]);
 
   useEffect(() => {
