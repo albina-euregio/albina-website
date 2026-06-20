@@ -3,63 +3,130 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import type { Feature } from "@albina-euregio/linea/listing";
+import { useIntl } from "../../i18n";
+import type { ParameterType } from "../station/station-parameter-data";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 
-const STATIONS_SOURCE_ID = "stations";
-const STATIONS_LAYER_ID = "stations-circles";
+type RGB = [number, number, number];
+
+export interface MarkerItem {
+  /** Threshold-indexed colors, 1-based (matches AVAILABLE_PARAMETERS). */
+  colors: Record<number, RGB>;
+  thresholds: number[];
+  unit?: string;
+  direction?: "DW" | false;
+}
 
 interface Props {
+  /** Stations, colored by the selected parameter value. */
   features: Feature[];
+  /** Observers, rendered as fixed gray pins without a value. */
+  observers?: Feature[];
+  item: MarkerItem;
+  itemId: ParameterType;
+  /** Show markers that have no value for the selected parameter. */
+  showMarkersWithoutValue?: boolean;
   onMarkerSelected: (id: string) => void;
   onInit?: (map: maplibregl.Map) => void;
 }
 
+const NO_VALUE_COLOR: RGB = [200, 200, 200];
+const OBSERVER_ITEM: MarkerItem = {
+  colors: { 1: [100, 100, 100] },
+  thresholds: []
+};
+
+const WIND_ARROW_PATH =
+  "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z";
+
 /**
  * Minimalistic MapLibre GL map for the station dashboard.
  *
- * For now it renders the station overlay as monochrome circle markers only.
- * Parameter colors, values, observers styling, tooltips, controls, … will be
- * added in separate steps.
+ * Stations are rendered as DOM markers (so the numeric value can be drawn
+ * without a glyph endpoint), colored by the selected parameter's thresholds.
+ * Wind parameters (VW/VW_MAX) additionally show a direction arrow.
  */
-function toFeatureCollection(
-  features: Feature[]
-): GeoJSON.FeatureCollection<GeoJSON.Point> {
-  return {
-    type: "FeatureCollection",
-    features: features
-      .filter(f => {
-        const [lng, lat] = f.geometry?.coordinates ?? [];
-        return Number.isFinite(lng) && Number.isFinite(lat);
-      })
-      .map(f => ({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [f.geometry.coordinates[0], f.geometry.coordinates[1]]
-        },
-        properties: {
-          id: String(f.id),
-          name: f.properties.name
-        }
-      }))
-  };
+function getColor(value: number, item: MarkerItem): RGB {
+  const colors = Object.values(item.colors);
+  let color = colors[0];
+  item.thresholds.forEach((threshold, i) => {
+    if (value > threshold) color = colors[i + 1];
+  });
+  return color;
 }
 
-function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
+function getContrastTextColor([r, g, b]: RGB): string {
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.435 ? "#000" : "#fff";
+}
+
+function getParamValue(
+  feature: Feature,
+  itemId: ParameterType
+): number | undefined {
+  const raw = (feature as unknown as Record<string, unknown>)[itemId];
+  const num = typeof raw === "number" ? raw : Number(raw);
+  return Number.isFinite(num) ? num : undefined;
+}
+
+function buildMarkerElement(
+  fill: RGB,
+  textColor: string,
+  valueText: string,
+  direction: number | false
+): HTMLElement {
+  const el = document.createElement("div");
+  el.className = "station-marker";
+  el.style.cursor = "pointer";
+  const rgb = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
+
+  if (typeof direction === "number") {
+    el.style.position = "relative";
+    el.style.width = "28px";
+    el.style.height = "28px";
+    el.style.zIndex = "2";
+    el.innerHTML = `
+      <svg style="position:absolute;top:0;left:0;transform:rotate(${direction + 180}deg)" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+        <path d="${WIND_ARROW_PATH}" fill="${rgb}" stroke="#000" stroke-width="1" stroke-linejoin="round" />
+      </svg>
+      <svg style="position:absolute;top:3px;left:3px" width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="10" font-weight="bold">${valueText}</text>
+      </svg>`;
+    return el;
+  }
+
+  el.style.width = "22px";
+  el.style.height = "22px";
+  el.style.zIndex = valueText ? "2" : "1";
+  el.innerHTML = `
+    <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="10.5" stroke="#000" stroke-width="1" fill="${rgb}" />
+      <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="10" font-weight="bold">${valueText}</text>
+    </svg>`;
+  return el;
+}
+
+function MapLibreMap({
+  features,
+  observers,
+  item,
+  itemId,
+  showMarkersWithoutValue = true,
+  onMarkerSelected,
+  onInit
+}: Props) {
+  const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const markersRef = useRef<maplibregl.Marker[]>([]);
+  const tooltipRef = useRef<maplibregl.Popup | null>(null);
   const onMarkerSelectedRef = useRef(onMarkerSelected);
-  const featuresRef = useRef(features);
   const focusRegions = useStore($focusRegions);
 
   useEffect(() => {
     onMarkerSelectedRef.current = onMarkerSelected;
   }, [onMarkerSelected]);
-
-  useEffect(() => {
-    featuresRef.current = features;
-  }, [features]);
 
   // Initialize the map once.
   useEffect(() => {
@@ -89,57 +156,15 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
       ],
       attributionControl: false
     });
-    // map.addControl(
-    //   new maplibregl.AttributionControl({ compact: true }),
-    //   "bottomright"
-    // );
-    map.on("load", () => {
-      map.addSource(STATIONS_SOURCE_ID, {
-        type: "geojson",
-        data: toFeatureCollection(featuresRef.current)
-      });
-      map.addLayer({
-        id: STATIONS_LAYER_ID,
-        type: "circle",
-        source: STATIONS_SOURCE_ID,
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#666666",
-          "circle-stroke-color": "#ffffff",
-          "circle-stroke-width": 1
-        }
-      });
 
-      const tooltip = new maplibregl.Popup({
-        closeButton: false,
-        closeOnClick: false,
-        offset: 10,
-        className: "maplibre-station-tooltip"
-      });
-
-      map.on("click", STATIONS_LAYER_ID, e => {
-        const id = e.features?.[0]?.properties?.id;
-        if (typeof id === "string") onMarkerSelectedRef.current(id);
-      });
-      map.on("mousemove", STATIONS_LAYER_ID, e => {
-        map.getCanvas().style.cursor = "pointer";
-        const feature = e.features?.[0];
-        const name = feature?.properties?.name;
-        if (feature?.geometry.type !== "Point" || typeof name !== "string") {
-          return;
-        }
-        tooltip
-          .setLngLat(feature.geometry.coordinates as [number, number])
-          .setText(name)
-          .addTo(map);
-      });
-      map.on("mouseleave", STATIONS_LAYER_ID, () => {
-        map.getCanvas().style.cursor = "";
-        tooltip.remove();
-      });
-
-      onInit?.(map);
+    tooltipRef.current = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 14,
+      className: "maplibre-station-tooltip"
     });
+
+    map.on("load", () => onInit?.(map));
 
     mapRef.current = map;
 
@@ -154,21 +179,87 @@ function MapLibreMap({ features, onMarkerSelected, onInit }: Props) {
 
     return () => {
       resizeObserver?.disconnect();
+      markersRef.current.forEach(m => m.remove());
+      markersRef.current = [];
+      tooltipRef.current?.remove();
       map.remove();
       mapRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Keep the station source in sync with the (filtered) features.
+  // Keep the markers in sync with the (filtered) features and selected parameter.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    const source = map.getSource(STATIONS_SOURCE_ID);
-    if (source instanceof maplibregl.GeoJSONSource) {
-      source.setData(toFeatureCollection(features));
-    }
-  }, [features]);
+
+    markersRef.current.forEach(m => m.remove());
+    markersRef.current = [];
+
+    const tooltip = tooltipRef.current;
+    const addMarkers = (
+      list: Feature[],
+      markerItem: MarkerItem,
+      isObserver: boolean
+    ) => {
+      for (const feature of list) {
+        const [lng, lat] = feature.geometry?.coordinates ?? [];
+        if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
+
+        const value = isObserver ? undefined : getParamValue(feature, itemId);
+        const hasValue = value !== undefined;
+        if (!hasValue && !showMarkersWithoutValue) continue;
+
+        const fill = hasValue
+          ? getColor(value, markerItem)
+          : isObserver
+            ? Object.values(markerItem.colors)[0]
+            : NO_VALUE_COLOR;
+        const valueText = hasValue ? intl.formatNumber(value) : "";
+
+        let direction: number | false = false;
+        if (
+          !isObserver &&
+          markerItem.direction === "DW" &&
+          value !== undefined &&
+          value >= 3.5
+        ) {
+          const dw = getParamValue(feature, "DW" as ParameterType);
+          if (dw !== undefined) direction = dw;
+        }
+
+        const el = buildMarkerElement(
+          fill,
+          getContrastTextColor(fill),
+          valueText,
+          direction
+        );
+
+        const id = String(feature.id);
+        el.addEventListener("click", e => {
+          e.stopPropagation();
+          onMarkerSelectedRef.current(id);
+        });
+
+        const altitude = feature.geometry?.coordinates?.[2];
+        const tooltipText = `${feature.properties.name} (${altitude} m)`;
+        if (tooltip) {
+          el.addEventListener("mouseenter", () => {
+            tooltip.setLngLat([lng, lat]).setText(tooltipText).addTo(map);
+          });
+          el.addEventListener("mouseleave", () => tooltip.remove());
+        }
+
+        const marker = new maplibregl.Marker({ element: el })
+          .setLngLat([lng, lat])
+          .addTo(map);
+        markersRef.current.push(marker);
+      }
+    };
+
+    addMarkers(features, item, false);
+    if (observers) addMarkers(observers, OBSERVER_ITEM, true);
+  }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }

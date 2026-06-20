@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import MapLibreMap from "../components/maplibre/maplibre-map";
+import MapLibreMap, {
+  type MarkerItem
+} from "../components/maplibre/maplibre-map";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
@@ -214,24 +216,40 @@ function StationDashboard() {
     : undefined;
 
   const normalizedSearch = (searchText || "").trim().toLowerCase();
-  const regionFilteredObservers = observers
-    .filter(
-      observer =>
-        !normalizedSearch ||
-        observer.properties.name.toLowerCase().includes(normalizedSearch)
-    )
-    .filter(
-      observer =>
-        !selectedRegion || observer.properties.microRegionID === selectedRegion
-    )
-    .filter(
-      observer =>
-        typeof observer.geometry?.coordinates?.[2] !== "number" ||
-        (observer.geometry.coordinates[2] >= elevationRange[0] &&
-          observer.geometry.coordinates[2] <= elevationRange[1])
-    );
+  const regionFilteredObservers = useMemo(
+    () =>
+      observers
+        .filter(
+          observer =>
+            !normalizedSearch ||
+            observer.properties.name.toLowerCase().includes(normalizedSearch)
+        )
+        .filter(
+          observer =>
+            !selectedRegion ||
+            observer.properties.microRegionID === selectedRegion
+        )
+        .filter(
+          observer =>
+            typeof observer.geometry?.coordinates?.[2] !== "number" ||
+            (observer.geometry.coordinates[2] >= elevationRange[0] &&
+              observer.geometry.coordinates[2] <= elevationRange[1])
+        ),
+    [normalizedSearch, selectedRegion, elevationRange]
+  );
 
-  const mapFeatures = [...sortedFilteredData, ...regionFilteredObservers];
+  const currentParameterConfig =
+    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
+    AVAILABLE_PARAMETERS[0];
+  const mapItem = useMemo<MarkerItem>(
+    () => ({
+      colors: currentParameterConfig.colors,
+      thresholds: currentParameterConfig.thresholds,
+      unit: currentParameterConfig.unit,
+      direction: currentParameterConfig.direction || false
+    }),
+    [currentParameterConfig]
+  );
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
@@ -241,7 +259,10 @@ function StationDashboard() {
       />
       <div className="section-map">
         <MapLibreMap
-          features={mapFeatures}
+          features={sortedFilteredData}
+          observers={regionFilteredObservers}
+          item={mapItem}
+          itemId={selectedParameter}
           onMarkerSelected={id => void setStationId(id)}
         />
       </div>

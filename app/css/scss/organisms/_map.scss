@@ -1166,6 +1166,12 @@ a.weather-map-details-button {
 }
 //...to here
 
-.maplibre-station-tooltip .maplibregl-popup-content {
-  padding: 0.25em 0.5em;
+.maplibre-station-tooltip {
+  // Keep the tooltip above the station markers (which raise their own z-index
+  // so valued markers sit above empty ones).
+  z-index: 3;
+
+  .maplibregl-popup-content {
+    padding: 0.25em 0.5em;
+  }
 }
