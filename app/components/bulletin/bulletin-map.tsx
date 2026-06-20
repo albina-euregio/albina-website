@@ -792,6 +792,12 @@ function MapLibreMap({
         }),
         "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
           id: "bulletin:map:gesture:mobile"
+        }),
+        "NavigationControl.ZoomIn": intl.formatMessage({
+          id: "bulletin:map:zoom-in:hover"
+        }),
+        "NavigationControl.ZoomOut": intl.formatMessage({
+          id: "bulletin:map:zoom-out:hover"
         })
       },
       container: overlayRef.current,
@@ -800,6 +806,11 @@ function MapLibreMap({
       maxZoom: 10,
       bounds: initialBounds
     });
+
+    overlay.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
 
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {
