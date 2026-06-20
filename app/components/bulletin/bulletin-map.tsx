@@ -781,6 +781,7 @@ function MapLibreMap({
     // with `mix-blend-mode: multiply` (see the JSX below). It is the interactive
     // map; the base map is view-synced to it.
     const overlay = new maplibregl.Map({
+      cooperativeGestures: true,
       container: overlayRef.current,
       style: OVERLAY_STYLE,
       minZoom: 5,
