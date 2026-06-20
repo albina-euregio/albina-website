@@ -56,7 +56,6 @@ interface Props {
 
 const SOURCE_ID = "stations";
 const CIRCLE_LAYER_ID = "stations-circles";
-const WIND_LAYER_ID = "stations-wind";
 const LABEL_LAYER_ID = "stations-labels";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
 const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
@@ -67,9 +66,6 @@ const OBSERVER_ITEM: MarkerItem = {
   colors: { 1: [100, 100, 100] },
   thresholds: []
 };
-
-const WIND_ARROW_PATH =
-  "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z";
 
 /**
  * Pick the marker fill for `value` by walking the parameter's thresholds:
@@ -104,48 +100,130 @@ function getParamValue(
   return Number.isFinite(num) ? num : undefined;
 }
 
-/** Image id for a wind arrow of the given fill color. */
-function windArrowImageName(color: string): string {
-  return `wind-arrow-${color}`;
-}
+/** Wind-specific helpers: speed threshold, direction, and arrow images/layer. */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+class WindUtil {
+  /** MapLibre layer id for the wind direction arrows. */
+  static readonly LAYER_ID = "stations-wind";
 
-/**
- * Register a wind arrow image for every wind-speed color present in the data.
- * Each image bakes the wind arrow path as the given fill color with a black
- * border (a plain image, not an SDF, so it can carry both the fill and the
- * border). Padding leaves room for the stroke. No-ops when no canvas is
- * available (e.g. SSR / tests).
- */
-function ensureWindArrowImages(
-  map: maplibregl.Map,
-  data: GeoJSON.FeatureCollection<GeoJSON.Point>
-) {
-  if (typeof document === "undefined") return;
-  const pixelRatio = 2;
-  const pad = 1;
-  const logical = 28 + pad * 2;
-  const size = logical * pixelRatio;
-  for (const feature of data.features) {
-    const props = feature.properties;
-    if (!props?.isWind || typeof props.icon !== "string") continue;
-    if (map.hasImage(props.icon)) continue;
-    const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) continue;
-    ctx.scale(pixelRatio, pixelRatio);
-    ctx.translate(pad, pad);
-    const path = new Path2D(WIND_ARROW_PATH);
-    ctx.fillStyle = props.color;
-    ctx.fill(path);
-    ctx.lineWidth = 1;
-    ctx.lineJoin = "round";
-    ctx.strokeStyle = "#000";
-    ctx.stroke(path);
-    map.addImage(props.icon, ctx.getImageData(0, 0, size, size), {
-      pixelRatio
+  /** Minimum wind speed at which a direction arrow is drawn. */
+  static readonly MIN_SPEED = 3.5;
+
+  /** Wind arrow path, drawn in a 28×28 box (see imageName/ensureImages). */
+  static readonly ARROW_PATH =
+    "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z";
+
+  /** Image id for a wind arrow of the given fill color. */
+  static imageName(color: string): string {
+    return `wind-arrow-${color}`;
+  }
+
+  /**
+   * Wind direction (degrees) to draw for a station, or undefined when no arrow
+   * applies: observers, non-wind parameters, missing/too-low speed, or no DW.
+   */
+  static direction(
+    feature: Feature,
+    speed: number | undefined,
+    markerItem: MarkerItem,
+    isObserver: boolean
+  ): number | undefined {
+    if (
+      isObserver ||
+      markerItem.direction !== "DW" ||
+      speed === undefined ||
+      speed < WindUtil.MIN_SPEED
+    ) {
+      return undefined;
+    }
+    return getParamValue(feature, "DW" as ParameterType);
+  }
+
+  /**
+   * The wind-related GeoJSON properties for a marker of the given fill `color`:
+   * whether it draws a wind arrow, its image id, and the rotation. `icon` is
+   * null and `direction` 0 when no arrow applies.
+   */
+  static properties(
+    feature: Feature,
+    speed: number | undefined,
+    markerItem: MarkerItem,
+    isObserver: boolean,
+    color: string
+  ): { isWind: boolean; icon: string | null; direction: number } {
+    const direction = WindUtil.direction(
+      feature,
+      speed,
+      markerItem,
+      isObserver
+    );
+    const isWind = direction !== undefined;
+    return {
+      isWind,
+      icon: isWind ? WindUtil.imageName(color) : null,
+      direction: direction ?? 0
+    };
+  }
+
+  /**
+   * Wind direction arrows layer (VW/VW_MAX); the per-color image carries the
+   * fill and the black border (see ensureImages). Rotated by direction (+180°
+   * so the arrow points downwind). Always placed; collisions ignored.
+   */
+  static addLayer(map: maplibregl.Map, source: string) {
+    map.addLayer({
+      id: WindUtil.LAYER_ID,
+      type: "symbol",
+      source,
+      filter: ["get", "isWind"],
+      layout: {
+        "icon-image": ["get", "icon"],
+        "icon-rotate": ["+", ["get", "direction"], 180],
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true,
+        "symbol-sort-key": ["get", "sortKey"]
+      }
     });
+  }
+
+  /**
+   * Register a wind arrow image for every wind-speed color present in the data.
+   * Each image bakes the wind arrow path as the given fill color with a black
+   * border (a plain image, not an SDF, so it can carry both the fill and the
+   * border). Padding leaves room for the stroke. No-ops when no canvas is
+   * available (e.g. SSR / tests).
+   */
+  static ensureImages(
+    map: maplibregl.Map,
+    data: GeoJSON.FeatureCollection<GeoJSON.Point>
+  ) {
+    if (typeof document === "undefined") return;
+    const pixelRatio = 2;
+    const pad = 1;
+    const logical = 28 + pad * 2;
+    const size = logical * pixelRatio;
+    for (const feature of data.features) {
+      const props = feature.properties;
+      if (!props?.isWind || typeof props.icon !== "string") continue;
+      if (map.hasImage(props.icon)) continue;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) continue;
+      ctx.scale(pixelRatio, pixelRatio);
+      ctx.translate(pad, pad);
+      const path = new Path2D(WindUtil.ARROW_PATH);
+      ctx.fillStyle = props.color;
+      ctx.fill(path);
+      ctx.lineWidth = 1;
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "#000";
+      ctx.stroke(path);
+      map.addImage(props.icon, ctx.getImageData(0, 0, size, size), {
+        pixelRatio
+      });
+    }
   }
 }
 
@@ -182,22 +260,6 @@ function toFeatureCollection(
           ? Object.values(markerItem.colors)[0]
           : NO_VALUE_COLOR;
 
-      // Wind parameters draw a direction arrow once the speed is meaningful.
-      let isWind = false;
-      let direction = 0;
-      if (
-        !isObserver &&
-        markerItem.direction === "DW" &&
-        value !== undefined &&
-        value >= 3.5
-      ) {
-        const dw = getParamValue(feature, "DW" as ParameterType);
-        if (dw !== undefined) {
-          isWind = true;
-          direction = dw;
-        }
-      }
-
       const altitude = feature.geometry?.coordinates?.[2];
       const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
       out.push({
@@ -209,9 +271,8 @@ function toFeatureCollection(
           color,
           textColor: getContrastTextColor(fill),
           value: hasValue ? formatNumber(value) : "",
-          isWind,
-          icon: isWind ? windArrowImageName(color) : null,
-          direction,
+          // Wind parameters draw a direction arrow once the speed is meaningful.
+          ...WindUtil.properties(feature, value, markerItem, isObserver, color),
           // Markers with values stack above markers without, ordered by value.
           sortKey: hasValue ? Math.round(Math.abs(value)) : -1
         }
@@ -297,7 +358,7 @@ function MapLibreMap({
 
     map.on("load", () => {
       // Wind arrow images (one per wind-speed color) for the current data.
-      ensureWindArrowImages(map, dataRef.current);
+      WindUtil.ensureImages(map, dataRef.current);
 
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
@@ -316,21 +377,7 @@ function MapLibreMap({
         layout: { "circle-sort-key": ["get", "sortKey"] }
       });
 
-      // Wind direction arrows (VW/VW_MAX); the per-color image carries the
-      // fill and the black border (see ensureWindArrowImages).
-      map.addLayer({
-        id: WIND_LAYER_ID,
-        type: "symbol",
-        source: SOURCE_ID,
-        filter: ["get", "isWind"],
-        layout: {
-          "icon-image": ["get", "icon"],
-          "icon-rotate": ["+", ["get", "direction"], 180],
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true,
-          "symbol-sort-key": ["get", "sortKey"]
-        }
-      });
+      WindUtil.addLayer(map, SOURCE_ID);
 
       // Numeric value, drawn on top of discs and arrows. Collision detection
       // (the default, i.e. no allow-overlap) hides labels that would overlap;
@@ -349,7 +396,7 @@ function MapLibreMap({
       });
 
       // Click selects the station; hover shows the shared tooltip.
-      const markerLayers = [CIRCLE_LAYER_ID, WIND_LAYER_ID];
+      const markerLayers = [CIRCLE_LAYER_ID, WindUtil.LAYER_ID];
       for (const layer of markerLayers) {
         map.on("click", layer, e => {
           const id = e.features?.[0]?.properties?.id;
@@ -416,7 +463,7 @@ function MapLibreMap({
     const map = mapRef.current;
     const source = map?.getSource(SOURCE_ID);
     if (map && source instanceof maplibregl.GeoJSONSource) {
-      ensureWindArrowImages(map, data);
+      WindUtil.ensureImages(map, data);
       source.setData(data);
     }
   }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
