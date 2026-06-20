@@ -110,49 +110,42 @@ function windArrowImageName(color: string): string {
 }
 
 /**
- * Render the wind arrow path to an RGBA image: the given fill color with a
- * black border. One image is baked per wind-speed color (a plain image, not an
- * SDF, so it can carry both the fill and the border). Padding leaves room for
- * the stroke. Returns null when no canvas is available (e.g. SSR / tests).
+ * Register a wind arrow image for every wind-speed color present in the data.
+ * Each image bakes the wind arrow path as the given fill color with a black
+ * border (a plain image, not an SDF, so it can carry both the fill and the
+ * border). Padding leaves room for the stroke. No-ops when no canvas is
+ * available (e.g. SSR / tests).
  */
-function createWindArrowImage(color: string): {
-  image: ImageData;
-  pixelRatio: number;
-} | null {
-  if (typeof document === "undefined") return null;
-  const pixelRatio = 2;
-  const pad = 1;
-  const logical = 28 + pad * 2;
-  const size = logical * pixelRatio;
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return null;
-  ctx.scale(pixelRatio, pixelRatio);
-  ctx.translate(pad, pad);
-  const path = new Path2D(WIND_ARROW_PATH);
-  ctx.fillStyle = color;
-  ctx.fill(path);
-  ctx.lineWidth = 1;
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = "#000";
-  ctx.stroke(path);
-  return { image: ctx.getImageData(0, 0, size, size), pixelRatio };
-}
-
-/** Register a wind arrow image for every wind-speed color present in the data. */
 function ensureWindArrowImages(
   map: maplibregl.Map,
   data: GeoJSON.FeatureCollection<GeoJSON.Point>
 ) {
+  if (typeof document === "undefined") return;
+  const pixelRatio = 2;
+  const pad = 1;
+  const logical = 28 + pad * 2;
+  const size = logical * pixelRatio;
   for (const feature of data.features) {
     const props = feature.properties;
     if (!props?.isWind || typeof props.icon !== "string") continue;
     if (map.hasImage(props.icon)) continue;
-    const arrow = createWindArrowImage(props.color);
-    if (!arrow) continue;
-    map.addImage(props.icon, arrow.image, { pixelRatio: arrow.pixelRatio });
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) continue;
+    ctx.scale(pixelRatio, pixelRatio);
+    ctx.translate(pad, pad);
+    const path = new Path2D(WIND_ARROW_PATH);
+    ctx.fillStyle = props.color;
+    ctx.fill(path);
+    ctx.lineWidth = 1;
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#000";
+    ctx.stroke(path);
+    map.addImage(props.icon, ctx.getImageData(0, 0, size, size), {
+      pixelRatio
+    });
   }
 }
 
@@ -324,7 +317,7 @@ function MapLibreMap({
       });
 
       // Wind direction arrows (VW/VW_MAX); the per-color image carries the
-      // fill and the black border (see createWindArrowImage).
+      // fill and the black border (see ensureWindArrowImages).
       map.addLayer({
         id: WIND_LAYER_ID,
         type: "symbol",
