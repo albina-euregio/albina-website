@@ -8,6 +8,30 @@ import type { ParameterType } from "../station/station-parameter-data";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 
+/**
+ * Station dashboard map (MapLibre GL).
+ *
+ * Each station/observer is rendered as an individual DOM marker
+ * (`maplibregl.Marker` wrapping a `<div>` of inline SVG) rather than a
+ * GeoJSON/symbol layer. MapLibre's text layers require a `glyphs` font
+ * endpoint that this raster style doesn't provide, so to draw the numeric
+ * value inside each marker we use DOM elements — the same approach the old
+ * Leaflet `StationMarker` used. (Trade-off: heavier than a vector layer for
+ * very large station counts, but matches the previous Leaflet behavior.)
+ *
+ * The component runs two effects:
+ *  - an init effect (once) that creates the map, the shared hover tooltip and
+ *    a ResizeObserver;
+ *  - a sync effect that rebuilds all markers whenever the data or the selected
+ *    parameter changes.
+ *
+ * Stacking is coordinated on three levels:
+ *  - between markers: value-based z-index (denser/higher readings on top);
+ *  - the tooltip sits above all markers (`.maplibre-station-tooltip`);
+ *  - the whole map is its own stacking context (`.section-map { z-index: 0 }`)
+ *    so nothing inside can overlay the fixed filter bar — both in _map.scss.
+ */
+
 type RGB = [number, number, number];
 
 export interface MarkerItem {
@@ -41,11 +65,9 @@ const WIND_ARROW_PATH =
   "M13 1 L26 10 Q26 11 25 11 L20 11 L20 27 Q20 28 19 28 L7 28 Q6 28 6 27 L6 11 L1 11 Q0 11 0 10 L13 1 Z";
 
 /**
- * Minimalistic MapLibre GL map for the station dashboard.
- *
- * Stations are rendered as DOM markers (so the numeric value can be drawn
- * without a glyph endpoint), colored by the selected parameter's thresholds.
- * Wind parameters (VW/VW_MAX) additionally show a direction arrow.
+ * Pick the marker fill for `value` by walking the parameter's thresholds:
+ * the color for the highest threshold the value exceeds (else the first color).
+ * Same threshold→color logic as the old station overlay.
  */
 function getColor(value: number, item: MarkerItem): RGB {
   const colors = Object.values(item.colors);
@@ -56,11 +78,16 @@ function getColor(value: number, item: MarkerItem): RGB {
   return color;
 }
 
+/** Black on light fills, white on dark fills (per relative luminance). */
 function getContrastTextColor([r, g, b]: RGB): string {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.435 ? "#000" : "#fff";
 }
 
+/**
+ * Read a parameter value off a feature, e.g. `feature.HS` — a `StationData`
+ * getter. Returns undefined when the value is missing or not a finite number.
+ */
 function getParamValue(
   feature: Feature,
   itemId: ParameterType
@@ -70,6 +97,11 @@ function getParamValue(
   return Number.isFinite(num) ? num : undefined;
 }
 
+/**
+ * Build the marker DOM element: a 22×22 colored circle with the value as
+ * centered text, or — when a wind direction is given — a 28×28 rotated arrow
+ * (VW/VW_MAX) with the value overlaid. `zIndex` controls marker stacking.
+ */
 function buildMarkerElement(
   fill: RGB,
   textColor: string,
@@ -107,6 +139,12 @@ function buildMarkerElement(
   return el;
 }
 
+/**
+ * Renders the basemap plus one DOM marker per station (`features`) and observer
+ * (`observers`). Stations are colored by the selected parameter (`item` /
+ * `itemId`); observers are fixed gray pins without a value. See the file header
+ * for the overall approach.
+ */
 function MapLibreMap({
   features,
   observers,
@@ -121,6 +159,8 @@ function MapLibreMap({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  // Held in a ref so the marker click handlers always call the latest callback
+  // without rebuilding every marker when the prop identity changes.
   const onMarkerSelectedRef = useRef(onMarkerSelected);
   const focusRegions = useStore($focusRegions);
 
@@ -128,7 +168,8 @@ function MapLibreMap({
     onMarkerSelectedRef.current = onMarkerSelected;
   }, [onMarkerSelected]);
 
-  // Initialize the map once.
+  // Initialize the map once: basemap, the shared hover tooltip, and a
+  // ResizeObserver. Markers are managed separately by the sync effect below.
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
@@ -188,7 +229,10 @@ function MapLibreMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Keep the markers in sync with the (filtered) features and selected parameter.
+  // Rebuild all markers whenever the data or the selected parameter changes.
+  // A full remove-and-re-add (rather than diffing) is simple and fine at this
+  // dataset size. `item`/`observers` are memoized by the parent so this doesn't
+  // thrash on every render.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -197,6 +241,8 @@ function MapLibreMap({
     markersRef.current = [];
 
     const tooltip = tooltipRef.current;
+    // Render one list of features as markers. Stations (isObserver=false) use
+    // the parameter `item`/`itemId`; observers use a fixed gray item, no value.
     const addMarkers = (
       list: Feature[],
       markerItem: MarkerItem,
@@ -206,10 +252,12 @@ function MapLibreMap({
         const [lng, lat] = feature.geometry?.coordinates ?? [];
         if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
 
+        // Observers never carry a value; stations read the selected parameter.
         const value = isObserver ? undefined : getParamValue(feature, itemId);
         const hasValue = value !== undefined;
         if (!hasValue && !showMarkersWithoutValue) continue;
 
+        // Fill: parameter color by threshold, else gray (observer vs. no-value).
         const fill = hasValue
           ? getColor(value, markerItem)
           : isObserver
@@ -217,6 +265,7 @@ function MapLibreMap({
             : NO_VALUE_COLOR;
         const valueText = hasValue ? intl.formatNumber(value) : "";
 
+        // Wind parameters draw a direction arrow once the speed is meaningful.
         let direction: number | false = false;
         if (
           !isObserver &&
@@ -229,6 +278,7 @@ function MapLibreMap({
         }
 
         // Markers with values render above markers without, ordered by value.
+        // Kept well below the filter bar's z-index by the map's stacking context.
         const zIndex = hasValue ? 1 + Math.round(Math.abs(value)) : 0;
         const el = buildMarkerElement(
           fill,
@@ -238,6 +288,7 @@ function MapLibreMap({
           zIndex
         );
 
+        // Click selects the station; hover shows the shared tooltip.
         const id = String(feature.id);
         el.addEventListener("click", e => {
           e.stopPropagation();
@@ -260,6 +311,7 @@ function MapLibreMap({
       }
     };
 
+    // Stations first, then observers (gray, valueless) on top.
     addMarkers(features, item, false);
     if (observers) addMarkers(observers, OBSERVER_ITEM, true);
   }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
