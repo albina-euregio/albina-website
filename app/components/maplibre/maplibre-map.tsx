@@ -11,25 +11,23 @@ import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 /**
  * Station dashboard map (MapLibre GL).
  *
- * Each station/observer is rendered as an individual DOM marker
- * (`maplibregl.Marker` wrapping a `<div>` of inline SVG) rather than a
- * GeoJSON/symbol layer. MapLibre's text layers require a `glyphs` font
- * endpoint that this raster style doesn't provide, so to draw the numeric
- * value inside each marker we use DOM elements — the same approach the old
- * Leaflet `StationMarker` used. (Trade-off: heavier than a vector layer for
- * very large station counts, but matches the previous Leaflet behavior.)
+ * Stations/observers are rendered with native vector layers fed by a single
+ * GeoJSON source:
+ *  - a `circle` layer for the colored marker discs,
+ *  - a `symbol` layer for the numeric value (text),
+ *  - a `symbol` layer for the wind direction arrow (VW/VW_MAX).
  *
- * The component runs two effects:
- *  - an init effect (once) that creates the map, the shared hover tooltip and
- *    a ResizeObserver;
- *  - a sync effect that rebuilds all markers whenever the data or the selected
- *    parameter changes.
+ * Per-feature appearance (color, value text, contrast color, wind direction,
+ * stacking key) is precomputed into the GeoJSON `properties` and consumed by
+ * data-driven style expressions, so updating the data is just `setData`.
  *
- * Stacking is coordinated on three levels:
- *  - between markers: value-based z-index (denser/higher readings on top);
- *  - the tooltip sits above all markers (`.maplibre-station-tooltip`);
- *  - the whole map is its own stacking context (`.section-map { z-index: 0 }`)
- *    so nothing inside can overlay the fixed filter bar — both in _map.scss.
+ * Text needs a `glyphs` endpoint; the project hosts none, so we use the public
+ * OpenMapTiles font CDN. Self-host by changing GLYPHS_URL. The wind arrow is an
+ * SDF image added at runtime so it can be tinted per wind-speed color.
+ *
+ * Stacking: the whole map is its own stacking context
+ * (`.section-map { z-index: 0 }` in _map.scss) so the canvas and the hover
+ * tooltip cannot overlay the fixed filter bar.
  */
 
 type RGB = [number, number, number];
@@ -54,6 +52,14 @@ interface Props {
   onMarkerSelected: (id: string) => void;
   onInit?: (map: maplibregl.Map) => void;
 }
+
+const SOURCE_ID = "stations";
+const CIRCLE_LAYER_ID = "stations-circles";
+const WIND_LAYER_ID = "stations-wind";
+const LABEL_LAYER_ID = "stations-labels";
+const WIND_ARROW_IMAGE = "wind-arrow";
+const GLYPHS_URL = "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf";
+const LABEL_FONT = ["Noto Sans"];
 
 const NO_VALUE_COLOR: RGB = [200, 200, 200];
 const OBSERVER_ITEM: MarkerItem = {
@@ -98,52 +104,110 @@ function getParamValue(
 }
 
 /**
- * Build the marker DOM element: a 22×22 colored circle with the value as
- * centered text, or — when a wind direction is given — a 28×28 rotated arrow
- * (VW/VW_MAX) with the value overlaid. `zIndex` controls marker stacking.
+ * Render the wind arrow path to an SDF-able alpha image (white shape on
+ * transparent) so the symbol layer can tint it per wind-speed via `icon-color`.
+ * Returns null when no canvas is available (e.g. SSR / tests).
  */
-function buildMarkerElement(
-  fill: RGB,
-  textColor: string,
-  valueText: string,
-  direction: number | false,
-  zIndex: number
-): HTMLElement {
-  const el = document.createElement("div");
-  el.className = "station-marker";
-  el.style.cursor = "pointer";
-  el.style.zIndex = String(zIndex);
-  const rgb = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
-
-  if (typeof direction === "number") {
-    el.style.position = "relative";
-    el.style.width = "28px";
-    el.style.height = "28px";
-    el.innerHTML = `
-      <svg style="position:absolute;top:0;left:0;transform:rotate(${direction + 180}deg)" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-        <path d="${WIND_ARROW_PATH}" fill="${rgb}" stroke="#000" stroke-width="1" stroke-linejoin="round" />
-      </svg>
-      <svg style="position:absolute;top:3px;left:3px" width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="10" font-weight="bold">${valueText}</text>
-      </svg>`;
-    return el;
-  }
-
-  el.style.width = "22px";
-  el.style.height = "22px";
-  el.innerHTML = `
-    <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="11" cy="11" r="10.5" stroke="#000" stroke-width="1" fill="${rgb}" />
-      <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="10" font-weight="bold">${valueText}</text>
-    </svg>`;
-  return el;
+function createWindArrowImage(): {
+  image: ImageData;
+  pixelRatio: number;
+} | null {
+  if (typeof document === "undefined") return null;
+  const pixelRatio = 2;
+  const size = 28 * pixelRatio;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+  ctx.scale(pixelRatio, pixelRatio);
+  ctx.fillStyle = "#fff";
+  ctx.fill(new Path2D(WIND_ARROW_PATH));
+  return { image: ctx.getImageData(0, 0, size, size), pixelRatio };
 }
 
 /**
- * Renders the basemap plus one DOM marker per station (`features`) and observer
- * (`observers`). Stations are colored by the selected parameter (`item` /
- * `itemId`); observers are fixed gray pins without a value. See the file header
- * for the overall approach.
+ * Convert stations + observers into a GeoJSON FeatureCollection whose
+ * properties drive the style: `color`, `value` (text), `textColor`, `isWind`,
+ * `direction`, `sortKey` (value-based stacking order).
+ */
+function toFeatureCollection(
+  features: Feature[],
+  observers: Feature[] | undefined,
+  item: MarkerItem,
+  itemId: ParameterType,
+  showMarkersWithoutValue: boolean,
+  formatNumber: (value: number) => string
+): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  const out: GeoJSON.Feature<GeoJSON.Point>[] = [];
+
+  const add = (
+    list: Feature[],
+    markerItem: MarkerItem,
+    isObserver: boolean
+  ) => {
+    for (const feature of list) {
+      const [lng, lat] = feature.geometry?.coordinates ?? [];
+      if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
+
+      // Observers never carry a value; stations read the selected parameter.
+      const value = isObserver ? undefined : getParamValue(feature, itemId);
+      const hasValue = value !== undefined;
+      if (!hasValue && !showMarkersWithoutValue) continue;
+
+      // Fill: parameter color by threshold, else gray (observer vs. no-value).
+      const fill = hasValue
+        ? getColor(value, markerItem)
+        : isObserver
+          ? Object.values(markerItem.colors)[0]
+          : NO_VALUE_COLOR;
+
+      // Wind parameters draw a direction arrow once the speed is meaningful.
+      let isWind = false;
+      let direction = 0;
+      if (
+        !isObserver &&
+        markerItem.direction === "DW" &&
+        value !== undefined &&
+        value >= 3.5
+      ) {
+        const dw = getParamValue(feature, "DW" as ParameterType);
+        if (dw !== undefined) {
+          isWind = true;
+          direction = dw;
+        }
+      }
+
+      const altitude = feature.geometry?.coordinates?.[2];
+      out.push({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [lng, lat] },
+        properties: {
+          id: String(feature.id),
+          name: feature.properties.name,
+          altitude: typeof altitude === "number" ? altitude : null,
+          color: `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`,
+          textColor: getContrastTextColor(fill),
+          value: hasValue ? formatNumber(value) : "",
+          isWind,
+          direction,
+          // Markers with values stack above markers without, ordered by value.
+          sortKey: hasValue ? Math.round(Math.abs(value)) : -1
+        }
+      });
+    }
+  };
+
+  add(features, item, false);
+  if (observers) add(observers, OBSERVER_ITEM, true);
+
+  return { type: "FeatureCollection", features: out };
+}
+
+/**
+ * Renders the basemap plus a vector overlay of stations (`features`) and
+ * observers (`observers`). Stations are colored by the selected parameter
+ * (`item` / `itemId`); observers are fixed gray pins. See the file header.
  */
 function MapLibreMap({
   features,
@@ -157,10 +221,14 @@ function MapLibreMap({
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const markersRef = useRef<maplibregl.Marker[]>([]);
   const tooltipRef = useRef<maplibregl.Popup | null>(null);
-  // Held in a ref so the marker click handlers always call the latest callback
-  // without rebuilding every marker when the prop identity changes.
+  // Latest GeoJSON, so the load handler can seed the source even if the data
+  // changes before the style finishes loading.
+  const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
+    type: "FeatureCollection",
+    features: []
+  });
+  // Held in a ref so the layer click handler always calls the latest callback.
   const onMarkerSelectedRef = useRef(onMarkerSelected);
   const focusRegions = useStore($focusRegions);
 
@@ -168,8 +236,8 @@ function MapLibreMap({
     onMarkerSelectedRef.current = onMarkerSelected;
   }, [onMarkerSelected]);
 
-  // Initialize the map once: basemap, the shared hover tooltip, and a
-  // ResizeObserver. Markers are managed separately by the sync effect below.
+  // Initialize the map once: basemap, source + layers, the hover tooltip and a
+  // ResizeObserver. The data itself is kept in sync by the effect below.
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
@@ -179,6 +247,7 @@ function MapLibreMap({
       container: containerRef.current,
       style: {
         version: 8,
+        glyphs: GLYPHS_URL,
         sources: {
           basemap: {
             type: "raster",
@@ -205,7 +274,96 @@ function MapLibreMap({
       className: "maplibre-station-tooltip"
     });
 
-    map.on("load", () => onInit?.(map));
+    map.on("load", () => {
+      // SDF arrow image, tinted per feature via icon-color.
+      const arrow = createWindArrowImage();
+      if (arrow && !map.hasImage(WIND_ARROW_IMAGE)) {
+        map.addImage(WIND_ARROW_IMAGE, arrow.image, {
+          sdf: true,
+          pixelRatio: arrow.pixelRatio
+        });
+      }
+
+      map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
+
+      // Colored marker discs (everything except wind arrows).
+      map.addLayer({
+        id: CIRCLE_LAYER_ID,
+        type: "circle",
+        source: SOURCE_ID,
+        filter: ["!", ["get", "isWind"]],
+        paint: {
+          "circle-radius": 11,
+          "circle-color": ["get", "color"],
+          "circle-stroke-color": "#000",
+          "circle-stroke-width": 1
+        },
+        layout: { "circle-sort-key": ["get", "sortKey"] }
+      });
+
+      // Wind direction arrows (VW/VW_MAX), tinted by wind-speed color.
+      map.addLayer({
+        id: WIND_LAYER_ID,
+        type: "symbol",
+        source: SOURCE_ID,
+        filter: ["get", "isWind"],
+        layout: {
+          "icon-image": WIND_ARROW_IMAGE,
+          "icon-rotate": ["+", ["get", "direction"], 180],
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true,
+          "symbol-sort-key": ["get", "sortKey"]
+        },
+        paint: { "icon-color": ["get", "color"] }
+      });
+
+      // Numeric value, drawn on top of discs and arrows. Collision detection
+      // (the default, i.e. no allow-overlap) hides labels that would overlap;
+      // a lower sort key is placed first and wins, so higher values stay.
+      map.addLayer({
+        id: LABEL_LAYER_ID,
+        type: "symbol",
+        source: SOURCE_ID,
+        layout: {
+          "text-field": ["get", "value"],
+          "text-font": LABEL_FONT,
+          "text-size": 11,
+          "symbol-sort-key": ["-", 0, ["get", "sortKey"]]
+        },
+        paint: { "text-color": ["get", "textColor"] }
+      });
+
+      // Click selects the station; hover shows the shared tooltip.
+      const markerLayers = [CIRCLE_LAYER_ID, WIND_LAYER_ID];
+      for (const layer of markerLayers) {
+        map.on("click", layer, e => {
+          const id = e.features?.[0]?.properties?.id;
+          if (typeof id === "string") onMarkerSelectedRef.current(id);
+        });
+        map.on("mouseenter", layer, () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", layer, () => {
+          map.getCanvas().style.cursor = "";
+          tooltipRef.current?.remove();
+        });
+        map.on("mousemove", layer, e => {
+          const feature = e.features?.[0];
+          if (feature?.geometry.type !== "Point") return;
+          const { name, altitude } = feature.properties ?? {};
+          const text =
+            typeof altitude === "number"
+              ? `${name} (${altitude} m)`
+              : `${name}`;
+          tooltipRef.current
+            ?.setLngLat(feature.geometry.coordinates as [number, number])
+            .setText(text)
+            .addTo(map);
+        });
+      }
+
+      onInit?.(map);
+    });
 
     mapRef.current = map;
 
@@ -220,8 +378,6 @@ function MapLibreMap({
 
     return () => {
       resizeObserver?.disconnect();
-      markersRef.current.forEach(m => m.remove());
-      markersRef.current = [];
       tooltipRef.current?.remove();
       map.remove();
       mapRef.current = null;
@@ -229,91 +385,23 @@ function MapLibreMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Rebuild all markers whenever the data or the selected parameter changes.
-  // A full remove-and-re-add (rather than diffing) is simple and fine at this
-  // dataset size. `item`/`observers` are memoized by the parent so this doesn't
-  // thrash on every render.
+  // Recompute the GeoJSON whenever the data or the selected parameter changes
+  // and push it to the source (or stash it for the load handler to seed).
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
+    const data = toFeatureCollection(
+      features,
+      observers,
+      item,
+      itemId,
+      showMarkersWithoutValue,
+      value => intl.formatNumber(value)
+    );
+    dataRef.current = data;
 
-    markersRef.current.forEach(m => m.remove());
-    markersRef.current = [];
-
-    const tooltip = tooltipRef.current;
-    // Render one list of features as markers. Stations (isObserver=false) use
-    // the parameter `item`/`itemId`; observers use a fixed gray item, no value.
-    const addMarkers = (
-      list: Feature[],
-      markerItem: MarkerItem,
-      isObserver: boolean
-    ) => {
-      for (const feature of list) {
-        const [lng, lat] = feature.geometry?.coordinates ?? [];
-        if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
-
-        // Observers never carry a value; stations read the selected parameter.
-        const value = isObserver ? undefined : getParamValue(feature, itemId);
-        const hasValue = value !== undefined;
-        if (!hasValue && !showMarkersWithoutValue) continue;
-
-        // Fill: parameter color by threshold, else gray (observer vs. no-value).
-        const fill = hasValue
-          ? getColor(value, markerItem)
-          : isObserver
-            ? Object.values(markerItem.colors)[0]
-            : NO_VALUE_COLOR;
-        const valueText = hasValue ? intl.formatNumber(value) : "";
-
-        // Wind parameters draw a direction arrow once the speed is meaningful.
-        let direction: number | false = false;
-        if (
-          !isObserver &&
-          markerItem.direction === "DW" &&
-          value !== undefined &&
-          value >= 3.5
-        ) {
-          const dw = getParamValue(feature, "DW" as ParameterType);
-          if (dw !== undefined) direction = dw;
-        }
-
-        // Markers with values render above markers without, ordered by value.
-        // Kept well below the filter bar's z-index by the map's stacking context.
-        const zIndex = hasValue ? 1 + Math.round(Math.abs(value)) : 0;
-        const el = buildMarkerElement(
-          fill,
-          getContrastTextColor(fill),
-          valueText,
-          direction,
-          zIndex
-        );
-
-        // Click selects the station; hover shows the shared tooltip.
-        const id = String(feature.id);
-        el.addEventListener("click", e => {
-          e.stopPropagation();
-          onMarkerSelectedRef.current(id);
-        });
-
-        const altitude = feature.geometry?.coordinates?.[2];
-        const tooltipText = `${feature.properties.name} (${altitude} m)`;
-        if (tooltip) {
-          el.addEventListener("mouseenter", () => {
-            tooltip.setLngLat([lng, lat]).setText(tooltipText).addTo(map);
-          });
-          el.addEventListener("mouseleave", () => tooltip.remove());
-        }
-
-        const marker = new maplibregl.Marker({ element: el })
-          .setLngLat([lng, lat])
-          .addTo(map);
-        markersRef.current.push(marker);
-      }
-    };
-
-    // Stations first, then observers (gray, valueless) on top.
-    addMarkers(features, item, false);
-    if (observers) addMarkers(observers, OBSERVER_ITEM, true);
+    const source = mapRef.current?.getSource(SOURCE_ID);
+    if (source instanceof maplibregl.GeoJSONSource) {
+      source.setData(data);
+    }
   }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
