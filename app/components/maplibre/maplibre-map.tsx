@@ -7,6 +7,7 @@ import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
+import { MAPLIBRE_STYLE } from "./maplibre-style";
 
 /**
  * Station dashboard map (MapLibre GL).
@@ -58,7 +59,6 @@ const SOURCE_ID = "stations";
 const CIRCLE_LAYER_ID = "stations-circles";
 const LABEL_LAYER_ID = "stations-labels";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
-const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
 const LABEL_FONT = ["Noto Sans Regular"];
 
 /**
@@ -324,43 +324,7 @@ function MapLibreMap({
 
     const map = new maplibregl.Map({
       container: containerRef.current,
-      style: {
-        version: 8,
-        glyphs: GLYPHS_URL,
-        sources: {
-          basemap: {
-            type: "raster",
-            tiles: [config.map.tileLayer.url],
-            tileSize: 256,
-            minzoom: config.map.tileLayer.minZoom,
-            maxzoom: config.map.tileLayer.maxZoom,
-            attribution: config.map.attribution
-          },
-          // OpenTopoMap takes over from the basemap at higher zooms.
-          opentopomap: {
-            type: "raster",
-            tiles: ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
-            tileSize: 256,
-            maxzoom: 17,
-            attribution:
-              "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)"
-          }
-        },
-        layers: [
-          {
-            id: "basemap",
-            type: "raster",
-            source: "basemap",
-            maxzoom: 10.25
-          },
-          {
-            id: "opentopomap",
-            type: "raster",
-            source: "opentopomap",
-            minzoom: 10.25
-          }
-        ]
-      },
+      style: MAPLIBRE_STYLE,
       bounds: [
         [bounds.getWest(), bounds.getSouth()],
         [bounds.getEast(), bounds.getNorth()]
