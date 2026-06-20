@@ -4,8 +4,6 @@ import { Tooltip } from "../tooltips/tooltip";
 
 import "leaflet";
 import "leaflet.sync";
-import { DomEvent } from "leaflet";
-import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
@@ -14,15 +12,11 @@ import type {
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
-import { PbfRegionState } from "../leaflet/pbf-region-state";
 import {
-  isOneDangerRating as isOneDangerRating0,
   matchesValidTimePeriod,
   toAmPm,
   ValidTimePeriod
 } from "../../stores/bulletin";
-import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
 import {
   eawsRegion,
@@ -30,7 +24,6 @@ import {
   eawsRegionsBounds
 } from "../../stores/eawsRegions";
 import { getMacroRegion, microRegionIds } from "../../stores/microRegions";
-import type { RegionState } from "../leaflet/pbf-region-state";
 import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 import maplibregl from "maplibre-gl";
@@ -56,6 +49,18 @@ const OVERLAY_STYLE: maplibregl.StyleSpecification = {
   layers: []
 };
 
+type RegionState =
+  | "mouseOver"
+  | "selected"
+  | "highlighted"
+  | "dehighlighted"
+  | "dimmed"
+  | "noData"
+  | "noDataMouseOver"
+  | "noDataGrey"
+  | "noDataGreyMouseOver"
+  | "default";
+
 interface Props {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
@@ -70,93 +75,14 @@ interface Props {
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
-  const isOneDangerRating = useStore(isOneDangerRating0);
   const focusRegions = useStore($focusRegions);
   const language = intl.locale.slice(0, 2);
   const [regionMouseover, setRegionMouseover] = useState("");
-
-  function RegionClickHandler(): null {
-    useMapEvent("click", () => props.handleSelectRegion(""));
-    return null;
-  }
 
   const styleOverMap = () => {
     return {
       zIndex: 1000
     };
-  };
-
-  const regionState = useMemo(
-    () => (
-      <PbfRegionState
-        activeBulletinCollection={props.activeBulletinCollection}
-        problems={props.problems}
-        region={props.region}
-        regionMouseover={regionMouseover}
-        validTimePeriod={props.validTimePeriod}
-      />
-    ),
-    [
-      props.activeBulletinCollection,
-      props.problems,
-      props.region,
-      props.validTimePeriod,
-      regionMouseover
-    ]
-  );
-
-  const getMapOverlays = () => {
-    const overlays = [<RegionClickHandler key="region-click-handler" />];
-    overlays.push(
-      <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}`}
-        date={props.date}
-        isOneDangerRating={isOneDangerRating}
-        handleSelectRegion={props.handleSelectRegion}
-        validTimePeriod={props.validTimePeriod}
-      >
-        {props.activeBulletinCollection && (
-          <DangerRatings
-            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
-          />
-        )}
-        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
-          <DangerRatings
-            maxDangerRatings={
-              props.activeBulletinCollection.eawsMaxDangerRatings
-            }
-          />
-        )}
-      </PbfLayer>
-    );
-    overlays.push(
-      <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}-overlay`}
-        date={props.date}
-        validTimePeriod={props.validTimePeriod}
-        eventHandlers={{
-          click(e) {
-            DomEvent.stop(e);
-            props.handleSelectRegion(e.sourceTarget.properties.id);
-          },
-          pointerover(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(e.sourceTarget.properties.id)
-            );
-          },
-          pointerout(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(id =>
-                id === e.sourceTarget.properties.id ? "" : id
-              )
-            );
-          }
-        }}
-      >
-        {regionState}
-      </PbfLayerOverlay>
-    );
-    return overlays;
   };
 
   const NoRatingPopup = ({
