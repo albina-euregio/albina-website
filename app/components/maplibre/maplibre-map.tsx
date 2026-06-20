@@ -364,8 +364,7 @@ function MapLibreMap({
       bounds: [
         [bounds.getWest(), bounds.getSouth()],
         [bounds.getEast(), bounds.getNorth()]
-      ],
-      attributionControl: false
+      ]
     });
 
     tooltipRef.current = new maplibregl.Popup({

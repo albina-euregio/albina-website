@@ -1174,3 +1174,11 @@ a.weather-map-details-button {
     padding: 0.25em 0.5em;
   }
 }
+
+// Rotate the attribution so it runs vertically up the right edge,
+// anchored at the bottom-right corner and reading bottom-to-top.
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+  white-space: nowrap;
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(100%);
+}
