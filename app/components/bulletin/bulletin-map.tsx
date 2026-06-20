@@ -35,6 +35,7 @@ import {
   WARNLEVEL_OPACITY,
   WarnLevelNumber
 } from "../../util/warn-levels";
+import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 
 // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
 // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
@@ -784,7 +785,7 @@ function MapLibreMap({
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {
         type: "vector",
-        url: `pmtiles://https://static.avalanche.report/eaws-regions.pmtiles`
+        url: `pmtiles://${eawsPmtimes}`
       });
       overlay.addLayer({
         id: "eaws-regions-fill",

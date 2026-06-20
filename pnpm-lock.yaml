@@ -45,6 +45,9 @@ importers:
       '@eaws/pbf':
         specifier: ^8.4.0
         version: 8.4.0
+      '@eaws/pmtiles':
+        specifier: ^8.4.0
+        version: 8.4.0
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
@@ -191,6 +194,9 @@ packages:
 
   '@eaws/pbf@8.4.0':
     resolution: {integrity: sha1-elAS323Yw58szfhHC3s9uA77LsE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pbf/-/@eaws/pbf-8.4.0.tgz}
+
+  '@eaws/pmtiles@8.4.0':
+    resolution: {integrity: sha1-6oUKIzbO746aUn53WI1qVRTAj4U=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pmtiles/-/@eaws/pmtiles-8.4.0.tgz}
 
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
@@ -1501,6 +1507,8 @@ snapshots:
   '@eaws/outline_properties@8.4.0': {}
 
   '@eaws/pbf@8.4.0': {}
+
+  '@eaws/pmtiles@8.4.0': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
