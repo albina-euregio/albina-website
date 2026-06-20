@@ -1175,6 +1175,31 @@ a.weather-map-details-button {
   }
 }
 
+.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left {
+  top: var(--station-dashboard-filter-offset, 0px);
+}
+
+// Show/hide-pins control (StationPinsControl), matching the look of the
+// Leaflet map controls (square, brand-colored Fontello icon, inverted hover).
+.maplibregl-ctrl-group.maplibregl-ctrl-station-pins {
+  button {
+    width: $controls-width-height;
+    height: $controls-width-height;
+    color: variables.$brand;
+    background-color: rgba(variables.$white, 0.95);
+    border: none;
+    cursor: pointer;
+    &:before {
+      font-size: $controls-width-height * 0.75;
+      line-height: $controls-width-height;
+    }
+    &:hover {
+      color: variables.$white;
+      background-color: variables.$anchor-font-color;
+    }
+  }
+}
+
 // Rotate the attribution so it runs vertically up the right edge,
 // anchored at the bottom-right corner and reading bottom-to-top.
 .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
