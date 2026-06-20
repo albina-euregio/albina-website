@@ -496,12 +496,11 @@ function MapLibreMap({
     // alpha-composited on top, plus borders shown on hover / selection.
 
     const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-    const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
 
     // Danger-rating colour/opacity per region (max danger rating), the base layer
     // the state overlay composites over.
     const dangerRatings = {
-      ...maxDangerRatings,
+      ...(activeBulletinCollection?.maxDangerRatings ?? {}),
       ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
     };
     const province = $province.get();
