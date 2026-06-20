@@ -23,8 +23,8 @@ import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
  *
  * Text needs a `glyphs` endpoint; we self-host a single font range under
  * public/fonts/ (see public/fonts/README.md) — labels are only digits, which
- * fit in the 0-255 range. The wind arrow is an SDF image added at runtime so it
- * can be tinted per wind-speed color.
+ * fit in the 0-255 range. The wind arrow is a plain RGBA image baked at runtime
+ * per wind-speed color (fill + black border), one image per color.
  *
  * Stacking: the whole map is its own stacking context
  * (`.section-map { z-index: 0 }` in _map.scss) so the canvas and the hover
@@ -58,7 +58,6 @@ const SOURCE_ID = "stations";
 const CIRCLE_LAYER_ID = "stations-circles";
 const WIND_LAYER_ID = "stations-wind";
 const LABEL_LAYER_ID = "stations-labels";
-const WIND_ARROW_IMAGE = "wind-arrow";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
 const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
 const LABEL_FONT = ["Noto Sans Regular"];
@@ -105,27 +104,56 @@ function getParamValue(
   return Number.isFinite(num) ? num : undefined;
 }
 
+/** Image id for a wind arrow of the given fill color. */
+function windArrowImageName(color: string): string {
+  return `wind-arrow-${color}`;
+}
+
 /**
- * Render the wind arrow path to an SDF-able alpha image (white shape on
- * transparent) so the symbol layer can tint it per wind-speed via `icon-color`.
- * Returns null when no canvas is available (e.g. SSR / tests).
+ * Render the wind arrow path to an RGBA image: the given fill color with a
+ * black border. One image is baked per wind-speed color (a plain image, not an
+ * SDF, so it can carry both the fill and the border). Padding leaves room for
+ * the stroke. Returns null when no canvas is available (e.g. SSR / tests).
  */
-function createWindArrowImage(): {
+function createWindArrowImage(color: string): {
   image: ImageData;
   pixelRatio: number;
 } | null {
   if (typeof document === "undefined") return null;
   const pixelRatio = 2;
-  const size = 28 * pixelRatio;
+  const pad = 1;
+  const logical = 28 + pad * 2;
+  const size = logical * pixelRatio;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
   ctx.scale(pixelRatio, pixelRatio);
-  ctx.fillStyle = "#fff";
-  ctx.fill(new Path2D(WIND_ARROW_PATH));
+  ctx.translate(pad, pad);
+  const path = new Path2D(WIND_ARROW_PATH);
+  ctx.fillStyle = color;
+  ctx.fill(path);
+  ctx.lineWidth = 1;
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#000";
+  ctx.stroke(path);
   return { image: ctx.getImageData(0, 0, size, size), pixelRatio };
+}
+
+/** Register a wind arrow image for every wind-speed color present in the data. */
+function ensureWindArrowImages(
+  map: maplibregl.Map,
+  data: GeoJSON.FeatureCollection<GeoJSON.Point>
+) {
+  for (const feature of data.features) {
+    const props = feature.properties;
+    if (!props?.isWind || typeof props.icon !== "string") continue;
+    if (map.hasImage(props.icon)) continue;
+    const arrow = createWindArrowImage(props.color);
+    if (!arrow) continue;
+    map.addImage(props.icon, arrow.image, { pixelRatio: arrow.pixelRatio });
+  }
 }
 
 /**
@@ -181,6 +209,7 @@ function toFeatureCollection(
       }
 
       const altitude = feature.geometry?.coordinates?.[2];
+      const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
       out.push({
         type: "Feature",
         geometry: { type: "Point", coordinates: [lng, lat] },
@@ -188,10 +217,11 @@ function toFeatureCollection(
           id: String(feature.id),
           name: feature.properties.name,
           altitude: typeof altitude === "number" ? altitude : null,
-          color: `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`,
+          color,
           textColor: getContrastTextColor(fill),
           value: hasValue ? formatNumber(value) : "",
           isWind,
+          icon: isWind ? windArrowImageName(color) : null,
           direction,
           // Markers with values stack above markers without, ordered by value.
           sortKey: hasValue ? Math.round(Math.abs(value)) : -1
@@ -277,14 +307,8 @@ function MapLibreMap({
     });
 
     map.on("load", () => {
-      // SDF arrow image, tinted per feature via icon-color.
-      const arrow = createWindArrowImage();
-      if (arrow && !map.hasImage(WIND_ARROW_IMAGE)) {
-        map.addImage(WIND_ARROW_IMAGE, arrow.image, {
-          sdf: true,
-          pixelRatio: arrow.pixelRatio
-        });
-      }
+      // Wind arrow images (one per wind-speed color) for the current data.
+      ensureWindArrowImages(map, dataRef.current);
 
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
@@ -303,20 +327,20 @@ function MapLibreMap({
         layout: { "circle-sort-key": ["get", "sortKey"] }
       });
 
-      // Wind direction arrows (VW/VW_MAX), tinted by wind-speed color.
+      // Wind direction arrows (VW/VW_MAX); the per-color image carries the
+      // fill and the black border (see createWindArrowImage).
       map.addLayer({
         id: WIND_LAYER_ID,
         type: "symbol",
         source: SOURCE_ID,
         filter: ["get", "isWind"],
         layout: {
-          "icon-image": WIND_ARROW_IMAGE,
+          "icon-image": ["get", "icon"],
           "icon-rotate": ["+", ["get", "direction"], 180],
           "icon-allow-overlap": true,
           "icon-ignore-placement": true,
           "symbol-sort-key": ["get", "sortKey"]
-        },
-        paint: { "icon-color": ["get", "color"] }
+        }
       });
 
       // Numeric value, drawn on top of discs and arrows. Collision detection
@@ -400,8 +424,10 @@ function MapLibreMap({
     );
     dataRef.current = data;
 
-    const source = mapRef.current?.getSource(SOURCE_ID);
-    if (source instanceof maplibregl.GeoJSONSource) {
+    const map = mapRef.current;
+    const source = map?.getSource(SOURCE_ID);
+    if (map && source instanceof maplibregl.GeoJSONSource) {
+      ensureWindArrowImages(map, data);
       source.setData(data);
     }
   }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
