@@ -67,7 +67,30 @@ type RegionState =
   | "noDataMouseOver"
   | "noDataGrey"
   | "noDataGreyMouseOver"
+  // partial-no-data micro-region (inside a rated macro-region) while
+  // hovered/selected: noDataGrey fill plus the mouseOver border.
+  | "noDataPartialMouseOver"
   | "default";
+
+const ALL_REGION_STATES: RegionState[] = [
+  "mouseOver",
+  "selected",
+  "highlighted",
+  "dehighlighted",
+  "dimmed",
+  "noData",
+  "noDataMouseOver",
+  "noDataGrey",
+  "noDataGreyMouseOver",
+  "noDataPartialMouseOver",
+  "default"
+];
+
+// Synthetic states composed from several config keys (the former per-region
+// `isPartialNoDataHover` override that layered `mouseOver` over `noDataGrey…`).
+const STATE_CONFIG_KEYS: Partial<Record<RegionState, string[]>> = {
+  noDataPartialMouseOver: ["noDataGreyMouseOver", "mouseOver"]
+};
 
 function parseColor(color: string): [number, number, number] {
   if (color === "white") return [255, 255, 255];
@@ -84,6 +107,152 @@ function parseColor(color: string): [number, number, number] {
 function rgbToHex(r: number, g: number, b: number): string {
   const h = (n: number) => Math.round(n).toString(16).padStart(2, "0");
   return `#${h(r)}${h(g)}${h(b)}`;
+}
+
+// Composited fill (danger colour + state overlay) and optional border for a
+// given (state, warnlevel, intern) triple — the styling that is keyed by the
+// `state` / `warnlevel` / `intern` feature-states. Pure function of those three
+// (plus static config), so the whole paint expression is built once.
+function styleFor(
+  state: RegionState,
+  warnlevel: WarnLevelNumber,
+  intern: boolean
+) {
+  const regionStyling = config.map.regionStyling as Record<
+    string,
+    Record<string, string | number | boolean>
+  >;
+  const keys = STATE_CONFIG_KEYS[state] ?? [state];
+  const style = Object.assign(
+    {},
+    regionStyling.clickable,
+    regionStyling.all,
+    ...keys.map(k => regionStyling[k])
+  ) as Record<string, string | number | boolean | undefined>;
+
+  let fillColor: string;
+  let fillOpacity: number;
+  if (warnlevel) {
+    const dangerColor = WARNLEVEL_COLORS[warnlevel];
+    const dangerOpacity = intern ? WARNLEVEL_OPACITY[warnlevel] : 0.5;
+    if (state === "dehighlighted" || state === "dimmed") {
+      // White veil (the state's fillOpacity) over the danger fill: lighten the
+      // danger colour toward white and combine the alphas (source-over).
+      const veil = (style.fillOpacity as number) ?? 0;
+      const opacity = veil + dangerOpacity * (1 - veil);
+      const k = veil / opacity; // weight of the white veil in the blend
+      const [r, g, b] = parseColor(dangerColor);
+      const mix = (d: number) => 255 * k + d * (1 - k);
+      fillColor = rgbToHex(mix(r), mix(g), mix(b));
+      fillOpacity = opacity;
+    } else {
+      fillColor = dangerColor;
+      fillOpacity = dangerOpacity;
+    }
+  } else {
+    fillColor = (style.fillColor as string) ?? "#ffffff";
+    fillOpacity = (style.fillOpacity as number) ?? 0;
+  }
+  // `none` is not a valid paint colour; it only occurs at fillOpacity 0 anyway.
+  if (fillColor === "none") fillColor = "rgba(0,0,0,0)";
+
+  const line = style.stroke
+    ? {
+        color: (style.color as string) ?? "#aaaaaa",
+        width: (style.weight as number) ?? 1,
+        opacity: (style.opacity as number) ?? 1
+      }
+    : undefined;
+  return { fillColor, fillOpacity, line };
+}
+
+// Build the static fill/line paint. Fill colour/opacity are keyed by the
+// `${state}/${warnlevel}/${intern}` feature-state triple (concatenated at
+// runtime); the border depends on the `state` alone.
+function buildRegionPaint(): {
+  fill: maplibregl.FillLayerSpecification["paint"];
+  line: maplibregl.LineLayerSpecification["paint"];
+} {
+  const fillColor: Record<string, string> = {};
+  const fillOpacity: Record<string, number> = {};
+  const lineColor: Record<string, string> = {};
+  const lineWidth: Record<string, number> = {};
+  const lineOpacity: Record<string, number> = {};
+  for (const state of ALL_REGION_STATES) {
+    const { line } = styleFor(state, 0, false);
+    lineColor[state] = line?.color ?? "#aaaaaa";
+    lineWidth[state] = line?.width ?? 1;
+    lineOpacity[state] = line?.opacity ?? 0;
+    for (const intern of [true, false]) {
+      for (let warnlevel = 0; warnlevel <= 5; warnlevel++) {
+        const style = styleFor(state, warnlevel as WarnLevelNumber, intern);
+        const key = `${state}/${warnlevel}/${intern}`;
+        fillColor[key] = style.fillColor;
+        fillOpacity[key] = style.fillOpacity;
+      }
+    }
+  }
+  const arms = (o: Record<string, string | number>) => Object.entries(o).flat();
+  const stateExpr = ["coalesce", ["feature-state", "state"], "default"];
+  const fillKey = [
+    "concat",
+    stateExpr,
+    "/",
+    ["to-string", ["coalesce", ["feature-state", "warnlevel"], 0]],
+    "/",
+    ["to-string", ["coalesce", ["feature-state", "intern"], false]]
+  ];
+  return {
+    fill: {
+      "fill-color": ["match", fillKey, ...arms(fillColor), "#ffffff"],
+      "fill-opacity": ["match", fillKey, ...arms(fillOpacity), 0]
+    } as maplibregl.FillLayerSpecification["paint"],
+    line: {
+      "line-color": ["match", stateExpr, ...arms(lineColor), "#aaaaaa"],
+      "line-width": ["match", stateExpr, ...arms(lineWidth), 1],
+      "line-opacity": ["match", stateExpr, ...arms(lineOpacity), 0]
+    } as maplibregl.LineLayerSpecification["paint"]
+  };
+}
+
+interface RegionFeatureStates {
+  stateById: Record<string, RegionState>;
+  warnlevelById: Record<string, WarnLevelNumber>;
+  internById: Record<string, boolean>;
+  hoverStateById: Record<string, RegionState>;
+  hoverGroup: Record<string, string[]>;
+}
+
+const REGION_SOURCE = {
+  source: "eaws-regions",
+  sourceLayer: "micro-regions"
+} as const;
+
+// Push the per-region `state` / `warnlevel` / `intern` feature-states onto the
+// overlay source, then re-apply the active hover group on top of the new base
+// states. No-op until the source exists.
+function applyFeatureStates(
+  map: maplibregl.Map | null,
+  fs: RegionFeatureStates,
+  hoverActive: string[]
+) {
+  if (!map?.getSource(REGION_SOURCE.source)) return;
+  for (const id of Object.keys(fs.stateById)) {
+    map.setFeatureState(
+      { ...REGION_SOURCE, id },
+      {
+        state: fs.stateById[id],
+        warnlevel: fs.warnlevelById[id] ?? 0,
+        intern: !!fs.internById[id]
+      }
+    );
+  }
+  for (const id of hoverActive) {
+    map.setFeatureState(
+      { ...REGION_SOURCE, id },
+      { state: fs.hoverStateById[id] }
+    );
+  }
 }
 
 interface Props {
@@ -453,11 +622,12 @@ function MapLibreMap({
   const overlayMapRef = useRef<maplibregl.Map | null>(null);
   const focusRegions = useStore($focusRegions);
 
-  // Hover is driven through the `hover` feature-state (not React state) so it
-  // stays off the paint-recompute path. These refs keep the once-mounted map
-  // handlers in sync with the latest hover grouping and currently-hovered ids.
-  const hoverGroupRef = useRef<Record<string, string[]>>({});
+  // Region styling is driven entirely through feature-states (`state` /
+  // `warnlevel` / `intern`), not React re-renders, so selection / hover changes
+  // never re-upload paint. These refs keep the once-mounted map handlers in sync
+  // with the latest feature-state values and the currently-hovered group.
   const hoverAnchorRef = useRef<string>("");
+  const hoverActiveRef = useRef<string[]>([]);
 
   // Latest select handler, so the once-mounted map listeners never go stale.
   const handleSelectRegionRef = useRef(handleSelectRegion);
@@ -484,20 +654,21 @@ function MapLibreMap({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
-  const regionPaint = useMemo((): {
-    fill: maplibregl.FillLayerSpecification["paint"];
-    line: maplibregl.LineLayerSpecification["paint"];
-    hoverGroup: Record<string, string[]>;
-  } => {
-    // Region styling for a single fill layer: each region's danger-rating colour
-    // (cf. maxDangerRatings) with the state overlay (dimming / no-data /
-    // problem-filter colours, ported from the former Leaflet PbfRegionState)
-    // alpha-composited on top, plus borders shown on hover / selection.
+  // The fill/line paint is a pure function of the static config + warn-level
+  // tables, so it is built once. It reads three feature-states per region —
+  // `state` (cf. getRegionState), `warnlevel`, `intern` — set by the effect
+  // below; selection / hover / filter changes only update those feature-states,
+  // never the paint expression.
+  const regionPaint = useMemo(buildRegionPaint, []);
 
+  // Per-region feature-state values that drive `regionPaint`, recomputed when the
+  // bulletin data or selection changes and pushed onto the source via
+  // setFeatureState (cf. applyFeatureStates).
+  const featureStates = useMemo((): RegionFeatureStates => {
     const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
 
-    // Danger-rating colour/opacity per region (max danger rating), the base layer
-    // the state overlay composites over.
+    // Max danger rating (warn-level) per region — the danger fill the state
+    // overlay composites over.
     const dangerRatings = {
       ...(activeBulletinCollection?.maxDangerRatings ?? {}),
       ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
@@ -506,10 +677,7 @@ function MapLibreMap({
     const internRegex = province
       ? new RegExp(`^(${province})`)
       : new RegExp(config.regionsRegex);
-    const dangerById: Record<
-      string,
-      { fillColor: string; fillOpacity: number }
-    > = {};
+    const warnlevelByRegion: Record<string, WarnLevelNumber> = {};
     for (const id of new Set(
       Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
     )) {
@@ -519,10 +687,7 @@ function MapLibreMap({
           dangerRatings[`${id}:high${amPm}`] ?? 0
         )) as WarnLevelNumber;
       if (!warnlevel) continue;
-      dangerById[id] = {
-        fillColor: WARNLEVEL_COLORS[warnlevel],
-        fillOpacity: internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5
-      };
+      warnlevelByRegion[id] = warnlevel;
     }
 
     function getRegionState(regionId: string, hovered: string): RegionState {
@@ -550,7 +715,7 @@ function MapLibreMap({
         !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
 
       // Detect micro-regions with no rating inside an otherwise-rated macro-region
-      const hasRating = regionId in dangerById;
+      const hasRating = regionId in warnlevelByRegion;
       const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
@@ -569,18 +734,24 @@ function MapLibreMap({
       }
 
       if (regionId === hovered) {
-        return isPartialNoData || isEawsWithNoData
-          ? "noDataGreyMouseOver"
-          : "mouseOver";
+        // partial-no-data gets the mouseOver border (former isPartialNoDataHover),
+        // EAWS-with-no-data does not.
+        return isPartialNoData
+          ? "noDataPartialMouseOver"
+          : isEawsWithNoData
+            ? "noDataGreyMouseOver"
+            : "mouseOver";
       }
 
       // For n/a or partial no-data regions: keep color (increased opacity) when selected
       if (regionId === region) {
         return isNoData
           ? noDataMouseOverState
-          : isPartialNoData || isEawsWithNoData
-            ? "noDataGreyMouseOver"
-            : "selected";
+          : isPartialNoData
+            ? "noDataPartialMouseOver"
+            : isEawsWithNoData
+              ? "noDataGreyMouseOver"
+              : "selected";
       }
       if (
         activeBulletinCollection
@@ -633,75 +804,10 @@ function MapLibreMap({
       return "default";
     }
 
-    // Resolve a region's composited fill (danger colour + state overlay) and
-    // optional border for a given state, ported from the former per-region loop.
-    function styleFor(regionId: string, state: RegionState) {
-      // show border for partial-no-data micro-regions on hover
-      const isPartialNoDataHover =
-        state === "noDataGreyMouseOver" &&
-        !(regionId in dangerById) &&
-        activeBulletinCollection?.macroRegionStatuses?.[
-          getMacroRegion(regionId) ?? ""
-        ] === "ok";
-      const style = {
-        ...config.map.regionStyling.clickable,
-        ...config.map.regionStyling.all,
-        ...config.map.regionStyling[state],
-        ...(isPartialNoDataHover ? config.map.regionStyling.mouseOver : {})
-      };
-
-      let fillColor: string;
-      let fillOpacity: number;
-      const danger = dangerById[regionId];
-      if (danger && (state === "dehighlighted" || state === "dimmed")) {
-        // White veil (fillColor "white", fillOpacity 0.5 / 0.75) over the danger
-        // fill: lighten the danger colour toward white and combine the alphas
-        // (source-over with a white top).
-        const veil = style.fillOpacity ?? 0;
-        const opacity = veil + danger.fillOpacity * (1 - veil);
-        const k = veil / opacity; // weight of the white veil in the blend
-        const [r, g, b] = parseColor(danger.fillColor);
-        const mix = (d: number) => 255 * k + d * (1 - k);
-        fillColor = rgbToHex(mix(r), mix(g), mix(b));
-        fillOpacity = opacity;
-      } else if (danger) {
-        fillColor = danger.fillColor;
-        fillOpacity = danger.fillOpacity;
-      } else {
-        fillColor = style.fillColor;
-        fillOpacity = style.fillOpacity;
-      }
-
-      const line = style.stroke
-        ? {
-            color: style.color ?? "#aaaaaa",
-            width: style.weight ?? 1,
-            opacity: style.opacity ?? 1
-          }
-        : undefined;
-      return { fillColor, fillOpacity, line };
-    }
-
-    // Per-region lookups consumed below as MapLibre
-    // `["get", id, ["literal", …]]` expressions (fixed-shape → no cast). The
-    // `hover*` maps hold only the regions whose styling changes on hover; the
-    // paint expression switches to them via the `hover` feature-state, so
-    // mouseover never re-runs this memo or re-uploads paint (cf. handlers below).
-    const fillColorById: Record<string, string> = {};
-    const fillOpacityById: Record<string, number> = {};
-    const lineColorById: Record<string, string> = {};
-    const lineWidthById: Record<string, number> = {};
-    const lineOpacityById: Record<string, number> = {};
-    const hoverFillColorById: Record<string, string> = {};
-    const hoverFillOpacityById: Record<string, number> = {};
-    const hoverLineColorById: Record<string, string> = {};
-    const hoverLineWidthById: Record<string, number> = {};
-    const hoverLineOpacityById: Record<string, number> = {};
-
     const allRegionIds = new Set([
       ...microRegions,
       ...eawsRegions,
-      ...Object.keys(dangerById)
+      ...Object.keys(warnlevelByRegion)
     ]);
 
     // Micro-regions grouped by macro-region, to highlight the whole macro-region
@@ -712,33 +818,21 @@ function MapLibreMap({
       if (macro) (macroMembers[macro] ??= []).push(regionId);
     }
 
+    const stateById: Record<string, RegionState> = {};
+    const warnlevelById: Record<string, WarnLevelNumber> = {};
+    const internById: Record<string, boolean> = {};
+    const hoverStateById: Record<string, RegionState> = {};
     // Feature ids to mark hovered when a given region is hovered (just itself,
     // or the whole macro-region for n/a regions which highlight as a group).
     const hoverGroup: Record<string, string[]> = {};
 
     for (const regionId of allRegionIds) {
-      const baseState = getRegionState(regionId, "");
-      const base = styleFor(regionId, baseState);
-      fillColorById[regionId] = base.fillColor;
-      fillOpacityById[regionId] = base.fillOpacity;
-      if (base.line) {
-        lineColorById[regionId] = base.line.color;
-        lineWidthById[regionId] = base.line.width;
-        lineOpacityById[regionId] = base.line.opacity;
-      }
-
+      stateById[regionId] = getRegionState(regionId, "");
+      warnlevelById[regionId] = warnlevelByRegion[regionId] ?? 0;
+      internById[regionId] = internRegex.test(regionId);
       // Hovering a region reproduces both individual and macro-group hover by
       // passing the region as its own hovered id.
-      const hoverState = getRegionState(regionId, regionId);
-      if (hoverState === baseState) continue;
-      const hover = styleFor(regionId, hoverState);
-      hoverFillColorById[regionId] = hover.fillColor;
-      hoverFillOpacityById[regionId] = hover.fillOpacity;
-      if (hover.line) {
-        hoverLineColorById[regionId] = hover.line.color;
-        hoverLineWidthById[regionId] = hover.line.width;
-        hoverLineOpacityById[regionId] = hover.line.opacity;
-      }
+      hoverStateById[regionId] = getRegionState(regionId, regionId);
       const macro = getMacroRegion(regionId);
       const isNoData =
         !!macro &&
@@ -747,71 +841,7 @@ function MapLibreMap({
         isNoData && macro ? macroMembers[macro] : [regionId];
     }
 
-    return {
-      fill: {
-        "fill-color": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", hoverFillColorById]],
-            "#ffffff"
-          ],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", fillColorById]],
-            "#ffffff"
-          ]
-        ],
-        "fill-opacity": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", hoverFillOpacityById]],
-            0
-          ],
-          ["coalesce", ["get", ["get", "id"], ["literal", fillOpacityById]], 0]
-        ]
-      },
-      line: {
-        "line-color": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", hoverLineColorById]],
-            "#aaaaaa"
-          ],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", lineColorById]],
-            "#aaaaaa"
-          ]
-        ],
-        "line-width": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", hoverLineWidthById]],
-            1
-          ],
-          ["coalesce", ["get", ["get", "id"], ["literal", lineWidthById]], 1]
-        ],
-        "line-opacity": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "coalesce",
-            ["get", ["get", "id"], ["literal", hoverLineOpacityById]],
-            0
-          ],
-          ["coalesce", ["get", ["get", "id"], ["literal", lineOpacityById]], 0]
-        ]
-      },
-      hoverGroup
-    };
+    return { stateById, warnlevelById, internById, hoverStateById, hoverGroup };
   }, [
     activeBulletinCollection,
     problems,
@@ -822,6 +852,11 @@ function MapLibreMap({
     eawsRegions,
     eawsMicroRegions
   ]);
+
+  // Latest feature-states, so the once-mounted map handlers (hover, initial
+  // apply on `load`) never read stale values.
+  const featureStatesRef = useRef(featureStates);
+  featureStatesRef.current = featureStates;
 
   // Hide micro-regions whose start_date/end_date is not valid on the bulletin
   // date — the MapLibre equivalent of the GeoJSON `filterFeature` predicate
@@ -926,6 +961,14 @@ function MapLibreMap({
         paint: regionPaint.line
       });
 
+      // Push the initial feature-states now that the source exists (subsequent
+      // changes flow through the effect below).
+      applyFeatureStates(
+        overlay,
+        featureStatesRef.current,
+        hoverActiveRef.current
+      );
+
       // Region interaction, migrated from the former Leaflet PbfLayerOverlay
       // event handlers: select on click (empty space deselects), track hover.
       overlay.on("click", e => {
@@ -934,18 +977,24 @@ function MapLibreMap({
         });
         handleSelectRegionRef.current(feature?.properties?.id ?? "");
       });
-      // Toggle the `hover` feature-state on the hovered region (or its whole
-      // macro-region group) instead of re-rendering — see hoverGroupRef above.
+      // Swap the hovered region (or its whole macro-region group) onto its hover
+      // `state` feature-state instead of re-rendering: restore the previous group
+      // to its base state, then apply the new group's hover state. Only `state`
+      // is touched, so `warnlevel` / `intern` are preserved (cf. setFeatureState
+      // merge); the base state is read fresh so it tracks selection changes.
       const setHover = (ids: string[]) => {
-        // Clear all features' state in one call, then mark the new group.
-        overlay.removeFeatureState({
-          source: "eaws-regions",
-          sourceLayer: "micro-regions"
-        });
+        const fs = featureStatesRef.current;
+        for (const id of hoverActiveRef.current) {
+          overlay.setFeatureState(
+            { ...REGION_SOURCE, id },
+            { state: fs.stateById[id] }
+          );
+        }
+        hoverActiveRef.current = ids;
         for (const id of ids) {
           overlay.setFeatureState(
-            { source: "eaws-regions", sourceLayer: "micro-regions", id },
-            { hover: true }
+            { ...REGION_SOURCE, id },
+            { state: fs.hoverStateById[id] }
           );
         }
       };
@@ -954,7 +1003,10 @@ function MapLibreMap({
         const id = e.features?.[0]?.id;
         if (id == null || String(id) === hoverAnchorRef.current) return;
         hoverAnchorRef.current = String(id);
-        setHover(hoverGroupRef.current[String(id)] ?? [String(id)]);
+        const group = featureStatesRef.current.hoverGroup[String(id)] ?? [
+          String(id)
+        ];
+        setHover(group);
       });
       overlay.on("mouseleave", "eaws-regions-fill", () => {
         overlay.getCanvas().style.cursor = "";
@@ -1003,20 +1055,17 @@ function MapLibreMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-style the region fill + borders on danger / selection / filter changes
-  // (hover is handled separately via feature-state, see the map handlers).
+  // Re-style the region fill + borders on danger / selection / filter changes by
+  // updating the per-region `state` / `warnlevel` / `intern` feature-states; the
+  // paint expression itself is static. Hover is layered on top inside the map
+  // handlers (see setHover above).
   useEffect(() => {
-    hoverGroupRef.current = regionPaint.hoverGroup;
-    const map = overlayMapRef.current;
-    for (const [property, value] of Object.entries(regionPaint.fill ?? {})) {
-      if (!map?.getLayer("eaws-regions-fill")) break;
-      map.setPaintProperty("eaws-regions-fill", property, value);
-    }
-    for (const [property, value] of Object.entries(regionPaint.line ?? {})) {
-      if (!map?.getLayer("eaws-regions-fill")) break;
-      map.setPaintProperty("eaws-regions-line", property, value);
-    }
-  }, [regionPaint]);
+    applyFeatureStates(
+      overlayMapRef.current,
+      featureStates,
+      hoverActiveRef.current
+    );
+  }, [featureStates]);
 
   // Re-apply the date-validity filter to both region layers when the date changes.
   useEffect(() => {
