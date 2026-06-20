@@ -1,12 +1,13 @@
 import maplibregl from "maplibre-gl";
-import type { WarnLevelNumber } from "../../util/warn-levels";
 import type { RegionState } from "./bulletin-map";
+import { DangerRatingValue } from "../../stores/bulletin";
 
 // The fill/line paint is a pure function of the static config + warn-level
 // tables, so it is built once. It reads three feature-states per region —
-// `state` (cf. getRegionState), `warnlevel`, `intern` — set by the effect
-// below; selection / hover / filter changes only update those feature-states,
-// never the paint expression.
+// `state` (cf. getRegionState), `dangerRating` (a DangerRatingValue, e.g. `low`
+// … `very_high` / `no_snow`), `intern` — set by the effect below; selection /
+// hover / filter changes only update those feature-states, never the paint
+// expression.
 
 const State: ["coalesce", ["feature-state", "state"], "default"] = [
   "coalesce",
@@ -30,8 +31,8 @@ export const REGION_FILL_PAINT = Object.freeze({
   "fill-color": [
     "match",
     State,
-    // n/a / no-rating regions carry no warnlevel, so their colour depends on
-    // the state alone — the per-warnlevel arms are unreachable and collapse away.
+    // n/a / no-rating regions carry no danger rating, so their colour depends on
+    // the state alone — the per-rating arms are unreachable and collapse away.
     "noData" satisfies RegionState,
     "#19abff",
     "noDataMouseOver" satisfies RegionState,
@@ -44,11 +45,15 @@ export const REGION_FILL_PAINT = Object.freeze({
     "#888888",
     [
       "match",
-      ["coalesce", ["feature-state", "warnlevel"], 0],
-      // Rated regions: switch on the warn-level, then on the state/intern combos
-      // that deviate from the plain warn colour (only dehighlighted / dimmed do,
-      // via their white veil); every other state keeps the warn colour.
-      1 satisfies WarnLevelNumber,
+      [
+        "coalesce",
+        ["feature-state", "dangerRating"],
+        "no_snow" satisfies DangerRatingValue
+      ],
+      // Rated regions: switch on the danger rating, then on the state/intern
+      // combos that deviate from the plain danger colour (only dehighlighted /
+      // dimmed do, via their white veil); every other state keeps it.
+      "low" satisfies DangerRatingValue,
       [
         "match",
         StateSlashIntern,
@@ -62,7 +67,7 @@ export const REGION_FILL_PAINT = Object.freeze({
         "#eeffcc",
         "#ccff66"
       ],
-      2 satisfies WarnLevelNumber,
+      "moderate" satisfies DangerRatingValue,
       [
         "match",
         StateSlashIntern,
@@ -76,7 +81,7 @@ export const REGION_FILL_PAINT = Object.freeze({
         "#ffffaa",
         "#ffff00"
       ],
-      3 satisfies WarnLevelNumber,
+      "considerable" satisfies DangerRatingValue,
       [
         "match",
         StateSlashIntern,
@@ -90,7 +95,7 @@ export const REGION_FILL_PAINT = Object.freeze({
         "#ffddaa",
         "#ff9900"
       ],
-      4 satisfies WarnLevelNumber,
+      "high" satisfies DangerRatingValue,
       [
         "match",
         StateSlashIntern,
@@ -104,7 +109,7 @@ export const REGION_FILL_PAINT = Object.freeze({
         "#ffaaaa",
         "#ff0000"
       ],
-      5 satisfies WarnLevelNumber,
+      "very_high" satisfies DangerRatingValue,
       [
         "match",
         StateSlashIntern,
@@ -118,16 +123,16 @@ export const REGION_FILL_PAINT = Object.freeze({
         "#aaaaaa",
         "#000000"
       ],
-      // warnlevel 0 / no rating → transparent (rendered at opacity 0 anyway).
+      // no_snow / no rating → transparent (rendered at opacity 0 anyway).
       "#ffffff"
     ]
   ],
   "fill-opacity": [
     "match",
     State,
-    // n/a / no-rating regions carry no warnlevel, so their opacity depends on
-    // the state alone — the per-warnlevel arms (incl. the slightly different
-    // `/5/`) are unreachable and collapse away.
+    // n/a / no-rating regions carry no danger rating, so their opacity depends
+    // on the state alone — the per-rating arms (incl. the slightly different
+    // very_high) are unreachable and collapse away.
     "noData",
     0.5,
     "noDataMouseOver",
@@ -140,11 +145,19 @@ export const REGION_FILL_PAINT = Object.freeze({
     0.75,
     [
       "case",
-      // no-rating regions (warnlevel 0)
-      ["==", ["coalesce", ["feature-state", "warnlevel"], 0], 0],
+      // no-rating regions (no_snow)
+      [
+        "==",
+        [
+          "coalesce",
+          ["feature-state", "dangerRating"],
+          "no_snow" satisfies DangerRatingValue
+        ],
+        "no_snow" satisfies DangerRatingValue
+      ],
       0,
-      // rated regions: opacity depends only on state + intern (warnlevel is
-      // irrelevant once the slight /5/ differences are ignored).
+      // rated regions: opacity depends only on state + intern (the danger rating
+      // is irrelevant once the slight very_high differences are ignored).
       [
         "match",
         StateSlashIntern,

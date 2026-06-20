@@ -1,3 +1,5 @@
+import type { DangerRatingValue } from "../stores/bulletin";
+
 export type WarnLevelNumber = 0 | 1 | 2 | 3 | 4 | 5;
 
 export const warnlevelNumbers = Object.freeze({
@@ -14,6 +16,19 @@ export function getWarnlevelNumber(
   id: keyof typeof warnlevelNumbers
 ): WarnLevelNumber {
   return warnlevelNumbers[id] ?? 0;
+}
+
+export function getDangerRatingValue(n: WarnLevelNumber): DangerRatingValue {
+  return (
+    [
+      "no_rating",
+      "low",
+      "moderate",
+      "considerable",
+      "high",
+      "very_high"
+    ] as const
+  )[n];
 }
 
 export const WARNLEVEL_COLORS = Object.freeze([

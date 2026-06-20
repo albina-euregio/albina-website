@@ -8,10 +8,12 @@ import { preprocessContent } from "../../util/htmlParser";
 import type {
   AvalancheProblemType,
   BulletinCollection,
+  DangerRatingValue,
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
 import {
+  getMaxMainValue,
   matchesValidTimePeriod,
   toAmPm,
   ValidTimePeriod
@@ -33,7 +35,6 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
-import { WarnLevelNumber } from "../../util/warn-levels";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 
@@ -75,7 +76,7 @@ export type RegionState =
 
 interface RegionFeatureStates {
   stateById: Record<string, RegionState>;
-  warnlevelById: Record<string, WarnLevelNumber>;
+  dangerRatingById: Record<string, DangerRatingValue>;
   internById: Record<string, boolean>;
   hoverStateById: Record<string, RegionState>;
   hoverGroup: Record<string, string[]>;
@@ -86,7 +87,7 @@ const REGION_SOURCE = {
   sourceLayer: "micro-regions"
 } as const;
 
-// Push the per-region `state` / `warnlevel` / `intern` feature-states onto the
+// Push the per-region `state` / `dangerRating` / `intern` feature-states onto the
 // overlay source, then re-apply the active hover group on top of the new base
 // states. No-op until the source exists.
 function applyFeatureStates(
@@ -100,7 +101,7 @@ function applyFeatureStates(
       { ...REGION_SOURCE, id },
       {
         state: fs.stateById[id],
-        warnlevel: fs.warnlevelById[id] ?? 0,
+        dangerRating: fs.dangerRatingById[id] ?? 0,
         intern: !!fs.internById[id]
       }
     );
@@ -481,7 +482,7 @@ function MapLibreMap({
   const focusRegions = useStore($focusRegions);
 
   // Region styling is driven entirely through feature-states (`state` /
-  // `warnlevel` / `intern`), not React re-renders, so selection / hover changes
+  // `dangerRating` / `intern`), not React re-renders, so selection / hover changes
   // never re-upload paint. These refs keep the once-mounted map handlers in sync
   // with the latest feature-state values and the currently-hovered group.
   const hoverAnchorRef = useRef<string>("");
@@ -528,17 +529,16 @@ function MapLibreMap({
     const internRegex = province
       ? new RegExp(`^(${province})`)
       : new RegExp(config.regionsRegex);
-    const warnlevelByRegion: Record<string, WarnLevelNumber> = {};
+    const dangerRatingByRegion: Record<string, DangerRatingValue> = {};
     for (const id of new Set(
       Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
     )) {
-      const warnlevel = (dangerRatings[`${id}${amPm}`] ??
-        Math.max(
+      dangerRatingByRegion[id] =
+        dangerRatings[`${id}${amPm}`] ??
+        getMaxMainValue([
           dangerRatings[`${id}:low${amPm}`] ?? 0,
           dangerRatings[`${id}:high${amPm}`] ?? 0
-        )) as WarnLevelNumber;
-      if (!warnlevel) continue;
-      warnlevelByRegion[id] = warnlevel;
+        ]);
     }
 
     function getRegionState(regionId: string, hovered: string): RegionState {
@@ -566,7 +566,7 @@ function MapLibreMap({
         !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
 
       // Detect micro-regions with no rating inside an otherwise-rated macro-region
-      const hasRating = regionId in warnlevelByRegion;
+      const hasRating = regionId in dangerRatingByRegion;
       const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
@@ -658,7 +658,7 @@ function MapLibreMap({
     const allRegionIds = new Set([
       ...microRegions,
       ...eawsRegions,
-      ...Object.keys(warnlevelByRegion)
+      ...Object.keys(dangerRatingByRegion)
     ]);
 
     // Micro-regions grouped by macro-region, to highlight the whole macro-region
@@ -670,7 +670,7 @@ function MapLibreMap({
     }
 
     const stateById: Record<string, RegionState> = {};
-    const warnlevelById: Record<string, WarnLevelNumber> = {};
+    const dangerRatingById: Record<string, DangerRatingValue> = {};
     const internById: Record<string, boolean> = {};
     const hoverStateById: Record<string, RegionState> = {};
     // Feature ids to mark hovered when a given region is hovered (just itself,
@@ -679,7 +679,7 @@ function MapLibreMap({
 
     for (const regionId of allRegionIds) {
       stateById[regionId] = getRegionState(regionId, "");
-      warnlevelById[regionId] = warnlevelByRegion[regionId] ?? 0;
+      dangerRatingById[regionId] = dangerRatingByRegion[regionId] ?? 0;
       internById[regionId] = internRegex.test(regionId);
       // Hovering a region reproduces both individual and macro-group hover by
       // passing the region as its own hovered id.
@@ -692,7 +692,13 @@ function MapLibreMap({
         isNoData && macro ? macroMembers[macro] : [regionId];
     }
 
-    return { stateById, warnlevelById, internById, hoverStateById, hoverGroup };
+    return {
+      stateById,
+      dangerRatingById,
+      internById,
+      hoverStateById,
+      hoverGroup
+    };
   }, [
     activeBulletinCollection,
     problems,
@@ -816,7 +822,7 @@ function MapLibreMap({
       // Swap the hovered region (or its whole macro-region group) onto its hover
       // `state` feature-state instead of re-rendering: restore the previous group
       // to its base state, then apply the new group's hover state. Only `state`
-      // is touched, so `warnlevel` / `intern` are preserved (cf. setFeatureState
+      // is touched, so `dangerRating` / `intern` are preserved (cf. setFeatureState
       // merge); the base state is read fresh so it tracks selection changes.
       const setHover = (ids: string[]) => {
         const fs = featureStatesRef.current;
@@ -892,7 +898,7 @@ function MapLibreMap({
   }, []);
 
   // Re-style the region fill + borders on danger / selection / filter changes by
-  // updating the per-region `state` / `warnlevel` / `intern` feature-states; the
+  // updating the per-region `state` / `dangerRating` / `intern` feature-states; the
   // paint expression itself is static. Hover is layered on top inside the map
   // handlers (see setHover above).
   useEffect(() => {
