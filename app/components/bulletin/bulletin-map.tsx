@@ -740,6 +740,29 @@ function MapLibreMap({
     };
   }, [activeBulletinCollection, validTimePeriod]);
 
+  // Hide micro-regions whose start_date/end_date is not valid on the bulletin
+  // date — the MapLibre equivalent of the GeoJSON `filterFeature` predicate
+  // (empty/absent bounds are open-ended; no date → show nothing).
+  const featureFilter = useMemo((): maplibregl.FilterSpecification => {
+    const today = activeBulletinCollection?.date?.toString();
+    if (!today) return ["literal", false];
+    return [
+      "all",
+      [
+        "case",
+        ["==", ["coalesce", ["get", "start_date"], ""], ""],
+        true,
+        ["<=", ["get", "start_date"], today]
+      ],
+      [
+        "case",
+        ["==", ["coalesce", ["get", "end_date"], ""], ""],
+        true,
+        [">", ["get", "end_date"], today]
+      ]
+    ];
+  }, [activeBulletinCollection?.date]);
+
   useEffect(() => {
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
@@ -782,6 +805,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": "micro-regions",
+        filter: featureFilter,
         paint: fillPaint
       });
       // State overlay (dimming / no-data / problem-filter colours) above the
@@ -791,6 +815,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": "micro-regions",
+        filter: featureFilter,
         paint: statePaint.state
       });
       overlay.addLayer({
@@ -798,6 +823,7 @@ function MapLibreMap({
         type: "line",
         source: "eaws-regions",
         "source-layer": "micro-regions",
+        filter: featureFilter,
         paint: statePaint.line
       });
 
@@ -869,6 +895,19 @@ function MapLibreMap({
       map.setPaintProperty("eaws-regions", property, value);
     }
   }, [statePaint]);
+
+  // Re-apply the date-validity filter to all region layers when the date changes.
+  useEffect(() => {
+    const map = overlayMapRef.current;
+    if (!map?.getLayer("eaws-regions-fill")) return;
+    for (const id of [
+      "eaws-regions-fill",
+      "eaws-regions-state",
+      "eaws-regions"
+    ]) {
+      map.setFilter(id, featureFilter);
+    }
+  }, [featureFilter]);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
