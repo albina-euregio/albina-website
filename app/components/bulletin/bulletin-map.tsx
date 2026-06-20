@@ -783,6 +783,7 @@ function MapLibreMap({
     // map; the base map is view-synced to it.
     const overlay = new maplibregl.Map({
       cooperativeGestures: true,
+      dragRotate: false,
       locale: {
         "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
           id: "bulletin:map:gesture:windows"
