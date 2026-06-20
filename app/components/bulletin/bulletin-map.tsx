@@ -475,57 +475,6 @@ const BulletinMap = (props: Props) => {
 
 export default BulletinMap;
 
-// Build the data-driven paint for the eaws-regions fill layer: each region is
-// coloured by its max danger rating, expressed as MapLibre expressions that look
-// up the feature `id` in per-region colour/opacity tables (see below).
-function eawsRegionsFillPaint(
-  activeBulletinCollection: BulletinCollection | undefined,
-  validTimePeriod: ValidTimePeriod
-): maplibregl.FillLayerSpecification["paint"] {
-  const dangerRatings = {
-    ...(activeBulletinCollection?.maxDangerRatings ?? {}),
-    ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
-  };
-  const amPm = toAmPm[validTimePeriod] ?? "";
-  const province = $province.get();
-  const internRegex = province
-    ? new RegExp(`^(${province})`)
-    : new RegExp(config.regionsRegex);
-
-  const ids = new Set(
-    Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
-  );
-
-  // Per-region lookup tables, consumed below via `["get", id, ["literal", …]]`.
-  // Using object lookups keeps the expressions fixed-shape (no dynamic tuple),
-  // so they type as ExpressionSpecification without a cast.
-  const colorById: Record<string, string> = {};
-  const opacityById: Record<string, number> = {};
-  for (const id of ids) {
-    const warnlevel = (dangerRatings[`${id}${amPm}`] ??
-      Math.max(
-        dangerRatings[`${id}:low${amPm}`] ?? 0,
-        dangerRatings[`${id}:high${amPm}`] ?? 0
-      )) as WarnLevelNumber;
-    if (!warnlevel) continue;
-    colorById[id] = WARNLEVEL_COLORS[warnlevel];
-    opacityById[id] = internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5;
-  }
-
-  return {
-    "fill-color": [
-      "coalesce",
-      ["get", ["get", "id"], ["literal", colorById]],
-      WARNLEVEL_COLORS[0]
-    ],
-    "fill-opacity": [
-      "coalesce",
-      ["get", ["get", "id"], ["literal", opacityById]],
-      WARNLEVEL_OPACITY[0]
-    ]
-  };
-}
-
 function MapLibreMap({
   activeBulletinCollection,
   validTimePeriod
@@ -536,10 +485,55 @@ function MapLibreMap({
   const overlayMapRef = useRef<maplibregl.Map | null>(null);
   const focusRegions = useStore($focusRegions);
 
-  const fillPaint = useMemo(
-    () => eawsRegionsFillPaint(activeBulletinCollection, validTimePeriod),
-    [activeBulletinCollection, validTimePeriod]
-  );
+  const fillPaint = useMemo((): maplibregl.FillLayerSpecification["paint"] => {
+    // Build the data-driven paint for the eaws-regions fill layer: each region is
+    // coloured by its max danger rating, expressed as MapLibre expressions that look
+    // up the feature `id` in per-region colour/opacity tables (see below).
+    const dangerRatings = {
+      ...(activeBulletinCollection?.maxDangerRatings ?? {}),
+      ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
+    };
+    const amPm = toAmPm[validTimePeriod] ?? "";
+    const province = $province.get();
+    const internRegex = province
+      ? new RegExp(`^(${province})`)
+      : new RegExp(config.regionsRegex);
+
+    const ids = new Set(
+      Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
+    );
+
+    // Per-region lookup tables, consumed below via `["get", id, ["literal", …]]`.
+    // Using object lookups keeps the expressions fixed-shape (no dynamic tuple),
+    // so they type as ExpressionSpecification without a cast.
+    const colorById: Record<string, string> = {};
+    const opacityById: Record<string, number> = {};
+    for (const id of ids) {
+      const warnlevel = (dangerRatings[`${id}${amPm}`] ??
+        Math.max(
+          dangerRatings[`${id}:low${amPm}`] ?? 0,
+          dangerRatings[`${id}:high${amPm}`] ?? 0
+        )) as WarnLevelNumber;
+      if (!warnlevel) continue;
+      colorById[id] = WARNLEVEL_COLORS[warnlevel];
+      opacityById[id] = internRegex.test(id)
+        ? WARNLEVEL_OPACITY[warnlevel]
+        : 0.5;
+    }
+
+    return {
+      "fill-color": [
+        "coalesce",
+        ["get", ["get", "id"], ["literal", colorById]],
+        WARNLEVEL_COLORS[0]
+      ],
+      "fill-opacity": [
+        "coalesce",
+        ["get", ["get", "id"], ["literal", opacityById]],
+        WARNLEVEL_OPACITY[0]
+      ]
+    };
+  }, [activeBulletinCollection, validTimePeriod]);
 
   useEffect(() => {
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
