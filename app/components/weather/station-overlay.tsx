@@ -3,7 +3,7 @@ import StationMarker from "./station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
 import { useIntl } from "../../i18n";
-import type { ParameterType } from "./station-parameter-control";
+import type { ParameterType } from "../station/station-parameter-control";
 
 /**
  * Validates that coordinates are valid numbers and not NaN

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import LeafletMap from "../leaflet/leaflet-map";
+import LeafletMap from "./leaflet-map";
 import DataOverlay from "./dataOverlay";
 import { useIntl } from "../../i18n";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import GridOverlay from "./grid-overlay";
-import StationOverlay from "../station/station-overlay";
+import StationOverlay from "./station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
 interface Props {

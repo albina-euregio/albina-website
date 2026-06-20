@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import "leaflet/styles.css";
-import LeafletMapControls from "./leaflet-map-controls";
+import LeafletMapControls from "./leaflet-map-controls.tsx";
 
 import {
   MapContainer,
