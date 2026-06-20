@@ -584,34 +584,6 @@ function MapLibreMap({
       return "default";
     }
 
-    function getStyle(regionId: string) {
-      const state = getRegionState(regionId);
-      const base = {
-        ...styling.clickable,
-        ...styling.all,
-        ...styling[state]
-      };
-      // show border for partial-no-data micro-regions
-      if (state === "noDataGreyMouseOver") {
-        const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-        const maxDangerRatings =
-          activeBulletinCollection?.maxDangerRatings ?? {};
-        const hasRating =
-          `${regionId}:low${amPm}` in maxDangerRatings ||
-          `${regionId}:high${amPm}` in maxDangerRatings ||
-          `${regionId}${amPm}` in maxDangerRatings;
-        const macroStatus =
-          activeBulletinCollection?.macroRegionStatuses?.[
-            getMacroRegion(regionId) ?? ""
-          ];
-        const isPartialNoData = !hasRating && macroStatus === "ok";
-        if (isPartialNoData) {
-          return { ...base, ...styling.mouseOver };
-        }
-      }
-      return base;
-    }
-
     // Translate the merged Leaflet path options into per-region lookup tables,
     // consumed below as MapLibre `["get", id, ["literal", …]]` expressions.
     const fillColorById: Record<string, string> = {};
@@ -620,15 +592,27 @@ function MapLibreMap({
     const lineWidthById: Record<string, number> = {};
     const lineOpacityById: Record<string, number> = {};
 
+    const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+    const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
+
     for (const regionId of new Set([...microRegions, ...eawsRegions])) {
-      const style = getStyle(regionId) as {
-        stroke?: boolean;
-        color?: string;
-        opacity?: number;
-        weight?: number;
-        fill?: boolean;
-        fillColor?: string;
-        fillOpacity?: number;
+      const state = getRegionState(regionId);
+      // show border for partial-no-data micro-regions on hover
+      const isPartialNoDataHover =
+        state === "noDataGreyMouseOver" &&
+        !(
+          `${regionId}:low${amPm}` in maxDangerRatings ||
+          `${regionId}:high${amPm}` in maxDangerRatings ||
+          `${regionId}${amPm}` in maxDangerRatings
+        ) &&
+        activeBulletinCollection?.macroRegionStatuses?.[
+          getMacroRegion(regionId) ?? ""
+        ] === "ok";
+      const style = {
+        ...styling.clickable,
+        ...styling.all,
+        ...styling[state],
+        ...(isPartialNoDataHover ? styling.mouseOver : {})
       };
       const fillOpacity = style.fillOpacity ?? 0;
       if (
