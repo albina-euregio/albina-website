@@ -335,9 +335,31 @@ function MapLibreMap({
             minzoom: config.map.tileLayer.minZoom,
             maxzoom: config.map.tileLayer.maxZoom,
             attribution: config.map.attribution
+          },
+          // OpenTopoMap takes over from the basemap at higher zooms.
+          opentopomap: {
+            type: "raster",
+            tiles: ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
+            tileSize: 256,
+            maxzoom: 17,
+            attribution:
+              "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)"
           }
         },
-        layers: [{ id: "basemap", type: "raster", source: "basemap" }]
+        layers: [
+          {
+            id: "basemap",
+            type: "raster",
+            source: "basemap",
+            maxzoom: 10.25
+          },
+          {
+            id: "opentopomap",
+            type: "raster",
+            source: "opentopomap",
+            minzoom: 10.25
+          }
+        ]
       },
       bounds: [
         [bounds.getWest(), bounds.getSouth()],
