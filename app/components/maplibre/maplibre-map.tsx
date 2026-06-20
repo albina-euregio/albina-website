@@ -61,38 +61,33 @@ const LABEL_LAYER_ID = "stations-labels";
 const GLYPHS_URL = `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`;
 const LABEL_FONT = ["Noto Sans Regular"];
 
-const NO_VALUE_COLOR: RGB = [200, 200, 200];
-const OBSERVER_COLOR: RGB = [100, 100, 100];
-
-/**
- * The marker `color` (CSS) and contrasting `textColor` for an RGB fill: black
- * on light fills, white on dark fills (per relative luminance).
- */
-function fillStyle([r, g, b]: RGB): { color: string; textColor: string } {
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return {
-    color: `rgb(${r}, ${g}, ${b})`,
-    textColor: luminance > 0.435 ? "#000" : "#fff"
-  };
-}
-
 /**
  * Pick the marker fill style for `value` by walking the parameter's thresholds:
  * the color for the highest threshold the value exceeds (else the first color).
  * A missing value gets the gray no-value fill. Same threshold→color logic as
  * the old station overlay.
+ *
+ * The returned `color` is the CSS fill and `textColor` the contrasting label
+ * color: black on light fills, white on dark fills (per relative luminance).
  */
 function fillStyleForValue(
   value: number | undefined,
   item: MarkerItem
 ): { color: string; textColor: string } {
-  if (value === undefined) return fillStyle(NO_VALUE_COLOR);
-  const colors = Object.values(item.colors);
-  let rgb = colors[0];
-  item.thresholds.forEach((threshold, i) => {
-    if (value > threshold) rgb = colors[i + 1];
-  });
-  return fillStyle(rgb);
+  let rgb: RGB = [200, 200, 200];
+  if (value !== undefined) {
+    const colors = Object.values(item.colors);
+    rgb = colors[0];
+    item.thresholds.forEach((threshold, i) => {
+      if (value > threshold) rgb = colors[i + 1];
+    });
+  }
+  const [r, g, b] = rgb;
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return {
+    color: `rgb(${r}, ${g}, ${b})`,
+    textColor: luminance > 0.435 ? "#000" : "#fff"
+  };
 }
 
 /**
@@ -270,15 +265,14 @@ function toFeatureCollection(
   // Observers: fixed gray pins, no value and never a wind arrow. They only
   // carry a no-value marker, so they appear only when those are shown.
   for (const feature of observers && showMarkersWithoutValue ? observers : []) {
-    const { color, textColor } = fillStyle(OBSERVER_COLOR);
     out.push({
       ...feature,
       properties: {
         id: String(feature.id),
         name: feature.properties.name,
         altitude: feature.geometry?.coordinates?.[2],
-        color,
-        textColor,
+        color: "rgb(100, 100, 100)",
+        textColor: null,
         value: "",
         isWind: false,
         sortKey: -1
