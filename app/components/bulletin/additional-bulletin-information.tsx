@@ -1,14 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 import WeatherStationDialog, { useStationId } from "../station/station-dialog";
 import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { LeafletMapOpenTopo } from "../leaflet/leaflet-map.tsx";
+import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { Bulletin } from "../../stores/bulletin/CAAMLv6";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
-import { CircleMarker, Tooltip } from "react-leaflet";
-import type L from "leaflet";
+
+const STATION_COLOR = "rgb(100, 100, 100)";
+const OBSERVATION_COLOR = "rgb(200, 100, 100)";
+
+const STATIONS_SOURCE = "stations";
+const STATIONS_LAYER = "stations-circles";
+const OBSERVATIONS_SOURCE = "observations";
+const OBSERVATIONS_LAYER = "observations-circles";
 
 /**
  * Validates that coordinates are valid numbers and not NaN
@@ -60,44 +68,40 @@ function useWeatherStations() {
   const { data, loadStationData } = useStationData("microRegion");
   useEffect(() => void loadStationData(), [loadStationData]);
 
-  const stationMarkers = useMemo(
-    () =>
-      data
+  const stationFeatures = useMemo(
+    (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
+      type: "FeatureCollection",
+      features: data
         .filter(station =>
           isValidCoordinates(
             station.geometry.coordinates[1],
             station.geometry.coordinates[0]
           )
         )
-        .map(station => (
-          <CircleMarker
-            key={station.id}
-            center={[
-              station.geometry.coordinates[1],
-              station.geometry.coordinates[0]
-            ]}
-            radius={10}
-            weight={1}
-            color="rgb(100, 100, 100)"
-            fill={true}
-            fillColor="rgb(100, 100, 100)"
-            eventHandlers={{
-              click: () => setStationId(station.id)
-            }}
-          >
-            <Tooltip>{station.name}</Tooltip>
-          </CircleMarker>
-        )),
-    [data, setStationId]
+        .map(station => ({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [
+              station.geometry.coordinates[0],
+              station.geometry.coordinates[1]
+            ]
+          },
+          properties: {
+            id: String(station.id),
+            tooltip: station.name
+          }
+        }))
+    }),
+    [data]
   );
-  return { data, stationId, setStationId, stationMarkers };
+
+  return { data, stationFeatures, stationId, setStationId };
 }
 
 function useObservations() {
   const intl = useIntl();
-  const [observations, setObservations] = useState<
-    ReturnType<typeof CircleMarker>[]
-  >([]);
+  const [observations, setObservations] = useState<Observation[]>([]);
   const [observation, setObservation] = useState<string>("");
 
   async function loadObservations() {
@@ -108,35 +112,224 @@ function useObservations() {
       ? snobs.filter(isObservation)
       : [];
     setObservations(
-      observationsList
-        .filter(observation =>
-          isValidCoordinates(observation.latitude, observation.longitude)
-        )
-        .map(observation => (
-          <CircleMarker
-            key={observation.$id}
-            center={[observation.latitude, observation.longitude]}
-            radius={12}
-            color="rgb(200, 100, 100)"
-            fill={true}
-            fillColor="rgb(200, 100, 100)"
-            eventHandlers={{
-              click: () => setObservation(observation.$externalURL)
-            }}
-          >
-            <Tooltip>
-              {intl.formatDate(observation.eventDate)}
-              <br />
-              {observation.locationName}
-              <br />
-              {observation.authorName}
-            </Tooltip>
-          </CircleMarker>
-        ))
+      observationsList.filter(observation =>
+        isValidCoordinates(observation.latitude, observation.longitude)
+      )
     );
   }
 
-  return { observations, observation, setObservation, loadObservations };
+  const observationFeatures = useMemo(
+    (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
+      type: "FeatureCollection",
+      features: observations.map(observation => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [observation.longitude, observation.latitude]
+        },
+        properties: {
+          url: observation.$externalURL,
+          tooltip: [
+            intl.formatDate(observation.eventDate),
+            observation.locationName,
+            observation.authorName
+          ].join("<br>")
+        }
+      }))
+    }),
+    [observations, intl]
+  );
+
+  return {
+    observationFeatures,
+    observation,
+    setObservation,
+    loadObservations
+  };
+}
+
+/**
+ * Mini map (MapLibre GL) showing the micro-region's weather stations and
+ * observations as colored circle markers over the shared raster basemap
+ * (MAPLIBRE_STYLE). Hovering a marker shows a tooltip; clicking a station opens
+ * its diagrams, clicking an observation opens its external page. The two layers
+ * are toggled via the `showStations`/`showObservations` props.
+ */
+function BulletinMiniMap({
+  bounds,
+  stations,
+  observations,
+  showStations,
+  showObservations,
+  onStationClick,
+  onObservationClick
+}: {
+  bounds: maplibregl.LngLatBoundsLike | undefined;
+  stations: GeoJSON.FeatureCollection<GeoJSON.Point>;
+  observations: GeoJSON.FeatureCollection<GeoJSON.Point>;
+  showStations: boolean;
+  showObservations: boolean;
+  onStationClick: (id: string) => void;
+  onObservationClick: (url: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  // Held in refs so the once-registered map handlers always see the latest
+  // callbacks and data, and the load handler can seed the sources/visibility.
+  const onStationClickRef = useRef(onStationClick);
+  const onObservationClickRef = useRef(onObservationClick);
+  const stationsRef = useRef(stations);
+  const observationsRef = useRef(observations);
+  const showStationsRef = useRef(showStations);
+  const showObservationsRef = useRef(showObservations);
+
+  useEffect(() => {
+    onStationClickRef.current = onStationClick;
+    onObservationClickRef.current = onObservationClick;
+  }, [onStationClick, onObservationClick]);
+
+  // Initialize the map once: basemap, the two marker sources/layers, hover
+  // tooltip and a ResizeObserver. Data and visibility are kept in sync below.
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+
+    const map = new maplibregl.Map({
+      container: containerRef.current,
+      style: MAPLIBRE_STYLE,
+      ...(bounds ? { bounds } : {})
+    });
+
+    tooltipRef.current = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 14,
+      className: "maplibre-station-tooltip"
+    });
+
+    map.on("load", () => {
+      map.addSource(STATIONS_SOURCE, {
+        type: "geojson",
+        data: stationsRef.current
+      });
+      map.addSource(OBSERVATIONS_SOURCE, {
+        type: "geojson",
+        data: observationsRef.current
+      });
+
+      map.addLayer({
+        id: STATIONS_LAYER,
+        type: "circle",
+        source: STATIONS_SOURCE,
+        layout: {
+          visibility: showStationsRef.current ? "visible" : "none"
+        },
+        paint: {
+          "circle-radius": 10,
+          "circle-color": STATION_COLOR,
+          "circle-stroke-color": STATION_COLOR,
+          "circle-stroke-width": 1
+        }
+      });
+      map.addLayer({
+        id: OBSERVATIONS_LAYER,
+        type: "circle",
+        source: OBSERVATIONS_SOURCE,
+        layout: {
+          visibility: showObservationsRef.current ? "visible" : "none"
+        },
+        paint: {
+          "circle-radius": 12,
+          "circle-color": OBSERVATION_COLOR,
+          "circle-stroke-color": OBSERVATION_COLOR,
+          "circle-stroke-width": 1
+        }
+      });
+
+      map.on("click", STATIONS_LAYER, e => {
+        const id = e.features?.[0]?.properties?.id;
+        if (typeof id === "string") onStationClickRef.current(id);
+      });
+      map.on("click", OBSERVATIONS_LAYER, e => {
+        const url = e.features?.[0]?.properties?.url;
+        if (typeof url === "string") onObservationClickRef.current(url);
+      });
+
+      for (const layer of [STATIONS_LAYER, OBSERVATIONS_LAYER]) {
+        map.on("mouseenter", layer, () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", layer, () => {
+          map.getCanvas().style.cursor = "";
+          tooltipRef.current?.remove();
+        });
+        map.on("mousemove", layer, e => {
+          const feature = e.features?.[0];
+          if (feature?.geometry.type !== "Point") return;
+          tooltipRef.current
+            ?.setLngLat(feature.geometry.coordinates as [number, number])
+            .setHTML(String(feature.properties?.tooltip ?? ""))
+            .addTo(map);
+        });
+      }
+    });
+
+    mapRef.current = map;
+
+    // MapLibre's trackResize only listens to window resize, so it misses
+    // container size changes (e.g. the initial layout settling). Observe the
+    // container and resize the map accordingly.
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => map.resize())
+        : undefined;
+    resizeObserver?.observe(containerRef.current);
+
+    return () => {
+      resizeObserver?.disconnect();
+      tooltipRef.current?.remove();
+      map.remove();
+      mapRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Push fresh GeoJSON to the sources whenever the markers change.
+  useEffect(() => {
+    stationsRef.current = stations;
+    const source = mapRef.current?.getSource(STATIONS_SOURCE);
+    if (source instanceof maplibregl.GeoJSONSource) source.setData(stations);
+  }, [stations]);
+  useEffect(() => {
+    observationsRef.current = observations;
+    const source = mapRef.current?.getSource(OBSERVATIONS_SOURCE);
+    if (source instanceof maplibregl.GeoJSONSource)
+      source.setData(observations);
+  }, [observations]);
+
+  // Toggle layer visibility (no-op until the layers exist after load).
+  useEffect(() => {
+    showStationsRef.current = showStations;
+    const map = mapRef.current;
+    if (!map?.getLayer(STATIONS_LAYER)) return;
+    map.setLayoutProperty(
+      STATIONS_LAYER,
+      "visibility",
+      showStations ? "visible" : "none"
+    );
+  }, [showStations]);
+  useEffect(() => {
+    showObservationsRef.current = showObservations;
+    const map = mapRef.current;
+    if (!map?.getLayer(OBSERVATIONS_LAYER)) return;
+    map.setLayoutProperty(
+      OBSERVATIONS_LAYER,
+      "visibility",
+      showObservations ? "visible" : "none"
+    );
+  }, [showObservations]);
+
+  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }
 
 export function AdditionalBulletinInformation({
@@ -144,13 +337,13 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
-  const stationMarkerColor = "rgb(100, 100, 100)";
-  const observationMarkerColor = "rgb(200, 100, 100)";
+  const stationMarkerColor = STATION_COLOR;
+  const observationMarkerColor = OBSERVATION_COLOR;
   const [showStations, setShowStations] = useState(true);
   const [showObservations, setShowObservations] = useState(true);
-  const { data, stationId, setStationId, stationMarkers } =
+  const { data, stationFeatures, stationId, setStationId } =
     useWeatherStations();
-  const { observations, observation, setObservation, loadObservations } =
+  const { observationFeatures, observation, setObservation, loadObservations } =
     useObservations();
 
   useEffect(
@@ -159,20 +352,11 @@ export function AdditionalBulletinInformation({
     []
   );
 
-  const bounds = useMemo((): L.LatLngBoundsExpression | undefined => {
+  const bounds = useMemo((): maplibregl.LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
-    if (!b.isValid()) return undefined;
-    return [
-      [b.south, b.west],
-      [b.north, b.east]
-    ];
+    return b.isValid() ? b.asArray() : undefined;
   }, [region, date]);
 
-  const overlays = useMemo(() => {
-    const visibleStationMarkers = showStations ? stationMarkers : [];
-    const visibleObservations = showObservations ? observations : [];
-    return [...visibleStationMarkers, ...visibleObservations];
-  }, [showStations, stationMarkers, showObservations, observations]);
   return (
     <div>
       {!!data.length && (
@@ -208,16 +392,15 @@ export function AdditionalBulletinInformation({
           overflow: "hidden"
         }}
       >
-        <LeafletMapOpenTopo
+        <BulletinMiniMap
           key={`${bulletin.bulletinID}-${region}`}
-          loaded={true}
-          gestureHandling={false}
-          controls={null}
-          onInit={() => {}}
-          mapConfigOverride={{
-            bounds
-          }}
-          overlays={overlays}
+          bounds={bounds}
+          stations={stationFeatures}
+          observations={observationFeatures}
+          showStations={showStations}
+          showObservations={showObservations}
+          onStationClick={setStationId}
+          onObservationClick={setObservation}
         />
       </div>
 
