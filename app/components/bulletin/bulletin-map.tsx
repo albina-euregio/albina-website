@@ -54,7 +54,7 @@ const OVERLAY_STYLE: maplibregl.StyleSpecification = {
 const syncedMaps: maplibregl.Map[] = [];
 let syncingMaps = false;
 
-type RegionState =
+export type RegionState =
   | "mouseOver"
   | "selected"
   | "highlighted"

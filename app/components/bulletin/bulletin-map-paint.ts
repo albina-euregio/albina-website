@@ -1,4 +1,6 @@
 import maplibregl from "maplibre-gl";
+import type { WarnLevelNumber } from "../../util/warn-levels";
+import type { RegionState } from "./bulletin-map";
 
 // The fill/line paint is a pure function of the static config + warn-level
 // tables, so it is built once. It reads three feature-states per region —
@@ -6,21 +8,39 @@ import maplibregl from "maplibre-gl";
 // below; selection / hover / filter changes only update those feature-states,
 // never the paint expression.
 
+const State: ["coalesce", ["feature-state", "state"], "default"] = [
+  "coalesce",
+  ["feature-state", "state"],
+  "default"
+];
+const StateSlashIntern: [
+  "concat",
+  ["coalesce", ["feature-state", "state"], "default"],
+  "/",
+  ["to-string", ["coalesce", ["feature-state", "intern"], false]]
+] = [
+  "concat",
+  State,
+  "/",
+  ["to-string", ["coalesce", ["feature-state", "intern"], false]]
+];
+type StateSlashInternType = `${RegionState}/${boolean}`;
+
 export const REGION_FILL_PAINT = Object.freeze({
   "fill-color": [
     "match",
-    ["coalesce", ["feature-state", "state"], "default"],
+    State,
     // n/a / no-rating regions carry no warnlevel, so their colour depends on
     // the state alone — the per-warnlevel arms are unreachable and collapse away.
-    "noData",
+    "noData" satisfies RegionState,
     "#19abff",
-    "noDataMouseOver",
+    "noDataMouseOver" satisfies RegionState,
     "#19abff",
-    "noDataGrey",
+    "noDataGrey" satisfies RegionState,
     "#888888",
-    "noDataGreyMouseOver",
+    "noDataGreyMouseOver" satisfies RegionState,
     "#888888",
-    "noDataPartialMouseOver",
+    "noDataPartialMouseOver" satisfies RegionState,
     "#888888",
     [
       "match",
@@ -28,98 +48,73 @@ export const REGION_FILL_PAINT = Object.freeze({
       // Rated regions: switch on the warn-level, then on the state/intern combos
       // that deviate from the plain warn colour (only dehighlighted / dimmed do,
       // via their white veil); every other state keeps the warn colour.
-      1,
+      1 satisfies WarnLevelNumber,
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "dehighlighted/true",
+        StateSlashIntern,
+        "dehighlighted/true" satisfies StateSlashInternType,
         "#f2ffd9",
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         "#f8ffe9",
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         "#e6ffb3",
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         "#eeffcc",
         "#ccff66"
       ],
-      2,
+      2 satisfies WarnLevelNumber,
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "dehighlighted/true",
+        StateSlashIntern,
+        "dehighlighted/true" satisfies StateSlashInternType,
         "#ffffbf",
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         "#ffffdb",
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         "#ffff80",
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         "#ffffaa",
         "#ffff00"
       ],
-      3,
+      3 satisfies WarnLevelNumber,
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "dehighlighted/true",
+        StateSlashIntern,
+        "dehighlighted/true" satisfies StateSlashInternType,
         "#ffe6bf",
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         "#fff0db",
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         "#ffcc80",
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         "#ffddaa",
         "#ff9900"
       ],
-      4,
+      4 satisfies WarnLevelNumber,
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "dehighlighted/true",
+        StateSlashIntern,
+        "dehighlighted/true" satisfies StateSlashInternType,
         "#ffbfbf",
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         "#ffdbdb",
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         "#ff8080",
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         "#ffaaaa",
         "#ff0000"
       ],
-      5,
+      5 satisfies WarnLevelNumber,
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "dehighlighted/true",
+        StateSlashIntern,
+        "dehighlighted/true" satisfies StateSlashInternType,
         "#c9c9c9",
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         "#dbdbdb",
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         "#8e8e8e",
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         "#aaaaaa",
         "#000000"
       ],
@@ -129,7 +124,7 @@ export const REGION_FILL_PAINT = Object.freeze({
   ],
   "fill-opacity": [
     "match",
-    ["coalesce", ["feature-state", "state"], "default"],
+    State,
     // n/a / no-rating regions carry no warnlevel, so their opacity depends on
     // the state alone — the per-warnlevel arms (incl. the slightly different
     // `/5/`) are unreachable and collapse away.
@@ -152,35 +147,30 @@ export const REGION_FILL_PAINT = Object.freeze({
       // irrelevant once the slight /5/ differences are ignored).
       [
         "match",
-        [
-          "concat",
-          ["coalesce", ["feature-state", "state"], "default"],
-          "/",
-          ["to-string", ["coalesce", ["feature-state", "intern"], false]]
-        ],
-        "mouseOver/true",
+        StateSlashIntern,
+        "mouseOver/true" satisfies StateSlashInternType,
         1,
-        "mouseOver/false",
+        "mouseOver/false" satisfies StateSlashInternType,
         0.5,
-        "selected/true",
+        "selected/true" satisfies StateSlashInternType,
         1,
-        "selected/false",
+        "selected/false" satisfies StateSlashInternType,
         0.5,
-        "highlighted/true",
+        "highlighted/true" satisfies StateSlashInternType,
         1,
-        "highlighted/false",
+        "highlighted/false" satisfies StateSlashInternType,
         0.5,
-        "dehighlighted/true",
+        "dehighlighted/true" satisfies StateSlashInternType,
         1,
-        "dehighlighted/false",
+        "dehighlighted/false" satisfies StateSlashInternType,
         0.875,
-        "dimmed/true",
+        "dimmed/true" satisfies StateSlashInternType,
         1,
-        "dimmed/false",
+        "dimmed/false" satisfies StateSlashInternType,
         0.75,
-        "default/true",
+        "default/true" satisfies StateSlashInternType,
         1,
-        "default/false",
+        "default/false" satisfies StateSlashInternType,
         0.5,
         0
       ]
@@ -191,12 +181,12 @@ export const REGION_FILL_PAINT = Object.freeze({
 export const REGION_LINE_PAINT = Object.freeze({
   "line-color": [
     "match",
-    ["coalesce", ["feature-state", "state"], "default"],
-    "mouseOver",
+    State,
+    "mouseOver" satisfies RegionState,
     "#555555",
-    "selected",
+    "selected" satisfies RegionState,
     "#555555",
-    "noDataPartialMouseOver",
+    "noDataPartialMouseOver" satisfies RegionState,
     "#555555",
     "default",
     "#aaaaaa",
@@ -204,12 +194,12 @@ export const REGION_LINE_PAINT = Object.freeze({
   ],
   "line-width": [
     "match",
-    ["coalesce", ["feature-state", "state"], "default"],
-    "mouseOver",
+    State,
+    "mouseOver" satisfies RegionState,
     2,
-    "selected",
+    "selected" satisfies RegionState,
     2,
-    "noDataPartialMouseOver",
+    "noDataPartialMouseOver" satisfies RegionState,
     2,
     "default",
     1,
@@ -217,12 +207,12 @@ export const REGION_LINE_PAINT = Object.freeze({
   ],
   "line-opacity": [
     "match",
-    ["coalesce", ["feature-state", "state"], "default"],
-    "mouseOver",
+    State,
+    "mouseOver" satisfies RegionState,
     1,
-    "selected",
+    "selected" satisfies RegionState,
     1,
-    "noDataPartialMouseOver",
+    "noDataPartialMouseOver" satisfies RegionState,
     1,
     "default",
     0,
