@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -19,14 +19,20 @@ import { PbfRegionState } from "../leaflet/pbf-region-state";
 import {
   isOneDangerRating as isOneDangerRating0,
   matchesValidTimePeriod,
+  toAmPm,
   ValidTimePeriod
 } from "../../stores/bulletin";
 import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
-import { eawsRegion } from "../../stores/eawsRegions";
+import { eawsRegion, eawsRegionsBounds } from "../../stores/eawsRegions";
 import { getMacroRegion } from "../../stores/microRegions";
-import { $focusRegions } from "../../appStore";
+import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { Protocol } from "pmtiles";
+import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { WARNLEVEL_STYLES, WarnLevelNumber } from "../../util/warn-levels";
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -414,13 +420,9 @@ const BulletinMap = (props: Props) => {
         }
         data-iframe-ignore
       >
-        <LeafletMap
-          loaded={true}
-          overlays={getMapOverlays()}
-          mapConfigOverride={{}}
-          tileLayerConfigOverride={{}}
-          gestureHandling={true}
-          onInit={props.onMapInit}
+        <MapLibreMap
+          activeBulletinCollection={props.activeBulletinCollection}
+          validTimePeriod={props.validTimePeriod}
         />
         {getBulletinMapDetails()}
 
@@ -455,3 +457,66 @@ const BulletinMap = (props: Props) => {
 };
 
 export default BulletinMap;
+
+function MapLibreMap({
+  activeBulletinCollection,
+  validTimePeriod
+}: Pick<Props, "activeBulletinCollection" | "validTimePeriod">) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const focusRegions = useStore($focusRegions);
+
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+
+    const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
+
+    const map = new maplibregl.Map({
+      container: containerRef.current,
+      style: MAPLIBRE_STYLE,
+      minZoom: 5,
+      maxZoom: 10,
+      bounds: [
+        [bounds.getWest(), bounds.getSouth()],
+        [bounds.getEast(), bounds.getNorth()]
+      ]
+    });
+
+    map.on("load", () => {
+      // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
+      // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
+      maplibregl.addProtocol("pmtiles", new Protocol().tile);
+
+      map.addSource("eaws-regions", {
+        type: "vector",
+        url: `pmtiles://https://static.avalanche.report/eaws-regions.pmtiles`,
+        attribution: "© <a href='https://www.avalanches.org/'>EAWS</a>"
+      });
+      map.addLayer({
+        id: "eaws-regions",
+        type: "line",
+        source: "eaws-regions",
+        "source-layer": "micro-regions",
+        paint: {
+          "line-color": "#19334d",
+          "line-width": 1,
+          "line-opacity": 0.5
+        }
+      });
+    });
+
+    mapRef.current = map;
+
+    const resizeObserver = new ResizeObserver(() => map.resize());
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver?.disconnect();
+      map.remove();
+      mapRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+}
