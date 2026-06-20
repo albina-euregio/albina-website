@@ -61,6 +61,41 @@ type RegionState =
   | "noDataGreyMouseOver"
   | "default";
 
+interface Rgba {
+  color: string;
+  opacity: number;
+}
+
+function parseColor(color: string): [number, number, number] {
+  if (color === "white") return [255, 255, 255];
+  if (color === "black") return [0, 0, 0];
+  let hex = color.replace("#", "");
+  if (hex.length === 3) hex = hex.replace(/(.)/g, "$1$1");
+  return [
+    parseInt(hex.slice(0, 2), 16),
+    parseInt(hex.slice(2, 4), 16),
+    parseInt(hex.slice(4, 6), 16)
+  ];
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const h = (n: number) => Math.round(n).toString(16).padStart(2, "0");
+  return `#${h(r)}${h(g)}${h(b)}`;
+}
+
+// Alpha-composite `top` over `bottom` (source-over), both over a transparent
+// background — equivalent to stacking two translucent fill layers.
+function compositeOver(top: Rgba, bottom: Rgba): Rgba {
+  const ta = top.opacity;
+  const ba = bottom.opacity;
+  const oa = ta + ba * (1 - ta);
+  if (oa <= 0) return { color: "#000000", opacity: 0 };
+  const [tr, tg, tb] = parseColor(top.color);
+  const [br, bg, bb] = parseColor(bottom.color);
+  const ch = (t: number, b: number) => (t * ta + b * ba * (1 - ta)) / oa;
+  return { color: rgbToHex(ch(tr, br), ch(tg, bg), ch(tb, bb)), opacity: oa };
+}
+
 interface Props {
   activeBulletinCollection: BulletinCollection;
   problems: Record<AvalancheProblemType, { highlighted: boolean }>;
@@ -461,15 +496,43 @@ function MapLibreMap({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
-  const statePaint = useMemo((): {
-    state: maplibregl.FillLayerSpecification["paint"];
+  const regionPaint = useMemo((): {
+    fill: maplibregl.FillLayerSpecification["paint"];
     line: maplibregl.LineLayerSpecification["paint"];
   } => {
-    // Region-state styling, ported from the former Leaflet PbfRegionState overlay.
-    // Produces data-driven paint for two layers stacked above the danger-rating
-    // fill: a state overlay fill (dimming / no-data / problem-filter colours) and
-    // the region borders (shown on hover / selection).
-    const styling = config.map.regionStyling;
+    // Region styling for a single fill layer: each region's danger-rating colour
+    // (cf. maxDangerRatings) with the state overlay (dimming / no-data /
+    // problem-filter colours, ported from the former Leaflet PbfRegionState)
+    // alpha-composited on top, plus borders shown on hover / selection.
+
+    const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+    const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
+
+    // Danger-rating colour/opacity per region (max danger rating), the base layer
+    // the state overlay composites over.
+    const dangerRatings = {
+      ...maxDangerRatings,
+      ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
+    };
+    const province = $province.get();
+    const internRegex = province
+      ? new RegExp(`^(${province})`)
+      : new RegExp(config.regionsRegex);
+    const dangerById: Record<string, Rgba> = {};
+    for (const id of new Set(
+      Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
+    )) {
+      const warnlevel = (dangerRatings[`${id}${amPm}`] ??
+        Math.max(
+          dangerRatings[`${id}:low${amPm}`] ?? 0,
+          dangerRatings[`${id}:high${amPm}`] ?? 0
+        )) as WarnLevelNumber;
+      if (!warnlevel) continue;
+      dangerById[id] = {
+        color: WARNLEVEL_COLORS[warnlevel],
+        opacity: internRegex.test(id) ? WARNLEVEL_OPACITY[warnlevel] : 0.5
+      };
+    }
 
     function getRegionState(regionId: string): RegionState {
       const macroRegion = getMacroRegion(regionId);
@@ -496,12 +559,7 @@ function MapLibreMap({
         !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
 
       // Detect micro-regions with no rating inside an otherwise-rated macro-region
-      const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-      const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
-      const hasRating =
-        `${regionId}:low${amPm}` in maxDangerRatings ||
-        `${regionId}:high${amPm}` in maxDangerRatings ||
-        `${regionId}${amPm}` in maxDangerRatings;
+      const hasRating = regionId in dangerById;
       const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
 
       // For n/a regions: highlight the whole macro-region on hover (no stroke)
@@ -584,46 +642,53 @@ function MapLibreMap({
       return "default";
     }
 
-    // Translate the merged Leaflet path options into per-region lookup tables,
-    // consumed below as MapLibre `["get", id, ["literal", …]]` expressions.
+    // Composite the state overlay over the danger fill into a single fill, and
+    // collect the borders. Lookups consumed below as MapLibre
+    // `["get", id, ["literal", …]]` expressions (fixed-shape → no cast).
     const fillColorById: Record<string, string> = {};
     const fillOpacityById: Record<string, number> = {};
     const lineColorById: Record<string, string> = {};
     const lineWidthById: Record<string, number> = {};
     const lineOpacityById: Record<string, number> = {};
 
-    const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
-    const maxDangerRatings = activeBulletinCollection?.maxDangerRatings ?? {};
-
-    for (const regionId of new Set([...microRegions, ...eawsRegions])) {
+    for (const regionId of new Set([
+      ...microRegions,
+      ...eawsRegions,
+      ...Object.keys(dangerById)
+    ])) {
       const state = getRegionState(regionId);
       // show border for partial-no-data micro-regions on hover
       const isPartialNoDataHover =
         state === "noDataGreyMouseOver" &&
-        !(
-          `${regionId}:low${amPm}` in maxDangerRatings ||
-          `${regionId}:high${amPm}` in maxDangerRatings ||
-          `${regionId}${amPm}` in maxDangerRatings
-        ) &&
+        !(regionId in dangerById) &&
         activeBulletinCollection?.macroRegionStatuses?.[
           getMacroRegion(regionId) ?? ""
         ] === "ok";
       const style = {
-        ...styling.clickable,
-        ...styling.all,
-        ...styling[state],
-        ...(isPartialNoDataHover ? styling.mouseOver : {})
+        ...config.map.regionStyling.clickable,
+        ...config.map.regionStyling.all,
+        ...config.map.regionStyling[state],
+        ...(isPartialNoDataHover ? config.map.regionStyling.mouseOver : {})
       };
-      const fillOpacity = style.fillOpacity ?? 0;
+
+      const danger = dangerById[regionId] ?? { color: "#ffffff", opacity: 0 };
       if (
         style.fill !== false &&
         style.fillColor &&
         style.fillColor !== "none" &&
-        fillOpacity > 0
+        style.fillOpacity
       ) {
-        fillColorById[regionId] = style.fillColor;
-        fillOpacityById[regionId] = fillOpacity;
+        const { color, opacity } = compositeOver(
+          { color: style.fillColor, opacity: style.fillOpacity },
+          danger
+        );
+        fillColorById[regionId] = color;
+        fillOpacityById[regionId] = opacity;
+      } else if (danger.opacity > 0) {
+        fillColorById[regionId] = danger.color;
+        fillOpacityById[regionId] = danger.opacity;
       }
+
       if (style.stroke) {
         lineColorById[regionId] = style.color ?? "#aaaaaa";
         lineWidthById[regionId] = style.weight ?? 1;
@@ -632,11 +697,11 @@ function MapLibreMap({
     }
 
     return {
-      state: {
+      fill: {
         "fill-color": [
           "coalesce",
           ["get", ["get", "id"], ["literal", fillColorById]],
-          "#000000"
+          "#ffffff"
         ],
         "fill-opacity": [
           "coalesce",
@@ -673,56 +738,6 @@ function MapLibreMap({
     eawsRegions,
     eawsMicroRegions
   ]);
-
-  const fillPaint = useMemo((): maplibregl.FillLayerSpecification["paint"] => {
-    // Build the data-driven paint for the eaws-regions fill layer: each region is
-    // coloured by its max danger rating, expressed as MapLibre expressions that look
-    // up the feature `id` in per-region colour/opacity tables (see below).
-    const dangerRatings = {
-      ...(activeBulletinCollection?.maxDangerRatings ?? {}),
-      ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
-    };
-    const amPm = toAmPm[validTimePeriod] ?? "";
-    const province = $province.get();
-    const internRegex = province
-      ? new RegExp(`^(${province})`)
-      : new RegExp(config.regionsRegex);
-
-    const ids = new Set(
-      Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
-    );
-
-    // Per-region lookup tables, consumed below via `["get", id, ["literal", …]]`.
-    // Using object lookups keeps the expressions fixed-shape (no dynamic tuple),
-    // so they type as ExpressionSpecification without a cast.
-    const colorById: Record<string, string> = {};
-    const opacityById: Record<string, number> = {};
-    for (const id of ids) {
-      const warnlevel = (dangerRatings[`${id}${amPm}`] ??
-        Math.max(
-          dangerRatings[`${id}:low${amPm}`] ?? 0,
-          dangerRatings[`${id}:high${amPm}`] ?? 0
-        )) as WarnLevelNumber;
-      if (!warnlevel) continue;
-      colorById[id] = WARNLEVEL_COLORS[warnlevel];
-      opacityById[id] = internRegex.test(id)
-        ? WARNLEVEL_OPACITY[warnlevel]
-        : 0.5;
-    }
-
-    return {
-      "fill-color": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", colorById]],
-        WARNLEVEL_COLORS[0]
-      ],
-      "fill-opacity": [
-        "coalesce",
-        ["get", ["get", "id"], ["literal", opacityById]],
-        WARNLEVEL_OPACITY[0]
-      ]
-    };
-  }, [activeBulletinCollection, validTimePeriod]);
 
   // Hide micro-regions whose start_date/end_date is not valid on the bulletin
   // date — the MapLibre equivalent of the GeoJSON `filterFeature` predicate
@@ -790,25 +805,15 @@ function MapLibreMap({
         source: "eaws-regions",
         "source-layer": "micro-regions",
         filter: featureFilter,
-        paint: fillPaint
-      });
-      // State overlay (dimming / no-data / problem-filter colours) above the
-      // danger fill; see eawsRegionsStatePaint.
-      overlay.addLayer({
-        id: "eaws-regions-state",
-        type: "fill",
-        source: "eaws-regions",
-        "source-layer": "micro-regions",
-        filter: featureFilter,
-        paint: statePaint.state
+        paint: regionPaint.fill
       });
       overlay.addLayer({
-        id: "eaws-regions",
+        id: "eaws-regions-line",
         type: "line",
         source: "eaws-regions",
         "source-layer": "micro-regions",
         filter: featureFilter,
-        paint: statePaint.line
+        paint: regionPaint.line
       });
 
       // Region interaction, migrated from the former Leaflet PbfLayerOverlay
@@ -859,36 +864,25 @@ function MapLibreMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-style the region fills whenever the danger ratings or time period change.
+  // Re-style the region fill + borders on danger / selection / hover / filter
+  // changes.
   useEffect(() => {
     const map = overlayMapRef.current;
-    if (!map?.getLayer("eaws-regions-fill")) return;
-    for (const [property, value] of Object.entries(fillPaint ?? {})) {
+    for (const [property, value] of Object.entries(regionPaint.fill ?? {})) {
+      if (!map?.getLayer("eaws-regions-fill")) break;
       map.setPaintProperty("eaws-regions-fill", property, value);
     }
-  }, [fillPaint]);
+    for (const [property, value] of Object.entries(regionPaint.line ?? {})) {
+      if (!map?.getLayer("eaws-regions-fill")) break;
+      map.setPaintProperty("eaws-regions-line", property, value);
+    }
+  }, [regionPaint]);
 
-  // Re-style the state overlay + borders on selection / hover / filter changes.
+  // Re-apply the date-validity filter to both region layers when the date changes.
   useEffect(() => {
     const map = overlayMapRef.current;
-    if (!map?.getLayer("eaws-regions-state")) return;
-    for (const [property, value] of Object.entries(statePaint.state ?? {})) {
-      map.setPaintProperty("eaws-regions-state", property, value);
-    }
-    for (const [property, value] of Object.entries(statePaint.line ?? {})) {
-      map.setPaintProperty("eaws-regions", property, value);
-    }
-  }, [statePaint]);
-
-  // Re-apply the date-validity filter to all region layers when the date changes.
-  useEffect(() => {
-    const map = overlayMapRef.current;
-    if (!map?.getLayer("eaws-regions-fill")) return;
-    for (const id of [
-      "eaws-regions-fill",
-      "eaws-regions-state",
-      "eaws-regions"
-    ]) {
+    for (const id of ["eaws-regions-fill", "eaws-regions-line"]) {
+      if (!map?.getLayer(id)) break;
       map.setFilter(id, featureFilter);
     }
   }, [featureFilter]);
