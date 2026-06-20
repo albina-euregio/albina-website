@@ -65,23 +65,34 @@ const NO_VALUE_COLOR: RGB = [200, 200, 200];
 const OBSERVER_COLOR: RGB = [100, 100, 100];
 
 /**
- * Pick the marker fill for `value` by walking the parameter's thresholds:
- * the color for the highest threshold the value exceeds (else the first color).
- * Same threshold→color logic as the old station overlay.
+ * The marker `color` (CSS) and contrasting `textColor` for an RGB fill: black
+ * on light fills, white on dark fills (per relative luminance).
  */
-function getColor(value: number, item: MarkerItem): RGB {
-  const colors = Object.values(item.colors);
-  let color = colors[0];
-  item.thresholds.forEach((threshold, i) => {
-    if (value > threshold) color = colors[i + 1];
-  });
-  return color;
+function fillStyle([r, g, b]: RGB): { color: string; textColor: string } {
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return {
+    color: `rgb(${r}, ${g}, ${b})`,
+    textColor: luminance > 0.435 ? "#000" : "#fff"
+  };
 }
 
-/** Black on light fills, white on dark fills (per relative luminance). */
-function getContrastTextColor([r, g, b]: RGB): string {
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.435 ? "#000" : "#fff";
+/**
+ * Pick the marker fill style for `value` by walking the parameter's thresholds:
+ * the color for the highest threshold the value exceeds (else the first color).
+ * A missing value gets the gray no-value fill. Same threshold→color logic as
+ * the old station overlay.
+ */
+function fillStyleForValue(
+  value: number | undefined,
+  item: MarkerItem
+): { color: string; textColor: string } {
+  if (value === undefined) return fillStyle(NO_VALUE_COLOR);
+  const colors = Object.values(item.colors);
+  let rgb = colors[0];
+  item.thresholds.forEach((threshold, i) => {
+    if (value > threshold) rgb = colors[i + 1];
+  });
+  return fillStyle(rgb);
 }
 
 /**
@@ -239,8 +250,7 @@ function toFeatureCollection(
     if (!hasValue && !showMarkersWithoutValue) continue;
 
     // Fill: parameter color by threshold, else gray for a missing value.
-    const fill = hasValue ? getColor(value, item) : NO_VALUE_COLOR;
-    const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
+    const { color, textColor } = fillStyleForValue(value, item);
     out.push({
       ...feature,
       properties: {
@@ -248,7 +258,7 @@ function toFeatureCollection(
         name: feature.properties.name,
         altitude: feature.geometry?.coordinates?.[2],
         color,
-        textColor: getContrastTextColor(fill),
+        textColor,
         value: hasValue ? formatNumber(value) : "",
         ...WindUtil.properties(feature, value, item, color),
         // Markers with values stack above markers without, ordered by value.
@@ -260,8 +270,7 @@ function toFeatureCollection(
   // Observers: fixed gray pins, no value and never a wind arrow. They only
   // carry a no-value marker, so they appear only when those are shown.
   for (const feature of observers && showMarkersWithoutValue ? observers : []) {
-    const fill = OBSERVER_COLOR;
-    const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
+    const { color, textColor } = fillStyle(OBSERVER_COLOR);
     out.push({
       ...feature,
       properties: {
@@ -269,7 +278,7 @@ function toFeatureCollection(
         name: feature.properties.name,
         altitude: feature.geometry?.coordinates?.[2],
         color,
-        textColor: getContrastTextColor(fill),
+        textColor,
         value: "",
         isWind: false,
         sortKey: -1
