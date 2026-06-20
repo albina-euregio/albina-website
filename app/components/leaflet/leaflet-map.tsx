@@ -35,8 +35,16 @@ const LeafletMap = (props: Props) => {
   const focusRegions = useStore($focusRegions);
   const showDefaultControls = props.showDefaultControls ?? true;
 
-  const bounds = useMemo(() => eawsRegionsBounds(focusRegions), [focusRegions]);
-  const effectiveBounds = props.mapConfigOverride.bounds ?? bounds.pad(0.1);
+  const bounds = useMemo((): L.LatLngBoundsExpression => {
+    const { west, south, east, north } =
+      eawsRegionsBounds(focusRegions).pad(0.1);
+    return [
+      [south, west],
+      [north, east]
+    ];
+  }, [focusRegions]);
+  const effectiveBounds: L.LatLngBoundsExpression =
+    props.mapConfigOverride.bounds ?? bounds;
 
   return (
     <MapContainer

@@ -370,15 +370,12 @@ function MapLibreMap({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
+    const bounds = eawsRegionsBounds(focusRegions).pad(0.1).asArray();
 
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
-      bounds: [
-        [bounds.getWest(), bounds.getSouth()],
-        [bounds.getEast(), bounds.getNorth()]
-      ]
+      bounds
     });
 
     tooltipRef.current = new maplibregl.Popup({

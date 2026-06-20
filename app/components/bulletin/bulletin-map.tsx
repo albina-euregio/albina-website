@@ -727,10 +727,7 @@ function MapLibreMap({
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
     const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
-    const initialBounds: maplibregl.LngLatBoundsLike = [
-      [bounds.getWest(), bounds.getSouth()],
-      [bounds.getEast(), bounds.getNorth()]
-    ];
+    const initialBounds: maplibregl.LngLatBoundsLike = bounds.asArray();
 
     // Base map: the shared raster style (basemap + opentopomap). It sits behind
     // the overlay (pointer-events: none) and is non-interactive — it just
