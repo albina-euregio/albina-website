@@ -177,9 +177,6 @@ function toFeatureCollection(
     isObserver: boolean
   ) => {
     for (const feature of list) {
-      const [lng, lat] = feature.geometry?.coordinates ?? [];
-      if (!Number.isFinite(lng) || !Number.isFinite(lat)) continue;
-
       // Observers never carry a value; stations read the selected parameter.
       const value = isObserver ? undefined : getParamValue(feature, itemId);
       const hasValue = value !== undefined;
@@ -211,8 +208,7 @@ function toFeatureCollection(
       const altitude = feature.geometry?.coordinates?.[2];
       const color = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
       out.push({
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [lng, lat] },
+        ...feature,
         properties: {
           id: String(feature.id),
           name: feature.properties.name,
