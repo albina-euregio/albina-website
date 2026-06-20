@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
-import "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
