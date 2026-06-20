@@ -74,18 +74,19 @@ function buildMarkerElement(
   fill: RGB,
   textColor: string,
   valueText: string,
-  direction: number | false
+  direction: number | false,
+  zIndex: number
 ): HTMLElement {
   const el = document.createElement("div");
   el.className = "station-marker";
   el.style.cursor = "pointer";
+  el.style.zIndex = String(zIndex);
   const rgb = `rgb(${fill[0]}, ${fill[1]}, ${fill[2]})`;
 
   if (typeof direction === "number") {
     el.style.position = "relative";
     el.style.width = "28px";
     el.style.height = "28px";
-    el.style.zIndex = "2";
     el.innerHTML = `
       <svg style="position:absolute;top:0;left:0;transform:rotate(${direction + 180}deg)" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
         <path d="${WIND_ARROW_PATH}" fill="${rgb}" stroke="#000" stroke-width="1" stroke-linejoin="round" />
@@ -98,7 +99,6 @@ function buildMarkerElement(
 
   el.style.width = "22px";
   el.style.height = "22px";
-  el.style.zIndex = valueText ? "2" : "1";
   el.innerHTML = `
     <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
       <circle cx="11" cy="11" r="10.5" stroke="#000" stroke-width="1" fill="${rgb}" />
@@ -228,11 +228,14 @@ function MapLibreMap({
           if (dw !== undefined) direction = dw;
         }
 
+        // Markers with values render above markers without, ordered by value.
+        const zIndex = hasValue ? 1 + Math.round(Math.abs(value)) : 0;
         const el = buildMarkerElement(
           fill,
           getContrastTextColor(fill),
           valueText,
-          direction
+          direction,
+          zIndex
         );
 
         const id = String(feature.id);
