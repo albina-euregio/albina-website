@@ -95,6 +95,59 @@ function ensureWindArrowImage(map: maplibregl.Map): void {
   });
 }
 
+/**
+ * Read the displayed value at a normalized pixel: the first of temperature,
+ * wind speed, snow height or snow line that the current overlays provide (the
+ * same precedence the Leaflet data marker used). Reads the live store so the
+ * click handler never holds a stale overlay set.
+ */
+async function readOverlayValue(frac: {
+  x: number;
+  y: number;
+}): Promise<number | null> {
+  const overlays = store.dataOverlays.get() as DataOverlay[];
+  const byType = {} as Partial<Record<store.OverlayType, number | null>>;
+  for (const overlay of overlays) {
+    byType[overlay.type] = await overlay.valueForPixel(frac);
+  }
+  return (
+    byType.temperature ??
+    byType.windSpeed ??
+    byType.snowHeight ??
+    byType.snowLine ??
+    null
+  );
+}
+
+/**
+ * The data marker's DOM: a dashed (forecast) disc colored by the value's
+ * highest exceeded threshold (white when missing), with the value as text in a
+ * contrasting color (by relative luminance) — like the old `StationMarker`.
+ * Non-interactive so it never shadows the next click.
+ */
+function createDataMarkerElement(
+  value: number | null,
+  item: MarkerItem
+): HTMLDivElement {
+  let fillColor = "#fff";
+  let textColor = "#000";
+  if (value != null) {
+    const colors = Object.values(item.colors);
+    let rgb = colors[0];
+    item.thresholds.forEach((threshold, i) => {
+      if (value > threshold) rgb = colors[i + 1];
+    });
+    const [r, g, b] = rgb;
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    fillColor = `rgb(${r}, ${g}, ${b})`;
+    textColor = luminance > 0.435 ? "#000" : "#fff";
+  }
+  const el = document.createElement("div");
+  el.style.pointerEvents = "none";
+  el.innerHTML = `<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="10.5" stroke="#000" stroke-width="1" stroke-dasharray="1.3675" fill="${fillColor}"/><text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}">${value == null ? "-" : value}</text></svg>`;
+  return el;
+}
+
 const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
@@ -108,6 +161,10 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const overlayRef = useRef<maplibregl.Map | null>(null);
   const basemapContainerRef = useRef<HTMLDivElement | null>(null);
   const overlayContainerRef = useRef<HTMLDivElement | null>(null);
+  // The transient "data marker" placed on click, and a token so a slow pixel
+  // read from an older click can't overwrite a newer one.
+  const dataMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const clickGenRef = useRef(0);
   const [mapReady, setMapReady] = useState(false);
   const [overlayReady, setOverlayReady] = useState(false);
 
@@ -293,6 +350,62 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       map.off("zoomend", onZoomEnd);
     };
   }, [dataOverlays, mapReady]);
+
+  // Click-to-read: clicking the map (off the station markers) drops a marker
+  // showing the overlay value sampled at that point, like the old DataOverlay.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!mapReady || !map) return;
+
+    const onClick = async (e: maplibregl.MapMouseEvent) => {
+      // Station markers own their own click (selection); don't shadow them.
+      if (
+        map.queryRenderedFeatures(e.point, { layers: [CIRCLE_LAYER_ID] }).length
+      )
+        return;
+
+      const { lng, lat } = e.lngLat;
+      const [[south, west], [north, east]] = store.config.settings.bbox;
+      if (lng < west || lng > east || lat < south || lat > north) return;
+
+      // Normalized position within the bbox, in Web Mercator (linear in lng,
+      // non-linear in lat) — matching how the overlay images are projected.
+      const { MercatorCoordinate } = maplibregl;
+      const sw = MercatorCoordinate.fromLngLat({ lng: west, lat: south });
+      const ne = MercatorCoordinate.fromLngLat({ lng: east, lat: north });
+      const p = MercatorCoordinate.fromLngLat({ lng, lat });
+
+      const gen = ++clickGenRef.current;
+      const value = await readOverlayValue({
+        x: (p.x - sw.x) / (ne.x - sw.x),
+        y: (p.y - ne.y) / (sw.y - ne.y)
+      });
+      if (gen !== clickGenRef.current || !mapRef.current) return;
+
+      const item = store.domainConfig.get() as unknown as MarkerItem;
+      const element = createDataMarkerElement(value, item);
+      dataMarkerRef.current?.remove();
+      dataMarkerRef.current = new maplibregl.Marker({
+        element,
+        anchor: "center"
+      })
+        .setLngLat([lng, lat])
+        .addTo(map);
+    };
+
+    map.on("click", onClick);
+    return () => {
+      map.off("click", onClick);
+      dataMarkerRef.current?.remove();
+      dataMarkerRef.current = null;
+    };
+  }, [mapReady]);
+
+  // New data (time/domain change) invalidates the clicked readout.
+  useEffect(() => {
+    dataMarkerRef.current?.remove();
+    dataMarkerRef.current = null;
+  }, [dataOverlays]);
 
   if (!domainConfig) return null;
 
