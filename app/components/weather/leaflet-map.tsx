@@ -8,7 +8,6 @@ import {
   AttributionControl,
   ScaleControl,
   MapContainerProps,
-  TileLayerProps,
   WMSTileLayer
 } from "react-leaflet";
 import L from "leaflet";
@@ -22,8 +21,6 @@ interface Props {
   controls: React.ReactNode;
   showDefaultControls?: boolean;
   mapConfigOverride: Partial<MapContainerProps>;
-  tileLayerConfigOverride: Partial<TileLayerProps>;
-  secondaryTileLayerConfigOverride?: Partial<TileLayerProps>;
   overlays: React.ReactNode;
   onInit: (map: L.Map) => void;
   enableStationPinsToggle?: boolean;
@@ -78,28 +75,9 @@ const LeafletMap = (props: Props) => {
       )}
       {showDefaultControls && props.loaded && props.controls}
       {config.map.tileLayer.wms ? (
-        <WMSTileLayer
-          {...{
-            ...config.map.tileLayer,
-            ...props.tileLayerConfigOverride
-          }}
-        />
+        <WMSTileLayer {...config.map.tileLayer} />
       ) : (
-        <TileLayer
-          {...{
-            ...config.map.tileLayer,
-            ...props.tileLayerConfigOverride
-          }}
-        />
-      )}
-
-      {props.secondaryTileLayerConfigOverride && (
-        <TileLayer
-          {...{
-            ...config.map.tileLayer,
-            ...props.secondaryTileLayerConfigOverride
-          }}
-        />
+        <TileLayer {...config.map.tileLayer} />
       )}
       {props.overlays}
       {showDefaultControls && <LeafletMapControls {...props} />}
@@ -107,27 +85,3 @@ const LeafletMap = (props: Props) => {
   );
 };
 export default LeafletMap;
-
-const LeafletMapOpenTopo = (props: Props) => {
-  return LeafletMap({
-    ...props,
-    mapConfigOverride: {
-      ...props.mapConfigOverride,
-      maxZoom: 14
-    },
-    tileLayerConfigOverride: {
-      ...props.tileLayerConfigOverride,
-      maxNativeZoom: 10,
-      maxZoom: 10
-    },
-    secondaryTileLayerConfigOverride: {
-      url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-      attribution:
-        "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)",
-      maxNativeZoom: 17,
-      minZoom: 10.25,
-      maxZoom: 14
-    }
-  });
-};
-export { LeafletMapOpenTopo };

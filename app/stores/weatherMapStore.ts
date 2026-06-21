@@ -14,10 +14,6 @@ export const config = {
   ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
-    mapOptionsOverride: {
-      maxZoom: 12,
-      minZoom: 7
-    },
     bbox: [
       [45.6167, 9.4],
       [47.8167, 13.0333]

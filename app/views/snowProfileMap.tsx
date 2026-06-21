@@ -58,7 +58,6 @@ class SnowProfileMap extends React.Component {
               controls={<AttributionControl prefix={this.attribution} />}
               gestureHandling={false}
               mapConfigOverride={{ maxZoom: 12 }}
-              tileLayerConfigOverride={{ maxZoom: 12 }}
               overlays={overlays}
             />
           </div>

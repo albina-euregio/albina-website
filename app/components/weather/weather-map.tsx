@@ -81,10 +81,10 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         overlays={overlays}
         controls={[showHideStationsCtrl]}
         mapConfigOverride={{
-          ...store.config.settings.mapOptionsOverride,
+          maxZoom: 12,
+          minZoom: 7,
           keyboard: false
         }}
-        tileLayerConfigOverride={store.config.settings.mapOptionsOverride}
         gestureHandling={false}
         onInit={map => {
           map.invalidateSize();
