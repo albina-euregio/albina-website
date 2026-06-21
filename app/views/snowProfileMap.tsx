@@ -59,7 +59,6 @@ class SnowProfileMap extends React.Component {
               gestureHandling={false}
               mapConfigOverride={{ maxZoom: 12 }}
               tileLayerConfigOverride={{ maxZoom: 12 }}
-              onViewportChanged={() => {}}
               overlays={overlays}
             />
           </div>

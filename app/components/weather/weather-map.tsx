@@ -12,15 +12,9 @@ interface Props {
   playerCB: (layerId: string, state: string) => void;
   isPlaying: boolean;
   onMarkerSelected: (id: string | null) => void;
-  onViewportChanged: () => void;
 }
 
-const WeatherMap = ({
-  playerCB,
-  isPlaying,
-  onMarkerSelected,
-  onViewportChanged
-}: Props) => {
+const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
   const intl = useIntl();
   const [showStations, setShowStations] = useState(
     !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
@@ -112,7 +106,6 @@ const WeatherMap = ({
     <>
       <LeafletMap
         loaded={!!domainId}
-        onViewportChanged={onViewportChanged}
         overlays={overlays}
         controls={[showHideStationsCtrl]}
         mapConfigOverride={{

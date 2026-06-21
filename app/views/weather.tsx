@@ -73,7 +73,6 @@ const Weather = () => {
               playerCB={player.onLayerEvent}
               isPlaying={false}
               onMarkerSelected={feature => setStationId(feature)}
-              onViewportChanged={() => {}}
             />
             {selectedFeature && <FeatureInfo feature={selectedFeature} />}
             <WeatherMapCockpit key="cockpit" />
