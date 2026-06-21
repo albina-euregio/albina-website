@@ -70,6 +70,9 @@ importers:
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
+      es-toolkit:
+        specifier: ^1.47.1
+        version: 1.47.1
       htmr:
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.0)
@@ -892,6 +895,9 @@ packages:
 
   es-module-lexer@1.7.0:
     resolution: {integrity: sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==}
+
+  es-toolkit@1.47.1:
+    resolution: {integrity: sha512-5RAqEwf4P4E17p+W75KLOWw/nOvKZzSQpxM32IpI2KZLaVonjTrZ0Ai5ghMaVI9eKC2p8eoQgcBdkEDgzFk6+Q==}
 
   execa@9.6.0:
     resolution: {integrity: sha512-jpWzZ1ZhwUmeWRhS7Qv3mhpOhLfwI+uAX4e5fOcXqwMR7EcJ0pj2kV1CVzHVMX/LphnKWD3LObjZCoJ71lKpHw==}
@@ -1813,6 +1819,8 @@ snapshots:
   entities@2.2.0: {}
 
   es-module-lexer@1.7.0: {}
+
+  es-toolkit@1.47.1: {}
 
   execa@9.6.0:
     dependencies:

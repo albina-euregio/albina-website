@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { debounce } from "es-toolkit";
 import maplibregl from "maplibre-gl";
 import MapLibreMap, {
   CIRCLE_LAYER_ID,
@@ -52,15 +53,6 @@ const EMPTY_FC: GeoJSON.FeatureCollection<GeoJSON.Point> = {
 const SHOW_PINS_BY_DEFAULT =
   typeof navigator === "undefined" ||
   !/android|ip(hone|od|ad)/i.test(navigator.userAgent);
-
-/** Debounce, leading-edge cancelled — recompute at most once per `wait` ms. */
-function debounce(func: () => void, wait: number): () => void {
-  let timeout: ReturnType<typeof setTimeout>;
-  return () => {
-    clearTimeout(timeout);
-    timeout = setTimeout(func, wait);
-  };
-}
 
 /** Register the small black wind-direction arrow image once (no-op on SSR). */
 function ensureWindArrowImage(map: maplibregl.Map): void {
