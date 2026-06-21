@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import MapLibreMap, {
   CIRCLE_LAYER_ID,
+  PinDisplayMode,
   type MarkerItem
 } from "../station/station-map-maplibre";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
@@ -52,6 +53,12 @@ const EMPTY_FC: GeoJSON.FeatureCollection<GeoJSON.Point> = {
   type: "FeatureCollection",
   features: []
 };
+
+// Stations start shown, except hidden by default on mobile — the old weather
+// show/hide-pins default, now the initial state of the map's pins control.
+const SHOW_PINS_BY_DEFAULT =
+  typeof navigator === "undefined" ||
+  !/android|ip(hone|od|ad)/i.test(navigator.userAgent);
 
 /** Debounce, leading-edge cancelled — recompute at most once per `wait` ms. */
 function debounce(func: () => void, wait: number): () => void {
@@ -377,7 +384,6 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   if (!domainConfig) return null;
 
   const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
-  // TODO: migrate showHideStationsCtrl here.
   const showStations = domainConfig.layer.stations && !isPlaying;
 
   // Three stacked maps so the weather raster can multiply against the basemap
@@ -398,7 +404,11 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
           features={showStations ? stations : []}
           item={domainConfig as unknown as MarkerItem}
           itemId={itemId}
-          showMarkersWithoutValue={false}
+          pinDisplayModes={
+            SHOW_PINS_BY_DEFAULT
+              ? [PinDisplayMode.WithValue, PinDisplayMode.None]
+              : [PinDisplayMode.None, PinDisplayMode.WithValue]
+          }
           onMarkerSelected={id => onMarkerSelected(id)}
           mapOptions={{ style: TRANSPARENT_STYLE, attributionControl: false }}
           onInit={map => {

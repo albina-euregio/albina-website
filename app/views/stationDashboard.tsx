@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
 import MapLibreMap, {
+  PinDisplayMode,
   type MarkerItem
 } from "../components/station/station-map-maplibre";
 import HTMLHeader from "../components/organisms/html-header";
@@ -263,6 +264,7 @@ function StationDashboard() {
           observers={regionFilteredObservers}
           item={mapItem}
           itemId={selectedParameter}
+          pinDisplayModes={[PinDisplayMode.All, PinDisplayMode.WithValue]}
           onMarkerSelected={id => void setStationId(id)}
         />
       </div>
