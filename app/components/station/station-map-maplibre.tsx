@@ -60,7 +60,11 @@ interface Props {
 }
 
 const SOURCE_ID = "stations";
-const CIRCLE_LAYER_ID = "stations-circles";
+/**
+ * The bottom-most marker layer. Exported so callers can insert their own layers
+ * (e.g. the weather raster overlay) beneath the markers via `addLayer(..., id)`.
+ */
+export const CIRCLE_LAYER_ID = "stations-circles";
 const LABEL_LAYER_ID = "stations-labels";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
 const LABEL_FONT = ["Noto Sans Regular"];
