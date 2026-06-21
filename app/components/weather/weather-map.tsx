@@ -81,11 +81,6 @@ const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
     }
   }
 
-  const showHideStationsCtrlInnerHTML = `<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
-    {
-      id: showStations ? "weathermap:hidePins" : "weathermap:showPins"
-    }
-  )}"></a>`;
   const showHideStationsCtrl = (
     <CustomLeafletControl
       key="showHideControler"
@@ -96,7 +91,11 @@ const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
           ? "leaflet-control-showhide leaflet-control-hide leaflet-bar leaflet-control"
           : "leaflet-control-showhide leaflet-control-show leaflet-bar leaflet-control"
       }
-      innerHTML={showHideStationsCtrlInnerHTML}
+      innerHTML={`<a class="leaflet-bar-part leaflet-bar-part-single tooltip" title="${intl.formatMessage(
+        {
+          id: showStations ? "weathermap:hidePins" : "weathermap:showPins"
+        }
+      )}"></a>`}
       onClick={() => setShowStations(v => !v)}
       enabled={showStationsToggle}
     />

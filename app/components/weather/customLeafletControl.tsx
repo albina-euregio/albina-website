@@ -2,6 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
 
+interface Props {
+  config: L.ControlOptions;
+  containerElement: keyof HTMLElementTagNameMap;
+  classNames: string;
+  innerHTML: string;
+  onClick?: () => void;
+  enabled: boolean;
+}
+
 export const CustomLeafletControl = ({
   config,
   containerElement,
@@ -9,8 +18,8 @@ export const CustomLeafletControl = ({
   innerHTML,
   onClick,
   enabled
-}) => {
-  const [control, setControl] = useState(null);
+}: Props) => {
+  const [control, setControl] = useState<L.Control | null>(null);
   const parentMap = useMap();
   const classNamesRef = useRef(classNames);
 
@@ -58,14 +67,14 @@ export const CustomLeafletControl = ({
   useEffect(() => {
     if (control) {
       const container = control.getContainer();
-      container.className = classNamesRef.current;
+      if (container) container.className = classNamesRef.current;
     }
   }, [classNames]);
 
   useEffect(() => {
     if (control) {
       const container = control.getContainer();
-      container.innerHTML = innerHTML;
+      if (container) container.innerHTML = innerHTML;
     }
   }, [innerHTML]);
 
