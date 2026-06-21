@@ -3,11 +3,11 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import type { Feature } from "@albina-euregio/linea/listing";
-import { useIntl } from "../../i18n";
-import type { ParameterType } from "../station/station-parameter-data";
+import { useIntl } from "../../i18n/index.tsx";
+import type { ParameterType } from "./station-parameter-data.ts";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
-import { MAPLIBRE_STYLE } from "./maplibre-style";
+import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 
 /**
  * Station dashboard map (MapLibre GL).
