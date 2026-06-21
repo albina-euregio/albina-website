@@ -1,10 +1,19 @@
-const Player = ({ transitionTime, onTick, onStop, onStart }) => {
-  let _itemsToLoad = [];
-  let _intervalID = null;
+type PlayerCallback = (() => void) | null;
+
+interface PlayerOptions {
+  transitionTime?: number;
+  onTick?: PlayerCallback;
+  onStop?: PlayerCallback;
+  onStart?: PlayerCallback;
+}
+
+const Player = ({ transitionTime, onTick, onStop, onStart }: PlayerOptions) => {
+  let _itemsToLoad: string[] = [];
+  let _intervalID: ReturnType<typeof setInterval> | null = null;
   let _transitionTime = transitionTime || 1000;
-  let _onTick = onTick || null;
-  let _onStop = onStop || null;
-  let _onStart = onStart || null;
+  let _onTick: PlayerCallback = onTick || null;
+  let _onStop: PlayerCallback = onStop || null;
+  let _onStart: PlayerCallback = onStart || null;
   let _tickOverdue = false;
 
   const _tick = () => {
@@ -19,11 +28,13 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
     if (typeof _onTick === "function") _onTick();
   };
 
-  const start = options => {
+  const start = (
+    options?: Pick<PlayerOptions, "transitionTime" | "onTick">
+  ) => {
     //console.log("Player->start: ");
     if (_intervalID) return;
-    if (options?.transitionTime) _transitionTime = transitionTime;
-    if (options?.onTick) _onTick = onTick;
+    if (options?.transitionTime) _transitionTime = options.transitionTime;
+    if (options?.onTick) _onTick = options.onTick;
 
     _tickOverdue = false;
     //console.log("Player->start: eee setInterval", this);
@@ -51,7 +62,7 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
     start();
   };
 
-  const onLayerEvent = (layerId, state) => {
+  const onLayerEvent = (layerId: string, state: string) => {
     // console.log(
     //   "Player->onEvent: s071",
     //   state,
@@ -73,7 +84,7 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
     //console.log("Player->addLayerToLoad - after:",_layersToLoad);
   };
 
-  const _removeItemToLoad = layerId => {
+  const _removeItemToLoad = (layerId: string) => {
     //console.log("Player->onE_removeItemToLoadvent: s06", layerId);
 
     _itemsToLoad = _itemsToLoad.filter(item => item !== layerId);
@@ -83,7 +94,7 @@ const Player = ({ transitionTime, onTick, onStop, onStart }) => {
     }
   };
 
-  const setTransitionTime = transitionTime => {
+  const setTransitionTime = (transitionTime: number) => {
     //console.log("Player->setTransitionTime:", transitionTime);
     _transitionTime = transitionTime;
   };
