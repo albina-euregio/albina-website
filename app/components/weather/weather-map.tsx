@@ -30,18 +30,48 @@ const TRANSPARENT_STYLE: maplibregl.StyleSpecification = {
 
 const fill = { position: "absolute", inset: 0 } as const;
 
-const WIND_SOURCE_ID = "weather-wind-direction";
-const WIND_LAYER_ID = "weather-wind-direction";
-const WIND_ARROW_IMAGE = "weather-wind-arrow";
-// Grid density scales with zoom from this base (the historical weather-map
-// minZoom): `max(4, round((zoom - base) * 8))` cells across the bbox.
-const WIND_GRID_ZOOM_BASE = 7;
-// Small black arrow (9×12 box), the same `directionArrow-centered` shape the
-// Leaflet grid markers drew. Points up; rotated by `direction + 180`.
-const WIND_ARROW_PATH =
-  "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z";
-const WIND_ARROW_WIDTH = 9;
-const WIND_ARROW_HEIGHT = 12;
+class WindUtil {
+  static readonly SOURCE_ID = "weather-wind-direction";
+  static readonly LAYER_ID = "weather-wind-direction";
+  static readonly ARROW_IMAGE = "weather-wind-arrow";
+  // Grid density scales with zoom from this base (the historical weather-map
+  // minZoom): `max(4, round((zoom - base) * 8))` cells across the bbox.
+  static readonly GRID_ZOOM_BASE = 7;
+  // Small black arrow (9×12 box), the same `directionArrow-centered` shape the
+  // Leaflet grid markers drew. Points up; rotated by `direction + 180`.
+  static readonly ARROW_PATH =
+    "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z";
+  static readonly ARROW_WIDTH = 9;
+  static readonly ARROW_HEIGHT = 12;
+
+  /** Register the small black wind-direction arrow image once (no-op on SSR). */
+  static ensureArrowImage(map: maplibregl.Map): void {
+    if (typeof document === "undefined" || map.hasImage(WindUtil.ARROW_IMAGE))
+      return;
+    const pixelRatio = 2;
+    const pad = 1;
+    const width = (WindUtil.ARROW_WIDTH + pad * 2) * pixelRatio;
+    const height = (WindUtil.ARROW_HEIGHT + pad * 2) * pixelRatio;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.scale(pixelRatio, pixelRatio);
+    ctx.translate(pad, pad);
+    const path = new Path2D(WindUtil.ARROW_PATH);
+    ctx.fillStyle = "#000";
+    ctx.fill(path, "evenodd");
+    ctx.lineWidth = 0.6;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#000";
+    ctx.stroke(path);
+    map.addImage(WindUtil.ARROW_IMAGE, ctx.getImageData(0, 0, width, height), {
+      pixelRatio
+    });
+  }
+}
 
 const EMPTY_FC: GeoJSON.FeatureCollection<GeoJSON.Point> = {
   type: "FeatureCollection",
@@ -53,33 +83,6 @@ const EMPTY_FC: GeoJSON.FeatureCollection<GeoJSON.Point> = {
 const SHOW_PINS_BY_DEFAULT =
   typeof navigator === "undefined" ||
   !/android|ip(hone|od|ad)/i.test(navigator.userAgent);
-
-/** Register the small black wind-direction arrow image once (no-op on SSR). */
-function ensureWindArrowImage(map: maplibregl.Map): void {
-  if (typeof document === "undefined" || map.hasImage(WIND_ARROW_IMAGE)) return;
-  const pixelRatio = 2;
-  const pad = 1;
-  const width = (WIND_ARROW_WIDTH + pad * 2) * pixelRatio;
-  const height = (WIND_ARROW_HEIGHT + pad * 2) * pixelRatio;
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  ctx.scale(pixelRatio, pixelRatio);
-  ctx.translate(pad, pad);
-  const path = new Path2D(WIND_ARROW_PATH);
-  ctx.fillStyle = "#000";
-  ctx.fill(path, "evenodd");
-  ctx.lineWidth = 0.6;
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-  ctx.strokeStyle = "#000";
-  ctx.stroke(path);
-  map.addImage(WIND_ARROW_IMAGE, ctx.getImageData(0, 0, width, height), {
-    pixelRatio
-  });
-}
 
 /**
  * Read the displayed value at a coordinate: the first of temperature, wind
@@ -255,7 +258,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     let generation = 0;
 
     const setData = (data: GeoJSON.FeatureCollection<GeoJSON.Point>) => {
-      const source = map.getSource(WIND_SOURCE_ID);
+      const source = map.getSource(WindUtil.SOURCE_ID);
       if (source instanceof maplibregl.GeoJSONSource) source.setData(data);
     };
 
@@ -274,7 +277,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const north = bbox.getNorth();
       const grids = Math.max(
         4,
-        Math.round((map.getZoom() - WIND_GRID_ZOOM_BASE) * 8)
+        Math.round((map.getZoom() - WindUtil.GRID_ZOOM_BASE) * 8)
       );
       const distH = (east - west) / grids;
       const distV = (north - south) / grids;
@@ -295,16 +298,16 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       // A newer run (zoom change) or unmount superseded this one.
       if (stale || gen !== generation) return;
 
-      if (!map.getSource(WIND_SOURCE_ID)) {
-        ensureWindArrowImage(map);
-        map.addSource(WIND_SOURCE_ID, { type: "geojson", data: EMPTY_FC });
+      if (!map.getSource(WindUtil.SOURCE_ID)) {
+        WindUtil.ensureArrowImage(map);
+        map.addSource(WindUtil.SOURCE_ID, { type: "geojson", data: EMPTY_FC });
         map.addLayer(
           {
-            id: WIND_LAYER_ID,
+            id: WindUtil.LAYER_ID,
             type: "symbol",
-            source: WIND_SOURCE_ID,
+            source: WindUtil.SOURCE_ID,
             layout: {
-              "icon-image": WIND_ARROW_IMAGE,
+              "icon-image": WindUtil.ARROW_IMAGE,
               "icon-rotate": ["+", ["get", "direction"], 180],
               "icon-allow-overlap": true,
               "icon-ignore-placement": true
