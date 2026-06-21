@@ -42,8 +42,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         metaFiles: {
           agl: "agl.ok",
@@ -78,8 +77,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         metaFiles: {
           agl: "agl.ok",
@@ -129,8 +127,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
         dataOverlays: [
@@ -171,8 +168,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
         dataOverlays: [
@@ -239,8 +235,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -280,8 +275,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -315,8 +309,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind_V3.gif" },
         dataOverlays: [
@@ -354,8 +347,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_gust_V3.gif" },
         dataOverlays: [
@@ -394,8 +386,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind700hpa.gif" },
         dataOverlays: [
@@ -429,7 +420,6 @@ type TimeSpans = Domain["item"]["timeSpans"];
 type TimeSpan = TimeSpans[number];
 
 export const stations = atom<StationData[]>([]);
-export const grid = atom([]);
 /*
  * returns the active domain id
  */
@@ -577,7 +567,6 @@ let _loadIndexGeneration = 0;
 async function _loadIndexData() {
   const generation = ++_loadIndexGeneration;
   stations.set([]);
-  grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
   const currentTime0 = currentTime.get();

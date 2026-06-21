@@ -297,7 +297,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   if (!domainConfig) return null;
 
   const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
-  // TODO: migrate GridOverlay + showHideStationsCtrl here.
+  // TODO: migrate showHideStationsCtrl here.
   const showStations = domainConfig.layer.stations && !isPlaying;
 
   // Three stacked maps so the weather raster can multiply against the basemap
