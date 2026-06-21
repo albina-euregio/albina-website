@@ -19,7 +19,6 @@ const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
 const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
-const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
 const StaticPageLinkbox = React.lazy(
   () => import("../views/staticPageLinkbox")
 );
@@ -106,8 +105,6 @@ const App = () => {
         return <StationDashboard />;
       case "weatherArchive":
         return <StationArchive />;
-      case "weatherSnowProfiles":
-        return <SnowProfileMap />;
       case "conditionsProfiles":
         return <BlogPostList isTechBlog={false} isProfileBlog={true} />;
       case "conditions":
