@@ -29,7 +29,7 @@ function debounce<T extends (...args: unknown[]) => void>(
   };
 }
 
-const DataOverlay = ({ playerCB }) => {
+const DataOverlay = () => {
   const intl = useIntl();
 
   const parentMap = useMap();
@@ -227,17 +227,11 @@ const DataOverlay = ({ playerCB }) => {
               "zoomend",
               debounce(() => addDirectionIndicators(overlay), 500)
             );
-            if (!dataMarker && !directionMarkers)
-              playerCB("background", "load");
-          },
-          error: err => {
-            if (!dataMarker && !directionMarkers) playerCB("background", err);
           }
         }}
         bindPopup
       />
     );
-    playerCB("background", "loading");
   }
 
   return (

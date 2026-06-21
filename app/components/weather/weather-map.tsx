@@ -9,12 +9,11 @@ import StationOverlay from "./station-overlay";
 import { CustomLeafletControl } from "./customLeafletControl";
 
 interface Props {
-  playerCB: (layerId: string, state: string) => void;
   isPlaying: boolean;
   onMarkerSelected: (id: string | null) => void;
 }
 
-const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
+const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const intl = useIntl();
   const [showStations, setShowStations] = useState(
     !/android|ip(hone|od|ad)/i.test(navigator.userAgent)
@@ -26,33 +25,17 @@ const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
   const itemId = domainConfig.timeSpanToDataId[timeSpan];
   const grid = useStore(store.grid);
   const stations = useStore(store.stations);
-  const selectedFeature = useStore(store.selectedFeature);
 
   const overlays = [];
   let showStationsToggle = false;
   if (domainConfig) {
     if (domainId) {
-      overlays.push(
-        <DataOverlay key="background-map" store={store} playerCB={playerCB} />
-      );
+      overlays.push(<DataOverlay key="background-map" />);
     }
 
     if (domainConfig.layer.grid && grid?.features) {
       overlays.push(
-        <GridOverlay
-          key={"grid"}
-          item={domainConfig}
-          grid={grid}
-          onLoading={() => {
-            playerCB("grid", "loading");
-          }}
-          onLoad={() => {
-            playerCB("gird", "load");
-          }}
-          onTileerror={() => {
-            playerCB("grid", "error");
-          }}
-        />
+        <GridOverlay key={"grid"} item={domainConfig} grid={grid} />
       );
     }
 
@@ -62,19 +45,9 @@ const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
           <StationOverlay
             key={"stations"}
             onMarkerSelected={onMarkerSelected}
-            selectedFeature={selectedFeature}
             item={domainConfig}
             itemId={itemId}
             features={stations}
-            onLoading={() => {
-              playerCB("stations", "loading");
-            }}
-            onLoad={() => {
-              playerCB("stations", "load");
-            }}
-            onTileerror={() => {
-              playerCB("stations", "error");
-            }}
           />
         );
       showStationsToggle = true;

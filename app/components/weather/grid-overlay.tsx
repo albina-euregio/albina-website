@@ -1,13 +1,15 @@
 import React from "react";
 import { FeatureGroup } from "react-leaflet";
 import StationMarker from "./station-marker";
+import { Domain } from "../../stores/weatherMapStore";
 
-class GridOverlay extends React.Component {
-  constructor(props) {
-    super(props);
-    if (props.onLoading) props.onLoading();
-  }
+interface Props {
+  item: Domain["item"];
+  grid: GeoJSON.FeatureCollection<GeoJSON.Point>;
+  zoom?: number;
+}
 
+class GridOverlay extends React.Component<Props> {
   getColor(value) {
     const v = parseFloat(value);
     const colors = Object.values(this.props.item.colors);
@@ -44,9 +46,6 @@ class GridOverlay extends React.Component {
         }
       />
     );
-  }
-  componentDidUpdate() {
-    if (this.props.onLoad) this.props.onLoad();
   }
   render() {
     const gridPoints = this.props.grid.features

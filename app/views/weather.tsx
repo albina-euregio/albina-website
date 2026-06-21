@@ -9,7 +9,6 @@ import { useStore } from "@nanostores/react";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { $router } from "../components/router";
 import { redirectPage } from "@nanostores/router";
-import Player from "./player";
 import WeatherStationDialog from "../components/station/station-dialog";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
@@ -25,12 +24,6 @@ const Weather = () => {
   const currentTime = useStore(store.currentTime);
   const stations = useStore(store.stations);
   const selectedFeature = useStore(store.selectedFeature);
-
-  // Player tracks overlay load events (loading/load/error) for layer coordination.
-  // The onTick animation is handled by timeline.tsx's internal player instead.
-  const [player] = useState(
-    () => new Player({ transitionTime: 1000, onTick: () => {} })
-  );
 
   useHiddenFooter();
 
@@ -70,7 +63,6 @@ const Weather = () => {
         {domainId && (
           <div className="section-map">
             <WeatherMap
-              playerCB={player.onLayerEvent}
               isPlaying={false}
               onMarkerSelected={feature => setStationId(feature)}
             />

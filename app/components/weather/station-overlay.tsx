@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import StationMarker from "./station-marker";
 import { StationData } from "../../stores/stationDataStore";
 import { Domain, DomainId } from "../../stores/weatherMapStore";
@@ -17,8 +17,6 @@ function isValidCoordinates(lat: unknown, lng: unknown): boolean {
   );
 }
 interface Props {
-  onLoad?: () => void;
-  onLoading?: () => void;
   item: Domain["item"];
   itemId: "any" | DomainId | ParameterType;
   onMarkerSelected: (id: string) => void;
@@ -29,12 +27,6 @@ interface Props {
 
 const StationOverlay = (props: Props) => {
   const intl = useIntl();
-  useEffect(() => {
-    if (props.onLoad) props.onLoad();
-    else if (props.onLoading) props.onLoading();
-
-    return () => {};
-  });
 
   const getColor = (value: number | string) => {
     const v = parseFloat(value as string);
