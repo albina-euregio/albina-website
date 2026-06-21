@@ -9,7 +9,7 @@ import { useStore } from "@nanostores/react";
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 import { $router } from "../components/router";
 import { redirectPage } from "@nanostores/router";
-import Player from "../js/player";
+import Player from "./player";
 import WeatherStationDialog from "../components/station/station-dialog";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 
