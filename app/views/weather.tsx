@@ -28,8 +28,8 @@ const Weather = () => {
 
   // Player tracks overlay load events (loading/load/error) for layer coordination.
   // The onTick animation is handled by timeline.tsx's internal player instead.
-  const [player] = useState(() =>
-    Player({ transitionTime: 1000, onTick: () => {} })
+  const [player] = useState(
+    () => new Player({ transitionTime: 1000, onTick: () => {} })
   );
 
   useHiddenFooter();

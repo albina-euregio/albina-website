@@ -7,62 +7,67 @@ interface PlayerOptions {
   onStart?: PlayerCallback;
 }
 
-const Player = ({ transitionTime, onTick, onStop, onStart }: PlayerOptions) => {
-  let _itemsToLoad: string[] = [];
-  let _intervalID: ReturnType<typeof setInterval> | null = null;
-  let _transitionTime = transitionTime || 1000;
-  let _onTick: PlayerCallback = onTick || null;
-  let _onStop: PlayerCallback = onStop || null;
-  let _onStart: PlayerCallback = onStart || null;
-  let _tickOverdue = false;
+class Player {
+  private _itemsToLoad: string[] = [];
+  private _intervalID: ReturnType<typeof setInterval> | null = null;
+  private _transitionTime: number;
+  private _onTick: PlayerCallback;
+  private _onStop: PlayerCallback;
+  private _onStart: PlayerCallback;
+  private _tickOverdue = false;
 
-  const _tick = () => {
+  constructor({ transitionTime, onTick, onStop, onStart }: PlayerOptions = {}) {
+    this._transitionTime = transitionTime || 1000;
+    this._onTick = onTick || null;
+    this._onStop = onStop || null;
+    this._onStart = onStart || null;
+  }
+
+  private _tick = () => {
     //console.log("Player->tick: #1 s05",_itemsToLoad);
-    if (_itemsToLoad.length > 0) {
+    if (this._itemsToLoad.length > 0) {
       //console.log("Player->tick: Waiting for s06",_itemsToLoad);
-      _tickOverdue = true;
+      this._tickOverdue = true;
       return;
     }
-    _tickOverdue = false;
+    this._tickOverdue = false;
     //console.log("Player->tick: #2 s05",_itemsToLoad,);
-    if (typeof _onTick === "function") _onTick();
+    if (typeof this._onTick === "function") this._onTick();
   };
 
-  const start = (
-    options?: Pick<PlayerOptions, "transitionTime" | "onTick">
-  ) => {
+  start = (options?: Pick<PlayerOptions, "transitionTime" | "onTick">) => {
     //console.log("Player->start: ");
-    if (_intervalID) return;
-    if (options?.transitionTime) _transitionTime = options.transitionTime;
-    if (options?.onTick) _onTick = options.onTick;
+    if (this._intervalID) return;
+    if (options?.transitionTime) this._transitionTime = options.transitionTime;
+    if (options?.onTick) this._onTick = options.onTick;
 
-    _tickOverdue = false;
+    this._tickOverdue = false;
     //console.log("Player->start: eee setInterval", this);
-    if (_onTick) _onTick();
-    if (_onStart) _onStart();
-    _intervalID = setInterval(_tick, _transitionTime);
+    if (this._onTick) this._onTick();
+    if (this._onStart) this._onStart();
+    this._intervalID = setInterval(this._tick, this._transitionTime);
   };
 
-  const stop = () => {
+  stop = () => {
     //console.log("Player->stop: s05");
-    if (!_intervalID) return;
-    clearInterval(_intervalID);
-    _intervalID = null;
-    if (_onStop) _onStop();
+    if (!this._intervalID) return;
+    clearInterval(this._intervalID);
+    this._intervalID = null;
+    if (this._onStop) this._onStop();
   };
 
-  const toggle = () => {
+  toggle = () => {
     //console.log("Player->toggle: s05",_onTick);
-    if (!_intervalID) start({});
-    else stop();
+    if (!this._intervalID) this.start({});
+    else this.stop();
   };
 
-  const reset = () => {
-    _itemsToLoad = [];
-    start();
+  reset = () => {
+    this._itemsToLoad = [];
+    this.start();
   };
 
-  const onLayerEvent = (layerId: string, state: string) => {
+  onLayerEvent = (layerId: string, state: string) => {
     // console.log(
     //   "Player->onEvent: s071",
     //   state,
@@ -73,46 +78,37 @@ const Player = ({ transitionTime, onTick, onStop, onStart }: PlayerOptions) => {
 
     switch (state) {
       case "loading":
-        if (!_itemsToLoad.includes(layerId)) _itemsToLoad.push(layerId);
+        if (!this._itemsToLoad.includes(layerId))
+          this._itemsToLoad.push(layerId);
         break;
       case "load":
-        _removeItemToLoad(layerId);
+        this._removeItemToLoad(layerId);
         break;
       case "error":
-        _removeItemToLoad(layerId);
+        this._removeItemToLoad(layerId);
     }
     //console.log("Player->addLayerToLoad - after:",_layersToLoad);
   };
 
-  const _removeItemToLoad = (layerId: string) => {
+  private _removeItemToLoad = (layerId: string) => {
     //console.log("Player->onE_removeItemToLoadvent: s06", layerId);
 
-    _itemsToLoad = _itemsToLoad.filter(item => item !== layerId);
-    if (_intervalID && _tickOverdue) {
+    this._itemsToLoad = this._itemsToLoad.filter(item => item !== layerId);
+    if (this._intervalID && this._tickOverdue) {
       //console.log("Player->onE_removeItemToLoadvent: s06", layerId);
-      _tick();
+      this._tick();
     }
   };
 
-  const setTransitionTime = (transitionTime: number) => {
+  setTransitionTime = (transitionTime: number) => {
     //console.log("Player->setTransitionTime:", transitionTime);
-    _transitionTime = transitionTime;
+    this._transitionTime = transitionTime;
   };
 
-  const playing = () => {
+  playing = () => {
     //console.log("playing s05",_intervalID );
-    return _intervalID !== null;
+    return this._intervalID !== null;
   };
-
-  return {
-    start,
-    stop,
-    toggle,
-    reset,
-    onLayerEvent,
-    setTransitionTime,
-    playing
-  };
-};
+}
 
 export default Player;
