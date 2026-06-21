@@ -119,7 +119,6 @@ const WeatherMap = ({ playerCB, isPlaying, onMarkerSelected }: Props) => {
             onMarkerSelected(null);
           });
         }}
-        timeAwareLayers={["background-map"]}
       />
     </>
   );
