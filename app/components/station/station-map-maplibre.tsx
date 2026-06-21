@@ -57,6 +57,13 @@ interface Props {
   showMarkersWithoutValue?: boolean;
   onMarkerSelected: (id: string) => void;
   onInit?: (map: maplibregl.Map) => void;
+  /**
+   * Extra MapLibre constructor options, merged last so they can override the
+   * defaults. The weather map uses this to make a transparent, stations-only
+   * map (no basemap, no attribution control) stacked above a separate basemap
+   * and a `mix-blend-mode` weather overlay.
+   */
+  mapOptions?: Partial<maplibregl.MapOptions>;
 }
 
 const SOURCE_ID = "stations";
@@ -342,7 +349,8 @@ function MapLibreMap({
   itemId,
   showMarkersWithoutValue = true,
   onMarkerSelected,
-  onInit
+  onInit,
+  mapOptions
 }: Props) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -380,7 +388,8 @@ function MapLibreMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
-      bounds
+      bounds,
+      ...mapOptions
     });
 
     map.addControl(
