@@ -27,13 +27,6 @@ const TRANSPARENT_STYLE: maplibregl.StyleSpecification = {
   layers: []
 };
 
-// Basemap attribution, surfaced on the (topmost, interactive) stations map
-// because the basemap itself lives on the bottom, non-interactive map whose
-// own attribution control would be covered and unclickable.
-const BASEMAP_ATTRIBUTION = Object.values(MAPLIBRE_STYLE.sources)
-  .map(source => ("attribution" in source ? source.attribution : undefined))
-  .filter((a): a is string => typeof a === "string");
-
 const fill = { position: "absolute", inset: 0 } as const;
 
 const WIND_SOURCE_ID = "weather-wind-direction";
@@ -184,9 +177,10 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     const shared = {
       center: top.getCenter(),
       zoom: top.getZoom(),
-      interactive: false,
-      attributionControl: false
+      interactive: false
     } as const;
+    // The basemap keeps its own attribution control (bottom-right); the
+    // transparent overlay and the stations map on top suppress theirs.
     const basemap = new maplibregl.Map({
       ...shared,
       container: basemapContainer,
@@ -195,7 +189,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     const overlay = new maplibregl.Map({
       ...shared,
       container: overlayContainer,
-      style: TRANSPARENT_STYLE
+      style: TRANSPARENT_STYLE,
+      attributionControl: false
     });
     basemapRef.current = basemap;
     overlayRef.current = overlay;
@@ -413,12 +408,6 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
           mapOptions={{ style: TRANSPARENT_STYLE, attributionControl: false }}
           onInit={map => {
             mapRef.current = map;
-            map.addControl(
-              new maplibregl.AttributionControl({
-                customAttribution: BASEMAP_ATTRIBUTION
-              }),
-              "bottom-right"
-            );
             setMapReady(true);
           }}
         />
