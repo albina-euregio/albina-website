@@ -14,12 +14,6 @@ interface Props {
   onMarkerSelected: (id: string | null) => void;
 }
 
-/** A loaded data overlay image that can be sampled by normalized pixel. */
-interface DataOverlay {
-  type: store.OverlayType;
-  valueForPixel(coords: { x: number; y: number }): Promise<number | null>;
-}
-
 const IMAGE_SOURCE_ID = "weather-overlay";
 const IMAGE_LAYER_ID = "weather-overlay";
 
@@ -96,19 +90,18 @@ function ensureWindArrowImage(map: maplibregl.Map): void {
 }
 
 /**
- * Read the displayed value at a normalized pixel: the first of temperature,
- * wind speed, snow height or snow line that the current overlays provide (the
- * same precedence the Leaflet data marker used). Reads the live store so the
- * click handler never holds a stale overlay set.
+ * Read the displayed value at a coordinate: the first of temperature, wind
+ * speed, snow height or snow line that the current overlays provide (the same
+ * precedence the Leaflet data marker used). Reads the live store so the click
+ * handler never holds a stale overlay set.
  */
-async function readOverlayValue(frac: {
-  x: number;
-  y: number;
-}): Promise<number | null> {
-  const overlays = store.dataOverlays.get() as DataOverlay[];
+async function readOverlayValue(
+  lngLat: maplibregl.LngLatLike
+): Promise<number | null> {
+  const overlays = store.dataOverlays.get();
   const byType = {} as Partial<Record<store.OverlayType, number | null>>;
   for (const overlay of overlays) {
-    byType[overlay.type] = await overlay.valueForPixel(frac);
+    byType[overlay.type] = await overlay.valueForPixel(lngLat);
   }
   return (
     byType.temperature ??
@@ -262,9 +255,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map) return;
-    const windOverlay = (dataOverlays as DataOverlay[]).find(
-      o => o.type === "windDirection"
-    );
+    const windOverlay = dataOverlays.find(o => o.type === "windDirection");
 
     let stale = false;
     let generation = 0;
@@ -281,9 +272,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         return;
       }
 
-      // Sample direction at each interior grid point. The fraction within the
-      // image is taken in Web Mercator (linear in lng, non-linear in lat), so
-      // the y axis must go through MercatorCoordinate, not raw latitude.
+      // Sample direction at each interior grid point.
       const [[south, west], [north, east]] = store.config.settings.bbox;
       const grids = Math.max(
         4,
@@ -291,23 +280,11 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       );
       const distH = (east - west) / grids;
       const distV = (north - south) / grids;
-      const sw = maplibregl.MercatorCoordinate.fromLngLat({
-        lng: west,
-        lat: south
-      });
-      const ne = maplibregl.MercatorCoordinate.fromLngLat({
-        lng: east,
-        lat: north
-      });
 
       const features: GeoJSON.Feature<GeoJSON.Point>[] = [];
       for (let lng = west + distH; lng < east - 0.001; lng += distH) {
         for (let lat = south + distV; lat < north - 0.001; lat += distV) {
-          const p = maplibregl.MercatorCoordinate.fromLngLat({ lng, lat });
-          const direction = await windOverlay.valueForPixel({
-            x: (p.x - sw.x) / (ne.x - sw.x),
-            y: (p.y - ne.y) / (sw.y - ne.y)
-          });
+          const direction = await windOverlay.valueForPixel({ lng, lat });
           if (direction == null) continue;
           features.push({
             type: "Feature",
@@ -368,18 +345,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const [[south, west], [north, east]] = store.config.settings.bbox;
       if (lng < west || lng > east || lat < south || lat > north) return;
 
-      // Normalized position within the bbox, in Web Mercator (linear in lng,
-      // non-linear in lat) — matching how the overlay images are projected.
-      const { MercatorCoordinate } = maplibregl;
-      const sw = MercatorCoordinate.fromLngLat({ lng: west, lat: south });
-      const ne = MercatorCoordinate.fromLngLat({ lng: east, lat: north });
-      const p = MercatorCoordinate.fromLngLat({ lng, lat });
-
       const gen = ++clickGenRef.current;
-      const value = await readOverlayValue({
-        x: (p.x - sw.x) / (ne.x - sw.x),
-        y: (p.y - ne.y) / (sw.y - ne.y)
-      });
+      const value = await readOverlayValue(e.lngLat);
       if (gen !== clickGenRef.current || !mapRef.current) return;
 
       const item = store.domainConfig.get() as unknown as MarkerItem;
