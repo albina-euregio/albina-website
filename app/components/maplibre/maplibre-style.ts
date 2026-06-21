@@ -1,4 +1,9 @@
 import maplibregl from "maplibre-gl";
+import { Protocol } from "pmtiles";
+
+// Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
+// https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
+maplibregl.addProtocol("pmtiles", new Protocol().tile);
 
 export const MAPLIBRE_STYLE: maplibregl.StyleSpecification = {
   version: 8,
@@ -6,7 +11,7 @@ export const MAPLIBRE_STYLE: maplibregl.StyleSpecification = {
   sources: {
     basemap: {
       type: "raster",
-      tiles: ["https://static.avalanche.report/tms/{z}/{x}/{y}.webp"],
+      url: "pmtiles://https://static.avalanche.report/albina-basemap.pmtiles",
       tileSize: 256,
       minzoom: 5,
       maxzoom: 10,

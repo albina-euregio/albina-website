@@ -32,14 +32,9 @@ import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Protocol } from "pmtiles";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
-
-// Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
-// https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
-maplibregl.addProtocol("pmtiles", new Protocol().tile);
 
 // Transparent style for the overlay map that carries the danger-rating fills.
 // It is stacked over the base map with `mix-blend-mode: multiply` (MapLibre has
