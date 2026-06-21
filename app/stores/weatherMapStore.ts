@@ -1,5 +1,5 @@
 import { atom, computed } from "nanostores";
-import { MercatorCoordinate, type LngLatLike } from "maplibre-gl";
+import { LngLatBounds, MercatorCoordinate, type LngLatLike } from "maplibre-gl";
 import {
   _loadStationData as loadStationData,
   type StationData
@@ -15,10 +15,8 @@ export const config = {
   ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
-    bbox: [
-      [45.6167, 9.4],
-      [47.8167, 13.0333]
-    ],
+    // [sw, ne] as [lng, lat].
+    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167]),
     debugModus: false
   },
   domains: {
@@ -534,9 +532,9 @@ function _updateDataOverlays() {
         const h = resolvedCtx.canvas.height;
         // Normalized position within the bbox, in Web Mercator (linear in lng,
         // non-linear in lat) — matching how the overlay images are projected.
-        const [[south, west], [north, east]] = config.settings.bbox;
-        const sw = MercatorCoordinate.fromLngLat({ lng: west, lat: south });
-        const ne = MercatorCoordinate.fromLngLat({ lng: east, lat: north });
+        const bbox = config.settings.bbox;
+        const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
+        const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
         const p0 = MercatorCoordinate.fromLngLat(lngLat);
         const fx = (p0.x - sw.x) / (ne.x - sw.x);
         const fy = (p0.y - ne.y) / (sw.y - ne.y);

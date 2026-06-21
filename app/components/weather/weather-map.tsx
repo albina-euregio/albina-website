@@ -226,14 +226,14 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     const [url] = overlayURLs;
     if (!overlayReady || !map || !url) return;
 
-    // The bbox is `[[south, west], [north, east]]` (lat, lng); MapLibre image
-    // sources want the four corners as `[lng, lat]` in TL, TR, BR, BL order.
-    const [[south, west], [north, east]] = store.config.settings.bbox;
+    // MapLibre image sources want the four corners as `[lng, lat]` in
+    // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
+    const bbox = store.config.settings.bbox;
     const coordinates: maplibregl.ImageSourceSpecification["coordinates"] = [
-      [west, north],
-      [east, north],
-      [east, south],
-      [west, south]
+      bbox.getNorthWest().toArray(),
+      bbox.getNorthEast().toArray(),
+      bbox.getSouthEast().toArray(),
+      bbox.getSouthWest().toArray()
     ];
 
     const source = map.getSource(IMAGE_SOURCE_ID);
@@ -275,7 +275,11 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       }
 
       // Sample direction at each interior grid point.
-      const [[south, west], [north, east]] = store.config.settings.bbox;
+      const bbox = store.config.settings.bbox;
+      const west = bbox.getWest();
+      const east = bbox.getEast();
+      const south = bbox.getSouth();
+      const north = bbox.getNorth();
       const grids = Math.max(
         4,
         Math.round((map.getZoom() - WIND_GRID_ZOOM_BASE) * 8)
@@ -343,9 +347,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       )
         return;
 
-      const { lng, lat } = e.lngLat;
-      const [[south, west], [north, east]] = store.config.settings.bbox;
-      if (lng < west || lng > east || lat < south || lat > north) return;
+      if (!store.config.settings.bbox.contains(e.lngLat)) return;
 
       const gen = ++clickGenRef.current;
       const value = await readOverlayValue(e.lngLat);
@@ -358,7 +360,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         element,
         anchor: "center"
       })
-        .setLngLat([lng, lat])
+        .setLngLat(e.lngLat)
         .addTo(map);
     };
 
