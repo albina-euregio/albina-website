@@ -379,6 +379,11 @@ function MapLibreMap({
       bounds
     });
 
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
+
     tooltipRef.current = new maplibregl.Popup({
       closeButton: false,
       closeOnClick: false,
