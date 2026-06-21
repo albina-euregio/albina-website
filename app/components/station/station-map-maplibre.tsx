@@ -373,6 +373,7 @@ function MapLibreMap({
     const bounds = eawsRegionsBounds(focusRegions).pad(0.1).asArray();
 
     const map = new maplibregl.Map({
+      dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       bounds

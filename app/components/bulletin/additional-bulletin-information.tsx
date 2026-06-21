@@ -195,6 +195,7 @@ function BulletinMiniMap({
     if (!containerRef.current || mapRef.current) return;
 
     const map = new maplibregl.Map({
+      dragRotate: false,
       cooperativeGestures: true,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
