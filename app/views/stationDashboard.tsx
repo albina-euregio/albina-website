@@ -3,7 +3,7 @@ import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
 import MapLibreMap, {
   type MarkerItem
-} from "../components/maplibre/maplibre-map";
+} from "../components/station/station-map-maplibre";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId

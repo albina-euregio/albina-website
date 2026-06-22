@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import type { Feature } from "@albina-euregio/linea/listing";
-import { useIntl } from "../../i18n";
-import type { ParameterType } from "../station/station-parameter-data";
+import { useIntl } from "../../i18n/index.tsx";
+import type { ParameterType } from "./station-parameter-data.ts";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
-import { MAPLIBRE_STYLE } from "./maplibre-style";
+import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 
 /**
  * Station dashboard map (MapLibre GL).
@@ -49,7 +49,11 @@ interface Props {
   observers?: Feature[];
   item: MarkerItem;
   itemId: ParameterType;
-  /** Show markers that have no value for the selected parameter. */
+  /**
+   * Initial value for the show/hide-pins toggle: whether markers without a
+   * value for the selected parameter (and observers) are shown. The current
+   * value is then owned by the map's show/hide-pins control.
+   */
   showMarkersWithoutValue?: boolean;
   onMarkerSelected: (id: string) => void;
   onInit?: (map: maplibregl.Map) => void;
@@ -284,6 +288,45 @@ function toFeatureCollection(
 }
 
 /**
+ * A MapLibre control with a single button toggling whether markers without a
+ * value (and observers) are shown — the show/hide-pins control migrated from
+ * Leaflet. The button's icon and label reflect the current state; clicking it
+ * calls `onToggle`. Styled in _map.scss (`.maplibregl-ctrl-station-pins`).
+ */
+class StationPinsControl implements maplibregl.IControl {
+  private container!: HTMLDivElement;
+  private button!: HTMLButtonElement;
+
+  constructor(private readonly onToggle: () => void) {}
+
+  onAdd(): HTMLElement {
+    this.container = document.createElement("div");
+    this.container.className =
+      "maplibregl-ctrl maplibregl-ctrl-group maplibregl-ctrl-station-pins";
+    this.button = document.createElement("button");
+    this.button.type = "button";
+    this.button.addEventListener("click", event => {
+      event.preventDefault();
+      this.onToggle();
+    });
+    this.container.appendChild(this.button);
+    return this.container;
+  }
+
+  onRemove(): void {
+    this.container.remove();
+  }
+
+  /** Reflect the current `show` state in the button's icon and label. */
+  update(show: boolean, title: string): void {
+    this.button.title = title;
+    this.button.setAttribute("aria-label", title);
+    // `hide` icon while pins are shown (click hides), `show` icon otherwise.
+    this.button.className = show ? "icon-hide" : "icon-show";
+  }
+}
+
+/**
  * Renders the basemap plus a vector overlay of stations (`features`) and
  * observers (`observers`). Stations are colored by the selected parameter
  * (`item` / `itemId`); observers are fixed gray pins. See the file header.
@@ -301,6 +344,10 @@ function MapLibreMap({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  // Whether markers without a value (and observers) are shown. Owned here and
+  // driven by the map's show/hide-pins control; `showMarkersWithoutValue` only
+  // seeds the initial value.
+  const [showMarkers, setShowMarkers] = useState(showMarkersWithoutValue);
   // Latest GeoJSON, so the load handler can seed the source even if the data
   // changes before the style finishes loading.
   const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
@@ -309,6 +356,9 @@ function MapLibreMap({
   });
   // Held in a ref so the layer click handler always calls the latest callback.
   const onMarkerSelectedRef = useRef(onMarkerSelected);
+  // The once-mounted show/hide-pins control, kept in a ref so a later effect can
+  // refresh its icon/label when `showMarkers` or the locale change.
+  const pinsControlRef = useRef<StationPinsControl | null>(null);
   const focusRegions = useStore($focusRegions);
 
   useEffect(() => {
@@ -320,16 +370,19 @@ function MapLibreMap({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
+    const bounds = eawsRegionsBounds(focusRegions).pad(0.1).asArray();
 
     const map = new maplibregl.Map({
+      dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
-      bounds: [
-        [bounds.getWest(), bounds.getSouth()],
-        [bounds.getEast(), bounds.getNorth()]
-      ]
+      bounds
     });
+
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
 
     tooltipRef.current = new maplibregl.Popup({
       closeButton: false,
@@ -376,6 +429,19 @@ function MapLibreMap({
         },
         paint: { "text-color": ["get", "textColor"] }
       });
+
+      // Show/hide-pins control: toggles `showMarkers`, which re-filters the
+      // data. `setShowMarkers` is stable, so the once-mounted control stays
+      // valid; the effect below refreshes its icon/label.
+      const control = new StationPinsControl(() => setShowMarkers(v => !v));
+      map.addControl(control, "top-left");
+      pinsControlRef.current = control;
+      control.update(
+        showMarkers,
+        intl.formatMessage({
+          id: showMarkers ? "weathermap:hidePins" : "weathermap:showPins"
+        })
+      );
 
       // Click selects the station; hover shows the shared tooltip.
       const markerLayers = [CIRCLE_LAYER_ID, WindUtil.LAYER_ID];
@@ -437,7 +503,7 @@ function MapLibreMap({
       observers,
       item,
       itemId,
-      showMarkersWithoutValue,
+      showMarkers,
       value => intl.formatNumber(value)
     );
     dataRef.current = data;
@@ -448,7 +514,18 @@ function MapLibreMap({
       WindUtil.ensureImages(map, data);
       source.setData(data);
     }
-  }, [features, observers, item, itemId, showMarkersWithoutValue, intl]);
+  }, [features, observers, item, itemId, showMarkers, intl]);
+
+  // Keep the show/hide-pins control's icon and label in sync with the current
+  // state and locale (no-op until the control is created in the load handler).
+  useEffect(() => {
+    pinsControlRef.current?.update(
+      showMarkers,
+      intl.formatMessage({
+        id: showMarkers ? "weathermap:hidePins" : "weathermap:showPins"
+      })
+    );
+  }, [showMarkers, intl]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }

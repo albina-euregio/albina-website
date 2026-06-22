@@ -14,7 +14,11 @@ import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
-import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
+import {
+  getDangerRatingValue,
+  getWarnlevelNumber,
+  WarnLevelNumber
+} from "../../util/warn-levels";
 import { atom } from "nanostores";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
@@ -22,14 +26,13 @@ export type Status = "pending" | "ok" | "empty" | "n/a";
 type RegionID = string;
 type LowHigh = "low" | "high";
 type ColonLowHigh = "" | `:${LowHigh}`;
+type RegionLowHighAmPm = `${RegionID}${ColonLowHigh}${ColonAmPm}`;
 
-export type MaxDangerRatings = Record<
-  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
-  WarnLevelNumber
->;
+export type MaxWarnLevels = Record<RegionLowHighAmPm, WarnLevelNumber>;
+export type MaxDangerRatings = Record<RegionLowHighAmPm, DangerRatingValue>;
 
 export type EawsAvalancheProblems = Record<
-  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  RegionLowHighAmPm,
   AvalancheProblemType[]
 >;
 
@@ -38,13 +41,15 @@ export const isOneDangerRating = atom(
 );
 
 export function getMaxMainValue(
-  dangerRatings: DangerRating[] = []
+  dangerRatings: DangerRating[] | DangerRatingValue[] = []
 ): DangerRatingValue {
-  return dangerRatings.reduce(
-    (a, b): DangerRatingValue =>
-      getWarnlevelNumber(a) > getWarnlevelNumber(b.mainValue) ? a : b.mainValue,
-    "low" as DangerRatingValue
-  );
+  return dangerRatings
+    .map(r => (typeof r === "object" ? r.mainValue : r))
+    .reduce(
+      (a, b): DangerRatingValue =>
+        getWarnlevelNumber(a) > getWarnlevelNumber(b) ? a : b,
+      "low" as DangerRatingValue
+    );
 }
 
 /**
@@ -284,14 +289,14 @@ class BulletinCollection {
           ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${config.eawsRegions[0]}.ratings.json`
           : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
       const { maxDangerRatings } = await fetchJSON<{
-        maxDangerRatings: MaxDangerRatings;
+        maxDangerRatings: MaxWarnLevels;
       }>(url, {
         cache: "no-cache"
       });
       this.eawsMaxDangerRatings = Object.fromEntries(
-        Object.entries(maxDangerRatings).filter(([r]) =>
-          config.eawsRegionsRegex.test(r)
-        )
+        Object.entries(maxDangerRatings)
+          .filter(([r]) => config.eawsRegionsRegex.test(r))
+          .map(([r, v]) => [r, getDangerRatingValue(v)])
       );
     } catch (error) {
       console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);
@@ -371,16 +376,19 @@ class BulletinCollection {
             validTimePeriod => [
               ...[
                 isOneDangerRating.get()
-                  ? [
+                  ? ([
                       `${regionID}${toAmPm[validTimePeriod]}`,
-                      this.getWarnLevel(regionID, validTimePeriod, b, undefined)
-                    ]
+                      this.mainValue(regionID, validTimePeriod, b, undefined)
+                    ] satisfies [RegionLowHighAmPm, DangerRatingValue])
                   : []
               ],
-              ...(["low", "high"] as const).map(elevation => [
-                `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
-                this.getWarnLevel(regionID, validTimePeriod, b, elevation)
-              ])
+              ...(["low", "high"] as const).map(
+                elevation =>
+                  [
+                    `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
+                    this.mainValue(regionID, validTimePeriod, b, elevation)
+                  ] satisfies [RegionLowHighAmPm, DangerRatingValue]
+              )
             ]
           )
         )
@@ -388,16 +396,14 @@ class BulletinCollection {
     );
   }
 
-  private getWarnLevel(
+  private mainValue(
     regionID: string,
     validTimePeriod: ValidTimePeriod,
     b: Bulletin,
     elevation: LowHigh | undefined
-  ): WarnLevelNumber {
+  ): DangerRatingValue {
     const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
-    const warnlevel = dangerRatings
-      .map(danger => getWarnlevelNumber(danger.mainValue))
-      .reduce((w1, w2) => Math.max(w1, w2) as WarnLevelNumber, 0);
+    const mainValue = getMaxMainValue(dangerRatings);
 
     if (elevation === "high") {
       // take "low" when lowerBound exceeds region threshold
@@ -409,11 +415,11 @@ class BulletinCollection {
           .map(e => e.elevation?.lowerBound)
           .some(bound => +bound > threshold)
       ) {
-        return this.getWarnLevel(regionID, validTimePeriod, b, "low");
+        return this.mainValue(regionID, validTimePeriod, b, "low");
       }
     }
 
-    return warnlevel;
+    return mainValue;
   }
 
   private dangerRatings(

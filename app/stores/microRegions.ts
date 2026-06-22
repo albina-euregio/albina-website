@@ -1,4 +1,4 @@
-import { LatLngBounds } from "leaflet";
+import { LatLngBounds } from "./eawsRegions";
 
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
@@ -62,6 +62,27 @@ export function filterFeature(
   );
 }
 
+export function filterFeatureSpecification(
+  today: ReturnType<Temporal.PlainDate["toString"]>
+): maplibregl.FilterSpecification {
+  if (!today) return ["literal", false];
+  return [
+    "all",
+    [
+      "case",
+      ["==", ["coalesce", ["get", "start_date"], ""], ""],
+      true,
+      ["<=", ["get", "start_date"], today]
+    ],
+    [
+      "case",
+      ["==", ["coalesce", ["get", "end_date"], ""], ""],
+      true,
+      [">", ["get", "end_date"], today]
+    ]
+  ];
+}
+
 export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
@@ -118,10 +139,7 @@ export function microRegionBounds(
     r => r.id === microRegionId
   );
   if (region?.bbox) {
-    return new LatLngBounds([
-      [region.bbox[1], region.bbox[0]],
-      [region.bbox[3], region.bbox[2]]
-    ]);
+    return new LatLngBounds(...region.bbox);
   }
-  return new LatLngBounds([]);
+  return new LatLngBounds(NaN, NaN, NaN, NaN);
 }

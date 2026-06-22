@@ -1,7 +1,6 @@
 import outline_properties from "@eaws/outline_properties/index.json";
 import { LanguageSchema } from "../appStore";
 import { z } from "zod/mini";
-import { LatLngBounds } from "leaflet";
 
 export const RegionOutlineSchema = z.object({
   id: z.string(),
@@ -48,22 +47,69 @@ export function eawsRegionIds(): string[] {
     .filter(id => !config.regionsRegex.test(id));
 }
 
+export class LatLngBounds {
+  constructor(
+    public west: number,
+    public south: number,
+    public east: number,
+    public north: number
+  ) {}
+
+  isValid() {
+    return (
+      isFinite(this.west) &&
+      isFinite(this.south) &&
+      isFinite(this.east) &&
+      isFinite(this.north)
+    );
+  }
+
+  extend(other: LatLngBounds) {
+    this.west = isFinite(this.west)
+      ? Math.min(this.west, other.west)
+      : other.west;
+    this.south = isFinite(this.south)
+      ? Math.min(this.south, other.south)
+      : other.south;
+    this.east = isFinite(this.east)
+      ? Math.max(this.east, other.east)
+      : other.east;
+    this.north = isFinite(this.north)
+      ? Math.max(this.north, other.north)
+      : other.north;
+    return this;
+  }
+
+  pad(n: number) {
+    this.west -= n;
+    this.south -= n;
+    this.east += n;
+    this.north += n;
+    return this;
+  }
+
+  asArray(): [[number, number], [number, number]] {
+    return [
+      [this.west, this.south],
+      [this.east, this.north]
+    ];
+  }
+}
+
 export function eawsRegionsBounds(
   regionCodes: string[],
   f: (
     regionCode: string
   ) => undefined | { bbox: [number, number, number, number] } = eawsRegion
 ): LatLngBounds {
-  return regionCodes.reduce((b, r) => {
-    const region = f(r);
-    if (region?.bbox) {
-      b.extend(
-        new LatLngBounds([
-          [region.bbox[1], region.bbox[0]],
-          [region.bbox[3], region.bbox[2]]
-        ])
-      );
-    }
-    return b;
-  }, new LatLngBounds([]));
+  return regionCodes.reduce(
+    (b, r) => {
+      const region = f(r);
+      if (region?.bbox) {
+        b.extend(new LatLngBounds(...region.bbox));
+      }
+      return b;
+    },
+    new LatLngBounds(NaN, NaN, NaN, NaN)
+  );
 }

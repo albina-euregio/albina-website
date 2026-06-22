@@ -48,7 +48,6 @@ function useProblems() {
 }
 
 const Bulletin = () => {
-  const mapRefs = [] as L.Map[];
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const router = useStore($router);
@@ -147,23 +146,6 @@ const Bulletin = () => {
     }
   };
 
-  const handleMapInit = (map: L.Map) => {
-    if (mapRefs.length > 0) {
-      [map, ...mapRefs].forEach(otherMap => {
-        // patch out the slow parts of L.Map.Sync
-        otherMap._selfSetView = () => {};
-        otherMap._syncOnMoveend = () => {};
-        otherMap._syncOnDragend = () => {};
-      });
-      mapRefs.forEach(otherMap => {
-        map.sync(otherMap);
-        otherMap.sync(map);
-      });
-    }
-
-    mapRefs.push(map);
-  };
-
   const daytimeDependency = collection?.ownBulletins?.some(b =>
     hasDaytimeDependency(b)
   );
@@ -229,7 +211,6 @@ const Bulletin = () => {
                     region={region}
                     status={status}
                     date={collection?.date}
-                    onMapInit={handleMapInit}
                     validTimePeriod={validTimePeriod}
                     activeBulletinCollection={collection}
                     problems={problems}

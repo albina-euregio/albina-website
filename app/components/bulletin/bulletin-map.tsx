@@ -1,32 +1,112 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
-import "leaflet";
-import "leaflet.sync";
-import { DomEvent } from "leaflet";
-import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
 import { preprocessContent } from "../../util/htmlParser";
 import type {
   AvalancheProblemType,
   BulletinCollection,
+  DangerRatingValue,
   Status
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
-import { DangerRatings, PbfLayer, PbfLayerOverlay } from "../leaflet/pbf-map";
-import { PbfRegionState } from "../leaflet/pbf-region-state";
 import {
-  isOneDangerRating as isOneDangerRating0,
+  getMaxMainValue,
   matchesValidTimePeriod,
+  toAmPm,
   ValidTimePeriod
 } from "../../stores/bulletin";
-import { useMapEvent } from "react-leaflet";
 import { useStore } from "@nanostores/react";
-import { eawsRegion } from "../../stores/eawsRegions";
-import { getMacroRegion } from "../../stores/microRegions";
-import { $focusRegions } from "../../appStore";
+import {
+  eawsRegion,
+  eawsRegionIds,
+  eawsRegionsBounds
+} from "../../stores/eawsRegions";
+import {
+  filterFeatureSpecification,
+  getMacroRegion,
+  microRegionIds
+} from "../../stores/microRegions";
+import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
+import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
+
+// Transparent style for the overlay map that carries the danger-rating fills.
+// It is stacked over the base map with `mix-blend-mode: multiply` (MapLibre has
+// no per-layer blend mode, so the multiply happens between the two canvases).
+const OVERLAY_STYLE: maplibregl.StyleSpecification = {
+  version: 8,
+  sources: {},
+  layers: []
+};
+
+// Registry of the interactive overlay maps currently mounted (e.g. the
+// earlier/later bulletin maps), kept view-synced so they share one view. Each
+// map registers itself on creation and removes itself on destroy. The
+// `syncingMaps` guard breaks the feedback loop, since jumpTo() on a target map
+// itself fires a `move` event.
+const syncedMaps: maplibregl.Map[] = [];
+let syncingMaps = false;
+
+export type RegionState =
+  | "mouseOver"
+  | "selected"
+  | "highlighted"
+  | "dehighlighted"
+  | "dimmed"
+  | "noData"
+  | "noDataMouseOver"
+  | "noDataGrey"
+  | "noDataGreyMouseOver"
+  // partial-no-data micro-region (inside a rated macro-region) while
+  // hovered/selected: noDataGrey fill plus the mouseOver border.
+  | "noDataPartialMouseOver"
+  | "default";
+
+interface RegionFeatureStates {
+  stateById: Record<string, RegionState>;
+  dangerRatingById: Record<string, DangerRatingValue>;
+  internById: Record<string, boolean>;
+  hoverStateById: Record<string, RegionState>;
+  hoverGroup: Record<string, string[]>;
+}
+
+const REGION_SOURCE = {
+  source: "eaws-regions",
+  sourceLayer: "micro-regions"
+} as const;
+
+// Push the per-region `state` / `dangerRating` / `intern` feature-states onto the
+// overlay source, then re-apply the active hover group on top of the new base
+// states. No-op until the source exists.
+function applyFeatureStates(
+  map: maplibregl.Map | null,
+  fs: RegionFeatureStates,
+  hoverActive: string[]
+) {
+  if (!map?.getSource(REGION_SOURCE.source)) return;
+  for (const id of Object.keys(fs.stateById)) {
+    map.setFeatureState(
+      { ...REGION_SOURCE, id },
+      {
+        state: fs.stateById[id],
+        dangerRating: fs.dangerRatingById[id] ?? 0,
+        intern: !!fs.internById[id]
+      }
+    );
+  }
+  for (const id of hoverActive) {
+    map.setFeatureState(
+      { ...REGION_SOURCE, id },
+      { state: fs.hoverStateById[id] }
+    );
+  }
+}
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
@@ -36,99 +116,18 @@ interface Props {
   validTimePeriod: ValidTimePeriod;
   date: Temporal.PlainDate;
   handleSelectRegion: (region: string) => void;
-  onMapInit: (map: L.Map) => void;
   onSelectTimePeriod: (timePeriod: string) => void;
 }
 
 const BulletinMap = (props: Props) => {
   const intl = useIntl();
-  const isOneDangerRating = useStore(isOneDangerRating0);
   const focusRegions = useStore($focusRegions);
   const language = intl.locale.slice(0, 2);
-  const [regionMouseover, setRegionMouseover] = useState("");
-
-  function RegionClickHandler(): null {
-    useMapEvent("click", () => props.handleSelectRegion(""));
-    return null;
-  }
 
   const styleOverMap = () => {
     return {
       zIndex: 1000
     };
-  };
-
-  const regionState = useMemo(
-    () => (
-      <PbfRegionState
-        activeBulletinCollection={props.activeBulletinCollection}
-        problems={props.problems}
-        region={props.region}
-        regionMouseover={regionMouseover}
-        validTimePeriod={props.validTimePeriod}
-      />
-    ),
-    [
-      props.activeBulletinCollection,
-      props.problems,
-      props.region,
-      props.validTimePeriod,
-      regionMouseover
-    ]
-  );
-
-  const getMapOverlays = () => {
-    const overlays = [<RegionClickHandler key="region-click-handler" />];
-    overlays.push(
-      <PbfLayer
-        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}`}
-        date={props.date}
-        isOneDangerRating={isOneDangerRating}
-        handleSelectRegion={props.handleSelectRegion}
-        validTimePeriod={props.validTimePeriod}
-      >
-        {props.activeBulletinCollection && (
-          <DangerRatings
-            maxDangerRatings={props.activeBulletinCollection.maxDangerRatings}
-          />
-        )}
-        {props.activeBulletinCollection?.eawsMaxDangerRatings && (
-          <DangerRatings
-            maxDangerRatings={
-              props.activeBulletinCollection.eawsMaxDangerRatings
-            }
-          />
-        )}
-      </PbfLayer>
-    );
-    overlays.push(
-      <PbfLayerOverlay
-        key={`eaws-regions-${props.validTimePeriod}-${props.date}-${props.status}-overlay`}
-        date={props.date}
-        validTimePeriod={props.validTimePeriod}
-        eventHandlers={{
-          click(e) {
-            DomEvent.stop(e);
-            props.handleSelectRegion(e.sourceTarget.properties.id);
-          },
-          pointerover(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(e.sourceTarget.properties.id)
-            );
-          },
-          pointerout(e) {
-            requestAnimationFrame(() =>
-              setRegionMouseover(id =>
-                id === e.sourceTarget.properties.id ? "" : id
-              )
-            );
-          }
-        }}
-      >
-        {regionState}
-      </PbfLayerOverlay>
-    );
-    return overlays;
   };
 
   const NoRatingPopup = ({
@@ -414,13 +413,12 @@ const BulletinMap = (props: Props) => {
         }
         data-iframe-ignore
       >
-        <LeafletMap
-          loaded={true}
-          overlays={getMapOverlays()}
-          mapConfigOverride={{}}
-          tileLayerConfigOverride={{}}
-          gestureHandling={true}
-          onInit={props.onMapInit}
+        <MapLibreMap
+          activeBulletinCollection={props.activeBulletinCollection}
+          problems={props.problems}
+          region={props.region}
+          validTimePeriod={props.validTimePeriod}
+          handleSelectRegion={props.handleSelectRegion}
         />
         {getBulletinMapDetails()}
 
@@ -455,3 +453,478 @@ const BulletinMap = (props: Props) => {
 };
 
 export default BulletinMap;
+
+function MapLibreMap({
+  activeBulletinCollection,
+  problems,
+  region,
+  validTimePeriod,
+  handleSelectRegion
+}: Pick<
+  Props,
+  | "activeBulletinCollection"
+  | "problems"
+  | "region"
+  | "validTimePeriod"
+  | "handleSelectRegion"
+>) {
+  const intl = useIntl();
+  const baseRef = useRef<HTMLDivElement | null>(null);
+  const baseMapRef = useRef<maplibregl.Map | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const overlayMapRef = useRef<maplibregl.Map | null>(null);
+  const focusRegions = useStore($focusRegions);
+
+  // Region styling is driven entirely through feature-states (`state` /
+  // `dangerRating` / `intern`), not React re-renders, so selection / hover changes
+  // never re-upload paint. These refs keep the once-mounted map handlers in sync
+  // with the latest feature-state values and the currently-hovered group.
+  const hoverAnchorRef = useRef<string>("");
+  const hoverActiveRef = useRef<string[]>([]);
+
+  // Latest select handler, so the once-mounted map listeners never go stale.
+  const handleSelectRegionRef = useRef(handleSelectRegion);
+  handleSelectRegionRef.current = handleSelectRegion;
+
+  // Region id sets used to drive the state styling (cf. PbfRegionState).
+  const microRegions = useMemo(
+    () =>
+      microRegionIds(activeBulletinCollection?.date, [
+        ...config.regionCodes,
+        ...config.extraRegions
+      ]),
+    [activeBulletinCollection?.date]
+  );
+  const eawsRegions = useMemo(
+    () => eawsRegionIds().filter(r => !config.extraRegions.includes(r)),
+    []
+  );
+  const eawsMicroRegions = useMemo(
+    () =>
+      Object.keys(activeBulletinCollection?.eawsMaxDangerRatings || {}).filter(
+        region => !region.includes(":")
+      ),
+    [activeBulletinCollection?.eawsMaxDangerRatings]
+  );
+
+  // Per-region feature-state values that drive `regionPaint`, recomputed when the
+  // bulletin data or selection changes and pushed onto the source via
+  // setFeatureState (cf. applyFeatureStates).
+  const featureStates = useMemo((): RegionFeatureStates => {
+    const amPm = toAmPm[validTimePeriod ?? "all_day"] ?? "";
+
+    // Max danger rating (warn-level) per region — the danger fill the state
+    // overlay composites over.
+    const dangerRatings = {
+      ...(activeBulletinCollection?.maxDangerRatings ?? {}),
+      ...(activeBulletinCollection?.eawsMaxDangerRatings ?? {})
+    };
+    const province = $province.get();
+    const internRegex = province
+      ? new RegExp(`^(${province})`)
+      : new RegExp(config.regionsRegex);
+    const dangerRatingByRegion: Record<string, DangerRatingValue> = {};
+    for (const id of new Set(
+      Object.keys(dangerRatings).map(key => key.replace(/:.*/, ""))
+    )) {
+      dangerRatingByRegion[id] =
+        dangerRatings[`${id}${amPm}`] ??
+        getMaxMainValue([
+          dangerRatings[`${id}:low${amPm}`] ?? 0,
+          dangerRatings[`${id}:high${amPm}`] ?? 0
+        ]);
+    }
+
+    function getRegionState(regionId: string, hovered: string): RegionState {
+      const macroRegion = getMacroRegion(regionId);
+      const macroStatus =
+        macroRegion !== undefined
+          ? activeBulletinCollection?.macroRegionStatuses?.[macroRegion]
+          : undefined;
+      const isNoData = macroStatus === "n/a";
+      const isFocusRegion = !!macroRegion && focusRegions.includes(macroRegion);
+      const noDataState = isFocusRegion ? "noData" : "noDataGrey";
+      const noDataMouseOverState = isFocusRegion
+        ? "noDataMouseOver"
+        : "noDataGreyMouseOver";
+
+      // EAWS regions not present in the ratings JSON → grey,
+      // but only if the whole EAWS provider area has no ratings
+      const parentPrefix =
+        regionId.lastIndexOf("-") > 0
+          ? regionId.substring(0, regionId.lastIndexOf("-"))
+          : regionId;
+      const effectivePrefix = regionId === "LI" ? "CH" : parentPrefix;
+      const isEawsWithNoData =
+        eawsRegions.includes(regionId) &&
+        !eawsMicroRegions.some(r => r.startsWith(effectivePrefix));
+
+      // Detect micro-regions with no rating inside an otherwise-rated macro-region
+      const hasRating = regionId in dangerRatingByRegion;
+      const isPartialNoData = !isNoData && !hasRating && macroStatus === "ok";
+
+      // For n/a regions: highlight the whole macro-region on hover (no stroke)
+      const hoveredMacroRegion = getMacroRegion(hovered);
+      const selectedMacroRegion = getMacroRegion(region);
+      const isSameHoveredMacro =
+        isNoData &&
+        hoveredMacroRegion !== undefined &&
+        hoveredMacroRegion === macroRegion;
+      const isSameSelectedMacro =
+        isNoData &&
+        selectedMacroRegion !== undefined &&
+        selectedMacroRegion === macroRegion;
+      if (isSameHoveredMacro || isSameSelectedMacro) {
+        return noDataMouseOverState;
+      }
+
+      if (regionId === hovered) {
+        // partial-no-data gets the mouseOver border (former isPartialNoDataHover),
+        // EAWS-with-no-data does not.
+        return isPartialNoData
+          ? "noDataPartialMouseOver"
+          : isEawsWithNoData
+            ? "noDataGreyMouseOver"
+            : "mouseOver";
+      }
+
+      // For n/a or partial no-data regions: keep color (increased opacity) when selected
+      if (regionId === region) {
+        return isNoData
+          ? noDataMouseOverState
+          : isPartialNoData
+            ? "noDataPartialMouseOver"
+            : isEawsWithNoData
+              ? "noDataGreyMouseOver"
+              : "selected";
+      }
+      if (
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(region)
+          ?.regions?.some(r => r.regionID === regionId)
+      ) {
+        return "highlighted";
+      }
+      if (region) {
+        // some other region is selected — keep n/a / partial regions colored, dim the rest
+        return isNoData || isPartialNoData || isEawsWithNoData
+          ? isPartialNoData || isEawsWithNoData
+            ? "noDataGrey"
+            : noDataState
+          : "dimmed";
+      }
+
+      const bulletinProblemTypes =
+        activeBulletinCollection
+          ?.getBulletinForBulletinOrRegion(regionId)
+          ?.avalancheProblems?.filter(p =>
+            matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
+          )
+          ?.map(p => p.problemType) ??
+        activeBulletinCollection?.eawsAvalancheProblems?.[
+          `${regionId}${toAmPm[validTimePeriod || "all_day"]}`
+        ] ??
+        [];
+      if (bulletinProblemTypes.some(p => problems?.[p]?.highlighted)) {
+        return "highlighted";
+      }
+
+      // dehighligt if any filter is activated
+      if (Object.values(problems).some(p => p.highlighted)) {
+        return isNoData
+          ? noDataState
+          : isEawsWithNoData
+            ? "noDataGrey"
+            : "dehighlighted";
+      }
+
+      if (isNoData) {
+        return noDataState;
+      }
+
+      if (isPartialNoData || isEawsWithNoData) {
+        return "noDataGrey";
+      }
+
+      return "default";
+    }
+
+    const allRegionIds = new Set([
+      ...microRegions,
+      ...eawsRegions,
+      ...Object.keys(dangerRatingByRegion)
+    ]);
+
+    // Micro-regions grouped by macro-region, to highlight the whole macro-region
+    // when any of its (no-data) micro-regions is hovered.
+    const macroMembers: Record<string, string[]> = {};
+    for (const regionId of allRegionIds) {
+      const macro = getMacroRegion(regionId);
+      if (macro) (macroMembers[macro] ??= []).push(regionId);
+    }
+
+    const stateById: Record<string, RegionState> = {};
+    const dangerRatingById: Record<string, DangerRatingValue> = {};
+    const internById: Record<string, boolean> = {};
+    const hoverStateById: Record<string, RegionState> = {};
+    // Feature ids to mark hovered when a given region is hovered (just itself,
+    // or the whole macro-region for n/a regions which highlight as a group).
+    const hoverGroup: Record<string, string[]> = {};
+
+    for (const regionId of allRegionIds) {
+      stateById[regionId] = getRegionState(regionId, "");
+      dangerRatingById[regionId] = dangerRatingByRegion[regionId] ?? 0;
+      internById[regionId] = internRegex.test(regionId);
+      // Hovering a region reproduces both individual and macro-group hover by
+      // passing the region as its own hovered id.
+      hoverStateById[regionId] = getRegionState(regionId, regionId);
+      const macro = getMacroRegion(regionId);
+      const isNoData =
+        !!macro &&
+        activeBulletinCollection?.macroRegionStatuses?.[macro] === "n/a";
+      hoverGroup[regionId] =
+        isNoData && macro ? macroMembers[macro] : [regionId];
+    }
+
+    return {
+      stateById,
+      dangerRatingById,
+      internById,
+      hoverStateById,
+      hoverGroup
+    };
+  }, [
+    activeBulletinCollection,
+    problems,
+    region,
+    validTimePeriod,
+    focusRegions,
+    microRegions,
+    eawsRegions,
+    eawsMicroRegions
+  ]);
+
+  // Latest feature-states, so the once-mounted map handlers (hover, initial
+  // apply on `load`) never read stale values.
+  const featureStatesRef = useRef(featureStates);
+  featureStatesRef.current = featureStates;
+
+  // Hide micro-regions whose start_date/end_date is not valid on the bulletin
+  // date — the MapLibre equivalent of the GeoJSON `filterFeature` predicate
+  // (empty/absent bounds are open-ended; no date → show nothing).
+  const featureFilter = useMemo((): maplibregl.FilterSpecification => {
+    const today = activeBulletinCollection?.date?.toString();
+    return filterFeatureSpecification(today);
+  }, [activeBulletinCollection?.date]);
+
+  useEffect(() => {
+    if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
+
+    const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
+    const initialBounds: maplibregl.LngLatBoundsLike = bounds.asArray();
+
+    // Base map: the shared raster style (basemap + opentopomap). It sits behind
+    // the overlay (pointer-events: none) and is non-interactive — it just
+    // follows the overlay's view.
+    const base = new maplibregl.Map({
+      container: baseRef.current,
+      style: MAPLIBRE_STYLE,
+      minZoom: 5,
+      maxZoom: 10,
+      bounds: initialBounds,
+      interactive: false
+    });
+
+    // Overlay map: only the danger-rating fills + region borders, stacked on top
+    // with `mix-blend-mode: multiply` (see the JSX below). It is the interactive
+    // map; the base map is view-synced to it.
+    const overlay = new maplibregl.Map({
+      cooperativeGestures: true,
+      dragRotate: false,
+      locale: {
+        "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:windows"
+        }),
+        "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mac"
+        }),
+        "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mobile"
+        }),
+        "NavigationControl.ZoomIn": intl.formatMessage({
+          id: "bulletin:map:zoom-in:hover"
+        }),
+        "NavigationControl.ZoomOut": intl.formatMessage({
+          id: "bulletin:map:zoom-out:hover"
+        })
+      },
+      container: overlayRef.current,
+      style: OVERLAY_STYLE,
+      minZoom: 5,
+      maxZoom: 10,
+      bounds: initialBounds
+    });
+
+    overlay.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
+
+    overlay.on("load", () => {
+      overlay.addSource("eaws-regions", {
+        type: "vector",
+        url: `pmtiles://${eawsPmtimes}`,
+        // Promote `id` to the feature id so hover feature-state can be keyed by it.
+        promoteId: "id"
+      });
+      overlay.addLayer({
+        id: "eaws-regions-fill",
+        type: "fill",
+        source: "eaws-regions",
+        "source-layer": "micro-regions",
+        filter: featureFilter,
+        paint: REGION_FILL_PAINT
+      });
+      overlay.addLayer({
+        id: "eaws-regions-line",
+        type: "line",
+        source: "eaws-regions",
+        "source-layer": "micro-regions",
+        filter: featureFilter,
+        paint: REGION_LINE_PAINT
+      });
+
+      // Push the initial feature-states now that the source exists (subsequent
+      // changes flow through the effect below).
+      applyFeatureStates(
+        overlay,
+        featureStatesRef.current,
+        hoverActiveRef.current
+      );
+
+      // Region interaction, migrated from the former Leaflet PbfLayerOverlay
+      // event handlers: select on click (empty space deselects), track hover.
+      overlay.on("click", e => {
+        const [feature] = overlay.queryRenderedFeatures(e.point, {
+          layers: ["eaws-regions-fill"]
+        });
+        const id = feature?.properties?.id ?? "";
+        if (!id || microRegions.includes(id)) {
+          handleSelectRegionRef.current(id);
+        } else {
+          const eawsRegion = eawsRegions.find(r => id.startsWith(r)) ?? "";
+          handleSelectRegionRef.current(eawsRegion);
+        }
+      });
+      // Swap the hovered region (or its whole macro-region group) onto its hover
+      // `state` feature-state instead of re-rendering: restore the previous group
+      // to its base state, then apply the new group's hover state. Only `state`
+      // is touched, so `dangerRating` / `intern` are preserved (cf. setFeatureState
+      // merge); the base state is read fresh so it tracks selection changes.
+      const setHover = (ids: string[]) => {
+        const fs = featureStatesRef.current;
+        for (const id of hoverActiveRef.current) {
+          overlay.setFeatureState(
+            { ...REGION_SOURCE, id },
+            { state: fs.stateById[id] }
+          );
+        }
+        hoverActiveRef.current = ids;
+        for (const id of ids) {
+          overlay.setFeatureState(
+            { ...REGION_SOURCE, id },
+            { state: fs.hoverStateById[id] }
+          );
+        }
+      };
+      overlay.on("mousemove", "eaws-regions-fill", e => {
+        overlay.getCanvas().style.cursor = "pointer";
+        const id = e.features?.[0]?.id;
+        if (id == null || String(id) === hoverAnchorRef.current) return;
+        hoverAnchorRef.current = String(id);
+        const group = featureStatesRef.current.hoverGroup[String(id)] ?? [
+          String(id)
+        ];
+        setHover(group);
+      });
+      overlay.on("mouseleave", "eaws-regions-fill", () => {
+        overlay.getCanvas().style.cursor = "";
+        hoverAnchorRef.current = "";
+        setHover([]);
+      });
+    });
+
+    // Keep the base map glued to its overlay's view, and mirror the view onto
+    // any other mounted overlay maps (earlier/later) so they stay in sync.
+    syncedMaps.push(overlay);
+    overlay.on("move", () => {
+      const view: maplibregl.JumpToOptions = {
+        center: overlay.getCenter(),
+        zoom: overlay.getZoom(),
+        bearing: overlay.getBearing(),
+        pitch: overlay.getPitch()
+      };
+      base.jumpTo(view);
+      if (syncingMaps) return;
+      syncingMaps = true;
+      for (const otherMap of syncedMaps) {
+        if (otherMap !== overlay) otherMap.jumpTo(view);
+      }
+      syncingMaps = false;
+    });
+
+    baseMapRef.current = base;
+    overlayMapRef.current = overlay;
+
+    const resizeObserver = new ResizeObserver(() => {
+      base.resize();
+      overlay.resize();
+    });
+    resizeObserver.observe(baseRef.current);
+
+    return () => {
+      resizeObserver?.disconnect();
+      const index = syncedMaps.indexOf(overlay);
+      if (index >= 0) syncedMaps.splice(index, 1);
+      base.remove();
+      baseMapRef.current = null;
+      overlay.remove();
+      overlayMapRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Re-style the region fill + borders on danger / selection / filter changes by
+  // updating the per-region `state` / `dangerRating` / `intern` feature-states; the
+  // paint expression itself is static. Hover is layered on top inside the map
+  // handlers (see setHover above).
+  useEffect(() => {
+    applyFeatureStates(
+      overlayMapRef.current,
+      featureStates,
+      hoverActiveRef.current
+    );
+  }, [featureStates]);
+
+  // Re-apply the date-validity filter to both region layers when the date changes.
+  useEffect(() => {
+    const map = overlayMapRef.current;
+    for (const id of ["eaws-regions-fill", "eaws-regions-line"]) {
+      if (!map?.getLayer(id)) break;
+      map.setFilter(id, featureFilter);
+    }
+  }, [featureFilter]);
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        ref={baseRef}
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      />
+      <div
+        ref={overlayRef}
+        style={{ position: "absolute", inset: 0, mixBlendMode: "multiply" }}
+      />
+    </div>
+  );
+}
