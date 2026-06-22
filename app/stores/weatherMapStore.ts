@@ -1,4 +1,5 @@
 import { atom, computed } from "nanostores";
+import { LngLatBounds, MercatorCoordinate, type LngLatLike } from "maplibre-gl";
 import {
   _loadStationData as loadStationData,
   type StationData
@@ -14,14 +15,8 @@ export const config = {
   ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
-    mapOptionsOverride: {
-      maxZoom: 12,
-      minZoom: 7
-    },
-    bbox: [
-      [45.6167, 9.4],
-      [47.8167, 13.0333]
-    ],
+    // [sw, ne] as [lng, lat].
+    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167]),
     debugModus: false
   },
   domains: {
@@ -46,8 +41,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         metaFiles: {
           agl: "agl.ok",
@@ -82,8 +76,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         metaFiles: {
           agl: "agl.ok",
@@ -133,8 +126,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
         dataOverlays: [
@@ -175,8 +167,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
         dataOverlays: [
@@ -243,8 +234,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -284,8 +274,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -319,8 +308,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind_V3.gif" },
         dataOverlays: [
@@ -358,8 +346,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_gust_V3.gif" },
         dataOverlays: [
@@ -398,8 +385,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind700hpa.gif" },
         dataOverlays: [
@@ -433,7 +419,6 @@ type TimeSpans = Domain["item"]["timeSpans"];
 type TimeSpan = TimeSpans[number];
 
 export const stations = atom<StationData[]>([]);
-export const grid = atom([]);
 /*
  * returns the active domain id
  */
@@ -478,12 +463,12 @@ export const domain = computed(
  * returns domain
  */
 export const domainConfig = computed([domain], domain => domain?.item);
-export const dataOverlays = atom([]);
-
-interface DataOverlayCoordinates {
-  x: number;
-  y: number;
+/** A loaded data overlay image, sampled by `valueForPixel` at a coordinate. */
+export interface DataOverlay {
+  type: OverlayType;
+  valueForPixel(lngLat: LngLatLike): Promise<number | null>;
 }
+export const dataOverlays = atom<DataOverlay[]>([]);
 
 function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
   if (!domain) return config.overlayURLs;
@@ -539,19 +524,22 @@ function _updateDataOverlays() {
 
     return {
       ...o,
+      type: o.type as OverlayType,
       ctx,
-      async valueForPixel(
-        coordinates: DataOverlayCoordinates
-      ): Promise<number | null> {
+      async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
         const resolvedCtx = await ctx;
         const w = resolvedCtx.canvas.width;
         const h = resolvedCtx.canvas.height;
-        const pixelX = Math.round(
-          Math.max(0, Math.min(1, coordinates.x)) * (w - 1)
-        );
-        const pixelY = Math.round(
-          Math.max(0, Math.min(1, coordinates.y)) * (h - 1)
-        );
+        // Normalized position within the bbox, in Web Mercator (linear in lng,
+        // non-linear in lat) — matching how the overlay images are projected.
+        const bbox = config.settings.bbox;
+        const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
+        const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
+        const p0 = MercatorCoordinate.fromLngLat(lngLat);
+        const fx = (p0.x - sw.x) / (ne.x - sw.x);
+        const fy = (p0.y - ne.y) / (sw.y - ne.y);
+        const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
+        const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
         const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
         return valueForPixel(o.type as OverlayType, {
           r: p.data[0],
@@ -581,7 +569,6 @@ let _loadIndexGeneration = 0;
 async function _loadIndexData() {
   const generation = ++_loadIndexGeneration;
   stations.set([]);
-  grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
   const currentTime0 = currentTime.get();

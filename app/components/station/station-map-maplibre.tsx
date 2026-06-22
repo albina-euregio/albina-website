@@ -32,6 +32,26 @@ import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
  * tooltip cannot overlay the fixed filter bar.
  */
 
+/**
+ * Which station pins the map shows. The pins control toggles between two of
+ * these (more pins ↔ fewer); filtering by mode happens inside the map.
+ */
+export enum PinDisplayMode {
+  /** All stations (with and without a value) plus observers. */
+  All = "all",
+  /** Only stations with a value for the selected parameter. */
+  WithValue = "withValue",
+  /** No stations at all. */
+  None = "none"
+}
+
+/** Pin count by mode, for picking the control's show/hide icon. */
+const PIN_MODE_RANK: Record<PinDisplayMode, number> = {
+  [PinDisplayMode.None]: 0,
+  [PinDisplayMode.WithValue]: 1,
+  [PinDisplayMode.All]: 2
+};
+
 type RGB = [number, number, number];
 
 export interface MarkerItem {
@@ -50,17 +70,28 @@ interface Props {
   item: MarkerItem;
   itemId: ParameterType;
   /**
-   * Initial value for the show/hide-pins toggle: whether markers without a
-   * value for the selected parameter (and observers) are shown. The current
-   * value is then owned by the map's show/hide-pins control.
+   * The two pin display modes the control toggles between; the first is the
+   * initial mode. Filtering by mode happens inside the map, so callers always
+   * pass the full `features`/`observers`.
    */
-  showMarkersWithoutValue?: boolean;
+  pinDisplayModes: [PinDisplayMode, PinDisplayMode];
   onMarkerSelected: (id: string) => void;
   onInit?: (map: maplibregl.Map) => void;
+  /**
+   * Extra MapLibre constructor options, merged last so they can override the
+   * defaults. The weather map uses this to make a transparent, stations-only
+   * map (no basemap, no attribution control) stacked above a separate basemap
+   * and a `mix-blend-mode` weather overlay.
+   */
+  mapOptions?: Partial<maplibregl.MapOptions>;
 }
 
 const SOURCE_ID = "stations";
-const CIRCLE_LAYER_ID = "stations-circles";
+/**
+ * The bottom-most marker layer. Exported so callers can insert their own layers
+ * (e.g. the weather raster overlay) beneath the markers via `addLayer(..., id)`.
+ */
+export const CIRCLE_LAYER_ID = "stations-circles";
 const LABEL_LAYER_ID = "stations-labels";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
 const LABEL_FONT = ["Noto Sans Regular"];
@@ -236,10 +267,15 @@ function toFeatureCollection(
   observers: Feature[] | undefined,
   item: MarkerItem,
   itemId: ParameterType,
-  showMarkersWithoutValue: boolean,
+  mode: PinDisplayMode,
   formatNumber: (value: number) => string
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
   const out: GeoJSON.Feature<GeoJSON.Point>[] = [];
+  if (mode === PinDisplayMode.None) {
+    return { type: "FeatureCollection", features: out };
+  }
+  // Markers without a value (and observers) appear only in "all" mode.
+  const showMarkersWithoutValue = mode === PinDisplayMode.All;
 
   // Stations: colored by the selected parameter, with a wind arrow once the
   // wind speed is meaningful.
@@ -336,18 +372,18 @@ function MapLibreMap({
   observers,
   item,
   itemId,
-  showMarkersWithoutValue = true,
+  pinDisplayModes,
   onMarkerSelected,
-  onInit
+  onInit,
+  mapOptions
 }: Props) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const tooltipRef = useRef<maplibregl.Popup | null>(null);
-  // Whether markers without a value (and observers) are shown. Owned here and
-  // driven by the map's show/hide-pins control; `showMarkersWithoutValue` only
-  // seeds the initial value.
-  const [showMarkers, setShowMarkers] = useState(showMarkersWithoutValue);
+  // The active pin display mode, one of `pinDisplayModes`; the pins control
+  // toggles between the two. The first mode seeds the initial value.
+  const [pinMode, setPinMode] = useState(pinDisplayModes[0]);
   // Latest GeoJSON, so the load handler can seed the source even if the data
   // changes before the style finishes loading.
   const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
@@ -356,14 +392,26 @@ function MapLibreMap({
   });
   // Held in a ref so the layer click handler always calls the latest callback.
   const onMarkerSelectedRef = useRef(onMarkerSelected);
+  // Latest toggle pair, so the once-mounted control switches the current modes.
+  const pinDisplayModesRef = useRef(pinDisplayModes);
   // The once-mounted show/hide-pins control, kept in a ref so a later effect can
-  // refresh its icon/label when `showMarkers` or the locale change.
+  // refresh its icon/label when the displayed state or the locale change.
   const pinsControlRef = useRef<StationPinsControl | null>(null);
   const focusRegions = useStore($focusRegions);
+
+  // The other of the two modes, and whether the active mode shows more pins
+  // than it — used to pick the control's hide (more) vs show (fewer) icon.
+  const otherPinMode =
+    pinDisplayModes[0] === pinMode ? pinDisplayModes[1] : pinDisplayModes[0];
+  const pinsControlShown = PIN_MODE_RANK[pinMode] > PIN_MODE_RANK[otherPinMode];
 
   useEffect(() => {
     onMarkerSelectedRef.current = onMarkerSelected;
   }, [onMarkerSelected]);
+
+  useEffect(() => {
+    pinDisplayModesRef.current = pinDisplayModes;
+  }, [pinDisplayModes]);
 
   // Initialize the map once: basemap, source + layers, the hover tooltip and a
   // ResizeObserver. The data itself is kept in sync by the effect below.
@@ -376,7 +424,8 @@ function MapLibreMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
-      bounds
+      bounds,
+      ...mapOptions
     });
 
     map.addControl(
@@ -430,16 +479,21 @@ function MapLibreMap({
         paint: { "text-color": ["get", "textColor"] }
       });
 
-      // Show/hide-pins control: toggles `showMarkers`, which re-filters the
-      // data. `setShowMarkers` is stable, so the once-mounted control stays
-      // valid; the effect below refreshes its icon/label.
-      const control = new StationPinsControl(() => setShowMarkers(v => !v));
+      // Show/hide-pins control: switches between the two configured modes,
+      // re-filtering the data. The once-mounted control stays valid (reading
+      // the latest modes via ref); the effect below refreshes its label.
+      const control = new StationPinsControl(() =>
+        setPinMode(mode => {
+          const [a, b] = pinDisplayModesRef.current;
+          return mode === a ? b : a;
+        })
+      );
       map.addControl(control, "top-left");
       pinsControlRef.current = control;
       control.update(
-        showMarkers,
+        pinsControlShown,
         intl.formatMessage({
-          id: showMarkers ? "weathermap:hidePins" : "weathermap:showPins"
+          id: pinsControlShown ? "weathermap:hidePins" : "weathermap:showPins"
         })
       );
 
@@ -503,7 +557,7 @@ function MapLibreMap({
       observers,
       item,
       itemId,
-      showMarkers,
+      pinMode,
       value => intl.formatNumber(value)
     );
     dataRef.current = data;
@@ -514,18 +568,18 @@ function MapLibreMap({
       WindUtil.ensureImages(map, data);
       source.setData(data);
     }
-  }, [features, observers, item, itemId, showMarkers, intl]);
+  }, [features, observers, item, itemId, pinMode, intl]);
 
   // Keep the show/hide-pins control's icon and label in sync with the current
   // state and locale (no-op until the control is created in the load handler).
   useEffect(() => {
     pinsControlRef.current?.update(
-      showMarkers,
+      pinsControlShown,
       intl.formatMessage({
-        id: showMarkers ? "weathermap:hidePins" : "weathermap:showPins"
+        id: pinsControlShown ? "weathermap:hidePins" : "weathermap:showPins"
       })
     );
-  }, [showMarkers, intl]);
+  }, [pinsControlShown, intl]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }

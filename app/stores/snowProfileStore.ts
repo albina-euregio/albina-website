@@ -1,4 +1,3 @@
-import type { LatLngExpression } from "leaflet";
 import { fetchJSON } from "../util/fetch";
 
 export interface SnowProfile {
@@ -6,7 +5,7 @@ export interface SnowProfile {
   $color: string;
   $img: string;
   $url: never;
-  $latlng: LatLngExpression;
+  $latlng: [number, number];
   $tooltip: string;
   id: number;
   href: string;

@@ -1,4 +1,3 @@
-import type { LatLngExpression } from "leaflet";
 import { currentSeasonYear } from "../util/date-season";
 import { fetchJSON } from "../util/fetch";
 
@@ -7,7 +6,7 @@ export interface Incident {
   $color: string;
   $img: never;
   $url: string;
-  $latlng: LatLngExpression;
+  $latlng: [number, number];
   $tooltip: string;
   id: number;
   href: string;
