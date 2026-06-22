@@ -805,7 +805,7 @@ function MapLibreMap({
       // Region interaction, migrated from the former Leaflet PbfLayerOverlay
       // event handlers: select on click (empty space deselects), track hover.
       overlay.on("click", e => {
-        const [feature] = base.queryRenderedFeatures(e.point, {
+        const [feature] = overlay.queryRenderedFeatures(e.point, {
           layers: ["eaws-regions-fill"]
         });
         const id = feature?.properties?.id ?? "";
