@@ -92,6 +92,9 @@ $search-width-wide: 300px;
 
   .section-weather-map & {
     height: 100%;
+    // Establish a stacking context so the MapLibre canvas and its hover tooltip
+    // stay below the fixed filter bar.
+    z-index: 0;
     @include mixins.rollout;
   }
 }
@@ -1165,3 +1168,17 @@ a.weather-map-details-button {
   }
 }
 //...to here
+
+.maplibre-station-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.25em 0.5em;
+  }
+}
+
+// Rotate the attribution so it runs vertically up the right edge,
+// anchored at the bottom-right corner and reading bottom-to-top.
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+  white-space: nowrap;
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(100%);
+}
