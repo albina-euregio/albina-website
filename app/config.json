@@ -390,21 +390,20 @@
     }
   },
   "apis": {
-    "baseUrl": "https://api.avalanche.report",
+    "baseUrl": "https://avalanche.report",
     "bulletin": {
-      "simple": "https://static.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
+      "simple": "https://avalanche.report/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
       "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "/albina/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
-      "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
-      "jsonPublicationDate": "https://static.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://static.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "https://static.avalanche.report/bulletins/archive/"
+      "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "https://avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "https://avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "https://avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "https://avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "https://avalanche.report/bulletins/archive/"
     },
-    "push": "/albina/api/push",
-    "subscribe": "/albina/api/email",
-    "blogger": "/blog/",
+    "push": "/api/push",
+    "subscribe": "/api/email",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
