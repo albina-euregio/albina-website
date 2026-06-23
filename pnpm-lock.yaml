@@ -19,8 +19,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.24.3
-        version: 8.24.3(zod@4.3.6)
+        specifier: ^8.24.4
+        version: 8.24.4(zod@4.3.6)
       '@eaws/micro-regions_elevation_properties':
         specifier: ^8.4.0
         version: 8.4.0
@@ -136,8 +136,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.24.3':
-    resolution: {integrity: sha1-peZ1a+H10FYL7Uk2Ca2GbDJyWyM=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.24.3.tgz}
+  '@albina-euregio/linea@8.24.4':
+    resolution: {integrity: sha1-5TXkoMUqZWDse6lmBtG9iigobRU=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.24.4.tgz}
     peerDependencies:
       zod: ^4.3.0
 
@@ -1236,8 +1236,17 @@ packages:
   temporal-polyfill@0.3.0:
     resolution: {integrity: sha512-qNsTkX9K8hi+FHDfHmf22e/OGuXmfBm9RqNismxBrnSmZVJKegQ+HYYXT+R7Ha8F/YSm2Y34vmzD4cxMu2u95g==}
 
+  temporal-polyfill@1.0.1:
+    resolution: {integrity: sha512-N2SoI9olnW7BUsU8RosDphZQl9s+WJ8O7PoJMFCr/e5/1rFkVI4GNOWaSeySG+UoP04foPYsnLWbJmbXOiShZg==}
+
   temporal-spec@0.3.0:
     resolution: {integrity: sha512-n+noVpIqz4hYgFSMOSiINNOUOMFtV5cZQNCmmszA6GiVFVRt3G7AqVyhXjhCSmowvQn+NsGn+jMDMKJYHd3bSQ==}
+
+  temporal-spec@1.0.0:
+    resolution: {integrity: sha512-00Ahj1e1ifaERTMOIIGpOCdOo9IEk2m6GGSMedsn9a2SIsGLdOTbmME1Htv6IM82b6VHrzSUTIVc7YHy6hdhFQ==}
+
+  temporal-utils@1.0.1:
+    resolution: {integrity: sha512-HAixuesxFQIUaQk3ptX2jhfO/FsOkgVkDDMawvp6n/fkB1q6BKfs3lURw9I+pK/2e2e/q/vrLrxmeqauBoyGMQ==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -1314,10 +1323,10 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.24.3(zod@4.3.6)':
+  '@albina-euregio/linea@8.24.4(zod@4.3.6)':
     dependencies:
       air-datepicker: 3.6.0
-      temporal-polyfill: 0.3.0
+      temporal-polyfill: 1.0.1
       uplot: 1.6.32
       zod: 4.3.6
 
@@ -2100,7 +2109,16 @@ snapshots:
     dependencies:
       temporal-spec: 0.3.0
 
+  temporal-polyfill@1.0.1:
+    dependencies:
+      temporal-spec: 1.0.0
+      temporal-utils: 1.0.1
+
   temporal-spec@0.3.0: {}
+
+  temporal-spec@1.0.0: {}
+
+  temporal-utils@1.0.1: {}
 
   tinybench@2.9.0: {}
 
