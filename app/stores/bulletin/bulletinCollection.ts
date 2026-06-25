@@ -19,7 +19,6 @@ import {
   getWarnlevelNumber,
   WarnLevelNumber
 } from "../../util/warn-levels";
-import { atom } from "nanostores";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -35,10 +34,6 @@ export type EawsAvalancheProblems = Record<
   RegionLowHighAmPm,
   AvalancheProblemType[]
 >;
-
-export const isOneDangerRating = atom(
-  new URL(document.location.href).searchParams.get("one-danger-rating") === "1"
-);
 
 export function getMaxMainValue(
   dangerRatings: DangerRating[] | DangerRatingValue[] = []
@@ -358,9 +353,7 @@ class BulletinCollection {
   }
 
   private upgradeLegacyCAAML(b: Bulletin) {
-    if (isOneDangerRating.get()) {
-      b.dangerRatings?.forEach(b => (b.elevation = undefined));
-    }
+    b.dangerRatings?.forEach(b => (b.elevation = undefined));
     b.avalancheProblems?.forEach(p => {
       if (p.problemType === ("wind_drifted_snow" as string)) {
         p.problemType = "wind_slab" as AvalancheProblemType;
@@ -374,14 +367,10 @@ class BulletinCollection {
         (b.regions ?? []).flatMap(({ regionID }) =>
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
             validTimePeriod => [
-              ...[
-                isOneDangerRating.get()
-                  ? ([
-                      `${regionID}${toAmPm[validTimePeriod]}`,
-                      this.mainValue(regionID, validTimePeriod, b, undefined)
-                    ] satisfies [RegionLowHighAmPm, DangerRatingValue])
-                  : []
-              ],
+              [
+                `${regionID}${toAmPm[validTimePeriod]}`,
+                this.mainValue(regionID, validTimePeriod, b, undefined)
+              ] satisfies [RegionLowHighAmPm, DangerRatingValue],
               ...(["low", "high"] as const).map(
                 elevation =>
                   [
