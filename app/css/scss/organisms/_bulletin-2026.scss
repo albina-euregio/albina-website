@@ -16,8 +16,119 @@
     #BULLETIN 2026
 \*------------------------------------*/
 
+$bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
+
 [data-bulletin-version="2026"] {
-  .funky-example {
-    color: funky;
+  .bulletin-map-cta {
+    position: absolute;
+    top: variables.$padding;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: (variables.$padding * 0.5) (variables.$padding);
+    @media #{variables.breakpoint-up(medium)} {
+      top: variables.$padding * 2;
+    }
+
+    display: flex;
+    align-items: center;
+    gap: variables.$padding;
+
+    color: variables.$white;
+    background-color: variables.$brand;
+    @include mixins.box-shadow(0.15);
+    opacity: 1;
+    @include mixins.rollout();
+
+    [class^="icon-"] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &:before {
+        margin: -(variables.$padding);
+      }
+    }
+  }
+
+  .section-bulletin-linkbar {
+    .linkbar .list-buttongroup {
+      justify-content: flex-end;
+    }
+  }
+
+  .section-bulletin-report {
+    .panel {
+      padding: 0 variables.$all-h-padding variables.$all-v-padding
+        variables.$all-h-padding;
+    }
+  }
+
+  .bulletin-report-header {
+    padding-top: variables.$all-h-padding;
+    margin-bottom: 0;
+    gap: variables.$padding * 0.5;
+    flex-wrap: wrap;
+    @media #{variables.breakpoint-up(tiny)} {
+      flex-direction: column;
+      justify-content: initial;
+    }
+    @media #{$bulletin-report-header-breakpoint} {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .bulletin-report-header-details {
+    order: 2;
+    @media #{$bulletin-report-header-breakpoint} {
+      order: 1;
+    }
+
+    display: flex;
+    gap: 0 (variables.$padding * 2);
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    font-size: variables.$micro-font-size;
+
+    .text-icon {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      flex-wrap: nowrap;
+      line-height: 1;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 0 0 -0.25em;
+      }
+    }
+  }
+
+  .bulletin-datetime-update {
+    color: variables.$warning-color;
+  }
+
+  .bulletin-report-header-danger-level {
+    order: 3;
+    @media #{$bulletin-report-header-breakpoint} {
+      order: 2;
+    }
+  }
+
+  .bulletin-report-header-buttons {
+    order: 1;
+    @media #{$bulletin-report-header-breakpoint} {
+      order: 3;
+    }
+  }
+
+  .bulletin-report-pictobar {
+    margin-top: variables.$margin-bottom;
   }
 }

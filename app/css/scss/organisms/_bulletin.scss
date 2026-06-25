@@ -193,6 +193,192 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   }
 }
 
+//details in floating tooltipp box
+.bulletin-map-details {
+  position: absolute;
+  top: variables.$padding * 8;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: variables.$padding;
+
+  font-size: variables.$tiny-font-size;
+  background-color: rgba(variables.$white, 0.95);
+  @include mixins.box-shadow(0.15);
+  opacity: 0;
+  @include mixins.rollout();
+
+  &.js-active {
+    opacity: 1;
+  }
+
+  &.top-left {
+    top: variables.$padding * 8;
+    left: variables.$padding;
+    transform: translateX(0);
+  }
+  &.top-right {
+    top: variables.$padding;
+    left: calc(100% - #{variables.$padding});
+    transform: translateX(-100%);
+    @media #{variables.breakpoint-up(medium)} {
+      top: variables.$padding * 2;
+      left: calc(100% - #{variables.$padding * 2});
+    }
+  }
+  &.bottom-right {
+    top: calc(100% - #{variables.$padding});
+    left: calc(100% - #{variables.$padding});
+    transform: translate(-100%, -100%);
+  }
+  &.bottom-left {
+    top: calc(100% - #{variables.$padding});
+    transform: translateY(-100%);
+    left: variables.$padding;
+  }
+
+  strong {
+    @include mixins.font-heavy;
+    @include mixins.letter-spacing;
+  }
+
+  .bulletin-map-details-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+
+    width: variables.$padding * 2;
+    height: variables.$padding * 2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    @include mixins.rollout;
+
+    &:before {
+      margin-right: 0;
+      font-size: 1.25em;
+    }
+
+    &:hover {
+      color: variables.$brand-dark;
+      background: transparent;
+      border-color: transparent;
+      @include mixins.rollover;
+    }
+  }
+
+  //content
+  .bulletin-map-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+    padding: (variables.$padding * 1.5) (variables.$padding * 2) 0
+      (variables.$padding * 2);
+  }
+  .bulletin-report-region-name {
+    display: flex;
+    gap: variables.$padding * 0.25;
+    align-items: flex-start;
+    margin: 0;
+    font-size: variables.$tiny-font-size;
+    [class*="icon"] {
+      margin: (-(variables.$padding * 0.25)) (-(variables.$padding * 0.5)) 0
+        (-(variables.$padding));
+      &:before {
+        margin: 0;
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    li {
+      display: flex;
+      align-self: flex-start;
+      margin-right: variables.$padding * 2;
+      &:last-child {
+        margin-right: 0;
+      }
+      img {
+        max-width: none; //<- why?
+        box-sizing: content-box;
+      }
+    }
+  }
+
+  .bulletin-report-public-alert {
+    margin: 0;
+    font-size: variables.$tiny-font-size;
+    [class*="icon"] {
+      font-size: variables.$tiny-font-size;
+      margin: (-(variables.$padding * 0.25)) (-(variables.$padding * 0.5)) 0
+        (-(variables.$padding));
+      &:before {
+        font-size: 2em;
+      }
+    }
+
+    @include mixins.font-normal;
+    @include mixins.letter-spacing(0);
+  }
+
+  .bulletin-report-no-bulletin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: variables.$padding * 0.5;
+    margin: 0;
+    font-size: variables.$tiny-font-size;
+    img {
+      height: media.$picto-height-plus;
+      margin: 0;
+    }
+  }
+
+  //links
+  .bulletin-map-details-buttons {
+    a {
+      display: block;
+      padding: 0 (variables.$padding * 2) variables.$padding
+        (variables.$padding * 2);
+      font-size: variables.$tiny-font-size;
+      color: variables.$anchor-font-color;
+      background: transparent;
+      border: none;
+      span {
+        @include mixins.font-normal;
+        @include mixins.letter-spacing(0);
+        text-transform: none;
+        &:before {
+          position: relative;
+          top: 0.15em;
+          margin: 0;
+        }
+      }
+      &:hover {
+        color: variables.$white;
+        background: variables.$anchor-font-color;
+        border: none;
+      }
+      &.is-de-highlighted {
+        color: variables.$grey;
+        &:hover {
+          color: variables.$white;
+        }
+      }
+    }
+  }
+}
+
 .bulletin-list {
   margin: 0;
   .bulletin-list-item {
@@ -598,7 +784,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
 
 .bulletin-report-public-alert {
   display: flex;
-  justify-content: flex-start;
+  gap: variables.$padding * 0.25;
   align-items: flex-start;
 
   @include mixins.font-bold;

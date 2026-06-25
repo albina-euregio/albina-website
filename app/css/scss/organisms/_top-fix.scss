@@ -12,21 +12,45 @@
 
 .top-fix {
   border-bottom-width: variables.$border-width;
+  @include mixins.rollout(top, variables.$transition-duration, $ease: ease-out);
+
   .js-top-fix & {
     z-index: 300;
     position: fixed;
-    width: 100%;
-    background-color: rgba(variables.$white, 0.95);
-    border-bottom: variables.$border-width variables.$border-style
-      variables.$brand-very-light;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: variables.$line-length;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: variables.$all-h-padding;
+    padding-right: variables.$all-h-padding;
+    // background-color: variables.$white;
+    // border-bottom: variables.$border-width variables.$border-style variables.$brand-very-light;
+    &:before {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: variables.$bar-width;
+      @media #{variables.breakpoint-up(medium)} {
+        left: 0;
+      }
+      right: 0;
+      background-color: variables.$white;
+      border-bottom: variables.$border-width variables.$border-style
+        variables.$brand-very-light;
+    }
     //if linkbar decrease padding
     &.section-linkbar {
       padding-top: variables.$padding;
       padding-bottom: variables.$padding;
     }
   }
-  //next sibling
-  + section {
-    @include mixins.rollout(all, 0s);
-  }
+}
+
+.top-fix-placeholder {
+  display: block;
+  height: 0;
 }
