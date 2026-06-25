@@ -30,6 +30,7 @@ const TRANSPARENT_STYLE: maplibregl.StyleSpecification = {
 
 const fill = { position: "absolute", inset: 0 } as const;
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class WindUtil {
   static readonly SOURCE_ID = "weather-wind-direction";
   static readonly LAYER_ID = "weather-wind-direction";
