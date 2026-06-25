@@ -136,12 +136,12 @@ body {
   }
 }
 
-@media #{variables.breakpoint-up(xxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
-  html,
-  body {
-    font-size: variables.$body-font-size-xxxlarge;
-  }
-}
+// @media #{variables.breakpoint-up(xxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
+//   html,
+//   body {
+//     font-size: variables.$body-font-size-xxxlarge;
+//   }
+// }
 
 // @media #{variables.breakpoint-up(xxxxlarge)} and (min-height:#{variables.breakpoint-min(large)}) {
 //   html,

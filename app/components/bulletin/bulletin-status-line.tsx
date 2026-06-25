@@ -38,6 +38,27 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
 
   return (
     <p className="marginal">
+      {bulletin?.validTime?.startTime && bulletin?.validTime?.endTime && (
+        <span className="text-icon bulletin-datetime-validity">
+          <span className="icon icon-validity"></span>
+          <span className="text">
+            {intl.formatMessage(
+              { id: "bulletin:header:validity-time" },
+              {
+                start: intl.formatDate(
+                  bulletin?.validTime?.startTime,
+                  DATE_TIME_FORMAT_SHORT
+                ),
+                end: intl.formatDate(
+                  bulletin?.validTime?.endTime,
+                  DATE_TIME_FORMAT_SHORT
+                )
+              }
+            )}
+          </span>
+        </span>
+      )}
+
       {publicationTimes0 && (
         <span className="text-icon bulletin-datetime-release">
           <span className="icon icon-release"></span>
@@ -66,27 +87,6 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
                 time: intl.formatDate(publicationTimes1, {
                   timeStyle: "short"
                 })
-              }
-            )}
-          </span>
-        </span>
-      )}
-
-      {bulletin?.validTime?.startTime && bulletin?.validTime?.endTime && (
-        <span className="text-icon bulletin-datetime-validity">
-          <span className="icon icon-validity"></span>
-          <span className="text">
-            {intl.formatMessage(
-              { id: "bulletin:header:validity-time" },
-              {
-                start: intl.formatDate(
-                  bulletin?.validTime?.startTime,
-                  DATE_TIME_FORMAT_SHORT
-                ),
-                end: intl.formatDate(
-                  bulletin?.validTime?.endTime,
-                  DATE_TIME_FORMAT_SHORT
-                )
               }
             )}
           </span>
