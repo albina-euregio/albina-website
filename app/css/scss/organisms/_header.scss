@@ -29,15 +29,17 @@
 
     .text-icon {
       display: flex;
-      gap: 0;
+      gap: 0 (variables.$padding * 0.5);
       align-items: center;
+      flex-wrap: nowrap;
+      line-height: 1;
     }
     .icon {
       display: flex;
       align-items: center;
       max-height: 1.5em;
       &:before {
-        margin: 0 0 0 -0.25em;
+        margin: 0 -0.25em;
       }
     }
   }
