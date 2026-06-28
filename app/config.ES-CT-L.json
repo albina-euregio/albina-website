@@ -300,20 +300,20 @@
       "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
       "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
       "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-    },
-    "stations": [
-      {
-        "smet": "",
-        "smetOperators": "$^",
-        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": ".*",
-        "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
-        "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
-        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
-        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-      }
-    ]
+    }
   },
+  "stations": [
+    {
+      "smet": "",
+      "smetOperators": "$^",
+      "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "pngOperators": ".*",
+      "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
+      "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+    }
+  ],
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
     "google": "AIzaSyCFRRKGXXxLMk4Iup6NPxQDFwudAw973dE"

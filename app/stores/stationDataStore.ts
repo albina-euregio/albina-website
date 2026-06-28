@@ -366,7 +366,7 @@ export async function _loadStationData({
   const json = await fetchJSON(url);
   const collection = await FeatureCollectionSchema.parseAsync(json);
 
-  const all = window.config.apis.stations.map(
+  const all = window.config.stations.map(
     ({
       dataProviderID,
       smetOperators,

@@ -407,115 +407,115 @@
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
-    },
-    "stations": [
-      {
-        "dataProviderID": "ALBINA",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU|GeoSphere Austria",
-        "licenseCCBY": "LWD Tirol",
-        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
-        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
-        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-      },
-      {
-        "dataProviderID": "AT-02",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "LWD Kärnten"
-      },
-      {
-        "dataProviderID": "IT-36",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "ARPA FVG"
-      },
-      {
-        "dataProviderID": "AT-05",
-        "smetOperators": "",
-        "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
-        "pngOperators": "LWD Salzburg.*",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "OEBB",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "AT-06",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-03",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-04",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-08",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "DE-BY",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "SI",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "SLF",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "IT-34",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      }
-    ]
+    }
   },
+  "stations": [
+    {
+      "dataProviderID": "ALBINA",
+      "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU|GeoSphere Austria",
+      "licenseCCBY": "LWD Tirol",
+      "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+    },
+    {
+      "dataProviderID": "AT-02",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "LWD Kärnten"
+    },
+    {
+      "dataProviderID": "IT-36",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "ARPA FVG"
+    },
+    {
+      "dataProviderID": "AT-05",
+      "smetOperators": "",
+      "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
+      "pngOperators": "LWD Salzburg.*",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "OEBB",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "AT-06",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-03",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-04",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-08",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "DE-BY",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "SI",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "SLF",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "IT-34",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    }
+  ],
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
     "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
