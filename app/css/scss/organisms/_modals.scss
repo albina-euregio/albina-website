@@ -64,6 +64,8 @@ $mfp-caption-subtitle-color: variables.$white; //Caption subtitle color
 // A11y
 $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
 
+@import "../../../node_modules/magnific-popup/src/css/main";
+
 // based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#transitioning_dialog_elements
 dialog[open] {
   opacity: 1;
@@ -101,7 +103,9 @@ dialog[open]::backdrop {
   }
 }
 
-.mfp-content {
+.mfp-inline-holder .mfp-content,
+.mfp-ajax-holder .mfp-content,
+.mfp-iframe-holder .mfp-content {
   position: fixed;
   top: 0 !important;
   bottom: 0 !important;
