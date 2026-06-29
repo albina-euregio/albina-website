@@ -76,6 +76,11 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       flex-direction: row;
       justify-content: space-between;
     }
+
+    & + :not(.top-fix-placeholder),
+    & + .top-fix-placeholder + * {
+      margin-top: variables.$margin-bottom;
+    }
   }
 
   .bulletin-report-header-details {
@@ -128,7 +133,46 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     }
   }
 
+  .bulletin-report-recommendation {
+    margin-bottom: variables.$margin-bottom;
+    &.is-recommendation {
+      position: relative;
+      left: variables.$bar-width;
+      @media #{variables.breakpoint-up(medium)} {
+        left: 0;
+      }
+      margin-left: -(variables.$all-h-padding);
+      margin-right: -(variables.$all-h-padding);
+      padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
+      background-color: variables.$grey-very-very-light;
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+
+    .bulletin-report-public-alert {
+      margin: 0;
+      gap: 0 variables.$padding;
+
+      .bulletin-report-public-alert-text {
+        font-size: variables.$xlarge-font-size;
+        @include mixins.font-normal;
+      }
+    }
+    &.is-alert {
+      .bulletin-report-public-alert {
+        .bulletin-report-public-alert-text {
+          color: variables.$warning-color;
+        }
+      }
+    }
+
+    .list-bulletin-report-recommendation {
+      margin: 0;
+    }
+  }
+
   .bulletin-report-pictobar {
-    margin-top: variables.$margin-bottom;
   }
 }

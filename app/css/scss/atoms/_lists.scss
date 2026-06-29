@@ -30,6 +30,30 @@ ol {
     list-style-type: square;
   }
 
+  &.okay {
+    list-style: none;
+    margin-left: 0;
+
+    li {
+      position: relative;
+      padding-left: variables.$list-side-padding * 4;
+
+      &:before {
+        content: "\e805";
+        font-family: "Fontello";
+        font-size: variables.$xlarge-font-size;
+        position: absolute;
+        left: 0;
+        top: 0;
+        // width: 2em;
+        // height: 2em;
+        margin: 0 -0.25em;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
   &.list-plain {
     @include mixins.list-plain;
   }
