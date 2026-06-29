@@ -54,6 +54,7 @@
   &[class*="warning-level"] {
     border-left: none;
     &:before {
+      z-index: 10;
       display: block;
       content: "";
       position: absolute;

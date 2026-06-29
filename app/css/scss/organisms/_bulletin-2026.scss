@@ -67,13 +67,16 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   }
 
   .bulletin-report-header {
-    padding-top: variables.$all-h-padding;
+    padding: variables.$all-h-padding 0 (variables.$all-h-padding * 0.5) 0;
     margin-bottom: 0;
     gap: variables.$padding * 0.5;
     flex-wrap: wrap;
     @media #{variables.breakpoint-up(tiny)} {
       flex-direction: column;
       justify-content: initial;
+    }
+    @media #{variables.breakpoint-up(small)} {
+      padding: variables.$all-h-padding 0;
     }
     @media #{$bulletin-report-header-breakpoint} {
       flex-direction: row;
@@ -85,6 +88,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     //   margin-top: variables.$margin-bottom;
     // }
   }
+
   .bulletin-report-header-details {
     order: 2;
     @media #{$bulletin-report-header-breakpoint} {
@@ -146,17 +150,17 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     margin: 0;
     &.is-recommendation {
       position: relative;
-      left: variables.$bar-width;
-      margin-left: -(variables.$all-h-padding);
-      margin-right: -(variables.$all-h-padding);
-      padding: (variables.$all-v-padding * 0.5)
-        (variables.$all-h-padding * 1.25) (variables.$all-v-padding * 0.5)
-        (variables.$all-h-padding * 0.75);
-      @media #{variables.breakpoint-up(medium)} {
-        left: 0;
-        padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
+      padding: (variables.$all-v-padding * 0.5) 0;
+      &:before {
+        z-index: 0;
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -(variables.$all-h-padding);
+        right: -(variables.$all-h-padding);
+        background-color: variables.$grey-very-very-light;
       }
-      background-color: variables.$grey-very-very-light;
     }
 
     display: flex;
@@ -164,19 +168,17 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     gap: variables.$padding;
 
     .bulletin-report-public-alert {
+      z-index: 1;
       margin: 0;
       gap: 0 variables.$padding;
-
-      .bulletin-report-public-alert-text {
-        font-size: variables.$xlarge-font-size;
-        @include mixins.font-normal;
-      }
+    }
+    .bulletin-report-public-alert-text {
+      font-size: variables.$xlarge-font-size;
+      @include mixins.font-normal;
     }
     &.is-alert {
-      .bulletin-report-public-alert {
-        .bulletin-report-public-alert-text {
-          color: variables.$warning-color;
-        }
+      .bulletin-report-public-alert-text {
+        color: variables.$warning-color;
       }
     }
   }
@@ -373,6 +375,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     .bulletin-report-gallery-item {
       flex: 0 0 calc((100% - #{variables.$padding * 2}) / 2.5);
       scroll-snap-align: start;
+      @media #{variables.breakpoint-up(medium)} {
+        flex: 0 0 calc((100% - #{variables.$padding * 6}) / 3.5);
+      }
     }
 
     .bulletin-report-picture-card {
