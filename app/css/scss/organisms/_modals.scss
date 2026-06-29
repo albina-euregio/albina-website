@@ -161,9 +161,8 @@ dialog[open]::backdrop {
 button.modal-close-btn,
 button.mfp-close,
 button.mfp-arrow {
-  //from alien app.scss
   cursor: pointer;
-  z-index: 42;
+  z-index: $mfp-z-index-base + 100;
 
   @include mixins.ir;
   position: fixed !important;
@@ -244,6 +243,14 @@ button.mfp-arrow {
     &:hover {
       cursor: e-resize;
     }
+  }
+}
+
+.mfp-bottom-bar {
+  position: relative;
+  padding: variables.$padding;
+  .mfp-counter {
+    position: relative;
   }
 }
 
