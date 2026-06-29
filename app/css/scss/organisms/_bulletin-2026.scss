@@ -109,6 +109,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       display: flex;
       align-items: center;
       max-height: 1.5em;
+      font-size: variables.$tiny-font-size;
       &:before {
         margin: 0 -0.25em;
       }
@@ -177,20 +178,53 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   }
 
   .bulletin-report-pictobar {
-    @media #{variables.breakpoint-up(normal)} {
-      display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: variables.$padding;
+    h2,
+    p {
+      margin: 0;
+    }
+    .tooltip-trigger {
+      cursor: pointer;
+      line-height: 1;
+      font-size: variables.$tiny-font-size;
+      color: variables.$brand;
+      &:before {
+        margin: 0;
+      }
     }
   }
 
   .list-bulletin-report-pictos {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
     flex-grow: initial;
+    gap: variables.$padding * 2;
+
     li {
       border-top: none;
-      gap: variables.$padding;
+      gap: variables.$padding * 2;
       align-items: stretch;
-      @media #{variables.breakpoint-up(normal)} {
-        gap: variables.$padding * 2;
+
+      &[class*="warning-level"] {
+        padding-left: variables.$padding * 2;
+        border-left: variables.$bar-width solid transparent;
+        @media #{variables.breakpoint-up(normal)} {
+          border-left-width: variables.$bar-width * 2;
+        }
       }
+      @for $level from 1 through variables.$warning-level-count {
+        &.warning-level-#{$level} {
+          border-left-color: variables.warning-level-color($level);
+          .bulletin-report-picto.warning-level {
+            color: variables.warning-level-color($level);
+          }
+        }
+      }
+
       &:first-child {
         > div:first-child {
           padding-right: 0;
@@ -214,27 +248,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   .bulletin-report-picto {
     align-content: center;
 
-    &[class*="warning-level"] {
-      border-left: 0.5em solid transparent;
-
-      p {
-        margin: 0 0 0 variables.$padding;
-        @media #{variables.breakpoint-up(normal)} {
-          margin: 0 0 0 (variables.$padding * 2);
-        }
-        font-size: variables.$xlarge-font-size;
-        @include mixins.font-heavy;
-      }
-
-      @for $level from 1 through variables.$warning-level-count {
-        &.warning-level-#{$level} {
-          border-left-color: variables.warning-level-color($level);
-
-          p {
-            color: variables.warning-level-color($level);
-          }
-        }
-      }
+    &.warning-level {
+      font-size: variables.$xlarge-font-size;
+      @include mixins.font-heavy;
     }
 
     &.problem-altitude {
@@ -259,15 +275,48 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       }
     }
 
-    &.matrix-info-container {
+    &.problem-matrix {
       display: flex;
       align-items: center;
       gap: 0 (variables.$padding * 0.5);
-      .matrix-information {
+      span {
+        margin: 0;
+      }
+
+      .matrix-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25em 0;
         @include mixins.font-normal;
         @include mixins.letter-spacing(0);
+        font-size: variables.$tiny-font-size;
+        line-height: 1;
+        &.is-open {
+          .matrix-avalanche-type {
+            [class*="icon-"] {
+              rotate: 180deg;
+            }
+          }
+          .matrix-information {
+            display: flex;
+          }
+        }
       }
-      .matrix-info {
+      .matrix-avalanche-type {
+        @include mixins.font-bold;
+        [class*="icon-"] {
+          cursor: pointer;
+          margin: -0.5em -0.25em;
+          color: variables.$brand;
+          &:before {
+            margin-right: 0;
+          }
+        }
+      }
+      .matrix-information {
+        display: none;
+        flex-direction: column;
+        gap: 0.25em 0;
       }
     }
   }
