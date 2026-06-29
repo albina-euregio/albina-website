@@ -138,12 +138,15 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     &.is-recommendation {
       position: relative;
       left: variables.$bar-width;
-      @media #{variables.breakpoint-up(medium)} {
-        left: 0;
-      }
       margin-left: -(variables.$all-h-padding);
       margin-right: -(variables.$all-h-padding);
-      padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
+      padding: (variables.$all-v-padding * 0.5)
+        (variables.$all-h-padding * 1.25) (variables.$all-v-padding * 0.5)
+        (variables.$all-h-padding * 0.75);
+      @media #{variables.breakpoint-up(medium)} {
+        left: 0;
+        padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
+      }
       background-color: variables.$grey-very-very-light;
     }
 
@@ -174,5 +177,109 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   }
 
   .bulletin-report-pictobar {
+    @media #{variables.breakpoint-up(normal)} {
+      display: block;
+    }
+  }
+
+  .list-bulletin-report-pictos {
+    flex-grow: initial;
+    li {
+      border-top: none;
+      gap: variables.$padding;
+      align-items: stretch;
+      @media #{variables.breakpoint-up(normal)} {
+        gap: variables.$padding * 2;
+      }
+      &:first-child {
+        > div:first-child {
+          padding-right: 0;
+          border-right: none;
+          @media #{variables.breakpoint-up(tiny)} {
+            padding-right: 0;
+          }
+        }
+      }
+      > div {
+        position: relative;
+        margin-right: 0;
+        padding: 0;
+        @media #{variables.breakpoint-up(tiny)} {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .bulletin-report-picto {
+    align-content: center;
+
+    &[class*="warning-level"] {
+      border-left: 0.5em solid transparent;
+
+      p {
+        margin: 0 0 0 variables.$padding;
+        @media #{variables.breakpoint-up(normal)} {
+          margin: 0 0 0 (variables.$padding * 2);
+        }
+        font-size: variables.$xlarge-font-size;
+        @include mixins.font-heavy;
+      }
+
+      @for $level from 1 through variables.$warning-level-count {
+        &.warning-level-#{$level} {
+          border-left-color: variables.warning-level-color($level);
+
+          p {
+            color: variables.warning-level-color($level);
+          }
+        }
+      }
+    }
+
+    &.problem-altitude {
+      span {
+        &:before {
+          color: variables.$text-color;
+        }
+        i {
+          &:before {
+            color: variables.$text-color;
+          }
+        }
+      }
+      &.problem-middle {
+        span {
+          i {
+            &:before {
+              top: 0.7em;
+            }
+          }
+        }
+      }
+    }
+
+    &.matrix-info-container {
+      display: flex;
+      align-items: center;
+      gap: 0 (variables.$padding * 0.5);
+      .matrix-information {
+        @include mixins.font-normal;
+        @include mixins.letter-spacing(0);
+      }
+      .matrix-info {
+      }
+    }
+  }
+
+  .bulletin-report-text {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+    h2,
+    p {
+      margin: 0;
+    }
   }
 }
