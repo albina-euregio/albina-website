@@ -76,10 +76,18 @@
 .section-bulletin-header {
   padding-top: (variables.$medium-v-padding * 0.5) !important;
   .marginal {
-    align-items: flex-end;
+    // align-items: flex-end;
+    @media #{variables.breakpoint-up(normal)} {
+      align-items: flex-end;
+      position: absolute;
+      top: 0;
+      right: 0;
+      max-width: 50%;
+      text-align: right;
+      align-items: end;
+    }
   }
   @media #{variables.breakpoint-up(medium)} {
-    padding-top: (variables.$medium-v-padding * 0.5) !important;
     padding-bottom: (variables.$medium-v-padding * 0.5) !important;
   }
 

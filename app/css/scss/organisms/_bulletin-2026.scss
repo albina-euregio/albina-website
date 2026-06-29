@@ -63,6 +63,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       display: flex;
       flex-direction: column;
       gap: variables.$margin-bottom;
+      > *:nth-child(2) {
+        margin-top: -(variables.$all-v-padding);
+      }
     }
 
     .text-icon {
@@ -81,19 +84,28 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         }
       }
     }
+
+    .tooltip-trigger {
+      cursor: pointer;
+      position: relative;
+      top: -0.5em;
+      line-height: 1;
+      font-size: variables.$tiny-font-size;
+      color: variables.$brand;
+      &:before {
+        margin: 0;
+      }
+    }
   }
 
   .bulletin-report-header {
-    padding: variables.$all-h-padding 0 (variables.$all-h-padding * 0.5) 0;
+    padding: variables.$all-h-padding 0;
     margin-bottom: 0;
     gap: variables.$padding * 0.5;
     flex-wrap: wrap;
     @media #{variables.breakpoint-up(tiny)} {
       flex-direction: column;
       justify-content: initial;
-    }
-    @media #{variables.breakpoint-up(small)} {
-      padding: variables.$all-h-padding 0;
     }
     @media #{$bulletin-report-header-breakpoint} {
       flex-direction: row;
@@ -195,15 +207,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     h2,
     p {
       margin: 0;
-    }
-    .tooltip-trigger {
-      cursor: pointer;
-      line-height: 1;
-      font-size: variables.$tiny-font-size;
-      color: variables.$brand;
-      &:before {
-        margin: 0;
-      }
     }
   }
 
@@ -480,6 +483,18 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
           padding-top: variables.$margin-bottom;
           border-top: variables.$border-width solid variables.$grey-very-light;
         }
+      }
+    }
+
+    .tooltip-trigger {
+      cursor: pointer;
+      position: relative;
+      top: -0.5em;
+      line-height: 1;
+      font-size: variables.$tiny-font-size;
+      color: variables.$brand;
+      &:before {
+        margin: 0;
       }
     }
   }
