@@ -48,6 +48,8 @@
   }
 
   &.brand,
+  &.secondary,
+  &.secondary-light,
   &.success,
   &.error,
   &.warning,
@@ -76,6 +78,16 @@
   &.brand {
     &:before {
       background-color: variables.$brand;
+    }
+  }
+  &.secondary {
+    &:before {
+      background-color: variables.$secondary-color;
+    }
+  }
+  &.secondary-light {
+    &:before {
+      background-color: variables.$grey-light;
     }
   }
   &.success {

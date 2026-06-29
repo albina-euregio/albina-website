@@ -83,6 +83,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
           margin: 0 -0.25em;
         }
       }
+      .text {
+        @include mixins.letter-spacing;
+      }
     }
 
     .tooltip-trigger {
@@ -111,11 +114,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       flex-direction: row;
       justify-content: space-between;
     }
-
-    // & + :not(.top-fix-placeholder),
-    // & + .top-fix-placeholder + * {
-    //   margin-top: variables.$margin-bottom;
-    // }
   }
 
   .bulletin-report-header-details {
@@ -316,7 +314,8 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         }
       }
       .matrix-avalanche-type {
-        @include mixins.font-bold;
+        @include mixins.font-heavy;
+        @include mixins.letter-spacing;
         [class*="icon-"] {
           cursor: pointer;
           margin: -0.5em -0.25em;
@@ -524,6 +523,80 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   }
 
   .bulletin-additional-weather {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+    h2,
+    p,
+    ul,
+    li {
+      margin: 0;
+    }
+  }
+
+  .bulletin-additional-tendency {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+    h2,
+    p,
+    ul,
+    li {
+      margin: 0;
+    }
+  }
+  .bulletin-additional-tendency-progression {
+    display: flex;
+    align-items: stretch;
+    gap: variables.$padding * 2;
+    @media #{variables.breakpoint-up(normal)} {
+      gap: variables.$padding * 4;
+    }
+  }
+
+  .progression-item {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding * 0.5;
+    text-align: center;
+  }
+  .progression-value {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .progression-legend {
+    margin-top: auto;
+    font-size: variables.$tiny-font-size;
+  }
+
+  .progression-week {
+    display: flex;
+    gap: variables.$padding;
+    font-size: variables.$tiny-font-size;
+    @include mixins.font-heavy;
+  }
+  .progression-warning-level {
+    font-size: variables.$xlarge-font-size;
+    @include mixins.font-heavy;
+    @for $level from 1 through variables.$warning-level-count {
+      &.warning-level-#{$level} {
+        color: variables.warning-level-color($level);
+      }
+    }
+  }
+  .progression-tendency {
+    .progression-arrow {
+      color: variables.$brand;
+    }
+    .progression-legend {
+      @include mixins.font-heavy;
+      @include mixins.letter-spacing;
+    }
+  }
+
+  .bulletin-additional-minimap {
     display: flex;
     flex-direction: column;
     gap: variables.$padding;
