@@ -226,6 +226,9 @@
 @mixin box-shadow($box-shadow-alpha: 0.05) {
   box-shadow: 0 0 15px 0 rgba(variables.$box-shadow-color, $box-shadow-alpha);
 }
+@mixin text-shadow($text-shadow-alpha: 0.5) {
+  text-shadow: 0 0 10px rgba(variables.$text-shadow-color, $text-shadow-alpha);
+}
 
 //font
 @mixin font-light {

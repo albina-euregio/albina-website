@@ -170,7 +170,7 @@ export function AdditionalBulletinInformation({
     return [...visibleStationMarkers, ...visibleObservations];
   }, [showStations, stationMarkers, showObservations, observations]);
   return (
-    <div className="bulletin-report-addmap">
+    <div className="bulletin-additional-addmap">
       {!!data.length && (
         <WeatherStationDialog
           stationData={data}
@@ -225,7 +225,7 @@ export function AdditionalBulletinInformation({
             }
           }}
           style={{
-            ["--bulletin-report-addmap-marker-color" as string]:
+            ["--bulletin-additional-addmap-marker-color" as string]:
               stationMarkerColor,
             opacity: showStations ? 1 : 0.5
           }}
@@ -249,7 +249,7 @@ export function AdditionalBulletinInformation({
             }
           }}
           style={{
-            ["--bulletin-report-addmap-marker-color" as string]:
+            ["--bulletin-additional-addmap-marker-color" as string]:
               observationMarkerColor,
             opacity: showObservations ? 1 : 0.5
           }}

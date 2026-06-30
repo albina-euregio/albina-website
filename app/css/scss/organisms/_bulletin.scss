@@ -831,65 +831,6 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   }
 }
 
-.bulletin-report-addmap {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$padding * 2;
-  .subheader {
-    margin-bottom: 0;
-  }
-  .addmap {
-    height: 33vh;
-    min-height: 300px;
-    margin: 0 (-(variables.$all-h-padding)) 0
-      (calc(0px - variables.$all-h-padding + variables.$bar-width));
-    @media #{variables.breakpoint-up(medium)} {
-      margin-left: (calc(0px - variables.$all-h-padding));
-    }
-    border: variables.$border-width variables.$border-style
-      variables.$brand-very-light;
-    border-left: none;
-    border-right-width: 0;
-    @media #{variables.breakpoint-up(normal)} {
-      border-right-width: variables.$border-width;
-    }
-  }
-  .addmap-legend {
-    display: flex;
-    gap: variables.$padding * 2;
-    user-select: none;
-  }
-  .addmap-legend-item {
-    display: flex;
-    align-items: center;
-    gap: variables.$padding * 0.5;
-    font-size: variables.$tiny-font-size;
-    color: variables.$brand;
-    cursor: pointer;
-
-    .addmap-legend-swatch {
-      position: relative;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      outline: 1px solid
-        var(--bulletin-report-addmap-marker-color, #{variables.$grey});
-      &:before {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: var(
-          --bulletin-report-addmap-marker-color,
-          #{variables.$grey}
-        );
-        opacity: 0.25;
-      }
-    }
-  }
-}
-
 .bulletin-author {
   font-size: variables.$tiny-font-size;
   @include mixins.letter-spacing;
