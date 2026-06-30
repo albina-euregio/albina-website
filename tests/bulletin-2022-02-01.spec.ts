@@ -83,13 +83,21 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
 });
 
 test("bulletin/2022-02-01 pdf", async ({ page }) => {
-  test.fixme();
   await page.goto("bulletin/2022-02-01");
+  await page
+    .getByLabel("Map")
+    .nth(1)
+    .click({
+      position: {
+        x: 675,
+        y: 101
+      }
+    });
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("link", { name: "PDF" }).first().click();
   const pdfPage = await pagePromise;
   await expect(pdfPage).toHaveURL(
-    "https://api.avalanche.report/albina/api/bulletins/0646104c-4d4c-4e4a-896b-ce3a45d0b61b/pdf?region=EUREGIO&lang=en&grayscale=false"
+    "https://avalanche.report/api/bulletins/pdf?date=2022-01-31T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
   );
   await pdfPage.close();
 });
