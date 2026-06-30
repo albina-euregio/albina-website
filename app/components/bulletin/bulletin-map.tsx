@@ -507,6 +507,13 @@ function MapLibreMap({
     [activeBulletinCollection?.eawsMaxDangerRatings]
   );
 
+  // Latest region id sets, so the once-mounted click handler doesn't read the
+  // empty `microRegions` captured at mount.
+  const microRegionsRef = useRef(microRegions);
+  microRegionsRef.current = microRegions;
+  const eawsRegionsRef = useRef(eawsRegions);
+  eawsRegionsRef.current = eawsRegions;
+
   // Per-region feature-state values that drive `regionPaint`, recomputed when the
   // bulletin data or selection changes and pushed onto the source via
   // setFeatureState (cf. applyFeatureStates).
@@ -809,10 +816,11 @@ function MapLibreMap({
           layers: ["eaws-regions-fill"]
         });
         const id = feature?.properties?.id ?? "";
-        if (!id || microRegions.includes(id)) {
+        if (!id || microRegionsRef.current.includes(id)) {
           handleSelectRegionRef.current(id);
         } else {
-          const eawsRegion = eawsRegions.find(r => id.startsWith(r)) ?? "";
+          const eawsRegion =
+            eawsRegionsRef.current.find(r => id.startsWith(r)) ?? "";
           handleSelectRegionRef.current(eawsRegion);
         }
       });
