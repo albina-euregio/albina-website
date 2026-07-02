@@ -4,6 +4,7 @@ import { useIntl } from "../i18n";
 import { useIncidentData } from "../stores/incidentDataStore";
 import IncidentMapLibreMap from "../components/incident/incident-map.tsx";
 import IncidentTable from "../components/incident/incident-table";
+import IncidentDetailsDialog from "../components/incident/incident-details-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import SearchField from "../components/organisms/search-field";
@@ -23,7 +24,7 @@ function IncidentDashboard() {
   const setViewMode = (view: "map" | "table") =>
     redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
 
-  const [, setSelectedId] = useState<string>();
+  const [selectedId, setSelectedId] = useState<string>();
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
@@ -36,6 +37,10 @@ function IncidentDashboard() {
     sortBy,
     sortedFilteredData
   } = useIncidentData();
+
+  const selectedIncident = sortedFilteredData.find(
+    incident => incident.id === selectedId
+  );
 
   const mapView = (
     <section id="section-incident-map" className="section section-weather-map">
@@ -147,6 +152,11 @@ function IncidentDashboard() {
           </svg>
         )}
       </button>
+
+      <IncidentDetailsDialog
+        incident={selectedIncident}
+        onClose={() => setSelectedId(undefined)}
+      />
     </>
   );
 }
