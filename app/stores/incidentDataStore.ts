@@ -94,9 +94,10 @@ export class IncidentData {
 }
 
 async function fetchIncidentsForRegion(
-  region: string
+  region: string,
+  seasonYear: number
 ): Promise<IncidentData[]> {
-  const url = `${config.apis.incidents}?region=${encodeURIComponent(region)}&seasonYear=${currentSeasonYear()}`;
+  const url = `${config.apis.incidents}?region=${encodeURIComponent(region)}&seasonYear=${seasonYear}`;
   try {
     const raw = await fetchJSON<RawIncident[]>(url);
     return raw.map(r => new IncidentData(r, region));
@@ -106,9 +107,13 @@ async function fetchIncidentsForRegion(
   }
 }
 
-export async function loadIncidentData(): Promise<IncidentData[]> {
+export async function loadIncidentData(
+  seasonYear: number
+): Promise<IncidentData[]> {
   const all = await Promise.all(
-    config.regionCodes.map(fetchIncidentsForRegion)
+    config.regionCodes.map(region =>
+      fetchIncidentsForRegion(region, seasonYear)
+    )
   );
   return all.flat();
 }
@@ -143,6 +148,10 @@ export function useIncidentData() {
   const setActiveRegion = (region: string) =>
     redirectPageQuery({ activeRegion: region === "all" ? "" : region });
 
+  const seasonYear = +(router?.search?.seasonYear || currentSeasonYear());
+  const setSeasonYear = (seasonYear: number) =>
+    redirectPageQuery({ seasonYear });
+
   const searchText = router?.search?.searchText || "";
   const setSearchText = (searchText: string) =>
     redirectPageQuery({ searchText });
@@ -155,11 +164,11 @@ export function useIncidentData() {
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      setData(await loadIncidentData());
+      setData(await loadIncidentData(seasonYear));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [seasonYear]);
 
   useEffect(() => {
     void loadData();
@@ -178,6 +187,8 @@ export function useIncidentData() {
     loading,
     activeRegion,
     setActiveRegion,
+    seasonYear,
+    setSeasonYear,
     searchText,
     setSearchText,
     sortValue,
