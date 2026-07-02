@@ -5,10 +5,10 @@ interface Props {
   value: string;
   title: JSX.Element;
   all: JSX.Element;
-  none: JSX.Element;
+  none?: JSX.Element;
   handleChange(str: string): unknown;
   regionCodes?: string[];
-  buttongroup: boolean;
+  buttongroup?: boolean;
 }
 
 export default function ProvinceFilter(props: Props) {
