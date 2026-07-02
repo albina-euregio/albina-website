@@ -26,6 +26,7 @@ import { $router, redirectPageQuery } from "../components/router";
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
+import { useFilterBarOffset } from "./useFilterBarOffset.ts";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 const DATE_TIME_INPUT_LENGTH = "2006-01-02T12".length;
@@ -133,9 +134,7 @@ function StationDashboard() {
   const setSelectedDateTime = (nextDateTime: string) =>
     redirectPageQuery({ dateTime: nextDateTime });
   const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
-  const [filterHeight, setFilterHeight] = useState(0);
-  const [filterTop, setFilterTop] = useState(0);
-  const filterRef = useRef<HTMLElement | null>(null);
+  const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
     activeData,
@@ -186,31 +185,6 @@ function StationDashboard() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   });
-
-  useEffect(() => {
-    const filterElement = filterRef.current;
-    if (!filterElement || typeof ResizeObserver === "undefined") return;
-
-    const updateFilterHeight = () => {
-      const rect = filterElement.getBoundingClientRect();
-      setFilterHeight(rect.height);
-      // Measure actual position at scroll=0 so sticky threshold matches exactly
-      if (document.documentElement.scrollTop === 0) {
-        setFilterTop(rect.top);
-      }
-    };
-
-    updateFilterHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateFilterHeight();
-    });
-
-    observer.observe(filterElement);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   const selectedRegion = config.stationRegions.includes(activeRegion)
     ? activeRegion
@@ -275,11 +249,7 @@ function StationDashboard() {
     <section
       ref={filterRef}
       className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}${isFiltersExpanded ? " is-expanded" : ""}`}
-      style={
-        {
-          "--station-dashboard-filter-top": `${filterTop}px`
-        } as React.CSSProperties
-      }
+      style={topStyle}
     >
       <div className="section-centered station-dashboard-filter__inner">
         <div className="station-dashboard-filter__bar">
@@ -448,12 +418,7 @@ function StationDashboard() {
 
       <div
         className={`station-dashboard-content station-dashboard-content--${viewMode}`}
-        style={
-          {
-            "--station-dashboard-filter-offset": `${filterHeight}px`,
-            "--station-dashboard-filter-top": `${filterTop}px`
-          } as React.CSSProperties
-        }
+        style={offsetStyle}
       >
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
@@ -461,12 +426,7 @@ function StationDashboard() {
       <button
         type="button"
         className="station-view-control"
-        style={
-          {
-            "--station-dashboard-filter-offset": `${filterHeight}px`,
-            "--station-dashboard-filter-top": `${filterTop}px`
-          } as React.CSSProperties
-        }
+        style={offsetStyle}
         onClick={() => setViewMode(viewMode === "map" ? "table" : "map")}
         title={intl.formatMessage({
           id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
