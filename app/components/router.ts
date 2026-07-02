@@ -9,6 +9,7 @@ export const $router = createRouter(
     bulletin: `${projectRoot}bulletin`,
     bulletinDate: `${projectRoot}bulletin/:date`,
     bulletinLatest: `${projectRoot}bulletin/latest`,
+    incidents: `${projectRoot}incidents`,
     weather: `${projectRoot}weather`,
     weatherMap: `${projectRoot}weather/map/`,
     weatherMapDomain: `${projectRoot}weather/map/:domain`,
