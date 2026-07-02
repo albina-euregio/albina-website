@@ -700,13 +700,15 @@ $search-width-wide: 300px;
   }
 
   .station-dashboard-filter__province,
+  .station-dashboard-filter__season,
   .station-dashboard-filter__date,
   .station-dashboard-filter__elevation {
     width: $filter-control-width;
     min-width: $filter-control-width;
   }
 
-  .station-dashboard-filter__province {
+  .station-dashboard-filter__province,
+  .station-dashboard-filter__season {
     .selectric-wrapper,
     .selectric,
     .dropdown.selectric {
@@ -971,6 +973,28 @@ $search-width-wide: 300px;
     .station-dashboard-filter__elevation {
       min-width: 0;
       width: 100%;
+    }
+  }
+
+  &.station-dashboard-filter--incidents {
+    @media screen and (max-width: 53em) {
+      .station-dashboard-filter__bar {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas: "province season search";
+      }
+
+      .station-dashboard-filter__season {
+        grid-area: season;
+        min-width: 0;
+        width: 100%;
+
+        .selectric-wrapper,
+        .selectric,
+        .dropdown.selectric {
+          min-width: 0;
+          width: 100%;
+        }
+      }
     }
   }
 }

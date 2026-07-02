@@ -640,6 +640,9 @@
     "minYear": 1960,
     "maxResults": 31
   },
+  "incidents": {
+    "minYear": 2015
+  },
   "languageHostSettings": {
     "en": "avalanche.report",
     "ca": "ca.avalanche.report",

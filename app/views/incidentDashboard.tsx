@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useIncidentData } from "../stores/incidentDataStore";
+import { currentSeasonYear } from "../util/date-season";
 import IncidentMapLibreMap from "../components/incident/incident-map.tsx";
 import IncidentTable from "../components/incident/incident-table";
 import IncidentDetailsDialog from "../components/incident/incident-details-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
+import YearFilter from "../components/filters/year-filter";
 import SearchField from "../components/organisms/search-field";
 import { $router, redirectPageQuery } from "../components/router";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
@@ -30,6 +32,8 @@ function IncidentDashboard() {
   const {
     activeRegion,
     setActiveRegion,
+    seasonYear,
+    setSeasonYear,
     searchText,
     setSearchText,
     sortValue,
@@ -73,11 +77,21 @@ function IncidentDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--incidents`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">
           <div className="station-dashboard-filter__bar">
+            <div className="station-dashboard-filter__season">
+              <YearFilter
+                title={intl.formatMessage({ id: "archive:filter:year" })}
+                minYear={config.incidents.minYear}
+                maxYear={currentSeasonYear()}
+                formatter={y => `${y}/${y + 1}`}
+                handleChange={setSeasonYear}
+                value={seasonYear}
+              />
+            </div>
             <div className="station-dashboard-filter__province">
               <ProvinceFilter
                 title={intl.formatMessage({
