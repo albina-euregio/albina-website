@@ -9,6 +9,7 @@ import ProvinceFilter from "../components/filters/province-filter";
 import SearchField from "../components/organisms/search-field";
 import { $router, redirectPageQuery } from "../components/router";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
+import { useFilterBarOffset } from "./useFilterBarOffset.ts";
 
 const DEFAULT_VIEW_MODE = "map";
 
@@ -23,6 +24,7 @@ function IncidentDashboard() {
     redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
 
   const [, setSelectedId] = useState<string>();
+  const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
     activeRegion,
@@ -64,7 +66,11 @@ function IncidentDashboard() {
     <>
       <HTMLHeader title={intl.formatMessage({ id: "menu:incidents" })} />
 
-      <section className="section controlbar station-dashboard-filter">
+      <section
+        ref={filterRef}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}`}
+        style={topStyle}
+      >
         <div className="section-centered station-dashboard-filter__inner">
           <div className="station-dashboard-filter__bar">
             <div className="station-dashboard-filter__province">
@@ -92,6 +98,7 @@ function IncidentDashboard() {
 
       <div
         className={`station-dashboard-content station-dashboard-content--${viewMode}`}
+        style={offsetStyle}
       >
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
@@ -100,6 +107,7 @@ function IncidentDashboard() {
       <button
         type="button"
         className="station-view-control"
+        style={offsetStyle}
         onClick={() => setViewMode(viewMode === "map" ? "table" : "map")}
         title={intl.formatMessage({
           id: viewMode === "map" ? "stations:view:table" : "stations:view:map"
