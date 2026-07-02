@@ -154,6 +154,26 @@ $ tx status albina-website.website
 $ tx pull --use-git-timestamps
 ```
 
+### Incident report strings
+
+`app/i18n/incident-report/en.json` is **not** an albina-website resource — it
+is the `incident-report` resource of the
+[albina-admin-gui](https://github.com/albina-euregio/albina-admin-gui)
+Transifex project (`src/assets/i18n/incident-report/en.json` there), shared
+so this repo can display the same translated labels for incident data.
+
+Treat **albina-admin-gui** as the source of truth: add or change keys there
+first and `tx push` from that repo. Pulling here fetches both the
+translations and the current source strings, so `en.json` in this repo stays
+in sync automatically — never edit it by hand:
+
+```sh
+# fetch updated translations from Transifex
+$ tx pull --use-git-timestamps
+# also refresh en.json itself, since the source lives in albina-admin-gui
+$ tx pull --source --use-git-timestamps albina-admin-gui.incident-report
+```
+
 ## Update CHANGELOG (for new releases)
 
 Please use the following workflow when releasing new versions:
