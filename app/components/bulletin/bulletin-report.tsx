@@ -384,29 +384,31 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
             <div className="panel brand">
               {(dangerPatterns.length > 0 ||
                 bulletin.snowpackStructure?.comment) && (
-                <div>
-                  <h2 className="subheader">
-                    <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
-                  </h2>
-                  {dangerPatterns.length > 0 && (
-                    <ul className="list-inline list-labels">
-                      <li>
-                        <span className="tiny heavy letterspace">
-                          <FormattedMessage id="bulletin:report:danger-patterns" />
-                        </span>
-                      </li>
-                      {dangerPatterns.map((dp, index) => (
-                        <li key={index}>
-                          <DangerPatternItem
-                            dangerPattern={dp}
-                            isInserted={
-                              showDiff && !dangerPatterns170000.includes(dp)
-                            }
-                          />
+                <div className="bulletin-additional-snowpack">
+                  <div className="bulletin-additional-snowpack-header">
+                    <h2 className="subheader">
+                      <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
+                    </h2>
+                    {dangerPatterns.length > 0 && (
+                      <ul className="list-inline list-labels">
+                        <li>
+                          <span className="tiny heavy letterspace">
+                            <FormattedMessage id="bulletin:report:danger-patterns" />
+                          </span>
                         </li>
-                      ))}
-                    </ul>
-                  )}
+                        {dangerPatterns.map((dp, index) => (
+                          <li key={index}>
+                            <DangerPatternItem
+                              dangerPattern={dp}
+                              isInserted={
+                                showDiff && !dangerPatterns170000.includes(dp)
+                              }
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                   <p>
                     <LocalizedText
                       text={bulletin.snowpackStructure?.comment}
@@ -417,7 +419,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                 </div>
               )}
               {bulletin.weatherForecast?.comment && (
-                <div>
+                <div className="bulletin-additional-weather">
                   <h2 className="subheader">
                     <FormattedMessage id="bulletin:report:weather:headline" />
                   </h2>
