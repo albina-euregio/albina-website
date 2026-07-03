@@ -13,7 +13,10 @@ test("bulletin/2022-02-01", async ({ page }) => {
     "li[id='0646104c-4d4c-4e4a-896b-ce3a45d0b61b']"
   );
   await expect(bulletin.locator(".bulletin-report-header")).toContainText(
-    /Danger level for Tuesday,? 1 February 2022/
+    /Tuesday,? 1 February 2022/
+  );
+  await expect(bulletin.locator(".bulletin-report-header")).toContainText(
+    "Karwendel Mountains"
   );
   await expect(bulletin.locator(".subheader").first()).toContainText(
     "Outside marked and open pistes a dangerous avalanche situation will be encountered over a wide area."
@@ -24,7 +27,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");
-  await expect(bulletin.locator("p").nth(1)).toContainText(
+  await expect(bulletin.locator("p").nth(0)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
 
