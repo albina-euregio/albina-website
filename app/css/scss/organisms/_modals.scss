@@ -64,7 +64,12 @@ $mfp-caption-subtitle-color: variables.$white; //Caption subtitle color
 // A11y
 $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
 
-@import "../../../node_modules/magnific-popup/src/css/main";
+// TODO(discuss-with-rainer): magnific-popup was removed from the project on master
+// (commit db809990 "refact: remove magnific-popup") and is no longer in package.json.
+// Rainer's commit c16a9056 re-added this @import, which breaks the Vite/Sass build.
+// Commented out to unblock the dev server; decide with Rainer whether image modals
+// still need magnific-popup or rely on the native <dialog> styling below.
+// @import "../../../node_modules/magnific-popup/src/css/main";
 
 // based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#transitioning_dialog_elements
 dialog[open] {
