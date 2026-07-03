@@ -241,6 +241,36 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
               </div>
             </header>
 
+            {(bulletin.highlights || bulletin.travelAdvisory?.comment) && (
+              <div className="bulletin-report-recommendation is-alert is-recommendation">
+                {bulletin.highlights && (
+                  <p className="bulletin-report-public-alert">
+                    <span className="icon-attention bulletin-report-public-alert-icon"></span>
+                    <span className="bulletin-report-public-alert-text">
+                      {bulletin.highlights}
+                    </span>
+                  </p>
+                )}
+                {bulletin.travelAdvisory?.comment && (
+                  <ul className="okay list-bulletin-report-recommendation">
+                    {bulletin.travelAdvisory.comment
+                      .split(/\n|&lt;br\s*\/?&gt;|<br\s*\/?>/i)
+                      .map(line => line.trim())
+                      .filter(Boolean)
+                      .map((line, index) => (
+                        <li key={index}>
+                          <LocalizedText
+                            text={line}
+                            text170000=""
+                            showDiff={0}
+                          />
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </div>
+            )}
+
             {hasDaytimeDependency(bulletin) ? (
               [
                 <BulletinDaytimeReport
@@ -268,26 +298,22 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                 date={date}
               />
             )}
-            {bulletin.highlights && (
-              <p className="bulletin-report-public-alert">
-                <span className="icon-attention bulletin-report-public-alert-icon"></span>
-                {bulletin.highlights}
+            <div className="bulletin-report-text">
+              <h2 className="subheader">
+                <LocalizedText
+                  text={bulletin.avalancheActivity?.highlights}
+                  text170000={bulletin170000?.avalancheActivity?.highlights}
+                  showDiff={showDiff}
+                />
+              </h2>
+              <p>
+                <LocalizedText
+                  text={bulletin.avalancheActivity?.comment}
+                  text170000={bulletin170000?.avalancheActivity?.comment}
+                  showDiff={showDiff}
+                />
               </p>
-            )}
-            <h2 className="subheader">
-              <LocalizedText
-                text={bulletin.avalancheActivity?.highlights}
-                text170000={bulletin170000?.avalancheActivity?.highlights}
-                showDiff={showDiff}
-              />
-            </h2>
-            <p>
-              <LocalizedText
-                text={bulletin.avalancheActivity?.comment}
-                text170000={bulletin170000?.avalancheActivity?.comment}
-                showDiff={showDiff}
-              />
-            </p>
+            </div>
             {bulletinPhotos.length > 0 && (
               <div>
                 <h2 className="subheader">
@@ -349,7 +375,6 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
           </div>
         </section>
         {(hasTendencyHighlights ||
-          bulletin.travelAdvisory?.comment ||
           bulletin.snowpackStructure?.comment ||
           bulletin.weatherForecast?.comment) && (
           <section
@@ -357,19 +382,6 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
             className="section-centered section-bulletin section-bulletin-additional"
           >
             <div className="panel brand">
-              {bulletin.travelAdvisory?.comment && (
-                <div>
-                  <h2 className="subheader">
-                    <FormattedMessage id="bulletin:report:travel-advisory:headline" />
-                  </h2>
-                  <p>
-                    <LocalizedText
-                      text={bulletin.travelAdvisory?.comment}
-                      text170000={bulletin170000?.travelAdvisory?.comment}
-                    />
-                  </p>
-                </div>
-              )}
               {(dangerPatterns.length > 0 ||
                 bulletin.snowpackStructure?.comment) && (
                 <div>
