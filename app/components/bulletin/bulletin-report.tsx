@@ -133,98 +133,83 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
           className="section-centered section-bulletin section-bulletin-report"
         >
           <div className={classes}>
-            <header className="bulletin-report-header">
-              <div>
-                {isInserted && bulletin.publicationTime && (
-                  <button
-                    type="button"
-                    className="bulletin-report-header-diff"
-                    onClick={() => setShowDiff(d => (d + 1) % 3)}
-                  >
-                    <Tooltip
-                      label={intl.formatMessage({
-                        id: "bulletin:header:updated-at:tooltip"
-                      })}
-                    >
-                      <span className="text-icon bulletin-datetime-update">
-                        <span className="icon icon-update"></span>
-                        <span className="text">
-                          {intl.formatMessage(
-                            { id: "bulletin:header:updated-at" },
-                            {
-                              date: intl.formatDate(bulletin.publicationTime),
-                              time: intl.formatDate(bulletin.publicationTime, {
-                                timeStyle: "short"
-                              })
-                            }
-                          )}
-                        </span>
-                      </span>
-                    </Tooltip>
-                    {showDiff == 2 && (
-                      <span className="icon icon-update"></span>
-                    )}
-                    {showDiff == 1 && (
-                      <span className="icon icon-release"></span>
-                    )}
-                  </button>
-                )}
-                <p className="bulletin-report-header-meta">
-                  <span>
-                    <FormattedMessage
-                      id="bulletin:report:headline"
-                      html={true}
-                      values={{
-                        strong: (...msg) => <strong>{msg}</strong>,
-                        date: intl.formatDate(date, LONG_DATE_FORMAT),
-                        daytime: ""
-                      }}
-                    />
+            <header className="bulletin-report-header top-fix">
+              <div className="bulletin-report-header-details">
+                <span className="text-icon bulletin-datetime-release">
+                  <span className="icon icon-calendar"></span>
+                  <span className="text">
+                    {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
-                </p>
-                <h1 className="bulletin-report-header-danger-level">
-                  <span>
-                    <FormattedMessage
-                      id={
-                        getWarnlevelNumber(maxWarnlevel) == 0
-                          ? "bulletin:report:headline2:level0"
-                          : "bulletin:report:headline2"
-                      }
-                      values={{
-                        number: getWarnlevelNumber(maxWarnlevel),
-                        text: intl.formatMessage({
-                          id: "danger-level:" + maxWarnlevel
-                        })
-                      }}
-                    />
+                </span>
+                <span className="text-icon bulletin-report-region-name-country">
+                  <span className="icon icon-location-small"></span>
+                  <span className="text">
+                    <FormattedMessage id={`region:${region}` as MessageId} />
                   </span>
-                </h1>
+                </span>
                 {bulletin.source?.provider?.name && (
-                  <p className="bulletin-author">
-                    <FormattedMessage id="bulletin:report:provider" />
-                    {": "}
-                    <a
-                      href={bulletin.source?.provider?.website}
-                      rel="noopener noreferrer nofollow"
-                      target="_blank"
-                    >
-                      {bulletin.source?.provider?.name}
-                    </a>
-                  </p>
+                  <span className="text-icon bulletin-report-copyright">
+                    <span className="icon icon-copyright"></span>
+                    <span className="text">
+                      {bulletin.source.provider.website ? (
+                        <a
+                          href={bulletin.source.provider.website}
+                          rel="noopener noreferrer nofollow"
+                          target="_blank"
+                        >
+                          {bulletin.source.provider.name}
+                        </a>
+                      ) : (
+                        bulletin.source.provider.name
+                      )}
+                    </span>
+                  </span>
                 )}
-                <SynthesizedBulletin
-                  date={date}
-                  bulletin={bulletin}
-                ></SynthesizedBulletin>
               </div>
 
-              {bulletin.regions?.some(
-                r =>
-                  r.regionID.match(config.regionsRegex) ||
-                  r.regionID.startsWith(province || "???")
-              ) && (
-                <div>
-                  <ul className="list-inline list-buttongroup bulletin-report-header-download">
+              <h1 className="bulletin-report-header-danger-level">
+                <span>
+                  <FormattedMessage
+                    id={
+                      getWarnlevelNumber(maxWarnlevel) == 0
+                        ? "bulletin:report:headline2:level0"
+                        : "bulletin:report:headline2"
+                    }
+                    values={{
+                      number: getWarnlevelNumber(maxWarnlevel),
+                      text: intl.formatMessage({
+                        id: "danger-level:" + maxWarnlevel
+                      })
+                    }}
+                  />
+                </span>
+              </h1>
+
+              <div className="bulletin-report-header-buttons">
+                <ul className="list-inline list-buttongroup">
+                  {isInserted && bulletin.publicationTime && (
+                    <li>
+                      <Tooltip
+                        label={intl.formatMessage({
+                          id: "bulletin:header:updated-at:tooltip"
+                        })}
+                      >
+                        <button
+                          type="button"
+                          className="pure-button inverse error tooltip bulletin-report-header-diff"
+                          onClick={() => setShowDiff(d => (d + 1) % 3)}
+                        >
+                          <span className="icon icon-show-small"></span>
+                          <FormattedMessage id="bulletin:report:update" />
+                        </button>
+                      </Tooltip>
+                    </li>
+                  )}
+                  {bulletin.regions?.some(
+                    r =>
+                      r.regionID.match(config.regionsRegex) ||
+                      r.regionID.startsWith(province || "???")
+                  ) && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
@@ -232,6 +217,7 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                         })}
                       >
                         <a
+                          className="pure-button inverse tooltip"
                           rel="noopener noreferrer nofollow"
                           target="_blank"
                           href={config.template(config.apis.bulletin.pdf, {
@@ -241,13 +227,18 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                             lang: intl.locale.slice(0, 2)
                           })}
                         >
-                          PDF
+                          <span className="icon icon-download"></span>
+                          <FormattedMessage id="bulletin:linkbar:pdf" />
                         </a>
                       </Tooltip>
                     </li>
-                  </ul>
-                </div>
-              )}
+                  )}
+                </ul>
+                <SynthesizedBulletin
+                  date={date}
+                  bulletin={bulletin}
+                ></SynthesizedBulletin>
+              </div>
             </header>
 
             {hasDaytimeDependency(bulletin) ? (
