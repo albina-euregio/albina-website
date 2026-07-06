@@ -1,5 +1,6 @@
 import React, { type MouseEvent, type ReactNode } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
+import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import type { IncidentData } from "../../stores/incidentDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -17,21 +18,18 @@ interface Props {
 
 interface Column {
   data: SortableField;
-  titleId: string;
+  title: string;
   render: (row: IncidentData) => ReactNode;
 }
 
 export default function IncidentTable(props: Props) {
   const intl = useIntl();
-
-  function title(col: Column) {
-    return intl.formatMessage({ id: col.titleId });
-  }
+  const incidentReportMessages = useIncidentReportMessages();
 
   const columns: Column[] = [
     {
       data: "dateTime",
-      titleId: "archive:table-header:date",
+      title: intl.formatMessage({ id: "archive:table-header:date" }),
       render: row =>
         row.dateTime
           ? intl.formatDate(row.dateTime, DATE_TIME_FORMAT_SHORT)
@@ -39,12 +37,16 @@ export default function IncidentTable(props: Props) {
     },
     {
       data: "location",
-      titleId: "incidents:table:header:location",
+      title:
+        incidentReportMessages.incidentReport?.location ??
+        intl.formatMessage({ id: "incidents:table:header:location" }),
       render: row => row.location
     },
     {
       data: "region",
-      titleId: "measurements:table:header:microRegion",
+      title: intl.formatMessage({
+        id: "measurements:table:header:microRegion"
+      }),
       render: row => <FormattedMessage id={`region:${row.region}`} />
     }
   ];
@@ -80,7 +82,7 @@ export default function IncidentTable(props: Props) {
         <tr>
           {columns.map(col => (
             <th key={col.data}>
-              {title(col)}
+              {col.title}
               <span className="sort-buttons">
                 {(["asc", "desc"] as SortDir[]).map(dir => (
                   <Tooltip key={dir} label={sortTitle(col.data, dir)}>
@@ -90,7 +92,7 @@ export default function IncidentTable(props: Props) {
                       onClick={e => handleSort(e, col, dir)}
                     >
                       <span className="is-visually-hidden">
-                        {title(col)}: {sortTitle(col.data, dir)}
+                        {col.title}: {sortTitle(col.data, dir)}
                       </span>
                     </a>
                   </Tooltip>
