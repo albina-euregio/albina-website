@@ -26,11 +26,19 @@ declare global {
   }
 }
 
-const PROFEA_SCRIPT_URL = `${import.meta.env.BASE_URL}vendor/profea.js`;
+const PROFEA_SCRIPT_URL = `${import.meta.env.BASE_URL}vendor/profea/profea.js`;
 
 let profeaPromise: Promise<Profea> | undefined;
 
-/** Lazily loads the vendored profea.js (see public/vendor/profea.js) and resolves with the global it attaches. */
+/**
+ * Lazily loads the vendored profea.js and resolves with the global it attaches.
+ *
+ * profea is a git submodule at `public/vendor/profea` (pinned to a profea
+ * commit), served verbatim by Vite from `public/`. To update it:
+ *   git submodule update --remote public/vendor/profea
+ * then commit the submodule bump. No copy step — the served file *is* the
+ * submodule's profea.js.
+ */
 export function loadProfea(): Promise<Profea> {
   if (window.profea) return Promise.resolve(window.profea);
   profeaPromise ??= new Promise((resolve, reject) => {
