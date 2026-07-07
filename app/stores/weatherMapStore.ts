@@ -171,11 +171,7 @@ export const config = {
         },
         imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
         dataOverlays: [
-          {
-            file: "{date}/{date}_00-00_REL.png",
-            type: "snowHeight",
-            smooth: false
-          }
+          { file: "{date}/{date}_00-00_REL.png", type: "snowHeight" }
         ],
         direction: false,
         clusterOperation: "max",
@@ -501,15 +497,13 @@ function _updateDataOverlays() {
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
-        const canvas = new OffscreenCanvas(
-          img.naturalWidth * 2,
-          img.naturalHeight * 2
-        );
+        // Data PNGs encode values in their pixels, so draw them 1:1 with
+        // smoothing off: reads must return exact source pixels. Any scaling or
+        // interpolation blends neighbouring pixels and corrupts the encoding.
+        const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.imageSmoothingEnabled =
-          (o as { smooth?: boolean }).smooth !== false;
-        if (ctx.imageSmoothingEnabled) ctx.imageSmoothingQuality = "high";
-        ctx.drawImage(img, 0, 0, img.naturalWidth * 2, img.naturalHeight * 2);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0);
         resolve(ctx);
       };
       img.onerror = e => {
