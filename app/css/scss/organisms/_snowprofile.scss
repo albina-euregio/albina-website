@@ -1,0 +1,30 @@
+/*------------------------------------*\
+	#SNOWPROFILE
+\*------------------------------------*/
+
+// glyph font required by profea (public/vendor/profea.js) to render
+// IACS grain-shape symbols
+@font-face {
+  font-family: "snowsymbolsiacs";
+  src:
+    url("/fonts/SnowSymbolIACS.woff2") format("woff2"),
+    url("/fonts/snowsymbolsiacs.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.date-range-filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.snowprofile-detail {
+  overflow: auto;
+  text-align: center;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
