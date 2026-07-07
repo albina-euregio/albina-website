@@ -21,6 +21,11 @@ interface Props {
 
 function SnowProfileDetail({ profileId }: { profileId: string }) {
   const intl = useIntl();
+  // Capture intl in a ref so the effect can resolve region names without
+  // depending on it (useIntl returns a fresh object each render, which would
+  // otherwise re-trigger the fetch on every render).
+  const intlRef = useRef(intl);
+  intlRef.current = intl;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -37,7 +42,21 @@ function SnowProfileDetail({ profileId }: { profileId: string }) {
         );
         const profea = await loadProfea();
         if (cancelled || !svgRef.current) return;
-        profea.draw(profea.parse(xml), svgRef.current, {
+
+        const data = profea.parse(xml);
+
+        // CAAML has no sub-region element; profea surfaces the raw micro-region
+        // id (meta.subregionId, e.g. "AT-07-14-04"). Resolve it to a localised
+        // name via the bundled eaws-regions catalog, as the rest of the app does.
+        const subregionId = data.meta.subregionId;
+        if (typeof subregionId === "string" && subregionId) {
+          const name = intlRef.current.formatMessage({
+            id: `region:${subregionId}`
+          });
+          if (name) data.meta.subregion = name;
+        }
+
+        profea.draw(data, svgRef.current, {
           colorizeByGrain: true
         });
       } catch (e) {
