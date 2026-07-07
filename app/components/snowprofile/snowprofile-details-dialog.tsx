@@ -61,7 +61,7 @@ function SnowProfileDetail({ profileId }: { profileId: string }) {
       {error && (
         <p>{intl.formatMessage({ id: "snowprofiles:detail:error" })}</p>
       )}
-      <svg ref={svgRef} />
+      <svg ref={svgRef} style={{ display: "block" }} />
     </div>
   );
 }
@@ -71,7 +71,7 @@ export function SnowProfileDetailsDialog(props: Props) {
     <Modal
       isOpen={!!props.profileId}
       onClose={() => props.setProfileId("")}
-      width="90vw"
+      width="fit-content"
     >
       {!!props.profileId && <SnowProfileDetail profileId={props.profileId} />}
     </Modal>
