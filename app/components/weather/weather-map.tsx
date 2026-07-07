@@ -108,6 +108,12 @@ async function readOverlayValue(
   );
 }
 
+/** Parse a "#rrggbb" hex color into an [r, g, b] triple. */
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
 /**
  * The data marker's DOM: a dashed (forecast) disc colored by the value's
  * highest exceeded threshold (white when missing), with the value as text in a
@@ -122,11 +128,14 @@ function createDataMarkerElement(
   let textColor = "#000";
   if (value != null) {
     const colors = Object.values(item.colors);
-    let rgb = colors[0];
+    let color = colors[0];
     item.thresholds.forEach((threshold, i) => {
-      if (value > threshold) rgb = colors[i + 1];
+      if (value > threshold) color = colors[i + 1];
     });
-    const [r, g, b] = rgb;
+    // Colors are either an [r, g, b] triple or a "#rrggbb" hex string
+    // (relative-snow uses hex); normalize both to numeric channels.
+    const [r, g, b] =
+      typeof color === "string" ? hexToRgb(color) : (color as number[]);
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
     fillColor = `rgb(${r}, ${g}, ${b})`;
     textColor = luminance > 0.435 ? "#000" : "#fff";
