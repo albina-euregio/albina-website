@@ -1,5 +1,5 @@
 [main]
-host = https://www.transifex.com
+host = https://app.transifex.com
 lang_map = sl_SI: sl
 
 [o:albina-euregio:p:albina-website:r:about]
@@ -132,5 +132,11 @@ type        = KEYVALUEJSON
 file_filter = app/components/bulletin/bulletin-glossary-<lang>-links.json
 source_file = app/components/bulletin/bulletin-glossary-qqq-links.json
 source_lang = eo
+type        = KEYVALUEJSON
+
+[o:albina-euregio:p:albina-admin-gui:r:incident-report]
+file_filter = app/i18n/incident-report/<lang>.json
+source_file = app/i18n/incident-report/en.json
+source_lang = en
 type        = KEYVALUEJSON
 

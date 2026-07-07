@@ -17,6 +17,9 @@ const Bulletin = React.lazy(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
+const IncidentDashboard = React.lazy(
+  () => import("../views/incidentDashboard")
+);
 const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
 const StaticPageLinkbox = React.lazy(
@@ -93,6 +96,8 @@ const App = () => {
       case "bulletinDate":
       case "bulletinLatest":
         return <Bulletin />;
+      case "incidents":
+        return <IncidentDashboard />;
       case "weather":
         redirectPage($router, "weatherMap");
         break;
