@@ -1,0 +1,4 @@
+[submodule "public/vendor/profea"]
+	path = public/vendor/profea
+	url = ../profea.git
+	branch = main
