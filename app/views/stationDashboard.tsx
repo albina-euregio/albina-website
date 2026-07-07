@@ -102,9 +102,9 @@ export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
       dataProviderID: "ALBINA",
       dataURLs: BeobachterAT.includes(observer)
         ? [
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`
           ]
         : undefined,
       plot: `https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/${observer["plot.id"]}{year}.png?{t}`,
