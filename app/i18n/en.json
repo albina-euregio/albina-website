@@ -21,8 +21,6 @@
   "menu:weather:archive": "Weather Stations Archive",
   "menu:weather:stations": "Weather Stations",
   "menu:weather:snow-profiles": "Snow Profiles",
-  "menu:lawis:incident": "Incidents",
-  "menu:lawis:profile": "Snow Profiles",
   "menu:webcam": "Webcams",
   "menu:meteo-report": "Meteo.report",
   "menu:education:danger-scale": "Danger Scale",
