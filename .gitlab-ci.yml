@@ -18,6 +18,9 @@ workflow:
 .build:
   image: node:26.4.0
   stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SUBMODULE_FORCE_HTTPS: "true"
   cache:
     key:
       files:
