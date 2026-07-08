@@ -997,6 +997,35 @@ $search-width-wide: 300px;
       }
     }
   }
+
+  // the snowprofile date filter is a from/to range (two date inputs), unlike
+  // the single datetime-local on the weather dashboard, so give it room and let
+  // the two inputs share the space instead of overflowing into the province
+  // dropdown next to it
+  &.station-dashboard-filter--snowprofiles {
+    .station-dashboard-filter__date {
+      .date-range-filter {
+        width: 100%;
+        gap: variables.$padding * 0.5;
+
+        > div {
+          flex: 1 1 0;
+          min-width: 0;
+        }
+      }
+
+      .pure-form input[type="date"] {
+        width: 100%;
+        height: $filter-control-height;
+        box-sizing: border-box;
+      }
+
+      @media screen and (min-width: 53.0625em) {
+        width: calc(#{$filter-control-width} * 1.6);
+        min-width: calc(#{$filter-control-width} * 1.6);
+      }
+    }
+  }
 }
 
 .station-dashboard-filter.station-dashboard-filter--table {
