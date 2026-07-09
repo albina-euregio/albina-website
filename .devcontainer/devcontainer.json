@@ -1,16 +1,5 @@
 {
-  "name": "albina-website",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
-  "remoteUser": "node",
-  "containerUser": "node",
-  "updateRemoteUserUID": false,
-  "forwardPorts": [3000],
-  "portsAttributes": {
-    "3000": {
-      "label": "Vite dev server",
-      "onAutoForward": "notify"
-    }
-  },
   "postAttachCommand": "pnpm dev",
   "postCreateCommand": "pnpm ci",
   "mounts": [
@@ -19,11 +8,10 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "VoidZero.vite-plus-extension-pack",
         "anthropic.claude-code",
         "ms-playwright.playwright",
         "streetsidesoftware.code-spell-checker",
-        "streetsidesoftware.code-spell-checker-german"
+        "VoidZero.vite-plus-extension-pack"
       ]
     }
   }
