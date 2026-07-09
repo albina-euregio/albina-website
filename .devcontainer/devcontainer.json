@@ -2,6 +2,8 @@
   "name": "albina-website",
   "image": "node:26.4.0",
   "remoteUser": "node",
+  "containerUser": "node",
+  "updateRemoteUserUID": false,
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -11,7 +13,7 @@
   },
   "containerEnv": {
     "NPM_CONFIG_PREFIX": "/home/node/.npm-global",
-    "PATH": "/home/node/.npm-global/bin:${PATH}"
+    "PATH": "/home/node/.npm-global/bin:${containerEnv:PATH}"
   },
   "onCreateCommand": "command -v pnpm || npm install --global pnpm@11.9.0",
   "postCreateCommand": "pnpm install --frozen-lockfile",
