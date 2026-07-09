@@ -1,0 +1,26 @@
+{
+  "name": "albina-website",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "26.4.0",
+      "nodeGypDependencies": true
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Vite dev server",
+      "onAutoForward": "notify"
+    }
+  },
+  "onCreateCommand": "corepack enable && corepack prepare pnpm@11.9.0 --activate",
+  "postCreateCommand": "pnpm install --frozen-lockfile",
+  "postStartCommand": "corepack enable",
+  "customizations": {
+    "vscode": {
+      "extensions": ["VoidZero.vite-plus-extension-pack"]
+    }
+  },
+  "remoteUser": "node"
+}
