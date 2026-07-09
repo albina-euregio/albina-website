@@ -12,9 +12,15 @@
     }
   },
   "postCreateCommand": "pnpm install --frozen-lockfile",
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind"
+  ],
   "customizations": {
     "vscode": {
-      "extensions": ["VoidZero.vite-plus-extension-pack"]
+      "extensions": [
+        "VoidZero.vite-plus-extension-pack",
+        "anthropic.claude-code"
+      ]
     }
   }
 }
