@@ -11,10 +11,6 @@
       "onAutoForward": "notify"
     }
   },
-  "containerEnv": {
-    "NPM_CONFIG_PREFIX": "/home/node/.npm-global",
-    "PATH": "/home/node/.npm-global/bin:${containerEnv:PATH}"
-  },
   "onCreateCommand": "npm install --global pnpm@11.9.0",
   "postCreateCommand": "pnpm install --frozen-lockfile",
   "customizations": {
