@@ -19,7 +19,7 @@
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "pnpm install --frozen-lockfile",
+  "postCreateCommand": "pnpm ci",
   "mounts": [
     "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind"
   ],
