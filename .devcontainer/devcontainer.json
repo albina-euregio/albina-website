@@ -1,0 +1,18 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "postAttachCommand": "pnpm dev",
+  "postCreateCommand": "pnpm ci",
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-playwright.playwright",
+        "streetsidesoftware.code-spell-checker",
+        "VoidZero.vite-plus-extension-pack"
+      ]
+    }
+  }
+}
