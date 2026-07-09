@@ -1,6 +1,7 @@
 {
   "name": "albina-website",
   "image": "node:26.4.0",
+  "remoteUser": "node",
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -8,12 +9,15 @@
       "onAutoForward": "notify"
     }
   },
+  "containerEnv": {
+    "NPM_CONFIG_PREFIX": "/home/node/.npm-global",
+    "PATH": "/home/node/.npm-global/bin:${PATH}"
+  },
   "onCreateCommand": "command -v pnpm || npm install --global pnpm@11.9.0",
   "postCreateCommand": "pnpm install --frozen-lockfile",
   "customizations": {
     "vscode": {
       "extensions": ["VoidZero.vite-plus-extension-pack"]
     }
-  },
-  "remoteUser": "node"
+  }
 }
