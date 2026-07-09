@@ -20,7 +20,10 @@
     "vscode": {
       "extensions": [
         "VoidZero.vite-plus-extension-pack",
-        "anthropic.claude-code"
+        "anthropic.claude-code",
+        "ms-playwright.playwright",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-german"
       ]
     }
   }
