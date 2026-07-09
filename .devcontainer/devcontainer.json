@@ -2,7 +2,12 @@
   "name": "albina-website",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
   "features": {
-    "ghcr.io/devcontainers-extra/features/fish-apt-get:1": {}
+    "ghcr.io/devcontainers-extra/features/fish-apt-get:1": {},
+    "ghcr.io/devcontainers-extra/features/neovim-apt-get:1": {}
+  },
+  "containerEnv": {
+    "EDITOR": "nvim",
+    "GIT_EDITOR": "nvim"
   },
   "remoteUser": "node",
   "containerUser": "node",
