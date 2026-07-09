@@ -19,7 +19,7 @@
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "pnpm ci",
+  "postCreateCommand": "pnpm ci && pnpm dev",
   "mounts": [
     "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind"
   ],
