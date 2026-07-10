@@ -1,6 +1,6 @@
 import outline_properties from "@eaws/outline_properties/index.json";
-import { LanguageSchema } from "../appStore";
 import { z } from "zod/mini";
+import { vLanguageCode } from "../api/valibot.gen";
 
 export const RegionOutlineSchema = z.object({
   id: z.string(),
@@ -10,7 +10,7 @@ export const RegionOutlineSchema = z.object({
       name: z.string(),
       url: z.partialRecord(
         z.union([
-          LanguageSchema,
+          z.enum(vLanguageCode.options),
           z.enum([
             "api",
             "api:date",
