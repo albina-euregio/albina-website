@@ -1,4 +1,5 @@
 import outline_properties from "@eaws/outline_properties/index.json";
+import { LngLatBounds } from "maplibre-gl";
 import { z } from "zod/mini";
 import { vLanguageCode } from "../api/valibot.gen";
 
@@ -47,53 +48,18 @@ export function eawsRegionIds(): string[] {
     .filter(id => !config.regionsRegex.test(id));
 }
 
-export class LatLngBounds {
-  constructor(
-    public west: number,
-    public south: number,
-    public east: number,
-    public north: number
-  ) {}
-
-  isValid() {
-    return (
-      isFinite(this.west) &&
-      isFinite(this.south) &&
-      isFinite(this.east) &&
-      isFinite(this.north)
-    );
-  }
-
-  extend(other: LatLngBounds) {
-    this.west = isFinite(this.west)
-      ? Math.min(this.west, other.west)
-      : other.west;
-    this.south = isFinite(this.south)
-      ? Math.min(this.south, other.south)
-      : other.south;
-    this.east = isFinite(this.east)
-      ? Math.max(this.east, other.east)
-      : other.east;
-    this.north = isFinite(this.north)
-      ? Math.max(this.north, other.north)
-      : other.north;
-    return this;
-  }
-
-  pad(n: number) {
-    this.west -= n;
-    this.south -= n;
-    this.east += n;
-    this.north += n;
-    return this;
-  }
-
-  asArray(): [[number, number], [number, number]] {
-    return [
-      [this.west, this.south],
-      [this.east, this.north]
-    ];
-  }
+/**
+ * Grow `bounds` by `n` degrees in every direction. Returns a new instance;
+ * the input is left untouched. For an empty bounds the result stays empty.
+ */
+export function padBounds(bounds: LngLatBounds, n: number): LngLatBounds {
+  if (bounds.isEmpty()) return bounds;
+  return new LngLatBounds([
+    bounds.getWest() - n,
+    bounds.getSouth() - n,
+    bounds.getEast() + n,
+    bounds.getNorth() + n
+  ]);
 }
 
 export function eawsRegionsBounds(
@@ -101,15 +67,13 @@ export function eawsRegionsBounds(
   f: (
     regionCode: string
   ) => undefined | { bbox: [number, number, number, number] } = eawsRegion
-): LatLngBounds {
-  return regionCodes.reduce(
-    (b, r) => {
-      const region = f(r);
-      if (region?.bbox) {
-        b.extend(new LatLngBounds(...region.bbox));
-      }
-      return b;
-    },
-    new LatLngBounds(NaN, NaN, NaN, NaN)
-  );
+): LngLatBounds {
+  const bounds = new LngLatBounds();
+  for (const r of regionCodes) {
+    const region = f(r);
+    if (region?.bbox) {
+      bounds.extend(new LngLatBounds(region.bbox));
+    }
+  }
+  return bounds;
 }

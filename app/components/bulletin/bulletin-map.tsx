@@ -21,7 +21,8 @@ import { useStore } from "@nanostores/react";
 import {
   eawsRegion,
   eawsRegionIds,
-  eawsRegionsBounds
+  eawsRegionsBounds,
+  padBounds
 } from "../../stores/eawsRegions";
 import {
   filterFeatureSpecification,
@@ -722,8 +723,10 @@ function MapLibreMap({
   useEffect(() => {
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
-    const bounds = eawsRegionsBounds(focusRegions).pad(0.1);
-    const initialBounds: maplibregl.LngLatBoundsLike = bounds.asArray();
+    const initialBounds: maplibregl.LngLatBoundsLike = padBounds(
+      eawsRegionsBounds(focusRegions),
+      0.1
+    );
 
     // Base map: the shared raster style (basemap + opentopomap). It sits behind
     // the overlay (pointer-events: none) and is non-interactive — it just

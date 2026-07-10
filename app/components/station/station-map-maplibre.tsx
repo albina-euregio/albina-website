@@ -6,7 +6,7 @@ import type { Feature } from "@albina-euregio/linea/listing";
 import { useIntl } from "../../i18n/index.tsx";
 import type { ParameterType } from "./station-parameter-data.ts";
 import { $focusRegions } from "../../appStore.ts";
-import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
+import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 
 /**
@@ -418,7 +418,7 @@ function MapLibreMap({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const bounds = eawsRegionsBounds(focusRegions).pad(0.1).asArray();
+    const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
     const map = new maplibregl.Map({
       dragRotate: false,
