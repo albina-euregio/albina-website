@@ -102,7 +102,7 @@ export const vCaamlAspect = v.picklist([
   "N",
   "NE",
   "NW",
-  "N_A",
+  "n/a",
   "S",
   "SE",
   "SW",
@@ -153,32 +153,32 @@ export const vCaamlAvalancheProblemCustomData = v.object({
  * Expected avalanche problem, according to the EAWS avalanche problem definition.
  */
 export const vCaamlAvalancheProblemType = v.picklist([
-  "CORNICES",
-  "FAVOURABLE_SITUATION",
-  "GLIDING_SNOW",
-  "NEW_SNOW",
-  "NO_DISTINCT_AVALANCHE_PROBLEM",
-  "PERSISTENT_WEAK_LAYERS",
-  "WET_SNOW",
-  "WIND_SLAB"
+  "cornices",
+  "favourable_situation",
+  "gliding_snow",
+  "new_snow",
+  "no_distinct_avalanche_problem",
+  "persistent_weak_layers",
+  "wet_snow",
+  "wind_slab"
 ]);
 
 /**
  * Expected avalanche type.
  */
-export const vCaamlAvalancheTypeType = v.picklist(["SLAB", "LOOSE", "GLIDE"]);
+export const vCaamlAvalancheTypeType = v.picklist(["slab", "loose", "glide"]);
 
 /**
  * Danger rating value, according to EAWS danger scale definition.
  */
 export const vCaamlDangerRatingValue = v.picklist([
-  "CONSIDERABLE",
-  "HIGH",
-  "LOW",
-  "MODERATE",
-  "NO_RATING",
-  "NO_SNOW",
-  "VERY_HIGH"
+  "considerable",
+  "high",
+  "low",
+  "moderate",
+  "no_rating",
+  "no_snow",
+  "very_high"
 ]);
 
 /**
@@ -193,20 +193,20 @@ export const vCaamlElevationBoundaryOrBand = v.object({
  * Expected frequency of lowest snowpack stability, according to the EAWS definition. Three stage scale (few, some, many).
  */
 export const vCaamlExpectedAvalancheFrequency = v.picklist([
-  "FEW",
-  "MANY",
-  "NONE",
-  "SOME"
+  "few",
+  "many",
+  "none",
+  "some"
 ]);
 
 /**
  * Snowpack stability, according to the EAWS definition. Four stage scale (very poor, poor, fair, good).
  */
 export const vCaamlExpectedSnowpackStability = v.picklist([
-  "FAIR",
-  "GOOD",
-  "POOR",
-  "VERY_POOR"
+  "fair",
+  "good",
+  "poor",
+  "very_poor"
 ]);
 
 /**
@@ -266,9 +266,9 @@ export const vCaamlRegion = v.object({
 });
 
 export const vCaamlTendencyType = v.picklist([
-  "DECREASING",
-  "INCREASING",
-  "STEADY"
+  "decreasing",
+  "increasing",
+  "steady"
 ]);
 
 /**
@@ -345,9 +345,9 @@ export const vCaamlTendency = v.object({
  * Valid time period can be used to limit the validity of an element to an earlier or later period. It can be used to distinguish danger ratings or avalanche problems.
  */
 export const vCaamlValidTimePeriod = v.picklist([
-  "ALL_DAY",
-  "EARLIER",
-  "LATER"
+  "all_day",
+  "earlier",
+  "later"
 ]);
 
 /**
