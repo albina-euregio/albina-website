@@ -10,6 +10,7 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
+import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
@@ -103,7 +104,7 @@ class BulletinCollection {
 
   private async fetchFromURL(url: string): Promise<Bulletins> {
     const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-    return await BulletinsSchema.parseAsync(response);
+    return await v.parseAsync(BulletinsSchema, response);
   }
 
   private async fetchAndMergeRegions(
