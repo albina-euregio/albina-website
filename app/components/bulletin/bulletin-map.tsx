@@ -407,12 +407,7 @@ const BulletinMap = (props: Props) => {
       className="section section-bulletin-map"
       aria-hidden
     >
-      <div
-        className={
-          "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
-        }
-        data-iframe-ignore
-      >
+      <div className={"section-map"} data-iframe-ignore>
         <MapLibreMap
           activeBulletinCollection={props.activeBulletinCollection}
           problems={props.problems}
