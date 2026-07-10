@@ -356,7 +356,7 @@ export function AdditionalBulletinInformation({
 
   const bounds = useMemo((): maplibregl.LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
-    return b.isValid() ? b.asArray() : undefined;
+    return b.isEmpty() ? undefined : b;
   }, [region, date]);
 
   return (

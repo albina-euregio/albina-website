@@ -1,4 +1,4 @@
-import { LatLngBounds } from "./eawsRegions";
+import { LngLatBounds } from "maplibre-gl";
 
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
@@ -134,12 +134,12 @@ export function microRegionBounds(
   today: Temporal.PlainDate,
   microRegionId: string,
   regionCodes = config.regionCodes
-): LatLngBounds {
+): LngLatBounds {
   const region = microRegions(today, regionCodes)?.find(
     r => r.id === microRegionId
   );
   if (region?.bbox) {
-    return new LatLngBounds(...region.bbox);
+    return new LngLatBounds(region.bbox);
   }
-  return new LatLngBounds(NaN, NaN, NaN, NaN);
+  return new LngLatBounds();
 }

@@ -3,7 +3,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
-import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
+import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
 
@@ -56,7 +56,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const bounds = eawsRegionsBounds(focusRegions).pad(0.1).asArray();
+    const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
     const map = new maplibregl.Map({
       dragRotate: false,
