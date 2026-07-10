@@ -4,7 +4,7 @@ import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 import { currentSeasonYear } from "../util/date-season";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
-import type { DangerRatingValue } from "./bulletin/CAAMLv6";
+import type { DangerRatingValue } from "./bulletin";
 
 /**
  * Shape of `Incident.publicData` as returned by GET /incidents. The OpenAPI
