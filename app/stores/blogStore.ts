@@ -2,6 +2,7 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { mappedCategoryName } from "./blog/blogConfig";
 import { atom, computed, onMount, StoreValue } from "nanostores";
+import * as v from "valibot";
 import { AvalancheProblemTypeSchema } from "./bulletin";
 import { Language } from "../appStore";
 
@@ -163,7 +164,7 @@ export function validateLanguage(
 }
 
 export function validateProblem(valueToValidate: string): string {
-  return AvalancheProblemTypeSchema.safeParse(valueToValidate).success
+  return v.safeParse(AvalancheProblemTypeSchema, valueToValidate).success
     ? valueToValidate
     : "all";
 }
