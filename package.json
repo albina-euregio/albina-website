@@ -15,6 +15,7 @@
   "type": "module",
   "scripts": {
     "prepare": "vp config",
+    "openapi": "openapi-ts",
     "dev": "vp dev",
     "start": "vp dev",
     "start-beta": "APP_REGION=BETA vp dev",
@@ -61,6 +62,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.99.0",
     "@playwright/test": "1.61.1",
     "@types/diff-match-patch": "^1.0.36",
     "@types/geojson": "^7946.0.16",
@@ -70,6 +72,7 @@
     "@vitejs/plugin-react": "^6.0.2",
     "git-cliff": "^2.10.1",
     "sass": "^1.99.0",
+    "valibot": "^1.4.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
