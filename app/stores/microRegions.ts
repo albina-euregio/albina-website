@@ -8,7 +8,7 @@ const regions_elevation_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
   { import: "default", eager: true }
 );
-import { z } from "zod/mini";
+import * as v from "valibot";
 
 export enum EawsRegionDataLayer {
   micro_regions_elevation = "micro-regions_elevation",
@@ -16,34 +16,33 @@ export enum EawsRegionDataLayer {
   outline = "outline"
 }
 
-export const MicroRegionPropertiesSchema = z.object({
-  id: z.string(),
-  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
-  start_date: z.nullish(z.string()),
-  end_date: z.nullish(z.string())
+export const MicroRegionPropertiesSchema = v.object({
+  id: v.string(),
+  bbox: v.tuple([v.number(), v.number(), v.number(), v.number()]),
+  start_date: v.nullish(v.string()),
+  end_date: v.nullish(v.string())
 });
-export type MicroRegionProperties = z.infer<typeof MicroRegionPropertiesSchema>;
+export type MicroRegionProperties = v.InferOutput<
+  typeof MicroRegionPropertiesSchema
+>;
 
-const MicroRegionElevationPropertiesSchema = z.extend(
-  MicroRegionPropertiesSchema,
-  {
-    elevation: z.enum(["high", "low", "low_high"]),
-    threshold: z.nullish(z.number())
-  }
-);
-export type MicroRegionElevationProperties = z.infer<
+const MicroRegionElevationPropertiesSchema = v.object({
+  ...MicroRegionPropertiesSchema.entries,
+  elevation: v.picklist(["high", "low", "low_high"]),
+  threshold: v.nullish(v.number())
+});
+export type MicroRegionElevationProperties = v.InferOutput<
   typeof MicroRegionElevationPropertiesSchema
 >;
-export const microRegionsElevation: MicroRegionElevationProperties[] = z
-  .array(MicroRegionElevationPropertiesSchema)
-  .parse(
-    config.regionCodes.flatMap(
-      id =>
-        regions_elevation_properties[
-          `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
-        ]
-    )
-  );
+export const microRegionsElevation: MicroRegionElevationProperties[] = v.parse(
+  v.array(MicroRegionElevationPropertiesSchema),
+  config.regionCodes.flatMap(
+    id =>
+      regions_elevation_properties[
+        `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
+      ]
+  )
+);
 
 /**
  * Determines whether the GeoJSON feature's start_date/end_date is valid today
@@ -87,9 +86,9 @@ export function microRegions(
   today: Temporal.PlainDate,
   regionCodes = config.regionCodes
 ) {
-  return z
-    .array(MicroRegionPropertiesSchema)
+  return v
     .parse(
+      v.array(MicroRegionPropertiesSchema),
       regionCodes.flatMap(
         id =>
           regions_properties[

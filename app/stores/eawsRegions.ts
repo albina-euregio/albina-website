@@ -1,18 +1,18 @@
 import outline_properties from "@eaws/outline_properties/index.json";
 import { LngLatBounds } from "maplibre-gl";
-import { z } from "zod/mini";
+import * as v from "valibot";
 import { vLanguageCode } from "../api/valibot.gen";
 
-export const RegionOutlineSchema = z.object({
-  id: z.string(),
-  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
-  aws: z.array(
-    z.object({
-      name: z.string(),
-      url: z.partialRecord(
-        z.union([
-          z.enum(vLanguageCode.options),
-          z.enum([
+export const RegionOutlineSchema = v.object({
+  id: v.string(),
+  bbox: v.tuple([v.number(), v.number(), v.number(), v.number()]),
+  aws: v.array(
+    v.object({
+      name: v.string(),
+      url: v.record(
+        v.union([
+          v.picklist(vLanguageCode.options),
+          v.picklist([
             "api",
             "api:date",
             "facebook",
@@ -25,18 +25,16 @@ export const RegionOutlineSchema = z.object({
             "twitter",
             "youtube"
           ]),
-          z.string()
+          v.string()
         ]),
-        z.string()
+        v.string()
       )
     })
   )
 });
 
-const eawsRegions = z
-  .array(RegionOutlineSchema)
-  .parse(outline_properties, { reportInput: true });
-export type RegionOutlineProperties = z.infer<typeof RegionOutlineSchema>;
+const eawsRegions = v.parse(v.array(RegionOutlineSchema), outline_properties);
+export type RegionOutlineProperties = v.InferOutput<typeof RegionOutlineSchema>;
 
 export function eawsRegion(id: string) {
   return eawsRegions.find(r => r.id === id);
