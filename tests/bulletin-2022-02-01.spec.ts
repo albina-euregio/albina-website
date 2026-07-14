@@ -33,7 +33,10 @@ test("bulletin/2022-02-01", async ({ page }) => {
   const matrix = bulletin.locator(".problem-matrix .matrix-container").first();
   if (await matrix.count()) {
     await expect(matrix).not.toHaveClass(/is-open/);
-    await bulletin.locator(".problem-matrix .matrix-toggle").first().click();
+    await bulletin
+      .locator(".problem-matrix .matrix-avalanche-type")
+      .first()
+      .click();
     await expect(matrix).toHaveClass(/is-open/);
   }
   await expect(
