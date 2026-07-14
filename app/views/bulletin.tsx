@@ -174,6 +174,14 @@ const Bulletin = () => {
       lang
     });
 
+  // Activate the 2026 bulletin styling ([data-bulletin-version="2026"] scope in
+  // _bulletin-2026.scss); scoped to the bulletin view so other pages are unaffected.
+  useEffect(() => {
+    const pageAll = document.getElementById("page-all");
+    pageAll?.setAttribute("data-bulletin-version", "2026");
+    return () => pageAll?.removeAttribute("data-bulletin-version");
+  }, []);
+
   if (headless) {
     document.getElementById("page-all").classList.add("headless");
   }
