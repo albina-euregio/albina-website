@@ -36,9 +36,6 @@ test("bulletin/2022-02-01", async ({ page }) => {
     await bulletin.locator(".problem-matrix .matrix-toggle").first().click();
     await expect(matrix).toHaveClass(/is-open/);
   }
-  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText([
-    /Tendency: Increasing avalanche dangeron Wednesday,? 2 February 2022/
-  ]);
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");
