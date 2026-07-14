@@ -18,15 +18,65 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await expect(bulletin.locator(".bulletin-report-header")).toContainText(
     "Karwendel Mountains"
   );
-  await expect(bulletin.locator(".subheader").first()).toContainText(
+  await expect(
+    bulletin.locator(".bulletin-report-text .subheader").first()
+  ).toContainText(
     "Outside marked and open pistes a dangerous avalanche situation will be encountered over a wide area."
   );
+
+  // D1: avalanche-problems block heading with Kernzone info tooltip
+  await expect(
+    bulletin.locator(".bulletin-report-problems-headline")
+  ).toBeVisible();
+  // D3: danger parameters (matrix) hidden by default, revealed by the toggle arrow
+  // (only present when the problem carries the "slab" avalanche type + parameters)
+  const matrix = bulletin.locator(".problem-matrix .matrix-container").first();
+  if (await matrix.count()) {
+    await expect(matrix).not.toHaveClass(/is-open/);
+    await bulletin.locator(".problem-matrix .matrix-toggle").first().click();
+    await expect(matrix).toHaveClass(/is-open/);
+  }
   await expect(bulletin.locator(".bulletin-report-tendency")).toContainText([
     /Tendency: Increasing avalanche dangeron Wednesday,? 2 February 2022/
   ]);
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");
+
+  // D2: each avalanche problem repeats the headline danger digit
+  await expect(
+    bulletin
+      .locator(
+        ".list-bulletin-report-pictos li.warning-level-4 .bulletin-report-picto.warning-level"
+      )
+      .first()
+  ).toHaveText("4");
+
+  // B3: the audio player is hidden behind a "Listen" toggle, not shown by default
+  await expect(
+    bulletin.locator(".bulletin-report-header-buttons audio")
+  ).toHaveCount(0);
+  await expect(
+    bulletin
+      .locator(".bulletin-report-header-buttons")
+      .getByRole("button", { name: "Listen" })
+  ).toBeVisible();
+
+  // Micro-region switcher: lists the report's regions and navigates on change
+  const regionSelect = bulletin.locator(".bulletin-report-region-select");
+  await expect(regionSelect).toBeVisible();
+  const otherRegions = await regionSelect
+    .locator("option")
+    .evaluateAll(
+      (opts, current) =>
+        (opts as HTMLOptionElement[])
+          .map(o => o.value)
+          .filter(v => v !== current),
+      "AT-07-04"
+    );
+  expect(otherRegions.length).toBeGreaterThan(0);
+  await regionSelect.selectOption(otherRegions[0]);
+  await expect(page).toHaveURL(new RegExp("region=" + otherRegions[0]));
   await expect(bulletin.locator("p").nth(0)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
