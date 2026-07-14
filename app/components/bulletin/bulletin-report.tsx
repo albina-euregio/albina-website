@@ -15,6 +15,7 @@ import { compareAvalancheProblem } from "./bulletin-problem-item";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import TendencyIcon from "../icons/tendency-icon";
 
 const BulletinGlossaryText = React.lazy(
   () => import("./bulletin-glossary-text")
@@ -61,6 +62,15 @@ const LocalizedText: FunctionComponent<{
     </Suspense>
   );
 };
+
+// TODO: trend source — LWD confirmed (2026-07-14) the "Letzte 7 Tage" series is
+// the per-micro-region daily-max danger level, extracted from the last 7 days'
+// bulletins (no dedicated endpoint yet). Deterministic placeholder per region so
+// switching micro-region visibly changes the series; replace with the real loader.
+function getTrendPlaceholder(regionId: string): number[] {
+  const seed = [...regionId].reduce((sum, c) => sum + c.charCodeAt(0), 0);
+  return Array.from({ length: 7 }, (_, i) => ((seed + i * 3) % 5) + 1);
+}
 
 interface Props {
   date: Temporal.PlainDate;
@@ -131,6 +141,24 @@ function BulletinReport({
   const hasTendencyHighlights =
     Array.isArray(bulletin.tendency) &&
     bulletin.tendency.some(tendency => tendency.highlights);
+
+  // "Entwicklung der Lawinengefahr": the report-day danger level and the tendency
+  // arrow are warning-region-wide (from the current bulletin); only the 7-day
+  // history is per micro-region (LWD confirmed 2026-07-14).
+  const hasTendency =
+    Array.isArray(bulletin.tendency) && bulletin.tendency.length > 0;
+  const todayLevel = getWarnlevelNumber(maxWarnlevel);
+  const tendencyType = bulletin.tendency?.find(
+    t => t.tendencyType
+  )?.tendencyType;
+  const tendencyRegionName = intl.formatMessage({
+    id: `region:${region}` as MessageId
+  });
+  // Guard: this string only ships in en/de; other locales fall back to no tooltip
+  // until the translation sync fills them (avoids a crash on the values path).
+  const tendencyInfo = intl.formatMessage({
+    id: "bulletin:report:tendency:info"
+  });
 
   // Micro-regions this report covers, for the region switcher dropdown.
   // Selecting one navigates to that region (re-driving the per-region view).
@@ -435,7 +463,7 @@ function BulletinReport({
             )}
           </div>
         </section>
-        {(hasTendencyHighlights ||
+        {(hasTendency ||
           bulletin.snowpackStructure?.comment ||
           bulletin.weatherForecast?.comment) && (
           <section
@@ -492,22 +520,82 @@ function BulletinReport({
                   </p>
                 </div>
               )}
-              {hasTendencyHighlights && (
-                <div>
-                  <h2 className="subheader">
-                    <FormattedMessage id="bulletin:report:tendency:headline" />
-                  </h2>
-                  {bulletin.tendency.map((tendency, index) => (
-                    <p key={index}>
-                      <LocalizedText
-                        text={tendency?.highlights}
-                        text170000={
-                          bulletin170000?.tendency?.[index]?.highlights
+              {hasTendency && (
+                <div className="bulletin-additional-tendency">
+                  <div className="bulletin-additional-tendency-header">
+                    <span className="text-icon bulletin-report-region-name-country">
+                      <span className="icon icon-location-small"></span>
+                      <span className="text">
+                        <FormattedMessage
+                          id={`region:${region}` as MessageId}
+                        />
+                      </span>
+                    </span>
+                    <h2 className="subheader">
+                      <FormattedMessage id="bulletin:report:tendency:development:headline" />
+                      {tendencyInfo && (
+                        <Tooltip
+                          label={tendencyInfo.replace(
+                            /\{\s*region\s*\}/g,
+                            tendencyRegionName
+                          )}
+                        >
+                          <span className="tooltip-trigger icon-info"></span>
+                        </Tooltip>
+                      )}
+                    </h2>
+                  </div>
+
+                  <div className="bulletin-additional-tendency-progression">
+                    <div className="progression-item progression-last-week">
+                      <div className="progression-value progression-week">
+                        {getTrendPlaceholder(region).map((value, index) => (
+                          <span key={index}>{value}</span>
+                        ))}
+                      </div>
+                      <div className="progression-legend">
+                        <FormattedMessage id="bulletin:report:tendency:last-7-days" />
+                      </div>
+                    </div>
+
+                    <div className="progression-item progression-now">
+                      <div
+                        className={
+                          "progression-value progression-warning-level warning-level-" +
+                          todayLevel
                         }
-                        showDiff={showDiff}
-                      />
-                    </p>
-                  ))}
+                      >
+                        {todayLevel}
+                      </div>
+                      <div className="progression-legend">
+                        {intl.formatDate(date, LONG_DATE_FORMAT)}
+                      </div>
+                    </div>
+
+                    {tendencyType && (
+                      <div className="progression-item progression-tendency">
+                        <div className="progression-value progression-arrow">
+                          <TendencyIcon tendency={tendencyType} />
+                        </div>
+                        <div className="progression-legend">
+                          <FormattedMessage id="bulletin:report:tendency:headline" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {hasTendencyHighlights &&
+                    bulletin.tendency.map((tendency, index) => (
+                      <p key={index}>
+                        <LocalizedText
+                          text={tendency?.highlights}
+                          text170000={
+                            bulletin170000?.tendency?.[index]?.highlights
+                          }
+                          showDiff={showDiff}
+                        />
+                      </p>
+                    ))}
                 </div>
               )}
             </div>
