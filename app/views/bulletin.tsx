@@ -300,6 +300,7 @@ const Bulletin = () => {
           bulletins={collection.bulletinsWith170000}
           date={collection?.date}
           region={region}
+          handleSelectRegion={handleSelectRegion}
         />
       )}
       {headless ? (

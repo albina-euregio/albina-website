@@ -6,9 +6,10 @@ interface Props {
   bulletins: [Bulletin, Bulletin][];
   date: Temporal.PlainDate;
   region: string;
+  handleSelectRegion: (id: string) => void;
 }
 
-function BulletinList({ bulletins, date, region }: Props) {
+function BulletinList({ bulletins, date, region, handleSelectRegion }: Props) {
   return (
     <section
       id="section-bulletin-reports"
@@ -34,6 +35,7 @@ function BulletinList({ bulletins, date, region }: Props) {
                       bulletin170000={bulletin170000}
                       date={date}
                       region={region}
+                      handleSelectRegion={handleSelectRegion}
                     />
                   </li>
                 )}
@@ -50,6 +52,7 @@ function BulletinList({ bulletins, date, region }: Props) {
                     bulletin170000={bulletin170000}
                     date={date}
                     region={region}
+                    handleSelectRegion={handleSelectRegion}
                   />
                 </li>
               )}

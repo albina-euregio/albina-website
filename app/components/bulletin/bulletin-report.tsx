@@ -67,9 +67,16 @@ interface Props {
   bulletin: Bulletin;
   bulletin170000: Bulletin;
   region: string;
+  handleSelectRegion: (id: string) => void;
 }
 
-function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
+function BulletinReport({
+  date,
+  region,
+  bulletin,
+  bulletin170000,
+  handleSelectRegion
+}: Props) {
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
@@ -125,6 +132,19 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
     Array.isArray(bulletin.tendency) &&
     bulletin.tendency.some(tendency => tendency.highlights);
 
+  // Micro-regions this report covers, for the region switcher dropdown.
+  // Selecting one navigates to that region (re-driving the per-region view).
+  const regionOptions = (bulletin.regions ?? [])
+    .map(r => ({
+      id: r.regionID,
+      name: intl.formatMessage({ id: `region:${r.regionID}` as MessageId })
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const showRegionSwitcher =
+    typeof handleSelectRegion === "function" &&
+    regionOptions.length > 1 &&
+    regionOptions.some(o => o.id === region);
+
   return (
     <>
       <div>
@@ -141,11 +161,52 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
+                {isInserted && showDiff > 0 && bulletin.publicationTime && (
+                  <span className="text-icon bulletin-datetime-update">
+                    <span className="icon icon-update"></span>
+                    <span className="text">
+                      <FormattedMessage
+                        id="bulletin:header:updated-at"
+                        values={{
+                          date: intl.formatDate(
+                            bulletin.publicationTime,
+                            LONG_DATE_FORMAT
+                          ),
+                          time: intl.formatDate(bulletin.publicationTime, {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: false
+                          })
+                        }}
+                      />
+                    </span>
+                  </span>
+                )}
                 <span className="text-icon bulletin-report-region-name-country">
                   <span className="icon icon-location-small"></span>
-                  <span className="text">
-                    <FormattedMessage id={`region:${region}` as MessageId} />
-                  </span>
+                  {showRegionSwitcher ? (
+                    <>
+                      <select
+                        className="dropdown selectric bulletin-report-region-select"
+                        value={region}
+                        onChange={e => handleSelectRegion(e.target.value)}
+                        aria-label={intl.formatMessage({
+                          id: "bulletin:report:selected-region:hover"
+                        })}
+                      >
+                        {regionOptions.map(o => (
+                          <option key={o.id} value={o.id}>
+                            {o.name}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="icon icon-down-open"></span>
+                    </>
+                  ) : (
+                    <span className="text">
+                      <FormattedMessage id={`region:${region}` as MessageId} />
+                    </span>
+                  )}
                 </span>
                 {bulletin.source?.provider?.name && (
                   <span className="text-icon bulletin-report-copyright">
@@ -205,6 +266,10 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                       </Tooltip>
                     </li>
                   )}
+                  <SynthesizedBulletin
+                    date={date}
+                    bulletin={bulletin}
+                  ></SynthesizedBulletin>
                   {bulletin.regions?.some(
                     r =>
                       r.regionID.match(config.regionsRegex) ||
@@ -234,10 +299,6 @@ function BulletinReport({ date, region, bulletin, bulletin170000 }: Props) {
                     </li>
                   )}
                 </ul>
-                <SynthesizedBulletin
-                  date={date}
-                  bulletin={bulletin}
-                ></SynthesizedBulletin>
               </div>
             </header>
 
