@@ -15,6 +15,7 @@ import {
   type ValidTimePeriod
 } from "../../stores/bulletin";
 import { scrollIntoView } from "../../util/scrollIntoView";
+import { getWarnlevelNumber } from "../../util/warn-levels";
 
 interface Props {
   validTimePeriod: ValidTimePeriod;
@@ -50,6 +51,12 @@ function BulletinDaytimeReport({
     ) || [];
   const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
 
+  // D2 (Rainer, 23 Apr 2026): the per-problem danger digit is the headline
+  // danger-level number repeated — not problem.dangerRatingValue (empty in data).
+  const maxWarnlevelNumber = dangerRatings.length
+    ? Math.max(...dangerRatings.map(r => getWarnlevelNumber(r.mainValue)))
+    : 0;
+
   let tendencyReportItems: JSX.Element[] = [];
   let tendencyReportItemsAllNew = isInserted;
   if (Array.isArray(bulletin.tendency)) {
@@ -81,6 +88,16 @@ function BulletinDaytimeReport({
           <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
         </h2>
       )}
+      <h2 className="subheader bulletin-report-problems-headline">
+        <FormattedMessage id="bulletin:report:problems:headline" />
+        <Tooltip
+          label={intl.formatMessage({
+            id: "bulletin:report:problems:kernzone:info"
+          })}
+        >
+          <span className="tooltip-trigger icon-info"></span>
+        </Tooltip>
+      </h2>
       <div className="bulletin-report-pictobar">
         <div className="bulletin-report-region">
           <Tooltip
@@ -145,6 +162,7 @@ function BulletinDaytimeReport({
                 p => p.problemType === problem.problemType
               )}
               showDiff={showDiff}
+              warnlevelNumber={maxWarnlevelNumber}
             />
           ))}
         </ul>
