@@ -22,6 +22,7 @@ const BulletinGlossaryText = React.lazy(
 );
 import {
   Bulletin,
+  BulletinPhoto,
   hasDaytimeDependency,
   getDangerPatterns,
   getBulletinPhotos
@@ -60,6 +61,87 @@ const LocalizedText: FunctionComponent<{
     <Suspense fallback={<span dangerouslySetInnerHTML={{ __html: text }} />}>
       <BulletinGlossaryText text={text} locale={lang} />
     </Suspense>
+  );
+};
+
+// One gallery card. Copyright is always visible; date + micro-region are hidden
+// behind a "Details" toggle (Email 3 §3). Assigned avalanche problems are not in
+// the photo data yet, so those labels are omitted for now.
+const BulletinReportPictureCard: FunctionComponent<{
+  photo: BulletinPhoto;
+}> = ({ photo }) => {
+  const [open, setOpen] = useState(false);
+  const hasDetails = !!(photo.date || photo.microRegionId);
+  return (
+    <li className="bulletin-report-gallery-item">
+      <article className="bulletin-report-picture-card">
+        <a
+          href={photo.url}
+          className="img"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={photo.locationName}
+        >
+          <img
+            src={photo.url}
+            alt={photo.locationName}
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <div
+          className={"bulletin-report-picture-meta" + (open ? " is-open" : "")}
+        >
+          {photo.copyright && (
+            <span className="text-icon">
+              <span className="icon icon-copyright" aria-hidden="true"></span>
+              <span className="text">{photo.copyright}</span>
+            </span>
+          )}
+          {hasDetails && (
+            <>
+              <button
+                type="button"
+                className="bulletin-report-picture-toggle text-icon"
+                aria-expanded={open}
+                onClick={() => setOpen(o => !o)}
+              >
+                <span className="text button-text">
+                  <FormattedMessage id="bulletin:report:picture:details" />
+                </span>
+                <span className="icon icon-down-open"></span>
+              </button>
+              <div className="bulletin-report-picture-details">
+                {photo.date && (
+                  <span className="text-icon">
+                    <span
+                      className="icon icon-calendar"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="text">{photo.date}</span>
+                  </span>
+                )}
+                {photo.microRegionId && (
+                  <span className="text-icon">
+                    <span
+                      className="icon icon-location-small"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="text">
+                      {photo.locationName}
+                      {photo.locationName && photo.microRegionId ? ", " : ""}
+                      <FormattedMessage
+                        id={`region:${photo.microRegionId}` as MessageId}
+                      />
+                    </span>
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </article>
+    </li>
   );
 };
 
@@ -404,59 +486,16 @@ function BulletinReport({
               </p>
             </div>
             {bulletinPhotos.length > 0 && (
-              <div>
+              <div className="bulletin-report-pictures">
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:current-conditions:headline" />
                 </h2>
-                <ul className="list-inline list-bulletin-report-photos">
+                <ul className="list-plain bulletin-report-gallery">
                   {bulletinPhotos.map((photo, index) => (
-                    <li key={photo.url + index}>
-                      <figure>
-                        <img
-                          src={photo.url}
-                          loading="lazy"
-                          decoding="async"
-                          style={{ marginBottom: "1rem" }}
-                        />
-                        <figcaption>
-                          {photo.copyright && (
-                            <span className="text-icon">
-                              <span
-                                className="icon icon-copyright"
-                                aria-hidden="true"
-                              />
-                              {photo.copyright}
-                            </span>
-                          )}
-                          {photo.date && (
-                            <span className="text-icon">
-                              <span
-                                className="icon icon-calendar"
-                                aria-hidden="true"
-                              />
-                              {photo.date}
-                            </span>
-                          )}
-                          {photo.microRegionId && (
-                            <span className="text-icon">
-                              <span
-                                className="icon icon-location"
-                                aria-hidden="true"
-                              />
-                              {photo.locationName}
-                              {photo.locationName && photo.microRegionId
-                                ? ", "
-                                : ""}
-                              <FormattedMessage
-                                id={
-                                  `region:${photo.microRegionId}` as MessageId
-                                }
-                              />
-                            </span>
-                          )}
-                        </figcaption>
-                      </figure>
-                    </li>
+                    <BulletinReportPictureCard
+                      key={photo.url + index}
+                      photo={photo}
+                    />
                   ))}
                 </ul>
               </div>
