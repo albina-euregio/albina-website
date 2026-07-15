@@ -237,7 +237,7 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isUpdated && showDiff > 0 && (
+                {isUpdated && (
                   <span className="text-icon bulletin-datetime-update">
                     <span className="icon icon-update"></span>
                     <span className="text">
@@ -263,7 +263,7 @@ function BulletinReport({
                   {showRegionSwitcher ? (
                     <>
                       <select
-                        className="dropdown selectric bulletin-report-region-select"
+                        className="bulletin-report-region-select"
                         value={region}
                         onChange={e => handleSelectRegion(e.target.value)}
                         aria-label={intl.formatMessage({
@@ -324,7 +324,7 @@ function BulletinReport({
 
               <div className="bulletin-report-header-buttons">
                 <ul className="list-inline list-buttongroup">
-                  {isUpdated && (
+                  {isUpdated && showDiff === 0 && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
@@ -333,11 +333,13 @@ function BulletinReport({
                       >
                         <button
                           type="button"
-                          className="pure-button inverse error tooltip bulletin-report-header-diff"
-                          onClick={() => setShowDiff(d => (d + 1) % 3)}
+                          className="pure-button inverse error tooltip pure-button-icon-text bulletin-report-header-diff"
+                          onClick={() => setShowDiff(2)}
                         >
                           <span className="icon icon-show-small"></span>
-                          <FormattedMessage id="bulletin:report:update" />
+                          <span className="text">
+                            <FormattedMessage id="bulletin:report:update" />
+                          </span>
                         </button>
                       </Tooltip>
                     </li>
@@ -358,7 +360,7 @@ function BulletinReport({
                         })}
                       >
                         <a
-                          className="pure-button inverse tooltip"
+                          className="pure-button inverse tooltip pure-button-icon-text"
                           rel="noopener noreferrer nofollow"
                           target="_blank"
                           href={config.template(config.apis.bulletin.pdf, {
@@ -369,7 +371,9 @@ function BulletinReport({
                           })}
                         >
                           <span className="icon icon-download"></span>
-                          <FormattedMessage id="bulletin:linkbar:pdf" />
+                          <span className="text">
+                            <FormattedMessage id="bulletin:linkbar:pdf" />
+                          </span>
                         </a>
                       </Tooltip>
                     </li>

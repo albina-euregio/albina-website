@@ -68,6 +68,37 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       }
     }
 
+    // Region switcher: render the native <select> as inline text + chevron
+    // (matching the PatternLab region-name), not a boxed form control.
+    .bulletin-report-region-name-country {
+      .bulletin-report-region-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        font: inherit;
+        color: variables.$brand;
+        @include mixins.letter-spacing;
+        line-height: 1;
+        cursor: pointer;
+        &:hover {
+          color: variables.$brand-dark;
+        }
+        &:focus-visible {
+          outline: 1px dotted currentColor;
+          outline-offset: 2px;
+        }
+      }
+      .icon-down-open {
+        color: variables.$brand;
+        cursor: pointer;
+      }
+    }
+
     .text-icon {
       display: flex;
       align-items: center;

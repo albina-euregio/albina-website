@@ -53,11 +53,13 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
         >
           <button
             type="button"
-            className="pure-button inverse tooltip"
+            className="pure-button inverse tooltip pure-button-icon-text"
             onClick={() => setPlaying(true)}
           >
             <span className="icon icon-listen-small"></span>
-            <FormattedMessage id="bulletin:report:listen" />
+            <span className="text">
+              <FormattedMessage id="bulletin:report:listen" />
+            </span>
           </button>
         </Tooltip>
       )}
