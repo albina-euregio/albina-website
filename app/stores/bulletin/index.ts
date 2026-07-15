@@ -30,6 +30,7 @@ export * from "./bulletinCollection";
 // what the generator cannot express: the website-facing type aliases, plus the
 // handful of schemas that need overriding — `customData` (kept free-form `any`),
 // date fields (coerced to `Date`) and `tendency` (single object or array).
+// Optionality is taken as-is from the spec; do not tighten it here.
 
 /** Coerces a JSON date (ISO string, timestamp or Date) into a `Date`. */
 const CoerceDateSchema = v.pipe(
@@ -68,15 +69,13 @@ export type ValidTime = v.InferOutput<typeof ValidTimeSchema>;
 
 const DangerRatingSchema = v.object({
   ...vCaamlDangerRating.entries,
-  customData: CustomDataSchema,
-  mainValue: vCaamlDangerRatingValue
+  customData: CustomDataSchema
 });
 export type DangerRating = v.InferOutput<typeof DangerRatingSchema>;
 
 const RegionSchema = v.object({
   ...vCaamlRegion.entries,
-  customData: CustomDataSchema,
-  regionID: v.string()
+  customData: CustomDataSchema
 });
 export type Region = v.InferOutput<typeof RegionSchema>;
 
@@ -105,8 +104,7 @@ export type AvalancheBulletinSource = v.InferOutput<
 
 const AvalancheProblemSchema = v.object({
   ...vCaamlAvalancheProblem.entries,
-  customData: CustomDataSchema,
-  problemType: vCaamlAvalancheProblemType
+  customData: CustomDataSchema
 });
 export type AvalancheProblem = v.InferOutput<typeof AvalancheProblemSchema>;
 
@@ -120,11 +118,10 @@ export type Tendency = v.InferOutput<typeof TendencySchema>;
 const BulletinSchema = v.object({
   ...vCaamlAvalancheBulletin.entries,
   avalancheProblems: v.optional(v.array(AvalancheProblemSchema)),
-  bulletinID: v.string(),
   customData: CustomDataSchema,
   dangerRatings: v.optional(v.array(DangerRatingSchema)),
   nextUpdate: v.optional(CoerceDateSchema),
-  publicationTime: CoerceDateSchema,
+  publicationTime: v.optional(CoerceDateSchema),
   regions: v.optional(v.array(RegionSchema)),
   source: v.optional(AvalancheBulletinSourceSchema),
   tendency: v.optional(
@@ -142,7 +139,7 @@ export type Bulletin = v.InferOutput<typeof BulletinSchema>;
 
 export const BulletinsSchema = v.object({
   ...vCaamlAvalancheBulletins.entries,
-  bulletins: v.array(BulletinSchema),
+  bulletins: v.optional(v.array(BulletinSchema)),
   customData: CustomDataSchema
 });
 export type Bulletins = v.InferOutput<typeof BulletinsSchema>;
