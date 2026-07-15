@@ -1,4 +1,9 @@
-import React, { type FunctionComponent, Suspense, useState } from "react";
+import React, {
+  type FunctionComponent,
+  Suspense,
+  useRef,
+  useState
+} from "react";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
@@ -163,6 +168,7 @@ function BulletinReport({
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
+  const regionSelectRef = useRef<HTMLSelectElement>(null);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
@@ -263,6 +269,7 @@ function BulletinReport({
                   {showRegionSwitcher ? (
                     <>
                       <select
+                        ref={regionSelectRef}
                         className="bulletin-report-region-select"
                         value={region}
                         onChange={e => handleSelectRegion(e.target.value)}
@@ -276,7 +283,10 @@ function BulletinReport({
                           </option>
                         ))}
                       </select>
-                      <span className="icon icon-down-open"></span>
+                      <span
+                        className="icon icon-down-open"
+                        onClick={() => regionSelectRef.current?.showPicker?.()}
+                      ></span>
                     </>
                   ) : (
                     <span className="text">
