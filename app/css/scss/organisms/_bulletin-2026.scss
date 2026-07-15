@@ -174,13 +174,13 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     }
   }
   // Show the danger level as coloured text, not the legacy highlight box the
-  // shared panel mixin applies to light levels (headline-bg). Overrides
-  // .panel.warning-level-N .bulletin-report-header h1 span.
+  // shared panel mixin applies to light levels (headline-bg). Keep the span's
+  // left padding (it offsets the h1 negative margin for alignment); only drop
+  // the background and colour the text with the warning-level colour.
   @for $level from 1 through variables.$warning-level-count {
     .panel.warning-level-#{$level} .bulletin-report-header-danger-level span {
-      padding: 0;
       background: none;
-      color: variables.warning-level($level, headline-color);
+      color: variables.warning-level-color($level);
     }
   }
   .bulletin-report-header-buttons {
