@@ -1,17 +1,8 @@
-import React, {
-  type FunctionComponent,
-  Suspense,
-  useState,
-  useMemo
-} from "react";
+import React, { type FunctionComponent, Suspense, useState } from "react";
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
-import BulletinDaytimeReport, {
-  compareDangerRatings,
-  compareRegions
-} from "./bulletin-daytime-report";
-import { compareAvalancheProblem } from "./bulletin-problem-item";
+import BulletinDaytimeReport from "./bulletin-daytime-report";
 import SynthesizedBulletin from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -176,41 +167,16 @@ function BulletinReport({
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
 
-  const isInserted = useMemo(() => {
-    if (!bulletin || !bulletin170000) {
-      return false;
-    }
-    const checks: ((b: Bulletin) => string | number)[] = [
-      b => b.avalancheActivity?.highlights,
-      b => b.avalancheActivity?.comment,
-      b => b.snowpackStructure?.comment,
-      b => b.tendency?.[0]?.highlights,
-      b => b.tendency?.[0]?.tendencyType,
-      b => getDangerPatterns(b.customData).join()
-    ];
-    return !(
-      checks.every(c => c(bulletin) === c(bulletin170000)) &&
-      compareRegions(bulletin.regions, bulletin170000?.regions) &&
-      compareDangerRatings(
-        bulletin.dangerRatings,
-        bulletin170000?.dangerRatings
-      ) &&
-      bulletin.avalancheProblems.every(problem =>
-        compareAvalancheProblem(
-          problem,
-          bulletin170000?.avalancheProblems.find(
-            p =>
-              p.problemType === problem.problemType &&
-              p.validTimePeriod === problem.validTimePeriod
-          )
-        )
-      )
-    );
-  }, [bulletin, bulletin170000]);
-
   if (!bulletin || !bulletin) {
     return <div />;
   }
+
+  // "Update" status mirrors the header's "Updated" indicator: an amendment exists
+  // when the 17:00 predecessor (bulletin170000, only loaded for unscheduled
+  // bulletins) is present — independent of whether this micro-region changed.
+  const isUpdated = !!(
+    bulletin.publicationTime && bulletin170000?.publicationTime
+  );
 
   const maxWarnlevel = bulletin.dangerRatings
     .map(r => r.mainValue)
@@ -271,7 +237,7 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isInserted && showDiff > 0 && bulletin.publicationTime && (
+                {isUpdated && showDiff > 0 && (
                   <span className="text-icon bulletin-datetime-update">
                     <span className="icon icon-update"></span>
                     <span className="text">
@@ -358,7 +324,7 @@ function BulletinReport({
 
               <div className="bulletin-report-header-buttons">
                 <ul className="list-inline list-buttongroup">
-                  {isInserted && bulletin.publicationTime && (
+                  {isUpdated && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
