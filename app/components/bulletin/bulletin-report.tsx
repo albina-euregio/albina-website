@@ -243,7 +243,7 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isUpdated && (
+                {isUpdated && showDiff > 0 && (
                   <span className="text-icon bulletin-datetime-update">
                     <span className="icon icon-update"></span>
                     <span className="text">
