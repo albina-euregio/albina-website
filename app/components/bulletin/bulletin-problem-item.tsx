@@ -19,26 +19,6 @@ interface Props {
   warnlevelNumber: number;
 }
 
-const textInfoToClass = {
-  frequency: {
-    few: 2,
-    some: 3,
-    many: 4
-  },
-  snowpackStability: {
-    fair: 2,
-    poor: 3,
-    very_poor: 4
-  },
-  avalancheSize: {
-    "1": 2,
-    "2": 3,
-    "3": 4,
-    "4": 4,
-    "5": 4
-  }
-};
-
 function BulletinProblemItem({
   problem,
   problem170000,
@@ -247,35 +227,9 @@ function BulletinProblemItem({
       )}
       {problem && <ProblemIconLink problem={problem} />}
       {problem?.aspects && (
-        <div
-          // style={
-          //   showDiff && !compareAspects(problem, problem170000)
-          //     ? { backgroundColor: "#e6eef2" }
-          //     : {}
-          // }
-          className={
-            showDiff && !compareAspects(problem, problem170000)
-              ? "bulletin-update-diff"
-              : ""
-          }
-        >
-          <ExpositionIcon expositions={problem?.aspects} title={aspectText} />
-        </div>
+        <ExpositionIcon expositions={problem?.aspects} title={aspectText} />
       )}
-      <div
-        // style={
-        //   showDiff && !compareElevation(problem, problem170000)
-        //     ? { backgroundColor: "#e6eef2" }
-        //     : {}
-        // }
-        className={
-          showDiff && !compareElevation(problem, problem170000)
-            ? "bulletin-update-diff"
-            : ""
-        }
-      >
-        {getElevationIcon()}
-      </div>
+      {getElevationIcon()}
 
       {(problem?.snowpackStability ||
         problem?.frequency ||
@@ -317,11 +271,7 @@ function BulletinProblemItem({
                 problem?.problemType !== "gliding_snow" && (
                   <div
                     className={
-                      `matrix-info matrix-info-value-${
-                        textInfoToClass.snowpackStability[
-                          problem?.snowpackStability
-                        ]
-                      }` +
+                      "matrix-info" +
                       (showDiff &&
                       !compareSnowpackStability(problem, problem170000)
                         ? " bulletin-update-diff"
@@ -354,7 +304,7 @@ function BulletinProblemItem({
               {problem?.frequency && (
                 <div
                   className={
-                    `matrix-info matrix-info-value-${textInfoToClass.frequency[problem?.frequency]}` +
+                    "matrix-info" +
                     (showDiff && !compareFrequency(problem, problem170000)
                       ? " bulletin-update-diff"
                       : "")
@@ -383,9 +333,7 @@ function BulletinProblemItem({
               {problem?.avalancheSize && (
                 <div
                   className={
-                    `matrix-info matrix-info-value-${
-                      textInfoToClass.avalancheSize[problem?.avalancheSize]
-                    }` +
+                    "matrix-info" +
                     (showDiff && !compareAvalancheSize(problem, problem170000)
                       ? " bulletin-update-diff"
                       : "")
