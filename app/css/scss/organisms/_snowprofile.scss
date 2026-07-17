@@ -2,18 +2,6 @@
 	#SNOWPROFILE
 \*------------------------------------*/
 
-// glyph font required by profea (public/vendor/profea.js) to render
-// IACS grain-shape symbols
-@font-face {
-  font-family: "snowsymbolsiacs";
-  src:
-    url("/fonts/SnowSymbolIACS.woff2") format("woff2"),
-    url("/fonts/snowsymbolsiacs.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
-
 .date-range-filter {
   display: flex;
   gap: 1rem;
@@ -23,10 +11,10 @@
   overflow: auto;
   text-align: center;
 
-  svg {
+  img {
     display: block;
-    // render at profea's native A4 page size (PAGE_W_MM in public/vendor/profea.js)
-    // instead of shrinking to fit, so it stays legible; the dialog scrolls instead
+    // render at profea's native A4 page size instead of shrinking to fit, so it
+    // stays legible; the dialog scrolls instead
     width: 210mm;
     height: auto;
     margin: 0 auto;

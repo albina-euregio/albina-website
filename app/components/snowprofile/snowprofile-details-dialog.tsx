@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { $router, redirectPageQuery } from "../router";
 import Modal from "../dialogs/albina-modal";
 import { useIntl } from "../../i18n";
-import { fetchText } from "../../util/fetch";
-import { loadProfea } from "../../util/loadProfea";
+import { $language } from "../../appStore";
 
 export function useSnowProfileId() {
   const router = useStore($router);
@@ -21,66 +20,42 @@ interface Props {
 
 function SnowProfileDetail({ profileId }: { profileId: string }) {
   const intl = useIntl();
-  // Capture intl in a ref so the effect can resolve region names without
-  // depending on it (useIntl returns a fresh object each render, which would
-  // otherwise re-trigger the fetch on every render).
-  const intlRef = useRef(intl);
-  intlRef.current = intl;
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const language = useStore($language);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  // The backend (profea-app) renders the profile to SVG for us — including the
+  // localised labels, observation date and micro-region name — so the website
+  // just embeds it as an image. `lang` drives that localisation; the backend
+  // falls back to English for languages it doesn't yet have label tables for.
+  const src =
+    `${config.apis.snowprofiles}/profiles/${encodeURIComponent(profileId)}/svg` +
+    `?lang=${encodeURIComponent(language || "en")}&colorizeByGrain=true`;
+
+  // Reset the loading/error state whenever the requested image changes.
   useEffect(() => {
-    let cancelled = false;
     setLoading(true);
     setError(false);
-
-    (async () => {
-      try {
-        const xml = await fetchText(
-          `${config.apis.snowprofiles}/profiles/${encodeURIComponent(profileId)}`
-        );
-        const profea = await loadProfea();
-        if (cancelled || !svgRef.current) return;
-
-        const data = profea.parse(xml);
-
-        // CAAML has no sub-region element; profea surfaces the raw micro-region
-        // id (meta.subregionId, e.g. "AT-07-14-04"). Resolve it to a localised
-        // name via the bundled eaws-regions catalog, as the rest of the app does.
-        const subregionId = data.meta.subregionId;
-        if (typeof subregionId === "string" && subregionId) {
-          const name = intlRef.current.formatMessage({
-            id: `region:${subregionId}`
-          });
-          if (name) data.meta.subregion = name;
-        }
-
-        profea.draw(data, svgRef.current, {
-          colorizeByGrain: true
-        });
-      } catch (e) {
-        console.error("Failed loading snow profile " + profileId, e);
-        if (!cancelled) setError(true);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [profileId]);
+  }, [src]);
 
   return (
     <div className="snowprofile-detail">
-      {loading && (
+      {loading && !error && (
         <p>{intl.formatMessage({ id: "snowprofiles:detail:loading" })}</p>
       )}
       {error && (
         <p>{intl.formatMessage({ id: "snowprofiles:detail:error" })}</p>
       )}
-      <svg ref={svgRef} style={{ display: "block" }} />
+      <img
+        src={src}
+        alt={intl.formatMessage({ id: "snowprofiles:detail:loading" })}
+        style={{ display: loading || error ? "none" : undefined }}
+        onLoad={() => setLoading(false)}
+        onError={() => {
+          setError(true);
+          setLoading(false);
+        }}
+      />
     </div>
   );
 }

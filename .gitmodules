@@ -1,4 +1,0 @@
-[submodule "public/vendor/profea"]
-	path = public/vendor/profea
-	url = ../../kantigabgerundet/profea.git
-	branch = metadata
