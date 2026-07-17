@@ -33,7 +33,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
       <div className="section-centered">
         <div className="grid linkbar">
           <div className="grid-item">
-            <ul className="list-inline bulletin-buttonbar">
+            <ul className="list-inline list-buttongroup">
               {!config.subscribe.buttonHidden && (
                 <li>
                   <Tooltip
