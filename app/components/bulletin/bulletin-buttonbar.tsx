@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
-import { scrollIntoView } from "../../util/scrollIntoView";
 import { $province } from "../../appStore";
 import { BulletinCollection } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
@@ -33,16 +32,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
 
       <div className="section-centered">
         <div className="grid linkbar">
-          <div className="normal-4 grid-item">
-            <a
-              href="#page-all"
-              onClick={e => scrollIntoView(e)}
-              className="icon-link icon-arrow-up"
-            >
-              <FormattedMessage id="bulletin:linkbar:back-to-map" />
-            </a>
-          </div>
-          <div className="normal-8 grid-item">
+          <div className="grid-item">
             <ul className="list-inline bulletin-buttonbar">
               {!config.subscribe.buttonHidden && (
                 <li>

@@ -23,7 +23,6 @@ import {
   getDangerPatterns,
   getBulletinPhotos
 } from "../../stores/bulletin";
-import { scrollIntoView } from "../../util/scrollIntoView";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
@@ -637,21 +636,6 @@ function BulletinReport({
             </div>
           </section>
         )}
-
-        <section
-          id={bulletin.bulletinID + "-back-to-map"}
-          className="section-centered section-bulletin section-bulletin-additional"
-        >
-          <div className="panel brand">
-            <a
-              href="#page-all"
-              onClick={e => scrollIntoView(e)}
-              className="icon-link icon-arrow-up"
-            >
-              <FormattedMessage id="bulletin:linkbar:back-to-map" />
-            </a>
-          </div>
-        </section>
       </div>
     </>
   );
