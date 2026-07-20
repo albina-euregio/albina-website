@@ -72,7 +72,7 @@ const BulletinReportPictureCard: FunctionComponent<{
       <article className="bulletin-report-picture-card">
         <a
           href={photo.url}
-          className="img"
+          className="img avoid-external-icon"
           target="_blank"
           rel="noopener noreferrer"
           title={photo.locationName}
