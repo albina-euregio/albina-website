@@ -105,9 +105,8 @@ function useObservations() {
   const [observation, setObservation] = useState<string>("");
 
   async function loadObservations() {
-    const snobs = await fetchJSON<unknown>(
-      "https://static.avalanche.report/snobs.json"
-    );
+    if (!config.apis.snobs) return;
+    const snobs = await fetchJSON<unknown>(config.apis.snobs);
     const observationsList = Array.isArray(snobs)
       ? snobs.filter(isObservation)
       : [];

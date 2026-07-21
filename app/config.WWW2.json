@@ -392,7 +392,8 @@
       "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
       "archive": "/bulletins/archive/"
     },
-    "blogger": "/blog/"
+    "blogger": "/blog/",
+    "snobs": "https://static.avalanche.report/snobs.json"
   },
   "links": {
     "eaws": "https://www.avalanches.org/",
