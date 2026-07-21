@@ -28,7 +28,7 @@ workflow:
     paths:
       - .pnpm-store
   before_script:
-    - command -v pnpm || npm install --global pnpm@11.9.0
+    - command -v pnpm || npm install --global pnpm@11.15.1
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:
@@ -146,7 +146,7 @@ deploy:www2:
     reports:
       junit: test-results/junit-results.xml
   before_script:
-    - command -v pnpm || npm install --global pnpm@11.9.0
+    - command -v pnpm || npm install --global pnpm@11.15.1
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:
