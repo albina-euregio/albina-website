@@ -1,16 +1,8 @@
 import { atom, computed } from "nanostores";
-import { z } from "zod/mini";
+import * as v from "valibot";
+import { vLanguageCode } from "./api/valibot.gen";
 
-export const LanguageSchema = z.enum([
-  "ca",
-  "en",
-  "de",
-  "es",
-  "fr",
-  "it",
-  "oc"
-]);
-export type Language = z.infer<typeof LanguageSchema>;
+export type Language = v.InferOutput<typeof vLanguageCode>;
 
 // i18n
 const translationImports = import.meta.glob("./i18n/*.json", {

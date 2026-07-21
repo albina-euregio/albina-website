@@ -6,7 +6,7 @@ import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
-import { Bulletin } from "../../stores/bulletin/CAAMLv6";
+import { Bulletin } from "../../stores/bulletin";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
 
@@ -356,7 +356,7 @@ export function AdditionalBulletinInformation({
 
   const bounds = useMemo((): maplibregl.LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
-    return b.isValid() ? b.asArray() : undefined;
+    return b.isEmpty() ? undefined : b;
   }, [region, date]);
 
   return (

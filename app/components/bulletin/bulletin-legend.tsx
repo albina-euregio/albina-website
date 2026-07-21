@@ -1,7 +1,7 @@
 import { FormattedMessage, useIntl } from "../../i18n";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
-import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
+import { AvalancheProblemType } from "../../stores/bulletin";
 import React from "react";
 import { EnabledLanguages } from "./bulletin-glossary.js";
 const BulletinInternalGlossaryText = React.lazy(
