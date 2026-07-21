@@ -101,6 +101,10 @@
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
     "snobs": "https://static.avalanche.report/snobs.json",
+    "weatherOverlay": [
+      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
+      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
+    ],
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"

@@ -9,10 +9,6 @@ import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
 export const config = {
-  overlayURLs: [
-    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
-    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
-  ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
     // [sw, ne] as [lng, lat].
@@ -466,12 +462,19 @@ export interface DataOverlay {
 }
 export const dataOverlays = atom<DataOverlay[]>([]);
 
-function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
-  if (!domain) return config.overlayURLs;
-  const cfg = config.domains[domain]?.item as
-    | { overlayURLs?: [string, string] }
+function getDomainOverlayBaseURLs(
+  domain: DomainId | null
+): [string, string] | null {
+  const cfg = domain
+    ? (config.domains[domain]?.item as
+        | { overlayURLs?: [string, string] }
+        | undefined)
+    : undefined;
+  if (cfg?.overlayURLs) return cfg.overlayURLs;
+  const urls = window.config.apis.weatherOverlay as
+    | [string, string]
     | undefined;
-  return cfg?.overlayURLs || config.overlayURLs;
+  return urls ?? null;
 }
 
 /**
@@ -659,12 +662,12 @@ export async function initDomain(
 
   // 5. Fetch metadata only when domain or timeSpan actually changed
   if (needsMetadata) {
-    const baseUrl = getDomainOverlayBaseURLs(newDomain)[0];
+    const baseUrl = getDomainOverlayBaseURLs(newDomain)?.[0];
     const absSpan = Math.abs(
       parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
     );
 
-    if (!hasMetaFiles) {
+    if (!hasMetaFiles || !baseUrl) {
       const fallback = SIMULATE_START
         ? Temporal.Instant.from(SIMULATE_START)
         : Temporal.Now.zonedDateTimeISO()
@@ -826,6 +829,7 @@ function getOverlayURLs(
 ): [string, string] {
   if (!currentTime) return ["", ""];
   const baseUrls = getDomainOverlayBaseURLs(domain);
+  if (!baseUrls) return ["", ""];
   const effectiveTime =
     domain === "relative-snow"
       ? currentTime.subtract({ hours: 24 })
