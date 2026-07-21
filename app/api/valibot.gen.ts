@@ -730,6 +730,479 @@ export const vIncidentAttachment = v.object({
   attachmentTags: v.array(v.string())
 });
 
+export const vIncidentsAccidentalControlled = v.picklist([
+  "Accidental",
+  "Controlled"
+]);
+
+export const vIncidentsAdditionalLoad = v.picklist(["High", "Low"]);
+
+export const vIncidentsAge = v.picklist([
+  "From14To20",
+  "From21To30",
+  "From31To40",
+  "From41To50",
+  "From51To60",
+  "From61To70",
+  "From71",
+  "UpTo13"
+]);
+
+export const vIncidentsAirbag = v.picklist([
+  "AirbagDeployed",
+  "AirbagUndeployed",
+  "NoAirbag"
+]);
+
+export const vIncidentsAttachmentCategory = v.picklist([
+  "Avalanche",
+  "Group",
+  "Incident",
+  "Person",
+  "Snowpack",
+  "Weather"
+]);
+
+export const vIncidentsAttachment = v.object({
+  altText: v.string(),
+  attachmentCategory: vIncidentsAttachmentCategory,
+  attachmentTags: v.array(v.string()),
+  caption: v.string(),
+  credit: v.string(),
+  dateAdded: v.record(v.string(), v.unknown()),
+  dateCreated: v.record(v.string(), v.unknown()),
+  file: v.string(),
+  fileName: v.string(),
+  id: v.pipe(v.string(), v.uuid()),
+  mediaType: v.string(),
+  attachmentPublic: v.boolean()
+});
+
+export const vIncidentsAvalancheGear = v.picklist([
+  "All",
+  "None",
+  "Some",
+  "Unknown"
+]);
+
+export const vIncidentsAvalancheProblemAvalancheSize = v.picklist([
+  "extreme",
+  "large",
+  "medium",
+  "small",
+  "very_large"
+]);
+
+export const vIncidentsAvalancheType = v.picklist([
+  "cornice",
+  "glide",
+  "loose",
+  "slab",
+  "unknown"
+]);
+
+export const vIncidentsBedSurfaceStepped = v.picklist(["No", "Yes"]);
+
+export const vIncidentsBurialDegree = v.picklist([
+  "FullyBuried",
+  "NotBuried",
+  "PartlyBuried",
+  "PartlyBuriedHeadCovered",
+  "PartlyBuriedHeadUncovered",
+  "Unknown"
+]);
+
+export const vIncidentsCaught = v.picklist([
+  "Involved",
+  "NotInvolved",
+  "Unknown"
+]);
+
+export const vIncidentsCriticalWarming = v.picklist([
+  "Absent",
+  "Present",
+  "Unknown"
+]);
+
+export const vIncidentsDangerPattern = v.picklist([
+  "dp1",
+  "dp10",
+  "dp2",
+  "dp3",
+  "dp4",
+  "dp5",
+  "dp6",
+  "dp7",
+  "dp8",
+  "dp9"
+]);
+
+export const vIncidentsDangerRating = v.picklist([
+  "considerable",
+  "high",
+  "low",
+  "moderate",
+  "no_rating",
+  "no_snow",
+  "very_high"
+]);
+
+export const vIncidentsDepositMoisture = v.picklist(["Dry", "Moist", "Wet"]);
+
+export const vIncidentsEstimatedTimeOfDeath = v.picklist([
+  "DuringBurial",
+  "DuringTheAvalanche",
+  "DuringTransport",
+  "InHospital",
+  "OnSiteAfterExtrication"
+]);
+
+export const vIncidentsFatalInjured = v.picklist([
+  "Fatal",
+  "Injured",
+  "Uninjured",
+  "Unknown"
+]);
+
+export const vIncidentsFrequency = v.picklist(["few", "many", "none", "some"]);
+
+export const vIncidentsGender = v.picklist(["Female", "Male", "Other"]);
+
+export const vIncidentsGroupSizeAccuracy = v.picklist([
+  "Approximately",
+  "AtLeast",
+  "Exact",
+  "Unknown"
+]);
+
+export const vIncidentsIncidentSchemaAvalancheSize = v.picklist([
+  "extreme",
+  "large",
+  "large_very_large",
+  "medium",
+  "medium_large",
+  "small",
+  "small_medium",
+  "unknown",
+  "very_large",
+  "very_large_extreme"
+]);
+
+export const vIncidentsIncidentTerrainType = v.picklist([
+  "ControlledTerrainClosed",
+  "ControlledTerrainOpen",
+  "FreeTerrain",
+  "Unknown"
+]);
+
+export const vIncidentsGroupInformation = v.object({
+  anonymousGroupIdentifier: v.string(),
+  avalancheGear: vIncidentsAvalancheGear,
+  groupInformationComment: v.string(),
+  groupSize: v.number(),
+  groupSizeAccuracy: vIncidentsGroupSizeAccuracy,
+  groupType: v.string(),
+  id: v.pipe(v.string(), v.uuid()),
+  incidentActivity: v.string(),
+  incidentTerrainType: vIncidentsIncidentTerrainType,
+  travelDirection: v.string(),
+  typeOfControlledTerrain: v.string(),
+  vehicleType: v.string()
+});
+
+export const vIncidentsInjurySeverity = v.picklist([
+  "Major",
+  "Minor",
+  "Moderate"
+]);
+
+export const vIncidentsInvolvementsFatalitiesBurials = v.object({
+  caughtOnly: v.number(),
+  fatalities: v.number(),
+  fullyBuried: v.number(),
+  incidentActivity: v.array(v.string()),
+  incidentTerrainType: vIncidentsIncidentTerrainType,
+  injuredSurvivors: v.number(),
+  involvementsFatalitiesBurialsComment: v.string(),
+  numberInvolved: v.number(),
+  numberOfGroups: v.number(),
+  partlyBuried: v.number(),
+  partlyBuriedHeadCovered: v.number(),
+  partlyBuriedHeadUncovered: v.number(),
+  uninjuredSurvivors: v.number()
+});
+
+export const vIncidentsLocationAccuracy = v.picklist([
+  "exact",
+  "unknown",
+  "within100m",
+  "within10km",
+  "within15m",
+  "within1km",
+  "within20km",
+  "within250m",
+  "within2km",
+  "within30m",
+  "within500m",
+  "within50km",
+  "within5km"
+]);
+
+export const vIncidentsNatural = v.picklist([
+  "CorniceFall",
+  "Earthquake",
+  "IceFall",
+  "Natural",
+  "RockFall"
+]);
+
+export const vIncidentsPerson = v.picklist([
+  "PersonAccidental",
+  "PersonControlled"
+]);
+
+export const vIncidentsPersonInvolvement = v.picklist(["No", "Unknown", "Yes"]);
+
+export const vIncidentsProblemType = v.picklist([
+  "cornices",
+  "gliding_snow",
+  "new_snow",
+  "no_distinct_avalanche_problem",
+  "persistent_weak_layers",
+  "wet_snow",
+  "wind_slab"
+]);
+
+export const vIncidentsReportStatus = v.picklist([
+  "Draft",
+  "InReview",
+  "Incomplete",
+  "Verified"
+]);
+
+export const vIncidentsSnowpackStability = v.picklist([
+  "fair",
+  "good",
+  "poor",
+  "very_poor"
+]);
+
+export const vIncidentsStartZoneAspect = v.picklist([
+  "E",
+  "N",
+  "NE",
+  "NW",
+  "S",
+  "SE",
+  "SW",
+  "W"
+]);
+
+export const vIncidentsAvalancheProblem = v.object({
+  aspects: vIncidentsStartZoneAspect,
+  avalancheSize: vIncidentsAvalancheProblemAvalancheSize,
+  elevationLowerBound: v.string(),
+  elevationUpperBound: v.string(),
+  frequency: vIncidentsFrequency,
+  problemType: vIncidentsProblemType,
+  snowpackStability: vIncidentsSnowpackStability
+});
+
+export const vIncidentsStartZoneAspectAccuracy = v.picklist([
+  "Accurate",
+  "Uncertain"
+]);
+
+export const vIncidentsStartZoneElevationAccuracy = v.picklist([
+  "exact",
+  "unknown",
+  "within100m",
+  "within200m",
+  "within50m"
+]);
+
+export const vIncidentsStartZoneMoisture = v.picklist([
+  "Dry",
+  "Moist",
+  "Unknown",
+  "Wet"
+]);
+
+export const vIncidentsTimeAccuracy = v.picklist([
+  "P1D",
+  "P2D",
+  "P3D",
+  "PT12H",
+  "PT15M",
+  "PT1H",
+  "PT2H",
+  "PT30M",
+  "PT4H",
+  "PT6H",
+  "exact",
+  "unknown"
+]);
+
+export const vIncidentsTransceiver = v.picklist([
+  "NoTransceiver",
+  "TransceiverOff",
+  "TransceiverOn"
+]);
+
+export const vIncidentsWeakLayerGrainType = v.picklist([
+  "DF",
+  "DH",
+  "FC",
+  "FCxr",
+  "MF",
+  "MM",
+  "PP",
+  "PPgp",
+  "RG",
+  "SH"
+]);
+
+export const vIncidentsWeakLayerLocation = v.picklist([
+  "AtInterfaceWithOldSnow",
+  "NearTheGround",
+  "WithinNewSnow",
+  "WithinOldSnowpack"
+]);
+
+export const vIncidentsYearsActive = v.picklist([
+  "From10Years",
+  "From3To9Years",
+  "UpTo2Years"
+]);
+
+export const vIncidentsVictimInformation = v.object({
+  age: vIncidentsAge,
+  airbag: vIncidentsAirbag,
+  anonymousVictimIdentifier: v.string(),
+  avalancheTraining: v.string(),
+  burialDegree: vIncidentsBurialDegree,
+  burialDepth: v.number(),
+  burialDuration: v.number(),
+  caught: vIncidentsCaught,
+  causeOfDeath: v.string(),
+  country: v.string(),
+  estimatedTimeOfDeath: vIncidentsEstimatedTimeOfDeath,
+  fatalInjured: vIncidentsFatalInjured,
+  gender: vIncidentsGender,
+  groupID: v.pipe(v.string(), v.uuid()),
+  helmet: vIncidentsBedSurfaceStepped,
+  id: v.pipe(v.string(), v.uuid()),
+  injurySeverity: vIncidentsInjurySeverity,
+  leaderAtTime: vIncidentsBedSurfaceStepped,
+  medicalIntervention: v.string(),
+  primaryLocationMethod: v.string(),
+  probe: vIncidentsBedSurfaceStepped,
+  professionalCertification: v.string(),
+  rescuedBy: v.string(),
+  respiratoryCavity: vIncidentsBedSurfaceStepped,
+  shovel: vIncidentsBedSurfaceStepped,
+  terrainTrap: v.string(),
+  transceiver: vIncidentsTransceiver,
+  victimInformationComment: v.string(),
+  workingAtTime: vIncidentsBedSurfaceStepped,
+  yearsActive: vIncidentsYearsActive
+});
+
+export const vIncidentsIncidentSchema = v.object({
+  accidentalControlled: vIncidentsAccidentalControlled,
+  additionalLoad: vIncidentsAdditionalLoad,
+  attachments: v.array(vIncidentsAttachment),
+  author: v.string(),
+  authorAffiliation: v.string(),
+  avalancheDescription: v.record(v.string(), v.string()),
+  avalancheDescriptionPublic: v.boolean(),
+  avalancheDetailsComment: v.string(),
+  avalancheLength: v.number(),
+  avalancheProblems: v.array(vIncidentsAvalancheProblem),
+  avalancheRegion: v.string(),
+  avalancheSize: vIncidentsIncidentSchemaAvalancheSize,
+  avalancheType: vIncidentsAvalancheType,
+  bedSurfaceStepped: vIncidentsBedSurfaceStepped,
+  bulletinInformationComment: v.string(),
+  country: v.string(),
+  criticalWarming: vIncidentsCriticalWarming,
+  crownDepthAvg: v.number(),
+  crownDepthMax: v.number(),
+  crownDepthMin: v.number(),
+  damagedAssets: v.array(v.string()),
+  dangerPattern: vIncidentsDangerPattern,
+  dangerRating: vIncidentsDangerRating,
+  dateTime: v.record(v.string(), v.unknown()),
+  debrisDensity: v.number(),
+  debrisType: v.array(v.string()),
+  depositElevation: v.number(),
+  depositHeight: v.number(),
+  depositMoisture: vIncidentsDepositMoisture,
+  depositWidth: v.number(),
+  explosives: v.string(),
+  generalInformationComment: v.string(),
+  groupInformation: v.array(vIncidentsGroupInformation),
+  id: v.pipe(v.string(), v.uuid()),
+  incidentAnalysisComment: v.string(),
+  incidentDescription: v.record(v.string(), v.string()),
+  incidentDescriptionPublic: v.boolean(),
+  incidentLede: v.record(v.string(), v.string()),
+  incidentLedePublic: v.boolean(),
+  involvementsFatalitiesBurials: vIncidentsInvolvementsFatalitiesBurials,
+  latitude: v.number(),
+  lineCoordinatesText: v.string(),
+  location: v.string(),
+  locationAccuracy: vIncidentsLocationAccuracy,
+  longitude: v.number(),
+  multipleAvalanches: vIncidentsBedSurfaceStepped,
+  municipality: v.string(),
+  natural: vIncidentsNatural,
+  otherDamages: vIncidentsBedSurfaceStepped,
+  otherDamagesComment: v.string(),
+  person: vIncidentsPerson,
+  personInvolvement: vIncidentsPersonInvolvement,
+  polygonCoordinatesText: v.string(),
+  privateExternalDatabaseLinks: v.string(),
+  privateExternalLinks: v.string(),
+  publicAvalancheWarningService: v.string(),
+  publicAvalancheWarningServiceOutside: v.boolean(),
+  publicExternalLinks: v.string(),
+  publishedAt: v.record(v.string(), v.unknown()),
+  recentLoading: vIncidentsCriticalWarming,
+  recentSlabAvalanches: vIncidentsCriticalWarming,
+  region: v.string(),
+  relevantAvalancheProblem: vIncidentsProblemType,
+  remoteTriggering: vIncidentsBedSurfaceStepped,
+  reportStatus: vIncidentsReportStatus,
+  signsOfInstability: vIncidentsCriticalWarming,
+  slabWidth: v.number(),
+  snowpackDescription: v.record(v.string(), v.string()),
+  snowpackDescriptionPublic: v.boolean(),
+  sourceOfInformation: v.array(v.string()),
+  startZoneAspect: vIncidentsStartZoneAspect,
+  startZoneAspectAccuracy: vIncidentsStartZoneAspectAccuracy,
+  startZoneElevation: v.number(),
+  startZoneElevationAccuracy: vIncidentsStartZoneElevationAccuracy,
+  startZoneIncline: v.number(),
+  startZoneMoisture: vIncidentsStartZoneMoisture,
+  startZoneTerrainType: v.array(v.string()),
+  takeAways: v.record(v.string(), v.string()),
+  takeAwaysPublic: v.boolean(),
+  timeAccuracy: vIncidentsTimeAccuracy,
+  trigger: v.string(),
+  updatedAt: v.record(v.string(), v.unknown()),
+  vehicle: v.string(),
+  victimInformation: v.array(vIncidentsVictimInformation),
+  weakLayerGrainSize1: v.number(),
+  weakLayerGrainSize2: v.number(),
+  weakLayerGrainType1: vIncidentsWeakLayerGrainType,
+  weakLayerGrainType2: vIncidentsWeakLayerGrainType,
+  weakLayerLocation: vIncidentsWeakLayerLocation,
+  weakLayerName: v.string(),
+  weatherDescription: v.record(v.string(), v.string()),
+  weatherDescriptionPublic: v.boolean()
+});
+
 /**
  * The enum contains the ISO 639-1 codes for available languages.
  */
@@ -2048,9 +2521,9 @@ export const vGetIncidentsQuery = v.object({
 });
 
 /**
- * getIncidents 200 response
+ * OK response
  */
-export const vGetIncidentsResponse = v.string();
+export const vGetIncidentsResponse = v.record(v.string(), v.unknown());
 
 export const vCreateIncidentBody = v.string();
 
@@ -2072,9 +2545,9 @@ export const vGetIncidentPath = v.object({
 });
 
 /**
- * getIncident 200 response
+ * OK response
  */
-export const vGetIncidentResponse = v.string();
+export const vGetIncidentResponse = vIncidentsIncidentSchema;
 
 export const vUpdateIncidentBody = v.string();
 
