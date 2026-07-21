@@ -5,7 +5,7 @@ import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
-import type { SnowProfileData } from "../../stores/snowProfileDataStore.ts";
+import type { SnowProfileData } from "../../stores/profileDataStore.ts";
 
 const SOURCE_ID = "snowprofiles";
 const CIRCLE_LAYER_ID = "snowprofiles-circles";

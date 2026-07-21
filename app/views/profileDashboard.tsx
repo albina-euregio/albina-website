@@ -1,19 +1,19 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
-import { useSnowProfileData } from "../stores/snowProfileDataStore";
-import SnowProfileMapLibreMap from "../components/snowprofile/snowprofile-map.tsx";
-import SnowProfileTable from "../components/snowprofile/snowprofile-table";
+import { useSnowProfileData } from "../stores/profileDataStore";
+import SnowProfileMapLibreMap from "../components/profile/profile-map";
+import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
   useSnowProfileId
-} from "../components/snowprofile/snowprofile-details-dialog";
+} from "../components/profile/profile-details-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import DateRangeFilter from "../components/filters/date-range-filter";
 import SearchField from "../components/organisms/search-field";
 import { $router, redirectPageQuery } from "../components/router";
-import { useHiddenFooter } from "./useHiddenFooter.tsx";
-import { useFilterBarOffset } from "./useFilterBarOffset.ts";
+import { useHiddenFooter } from "./useHiddenFooter";
+import { useFilterBarOffset } from "./useFilterBarOffset";
 
 const DEFAULT_VIEW_MODE = "map";
 
@@ -80,7 +80,7 @@ function SnowProfileDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--snowprofiles`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--profiles`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">

@@ -80,6 +80,9 @@
       "url": "/incidents"
     },
     {
+      "url": "/profiles"
+    },
+    {
       "url": "/weather",
       "children": [
         {
@@ -93,9 +96,6 @@
         },
         {
           "url": "/weather/archive"
-        },
-        {
-          "url": "/weather/snow-profiles"
         },
         {
           "url": ""
@@ -404,7 +404,7 @@
     "push": "/api/push",
     "subscribe": "/api/email",
     "incidents": "/api/incidents",
-    "snowprofiles": "/snowprofiles/api",
+    "profiles": "/profiles-app/api",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"

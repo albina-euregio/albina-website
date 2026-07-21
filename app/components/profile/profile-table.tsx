@@ -1,7 +1,7 @@
 import React, { type MouseEvent, type ReactNode } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import type { SnowProfileData } from "../../stores/snowProfileDataStore";
+import type { SnowProfileData } from "../../stores/profileDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 
 type SortDir = "asc" | "desc";
@@ -74,7 +74,7 @@ export default function SnowProfileTable(props: Props) {
     });
 
   return (
-    <table className="pure-table pure-table-striped pure-table-small table-snowprofiles">
+    <table className="pure-table pure-table-striped pure-table-small table-profiles">
       <thead>
         <tr>
           {columns.map(col => (

@@ -15,7 +15,7 @@ export default function DateRangeFilter(props: Props) {
     <div className="pure-form date-range-filter">
       <div>
         <p className="info">
-          {intl.formatMessage({ id: "snowprofiles:filter:date-from" })}
+          {intl.formatMessage({ id: "profiles:filter:date-from" })}
         </p>
         <input
           type="date"
@@ -26,7 +26,7 @@ export default function DateRangeFilter(props: Props) {
       </div>
       <div>
         <p className="info">
-          {intl.formatMessage({ id: "snowprofiles:filter:date-to" })}
+          {intl.formatMessage({ id: "profiles:filter:date-to" })}
         </p>
         <input
           type="date"

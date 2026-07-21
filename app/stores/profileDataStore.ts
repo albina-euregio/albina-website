@@ -73,7 +73,7 @@ async function fetchSnowProfiles(
   dateFrom: string,
   dateTo: string
 ): Promise<SnowProfileData[]> {
-  const url = `${config.apis.snowprofiles}/profiles/export?format=json&regions=${encodeURIComponent(config.regionCodes.join(","))}&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
+  const url = `${config.apis.profiles}/profiles/export?format=json&regions=${encodeURIComponent(config.regionCodes.join(","))}&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
   try {
     const raw = await fetchJSON<RawSnowProfile[]>(url);
     return raw.map(r => new SnowProfileData(r));

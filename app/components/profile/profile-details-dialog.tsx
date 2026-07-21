@@ -29,7 +29,7 @@ function SnowProfileDetail({ profileId }: { profileId: string }) {
   // just embeds it as an image. `lang` drives that localisation; the backend
   // falls back to English for languages it doesn't yet have label tables for.
   const src =
-    `${config.apis.snowprofiles}/profiles/${encodeURIComponent(profileId)}/svg` +
+    `${config.apis.profiles}/profiles/${encodeURIComponent(profileId)}/svg` +
     `?lang=${encodeURIComponent(language || "en")}&colorizeByGrain=true`;
 
   // Reset the loading/error state whenever the requested image changes.
@@ -41,14 +41,12 @@ function SnowProfileDetail({ profileId }: { profileId: string }) {
   return (
     <div className="snowprofile-detail">
       {loading && !error && (
-        <p>{intl.formatMessage({ id: "snowprofiles:detail:loading" })}</p>
+        <p>{intl.formatMessage({ id: "profiles:detail:loading" })}</p>
       )}
-      {error && (
-        <p>{intl.formatMessage({ id: "snowprofiles:detail:error" })}</p>
-      )}
+      {error && <p>{intl.formatMessage({ id: "profiles:detail:error" })}</p>}
       <img
         src={src}
-        alt={intl.formatMessage({ id: "snowprofiles:detail:loading" })}
+        alt={intl.formatMessage({ id: "profiles:detail:loading" })}
         style={{ display: loading || error ? "none" : undefined }}
         onLoad={() => setLoading(false)}
         onError={() => {

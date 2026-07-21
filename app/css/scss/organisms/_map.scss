@@ -998,11 +998,11 @@ $search-width-wide: 300px;
     }
   }
 
-  // the snowprofile date filter is a from/to range (two date inputs), unlike
+  // the snow-profile date filter is a from/to range (two date inputs), unlike
   // the single datetime-local on the weather dashboard, so give it room and let
   // the two inputs share the space instead of overflowing into the province
   // dropdown next to it
-  &.station-dashboard-filter--snowprofiles {
+  &.station-dashboard-filter--profiles {
     .station-dashboard-filter__date {
       .date-range-filter {
         width: 100%;
