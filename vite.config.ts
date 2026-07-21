@@ -80,7 +80,13 @@ export default defineConfig({
       ...Object.fromEntries(
         ["/api", "/bulletins", "/profiles-app", "/simple"].map(path => [
           path,
-          { target: "https://avalanche.report/", changeOrigin: true }
+          {
+            target:
+              process.env.APP_REGION === "DEV"
+                ? "https://dev.avalanche.report/"
+                : "https://avalanche.report/",
+            changeOrigin: true
+          }
         ])
       ),
       "/smet.hydrographie.info": {
