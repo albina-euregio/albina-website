@@ -80,6 +80,9 @@
       "url": "/incidents"
     },
     {
+      "url": "/profiles"
+    },
+    {
       "url": "/weather",
       "children": [
         {
@@ -96,16 +99,6 @@
         },
         {
           "url": ""
-        },
-        {
-          "key": "lawis:incident",
-          "url": "https://www.lawis.at/incident?lang=en",
-          "url:de": "https://www.lawis.at/incident?lang=de"
-        },
-        {
-          "key": "lawis:profile",
-          "url": "https://www.lawis.at/profile?lang=en",
-          "url:de": "https://www.lawis.at/profile?lang=de"
         },
         {
           "key": "webcam",
@@ -411,6 +404,7 @@
     "push": "/api/push",
     "subscribe": "/api/email",
     "incidents": "/api/incidents",
+    "profiles": "/profiles-app/api",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"

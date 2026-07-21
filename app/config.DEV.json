@@ -99,6 +99,7 @@
     "subscribe": "/api/email",
     "blogger": "/api/blog/",
     "incidents": "/api/incidents",
+    "profiles": "/profiles-app/api",
     "linea": {
       "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
       "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
