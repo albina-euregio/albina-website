@@ -769,8 +769,8 @@ export const vIncidentsAttachment = v.object({
   attachmentTags: v.array(v.string()),
   caption: v.string(),
   credit: v.string(),
-  dateAdded: v.record(v.string(), v.unknown()),
-  dateCreated: v.record(v.string(), v.unknown()),
+  dateAdded: v.pipe(v.string(), v.isoTimestamp()),
+  dateCreated: v.pipe(v.string(), v.isoTimestamp()),
   file: v.string(),
   fileName: v.string(),
   id: v.pipe(v.string(), v.uuid()),
@@ -1132,7 +1132,7 @@ export const vIncidentsIncidentSchema = v.object({
   damagedAssets: v.array(v.string()),
   dangerPattern: vIncidentsDangerPattern,
   dangerRating: vIncidentsDangerRating,
-  dateTime: v.record(v.string(), v.unknown()),
+  dateTime: v.pipe(v.string(), v.isoTimestamp()),
   debrisDensity: v.number(),
   debrisType: v.array(v.string()),
   depositElevation: v.number(),
@@ -1167,7 +1167,7 @@ export const vIncidentsIncidentSchema = v.object({
   publicAvalancheWarningService: v.string(),
   publicAvalancheWarningServiceOutside: v.boolean(),
   publicExternalLinks: v.string(),
-  publishedAt: v.record(v.string(), v.unknown()),
+  publishedAt: v.pipe(v.string(), v.isoTimestamp()),
   recentLoading: vIncidentsCriticalWarming,
   recentSlabAvalanches: vIncidentsCriticalWarming,
   region: v.string(),
@@ -1190,7 +1190,7 @@ export const vIncidentsIncidentSchema = v.object({
   takeAwaysPublic: v.boolean(),
   timeAccuracy: vIncidentsTimeAccuracy,
   trigger: v.string(),
-  updatedAt: v.record(v.string(), v.unknown()),
+  updatedAt: v.pipe(v.string(), v.isoTimestamp()),
   vehicle: v.string(),
   victimInformation: v.array(vIncidentsVictimInformation),
   weakLayerGrainSize1: v.number(),
@@ -2523,7 +2523,7 @@ export const vGetIncidentsQuery = v.object({
 /**
  * OK response
  */
-export const vGetIncidentsResponse = v.record(v.string(), v.unknown());
+export const vGetIncidentsResponse = v.array(vIncidentsIncidentSchema);
 
 export const vCreateIncidentBody = v.string();
 
