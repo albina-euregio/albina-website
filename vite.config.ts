@@ -77,6 +77,12 @@ export default defineConfig({
     },
     port: 3000,
     proxy: {
+      ...Object.fromEntries(
+        ["/api", "/bulletins", "/profiles-app", "/simple"].map(path => [
+          path,
+          { target: "https://avalanche.report/", changeOrigin: true }
+        ])
+      ),
       "/smet.hydrographie.info": {
         target: "https://smet.hydrographie.info/",
         changeOrigin: true,
