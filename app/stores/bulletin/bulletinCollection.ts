@@ -205,15 +205,6 @@ class BulletinCollection {
           try {
             let url0 = aws.url["api:date"];
             if (!url0?.endsWith("CAAMLv6.json")) return;
-            if (
-              import.meta.env.APP_REGION === "DEV" &&
-              url0.startsWith("https://static.avalanche.report/bulletins/")
-            ) {
-              url0 = url0.replace(
-                "https://static.avalanche.report/bulletins/",
-                "https://dev.avalanche.report/bulletins/"
-              );
-            }
             let data: Bulletins;
             let url: string;
             try {
