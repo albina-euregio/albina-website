@@ -78,7 +78,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       ...Object.fromEntries(
-        ["/api", "/bulletins", "/profiles-app", "/simple"].map(path => [
+        [
+          "/albina-basemap.pmtiles",
+          "/api",
+          "/bulletins",
+          "/profiles-app",
+          "/simple"
+        ].map(path => [
           path,
           {
             target:

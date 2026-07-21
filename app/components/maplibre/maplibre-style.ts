@@ -11,7 +11,7 @@ export const MAPLIBRE_STYLE: maplibregl.StyleSpecification = {
   sources: {
     basemap: {
       type: "raster",
-      url: "pmtiles://https://static.avalanche.report/albina-basemap.pmtiles",
+      url: "pmtiles:///albina-basemap.pmtiles",
       tileSize: 256,
       minzoom: 5,
       maxzoom: 10,
