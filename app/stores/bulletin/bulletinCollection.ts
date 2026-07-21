@@ -271,10 +271,13 @@ class BulletinCollection {
       return;
     }
     try {
-      const url =
-        config.eawsRegions.length === 1 // this.date < "2023-11-01"
-          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${config.eawsRegions[0]}.ratings.json`
-          : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
+      const url = config.template(config.apis.bulletin.eaws, {
+        date: this.date,
+        region:
+          config.eawsRegions.length === 1 // this.date < "2023-11-01"
+            ? `-${config.eawsRegions[0]}`
+            : ""
+      });
       const { maxDangerRatings } = await fetchJSON<{
         maxDangerRatings: MaxWarnLevels;
       }>(url, {
