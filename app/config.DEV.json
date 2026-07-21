@@ -83,7 +83,7 @@
     }
   ],
   "apis": {
-    "baseUrl": "https://dev.avalanche.report",
+    "baseUrl": "",
     "bulletin": {
       "simple": "/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
