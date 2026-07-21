@@ -136,6 +136,7 @@
       "Polygon": "Polygon"
     },
     "anonymousGroupIdentifier": "Anonymous Group Identifier",
+    "groupAffiliation": "Group affiliation",
     "groupType": "Group Type",
     "groupSize": "Group Size",
     "groupSizeAccuracy": "Group Size Accuracy",
@@ -293,6 +294,7 @@
     "polygonCoordinatesText": "Provide coordinates (one latitude, longitude pair per line) for the avalanche outline.",
     "locationInformationComment": "Add any additional relevant details.",
     "anonymousGroupIdentifier": "This is used to identify the group throughout the report. For example, you might refer to Group 1, Group 2, etc when reporting on a incident. You could add specific details if it helps keep track of which group is which. If appropriate, you can use the same identifier when referencing this group in the Incident Description.",
+    "groupAffiliation": "Select the group the person belonged to.",
     "groupType": "Select the option that best describes the type of group.",
     "groupSize": "Provide the total number of individuals in the group.",
     "groupSizeAccuracy": "Indicate how accurately the group size is known.",
@@ -348,7 +350,7 @@
     "avalancheType": "Specify the avalanche type from the list according to it's failure type. If more than one type applies, choose the most relevant one and add further detail to the Incident Description.",
     "relevantAvalancheProblem": "Select the most relevant EAWS Avalanche Problem.",
     "trigger": "Natural: Triggered without human influence; Person: Triggered by one or more people; Explosives: Triggered by explosives, artillery, or gas; Vehicle: Triggered by a vehicle (e.g. snowcat, helicopter); Unknown: Trigger is unknown or unclear",
-    "natural": "",
+    "natural": "Natural: Triggered by weather events (e.g. snowfall, wind, temperature); Cornice fall: Triggered by naturally collapsing cornice; Earthquake: Triggered by an earthquake; Ice fall: Triggered by collapsed ice; Rock fall: Triggered by rockfall event",
     "person": "Accidental: e.g. skier, snowboarder, hiker, climber; Controlled: e.g. skier deliberately ski cutting a slope or cornice",
     "additionalLoad": "Low additional load: single skier/snowboarder, well-spaced group ≥10 m, or snowshoer; High additional load: closely spaced group <10 m,  single person on foot, falling skier/snowboarder.",
     "explosives": "",
@@ -551,7 +553,7 @@
   },
   "explosives": {
     "Artillery": "Artillery",
-    "CaseCharge": "Case (bag) charge placed on Hand-thrown",
+    "CaseCharge": "Case (bag) charge placed below slope",
     "CorniceControlledByExplosives": "Cornice controlled by explosives",
     "HelicopterDeployedGasExploder": "Helicopter deployed gas exploder (e.g., Daisybell)",
     "HandThrownOrPlaced": "Hand-thrown or hand-placed explosive charge",
@@ -702,6 +704,7 @@
     "No": "Ne"
   },
   "professionalCertification": {
+    "None": "None",
     "IFMGAGuide": "IFMGA Guide",
     "FullSkiGuide": "Full Ski guide",
     "SkiInstructor": "Ski Instructor",
