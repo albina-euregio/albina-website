@@ -349,6 +349,7 @@
   "profiles:filter:date-to": "To",
   "profiles:detail:loading": "Loading snow profile…",
   "profiles:detail:error": "Failed to load snow profile.",
+  "profiles:add": "New snow profile",
   "measurements-archive:title": "Station Archive",
   "measurements-archive:headline": "Station Archive",
   "measurements-archive:search": "Search for station",

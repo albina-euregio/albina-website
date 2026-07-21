@@ -85,31 +85,58 @@ function SnowProfileDashboard() {
       >
         <div className="section-centered station-dashboard-filter__inner">
           <div className="station-dashboard-filter__bar">
-            <div className="station-dashboard-filter__date">
-              <DateRangeFilter
-                dateFrom={dateFrom}
-                dateTo={dateTo}
-                onChange={setDateRange}
-              />
-            </div>
-            <div className="station-dashboard-filter__province">
-              <ProvinceFilter
-                title={intl.formatMessage({
-                  id: "measurements:filter:province"
-                })}
-                all={intl.formatMessage({ id: "filter:all" })}
-                handleChange={val => setActiveRegion(val)}
-                regionCodes={config.regionCodes}
-                value={activeRegion}
-              />
+            <div className="station-dashboard-filter__group">
+              <div className="station-dashboard-filter__date">
+                <DateRangeFilter
+                  dateFrom={dateFrom}
+                  dateTo={dateTo}
+                  onChange={setDateRange}
+                />
+              </div>
+              <div className="station-dashboard-filter__province">
+                <ProvinceFilter
+                  title={intl.formatMessage({
+                    id: "measurements:filter:province"
+                  })}
+                  all={intl.formatMessage({ id: "filter:all" })}
+                  handleChange={val => setActiveRegion(val)}
+                  regionCodes={config.regionCodes}
+                  value={activeRegion}
+                />
+              </div>
+
+              <div className="station-dashboard-filter__search">
+                <SearchField
+                  title={intl.formatMessage({ id: "filter:search" })}
+                  handleSearch={setSearchText}
+                  value={searchText}
+                />
+              </div>
             </div>
 
-            <div className="station-dashboard-filter__search">
-              <SearchField
-                title={intl.formatMessage({ id: "filter:search" })}
-                handleSearch={setSearchText}
-                value={searchText}
-              />
+            <div className="station-dashboard-filter__add">
+              <a
+                href={config.apis.profiles.replace(/\/api$/, "/")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pure-button station-dashboard-filter__add-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <line x1="9" y1="3" x2="9" y2="15" />
+                  <line x1="3" y1="9" x2="15" y2="9" />
+                </svg>
+                {intl.formatMessage({ id: "profiles:add" })}
+              </a>
             </div>
           </div>
         </div>
