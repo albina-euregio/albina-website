@@ -87,6 +87,7 @@
     "bulletin": {
       "simple": "/simple/{date}/EUREGIO_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "https://static.avalanche.report/eaws_bulletins/{date}/{date}.problems.json",
       "map": "/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
       "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",

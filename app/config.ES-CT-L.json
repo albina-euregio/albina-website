@@ -280,6 +280,7 @@
     "bulletin": {
       "simple": "https://static.lauegi.report/simple/{date}/ES-CT-L_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "https://static.avalanche.report/eaws_bulletins/{date}/{date}.problems.json",
       "map": "https://static.lauegi.report/albina_files_local/{date}/{publication}/{file}.webp",
       "pdf": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}_CAAMLv6.xml",

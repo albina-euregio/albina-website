@@ -230,6 +230,7 @@
     "bulletin": {
       "simple": "https://static-aludes.aragon.es/simple/{date}/ES-AR_{lang}.html",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "https://static.avalanche.report/eaws_bulletins/{date}/{date}.problems.json",
       "map": "https://static-aludes.aragon.es/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "https://api-aludes.aragon.es/albina/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
       "xml": "https://static-aludes.aragon.es/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",

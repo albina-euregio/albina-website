@@ -299,7 +299,9 @@ class BulletinCollection {
       return;
     }
     try {
-      const url = `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.problems.json`;
+      const url = config.template(config.apis.bulletin.eawsProblems, {
+        date: this.date
+      });
       const { avalancheProblems } = await fetchJSON<{
         avalancheProblems: EawsAvalancheProblems;
       }>(url, {
