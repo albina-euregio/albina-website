@@ -191,3 +191,13 @@ changes to CHANGELOG itself are not included in the release.
 If there have been several new releases since the last update to CHANGELOG,
 use e.g. `pnpm git-cliff -p CHANGELOG.md v7.0.6..` to prepend all changes that
 happened _after_ version v7.0.6 was released.
+
+## Functional Development & Contact
+
+The domain development and key decisions for this project are established by the ALBINA Consortium, based on the standards and recommendations of the European Avalanche Warning Services (EAWS)
+
+For technical or domain-related questions and discussions, please contact: [lawine@tirol.gv.at](mailto:lawine@tirol.gv.at)
+
+## License
+
+This project is licensed under AGPL-3.0 (see `LICENSE`).
