@@ -771,11 +771,10 @@ export const vIncidentsAttachment = v.object({
   credit: v.string(),
   dateAdded: v.pipe(v.string(), v.isoTimestamp()),
   dateCreated: v.pipe(v.string(), v.isoTimestamp()),
-  file: v.string(),
   fileName: v.string(),
   id: v.pipe(v.string(), v.uuid()),
   mediaType: v.string(),
-  attachmentPublic: v.boolean()
+  public: v.boolean()
 });
 
 export const vIncidentsAvalancheGear = v.picklist([

@@ -448,3 +448,44 @@ button.mfp-arrow {
     }
   }
 }
+
+.incident-details {
+  .incident-details-section {
+    margin-bottom: variables.$margin-bottom;
+
+    h3 {
+      margin-bottom: (variables.$padding);
+    }
+
+    table {
+      width: 100%;
+    }
+
+    p {
+      margin-bottom: (variables.$padding);
+    }
+  }
+
+  .incident-details-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: (variables.$padding * 2);
+
+    .incident-details-attachment {
+      max-width: 16rem;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      figcaption {
+        font-size: 0.85em;
+
+        .credit {
+          color: variables.$grey-light;
+        }
+      }
+    }
+  }
+}
